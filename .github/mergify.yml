@@ -1,4 +1,5 @@
 pull_request_rules:
+  # Keep Dependabot PRs up-to-date by rebasing if develop has moved ahead
   - name: Keep Dependabot dependency updates on develop current
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
@@ -9,6 +10,9 @@ pull_request_rules:
       - "#commits-behind > 0"
     actions:
       update:
+        rebase_fallback: merge
+
+  # Auto-approve and merge Dependabot dependency updates when CI passes
   - name: Auto-approve and merge Dependabot dependency updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
@@ -20,11 +24,15 @@ pull_request_rules:
     actions:
       review:
         type: APPROVE
-      queue:
-        name: dependabot
+      merge:
+        method: squash
+        strict: smart
+        strict_method: rebase
+
+  # Keep imgbot image optimizations up-to-date by rebasing if develop has moved ahead
   - name: Keep imgbot image optimizations current on develop
     conditions:
-      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge.
+      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge
       - author~=^(imgbot\[bot\]|app/imgbot)$
       - base=develop
       - -draft
@@ -32,9 +40,12 @@ pull_request_rules:
       - "#commits-behind > 0"
     actions:
       update:
+        rebase_fallback: merge
+
+  # Auto-merge imgbot image optimizations when CI passes
   - name: Auto-merge imgbot image optimizations on develop
     conditions:
-      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge.
+      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge
       - author~=^(imgbot\[bot\]|app/imgbot)$
       - base=develop
       - check-success=All Checks Passed
@@ -43,22 +54,9 @@ pull_request_rules:
     actions:
       merge:
         method: squash
-queue_rules:
-  - name: dependabot
-    queue_conditions:
-      - author~=^(dependabot\[bot\]|app/dependabot)$
-      - base=develop
-      - label=area:dependencies
-      - -draft
-      - -conflict
-    merge_conditions:
-      - check-success=All Checks Passed
-    merge_method: squash
-    batch_size: 1
-  - name: Merge queue
-    batch_size: 1
-merge_queue:
-  max_parallel_checks: 3
+        strict: smart
+        strict_method: rebase
+
 merge_protections_settings:
   reporting_method: check-runs
   auto_merge_conditions: true
