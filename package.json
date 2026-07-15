@@ -44,7 +44,7 @@
     }
   ],
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.19.0",
     "npm": ">=9.0.0"
   },
   "type": "module",
@@ -146,7 +146,8 @@
     "babel-jest": "30.4.1",
     "bats": "^1.8.0",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
     "eslint-plugin-prettier": "^5.0.0",
     "glob": "10.5.0",
     "husky": "^9.0.0",

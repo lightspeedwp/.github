@@ -51,7 +51,9 @@ function loadBrandingConfig() {
     const content = fs.readFileSync(configPath, "utf-8");
     return yaml.load(content);
   } catch (error) {
-    throw new Error(`Failed to load branding config: ${error.message}`);
+    throw new Error(`Failed to load branding config: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -98,7 +100,9 @@ function parseFrontmatter(content) {
     const frontmatter = yaml.load(raw) || {};
     return { frontmatter, body, raw_frontmatter: raw };
   } catch (error) {
-    throw new Error(`Failed to parse frontmatter: ${error.message}`);
+    throw new Error(`Failed to parse frontmatter: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
