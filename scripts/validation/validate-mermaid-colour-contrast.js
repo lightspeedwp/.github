@@ -317,9 +317,34 @@ function validateStyleContrast(styleDecl, theme) {
 async function main() {
   const args = process.argv.slice(2);
   const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
-  const targetFiles = changedFilesArg
-    ? changedFilesArg.replace("--changed-files=", "").split(",").filter(Boolean)
-    : getMarkdownFiles();
+  const changedFilesListArg = args.find((a) =>
+    a.startsWith("--changed-files-list="),
+  );
+  // Explicit file lists (from --changed-files/--changed-files-list) bypass
+  // getMarkdownFiles()'s glob `ignore` patterns entirely, so vendor paths
+  // must be filtered again here.
+  const isVendorPath = (filePath) =>
+    /\/(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
+      filePath,
+    );
+
+  const targetFiles = (
+    changedFilesListArg
+      ? fs
+          .readFileSync(
+            changedFilesListArg.replace("--changed-files-list=", ""),
+            "utf8",
+          )
+          .split("\n")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      : changedFilesArg
+        ? changedFilesArg
+            .replace("--changed-files=", "")
+            .split(",")
+            .filter(Boolean)
+        : getMarkdownFiles()
+  ).filter((f) => !isVendorPath(f));
 
   console.log("🎨 Validating Mermaid colour contrast (WCAG 2.2 AA)...\n");
   console.log(`Scanning ${targetFiles.length} file(s)\n`);

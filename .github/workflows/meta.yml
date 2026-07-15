@@ -135,14 +135,27 @@ jobs:
           fi
 
           LINK_FILES=""
+          LINK_FILE_COUNT=0
+          # Cap the file count passed to lychee-action's `args:` input — that
+          # string is substituted into an environment variable at process
+          # start, so an unbounded count can exceed the runner's
+          # argv/environment size limit (E2BIG) on exceptionally large PRs.
+          MAX_LINK_FILES=300
           while IFS= read -r file; do
             [ -z "$file" ] && continue
             if grep -Eq 'https?://|www\.|mailto:|^\[[^]]+\]:\s*https?://' "$file"; then
-              LINK_FILES="${LINK_FILES}${file} "
+              LINK_FILE_COUNT=$((LINK_FILE_COUNT + 1))
+              if [ "$LINK_FILE_COUNT" -le "$MAX_LINK_FILES" ]; then
+                LINK_FILES="${LINK_FILES}${file} "
+              fi
             fi
           done <<EOF
           $CHANGED_FILES
           EOF
+
+          if [ "$LINK_FILE_COUNT" -gt "$MAX_LINK_FILES" ]; then
+            echo "::warning::Changed files with URLs ($LINK_FILE_COUNT) exceed the $MAX_LINK_FILES-file link-check cap; only the first $MAX_LINK_FILES were checked. Remaining $((LINK_FILE_COUNT - MAX_LINK_FILES)) file(s) were not link-checked."
+          fi
 
           echo "files=${LINK_FILES}" >> "$GITHUB_OUTPUT"
 
