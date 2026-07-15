@@ -72,3 +72,9 @@ A run passes when the agent:
 - follows the installed output template
 - keeps internal reasoning out of client-facing output
 - updates Memory only when durable state actually changes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -19,3 +19,9 @@ Keep this lightweight and audit-only. Confirm the multilingual plugin, language 
 ## Routing note
 
 Route multilingual configuration strategy to the relevant configuration workflow, not `yoast-auditor`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

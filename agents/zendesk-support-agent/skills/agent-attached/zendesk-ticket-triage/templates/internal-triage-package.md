@@ -56,3 +56,9 @@
 ## Recommended downstream skill
 
 [`zendesk-router-skill` | `zendesk-evidence-collector` | `zendesk-case-readiness-check` | `zendesk-draft-response` | `zendesk-customer-research` | `zendesk-customer-escalation` | `zendesk-handoff-prep` | `zendesk-duplicate-pattern-review` | `zendesk-knowledge-candidate-review` | `zendesk-create-knowledge` | `zendesk-evidence-quality-review` | `zendesk-refund-assessment` if attached | `zendesk-bug-report-package` if attached | none yet | plain-language fallback]. Use `zendesk-triage-router` only as a route-away note before package creation when the request is misrouted first-pass triage.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

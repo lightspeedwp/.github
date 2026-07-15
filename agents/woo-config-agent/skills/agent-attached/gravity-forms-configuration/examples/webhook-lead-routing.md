@@ -29,3 +29,9 @@ Send approved, minimised form data to a staging or production endpoint after sub
 - Do not send uploaded files, IP addresses, hidden admin notes, or secrets unless explicitly approved.
 - Redact headers and tokens in all outputs.
 - Confirm external-system receipt before declaring success.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

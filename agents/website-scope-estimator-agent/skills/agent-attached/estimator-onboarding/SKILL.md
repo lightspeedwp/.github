@@ -71,3 +71,9 @@ Do not summarize onboarding for its own sake. Confirm only the defaults that mat
 ## Supporting Files
 
 - `references/onboarding-contract.yaml` — read this first to determine when onboarding should run, which defaults are required vs optional, how they should be stored in Memory, and when onboarding must be skipped.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

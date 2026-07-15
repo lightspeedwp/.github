@@ -42,3 +42,9 @@
 - [ ] Check Search Console coverage and sitemap processing.
 - [ ] Check product/schema warnings where relevant.
 - [ ] Record issues, owners, and retest dates.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

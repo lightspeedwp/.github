@@ -27,3 +27,9 @@ Check whether observed output is safe, complete and consistent for the reviewed 
 ## Output expectations
 
 For each output issue, record URL/template, observed output, expected safe output, evidence source, confidence, risk and next route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

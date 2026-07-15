@@ -232,3 +232,9 @@ Before finalising, check that:
 - Single-page findings are not presented as whole-site conclusions.
 - Multi-page repeated issues are consolidated where sensible.
 - The final output is suitable for Google Docs or includes a created document link when requested.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

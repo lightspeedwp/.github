@@ -49,3 +49,9 @@ Replace the customer-facing paragraph with:
 ## Why this is correct
 
 The review keeps the useful support signal while removing unnecessary personal data, secrets, other-customer references, internal speculation, and unsupported delivery commitments.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

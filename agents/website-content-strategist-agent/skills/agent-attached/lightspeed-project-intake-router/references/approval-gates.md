@@ -28,3 +28,9 @@ Do not skip gates when there are unresolved blockers, missing evidence, unclear 
 - **Required before implementation:** does not block planning, but must be resolved before build.
 - **Required before launch:** track for launch QA or go/no-go.
 - **Optional:** useful but not required for current decision-making.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

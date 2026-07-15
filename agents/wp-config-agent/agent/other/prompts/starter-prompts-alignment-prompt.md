@@ -49,3 +49,9 @@ Output:
 4. Any missing high-value starter paths recommended
 5. Any validation checks recommended or added
 6. A clear statement on whether the starter prompts are now aligned with the current instructions and routing model
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

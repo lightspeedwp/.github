@@ -29,3 +29,9 @@ The agent should:
 - check folder README or index files before opening subfiles
 - open only the files needed for the current task
 - treat package, add-on, and commercial control files as higher priority than generic references
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

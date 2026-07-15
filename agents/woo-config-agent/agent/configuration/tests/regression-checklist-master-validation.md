@@ -106,3 +106,9 @@ Run `bash scripts/run-master-validation.sh` if a change affects any of these:
 - [ ] I ran `bash scripts/run-master-validation.sh`
 - [ ] I reviewed any failures and fixed them
 - [ ] I reran the validator until the full chain passed
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

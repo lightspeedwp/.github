@@ -35,3 +35,9 @@ This file is a curated helper. Every recommendation here must be verified agains
 
 - This file will drift unless it is periodically re-verified against current OpenAI docs.
 - If this file conflicts with current docs, the docs win.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -84,3 +84,9 @@ Before every connector write batch:
 
 1. If a referenced doc is a template, create a copy before any edits.
 2. If a doc contains tabs, carry the resolved `tabId` through every relevant call.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

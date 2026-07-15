@@ -191,3 +191,9 @@ Client-safe outputs must exclude secrets, licence keys, API keys, private logs, 
 ## Route away
 
 Route to `gravity-forms-configuration` for approved configuration changes, new form creation, remediation implementation, test submissions, post-change validation that requires writes, or manual implementation plans. Route broader legal, security incident, WooCommerce checkout architecture, whole-site accessibility, whole-site performance, custom plugin development, copywriting, launch QA, or SEO work to the relevant specialist skill.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

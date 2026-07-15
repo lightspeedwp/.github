@@ -102,3 +102,9 @@ Use these statuses:
 ## Output style
 
 Use UK English. Be practical, structured and direct. Keep outputs Markdown-first and suitable for GitHub, Google Docs or a downloadable project pack.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -35,3 +35,9 @@ Keep connector guidance reliable so the agent does not point to stale app names,
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep visible connector guidance aligned with the current attached apps and instruction references.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

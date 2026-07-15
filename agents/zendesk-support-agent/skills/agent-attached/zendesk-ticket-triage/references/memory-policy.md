@@ -29,3 +29,9 @@ Good memory candidate:
 Bad memory candidate:
 
 > Customer X threatened to cancel in ticket 12345 after billing failed on 3 June.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

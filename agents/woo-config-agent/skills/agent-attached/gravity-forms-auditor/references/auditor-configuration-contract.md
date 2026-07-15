@@ -202,3 +202,9 @@ Use this format when handing from audit to configuration:
   "suggested_configuration_prompt": "Use gravity-forms-configuration to verify current state and prepare a remediation change plan for findings GF-001 and GF-002. Do not apply changes until approved."
 }
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

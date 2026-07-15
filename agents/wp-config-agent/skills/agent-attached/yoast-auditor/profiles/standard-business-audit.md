@@ -20,3 +20,9 @@ Prioritise Home, About, Services, Solutions, Products, Contact, Pricing, Portfol
 ## Output expectation
 
 Use client-safe wording focused on clarity, crawlability, indexation and search appearance. Route configuration setup to `yoast-configuration`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

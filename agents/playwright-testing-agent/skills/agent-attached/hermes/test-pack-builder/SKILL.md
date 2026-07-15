@@ -218,3 +218,9 @@ Before finishing, check that:
 - review-before-code is enforced unless explicitly waived
 - the output is easy for a human reviewer to approve
 - Playwright generation, when included, stays within the approved pack
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

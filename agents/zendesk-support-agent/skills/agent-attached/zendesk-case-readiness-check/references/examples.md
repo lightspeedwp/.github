@@ -60,3 +60,9 @@ Output direction:
 - Assess only the supplied evidence.
 - State unavailable Zendesk details explicitly.
 - Do not invent ticket history, SLA state, linked tickets, or prior commitments.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

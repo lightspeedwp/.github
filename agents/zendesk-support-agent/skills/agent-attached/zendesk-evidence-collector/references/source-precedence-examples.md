@@ -171,3 +171,9 @@ Use these patterns when evidence is partial:
 - "Inferred, not confirmed: ..."
 - "Disproven for the checked identifier: ..."
 - "Blocked until `<specific source>` is checked: ..."
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

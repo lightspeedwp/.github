@@ -72,3 +72,9 @@ Expected output:
 5. Exact repairs recommended or applied
 6. Whether the preview should be rerun after the fixes
 7. A clear statement on whether the Yoast audit preview path is now healthy and readable
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

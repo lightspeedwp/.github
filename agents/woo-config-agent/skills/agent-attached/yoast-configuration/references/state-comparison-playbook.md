@@ -68,3 +68,9 @@ Classify each difference as one of:
 - Check robots.txt, llms.txt and HTTP headers directly.
 - Compare staging and live separately when caching or environment rules differ.
 - Re-run key checks after plugin/theme/cache/CDN changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

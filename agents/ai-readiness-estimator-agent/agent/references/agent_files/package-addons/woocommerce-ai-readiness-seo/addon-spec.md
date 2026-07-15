@@ -67,3 +67,9 @@ Ask the client to confirm:
 Use this add-on only after the primary base package is chosen.
 
 Keep it fixed-fee only when WooCommerce remains within the agreed fixed-scope profile, no major checkout or plugin conflicts are discovered, and advanced booking, subscription, or membership logic is not in scope.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -435,3 +435,9 @@ Invalid because `requests` must contain structured objects, not stringified JSON
 - Not a complete Drive MCP catalog.
 - Not proof that every raw request was runtime-tested through the connector.
 - Not a new skill or plugin; it is a reference inside the Google Slides skill.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -277,22 +277,6 @@
 
 ---
 
-## AI chatbot intake page example
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-### Hero
-
-- Title: AI chatbot project intake
-- Intro: Share the strategic, content, and governance information needed before a chatbot project can be scoped properly.
-
-### Multi-step structure
-
-1. Business objective and chatbot purpose
-2. Audience and support boundaries
-3. Approved sources and exclusions
-4. Escalation and governance rules
-5. Launch and review requirements
-
-### CTA
-
-- Label: Start chatbot intake
-- Link: #chatbot-intake
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

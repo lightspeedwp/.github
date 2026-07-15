@@ -19,3 +19,9 @@ Focus on article schema, author archives, date archives, categories/tags, pagina
 ## Output expectation
 
 Separate technical indexation risks from editorial content judgement.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

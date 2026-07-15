@@ -85,3 +85,9 @@ Use these checks for presentation-oriented documents such as plans, briefs, repo
 9. In the final response, distinguish connector facts, HTML-export checks, PDF-export visual checks, and unverified rendered properties.
 10. If the edit created a skeleton because source notes were unavailable, say that it created a notes skeleton rather than saying it added substantive meeting notes.
 11. If smart-chip or building-block-like content was involved, state whether chip parity was preserved, approximated, or not applicable.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -30,3 +30,9 @@ Use for discovery notes, prior estimate context, approvals, and historical clien
 - Do not imply that a source was scanned if it was not actually used.
 - Prefer the established source priority from `package-template-system.md`.
 - Use connected sources to confirm evidence, not to invent certainty.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

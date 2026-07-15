@@ -45,3 +45,9 @@ Deliverables:
 Success condition:
 
 - the agent's README files accurately describe the current attached file and folder structure and no longer contain stale structural guidance
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

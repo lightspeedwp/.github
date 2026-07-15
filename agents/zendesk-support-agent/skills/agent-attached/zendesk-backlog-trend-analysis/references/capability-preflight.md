@@ -39,3 +39,9 @@ Use limitation language directly in the evidence basis:
 ```md
 SLA data was not visible through the active Zendesk access, so SLA risk is marked unavailable. Ageing and priority were used as fallback risk signals.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

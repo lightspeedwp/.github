@@ -57,3 +57,9 @@
 - This is a Yoast configuration health review, not a ranking, traffic, or Google visibility guarantee.
 - A settings export does not prove live output.
 - Stale or partial evidence may lower confidence or prevent scoring.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

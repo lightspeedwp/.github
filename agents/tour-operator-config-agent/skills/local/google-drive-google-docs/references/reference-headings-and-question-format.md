@@ -41,3 +41,9 @@ For template-fill tasks, matching the section hierarchy is not enough by itself.
 16. When comparing against peer headings, use the nearest headings on both sides of the insertion point if available. A single semantic match is not enough if the inserted heading still reads heavier, lighter, larger, smaller, or otherwise different on the page.
 17. After any bulk insertion, establish the heading skeleton immediately before moving on to figures, tables, or fine-grained styling.
 18. A document that contains the right text but lacks clear section headings is not an acceptable fallback. Missing or weak section hierarchy is a formatting failure, not a cosmetic nit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

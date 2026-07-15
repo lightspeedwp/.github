@@ -45,3 +45,9 @@ Use these labels internally when forming the review:
 - High confidence: Zendesk evidence, stability, repeatability, and Help Centre overlap are all clear.
 - Medium confidence: core issue and likely path are clear, but one evidence area is missing or permission-limited.
 - Low confidence: supplied evidence is incomplete, unresolved, contradictory, or lacks both stability and overlap checks.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

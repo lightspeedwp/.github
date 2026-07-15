@@ -120,3 +120,9 @@ After assembling the review package, ask whether the user wants the RFP complete
 Use Memory to retain durable working context for the same user across future runs when it will help with ongoing proposal work, such as reusable answer libraries, preferred review-pack formats, known owner mappings, recurring submission preferences, or approved phrasing captured during prior runs.
 
 Do not treat remembered context as automatically approved if the primary request artifact conflicts with newer source material.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

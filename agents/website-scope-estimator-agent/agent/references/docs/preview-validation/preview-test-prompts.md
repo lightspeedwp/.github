@@ -64,3 +64,9 @@ Use the selected example context as the current project. Select the base package
 ### 3. Final-output discipline
 
 Use the selected example context as the current project. Produce a client-ready estimate or proposal draft that keeps internal-only reasoning out of the output, clearly labels assumptions, and avoids treating provisional work as final.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

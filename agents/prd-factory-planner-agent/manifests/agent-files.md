@@ -137,3 +137,9 @@
 | `agent/templates/agent_files/templates/questionnaire-intake/intake-review-table.md` | `/workspace/agent_files/templates/questionnaire-intake/intake-review-table.md` | agent file | yes |  |
 | `agent/templates/agent_files/templates/questionnaire-intake/intake-wizard-template.yaml` | `/workspace/agent_files/templates/questionnaire-intake/intake-wizard-template.yaml` | agent file | yes |  |
 | `agent/templates/agent_files/templates/questionnaire-intake/questionnaire-field-library.yaml` | `/workspace/agent_files/templates/questionnaire-intake/questionnaire-field-library.yaml` | agent file | yes |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

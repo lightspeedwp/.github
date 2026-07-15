@@ -27,3 +27,9 @@ Add a governance and policy workshop where AI-related risk, source approval, or 
 - Are there sensitive or regulated topics involved?
 - Do you already have AI policies or approval rules?
 - Who owns governance decisions internally?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

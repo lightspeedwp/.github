@@ -85,3 +85,9 @@
 | `agent/configuration/current-memory/project-history.md` | `/workspace/memory/project-history.md` | memory/project context | yes |  |
 | `agent/configuration/current-memory/todos.md` | `/workspace/memory/todos.md` | memory/project context | yes |  |
 | `agent/configuration/current-memory/user-preferences.md` | `/workspace/memory/user-preferences.md` | memory/project context | yes |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

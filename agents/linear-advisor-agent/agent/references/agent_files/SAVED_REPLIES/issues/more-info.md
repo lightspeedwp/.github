@@ -29,3 +29,9 @@ Thanks for logging this. Before we can move it forward in Linear, we need a bit 
 
 We’ve kept this in `status:needs-more-info` until that context is added. Once we have it, we can continue triage and route it properly.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

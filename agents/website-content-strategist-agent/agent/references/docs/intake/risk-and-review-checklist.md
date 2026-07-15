@@ -208,28 +208,6 @@ Use this routing when review is required.
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/source-approval-register.md`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/memory-promotion-checklist.md`
-- `docs/intake/approval-gate-checklist.md`
-- `docs/intake/blocking-gaps-checklist.md`
-
-This file is the operational gate that answers:
-
-**Can the workflow proceed, or does it need review first?**
-
-The related files answer:
-
-- whether a source is approved
-- what evidence was extracted
-- what is excluded
-- which claims need review
-- what can safely enter Memory
-- which approvals and blocking gaps remain
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -100,3 +100,9 @@ Use this structure:
 - Do not invent hidden runtime traces, missing files, or unseen validator results.
 - If the preview error is too generic to prove a root cause, say so explicitly and keep the diagnosis conservative.
 - Prefer a rerun recommendation over speculative deep fixes when evidence is weak.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

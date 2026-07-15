@@ -68,3 +68,9 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing platform,
 - If only a broad Figma or Sketch file is provided, help the user choose the specific frame, component, or flow that should be handed off.
 - If only screenshots are provided, produce a lower-confidence handoff and flag what still needs design confirmation.
 - If the user mainly wants tasks or rollout planning rather than design-to-engineering transfer, suggest `brief`, `critique`, or a future delivery-planning skill instead.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -41,3 +41,9 @@ Milestones, completed work, pending work and launch gates.
 ## tasks/_index.md
 
 Task index, status, owner role, dependencies and links to issue drafts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

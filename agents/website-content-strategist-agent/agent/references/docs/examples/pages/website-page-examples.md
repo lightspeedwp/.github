@@ -407,19 +407,6 @@ Explore practical thinking on how websites perform better when strategy, content
 
 ---
 
-## Single testimonial example
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-### Quote
-
-"The project moved faster once the structure, content priorities, and decision-making rules were clear."
-
-### Attribution
-
-- Name: Example Client
-- Role: Marketing Lead
-- Context: Website restructure project
-
-### CTA
-
-- Label: View related work
-- Link: /work
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

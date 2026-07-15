@@ -21,3 +21,9 @@ Troubleshoot complaint that admin emails are not arriving for a lead form.
 ## Handoff item
 
 Route GF-AUD-001 to `gravity-forms-configuration`. Keep GF-AUD-002 as a limitation until mail log evidence is available.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

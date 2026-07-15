@@ -30,3 +30,9 @@ I can assess readiness from the supplied evidence only. Zendesk history, linked 
 - User-specific workspace shortcuts, saved searches, labels, or connector paths.
 - Assumptions about which teammate is logged in.
 - Private memory values that are not stable team conventions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

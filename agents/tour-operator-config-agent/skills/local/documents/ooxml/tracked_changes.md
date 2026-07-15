@@ -47,3 +47,9 @@ The CLI defaults to auto-generated `w:id` values (`--del-id auto --ins-id auto`)
 - Render to PDF/PNG for layout sanity (`tasks/verify_render.md`)
 - Confirm Word shows the change as tracked
 - Be aware: renders usually show redlines, but always verify the OOXML is correct too
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -102,3 +102,9 @@ For Figma:
 - treat variables, modes, components and Dev Mode context as evidence inputs;
 - map Figma systems into `DESIGN.md`, but do not assume Stitch is the only consumer;
 - preserve enough rationale that another agent or human can use the file without opening Figma.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

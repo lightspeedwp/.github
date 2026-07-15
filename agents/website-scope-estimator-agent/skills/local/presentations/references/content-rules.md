@@ -89,3 +89,9 @@ Write titles and body copy in direct, specific, natural language:
 A title should communicate a point a human presenter would plausibly say aloud. If
 it sounds like a prompt, production note, slogan generator, or mechanical template,
 rewrite it.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

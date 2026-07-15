@@ -34,3 +34,9 @@ Use this checklist to confirm that all content and data sources used in an AI im
 | Approver | Decision | Date | Comments |
 |---|---|---|---|
 | {{approver.name}} | {{approver.decision}} | {{approver.date}} | {{approver.comments}} |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

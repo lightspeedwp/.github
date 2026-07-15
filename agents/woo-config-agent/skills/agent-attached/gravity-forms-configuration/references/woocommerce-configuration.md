@@ -19,3 +19,9 @@ Route checkout architecture, cart customisation, order customisation, subscripti
 ## High-risk operations
 
 Treat payment/deposit feeds, order creation, customer account creation, tax-related wording, subscription-related wording, file uploads, and production embeds as high-risk. Do not promise payment, tax, fulfilment, subscription, or checkout behaviour that is not confirmed by evidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

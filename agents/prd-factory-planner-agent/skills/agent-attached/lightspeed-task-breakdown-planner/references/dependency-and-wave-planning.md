@@ -30,3 +30,9 @@ Token map -> theme.json -> template styles -> pattern QA -> page QA
 Block scaffold -> block variations -> pattern library -> editor QA
 Content approval -> page build -> schema validation -> chatbot source approval
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

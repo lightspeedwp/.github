@@ -48,3 +48,9 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing audience,
 - Do not create a visual artifact as a core step in v1.
 - Avoid variants that only change style or copy.
 - If the user first needs problem framing, use `brief` or `research-synthesis`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

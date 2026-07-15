@@ -27,3 +27,9 @@ python render_docx.py scrubbed.docx --output_dir out_scrubbed
 
 - Some viewers may cache author info outside the file; always check the resulting `docProps/core.xml` if this is high-stakes.
 - If you need to keep custom properties (e.g., templates), do not run this.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

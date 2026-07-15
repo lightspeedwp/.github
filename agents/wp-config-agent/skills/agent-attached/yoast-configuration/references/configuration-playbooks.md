@@ -161,3 +161,9 @@ Use these playbooks for site-type-specific Yoast configuration strategy. They ar
 - **QA checks:** rendered source, sitemap URLs, robots.txt, llms.txt if enabled, JSON-LD graph, key templates, representative URLs, crawl samples.
 - **Risks:** stale product claims, invented UI paths, accidental noindex, duplicate canonicals, invalid schema, sitemap pollution.
 - **Sources:** use `references/source-register.md` rows matching this playbook before finalising.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

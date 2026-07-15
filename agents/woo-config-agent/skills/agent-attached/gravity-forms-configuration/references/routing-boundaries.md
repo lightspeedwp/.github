@@ -31,3 +31,9 @@ The request concerns tour data models, itinerary structures, availability, booki
 ## Handoff timing
 
 Produce a handoff note after live changes, after a read-only audit, before routing to another agent, or when the current connector lacks permission to finish the task.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -29,3 +29,9 @@ Mark visual/keyboard/contrast conclusions as `Not assessed` or `Low confidence` 
 - Confirm keyboard tab order and visible focus.
 - Trigger validation errors safely, only when test submission is approved.
 - Confirm screen-reader-friendly field grouping where evidence is available.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

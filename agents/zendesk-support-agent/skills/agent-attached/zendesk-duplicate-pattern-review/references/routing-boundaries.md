@@ -52,3 +52,9 @@ Avoid:
 - recommending product, Linear, GitHub, Asana, roadmap, or project workflows by default;
 - treating a repeated pain pattern as a product-routing decision before support handling is clear;
 - choosing a downstream customer reply, escalation, knowledge article, handoff, or report when evidence sufficiency is still unclear.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

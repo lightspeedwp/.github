@@ -546,3 +546,9 @@ await fs.writeFile(`${outputDir}/summary.png`, new Uint8Array(await preview.arra
 const xlsx = await SpreadsheetFile.exportXlsx(workbook);
 await xlsx.save(`${outputDir}/summary.xlsx`);
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

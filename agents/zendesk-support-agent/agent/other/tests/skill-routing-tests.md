@@ -123,3 +123,9 @@ Use these tests to verify that common Zendesk requests route to the expected pri
 - choosing `zendesk-create-knowledge` before documentation-worthiness is established
 - routing backlog analysis through triage or case-level investigation skills
 - skipping Zendesk-first routing when the request is still unclear
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

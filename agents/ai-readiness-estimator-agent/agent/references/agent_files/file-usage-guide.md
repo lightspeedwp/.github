@@ -93,3 +93,9 @@ Open the relevant `memory-schemas/*.schema.yaml` file before creating, validatin
 - Control files come before subfiles.
 - Do not read every file by default; open only the files needed for the current task.
 - If a control file exists for a folder, follow it before using any file in that folder.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

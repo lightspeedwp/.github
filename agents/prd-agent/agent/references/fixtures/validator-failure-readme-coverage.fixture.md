@@ -14,3 +14,9 @@ This fixture represents a scaffold state that should fail README coverage checks
 ## Expected use
 
 Use this fixture to test validation-pack behaviour for README coverage, nested-folder documentation checks, and README/file inventory alignment failures.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

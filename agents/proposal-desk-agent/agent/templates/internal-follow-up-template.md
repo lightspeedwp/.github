@@ -83,13 +83,6 @@ Hi [name or team], I need a decision on **[topic]** for **[project]**.
 
 ---
 
-## Quality rules
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- Keep each message concise, specific, and easy to forward.
-- Ask only for information that is actually needed.
-- Explain why the request matters so the owner can prioritise it.
-- Use working assumptions only when they help speed up a response.
-- Prefer function-based routing when a specific person is not known.
-- Preserve bold labels, bullets, and divider lines in substantial outputs.
-- Place frontmatter above the H1 whenever this is a substantial standalone Markdown deliverable.
-- End the surrounding substantial document with a final `---` divider.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

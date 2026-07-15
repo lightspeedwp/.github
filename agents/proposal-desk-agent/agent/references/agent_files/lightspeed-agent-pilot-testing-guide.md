@@ -209,3 +209,9 @@ Move beyond a small pilot only when:
 ## Quick message Ash can send to testers
 
 Use Proposal Desk to test real but low-risk proposal and review tasks. Paste the task, attach or paste the source material, say what output you want, and judge the result on whether it is grounded, practical, and honest about gaps. Use only approved pilot materials, and do not use confidential, NDA-bound, privacy-sensitive, or pricing-sensitive material unless Ash has explicitly approved it for the pilot. Do not use it to send, publish, update, or commit anything during the pilot. Log each test in the shared sheet with pass/fail, score, and short notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

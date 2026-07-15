@@ -109,65 +109,9 @@ last_reviewed: YYYY-MM-DD
 site_id: site-slug
 client_id: client-slug
 last_reviewed: YYYY-MM-DD
+
 ---
 
-# Page Groups for Site Name
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-| Group ID | Label | Purpose | Include Patterns | Exclude Patterns | Priority | Audit Notes |
-|---|---|---|---|---|---|---|
-| home | Home | Main entry point and brand positioning. | `/` |  | high | Benchmark separately. |
-| service-pages | Service Pages | Core conversion and information pages. | `/services/*` |  | high | Weight content clarity and conversion UX. |
-| blog-posts | Blog Posts | Editorial and SEO content. | `/blog/*` |  | medium | Sample representative posts, not every URL. |
-```
-
-## `clients/client-slug/naming.md`
-
-```markdown
-# Naming and Aliases
-
-## Client Names
-
-| Type | Value | Notes |
-|---|---|---|
-| Canonical | Client Name | Use in audit reports and context files. |
-| Alias | Legacy or alternate name | Keep for matching older materials. |
-
-## Site Names
-
-| Site ID | Canonical Site Name | Aliases | Notes |
-|---|---|---|---|
-| site-slug | Site Name | Old Site Name | Use canonical name in future outputs. |
-
-## Page Group Names
-
-| Group ID | Label | Notes |
-|---|---|---|
-| product-pages | Product Pages | Use for WooCommerce single product URLs. |
-```
-
-## `clients/client-slug/changelog.md`
-
-```markdown
-# Context Changelog
-
-## YYYY-MM-DD
-
-- **Entry:** `clients/client-slug/sites/site-slug.md`
-- **Change type:** created | updated | renamed | merged | deprecated
-- **Summary:** Short description of the durable context change.
-- **Source:** user-provided | workspace-doc | audit-report | other
-- **Confidence:** confirmed | observed-repeated
-- **Not stored:** Temporary metrics, one-off URLs, or speculative notes excluded from durable context.
-```
-
-## Update Checklist
-
-Before saving context, verify:
-
-- The context is stable enough to reuse in future audits.
-- The client and site names are canonical and slugs are kebab-case.
-- The site-to-client relationship is explicit.
-- Temporary audit data has been kept out.
-- Speculative notes have not been stored as fact.
-- Contradictions have been resolved or moved to the changelog as deprecated.
-- The update summary states what changed and what was intentionally excluded.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

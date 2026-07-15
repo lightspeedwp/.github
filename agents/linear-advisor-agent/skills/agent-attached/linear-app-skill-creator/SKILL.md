@@ -200,3 +200,9 @@ Do not claim a workflow is production-ready unless the inputs and validation sup
 When information is incomplete, make the most reusable safe assumption you can, state it briefly, and continue.
 
 When converting from another environment, remove stale references to setup or tooling that do not belong in the final ChatGPT skill unless the user explicitly asks to keep them.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

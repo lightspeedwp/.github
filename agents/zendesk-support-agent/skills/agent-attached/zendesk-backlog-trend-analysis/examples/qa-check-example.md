@@ -19,3 +19,9 @@ SLA is high risk and engineering should fix checkout immediately.
 ## Evidence basis
 
 The QA decision is based on the skill rules for missing SLA data, cautious incident language, and support-owned next actions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

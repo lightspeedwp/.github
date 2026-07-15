@@ -151,3 +151,9 @@ Recommend a deeper audit instead of a light health note when:
 - Use `templates/yoast-state-comparison-report.md` for evidence-heavy before/after comparisons.
 - Use `templates/yoast-remediation-backlog.md` when actions need owner routing.
 - Use `templates/client-safe-summary.md` when the output is client-facing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

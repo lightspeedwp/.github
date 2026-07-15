@@ -52,3 +52,9 @@ Improve booking flow UX clarity and mobile scanability.
 
 - Are pricing rules fixed or flexible by season?
 - What are the most common drop-off points in the booking flow?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

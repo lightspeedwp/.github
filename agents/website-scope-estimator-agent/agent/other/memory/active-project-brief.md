@@ -46,3 +46,9 @@
 - Which integrations, if any, must be retained or added?
 - Is there any logged-in, membership, portal, multilingual, or headless requirement in the target scope?
 - Which environment is the intended implementation baseline: live, prototype, or dev?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

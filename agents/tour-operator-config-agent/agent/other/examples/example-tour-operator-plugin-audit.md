@@ -38,3 +38,9 @@ Tour operator plugin layer review for a live brochure and enquiry site.
 2. Remove or justify duplicate extensions.
 3. Complete Gravity Forms routing QA.
 4. Review Yoast templates for tours and destinations.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

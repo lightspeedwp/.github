@@ -23,3 +23,9 @@ Full manual audits, assistive technology certification, and exhaustive WCAG inte
 ## Recommended Outputs
 
 Accessibility smoke test cases, focused Playwright smoke coverage, issue summaries, and clear follow-up recommendations.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

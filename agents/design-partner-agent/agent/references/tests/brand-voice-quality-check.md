@@ -28,3 +28,9 @@ Use this checklist when reviewing copy critique, UX writing, or brand-sensitive 
 - Empty marketing language without concrete value
 - Vague recommendations that do not help the client act
 - Tone that feels harsh, performative, or overconfident
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

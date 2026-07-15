@@ -57,3 +57,9 @@ Open all `out_accept/page-*.png` at 100% zoom:
 - This is a pragmatic helper, not a perfect Word revision engine.
 - Always re-run `--mode report` on the output; it should be zero.
 - If Word-specific revision constructs remain, fall back to “Open in Word → Accept All → Save As” and re-render.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

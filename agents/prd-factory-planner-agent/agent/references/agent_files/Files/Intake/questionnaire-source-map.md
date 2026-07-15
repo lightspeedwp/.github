@@ -22,3 +22,9 @@ Use only the questionnaire files that materially help the current workflow. Igno
 3. Reuse field patterns instead of copying full question lists.
 4. If purpose is unclear, ask: What was this questionnaire intended to help capture for this workflow?
 5. Continue with safe defaults after that answer or, if no answer comes, after one best-effort assumption.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

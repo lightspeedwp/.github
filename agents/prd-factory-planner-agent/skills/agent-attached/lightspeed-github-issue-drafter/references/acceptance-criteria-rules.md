@@ -42,3 +42,9 @@ Use for dev tasks:
 - ESLint/build passes where applicable.
 - Block assets are enqueued only when needed.
 - theme.json tokens are used instead of hard-coded values where possible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

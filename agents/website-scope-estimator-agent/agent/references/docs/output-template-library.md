@@ -32,3 +32,9 @@ When no dedicated deliverable template file is installed, document-style Markdow
 ## Rule
 
 Do not reference or rely on a template file that is not installed. If no dedicated template exists for the requested deliverable, use the installed formatting and client-facing rules to produce a clean structured output.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

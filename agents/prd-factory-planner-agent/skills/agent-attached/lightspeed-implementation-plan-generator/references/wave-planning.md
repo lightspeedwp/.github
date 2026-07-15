@@ -18,3 +18,9 @@
 - Do not build chatbot or AI workflows before approved source content and policy gates exist.
 - Do not launch without redirects, forms, accessibility, tracking and rollback notes.
 - Put high-risk architecture decisions into early waves.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

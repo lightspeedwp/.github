@@ -20,3 +20,9 @@ The auditor skill is complete only when:
 ## Manual QA prompts
 
 Run representative prompts from `tests/test-prompts.md` and check that the model never performs configuration, never invents evidence, and always produces a handoff for changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

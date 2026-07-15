@@ -42,3 +42,9 @@ For quote/enquiry forms, prefer non-payment fields such as budget range and serv
 ## No-duplicate and identity cautions
 
 Use No Duplicates only where it matches the process, such as unique email registration or contest entries. Do not use it on shared family/company emails without warning. For user registration, plan activation, duplicate email handling, role assignment, and failure notifications.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

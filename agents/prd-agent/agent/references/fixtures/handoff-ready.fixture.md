@@ -21,3 +21,9 @@ A planning pack has progressed far enough to support a delivery handoff, but sti
 ## Expected use
 
 Use this fixture to test handoff-pack generation and readiness judgment for downstream delivery coordination.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

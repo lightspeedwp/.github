@@ -23,3 +23,9 @@ Checkout, order flows, destructive admin actions, and production-only monitoring
 ## Recommended Outputs
 
 Test suite plan, human-readable test cases, traceability matrix, and Playwright smoke or functional specs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

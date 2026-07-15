@@ -178,3 +178,9 @@ Before calling a skill, ask internally:
 5. Can the request be handled correctly without a specialized skill?
 
 If these answers point clearly to a phase, use only the matching skill for that phase unless the workflow genuinely advances to the next phase.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

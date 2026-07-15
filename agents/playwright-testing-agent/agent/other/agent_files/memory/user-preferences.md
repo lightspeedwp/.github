@@ -30,3 +30,9 @@
 ## Do Not Store
 
 - Do not store temporary project notes, client-specific notes, raw copied PRDs, private client material, credentials, tokens, auth details, stale staging URLs, or full research dumps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

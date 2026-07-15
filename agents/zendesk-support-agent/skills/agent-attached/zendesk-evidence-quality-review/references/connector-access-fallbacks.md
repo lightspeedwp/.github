@@ -51,3 +51,9 @@ Use this pattern when access is missing:
 - `Engineering confirmed...` unless the confirmation is in the supplied evidence.
 - `This is a known issue` unless known-issue evidence is visible or supplied.
 - `Ash previously said...` or any other user-specific memory as case evidence in a shared agent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

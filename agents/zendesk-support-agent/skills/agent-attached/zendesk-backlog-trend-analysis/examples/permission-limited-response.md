@@ -20,3 +20,9 @@ I cannot produce an evidence-backed backlog report from Zendesk in this environm
 - Zendesk ticket metadata visible: no.
 - SLA data visible: unavailable because the minimum Zendesk read access was not available.
 - Missing evidence: ticket counts, status mix, ageing, ownership, SLA visibility, and repeated-theme metadata.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

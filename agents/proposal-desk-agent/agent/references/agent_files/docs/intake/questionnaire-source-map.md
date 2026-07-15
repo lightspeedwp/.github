@@ -103,3 +103,9 @@ Ignore a questionnaire when:
 - its defaults are weaker than evidence from the current request
 - it duplicates fields already captured from better-fit sources
 - it implies capabilities or commitments outside the current workflow
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

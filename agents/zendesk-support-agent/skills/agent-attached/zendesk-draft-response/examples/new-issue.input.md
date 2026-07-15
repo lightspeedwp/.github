@@ -11,3 +11,9 @@ Confirmed facts:
 Uncertain facts:
 - Whether the form failed, the email was blocked, or the message landed in spam.
 Reply goal: Acknowledge the issue and ask for the smallest useful evidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

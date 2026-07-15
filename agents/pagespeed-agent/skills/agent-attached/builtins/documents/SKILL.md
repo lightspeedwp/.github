@@ -451,3 +451,9 @@ Then inspect the generated `page-<N>.png` files.
 - If you need **watermark audit/removal**: `tasks/watermarks_background.md`
 - If you need **true footnotes/endnotes**: `tasks/footnotes_endnotes.md`
 - If you want reproducible fixtures for edge cases: `tasks/fixtures_edge_cases.md`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

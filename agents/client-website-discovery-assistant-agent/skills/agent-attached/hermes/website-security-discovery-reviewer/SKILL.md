@@ -52,3 +52,9 @@ The default output should include:
 - Do not imply a formal security audit happened unless the evidence clearly supports that.
 - Keep technical observations, operational gaps, and business risk separate.
 - Make validation limits explicit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

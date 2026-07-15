@@ -58,3 +58,9 @@ Use these paths when direct MCP support is missing:
 - Media alt text: `Media > Library > [Image] > Alt Text`.
 - Navigation labels: `Appearance > Menus` or `Appearance > Editor > Navigation`, depending on the theme.
 - Forms: the active forms plugin menu, such as `Forms > Forms > [Form] > Edit`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

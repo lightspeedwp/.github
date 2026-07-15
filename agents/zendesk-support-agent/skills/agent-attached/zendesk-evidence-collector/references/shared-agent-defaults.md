@@ -84,3 +84,9 @@ Prefer customer-safe language that states what was checked, what is known, what 
 - Keep evidence pack mode compact.
 - Keep investigation mode branch-led and focused on one active issue.
 - End with one concrete immediate next action.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

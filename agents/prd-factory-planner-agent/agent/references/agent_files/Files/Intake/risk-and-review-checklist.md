@@ -30,3 +30,9 @@ Use this checklist when questionnaire intake, source evidence, or generated plan
 - **Low**: ordinary planning uncertainty, non-public outputs, or reversible defaults.
 - **Medium**: missing evidence, unclear ownership, partial approval, or non-trivial assumptions.
 - **High**: regulated claims, public-facing statements, launch-impacting uncertainty, or unreviewed compliance risk.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

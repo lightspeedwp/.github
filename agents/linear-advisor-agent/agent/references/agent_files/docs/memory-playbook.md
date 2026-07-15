@@ -193,3 +193,9 @@ packaging_preference: production-ready
 last_confirmed_at: '2026-05-15'
 notes: Default to reusable packaging when the request is clearly recurring.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

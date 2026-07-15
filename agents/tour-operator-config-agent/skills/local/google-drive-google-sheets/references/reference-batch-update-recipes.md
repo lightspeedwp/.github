@@ -297,3 +297,9 @@ Use `setDataValidation` for restricted inputs, including status dropdowns.
 - Basic formatting samples: <https://developers.google.com/workspace/sheets/api/samples/formatting>
 - Row and column samples: <https://developers.google.com/workspace/sheets/api/samples/rowcolumn>
 - Sheet operations samples: <https://developers.google.com/workspace/sheets/api/samples/sheet>
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

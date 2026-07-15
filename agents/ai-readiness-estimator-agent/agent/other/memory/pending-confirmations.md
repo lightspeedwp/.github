@@ -15,3 +15,9 @@ Working assumptions proposed for test outputs only. These are not treated as con
 - `sensitive_or_regulated_use_cases`: none declared at this stage
 - `chatbot_status`: not in current scope
 - `woocommerce_addon_position`: relevant but provisional pending confirmation of catalogue, plugin, and checkout complexity
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

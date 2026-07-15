@@ -68,3 +68,9 @@ Use this structure:
 - Do not infer filenames from folder conventions, README expectations, or naming patterns alone.
 - Keep recommendations conservative and specific.
 - If the visible file list is partial, say that the validator or test inventory may be incomplete.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

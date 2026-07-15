@@ -12,3 +12,9 @@ Flag technical brief issues when:
 - responsive states are missing
 - light/dark mode is not addressed
 - WooCommerce or plugin dependencies are assumed without evidence
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

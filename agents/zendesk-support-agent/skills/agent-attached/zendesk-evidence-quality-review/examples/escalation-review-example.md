@@ -50,3 +50,9 @@ Escalation could be appropriate because the customer reports a blocked campaign 
 - Target owner or team is clear: No
 - Exact ask is actionable: No
 - Safe to escalate as-is: No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

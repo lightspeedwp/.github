@@ -244,3 +244,9 @@ overlays, visual rebuilds, Python PPTX mutation, or direct OOXML mutation.
 
 1. Run one slide-scoped QA review per slide for multi-slide decks, then
    integrate the findings into a final polish pass.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

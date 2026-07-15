@@ -21,3 +21,9 @@
 - Do not redesign WooCommerce checkout, tax, subscription, order, or account architecture unless the form flow is explicitly scoped and approved.
 - Do not inspect full entry personal data unless the user confirms permission and it is necessary for the audit.
 - Do not rely on generic blogs for audit criteria. Use official documentation or label LightSpeed recommendations.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -323,24 +323,6 @@ Escalate or tighten exclusions when:
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/source-approval-register.md`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/memory-promotion-checklist.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/blocking-gaps-checklist.md`
-
-This file captures what must be blocked, constrained, or held back.
-
-The related files capture:
-
-- which sources are approved
-- what evidence was extracted
-- which claims need review
-- what can safely move into Memory
-- what still blocks progress
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

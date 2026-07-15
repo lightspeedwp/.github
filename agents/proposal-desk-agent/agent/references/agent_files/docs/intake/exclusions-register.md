@@ -12,3 +12,9 @@ Use this register to capture must-not-do rules, non-goals, prohibited claims, ou
 - Prefer a safe narrower path over pushing ahead with excluded work.
 - Do not save inferred exclusions as durable memory without confirmation.
 - If an exclusion conflicts with the requested outcome, surface the conflict clearly and suggest the closest safe alternative.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

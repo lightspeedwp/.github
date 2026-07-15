@@ -62,3 +62,9 @@ Separate outputs clearly:
 ## Legal and privacy language
 
 Do not provide legal advice. Use operational governance language and recommend that legal, regulatory or privacy obligations are confirmed with a qualified legal or privacy adviser.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

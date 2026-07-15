@@ -53,3 +53,9 @@ A human-readable test case that is reviewable, traceable, and ready to be conver
 ## Quality Checks
 
 Ensure the case is user-visible, clearly scoped, linked to a requirement ID, and specific enough to convert into maintainable Playwright code without inventing missing product rules.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

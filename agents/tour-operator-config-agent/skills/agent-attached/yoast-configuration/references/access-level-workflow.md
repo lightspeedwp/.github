@@ -45,3 +45,9 @@ Always state:
 3. What remains unverified.
 4. Safest next action available with current access.
 5. Whether implementation needs admin, developer, client or SEO lead approval.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

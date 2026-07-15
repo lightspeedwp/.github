@@ -52,3 +52,9 @@ After assembly:
 3. List any required files that blocked assembly.
 4. State whether the local package is ready for upload or still needs repairs.
 5. Name the next safe phase.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

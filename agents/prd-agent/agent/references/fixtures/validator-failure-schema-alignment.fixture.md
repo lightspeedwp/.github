@@ -14,3 +14,9 @@ This fixture represents a scaffold state that should fail schema presence or sch
 ## Expected use
 
 Use this fixture to test validation-pack behaviour for schema presence, schema/file alignment, and memory-schema consistency failures.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

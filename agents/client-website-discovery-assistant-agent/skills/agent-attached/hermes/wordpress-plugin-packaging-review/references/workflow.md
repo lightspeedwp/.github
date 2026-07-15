@@ -174,3 +174,9 @@ When the plugin includes AI or chatbot capability, explicitly cover:
 - Do not hide uncertainty. Make it commercially useful.
 - Prefer tables and matrices when comparing capability tiers.
 - Use citations whenever the output depends on live sources.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

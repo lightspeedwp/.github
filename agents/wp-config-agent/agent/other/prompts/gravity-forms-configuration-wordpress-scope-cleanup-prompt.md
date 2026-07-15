@@ -62,3 +62,9 @@ Expected output:
 5. Files recommended for keep, rewrite, split, or remove
 6. Any nearby maintenance docs that should also be updated
 7. A clear statement on whether `gravity-forms-configuration` is now aligned with this WordPress Configuration Agent
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

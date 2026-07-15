@@ -154,3 +154,9 @@ Use `templates/redirect-map-review.md` for old-to-new URL decisions and `templat
 ## Related skill routing
 
 Use `yoast-configuration` for planning, evidence interpretation, reports, decision packs and handoffs. Route live WordPress admin inspection or approved Yoast edits to `yoast-auditor` using `references/related-skills-routing.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

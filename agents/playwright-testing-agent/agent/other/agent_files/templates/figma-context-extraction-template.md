@@ -41,3 +41,9 @@ A structured summary of design evidence that can inform QA planning and traceabi
 ## Quality Checks
 
 Ensure design evidence is translated into testable context, not treated as the only source of truth, and that unresolved design gaps are called out clearly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

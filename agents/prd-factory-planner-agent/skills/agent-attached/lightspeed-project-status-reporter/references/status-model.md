@@ -21,3 +21,9 @@
 - On track: "The project is progressing as planned."
 - Amber: "The project remains viable, but decisions are needed to protect scope/timing."
 - Red: "The project is blocked until the following issues are resolved."
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

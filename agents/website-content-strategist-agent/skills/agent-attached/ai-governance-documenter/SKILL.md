@@ -49,3 +49,9 @@ Use clear Markdown headings and concise bullets. Default to the structure in {{l
 ## Success Criteria
 
 A strong result gives stakeholders a clear record of how AI is used, what needs oversight, and what must happen before the work is approved or launched.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

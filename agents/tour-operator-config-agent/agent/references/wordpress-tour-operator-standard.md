@@ -60,3 +60,9 @@ Use first-party extensions only when they match the commercial model: expert-led
 - Launch QA should check key plugin flows, conversion routes, mobile usability, and notification delivery
 
 Use UK English only in all outputs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

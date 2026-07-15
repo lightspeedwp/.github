@@ -64,3 +64,9 @@ Ask the client to confirm:
 This add-on is audit-first by design and should be quoted only as an audit basis before implementation.
 
 Use it only after the primary base package is chosen. Do not treat final Tour Operator JSON-LD implementation as part of the add-on itself.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

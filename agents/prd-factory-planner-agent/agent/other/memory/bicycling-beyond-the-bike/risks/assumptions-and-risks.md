@@ -23,3 +23,7 @@ status: "active"
 - If banner/search/Garmin/right-column controls are implemented only in the Bicycling theme or CMS, the task can remain `L`.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

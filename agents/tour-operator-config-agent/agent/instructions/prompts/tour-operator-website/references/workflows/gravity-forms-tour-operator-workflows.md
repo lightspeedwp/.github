@@ -16,3 +16,9 @@ Use for enquiry, booking request, quote request, contact routing, spam, consent,
 ## Output focus
 
 Report missed-lead risks first. Separate form configuration facts from recommended improvements.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

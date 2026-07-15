@@ -122,3 +122,9 @@
 - After major changes: update prompts, source lists, escalation routes and policy rules.
 - After incidents: document what happened, what changed and whether restrictions need tightening.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

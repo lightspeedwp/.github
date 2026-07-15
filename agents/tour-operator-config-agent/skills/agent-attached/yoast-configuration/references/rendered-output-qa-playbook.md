@@ -88,3 +88,9 @@ For WooCommerce sites add:
 ## Maintenance
 
 Update this file when Yoast output behaviour, Google validation tools, WooCommerce schema expectations, or agency QA standards change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

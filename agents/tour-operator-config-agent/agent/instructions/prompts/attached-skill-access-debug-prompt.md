@@ -76,3 +76,9 @@ If recovery steps are proposed, keep them narrow and evidence-backed.
 4. State what evidence supports that diagnosis.
 5. State the safest next recovery step.
 6. List any files or docs that should be updated only after package access is restored.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

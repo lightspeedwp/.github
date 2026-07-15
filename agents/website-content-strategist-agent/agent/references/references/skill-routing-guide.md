@@ -108,3 +108,9 @@ When FAQs or stats include factual, comparative, trust, policy, guarantee, or pe
 ## Maintenance note
 
 Use `prompts/validate-skills-routing-and-directory-prompt.md` to audit routing drift against the current attached skills, instructions, and grounded files. If that audit finds grounded issues to fix, follow with `prompts/repair-skills-routing-and-directory-prompt.md` for a conservative repair pass.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

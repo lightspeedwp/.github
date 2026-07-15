@@ -69,3 +69,9 @@ python-docx exposes `section.header.is_linked_to_previous` and `section.footer.i
 - A continuous section break changing margins unexpectedly
 
 **Renderer note:** when a document mixes page sizes/orientations, `render_docx.py` computes DPI from the first section. If you care about exact pixel sizes, pass an explicit `--dpi`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

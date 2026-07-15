@@ -29,3 +29,9 @@ Outputs should clearly explain the chosen locator strategy, call out any brittle
 - references/prd-to-test-case-workflow.md
 - references/source-priority.md
 - examples/playwright-spec-example.md
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

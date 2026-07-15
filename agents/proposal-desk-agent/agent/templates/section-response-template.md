@@ -74,13 +74,6 @@ Then place the H1 below it:
 
 ---
 
-## Quality rules
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- Preserve customer-provided section names when they exist.
-- Keep the Recommended Response specific to the current request rather than generic boilerplate.
-- Use proof points only when grounded in real source material.
-- Separate draft assumptions from confirmed facts.
-- If a section is only partially answerable, say what is supported and move the rest to gaps or review notes.
-- Keep grouped points in bullets with bold lead-in labels where that improves scanability.
-- Place frontmatter above the H1 whenever this is a substantial standalone Markdown deliverable.
-- End the surrounding substantial document with a final `---` divider.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

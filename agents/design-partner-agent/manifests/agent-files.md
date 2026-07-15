@@ -687,3 +687,9 @@
 | skills/plugin-provided/linear/linear/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/agents/openai.yaml | skill | yes | skill:linear:linear |
 | skills/plugin-provided/linear/linear/assets/linear-small.svg | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/assets/linear-small.svg | skill | yes | skill:linear:linear |
 | skills/plugin-provided/linear/linear/assets/linear.png | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/assets/linear.png | skill | yes | skill:linear:linear |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

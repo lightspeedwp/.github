@@ -76,3 +76,9 @@ A good duplicate playbook:
 **Expected output shape**
 
 A practical playbook with duplicate signals, canonical-issue rules, context-preservation guidance, and follow-through rules.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

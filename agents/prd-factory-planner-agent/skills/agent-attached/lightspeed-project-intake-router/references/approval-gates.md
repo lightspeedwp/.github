@@ -13,3 +13,9 @@ Default gates:
 9. Final go/no-go approved.
 
 Do not skip gates when there are unresolved blockers, missing evidence, unclear design-system mapping, privacy/legal risks or unsupported claims.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

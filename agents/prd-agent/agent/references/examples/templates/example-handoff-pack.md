@@ -44,3 +44,9 @@ This handoff prepares the publishing-site redesign for downstream implementation
 - confirm stakeholder workflow priorities
 - collect the missing baseline evidence
 - turn the validated handoff into issue-level planning and acceptance-test preparation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

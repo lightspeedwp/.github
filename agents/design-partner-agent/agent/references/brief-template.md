@@ -17,3 +17,9 @@ Use this structure for `brief`.
 - Keep background short; prioritize design-relevant facts.
 - Treat assumptions as temporary, not as settled requirements.
 - Do not blend experiments into the brief unless the user asks for concepts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

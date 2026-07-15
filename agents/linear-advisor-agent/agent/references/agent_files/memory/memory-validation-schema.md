@@ -109,3 +109,9 @@ schema:
 - Use ISO-style `YYYY-MM-DD` dates for confirmation and update fields.
 - Remove outdated values instead of keeping competing defaults.
 - Treat this schema as the validation reference for Memory hygiene, not as user-facing output requirements.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

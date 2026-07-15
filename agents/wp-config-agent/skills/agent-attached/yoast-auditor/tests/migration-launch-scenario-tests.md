@@ -29,3 +29,9 @@ Expected: mark blocked evidence and state the minimum evidence needed.
 Input: "Turn launch blockers into developer handoff notes."
 
 Expected: each item includes problem, evidence, affected locations, expected output, implementation route and QA steps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -159,6 +159,6 @@ Any implementation notes, design decisions, or technical context.
 
 ---
 
-*Use this guide to create clear, automated, and contributor-friendly issues in all LightSpeed projects. If you’re not sure where your request fits, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

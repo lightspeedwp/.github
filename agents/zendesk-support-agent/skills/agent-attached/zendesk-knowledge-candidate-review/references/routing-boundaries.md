@@ -88,3 +88,9 @@ Keep the reason short and specific. Do not list the full Zendesk skill network.
 - Prefer a local common handoff only when the next step is clear from current evidence.
 - Return to `zendesk-router-skill` when routing depends on unavailable connector evidence or workspace-specific ownership rules.
 - Keep routing advice workspace-neutral and avoid named teammates unless the user supplied them.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

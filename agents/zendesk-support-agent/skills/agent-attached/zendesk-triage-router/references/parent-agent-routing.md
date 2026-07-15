@@ -69,3 +69,9 @@ Draft a customer-facing support response from confirmed facts, separating knowns
 - Do not use the user who packaged the skill as the assumed permission baseline.
 - If connector evidence is unavailable, continue from pasted evidence and state the limitation.
 - Prefer a safe plain-language next action over a confident but unavailable route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

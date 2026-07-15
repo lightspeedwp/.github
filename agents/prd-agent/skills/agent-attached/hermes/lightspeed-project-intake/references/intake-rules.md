@@ -9,3 +9,9 @@
    - missing evidence
 4. Prefer the smallest useful follow-up question set.
 5. If the evidence is obviously strong enough for PRD drafting, still produce a concise intake layer first unless the user explicitly wants to skip it.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -35,3 +35,9 @@ Catch examples that still teach an older structure, looser terminology, or stale
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep visible example families aligned with the current visible templates, schemas, and workflow vocabulary.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

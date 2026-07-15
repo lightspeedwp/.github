@@ -66,3 +66,9 @@ python render_docx.py a11y_fixed.docx --output_dir out_a11y
 - "Fixing" headings is rarely mechanical; it usually requires editorial judgement. This tool **reports** heading issues but does not rewrite styles.
 - Setting table header flags can change repeated header rendering across page breaks. Always re-render and review.
 - Alt text generated from filenames is a baseline; replace it with meaningful descriptions for real accessibility.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -52,3 +52,9 @@ Not ready. The backlog increase is supported by the supplied counts, but the cau
 - Next steps are specific and owned: Partially
 - Risk or escalation gaps remain: Yes
 - Safe to send or share as-is: No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

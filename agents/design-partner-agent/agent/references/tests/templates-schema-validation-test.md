@@ -43,3 +43,9 @@ Use this test when checking whether files in `templates/` still follow the expec
 - Overly specific project content instead of reusable placeholders
 - Sections that duplicate the same purpose under different headings
 - A template that cannot be used without rewriting most of it
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

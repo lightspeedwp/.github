@@ -29,3 +29,9 @@ Issue Types (Bug, Feature, Task, etc.) are set via the Issue Type field in the i
 
 If you have questions about how labels are used, see our [Issue Labels Guide](../ISSUE_LABELS.md), or ask in the comments. Proper labeling ensures your issue gets the right attention!
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

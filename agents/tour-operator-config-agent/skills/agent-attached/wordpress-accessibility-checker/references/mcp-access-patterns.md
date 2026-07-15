@@ -51,3 +51,9 @@ Stop before writing when:
 - The issue belongs to theme/plugin code.
 - The fix changes legal, policy, pricing, checkout, or consent meaning.
 - The action is production bulk editing without approval, backup, and rollback path.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

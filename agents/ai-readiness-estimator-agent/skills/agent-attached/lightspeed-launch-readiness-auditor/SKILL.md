@@ -115,3 +115,9 @@ Use the assets as copy-ready Markdown templates when the user asks for downloada
 ## Quality standard
 
 Be practical, specific and non-alarmist. Separate launch blockers from post-launch improvements. Do not overstate readiness when audit evidence is missing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

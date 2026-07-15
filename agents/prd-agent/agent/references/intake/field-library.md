@@ -21,3 +21,9 @@ Define the standard intake fields used across summaries, briefs, PRDs, reviews, 
 ## Notes
 
 Use these field names consistently when structuring intake and planning artefacts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

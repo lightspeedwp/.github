@@ -34,3 +34,9 @@ Use decision-oriented asks:
 ## Multi-lane cases
 
 When multiple lanes could apply, name one primary owner and one supporting lane. Do not create a vague escalation with many owners. Explain why the primary lane owns the decision or next action.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -109,3 +109,9 @@ The normalised input record usually remains internal. Surface only the parts tha
 - research mode
 - important ambiguity or source limitation
 - connector unavailability that affects confidence
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

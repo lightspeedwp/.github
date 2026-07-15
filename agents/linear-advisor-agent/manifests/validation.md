@@ -26,3 +26,9 @@ None.
 - skills/plugin-provided/github__github/assets/github-small.svg; skills/plugin-provided/github__gh-fix-ci/assets/github-small.svg; skills/plugin-provided/github__gh-address-comments/assets/github-small.svg
 - skills/plugin-provided/google-drive__google-drive/assets/google-drive.png; skills/plugin-provided/google-drive__google-drive/assets/app-icon.png
 - skills/plugin-provided/google-drive__google-drive/assets/google-drive.svg; skills/plugin-provided/google-drive__google-drive/assets/google-drive-small.svg
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

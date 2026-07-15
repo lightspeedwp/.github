@@ -51,3 +51,9 @@ The default output should include:
 - Do not assume enterprise-grade capability from thin hosting descriptions.
 - Do not confuse performance symptoms with hosting certainty unless the evidence supports that link.
 - Keep provider facts, inferred risks, and recommendations clearly separated.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

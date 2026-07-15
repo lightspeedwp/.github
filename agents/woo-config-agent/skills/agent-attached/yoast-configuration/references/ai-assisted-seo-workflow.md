@@ -89,3 +89,9 @@ After approved AI metadata is applied, verify:
 ## Maintenance
 
 Refresh this workflow when Yoast SEO AI Plus packaging changes, Yoast AI features change, Google Search guidance changes, or LightSpeed approval policy changes. Do not update product entitlement claims without current source verification.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

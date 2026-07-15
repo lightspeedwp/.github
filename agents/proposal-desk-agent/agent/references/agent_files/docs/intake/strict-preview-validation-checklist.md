@@ -166,11 +166,6 @@ Use **needs revision** if:
 
 ---
 
-## Calibration Notes From This Safari Website Test
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this test as a calibration example:
-
-- Good: selective questionnaire routing, concise wizard output, strong ignored-file reasoning, strong risk framing.
-- Needs tightening: blocker count should stay lower unless the task is genuinely stuck.
-- Preferred future behaviour: keep the default wizard close to 10 fields and reserve extra fields for clearly material cases.
-- Preferred future behaviour: when source, claim, or approval risk appears, render those controls more explicitly rather than only describing them in prose.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

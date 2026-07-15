@@ -78,3 +78,9 @@ Use these validation checks when reviewing file quality in:
 - invalid or incomplete drafting-preferences markdown entries
 - mismatched sections between a template and its example
 - unexpected files added to `memory/`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -152,15 +152,6 @@ Also record:
 
 ---
 
-## Outcome log template
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-| Skill | Checked by | Date | Scope checked | Result | Action taken | Notes |
-| --- | --- | --- | --- | --- | --- | --- |
-| lightspeed-figma-wordpress-technical-brief |  |  |  |  |  |  |
-| evidence-locker |  |  |  |  |  |  |
-| lightspeed-intake-onboarding |  |  |  |  |  |  |
-| lightspeed-launch-task-router |  |  |  |  |  |  |
-
-## Final completion rule
-
-Do not mark skill parity as complete until every one of these four gaps has a documented resolution outcome and the parity report plus rebuild docs are updated to match that outcome.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -254,3 +254,9 @@ Default review triggers:
 ## Delivery preferences
 
 Until stronger user preferences are provided, default to concise review-ready outputs with clear source citations and a simple gap tracker organized by owner, missing input, and priority.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

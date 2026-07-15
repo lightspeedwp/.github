@@ -56,3 +56,9 @@ Track behaviourally meaningful changes to this shared-agent router package. Keep
 - Added connector access fallback rules.
 - Added routing matrix, output contract, and anonymised test cases.
 - Added `agents/openai.yaml` metadata.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

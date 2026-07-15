@@ -26,3 +26,9 @@ Every direction should be meaningfully different in at least one of:
 - Avoid surface-level variants that only change styling or wording.
 - Keep directions grounded in the current constraints.
 - Recommend what to prototype or test next, not just what looks best.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

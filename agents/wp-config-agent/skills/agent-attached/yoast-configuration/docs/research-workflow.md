@@ -48,3 +48,9 @@ Run `scripts/validate_source_register.py` and `scripts/validate_reference_data.p
 ## 6. Maintenance
 
 After a refresh, update `docs/changelog.md`, `docs/maintenance-guide.md`, and any affected references. Record the scan date and whether packaging claims require future verification.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

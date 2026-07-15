@@ -191,3 +191,9 @@ Summarize the implementation work completed on the staging site and what still n
 - focus on completed versus pending work
 - retain the same section structure where it still fits
 - treat remaining QA as manual checks or next actions, not as completed work
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

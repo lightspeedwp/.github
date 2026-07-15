@@ -38,3 +38,9 @@ Read `reference-slide-planning-and-layout-selection.md` and `reference-slide-arc
 ## Verification
 
 Migration is complete only when every migrated slide is presentation-readable, visibly template-consistent, source-faithful, free of unintentional placeholder/sample scaffolding, and checked with both connector readback and a fresh thumbnail after visible writes. Final readback must reconcile text, visuals, charts, tables, links, media type, and non-empty speaker notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

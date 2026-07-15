@@ -62,3 +62,9 @@ Use this checklist to validate repeatable preview tests across the LightSpeedWP.
 3. Run one prompt from the prompt library.
 4. Check the result against this QA checklist.
 5. Record the failure mode before changing prompts or instructions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

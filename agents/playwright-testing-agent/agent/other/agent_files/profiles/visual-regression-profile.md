@@ -23,3 +23,9 @@ Brittle pixel-perfect assertions on dynamic content, live production drift check
 ## Recommended Outputs
 
 Figma context extraction, visual regression candidate list, test suite plan, and focused Playwright visual spec guidance.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -36,3 +36,9 @@ Keep these boundaries clear in follow-up notes:
 - Plugin: content models, taxonomies, fields, integrations, business logic and portable features.
 
 If a token or rule requires application logic rather than presentation alone, mark it as a follow-up outside `DESIGN.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

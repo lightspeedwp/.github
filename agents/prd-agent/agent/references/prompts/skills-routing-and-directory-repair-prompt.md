@@ -56,3 +56,9 @@ Repair standard:
 - after attaching a new batch of skills and finding documentation drift
 - before promotion when the attached-skill layer and documented inventory need to be brought back into sync
 - whenever the validation pass found high-signal routing or directory issues that should be repaired in one focused follow-up
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

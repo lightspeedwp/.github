@@ -46,3 +46,9 @@ For every add-on recommendation, state:
 - Do not recommend an add-on without a confirmed base package.
 - Do not stack add-ons to avoid escalating to custom scope.
 - Do not let add-ons hide unresolved disqualifiers.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

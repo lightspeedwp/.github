@@ -206,3 +206,9 @@
 | `agent/templates/questionnaires/website-content-collection-questionnaire.md` | `/workspace/agent_files/questionnaires/website-content-collection-questionnaire.md` | templates | yes |  |
 | `agent/templates/questionnaires/website-design-questionnaire.md` | `/workspace/agent_files/questionnaires/website-design-questionnaire.md` | templates | yes |  |
 | `agent/templates/review-output-template.md` | `/workspace/agent_files/templates/review-output-template.md` | templates | yes |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

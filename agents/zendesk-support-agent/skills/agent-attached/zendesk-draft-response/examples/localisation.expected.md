@@ -12,3 +12,9 @@ Der nächste Schritt ist, dass wir die Plugin-Konfiguration auf der Staging-Webs
 
 - Product/support terms are preserved where appropriate.
 - No extra technical detail or commitment has been added.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

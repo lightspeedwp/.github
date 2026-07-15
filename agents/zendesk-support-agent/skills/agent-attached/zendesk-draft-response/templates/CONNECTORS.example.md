@@ -36,3 +36,9 @@ Copy this file into the shared agent's persistent instructions or shared files a
 - If Slack is unavailable, do not invent internal context or owner confirmation.
 - If evidence is incomplete, use the smallest safe clarification or route to evidence collection.
 - Never include private connector IDs, credentials, API tokens, or personal mailbox details in skill files.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

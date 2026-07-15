@@ -62,3 +62,9 @@ For generated dashboards, reports, scorecards, and trackers, work within the use
 - Establish a clear hierarchy: make primary KPIs prominent with explicit number formats and enough whitespace to scan at normal zoom.
 - Use native conditional-formatting rules for status, risk, priority, variance, threshold, and exception fields when they aid scanning or must react to future changes; verify the applied range rather than substituting static fills.
 - Include a meaningful chart, sparkline, or compact visual or table only when it clarifies the requested analysis; avoid decorative or redundant visuals and follow `charts.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

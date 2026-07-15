@@ -12,3 +12,9 @@ Use this register when the workflow depends on approved sources, restricted sour
 - Mark questionnaire-derived source assumptions as `inferred` unless explicitly confirmed.
 - Do not treat internal discussion, Memory, or questionnaire defaults as approved public evidence by default.
 - If publication rights or evidence suitability are unclear, mark the source as `pending` or `restricted` and proceed conservatively.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

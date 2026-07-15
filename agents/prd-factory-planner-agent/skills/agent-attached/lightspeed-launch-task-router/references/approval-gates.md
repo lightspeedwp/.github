@@ -13,3 +13,9 @@ Use these gates by default:
 | Analytics plan sign-off | Marketing/measurement owner |
 | Launch QA sign-off | QA/technical lead |
 | Go/no-go | Project owner / leadership |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

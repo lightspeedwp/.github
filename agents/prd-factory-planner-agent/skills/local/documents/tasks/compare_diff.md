@@ -36,3 +36,9 @@ This is high-ROI for regression testing and reviewer confidence.
 - LO headless rendering can differ from Word; this tool catches visual diffs in *your* render loop, which is what you ship.
 - If pagination differs, many pages may show as changed. Use the text diff to confirm content-level changes.
 - If you see changes that are *only* anti-aliasing noise, increase render DPI and re-run.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

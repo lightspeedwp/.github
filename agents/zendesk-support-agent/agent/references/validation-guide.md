@@ -54,3 +54,9 @@ Use these files as the primary validation inventory:
 - a memory file includes case-specific detail or suspicious copied evidence
 - a template and its paired example drifted apart
 - a routing reference misses an attached Zendesk skill or places it in the wrong section
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

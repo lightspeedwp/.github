@@ -30,3 +30,9 @@ Set up or clean up analytics, tracking, and reporting foundations beyond what is
 - Is GA4 already in place?
 - Is GTM already in place?
 - What conversions matter most?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

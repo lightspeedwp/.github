@@ -91,3 +91,9 @@ To verify app parity in a rebuild:
 3. Confirm the agent can read the expected evidence surfaces.
 4. Confirm missing apps are documented as known parity gaps.
 5. Confirm estimation-sensitive apps such as Harvest are available before calling the rebuild estimate-ready.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

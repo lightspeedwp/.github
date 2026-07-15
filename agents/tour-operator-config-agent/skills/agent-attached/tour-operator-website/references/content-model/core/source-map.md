@@ -40,3 +40,9 @@ Relationship and taxonomy object-type references to `review`, `special`, `vehicl
 | `references/content-model/core/field-usage-rules.md` | `tour.json`, `destination.json`, `accommodation.json`, `class-post-connections.php` | Safe interpretation rules for confirmed fields, string price/duration limits, ratings, multiselects and schema readiness. |
 | `references/content-model/core/facetwp-indexing-notes.md` | `class-post-connections.php` | Destination facet source list, `_to_` custom-field indexing, hierarchy/depth behaviour, continent filtering, fselect rendering/count behaviour and `cf/price` / `cf/duration` normalisation. |
 | `references/content-model/core/taxonomies.json` -> `registrationBehaviour` | `class-taxonomies.php` | Runtime registration method and filters for taxonomy args/object types. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

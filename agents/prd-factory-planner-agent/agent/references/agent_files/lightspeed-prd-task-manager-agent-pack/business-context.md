@@ -67,3 +67,9 @@ Use these as business-context references when relevant:
 - LightSpeed strategy document: <https://docs.google.com/document/d/16WfReitDAVfi0ULtG4PB0ShwYm65UmIPkMouFcBsRUo>
 - LightSpeed services and solutions document: <https://docs.google.com/document/d/1bOOJQqw2oqQ0WNS9HxQ21W6LfzMCN4TOL_JOFTj1q1Y>
 - LightSpeed website: <https://lightspeedwp.agency>
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

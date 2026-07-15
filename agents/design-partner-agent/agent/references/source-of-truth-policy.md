@@ -18,3 +18,9 @@ Use this policy when multiple sources disagree.
 - Separate intended design from implementation reality.
 - Separate approved decisions from inferred assumptions.
 - Prefer the smallest grounded artifact that moves the work forward.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

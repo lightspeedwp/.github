@@ -159,3 +159,9 @@ Before responding, verify that the comparison:
 - Avoids exact quantitative claims without comparable data.
 - Works at the requested page/site/template level.
 - Ends with clear next actions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

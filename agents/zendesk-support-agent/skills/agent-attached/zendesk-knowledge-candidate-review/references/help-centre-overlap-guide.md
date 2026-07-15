@@ -83,3 +83,9 @@ When overlap influences the decision, say so explicitly:
 - "Update existing" because the same customer intent already has an article but lacks the workaround.
 - "Create new" because no article appears to own this distinct search intent.
 - "Needs one more check" because Help Centre overlap was not available in the current session.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

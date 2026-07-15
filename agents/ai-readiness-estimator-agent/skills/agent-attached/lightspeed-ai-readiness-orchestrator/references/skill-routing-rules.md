@@ -50,3 +50,9 @@ Do not continue directly into chatbot implementation if:
 - the client operates in a strict-mode sector and governance has not been completed
 
 Provide a warning and recommend governance/content foundation work first.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

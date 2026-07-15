@@ -153,3 +153,7 @@ Use one of the example context files in `docs/preview-validation/` as the ground
 Use one of the example context files in `docs/preview-validation/` as the starting context for this preview. Build a structured internal discovery pack from the sources named in that file. Where accessible, verify or enrich against live pages, repository evidence, connected documents, and design references. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

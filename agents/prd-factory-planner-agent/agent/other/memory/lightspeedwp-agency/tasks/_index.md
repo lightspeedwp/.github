@@ -8,3 +8,9 @@
 - Epic 6: Measurement, schema and trust layer
 - Epic 7: QA, launch readiness and cutover
 - Intake refresh: confirm current agency-site scope and choose the next planning artefact
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

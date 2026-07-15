@@ -97,3 +97,9 @@
 | agent/configuration/plugins/linear/.codex-plugin__plugin.json | /root/.codex/plugins/cache/openai-marketplace/linear/local/.codex-plugin/plugin.json | plugin configuration | yes | Readable plugin manifest/configuration metadata; no credential values included. |
 | agent/configuration/plugins/linear/.app.json | /root/.codex/plugins/cache/openai-marketplace/linear/local/.app.json | plugin configuration | yes | Readable plugin manifest/configuration metadata; no credential values included. |
 | agent/configuration/plugins/linear/.mcp.json | /root/.codex/plugins/cache/openai-marketplace/linear/local/.mcp.json | plugin configuration | yes | Readable plugin manifest/configuration metadata; no credential values included. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

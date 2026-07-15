@@ -86,3 +86,9 @@ Remains fixed-fee when:
 - Use after planning when Starter is too limited.
 - Confirm journeys, capture fields, and lead destinations before quoting.
 - Move anything beyond configurable chatbot behaviour into separate scope.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

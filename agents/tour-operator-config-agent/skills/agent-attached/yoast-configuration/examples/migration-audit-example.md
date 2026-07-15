@@ -17,3 +17,9 @@
 2. Check staging leakage, canonicals, noindex rules, XML sitemaps, schema, social metadata and redirects.
 3. Validate representative high-value URLs before launch and after launch.
 4. Avoid promising Google indexing or ranking outcomes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

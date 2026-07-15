@@ -72,3 +72,9 @@ Prefer the GitHub app from this plugin for those flows because it provides struc
 - "Review the latest comments on PR 482 and tell me what is actionable."
 - "Debug the failing checks on this branch."
 - "Commit these changes, push them, and open a draft PR."
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -17,3 +17,9 @@ Suggested handoff context:
 - Confirmed migration delay reason.
 - Exact DNS records needed.
 - Tone: apologise for delay, be clear and practical, avoid unsupported promises.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

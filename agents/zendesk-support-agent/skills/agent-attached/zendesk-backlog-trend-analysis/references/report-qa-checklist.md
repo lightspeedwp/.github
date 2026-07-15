@@ -37,3 +37,9 @@ Use this reference before finalising a backlog, trend, weekly, daily, or repeate
 - Empty sections are removed.
 - The report is concise enough for support leads to act on quickly.
 - Evidence basis and gaps are included.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

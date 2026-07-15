@@ -6,3 +6,9 @@
 - **User stories** — keep them testable and relevant to scope.
 - **Acceptance criteria** — make them observable.
 - **Risks / assumptions / open questions** — keep uncertainty explicit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

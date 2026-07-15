@@ -23,3 +23,9 @@ When to read: deck summaries, evidence searches, multi-slide edits, translation,
 ## Source And Destination
 
 When using multiple decks, identify source decks and slides before writing to the destination. Re-confirm the destination deck before every write batch.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

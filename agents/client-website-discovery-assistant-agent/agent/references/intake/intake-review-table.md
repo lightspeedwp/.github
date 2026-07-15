@@ -12,3 +12,9 @@
 | Scope boundaries |  | missing |  | yes | no |  |
 | Exclusions |  | missing |  | yes | no |  |
 | Timeline / risk / approval |  | missing |  | yes | no |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

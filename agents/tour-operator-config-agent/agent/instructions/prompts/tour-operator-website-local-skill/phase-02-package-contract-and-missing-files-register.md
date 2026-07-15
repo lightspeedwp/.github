@@ -123,3 +123,9 @@ The safest next move is a **phase-03 blocker-verification pass** to determine wh
 - any canonical entry metadata
 
 If those remain absent or unverified, the source tree should be treated as requiring packaging work before any later build or upload phase.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

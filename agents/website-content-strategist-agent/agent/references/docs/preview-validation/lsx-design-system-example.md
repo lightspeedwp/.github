@@ -90,3 +90,9 @@ Use LSX Design System as the project context. Review the live site, demo site, r
 ## Companion prompt variant
 
 Use LSX Design System as the project context. Compare the live site, demo site, repo, Drive folder, and Figma system. Explain which sources should control planning, implementation, and design-system review, identify the biggest gaps or conflicts, and recommend the one workflow that should happen next.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -78,3 +78,9 @@ Acceptance criteria:
 - Treat the current attached file tree and local skills as canonical.
 - Prefer deterministic consistency checks over speculative cleanup.
 - Keep this pass focused on the validation layer unless a new blocking issue is discovered.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

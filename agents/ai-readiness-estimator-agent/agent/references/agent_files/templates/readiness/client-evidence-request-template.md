@@ -83,3 +83,7 @@ Before sending:
 - if the estimate is already safely audit-first, prefer the short version unless stronger scoping confidence is genuinely needed
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

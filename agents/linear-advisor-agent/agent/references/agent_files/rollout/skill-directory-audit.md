@@ -54,3 +54,9 @@ For this agent:
 - prefer one specialist skill when the request clearly fits a narrow job
 - ignore any skill reference that points to a skill not actually attached here
 - use formatting-only polish last, not first
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

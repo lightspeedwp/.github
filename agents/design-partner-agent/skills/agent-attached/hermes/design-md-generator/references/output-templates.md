@@ -79,21 +79,9 @@ typography: {}
 rounded: {}
 spacing: {}
 components: {}
+
 ---
 
-## Overview
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-## Colors
-
-## Typography
-
-## Layout
-
-## Elevation & Depth
-
-## Shapes
-
-## Components
-
-## Do's and Don'ts
-```
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

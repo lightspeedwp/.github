@@ -18,3 +18,9 @@ This skill supports operational tracking design and is not legal advice.
 ## Data minimisation rule
 
 Do not send personally identifiable information to GA4 event names or parameters.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

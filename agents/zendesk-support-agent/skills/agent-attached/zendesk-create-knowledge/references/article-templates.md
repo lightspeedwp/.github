@@ -229,3 +229,9 @@ Use when an existing article should be updated rather than creating a new one.
 - Reviewer needed: <person/team/none>
 - Public/internal boundary: <what should stay out of the article>
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

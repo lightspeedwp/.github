@@ -56,3 +56,9 @@ Deliverable format:
 - Treat the current attached apps and runtime tools as canonical.
 - Distinguish between app-guidance drift and normal task-specific delivery guidance.
 - Prefer exact file-specific findings over broad generic advice.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

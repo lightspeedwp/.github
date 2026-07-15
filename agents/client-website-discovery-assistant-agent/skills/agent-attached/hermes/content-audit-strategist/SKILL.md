@@ -62,3 +62,9 @@ The default output should:
 - Do not treat stakeholder opinions as confirmed user needs unless the evidence supports that.
 - Do not collapse content audit and content strategy into one undifferentiated summary; make the current-state versus recommended-direction boundary explicit.
 - Prefer usable categories and synthesis over page-by-page noise when the evidence is broad.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

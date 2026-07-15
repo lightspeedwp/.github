@@ -31,28 +31,9 @@ title: Example
 status: draft
 type: guide
 version: "1.0.0"
+
 ---
-```
 
-### `files/template.md`
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-**Issues:**
-
-- File changed but version was not incremented. Current version: `1.2.0`.
-
-**Suggested fix:**
-
-```text
-Use PATCH for small fixes, MINOR for backward-compatible additions, or MAJOR for breaking structural changes.
-```
-
-## Passed Files
-
-- `files/valid-example.md`
-
-## Recommended next actions
-
-1. Fix blocking frontmatter errors.
-2. Fix markdown structure and formatting issues.
-3. Confirm the correct SemVer increment for changed files.
-4. Re-run the validator.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

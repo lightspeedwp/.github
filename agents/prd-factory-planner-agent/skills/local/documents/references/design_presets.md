@@ -315,3 +315,9 @@ For `google_docs_default`, also verify:
 - No blue heading colors, colored callout fills, zebra striping, dense grid borders, decorative header rules, running header/footer chrome, or other Word-template residue remain.
 - The first page reads like a native Google Doc: simple title block, clear section hierarchy, restrained spacing, and no table-first packaging of normal prose.
 - Tables appear only where the content is truly tabular and use quiet minimal styling with `tblInd=0` unless a named override intentionally changes placement.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

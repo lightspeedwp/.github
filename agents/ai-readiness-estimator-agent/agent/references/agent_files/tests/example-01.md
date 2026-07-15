@@ -23,3 +23,9 @@ Major plugin conflicts or hidden migration work.
 ## What A Good Estimate Should Look Like
 
 It should recommend AI Readiness Foundation, keep the position provisional until the audit confirms fixed-fee eligibility, and list only the missing values that still matter.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

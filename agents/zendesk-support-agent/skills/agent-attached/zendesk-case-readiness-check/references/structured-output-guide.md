@@ -72,3 +72,9 @@ python3 scripts/validate-readiness-json.py path/to/readiness-output.json
 ```
 
 The script is dependency-free. It checks required keys, allowed enum values, basic value types, unknown fields, and empty required strings. It does not judge whether the support reasoning is correct; the agent must still apply the readiness rules in `SKILL.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

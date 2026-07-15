@@ -17,3 +17,9 @@ Use this when multiple team members will use the Yoast configuration skill.
 - Code-level filters/API changes go to developer handoff.
 - Google Search interpretation should be source-backed and caveated.
 - WooCommerce product data issues should be separated from Yoast configuration.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

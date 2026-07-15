@@ -31,3 +31,9 @@ Do not mark schema/search launch-ready if:
 - FAQ schema references invisible or unapproved content
 - claim register has unresolved high-risk claims
 - redirect plan is missing for high-value URLs
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

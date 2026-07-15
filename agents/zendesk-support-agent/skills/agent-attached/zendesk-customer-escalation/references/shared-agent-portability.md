@@ -104,3 +104,9 @@ Before adding this skill to a shared workspace agent, confirm:
 - the escalation output includes source availability when optional context is relevant or unavailable
 - customer-specific memory is disabled or explicitly avoided for this workflow
 - a teammate with limited permissions has tested the skill on a safe sample ticket
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

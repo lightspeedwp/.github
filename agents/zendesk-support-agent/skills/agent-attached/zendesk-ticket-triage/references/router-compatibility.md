@@ -48,3 +48,9 @@ When both `zendesk-triage-router` and `zendesk-ticket-triage` are installed:
 ## Fallback behaviour
 
 If the ideal downstream skill is unavailable, name the intended support action in plain language and request the smallest missing input. Do not invent unavailable skill names or assume personal connector access. Do not recommend `zendesk-triage-router` after successfully producing a package; use it only as a route-away target when the original request was first-pass triage rather than a package request.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

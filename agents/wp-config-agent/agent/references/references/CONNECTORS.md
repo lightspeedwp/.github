@@ -176,3 +176,9 @@ Choose the app that matches the environment named or implied by the user. If the
 - prefer agent files for stable internal guidance
 - prefer Memory for durable continuity
 - prefer app calls or the relevant WordPress app when the needed evidence is internal or site-specific
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

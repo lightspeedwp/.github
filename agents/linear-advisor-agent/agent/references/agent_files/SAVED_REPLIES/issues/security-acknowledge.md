@@ -30,3 +30,9 @@ Please send the full report privately to [security@lightspeedwp.com](mailto:secu
 
 Once it has been shared privately, we can track the appropriate next step internally and keep public updates limited to what is safe to disclose.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

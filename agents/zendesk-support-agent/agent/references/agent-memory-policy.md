@@ -97,3 +97,9 @@ Use for durable cross-run follow-up items that should persist until completed or
 ## Editing rule
 
 When the memory contract changes, update this file, the relevant schemas, memory examples, validation tests, and instructions together.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

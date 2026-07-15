@@ -85,3 +85,9 @@ Expected behaviour:
 - In shared-agent skill selection, do not force `zendesk-router-skill` as a mandatory wrapper when the user clearly requested a downstream deliverable.
 - Invoke `zendesk-draft-response` directly.
 - Use `zendesk-case-readiness-check` only when the available evidence appears thin or unresolved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

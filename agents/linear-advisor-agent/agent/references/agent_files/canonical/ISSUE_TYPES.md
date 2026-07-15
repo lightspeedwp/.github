@@ -163,6 +163,6 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 
 ---
 
-*Type assignment is fully automated and standardized by the unified agent and workflow. All changes are canonical and traceable.*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

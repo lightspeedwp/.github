@@ -17,3 +17,9 @@
 3. Recommend graph-aware extension rather than duplicate hard-coded JSON-LD.
 4. Require JSON-LD validation, rendered output checks and regression coverage.
 5. Mark unsupported implementation details as pseudo-code.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

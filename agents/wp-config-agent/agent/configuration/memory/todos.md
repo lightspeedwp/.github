@@ -28,3 +28,9 @@ Use this file for active project continuity across sessions.
 - Use this file for ongoing work, not lasting preferences.
 - Save stable defaults and recurring project preferences in `memory/user-preferences.md`.
 - Do not turn this file into a scratchpad; keep only details that will matter in later sessions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

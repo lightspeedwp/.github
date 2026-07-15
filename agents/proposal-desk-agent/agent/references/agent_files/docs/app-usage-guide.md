@@ -214,3 +214,9 @@ Do not use them for outbound or state-changing actions unless the task explicitl
 - Do not overwrite or materially alter shared records unless the task clearly requires it.
 - Do not retrieve more sensitive internal material than the current task needs.
 - Do not use internal discussion, Memory, or prior draft language as final proof when stronger evidence is available.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

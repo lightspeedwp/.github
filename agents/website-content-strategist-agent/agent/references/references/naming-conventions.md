@@ -26,3 +26,9 @@ Keep new maintenance and reference files consistent, easy to find, and low-drift
 - Do not create near-duplicate files with overlapping roles.
 - Do not label a file as canonical unless it is actually attached and in use.
 - Prefer markdown for human-maintained reference assets unless a structured format is specifically needed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

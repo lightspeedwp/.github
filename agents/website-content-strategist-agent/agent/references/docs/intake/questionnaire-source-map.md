@@ -309,18 +309,6 @@ When a request calls for a questionnaire-aware intake audit, summarise:
 
 ---
 
-## Relationship to other intake reference files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/intake-wizard-template.yaml`
-- `docs/intake/questionnaire-field-library.yaml`
-- `docs/intake/intake-review-table.md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/agent-context-routing-template.md`
-
-This file decides **which questionnaire sources matter**.
-The related files define **what to extract**, **how to classify it**, and **what to do with it next**.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

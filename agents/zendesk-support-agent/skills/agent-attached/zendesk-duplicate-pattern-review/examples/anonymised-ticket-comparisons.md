@@ -231,3 +231,9 @@ The broad complaint is similar, but the observed causes differ. This is not a du
 - Repeated confusion is often a knowledge or onboarding signal, not a defect.
 - Keep customer-level tickets separate when separate communication, impact tracking, or evidence is needed.
 - Lower confidence when Zendesk evidence, metadata, or root-cause proof is missing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

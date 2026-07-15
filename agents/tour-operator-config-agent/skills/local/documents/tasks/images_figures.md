@@ -40,3 +40,9 @@ If you see `anchor` rows, treat as high-risk and inspect renders closely.
 - Floating images shifting pages after small text edits
 - Wrap modes causing overlap in LibreOffice exports
 - Copy/pasted images with huge DPI metadata leading to surprising sizes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

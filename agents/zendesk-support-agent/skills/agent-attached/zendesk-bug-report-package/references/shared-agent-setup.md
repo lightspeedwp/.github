@@ -46,3 +46,9 @@ When the issue should not become a bug package yet:
 ```markdown
 This is not ready for a bug package. The smallest useful next step is to collect [specific reproduction/environment/detail], then re-run the package workflow.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

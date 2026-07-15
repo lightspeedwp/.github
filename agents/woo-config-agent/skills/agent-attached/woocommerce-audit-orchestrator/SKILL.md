@@ -159,3 +159,9 @@ Success criteria:
 - stays tightly focused on checkout and trust
 - does not expand into a generic full-store audit
 - distinguishes observed checkout evidence from unverified payment or transactional behaviour
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

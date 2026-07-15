@@ -24,3 +24,9 @@ When to read: before existing Google Sheets inspection that may lead to an edit,
 
 - Always reference the spreadsheet, sheet name, and range when describing findings or planned edits.
 - For `batch_update` work, use a compact table or list with the request type, target range or sheet, proposed change, and reason.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

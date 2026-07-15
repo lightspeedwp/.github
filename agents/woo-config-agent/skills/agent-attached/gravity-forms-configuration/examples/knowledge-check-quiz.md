@@ -21,3 +21,9 @@ Use for training, onboarding, lightweight learning checks, or internal assessmen
 - Test pass, fail, boundary, and hidden-question cases.
 - Confirm score merge tags and confirmation content.
 - Review quiz result dashboard and entry data.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

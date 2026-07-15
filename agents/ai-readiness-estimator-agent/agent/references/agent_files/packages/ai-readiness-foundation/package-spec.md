@@ -123,3 +123,9 @@ Remains fixed-fee when:
 - Use `/packages/package-index.md` to confirm that this is the primary base package.
 - Consider add-ons only after the base package path is confirmed.
 - Keep the optional Yoast SEO Premium Training Session alongside, not instead of, the foundation package.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

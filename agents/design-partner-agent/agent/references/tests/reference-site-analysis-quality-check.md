@@ -13,3 +13,9 @@ Validate the reference-site-analysis package assets for structural completeness,
 - Guidance should stay anchored to the analysed site rather than drifting into generic advice.
 - Token guidance should prefer global foundational primitives before component-specific naming.
 - The validator may treat this file as optional when it is not staged, but should use it when it is present.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

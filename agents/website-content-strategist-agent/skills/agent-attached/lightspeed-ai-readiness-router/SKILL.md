@@ -140,3 +140,9 @@ For detailed stage routing, use `references/workflow-router.md`.
 - `references/workflow-router.md` for the stage decision tree and team-ready routing examples.
 - `references/client-project-pack-outputs.md` for combined pack structure and README conventions.
 - `references/proposal-line-items.md` for proposal and estimate line item framing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

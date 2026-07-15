@@ -56,3 +56,9 @@ The validator should fail when:
 Passing validation means the handoff artifact is structurally ready for the next workflow step.
 
 It does not guarantee that all business facts are correct. Source quality and human approval may still matter.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

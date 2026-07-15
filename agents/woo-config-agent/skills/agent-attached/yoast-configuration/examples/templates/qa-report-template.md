@@ -10,3 +10,9 @@
 - [ ] Check breadcrumbs and schema graph.
 - [ ] Check redirects and canonical alignment for migrations.
 - [ ] Record evidence and unresolved risks.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

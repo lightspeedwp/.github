@@ -118,3 +118,9 @@ include_copy_paste_sections: true
 2. `skill-intake-state.yaml`
 3. `lightspeed-conventions.md`
 4. `skill-factory-todos.md` only when the team genuinely wants deferred work tracked
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

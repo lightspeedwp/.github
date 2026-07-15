@@ -66,3 +66,9 @@ Before outputting issue drafts, check that each issue has:
 - clear out-of-scope notes
 - implementation guidance without overprescribing code
 - QA checks linked to the intended behaviour
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

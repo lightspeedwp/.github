@@ -48,3 +48,9 @@ Avoid claims such as:
 ## Example client-safe note
 
 The Tour Operator content model is in place for tours, destinations and accommodation. The next step is to verify how enquiry forms capture the selected tour or destination, then test notification routing so leads reach the right team reliably.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

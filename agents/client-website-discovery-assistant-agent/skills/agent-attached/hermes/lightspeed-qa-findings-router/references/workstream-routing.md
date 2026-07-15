@@ -44,3 +44,9 @@ Before recommending a related skill, state:
 2. what input that skill needs,
 3. what output LightSpeed should expect,
 4. whether the current evidence is enough or still incomplete.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

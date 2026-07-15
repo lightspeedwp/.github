@@ -27,3 +27,9 @@ A maintainer asks why the agent treats `memory/` as canonical instead of `memory
 - jumping straight to a redesign
 - treating speculative future folders as current reality
 - mixing audit findings and recommendations without separation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

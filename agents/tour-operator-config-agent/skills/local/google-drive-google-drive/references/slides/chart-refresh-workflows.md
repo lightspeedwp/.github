@@ -58,3 +58,9 @@ Use this guidance when the user asks to refresh, update, replace, or repair a ch
 - Verify both of these things before declaring success:
   - the chart graphic itself now matches the intended source chart
   - obsolete placeholder or instructional text is no longer visible unless the user asked to keep it
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

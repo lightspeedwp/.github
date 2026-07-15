@@ -22,3 +22,9 @@ Run these prompts in a safe workspace:
 ## Upgrade notes
 
 When updating, replace the whole skill package with the new `skill.zip`; do not patch individual files in production unless the workspace supports controlled skill versioning.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

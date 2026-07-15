@@ -164,3 +164,9 @@ Return the normalized brief in this structure unless the user requests another f
 - For comparisons, do not claim improvement or regression without comparable before/after evidence.
 - For WordPress diagnosis intake, flag likely areas to inspect, but do not present them as confirmed causes.
 - Prefer a usable partially-ready brief over a long intake questionnaire.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

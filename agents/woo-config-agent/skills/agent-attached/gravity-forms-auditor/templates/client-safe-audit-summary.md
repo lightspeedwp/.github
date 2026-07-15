@@ -61,3 +61,9 @@
 4. We provide a closure note.
 
 Do not include licence keys, API keys, private entry data, raw logs, internal connector details, or unredacted personal information in this summary.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

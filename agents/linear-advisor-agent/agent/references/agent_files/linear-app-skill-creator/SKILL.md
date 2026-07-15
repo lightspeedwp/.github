@@ -27,3 +27,9 @@ This skill is for writing other skills, especially skills that help with:
 5. Include realistic test prompts before packaging when the skill affects planning quality, workflow routing, customer interpretation, prioritisation, or status communication.
 6. Package complete updated skills as `skill.zip`, not partial patches.
 7. Preserve user-provided skill structure when updating an existing skill unless it is invalid or unsafe.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

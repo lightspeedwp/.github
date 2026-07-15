@@ -164,3 +164,9 @@ Do not let stored settings read like live validation.
 - {{label:pre-launch-qa-checklist.md,id:6a43bf0458fc81918ccb998fa22d5560,type:file}} — use when the implementation work is tied to launch or release readiness.
 - {{label:woocommerce-store-standard.md,id:6a43bf045878819189265bbfe9b9e2cb,type:file}} — use as the baseline for target-state WooCommerce expectations.
 - `references/implementation-plan-template.md` — use this internal template when the user needs a fuller structured delivery plan rather than a short summary.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

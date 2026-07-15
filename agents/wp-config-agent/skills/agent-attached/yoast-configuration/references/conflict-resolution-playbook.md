@@ -64,3 +64,9 @@ Escalate to client/SEO approval when:
 ## Maintenance
 
 Add recurring conflict patterns to `tests/audit-triage-scenario-tests.md` or `tests/configuration-scenario-tests.md` so future package updates retain the behaviour.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

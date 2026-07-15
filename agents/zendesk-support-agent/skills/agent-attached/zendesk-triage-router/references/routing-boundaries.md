@@ -72,3 +72,9 @@ The request needs broader Zendesk skill-network routing rather than first-pass t
 
 Select the correct Zendesk specialist workflow and sequence from the wider support skill network.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -49,3 +49,9 @@ Use this template for current open backlog or queue health reports. Omit empty s
 - Ticket details sampled:
 - Secondary sources used:
 - Missing evidence:
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

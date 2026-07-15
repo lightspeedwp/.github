@@ -863,3 +863,9 @@ Expected behaviour: Expected: stay in `gravity-forms-configuration`; run post-ch
 Prompt: "Use this `gravity-forms-auditor` handoff packet with `handoff_title`, `source_audit`, `findings_included`, `target_form_page_addon`, `proposed_remediation`, `required_mcp_capabilities`, `required_addons`, `approval_requirements`, `risk_level`, `validation_steps`, `rollback_notes`, and `suggested_configuration_prompt` to prepare remediation."
 
 Expected behaviour: Expected: stay in `gravity-forms-configuration`; validate or normalise the canonical packet against `schemas/auditor-handoff.schema.json`, preserve every finding ID, verify current site state through MCP where possible, treat missing fields as readiness gaps, and produce an approval-first change plan before any writes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

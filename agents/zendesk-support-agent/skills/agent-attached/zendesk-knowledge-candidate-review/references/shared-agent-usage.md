@@ -40,3 +40,9 @@ When adding examples to this skill or using it in demos:
 - Remove personal data, email addresses, subscription details, billing data, and private logs.
 - Avoid copying real Zendesk replies unless they are deliberately anonymised.
 - Mark examples as illustrative rather than evidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

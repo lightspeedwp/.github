@@ -60,17 +60,6 @@
 
 ---
 
-## Overall Outcome
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- [ ] Preference reuse works
-- [ ] Todo continuity works
-- [ ] Source-of-truth logic works
-- [ ] Memory judgment stays selective and durable
-
-**Overall result:** Pass / Fail
-
-**Follow-up actions:**  
-
-- \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
-- \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
-- \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

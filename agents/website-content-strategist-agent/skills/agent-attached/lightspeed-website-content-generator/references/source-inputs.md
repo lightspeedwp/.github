@@ -36,3 +36,9 @@ When a user uploads a zip or folder of content artefacts:
 3. Build or update the requested content.
 4. Include a source notes section.
 5. Do not claim that every file was approved unless stated.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

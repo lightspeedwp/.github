@@ -28,3 +28,9 @@ For every validation failure, capture:
 - suggested fix
 
 Treat failures in schemas, references, templates, examples, and memory as blockers for substantial downstream-facing artifacts until resolved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

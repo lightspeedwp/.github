@@ -43,3 +43,9 @@
 
 - Turn the highest-confidence findings into a bounded page or flow brief.
 - Validate the most important trust and clarity assumptions against a live surface or current design artefact before implementation handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

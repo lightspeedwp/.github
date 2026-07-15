@@ -44,3 +44,9 @@
 | `agent/templates/discovery-session-brief.md` | `/workspace/agent_files/templates/discovery-session-brief.md` | template | yes |  |
 | `agent/templates/field-definitions.md` | `/workspace/agent_files/templates/field-definitions.md` | template | yes |  |
 | `agent/templates/internal-discovery-pack.md` | `/workspace/agent_files/templates/internal-discovery-pack.md` | template | yes |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

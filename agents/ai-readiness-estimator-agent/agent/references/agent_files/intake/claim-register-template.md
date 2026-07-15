@@ -19,3 +19,7 @@ Use this register when intake introduces claims, sensitive assertions, or public
 High-risk or unsupported claims must not be used in final public-facing output until reviewed.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

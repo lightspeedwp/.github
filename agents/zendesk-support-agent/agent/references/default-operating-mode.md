@@ -150,3 +150,9 @@ A run is complete when the agent has produced one of the following:
 - use secondary apps just because they are available
 - update structured files without preserving their validation contracts
 - rewrite the instruction system without refreshing the snapshot and validation references
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

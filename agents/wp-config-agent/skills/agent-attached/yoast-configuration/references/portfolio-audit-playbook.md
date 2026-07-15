@@ -90,3 +90,9 @@ Use `templates/yoast-portfolio-audit-summary.md` for cross-site summaries. Inclu
 ## QA checks
 
 For each high-risk pattern, define one representative QA path and one retest sample per affected site type. Do not claim the pattern is fixed until rendered output or relevant live artefacts confirm the change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

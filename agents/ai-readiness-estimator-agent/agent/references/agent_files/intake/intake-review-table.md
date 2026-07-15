@@ -20,3 +20,9 @@ Use this table to review the active intake state before proceeding.
 - Mark each field as `confirmed`, `inferred`, `defaulted`, or `missing`.
 - Ask only about fields that are genuinely blocking.
 - Prefer extending an existing intake review table rather than creating a duplicate.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -36,3 +36,9 @@ Use a neighbouring skill instead when the user primarily asks for:
 - one customer/account brief: `zendesk-customer-research`
 - QA of an existing draft: `zendesk-evidence-quality-review`
 - first-pass severity or owner triage for a single case: `zendesk-triage-router`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

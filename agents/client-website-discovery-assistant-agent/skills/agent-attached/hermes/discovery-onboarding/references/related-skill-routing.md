@@ -48,3 +48,9 @@ Use this routing map when a request overlaps with website discovery but may belo
 - "Review this client-facing discovery summary before I send it" → `discovery-pack-review`, not onboarding.
 - "Audit the current hosting risks before migration" → `website-hosting-reviewer`, not onboarding unless client/site/goal is missing.
 - "Create GitHub issues from this discovery pack" → downstream delivery skill, not onboarding.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

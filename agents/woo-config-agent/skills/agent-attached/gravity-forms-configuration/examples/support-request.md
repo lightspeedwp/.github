@@ -25,3 +25,9 @@ Use for structured customer support intake where entries become support work, no
 - Do not request passwords, API keys, licence keys, payment details, or private access credentials.
 - Treat screenshots and uploads as potentially sensitive.
 - Record retention and access owner before launch.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

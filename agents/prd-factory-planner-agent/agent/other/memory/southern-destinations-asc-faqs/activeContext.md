@@ -43,3 +43,9 @@ Current project: FAQ architecture and content planning for African Safaris and S
 ## Recommended output mode
 
 Southern Destinations PRD update, then technical brief or preliminary estimate if approved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

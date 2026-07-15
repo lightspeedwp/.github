@@ -67,3 +67,9 @@ python render_docx.py /mnt/data/with_toc.docx --output_dir /mnt/data/out
 - **Fields not updated** → TOC and page numbers stale after edits.
 
 Tip: run `scripts/heading_audit.py` if you suspect heading-style issues.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

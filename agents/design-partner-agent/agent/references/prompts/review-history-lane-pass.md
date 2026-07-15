@@ -35,3 +35,9 @@ Keep review-history continuity consistent across memory guidance, the review-his
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep the visible review-history lane internally consistent across memory guidance, the review-history file, the entry template, and the related schema.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

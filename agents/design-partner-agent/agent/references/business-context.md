@@ -135,3 +135,9 @@ For task execution, prioritise the current request first, then attached referenc
 - Use research to challenge assumptions and strengthen recommendations when design intent conflicts with user evidence.
 - Use stakeholder input to understand priorities and constraints, but do not let unsupported preferences outweigh stronger design, implementation, or research evidence.
 - When sources conflict, explicitly call out the conflict and state which source is being prioritised for the current recommendation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -31,3 +31,9 @@ Use plain language: explain what data is missing, why the conclusion cannot be c
 ## Safe Fallback Reports
 
 Fallback safely to budget-use summaries, unbilled-hours views, readiness buckets, stale-project checks, or permission-limited action lists when money or team data is not available.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

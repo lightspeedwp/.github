@@ -56,3 +56,9 @@ Use evidence pack mode. Search for the tightest relevant ticket set, shortlist o
 - Supporting workflow: none
 - Note: if event-time proof becomes required, continue inside this skill's investigation mode before routing away
 - Immediate next action: Confirm ticket 73984 is the target and collect the smallest missing checkout identifiers before escalation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

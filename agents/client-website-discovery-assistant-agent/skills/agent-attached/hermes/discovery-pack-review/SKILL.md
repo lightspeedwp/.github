@@ -161,3 +161,9 @@ Default to a concise review report with these sections in order:
 - `Review this internal discovery pack for missing sections and classification mistakes.`
 - `Check whether this client-facing summary still leaks internal notes.`
 - `Audit this draft against the discovery templates and tell me what fields are still missing or unresolved.`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -83,3 +83,9 @@ python render_docx.py final_clean.docx --output_dir out_final_clean
 - Comments can be anchored in headers/footers too; always strip across all story parts.
 - Some docs include `commentsExtended.xml` (newer Word). This script removes it if present.
 - After stripping, render PNGs and verify nothing disappeared around comment anchors.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -29,3 +29,9 @@ Assess product discoverability, duplicate-content risk and product structured da
 ## Output expectations
 
 Include product page findings, product archive findings, schema findings, duplicate-content/canonical risks, evidence gaps, recommendations and owner route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

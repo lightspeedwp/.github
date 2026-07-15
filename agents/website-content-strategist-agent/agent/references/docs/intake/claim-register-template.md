@@ -276,24 +276,6 @@ Require or recommend a claim register when:
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/source-approval-register.md`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/memory-schema-template.yaml`
-
-This file answers:
-
-**Can this claim safely be used publicly, and what review does it need?**
-
-The related files answer:
-
-- what evidence was extracted
-- whether the source itself is approved
-- what boundaries or exclusions apply
-- whether broader risk review is required
-- what should or should not enter reusable Memory
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

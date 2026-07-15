@@ -40,3 +40,9 @@ Use this skill when the output must be clean, consistent, copy-ready Markdown an
 - `references/formatting-rules.md` — required formatting rules by output type.
 - `references/validation-checklist.md` — final validation pass checklist.
 - `assets/output-type-template-map.md` — quick map from output type to preferred template shape.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

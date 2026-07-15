@@ -36,3 +36,9 @@ python scripts/docx_ooxml_patch.py /mnt/data/some.docx \
 ## 5) Verify visually
 
 Use `tasks/verify_render.md` (DOCX → PNG) and inspect.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

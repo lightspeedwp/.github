@@ -46,3 +46,9 @@ Default sections:
 - Do not pretend architecture certainty that the source evidence does not support.
 - Use detailed reasoning without turning the brief into speculative design fiction.
 - Make technical unknowns explicit before suggesting delivery certainty.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

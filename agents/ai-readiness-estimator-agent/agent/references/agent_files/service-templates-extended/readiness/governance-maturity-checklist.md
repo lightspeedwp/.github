@@ -56,3 +56,9 @@ Assess each area on a scale of 0–3 (0 = Not present, 1 = Emerging, 2 = Develop
 ## Next Steps
 
 Summarise actions to improve governance maturity and assign owners.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

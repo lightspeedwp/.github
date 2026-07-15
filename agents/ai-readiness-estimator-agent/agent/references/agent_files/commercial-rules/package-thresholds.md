@@ -54,3 +54,9 @@ Need evidence that implementation or launch work already exists and the next nee
 ## Threshold Rule
 
 If the threshold for a package is not met, route to the more appropriate package, ask only for the missing values, or hold the recommendation as provisional.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

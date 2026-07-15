@@ -123,3 +123,9 @@ Default to Markdown-ready content.
 When file generation is available, create Markdown files and bundle them into a ZIP at the end of a full client project.
 
 If file generation is unavailable, provide the file list and complete Markdown content in clearly separated sections.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

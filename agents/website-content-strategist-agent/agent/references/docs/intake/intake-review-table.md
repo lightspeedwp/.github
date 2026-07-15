@@ -16,3 +16,9 @@ Use this table to review intake completeness before proceeding.
 | Timeline, urgency, risk, or approval | missing |  | no | yes |  |
 
 Proceed when at least 5 useful fields are populated and no blocking field remains unresolved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

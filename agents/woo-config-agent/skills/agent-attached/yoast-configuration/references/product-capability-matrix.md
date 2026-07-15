@@ -19,3 +19,9 @@ Use this matrix as a working structure. Before making current product claims, ve
 ## Allowed values
 
 Use `Included`, `Not included`, `Partial`, `Requires add-on`, `Requires manual configuration`, `Requires developer customisation`, or `Unclear from available sources` when producing the final matrix.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

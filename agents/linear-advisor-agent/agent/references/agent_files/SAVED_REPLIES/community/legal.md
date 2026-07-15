@@ -21,3 +21,9 @@ Thank you for your question regarding licensing or legal compliance.
 - If you need further clarification or have specific legal needs, please contact our maintainers directly.
 
 We appreciate your diligence in ensuring legal compliance!
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

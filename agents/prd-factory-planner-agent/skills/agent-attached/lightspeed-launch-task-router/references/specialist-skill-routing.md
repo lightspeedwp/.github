@@ -13,3 +13,9 @@
 | FAQ/chatbot sources | lightspeed-faq-and-chatbot-source-curator | Company FAQ, FAQ map, chatbot-safe register |
 | Memory updates | lightspeed-project-memory-manager | Updated memory bank and handoff notes |
 | Issue drafts | lightspeed-github-issue-drafter | GitHub-ready Markdown issue drafts |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

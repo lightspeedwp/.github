@@ -30,3 +30,9 @@ Use Advanced Post Creation only when installed and active. Map from standard/adv
 ## Handoff
 
 Send entries or generated draft posts to the editorial owner with a checklist covering spam, privacy, image rights, taxonomy, claims, and publish readiness.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

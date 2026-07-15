@@ -29,3 +29,9 @@ Address performance, speed, and Core Web Vitals work beyond what is included in 
 - Is speed a major concern today?
 - Are there any known slow templates or flows?
 - Is hosting part of the optimisation discussion?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

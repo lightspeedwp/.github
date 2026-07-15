@@ -71,3 +71,9 @@ Output:
 5. Any specific wording, examples, defaults, or outputs that should be replaced
 6. Any nearby maintenance files or references that should also be updated if the skill is changed
 7. A clear statement on whether the specified local skill is already suitable for this `WordPress Configuration Agent` or still needs adaptation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

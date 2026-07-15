@@ -19,3 +19,9 @@ Track successful Gravity Forms lead submissions as GA4 `generate_lead` events wh
 - Do not count button clicks as conversions unless separately labelled as attempted submissions.
 - Do not use `purchase` unless payment completion is confirmed.
 - Do not add Measurement Protocol secrets to documentation or chat output.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

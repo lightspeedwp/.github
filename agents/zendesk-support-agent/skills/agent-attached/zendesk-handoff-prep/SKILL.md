@@ -354,3 +354,9 @@ Clear internal handoff requests may invoke `zendesk-handoff-prep` directly. Uncl
 This specialist skill should not replace `zendesk-router-skill`. Use this skill for support-first internal handoff preparation only. If the next step is not an internal handoff or one obvious local boundary, return to `zendesk-router-skill` so the router can choose the correct Zendesk workflow.
 
 Do not assume Linear, GitHub, Asana, BugHerd, product planning, or roadmap work. If a downstream artefact is explicitly requested, prepare or confirm the Zendesk-first handoff evidence first, then return to the router unless the downstream target is already specified and the current evidence is sufficient.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

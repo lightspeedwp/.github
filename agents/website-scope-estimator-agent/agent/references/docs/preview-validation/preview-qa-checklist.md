@@ -130,3 +130,9 @@ For meaningful changes, test at least:
 2. one intake or routing prompt
 3. one draft-estimate or readiness-review prompt
 4. one second example context to check consistency across projects
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

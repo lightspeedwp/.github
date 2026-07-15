@@ -23,3 +23,9 @@ Use for a post-project, post-support, or post-purchase feedback form.
 - Submit with and without follow-up consent.
 - Check survey result view and entry export behaviour.
 - Confirm notifications do not expose sensitive feedback beyond approved recipients.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

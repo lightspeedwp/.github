@@ -23,3 +23,9 @@ Use this as a compact lookup when the request is ambiguous or when the router be
 - Add one supporting skill only when it improves evidence quality, safety, or sequencing.
 - Do not use broad project/product routing unless explicitly requested.
 - Do not perform the downstream workflow inside the router response.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

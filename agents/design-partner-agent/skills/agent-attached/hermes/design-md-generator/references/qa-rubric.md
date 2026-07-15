@@ -48,3 +48,9 @@ The skill is ready to package when it:
 - reports only the checks that actually ran;
 - uses canonical `DESIGN.md` headings and aliases rather than improvised section names;
 - supports validation through the official CLI in GitHub or local repo workflows.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

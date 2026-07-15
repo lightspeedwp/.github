@@ -123,3 +123,9 @@ If the user is unsure, default to complexity/risk for internal planning and hour
 ## Output stance
 
 Use UK English. Keep outputs practical, structured and ready to paste into Google Docs, GitHub or a Markdown project pack. Avoid over-specifying implementation before the PRD and technical brief are approved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

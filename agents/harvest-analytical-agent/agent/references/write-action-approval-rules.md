@@ -39,3 +39,9 @@ Do not make client-facing financial commitments or explanations from incomplete 
 ## Approval Wording
 
 Use: “I can do that, but this will change Harvest data. Please confirm you want me to proceed.”
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

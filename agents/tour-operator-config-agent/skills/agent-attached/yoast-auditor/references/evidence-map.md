@@ -24,3 +24,9 @@ Use MCP-safe reads and read-only SQL by default. Do not edit Yoast indexables, m
 ## Output expectations
 
 For each finding, identify evidence type, source, confidence, limitation and whether the next action is audit follow-up, `yoast-configuration`, content editing or developer handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

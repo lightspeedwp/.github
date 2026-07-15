@@ -17,3 +17,9 @@ Recommended response:
 ## Why
 
 A ticket ID alone is not evidence when connector access is unavailable. The smallest useful next action is to request the ticket extract, not to guess impact, urgency, owner, or next workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

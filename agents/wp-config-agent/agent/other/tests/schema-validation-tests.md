@@ -42,3 +42,9 @@ Use this file as the human-readable checklist for schema and structure validatio
 - no WooCommerce-only or tour-operator language should appear unless the agent scope is intentionally expanded later
 - Gravity Forms and Yoast SEO support assets should remain represented in the validation model
 - memory validation should stay aligned with WordPress project continuity rather than generic task storage
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -31,3 +31,9 @@ Choose metrics based on project type.
 - internal linking coverage
 
 Do not invent target numbers unless the user provides them. Suggest baseline-first measurement when data is missing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

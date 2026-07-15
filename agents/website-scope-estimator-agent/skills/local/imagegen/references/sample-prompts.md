@@ -471,3 +471,9 @@ Input images: Image 1: drawing
 Primary request: turn the drawing into a photorealistic image
 Constraints: preserve layout, proportions, and perspective; choose realistic materials and lighting; do not add new elements or text
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

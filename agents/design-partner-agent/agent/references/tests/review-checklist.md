@@ -17,3 +17,9 @@ Use this checklist when testing critique, audit, UX writing, or handoff outputs.
 - Were reusable defaults reused from `memory/project-defaults.md`?
 - Were unfinished items captured in `memory/todos.md` when needed?
 - Were completed reusable learnings summarized in `memory/review-history.md` when appropriate?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

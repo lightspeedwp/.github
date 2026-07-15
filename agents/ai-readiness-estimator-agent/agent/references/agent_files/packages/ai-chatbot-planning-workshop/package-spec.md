@@ -84,3 +84,9 @@ Remains fixed-fee when:
 - Use this before any chatbot implementation package when scope is not yet clear.
 - Gather values in batches and confirm only the missing items.
 - After the workshop, route to `AI Chatbot with AI Engine — Starter` or `AI Chatbot with AI Engine — Tailored`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

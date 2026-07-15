@@ -45,3 +45,9 @@ Each claim must be backed by evidence, reviewed, and approved before inclusion i
 - **Claims needing review:** {{claims.review_count}}
 - **Rejected claims:** {{claims.rejected_count}}
 - **Approved by:** {{approval.approved_by}}
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

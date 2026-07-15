@@ -121,3 +121,9 @@ Use the current attached inventory plus `references/SKILL_INVENTORY.md` and `ref
 ## Parity standard
 
 Do not claim full parity until every expected shared skill is either already attached or reattached as an exact workspace-shared match.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -179,3 +179,9 @@ If a safe GPT-5.5 upgrade requires any of those changes, mark the path as blocke
 - For specialized workflows, validate the contract that matters most instead of judging only general output quality.
 - If prompt edits were added, confirm each block is doing real work instead of adding noise.
 - If the workflow has downstream impact, add a lightweight verification pass before finalization.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

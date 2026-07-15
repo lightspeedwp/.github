@@ -38,3 +38,9 @@ Use sources in this order unless the test specifically requires a different path
 ## Example preview seed
 
 Use LSX Design System as the test project. Review the live site, demo environment, and supporting references first. Separate confirmed facts from assumptions, identify any missing routing inputs, recommend the best-fit base package, and note only the add-ons that materially apply.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

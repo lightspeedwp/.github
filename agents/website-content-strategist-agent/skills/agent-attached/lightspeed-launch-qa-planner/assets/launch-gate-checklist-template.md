@@ -10,3 +10,9 @@
 | Figma parity reviewed | Token and component parity report | Pending | Must Fix | TBD |  |
 | Schema validated | Schema validation output | Pending | Must Fix | TBD |  |
 | Lighthouse reviewed | PageSpeed/Lighthouse notes | Pending | Must Fix | TBD |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

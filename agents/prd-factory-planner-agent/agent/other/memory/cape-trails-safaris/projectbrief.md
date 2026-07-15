@@ -37,3 +37,9 @@ Phase 1 is a WordPress rebuild of a legacy tourism site into a modern block-them
 ## Key source links
 
 - Source: client discovery summary provided in chat on 2026-05-14.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

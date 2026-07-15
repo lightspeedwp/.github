@@ -51,3 +51,9 @@ Produce the output using this structure:
 - Use only grounded attached README files and the visible file tree.
 - Do not describe hidden or inferred files as present.
 - Prefer updating existing README files over creating overlapping new inventories.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

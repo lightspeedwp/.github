@@ -81,3 +81,9 @@ Documentation & Collaboration: `list_documents`, `get_document`, `search_documen
 - Tool Calling Errors: Confirm the model supports multiple tool calls, provide all required fields, and split complex requests.
 - Missing Data: Refresh token, verify workspace access, check for archived projects, and confirm correct team selection.
 - Performance: Remember Linear API rate limits; batch bulk operations, use specific filters, or cache frequent queries.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

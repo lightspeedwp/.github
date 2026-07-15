@@ -51,3 +51,9 @@
 - skills/platform-managed/system/skill-creator/assets/skill-creator.png; skills/platform-managed/system/plugin-creator/assets/plugin-creator.png
 - skills/plugin-provided/google-drive/google-drive/assets/google-drive.png; skills/plugin-provided/google-drive/google-drive/assets/app-icon.png
 - skills/plugin-provided/google-drive/google-drive/assets/google-drive-small.svg; skills/plugin-provided/google-drive/google-drive/assets/google-drive.svg
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

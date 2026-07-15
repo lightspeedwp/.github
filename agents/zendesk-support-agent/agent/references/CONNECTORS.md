@@ -74,3 +74,9 @@ This file is the concise attached-app map for the Zendesk Support Agent. Use it 
 - `references/default-operating-mode.md` should explain when this file is consulted during the default workflow.
 - If attached apps or app-role boundaries change, update this file, the app-usage matrix, and the instruction snapshot together.
 - Zendesk should remain the primary operating focus across instructions, references, templates, tests, and validators unless the user explicitly repurposes the agent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

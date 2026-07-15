@@ -80,3 +80,9 @@ Usage examples:
 - Do not imply that the GitHub app can replace `gh` for Actions log retrieval.
 - Treat non-GitHub Actions providers as report-only unless the user explicitly wants a separate investigation path.
 - If the failure is clearly unrelated to the local diff, say so before proposing code changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

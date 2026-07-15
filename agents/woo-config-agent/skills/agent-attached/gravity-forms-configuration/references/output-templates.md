@@ -29,3 +29,9 @@ Keep outputs concise and operational. Use tables only when they improve scanabil
 ## Customer-facing wording
 
 Only draft customer-facing wording when explicitly requested. Keep customer-facing copy separate from internal notes, and avoid unsupported commitments about delivery time, privacy, compliance, payments, availability, or integration behaviour.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

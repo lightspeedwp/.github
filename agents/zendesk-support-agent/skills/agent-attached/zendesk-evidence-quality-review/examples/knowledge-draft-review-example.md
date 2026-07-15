@@ -47,3 +47,9 @@ The issue and workaround are confirmed only for one customer. The cause, scope, 
 - Scope and exclusions are clear: No
 - Safe for public help centre: No
 - Better kept internal for now: Yes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

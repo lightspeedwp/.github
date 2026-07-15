@@ -74,3 +74,9 @@ When two findings are similar, prefer the one that:
 - Keep unresolved questions separate from confirmed problems.
 - Do not let visual polish feedback crowd out structural issues.
 - If the request asks for systematic coverage across a broader journey or compliance sweep, route to `audit`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -265,3 +265,9 @@ Use this file to answer feature-by-feature questions. It is a routing and QA ref
 - **Recommended QA:** check rendered source, relevant sitemap entries, robots/meta robots state, schema validation where relevant, and Search Console tools where applicable.
 - **Developer extension points:** verify in `references/developer-api-reference.md` before naming filters/actions.
 - **Sources:** source-register rows matching `Redirects` and related Yoast developer docs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

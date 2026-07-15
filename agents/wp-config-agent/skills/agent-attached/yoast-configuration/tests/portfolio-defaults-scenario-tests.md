@@ -65,3 +65,9 @@ Expected behaviour:
 - Produce an evidence-limited intake summary, not a full audit.
 - Request the smallest useful artefacts: product mix, settings export or representative rendered samples.
 - Offer a staged Level 1 portfolio triage route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -50,3 +50,9 @@ Validate that the agent’s routing guidance, skill references, and visible skil
 ## Deliverable
 
 Apply the smallest useful set of updates needed to make the agent’s skill routing and visible skill-directory references more internally consistent across instructions, attached skills, prompt notes, and any grounded skill package files.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

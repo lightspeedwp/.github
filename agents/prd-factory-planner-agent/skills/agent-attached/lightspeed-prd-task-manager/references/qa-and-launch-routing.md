@@ -31,3 +31,9 @@ The PRD Task Manager should create a planning-level QA section and then route sp
 - schema/AI discoverability QA
 - policy/governance QA
 - go/no-go gates
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

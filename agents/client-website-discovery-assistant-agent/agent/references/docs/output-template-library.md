@@ -62,3 +62,9 @@ The current templates also use `{{design_brand_ux}}` and `{{seo_analytics_market
 - Keep unknown fields unresolved instead of inventing values.
 - Preserve the distinction between confirmed facts, assumptions, inferred observations, open questions, and internal notes.
 - For partial requests, return only the relevant sections of the chosen template.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

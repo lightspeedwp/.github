@@ -17,3 +17,9 @@ Expected output: fast audit snapshot or compressed page-level review. Findings m
 Input: "Quickly audit this new site and tell me the defaults to set up."
 
 Expected output: fast audit or evidence gap first, then route setup/defaults to `woocommerce-yoast-configuration`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

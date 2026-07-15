@@ -25,3 +25,9 @@ Use this file when Gravity Forms supports WooCommerce product enquiry, quote req
 - Verify notification and confirmation copy.
 - Check mobile product page embed behaviour.
 - For payment/deposit flows, route to configuration with sandbox validation requirements.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

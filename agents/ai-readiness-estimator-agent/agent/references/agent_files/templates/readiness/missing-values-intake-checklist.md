@@ -108,3 +108,7 @@ Example:
 > To make this estimate reliable, I still need the website URL, the platform, and whether the immediate goal is audit-only or implementation planning.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

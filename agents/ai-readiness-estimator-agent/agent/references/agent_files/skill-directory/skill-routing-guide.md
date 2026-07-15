@@ -348,3 +348,9 @@ When several skills seem relevant, prefer this order:
 ## Boundary Rule
 
 If a request does not clearly fit one skill, do not guess. Ask one narrow clarifying question or handle the request in the main estimator workflow without forcing a skill route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

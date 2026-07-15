@@ -176,3 +176,9 @@ For complex financial models, DCFs, 3-statement models, scenario/sensitivity mod
    2. checks show `OK` or clearly explain any limitation.
    3. all user-facing sheets are visually inspected and content is visible - fix any clipped labels, source notes, formulas, or important outputs before returning the workbook.
    4. additional audit pass was successful and high-priority issues were fixed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

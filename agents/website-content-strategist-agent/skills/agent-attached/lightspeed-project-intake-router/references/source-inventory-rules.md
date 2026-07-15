@@ -29,3 +29,9 @@ Use this table structure.
 - Evidence Required: claim or decision needs proof.
 - Missing: not supplied.
 - Blocker: required before the next stage can proceed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -73,3 +73,9 @@ End with one of:
 - Ready for implementation planning.
 - Partially ready; verify listed gaps first.
 - Not ready; resolve blocking evidence gaps first.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

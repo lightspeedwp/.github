@@ -139,3 +139,9 @@ At the end, verify:
 - placeholders, sample copy, and other inherited scaffolding have been populated or intentionally removed
 - when editing or following an existing deck, newly created objects match the selected pattern and do not bypass suitable existing slots
 - when adapting source material, source-to-destination checks account for text, images, charts, tables, links, media, and speaker notes without silent shortening
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -29,3 +29,9 @@ Every client-facing audit, launch, migration, WooCommerce or schema template mus
 Input: "Check template contract after editing templates."
 
 Expected output: list each checked template, pass/fail status, missing required fields, and any score/client-safe wording gaps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

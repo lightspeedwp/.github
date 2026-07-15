@@ -70,3 +70,9 @@ Prefer wording like:
 > This is not ready for an engineering/product handoff. The blocker is the missing reproduction context. Recommend `zendesk-evidence-collector` to collect the checkout URL, timestamp, observed behaviour, expected behaviour, and one screenshot before routing further.
 >
 > The next workflow is broader than readiness. Return this to `zendesk-router-skill` for routing rather than choosing a specialist here.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

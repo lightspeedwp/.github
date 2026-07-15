@@ -42,3 +42,9 @@ python render_docx.py protected.docx --output_dir out_protected
 - Protection is enforced by Word; some viewers may ignore it.
 - Password protection is intentionally not implemented (high complexity, low ROI).
 - Some docs may not have `word/settings.xml`; this helper creates it.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

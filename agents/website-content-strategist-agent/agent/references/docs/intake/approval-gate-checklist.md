@@ -224,31 +224,6 @@ When limits exist:
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/source-approval-register.md`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/blocking-gaps-checklist.md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/project-memory-summary.md`
-- `docs/intake/handoff-output-template.md`
-
-This file answers:
-
-**What is the final readiness boundary for approval and use?**
-
-The related files answer:
-
-- whether the source is approved
-- what evidence was extracted
-- what is excluded
-- which claims need review
-- whether risk review is complete
-- which gaps still block readiness
-- what can safely move into Memory
-- how the approved output should be handed off
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

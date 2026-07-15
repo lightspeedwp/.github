@@ -92,12 +92,6 @@ Then place the H1 below it:
 
 ---
 
-## Quality rules
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- Keep each row concise and actionable.
-- Do not create vague gaps like "Need more detail" without naming the exact missing detail.
-- Separate unsupported claims from true unknowns.
-- Prioritise by proposal risk, not by section order alone.
-- If multiple gaps belong to the same owner, keep them separate unless the same answer resolves them together.
-- Place frontmatter above the H1 whenever this is a substantial standalone Markdown deliverable.
-- End the surrounding substantial document with a final `---` divider.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

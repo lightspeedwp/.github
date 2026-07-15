@@ -62,3 +62,9 @@ Run a keyboard-only submission, forced validation error, mobile viewport test, c
 ## Version-specific accessibility caveat
 
 Gravity Forms documentation currently groups 3.0 under a beta category and describes accessibility-by-default and International Phone improvements there. Treat those improvements as version-specific. For existing 2.x sites, continue to verify form settings, theme output, labels, descriptions, error states, focus styles, and contrast rather than assuming 3.0 defaults exist.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

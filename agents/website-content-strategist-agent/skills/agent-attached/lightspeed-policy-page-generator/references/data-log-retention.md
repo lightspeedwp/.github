@@ -27,3 +27,9 @@ Use this reference to create decision logs for forms, analytics, AI tools and ch
 - Approved internally
 - Legal/privacy review required
 - Ready for implementation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

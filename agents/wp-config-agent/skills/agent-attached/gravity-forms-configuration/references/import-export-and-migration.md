@@ -74,3 +74,9 @@ Stop and ask for approval before continuing when:
 - The target is production and no rollback/export exists.
 - The form collects files, sensitive personal data, or account credentials.
 - The user asks to delete the old form or entries after migration.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

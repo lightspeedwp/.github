@@ -64,3 +64,9 @@ Output:
 4. Exact revised content for each updated or newly created README
 5. Any nearby maintenance or validation notes also updated
 6. Any remaining structural ambiguities or missing documentation still worth addressing
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -42,3 +42,9 @@ Keep shared-agent configuration in the agent setup, not inside this skill, unles
 - preferred report headings
 
 Do not store live customer issue details, one-off ticket findings, or temporary backlog counts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -63,3 +63,9 @@ Avoid replacing every meaningful detail with vague text. A useful redacted suppo
 - what the safe next step is
 
 If redaction makes the support scenario impossible to understand, rewrite the scenario as synthetic data instead of preserving the original thread structure.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

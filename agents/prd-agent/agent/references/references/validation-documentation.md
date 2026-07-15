@@ -72,3 +72,9 @@ The scaffold also still lacks:
 ## Implementation rule
 
 Do not claim automated validation where only documentation and fixtures exist. When a check is still documentary or planned rather than executable, say so clearly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

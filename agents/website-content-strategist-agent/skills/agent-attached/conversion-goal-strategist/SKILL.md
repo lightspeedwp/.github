@@ -134,3 +134,9 @@ Return these sections when relevant:
 - `references/conversion-goal-intake-checklist.md` — minimum and follow-up intake fields.
 - `references/conversion-goal-options.md` — compact option menus to present when the user is unsure.
 - `references/conversion-goal-scenario-defaults.md` — suggested starting defaults by common site scenario.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -52,3 +52,9 @@ Only suggest guidance supported by the supplied evidence.
 - Scope and exclusions are clear: Yes/No
 - Safe for public help centre: Yes/No
 - Better kept internal for now: Yes/No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -21,3 +21,9 @@
 | `skills/platform-managed/skill-installer/scripts/github_utils.py` | line 13 | token-like value | `[REDACTED_TOKEN]` |
 | `skills/plugin-provided/figma/figma-code-connect/references/api.md` | line 551 | token-like value | `[REDACTED_TOKEN]` |
 | `skills/plugin-provided/figma/figma-code-connect/references/api.md` | line 556 | token-like value | `[REDACTED_TOKEN]` |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

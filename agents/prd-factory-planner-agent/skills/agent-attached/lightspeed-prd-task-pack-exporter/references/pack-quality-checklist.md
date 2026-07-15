@@ -12,3 +12,9 @@ Before finalising a project pack, check:
 - GitHub issue drafts are not auto-created.
 - Launch routing is included where relevant.
 - Memory bank files are present where requested.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

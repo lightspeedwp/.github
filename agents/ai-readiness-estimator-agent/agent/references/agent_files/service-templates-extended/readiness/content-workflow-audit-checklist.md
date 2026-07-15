@@ -49,3 +49,9 @@ Use this checklist to evaluate the current state of content assets and workflows
 
 Summarise key observations, issues, and opportunities identified during the audit.  
 Identify any dependencies or blockers for AI adoption related to content and workflows.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

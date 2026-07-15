@@ -33,3 +33,9 @@ Route admin entries to the campaign owner. Include entry source and opt-in state
 - Confirm entries record required consent.
 - Confirm marketing feed does not run without opt-in.
 - Confirm retention and export/erase stance is documented.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

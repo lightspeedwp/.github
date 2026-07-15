@@ -24,3 +24,9 @@ Before using Harvest tools in a report workflow, inspect the available tool set 
 - Do not invent unsupported tools.
 - Record permission-related gaps.
 - Track draft-invoice capability separately from invoice review and sending.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

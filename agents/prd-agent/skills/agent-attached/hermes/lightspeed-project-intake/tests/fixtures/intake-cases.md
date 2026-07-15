@@ -4,3 +4,9 @@
 2. Weak evidence should be marked as assumptions, not facts.
 3. Unapproved or excluded material should remain visible as excluded sources.
 4. The next skill should reflect the strongest unresolved need.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -40,3 +40,9 @@ Upload the LightSpeed skill ZIPs created for:
 ## Notes
 
 The agent should treat uploaded skill ZIPs as reference material unless installed as active skills. If a specialist skill is not active, the agent should still use the knowledge pack to generate prompt starters and route the next step.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

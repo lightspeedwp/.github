@@ -24,3 +24,9 @@ Use the format that best fits the task:
 | Analytics | event fires with correct parameters |
 | Redirects | old URL returns correct 301 and new URL works |
 | Schema | structured data validates and content is visible |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

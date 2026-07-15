@@ -69,3 +69,9 @@ Route this Zendesk support request. The shared agent may not have Zendesk access
 ```
 
 Expected behaviour: recommend a support workflow or ask for the smallest useful pasted evidence extract without assuming private connector access.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

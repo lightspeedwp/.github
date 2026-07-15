@@ -46,3 +46,9 @@ Deliverable format:
 - Treat actual attached schema files as canonical.
 - Prefer tightening documentation over inventing missing schema assets.
 - Keep this pass focused on schema coverage and schema-alignment guidance.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -12,3 +12,9 @@
 | Scope boundaries |  | missing |  | confirm_before_save |  |
 | Exclusions |  | missing |  | save_if_user_confirms |  |
 | Timing / risk / approvals |  | missing |  | do_not_save_without_review |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

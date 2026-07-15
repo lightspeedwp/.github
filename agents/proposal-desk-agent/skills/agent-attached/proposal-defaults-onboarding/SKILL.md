@@ -61,3 +61,9 @@ Confirm only the defaults that materially affect the current task, then continue
 ## Supporting Files
 
 - `references/onboarding-contract.yaml`: Read this first to decide when onboarding should run, which default is required, which preferences are optional, and when to skip onboarding.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

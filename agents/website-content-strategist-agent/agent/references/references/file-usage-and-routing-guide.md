@@ -37,3 +37,9 @@ Explain what belongs in the current maintenance file set and when to use each re
 - Prefer one clear file per purpose.
 - Update an existing file that already owns a purpose before creating a new overlapping file.
 - Keep routing guidance grounded in the current draft rather than an assumed larger file system.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

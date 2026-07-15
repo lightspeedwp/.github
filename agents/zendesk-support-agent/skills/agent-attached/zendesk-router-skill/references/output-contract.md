@@ -24,3 +24,9 @@ The router must return exactly four fields unless it needs one focused ambiguity
 - Do not list many possible routes.
 - Do not perform triage, evidence collection, reply drafting, escalation writing, handoff drafting, knowledge creation, or trend analysis inside the router output.
 - Do not route to Linear, GitHub, Asana, product, roadmap, or project workflows unless explicitly requested.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

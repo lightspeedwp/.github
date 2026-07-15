@@ -110,3 +110,9 @@ Keep the intake handoff compact. Do not start drafting full proposal answers unl
 - Prefer practical routing guidance over exhaustive document transcription.
 - Separate factual requirements from assumptions.
 - Make it obvious what can proceed now versus what needs more input.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

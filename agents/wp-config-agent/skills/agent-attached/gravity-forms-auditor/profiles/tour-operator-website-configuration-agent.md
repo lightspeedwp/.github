@@ -21,3 +21,9 @@ Route booking engine architecture, live availability, payment/refund/cancellatio
 ## Client-safe boundary
 
 Avoid exposing traveller personal data, budget details, health/accessibility details, passport/document information, or internal CRM routing in client-safe summaries.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

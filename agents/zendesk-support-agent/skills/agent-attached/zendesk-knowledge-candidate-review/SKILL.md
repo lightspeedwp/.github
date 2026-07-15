@@ -303,3 +303,9 @@ Do not convert a documentation gap into product, roadmap, Linear, GitHub, Asana,
 ## Recommended parent-agent routing note
 
 For Zendesk-centred cases, repeated questions, reused workarounds, known issues, or Help Centre gaps, use `zendesk-knowledge-candidate-review` before drafting documentation when suitability is uncertain. The skill should decide whether to create a new article, update an existing article, keep the guidance internal-only, or wait because evidence is unstable. Route directly only to the common adjacent handoffs named in this skill. Return to `zendesk-router-skill` for broader Zendesk workflow selection or uncertain routing. Do not route to Linear or product planning by default.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -7,3 +7,9 @@
 - preferred_detail_level: Concise but decision-useful.
 - preferred_report_scope: Focus on current backlog risk first, then repeated themes.
 - preferred_example_ticket_rule: Include examples only when they materially clarify the pattern.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -34,3 +34,9 @@ Outputs should state which source level is driving the decision and explicitly c
 - memory/user-preferences.md
 - references/prd-to-test-case-workflow.md
 - tests/schema-validation-tests.md
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

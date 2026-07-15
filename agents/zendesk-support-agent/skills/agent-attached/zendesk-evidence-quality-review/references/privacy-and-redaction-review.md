@@ -127,3 +127,9 @@ Classify privacy findings as:
 - `low`: minor over-specificity, unnecessary ticket IDs, redundant personal references, or wording that could be safely generalised.
 
 If a high-risk privacy issue appears in customer-facing text, the artefact is not safe to send as-is.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

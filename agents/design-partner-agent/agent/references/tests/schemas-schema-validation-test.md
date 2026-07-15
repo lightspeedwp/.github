@@ -33,3 +33,9 @@ Use this test when checking whether files in `schemas/` remain internally consis
 - Required fields missing from the schema
 - Property names that do not map cleanly to related templates or examples
 - Schemas that have drifted away from the agent's current workflow assets
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

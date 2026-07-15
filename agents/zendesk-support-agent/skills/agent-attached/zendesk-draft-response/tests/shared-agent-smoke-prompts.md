@@ -64,3 +64,9 @@ Use the Zendesk Draft Response skill. We have a vague Zendesk issue summary, pos
 ```
 
 Expected outcome: returns to `zendesk-router-skill`; does not draft a reply and does not present a broad menu of Zendesk skills.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -331,3 +331,9 @@ The current route remains provisionally valid, but it is not ready for final tre
 ### Next Handoff
 
 Present only as provisional after removing the internal note, then collect the two blocking values before finalizing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

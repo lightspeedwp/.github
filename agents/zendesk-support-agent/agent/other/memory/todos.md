@@ -21,3 +21,9 @@ Keep only unfinished, user-relevant follow-up work that should survive across fu
 ## Active items
 
 *None currently. Add items only when there is real follow-up work worth carrying across runs.*
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -42,3 +42,9 @@
 - Create a project intake and source-inventory starter pack from the current brief.
 - Ask only the minimum next-round questions needed to confirm owners, sources, approvals, baseline performance and launch intent.
 - Follow that with a lightweight readiness and governance discovery pass before any chatbot recommendation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

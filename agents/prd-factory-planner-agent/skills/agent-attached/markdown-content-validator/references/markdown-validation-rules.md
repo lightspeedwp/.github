@@ -44,3 +44,9 @@ Treat these as optional improvements:
 Keep the validator practical. Do not force every style preference into a hard failure.
 
 If the project already has documented markdown rules, adapt the warning and suggestion thresholds before introducing stricter blocking rules.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

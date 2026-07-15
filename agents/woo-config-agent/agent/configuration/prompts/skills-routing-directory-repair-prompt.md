@@ -94,3 +94,9 @@ Deliverable format:
 - Treat the current attached local skills as canonical even if older validation notes disagree.
 - Prefer exact, file-specific repairs over broad rewrites.
 - Keep the repair pass scoped to routing and skills-directory alignment unless a new blocking consistency issue is discovered.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

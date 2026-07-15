@@ -59,3 +59,9 @@ Avoid these:
 - "Use Linear" because the ticket mentions a bug.
 - "Ask the customer for everything again" when Zendesk already contains enough evidence for the next step.
 - "Route to all relevant skills" instead of selecting the immediate primary workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

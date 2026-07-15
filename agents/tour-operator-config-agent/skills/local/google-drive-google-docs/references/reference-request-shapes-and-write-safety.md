@@ -140,3 +140,9 @@ Before destructive writes:
 13. If a connector path looks fragile, prefer the smallest connector write that preserves exact target identity and supports immediate readback verification.
 14. A markdown draft, shadow section, or externalized answer set is not an acceptable substitute for filling the intended existing table unless the user explicitly approves that substitution.
 15. Do not let the absence of an obvious convenience wrapper stand in for connector capability detection. If the session exposes connector tools, use them directly or verify their availability explicitly. This blind plugin has no browser-only editing fallback.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

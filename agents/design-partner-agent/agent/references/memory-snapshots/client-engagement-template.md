@@ -78,9 +78,6 @@ Copy the template below into `memory/project-defaults.md` when a client or proje
 
 ---
 
-## Usage notes
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- Use this as a template, not as a live memory log.
-- Save only confirmed recurring patterns.
-- Keep active unresolved tasks in `memory/todos.md`.
-- Keep completed work continuity in `memory/review-history.md`.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -142,3 +142,9 @@ If a skill package cannot be fully inspected in the current session, say that pl
 4. List any direct fixes made.
 5. State whether any local or draft skill still needs attach or draft-to-live follow-through.
 6. State which checks were run and whether they passed or failed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

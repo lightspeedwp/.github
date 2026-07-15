@@ -39,3 +39,9 @@ Do not reference:
 - unattached Tour Operator specialist skill names presented as current attached routes
 - wording that treats an unattached Tour Operator specialist route as if it currently owns the main workflow
 - attached-skill inventory records as proof that a skill package was readable in the current session
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

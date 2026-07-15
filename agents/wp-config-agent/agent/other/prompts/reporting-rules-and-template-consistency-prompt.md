@@ -42,3 +42,9 @@ Output:
 3. Reporting/template/example inconsistencies found
 4. Any recurring reporting structure tightened
 5. Any remaining non-blocking ambiguity
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

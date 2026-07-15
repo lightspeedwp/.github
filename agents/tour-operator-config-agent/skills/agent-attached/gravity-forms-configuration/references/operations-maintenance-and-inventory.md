@@ -84,3 +84,9 @@ Use these defaults unless site evidence says otherwise:
 ## Output requirements
 
 Use `templates/form-inventory-audit.md` for inventory output. Use `templates/handoff-note.md` when passing maintenance actions to support, WordPress config, WooCommerce config, tour operator config, or server operations.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

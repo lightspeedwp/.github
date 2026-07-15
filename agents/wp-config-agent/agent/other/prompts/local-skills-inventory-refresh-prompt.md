@@ -53,3 +53,9 @@ Output:
 4. Any local skill inventory ambiguities found
 5. Any additional lightweight validation checks recommended
 6. A clear statement on whether the local skill inventory is now aligned across the agent’s maintenance layer
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

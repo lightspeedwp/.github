@@ -41,3 +41,9 @@ Before writing, determine the context and apply the matching tone:
 - This is system and product copy, not brand campaign copy.
 - Include edge-case strings when a state change, failure mode, or permission boundary is involved.
 - Flag localization or legal risks when wording depends on them.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

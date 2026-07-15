@@ -114,3 +114,9 @@ Recommend specialist skills when needed:
 ## Quality standard
 
 Use UK English. Be practical, specific and developer-friendly. Prioritise maintainable WordPress architecture, block-first editing, accessibility, performance, minimal dependency load and clear handoff notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

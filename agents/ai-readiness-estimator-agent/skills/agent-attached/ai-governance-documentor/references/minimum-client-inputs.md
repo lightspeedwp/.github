@@ -31,3 +31,9 @@ Ask these if details are missing:
 8. Will the website or chatbot collect personal information?
 9. Who handles errors, complaints or unsafe answers?
 10. How often should the governance rules be reviewed?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

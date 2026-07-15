@@ -23,3 +23,9 @@
 ## Policy source
 
 Use `references/agent-memory-policy.md` as the source of truth for what memory may store, what it must not store, how memory supports future runs, and when related schemas or examples must be updated together.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

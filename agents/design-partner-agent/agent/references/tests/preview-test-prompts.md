@@ -11,3 +11,9 @@ Use these prompts when testing the agent in preview.
 - Turn approved design direction into a WordPress-ready handoff.
 - Compare design intent with implementation reality and produce a parity audit summary.
 - Create a launch QA planning pack from approved artifacts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

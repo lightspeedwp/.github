@@ -49,3 +49,9 @@ Use these tests to confirm `yoast-configuration` routes live audit/edit work to 
 **Expected route:** Route live verification/edit to `yoast-auditor` or current live verification.
 
 **Expected output:** No invented UI path. Include handoff fields and QA checks.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

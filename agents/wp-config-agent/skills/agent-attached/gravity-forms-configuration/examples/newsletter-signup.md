@@ -23,3 +23,9 @@ Use this as a lightweight Gravity Forms pattern for consent-based newsletter cap
 - Confirm entry creation.
 - Confirm admin notification.
 - Confirm list feed only on staging/test list before production sync.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

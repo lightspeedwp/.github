@@ -77,3 +77,9 @@ Do not:
 - `schemas/status-report.schema.json` — status output shape.
 - `examples/status-reports.md` — example outputs.
 - `tests/fixtures/status-cases.md` — manual validation cases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

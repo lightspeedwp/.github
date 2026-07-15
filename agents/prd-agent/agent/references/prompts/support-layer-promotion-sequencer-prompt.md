@@ -69,3 +69,9 @@ Return:
 - when support-layer skills uploaded successfully but failed to attach
 - when the draft already has a large helper-skill layer
 - when you want the smallest reliable path to make the new support skills live in the current agent draft
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

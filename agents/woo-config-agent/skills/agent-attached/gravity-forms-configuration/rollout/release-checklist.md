@@ -100,3 +100,9 @@
 - Donation and paid event example configs pass local validation.
 - Test prompts cover sandbox, receipts, refunds, recurring payments and multiple payment feeds.
 - [x] Auditor handoff compatibility checked: canonical v0.2.1+ fields and legacy fields both validate; configuration still requires MCP verification and approval-first change planning.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

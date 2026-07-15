@@ -64,3 +64,9 @@ Require explicit approval before write operations that affect production pages, 
 The MCP tools specification describes tools as discoverable operations with input schemas and recommends human confirmation for sensitive operations. In this skill, that means Gravity Forms actions must be discovered and schema-mapped before use, and high-risk writes must remain approval-gated even when the MCP server exposes a matching tool.
 
 If the MCP server exposes Gravity Forms state as resources rather than tools, read those resources as evidence and still use tool discovery for writes. Do not assume a resource can be mutated.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

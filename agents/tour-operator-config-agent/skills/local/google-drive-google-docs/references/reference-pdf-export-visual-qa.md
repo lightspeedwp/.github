@@ -66,3 +66,9 @@ Use precise language:
 - Good: "Connector readback passed, but PDF-export visual QA was unavailable, so rendered page fit was not verified."
 - Bad: "The Google Doc looks good" when only connector metadata was checked.
 - Bad: "The document was visually verified" when only a thumbnail or HTML export was checked.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

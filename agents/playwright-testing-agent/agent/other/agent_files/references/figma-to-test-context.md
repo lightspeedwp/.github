@@ -28,3 +28,9 @@ Outputs should summarise the useful Figma evidence for QA planning, highlight br
 - templates/requirements-traceability-template.md
 - examples/figma-context-example.md
 - fixtures/sample-figma-context.md
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

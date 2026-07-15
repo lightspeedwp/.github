@@ -87,3 +87,9 @@ Use for safari/tour enquiries, itinerary planning, multi-step lead forms, travel
 ## Handoff timing
 
 Create a handoff after any applied change, after a failed validation that needs another owner, before escalation, or when a configuration plan is approved but implementation will be done by another teammate.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

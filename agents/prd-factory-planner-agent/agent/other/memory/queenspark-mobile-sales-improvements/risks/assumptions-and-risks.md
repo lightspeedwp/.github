@@ -28,3 +28,7 @@ status: "draft"
 - RFP security, POPIA, PCI-DSS, uptime and P1/P2 SLA requirements require specialist operational, legal/privacy and support feasibility review before contract commitment.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

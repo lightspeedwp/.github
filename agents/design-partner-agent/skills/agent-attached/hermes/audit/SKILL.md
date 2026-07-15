@@ -65,3 +65,9 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing accessibi
 - Use `audit` when the request asks for broader coverage across a surface, multi-step flow, feature area, journey, or compliance sweep.
 - Treat accessibility in `audit` as systematic accessibility assessment, not ownership of all accessibility-related feedback.
 - If the request is really about one screen, modal, component, or bounded state set, route to `critique` even if the review lens is accessibility.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

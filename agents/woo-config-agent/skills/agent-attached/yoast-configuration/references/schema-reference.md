@@ -287,3 +287,9 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 - **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
 - **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
 - **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

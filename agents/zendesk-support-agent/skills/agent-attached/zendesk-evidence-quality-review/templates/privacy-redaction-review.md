@@ -36,3 +36,9 @@ List anything that can remain in an internal handoff but must not appear in cust
 - Separates customer-facing and internal-only information: Yes/No
 - Avoids asking for unnecessary sensitive data: Yes/No
 - Safe to share externally as-is: Yes/No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

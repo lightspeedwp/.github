@@ -30,3 +30,9 @@ Check whether Figma design-system intent is implemented correctly in WordPress.
 - screenshots of staging implementation
 - WordPress editor screenshots
 - frontend screenshots at desktop, tablet and mobile
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -271,3 +271,9 @@ When using a template:
 - do not force template headings into the final output when the request already provides a structure
 - use the template to shape priorities, not to fabricate evidence
 - flag audience-specific risks and missing inputs in the gap tracker and review summary
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

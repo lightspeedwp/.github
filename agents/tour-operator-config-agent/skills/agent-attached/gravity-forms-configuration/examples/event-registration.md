@@ -24,3 +24,9 @@ Use for simple event interest or attendance registration where WooCommerce ticke
 - Do not use as a full ticketing/seat-allocation system unless scoped and approved.
 - Avoid collecting unnecessary health or identity data.
 - If payments are involved, use the payment feed risk workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

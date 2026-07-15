@@ -595,3 +595,9 @@
 | skills/plugin-provided/slack/slack/assets/slack-small.svg | /root/.codex/plugins/cache/openai-marketplace/slack/local/skills/slack/assets/slack-small.svg | file | yes |  |
 | skills/plugin-provided/slack/slack/assets/slack.png | /root/.codex/plugins/cache/openai-marketplace/slack/local/skills/slack/assets/slack.png | file | yes |  |
 | skills/plugin-provided/slack/slack/references/markdown.md | /root/.codex/plugins/cache/openai-marketplace/slack/local/skills/slack/references/markdown.md | file | yes |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -29,3 +29,9 @@ One active project is already in the concern range and needs PM review before th
 - Budget rules: Concern starts at 90%.
 - Missing data: No future scheduled work data.
 - Confidence: High.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

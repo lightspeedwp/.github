@@ -35,3 +35,9 @@ Keep the maintenance prompt library easy to navigate by ensuring visible prompts
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep the visible maintenance prompt library internally consistent across prompt files, prompt-router files, and the prompts README.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -14,3 +14,9 @@ The planning request includes multiple sources that disagree on scope, prioritie
 ## Expected use
 
 Use this fixture to test evidence-discipline, contradiction handling, confidence control, and refusal to overstate planning certainty when source conflicts remain unresolved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -29,3 +29,9 @@ Outputs should name the relevant validation commands, report failures clearly, a
 - scripts/validate-folder-schemas.sh
 - scripts/validate-agent-pack.py
 - scripts/validate-markdown-structure.py
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

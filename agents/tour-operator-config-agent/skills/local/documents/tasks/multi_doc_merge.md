@@ -37,3 +37,9 @@ python render_docx.py merged.docx --output_dir out_merged
 - If `append.docx` contains images or embedded objects, merging body XML alone is **not sufficient** unless you also merge relationships and binary parts. This script defaults to **refusing** drawings unless `--allow_drawings` is set.
 - If styles/numbers in `append.docx` rely on definitions absent from `base.docx`, Word may substitute defaults.
 - If either document contains tracked changes or comments, merge first *then* run the tracked-changes / comments tasks.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

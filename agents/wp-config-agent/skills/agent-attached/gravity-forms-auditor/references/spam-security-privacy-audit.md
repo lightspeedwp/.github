@@ -29,3 +29,9 @@
 ## LightSpeed recommendations
 
 Label these as LightSpeed recommendations unless official docs require them: minimise external services, use domain-aligned From addresses, avoid full personal data in email, prefer clear retention policy, and keep logs temporary and redacted.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -57,3 +57,9 @@ Expected behaviour:
 - Mark the claim as contradicted or needs live verification.
 - Recommend the smallest verification action.
 - Do not update the capability matrix as confirmed until resolved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

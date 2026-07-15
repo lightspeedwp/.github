@@ -74,3 +74,9 @@ Avoid names that include personal emails, private customer names, raw Zendesk su
 During normal reporting, the skill should use the active Zendesk evidence first. The capability profile is a guardrail, not a substitute for live evidence.
 
 If the live environment exposes less than the profile says, the report must state the live limitation and downgrade confidence. Do not force the report to match the profile.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

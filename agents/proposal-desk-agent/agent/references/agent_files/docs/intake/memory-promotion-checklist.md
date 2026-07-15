@@ -16,3 +16,9 @@ Do not promote values that are inferred, speculative, high-risk, approval-sensit
 - Keep questionnaire source picks as current-run context unless the user confirms they are a standing preference.
 - Save source links, approved source lists, and reusable exclusions only after confirmation.
 - Never save claim-register entries as approved-for-use without explicit review.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

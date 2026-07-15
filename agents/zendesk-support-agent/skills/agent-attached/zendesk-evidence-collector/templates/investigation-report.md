@@ -54,3 +54,9 @@ Keep the investigation focused on one active issue. Every critical branch should
 - Do not declare `Confirmed root cause`, `Proven`, or `Disproven` unless the branch ledger supports it.
 - Do not invent request IDs, user IDs, account impact, reproduction steps, ownership, or ETA.
 - End with one recommended next action, not a broad task list.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

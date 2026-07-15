@@ -44,3 +44,9 @@ Use internal-facing language such as:
 - "safe to cite only if the public article is current and visible to the customer..."
 
 Avoid attributing uncertainty to a person. Attribute it to source quality, scope, or freshness.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

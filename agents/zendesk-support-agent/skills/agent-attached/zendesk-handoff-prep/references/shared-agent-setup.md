@@ -66,3 +66,9 @@ Examples of facts that may be suitable for future skill updates, after approval:
 - an approved sensitivity/redaction rule;
 - a standard list of evidence minimums;
 - a public or internal documentation boundary rule.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

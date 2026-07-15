@@ -29,3 +29,9 @@ Do not treat an estimate or proposal as final until all of the following are tru
 ## Approval Output Rule
 
 If approval is still needed, label the output as draft, provisional, or pending internal approval rather than final.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

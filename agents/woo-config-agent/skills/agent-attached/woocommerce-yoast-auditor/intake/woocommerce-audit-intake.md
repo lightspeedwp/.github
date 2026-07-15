@@ -20,3 +20,9 @@ Collect only what is relevant:
 ## Routing note
 
 Audit existing output here. Route setup or default template design to `woocommerce-yoast-configuration`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

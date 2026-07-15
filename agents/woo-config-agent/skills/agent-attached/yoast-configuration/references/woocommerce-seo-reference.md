@@ -78,3 +78,9 @@ Base Yoast handles general WordPress metadata, schema graph, canonicals, robots 
 - Variations, identifiers, stock, or offers are generated from custom fields or external systems.
 - Faceted navigation requires custom canonical/robots logic.
 - Sitemap inclusion/exclusion requires code-level customisation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

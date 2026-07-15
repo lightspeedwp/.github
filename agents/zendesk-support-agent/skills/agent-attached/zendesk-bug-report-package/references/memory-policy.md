@@ -47,3 +47,9 @@ Remember that a named customer had a checkout bug on a specific ticket caused by
 ## Relying on memory
 
 If durable memory exists, treat it as a starting convention, not case evidence. Case facts must still come from Zendesk or supplied evidence during the current run.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

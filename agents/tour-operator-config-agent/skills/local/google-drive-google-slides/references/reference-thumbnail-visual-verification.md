@@ -90,3 +90,9 @@ If any check fails, the task is not complete.
 After the last slide passes, fetch fresh thumbnails for the full edited scope. A contact sheet is allowed as a final sanity check, but it does not replace the per-slide loop.
 
 When adapting or migrating source material, compare representative source and destination thumbnails side by side. Check that the destination preserves required evidence, information hierarchy, and intended focal point while adopting the target deck's design language. A visually polished destination still fails if it omits or obscures required source content.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

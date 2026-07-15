@@ -21,3 +21,9 @@ Product enquiry form embedded on single product pages; audit product context cap
 ## Handoff item
 
 Prepare a configuration handoff for dynamic product context validation and optional routing rules. Do not replace WooCommerce checkout.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

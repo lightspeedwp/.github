@@ -21,3 +21,9 @@ To unblock that step, provide:
 ## Safe note
 
 I should not review, polish, or approve the output yet because doing so would require guessing about [ticket facts / customer impact / root cause / ownership / timeline / policy decision].
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

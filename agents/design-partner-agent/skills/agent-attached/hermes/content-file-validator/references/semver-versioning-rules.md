@@ -19,3 +19,9 @@ Use semantic versioning as follows:
 - If a file changed and the version did not increase, fail validation.
 - If a specific change level is supplied and the new version does not match that bump, fail validation.
 - If a file changed and the correct bump level cannot be inferred safely, warn and ask for the intended change type instead of guessing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

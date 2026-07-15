@@ -16,3 +16,9 @@
 - Every launch blocker must have an owner and resolution path.
 - Every test should be observable by a human or measurable by a tool.
 - Do not treat vague wording as testable. Rewrite into testable checks or flag it.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -100,3 +100,9 @@ If a check fails:
 - fix invalid JSON in schema files
 - split mixed memory content into the correct memory files when those files are attached
 - rerun `bash scripts/validate-folder-schemas.sh` until it passes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

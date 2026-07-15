@@ -31,3 +31,9 @@ For production sites, require a narrower scope:
 - Avoid bulk edits unless there is a backup and rollback path.
 - Batch changes by priority page or issue type.
 - Report exact changes and unresolved risks after every batch.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

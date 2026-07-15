@@ -174,3 +174,7 @@ Treat these as preview failures:
 Inspect the latest preview run output and validate it against `docs/preview-validation/master-preview-qa-checklist.md`. Identify any evidence, structure, formatting, delivery, or safety failures. Then fix only the instruction gaps needed to correct the observed failures.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

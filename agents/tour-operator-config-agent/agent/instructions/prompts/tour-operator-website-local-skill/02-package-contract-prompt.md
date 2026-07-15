@@ -47,3 +47,9 @@ Report the contract under these headings:
 4. `Excluded or non-package material`
 5. `Open gaps that block safe packaging`
 6. `Ready next phase`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -17,3 +17,9 @@ Customer requests one month of service credit because an integration was unrelia
 ## Safety note
 
 Do not imply service-credit eligibility from customer frustration alone.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

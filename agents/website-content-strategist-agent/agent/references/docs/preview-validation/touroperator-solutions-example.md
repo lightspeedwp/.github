@@ -92,3 +92,9 @@ Use TourOperator.solutions as the project context. Review the live product site,
 ## Companion prompt variant
 
 Use TourOperator.solutions as the project context. Compare the live site, demo site, dev site, repo, Drive folder, and Figma system. Explain which sources should control planning, implementation, and launch review, identify the biggest gaps or conflicts, and recommend the one workflow that should happen next.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

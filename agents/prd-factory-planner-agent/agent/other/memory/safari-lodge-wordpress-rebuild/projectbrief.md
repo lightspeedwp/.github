@@ -50,3 +50,9 @@ client: "Boutique safari lodge"
 - Does the enquiry form need CRM integration, and if so which CRM?
 - Does future booking readiness mean later external booking links, a booking engine integration, WooCommerce, or a mix of these?
 - Is the rough 10-week launch target a genuine constraint or only an early aspiration?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -47,3 +47,9 @@ Confirm that source-priority wording stays consistent across the main instructio
 - Mark a missing source-priority section as a Warning.
 - Mark an extra non-canonical source as a Notice.
 - Mark stale file references in the source stack as an Error when they would mislead maintenance work.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

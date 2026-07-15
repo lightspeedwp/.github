@@ -18,3 +18,9 @@
 3. Configure site representation, homepage metadata, pages, posts, categories, media, author/date archives, sitemaps, schema, breadcrumbs and social metadata.
 4. QA rendered output on homepage, service page, blog post, category archive and contact page.
 5. Flag exact UI paths and product packaging as `needs live verification`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

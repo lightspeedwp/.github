@@ -72,3 +72,9 @@ If an MCP action returns an error:
 - Retry only when the failure is clearly transient or a schema argument can be corrected safely.
 - Do not retry destructive or high-risk writes without renewed approval.
 - Lower confidence and provide a manual fallback if the connector cannot verify state.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

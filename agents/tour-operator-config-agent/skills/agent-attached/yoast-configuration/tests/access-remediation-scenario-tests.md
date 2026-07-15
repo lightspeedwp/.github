@@ -57,3 +57,9 @@ Expected behaviour:
 - Route owner to `hosting`, `developer` or `wordpress_admin` depending on evidence.
 - Use conflict-resolution playbook and access-level workflow.
 - Create `verify_first` or `server_change` remediation item with HTTP/robots retest.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

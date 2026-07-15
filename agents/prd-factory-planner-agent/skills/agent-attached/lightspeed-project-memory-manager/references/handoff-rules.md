@@ -19,3 +19,9 @@ A handoff summary should let a new chat, developer or reviewer continue without 
 - unsupported claims
 - stale assumptions as facts
 - implementation promises without approval
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

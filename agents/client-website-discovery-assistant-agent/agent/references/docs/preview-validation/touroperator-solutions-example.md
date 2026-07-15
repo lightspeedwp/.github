@@ -118,3 +118,7 @@ Use `docs/preview-validation/touroperator-solutions-example.md` as the grounded 
 Use `docs/preview-validation/touroperator-solutions-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, demo site, dev site, GitHub repository, Drive folder, and Figma design system named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -30,3 +30,9 @@ If screenshots, exports or source-register entries are old or not freshly scanne
 ## Content judgement
 
 Metadata quality, clarity and intent fit may be assessed, but label it as content judgement rather than technical proof.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -38,3 +38,9 @@ Use `docs/phase-4-index.md` to choose the right skill-parity verification or rep
 ## Phase 5
 
 Only after unresolved exact shared-skill gaps are handled should the rebuild be treated as full skill parity.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

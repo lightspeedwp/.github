@@ -93,3 +93,9 @@ The root cause is definitely the import service.
 ```
 
 Expected lint result: fail, because `Urgent` is a priority, `Medium` is not an allowed priority value, `Confirmed` is not an allowed duplicate-risk value, and required sections are missing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

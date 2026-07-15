@@ -155,3 +155,9 @@ Capture the routing rule, scope it to LightSpeed client bug intake, note the plu
 **Output behaviour**
 
 Do not use this skill as the main workflow. Route to `linear-the-architect`. Only return to this skill if the user also states a reusable rule that should be preserved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

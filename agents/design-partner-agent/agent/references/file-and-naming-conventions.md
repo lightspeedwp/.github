@@ -33,3 +33,9 @@ Use this structure consistently when creating or updating agent files.
 - Use `memory/user-preferences.md` for durable user preferences.
 - Use `memory/todos.md` for persistent action items and follow-ups.
 - Only save stable, reusable information in `memory/`; do not store one-off scratch notes there.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

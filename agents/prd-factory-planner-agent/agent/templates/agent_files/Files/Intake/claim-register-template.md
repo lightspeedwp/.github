@@ -28,3 +28,9 @@
 
 - Unsupported or high-risk claims must not be used in public-facing output until reviewed.
 - If a claim comes from a questionnaire default rather than confirmed evidence, mark it as `defaulted` or `unsupported`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

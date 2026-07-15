@@ -29,3 +29,9 @@ Welcome to the LightSpeedWP community! 🎉
 If you have questions or want to claim a good first issue, just comment or tag a maintainer.
 
 Thank you for helping us build better WordPress solutions!
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

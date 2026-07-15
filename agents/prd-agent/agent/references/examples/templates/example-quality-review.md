@@ -44,3 +44,9 @@ Not yet ready for: reliable final estimate or full delivery commitment.
 - Validate the design source of truth.
 - Review the repository constraints in more detail before estimate sign-off.
 - Re-run estimate readiness after those evidence gaps are closed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

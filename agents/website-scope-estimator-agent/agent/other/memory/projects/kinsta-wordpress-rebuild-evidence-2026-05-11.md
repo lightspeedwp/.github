@@ -43,3 +43,9 @@
 - Must the existing blog, docs, case studies, changelog, and legal-library content all migrate?
 - Are there CRM, marketing automation, search, personalization, analytics, or translation integrations that must be preserved?
 - Is the target delivery a WordPress rebuild only, or a broader architecture/program involving multiple properties and logged-in product surfaces?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

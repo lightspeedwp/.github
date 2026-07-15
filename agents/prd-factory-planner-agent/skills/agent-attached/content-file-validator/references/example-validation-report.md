@@ -29,16 +29,9 @@ title: Example
 status: draft
 type: guide
 version: 1.0.0
+
 ---
-```
 
-## Passed Files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- `files/valid-example.md`
-
-## Recommended next actions
-
-1. Fix blocking frontmatter errors.
-2. Fix markdown structure issues.
-3. Confirm the correct SemVer increment for changed files.
-4. Re-run the validator.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

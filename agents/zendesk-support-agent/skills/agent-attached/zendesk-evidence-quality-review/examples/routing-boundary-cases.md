@@ -201,3 +201,9 @@ Use `zendesk-evidence-quality-review` cautiously if the handoff draft and summar
 ### Reason
 
 A reviewable artefact exists, but evidence is indirect. Label findings as based on the supplied summary and avoid treating the summary as confirmed Zendesk evidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

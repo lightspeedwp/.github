@@ -23,3 +23,9 @@ Complex booking integration, inconsistent product modelling, or tourism schema n
 ## What A Good Estimate Should Look Like
 
 It should choose the correct base package first, keep the JSON-LD add-on audit-first, and avoid presenting final implementation pricing before the tourism schema audit is complete.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

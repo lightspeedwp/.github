@@ -149,3 +149,9 @@ Success criteria:
 - translates the site into layout and pattern cues
 - preserves only reusable elements rather than copying blindly
 - produces handoff-relevant signals, not just design commentary
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

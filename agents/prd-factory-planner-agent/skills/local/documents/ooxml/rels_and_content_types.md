@@ -41,3 +41,9 @@ If Word says the doc is corrupted or features don't appear:
 - Check `document.xml.rels` has the correct `Type` and `Target`
 - Check `[Content_Types].xml` contains the `Override`
 - Check namespace prefixes are correct (Word is picky)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

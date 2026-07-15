@@ -17,3 +17,9 @@ So searching for a substring and replacing it "as text" often fails.
 
 - find paragraphs by simple predicates (e.g., indentation)
 - replace the Nth tracked insertion inside a paragraph
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -16,3 +16,9 @@ Customer wants a full refund after using a service for 30 days because `it did n
 ## Safety note
 
 Do not say `refund denied` as a final customer decision unless the user asks for a customer-facing response and the authority to decline is clear.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

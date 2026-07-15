@@ -32,3 +32,9 @@ Use this index as the main entry point for repeatable preview testing across the
 - Run the preview.
 - Check the output against the QA checklist.
 - Refine the prompt or instructions only after identifying the specific failure or gap.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

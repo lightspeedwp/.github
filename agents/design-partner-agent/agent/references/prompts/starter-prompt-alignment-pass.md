@@ -35,3 +35,9 @@ Keep the public-facing starter prompts and short description useful, accurate, a
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep the tagline and starter prompts aligned with the current instructions, visible files, attached skills, and attached apps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

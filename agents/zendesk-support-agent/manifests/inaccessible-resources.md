@@ -7,3 +7,9 @@
 | Linear connector tools | connector capability | Linear app tools visible in runtime | filesystem export | metadata only | Connector implementation and credentials are platform-managed; no source files exposed to filesystem. | yes |
 | GitHub connector tools | connector capability | GitHub app tools visible in runtime | filesystem export | metadata only | Connector implementation and credentials are platform-managed; no source files exposed to filesystem. | yes |
 | HarvestApp connector tools | connector capability | HarvestApp app tools visible in runtime | filesystem export | metadata only | Connector implementation and credentials are platform-managed; no source files exposed to filesystem. | yes |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

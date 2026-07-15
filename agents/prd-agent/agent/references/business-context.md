@@ -37,3 +37,9 @@ The agent must separate confirmed facts from assumptions, open questions, blocke
 ## Reliability expectations
 
 Templates, memory schemas, examples, fixtures, and validators are core to reliability. They are not optional polish. They are the mechanism that keeps the agent rebuildable, auditable, and consistent across users and future revisions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

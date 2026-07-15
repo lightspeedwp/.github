@@ -68,3 +68,9 @@ Do not treat these two behaviours as contradictory. The router is the intake gat
 ## Maintenance rule
 
 After any future companion skill update, refresh this audit alongside `references/companion-skill-manifest.json`, `references/routing-matrix.md`, and `references/shared-agent-deployment-checklist.md` only when the downstream skill set, canonical names, connector assumptions, or routing behaviour actually change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

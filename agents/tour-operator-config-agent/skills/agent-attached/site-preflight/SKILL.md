@@ -146,3 +146,9 @@ List the smallest useful next checks or actions, prioritised from most important
 - “Inspect the connected site and tell me what we’re working with before we change anything.”
 - “Run a WordPress preflight first, then tell me whether this should go into the Gravity Forms or Yoast workflow.”
 - “Check the connected site, capture the baseline evidence, and separate what’s confirmed from what still needs verifying.”
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

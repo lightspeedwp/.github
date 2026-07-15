@@ -76,3 +76,9 @@ Minimum pieces: AggregateOffer, Article, Breadcrumb, Comment, Event, HowTo, Imag
 ## Source register requirements
 
 Every scanned source must record page title, URL, accessed date, product/feature area, key facts, configuration relevance, developer relevance, limitations/dependencies/version notes, source classification, duplicate status, and confidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

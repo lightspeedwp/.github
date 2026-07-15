@@ -24,3 +24,9 @@ Use supplied evidence, mark missing facts, and ask for the smallest next extract
 ## Redaction guidance
 
 Summarise sensitive evidence and link back to Zendesk or the authorised source when possible. Do not copy credentials, tokens, payment details, personal data, security-sensitive logs, or unnecessary raw payloads into a bug package.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

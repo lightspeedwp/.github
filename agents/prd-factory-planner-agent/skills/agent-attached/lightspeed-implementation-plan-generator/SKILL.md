@@ -127,3 +127,9 @@ Use these references as needed:
 ## Quality bar
 
 A good implementation plan should let the team start work without re-reading every source document, while still linking back to decisions, tasks and acceptance criteria.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

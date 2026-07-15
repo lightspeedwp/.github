@@ -100,3 +100,9 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - `tests/reply-safety-tests.md` should still match the customer-reply contract.
 - `tests/schema-validation-tests.md` should still reflect the current template and example structure.
 - `tests/skill-routing-tests.md` should still reflect the primary-skill and supporting-skill expectations for repeated deliverables.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

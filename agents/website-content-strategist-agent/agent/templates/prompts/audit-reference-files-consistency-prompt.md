@@ -73,3 +73,9 @@ Use this structure:
 - Use only grounded reference files and grounded related files.
 - Do not invent hidden reference layers.
 - Prefer conservative fixes that preserve working sources of truth.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

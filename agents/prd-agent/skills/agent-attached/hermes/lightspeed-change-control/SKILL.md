@@ -80,3 +80,9 @@ Do not:
 - `schemas/prd-delta.schema.json` — PRD delta shape.
 - `examples/change-request-examples.md` — sample change scenarios.
 - `tests/fixtures/change-cases.md` — manual validation cases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

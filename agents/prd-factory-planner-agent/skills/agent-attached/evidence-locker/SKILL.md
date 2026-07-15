@@ -203,3 +203,9 @@ Success criteria:
 - issue drafts are checked against source-backed scope and acceptance intent
 - contradictory or overconfident wording is corrected or flagged
 - the response tells the user what should be rewritten before implementation starts
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -27,3 +27,9 @@ This file explains how the agent should think about its attached app tools and w
 - Use `business-context.md` for LightSpeed's operating context.
 - Use `docs/output-template-library.md` to choose the right deliverable structure.
 - Use `templates/field-definitions.md` to map retrieved evidence into template fields.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

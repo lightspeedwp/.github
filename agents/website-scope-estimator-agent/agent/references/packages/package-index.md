@@ -53,3 +53,9 @@ All standard packages are fixed-fee if the audit confirms the project remains wi
 - deep CRM / ERP / API integrations
 - large migration complexity
 - headless or hybrid architecture
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

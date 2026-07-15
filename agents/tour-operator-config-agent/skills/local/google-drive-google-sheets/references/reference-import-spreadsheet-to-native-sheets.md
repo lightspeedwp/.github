@@ -50,3 +50,9 @@ Use generic Drive `_upload_file(...)` only for generic file upload requests that
 - `keep_source_file_type` is opt-in and requires explicit user intent.
 - Do not use generic `_upload_file(...)` for "import into Google Sheets"; it preserves the uploaded file instead of creating a native Sheet.
 - Do not cite the local source path in the final answer for a successful native import.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

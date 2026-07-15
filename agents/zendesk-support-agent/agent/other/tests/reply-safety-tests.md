@@ -89,3 +89,9 @@ Use these tests to verify that customer-facing Zendesk replies stay grounded, sa
 - exposure of private notes or internal-only context
 - unsupported certainty when evidence is weak
 - customer-facing wording that overcommits beyond confirmed facts
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

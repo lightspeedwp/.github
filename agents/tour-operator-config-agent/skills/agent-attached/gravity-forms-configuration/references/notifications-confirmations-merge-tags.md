@@ -46,3 +46,9 @@ Do not send upload URLs to non-admin recipients when files may be confidential. 
 ## Deliverability troubleshooting stance
 
 Gravity Forms hands notifications to WordPress `wp_mail()`; delivery depends on WordPress, server, SMTP/transactional service, DNS, and recipient filtering. Troubleshoot notification settings first, then SMTP/logs/server/DNS.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

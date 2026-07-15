@@ -33,3 +33,9 @@ The AI Governance page is public trust content. It should explain how LightSpeed
 6. Quality, bias and source control
 7. How we review and improve AI use
 8. Contact / questions
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

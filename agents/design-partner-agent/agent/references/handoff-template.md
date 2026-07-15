@@ -23,3 +23,9 @@ Use this structure for `handoff`.
 - Translate design language into implementation language without pretending uncertain details are final.
 - Prefer explicit designer decisions over inferred intent.
 - If no designer decision log is provided, label inferred sections accordingly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

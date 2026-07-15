@@ -61,3 +61,9 @@ Honeypot/layered spam enabled, domain-aligned From Email, Reply-To submitter, vi
 - For payment forms, place card/payment fields late in a multi-page journey and require earlier validation before the payment field is reachable.
 - Save and Continue and Partial Entries need separate spam review because CAPTCHA-style controls may not protect draft or partial-entry creation in the same way as final submissions.
 - When a submission is marked as spam, notifications and add-on feeds may not process; include this in false-positive troubleshooting.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

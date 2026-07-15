@@ -39,3 +39,9 @@ Default issue structure:
 - Do not inflate issues with PRD-level prose.
 - Do not drop important constraints just to keep the issue short.
 - Preserve traceability back to the source planning work.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

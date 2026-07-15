@@ -32,3 +32,9 @@ When intentionally invoking `zendesk-router-skill`, the router should return:
 
 **What input would help next:** The ticket URL or pasted support thread plus expected behaviour, actual behaviour, reproduction clues, impact, and any screenshots/logs.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

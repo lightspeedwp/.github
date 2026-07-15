@@ -22,3 +22,9 @@ Copy or mirror this mapping into the shared agent's `CONNECTORS.md` file. Keep w
 - Use support docs only when the source is approved, current, and relevant to the case.
 - If a connector is unavailable or access is denied for the logged-in user, state the missing source as an evidence gap rather than guessing.
 - Do not store customer-specific ticket facts in memory. Retrieve case facts from Zendesk or approved shared sources for each run.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

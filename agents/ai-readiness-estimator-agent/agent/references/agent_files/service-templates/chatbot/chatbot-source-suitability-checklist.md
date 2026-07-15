@@ -40,3 +40,9 @@ This checklist ensures that all content used to ground a chatbot is suitable, ap
 - Source readiness: {{source_readiness.status}}
 - Blockers: {{source_readiness.blockers}}
 - Required fixes: {{source_readiness.fixes}}
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

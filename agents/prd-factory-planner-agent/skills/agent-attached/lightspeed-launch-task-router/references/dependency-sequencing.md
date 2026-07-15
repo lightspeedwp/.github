@@ -18,3 +18,9 @@
 - Unverified AI/ROI claims in public copy.
 - Figma light/dark mode not tested for contrast.
 - Forms submit but do not route to the right owner.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

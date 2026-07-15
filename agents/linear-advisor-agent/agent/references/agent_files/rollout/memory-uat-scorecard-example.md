@@ -60,17 +60,6 @@
 
 ---
 
-## Overall Outcome
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- [x] Preference reuse works
-- [x] Todo continuity works
-- [x] Source-of-truth logic works
-- [x] Memory judgment stays selective and durable
-
-**Overall result:** Pass
-
-**Follow-up actions:**  
-
-- Re-run this scorecard after the next instruction or skill-routing change  
-- Add teammate tester notes during the next live validation pass  
-- Confirm the same Memory judgment holds across several distinct request types
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

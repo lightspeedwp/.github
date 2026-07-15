@@ -88,3 +88,9 @@ Acceptance criteria:
 - Treat the current attached file tree as canonical.
 - Prefer replacing stale wording over layering duplicate notes.
 - Keep the cleanup pass scoped to consistency and validation unless a new blocking issue is found.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

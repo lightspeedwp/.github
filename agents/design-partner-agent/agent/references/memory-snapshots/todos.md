@@ -35,3 +35,9 @@ Use this file to track **unfinished follow-ups that should persist across runs**
 - Remove or rewrite items once they are resolved.
 - If an item becomes a durable default, move it to `project-defaults.md` or `user-preferences.md`.
 - If an item is completed and its outcome matters later, move its continuity, key findings, recommendations, approved directions, rejected directions, or follow-up actions into `review-history.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

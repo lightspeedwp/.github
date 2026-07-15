@@ -59,3 +59,9 @@
 - Result: not exported
 - Reason supplied by environment: excluded as runtime session state, not agent-owned configuration
 - Metadata still captured: yes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

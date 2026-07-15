@@ -32,3 +32,9 @@ Use this checklist when the audited site appears to be WordPress.
 - Chrome DevTools coverage for unused CSS and JS
 - PageSpeed Insights or Lighthouse evidence when available
 - Theme or plugin-specific asset loading controls when relevant
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

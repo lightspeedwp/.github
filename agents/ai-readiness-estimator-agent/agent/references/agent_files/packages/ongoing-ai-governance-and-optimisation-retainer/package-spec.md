@@ -78,3 +78,9 @@ Remains fixed-fee when:
 - Use only after implementation or launch work is already live.
 - Confirm cadence and optimisation priorities before quoting.
 - Move project-scale delivery items out of the retainer and into separate scope.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

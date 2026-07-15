@@ -29,3 +29,9 @@ Primary aim: improve lead quality and present safari tours more clearly on a sit
 - SEO migration scope, including redirects, metadata, and legacy content cleanup
 - whether a booking engine will be selected soon enough to affect phase 1 architecture
 - launch timing, phased delivery expectations, and internal approval owners
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

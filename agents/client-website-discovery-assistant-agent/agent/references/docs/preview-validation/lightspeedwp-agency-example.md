@@ -126,3 +126,7 @@ Use `docs/preview-validation/lightspeedwp-agency-example.md` as the grounded sou
 Use `docs/preview-validation/lightspeedwp-agency-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, Figma prototype site, dev site, GitHub repositories, Drive folder, and Figma references named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal LightSpeed notes. Do not invent missing facts.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -23,3 +23,9 @@ Avoid claiming a feature exists in a Yoast product unless confirmed by current s
 ## Output expectations
 
 Use confidence labels and state whether a finding is product limitation, configuration gap, evidence gap or implementation risk.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

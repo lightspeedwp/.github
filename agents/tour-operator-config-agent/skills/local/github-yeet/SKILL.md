@@ -68,3 +68,9 @@ The PR description should use real Markdown prose and cover:
 - the user or developer impact
 - the root cause when the PR is a fix
 - the checks used to validate it
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

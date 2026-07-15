@@ -159,7 +159,19 @@ function replaceFooterTail(content, footerTemplate) {
   return `${contentWithoutTail}${footerBlock}`;
 }
 
+// Bundled/vendored skill reference material (third-party snapshots embedded
+// in agent skill folders, not repo-authored) is exempt from footer
+// requirements — mirrors the exclusions in eslint.config.cjs and
+// scripts/validation/validate-mermaid-syntax.js.
+const VENDOR_PATH_PATTERN =
+  /\/(plugin-provided|platform-managed|directory-installed|agentskills-main)\//;
+
 function inferCategory(filePath, frontmatter) {
+  const normalizedForVendorCheck = filePath.replace(/\\/g, "/");
+  if (VENDOR_PATH_PATTERN.test(normalizedForVendorCheck)) {
+    return "";
+  }
+
   if (
     frontmatter?.category &&
     footerConfig.categories?.[frontmatter.category]

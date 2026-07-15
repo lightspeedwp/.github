@@ -320,3 +320,7 @@ Use this summary after all 12 runs are complete.
 If any starter-prompt run fails, if total passes are below **10 / 12**, or if any automatic fail appears, the agent is **not ready** for pilot onboarding.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

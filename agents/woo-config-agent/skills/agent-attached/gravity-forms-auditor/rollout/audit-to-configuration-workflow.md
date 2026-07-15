@@ -15,3 +15,9 @@
 - High-risk findings need explicit approval before configuration.
 - Payment, User Registration, file upload, privacy/retention, logging, webhook/API, production embed, and live notification changes require an approval note.
 - Retest evidence must be recorded against the original finding ID.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

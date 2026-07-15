@@ -42,3 +42,9 @@
 - Added explicit routing boundary with `woocommerce-yoast-configuration`.
 - Added lean version-one references, intake files, profiles, templates, team docs and scenario tests.
 - Added source register structure with pending-scan source entries.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

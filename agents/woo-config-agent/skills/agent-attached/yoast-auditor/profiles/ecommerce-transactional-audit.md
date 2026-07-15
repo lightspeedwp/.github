@@ -18,3 +18,9 @@ Focus on product schema, variations, offer data, stock and price signals, produc
 ## Output expectation
 
 Prioritise commercial impact but avoid ranking guarantees.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

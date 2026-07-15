@@ -35,3 +35,9 @@ Tighten drift between template wording and schema-backed field expectations with
 ## Deliverable
 
 Apply the smallest useful set of updates needed to make visible template and schema families more internally consistent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

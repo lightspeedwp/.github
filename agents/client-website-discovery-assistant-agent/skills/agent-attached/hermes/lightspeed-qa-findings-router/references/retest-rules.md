@@ -32,3 +32,9 @@ Use these outcomes:
 ## Regression notes
 
 When a fix touches shared patterns, templates, theme.json, custom blocks or global scripts, include a regression note for related pages or components.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

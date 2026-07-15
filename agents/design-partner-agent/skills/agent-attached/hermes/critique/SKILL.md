@@ -67,3 +67,9 @@ Act like a lead product designer or principal UX reviewer, not a taste critic.
 - Highlight where users are likely to hesitate, backtrack, or invent their own workaround.
 - Separate structural issues from polish issues.
 - Be explicit about which issues are directly visible versus which are informed hypotheses.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -272,3 +272,9 @@ When asked to refine or package this skill:
 ## Output formats
 
 Use the templates in `templates/` unless the user asks for a different format. Keep outputs practical, evidence-led, UK English, and agency-ready.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

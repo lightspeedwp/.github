@@ -105,3 +105,9 @@ Do not:
 - `schemas/route-card.schema.json` — expected routing payload fields.
 - `examples/routing-scenarios.md` — realistic routing examples.
 - `tests/fixtures/routing-scenarios.md` — scenario set for manual validation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

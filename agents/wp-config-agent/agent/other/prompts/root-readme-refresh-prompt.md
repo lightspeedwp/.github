@@ -40,3 +40,9 @@ Output:
 1. Whether the root README was already aligned
 2. Exact sections updated, if any
 3. Any remaining top-level documentation gaps worth addressing
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

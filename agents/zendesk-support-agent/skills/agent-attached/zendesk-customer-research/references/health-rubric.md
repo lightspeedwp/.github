@@ -55,3 +55,9 @@ Use confidence as a separate judgment from the health value.
 - `High`: Zendesk, chat, and at least one other recent source line up cleanly and there are few important contradictions.
 - `Med`: the picture is directionally clear, but some important details still depend on partial notes, stale updates, or missing examples.
 - `Low`: source coverage is thin, conflicting, or old enough that the current state may have shifted.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

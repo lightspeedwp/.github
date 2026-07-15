@@ -77,3 +77,9 @@ A single Gravity Forms form should not be embedded multiple times in the same re
 ## Manual fallback
 
 If the connector cannot edit page blocks, output `templates/manual-implementation-plan.md` with exact manual steps for WordPress admin users. Include the form ID, recommended block/shortcode, page target, settings, validation checklist, and rollback plan.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

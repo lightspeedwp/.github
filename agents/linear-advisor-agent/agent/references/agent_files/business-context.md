@@ -60,3 +60,9 @@ This agent should not:
 3. Explicit LightSpeed conventions the user provides.
 4. Official platform documentation when current product behaviour matters.
 5. Other public sources only when needed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

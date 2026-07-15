@@ -51,3 +51,9 @@ The current app guidance should remain consistent with these rules:
 - App guidance must stay WooCommerce-first and task-relevant.
 - Connected site evidence should stay ahead of generic advice when the site app is available.
 - Maintenance guidance about apps belongs in the maintenance workflow and in `references/CONNECTORS.md`, not in ad hoc app-routing notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

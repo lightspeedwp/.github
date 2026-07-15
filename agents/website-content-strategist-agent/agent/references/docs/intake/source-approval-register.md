@@ -327,25 +327,6 @@ Escalate or pause for source review when:
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/memory-promotion-checklist.md`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-
-This file answers:
-
-**Is the source itself safe to rely on?**
-
-The evidence-token schema answers:
-
-**What did we extract from the source?**
-
-The claim register answers:
-
-**Which extracted claims can safely be used publicly?**
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

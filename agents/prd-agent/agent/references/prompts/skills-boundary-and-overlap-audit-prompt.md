@@ -45,3 +45,9 @@ Output standard:
 - after attaching multiple new skills
 - before promotion or parity review
 - whenever routing starts to feel too broad or skills feel duplicated
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

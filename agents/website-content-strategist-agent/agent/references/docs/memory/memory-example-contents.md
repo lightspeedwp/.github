@@ -188,3 +188,9 @@ Use these examples as compact models for what good Memory entries look like. Kee
 - Date: 2026-05-15
 - Reason for update: Captured unresolved blockers and decisions
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -47,3 +47,9 @@ Use style suggestions for consistency improvements that do not automatically mak
 - Keep adjustable project policy in the schema and reference docs.
 - Keep editorial nuance in documentation-only guidance unless it can be checked reliably.
 - Prefer warnings over hard failures when a rule is helpful but not universally correct.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

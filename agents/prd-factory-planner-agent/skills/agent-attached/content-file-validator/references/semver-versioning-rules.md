@@ -27,3 +27,9 @@ When the increment type is ambiguous, ask the user whether the change should be 
 - breaking or structurally incompatible
 - additive but backward-compatible
 - a small correction or clarification
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

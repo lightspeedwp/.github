@@ -242,3 +242,9 @@ A good output:
 **Expected output shape**
 
 A compact VOC summary with evidence strength, grouped signals, representative quotes, a Linear-ready problem statement, and a recommended next route such as `linear-the-architect`, `linear-gap-analyzer`, `case-investigation`, `customer-escalation`, or `linear-triage-router`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -33,3 +33,7 @@ Linear issue `LS-1187` covers launch fixes for the Bicycling Beyond the Bike spo
 - Convert the PRD into a technical brief or implementation issue set once the code path and CMS control limits are confirmed.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

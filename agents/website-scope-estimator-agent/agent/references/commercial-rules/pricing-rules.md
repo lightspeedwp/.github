@@ -15,3 +15,9 @@ Define how the Website Estimator should think about pricing before final commerc
 ## Rule
 
 If commercial values are incomplete, the estimator must present the recommendation as provisional and list the missing pricing inputs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

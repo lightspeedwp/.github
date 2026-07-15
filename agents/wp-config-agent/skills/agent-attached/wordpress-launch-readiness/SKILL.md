@@ -136,3 +136,9 @@ Good response shape:
 - **Risks**: issues that may not block launch but still matter soon
 - **Blockers**: only the true go-live blockers
 - **Next Actions**: short ordered actions, starting with the blocker-resolution path
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -46,3 +46,9 @@ Output standard:
 - after expanding the skill suite
 - before promotion, handoff, or parity review
 - whenever business context or references may no longer match the live scaffold
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

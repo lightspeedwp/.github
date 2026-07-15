@@ -28,3 +28,9 @@ This issue is marked as a **good first issue**—perfect for new contributors!
 
 Thank you for considering a contribution to LightSpeed WP—we’re excited to help you make your first PR!
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -37,3 +37,9 @@ If validation fails, fix the JSON shape only. Do not add new support facts, tick
 ## Shared-agent rule
 
 Structured JSON is a transport format, not a source of truth. It must still be grounded in the supplied Zendesk evidence, pasted ticket material, or explicitly provided support notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

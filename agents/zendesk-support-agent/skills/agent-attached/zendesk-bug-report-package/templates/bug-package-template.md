@@ -74,3 +74,9 @@ Exact ask for recipient:
 - Do not claim scope yet: [unsupported scope claims]
 - Sensitive evidence omitted or linked in Zendesk: [yes/no/unknown]
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

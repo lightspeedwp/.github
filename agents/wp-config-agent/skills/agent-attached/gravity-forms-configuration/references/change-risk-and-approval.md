@@ -55,3 +55,9 @@ Refuse or route away when the user asks to:
 - Create or modify user roles/accounts without confirming User Registration capability and role policy.
 - Store API keys, licence keys, payment secrets, webhook secrets, or personal data in skill files.
 - Disable accessibility features or spam protection solely for visual preference without recording risk acceptance.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

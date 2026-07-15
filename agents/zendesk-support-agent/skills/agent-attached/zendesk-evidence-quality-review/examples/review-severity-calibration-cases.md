@@ -127,3 +127,9 @@ One customer’s issue was resolved with this workaround. No confirmation exists
 ### Safer replacement
 
 “Internal note: this workaround resolved one reported case. Verify affected versions, scope, and side effects before publishing customer-facing guidance.”
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

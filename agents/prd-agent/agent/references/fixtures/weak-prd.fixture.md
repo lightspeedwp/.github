@@ -15,3 +15,9 @@ A draft PRD exists but is not strong enough for estimation.
 ## Expected use
 
 Use this fixture to test PRD-quality review and estimate-readiness refusal behaviour.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

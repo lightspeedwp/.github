@@ -25,3 +25,9 @@ Use this contract when preparing findings for `gravity-forms-configuration`. The
 - Mark missing evidence instead of inventing details.
 - Separate official Gravity Forms guidance from LightSpeed recommendations.
 - Include acceptance/retest criteria so configuration work can close cleanly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

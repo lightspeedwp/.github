@@ -55,3 +55,9 @@ A lower-confidence commercial view using budget-use and unbilled-value signals w
 ## Confidence Levels
 
 High when the needed fields are directly available, medium when small gaps exist but the conclusion is still reliable, and low when major fields are missing and only directional analysis is possible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -262,27 +262,6 @@ Include items that were visible during the run but are not safe for durable reus
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/memory-promotion-checklist.md`
-- `docs/intake/handoff-output-template.md`
-- `docs/intake/source-approval-register.md`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/approval-gate-checklist.md`
-
-This file answers:
-
-**What reusable project context is actually safe to retain in a human-readable form?**
-
-The related files answer:
-
-- what the memory buckets and save policies are
-- when values may be promoted
-- how context should be handed downstream
-- which sources are approved
-- what evidence was extracted
-- which exclusions and approval limits still apply
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

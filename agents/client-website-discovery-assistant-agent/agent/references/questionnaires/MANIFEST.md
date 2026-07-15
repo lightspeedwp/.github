@@ -32,3 +32,9 @@ Generated: 2026-05-16
 - The linked PDF was extracted as text and converted into its own improved Markdown questionnaire.
 - The Tour Operator planning document was converted into a checklist-style Markdown page because the source is a planning/checklist document rather than a client intake questionnaire.
 - Replace smart defaults where project-specific answers are already known.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

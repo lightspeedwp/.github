@@ -39,3 +39,9 @@ Automated checks and plugin reports cannot prove full accessibility. Use this ch
 
 - Reusable blocks, patterns, template parts, navigation, widgets, and shortcodes are tested at the source.
 - Editor changes do not remove SEO-critical copy, CTA intent, tracking attributes, or internal links.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

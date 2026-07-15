@@ -20,3 +20,9 @@ Use:
 - `Legal/privacy review before chatbot`
 
 Raw stats files, internal strategy notes, draft claims and unverified AI/ROI claims are not chatbot-safe.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

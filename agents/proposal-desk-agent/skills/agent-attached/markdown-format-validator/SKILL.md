@@ -95,3 +95,9 @@ If the user explicitly asked for a review, provide:
 ## Supporting Files
 
 - `references/validation-checklist.md`: Use this checklist to validate both the main Markdown document and any surrounding wrapper text before finalizing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

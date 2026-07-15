@@ -49,3 +49,9 @@ Use this checklist to assess whether the foundational elements needed for AI ado
 - Status: {{audit.status}}
 - Blockers: {{audit.blockers}}
 - Recommended next step: {{audit.next_step}}
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

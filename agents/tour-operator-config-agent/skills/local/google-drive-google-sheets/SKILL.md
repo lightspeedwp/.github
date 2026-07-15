@@ -88,3 +88,9 @@ Even though you created a local `.xlsx`, do not cite the local path in the final
 | Formula design, repair, rollout, or syntax refresh | `references/reference-formula-patterns.md` |
 | Chart creation, repair, chart-spec recall, or repositioning | `references/reference-chart-recipes.md` |
 | Unspecified styling for native Google Sheets destinations | `references/style-profiles.md` |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

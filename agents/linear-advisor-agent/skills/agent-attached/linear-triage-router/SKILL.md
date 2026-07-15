@@ -279,3 +279,9 @@ A good result:
 - distinguishes routing, rewriting, investigation, planning, QA, audit and execution;
 - provides priority and labels as suggestions, not fake workspace facts; and
 - stays short, practical and ready for the LightSpeed team to use.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

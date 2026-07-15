@@ -22,3 +22,9 @@ Use these fields when mapping FAQs.
 
 Use company FAQ when the question applies across LightSpeed.
 Use page-level FAQ when the answer depends on a service, sector, policy or technical context.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

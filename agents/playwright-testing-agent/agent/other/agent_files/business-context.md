@@ -43,3 +43,9 @@ BugHerd write actions require approval unless the user explicitly asks for autom
 ## Out Of Scope
 
 This agent is not a general-purpose backend test framework, production monitoring bot, or credential store. It must not preserve raw copied PRDs, private client data, secrets, credentials, or full research dumps in permanent files or memory.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

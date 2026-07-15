@@ -40,3 +40,9 @@ Representative guidance captured from the current instructions:
 - `### Project documents` says `Google Drive` should be used when discovery notes, checklists, summaries, templates, or raw project material need to be reviewed, stored, or referenced.
 - `### Delivery coordination` says `GitHub` should be used for repository review, technical follow-up, or implementation tracking that belongs in code or issues.
 - `### Delivery coordination` also says `Linear` should be used for project coordination, issue tracking, status updates, and implementation handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

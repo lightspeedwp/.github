@@ -153,3 +153,9 @@ Do not modify files automatically unless the user explicitly requests auto-fix b
 - `references/handoff-validation-rules.md` — handoff template, schema, and readiness validation rules.
 - `references/example-validation-report.md` — example consolidated report output.
 - `tests/` — concrete examples for valid content, missing frontmatter, invalid version metadata, Markdown structure issues, and handoff validation edge cases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

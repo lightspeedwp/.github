@@ -63,3 +63,9 @@ Use this structure for proposal-ready sections:
 ## Recommendation style
 
 Recommend the smallest useful next step first. Avoid over-engineering. Emphasise maintainability, measurable value and governance maturity.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

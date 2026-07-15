@@ -64,3 +64,9 @@ Use this file when validating Yoast configuration, output, migrations, WooCommer
 - High: current official source plus rendered output or settings evidence.
 - Medium: current official source but no live output evidence.
 - Low: source-register target, inference, outdated evidence, screenshot-only, or unclear product version.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

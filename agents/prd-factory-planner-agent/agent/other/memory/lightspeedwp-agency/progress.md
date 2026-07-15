@@ -17,3 +17,9 @@
 - prepared a smallest-useful intake summary to decide the next planning artefact
 - produced a research-first summary based on current public website evidence to support the next planning decision
 - approved the next artefact direction as a PRD focused on positioning and content/IA
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

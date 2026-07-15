@@ -144,3 +144,9 @@ The script should exit with:
 - `references/schema-customisation.md` — how to adapt the schema without hard-coding project-specific rules into the script.
 - `references/example-validation-report.md` — example of the consolidated report shape.
 - `tests/` — example valid and invalid files for smoke-testing the validator.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

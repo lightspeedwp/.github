@@ -50,3 +50,9 @@ Medium
 ## Next actions
 
 Review the estimate with stakeholders, confirm remaining technical assumptions, and only then convert it into delivery sequencing and issue-level planning.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

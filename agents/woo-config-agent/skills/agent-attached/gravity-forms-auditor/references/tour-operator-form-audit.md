@@ -25,3 +25,9 @@ Use this file for travel, safari, accommodation, itinerary, booking enquiry, quo
 - Verify routing for representative destinations or products.
 - Confirm consent and privacy copy appears before submission.
 - Confirm no sensitive travel document collection unless approved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

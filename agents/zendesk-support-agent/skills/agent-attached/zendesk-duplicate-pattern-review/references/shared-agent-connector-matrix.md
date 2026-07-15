@@ -77,3 +77,9 @@ Use one precise missing-evidence line rather than a long questionnaire. Examples
 - "Smallest missing evidence: the cluster window and whether Zendesk shows additional tickets with the same symptom."
 - "Smallest missing evidence: internal notes or linked problem-ticket status confirming whether support is already treating this as one incident."
 - "Smallest missing evidence: whether the two tickets contain unique customer commitments or attachments that would be lost by merging."
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

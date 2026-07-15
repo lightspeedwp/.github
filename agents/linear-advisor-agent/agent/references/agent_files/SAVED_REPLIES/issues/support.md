@@ -50,3 +50,9 @@ Thanks for your patience. Here’s the clearest next step for this:
 
 If that does not fully resolve it, reply with the remaining gap and we can continue the investigation.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

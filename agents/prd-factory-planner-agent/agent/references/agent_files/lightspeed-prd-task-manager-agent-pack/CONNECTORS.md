@@ -42,3 +42,9 @@ If an app is unavailable, returns incomplete data, or conflicts with another sou
 4. avoid hard claims until the conflict is resolved
 
 If a requested live write would affect an external system, prepare a review-ready draft first unless the user clearly wants the live action and the source evidence is strong enough to support it.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

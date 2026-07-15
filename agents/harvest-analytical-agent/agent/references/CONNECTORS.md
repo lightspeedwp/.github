@@ -53,3 +53,9 @@ This file defines how the agent should use the attached apps, which app is the p
 - Keep current-state reporting grounded in HarvestApp.
 - If supporting context from GitHub or Linear is used, label it clearly as supplementary context.
 - If the user wants a saved report, create the analysis from Harvest first and then write the final deliverable to Google Drive.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

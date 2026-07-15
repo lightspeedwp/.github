@@ -101,3 +101,9 @@ Use these references as needed:
 ## Quality standard
 
 Keep reports brief enough to be read, but specific enough to drive action. Prefer clear owners, dates, decisions and next steps over generic progress language.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

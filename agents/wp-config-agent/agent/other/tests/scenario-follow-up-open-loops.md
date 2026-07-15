@@ -26,3 +26,9 @@ A maintainer asks for the next step after most validators were updated but the m
 - reporting full completion when a follow-up file or validator still needs work
 - leaving the maintainer without a clear next step
 - collapsing blockers and future improvements into one vague list
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

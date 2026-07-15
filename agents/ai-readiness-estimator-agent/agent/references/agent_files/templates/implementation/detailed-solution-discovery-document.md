@@ -61,3 +61,9 @@ Define what success looks like from a functional and business perspective, inclu
 ## Summary and Next Steps
 
 Summarise the discovery findings and outline recommended next steps for scoping, scheduling, and resourcing the implementation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

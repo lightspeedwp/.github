@@ -46,3 +46,9 @@ Assess approved source content, chatbot job definition, boundaries, human escala
 | 31-60% | Partly ready | Run a guided assessment and fix high-risk gaps before AI workflows or chatbot pilots. |
 | 61-80% | Mostly ready | Create an AI governance plan, tighten ownership and test bounded use cases. |
 | 81-100% | Strong foundation | Move into phased governance and implementation planning. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

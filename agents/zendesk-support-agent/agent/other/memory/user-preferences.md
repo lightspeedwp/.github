@@ -30,3 +30,9 @@ Store only durable user or team preferences that should carry across future supp
 - preferred detail level: concise but decision-useful for replies, handoffs, and backlog summaries
 - preferred report scope: default to the current open backlog unless a queue or timeframe override is requested
 - preferred example-ticket rule: include example tickets only when they are high-signal and help explain the pattern or risk
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

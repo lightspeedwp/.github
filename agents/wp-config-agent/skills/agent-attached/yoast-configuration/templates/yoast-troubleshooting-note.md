@@ -48,3 +48,9 @@ List only questions that materially affect the fix or approval.
 ## Client-safe summary
 
 One or two plain-English sentences that can be reused in a client update without overstating search impact or promising outcomes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

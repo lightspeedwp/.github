@@ -65,3 +65,9 @@ If the user has not set preferences, use these defaults without blocking the run
 ## Output
 
 Do not summarize onboarding for its own sake. Confirm only the defaults that matter for the current task, then continue the original request.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

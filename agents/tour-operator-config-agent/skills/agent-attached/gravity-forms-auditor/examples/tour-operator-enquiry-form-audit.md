@@ -21,3 +21,9 @@ Tour enquiry form for safari/travel website; audit enquiry quality, consent, par
 ## Handoff item
 
 Route privacy/retention settings and consent wording to `gravity-forms-configuration` after approval. Do not collect passports or health data without separate secure handling.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

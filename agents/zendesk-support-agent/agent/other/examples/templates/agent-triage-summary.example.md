@@ -28,3 +28,9 @@
 ## Recommended next action
 
 - Confirm one recent failing order and collect a request trace, then escalate for engineering review if the same failure pattern is reproduced.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

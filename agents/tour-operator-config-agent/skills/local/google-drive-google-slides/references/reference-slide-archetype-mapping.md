@@ -135,3 +135,9 @@ Layout target:
 - When an existing or reference layout uses emphasis for a specific meaning, such as a total column, winning option, current state, or alert, retain it only if that meaning transfers to the new content.
 - If two layouts both fit, choose the one that preserves legibility with the least structural churn.
 - If no available archetype fits cleanly, build a composition consistent with the deck's system, split the content when allowed, or flag it as a human-review case.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

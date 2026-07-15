@@ -46,3 +46,9 @@ Nothing in the requested routing and validation slice is currently blocking. Foc
 ## Deliverable
 
 Apply the smallest useful set of file updates needed to improve consistency across prompts, READMEs, templates, examples, schemas, and validation notes so the package better matches the current routing language and visible structure.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

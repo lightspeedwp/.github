@@ -143,3 +143,9 @@ The case may be resolved, but it is not necessarily reusable. A public article w
 ### Next step
 
 Capture any reusable agent lesson internally only if it is likely to recur; otherwise do not create documentation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

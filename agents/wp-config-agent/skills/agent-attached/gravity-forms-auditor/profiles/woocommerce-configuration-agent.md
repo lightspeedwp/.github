@@ -21,3 +21,9 @@ Route checkout replacement, tax, order creation, subscriptions, stock, shipping,
 ## Client-safe boundary
 
 Keep payment credentials, customer personal data, order data, and internal routing rules out of client-safe summaries unless explicitly approved and redacted.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

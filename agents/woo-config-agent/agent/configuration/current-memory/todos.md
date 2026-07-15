@@ -17,3 +17,9 @@
 - Run front-end checkout QA in incognito and on mobile for South Africa/ZAR purchasing paths.
 - Confirm whether the enabled international shipping zone is deliberate before launch.
 - Confirm whether the active Disable Emails plugin is intentionally allowing mail or should be deactivated for transactional email testing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

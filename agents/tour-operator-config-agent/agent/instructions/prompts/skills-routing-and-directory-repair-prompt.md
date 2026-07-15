@@ -124,3 +124,9 @@ If some issue could not be repaired because the relevant skill package or file c
 3. State any attach or same-id skill-update follow-through completed.
 4. List which checks were run and whether they passed or failed.
 5. List any remaining blocking or non-blocking issues that still need follow-up.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

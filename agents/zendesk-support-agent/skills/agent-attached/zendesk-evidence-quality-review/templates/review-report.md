@@ -47,3 +47,9 @@ Provide concise rewrite suggestions or replacement lines. Do not add new facts u
 - Next steps are specific and owned: Yes/No
 - Risk or escalation gaps remain: Yes/No
 - Safe to send or share as-is: Yes/No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

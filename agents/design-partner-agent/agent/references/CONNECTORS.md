@@ -28,3 +28,9 @@ Use attached apps only when they materially improve the task and pull the minimu
 - Keep stronger grounded sources above weaker ones.
 - Treat app evidence as support for the current task, not as a reason to widen scope.
 - Separate confirmed facts, incomplete context, assumptions, and open questions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

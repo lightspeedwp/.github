@@ -29,3 +29,9 @@ If the audit is page-specific, append:
 - Use full client and site names when known
 - Use ISO date format: `YYYY-MM-DD`
 - Avoid vague names such as `audit`, `new doc`, or `homepage report`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

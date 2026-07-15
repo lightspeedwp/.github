@@ -71,3 +71,9 @@ Use these companion files alongside the validation scripts:
 - Prefer the master runner for broad checks.
 - Refresh the source snapshots whenever the WordPress operating model changes.
 - Treat validation failures as drift signals, not just script errors.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

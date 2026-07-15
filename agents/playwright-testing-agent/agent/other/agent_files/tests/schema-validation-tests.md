@@ -79,3 +79,9 @@ Run `bash scripts/validate-folder-schemas.sh` from the repository root after cre
 ## Expected Pass Criteria
 
 All required folders and files exist, README coverage matches the real tree, naming and heading rules pass, routing wording stays aligned with the mandatory PRD-to-test-pack path, skills-routing guidance stays aligned with the real attached skill setup, MCP guidance stays aligned with the real LightSpeed Playwright MCP setup, schemas parse successfully, example-to-schema alignment is coherent, references resolve, prompt-library docs are current, starter prompts pass quality checks, and optional memory or business-context checks skip or pass appropriately.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

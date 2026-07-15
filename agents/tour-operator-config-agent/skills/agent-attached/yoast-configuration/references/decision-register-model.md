@@ -108,3 +108,9 @@ Prefer:
 - Review open `proposed` and `blocked` decisions before launch QA.
 - Mark decisions `superseded` instead of deleting them.
 - Refresh decisions after Yoast product packaging changes, developer API changes, Google Search documentation changes, or major site information architecture changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

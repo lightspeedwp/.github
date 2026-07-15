@@ -308,32 +308,6 @@ When returning a routing decision, use this compact structure:
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/intake-wizard-template.yaml`
-- `docs/intake/questionnaire-source-map.md`
-- `docs/intake/questionnaire-field-library.yaml`
-- `docs/intake/smart-defaults-register.yaml`
-- `docs/intake/blocking-gaps-checklist.md`
-- `docs/intake/source-approval-register.md`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/approval-gate-checklist.md`
-
-This file answers:
-
-**What workflow should run first?**
-
-The related files answer:
-
-- what the intake wizard should capture
-- which questionnaire sources are relevant
-- which defaults are safe temporarily
-- which gaps really block progress
-- which sources and evidence are safe
-- which exclusions and claims require control
-- whether review or approval is needed next
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

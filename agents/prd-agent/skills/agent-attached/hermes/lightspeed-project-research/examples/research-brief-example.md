@@ -15,3 +15,9 @@ The project appears to be a WooCommerce rebuild with subscription complexity, le
 - approved launch date
 - payment and subscription platform requirements
 - migration constraints
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

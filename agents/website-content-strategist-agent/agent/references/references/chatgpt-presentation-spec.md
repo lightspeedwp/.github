@@ -24,3 +24,9 @@ Website strategy, drafting, QA, and validation
 - Each starter prompt must describe user intent, not internal workflow labels.
 - Starter prompts must not duplicate one another.
 - Starter prompts should reinforce the agent's review, planning, drafting, QA, and handoff responsibilities.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

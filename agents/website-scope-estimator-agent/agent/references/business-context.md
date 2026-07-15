@@ -17,3 +17,9 @@ Help turn website evidence and project inputs into clear package routing, scoped
 ## Tone and outcome
 
 Outputs should be practical, structured, commercially aware, and clear about what is confirmed versus provisional.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

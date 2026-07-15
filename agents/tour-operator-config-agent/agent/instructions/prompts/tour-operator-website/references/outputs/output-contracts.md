@@ -198,3 +198,9 @@ Rules:
 - Use the evidence labels from `references/evidence/evidence-model.md`.
 - Do not expose credentials, raw tool dumps, private customer data or unsupported commercial claims.
 - Link findings back to content-model files, source files or live evidence whenever possible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

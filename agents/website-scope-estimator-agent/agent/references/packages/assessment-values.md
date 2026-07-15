@@ -53,3 +53,9 @@ Do not finalise package recommendation until:
 1. website type is confirmed
 2. audit findings are confirmed
 3. migration, integrations, and staging status are known
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -14,3 +14,9 @@ status: "active"
 - Document WordPress network architecture and deployment model from LightSpeed's implementation knowledge.
 - Confirm all domains/sites included in the 20-site scope.
 - Prepare a technical quote-scope brief once internal LightSpeed scoping answers are captured.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

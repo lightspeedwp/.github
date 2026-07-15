@@ -105,3 +105,9 @@ Reference these where useful, without overloading the client:
 Always include:
 
 > This document supports operational planning and governance. It is not legal, regulatory or privacy advice. Requirements should be confirmed with a qualified legal or privacy adviser, especially where personal data, regulated sectors, vulnerable users or public-facing AI systems are involved.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

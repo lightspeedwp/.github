@@ -29,3 +29,9 @@
 - Product catalogue exists with multiple published service products, but sampled products had empty image alt text, no returned product terms, some non-virtual service settings, and stale/import/test data on at least one retainer product.
 - Active plugin stack is high risk for launch without pruning and compatibility QA.
 - Database SQL follow-up was limited because the connector required approval and timed out during deeper read queries.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

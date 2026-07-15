@@ -15,3 +15,9 @@ Different parts of the planning pack suggest opposite conclusions about estimate
 ## Expected use
 
 Use this fixture to test estimate-readiness review, contradiction handling, and refusal to treat a superficially mature planning pack as estimate-ready when key implementation uncertainty remains.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

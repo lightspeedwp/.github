@@ -30,3 +30,9 @@ Validation rules:
 - Keep folder names, file names, and purposes aligned with the visible file tree.
 - If the file list is incomplete or truncated, say what could not be fully verified.
 - Prefer a smaller accurate inventory over a larger speculative one.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

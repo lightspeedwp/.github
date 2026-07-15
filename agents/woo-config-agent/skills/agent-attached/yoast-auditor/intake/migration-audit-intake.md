@@ -19,3 +19,9 @@ Load for migration, rebuild, domain change, permalink change or post-launch vali
 ## Output expectation
 
 If redirect/canonical evidence is missing, label the finding as blocked and state the minimum evidence needed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

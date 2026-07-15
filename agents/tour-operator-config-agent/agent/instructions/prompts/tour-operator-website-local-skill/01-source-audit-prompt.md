@@ -53,3 +53,9 @@ Use only:
 3. A list of package-critical files that are missing, unreadable, or unverified.
 4. A short verdict: `complete enough to package`, `packageable with repairs`, or `not yet packageable`.
 5. The smallest safe next phase to run.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

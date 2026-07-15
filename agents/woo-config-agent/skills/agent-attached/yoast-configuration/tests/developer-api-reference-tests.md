@@ -42,3 +42,9 @@ Expected behaviour:
 - Warn against direct manipulation unless official documentation supports it.
 - Recommend supported re-index/rebuild or documented API path after verification.
 - Require before/after rendered output checks.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

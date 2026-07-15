@@ -55,3 +55,9 @@ The scaffold still expects executable validation assets such as:
 - link each script to a corresponding test definition
 - add explicit pass/fail expectations for each fixture-backed validation case
 - add examples/memory once the memory-example layer exists so memory-alignment checks can be exercised directly
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

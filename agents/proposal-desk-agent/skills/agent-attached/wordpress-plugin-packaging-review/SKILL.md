@@ -166,3 +166,9 @@ Expected behaviour:
 - [references/workflow.md](references/workflow.md)
 - [references/output-templates.md](references/output-templates.md)
 - [references/qa-rubric.md](references/qa-rubric.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

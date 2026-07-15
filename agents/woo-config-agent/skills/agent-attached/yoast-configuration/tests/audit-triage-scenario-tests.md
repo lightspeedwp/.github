@@ -61,3 +61,9 @@ Use these tests when refining the audit, troubleshooting, QA or migration behavi
 - Severity and priority are both present and not treated as the same field.
 - Source freshness issues are advisory unless they block a proposal, developer handoff, or final client claim.
 - Developer escalation is only used when configuration/content changes cannot safely resolve the issue.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

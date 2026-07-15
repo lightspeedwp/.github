@@ -82,3 +82,9 @@ Do not recommend launch readiness if any of these are unresolved:
 - Canonical targets pointing to staging, old domain, wrong language, wrong product, or redirected URLs.
 - Server/CDN and Yoast redirect rules conflict.
 - No rollback or owner is defined for production redirect imports.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

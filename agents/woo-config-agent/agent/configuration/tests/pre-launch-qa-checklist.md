@@ -43,3 +43,9 @@
 - [ ] Product, cart, and checkout flows are tested on mobile
 - [ ] Staging review is complete before launch
 - [ ] Known risks, blockers, and manual follow-ups are documented
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

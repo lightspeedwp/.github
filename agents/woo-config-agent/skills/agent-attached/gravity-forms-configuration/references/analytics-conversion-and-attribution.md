@@ -146,3 +146,9 @@ Route away or hand off when the user needs:
 - Whole-site tracking audit.
 
 Provide a Gravity Forms handoff with confirmed form IDs, confirmation types, hidden fields, feed state, and recommended event names.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -31,3 +31,9 @@
 - Group repeated checkout issues into one support pattern review.
 - Review whether refund-policy macros or Help Center guidance need updating.
 - Recheck backlog health after the next triage cycle.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -27,3 +27,9 @@ Use this guidance whenever the task reads, edits, migrates, translates, or struc
 - Compare the final deck state against the checklist from step 1.
 - Confirm that no slide in scope was skipped, duplicated, or left in a mixed old/new state.
 - For transformed-copy workflows, confirm the source deck stayed unchanged and the copied deck contains the full requested coverage.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

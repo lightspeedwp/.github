@@ -245,32 +245,6 @@ Typical examples:
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/intake-wizard-template.yaml`
-- `docs/intake/questionnaire-source-map.md`
-- `docs/intake/questionnaire-field-library.yaml`
-- `docs/intake/smart-defaults-register.yaml`
-- `docs/intake/source-approval-register.md`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/approval-gate-checklist.md`
-
-This file answers:
-
-**Which missing inputs actually block the workflow right now?**
-
-The related files answer:
-
-- what the wizard should capture
-- which questionnaire sources are relevant
-- which fields exist
-- which defaults are safe temporarily
-- which sources are approved
-- which exclusions apply
-- which risks require review
-- what can safely move into Memory
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

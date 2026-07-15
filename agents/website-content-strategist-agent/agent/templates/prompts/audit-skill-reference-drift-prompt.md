@@ -56,3 +56,9 @@ Produce the output using this structure:
 - Use only grounded attached skills and grounded attached files.
 - Treat missing references as drift, not hidden context.
 - Do not invent unseen skills, files, or routing layers.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

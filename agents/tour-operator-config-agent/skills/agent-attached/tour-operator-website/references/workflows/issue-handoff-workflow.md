@@ -51,3 +51,9 @@ Use labels only as suggestions unless the connected tracker has confirmed labels
 ## Output
 
 Use `references/outputs/issue-draft-templates.md` for GitHub/Linear-style issue drafts. Keep client-safe wording separate from internal notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

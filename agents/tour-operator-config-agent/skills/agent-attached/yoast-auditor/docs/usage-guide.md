@@ -36,3 +36,9 @@
 ## Output options
 
 Default output is Google Doc-ready Markdown. Ask for client report, internal report, page table, WooCommerce audit, schema QA, launch QA, migration report, evidence gap report or developer handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

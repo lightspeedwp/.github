@@ -27,3 +27,9 @@
 - Ticket details sampled: yes, only for the urgent and repeated-payment examples.
 - Secondary sources used: none.
 - Missing evidence: SLA status and confirmed root cause for the payment cluster.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

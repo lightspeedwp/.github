@@ -249,3 +249,9 @@ If the user asks for a reviewed-and-improved version instead of only critique:
 - Check this handoff for missing owner context and unsafe internal wording.
 - QA this weekly support summary for claims that are not backed by the reported numbers.
 - Review this knowledge draft and tell me whether it is safe to publish or should stay internal.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

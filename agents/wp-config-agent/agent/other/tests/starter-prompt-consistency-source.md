@@ -46,3 +46,9 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - Title: `Create launch summary`
   - Description: `Summarize risks and next steps.`
   - Prompt: `Create a pre-launch summary for this WordPress project with completed items, missing items, risks, blockers, and recommended next actions.`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

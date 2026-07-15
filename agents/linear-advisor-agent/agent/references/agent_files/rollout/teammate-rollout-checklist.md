@@ -43,3 +43,9 @@
 - [ ] Confirm Linear and supporting-app behavior is stable for the target teammate group
 - [ ] Update rollout docs with any lessons learned from the pilot
 - [ ] Expand access to the wider teammate group
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

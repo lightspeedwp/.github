@@ -18,3 +18,9 @@
 - Needs revision: material is present but not ready for sign-off.
 - Blocked: material or decisions are missing and work should not proceed.
 - Not ready for review: the gate has insufficient input.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

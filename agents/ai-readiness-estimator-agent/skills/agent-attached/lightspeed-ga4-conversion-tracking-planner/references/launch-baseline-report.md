@@ -27,3 +27,9 @@ Capture the state of measurement before launch so post-launch performance can be
 | Form submissions | Pending | GA4 / CRM |  |
 | Consultation CTA clicks | Pending | GA4 |  |
 | Lead magnet downloads | Pending | GA4 |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

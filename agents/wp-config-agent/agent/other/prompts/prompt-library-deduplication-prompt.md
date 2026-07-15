@@ -42,3 +42,9 @@ Output:
 4. Any prompts recommended for renaming, narrowing, or merging
 5. Any remaining non-blocking ambiguity in the prompt library
 6. A clear statement on whether the prompt library is now distinct and internally consistent
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

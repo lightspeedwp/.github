@@ -17,3 +17,9 @@ Use these categories when auditing claims.
 | Policy/trust claim | governance, human review, disclosure, retention | Medium to high |
 
 Flag implied claims too. For example, "AI-ready" implies governance, sources, privacy, testing and measurement.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

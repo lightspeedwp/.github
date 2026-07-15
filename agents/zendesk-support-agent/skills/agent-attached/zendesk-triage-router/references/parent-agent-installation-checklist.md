@@ -65,3 +65,9 @@ python3 scripts/run_router_regression_tests.py .
 ```
 
 Also confirm the package contains no real ticket exports, customer data, credentials, personal email addresses, local filesystem paths, or private Memory defaults.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

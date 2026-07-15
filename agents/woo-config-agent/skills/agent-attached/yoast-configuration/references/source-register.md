@@ -124,3 +124,9 @@ This register preserves the primary Yoast scan set required for future research.
 ## Evidence state for this packaged skill
 
 This package includes the source list and reference structure needed to perform the research. It does not claim that every listed URL has been freshly scanned in this packaging pass. Run the research workflow before using these URLs as current evidence for a client deliverable.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

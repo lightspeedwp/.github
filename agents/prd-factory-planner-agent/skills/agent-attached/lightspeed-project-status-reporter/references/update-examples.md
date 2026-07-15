@@ -11,3 +11,9 @@ Launch is blocked until redirects, form tracking and privacy policy updates are 
 ## Green internal example
 
 Theme implementation is on track. Current focus is template QA, pattern parity and responsive checks before the launch readiness audit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -28,3 +28,9 @@ Use this before any WooCommerce SEO, product schema, product archive, ProductGro
 - Validate schema on representative products and variations.
 - Align product archive indexation with sitemap inclusion and canonical output.
 - Record product data gaps separately from Yoast configuration issues.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

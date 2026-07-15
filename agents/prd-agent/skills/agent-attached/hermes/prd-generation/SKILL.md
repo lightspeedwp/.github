@@ -51,3 +51,9 @@ Default PRD sections:
 - A weak source pack should not become an overconfident PRD.
 - Make gaps visible inside the PRD, not just around it.
 - Write for downstream implementation and estimation use.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

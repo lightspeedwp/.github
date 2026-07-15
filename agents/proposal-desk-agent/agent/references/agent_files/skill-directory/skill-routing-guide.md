@@ -104,3 +104,9 @@ Do not use it for general proposal drafting.
 - `proposal-defaults-onboarding` -> resume original task as soon as the minimum reusable defaults are captured
 
 If more than one skill seems relevant, choose the one that best matches the primary outcome and add a second skill only when it clearly improves the result.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

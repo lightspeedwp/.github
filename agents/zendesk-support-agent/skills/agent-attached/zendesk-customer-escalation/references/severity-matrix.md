@@ -41,3 +41,9 @@ Avoid these mistakes:
 - Treating missing evidence as low risk. Mark it as an evidence gap instead.
 - Combining routine handoff, customer reply drafting, and escalation into one unclear deliverable.
 - Hiding uncertainty to make the brief sound stronger.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

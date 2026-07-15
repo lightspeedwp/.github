@@ -168,3 +168,9 @@ Prefer sources in this order when the task is maintenance or validation work:
 5. web search for public, current external information
 
 Do not let app results override the attached file tree when the task is documenting this agent's own maintained assets.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -54,3 +54,9 @@ Use evidence pack mode. Do not investigate beyond Zendesk because the case is al
 - Primary workflow: zendesk-draft-response
 - Supporting workflow: none
 - Immediate next action: Draft a customer-safe reply explaining the next image recovery or re-sync step based only on confirmed ticket evidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

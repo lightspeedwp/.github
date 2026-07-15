@@ -52,3 +52,9 @@ Deliverable format:
 - Treat current attached apps as canonical.
 - Prefer exact drift findings over generic app recommendations.
 - Keep this pass focused on app-usage and evidence-boundary guidance.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

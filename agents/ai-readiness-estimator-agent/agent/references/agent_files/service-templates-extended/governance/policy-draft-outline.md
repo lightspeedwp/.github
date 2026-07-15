@@ -57,3 +57,9 @@ Detail how adherence to the policy will be monitored, including audits, regular 
 ## 10. Updates and Maintenance
 
 Explain how the policy will be updated, who approves changes, and how changes will be communicated.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -46,3 +46,9 @@ Use this file for developer handoffs, customisations, and code review. Do not in
 - Do not globally override canonicals, robots, or sitemap filters without scoped tests.
 - Do not rely on UI scraping for analysis or metadata state.
 - Do not use deprecated filters/actions for new work unless there is no supported route and the risk is explicit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

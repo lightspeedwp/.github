@@ -47,3 +47,9 @@ Do not use Memory as a general transcript or scratchpad. Store only the durable 
 Do not present onboarding as a separate task. Confirm only the defaults that matter for the current audit, then continue the audit workflow.
 
 When resuming the original task, use the saved defaults to shape the audit depth, audience, and reusable client context, but let the current request override any saved preference.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

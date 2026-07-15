@@ -15,3 +15,9 @@ Use this guide when moving from reusable client patterns into active project wor
 - overwrite reusable client patterns with one-off project details
 - save unconfirmed context as default reuse material
 - use active follow-up tasks as long-term defaults
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

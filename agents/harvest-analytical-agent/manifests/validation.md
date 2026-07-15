@@ -16,3 +16,9 @@
 ## Notes
 
 The validation compared copied file records against files present under `agent-export/` and compared each readable skill folder's source file listing with the exported listing. It did not compare byte-for-byte original files where text redaction may have changed contents by design.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

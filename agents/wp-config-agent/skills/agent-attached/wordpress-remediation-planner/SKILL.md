@@ -169,3 +169,9 @@ The user provides a WordPress launch audit with issues across reading settings, 
 - quick wins separated from deeper work
 - manual checks called out clearly
 - one recommended next step such as "fix core launch settings and form routing on staging first"
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

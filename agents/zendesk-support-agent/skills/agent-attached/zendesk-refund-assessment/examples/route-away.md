@@ -13,3 +13,9 @@ Customer asks how to update the billing email on their account. No refund, credi
 ## Safety note
 
 Do not force refund assessment sections onto a routine support issue.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

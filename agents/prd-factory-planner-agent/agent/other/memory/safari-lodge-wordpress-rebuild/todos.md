@@ -15,3 +15,9 @@ last_updated: 2026-05-15
 - [ ] Confirm whether the rough 10-week launch target should be treated as a planning constraint.
 - [ ] Draft a source-backed PRD once the intake decisions above are settled.
 - [ ] Draft the Figma-to-WordPress technical brief after the PRD is reviewed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

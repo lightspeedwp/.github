@@ -39,3 +39,9 @@ Formatting must always be consistent throughout the workbook.
 - If the sheet is used for clinical purposes, including normal ranges or target ranges in the metadata can be helpful (for instance, note “Normal range: 70–100 mg/dL” next to a blood sugar metric).
 - Make use of separate sheets to list code definitions: for example, a sheet “Codebook” could map ICD-10 codes or lab test codes to plain English descriptions.
 - If the main data uses abbreviations (like “M”/“F” for sex or clinic codes like “NYC” for New York Clinic), ensure there is a legend or the full term in the header (“Sex (M/F)” is clear).
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -20,3 +20,9 @@ Create the smallest useful first-pass planning output from the discovery call. S
 
 - Keep phase 1 lean and editor-friendly.
 - Do not fold phase-2 booking scope into phase-1 commitments.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

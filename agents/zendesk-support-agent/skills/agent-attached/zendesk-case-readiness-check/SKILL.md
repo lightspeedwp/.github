@@ -305,3 +305,9 @@ Use Linear-oriented skills only after Zendesk-first readiness confirms a downstr
 ## Recommended parent-agent routing note
 
 Use `zendesk-case-readiness-check` directly for clear readiness checks before customer replies, internal escalations, knowledge drafts, support handoffs, or explicit downstream engineering/product handoffs when evidence sufficiency is uncertain. Return unclear Zendesk-first intake to `zendesk-router-skill`. This skill must identify the smallest missing evidence, recommend only the smallest local next action, use canonical Zendesk companion names when a common adjacent handoff is obvious, and avoid maintaining its own Zendesk skill network.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

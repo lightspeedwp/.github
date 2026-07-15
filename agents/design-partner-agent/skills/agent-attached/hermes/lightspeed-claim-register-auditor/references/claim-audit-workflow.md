@@ -21,3 +21,9 @@ When the same claim appears in multiple locations, keep one master claim ID and 
 ## Review cycle
 
 For website launch, review high-risk claims before content freeze. For live sites, review claim registers quarterly or whenever claims change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

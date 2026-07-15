@@ -29,3 +29,9 @@ Provide writing, rewriting, or content-structure support beyond implementation s
 - Is page copy already available?
 - Do you need rewriting or net-new writing?
 - Which pages matter most?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

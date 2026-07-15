@@ -281,3 +281,9 @@ Use these prompts to check the skill after updates:
    - Expected: route primarily to `lightspeed-qa-findings-router`; optionally offer to rewrite resulting findings into Linear tasks.
 3. `Create the Linear issues for these approved GitHub tasks.`
    - Expected: draft or confirm issue shape first if needed, then route live workspace creation to `linear` only because the user explicitly asked for creation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

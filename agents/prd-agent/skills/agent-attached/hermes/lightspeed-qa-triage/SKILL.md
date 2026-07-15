@@ -79,3 +79,9 @@ Do not:
 - `schemas/retest-plan.schema.json` — retest plan shape.
 - `examples/qa-findings.md` — example findings.
 - `tests/fixtures/qa-finding-cases.md` — manual validation cases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

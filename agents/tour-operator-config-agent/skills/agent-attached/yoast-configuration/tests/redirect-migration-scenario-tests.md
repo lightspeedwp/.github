@@ -83,3 +83,9 @@ Expected behaviour:
 - Check product replacement, category value, search demand/backlink evidence where available, and business approval.
 - Accept 410/404 only when intentionally removed and no equivalent exists.
 - Require product sitemap, schema and internal-link QA.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

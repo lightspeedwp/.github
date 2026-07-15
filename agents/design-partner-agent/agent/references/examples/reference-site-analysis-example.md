@@ -97,3 +97,9 @@
 - Is screenshot-based review needed before finalizing any layout-level recommendations?
 - Can verified stylesheet or theme-token evidence be provided before exact production tokens are defined?
 - Does any downstream adaptation require preserving the same trust sequence, or only selected parts of it?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

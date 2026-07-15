@@ -168,3 +168,9 @@ Do not overwrite files unless the user explicitly asks for rewrite or auto-fix b
 - `references/schema-customisation.md` — schema customisation examples.
 - `references/example-validation-report.md` — example consolidated report.
 - `tests/` — example files for validating the merged skill behaviour.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

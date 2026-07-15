@@ -73,3 +73,9 @@ Use this format for each criterion:
 ## Output
 
 Use `references/outputs/output-contracts.md` for the acceptance test plan and QA matrix formats, and `references/outputs/acceptance-criteria-library.md` for reusable criteria.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

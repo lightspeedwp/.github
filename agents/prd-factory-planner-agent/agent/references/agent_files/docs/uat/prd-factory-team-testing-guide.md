@@ -83,3 +83,9 @@ Escalate to Ash before using any output for:
 - source-of-truth updates
 - scope, legal, privacy, compliance, security, or pricing claims
 - decisions that depend on contradictory or incomplete evidence
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -221,3 +221,7 @@ The agent should use Memory only for durable reusable context.
 Maintain the agent as a **Linear-first workflow factory**. Add focused capabilities when they clearly improve that mission, but avoid turning it into a generic intake engine or a broad services assistant.
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

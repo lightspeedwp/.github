@@ -36,3 +36,9 @@ Use this snapshot to validate that the WordPress instructions still point to the
 - instruction-linked files should stay WordPress-specific
 - validation references should remain stable as the support structure evolves
 - stale domain drift such as WooCommerce, tour operator, or unrelated business references should not re-enter the instruction-linked file set
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

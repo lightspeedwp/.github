@@ -133,3 +133,9 @@ Return these sections when relevant:
 - `references/voice-tone-intake-checklist.md` — minimum and follow-up intake fields.
 - `references/voice-tone-options.md` — compact option menus to present when the user is unsure.
 - `references/voice-tone-scenario-defaults.md` — suggested starting defaults by common site scenario.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

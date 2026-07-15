@@ -105,3 +105,9 @@ For feed-related tasks, prefer:
 - `templates/risk-review.md` for payment or user-registration changes.
 - `templates/test-report.md` after test submissions.
 - `templates/handoff-note.md` for team handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

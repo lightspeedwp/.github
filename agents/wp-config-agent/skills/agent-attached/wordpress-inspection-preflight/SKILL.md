@@ -138,3 +138,9 @@ For narrower inspection requests, still separate:
 - Keep the workflow inspection-first, not recommendation-first.
 - Do not overstate connector capability.
 - Make it easy for the agent to produce reliable audits quickly without browsing aimlessly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

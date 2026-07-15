@@ -103,3 +103,9 @@ This conditional-scope behaviour now applies consistently across the folder-sche
 - When the runner order changes, update this file and `scripts/README.md` together.
 - When validation scope changes, update this file, `tests/README.md`, and the relevant test plans together.
 - When instruction routing changes, update `tests/skill-routing-snapshot.md` and any linked validation notes together.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

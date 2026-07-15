@@ -71,3 +71,9 @@ Use these standards when creating, reviewing, or validating instructions, skills
 ## Acceptable completion standard
 
 A change is only complete when the instruction system is coherent, the reference files match the instructions, the validator inventory reflects the current file set, the main file checks would pass against the updated structure, and the audit leaves no obvious contract drift behind.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

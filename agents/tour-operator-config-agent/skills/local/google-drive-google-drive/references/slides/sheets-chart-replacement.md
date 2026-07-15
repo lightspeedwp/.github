@@ -62,3 +62,9 @@ Use this reference when a Google Slides workflow needs to replace a screenshot, 
 
 - If the named chart is missing, then and only then consider creating a replacement chart.
 - If the replacement introduces a layout problem, switch to [visual-change-loop](./visual-change-loop.md) or [visual-iteration](./visual-iteration.md) and adjust only the affected slide.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

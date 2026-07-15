@@ -77,3 +77,9 @@ Recommended next route: `<canonical-zendesk-skill-name>` — <one-sentence reaso
 ```
 
 Do not include a long routing matrix in normal outputs. Keep the article draft as the main deliverable. Do not introduce Linear, GitHub, Asana, product, or project routing unless the user explicitly asks for a downstream artefact after the knowledge draft is complete.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

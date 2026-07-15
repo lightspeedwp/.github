@@ -98,3 +98,9 @@ Do not use the schema when:
   "handoff_brief": "Customer reports checkout failure after selecting a saved payment method. Engineering should check reproducibility and advise support on the next customer-safe reply."
 }
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

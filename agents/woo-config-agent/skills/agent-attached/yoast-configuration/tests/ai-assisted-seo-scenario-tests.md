@@ -62,3 +62,9 @@ Expected behaviour:
 - Load client communication guardrails.
 - Keep caveats clear but not alarmist.
 - Avoid internal labels unless translated into client-safe wording.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

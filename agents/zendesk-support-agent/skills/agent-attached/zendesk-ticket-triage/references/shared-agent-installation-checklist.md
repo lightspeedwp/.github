@@ -57,3 +57,9 @@ Run these in the shared support desk agent:
 - Do not require private queues, saved views, labels, Slack channels, Gmail labels, local paths, or personal memories.
 - Do not include real Zendesk exports, customer identifiers, screenshots, logs, ticket URLs, order IDs, payment references, or credentials in the skill package.
 - Do not use this skill to bypass `zendesk-triage-router` for first-pass classification or `zendesk-router-skill` for ambiguous workflow routing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

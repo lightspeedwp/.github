@@ -30,3 +30,9 @@
 - Confirm whether archive pages, static pages, blog posts, gallery/video schema, and page selector schema are in this release or a later phase.
 - Review current and legacy schema loading to avoid duplicate schema output.
 - Validate one complete test entry per covered post type with all relevant fields populated.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

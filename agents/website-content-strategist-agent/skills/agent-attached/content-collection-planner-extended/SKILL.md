@@ -81,3 +81,9 @@ Return a compact Markdown package with these sections when relevant:
 
 - `references/scope-patterns.md` — use this to decide what to collect for full sites, pages, and sections.
 - `references/collection-output-template.md` — use this as the default output structure.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -101,3 +101,9 @@ Check translated product URLs, product categories, product tags, attributes, bra
 - Separate Yoast/admin fixes from translation-plugin, developer, content, and client approval actions.
 - Mark UI paths, plugin capability, and current Yoast/translation plugin behaviour as `needs live verification` unless verified in the current workflow.
 - For client-facing notes, avoid saying "Google will" and use "this helps align signals" or "this reduces ambiguity" instead.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

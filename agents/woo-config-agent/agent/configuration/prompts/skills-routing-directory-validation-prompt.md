@@ -105,3 +105,9 @@ For each issue, include:
 - Prefer identifying exact drift over giving broad generic advice.
 - Distinguish between true routing errors and simple stale skill-inventory wording.
 - Distinguish between main-instruction problems and prompt-library or validation-doc drift.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -31,3 +31,9 @@ Use this template to decide which intake path the agent should follow for the cu
 - Prefer draft-first when the request is already well scoped and blocking inputs are present.
 - Prefer onboarding-first only when reusable defaults are genuinely needed to continue.
 - Ignore questionnaire files that do not materially improve the current route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

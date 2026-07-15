@@ -149,3 +149,9 @@ Use these references as needed:
 ## Output format
 
 Use Markdown. For project packs, create numbered files and an index. Keep issue drafts copy-pasteable into GitHub.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -103,3 +103,9 @@ Use these references as needed:
 ## Quality standard
 
 Outputs should be practical, structured and ready for human review. Avoid hype, generic agency language, unsupported guarantees and vague AI promises.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

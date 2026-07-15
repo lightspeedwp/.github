@@ -72,3 +72,9 @@ Move from pilot to wider rollout only when:
 - Teammates understand how to prompt the agent.
 - The agent handles missing or conflicting evidence safely.
 - Ash is comfortable with the default permission and approval model.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

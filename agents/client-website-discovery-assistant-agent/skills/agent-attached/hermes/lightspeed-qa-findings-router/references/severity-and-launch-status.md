@@ -35,3 +35,9 @@ Treat a finding as a launch blocker only when at least one of these is true:
 - It cannot be safely mitigated with a short-term workaround.
 
 If leadership can knowingly accept the risk with a named owner and follow-up date, classify it as `Can Launch With Follow-up`, not `Launch Blocker`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

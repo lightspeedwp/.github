@@ -22,3 +22,9 @@ When to read: any task that includes sources, links, evidence, or source lists.
 4. After applying a link, verify through connector readback that the label text still matches the intended phrase exactly.
 5. If the source block already contains raw URLs from an earlier write, clean them up into linked labels during the final pass instead of leaving them behind.
 6. If connector readback shows a partial hyperlink on only part of a word or phrase, treat that as a failed write and repair it before handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

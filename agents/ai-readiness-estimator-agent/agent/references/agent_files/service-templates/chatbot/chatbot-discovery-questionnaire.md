@@ -59,3 +59,9 @@ The responses will inform the use-case definition, source suitability, and imple
 ## Additional Notes
 
 Provide any other context or requirements that may affect the planning and implementation of the chatbot.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

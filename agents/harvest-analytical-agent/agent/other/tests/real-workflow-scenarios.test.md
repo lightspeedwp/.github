@@ -47,3 +47,9 @@ Check that the agent handles realistic Harvest reporting workflows while staying
 - Reference files reduce drift.
 - Memory stays hygienic.
 - Temporary deep research files are not treated as permanent runtime knowledge.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

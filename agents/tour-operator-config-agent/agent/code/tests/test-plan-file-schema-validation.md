@@ -106,3 +106,9 @@ Use this test only when memory files are attached.
 - If an example is missing a section expected by its template family, update the example or clarify the family mapping.
 - If a schema file lacks `properties` or a valid object root, fix the schema before relying on it.
 - If a memory file mixes durable defaults with active tasks, split the content between the appropriate memory files once those files are attached and verified.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -110,3 +110,9 @@ Use these assets as templates when generating downloadable artefacts:
 - `assets/redirect-status-table-template.md`
 - `assets/404-risk-list-template.md`
 - `assets/launch-day-checklist-template.md`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

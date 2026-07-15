@@ -19,3 +19,9 @@ Use this guide when performing accessibility-aware critique, audit, handoff, or 
 - Separate visible issues from issues that still require implementation verification.
 - Prioritize accessibility issues that affect core tasks first.
 - Explain user impact, not just the technical concern.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

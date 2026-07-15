@@ -44,3 +44,9 @@ When updating an existing memory bank:
 - mark old items as `Superseded` instead of deleting important history
 - add dated decision entries
 - update active context and progress every time
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

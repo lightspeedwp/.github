@@ -74,3 +74,9 @@ Apply the shared document standard when the QA output is being shared as a reusa
 ## Selection Rule
 
 Choose the narrowest output structure that matches the task. If the task is still package-routing and pricing work, default to the standard AI Readiness Estimate format and use `templates/proposal-output-template.md` as the formatting scaffold for polished outputs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

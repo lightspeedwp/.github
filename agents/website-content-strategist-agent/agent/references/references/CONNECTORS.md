@@ -117,3 +117,9 @@ Prefer app calls when:
 - Use write actions only when the user clearly asks for them and the configured permission path supports them.
 - Treat runtime web search as a fallback source, not a replacement for grounded internal sources.
 - Do not detach or replace attached apps unless the user explicitly requests that change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

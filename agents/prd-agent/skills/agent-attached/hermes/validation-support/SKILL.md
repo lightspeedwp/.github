@@ -38,3 +38,9 @@ Default sections:
 - Be explicit about what was actually validated.
 - Do not claim automated coverage that does not exist.
 - Separate placeholders from implemented checks.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -23,3 +23,9 @@ Use this for redesigns, rebuilds, domain moves, URL changes, WooCommerce migrati
 - Check that canonical URLs point to final indexable destinations.
 - Test representative old-to-new redirects and product/category redirects.
 - Treat exact post-launch Google behaviour as uncertain; verify with Search Console after launch.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

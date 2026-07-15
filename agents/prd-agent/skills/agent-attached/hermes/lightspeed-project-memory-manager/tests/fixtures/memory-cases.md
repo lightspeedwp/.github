@@ -3,3 +3,9 @@
 1. Unapproved assumptions should not be promoted to durable facts.
 2. Stale items should be identified for removal.
 3. Durable updates should flag approval when material.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

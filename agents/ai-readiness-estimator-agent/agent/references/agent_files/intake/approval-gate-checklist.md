@@ -17,3 +17,9 @@ Use this checklist when the task may produce client-facing, published, operation
 
 - Do not force a full approval workflow when one small blocking approval clarification is enough.
 - If approval status is unclear, ask the narrowest useful question.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

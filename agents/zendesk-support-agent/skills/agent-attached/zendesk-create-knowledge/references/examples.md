@@ -294,20 +294,6 @@ Escalate when:
 
 ---
 
-### Publishing Notes
-- Source: Internal support diagnostic pattern
-- Existing articles to update: None; keep as internal note
-- Public/internal boundary: Entire article is internal-only because it refers to support diagnostics and billing-sensitive checks
-- Evidence confidence: medium — useful for internal triage, but diagnostic steps should be reviewed periodically
-- Review needed from: Support lead
-- Suggested review date: Quarterly or after billing workflow changes
-- Recommended next route: zendesk-evidence-quality-review before adding to internal knowledge base
-```
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-## Example-use rules
-
-- Use examples to calibrate structure, not as source evidence.
-- Keep examples anonymised and generic.
-- Replace every placeholder with evidence from the current support case, article, or approved source.
-- Do not infer product status, affected audience, timelines, or root cause from examples.
-- Do not copy internal-only sections into public articles.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

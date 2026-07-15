@@ -52,3 +52,9 @@ Client reports must include scope, evidence status, limitations, findings, prior
 Input: "verify this skill"
 
 Expected output: inspect the skill entrypoint first, then check referenced templates, intake files, reference files, routing boundaries, safety rules, templates and tests before declaring readiness. If only partial skill material is available, state which checks could not be verified.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

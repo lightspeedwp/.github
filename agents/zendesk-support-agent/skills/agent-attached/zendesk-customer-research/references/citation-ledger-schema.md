@@ -79,3 +79,9 @@ Before final output:
 - unavailable sources are not described as no-result searches
 - major conclusions do not rely only on chat, docs, or project tools when Zendesk evidence is missing
 - low or partial evidence lowers confidence rather than being smoothed over
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -75,3 +75,9 @@ Avoid wording that overclaims access or certainty:
 - "I checked all related tickets" unless that is true.
 - "These should be merged" when internal notes, requester context, or resolution history are unseen.
 - "This is an incident" when timing, spread, and shared operational cause are not supported.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

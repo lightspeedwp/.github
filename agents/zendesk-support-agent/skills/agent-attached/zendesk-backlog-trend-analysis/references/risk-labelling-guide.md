@@ -58,3 +58,9 @@ Use this compact table when multiple risks need scanning:
 
 | Risk | Label | Evidence | Recommended support action |
 |---|---|---|---|
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

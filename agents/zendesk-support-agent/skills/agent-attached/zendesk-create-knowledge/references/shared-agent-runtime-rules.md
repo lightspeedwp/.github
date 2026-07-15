@@ -92,3 +92,9 @@ Route away from article drafting when:
 - the user needs duplicate, related-case, repeated-pain, or incident-pattern classification, which should route to `zendesk-duplicate-pattern-review`
 
 Use the relevant Zendesk workflow before creating the knowledge draft.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

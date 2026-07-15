@@ -26,3 +26,9 @@ When Figma evidence is supplied, extract or request:
 | Pages | Templates/page types |  |  |
 | Modes | Light/dark styles |  |  |
 | Interactions | Interactivity/API or JS needs |  |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -25,3 +25,9 @@ New: Keep Zendesk-first support handling as the default. Use downstream Linear, 
 ## Archive rule
 
 If the old `ticket-triage` package remains in a skill directory during migration, treat it as deprecated archive material or a thin redirect-only alias. It must not appear in route recommendations, own routing decisions, or duplicate the canonical `zendesk-triage-router` decision rules.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

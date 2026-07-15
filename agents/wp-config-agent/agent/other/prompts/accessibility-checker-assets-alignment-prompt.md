@@ -42,3 +42,9 @@ Output:
 3. Accessibility-checker routing or reference fixes applied
 4. Any remaining non-blocking ambiguity
 5. A clear statement on whether accessibility-checker assets are now aligned with the local skill
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

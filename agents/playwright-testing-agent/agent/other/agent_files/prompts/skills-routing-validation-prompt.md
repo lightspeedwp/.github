@@ -61,3 +61,9 @@ Validation expectation:
 
 - Run the documented validation entry point when file-quality or validation-facing docs change.
 - Keep the pass focused on skills routing and skills-structure truthfulness, not a general rewrite.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

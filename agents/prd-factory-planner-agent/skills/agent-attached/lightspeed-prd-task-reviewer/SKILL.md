@@ -100,3 +100,9 @@ When a gap belongs to another skill, recommend the relevant skill:
 ## Output stance
 
 Use UK English. Keep feedback direct, practical and implementation-focused. Separate client-facing concerns from internal LightSpeed delivery concerns.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -88,3 +88,9 @@ When MCP cannot run browser-level tests, still check:
 - Separate connector-verified evidence from user-reported or inferred results.
 - Redact names, emails, phone numbers, addresses, message bodies, uploaded filenames, and entry IDs unless the user asked for those specifics and permissions allow it.
 - Do not claim email deliverability is fixed until a real or controlled test confirms delivery to the target mailbox.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

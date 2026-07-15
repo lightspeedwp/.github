@@ -110,3 +110,9 @@ Examples:
 - `zendesk-knowledge-candidate-review` — documentation value, audience, visibility, or stability is unclear
 - `zendesk-evidence-quality-review` — draft needs evidence, claims, boundary, or wording QA before sharing
 - `zendesk-customer-research` — customer/account context may change article scope or risk
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

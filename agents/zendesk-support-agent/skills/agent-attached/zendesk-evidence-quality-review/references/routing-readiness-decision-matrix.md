@@ -104,3 +104,9 @@ When routing away, keep the response short and useful:
 2. Name the smallest correct upstream workflow.
 3. List the minimum missing evidence or artefact needed.
 4. Do not produce a polished review or draft from unsupported facts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

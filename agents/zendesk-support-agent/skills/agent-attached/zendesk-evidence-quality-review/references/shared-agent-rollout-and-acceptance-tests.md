@@ -100,3 +100,9 @@ If a test fails, update the smallest relevant file:
 - `references/support-risk-language-bank.md` if wording risk was missed.
 - `templates/*.md` if the output structure was inconsistent.
 - `schemas/review-result.schema.json` only if the machine-readable contract needs to change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

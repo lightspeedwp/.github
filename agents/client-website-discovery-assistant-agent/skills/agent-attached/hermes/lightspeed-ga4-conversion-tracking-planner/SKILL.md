@@ -132,3 +132,9 @@ Use these references as needed:
 ## Quality standard
 
 Outputs should be practical, launch-focused and easy to hand to a developer, analytics implementer or project manager. Always separate implementation tasks from strategic recommendations and missing information.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -20,3 +20,9 @@ status: "active"
 - Byline data may not map one-to-one with WordPress users.
 - Consent mode, cookie settings and POPIA/privacy considerations may affect analytics capture and reporting.
 - The existing GTM/GA4 setup may differ across the 20 sites or may need normalisation for consistent reporting.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

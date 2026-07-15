@@ -38,3 +38,9 @@ Tighten visible validation coverage around the current workflow names, file stru
 ## Deliverable
 
 Apply the smallest useful set of file updates needed to make the visible validation pack more internally consistent across schemas, templates, examples, scripts, and validation notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

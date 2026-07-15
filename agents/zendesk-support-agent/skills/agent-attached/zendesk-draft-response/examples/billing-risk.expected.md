@@ -12,3 +12,9 @@ We need to review the billing record and the cancellation history before confirm
 
 - Do not promise a refund, credit, or reversal until approved.
 - Route to billing/account owner review before giving a firm outcome.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

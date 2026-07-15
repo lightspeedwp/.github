@@ -65,3 +65,9 @@ After package edits, run the relevant package validation for the updated skill.
 2. Report package-level issues found.
 3. Report any same-id updates or follow-through completed.
 4. Report which checks were run and whether they passed or failed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

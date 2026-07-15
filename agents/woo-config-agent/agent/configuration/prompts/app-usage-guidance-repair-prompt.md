@@ -50,3 +50,9 @@ Deliverable format:
 - Run the validation prompt first when possible.
 - Prefer exact file-specific repairs over broad rewrites.
 - Keep the repair pass scoped to app-guidance alignment unless a new blocking issue is discovered.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

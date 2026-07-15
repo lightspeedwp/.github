@@ -28,3 +28,9 @@ A maintainer asks the agent to explain the current validation structure, folder 
 - treating connectors as the first source for file-structure questions
 - describing outdated folders as if they exist
 - collapsing templates and examples into the same role
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -95,3 +95,9 @@ Expected:
 - Classifies the remedy as compensation/credit with limited confidence.
 - Names missing policy, billing, SLA, incident, and approval evidence.
 - Recommends `zendesk-evidence-collector`, `zendesk-help-center-grounding`, or `zendesk-customer-escalation` according to the next blocker.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

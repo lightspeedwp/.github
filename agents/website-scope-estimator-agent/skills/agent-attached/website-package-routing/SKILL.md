@@ -233,3 +233,9 @@ Missing Material Inputs
 Next Handoff
 - Draft the estimate provisionally from WordPress Foundations Package, preserving the add-ons and commercial caveat above.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

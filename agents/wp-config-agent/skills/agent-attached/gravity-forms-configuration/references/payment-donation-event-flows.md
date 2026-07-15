@@ -109,3 +109,9 @@ Route away when the user needs:
 - Custom payment gateway development.
 - Secure ticket inventory or seat management beyond simple capped registration.
 - Legal wording for donation deductibility, refund policy, terms, or tax status.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

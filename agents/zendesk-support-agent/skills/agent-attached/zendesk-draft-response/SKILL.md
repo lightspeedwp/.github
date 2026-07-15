@@ -317,3 +317,9 @@ Allowed specialist follow-ons from this skill:
 - another `zendesk-draft-response` pass: when the user wants a different tone, stakeholder level, length, channel, or locale.
 
 Return to `zendesk-router-skill` instead of selecting a specialist when the user asks for workflow routing, triage, owner/priority/status guidance, duplicate or incident review, backlog reporting, knowledge-worthiness decisions, or any multi-step support plan outside reply drafting. Also return to the router when two or more adjacent handoffs seem plausible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -45,3 +45,9 @@ Output standard:
 - after changing evidence-source rules in the instructions
 - before source-sensitive validation or promotion work
 - whenever connector docs may have drifted from the real setup
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

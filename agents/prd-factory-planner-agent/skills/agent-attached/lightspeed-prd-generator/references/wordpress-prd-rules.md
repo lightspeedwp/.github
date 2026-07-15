@@ -16,3 +16,9 @@ PRDs for LightSpeed WordPress projects should consider:
 - escaping, sanitisation and capability checks
 
 Do not prescribe unnecessary custom code when native WordPress blocks, patterns, theme.json or block supports can solve the requirement.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

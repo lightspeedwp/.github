@@ -20,3 +20,9 @@ A monthly retainer is already close to the watch threshold halfway through the m
 - Retainer identification method: Project tagged as monthly support retainer.
 - Missing data: No future task booking data.
 - Confidence: Medium.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

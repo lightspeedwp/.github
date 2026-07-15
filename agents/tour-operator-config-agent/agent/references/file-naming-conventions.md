@@ -35,3 +35,9 @@ Use short, descriptive, lowercase file names with hyphens.
 - Spaces in file names
 - Vague names like `misc.md` or `notes2.md`
 - Unclear versioning like `final-final.md`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -25,3 +25,9 @@ Use this checklist when reviewing whether a critique, audit, or handoff still me
 
 - Are behaviors, states, dependencies, edge cases, and unresolved questions explicit?
 - Are acceptance criteria included when the work is implementation-oriented?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

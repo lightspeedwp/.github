@@ -78,3 +78,9 @@ Use the LSX Design System example context. Review the current source set and exp
 - Use the project-specific prompts when you want to test more specific source-authority and routing behaviour.
 - Reuse the exact same prompt across runs when you want to compare instruction or context changes.
 - Only change the wording deliberately when you are testing prompt sensitivity.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

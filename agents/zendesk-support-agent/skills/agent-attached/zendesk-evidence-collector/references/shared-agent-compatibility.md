@@ -75,3 +75,9 @@ Use wording close to this when relevant:
 For a non-material secondary connector gap:
 
 > Zendesk has enough evidence for the next support step. The secondary source was not available, but that does not block the recommended workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

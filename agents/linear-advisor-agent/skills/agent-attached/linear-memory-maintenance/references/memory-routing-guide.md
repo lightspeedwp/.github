@@ -81,3 +81,9 @@ Candidate item: "If the request is mixed skill authoring plus packaging, prefer 
 Route to: `skill-routing-notes.yaml`
 
 Why: this is a repeatable skill-routing rule.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -18,3 +18,9 @@
 | Implementation pack | Team is ready to start development |
 | Launch pack | QA, launch routing and go/no-go are the focus |
 | Review pack | User wants a reviewer-friendly set of files |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

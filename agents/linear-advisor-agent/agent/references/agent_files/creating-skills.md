@@ -82,28 +82,9 @@ Every `SKILL.md` must start with YAML frontmatter:
 ---
 name: lowercase-hyphen-case-skill-name
 description: concise trigger-focused description explaining what the skill creates or does and when to use it.
+
 ---
-```
 
-The description is the primary trigger mechanism. It must include:
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-* the outputs the skill creates;
-* the situations where it should be used;
-* relevant Linear entities or workflow types;
-* enough boundaries to avoid over-triggering.
-
-After the frontmatter, use this order:
-
-1. Purpose
-2. When to use
-3. Inputs
-4. Decision flow
-5. Workflow
-6. Linear-specific rules, if relevant
-7. Output formats
-8. Validation checklist
-9. Test prompts
-10. References
-
-Keep `SKILL.md` compact. Move detailed mappings, examples and reusable templates into `references/`.
-````
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

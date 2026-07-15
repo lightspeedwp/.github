@@ -69,3 +69,9 @@ Review the profile when:
 - the team adds or removes Zendesk groups, brands, or forms
 
 Treat the profile as operational configuration, not memory. If it becomes outdated, prefer saying capability is uncertain and rerun the capability preflight.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

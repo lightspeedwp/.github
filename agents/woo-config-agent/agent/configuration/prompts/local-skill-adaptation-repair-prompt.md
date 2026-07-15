@@ -79,3 +79,9 @@ Deliverable format:
 - Name the exact local skill being repaired when you run the prompt.
 - Treat the current grounded agent configuration as canonical when older skill wording disagrees.
 - Keep the repair pass focused on adaptation and drift removal rather than broad repurposing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

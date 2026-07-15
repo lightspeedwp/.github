@@ -378,3 +378,9 @@
 | skills/plugin-provided/google-drive/google-slides/references/reference-template-reference-deck-copy-workflow.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/references/reference-template-reference-deck-copy-workflow.md | skill file | yes | Google Drive plugin skill exposed as readable local files |
 | skills/plugin-provided/google-drive/google-slides/references/reference-thumbnail-visual-verification.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/references/reference-thumbnail-visual-verification.md | skill file | yes | Google Drive plugin skill exposed as readable local files |
 | skills/plugin-provided/google-drive/google-slides/references/reference-visual-iteration.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/references/reference-visual-iteration.md | skill file | yes | Google Drive plugin skill exposed as readable local files |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

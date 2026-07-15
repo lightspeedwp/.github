@@ -40,3 +40,9 @@ Use:
 When a question cannot be answered safely:
 
 > I do not have an approved source for that answer yet. The best next step is to speak to the LightSpeed team so they can review your project properly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

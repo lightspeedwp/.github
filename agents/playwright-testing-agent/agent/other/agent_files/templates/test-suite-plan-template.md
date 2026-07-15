@@ -41,3 +41,9 @@ A structured suite plan covering coverage, fixtures, risks, CI notes, and review
 ## Quality Checks
 
 Ensure the suite plan is traceable to approved requirements, distinguishes stateful versus read-only coverage, and names the review gate before code generation or write-back.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

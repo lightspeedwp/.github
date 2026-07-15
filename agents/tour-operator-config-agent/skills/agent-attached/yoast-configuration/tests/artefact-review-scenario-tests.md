@@ -56,3 +56,9 @@ Expected behaviour:
 - Review only visible settings.
 - Identify missing WooCommerce and rendered-output QA evidence.
 - Recommend a decision record if product tag indexation changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

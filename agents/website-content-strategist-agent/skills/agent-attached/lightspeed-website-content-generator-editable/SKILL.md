@@ -129,3 +129,9 @@ For each FAQ slot use:
 ## Quality standard
 
 Outputs should be practical, structured, aligned to site objectives, and ready for human review. Avoid hype, generic agency language, unsupported guarantees, and vague AI promises.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -41,3 +41,9 @@ Use available tools such as:
 ## WordPress launch notes
 
 Avoid relying only on WordPress automatic slug redirects for a major IA change. Create explicit redirects for high-value routes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

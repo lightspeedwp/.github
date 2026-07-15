@@ -82,3 +82,9 @@ pdftoppm -png "$INPUT_PDF" "$OUTPUT_PREFIX"
 - Do not deliver until the latest PNG inspection shows zero visual or formatting defects.
 - Confirm headers, footers, page numbering, and section transitions look polished.
 - Keep intermediate files organized or remove them after final approval.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

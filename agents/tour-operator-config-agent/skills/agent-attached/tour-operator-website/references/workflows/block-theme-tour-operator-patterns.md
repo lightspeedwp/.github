@@ -15,3 +15,9 @@ Use for Site Editor, block-theme, archive, single-template, pattern, query-loop 
 ## Guidance
 
 Prefer reusable patterns and semantic theme tokens. Avoid hardcoded one-off templates unless the project requires them and the maintenance cost is justified.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

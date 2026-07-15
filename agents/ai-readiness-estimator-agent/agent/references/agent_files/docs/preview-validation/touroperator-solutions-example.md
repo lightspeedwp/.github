@@ -34,3 +34,9 @@ When using this context for future tests, prefer sources in this order:
 ## Example prompt seed
 
 Use the TourOperator.solutions context to produce a grounded internal LightSpeed deliverable. Review the live site, demo site, dev site, repo, Drive folder, and Figma design system as needed, then recommend the best base package, note missing values, identify likely follow-on work, and keep the output audit-first unless the evidence clearly supports stronger confidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

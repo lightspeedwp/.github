@@ -52,3 +52,9 @@ Deliverable format:
 - Treat the current draft as canonical.
 - Prefer correcting stale references over broad instruction rewrites.
 - Keep this pass focused on grounded reference alignment.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

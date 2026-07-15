@@ -78,3 +78,9 @@ Do not:
 - `schemas/review-report.schema.json` — review output shape.
 - `examples/review-report-example.md` — sample review.
 - `tests/fixtures/review-cases.md` — manual validation set.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

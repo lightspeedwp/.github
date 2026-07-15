@@ -27,3 +27,9 @@ Ask support to collect:
 ## Safe interim handoff brief
 
 This case is not ready for engineering or product handoff yet. The only confirmed detail is that the customer reports checkout is broken. Before routing, support needs the exact error, affected account/store, timestamp, checkout path, and reproduction result. Do not create a downstream issue or escalation until those facts are available or the case becomes urgent due to confirmed widespread impact.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

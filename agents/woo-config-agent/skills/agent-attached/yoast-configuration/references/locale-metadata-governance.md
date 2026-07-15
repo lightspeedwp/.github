@@ -66,3 +66,9 @@ Do not:
 - Import translated metadata into production without approval and rollback notes.
 - Use default-language metadata across translated pages unless a deliberate temporary decision is recorded.
 - Claim that localised metadata guarantees rankings, rich results, or AI visibility.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

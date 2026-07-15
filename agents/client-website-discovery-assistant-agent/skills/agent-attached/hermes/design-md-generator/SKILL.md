@@ -307,3 +307,9 @@ Expected behaviour:
 - `scripts/ci-design-md-check.sh`
 - `scripts/validate-design-md.sh`
 - `scripts/collect-design-md-evidence.js`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

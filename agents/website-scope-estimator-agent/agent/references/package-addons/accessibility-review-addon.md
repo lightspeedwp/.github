@@ -29,3 +29,9 @@ Provide explicit accessibility review and remediation guidance beyond standard d
 - Is accessibility a formal requirement?
 - Do you need a report, remediation, or both?
 - Are there any prior accessibility findings?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

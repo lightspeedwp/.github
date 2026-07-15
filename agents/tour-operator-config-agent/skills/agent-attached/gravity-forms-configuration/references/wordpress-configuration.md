@@ -20,3 +20,9 @@ Route away from this skill when the request is mainly custom plugin development,
 ## High-risk operations
 
 Treat payment feeds, user registration, deletion, entry exports, file upload handling, production embeds, and overwriting notifications/confirmations/feeds as high-risk. Require explicit approval and a rollback note before write actions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

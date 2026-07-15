@@ -26,3 +26,9 @@ A maintainer asks for a concise update after a validation pass on the WordPress 
 - generic progress language with no concrete file or validator detail
 - mixing future recommendations into the completed-work section
 - omitting the next follow-up priority
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -28,3 +28,9 @@ Add chatbot discovery and planning to a website project before any build-phase c
 - Do you want a chatbot in this project or as a later phase?
 - What should the chatbot actually do?
 - What content should it be allowed to use?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

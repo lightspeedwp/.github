@@ -9,3 +9,9 @@ Use this order:
 5. Produce the smallest useful upstream artifact.
 6. Run critique, audit, readiness, or validation before downstream delivery.
 7. Route to Figma, implementation, WordPress, parity, launch, or claim review only when the upstream artifact is ready.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

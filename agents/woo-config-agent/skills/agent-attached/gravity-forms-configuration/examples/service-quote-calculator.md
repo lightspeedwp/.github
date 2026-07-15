@@ -28,3 +28,9 @@ Collect service requirements, apply simple conditional logic, show an estimated 
 - Do not present calculated totals as final prices without approval.
 - Test each conditional branch and pricing boundary.
 - Record fields whose choices drive calculations.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -73,3 +73,9 @@
 | agent/configuration/plugin-manifests/github/plugin.json | /root/.codex/plugins/cache/openai-marketplace/github/local/.codex-plugin/plugin.json | configuration | yes | Safe plugin manifest only; app/MCP runtime config not exported. |
 | agent/configuration/plugin-manifests/google-drive/plugin.json | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/.codex-plugin/plugin.json | configuration | yes | Safe plugin manifest only; app/MCP runtime config not exported. |
 | agent/configuration/plugin-manifests/linear/plugin.json | /root/.codex/plugins/cache/openai-marketplace/linear/local/.codex-plugin/plugin.json | configuration | yes | Safe plugin manifest only; app/MCP runtime config not exported. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

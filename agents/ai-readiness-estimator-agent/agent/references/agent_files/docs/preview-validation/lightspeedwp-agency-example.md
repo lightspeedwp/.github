@@ -36,3 +36,9 @@ Use the Drive folder and project repositories as primary grounding sources when 
 ## Example prompt seed
 
 Use the LightSpeedWP.Agency example context to assess AI-readiness, compare the live site with the dev and prototype references, identify likely follow-on scope, and flag any missing evidence that still blocks a confident recommendation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -190,3 +190,9 @@ Capabilities section review for a proposal draft.
 
 - Security and compliance wording needs explicit validation before reuse.
 - Capability claims are safer when tied to WordPress delivery, UX, accessibility, performance, and governance rather than broad enterprise language.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

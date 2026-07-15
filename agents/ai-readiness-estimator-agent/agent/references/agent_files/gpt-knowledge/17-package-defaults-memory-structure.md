@@ -104,3 +104,9 @@ Do not store:
 - one-off prompt wording
 - unconfirmed package recommendations as settled defaults
 - sensitive details that are not needed for repeated future runs
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

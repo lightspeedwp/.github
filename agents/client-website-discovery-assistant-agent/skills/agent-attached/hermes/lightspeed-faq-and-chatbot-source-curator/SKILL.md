@@ -110,3 +110,9 @@ Use these references as needed:
 ## Quality standard
 
 Use UK English. Keep answers clear, practical and concise. Avoid hype, unsupported guarantees, invented claims and legal/privacy advice. Prefer answer-first wording that can work for users, search engines and AI systems.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

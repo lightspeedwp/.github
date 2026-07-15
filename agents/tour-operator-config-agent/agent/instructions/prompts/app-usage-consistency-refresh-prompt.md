@@ -48,3 +48,9 @@ After editing, run the relevant checks for app-usage consistency and any nearby 
 2. Report which files were changed.
 3. Report which app references were added, removed, or tightened.
 4. Report which checks were run and whether they passed or failed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

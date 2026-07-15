@@ -22,3 +22,9 @@ Use this file to keep lightweight guidance for manual or scripted support tasks 
 - `normalize-research-notes.*`
 - `validate-handoff-output.*`
 - `compare-copy-variants.*`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

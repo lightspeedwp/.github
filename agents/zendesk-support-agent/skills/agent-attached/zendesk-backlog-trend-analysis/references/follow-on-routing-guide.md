@@ -36,3 +36,9 @@ If a secondary system is used, label its evidence separately from Zendesk eviden
 ## Write actions
 
 This skill should not perform Zendesk write actions by default. If the user asks to update tickets, assign owners, add tags, or publish knowledge content, confirm the exact write action or route to the appropriate write-capable workflow available in the active agent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -46,3 +46,9 @@ Default sections:
 - Do not imply launch readiness when major gaps remain.
 - Keep the handoff practical and operational.
 - Surface missing approvals and dependencies clearly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

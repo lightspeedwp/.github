@@ -82,3 +82,9 @@ Do not:
 - `schemas/source-inventory.schema.json` — source inventory structure.
 - `examples/research-brief-example.md` — sample brief.
 - `tests/fixtures/research-cases.md` — manual validation set.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -41,3 +41,9 @@ Outputs should adapt these categories to the project context, flag state-changin
 - profiles/default-wordpress-profile.md
 - profiles/woocommerce-profile.md
 - profiles/accessibility-smoke-profile.md
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

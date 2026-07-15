@@ -31,3 +31,9 @@ The skill description should answer:
 3. Which Linear entities or workflow types trigger it?
 4. Which outputs does it create?
 5. Which adjacent requests should not trigger it?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

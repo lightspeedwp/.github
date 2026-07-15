@@ -158,3 +158,9 @@ Use explicit include and exclude globs whenever the folder contains mixed conten
 - `references/semver-versioning-rules.md` — guidance for interpreting major, minor, and patch bumps for documentation and templates.
 - `references/schema-customisation.md` — instructions for adapting the schema without rewriting the validator.
 - `references/example-validation-report.md` — reference report layout.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

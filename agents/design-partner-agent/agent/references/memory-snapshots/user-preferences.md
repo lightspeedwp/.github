@@ -57,3 +57,9 @@ Update this file only when the user states a clear standing preference or correc
 - Put recurring client or site defaults in `memory/project-defaults.md`.
 - Put completed review continuity, key findings, recommendations, approved directions, rejected directions, and follow-up actions in `memory/review-history.md`.
 - Put unresolved follow-ups in `memory/todos.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

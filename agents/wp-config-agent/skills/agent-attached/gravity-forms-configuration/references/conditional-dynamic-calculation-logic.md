@@ -102,3 +102,9 @@ Route away or pause when:
 - The user wants tax, subscription, WooCommerce order creation, or checkout replacement architecture.
 - The user wants to pass personal or payment data in query strings.
 - The task requires changing live payment-linked totals without sandbox tests.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

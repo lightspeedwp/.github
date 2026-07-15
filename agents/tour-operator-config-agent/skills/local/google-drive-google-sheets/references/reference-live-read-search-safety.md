@@ -21,3 +21,9 @@ When to read: before direct connector range reads, cell reads, or `search_spread
 - Range parse error: separate `sheet_name` from cell-only `range` when possible, or quote the sheet name in full A1 notation.
 - Range too large: shrink to header plus likely data columns, then page through bounded chunks. Do not repeat the oversized call.
 - No rows found: confirm the query value exists in a small displayed-value read before broadening the search.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

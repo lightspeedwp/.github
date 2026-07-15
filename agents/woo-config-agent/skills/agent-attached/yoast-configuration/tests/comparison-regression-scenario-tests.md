@@ -53,3 +53,9 @@ Expected behaviour:
 - Create or recommend a decision record.
 - Classify as intentional decision, not unresolved regression.
 - Include QA checks for sitemap exclusion and rendered meta robots.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

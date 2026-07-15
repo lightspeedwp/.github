@@ -39,3 +39,9 @@ When a structured record is requested for QA, automation, storage, or consistenc
 - Avoid final decision language unless approval and authority are confirmed in source evidence.
 - Do not use unqualified entitlement, approval, guarantee, obligation, or refund-instruction language unless documented policy and authority both support that wording.
 - Keep customer-facing wording out of the assessment except for a short safe boundary.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

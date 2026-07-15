@@ -71,3 +71,9 @@ Use `audit` for systematic assessment across a broader experience, not for feedb
 - Tie recommendations back to the user goal, workflow, or accessibility outcome.
 - Do not imply full WCAG compliance unless the user has provided the implementation details needed to support that claim.
 - If the request is about a single screen, component, modal, or bounded interaction, route to `critique` instead.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

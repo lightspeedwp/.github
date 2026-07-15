@@ -52,3 +52,9 @@ A content-heavy WordPress publishing site needs a redesign to improve editorial 
 ## Recommended next step
 
 Run a source-backed PRD preparation pass only after confirming editorial workflow needs, baseline evidence, and the technical constraints from the current implementation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

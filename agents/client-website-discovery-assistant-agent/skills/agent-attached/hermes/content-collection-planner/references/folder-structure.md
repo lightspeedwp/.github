@@ -28,3 +28,9 @@ Examples:
 2026-04-26-acme-faq-draft-marketing.docx
 2026-04-26-acme-returns-policy-legal-review.pdf
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

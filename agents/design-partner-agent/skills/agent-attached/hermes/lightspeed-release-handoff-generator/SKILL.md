@@ -91,3 +91,9 @@ Use these references as needed:
 ## Quality standard
 
 Use UK English. Be practical, specific and non-alarmist. Avoid vague “successful launch” statements unless launch evidence exists. Clearly mark pending validation, unresolved issues and follow-up owners.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

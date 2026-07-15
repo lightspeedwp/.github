@@ -19,3 +19,9 @@ Use where a tester needs to verify behaviour manually.
 Use for code quality, WordPress standards, performance, accessibility and block/editor behaviour.
 
 Every major requirement should have testable acceptance criteria.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

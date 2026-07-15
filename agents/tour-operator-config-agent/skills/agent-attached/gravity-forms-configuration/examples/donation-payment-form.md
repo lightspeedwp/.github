@@ -17,3 +17,9 @@ Use this example for a simple donation form that may collect one-time donations 
 - Do not imply charitable, tax, Gift Aid, nonprofit or deductible status unless approved.
 - Do not enable recurring donations unless subscription operations are approved.
 - Test successful, failed/declined and zero/invalid amount cases before launch.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -26,3 +26,9 @@ Add one supporting skill only when:
 - the downstream specialist needs another structured input first
 - the output must explicitly note a parallel implication such as estimate impact or QA impact
 - a route without the supporting skill would hide a material blocker
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

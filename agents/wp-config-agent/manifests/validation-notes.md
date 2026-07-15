@@ -23,3 +23,9 @@
 - `d55a9baa41798d8b5108e3058df3a5bda09914ea9fd73b49929cc38a8832424f`: `skills/plugin-provided/github__gh-address-comments/assets/github.png`, `skills/plugin-provided/github__gh-fix-ci/assets/github.png`, `skills/plugin-provided/github__github/assets/github.png`
 - `a0da54a5f966e876668ab59d8df987ddad1328846216578356e6c10b07791f6c`: `skills/plugin-provided/google-drive__google-drive/assets/app-icon.png`, `skills/plugin-provided/google-drive__google-drive/assets/google-drive.png`
 - `5b31886b56b95450f7b9763d9b2fef49cb6076d52b69d35ccad48f454bc03021`: `skills/plugin-provided/google-drive__google-drive/assets/google-drive-small.svg`, `skills/plugin-provided/google-drive__google-drive/assets/google-drive.svg`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

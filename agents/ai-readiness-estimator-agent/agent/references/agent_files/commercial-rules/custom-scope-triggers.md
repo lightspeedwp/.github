@@ -31,3 +31,9 @@ Move to custom scope when the audit or references show:
 ## Handling Rule
 
 When a custom-scope trigger appears, say so clearly, explain the trigger, and stop short of presenting the package price as final fixed-fee scope.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

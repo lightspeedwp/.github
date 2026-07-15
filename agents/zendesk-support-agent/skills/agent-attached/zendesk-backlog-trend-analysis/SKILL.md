@@ -253,3 +253,9 @@ Use optional scripts only for local QA of the packaged skill assets. They are no
 - `scripts/run_all_checks.py`: run fixture validation, scenario validation, portability linting, and structure checks for the bundled good-output examples.
 - `scripts/validate_capability_profile.py`: validate portable shared-agent Zendesk capability profiles.
 - `profiles/workspace-capability-profile.template.json`: portable starter profile for shared-agent Zendesk capability documentation. Copy it per shared agent and validate the completed profile with `scripts/validate_capability_profile.py`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

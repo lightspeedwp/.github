@@ -54,3 +54,9 @@ Use this model to turn Yoast audit findings, settings-export reviews, rendered-o
 ## Backlog output rule
 
 Do not produce a backlog item that cannot be validated. If validation is not currently possible, create a `verify_first` item instead of inventing implementation details.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

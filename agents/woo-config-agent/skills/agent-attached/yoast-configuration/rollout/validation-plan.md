@@ -24,3 +24,9 @@ Run scenario tests for:
 6. Schema customisation developer handoff.
 7. Canonical override developer handoff.
 8. Deep research pack refresh.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -48,3 +48,9 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing voice, te
 - Keep the result system-ready and concise.
 - Do not drift into broader interaction design unless the user asks; use `critique` or `experiments`.
 - Do not package implementation tasks by default; keep the result focused on copy unless the user explicitly asks for planning work.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

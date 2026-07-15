@@ -257,3 +257,9 @@ Acceptance criteria:
 2. **Prompt 2** — instructions, README files, `CONNECTORS.md`
 3. **Prompt 3** — validator implementation
 4. **Prompt 4** — validation docs and coverage scenarios
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -110,3 +110,9 @@ Current AI add-ons:
 - Tour Operator JSON-LD Audit Add-on
 
 Do not recommend an add-on as the primary path. Use it only when the base package remains correct and the audit shows that sector-specific scope must be layered on afterward.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

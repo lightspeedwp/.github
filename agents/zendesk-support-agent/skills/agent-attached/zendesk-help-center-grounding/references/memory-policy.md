@@ -45,3 +45,9 @@ Unsafe memory candidate:
 ## If unsure
 
 Do not save. Ask for confirmation only when Memory is necessary for future shared-agent behaviour. Otherwise keep the information in the current grounding brief only.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

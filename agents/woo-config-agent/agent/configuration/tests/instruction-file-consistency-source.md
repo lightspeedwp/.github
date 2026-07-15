@@ -62,3 +62,9 @@ Use this file as the source snapshot for validating file references used by the 
 - Do not reference retired or absent folder names unless those structures are explicitly attached later.
 - Treat `schemas/` as structured validation assets, `tests/` as QA and scenario support, `references/` as durable guidance, `prompts/` as recurring maintainer prompts, and `examples/` as illustrative outputs.
 - Treat internal file, README, schema, script, test, connector-guide, prompt-library, memory-structure, and instruction-routing upkeep as maintenance-workflow work, not as delivery-skill work.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

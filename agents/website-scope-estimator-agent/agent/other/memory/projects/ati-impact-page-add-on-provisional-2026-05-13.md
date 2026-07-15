@@ -39,3 +39,9 @@
 - Final approved copy and image assets are still outstanding.
 - Exact number of approved sections / patterns still needs confirmation.
 - Commercial figures remain provisional until aligned to the user's preferred internal rate card or pricing basis.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

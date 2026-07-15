@@ -34,3 +34,9 @@ When connector choice materially affects the work, read `CONNECTORS.md` before s
 - No `tracking`: emit tasks in a copy-ready checklist or table.
 - No `chat`: emit a short stakeholder summary in plain text.
 - No `design-source`: work from the provided description and call out the missing source as an assumption.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

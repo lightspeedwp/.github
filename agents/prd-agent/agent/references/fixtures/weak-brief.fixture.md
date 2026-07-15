@@ -16,3 +16,9 @@ A planning brief exists, but it is too weak to trust as a foundation for a PRD o
 ## Expected use
 
 Use this fixture to test planning-brief review, gap detection, and escalation to stronger source gathering before PRD drafting.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

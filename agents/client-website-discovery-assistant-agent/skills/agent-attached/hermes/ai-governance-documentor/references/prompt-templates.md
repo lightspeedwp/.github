@@ -59,3 +59,9 @@ I want to make sure I give you accurate information. I do not have enough confir
 ```text
 This needs a member of the team to review it properly. I can help pass your request to the right person now.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

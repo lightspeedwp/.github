@@ -45,3 +45,9 @@ Improve the WooCommerce category page so product discovery feels clearer, faster
 ## Recommended next artifact
 
 Create a bounded category-page critique or redesign direction that tests filtering clarity, scanability, and merchandising hierarchy before moving into implementation handoff.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

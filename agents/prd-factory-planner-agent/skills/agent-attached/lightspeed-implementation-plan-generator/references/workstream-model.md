@@ -17,3 +17,9 @@ Use these workstreams where relevant.
 | Forms and tracking | forms, consent, GA4 events, GTM triggers |
 | SEO and launch | redirects, schema, metadata, sitemap, Search Console |
 | QA and release | test plans, go/no-go gates, rollback notes |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

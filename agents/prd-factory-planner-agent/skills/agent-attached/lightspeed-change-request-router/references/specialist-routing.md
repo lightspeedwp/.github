@@ -17,3 +17,9 @@
 | Claims affected | lightspeed-claim-register-auditor |
 | Policies or privacy affected | lightspeed-policy-page-generator |
 | Memory update needed | lightspeed-project-memory-manager |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

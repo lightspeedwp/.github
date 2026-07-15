@@ -25,3 +25,9 @@ FAQ schema is appropriate only when:
 ## Output guidance
 
 Recommend a company FAQ page plus selected page-level FAQs. Deduplicate repeated questions and keep each FAQ close to the user intent of the page.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

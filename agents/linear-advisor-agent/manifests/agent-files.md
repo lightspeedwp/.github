@@ -191,3 +191,9 @@
 | agent/configuration/memory/skill-routing-notes.yaml | /workspace/memory/skill-routing-notes.yaml | project-context/memory | yes | Memory working file; repository internals intentionally excluded. |
 | agent/configuration/memory/source-of-truth-register.yaml | /workspace/memory/source-of-truth-register.yaml | project-context/memory | yes | Memory working file; repository internals intentionally excluded. |
 | agent/configuration/memory/workspace-personalization.yaml | /workspace/memory/workspace-personalization.yaml | project-context/memory | yes | Memory working file; repository internals intentionally excluded. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

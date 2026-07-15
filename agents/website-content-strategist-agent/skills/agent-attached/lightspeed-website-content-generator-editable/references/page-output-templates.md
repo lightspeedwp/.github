@@ -427,74 +427,9 @@ og_description:
 schema_type:
 canonical_path:
 review_status:
+
 ---
 
-# [Client / Project]
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-## Front matter
-
-- Page purpose:
-- Primary audience:
-- User intent:
-- Page goal:
-- Recommended slug:
-- SEO title:
-- Meta description:
-- Focus phrase:
-- Social sharing title:
-- Social sharing description:
-- Suggested schema:
-- Review status:
-
-## Summary
-
-## Client context
-
-## Challenge
-
-## What LightSpeed delivered
-
-## Technical approach
-
-## Outcome
-
-## Proof and evidence
-
-## Related services
-
-### Related service cards if relevant
-
-- Card 1:
-  - Icon:
-  - Title:
-  - Subtitle:
-  - Description:
-  - Link text:
-  - Linked page slug:
-
-## CTA
-- Title:
-- Description:
-- Primary CTA text:
-- Primary CTA destination:
-- Secondary CTA text: [optional]
-- Secondary CTA destination: [optional]
-- Supporting reassurance:
-- Placement notes:
-
-## Internal review notes
-```
-
-## CTA Block
-
-```markdown
-## CTA
-- Title:
-- Description:
-- Primary CTA text:
-- Primary CTA destination:
-- Secondary CTA text: [optional]
-- Secondary CTA destination: [optional]
-- Supporting reassurance:
-- Placement notes:
-```
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

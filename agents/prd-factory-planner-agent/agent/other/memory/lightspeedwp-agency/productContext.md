@@ -8,3 +8,9 @@ The website is both a marketing asset and a proof-of-systems asset. It must help
 - a credible AI-forward operator without hype drift
 
 The new site needs to balance aspiration with proof.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

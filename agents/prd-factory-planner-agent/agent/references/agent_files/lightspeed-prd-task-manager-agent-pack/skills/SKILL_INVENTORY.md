@@ -98,3 +98,9 @@ If multiple skills seem plausible and none is clearly dominant:
 This inventory should be treated as authoritative for current routing.
 
 Do not rely on older references to unattached launch, content, governance, or parity skills unless those skills are attached in the future.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

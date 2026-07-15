@@ -52,3 +52,9 @@ Use this planning layer for every website page.
 - Publish status: visible / hidden / deferred / answered elsewhere
 - Claim-sensitive: yes / no
 - Claim-register action:
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -45,3 +45,9 @@ Yoast can participate in metadata and canonicals, but multilingual behaviour dep
 ## Output recommendation
 
 Use `templates/multilingual-seo-qa-report.md` for multilingual QA, `templates/translated-metadata-approval-pack.md` for translated metadata approval, `templates/yoast-configuration-report.md` for setup, `templates/yoast-audit-report.md` for an existing site, and `templates/launch-qa-checklist.md` for launch or migration validation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

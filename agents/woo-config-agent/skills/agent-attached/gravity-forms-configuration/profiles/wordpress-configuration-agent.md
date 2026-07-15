@@ -19,3 +19,9 @@ Deleting forms/entries, changing production embeds, uploading files, retention c
 ## Output preference
 
 Preflight report first for live sites. Configuration plan for new forms. Change summary and test report after approved changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

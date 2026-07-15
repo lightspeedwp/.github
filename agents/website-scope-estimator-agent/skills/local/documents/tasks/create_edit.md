@@ -58,3 +58,9 @@ Use the loop from `tasks/verify_render.md` (DOCX → PNG) to avoid shipping layo
 ## Output hygiene
 
 Keep `/mnt/data` clean: deliverables only unless the user asks for intermediate render artifacts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -49,3 +49,9 @@ Practical rules:
 - Ratings need rating source, scale, author/organisation and item context before `Rating` or `AggregateRating` mapping.
 - Best-time values are editorial guidance, not availability.
 - Visitor suitability and special-interest values can support content filters and copy, but need careful mapping before public schema use.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

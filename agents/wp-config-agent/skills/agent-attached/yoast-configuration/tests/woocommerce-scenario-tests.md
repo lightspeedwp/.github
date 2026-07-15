@@ -45,3 +45,9 @@ Expected routing:
 Expected behaviour:
 
 - Flag crawl/index bloat, canonical/noindex/sitemap alignment, and developer escalation where custom logic is required.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

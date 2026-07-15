@@ -443,32 +443,6 @@ The next workflow should draft the page structure while keeping those proof item
 
 ---
 
-## Relationship to other intake files
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this file together with:
-
-- `docs/intake/agent-context-routing-template.md`
-- `docs/intake/blocking-gaps-checklist.md`
-- `docs/intake/source-approval-register.md`
-- `docs/intake/url-evidence-token-schema.yaml`
-- `docs/intake/exclusions-register.md`
-- `docs/intake/claim-register-template.md`
-- `docs/intake/ri[REDACTED_OPENAI_KEY].md`
-- `docs/intake/approval-gate-checklist.md`
-- `docs/intake/memory-schema-template.yaml`
-- `docs/intake/project-memory-summary.md`
-
-This file answers:
-
-**How should approved context, provisional context, risks, and next-step instructions be passed downstream?**
-
-The related files answer:
-
-- what workflow should run first
-- which gaps still matter
-- which sources are safe
-- what evidence was extracted
-- what is excluded
-- which claims need review
-- whether review or approval is complete
-- what can safely carry forward into Memory
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

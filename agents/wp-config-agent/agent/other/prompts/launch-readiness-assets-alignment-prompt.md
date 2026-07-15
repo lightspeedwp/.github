@@ -51,3 +51,9 @@ Output:
 4. Any checklist/template/example mismatches found
 5. Any lightweight validation follow-ups recommended
 6. A clear statement on whether the launch-readiness asset set is now aligned
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

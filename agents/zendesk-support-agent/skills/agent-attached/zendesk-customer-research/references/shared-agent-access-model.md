@@ -82,3 +82,9 @@ Keep confidence high only when recent Zendesk evidence and relevant supporting s
 ### Email checked
 - [E1] prior commitment search - unavailable - Gmail was not available in this agent session
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

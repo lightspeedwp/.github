@@ -87,3 +87,9 @@ Do not:
 - `schemas/acceptance-test.schema.json` — acceptance-test shape.
 - `examples/qa-plan-example.md` — example QA plan.
 - `tests/fixtures/qa-plan-cases.md` — manual validation cases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

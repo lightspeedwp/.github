@@ -16,3 +16,9 @@ Customer asks to cancel an annual add-on renewal charged yesterday. Zendesk tick
 ## Safety note
 
 Do not write `you are entitled to a refund` unless policy and authority both confirm that wording is allowed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

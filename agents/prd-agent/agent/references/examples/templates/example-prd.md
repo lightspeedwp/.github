@@ -71,3 +71,9 @@ The current WordPress publishing site is difficult for editors to manage efficie
 - Gather accessibility and analytics baseline evidence.
 - Validate the current design source of truth.
 - Review the existing repository constraints before moving into technical planning.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

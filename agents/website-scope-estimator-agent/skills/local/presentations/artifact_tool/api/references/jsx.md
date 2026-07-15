@@ -225,3 +225,9 @@ with the image.
 - `tests/presentation/jsx.spec.tsx`: JSX normalization and compose behavior.
 - `tests/presentation/jsx-style-language.spec.tsx`: compact style strings.
 - `tests/presentation/tailwind-tokens.sanity.spec.ts`: token coverage.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

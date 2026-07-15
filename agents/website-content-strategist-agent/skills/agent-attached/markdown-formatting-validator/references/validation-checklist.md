@@ -20,3 +20,9 @@
 - Material gaps in `## Missing intake` use the exact required bullet pattern
 - Divider line present before every required `##` section after the first
 - No internal path, workspace path, or memory path wording remains in final review copy
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

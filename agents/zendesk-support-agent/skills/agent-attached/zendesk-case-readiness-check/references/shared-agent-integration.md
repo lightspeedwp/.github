@@ -101,3 +101,9 @@ Expected behaviour:
 - Confirm it uses canonical companion names such as `zendesk-evidence-collector`, `zendesk-draft-response`, `zendesk-customer-escalation`, `zendesk-handoff-prep`, and `zendesk-create-knowledge` when those narrow handoffs are appropriate.
 - Confirm it avoids Linear, GitHub, Asana, or product workflows unless explicitly requested and Zendesk-first readiness supports that path.
 - Confirm structured JSON is only used when explicitly requested.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

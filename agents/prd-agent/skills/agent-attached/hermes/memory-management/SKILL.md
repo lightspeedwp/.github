@@ -43,3 +43,9 @@ Include the reason for that decision.
 - Memory should improve continuity, not add noise.
 - Do not treat temporary working notes as durable state.
 - Do not store unapproved assumptions as settled facts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

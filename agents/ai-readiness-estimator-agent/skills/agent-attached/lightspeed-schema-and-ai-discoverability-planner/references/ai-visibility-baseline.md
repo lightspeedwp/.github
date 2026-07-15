@@ -31,3 +31,9 @@ Create a repeatable monthly baseline for how the brand, services and priority to
 ## Caution
 
 AI visibility fluctuates. Treat this as monitoring and improvement, not a guaranteed ranking channel.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

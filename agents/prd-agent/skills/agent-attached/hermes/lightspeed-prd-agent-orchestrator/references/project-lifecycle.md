@@ -14,3 +14,9 @@ Use these stages to decide the next specialist skill:
 10. **Memory maintenance** — durable project state, decisions, assumptions, or open loops need updating.
 
 Routing rule: choose the earliest unresolved stage that blocks reliable downstream work.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

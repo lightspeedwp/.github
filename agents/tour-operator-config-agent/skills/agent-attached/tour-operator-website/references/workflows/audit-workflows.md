@@ -42,3 +42,9 @@ Check broken content, archive/single templates, query loops, enquiry forms, trac
 ## Evidence labels
 
 Use: confirmed live evidence, confirmed repository evidence, confirmed uploaded source evidence, confirmed documentation evidence, memory only, assumption, or unknown.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

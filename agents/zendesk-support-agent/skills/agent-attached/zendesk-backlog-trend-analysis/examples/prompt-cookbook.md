@@ -45,3 +45,9 @@ Use this when installing the skill into a new shared agent or when reports are i
 ```text
 Check whether this shared support agent has enough Zendesk access for backlog trend reports. Use the workspace capability profile pattern, list confirmed read capabilities, optional data visibility, missing evidence, and any report types that should be considered permission-limited. Do not use personal views or hardcoded IDs.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

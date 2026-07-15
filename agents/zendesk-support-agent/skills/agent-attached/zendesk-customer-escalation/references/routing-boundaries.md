@@ -65,3 +65,9 @@ Avoid:
 - treating every unclear support request as an escalation
 - combining escalation, customer reply, knowledge draft, backlog report, and duplicate review into one specialist output
 - relying on personal memory or author-specific connector access to decide routing
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -63,3 +63,9 @@ Acceptance criteria:
 - Treat the current attached local skills as the routing source of truth.
 - Prefer replacing stale wording over layering duplicate routing notes.
 - Keep this pass focused on route accuracy unless a broader blocking consistency issue is discovered.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

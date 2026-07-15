@@ -92,3 +92,9 @@ Delivery rules:
 - When returning a pack directly in chat, put the plain filename on its own line above each file's contents, for example `README.md` or `01-homepage.md`.
 - Do not wrap filenames with decorative separators such as `===== README.md =====`.
 - Prefer accessible in-chat content over inaccessible file references.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

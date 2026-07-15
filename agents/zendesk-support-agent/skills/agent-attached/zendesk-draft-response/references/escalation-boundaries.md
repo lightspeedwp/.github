@@ -12,3 +12,9 @@ Route away from reply drafting or keep the reply deliberately limited when the i
 - engineering ownership that has not been confirmed
 
 A safe customer reply can still acknowledge receipt and set a limited next step, but it must not promise the escalation outcome.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

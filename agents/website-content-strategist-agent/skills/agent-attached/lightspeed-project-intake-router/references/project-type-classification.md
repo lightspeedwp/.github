@@ -22,3 +22,9 @@ Use these labels:
 - **High confidence:** explicit source evidence confirms build type.
 - **Medium confidence:** indicators strongly suggest build type, but one confirmation is still needed.
 - **Low confidence:** inferred from limited notes; ask one focused question or route to evidence review.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -108,3 +108,9 @@ Use these references as needed:
 ## Quality standard
 
 Outputs should be practical, evidence-led and ready to paste into a project pack, GitHub issue review, Google Doc or launch QA handoff. Keep wording direct, UK English and LightSpeed-specific.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

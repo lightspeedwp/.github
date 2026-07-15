@@ -17,3 +17,9 @@ Use this example for a simple paid event registration where Gravity Forms collec
 - Do not treat entry creation alone as paid registration unless payment status is successful.
 - Keep attendee and payment data minimised.
 - Test quantity caps, sold-out/closed states if those are managed outside Gravity Forms.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

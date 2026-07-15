@@ -43,3 +43,9 @@ Run the workflow when these change:
 - Keep CI strict on errors and advisory on warnings unless the team explicitly raises the bar.
 - Use the local validator script for richer reports during development, and the GitHub Action for continuous enforcement.
 - Use a marker-based PR comment so each run updates one standing comment instead of spamming the thread.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

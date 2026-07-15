@@ -40,3 +40,9 @@ Output:
 2. Files updated
 3. Any alignment gaps found between templates, examples, and schemas
 4. Any remaining non-blocking drift in the output layer
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

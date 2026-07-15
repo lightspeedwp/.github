@@ -8,3 +8,9 @@
 | Evidence Pending | Claims or facts need proof | Flag in source notes |
 | Blocked | Cannot proceed without input | Add to next actions |
 | Missing | Not supplied | Create placeholder file if important |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

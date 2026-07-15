@@ -99,3 +99,9 @@ If a validation script fails because a referenced file is not staged locally fir
 - Prefer precise corrections over broad rewrites.
 - Do not invent missing files, folders, workflows, or capabilities.
 - Keep the final README set coherent and internally consistent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

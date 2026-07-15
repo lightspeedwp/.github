@@ -45,3 +45,9 @@ A reliable implementation plan depends on validating the existing theme structur
 - Confirm editorial workflow priorities with stakeholders.
 - Gather accessibility and analytics baselines.
 - Use the validated findings to prepare an implementation plan and, only after that, an estimate-ready planning pack.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

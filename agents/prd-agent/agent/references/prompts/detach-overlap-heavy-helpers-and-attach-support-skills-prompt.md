@@ -91,3 +91,9 @@ Return:
 - when the new support-layer local skills uploaded but repeatedly failed to attach
 - when the current draft already has a large helper-skill layer
 - before updating instructions to reference the new support-layer skills
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

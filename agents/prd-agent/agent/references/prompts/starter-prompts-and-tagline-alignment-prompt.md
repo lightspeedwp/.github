@@ -46,3 +46,9 @@ Output standard:
 - after attaching or detaching major skills
 - before sharing, publishing, or handoff
 - whenever the public-facing entry points may have drifted from the agent’s real capabilities
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

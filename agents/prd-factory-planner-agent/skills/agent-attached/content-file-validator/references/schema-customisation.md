@@ -87,3 +87,9 @@ properties:
 - keep metadata rules in the schema, not in the validator code
 - use per-file-type overrides only when different file classes really need different rules
 - use `--fail-on-empty` when an empty scan should fail CI instead of only surfacing a warning
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

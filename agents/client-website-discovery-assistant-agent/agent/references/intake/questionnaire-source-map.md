@@ -18,3 +18,9 @@ Use these files as selective intake references, not mandatory forms.
 | `questionnaires/tour-operator-website-planning-checklists.md` | Tour operator planning, launch, destination, itinerary, operational readiness | Non-tour workflows |
 
 Decision rule: choose the smallest set of files that improves the current intake. Ignore files that do not materially help the active workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

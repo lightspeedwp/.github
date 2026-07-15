@@ -9,3 +9,9 @@
 - Added anonymised fixture data and fixture schema for repeatable validation.
 - Added static validation script for package structure, references, canonical route names, shared-agent portability, fixture shape, and conservative wording.
 - Tightened canonical routing away from legacy triage aliases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

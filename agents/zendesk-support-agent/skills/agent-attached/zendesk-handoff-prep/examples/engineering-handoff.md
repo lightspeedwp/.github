@@ -33,3 +33,9 @@ This is an anonymised example. Do not treat it as real Zendesk evidence.
 ## Handoff brief
 
 Engineering review requested for ZD-10001. Customer reports CSV imports complete but imported rows do not appear in the dashboard until cache is manually cleared. Support reproduced this once on staging and confirmed the rows appeared after cache clear. Please confirm whether the import completion event should invalidate dashboard cache, and whether support can recommend manual cache clearing as a safe temporary workaround.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -36,3 +36,9 @@ Responses will help tailor the agenda and focus areas.
 ## Additional Comments
 
 Please provide any other information, concerns, or topics you would like the workshop to address.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

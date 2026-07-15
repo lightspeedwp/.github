@@ -20,3 +20,9 @@ Use this file to choose the right attached template or control file for the outp
 2. If no required format exists, choose the best-fit attached template.
 3. If multiple files seem relevant, choose one primary drafting template and use the others only as supporting guides.
 4. Use `references/README.md` when you need a fuller explanation of what each reference file is for.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

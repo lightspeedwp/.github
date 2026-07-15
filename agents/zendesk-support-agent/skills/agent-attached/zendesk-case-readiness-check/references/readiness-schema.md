@@ -37,3 +37,9 @@ Before marking a case ready, confirm:
 2. The minimum evidence threshold for that deliverable is met.
 3. Any uncertainty can be framed honestly without weakening the next action.
 4. The next step is support-operational and does not default to Linear, GitHub, Asana, or product planning.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

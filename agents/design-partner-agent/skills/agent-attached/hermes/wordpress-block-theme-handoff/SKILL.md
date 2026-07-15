@@ -256,3 +256,9 @@ Success looks like:
 - the layout converted into templates, patterns, and block structures
 - responsive and reuse guidance preserved
 - any likely custom-code requirements surfaced early
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

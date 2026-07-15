@@ -69,3 +69,9 @@ Use these line items when turning AI readiness outputs into LightSpeed proposal 
 - Avoid promising chatbot implementation until source, governance, privacy and escalation gates are passed.
 - Mark legal/privacy/regulatory items as requiring qualified review.
 - For thin evidence, recommend a discovery or readiness phase rather than a fixed implementation quote.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

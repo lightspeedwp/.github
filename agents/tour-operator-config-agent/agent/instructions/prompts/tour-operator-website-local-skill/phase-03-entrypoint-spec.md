@@ -94,3 +94,9 @@ Use this spec to draft a file creation plan, not the files themselves:
 - define exact `SKILL.md` sections
 - define exact `agents/` metadata files
 - define which verified references are bundled by default
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

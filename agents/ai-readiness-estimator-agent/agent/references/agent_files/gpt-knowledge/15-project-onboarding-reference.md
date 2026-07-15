@@ -189,3 +189,9 @@ Action:
 - fill any grounded placeholders such as company name, project type, and reference links
 - ask only if a truly necessary value is still missing
 - continue the output without re-running full onboarding
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

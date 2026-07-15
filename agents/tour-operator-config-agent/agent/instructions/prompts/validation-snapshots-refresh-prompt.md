@@ -50,3 +50,9 @@ After editing, run the relevant validation and consistency checks for the snapsh
 2. Report which files were changed.
 3. Report which stale references were removed or refreshed.
 4. Report which checks were run and whether they passed or failed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

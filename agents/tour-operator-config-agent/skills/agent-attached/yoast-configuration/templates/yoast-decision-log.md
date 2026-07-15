@@ -56,3 +56,9 @@ Define when this decision must be revisited, such as Yoast product change, plugi
 - Superseded by:
 - Related source-register rows:
 - Related audit findings:
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

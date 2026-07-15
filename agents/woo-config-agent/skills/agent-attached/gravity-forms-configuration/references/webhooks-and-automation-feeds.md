@@ -83,3 +83,9 @@ Record:
 - Conditional logic.
 - Test entry ID if permitted, with personal data redacted.
 - Remaining risks and owner for external-system verification.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

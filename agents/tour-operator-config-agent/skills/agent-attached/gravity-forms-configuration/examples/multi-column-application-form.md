@@ -15,3 +15,9 @@ A client wants a long application form made shorter by placing related fields in
 ## Safe output
 
 Create a layout plan showing sections, field groups, mobile behaviour, and regression tests. Do not apply production layout changes without approval.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

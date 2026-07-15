@@ -12,3 +12,9 @@
 
 - New intake runs should start with an intake summary by default unless the request clearly specifies a different first artefact.
 - The current agency-site planning pass is narrowed to a PRD focused on positioning and content information architecture rather than full implementation planning.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -990,3 +990,9 @@
 | skills/local/skill-installer/scripts/list-skills.py | /root/.codex/skills/.system/skill-installer/scripts/list-skills.py | skill | yes |  |
 | agent/configuration/codex-config.safe.toml | /root/.codex/config.toml | configuration | yes | safe readable Codex config; no credentials detected |
 | agent/configuration/plugin-marketplace.safe.json | /root/.codex/.agents/plugins/marketplace.json | configuration | yes | safe readable plugin marketplace pointer; no credentials detected |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

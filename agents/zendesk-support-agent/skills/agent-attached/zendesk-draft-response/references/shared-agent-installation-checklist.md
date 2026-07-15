@@ -55,3 +55,9 @@ Before treating the shared agent as ready, test these cases:
 - [ ] `templates/redacted-support-context-template.md` is available for approved redacted fixtures.
 - [ ] `scripts/redact_context.py` has been tested on one synthetic sample with an email, URL, ticket ID, and custom customer/account mapping.
 - [ ] The team understands that sensitive security, payment, credential, or personal-data cases should usually be rewritten synthetically rather than stored as redacted examples.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

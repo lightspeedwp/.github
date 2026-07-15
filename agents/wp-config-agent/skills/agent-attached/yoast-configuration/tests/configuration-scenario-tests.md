@@ -51,3 +51,9 @@ Expected behaviour:
 
 - Require redirect, canonical, noindex, sitemap, robots, schema and Search Console checks.
 - Avoid promising Google recrawl timing or ranking outcomes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

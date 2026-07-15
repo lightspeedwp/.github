@@ -6,3 +6,9 @@
 - Metadata-only skills not represented as full exports: passed
 - Empty exported files identified: 0
 - SHA-256 checksums generated for 844 files
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -40,3 +40,9 @@ python scripts/docx_table_to_csv.py /mnt/data/input.docx --table_index 0 --out /
 
 - Word tables do not auto-match Excel column widths; you must verify visually.
 - Multi-line cells and merged cells round-trip poorly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

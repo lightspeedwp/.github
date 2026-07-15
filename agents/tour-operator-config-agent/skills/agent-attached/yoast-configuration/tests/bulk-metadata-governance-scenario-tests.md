@@ -62,3 +62,9 @@ Expected behaviour:
 - Use `templates/yoast-approval-queue.md`.
 - Remove internal implementation detail that is not client-safe.
 - Keep caveats about search display and approval boundaries.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

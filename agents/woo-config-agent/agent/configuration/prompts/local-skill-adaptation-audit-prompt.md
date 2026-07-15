@@ -70,3 +70,9 @@ Acceptance criteria:
 - Name the exact local skill being audited when you run the prompt.
 - Treat the current attached configuration as canonical when older skill wording disagrees.
 - Keep the pass conservative: remove drift and adapt the skill, but do not repurpose it beyond this agent's grounded role.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

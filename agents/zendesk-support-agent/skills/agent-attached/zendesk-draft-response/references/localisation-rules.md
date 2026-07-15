@@ -21,3 +21,9 @@ Match the requested locale and customer relationship. When unsure, prefer profes
 ## Do Not Add Facts
 
 Do not add local legal, billing, security, or product details during localisation unless they are present in the source evidence.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

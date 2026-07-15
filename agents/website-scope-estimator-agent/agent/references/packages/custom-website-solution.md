@@ -47,3 +47,9 @@ Provide a route for larger, more complex, or more specialised website requiremen
 - `client_has_membership_or_portal`
 - `client_platform`
 - `client_content_migration_need`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

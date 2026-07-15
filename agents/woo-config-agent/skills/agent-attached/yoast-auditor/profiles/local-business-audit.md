@@ -18,3 +18,9 @@ Treat Local SEO gaps as business information gaps unless Local SEO evidence is i
 ## Safety note
 
 Do not propose changing legal business details, addresses, opening hours or phone numbers without clear source evidence and approval.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

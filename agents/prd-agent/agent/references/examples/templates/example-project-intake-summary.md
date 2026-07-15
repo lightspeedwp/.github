@@ -48,3 +48,9 @@ Planning brief
 ## Next actions
 
 Confirm workflow constraints, gather baseline evidence, validate the current design source of truth, and turn the intake into a planning brief.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

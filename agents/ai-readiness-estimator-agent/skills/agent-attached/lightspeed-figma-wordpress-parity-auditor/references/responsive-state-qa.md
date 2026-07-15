@@ -27,3 +27,9 @@ Use the project's breakpoint system. If unknown, check at least:
 ## Output
 
 Record page, viewport, issue, severity, expected behaviour and fix owner.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

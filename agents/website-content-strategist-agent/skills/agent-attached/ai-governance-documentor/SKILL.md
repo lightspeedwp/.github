@@ -63,3 +63,9 @@ Turn discovery inputs into practical AI governance outputs for client website, c
 - `references/role-map.md`
 - `references/high-risk-interactive-mode.md`
 - `references/prompt-templates.md`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

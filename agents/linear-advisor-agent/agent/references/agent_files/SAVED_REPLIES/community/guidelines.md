@@ -26,3 +26,9 @@ Thank you for your interest in contributing!
 - Use the correct issue and PR templates for your contribution type
 
 Following these steps ensures a smooth review process and helps us keep the project high-quality and welcoming to all.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -23,3 +23,9 @@ Three projects need operational clean-up: one is active with no budget, one is s
 - Filters: Active client projects only.
 - Missing data: Full invoice linkage was not available in this fictional example.
 - Confidence: Medium.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

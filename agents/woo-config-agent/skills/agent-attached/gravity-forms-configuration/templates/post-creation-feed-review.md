@@ -59,3 +59,9 @@
 - Confirm generated post status, author, title, content, taxonomies, media, and visibility.
 - Confirm no unintended public publishing.
 - Confirm rollback/cleanup steps for test post and uploaded files.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

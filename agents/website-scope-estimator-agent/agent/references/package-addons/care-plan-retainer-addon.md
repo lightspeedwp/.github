@@ -29,3 +29,9 @@ Provide post-launch maintenance, optimisation, and ongoing support after the web
 - Do you want technical maintenance only or optimisation support too?
 - What review cadence do you want?
 - Who will be the ongoing point of contact?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

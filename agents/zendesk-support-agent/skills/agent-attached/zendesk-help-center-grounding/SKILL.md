@@ -99,3 +99,9 @@ If multiple routes seem possible, choose the smallest next step that resolves th
 - Separate **documented guidance** from **interpretation** and **recommended support wording**.
 - Preserve uncertainty. When documentation is incomplete, say so plainly.
 - Avoid relying on personal memory, one teammate's workspace context, or customer-specific details saved from another conversation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

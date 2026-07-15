@@ -78,3 +78,9 @@ Remains fixed-fee when:
 - Use this after or alongside implementation where the client team will maintain content internally.
 - Confirm attendee roles and expected outcomes before quoting.
 - Route to the retainer if ongoing review and reinforcement are needed after training.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -52,3 +52,9 @@ Provide only wording supported by the supplied evidence.
 - Customer knows what happens next: Yes/No
 - Internal reasoning removed: Yes/No
 - Safe to send as-is: Yes/No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

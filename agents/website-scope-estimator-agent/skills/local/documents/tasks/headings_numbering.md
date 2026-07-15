@@ -49,3 +49,9 @@ python scripts/heading_audit.py /mnt/data/input.docx
 - Mixing manual numbering (“1. ” typed in text) with TOC-generated numbering
 - Using Normal paragraphs with bold/size changes instead of Heading styles
 - Having different documents disagree on what Heading 1/2/3 look like (solve with templates)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

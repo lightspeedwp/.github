@@ -33,3 +33,9 @@ Use this test when checking whether files in `examples/` remain grounded, readab
 - Example files with no clear problem, findings, or recommendations
 - Missing accessibility considerations where the scenario clearly calls for them
 - Example files that read like raw notes instead of finished references
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

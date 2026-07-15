@@ -71,3 +71,9 @@
 - Settings exports do not prove rendered output.
 - A sampled rendered URL does not prove whole-site behaviour.
 - Product packaging, UI paths, Yoast developer APIs, Google Search guidance, WooCommerce behaviour, and Schema.org vocabulary may require current verification before client-facing claims or implementation decisions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

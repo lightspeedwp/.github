@@ -89,3 +89,9 @@ If a check fails:
 - split mixed memory content into the correct memory files
 - correct validation wording that overstates current schema coverage
 - rerun `bash scripts/validate-folder-schemas.sh` until it passes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

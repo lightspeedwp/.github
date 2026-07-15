@@ -67,3 +67,9 @@ Every maintained memory file should follow a defined schema. If a file falls out
 - avoid relying on invalid fields
 - preserve trustworthy information where possible
 - restore the file to the expected structure on the next meaningful update
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

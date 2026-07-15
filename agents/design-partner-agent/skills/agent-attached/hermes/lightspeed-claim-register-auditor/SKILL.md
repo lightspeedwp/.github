@@ -95,3 +95,9 @@ Use UK English. Keep outputs practical, direct and non-alarmist. Separate public
 For legal, privacy, accessibility, compliance, data protection, regulated-sector, chatbot logging or policy-adjacent claims, include this note:
 
 > This output supports operational review and publication planning. It is not legal advice. Legal, privacy and regulatory requirements should be confirmed with a qualified adviser before publication.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

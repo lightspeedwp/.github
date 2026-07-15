@@ -74,3 +74,9 @@ Notes:
 - TOC entries exist, have correct indentation, and page numbers match headings
 - Cross references (`REF`/`PAGEREF`) resolve (no "Error! Reference source not found.")
 - No placeholder text like “(TOC will populate...)” remains
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

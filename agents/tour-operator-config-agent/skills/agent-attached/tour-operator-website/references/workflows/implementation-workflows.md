@@ -24,3 +24,9 @@ Use only when the user asks for configuration, implementation, developer plannin
 ## Developer handoff
 
 Include objective, source evidence, non-goals, affected files, content model references, implementation sequence, acceptance checks, rollback/manual recovery and unresolved questions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -43,3 +43,9 @@ Recommend only when core/official add-ons cannot meet the requirement, the add-o
 ## When not to recommend third-party add-ons
 
 Avoid adding a third-party add-on for one-off convenience, visual preference, speculative future use, or when the existing site can meet the requirement with simpler core fields, notifications, confirmations, or manual process.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

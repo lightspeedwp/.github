@@ -55,3 +55,9 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - Gravity Forms starter prompts are in scope because Gravity Forms is an attached routed workflow that directly supports WooCommerce outcomes.
 - Starter prompts do not need to enumerate Yoast or accessibility work unless the starter set is intentionally expanded later.
 - Starter prompts should not drift into general WordPress support, generic productivity, or unrelated connected-app workflows.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

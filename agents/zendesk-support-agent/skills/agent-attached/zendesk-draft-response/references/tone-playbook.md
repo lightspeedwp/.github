@@ -51,3 +51,9 @@ Avoid:
 ## Technical Customers
 
 Use precise wording, but do not overload the reply. Include steps, constraints, affected areas, and validation details only when they help the customer act.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

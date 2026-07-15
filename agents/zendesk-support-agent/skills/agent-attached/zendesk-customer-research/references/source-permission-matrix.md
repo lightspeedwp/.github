@@ -62,3 +62,9 @@ Avoid wording:
 - `There are no email commitments.` when Gmail was unavailable or only one mailbox was checked.
 - `The team is not concerned.` when Slack/chat was unavailable or not checked.
 - `The issue is resolved.` when only a project task is closed and Zendesk is still open or unchecked.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -77,13 +77,6 @@ Then place the H1 below it:
 
 ---
 
-## Quality rules
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- Keep the section concise and senior-readable.
-- Tie every claim to the actual request, trusted source material, or clearly stated assumptions.
-- Do not repeat the full detailed response.
-- Avoid generic agency language when a request-specific framing is available.
-- Do not promise unsupported outcomes, timelines, certifications, or capabilities.
-- Preserve bold labels and list structure when several short points are grouped.
-- Place frontmatter above the H1 whenever this is a substantial standalone Markdown deliverable.
-- End the surrounding substantial document with a final `---` divider.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

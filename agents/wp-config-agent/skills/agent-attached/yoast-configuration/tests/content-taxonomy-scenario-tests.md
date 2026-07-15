@@ -73,3 +73,9 @@ Expected behaviour:
 - Require redirect/internal link/canonical/sitemap checks.
 - Create decision records for removed or consolidated archive surfaces.
 - Use migration and content-structure workflows together.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

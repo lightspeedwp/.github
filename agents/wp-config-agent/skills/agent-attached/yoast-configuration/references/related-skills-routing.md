@@ -100,3 +100,9 @@ Stay in `yoast-configuration` when the user only needs:
 ## Safety notes
 
 Do not present `yoast-configuration` as having completed live WordPress checks. If the evidence requires WordPress admin, staging, production, or connector access, label the current output as a handoff and route the live inspection or edit to `yoast-auditor`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

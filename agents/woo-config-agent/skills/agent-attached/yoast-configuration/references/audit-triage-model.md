@@ -88,3 +88,9 @@ Priority is not the same as severity. Use urgency and delivery context.
 - Do not ask for more evidence if a safe low-risk recommendation can be made from current context.
 - Use `advisory` for source freshness, documentation and maintainability issues.
 - Escalate to developer only when configuration or content changes cannot safely resolve the finding.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

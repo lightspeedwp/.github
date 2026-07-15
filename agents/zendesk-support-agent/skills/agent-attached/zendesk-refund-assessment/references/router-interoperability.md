@@ -59,3 +59,9 @@ When returning to the router, keep the payload short:
 ```
 
 Do not perform broad Zendesk routing inside this skill. Name the ambiguity and hand it back.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

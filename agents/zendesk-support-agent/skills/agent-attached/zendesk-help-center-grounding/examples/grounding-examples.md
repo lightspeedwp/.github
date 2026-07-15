@@ -71,3 +71,9 @@ User asks: "Summarise this customer's last six tickets and tell me whether they 
 **Routing result**
 
 Route to `zendesk-customer-research`. The primary need is customer/account history, not documentation grounding. This skill may be used later only if the resulting reply depends on official policy or Help Center wording.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

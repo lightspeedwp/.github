@@ -21,3 +21,9 @@ For small clients:
 - Marketing owner: content owner + brand approver.
 - Operations owner: chatbot owner + escalation owner.
 - External adviser: legal/privacy reviewer.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -122,3 +122,9 @@ Example:
 - VLOOKUP: <https://support.google.com/docs/answer/3093318?hl=en>
 - MAP: <https://support.google.com/docs/answer/12568985?hl=en>
 - Named functions: <https://support.google.com/docs/answer/12504534?hl=en>
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

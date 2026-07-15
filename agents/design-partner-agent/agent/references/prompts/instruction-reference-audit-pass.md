@@ -35,3 +35,9 @@ Keep instruction references reliable so the agent does not point to stale packag
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep the instructions’ visible references aligned with the current visible files, attached apps, attached skills, and memory lanes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

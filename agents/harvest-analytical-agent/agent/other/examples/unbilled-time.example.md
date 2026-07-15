@@ -28,3 +28,9 @@ Approved billable work older than 30 days is waiting for finance review on one c
 - Billing rules: Approved time only.
 - Missing data: Expense data not included.
 - Confidence: High.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

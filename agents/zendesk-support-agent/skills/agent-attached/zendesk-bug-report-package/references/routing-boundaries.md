@@ -62,3 +62,9 @@ Example:
 ```markdown
 This is better handled by `zendesk-customer-escalation` because the dominant issue is customer impact and urgent intervention, not defect packaging. Use the confirmed behaviour and reproduction clues below as supporting evidence for the escalation brief.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

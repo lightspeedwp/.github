@@ -49,3 +49,9 @@ This file tree is the durable operating contract for the Zendesk Support Agent. 
 - When a repeated deliverable changes, update the template, paired example, validation schema or markdown contract, and tests together.
 - Refresh `references/instructions.snapshot.md` after every material instruction rewrite.
 - Prefer improving existing artifacts over creating duplicate files with overlapping responsibilities.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

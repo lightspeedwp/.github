@@ -36,3 +36,9 @@ If the current user cannot access the referenced ticket or connector:
 ## Memory boundary
 
 Do not save durable memory from this skill unless the user explicitly asks to record a stable, non-sensitive team convention. Never save customer-specific facts, ticket details, sensitive support history, or teammate-specific access assumptions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

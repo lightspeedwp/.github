@@ -72,3 +72,9 @@ When opportunities are close, prefer the one that:
 - Distinguish evidence-backed findings from interpretation.
 - Avoid broad market narratives unless the user asks for them.
 - Favor recurring workflow failures over isolated preference requests.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

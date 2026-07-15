@@ -33,3 +33,9 @@ current_stage: intake_summary
 - Confirm page scope, content readiness, CRM integration needs, and phase 1/phase 2 booking boundaries.
 - Draft a source-backed PRD once those core scope decisions are confirmed.
 - Move into a Figma-to-WordPress technical brief after the PRD direction is agreed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -57,3 +57,9 @@ Route here when there is already a drafted response, escalation, handoff, report
 ## Avoid overlap
 
 This skill produces an internal package. It does not replace the central router, first-pass triage router, evidence collector, draft-response skill, escalation workflow, handoff workflow, duplicate-pattern review, or knowledge workflows.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

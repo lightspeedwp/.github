@@ -61,3 +61,9 @@ pdftoppm -png "$OUTDIR/$BASENAME.pdf" "$OUTDIR/$BASENAME"
 - Final DOCX is clean (no internal citation tokens, no placeholder text)
 - Final render looks correct on all pages
 - `/mnt/data` contains only final outputs (unless user asked for intermediates)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

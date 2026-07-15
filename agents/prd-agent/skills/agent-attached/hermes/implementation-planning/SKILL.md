@@ -40,3 +40,9 @@ Each should include assumptions, dependencies, risks, and unresolved questions.
 - Do not estimate from a weak planning source.
 - Distinguish discovery effort from implementation effort.
 - Separate confirmed implementation needs from inferred ones.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

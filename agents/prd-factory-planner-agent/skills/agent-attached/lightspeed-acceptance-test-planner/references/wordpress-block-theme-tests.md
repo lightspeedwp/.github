@@ -23,3 +23,9 @@ Check:
 | Single page | Content width, heading hierarchy and CTA patterns render correctly |
 | Archive | Query loops, pagination and empty states work |
 | Patterns | Insert pattern, edit content, preview frontend, confirm responsive behaviour |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

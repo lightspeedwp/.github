@@ -42,3 +42,9 @@ Check that exactly six prompts exist, are specific, and do not imply unsafe acti
 ## Validation Report Format
 
 Validation outputs should follow `schemas/validation-report.schema.json` and `templates/validation-report.template.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

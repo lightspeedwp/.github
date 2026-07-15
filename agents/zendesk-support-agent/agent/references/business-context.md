@@ -34,3 +34,9 @@ LightSpeed uses this agent as a Zendesk-first support operations assistant.
 
 - Stable operating rules should live in attached files, templates, schemas, examples, fixtures, profiles, scripts, and tests so the instruction system remains maintainable.
 - Validation assets should be kept in sync with the active instruction set.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

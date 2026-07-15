@@ -204,3 +204,9 @@ Before finalising, verify that:
 - incomplete evidence is called out clearly
 - recommendations do not promise exact score gains unless the user supplied measured before/after evidence
 - the output works for both a client/stakeholder and the person doing the implementation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

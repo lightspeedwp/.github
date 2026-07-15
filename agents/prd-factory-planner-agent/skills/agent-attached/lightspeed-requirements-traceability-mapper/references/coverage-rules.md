@@ -32,3 +32,9 @@ Use only if the source material explicitly excludes the requirement or the user 
 ## Launch blocker
 
 Use when the requirement affects launch safety, legal/privacy risk, accessibility, broken core functionality, analytics integrity, redirects, security, checkout or critical lead capture.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

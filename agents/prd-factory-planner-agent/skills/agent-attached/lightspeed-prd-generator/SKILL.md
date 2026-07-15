@@ -117,3 +117,9 @@ Use these references as needed:
 ## Quality bar
 
 A good PRD should be specific enough that another skill can create a technical brief and task breakdown from it without re-discovering the whole project.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -100,3 +100,9 @@ Use this variant when the user gives a customer or account name and there is not
 - Use missing or uncertain evidence for blockers, contradictions, connector limits, or unavailable Zendesk access.
 - Recommend one primary workflow only, using a canonical `zendesk-` name when routing away.
 - Do not add customer-facing wording unless the user explicitly asks for a reply draft.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

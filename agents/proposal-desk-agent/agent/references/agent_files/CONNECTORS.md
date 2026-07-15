@@ -49,3 +49,9 @@ Use attached apps in this order unless the user says otherwise:
 - Treat this file as the canonical guide for attached apps.
 - If future app sources are added, update this file so the source hierarchy stays accurate.
 - Do not invent workflows for unattached apps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

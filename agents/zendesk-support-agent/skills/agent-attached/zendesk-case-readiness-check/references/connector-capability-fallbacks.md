@@ -83,3 +83,9 @@ When connector evidence is missing, include one sentence in `Missing evidence` o
 ```
 
 Do not list every inaccessible system. Name only the smallest missing evidence that matters for the next deliverable.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

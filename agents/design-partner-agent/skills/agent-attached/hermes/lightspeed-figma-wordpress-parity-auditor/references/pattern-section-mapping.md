@@ -25,3 +25,9 @@ Confirm that major Figma sections exist as WordPress patterns or template parts 
 4. Does it work on mobile?
 5. Can editors safely modify content without breaking layout?
 6. Are required fields documented?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -15,3 +15,9 @@ Use this file to verify that Memory behavior stays organized and predictable.
 - Mixing active to-dos into review history
 - Saving temporary client details as permanent defaults
 - Repeating the same preference in multiple files
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

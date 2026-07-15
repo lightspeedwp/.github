@@ -30,3 +30,9 @@ current_stage: "prd_v0.1"
 - Review the PRD v0.1 with Ash, Zared, Brandon, and relevant developers.
 - Confirm whether the MVP starts with local development environments, staging sites, or both.
 - Test Meow Apps AI Engine capabilities against the intended plugin-management workflows.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

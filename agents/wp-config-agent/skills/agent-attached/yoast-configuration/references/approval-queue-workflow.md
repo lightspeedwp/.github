@@ -54,3 +54,9 @@ When approval is missing, say:
 - Do not collapse approval and implementation into the same step for high-risk changes.
 - Do not present a spreadsheet or pasted list as live output evidence.
 - Do not approve product metadata that conflicts with product data, availability, pricing, reviews, identifiers, or schema requirements.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

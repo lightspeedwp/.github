@@ -239,3 +239,9 @@ After a write:
 3. Confirm paragraph styles, links, list state, tables, and images match the intended shape where relevant.
 4. Confirm no leftover placeholder text, unintended empty bullets, duplicate sections, or wrong-tab insertion exists.
 5. If the connector response to `mcp__codex_apps__google_drive._batch_update_document` lacks `documentId`, `replies`, or `writeControl`, treat the write status as suspect and verify by readback before continuing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

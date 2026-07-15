@@ -62,3 +62,9 @@
 | agent/templates/internal-vs-client-facing-rules.md | /workspace/agent_files/templates/internal-vs-client-facing-rules.md | template | yes |  |
 | agent/templates/package-cover-sheet-template.md | /workspace/agent_files/templates/package-cover-sheet-template.md | template | yes |  |
 | agent/templates/proposal-output-template.md | /workspace/agent_files/templates/proposal-output-template.md | template | yes |  |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

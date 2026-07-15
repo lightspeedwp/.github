@@ -45,3 +45,9 @@ Last reviewed: 2026-07-03. Use this register to ground audit criteria. Official 
 - Use third-party add-on docs only after MCP evidence confirms the add-on is installed and relevant.
 - Treat Gravity Forms 3.0 guidance as beta/version-specific unless the audited site confirms a compatible version and the risk is accepted.
 - Label LightSpeed standards as recommendations, especially around maintainability, client-safe reporting, preferred handoff format, and WooCommerce/tour-operator defaults.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

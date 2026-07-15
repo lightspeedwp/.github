@@ -333,3 +333,9 @@ Investigation mode:
 - "Reconstruct the timeline before we escalate."
 - "Check whether this is already a known issue or a new failure pattern."
 - "Look up the current status and owner from the case evidence."
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -129,3 +129,9 @@ Use examples only as behavioural patterns, not as source evidence:
 - `examples/route-away.md`
 
 Use `schemas/refund-assessment.schema.json` when a structured record is useful for QA, automation, or consistency checks. Use `tests/smoke-prompts.md` and `tests/refund-assessment-fixtures.json` when validating routing, output shape, evidence/inference separation, shared-agent portability, connector fallbacks, and conservative financial wording. Run `python3 scripts/validate_refund_assessment_pack.py` from the skill root before packaging or sharing this skill. Record meaningful behaviour, validation, fixture, or deployment changes in `references/changelog.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -102,13 +102,6 @@ Inspect the PNGs.
 
 ---
 
-## Pitfalls / tips
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- **Caption style availability:** if the document doesn’t define a `Caption` style, captions may appear as Normal text. If the user cares, apply a template/style pack first.
-- **Figures detection:** this script treats paragraphs containing a `<w:drawing>`/`<w:pict>` as a "figure paragraph".
-- **Edits after materializing:** if you insert/remove figures/tables later, re-run `fields_materialize.py` to recompute numbering.
-
-## Deliverables
-
-- Deliver **only the final DOCX** requested by the user.
-- PNGs / optional PDFs are internal QA only unless explicitly requested.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

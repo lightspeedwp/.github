@@ -37,3 +37,9 @@ When blocked, request only the smallest missing evidence needed for the next saf
 4. billing/order/subscription facts for the remedy
 5. prior refund, credit, chargeback, or exception history if relevant
 6. approval threshold or approval record when a financial offer or policy exception is being considered
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -12,3 +12,9 @@ Always include relevant tool checks unless the user asks for a shorter report.
 | Security | SecurityHeaders.com and WordPress security scan | HTTPS, headers, plugin/theme risk and maintenance posture. | Outdated plugins, weak headers, missing backups. |
 | Analytics | GA4 and Microsoft Clarity | User journeys, drop-offs, form behaviour and content performance. | No measurement, untracked conversions, unclear user paths. |
 | Chatbot quality | Real FAQ test scripts and transcript review | Whether answers are grounded, useful, safe and escalated correctly. | Unsupported answers, overcollection, weak fallback. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -67,3 +67,9 @@ Confirm only the intake values that matter for the current task, then continue o
 
 - `references/max-intake-fields.md` — maximum field set and value options for page and content intake.
 - `references/routing-handoff-rules.md` — how to hand off to the next specialist workflow after intake.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

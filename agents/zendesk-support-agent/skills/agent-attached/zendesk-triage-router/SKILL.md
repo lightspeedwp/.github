@@ -427,3 +427,9 @@ Use Linear-oriented skills only when the user explicitly asks for a Linear-centr
 ## Recommended parent-agent routing note
 
 For Zendesk-centred support requests, use `zendesk-triage-router` when the next workflow is unclear or when first-pass triage is requested. The router may either return an embedded triage result or recommend exactly one primary attached support skill and at most one supporting skill. Do not route to any separate first-pass ticket triage workflow. Do not let Linear, GitHub, Asana, or project workflows become the default destination for support tickets. Use downstream artefact skills only when the user explicitly asks for that artefact or after a Zendesk-first support handoff confirms it is needed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

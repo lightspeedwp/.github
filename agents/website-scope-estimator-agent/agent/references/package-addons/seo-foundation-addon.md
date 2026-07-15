@@ -30,3 +30,9 @@ Strengthen the site’s baseline SEO setup beyond what is included in the core w
 - Is SEO a primary success metric for this website?
 - Do you already use Yoast or another SEO plugin?
 - Are there known ranking or indexing issues?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

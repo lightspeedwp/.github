@@ -48,3 +48,9 @@ Create a monthly monitoring checklist for branded and service-intent prompts acr
 ## 7. Validate before launch
 
 Require schema validation, crawl checks, Search Console setup and post-launch monitoring.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

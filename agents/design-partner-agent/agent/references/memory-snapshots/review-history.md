@@ -90,3 +90,9 @@ Use this file to store **compressed continuity entries for completed work** so f
 - Keep entries short and decision-oriented.
 - Summarize the durable outcome of the work, not the full work process.
 - Put unfinished tasks in `memory/todos.md` instead of leaving them here.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

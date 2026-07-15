@@ -37,3 +37,9 @@ Retest only with approved safe evidence. In auditor mode, review post-change evi
 ## Handoff methodology
 
 For every actionable finding, create a handoff item that names the finding, target object, evidence, recommended fix, risk level, required capability, approval needed, validation checklist, rollback note, and suggested `gravity-forms-configuration` prompt.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

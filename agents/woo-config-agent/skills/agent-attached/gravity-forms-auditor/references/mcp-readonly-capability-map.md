@@ -25,3 +25,9 @@ Do not assume exact MCP action names. Discover available tools/resources and map
 - Ask for a Gravity Forms export, screenshot, system status, redacted log excerpt, page URL, or admin note.
 - Mark affected findings as `Not assessed` or lower confidence.
 - Do not fill gaps with guesses.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

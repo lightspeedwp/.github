@@ -37,3 +37,9 @@ The agent should usually produce one of these:
 - Do not invent approvals, claims, metrics, or project status.
 - Do not present content as launch-ready when important upstream inputs are still missing.
 - Prefer constrained drafts with explicit gaps over unsupported certainty.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

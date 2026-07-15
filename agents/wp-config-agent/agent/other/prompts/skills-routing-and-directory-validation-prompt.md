@@ -93,3 +93,9 @@ Output:
 4. Any skill-inventory or skill-directory ambiguities found
 5. Any new validation checks recommended or added
 6. A clear statement on whether the agent’s skill routing and skill-inventory layer are now aligned with the current attached skills
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

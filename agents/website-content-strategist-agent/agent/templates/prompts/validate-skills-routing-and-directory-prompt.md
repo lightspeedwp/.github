@@ -106,3 +106,9 @@ Produce the output using this structure:
 - Do not describe unseen directories or files as if they exist.
 - Prefer concise, plain editorial language over internal status labels.
 - If evidence is incomplete because the visible file list is partial, say so explicitly and keep conclusions conservative.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

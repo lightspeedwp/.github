@@ -75,6 +75,6 @@ Run validation checks across these folders:
 
 ---
 
-## Expected outcome
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Validation should fail loudly with clear file paths, failed rules, and a non-zero exit code when required checks do not pass.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

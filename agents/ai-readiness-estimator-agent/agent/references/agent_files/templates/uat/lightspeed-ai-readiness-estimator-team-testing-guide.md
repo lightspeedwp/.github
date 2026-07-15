@@ -114,3 +114,9 @@ Move from owner testing to broader team pilot only when:
 - Assign 3 to 5 testers from different roles.
 - Ask each tester to complete at least 5 scenarios from the shared TSV.
 - Review failures, tighten the instructions or files, and rerun the highest-severity cases before wider rollout.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

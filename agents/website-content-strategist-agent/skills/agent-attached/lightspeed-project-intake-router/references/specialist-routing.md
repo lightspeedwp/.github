@@ -84,3 +84,9 @@ Use this routing map after classifying the project. Choose one primary route and
 - Do not route to launch audit skills when the team only has launch planning inputs; use launch QA planning first.
 - Do not route to content generation until source material, claims and approval boundaries are clear.
 - Do not route to chatbot planning until source-of-truth, exclusions, escalation and privacy assumptions are captured.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

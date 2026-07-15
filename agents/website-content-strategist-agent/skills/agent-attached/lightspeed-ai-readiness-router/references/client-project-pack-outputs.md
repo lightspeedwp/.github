@@ -81,3 +81,9 @@ Use these fields when creating or requesting a source register:
 - Do not hide missing evidence. Put it in `missing-information.md` and summarise the impact.
 - Include assumptions and exclusions in proposal notes, not only in internal source notes.
 - Link each recommended next action to a responsible role or team where possible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

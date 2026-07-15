@@ -32,3 +32,9 @@ This is an anonymised example. Do not treat it as real Zendesk evidence.
 ## Handoff brief
 
 Ops check needed for ZD-10003. Example Training Co reports that their renewal was paid on 2026-06-03, but the account still shows the paid add-on as expired and they cannot assign licences. Support has seen a payment confirmation screenshot but has not copied sensitive billing details here. Please confirm payment state and either reactivate the add-on or tell support what evidence is still needed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

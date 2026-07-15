@@ -21,3 +21,9 @@ This agent supports LightSpeed website-content strategy, intake, review, draftin
 ## Output expectations
 
 Outputs should be structured, reusable, review-ready, and aligned to the matched template, schema, and workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -60,3 +60,9 @@ Improve headline hierarchy, story discoverability, reading comfort, and subscrip
 
 - Which business goal matters most on the homepage: subscriptions, article discovery, or sponsor visibility?
 - Which promo modules are contractually fixed versus negotiable?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

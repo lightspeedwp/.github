@@ -183,3 +183,9 @@ A good triage package:
 - does not rely on personal memory, private connector state, or one teammate's workspace context;
 - recommends one practical next workflow, not a long menu;
 - leaves enough breadcrumbs for downstream response drafting, evidence collection, research, escalation, handoff, or quality review.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

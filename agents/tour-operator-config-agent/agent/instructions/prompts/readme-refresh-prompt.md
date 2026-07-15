@@ -93,3 +93,9 @@ If a validation script fails because referenced files are not staged locally fir
    - whether they passed or failed
    - any remaining ambiguities caused by truncated file visibility or unclear ownership
 4. Flag any non-README documentation that still appears stale, but do not rewrite it unless needed for README consistency.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -24,3 +24,9 @@ Every deliverable should end with:
 - `tracking`: offer to create tasks only when work items are concrete enough.
 - `chat`: offer a short stakeholder-ready summary after the main artifact.
 - `design-source`: use source artifacts when available, but do not block on them.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -55,3 +55,9 @@ layout.placeholders.add({
 
 Before editing a master in an imported deck, inspect affected layouts and
 slides; master edits have intentional global blast radius.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

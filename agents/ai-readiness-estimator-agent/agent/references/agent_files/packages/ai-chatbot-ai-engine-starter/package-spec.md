@@ -87,3 +87,9 @@ Remains fixed-fee when:
 - Use only after the planning workshop or equivalent definition work is complete.
 - Confirm source pages and escalation before quoting.
 - Escalate to Tailored when the use case needs structured qualification, richer routing, or more complex logic.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

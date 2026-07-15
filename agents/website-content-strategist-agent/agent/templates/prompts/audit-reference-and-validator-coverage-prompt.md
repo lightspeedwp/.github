@@ -65,3 +65,9 @@ Use this structure:
 - Use only grounded visible files.
 - Do not invent validators, tests, or references that are not attached.
 - Prefer conservative maintenance improvements over speculative expansion.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -47,3 +47,9 @@ Use when the request is valuable but not required for current launch or sprint.
 ## Reject / Not Recommended
 
 Use when the request conflicts with project goals, maintainability, accessibility, performance, governance or commercial fit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

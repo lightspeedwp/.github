@@ -156,3 +156,9 @@ Use this route when the risk depends on old URL decisions, redirect implementati
 Stay in `yoast-configuration` when the user only needs planning, evidence interpretation, exported-settings review, rendered-output QA, source-register updates, decision packs, remediation backlogs, or client-safe summaries.
 
 Validation coverage: `tests/related-skills-routing-scenario-tests.md` exercises live admin routing, mixed planning/live implementation, settings-export reviews, approved noindex edits, and current UI-path verification.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -102,3 +102,9 @@ Use these references when relevant:
 ## Quality standard
 
 Be practical and direct. Separate client-safe wording from internal delivery notes. Never mark legal, privacy, accessibility, launch, claim or implementation work as approved when evidence is missing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

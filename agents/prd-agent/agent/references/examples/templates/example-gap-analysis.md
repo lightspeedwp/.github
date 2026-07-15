@@ -40,3 +40,9 @@ Proceeding now would likely produce a PRD that looks complete but rests on weak 
 ## Recommended next planning step
 
 Create a planning brief only after the missing workflow, baseline, design, and technical evidence is collected and normalised.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

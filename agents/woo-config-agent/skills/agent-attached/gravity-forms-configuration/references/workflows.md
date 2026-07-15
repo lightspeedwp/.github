@@ -313,3 +313,9 @@ Each workflow should be adapted to site evidence, active add-ons, consent/privac
 - **Accessibility requirements**: Visible labels, clear required fields, concise descriptions, keyboard-friendly flow, useful error messages.
 - **Test submission checklist**: Submit realistic test data, verify confirmation, admin notification, user notification if configured, entry content, feed result, spam status, and page embed.
 - **Handoff notes**: Record form ID/title, page URL, fields, notifications, feeds, add-ons, risks, and next owner.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

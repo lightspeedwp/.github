@@ -25,3 +25,9 @@ Prefer current delivery artefacts over older planning notes:
 ## Do not invent progress
 
 If progress evidence is missing, mark the workstream as `Status unknown` or `Needs update`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -138,3 +138,9 @@ Use these references as needed:
 ## Output style
 
 Use UK English. Keep outputs practical, structured and ready for GitHub, Google Docs or a launch QA pack. Separate client-facing summaries from internal LightSpeed notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -57,3 +57,9 @@ Score each output from 1 to 5:
 | Reusability | One-off answer | Repeatable process another teammate can follow |
 
 An output should score at least 4 in routing accuracy, evidence handling and practicality before the skill is considered ready for team use.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

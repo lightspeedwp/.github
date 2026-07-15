@@ -33,3 +33,9 @@ It provides a single source of truth for AI governance positions and helps track
 - Last reviewed by: {{review.reviewed_by}}
 - Review date: {{review.date}}
 - Open questions: {{review.open_questions}}
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

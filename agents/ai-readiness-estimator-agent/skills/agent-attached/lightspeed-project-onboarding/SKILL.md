@@ -168,3 +168,9 @@ For routing outputs, keep the recommendation practical and team-friendly. Do not
 - `references/onboarding-contract.yaml` determines triggers, required state, optional defaults, completion rules, and skip conditions.
 - `references/intake-wizard-schema.yaml` structures fields, statuses, extraction tokens, memory rules, source handling, and claim/approval records.
 - `references/routing-map.yaml` maps messy LightSpeed requests to related specialist skills and safe next prompts.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

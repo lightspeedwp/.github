@@ -79,3 +79,9 @@ Always separate:
 - Do not recommend ecommerce, checkout, cart, booking, or payment plugins unless the user explicitly confirms that the site needs online booking or payment behaviour
 
 Use UK English only in all outputs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

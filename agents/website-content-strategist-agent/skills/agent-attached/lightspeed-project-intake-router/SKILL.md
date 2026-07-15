@@ -195,3 +195,9 @@ Before finalising the intake output, check that:
 ## Output stance
 
 Use UK English. Write for a LightSpeed teammate who needs to act quickly. Keep the structure clear, concise and operational. Avoid hype, vague advice, unsupported certainty and over-engineered process.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

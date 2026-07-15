@@ -127,3 +127,9 @@ Escalate to client/content owner when:
 ## Evidence caveat
 
 A taxonomy decision is not final until current rendered output and sitemap behaviour are verified. Treat screenshots and exports as configuration evidence only.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

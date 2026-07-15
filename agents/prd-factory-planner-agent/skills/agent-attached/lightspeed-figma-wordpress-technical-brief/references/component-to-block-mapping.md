@@ -27,3 +27,9 @@ Use the lightest maintainable WordPress implementation:
 | Accordion/FAQ | Core/details pattern or custom FAQ block if schema-controlled |
 | Testimonial | Pattern or custom block if sourced from CPT |
 | Case study card | Query Loop variation or custom block |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

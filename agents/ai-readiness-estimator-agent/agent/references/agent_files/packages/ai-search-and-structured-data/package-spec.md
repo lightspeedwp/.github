@@ -87,3 +87,9 @@ Remains fixed-fee when:
 - Use this after the baseline package when the main need is machine readability and validation.
 - Start with the audit-first rule and confirm priority templates before quoting.
 - Consider sector-specific add-ons only after the base package remains the correct path.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

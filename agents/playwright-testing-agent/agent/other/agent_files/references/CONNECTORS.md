@@ -157,3 +157,9 @@ This guide documents the attached apps and runtime tools the Playwright Testing 
 
 - Prefer files when the needed guidance already exists in attached references, templates, or project documents.
 - Prefer Memory for stable agent preferences about how to report or validate findings, not for storing general web research dumps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

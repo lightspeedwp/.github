@@ -33,3 +33,9 @@ Avoid broad access to:
 ## Permission posture
 
 If the connector exposes mixed read/write permissions, the auditor must call only read/list/get/export/inspect actions. If safe read capabilities are not available, request screenshots, exported JSON, redacted logs, or admin notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

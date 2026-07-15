@@ -65,3 +65,9 @@ Drive-hosted Word file, not a native Google Doc.
 
 Return the native Google Doc title and link or id when available.
 Do not cite the local `.docx` path in the final answer after a successful native import.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

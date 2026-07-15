@@ -68,3 +68,9 @@ Create a decision record when the recommendation:
 - changes breadcrumbs or archive navigation;
 - requires content consolidation, redirects or developer work;
 - overrides agency defaults for a client-specific reason.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -41,3 +41,9 @@ See `scripts/docx_ooxml_patch.py` (`--add-comment`). It:
 - `document.xml.rels` has a comments relationship
 - `[Content_Types].xml` includes the Override
 - For each comment id, `document.xml` has start/end/reference anchors
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

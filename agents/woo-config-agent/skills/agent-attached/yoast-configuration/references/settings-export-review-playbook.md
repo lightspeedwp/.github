@@ -83,3 +83,9 @@ Use `references/rendered-output-qa-playbook.md` when the settings review needs p
 ## Maintenance
 
 Update this file when Yoast export formats, UI labels, settings groups, agency defaults, or common audit artefacts change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

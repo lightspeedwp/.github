@@ -35,3 +35,9 @@ Confirms the site is ready for formal QA, not necessarily ready to launch.
 ## Launch approval
 
 Confirms launch blockers, go/no-go status, rollback plan and post-launch monitoring.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -24,3 +24,9 @@ NovaNews / Novus Media requested a quote for article-level tracking across its W
 ## Working Direction
 
 The next useful artefact is a technical quote-scope brief for GA4/GTM/Looker Studio reporting across the WordPress network, supported by internal LightSpeed answers about the current WordPress architecture, data model and analytics setup.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

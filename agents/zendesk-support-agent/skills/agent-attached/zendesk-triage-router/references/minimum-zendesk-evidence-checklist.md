@@ -45,3 +45,9 @@ Name the smallest useful missing item instead of reopening broad discovery. Exam
 - reproduction steps or timestamped screenshot
 - related-ticket search result
 - existing Help Centre article link
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

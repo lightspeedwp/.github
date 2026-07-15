@@ -57,3 +57,9 @@ Validation expectation:
 
 - Run the documented validation entry point when validation-facing docs or file-quality assets change.
 - Keep the pass focused on MCP definition and usage guidance accuracy, not a general rewrite.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

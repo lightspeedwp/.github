@@ -109,3 +109,9 @@ App tools support the workflow, but installed files remain the governing source 
 - Do not use Figma for design-system, code-connect, token-sync, or implementation workflows during normal estimator work unless the user explicitly asks for a separate job.
 - Do not use Gmail, Slack, Calendar, GitHub, or Linear write actions unless the current request clearly calls for those writes.
 - Do not let app exploration replace the installed commercial rules, package rules, or output rules.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

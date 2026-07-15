@@ -15,3 +15,9 @@ Use this workflow for real client review work.
 - Do not save raw notes to Memory.
 - Update project defaults only when a stable new rule or recurring constraint appears.
 - Update user preferences only when the preference should apply again later.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -42,3 +42,9 @@ Improve the mobile product page add-to-cart section for a WooCommerce store.
 
 - Should wishlist remain a secondary action in this section?
 - Is shipping messaging static or location-aware?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

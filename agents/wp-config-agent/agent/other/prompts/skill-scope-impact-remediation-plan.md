@@ -195,21 +195,6 @@ If you want the fastest risk reduction without deciding every package boundary u
 
 ---
 
-## Success criteria
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-This remediation is successful when:
-
-- the attached skill packages no longer imply WooCommerce or tour-operator scope by default
-- generic WordPress requests stay generic and do not drift into store or travel assumptions
-- Gravity Forms planning and auditing stay focused on WordPress form work unless the user explicitly changes scope
-- Yoast planning and auditing stay focused on WordPress SEO unless grounded evidence explicitly supports a different path
-- maintenance docs and routing instructions remain aligned with the cleaned skill packages
-
-## Recommended follow-up prompts
-
-Use these next, in order:
-
-1. Create or run a dedicated cleanup prompt for `gravity-forms-configuration`
-2. Create or run a dedicated cleanup prompt for `gravity-forms-auditor`
-3. Continue using the existing Yoast cleanup pack in `prompts/yoast-configuration-audit/`
-4. Re-run skills routing and local skills inventory validation after package cleanup
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

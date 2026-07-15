@@ -114,3 +114,9 @@ For a repeatable test cycle:
 3. Run **Planning Kickoff** or **Technical Brief Readiness Check**
 4. Run **QA-Oriented Context Review**
 5. Validate results with `master-qa-checklist.md`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -977,11 +977,6 @@ Please confirm the found values and fill in the missing ones.
 
 ---
 
-## Final Recommendation
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Use this system to keep intake tight, reduce repeated questioning, and make package proposals more consistent. The AI should always:
-
-- pull as much as possible from the live site and trusted references
-- show the client what it found
-- ask the client to confirm or correct it
-- request only the missing values before drafting the final package output
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

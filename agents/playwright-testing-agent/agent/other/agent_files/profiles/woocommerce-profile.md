@@ -23,3 +23,9 @@ Production checkout mutations, live payment processing, and destructive order ac
 ## Recommended Outputs
 
 Suite plan, human-readable flow-based test cases, fixture recommendations, stateful versus read-only test split, and Playwright spec proposals.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

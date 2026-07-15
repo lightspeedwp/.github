@@ -41,3 +41,9 @@ Create a project memory bank from this PRD, technical brief and task breakdown.
 - Do not treat draft content, stats, Figma notes or QA assumptions as approved evidence.
 - Do not overclaim AI/search/ROI outcomes.
 - Do not provide legal advice.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

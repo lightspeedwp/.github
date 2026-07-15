@@ -35,3 +35,9 @@ Catch visible workflow families that are incomplete, unevenly indexed, or descri
 ## Deliverable
 
 Apply the smallest useful set of updates needed to make visible workflow-family gaps explicit and keep folder guidance accurate about which families are fully present versus standalone exceptions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

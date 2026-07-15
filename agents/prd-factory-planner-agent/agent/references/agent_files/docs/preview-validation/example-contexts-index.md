@@ -11,3 +11,9 @@ This index groups the reusable example contexts used for repeatable preview test
 ## Related Test Resources
 
 - [Repeatable Preview Prompt Library](./repeatable-preview-test-prompts.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

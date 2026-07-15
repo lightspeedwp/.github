@@ -66,3 +66,9 @@ In this skill's outputs, avoid long routing menus. The `Best next move` or `Reco
 - one primary workflow when clear;
 - one supporting workflow at most;
 - or a clear return to `zendesk-router-skill` when routing needs network-level judgement.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

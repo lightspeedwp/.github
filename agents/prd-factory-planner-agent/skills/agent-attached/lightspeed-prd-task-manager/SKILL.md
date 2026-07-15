@@ -218,3 +218,9 @@ Use these references as needed:
 - `references/memory-bank.md` for project memory files.
 - `references/qa-and-launch-routing.md` for launch and specialist skill routing.
 - `references/wordpress-standards.md` for WordPress delivery standards.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

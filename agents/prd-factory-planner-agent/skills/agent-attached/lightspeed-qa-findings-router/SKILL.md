@@ -79,3 +79,9 @@ Route findings to existing specialist skills when needed:
 ## Quality standard
 
 Outputs must be practical, concise and suitable for GitHub, Asana or launch standup review. Separate client-safe summaries from internal implementation notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -55,3 +55,9 @@ Do not treat pricing as final until the agent has confirmed:
 ## Final Pricing Rule
 
 If required values are missing, evidence is weak, or a custom-scope trigger is present, present the commercial outcome as provisional, audit-first, or custom-scope instead of final fixed-fee pricing.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

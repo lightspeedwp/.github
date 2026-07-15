@@ -59,3 +59,9 @@ List known risks, constraints, or assumptions that could impact the implementati
 | Source content | {{approvals.source.name}} | {{approvals.source.date}} | {{approvals.source.notes}} |
 | Budget and timeline | {{approvals.budget.name}} | {{approvals.budget.date}} | {{approvals.budget.notes}} |
 | Legal/privacy | {{approvals.legal.name}} | {{approvals.legal.date}} | {{approvals.legal.notes}} |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

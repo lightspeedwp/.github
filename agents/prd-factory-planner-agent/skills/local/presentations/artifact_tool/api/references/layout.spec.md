@@ -81,3 +81,9 @@ const slide = presentation.slides.add({ layout: "Title Body" });
 slide.placeholders.getItem("title").text = "Market overview";
 slide.placeholders.getItem("body").text = "Three editable points go here.";
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

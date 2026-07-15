@@ -77,3 +77,9 @@ Notifications:
 ## Route-away triggers
 
 Route away when the primary task is a full privacy policy, terms page, legal review, broad website copywriting, translation strategy, or brand voice system. Keep a Gravity Forms handoff if form-level configuration is still relevant.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

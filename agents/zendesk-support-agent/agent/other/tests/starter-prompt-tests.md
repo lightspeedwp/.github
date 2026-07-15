@@ -66,3 +66,9 @@ Use these tests to verify that each starter prompt maps cleanly to a supported Z
 - a starter prompt implies a write or post action that the agent does not actually support by default
 - a starter prompt is redundant with another prompt and does not demonstrate a distinct workflow
 - a starter prompt skips Zendesk-first grounding for a workflow that should begin in Zendesk
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

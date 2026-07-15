@@ -10,3 +10,9 @@
 - Pending: confirm whether enquiry forms require routing logic, conditional fields, multi-step behaviour, or destination-specific variants
 - Pending: review the Figma exploration to identify reusable patterns, tour-page modules, and homepage content blocks
 - Pending: draft the brochure-site PRD once discovery answers and source links are available
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

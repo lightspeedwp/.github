@@ -34,3 +34,9 @@ Use this test when checking whether files in `memory/` still follow the intended
 - Reusable client patterns mixed into user preferences
 - Raw research pasted into memory without summarization
 - Client engagement templates turned into catch-all notes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

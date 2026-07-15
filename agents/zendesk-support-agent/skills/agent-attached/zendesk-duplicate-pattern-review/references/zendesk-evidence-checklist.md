@@ -73,3 +73,9 @@ When evidence is incomplete:
 - Name the smallest missing Zendesk detail needed for confidence.
 - Route to evidence collection or case investigation when cause, timing, or scope determines the decision.
 - Keep customer-specific tickets separate until the support team can preserve impact, commitments, and communication context.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -55,3 +55,9 @@ The default output should include:
 - Do not overstate severity when the evidence is weak.
 - Keep observed issues distinct from inferred pattern-based concerns.
 - Make missing validation coverage visible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

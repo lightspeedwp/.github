@@ -277,3 +277,9 @@ Use this structure in the final answer:
 ```markdown
 Run the LightSpeed agent status and pilot rollout plan for this agent. Work step by step, keep Verified, Inferred, and Owner must confirm separate, apply the approved-vs-excluded materials policy, produce the full rollout assessment, and end with a progress snapshot so the plan can be resumed later if needed.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

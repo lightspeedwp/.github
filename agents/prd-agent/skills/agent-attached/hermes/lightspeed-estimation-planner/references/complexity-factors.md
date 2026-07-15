@@ -9,3 +9,9 @@ Common LightSpeed estimation drivers:
 - accessibility and QA expectations
 - environment or deployment risk
 - stakeholder approval complexity
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

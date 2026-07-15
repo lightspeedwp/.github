@@ -40,3 +40,9 @@ Output:
 2. Reference guides updated
 3. Any stale references removed
 4. Any remaining non-blocking ambiguity in the standing guidance layer
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

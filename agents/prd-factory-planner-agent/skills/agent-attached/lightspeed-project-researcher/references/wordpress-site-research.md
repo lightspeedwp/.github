@@ -18,3 +18,9 @@ For live or staging sites, review or request evidence for:
 ## Do not overclaim
 
 If the site cannot be crawled or audited, mark implementation evidence as pending and create an audit task.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

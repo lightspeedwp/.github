@@ -15,3 +15,9 @@ Use these types as needed:
 | Performance | Page meets agreed performance budget |
 | SEO/schema | Metadata, redirects, schema and indexability are valid |
 | Governance | Claims, policy pages and approval gates are satisfied |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

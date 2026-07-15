@@ -153,3 +153,9 @@ Reason: this is refund/policy/customer communication work, not a defect package.
 
 Recommended destination/skill: use the relevant billing/policy workflow if available, or `zendesk-draft-response` if the user needs a customer-facing reply. Use `zendesk-customer-research` if prior commitments or account context matter.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

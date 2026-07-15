@@ -93,3 +93,9 @@ Use these rules when copying, adapting, or migrating slides from a source deck:
 3. If the chosen slide lacks a suitable slot, choose a different pattern/layout or split the content before adding freeform primary content.
 4. For a genuinely net-new composition, new objects are expected, but create only the objects required by the slide plan and align them to the deck's visual system.
 5. When a new object is necessary in an existing or template-following slide, record its object ID and reason, keep it aligned to the selected slide pattern, and verify that no suitable content-bearing placeholder or inherited scaffold was bypassed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

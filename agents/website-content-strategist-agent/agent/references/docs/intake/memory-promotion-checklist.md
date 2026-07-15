@@ -9,3 +9,9 @@ Promote a value from intake into durable Memory only when all relevant checks pa
 - [ ] The value is not a speculative claim, risk note, or unsupported fact.
 - [ ] The save policy for this field allows durable storage.
 - [ ] Any requester-specific value is properly namespaced when needed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

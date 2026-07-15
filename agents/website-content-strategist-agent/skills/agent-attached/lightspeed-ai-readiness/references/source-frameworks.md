@@ -28,3 +28,9 @@ Use these as reference points when producing AI readiness, governance, content c
 ## Standard disclaimer
 
 This document supports operational governance and implementation planning. It is not legal advice. Clients should confirm legal, privacy and regulatory requirements with a qualified legal or privacy adviser.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

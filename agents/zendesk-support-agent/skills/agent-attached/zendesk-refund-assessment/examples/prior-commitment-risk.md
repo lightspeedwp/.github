@@ -16,3 +16,9 @@ Customer asks for the `refund Sarah promised last week`. Zendesk history shows a
 ## Safety note
 
 Do not blame the teammate or tell the customer the previous promise was invalid. Keep the internal assessment factual and neutral.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

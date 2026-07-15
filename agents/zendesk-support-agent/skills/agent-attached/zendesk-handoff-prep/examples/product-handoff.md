@@ -32,3 +32,9 @@ This is an anonymised example. Do not treat it as real Zendesk evidence.
 ## Handoff brief
 
 Product input requested for ZD-10002. Customer expected archived listings to remain selectable in historical reports, but support observed archived listings are hidden from the filter. Help Centre coverage does not explain this. Please confirm whether this is expected behaviour, a UX gap, or a documentation gap so support can reply without implying a roadmap commitment.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

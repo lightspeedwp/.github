@@ -342,3 +342,9 @@ Use Linear-oriented duplicate or product-planning workflows only when the user e
 ## Recommended parent-agent routing note
 
 For Zendesk-centred tickets that appear similar, repeated, or connected, use `zendesk-duplicate-pattern-review` before merging, linking, escalating, reporting, or preparing downstream product artefacts. Treat duplicate, related issue, repeated pain, and incident pattern as separate classifications. Do not route to Linear duplicate handling by default.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

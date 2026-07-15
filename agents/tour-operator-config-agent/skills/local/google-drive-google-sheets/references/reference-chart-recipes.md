@@ -440,3 +440,9 @@ Use `updateEmbeddedObjectPosition` separately from chart-spec edits.
 - Charts reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/charts>
 - Requests reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request>
 - Batch update guide: <https://developers.google.com/workspace/sheets/api/guides/batchupdate>
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

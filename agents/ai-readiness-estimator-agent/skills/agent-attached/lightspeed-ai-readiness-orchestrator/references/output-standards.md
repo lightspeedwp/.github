@@ -82,3 +82,9 @@ Use lowercase slugs:
 Use this in relevant client-facing outputs:
 
 This document supports operational planning and governance. It is not legal, regulatory or privacy advice. Any legal, regulatory, data-protection or sector-specific obligations should be confirmed with a qualified legal or privacy adviser.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

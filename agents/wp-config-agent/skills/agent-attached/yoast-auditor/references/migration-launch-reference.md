@@ -28,3 +28,9 @@ Assess whether Yoast-related output is safe for launch or migration without taki
 ## Output expectations
 
 Include go/no-go summary, blockers, high-priority fixes, evidence gaps, post-launch validation steps and owner route.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

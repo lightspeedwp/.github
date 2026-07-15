@@ -12,3 +12,9 @@ The safest workaround is to adjust the invoice manually after the booking has be
 
 - Do not imply roadmap commitment.
 - If the customer needs this regularly, this may be a candidate for product feedback or internal escalation, but not a promise.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

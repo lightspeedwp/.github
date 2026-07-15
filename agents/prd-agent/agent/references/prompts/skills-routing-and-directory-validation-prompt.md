@@ -62,3 +62,9 @@ Output standard:
 - after rewriting routing instructions
 - before a parity review, cleanup pass, handoff, or promotion decision
 - whenever the attached-skill layer and the documented skills directory may have drifted apart
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

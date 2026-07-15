@@ -27,3 +27,9 @@ Use this when a Yoast recommendation depends on WordPress content structure, tem
 - Redirect or disable attachment URLs where they create duplicate thin pages.
 - Align noindex decisions with sitemap exclusion.
 - QA rendered output rather than relying only on settings screens.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

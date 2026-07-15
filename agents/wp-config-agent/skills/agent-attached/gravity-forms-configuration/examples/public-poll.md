@@ -21,3 +21,9 @@ Use for editorial polls, quick audience feedback, or campaign questions.
 - Test result display settings.
 - Test spam controls and repeat submission behaviour.
 - Check page cache/CDN impact if results appear stale.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

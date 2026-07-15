@@ -105,13 +105,6 @@ Then place the H1 below it:
 
 ---
 
-## Quality rules
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-- Focus on review value, not a second full summary of the proposal.
-- Flag unsupported claims explicitly.
-- Distinguish assumptions from confirmed facts.
-- Keep next actions concrete and owner-ready.
-- Escalate specialist review only when the draft actually touches those areas.
-- Preserve bold labels and list structure for scanability.
-- Place frontmatter above the H1 whenever this is a substantial standalone Markdown deliverable.
-- End the surrounding substantial document with a final `---` divider.
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

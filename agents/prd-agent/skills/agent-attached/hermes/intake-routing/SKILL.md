@@ -46,3 +46,9 @@ Default output sections:
 - Do not over-interpret weak sources.
 - Do not choose a PRD by default when the evidence only supports an intake summary or planning brief.
 - Make the recommended next artefact explicit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

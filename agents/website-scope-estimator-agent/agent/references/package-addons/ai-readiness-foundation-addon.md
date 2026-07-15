@@ -28,3 +28,9 @@ Attach baseline AI-readiness, content, and measurement preparation to a website 
 - Is AI readiness a goal for this website project?
 - Is this preparation for search, chatbots, or both?
 - Are there governance or policy constraints already in place?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -18,3 +18,9 @@ Score each area from 0 to 10.
 - 31-60%: Partly ready
 - 61-80%: Mostly ready
 - 81-100%: Ready for implementation planning or sprint setup
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

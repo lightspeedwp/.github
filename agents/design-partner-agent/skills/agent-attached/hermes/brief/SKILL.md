@@ -48,3 +48,9 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing audience,
 - Do not generate design directions unless the user asks; hand off to `experiments`.
 - Do not turn the brief into tasks by default; keep the output at problem-framing level unless the user explicitly asks for planning work.
 - If research material is the main input, consider `research-synthesis` first.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

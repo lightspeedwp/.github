@@ -130,3 +130,9 @@ Use these labels only when they match the supplied material:
 - `Likely`: evidence supports a probable interpretation, but proof is incomplete.
 - `Possible`: plausible but weakly supported.
 - `Needs verification`: important but not yet evidenced.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

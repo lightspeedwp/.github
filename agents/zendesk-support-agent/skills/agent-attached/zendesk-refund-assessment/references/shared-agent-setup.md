@@ -55,3 +55,9 @@ For a shared workspace agent, add or maintain an agent-level connector map outsi
 ```
 
 Keep environment-specific names out of the packaged skill so the same skill can be attached to other shared agents safely.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

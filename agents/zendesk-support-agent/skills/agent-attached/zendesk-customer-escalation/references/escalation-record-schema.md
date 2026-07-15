@@ -99,3 +99,9 @@ evidence_gaps:
     why_it_matters: "urgency"
     smallest_next_request: "Ask account owner whether there is renewal, launch, or executive pressure."
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

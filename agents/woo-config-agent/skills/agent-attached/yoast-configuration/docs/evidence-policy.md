@@ -50,3 +50,9 @@ Escalate evidence confidence or ask for verification when:
 ## Current verification trigger list
 
 Use `docs/current-verification-playbook.md` before firm claims about product packaging, AI Plus entitlements, admin UI paths, Yoast API status, deprecated filters/actions, Google rich-result eligibility, Schema.org vocabulary, WooCommerce product-data behaviour, WordPress.org compatibility, or live rendered output. If verification is not available, label the recommendation as `needs live verification`, `research target`, `source not captured`, or `inference` as appropriate.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

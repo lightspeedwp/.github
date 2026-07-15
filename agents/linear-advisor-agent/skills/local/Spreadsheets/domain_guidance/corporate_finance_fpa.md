@@ -162,3 +162,9 @@ Every recurring deliverable should show version/date/owner/scenario on the summa
 - Version/date/owner/scenario are visible where relevant.
 - Summary/dashboard tabs are presentation-ready.
 - Major inputs and manual adjustments are sourced or explicitly marked assumptions.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

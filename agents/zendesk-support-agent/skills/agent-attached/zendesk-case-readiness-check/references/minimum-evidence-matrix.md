@@ -15,3 +15,9 @@ Use this reference when the readiness threshold is unclear. The goal is practica
 - An escalation can be ready before diagnosis is complete if impact and the internal ask are clear.
 - A knowledge draft should wait when the issue, workaround, or public boundary is still unstable.
 - A downstream engineering/product handoff needs more confirmed facts than ordinary triage.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

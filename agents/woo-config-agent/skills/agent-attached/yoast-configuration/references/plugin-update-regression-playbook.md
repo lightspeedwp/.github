@@ -62,3 +62,9 @@ Pause release or require explicit approval if:
 - Robots.txt blocks important sections unexpectedly.
 - A deprecated Yoast API/filter is newly introduced.
 - Source evidence is stale and the decision is commercially or technically sensitive.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

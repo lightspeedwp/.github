@@ -85,3 +85,9 @@ Keep Zendesk workflows separated by deliverable. Choose the smallest matching sk
 - Output rules in `references/output-standards.md` should match the repeated deliverables named here.
 - Boundaries in `references/qa-standards.md` should reinforce the non-overlap and non-chaining rules in this file.
 - If skill roles change, update this file, the instructions snapshot, the routing tests, and the routing validator together.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

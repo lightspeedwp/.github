@@ -11,3 +11,9 @@ Flag PRD issues when:
 - assumptions are not separated from facts
 - open questions are hidden inside prose
 - client-facing and internal notes are mixed
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

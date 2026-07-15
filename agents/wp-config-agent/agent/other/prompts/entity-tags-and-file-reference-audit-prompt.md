@@ -42,3 +42,9 @@ Output:
 3. Reference or entity-tag issues found
 4. Any corrected or tightened entity references
 5. Any remaining non-blocking ambiguity
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

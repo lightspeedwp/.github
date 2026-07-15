@@ -46,3 +46,9 @@ Use this file for stable client and project defaults that should carry across fu
 - Add only durable preferences and long-term project defaults here.
 - Keep one-off scratch notes out of this file.
 - Move active follow-ups and pending work to `memory/todos.md`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -775,3 +775,9 @@ Use this for a small benchmark, caption, or one-line helper label.
 - Giant batches mixing duplication, deletion, movement, and copy changes all at once
 - Calling a visual edit complete because the text changed while the non-text styling stayed stale
 - Verifying only the API response and not the next thumbnail
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

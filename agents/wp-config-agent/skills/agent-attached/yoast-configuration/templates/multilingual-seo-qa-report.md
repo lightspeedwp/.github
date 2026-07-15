@@ -81,3 +81,9 @@
 - This report separates Yoast output from translation-plugin behaviour.
 - Hreflang and canonical recommendations require rendered-output or crawl evidence for final approval.
 - Metadata localisation should be approved by a language or market owner before implementation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

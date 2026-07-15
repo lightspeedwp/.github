@@ -41,3 +41,9 @@ Do not claim that a figure looks clean, sits well on the page, is cropped correc
 3. Verify no required figure is represented only by placeholder text unless that fallback was approved.
 4. Record any unverified rendered properties, such as crop, page fit, visual spacing, or final on-page size.
 5. If visuals are required for task success and connector insertion/readback is unavailable, stop and report the limitation rather than claiming the document is complete.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -64,3 +64,9 @@ Stay platform-neutral by default. Include AI Engine / Meow Apps notes when the u
 - `references/launch-gates.md`
 - `references/test-scripts.md`
 - `references/privacy-log-retention.md`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

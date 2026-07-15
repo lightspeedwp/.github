@@ -15,3 +15,9 @@ Use relevant workstreams only.
 | Accessibility and performance | WCAG checks, PageSpeed, Lighthouse, responsive QA |
 | Launch operations | backups, DNS, deployment, rollback, post-launch monitoring |
 | Governance | approvals, policies, privacy, AI/chatbot controls |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -67,3 +67,9 @@ python scripts/redact_docx.py /mnt/data/input.docx \
 
 - Deliver **only the final DOCX** requested by the user.
 - PNGs / optional PDFs are internal QA only unless explicitly requested.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

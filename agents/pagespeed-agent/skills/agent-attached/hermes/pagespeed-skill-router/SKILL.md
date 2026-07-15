@@ -197,3 +197,9 @@ Use this compact decision pattern before acting:
 7. Prioritise before writing when findings are not already ranked.
 8. Write or QA only when the deliverable calls for it.
 9. Return one coherent output with clear assumptions and no invented metrics.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -18,3 +18,9 @@
 - No reviewed brief, repository, or Figma inspection yet.
 - No confirmed integration list or CRM workflow.
 - No agreed measurement definition for enquiry success.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

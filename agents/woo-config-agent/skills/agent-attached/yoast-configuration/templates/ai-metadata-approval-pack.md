@@ -49,3 +49,9 @@ List any site-wide template, archive, product, AI-assisted metadata policy or cl
 ## Client-safe note
 
 Use cautious language: these drafts improve metadata quality and consistency; they do not guarantee rankings, indexing, rich results or AI visibility.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

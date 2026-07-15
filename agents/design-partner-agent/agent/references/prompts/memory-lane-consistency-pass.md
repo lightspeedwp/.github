@@ -35,3 +35,9 @@ Keep durable working context organized across the visible memory files without c
 ## Deliverable
 
 Apply the smallest useful set of updates needed to keep the visible memory lanes internally consistent across file contents, README guidance, and any related visible schema or instruction references.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

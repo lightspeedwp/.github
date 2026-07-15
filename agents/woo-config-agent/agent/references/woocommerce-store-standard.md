@@ -48,3 +48,9 @@ Use this reference for the default recommended structure and operating baseline 
 - Order confirmation emails are received and readable
 - Tax, shipping, and coupon logic are spot-checked
 - A staging or lower-risk review happens before production launch
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

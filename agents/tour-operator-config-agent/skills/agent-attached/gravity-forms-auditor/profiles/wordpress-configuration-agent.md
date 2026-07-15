@@ -21,3 +21,9 @@ Route custom plugin code, legal policy wording, whole-site accessibility/perform
 ## Client-safe boundary
 
 Do not expose connector internals, raw logs, private entries, licence/API keys, or internal owner notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

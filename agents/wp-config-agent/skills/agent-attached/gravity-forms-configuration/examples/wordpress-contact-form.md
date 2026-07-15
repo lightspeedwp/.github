@@ -8,3 +8,9 @@ Use for a general website contact page. Keep it short and accessible.
 - Spam: honeypot or layered protection; Turnstile only if add-on/keys confirmed.
 - Embed: Gravity Forms block on Contact page where available.
 - Test: submit realistic test data, verify confirmation, admin email, entry, and mobile/keyboard basics.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

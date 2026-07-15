@@ -72,3 +72,9 @@ Stop and ask one focused question, or route to governance/source readiness first
 ## Reusable next prompt
 [Prompt the LightSpeed team can paste into a new chat]
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

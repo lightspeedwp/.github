@@ -26,3 +26,9 @@ Use this checklist when evaluating whether an accessibility review is grounded, 
 - Generic accessibility advice with no connection to the artifact
 - Missing high-impact issues in core tasks or flows
 - Recommendations that do not explain user impact
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

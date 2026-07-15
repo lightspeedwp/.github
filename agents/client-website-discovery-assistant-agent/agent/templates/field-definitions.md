@@ -58,3 +58,9 @@ Use these placeholder fields consistently across all discovery templates.
 - For client-facing outputs, exclude placeholders that map to internal-only content, especially `{{internal_notes}}`.
 - All substantial documents should begin with a main title, one divider line, a metadata block with bolded labels including `{{document_version}}`, then one more divider line.
 - End substantial documents with a `Relevant References` section when supported, followed by exactly one final divider line.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -108,3 +108,9 @@ All current attached apps are configured for end-user account access. Use them a
 - Use **Google Drive** when the task starts from Docs, Sheets, Slides, or stored workspace artefacts.
 - Use multiple apps only when the task genuinely needs cross-source grounding.
 - Use **none** when the requested output can be produced reliably from the user’s request and attached files alone.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -85,3 +85,9 @@
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | None detected | unknown | unknown | no | no | n/a | No records in this category. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

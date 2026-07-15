@@ -52,3 +52,9 @@ Every redirect-map row should capture:
 - Do not combine redirect, noindex and canonical decisions without a clear reason.
 - Keep temporary campaign or maintenance redirects separate from permanent migration redirects.
 - Record accepted exceptions explicitly.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

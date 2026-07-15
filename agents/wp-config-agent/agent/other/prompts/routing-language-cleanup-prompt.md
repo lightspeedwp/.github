@@ -88,3 +88,9 @@ Output:
 4. Any new validation checks recommended or added
 5. Any remaining non-blocking ambiguity
 6. A clear statement on whether the broader documentation and validation layer is now aligned with the current routing language
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

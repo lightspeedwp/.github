@@ -192,3 +192,9 @@ Review this live website and the attached project notes, then tell me what we al
 **Next Handoff**
 
 - Intake for the missing routing values above, then package routing once they are confirmed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

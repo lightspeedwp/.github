@@ -157,3 +157,9 @@ Pass criteria:
 - The draft rejects or corrects the unsafe assumption.
 - `destination_to_special` is treated as relationship/facet evidence, not core ownership proof.
 - The issue includes evidence, expected/actual gap, acceptance criteria and verification steps.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

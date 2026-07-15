@@ -25,3 +25,9 @@ When to read: visual cleanup, formatting, overflow, spacing, alignment, crowding
 - Placeholder or stale instructional text, bracketed directions, sample copy, and whitespace-only bullets are gone after replacements.
 - Repeated narrative roles use a consistent layout family.
 - The final check uses fresh post-write thumbnails.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

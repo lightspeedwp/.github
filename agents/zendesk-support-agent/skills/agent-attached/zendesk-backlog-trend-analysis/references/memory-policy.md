@@ -24,3 +24,9 @@ This skill should not rely on personal user memory.
 ## Shared-agent default
 
 If a report needs a stable preference but none is approved, apply the skill defaults and state them in the evidence basis.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -81,3 +81,9 @@ A good result:
 **Expected output shape**
 
 A concise momentum review with blocked or stale issues, the most important momentum risks, and the next actions most likely to unblock progress.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -31,3 +31,9 @@ Use this file as the source snapshot for validating the WordPress agent structur
 - the instructions should reference WordPress-focused operating standards
 - validation assets should cover file consistency, memory consistency, app-usage consistency, and agent-structure consistency
 - non-WordPress business domains should not appear in the supported asset set unless explicitly required later
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

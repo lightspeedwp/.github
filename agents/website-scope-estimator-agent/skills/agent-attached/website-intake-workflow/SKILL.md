@@ -122,3 +122,9 @@ Do not send the workflow backward to audit unless new evidence actually requires
 ## Supporting Files
 
 - `references/intake-spec.yaml` defines the standard intake fields, estimate sections, and default assumptions to use when the user has only partial information.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

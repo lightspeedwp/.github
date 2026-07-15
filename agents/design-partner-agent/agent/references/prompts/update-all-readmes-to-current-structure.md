@@ -45,3 +45,9 @@ For each README, correct as needed:
 ## Deliverable
 
 Update the relevant `README.md` files in place so they reference the latest confirmed file and folder structure.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

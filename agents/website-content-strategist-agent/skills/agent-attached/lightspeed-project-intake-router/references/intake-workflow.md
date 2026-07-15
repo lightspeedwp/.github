@@ -82,3 +82,9 @@ Include:
 ## 7. Stop point
 
 Stop after the intake pack unless the user explicitly asks to continue into a downstream skill. The router may recommend the next route and provide prompts, but it should not quietly write the PRD, technical brief, task plan, GitHub issues or launch QA pack.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

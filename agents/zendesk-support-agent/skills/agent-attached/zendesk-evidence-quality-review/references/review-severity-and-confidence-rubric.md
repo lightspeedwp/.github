@@ -153,3 +153,9 @@ Use this mapping when answering the final checklist.
 If a review finds a high-severity problem but the user asked only for light wording help, still flag the high-severity issue. Do not silently polish unsafe content.
 
 If a review finds multiple high-severity problems caused by missing evidence, stop after the most important blockers and route to the smallest upstream workflow rather than producing a long speculative critique.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

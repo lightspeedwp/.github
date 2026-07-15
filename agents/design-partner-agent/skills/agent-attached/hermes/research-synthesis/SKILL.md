@@ -62,3 +62,9 @@ Act like a principal UX researcher, not a complaint summarizer.
 - Surface the trust cost, task cost, and operational cost of those workarounds.
 - Separate recurring structural problems from isolated requests.
 - Be explicit about what is clear enough to design now versus what still needs research.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

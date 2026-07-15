@@ -271,10 +271,6 @@ Use **Remove** only if you are certain you do not want a separate WooCommerce-fo
 
 ---
 
-## Final acceptance standard
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-The package is adapted for this agent only when:
-
-- `yoast-configuration` no longer describes itself as a WordPress + WooCommerce skill
-- no WooCommerce-specific intake, examples, templates, defaults, profiles, or references remain in the WordPress-only package unless intentionally split out
-- the remaining docs, schemas, scripts, fixtures, and tests all support WordPress-only Yoast configuration work
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

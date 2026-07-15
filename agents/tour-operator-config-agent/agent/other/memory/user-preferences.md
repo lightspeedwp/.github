@@ -26,3 +26,9 @@
 
 - User-provided context on 2026-07-01: LightSpeed owns the Tour Operator plugin at `https://github.com/lightspeedwp/tour-operator` and `https://wordpress.org/plugins/tour-operator`.
 - User-provided context on 2026-07-01: available first-party extensions are `https://github.com/lightspeedwp/to-team`, `https://github.com/lightspeedwp/to-specials`, `https://github.com/lightspeedwp/to-reviews`, and `https://github.com/lightspeedwp/wetu-importer`.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

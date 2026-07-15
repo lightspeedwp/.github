@@ -107,3 +107,9 @@ The same route expectations are represented in `router-regression-cases.json` fo
 **Expected route:** `zendesk-router-skill`
 
 **Why:** Broad network selection belongs to the central Zendesk router. `zendesk-triage-router` should not expand into a second full skill-network router.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

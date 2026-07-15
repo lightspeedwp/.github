@@ -37,3 +37,9 @@ Escalate to a focused Yoast audit if:
 - WooCommerce product schema changes materially
 - a plugin update affects Yoast output
 - evidence is too thin to support client-facing confidence
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

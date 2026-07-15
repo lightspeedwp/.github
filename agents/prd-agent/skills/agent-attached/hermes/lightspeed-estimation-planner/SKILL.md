@@ -89,3 +89,9 @@ Do not:
 - `examples/estimate-basic.md` — standard estimate example.
 - `examples/estimate-high-risk.md` — high-risk example.
 - `tests/fixtures/estimate-cases.md` — manual validation cases.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -11,3 +11,9 @@ A WooCommerce store is launching a refill subscription landing page with a prima
 - Signed-in users with an active cart should see a reminder banner above product cards.
 - Mobile and desktop layouts must preserve CTA visibility without overlapping the sticky header.
 - Add-to-cart actions must use seeded test products only in staging.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

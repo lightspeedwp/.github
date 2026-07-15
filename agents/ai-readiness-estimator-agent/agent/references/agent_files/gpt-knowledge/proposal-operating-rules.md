@@ -18,3 +18,9 @@
 ## Required Working Pattern
 
 Confirm the package path, check commercial rules and approvals, use the proposal template, and keep the proposal aligned with the estimate rather than inventing new scope.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

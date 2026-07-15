@@ -97,3 +97,9 @@ Use LightSpeedWP.Agency as the project context. Review the live site, prototype 
 ## Companion prompt variant
 
 Use LightSpeedWP.Agency as the project context. Compare the live site, prototype site, dev site, theme repo, plugin repo, Drive folder, and Figma references. Explain which sources should control planning, implementation, launch review, and public-facing messaging, identify the biggest gaps or conflicts, and recommend the one workflow that should happen next.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

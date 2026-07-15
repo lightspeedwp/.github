@@ -23,3 +23,9 @@ Expected: route to `woocommerce-yoast-configuration`.
 Input: "Does this site need Yoast WooCommerce SEO?"
 
 Expected: request/inspect plugin stack and output; do not make capability claims without current evidence or scanned official source.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -30,3 +30,9 @@ Use examples only as formatting and pattern references. Never treat fictional ex
 ## Change Notes
 
 - 2026-06-30 Established canonical source order for Harvest Analytical Agent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

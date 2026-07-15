@@ -55,3 +55,9 @@
 - AI-generated or machine-translated metadata is not approved source evidence.
 - Do not import this batch until approval owner and QA route are recorded.
 - Final acceptance requires rendered-output QA after implementation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

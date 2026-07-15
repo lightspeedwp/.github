@@ -77,3 +77,9 @@ Create or update project memory, decision logs, assumptions, task index and hand
 ## 10. Approval gates
 
 Pause for approval before finalising PRD, creating GitHub issues, assigning priorities, implementation planning, launch QA or changing source files.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -38,3 +38,9 @@ This is an anonymised example. Do not treat it as real Zendesk evidence.
 ## Handoff brief
 
 Security review needed for ZD-10004. Account owner reports that a former contractor may still have admin access. No data exposure is confirmed yet. Sensitive details are omitted from this handoff. Please review account access history and advise whether support should revoke sessions, trigger credential reset, or use specific customer-facing wording.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -64,3 +64,9 @@ Avoid:
 - "SLA is breached" when SLA is unavailable.
 - "Engineering needs to fix..." unless Zendesk evidence confirms an engineering-owned blocker.
 - "This is an incident" unless incident evidence is confirmed.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

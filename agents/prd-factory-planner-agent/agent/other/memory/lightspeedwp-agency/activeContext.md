@@ -15,3 +15,9 @@ Current state: intake refreshed, research summary prepared, and PRD direction na
 - complete the positioning and content/IA PRD
 - confirm audience priority, key proof claims and scope boundaries for the next phase
 - decide whether the follow-on artefact should be a technical brief, content architecture pack or implementation plan
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

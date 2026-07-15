@@ -46,3 +46,9 @@ Understand whether the inquiry was sent successfully and what happens next.
 
 - Pair the message with a visible success state.
 - If follow-up timing is known, the copy can be made more specific.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -23,3 +23,9 @@ Do not recommend launch until these are complete.
 - Go: all critical requirements are ready and the bot has passed real question testing.
 - Conditional go: minor content or wording issues remain, but no privacy, source, escalation or safety blockers exist.
 - No-go: source content, governance, escalation, privacy or testing is weak.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

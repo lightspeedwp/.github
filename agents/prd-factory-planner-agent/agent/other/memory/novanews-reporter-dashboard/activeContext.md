@@ -18,3 +18,9 @@ Prepare internal LightSpeed scoping questions and a quote outline before expandi
 - Confirm the GTM and GA4 account/property/container structure from LightSpeed's access.
 - Confirm the exact Looker Studio table requirements and whether dashboard build is in or out of scope for the first quote.
 - Confirm whether author/byline data is stored consistently across all sites and templates.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

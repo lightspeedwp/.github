@@ -49,3 +49,9 @@ Use the three contexts together to test:
 3. Run one routing or drafting prompt from the prompt library.
 4. Check the result against the QA checklist.
 5. Repeat on a second context to compare consistency across projects.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

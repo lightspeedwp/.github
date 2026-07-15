@@ -23,3 +23,9 @@ Include editorial workflows, taxonomies, author roles, migrations, ad inventory,
 ## Tour operator/plugin-led site
 
 Include tours, destinations, accommodations, itineraries, Wetu or itinerary integrations, custom fields, taxonomies, booking/contact flows and plugin compatibility.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

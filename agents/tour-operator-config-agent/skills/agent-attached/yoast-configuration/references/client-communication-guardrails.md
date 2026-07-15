@@ -59,3 +59,9 @@ Keep internal details out unless they help the client decide:
 ## Maintenance
 
 Update this file when a client misunderstanding recurs, when legal/SEO caveats change, or when templates are revised.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

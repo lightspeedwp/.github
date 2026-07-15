@@ -35,3 +35,9 @@ Treat these as warnings unless the user requested strict enforcement:
 - do not enforce one house style for prose wording
 - do not rewrite content automatically unless the user explicitly asks for fixes
 - do not assume every non-Markdown extension should receive full heading validation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

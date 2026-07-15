@@ -55,3 +55,9 @@ Be transparent that Zendesk was unavailable. Work only from supplied evidence. D
 - Primary workflow: zendesk-case-readiness-check
 - Supporting workflow: none
 - Immediate next action: Ask for the ticket ID or the smallest missing reproduction details before creating an escalation brief.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

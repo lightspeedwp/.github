@@ -417,3 +417,9 @@ const snapshot = await presentation.inspect({
 
 Check the rendered PNG for clipping, overlap, broken image crops, and text
 that should have stayed editable.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

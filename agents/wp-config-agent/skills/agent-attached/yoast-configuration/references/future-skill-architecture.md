@@ -323,3 +323,9 @@ Files:
 ## Related skill boundary
 
 Keep `yoast-configuration` as the planning, evidence interpretation, reporting, decision and handoff skill. Keep live WordPress-connected inspection and approved edits in `yoast-auditor`. Use `references/related-skills-routing.md` as the boundary contract rather than duplicating live audit/edit workflows.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

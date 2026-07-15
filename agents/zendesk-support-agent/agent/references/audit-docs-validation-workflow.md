@@ -159,55 +159,6 @@ What I want back:
 
 ---
 
-## Phase 4 — Scripts, tests, validation, and final consistency pass
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-Apply **phase 4** of the audit and rewrite to the current agent.
-
-Keep **Zendesk** as the main focus and do **not detach any attached apps**.
-
-In this phase, focus only on:
-
-- **scripts**
-- **tests**
-- validation coverage
-- Markdown validation
-- schema validation
-- final consistency across instructions, references, skills, templates, examples, memory, and profiles
-
-Tasks:
-
-1. Add or improve scripts that validate:
-   - the agent instructions
-   - file reference integrity
-   - skill routing consistency
-   - app usage consistency
-   - Markdown files against structured expectations
-   - schema files
-   - memory structure and content
-   - template/example parity
-   - profiles and fixtures
-2. Add or improve tests for:
-   - agent behavior contracts
-   - skill routing
-   - memory validation
-   - output consistency
-   - app usage rules
-   - instruction/reference alignment
-3. Make sure `.md` files that should follow structured rules are covered by validation logic where appropriate.
-4. Run a final consistency pass so the instructions, references, schemas, scripts, tests, templates, examples, fixtures, profiles, and memory guidance all align.
-5. Clean up stale or conflicting validation artifacts if needed.
-
-Execution rules:
-
-- prefer improving existing scripts and tests over duplicating them
-- keep the validation stack maintainable and practical
-- ensure all attached apps remain represented accurately
-- ensure Zendesk remains the primary operating focus
-
-What I want back:
-
-- a concise summary of all validation and test changes
-- scripts added or improved
-- tests added or improved
-- final consistency fixes
-- any remaining follow-up items after the full 4-phase audit
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

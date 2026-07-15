@@ -52,3 +52,9 @@ When using this context, prefer sources in this order unless the test says other
 ## Example Prompt Seed
 
 Use the TourOperator.solutions example context to produce a grounded project summary. Separate confirmed facts from assumptions, identify key risks and missing information, and recommend the best next planning artefact.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

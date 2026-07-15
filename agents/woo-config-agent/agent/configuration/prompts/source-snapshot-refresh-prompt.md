@@ -42,3 +42,9 @@ Deliverable format:
 
 - Use this when instructions, prompt-library files, app guidance, starter prompts, short description, or local skill routing changed.
 - Prefer replacing stale snapshot wording over layering duplicate notes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

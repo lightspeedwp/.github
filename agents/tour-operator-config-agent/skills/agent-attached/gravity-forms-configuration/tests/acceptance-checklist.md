@@ -151,3 +151,9 @@ The skill is complete only when:
 - [x] Canonical `gravity-forms-auditor` v0.2.1+ handoff fields are accepted by `schemas/auditor-handoff.schema.json`.
 - [x] Legacy normalised auditor handoff fields remain accepted for backwards compatibility.
 - [x] Missing canonical handoff fields are treated as readiness gaps, not permission to infer or execute changes.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

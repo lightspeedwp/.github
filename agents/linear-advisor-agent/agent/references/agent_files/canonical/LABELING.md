@@ -173,7 +173,6 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 
 ---
 
-**With this modular approach, the labeling agent is robust, easy to test, and simple to extend—making automation scalable for all LightSpeedWP projects.**
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -161,15 +161,6 @@ This page explains the organisation's diversity commitments, review standards, a
 
 ---
 
-## Staffing report example
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-### Policy summary
-
-This page provides a structured public report on staffing overview, workforce context, and reporting boundaries.
-
-### Sections
-
-- Reporting period
-- Workforce summary
-- Notes on methodology
-- Contact for questions
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

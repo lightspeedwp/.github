@@ -59,3 +59,9 @@ Missing connector access should not become a customer-facing blocker by itself. 
 - confirm requester organisation and impact;
 - attach screenshots, logs, or reproduction notes;
 - confirm which support workflow skills are attached to the parent agent.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

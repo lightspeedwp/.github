@@ -133,3 +133,9 @@ Use these consistently across the first report and later reassessments:
 ```markdown
 When creating the next version of the AI Readiness Assessment Report, use the earlier report as the benchmark. Keep the same headings and checklist-aligned sections. For each item, show whether it is now confirmed, improved, unchanged, still missing, or newly identified. Keep the language client-friendly and make the progress easy to understand.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -58,3 +58,9 @@ The duplicate-charge claim is not proven or disproven from the available evidenc
 
 - Zendesk conversation for customer claim and screenshot context.
 - Current order/account state for present order count.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

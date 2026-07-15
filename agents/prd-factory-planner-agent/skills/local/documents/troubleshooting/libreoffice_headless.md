@@ -49,3 +49,9 @@ Prefer these success criteria over stderr:
 - Ensure the profile directory is unique per process (use `$$` or a uuid)
 - Delete stale profiles between runs
 - Prefer `/mnt/data` over `/tmp` if you suspect permission sandboxing
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

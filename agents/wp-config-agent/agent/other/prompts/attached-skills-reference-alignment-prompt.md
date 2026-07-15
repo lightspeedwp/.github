@@ -52,3 +52,9 @@ Output:
 3. Stale skill references removed
 4. Any remaining non-blocking ambiguity
 5. A clear statement on whether attached-skill references are now aligned with the current attached local skills
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

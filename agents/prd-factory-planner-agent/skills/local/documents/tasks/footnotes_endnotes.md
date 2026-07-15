@@ -62,3 +62,9 @@ python render_docx.py with_fn.docx --output_dir out_fn
   - reference IDs exist in `document.xml`
   - note IDs exist in `footnotes.xml`/`endnotes.xml`
 - For high-stakes deliverables, verify in Microsoft Word in addition to LO rendering.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

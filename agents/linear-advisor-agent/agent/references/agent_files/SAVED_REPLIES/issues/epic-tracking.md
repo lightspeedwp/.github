@@ -39,3 +39,9 @@ This issue is classified as an **Epic**—it groups related stories, tasks, or f
 
 This helps us track progress, dependencies, and focus the team on key deliverables. Thank you!
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

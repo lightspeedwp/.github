@@ -21,3 +21,9 @@
 - Avoid duplicate conflicting Organization schema from multiple plugins.
 - Keep schema output aligned with visible page content.
 - Validate generated JSON-LD after caching/minification is enabled.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

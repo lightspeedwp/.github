@@ -185,3 +185,9 @@ Before returning the brief, check that:
 - reproduction or diagnostic evidence is as concrete as the case allows
 - assumptions, uncertainty, and evidence gaps are labelled clearly
 - the brief can be pasted into another system without extra explanation
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

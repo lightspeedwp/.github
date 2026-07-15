@@ -18,3 +18,9 @@ Use this template when adding or refreshing a source-register row.
 - Limitations include version sensitivity, UI volatility, product packaging caveats or Google/Search eligibility caveats.
 - Verification status matches the evidence state model.
 - Accessed date is only filled after a real scan.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

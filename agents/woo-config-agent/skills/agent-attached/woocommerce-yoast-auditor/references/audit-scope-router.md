@@ -27,3 +27,9 @@ Choose the smallest useful audit mode and route setup/configuration work to `woo
 ## Output expectations
 
 Name the selected audit mode, reviewed scope, evidence available, evidence gaps, and next route. Do not convert an audit into a setup guide.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

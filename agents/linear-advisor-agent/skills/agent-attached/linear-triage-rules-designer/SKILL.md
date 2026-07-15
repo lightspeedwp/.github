@@ -248,3 +248,9 @@ A strong result:
 - fits current LightSpeed delivery habits;
 - keeps recommended Linear changes practical and reversible; and
 - is simple enough to maintain without becoming a second project-management system.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

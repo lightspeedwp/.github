@@ -12,3 +12,9 @@
 
 - support guided flexibility for the marketing team through approved pattern sets, page templates, and controlled variation options
 - avoid a fully freeform editor model that would weaken consistency across seasonal landing pages
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

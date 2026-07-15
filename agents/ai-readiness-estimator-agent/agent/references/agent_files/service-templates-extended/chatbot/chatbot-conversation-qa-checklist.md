@@ -47,3 +47,9 @@ Use this checklist to test chatbot conversation behaviour against expected outco
 - Launch recommendation: {{qa.launch_recommendation}}
 - Required fixes before launch: {{qa.required_fixes}}
 - Approved by: {{qa.approved_by}}
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

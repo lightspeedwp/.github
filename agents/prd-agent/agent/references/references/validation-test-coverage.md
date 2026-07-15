@@ -38,3 +38,9 @@ Describe how the current fixture set maps to the validation layer and workflow-t
 - add explicit validation test definition files under `tests/validation-pack/`
 - extend the fixture layer once `examples/memory/` is populated
 - link each executable validator to the fixtures it should pass or fail against
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

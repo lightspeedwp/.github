@@ -237,3 +237,9 @@ Use this skill directly when no specialist route is needed.
 - **Tool errors:** Re-read required identifiers, split complex requests and retry with narrower filters.
 - **Rate limits or large batches:** Process in smaller batches and report partial progress honestly.
 - **Routing uncertainty:** Prefer a draft plus routing recommendation over making a workspace change.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

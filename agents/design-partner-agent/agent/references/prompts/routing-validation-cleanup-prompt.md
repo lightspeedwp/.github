@@ -49,3 +49,9 @@ Use the specialized prompt that best matches the requested cleanup:
 ## Deliverable
 
 Use this library entry point to choose the right specialized cleanup prompt, then apply the smallest useful set of updates for that cleanup pass.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

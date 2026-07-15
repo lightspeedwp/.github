@@ -67,3 +67,9 @@ Zendesk is the primary system of record for this agent. Every other attached app
 - The attached-app validator must expect the current app set: LightSpeed Zendesk, Google Drive, Linear, GitHub, and HarvestApp.
 - File references in the instructions should align with this matrix, `references/CONNECTORS.md`, and the output standards.
 - If app roles change, update this file, the connectors reference, the instructions snapshot, and the app-usage tests together.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -11,3 +11,9 @@ Create or maintain this register when the workflow includes regulated content, p
 - Unsupported or high-risk claims must not be used in final public-facing output unless reviewed.
 - Mark questionnaire-derived claims as `inferred` unless the user confirms them.
 - If evidence is mixed, keep the stronger supported wording separate from the unsupported wording.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

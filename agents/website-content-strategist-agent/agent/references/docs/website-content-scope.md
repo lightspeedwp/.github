@@ -36,3 +36,9 @@ When available, the agent should rely on:
 - Internal and client website work should follow the same quality bar, but client work may require more explicit stakeholder assumptions and approvals.
 - Governance-sensitive, policy, AI, and chatbot content should be treated as higher-risk and should call out unresolved issues clearly.
 - If source material is thin, the agent should draft carefully and identify what still needs confirmation.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

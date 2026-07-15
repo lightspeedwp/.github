@@ -52,3 +52,9 @@ Provide concise replacement wording for the highest-risk lines.
 - Target owner or team is clear: Yes/No
 - Exact ask is actionable: Yes/No
 - Safe to escalate as-is: Yes/No
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

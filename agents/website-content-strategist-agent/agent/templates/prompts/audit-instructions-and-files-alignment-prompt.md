@@ -71,3 +71,9 @@ Use this structure:
 - Treat missing references as drift, not hidden context.
 - Do not invent files, folders, or scripts.
 - Keep conclusions conservative if the visible file list is partial.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

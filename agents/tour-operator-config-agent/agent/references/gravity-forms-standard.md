@@ -36,3 +36,9 @@ Use this reference for the default form expectations on a **tour operator WordPr
 - Confirm Gravity Forms behaviour still aligns with the site’s tour operator core plugin and extension plugin stack
 
 Use UK English only in all outputs.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

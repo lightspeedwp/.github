@@ -1237,21 +1237,6 @@ Return:
 
 ---
 
-# 8. Recommended upload order
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-1. `lightspeed-project-memory-manager`
-2. `lightspeed-prd-agent-orchestrator`
-3. `lightspeed-project-intake`
-4. `lightspeed-project-research`
-5. `lightspeed-prd-writer`
-6. `lightspeed-estimation-planner`
-7. `lightspeed-delivery-planner`
-8. `lightspeed-prd-reviewer`
-9. `lightspeed-approval-gate-manager`
-10. `lightspeed-change-control`
-11. `lightspeed-qa-planner`
-12. `lightspeed-qa-triage`
-13. `lightspeed-project-status-reporter`
-14. `lightspeed-release-handoff-generator`
-15. `lightspeed-project-pack-exporter`
-16. Supporting specialists and validators
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

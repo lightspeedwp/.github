@@ -50,3 +50,9 @@ Output:
 4. Any configuration-vs-audit ambiguity found
 5. Any schema/template/reference mismatches found
 6. A clear statement on whether the Gravity Forms asset set is now aligned
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

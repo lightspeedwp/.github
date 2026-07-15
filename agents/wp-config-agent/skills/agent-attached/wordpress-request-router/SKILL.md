@@ -207,3 +207,9 @@ Before finalising the response, confirm all five:
 3. Did I choose the narrowest matching specialist skill?
 4. Am I using the exact output structure required for this route?
 5. Did I clearly separate confirmed evidence from assumptions, risks, and next actions?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

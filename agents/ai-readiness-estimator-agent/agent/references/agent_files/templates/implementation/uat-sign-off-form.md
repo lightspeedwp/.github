@@ -43,3 +43,9 @@ By signing below, the approver confirms that the UAT has been completed to satis
 - **Decision:** {{signoff.decision}}
 - **Date:** {{signoff.date}}
 - **Comments:** {{signoff.comments}}
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

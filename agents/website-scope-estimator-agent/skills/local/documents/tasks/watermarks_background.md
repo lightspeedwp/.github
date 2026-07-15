@@ -41,3 +41,9 @@ Other documents may use DrawingML shapes or background images.
 
 - Removal is heuristic: it can delete legitimate header graphics if they match the substring.
 - Some VML watermarks won’t show in LibreOffice headless. When in doubt, validate in Word.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

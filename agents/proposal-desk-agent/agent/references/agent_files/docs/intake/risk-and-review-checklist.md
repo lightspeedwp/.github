@@ -21,3 +21,9 @@ Use this checklist before finalising intake-heavy work.
 - Is any questionnaire default being treated as a fact?
 - Does any suggested action need approval or specialist review?
 - Would saving any captured value to durable memory be unsafe without confirmation?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

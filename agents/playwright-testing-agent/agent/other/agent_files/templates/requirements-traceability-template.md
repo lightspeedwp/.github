@@ -39,3 +39,9 @@ A traceability matrix that shows current coverage status and confidence.
 ## Quality Checks
 
 Ensure every row ties back to an approved requirement, uses grounded references, and makes gaps or low-confidence coverage explicit.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

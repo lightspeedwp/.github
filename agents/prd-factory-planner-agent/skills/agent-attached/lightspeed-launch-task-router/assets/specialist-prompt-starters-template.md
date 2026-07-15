@@ -24,3 +24,9 @@ Use the lightspeed-redirect-map-planner skill.
 
 Plan redirects for [project] where the current live site structure changes to the new staging/dev structure. Create URL inventory, redirect map, 404 risk list and launch-day checklist.
 ```
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

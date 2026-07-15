@@ -40,3 +40,9 @@ Recommend when:
 ## Recommendation Rule
 
 Add-ons are considered only after the base package is chosen and the audit confirms that the extra scope is real.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

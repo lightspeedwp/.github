@@ -18,3 +18,9 @@ Use this reference when the router is installed in a shared workspace agent, whe
 - Ask one focused question only when the next route cannot be safely inferred.
 - Use pasted evidence as user-provided context, not as proof that Zendesk has been inspected.
 - Say when live Zendesk evidence is required for the downstream workflow.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

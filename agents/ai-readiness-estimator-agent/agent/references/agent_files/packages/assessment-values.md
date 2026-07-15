@@ -106,3 +106,9 @@ Do not finalise package recommendation until:
 1. website findings are confirmed
 2. missing business-goal fields are supplied
 3. any sensitive or regulated use cases are disclosed
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

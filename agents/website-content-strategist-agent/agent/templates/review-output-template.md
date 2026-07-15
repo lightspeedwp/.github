@@ -35,3 +35,9 @@ Use for website-content audits, source reviews, readiness reviews, and next-step
 - Match the required sections in order.
 - Remove placeholder text.
 - Keep headings stable.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

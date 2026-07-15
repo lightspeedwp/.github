@@ -70,3 +70,9 @@
 - A settings export or screenshot does not prove live indexation output.
 - Noindex, sitemap exclusion and canonical changes should be verified in rendered output after implementation.
 - Google Search behaviour must not be inferred from Yoast validity alone.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

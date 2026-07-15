@@ -50,3 +50,9 @@ Output:
 4. Any remaining file-reference ambiguities found
 5. Any validation checks recommended or added
 6. A clear statement on whether the instruction and file-reference layer is now aligned with the current attached file set
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

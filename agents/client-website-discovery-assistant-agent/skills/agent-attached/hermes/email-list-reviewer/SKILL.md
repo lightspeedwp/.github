@@ -51,3 +51,9 @@ The default output should include:
 - Do not infer deliverability performance from list size alone.
 - Keep confirmed list facts separate from likely cleanup needs.
 - Make missing export or platform evidence visible.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

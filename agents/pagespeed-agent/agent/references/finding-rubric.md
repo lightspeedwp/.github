@@ -43,3 +43,9 @@ Favor priority based on likely user and business impact first, then mention effo
 ## Evidence Rule
 
 Do not label a finding High unless there is measured evidence or a strong, well-supported causal pattern.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

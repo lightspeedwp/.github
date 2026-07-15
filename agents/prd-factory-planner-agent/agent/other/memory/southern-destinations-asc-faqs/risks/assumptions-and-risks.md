@@ -17,3 +17,9 @@
 - Southern Destinations interim work may be throwaway if the rebuild proceeds soon.
 - Southern Destinations FAQ scope could expand if every listed archive/page requires unique design, content strategy, and QA treatment.
 - FAQ schema and rich-result expectations should be reviewed against current SEO guidance before making client-facing claims.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

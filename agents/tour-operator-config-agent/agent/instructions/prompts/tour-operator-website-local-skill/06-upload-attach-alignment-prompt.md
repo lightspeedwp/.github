@@ -69,3 +69,9 @@ After attach and alignment:
 3. List exact files or instructions changed for alignment.
 4. List any remaining routing or maintenance drift still needing follow-up.
 5. State whether the draft now needs **Update** for the changes to become live.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -281,20 +281,6 @@ Goal:
 
 ---
 
-## Validation pass after cleanup
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-After all edits:
-
-- run the skill’s structure and reference validators
-- confirm no required file still assumes WooCommerce
-- confirm the package no longer describes itself as a WordPress + WooCommerce skill
-- confirm the retained package reads cleanly as WordPress-only Yoast configuration guidance
-
-## Acceptance standard
-
-The cleanup is complete only when:
-
-- `SKILL.md` and `agents/openai.yaml` are WordPress-only
-- all WooCommerce-only assets are either split out or removed
-- mixed-scope docs, references, schemas, fixtures, scripts, and tests have been rewritten
-- the remaining package supports only the current WordPress-focused agent scope
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

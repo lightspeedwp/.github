@@ -34,3 +34,9 @@ Capture a lead enquiry while preserving campaign attribution in hidden fields wi
 - Submit without UTM parameters.
 - Submit with validation errors and confirm no successful conversion event is counted.
 - Confirm entry is created before tracking is considered valid.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

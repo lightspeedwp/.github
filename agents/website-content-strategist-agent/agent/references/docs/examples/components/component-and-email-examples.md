@@ -97,17 +97,6 @@ Capture checklist signups for visitors interested in AI-readiness planning.
 
 ---
 
-## CTA section example
+*Maintained by the 🤖 LightSpeedWP Automation Team*
 
-### Title
-
-Need a clearer route from strategy to implementation?
-
-### Description
-
-Start with a focused review so we can identify your strongest next move.
-
-### CTA
-
-- Label: Book your consultation
-- Link: /book-a-consultation
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

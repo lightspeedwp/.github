@@ -38,3 +38,9 @@ Gate these behind explicit user approval:
 ## Connector fallback
 
 If the MCP app has no read capability, ask for exported form JSON, screenshots, pasted settings, or admin notes. If it has read-only capability, produce change plans and manual admin steps. If it has write capability, still run preflight and approval gates first.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -98,3 +98,9 @@ Route to these skills when relevant:
 ## Output style
 
 Use UK English. Keep recommendations practical, direct and implementation-aware. Separate client-facing wording from internal LightSpeed notes when the change has commercial, delivery or risk implications.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

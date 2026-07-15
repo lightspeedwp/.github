@@ -50,3 +50,9 @@ python scripts/render_and_diff.py fixtures/watermark_fixture.docx no_watermark.d
 
 - Tracked-changes fixture: redlines appear in the original, and are gone in the accepted output
 - Watermark fixture: `report` finds watermark-like VML; removal yields zero hits; headers remain intact
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

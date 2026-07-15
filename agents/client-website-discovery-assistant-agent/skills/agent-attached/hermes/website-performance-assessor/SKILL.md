@@ -56,3 +56,9 @@ The default output should include:
 - Do not hide missing measurement coverage behind polished summary language.
 - Keep hosting, front-end, CMS, and third-party factors distinct where possible.
 - Prefer a useful internal triage view over false certainty.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

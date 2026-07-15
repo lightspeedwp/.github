@@ -75,3 +75,9 @@ Clear QA requests may invoke this skill directly. Unclear Zendesk-first intake s
 - Do not sequence complex workflows such as evidence collection -> escalation -> customer reply -> knowledge creation.
 - Do not override `zendesk-router-skill` when the correct owner is unclear.
 - Do not continue reviewing when the safer answer is to pause for evidence, artefact creation, or router selection.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

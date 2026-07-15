@@ -54,3 +54,9 @@ Use this questionnaire to gather information across content, technical, governan
 ## Additional Notes
 
 Please include any other context that may help the assessment team understand your environment and priorities.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

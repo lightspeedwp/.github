@@ -29,3 +29,9 @@ Handle content migration volume or complexity that exceeds the allowance in the 
 - Roughly how much content must be migrated?
 - Is the source platform WordPress or something else?
 - Does the content need restructuring during migration?
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
