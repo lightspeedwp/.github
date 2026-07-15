@@ -1,0 +1,6 @@
+interface:
+  display_name: conversion-goal-strategist
+  short_description: Map audience flows and page conversion goals
+  default_prompt: Use $conversion-goal-strategist to define audience flows, page-level
+    conversion goals, and site-wide conversion strategy with reusable intake defaults
+    and Memory guidance.

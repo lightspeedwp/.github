@@ -102,7 +102,14 @@ function extractFooterTail(content) {
 }
 
 function buildFooterBlock(footerText) {
-  return `\n---\n\n${footerText.trimEnd()}\n`;
+  const trimmed = footerText.trimEnd();
+  // Footer templates sourced from config/footers.config.yaml already include
+  // their own leading `---` divider; the legacy DEFAULT_FOOTERS phrases do
+  // not. Avoid emitting a duplicate divider for the former.
+  if (/^---\s*\n/.test(trimmed)) {
+    return `\n${trimmed}\n`;
+  }
+  return `\n---\n\n${trimmed}\n`;
 }
 
 function hasKnownFooter(content) {
@@ -247,6 +254,13 @@ function ensureFooter(file, options = {}) {
   const nextFooter = getRandomFooter(category, seed);
   const footerBlock = buildFooterBlock(nextFooter);
 
+  // buildFooterBlock's own leading newline is not sufficient to guarantee a
+  // *blank* line before the block — without one, a `---` directly abutting
+  // the preceding paragraph is parsed by CommonMark as a setext-heading
+  // underline for that paragraph rather than a thematic break. Strip it and
+  // always join with an explicit blank line instead.
+  const footerBlockBody = footerBlock.replace(/^\n+/, "");
+
   if (hasKnownFooter(content)) {
     const frontmatterStripped = stripFrontmatter(content);
     const lastSeparatorIndex = frontmatterStripped.lastIndexOf("\n---\n");
@@ -260,15 +274,12 @@ function ensureFooter(file, options = {}) {
         0,
         lastSeparatorIndex,
       );
-      content = `${prefix}${bodyWithoutFooter.replace(/\s+$/, "")}${footerBlock}`;
+      content = `${prefix}${bodyWithoutFooter.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
     } else {
-      content = `${content.replace(/\s+$/, "")}${footerBlock}`;
+      content = `${content.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
     }
   } else {
-    if (!content.endsWith("\n")) {
-      content += "\n";
-    }
-    content += footerBlock.trimStart();
+    content = `${content.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
   }
 
   fs.writeFileSync(file, content);

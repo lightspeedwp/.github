@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skills.local/zendesk-help-center-grounding/grounding-brief.schema.json",
+  "title": "Zendesk Help Center Grounding Brief",
+  "type": "object",
+  "required": [
+    "documentation_status",
+    "documentation_risk",
+    "relevant_sources",
+    "documented_position",
+    "alignment_check",
+    "gaps_and_risks",
+    "safe_drafting_guidance",
+    "recommended_downstream_skill"
+  ],
+  "properties": {
+    "documentation_status": {
+      "type": "string",
+      "enum": [
+        "clear support",
+        "partial support",
+        "conflict",
+        "ambiguous",
+        "outdated risk",
+        "missing documentation",
+        "inference required"
+      ]
+    },
+    "documentation_risk": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "relevant_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "type", "visibility", "relevant_section", "freshness_signal", "use_posture"],
+        "properties": {
+          "title": {"type": "string"},
+          "locator": {"type": "string"},
+          "type": {"type": "string"},
+          "visibility": {"type": "string", "enum": ["public", "internal", "unclear"]},
+          "relevant_section": {"type": "string"},
+          "freshness_signal": {"type": "string"},
+          "use_posture": {"type": "string", "enum": ["cite", "match", "defer", "use cautiously", "do not cite"]}
+        }
+      }
+    },
+    "documented_position": {"type": "string"},
+    "alignment_check": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim", "status", "notes"],
+        "properties": {
+          "claim": {"type": "string"},
+          "status": {"type": "string", "enum": ["supported", "unsupported", "conflict", "ambiguous", "inferred"]},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "gaps_and_risks": {
+      "type": "object",
+      "properties": {
+        "unsupported_areas": {"type": "array", "items": {"type": "string"}},
+        "conflicts_or_ambiguity": {"type": "array", "items": {"type": "string"}},
+        "unsafe_wording_to_avoid": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "safe_drafting_guidance": {
+      "type": "object",
+      "properties": {
+        "can_say": {"type": "array", "items": {"type": "string"}},
+        "should_avoid": {"type": "array", "items": {"type": "string"}},
+        "citation_posture": {"type": "string"}
+      }
+    },
+    "recommended_downstream_skill": {"type": "string"}
+  }
+}

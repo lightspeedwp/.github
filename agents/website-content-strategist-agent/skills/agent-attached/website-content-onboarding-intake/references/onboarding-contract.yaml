@@ -1,0 +1,36 @@
+state_backend: memory
+memory_state_file: website-content-intake.yaml
+
+trigger_when:
+  task_requires:
+    - "new website-content initiative or a switch to a new website-content scenario"
+    - "repeated website-content work where scenario defaults would improve routing or continuity"
+  missing_state:
+    - "scenario_type"
+
+required_state:
+  - key: scenario_type
+    ask: "What kind of website-content work is this mainly for: a tour operator site, a WooCommerce store, a standard WordPress site, a one-off page recommendation, or another website-content scenario?"
+    store_as: scenario_type
+
+optional_state:
+  - key: project_name
+    ask: "What should I treat as the project or website name for future related work?"
+    default: "unspecified-project"
+    store_as: project_name
+  - key: preferred_working_format
+    ask: "For future work, do you want the default output in Google Docs-style document structure, paste-ready Markdown, or another format?"
+    default: "paste-ready Markdown"
+    store_as: preferred_working_format
+  - key: project_type_notes
+    ask: "Is there one short note I should remember about this website type or workstream for future related requests?"
+    default: "none"
+    store_as: project_type_notes
+
+completion_requires:
+  - "scenario_type"
+
+skip_when:
+  - "the current request is a one-off task that already provides enough context to complete correctly"
+  - "Memory already contains a suitable scenario_type for the same project or website and nothing in the request suggests a new scenario"
+  - "the request is only asking a general question about possible scenarios or workflows rather than starting real work"

@@ -1,0 +1,22 @@
+schema_version: 1
+name: audit-memory
+applies_to:
+  - memory/user-preferences.md
+  - memory/todos.md
+
+user_preferences:
+  required_sections:
+    - Audit Preferences
+    - Communication Style
+    - Document Preferences
+  optional_sections:
+    - Client and Site Context
+    - Audit Continuity
+
+todos:
+  required_sections:
+    - Open Audits
+    - Follow-Ups Requested
+    - Questions to Revisit
+  optional_sections:
+    - Completed Recently

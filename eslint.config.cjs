@@ -41,6 +41,9 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
       "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
+      "agents/**/figma-generate-library/**", // Bundled Figma plugin skill scripts (run inside the Figma plugin sandbox, not Node)
+      "agents/**/figma-use/**", // Bundled Figma plugin API references/typings
+      "agents/**/openai-docs/**", // Bundled platform-managed OpenAI docs helper scripts (vendored reference, not repo-authored)
     ];
 
 /**

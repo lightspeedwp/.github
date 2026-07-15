@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk Refund Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_summary",
+    "refund_or_compensation_type",
+    "confirmed_evidence",
+    "inference_or_uncertainty",
+    "missing_evidence",
+    "relevant_policy_basis",
+    "prior_commitments_or_expectation_risk",
+    "approval_or_escalation_needs",
+    "risk_factors",
+    "recommended_safest_next_step",
+    "safe_to_draft_customer_reply_now",
+    "recommended_downstream_skill"
+  ],
+  "properties": {
+    "request_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["latest_ask", "current_status"],
+      "properties": {
+        "customer": {"type": ["string", "null"]},
+        "ticket_or_case": {"type": ["string", "null"]},
+        "latest_ask": {"type": "string"},
+        "current_status": {"type": "string"}
+      }
+    },
+    "refund_or_compensation_type": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "classification_confidence"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["refund", "partial_refund", "credit", "compensation", "goodwill", "policy_exception", "mixed", "unclear", "not_applicable"]
+        },
+        "requested_amount_or_remedy": {"type": ["string", "null"]},
+        "classification_confidence": {"type": "string", "enum": ["high", "medium", "low"]}
+      }
+    },
+    "confirmed_evidence": {"type": "array", "items": {"type": "string"}},
+    "inference_or_uncertainty": {"type": "array", "items": {"type": "string"}},
+    "missing_evidence": {"type": "array", "items": {"type": "string"}},
+    "relevant_policy_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "what_it_supports", "constraints", "confidence"],
+      "properties": {
+        "source": {"type": ["string", "null"]},
+        "what_it_supports": {"type": "string"},
+        "constraints": {"type": "array", "items": {"type": "string"}},
+        "confidence": {"type": "string", "enum": ["high", "medium", "low", "not_confirmed"]}
+      }
+    },
+    "prior_commitments_or_expectation_risk": {"type": "array", "items": {"type": "string"}},
+    "approval_or_escalation_needs": {"type": "array", "items": {"type": "string"}},
+    "risk_factors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "financial": {"type": "array", "items": {"type": "string"}},
+        "contractual_legal_policy": {"type": "array", "items": {"type": "string"}},
+        "customer_trust_relationship": {"type": "array", "items": {"type": "string"}},
+        "precedent_fairness": {"type": "array", "items": {"type": "string"}},
+        "operational": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "recommended_safest_next_step": {"type": "string"},
+    "safe_to_draft_customer_reply_now": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["answer", "safe_reply_boundary"],
+      "properties": {
+        "answer": {"type": "string", "enum": ["yes", "no", "limited"]},
+        "safe_reply_boundary": {"type": "string"}
+      }
+    },
+    "recommended_downstream_skill": {"type": ["string", "null"]}
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "WooCommerce Site Discovery"
+  short_description: "Inspect store state before WooCommerce advice or audits."
+  default_prompt: "Use $woocommerce-site-discovery to inspect the current site and summarise confirmed WooCommerce signals before advising."

@@ -1,0 +1,14 @@
+version: 1
+template_family: policy-pages
+required_common_fields:
+  - page title
+  - policy purpose
+  - authority source
+  - review sensitivity
+required_common_sections:
+  - Scope
+  - Key policy statements
+rules:
+  - Policy templates must identify the relevant authority source.
+  - Policy templates must not imply unapproved legal conclusions.
+  - Policy templates should include a review note when legal or executive sign-off is still needed.

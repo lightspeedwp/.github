@@ -1,0 +1,22 @@
+{
+  "agent_name": "LightSpeed AI Readiness Estimator",
+  "agent_files_discovered": 159,
+  "agent_files_exported": 160,
+  "skills_discovered": 51,
+  "fully_exported_skills": 51,
+  "partially_exported_skills": 0,
+  "metadata_only_skills": 0,
+  "inaccessible_resources": 0,
+  "redactions": 1,
+  "validation_notes": [
+    "Exported file existence check: passed; missing=0",
+    "Skill folder listing comparison: passed; mismatches=0",
+    "Skill inventory row count: 51 skills written to Markdown and CSV",
+    "Metadata-only skills not represented as full exports: passed",
+    "Empty exported files identified: 0",
+    "SHA-256 checksums generated for 844 files"
+  ],
+  "zip": "/workspace/output/lightspeed-ai-readiness-estimator-agent-export.zip",
+  "export_dir": "/workspace/output/agent-export",
+  "total_export_files": 846
+}

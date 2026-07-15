@@ -1,0 +1,13 @@
+{
+  "preferred_reply_tone": "clear and empathetic",
+  "preferred_report_sections": [
+    "executive_summary",
+    "issue_themes",
+    "recommended_next_actions"
+  ],
+  "preferred_timezone_or_date_formatting": "Europe/Berlin with dd MMM yyyy dates",
+  "preferred_escalation_wording": "direct and calm",
+  "preferred_detail_level": "concise but decision-useful",
+  "preferred_report_scope": "Zendesk-first support operations",
+  "preferred_example_ticket_rule": "Include example tickets only when they clarify the theme"
+}

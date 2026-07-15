@@ -1,0 +1,4 @@
+interface:
+  display_name: "WordPress Remediation Planner"
+  short_description: "Turn WordPress findings into staged fix plans."
+  default_prompt: "Use $wordpress-remediation-planner to turn WordPress findings into a prioritized remediation plan with staging-safe batches and clear next actions."
