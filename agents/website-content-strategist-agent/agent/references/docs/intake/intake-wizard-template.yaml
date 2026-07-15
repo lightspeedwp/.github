@@ -1,0 +1,61 @@
+version: 1
+name: intake_wizard_template
+purpose: selective questionnaire-driven intake for website-content workflows
+fields:
+  - key: project_or_task_type
+    label: Project or task type
+    status: missing
+    source: user_or_questionnaire
+    blocking: true
+  - key: primary_goal
+    label: Primary goal
+    status: missing
+    source: user_or_questionnaire
+    blocking: true
+  - key: audience_or_user_group
+    label: Audience or user group
+    status: missing
+    source: user_or_questionnaire
+    blocking: true
+  - key: workflow_context
+    label: Workflow context
+    status: missing
+    source: routing
+    blocking: true
+  - key: relevant_questionnaire_source
+    label: Relevant questionnaire source
+    status: inferred
+    source: questionnaire_selection
+    blocking: false
+  - key: reference_asset_or_source_material
+    label: Reference asset or source material
+    status: missing
+    source: user_or_files
+    blocking: true
+  - key: required_output_format
+    label: Required output format
+    status: inferred
+    source: user_or_workflow
+    blocking: false
+  - key: scope_boundaries
+    label: Scope boundaries
+    status: missing
+    source: user_or_questionnaire
+    blocking: false
+  - key: exclusions
+    label: Exclusions or must-not-do rules
+    status: missing
+    source: user_or_questionnaire
+    blocking: false
+  - key: timeline_risk_or_approval
+    label: Timeline, urgency, risk, or approval requirements
+    status: missing
+    source: user_or_questionnaire
+    blocking: false
+rule: ask_only_for_missing_blocking_information
+minimum_useful_fields_before_proceeding: 5
+allowed_statuses:
+  - confirmed
+  - inferred
+  - defaulted
+  - missing
