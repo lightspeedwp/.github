@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 
 /**
  * Update `last_updated` to today's UTC date in staged markdown files

@@ -74,7 +74,9 @@ async function packageSkillZip(skillDir, outputDir = null) {
 
     return { success: true, path: outputFile, bytes };
   } catch (error) {
-    throw new Error(`Failed to create zip file: ${error.message}`);
+    throw new Error(`Failed to create zip file: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
