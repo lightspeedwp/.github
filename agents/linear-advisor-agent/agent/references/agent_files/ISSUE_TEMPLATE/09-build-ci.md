@@ -37,7 +37,7 @@ labels: [status:needs-triage, area:ci]
 - [ISSUE_TYPES.md](../ISSUE_TYPES.md)
 - [ISSUE_LABELS.md](../ISSUE_LABELS.md)
 - [PR_LABELS.md](../PR_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [AUTOMATION.md](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 - [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
 - [Coding Standards](../instructions/coding-standards.instructions.md)
 
@@ -59,4 +59,4 @@ labels: [status:needs-triage, area:ci]
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
 
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

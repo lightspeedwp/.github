@@ -11,7 +11,7 @@ This PR updates the build or CI configuration for Pipelines, linting, packaging,
 Please review the summary, baseline/target, and changelog below.
 
 > This PR Template enforces pipelines, linting, changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for required rules.
 
 ## Linked issues
 
@@ -103,4 +103,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
 
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

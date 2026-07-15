@@ -163,7 +163,7 @@ jobs:
         if: steps.link_targets.outputs.files != ''
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --verbose ${{ steps.link_targets.outputs.files }}
+          args: --no-progress --verbose --config lychee.toml ${{ steps.link_targets.outputs.files }}
 
   apply-meta:
     if: ${{ github.event_name != 'pull_request' }}

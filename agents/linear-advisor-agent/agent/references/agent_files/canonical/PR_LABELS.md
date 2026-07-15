@@ -101,7 +101,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 - [labeling.agent.md](../.github/agents/labeling.agent.md)
 - [labeling.yml](../.github/workflows/labeling.yml)
 - [Labeling Strategy](./LABEL_STRATEGY.md)
-- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 
 ---
 

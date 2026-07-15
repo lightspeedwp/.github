@@ -162,7 +162,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ## 8. References
 
-- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 - [Issue Labels Guide](./ISSUE_LABELS.md)
 - [Canonical Labels & Colours](../.github/labels.yml)
 - [Labeler rules](../.github/labeler.yml)

@@ -41,7 +41,7 @@ These templates integrate with:
 
 - **[PR Labels](../../docs/PR_LABELS.md)** - Automated PR labeling system
 - **[Branching Strategy](../docs/BRANCHING_STRATEGY.md)** - Branch naming and PR workflow
-- **[Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)** - Agent-driven PR workflows
+- **[Automation Governance](../docs/AUTOMATION.md)** - Agent-driven PR workflows
 - **[Reviewer Agent](../agents/reviewer.agent.md)** - Automated code review
 
 ## 🤖 Automation Features
@@ -74,7 +74,7 @@ These templates integrate with:
 
 ---
 
-*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
+*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
 ---
 
