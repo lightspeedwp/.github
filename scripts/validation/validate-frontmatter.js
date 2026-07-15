@@ -136,6 +136,7 @@ class FrontmatterExtractor {
     } catch (error) {
       throw new Error(
         `Invalid YAML frontmatter in ${filePath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -169,6 +170,7 @@ class FrontmatterValidator {
     } catch (error) {
       throw new Error(
         `Failed to load schema from ${schemaPath}: ${error.message}`,
+        { cause: error },
       );
     }
   }

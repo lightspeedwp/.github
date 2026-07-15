@@ -4,7 +4,7 @@
  * @module scripts/agents/template.agent.js
  * @see ../../agents/template.agent.md
  */
-/* eslint-disable */
+
 // last_updated: 2025-10-23
 
 // TODO: Expand this scaffold to exercise the full template-building process defined in the spec.

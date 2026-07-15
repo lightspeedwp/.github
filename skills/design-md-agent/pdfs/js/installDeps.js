@@ -28,7 +28,9 @@ async function installDeps(scriptDir = __dirname) {
 
     return { success: true, installed: true, directory: resolvedDir };
   } catch (error) {
-    throw new Error(`Failed to install dependencies: ${error.message}`);
+    throw new Error(`Failed to install dependencies: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 

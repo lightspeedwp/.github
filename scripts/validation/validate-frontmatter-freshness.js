@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 
 /**
  * Validate frontmatter freshness for changed markdown files.
@@ -36,7 +35,7 @@ function runGit(cmd) {
 }
 
 function changedMarkdownFiles({ base, head, staged }) {
-  let output = "";
+  let output;
   if (staged) {
     output = runGit("git diff --cached --name-only -- '*.md' '*.mdx'");
   } else if (base && head) {
@@ -56,7 +55,7 @@ function extractFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
   if (!match) return { raw: null, data: null, body: content };
   const raw = match[0];
-  let data = null;
+  let data;
   try {
     data = yaml.load(match[1]) || {};
   } catch {

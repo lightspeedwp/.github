@@ -141,7 +141,9 @@ function readConfigFile(configPath, fsImpl = fs) {
   try {
     parsed = JSON.parse(raw);
   } catch (error) {
-    throw new Error(`Invalid lint config at ${configPath}: ${error.message}`);
+    throw new Error(`Invalid lint config at ${configPath}: ${error.message}`, {
+      cause: error,
+    });
   }
 
   return validateConfigShape(parsed);

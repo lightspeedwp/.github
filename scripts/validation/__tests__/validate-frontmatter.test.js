@@ -10,7 +10,7 @@ describe("Frontmatter Validation", () => {
   it("should validate all markdown files and report errors for invalid frontmatter", () => {
     // Run the validation script and capture output
     const scriptPath = path.join(__dirname, "../validate-frontmatter.js");
-    let output = "";
+    let output;
     try {
       output = execSync(`node ${scriptPath}`, { encoding: "utf8" });
     } catch (err) {
