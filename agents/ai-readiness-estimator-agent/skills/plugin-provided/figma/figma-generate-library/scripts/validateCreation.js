@@ -27,7 +27,7 @@
  *   `passed`: Array of nodeIds that passed all checks.
  *   `failed`: Array of objects with the nodeId and a human-readable reason string.
  */
-function validateCreation(checks) {
+export function validateCreation(checks) {
   const passed = []
   const failed = []
 

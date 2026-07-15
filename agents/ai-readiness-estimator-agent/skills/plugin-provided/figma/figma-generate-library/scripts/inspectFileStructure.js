@@ -24,7 +24,7 @@
  *   effectStyles: Array<{id: string, name: string, effectCount: number}>
  * }>}
  */
-async function inspectFileStructure() {
+export async function inspectFileStructure() {
   // Read-only inspection — skip invisible content inside instances for a
   // hundreds-of-times-faster findAllWithCriteria on large libraries.
   figma.skipInvisibleInstanceChildren = true
