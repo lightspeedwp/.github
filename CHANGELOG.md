@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-19"
+last_updated: "2026-07-15"
 owners:
   - LightSpeed Team
 tags:
@@ -24,6 +24,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Fixed
+
+- **Babel peer-dependency conflict** — Reverted `@babel/plugin-transform-runtime` and `@babel/preset-react` from `8.0.1` to `7.29.7` after a Dependabot major-version bump left them requiring `@babel/core@^8.0.0` while `@babel/core` and the rest of the toolchain remained on `7.x`, which broke `npm ci` (and therefore every CI job) repo-wide. ([#1042](https://github.com/lightspeedwp/.github/issues/1042), [PR #1043](https://github.com/lightspeedwp/.github/pull/1043))
 
 ## [0.6.0] - 2026-06-19
 
