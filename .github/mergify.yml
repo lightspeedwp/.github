@@ -9,8 +9,7 @@ pull_request_rules:
       - -conflict
       - "#commits-behind > 0"
     actions:
-      update:
-        rebase_fallback: merge
+      update: {}
 
   # Auto-approve and merge Dependabot dependency updates when CI passes
   - name: Auto-approve and merge Dependabot dependency updates on develop
@@ -37,8 +36,7 @@ pull_request_rules:
       - -conflict
       - "#commits-behind > 0"
     actions:
-      update:
-        rebase_fallback: merge
+      update: {}
 
   # Auto-merge imgbot image optimizations when CI passes
   - name: Auto-merge imgbot image optimizations on develop
