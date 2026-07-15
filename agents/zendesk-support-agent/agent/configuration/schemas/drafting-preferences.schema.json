@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Drafting Preferences",
+  "description": "Durable drafting defaults for replies, handoffs, escalations, and documentation reviews.",
+  "type": "object",
+  "required": [
+    "empathy_level",
+    "brevity_preference",
+    "escalation_style",
+    "handoff_style",
+    "documentation_style"
+  ],
+  "properties": {
+    "empathy_level": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Standing empathy level for customer-facing or customer-adjacent drafts."
+    },
+    "brevity_preference": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Preferred verbosity level for repeated drafts."
+    },
+    "escalation_style": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Preferred escalation tone and structure."
+    },
+    "handoff_style": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Preferred handoff tone and structure."
+    },
+    "documentation_style": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Preferred tone for documentation-worthiness reviews and documentation-adjacent outputs."
+    },
+    "avoid_long_apologies": {
+      "type": "boolean",
+      "description": "Whether replies should avoid extended apology language by default."
+    },
+    "include_recommended_next_step": {
+      "type": "boolean",
+      "description": "Whether repeated drafts should usually include an explicit next step."
+    }
+  },
+  "additionalProperties": false
+}

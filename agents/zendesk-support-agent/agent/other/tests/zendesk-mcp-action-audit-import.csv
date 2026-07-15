@@ -1,0 +1,10 @@
+action,expected_intent,should_be_read_only,should_be_non_consequential,should_be_non_destructive,current_agent_approval_bucket,current_status,notes
+get_ticket,Fetch one ticket,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+search_tickets,Search tickets,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+count_tickets,Count matching tickets,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+get_ticket_conversation,Read conversation history,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+search_help_center_articles,Search articles,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+get_help_center_article_content,Read one article,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+list_ticket_fields,Read field metadata,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+list_ticket_forms,Read form metadata,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix
+list_brands,Read brand metadata,Yes,Yes,Yes,always_ask,Fail,Should move out of approval path after MCP fix

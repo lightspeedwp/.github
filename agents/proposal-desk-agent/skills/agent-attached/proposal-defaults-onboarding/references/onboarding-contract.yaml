@@ -1,0 +1,50 @@
+state_backend: memory
+memory_state_file: proposal-user-defaults.yaml
+
+trigger_when:
+  task_requires:
+    - reusable evidence lookup in Google Drive without a clear search scope
+    - creating or updating recurring proposal documents without a stated destination
+    - routing internal proposal follow-ups using the user's preferred owner labels or grouping style
+    - producing substantial proposal or discovery outputs without a remembered delivery preference
+  missing_state:
+    - drive_search_scope
+
+required_state:
+  - key: drive_search_scope
+    ask: "When I need prior proposal material and you have not named a location, where should I look first in Google Drive?"
+    store_as: drive_search_scope
+
+optional_state:
+  - key: preferred_delivery_mode
+    ask: "For substantial proposal outputs, what should I default to when you do not specify it: downloadable file, inline draft, or both?"
+    default: "downloadable file"
+    store_as: preferred_delivery_mode
+  - key: preferred_primary_format
+    ask: "When a formal deliverable is needed and you do not specify a format, should I default to .docx, .md, or create both when useful?"
+    default: "docx"
+    store_as: preferred_primary_format
+  - key: preferred_working_mode
+    ask: "When both would work, should I default to a chat-first draft or a document-ready draft first?"
+    default: "document-ready draft first"
+    store_as: preferred_working_mode
+  - key: evidence_lookup_notes
+    ask: "Are there any default evidence lookup rules I should remember, such as preferred document types, folders, or source order?"
+    default: "Use the named Drive scope first, then attached references, then other connected sources only when needed."
+    store_as: evidence_lookup_notes
+  - key: owner_routing_style
+    ask: "How should I label owners in follow-ups by default: person name, team, or function?"
+    default: "function"
+    store_as: owner_routing_style
+  - key: followup_grouping_style
+    ask: "How should I group internal follow-ups by default: by section, by owner, or by priority?"
+    default: "by owner"
+    store_as: followup_grouping_style
+
+completion_requires:
+  - drive_search_scope
+
+skip_when:
+  - the current request can be completed well from the uploaded artefact, attached references, and chat alone
+  - the user explicitly names the Google Drive folder, source set, document destination, or owner format for this run
+  - the task does not require reusable evidence lookup, document creation, substantial deliverable routing, or remembered intake preferences

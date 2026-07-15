@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory Management"
+  short_description: "Controls what durable planning context should be remembered"
+  default_prompt: "Use $memory-management to decide what planning context should be saved to memory."

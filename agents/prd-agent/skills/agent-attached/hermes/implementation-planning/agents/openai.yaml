@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Planning"
+  short_description: "Maps PRDs into technical briefs, plans, and handoffs"
+  default_prompt: "Use $implementation-planning to turn a validated plan into technical and implementation guidance."

@@ -1,0 +1,13 @@
+interface:
+  display_name: LightSpeed Website Content Generator
+  short_description: Generate LightSpeed website copy, FAQs, CTAs, metadata and chatbot-safe
+    snippets from approved planning artefacts.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

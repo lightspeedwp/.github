@@ -1,0 +1,21 @@
+title: PageSpeed Audit Report Structure
+version: 1
+required_sections:
+  - Executive Summary
+  - Client Context
+  - Prioritized Findings
+  - Quick Wins
+  - Medium-Effort Improvements
+  - Larger Engineering Work
+optional_sections:
+  - Before / After Comparison
+  - Limitations
+finding_required_fields:
+  - Symptom
+  - Why it matters
+  - Likely cause
+  - Evidence
+  - Recommended fix
+  - Priority
+naming:
+  title_pattern: '^PageSpeed Audit - .+ - .+ - \d{4}-\d{2}-\d{2}( - .+)?$'

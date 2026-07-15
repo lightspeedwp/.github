@@ -1,0 +1,15 @@
+interface:
+  display_name: Zendesk Handoff Prep
+  short_description: Prepare Zendesk-first internal support handoffs without defaulting
+    to downstream tooling.
+  icon: handoff
+  primary_color: '#17494D'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

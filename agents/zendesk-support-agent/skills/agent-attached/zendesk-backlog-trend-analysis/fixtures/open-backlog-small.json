@@ -1,0 +1,75 @@
+{
+  "report_type": "backlog_health",
+  "scope": "current open backlog",
+  "current_window": null,
+  "comparison_window": null,
+  "filters": {
+    "status": ["new", "open", "pending", "hold"]
+  },
+  "capabilities": {
+    "ticket_counts": true,
+    "ticket_metadata": true,
+    "ticket_details": true,
+    "ticket_conversations": false,
+    "sla_visible": false,
+    "csat_visible": false,
+    "help_centre_visible": true
+  },
+  "counts": {
+    "open_backlog": 4,
+    "by_status": {
+      "open": 2,
+      "pending": 1,
+      "hold": 1
+    }
+  },
+  "tickets": [
+    {
+      "ticket_id": "ZD-10001",
+      "subject": "Checkout error after payment redirect",
+      "status": "open",
+      "priority": "high",
+      "created_at": "2026-06-20T09:30:00Z",
+      "updated_at": "2026-06-24T14:12:00Z",
+      "group": "Support",
+      "assignee": null,
+      "organisation": "Example Organisation",
+      "brand": "Example Brand",
+      "tags": ["checkout", "payment_redirect"],
+      "channel": "email",
+      "form": "Support request",
+      "custom_fields": {},
+      "comment_count": 4,
+      "sla_status": "unavailable",
+      "age_days": 5,
+      "latest_customer_reply_at": "2026-06-24T09:30:00Z",
+      "latest_agent_reply_at": "2026-06-24T14:12:00Z",
+      "blocked_reason": null,
+      "evidence_class": "confirmed"
+    },
+    {
+      "ticket_id": "ZD-10002",
+      "subject": "Question about onboarding setup",
+      "status": "pending",
+      "priority": "normal",
+      "created_at": "2026-06-22T11:00:00Z",
+      "updated_at": "2026-06-24T13:00:00Z",
+      "group": "Support",
+      "assignee": "Example Agent",
+      "organisation": "Sample Customer",
+      "brand": "Example Brand",
+      "tags": ["onboarding", "setup"],
+      "channel": "web",
+      "form": "Support request",
+      "custom_fields": {},
+      "comment_count": 3,
+      "sla_status": "unavailable",
+      "age_days": 3,
+      "latest_customer_reply_at": null,
+      "latest_agent_reply_at": "2026-06-24T13:00:00Z",
+      "blocked_reason": "waiting on customer",
+      "evidence_class": "confirmed"
+    }
+  ],
+  "missing_evidence": ["SLA status is unavailable in this fixture"]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Memory Triage Decision",
+  "type": "object",
+  "required": ["information_type", "destination", "reason", "confidence"],
+  "properties": {
+    "information_type": { "type": "string" },
+    "destination": {
+      "type": "string",
+      "enum": [
+        "memory/user-preferences.md",
+        "memory/project-defaults.md",
+        "memory/todos.md",
+        "memory/review-history.md",
+        "do_not_save"
+      ]
+    },
+    "reason": { "type": "string" },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "confirmed": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

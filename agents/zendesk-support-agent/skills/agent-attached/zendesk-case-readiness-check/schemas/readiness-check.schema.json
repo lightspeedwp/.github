@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk case readiness check",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_deliverable",
+    "readiness_status",
+    "confirmed_evidence",
+    "missing_evidence",
+    "next_step"
+  ],
+  "properties": {
+    "target_deliverable": {
+      "type": "string",
+      "enum": [
+        "customer_reply",
+        "internal_escalation",
+        "knowledge_drafting",
+        "support_handoff",
+        "downstream_engineering_product_handoff"
+      ]
+    },
+    "readiness_status": {
+      "type": "string",
+      "enum": ["ready", "partially_ready", "not_ready"]
+    },
+    "confirmed_evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "missing_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blocker"],
+      "properties": {
+        "blocker": { "type": "string" },
+        "optional_improvement": { "type": "string" }
+      }
+    },
+    "next_step": { "type": "string" },
+    "risk_if_skipped": { "type": "string" }
+  }
+}
