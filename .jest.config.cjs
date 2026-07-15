@@ -45,6 +45,7 @@ module.exports = {
     },
     moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
+    coverageProvider: 'v8',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
     collectCoverageFrom: [
         process.env.JEST_COVERAGE_FROM_1 || 'scripts/**/*.js',
