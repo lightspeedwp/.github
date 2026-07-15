@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Memory File Validation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "filename",
+    "title",
+    "memory_role",
+    "required_sections"
+  ],
+  "properties": {
+    "filename": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.md$"
+    },
+    "title": {
+      "type": "string",
+      "pattern": "^# .+"
+    },
+    "memory_role": {
+      "type": "string",
+      "enum": [
+        "stable-preferences",
+        "active-work",
+        "session-handoff",
+        "history",
+        "general-memory"
+      ]
+    },
+    "required_sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

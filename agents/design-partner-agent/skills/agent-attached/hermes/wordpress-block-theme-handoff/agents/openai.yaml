@@ -1,0 +1,14 @@
+interface:
+  display_name: WordPress Block Theme Handoff
+  short_description: Turn approved layouts into build-ready block-theme handoffs
+  default_prompt: Use $wordpress-block-theme-handoff to convert an approved brief
+    or layout direction into a WordPress block-theme implementation handoff.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

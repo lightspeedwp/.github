@@ -1,0 +1,38 @@
+# Launch QA Plan
+
+- Value:
+- Risk:
+- Next step:
+
+## Launch context
+
+| Field | Detail |
+|---|---|
+| Current live URL |  |
+| Staging/dev URL |  |
+| Figma design system |  |
+| Figma prototype |  |
+| Build type |  |
+| Launch stage |  |
+| Target launch date |  |
+
+## QA workstreams
+
+| Workstream | Scope | Owner | Evidence needed | Status | Notes |
+|---|---|---|---|---|---|
+
+## Launch blockers
+
+| Item | Owner | Required fix | Due date | Status |
+|---|---|---|---|---|
+
+## Next specialist audit
+
+| Specialist skill | Why needed | Inputs required |
+|---|---|---|
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

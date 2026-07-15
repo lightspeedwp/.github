@@ -1,0 +1,4 @@
+interface:
+  display_name: "Intake Routing"
+  short_description: "Routes rough planning inputs into the right next artefact"
+  default_prompt: "Use $intake-routing to classify messy planning inputs and choose the best next artefact."

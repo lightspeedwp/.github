@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence & Claims Check"
+  short_description: "Find support, rate claim strength, flag risk"
+  default_prompt: "Use $evidence-claims-check to retrieve evidence, classify claim strength, and flag unsupported proposal claims before finalizing a draft."

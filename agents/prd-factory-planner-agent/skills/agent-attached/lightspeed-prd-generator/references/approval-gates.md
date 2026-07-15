@@ -1,0 +1,19 @@
+# Approval Gates
+
+Recommended human approval gates:
+
+1. Before finalising the PRD.
+2. Before technical brief creation.
+3. Before task priority or estimate assignment.
+4. Before GitHub issue creation.
+5. Before implementation planning.
+6. Before launch QA.
+7. Before changing source files.
+
+For client work, separate client approval from internal LightSpeed implementation approval.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

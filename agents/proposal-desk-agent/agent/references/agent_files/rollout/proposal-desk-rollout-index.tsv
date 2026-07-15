@@ -1,0 +1,15 @@
+File Name	File Type	Primary Purpose	How To Use It
+README.md	Markdown	Human-readable index of the rollout bundle	Open first for a quick tour of the rollout assets
+lightspeed-general-agent-status-pilot-prompt.md	Markdown	Run the step-by-step rollout readiness and pilot plan	Use when reassessing rollout readiness or resuming the pilot plan
+lightspeed-agent-pilot-testing-guide.md	Markdown	Tester-facing onboarding and pilot guidance	Share with testers before they start
+lightspeed-agent-pilot-team-test-cases.tsv	TSV	General pilot test cases for team testing	Use as a base sheet of realistic test scenarios
+lightspeed-agent-pilot-rollout-checklist.tsv	TSV	Owner checklist for rollout readiness and pilot setup	Use to confirm pre-pilot setup and rollout decisions
+proposal-desk-pilot-feedback-tracker.tsv	TSV	Track failures, issues, fixes, and retests	Use as the main pilot issue log
+proposal-desk-google-sheets-canvas-prompt.md	Markdown	Prompt for generating the Google Sheets tester workbook	Paste into Google Sheets Canvas to create the workbook
+proposal-desk-google-sheets-workbook-guide.md	Markdown	Guide for what the workbook should include and achieve	Use while reviewing or refining the generated workbook
+proposal-desk-google-sheets-test-cases.tsv	TSV	Workbook-shaped test cases for import into the tester workbook	Paste or import into the workbook Test Cases tab
+proposal-desk-google-sheets-capabilities-starter-prompts.tsv	TSV	Workbook-ready content for capabilities and starter-prompts tabs	Paste or import into the workbook Overview/Starter Prompts tabs
+proposal-desk-testing-criteria.tsv	TSV	Structured scoring criteria for consistent testing	Paste or import into the workbook Testing Criteria tab
+proposal-desk-testing-rubric.md	Markdown	Plain-English explanation of the scoring rubric	Use alongside the criteria TSV for reviewer guidance
+proposal-desk-qa-checklist.tsv	TSV	Pre-pilot, in-test, and post-test QA checks	Use as the quick QA checklist during the pilot
+proposal-desk-rollout-index.tsv	TSV	Single machine-friendly index of every rollout file and its purpose	Use as the master file list for the rollout bundle

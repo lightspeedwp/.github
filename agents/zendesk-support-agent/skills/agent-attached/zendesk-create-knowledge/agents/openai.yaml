@@ -1,0 +1,17 @@
+interface:
+  display_name: Zendesk Create Knowledge
+  short_description: Draft Zendesk help-centre and support knowledge articles
+  default_prompt: Use $zendesk-create-knowledge to turn confirmed Zendesk evidence,
+    a resolved support case, repeated support question, stable workaround, or known
+    issue into a review-ready knowledge article draft. Use zendesk-knowledge-candidate-review
+    first when documentation-worthiness, audience, visibility, or stability is unclear,
+    and return unclear Zendesk-first intake to zendesk-router-skill.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

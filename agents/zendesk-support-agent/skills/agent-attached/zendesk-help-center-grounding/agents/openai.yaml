@@ -1,0 +1,12 @@
+interface:
+  display_name: Zendesk Help Center Grounding
+  short_description: Ground Zendesk replies in approved Help Center and policy documentation.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

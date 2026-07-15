@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PRD delta",
+  "type": "object",
+  "required": ["change_summary", "impacted_sections"],
+  "properties": {
+    "change_summary": { "type": "string" },
+    "impacted_sections": { "type": "array", "items": { "type": "string" } },
+    "assumptions_introduced": { "type": "array", "items": { "type": "string" } },
+    "approval_needed": { "type": "string" },
+    "estimate_impact_flag": { "type": "string" },
+    "qa_impact_flag": { "type": "string" }
+  },
+  "additionalProperties": false
+}

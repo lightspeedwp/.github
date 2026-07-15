@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms troubleshooting case",
+  "type": "object",
+  "required": [
+    "site_url",
+    "environment",
+    "issue",
+    "classification",
+    "confirmed_facts",
+    "tests",
+    "current_status",
+    "next_action"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "issue": {
+      "type": "string"
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "form_configuration",
+        "notification_delivery",
+        "spam_security",
+        "cache_optimisation",
+        "theme_plugin_conflict",
+        "addon_feed_api",
+        "payment_registration",
+        "file_upload",
+        "environment",
+        "unknown"
+      ]
+    },
+    "confirmed_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "result",
+          "evidence"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "passed",
+              "failed",
+              "skipped",
+              "inconclusive"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "next_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "current_status": {
+      "type": "string",
+      "enum": [
+        "resolved",
+        "partially_resolved",
+        "blocked",
+        "needs_more_evidence",
+        "escalated"
+      ]
+    },
+    "next_action": {
+      "type": "string"
+    },
+    "redaction_notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

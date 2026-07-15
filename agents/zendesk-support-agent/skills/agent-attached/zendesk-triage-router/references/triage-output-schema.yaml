@@ -1,0 +1,67 @@
+# Embedded triage output schema.
+# Use these values for consistent first-pass ticket triage.
+
+issue_type:
+  required: true
+  allow_one_primary: true
+  optional_secondary: true
+  values:
+    - Bug
+    - How-to / Configuration
+    - Feature request
+    - Billing / Contract
+    - Account / Access
+    - Integration / API
+    - Security / Privacy / Compliance
+    - Data / Import / Export
+    - Performance / Reliability
+
+severity:
+  required: true
+  values:
+    Critical: product or core workflow unavailable for many users, severe data integrity risk, security exposure, or no viable workaround for a major outage
+    High: major workflow broken for an important customer or team, substantial business impact, or severe issue with weak or no workaround
+    Medium: real issue with contained scope, partial workaround, or moderate business impact
+    Low: limited inconvenience, cosmetic issue, routine request, or clearly minor impact
+    Unknown: evidence is too thin or contradictory to score safely
+
+recommended_priority:
+  required: true
+  values:
+    Urgent: active outage, security concern, hard deadline, executive escalation, or repeated same-day pattern
+    High: meaningful customer pain or blocking issue that should move quickly even if not a full emergency
+    Normal: needs action and ownership, but not immediate interruption
+    Low: can proceed in normal queue flow without time pressure
+    Unknown: insufficient evidence to set a response pace responsibly
+
+owner_team:
+  required: true
+  values:
+    - Frontline support
+    - Senior / technical support
+    - Engineering
+    - Product
+    - Security / compliance
+    - Billing / finance / operations
+
+duplicate_risk:
+  required: true
+  values:
+    High: likely same underlying issue or strong merge/link candidate
+    Medium: plausible duplicate, related issue, or pattern requiring comparison
+    Low: currently no meaningful duplicate signal, but not proof no duplicate exists
+    Not completed: duplicate search or comparison was not possible from available evidence
+
+confidence:
+  optional: true
+  values:
+    High: direct Zendesk evidence covers symptoms, impact, scope, and urgency
+    Medium: enough supplied evidence to route, with some missing fields
+    Low: route is a best-effort judgement from thin or secondhand evidence
+
+required_sections:
+  - Triage
+  - Summary
+  - Evidence
+  - Unknowns
+  - Recommended next step

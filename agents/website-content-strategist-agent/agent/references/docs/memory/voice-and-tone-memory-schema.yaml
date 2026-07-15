@@ -1,0 +1,37 @@
+version: 1
+memory_domain: voice_and_tone
+fields:
+  brand_personality_summary:
+    type: string
+    required: false
+    min_length: 3
+  core_tone_pillars:
+    type: list[string]
+    required: false
+    min_items: 1
+  preferred_wording:
+    type: list[string]
+    required: false
+  avoided_wording:
+    type: list[string]
+    required: false
+  trust_and_proof_sensitivity_notes:
+    type: list[string]
+    required: false
+  tone_by_context:
+    type: list[object]
+    required: false
+    object_fields:
+      context:
+        type: string
+        required: true
+      tone_guidance:
+        type: string
+        required: true
+      what_to_avoid:
+        type: string
+        required: false
+rules:
+  - Save only confirmed voice and tone defaults.
+  - Keep tone pillars concise and reusable.
+  - Store context shifts only when they are likely to recur.
