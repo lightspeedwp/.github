@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **`js-yaml` upgraded** — Bumped from `4.2.0` to `5.2.1`. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
+- **`@typescript-eslint/eslint-plugin` upgraded** — Bumped from `8.60.1` to `8.61.1` (patch release). ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
 - **Babel toolchain upgraded to 8.x** — Bumped `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `@babel/preset-typescript`, `@babel/plugin-transform-runtime`, and `@babel/runtime` to their 8.x releases together (they peer-require each other at `^8.0.0`, so they couldn't land as separate Dependabot PRs — see [#1002](https://github.com/lightspeedwp/.github/pull/1002), [#1004](https://github.com/lightspeedwp/.github/pull/1004), [#1007](https://github.com/lightspeedwp/.github/pull/1007), [#1026](https://github.com/lightspeedwp/.github/pull/1026)). Removed `@babel/plugin-proposal-class-properties`, `@babel/plugin-proposal-object-rest-spread`, and `@babel/plugin-syntax-import-meta` (no 8.x release exists; their proposals are natively handled by `preset-env` now) and bumped `babel-jest` to `30.4.1` for babel 8 compatibility. Set Jest's `coverageProvider` to `v8` to avoid a circular-require bug in Jest's Istanbul-based coverage instrumentation exposed by babel 8. ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
 
 ### Added
