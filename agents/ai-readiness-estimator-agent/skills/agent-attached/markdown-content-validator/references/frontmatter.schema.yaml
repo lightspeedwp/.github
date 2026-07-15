@@ -1,0 +1,64 @@
+required:
+  - title
+  - status
+  - type
+  - version
+
+properties:
+  title:
+    type: string
+    minLength: 3
+    maxLength: 120
+
+  description:
+    type: string
+    maxLength: 300
+
+  status:
+    type: string
+    enum:
+      - draft
+      - review
+      - approved
+      - deprecated
+
+  type:
+    type: string
+    enum:
+      - template
+      - guide
+      - checklist
+      - reference
+      - prompt
+      - spec
+
+  audience:
+    type: array
+    items:
+      type: string
+      enum:
+        - internal
+        - client
+        - developer
+        - editor
+        - ai-agent
+
+  version:
+    type: string
+    pattern: '^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$'
+
+  owner:
+    type: string
+
+  last_reviewed:
+    type: string
+    format: date
+
+  tags:
+    type: array
+    items:
+      type: string
+
+minProperties: 4
+maxProperties: 12
+additionalProperties: false
