@@ -94,7 +94,7 @@
 		{
 			"label": "git-sync-feat-new-agents",
 			"type": "shell",
-			"command": "git push -u origin feat/new-agents",
+			"command": "git push -u origin HEAD",
 			"group": "none"
 		}
 	]
