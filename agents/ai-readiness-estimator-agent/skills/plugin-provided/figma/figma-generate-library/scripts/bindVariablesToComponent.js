@@ -25,7 +25,7 @@
  * @returns {Promise<{ mutatedNodeIds: string[] }>}
  *   List of node IDs that were mutated (for audit/validation purposes).
  */
-async function bindVariablesToComponent(component, bindings) {
+export async function bindVariablesToComponent(component, bindings) {
   const mutatedNodeIds = []
 
   if (!component) {
