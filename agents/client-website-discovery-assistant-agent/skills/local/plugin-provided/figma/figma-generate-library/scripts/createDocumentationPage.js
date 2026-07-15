@@ -32,7 +32,7 @@
  * }>}
  *   `frameIds` is an ordered list of IDs for the root frame and each section frame.
  */
-async function createDocumentationPage(pageName, config, runId) {
+export async function createDocumentationPage(pageName, config, runId) {
   // Verify required fonts are available before loading
   const allFonts = await figma.listAvailableFontsAsync()
   const requiredStyles = ['Bold', 'Regular', 'Medium']
