@@ -1,0 +1,53 @@
+{
+  "agent_files_exported": 95,
+  "skills_discovered": 21,
+  "fully_exported_skills": 21,
+  "partially_exported_skills": 0,
+  "metadata_only_skills": 0,
+  "inaccessible_records": 3,
+  "redactions": 0,
+  "total_exported_files_including_manifests": 446,
+  "zero_byte_files": [],
+  "duplicate_file_groups_by_checksum": [
+    [
+      "skills/local/platform-managed/.system/skill-installer/LICENSE.txt",
+      "skills/local/platform-managed/.system/skill-creator/license.txt"
+    ],
+    [
+      "skills/local/platform-managed/.system/openai-docs/LICENSE.txt",
+      "skills/local/platform-managed/.system/imagegen/LICENSE.txt",
+      "skills/local/plugin-provided/openai-marketplace/github/skills/gh-fix-ci/LICENSE.txt",
+      "skills/local/plugin-provided/openai-marketplace/github/skills/yeet/LICENSE.txt"
+    ],
+    [
+      "skills/local/platform-managed/.system/skill-creator/assets/skill-creator.png",
+      "skills/local/platform-managed/.system/plugin-creator/assets/plugin-creator.png"
+    ],
+    [
+      "skills/local/platform-managed/.system/skill-creator/assets/skill-creator-small.svg",
+      "skills/local/platform-managed/.system/plugin-creator/assets/plugin-creator-small.svg"
+    ],
+    [
+      "skills/local/plugin-provided/openai-marketplace/google-drive/skills/google-drive/assets/app-icon.png",
+      "skills/local/plugin-provided/openai-marketplace/google-drive/skills/google-drive/assets/google-drive.png"
+    ],
+    [
+      "skills/local/plugin-provided/openai-marketplace/google-drive/skills/google-drive/assets/google-drive.svg",
+      "skills/local/plugin-provided/openai-marketplace/google-drive/skills/google-drive/assets/google-drive-small.svg"
+    ],
+    [
+      "skills/local/plugin-provided/openai-marketplace/github/skills/gh-address-comments/LICENSE.txt",
+      "skills/local/plugin-provided/openai-marketplace/linear/skills/linear/LICENSE.txt"
+    ],
+    [
+      "skills/local/plugin-provided/openai-marketplace/github/skills/gh-address-comments/assets/github-small.svg",
+      "skills/local/plugin-provided/openai-marketplace/github/skills/github/assets/github-small.svg",
+      "skills/local/plugin-provided/openai-marketplace/github/skills/gh-fix-ci/assets/github-small.svg"
+    ],
+    [
+      "skills/local/plugin-provided/openai-marketplace/github/skills/gh-address-comments/assets/github.png",
+      "skills/local/plugin-provided/openai-marketplace/github/skills/github/assets/github.png",
+      "skills/local/plugin-provided/openai-marketplace/github/skills/gh-fix-ci/assets/github.png"
+    ]
+  ]
+}

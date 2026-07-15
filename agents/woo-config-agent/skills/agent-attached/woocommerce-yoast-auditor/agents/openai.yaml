@@ -1,0 +1,14 @@
+interface:
+  display_name: WooCommerce Yoast Auditor
+  short_description:
+    Audit WooCommerce Yoast SEO setups, product SEO output, launch
+    readiness and developer handoffs.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

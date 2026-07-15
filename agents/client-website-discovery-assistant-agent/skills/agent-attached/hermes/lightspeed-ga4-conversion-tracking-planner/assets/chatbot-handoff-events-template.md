@@ -1,0 +1,12 @@
+# Chatbot Handoff Events - Phase 2
+
+| Event | Trigger | Parameters | Conversion? | Privacy notes | Status |
+|---|---|---|---|---|---|
+| chatbot_open | Assistant opened | page_type | No | No transcript in GA4 | Phase 2 |
+| chatbot_handoff_click | Bot routes to contact/booking | chatbot_intent, handoff_type | Yes | No personal data in GA4 | Phase 2 |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

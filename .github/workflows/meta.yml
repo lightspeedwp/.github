@@ -90,18 +90,26 @@ jobs:
           fi
 
           # Get changed markdown files, excluding files with deferred formatting
+          # and bundled/vendored skill reference material (not repo-authored)
           FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
                   sed '/^AWESOME_GITHUB_MAPPING_STRATEGY\.md$/d' | \
                   sed '/^docs\/MIGRATION\.md$/d' | \
                   sed '/^\.github\/reports\//d' | \
-                  tr '\n' ' ')
+                  sed '/\/plugin-provided\//d' | \
+                  sed '/\/platform-managed\//d' | \
+                  sed '/\/directory-installed\//d' | \
+                  sed '/\/tests\/markdown-issues\.md$/d' | \
+                  sed '/\/agentskills-main\//d')
 
           if [ -z "$FILES" ]; then
             echo "No Markdown files to lint (all changed files are in ignore list)."
             exit 0
           fi
 
-          npx markdownlint-cli2 $FILES
+          # Pipe through xargs (rather than unquoted word-splitting) so very
+          # large changed-file counts are chunked instead of overflowing the
+          # shell's argument-list limit (E2BIG).
+          echo "$FILES" | xargs -r npx markdownlint-cli2
 
       - name: Collect Link Targets
         id: link_targets
@@ -127,14 +135,27 @@ jobs:
           fi
 
           LINK_FILES=""
+          LINK_FILE_COUNT=0
+          # Cap the file count passed to lychee-action's `args:` input — that
+          # string is substituted into an environment variable at process
+          # start, so an unbounded count can exceed the runner's
+          # argv/environment size limit (E2BIG) on exceptionally large PRs.
+          MAX_LINK_FILES=300
           while IFS= read -r file; do
             [ -z "$file" ] && continue
             if grep -Eq 'https?://|www\.|mailto:|^\[[^]]+\]:\s*https?://' "$file"; then
-              LINK_FILES="${LINK_FILES}${file} "
+              LINK_FILE_COUNT=$((LINK_FILE_COUNT + 1))
+              if [ "$LINK_FILE_COUNT" -le "$MAX_LINK_FILES" ]; then
+                LINK_FILES="${LINK_FILES}${file} "
+              fi
             fi
           done <<EOF
           $CHANGED_FILES
           EOF
+
+          if [ "$LINK_FILE_COUNT" -gt "$MAX_LINK_FILES" ]; then
+            echo "::warning::Changed files with URLs ($LINK_FILE_COUNT) exceed the $MAX_LINK_FILES-file link-check cap; only the first $MAX_LINK_FILES were checked. Remaining $((LINK_FILE_COUNT - MAX_LINK_FILES)) file(s) were not link-checked."
+          fi
 
           echo "files=${LINK_FILES}" >> "$GITHUB_OUTPUT"
 
@@ -142,7 +163,7 @@ jobs:
         if: steps.link_targets.outputs.files != ''
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --verbose ${{ steps.link_targets.outputs.files }}
+          args: --no-progress --verbose --config lychee.toml ${{ steps.link_targets.outputs.files }}
 
   apply-meta:
     if: ${{ github.event_name != 'pull_request' }}

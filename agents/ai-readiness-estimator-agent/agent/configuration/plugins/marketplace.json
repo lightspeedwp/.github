@@ -1,0 +1,33 @@
+{
+  "name": "openai-marketplace",
+  "plugins": [
+    {
+      "name": "gmail",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/gmail/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "figma",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/figma/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "github",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/github/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "google-drive",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/google-drive/local",
+        "source": "local"
+      }
+    }
+  ]
+}
