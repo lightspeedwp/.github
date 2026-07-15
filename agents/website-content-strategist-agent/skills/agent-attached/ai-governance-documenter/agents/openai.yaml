@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Governance Documenter"
+  short_description: "Documents AI use, controls, risks, and approval requirements clearly"
+  default_prompt: "Use $ai-governance-documenter to document AI governance requirements, risks, controls, and approvals for this initiative."

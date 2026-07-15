@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pre-Launch Readiness Review"
+  short_description: "Run launch-readiness audits and create clear handoff summaries."
+  default_prompt: "Use $pre-launch-readiness-review to run a structured pre-launch readiness review and handoff summary for this WordPress site."

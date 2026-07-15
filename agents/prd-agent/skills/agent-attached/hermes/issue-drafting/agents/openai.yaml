@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Drafting"
+  short_description: "Turns planning work into clean tracker-ready issue drafts"
+  default_prompt: "Use $issue-drafting to draft clear implementation or follow-up issues from planning work."

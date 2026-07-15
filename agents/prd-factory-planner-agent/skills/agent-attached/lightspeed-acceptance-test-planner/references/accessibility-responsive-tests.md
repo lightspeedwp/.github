@@ -1,0 +1,35 @@
+# Accessibility and Responsive Tests
+
+## Accessibility checks
+
+- keyboard navigation
+- visible focus states
+- skip link behaviour
+- heading hierarchy
+- landmark structure
+- form labels and errors
+- colour contrast in light and dark mode
+- link purpose
+- button semantics
+- reduced motion handling
+- screen-reader spot checks
+
+## Responsive checks
+
+- mobile portrait
+- mobile landscape where relevant
+- tablet
+- laptop
+- desktop/wide
+- navigation behaviour
+- cards and grids
+- forms
+- media and embeds
+- sticky/fixed elements
+- touch target sizes
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

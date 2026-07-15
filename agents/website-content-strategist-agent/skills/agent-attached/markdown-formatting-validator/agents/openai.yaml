@@ -1,0 +1,5 @@
+interface:
+  display_name: markdown-formatting-validator
+  short_description: Apply and validate required Markdown output rules
+  default_prompt: Use $markdown-formatting-validator to format and validate Markdown
+    outputs against the required structure and template rules.

@@ -1,0 +1,680 @@
+schema_version: 1
+schema_name: lightspeed_package_output_schema
+purpose: >-
+  Machine-readable field definitions for built-in package outputs. Use this to keep
+  package outputs aligned with the template registry, mustache placeholders, and
+  lightspeed-project-defaults.yaml Memory structure.
+
+global_rules:
+  placeholder_standard_file: templates/output-placeholder-standard.md
+  template_registry_file: templates/template-registry.md
+  memory_structure_file: gpt-knowledge/17-package-defaults-memory-structure.md
+  required_output_sections:
+    - package_name
+    - who_its_for
+    - primary_promise
+    - problem_it_solves
+    - preconditions
+    - includes
+    - excludes
+    - deliverables
+    - complexity_triggers
+    - quote_guidance
+  quote_guidance_fields:
+    - assumptions
+    - banding_triggers
+    - separate_scope_triggers
+    - scope_protection
+  field_fill_order:
+    - current_request
+    - memory_defaults
+    - grounded_reference_links
+    - connected_evidence
+    - attached_files
+    - explicit_user_confirmation
+  unresolved_value_rule: >-
+    Required fields should be confirmed when they materially affect identity, scope,
+    promise, or final usefulness. Optional fields may remain as clear confirmation
+    markers.
+
+validation_rules:
+  apply_to_output_types:
+    - internal_package_definition_sheet
+    - package_comparison
+  required_section_rule: >-
+    A built-in package output must include every section listed in global_rules.required_output_sections
+    unless the selected output type is a comparison table instead of a full package sheet.
+  required_field_rule: >-
+    Every required field in the selected package definition must be present with either
+    a grounded value, a fixed schema value, or an explicit confirmation marker when the
+    output is still an internal draft.
+  quote_guidance_rule: >-
+    Quote guidance must always include assumptions, banding triggers, separate-scope
+    triggers, and scope protection.
+  marker_rule: >-
+    Clear confirmation markers are allowed only for optional fields, or for required
+    fields when the user is still drafting an internal template or reference version.
+    Do not silently omit required fields.
+  comparison_rule: >-
+    Package comparison outputs may summarise package fields, but each compared package
+    row must still include package name, primary promise, includes summary, excludes
+    summary, deliverables summary, and a quote-guidance summary.
+  fail_conditions:
+    - missing_required_section
+    - missing_required_field
+    - missing_quote_guidance_element
+    - unresolved_required_field_without_marker
+    - empty_package_name
+    - empty_primary_promise
+  pre_return_checklist:
+    - confirm the selected output type matches the intended template
+    - confirm all required sections are present for full package sheets
+    - confirm all required fields are filled, fixed, or clearly marked
+    - confirm quote guidance has all four elements
+    - confirm exclusions and deliverables are both present
+    - confirm the package keeps one primary promise
+
+shared_fields:
+  package_name:
+    type: string
+    required: true
+    placeholder: "{{package_name}}"
+    memory_path: null
+  who_its_for:
+    type: string
+    required: true
+    placeholder: null
+    memory_path: null
+  primary_promise:
+    type: string
+    required: true
+    placeholder: "{{primary_promise}}"
+    memory_path: null
+  problem_it_solves:
+    type: string
+    required: true
+    placeholder: "{{problem_statement}}"
+    memory_path: null
+  preconditions:
+    type: list
+    required: true
+    item_type: string
+    placeholders:
+      - "{{precondition_1}}"
+      - "{{precondition_2}}"
+      - "{{precondition_3}}"
+    memory_path: null
+  includes:
+    type: list
+    required: true
+    item_type: string
+    placeholders:
+      - "{{included_task_1}}"
+      - "{{included_task_2}}"
+      - "{{included_task_3}}"
+      - "{{included_task_4}}"
+    memory_path: null
+  excludes:
+    type: list
+    required: true
+    item_type: string
+    placeholders:
+      - "{{excluded_item_1}}"
+      - "{{excluded_item_2}}"
+      - "{{excluded_item_3}}"
+    memory_path: null
+  deliverables:
+    type: list
+    required: true
+    item_type: string
+    placeholders:
+      - "{{deliverable_1}}"
+      - "{{deliverable_2}}"
+      - "{{deliverable_3}}"
+    memory_path: null
+  complexity_triggers:
+    type: list
+    required: true
+    item_type: string
+    placeholders:
+      - "{{complexity_trigger_1}}"
+      - "{{complexity_trigger_2}}"
+      - "{{complexity_trigger_3}}"
+    memory_path: package_defaults.possible_custom_scope_triggers
+  quote_guidance:
+    type: object
+    required: true
+    properties:
+      assumptions:
+        type: string
+        required: true
+        placeholder: "{{quote_assumptions}}"
+      banding_triggers:
+        type: string
+        required: true
+        placeholder: "{{quote_banding_triggers}}"
+      separate_scope_triggers:
+        type: string
+        required: true
+        placeholder: "{{quote_separate_scope_triggers}}"
+      scope_protection:
+        type: string
+        required: true
+        placeholder: "{{quote_scope_protection}}"
+    memory_path: null
+  project_delivery_type:
+    type: string
+    required: false
+    placeholder: null
+    memory_path: package_defaults.project_delivery_type
+  project_requested_packages:
+    type: list
+    required: false
+    item_type: string
+    placeholder: null
+    memory_path: package_defaults.project_requested_packages
+  is_fixed_fee_eligible:
+    type: string
+    required: false
+    placeholder: null
+    memory_path: package_defaults.is_fixed_fee_eligible
+  recommended_add_ons:
+    type: list
+    required: false
+    item_type: string
+    placeholder: null
+    memory_path: package_defaults.recommended_add_ons
+  possible_custom_scope_triggers:
+    type: list
+    required: false
+    item_type: string
+    placeholder: null
+    memory_path: package_defaults.possible_custom_scope_triggers
+
+packages:
+  ai_readiness_foundation:
+    label: AI Readiness Foundation
+    primary_promise: get the basics ready
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: AI Readiness Foundation
+      who_its_for:
+        fixed_value: >-
+          Clients with a live WordPress site who need a baseline view of AI visibility,
+          SEO hygiene, measurement readiness, and practical next steps.
+      primary_promise:
+        fixed_value: get the basics ready
+      problem_it_solves:
+        fixed_value: >-
+          Establish whether the site has the baseline SEO, measurement, content hygiene,
+          and technical hygiene needed for AI visibility and future AI features.
+      preconditions:
+        fixed_values:
+          - The client has a live or staging site.
+          - Relevant admin access or evidence is available.
+          - A baseline review can be completed without deep rebuild work.
+      includes:
+        fixed_values:
+          - Yoast setup and configuration review
+          - Site Kit, Search Console, and Analytics baseline setup or review
+          - Sitemap, indexing, canonical, and redirect hygiene review
+          - Priority metadata and heading cleanup
+          - Internal linking quick wins
+          - Alt text and basic content hygiene review
+          - Readiness checklist scoring
+          - Roadmap of what to fix next
+      excludes:
+        fixed_values:
+          - Full copy rewrite
+          - Advanced schema modelling across every template
+          - Chatbot build
+          - Major performance engineering
+      deliverables:
+        fixed_values:
+          - Readiness score
+          - Findings summary
+          - Prioritised action plan
+          - Admin handoff notes
+      complexity_triggers:
+        fixed_values:
+          - Unclear site ownership
+          - Weak analytics setup
+          - Messy indexation history
+          - Plugin conflicts
+          - Duplicated metadata patterns
+          - Large content estates
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            Standard WordPress setup, access to core plugins and reporting tools, and no
+            major hidden blockers behind the baseline review.
+        banding_triggers:
+          fixed_value: >-
+            Multiple review rounds, unusual plugin conflicts, significant metadata
+            inconsistency, or a larger-than-expected content footprint.
+        separate_scope_triggers:
+          fixed_value: >-
+            Full copy rewrite, advanced schema implementation across all templates,
+            chatbot planning or build work, or major performance engineering.
+        scope_protection:
+          fixed_value: >-
+            Keep this package focused on baseline readiness review, scoring, and next
+            actions rather than broad remediation delivery.
+
+  ai_search_and_structured_data:
+    label: AI Search and Structured Data
+    primary_promise: make the site machine-readable
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: AI Search and Structured Data
+      who_its_for:
+        fixed_value: >-
+          Clients who need search engines and AI systems to interpret site structure,
+          entities, and templates more clearly and reliably.
+      primary_promise:
+        fixed_value: make the site machine-readable
+      problem_it_solves:
+        fixed_value: >-
+          Improve how clearly the site's structure, entities, templates, and crawl
+          rules are understood by search engines and AI systems.
+      preconditions:
+        fixed_values:
+          - Priority templates and content types are identifiable.
+          - The site structure can be reviewed technically.
+          - Enough implementation access or evidence is available for markup review.
+      includes:
+        fixed_values:
+          - Schema audit on priority templates
+          - Yoast schema review and enrichment
+          - FAQ, Breadcrumb, Organisation, Product, Service, and Article schema where relevant
+          - Robots and crawl-policy review
+          - llms.txt recommendation and setup where appropriate
+          - Canonical, archive, and parameter cleanup
+          - Validation with Rich Results Test and schema tools
+      excludes:
+        fixed_values:
+          - Full theme rebuild
+          - Whole-site content strategy
+          - Large custom API products unless separately scoped
+      deliverables:
+        fixed_values:
+          - Implementation log
+          - Validation pack
+          - Template recommendations
+          - Crawler-policy note
+      complexity_triggers:
+        fixed_values:
+          - Inconsistent template logic
+          - Custom post types
+          - Archive sprawl
+          - Parameter duplication
+          - Conflicting SEO plugins
+          - Schema gaps caused by bespoke builds
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            Priority templates are known, the site is inspectable, and schema work stays
+            within defined templates and supported markup patterns.
+        banding_triggers:
+          fixed_value: >-
+            More template variation than expected, complex archive behaviour, heavy
+            custom-post-type usage, or validation issues caused by bespoke implementations.
+        separate_scope_triggers:
+          fixed_value: >-
+            Full theme rebuild, whole-site content strategy, or large custom API and
+            engineering work beyond the schema and crawl layer.
+        scope_protection:
+          fixed_value: >-
+            Keep this package centred on machine-readability, structured data,
+            crawl-policy clarity, and validation rather than general rebuild or content strategy work.
+
+  chatbot_planning:
+    label: Chatbot Planning
+    primary_promise: define the bot properly
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: Chatbot Planning
+      who_its_for:
+        fixed_value: >-
+          Clients considering a chatbot and needing a clear decision on purpose,
+          scope, boundaries, and launch readiness before implementation.
+      primary_promise:
+        fixed_value: define the bot properly
+      problem_it_solves:
+        fixed_value: >-
+          Determine whether a chatbot is appropriate and define its purpose, scope,
+          rules, and launch conditions before implementation starts.
+      preconditions:
+        fixed_values:
+          - Enough business, audience, and source-content context exists.
+          - Core stakeholders can define use cases and constraints.
+          - The work is focused on definition, not build execution.
+      includes:
+        fixed_values:
+          - Discovery questionnaire review
+          - Use-case definition
+          - Audience and journey mapping
+          - Source-content review
+          - Restricted topics and escalation rules
+          - Lead capture decisions
+          - Launch gate and success metrics
+          - Recommendation of Starter or Tailored build
+      excludes:
+        fixed_values:
+          - Actual chatbot setup
+          - Integrations
+          - Live prompt tuning after launch
+      deliverables:
+        fixed_values:
+          - Chatbot solution brief
+          - Approved use cases
+          - Source-content requirements
+          - Launch checklist
+          - Recommended implementation tier
+      complexity_triggers:
+        fixed_values:
+          - Unclear ownership
+          - Weak source content
+          - Sensitive topics
+          - Multiple journeys
+          - Complicated escalation paths
+          - Conflicting stakeholder goals
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            The client can provide enough discovery input and source context to define
+            the chatbot without building or testing it in this phase.
+        banding_triggers:
+          fixed_value: >-
+            Multiple audiences, contested use cases, sensitive subject matter, or
+            unclear escalation and lead-handling rules.
+        separate_scope_triggers:
+          fixed_value: >-
+            Actual chatbot setup, integrations, or post-launch tuning and optimisation work.
+        scope_protection:
+          fixed_value: >-
+            Keep this package on definition, decision-making, and launch readiness
+            criteria rather than implementation.
+
+  chatbot_implementation_starter:
+    label: Starter
+    parent_package: Chatbot Implementation Tiers
+    primary_promise: build the bot
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: Starter
+      who_its_for:
+        fixed_value: >-
+          Clients with an approved chatbot brief who need a bounded launchable chatbot
+          for FAQs, service questions, and contact routing.
+      primary_promise:
+        fixed_value: build the bot
+      problem_it_solves:
+        fixed_value: >-
+          Launch a bounded chatbot that handles approved FAQs and service questions with
+          a clear fallback and enquiry route.
+      preconditions:
+        fixed_values:
+          - The chatbot brief is approved.
+          - Core source pages are ready.
+          - Routing rules are defined.
+      includes:
+        fixed_values:
+          - Assistant setup
+          - Approved source-page connection
+          - Greeting, labels, and disclosure wording
+          - FAQ and service-question handling
+          - Contact or enquiry routing
+          - Fallback responses
+          - One revision round
+          - Launch QA
+      excludes:
+        fixed_values:
+          - CRM integration
+          - Product logic
+          - Complex workflows
+          - Multilingual design unless added
+      deliverables:
+        fixed_values:
+          - Configured bot
+          - Source map
+          - Fallback wording
+          - QA note
+      complexity_triggers:
+        fixed_values:
+          - Weak source material
+          - Edge-case-heavy services
+          - Multiple enquiry destinations
+          - Ambiguous ownership of escalation
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            The brief is approved, source pages are ready, and the chatbot stays within
+            a bounded FAQ and service-enquiry scope.
+        banding_triggers:
+          fixed_value: >-
+            More source cleanup than expected, extra fallback design work, or greater
+            routing variation across enquiries.
+        separate_scope_triggers:
+          fixed_value: >-
+            CRM integration, product logic, complex workflows, or multilingual design
+            beyond the agreed baseline.
+        scope_protection:
+          fixed_value: >-
+            Keep Starter limited to a bounded, launchable chatbot with standard routing
+            and one revision round.
+
+  chatbot_implementation_tailored:
+    label: Tailored
+    parent_package: Chatbot Implementation Tiers
+    primary_promise: build the bot
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: Tailored
+      who_its_for:
+        fixed_value: >-
+          Clients with an approved chatbot brief who need guided journeys,
+          qualification logic, and tighter brand and escalation control.
+      primary_promise:
+        fixed_value: build the bot
+      problem_it_solves:
+        fixed_value: >-
+          Launch a more structured chatbot with guided journeys, qualification logic,
+          and tighter brand and escalation control.
+      preconditions:
+        fixed_values:
+          - The chatbot brief is approved.
+          - Source content is strong enough for guided flows.
+          - Qualification logic is agreed.
+      includes:
+        fixed_values:
+          - Everything in Starter
+          - Product or service-aware journeys
+          - Guided lead qualification flow
+          - Structured lead capture
+          - Brand-rule instruction set
+          - Richer escalation logic
+          - Two revision rounds
+      excludes:
+        fixed_values:
+          - Bespoke application development
+          - Deep enterprise integrations unless separately scoped
+      deliverables:
+        fixed_values:
+          - Tailored bot
+          - Conversation map
+          - Routing logic note
+          - Edge-case playbook
+      complexity_triggers:
+        fixed_values:
+          - Multiple audiences
+          - Service-specific branching
+          - Lead-routing exceptions
+          - Sensitive compliance concerns
+          - High-risk unanswered queries
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            The brief is approved, journeys are defined, and the work remains within
+            configurable chatbot behaviour rather than bespoke product development.
+        banding_triggers:
+          fixed_value: >-
+            More branching logic, more edge cases, tighter brand-control requirements,
+            or more complex qualification and escalation behaviour than first scoped.
+        separate_scope_triggers:
+          fixed_value: >-
+            Bespoke application development or deep enterprise integrations outside the
+            agreed chatbot implementation layer.
+        scope_protection:
+          fixed_value: >-
+            Keep Tailored focused on richer configured chatbot journeys and control
+            logic, not custom software build work.
+
+  training:
+    label: Training
+    primary_promise: enable the team
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: Training
+      who_its_for:
+        fixed_value: >-
+          Clients whose team needs the habits, workflows, and confidence to maintain
+          and improve the work after delivery.
+      primary_promise:
+        fixed_value: enable the team
+      problem_it_solves:
+        fixed_value: >-
+          Give the client's team the practical habits and shared understanding needed
+          to maintain and improve the work after delivery.
+      preconditions:
+        fixed_values:
+          - Relevant team members can attend.
+          - The right tools and examples are available.
+          - The session is focused on enablement, not implementation delivery.
+      includes:
+        fixed_values:
+          - Yoast AI feature walkthrough
+          - Metadata and content clarity training
+          - Internal linking habits
+          - Structured content basics
+          - Editorial checklist
+          - Q&A session
+      excludes:
+        fixed_values:
+          - Full content production
+          - Full SEO strategy
+          - Large implementation tasks during the session
+      deliverables:
+        fixed_values:
+          - Training agenda
+          - Notes
+          - Checklist
+          - Recommended team workflow
+      complexity_triggers:
+        fixed_values:
+          - Low platform confidence
+          - Inconsistent publishing ownership
+          - Weak editorial process
+          - Need to align multiple teams
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            The session is primarily enablement-focused, the team can attend with the
+            right tools and examples, and implementation work stays outside the training block.
+        banding_triggers:
+          fixed_value: >-
+            Larger teams, mixed capability levels, more tailored examples, or extra
+            coordination needed to align several roles.
+        separate_scope_triggers:
+          fixed_value: >-
+            Full content production, full SEO strategy, or substantial implementation
+            tasks requested during or after the session.
+        scope_protection:
+          fixed_value: >-
+            Keep Training centred on habits, understanding, and operational enablement
+            rather than delivery execution.
+
+  retainer_support:
+    label: Retainer Support
+    primary_promise: keep improving it
+    output_type: internal_package_definition_sheet
+    template_file: templates/internal-package-definition-sheet-template.md
+    comparison_template_file: templates/proposal-package-comparison-template.md
+    fields:
+      package_name:
+        fixed_value: Retainer Support
+      who_its_for:
+        fixed_value: >-
+          Clients who already launched and need recurring review, tuning, governance,
+          and prioritised improvement rather than a new project build.
+      primary_promise:
+        fixed_value: keep improving it
+      problem_it_solves:
+        fixed_value: >-
+          Maintain momentum after launch through recurring review, tuning, governance
+          checks, and prioritised improvements.
+      preconditions:
+        fixed_values:
+          - Core implementation already exists.
+          - Site access and operating owners are in place.
+          - The review cadence is agreed.
+      includes:
+        fixed_values:
+          - Monthly or quarterly health review
+          - Chatbot log review where relevant
+          - Governance and policy refresh check
+          - Content and FAQ improvement recommendations
+          - Prompt and behaviour tuning
+          - Roadmap review
+      excludes:
+        fixed_values:
+          - Large rebuilds
+          - New features
+          - Major new integrations unless separately quoted
+      deliverables:
+        fixed_values:
+          - Recurring optimisation summary
+          - Prioritised actions
+          - Updated risk log
+      complexity_triggers:
+        fixed_values:
+          - High content churn
+          - Weak governance ownership
+          - Unresolved launch debt
+          - Broad stakeholder input
+          - Unclear optimisation priorities
+      quote_guidance:
+        assumptions:
+          fixed_value: >-
+            The core implementation already exists, the cadence is agreed, and the
+            retainer covers optimisation and governance rather than major rebuild activity.
+        banding_triggers:
+          fixed_value: >-
+            More frequent reviews, larger optimisation backlogs, higher chatbot volume,
+            or broader stakeholder coordination than expected.
+        separate_scope_triggers:
+          fixed_value: >-
+            Large rebuilds, net-new features, or major integrations that should be
+            quoted as separate project work.
+        scope_protection:
+          fixed_value: >-
+            Keep the retainer focused on recurring review, tuning, and prioritised
+            improvement rather than absorbing project-scale delivery work.

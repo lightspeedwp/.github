@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lsdev.biz/schemas/gravity-forms/validation-report.schema.json",
+  "title": "Gravity Forms Validation Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "checks_run",
+    "passed_checks",
+    "failed_checks",
+    "skipped_checks",
+    "accessibility_findings",
+    "spam_security_findings",
+    "notification_findings",
+    "confirmation_findings",
+    "test_submission_result",
+    "entry_review_result",
+    "remaining_risks",
+    "handoff_status"
+  ],
+  "properties": {
+    "checks_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "passed_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failed_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skipped_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accessibility_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "spam_security_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notification_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confirmation_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_submission_result": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "entry_review_result": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "remaining_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "handoff_status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partially-ready",
+        "not-ready",
+        "blocked"
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+schema:
+  type: object
+  additionalProperties: false
+  required:
+    - permission_preferences
+  properties:
+    permission_preferences:
+      type: array
+      minItems: 0
+      maxItems: 50
+      items:
+        type: object
+        additionalProperties: false
+        required:
+          - tool_family
+          - default_posture
+          - approval_required
+        properties:
+          tool_family:
+            type: string
+            enum:
+              - slack-writes
+              - gmail-writes
+              - asana-writes
+              - figma-writes
+              - future-linear-writes
+          default_posture:
+            type: string
+            enum:
+              - avoid
+              - allow-with-explicit-request
+              - allow-with-standing-rule
+          approval_required:
+            type: boolean
+          notes:
+            type: string
+            maxLength: 240
+validation:
+  update_rules:
+    - Do not store tool permission preferences unless they are explicit and durable.
+example:
+  permission_preferences:
+    - tool_family: slack-writes
+      default_posture: allow-with-explicit-request
+      approval_required: true
+      notes: Do not send or edit Slack messages unless the user clearly asks.

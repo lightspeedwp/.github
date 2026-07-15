@@ -1,0 +1,4 @@
+interface:
+  display_name: "WordPress Audit Reporting"
+  short_description: "Produce structured WordPress audit and launch reports."
+  default_prompt: "Use $wordpress-audit-reporting to turn WordPress findings into structured audit summaries, launch-readiness reports, and action plans."

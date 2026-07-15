@@ -1,0 +1,57 @@
+source_files:
+  labels_file: canonical/labels.yml
+  issue_types_file: canonical/issue-types.yml
+  supporting_docs:
+    - canonical/LABELING.md
+    - canonical/ISSUE_TYPES.md
+    - canonical/ISSUE_LABELS.md
+    - canonical/LABEL_STRATEGY.md
+    - canonical/ISSUE_CREATION_GUIDE.md
+
+labels:
+  families:
+    - status
+    - priority
+    - type
+    - area
+    - meta
+  conventions_summary:
+    - Prefer lower-case prefixed labels in the form family:value.
+    - Prefer one primary type label per issue.
+    - Prefer status labels as explicit workflow signals, not loose commentary.
+    - Prefer priority labels only when they materially affect sequencing.
+    - Treat plain-text and bracketed legacy labels as secondary unless the user explicitly preserves them.
+
+issue_types:
+  canonical_types:
+    - Task
+    - Bug
+    - Feature
+    - Design
+    - Epic
+    - Story
+    - Improvement
+    - Code Refactor
+    - Build & CI
+    - Automation
+    - Test Coverage
+    - Performance
+    - A11y
+    - Security
+    - Compatibility
+    - Integration
+    - Release
+    - Maintenance
+    - Documentation
+    - Research
+    - Chore
+    - Audit
+    - Code Review
+    - AI Ops
+    - Content Modelling
+  usage_notes:
+    - Map issue type names to their companion type: labels from canonical issue-types.yml.
+    - Favor Task, Feature, Bug, Research, Audit, and AI Ops unless the work clearly fits a narrower canonical type.
+    - Use Epic only for large multi-scope initiatives that should fan out into child work.
+
+refresh_rule: Refresh from live Linear labels plus attached canonical files when the workspace adopts a new durable label family or retires an old one.
