@@ -99,15 +99,17 @@ jobs:
                   sed '/\/platform-managed\//d' | \
                   sed '/\/directory-installed\//d' | \
                   sed '/\/tests\/markdown-issues\.md$/d' | \
-                  sed '/\/agentskills-main\//d' | \
-                  tr '\n' ' ')
+                  sed '/\/agentskills-main\//d')
 
           if [ -z "$FILES" ]; then
             echo "No Markdown files to lint (all changed files are in ignore list)."
             exit 0
           fi
 
-          npx markdownlint-cli2 $FILES
+          # Pipe through xargs (rather than unquoted word-splitting) so very
+          # large changed-file counts are chunked instead of overflowing the
+          # shell's argument-list limit (E2BIG).
+          echo "$FILES" | xargs -r npx markdownlint-cli2
 
       - name: Collect Link Targets
         id: link_targets

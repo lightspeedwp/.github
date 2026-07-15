@@ -31,6 +31,10 @@ const getMarkdownFiles = () =>
       "**/logs/**",
       "**/.github/projects/**",
       "**/.claude/**",
+      "**/plugin-provided/**",
+      "**/platform-managed/**",
+      "**/directory-installed/**",
+      "**/agentskills-main/**",
     ],
   }).sort();
 

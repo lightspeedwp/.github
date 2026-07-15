@@ -47,6 +47,8 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 
 ```mermaid
 flowchart TD
+accTitle: Issue template workflow
+accDescr: Flowchart showing a user selecting an issue template, fields auto-populating, and automation agents handling labeling, issue-type assignment, project board assignment, and notification routing.
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
     B -->|Feature Request| D[Feature Template]
@@ -71,9 +73,9 @@ flowchart TD
     Q[Label System] --> J
     R[Project Management] --> L
 
-    style A fill:#e1f5fe
-    style I fill:#f3e5f5
-    style N fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style I fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style N fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## 📁 Available Templates
