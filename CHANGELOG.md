@@ -25,8 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`js-yaml` 5.x default-export removal** — 15 files using `import yaml from "js-yaml"` broke when `js-yaml` 5.x dropped its default export (named exports only: `load`, `dump`, etc.). Switched to namespace imports (`import * as yaml from "js-yaml"`). ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
+
 ### Changed
 
+- **`js-yaml` upgraded** — Bumped from `4.2.0` to `5.2.1`. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
 - **Babel toolchain upgraded to 8.x** — Bumped `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `@babel/preset-typescript`, `@babel/plugin-transform-runtime`, and `@babel/runtime` to their 8.x releases together (they peer-require each other at `^8.0.0`, so they couldn't land as separate Dependabot PRs — see [#1002](https://github.com/lightspeedwp/.github/pull/1002), [#1004](https://github.com/lightspeedwp/.github/pull/1004), [#1007](https://github.com/lightspeedwp/.github/pull/1007), [#1026](https://github.com/lightspeedwp/.github/pull/1026)). Removed `@babel/plugin-proposal-class-properties`, `@babel/plugin-proposal-object-rest-spread`, and `@babel/plugin-syntax-import-meta` (no 8.x release exists; their proposals are natively handled by `preset-env` now) and bumped `babel-jest` to `30.4.1` for babel 8 compatibility. Set Jest's `coverageProvider` to `v8` to avoid a circular-require bug in Jest's Istanbul-based coverage instrumentation exposed by babel 8. ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
 
 ### Added
