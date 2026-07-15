@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Babel peer-dependency conflict** — Reverted `@babel/plugin-transform-runtime` and `@babel/preset-react` from `8.0.1` to `7.29.7` after a Dependabot major-version bump left them requiring `@babel/core@^8.0.0` while `@babel/core` and the rest of the toolchain remained on `7.x`, which broke `npm ci` (and therefore every CI job) across the repository. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
+- **Babel peer-dependency conflict** — Reverted `@babel/plugin-transform-runtime` and `@babel/preset-react` from `8.0.1` to `7.29.7` after a Dependabot major-version bump left them requiring `@babel/core@^8.0.0` while `@babel/core` and the rest of the toolchain remained on `7.x`, which broke `npm ci` (and therefore every CI job) repo-wide. ([#1042](https://github.com/lightspeedwp/.github/issues/1042), [PR #1043](https://github.com/lightspeedwp/.github/pull/1043))
 - **Changelog-gate buffer overflow** — Added an explicit `maxBuffer` to the `git diff --name-only` call in `changelog-validate.yml` so the changelog gate no longer crashes with `ENOBUFS` on pull requests with very large file counts. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
 
 ## [0.6.0] - 2026-06-19
