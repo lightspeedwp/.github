@@ -9,9 +9,9 @@ import urllib.request
 
 def github_request(url: str, user_agent: str) -> bytes:
     headers = {"User-Agent": user_agent}
-    token = [REDACTED_TOKEN]"GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     if token:
-        [REDACTED_TOKEN]"Authorization"] = f"token {token}"
+        headers["Authorization"] = f"token {token}"
     req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req) as resp:
         return resp.read()
