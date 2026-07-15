@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Backlog Report Output",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["summary", "recommended_actions", "evidence_basis"],
+  "properties": {
+    "summary": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "highest_priority_risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk", "evidence", "recommended_action"],
+        "properties": {
+          "risk": {"type": "string"},
+          "label": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+          "evidence": {"type": "string"},
+          "recommended_action": {"type": "string"}
+        }
+      }
+    },
+    "recommended_actions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "patterns": {"type": "array", "items": {"type": "object"}},
+    "evidence_basis": {
+      "type": "object",
+      "required": ["scope", "zendesk_filters", "missing_evidence"],
+      "properties": {
+        "scope": {"type": "string"},
+        "date_window": {"type": ["string", "null"]},
+        "comparison_window": {"type": ["string", "null"]},
+        "zendesk_filters": {"type": "array", "items": {"type": "string"}},
+        "sla_data_visible": {"type": ["boolean", "null"]},
+        "ticket_details_sampled": {"type": ["boolean", "null"]},
+        "secondary_sources_used": {"type": "array", "items": {"type": "string"}},
+        "missing_evidence": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

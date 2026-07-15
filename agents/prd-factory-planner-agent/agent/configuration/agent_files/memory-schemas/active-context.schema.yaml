@@ -1,0 +1,77 @@
+schema_version: 1.0.0
+file: activeContext.md
+purpose: Current active project focus, blockers, approvals pending, and next steps.
+content_type: markdown_with_yaml_frontmatter
+required_frontmatter:
+  - version
+  - title
+  - project_key
+  - status
+  - last_updated
+optional_frontmatter:
+  - owner
+  - current_stage
+frontmatter_field_definitions:
+  version:
+    type: string
+    required: true
+  title:
+    type: string
+    required: true
+  project_key:
+    type: string
+    required: true
+  status:
+    type: string
+    required: true
+    accepted_values:
+      - active
+      - blocked
+      - waiting_for_input
+      - ready_for_review
+      - complete
+  last_updated:
+    type: date
+    required: true
+  owner:
+    type: string
+    required: false
+  current_stage:
+    type: string
+    required: false
+body_requirements:
+  required_headings:
+    - Current focus
+    - Blockers
+    - Approvals pending
+    - Next steps
+validation_rules:
+  - keep blockers and approvals pending separate
+  - next steps must be action-oriented bullets
+  - do not duplicate full source documents in the body
+update_rules:
+  - update after substantial work on an active project
+  - keep entries concise and current
+example: |
+  ---
+  version: 1.0.0
+  title: "Safari Lodge redesign - active context"
+  project_key: safari-lodge-redesign
+  status: active
+  last_updated: 2026-05-15
+  current_stage: technical_brief
+  ---
+  # Active Context
+
+  ## Current focus
+  - Translating approved page designs into a WordPress technical brief.
+
+  ## Blockers
+  - Final booking integration choice is not confirmed.
+
+  ## Approvals pending
+  - Confirmation of scope for custom block development.
+
+  ## Next steps
+  - Draft the technical brief.
+  - Confirm booking platform dependency.

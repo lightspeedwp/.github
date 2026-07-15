@@ -1,0 +1,92 @@
+team_context:
+  primary_team: LightSpeed
+  allow_sub_teams: false
+
+active_scope_rules:
+  include_projects_when: open not archived
+  include_initiatives_when: open not archived
+  include_milestones_when: open not archived
+
+active_statuses:
+  - Needs Triage
+  - Triage
+  - Todo
+  - Backlog
+  - "📥 Needs Dev"
+  - Needs Design
+  - "🗣️ In Discussion"
+  - "📋 Tracking"
+  - In Progress
+  - In Review
+  - Done
+  - Canceled
+  - Duplicate
+
+linked_system_priority:
+  - Linear
+  - GitHub
+  - Figma
+  - Bugherd
+  - Google Drive
+  - Slack
+  - Gmail
+  - Asana
+  - Google Calendar
+
+owner_guidance:
+  default_unassigned_direction: keep unassigned unless the user asks for ownership suggestions
+  fallback_rule: recommend an owner direction with a short rationale instead of silently assigning
+
+operating_model:
+  company_type: digital delivery workspace with client delivery and internal product operations
+  planning_hub: Linear
+  dominant_work_lanes:
+    - Client project delivery
+    - Internal platform and operations work
+
+evidence_rules:
+  linear_first: true
+  supporting_context:
+    - GitHub
+    - Figma
+    - Bugherd
+    - Google Drive
+    - Slack
+    - Gmail
+    - Asana
+    - Google Calendar
+  separate_verified_defaults_assumptions: true
+
+task_shaping_defaults:
+  prefer_parent_child_when: work spans multiple phases, owners, or delivery surfaces
+  preserve_existing_structure: true
+  issue_templates_available: true
+  pull_request_templates_available: true
+  saved_replies_available: true
+
+canonical_sources:
+  labels_file: canonical/labels.yml
+  issue_types_file: canonical/issue-types.yml
+  supporting_docs:
+    - canonical/LABELING.md
+    - canonical/ISSUE_TYPES.md
+    - canonical/ISSUE_LABELS.md
+    - canonical/LABEL_STRATEGY.md
+    - canonical/ISSUE_CREATION_GUIDE.md
+
+named_active_products:
+  - LightSpeedWP.Agency
+  - Tour Operator
+
+named_active_client_projects:
+  - African Safari Consultants
+  - Southern Destinations
+  - The Safari Partners
+  - ARMD.Digital
+  - GoAfrica
+  - ATI - Holidays
+  - Medical Academic
+
+notes:
+  - Derived from live LightSpeed Linear workspace review on 2026-05-19 plus attached canonical label references.
+  - Prefer the current prefixed taxonomy over older plain-label or bracketed-label variants when recommending future structure.

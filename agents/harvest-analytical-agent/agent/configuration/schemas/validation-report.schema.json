@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Validation Report",
+  "type": "object",
+  "required": ["generated_at", "validator_name", "files_checked", "status", "errors", "warnings", "notices", "suggested_fixes"],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "validator_name": {"type": "string"},
+    "files_checked": {"type": ["array", "integer", "string"]},
+    "status": {"type": "string"},
+    "errors": {"type": ["array", "string"]},
+    "warnings": {"type": ["array", "string"]},
+    "notices": {"type": ["array", "string"]},
+    "suggested_fixes": {"type": ["array", "string"]}
+  },
+  "additionalProperties": true
+}

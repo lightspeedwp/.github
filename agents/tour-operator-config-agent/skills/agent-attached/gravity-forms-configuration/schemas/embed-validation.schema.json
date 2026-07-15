@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms embed validation",
+  "type": "object",
+  "required": [
+    "site_url",
+    "environment",
+    "target_page",
+    "form_id",
+    "embed_method",
+    "duplicate_embed_status",
+    "risk_level",
+    "checks",
+    "approval_required",
+    "handoff_status"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "local",
+        "development",
+        "staging",
+        "production",
+        "unknown"
+      ]
+    },
+    "target_page": {
+      "type": "object",
+      "required": [
+        "url",
+        "title",
+        "status"
+      ],
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "editor_type": {
+          "type": "string"
+        }
+      }
+    },
+    "form_id": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "form_name": {
+      "type": "string"
+    },
+    "embed_method": {
+      "type": "string",
+      "enum": [
+        "gravity-forms-block",
+        "shortcode",
+        "classic-editor",
+        "theme-function",
+        "widget",
+        "reusable-block-or-pattern",
+        "modal-tab-accordion-slider",
+        "unknown"
+      ]
+    },
+    "duplicate_embed_status": {
+      "type": "string",
+      "enum": [
+        "none-found",
+        "suspected",
+        "confirmed",
+        "not-checked"
+      ]
+    },
+    "shortcode_or_block_settings": {
+      "type": "object"
+    },
+    "dynamic_values": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "result"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "skipped",
+              "not-run"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rollback_notes": {
+      "type": "string"
+    },
+    "handoff_status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partially-ready",
+        "blocked"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

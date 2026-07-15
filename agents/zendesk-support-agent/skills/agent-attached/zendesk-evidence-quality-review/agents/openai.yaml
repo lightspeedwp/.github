@@ -1,0 +1,16 @@
+interface:
+  display_name: Zendesk Evidence Quality Review
+  short_description: Review Zendesk support outputs for weak evidence, unsafe wording,
+    and unclear next steps
+  default_prompt: Use $zendesk-evidence-quality-review to QA an existing Zendesk support
+    output for evidence gaps, unsupported claims, unsafe wording, unclear next steps,
+    and missing risk before sharing.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "support-reply-context.schema.json",
+  "title": "Support Reply Context",
+  "description": "Normalised evidence context used before drafting a customer-facing Zendesk or email support reply.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "channel",
+    "latest_customer_ask",
+    "confirmed_facts",
+    "uncertain_facts",
+    "prior_promises",
+    "customer_sentiment",
+    "risk_flags",
+    "reply_goal",
+    "safe_next_step",
+    "should_escalate_before_reply"
+  ],
+  "properties": {
+    "customer_name": {
+      "type": ["string", "null"],
+      "description": "Customer or requester name if known. Use null when unknown."
+    },
+    "organisation_name": {
+      "type": ["string", "null"],
+      "description": "Customer organisation or account name if known. Use null when unknown."
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["zendesk", "gmail", "slack", "pasted_context", "mixed", "unknown"]
+    },
+    "source_limitations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Known limits such as missing Zendesk access, stale notes, or unverified pasted claims."
+    },
+    "latest_customer_ask": {
+      "type": "string",
+      "description": "The customer's latest live question, issue, complaint, or requested outcome."
+    },
+    "last_support_reply": {
+      "type": ["string", "null"],
+      "description": "Summary of the most recent support reply, if known."
+    },
+    "confirmed_facts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Facts directly supported by provided or connected evidence."
+    },
+    "uncertain_facts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Claims or assumptions that are not confirmed enough to state as facts."
+    },
+    "prior_promises": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Any prior commitments made by support, account owners, product, engineering, or leadership."
+    },
+    "customer_sentiment": {
+      "type": "string",
+      "enum": ["neutral", "frustrated", "urgent", "collaborative", "complaint", "unknown"]
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "security",
+          "privacy",
+          "billing",
+          "legal",
+          "vip",
+          "repeat_issue",
+          "escalation",
+          "possible_incident",
+          "data_loss",
+          "customer_blocked",
+          "none"
+        ]
+      }
+    },
+    "reply_goal": {
+      "type": "string",
+      "description": "What the reply should accomplish, such as acknowledge, answer, request evidence, explain limitation, or provide status update."
+    },
+    "safe_next_step": {
+      "type": "string",
+      "description": "The safest confirmed next step that can be stated to the customer."
+    },
+    "should_escalate_before_reply": {
+      "type": "boolean",
+      "description": "True when internal review or escalation should happen before a substantive customer-facing answer."
+    }
+  }
+}

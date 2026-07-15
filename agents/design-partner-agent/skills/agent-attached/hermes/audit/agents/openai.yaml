@@ -1,0 +1,6 @@
+interface:
+  display_name: "Audit"
+  short_description: "Audit a flow or feature for UX and accessibility issues"
+  default_prompt: "Use $audit to assess a flow, feature area, or journey for UX risks, strengths, accessibility gaps, and improvement opportunities."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,15 @@
+interface:
+  display_name: Zendesk Evidence Collector
+  short_description: Collect Zendesk evidence and investigate cases
+  default_prompt: Use $zendesk-evidence-collector to gather minimum Zendesk evidence
+    or investigate a single support case before triage, drafting, escalation, documentation,
+    or handoff.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

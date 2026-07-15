@@ -1,0 +1,13 @@
+{
+  "target_deliverable": "customer_reply",
+  "readiness_status": "ready",
+  "confirmed_evidence": [
+    "The customer ask is clear from the supplied ticket summary.",
+    "The supplied evidence includes a supportable next action."
+  ],
+  "missing_evidence": {
+    "blocker": "none",
+    "optional_improvement": "Link the exact Zendesk ticket if available."
+  },
+  "next_step": "Recommend zendesk-draft-response if the user explicitly asked for a customer reply draft; otherwise stop at the readiness decision."
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Launch and Handoff"
+  short_description: "Prepares launch readiness, rollout, and handoff packs"
+  default_prompt: "Use $launch-handoff-support to prepare launch-readiness and handoff planning outputs."

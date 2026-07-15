@@ -1,0 +1,28 @@
+---
+template: planning-brief
+purpose: Create a structured planning brief before a full PRD.
+---
+
+# Planning brief
+
+## Context
+
+## Goals
+
+## Scope
+
+## Non-scope
+
+## Constraints and dependencies
+
+## Known risks
+
+## Open questions
+
+## Recommended next step
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

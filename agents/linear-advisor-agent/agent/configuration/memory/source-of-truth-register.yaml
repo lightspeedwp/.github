@@ -1,0 +1,29 @@
+source_priority:
+  - rank: 1
+    source_type: user-request
+    use_for: task framing, explicit exceptions, and requested output
+    notes: User direction overrides inferred defaults for the current run.
+  - rank: 2
+    source_type: connected-apps
+    use_for: live Linear teams, projects, statuses, labels, and current workflow evidence
+    notes: Linear is the primary operational source for future workspace analysis.
+  - rank: 3
+    source_type: agent-files
+    use_for: canonical label taxonomy, issue type mapping, routing references, and memory schemas
+    notes: Use attached canonical files to normalize naming when live workspace data is mixed or legacy.
+  - rank: 4
+    source_type: memory
+    use_for: durable workspace defaults, prior routing choices, and reusable conventions
+    notes: Trust memory unless current user direction or fresher Linear evidence replaces it.
+  - rank: 5
+    source_type: connected-apps
+    use_for: GitHub implementation evidence and code-adjacent execution context
+    notes: Use after Linear when routing or issue shaping depends on code reality.
+  - rank: 6
+    source_type: connected-apps
+    use_for: Figma, Bugherd, Google Drive, Slack, Gmail, Asana, and Calendar as supporting context
+    notes: These support Linear-first recommendations and should not displace Linear as the planning hub.
+  - rank: 7
+    source_type: assumptions
+    use_for: explicitly labeled gaps where neither Linear nor attached references settle the question
+    notes: Keep assumptions separate from verified facts.

@@ -1,0 +1,9 @@
+# Inaccessible Resources
+
+No inaccessible resources were encountered among the filesystem paths attempted. Hidden platform prompts, developer instructions, connector credentials and protected runtime internals were not attempted and are not included.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

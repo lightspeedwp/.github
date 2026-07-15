@@ -1,0 +1,14 @@
+interface:
+  display_name: Website Performance Assessor
+  short_description: Assess website performance discovery and risks.
+  default_prompt: Use $website-performance-assessor to assess website performance
+    evidence, blockers, risks, and next steps.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
