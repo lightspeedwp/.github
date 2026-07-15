@@ -18,7 +18,6 @@ This skill accepts optional arguments: `/figma-create-new-file [editorType] [fil
 - **fileName**: Name for the new file (defaults to "Untitled")
 
 Examples:
-
 - `/figma-create-new-file` — creates a design file named "Untitled"
 - `/figma-create-new-file figjam My Whiteboard` — creates a FigJam file named "My Whiteboard"
 - `/figma-create-new-file design My New Design` — creates a design file named "My New Design"
@@ -50,7 +49,6 @@ Call the `create_new_file` tool with:
 | `editorType`| Yes      | `"design"`, `"figjam"`, or `"slides"` |
 
 Example:
-
 ```json
 {
   "planKey": "team:123456",
@@ -62,7 +60,6 @@ Example:
 ### Step 3: Use the result
 
 The tool returns:
-
 - `file_key` — the key of the newly created file
 - `file_url` — a direct URL to open the file in Figma
 

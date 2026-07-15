@@ -12,6 +12,7 @@
 - Composition
 - What to avoid
 
+
 ## When you're editing an existing deck
 
 These principles describe what to *choose* when building from scratch. When editing an existing deck — adding a slide, reworking a section, changing colors — they describe what you're *matching*. Inspect the deck first: its palette, type choices, spatial habits, and motifs are the design language. Your job is to stay consistent with it, not to introduce new principles from this document that conflict with what's already there. Only reach for these principles to fill gaps the existing deck doesn't answer.
@@ -21,6 +22,7 @@ These principles describe what to *choose* when building from scratch. When edit
 Everything below is guidance for designing from scratch. When the user provides brand guidelines, a color palette, typography specs, or a reference file, those inputs take precedence over the principles here. A user who says "our brand uses Helvetica and a navy/gold palette" has already made the type and color decisions — the guidance in this document applies to the decisions they *haven't* made (layout variety, composition, spatial pacing, content density).
 
 The principles here still matter even when working within brand constraints — a branded deck still needs clear hierarchy, varied layouts, and deliberate composition. But "let one color lead" means let the user's primary brand color lead, not a color you chose. "Choose typefaces that match the deck's voice" means work within the brand's type system, not introduce a new one. Read each principle below through the lens of the user's inputs: where they've decided, follow; where they haven't, these principles guide you.
+
 
 ## Color
 
@@ -34,6 +36,7 @@ The principles here still matter even when working within brand constraints — 
 
 **Readability is non-negotiable.** Body text on dark backgrounds must be high-contrast — close to white, not muted or tinted. Reserve brand/accent colors for headings, labels, and shapes. If you squint and can't instantly read the body copy, the contrast is too low. A beautiful palette that people can't read is just decoration.
 
+
 ## Type
 
 **Choose typefaces that match the deck's voice.** Use `listAvailableFontsAsync()` to see what's installed — there are far more options than the usual defaults. A display face for headings paired with a workhorse for body copy gives the deck a distinct personality. Vary your choices between decks; don't converge on the same pairing every time.
@@ -44,6 +47,7 @@ The principles here still matter even when working within brand constraints — 
 
 **Use weight as a design tool.** Light, regular, semibold, and bold aren't just for emphasis — they shape the texture of a slide. A thin display title over heavy body text creates a very different mood than a bold slab heading with lightweight supporting copy.
 
+
 ## Content density
 
 **Slides are not documents.** A slide exists to land one idea with visual impact — not to exhaustively cover a topic. The moment you're fitting "everything important" onto one slide, you've switched from designing a presentation to writing a report. Resist the urge.
@@ -53,6 +57,7 @@ The principles here still matter even when working within brand constraints — 
 **Your job is editorial.** When adapting source material into slides, deciding what to *leave out* is more important than deciding what to include. Every point you cut makes the remaining points stronger. A slide with one bold insight and generous whitespace lands harder than a slide with six good points crammed together. Bullet lists, comparison tables, and multi-column layouts all share the same trap: they make it easy to keep adding items because there's always room for one more row. The question is never "does it fit?" — it's "does each item earn its place at the cost of the others' impact?"
 
 **More slides, not denser slides.** If content feels important but won't fit without crowding, the answer is splitting it across two well-composed slides — not shrinking the font or tightening the spacing. Slides are free; attention is not.
+
 
 ## Layout
 
@@ -70,6 +75,7 @@ The principles here still matter even when working within brand constraints — 
 
 **Pacing matters as much as individual layouts.** A deck needs rhythm — moments of density followed by moments of openness, dark slides followed by light ones, information-rich layouts followed by slides with a single idea and nothing else. These quieter slides aren't filler; they're the pauses that give the dense slides their impact. Without them, every slide competes equally for attention and none of them win.
 
+
 ## Shape language and motifs
 
 **Add at least one non-text element per slide.** A shape, a line, a filled rectangle, an accent circle, a decorative border — something that gives the eye a resting point and adds structure. All-text slides disappear from memory instantly.
@@ -79,6 +85,7 @@ The principles here still matter even when working within brand constraints — 
 **Use shapes structurally, not just decoratively.** Rectangles can be content containers, section dividers, background panels, or callout frames. Lines can separate regions, connect ideas, or create visual rhythm. Circles can anchor icons or draw focus to key numbers. Shapes are layout tools as much as visual ones.
 
 **Commit to your motif — don't hedge with low opacity.** A recurring shape at 4–6% opacity is invisible; it's a gesture toward design without actually making a design decision. If you choose a circle motif, make it visible — large enough to crop off an edge, opaque enough to register as a deliberate element. If a shape wouldn't be missed if you deleted it, it's not pulling its weight.
+
 
 ## Composition
 
@@ -91,6 +98,7 @@ The principles here still matter even when working within brand constraints — 
 **Push toward the edges.** Elements near the edges of the canvas create tension and energy. A color block bleeding off the left side, a title anchored to the top-left corner, a decorative shape cropped by the bottom edge — these make the slide feel like a window into a larger composition rather than a bordered frame.
 
 **Vary your anchor points.** If every slide starts its content at the same x/y position with the same margins, the deck develops a mechanical rhythm regardless of how different the content is. Shift the anchor — one slide starts content in the upper-left, the next centers a single element, the next pushes a heading to the right third. The variation should feel intentional, not random, but it should be *present*.
+
 
 ## What to avoid
 

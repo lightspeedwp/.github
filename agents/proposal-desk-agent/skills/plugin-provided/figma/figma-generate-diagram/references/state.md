@@ -232,7 +232,6 @@ State diagrams render via the **same ELK layered layout** as flowcharts. The lay
 - **Pain scales with size** — 20+ states in one diagram starts to crowd. Split into phases/subsystems or introduce more composite grouping.
 
 Additionally, for state diagrams specifically:
-
 - **Style composites so they stand out.** Like subgraphs in flowcharts, composites show only a thin outline by default and can blend into the canvas. The flowchart guidance on subgraph styling applies (use light tints from the FigJam palette). Note: our preprocessor doesn't extract `classDef`/`class`/`style` statements, so this styling must be applied via the hybrid workflow (§10).
 - **Self-transitions render with tight spacing.** A self-loop (`Working --> Working: heartbeat`) will render, but the loop arc and its label can end up crowded against the state. Don't avoid self-transitions — they represent real state-machine behavior — but tell the user that if the spacing looks tight, they can drag the loop or label manually in Figma.
 

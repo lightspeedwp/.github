@@ -2,7 +2,7 @@
 
 Effect styles in Figma are named, reusable definitions of one or more visual effects — drop shadows, inner shadows, and blurs. They are the closest equivalent to a shadow or elevation token in a design system.
 
-Effect styles are distinct from variables. There is no single variable type that represents a shadow. However, individual numeric and color properties within an effect *can* be bound to variables, allowing shadow values to participate in a token system.
+Effect styles are distinct from variables. There is no single variable type that represents a shadow. However, individual numeric and color properties within an effect _can_ be bound to variables, allowing shadow values to participate in a token system.
 
 ## Model
 

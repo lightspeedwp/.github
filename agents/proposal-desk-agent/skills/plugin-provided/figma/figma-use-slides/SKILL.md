@@ -159,7 +159,6 @@ There is no dedicated read tool for Slides files yet. Use `use_figma` with read-
 ### Quick inspection scripts
 
 **List all slides in the deck:**
-
 ```js
 const grid = figma.getSlideGrid();
 return grid.map((row, rowIdx) =>
@@ -175,7 +174,6 @@ return grid.map((row, rowIdx) =>
 ```
 
 **Get text content from a specific slide:**
-
 ```js
 // Read-only text inventory — skip invisible instance interiors for speed.
 figma.skipInvisibleInstanceChildren = true;

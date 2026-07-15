@@ -19,7 +19,6 @@ Create Code Connect template files (`.figma.ts`) that map Figma components to co
 - **Organization or Enterprise plan required** — Code Connect is not available on Free or Professional plans.
 - **URL must include `node-id`** — the Figma URL must contain the `node-id` query parameter.
 - **TypeScript types** — for editor autocomplete and type checking in `.figma.ts` files `@figma/code-connect/figma-types` must be added to `types` in `tsconfig.json`:
-
   ```json
   {
     "compilerOptions": {
@@ -43,14 +42,12 @@ Always convert `nodeId` hyphens to colons: `1234-5678` → `1234:5678`.
 **Worked example:**
 
 Given: `https://www.figma.com/design/QiEF6w564ggoW8ftcLvdcu/MyDesignSystem?node-id=4185-3778`
-
 - `fileKey` = `QiEF6w564ggoW8ftcLvdcu`
 - `nodeId` = `4185-3778` → `4185:3778`
 
 ## Step 2: Discover Unmapped Components
 
 The user may provide a URL pointing to a frame, instance, or variant — not necessarily a component set or standalone component. Call the MCP tool `get_code_connect_suggestions` with:
-
 - `fileKey` — from Step 1
 - `nodeId` — from Step 1 (colons format)
 - `excludeMappingPrompt` — `true` (returns a lightweight list of unmapped components)
@@ -66,7 +63,6 @@ This tool identifies published components in the selection that don't yet have C
 ## Step 3: Fetch Component Properties
 
 Call the MCP tool `get_context_for_code_connect` with:
-
 - `fileKey` — from Step 1
 - `nodeId` — the resolved `mainComponentNodeId` from Step 2
 - `clientFrameworks` — determine from `figma.config.json` `parser` field (e.g. `"react"` → `["react"]`)
@@ -75,7 +71,6 @@ Call the MCP tool `get_context_for_code_connect` with:
 For multiple components, call the tool once per node ID.
 
 The response contains the Figma component's **property definitions** — note each property's name and type:
-
 - **TEXT** — text content (labels, titles, placeholders)
 - **BOOLEAN** — toggles (show/hide icon, disabled state)
 - **VARIANT** — enum options (size, variant, state)
@@ -141,18 +136,16 @@ Use the property list from Step 3 to extract values. For each Figma property typ
 | BOOLEAN | `instance.getBoolean('Name', { true: ..., false: ... })` | Toggle visibility, conditional props |
 | VARIANT | `instance.getEnum('Name', { 'FigmaVal': 'codeVal' })` | Size, variant, state enums |
 | INSTANCE_SWAP | `instance.getInstanceSwap('Name')` | Swapped instance for a fixed component slot (then `hasCodeConnect()` / `executeTemplate()`) - do not confuse with the SLOT property below |
-| SLOT | `instance.getSlot('Name')` | Freeform slot content only when the Figma property type is **SLOT**
+| SLOT | `instance.getSlot('Name')` | Freeform slot content only when the Figma property type is **SLOT** 
 | (child layer) | `instance.findInstance('LayerName')` | Named child instances without a property |
 | (text layer) | `instance.findText('LayerName')` → `.textContent` | Text content from named layers |
 
 **TEXT** — get the string value directly:
-
 ```ts
 const label = instance.getString('Label')
 ```
 
 **VARIANT** — map Figma enum values to code values:
-
 ```ts
 const variant = instance.getEnum('Variant', {
   'Primary': 'primary',
@@ -167,7 +160,6 @@ const size = instance.getEnum('Size', {
 ```
 
 **BOOLEAN** — simple boolean or mapped to values:
-
 ```ts
 // Simple boolean
 const disabled = instance.getBoolean('Disabled')
@@ -219,7 +211,6 @@ if (type === 'filled' && status === 'success') {
 If the combinations produce **repetitive** output (e.g., `Size` doesn't change the snippet structure — it's just passed through as a prop), a single `getEnum` mapping per variant is sufficient — no need for cross-product branches.
 
 **INSTANCE_SWAP** — access swappable component instances:
-
 ```ts
 const icon = instance.getInstanceSwap('Icon')
 let iconCode
@@ -231,7 +222,6 @@ if (icon && icon.type === 'INSTANCE') {
 **SLOT** — `getSlot(propName)` is only valid when the Figma component property reported in Step 3 has type **`SLOT`**. Do not use `getSlot()` for **INSTANCE_SWAP** properties (those use `getInstanceSwap()`). Slots are explicit “content regions” in the component definition, not generic nested instances.
 
 - **Signature:** `getSlot(propName: string): ResultSection[] | undefined`
-
 ```ts
 // Figma property "Content" must be type SLOT in component properties
 const content = instance.getSlot('Content')
@@ -245,7 +235,6 @@ export default {
 ### Interpolation in tagged templates
 
 When interpolating values in tagged templates, use the correct wrapping:
-
 - **String values** (`getString`, `getEnum`, `textContent`): wrap in quotes → `variant="${variant}"`
 - **Instance/section values** (`executeTemplate().example`): wrap in braces → `icon={${iconCode}}`
 - **Slot sections** (`getSlot()` result — `ResultSection[] | undefined`): interpolate directly inside `` figma.code`...` `` (same shape as nested snippet sections), e.g. `` figma.code`<Select>${content}</Select>` `` — do not treat as a plain string
@@ -434,7 +423,6 @@ export default {
 6. **Property names are case-sensitive** and must exactly match what `get_context_for_code_connect` returns.
 
 7. **Handle multiple template arrays correctly.** When iterating over children, set each result in a separate variable and interpolate them individually — do not use `.map().join()`:
-
    ```ts
    // Wrong:
    items.map(n => n.executeTemplate().example).join('\n')
@@ -445,7 +433,7 @@ export default {
    export default { example: figma.code`${child1}${child2}` }
    ```
 
-8. **Never hardcode slot or children content.** Always resolve child instances dynamically — use `getInstanceSwap()` for INSTANCE_SWAP properties, `findInstance()`/`findConnectedInstance()` for direct children — and render them via `executeTemplate()`. Never construct JSX from a layer name (e.g., `<StarIcon />`) or guess import paths. If an instance has no Code Connect, omit it — do not add a hardcoded fallback.
+7. **Never hardcode slot or children content.** Always resolve child instances dynamically — use `getInstanceSwap()` for INSTANCE_SWAP properties, `findInstance()`/`findConnectedInstance()` for direct children — and render them via `executeTemplate()`. Never construct JSX from a layer name (e.g., `<StarIcon />`) or guess import paths. If an instance has no Code Connect, omit it — do not add a hardcoded fallback.
 
    ```ts
    // WRONG — hardcodes the icon from its layer name
@@ -460,14 +448,13 @@ export default {
    example: figma.code`<Button${iconCode ? figma.code` icon={${iconCode}}` : ''}>...</Button>`
    ```
 
-9. **Attempt to represent every Figma property via a code prop.** The code component's `Props` interface (from Step 4) is the authoritative list of attribute names. For each Figma property, figure out the right way to represent it using the API methods from Step 5 — direct name match, value transformation, or whatever fits. If no code prop fits at all, omit it — don't invent a prop name.
+8. **Attempt to represent every Figma property via a code prop.** The code component's `Props` interface (from Step 4) is the authoritative list of attribute names. For each Figma property, figure out the right way to represent it using the API methods from Step 5 — direct name match, value transformation, or whatever fits. If no code prop fits at all, omit it — don't invent a prop name.
 
 ## Complete Worked Example
 
 Given URL: `https://figma.com/design/abc123/MyFile?node-id=42-100`
 
 **Step 1:** Parse the URL.
-
 - `fileKey` = `abc123`
 - `nodeId` = `42-100` → `42:100`
 
@@ -477,7 +464,6 @@ Response returns one component with `mainComponentNodeId: "42:100"`. If the resp
 **Step 3:** Call `get_context_for_code_connect` with `fileKey: "abc123"`, `nodeId: "42:100"` (from Step 2), `clientFrameworks: ["react"]`, `clientLanguages: ["typescript"]`.
 
 Response includes properties:
-
 - Label (TEXT)
 - Variant (VARIANT): Primary, Secondary
 - Size (VARIANT): Small, Medium, Large

@@ -21,7 +21,6 @@ Within CLI fallback, the CLI exposes three subcommands:
 - `generate-batch`
 
 Rules:
-
 - Use the built-in `image_gen` tool by default for normal image generation and editing requests.
 - Do not switch to CLI fallback for ordinary quality, size, or file-path control.
 - If the user explicitly asks for a transparent image/background, stay on built-in `image_gen` first: prompt for a flat removable chroma-key background, then remove it locally with the installed helper at `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`.
@@ -33,7 +32,6 @@ Rules:
 - Never modify `scripts/image_gen.py`. If something is missing, ask the user before doing anything else.
 
 Built-in save-path policy:
-
 - In built-in tool mode, Codex saves generated images under `$CODEX_HOME/*` by default.
 - Do not describe or rely on OS temp as the default built-in destination.
 - Do not describe or rely on a destination-path argument (if any) on the built-in `image_gen` tool. If a specific location is needed, generate first and then move or copy the selected output from `$CODEX_HOME/generated_images/...`.
@@ -47,25 +45,21 @@ Built-in save-path policy:
 Shared prompt guidance for both modes lives in `references/prompting.md` and `references/sample-prompts.md`.
 
 Fallback-only docs/resources for CLI mode:
-
 - `references/cli.md`
 - `references/image-api.md`
 - `references/codex-network.md`
 - `scripts/image_gen.py`
 
 Local post-processing helper:
-
 - `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: removes a flat chroma-key background from a generated image and writes a PNG/WebP with alpha. Prefer auto-key sampling, soft matte, and despill for antialiased edges.
 
 ## When to use
-
 - Generate a new image (concept art, product shot, cover, website hero)
 - Generate a new image using one or more reference images for style, composition, or mood
 - Edit an existing image (inpainting, lighting or weather transformations, background replacement, object removal, compositing, transparent background)
 - Produce many assets or variants for one task
 
 ## When not to use
-
 - Extending or matching an existing SVG/vector icon set, logo system, or illustration library inside the repo
 - Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
 - Making a small project-local asset edit when the source file already exists in an editable native format
@@ -79,13 +73,11 @@ Think about two separate questions:
 2. **Execution strategy:** is this one asset or many assets/variants?
 
 Intent:
-
 - If the user wants to modify an existing image while preserving parts of it, treat the request as **edit**.
 - If the user provides images only as references for style, composition, mood, or subject guidance, treat the request as **generate**.
 - If the user provides no images, treat the request as **generate**.
 
 Built-in edit semantics:
-
 - Built-in edit mode is for images already visible in the conversation context, such as attached images or images generated earlier in the thread.
 - If the user wants to edit a local image file with the built-in tool, first load it with built-in `view_image` tool so the image is visible in the conversation context, then proceed with the built-in edit flow.
 - Do not promise arbitrary filesystem-path editing through the built-in tool.
@@ -93,7 +85,6 @@ Built-in edit semantics:
 - For edits, preserve invariants aggressively and save non-destructively by default.
 
 Execution strategy:
-
 - In the built-in default path, produce many assets or variants by issuing one `image_gen` call per requested asset or variant.
 - In the CLI fallback path, use the CLI `generate-batch` subcommand only when the user explicitly chose CLI mode and needs many prompts/assets.
 - For many distinct assets, do not use `n` as a substitute for separate prompts. `n` is for variants of one prompt; distinct assets need distinct built-in calls or distinct CLI `generate-batch` jobs.
@@ -101,7 +92,6 @@ Execution strategy:
 Assume the user wants a new image unless they clearly ask to change an existing one.
 
 ## Workflow
-
 1. Decide the top-level mode: built-in by default, including simple transparent-output requests; fallback CLI only if explicitly requested or after the user explicitly confirms a transparent-output fallback.
 2. Decide the intent: `generate` or `edit`.
 3. Decide whether the output is preview-only or meant to be consumed by the current project.
@@ -131,12 +121,10 @@ Assume the user wants a new image unless they clearly ask to change an existing 
 Transparent-image requests still use built-in `image_gen` first. Because the built-in tool does not expose a true transparent-background control, create a removable chroma-key source image and then convert the key color to alpha locally.
 
 Default sequence:
-
 1. Use built-in `image_gen` to generate the requested subject on a perfectly flat solid chroma-key background.
 2. Choose a key color that is unlikely to appear in the subject: default `#00ff00`, use `#ff00ff` for green subjects, and avoid `#0000ff` for blue subjects.
 3. After generation, move or copy the selected source image from `$CODEX_HOME/generated_images/...` into the workspace or `tmp/imagegen/`.
 4. Run the installed helper path, not a project-relative script path:
-
    ```bash
    python "${CODEX_HOME:-$HOME/.codex}/skills/.system/imagegen/scripts/remove_chroma_key.py" \
      --input <source> \
@@ -147,7 +135,6 @@ Default sequence:
      --opaque-threshold 220 \
      --despill
    ```
-
 5. Validate that the output has an alpha channel, transparent corners, plausible subject coverage, and no obvious key-color fringe. If a thin fringe remains, retry once with `--edge-contract 1`; use `--edge-feather 0.25` only when the edge is visibly stair-stepped and the subject is not shiny or reflective.
 6. Save the final alpha PNG/WebP in the project if the asset is project-bound. Never leave a project-referenced transparent asset only under `$CODEX_HOME/*`.
 
@@ -183,14 +170,12 @@ Use the user's prompt specificity to decide how much augmentation is appropriate
 - If the prompt is generic, you may add tasteful augmentation when it will materially improve the result.
 
 Allowed augmentations:
-
 - composition or framing hints
 - polish level or intended-use hints
 - practical layout guidance
 - reasonable scene concreteness that supports the stated request
 
 Not allowed augmentations:
-
 - extra characters or objects that are not implied by the request
 - brand names, slogans, palettes, or narrative beats that are not implied
 - arbitrary side-specific placement unless the surrounding layout supports it
@@ -200,7 +185,6 @@ Not allowed augmentations:
 Classify each request into one of these buckets and keep the slug consistent across prompts and references.
 
 Generate:
-
 - photorealistic-natural — candid/editorial lifestyle scenes with real texture and natural lighting.
 - product-mockup — product/packaging shots, catalog imagery, merch concepts.
 - ui-mockup — app/web interface mockups and wireframes; specify the desired fidelity.
@@ -214,7 +198,6 @@ Generate:
 - historical-scene — period-accurate/world-knowledge scenes.
 
 Edit:
-
 - text-localization — translate/replace in-image text, preserve layout.
 - identity-preserve — try-on, person-in-scene; lock face/body/pose.
 - precise-object-edit — remove/replace a specific element (including interior swaps).
@@ -246,13 +229,11 @@ Avoid: <negative constraints>
 ```
 
 Notes:
-
 - `Asset type` and `Input images` are prompt scaffolding, not dedicated CLI flags.
 - `Scene/backdrop` refers to the visual setting. It is not the same as the fallback CLI `background` parameter, which controls output transparency behavior.
 - Fallback-only execution notes such as `Quality:`, `Input fidelity:`, masks, output format, and output paths belong in the CLI path only. Do not treat them as built-in `image_gen` tool arguments.
 
 Augmentation rules:
-
 - Keep it short.
 - Add only the details needed to improve the prompt materially.
 - For edits, explicitly list invariants (`change only X; keep Y unchanged`).
@@ -261,7 +242,6 @@ Augmentation rules:
 ## Examples
 
 ### Generation example (hero image)
-
 ```text
 Use case: product-mockup
 Asset type: landing page hero
@@ -273,7 +253,6 @@ Constraints: no logos, no text, no watermark
 ```
 
 ### Edit example (invariants)
-
 ```text
 Use case: precise-object-edit
 Asset type: product photo background replacement
@@ -282,7 +261,6 @@ Constraints: change only the background; keep the product and its edges unchange
 ```
 
 ## Prompting best practices
-
 - Structure prompt as scene/backdrop -> subject -> details -> constraints.
 - Include intended use (ad, UI mock, infographic) to set the mode and polish level.
 - Use camera/composition language for photorealism.
@@ -301,7 +279,6 @@ More principles shared by both modes: `references/prompting.md`.
 Copy/paste specs shared by both modes: `references/sample-prompts.md`.
 
 ## Guidance by asset type
-
 Asset-type templates (website assets, game assets, wireframes, logo) are consolidated in `references/sample-prompts.md`.
 
 ## gpt-image-2 guidance for CLI fallback
@@ -318,7 +295,6 @@ The fallback CLI defaults to `gpt-image-2`.
 - `gpt-image-2` size may be `auto` or `WIDTHxHEIGHT` if all constraints hold: max edge `<= 3840px`, both edges multiples of `16px`, long-to-short ratio `<= 3:1`, total pixels between `655,360` and `8,294,400`.
 
 Popular `gpt-image-2` sizes:
-
 - `1024x1024` square
 - `1536x1024` landscape
 - `1024x1536` portrait
@@ -331,56 +307,46 @@ Popular `gpt-image-2` sizes:
 ## Fallback CLI mode only
 
 ### Temp and output conventions
-
 These conventions apply only to the CLI fallback. They do not describe built-in `image_gen` output behavior.
-
 - Use `tmp/imagegen/` for intermediate files (for example JSONL batches); delete them when done.
 - Write final artifacts under `output/imagegen/`.
 - Use `--out` or `--out-dir` to control output paths; keep filenames stable and descriptive.
 
 ### Dependencies
-
 Prefer `uv` for dependency management in this repo.
 
 Required Python package:
-
 ```bash
 uv pip install openai
 ```
 
 Required for local chroma-key removal and optional downscaling:
-
 ```bash
 uv pip install pillow
 ```
 
 Portability note:
-
 - If you are using the installed skill outside this repo, install dependencies into that environment with its package manager.
 - In uv-managed environments, `uv pip install ...` remains the preferred path.
 
 ### Environment
-
 - `OPENAI_API_KEY` must be set for live API calls.
 - Do not ask the user for `OPENAI_API_KEY` when using the built-in `image_gen` tool.
 - Never ask the user to paste the full key in chat. Ask them to set it locally and confirm when ready.
 
 If the key is missing, give the user these steps:
-
-1. Create an API key in the OpenAI platform UI: <https://platform.openai.com/api-keys>
+1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
 2. Set `OPENAI_API_KEY` as an environment variable in their system.
 3. Offer to guide them through setting the environment variable for their OS/shell if needed.
 
 If installation is not possible in this environment, tell the user which dependency is missing and how to install it into their active environment.
 
 ### Script-mode notes
-
 - CLI commands + examples: `references/cli.md`
 - API parameter quick reference: `references/image-api.md`
 - Network approvals / sandbox settings for CLI mode: `references/codex-network.md`
 
 ## Reference map
-
 - `references/prompting.md`: shared prompting principles for both modes.
 - `references/sample-prompts.md`: shared copy/paste prompt recipes for both modes.
 - `references/cli.md`: fallback-only CLI usage via `scripts/image_gen.py`.

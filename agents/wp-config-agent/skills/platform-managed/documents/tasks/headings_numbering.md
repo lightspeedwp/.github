@@ -1,11 +1,9 @@
 # Task: Heading hierarchy + multilevel numbering (H1/H2/H3)
 
 ## Goal
-
 Produce structured documents that are consistent, readable, and TOC-friendly.
 
 ## Rules of thumb
-
 1. **Use paragraph styles**, not direct formatting.
    - Good: `p.style = doc.styles["Heading 1"]`
    - Bad: make text 16pt bold in a Normal paragraph and hope it behaves like a heading.
@@ -15,7 +13,6 @@ Produce structured documents that are consistent, readable, and TOC-friendly.
 ## Minimal python-docx patterns
 
 ### Set heading styles
-
 ```python
 from docx import Document
 
@@ -27,17 +24,14 @@ doc.save("out.docx")
 ```
 
 ### Avoid direct formatting
-
 If you must adjust typography, do it by editing the style definitions (template) rather than changing every paragraph.
 
 ## Validate structure quickly
-
 ```bash
 python scripts/heading_audit.py /mnt/data/input.docx
 ```
 
 ## Render → PNG review checklist (headings)
-
 - Heading sizes/weights are consistent across the document
 - Spacing before/after headings is consistent
 - Indentation is consistent (especially for numbered headings)
@@ -45,7 +39,6 @@ python scripts/heading_audit.py /mnt/data/input.docx
 - TOC (if present) reflects heading hierarchy correctly
 
 ## Common pitfalls
-
 - Mixing manual numbering (“1. ” typed in text) with TOC-generated numbering
 - Using Normal paragraphs with bold/size changes instead of Heading styles
 - Having different documents disagree on what Heading 1/2/3 look like (solve with templates)

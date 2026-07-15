@@ -66,6 +66,7 @@ You need three things from the design system: **components** (buttons, cards, et
 
 #### 2a: Discover components
 
+
 **2a-i — REQUIRED: Check Code Connect for needed components.** Starting from the component list you built in Step 1, check whether each component has a Code Connect file in the codebase. Code Connect files live next to the component source and are named by platform:
 
 - **TypeScript/JS**: `*.figma.ts`, `*.figma.js`
@@ -385,7 +386,6 @@ slotFrame.appendChild(icon);
 After composing all sections, call `get_screenshot` on the wrapper frame and compare against the source. Fix any issues with targeted `use_figma` calls — don't rebuild the entire view.
 
 **Screenshot individual sections, not just the full view.** A full-view screenshot at reduced resolution hides text truncation, wrong colors, and placeholder text that hasn't been overridden. Take a screenshot of each section by node ID to catch:
-
 - **Cropped/clipped text** — line heights or frame sizing cutting off descenders, ascenders, or entire lines
 - **Overlapping content** — elements stacking on top of each other due to incorrect sizing or missing auto-layout
 - Placeholder text still showing ("Title", "Heading", "Button")
@@ -405,7 +405,6 @@ See [references/discover-product-font.md](references/discover-product-font.md#ve
 If you ran `generate_figma_design` in parallel (mandatory when the source contains images), transfer the captured images into your design system output:
 
 1. Find all image nodes in the capture output by searching for fills with `type === "IMAGE"`:
-
    ```js
    // Read-only image inventory — skip invisible instance interiors for speed.
    figma.skipInvisibleInstanceChildren = true;
@@ -418,14 +417,11 @@ If you ran `generate_figma_design` in parallel (mandatory when the source contai
    });
    return imageNodes;
    ```
-
 2. Match each captured image to the corresponding frame in your use_figma output (by position, name, or order).
 3. Apply the image hash to the target frame:
-
    ```js
    targetFrame.fills = [{ type: "IMAGE", imageHash: "hash_from_capture", scaleMode: "FILL" }];
    ```
-
 4. Delete the `generate_figma_design` capture output after all images are transferred.
 
 ### Step 6: Updating an Existing View

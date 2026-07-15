@@ -14,7 +14,6 @@ When to read: before creating or editing a Google Sheet when the user has not pr
 Use this profile when styling is unspecified and the final artifact is a native Google Sheet.
 
 Defaults:
-
 - keep the sheet close to native Google Sheets defaults
 - white grid with black text
 - light gray header rows
@@ -24,7 +23,6 @@ Defaults:
 - apply the same default style profile consistently across every sheet after native conversion or live writeback, including imported object-level styling such as table/banding styles or conditional formats
 
 Avoid unless requested:
-
 - dark title bands
 - colored banded tables
 - per-sheet or imported styles that make one tab visually inconsistent with the rest of the workbook

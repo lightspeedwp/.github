@@ -31,12 +31,12 @@ Steps:
 }
 ```
 
-1. Use the connector function exposed in the current runtime: `mcp__codex_apps__google_drive_import_document(...)`.
-2. Verify the import response reports native conversion with `mime_type: "application/vnd.google-apps.document"` and a Google Docs URL or document id.
-3. If the desired Google Doc title needs adjustment after import, rename the native Google Doc with `mcp__codex_apps__google_drive_update_file(...)` or the equivalent Drive metadata update tool after upload.
-4. Read the imported document with the Google Docs connector and verify that core headings, body text, tables, and other connector-visible content survived conversion.
-5. Run the repair-only post-import normalization pass below.
-6. After successful connector readback and normalization, clean up local staging artifacts: generated render folders, QA PNG/PDF files, temporary assets, and the local `.docx` source. Keep local files only when the user explicitly asked to preserve them. Cleanup is a final backstop and does not replace the requirement to avoid tracked helper files before upload.
+5. Use the connector function exposed in the current runtime: `mcp__codex_apps__google_drive_import_document(...)`.
+6. Verify the import response reports native conversion with `mime_type: "application/vnd.google-apps.document"` and a Google Docs URL or document id.
+7. If the desired Google Doc title needs adjustment after import, rename the native Google Doc with `mcp__codex_apps__google_drive_update_file(...)` or the equivalent Drive metadata update tool after upload.
+8. Read the imported document with the Google Docs connector and verify that core headings, body text, tables, and other connector-visible content survived conversion.
+9. Run the repair-only post-import normalization pass below.
+10. After successful connector readback and normalization, clean up local staging artifacts: generated render folders, QA PNG/PDF files, temporary assets, and the local `.docx` source. Keep local files only when the user explicitly asked to preserve them. Cleanup is a final backstop and does not replace the requirement to avoid tracked helper files before upload.
 
 ## Post-Import Normalization
 

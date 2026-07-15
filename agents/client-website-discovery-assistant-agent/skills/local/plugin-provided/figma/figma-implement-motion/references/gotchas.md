@@ -40,7 +40,7 @@ Everything here is **Figma-specific** — general CSS/animation wisdom is not re
 
 **Fix**: Do not attach motion transforms to a `display: contents` wrapper. When a Figma group has motion, emit or insert a real wrapper element with `position: absolute`/explicit bounds (or another layout-preserving display value) and apply the group motion to that wrapper.
 
-This applies only when the **group itself animates**. A *static* `display: contents` wrapper (no motion on the group) must be **preserved as-is** — see SKILL.md Step 3, "Preserve `display: contents` wrappers" — because converting it into a positioned box reparents its children to a smaller box and shrinks them. So: static contents wrapper → keep it; animated group that emitted as contents → replace it with a real box.
+This applies only when the **group itself animates**. A _static_ `display: contents` wrapper (no motion on the group) must be **preserved as-is** — see SKILL.md Step 3, "Preserve `display: contents` wrappers" — because converting it into a positioned box reparents its children to a smaller box and shrinks them. So: static contents wrapper → keep it; animated group that emitted as contents → replace it with a real box.
 
 Introducing a real wrapper must not change the static layout. Preserve the Figma node's visual bounds and coordinate space relative to the same parent, keep child offsets visually unchanged after reparenting into the wrapper, and set explicit width/height when transform origin or child positioning depends on the wrapper box. Verify the static frame still matches before judging motion fidelity; a wrapper with correct keyframes but wrong bounds can make the motion look like an export bug.
 

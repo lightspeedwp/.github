@@ -329,7 +329,6 @@ return { id: v.id, name: v.name };
 Semantic tokens reference primitives via `VARIABLE_ALIAS`. This is the core pattern that makes light/dark theming work.
 
 **Architecture:**
-
 ```
 Color Primitives collection (1 mode: Value)
   blue/500 = #3B82F6          ← raw value
@@ -418,7 +417,6 @@ return { created, count: created.length };
 ```
 
 **Key API points:**
-
 - `figma.variables.createVariableAlias(variable)` — takes a Variable object, returns `{type:'VARIABLE_ALIAS', id: variable.id}`
 - The aliased variable MUST have the same `resolvedType` as the semantic variable
 - Never duplicate raw values in the semantic layer — always alias

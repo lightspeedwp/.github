@@ -7857,7 +7857,7 @@ interface ExportMixin {
    */
   exportAsync(settings?: ExportSettings): Promise<Uint8Array>;
   exportAsync(settings: ExportSettingsSVGString): Promise<string>;
-  exportAsync(settings: ExportSettingsREST): Promise<object>;
+  exportAsync(settings: ExportSettingsREST): Promise<Object>;
 }
 /**
  * @see https://developers.figma.com/docs/plugins/api/node-properties

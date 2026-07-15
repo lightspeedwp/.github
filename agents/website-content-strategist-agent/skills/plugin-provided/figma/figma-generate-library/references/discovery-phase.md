@@ -137,7 +137,6 @@ Shadows cannot be Figma variables — they become **Effect Styles**.
 ```
 
 CSS `0 4px 6px -1px rgba(0,0,0,0.1)` → Figma:
-
 ```
 { type: "DROP_SHADOW", offset: {x:0, y:4}, radius: 6, spread: -1, color: {r:0, g:0, b:0, a:0.1} }
 ```
@@ -321,7 +320,6 @@ get_libraries({ fileKey: "abc123" })
 ```
 
 Returns:
-
 - **`libraries_added_to_file`** — libraries currently subscribed (team libraries, community UI kits already enabled)
 - **`libraries_available_to_add`** — community UI kits and org libraries not yet subscribed
 - **`libraries_available_to_add_next_offset`** — non-null when more org libraries are available; pass it back as `offset` to fetch the next page
@@ -407,7 +405,6 @@ search_design_system({
 ### How to Interpret Results
 
 **Components:** The `componentKey` can be used in `use_figma` to import the component:
-
 ```javascript
 const component = await figma.importComponentByKeyAsync("abc123def");
 // or for component sets:
@@ -521,7 +518,6 @@ When the same token/component exists in both code and Figma but with different v
 ### Code Wins
 
 Default to code as the source of truth for:
-
 - Hex values (code is the live production value)
 - Token naming (the CSS variable names become code syntax)
 - Mode values (light/dark split comes from code)
@@ -529,7 +525,6 @@ Default to code as the source of truth for:
 ### Figma Wins
 
 Default to Figma as the source of truth for:
-
 - Collection architecture (if a well-structured system already exists, extend it rather than replace it)
 - Variable naming hierarchy (if designers are already using the system with specific names)
 - Page structure (match the existing page organization pattern)

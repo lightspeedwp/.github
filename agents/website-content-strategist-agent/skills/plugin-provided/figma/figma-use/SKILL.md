@@ -22,16 +22,16 @@ IMPORTANT: Whenever you work with design systems, start with [working-with-desig
 
 ## 1. Critical Rules
 
-1. **Use `return` to send data back.** The return value is JSON-serialized automatically (objects, arrays, strings, numbers). Do NOT call `figma.closePlugin()` or wrap code in an async IIFE — this is handled for you.
-2. **Write plain JavaScript with top-level `await` and `return`.** Code is automatically wrapped in an async context. Do NOT wrap in `(async () => { ... })()`.
-3. `figma.notify()` **throws "not implemented"** — never use it
+1.  **Use `return` to send data back.** The return value is JSON-serialized automatically (objects, arrays, strings, numbers). Do NOT call `figma.closePlugin()` or wrap code in an async IIFE — this is handled for you.
+2.  **Write plain JavaScript with top-level `await` and `return`.** Code is automatically wrapped in an async context. Do NOT wrap in `(async () => { ... })()`.
+3.  `figma.notify()` **throws "not implemented"** — never use it
 3a. `getPluginData()` / `setPluginData()` are **not supported** in `use_figma` — do not use them. Use `getSharedPluginData()` / `setSharedPluginData()` instead (these ARE supported), or track node IDs by returning them and passing them to subsequent calls.
-4. `console.log()` is NOT returned — use `return` for output
-5. **Work incrementally in small steps.** Break large operations into multiple `use_figma` calls. Validate after each step. This is the single most important practice for avoiding bugs.
-6. Colors are **0–1 range** (not 0–255): `{r: 1, g: 0, b: 0}` = red
-7. Fills/strokes are **read-only arrays** — clone, modify, reassign
-8. **Every text edit follows the canonical recipe: load font → `await` → mutate → return affected node IDs.** Skipping the load throws `Cannot write to node with unloaded font "<family> <style>"`. The rule covers more than `characters` — it applies to any operation on nodes with unloaded fonts (`appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`, `setValueForMode`, `findAll` callbacks touching text). When mutating existing text, load the node's *current* fonts via `getStyledTextSegments(['fontName'])`, not a hardcoded default. Inter is preloaded in most environments so other families surface this bug more often — the recipe is the same for every font. Use `await figma.listAvailableFontsAsync()` first if the style string is unverified. See [Canonical text-edit recipe](references/gotchas.md#canonical-text-edit-recipe-font-load--await--mutate--return-ids).
-9. **Pages load incrementally** — use `await figma.setCurrentPageAsync(page)` to switch pages and load their content. The sync setter `figma.currentPage = page` does **NOT** work and will throw (see Page Rules below)
+4.  `console.log()` is NOT returned — use `return` for output
+5.  **Work incrementally in small steps.** Break large operations into multiple `use_figma` calls. Validate after each step. This is the single most important practice for avoiding bugs.
+6.  Colors are **0–1 range** (not 0–255): `{r: 1, g: 0, b: 0}` = red
+7.  Fills/strokes are **read-only arrays** — clone, modify, reassign
+8.  **Every text edit follows the canonical recipe: load font → `await` → mutate → return affected node IDs.** Skipping the load throws `Cannot write to node with unloaded font "<family> <style>"`. The rule covers more than `characters` — it applies to any operation on nodes with unloaded fonts (`appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`, `setValueForMode`, `findAll` callbacks touching text). When mutating existing text, load the node's *current* fonts via `getStyledTextSegments(['fontName'])`, not a hardcoded default. Inter is preloaded in most environments so other families surface this bug more often — the recipe is the same for every font. Use `await figma.listAvailableFontsAsync()` first if the style string is unverified. See [Canonical text-edit recipe](references/gotchas.md#canonical-text-edit-recipe-font-load--await--mutate--return-ids).
+9.  **Pages load incrementally** — use `await figma.setCurrentPageAsync(page)` to switch pages and load their content. The sync setter `figma.currentPage = page` does **NOT** work and will throw (see Page Rules below)
 10. `setBoundVariableForPaint` returns a **NEW** paint — must capture and reassign
 11. `createVariable` accepts collection **object or ID string** (object preferred)
 12. **`layoutSizingHorizontal/Vertical` is value-restricted by structural context — `FIXED` always works, `HUG` and `FILL` do not.** `'HUG'` is valid only on an auto-layout frame itself OR on a **TEXT** child of one. `'FILL'` is valid only on a child of an auto-layout frame that is also not absolute-positioned, not inside an immutable frame, and not a canvas-grid child. Practical consequence: append to an auto-layout parent FIRST, then set `HUG`/`FILL` — a newly-created or unparented node can't satisfy the rule yet. The property itself exists on every `SceneNode`; the error is value-rejection, not "no such property". See [Gotchas](references/gotchas.md#layoutsizinghorizontallayoutsizingvertical-value-rules-fixed-hug-fill).
@@ -132,7 +132,6 @@ const texts = frame.query('TEXT[name=Title]')
 ```
 
 **Selector syntax:**
-
 - Type: `FRAME`, `TEXT`, `RECTANGLE`, `ELLIPSE`, `COMPONENT`, `INSTANCE`, `SECTION` (case-insensitive)
 - Attribute exact: `[name=Card]`, `[visible=true]`, `[opacity=0.5]`
 - Attribute substring: `[name*=art]` (contains), `[name^=Header]` (starts-with), `[name$=Nav]` (ends-with)
@@ -145,7 +144,6 @@ const texts = frame.query('TEXT[name=Title]')
 - Wildcard: `*` (any type)
 
 **QueryResult methods:**
-
 | Method | Description |
 |---|---|
 | `.length` | Number of matched nodes |
@@ -163,7 +161,6 @@ const texts = frame.query('TEXT[name=Title]')
 **Scope:** `node.query()` searches within that node's subtree. To search the whole page: `figma.currentPage.query('...')`. There is no global `figma.query()`.
 
 **Examples:**
-
 ```js
 // Recolor all text inside cards
 figma.currentPage.query('FRAME[name^=Card] TEXT').set({
@@ -202,7 +199,6 @@ frame.set({ opacity: 0.5, cornerRadius: 8, name: "Card" })
 **Width/height handling:** `width` and `height` are routed through `node.resize()` automatically — setting `{ width: 200 }` calls `resize(200, currentHeight)`.
 
 **Chaining with query:**
-
 ```js
 // Find all rectangles named "Divider" and update them
 figma.currentPage.query('RECTANGLE[name=Divider]').set({
@@ -231,7 +227,6 @@ const frame = figma.createAutoLayout('VERTICAL')
 Children can immediately use `layoutSizingHorizontal/Vertical = 'FILL'` after being appended — no need to set sizing modes manually.
 
 Accepts an optional props object as the first or second argument:
-
 ```js
 figma.createAutoLayout({ name: 'Card', itemSpacing: 12 })               // HORIZONTAL + props
 figma.createAutoLayout('VERTICAL', { name: 'Column', itemSpacing: 8 })  // VERTICAL + props
@@ -382,7 +377,6 @@ When in doubt about any convention (naming, scoping, structure), check the Figma
 ### Quick inspection scripts
 
 **List all pages and top-level nodes:**
-
 ```js
 const pages = figma.root.children.map(p => `${p.name} id=${p.id} children=${p.children.length}`);
 return pages.join('\n');
@@ -393,13 +387,11 @@ return pages.join('\n');
 `search_design_system` is an option for published components. For on-canvas components, use the two-step fan-out — **don't loop pages inside one script.**
 
 Step 1: one read-only `use_figma` to get page IDs:
-
 ```js
 return figma.root.children.map(p => ({ id: p.id, name: p.name }));
 ```
 
 Step 2: in the **next assistant turn, emit one `use_figma` per page in parallel** (a single message containing N tool-use blocks). Each runs:
-
 ```js
 // Read-only inspection — skip invisible instance interiors for the
 // hundreds-of-times-faster findAllWithCriteria.
@@ -414,7 +406,6 @@ return matches.map(n => ({ page: page.name, name: n.name, type: n.type, id: n.id
 ```
 
 **List existing variable collections and their conventions:**
-
 ```js
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
 const results = collections.map(c => ({

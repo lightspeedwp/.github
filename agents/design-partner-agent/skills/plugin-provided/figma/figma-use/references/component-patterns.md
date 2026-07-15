@@ -17,6 +17,7 @@
 - Importing Components by Key
 - Working with Instances (finding variants, setProperties, text overrides, detachInstance)
 
+
 ## Creating a Component
 
 `figma.createComponent()` returns a `ComponentNode`, which behaves like a `FrameNode` but can be published, instanced, and combined into variant sets.
@@ -131,7 +132,6 @@ iconInstance.componentPropertyReferences = {
 ```
 
 **Valid `componentPropertyReferences` keys:**
-
 - `characters` — TEXT property on a TextNode
 - `visible` — BOOLEAN property (any node)
 - `mainComponent` — INSTANCE_SWAP property on an InstanceNode

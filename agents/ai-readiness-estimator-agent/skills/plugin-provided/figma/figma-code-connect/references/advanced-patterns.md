@@ -1,7 +1,6 @@
 # Code Connect Examples
 
 ## Contents
-
 - [Basic component property retrieval](#basic-component-property-retrieval)
 - [Descendants and recursive templating](#descendants-and-recursive-templating)
   - [instance.metadata](#instancemetadata)

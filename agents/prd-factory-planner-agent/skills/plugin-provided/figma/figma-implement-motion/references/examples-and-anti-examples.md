@@ -201,7 +201,7 @@ Why it's wrong / do instead: take every node's values from `get_design_context` 
 
 ## Anti-example: `transformOrigin` is per element
 
-A scaling icon where `get_motion_context` returns a `transformOrigin` on *each* scaling node — here both the outer group and the inner icon grow from the bottom-right:
+A scaling icon where `get_motion_context` returns a `transformOrigin` on _each_ scaling node — here both the outer group and the inner icon grow from the bottom-right:
 
 ```tsx
 <motion.svg data-node-id="1:3576" style={{ transformOrigin: '100% 100%' }} animate={{ scaleX: [0,1,1], scaleY: [0,1,1] }} … />

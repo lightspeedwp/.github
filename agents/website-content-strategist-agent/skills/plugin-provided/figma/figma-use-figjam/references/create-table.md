@@ -237,7 +237,7 @@ const TABLE_COLOR_PRESETS = {
 | Light yellow | `#FFECBD` | dark  |
 | White        | `#FFFFFF` | dark  |
 
-*white = `#FFFFFF`, dark = `#1E1E1E`*
+_white = `#FFFFFF`, dark = `#1E1E1E`_
 
 ### Applying Table and Cell Colors
 

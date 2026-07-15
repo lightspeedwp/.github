@@ -17,6 +17,7 @@
 - Cloning, Finding Nodes, and Grids
 - Constraints and Viewport
 
+
 ## Execution Basics
 
 ### Page Context
@@ -46,7 +47,6 @@ Errors are automatically captured — no try/catch needed. `figma.notify()` does
 ### Working Incrementally
 
 Don't build an entire screen in one call. Break work into small steps:
-
 1. Create tokens/variables
 2. Create text styles
 3. Build individual components

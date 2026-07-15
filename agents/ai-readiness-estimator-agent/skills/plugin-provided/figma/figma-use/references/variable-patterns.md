@@ -16,6 +16,7 @@
 - Discovering Existing Variables in the File
 - Effect Styles (For Shadows)
 
+
 ## Creating Variable Collections and Modes
 
 ```javascript

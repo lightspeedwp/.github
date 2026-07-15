@@ -29,13 +29,11 @@ If a component embeds an instance of another component, the embedded component m
 For complex components with independent sub-element state machines, extract the sub-element into its own component set prefixed with `Building Blocks/` (public) or `.Building Blocks/` (hidden from assets panel). The dot-prefix is a Figma convention for suppressing a component from the public assets panel.
 
 **When to use Building Blocks:**
-
 - The sub-element has its own variant axes (state, selection) that would cause combinatorial explosion in the parent
 - The sub-element repeats (nav items, table cells, calendar cells, segmented button segments)
 - The sub-element has different variant axes than the parent
 
 **Example (M3 Segmented Button):**
-
 ```
 Building Blocks/Segmented button/Button segment (start)   [27 variants: Config × State × Selected]
 Building Blocks/Segmented button/Button segment (middle)  [27 variants]
@@ -115,7 +113,6 @@ return { docFrameId: docFrame.id, pageId: page.id };
 ## 3. Base Component: Auto-Layout, Child Nodes, Variable Bindings
 
 The base component is the template from which all variants are cloned. It must have:
-
 1. Auto-layout (not manual positioning)
 2. All child nodes present
 3. ALL visual properties bound to variables (no hardcoded values)
@@ -328,7 +325,6 @@ After all variant components exist, combine them into a ComponentSet and positio
 ### Grid Design Conventions
 
 Professional design systems lay out variants in a readable grid where:
-
 - **Columns** = the property users interact with most (typically **State**: Default, Hover, Focused, Pressed, Disabled)
 - **Rows** = structural axes grouped together (typically **Size × Style**, where Size varies fastest)
 - **Gap** = 16–40px between variants (20px is a safe default; match existing file if one exists)
@@ -456,7 +452,6 @@ return { componentSetId: cs.id };
 ```
 
 **Critical rules for combineAsVariants:**
-
 - `components` must be a non-empty array containing ONLY `ComponentNode` objects (not frames, not groups)
 - After combining, children are placed at (0,0) and overlap — you MUST manually position them
 - `resizeWithoutConstraints` is required after positioning to make the component set frame fit its contents
@@ -562,14 +557,12 @@ return { iconCompId: iconComp.id };
 ```
 
 **Then use the returned `iconCompId` as the default value for INSTANCE_SWAP:**
-
 ```javascript
 const iconKey = cs.addComponentProperty('Icon', 'INSTANCE_SWAP', ICON_COMP_ID);
 ```
 
 **Constraining swap options with `preferredValues`:**
 After adding the INSTANCE_SWAP property, you can optionally limit which components appear in the swap picker:
-
 ```javascript
 // Get the property definitions to find the exact key
 const props = cs.componentPropertyDefinitions;
@@ -615,7 +608,6 @@ const key   = node.getSharedPluginData('dsb', 'key');
 ```
 
 **Key naming convention:** use `/`-separated logical paths that mirror the entity hierarchy:
-
 ```
 'component/button/base'
 'component/button/variant/Medium/Primary/Default'
@@ -645,7 +637,6 @@ if (existing.length > 0) {
 ### Page title + description frame
 
 The documentation frame (see Section 2) should contain:
-
 1. Component name as a large title (32px+ Bold)
 2. 1–3 sentence description of what the component is and when to use it
 3. Spec notes (sizes, spacing values, accessibility notes)
@@ -684,7 +675,6 @@ Always validate after creating or modifying a component before proceeding to the
 ### `get_metadata` structural checks
 
 After creating the component set, call `get_metadata` on the ComponentSet node and verify:
-
 - `variantGroupProperties` lists the expected axes with the correct value arrays
 - `componentPropertyDefinitions` contains the expected TEXT/BOOLEAN/INSTANCE_SWAP properties
 - `children.length` equals the expected variant count (e.g., 18 for 3×2×3)
@@ -732,10 +722,8 @@ Args: { nodeId: "PAGE_NODE_ID", fileKey: "FILE_KEY" }
 
 **When visual analysis isn't available:**
 If your model can't process images (text-only mode), validate structurally instead:
-
 1. Call `get_metadata` on the component set — verify child count, property definitions, variant names
 2. Run an `use_figma` that samples key properties:
-
 ```javascript
 const cs = await figma.getNodeByIdAsync(CS_ID);
 const sample = cs.children.slice(0, 3).map(c => ({
@@ -748,11 +736,9 @@ const sample = cs.children.slice(0, 3).map(c => ({
 }));
 return { sampleVariants: sample, totalChildren: cs.children.length };
 ```
-
 This gives you positions (grid working?), dimensions (size differentiation?), and fill info (bindings working?) without needing vision.
 
 **When to take a screenshot:**
-
 - After EVERY completed component (mandatory — part of the user checkpoint)
 - After creating the foundations documentation page
 - After final QA (screenshot every page)
@@ -984,7 +970,6 @@ return {
 
 **Goal:** Structural check — variant count, properties, axes.
 **Action:** Call `get_metadata` on the ComponentSet node ID (from state). Verify in the result:
-
 - `children.length === 18`
 - `variantGroupProperties` has `Size`, `Style`, `State` keys with correct value arrays
 - `componentPropertyDefinitions` has `Label`, `Show Icon`, `Icon` entries

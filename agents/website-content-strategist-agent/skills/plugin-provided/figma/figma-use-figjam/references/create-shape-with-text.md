@@ -157,7 +157,7 @@ const SHAPE_COLOR_PRESETS = {
 | Light yellow | `#FFECBD` | `#FFC943`  | dark  |
 | White        | `#FFFFFF` | `#B3B3B3`  | dark  |
 
-*white = `#FFFFFF`, dark = `#1E1E1E`*
+_white = `#FFFFFF`, dark = `#1E1E1E`_
 
 ### Applying a Color Preset
 

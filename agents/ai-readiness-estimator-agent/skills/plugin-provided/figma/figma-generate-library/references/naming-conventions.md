@@ -83,7 +83,6 @@ color/border/default     → alias: primitives/gray/200 (light), primitives/gray
 **Default:** Use **lowercase** with forward slashes: `color/bg/primary`, `spacing/2xl`.
 
 **When to deviate:**
-
 - If the existing file uses PascalCase (e.g., Material 3 uses `Schemes/Primary`) — match it.
 - If the design team prefers PascalCase for readability in the Variables panel — acceptable as long as the code syntax is separately defined and uses the platform-correct case.
 - Mode names can use spaces and mixed case (e.g., `SDS Light`, `Mode 1 → Light`) — these are labels, not identifiers.
@@ -128,7 +127,6 @@ _Slider/Handle         (UI3 pattern: _{ParentName}/{SubPart})
 ```
 
 Pattern rules:
-
 - Use `_` prefix for ALL internal sub-components — no exceptions.
 - Use slash namespacing to group sub-components under their parent: `_Button/IconSlot`.
 - For sub-components shared by multiple parents, use `_Parts/{ComponentName}.{SubPart}`.
@@ -188,7 +186,6 @@ Anatomy: `[Asset Type Emoji] [Optional FPL Label] [Status Circle] Component Name
 | Code status | (none) = Ready in code, `[beta]` = Beta, `[future]` = Not yet built |
 
 Examples:
-
 ```
 Overview
 Status Key
@@ -385,23 +382,22 @@ This system is only recommended for large, multi-team systems where lifecycle tr
 
 **Always inspect before naming anything.** Run `get_metadata` or `inspectFileStructure` to discover existing conventions before creating any pages or variables.
 
-### Match the existing file when
+### Match the existing file when:
 
 - The file already has pages with a consistent naming pattern (emoji prefixes, separator style, casing).
 - The file already has variable collections with an established naming scheme.
 - The file was started by a design team and carries intentional decisions.
 - Any existing component names use a specific pattern (PascalCase, kebab-case, namespace prefixes).
 
-### Use the defaults from this document when
+### Use the defaults from this document when:
 
 - Starting a brand-new Figma file with no existing content.
 - The existing conventions are inconsistent (mix of styles = no convention to match).
 - The user explicitly asks for a fresh design system following best practices.
 
-### When code and Figma disagree
+### When code and Figma disagree:
 
 If the codebase uses `button-primary` but Figma has a component named `Button`, do not rename the Figma component. Instead:
-
 - Keep the Figma name as `Button` (PascalCase, human-readable).
 - Set variable code syntax to match the exact CSS token name from the codebase.
 - Set Code Connect source path to the actual code file and use the exact code component name.
@@ -494,7 +490,6 @@ MUI:       palette.primary.main     →  JS: theme.palette.primary.main
 ```
 
 In these cases, set WEB code syntax to the JS property path rather than a CSS variable:
-
 ```javascript
 // For a JS-object-based system like Chakra:
 v.setVariableCodeSyntax('WEB', 'colors.gray.500');

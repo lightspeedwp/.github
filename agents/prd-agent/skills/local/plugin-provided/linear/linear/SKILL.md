@@ -10,7 +10,6 @@ description: Manage issues, projects & team workflows in Linear. Use when the us
 This skill provides a structured workflow for managing issues, projects & team workflows in Linear. It assumes the bundled Linear app is connected so the Linear tools are available for issues, projects, documentation, and team collaboration.
 
 ## Prerequisites
-
 - Linear tools must be connected and accessible via OAuth
 - Confirm access to the relevant Linear workspace, teams, and projects
 
@@ -29,23 +28,18 @@ If Linear tools are unavailable, pause and ask the user to connect the Linear ap
 After the app is connected, finish your answer and tell the user to retry so they can continue with Step 1.
 
 ### Step 1
-
 Clarify the user's goal and scope (e.g., issue triage, sprint planning, documentation audit, workload balance). Confirm team/project, priority, labels, cycle, and due dates as needed.
 
 ### Step 2
-
 Select the appropriate workflow (see Practical Workflows below) and identify the Linear tools you will need. Confirm required identifiers (issue ID, project ID, team key) before calling tools.
 
 ### Step 3
-
 Execute Linear tool calls in logical batches:
-
 - Read first (list/get/search) to build context.
 - Create or update next (issues, projects, labels, comments) with all required fields.
 - For bulk operations, explain the grouping logic before applying changes.
 
 ### Step 4
-
 Summarize results, call out remaining gaps or blockers, and propose next actions (additional issues, label changes, assignments, or follow-up comments).
 
 ## Available Tools
