@@ -85,7 +85,7 @@ jobs:
             core.setFailed("PR requires a CHANGELOG.md update or the meta:no-changelog label.");
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "22.22.1"
 
