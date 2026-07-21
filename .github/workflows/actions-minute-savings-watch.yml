@@ -1,0 +1,251 @@
+name: Actions Minutes Savings Watch
+
+on:
+  workflow_dispatch:
+    inputs:
+      cutoff_iso:
+        description: "ISO cutoff timestamp for post-change runs"
+        required: false
+        default: "2026-07-21T00:00:00Z"
+      min_post_runs:
+        description: "Minimum post-change runs needed before publishing final report"
+        required: false
+        default: "40"
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+concurrency:
+  group: actions-minute-savings-watch
+  cancel-in-progress: true
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate before/after savings report
+        id: report
+        uses: actions/github-script@v7
+        env:
+          INPUT_CUTOFF: ${{ github.event.inputs.cutoff_iso || '2026-07-21T00:00:00Z' }}
+          INPUT_MIN_POST_RUNS: ${{ github.event.inputs.min_post_runs || '40' }}
+        with:
+          script: |
+            const fs = require('node:fs');
+            const path = require('node:path');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const cutoffIso = process.env.INPUT_CUTOFF || '2026-07-21T00:00:00Z';
+            const minPostRuns = Number(process.env.INPUT_MIN_POST_RUNS || '40');
+            const cutoffMs = Date.parse(cutoffIso);
+
+            if (Number.isNaN(cutoffMs)) {
+              core.setFailed(`Invalid cutoff timestamp: ${cutoffIso}`);
+              return;
+            }
+
+            const targets = new Set([
+              'CI',
+              'CI • Unified Checks (Lint, Test, Validate)',
+              'Labeling • Discussions, Issues & PRs (Unified)',
+              'Metadata • Issues & PRs',
+              'changelog-validate',
+              'Projects • Add & Sync meta from labels',
+            ]);
+
+            const allRuns = await github.paginate(
+              github.rest.actions.listWorkflowRunsForRepo,
+              {
+                owner,
+                repo,
+                per_page: 100,
+                status: 'completed',
+              },
+            );
+
+            const filtered = allRuns
+              .filter((run) => targets.has(run.name || run.display_title || ''))
+              .filter((run) => run.created_at && run.run_started_at && run.updated_at)
+              .map((run) => {
+                const createdMs = Date.parse(run.created_at);
+                const startedMs = Date.parse(run.run_started_at);
+                const updatedMs = Date.parse(run.updated_at);
+                const minutes = Math.max(0, (updatedMs - startedMs) / 60000);
+                return {
+                  workflow: run.name,
+                  createdMs,
+                  createdAt: run.created_at,
+                  minutes,
+                };
+              })
+              .filter((run) => Number.isFinite(run.minutes));
+
+            const before = filtered.filter((run) => run.createdMs < cutoffMs);
+            const after = filtered.filter((run) => run.createdMs >= cutoffMs);
+
+            const aggregateByWorkflow = (rows) => {
+              const map = new Map();
+              for (const row of rows) {
+                const current = map.get(row.workflow) || { runs: 0, totalMinutes: 0 };
+                current.runs += 1;
+                current.totalMinutes += row.minutes;
+                map.set(row.workflow, current);
+              }
+              return Array.from(map.entries())
+                .map(([workflow, data]) => ({
+                  workflow,
+                  runs: data.runs,
+                  totalMinutes: data.totalMinutes,
+                  avgMinutes: data.runs > 0 ? data.totalMinutes / data.runs : 0,
+                }))
+                .sort((a, b) => b.totalMinutes - a.totalMinutes);
+            };
+
+            const beforeAgg = aggregateByWorkflow(before);
+            const afterAgg = aggregateByWorkflow(after);
+
+            const beforeRuns = before.length;
+            const afterRuns = after.length;
+            const beforeTotal = before.reduce((sum, run) => sum + run.minutes, 0);
+            const afterTotal = after.reduce((sum, run) => sum + run.minutes, 0);
+            const beforeAvg = beforeRuns > 0 ? beforeTotal / beforeRuns : 0;
+            const afterAvg = afterRuns > 0 ? afterTotal / afterRuns : 0;
+            const avgDelta = afterAvg - beforeAvg;
+            const avgDeltaPct = beforeAvg > 0 ? (avgDelta / beforeAvg) * 100 : 0;
+
+            const beforePerWorkflow = new Map(beforeAgg.map((row) => [row.workflow, row]));
+            const afterPerWorkflow = new Map(afterAgg.map((row) => [row.workflow, row]));
+            const workflowTableRows = Array.from(targets)
+              .map((workflow) => {
+                const b = beforePerWorkflow.get(workflow) || { runs: 0, totalMinutes: 0, avgMinutes: 0 };
+                const a = afterPerWorkflow.get(workflow) || { runs: 0, totalMinutes: 0, avgMinutes: 0 };
+                const delta = a.avgMinutes - b.avgMinutes;
+                const deltaPct = b.avgMinutes > 0 ? (delta / b.avgMinutes) * 100 : 0;
+                return {
+                  workflow,
+                  beforeRuns: b.runs,
+                  beforeAvg: b.avgMinutes,
+                  afterRuns: a.runs,
+                  afterAvg: a.avgMinutes,
+                  delta,
+                  deltaPct,
+                };
+              })
+              .sort((a, b) => (b.beforeAvg + b.afterAvg) - (a.beforeAvg + a.afterAvg));
+
+            const ready = afterRuns >= minPostRuns;
+
+            const lines = [];
+            lines.push('# Actions Minutes Savings Report');
+            lines.push('');
+            lines.push(`- Repo: ${owner}/${repo}`);
+            lines.push(`- Cutoff: ${cutoffIso}`);
+            lines.push(`- Minimum post-change runs required: ${minPostRuns}`);
+            lines.push(`- Post-change runs observed: ${afterRuns}`);
+            lines.push(`- Status: ${ready ? 'READY (final comparison available)' : 'WAITING (not enough post-change runs yet)'}`);
+            lines.push('');
+            lines.push('## Overall');
+            lines.push('');
+            lines.push('| Window | Runs | Total minutes | Avg minutes/run |');
+            lines.push('| --- | ---: | ---: | ---: |');
+            lines.push(`| Before | ${beforeRuns} | ${Math.round(beforeTotal)} | ${beforeAvg.toFixed(2)} |`);
+            lines.push(`| After | ${afterRuns} | ${Math.round(afterTotal)} | ${afterAvg.toFixed(2)} |`);
+            lines.push(`| Delta (After-Before avg) | - | - | ${avgDelta.toFixed(2)} (${avgDeltaPct.toFixed(1)}%) |`);
+            lines.push('');
+            lines.push('## Workflow detail (avg minutes/run)');
+            lines.push('');
+            lines.push('| Workflow | Before runs | Before avg | After runs | After avg | Delta avg |');
+            lines.push('| --- | ---: | ---: | ---: | ---: | ---: |');
+            for (const row of workflowTableRows) {
+              const deltaLabel = `${row.delta.toFixed(2)} (${row.deltaPct.toFixed(1)}%)`;
+              lines.push(`| ${row.workflow} | ${row.beforeRuns} | ${row.beforeAvg.toFixed(2)} | ${row.afterRuns} | ${row.afterAvg.toFixed(2)} | ${deltaLabel} |`);
+            }
+
+            if (!ready) {
+              lines.push('');
+              lines.push('## Next automatic check');
+              lines.push('');
+              lines.push('This workflow runs every 6 hours and will publish the final report as soon as the post-change run threshold is met.');
+            }
+
+            const markdown = lines.join('\n');
+            const outDir = path.join(process.cwd(), 'metrics', 'out');
+            fs.mkdirSync(outDir, { recursive: true });
+            fs.writeFileSync(path.join(outDir, 'actions-minute-savings-report.md'), markdown);
+            fs.writeFileSync(
+              path.join(outDir, 'actions-minute-savings-report.json'),
+              JSON.stringify(
+                {
+                  generatedAt: new Date().toISOString(),
+                  cutoffIso,
+                  minPostRuns,
+                  ready,
+                  beforeRuns,
+                  afterRuns,
+                  beforeTotal,
+                  afterTotal,
+                  beforeAvg,
+                  afterAvg,
+                  avgDelta,
+                  avgDeltaPct,
+                  beforeAgg,
+                  afterAgg,
+                  workflowTableRows,
+                },
+                null,
+                2,
+              ),
+            );
+
+            core.setOutput('ready', ready ? 'true' : 'false');
+            core.setOutput('after_runs', String(afterRuns));
+            core.summary.addRaw(markdown).write();
+
+      - name: Upload savings report artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: actions-minute-savings-report
+          path: |
+            metrics/out/actions-minute-savings-report.md
+            metrics/out/actions-minute-savings-report.json
+          if-no-files-found: error
+
+      - name: Publish savings report to tracking issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const title = 'Actions Minutes Savings Report (Auto)';
+            const body = fs.readFileSync('metrics/out/actions-minute-savings-report.md', 'utf8');
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const existing = issues.find((issue) => issue.title === title);
+
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body,
+              });
+              core.info(`Updated tracking issue #${existing.number}`);
+            } else {
+              const created = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+              });
+              core.info(`Created tracking issue #${created.data.number}`);
+            }
