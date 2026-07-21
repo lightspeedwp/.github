@@ -6,16 +6,7 @@ on:
   pull_request:
     branches: [develop]
     types:
-      [
-        opened,
-        edited,
-        synchronize,
-        labeled,
-        unlabeled,
-        reopened,
-        ready_for_review,
-        closed,
-      ]
+      [opened, edited, labeled, unlabeled, reopened, ready_for_review, closed]
 
 permissions:
   contents: read
@@ -26,6 +17,10 @@ env:
   PROJECT_URL: ${{ vars.LS_PROJECT_URL }}
   SLA_WARN_DAYS: "7"
   SLA_BREACH_DAYS: "14"
+
+concurrency:
+  group: project-meta-sync-${{ github.event_name }}-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   add-and-sync:

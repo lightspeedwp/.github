@@ -3,16 +3,11 @@ name: changelog-validate
 on:
   pull_request:
     branches: [develop]
-    types:
-      [
-        opened,
-        synchronize,
-        reopened,
-        edited,
-        ready_for_review,
-        labeled,
-        unlabeled,
-      ]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+concurrency:
+  group: changelog-validate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
