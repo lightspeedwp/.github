@@ -246,50 +246,13 @@ async function resolveLinkedIssueMilestone(github, owner, repo, references) {
 }
 
 async function addSubIssueRelationship(github, owner, repo, parentNumber, childNumber) {
-  const parent = await github.graphql(
-    `
-      query($owner: String!, $repo: String!, $number: Int!) {
-        repository(owner: $owner, name: $repo) {
-          issue(number: $number) {
-            id
-          }
-        }
-      }
-    `,
-    { owner, repo, number: parentNumber },
+  void github;
+  void owner;
+  void repo;
+  console.info(
+    `Skipping sub-issue relationship ${parentNumber} -> ${childNumber}: relationship sync is disabled.`,
   );
-
-  const child = await github.graphql(
-    `
-      query($owner: String!, $repo: String!, $number: Int!) {
-        repository(owner: $owner, name: $repo) {
-          issue(number: $number) {
-            id
-          }
-        }
-      }
-    `,
-    { owner, repo, number: childNumber },
-  );
-
-  const parentId = parent?.repository?.issue?.id;
-  const childId = child?.repository?.issue?.id;
-  if (!parentId || !childId) return false;
-
-  await github.graphql(
-    `
-      mutation($parentId: ID!, $childId: ID!) {
-        addSubIssue(input: { issueId: $parentId, subIssueId: $childId }) {
-          subIssue {
-            id
-          }
-        }
-      }
-    `,
-    { parentId, childId },
-  );
-
-  return true;
+  return false;
 }
 
 async function upsertComment(github, owner, repo, number, body) {
