@@ -1,19 +1,27 @@
 name: CI
 on:
-  pull_request:
+  workflow_dispatch:
   push:
     branches: [develop]
+    paths-ignore:
+      - ".github/reports/**"
+      - "reports/**"
+      - ".github/projects/**"
+
+concurrency:
+  group: ci-legacy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check:
     runs-on: ubuntu-latest
     env:
-      HUSKY: '0'
+      HUSKY: "0"
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
       - run: node --version && npm --version
       - run: npm ci
       - run: npm run lint:js
