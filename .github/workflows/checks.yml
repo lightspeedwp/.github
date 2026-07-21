@@ -3,8 +3,16 @@ name: CI • Unified Checks (Lint, Test, Validate)
 on:
   pull_request:
     branches: [develop]
+    paths-ignore:
+      - ".github/reports/**"
+      - "reports/**"
+      - ".github/projects/**"
   push:
     branches: [develop]
+    paths-ignore:
+      - ".github/reports/**"
+      - "reports/**"
+      - ".github/projects/**"
   merge_group:
     types: [checks_requested]
 
@@ -13,7 +21,7 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: checks-${{ github.ref }}-${{ github.event_name }}
+  group: checks-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
