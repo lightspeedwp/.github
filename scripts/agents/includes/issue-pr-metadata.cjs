@@ -79,7 +79,12 @@ function extractIssueRefs(text) {
 
 function extractSecurityRefs(text) {
   const source = String(text || "");
-  return [...new Set([...(source.match(GHSA_RE) || []), ...(source.match(CVE_RE) || [])])];
+  return [
+    ...new Set([
+      ...(source.match(GHSA_RE) || []),
+      ...(source.match(CVE_RE) || []),
+    ]),
+  ];
 }
 
 function parseRelationshipHints(body) {
@@ -112,7 +117,10 @@ function parseRelationshipHints(body) {
       lower.startsWith("related to:")
     ) {
       refs.forEach((ref) => linkedRefs.add(ref));
-    } else if (lower.startsWith("parent issue:") || lower.startsWith("parent:")) {
+    } else if (
+      lower.startsWith("parent issue:") ||
+      lower.startsWith("parent:")
+    ) {
       refs.forEach((ref) => parentRefs.add(ref));
     } else if (
       lower.startsWith("child issue:") ||
@@ -125,7 +133,10 @@ function parseRelationshipHints(body) {
       refs.forEach((ref) => childRefs.add(ref));
     } else if (lower.startsWith("blocks:") || lower.startsWith("blocks ")) {
       refs.forEach((ref) => blocksRefs.add(ref));
-    } else if (lower.startsWith("blocked by:") || lower.startsWith("blocked by ")) {
+    } else if (
+      lower.startsWith("blocked by:") ||
+      lower.startsWith("blocked by ")
+    ) {
       refs.forEach((ref) => blockedByRefs.add(ref));
     }
 
@@ -154,23 +165,33 @@ function formatRelationshipComment(item, hints, milestoneSummary, assignee) {
   ];
 
   if (hints.linkedRefs.length > 0) {
-    lines.push(`- Linked issues/PRs: ${hints.linkedRefs.map((ref) => `#${ref}`).join(", ")}`);
+    lines.push(
+      `- Linked issues/PRs: ${hints.linkedRefs.map((ref) => `#${ref}`).join(", ")}`,
+    );
   }
 
   if (hints.parentRefs.length > 0) {
-    lines.push(`- Parent issue: ${hints.parentRefs.map((ref) => `#${ref}`).join(", ")}`);
+    lines.push(
+      `- Parent issue: ${hints.parentRefs.map((ref) => `#${ref}`).join(", ")}`,
+    );
   }
 
   if (hints.childRefs.length > 0) {
-    lines.push(`- Child issues: ${hints.childRefs.map((ref) => `#${ref}`).join(", ")}`);
+    lines.push(
+      `- Child issues: ${hints.childRefs.map((ref) => `#${ref}`).join(", ")}`,
+    );
   }
 
   if (hints.blocksRefs.length > 0) {
-    lines.push(`- Blocks: ${hints.blocksRefs.map((ref) => `#${ref}`).join(", ")}`);
+    lines.push(
+      `- Blocks: ${hints.blocksRefs.map((ref) => `#${ref}`).join(", ")}`,
+    );
   }
 
   if (hints.blockedByRefs.length > 0) {
-    lines.push(`- Blocked by: ${hints.blockedByRefs.map((ref) => `#${ref}`).join(", ")}`);
+    lines.push(
+      `- Blocked by: ${hints.blockedByRefs.map((ref) => `#${ref}`).join(", ")}`,
+    );
   }
 
   if (hints.securityRefs.length > 0) {
@@ -183,7 +204,8 @@ function formatRelationshipComment(item, hints, milestoneSummary, assignee) {
 function buildAssigneeCandidates(item, defaultAssignee) {
   const candidates = [];
   if (item.author) candidates.push(item.author);
-  if (defaultAssignee && defaultAssignee !== item.author) candidates.push(defaultAssignee);
+  if (defaultAssignee && defaultAssignee !== item.author)
+    candidates.push(defaultAssignee);
   return candidates;
 }
 
@@ -200,14 +222,22 @@ async function assignIssue(github, owner, repo, number, candidates) {
       });
       return candidate;
     } catch (error) {
-      console.info(`Assignee '${candidate}' could not be applied to #${number}: ${error.message}`);
+      console.info(
+        `Assignee '${candidate}' could not be applied to #${number}: ${error.message}`,
+      );
     }
   }
 
   return "";
 }
 
-async function updateIssueMilestone(github, owner, repo, number, milestoneNumber) {
+async function updateIssueMilestone(
+  github,
+  owner,
+  repo,
+  number,
+  milestoneNumber,
+) {
   if (!milestoneNumber) return;
 
   await github.rest.issues.update({
@@ -238,14 +268,22 @@ async function resolveLinkedIssueMilestone(github, owner, repo, references) {
         return data.milestone;
       }
     } catch (error) {
-      console.info(`Linked issue #${ref} could not be read for milestone inheritance: ${error.message}`);
+      console.info(
+        `Linked issue #${ref} could not be read for milestone inheritance: ${error.message}`,
+      );
     }
   }
 
   return null;
 }
 
-async function addSubIssueRelationship(github, owner, repo, parentNumber, childNumber) {
+async function addSubIssueRelationship(
+  github,
+  owner,
+  repo,
+  parentNumber,
+  childNumber,
+) {
   void github;
   void owner;
   void repo;
@@ -264,7 +302,8 @@ async function upsertComment(github, owner, repo, number, body) {
   });
 
   const existing = comments.find(
-    (comment) => comment.user?.type === "Bot" && comment.body?.includes(COMMENT_MARKER),
+    (comment) =>
+      comment.user?.type === "Bot" && comment.body?.includes(COMMENT_MARKER),
   );
 
   if (existing) {
@@ -308,7 +347,13 @@ async function syncItemMetadata({ github, owner, repo, event, config }) {
     );
 
     if (linkedMilestone) {
-      await updateIssueMilestone(github, owner, repo, item.number, linkedMilestone.number);
+      await updateIssueMilestone(
+        github,
+        owner,
+        repo,
+        item.number,
+        linkedMilestone.number,
+      );
       milestoneSummary = linkedMilestone.title;
     } else if (isDependabotPullRequest(item)) {
       milestoneSummary = "";
@@ -327,23 +372,44 @@ async function syncItemMetadata({ github, owner, repo, event, config }) {
     if (item.kind === "issue") {
       for (const parentRef of hints.parentRefs) {
         try {
-          await addSubIssueRelationship(github, owner, repo, parentRef, item.number);
+          await addSubIssueRelationship(
+            github,
+            owner,
+            repo,
+            parentRef,
+            item.number,
+          );
         } catch (error) {
-          console.info(`Parent relationship ${parentRef} -> #${item.number} could not be added: ${error.message}`);
+          console.info(
+            `Parent relationship ${parentRef} -> #${item.number} could not be added: ${error.message}`,
+          );
         }
       }
 
       for (const childRef of hints.childRefs) {
         try {
-          await addSubIssueRelationship(github, owner, repo, item.number, childRef);
+          await addSubIssueRelationship(
+            github,
+            owner,
+            repo,
+            item.number,
+            childRef,
+          );
         } catch (error) {
-          console.info(`Child relationship #${item.number} -> ${childRef} could not be added: ${error.message}`);
+          console.info(
+            `Child relationship #${item.number} -> ${childRef} could not be added: ${error.message}`,
+          );
         }
       }
     }
 
     if (hasRelationshipMetadata) {
-      const message = formatRelationshipComment(item, hints, milestoneSummary, assignee);
+      const message = formatRelationshipComment(
+        item,
+        hints,
+        milestoneSummary,
+        assignee,
+      );
       await upsertComment(github, owner, repo, item.number, message);
     }
   }
