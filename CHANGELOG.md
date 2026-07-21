@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`js-yaml` 5.x default-export removal** — 15 files using `import yaml from "js-yaml"` broke when `js-yaml` 5.x dropped its default export (named exports only: `load`, `dump`, etc.). Switched to namespace imports (`import * as yaml from "js-yaml"`). ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
 
 ### Changed
+
 - **`js-yaml` upgraded** — Bumped from `4.2.0` to `5.2.1`. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
 - **ESLint upgraded to 10.x** — Bumped `eslint` from `8.57.1` to `10.5.0` (two major versions). Added `@eslint/js` as an explicit devDependency (no longer bundled transitively by `eslint` itself), raised `engines.node` from `>=18.0.0` to `>=20.19.0` to satisfy ESLint 10's Node requirement, fixed 25 new-rule violations (`no-useless-assignment`, `preserve-caught-error`), and migrated the dead `.eslintignore` file into `eslint.config.cjs`'s flat-config `ignores`. ([PR #1046](https://github.com/lightspeedwp/.github/pull/1046))
 - **`@typescript-eslint/eslint-plugin` upgraded** — Bumped from `8.60.1` to `8.61.1` (patch release). ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
