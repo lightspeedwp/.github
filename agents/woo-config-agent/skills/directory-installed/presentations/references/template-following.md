@@ -242,5 +242,5 @@ node "$SKILL_DIR/template_following_scripts/check_template_fidelity.mjs" \
 If it fails, fix the map or edit inherited elements directly. Do not switch to
 overlays, visual rebuilds, Python PPTX mutation, or direct OOXML mutation.
 
-5. Run one slide-scoped QA review per slide for multi-slide decks, then
+1. Run one slide-scoped QA review per slide for multi-slide decks, then
    integrate the findings into a final polish pass.

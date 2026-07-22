@@ -17,10 +17,10 @@ description: Create and scaffold plugin directories for Codex with a required `.
 python3 scripts/create_basic_plugin.py <plugin-name>
 ```
 
-2. Edit `<plugin-path>/.codex-plugin/plugin.json` when the request gives specific metadata.
+1. Edit `<plugin-path>/.codex-plugin/plugin.json` when the request gives specific metadata.
    The scaffold starts with valid defaults and must not contain `[TODO: ...]` placeholders.
 
-3. Generate or update the personal marketplace entry when the plugin should appear in Codex UI ordering:
+2. Generate or update the personal marketplace entry when the plugin should appear in Codex UI ordering:
 
 ```bash
 # Personal marketplace entries default to `~/.agents/plugins/marketplace.json`.
@@ -50,7 +50,7 @@ telling the user to reinstall from it. The default personal marketplace file at
 `~/.agents/plugins/marketplace.json` is discovered implicitly, but other marketplace paths are not.
 On Windows, use the equivalent path under the user profile.
 
-4. Generate/adjust optional companion folders as needed:
+1. Generate/adjust optional companion folders as needed:
 
 ```bash
 python3 scripts/create_basic_plugin.py my-plugin \
@@ -62,7 +62,7 @@ python3 scripts/create_basic_plugin.py my-plugin \
 `<parent-plugin-directory>` is the directory where the plugin folder `<plugin-name>` will be
 created (for example `~/plugins`).
 
-5. Before handing back a generated plugin, run:
+1. Before handing back a generated plugin, run:
 
 ```bash
 python3 scripts/validate_plugin.py <plugin-path>

@@ -7,7 +7,7 @@ scope: phase-1-agent-standardization
 
 # Schemas Folder Audit & Proposed New Schemas — Phase 1
 
-**Objective:** Review existing schemas and define new ones for multi-provider agent standardization.
+**Objective:** Review existing schemas and define new ones for multi-provider agent standardisation.
 
 **Audit Date:** 2026-07-22  
 **Auditor:** Claude Code  

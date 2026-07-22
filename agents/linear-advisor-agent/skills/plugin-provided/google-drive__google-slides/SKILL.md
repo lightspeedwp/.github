@@ -143,9 +143,9 @@ Do not execute content edits until the required references are read in the curre
 4. Before each edit pass, identify the slide, object IDs, and current geometry through connector reads.
 5. Before every connector write batch, re-read `references/reference-target-presentation-guard.md` and re-confirm the target presentation and slide object IDs.
 6. Read via connector first, using the current Google Slides actions:
-   - get presentation, text, or outline
-   - get slide
-   - get slide thumbnail before and after batch updates, and when visual evidence matters
+   * get presentation, text, or outline
+   * get slide
+   * get slide thumbnail before and after batch updates, and when visual evidence matters
 7. If the source is a template or existing deck that should be preserved, create a copy before editing.
 8. Do not claim the connector is unavailable, read-only, or blocked unless the current session has established that through capability evidence.
 

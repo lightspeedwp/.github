@@ -1,6 +1,6 @@
 # Hybrid Diagram Workflow
 
-Mermaid's syntax can't express everything a good diagram needs — annotations tied to specific data, domain color-coding, callouts that live _next_ to the diagram rather than inside it. This reference covers the **hybrid workflow**: use `generate_diagram` to scaffold the structural diagram, then use `use_figma` (via the [figma-use-figjam](../../figma-use-figjam/SKILL.md) skill) to layer on what Mermaid can't do.
+Mermaid's syntax can't express everything a good diagram needs — annotations tied to specific data, domain color-coding, callouts that live *next* to the diagram rather than inside it. This reference covers the **hybrid workflow**: use `generate_diagram` to scaffold the structural diagram, then use `use_figma` (via the [figma-use-figjam](../../figma-use-figjam/SKILL.md) skill) to layer on what Mermaid can't do.
 
 **This is a judgment tool, not a procedure.** The hybrid workflow costs extra tokens and latency. Deploy it when the user's ask genuinely benefits — not on every diagram. When in doubt, ship the base diagram first; the user can tell you what's missing.
 
@@ -8,14 +8,14 @@ Mermaid's syntax can't express everything a good diagram needs — annotations t
 
 Signals that say **yes, go hybrid**:
 
-- User explicitly asks for something Mermaid can't do — _"add notes explaining the branches"_, _"color-code by team"_, _"callout the drop-offs with conversion numbers"_, _"annotate the critical path with the SLA"_.
+- User explicitly asks for something Mermaid can't do — *"add notes explaining the branches"*, *"color-code by team"*, *"callout the drop-offs with conversion numbers"*, *"annotate the critical path with the SLA"*.
 - User shared attachable data (quotes, metrics, research notes, ticket links) that clearly maps to specific nodes.
 - The diagram is complex enough that side-detail genuinely helps readability — dense subgraphs, long chains, branching flows where comments on specific steps would unblock a reader.
-- The user is framing this as a shareable artifact (_"for our team review"_, _"so PMs can follow"_) rather than a quick thinking sketch.
+- The user is framing this as a shareable artifact (*"for our team review"*, *"so PMs can follow"*) rather than a quick thinking sketch.
 
 Signals that say **no, single-tool is enough**:
 
-- Short / self-explanatory request (_"diagram our auth flow"_ with no adjectives).
+- Short / self-explanatory request (*"diagram our auth flow"* with no adjectives).
 - User appears to be testing or exploring — small scope, minimal language, no data to attach.
 - Small diagram (<8 nodes) where any annotation would be noisier than useful.
 - Flowchart request where the only "extension" would be color — Mermaid subgraph styling already handles this (see [flowchart.md §4](./flowchart.md)).
@@ -26,8 +26,8 @@ Bias toward action. The end goal is giving the user a file they can work with an
 
 Not all diagram types benefit equally. Rough priority for deploying the workflow:
 
-1. **Flowchart** — highest value is _annotation_ (notes, callouts, attached data). Color-coding is already covered natively by Mermaid subgraph styling — **skip color recipes for flowcharts** and route to [flowchart.md](./flowchart.md) if that's all the user wants.
-2. **ERD** — highest value is _domain color-coding_ (group tables by auth / billing / content / etc.) and _table-level annotations_. Mermaid's ERD styling is stripped by our preprocessor, so use_figma is the only path.
+1. **Flowchart** — highest value is *annotation* (notes, callouts, attached data). Color-coding is already covered natively by Mermaid subgraph styling — **skip color recipes for flowcharts** and route to [flowchart.md](./flowchart.md) if that's all the user wants.
+2. **ERD** — highest value is *domain color-coding* (group tables by auth / billing / content / etc.) and *table-level annotations*. Mermaid's ERD styling is stripped by our preprocessor, so use_figma is the only path.
 3. **Sequence / state / gantt** — smaller audiences; be conservative. Use the same recipes if the user explicitly asks, but don't volunteer heavy workflow on these.
 
 ## 3. The pattern
@@ -103,8 +103,8 @@ If the user wants to annotate just one or two nodes and a legend would be visual
 
 Two things matter; the rest is up to the model's normal style and user preferences.
 
-- **One-liner up front when the plan isn't obvious from the ask.** If the user said _"diagram our auth flow"_, no preamble needed. If they said _"diagram our auth flow, highlight the drop-offs"_, a short _"Generating the diagram, then adding callouts for the drop-offs"_ sets expectations. Don't ask for approval; the user already asked.
-- **Share the file link as soon as `generate_diagram` returns — before running extensions.** The base diagram is the first deliverable; users would rather open it and start looking while extension work continues than wait for a "finished" version. A sentence like _"Here's the base diagram: [link]. Adding the callouts now."_ is enough.
+- **One-liner up front when the plan isn't obvious from the ask.** If the user said *"diagram our auth flow"*, no preamble needed. If they said *"diagram our auth flow, highlight the drop-offs"*, a short *"Generating the diagram, then adding callouts for the drop-offs"* sets expectations. Don't ask for approval; the user already asked.
+- **Share the file link as soon as `generate_diagram` returns — before running extensions.** The base diagram is the first deliverable; users would rather open it and start looking while extension work continues than wait for a "finished" version. A sentence like *"Here's the base diagram: [link]. Adding the callouts now."* is enough.
 
 Everything else is up to you and your typical interactions with the user.
 
@@ -115,7 +115,7 @@ Ambiguous request? Pick a reasonable extension, do it, and narrate what you chos
 If `use_figma` fails after `generate_diagram` succeeded, the user already has the file link from step 3 of the communication flow. The failure message just needs to tell them the state of the file:
 
 - **Do not** retry in a loop or churn trying to fix it.
-- **Do** report clearly what landed and what didn't. _"The diagram is in the file, but I couldn't add the callout labels — `use_figma` failed with {short error}. You can add them manually or ask me to try again."_
+- **Do** report clearly what landed and what didn't. *"The diagram is in the file, but I couldn't add the callout labels — `use_figma` failed with {short error}. You can add them manually or ask me to try again."*
 - Partial progress is still progress. The user can open the file and continue from there.
 
 ## 8. What NOT to do in MVP
@@ -123,7 +123,7 @@ If `use_figma` fails after `generate_diagram` succeeded, the user already has th
 - **Don't reposition nodes.** ELK's layout is what it is for now. If the diagram looks cramped or tangled, the fix is better Mermaid, not manual repositioning via `use_figma`.
 - **Don't build the diagram from scratch with `use_figma`.** If `generate_diagram` can produce a reasonable base, use it. `use_figma` is for additive extensions, not replacement.
 - **Don't over-extend.** If the user asked for something simple, give them something simple. Every unrequested sticky or color choice is noise.
-- **Don't turn the workflow into a checklist.** If the user says _"diagram our API flow"_ with no qualifiers, the right answer is a single `generate_diagram` call — not a scaffold-and-extend ceremony.
+- **Don't turn the workflow into a checklist.** If the user says *"diagram our API flow"* with no qualifiers, the right answer is a single `generate_diagram` call — not a scaffold-and-extend ceremony.
 
 ## 9. End goal
 
