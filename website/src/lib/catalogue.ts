@@ -1071,7 +1071,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["ai", "assessment", "readiness"],
-      path: "agents/ai-readiness-estimator-agent/README.md",
+      path: "agents/ai-readiness-estimator-agent",
+      tree: true,
     },
   ),
   item(
@@ -1082,7 +1083,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["estimation", "planning", "website"],
-      path: "agents/website-scope-estimator-agent/README.md",
+      path: "agents/website-scope-estimator-agent",
+      tree: true,
     },
   ),
   item(
@@ -1093,7 +1095,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["testing", "automation", "qa"],
-      path: "agents/playwright-testing-agent/README.md",
+      path: "agents/playwright-testing-agent",
+      tree: true,
     },
   ),
   item(
@@ -1104,7 +1107,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["support", "integration", "customer"],
-      path: "agents/zendesk-support-agent/README.md",
+      path: "agents/zendesk-support-agent",
+      tree: true,
     },
   ),
   item(
@@ -1115,7 +1119,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["design", "collaboration", "systems"],
-      path: "agents/design-partner-agent/README.md",
+      path: "agents/design-partner-agent",
+      tree: true,
     },
   ),
   item(
@@ -1126,7 +1131,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["prd", "planning", "product"],
-      path: "agents/prd-factory-planner-agent/README.md",
+      path: "agents/prd-factory-planner-agent",
+      tree: true,
     },
   ),
   item(
@@ -1137,7 +1143,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["content", "strategy", "website"],
-      path: "agents/website-content-strategist-agent/README.md",
+      path: "agents/website-content-strategist-agent",
+      tree: true,
     },
   ),
   item(
@@ -1148,7 +1155,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["ecommerce", "woocommerce", "configuration"],
-      path: "agents/woo-config-agent/README.md",
+      path: "agents/woo-config-agent",
+      tree: true,
     },
   ),
   item(
@@ -1159,7 +1167,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["wordpress", "configuration", "setup"],
-      path: "agents/wp-config-agent/README.md",
+      path: "agents/wp-config-agent",
+      tree: true,
     },
   ),
   item(
@@ -1170,7 +1179,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["travel", "booking", "configuration"],
-      path: "agents/tour-operator-config-agent/README.md",
+      path: "agents/tour-operator-config-agent",
+      tree: true,
     },
   ),
   item(
@@ -1181,7 +1191,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["proposals", "sales", "automation"],
-      path: "agents/proposal-desk-agent/README.md",
+      path: "agents/proposal-desk-agent",
+      tree: true,
     },
   ),
   item(
@@ -1192,7 +1203,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["prd", "product", "specs"],
-      path: "agents/prd-agent/README.md",
+      path: "agents/prd-agent",
+      tree: true,
     },
   ),
   item(
@@ -1203,7 +1215,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["performance", "optimization", "website"],
-      path: "agents/pagespeed-agent/README.md",
+      path: "agents/pagespeed-agent",
+      tree: true,
     },
   ),
   item(
@@ -1214,7 +1227,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["analytics", "reporting", "metrics"],
-      path: "agents/harvest-analytical-agent/README.md",
+      path: "agents/harvest-analytical-agent",
+      tree: true,
     },
   ),
   item(
@@ -1225,7 +1239,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["issues", "triage", "management"],
-      path: "agents/linear-advisor-agent/README.md",
+      path: "agents/linear-advisor-agent",
+      tree: true,
     },
   ),
   item(
@@ -1236,7 +1251,8 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "install",
       tags: ["discovery", "requirements", "client"],
-      path: "agents/client-website-discovery-assistant-agent/README.md",
+      path: "agents/client-website-discovery-assistant-agent",
+      tree: true,
     },
   ),
 
