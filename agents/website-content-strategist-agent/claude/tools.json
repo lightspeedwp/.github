@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "content-strategist",
+      "description": "Content Strategist tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "content-auditor",
+      "description": "Content Auditor tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "gap-analyzer",
+      "description": "Gap Analyzer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "seo-optimizer",
+      "description": "Seo Optimizer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "keyword-researcher",
+      "description": "Keyword Researcher tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "content-planner",
+      "description": "Content Planner tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}

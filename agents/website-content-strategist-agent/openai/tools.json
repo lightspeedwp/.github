@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "functions": [
+    {
+      "type": "function",
+      "function": {
+        "name": "content-strategist",
+        "description": "Content Strategist",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "content-auditor",
+        "description": "Content Auditor",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "gap-analyzer",
+        "description": "Gap Analyzer",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "seo-optimizer",
+        "description": "Seo Optimizer",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "keyword-researcher",
+        "description": "Keyword Researcher",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "content-planner",
+        "description": "Content Planner",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    }
+  ],
+  "api_format": "openai"
+}

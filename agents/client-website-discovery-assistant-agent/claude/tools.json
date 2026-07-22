@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "website-analyzer",
+      "description": "Website Analyzer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "seo-auditor",
+      "description": "Seo Auditor tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "performance-tester",
+      "description": "Performance Tester tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "ux-assessor",
+      "description": "Ux Assessor tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "competitor-analyzer",
+      "description": "Competitor Analyzer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "recommendation-engine",
+      "description": "Recommendation Engine tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "pagespeed-analyzer",
+      "description": "Pagespeed Analyzer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "performance-tester",
+      "description": "Performance Tester tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "bottleneck-detector",
+      "description": "Bottleneck Detector tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "optimization-recommender",
+      "description": "Optimization Recommender tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "caching-strategist",
+      "description": "Caching Strategist tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}

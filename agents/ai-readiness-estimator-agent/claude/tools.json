@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "capability-assessor",
+      "description": "Capability Assessor tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "workflow-analyzer",
+      "description": "Workflow Analyzer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "data-quality-checker",
+      "description": "Data Quality Checker tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "infrastructure-evaluator",
+      "description": "Infrastructure Evaluator tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "readiness-surveyor",
+      "description": "Readiness Surveyor tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "roadmap-generator",
+      "description": "Roadmap Generator tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}

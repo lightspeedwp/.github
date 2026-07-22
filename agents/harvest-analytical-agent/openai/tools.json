@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "functions": [
+    {
+      "type": "function",
+      "function": {
+        "name": "harvest-api-client",
+        "description": "Harvest Api Client",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "time-data-analyzer",
+        "description": "Time Data Analyzer",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "profitability-calculator",
+        "description": "Profitability Calculator",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "productivity-reporter",
+        "description": "Productivity Reporter",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "budget-tracker",
+        "description": "Budget Tracker",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "invoice-generator",
+        "description": "Invoice Generator",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    }
+  ],
+  "api_format": "openai"
+}

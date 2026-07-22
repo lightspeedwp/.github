@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "linear-api-client",
+      "description": "Linear Api Client tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "issue-manager",
+      "description": "Issue Manager tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "project-planner",
+      "description": "Project Planner tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "sprint-organizer",
+      "description": "Sprint Organizer tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "release-planner",
+      "description": "Release Planner tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "workflow-automator",
+      "description": "Workflow Automator tool",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Query parameter"
+          },
+          "options": {
+            "type": "object",
+            "description": "Additional options"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}
