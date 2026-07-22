@@ -78,3 +78,9 @@ For mailbox analysis requests such as triage, follow-up detection, topic summari
 ## Light Fallback
 
 If thread or inbox data is missing, say that Gmail access may be unavailable or scoped to the wrong account and ask the user to reconnect or clarify which mailbox or thread should be used.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

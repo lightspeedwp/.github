@@ -1,5 +1,40 @@
 # FigJam Colors
 
+<!-- BADGES-START -->
+[![actions-minute-savings-watch](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml)
+[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
+[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
+[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
+[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
+[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
+[![cleanup-branches](https://github.com/lightspeedwp/.github/actions/workflows/cleanup-branches.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/cleanup-branches.yml)
+[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
+[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
+[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
+[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
+[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
+[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
+[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
+[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
+[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
+[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
+[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
+[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
+[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
+[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
+[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
+[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
+[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
+[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
+[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
+[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
+[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
+[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
+<!-- BADGES-END -->
+
 > Part of the [figma-use-figjam skill](../SKILL.md). Canonical color palettes for FigJam node types — stickies, sections, connectors, shapes-with-text, and labels.
 
 This is the shared color reference for every FigJam node type. Each node type has its own palette (FigJam doesn't share one universal palette across all node types), so use the table for the node type you're working with. The hex/255 conversion helper at the top is shared across all of them.
@@ -52,136 +87,6 @@ Strongly prefer the palette colors below over arbitrary hex values. If the user 
 
 ---
 
-## Sticky palette
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-Used for `figma.createSticky()` fills — see [create-sticky](create-sticky.md).
-
-| Color  | Hex       |
-| ------ | --------- |
-| White  | `#FFFFFF` |
-| Gray   | `#E6E6E6` |
-| Green  | `#B3EFBD` |
-| Teal   | `#B3F4EF` |
-| Blue   | `#A8DAFF` |
-| Violet | `#D3BDFF` |
-| Pink   | `#FFA8DB` |
-| Red    | `#FFB8A8` |
-| Orange | `#FFD3A8` |
-| Yellow | `#FFE299` |
-
-Sticky semantics commonly used: blue=discussion, yellow=question, green=positive, pink=concern, red=blocker, teal=decision, violet=ideation.
-
-## Section background palette
-
-Used for `figma.createSection()` fills — see [create-section](create-section.md). Sections typically use lighter tints than stickies. When creating multiple sections, vary the colors so the user can visually distinguish them.
-
-| Color        | Hex       |
-| ------------ | --------- |
-| White        | `#FFFFFF` |
-| Light gray   | `#F9F9F9` |
-| Light green  | `#EBFFEE` |
-| Light teal   | `#F1FEFD` |
-| Light blue   | `#F5FBFF` |
-| Light violet | `#F8F5FF` |
-| Light pink   | `#FFF0FA` |
-| Light red    | `#FFF5F5` |
-| Light orange | `#FFF7F0` |
-| Light yellow | `#FFFBF0` |
-
-## Connector stroke palette
-
-Used for `figma.createConnector()` `strokes` — see [create-connector](create-connector.md). Connector text labels have their own background and color independently of the line.
-
-| Color      | Hex       |
-| ---------- | --------- |
-| Black      | `#1E1E1E` |
-| Dark gray  | `#757575` |
-| Gray       | `#B3B3B3` |
-| Light gray | `#D9D9D9` |
-| Green      | `#66D575` |
-| Teal       | `#5AD8CC` |
-| Blue       | `#3DADFF` |
-| Violet     | `#874FFF` |
-| Pink       | `#F849C1` |
-| Red        | `#FF7556` |
-| Orange     | `#FF9E42` |
-| Yellow     | `#FFC943` |
-| White      | `#FFFFFF` |
-
-## Shape coordinated palette
-
-Used for `figma.createShapeWithText()` — see [create-shape-with-text](create-shape-with-text.md) and [create-label](create-label.md). FigJam shapes coordinate three colors together: **fill**, **stroke**, and **text**. Setting only one will produce an off-palette shape (e.g., dark text on a dark fill, or unmatched stroke).
-
-```js
-const h = (r, g, b) => ({ r: r / 255, g: g / 255, b: b / 255 })
-const WHITE = h(0xff, 0xff, 0xff)
-const DARK = h(0x1e, 0x1e, 0x1e)
-
-const SHAPE_PRESETS = {
-  // White-text presets (saturated fills)
-  black:    { fill: h(0x1e, 0x1e, 0x1e), stroke: h(0xb3, 0xb3, 0xb3), text: WHITE },
-  darkGray: { fill: h(0x75, 0x75, 0x75), stroke: h(0x5e, 0x5e, 0x5e), text: WHITE },
-  green:    { fill: h(0x66, 0xd5, 0x75), stroke: h(0x3e, 0x9b, 0x4b), text: WHITE },
-  teal:     { fill: h(0x5a, 0xd8, 0xcc), stroke: h(0x36, 0x9e, 0x94), text: WHITE },
-  blue:     { fill: h(0x3d, 0xad, 0xff), stroke: h(0x00, 0x7a, 0xd2), text: WHITE },
-  violet:   { fill: h(0x87, 0x4f, 0xff), stroke: h(0x54, 0x27, 0xb4), text: WHITE },
-  pink:     { fill: h(0xf8, 0x49, 0xc1), stroke: h(0xb4, 0x24, 0x87), text: WHITE },
-  red:      { fill: h(0xff, 0x75, 0x56), stroke: h(0xdc, 0x30, 0x09), text: WHITE },
-  orange:   { fill: h(0xff, 0x9e, 0x42), stroke: h(0xeb, 0x75, 0x00), text: WHITE },
-
-  // Dark-text presets (lighter fills)
-  gray:      { fill: h(0xb3, 0xb3, 0xb3), stroke: h(0x8f, 0x8f, 0x8f), text: DARK },
-  lightGray: { fill: h(0xd9, 0xd9, 0xd9), stroke: h(0xb3, 0xb3, 0xb3), text: DARK },
-  yellow:    { fill: h(0xff, 0xc9, 0x43), stroke: h(0xe8, 0xa3, 0x02), text: DARK },
-  white:     { fill: h(0xff, 0xff, 0xff), stroke: h(0xb3, 0xb3, 0xb3), text: DARK },
-}
-
-function applyShapeColor(shape, preset) {
-  shape.fills = [{ type: 'SOLID', color: preset.fill }]
-  shape.strokes = [{ type: 'SOLID', color: preset.stroke }]
-  shape.text.fills = [{ type: 'SOLID', color: preset.text }]
-}
-```
-
-## Label coordinated palette
-
-Labels (small numbered/lettered circle callouts created with `figma.createShapeWithText({shapeType:'ELLIPSE'})`) use the same coordinated fill/stroke/text system as shapes — see [create-label](create-label.md). The `SHAPE_PRESETS` map above works for labels too.
-
-If you want to inline only the most-common label preset (blue numbered circles for annotation legends):
-
-```js
-const h = (r, g, b) => ({ r: r / 255, g: g / 255, b: b / 255 })
-const WHITE = h(0xff, 0xff, 0xff)
-const PRESET_BLUE = { fill: h(0x3d, 0xad, 0xff), stroke: h(0x00, 0x7a, 0xd2), text: WHITE }
-```
-
-## Plan-board accent colors
-
-Board-content layouts (templates, retros, brainstorms — see [plan-board-content](plan-board-content.md)) use a small set of saturated accent colors for badges, status dots, and emphasis markers. These are designer-chosen, **not** FigJam palette swatches — applying them won't show as palette colors in the FigJam UI, and that's intentional (they're for in-content accents, not for fills the user will recolor).
-
-For section backgrounds, use the [Section background palette](#section-background-palette) above. For badge/dot accents:
-
-```js
-const h = (r, g, b) => ({ r: r / 255, g: g / 255, b: b / 255 })
-
-const black     = h(0x12, 0x12, 0x12)
-const gray      = h(0x59, 0x59, 0x59)
-const red       = h(0xbf, 0x2e, 0x2e)
-const orange    = h(0xb8, 0x61, 0x14)
-const green     = h(0x1f, 0x80, 0x4d)
-const blue      = h(0x38, 0x66, 0xbf)
-const purple    = h(0x73, 0x4d, 0xa6)
-const attention = h(0xd9, 0xa6, 0x1a) // gold
-```
-
-Use these for badges, status indicators, and other small accent marks — not for section backgrounds, sticky fills, or shape fills (those have their own coordinated palettes above).
-
-## Default text color
-
-For text nodes, sticky text, shape text, and any FigJam content where the user hasn't specified a text color, default to **Charcoal `#1E1E1E`** — see [edit-text](edit-text.md).
-
-```js
-textNode.fills = [{ type: 'SOLID', color: { r: 0x1e/255, g: 0x1e/255, b: 0x1e/255 } }]
-```
-
-Avoid mid-grays (`#757575`, `#B3B3B3`, `#D9D9D9`) for body text — they read as unfinished or low-contrast on FigJam's near-white canvas.
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -100,3 +100,9 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - [agents/testing.agent.md](../agents/testing.agent.md) - Reference agent
 - [AGENTS.md](../../AGENTS.md) - Global AI rules
 - [agents/agent-spec.instructions.md](../instructions/agent-spec.instructions.md) - Agent spec standards
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -34,3 +34,9 @@ Formatting must always be consistent throughout the workbook.
 - Marketing analytics often involves combining data from multiple sources (ad platforms, surveys, sales figures). Always document these sources. For example, label a data column “Facebook Ads – Impressions (source: Ads Manager export on 2025-05-01)” or have a small note on the dashboard: “Data Sources: Google Analytics, CRM database (as of Apr 2025).” This gives context to the numbers and their freshness. Include time frames and units in your labels – e.g., “Budget (USD)” or “Weekly Reach”.
 - Label any assumptions clearly
 - Consistency is also key: if “CPC” means cost per click, ensure it’s defined somewhere or obvious from context, so everyone reading the sheet interprets metrics correctly.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
