@@ -22,3 +22,7 @@ Footer cleanup and validation complete: renamed branch from `claude/*` (forbidde
 ## 18:47 | feat/project-milestone-allocation-strategy
 
 Implemented version-based milestone strategy (v1.0–v1.6) w/ auto-allocation; created project-routes.yml & milestone scripts; extended metadata-governance workflow; validated approach via 3 research agents; configured GitHub App credentials (LS_PROJECT_URL, LS_APP_ID, LS_APP_PRIVATE_KEY) for Project 33; tested workflow & identified Node v22→v24 incompatibility in project-meta-sync.yml; PR #1113 pending fix.
+
+## 18:25 | fix/validation-footer-and-mermaid
+
+Fixed validate-footers truncation & validate-mermaid-pr error handling (#1118, #1119) in PR #1123 w/ bug templates & status comments.
