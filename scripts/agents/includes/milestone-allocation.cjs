@@ -10,7 +10,7 @@ function readConfig(configPath) {
   if (!fs.existsSync(fullPath)) {
     throw new Error(`Config file not found: ${fullPath}`);
   }
-  return yaml.safeLoad(fs.readFileSync(fullPath, "utf8"));
+  return yaml.load(fs.readFileSync(fullPath, "utf8"));
 }
 
 function getMilestoneForIssue(issue, config) {
