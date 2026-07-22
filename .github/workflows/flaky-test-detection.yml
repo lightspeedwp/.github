@@ -34,7 +34,7 @@ jobs:
 
       - name: Upload test results to Mergify
         if: success() || failure()
-        uses: mergifyio/gha-mergify-ci@v22
+        uses: mergifyio/gha-mergify-ci@v23
         with:
           token: ${{ secrets.MERGIFY_TOKEN }}
           flaky_test_detection: true
