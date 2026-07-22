@@ -79,8 +79,4 @@ See [cookbook.yml](./cookbook.yml) for metadata about all recipes, including ver
 
 ---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+---

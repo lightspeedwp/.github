@@ -15,7 +15,8 @@ export const RECIPES: Recipe[] = [
   {
     id: "project-planning-and-prd-playbook",
     title: "Project planning & PRD playbook",
-    blurb: "Turn a raw brief into a scoped plan with measurable outcomes and implementation-ready detail.",
+    blurb:
+      "Turn a raw brief into a scoped plan with measurable outcomes and implementation-ready detail.",
     kind: "planning",
     duration: "8 min",
     src: "cookbook/project-planning-and-prd-playbook.md",
@@ -23,7 +24,8 @@ export const RECIPES: Recipe[] = [
   {
     id: "spec-driven-workflow-example",
     title: "Spec-driven workflow example",
-    blurb: "Work from a concrete requirement through design, tests, implementation, and validation.",
+    blurb:
+      "Work from a concrete requirement through design, tests, implementation, and validation.",
     kind: "workflow",
     duration: "6 min",
     src: "cookbook/spec-driven-workflow-example.md",
@@ -31,7 +33,8 @@ export const RECIPES: Recipe[] = [
   {
     id: "wordpress-plugin-checklist",
     title: "WordPress plugin checklist",
-    blurb: "Use the final shipping checklist for a block-first plugin with security, accessibility, and QA covered.",
+    blurb:
+      "Use the final shipping checklist for a block-first plugin with security, accessibility, and QA covered.",
     kind: "plugin",
     duration: "5 min",
     src: "cookbook/wordpress-plugin-checklist.md",
@@ -39,7 +42,8 @@ export const RECIPES: Recipe[] = [
   {
     id: "delivery-playbook",
     title: "Delivery playbook",
-    blurb: "A coming-soon recipe for the final delivery pass, release prep, and handover checks.",
+    blurb:
+      "A coming-soon recipe for the final delivery pass, release prep, and handover checks.",
     kind: "delivery",
     duration: "Soon",
     comingSoon: true,
