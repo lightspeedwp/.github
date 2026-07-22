@@ -2,7 +2,7 @@ name: Flaky Test Detection
 
 on:
   schedule:
-    - cron: '0 */12 * * 1-5' # Every 12 hours, Monday-Friday
+    - cron: "0 */12 * * 1-5" # Every 12 hours, Monday-Friday
   workflow_dispatch: # Allow manual trigger for testing
 
 jobs:
@@ -14,13 +14,13 @@ jobs:
       matrix:
         run_number: [1, 2, 3, 4, 5]
     env:
-      HUSKY: '0'
+      HUSKY: "0"
     steps:
       - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - run: npm ci
@@ -34,9 +34,9 @@ jobs:
 
       - name: Upload test results to Mergify
         if: success() || failure()
-        uses: mergifyio/gha-mergify-ci@v22
+        uses: mergifyio/gha-mergify-ci@v23
         with:
           token: ${{ secrets.MERGIFY_TOKEN }}
           flaky_test_detection: true
-          report_path: 'junit-unit-${{ matrix.run_number }}.xml'
+          report_path: "junit-unit-${{ matrix.run_number }}.xml"
           job_name: check

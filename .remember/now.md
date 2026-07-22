@@ -62,15 +62,3 @@ Added 16 new agent definitions to website/src/lib/agents.ts registry; committed 
 ## 19:26 | chore/coderabbit-improvements-1126
 
 Merged PR #1123 (footer data-loss fix, mermaid workflow robustness), PR #1127 (CodeRabbit polish: UK spelling, framework status, Gemini cleanup); filed #1128 for 8 pending hook-dependent improvements.
-
-## 19:39 | develop
-
-Added 16 new agent definitions to website agents.ts; discovered broken /agents/ page display, pivoting to update catalogue.ts for /c/agents/ instead.
-
-## 19:40 | develop
-
-3 investigation agents validated milestone strategy; configured GitHub App (LS_APP credentials); fixed Node 22→24 & linting; merged PR #1113 (version-based milestones v1.0–v1.6) to develop; testing with issue #1128.
-
-## 19:47 | claude/milestones-workflow-review-2ef6f7
-
-Milestone workflow audit found capacity-exclusion bug in check-milestone-capacity.cjs, missing test coverage, no milestone-creation automation; fixes to follow.
