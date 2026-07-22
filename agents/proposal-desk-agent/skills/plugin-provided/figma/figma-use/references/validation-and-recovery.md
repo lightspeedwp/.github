@@ -8,7 +8,6 @@
 - Error Recovery After Failed `use_figma`
 - Recommended Workflow
 
-
 ## `get_metadata` vs `get_screenshot`
 
 After each `use_figma` call, validate results using the right tool for the job. Do NOT reach for `get_screenshot` every time — it is expensive and should be reserved for visual checks.
@@ -31,6 +30,7 @@ ComponentSet node to verify all 120 children exist with correct names, sizes, an
 ```
 
 **When to use `get_metadata`:**
+
 - After creating/modifying nodes — to verify structure, counts, and names
 - After layout operations — to verify positions and dimensions
 - After combining variants — to confirm all components are in the ComponentSet
@@ -42,6 +42,7 @@ ComponentSet node to verify all 120 children exist with correct names, sizes, an
 `get_screenshot` renders a pixel-accurate image. It is the only way to verify visual correctness (colors, typography rendering, effects, variable mode resolution). It is slower and produces large responses, so don't call it after every single `use_figma` — but do call it after each major milestone to catch visual problems early.
 
 **When to use `get_screenshot`:**
+
 - **After creating a component set** — verify variants look correct, grid is readable, nothing is collapsed or overlapping
 - **After composing a layout** — verify overall structure and spacing
 - **After binding variables/modes** — verify colors and tokens resolved correctly
@@ -49,6 +50,7 @@ ComponentSet node to verify all 120 children exist with correct names, sizes, an
 - **Before reporting results to the user** — final visual proof
 
 **What to look for in screenshots** — these are the most commonly missed issues:
+
 - **Cropped/clipped text** — line heights or frame sizing cutting off descenders, ascenders, or entire lines
 - **Overlapping content** — elements stacking on top of each other due to incorrect sizing or missing auto-layout
 - **Placeholder text** still showing ("Title", "Heading", "Button") instead of actual content
@@ -58,6 +60,7 @@ ComponentSet node to verify all 120 children exist with correct names, sizes, an
 **`use_figma` is atomic — failed scripts do not execute.** If a script errors, no changes are made to the file. The file remains in exactly the same state as before the call. There are no partial nodes, no orphaned elements, and retrying after a fix is safe.
 
 **Recovery steps when `use_figma` returns an error:**
+
 1. **STOP — do NOT immediately fix the code and retry.** Read the error message carefully first.
 2. **Understand the error.** Most errors are caused by wrong API usage, missing font loads, invalid property values, or referencing nodes that don't exist.
 3. **If the error is unclear**, call `get_metadata` or `get_screenshot` to understand the current file state and confirm nothing has changed.

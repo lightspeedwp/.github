@@ -1,12 +1,11 @@
 # Google Slides MCP Discovery Reference
 
-`mcp__codex_apps__google_drive_*` tools are very similar to the Google Slides API, but has some small differences. 
-Use this file to understand the differences, so you know how to call `mcp__codex_apps__google_drive_*` tools correctly. 
+`mcp__codex_apps__google_drive_*` tools are very similar to the Google Slides API, but has some small differences.
+Use this file to understand the differences, so you know how to call `mcp__codex_apps__google_drive_*` tools correctly.
 
 This file does not define new tools. It explains how to translate between the public Google Slides API shape and the Google Drive MCP wrapper shape so agents stop mixing REST fields, connector wrapper fields, and raw batchUpdate request bodies.
 
 When in doubt, you can always curl the official Slides discovery for the underlying API: `https://slides.googleapis.com/$discovery/rest?version=v1`.
-
 
 ## Service Overview
 
@@ -18,7 +17,6 @@ When in doubt, you can always curl the official Slides discovery for the underly
 - Raw Slides request objects inside `_batch_update_presentation.requests[]` keep the official Google Slides REST camelCase names and field names, such as `updateTableBorderProperties`, `textRange`, and `writeControl`'s inner `requiredRevisionId` equivalent.
 - Full MCP tool names use the `mcp__codex_apps__google_drive_*` form. In Node examples, call `tools["mcp__codex_apps__google_drive_get_presentation"]` with an argument object, not short aliases or dot-call helpers.
 - Treat Drive file lifecycle operations and Slides content operations as separate surfaces: `_create_file` and `_update_file` are Drive operations; `_batch_update_presentation` is the Slides content update wrapper.
-
 
 ## Google Slides API vs Google Drive MCP
 
