@@ -7,13 +7,13 @@ const agents = getAllAgents();
 
 <BaseLayout
   title="Agent Guides — Awesome GitHub"
-  description="Learn about the 6 core agents that power the .github governance system."
+  description={`Learn about ${agents.length} specialist agents that power governance, automation, and project delivery.`}
 >
   <section class="hero">
     <div class="eyebrow">Agent Guides</div>
-    <h1>Meet the Core Agents</h1>
+    <h1>Meet Our Agents</h1>
     <p class="lede">
-      Six specialist agents handle different aspects of governance and automation: Release, Branding, Meta, Linting, Labelling, and Planner. Each agent is a reusable, self-contained capability.
+      {agents.length} specialist agents handle different aspects of governance, automation, project delivery, and technical excellence. Each agent is a reusable, self-contained capability designed for specific domains and workflows.
     </p>
     <div class="hero-actions">
       <a class="button secondary" href="/getting-started/">Why agents matter</a>
@@ -21,7 +21,7 @@ const agents = getAllAgents();
   </section>
 
   <section class="section">
-    <h2>Core Agents</h2>
+    <h2>All Agents ({agents.length})</h2>
     <div class="agent-grid">
       {agents.map((agent) => (
         <article class="agent-card">
@@ -52,27 +52,20 @@ const agents = getAllAgents();
   </section>
 
   <section class="section">
-    <h2>Agent Relationships</h2>
+    <h2>Agent Ecosystem</h2>
     <div class="page-copy">
       <p>
         Agents don't work in isolation. They integrate with each other to provide
-        comprehensive governance:
+        comprehensive governance, automation, and project delivery capabilities. Explore
+        individual agent pages to learn about integrations, use cases, and related agents.
       </p>
-      <ul>
-        <li>
-          <strong>Release Agent</strong> depends on Planner Agent (milestones) and
-          Reviewer Agent (quality gates)
-        </li>
-        <li>
-          <strong>Meta Agent</strong> coordinates metrics and observability across all agents
-        </li>
-        <li>
-          <strong>Labelling Agent</strong> enables routing and triage for other agents
-        </li>
-        <li>
-          <strong>Linting Agent</strong> enforces quality checks in release validation
-        </li>
-      </ul>
+      <p>
+        Our agent ecosystem spans governance (Release, Branding, Meta, Linting, Labelling,
+        Planner), project delivery (Website Scope Estimator, PRD Factory & Planner, Client
+        Website Discovery), technical excellence (Playwright Testing, PageSpeed, WordPress
+        Configuration), domain specialisation (WooCommerce, Tour Operator, Zendesk Support),
+        and analytics (Harvest Analytical, Linear Advisor).
+      </p>
     </div>
   </section>
 
