@@ -26,94 +26,99 @@
  *   List of node IDs that were mutated (for audit/validation purposes).
  */
 export async function bindVariablesToComponent(component, bindings) {
-  const mutatedNodeIds = []
+  const mutatedNodeIds = [];
 
   if (!component) {
-    return { mutatedNodeIds }
+    return { mutatedNodeIds };
   }
 
   // Batch every getVariableByIdAsync call upfront in a single Promise.all rather
   // than awaiting per-property — the lookups are independent and IPC-bound.
   const floatBindings = [
-    ['paddingTop', 'paddingTop'],
-    ['paddingBottom', 'paddingBottom'],
-    ['paddingLeft', 'paddingLeft'],
-    ['paddingRight', 'paddingRight'],
-    ['itemSpacing', 'itemSpacing'],
-    ['cornerRadius', 'cornerRadius'],
-  ]
+    ["paddingTop", "paddingTop"],
+    ["paddingBottom", "paddingBottom"],
+    ["paddingLeft", "paddingLeft"],
+    ["paddingRight", "paddingRight"],
+    ["itemSpacing", "itemSpacing"],
+    ["cornerRadius", "cornerRadius"],
+  ];
 
-  const requestedIds = []
-  if (bindings.fills) requestedIds.push(['fills', bindings.fills])
-  if (bindings.strokes) requestedIds.push(['strokes', bindings.strokes])
+  const requestedIds = [];
+  if (bindings.fills) requestedIds.push(["fills", bindings.fills]);
+  if (bindings.strokes) requestedIds.push(["strokes", bindings.strokes]);
   for (const [bindingKey] of floatBindings) {
-    if (bindings[bindingKey]) requestedIds.push([bindingKey, bindings[bindingKey]])
+    if (bindings[bindingKey])
+      requestedIds.push([bindingKey, bindings[bindingKey]]);
   }
 
   const resolved = await Promise.all(
     requestedIds.map(([, id]) => figma.variables.getVariableByIdAsync(id)),
-  )
-  const varByKey = {}
+  );
+  const varByKey = {};
   for (let i = 0; i < requestedIds.length; i++) {
-    varByKey[requestedIds[i][0]] = resolved[i]
+    varByKey[requestedIds[i][0]] = resolved[i];
   }
 
   const markMutated = () => {
     if (!mutatedNodeIds.includes(component.id)) {
-      mutatedNodeIds.push(component.id)
+      mutatedNodeIds.push(component.id);
     }
-  }
+  };
 
   // --- Fills ---
-  const fillVar = varByKey.fills
+  const fillVar = varByKey.fills;
   if (fillVar) {
-    const existingFills = component.fills
+    const existingFills = component.fills;
     if (Array.isArray(existingFills) && existingFills.length > 0) {
       // Bind the color of the first fill to the variable
-      const boundFill = figma.variables.setBoundVariableForPaint(existingFills[0], 'color', fillVar)
-      component.fills = [boundFill, ...existingFills.slice(1)]
+      const boundFill = figma.variables.setBoundVariableForPaint(
+        existingFills[0],
+        "color",
+        fillVar,
+      );
+      component.fills = [boundFill, ...existingFills.slice(1)];
     } else {
       // No existing fill — create a solid fill bound to the variable
       const boundFill = figma.variables.setBoundVariableForPaint(
-        { type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } },
-        'color',
+        { type: "SOLID", color: { r: 0.5, g: 0.5, b: 0.5 } },
+        "color",
         fillVar,
-      )
-      component.fills = [boundFill]
+      );
+      component.fills = [boundFill];
     }
-    markMutated()
+    markMutated();
   }
 
   // --- Strokes ---
-  const strokeVar = varByKey.strokes
+  const strokeVar = varByKey.strokes;
   if (strokeVar) {
-    const existingStrokes = component.strokes
+    const existingStrokes = component.strokes;
     if (Array.isArray(existingStrokes) && existingStrokes.length > 0) {
       const boundStroke = figma.variables.setBoundVariableForPaint(
         existingStrokes[0],
-        'color',
+        "color",
         strokeVar,
-      )
-      component.strokes = [boundStroke, ...existingStrokes.slice(1)]
+      );
+      component.strokes = [boundStroke, ...existingStrokes.slice(1)];
     } else {
       const boundStroke = figma.variables.setBoundVariableForPaint(
-        { type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } },
-        'color',
+        { type: "SOLID", color: { r: 0.5, g: 0.5, b: 0.5 } },
+        "color",
         strokeVar,
-      )
-      component.strokes = [boundStroke]
+      );
+      component.strokes = [boundStroke];
     }
-    markMutated()
+    markMutated();
   }
 
   // --- Spacing properties (FLOAT variables bound via setBoundVariable) ---
   for (const [bindingKey, figmaProp] of floatBindings) {
-    const variable = varByKey[bindingKey]
+    const variable = varByKey[bindingKey];
     if (variable) {
-      component.setBoundVariable(figmaProp, variable)
-      markMutated()
+      component.setBoundVariable(figmaProp, variable);
+      markMutated();
     }
   }
 
-  return { mutatedNodeIds }
+  return { mutatedNodeIds };
 }

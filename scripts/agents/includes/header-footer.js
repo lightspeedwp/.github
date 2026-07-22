@@ -42,22 +42,23 @@ function loadFooterConfig() {
 
 /**
  * Standard footer variants (fallback if config not found)
+ * NOTE: No references below the footer line — design policy requires quirky line only.
  */
 const DEFAULT_FOOTERS = [
-  "_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)",
-  "_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
-  "_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)",
-  "_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)",
-  "_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_",
+  "*Maintained by the 🤖 LightSpeedWP Automation Team*",
+  "*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*",
+  "*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*",
+  "*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*",
+  "*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*",
 ];
 
 const DEFAULT_FOOTER_SIGNATURES = [
-  "_Maintained with",
-  "_Built by",
-  "_Have questions?",
-  "_This page brought to you by",
-  "_Docs signed by",
-  "Made with 💚 by LightSpeedWP",
+  "*Maintained by the 🤖",
+  "*Built by 🧱",
+  "*Have questions?",
+  "*This page brought to you by",
+  "*Docs signed by 🤖",
+  "Maintained by the 🤖 LightSpeedWP Automation Team",
 ];
 
 function getCanonicalFooterTemplates() {
@@ -192,30 +193,33 @@ function getRandomFooter(category = "default", seed = null) {
 
 /**
  * Regex pattern to match existing footers
+ * Footers are single-line quirky statements with NO references below
  */
 // List of footer patterns to match (add or update as needed)
 const FOOTER_PATTERNS = [
-  "_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Docs signed by 🤖[\\s\\S]*?",
-  "Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "Questions\\?[\\s\\S]*?",
-  "Prefer a guided[\\s\\S]*?",
-  "Clarity first[\\s\\S]*?",
-  "Improvements welcome[\\s\\S]*?",
-  "Copy, adapt[\\s\\S]*?",
-  "Tweak the variables[\\s\\S]*?",
-  "Your feedback shapes[\\s\\S]*?",
-  "Reuse beats[\\s\\S]*?",
-  "Keep prompts[\\s\\S]*?",
-  "Use responsibly[\\s\\S]*?",
-  "Keep tone[\\s\\S]*?",
-  "Update when[\\s\\S]*?",
-  "Link policies[\\s\\S]*?",
-  "Thanks for helping[\\s\\S]*?",
-  "Need help\\?[\\s\\S]*?",
+  "\\*Maintained by the 🤖[^\\n]*\\*",
+  "\\*Built by 🧱[^\\n]*\\*",
+  "\\*Have questions\\?[^\\n]*\\*",
+  "\\*This page brought to you by[^\\n]*\\*",
+  "\\*Docs signed by 🤖[^\\n]*\\*",
+  "Maintained with ❤️[^\\n]*",
+  "_Maintained with ❤️[^\\n]*_",
+  "Made with 💚[^\\n]*",
+  "Questions\\?[^\\n]*",
+  "Prefer a guided[^\\n]*",
+  "Clarity first[^\\n]*",
+  "Improvements welcome[^\\n]*",
+  "Copy, adapt[^\\n]*",
+  "Tweak the variables[^\\n]*",
+  "Your feedback shapes[^\\n]*",
+  "Reuse beats[^\\n]*",
+  "Keep prompts[^\\n]*",
+  "Use responsibly[^\\n]*",
+  "Keep tone[^\\n]*",
+  "Update when[^\\n]*",
+  "Link policies[^\\n]*",
+  "Thanks for helping[^\\n]*",
+  "Need help\\?[^\\n]*",
 ];
 
 /**

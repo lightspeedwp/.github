@@ -186,5 +186,4 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines. Key 
 
 ---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+---

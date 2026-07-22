@@ -98,7 +98,7 @@
     "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter-freshness.js",
     "validate:branch-name": "node scripts/validation/validate-branch-name.js",
     "validate:workflows": "node scripts/validation/validate-workflows.js",
-    "validate:footers": "node .github/scripts/validate-footers.js",
+    "validate:footers": "node .github/scripts/validate-footers.js && node scripts/validate-footer-cleanup.js",
     "validate:labeling-configs": "node scripts/validation/validate-labeling-configs.cjs",
     "validate:retired-doc-links": "node scripts/validation/validate-retired-doc-links.cjs",
     "validate:issue-fields": "node scripts/validation/validate-issue-fields.cjs",
