@@ -1,0 +1,87 @@
+version: "1.0"
+name: prd-agent-skills
+description: PRD Agent skills for GitHub Copilot
+provider: copilot
+
+skills:
+  - id: prd-writing
+    name: PRD Writing
+    description: Write comprehensive product requirement documents
+    commands:
+      - /prd create
+      - /prd template
+      - /prd validate
+    capabilities:
+      - document-generation
+      - requirement-analysis
+      - formatting
+
+  - id: feature-planning
+    name: Feature Planning
+    description: Plan features and create user stories
+    commands:
+      - /features plan
+      - /features prioritize
+      - /stories generate
+    capabilities:
+      - feature-definition
+      - user-story-generation
+      - prioritization
+
+  - id: sprint-planning
+    name: Sprint Planning
+    description: Plan sprints with GitHub Projects integration
+    commands:
+      - /sprint plan
+      - /sprint estimate
+      - /sprint assign
+    capabilities:
+      - sprint-coordination
+      - team-assignment
+      - timeline-planning
+    integrations:
+      - github-projects
+
+  - id: roadmap-creation
+    name: Roadmap Creation
+    description: Build product roadmaps
+    commands:
+      - /roadmap create
+      - /roadmap timeline
+      - /roadmap visual
+    capabilities:
+      - roadmap-generation
+      - milestone-planning
+      - timeline-visualization
+    integrations:
+      - github-milestones
+      - github-releases
+
+  - id: timeline-estimation
+    name: Timeline Estimation
+    description: Estimate timelines and create schedules
+    commands:
+      - /estimate timeline
+      - /estimate effort
+      - /estimate capacity
+    capabilities:
+      - timeline-planning
+      - effort-estimation
+      - capacity-planning
+
+github_integrations:
+  issues:
+    enabled: true
+    auto_create: false
+  projects:
+    enabled: true
+    sync: true
+  milestones:
+    enabled: true
+    mapping: roadmap-phases
+  releases:
+    enabled: true
+    notes_generation: true
+  discussions:
+    enabled: true
+    share_prd: true
