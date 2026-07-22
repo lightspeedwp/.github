@@ -19,6 +19,7 @@ Build professional-grade design systems in Figma that match code. This skill orc
 For every phase, follow this communication contract.
 
 Before starting a phase:
+
 - Post a user-facing checklist titled `Phase N Checklist`.
 - Include every task/subtask that will be attempted in that phase.
 - Include the phase exit criteria.
@@ -26,12 +27,14 @@ Before starting a phase:
 - If the phase requires explicit approval, ask for approval after the checklist and wait.
 
 During execution:
+
 - Before each major subsection, post a short update naming the exact section being worked on, using this format:
   `Working on Phase N.X: <section name>`
 - Keep updates concise, but make the current work visible.
 - When a subsection completes, mark it as completed in the running checklist if the interface supports checklist/status updates; otherwise mention completion in the next progress update.
 
 At the end of each phase:
+
 - Post a `Phase N Summary` with:
   - Completed tasks
   - Created or changed Figma objects
@@ -46,6 +49,7 @@ At the end of each phase:
 Use one task ID format everywhere: `P{phase}.{step}`.
 
 Rules:
+
 - Use lettered step IDs only: `P0.a`, `P0.b`, `P1.a`, `P3.d`.
 - Do not use plain bullet points for task lists.
 - Every phase checklist, progress update, validation note, and phase summary MUST reference the same task IDs
@@ -115,6 +119,7 @@ For EACH component (in dependency order: atoms before molecules), run the checkl
 ## 3. Critical Rules
 
 **Plugin API basics** (from use_figma skill — enforced here too):
+
 - Use `return` to send data back (auto-serialized). Do NOT wrap in IIFE or call closePlugin.
 - Return ALL created/mutated node IDs in every return value
 - Page context resets each call — always `await figma.setCurrentPageAsync(page)` at start. **Call it at most once per script**: each component or doc page is its own `use_figma` call. Never loop over `figma.root.children` and switch pages inside a mutating script — split that work into one focused call per target page (see [figma-use → gotchas.md → Set current page once per `use_figma` call](../figma-use/references/gotchas.md#set-current-page-once-per-use_figma-call--split-multi-page-work-across-calls))
@@ -123,6 +128,7 @@ For EACH component (in dependency order: atoms before molecules), run the checkl
 - Font MUST be loaded before any text write: `await figma.loadFontAsync({family, style})`. Use `await figma.listAvailableFontsAsync()` to discover available fonts and verify exact style strings — if a load fails, query available fonts to find the correct name or a fallback.
 
 **Design system rules**:
+
 1. **Variables BEFORE components** — components bind to variables. No token = [REDACTED_TOKEN] component.
 2. **Inspect before creating** — run read-only `use_figma` to discover existing conventions. Match them.
 3. **One page per component** *(default)* — exception: tightly related families (e.g., Input + helpers) may share a page with clear section separation.
@@ -152,6 +158,7 @@ For EACH component (in dependency order: atoms before molecules), run the checkl
 | Styles | Name | `getLocalTextStyles().find(s => s.name === name)` |
 
 Tag every created **scene node** immediately after creation:
+
 ```javascript
 node.setSharedPluginData('dsb', 'run_id', RUN_ID);        // identifies this build run
 node.setSharedPluginData('dsb', 'phase', 'phase3');        // which phase created it
@@ -159,12 +166,15 @@ node.setSharedPluginData('dsb', 'key', 'component/button');// unique logical key
 ```
 
 **State persistence**: Do NOT rely solely on conversation context for the state ledger. Write it to disk:
+
 ```
 /tmp/dsb-state-{RUN_ID}.json
 ```
+
 Re-read this file at the start of every turn. In long workflows, conversation context will be truncated — the file is the source of truth.
 
 Maintain a state ledger tracking:
+
 ```json
 {
   "runId": "ds-build-2024-001",
@@ -218,17 +228,20 @@ search_design_system({ query, fileKey, includeLibraryKeys: ["lk-abc123..."], inc
 ```
 
 **Reuse if** all of these are true:
+
 - Component property API matches your needs (same variant axes, compatible types)
 - Token binding model is compatible (uses same or aliasable variables)
 - Naming conventions match the target file
 - Component is editable (not locked in a remote library you don't own)
 
 **Rebuild if** any of these:
+
 - API incompatibility (different property names, wrong variant model)
 - Token model incompatible (hardcoded values, different variable schema)
 - Ownership issue (can't modify the library)
 
 **Wrap if** visual match but API incompatible:
+
 - Import the library component as a nested instance inside a new wrapper component
 - Expose a clean API on the wrapper
 
@@ -257,6 +270,7 @@ Ask the user when paths fork — when two or more reasonable answers exist and n
 Match existing file conventions. If starting fresh:
 
 **Variables** (slash-separated):
+
 ```
 color/bg/primary     color/text/secondary    color/border/default
 spacing/xs  spacing/sm  spacing/md  spacing/lg  spacing/xl  spacing/2xl
@@ -285,6 +299,7 @@ typography/body/font-size    typography/heading/line-height
 | 200+ tokens | **Advanced**: Multiple semantic collections, 4–8 modes (Light/Dark × Contrast × Brand). See M3 pattern in [token-creation.md](references/token-creation.md) |
 
 Standard pattern (recommended starting point):
+
 ```
 Collection: "Primitives"    modes: ["Value"]
   blue/500 = #3B82F6, gray/900 = #111827, ...
@@ -302,21 +317,25 @@ Collection: "Spacing"       modes: ["Value"]
 ## 9. Per-Phase Anti-Patterns
 
 **Phase 0 anti-patterns:**
+
 - ❌ Starting to create anything before scope is locked with user
 - ❌ Ignoring existing file conventions and imposing new ones
 - ❌ Skipping `search_design_system` before planning component creation
 
 **Phase 1 anti-patterns:**
+
 - ❌ Using `ALL_SCOPES` on any variable
 - ❌ Duplicating raw values in semantic layer instead of aliasing
 - ❌ Not setting code syntax (breaks Dev Mode and round-tripping)
 - ❌ Creating component tokens before agreeing on token taxonomy
 
 **Phase 2 anti-patterns:**
+
 - ❌ Skipping the cover page or foundations docs
 - ❌ Putting multiple unrelated components on one page
 
 **Phase 3 anti-patterns:**
+
 - ❌ Creating components before foundations exist
 - ❌ Hardcoding any fill/stroke/spacing/radius value in a component
 - ❌ Creating a variant per icon (use INSTANCE_SWAP instead)
@@ -325,6 +344,7 @@ Collection: "Spacing"       modes: ["Value"]
 - ❌ Importing remote components then immediately detaching them
 
 **General anti-patterns:**
+
 - ❌ Retrying a failed script without understanding the error first
 - ❌ Using name-prefix matching for cleanup (deletes user-owned nodes)
 - ❌ Building on unvalidated work from the previous step

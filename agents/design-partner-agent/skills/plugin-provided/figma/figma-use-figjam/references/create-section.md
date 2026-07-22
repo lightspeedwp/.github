@@ -156,7 +156,7 @@ figma.closePlugin()
 
 ## Adding Nodes to a Section
 
-**CRITICAL**: It's very important that you follow the instructions in [position-figjam-nodes](position-figjam-nodes.md): Adding Nodes to a Section. This is _crucial_ for a high-quality output.
+**CRITICAL**: It's very important that you follow the instructions in [position-figjam-nodes](position-figjam-nodes.md): Adding Nodes to a Section. This is *crucial* for a high-quality output.
 
 ## Cloning Sections
 

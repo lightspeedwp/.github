@@ -14,7 +14,7 @@ Collections can be thought of a groups in Figma. An example Collection would be 
 
 ### Extended Collections
 
-Extended collections allow you to create a colleciton based on another collection and only override _some_ of the values. Just like inheritance and overrides in CSS. This aligns well for scenarios like branded color themes.
+Extended collections allow you to create a colleciton based on another collection and only override *some* of the values. Just like inheritance and overrides in CSS. This aligns well for scenarios like branded color themes.
 
 ### Modes
 

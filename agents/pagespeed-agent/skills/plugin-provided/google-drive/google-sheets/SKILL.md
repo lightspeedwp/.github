@@ -23,8 +23,8 @@ If the user has not provided explicit style direction, read `references/style-pr
 
 1. New Google Sheets creation: first check whether the `[@spreadsheets](plugin://spreadsheets@openai-primary-runtime)` plugin or the `$Excel` skill is installed.
 2. If either is installed, YOU MUST use `[@spreadsheets](plugin://spreadsheets@openai-primary-runtime)` or `$Excel` to create a local `.xlsx`. Then import the `.xlsx` into Drive as a native Google Sheets spreadsheet. Read `references/reference-import-spreadsheet-to-native-sheets.md`.
-4. If neither skill is installed, create the spreadsheet directly with Google Sheets MCP.
-5. Existing Google Sheets edits: use Google Sheets MCP directly.
+3. If neither skill is installed, create the spreadsheet directly with Google Sheets MCP.
+4. Existing Google Sheets edits: use Google Sheets MCP directly.
 
 Do not reference the local `.xlsx` in the final answer. Your final answer includes the Google Spreadsheet link only.
 
@@ -48,6 +48,7 @@ If a simple verified workflow is viable, use it. Do not drift into speculative a
 ## Required Read Order (No Skips)
 
 If Default Routing uses `[@spreadsheets](plugin://spreadsheets@openai-primary-runtime)` or `$Excel`:
+
 1. Read the `[@spreadsheets](plugin://spreadsheets@openai-primary-runtime)` plugin skill or `$Excel` skill
 2. Read `references/reference-import-spreadsheet-to-native-sheets.md`
 
