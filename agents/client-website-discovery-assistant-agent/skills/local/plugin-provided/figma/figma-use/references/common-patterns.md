@@ -14,7 +14,6 @@
 - Multi-Step Large ComponentSet Pattern
 - Read Existing Nodes and Return Data
 
-
 ## Basic Script Structure
 
 ```js

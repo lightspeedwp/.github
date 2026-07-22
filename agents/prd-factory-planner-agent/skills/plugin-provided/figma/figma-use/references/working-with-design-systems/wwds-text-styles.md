@@ -2,7 +2,7 @@
 
 Text styles in Figma are named, reusable typography definitions. They are the closest equivalent to a type ramp in a design token library. A text style bundles font family, size, weight, line height, letter spacing, and other typographic properties into a single named entity that can be applied to text nodes.
 
-Text styles are distinct from variables. You cannot put typography into a single variable — there is no composite variable type. However, individual properties on a text style _can_ be bound to variables (e.g. binding `fontSize` to a size variable, or `fontFamily` to a string variable), which allows the style to participate in a token system.
+Text styles are distinct from variables. You cannot put typography into a single variable — there is no composite variable type. However, individual properties on a text style *can* be bound to variables (e.g. binding `fontSize` to a size variable, or `fontFamily` to a string variable), which allows the style to participate in a token system.
 
 ## Model
 
