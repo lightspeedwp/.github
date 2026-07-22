@@ -164,7 +164,6 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 ## Related Files
 
 - **[pull-requests.instructions.md](./pull-requests.instructions.md)** — Companion guide for PR creation and labeling; mirrors issue workflow patterns
-- **[labeling.instructions.md](./labeling.instructions.md)** — Labeling guide and label naming conventions
 - **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in issue templates
 
 ---

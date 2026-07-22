@@ -59,7 +59,7 @@ Use `appendChild` to move existing nodes into a section.
 
 **CRITICAL**: when you call `appendChild`, the node's x/y coordinates become relative to the **section's local coordinate space**, where (0,0) is the top-left corner of the section — NOT absolute board coordinates. Always call `appendChild` **first**, then set the node's position using section-local coordinates.
 
-**IMPORTANT:** After adding nodes to a section, you MUST check that the section encompasses its children. Refer to the `Resizing an Existing Section` code snippet for reference. This is _crucial_ for a high-quality output.
+**IMPORTANT:** After adding nodes to a section, you MUST check that the section encompasses its children. Refer to the `Resizing an Existing Section` code snippet for reference. This is *crucial* for a high-quality output.
 
 Steps:
 

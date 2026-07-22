@@ -18,3 +18,47 @@ Fixed meta.agent.js --dry-run regression (dryRun flag not threaded in header-foo
 ## 17:48 | fix/footer-cleanup-and-validation
 
 Footer cleanup and validation complete: renamed branch from `claude/*` (forbidden) to `fix/footer-cleanup-and-validation`; created issue #1114, PR #1115; addressed all 5 CodeRabbit findings (test updates, licence section restore, validation exit codes, footer dedup logic, validation pipeline integration); all code analysis checks passing.
+
+## 18:47 | feat/project-milestone-allocation-strategy
+
+Implemented version-based milestone strategy (v1.0–v1.6) w/ auto-allocation; created project-routes.yml & milestone scripts; extended metadata-governance workflow; validated approach via 3 research agents; configured GitHub App credentials (LS_PROJECT_URL, LS_APP_ID, LS_APP_PRIVATE_KEY) for Project 33; tested workflow & identified Node v22→v24 incompatibility in project-meta-sync.yml; PR #1113 pending fix.
+
+## 18:25 | fix/validation-footer-and-mermaid
+
+Fixed validate-footers truncation & validate-mermaid-pr error handling (#1118, #1119) in PR #1123 w/ bug templates & status comments.
+
+## 18:36 | fix/validation-footer-and-mermaid
+
+Fixed changelog-validate WF failure in PR #1123 w/ CHANGELOG entry (91e22fa58); addressed CodeRabbit feedback w/ UK spelling fix (beb7584f7) & 12 code-quality imprv in #1126; set up auto-merge monitoring.
+
+## 18:48 | feat/project-milestone-allocation-strategy
+
+Enabled GitHub MCP in VSCode: added GITHUB_PERSONAL_ACCESS_TOKEN to ~/.zshrc after discovering GitHub OAuth lacks DCR support.
+
+## 18:52 | claude/milestone-planning-v1-fc9011
+
+Created roadmap docs (ROADMAP.md, ROADMAP_VISUAL.md) in .github/projects/active/milestone-planning-v1/ allocating ~150 open issues across 7 GitHub milestones (v1.0-v1.6, IDs 76-82), started bulk assignment workflow.
+
+## 18:52 | develop
+
+Reviewed epic #1079 & identified 19 related child issues (Phase 1: #1087, #1104-#1106; Phase 2: #1088-#1096, #1098-#1103)—GitHub lacks parent/child mutations, needs manual UI.
+
+## 18:55 | develop
+
+Configured GitHub App credentials (LS_APP_ID, LS_APP_PRIVATE_KEY) for Project 33 auto-allocation, ran three investigation agents (confirmed version-based milestone strategy approved + Projects v2 has no IaC pattern + project-meta-sync workflow needs config), fixed Node.js v20→24 in project-meta-sync.yml to resolve Babel compatibility, created/tested workflow triggers (#1121, #1124, #1125), added CHANGELOG entry to PR #1113, verified metadata-governance automation works end-to-end, PR #1113 pending auto-merge.
+
+## 19:16 | develop
+
+Fixed Node v22→24 in metadata-governance.yml, resolved linting/validation issues, cleaned up 7 incorrectly-named claude/* branches, merged PR #1113 (version-based milestone allocation + auto-sync to Project 33), created test issue #1128 for workflow verification.
+
+## 19:21 | develop
+
+Reviewed pr-1108-review-merge worktree with 1,155 uncommitted files; user committed CodeRabbit-improved agent skills + migration docs to chore/coderabbit-improvements-1126 & merged PR #1127; agent-standards-initiative folder also needs commitment.
+
+## 19:23 | develop
+
+Added 16 new agent definitions to website/src/lib/agents.ts registry; committed to develop.
+
+## 19:26 | chore/coderabbit-improvements-1126
+
+Merged PR #1123 (footer data-loss fix, mermaid workflow robustness), PR #1127 (CodeRabbit polish: UK spelling, framework status, Gemini cleanup); filed #1128 for 8 pending hook-dependent improvements.
