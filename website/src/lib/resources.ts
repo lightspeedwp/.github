@@ -1,5 +1,9 @@
 // Resource utilities for the Awesome GitHub website
-import { getItemsByCategory, getItemBySlug, type CatalogueItem } from "./catalogue";
+import {
+  getItemsByCategory,
+  getItemBySlug,
+  type CatalogueItem,
+} from "./catalogue";
 
 export const REPO_INFO = {
   owner: "lightspeedwp",
@@ -47,14 +51,70 @@ export interface ResourceTypeInfo {
 }
 
 const RESOURCE_TYPES: Record<string, ResourceTypeInfo> = {
-  agents:       { type: "agents",       label: "Agents",          icon: "robot",        description: "AI agent specifications and configurations", blurb: "Specialised AI agents with defined behaviour, scope, and escalation rules." },
-  instructions: { type: "instructions", label: "Instructions",    icon: "book-open",    description: "Organisation-wide instructions and standards", blurb: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
-  prompts:      { type: "prompts",      label: "Prompts",         icon: "chat-text",    description: "Prompt library and templates", blurb: "Reusable prompt templates you can grab and run for common engineering tasks." },
-  skills:       { type: "skills",       label: "Skills",          icon: "sparkle",      description: "Self-contained reusable skills", blurb: "Portable, self-contained skill packages the team can run on demand." },
-  hooks:        { type: "hooks",        label: "Hooks",           icon: "shield-check", description: "Portable hooks and guardrails", blurb: "Pre-commit and lint guardrails that enforce quality before code lands." },
-  workflows:    { type: "workflows",    label: "Workflows",       icon: "gear",         description: "Portable agentic workflows", blurb: "Portable agentic workflow specs, each paired with a runnable GitHub Action." },
-  plugins:      { type: "plugins",      label: "Plugins",         icon: "puzzle-piece", description: "Installable plugin packs", blurb: "Installable, versioned plugin packs bundling governance and AI-ops." },
-  tools:        { type: "tools",        label: "Tools",           icon: "wrench",       description: "Utility scripts and tools", blurb: "The toolchain layer — AI defaults, scripts, schemas, and editor config." },
+  agents: {
+    type: "agents",
+    label: "Agents",
+    icon: "robot",
+    description: "AI agent specifications and configurations",
+    blurb:
+      "Specialised AI agents with defined behaviour, scope, and escalation rules.",
+  },
+  instructions: {
+    type: "instructions",
+    label: "Instructions",
+    icon: "book-open",
+    description: "Organisation-wide instructions and standards",
+    blurb:
+      "Canonical coding, accessibility, and WordPress standards Copilot must follow.",
+  },
+  prompts: {
+    type: "prompts",
+    label: "Prompts",
+    icon: "chat-text",
+    description: "Prompt library and templates",
+    blurb:
+      "Reusable prompt templates you can grab and run for common engineering tasks.",
+  },
+  skills: {
+    type: "skills",
+    label: "Skills",
+    icon: "sparkle",
+    description: "Self-contained reusable skills",
+    blurb:
+      "Portable, self-contained skill packages the team can run on demand.",
+  },
+  hooks: {
+    type: "hooks",
+    label: "Hooks",
+    icon: "shield-check",
+    description: "Portable hooks and guardrails",
+    blurb:
+      "Pre-commit and lint guardrails that enforce quality before code lands.",
+  },
+  workflows: {
+    type: "workflows",
+    label: "Workflows",
+    icon: "gear",
+    description: "Portable agentic workflows",
+    blurb:
+      "Portable agentic workflow specs, each paired with a runnable GitHub Action.",
+  },
+  plugins: {
+    type: "plugins",
+    label: "Plugins",
+    icon: "puzzle-piece",
+    description: "Installable plugin packs",
+    blurb:
+      "Installable, versioned plugin packs bundling governance and AI-ops.",
+  },
+  tools: {
+    type: "tools",
+    label: "Tools",
+    icon: "wrench",
+    description: "Utility scripts and tools",
+    blurb:
+      "The toolchain layer — AI defaults, scripts, schemas, and editor config.",
+  },
 };
 
 export function getAvailableResourceTypes(): ResourceTypeInfo[] {
