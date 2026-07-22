@@ -62,3 +62,15 @@ Merged PR #1071 (4 safety fixes to cleanup-branches.js), corrected AI governance
 ## 13:08 | fix/meta-workflow-ci-and-push-flow-followup
 
 Fixed meta.yml: added `npm ci` step, redesigned bot push flow to PR-based auto-merge (PR #1073); fixed cleanup-branches.yml and mergify.yml bugs (PRs #1075, #1077); issues #1072–#1076 closed.
+
+## 13:40 | claude/playwright-agent-rewrite-72f7fc
+
+Created 15-agent standardization initiative with 11 rewrite prompts (Phase 1 playwright agent + Phase 2 batch for 14 agents), multi-provider framework standards, plugin templates, schemas, hooks, instructions; committed to .github/projects/active/agent-standards-initiative/ (commits 3305dc8e, 9db86d67); remote push blocked by pre-push hook.
+
+## 13:42 | fix/template-enforcement-stale-issue-refetch
+
+Fixed .github/workflows/template-enforcement.yml enforce-close-guard/validate-issue-template: refetch state via github.rest.issues.get() instead of stale webhook payload, skip if no longer closed (issue #1085, PR #1086); root cause ~3min job-scheduling delays.
+
+## 13:49 | feat/agent-standards-playwright-testing
+
+Completed Phase 1A (5-task audit: instructions, hooks, schemas, AI config, memory) + Phase 1B framework for issue #1079: saved 5 audit reports & standardization framework to .github/reports/, reviewed agent-standards-initiative prompts, ready for Playwright agent rewrite implementation.
