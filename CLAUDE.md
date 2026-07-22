@@ -203,6 +203,38 @@ For issue intake, use [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLA
 - `code-review` for code quality discussions and review standards.
 - `ai-ops` and `content-modelling` for specialist AI and content workflows.
 
+### Issue Template Quick Reference
+
+When creating issues programmatically, use the correct template based on issue type. **All issue templates require two mandatory sections:**
+
+- `## Definition of Ready (DoR)` — pre-work checklist
+- `## Definition of Done (DoD)` — completion checklist
+
+Templates located in `.github/ISSUE_TEMPLATE/`:
+
+| Issue Type | Template File | Use When |
+| --- | --- | --- |
+| Bug | `01-bug.md` | Reproducible defect, error, or crash |
+| Code Refactor | `02-code-refactor.md` | Code cleanup or simplification (non-user-facing) |
+| Feature | `03-feature.md` | New capability or user-visible enhancement |
+| Design | `04-design.md` | UI/UX, token, or accessibility design work |
+| Epic | `05-epic.md` | Large, multi-part initiative grouping stories |
+| Story | `06-story.md` | User-centric narrative with acceptance criteria |
+| Improvement | `07-improvement.md` | Enhancement to existing functionality |
+| Task | `08-task.md` | Scoped work, config updates, small delivery |
+| Chore | `09-chore.md` | Small housekeeping (labels, repo tweaks) |
+| Testing | `10-testing-coverage.md` | New or refactored automated tests |
+| Performance | `11-performance.md` | Speed, resource, or latency work |
+| Accessibility | `12-a11y.md` | WCAG 2.2 AA compliance improvements |
+| Security | `13-security.md` | Vulnerabilities or hardening |
+| Compatibility | `14-compatibility.md` | Cross-version, browser, or platform issues |
+
+**Template enforcement workflow:** `.github/workflows/template-enforcement.yml`
+
+- Validates all issues have DoR and DoD sections
+- Flags non-compliant issues with `status:needs-more-info` label
+- See [AGENTS.md](./AGENTS.md) for programmatic issue creation guidance
+
 ### Before Every Push
 
 1. Verify the current branch: `git branch -v`
