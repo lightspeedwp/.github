@@ -1,0 +1,19 @@
+[
+  {
+    "name": "store_analyzer",
+    "description": "Analyze WooCommerce store configuration"
+  },
+  {
+    "name": "setup_optimizer",
+    "description": "Optimize WooCommerce store setup"
+  },
+  {
+    "name": "product_configurator",
+    "description": "Configure WooCommerce products"
+  },
+  { "name": "payment_gateway_setup", "description": "Setup payment gateways" },
+  {
+    "name": "performance_optimizer",
+    "description": "Optimize store performance"
+  }
+]

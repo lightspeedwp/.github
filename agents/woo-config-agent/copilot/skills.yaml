@@ -1,0 +1,8 @@
+version: "1.0"
+name: woo-config-skills
+skills:
+  - id: store-analysis
+  - id: setup-optimization
+  - id: product-configuration
+  - id: payment-integration
+  - id: performance-optimization
