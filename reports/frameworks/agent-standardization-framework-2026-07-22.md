@@ -459,14 +459,14 @@ capabilities:
 - Separation of concerns (shared vs provider-specific)
 - Folder structure
 - Writing core prompts (provider-agnostic)
-- Provider-specific customization patterns
+- Provider-specific customisation patterns
 - Examples for each provider
 
 **Reference:** `.github/instructions/multi-provider-agent-specification.instructions.md`
 
 ### agent-plugin-architecture.instructions.md
 
-**Purpose:** Plugin structure and organization patterns
+**Purpose:** Plugin structure and organisation patterns
 
 **Sections:**
 
@@ -474,7 +474,7 @@ capabilities:
 - Naming conventions
 - Folder structure with examples
 - Multi-agent grouping patterns
-- Skill and hook organization
+- Skill and hook organisation
 - Validation checklist
 
 **Reference:** `.github/instructions/agent-plugin-architecture.instructions.md`
@@ -535,7 +535,7 @@ capabilities:
 - **Date:** 2026-07-22
 - **Status:** Active
 - **Decision:** Separate provider configs into `claude/`, `copilot/`, `openai/` subdirectories with shared `shared/` folder
-- **Rationale:** Clear separation of concerns; provider-specific customization without duplication
+- **Rationale:** Clear separation of concerns; provider-specific customisation without duplication
 - **Impact:** Minimal duplication; easy to understand which code is provider-specific vs shared
 
 **Decision 004: Validation Hook Approach**
@@ -569,7 +569,7 @@ capabilities:
 - [x] Schemas defined
 - [x] Decision log established
 
-### Phase 1C-J (Implementation) — PENDING
+### Phase 1C-J (Implementation) — COMPLETED
 
 Implementation of agent rewrite, plugin creation, validation, and merge follows this framework.
 

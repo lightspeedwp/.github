@@ -1,6 +1,6 @@
 # Updating Existing Local Plugins
 
-Use this reference when a plugin already exists and the request is about updating the plugin during 
+Use this reference when a plugin already exists and the request is about updating the plugin during
 local development.
 
 All scripts here are specified relative to the skill root. Update the path for running the scripts
@@ -36,6 +36,7 @@ outside Codex depends on a specific token:
 python3 scripts/update_plugin_cachebuster.py \
   <plugin-path> \
   --cachebuster local-20260519-184516
+
 ```
 
 2. For the default scaffolded flow, read the marketplace name from the personal marketplace file:
@@ -55,7 +56,7 @@ To read the name from a different marketplace file, pass the path directly:
 python3 scripts/read_marketplace_name.py --marketplace-path <path-to-marketplace.json>
 ```
 
-3. Reinstall from that marketplace name:
+1. Reinstall from that marketplace name:
 
 ```bash
 codex plugin add <plugin-name>@<marketplace-name-from-marketplace-json>
@@ -66,7 +67,7 @@ The default personal marketplace is discovered implicitly from
 path, and `codex plugin marketplace list` is not the right check for whether that default
 marketplace exists.
 
-4. If the plugin is not using the personal marketplace file, check which configured local
+1. If the plugin is not using the personal marketplace file, check which configured local
    marketplace is actually surfacing that plugin:
 
 ```bash
@@ -79,14 +80,14 @@ different local marketplace, reinstall from that marketplace name instead of for
 marketplace flow. If it is not local, stop and help the user resolve the mismatch before
 continuing.
 
-5. If the plugin lives in a different confirmed local marketplace, substitute that marketplace
+1. If the plugin lives in a different confirmed local marketplace, substitute that marketplace
    name:
 
 ```bash
 codex plugin add <plugin-name>@<local-marketplace>
 ```
 
-6. Prompt the user to use a new thread to try the updated plugin, so that Codex picks up new skills
+1. Prompt the user to use a new thread to try the updated plugin, so that Codex picks up new skills
    and tools.
 
 ## Cachebuster Policy

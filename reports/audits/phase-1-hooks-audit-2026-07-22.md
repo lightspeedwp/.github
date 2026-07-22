@@ -47,7 +47,7 @@ Current hooks cover:
 - ✅ Session logging
 - ✅ Tool permission guarding
 
-Missing for multi-provider agent standardization:
+Missing for multi-provider agent standardisation:
 
 - ❌ Agent specification validation (YAML frontmatter, schema compliance)
 - ❌ Multi-provider consistency checking (provider config alignment)
