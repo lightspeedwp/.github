@@ -7,7 +7,6 @@ const { getOctokit } = require("@actions/github");
 const {
   readConfig,
   getMilestoneForIssue,
-  getActiveMilestones,
 } = require("./milestone-allocation.cjs");
 
 function getItemFromEvent(event) {
