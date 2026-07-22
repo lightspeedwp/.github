@@ -53,6 +53,8 @@ const reportFile = args
   ?.split("=")[1];
 const verbose = args.includes("--verbose");
 const changedOnly = args.includes("--changed-only");
+const baseSha = args.find((arg) => arg.startsWith("--base="))?.split("=")[1];
+const headSha = args.find((arg) => arg.startsWith("--head="))?.split("=")[1];
 
 // Track violations
 const violations = {
@@ -276,28 +278,47 @@ function readGitEventContext() {
   }
 }
 
-function getChangedMarkdownFiles() {
-  let baseRef = "";
-  let headRef = "";
-  const event = readGitEventContext();
-  const eventName = process.env.GITHUB_EVENT_NAME || "";
+function isValidGitRef(ref) {
+  // Validate git SHA format: 40 hex chars (full) or 7+ hex chars (short)
+  return /^[0-9a-f]{7,40}$/.test(ref) || /^HEAD|refs\//.test(ref);
+}
 
-  if (eventName === "pull_request" || eventName === "pull_request_target") {
-    baseRef = event?.pull_request?.base?.sha || "";
-    headRef = event?.pull_request?.head?.sha || "";
-  } else if (eventName === "push") {
-    baseRef = event?.before || "";
-    headRef = event?.after || "";
+function getChangedMarkdownFiles() {
+  let baseRef = baseSha || "";
+  let headRef = headSha || "";
+
+  // If not provided via CLI args, try reading from GitHub event context
+  if (!baseRef || !headRef) {
+    const event = readGitEventContext();
+    const eventName = process.env.GITHUB_EVENT_NAME || "";
+
+    if (eventName === "pull_request" || eventName === "pull_request_target") {
+      baseRef = baseRef || event?.pull_request?.base?.sha || "";
+      headRef = headRef || event?.pull_request?.head?.sha || "";
+    } else if (eventName === "push") {
+      baseRef = baseRef || event?.before || "";
+      headRef = headRef || event?.after || "";
+    }
   }
 
-  const diffRange =
-    baseRef && headRef ? `${baseRef} ${headRef}` : "HEAD~1 HEAD";
+  // Validate refs to prevent command injection
+  if (!isValidGitRef(baseRef) || !isValidGitRef(headRef)) {
+    if (verbose) {
+      console.warn(
+        `⚠️  Invalid git refs (base: ${baseRef}, head: ${headRef}), falling back to all files`,
+      );
+    }
+    return findMarkdownFiles();
+  }
 
   try {
-    const output = execSync(`git diff --name-only ${diffRange} -- '*.md'`, {
-      encoding: "utf8",
-      maxBuffer: 1024 * 1024 * 100,
-    }).trim();
+    const output = execSync(
+      `git diff --name-only ${baseRef} ${headRef} -- '*.md'`,
+      {
+        encoding: "utf8",
+        maxBuffer: 1024 * 1024 * 100,
+      },
+    ).trim();
 
     return output ? output.split("\n").filter(Boolean) : [];
   } catch {
