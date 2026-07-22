@@ -34,114 +34,121 @@
  */
 async function createDocumentationPage(pageName, config, runId) {
   // Verify required fonts are available before loading
-  const allFonts = await figma.listAvailableFontsAsync()
-  const requiredStyles = ['Bold', 'Regular', 'Medium']
+  const allFonts = await figma.listAvailableFontsAsync();
+  const requiredStyles = ["Bold", "Regular", "Medium"];
   for (const style of requiredStyles) {
-    const found = allFonts.some((f) => f.fontName.family === 'Inter' && f.fontName.style === style)
+    const found = allFonts.some(
+      (f) => f.fontName.family === "Inter" && f.fontName.style === style,
+    );
     if (!found) {
-      const interFonts = allFonts.filter((f) => f.fontName.family === 'Inter')
+      const interFonts = allFonts.filter((f) => f.fontName.family === "Inter");
       throw new Error(
-        `Font "Inter ${style}" not available. Available Inter styles: ${interFonts.map((f) => f.fontName.style).join(', ') || 'none'}`,
-      )
+        `Font "Inter ${style}" not available. Available Inter styles: ${interFonts.map((f) => f.fontName.style).join(", ") || "none"}`,
+      );
     }
   }
   await Promise.all([
-    figma.loadFontAsync({ family: 'Inter', style: 'Bold' }),
-    figma.loadFontAsync({ family: 'Inter', style: 'Regular' }),
-    figma.loadFontAsync({ family: 'Inter', style: 'Medium' }),
-  ])
+    figma.loadFontAsync({ family: "Inter", style: "Bold" }),
+    figma.loadFontAsync({ family: "Inter", style: "Regular" }),
+    figma.loadFontAsync({ family: "Inter", style: "Medium" }),
+  ]);
 
   // Create and activate the page
-  const page = figma.createPage()
-  page.name = pageName
-  await figma.setCurrentPageAsync(page)
+  const page = figma.createPage();
+  page.name = pageName;
+  await figma.setCurrentPageAsync(page);
 
   if (runId) {
-    page.setPluginData('dsb_run_id', runId)
-    page.setPluginData('dsb_key', `page/${pageName}`)
+    page.setPluginData("dsb_run_id", runId);
+    page.setPluginData("dsb_key", `page/${pageName}`);
   }
 
-  const frameIds = []
+  const frameIds = [];
 
   // Root scroll container — 1440px wide, auto-height
-  const root = figma.createAutoLayout('VERTICAL')
-  root.name = pageName
-  root.primaryAxisAlignItems = 'MIN'
-  root.counterAxisAlignItems = 'MIN'
-  root.itemSpacing = 80
-  root.paddingTop = 80
-  root.paddingBottom = 120
-  root.paddingLeft = 80
-  root.paddingRight = 80
-  root.resize(1440, 1)
-  root.layoutSizingHorizontal = 'FIXED'
-  root.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }]
-  root.x = 0
-  root.y = 0
-  page.appendChild(root)
+  const root = figma.createAutoLayout("VERTICAL");
+  root.name = pageName;
+  root.primaryAxisAlignItems = "MIN";
+  root.counterAxisAlignItems = "MIN";
+  root.itemSpacing = 80;
+  root.paddingTop = 80;
+  root.paddingBottom = 120;
+  root.paddingLeft = 80;
+  root.paddingRight = 80;
+  root.resize(1440, 1);
+  root.layoutSizingHorizontal = "FIXED";
+  root.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
+  root.x = 0;
+  root.y = 0;
+  page.appendChild(root);
 
   if (runId) {
-    root.setPluginData('dsb_run_id', runId)
-    root.setPluginData('dsb_key', `frame/root/${pageName}`)
+    root.setPluginData("dsb_run_id", runId);
+    root.setPluginData("dsb_key", `frame/root/${pageName}`);
   }
 
-  frameIds.push(root.id)
+  frameIds.push(root.id);
 
   // Page header: title + optional description
-  const header = figma.createAutoLayout('VERTICAL')
-  header.name = 'Header'
-  header.itemSpacing = 12
-  header.fills = []
-  root.appendChild(header)
-  header.layoutSizingHorizontal = 'FILL'
+  const header = figma.createAutoLayout("VERTICAL");
+  header.name = "Header";
+  header.itemSpacing = 12;
+  header.fills = [];
+  root.appendChild(header);
+  header.layoutSizingHorizontal = "FILL";
 
-  const titleNode = figma.createText()
-  titleNode.fontName = { family: 'Inter', style: 'Bold' }
-  titleNode.characters = config.title
-  titleNode.fontSize = 40
-  titleNode.fills = [{ type: 'SOLID', color: { r: 0.07, g: 0.07, b: 0.07 } }]
-  titleNode.layoutSizingHorizontal = 'FILL'
-  header.appendChild(titleNode)
+  const titleNode = figma.createText();
+  titleNode.fontName = { family: "Inter", style: "Bold" };
+  titleNode.characters = config.title;
+  titleNode.fontSize = 40;
+  titleNode.fills = [{ type: "SOLID", color: { r: 0.07, g: 0.07, b: 0.07 } }];
+  titleNode.layoutSizingHorizontal = "FILL";
+  header.appendChild(titleNode);
 
   if (config.description) {
-    const descNode = figma.createText()
-    descNode.fontName = { family: 'Inter', style: 'Regular' }
-    descNode.characters = config.description
-    descNode.fontSize = 16
-    descNode.lineHeight = { value: 24, unit: 'PIXELS' }
-    descNode.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }]
-    descNode.layoutSizingHorizontal = 'FILL'
-    header.appendChild(descNode)
+    const descNode = figma.createText();
+    descNode.fontName = { family: "Inter", style: "Regular" };
+    descNode.characters = config.description;
+    descNode.fontSize = 16;
+    descNode.lineHeight = { value: 24, unit: "PIXELS" };
+    descNode.fills = [{ type: "SOLID", color: { r: 0.4, g: 0.4, b: 0.4 } }];
+    descNode.layoutSizingHorizontal = "FILL";
+    header.appendChild(descNode);
   }
 
   // Sections
   for (const section of config.sections) {
-    const sectionFrame = figma.createAutoLayout('VERTICAL')
-    sectionFrame.name = `Section/${section.name}`
-    sectionFrame.itemSpacing = 20
-    sectionFrame.fills = []
-    root.appendChild(sectionFrame)
-    sectionFrame.layoutSizingHorizontal = 'FILL'
+    const sectionFrame = figma.createAutoLayout("VERTICAL");
+    sectionFrame.name = `Section/${section.name}`;
+    sectionFrame.itemSpacing = 20;
+    sectionFrame.fills = [];
+    root.appendChild(sectionFrame);
+    sectionFrame.layoutSizingHorizontal = "FILL";
 
     if (runId) {
-      sectionFrame.setPluginData('dsb_run_id', runId)
-      sectionFrame.setPluginData('dsb_key', `frame/section/${pageName}/${section.name}`)
+      sectionFrame.setPluginData("dsb_run_id", runId);
+      sectionFrame.setPluginData(
+        "dsb_key",
+        `frame/section/${pageName}/${section.name}`,
+      );
     }
 
     // Section heading
-    const sectionHeading = figma.createText()
-    sectionHeading.fontName = { family: 'Inter', style: 'Bold' }
-    sectionHeading.characters = section.name
-    sectionHeading.fontSize = 24
-    sectionHeading.fills = [{ type: 'SOLID', color: { r: 0.07, g: 0.07, b: 0.07 } }]
-    sectionHeading.layoutSizingHorizontal = 'FILL'
-    sectionFrame.appendChild(sectionHeading)
+    const sectionHeading = figma.createText();
+    sectionHeading.fontName = { family: "Inter", style: "Bold" };
+    sectionHeading.characters = section.name;
+    sectionHeading.fontSize = 24;
+    sectionHeading.fills = [
+      { type: "SOLID", color: { r: 0.07, g: 0.07, b: 0.07 } },
+    ];
+    sectionHeading.layoutSizingHorizontal = "FILL";
+    sectionFrame.appendChild(sectionHeading);
 
     // Invoke the caller's content function to populate the section
-    await section.contentFn(sectionFrame)
+    await section.contentFn(sectionFrame);
 
-    frameIds.push(sectionFrame.id)
+    frameIds.push(sectionFrame.id);
   }
 
-  return { page, titleNode, frameIds }
+  return { page, titleNode, frameIds };
 }
