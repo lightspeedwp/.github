@@ -18,3 +18,7 @@ Fixed meta.agent.js --dry-run regression (dryRun flag not threaded in header-foo
 ## 17:48 | fix/footer-cleanup-and-validation
 
 Footer cleanup and validation complete: renamed branch from `claude/*` (forbidden) to `fix/footer-cleanup-and-validation`; created issue #1114, PR #1115; addressed all 5 CodeRabbit findings (test updates, licence section restore, validation exit codes, footer dedup logic, validation pipeline integration); all code analysis checks passing.
+
+## 18:47 | feat/project-milestone-allocation-strategy
+
+Implemented version-based milestone strategy (v1.0–v1.6) w/ auto-allocation; created project-routes.yml & milestone scripts; extended metadata-governance workflow; validated approach via 3 research agents; configured GitHub App credentials (LS_PROJECT_URL, LS_APP_ID, LS_APP_PRIVATE_KEY) for Project 33; tested workflow & identified Node v22→v24 incompatibility in project-meta-sync.yml; PR #1113 pending fix.
