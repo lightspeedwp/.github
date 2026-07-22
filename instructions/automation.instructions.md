@@ -4,8 +4,8 @@ title: Automation Standards
 description: Comprehensive standards for GitHub automation agents, workflows, and
   repository health management
 scope: repo-local
-version: v1.1.3
-last_updated: '2026-06-19'
+version: v1.1.4
+last_updated: '2026-07-22'
 owners:
 - GitHub Community Health Team
 tags:
