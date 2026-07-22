@@ -30,3 +30,11 @@ Fixed validate-footers truncation & validate-mermaid-pr error handling (#1118, #
 ## 18:36 | fix/validation-footer-and-mermaid
 
 Fixed changelog-validate WF failure in PR #1123 w/ CHANGELOG entry (91e22fa58); addressed CodeRabbit feedback w/ UK spelling fix (beb7584f7) & 12 code-quality imprv in #1126; set up auto-merge monitoring.
+
+## 18:48 | feat/project-milestone-allocation-strategy
+
+Enabled GitHub MCP in VSCode: added GITHUB_PERSONAL_ACCESS_TOKEN to ~/.zshrc after discovering GitHub OAuth lacks DCR support.
+
+## 18:52 | claude/milestone-planning-v1-fc9011
+
+Created roadmap docs (ROADMAP.md, ROADMAP_VISUAL.md) in .github/projects/active/milestone-planning-v1/ allocating ~150 open issues across 7 GitHub milestones (v1.0-v1.6, IDs 76-82), started bulk assignment workflow.
