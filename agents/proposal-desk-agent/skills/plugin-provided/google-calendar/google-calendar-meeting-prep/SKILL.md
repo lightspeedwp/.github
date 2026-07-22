@@ -26,3 +26,9 @@ Use this skill when the user wants a prep brief, not just the event details.
 - Call out the most relevant attachments, notes, or linked docs.
 - Separate confirmed context from missing context or open questions.
 - End with a short "what to do before this meeting" list when there is enough evidence to support it.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

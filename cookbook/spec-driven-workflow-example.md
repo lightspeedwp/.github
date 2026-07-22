@@ -111,3 +111,9 @@ describe('PostCard', () => {
 3. **Acceptance Criteria**: Implementation succeeds only if all criteria are met
 4. **Iterative Review**: Get feedback early and often
 5. **Documentation**: Keep specs and tests in sync with implementation
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -46,3 +46,9 @@ Use `../scripts/create-presentation.mjs` with the static asset root to materiali
 # Validation
 
 All 26 exact JavaScript modules must parse and render through artifact-tool. The static asset archive must contain no Markdown, agent prompt, reusable runner, Office file, original filename, transient evidence path, source screenshot, or raw extraction record.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

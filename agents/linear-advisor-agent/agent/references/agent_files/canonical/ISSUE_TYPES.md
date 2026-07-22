@@ -163,6 +163,6 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+⚖️ *Governance policy maintained by LightSpeedWP*
 
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)

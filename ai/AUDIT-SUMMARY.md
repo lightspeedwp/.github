@@ -351,5 +351,6 @@ A: Rebase your branch: `git rebase develop`. Resolve conflicts. Push with `git p
 
 ---
 
-*Last updated: 2026-05-31*
-*Audit Documents: [`ai/audit-planner-reviewer-agents.md`](./audit-planner-reviewer-agents.md), [`ai/improvement-plan-planner-reviewer.md`](./improvement-plan-planner-reviewer.md)*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

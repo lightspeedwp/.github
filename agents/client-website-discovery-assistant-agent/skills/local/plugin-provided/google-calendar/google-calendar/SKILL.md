@@ -64,3 +64,9 @@ Use this skill to turn raw calendar data into clear scheduling decisions, remind
 - "Add 1-hour reminders to my external-facing meetings next month and leave internal meetings unchanged."
 - "Summarize my calendar for tomorrow and flag anything that overlaps or leaves no travel time."
 - "Draft the final event details for a 30 minute customer sync at 2 PM Pacific on Friday."
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
