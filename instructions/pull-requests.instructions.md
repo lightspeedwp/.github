@@ -240,7 +240,4 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 
 ---
 
----
-
-
 *Maintained by the 🤖 LightSpeedWP Automation Team*
