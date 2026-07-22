@@ -60,6 +60,7 @@ jobs:
           echo "requested_by=${{ inputs.requested_by }}"
           echo "reason=${{ inputs.reason }}"
           echo "run_ci=${{ inputs.run_ci }}"
+          echo "run_ci type check: inputs.run_ci == 'true' evaluates to ${{ inputs.run_ci == 'true' }}"
 
       - name: Install dependencies
         if: github.event_name != 'workflow_dispatch' || inputs.run_ci
