@@ -55,6 +55,20 @@ pull_request_rules:
       merge:
         method: squash
 
+  # Auto-merge meta-agent sync PRs when CI passes
+  - name: Auto-merge meta-agent sync on develop
+    conditions:
+      - author=lightspeed-bot
+      - base=develop
+      - label=meta:no-changelog
+      - title~=^chore\(meta\): automated meta-agent sync$
+      - check-success=All Checks Passed
+      - -draft
+      - -conflict
+    actions:
+      merge:
+        method: squash
+
 merge_protections_settings:
   reporting_method: check-runs
   auto_merge_conditions: true
