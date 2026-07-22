@@ -49,6 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Version-based milestone allocation strategy** — Implemented version-based milestone allocation (v1.0–v1.6) for structured release planning. Added `.github/project-routes.yml` configuration file for declarative project routing rules, `scripts/agents/includes/milestone-allocation.cjs` core logic module for milestone resolution and capacity tracking, and two workflow steps (`allocate-issue-to-version-milestone` and `check-milestone-capacity-and-warn`) integrated into `metadata-governance.yml` for automatic issue/PR milestone assignment and capacity monitoring. Configured GitHub App credentials (LS_PROJECT_URL, LS_APP_ID, LS_APP_PRIVATE_KEY) for automated project sync to GitHub Projects v2 instance. ([#1112](https://github.com/lightspeedwp/.github/issues/1112), [PR #1113](https://github.com/lightspeedwp/.github/pull/1113))
+
 - **16 new specialist agents** — Added `ai-readiness-estimator-agent`, `client-website-discovery-assistant-agent`, `design-partner-agent`, `harvest-analytical-agent`, `linear-advisor-agent`, `pagespeed-agent`, `playwright-testing-agent`, `prd-agent`, `prd-factory-planner-agent`, `proposal-desk-agent`, `tour-operator-config-agent`, `website-content-strategist-agent`, `website-scope-estimator-agent`, `woo-config-agent`, `wp-config-agent`, and `zendesk-support-agent` to `agents/`, each with full documentation, configuration, and reference materials following the LightSpeed agent template standards. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
 
 ### Fixed
