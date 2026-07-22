@@ -34,3 +34,9 @@ These points hold regardless of direction; the direction-specific references ass
 |---|---|
 | [references/design-to-code.md](references/design-to-code.md) | Translating a Figma design / frame into SwiftUI |
 | [references/code-to-design.md](references/code-to-design.md) | Pushing SwiftUI views / screens / tokens into Figma |
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

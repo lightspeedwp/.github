@@ -7,3 +7,9 @@ last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["governance", "revision-log", "process", "documentation"]
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

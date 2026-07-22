@@ -196,3 +196,9 @@ This workflow systematically converts a specification (requirements) into execut
 - Test coverage ≥ 80%
 - Code review feedback minimal (<3 rounds)
 - Zero post-release bugs (28-day window)
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

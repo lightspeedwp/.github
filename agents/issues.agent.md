@@ -63,3 +63,9 @@ metadata:
   guardrails: Only apply types/labels from canonical configs. Never overwrite without
     warning. Validate all content. Log all actions. Preserve user data integrity.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -114,3 +114,9 @@ This creates an audit trail linking code changes to specific Copilot sessions an
 - [Coding Standards](./coding-standards.instructions.md)
 - [AGENTS.md](../AGENTS.md)
 - [CLAUDE.md](../CLAUDE.md)
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
