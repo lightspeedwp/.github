@@ -15,7 +15,6 @@
 - Building multi-element slides
 - Code preamble for deck-building scripts
 
-
 ## Canonical text-edit recipe (font load → await → mutate → return IDs)
 
 The same canonical recipe used in Design files applies inside slides — see [figma-use → gotchas.md → Canonical text-edit recipe](../../figma-use/references/gotchas.md#canonical-text-edit-recipe-font-load--await--mutate--return-ids) for the full WRONG/CORRECT pair. Two slide-specific reminders:
@@ -33,11 +32,9 @@ textNode.characters = "Updated"
 return { mutatedNodeIds: [textNode.id] }
 ```
 
-
 ## Prefer indexed lookups over `findAll` / `findOne` full-tree scans
 
 Same rule as in design files (see [figma-use → gotchas.md → Prefer indexed lookups](../../figma-use/references/gotchas.md#prefer-indexed-lookups-over-findall--findone-full-tree-scans)). On slide trees, the most common offenders are `slide.findAll(n => n.type === 'TEXT')` (use `slide.findAllWithCriteria({ types: ['TEXT'] })`) and `slide.findAll(n => n.type === 'INTERACTIVE_SLIDE_ELEMENT')` (same fix). If you have a slide or element ID, use `figma.getNodeByIdAsync(id)` — never re-scan the tree.
-
 
 ## Scope traversal to the smallest known ancestor
 
@@ -54,7 +51,6 @@ const texts = slide.findAllWithCriteria({ types: ['TEXT'] })
 
 See [figma-use → gotchas.md → Scope traversal to the smallest known ancestor](../../figma-use/references/gotchas.md#scope-traversal-to-the-smallest-known-ancestor).
 
-
 ## Set `figma.skipInvisibleInstanceChildren = true` for read-only traversal
 
 Same rule as in design files (see [figma-use → gotchas.md → Set figma.skipInvisibleInstanceChildren](../../figma-use/references/gotchas.md#set-figmaskipinvisibleinstancechildren--true-for-read-only-traversal)). One line at the top of any read-only slide-inspection script. Decks tend to be component-heavy (icons, logo lockups, repeating frames), so this flag is especially impactful.
@@ -66,7 +62,6 @@ const texts = slide.findAllWithCriteria({ types: ['TEXT'] })
 ```
 
 Leave the flag off if you specifically need to read invisible content inside an instance (e.g., inspecting all variants of a deck-template instance).
-
 
 ## Sequential awaits — batch independent async calls with `Promise.all`
 
@@ -87,7 +82,6 @@ for (const slide of slides) {
 ```
 
 `setCurrentPageAsync` is the exception — page-context switches must stay sequential.
-
 
 ## Position after appendChild (critical)
 
@@ -167,7 +161,6 @@ const card = addFrame(slide, 120, 260, 400, 200, { r: 1, g: 1, b: 1 }, 16);
 addText(card, "Inter", "Bold", 96, { r: 0.42, g: 0.42, b: 0.45 }, "26.6%", 32, 56, 336, 104);
 ```
 
-
 ## Diagnosing offset bugs
 
 If you observe nodes off by exactly `(−240, −240)` from where you set them, this is the auto-parent bug above. **Do not** try to compensate by adding `240` back to `x`/`y` — the session referenced in the original incident did this and the next iteration was worse, not better, because the compensation hides the structural issue and re-triggers it under slightly different state.
@@ -190,7 +183,6 @@ const drift = expectations
   .filter(r => r.dx !== 0 || r.dy !== 0);
 return { drift }; // any non-empty result means the append-first rule was broken somewhere
 ```
-
 
 ## SLIDE_GRID and SLIDE_ROW are opaque nodes
 
@@ -216,12 +208,12 @@ const slide = row.children[0];  // type: 'SLIDE'
 slide.fills = [{ type: "SOLID", color: { r: 0.06, g: 0.09, b: 0.16 } }];
 ```
 
-
 ## Validation without get_metadata
 
 `get_metadata` does not work on Slides files. Use `get_screenshot` for visual validation and `use_figma` read-only scripts for structural validation.
 
 **Post-creation validation pattern:**
+
 ```js
 const slide = figma.getNodeById("SLIDE_ID");
 const children = slide.children.map(c => ({
@@ -250,7 +242,6 @@ return { children, overlaps, hasOverlaps: overlaps.length > 0 };
 ```
 
 Run this after creating slide content to catch layout issues before they compound.
-
 
 ### Batch validation script
 
@@ -309,18 +300,17 @@ return { clean: issues.length === 0, issues };
 ```
 
 **Verification cadence for deck building:**
+
 - After every batch: run the validation script above. If `clean` is `true`, proceed to the next batch without re-deliberation or a screenshot.
 - If `clean` is `false`: take a screenshot of the affected slide(s) and fix the issues before continuing.
 - Screenshot at **checkpoints** regardless: after the first batch (validates the visual system — colors, typography, design direction) and after the final batch (overall quality check).
 - Do NOT re-plan after successful verification. Proceed to the next batch.
-
 
 ## Building multi-element slides
 
 When building a **single complex slide** (data-heavy chart, intricate one-off layout), work incrementally within that slide — create the background and structure first, then add content, then decorative elements, validating between steps.
 
 When building a **deck** (multiple slides), build complete slides in each `use_figma` call. The helpers (`addFrame`, `addText`, `addRect`) enforce the appendChild-before-position rule, so building a complete slide in one pass is safe. Validate using the [batch validation script](#batch-validation-script) above, not per-element screenshots. See [Deck-Building Workflow](../SKILL.md#deck-building-workflow) for the full process.
-
 
 ## Code preamble for deck-building scripts
 
