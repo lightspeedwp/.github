@@ -46,3 +46,19 @@ Configured GitHub MCP in VSCode: removed stale placeholder from ~/.claude.json, 
 ## 14:20 | feat/agent-standards-playwright-testing
 
 Phase 1C Playwright agent rewrite (issues #1087-#1106): multi-provider configs (Claude/Copilot/OpenAI), plugin lightspeed-playwright-testing, 4 schemas, 4 hooks (16 tests), 4 instructions + cookbook; all pass CI validation.
+
+## 14:26 | develop
+
+GitHub MCP configured: removed stale ~/.claude.json, tried OAuth (GitHub lacks DCR), reverted to PAT, set GITHUB_PERSONAL_ACCESS_TOKEN in ~/.zshrc, verified Connected.
+
+## 14:28 | feat/agent-standards-playwright-testing
+
+Phase 1 Playwright Agent rewrite: audits & framework → multi-provider impl (Claude/Copilot/OpenAI), plugin wrapper, 4 schemas/hooks/instructions; commit 9725a19a (53 files); PR #1108, checks running (2 lint failures to fix).
+
+## 14:42 | develop
+
+Debugged GitHub MCP auth failure, cleaned stale config, attempted OAuth (GitHub auth lacks DCR), configured PAT in ~/.zshrc, verified connected.
+
+## 14:44 | feat/agent-standards-playwright-testing
+
+Rewrote Playwright Testing Agent for multi-provider support, created plugin/4 schemas/4 hooks/4 instructions, filed 19 GitHub issues (epic #1079 + agents + infra), PR #1108 w/ all CI gates passing.
