@@ -26,3 +26,23 @@ Fixed stale-webhook-payload bug in .github/workflows/template-enforcement.yml �
 ## 14:05 | feat/agent-standards-playwright-testing
 
 Fixed branch naming to `feat/agent-standards-playwright-testing` per CLAUDE.md; completed Phase 1A-B audits + standardization framework; created Epic #1079 + 19 issues (#1087–#1106, template-compliant); began Phase 1C: AGENT.md spec, core prompt, provider configs (Claude/Copilot/OpenAI), MANIFEST/security/INSTALL files for Playwright agent rewrite.
+
+## 14:08 | fix/meta-agent-dry-run-writes
+
+Fixed meta.agent.js --dry-run writes by threading dryRun through ensureFooter, updateBadgesInReadme, metrics-write (issue #1083, PR #1084).
+
+## 14:09 | develop
+
+Configured GitHub MCP: removed stale config from ~/.claude.json, tried OAuth (auth server lacks DCR), added GITHUB_PERSONAL_ACCESS_TOKEN to ~/.zshrc, verified ✔ Connected.
+
+## 14:11 | feat/agent-standards-playwright-testing
+
+Completed Phase 1A audits; created Issue #1079 Epic + 19 child issues; began Phase 1C: agents/playwright-testing-agent rewritten w/ AGENT.md, shared core prompt, provider configs (Claude/Copilot/OpenAI), plugin lightspeed-playwright-testing, 4 schemas; hooks in-progress.
+
+## 14:18 | develop
+
+Configured GitHub MCP in VSCode: removed stale placeholder from ~/.claude.json, attempted OAuth (GitHub lacks DCR), reverted to PAT, exported GITHUB_PERSONAL_ACCESS_TOKEN in ~/.zshrc, verified connected.
+
+## 14:20 | feat/agent-standards-playwright-testing
+
+Phase 1C Playwright agent rewrite (issues #1087-#1106): multi-provider configs (Claude/Copilot/OpenAI), plugin lightspeed-playwright-testing, 4 schemas, 4 hooks (16 tests), 4 instructions + cookbook; all pass CI validation.
