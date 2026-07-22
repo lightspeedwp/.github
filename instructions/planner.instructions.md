@@ -20,3 +20,7 @@ apply_to:
 - scripts/agents/planner.agent.js
 - .github/workflows/planner.yml
 ---
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

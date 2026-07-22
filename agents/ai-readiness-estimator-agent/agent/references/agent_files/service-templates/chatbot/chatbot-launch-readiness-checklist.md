@@ -53,4 +53,4 @@ Use this checklist to confirm that all critical elements are ready before a chat
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

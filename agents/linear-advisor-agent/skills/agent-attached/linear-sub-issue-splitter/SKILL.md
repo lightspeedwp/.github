@@ -85,4 +85,4 @@ A parent-goal summary plus a practical list of sub-issues with short description
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

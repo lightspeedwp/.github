@@ -444,3 +444,5 @@ jobs:
 - **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and code quality standards
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

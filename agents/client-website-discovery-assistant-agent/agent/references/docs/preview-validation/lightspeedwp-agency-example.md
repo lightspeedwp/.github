@@ -127,4 +127,4 @@ Use `docs/preview-validation/lightspeedwp-agency-example.md` as the starting con
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

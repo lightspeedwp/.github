@@ -37,3 +37,7 @@ Use this skill when the goal is to create time, not just inspect time.
 - Name the block of time created and the minimum meetings that would need to move.
 - When creating a hold, state the exact slot and whether the hold is transparent or busy.
 - If suggesting multiple options, keep them short and explain the tradeoff for each.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

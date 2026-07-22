@@ -57,4 +57,4 @@ Please include any other context that may help the assessment team understand yo
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

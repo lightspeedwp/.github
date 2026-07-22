@@ -64,3 +64,7 @@ Use this skill to produce a daily digest of today's important Slack activity fro
 - For resolved channels, prefer Slack channel mentions like `<#CHANNEL_ID>` so the names are clickable. Use plain text only when you do not have a channel ID.
 - Include **Needs attention** only for items requiring user action, decisions, or input.
 - Include **Notes** for gaps, absences, sparse results, or caveats.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

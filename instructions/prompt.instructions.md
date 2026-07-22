@@ -71,3 +71,5 @@ All prompt files must:
 - [prompts/](../.github/prompts/) — Prompt file collection and index
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

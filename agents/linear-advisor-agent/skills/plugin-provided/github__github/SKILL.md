@@ -72,3 +72,7 @@ Prefer the GitHub app from this plugin for those flows because it provides struc
 - "Review the latest comments on PR 482 and tell me what is actionable."
 - "Debug the failing checks on this branch."
 - "Commit these changes, push them, and open a draft PR."
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -24,3 +24,7 @@ metadata:
   guardrails: Gather verifiable references, do not act until research is complete,
     and document every source and assumption before handing off.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

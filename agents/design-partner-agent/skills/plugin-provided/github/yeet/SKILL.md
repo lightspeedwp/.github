@@ -68,3 +68,7 @@ The PR description should use real Markdown prose and cover:
 - the user or developer impact
 - the root cause when the PR is a fix
 - the checks used to validate it
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

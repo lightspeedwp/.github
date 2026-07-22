@@ -157,4 +157,4 @@ Thank you for helping us make LightSpeed better!
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

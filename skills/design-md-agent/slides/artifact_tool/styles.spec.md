@@ -92,3 +92,5 @@ subtitle.style = "heading2"
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

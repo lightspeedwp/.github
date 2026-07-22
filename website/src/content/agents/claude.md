@@ -32,3 +32,7 @@ The agent responds to specific commands and can be invoked in several ways:
 - Direct chat in VS Code
 - Slash commands in GitHub issues
 - Automated workflow triggers
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -385,4 +385,4 @@ All contributors, agents, and AI assistants must comply with these standards.*
 
 ---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

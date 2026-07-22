@@ -129,4 +129,7 @@ file_type: "agent-spec"
 tools: ["GitHub API", "Release workflows"]
 metadata:
   guardrails: "Never publish or tag without human confirmation."
+
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

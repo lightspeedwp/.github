@@ -70,4 +70,4 @@ Confirm only the intake values that matter for the current task, then continue o
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

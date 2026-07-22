@@ -32,4 +32,4 @@ If you have questions about how labels are used, see our [Issue Labels Guide](..
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

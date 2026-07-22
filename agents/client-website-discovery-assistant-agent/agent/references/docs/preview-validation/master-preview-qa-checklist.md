@@ -175,4 +175,4 @@ Inspect the latest preview run output and validate it against `docs/preview-vali
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

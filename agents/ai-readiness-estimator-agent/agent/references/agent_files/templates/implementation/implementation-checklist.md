@@ -89,4 +89,4 @@ Select the sections relevant to your project and mark each item as complete.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -109,3 +109,5 @@ covered.width = frame["width"] * 2
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -313,3 +313,7 @@ npm run validate:frontmatter
 - [instructions/file-organisation.instructions.md](./instructions/file-organisation.instructions.md) — this repo's file placement rules
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [instructions/plugin-structure.instructions.md](./instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

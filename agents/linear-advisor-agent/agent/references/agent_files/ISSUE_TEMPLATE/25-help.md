@@ -46,4 +46,4 @@ Link to related docs, issues, or saved replies if applicable.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

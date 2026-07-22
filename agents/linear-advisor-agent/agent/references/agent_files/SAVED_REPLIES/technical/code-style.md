@@ -28,4 +28,4 @@ Run `npm run lint` or see our guidelines for more info. Once fixed, let us know 
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

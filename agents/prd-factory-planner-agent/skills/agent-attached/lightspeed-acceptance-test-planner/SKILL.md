@@ -141,4 +141,4 @@ Use UK English. Keep outputs practical, structured and ready for GitHub, Google 
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

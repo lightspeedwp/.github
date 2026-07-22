@@ -287,4 +287,4 @@ Use these prompts to validate routing behaviour:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

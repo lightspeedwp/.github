@@ -230,3 +230,5 @@ When creating an issue:
 ---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

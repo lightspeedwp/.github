@@ -111,3 +111,7 @@ Review changelog for breaking changes.
 - Review plugins before installation
 - Use minimal permissions
 - Monitor security advisories
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

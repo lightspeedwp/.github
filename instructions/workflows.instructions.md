@@ -11,3 +11,7 @@ version: v1.1
 owners:
 - LightSpeed Engineering
 ---
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

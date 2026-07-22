@@ -93,4 +93,4 @@ For review, readiness, planning, and claim-review outputs, use the matching temp
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

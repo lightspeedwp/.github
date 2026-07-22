@@ -45,4 +45,4 @@ Use this sheet to score how prepared the client is across multiple readiness dim
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

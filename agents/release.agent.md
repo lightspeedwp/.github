@@ -411,3 +411,7 @@ On every new conversation:
 - Git tag.
 - GitHub Release link.
 - Audit log.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

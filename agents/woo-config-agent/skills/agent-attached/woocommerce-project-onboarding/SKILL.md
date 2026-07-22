@@ -50,4 +50,4 @@ Do not summarise onboarding for its own sake. Confirm only the defaults that mat
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

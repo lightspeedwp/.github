@@ -44,3 +44,5 @@ color_map = presentation.theme.hex_color_map
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

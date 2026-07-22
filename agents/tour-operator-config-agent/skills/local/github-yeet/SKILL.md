@@ -71,4 +71,4 @@ The PR description should use real Markdown prose and cover:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -140,3 +140,7 @@ Every manifest must declare which platforms are supported:
 - [File Organisation](./file-organisation.instructions.md)
 - [Coding Standards](./coding-standards.instructions.md)
 - [Agent Specification](./agent-spec.instructions.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -117,4 +117,4 @@ Use this section to flag anything that needs special commercial review before re
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

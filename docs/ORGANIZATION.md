@@ -67,3 +67,5 @@ README.md
 - Link between docs to ensure discoverability (see cross-references in each file)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

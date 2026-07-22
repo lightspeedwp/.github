@@ -182,3 +182,7 @@ Result: Task becomes three-week project; original feature delivery delayed
 - [Coding Standards](./coding-standards.instructions.md)
 - [Quality Assurance](./quality-assurance.instructions.md)
 - [Pull Request Standards](./pull-requests.instructions.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

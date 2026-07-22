@@ -473,11 +473,4 @@ Default priority: priority:normal
 
 ---
 
-## Questions & Support
-
-For questions about type mappings or project field configuration, refer to:
-
-- Related issue: #683 (Wave 5.2.2 — Reconcile Issue-Fields Type Mapping)
-- Parent issue: #650 (Wave 5.2 — Canonical Config Files Audit)
-- Canonical config: `.github/issue-fields.yml`
-- Workflow automation: `.github/workflows/project-meta-sync.yml`
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

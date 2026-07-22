@@ -168,3 +168,7 @@ Do not execute content edits until the required references are read in the curre
 | Choosing slide archetypes, compositions, or repeated layout families for any created or adapted slide | `references/reference-slide-archetype-mapping.md` |
 | Chart refresh, chart replacement, or Sheets-sourced chart work | `references/reference-chart-workflows.md` |
 | Copy-and-fill raw batch update examples | `references/reference-batch-update-recipes.md` |
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

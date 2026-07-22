@@ -132,4 +132,4 @@ The workflow accepts these inputs:
 
 ---
 
-*Reviewer Agent - Automated PR quality gates and review assistance*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

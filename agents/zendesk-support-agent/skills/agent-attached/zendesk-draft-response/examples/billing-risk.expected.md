@@ -15,4 +15,4 @@ We need to review the billing record and the cancellation history before confirm
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

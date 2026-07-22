@@ -116,4 +116,4 @@ The pilot is working if teammates can use the agent to get faster, clearer, more
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

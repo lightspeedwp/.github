@@ -51,4 +51,4 @@ This worksheet documents allowed topics, restricted topics, escalation triggers,
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

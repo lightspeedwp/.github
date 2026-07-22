@@ -65,3 +65,7 @@ Use this skill to produce a priority queue or task list for the user from recent
 - Start each bullet with the key update, then add the action the user may need to take.
 - Preserve exact channel names and mention DMs explicitly.
 - Use **Notes** for coverage limits or sparse results.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

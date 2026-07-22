@@ -47,4 +47,4 @@ Include any other context, constraints, or considerations that might influence h
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

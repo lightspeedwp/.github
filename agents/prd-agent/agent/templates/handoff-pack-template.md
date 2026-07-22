@@ -19,4 +19,4 @@ purpose: Prepare delivery-ready handoff materials from validated planning work.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

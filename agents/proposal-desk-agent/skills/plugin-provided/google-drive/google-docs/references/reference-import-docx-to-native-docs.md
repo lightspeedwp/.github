@@ -65,3 +65,7 @@ Drive-hosted Word file, not a native Google Doc.
 
 Return the native Google Doc title and link or id when available.
 Do not cite the local `.docx` path in the final answer after a successful native import.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

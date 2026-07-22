@@ -163,3 +163,7 @@ As requirements evolve:
 - [Quality Assurance](./quality-assurance.instructions.md)
 - [Task Implementation](./task-implementation.instructions.md)
 - [Issues Standards](./issues.instructions.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
