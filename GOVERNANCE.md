@@ -201,3 +201,5 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 - [CHANGELOG](./CHANGELOG.md)
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

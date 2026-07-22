@@ -191,4 +191,3 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines. Key points:
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-[Documentation](https://github.com/lightspeedwp/.github/tree/develop/instructions)

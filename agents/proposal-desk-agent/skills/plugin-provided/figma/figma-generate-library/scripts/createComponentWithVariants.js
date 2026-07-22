@@ -34,103 +34,103 @@
  * }>}
  */
 async function createComponentWithVariants(config, runId) {
-  const { name, variantAxes, baseProps, page } = config
+  const { name, variantAxes, baseProps, page } = config;
 
   // Ensure we are on the correct page
-  await figma.setCurrentPageAsync(page)
+  await figma.setCurrentPageAsync(page);
 
   // Compute Cartesian product of variant axes
-  const axisNames = Object.keys(variantAxes)
-  const axisValues = axisNames.map((k) => variantAxes[k])
-  const combinations = cartesianProduct(axisValues)
+  const axisNames = Object.keys(variantAxes);
+  const axisValues = axisNames.map((k) => variantAxes[k]);
+  const combinations = cartesianProduct(axisValues);
 
   // Build one component per combination
-  const components = []
+  const components = [];
   for (const combo of combinations) {
-    const comp = figma.createComponent()
+    const comp = figma.createComponent();
 
     // Name: "Property=Value, Property=Value, ..."
-    comp.name = axisNames.map((ax, i) => `${ax}=${combo[i]}`).join(', ')
+    comp.name = axisNames.map((ax, i) => `${ax}=${combo[i]}`).join(", ");
 
     // Base geometry
-    comp.resize(baseProps.width, baseProps.height)
+    comp.resize(baseProps.width, baseProps.height);
 
     // Fills
     if (baseProps.fills !== undefined) {
-      comp.fills = baseProps.fills
+      comp.fills = baseProps.fills;
     } else {
-      comp.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.9, b: 0.9 } }]
+      comp.fills = [{ type: "SOLID", color: { r: 0.9, g: 0.9, b: 0.9 } }];
     }
 
     // Corner radius
     if (baseProps.radius !== undefined) {
-      comp.cornerRadius = baseProps.radius
+      comp.cornerRadius = baseProps.radius;
     }
 
     // Auto-layout
-    if (baseProps.layoutMode && baseProps.layoutMode !== 'NONE') {
-      comp.layoutMode = baseProps.layoutMode
-      comp.primaryAxisAlignItems = 'CENTER'
-      comp.counterAxisAlignItems = 'CENTER'
+    if (baseProps.layoutMode && baseProps.layoutMode !== "NONE") {
+      comp.layoutMode = baseProps.layoutMode;
+      comp.primaryAxisAlignItems = "CENTER";
+      comp.counterAxisAlignItems = "CENTER";
       if (baseProps.itemSpacing !== undefined) {
-        comp.itemSpacing = baseProps.itemSpacing
+        comp.itemSpacing = baseProps.itemSpacing;
       }
     }
 
     // Padding
     if (baseProps.padding) {
-      comp.paddingTop = baseProps.padding.top ?? 0
-      comp.paddingBottom = baseProps.padding.bottom ?? 0
-      comp.paddingLeft = baseProps.padding.left ?? 0
-      comp.paddingRight = baseProps.padding.right ?? 0
+      comp.paddingTop = baseProps.padding.top ?? 0;
+      comp.paddingBottom = baseProps.padding.bottom ?? 0;
+      comp.paddingLeft = baseProps.padding.left ?? 0;
+      comp.paddingRight = baseProps.padding.right ?? 0;
     }
 
     // Plugin data
-    const variantKey = axisNames.map((ax, i) => `${ax}:${combo[i]}`).join('|')
-    comp.setPluginData('dsb_key', `component/${name}/${variantKey}`)
+    const variantKey = axisNames.map((ax, i) => `${ax}:${combo[i]}`).join("|");
+    comp.setPluginData("dsb_key", `component/${name}/${variantKey}`);
     if (runId) {
-      comp.setPluginData('dsb_run_id', runId)
+      comp.setPluginData("dsb_run_id", runId);
     }
 
-    page.appendChild(comp)
-    components.push(comp)
+    page.appendChild(comp);
+    components.push(comp);
   }
 
   // Combine into a component set
-  const componentSet = figma.combineAsVariants(components, page)
-  componentSet.name = name
-  componentSet.setPluginData('dsb_key', `componentSet/${name}`)
+  const componentSet = figma.combineAsVariants(components, page);
+  componentSet.name = name;
+  componentSet.setPluginData("dsb_key", `componentSet/${name}`);
   if (runId) {
-    componentSet.setPluginData('dsb_run_id', runId)
+    componentSet.setPluginData("dsb_run_id", runId);
   }
 
   // Grid layout — variants stack at (0, 0) after combineAsVariants; reposition them.
-  const GRID_GAP = 16
-  const cols = Math.max(1, axisValues[axisValues.length - 1]?.length ?? 1)
-  const variantWidth = baseProps.width
-  const variantHeight = baseProps.height
+  const GRID_GAP = 16;
+  const cols = Math.max(1, axisValues[axisValues.length - 1]?.length ?? 1);
+  const variantWidth = baseProps.width;
+  const variantHeight = baseProps.height;
 
   componentSet.children.forEach((variant, idx) => {
-    const col = idx % cols
-    const row = Math.floor(idx / cols)
-    variant.x = col * (variantWidth + GRID_GAP)
-    variant.y = row * (variantHeight + GRID_GAP)
-  })
+    const col = idx % cols;
+    const row = Math.floor(idx / cols);
+    variant.x = col * (variantWidth + GRID_GAP);
+    variant.y = row * (variantHeight + GRID_GAP);
+  });
 
   // Resize component set to wrap its children with padding
-  const totalCols = Math.min(cols, combinations.length)
-  const totalRows = Math.ceil(combinations.length / cols)
-  const PADDING = 40
+  const totalCols = Math.min(cols, combinations.length);
+  const totalRows = Math.ceil(combinations.length / cols);
+  const PADDING = 40;
   componentSet.resize(
     totalCols * variantWidth + (totalCols - 1) * GRID_GAP + PADDING * 2,
     totalRows * variantHeight + (totalRows - 1) * GRID_GAP + PADDING * 2,
-  )
+  );
 
   // Position component set at a safe canvas location
-  componentSet.x = 480
-  componentSet.y = 80
+  componentSet.x = 480;
+  componentSet.y = 80;
 
-  return { componentSet, variants: componentSet.children }
+  return { componentSet, variants: componentSet.children };
 }
 
 /**
@@ -144,5 +144,5 @@ function cartesianProduct(arrays) {
   return arrays.reduce(
     (acc, curr) => acc.flatMap((combo) => curr.map((val) => [...combo, val])),
     [[]],
-  )
+  );
 }

@@ -75,7 +75,7 @@ jobs:
         if: steps.preflight.outputs.enabled == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install workflow dependencies
         if: steps.preflight.outputs.enabled == 'true'
