@@ -32,6 +32,11 @@
       "id": "lightspeed-metrics-and-reporting",
       "path": "plugins/lightspeed-metrics-and-reporting",
       "status": "active"
+    },
+    {
+      "id": "lightspeed-playwright-testing",
+      "path": "plugins/lightspeed-playwright-testing",
+      "status": "active"
     }
   ]
 }
