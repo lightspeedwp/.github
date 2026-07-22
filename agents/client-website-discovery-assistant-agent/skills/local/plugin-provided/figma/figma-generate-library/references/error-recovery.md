@@ -298,6 +298,7 @@ Maintain a state ledger in your context (not in the Figma file) across calls. Th
 ### Persisting between calls
 
 After every successful `use_figma` call:
+
 1. Extract all IDs from the return value
 2. Add them to the appropriate `entities` section of the ledger
 3. Add the completed step to `completedSteps`
@@ -389,6 +390,7 @@ return inventory;
 Map the inventory keys back to the state ledger schema. For each entity found with a `key`, add its ID to the appropriate section. Mark the corresponding step as `completedSteps`.
 
 Example mapping:
+
 ```
 key: 'collection/color'        → entities.collections.color
 key: 'variable/color/bg/primary' → entities.variables['color/bg/primary']
@@ -471,6 +473,7 @@ These errors leave the file in a state where continuing forward is unreliable:
 Since `use_figma` is atomic, a failed call creates nothing. The most common scenario is that some calls in Phase 1 succeeded (creating some variables) while a later call failed.
 
 Recovery steps:
+
 1. Run inspection script to find all variables tagged with your `run_id`
 2. Compare against the plan to identify which variables were successfully created and which are still missing
 3. If a successfully created variable has wrong values, call `variable.remove()` and recreate it
@@ -484,6 +487,7 @@ Recovery steps:
 Symptoms: some pages exist, others are missing; foundations doc frames are incomplete.
 
 Recovery steps:
+
 1. Identify which pages were successfully created (check for `key` tags)
 2. Mark remaining pages as pending and create them in subsequent calls
 3. If a foundations doc frame is malformed, run `cleanupOrphans` for `dsb_phase: 'phase2'` on that page, then recreate

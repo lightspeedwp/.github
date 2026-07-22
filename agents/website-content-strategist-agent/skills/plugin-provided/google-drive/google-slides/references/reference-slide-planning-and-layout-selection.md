@@ -17,6 +17,7 @@ Use this reference for multi-slide creation, adding slides to an existing deck, 
 ## Outline Before Layout
 
 Before you choose or build a layout, define the target slide in words:
+
 - what the slide is trying to do
 - what content is required, including anything that must survive from source material
 - what evidence, links, media, and speaker notes must carry forward when present
@@ -31,6 +32,7 @@ If a generated summary, changelog, or raw notes produce a messy slide brief, fix
 ## Pick The Slide Archetype Before Populating
 
 For each slide, answer these questions in order:
+
 - Is this a title, section divider, summary, dense content, KPI, chart, image, or appendix slide?
 - How much content should fit without crowding?
 - Which existing slide, layout, or composition already does that job well? For net-new decks, which composition best expresses it?
@@ -40,6 +42,7 @@ For each slide, answer these questions in order:
 Only after that should you select or build the slide and populate it.
 
 When populating:
+
 - when editing or following an existing deck, replace content in suitable existing slots before creating new primary text or image boxes
 - for genuinely net-new slides, create only the objects required by the selected composition and keep them consistent with the deck's design system
 - avoid leaving major text boxes or card regions mostly empty unless that whitespace is intentional
@@ -49,6 +52,7 @@ When populating:
 - preserve mixed text-style runs and neutralize inherited or reference-specific emphasis that does not transfer to the new content
 
 Common failure mode:
+
 - taking a large blob of content
 - dropping it into the visually nicest available layout
 - trying to resize and nudge everything until it fits
@@ -58,6 +62,7 @@ That usually produces an on-brand but weak slide. The fix is to choose the right
 ## Representative Subset
 
 For larger decks or unfamiliar layout systems, do not bulk-build immediately. Start with:
+
 - title slide
 - one section divider
 - one dense content slide
@@ -67,6 +72,7 @@ For larger decks or unfamiliar layout systems, do not bulk-build immediately. St
 This is the fastest way to discover whether the chosen layout system supports the content density and evidence types.
 
 Validate two things in this subset:
+
 - the content outline is correct
 - the archetype mapping is correct
 
@@ -75,11 +81,13 @@ If either is wrong, fix that before scaling up.
 ## When To Split Content
 
 Split one planned or source slide into multiple slides only when the request permits changing the slide count and:
+
 - the selected pattern cannot fit the content without crowding
 - the content mixes two different narrative jobs, like summary plus deep evidence
 - the content would require breaking the deck's spacing and hierarchy to remain on one slide
 
 When splitting:
+
 - keep the deck style constant
 - preserve the original order of ideas when adapting a source
 - use the same title family or section logic so the split feels intentional
@@ -107,6 +115,7 @@ These rules apply when adapting or migrating a source deck:
 Not every slide concept will match an existing layout exactly.
 
 In those cases:
+
 - pick the closest archetype and adapt carefully
 - duplicate the nearest strong completed slide instead of starting from an unsuitable raw layout
 - for net-new decks, build a composition that follows the established design system
@@ -115,6 +124,7 @@ In those cases:
 ## Deck-Wide Consistency Check
 
 At the end, verify:
+
 - title positions are consistent
 - section dividers feel related
 - recurring image treatments match
