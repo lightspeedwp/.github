@@ -168,7 +168,16 @@ function buildExcludeRegex() {
         .filter(Boolean),
     );
   }
-  return new RegExp(`(${parts.join("|")})`);
+
+  const source = `(${parts.join("|")})`;
+  try {
+    return new RegExp(source);
+  } catch (err) {
+    console.warn(
+      `⚠️  Invalid --excludePatterns regex; falling back to defaults: ${err.message}`,
+    );
+    return DEFAULT_EXCLUDE_PATTERN;
+  }
 }
 
 function buildPreserveAuthorRegex() {
