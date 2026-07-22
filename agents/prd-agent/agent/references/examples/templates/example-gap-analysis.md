@@ -43,4 +43,4 @@ Create a planning brief only after the missing workflow, baseline, design, and t
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

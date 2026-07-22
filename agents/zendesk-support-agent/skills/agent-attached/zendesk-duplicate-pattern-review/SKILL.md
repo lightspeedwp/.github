@@ -345,4 +345,4 @@ For Zendesk-centred tickets that appear similar, repeated, or connected, use `ze
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

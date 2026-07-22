@@ -62,4 +62,4 @@ List known risks, constraints, or assumptions that could impact the implementati
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

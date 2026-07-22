@@ -123,4 +123,7 @@ description: "Organisation-wide PHP coding standards for LightSpeed WordPress pr
 applyTo: "**/*.php"
 version: 1.0
 lastUpdated: 2025-12-11
+
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

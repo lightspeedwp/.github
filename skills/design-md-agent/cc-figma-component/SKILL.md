@@ -436,3 +436,5 @@ If there are no notes, create the frame anyway with the text "No issues — all 
   ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

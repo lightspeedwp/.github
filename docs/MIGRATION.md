@@ -30,16 +30,19 @@ Instead of moving or rewriting existing `.md` files, the migration strategy crea
 ### Example: Instructions Collection
 
 **Original file location:**
+
 ```
 instructions/coding-standards.instructions.md
 ```
 
 **Astro collection approach:**
+
 ```
 src/content/instructions/coding-standards.md (new entry, references original)
 ```
 
 The new entry:
+
 - Copies frontmatter from the original file
 - Adds new fields (category, difficulty, estimated_read_time) without breaking existing files
 - Points to the original file via import or alias
@@ -144,24 +147,28 @@ export const collections = {
 ## Migration Phases
 
 ### Phase 1: Infrastructure Setup
+
 - [ ] Create `src/content/` directory structure
 - [ ] Define collection schemas in `collections.config.ts`
 - [ ] Create collection helper functions in `src/lib/`
 - [ ] Test collection loading and schema validation
 
 ### Phase 2: Content Indexing
+
 - [ ] Index all `instructions/` files as collection entries
 - [ ] Index all `ai/` files as agent collection entries
 - [ ] Index all `skills/` files with SKILL.md extraction
 - [ ] Index other resource types (hooks, workflows, etc.)
 
 ### Phase 3: Frontmatter Enhancement
+
 - [ ] Add missing frontmatter fields to existing `.md` files
 - [ ] Standardize field names and types
 - [ ] Validate against collection schemas
 - [ ] Fix any schema validation errors
 
 ### Phase 4: Search & Navigation
+
 - [ ] Build searchable resource index
 - [ ] Implement filtering by type, category, difficulty, tags
 - [ ] Create catalogue pages using collection data
@@ -171,3 +178,7 @@ export const collections = {
 
 - [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
 - [Awesome GitHub Mapping Strategy](../AWESOME_GITHUB_MAPPING_STRATEGY.md)
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

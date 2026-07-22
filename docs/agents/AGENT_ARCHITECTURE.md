@@ -453,3 +453,7 @@ Typical execution: 500-2000ms (depends on API latency)
 - Logger: `scripts/utils/logger.js`
 - Tests: `scripts/agents/__tests__/`
 - Runbooks: `docs/agents/PLANNER_RUNBOOK.md`, `REVIEWER_RUNBOOK.md`
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

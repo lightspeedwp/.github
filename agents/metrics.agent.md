@@ -67,3 +67,7 @@ metadata:
   guardrails: Do not expose sensitive data or credentials in metrics. Log all collection
     runs. Support multi-repository aggregation. Validate data before reporting.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

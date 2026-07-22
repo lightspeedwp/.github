@@ -451,3 +451,7 @@ Then inspect the generated `page-<N>.png` files.
 - If you need **watermark audit/removal**: `tasks/watermarks_background.md`
 - If you need **true footnotes/endnotes**: `tasks/footnotes_endnotes.md`
 - If you want reproducible fixtures for edge cases: `tasks/fixtures_edge_cases.md`
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

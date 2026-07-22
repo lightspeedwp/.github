@@ -5,3 +5,7 @@ description: Orchestrate the sequential extraction of WordPress theme.json desig
   Figma design variables including palette, spacing, typography, radius, shadow, custom
   color tokens, and style variations.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

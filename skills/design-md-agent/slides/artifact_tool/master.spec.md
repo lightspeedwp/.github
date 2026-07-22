@@ -37,3 +37,5 @@ layout.parent_layout_id  # master.id
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -128,3 +128,7 @@ node scripts/workflows/release/rollback.cjs --version=X.Y.Z --dry-run
 - `.github/workflows/release.yml`
 - `scripts/agents/release.agent.js`
 - `scripts/workflows/release/rollback.cjs`
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

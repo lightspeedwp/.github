@@ -131,4 +131,4 @@ Write issues so a developer, designer, QA reviewer and project lead can understa
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

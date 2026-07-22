@@ -131,3 +131,5 @@ slide.background.fill = FillConfig(
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -115,3 +115,7 @@ sequenceDiagram
 - [docs/LABELING.md](./LABELING.md)
 - [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
 - `.github/reports/audits/2026-06-03-issue-fields-config-vs-github-api-audit-660.md`
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

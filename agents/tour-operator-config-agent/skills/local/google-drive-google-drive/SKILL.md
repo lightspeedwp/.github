@@ -62,4 +62,4 @@ Start with Google Drive for file discovery and file lifecycle tasks, then route 
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

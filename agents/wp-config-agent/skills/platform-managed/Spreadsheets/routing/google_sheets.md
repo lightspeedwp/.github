@@ -13,3 +13,7 @@ After successful native import, the user-facing deliverable is the Google Sheets
 ### Edits
 
 Use the Google Drive plugin's Google Sheets skill for edits to existing Google Sheets. The local `.xlsx` creation and native import workflow above applies only to net-new Google Sheets deliverables.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

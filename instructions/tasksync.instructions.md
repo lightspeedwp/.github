@@ -78,3 +78,5 @@ Applies to TaskSync V4 behaviour for continuous task cycling via terminal input.
 4. EXCEPTION: Urgent override commands ("stop current task", "correction", "fix") take immediate priority
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

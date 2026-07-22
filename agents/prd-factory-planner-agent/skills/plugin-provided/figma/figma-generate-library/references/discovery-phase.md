@@ -504,37 +504,4 @@ Shall I proceed?
 
 ---
 
-## 5. Conflict Resolution — When Code and Figma Disagree
-
-When the same token/component exists in both code and Figma but with different values, names, or structures, **always ask the user**. Never silently pick one.
-
-### Decision Framework
-
-| Scenario | Ask the user |
-|---|---|
-| Same CSS name, different hex value (e.g., `--color-accent` is `#3366FF` in code but `#5B7FFF` in Figma) | "Code says `#3366FF`, Figma currently has `#5B7FFF` for `color/accent/default`. Which is correct?" |
-| Same component name, different variant axes (code has `size: sm/md/lg`, Figma has `Size: Small/Large`) | "Code uses 3 sizes (sm/md/lg) but Figma has 2 (Small/Large). Should I add Medium, or rename to match code?" |
-| Code has a semantic token with no primitive layer; Figma already has a fully-layered system | "The codebase uses a flat single-layer token model. The Figma file uses a primitive/semantic split. Should I match the Figma architecture or the code architecture?" |
-| Figma variable exists but has `ALL_SCOPES` (incorrect per best practice) | "I found `color/bg/primary` already exists but it uses ALL_SCOPES. I recommend changing it to `FRAME_FILL, SHAPE_FILL`. May I update the scope?" |
-| Code uses camelCase (`backgroundColor`), Figma uses slash-separated (`color/bg/default`) | "The codebase uses camelCase naming. The Figma file uses slash-separated hierarchy. For new variables, should I use slash-separated (Figma standard) and map via code syntax?" |
-
-### Code Wins
-
-Default to code as the source of truth for:
-
-- Hex values (code is the live production value)
-- Token naming (the CSS variable names become code syntax)
-- Mode values (light/dark split comes from code)
-
-### Figma Wins
-
-Default to Figma as the source of truth for:
-
-- Collection architecture (if a well-structured system already exists, extend it rather than replace it)
-- Variable naming hierarchy (if designers are already using the system with specific names)
-- Page structure (match the existing page organization pattern)
-
-### Neither: Negotiate
-
-When neither is clearly correct, propose a resolution and ask:
-> "I'd suggest [option]. This way both the code token name and the Figma naming convention are preserved. Does that work?"
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

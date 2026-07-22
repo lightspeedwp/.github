@@ -127,3 +127,7 @@ owners:
 - [ ] Plan next iteration based on feedback
 - [ ] Keep dependencies updated
 - [ ] Monitor security advisories
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

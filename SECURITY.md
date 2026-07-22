@@ -123,3 +123,5 @@ For questions about this security policy, contact:
 - **Lead Security Contact:** @ashleyshaw
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

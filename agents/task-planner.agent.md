@@ -62,3 +62,7 @@ metadata:
     validation. Generate plans before implementation. Always clarify requirements
     before planning.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

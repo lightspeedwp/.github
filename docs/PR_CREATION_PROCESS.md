@@ -198,3 +198,5 @@ Each PR template includes a checklist. Ensure you:
 - [Roadmap](./ROADMAP.md)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

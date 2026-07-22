@@ -140,3 +140,5 @@ chart.display_blanks_as = "gap"
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

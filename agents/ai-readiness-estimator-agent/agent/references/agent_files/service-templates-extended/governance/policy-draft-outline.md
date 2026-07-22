@@ -60,4 +60,4 @@ Explain how the policy will be updated, who approves changes, and how changes wi
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

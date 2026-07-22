@@ -43,4 +43,4 @@ This checklist ensures that all content used to ground a chatbot is suitable, ap
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

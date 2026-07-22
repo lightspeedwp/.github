@@ -4,3 +4,7 @@ description: Manage issues, projects & team workflows in Linear. Use when the us
 metadata:
   short-description: Manage Linear issues in Codex
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

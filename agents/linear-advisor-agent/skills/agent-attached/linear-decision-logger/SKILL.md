@@ -158,4 +158,4 @@ Do not use this skill as the main workflow. Route to `linear-the-architect`. Onl
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

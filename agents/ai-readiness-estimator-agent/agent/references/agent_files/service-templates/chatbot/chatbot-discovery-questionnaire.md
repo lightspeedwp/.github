@@ -62,4 +62,4 @@ Provide any other context or requirements that may affect the planning and imple
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -458,3 +458,5 @@ Action: Replace and note in commit
 ---
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -391,4 +391,4 @@ If installation is not possible in this environment, tell the user which depende
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

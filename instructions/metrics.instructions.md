@@ -20,3 +20,7 @@ apply_to:
 - scripts/agents/metrics.agent.js
 - .github/workflows/metrics.yml
 ---
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

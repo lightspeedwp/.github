@@ -126,3 +126,5 @@ These labels help you:
 - Report abuse or spam using built-in GitHub tools or notify a maintainer.
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

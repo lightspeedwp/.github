@@ -49,4 +49,4 @@ This roadmap provides a phased plan for improving AI readiness across governance
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

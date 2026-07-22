@@ -100,4 +100,4 @@ Checklist items to ensure the integration fix/update is complete.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -31,4 +31,4 @@ Once we can reproduce the behavior, we can continue investigation and route the 
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -97,4 +97,4 @@ Before closing your testing pass, make sure you have:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

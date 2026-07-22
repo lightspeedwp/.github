@@ -4,3 +4,7 @@ description: Create or update Figma designs directly from a written product or U
 metadata:
   mcp-server: figma
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

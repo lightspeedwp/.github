@@ -215,3 +215,5 @@ Before finalizing the ADR, verify:
   repository state as the source of truth.
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

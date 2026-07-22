@@ -69,3 +69,7 @@ metadata:
     before modifications. Validate configuration schema before applying. Respect file-specific
     opt-out markers.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -192,4 +192,4 @@ Stabilise the store for reliable launch-readiness validation by restoring the co
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

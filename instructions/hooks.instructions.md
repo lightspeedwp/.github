@@ -70,3 +70,5 @@ All hooks must:
 - [coding-standards.instructions.md](./coding-standards.instructions.md) — Code quality standards hooks enforce
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

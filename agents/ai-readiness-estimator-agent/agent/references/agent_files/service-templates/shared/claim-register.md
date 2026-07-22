@@ -48,4 +48,4 @@ Each claim must be backed by evidence, reviewed, and approved before inclusion i
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

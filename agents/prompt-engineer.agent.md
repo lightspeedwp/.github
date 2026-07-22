@@ -33,3 +33,7 @@ metadata:
     provide systematic reasoning before outputting improved prompts. Validate all
     improvements through testing. Never skip the analysis phase.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

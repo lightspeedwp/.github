@@ -207,4 +207,4 @@ Concise paragraph describing the user's journey and benefits.
 
 ---
 
-After generating the PRD, I will ask if you want to proceed with creating GitHub issues for the user stories. If you agree, I will create them using `issue_write` and provide you with the links.
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

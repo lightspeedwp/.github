@@ -67,3 +67,5 @@ For tools with config files (`.eslintrc.json`, `prettier.config.js`, etc.):
 - [coding-standards.instructions.md](./coding-standards.instructions.md) — Standards that tools enforce
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

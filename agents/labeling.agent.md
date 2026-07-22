@@ -235,3 +235,5 @@ Maps issue template types to labels:
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
