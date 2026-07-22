@@ -27,58 +27,66 @@
  *   `variables` maps each token name to its created Variable object.
  */
 async function createSemanticTokens(collection, modeIds, tokenMap, runId) {
-  const variables = {}
+  const variables = {};
 
   for (const token of tokenMap) {
     // Create the variable
-    const variable = figma.variables.createVariable(token.name, collection, token.type)
+    const variable = figma.variables.createVariable(
+      token.name,
+      collection,
+      token.type,
+    );
 
     // Tag for cleanup
-    variable.setPluginData('dsb_key', `variable/${token.name}`)
+    variable.setPluginData("dsb_key", `variable/${token.name}`);
     if (runId) {
-      variable.setPluginData('dsb_run_id', runId)
+      variable.setPluginData("dsb_run_id", runId);
     }
 
     // Set values for each mode
     for (const [modeName, rawValue] of Object.entries(token.values)) {
-      const modeId = modeIds[modeName]
+      const modeId = modeIds[modeName];
       if (!modeId) {
         throw new Error(
           `createSemanticTokens: mode "${modeName}" not found in modeIds for token "${token.name}". ` +
-            `Available modes: ${Object.keys(modeIds).join(', ')}`,
-        )
+            `Available modes: ${Object.keys(modeIds).join(", ")}`,
+        );
       }
 
-      let value = rawValue
+      let value = rawValue;
 
       // Convert hex strings to Figma RGBA for COLOR type
-      if (token.type === 'COLOR' && typeof rawValue === 'string' && rawValue.startsWith('#')) {
-        value = hexToFigmaColor(rawValue)
+      if (
+        token.type === "COLOR" &&
+        typeof rawValue === "string" &&
+        rawValue.startsWith("#")
+      ) {
+        value = hexToFigmaColor(rawValue);
       }
 
-      variable.setValueForMode(modeId, value)
+      variable.setValueForMode(modeId, value);
     }
 
     // Set scopes (default: empty array = hidden from property pickers / primitives)
-    variable.scopes = token.scopes || []
+    variable.scopes = token.scopes || [];
 
     // Set code syntax per platform
     if (token.codeSyntax) {
       if (token.codeSyntax.WEB) {
-        variable.setVariableCodeSyntax('WEB', token.codeSyntax.WEB)
+        variable.setVariableCodeSyntax("WEB", token.codeSyntax.WEB);
       }
       if (token.codeSyntax.ANDROID) {
-        variable.setVariableCodeSyntax('ANDROID', token.codeSyntax.ANDROID)
+        variable.setVariableCodeSyntax("ANDROID", token.codeSyntax.ANDROID);
       }
       if (token.codeSyntax.iOS) {
-        variable.setVariableCodeSyntax('iOS', token.codeSyntax.iOS)
+        variable.setVariableCodeSyntax("iOS", token.codeSyntax.iOS);
       }
     }
 
-    variables[token.name] = variable
+    variables[token.name] = variable;
   }
 
-  return { variables }
+  return { variables };
 }
 
 /**
@@ -89,20 +97,20 @@ async function createSemanticTokens(collection, modeIds, tokenMap, runId) {
  * @returns {{ r: number, g: number, b: number, a: number }}
  */
 function hexToFigmaColor(hex) {
-  let h = hex.replace('#', '')
+  let h = hex.replace("#", "");
 
   // Expand shorthand #rgb → #rrggbb
   if (h.length === 3) {
     h = h
-      .split('')
+      .split("")
       .map((c) => c + c)
-      .join('')
+      .join("");
   }
 
-  const r = parseInt(h.substring(0, 2), 16) / 255
-  const g = parseInt(h.substring(2, 4), 16) / 255
-  const b = parseInt(h.substring(4, 6), 16) / 255
-  const a = h.length === 8 ? parseInt(h.substring(6, 8), 16) / 255 : 1
+  const r = parseInt(h.substring(0, 2), 16) / 255;
+  const g = parseInt(h.substring(2, 4), 16) / 255;
+  const b = parseInt(h.substring(4, 6), 16) / 255;
+  const a = h.length === 8 ? parseInt(h.substring(6, 8), 16) / 255 : 1;
 
-  return { r, g, b, a }
+  return { r, g, b, a };
 }
