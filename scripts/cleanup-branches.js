@@ -61,6 +61,11 @@ const opts = {
   reportDir: getArg("reportDir", ".github/reports"),
 };
 
+if (Number.isNaN(opts.inactiveDays) || opts.inactiveDays < 0) {
+  console.warn("⚠️  Invalid --inactiveDays value; defaulting to 30.");
+  opts.inactiveDays = 30;
+}
+
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
