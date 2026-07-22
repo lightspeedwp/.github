@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Branch cleanup automation** — Added a reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches. The new automation supports dry-run previews, protected-branch guardrails, open-PR filtering, local branch deletion, and markdown/json metrics output. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
+
 - **`js-yaml` 5.x default-export removal** — 15 files using `import yaml from "js-yaml"` broke when `js-yaml` 5.x dropped its default export (named exports only: `load`, `dump`, etc.). Switched to namespace imports (`import * as yaml from "js-yaml"`). ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
 
 ### Changed
