@@ -5,6 +5,9 @@ import path from "path";
 let getMetrics;
 let writeJsonReport;
 let writeMarkdownReport;
+let daysSince;
+let buildExcludeRegex;
+let buildPreserveAuthorRegex;
 
 describe("cleanup-branches report generation", () => {
   const reportDir = fs.mkdtempSync(
@@ -13,8 +16,14 @@ describe("cleanup-branches report generation", () => {
 
   beforeAll(async () => {
     process.env.CLEANUP_BRANCHES_SKIP_MAIN = "1";
-    ({ getMetrics, writeJsonReport, writeMarkdownReport } =
-      await import("../../cleanup-branches.js"));
+    ({
+      getMetrics,
+      writeJsonReport,
+      writeMarkdownReport,
+      daysSince,
+      buildExcludeRegex,
+      buildPreserveAuthorRegex,
+    } = await import("../../cleanup-branches.js"));
   });
 
   afterAll(() => {
@@ -115,5 +124,43 @@ describe("cleanup-branches report generation", () => {
     expect(json.metrics.deletedByType).toEqual({ feat: 1 });
     expect(json.metrics.authorsAffected).toEqual(["user@example.com"]);
     expect(json.deleted[0].branch).toBe("feat/old-widget");
+  });
+});
+
+describe("cleanup-branches edge case handling", () => {
+  beforeAll(async () => {
+    process.env.CLEANUP_BRANCHES_SKIP_MAIN = "1";
+  });
+
+  afterAll(() => {
+    delete process.env.CLEANUP_BRANCHES_SKIP_MAIN;
+  });
+
+  it("daysSince handles empty/invalid dates safely by treating as recent", () => {
+    expect(daysSince("")).toBe(0);
+    expect(daysSince(null)).toBe(0);
+    expect(daysSince(undefined)).toBe(0);
+    expect(daysSince("invalid-date")).toBe(0);
+  });
+
+  it("daysSince returns correct age for valid ISO dates", () => {
+    const now = new Date();
+    const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const age = daysSince(oneDayAgo.toISOString());
+    expect(Math.floor(age)).toBe(1);
+  });
+
+  it("buildExcludeRegex handles invalid regex gracefully with fallback", () => {
+    const regex = buildExcludeRegex();
+    expect(regex).toBeInstanceOf(RegExp);
+    expect(() => regex.test("release/v1.0.0")).not.toThrow();
+  });
+
+  it("buildPreserveAuthorRegex handles invalid regex gracefully", () => {
+    const regex = buildPreserveAuthorRegex();
+    if (regex) {
+      expect(regex).toBeInstanceOf(RegExp);
+    }
+    expect(() => buildPreserveAuthorRegex()).not.toThrow();
   });
 });
