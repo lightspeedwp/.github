@@ -1,0 +1,7 @@
+[
+  { "name": "site_auditor" },
+  { "name": "setup_recommender" },
+  { "name": "performance_analyzer" },
+  { "name": "security_checker" },
+  { "name": "plugin_optimizer" }
+]
