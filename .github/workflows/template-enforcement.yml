@@ -21,7 +21,14 @@ jobs:
         with:
           script: |
             const marker = '<!-- template-enforcement -->';
-            const issue = context.payload.issue;
+            // Re-fetch the issue instead of trusting context.payload.issue: this job's
+            // start can be queued well behind the webhook event, so the payload snapshot
+            // may be stale by the time the script actually runs.
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+            });
             const body = (issue.body || '').trim();
             const author = issue.user?.login || '';
             const isGithubActions = author === 'github-actions[bot]';
@@ -159,7 +166,22 @@ jobs:
         with:
           script: |
             const marker = '<!-- template-enforcement -->';
-            const issue = context.payload.issue;
+            // Re-fetch the issue instead of trusting context.payload.issue: this job's
+            // start can be queued well behind the webhook event (observed ~3 minute job
+            // scheduling delays), so by the time the script runs the body/labels/state in
+            // the payload snapshot may no longer match reality — e.g. the user already
+            // fixed the issue and re-closed it before this run got a chance to execute.
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+            });
+
+            if (issue.state !== 'closed') {
+              core.info(`Issue #${issue.number} is no longer closed (current state: ${issue.state}); skipping close guard.`);
+              return;
+            }
+
             const author = issue.user?.login || '';
             const isBot = issue.user?.type === 'Bot' ||
               author === 'dependabot[bot]' ||
