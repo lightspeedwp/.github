@@ -23,7 +23,7 @@ describe("footerUtils", () => {
     expect(ensureFooter("README.md")).toBe(true);
     expect(fs.writeFileSync).toHaveBeenCalledWith(
       "README.md",
-      expect.stringContaining("_"),
+      expect.stringContaining("*"),
     );
   });
 

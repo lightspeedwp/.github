@@ -59,5 +59,3 @@ Why it is bad: shared agents must not depend on one user's private views or logi
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

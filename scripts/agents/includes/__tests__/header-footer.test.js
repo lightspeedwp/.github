@@ -28,9 +28,9 @@ describe("header-footer", () => {
 
     const output = fs.readFileSync(filePath, "utf8");
     expect(output).toContain(
-      "Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!",
+      "*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*",
     );
-    expect(output).toContain("https://lightspeedwp.agency/contact");
+    expect(output).not.toContain("https://lightspeedwp.agency/contact");
   });
 
   test("ensureFooter ignores footer text mentioned in the body", async () => {
