@@ -173,7 +173,16 @@ function buildPreserveAuthorRegex() {
     .map((p) => p.trim())
     .filter(Boolean);
   if (!parts.length) return null;
-  return new RegExp(`(${parts.join("|")})`);
+
+  const source = `(${parts.join("|")})`;
+  try {
+    return new RegExp(source);
+  } catch (err) {
+    console.warn(
+      `⚠️  Invalid --preserveAuthors regex; disabling author preservation: ${err.message}`,
+    );
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------
