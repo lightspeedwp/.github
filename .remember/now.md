@@ -26,3 +26,7 @@ Implemented version-based milestone strategy (v1.0–v1.6) w/ auto-allocation; c
 ## 18:25 | fix/validation-footer-and-mermaid
 
 Fixed validate-footers truncation & validate-mermaid-pr error handling (#1118, #1119) in PR #1123 w/ bug templates & status comments.
+
+## 18:36 | fix/validation-footer-and-mermaid
+
+Fixed changelog-validate WF failure in PR #1123 w/ CHANGELOG entry (91e22fa58); addressed CodeRabbit feedback w/ UK spelling fix (beb7584f7) & 12 code-quality imprv in #1126; set up auto-merge monitoring.
