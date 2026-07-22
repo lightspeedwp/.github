@@ -1063,6 +1063,182 @@ export const ITEMS: CatalogueItem[] = [
       path: "agents/linting.agent.md",
     },
   ),
+  item(
+    "agents",
+    "ai-readiness-estimator",
+    "AI Readiness Estimator",
+    "Assesses organisational and technical readiness for AI implementation.",
+    {
+      type: "install",
+      tags: ["ai", "assessment", "readiness"],
+      path: "agents/ai-readiness-estimator-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "website-scope-estimator",
+    "Website Scope Estimator",
+    "Estimates project scope, timeline, and resource requirements for websites.",
+    {
+      type: "install",
+      tags: ["estimation", "planning", "website"],
+      path: "agents/website-scope-estimator-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "playwright-testing",
+    "Playwright Testing",
+    "Automates browser testing, visual regression detection, and cross-browser validation.",
+    {
+      type: "install",
+      tags: ["testing", "automation", "qa"],
+      path: "agents/playwright-testing-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "zendesk-support",
+    "Zendesk Support",
+    "Manages support tickets, customer issues, and knowledge base maintenance.",
+    {
+      type: "install",
+      tags: ["support", "integration", "customer"],
+      path: "agents/zendesk-support-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "design-partner",
+    "Design Partner",
+    "Facilitates design collaboration, feedback collection, and design system management.",
+    {
+      type: "install",
+      tags: ["design", "collaboration", "systems"],
+      path: "agents/design-partner-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "prd-factory-planner",
+    "PRD Factory & Planner",
+    "Generates and manages Product Requirements Documents with structured planning.",
+    {
+      type: "install",
+      tags: ["prd", "planning", "product"],
+      path: "agents/prd-factory-planner-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "website-content-strategist",
+    "Website Content Strategist",
+    "Develops content strategies, editorial calendars, and website messaging optimisation.",
+    {
+      type: "install",
+      tags: ["content", "strategy", "website"],
+      path: "agents/website-content-strategist-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "woo-config",
+    "WooCommerce Configuration",
+    "Automates WooCommerce setup, configuration, and eCommerce optimisation.",
+    {
+      type: "install",
+      tags: ["ecommerce", "woocommerce", "configuration"],
+      path: "agents/woo-config-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "wp-config",
+    "WordPress Configuration",
+    "Manages WordPress site configuration, plugins, themes, and security.",
+    {
+      type: "install",
+      tags: ["wordpress", "configuration", "setup"],
+      path: "agents/wp-config-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "tour-operator-config",
+    "Tour Operator Configuration",
+    "Specialises in tour and travel operator workflows, booking systems, and itineraries.",
+    {
+      type: "install",
+      tags: ["travel", "booking", "configuration"],
+      path: "agents/tour-operator-config-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "proposal-desk",
+    "Proposal Desk",
+    "Automates proposal generation, template management, and contract tracking.",
+    {
+      type: "install",
+      tags: ["proposals", "sales", "automation"],
+      path: "agents/proposal-desk-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "prd",
+    "PRD Agent",
+    "Manages product requirement documents with AI-assisted creation and validation.",
+    {
+      type: "install",
+      tags: ["prd", "product", "specs"],
+      path: "agents/prd-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "pagespeed",
+    "PageSpeed Agent",
+    "Monitors, analyses, and optimises website performance using PageSpeed Insights.",
+    {
+      type: "install",
+      tags: ["performance", "optimization", "website"],
+      path: "agents/pagespeed-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "harvest-analytics",
+    "Harvest Analytical",
+    "Integrates with Harvest for time tracking, project analytics, and resource utilisation.",
+    {
+      type: "install",
+      tags: ["analytics", "reporting", "metrics"],
+      path: "agents/harvest-analytical-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "linear-advisor",
+    "Linear Advisor",
+    "Provides issue management assistance, triage, and workflow optimisation support.",
+    {
+      type: "install",
+      tags: ["issues", "triage", "management"],
+      path: "agents/linear-advisor-agent/README.md",
+    },
+  ),
+  item(
+    "agents",
+    "client-website-discovery",
+    "Client Website Discovery",
+    "Facilitates client discovery processes and documents requirements for websites.",
+    {
+      type: "install",
+      tags: ["discovery", "requirements", "client"],
+      path: "agents/client-website-discovery-assistant-agent/README.md",
+    },
+  ),
 
   /* ── INSTRUCTIONS ── */
   item(
