@@ -137,26 +137,43 @@ function replaceFooterTail(content, footerTemplate) {
   const separators = [];
   const lines = content.split("\n");
 
+  // Find all "---" separators
   lines.forEach((line, idx) => {
     if (line.trim() === "---") {
       separators.push(idx);
     }
   });
 
+  // If no separators, append footer at the end
   if (separators.length === 0) {
     if (content.endsWith("\n")) {
       return `${content}${footerBlock.trimStart()}`;
     }
-
     return `${content}\n${footerBlock.trimStart()}`;
   }
 
-  const lastSeparatorIdx = separators[separators.length - 1];
-  const contentWithoutTail = lines
-    .slice(0, lastSeparatorIdx)
+  // The frontmatter ends at the second separator (if YAML frontmatter exists)
+  // or we assume the document has no frontmatter and append at the end
+  const frontmatterClosingIdx =
+    separators.length >= 2 ? separators[1] : separators[0];
+
+  // Keep everything up to and including the frontmatter closing separator,
+  // then append the footer. This preserves the entire body content.
+  const contentWithFrontmatter = lines
+    .slice(0, frontmatterClosingIdx + 1)
+    .join("\n");
+
+  const bodyContent = lines
+    .slice(frontmatterClosingIdx + 1)
     .join("\n")
-    .replace(/\s+$/, "");
-  return `${contentWithoutTail}${footerBlock}`;
+    .replace(/\n*---[\s\S]*$/, "") // Remove any existing footer section
+    .trim();
+
+  // Reconstruct: frontmatter + body + new footer
+  if (bodyContent) {
+    return `${contentWithFrontmatter}\n\n${bodyContent}${footerBlock}`;
+  }
+  return `${contentWithFrontmatter}${footerBlock}`;
 }
 
 // Bundled/vendored skill reference material (third-party snapshots embedded
