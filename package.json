@@ -90,6 +90,7 @@
     "validate:skills": "node scripts/validation/validate-skills.js",
     "validate:skill-manifests": "node scripts/validation/validate-skills.js --strict-manifests",
     "validate:plugins": "node scripts/validation/validate-plugins.js",
+    "validate:agent-hooks": "node scripts/validation/validate-agent-hooks.cjs",
     "validate:links": "node scripts/validation/validate-links.js",
     "validate:agents": "node scripts/validation/validate-agent-frontmatter.js",
     "audit:agents:ruby": "ruby scripts/audit/agent-frontmatter-audit.rb",

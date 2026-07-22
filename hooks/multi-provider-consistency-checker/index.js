@@ -49,7 +49,12 @@ function validate(agentPath) {
   }
 
   for (const provider of declared) {
-    if (!ALL_PROVIDERS.includes(provider)) continue;
+    if (!ALL_PROVIDERS.includes(provider)) {
+      errors.push(
+        `Unsupported provider '${provider}' declared in AGENT.md (allowed: ${ALL_PROVIDERS.join(", ")})`,
+      );
+      continue;
+    }
     const configPath = path.join(agentPath, provider, "agent.md");
     if (!fs.existsSync(configPath)) {
       errors.push(

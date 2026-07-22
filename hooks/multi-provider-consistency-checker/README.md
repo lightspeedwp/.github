@@ -13,6 +13,30 @@ tags:
   - validation
 ---
 
+# multi-provider-consistency-checker
+
+Detects divergences across an agent's Claude, Copilot, and OpenAI provider configurations.
+
+## Triggers
+
+pre-commit, pre-push
+
+## Usage
+
+```bash
+node hooks/multi-provider-consistency-checker/index.js <path>
+```
+
+Programmatic:
+
+```js
+const hook = require("./hooks/multi-provider-consistency-checker");
+const { valid, errors, warnings } = hook.validate("<path>");
+```
+
+Returns `{ valid: boolean, errors: string[], warnings: string[] }`. Exit code is
+`1` when `valid` is `false`. Tests live in `__tests__/`.
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -83,8 +83,12 @@ function validate(agentPath) {
     );
   }
 
-  if (!frontmatter.capabilities || frontmatter.capabilities.length === 0) {
-    warnings.push("No capabilities declared");
+  if (frontmatter.capabilities !== undefined) {
+    if (!Array.isArray(frontmatter.capabilities)) {
+      errors.push("Field 'capabilities' must be an array");
+    } else if (frontmatter.capabilities.length === 0) {
+      errors.push("At least one capability is required");
+    }
   }
 
   return { valid: errors.length === 0, errors, warnings };

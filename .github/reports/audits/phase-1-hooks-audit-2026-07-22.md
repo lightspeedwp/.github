@@ -35,7 +35,7 @@ scope: phase-1-agent-standardization
 - **Status:** active
 - **Version:** v0.1.1
 
-**Current Registry:** `.github/hooks/hook-registry.json`
+**Current Registry:** `hooks/hook-registry.json`
 
 ---
 
@@ -496,7 +496,7 @@ module.exports = {
 
 ## Hook Registration Update
 
-Add to `.github/hooks/hook-registry.json`:
+Add to `hooks/hook-registry.json`:
 
 ```json
 {
@@ -559,10 +559,10 @@ Add to `.github/hooks/hook-registry.json`:
 
 ### Hook Folder Creation
 
-- [ ] Create `.github/hooks/agent-spec-validator/` directory
-- [ ] Create `.github/hooks/multi-provider-consistency-checker/` directory
-- [ ] Create `.github/hooks/plugin-integrity-checker/` directory
-- [ ] Create `.github/hooks/agent-security-auditor/` directory
+- [ ] Create `hooks/agent-spec-validator/` directory
+- [ ] Create `hooks/multi-provider-consistency-checker/` directory
+- [ ] Create `hooks/plugin-integrity-checker/` directory
+- [ ] Create `hooks/agent-security-auditor/` directory
 
 ### Hook Implementation
 
@@ -572,8 +572,8 @@ Add to `.github/hooks/hook-registry.json`:
 
 ### Registration
 
-- [ ] Update `.github/hooks/hook-registry.json` with new hooks
-- [ ] Update `.github/hooks/README.md` to include new hooks in table
+- [ ] Update `hooks/hook-registry.json` with new hooks
+- [ ] Update `hooks/README.md` to include new hooks in table
 
 ### Integration
 

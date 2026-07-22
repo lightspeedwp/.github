@@ -10,8 +10,9 @@
         "properties": {
           "sources": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Ordered source references (PRD, acceptance criteria, Figma, repo, staging)."
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "description": "Ordered source references (PRD, acceptance criteria, Figma, repo, staging). At least one grounded source is required for traceability."
           },
           "scope": {
             "type": "string",
@@ -29,6 +30,7 @@
         "properties": {
           "text": {
             "type": "string",
+            "minLength": 1,
             "description": "PRD or acceptance-criteria text."
           }
         },
@@ -41,7 +43,11 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "approved_pack_id": { "type": "string" },
+          "approved_pack_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "ID of a test pack the caller has already approved at the review gate. The runtime MUST resolve this to a pack whose review state is 'approved' and reject unknown, unapproved, or stale packs before generating specs."
+          },
           "browsers": {
             "type": "array",
             "items": {
@@ -51,7 +57,8 @@
           },
           "base_url_env": {
             "type": "string",
-            "description": "Env var name holding the base URL (never a literal URL with secrets)."
+            "pattern": "^[A-Z][A-Z0-9_]*$",
+            "description": "Name of an environment variable holding the base URL (e.g. STAGING_BASE_URL). Must be an env-var name, never a literal URL or credential."
           }
         },
         "required": ["approved_pack_id"]

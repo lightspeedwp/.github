@@ -1,6 +1,6 @@
 ---
 name: agent_standards_deliverables
-description: Complete standardization initiative deliverables - prompts, audit, and implementation guides
+description: Complete standardisation initiative deliverables - prompts, audit, and implementation guides
 metadata:
   type: reference
 ---

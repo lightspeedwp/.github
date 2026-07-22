@@ -1,6 +1,7 @@
 ---
 file_type: agent
-name: Playwright Testing Agent
+name: playwright-testing
+title: Playwright Testing Agent
 description: >-
   Packaged Playwright Testing Agent for the lightspeed-playwright-testing plugin.
   Canonical multi-provider spec lives in agents/playwright-testing-agent/.
