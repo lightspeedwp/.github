@@ -169,7 +169,4 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 
 ---
 
----
-
-
 *Maintained by the 🤖 LightSpeedWP Automation Team*
