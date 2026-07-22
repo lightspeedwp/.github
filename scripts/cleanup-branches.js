@@ -153,8 +153,9 @@ function getUniqueCommitCount(branch, baseRef) {
 }
 
 function daysSince(isoDate) {
+  if (!isoDate) return 0;
   const then = new Date(isoDate);
-  if (isNaN(then.getTime())) return Infinity;
+  if (isNaN(then.getTime())) return 0;
   return (Date.now() - then.getTime()) / MS_PER_DAY;
 }
 
@@ -215,11 +216,14 @@ function getLocalBranches() {
 
 function isMerged(branch) {
   const branchRef = `origin/${branch}`;
-  const developMerged = run("git branch -r --merged origin/develop");
-  if (developMerged && developMerged.includes(branchRef)) return true;
 
-  const mainMerged = run("git branch -r --merged origin/main");
-  if (mainMerged && mainMerged.includes(branchRef)) return true;
+  const developMerged = runLines(
+    "git branch -r --merged origin/develop 2>/dev/null",
+  );
+  if (developMerged.includes(branchRef)) return true;
+
+  const mainMerged = runLines("git branch -r --merged origin/main 2>/dev/null");
+  if (mainMerged.includes(branchRef)) return true;
 
   return false;
 }
@@ -352,13 +356,7 @@ function deleteLocalBranch(branch) {
   if (result.status === 0) {
     return { ok: true };
   }
-  // Force-delete if -d fails (already gone remotely)
-  const force = spawnSync("git", ["branch", "-D", branch], {
-    encoding: "utf8",
-  });
-  return force.status === 0
-    ? { ok: true, forced: true }
-    : { ok: false, error: (force.stderr || "").trim() };
+  return { ok: false, error: (result.stderr || "").trim() };
 }
 
 // ---------------------------------------------------------------------------
