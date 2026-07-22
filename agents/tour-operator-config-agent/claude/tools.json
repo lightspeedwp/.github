@@ -1,0 +1,75 @@
+[
+  {
+    "name": "site_analyzer",
+    "description": "Analyze current WordPress/WooCommerce configuration for tour operations",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "site_url": { "type": "string" },
+        "current_setup": { "type": "string" },
+        "pain_points": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["current_setup"]
+    }
+  },
+  {
+    "name": "architecture_recommender",
+    "description": "Recommend WordPress/WooCommerce architecture for tour operations",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "tour_types": { "type": "array", "items": { "type": "string" } },
+        "expected_volume": { "type": "string" },
+        "budget": { "type": "string" },
+        "technical_expertise": { "type": "string" }
+      }
+    }
+  },
+  {
+    "name": "setup_validator",
+    "description": "Validate tour operator WordPress/WooCommerce setup",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "configuration": { "type": "string" },
+        "check_type": {
+          "enum": [
+            "completeness",
+            "best_practices",
+            "security",
+            "performance",
+            "all"
+          ]
+        }
+      },
+      "required": ["configuration"]
+    }
+  },
+  {
+    "name": "optimization_planner",
+    "description": "Plan optimizations for tour operator websites",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "current_performance": { "type": "string" },
+        "goals": { "type": "array", "items": { "type": "string" } },
+        "constraints": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  {
+    "name": "booking_system_configurator",
+    "description": "Configure booking system for tour operations",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "tour_structure": { "type": "string" },
+        "booking_requirements": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "payment_methods": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+]
