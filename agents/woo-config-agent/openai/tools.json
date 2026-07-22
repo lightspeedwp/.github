@@ -1,0 +1,7 @@
+[
+  { "type": "function", "function": { "name": "create_store_analysis" } },
+  { "type": "function", "function": { "name": "optimize_setup" } },
+  { "type": "function", "function": { "name": "configure_products" } },
+  { "type": "function", "function": { "name": "setup_payments" } },
+  { "type": "function", "function": { "name": "analyze_performance" } }
+]
