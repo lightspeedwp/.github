@@ -13,26 +13,8 @@ tags:
   - validation
 ---
 
-# plugin-integrity-checker
+---
 
-Validates a plugin's four provider manifests and that referenced agent/skill files resolve.
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-## Triggers
-
-pre-commit, pre-push
-
-## Usage
-
-```bash
-node hooks/plugin-integrity-checker/index.js <path>
-```
-
-Programmatic:
-
-```js
-const hook = require("./hooks/plugin-integrity-checker");
-const { valid, errors, warnings } = hook.validate("<path>");
-```
-
-Returns `{ valid: boolean, errors: string[], warnings: string[] }`. Exit code is
-`1` when `valid` is `false`. Tests live in `__tests__/`.
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

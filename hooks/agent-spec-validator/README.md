@@ -13,26 +13,8 @@ tags:
   - validation
 ---
 
-# agent-spec-validator
+---
 
-Validates agent AGENT.md YAML frontmatter for required multi-provider fields and value formats.
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-## Triggers
-
-pre-commit, pre-push
-
-## Usage
-
-```bash
-node hooks/agent-spec-validator/index.js <path>
-```
-
-Programmatic:
-
-```js
-const hook = require("./hooks/agent-spec-validator");
-const { valid, errors, warnings } = hook.validate("<path>");
-```
-
-Returns `{ valid: boolean, errors: string[], warnings: string[] }`. Exit code is
-`1` when `valid` is `false`. Tests live in `__tests__/`.
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

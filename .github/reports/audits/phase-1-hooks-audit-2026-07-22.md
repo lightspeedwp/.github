@@ -603,7 +603,10 @@ Add to `.github/hooks/hook-registry.json`:
 ## Next Steps (Task 3)
 
 Proceed to **Schemas Folder Audit** to review existing schemas and propose 4 new schemas for multi-provider agent validation.
+---
 
 ---
 
-**End of Hooks Audit Report**
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

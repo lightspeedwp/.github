@@ -351,7 +351,10 @@ Move all audit reports to `.github/reports/audits/` with naming convention `{pha
 ## Next Steps (Task 6)
 
 Proceed to **Create Standardization Framework Document** that ties together all audit findings and establishes the normative framework for Phase 1 implementation.
+---
 
 ---
 
-**End of Memory & Schema Audit Report**
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

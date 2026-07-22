@@ -661,7 +661,10 @@ Implementation of agent rewrite, plugin creation, validation, and merge follows 
 **Last Updated:** 2026-07-22  
 **Maintained By:** Ash Shaw  
 **Reference:** Issue #1079
+---
 
 ---
 
-**End of Framework Document**
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

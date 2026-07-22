@@ -767,7 +767,10 @@ Update `.github/schema/schema-registry.json`:
 ## Next Steps (Task 4)
 
 Proceed to **AI Config Folder Audit** to review AI configurations and propose updates for multi-provider support.
+---
 
 ---
 
-**End of Schemas Audit Report**
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
