@@ -7,25 +7,33 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 
-export type PhosphorWeight = "regular" | "bold" | "fill" | "light" | "duotone" | "thin";
+export type PhosphorWeight =
+  | "regular"
+  | "bold"
+  | "fill"
+  | "light"
+  | "duotone"
+  | "thin";
 
 const cache = new Map<string, string>();
 
 export function getPhosphorSvg(
   name: string,
   weight: PhosphorWeight = "regular",
-  size: number = 24
+  size: number = 24,
 ): string {
   const key = `${name}:${weight}:${size}`;
   if (cache.has(key)) return cache.get(key)!;
 
   try {
-    const file = require.resolve(`@phosphor-icons/core/assets/${weight}/${name}.svg`);
+    const file = require.resolve(
+      `@phosphor-icons/core/assets/${weight}/${name}.svg`,
+    );
     const raw = readFileSync(file, "utf-8");
     // Phosphor SVGs use viewBox="0 0 256 256"; inject width/height
     const result = raw.replace(
       "<svg ",
-      `<svg width="${size}" height="${size}" `
+      `<svg width="${size}" height="${size}" `,
     );
     cache.set(key, result);
     return result;

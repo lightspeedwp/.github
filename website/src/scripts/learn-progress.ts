@@ -16,7 +16,10 @@ export const UNREAD_TICK = `
 
 export function loadReadIds(): Set<string> {
   try {
-    const sources = [localStorage.getItem(STORAGE_KEY), ...LEGACY_KEYS.map((key) => localStorage.getItem(key))];
+    const sources = [
+      localStorage.getItem(STORAGE_KEY),
+      ...LEGACY_KEYS.map((key) => localStorage.getItem(key)),
+    ];
     const ids = new Set<string>();
 
     for (const raw of sources) {
