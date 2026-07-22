@@ -31,3 +31,7 @@ Use this skill for direct inbox-triage requests. Build on the core Gmail skill a
 - State timeframe, search scope, and confidence.
 - Treat reply-needed as an inference, not a guaranteed state.
 - Avoid claiming the inbox is fully triaged if you only checked a narrow slice.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

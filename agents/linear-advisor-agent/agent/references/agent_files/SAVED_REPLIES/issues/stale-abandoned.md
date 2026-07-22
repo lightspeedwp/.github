@@ -32,4 +32,4 @@ Thank you for helping us keep the project focused and up to date!
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

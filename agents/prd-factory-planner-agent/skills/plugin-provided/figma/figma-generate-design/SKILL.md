@@ -493,3 +493,7 @@ Because this skill works incrementally (one section per call), errors are natura
 - **Validate visually after each section.** Use `get_screenshot` to catch issues early.
 - **Assert the font family, not just a successful load.** A script can load the wrong font without error. After building, verify rendered text uses the product font identified in Step 1 (see Step 5).
 - **Match existing conventions.** If the file already has screens, match their naming, sizing, and layout patterns.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -245,4 +245,4 @@ A compact VOC summary with evidence strength, grouped signals, representative qu
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

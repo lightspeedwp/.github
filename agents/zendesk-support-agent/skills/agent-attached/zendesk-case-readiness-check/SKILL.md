@@ -308,4 +308,4 @@ Use `zendesk-case-readiness-check` directly for clear readiness checks before cu
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

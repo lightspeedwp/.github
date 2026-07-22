@@ -53,4 +53,4 @@ If that does not fully resolve it, reply with the remaining gap and we can conti
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

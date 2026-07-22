@@ -71,3 +71,5 @@ Use Mermaid diagrams for architecture and workflows:
 - [community-standards.instructions.md](./community-standards.instructions.md) — Naming and file placement conventions
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -33,4 +33,4 @@ Once it has been shared privately, we can track the appropriate next step intern
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

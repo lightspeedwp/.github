@@ -36,4 +36,4 @@ We appreciate your help in making our project more accessible!
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

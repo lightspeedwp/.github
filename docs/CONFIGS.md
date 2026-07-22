@@ -188,3 +188,7 @@ Automated labels based on:
 - Changelog format: Keep a Changelog
 - Release notes: GitHub releases
 - Tag format: `v{major}.{minor}.{patch}`
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

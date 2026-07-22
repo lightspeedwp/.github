@@ -30,3 +30,7 @@ If the spreadsheet is related to investment banking (LBO, DCF, 3-statement, valu
 - Section headers applying to multiple columns and rows should be left-justified, filled black or dark blue with white text, and should be a merged cell spanning the horizontal range of cells to which the header applies.
 - Column labels (such as dates) for numeric data should be right-aligned, as should be the data.
 - Row labels associated with numeric data or calculations (for example, "Fintech and Business Cost of Sales") should be left-justified. Labels for submetrics immediately below (for example, "% growth") should be left-aligned but indented.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

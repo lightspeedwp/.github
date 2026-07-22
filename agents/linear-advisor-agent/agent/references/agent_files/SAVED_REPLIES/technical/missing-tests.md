@@ -26,4 +26,4 @@ See our [testing guidelines](../../instructions/bats-tests-and-runner-scripts.md
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

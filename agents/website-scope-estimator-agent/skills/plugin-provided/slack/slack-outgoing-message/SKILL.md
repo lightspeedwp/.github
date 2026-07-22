@@ -64,3 +64,7 @@ Read this reference **before finalizing any outgoing Slack text**:
 - Resolve **Slack user groups** before writing only when the runtime exposes a way to do so, and use Slack mention syntax: `<!subteam^S123456>`.
 - Do not rely on bare `@name` text in outgoing Slack messages.
 - If you cannot resolve the correct user or group, **tell the user** and compose the draft or message without implying the mention will work.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

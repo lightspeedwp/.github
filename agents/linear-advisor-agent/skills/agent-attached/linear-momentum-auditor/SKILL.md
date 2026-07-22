@@ -84,4 +84,4 @@ A concise momentum review with blocked or stale issues, the most important momen
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

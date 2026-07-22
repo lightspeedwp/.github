@@ -143,3 +143,7 @@ Six deep dives, fetched on demand. General frontend concerns (performance, units
 - [references/framework-recommendations.md](references/framework-recommendations.md) — motion.dev, CSS keyframes, SwiftUI defaults, library-by-effect-class table (glass, confetti, particles, physics, scroll-linked). Load before hand-rolling an effect.
 - [references/unsupported-and-fallbacks.md](references/unsupported-and-fallbacks.md) — Figma motion features that don't export cleanly today (text animations, path animations, masks/booleans, variants/transitions). Includes video/lottie fallback guidance. Load when the tool response seems incomplete. **Always load [references/motion-lint-rules.md](references/motion-lint-rules.md) alongside this file** — unsupported entries reference specific lint rules that must be surfaced to the user.
 - [references/motion-lint-rules.md](references/motion-lint-rules.md) — Linting rules: known export limitations (errors and warnings) that must be surfaced to the user. Load when generating motion code to check whether any active limitations apply.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

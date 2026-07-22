@@ -101,3 +101,7 @@ At minimum, include:
 - Branching strategy and repository routing map.
 - Pull request governance and labeling documentation.
 - Repository contribution and security policies.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

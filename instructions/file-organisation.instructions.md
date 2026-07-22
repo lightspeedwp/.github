@@ -131,3 +131,7 @@ project-root/
 - [CLAUDE.md](../CLAUDE.md) — Project-specific instructions and file boundaries
 - [Coding Standards](./coding-standards.instructions.md)
 - [Documentation Formats](./documentation-formats.instructions.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

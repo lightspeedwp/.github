@@ -569,3 +569,5 @@ Then follow the governance checklist on this page.
 ---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

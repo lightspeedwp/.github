@@ -91,3 +91,5 @@ shape.fill = { "type": "proto", "proto": existing_fill_proto }
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -532,3 +532,5 @@ governance-footer:
 ---
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

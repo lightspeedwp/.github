@@ -19,4 +19,4 @@ purpose: Review an existing planning artefact for evidence strength, gaps, and r
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

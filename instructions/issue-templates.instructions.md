@@ -88,3 +88,7 @@ At minimum, include:
 - Repository issue type registry and labels.
 - Issue governance and project operations documentation.
 - Contribution and security policies.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

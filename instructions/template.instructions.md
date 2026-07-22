@@ -78,3 +78,5 @@ status: "active" or "draft"
 - [coding-standards.instructions.md](./coding-standards.instructions.md) — Code examples and conventions
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

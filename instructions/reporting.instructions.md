@@ -200,4 +200,7 @@ tags: ["progress", "weekly-summary"]
 references:
   - path: ".github/projects/{related-file}.md"
     description: "Related project tracker"
+
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

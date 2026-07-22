@@ -50,3 +50,7 @@ Use this skill for comment workflows in the unified Google Drive plugin. Drive c
 
 - Do not rely on Drive comment `anchor` data for Google Docs, Sheets, or Slides unless the connector explicitly documents a provider-supported shape for that surface. Drive API-created comments may still display as unanchored in the Google editor UI.
 - The evidence fields are the durable location contract for this workflow: exact quoted text for Docs and text-like files, sheet/cell range for Sheets, and slide number plus visible text for Slides.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

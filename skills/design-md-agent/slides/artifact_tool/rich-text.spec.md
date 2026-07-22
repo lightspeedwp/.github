@@ -148,3 +148,5 @@ shape.text = block
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

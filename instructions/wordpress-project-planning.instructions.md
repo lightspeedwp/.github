@@ -324,3 +324,7 @@ discount-plugin/
 - [WordPress Theme Handbook](https://developer.wordpress.org/themes/)
 - [Coding Standards](./coding-standards.instructions.md)
 - [Quality Assurance](./quality-assurance.instructions.md)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

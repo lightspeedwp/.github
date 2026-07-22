@@ -185,4 +185,7 @@ For Cursor, wrap the rules with YAML frontmatter:
 description: Rules for implementing Figma designs using the Figma MCP server. Covers component organization, styling conventions, design tokens, asset handling, and the required Figma-to-code workflow.
 globs: "src/components/**"
 alwaysApply: false
+
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

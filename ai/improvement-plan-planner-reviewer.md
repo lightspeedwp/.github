@@ -582,8 +582,4 @@ To work through these issues autonomously:
 
 ---
 
-## Reference
-
-- **Audit Prompt**: `ai/audit-planner-reviewer-agents.md`
-- **Issue Tracking**: GitHub Issues (to be created)
-- **Coding Standards**: `instructions/coding-standards.instructions.md`
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

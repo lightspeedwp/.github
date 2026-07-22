@@ -226,3 +226,5 @@ See `.github/workflows/` for workflow definitions.
 - Tag a maintainer, or open a support issue if you are stuck.
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

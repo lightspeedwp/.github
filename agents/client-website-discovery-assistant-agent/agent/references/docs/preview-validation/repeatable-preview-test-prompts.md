@@ -176,4 +176,4 @@ Use `docs/preview-validation/lsx-design-system-example.md` as the starting conte
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -173,3 +173,7 @@ function processUserRegistration($email, $password) {
 - [Coding Standards](./coding-standards.instructions.md)
 - [Task Implementation](./task-implementation.instructions.md)
 - Clean Code: A Handbook of Agile Software Craftsmanship (Chapter 4: Comments)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

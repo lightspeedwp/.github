@@ -43,4 +43,4 @@ Use this skill when the output must be clean, consistent, copy-ready Markdown an
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

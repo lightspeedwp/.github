@@ -109,3 +109,7 @@ Re-run the §5 checks live:
 | GitHub Pages | ✅ Ready | Workflow handles automatic deployment on merge to `develop` |
 
 **No manual deployment needed.** The GitHub Pages workflow is already configured and will deploy automatically.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

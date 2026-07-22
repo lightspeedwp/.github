@@ -62,3 +62,5 @@ table.cells.set(0, 1, Text.create("Detached"))
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

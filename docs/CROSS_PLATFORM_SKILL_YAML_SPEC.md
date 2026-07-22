@@ -161,14 +161,7 @@ examples:
         owner: "lightspeedwp",
         repo: "github"
       });
+
 ---
-```
 
-## Best Practices
-
-1. **Version Control**: Use semantic versioning
-2. **Documentation**: Provide clear examples
-3. **Permissions**: Request minimal permissions
-4. **Validation**: Validate all inputs
-5. **Error Handling**: Graceful failure messages
-6. **Testing**: Include test examples
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -154,4 +154,4 @@ Use one of the example context files in `docs/preview-validation/` as the starti
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

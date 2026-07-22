@@ -13,4 +13,4 @@ This file should fail because the version is not valid SemVer.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -144,3 +144,5 @@ Quick map:
   - `common.md` - common pitfalls and fixes
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

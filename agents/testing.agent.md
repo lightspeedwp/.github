@@ -210,3 +210,7 @@ Output:
 
 - [Quality Assurance Standards](../instructions/quality-assurance.instructions.md)
 - [Testing Strategy](../docs/TESTING.md)
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -75,5 +75,4 @@ The following instruction files provide detailed standards for agent development
 
 ---
 
-> For up-to-date standards, always start with the main indexes above.
-> For new agent work, fork an existing template and document its purpose in this directory.
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

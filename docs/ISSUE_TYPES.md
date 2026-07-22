@@ -299,3 +299,5 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 - [ ] Reviews approved; CI green; linked issues closed
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

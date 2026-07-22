@@ -241,3 +241,7 @@ Before handing back a generated plugin, run:
 ```bash
 python3 scripts/validate_plugin.py <plugin-path>
 ```
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

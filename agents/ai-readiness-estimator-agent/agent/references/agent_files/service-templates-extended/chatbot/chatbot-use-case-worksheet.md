@@ -45,4 +45,4 @@ This worksheet helps define and assess the suitability of a chatbot use case. Us
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -73,3 +73,7 @@ Use `--now` when summarizing today so the script can emit `Remaining Today`. Omi
 - Treat all-day transparent markers as context, not meetings.
 - Base free-window and lunch-window calculations on opaque timed events.
 - Preserve event ordering by start time.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

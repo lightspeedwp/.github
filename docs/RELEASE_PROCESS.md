@@ -132,3 +132,5 @@ node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry
 ```
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

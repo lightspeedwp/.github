@@ -237,3 +237,5 @@ All architectural decisions should follow this format:
 - All team members can propose new decisions
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

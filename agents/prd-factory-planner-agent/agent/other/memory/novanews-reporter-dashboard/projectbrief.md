@@ -27,4 +27,4 @@ The next useful artefact is a technical quote-scope brief for GA4/GTM/Looker Stu
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

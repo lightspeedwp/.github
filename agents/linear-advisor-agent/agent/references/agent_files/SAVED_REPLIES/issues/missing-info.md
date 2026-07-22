@@ -26,4 +26,4 @@ With this info, we'll be able to help much faster. Thanks!
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

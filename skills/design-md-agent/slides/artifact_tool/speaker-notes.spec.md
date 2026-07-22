@@ -12,27 +12,4 @@ Notes can also be toggled visible/invisible at export time.
 
 ---
 
-### Quick start
-
-```python
-notes = slide.speaker_notes
-
-notes.text_frame.set_text("Welcome everyone to the roadmap review.")
-paragraph = notes.text_frame.paragraphs.add()
-paragraph.add_run("Highlight key wins and upcoming launches.")
-```
-
-### Convenience helpers
-
-```python
-notes.set_text("One line")
-notes.append(["Next point", "Final point"])
-notes.clear()
-```
-
-### Visibility
-
-```python
-notes.set_visible(False)
-notes.is_visible()  # boolean
-```
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

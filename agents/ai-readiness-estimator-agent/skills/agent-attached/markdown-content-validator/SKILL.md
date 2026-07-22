@@ -161,4 +161,4 @@ Use explicit include and exclude globs whenever the folder contains mixed conten
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

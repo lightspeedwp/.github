@@ -430,4 +430,4 @@ For Zendesk-centred support requests, use `zendesk-triage-router` when the next 
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

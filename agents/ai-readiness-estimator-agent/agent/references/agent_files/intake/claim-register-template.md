@@ -20,4 +20,4 @@ High-risk or unsupported claims must not be used in final public-facing output u
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -202,4 +202,4 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

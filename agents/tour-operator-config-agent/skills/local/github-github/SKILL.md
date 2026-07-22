@@ -75,4 +75,4 @@ Prefer the GitHub app from this plugin for those flows because it provides struc
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

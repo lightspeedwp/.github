@@ -117,4 +117,4 @@ Move from owner testing to broader team pilot only when:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
