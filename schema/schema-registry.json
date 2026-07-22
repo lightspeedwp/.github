@@ -37,6 +37,26 @@
       "id": "plugin-manifest",
       "path": "schema/plugin-manifest.schema.json",
       "status": "active"
+    },
+    {
+      "id": "multi-provider-agent",
+      "path": "schema/multi-provider-agent.schema.json",
+      "status": "active"
+    },
+    {
+      "id": "agent-plugin-binding",
+      "path": "schema/agent-plugin-binding.schema.json",
+      "status": "active"
+    },
+    {
+      "id": "provider-config",
+      "path": "schema/provider-config.schema.json",
+      "status": "active"
+    },
+    {
+      "id": "agent-capability-manifest",
+      "path": "schema/agent-capability-manifest.schema.json",
+      "status": "active"
     }
   ]
 }

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/lightspeedwp/.github/develop/schema/provider-config.schema.json",
+  "title": "Provider-Specific Configuration Schema",
+  "description": "Validates a per-provider tool/function definition file (claude/tools.json, openai/tools.json, copilot skill map).",
+  "type": "object",
+  "required": ["provider"],
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": ["claude", "copilot", "openai", "gemini"]
+    },
+    "agent": { "type": "string" },
+    "type": { "type": "string" },
+    "instructions": { "type": "string" },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "input_schema": { "type": "object" },
+          "parameters": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "functions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "parameters": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "memory_config": { "type": "object" },
+    "security_rules": { "type": "array", "items": { "type": "string" } },
+    "response_format": {
+      "type": "string",
+      "enum": ["json", "markdown", "function_call", "text"]
+    }
+  },
+  "additionalProperties": true
+}
