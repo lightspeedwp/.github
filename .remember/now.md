@@ -46,3 +46,7 @@ Configured GitHub MCP in VSCode: removed stale placeholder from ~/.claude.json, 
 ## 14:20 | feat/agent-standards-playwright-testing
 
 Phase 1C Playwright agent rewrite (issues #1087-#1106): multi-provider configs (Claude/Copilot/OpenAI), plugin lightspeed-playwright-testing, 4 schemas, 4 hooks (16 tests), 4 instructions + cookbook; all pass CI validation.
+
+## 17:42 | feat/project-milestone-allocation-strategy
+
+Implemented version-based milestone strategy (v1.0-v1.6) w/ project-routes.yml routing config, alloc + capacity-warning scripts, assigned #1079 epic + #1087-#1106 child issues + recent items to v1.0, PR #1113.
