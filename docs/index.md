@@ -287,8 +287,6 @@ For recent governance changes and file relocations, see [GOVERNANCE_REVISION_LOG
 
 ---
 
-**Last updated:** 2026-06-01
-**Maintained by:** LightSpeed Team
-**Status:** Active & Current
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-*This documentation index is kept current as part of Wave 5.3 Phase 3 governance audit (Issue #666).*
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

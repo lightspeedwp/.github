@@ -1,1 +1,7 @@
 Create a presentation using the built-in Codex Grid template. Read `../../assets/builtin_templates/codex-grid-layout-library/design_tokens.json`, `../../assets/builtin_templates/codex-grid-layout-library/content.json`, and `../../assets/builtin_templates/codex-grid-layout-library/artifact-tool-compose/template-registry.json` before authoring. Choose layouts that fit the content, vary adjacent silhouettes, preserve readable type, and replace gray media regions with exact evidence or appropriate prompt-backed imagery. Use the selected plain JavaScript module as the artifact-tool Compose reference; keep the implementation JSX-free.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

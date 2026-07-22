@@ -182,3 +182,9 @@ Result: Task becomes three-week project; original feature delivery delayed
 - [Coding Standards](./coding-standards.instructions.md)
 - [Quality Assurance](./quality-assurance.instructions.md)
 - [Pull Request Standards](./pull-requests.instructions.md)
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

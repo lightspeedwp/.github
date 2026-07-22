@@ -163,7 +163,6 @@ Each PR template includes a checklist. Ensure you:
 
 ---
 
-*For questions about the PR process, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer.*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
