@@ -8,6 +8,7 @@ const {
   readConfig,
   checkMilestoneCapacity,
   getActiveMilestones,
+  extractTypeFromLabels,
 } = require("./milestone-allocation.cjs");
 
 const COMMENT_MARKER = "<!-- milestone-capacity-check -->";
@@ -21,26 +22,42 @@ function getItemFromEvent(event) {
   };
 }
 
-async function getMilestoneStats(github, owner, repo, milestoneName) {
+async function getMilestoneStats(github, owner, repo, milestoneName, config) {
   try {
     const { data: issues } = await github.rest.issues.listForRepo({
       owner,
       repo,
       milestone: milestoneName,
       state: "open",
-      per_page: 1,
+      per_page: 100,
+    });
+
+    // Filter out excluded types (chore, task, documentation, etc.)
+    const milestoneStrategy = config?.milestone_strategy || {};
+    const capacity = milestoneStrategy.capacity || {};
+    const excludeTypes = capacity.exclude_types || [];
+
+    const filteredIssues = issues.filter((issue) => {
+      const issueType = issue.type || extractTypeFromLabels(issue.labels);
+      return !excludeTypes.includes(issueType);
     });
 
     // Get actual count from headers if available
     const linkHeader = issues.headers?.link || "";
     const lastMatch = linkHeader.match(/page=(\d+)>; rel="last"/);
     const pageCount = lastMatch ? parseInt(lastMatch[1], 10) : 1;
-    const estimatedCount =
-      pageCount > 1 ? pageCount * 30 : Math.min(issues.length, 30);
+    const estimatedTotal = pageCount > 1 ? pageCount * 100 : issues.length;
+
+    // Estimate filtered count based on filter ratio
+    const filterRatio =
+      issues.length > 0 ? filteredIssues.length / issues.length : 1;
+    const estimatedFilteredCount = Math.ceil(estimatedTotal * filterRatio);
 
     return {
       milestone: milestoneName,
-      open_issues: estimatedCount,
+      open_issues: estimatedFilteredCount,
+      total_issues: estimatedTotal,
+      filtered_issues: filteredIssues.length,
     };
   } catch (error) {
     console.info(
@@ -140,6 +157,7 @@ async function run() {
       owner,
       repoName,
       milestoneName,
+      config,
     );
     if (!stats) continue;
 
