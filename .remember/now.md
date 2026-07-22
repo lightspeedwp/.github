@@ -110,3 +110,31 @@ Investigated project allocation via 3 agents, configured GitHub App creds (LS_PR
 ## 21:01 | feat/agent-standards-playwright-testing
 
 Fixed lint in 5 instruction files (blank lines) + frontmatter versions/dates for PR #1108, pushed fixes, 695 tests ✅, Linting/Testing CI ✅; blocked by code review.
+
+## 21:01 | fix/milestone-capacity-exclusion-and-tests
+
+Merged PR #1123 (validate-footers data loss fix + mermaid workflow), #1127 (CodeRabbit improv: UK standardisation, framework updates, Gemini cleanup), #1130 (gitattributes normalisation); filed #1129 (v1.0 pending improv); closed #1118, #1119.
+
+## 21:03 | develop
+
+Merged PR #1113 (feat/project-milestone): version-based milestones (v1.0–v1.6) w/ auto-allocation to Project 33, capacity warnings, GitHub App configured; fixed Node 22→24, linting errors; removed 7 claude/* branches; test #1128 verifying workflow.
+
+## 21:40 | feat/agent-standards-playwright-testing
+
+Fixed PR #1108 file truncation (17 files restored), addressed CodeRabbit feedback (hooks, schemas, CI, docs), created TESTING.md, updated 5 issues (#1079/#1087/#1104/#1105/#1106) with status, resolved merge conflict with develop, confirmed PR passes all required checks.
+
+## 21:09 | fix/metadata-governance-workflow
+
+Fixed PR #1084 js-yaml compat (issue-pr-metadata.cjs, milestone-allocation.cjs), metadata-governance workflow checkout for pull_request_target, renamed branch to fix/metadata-governance-workflow, resolved .remember/now.md conflict.
+
+## 21:12 | fix/ci-infrastructure-bugs
+
+Merged 13 dependabot PRs via conflict resolution, documented infra bugs #1134 #1135 (yaml.safeLoad() deprecation, footer validation false positives), created PR #1137 (yaml.load(), validate-footers.js --base/--head params, checks.yml updates), attempted merge of #1137, #1050, #1052, #1049.
+
+## 21:21 | develop
+
+Merged PR #1113 (milestone allocation strategy) to develop: created project-routes.yml & allocation scripts, configured GitHub App for Project 33, fixed Node 22→24, removed 7 claude/* branches, created test #1128.
+
+## 21:24 | fix/metadata-governance-workflow
+
+Fixed PR #1084 (.github): js-yaml compat fixes (safeLoad→load) in issue-pr-metadata.cjs & milestone-allocation.cjs, corrected metadata-governance WF pull_request_target checkout, renamed branch to fix/metadata-governance-workflow, resolved merge conflicts.
