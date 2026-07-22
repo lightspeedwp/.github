@@ -64,7 +64,8 @@ const TRACK_DEFS: Array<{
     id: "oriented",
     label: "Getting oriented",
     icon: "ph:stack",
-    blurb: "Start here. How the control plane is put together and how change flows to stable.",
+    blurb:
+      "Start here. How the control plane is put together and how change flows to stable.",
     lessons: [
       {
         slug: "architecture",
@@ -82,7 +83,10 @@ const TRACK_DEFS: Array<{
       },
     ],
     further: [
-      { p: "docs/WORKFLOW_COORDINATION.md", d: "How workflows coordinate across the org" },
+      {
+        p: "docs/WORKFLOW_COORDINATION.md",
+        d: "How workflows coordinate across the org",
+      },
       { p: "docs/FRONTMATTER_SCHEMA.md", d: "The frontmatter schema in depth" },
     ],
   },
@@ -90,25 +94,29 @@ const TRACK_DEFS: Array<{
     id: "governance",
     label: "Governance & labelling",
     icon: "ph:shield-check",
-    blurb: "The taxonomy and automation that keep work legible across every repository.",
+    blurb:
+      "The taxonomy and automation that keep work legible across every repository.",
     lessons: [
       {
         slug: "labelling",
         doc: "LABELING",
         src: "docs/LABELING.md",
-        learn: "The canonical label families, the one-hot rule, and how labelling drives automation.",
+        learn:
+          "The canonical label families, the one-hot rule, and how labelling drives automation.",
       },
       {
         slug: "issue-types",
         doc: "ISSUE_TYPES",
         src: "docs/ISSUE_TYPES.md",
-        learn: "The issue-type taxonomy and how 32 types map to a handful of project fields.",
+        learn:
+          "The issue-type taxonomy and how 32 types map to a handful of project fields.",
       },
       {
         slug: "automation",
         doc: "AUTOMATION",
         src: "docs/AUTOMATION.md",
-        learn: "Which workflows run on which branch, the agents behind them, and the configs they read.",
+        learn:
+          "Which workflows run on which branch, the agents behind them, and the configs they read.",
       },
     ],
     further: [
@@ -124,25 +132,29 @@ const TRACK_DEFS: Array<{
     id: "quality",
     label: "Quality & release",
     icon: "ph:check-circle",
-    blurb: "The gates a change passes through - linting, testing - and the ritual of shipping it.",
+    blurb:
+      "The gates a change passes through - linting, testing - and the ritual of shipping it.",
     lessons: [
       {
         slug: "linting",
         doc: "LINTING",
         src: "docs/LINTING.md",
-        learn: "The linting strategy across PHP, JS, YAML, and Markdown, and how it's enforced.",
+        learn:
+          "The linting strategy across PHP, JS, YAML, and Markdown, and how it's enforced.",
       },
       {
         slug: "testing",
         doc: "TESTING",
         src: "docs/TESTING.md",
-        learn: "The testing approach, coverage expectations, and the CI gates that protect main.",
+        learn:
+          "The testing approach, coverage expectations, and the CI gates that protect main.",
       },
       {
         slug: "release-process",
         doc: "RELEASE_PROCESS",
         src: "docs/RELEASE_PROCESS.md",
-        learn: "The end-to-end release ritual - changelog, versioning, tagging, and release notes.",
+        learn:
+          "The end-to-end release ritual - changelog, versioning, tagging, and release notes.",
       },
     ],
     further: [
@@ -155,19 +167,22 @@ const TRACK_DEFS: Array<{
     id: "agents",
     label: "Working with agents",
     icon: "ph:robot",
-    blurb: "How the planner and reviewer agents are built, configured, and run in practice.",
+    blurb:
+      "How the planner and reviewer agents are built, configured, and run in practice.",
     lessons: [
       {
         slug: "agent-architecture",
         doc: "AGENT_ARCHITECTURE",
         src: "docs/agents/AGENT_ARCHITECTURE.md",
-        learn: "The module system, interfaces, and logging shared by the planner and reviewer agents.",
+        learn:
+          "The module system, interfaces, and logging shared by the planner and reviewer agents.",
       },
       {
         slug: "reviewer-runbook",
         doc: "REVIEWER_RUNBOOK",
         src: "docs/agents/REVIEWER_RUNBOOK.md",
-        learn: "Deploying, configuring, and troubleshooting the Reviewer agent - env vars and all.",
+        learn:
+          "Deploying, configuring, and troubleshooting the Reviewer agent - env vars and all.",
       },
     ],
     further: [
@@ -229,12 +244,17 @@ export function getTrack(id: string): LearnTrack | undefined {
   return LEARN_TRACKS.find((t) => t.id === id);
 }
 
-export function getLesson(trackId: string, lessonSlug: string): Lesson | undefined {
+export function getLesson(
+  trackId: string,
+  lessonSlug: string,
+): Lesson | undefined {
   const track = getTrack(trackId);
   return track?.lessons.find((l) => l.slug === lessonSlug);
 }
 
-export function lessonById(id: string): { lesson: Lesson; track: LearnTrack } | undefined {
+export function lessonById(
+  id: string,
+): { lesson: Lesson; track: LearnTrack } | undefined {
   for (const track of LEARN_TRACKS) {
     const lesson = track.lessons.find((entry) => entry.id === id);
     if (lesson) {
@@ -253,7 +273,8 @@ export function adjacentLessons(id: string): { prev?: Lesson; next?: Lesson } {
   const index = lessons.findIndex((lesson) => lesson.id === id);
   return {
     prev: index > 0 ? lessons[index - 1] : undefined,
-    next: index >= 0 && index < lessons.length - 1 ? lessons[index + 1] : undefined,
+    next:
+      index >= 0 && index < lessons.length - 1 ? lessons[index + 1] : undefined,
   };
 }
 
@@ -269,7 +290,8 @@ export function getAdjacentLessons(
 
   return {
     prev: index > 0 ? track.lessons[index - 1] : undefined,
-    next: index < track.lessons.length - 1 ? track.lessons[index + 1] : undefined,
+    next:
+      index < track.lessons.length - 1 ? track.lessons[index + 1] : undefined,
   };
 }
 
@@ -277,7 +299,10 @@ export function renderMarkdown(markdown: string): string {
   let h2Index = 0;
   const renderer = new Renderer();
 
-  renderer.heading = function heading(this: Renderer, token: { tokens: unknown[]; depth: number }) {
+  renderer.heading = function heading(
+    this: Renderer,
+    token: { tokens: unknown[]; depth: number },
+  ) {
     const content = this.parser.parseInline(token.tokens as never[]);
     if (token.depth === 2) {
       const id = `h-${h2Index++}`;
@@ -287,7 +312,11 @@ export function renderMarkdown(markdown: string): string {
     return `<h${token.depth}>${content}</h${token.depth}>\n`;
   };
 
-  return marked.parse(markdown, { renderer, mangle: false, headerIds: false }) as string;
+  return marked.parse(markdown, {
+    renderer,
+    mangle: false,
+    headerIds: false,
+  }) as string;
 }
 
 export const COOKBOOK_RECIPES: CookbookRecipe[] = [

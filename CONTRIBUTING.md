@@ -151,11 +151,4 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 
 ---
 
-## Licence
-
-By contributing to this project, you agree that your contributions will be licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
-
-Thank you for helping us make LightSpeed better!
-
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
