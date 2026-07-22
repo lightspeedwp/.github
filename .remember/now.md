@@ -42,3 +42,23 @@ GitHub MCP: removed stale ~/.claude.json entry, tested OAuth (failed—GitHub la
 ## 12:15 | ci/meta-workflow-npm-ci-and-push-flow
 
 Added npm ci to meta.yml; consolidated apply-meta & metrics-update jobs into PR-based flow (meta:no-changelog label) avoiding blocked direct-push. Created PRs #1073 & #1075 (cleanup-branches YAML). Found Copilot review ruleset blocking develop merges.
+
+## 12:17 | fix/branch-cleanup-safety
+
+Fixed branch naming to `fix/branch-cleanup-safety`; created issue #1069 & PR #1071 for cleanup-branches safety fixes w/ changelog entry & template compliance; CI validation pending for develop merge.
+
+## 12:20 | fix/cleanup-branches-workflow-missing-steps-key
+
+Fixed cleanup-branches.yml missing `steps:` key (repo-wide CI blocker); created issue #1074 & PR #1075; unblocked meta.yml PR #1073; ready to merge.
+
+## 12:49 | fix/branch-cleanup-safety
+
+Applied 4 safety fixes to cleanup-branches.js (daysSince/isMerged/deleteLocalBranch/buildExcludeRegex), created issue #1069, merged PR #1071 (a55754e4 to develop), documented AI issue template enforcement in AGENTS.md + CLAUDE.md.
+
+## 13:04 | fix/branch-cleanup-safety
+
+Merged PR #1071 (4 safety fixes to cleanup-branches.js), corrected AI governance to enforce proper issue→branch→PR→develop workflow instead of direct develops commits, added GitHub template guidance to AGENTS.md/CLAUDE.md for AI issue creation (issue #1078).
+
+## 13:08 | fix/meta-workflow-ci-and-push-flow-followup
+
+Fixed meta.yml: added `npm ci` step, redesigned bot push flow to PR-based auto-merge (PR #1073); fixed cleanup-branches.yml and mergify.yml bugs (PRs #1075, #1077); issues #1072–#1076 closed.
