@@ -9,28 +9,7 @@
  */
 
 import fs from "fs";
-import path from "path";
 import { globSync } from "glob";
-
-// Footer signature patterns to detect
-const FOOTER_SIGNATURES = [
-  /\*Maintained by the 🤖/,
-  /\*Built by 🧱/,
-  /\*Have questions\?/,
-  /\*This page brought to you by/,
-  /\*Docs signed by 🤖/,
-  /_Maintained with ❤️/,
-  /Made with 💚/,
-];
-
-// Pattern to detect footer blocks
-const FOOTER_BLOCK_PATTERN = /\n---\s*\n\s*\*[^\n]*\*\s*\n/g;
-
-// Reference patterns to detect (these should NOT appear after footer)
-const REFERENCE_PATTERNS = [
-  /^\s*\[.*?\]\(.*?\)\s*$/m, // Markdown links
-  /^📋|^📞|^🔗|^🧠|^📖|^🔍|^💬|^👥/m, // Link lines with emojis
-];
 
 /**
  * Check if a line appears to be a reference/link
@@ -38,7 +17,7 @@ const REFERENCE_PATTERNS = [
 function isReferenceLine(line) {
   return (
     /^\s*\[.*?\]\(.*?\)\s*$/.test(line) ||
-    /^[\s]*[📋📞🔗🧠📖🔍💬👥📂📊✅]+/.test(line)
+    /^[\s]*[📋📞🔗🧠📖🔍💬👥📂📊✅]/u.test(line)
   );
 }
 
@@ -65,23 +44,6 @@ function stripFrontmatter(content) {
 }
 
 /**
- * Count footer blocks in content
- * Only counts actual footer blocks (near end of file)
- */
-function countFooterBlocks(content) {
-  const stripped = stripFrontmatter(content);
-  const lastSeparatorIndex = stripped.lastIndexOf("\n---\n");
-
-  if (lastSeparatorIndex === -1) return 0;
-
-  // Check if there's another separator in the last 1000 chars
-  const endContent = stripped.slice(Math.max(0, lastSeparatorIndex - 1000));
-  const separatorsInEnd = (endContent.match(/\n---\n/g) || []).length;
-
-  return separatorsInEnd;
-}
-
-/**
  * Detect footer issues
  */
 function detectFooterIssues(filePath, content) {
@@ -95,7 +57,8 @@ function detectFooterIssues(filePath, content) {
   // Check for multiple actual footer blocks (multiple quirky lines after separators)
   const stripped = stripFrontmatter(content);
   const endSection = stripped.slice(Math.max(0, stripped.length - 2000)); // Check last 2KB
-  const footerMatches = (endSection.match(/\n---\s*\n\s*\*[^\n]*\*/g) || []).length;
+  const footerMatches = (endSection.match(/\n---\s*\n\s*\*[^\n]*\*/g) || [])
+    .length;
   if (footerMatches > 1) {
     issues.push({
       type: "multiple-footers",
@@ -106,7 +69,6 @@ function detectFooterIssues(filePath, content) {
 
   // Check for references below footer
   const footerLines = footer.split("\n").map((l) => l.trim());
-  const mainFooterLine = footerLines[0]; // Should be the quirky line
   const restOfFooter = footerLines.slice(1).filter(Boolean);
 
   if (restOfFooter.length > 0) {
@@ -123,7 +85,9 @@ function detectFooterIssues(filePath, content) {
   }
 
   // Check for duplicate footer signatures
-  if (/[\s\S]*\*Maintained by the 🤖[\s\S]*\*Maintained by the 🤖/.test(footer)) {
+  if (
+    /[\s\S]*\*Maintained by the 🤖[\s\S]*\*Maintained by the 🤖/.test(footer)
+  ) {
     issues.push({
       type: "duplicate-footer-lines",
       severity: "high",
@@ -134,7 +98,7 @@ function detectFooterIssues(filePath, content) {
 }
 
 /**
- * Clean footer: keep only the quirky line, remove references
+ * Clean footer: keep only the quirky line, remove references and all footer duplicates
  */
 function cleanFooter(content) {
   let cleaned = content;
@@ -148,16 +112,36 @@ function cleanFooter(content) {
   }
 
   const prefix = content.slice(0, content.length - stripped.length);
-  const beforeFooter = stripped.slice(0, lastSeparatorIndex);
   const footerContent = stripped.slice(lastSeparatorIndex + 1).trim();
 
   // Extract just the first non-empty line (the quirky statement)
   const footerLines = footerContent.split("\n").map((l) => l.trim());
   // Match lines starting with asterisk or emoji, ending with asterisk (or just plain text)
-  const quirkyLine = footerLines.find((l) => l && (/^(\*|[^\w\s]).*\*?$/.test(l) || l.includes("*")));
+  const quirkyLine = footerLines.find(
+    (l) => l && (/^(\*|[^\w\s]).*\*?$/.test(l) || l.includes("*")),
+  );
 
   if (!quirkyLine) {
     return content; // Can't find quirky line, return unchanged
+  }
+
+  // Remove ALL footer blocks (including duplicates) from the end
+  // by removing everything after the last non-footer content
+  const endSection = stripped.slice(Math.max(0, stripped.length - 2000));
+  const footerBlockMatches = (endSection.match(/\n---\s*\n/g) || []).length;
+
+  // If there are multiple footer blocks, remove from the first separator in this section
+  let beforeFooter = stripped;
+  if (footerBlockMatches > 1) {
+    // Find the position of the FIRST separator in the last 2KB
+    const endIndex = stripped.length;
+    const searchStart = Math.max(0, endIndex - 2000);
+    const firstFooterInEnd = stripped.indexOf("\n---\n", searchStart);
+    if (firstFooterInEnd !== -1) {
+      beforeFooter = stripped.slice(0, firstFooterInEnd);
+    }
+  } else {
+    beforeFooter = stripped.slice(0, lastSeparatorIndex);
   }
 
   // Rebuild content with clean footer (one quirky line only)
@@ -294,4 +278,12 @@ if (fix) {
 const results = scanRepo(pattern, fix);
 formatResults(results);
 
-process.exit(results.some((r) => r.error) ? 1 : 0);
+// Exit with non-zero status if:
+// 1. Any read/process errors occurred
+// 2. Issues were found and NOT auto-fixed
+const hasErrors = results.some((r) => r.error);
+const hasUnfixedIssues = results.some(
+  (r) => !r.error && r.issues && r.issues.length > 0 && !r.fixed,
+);
+
+process.exit(hasErrors || hasUnfixedIssues ? 1 : 0);
