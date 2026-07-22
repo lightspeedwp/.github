@@ -71,7 +71,6 @@ jobs:
         run: npm run build
 
       - name: Upload Pages artifact
-        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.run_ci)
         uses: actions/upload-pages-artifact@v5
         with:
           path: website/dist
