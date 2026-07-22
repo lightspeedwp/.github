@@ -13,7 +13,7 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import * as core from "@actions/core";
 import minimatchPackage from "minimatch";
 

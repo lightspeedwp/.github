@@ -21,7 +21,7 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);

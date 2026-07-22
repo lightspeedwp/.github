@@ -14,7 +14,7 @@
 import { findStandardLabel } from "./label-lookup.js";
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import github from "@actions/github";
 
 async function syncLabelsWithCanonical(
@@ -180,7 +180,9 @@ async function syncLabelsWithCanonical(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to sync labels: ${error.message}`);
+    throw new Error(`Failed to sync labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -276,7 +278,9 @@ async function validateRepoLabels(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to validate labels: ${error.message}`);
+    throw new Error(`Failed to validate labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -362,7 +366,9 @@ async function standardizeLabelsOnRepo(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to standardize labels: ${error.message}`);
+    throw new Error(`Failed to standardize labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 

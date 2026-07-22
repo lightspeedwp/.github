@@ -297,7 +297,9 @@ async function run(context = github.context, options = {}) {
     try {
       octokit = github.getOctokit(token);
     } catch (error) {
-      throw new Error(`Failed to initialize GitHub client: ${error.message}`);
+      throw new Error(`Failed to initialize GitHub client: ${error.message}`, {
+        cause: error,
+      });
     }
 
     const issue = context.payload.issue || context.payload.pull_request;
@@ -374,6 +376,7 @@ async function run(context = github.context, options = {}) {
       } catch (error) {
         throw new Error(
           `Failed to post plan on #${issue.number}: ${error.message}`,
+          { cause: error },
         );
       }
     }

@@ -44,6 +44,9 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "agents/**/figma-generate-library/**", // Bundled Figma plugin skill scripts (run inside the Figma plugin sandbox, not Node)
       "agents/**/figma-use/**", // Bundled Figma plugin API references/typings
       "agents/**/openai-docs/**", // Bundled platform-managed OpenAI docs helper scripts (vendored reference, not repo-authored)
+      "design_handoff_awesome_github/design_source/**", // Migrated from .eslintignore (no longer read by ESLint 10+)
+      "website/dist/**", // Migrated from .eslintignore
+      "website/node_modules/**", // Migrated from .eslintignore
     ];
 
 /**

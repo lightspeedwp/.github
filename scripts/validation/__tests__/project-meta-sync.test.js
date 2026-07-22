@@ -23,7 +23,7 @@ describe("project-meta-sync workflow contract", () => {
       expect.arrayContaining([
         "opened",
         "edited",
-        "synchronize",
+        "reopened",
         "labeled",
         "unlabeled",
         "ready_for_review",

@@ -123,7 +123,9 @@ async function run(context = github.context, options = {}) {
     try {
       octokit = github.getOctokit(token);
     } catch (error) {
-      throw new Error(`Failed to initialize GitHub client: ${error.message}`);
+      throw new Error(`Failed to initialize GitHub client: ${error.message}`, {
+        cause: error,
+      });
     }
 
     const pr = context.payload.pull_request;
@@ -157,6 +159,7 @@ async function run(context = github.context, options = {}) {
     } catch (error) {
       throw new Error(
         `Failed to fetch files for PR #${pr.number}: ${error.message}`,
+        { cause: error },
       );
     }
     const changed = files.map((f) => f.filename);
@@ -273,6 +276,7 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
       } catch (error) {
         throw new Error(
           `Failed to post comment on PR #${pr.number}: ${error.message}`,
+          { cause: error },
         );
       }
     }
