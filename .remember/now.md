@@ -54,3 +54,7 @@ Fixed cleanup-branches.yml missing `steps:` key (repo-wide CI blocker); created 
 ## 12:49 | fix/branch-cleanup-safety
 
 Applied 4 safety fixes to cleanup-branches.js (daysSince/isMerged/deleteLocalBranch/buildExcludeRegex), created issue #1069, merged PR #1071 (a55754e4 to develop), documented AI issue template enforcement in AGENTS.md + CLAUDE.md.
+
+## 13:04 | fix/branch-cleanup-safety
+
+Merged PR #1071 (4 safety fixes to cleanup-branches.js), corrected AI governance to enforce proper issue→branch→PR→develop workflow instead of direct develops commits, added GitHub template guidance to AGENTS.md/CLAUDE.md for AI issue creation (issue #1078).
