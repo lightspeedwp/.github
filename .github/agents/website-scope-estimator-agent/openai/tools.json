@@ -1,0 +1,138 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_scope",
+      "description": "Analyze Scope for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_scope"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "estimate_effort",
+      "description": "Estimate Effort for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for estimate_effort"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "plan_timeline",
+      "description": "Plan Timeline for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for plan_timeline"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate_resources",
+      "description": "Calculate Resources for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for calculate_resources"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "estimate_budget",
+      "description": "Estimate Budget for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for estimate_budget"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "assess_risks",
+      "description": "Assess Risks for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for assess_risks"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_complexity",
+      "description": "Analyze Complexity for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_complexity"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "plan_capacity",
+      "description": "Plan Capacity for website-scope-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for plan_capacity"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  }
+]

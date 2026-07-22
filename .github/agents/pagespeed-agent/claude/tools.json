@@ -1,0 +1,154 @@
+[
+  {
+    "name": "pagespeed-analyzer",
+    "description": "Pagespeed Analyzer for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for pagespeed-analyzer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "performance-tester",
+    "description": "Performance Tester for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for performance-tester"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "bottleneck-detector",
+    "description": "Bottleneck Detector for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for bottleneck-detector"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "optimization-recommender",
+    "description": "Optimization Recommender for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for optimization-recommender"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "caching-strategist",
+    "description": "Caching Strategist for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for caching-strategist"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "cdn-optimizer",
+    "description": "Cdn Optimizer for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for cdn-optimizer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "image-optimizer",
+    "description": "Image Optimizer for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for image-optimizer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "bundle-analyzer",
+    "description": "Bundle Analyzer for pagespeed workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for bundle-analyzer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  }
+]

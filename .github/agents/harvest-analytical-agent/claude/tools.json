@@ -1,0 +1,154 @@
+[
+  {
+    "name": "harvest-api-client",
+    "description": "Harvest Api Client for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for harvest-api-client"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "time-data-analyzer",
+    "description": "Time Data Analyzer for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for time-data-analyzer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "profitability-calculator",
+    "description": "Profitability Calculator for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for profitability-calculator"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "productivity-reporter",
+    "description": "Productivity Reporter for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for productivity-reporter"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "budget-tracker",
+    "description": "Budget Tracker for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for budget-tracker"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "invoice-generator",
+    "description": "Invoice Generator for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for invoice-generator"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "forecast-analyzer",
+    "description": "Forecast Analyzer for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for forecast-analyzer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "trend-analyzer",
+    "description": "Trend Analyzer for harvest-analytical workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for trend-analyzer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  }
+]
