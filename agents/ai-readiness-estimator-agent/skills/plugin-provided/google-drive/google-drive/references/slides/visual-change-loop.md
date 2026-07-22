@@ -11,13 +11,15 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 ## Loop
 
 1. Ground the slide before the first write.
+
 - Read the current slide structure with live object IDs.
 - Identify the full local edit cluster, not just the most obvious text box.
 - For metric cards or scorecards, treat the main value, target value, delta text, arrow, accent bar, and nearby border or connector as one cluster.
 - If two adjacent text boxes are colliding, wrapping into each other, or visually fighting for the same lane, treat them as one cluster and fix their geometry together.
 - For overflow or collision-sensitive work, use both signals from the start: the slide thumbnail for rendered appearance and the live slide structure for text-box geometry and neighboring object placement.
 
-2. Start with a thumbnail.
+1. Start with a thumbnail.
+
 - Fetch a `LARGE` thumbnail when spacing, clipping, or shape alignment matters.
 - Inspect the image returned by `get_slide_thumbnail` directly. That may appear as an `image_asset_pointer`, an image content part, or another rendered image artifact in the tool response; do not require base64 bytes before starting visual review.
 - If the thumbnail response only provides a thumbnail URL or `contentUrl`, save the rendered image locally with `curl -L "$contentUrl" -o /tmp/slides-thumb-<slide-id>.png` before visual review.
@@ -25,7 +27,8 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 - Use that thumbnail as the primary visual signal, but not as the only signal for overflow or collision checks.
 - Write down the 2-4 concrete visible issues you are fixing in the next pass.
 
-3. Choose the correct raw edit family.
+1. Choose the correct raw edit family.
+
 - Use text requests for text content.
 - Use `updateShapeProperties` for fills and borders on existing shapes.
 - Use `updateLineProperties` for connector or line strokes.
@@ -33,14 +36,16 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 - Do not call an element blocked until you have classified it as a shape, line or connector, or image.
 - When moving or creating a text box, remember Slides transforms are upper-left-based. Do not aim a new text box at another object's center without converting that desired center into the new box's top-left corner.
 
-4. Make one coherent write pass.
+1. Make one coherent write pass.
+
 - Batch the related fixes for that local issue cluster together.
 - Include `write_control` when a fresh revision token is available.
 - Prefer geometry and styling fixes that materially improve the slide over tiny nudges that leave obvious problems behind.
 - When two neighboring text boxes collide, prefer resizing, repositioning, or redistributing both boxes before shrinking the text. Do not "fix" one box while leaving the adjacent one still cramped.
 - Do not stop at "technically updated." The target is a slide that looks intentionally arranged and presentation-ready, not merely one with fewer defects than before.
 
-5. Verify immediately.
+1. Verify immediately.
+
 - Fetch another thumbnail right after the write.
 - If the fresh thumbnail is URL-backed, curl it to a new local PNG and inspect that new file before declaring the pass verified.
 - Confirm both text and non-text visual targets actually changed.
@@ -50,7 +55,8 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 - If a new small label looks one line low, visually offset, or miscentered relative to its neighbors, the slide is not done. Re-read the slide and tighten the text box geometry before moving on.
 - If the thumbnail looks cleaner but the refreshed slide structure still suggests narrow, colliding, or suspiciously adjacent text boxes, err on the side of caution and keep working the slide.
 
-6. Run a second and third fresh review loop.
+1. Run a second and third fresh review loop.
+
 - Start each additional loop from a fresh thumbnail review, not from memory.
 - Re-read the live slide structure before any additional pass.
 - Run at least 3 full write-and-verify loops whenever this recipe is triggered, even if pass 1 or pass 2 already looks acceptable.

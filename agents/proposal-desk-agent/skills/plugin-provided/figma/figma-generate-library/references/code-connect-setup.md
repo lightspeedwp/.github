@@ -214,6 +214,7 @@ The following labels are valid for all Code Connect MCP operations. Use the labe
 Map Code Connect immediately after creating a component, while the context is fresh (Phase 3, step 3h in the SKILL.md workflow):
 
 **Advantages:**
+
 - The node ID is already in hand from the creation script.
 - You know exactly which code component this Figma component corresponds to (you just designed it to match).
 - Errors surface early, before building dependent components.
@@ -225,6 +226,7 @@ Map Code Connect immediately after creating a component, while the context is fr
 Collect all unmapped components and map them in one `send_code_connect_mappings` call:
 
 **Advantages:**
+
 - One bulk call instead of N individual calls.
 - Can use `get_code_connect_suggestions` to discover unmapped components automatically.
 - Better for importing existing Figma files where you didn't control creation.
