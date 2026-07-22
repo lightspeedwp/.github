@@ -15,7 +15,7 @@ function readJsonFile(filePath) {
 }
 
 function readConfig(configPath) {
-  return yaml.load(fs.readFileSync(configPath, "utf8"));
+  return yaml.safeLoad(fs.readFileSync(configPath, "utf8"));
 }
 
 function normaliseTitle(title) {

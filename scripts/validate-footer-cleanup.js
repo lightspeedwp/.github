@@ -101,8 +101,6 @@ function detectFooterIssues(filePath, content) {
  * Clean footer: keep only the quirky line, remove references and all footer duplicates
  */
 function cleanFooter(content) {
-  let cleaned = content;
-
   // Find and extract the footer
   const stripped = stripFrontmatter(content);
   const lastSeparatorIndex = stripped.lastIndexOf("\n---\n");
@@ -145,9 +143,7 @@ function cleanFooter(content) {
   }
 
   // Rebuild content with clean footer (one quirky line only)
-  cleaned = `${prefix}${beforeFooter.replace(/\s+$/, "")}\n\n---\n\n${quirkyLine}\n`;
-
-  return cleaned;
+  return `${prefix}${beforeFooter.replace(/\s+$/, "")}\n\n---\n\n${quirkyLine}\n`;
 }
 
 /**
