@@ -207,7 +207,4 @@ Linting instructions should evolve with our standards and requirements. When upd
 
 ---
 
----
-
-
 *Maintained by the 🤖 LightSpeedWP Automation Team*
