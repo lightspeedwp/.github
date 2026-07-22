@@ -37,6 +37,22 @@ jobs:
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
         run: node scripts/agents/includes/issue-pr-metadata.cjs
 
+      - name: Allocate issue to version milestone
+        id: milestone-allocation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_ROUTES_CONFIG: .github/project-routes.yml
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: node scripts/agents/includes/allocate-milestone.cjs
+
+      - name: Check milestone capacity and warn
+        id: capacity-check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_ROUTES_CONFIG: .github/project-routes.yml
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: node scripts/agents/includes/check-milestone-capacity.cjs
+
       - name: Summarise metadata sync
         env:
           METADATA_ASSIGNEE: ${{ steps.metadata.outputs.metadata_assignee }}
