@@ -130,8 +130,8 @@ function typeBadgeClass(type: string): string {
               <span class="item-mark" aria-hidden="true">
                 <Icon name={ITEM_MARKS[item.type] || "ph:squares-four"} size={18} />
               </span>
-              <span class={`type-badge ${typeBadgeClass(item.type)}`}>
-                {TYPES[item.type]?.badge ?? item.type}
+              <span class={`type-badge ${typeBadgeClass(item.tree ? "pack" : item.type)}`}>
+                {item.tree ? "Package" : (TYPES[item.type]?.badge ?? item.type)}
               </span>
             </div>
 

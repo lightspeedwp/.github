@@ -14,7 +14,7 @@ const item = getItemBySlug(type!, slug!);
 if (!item) return Astro.redirect(`${base}`);
 
 const category = getCategoryInfo(type!);
-const typeInfo = TYPES[item.type];
+const typeInfo = item.tree ? TYPES["pack"] : TYPES[item.type];
 const relatedItems = getItemsByCategory(type!).filter((i) => i.slug !== slug).slice(0, 3);
 
 const urls = urlsFor(item, "main");
