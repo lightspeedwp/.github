@@ -222,22 +222,41 @@ function getOpenPRBranches() {
     return new Set();
   }
 
-  try {
-    const output = run(
-      "gh pr list --state open --json headRefName --jq '.[].headRefName'",
-    );
-    return new Set(
-      output
-        .split("\n")
-        .map((b) => b.trim())
-        .filter(Boolean),
-    );
-  } catch {
+  const result = spawnSync(
+    "gh",
+    [
+      "pr",
+      "list",
+      "--state",
+      "open",
+      "--json",
+      "headRefName",
+      "--jq",
+      ".[].headRefName",
+    ],
+    {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        GH_TOKEN: process.env.GH_TOKEN || process.env.GITHUB_TOKEN,
+      },
+    },
+  );
+
+  if (result.status !== 0) {
     console.warn(
-      "⚠️  Could not fetch open PRs via gh CLI — skipping open PR check.",
+      `⚠️  Could not fetch open PRs via gh CLI — skipping open PR check: ${(result.stderr || "").trim()}`,
     );
     return new Set();
   }
+
+  const output = (result.stdout || "").trim();
+  return new Set(
+    output
+      .split("\n")
+      .map((b) => b.trim())
+      .filter(Boolean),
+  );
 }
 
 // ---------------------------------------------------------------------------
