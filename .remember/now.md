@@ -14,3 +14,7 @@ Completed Phase 1 agent standardization (PR #1108, 55 files): rewrote Playwright
 ## 17:16 | fix/meta-agent-dry-run-writes
 
 Fixed meta.agent.js --dry-run regression (dryRun flag not threaded in header-footer.js, badges.js, metrics writer); PR #1084 merged to develop; added regression tests; issue #1083 closed.
+
+## 17:48 | fix/footer-cleanup-and-validation
+
+Footer cleanup and validation complete: renamed branch from `claude/*` (forbidden) to `fix/footer-cleanup-and-validation`; created issue #1114, PR #1115; addressed all 5 CodeRabbit findings (test updates, licence section restore, validation exit codes, footer dedup logic, validation pipeline integration); all code analysis checks passing.
