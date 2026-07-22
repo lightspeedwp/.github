@@ -1,3 +1,7 @@
+queue_rules:
+  - name: dependabot-develop
+    merge_method: squash
+
 pull_request_rules:
   # Keep Dependabot PRs up-to-date by rebasing if develop has moved ahead
   - name: Keep Dependabot dependency updates on develop current
@@ -11,8 +15,8 @@ pull_request_rules:
     actions:
       update: {}
 
-  # Auto-approve and merge Dependabot dependency updates when CI passes
-  - name: Auto-approve and merge Dependabot dependency updates on develop
+  # Auto-approve and queue Dependabot dependency updates when CI passes
+  - name: Auto-approve and queue Dependabot dependency updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
@@ -23,8 +27,8 @@ pull_request_rules:
     actions:
       review:
         type: APPROVE
-      merge:
-        method: squash
+      queue:
+        name: dependabot-develop
 
   # Keep imgbot image optimizations up-to-date by rebasing if develop has moved ahead
   - name: Keep imgbot image optimizations current on develop
