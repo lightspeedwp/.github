@@ -38,6 +38,7 @@ jobs:
       - run: npm run lint:all
       - run: npm run validate:skill-manifests
       - run: npm run validate:plugins
+      - run: npm run validate:agent-hooks
 
   test:
     name: Testing
