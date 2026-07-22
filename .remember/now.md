@@ -74,3 +74,19 @@ Added 16 new agent definitions to website agents.ts; discovered broken /agents/ 
 ## 19:47 | claude/milestones-workflow-review-2ef6f7
 
 Milestone workflow audit found capacity-exclusion bug in check-milestone-capacity.cjs, missing test coverage, no milestone-creation automation; fixes to follow.
+
+## 19:52 | develop
+
+Added 16 new agents to website catalogue system (commit 516fa4a2), fixed Node.js deprecation in deploy workflow, triggered manual site build/deploy.
+
+## 19:54 | develop
+
+Validated version milestone strategy (3 agents), configured GitHub App, fixed Node/linting, cleaned 7 branches, merged PR #1113 (1b5e8224) w/ milestone allocation/capacity checks, testing #1128.
+
+## 19:58 | feat/agent-standards-playwright-testing
+
+Fixed 5 markdown linting errors in instruction files (automation, docs-formats, issues, linting, PRs), linting passes; footer validation pending.
+
+## 20:29 | claude/meta-agent-sync-prs-4cb823
+
+Restored 17 files truncated by footer-tool bug, addressed CodeRabbit feedback (hook fixes, schema hardening, TESTING.md), resolved git conflict, PR #1108 mergeable (695 tests pass).
