@@ -94,3 +94,19 @@ Restored 17 files truncated by footer-tool bug, addressed CodeRabbit feedback (h
 ## 20:40 | fix/milestone-capacity-exclusion-and-tests
 
 Merged PR #1132 (capacity type-exclusion filtering fix, 24 allocation tests, MILESTONE_ALLOCATION_STRATEGY.md), closed #1128, committed branch cleanup report.
+
+## 20:43 | develop
+
+Added 16 new agents to website catalogue system, fixed awesome-github-site.yml (Node.js 24, setup-node@v5, workflow_dispatch trigger), deployed to GitHub Pages with multi-file agent labels.
+
+## 20:45 | dependabot/github_actions/actions/setup-node-7
+
+Debugged dependabot CI blockers, created issues #1134 & #1135 for yaml.safeLoad & footer validation bugs, merged 8 PRs, resolved lock conflicts in remaining 5.
+
+## 21:00 | develop
+
+Investigated project allocation via 3 agents, configured GitHub App creds (LS_PROJECT_URL/LS_APP_ID/LS_APP_PRIVATE_KEY), fixed Node.js (22→24)/linting/markdown errors, merged PR #1113 (v1.0-v1.6 milestone auto-allocation), removed 7 claude/* branches, created test issue #1128.
+
+## 21:01 | feat/agent-standards-playwright-testing
+
+Fixed lint in 5 instruction files (blank lines) + frontmatter versions/dates for PR #1108, pushed fixes, 695 tests ✅, Linting/Testing CI ✅; blocked by code review.
