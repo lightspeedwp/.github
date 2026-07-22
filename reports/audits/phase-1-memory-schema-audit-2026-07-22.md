@@ -7,7 +7,7 @@ scope: phase-1-agent-standardization
 
 # Memory & Schema Structure Audit — Phase 1
 
-**Objective:** Review memory persistence and work-focus folder organization for agent standardization tracking.
+**Objective:** Review memory persistence and work-focus folder organization for agent standardisation tracking.
 
 **Audit Date:** 2026-07-22  
 **Auditor:** Claude Code  
@@ -65,7 +65,7 @@ The memory system is actively tracking:
 
 **Limitations:**
 
-- ❌ **No project-scoped memory** (agent standardization initiative context)
+- ❌ **No project-scoped memory** (agent standardisation initiative context)
 - ❌ **No phase tracking** (Phase 1, 2, 3 progress)
 - ❌ **No agent migration tracking** (which agents converted, status)
 - ❌ **No decision log** (architectural decisions made)
@@ -77,7 +77,7 @@ The memory system is actively tracking:
 
 ### Current State
 
-**Problem:** No formalized work-focus structure for multi-phase agent standardization initiative
+**Problem:** No formalized work-focus structure for multi-phase agent standardisation initiative
 
 **Solution:** Establish `.github/projects/active/agent-standards-initiative/` structure
 

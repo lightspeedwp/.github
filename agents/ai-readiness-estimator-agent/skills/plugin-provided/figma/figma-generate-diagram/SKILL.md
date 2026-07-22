@@ -18,11 +18,13 @@ description: "MANDATORY prerequisite — load this skill BEFORE every `generate_
 ### Unsupported — don't call the tool
 
 If the user wants any of these, tell them directly that `generate_diagram` doesn't support it instead of calling the tool and failing:
+
 - **Pie chart, mindmap, venn diagram, class diagram, journey, timeline, quadrant, C4, git graph, requirement diagram**
 
 ### When to push the user to edit in Figma
 
 The tool cannot:
+
 - Change fonts on an existing diagram
 - Move individual shapes
 - Edit a diagram node-by-node after generation
@@ -81,10 +83,12 @@ It's a judgment call, not a default. Deploy it when the user's ask clearly benef
 ## Step 6: Calling the tool
 
 Required:
+
 - `name`: a descriptive title (shown to the user)
 - `mermaidSyntax`: the Mermaid source
 
 Optional:
+
 - `userIntent`: a short sentence describing what the user is trying to accomplish — helps telemetry and downstream tuning
 - `useArchitectureLayoutCode`: **only for architecture diagrams**; value is specified in `references/architecture.md`
 - `fileKey`: if the user wants the diagram added to an existing FigJam file instead of a new one

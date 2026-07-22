@@ -178,7 +178,7 @@ Our renderer is a **substantial** subset of full Mermaid sequence. The following
 
 ## 7. Hybrid workflow: `generate_diagram` first, then `use_figma` for everything else
 
-`generate_diagram` produces a clean baseline — participants arranged in columns, labeled messages in order, consistent layout. That's the hard part. Most of what our renderer _doesn't_ support (notes, colored regions, step numbers, distinct participant shapes, annotations, callouts) is exactly the kind of layered-on content that `use_figma` handles well once a baseline exists.
+`generate_diagram` produces a clean baseline — participants arranged in columns, labeled messages in order, consistent layout. That's the hard part. Most of what our renderer *doesn't* support (notes, colored regions, step numbers, distinct participant shapes, annotations, callouts) is exactly the kind of layered-on content that `use_figma` handles well once a baseline exists.
 
 **Default workflow for any sequence that needs more than raw messages:**
 
