@@ -55,12 +55,12 @@ This section uses **two severity tiers**. Both are real rules — the difference
 
 These won't crash the renderer, but they produce structurally wrong or misleading diagrams.
 
-6. **One node = one independently deployable unit.** Don't decompose a service into internal modules. See [Node granularity](#node-granularity) for the test.
-7. **Bidirectional edges write source -> target in the forward direction.** `client <-->|"WS"| gateway`, not `gateway <-->|"WS"| client`. The layout uses the source position to anchor the edge.
-8. **Backward edges use `<---` and write the left node first.** The arrow points left. Example: `orderService <---|"Refund"| paymentService` — the refund flows from `paymentService` back to `orderService`.
-9. **Never connect edges to subgraph IDs.** Subgraphs are containers, not anchorable nodes; the layout cannot route an edge from a subgraph ID. Connect to a specific node inside the subgraph instead.
-10. **Never create two edges between the same pair of nodes.** The renderer may overlap or drop duplicates. Combine into one edge with a merged label.
-11. **Bidirectional intent = one `<-->` edge.** Don't split into separate `-->` and `-.->`.
+1. **One node = one independently deployable unit.** Don't decompose a service into internal modules. See [Node granularity](#node-granularity) for the test.
+2. **Bidirectional edges write source -> target in the forward direction.** `client <-->|"WS"| gateway`, not `gateway <-->|"WS"| client`. The layout uses the source position to anchor the edge.
+3. **Backward edges use `<---` and write the left node first.** The arrow points left. Example: `orderService <---|"Refund"| paymentService` — the refund flows from `paymentService` back to `orderService`.
+4. **Never connect edges to subgraph IDs.** Subgraphs are containers, not anchorable nodes; the layout cannot route an edge from a subgraph ID. Connect to a specific node inside the subgraph instead.
+5. **Never create two edges between the same pair of nodes.** The renderer may overlap or drop duplicates. Combine into one edge with a merged label.
+6. **Bidirectional intent = one `<-->` edge.** Don't split into separate `-->` and `-.->`.
 
 ### Allowed edges
 
@@ -131,6 +131,7 @@ When a node could plausibly fit two categories, use these defaults. When still i
 **Async nodes = independently deployable message infrastructure.**
 
 Does NOT belong in `async`:
+
 - Consumer workers -> `service`
 - DB replication features (WAL, CDC) -> omit or use a dotted edge label from `datastore`
 - Logical splits of a single broker -> use one node

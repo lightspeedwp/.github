@@ -206,7 +206,7 @@ Duplication starts to earn its keep when:
 - The shared node sits many layers away from some of its sources, producing long crossings across other important content.
 - The inbound edges visually cut across other subgraphs or flows in a way that obscures them.
 
-Pattern — only apply when fan-in is _actually_ causing a rendering problem:
+Pattern — only apply when fan-in is *actually* causing a rendering problem:
 
 ```
 // Before — one shared Logger with many inbound edges crowding the target

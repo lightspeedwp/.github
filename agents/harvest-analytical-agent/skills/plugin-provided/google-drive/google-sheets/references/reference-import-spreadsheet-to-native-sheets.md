@@ -14,6 +14,7 @@ For `.xlsx`, `.xls`, `.ods`, `.csv`, and `.tsv` inputs, the blessed path is the 
 
 1. Confirm the local source path is an absolute path to a supported spreadsheet file: `.xlsx`, `.xls`, `.ods`, `.csv`, or `.tsv`.
 2. Import the file with the Google Drive connector spreadsheet import tool:
+
    ```json
    {
      "source_file": "/absolute/path/to/workbook.xlsx",
@@ -21,6 +22,7 @@ For `.xlsx`, `.xls`, `.ods`, `.csv`, and `.tsv` inputs, the blessed path is the 
      "upload_mode": "native_google_sheets"
    }
    ```
+
 3. Use the connector function exposed in the current runtime, for example `mcp__codex_apps__google_drive._import_spreadsheet(...)` or the equivalent Google Drive spreadsheet import tool.
 4. Verify the import response reports native conversion, typically with `converted: true`, `mimeType: "application/vnd.google-apps.spreadsheet"`, and a `spreadsheetId` or spreadsheet URL.
 5. Read spreadsheet metadata when available and confirm the created spreadsheet title, URL, and sheet tabs.
@@ -31,6 +33,7 @@ For `.xlsx`, `.xls`, `.ods`, `.csv`, and `.tsv` inputs, the blessed path is the 
 Only use a non-native upload mode when the user explicitly asks to preserve the source file type, keep the file as Excel/OpenDocument/text, or avoid conversion.
 
 For that explicit preservation request, use the connector's spreadsheet import tool with:
+
 ```json
 {
   "source_file": "/absolute/path/to/workbook.xlsx",
