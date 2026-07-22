@@ -10,3 +10,7 @@ Fixed GitHub MCP auth by setting GITHUB_PERSONAL_ACCESS_TOKEN in ~/.zshrc, remov
 ## 16:56 | feat/agent-standards-playwright-testing
 
 Completed Phase 1 agent standardization (PR #1108, 55 files): rewrote Playwright Testing Agent with provider configs, plugin wrapper, 4 schemas/hooks/instructions, and cookbook; fixed footer tool body truncation + CodeRabbit findings; all 695 tests pass, awaiting merge review.
+
+## 17:16 | fix/meta-agent-dry-run-writes
+
+Fixed meta.agent.js --dry-run regression (dryRun flag not threaded in header-footer.js, badges.js, metrics writer); PR #1084 merged to develop; added regression tests; issue #1083 closed.
