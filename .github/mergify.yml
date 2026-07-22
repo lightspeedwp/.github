@@ -1,7 +1,6 @@
 queue_rules:
   - name: dependabot-develop
     merge_method: squash
-    speculative_checks: 1
 
 pull_request_rules:
   # Keep Dependabot PRs up-to-date by rebasing if develop has moved ahead
