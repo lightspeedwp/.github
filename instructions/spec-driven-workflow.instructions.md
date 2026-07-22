@@ -163,3 +163,9 @@ As requirements evolve:
 - [Quality Assurance](./quality-assurance.instructions.md)
 - [Task Implementation](./task-implementation.instructions.md)
 - [Issues Standards](./issues.instructions.md)
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

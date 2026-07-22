@@ -813,12 +813,6 @@ async function createComponentDocFrame(page, componentName, description, usageNo
 
 ---
 
-## 9. Critical Rules
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-1. **Bind swatches to variables** — use `setBoundVariableForPaint` for color fills, `setBoundVariable('width', ...)` for spacing bars, and `setBoundVariable('cornerRadius', ...)` for radius cards. Never hardcode values that have corresponding variables.
-2. **Foundations page comes before component pages** — always insert it between the file structure separators and the first component page.
-3. **Show both primitive and semantic layers** — if the system has a Primitives collection and a semantic Color collection, document both on the Foundations page with clear section labels.
-4. **Page frame width = 1440px** — this is the convention across Simple DS, Polaris, and Material 3. Use it unless you detect a different existing convention via `get_metadata`.
-5. **Section spacing = 64–80px** — the gap between color / typography / spacing / shadow / radius sections should be at minimum 64px so the page is scannable.
-6. **Match existing page style** — if the target file uses emoji page name prefixes or a decorative separator style, carry that through to the Foundations page name.
-7. **Include code syntax in labels** — where variables have code syntax set, display the CSS variable name in the swatch/bar label so developers can copy it directly.
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

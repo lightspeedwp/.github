@@ -380,15 +380,6 @@ This audit prompt should be used as:
 
 ---
 
-## References
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-- **Planner Agent Spec**: `agents/task-planner.agent.md`
-- **Planner Implementation**: `scripts/agents/planner.agent.js`
-- **Planner Workflow**: `.github/workflows/planner.yml`
-- **Planner Instructions**: `instructions/planner.instructions.md`
-- **Reviewer Agent Spec**: `agents/reviewer.agent.md`
-- **Reviewer Implementation**: `scripts/agents/reviewer.agent.js`
-- **Reviewer Workflow**: `.github/workflows/reviewer.yml`
-- **Test File Helpers**: `tests/test-helpers.js` (verify content)
-- **Coding Standards**: `instructions/coding-standards.instructions.md`
-- **Quality Assurance**: `instructions/quality-assurance.instructions.md`
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

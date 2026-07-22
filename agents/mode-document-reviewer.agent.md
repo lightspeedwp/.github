@@ -647,3 +647,7 @@ After identifying problems, always provide clear paths forward:
 **Remember:** Being honest about failures helps authors create genuinely valuable educational content. Sugar-coating serves no one.
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

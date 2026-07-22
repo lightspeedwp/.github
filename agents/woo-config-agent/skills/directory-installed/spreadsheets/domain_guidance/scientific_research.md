@@ -22,3 +22,9 @@ Formatting must always be consistent throughout the workbook.
 - Avoid volatile functions (e.g. RAND() for randomization) unless necessary for simulation, and document any usage clearly.
 - Do not introduce circular references; iterative calculations can obscure the lineage of results and complicate reproducibility.
 - If performing calculations like statistical formulas or unit conversions in-sheet, show the formula or use helper columns for each step so others can verify the math. This stepwise approach makes it easier to verify scientific calculations. Where possible, cross-check Excel results with another tool or manual calculation to ensure no spreadsheet errors are affecting the outcomes.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

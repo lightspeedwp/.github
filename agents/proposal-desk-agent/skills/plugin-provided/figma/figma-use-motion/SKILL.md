@@ -78,3 +78,9 @@ In addition to the [figma-use pre-flight checklist](../figma-use/SKILL.md#8-pre-
 - [ ] Manual keyframe fields come from the public allowlist in [motion-patterns.md](references/motion-patterns.md#animatable-fields); generated/internal scenegraph fields intentionally throw.
 - [ ] Mutated node IDs are returned (per `figma-use` Rule 15).
 - [ ] When motion correctness isn't self-evident and a frame extractor (`ffmpeg`) is available, verify via `export_video` + frame sampling — render small, low `fps`, iterate until right (see the Verifying the animation section above). `get_screenshot` shows only the resting state.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

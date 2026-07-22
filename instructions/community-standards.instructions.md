@@ -687,3 +687,7 @@ coverage/
 *This document consolidates community health standards for GitHub repositories. All files and documentation must follow these standards for consistency and professionalism.*
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

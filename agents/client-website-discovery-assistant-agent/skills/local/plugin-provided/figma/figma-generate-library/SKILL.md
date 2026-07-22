@@ -353,18 +353,6 @@ Use your file reading tool to read these docs when needed. Do not assume their c
 
 ---
 
-## 11. Scripts
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-Reusable Plugin API helper functions. Embed in `use_figma` calls:
-
-| Script | Purpose |
-|--------|---------|
-| [inspectFileStructure.js](scripts/inspectFileStructure.js) | Discover all pages, components, variables, styles; returns full inventory |
-| [createVariableCollection.js](scripts/createVariableCollection.js) | Create a named collection with modes; returns `{collectionId, modeIds}` |
-| [createSemanticTokens.js](scripts/createSemanticTokens.js) | Create aliased semantic variables from a token map |
-| [createComponentWithVariants.js](scripts/createComponentWithVariants.js) | Build a component set from a variant matrix; handles grid layout |
-| [bindVariablesToComponent.js](scripts/bindVariablesToComponent.js) | Bind design tokens to all component visual properties |
-| [createDocumentationPage.js](scripts/createDocumentationPage.js) | Create a page with title + description + section structure |
-| [validateCreation.js](scripts/validateCreation.js) | Verify created nodes match expected counts, names, structure |
-| [cleanupOrphans.js](scripts/cleanupOrphans.js) | Remove orphaned nodes by name convention or state ledger IDs |
-| [rehydrateState.js](scripts/rehydrateState.js) | Scan file for all pages, components, variables by name; returns full `{key → nodeId}` map for state reconstruction |
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

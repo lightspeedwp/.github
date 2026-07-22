@@ -123,3 +123,7 @@ All documentation links to files within the same repository should use `/blob/HE
 - **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and QA standards
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

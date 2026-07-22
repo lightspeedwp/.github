@@ -381,3 +381,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 - [PR Creation Standards](../instructions/pull-requests.instructions.md)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

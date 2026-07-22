@@ -200,3 +200,9 @@ Do not execute creation or content edits until the required references are read 
 | Figures, diagrams, image preparation, insertion, and figure-block placement | `references/reference-figures-and-image-insertion.md` |
 | Section completeness, source-list formatting, typography consistency, connector-observable comparison, and final production pass | `references/reference-section-completeness-and-final-pass.md` |
 | PDF export, page rasterization, thumbnail limitations, and rendered visual QA | `references/reference-pdf-export-visual-qa.md` |
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

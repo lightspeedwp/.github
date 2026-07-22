@@ -75,3 +75,9 @@ Documentation & Collaboration: `list_documents`, `get_document`, `search_documen
 - Tool Calling Errors: Confirm the model supports multiple tool calls, provide all required fields, and split complex requests.
 - Missing Data: Refresh token, verify workspace access, check for archived projects, and confirm correct team selection.
 - Performance: Remember Linear API rate limits; batch bulk operations, use specific filters, or cache frequent queries.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
