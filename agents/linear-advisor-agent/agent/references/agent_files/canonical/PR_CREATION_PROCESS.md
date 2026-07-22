@@ -164,6 +164,3 @@ Each PR template includes a checklist. Ensure you:
 ---
 
 *For questions about the PR process, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer.*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

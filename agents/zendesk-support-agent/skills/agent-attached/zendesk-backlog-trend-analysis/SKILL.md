@@ -257,5 +257,3 @@ Use optional scripts only for local QA of the packaged skill assets. They are no
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

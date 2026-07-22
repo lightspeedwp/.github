@@ -58,5 +58,3 @@ Do not produce a backlog item that cannot be validated. If validation is not cur
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
