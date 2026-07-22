@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/lightspeedwp/.github/develop/schema/agent-plugin-binding.schema.json",
+  "title": "Agent-Plugin Binding Schema",
+  "description": "Validates the relationship and wiring between agents and the plugin that packages them.",
+  "type": "object",
+  "required": ["plugin_id"],
+  "properties": {
+    "plugin_id": { "type": "string", "pattern": "^lightspeed-[a-z0-9-]+$" },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["agent_id", "path"],
+        "properties": {
+          "agent_id": { "type": "string" },
+          "path": { "type": "string" },
+          "required_skills": { "type": "array", "items": { "type": "string" } },
+          "required_hooks": { "type": "array", "items": { "type": "string" } },
+          "provider_support": {
+            "type": "object",
+            "properties": {
+              "claude": { "type": "boolean" },
+              "copilot": { "type": "boolean" },
+              "openai": { "type": "boolean" },
+              "gemini": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "providers": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "hooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "triggers": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
