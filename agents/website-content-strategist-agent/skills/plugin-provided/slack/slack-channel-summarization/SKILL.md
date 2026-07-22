@@ -66,3 +66,9 @@ Use this skill to summarize activity from one Slack channel, using a requested t
 - Note if a thread is still open or unresolved instead of implying it concluded.
 - Omit **Notes** when there are no caveats, gaps, or sparse-activity disclaimers to add.
 - For a canvas, expand each topic into a short section and use `slack_create_canvas`. Do this only when the user explicitly asked for a canvas, doc, or Slack-hosted summary.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

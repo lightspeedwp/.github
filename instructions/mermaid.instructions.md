@@ -239,11 +239,6 @@ When diagrams across the repository need to be updated (new palette, new structu
 
 ---
 
-## Related Files
+📐 *Schema validated by LightSpeedWP — always compliant.*
 
-- [documentation-formats.instructions.md](./documentation-formats.instructions.md) — Markdown and diagram standards
-- [a11y.instructions.md](./a11y.instructions.md) — WCAG 2.2 AA accessibility standards
-- [scripts/validation/validate-mermaid-colour-contrast.js](../scripts/validation/validate-mermaid-colour-contrast.js) — Colour contrast validator
-- [scripts/validation/validate-mermaid-accessibility.js](../scripts/validation/validate-mermaid-accessibility.js) — accTitle/accDescr validator
-- [scripts/validation/validate-mermaid-syntax.js](../scripts/validation/validate-mermaid-syntax.js) — Syntax validator
-- [.github/workflows/validate-mermaid-pr.yml](../.github/workflows/validate-mermaid-pr.yml) — PR validation workflow
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

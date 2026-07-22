@@ -293,9 +293,6 @@ All labels meet WCAG 2.2 AA contrast requirements:
 
 ---
 
-## References
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-- [GitHub Labels Documentation](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
-- [WCAG 2.2 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum)
-- [LightSpeed Coding Standards](../instructions/coding-standards.instructions.md)
-- [LightSpeed Accessibility Standards](../instructions/a11y.instructions.md)
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

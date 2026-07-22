@@ -201,3 +201,7 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 - [CHANGELOG](./CHANGELOG.md)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

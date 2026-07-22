@@ -88,3 +88,9 @@ At minimum, include:
 - Repository issue type registry and labels.
 - Issue governance and project operations documentation.
 - Contribution and security policies.
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

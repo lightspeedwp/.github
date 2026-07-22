@@ -32,3 +32,9 @@ apply_to:
 - Allow the workflow to re-run on label changes so late-applied labels and issue
   type corrections catch up in the project board.
 ---
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

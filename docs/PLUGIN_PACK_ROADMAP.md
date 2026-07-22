@@ -92,3 +92,9 @@ description: "Roadmap for plugin pack development and releases"
 ## Contact
 
 For questions or suggestions about the roadmap, open an issue in the GitHub repository.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

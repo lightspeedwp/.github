@@ -173,3 +173,9 @@ function processUserRegistration($email, $password) {
 - [Coding Standards](./coding-standards.instructions.md)
 - [Task Implementation](./task-implementation.instructions.md)
 - Clean Code: A Handbook of Agile Software Craftsmanship (Chapter 4: Comments)
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

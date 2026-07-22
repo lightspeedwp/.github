@@ -76,3 +76,9 @@ Draft: <link to draft>
 - The header should identify the channel, DM, or thread.
 - If the user asked for a single reply, return just that item.
 - If no unreplied messages are found, say so directly and explain the scope checked.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

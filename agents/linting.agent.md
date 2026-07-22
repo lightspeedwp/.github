@@ -74,3 +74,9 @@ metadata:
     etc). Never bypass failing linting checks. Log all linting actions and results.
     Provide clear, actionable error messages.
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

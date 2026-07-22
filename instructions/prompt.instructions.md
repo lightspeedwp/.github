@@ -71,3 +71,7 @@ All prompt files must:
 - [prompts/](../.github/prompts/) — Prompt file collection and index
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

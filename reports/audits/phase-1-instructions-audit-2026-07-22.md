@@ -300,4 +300,6 @@ Proceed to **Hooks Folder Audit** to review existing hooks and propose 4 new hoo
 
 ---
 
-**End of Audit Report**
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

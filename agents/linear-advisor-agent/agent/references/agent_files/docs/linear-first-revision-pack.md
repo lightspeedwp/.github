@@ -179,6 +179,6 @@ This agent is now strongest when it is used as a **Linear-first workflow factory
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

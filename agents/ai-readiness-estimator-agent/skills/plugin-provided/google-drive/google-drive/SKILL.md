@@ -56,3 +56,9 @@ Start with Google Drive for file discovery and file lifecycle tasks, then route 
 - Docs: [google-docs](../google-docs/SKILL.md)
 - Sheets: [google-sheets](../google-sheets/SKILL.md)
 - Slides: [google-slides](../google-slides/SKILL.md)
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
