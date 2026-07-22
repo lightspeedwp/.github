@@ -8,11 +8,13 @@ metadata:
 # Agent Standardization Initiative
 
 ## Overview
+
 Multi-provider agent rewrite project to unify ChatGPT agent exports into standardized Claude/Copilot/OpenAI-compatible agents with plugin architecture.
 
 ## Current State Audit (2026-07-22)
 
 ### Agents Folder (`/agents/`)
+
 - 41 agents total: Mix of `.agent.md` specs and ChatGPT export folders
 - Folders with subdirectories (ChatGPT exports):
   - playwright-testing-agent
@@ -35,6 +37,7 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - ChatGPT structure: Contains `agent/`, `skills/`, `manifests/`, `checksums.sha256`, `README.md`
 
 ### Plugins Folder (`/plugins/`)
+
 - 6 existing plugins with multi-provider support:
   - lightspeed-github-ops
   - lightspeed-metrics-and-reporting
@@ -46,6 +49,7 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - Naming: lightspeed-{domain}-{focus} pattern
 
 ### Instructions Folder (`/instructions/`)
+
 - 42 instruction files covering:
   - coding-standards, a11y, automation, community-standards
   - agent-spec, documentation-formats, languages
@@ -54,6 +58,7 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - Key: `agent-spec.instructions.md` defines agent requirements
 
 ### Hooks Folder (`/hooks/`)
+
 - 3 hooks:
   - secrets-scanner
   - session-logger
@@ -61,6 +66,7 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - README.md with hook-registry.json
 
 ### Schema Folder (`/schema/`)
+
 - 16 schema files including:
   - agent-config.schema.json
   - frontmatter.schema.json
@@ -69,11 +75,13 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - Memory subfolder for persisted agent context
 
 ### AI Folder (`/ai/`)
+
 - Config files for Claude, Gemini, OpenAI
 - Audit summaries and improvement plans
 - agents.md and RUNNERS.md
 
 ### Memory/Work Tracking
+
 - `.remember/` folder for session memory
 - `memory/` subfolder in schema for agent memory persistence
 
@@ -87,6 +95,7 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 6. **Instructions**: No dedicated agent-creation instruction file
 
 ## Key Files for Reference
+
 - [agents/agent.md](../agents/agent.md) - Main agent index
 - [agents/testing.agent.md](../agents/testing.agent.md) - Reference agent
 - [AGENTS.md](../../AGENTS.md) - Global AI rules
