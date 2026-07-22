@@ -9,7 +9,7 @@ metadata:
 
 ## Overview
 
-Multi-provider agent rewrite project to unify ChatGPT agent exports into standardized Claude/Copilot/OpenAI-compatible agents with plugin architecture.
+Multi-provider agent rewrite project to unify ChatGPT agent exports into standardised Claude/Copilot/OpenAI-compatible agents with plugin architecture.
 
 ## Current State Audit (2026-07-22)
 
