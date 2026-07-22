@@ -90,3 +90,7 @@ Fixed 5 markdown linting errors in instruction files (automation, docs-formats, 
 ## 20:29 | claude/meta-agent-sync-prs-4cb823
 
 Restored 17 files truncated by footer-tool bug, addressed CodeRabbit feedback (hook fixes, schema hardening, TESTING.md), resolved git conflict, PR #1108 mergeable (695 tests pass).
+
+## 20:40 | fix/milestone-capacity-exclusion-and-tests
+
+Merged PR #1132 (capacity type-exclusion filtering fix, 24 allocation tests, MILESTONE_ALLOCATION_STRATEGY.md), closed #1128, committed branch cleanup report.
