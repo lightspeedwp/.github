@@ -264,7 +264,7 @@ figma.closePlugin()
 
 When creating content with numbered or bulleted lines, generate it line-by-line as a list by using `setRangeListOptions` and `setRangeIndentation` to properly render bullet points and numbers with indentation.
 
-When creating lists with bullets or numbers, **do not** put literal bullet or number characters in the text (e.g. `"• Item 1\n• Item 2"` or `"1. First\n2. Second"`). Also **do not** build indentation in manually to items by including spaces (e.g. `    indented sub point`).
+When creating lists with bullets or numbers, **do not** put literal bullet or number characters in the text (e.g. `"• Item 1\n• Item 2"` or `"1. First\n2. Second"`). Also **do not** build indentation in manually to items by including spaces (e.g. `indented sub point`).
 
 1. Set `characters` to the **content only** — one line per item, **no** leading `"• "`, `"1. "`, `A.`, `i.` or white space to manually create an indent.
 2. Every line must have a list item type set, either 'ORDERED' for numbered/lettered lists, and 'UNORDERED' for bulleted lists. For each line that should be a list item, call **`setRangeListOptions(start, end, value)`** with the character range of that line (include the newline at the end of the line).

@@ -82,6 +82,7 @@ Place this file in your project root to configure Code Connect.
 ```
 
 Use placeholders in templates:
+
 ```javascript
 // url=<PROD_FILE>?node-id=123-456
 // source=<path to code component>
@@ -95,6 +96,7 @@ Use placeholders in templates:
 ### File Naming
 
 Templates must use the `.figma.js` extension:
+
 - `Button.figma.js`
 - `Card.figma.js`
 - `MyComponent.figma.js`
@@ -188,6 +190,7 @@ Use these to wrap your code snippets for proper syntax highlighting:
 | `figma.kotlin` | Kotlin code |
 
 **Example:**
+
 ```javascript
 const example = figma.tsx`<MyComponent prop="${value}" />`
 ```
@@ -207,6 +210,7 @@ const snippet = figma.code`${iconSnippet}${buttonSnippet}`
 Helper utilities for rendering code patterns:
 
 **React Helpers:**
+
 ```javascript
 figma.helpers.react.renderProp('propName', value)
 figma.helpers.react.renderChildren(children)
@@ -352,6 +356,7 @@ const avatar = instance.findInstance('Avatar')
 ```
 
 **With selector options:**
+
 ```javascript
 // Find by exact path
 const icon = instance.findInstance('Icon', {
@@ -552,12 +557,14 @@ npx figma connect publish --token=[REDACTED_TOKEN]
 ```
 
 **Using environment variable:**
+
 ```bash
 export FIGMA_ACCESS_TOKEN=[REDACTED_TOKEN]
 npx figma connect publish
 ```
 
 **With custom config:**
+
 ```bash
 npx figma connect publish --config path/to/figma.config.json
 ```
@@ -565,11 +572,13 @@ npx figma connect publish --config path/to/figma.config.json
 ### Unpublishing
 
 **Unpublish all files in config:**
+
 ```bash
 npx figma connect unpublish
 ```
 
 **Unpublish specific component:**
+
 ```bash
 npx figma connect unpublish --node=https://figma.com/file/abc/File?node-id=123-456 --label=React
 ```
@@ -583,6 +592,7 @@ npx figma connect migrate --outDir ./templates
 ```
 
 **Test migrations:**
+
 1. Set temporary label in `figma.config.json`
 2. Publish to test: `npx figma connect publish`
 3. Verify in Figma
@@ -613,6 +623,7 @@ interface SelectorOptions {
 ```
 
 **Example:**
+
 ```javascript
 // Find icon only in specific hierarchy
 const icon = instance.findInstance('Icon', {
@@ -642,6 +653,7 @@ interface Metadata {
 ```
 
 > **Important:** `nestable` must be set in **two places** for nested templates to work correctly:
+>
 > 1. **`templateDataJson`** when calling `add_code_connect_map` — e.g. `'{"isParserless": true, "nestable": true}'`. This controls whether the child template is loaded into the parent's evaluation context. If missing, the parent cannot find or execute the child via `findConnectedInstance`, `findConnectedInstances`, or `hasCodeConnect()`.
 > 2. **`metadata.nestable`** in the template's `export default` — controls the runtime rendering behavior (inline code vs. clickable pill).
 
@@ -963,6 +975,7 @@ export default {
 **Error:** `Property "Label" not found`
 
 **Solution:** Check property name in Figma matches exactly (case-sensitive):
+
 ```javascript
 // Property name in Figma: "Button Label"
 const label = instance.getString('Button Label')
@@ -973,6 +986,7 @@ const label = instance.getString('Button Label')
 **Error:** `Child layer "Icon" not found`
 
 **Solution:** Verify layer name and try with path:
+
 ```javascript
 const icon = instance.findInstance('Icon', {
   path: ['Content', 'IconSlot'],
@@ -985,6 +999,7 @@ const icon = instance.findInstance('Icon', {
 **Error:** `Property type mismatch`
 
 **Solution:** Use correct method for property type:
+
 - Text properties → `getString()`
 - Boolean properties → `getBoolean()`
 - Variant properties → `getEnum()`
@@ -995,6 +1010,7 @@ const icon = instance.findInstance('Icon', {
 **Issue:** Template doesn't appear in Figma
 
 **Solution:**
+
 1. Ensure URL comment matches component exactly
 2. Check `figma.config.json` includes the file pattern
 3. Verify file was published: `npx figma connect publish`
@@ -1005,6 +1021,7 @@ const icon = instance.findInstance('Icon', {
 **Issue:** Code appears broken in Figma
 
 **Solution:** Never concatenate template results:
+
 ```javascript
 // Wrong
 const result = snippet1 + snippet2
