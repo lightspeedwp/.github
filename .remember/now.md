@@ -58,3 +58,7 @@ Applied 4 safety fixes to cleanup-branches.js (daysSince/isMerged/deleteLocalBra
 ## 13:04 | fix/branch-cleanup-safety
 
 Merged PR #1071 (4 safety fixes to cleanup-branches.js), corrected AI governance to enforce proper issue→branch→PR→develop workflow instead of direct develops commits, added GitHub template guidance to AGENTS.md/CLAUDE.md for AI issue creation (issue #1078).
+
+## 13:08 | fix/meta-workflow-ci-and-push-flow-followup
+
+Fixed meta.yml: added `npm ci` step, redesigned bot push flow to PR-based auto-merge (PR #1073); fixed cleanup-branches.yml and mergify.yml bugs (PRs #1075, #1077); issues #1072–#1076 closed.
