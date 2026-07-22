@@ -41,12 +41,25 @@ This package contains everything you need to standardize the LightSpeedWP agent 
    - **USE THIS** to execute Phase 1
 
 5. **PROMPT_2_GENERIC_AGENT_REWRITE.md** 📋
-   - Reusable template for remaining 15 agents
+   - Reusable template for remaining agents
    - Parameterized for any agent
    - 8 detailed phases
    - Quick checklist
    - Timeline per agent
-   - **USE THIS** for Phases 2-3
+   - **REFERENCE** for Phase 2-3 (use batch prompts instead)
+
+6. **PHASE_2_BATCH_PROMPTS_INDEX.md** 📋 (NEW)
+   - Complete index of all 14 Phase 2 batch prompts
+   - Quick reference guide
+   - Timeline suggestions (8-10 weeks)
+   - Navigation to individual agent prompts
+   - **USE THIS** to navigate Phase 2 agents
+
+7. **PROMPT_BATCH_2_*.md** (5 files) 🚀
+   - Individual parameterized prompts for each agent
+   - Agent-specific parameters & capabilities
+   - Ready-to-copy-and-paste execution prompts
+   - **USE THESE** to execute Phase 2 agents
 
 ---
 
@@ -126,11 +139,15 @@ IMPLEMENTATION_SUMMARY.md
 3. Follow tasks systematically in PROMPT_1
 ```
 
-**To Execute Phase 2 (Per Agent):**
+**To Execute Phase 2 (Per Agent - 14 agents available):**
 ```
-1. PROMPT_2_GENERIC_AGENT_REWRITE.md (customize for your agent)
-2. IMPLEMENTATION_SUMMARY.md (section: Phase 2)
-3. Reference: PROMPT_1 (pytorch agent as example)
+1. PHASE_2_BATCH_PROMPTS_INDEX.md (select your agent)
+2. Use agent-specific batch prompt:
+   - Agents 1-3: PROMPT_BATCH_2_TOUR_OPERATOR_CONFIG_AGENT.md, etc.
+   - Agent 4: PROMPT_BATCH_2_PRD_COMBINED_AGENT.md (merge operation)
+   - Agents 5-14: PROMPT_BATCH_2_AGENTS_5_14.md (quick reference)
+3. Reference: PROMPT_2_GENERIC_AGENT_REWRITE.md (8-phase process)
+4. Reference: PROMPT_1 (Playwright agent as example)
 ```
 
 **To Understand Agent-Plugin Relationships:**

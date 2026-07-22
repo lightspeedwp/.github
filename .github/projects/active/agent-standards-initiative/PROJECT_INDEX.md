@@ -120,29 +120,20 @@ priority: high
 **Branch:** `feat/agent-standards-playwright-testing`  
 **Use:** STANDALONE_PROMPT_PHASE_1.md
 
-### Phase 2: Remaining 15 Agents (30–60 hours)
-**Status:** 📅 Planned (After Phase 1)
+### Phase 2: Remaining 14 Agents (30–50 hours)
+**Status:** 📅 Planned (After Phase 1) — **Batch Prompts Ready!**
 
-**Agents to Convert:**
-- ai-readiness-estimator-agent
-- client-website-discovery-assistant-agent
-- design-partner-agent
-- harvest-analytical-agent
-- linear-advisor-agent
-- pagespeed-agent
-- prd-agent
-- prd-factory-planner-agent
-- proposal-desk-agent
-- tour-operator-config-agent
-- website-content-strategist-agent
-- website-scope-estimator-agent
-- woo-config-agent
-- wp-config-agent
-- zendesk-support-agent
+**Agents to Convert (14 total, includes 1 combined agent):**
+1. tour-operator-config-agent → `PROMPT_BATCH_2_TOUR_OPERATOR_CONFIG_AGENT.md`
+2. wp-config-agent → `PROMPT_BATCH_2_WP_CONFIG_AGENT.md`
+3. woo-config-agent → `PROMPT_BATCH_2_WOO_CONFIG_AGENT.md`
+4. prd-agent + prd-factory-planner-agent (COMBINED) → `PROMPT_BATCH_2_PRD_COMBINED_AGENT.md`
+5-14. design-partner, proposal-desk, client-website-discovery, website-scope-estimator, website-content-strategist, pagespeed, linear-advisor, harvest-analytical, zendesk-support, ai-readiness-estimator → `PROMPT_BATCH_2_AGENTS_5_14.md`
 
-**Effort:** 2–4 hours per agent  
+**Effort:** 2–4 hours per agent (4–6 hours for combined PRD)  
 **Batching:** 2–3 agents per week  
-**Use:** PROMPT_2_GENERIC_AGENT_REWRITE.md (parameterized per agent)
+**Reference:** `PHASE_2_BATCH_PROMPTS_INDEX.md` — Complete index of all 14 batch prompts  
+**Master Template:** `PROMPT_2_GENERIC_AGENT_REWRITE.md` (reference for 8-phase process)
 
 ### Phase 3: Repository-Wide Governance (4–8 hours)
 **Status:** 📅 Planned (After Phase 2)
