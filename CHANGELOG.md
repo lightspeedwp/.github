@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`cleanup-branches.yml` invalid YAML** — The `cleanup` job's `env:` mapping was immediately followed by a `- name: Checkout repository` list item with no `steps:` parent key, which is invalid YAML. This broke `npm run lint:all` — and therefore the required `All Checks Passed` status check — for every PR into `develop`, regardless of what the PR touched. Added the missing `steps:` key. ([PR #1075](https://github.com/lightspeedwp/.github/pull/1075), [#1074](https://github.com/lightspeedwp/.github/issues/1074))
+
 - **Branch cleanup automation: safety hardening** — Fixed four critical safety issues in the branch cleanup script: `daysSince()` now treats invalid/missing dates as recent (0 days) instead of Infinity (preventing accidental deletion), `isMerged()` uses exact line matching instead of substring matching (preventing false positives), `deleteLocalBranch()` fails safely instead of force-deleting (preserving unmerged work), and `buildExcludeRegex()` adds error handling for invalid patterns (graceful degradation instead of crash). Enhanced test coverage to 6 tests including edge-case handling. ([PR #1071](https://github.com/lightspeedwp/.github/pull/1071), [#1069](https://github.com/lightspeedwp/.github/issues/1069))
 
 - **Branch cleanup automation** — Added a reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches. The new automation supports dry-run previews, protected-branch guardrails, open-PR filtering, local branch deletion, and markdown/json metrics output. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
