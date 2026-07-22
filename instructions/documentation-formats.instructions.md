@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
 scope: "organization-wide"
-version: "v1.1.3"
-last_updated: "2026-06-19"
+version: "v1.1.4"
+last_updated: "2026-07-22"
 owners: ["GitHub Community Health Team"]
 tags:
 - markdown
@@ -634,8 +634,4 @@ jobs:
 
 ---
 
----
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Maintained by the 🤖 LightSpeedWP Automation Team*

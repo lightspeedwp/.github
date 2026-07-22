@@ -1,44 +1,64 @@
 
-## 11:32 | develop
+## 16:34 | feat/agent-standards-playwright-testing
 
-Resolved GitHub MCP auth config: removed stale PAT placeholder from ~/.claude.json, disabled official plugin, configured OAuth HTTP MCP entry.
+Rewrote Playwright agent for multi-provider (Claude/Copilot/OpenAI), PR #1108 passing all CI checks (55 files); created Epic #1079 + agents #1087–#1103 + infra #1104–#1106; added 4 schemas, 4 hooks (16 tests), 4 instructions, cookbook.
 
-## 11:36 | develop
+## 16:52 | develop
 
-GitHub MCP verification in VSCode failed with 401 auth error, indicating prior OAuth config didn't resolve the auth issue.
+Fixed GitHub MCP auth by setting GITHUB_PERSONAL_ACCESS_TOKEN in ~/.zshrc, removed stale ~/.claude.json placeholder, attempted OAuth (GitHub auth server lacks DCR), verified connection.
 
-## 11:39 | fix/meta-workflow-missing-npm-ci
+## 16:56 | feat/agent-standards-playwright-testing
 
-Added npm ci; merged apply-meta & metrics-update into single PR-based job w/ auto-merge + meta:no-changelog to bypass GH006 branch-protection error.
+Completed Phase 1 agent standardization (PR #1108, 55 files): rewrote Playwright Testing Agent with provider configs, plugin wrapper, 4 schemas/hooks/instructions, and cookbook; fixed footer tool body truncation + CodeRabbit findings; all 695 tests pass, awaiting merge review.
 
-## 11:44 | fix/branch-cleanup-safety
+## 17:16 | fix/meta-agent-dry-run-writes
 
-Fixed cleanup-branches.js with 4 safety improvements (daysSince Infinity, isMerged substring matching, deleteLocalBranch unsafe-delete, buildExcludeRegex errors); 6 tests passing; issue #1069, PR #1071 targeting develop.
+Fixed meta.agent.js --dry-run regression (dryRun flag not threaded in header-footer.js, badges.js, metrics writer); PR #1084 merged to develop; added regression tests; issue #1083 closed.
 
-## 11:47 | fix/meta-workflow-ci-and-push-flow
+## 17:48 | fix/footer-cleanup-and-validation
 
-Fixed meta.yml: added npm ci to apply-meta (js-yaml missing); merged apply-meta + metrics-update, restructured to PR-based flow (feature branch → auto-merge w/ meta:no-changelog) vs direct push; created issue #1070; targeting develop.
+Footer cleanup and validation complete: renamed branch from `claude/*` (forbidden) to `fix/footer-cleanup-and-validation`; created issue #1114, PR #1115; addressed all 5 CodeRabbit findings (test updates, licence section restore, validation exit codes, footer dedup logic, validation pipeline integration); all code analysis checks passing.
 
-## 11:49 | develop
+## 18:47 | feat/project-milestone-allocation-strategy
 
-Verified Github MCP auto-start in VSCode; 401 auth error.
+Implemented version-based milestone strategy (v1.0–v1.6) w/ auto-allocation; created project-routes.yml & milestone scripts; extended metadata-governance workflow; validated approach via 3 research agents; configured GitHub App credentials (LS_PROJECT_URL, LS_APP_ID, LS_APP_PRIVATE_KEY) for Project 33; tested workflow & identified Node v22→v24 incompatibility in project-meta-sync.yml; PR #1113 pending fix.
 
-## 11:51 | ci/meta-workflow-npm-ci-and-push-flow
+## 18:25 | fix/validation-footer-and-mermaid
 
-Fixed missing `npm ci` in apply-meta job (meta.yml); merged apply-meta + metrics-update into PR-based auto-merge flow (PR #1073).
+Fixed validate-footers truncation & validate-mermaid-pr error handling (#1118, #1119) in PR #1123 w/ bug templates & status comments.
 
-## 11:54 | develop
+## 18:36 | fix/validation-footer-and-mermaid
 
-Diagnosed GitHub MCP auth failure (missing GITHUB_PERSONAL_ACCESS_TOKEN env var); removed stale config from ~/.claude.json; discovered GitHub OAuth incompatible with DCR needed for Claude Code auto-provisioning.
+Fixed changelog-validate WF failure in PR #1123 w/ CHANGELOG entry (91e22fa58); addressed CodeRabbit feedback w/ UK spelling fix (beb7584f7) & 12 code-quality imprv in #1126; set up auto-merge monitoring.
 
-## 11:57 | fix/cleanup-branches-workflow-missing-steps-key
+## 18:48 | feat/project-milestone-allocation-strategy
 
-Fixed missing `steps:` key in cleanup-branches.yml cleanup job (was blocking all PR merges repo-wide); restructured meta.yml apply-meta & metrics-update jobs to use PR-based push w/ auto-merge instead of blocked direct push to protected develop (added missing `npm ci` step); PR #1073, #1074.
+Enabled GitHub MCP in VSCode: added GITHUB_PERSONAL_ACCESS_TOKEN to ~/.zshrc after discovering GitHub OAuth lacks DCR support.
 
-## 12:01 | develop
+## 18:52 | claude/milestone-planning-v1-fc9011
 
-GitHub MCP: removed stale ~/.claude.json entry, tested OAuth (failed—GitHub lacks Dynamic Client Registration support), reverted to PAT auth, documented GITHUB_PERSONAL_ACCESS_TOKEN env var setup in ~/.zshrc.
+Created roadmap docs (ROADMAP.md, ROADMAP_VISUAL.md) in .github/projects/active/milestone-planning-v1/ allocating ~150 open issues across 7 GitHub milestones (v1.0-v1.6, IDs 76-82), started bulk assignment workflow.
 
-## 12:15 | ci/meta-workflow-npm-ci-and-push-flow
+## 18:52 | develop
 
-Added npm ci to meta.yml; consolidated apply-meta & metrics-update jobs into PR-based flow (meta:no-changelog label) avoiding blocked direct-push. Created PRs #1073 & #1075 (cleanup-branches YAML). Found Copilot review ruleset blocking develop merges.
+Reviewed epic #1079 & identified 19 related child issues (Phase 1: #1087, #1104-#1106; Phase 2: #1088-#1096, #1098-#1103)—GitHub lacks parent/child mutations, needs manual UI.
+
+## 18:55 | develop
+
+Configured GitHub App credentials (LS_APP_ID, LS_APP_PRIVATE_KEY) for Project 33 auto-allocation, ran three investigation agents (confirmed version-based milestone strategy approved + Projects v2 has no IaC pattern + project-meta-sync workflow needs config), fixed Node.js v20→24 in project-meta-sync.yml to resolve Babel compatibility, created/tested workflow triggers (#1121, #1124, #1125), added CHANGELOG entry to PR #1113, verified metadata-governance automation works end-to-end, PR #1113 pending auto-merge.
+
+## 19:16 | develop
+
+Fixed Node v22→24 in metadata-governance.yml, resolved linting/validation issues, cleaned up 7 incorrectly-named claude/* branches, merged PR #1113 (version-based milestone allocation + auto-sync to Project 33), created test issue #1128 for workflow verification.
+
+## 19:21 | develop
+
+Reviewed pr-1108-review-merge worktree with 1,155 uncommitted files; user committed CodeRabbit-improved agent skills + migration docs to chore/coderabbit-improvements-1126 & merged PR #1127; agent-standards-initiative folder also needs commitment.
+
+## 19:23 | develop
+
+Added 16 new agent definitions to website/src/lib/agents.ts registry; committed to develop.
+
+## 19:26 | chore/coderabbit-improvements-1126
+
+Merged PR #1123 (footer data-loss fix, mermaid workflow robustness), PR #1127 (CodeRabbit polish: UK spelling, framework status, Gemini cleanup); filed #1128 for 8 pending hook-dependent improvements.

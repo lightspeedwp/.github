@@ -22,7 +22,6 @@
 - detachInstance() and node ID invalidation
 - Icons — import the SVG, never reconstruct from rotated line primitives
 
-
 ## New nodes default to (0,0) and overlap existing content
 
 Every `figma.create*()` call places the node at position (0,0). If you append multiple nodes directly to the page, they all stack on top of each other and on top of any existing content.
@@ -534,6 +533,7 @@ return components.map(c => c.id)
 ```
 
 **Key points:**
+
 - **Default is not consistent across surfaces.** `true` in Dev Mode; `false` in Figma and FigJam. Set it explicitly — don't rely on the default.
 - **Only prunes inside `INSTANCE` subtrees.** Invisible nodes outside instances are still traversed normally. COMPONENT (master) subtrees are not affected.
 - **Stale references throw.** Once the flag is `true`, any node handle you previously captured for a pruned (invisible-in-instance) node throws when you read a property on it. Don't toggle the flag mid-script if you've already cached such handles.
@@ -653,7 +653,7 @@ t.layoutSizingHorizontal = 'HUG'     // ok — TEXT child of auto-layout
 
 `figma.createAutoLayout()` returns a frame with `layoutMode` already set and both axes hugging content, so its children can immediately use `'FILL'`/`'HUG'` after being appended — preferred over `figma.createFrame()` whenever the container holds related children. See Rule 12a in [SKILL.md](../SKILL.md).
 
-The next gotcha (`## HUG parents collapse FILL children`) layers on top of the rules above: even when assignment succeeds, a `HUG` parent gives `FILL` children no room to expand. The validation rule above is about whether the assignment is _allowed_; the next gotcha is about whether it produces useful layout.
+The next gotcha (`## HUG parents collapse FILL children`) layers on top of the rules above: even when assignment succeeds, a `HUG` parent gives `FILL` children no room to expand. The validation rule above is about whether the assignment is *allowed*; the next gotcha is about whether it produces useful layout.
 
 ## layoutSizing vs AxisSizingMode: two different sizing enums
 
@@ -684,7 +684,7 @@ frame.counterAxisSizingMode = 'FILL'  // throws: Expected 'FIXED' | 'AUTO', rece
 frame.counterAxisSizingMode = 'FIXED'
 ```
 
-`layoutSizingHorizontal/Vertical` is a shorthand that also drives `primaryAxisSizingMode`/`counterAxisSizingMode` under the hood — but the two surfaces accept different value sets, so keep their enums straight. For the structural rules on _when_ `HUG`/`FILL` are legal at all, see the section above.
+`layoutSizingHorizontal/Vertical` is a shorthand that also drives `primaryAxisSizingMode`/`counterAxisSizingMode` under the hood — but the two surfaces accept different value sets, so keep their enums straight. For the structural rules on *when* `HUG`/`FILL` are legal at all, see the section above.
 
 ## HUG parents collapse FILL children
 

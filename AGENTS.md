@@ -58,6 +58,191 @@ See [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md) and [CLAUDE.md](CLA
 
 ---
 
+## GitHub Template Governance
+
+All AI agents **must** enforce template compliance when creating pull requests and issues. This section provides programmatic guidance.
+
+### Pull Request Templates (Preventative Enforcement)
+
+PR template enforcement is **preventative**—the workflow blocks merges that don't include required sections:
+
+**When creating PRs via `gh pr create`:**
+
+1. Determine the PR type from the branch prefix (`fix/`, `feat/`, `docs/`, etc.)
+2. Read the corresponding template from `.github/PULL_REQUEST_TEMPLATE/pr_*.md`
+3. Include required sections in the PR body:
+   - **Linked issues** — use `Fixes #123` or `Relates to #456`
+   - **Changelog** — add entries under `### Fixed`, `### Added`, `### Changed`, `### Removed`
+   - **Checklist** — mark items as `[x]` (completed) or `[ ]` (incomplete)
+4. The workflow `validate-pr-template.yml` will validate and block merge if sections are missing
+
+**Template locations:**
+
+```
+.github/PULL_REQUEST_TEMPLATE/
+├── pr_feature.md      ← feat/, design/, a11y/, ux/, i18n/, perf/, research/
+├── pr_bug.md          ← fix/, security/
+├── pr_hotfix.md       ← hotfix/
+├── pr_refactor.md     ← refactor/
+├── pr_chore.md        ← chore/, test/, ops/, config/, migrate/, qa/, uat/
+├── pr_ci.md           ← ci/, build/
+├── pr_dep_update.md   ← deps/
+├── pr_docs.md         ← docs/, content/, seo/
+├── pr_release.md      ← release/
+└── config.yml         ← routing rules
+```
+
+### Issue Templates (Reactive Enforcement)
+
+Issue template enforcement is **reactive**—the workflow validates after creation and flags non-compliant issues with `status:needs-more-info`.
+
+**When creating issues via `gh issue create`:**
+
+1. **Determine the issue type** based on the problem:
+   - `bug.md` — reproducible defects, errors, crashes
+   - `code-refactor.md` — code cleanup, simplification (not user-facing)
+   - `feature.md` — new capabilities or user-visible enhancements
+   - `design.md` — UI/UX, token, or accessibility design
+   - `epic.md` — large, multi-part initiatives
+   - `story.md` — user-centric narratives with acceptance criteria
+   - `improvement.md` — enhancements to existing functionality
+   - `task.md` — scoped work, config updates, small delivery items
+   - `chore.md` — small housekeeping (label hygiene, repo tweaks)
+   - `testing-coverage.md` — new or refactored automated tests
+   - `performance.md` — speed, resource, or latency work
+   - `a11y.md` — accessibility compliance (WCAG 2.2 AA)
+   - `security.md` — vulnerabilities or hardening
+   - `compatibility.md` — cross-version, browser, or platform issues
+   - Other types: `build-ci.md`, `automation.md`, `integration-issue.md`, `release.md`, `maintenance.md`, `documentation.md`, `research.md`, `audit.md`, `code-review.md`, `ai-ops.md`, `content-modelling.md`
+
+2. **Read the template file** from `.github/ISSUE_TEMPLATE/{NN}-{type}.md`
+
+3. **Extract required sections** from the template:
+   - All issue templates require:
+     - `## Definition of Ready (DoR)` — pre-work checklist
+     - `## Definition of Done (DoD)` — completion checklist
+   - Template-specific sections (e.g., "Describe the bug", "Reproduction", "Expected behavior")
+
+4. **Build the issue body** by:
+   - Including all template sections
+   - Marking appropriate checklist items as `[x]` (completed)
+   - Filling in content for each section
+   - Removing placeholder text
+
+5. **Validate before posting:**
+
+   ```javascript
+   function validateIssueBody(body) {
+     const required = [
+       'Definition of Ready (DoR)',
+       'Definition of Done (DoD)'
+     ];
+     return required.every(section => 
+       body.includes(`## ${section}`)
+     );
+   }
+   
+   if (!validateIssueBody(body)) {
+     throw new Error('Missing required template sections: DoR and/or DoD');
+   }
+   ```
+
+6. **Create the issue** with the validated body:
+
+   ```bash
+   gh issue create --title "Title" --body "$body"
+   ```
+
+7. **The workflow `template-enforcement.yml` will validate:**
+   - If compliant: Issue progresses normally
+   - If non-compliant: Gets flagged with `status:needs-more-info` label
+   - AI-created issues: Specific automation feedback is added
+
+**Template directory structure:**
+
+```
+.github/ISSUE_TEMPLATE/
+├── 01-bug.md
+├── 02-code-refactor.md
+├── 03-feature.md
+├── 04-design.md
+├── 05-epic.md
+├── 06-story.md
+├── 07-improvement.md
+├── 08-task.md
+├── 09-chore.md
+├── 10-testing-coverage.md
+├── 11-performance.md
+├── 12-a11y.md
+├── 13-security.md
+├── 14-compatibility.md
+├── 15-build-ci.md
+├── 16-automation.md
+├── 17-integration-issue.md
+├── 18-release.md
+├── 19-maintenance.md
+├── 20-documentation.md
+├── 21-research.md
+├── 22-audit.md
+├── 23-code-review.md
+├── 24-ai-ops.md
+├── 25-content-modelling.md
+└── config.yml
+```
+
+**Key Enforcement Rules:**
+
+- ✅ Both DoR and DoD sections **must** be present in the body
+- ✅ Sections must be visible text (not in HTML comments)
+- ✅ Follow the template structure from the issue template file
+- ✅ Validate before creation to avoid reactive flagging
+- ✅ If flagged with `status:needs-more-info`, update the issue with proper sections
+
+**Example: Creating a bug issue programmatically**
+
+```bash
+#!/bin/bash
+
+# Read template
+TEMPLATE=$(cat .github/ISSUE_TEMPLATE/01-bug.md)
+
+# Extract DoR and DoD sections
+DOR=$(echo "$TEMPLATE" | sed -n '/## Definition of Ready/,/## Definition of Done/p' | head -n -1)
+DOD=$(echo "$TEMPLATE" | sed -n '/## Definition of Done/,$p')
+
+# Build issue body with content
+BODY="## Describe the bug
+The bug description here.
+
+## To Reproduce
+1. Step one
+2. Step two
+3. See error
+
+## Expected behavior
+What should happen instead.
+
+## Additional Context
+Any other info.
+
+---
+
+$DOR
+
+$DOD"
+
+# Validate
+if ! echo "$BODY" | grep -q "Definition of Ready\|Definition of Done"; then
+  echo "ERROR: Missing required template sections"
+  exit 1
+fi
+
+# Create issue
+gh issue create --title "Bug title" --body "$BODY"
+```
+
+---
+
 ## Contribution Guidelines & Indexes
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
@@ -201,4 +386,3 @@ All contributors, agents, and AI assistants must comply with these standards.*
 ---
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -27,7 +27,7 @@
 async function inspectFileStructure() {
   // Read-only inspection — skip invisible content inside instances for a
   // hundreds-of-times-faster findAllWithCriteria on large libraries.
-  figma.skipInvisibleInstanceChildren = true
+  figma.skipInvisibleInstanceChildren = true;
 
   const result = {
     pages: [],
@@ -35,7 +35,7 @@ async function inspectFileStructure() {
     componentSets: [],
     textStyles: [],
     effectStyles: [],
-  }
+  };
 
   // --- Pages ---
   for (const page of figma.root.children) {
@@ -43,16 +43,16 @@ async function inspectFileStructure() {
       id: page.id,
       name: page.name,
       childCount: page.children.length,
-    })
+    });
   }
 
   // --- Variable collections ---
-  const collections = await figma.variables.getLocalVariableCollectionsAsync()
+  const collections = await figma.variables.getLocalVariableCollectionsAsync();
   for (const coll of collections) {
     const variables = await Promise.all(
       coll.variableIds.map((id) => figma.variables.getVariableByIdAsync(id)),
-    )
-    const variableNames = variables.filter(Boolean).map((v) => v.name)
+    );
+    const variableNames = variables.filter(Boolean).map((v) => v.name);
 
     result.variableCollections.push({
       id: coll.id,
@@ -60,29 +60,31 @@ async function inspectFileStructure() {
       modes: coll.modes.map((m) => ({ modeId: m.modeId, name: m.name })),
       variableCount: coll.variableIds.length,
       variableNames,
-    })
+    });
   }
 
   // --- Component sets (and standalone components) ---
   // We need to load all pages to inspect components across the whole file.
-  const originalPage = figma.currentPage
+  const originalPage = figma.currentPage;
 
   for (const page of figma.root.children) {
-    await figma.setCurrentPageAsync(page)
+    await figma.setCurrentPageAsync(page);
 
     // findAllWithCriteria.types accepts an array — one indexed scan returns
     // both COMPONENT_SET and standalone COMPONENT nodes.
-    const found = page.findAllWithCriteria({ types: ['COMPONENT_SET', 'COMPONENT'] })
+    const found = page.findAllWithCriteria({
+      types: ["COMPONENT_SET", "COMPONENT"],
+    });
     for (const node of found) {
-      if (node.type === 'COMPONENT_SET') {
+      if (node.type === "COMPONENT_SET") {
         result.componentSets.push({
           id: node.id,
           name: node.name,
           variantCount: node.children.length,
           pageId: page.id,
           pageName: page.name,
-        })
-      } else if (node.parent && node.parent.type !== 'COMPONENT_SET') {
+        });
+      } else if (node.parent && node.parent.type !== "COMPONENT_SET") {
         // Standalone component (not a variant inside a COMPONENT_SET)
         result.componentSets.push({
           id: node.id,
@@ -90,16 +92,16 @@ async function inspectFileStructure() {
           variantCount: 1,
           pageId: page.id,
           pageName: page.name,
-        })
+        });
       }
     }
   }
 
   // Restore original page
-  await figma.setCurrentPageAsync(originalPage)
+  await figma.setCurrentPageAsync(originalPage);
 
   // --- Text styles ---
-  const textStyles = figma.getLocalTextStyles()
+  const textStyles = figma.getLocalTextStyles();
   for (const ts of textStyles) {
     result.textStyles.push({
       id: ts.id,
@@ -107,18 +109,18 @@ async function inspectFileStructure() {
       fontFamily: ts.fontName.family,
       fontStyle: ts.fontName.style,
       fontSize: ts.fontSize,
-    })
+    });
   }
 
   // --- Effect styles ---
-  const effectStyles = figma.getLocalEffectStyles()
+  const effectStyles = figma.getLocalEffectStyles();
   for (const es of effectStyles) {
     result.effectStyles.push({
       id: es.id,
       name: es.name,
       effectCount: es.effects.length,
-    })
+    });
   }
 
-  return result
+  return result;
 }

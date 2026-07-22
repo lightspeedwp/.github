@@ -31,9 +31,10 @@ Use this skill to produce a priority queue or task list for the user from recent
 10. Read the full `## Formatting Rules` section below.
 11. Before sending the final answer, map the findings into the exact structure in **Formatting Rules**. Do not invent alternate section names or top-level layouts.
 12. If the user also asked to draft or send follow-ups from the triage results, use `../slack-outgoing-message/SKILL.md` and align with the explicit intent:
-   - explicit send/post/reply: write directly
-   - explicit draft/review-first: draft
-   - otherwise keep this skill analysis-only
+
+- explicit send/post/reply: write directly
+- explicit draft/review-first: draft
+- otherwise keep this skill analysis-only
 
 ## Formatting Rules
 

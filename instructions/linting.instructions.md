@@ -5,8 +5,8 @@ description: Master index for all linting instructions in the LightSpeed organis
   Lists and cross-references all linting instructions, config, and coding standards.
 scope: organization-wide
 applyTo: '**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}'
-version: v2.3
-last_updated: '2026-06-19'
+version: v2.4
+last_updated: '2026-07-22'
 owners:
 - LightSpeedWP Team
 tags:
@@ -207,8 +207,4 @@ Linting instructions should evolve with our standards and requirements. When upd
 
 ---
 
----
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Maintained by the 🤖 LightSpeedWP Automation Team*

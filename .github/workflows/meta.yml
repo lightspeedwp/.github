@@ -171,47 +171,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
           node-version: "22.22.1"
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run Meta Agent
         env:
           META_SKIP_README: "true"
         run: |
           node scripts/agents/meta.agent.js
-
-      - name: Commit changes (content-only)
-        run: |
-          git config user.name "lightspeed-bot"
-          git config user.email "ops@lightspeedwp.agency"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(meta): apply frontmatter/badges/references/footer [skip ci]"
-            git push
-          fi
-
-  metrics-update:
-    needs: [apply-meta]
-    if: ${{ (success() || failure()) && github.event_name != 'pull_request' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: ${{ github.ref }}
-          fetch-depth: 2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: "22.22.1"
-
-      - name: Fetch latest changes
-        run: |
-          git checkout ${{ github.ref_name }}
-          git pull origin ${{ github.ref_name }}
 
       - name: Update Metrics Snapshot
         run: |
@@ -236,12 +211,59 @@ jobs:
               fs.appendFileSync('.github/metrics/meta-log.md', logLine);
             "
           fi
-      - name: Commit metrics
+
+      # develop requires the "Validate PR Template" status check, which only
+      # runs for pull_request events — a direct `git push` to develop can
+      # never satisfy it (see lightspeedwp/.github#1070). Route the change
+      # through a PR instead, with auto-merge so this stays hands-off.
+      - name: Open automation PR
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           git config user.name "lightspeed-bot"
           git config user.email "ops@lightspeedwp.agency"
-          git add .github/metrics/meta.json .github/metrics/meta-log.md
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(meta): update metrics snapshot [skip ci]"
-            git push origin ${{ github.ref_name }}
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No content or metrics changes to apply."
+            exit 0
           fi
+
+          BRANCH="chore/meta-agent-sync-${{ github.run_id }}"
+          git checkout -b "$BRANCH"
+          git commit -m "chore(meta): apply frontmatter/badges/references/footer + metrics snapshot"
+          git push origin "$BRANCH"
+
+          PR_BODY=$(node -e "
+            const body = [
+              '## Linked issues',
+              '',
+              'Relates to #1070',
+              '',
+              '## Summary',
+              '',
+              'Automated meta-agent run: applies frontmatter/badge/footer metadata and refreshes the metrics snapshot. Content-only, no functional code changes.',
+              '',
+              '## Changelog',
+              '',
+              'No changelog entry - internal automation metadata only (see the meta:no-changelog label).',
+              '',
+              '### Checklist (Global DoD / PR)',
+              '',
+              '- [x] Automated content-only change - no functional code modified',
+              '- [x] CI must pass before auto-merge completes',
+            ].join(String.fromCharCode(10));
+            process.stdout.write(body);
+          ")
+
+          PR_URL=$(gh pr create \
+            --base develop \
+            --head "$BRANCH" \
+            --title "chore(meta): automated meta-agent sync" \
+            --label "meta:no-changelog" \
+            --body "$PR_BODY")
+
+          gh pr merge --auto --squash \
+            --subject "chore(meta): apply frontmatter/badges/references/footer + metrics snapshot [skip ci]" \
+            "$PR_URL"

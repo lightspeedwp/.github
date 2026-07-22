@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
 scope: "organization-wide"
-version: '1.4.1'
-last_updated: '2026-06-19'
+version: '1.4.2'
+last_updated: '2026-07-22'
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---
@@ -164,13 +164,8 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 ## Related Files
 
 - **[pull-requests.instructions.md](./pull-requests.instructions.md)** — Companion guide for PR creation and labeling; mirrors issue workflow patterns
-- **[labeling.instructions.md](./labeling.instructions.md)** — Labeling guide and label naming conventions
 - **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in issue templates
 
 ---
 
----
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Maintained by the 🤖 LightSpeedWP Automation Team*
