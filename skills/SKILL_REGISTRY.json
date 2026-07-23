@@ -13,7 +13,7 @@
     },
     {
       "id": "design-md-agent",
-      "path": "skills",
+      "path": "skills/design-md-agent",
       "skills": "catalogued-in-index"
     }
   ],
@@ -25,16 +25,7 @@
     "plugins/lightspeed-github-ops/skills/lightspeed-label-governance",
     "plugins/lightspeed-github-ops/skills/lightspeed-pr-review"
   ],
-  "batch2PlatformYamlScope": [
-    "skills/ai-readiness-assessor",
-    "skills/lightspeed-project-intake-router",
-    "skills/lightspeed-implementation-plan-generator",
-    "skills/lightspeed-task-breakdown-planner",
-    "skills/wordpress-block-theme-router",
-    "skills/wordpress-theme-validation",
-    "skills/wordpress-plugin-packaging-review",
-    "skills/lightspeed-launch-readiness-auditor"
-  ],
+  "batch2PlatformYamlScope": [],
   "batch3PlatformYamlScope": [
     "plugins/lightspeed-release-ops/skills/lightspeed-release-readiness",
     "plugins/lightspeed-release-ops/skills/lightspeed-changelog-compliance",
