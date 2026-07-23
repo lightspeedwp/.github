@@ -1,48 +1,42 @@
-# Tour Operator Website Configuration Agent Export
+# Tour Operator Config Agent
 
-<!-- BADGES-START -->
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
+Multi-provider configuration agent for WordPress and WooCommerce tour operator sites. Guides architecture, booking setup, payment integration, and operational optimisation.
 
-Generated: 2026-07-14
+## Overview
 
-This archive contains accessible files, configuration, attached references, persistent project context, and readable skill folders available to the current agent environment.
+The Tour Operator Config Agent helps establish and optimise tour operator websites built on WordPress and WooCommerce. It specialises in multi-location tour management, availability and booking system configuration, tour product setup (bookable/variable), payment and notification integration, and deployment guidance.
 
-It does not include hidden platform instructions, developer/system messages, connector credentials, authentication tokens, API keys, or inaccessible platform-managed internals. Where platform-managed, plugin-provided, or external resources were visible but not exportable beyond metadata, they are recorded in `manifests/inaccessible-resources.md` and `manifests/skills.md`.
+**Primary use case:** Configure and manage tour operator WordPress/WooCommerce sites with specialisation in:
 
-Redactions, if any, are recorded in `manifests/redactions.md`. SHA-256 checksums for exported files are recorded in `checksums.sha256`
+- **Booking System Architecture** — multi-destination tour calendars, guide assignment, availability rules
+- **Tour Product Structure** — variable and bookable products, deposit/balance policies, seasonal pricing
+- **Payment & Currency** — multi-gateway integration, currency handling, payment plans, cancellation fees
+- **Customer Communication** — booking confirmations, reminders, feedback loops, notification templates
+- **Performance & SEO** — destination and tour page optimisation, structured data for tours, pagination
+- **Deployment & Staging** — safe configuration workflow, staging-first validation, rollback planning
+
+## Provider Support
+
+| Provider | Status | Best For |
+|----------|--------|----------|
+| **Claude** | ✅ Active | Deep analysis, architecture design, complex configuration workflows |
+| **Copilot** | ✅ Active | GitHub-native integration, issue-based task management, documentation sync |
+| **OpenAI** | ✅ Active | API-driven automation, batch configuration updates, webhook-based workflows |
+
+## Quick Start
+
+- **Multifile specification** — `AGENT.md`, provider-specific configs in `claude/`, `copilot/`, `openai/`, shared methodology in `shared/core-prompt.md`
+- **Plugin reference** — `plugins/lightspeed-configuration-tour-operator/` — WordPress plugin scaffold, installation guide, Copilot manifest
+- **Example workflow** — Tour operator site audit → architecture recommendations → booking system design → payment integration → deployment plan
+
+## Related Documentation
+
+- [`AGENT.md`](./AGENT.md) — full specification with capabilities and limitations
+- [`claude/agent.md`](./claude/agent.md) — Claude-specific system prompt and tools
+- [`copilot/agent.md`](./copilot/agent.md) — Copilot GitHub integration and skills
+- [`openai/agent.md`](./openai/agent.md) — OpenAI API-first configuration
+- [`shared/core-prompt.md`](./shared/core-prompt.md) — provider-agnostic methodology and workflows
 
 ---
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Multi-provider tour operator configuration specialist for WordPress and WooCommerce*
