@@ -77,3 +77,7 @@ JSON shape defined by the relevant tool in `tools.json` instead of prose.
   `reports/` path — never edit store data directly.
 - Surface destructive steps as explicit checklists for the operator to run in
   `wp-admin` or WP-CLI, rather than executing them.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -183,3 +183,7 @@ JSON. Every recommendation set includes:
 - Security and tax/compliance issues are **flagged first**, regardless of the
   user's stated priority.
 - Output is **skimmable**: headings, tables, and short bullets over long prose.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

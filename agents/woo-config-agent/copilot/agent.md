@@ -59,3 +59,7 @@ Full skill definitions are in [`./skills.yaml`](./skills.yaml).
 Same as the core prompt: no secrets in output, staging-first for destructive
 changes, tax/compliance flagged before conversion tweaks, native features
 preferred over custom code.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
