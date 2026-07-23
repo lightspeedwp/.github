@@ -438,11 +438,49 @@ Managed via `.github/workflows/project-meta-sync.yml` automation.
 
 Current workflow contract:
 
-- Workflow writes `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date`.
-- `Start date` and `Target date` are only populated when kickoff metadata is present.
-- If labels arrive after creation, the sync workflow reprocesses the item and backfills
-  `Type` and `Priority` from canonical labels, issue type intent, or safe content
-  fallbacks.
+**Project board fields** (via `project-meta-sync.yml`):
+
+- Workflow writes `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date` to the project board
+- `Start date` and `Target date` are only populated when kickoff metadata is present
+- If labels arrive after creation, the sync workflow reprocesses the item and backfills `Type` and `Priority`
+
+**Org-level issue fields** (via `metadata-governance.yml`):
+
+- Infrastructure in place (`updateOrgIssueFields` function in `issue-pr-metadata.cjs`)
+- Requires org admin to configure field ID mappings (issue #1145)
+- Currently disabled pending field ID configuration
+- When enabled, will write Domain, Delivery Track, Team, Risk, Customer Impact, Technical Impact directly to the issue
+
+**Setup for org issue fields** (pending #1145):
+
+1. Org admin queries for custom field IDs via GraphQL:
+
+   ```graphql
+   query {
+     organization(login: "lightspeedwp") {
+       customFields(first: 20) {
+         nodes {
+           id
+           name
+           projectNext {
+             id
+           }
+         }
+       }
+     }
+   }
+   ```
+
+2. Create mapping in `.github/issue-field-ids.yml` (example):
+
+   ```yaml
+   field_ids:
+     Domain: "PVTF_<id1>"
+     Delivery Track: "PVTF_<id2>"
+     Team: "PVTF_<id3>"
+   ```
+
+3. Reference in `metadata-governance.yml` and enable the writer
 
 Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 

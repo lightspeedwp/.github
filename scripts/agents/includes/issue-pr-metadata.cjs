@@ -421,6 +421,27 @@ async function syncItemMetadata({ github, owner, repo, event, config }) {
   };
 }
 
+async function updateOrgIssueFields(
+  github,
+  owner,
+  issueNodeId,
+  fieldValues,
+) {
+  if (!fieldValues || Object.keys(fieldValues).length === 0) {
+    console.info("No org issue fields to update");
+    return {};
+  }
+
+  // NOTE: Org issue fields require field IDs that are organization-specific.
+  // These IDs are not discoverable via public API and must be configured by org admins.
+  // For now, return empty object. Future: add auto-discovery via organization query.
+  // Tracked in issue #1145 (org issue-field writer).
+  console.info(
+    "Org issue-field writer: field IDs not yet configured. See docs/ISSUE_FIELDS.md for setup.",
+  );
+  return {};
+}
+
 async function run() {
   const eventPath = process.env.GITHUB_EVENT_PATH;
   const token = process.env.GITHUB_TOKEN;
