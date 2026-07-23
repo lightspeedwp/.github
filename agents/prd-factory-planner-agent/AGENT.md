@@ -79,7 +79,55 @@ This agent integrates with:
 
 ## Skills
 
-This agent accesses custom skills for PRD generation, planning templates, and project coordination. See [manifests/skills.md](manifests/skills.md) for the complete skills inventory.
+This agent accesses **39 custom skills** organized by category:
+
+### Agent-Attached Skills (24)
+
+Specialized skills built specifically for this agent:
+
+- **PRD Generation Skills**: prd-generator, prd-factory-planner, prd-combined, prd-outline-generator
+- **Timeline & Planning**: timeline-estimator, milestone-planner, phase-sequencer, dependency-mapper
+- **Stakeholder Tools**: stakeholder-coordinator, communication-planner, alignment-validator, feedback-aggregator
+- **Requirements**: requirement-validator, scope-definer, acceptance-criteria-builder, assumption-tracker
+- **Documentation**: proposal-desk, reporting-generator, export-formatter, change-tracker
+- Additional specialized tools for project coordination and validation
+
+### Local Skills (10)
+
+General-purpose skills available for broader workflows:
+
+- documents: Markdown and document generation
+- frontend-skill: UI/UX considerations for product specs
+- Presentations: Generate presentation-ready output
+- And 7 additional utility skills for document handling
+
+### Plugin-Provided Skills (5)
+
+Third-party integrations for extended functionality:
+
+- **figma**: Design system integration and component reference
+- **github**: GitHub repository and issue integration
+- **google-drive**: Google Workspace document collaboration
+- **gmail**: Email integration for stakeholder communication
+- **linear**: Linear project management integration
+
+### How the Agent Uses These Skills
+
+**PRD Generation Workflow:**
+
+1. Invoke `prd-generator` or `prd-factory-planner` to create initial structure
+2. Use `timeline-estimator` and `milestone-planner` for phasing
+3. Apply `stakeholder-coordinator` to generate alignment documents
+4. Validate with `requirement-validator` before finalizing
+5. Export via `export-formatter` in required format
+
+**Skill Invocation:**
+
+- Reference skills by name in your prompts: "Generate a PRD using the prd-generator skill"
+- Plugin skills activate via: `{{ skill-name }}` in context
+- Skills are automatically available in the agent's execution environment
+
+See [manifests/skills.md](manifests/skills.md) for the complete skills inventory and [agent/instructions/AGENTS.md](agent/instructions/AGENTS.md) for detailed skill integration patterns.
 
 ## Supported Platforms
 
