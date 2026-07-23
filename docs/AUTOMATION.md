@@ -315,6 +315,4 @@ All configuration files are validated:
 
 ---
 
----
-
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
