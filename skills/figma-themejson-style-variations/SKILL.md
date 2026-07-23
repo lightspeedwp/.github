@@ -20,7 +20,7 @@ Extract all style variations from a Figma variables table (colors + font familie
 Follow the structure and guardrails in the figma-themejson-palette skill for palette extraction (slug parsing, hex fidelity, and palette entry format).
 
 1. Load the Figma variables table node and identify style variation groups.
-   - Group headers indicate variation keys (e.g., colours / <variation-key>, typography / font-families / <variation-key>).
+   - Group headers indicate variation keys (e.g., colours / `<variation-key>`, typography / font-families / `<variation-key>`).
    - Build a list of variation keys by scanning all groups.
 2. Ask the user for the display title for each variation key.
    - Provide a list of detected keys and request titles.
@@ -39,7 +39,7 @@ Follow the structure and guardrails in the figma-themejson-palette skill for pal
    - If a variable font is unavailable, use static font files and include each file in `fontFace` with correct `fontWeight` and `fontStyle`.
    - Use scripts/download_google_fonts.py if the font is from Google Fonts.
 6. Write one style variation JSON file per variation key into /styles:
-   - `$schema` MUST be the latest (currently https://schemas.wp.org/wp/6.9/theme.json).
+   - `$schema` MUST be the latest (currently <https://schemas.wp.org/wp/6.9/theme.json>).
    - `version`: 3.
    - `title`: the user-provided title.
    - `slug`: variation key (lowercase, hyphenated if needed).
@@ -69,15 +69,15 @@ Follow the structure and guardrails in the figma-themejson-palette skill for pal
 
 ```
 {
-	"color": "#rrggbb[aa]",
-	"name": "Label",
-	"slug": "slug"
+ "color": "#rrggbb[aa]",
+ "name": "Label",
+ "slug": "slug"
 }
 ```
 
 ## Font download helper
 
-Use scripts/download_google_fonts.py to fetch variable fonts from Google Fonts and output woff2 files into an assets/fonts/<family-slug>/ folder.
+Use scripts/download_google_fonts.py to fetch variable fonts from Google Fonts and output woff2 files into an assets/fonts/`<family-slug>`/ folder.
 
 Example:
 
@@ -89,23 +89,23 @@ python3 scripts/download_google_fonts.py --family "Nunito Sans" --out assets/fon
 
 ```
 {
-	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
-	"version": 3,
-	"title": "<User Provided Title>",
-	"slug": "<variation-key>",
-	"settings": {
-		"color": { "palette": [ /* palette entries */ ] },
-		"typography": {
-			"fontFamilies": [
-				{ "name": "<Heading Font>", "slug": "heading", "fontFamily": "<Heading>, sans-serif", "fontFace": [ /* files */ ] },
-				{ "name": "<Body Font>", "slug": "body", "fontFamily": "<Body>, serif", "fontFace": [ /* files */ ] }
-			]
-		}
-	},
-	"styles": {
-		"typography": { "fontFamily": "var:preset|font-family|body" },
-		"elements": { "heading": { "typography": { "fontFamily": "var:preset|font-family|heading" } } }
-	}
+ "$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+ "version": 3,
+ "title": "<User Provided Title>",
+ "slug": "<variation-key>",
+ "settings": {
+  "color": { "palette": [ /* palette entries */ ] },
+  "typography": {
+   "fontFamilies": [
+    { "name": "<Heading Font>", "slug": "heading", "fontFamily": "<Heading>, sans-serif", "fontFace": [ /* files */ ] },
+    { "name": "<Body Font>", "slug": "body", "fontFamily": "<Body>, serif", "fontFace": [ /* files */ ] }
+   ]
+  }
+ },
+ "styles": {
+  "typography": { "fontFamily": "var:preset|font-family|body" },
+  "elements": { "heading": { "typography": { "fontFamily": "var:preset|font-family|heading" } } }
+ }
 }
 ```
 

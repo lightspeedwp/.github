@@ -62,6 +62,7 @@ Map every captured value to the **closest existing token in the theme profile**.
 Infer the most **semantic** core/Woo block for each element before writing markup. Prefer semantic blocks over generic layout blocks. Assign each a confidence: `high` (exact semantic match), `medium` (close, minor compromise), `low` (generic fallback). Document fallbacks in the proposal.
 
 Common mappings:
+
 - Branding → `core/site-logo`/`site-title`/`site-tagline`; nav → `core/navigation`; CTA → `core/buttons`/`core/button`.
 - Post/product cards → `core/query`/`woocommerce/product-collection` + `core/post-template`, `core/post-title`, `core/post-featured-image`, `core/post-terms`, and the WooCommerce product blocks.
 - Generic sections → `core/group`, `core/columns`, `core/heading`, `core/paragraph`, `core/image`, `core/cover`, `core/separator`.
@@ -73,6 +74,7 @@ Before creating anything, search for what already exists: similar **patterns**, 
 ## Phase 4 — Motion routing
 
 Classify each interaction as **CSS-only** or **GSAP**.
+
 - CSS-only for selector-driven state (hover/focus-visible/active transitions, underline draws, fades, scale/slide, safe keyframe loops). If a card is a single interactive surface, make the **whole card** own hover/focus-visible, not just an inner CTA. CSS-only motion goes in the theme's motion CSS file (per the profile).
 - GSAP **only if** the interaction needs JS-managed state (pointer tracking, DOM augmentation, coordinated timelines, runtime custom-property interpolation) **and the theme already has a GSAP layer**. If so, load and follow the `wordpress-gsap` skill. Do not introduce GSAP into a theme that has none without explicit approval.
 - Honour `prefers-reduced-motion` in any new motion. Keep timing close to the theme's existing micro-interaction range.
@@ -80,11 +82,13 @@ Classify each interaction as **CSS-only** or **GSAP**.
 ## Phase 5 — Style creation rules
 
 Create the narrowest reusable artefact needed:
+
 - Block style JSON → `styles/blocks/<block-family>/<slug>.json` (`blockTypes`, `slug`, `title`, `styles`).
 - Section style JSON → `styles/sections/<subfolder>/<slug>.json` (`blockTypes: ["core/group"]` etc.).
 - CSS-only motion / advanced selectors → the theme's motion CSS file.
 
 Constraints:
+
 - Authored UI uses the theme's token model only (semantic tokens for semantic themes; preset slugs for preset-direct themes). For semantic+dark themes, follow `theme-color-token-enforcer` in apply mode across changed files; for preset-direct themes, run `theme-orphaned-refs` and keep raw hex/font literals out.
 - Radius always resolves to a preset slug. Never hardcode radius.
 - **Keep JSON `css` strings manageable.** A few child selectors (BEM-style `.card__title`, `.card__price`) is fine. When it grows large, move it to the theme's CSS file and leave a note in the JSON/pattern pointing there. (KWV puts verbose Woo selectors in `assets/styles/woocommerce.css`.)
@@ -99,7 +103,7 @@ Constraints:
 
 ## Phase 6 — Icons (Phosphor mapping)
 
-Detect icon usage. Match each to the closest Phosphor glyph (https://phosphoricons.com/) by silhouette + semantic intent; prefer a high-confidence Phosphor match over a bespoke SVG. Model icon tiles as a nested `core/group` containing an Icon Block. Leave an Icon Block empty only if the user wants to swap later or there is no confident match. Use `assets/icons/` only as an approved bespoke fallback. Report chosen icons + confidence in the proposal.
+Detect icon usage. Match each to the closest Phosphor glyph (<https://phosphoricons.com/>) by silhouette + semantic intent; prefer a high-confidence Phosphor match over a bespoke SVG. Model icon tiles as a nested `core/group` containing an Icon Block. Leave an Icon Block empty only if the user wants to swap later or there is no confident match. Use `assets/icons/` only as an approved bespoke fallback. Report chosen icons + confidence in the proposal.
 
 ## Phase 7 — Proposal report (then stop for approval)
 

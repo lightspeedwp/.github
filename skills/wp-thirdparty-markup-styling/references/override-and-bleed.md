@@ -20,6 +20,7 @@ Two-layer defence:
 
 1. **Opt the nested block out** where possible — e.g. set `overlayMenu:"never"` on a nested nav so it doesn't render the responsive container your styles hook.
 2. **Scope your block-style selectors to direct children**, not descendants, so they *cannot* descend into a nested block even if someone forgets step 1:
+
    ```css
    /* was: .is-style-main-navigation .wp-block-navigation__responsive-container  (descends) */
    .is-style-main-navigation > .wp-block-navigation__responsive-container { … }  /* direct child only */

@@ -15,8 +15,8 @@ Extract shadow variables (x, y, blur, spread, color) from a Figma Variables docu
 2. Derive the slug from code syntax: var(--wp--preset--shadow--100) → slug "100".
 3. Build the shadow string: "x y blur spread color" using px for numeric values (unless units are already specified).
 4. Create/update theme.json settings.shadow:
-	- defaultPresets: false (unless explicitly requested otherwise)
-	- presets: array of { name, slug, shadow }
+   - defaultPresets: false (unless explicitly requested otherwise)
+   - presets: array of { name, slug, shadow }
 5. Preserve preset titles exactly as shown in the Figma table (e.g., Tiny, Base, Small, Medium, Large, X-Large).
 
 ## Output pattern
@@ -40,12 +40,15 @@ If the Figma color is already rgba(), keep it as-is.
 This skill includes example resource directories that demonstrate how to organize different types of bundled resources:
 
 ### scripts/
+
 Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
 
 ### references/
+
 Documentation and reference material intended to be loaded into context to inform the model's process and reasoning.
 
 ### assets/
+
 Files not intended to be loaded into context, but rather used within the output the model produces.
 
 ---

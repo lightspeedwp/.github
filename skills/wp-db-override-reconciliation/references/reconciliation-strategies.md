@@ -17,11 +17,13 @@
 When you pull an editor-customized template into a theme file, decide the mode **up front** and keep the two modes on **separate branches** — they have opposite rules:
 
 **Faithful** — reproduce the DB copy byte-for-byte, keeping environment-specific values:
+
 - Real image URLs/IDs, real nav `"ref"` IDs, real `theme` attributes, real form IDs.
 - Use when the goal is "the theme file exactly reproduces what's live right now."
 - Consequence: the theme is **not portable** — those refs only resolve in the environment they came from, so deploy needs a re-wiring step.
 
 **Portable** — strip the environment out so the theme works anywhere:
+
 - Placeholder images, nav `ref`s removed, `theme` attributes omitted, reusable-block refs inlined.
 - Use when the file must work across environments (the normal theme-shipping case).
 

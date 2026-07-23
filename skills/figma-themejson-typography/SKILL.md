@@ -85,8 +85,8 @@ Extract typography tokens from a Figma variables table (fontSize, fontFamilies, 
   "slug": "100",
   "size": "0.75rem",
   "fluid": {
-	 "min": "0.7rem",
-	 "max": "0.75rem"
+  "min": "0.7rem",
+  "max": "0.75rem"
   }
 }
 ```
@@ -99,12 +99,12 @@ Extract typography tokens from a Figma variables table (fontSize, fontFamilies, 
   "slug": "heading",
   "fontFamily": "Montserrat, sans-serif",
   "fontFace": [
-	 {
-		"fontFamily": "Montserrat",
-		"fontStyle": "normal",
-		"fontWeight": "400",
-		"src": ["file:./assets/fonts/montserrat/Montserrat-400-normal.woff2"]
-	 }
+  {
+  "fontFamily": "Montserrat",
+  "fontStyle": "normal",
+  "fontWeight": "400",
+  "src": ["file:./assets/fonts/montserrat/Montserrat-400-normal.woff2"]
+  }
   ]
 }
 ```
@@ -114,8 +114,8 @@ Extract typography tokens from a Figma variables table (fontSize, fontFamilies, 
 ```
 "custom": {
   "lineHeight": {
-	 "heading": "1.25",
-	 "body": "1.5"
+  "heading": "1.25",
+  "body": "1.5"
   }
 }
 ```
@@ -134,13 +134,13 @@ Extract typography tokens from a Figma variables table (fontSize, fontFamilies, 
 
 ```
 {
-	"name": "Tiny",
-	"slug": "100",
-	"size": "0.75rem",
-	"fluid": {
-		"min": "0.7rem",
-		"max": "0.75rem"
-	}
+ "name": "Tiny",
+ "slug": "100",
+ "size": "0.75rem",
+ "fluid": {
+  "min": "0.7rem",
+  "max": "0.75rem"
+ }
 }
 ```
 

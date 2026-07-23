@@ -110,8 +110,8 @@ Do not use appearance-based names such as `button-blue`, `dark-text`, or `green-
 - If font-weight changes are in scope and the theme already exposes custom typography weight tokens, use `var:custom|typography|font-weight|...` in normal JSON property values rather than raw numeric literals.
 - Keep `var(--wp--custom--...)` syntax for those tokens inside raw CSS strings.
 
-11. Re-scan until the target no longer contains direct visual preset-colour references or raw visual colours outside approved exceptions.
-12. Report:
+ 1. Re-scan until the target no longer contains direct visual preset-colour references or raw visual colours outside approved exceptions.
+ 2. Report:
 
 - Tokens reused
 - Tokens created

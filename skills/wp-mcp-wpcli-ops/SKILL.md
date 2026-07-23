@@ -48,9 +48,11 @@ Written to be portable across WordPress projects. Concrete project details appea
 ## Verification
 
 - **After any write, read it back from the DB** with a compact query — never rely on the tool's reported result alone:
+
   ```sql
   SELECT CHAR_LENGTH(post_content), LEFT(post_content, 60) FROM wp_posts WHERE ID = <id>;
   ```
+
 - **After cache-sensitive changes**, bust the relevant cache (real save, `wp cache flush`, or a cache-busting query string `/path/?v=1`) and re-check on the front end / REST worker.
 - **Verify counts and content with a direct DB query, not a cached read tool.** The DB is the source of truth.
 - **On a slow site, wait and re-check** before concluding something is broken (see `references/local-env.md`).

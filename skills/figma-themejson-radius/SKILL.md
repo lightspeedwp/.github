@@ -51,14 +51,14 @@ Pull border radius tokens from a Figma variables table and write them into a the
 
 ```
 "border": {
-	"radius": true,
-	"radiusSizes": [
-		{
-			"name": "small",
-			"slug": "100",
-			"size": "4px"
-		}
-	]
+ "radius": true,
+ "radiusSizes": [
+  {
+   "name": "small",
+   "slug": "100",
+   "size": "4px"
+  }
+ ]
 }
 ```
 
@@ -74,9 +74,9 @@ Pull border radius tokens from a Figma variables table and write them into a the
 
 ```
 {
-	"name": "medium",
-	"slug": "200",
-	"size": "8px"
+ "name": "medium",
+ "slug": "200",
+ "size": "8px"
 }
 ```
 

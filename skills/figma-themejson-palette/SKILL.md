@@ -43,9 +43,9 @@ Extract color variables from a specified Figma variables table node and replace 
 
 ```
 {
-	"color": "#rrggbb[aa]",
-	"name": "Label",
-	"slug": "slug"
+ "color": "#rrggbb[aa]",
+ "name": "Label",
+ "slug": "slug"
 }
 ```
 
