@@ -1,7 +1,7 @@
 ---
 title: "GitHub Projects Creation System"
-description: "Bulk project creation from CSV fixtures with template-driven field initialisation for Client Delivery and Product Development project types."
-file_type: "documentation"
+description: "Bulk project creation from CSV fixtures with template-driven field initialization for Client Delivery and Product Development project types."
+file_type: "project-tracking"
 status: "planning"
 version: "v1.0"
 created_date: "2026-07-23"
@@ -146,8 +146,8 @@ A **template-driven GitHub Projects creation system** that:
 ### Must Complete First
 
 - **#1145**: Org issue-field writer infrastructure
-  - Needed for org-level field initialisation
-  - Implementation pending; will enable org-wide field setup
+  - Needed for org-level field initialization
+  - Scaffolding done; awaiting field ID configuration
 
 - **#1146**: Secret-gating hardening for project-meta-sync
   - Ensures graceful credential handling

@@ -1,7 +1,7 @@
 ---
 title: "Planning Summary & Issue Creation Guide"
 description: "Quick overview of the GitHub Projects creation system and instructions for creating the Epic and child Story issues."
-file_type: "documentation"
+file_type: "guide"
 status: "ready"
 version: "v1.0"
 created_date: "2026-07-23"
@@ -22,7 +22,7 @@ A **template-driven GitHub Projects creation system** that:
 
 - Reads CSV fixtures defining new projects
 - Creates GitHub Projects v2 with correct template type
-- Initialises all fields, automations, and views
+- Initializes all fields, automations, and views
 - Supports two templates: Client Delivery (Scrumban + UAT) and Product Development (Release Train)
 
 ### Implementation Timeline
@@ -115,13 +115,12 @@ All field mappings come from **`.github/issue-fields.yml`** — we synchronize i
 
 | Field | Type | Values | Notes |
 |-------|------|--------|-------|
-| Status | single_select | Backlog, Todo/Ready, In progress, In review, In QA, Done | Template-specific status columns |
 | Priority | single_select | Critical, Important, Normal, Minor | Org-level |
 | Type | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | From issue-types.yml |
 | Effort | single_select | XS, S, M, L, XL, XXL, XXXL | Org-level |
 | Area | single_select | Frontend, Backend, Build & CI, etc. | New custom field |
 | Theme | single_select | Checkout, Performance, etc. (client) OR Design System, Performance, etc. (product) | Template-specific |
-| Size, Start Date, Deadline, Milestone, Environment, Parent Issue, Sub-issues Progress, Time | (various) | (see PLANNING.md) | Shared (8 additional core fields) |
+| Size, Start Date, Deadline, Milestone, Environment, Parent Issue, Sub-issues Progress, Time | (various) | (see PLANNING.md) | Shared |
 
 ### Template Differences
 

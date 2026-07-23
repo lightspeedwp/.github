@@ -2,8 +2,8 @@
 title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
-last_updated: "2026-06-19"
-version: "v1.1.4"
+last_updated: "2026-07-23"
+version: "v1.1.5"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "automation", "agents", "coordination", "ci-cd"]
@@ -42,8 +42,7 @@ Always-run workflows trigger automatically on push/PR events without agent invol
 
 | Workflow | Trigger Event(s) | Purpose | Blocks Merge? |
 | --- | --- | --- | --- |
-| `linting.yml` | push/PR on develop | JS/TS, CSS, YAML lint | ✅ Yes |
-| `testing.yml` | push/PR | Jest unit tests + coverage | ✅ Yes |
+| `checks.yml` | push/PR on develop | Unified linting + testing + validation | ✅ Yes |
 | `changelog-validate.yml` | PR to develop | Validate CHANGELOG.md entries | ✅ Yes |
 | `labeling.yml` | issue/PR/discussion events | Auto-apply canonical labels | ❌ No (metadata only) |
 | `issues.yml` | issue opened/edited | Validate issue templates | ❌ No (validation only) |
@@ -120,8 +119,8 @@ The **Release Agent** coordinates a sequence of workflows:
 ```
 Release Agent (Orchestrator)
   ├─ Pre-Release Tasks
-  │  ├─ Invoke: linting.yml (quality gate)
-  │  ├─ Invoke: testing.yml (test suite)
+  │  ├─ Invoke: checks.yml (unified linting + testing quality gate)
+  │  ├─ Invoke: validate.yml (schema + structure validation)
   │  └─ Validate: All checks pass
   ├─ Release Execution
   │  ├─ Invoke: release.yml (with workflow_call)
@@ -257,7 +256,7 @@ START: New automation task
 
 ```yaml
 # Always-run
-linting.yml: runs on push
+checks.yml: runs on push (unified linting + testing + validation)
 
 # Agent-triggered
 review.yml: calls linting again before review
@@ -267,10 +266,10 @@ review.yml: calls linting again before review
 
 ```yaml
 # Always-run
-linting.yml: runs on push (enforces quality)
+checks.yml: runs on push (enforces quality)
 
 # Agent-triggered
-reviewer.yml: trusts that linting passed, focuses on code review
+reviewer.yml: trusts that checks passed, focuses on code review
 ```
 
 ### 2. Always-Run Takes Priority
