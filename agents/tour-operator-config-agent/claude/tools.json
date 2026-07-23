@@ -1,17 +1,6 @@
 [
   {
     "name": "site_analyzer",
-<<<<<<< HEAD
-    "description": "Analyze current WordPress/WooCommerce configuration for tour operations",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "site_url": { "type": "string" },
-        "current_setup": { "type": "string" },
-        "pain_points": { "type": "array", "items": { "type": "string" } }
-      },
-      "required": ["current_setup"]
-=======
     "description": "Analyse current WordPress/WooCommerce configuration for tour operations. Identifies scaling gaps, payment bottlenecks, booking rule conflicts, and customer communication gaps.",
     "input_schema": {
       "type": "object",
@@ -39,27 +28,22 @@
           "description": "List of known issues or pain points"
         },
         "analysis_focus": {
-          "enum": ["architecture", "performance", "booking-flow", "payments", "customer-comms", "all"],
+          "enum": [
+            "architecture",
+            "performance",
+            "booking-flow",
+            "payments",
+            "customer-comms",
+            "all"
+          ],
           "description": "Which area(s) to focus the analysis on"
         }
       },
       "required": ["current_setup_description"]
->>>>>>> 7ff45506e (feat(tour-operator-config): Multi-provider Phase 2 standardisation)
     }
   },
   {
     "name": "architecture_recommender",
-<<<<<<< HEAD
-    "description": "Recommend WordPress/WooCommerce architecture for tour operations",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "tour_types": { "type": "array", "items": { "type": "string" } },
-        "expected_volume": { "type": "string" },
-        "budget": { "type": "string" },
-        "technical_expertise": { "type": "string" }
-      }
-=======
     "description": "Recommend optimal WordPress/WooCommerce architecture for tour operations. Suggests specific plugins, data structures, and integration patterns.",
     "input_schema": {
       "type": "object",
@@ -67,7 +51,12 @@
         "tour_types": {
           "type": "array",
           "items": {
-            "enum": ["single-destination", "multi-leg", "flexible-date", "private-charter"]
+            "enum": [
+              "single-destination",
+              "multi-leg",
+              "flexible-date",
+              "private-charter"
+            ]
           },
           "description": "Types of tours offered"
         },
@@ -82,7 +71,12 @@
         "payment_models": {
           "type": "array",
           "items": {
-            "enum": ["full-upfront", "deposit-balance", "instalments", "group-discounts"]
+            "enum": [
+              "full-upfront",
+              "deposit-balance",
+              "instalments",
+              "group-discounts"
+            ]
           },
           "description": "Payment models the operator needs to support"
         },
@@ -103,29 +97,10 @@
         }
       },
       "required": ["tour_types", "expected_monthly_bookings"]
->>>>>>> 7ff45506e (feat(tour-operator-config): Multi-provider Phase 2 standardisation)
     }
   },
   {
     "name": "setup_validator",
-<<<<<<< HEAD
-    "description": "Validate tour operator WordPress/WooCommerce setup",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "configuration": { "type": "string" },
-        "check_type": {
-          "enum": [
-            "completeness",
-            "best_practices",
-            "security",
-            "performance",
-            "all"
-          ]
-        }
-      },
-      "required": ["configuration"]
-=======
     "description": "Validate tour operator WordPress/WooCommerce configuration against best practices. Checks booking calendars, payment rules, notification sequences, and customer communication.",
     "input_schema": {
       "type": "object",
@@ -137,7 +112,15 @@
         "validation_areas": {
           "type": "array",
           "items": {
-            "enum": ["booking-calendars", "payment-rules", "availability-logic", "notifications", "customer-comms", "data-integrity", "all"]
+            "enum": [
+              "booking-calendars",
+              "payment-rules",
+              "availability-logic",
+              "notifications",
+              "customer-comms",
+              "data-integrity",
+              "all"
+            ]
           },
           "description": "Which areas to focus validation on"
         },
@@ -157,26 +140,21 @@
           "description": "Test case to validate against"
         },
         "check_type": {
-          "enum": ["completeness", "best-practices", "safety", "performance", "all"],
+          "enum": [
+            "completeness",
+            "best-practices",
+            "safety",
+            "performance",
+            "all"
+          ],
           "description": "Type of validation to perform"
         }
       },
       "required": ["configuration_description"]
->>>>>>> 7ff45506e (feat(tour-operator-config): Multi-provider Phase 2 standardisation)
     }
   },
   {
     "name": "optimization_planner",
-<<<<<<< HEAD
-    "description": "Plan optimizations for tour operator websites",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "current_performance": { "type": "string" },
-        "goals": { "type": "array", "items": { "type": "string" } },
-        "constraints": { "type": "array", "items": { "type": "string" } }
-      }
-=======
     "description": "Plan optimisations for tour operator websites. Identifies and prioritises performance, UX, and operational improvements.",
     "input_schema": {
       "type": "object",
@@ -184,23 +162,29 @@
         "current_performance_metrics": {
           "type": "object",
           "properties": {
-            "page_load_time_seconds": {"type": "number"},
-            "checkout_abandonment_rate": {"type": "number"},
-            "monthly_bookings": {"type": "integer"},
-            "customer_satisfaction_score": {"type": "number"}
+            "page_load_time_seconds": { "type": "number" },
+            "checkout_abandonment_rate": { "type": "number" },
+            "monthly_bookings": { "type": "integer" },
+            "customer_satisfaction_score": { "type": "number" }
           },
           "description": "Current performance metrics"
         },
         "improvement_goals": {
           "type": "array",
           "items": {
-            "enum": ["faster-page-load", "higher-conversion", "better-availability-management", "improved-customer-communication", "reduced-operational-overhead"]
+            "enum": [
+              "faster-page-load",
+              "higher-conversion",
+              "better-availability-management",
+              "improved-customer-communication",
+              "reduced-operational-overhead"
+            ]
           },
           "description": "Goals for improvement"
         },
         "constraints": {
           "type": "array",
-          "items": {"type": "string"},
+          "items": { "type": "string" },
           "description": "Constraints (e.g., 'limited budget', 'cannot interrupt booking flow', 'staging environment available')"
         },
         "timeline": {
@@ -209,24 +193,10 @@
         }
       },
       "required": ["improvement_goals"]
->>>>>>> 7ff45506e (feat(tour-operator-config): Multi-provider Phase 2 standardisation)
     }
   },
   {
     "name": "booking_system_configurator",
-<<<<<<< HEAD
-    "description": "Configure booking system for tour operations",
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "tour_structure": { "type": "string" },
-        "booking_requirements": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "payment_methods": { "type": "array", "items": { "type": "string" } }
-      }
-=======
     "description": "Configure booking system for tour operations. Designs and validates booking calendars, availability rules, deposit/balance logic, and guide assignment.",
     "input_schema": {
       "type": "object",
@@ -234,31 +204,39 @@
         "tour_structure": {
           "type": "object",
           "properties": {
-            "name": {"type": "string"},
-            "itinerary": {"type": "string"},
-            "duration_days": {"type": "integer"},
-            "max_group_size": {"type": "integer"},
-            "guides_required": {"type": "integer"}
+            "name": { "type": "string" },
+            "itinerary": { "type": "string" },
+            "duration_days": { "type": "integer" },
+            "max_group_size": { "type": "integer" },
+            "guides_required": { "type": "integer" }
           },
           "description": "Basic tour structure and constraints"
         },
         "availability_rules": {
           "type": "object",
           "properties": {
-            "available_dates": {"type": "array", "items": {"type": "string"}},
-            "blackout_dates": {"type": "array", "items": {"type": "string"}},
-            "min_days_advance_booking": {"type": "integer"},
-            "max_days_advance_booking": {"type": "integer"}
+            "available_dates": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "blackout_dates": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "min_days_advance_booking": { "type": "integer" },
+            "max_days_advance_booking": { "type": "integer" }
           },
           "description": "Availability and booking window rules"
         },
         "payment_configuration": {
           "type": "object",
           "properties": {
-            "base_price": {"type": "number"},
-            "payment_model": {"enum": ["full-upfront", "deposit-balance", "instalments"]},
-            "deposit_percentage": {"type": "number"},
-            "balance_due_days_before": {"type": "integer"}
+            "base_price": { "type": "number" },
+            "payment_model": {
+              "enum": ["full-upfront", "deposit-balance", "instalments"]
+            },
+            "deposit_percentage": { "type": "number" },
+            "balance_due_days_before": { "type": "integer" }
           },
           "description": "Pricing and payment configuration"
         },
@@ -267,17 +245,16 @@
           "items": {
             "type": "object",
             "properties": {
-              "min_size": {"type": "integer"},
-              "max_size": {"type": "integer"},
-              "price_per_person": {"type": "number"},
-              "discount_percentage": {"type": "number"}
+              "min_size": { "type": "integer" },
+              "max_size": { "type": "integer" },
+              "price_per_person": { "type": "number" },
+              "discount_percentage": { "type": "number" }
             }
           },
           "description": "Group-size-based pricing tiers"
         }
       },
       "required": ["tour_structure"]
->>>>>>> 7ff45506e (feat(tour-operator-config): Multi-provider Phase 2 standardisation)
     }
   }
 ]

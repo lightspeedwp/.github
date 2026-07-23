@@ -8,11 +8,7 @@ description: >-
   optimization strategies for tour booking platforms.
 version: 2.0.0
 status: active
-<<<<<<< HEAD
-last_updated: '2026-07-22'
-=======
 last_updated: '2026-07-23'
->>>>>>> 7ff45506e (feat(tour-operator-config): Multi-provider Phase 2 standardisation)
 category: configuration
 maintainer: Ash Shaw
 owners:
