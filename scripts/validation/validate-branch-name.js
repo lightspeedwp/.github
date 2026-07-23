@@ -42,6 +42,7 @@ const ALLOWED_PREFIXES = [
   "migrate",
   "qa",
   "uat",
+  "audit",
   "codex",
 ];
 
