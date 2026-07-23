@@ -1,0 +1,4 @@
+interface:
+  display_name: "WP Agency Project Bootstrap"
+  short_description: "Bootstrap a new WordPress agency build's agent operating scaffold (AGENTS.md, docs, working agreements)."
+  default_prompt: "Use $wp-agency-project-bootstrap to scaffold a new WordPress agency project's agent operating docs."

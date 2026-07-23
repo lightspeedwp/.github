@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.6
+version: v1.0.8
 created_date: '2026-05-31'
-last_updated: '2026-06-19'
+last_updated: '2026-07-23'
 authors:
   - LightSpeed Team
 maintainer: LightSpeed Team
@@ -23,10 +23,16 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.4
+**Version**: v1.0.8
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`
+
+**Canonical Label Limits**:
+
+- **Single-select field options**: Max 50 per field
+- **Total project fields**: Max 50 per project
+- **Organisation issue fields**: Max 25 per organisation
 
 ---
 
@@ -167,13 +173,13 @@ With 10 project field values, we maintain meaningful distinctions without fragme
 
 ### 3.1 Universal Project Fields
 
-GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion.
+GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion. Single-select fields may define up to 50 options (`single_select_max_options: 50`), and the project as a whole is capped at 50 total fields (`project_total_field_limit: 50`). Single-select fields may define up to 50 options (`single_select_max_options: 50`), and the project as a whole is capped at 50 total fields (`project_total_field_limit: 50`).
 
 All organization issues support these fields:
 
 | Field | Type | Values | Required | Notes |
 | --- | --- | --- | --- | --- |
-| **Priority** | single_select | Urgent, High, Medium, Low | No | Current importance level |
+| **Priority** | single_select | Critical, Important, Normal, Minor | No | Current importance level |
 | **Effort** | single_select | XS, S, M, L, XL, XXL, XXXL | No | Relative sizing estimate |
 | **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 32 types covered |
 | **Start date** | date | YYYY-MM-DD | No | Planned start date |
@@ -427,7 +433,7 @@ The following project field features are enabled across all LightSpeed repositor
 - **Linked pull requests** — Connecting issues to PRs
 - **Reviewers** — Assigning code reviewers
 - **Sprint** — Iteration field for sprint planning
-- **Priority** — Issue importance level (Urgent, High, Medium, Low)
+- **Priority** — Issue importance level (Critical, Important, Normal, Minor)
 - **Effort** — Relative sizing (XS, S, M, L, XL, XXL, XXXL)
 - **Type** — 10 semantic project fields (Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task)
 - **date** — Start and target dates
@@ -438,13 +444,53 @@ Managed via `.github/workflows/project-meta-sync.yml` automation.
 
 Current workflow contract:
 
-- Workflow writes `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date`.
-- `Start date` and `Target date` are only populated when kickoff metadata is present.
-- If labels arrive after creation, the sync workflow reprocesses the item and backfills
-  `Type` and `Priority` from canonical labels, issue type intent, or safe content
-  fallbacks.
+**Project board fields** (via `project-meta-sync.yml`):
+
+- Workflow writes `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date` to the project board
+- `Start date` and `Target date` are only populated when kickoff metadata is present
+- If labels arrive after creation, the sync workflow reprocesses the item and backfills `Type` and `Priority`
+
+**Org-level issue fields** (via `metadata-governance.yml`):
+
+- Infrastructure in place (`updateOrgIssueFields` function in `issue-pr-metadata.cjs`)
+- Requires org admin to configure field ID mappings (issue #1145)
+- Currently disabled pending field ID configuration
+- When enabled, will write Domain, Delivery Track, Team, Risk, Customer Impact, Technical Impact directly to the issue
+
+**Setup for org issue fields** (pending #1145):
+
+1. Org admin queries for custom field IDs via GraphQL:
+
+   ```graphql
+   query {
+     organization(login: "lightspeedwp") {
+       customFields(first: 20) {
+         nodes {
+           id
+           name
+           projectNext {
+             id
+           }
+         }
+       }
+     }
+   }
+   ```
+
+2. Create mapping in `.github/issue-field-ids.yml` (example):
+
+   ```yaml
+   field_ids:
+     Domain: "PVTF_<id1>"
+     Delivery Track: "PVTF_<id2>"
+     Team: "PVTF_<id3>"
+   ```
+
+3. Reference in `metadata-governance.yml` and enable the writer
 
 Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
+
+**Note**: Org-level field writing is not yet implemented. The infrastructure (GraphQL mutations, field discovery) is pending development as part of issue #1145 (org issue-field writer infrastructure).
 
 Default assignee: ashleyshaw
 
@@ -461,10 +507,10 @@ Status mappings:
 
 Priority mappings:
 
-- Urgent: priority:critical
-- High: priority:important
+- Critical: priority:critical
+- Important: priority:important
 - Normal: priority:normal
-- Low: priority:minor
+- Minor: priority:minor
 
 Default priority: priority:normal
 
