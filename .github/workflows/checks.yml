@@ -71,7 +71,7 @@ jobs:
       - run: npm run validate:json
       - run: npm run validate:issue-fields
       - run: npm run validate:retired-doc-links
-      - run: npm run validate:footers -- --changed-only --base ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
+      - run: npm run validate:footers -- --changed-only --base=${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }} --head=${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
       - run: npm run validate:frontmatter:changed -- --base ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
 
   # Composite status check: ensures all checks pass before merge
