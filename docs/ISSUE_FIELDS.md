@@ -23,7 +23,7 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.8
+**Version**: v1.0.9
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`
@@ -173,7 +173,7 @@ With 10 project field values, we maintain meaningful distinctions without fragme
 
 ### 3.1 Universal Project Fields
 
-GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion. Single-select fields may define up to 50 options (`single_select_max_options: 50`), and the project as a whole is capped at 50 total fields (`project_total_field_limit: 50`). Single-select fields may define up to 50 options (`single_select_max_options: 50`), and the project as a whole is capped at 50 total fields (`project_total_field_limit: 50`).
+GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion. Single-select fields may define up to 50 options (`single_select_max_options: 50`), and the project as a whole is capped at 50 total fields (`project_total_field_limit: 50`).
 
 All organization issues support these fields:
 

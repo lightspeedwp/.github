@@ -1,0 +1,102 @@
+skills:
+  - id: site-analyzer
+    name: Analyse Tour Operator Site
+    description: Analyse current WordPress/WooCommerce configuration for tour operations. Identifies scaling gaps, payment bottlenecks, and booking issues.
+    commands:
+      - "analyse my tour operator site"
+      - "audit tour booking configuration"
+      - "identify tour setup issues"
+    inputs:
+      - name: site_url
+        description: Tour operator website URL
+        required: true
+      - name: pain_points
+        description: Known issues or pain points
+        required: false
+    outputs:
+      - name: audit_report
+        description: Configuration audit with findings and recommendations
+
+  - id: architecture-recommender
+    name: Recommend Tour Operator Architecture
+    description: Recommend optimal WordPress/WooCommerce architecture, plugins, and data structures for tour operations.
+    commands:
+      - "recommend architecture for my tours"
+      - "what plugins should I use"
+      - "design tour booking system"
+    inputs:
+      - name: tour_types
+        description: Types of tours (single-destination, multi-leg, flexible-date, private-charter)
+        required: true
+      - name: monthly_bookings
+        description: Expected monthly bookings
+        required: true
+      - name: payment_models
+        description: Payment models needed (full-upfront, deposit-balance, instalments)
+        required: false
+    outputs:
+      - name: architecture_plan
+        description: Recommended plugin stack and data structure
+      - name: implementation_steps
+        description: Step-by-step configuration guide
+
+  - id: setup-validator
+    name: Validate Tour Configuration
+    description: Validate tour operator configuration against best practices for booking calendars, payments, availability, and notifications.
+    commands:
+      - "validate my tour setup"
+      - "check my booking configuration"
+      - "verify payment rules"
+    inputs:
+      - name: configuration
+        description: Configuration to validate
+        required: true
+      - name: validation_focus
+        description: Area to focus on (booking, payments, notifications, all)
+        required: false
+    outputs:
+      - name: validation_report
+        description: Findings, warnings, and recommendations
+
+  - id: optimization-planner
+    name: Plan Tour Operator Optimisations
+    description: Identify and prioritise performance, UX, and operational improvements for tour booking platforms.
+    commands:
+      - "improve my tour website performance"
+      - "optimise my booking flow"
+      - "reduce customer support overhead"
+    inputs:
+      - name: improvement_goals
+        description: Goals (faster-pages, higher-conversion, better-management)
+        required: true
+      - name: current_metrics
+        description: Current performance metrics
+        required: false
+    outputs:
+      - name: optimisation_plan
+        description: Prioritised improvements with effort estimates
+      - name: implementation_roadmap
+        description: Timeline and staging strategy
+
+  - id: booking-system-configurator
+    name: Configure Booking System
+    description: Configure and validate booking calendars, availability rules, deposits/balances, and guide assignment for tours.
+    commands:
+      - "set up booking calendar"
+      - "configure tour availability"
+      - "design deposit/balance system"
+    inputs:
+      - name: tour_details
+        description: Tour name, itinerary, duration, group size limits
+        required: true
+      - name: availability_rules
+        description: Available dates, blackout dates, booking windows
+        required: false
+      - name: payment_config
+        description: Pricing, deposit %, payment schedule
+        required: false
+    outputs:
+      - name: booking_configuration
+        description: Configured tour with calendar and rules
+      - name: validation_checklist
+        description: Test cases to verify the configuration
