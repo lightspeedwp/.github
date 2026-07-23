@@ -126,6 +126,7 @@ integration:
       - Payments
       - Performance
       - Operations
+      - Customer & Privacy
       - Analytics
   actions:
     suggested_workflows:
