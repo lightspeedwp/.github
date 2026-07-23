@@ -47,7 +47,7 @@ Teams need a way to **bulk-create GitHub Projects** with **template-driven field
 
 This epic delivers:
 1. **CSV-based project fixtures** — teams define projects in a CSV file
-2. **Template-driven initialization** — correct fields, automations, views for template type
+2. **Template-driven initialisation** — correct fields, automations, views for template type
 3. **PR field syncing** — branch prefix → Type field mapping for PRs
 4. **Complete automation** — one workflow run; projects ready to use
 
@@ -194,7 +194,7 @@ Story: Initialize Client Delivery Project Template with Fields, Automations & Vi
 - [x] Field mapping documented: 14 fields with canonical values from issue-fields.yml
 - [x] Automations defined: 5 core rules
 - [x] Views documented: 9 views including UAT (Client)
-- [x] Parent Epic #[TBD] created and linked
+- [ ] Parent Epic #[TBD] created and linked
 - [x] Dependencies clear: #1145, #1146
 - [x] Test plan: CSV fixture, dry-run, live creation
 
@@ -337,8 +337,8 @@ Story: Initialize Product Development Project Template with Fields, Automations 
 - [x] Template specification provided: `github-projects-product-development.md`
 - [x] Field mapping documented: 14 fields (same core as Client Delivery)
 - [x] Automations defined: 5 core rules + optional enhancements
-- [x] Views documented: 9 views including Release Gate & Tech Debt
-- [x] Parent Epic #[TBD] created and linked
+- [x] Views documented: 8 required + 1 optional view (Iteration Board)
+- [ ] Parent Epic #[TBD] created and linked
 - [x] Dependencies clear: #1145, #1146
 - [x] Test plan: CSV fixture, dry-run, live creation, release-train scenario
 
@@ -402,8 +402,9 @@ Core (same as Client Delivery):
 Future (not in scope):
 - Milestone-aware: "when Milestone=vX.Y.Z AND Iteration=@current → In progress"
 
-## Views (9 Views)
+## Views (8 Required + 1 Optional = 9 Total)
 
+**Required Views**:
 1. **Release Gate – vX.Y.Z** ⭐
 2. **Tech Debt** ⭐
 3. Roadmap
@@ -412,7 +413,9 @@ Future (not in scope):
 6. Epics (Tracking) – Table
 7. Epics – Roadmap
 8. Epics – Board (Milestone)
-9. (Optional) Iteration Board
+
+**Optional**:
+9. Iteration Board (for 2-week sprint tracking)
 
 ## Success Metrics
 

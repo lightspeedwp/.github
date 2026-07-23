@@ -1,6 +1,6 @@
 ---
 title: "GitHub Projects Creation System — Full Implementation Plan"
-description: "Complete architectural blueprint for CSV-fixture-driven project creation with template-based field initialization."
+description: "Complete architectural blueprint for CSV-fixture-driven project creation with template-based field initialisation."
 file_type: "planning"
 status: "ready-for-implementation"
 version: "v1.0"
