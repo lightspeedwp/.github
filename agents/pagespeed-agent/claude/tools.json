@@ -1,5 +1,6 @@
 {
   "version": "1.0.0",
+  "provider": "claude",
   "tools": [
     {
       "name": "pagespeed-analyzer",
