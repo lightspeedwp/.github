@@ -123,11 +123,15 @@ organization_issue_fields:
   field_usage:
     Priority:
       type: single_select
+      # Canonical Priority vocabulary. MUST stay in lockstep with
+      # project_field_mappings.Priority values, the priority:* labels in
+      # .github/labels.yml, and the derive-project-fields.cjs default ("Normal").
+      # Enforced by scripts/agents/includes/__tests__/field-parity.test.js.
       values:
-        - Urgent
-        - High
-        - Medium
-        - Low
+        - Critical
+        - Important
+        - Normal
+        - Minor
       required: false
       applies_to_all_issue_types: true
       notes:
