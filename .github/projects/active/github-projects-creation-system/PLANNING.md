@@ -1,6 +1,6 @@
 ---
 title: "GitHub Projects Creation System — Full Implementation Plan"
-description: "Complete architectural blueprint for CSV-fixture-driven project creation with template-based field initialization."
+description: "Complete architectural blueprint for CSV-fixture-driven project creation with template-based field initialisation."
 file_type: "planning"
 status: "ready-for-implementation"
 version: "v1.0"
@@ -45,7 +45,7 @@ This initiative creates a **template-driven project creation system** that:
 
 - Reads CSV fixtures defining new projects
 - Creates GitHub Projects v2 with the correct template type
-- Initializes all fields, automations, and views based on template
+- Initialises all fields, automations, and views based on template
 - Syncs PR metadata to projects using branch prefix → Type field mapping
 - Extends existing `project-meta-sync` infrastructure to handle new projects
 
