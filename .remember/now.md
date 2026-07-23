@@ -22,3 +22,7 @@ Committed 1,155 CodeRabbit-improved agent files (fixed markdown linting, merged 
 ## 17:43 | claude/phase-2-agent-standards-9274ea
 
 Implemented P2 4-provider contract (5 docs + 3 batch prompts w/ plugin checklists); merged PR #1157 to docs/agent-standards-phase-2-prompts, created issues #1158 + #1162; diagnosed endemic CI blockers (dupe linting.yml, .claude/worktrees/) in PR #1159, but FM/template validation failures block merge (delays PR #1144).
+
+## 17:44 | ci/fix-linting-workflows-and-mergify
+
+Updated issue #1152 w/ DoR/DoD template sections per org standards, verified DoD checklist complete, removed status label, closed issue. Resolved PR #1151 blockers: applied 8 CodeRabbit feedback items (UK spelling standardization, view updates, checkbox fixes), added CHANGELOG.md feature entry for org issue-field writer infrastructure, verified all validation checks pass including issue-fields config, markdown linting, and changelog requirement. Ready for merge.
