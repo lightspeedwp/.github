@@ -137,13 +137,20 @@ npm run validate:frontmatter:changed -- --base origin/develop --head HEAD
 > Race warning: if you edit near UTC midnight, the value that passes locally can
 > fail after rollover. Push promptly after bumping.
 
-### 2.4 `changelog-validate` — add a real CHANGELOG entry
+### 2.4 `changelog-validate` — add a real CHANGELOG entry with PR + issue links
 
 These PRs are labelled `type:feature`, which is a **restricted type**:
 `meta:no-changelog` is **not allowed**. You must add an entry under
-`## [Unreleased] → ### Added` in `CHANGELOG.md` (the check only requires
-`CHANGELOG.md` to appear in the PR diff). Also bump the CHANGELOG frontmatter
-`last_updated` to UTC today (see 2.3).
+`## [Unreleased] → ### Added` in `CHANGELOG.md`. The entry must include:
+- **PR link** at the end: `([PR #NNNN](https://github.com/lightspeedwp/.github/pull/NNNN)`
+- **Issue link(s)** after the PR: `[#MMMMM](https://github.com/lightspeedwp/.github/issues/MMMMM)` (one or more)
+
+Example format:
+```
+- **My feature** — Description of what was added. ([PR #1141](https://github.com/lightspeedwp/.github/pull/1141); [#1101](https://github.com/lightspeedwp/.github/issues/1101))
+```
+
+Also bump the CHANGELOG frontmatter `last_updated` to UTC today (see 2.3).
 
 ### 2.5 `validate:footers` — 315 pre-existing repo-wide violations
 
@@ -186,12 +193,16 @@ See the ready-to-use template in §4.
 
 ```bash
 git add agents/{slug}-agent/ docs/ISSUE_FIELDS.md CHANGELOG.md package-lock.json
-git commit --no-verify -m "feat({slug}): real multi-provider content + CI fixes"
+git commit --no-verify -m "$(cat <<'EOF'
+feat({slug}): real multi-provider content + CI fixes
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+EOF
+)"
 git push   --no-verify origin feat/agent-standards-{slug}
 ```
 
-- End commit messages with the required trailer:
-  `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
+- Commit messages must end with the required trailer: `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`
 - Never commit secrets. Reference credentials by name/location only.
 
 ---
@@ -210,6 +221,14 @@ Standardizes the **{Agent Name}** using the Phase 1 multi-provider pattern.
 ## Linked issues
 
 Closes #{ISSUE}
+
+**For batch PRs (multiple agents):** list all related issues, one per line:
+```
+Closes #NNNN
+Closes #MMMM
+Closes #KKKK
+[... one per issue]
+```
 
 ## Changelog
 
@@ -253,8 +272,7 @@ Per `CLAUDE.md`:
       pass locally.
 - [ ] All six §2 blockers resolved; `npm ci --dry-run` clean.
 - [ ] PR body has the three required sections; `validate-pr-template` green.
-- [ ] CI green (or the only red is the acknowledged pre-existing footers item,
-      handled per §2.5).
+- [ ] CI green (all checks pass; footers handled per §2.5 before this checkpoint).
 - [ ] Squash-merged to `develop`, branch deleted, issue(s) closed.
 
 ---

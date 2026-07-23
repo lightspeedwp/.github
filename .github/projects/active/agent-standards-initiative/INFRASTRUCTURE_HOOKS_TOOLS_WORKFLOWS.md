@@ -5,7 +5,7 @@
 > ongoing agent quality and integration.
 
 **Run after:** Agent code + plugin merged to `develop`.  
-**Parallel option:** Can run hooks + tools + workflows in parallel (same worktree) or sequential.
+**Sequential execution:** Hooks → tools → workflows. Workflows require hooks and tools to exist, so run workflows after both are merged.
 
 ---
 
@@ -120,18 +120,20 @@ Phase 1 workflows: `.github/workflows/` → look for agent-related patterns
 
 ---
 
-## Execution Order
+## Execution Order (Sequential)
 
 1. **Hooks first** (30–45 min) — Validation automation
    - Branch: `feat/agent-standards-{slug}-hooks`
-   - Merged early so developers have fast feedback
+   - Merged to `develop` before proceeding
 
 2. **Tools next** (30–60 min) — CLI utilities
    - Branch: `feat/agent-standards-{slug}-tools`
+   - Merged to `develop` before proceeding
 
 3. **Workflows last** (30 min) — CI integration
    - Branch: `feat/agent-standards-{slug}-workflows`
-   - Last because it depends on both hooks + tools
+   - Merged to `develop` after hooks and tools
+   - **Depends on:** Hooks and tools already in place
 
 ---
 

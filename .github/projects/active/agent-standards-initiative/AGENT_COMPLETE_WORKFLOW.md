@@ -23,6 +23,7 @@ For each agent in priority order:
 
 ### 2. Plugin Integration (~1–2 hours)
 
+- **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after agent merge)
 - Branch: `feat/agent-standards-{slug}-plugin` (same worktree as agent)
 - Folder: `plugins/lightspeed-{domain}-{focus}/`
 - Run: **Plugin prompt** → `PLUGINS_COMPLETE.md`
@@ -32,6 +33,7 @@ For each agent in priority order:
 
 ### 3. Validation Hooks (~30–45 min)
 
+- **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after plugin merge)
 - Branch: `feat/agent-standards-{slug}-hooks` (same worktree)
 - Folder: `hooks/{hook-slug}/`
 - Run: **Hooks prompt** → `INFRASTRUCTURE_HOOKS_TOOLS.md` (hooks section)
@@ -41,6 +43,7 @@ For each agent in priority order:
 
 ### 4. Agent Instructions (~1–2 hours)
 
+- **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after hooks merge)
 - Branch: `feat/agent-standards-{slug}-instructions` (same worktree)
 - Folder: `instructions/{slug}-agent.instructions.md`
 - Run: **Instructions prompt** → `INSTRUCTIONS_DOCUMENTATION.md`
@@ -49,6 +52,7 @@ For each agent in priority order:
 
 ### 5. Starter Prompts (~1–2 hours)
 
+- **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after instructions merge)
 - Branch: `feat/agent-standards-{slug}-starter-prompts` (same worktree)
 - Folder: `prompts/{slug}-agent/` with 5–8 starter prompts
 - Run: **Starter prompts prompt** → `STARTER_PROMPTS_GUIDE.md`
@@ -57,6 +61,7 @@ For each agent in priority order:
 
 ### 6. Tools / Validation Scripts (~30–60 min)
 
+- **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after prompts merge)
 - Branch: `feat/agent-standards-{slug}-tools` (same worktree)
 - Folder: `tools/agent-{slug}/` (if domain-specific) or `scripts/validate-{slug}.cjs`
 - Run: **Tools prompt** → `INFRASTRUCTURE_HOOKS_TOOLS.md` (tools section)
@@ -65,6 +70,7 @@ For each agent in priority order:
 
 ### 7. Workflow Updates (~30 min)
 
+- **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after tools merge)
 - Branch: `feat/agent-standards-{slug}-workflows` (same worktree)
 - Folder: `.github/workflows/`
 - Run: **Workflows prompt** → `INFRASTRUCTURE_HOOKS_TOOLS.md` (workflows section)

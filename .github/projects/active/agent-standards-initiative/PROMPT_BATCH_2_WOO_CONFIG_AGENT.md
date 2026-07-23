@@ -69,7 +69,7 @@ Tools/skills/functions (8/7/8): `store_analyzer`, `setup_optimizer`,
 
 Store setup (currency, price/tax display, pages, block vs shortcode checkout);
 payment gateways with **tokenisation only** (no card data in the DB) and
-**PCI DSS scope** (SAQ A / A-EP); shipping zones/methods/classes; tax rules;
+**PCI DSS scope assessment** (requires evaluation of payment-page origin, integration, data flows, and applicable SAQ criteria with the gateway/provider and a qualified assessor; SAQ scope varies by architecture and integration method); shipping zones/methods/classes; tax rules;
 product types (simple/variable/grouped/subscription) and global attributes;
 performance (object cache, page cache with cart/checkout exclusions, cart
 fragments, images); inventory policy; GDPR customer data (export/erase);
