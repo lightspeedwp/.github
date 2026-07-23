@@ -61,7 +61,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
       - run: npm ci
       - name: Validate branch name
         if: github.event_name != 'merge_group'
