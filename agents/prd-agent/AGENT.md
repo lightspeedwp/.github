@@ -9,7 +9,7 @@ description: >-
   planning powerhouse.
 version: 2.0.0
 status: active
-last_updated: '2026-07-22'
+last_updated: '2026-07-23'
 category: planning
 maintainer: Ash Shaw
 owners:
