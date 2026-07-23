@@ -6,6 +6,7 @@ metadata:
   mcp-server: figma, figma-staging
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

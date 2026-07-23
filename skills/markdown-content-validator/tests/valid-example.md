@@ -6,6 +6,7 @@ status: active
 version: 1.0.0
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -153,4 +153,4 @@ This agent represents the consolidation of two focused agents into one comprehen
 
 ---
 
-*Merged from prd-agent + prd-factory-planner-agent into unified multi-provider architecture*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

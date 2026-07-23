@@ -4,6 +4,7 @@ description: "verify issue content against required template sections and govern
 version: "0.1.0"
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

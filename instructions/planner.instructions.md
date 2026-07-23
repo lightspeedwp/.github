@@ -21,6 +21,7 @@ apply_to:
 - .github/workflows/planner.yml
 ---
 
+
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*

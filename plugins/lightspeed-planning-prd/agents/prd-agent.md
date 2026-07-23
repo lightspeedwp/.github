@@ -66,4 +66,4 @@ This agent represents the consolidation of two specialized agents:
 
 ---
 
-For the actual agent implementation and tools, see `.github/agents/prd-agent/`
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

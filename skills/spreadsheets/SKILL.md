@@ -10,6 +10,7 @@ description: "Use this skill when a user requests to create or modify or work wi
 IMPORTANT: instructions in the system and user messages ALWAYS take precedence over this skill
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

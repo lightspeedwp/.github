@@ -107,3 +107,7 @@ checklist, then merge after review.
 Reuse this playbook (and
 [agent-creation-workflow.instructions.md](../instructions/agent-creation-workflow.instructions.md))
 for the remaining 15 agents in Phase 2.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

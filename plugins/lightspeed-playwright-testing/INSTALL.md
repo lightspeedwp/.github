@@ -65,3 +65,7 @@ npx playwright install
 
 **Plugin not recognised** — verify the install path, validate the manifest JSON,
 and restart the IDE/tool.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

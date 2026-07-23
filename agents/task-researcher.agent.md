@@ -25,6 +25,7 @@ metadata:
     and document every source and assumption before handing off.
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -4,6 +4,7 @@ description: "validate changelog completeness and semantic-release alignment bef
 version: "0.1.0"
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

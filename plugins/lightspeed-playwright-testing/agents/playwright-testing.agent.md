@@ -39,3 +39,7 @@ agent export:
 - OpenAI: [`agents/playwright-testing-agent/openai/agent.md`](../../../agents/playwright-testing-agent/openai/agent.md)
 
 Install steps for each provider are in [`../INSTALL.md`](../INSTALL.md).
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

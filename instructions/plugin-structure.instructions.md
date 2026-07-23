@@ -21,6 +21,7 @@ domain: plugin-hardening
 stability: stable
 ---
 
+
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*

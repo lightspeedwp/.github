@@ -72,6 +72,7 @@ metadata:
     issue labels, issue types, and project fields in sync via project-meta sync.
 ---
 
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
