@@ -1,8 +1,8 @@
 ---
 title: Phase 2 Batch Prompts Index
 description: Complete index of parameterized prompts for all 14 remaining agents (Phase 2)
-version: '1.0.0'
-last_updated: '2026-07-22'
+version: '1.1.0'
+last_updated: '2026-07-23'
 ---
 
 # Phase 2 Batch Prompts Index
@@ -24,6 +24,34 @@ Phase 2 converts the remaining 14 ChatGPT agent exports into multi-provider form
 - **Generic Template:** All reference PROMPT_2_GENERIC_AGENT_REWRITE.md for detailed guidance
 - **Consistent Process:** All follow same 8-phase standardization workflow
 - **Sequential Execution:** Can be done 2-3 agents per week
+
+---
+
+## ▶ Start here: execution playbook + live branch/PR/issue mapping
+
+**Before running any Phase 2 prompt, read [`PHASE_2_EXECUTION_PLAYBOOK.md`](PHASE_2_EXECUTION_PLAYBOOK.md).**
+It carries the parts identical for every agent: the real-content requirement and
+verification (the first pass shipped stubs — do not repeat it), the six
+pre-existing `develop` CI failures and their exact fixes, commit/push mechanics
+(`--no-verify`), the PR-body template, and the merge protocol.
+
+Each Phase 2 prompt is now a **self-contained per-chat brief** carrying its
+branch, PR, and related issue(s). Open one chat per row:
+
+| Prompt file | Agents | Branch | PR | Issue(s) |
+| --- | --- | --- | --- | --- |
+| `PROMPT_BATCH_2_TOUR_OPERATOR_CONFIG_AGENT.md` | Tour Operator Config | `feat/agent-standards-tour-operator-config` | [#1140](https://github.com/lightspeedwp/.github/pull/1140) | [#1098](https://github.com/lightspeedwp/.github/issues/1098) |
+| `PROMPT_BATCH_2_WOO_CONFIG_AGENT.md` | WooCommerce Config *(reference impl.)* | `feat/agent-standards-woo-config` | [#1141](https://github.com/lightspeedwp/.github/pull/1141) | [#1101](https://github.com/lightspeedwp/.github/issues/1101) |
+| `PROMPT_BATCH_2_WP_CONFIG_AGENT.md` | WordPress Config | `feat/agent-standards-wp-config` | [#1142](https://github.com/lightspeedwp/.github/pull/1142) | [#1102](https://github.com/lightspeedwp/.github/issues/1102) |
+| `PROMPT_BATCH_2_AGENTS_5_14.md` | 10 agents (Design Partner, Proposal Desk, Client Website Discovery, Website Scope Estimator, Website Content Strategist, PageSpeed, Linear Advisor, Harvest Analytical, Zendesk Support, AI Readiness Estimator) | `feat/agent-standards-batch-5-14` | [#1143](https://github.com/lightspeedwp/.github/pull/1143) | [#1088](https://github.com/lightspeedwp/.github/issues/1088), [#1089](https://github.com/lightspeedwp/.github/issues/1089), [#1090](https://github.com/lightspeedwp/.github/issues/1090), [#1091](https://github.com/lightspeedwp/.github/issues/1091), [#1092](https://github.com/lightspeedwp/.github/issues/1092), [#1093](https://github.com/lightspeedwp/.github/issues/1093), [#1096](https://github.com/lightspeedwp/.github/issues/1096), [#1099](https://github.com/lightspeedwp/.github/issues/1099), [#1100](https://github.com/lightspeedwp/.github/issues/1100), [#1103](https://github.com/lightspeedwp/.github/issues/1103) |
+
+The **PRD Combined agent** (`PROMPT_BATCH_2_PRD_COMBINED_AGENT.md`, issues
+[#1094](https://github.com/lightspeedwp/.github/issues/1094)/[#1095](https://github.com/lightspeedwp/.github/issues/1095))
+was merged separately in PR #1139 and is not part of the four open branches.
+
+> Note: the per-prompt files are the source of truth for plugin names and
+> capabilities; the batch listing below is retained for narrative context and may
+> lag the prompts.
 
 ---
 

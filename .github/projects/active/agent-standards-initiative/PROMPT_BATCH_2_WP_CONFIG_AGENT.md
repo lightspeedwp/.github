@@ -1,161 +1,119 @@
 # PHASE 2 BATCH PROMPT: WordPress Configuration Agent
 
-**Agent:** wp-config-agent  
-**Domain:** wordpress  
-**Focus:** configuration  
-**Purpose:** Configure and manage core WordPress settings, security, and performance  
-**Effort:** 2-4 hours  
-**Reference:** PROMPT_2_GENERIC_AGENT_REWRITE.md (8 phases, standard process)
+> **Self-contained brief for a fresh Claude Code chat.** Everything needed to
+> take this agent from its current state to a merged PR is here or in the two
+> referenced documents. Read the playbook first.
 
----
+| | |
+| --- | --- |
+| **Agent** | WordPress Config Agent |
+| **Slug** | `wp-config` (folder `agents/wp-config-agent/`) |
+| **Branch** | `feat/agent-standards-wp-config` |
+| **PR** | [#1142](https://github.com/lightspeedwp/.github/pull/1142) |
+| **Related issue** | [#1102](https://github.com/lightspeedwp/.github/issues/1102) — *feat(agents): rewrite WordPress Config Agent for multi-provider support* |
+| **Base** | `develop` |
+| **Domain / Focus** | wordpress / configuration |
 
-## PARAMETER MAP
+## Required reading (in order)
+
+1. **`PHASE_2_EXECUTION_PLAYBOOK.md`** — real-content rules, the six pre-existing
+   `develop` CI blockers + fixes, commit/push mechanics, PR-body template, merge
+   protocol, definition of done. **Do not skip.**
+2. `agents/woo-config-agent/` — the Phase 2 **reference implementation**. Copy
+   its shape and depth.
+3. `PROMPT_2_GENERIC_AGENT_REWRITE.md` — detailed per-phase templates.
+
+## Current state (as of hand-off)
+
+- Branch exists and is pushed; PR #1142 is open against `develop`.
+- ⚠️ **The agent files are stubs** (`AGENT.md` ~60 lines; provider files 3–13
+  lines) — reported complete in a prior run but never actually written. Replace
+  them with real content per the playbook's §0 line floors.
+- The PR body still needs the three required sections (playbook §4/§2.6).
+- All six pre-existing `develop` CI blockers (playbook §2) apply and must be
+  fixed on this branch. `docs/ISSUE_FIELDS.md`, `CHANGELOG.md`, and
+  `package-lock.json` fixes made on the woo-config branch are **not** on this
+  branch yet — redo them here (or cherry-pick).
+
+## Parameter map
 
 | Parameter | Value |
 | --- | --- |
-| {AGENT_NAME} | WordPress Config Agent |
-| {agent-slug} | wp-config |
-| {DOMAIN} | wordpress |
-| {FOCUS} | configuration |
-| {Agent Purpose} | Configure and manage WordPress core settings, security hardening, performance optimization, and theme/plugin management |
+| `{AGENT_NAME}` | WordPress Config Agent |
+| `{agent-slug}` | wp-config |
+| `{DOMAIN}` | wordpress |
+| `{FOCUS}` | configuration |
+| `{Agent Purpose}` | Configure and manage WordPress sites: site analysis, setup recommendations, performance, security hardening, plugin/theme management, backup and maintenance planning |
+| `{Plugin}` | `lightspeed-configuration-wordpress` |
 
----
-
-## AGENT SPECIFICATION
+## AGENT.md frontmatter (starting point — expand the body to the §0 floor)
 
 ```yaml
 name: wp-config
-title: WordPress Configuration Agent
-description: >
-  Manage WordPress core configuration, security settings, performance
-  optimization, theme configuration, and plugin management for
-  LightSpeed WordPress projects.
-
+title: WordPress Config Agent
+description: >-
+  Configure and manage WordPress sites — analysis, setup recommendations,
+  performance optimisation, security hardening, plugin and theme management,
+  backup strategy, and maintenance planning.
 version: '2.0.0'
 category: wordpress
 providers: [claude, copilot, openai]
-
 capabilities:
-  - wordpress-core-configuration
-  - security-hardening
+  - site-analysis
+  - setup-recommendations
   - performance-optimization
+  - security-hardening
   - plugin-management
   - theme-configuration
-  - backup-management
-  - wp-cli-automation
-
-requirements:
-  - WordPress 6.0+
-  - WP-CLI installed (optional but recommended)
-  - SSH/SFTP access
-  - Database access
-
-constraints:
-  - No core file modifications (use filters/actions)
-  - Respects WordPress coding standards
-  - Limited to WordPress Coding Standards
-  - Requires admin credentials
-
+  - backup-strategy
+  - maintenance-planning
 security:
   rules:
-    - Never expose credentials
-    - Validate all settings before applying
-    - Maintain audit logs
-    - Backup before major changes
+    - No credentials in output or config; env vars only
+    - No core file modifications (use filters/actions/WP-CLI)
+    - Backup before changes; validate after; audit log
 ```
 
----
+## Real-content file manifest (verify on disk — see playbook §0)
 
-## CORE RESPONSIBILITIES
+- `AGENT.md` (120+) — overview, responsibilities, capabilities/limitations, 2–3
+  usage examples, provider matrix, security guardrails.
+- `shared/core-prompt.md` (180+) — methodology across **site analysis → setup
+  recommendations → performance → security hardening → plugin/theme management →
+  backup & maintenance**, with constraints and inputs/outputs.
+- `claude/agent.md` (70+) + `claude/tools.json` (150+) — 8 tools with full input
+  schemas: `site_analyzer`, `setup_recommender`, `performance_optimizer`,
+  `security_hardener`, `plugin_manager`, `theme_configurator`, `backup_planner`,
+  `maintenance_planner`.
+- `copilot/agent.md` (60+) + `copilot/skills.yaml` (120+) — matching skills with
+  GitHub Issues/Projects/Actions integration.
+- `openai/agent.md` (60+) + `openai/tools.json` (150+) — matching functions.
+- `README.md` (60+) — overview + provider matrix.
+- `plugins/lightspeed-configuration-wordpress/` — `README.md`, `INSTALL.md`,
+  `copilot-plugin.json`, and provider manifests.
 
-1. Configure WordPress core settings (general, reading, discussion, etc.)
-2. Implement security hardening (SSL, headers, firewall rules)
-3. Optimize performance (caching, lazy loading, minification)
-4. Manage plugins (installation, updates, security)
-5. Configure themes (customization, settings, performance)
-6. Setup backups and recovery procedures
-7. Automate configuration via WP-CLI
+## Domain notes
 
----
+WordPress specifics to reflect: core settings (general/reading/discussion/media,
+permalinks); security hardening (SSL, security headers, file-edit lockdown,
+login hardening/2FA, least-privilege roles); performance (object + page cache,
+lazy loading, asset optimisation, CDN); plugin management (audit, updates,
+conflict detection, removal of abandoned plugins); theme configuration (block
+theme, `theme.json`, child-theme practice); backup strategy (scope, cadence,
+off-site, tested restore); maintenance schedule (updates, health checks,
+uptime); compliance (WCAG 2.2 AA, GDPR). Prefer native/WP-CLI over custom code.
 
-## KEY TOOLS/CAPABILITIES
+## Success criteria (verified, not claimed)
 
-**Claude Tools:**
-- wp-config-read
-- wp-config-validate
-- wp-config-update
-- security-hardener
-- performance-optimizer
-- backup-manager
+- [ ] Nine files meet the playbook §0 line floors; verification output pasted in
+      the PR.
+- [ ] `claude/tools.json` + `openai/tools.json` parse; `skills.yaml` parses.
+- [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter` pass.
+- [ ] All six playbook §2 CI blockers resolved on this branch; `npm ci --dry-run` clean.
+- [ ] `CHANGELOG.md` has an `### Added` entry referencing PR #1142 / issue #1102.
+- [ ] PR body has the three required sections; `validate-pr-template` green.
+- [ ] CI green (or only the acknowledged footers item, handled per playbook §2.5).
+- [ ] Squash-merged to `develop`, branch deleted, issue #1102 closed.
 
-**Copilot Skills:**
-- wordpress-core-settings
-- security-hardening
-- wp-cli-commands
-- plugin-management
-- theme-configuration
-
-**OpenAI Functions:**
-- configure_wordpress_setting
-- apply_security_settings
-- optimize_performance
-- manage_plugins
-- generate_backup
-
----
-
-## DOMAIN NOTES
-
-**WordPress Configuration Focus:**
-- Core WordPress settings (general, reading, discussion, media)
-- WordPress security (SSL, headers, firewall, 2FA)
-- Performance optimization (caching, lazy loading, CDN)
-- Plugin & theme management
-- Multisite configuration (if applicable)
-- User roles & capabilities
-- WP-CLI automation
-
----
-
-## EXECUTION PHASES (See PROMPT_2 for details)
-
-1. **Analyze** — Examine wp-config-agent folder
-2. **Structure** — Create new folder layout
-3. **Spec** — Write AGENT.md with YAML frontmatter
-4. **Core Prompt** — Provider-agnostic instructions
-5. **Provider Configs** — Claude, Copilot, OpenAI customizations
-6. **Tools** — Define tools per provider
-7. **Plugin** — Create lightspeed-wordpress-configuration plugin
-8. **Validate** — Test all schemas & hooks
-
----
-
-## ESTIMATED EFFORT
-
-- Analysis & Setup: 30-45 min
-- AGENT.md & Core Prompt: 45-60 min
-- Provider Configs & Tools: 45-60 min
-- Plugin & Documentation: 30-45 min
-- Testing & Validation: 20-30 min
-- Git & Merge: 15-20 min
-
-**Total: 2.5-4 hours**
-
----
-
-## SUCCESS CRITERIA
-
-✅ All 8 phases completed  
-✅ AGENT.md created with YAML frontmatter  
-✅ Core prompt (provider-agnostic) written  
-✅ 3 provider configs created (Claude, Copilot, OpenAI)  
-✅ Tool definitions specified per provider  
-✅ Plugin created with all provider configs  
-✅ Schema validation passing  
-✅ Hook validation passing  
-✅ Documentation complete  
-✅ PR merged to develop  
-
----
-
-**Follow PROMPT_2_GENERIC_AGENT_REWRITE.md for step-by-step guidance on all 8 phases.**
+**Begin:** read the playbook, read `agents/woo-config-agent/`, then write real
+content and verify it on disk before committing.
