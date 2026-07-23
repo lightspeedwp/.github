@@ -1,0 +1,4 @@
+interface:
+  display_name: "WP Pattern Runtime Pitfalls"
+  short_description: "Avoid runtime traps in file-based WordPress block patterns (nesting, registration-vs-render, bindings)."
+  default_prompt: "Use $wp-pattern-runtime-pitfalls to debug WordPress block pattern runtime behaviour."
