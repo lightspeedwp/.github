@@ -146,8 +146,8 @@ A **template-driven GitHub Projects creation system** that:
 ### Must Complete First
 
 - **#1145**: Org issue-field writer infrastructure
-  - Needed for org-level field initialization
-  - Scaffolding done; awaiting field ID configuration
+  - Needed for org-level field initialisation
+  - Implementation pending; will enable org-wide field setup
 
 - **#1146**: Secret-gating hardening for project-meta-sync
   - Ensures graceful credential handling
