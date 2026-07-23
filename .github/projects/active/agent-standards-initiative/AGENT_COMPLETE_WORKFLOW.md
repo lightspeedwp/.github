@@ -4,7 +4,7 @@
 > agent code + plugin + hooks + instructions + starter prompts. Execute in a single chat
 > per agent. Once merged, move to the next agent.
 
-**Use this after** `EXECUTION_PLAYBOOK.md` and `AGENTS_*.md` agent-specific prompts.
+**Use this after** `PHASE_2_EXECUTION_PLAYBOOK.md` and `AGENTS_*.md` agent-specific prompts.
 
 ---
 

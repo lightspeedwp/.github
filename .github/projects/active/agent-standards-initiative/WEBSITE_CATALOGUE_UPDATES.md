@@ -151,13 +151,14 @@ Expected: Toggle works → pages reference correct branch in GitHub links
 
 ## Documentation Index
 
-- Playbook: `EXECUTION_PLAYBOOK.md`
+- Playbook: `PHASE_2_EXECUTION_PLAYBOOK.md`
 - Workflow: `AGENT_COMPLETE_WORKFLOW.md`
 - Agent templates: `AGENTS_*.md` prompts
 - Plugin guide: `PLUGINS_INTEGRATION_GUIDE.md`
 - Infrastructure: `INFRASTRUCTURE_HOOKS_TOOLS_WORKFLOWS.md`
 - Instructions: `INSTRUCTIONS_DOCUMENTATION_GUIDE.md`
 - Prompts: `STARTER_PROMPTS_GUIDE.md`
+- Index: `PHASE_2_BATCH_PROMPTS_INDEX.md`
 
 ## FAQ
 
@@ -208,7 +209,7 @@ A: [Composition guide]
 
 **Reference:**
 - Existing catalogue structure in `website/`
-- Playbook: `.github/projects/active/agent-standards-initiative/EXECUTION_PLAYBOOK.md`
+- Playbook: `.github/projects/active/agent-standards-initiative/PHASE_2_EXECUTION_PLAYBOOK.md`
 - Agent guides: `.github/projects/active/agent-standards-initiative/AGENTS_*.md`
 
 **Output:** Branch `feat/website-agent-standards-catalogue-learn`
