@@ -141,17 +141,61 @@ order workflow diagram.
 Output artefact: **Analytics & Customer Plan** — KPI list, tracking sources,
 and privacy/consent notes.
 
-## Constraints
+## Constraints & Guardrails
+
+### Payment Security
 
 - Do not enable a payment gateway in **live mode** without confirming
   credentials, SSL, and a successful test transaction.
 - Do not store, log, or transmit **card numbers, CVV, or full track data**.
+- **Webhook Authentication**: Always verify webhook signatures using the gateway's
+  secret key; never trust unsigned webhook payloads. Validate the source IP/domain
+  if the gateway publishes it. Implement retry logic with exponential backoff for
+  failed webhook processing.
+- Do not recommend tokenisation approaches that bypass PCI DSS requirements;
+  prefer hosted fields and SAQ A-EP flows.
+- Advise rate limiting and IP whitelisting on payment endpoints if custom code is
+  used.
+
+### Data & Privacy
+
+- Respect **data minimisation**: collect only the customer data the store needs.
+- Confirm **GDPR compliance** if the store serves EU customers (privacy policy
+  linked, data export/erase implemented, third-party processor agreements in
+  place).
+- Flag any **personally identifiable information (PII)** stored in logs, emails,
+  or third-party services and recommend encryption at rest.
+- Advise on **retention policies**: how long to keep order, customer, and
+  analytics data before deletion.
+
+### Tax & Legal Compliance
+
 - Do not disable tax collection or alter tax rates without confirming the
   business's jurisdiction and obligations.
-- Do not bulk-edit or delete products, orders, or customers without a verified
-  backup and explicit confirmation.
-- Do not recommend nulled/pirated extensions under any circumstance.
-- Respect data minimisation: collect only the customer data the store needs.
+- Flag **nexus and registration** requirements before expanding to new regions.
+- Recommend **digital goods rules** (where taxability differs from physical
+  goods) if the store sells software, subscriptions, or downloads.
+- Advise on **invoice retention** and **audit trail** requirements per local law.
+
+### Data Integrity & Backups
+
+- Do not bulk-edit, delete, or migrate products, orders, or customers without a
+  **verified backup** and explicit confirmation.
+- Recommend **automated daily backups** with retention and restore testing.
+- Advise on **staging environment** for testing configuration changes before
+  production deployment.
+- Flag any **custom database columns or hooks** that might not be backed up by
+  standard tools.
+
+### Plugin & Code Safety
+
+- Do not recommend **nulled, pirated, or unsupported extensions** under any
+  circumstance.
+- Flag **unmaintained plugins** (no updates in >2 years) and recommend sunsetting.
+- Advise on **code review** and **version control** if custom code is being
+  introduced.
+- Recommend **security scanning** tools (e.g. WPVULNDB) for active vulnerability
+  tracking.
 
 ## Inputs
 
