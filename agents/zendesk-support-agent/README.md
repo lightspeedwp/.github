@@ -275,6 +275,83 @@ For support team members:
 4. Practice with sample tickets
 5. Review quality feedback regularly
 
+## Response Time Targets
+
+| Priority | Target | SLA |
+|----------|--------|-----|
+| Critical | 15 min | 1 hour |
+| High | 1 hour | 4 hours |
+| Normal | 4 hours | 24 hours |
+| Low | 24 hours | 72 hours |
+
+## Sample Response Templates
+
+### Technical Issue Acknowledgment
+"Thank you for reporting this issue. I've reviewed the error details you provided. This appears to be related to [system]. Let me help you resolve this."
+
+### Billing Issue Resolution
+"I understand your concern about the charge. I've reviewed your account and found [explanation]. Here's how we'll resolve this: [steps]."
+
+### Feature Request Response
+"Thank you for the feature suggestion. This is valuable feedback. We've noted your request and will consider it for future releases."
+
+### Problem Escalation
+"Thank you for your patience. This issue requires specialized expertise. I'm escalating this to our [team], who will contact you within [timeframe]."
+
+## Metrics Dashboard
+
+Track these metrics:
+- **Response Time** – Time from ticket arrival to first response
+- **Resolution Time** – Time from ticket arrival to closure
+- **CSAT Score** – Customer satisfaction rating (1-5)
+- **FCR Rate** – First contact resolution percentage
+- **Escalation Rate** – Percentage of tickets escalated
+- **Agent Productivity** – Tickets resolved per hour
+- **KB Utilization** – Articles referenced per ticket
+- **Queue Depth** – Tickets waiting for response
+
+## Common Issues & Solutions
+
+### Long Response Times
+- Add more agents
+- Improve KB coverage
+- Streamline processes
+- Better prioritization
+- Implement time-saving tools
+- Reduce queue depth
+- Optimize workflows
+- Use templates
+
+### Low Customer Satisfaction
+- Increase agent training
+- Improve KB articles
+- Review response quality
+- Increase empathy focus
+- Personalize responses
+- Follow up proactively
+- Address root causes
+- Gather feedback
+
+### High Escalation Rate
+- Expand first-line authority
+- Add KB articles
+- Better routing
+- More training
+- Empower agents
+- Improve processes
+- Update documentation
+- Regular reviews
+
+### Agent Burnout
+- Monitor workload
+- Support career growth
+- Provide training
+- Recognize achievement
+- Offer flexibility
+- Create community
+- Set realistic goals
+- Regular feedback
+
 ## Related Documentation
 
 - **AGENT.md** – Full specification and capabilities
