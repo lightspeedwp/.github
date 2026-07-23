@@ -1,124 +1,274 @@
 {
   "version": "1.0.0",
+  "provider": "claude",
   "tools": [
     {
       "name": "scope-analyzer",
-      "description": "Scope Analyzer tool",
+      "description": "Analyze project scope and break down into features and components",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "projectDescription": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "High-level project description"
           },
-          "options": {
+          "objectives": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Project objectives and goals"
+          },
+          "constraints": {
             "type": "object",
-            "description": "Additional options"
+            "properties": {
+              "budget": {"type": "number"},
+              "timeline": {"type": "string"},
+              "team": {"type": "string"}
+            },
+            "description": "Project constraints"
+          },
+          "includeOutOfScope": {
+            "type": "boolean",
+            "description": "Explicitly define out-of-scope items"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["projectDescription"]
       }
     },
     {
       "name": "effort-estimator",
-      "description": "Effort Estimator tool",
+      "description": "Estimate development effort for features and components",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "description": {"type": "string"},
+                "complexity": {"type": "string", "enum": ["low", "medium", "high", "very-high"]}
+              }
+            },
+            "description": "List of features to estimate"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "methodology": {
+            "type": "string",
+            "enum": ["three-point", "planning-poker", "historical", "analogy"],
+            "description": "Estimation methodology"
+          },
+          "teamExperience": {
+            "type": "string",
+            "enum": ["junior", "mid", "senior", "expert"],
+            "description": "Team experience level"
+          },
+          "includeBuffers": {
+            "type": "boolean",
+            "description": "Include contingency buffers"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["features"]
       }
     },
     {
       "name": "timeline-planner",
-      "description": "Timeline Planner tool",
+      "description": "Create realistic project timeline and schedule",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "totalEffort": {
+            "type": "number",
+            "description": "Total estimated hours"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "teamSize": {
+            "type": "integer",
+            "description": "Number of team members"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Project start date"
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "features": {"type": "array", "items": {"type": "string"}}
+              }
+            },
+            "description": "Project phases"
+          },
+          "bufferPercentage": {
+            "type": "number",
+            "description": "Buffer percentage for timeline"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["totalEffort", "teamSize"]
       }
     },
     {
       "name": "resource-calculator",
-      "description": "Resource Calculator tool",
+      "description": "Calculate resource requirements and team composition",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "projectScope": {
             "type": "string",
-            "description": "Query parameter"
+            "enum": ["small", "medium", "large", "enterprise"],
+            "description": "Project scope size"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "duration": {
+            "type": "string",
+            "description": "Project duration (e.g., '8 weeks')"
+          },
+          "specializations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Required specializations"
+          },
+          "budget": {
+            "type": "number",
+            "description": "Available budget"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["projectScope", "duration"]
       }
     },
     {
       "name": "budget-estimator",
-      "description": "Budget Estimator tool",
+      "description": "Calculate project budget and cost projections",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "totalHours": {
+            "type": "number",
+            "description": "Total estimated hours"
           },
-          "options": {
+          "rates": {
             "type": "object",
-            "description": "Additional options"
+            "properties": {
+              "developer": {"type": "number"},
+              "qa": {"type": "number"},
+              "pm": {"type": "number"},
+              "designer": {"type": "number"}
+            },
+            "description": "Hourly rates by role"
+          },
+          "teamComposition": {
+            "type": "object",
+            "properties": {
+              "developers": {"type": "number"},
+              "qa": {"type": "number"},
+              "pm": {"type": "number"},
+              "designer": {"type": "number"}
+            },
+            "description": "Team composition"
+          },
+          "includeContingency": {
+            "type": "boolean",
+            "description": "Include contingency in budget"
+          },
+          "contingencyPercentage": {
+            "type": "number",
+            "description": "Contingency percentage"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["totalHours"]
       }
     },
     {
       "name": "risk-assessor",
-      "description": "Risk Assessor tool",
+      "description": "Identify and assess project risks and create mitigation strategies",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "projectDescription": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "Project description"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "teamExperience": {
+            "type": "string",
+            "enum": ["junior", "mid", "senior", "expert"],
+            "description": "Team experience level"
+          },
+          "technicalComplexity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "very-high"],
+            "description": "Technical complexity"
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["small", "medium", "large"],
+            "description": "Project scope"
+          },
+          "constraints": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Key constraints"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["projectDescription"]
+      }
+    },
+    {
+      "name": "schedule-optimizer",
+      "description": "Optimize project schedule and identify critical path",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "phases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "duration": {"type": "number"},
+                "dependencies": {"type": "array", "items": {"type": "string"}}
+              }
+            },
+            "description": "Project phases with dependencies"
+          },
+          "constraints": {
+            "type": "object",
+            "properties": {
+              "startDate": {"type": "string"},
+              "targetEndDate": {"type": "string"},
+              "milestones": {"type": "array", "items": {"type": "string"}}
+            },
+            "description": "Schedule constraints"
+          }
+        },
+        "required": ["phases"]
+      }
+    },
+    {
+      "name": "comparison-analyzer",
+      "description": "Compare multiple estimation scenarios",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scenarios": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "effort": {"type": "number"},
+                "timeline": {"type": "string"},
+                "cost": {"type": "number"}
+              }
+            },
+            "description": "Scenarios to compare"
+          },
+          "criteria": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Comparison criteria"
+          }
+        },
+        "required": ["scenarios"]
       }
     }
   ]
