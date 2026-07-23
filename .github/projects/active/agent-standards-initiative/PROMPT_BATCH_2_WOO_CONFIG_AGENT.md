@@ -1,157 +1,88 @@
 # PHASE 2 BATCH PROMPT: WooCommerce Configuration Agent
 
-**Agent:** woo-config-agent  
-**Domain:** ecommerce  
-**Focus:** woocommerce  
-**Purpose:** Configure and manage WooCommerce store settings, products, and integrations  
-**Effort:** 2-4 hours  
-**Reference:** PROMPT_2_GENERIC_AGENT_REWRITE.md
+> **Self-contained brief for a fresh Claude Code chat.** This agent is the Phase
+> 2 **reference implementation** — most of the work is already done. Read the
+> playbook, then finish and merge.
 
----
+| | |
+| --- | --- |
+| **Agent** | WooCommerce Config Agent |
+| **Slug** | `woo-config` (folder `agents/woo-config-agent/`) |
+| **Branch** | `feat/agent-standards-woo-config` |
+| **PR** | [#1141](https://github.com/lightspeedwp/.github/pull/1141) |
+| **Related issue** | [#1101](https://github.com/lightspeedwp/.github/issues/1101) — *feat(agents): rewrite WooCommerce Config Agent for multi-provider support* |
+| **Base** | `develop` |
+| **Domain / Focus** | ecommerce / woocommerce |
 
-## PARAMETER MAP
+## Required reading (in order)
+
+1. **`PHASE_2_EXECUTION_PLAYBOOK.md`** — real-content rules, the six pre-existing
+   `develop` CI blockers + fixes, commit/push mechanics, PR-body template, merge
+   protocol, definition of done.
+2. `PROMPT_2_GENERIC_AGENT_REWRITE.md` — detailed per-phase templates.
+
+## Current state (as of hand-off) — MOST ADVANCED OF THE FOUR
+
+This agent already has **real content** (~1,046 lines across the nine files) and
+is the reference other Phase 2 agents copy. Already done on the branch:
+
+- ✅ Real `AGENT.md`, `shared/core-prompt.md` (7-phase methodology), `claude/`
+  (8 tools with input schemas), `copilot/` (7 skills), `openai/` (8 functions),
+  `README.md`.
+- ✅ `package-lock.json` synced (playbook §2.1).
+- ✅ `docs/ISSUE_FIELDS.md` "50" anchor + freshness/version bump (§2.2–2.3).
+- ✅ `CHANGELOG.md` `### Added` entry for PR #1141 (§2.4).
+- ✅ PR body has the three required sections; `validate-pr-template` green (§2.6).
+- ✅ **16 of 20 checks passing.**
+
+**Remaining before merge:**
+
+- ⏳ `validate:footers` — the pre-existing repo-wide 315-violation blocker
+  (playbook §2.5). Handle carefully (no blind `--fix`; diff every touched file).
+- ⏳ Final CI green → squash-merge → delete branch → close issue #1101.
+
+If you extend the content further, keep it above the playbook §0 floors and
+re-run the verification.
+
+## Parameter map
 
 | Parameter | Value |
 | --- | --- |
-| {AGENT_NAME} | WooCommerce Config Agent |
-| {agent-slug} | woo-config |
-| {DOMAIN} | ecommerce |
-| {FOCUS} | woocommerce |
-| {Agent Purpose} | Configure and manage WooCommerce store settings, product management, payment gateway setup, shipping configuration, and checkout optimization |
+| `{AGENT_NAME}` | WooCommerce Config Agent |
+| `{agent-slug}` | woo-config |
+| `{DOMAIN}` | ecommerce |
+| `{FOCUS}` | woocommerce |
+| `{Agent Purpose}` | Configure and optimise WooCommerce stores: store analysis, setup, product/catalogue, payments, performance, inventory, customers, analytics |
+| `{Plugin}` | `lightspeed-configuration-woocommerce` |
 
----
+## Capabilities (implemented)
 
-## AGENT SPECIFICATION
+`store-analysis`, `setup-optimization`, `product-configuration`,
+`payment-integration`, `performance-optimization`, `inventory-management`,
+`customer-management`, `analytics-setup`.
 
-```yaml
-name: woo-config
-title: WooCommerce Configuration Agent
-description: >
-  Manage WooCommerce store configuration, product setup, payment
-  gateways, shipping settings, tax configuration, and checkout
-  optimization for e-commerce WordPress sites.
+Tools/skills/functions (8/7/8): `store_analyzer`, `setup_optimizer`,
+`product_configurator`, `payment_integrator`, `performance_optimizer`,
+`inventory_manager`, `customer_manager`, `analytics_setup`.
 
-version: '2.0.0'
-category: ecommerce
-providers: [claude, copilot, openai]
+## Domain notes
 
-capabilities:
-  - store-configuration
-  - product-management
-  - payment-gateway-setup
-  - shipping-configuration
-  - tax-management
-  - checkout-optimization
-  - analytics-setup
-  - inventory-management
+Store setup (currency, price/tax display, pages, block vs shortcode checkout);
+payment gateways with **tokenisation only** (no card data in the DB) and
+**PCI DSS scope assessment** (requires evaluation of payment-page origin, integration, data flows, and applicable SAQ criteria with the gateway/provider and a qualified assessor; SAQ scope varies by architecture and integration method); shipping zones/methods/classes; tax rules;
+product types (simple/variable/grouped/subscription) and global attributes;
+performance (object cache, page cache with cart/checkout exclusions, cart
+fragments, images); inventory policy; GDPR customer data (export/erase);
+WooCommerce Analytics + KPIs (conversion, AOV, cart abandonment, LTV).
 
-requirements:
-  - WooCommerce 7.0+
-  - WordPress 6.0+
-  - WC REST API enabled
-  - Database access for migrations
+## Success criteria (verified, not claimed)
 
-constraints:
-  - No direct database modifications (use REST API/WC CLI)
-  - Respects WooCommerce standards
-  - Payment gateway credentials must be externalized
-  - Testing in staging before production
+- [ ] Nine files meet the playbook §0 line floors (already true; re-verify if edited).
+- [ ] `claude/tools.json` + `openai/tools.json` parse; `skills.yaml` parses.
+- [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter` pass.
+- [ ] `npm ci --dry-run` clean; §2 blockers resolved.
+- [ ] `validate:footers` handled per playbook §2.5 (verify no file bodies lost).
+- [ ] PR body has the three required sections; `validate-pr-template` green.
+- [ ] CI green; squash-merged to `develop`; branch deleted; issue #1101 closed.
 
-security:
-  rules:
-    - Payment info never exposed in logs
-    - API keys stored in environment variables
-    - PCI compliance required
-    - Customer data protection (GDPR/CCPA)
-```
-
----
-
-## CORE RESPONSIBILITIES
-
-1. Configure WooCommerce core settings (general, products, checkout)
-2. Setup payment gateways (Stripe, PayPal, Square, etc.)
-3. Configure shipping methods and zones
-4. Setup and manage tax rules
-5. Optimize checkout experience
-6. Configure product categories and attributes
-7. Setup analytics and reporting
-8. Manage subscriptions and recurring products
-
----
-
-## KEY TOOLS/CAPABILITIES
-
-**Claude Tools:**
-- woo-config-read
-- woo-config-validate
-- woo-payment-setup
-- woo-shipping-config
-- woo-tax-management
-- woo-product-import
-
-**Copilot Skills:**
-- woocommerce-settings
-- payment-gateway-integration
-- shipping-configuration
-- product-management
-- checkout-optimization
-
-**OpenAI Functions:**
-- configure_woocommerce_setting
-- setup_payment_gateway
-- configure_shipping
-- manage_products
-- optimize_checkout
-
----
-
-## DOMAIN NOTES
-
-**WooCommerce Configuration Focus:**
-- Store setup (currency, general, product settings)
-- Payment gateways (Stripe, PayPal, Square, custom)
-- Shipping zones and methods
-- Tax calculation and rules
-- Product types (simple, variable, subscription)
-- Categories, tags, attributes
-- Checkout flow optimization
-- Subscription & recurring products
-- Analytics & reporting
-- Inventory management
-
----
-
-## EXECUTION PHASES
-
-Follow PROMPT_2_GENERIC_AGENT_REWRITE.md (8 phases):
-1. Analyze export
-2. Create folder structure
-3. Write AGENT.md specification
-4. Create core prompt (provider-agnostic)
-5. Create provider configs (Claude, Copilot, OpenAI)
-6. Define tools/functions per provider
-7. Create plugin & documentation
-8. Validate & test
-
----
-
-## ESTIMATED EFFORT: 2-4 hours
-
----
-
-## SUCCESS CRITERIA
-
-✅ 8 phases completed  
-✅ AGENT.md with YAML frontmatter  
-✅ Core prompt written  
-✅ Provider configs (Claude, Copilot, OpenAI)  
-✅ Tool definitions per provider  
-✅ Plugin created  
-✅ Schema & hook validation passing  
-✅ Documentation complete  
-✅ PR merged to develop  
-
----
-
-**Reference PROMPT_2_GENERIC_AGENT_REWRITE.md for detailed step-by-step guidance.**
+**Begin:** read the playbook §2.5, resolve footers safely, confirm CI, and merge.
