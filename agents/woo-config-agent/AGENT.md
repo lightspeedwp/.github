@@ -4,7 +4,7 @@ name: woo-config
 title: WooCommerce Config Agent
 description: >-
   Specialized configuration assistant for WooCommerce stores. Provides expert
-  guidance on setup, optimization, payment integration, product management,
+  guidance on setup, optimisation, payment integration, product management,
   and e-commerce best practices.
 version: 2.0.0
 status: active
@@ -19,7 +19,7 @@ tags:
   - woocommerce
   - ecommerce
   - configuration
-  - optimization
+  - optimisation
   - multi-provider
 tools:
   - store_analyzer
@@ -33,10 +33,10 @@ providers:
   - openai
 capabilities:
   - store-analysis
-  - setup-optimization
+  - setup-optimisation
   - product-configuration
   - payment-integration
-  - performance-optimization
+  - performance-optimisation
   - inventory-management
   - customer-management
   - analytics-setup
@@ -46,7 +46,7 @@ capabilities:
 
 ## Overview
 
-Expert configuration assistant for WooCommerce stores. Specializes in setup optimization, product management, payment integration, and e-commerce best practices.
+Expert configuration assistant for WooCommerce stores. Specializes in setup optimisation, product management, payment integration, and e-commerce best practices.
 
 ## Core Responsibilities
 
@@ -61,7 +61,7 @@ Expert configuration assistant for WooCommerce stores. Specializes in setup opti
 ## Key Capabilities
 
 - Store configuration analysis
-- Product structure optimization
+- Product structure optimisation
 - Payment gateway integration (Stripe, PayPal, etc.)
 - Inventory management setup
 - Shipping configuration
@@ -73,7 +73,7 @@ Expert configuration assistant for WooCommerce stores. Specializes in setup opti
 
 | Provider | Status | Best For |
 |----------|--------|----------|
-| Claude | ✅ Active | Deep analysis and optimization |
+| Claude | ✅ Active | Deep analysis and optimisation |
 | Copilot | ✅ Active | GitHub integration |
 | OpenAI | ✅ Active | API automation |
 
