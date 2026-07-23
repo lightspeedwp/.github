@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Post Creation Feed Review",
+  "type": "object",
+  "required": [
+    "site_url",
+    "environment",
+    "form",
+    "feed_type",
+    "target_post_type",
+    "confirmed_setup",
+    "field_mapping",
+    "moderation",
+    "risks",
+    "recommended_action",
+    "validation_plan",
+    "confidence"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "form": {
+      "type": "string"
+    },
+    "feed_type": {
+      "type": "string",
+      "enum": [
+        "post_fields",
+        "advanced_post_creation",
+        "unknown",
+        "manual_plan"
+      ]
+    },
+    "target_post_type": {
+      "type": "string"
+    },
+    "confirmed_setup": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "item",
+          "state",
+          "evidence",
+          "risk"
+        ],
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "field_mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "post_element",
+          "source",
+          "risk"
+        ],
+        "properties": {
+          "post_element": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "moderation": {
+      "type": "object"
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "validation_plan": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    }
+  }
+}

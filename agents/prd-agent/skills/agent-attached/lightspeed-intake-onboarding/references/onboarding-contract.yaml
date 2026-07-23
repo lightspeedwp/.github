@@ -1,0 +1,36 @@
+state_backend: memory
+memory_state_file: user-defaults.yaml
+
+trigger_when:
+  task_requires:
+    - "new or ambiguous LightSpeed planning intake where reusable user defaults would improve how the work starts"
+    - "multi-step planning work where remembering the user's normal starting artefact or memory preference would improve future runs"
+  missing_state:
+    - "default_starting_artifact"
+
+required_state:
+  - key: "default_starting_artifact"
+    ask: "When a new brief is still rough, should I usually start with an intake summary, a PRD, or a broader planning pack?"
+    store_as: "default_starting_artifact"
+
+optional_state:
+  - key: "default_memory_mode"
+    ask: "For active projects, should I usually keep project memory updated as I go?"
+    default: "maintain_memory_for_active_projects"
+    store_as: "default_memory_mode"
+  - key: "default_evidence_priority"
+    ask: "When several sources are available, which should I usually prioritise first: brief, Figma, repo, or live site?"
+    default: "brief_first"
+    store_as: "default_evidence_priority"
+  - key: "default_output_depth"
+    ask: "If a request is open-ended, should I default to the smallest useful artefact or a fuller planning pack?"
+    default: "smallest_useful_artifact"
+    store_as: "default_output_depth"
+
+completion_requires:
+  - "default_starting_artifact"
+
+skip_when:
+  - "the current request already clearly specifies the desired output or includes enough context to proceed safely"
+  - "the task is a one-off request where asking about defaults would add friction without improving the result"
+  - "the user is asking for review, revision, or analysis of an existing artefact rather than a fresh intake"

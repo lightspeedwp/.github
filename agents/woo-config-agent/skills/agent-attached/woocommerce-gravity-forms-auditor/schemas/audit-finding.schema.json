@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms audit finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "finding_id",
+    "title",
+    "category",
+    "severity",
+    "confidence",
+    "evidence",
+    "affected_object",
+    "user_impact",
+    "business_impact",
+    "recommended_fix",
+    "owner_recommendation",
+    "handoff_required",
+    "retest_step"
+  ],
+  "properties": {
+    "finding_id": {
+      "type": "string",
+      "pattern": "^GF-AUD-[0-9]{3,}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "operational_readiness",
+        "form_structure_ux",
+        "accessibility",
+        "spam_protection",
+        "security_privacy",
+        "notifications_deliverability",
+        "addons_feeds_integrations",
+        "embeds_frontend",
+        "data_handling_retention",
+        "maintainability",
+        "woocommerce",
+        "other"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "Blocker",
+        "High",
+        "Medium",
+        "Low",
+        "Info"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "High",
+        "Medium",
+        "Low"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "affected_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "site_url": {
+          "type": "string"
+        },
+        "form_id": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ]
+        },
+        "form_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "addon": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "feed": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notification": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confirmation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "user_impact": {
+      "type": "string"
+    },
+    "business_impact": {
+      "type": "string"
+    },
+    "recommended_fix": {
+      "type": "string"
+    },
+    "owner_recommendation": {
+      "type": "string"
+    },
+    "handoff_required": {
+      "type": "boolean"
+    },
+    "effort": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "unknown"
+      ]
+    },
+    "retest_step": {
+      "type": "string"
+    }
+  }
+}

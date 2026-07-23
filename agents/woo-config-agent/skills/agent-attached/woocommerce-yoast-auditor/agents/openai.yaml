@@ -1,7 +1,7 @@
 interface:
   display_name: WooCommerce Yoast Auditor
-  short_description: Audit WooCommerce Yoast SEO setups, product SEO output, launch
-    readiness and developer handoffs.
+  short_description: Audit Yoast SEO setups for WordPress sites running WooCommerce core and
+    extension plugins, including product SEO output and launch readiness.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:

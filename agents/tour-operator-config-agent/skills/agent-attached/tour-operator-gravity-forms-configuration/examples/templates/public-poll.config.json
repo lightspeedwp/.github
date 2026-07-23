@@ -1,0 +1,55 @@
+{
+  "form_name": "Public Poll",
+  "purpose": "Collect quick audience preference feedback and optionally display poll results.",
+  "audience": "Safari visitors or readers",
+  "source_template": "custom LightSpeed public poll pattern",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Poll question",
+      "type": "poll",
+      "required": true
+    },
+    {
+      "id": 2,
+      "label": "Optional comment",
+      "type": "textarea",
+      "required": false
+    }
+  ],
+  "field_settings": {
+    "labels": "visible"
+  },
+  "conditional_logic": [],
+  "confirmations": [
+    "Thank voter; show or hide result according to approved setting."
+  ],
+  "notifications": [
+    "Optional internal notification if moderation or editorial follow-up is needed."
+  ],
+  "feeds": [
+    "Polls Add-On result handling only; avoid using poll results as high-stakes decision evidence."
+  ],
+  "embedding_target": "Article/sidebar/page embed; validate block/shortcode display and duplicate embed risk.",
+  "data_retention_notes": "May include IP/session metadata and optional comments. Do not call anonymous if identifying fields or tracking IDs are collected.",
+  "test_data": {
+    "vote_case": "Single poll response",
+    "repeat_case": "Repeat visitor/reload behaviour"
+  },
+  "required_addons": [
+    "Gravity Forms Polls Add-On"
+  ],
+  "risks": [
+    "Public results can influence later responses.",
+    "Cache/CDN may affect stale result display.",
+    "Polls are not high-integrity voting systems by default."
+  ],
+  "spam_settings": {
+    "honeypot": true,
+    "recommended": "Use layered spam protection appropriate for public feedback forms."
+  },
+  "accessibility_settings": {
+    "labels": "Visible labels required. Scale choices need plain-language labels."
+  },
+  "approval_status": "draft"
+}

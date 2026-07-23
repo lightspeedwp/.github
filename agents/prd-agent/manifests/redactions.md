@@ -35,9 +35,7 @@
 [![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
 <!-- BADGES-END -->
 
-| File | Approximate location | Type of sensitive value removed | Replacement marker |
-| --- | --- | --- | --- |
-| *None* | *N/A* | *N/A* | *N/A* |
+No credential-like values were detected by the export scanner, so no redactions were made.
 
 ---
 
