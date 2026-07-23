@@ -1,314 +1,146 @@
-# PHASE 2 BATCH PROMPTS: Agents 5-14
-
-Quick reference prompts for agents 5 through 14. Each follows the standard 8-phase process from PROMPT_2_GENERIC_AGENT_REWRITE.md.
-
----
-
-## Agent 5: Design Partner Agent
-
-**Location:** `.github/agents/design-partner-agent/`  
-**Domain:** design  
-**Focus:** partner-collaboration  
-**Purpose:** Collaborate on design decisions, provide design guidance, and manage design workflows  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Design consultation & guidance
-- Design system management
-- UI/UX review & feedback
-- Accessibility assessment (WCAG 2.2 AA)
-- Design documentation
-- Figma integration
-
-**Tools/Skills:**
-- design-review, accessibility-checker, design-system-validator
-- figma-integration, component-library-management
-- accessibility-assessment, wcag-compliance
-
-**Plugin:** `lightspeed-design-partner`
-
----
-
-## Agent 6: Proposal Desk Agent
-
-**Location:** `.github/agents/proposal-desk-agent/`  
-**Domain:** proposals  
-**Focus:** proposal-generation  
-**Purpose:** Create, manage, and track client proposals and project quotes  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Proposal template generation
-- Quote creation & estimation
-- Project scope definition
-- Client communication
-- Proposal tracking & status
-- Invoice generation
-
-**Tools/Skills:**
-- proposal-create, proposal-template, quote-generator
-- scope-estimator, timeline-planner, invoice-generator
-- proposal-tracker, client-communication
-
-**Plugin:** `lightspeed-proposals`
-
----
-
-## Agent 7: Client Website Discovery Assistant
-
-**Location:** `.github/agents/client-website-discovery-assistant-agent/`  
-**Domain:** discovery  
-**Focus:** website-assessment  
-**Purpose:** Analyze client websites, identify needs, and recommend improvements  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Website audit & analysis
-- Competitor analysis
-- Feature gap analysis
-- UX assessment
-- Performance analysis
-- Recommendation generation
-
-**Tools/Skills:**
-- website-analyzer, seo-auditor, performance-tester
-- ux-assessor, competitor-analyzer, recommendation-engine
-- report-generator, improvement-roadmap
-
-**Plugin:** `lightspeed-discovery-services`
-
----
-
-## Agent 8: Website Scope Estimator
-
-**Location:** `.github/agents/website-scope-estimator-agent/`  
-**Domain:** estimation  
-**Focus:** project-scoping  
-**Purpose:** Estimate website project scope, timeline, and resource requirements  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Feature scope analysis
-- Effort estimation
-- Timeline generation
-- Resource planning
-- Budget estimation
-- Risk assessment
-- Complexity calculation
-
-**Tools/Skills:**
-- scope-analyzer, effort-estimator, timeline-planner
-- resource-calculator, budget-estimator, risk-assessor
-- estimation-validator, recommendation-generator
-
-**Plugin:** `lightspeed-estimation-services`
-
----
-
-## Agent 9: Website Content Strategist
-
-**Location:** `.github/agents/website-content-strategist-agent/`  
-**Domain:** content  
-**Focus:** content-strategy  
-**Purpose:** Develop content strategies, audit content, and create content roadmaps  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Content strategy development
-- Content audit & analysis
-- Content gap analysis
-- SEO content optimization
-- Content calendar generation
-- Content template creation
-- User journey mapping
-
-**Tools/Skills:**
-- content-strategist, content-auditor, gap-analyzer
-- seo-optimizer, keyword-researcher, content-planner
-- user-journey-mapper, content-template-generator
-
-**Plugin:** `lightspeed-content-strategy`
-
----
-
-## Agent 10: PageSpeed Agent
-
-**Location:** `.github/agents/pagespeed-agent/`  
-**Domain:** performance  
-**Focus:** performance-optimization  
-**Purpose:** Analyze page performance, identify bottlenecks, and recommend optimizations  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Performance analysis (Core Web Vitals)
-- Load time optimization
-- Resource optimization
-- Caching strategy
-- CDN optimization
-- Image optimization
-- Code optimization
-
-**Tools/Skills:**
-- pagespeed-analyzer, performance-tester, bottleneck-detector
-- optimization-recommender, caching-strategist, cdn-optimizer
-- image-optimizer, code-minifier, bundle-analyzer
-
-**Plugin:** `lightspeed-performance-optimization`
-
----
-
-## Agent 11: Linear Advisor Agent
-
-**Location:** `.github/agents/linear-advisor-agent/`  
-**Domain:** project-management  
-**Focus:** linear-integration  
-**Purpose:** Manage Linear issues, projects, and workflows; provide issue resolution guidance  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Linear issue management
-- Project planning & tracking
-- Issue workflow automation
-- Release planning
-- Sprint management
-- Team coordination
-- Issue analysis & resolution guidance
-
-**Tools/Skills:**
-- linear-api-client, issue-manager, project-planner
-- sprint-organizer, release-planner, workflow-automator
-- issue-analyzer, resolution-recommender
-
-**Plugin:** `lightspeed-project-management-linear`
-
----
-
-## Agent 12: Harvest Analytical Agent
-
-**Location:** `.github/agents/harvest-analytical-agent/`  
-**Domain:** analytics  
-**Focus:** time-tracking-analysis  
-**Purpose:** Analyze time tracking data, generate reports, and provide insights on team productivity  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Time tracking data analysis
-- Project profitability analysis
-- Team productivity metrics
-- Budget utilization tracking
-- Report generation (daily, weekly, monthly)
-- Billing & invoice generation
-- Insights & recommendations
-
-**Tools/Skills:**
-- harvest-api-client, data-analyzer, report-generator
-- productivity-metrics, profitability-calculator, billing-generator
-- insights-engine, trend-analyzer, recommendation-engine
-
-**Plugin:** `lightspeed-time-tracking-analytics`
-
----
-
-## Agent 13: Zendesk Support Agent
-
-**Location:** `.github/agents/zendesk-support-agent/`  
-**Domain:** support  
-**Focus:** customer-support  
-**Purpose:** Manage support tickets, provide customer assistance, and improve support workflows  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- Support ticket management
-- Customer communication
-- Issue resolution guidance
-- Knowledge base creation
-- Support metrics & reporting
-- Workflow automation
-- FAQ generation
-
-**Tools/Skills:**
-- zendesk-api-client, ticket-manager, issue-resolver
-- knowledge-base-creator, faq-generator, communication-helper
-- metrics-analyzer, workflow-automator, satisfaction-tracker
-
-**Plugin:** `lightspeed-support-zendesk`
-
----
-
-## Agent 14: AI Readiness Estimator
-
-**Location:** `.github/agents/ai-readiness-estimator-agent/`  
-**Domain:** assessment  
-**Focus:** ai-readiness  
-**Purpose:** Assess client readiness for AI/ML implementation and provide recommendations  
-**Effort:** 2-4 hours
-
-**Key Capabilities:**
-- AI readiness assessment
-- Data maturity analysis
-- Infrastructure assessment
-- Team capability analysis
-- Implementation roadmap
-- Risk & opportunity assessment
-- ROI estimation
-
-**Tools/Skills:**
-- readiness-assessor, data-analyzer, infrastructure-evaluator
-- capability-assessor, roadmap-planner, risk-analyzer
-- roi-calculator, recommendation-engine, gap-identifier
-
-**Plugin:** `lightspeed-assessment-ai-readiness`
-
----
-
-## EXECUTION PATTERN
-
-**For each agent (5-14):**
-
-1. **Analyze** current export folder
-2. **Create** new folder structure (claude/, copilot/, openai/, shared/)
-3. **Write** AGENT.md specification
-4. **Create** core prompt (provider-agnostic)
-5. **Create** provider configs (Claude, Copilot, OpenAI)
-6. **Define** tools/functions per provider
-7. **Create** plugin with all configs
-8. **Validate** & test before merge
-
----
-
-## QUICK CHECKLIST (Per Agent)
-
-- [ ] Analysis complete
-- [ ] Folder structure created
-- [ ] AGENT.md written & validated
-- [ ] Core prompt created
-- [ ] Provider configs created
-- [ ] Tool definitions specified
-- [ ] Plugin created
-- [ ] Schema validation passing
-- [ ] Hook validation passing
-- [ ] Tests passing
-- [ ] PR merged to develop
-
----
-
-## TIMELINE (Per Agent)
-
-Each agent: **2-4 hours**
-- Agents 5-10: ~15-20 hours total
-- Agents 11-14: ~8-12 hours total
-- **Total Agents 5-14: ~23-32 hours**
-
----
-
-## REFERENCE
-
-**Use PROMPT_2_GENERIC_AGENT_REWRITE.md for:**
-- Detailed 8-phase breakdown
-- Task-by-task instructions
-- Template examples
-- Validation procedures
-
----
-
-**All agents follow the same standardization process. Adapt parameter map and capabilities for each agent, then execute 8 phases.**
+# PHASE 2 BATCH PROMPT: Agents 5–14 (ten agents, one branch)
+
+> **Self-contained brief for a fresh Claude Code chat.** This branch standardises
+> **ten** agents in a single PR, so it is the largest of the four (~10,000+ lines
+> of real content when done properly). Read the playbook first, then work agent
+> by agent, verifying each on disk before moving on.
+
+| | |
+| --- | --- |
+| **Scope** | 10 agents (see table) |
+| **Branch** | `feat/agent-standards-batch-5-14` |
+| **PR** | [#1143](https://github.com/lightspeedwp/.github/pull/1143) |
+| **Base** | `develop` |
+
+## Required reading (in order)
+
+1. **`PHASE_2_EXECUTION_PLAYBOOK.md`** — real-content rules + verification, the
+   six pre-existing `develop` CI blockers + fixes, commit/push mechanics, PR-body
+   template, merge protocol, definition of done. **Do not skip.**
+2. `agents/woo-config-agent/` — the Phase 2 **reference implementation**. Copy
+   its shape and depth for every agent here.
+3. `PROMPT_2_GENERIC_AGENT_REWRITE.md` — detailed per-phase templates.
+
+## Current state (as of hand-off)
+
+- Branch exists and is pushed; PR #1143 is open against `develop`.
+- ⚠️ **All ten agents are stub/foundation-level only** — a prior run reported
+  them complete but wrote near-empty files. Each agent needs real content per the
+  playbook §0 line floors. Realistic budget: **10 × ~1,000+ lines ≈ 10,000+
+  lines**. Do **not** claim completion without pasting the per-agent
+  line-count verification.
+- All six pre-existing `develop` CI blockers (playbook §2) apply to this branch.
+- Because ten agents ride one PR, the `CHANGELOG.md` entry and PR body should
+  cover all ten and link all ten issues.
+
+## The ten agents and their issues
+
+| # | Agent | Slug (`agents/{slug}-agent/`) | Issue | Plugin |
+| --- | --- | --- | --- | --- |
+| 1 | Design Partner | `design-partner` | [#1090](https://github.com/lightspeedwp/.github/issues/1090) | `lightspeed-design-partner` |
+| 2 | Proposal Desk | `proposal-desk` | [#1096](https://github.com/lightspeedwp/.github/issues/1096) | `lightspeed-proposals` |
+| 3 | Client Website Discovery Assistant | `client-website-discovery-assistant` | [#1089](https://github.com/lightspeedwp/.github/issues/1089) | `lightspeed-discovery-services` |
+| 4 | Website Scope Estimator | `website-scope-estimator` | [#1100](https://github.com/lightspeedwp/.github/issues/1100) | `lightspeed-estimation-services` |
+| 5 | Website Content Strategist | `website-content-strategist` | [#1099](https://github.com/lightspeedwp/.github/issues/1099) | `lightspeed-content-strategy` |
+| 6 | PageSpeed | `pagespeed` | [#1093](https://github.com/lightspeedwp/.github/issues/1093) | `lightspeed-performance-optimization` |
+| 7 | Linear Advisor | `linear-advisor` | [#1092](https://github.com/lightspeedwp/.github/issues/1092) | `lightspeed-project-management-linear` |
+| 8 | Harvest Analytical | `harvest-analytical` | [#1091](https://github.com/lightspeedwp/.github/issues/1091) | `lightspeed-time-tracking-analytics` |
+| 9 | Zendesk Support | `zendesk-support` | [#1103](https://github.com/lightspeedwp/.github/issues/1103) | `lightspeed-support-zendesk` |
+| 10 | AI Readiness Estimator | `ai-readiness-estimator` | [#1088](https://github.com/lightspeedwp/.github/issues/1088) | `lightspeed-assessment-ai-readiness` |
+
+> Note: the PRD Agent (#1094) and PRD Factory Planner (#1095) are **not** in this
+> batch — they were merged separately as the combined PRD agent (PR #1139).
+
+## Per-agent capabilities & tools
+
+Each agent gets the full nine-file structure (playbook §1) with real content at
+the §0 floors. Domain, capabilities, and tool/skill/function names per agent:
+
+**1. Design Partner** (`design`, partner-collaboration) — design consultation,
+design-system management, UI/UX review, WCAG 2.2 AA accessibility assessment,
+design documentation, Figma integration.
+Tools: `design_review`, `accessibility_checker`, `design_system_validator`,
+`figma_context`, `component_library_manager`, `wcag_auditor`.
+
+**2. Proposal Desk** (`proposals`, proposal-generation) — proposal templates,
+quote/estimation, scope definition, client communication, proposal tracking,
+invoice generation.
+Tools: `proposal_create`, `quote_generator`, `scope_estimator`,
+`timeline_planner`, `invoice_generator`, `proposal_tracker`.
+
+**3. Client Website Discovery Assistant** (`discovery`, website-assessment) —
+website audit, competitor analysis, feature-gap analysis, UX assessment,
+performance analysis, recommendation generation.
+Tools: `website_analyzer`, `seo_auditor`, `performance_tester`, `ux_assessor`,
+`competitor_analyzer`, `recommendation_engine`.
+
+**4. Website Scope Estimator** (`estimation`, project-scoping) — feature-scope
+analysis, effort estimation, timeline generation, resource planning, budget
+estimation, risk assessment.
+Tools: `scope_analyzer`, `effort_estimator`, `timeline_planner`,
+`resource_calculator`, `budget_estimator`, `risk_assessor`.
+
+**5. Website Content Strategist** (`content`, content-strategy) — content
+strategy, content audit, gap analysis, SEO optimisation, content-calendar
+generation, user-journey mapping.
+Tools: `content_strategist`, `content_auditor`, `gap_analyzer`, `seo_optimizer`,
+`keyword_researcher`, `content_planner`.
+
+**6. PageSpeed** (`performance`, performance-optimization) — Core Web Vitals
+analysis, load-time optimisation, resource optimisation, caching strategy, CDN,
+image optimisation.
+Tools: `pagespeed_analyzer`, `bottleneck_detector`, `optimization_recommender`,
+`caching_strategist`, `cdn_optimizer`, `image_optimizer`.
+
+**7. Linear Advisor** (`project-management`, linear-integration) — issue
+management, project planning, workflow automation, release planning, sprint
+management, resolution guidance. (Linear MCP available in this workspace.)
+Tools: `linear_client`, `issue_manager`, `project_planner`, `sprint_organizer`,
+`release_planner`, `workflow_automator`.
+
+**8. Harvest Analytical** (`analytics`, time-tracking-analysis) — time-tracking
+analysis, project profitability, productivity metrics, budget utilisation,
+report generation, billing/insights. (Harvest MCP available in this workspace.)
+Tools: `harvest_client`, `time_data_analyzer`, `profitability_calculator`,
+`productivity_reporter`, `budget_tracker`, `insights_engine`.
+
+**9. Zendesk Support** (`support`, customer-support) — ticket management,
+customer communication, resolution guidance, knowledge-base/FAQ creation,
+support metrics, workflow automation.
+Tools: `zendesk_client`, `ticket_manager`, `response_generator`,
+`kb_creator`, `sentiment_analyzer`, `escalation_router`.
+
+**10. AI Readiness Estimator** (`assessment`, ai-readiness) — readiness
+assessment, data-maturity analysis, infrastructure evaluation, team-capability
+analysis, implementation roadmap, risk/ROI.
+Tools: `readiness_assessor`, `data_quality_checker`, `infrastructure_evaluator`,
+`capability_assessor`, `roadmap_generator`, `roi_calculator`.
+
+## How to work this batch
+
+Work **one agent at a time**, and verify each on disk before starting the next
+(playbook §0 verification loop). Commit in logical groups (e.g. per agent or per
+few agents) with `--no-verify` (playbook §3). This keeps context manageable and
+prevents the stub failure mode from recurring silently.
+
+For real MCP-backed agents (Linear #7, Harvest #8), inspect the live MCP tools
+available in the workspace and reflect the actual tool surface in the configs.
+
+## Success criteria (verified, not claimed)
+
+- [ ] All 10 agents have the nine files, each meeting the playbook §0 floors;
+      the per-agent `wc -l` verification output is pasted in the PR.
+- [ ] Every `tools.json` / `skills.yaml` across all 10 agents parses.
+- [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter` pass.
+- [ ] All six playbook §2 CI blockers resolved on this branch; `npm ci --dry-run` clean.
+- [ ] All 10 agent plugin packages exist (`plugins/lightspeed-{domain}-{focus}/` for each agent)
+      with README.md (60+ lines), INSTALL.md (80+ lines), manifests; all JSON/YAML parses cleanly.
+- [ ] `CHANGELOG.md` has an `### Added` entry covering the batch and linking all
+      ten issues (#1088–#1093, #1096, #1099, #1100, #1103).
+- [ ] PR body has the three required sections and lists all ten `Closes #…`
+      references; `validate-pr-template` green.
+- [ ] CI green (or only the acknowledged footers item, handled per playbook §2.5).
+- [ ] Squash-merged to `develop`, branch deleted, all ten issues closed.
+
+**Begin:** read the playbook, read `agents/woo-config-agent/`, then standardise
+agent #1 (Design Partner), verify it on disk, and proceed down the table.

@@ -39,7 +39,7 @@ Epic: GitHub Projects — Bulk Creation & Template-Driven Initialization
 
 ## Summary
 
-Teams need a way to **bulk-create GitHub Projects** with **template-driven field initialisation**. Currently:
+Teams need a way to **bulk-create GitHub Projects** with **template-driven field initialization**. Currently:
 - Creating projects is manual and error-prone
 - Field initialization is incomplete (no automations, no views)
 - Each team invents their own structure
@@ -194,7 +194,7 @@ Story: Initialize Client Delivery Project Template with Fields, Automations & Vi
 - [x] Field mapping documented: 14 fields with canonical values from issue-fields.yml
 - [x] Automations defined: 5 core rules
 - [x] Views documented: 9 views including UAT (Client)
-- [ ] Parent Epic #[TBD] created and linked
+- [x] Parent Epic #[TBD] created and linked
 - [x] Dependencies clear: #1145, #1146
 - [x] Test plan: CSV fixture, dry-run, live creation
 
@@ -352,7 +352,7 @@ Implement the **Product Development Project Template** — a release-train frame
 - Branching: develop + release/ branches
 - Fields: 14 core fields + optional Iteration (2-week sprints)
 - Automations: 5 core rules + future release-aware enhancements
-- Views: 9 views total (8 required + 1 optional Iteration Board; Release Gate for go/no-go, Tech Debt for refactors, Roadmap for forecasting)
+- Views: 9 views (Release Gate for go/no-go, Tech Debt for refactors, Roadmap for forecasting)
 
 ## Acceptance Criteria
 
