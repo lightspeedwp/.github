@@ -1,0 +1,154 @@
+[
+  {
+    "name": "linear-api-client",
+    "description": "Linear Api Client for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for linear-api-client"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "issue-manager",
+    "description": "Issue Manager for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for issue-manager"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "project-planner",
+    "description": "Project Planner for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for project-planner"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "sprint-organizer",
+    "description": "Sprint Organizer for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for sprint-organizer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "release-planner",
+    "description": "Release Planner for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for release-planner"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "workflow-automator",
+    "description": "Workflow Automator for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for workflow-automator"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "status-reporter",
+    "description": "Status Reporter for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for status-reporter"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "team-coordinator",
+    "description": "Team Coordinator for linear-advisor workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for team-coordinator"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  }
+]

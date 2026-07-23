@@ -1,0 +1,67 @@
+skills:
+  - id: harvest-api-client
+    name: "Harvest Api Client"
+    description: "Harvest Api Client capability for harvest-analytical workflows"
+    commands:
+      - "harvest-api-client"
+      - "use-harvest-api-client"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: time-data-analyzer
+    name: "Time Data Analyzer"
+    description: "Time Data Analyzer capability for harvest-analytical workflows"
+    commands:
+      - "time-data-analyzer"
+      - "use-time-data-analyzer"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: profitability-calculator
+    name: "Profitability Calculator"
+    description: "Profitability Calculator capability for harvest-analytical workflows"
+    commands:
+      - "profitability-calculator"
+      - "use-profitability-calculator"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: productivity-reporter
+    name: "Productivity Reporter"
+    description: "Productivity Reporter capability for harvest-analytical workflows"
+    commands:
+      - "productivity-reporter"
+      - "use-productivity-reporter"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: budget-tracker
+    name: "Budget Tracker"
+    description: "Budget Tracker capability for harvest-analytical workflows"
+    commands:
+      - "budget-tracker"
+      - "use-budget-tracker"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: invoice-generator
+    name: "Invoice Generator"
+    description: "Invoice Generator capability for harvest-analytical workflows"
+    commands:
+      - "invoice-generator"
+      - "use-invoice-generator"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
