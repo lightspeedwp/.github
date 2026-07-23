@@ -58,7 +58,7 @@ Report the file path and token for each finding.
 ### 4. Style Variation Check
 
 - Confirm `styles/dark.json` is valid JSON.
-- Confirm any additional `styles/*.json` variation files are valid JSON.
+- Confirm all `styles/**/*.json` variation files (including nested paths like `styles/blocks/<slug>.json` and `styles/sections/<subfolder>/<slug>.json`) are valid JSON.
 - Confirm colour references use slugs defined in `theme.json`.
 
 ### 5. Sass and CSS Workflow Check
