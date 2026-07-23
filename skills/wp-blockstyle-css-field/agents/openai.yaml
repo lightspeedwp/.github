@@ -1,0 +1,4 @@
+interface:
+  display_name: "WP Block-Style CSS Field"
+  short_description: "Author block-style variation JSON given the css field's sanitisation and zero-specificity limits."
+  default_prompt: "Use $wp-blockstyle-css-field to author or debug a WordPress block-style JSON partial."

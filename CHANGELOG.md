@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-22"
+last_updated: "2026-07-23"
 owners:
   - LightSpeed Team
 tags:
@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **KWV project skills contributed to `skills/design-md-agent/`** — Fleshed out 8 previously-stubbed Figma→`theme.json` skills with the full working instructions developed on the KWV build — `figma-themejson-palette`, `figma-themejson-spacing`, `figma-themejson-typography`, `figma-themejson-radius`, `figma-themejson-shadow`, `figma-themejson-style-variations`, `theme-color-token-enforcer`, and `themejson-extractor-orchestrator` (existing frontmatter and `agents/openai.yaml` interface configs preserved; only the empty bodies were filled in). Added 11 new WordPress block-theme skills from the same project — `block-theme-audit`, `pattern-extractor`, `theme-orphaned-refs`, `themejson-completion`, `agency-scope-change-control`, `wp-agency-project-bootstrap`, `wp-blockstyle-css-field`, `wp-db-override-reconciliation`, `wp-mcp-wpcli-ops`, `wp-pattern-runtime-pitfalls`, and `wp-thirdparty-markup-styling` — each with a `SKILL.md` (frontmatter + LightSpeedWP footer), an `agents/openai.yaml`, and supporting `references/`/`scripts/` where applicable. ([PR #1149](https://github.com/lightspeedwp/.github/pull/1149))
 - **Multi-provider agent standardization — Phase 1 pilot (Playwright Testing Agent)** — Converted the `agents/playwright-testing-agent/` ChatGPT/Codex export into a standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added a provider-agnostic `AGENT.md` and `shared/core-prompt.md` (faithful to the real WordPress/WooCommerce test-pack-builder, review-before-code workflow), per-provider configs and tool/skill definitions (`claude/`, `copilot/`, `openai/`), and agent-level `.github/` metadata (INSTALL, MANIFEST, security-policy); the original export is preserved in place. Packaged as the new `plugins/lightspeed-playwright-testing/` plugin (four provider manifests, registered in `PLUGIN_MANIFEST.json`). Added four JSON schemas (`multi-provider-agent`, `agent-plugin-binding`, `provider-config`, `agent-capability-manifest`) with examples and registry entries; four validation hooks (`agent-spec-validator`, `multi-provider-consistency-checker`, `plugin-integrity-checker`, `agent-security-auditor`) with unit tests and registry entries; four instruction files and a cookbook playbook. Establishes the reusable pattern for the remaining 15 agents. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108); [#1087](https://github.com/lightspeedwp/.github/issues/1087), [#1104](https://github.com/lightspeedwp/.github/issues/1104), [#1105](https://github.com/lightspeedwp/.github/issues/1105), [#1106](https://github.com/lightspeedwp/.github/issues/1106), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
 ### Fixed
