@@ -30,26 +30,123 @@ Claude excels at:
 
 ## Available Tools
 
-1. **zendesk-api-client**
-2. **ticket-manager**
-3. **response-generator**
-4. **knowledge-base-searcher**
-5. **sentiment-analyzer**
-6. **escalation-router**
+1. **zendesk-api-client** – Query ticket and customer data
+2. **ticket-manager** – Create and update tickets
+3. **response-generator** – Draft professional responses
+4. **knowledge-base-searcher** – Find relevant solutions
+5. **sentiment-analyzer** – Assess customer sentiment
+6. **escalation-router** – Route complex issues
 
-## Integration Patterns
+## Tool Capabilities
 
-### Core Integration
+### zendesk-api-client
+- List and search tickets
+- Retrieve customer history
+- Get organization information
+- Filter by status, priority, tags
 
-Claude calls tools to analyze data and provide recommendations.
+### ticket-manager
+- Create new tickets
+- Update ticket properties
+- Close tickets
+- Add comments and updates
+
+### response-generator
+- Generate professional responses
+- Multiple tone options
+- KB article integration
+- Alternative phrasing suggestions
+
+### knowledge-base-searcher
+- Full-text search
+- Category filtering
+- Relevance scoring
+- Article recommendations
+
+### sentiment-analyzer
+- Emotion detection
+- Frustration assessment
+- Satisfaction scoring
+- Emotional triggers
+
+### escalation-router
+- Routing recommendations
+- Team assignment
+- SLA consideration
+- Complexity assessment
+
+## Multi-Tool Workflows
+
+### Response Assistance Workflow
+1. Use `zendesk-api-client` to get ticket context
+2. Use `knowledge-base-searcher` for relevant articles
+3. Use `response-generator` to draft response
+4. Use `sentiment-analyzer` to assess tone
+5. Provide refined response recommendations
+
+### Escalation Workflow
+1. Use `sentiment-analyzer` to assess urgency
+2. Use `zendesk-api-client` to get history
+3. Use `escalation-router` to determine team
+4. Provide escalation recommendations
 
 ## Response Format
 
 Claude provides structured responses including:
-- Analysis and findings
-- Actionable recommendations
-- Implementation guidance
-- Success criteria
+
+### Ticket Response
+```markdown
+## Response Draft
+[Professional response text]
+
+## KB References
+- [Article 1]
+- [Article 2]
+
+## Sentiment Analysis
+- Customer emotion: Frustrated
+- Satisfaction score: 3/5
+
+## Alternative Phrasings
+[Alternatives provided]
+```
+
+### Escalation Analysis
+```markdown
+## Escalation Recommendation
+- Route to: [Team name]
+- Reason: [Complexity assessment]
+- SLA: [Time requirement]
+- Priority: [Assessment]
+```
+
+## Advanced Features
+
+### Response Quality Assessment
+- Tone appropriateness
+- Clarity and completeness
+- Empathy indicators
+- Solution focus
+
+### Customer Intent Analysis
+- Problem identification
+- Emotional state assessment
+- Priority determination
+- Hidden concerns
+
+### Pattern Recognition
+- Common issue identification
+- Trend analysis
+- Gap identification
+- KB coverage assessment
+
+## Error Handling
+
+Claude handles errors gracefully:
+- Missing customer history
+- KB article gaps
+- Sentiment ambiguity
+- Routing complexity
 
 ## Related Documentation
 

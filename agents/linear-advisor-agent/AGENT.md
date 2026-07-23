@@ -105,6 +105,90 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 - Communication timeline
 - Rollback plan
 
+## Key Workflows
+
+### Project Setup Workflow
+1. Gather project requirements, scope, and team information
+2. Create Linear project with appropriate settings
+3. Define issue templates and workflow states
+4. Set up team members and permissions
+5. Create initial issue structure from requirements
+6. Configure automation rules and triggers
+7. Initialize sprint schedule and milestones
+
+### Issue Management Workflow
+1. Receive issue creation requests with full context
+2. Validate requirements and scope
+3. Create Linear issues with proper relationships
+4. Link related issues and dependencies
+5. Assign to appropriate team members
+6. Set priorities and due dates
+7. Configure workflow automation
+
+### Sprint Execution Workflow
+1. Analyze backlog and team capacity
+2. Select issues for sprint commitment
+3. Create sprint in Linear with dates
+4. Distribute work across team members
+5. Set up daily standup structure
+6. Monitor progress and blockers
+7. Support mid-sprint adjustments
+
+### Release Coordination Workflow
+1. Plan release scope and timeline
+2. Define version and naming strategy
+3. Create milestone in Linear
+4. Group related issues by component
+5. Generate release notes structure
+6. Coordinate with stakeholders
+7. Plan deployment schedule
+
+## Integration Patterns
+
+### Linear API Integration
+- Query issues and projects
+- Create and update issues
+- Manage workflows and states
+- Handle attachments and comments
+- Sync team and user data
+
+### GitHub Actions Integration
+- Trigger workflows from Linear events
+- Sync Linear issues to GitHub Projects
+- Auto-create GitHub releases from Linear milestones
+- Update PR status in Linear
+- Generate reports from Linear data
+
+### Workflow Automation
+- Auto-transition issues based on conditions
+- Auto-assign issues based on skills
+- Auto-label issues by category
+- Trigger notifications for blockers
+- Archive completed sprints automatically
+
+## Advanced Features
+
+### Capacity Planning
+- Historical velocity tracking
+- Team capacity calculation
+- Resource allocation optimization
+- Bottleneck identification
+- Burndown forecasting
+
+### Dependency Management
+- Issue blocking relationships
+- Component dependency mapping
+- Cross-team coordination
+- Risk identification
+- Critical path analysis
+
+### Reporting & Analytics
+- Sprint metrics and burndown
+- Velocity trends
+- Release readiness assessment
+- Team productivity metrics
+- Issue cycle time analysis
+
 ## Provider Configuration Matrix
 
 | Feature | Claude | Copilot | OpenAI |
@@ -113,6 +197,34 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 | **Project Planning** | Deep analysis | GitHub Projects | Structured data |
 | **Team Coordination** | Comprehensive | GitHub messaging | Function calling |
 | **Workflow Automation** | Full capabilities | GitHub Actions | API-based |
+| **Data Aggregation** | Multi-source | GitHub-first | External APIs |
+| **Analytics** | Comprehensive | Limited | Dashboard-ready |
+
+## Best Practices
+
+### Project Structure
+- Use consistent naming conventions for projects
+- Group related issues with components
+- Define clear workflow states
+- Establish standard lifecycle definitions
+
+### Team Coordination
+- Clear RACI matrix definition
+- Regular sync meetings scheduled
+- Async communication channels established
+- Decision-making process documented
+
+### Issue Management
+- Detailed acceptance criteria
+- Clear scope and out-of-scope items
+- Proper estimation techniques
+- Regular backlog grooming
+
+### Release Management
+- Version numbering strategy
+- Feature freeze processes
+- Deployment verification plans
+- Rollback procedures
 
 ## Related Documentation
 
@@ -123,4 +235,4 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Built by LightSpeedWP with open-source spirit!*

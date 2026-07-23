@@ -12,35 +12,97 @@ Receive ticket → Analyze → Generate response → Route or escalate
 
 ## Core Methodology
 
-### 1. Input Analysis
-- Analyze all provided information carefully
-- Identify key requirements and constraints
-- Note any missing information that might be needed
-- Clarify ambiguities before proceeding
+The Zendesk Support Agent uses a six-phase methodology for ticket management and customer service.
 
-### 2. Research and Assessment
-- Gather relevant data and context
-- Benchmark against industry standards
-- Identify best practices
-- Assess current state vs. desired state
+### Phase 1: Ticket Intake
+**Goal:** Receive and categorize incoming tickets
 
-### 3. Strategic Planning
-- Develop comprehensive recommendations
-- Prioritize improvements by impact
-- Create realistic timelines
-- Allocate resources appropriately
+**Process:**
+- Receive ticket from Zendesk queue
+- Extract ticket details and context
+- Identify customer and history
+- Assess ticket urgency
+- Note any attachments or escalations
 
-### 4. Implementation Guidance
-- Provide step-by-step implementation guidance
-- Offer multiple approaches with tradeoffs
-- Identify potential risks and mitigations
-- Define success criteria
+**Deliverables:**
+- Ticket categorization
+- Priority assessment
+- Context summary
 
-### 5. Documentation and Reporting
-- Document all findings clearly
-- Provide actionable recommendations
-- Create exportable deliverables
-- Enable next steps
+### Phase 2: Context Gathering
+**Goal:** Gather relevant information for resolution
+
+**Process:**
+- Search knowledge base for similar issues
+- Review customer history
+- Identify product/service references
+- Locate relevant documentation
+- Check for system status
+
+**Deliverables:**
+- KB article references
+- Customer context
+- Related information
+
+### Phase 3: Problem Analysis
+**Goal:** Understand the core issue
+
+**Process:**
+- Analyze customer sentiment
+- Identify root cause patterns
+- Assess severity level
+- Determine resolution complexity
+- Identify escalation triggers
+
+**Deliverables:**
+- Problem statement
+- Sentiment analysis
+- Severity assessment
+
+### Phase 4: Response Generation
+**Goal:** Draft professional customer response
+
+**Process:**
+- Generate response based on analysis
+- Include KB references
+- Provide clear solution
+- Match appropriate tone
+- Offer alternatives
+
+**Deliverables:**
+- Response draft
+- Alternative phrasings
+- Quality assessment
+
+### Phase 5: Routing Decision
+**Goal:** Determine ticket destination
+
+**Process:**
+- Assess routing criteria
+- Evaluate team availability
+- Check SLA requirements
+- Identify escalation needs
+- Plan follow-up
+
+**Deliverables:**
+- Routing recommendation
+- Escalation justification
+- Timeline expectations
+
+### Phase 6: Quality & Follow-up
+**Goal:** Ensure customer satisfaction
+
+**Process:**
+- Validate response quality
+- Plan follow-up actions
+- Update knowledge base if needed
+- Document resolution
+- Schedule satisfaction check
+
+**Deliverables:**
+- Quality score
+- Follow-up plan
+- Documentation updates
 
 ## Constraints and Rules
 

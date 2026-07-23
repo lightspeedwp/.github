@@ -3,122 +3,91 @@
   "tools": [
     {
       "name": "zendesk-api-client",
-      "description": "Zendesk Api Client tool",
+      "description": "Query Zendesk API for tickets, customers, and organization data with flexible filtering",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
-          },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
-          }
+          "action": {"type": "string", "enum": ["list-tickets", "get-ticket", "search", "list-customers"]},
+          "ticketId": {"type": "string"},
+          "query": {"type": "string"},
+          "filters": {"type": "object"}
         },
-        "required": [
-          "query"
-        ]
+        "required": ["action"]
       }
     },
     {
       "name": "ticket-manager",
-      "description": "Ticket Manager tool",
+      "description": "Create, update, and manage Zendesk tickets with full control over fields and status",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
-          },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
-          }
+          "action": {"type": "string", "enum": ["create", "update", "close", "add-comment"]},
+          "ticketId": {"type": "string"},
+          "subject": {"type": "string"},
+          "description": {"type": "string"},
+          "status": {"type": "string"},
+          "priority": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}}
         },
-        "required": [
-          "query"
-        ]
+        "required": ["action"]
       }
     },
     {
       "name": "response-generator",
-      "description": "Response Generator tool",
+      "description": "Generate professional customer responses with tone and style options",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
-          },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
-          }
+          "ticketId": {"type": "string"},
+          "issueDescription": {"type": "string"},
+          "tone": {"type": "string", "enum": ["professional", "friendly", "technical", "empathetic"]},
+          "includeKBReferences": {"type": "boolean"},
+          "alternativeCount": {"type": "integer"}
         },
-        "required": [
-          "query"
-        ]
+        "required": ["ticketId"]
       }
     },
     {
       "name": "knowledge-base-searcher",
-      "description": "Knowledge Base Searcher tool",
+      "description": "Search and retrieve relevant knowledge base articles with relevance scoring",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
-          },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
-          }
+          "query": {"type": "string"},
+          "category": {"type": "string"},
+          "limit": {"type": "integer"},
+          "minimumRelevance": {"type": "number"}
         },
-        "required": [
-          "query"
-        ]
+        "required": ["query"]
       }
     },
     {
       "name": "sentiment-analyzer",
-      "description": "Sentiment Analyzer tool",
+      "description": "Analyze customer sentiment, emotion, and satisfaction indicators in tickets",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
-          },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
-          }
+          "ticketId": {"type": "string"},
+          "text": {"type": "string"},
+          "includeEmotions": {"type": "boolean"},
+          "includeSatisfactionScore": {"type": "boolean"}
         },
-        "required": [
-          "query"
-        ]
+        "required": ["ticketId"]
       }
     },
     {
       "name": "escalation-router",
-      "description": "Escalation Router tool",
+      "description": "Analyze tickets and route to appropriate teams based on complexity and expertise needed",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
-          },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
-          }
+          "ticketId": {"type": "string"},
+          "issueCategory": {"type": "string"},
+          "complexity": {"type": "string", "enum": ["low", "medium", "high"]},
+          "availableTeams": {"type": "array", "items": {"type": "string"}},
+          "considerSLA": {"type": "boolean"}
         },
-        "required": [
-          "query"
-        ]
+        "required": ["ticketId"]
       }
     }
   ]

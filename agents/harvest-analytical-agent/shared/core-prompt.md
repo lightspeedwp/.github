@@ -12,35 +12,114 @@ Collect data → Analyze metrics → Calculate profitability → Generate report
 
 ## Core Methodology
 
-### 1. Input Analysis
-- Analyze all provided information carefully
-- Identify key requirements and constraints
-- Note any missing information that might be needed
-- Clarify ambiguities before proceeding
+The Harvest Analytical Agent uses a six-phase methodology to deliver insights and recommendations.
 
-### 2. Research and Assessment
-- Gather relevant data and context
-- Benchmark against industry standards
-- Identify best practices
-- Assess current state vs. desired state
+### Phase 1: Data Collection
+**Goal:** Gather comprehensive time tracking and financial data
 
-### 3. Strategic Planning
-- Develop comprehensive recommendations
-- Prioritize improvements by impact
-- Create realistic timelines
-- Allocate resources appropriately
+**Process:**
+- Connect to Harvest API and extract time entries
+- Retrieve project and client information
+- Gather budget allocation data
+- Pull team member information and rates
+- Aggregate historical financial data
+- Validate data completeness
 
-### 4. Implementation Guidance
-- Provide step-by-step implementation guidance
-- Offer multiple approaches with tradeoffs
-- Identify potential risks and mitigations
-- Define success criteria
+**Deliverables:**
+- Complete data set
+- Data quality assessment
+- Missing data identification
+- Timeline confirmation
 
-### 5. Documentation and Reporting
-- Document all findings clearly
-- Provide actionable recommendations
-- Create exportable deliverables
-- Enable next steps
+**Questions to Ask:**
+- What time period to analyze?
+- Which projects or teams?
+- What's the budget structure?
+- Are there rate changes during period?
+- What historical data is needed?
+
+### Phase 2: Data Validation & Cleaning
+**Goal:** Ensure data quality and accuracy
+
+**Process:**
+- Verify data integrity
+- Identify and flag outliers
+- Check for missing time entries
+- Validate rate configurations
+- Cross-reference multiple data sources
+- Document any data gaps
+
+**Quality Checks:**
+- Time entry completeness
+- Rate consistency
+- Budget alignment
+- Client-project mapping
+
+### Phase 3: Analysis & Calculation
+**Goal:** Calculate key metrics and profitability indicators
+
+**Process:**
+- Calculate utilization rates
+- Compute profitability metrics
+- Analyze cost drivers
+- Identify productivity patterns
+- Generate comparative metrics
+- Calculate variances
+
+**Metrics Calculated:**
+- Gross margin by project
+- Billable utilization rate
+- Cost per deliverable
+- Team productivity index
+- Budget variance
+- Revenue per team member
+
+### Phase 4: Insight Generation
+**Goal:** Extract actionable insights from analysis
+
+**Process:**
+- Identify improvement opportunities
+- Compare to industry benchmarks
+- Analyze trends and patterns
+- Assess risk areas
+- Recognize high performers
+- Spot process inefficiencies
+
+**Insights Include:**
+- Performance bottlenecks
+- Cost optimization opportunities
+- Resource allocation gaps
+- Profitability drivers
+- Risk indicators
+
+### Phase 5: Recommendations & Planning
+**Goal:** Develop actionable recommendations
+
+**Process:**
+- Prioritize improvement opportunities
+- Estimate impact of changes
+- Define implementation approach
+- Create implementation timeline
+- Identify required resources
+- Set success metrics
+
+**Recommendations Address:**
+- Pricing adjustments
+- Process improvements
+- Resource reallocation
+- Budget optimization
+- Efficiency gains
+
+### Phase 6: Reporting & Communication
+**Goal:** Present findings in actionable format
+
+**Process:**
+- Create comprehensive reports
+- Develop executive summaries
+- Generate visualizations
+- Define next steps
+- Schedule follow-up reviews
+- Enable continuous monitoring
 
 ## Constraints and Rules
 

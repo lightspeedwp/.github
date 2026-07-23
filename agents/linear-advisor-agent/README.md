@@ -1,67 +1,216 @@
-# LightSpeed Linear Advisor Agent Export
+# Linear Advisor Agent — Quick Reference
 
-<!-- BADGES-START -->
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
+**Version:** 1.0.0 | **Status:** Production | **Created:** 2026-07-22
 
-Created: 2026-07-14
-Agent name: LightSpeed Linear Advisor
+## Overview
 
-This bundle contains accessible workspace agent files, safe memory/context files, and readable local skill folders visible in the current environment. It excludes hidden platform messages, protected runtime configuration, connector credentials, authentication tokens, and repository/runtime internals.
+The Linear Advisor Agent is an intelligent project manager that specializes in coordinating work through Linear issue tracking. It helps teams plan projects, organize sprints, coordinate releases, and optimize workflows.
 
-## Contents
+## Quick Start
 
-- `agent/`: exported accessible agent instructions, attached reference files, templates, and safe memory/context files.
-- `skills/`: readable local, agent-attached, and plugin-provided skill folders copied from visible local paths.
-- `manifests/`: file inventory, skill inventory, inaccessible-resource notes, redaction report, and validation notes.
-- `checksums.sha256`: SHA-256 checksums for exported files.
+### 1. Project Setup
+```
+Input: Project scope, team, timeline
+Process: Create Linear project, set up workflows, initialize sprints
+Output: Configured Linear project, team assignments, sprint schedule
+```
 
-## Summary
+### 2. Issue Management
+```
+Input: Requirements, deliverables, constraints
+Process: Create issues, organize relationships, assign work
+Output: Structured issues, clear scope, team assignments
+```
 
-- Workspace agent files exported: 190
-- Skill files exported: 415
-- Skills discovered: 42
-- Fully exported skills: 42
-- Partially exported skills: 0
-- Metadata-only skills: 0
-- Skills not exported: 0
-- Redactions made: 0
+### 3. Sprint Planning
+```
+Input: Backlog, team capacity, priorities
+Process: Plan sprint, commit issues, allocate resources
+Process: Track progress, manage blockers
+Output: Sprint plan, burndown chart, risk assessment
+```
 
-## Limitations
+### 4. Release Coordination
+```
+Input: Features, timeline, deployment requirements
+Process: Plan release, version management, coordinate deployment
+Output: Release plan, release notes, deployment checklist
+```
 
-The export is complete only for files and folders that were readable from this environment. Platform-managed instructions and secrets were not accessed or exported
+## Core Capabilities
+
+- Project planning and scope definition
+- Linear issue creation and management
+- Sprint planning and capacity optimization
+- Release planning and coordination
+- Workflow automation configuration
+- Team coordination facilitation
+- Metrics and reporting
+- Risk identification and mitigation
+
+## Provider Support
+
+| Provider | Status | Integration | Tools |
+|----------|--------|-------------|-------|
+| **Claude** | Production | Full API | 6 tools |
+| **GitHub Copilot** | Production | GitHub native | 6 skills |
+| **OpenAI** | Production | Function calling | 6 functions |
+
+## Key Files
+
+- **AGENT.md** – Complete agent specification
+- **claude/agent.md** – Claude implementation details
+- **claude/tools.json** – Tool definitions
+- **copilot/agent.md** – GitHub Copilot skills
+- **openai/agent.md** – OpenAI functions
+- **shared/core-prompt.md** – 6-phase methodology
+
+## Core Methodology
+
+### Phase 1: Requirements Intake
+Understand project scope, team, timeline, and success criteria
+
+### Phase 2: Issue Structure
+Design issue hierarchy, templates, and workflow states
+
+### Phase 3: Workflow Automation
+Set up automation rules, assignments, and notifications
+
+### Phase 4: Sprint Planning
+Plan sprints based on team capacity and priorities
+
+### Phase 5: Release Planning
+Coordinate releases and manage versions
+
+### Phase 6: Execution & Tracking
+Monitor progress, optimize performance, manage risks
+
+## Configuration
+
+### Linear API
+- Requires Linear workspace and API key
+- Supports GraphQL queries for flexibility
+- Handles rate limiting intelligently
+
+### Team Setup
+- Define team members and roles
+- Configure permissions and access
+- Set up notification preferences
+
+### Workflow States
+- Backlog, Ready, In Progress, Review, Done
+- Custom states can be added
+- Automated transitions supported
+
+### Automation Rules
+- Auto-assign based on criteria
+- State transitions on events
+- Notification triggers
+- Report generation
+
+## Example Workflows
+
+### Creating a Project
+1. Define project scope and goals
+2. Set up Linear project
+3. Create issue templates
+4. Assign team members
+5. Initialize sprint schedule
+6. Configure automation rules
+
+### Planning a Sprint
+1. Assess team velocity
+2. Calculate capacity
+3. Select prioritized issues
+4. Commit to sprint
+5. Distribute work
+6. Set success criteria
+
+### Releasing a Version
+1. Define scope and features
+2. Create version milestone
+3. Group related issues
+4. Generate release notes
+5. Plan deployment
+6. Create verification checklist
+
+## Best Practices
+
+- **Clear Communication** – Document all decisions and assumptions
+- **Data-Driven** – Base recommendations on historical metrics
+- **Risk-Aware** – Identify blockers and risks early
+- **Iterative** – Support feedback and refinement cycles
+- **Automated** – Minimize manual work through smart automation
+
+## Success Metrics
+
+- Sprint velocity consistency
+- Issue resolution rate
+- Cycle time reduction
+- Team satisfaction
+- Release on-time delivery
+- Risk mitigation success
+
+## Related Documentation
+
+- **AGENT.md** – Full specification and capabilities
+- **shared/core-prompt.md** – Detailed 6-phase methodology
+- **claude/agent.md** – Claude-specific implementation
+- **AGENTS.md** – Organization standards
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue:** Linear API rate limit exceeded
+- Solution: Implement exponential backoff retry
+- Check: API quota in Linear settings
+- Prevention: Batch operations efficiently
+
+**Issue:** Sprint over-committed
+- Solution: Use capacity calculation tool
+- Review: Historical velocity data
+- Action: Re-prioritize backlog items
+
+**Issue:** Workflow automation not triggering
+- Solution: Verify automation rules in Linear
+- Check: Issue state transitions
+- Test: Manual trigger first
+
+**Issue:** Team assignment conflicts
+- Solution: Review assignment matrix
+- Check: Team member permissions
+- Action: Clear conflicts in Linear UI
+
+## Advanced Configuration
+
+### Custom Workflow States
+Define workflow states specific to your process:
+- Backlog, Ready, In Progress, Review, Testing, Done
+- Or use custom states: Blocked, On Hold, Awaiting Approval
+
+### Team Capacity Calculation
+- Historical velocity: Average points/sprint
+- Team size: Number of team members
+- Sprint duration: Weeks per sprint
+- Overhead: Buffer for unknowns (10-15%)
+
+### Metric Dashboards
+Track over time:
+- Velocity trends
+- Cycle time
+- Issue resolution rate
+- Team productivity
+- Release on-time percentage
+
+## Support
+
+For issues or questions:
+1. Review the AGENT.md specification
+2. Check the relevant provider implementation
+3. Consult the core methodology in shared/core-prompt.md
+4. Review troubleshooting section above
 
 ---
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Built by LightSpeedWP with open-source spirit!*
