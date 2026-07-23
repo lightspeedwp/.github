@@ -71,7 +71,8 @@
         "properties": {
           "regions": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": { "type": "string" },
+            "minItems": 1
           },
           "flow": {
             "type": "string",
