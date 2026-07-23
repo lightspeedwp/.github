@@ -239,11 +239,169 @@ You have succeeded when:
 - ✅ Monitoring strategy is in place
 - ✅ User can proceed with confidence
 
+## Advanced Optimization Patterns
+
+### Pattern 1: Critical Path Optimization
+**Goal:** Minimize resources on the critical path to first render
+**Approach:**
+1. Identify resources blocking first render
+2. Inline critical CSS (above-the-fold)
+3. Defer non-critical CSS and JavaScript
+4. Preload critical resources
+5. Use preconnect for critical domains
+
+**Expected Impact:** 40-60% reduction in FCP
+
+### Pattern 2: Image Optimization at Scale
+**Goal:** Reduce image payload while maintaining visual quality
+**Approach:**
+1. Convert to next-gen formats (WebP, AVIF)
+2. Implement responsive images (srcset)
+3. Add lazy loading
+4. Use CDN with automatic optimization
+5. Compress aggressively
+
+**Expected Impact:** 60-80% reduction in image bytes
+
+### Pattern 3: JavaScript Code Splitting
+**Goal:** Reduce main bundle size and defer non-critical JS
+**Approach:**
+1. Identify route-specific code
+2. Create code chunks per route
+3. Lazy load chunks on navigation
+4. Use dynamic imports
+5. Remove unused dependencies
+
+**Expected Impact:** 50-70% reduction in initial bundle
+
+### Pattern 4: Third-Party Optimization
+**Goal:** Minimize impact of external scripts
+**Approach:**
+1. Audit all third-party scripts
+2. Defer non-critical scripts
+3. Use facades and lazy loading
+4. Load from optimized CDN
+5. Set budget for third-party code
+
+**Expected Impact:** 30-50% reduction in blocking JavaScript
+
+### Pattern 5: Caching Strategy Implementation
+**Goal:** Maximize cache hit rates and minimize revalidation
+**Approach:**
+1. Set aggressive cache headers for static assets
+2. Use content hashing for cache busting
+3. Implement service worker
+4. Set up CDN caching
+5. Plan cache invalidation
+
+**Expected Impact:** 70-90% reduction in repeat visit load time
+
+## Optimization Decision Matrix
+
+| Optimization | Impact | Effort | Priority | Timeline |
+|---|---|---|---|---|
+| Image format conversion | High | Low | 1 | Week 1 |
+| Lazy loading images | High | Low | 2 | Week 1 |
+| Code splitting | High | Medium | 3 | Week 2-3 |
+| Defer third-party | Medium | Low | 4 | Week 2 |
+| CSS minification | Medium | Low | 5 | Week 1 |
+| Service Worker | Medium | High | 6 | Week 4+ |
+| CDN setup | High | Medium | 7 | Week 2 |
+| Bundle analysis | Low | Low | 8 | Week 1 |
+
+## Real-World Scenarios & Solutions
+
+### Scenario: Slow E-Commerce Checkout
+**Current Metrics:** LCP 4.5s, INP 380ms, CLS 0.2
+**Root Causes:**
+- Large checkout form bundle (2MB)
+- Unoptimized product images
+- Render-blocking analytics
+
+**Solution Plan:**
+1. Week 1: Optimize images (WebP), defer analytics → LCP 3.2s
+2. Week 2: Code split checkout form → LCP 2.0s, INP 200ms
+3. Week 3: Implement lazy loading → LCP 1.8s, CLS 0.05
+
+**Expected Conversion Lift:** 15-25%
+
+### Scenario: Slow Content-Heavy Blog
+**Current Metrics:** LCP 3.8s, FCP 2.2s, CLS 0.15
+**Root Causes:**
+- Unoptimized featured images
+- Render-blocking stylesheets
+- Third-party ad scripts
+
+**Solution Plan:**
+1. Inline critical CSS, defer non-critical → FCP 1.2s
+2. Optimize featured images (AVIF) → LCP 1.5s
+3. Async load ads → Remove CLS issues
+
+**Expected SEO Impact:** +20-30% CTR improvement
+
+### Scenario: API-Driven Dashboard
+**Current Metrics:** TTFB 800ms, LCP 5.2s, INP 450ms
+**Root Causes:**
+- Slow backend response times
+- Large API payloads
+- Unoptimized frontend render
+
+**Solution Plan:**
+1. Add API caching layer → TTFB 100ms
+2. Implement pagination → Reduce payload 70%
+3. Optimize React render → INP 180ms
+
+**Expected Impact:** 4x faster overall experience
+
+## Performance Anti-Patterns to Avoid
+
+**DON'T:**
+- Optimize metrics without considering user experience
+- Use aggressive minification that breaks functionality
+- Implement caching that gets stale content
+- Add performance monitoring that becomes a bottleneck
+- Defer critical functionality for perceived speed
+- Compromise accessibility for performance gains
+- Make changes without measuring impact first
+
+**DO:**
+- Balance performance with feature delivery
+- Test optimizations in staging environment
+- Measure real-world impact with RUM data
+- Plan rollback procedures
+- Communicate with teams about trade-offs
+- Monitor for unintended side effects
+- Iterate based on real user feedback
+
+## Success Measurement Framework
+
+**Baseline Phase (Week 1):**
+- Establish all Core Web Vitals metrics
+- Create performance dashboard
+- Set target improvements
+- Document existing issues
+
+**Optimization Phase (Weeks 2-6):**
+- Implement recommendations
+- Validate improvements
+- Address regressions
+- Document learnings
+
+**Stabilization Phase (Weeks 7+):**
+- Continuous monitoring
+- Regular performance audits
+- Team training on best practices
+- Ongoing optimization
+
 ## References
 
 - [AGENT.md](../AGENT.md) – Agent specification
 - [claude/agent.md](../claude/agent.md) – Claude implementation
+- [openai/agent.md](../openai/agent.md) – OpenAI implementation
+- [copilot/agent.md](../copilot/agent.md) – GitHub Copilot integration
 - [README.md](../README.md) – Quick reference
+- Google Web Vitals: https://web.dev/vitals/
+- Web Almanac: https://almanac.httparchive.org/
 
 ---
 

@@ -108,6 +108,62 @@ Extract scope from the GitHub issue template and convert to proposal format.
 Map the proposal timeline (Issue #1150) to the project milestones.
 ```
 
+## GitHub Actions Automation
+
+**Proposal Auto-Generation Workflow:**
+```yaml
+name: Generate Proposal
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  generate:
+    if: contains(github.event.issue.labels.*.name, 'proposal:needed')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract requirements
+        id: extract
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.issue;
+            // Extract client, budget, timeline, scope from issue
+      
+      - name: Call Proposal Desk Agent
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Call Claude API to generate proposal
+            // Post result as PR comment
+```
+
+**Proposal Review & Approval Workflow:**
+```yaml
+name: Proposal Review
+on:
+  pull_request:
+    paths:
+      - 'proposals/**'
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate proposal format
+        run: npm run validate:proposal
+      
+      - name: Check pricing compliance
+        run: npm run check:pricing
+      
+      - name: Route for approval
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Route to PM for approval
+            // Add reviewers, set labels
+```
+
 ## Error Handling
 
 **Missing Requirements:**
@@ -123,6 +179,26 @@ Map the proposal timeline (Issue #1150) to the project milestones.
 - Generate multiple scope options
 - Post as discussion in GitHub issue
 - Team votes on preferred option
+
+## Advanced Patterns
+
+**Multi-Phase Proposal:**
+- Break large projects into phases
+- Create separate milestones for each phase
+- Link proposals to epic issues
+- Track completion per phase in project board
+
+**Retainer Estimation:**
+- Link to recurring work items
+- Calculate monthly/annual cost
+- Track utilization against retainer budget
+- Flag if usage exceeds allocation
+
+**Competitive Quotes:**
+- Generate 3 proposal variations (basic/standard/premium)
+- Post all variations as discussion options
+- Team selects preferred approach
+- Copilot generates final proposal from selection
 
 ## Related Documentation
 

@@ -188,6 +188,71 @@ You will:
 4. Define payment schedule (monthly advance)
 5. Clarify sprint scope and capacity
 
+### Scenario 3: Retainer Proposal
+You receive: "Create retainer proposal for ongoing website maintenance. Services include: monthly security updates, performance optimization, content updates, and 4 hours/week support."
+
+You will:
+1. Break retainer into fixed monthly cost plus hourly allocation
+2. Define scope boundaries (what's included vs. paid extras)
+3. Create timeline showing quarterly reviews and adjustment points
+4. Present three tiers: Basic, Professional, Premium
+5. Include escalation procedures for urgent issues
+
+### Scenario 4: Scope Negotiation
+You receive: "Client wants $20k budget but asking for $50k scope. How to handle?"
+
+You will:
+1. Itemize full scope and current estimate ($50k)
+2. Identify must-haves vs. nice-to-haves
+3. Propose phased delivery: Phase 1 ($20k) = core deliverables
+4. Show Phase 2 roadmap for remaining features
+5. Recommend monthly retainer for Phase 1 support and Phase 2 planning
+
+### Advanced Proposal Patterns
+
+**Value-Based Proposal Structure:**
+- Lead with client outcome (revenue increase, cost reduction, risk mitigation)
+- Show business case and ROI
+- Position your services as investment, not cost
+- Include success metrics and measurement approach
+
+**Time & Materials Proposal:**
+- For projects with unclear scope
+- Propose discovery phase (fixed duration/cost)
+- Define hourly rates by role/expertise
+- Set monthly caps or spending limits
+- Build in regular check-ins and scope review gates
+
+**Fixed-Price Proposal Strategy:**
+- Only use when scope is crystal clear
+- Add 25-30% contingency in internal estimates
+- Include explicit change request process
+- Define what triggers scope expansion
+- Protect against scope creep with detailed acceptance criteria
+
+### Integration Workflows
+
+**With Linear (Project Management):**
+1. Proposal includes Linear epic link
+2. On approval, auto-create epic with proposal deliverables
+3. Link issues to proposal phases
+4. Track actual vs. estimated effort
+5. Generate final invoice from Linear time tracking
+
+**With Harvest (Time & Billing):**
+1. Proposal costs feed into Harvest project setup
+2. Create Harvest project with proposal budget cap
+3. Track actual hours against proposal estimates
+4. Auto-invoice from Harvest on completion
+5. Analyze profitability vs. proposal estimate
+
+**With CRM Systems:**
+1. Log proposal in CRM with status
+2. Set follow-up reminders in CRM
+3. Track win/loss outcomes
+4. Use data to improve win rate
+5. Connect proposals to customer lifetime value
+
 ## Related Documentation
 
 - [core-prompt.md](../shared/core-prompt.md) – Provider-agnostic methodology

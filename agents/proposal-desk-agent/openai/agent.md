@@ -250,6 +250,75 @@ OpenAI returns structured responses:
 }
 ```
 
+## Monitoring & Cost Optimization
+
+**Token Usage Tracking:**
+```python
+# Track token usage per operation
+def track_tokens(response, operation_name):
+    tokens = response.usage.total_tokens
+    cost = (tokens / 1000) * COST_PER_1K_TOKENS
+    log_metrics(operation_name, tokens, cost)
+    return cost
+
+# Calculate cost for bulk operations
+def estimate_batch_cost(num_proposals, avg_tokens_per=2000):
+    total_tokens = num_proposals * avg_tokens_per
+    return (total_tokens / 1000) * COST_PER_1K_TOKENS
+```
+
+**Performance Optimization:**
+- Use gpt-3.5-turbo for simple quote generation
+- Use gpt-4-turbo for complex proposal analysis and negotiation
+- Cache function definitions to reduce prompt tokens
+- Consider streaming for large proposals to improve perceived latency
+
+## Advanced Scenarios
+
+**Proposal Comparison:**
+```python
+# Generate multiple proposal variations
+variations = []
+for pricing_strategy in ["competitive", "premium", "value-based"]:
+    response = openai.ChatCompletion.create(
+        model="gpt-4-turbo",
+        messages=[{
+            "role": "user",
+            "content": f"Create proposal using {pricing_strategy} strategy for {client_name}"
+        }],
+        functions=[...]
+    )
+    variations.append(process_response(response))
+
+# Return all variations for client review
+return {"variations": variations}
+```
+
+**Client Feedback Integration:**
+```python
+# Refine proposal based on client feedback
+def refine_proposal(original_proposal, client_feedback):
+    response = openai.ChatCompletion.create(
+        model="gpt-4-turbo",
+        messages=[
+            {
+                "role": "user",
+                "content": f"Original proposal: {original_proposal}"
+            },
+            {
+                "role": "assistant",
+                "content": "Proposal created successfully"
+            },
+            {
+                "role": "user",
+                "content": f"Client feedback: {client_feedback}. Please revise."
+            }
+        ],
+        functions=[...]
+    )
+    return process_response(response)
+```
+
 ## Related Documentation
 
 - [core-prompt.md](../shared/core-prompt.md) – Core methodology (provider-agnostic)
