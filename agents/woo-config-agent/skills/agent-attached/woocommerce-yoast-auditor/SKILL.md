@@ -13,7 +13,7 @@ Default output: Google Doc-ready Markdown.
 
 ## First step
 
-Identify the WooCommerce SEO audit context. If the user already stated the scope, continue with the smallest useful workflow. If scope is unclear, ask only:
+Identify the WooCommerce SEO audit context for a WordPress site running WooCommerce core and relevant WooCommerce extension plugins. If the user already stated the scope, continue with the smallest useful workflow. If scope is unclear, ask only:
 
 > What should this WooCommerce Yoast audit focus on: product metadata, product categories/tags/attributes, shop/archive output, schema output, sitemap/crawlability, migration readiness, launch QA, post-change validation, or a full WooCommerce SEO review?
 
@@ -29,7 +29,7 @@ Use the progressive loading map to load only the supporting files needed for the
 
 Use `woocommerce-yoast-auditor` for existing WooCommerce Yoast setup review, evidence review, product metadata quality review, product/category schema output review, XML sitemap, robots, llms.txt, canonical and meta robots QA, breadcrumb and social metadata review, WooCommerce product SEO review, product taxonomy/archive review, migration or rebuild readiness, launch QA, post-launch validation, completed-change validation, proposed edit review, client-ready reports, internal technical reports and developer handoffs.
 
-Route first-time Yoast setup, WooCommerce SEO defaults, metadata template setup, schema setup, XML sitemap setup, canonical, robots, llms.txt, breadcrumb configuration changes, product selection and reusable configuration playbooks to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
+Route first-time Yoast setup, WooCommerce SEO defaults, metadata template setup, schema setup, XML sitemap setup, canonical, robots, llms.txt, breadcrumb configuration changes, WooCommerce extension SEO setup, product selection and reusable configuration playbooks to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
 
 If a request mixes audit and setup, complete the audit or evidence gap report first, then hand configuration ownership to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
 
@@ -100,7 +100,7 @@ Always separate:
 - Confirmed evidence: directly observed from current site output, exports, MCP reads, screenshots, rendered HTML, source HTML, sitemaps, robots.txt, llms.txt, schema output, database reads, or official documentation.
 - Inference: a likely conclusion based on available evidence, not directly proven.
 - Content judgement: editorial assessment of product metadata clarity, intent fit, taxonomy clarity, duplicate wording or social sharing quality.
-- Risk assessment: why the issue may matter for crawlability, indexation, search appearance, ecommerce discoverability, product rich result eligibility, migration safety, launch readiness, or implementation safety.
+- Risk assessment: why the issue may matter for crawlability, indexation, search appearance, WooCommerce discoverability, product rich result eligibility, migration safety, launch readiness, or implementation safety.
 - Recommendation: what should happen next.
 - Proposed follow-up: the minimum next check, owner, route, or retest.
 - Configuration work that should route to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
@@ -143,13 +143,13 @@ Always state the reviewed scope beside the score. Example:
 Use priorities consistently:
 
 - Critical: serious crawlability, indexation, canonical, redirect, launch, schema, or important WooCommerce discoverability risk.
-- High: likely impact on important products, product categories, structured data, social sharing, metadata consistency, taxonomy archives, or ecommerce discoverability.
+- High: likely impact on important products, product categories, structured data, social sharing, metadata consistency, taxonomy archives, or WooCommerce discoverability.
 - Medium: quality, consistency, reporting clarity, editorial workflow, duplicate-content or discoverability issues unlikely to block core SEO behaviour.
 - Low: housekeeping, documentation gaps, minor metadata issues, or optional workflow improvements.
 
 ### 4. WooCommerce SEO capability model
 
-- Identify active WooCommerce, Yoast SEO, Yoast SEO Premium, Yoast WooCommerce SEO, multilingual, review, subscription, variation, filter/search and schema-related plugins before judging missing features.
+- Identify active WooCommerce core, WooCommerce extension plugins, Yoast SEO, Yoast SEO Premium, Yoast WooCommerce SEO, multilingual, review, subscription, variation, filter/search and schema-related plugins before judging missing features.
 - Treat absent Premium, WooCommerce SEO, Local SEO or AI Plus capability as unknown until evidence confirms the stack.
 - Separate product capability from site configuration. A feature may exist but not be enabled, configured or outputting correctly.
 - Classify feature-related findings as product limitation, configuration gap, evidence gap or implementation risk.
@@ -161,7 +161,7 @@ This skill may audit WooCommerce settings only where they affect Yoast SEO, sear
 
 Relevant WooCommerce areas include products, product categories, product tags, attributes, variations, stock, pricing, tax/price display, shipping-related product data, checkout/account URLs, coupons, order workflow URLs and email/customer account flows only where they affect SEO-facing output or indexation risk.
 
-Do not become a general WooCommerce operations, payment, tax, fulfilment, email deliverability or checkout conversion audit. Route those to the parent WooCommerce Configuration Agent or a specialist workflow.
+Do not become a general WooCommerce operations, payment, tax, fulfilment, email deliverability, extension configuration or checkout conversion audit unless the issue directly affects SEO-facing output or indexation risk. Route those to the parent WooCommerce Configuration Agent, `woocommerce-yoast-configuration`, or a specialist workflow as appropriate.
 
 ### 6. Owner and route model
 
@@ -277,7 +277,7 @@ Core models are embedded above. Load only what is needed for deeper detail:
 - Detailed finding examples: `references/finding-rules-library.md`
 - Feature availability: `references/product-capability-boundaries.md`, `references/source-register.md`
 - Standard Yoast output: `references/yoast-output-reference.md`
-- WooCommerce: `references/woocommerce-audit-reference.md`, `intake/woocommerce-audit-intake.md`, `profiles/ecommerce-catalogue-audit.md`, `profiles/ecommerce-transactional-audit.md`, `templates/woocommerce-seo-audit-report.md`
+- WooCommerce: `references/woocommerce-audit-reference.md`, `intake/woocommerce-audit-intake.md`, `profiles/woocommerce-catalogue-audit.md`, `profiles/woocommerce-transactional-audit.md`, `templates/woocommerce-seo-audit-report.md`
 - Schema: `references/schema-audit-reference.md`, `templates/schema-qa-report.md`
 - Migration, launch or post-launch: `references/migration-launch-reference.md`, `intake/migration-audit-intake.md`, `profiles/migration-rebuild-audit.md`, `templates/launch-qa-report.md`, `templates/migration-readiness-report.md`
 - Developer handoff: `references/developer-handoff-reference.md`, `intake/developer-handoff-intake.md`, `templates/developer-handoff.md`
@@ -285,10 +285,10 @@ Core models are embedded above. Load only what is needed for deeper detail:
 
 ## Routing examples
 
-- "Can you configure Yoast for this new WooCommerce site?" -> route to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
-- "Can you audit whether Yoast is configured correctly on this WooCommerce site?" -> use `woocommerce-yoast-auditor`.
+- "Can you configure Yoast for this new WordPress site running WooCommerce?" -> route to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
+- "Can you audit whether Yoast is configured correctly on this WordPress site running WooCommerce?" -> use `woocommerce-yoast-auditor`.
 - "Can you do a quick WooCommerce Yoast check before we quote a full audit?" -> use fast audit mode.
-- "Can you create agency-wide Yoast defaults for WooCommerce stores?" -> route to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
+- "Can you create agency-wide Yoast defaults for WordPress sites running WooCommerce core and WooCommerce extension plugins?" -> route to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent.
 - "Can you review this WooCommerce Yoast audit report before I send it to the client?" -> use `woocommerce-yoast-auditor` and enforce the output contract.
 - "Can you check whether the completed WooCommerce Yoast changes are safe before launch?" -> use `woocommerce-yoast-auditor`.
 - "Can you turn these product schema findings into developer tasks?" -> use `woocommerce-yoast-auditor` and use required handoff fields.
@@ -297,7 +297,3 @@ Core models are embedded above. Load only what is needed for deeper detail:
 ## Minimum report standard
 
 Every report must include scope, evidence status, limitations, findings, priority, confidence, recommendation, owner or next route, retest/validation step and client-safe wording where relevant.
-
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
