@@ -10,6 +10,7 @@
 
 import fs from "fs";
 import { globSync } from "glob";
+import { execFileSync } from "child_process";
 
 /**
  * Check if a line appears to be a reference/link
@@ -264,9 +265,51 @@ function formatResults(results) {
 // CLI
 const args = process.argv.slice(2);
 const fix = args.includes("--fix");
-const pattern = args.find((a) => !a.startsWith("--")) || "**/*.md";
+const changedOnly = args.includes("--changed-only");
+const baseSha = args.find((arg) => arg.startsWith("--base="))?.split("=")[1];
+const headSha = args.find((arg) => arg.startsWith("--head="))?.split("=")[1];
 
-console.log(`Scanning for footer issues in: ${pattern}`);
+let pattern = args.find((a) => !a.startsWith("--")) || "**/*.md";
+
+// If --changed-only is specified, get changed files via git diff
+if (changedOnly && baseSha && headSha) {
+  // Validate SHA/ref format to prevent injection (allow 7+ hex chars, HEAD, or refs/)
+  const isValidRef =
+    (/^[0-9a-f]{7,40}$/.test(baseSha) ||
+      baseSha === "HEAD" ||
+      /^refs\//.test(baseSha)) &&
+    (/^[0-9a-f]{7,40}$/.test(headSha) ||
+      headSha === "HEAD" ||
+      /^refs\//.test(headSha));
+  if (!isValidRef) {
+    console.log("⚠️  Invalid git references, validating all files");
+  } else {
+    try {
+      const output = execFileSync(
+        "git",
+        ["diff", "--name-only", baseSha, headSha, "--", "*.md"],
+        {
+          encoding: "utf8",
+        },
+      ).trim();
+      if (output) {
+        // Convert file list to a pattern that glob can use
+        const files = output.split("\n").filter(Boolean);
+        // Use glob's brace expansion: {file1,file2,file3}
+        pattern = `{${files.join(",")}}`;
+      } else {
+        console.log("No changed Markdown files found.");
+        process.exit(0);
+      }
+    } catch {
+      console.log("⚠️  Could not get changed files, validating all files");
+    }
+  }
+}
+
+console.log(
+  `Scanning for footer issues in: ${pattern.length > 100 ? "changed files" : pattern}`,
+);
 if (fix) {
   console.log("🔧 Auto-fix enabled\n");
 }
