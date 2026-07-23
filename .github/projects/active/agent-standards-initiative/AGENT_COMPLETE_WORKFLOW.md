@@ -26,7 +26,7 @@ For each agent in priority order:
 - **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after agent merge)
 - Branch: `feat/agent-standards-{slug}-plugin` (same worktree as agent)
 - Folder: `plugins/lightspeed-{domain}-{focus}/`
-- Run: **Plugin prompt** → `PLUGINS_COMPLETE.md`
+- Run: **Plugin prompt** → `PLUGINS_INTEGRATION_GUIDE.md`
 - Output: README, INSTALL.md, copilot-plugin.json, provider manifests, schema validation
 - Merge: squash to `develop`
 - Reference: Phase 1 plugin `plugins/lightspeed-playwright-testing/` as template
@@ -36,7 +36,7 @@ For each agent in priority order:
 - **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after plugin merge)
 - Branch: `feat/agent-standards-{slug}-hooks` (same worktree)
 - Folder: `hooks/{hook-slug}/`
-- Run: **Hooks prompt** → `INFRASTRUCTURE_HOOKS_TOOLS.md` (hooks section)
+- Run: **Hooks prompt** → `INFRASTRUCTURE_HOOKS_TOOLS_WORKFLOWS.md` (hooks section)
 - Output: `.cjs` implementation, tests, README, registry entries
 - Reference: `hooks/agent-spec-validator/` as template
 - Merge: squash to `develop`
@@ -46,7 +46,7 @@ For each agent in priority order:
 - **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after hooks merge)
 - Branch: `feat/agent-standards-{slug}-instructions` (same worktree)
 - Folder: `instructions/{slug}-agent.instructions.md`
-- Run: **Instructions prompt** → `INSTRUCTIONS_DOCUMENTATION.md`
+- Run: **Instructions prompt** → `INSTRUCTIONS_DOCUMENTATION_GUIDE.md`
 - Output: YAML frontmatter + role declaration + overview + rules + guidance + examples + validation
 - Merge: squash to `develop`
 
@@ -64,7 +64,7 @@ For each agent in priority order:
 - **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after prompts merge)
 - Branch: `feat/agent-standards-{slug}-tools` (same worktree)
 - Folder: `tools/agent-{slug}/` (if domain-specific) or `scripts/validate-{slug}.cjs`
-- Run: **Tools prompt** → `INFRASTRUCTURE_HOOKS_TOOLS.md` (tools section)
+- Run: **Tools prompt** → `INFRASTRUCTURE_HOOKS_TOOLS_WORKFLOWS.md` (tools section)
 - Output: CLI scripts, helper functions, tests
 - Merge: squash to `develop`
 
@@ -73,7 +73,7 @@ For each agent in priority order:
 - **Before branch:** `git checkout develop && git pull origin develop` (ensure fresh base after tools merge)
 - Branch: `feat/agent-standards-{slug}-workflows` (same worktree)
 - Folder: `.github/workflows/`
-- Run: **Workflows prompt** → `INFRASTRUCTURE_HOOKS_TOOLS.md` (workflows section)
+- Run: **Workflows prompt** → `INFRASTRUCTURE_HOOKS_TOOLS_WORKFLOWS.md` (workflows section)
 - Output: GitHub Actions that trigger on agent changes, run validation, report status
 - Merge: squash to `develop`
 

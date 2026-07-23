@@ -45,21 +45,21 @@ Expected: Toggle works → pages reference correct branch in GitHub links
 
 ### Catalogue Sections
 
-1. **Agents** (all 15)
-   - Playwright Testing (Phase 1) ✓
-   - Tour Operator Config, WP Config, WooCommerce Config (Phase 2)
-   - 10 Batch agents (Phase 2)
+1. **Agents** (all 14)
+   - Playwright Testing (Phase 1) — 1
+   - Tour Operator Config, WP Config, WooCommerce Config (Phase 2) — 3
+   - 10 Batch agents (Phase 2) — 10
 
-2. **Plugins** (per agent)
+2. **Plugins** (14 total: 1 core + 13 agent-specific)
    - lightspeed-playwright-testing
    - lightspeed-{domain}-{focus} × 13
 
-3. **Hooks** (validation/automation)
-   - agent-spec-validator
-   - multi-provider-consistency-checker
-   - plugin-integrity-checker
-   - agent-security-auditor
-   - {agent-slug}-spec-validator × 13
+3. **Hooks** (17 total: 4 core + 13 agent-specific)
+   - agent-spec-validator (core)
+   - multi-provider-consistency-checker (core)
+   - plugin-integrity-checker (core)
+   - agent-security-auditor (core)
+   - {agent-slug}-spec-validator × 13 (one per agent)
 
 4. **Tools** (CLI scripts)
    - agent-{slug}-{tool} per agent

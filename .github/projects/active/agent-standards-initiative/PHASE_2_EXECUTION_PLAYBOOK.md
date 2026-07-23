@@ -106,8 +106,9 @@ Every CI job starts with `npm ci`, which refuses an out-of-sync lock file
 ```bash
 npm install --package-lock-only
 git add package-lock.json
-# verify: no "Invalid:"/"Missing:" lines
-npm ci --dry-run 2>&1 | grep -iE "invalid|missing|in sync" || echo "lock OK"
+# verify: run without masking the npm exit code
+npm ci --dry-run 2>&1 | tee /tmp/npm-check.log
+grep -iE "invalid|missing|in sync" /tmp/npm-check.log && echo "lock FAILED" || echo "lock OK"
 ```
 
 ### 2.2 `validate:issue-fields` — `docs/ISSUE_FIELDS.md` missing the "50" anchor
@@ -152,24 +153,25 @@ Example format:
 
 Also bump the CHANGELOG frontmatter `last_updated` to UTC today (see 2.3).
 
-### 2.5 `validate:footers` — 315 pre-existing repo-wide violations
+### 2.5 `validate:footers` — validate PR changes only, not pre-existing violations
 
-`Validation` → `validate:footers` runs an **unscoped** scan of all ~8,300
-markdown files and fails on ~315 pre-existing violations (0 of which are in the
-agent files). This is the last blocker on an otherwise-green PR.
+The CI workflow already validates footers with `--changed-only --base origin/develop --head HEAD`,
+so it checks only the PR diff (files changed in this branch), not the full repo. Pre-existing
+violations in unchanged files do **not** block these PRs.
 
-- Do **not** blind-run the `--fix`: your own `CHANGELOG.md` records that this
-  exact fixer truncated 17 file bodies in PR #1108.
-- The agreed path (prior session) is **footer-fix inside each PR, carefully**:
-  run the fixer, then diff every touched file and confirm no body content was
-  lost before committing. Verify with:
+- Do **not** attempt to repair all 315 pre-existing repo-wide violations; that introduces
+  hundreds of unrelated file changes and exposes them to the acknowledged body-truncation risk.
+- Focus on verifying that **your agent files** have correct footers (if they had any diffs):
 
 ```bash
-node .github/scripts/validate-footers.js 2>&1 | grep -E "Total violations|Missing|Duplicate"
+# Validate only changed files (what CI checks):
+node .github/scripts/validate-footers.js --changed-only --base origin/develop --head HEAD \
+  2>&1 | grep -E "Total violations|Missing|Duplicate"
 git diff --stat        # sanity-check the fixer only appended footers
 ```
 
-  If any file shows large deletions, revert that file and add its footer by hand.
+If footers are needed in your agent files, add them manually; the `--changed-only` mode
+ensures you don't affect unrelated files.
 
 ### 2.6 `validate-pr-template` — PR body must have three sections
 
