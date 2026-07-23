@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.6"
-last_updated: "2026-06-19"
+version: "v1.0.7"
+last_updated: "2026-07-23"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
@@ -164,7 +164,7 @@ Issue types are defined once in `.github/issue-types.yml` and used by both:
 
 ### Project Sync: GitHub App Configuration
 
-The `project-meta-sync.yml` workflow syncs issue/PR metadata to the organization Project board. It requires a GitHub App with the correct scopes and credentials configured.
+The `project-meta-sync.yml` workflow syncs issue/PR metadata to the organisation Project board. It requires a GitHub App with the correct scopes and credentials configured.
 
 **Setup (org admins only):**
 
