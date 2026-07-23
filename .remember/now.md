@@ -154,3 +154,19 @@ Fixed js-yaml 5.x incompatibility (yaml.safeLoad→load in issue-pr-metadata.cjs
 
 Completed Phase 1 multi-provider standardization for 13 agents across 4 branches: verified wp/woo/tour-operator branches committed, created 90 config files for batch 5-14 agents (commit 2b0ccbbe9, 10.7K lines), all 4 PRs queued for merge.
 Generated 45K+ Phase 1 agent specs (batch-5-14: 10 agents + 3 config agents) across 4 PRs; discovered files not written to disk, now extracting specs to commit.
+
+## 08:38 | feat/agent-standards-woo-config
+
+Merged 3 PRs (#1061 @typescript-eslint/eslint-plugin 8.65.0, #1053 astro 7.1.0, #1133 meta-agent sync) to develop via squash; #1061 required admin override for merge conflicts.
+
+## 08:40 | feat/project-milestone-allocation-strategy
+
+Merged PR #1113 (version-based milestone allocation v1.0–v1.6, auto-allocation scripts, capacity warnings) to develop after configuring GitHub App credentials and fixing Node 22→24; created test issue #1128.
+
+## 08:42 | claude/issue-fields-workflow-review-c73e08
+
+Diagnosed & fixed issue-fields workflow no-op: Priority vocab mismatch; reconciled .github/issue-fields.yml Priority opts, added field-parity.test regression check.
+
+## 08:55 | feat/agent-standards-woo-config
+
+Expanded WooCommerce Config Agent stubs (164→1,046 lines): wrote real shared/core-prompt.md (185 lines, 7-phase methodology), claude provider config (79+204 lines, 8 tools w/ schemas), copilot (61+133 lines, 7 skills), openai (72+163 lines, 8 functions); fixed 4 pre-existing develop CI blockers (package-lock.json sync, ISSUE_FIELDS docs, frontmatter freshness, changelog); PR #1141 now 16/20 checks passing with footer-violations blocker remaining (pre-existing repo-wide issue, not agent-caused).
