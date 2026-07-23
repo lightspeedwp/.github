@@ -1,0 +1,14 @@
+interface:
+  display_name: Tour Operator Gravity Forms Auditor
+  short_description: Read-only Tour Operator plugin Gravity Forms audits and handoffs.
+  icon: form
+  color: '#0f766e'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

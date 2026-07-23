@@ -1,0 +1,78 @@
+{
+  "form_name": "Newsletter signup",
+  "purpose": "Collect consent-based newsletter signups and send a confirmation message.",
+  "audience": "Safari visitors",
+  "source_template": "Gravity Forms newsletter signup pattern, adapted for LightSpeed defaults",
+  "fields": [
+    {
+      "id": 1,
+      "label": "First name",
+      "type": "text",
+      "required": false
+    },
+    {
+      "id": 2,
+      "label": "Email address",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": 3,
+      "label": "Marketing consent",
+      "type": "consent",
+      "required": true
+    }
+  ],
+  "field_settings": {
+    "labels": "visible",
+    "placeholders": "supporting only",
+    "email_validation": true
+  },
+  "conditional_logic": [],
+  "confirmations": [
+    {
+      "name": "Default confirmation",
+      "type": "text",
+      "message": "Thanks. Please check your inbox for the next step."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Admin notification",
+      "to": "site owner or marketing inbox",
+      "from": "domain-aligned address",
+      "reply_to": "{Email address:2}"
+    }
+  ],
+  "feeds": [
+    {
+      "type": "email_marketing",
+      "status": "planned only",
+      "requires_addon_detection": true
+    }
+  ],
+  "spam_settings": {
+    "honeypot": true,
+    "turnstile": "use only if add-on and keys are confirmed",
+    "state_validation": "keep enabled where available"
+  },
+  "accessibility_settings": {
+    "labels": "visible labels required",
+    "descriptions": "brief consent wording",
+    "errors": "clear email/consent validation"
+  },
+  "embedding_target": "Newsletter section or signup page using Gravity Forms block",
+  "data_retention_notes": "Retain only data needed for consent evidence and newsletter operations. Confirm retention with client policy.",
+  "test_data": {
+    "first_name": "Alex",
+    "email": "alex@example.test",
+    "marketing_consent": true
+  },
+  "required_addons": [
+    "Email marketing add-on only if list sync is required"
+  ],
+  "risks": [
+    "List feed availability and consent wording must be confirmed before live sync"
+  ],
+  "approval_status": "draft"
+}
