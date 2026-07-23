@@ -25,6 +25,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Project sync workflow: hardened preflight check for secret-gating** — Distinguished between intentional disable (LS_PROJECT_URL unset) and credential-missing error (LS_PROJECT_URL set but app secrets/vars absent). Workflow now fails loudly with actionable error when credentials expected but missing, instead of skipping silently with a green check. Updated docs/AUTOMATION.md with GitHub App setup guide for org administrators. ([PR #1150](https://github.com/lightspeedwp/.github/pull/1150))
+
+### Fixed
+
+- **Skill registry: corrected batch2PlatformYamlScope paths** — Removed incorrect `design-md-agent/` subdirectory prefix from skill paths; skills are stored at `skills/` root, not in a nested subdirectory. ([PR #1150](https://github.com/lightspeedwp/.github/pull/1150))
+- **Issue fields documentation: version and canonical limits** — Fixed frontmatter/body version mismatch (v1.0.4 → v1.0.8) and added canonical GitHub API limits for issue fields (50 max single-select options, 50 total project fields, 25 org-level fields). ([PR #1150](https://github.com/lightspeedwp/.github/pull/1150))
+
 ### Added
 
 - **Phase 2 agent-standardisation execution playbook + refined per-chat prompts** — Added `PHASE_2_EXECUTION_PLAYBOOK.md` capturing the shared execution guide for the four open Phase 2 agent branches: real-content requirements with on-disk verification (the first pass shipped stubs), the pre-existing `develop` CI blockers and their fixes (`package-lock` sync, `docs/ISSUE_FIELDS.md` limits, frontmatter freshness, changelog policy, `validate:footers`, PR-template body), commit/push mechanics, PR-body template, and squash-merge protocol. Rewrote the four `PROMPT_BATCH_2_*` prompts into self-contained per-chat briefs carrying their branch, PR, and related issue(s), and updated `PHASE_2_BATCH_PROMPTS_INDEX.md` with a live branch/PR/issue mapping. Also documents the `single_select_max_options`/`project_total_field_limit` (50) limits in `docs/ISSUE_FIELDS.md` and syncs `package-lock.json` so pre-existing CI checks pass. ([PR #1144](https://github.com/lightspeedwp/.github/pull/1144); [#1079](https://github.com/lightspeedwp/.github/issues/1079))
