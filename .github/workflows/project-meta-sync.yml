@@ -36,17 +36,29 @@ jobs:
           enabled="true"
           reason=""
 
+          # If PROJECT_URL is not set, workflow is intentionally disabled
           if [ -z "${PROJECT_URL:-}" ]; then
             enabled="false"
-            reason="LS_PROJECT_URL is not configured"
+            reason="LS_PROJECT_URL is not configured (project sync disabled)"
+            echo "::notice::Project sync disabled: $reason"
+          # If PROJECT_URL is set but app credentials are missing, fail loudly
           elif [ -z "${APP_ID:-}" ] || [ -z "${APP_PRIVATE_KEY:-}" ]; then
-            enabled="false"
-            reason="LS_APP_ID and/or LS_APP_PRIVATE_KEY is missing"
+            echo "::error::Project sync REQUIRES GitHub App credentials (LS_PROJECT_URL is set)"
+            echo "Missing:"
+            [ -z "${APP_ID:-}" ] && echo "  - vars.LS_APP_ID"
+            [ -z "${APP_PRIVATE_KEY:-}" ] && echo "  - secrets.LS_APP_PRIVATE_KEY"
+            echo ""
+            echo "Setup: 1. Create GitHub App in org settings (AI Ops + Project v2 scopes)"
+            echo "       2. Set vars.LS_APP_ID and secrets.LS_APP_PRIVATE_KEY"
+            echo "       3. Re-run this workflow"
+            echo ""
+            echo "Docs: see .github/workflows/project-meta-sync.yml and docs/AUTOMATION.md"
+            exit 1
           fi
 
           echo "enabled=$enabled" >> "$GITHUB_OUTPUT"
-          if [ "$enabled" != "true" ]; then
-            echo "::notice::$reason; skipping project meta sync."
+          if [ "$enabled" = "true" ]; then
+            echo "✅ Project sync enabled (credentials present)"
           fi
 
       - name: Create GitHub App installation token
