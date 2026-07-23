@@ -22,7 +22,7 @@ A **template-driven GitHub Projects creation system** that:
 
 - Reads CSV fixtures defining new projects
 - Creates GitHub Projects v2 with correct template type
-- Initializes all fields, automations, and views
+- Initialises all fields, automations, and views
 - Supports two templates: Client Delivery (Scrumban + UAT) and Product Development (Release Train)
 
 ### Implementation Timeline
@@ -38,7 +38,7 @@ A **template-driven GitHub Projects creation system** that:
 - **2 templates** (Client Delivery, Product Development)
 - **14 core fields** per template (Priority, Type, Effort, Area, Theme, Size, Dates, Milestone, Environment, Parent Issue, Sub-issues Progress, Time)
 - **5 automations** per template (auto-add, assignee, pr-linked, qa-label, closed)
-- **9 views** for Client Delivery (including UAT), **8 for Product Development** (including Release Gate)
+- **9 views** for Client Delivery (including UAT), **9 views for Product Development** (8 required + 1 optional Iteration Board)
 - **0 regressions** target (all existing workflows continue to work)
 
 ---
@@ -117,6 +117,7 @@ All field mappings come from **`.github/issue-fields.yml`** — we synchronize i
 |-------|------|--------|-------|
 | Priority | single_select | Critical, Important, Normal, Minor | Org-level |
 | Type | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | From issue-types.yml |
+| Status | single_select | Backlog, Ready/Todo, In Progress, In Review, In QA, Done | Workflow-specific |
 | Effort | single_select | XS, S, M, L, XL, XXL, XXXL | Org-level |
 | Area | single_select | Frontend, Backend, Build & CI, etc. | New custom field |
 | Theme | single_select | Checkout, Performance, etc. (client) OR Design System, Performance, etc. (product) | Template-specific |

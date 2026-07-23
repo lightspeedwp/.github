@@ -2,7 +2,7 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.7
+version: v1.0.8
 created_date: '2026-05-31'
 last_updated: '2026-07-23'
 authors:
@@ -167,7 +167,7 @@ With 10 project field values, we maintain meaningful distinctions without fragme
 
 ### 3.1 Universal Project Fields
 
-GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion.
+GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion. Single-select fields may define up to 50 options (`single_select_max_options: 50`), and the project as a whole is capped at 50 total fields (`project_total_field_limit: 50`).
 
 All organization issues support these fields:
 
@@ -443,6 +443,30 @@ Current workflow contract:
 - If labels arrive after creation, the sync workflow reprocesses the item and backfills
   `Type` and `Priority` from canonical labels, issue type intent, or safe content
   fallbacks.
+
+### Org-Level Issue Field Writing (Not Yet Implemented)
+
+**Status**: Pending implementation/configuration ([#1145](https://github.com/lightspeedwp/.github/issues/1145))
+
+The org-level `updateOrgIssueFields()` function (which populates org-level custom fields like Risk, Customer Impact, and Technical Impact across projects) is not currently implemented. Field mapping configuration (`.github/issue-field-ids.yml`) is scaffolded but pending:
+
+1. **Field ID configuration** — Map canonical field names to GitHub org field IDs (example):
+
+   ```yaml
+   fields:
+     risk: F_kgAO3x5Y7xxxxxx
+     customer_impact: F_kgAO3x5Y7yyyyyy
+     technical_impact: F_kgAO3x5Y7zzzzzz
+     priority: F_kgAO3x5Y7aaaaaa
+     effort: F_kgAO3x5Y7bbbbbb
+     type: F_kgAO3x5Y7cccccc
+   ```
+
+2. **Permission setup** — Org-level write access (GitHub app scope or PAT with `write:org` on custom fields)
+
+3. **Integration** — Wire field writer into project-meta-sync and project-creator workflows once IDs are in place
+
+**Dependency**: Complete [#1145](https://github.com/lightspeedwp/.github/issues/1145) before enabling org-level field writes.
 
 Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 

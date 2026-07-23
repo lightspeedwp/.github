@@ -18,3 +18,7 @@ Configured LS_APP_ID/LS_APP_PRIVATE_KEY secrets for Project 33, fixed Node 22→
 ## 17:41 | ci/fix-linting-workflows-and-mergify
 
 Committed 1,155 CodeRabbit-improved agent files (fixed markdown linting, merged PR #1127), added 16 new agents to website catalogue w/ multi-file package badges, fixed awesome-github-site.yml workflow (Node 24 upgrade, actions/setup-node v5, artifact upload on dispatch), deployed w/ 25 agents live on /c/agents/.
+
+## 17:43 | claude/phase-2-agent-standards-9274ea
+
+Implemented P2 4-provider contract (5 docs + 3 batch prompts w/ plugin checklists); merged PR #1157 to docs/agent-standards-phase-2-prompts, created issues #1158 + #1162; diagnosed endemic CI blockers (dupe linting.yml, .claude/worktrees/) in PR #1159, but FM/template validation failures block merge (delays PR #1144).
