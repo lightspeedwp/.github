@@ -3,122 +3,315 @@
   "tools": [
     {
       "name": "scope-analyzer",
-      "description": "Scope Analyzer tool",
+      "description": "Analyze and decompose project requirements into granular, estimable features and user stories.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "projectDescription": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "High-level description of the project"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "requirements": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of project requirements or features"
+          },
+          "currentState": {
+            "type": "string",
+            "description": "Description of current state or baseline"
+          },
+          "targetState": {
+            "type": "string",
+            "description": "Description of desired target state"
+          },
+          "constraints": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Technical, timeline, or budget constraints"
+          },
+          "decompositionDepth": {
+            "type": "string",
+            "enum": ["features", "user-stories", "tasks"],
+            "description": "Level of detail for decomposition"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["projectDescription", "requirements"]
       }
     },
     {
       "name": "effort-estimator",
-      "description": "Effort Estimator tool",
+      "description": "Estimate development effort per feature with confidence levels and historical validation.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "description": {"type": "string"},
+                "complexity": {"type": "string", "enum": ["low", "medium", "high"]},
+                "dependencies": {"type": "array", "items": {"type": "string"}}
+              }
+            },
+            "description": "List of features to estimate"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "teamExperience": {
+            "type": "string",
+            "enum": ["junior", "mid-level", "senior", "mixed"],
+            "description": "Team skill level for estimation"
+          },
+          "technologyStack": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Technologies being used (affects estimation)"
+          },
+          "historicalData": {
+            "type": "boolean",
+            "description": "Include comparison with similar past projects"
+          },
+          "confidenceTarget": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "Desired confidence level for estimates"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["features"]
       }
     },
     {
       "name": "timeline-planner",
-      "description": "Timeline Planner tool",
+      "description": "Create project timeline with phases, milestones, dependencies, and critical path analysis.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "projectName": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "Project name"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "estimatedHours": {"type": "number"},
+                "dependencies": {"type": "array", "items": {"type": "string"}}
+              }
+            },
+            "description": "Features with estimates"
+          },
+          "teamSize": {
+            "type": "integer",
+            "description": "Number of team members available"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Project start date"
+          },
+          "includeBuffer": {
+            "type": "boolean",
+            "description": "Include 10-15% time buffer for unknowns"
+          },
+          "phaseDefinitions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Project phases (e.g., discovery, design, dev, testing, launch)"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["projectName", "features", "teamSize"]
       }
     },
     {
       "name": "resource-calculator",
-      "description": "Resource Calculator tool",
+      "description": "Determine team composition, skill requirements, and resource allocation for project success.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "totalEstimatedHours": {
+            "type": "number",
+            "description": "Total project effort in hours"
           },
-          "options": {
+          "projectDuration": {
+            "type": "string",
+            "description": "Desired project duration (e.g., 12 weeks)"
+          },
+          "skillsRequired": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Required technical skills (e.g., full-stack, DevOps, QA)"
+          },
+          "teamAvailability": {
             "type": "object",
-            "description": "Additional options"
+            "properties": {
+              "junior": {"type": "integer"},
+              "mid-level": {"type": "integer"},
+              "senior": {"type": "integer"}
+            },
+            "description": "Available team members by skill level"
+          },
+          "constraints": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Resource constraints (part-time, vacation, other commitments)"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["totalEstimatedHours", "projectDuration"]
       }
     },
     {
       "name": "budget-estimator",
-      "description": "Budget Estimator tool",
+      "description": "Project costs including labor, infrastructure, and contingency with financial scenario modeling.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "totalHours": {
+            "type": "number",
+            "description": "Total estimated project hours"
           },
-          "options": {
+          "hourlyRates": {
             "type": "object",
-            "description": "Additional options"
+            "properties": {
+              "junior": {"type": "number"},
+              "mid-level": {"type": "number"},
+              "senior": {"type": "number"}
+            },
+            "description": "Hourly rates by skill level"
+          },
+          "teamComposition": {
+            "type": "object",
+            "properties": {
+              "juniorHours": {"type": "number"},
+              "midLevelHours": {"type": "number"},
+              "seniorHours": {"type": "number"}
+            },
+            "description": "Distribution of hours by skill level"
+          },
+          "infrastructureCosts": {
+            "type": "number",
+            "description": "Third-party services, hosting, tools (monthly estimate)"
+          },
+          "projectDurationMonths": {
+            "type": "number",
+            "description": "Project duration in months"
+          },
+          "contingencyPercentage": {
+            "type": "integer",
+            "description": "Contingency buffer percentage (10-25)"
+          },
+          "scenarios": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Scenarios to model (MVP, standard, premium)"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["totalHours"]
       }
     },
     {
       "name": "risk-assessor",
-      "description": "Risk Assessor tool",
+      "description": "Identify project risks, assess impact and probability, and recommend mitigation strategies.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "projectDescription": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "Project overview and context"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "techStack": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Technologies being used"
+          },
+          "teamExperience": {
+            "type": "string",
+            "enum": ["junior", "mid-level", "senior", "mixed"],
+            "description": "Team skill level"
+          },
+          "timeline": {
+            "type": "string",
+            "description": "Project timeline (weeks or months)"
+          },
+          "constraints": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Project constraints (budget, resources, timeline)"
+          },
+          "historicalRisks": {
+            "type": "boolean",
+            "description": "Include lessons learned from similar projects"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["projectDescription"]
+      }
+    },
+    {
+      "name": "dependency-mapper",
+      "description": "Visualize feature dependencies, critical path, and parallel work opportunities.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {"type": "string"},
+                "name": {"type": "string"},
+                "estimatedHours": {"type": "number"},
+                "dependencies": {"type": "array", "items": {"type": "string"}}
+              }
+            },
+            "description": "Features with dependencies"
+          },
+          "includeExternalDependencies": {
+            "type": "boolean",
+            "description": "Include third-party or client dependencies"
+          },
+          "criticality": {
+            "type": "string",
+            "enum": ["strict", "flexible"],
+            "description": "Constraint type (strict timeline or flexible)"
+          }
+        },
+        "required": ["features"]
+      }
+    },
+    {
+      "name": "scenario-builder",
+      "description": "Create MVP, standard, and premium scope scenarios with effort, timeline, and budget projections.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "allFeatures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "estimatedHours": {"type": "number"},
+                "priority": {"type": "string", "enum": ["must-have", "should-have", "nice-to-have"]},
+                "category": {"type": "string"}
+              }
+            },
+            "description": "Complete feature list with priorities"
+          },
+          "hourlyRate": {
+            "type": "number",
+            "description": "Average hourly rate for cost calculation"
+          },
+          "includeAlternatives": {
+            "type": "boolean",
+            "description": "Include alternative approaches for comparison"
+          },
+          "teamSize": {
+            "type": "integer",
+            "description": "Team size for timeline estimation"
+          }
+        },
+        "required": ["allFeatures"]
       }
     }
   ]

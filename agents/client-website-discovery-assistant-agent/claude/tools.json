@@ -3,122 +3,314 @@
   "tools": [
     {
       "name": "website-analyzer",
-      "description": "Website Analyzer tool",
+      "description": "Conduct a comprehensive website audit across multiple dimensions (UX, performance, SEO, accessibility, content, technology).",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "websiteUrl": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "The website URL to analyze"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "auditFocusAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["ux", "performance", "seo", "accessibility", "content", "technology", "security", "mobile"]
+            },
+            "description": "Specific focus areas for the audit"
+          },
+          "includePageAudit": {
+            "type": "boolean",
+            "description": "Include analysis of specific pages vs. overall site"
+          },
+          "targetPages": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Specific pages to analyze (e.g., /products, /pricing)"
+          },
+          "businessContext": {
+            "type": "string",
+            "description": "Business goals, target audience, industry context"
+          },
+          "auditDepth": {
+            "type": "string",
+            "enum": ["quick", "standard", "comprehensive"],
+            "description": "Depth of audit analysis"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["websiteUrl"]
       }
     },
     {
       "name": "seo-auditor",
-      "description": "Seo Auditor tool",
+      "description": "Conduct SEO audit including on-page optimization, technical SEO, content strategy, and keyword analysis.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "websiteUrl": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "The website URL to audit for SEO"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "targetKeywords": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Target keywords or topics"
+          },
+          "auditAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["on-page", "technical", "content-strategy", "mobile-seo", "local-seo", "competitive-keywords"]
+            },
+            "description": "Specific SEO audit areas"
+          },
+          "industry": {
+            "type": "string",
+            "description": "Industry or vertical (for benchmarking)"
+          },
+          "targetAudience": {
+            "type": "string",
+            "description": "Primary target audience or buyer persona"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["websiteUrl"]
       }
     },
     {
       "name": "performance-tester",
-      "description": "Performance Tester tool",
+      "description": "Assess website performance including Core Web Vitals (LCP, FID, CLS), load times, and optimization opportunities.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "websiteUrl": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "The website URL to test"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "testPages": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Specific pages to test (homepage, key pages)"
+          },
+          "deviceTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["desktop", "mobile", "tablet"]
+            },
+            "description": "Device types to test"
+          },
+          "metricsToMeasure": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["core-web-vitals", "page-load", "asset-optimization", "caching", "cdn"]
+            },
+            "description": "Specific performance metrics to measure"
+          },
+          "includeOptimizationRecs": {
+            "type": "boolean",
+            "description": "Include optimization recommendations"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["websiteUrl"]
       }
     },
     {
       "name": "ux-assessor",
-      "description": "Ux Assessor tool",
+      "description": "Evaluate user experience including navigation, usability, interaction patterns, and accessibility compliance.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "websiteUrl": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "The website URL to assess"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "primaryUserJourneys": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Primary user journeys to evaluate (e.g., product-discovery, checkout)"
+          },
+          "accessibilityStandard": {
+            "type": "string",
+            "enum": ["wcag-2.1-a", "wcag-2.1-aa", "wcag-2.2-aa"],
+            "description": "Accessibility standard to evaluate against"
+          },
+          "deviceFocus": {
+            "type": "string",
+            "enum": ["desktop", "mobile", "all"],
+            "description": "Device focus for UX assessment"
+          },
+          "heuristics": {
+            "type": "boolean",
+            "description": "Include Nielsen's usability heuristics evaluation"
+          },
+          "targetAudience": {
+            "type": "string",
+            "description": "Target audience or personas"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["websiteUrl"]
       }
     },
     {
       "name": "competitor-analyzer",
-      "description": "Competitor Analyzer tool",
+      "description": "Compare website against competitors across features, technology, design, UX, and content.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
+          "clientWebsiteUrl": {
             "type": "string",
-            "description": "Query parameter"
+            "description": "The client's website URL"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "competitorUrls": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "URLs of 2-5 competitors to analyze"
+          },
+          "comparisonAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["features", "technology", "design", "ux", "content", "performance", "pricing-model"]
+            },
+            "description": "Areas to compare"
+          },
+          "industryContext": {
+            "type": "string",
+            "description": "Industry or market segment"
+          },
+          "differentiationGoals": {
+            "type": "string",
+            "description": "Client's differentiation goals or key differentiators"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["clientWebsiteUrl", "competitorUrls"]
+      }
+    },
+    {
+      "name": "accessibility-auditor",
+      "description": "Conduct WCAG 2.2 AA accessibility audit and provide remediation guidance.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "websiteUrl": {
+            "type": "string",
+            "description": "The website URL to audit"
+          },
+          "wcagLevel": {
+            "type": "string",
+            "enum": ["a", "aa", "aaa"],
+            "description": "WCAG conformance level to evaluate against"
+          },
+          "testPages": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Specific pages to audit"
+          },
+          "includeRemediationGuidance": {
+            "type": "boolean",
+            "description": "Include remediation guidance and code examples"
+          },
+          "testAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["color-contrast", "keyboard-navigation", "screen-reader", "form-labels", "alt-text", "structure"]
+            },
+            "description": "Specific accessibility areas to test"
+          }
+        },
+        "required": ["websiteUrl"]
+      }
+    },
+    {
+      "name": "report-generator",
+      "description": "Generate professional discovery report in multiple formats from audit findings.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "reportTitle": {
+            "type": "string",
+            "description": "Title of the discovery report"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "Client organization name"
+          },
+          "auditFindings": {
+            "type": "object",
+            "description": "Summary of audit findings across dimensions"
+          },
+          "reportFormat": {
+            "type": "string",
+            "enum": ["pdf", "html", "markdown", "json"],
+            "description": "Output format for the report"
+          },
+          "includeExecutiveSummary": {
+            "type": "boolean",
+            "description": "Include executive summary for stakeholders"
+          },
+          "includedSections": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["audit-summary", "competitive-analysis", "gap-analysis", "recommendations", "roadmap", "success-metrics"]
+            },
+            "description": "Sections to include in the report"
+          },
+          "branding": {
+            "type": "object",
+            "properties": {
+              "logoUrl": {"type": "string"},
+              "colorScheme": {"type": "string"}
+            },
+            "description": "Branding options for the report"
+          }
+        },
+        "required": ["reportTitle", "auditFindings"]
       }
     },
     {
       "name": "recommendation-engine",
-      "description": "Recommendation Engine tool",
+      "description": "Prioritize recommendations by impact/effort scoring and create phased implementation roadmap.",
       "inputSchema": {
         "type": "object",
         "properties": {
-          "query": {
-            "type": "string",
-            "description": "Query parameter"
+          "recommendations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {"type": "string"},
+                "description": {"type": "string"},
+                "category": {"type": "string"},
+                "estimatedEffort": {"type": "string", "enum": ["low", "medium", "high"]},
+                "expectedImpact": {"type": "string", "enum": ["low", "medium", "high"]}
+              }
+            },
+            "description": "List of recommendations to prioritize"
           },
-          "options": {
-            "type": "object",
-            "description": "Additional options"
+          "prioritizationCriteria": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Criteria for prioritization (e.g., quick-wins, roi, risk-reduction)"
+          },
+          "teamCapacity": {
+            "type": "string",
+            "enum": ["small", "medium", "large"],
+            "description": "Team size/capacity for implementation"
+          },
+          "timelineMonths": {
+            "type": "integer",
+            "description": "Timeline for implementation roadmap (in months)"
+          },
+          "phases": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Implementation phases (e.g., quick-wins, medium-term, strategic)"
           }
         },
-        "required": [
-          "query"
-        ]
+        "required": ["recommendations"]
       }
     }
   ]
