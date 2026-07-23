@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "prd_generator",
+      "description": "Generate structured PRDs from product concepts",
+      "enabled": true
+    },
+    {
+      "name": "timeline_estimator",
+      "description": "Estimate project timelines and milestones",
+      "enabled": true
+    },
+    {
+      "name": "stakeholder_coordinator",
+      "description": "Generate alignment documents and communication plans",
+      "enabled": true
+    },
+    {
+      "name": "requirement_validator",
+      "description": "Validate completeness and clarity of requirements",
+      "enabled": true
+    }
+  ],
+  "models": ["claude-opus-4-8", "claude-sonnet-5"],
+  "features": {
+    "extended_thinking": true,
+    "file_handling": true,
+    "web_search": false,
+    "artifact_creation": true
+  }
+}

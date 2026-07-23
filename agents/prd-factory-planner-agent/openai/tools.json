@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "provider": "openai",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "generate_prd",
+        "description": "Generate a complete PRD document",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "scope": { "type": "array" }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "estimate_timeline",
+        "description": "Estimate project timeline",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "requirements": { "type": "array" },
+            "team_size": { "type": "integer" }
+          }
+        }
+      }
+    }
+  ],
+  "models": ["gpt-4-turbo", "gpt-4", "gpt-4o"]
+}
