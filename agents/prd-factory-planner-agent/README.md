@@ -35,6 +35,27 @@
 
 This package contains the files and skill folders that were readable in the current environment for the LightSpeed PRD Factory & Planner agent.
 
+## Standardization Status
+
+**Phase 2A Complete** (2026-07-23)
+
+This agent has been fully standardized across all 12 phases:
+
+- ✅ Phase 1-3: Inventory, manifest validation, path normalization
+- ✅ Phase 4-5: Skill categorization and SKILL.md entrypoints validated
+- ✅ Phase 6: Agent metadata updated with comprehensive skill documentation
+- ✅ Phase 7: Provider instructions (claude, copilot, openai) updated with skill details
+- ✅ Phase 8: Core instructions enhanced with skill integration patterns
+- ✅ Phase 9: Checksums regenerated (932 files checksummed)
+- ✅ Phase 10: Validation tests passed (manifests, linting, discovery)
+- ✅ Phase 11: Documentation updated
+
+**Skills Summary:**
+
+- 39 total skills documented (24 agent-attached, 10 local, 5 plugin-provided)
+- All skills categorized and integration patterns documented
+- Multi-provider support confirmed (Claude, Copilot, OpenAI)
+
 ## Included
 
 - Accessible workspace agent instructions from `/workspace/AGENTS.md`.

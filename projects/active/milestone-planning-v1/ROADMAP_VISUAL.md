@@ -39,20 +39,22 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    v1.0 → v1.5 RELEASE ROADMAP                             │
+│                    v1.0 → v1.5 RELEASE ROADMAP (as of 2026-07-23)          │
 └─────────────────────────────────────────────────────────────────────────────┘
 
-QUARTER Q3 2026                     QUARTER Q4 2026
-├──────────────────────────┬────────────────────────────────────┤
+QUARTER Q3 2026 (CURRENT)           QUARTER Q4 2026
+├────────────────────┤─────────────────────────┤
 
   ┌──────────────────────────────────────────────────────────────┐
-  │ v1.0: FOUNDATION & AGENT STANDARDIZATION (35–40 issues)     │
-  │ ├─ 15 Agent Rewrites (Multi-provider: Claude/Copilot/OpenAI) │
-  │ ├─ 4 Hooks + 4 Schemas (Framework)                          │
-  │ ├─ 4 Instruction Files (Documentation)                      │
-  │ └─ 4 Critical Bugs (CI/Validation Fixes)                    │
+  │ v1.0: FOUNDATION & AGENT STANDARDIZATION (38+ issues)       │
+  │ ├─ Phase 1: Playwright Pilot ✅ COMPLETE                    │
+  │ ├─ Phase 2A: 4+ agents ✅ MERGED, 6+ in progress 🔄         │
+  │ ├─ Framework: 4+ Hooks + 4+ Schemas ✅                       │
+  │ ├─ Documentation: 4+ Instruction Files ✅                    │
+  │ ├─ Critical Bugs: All 4 fixed ✅ (#1069, #1083, #1118, #119)│
+  │ └─ Phase 3: Next wave planning 📋                            │
   │                                                              │
-  │ Status: IN PROGRESS ✅ → TARGET: End Q3                    │
+  │ Status: 🔄 PHASE 2A IN PROGRESS → TARGET: 2026-08-15       │
   └──────────────────────────────────────────────────────────────┘
          ↓ (foundation blocks all downstream)
   ┌──────────────────────────────────────────────────────────────┐

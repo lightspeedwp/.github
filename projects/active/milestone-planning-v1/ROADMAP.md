@@ -36,15 +36,22 @@
 <!-- BADGES-END -->
 
 > Planning document for allocating 150 open issues across 6 milestone releases.
-> Generated: 2026-07-22
+> Generated: 2026-07-23 | Last Updated: 2026-07-23
 
 ## Executive Summary
 
-**Open Issues**: 150 total
+**Open Issues**: 150 total (estimated based on planning phase)
 
-- **v1.0 (In Progress)**: 31 issues already allocated → target 35–40
-- **v1.1–v1.5 (Proposed)**: 119 unallocated issues → distribute 20–25 per milestone
+- **v1.0 (In Progress)**: 38+ issues allocated → Phase 2A agents standardization underway
+- **v1.1–v1.5 (Proposed)**: Remaining issues → distribute 20–25 per milestone
 - **Theme**: Agent standardization → infrastructure → docs → release safety → testing → advanced features
+
+**Recent Progress (2026-07-23)**:
+
+- Phase 2A: 4 agents completed, 6 in progress
+- wp-config-agent standardized for multi-provider support
+- PR automation workflow audit completed
+- Issue field writer infrastructure MVP completed
 
 ---
 
@@ -80,47 +87,53 @@
 
 ## Milestone Breakdown
 
-### **v1.0: Foundation & Multi-Provider Agent Standardization** (35–40 issues)
+### **v1.0: Foundation & Multi-Provider Agent Standardization** (38+ issues)
 
-**Status**: In Progress  
-**Theme**: Multi-provider agent framework complete, critical fixes, foundation ready
+**Status**: Phase 2A In Progress  
+**Theme**: Multi-provider agent framework in active development, critical fixes completed, foundation established
 
-#### Allocated Now
+#### Completed Agents ✅
 
-- Epic #1079: Multi-Provider Agent Standardization Initiative
-- Agent Rewrites (15 tasks): #1087–#1103
-  - Playwright Testing Agent (pilot)
-  - AI Readiness Estimator
-  - Client Website Discovery Assistant
-  - Design Partner Agent
-  - Harvest Analytical Agent
-  - Linear Advisor Agent
-  - PageSpeed Agent
-  - PRD Agent, PRD Factory Planner
-  - Proposal Desk Agent
-  - Tour Operator Config Agent
-  - Website Content Strategist, Website Scope Estimator
-  - WooCommerce Config Agent
-  - WordPress Config Agent
-  - Zendesk Support Agent
+- Playwright Testing Agent (pilot) — #1108 ✅ MERGED
+- wp-config-agent — #1142 ✅ MERGED
+- AI Readiness Estimator — Phase 2A ✅ MERGED
+- PageSpeed Agent — Phase 2A ✅ MERGED
+- Website Content Strategist — Phase 2A ✅ MERGED
+- 4+ additional agents (Phase 2A batch) ✅ MERGED (#1195)
 
-#### Add to v1.0
+#### In Progress (Phase 2A) 🔄
 
-- **Automation Infrastructure**:
-  - #1104: 4 multi-provider agent JSON schemas
-  - #1105: 4 agent/plugin validation hooks
-  - #1106: 4 multi-provider instruction files + cookbook
+- Client Website Discovery Assistant
+- Design Partner Agent
+- Harvest Analytical Agent
+- Linear Advisor Agent
+- PRD Agent, PRD Factory Planner
+- Proposal Desk Agent (with multi-issue PRD variants)
+- Tour Operator Config Agent
+- Website Scope Estimator
+- WooCommerce Config Agent
+- Zendesk Support Agent
 
-- **Critical Bugs** (blocking CI/validation):
-  - #1118: fix(validation): validate-footers --fix truncates file bodies
-  - #1119: fix(ci): validate-mermaid-pr workflow fails on pre-existing mermaid syntax
-  - #1069: Branch cleanup automation: fix critical safety issues
-  - #1083: meta.agent.js --dry-run writes real changes to disk
+#### Completed Infrastructure ✅
 
-- **Features & Quality**:
-  - #1112: Implement project milestone allocation strategy
-  - #1126: chore(code-quality): address remaining CodeRabbit feedback
-  - #1120: test(hooks): add regression test coverage
+- **Automation & Validation**:
+  - #1104: 4+ multi-provider agent JSON schemas ✅
+  - #1105: 4+ agent/plugin validation hooks ✅
+  - #1106: 4+ multi-provider instruction files + cookbook ✅
+  - #1151: Issue field writer infrastructure (org issue-field MVP) ✅
+  - #1191: PR automation workflow audit framework ✅
+
+- **Critical Bug Fixes** ✅:
+  - #1084: meta.agent.js --dry-run regression ✅ MERGED
+  - #1118, #1119: Validation footer/mermaid issues ✅ MERGED
+  - #1069: Branch cleanup automation safety ✅ MERGED
+  - #1083: Dry-run file write issues ✅ MERGED
+
+- **Features & Quality** ✅:
+  - #1112: Project milestone allocation strategy ✅
+  - #1126: CodeRabbit feedback addressed ✅
+  - #1120: Regression test coverage ✅
+  - #1149: Block theme skills expansion (8 stubs + 11 new) ✅
 
 ---
 
@@ -261,16 +274,16 @@ v1.5 (Advanced Features & Plugins) ←── Independent after v1.0
 
 ## Allocation Summary Table
 
-| # | Milestone | Issues | Theme |
-|---|-----------|--------|-------|
-| 1.0 | Foundation & Agents | 35–40 | Multi-provider agent standardization ✅ |
-| 1.1 | Infrastructure | 20–25 | File org, root cleanup, dependencies |
-| 1.2 | Governance & Docs | 20–25 | Documentation consolidation, configs |
-| 1.3 | Release Safety | 15–20 | Automation hardening, approval gates |
-| 1.4 | Testing & Quality | 15–20 | Coverage implementation, validation |
-| 1.5 | Advanced Features | 20–25 | Plugins, Awesome GitHub, optimization |
-| — | Legacy/Triage | 5–10 | v0.x items, plugin pack clarification |
-| **TOTAL** | — | **~130–145** | — |
+| # | Milestone | Issues | Status | Theme |
+|---|-----------|--------|--------|-------|
+| 1.0 | Foundation & Agents | 38+ | 🔄 Phase 2A in progress | Multi-provider agent standardization — 6+ agents done, 6+ in progress |
+| 1.1 | Infrastructure | 20–25 | 📋 Planned | File org, root cleanup, dependencies |
+| 1.2 | Governance & Docs | 20–25 | 📋 Planned | Documentation consolidation, configs |
+| 1.3 | Release Safety | 15–20 | 📋 Planned | Automation hardening, approval gates |
+| 1.4 | Testing & Quality | 15–20 | 📋 Planned | Coverage implementation, validation |
+| 1.5 | Advanced Features | 20–25 | 📋 Planned | Plugins, Awesome GitHub, optimization |
+| — | Legacy/Triage | 5–10 | 📋 Planned | v0.x items, plugin pack clarification |
+| **TOTAL** | — | **~133–153** | — | — |
 
 ---
 
@@ -293,10 +306,14 @@ v1.5 (Advanced Features & Plugins) ←── Independent after v1.0
 
 ### v1.0 Done When
 
-- [ ] All 15 agent rewrites merged and tested
-- [ ] 4 hooks + 4 schemas implemented
-- [ ] Critical bugs (#1069, #1083, #1118, #1119) fixed
-- [ ] Project milestone strategy implemented
+- [x] Pilot agent (Playwright Testing) merged and tested ✅
+- [x] Phase 2A: 4+ agents completed, 6+ in progress ✅
+- [x] 4+ hooks + 4+ schemas implemented ✅
+- [x] Critical bugs (#1069, #1083, #1118, #1119) fixed ✅
+- [x] Project milestone strategy implemented ✅
+- [ ] Remaining Phase 2A agents (6+) merged and tested
+- [ ] All multi-provider standardizations complete
+- [ ] Phase 2 architecture PRD resolved for Phase 3 planning
 
 ### v1.1 Done When
 
@@ -347,34 +364,66 @@ v1.5 (Advanced Features & Plugins) ←── Independent after v1.0
 
 ---
 
+## Progress Summary (as of 2026-07-23)
+
+### v1.0: Milestone Completion Status
+
+**Agent Standardization Progress**:
+
+- ✅ Pilot complete (Playwright Testing Agent #1108)
+- ✅ Phase 2A: 4+ agents merged + standardized
+- 🔄 Phase 2A: 6+ agents in active development
+- 📋 Phase 3: Planning for remaining agents
+- **Completion Target**: v1.0 agents stabilization by EOQ (Q3 2026)
+
+**Infrastructure & Automation**:
+
+- ✅ JSON schemas (4+) implemented
+- ✅ Validation hooks (4+) implemented  
+- ✅ Instruction files + cookbook (4+) implemented
+- ✅ Issue field writer MVP (#1151)
+- ✅ PR automation audit framework (#1191)
+
+**Critical Bug Fixes**:
+
+- ✅ All 4 critical bugs resolved (#1069, #1083, #1118, #1119)
+- ✅ Regression test coverage added
+
+---
+
 ## Next Actions
 
-1. **Confirm v1.0 Status**
-   - [ ] Review all 15 agent rewrites (in progress?)
-   - [ ] Verify critical bug fixes are unblocked
-   - [ ] Set completion target date
+1. **Complete v1.0 Agent Standardization**
+   - [x] Phase 1 complete (Playwright pilot) ✅
+   - [x] Phase 2A: 4+ agents merged ✅
+   - [ ] Phase 2A: Complete remaining 6+ agents
+   - [ ] Phase 2B: Plan next wave of agents
+   - [ ] Target completion: 2026-08-15
 
 2. **Create v1.1–v1.5 Milestones in GitHub**
    - [ ] Create 5 new milestones with descriptions
    - [ ] Link to this roadmap in each milestone
-   - [ ] Define due dates
+   - [ ] Define due dates (stagger 2–3 week intervals)
 
-3. **Bulk Assign Issues**
+3. **Bulk Assign Outstanding Issues**
+   - [ ] Audit remaining unallocated issues
    - [ ] Assign file org/cleanup tasks → v1.1
    - [ ] Assign doc audits/consolidation → v1.2
    - [ ] Assign release/automation tasks → v1.3
    - [ ] Assign test coverage tasks → v1.4
    - [ ] Assign plugins/website tasks → v1.5
 
-4. **Triage Remaining Issues**
-   - [ ] Review plugin pack tasks (keep or reassign?)
-   - [ ] Archive or reallocate v0.x items
-   - [ ] Confirm all 150 issues are assigned
+4. **Triage & Archive Stale Issues**
+   - [ ] Review plugin pack tasks (P01–P10) — reassign or split v1.5
+   - [ ] Archive completed v0.x items
+   - [ ] Mark duplicate/closed as done
+   - [ ] Confirm all 150 issues are allocated or archived
 
-5. **Establish Tracking**
+5. **Establish Tracking & Reporting**
+   - [ ] Set up weekly v1.0 agent status check-in
    - [ ] Track issue burndown per milestone
    - [ ] Monitor critical path dependencies
-   - [ ] Weekly sync on v1.0 agent rewrites
+   - [ ] Monthly roadmap review & adjustment
 
 ---
 

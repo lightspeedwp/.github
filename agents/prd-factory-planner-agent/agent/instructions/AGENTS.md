@@ -188,18 +188,85 @@ Default app usage:
 
 Treat tool output as evidence, not certainty.
 
+## Available Skills
+
+This agent has access to **39 custom skills** organized by category:
+
+### Agent-Attached Skills (24 total)
+
+Specialized skills built specifically for PRD generation and project planning:
+
+**PRD Generation & Structuring (4 skills):**
+
+- `prd-generator` — Create full-featured PRDs from requirements
+- `prd-factory-planner` — Transform concepts into structured PRDs
+- `prd-combined` — Unified PRD generation from mixed inputs
+- `prd-outline-generator` — Create PRD outlines and section scaffolding
+
+**Timeline, Phasing & Planning (4 skills):**
+
+- `timeline-estimator` — Estimate project duration and phases based on scope
+- `milestone-planner` — Define project milestones, deliverables, and acceptance criteria
+- `phase-sequencer` — Order project phases with dependency mapping
+- `dependency-mapper` — Identify and visualize project dependencies
+
+**Stakeholder Alignment & Requirements (6 skills):**
+
+- `stakeholder-coordinator` — Generate alignment documents and decision matrices
+- `communication-planner` — Create multi-stakeholder communication and engagement plans
+- `alignment-validator` — Validate stakeholder requirements alignment
+- `feedback-aggregator` — Consolidate feedback from multiple stakeholders
+- `requirement-validator` — Validate completeness, clarity, and feasibility of requirements
+- `scope-definer` — Define scope boundaries, out-of-scope items, and deferred work
+
+**Documentation & Export (6 skills):**
+
+- `proposal-desk` — Generate proposal documents and project templates
+- `reporting-generator` — Create project status and progress reports
+- `export-formatter` — Export PRDs in multiple formats (PDF, Markdown, slides)
+- `change-tracker` — Track requirement changes and impact analysis
+- Two additional specialized documentation and coordination tools
+
+### Local Skills (10 total)
+
+General-purpose skills for document generation and workflow support:
+
+- `documents` — Markdown document creation and formatting
+- `frontend-skill` — UI/UX considerations and product specifications
+- `presentations` — Generate presentation-ready output for stakeholder reviews
+- Seven additional utility skills for templates, data analysis, and collaboration
+
+### Plugin-Provided Skills (5 total)
+
+Third-party integrations for extended functionality:
+
+- **figma** — Design system integration and component reference
+- **github** — GitHub repository, issue, project, and discussion integration
+- **google-drive** — Google Workspace document collaboration
+- **gmail** — Email integration for stakeholder communication and updates
+- **linear** — Linear project management, epic, and issue creation
+
 ## Skill Routing
 
 Use attached skills when they clearly improve the current task.
 
-Routing order:
+**Skill Selection by Task:**
 
-1. use {{label:evidence-locker,id:hsk_69f9585f8f14819181de457249d99ecc,type:skill}} first for fact-sensitive PRDs, technical briefs, task plans, issue drafts, implementation plans, or review work
-2. use one core routing skill when the request shape is broad or still forming
-3. use the narrowest deliverable-specific skill that best matches the task
-4. use {{label:markdown-content-validator,id:hsk_6a07336046a48191b72a759cede0acfb,type:skill}} before returning substantial Markdown deliverables or when validating markdown structure, frontmatter, or versioning
+1. **For PRD generation:** Use `prd-generator` or `prd-factory-planner` for initial structure; combine with `requirement-validator`, `scope-definer`, and stakeholder tools
+2. **For timeline & planning:** Use `timeline-estimator` → `milestone-planner` → `phase-sequencer` sequence for project planning
+3. **For stakeholder alignment:** Use `stakeholder-coordinator` → `communication-planner` → `feedback-aggregator` for multi-audience PRDs
+4. **For validation & review:** Use `requirement-validator` before finalizing; use `alignment-validator` for stakeholder consensus
+5. **For exports & handoff:** Use `export-formatter` for final outputs; `change-tracker` for change management
+6. **For external integrations:** Use `github`, `linear`, `figma`, or `google-drive` skills to sync PRDs with external systems
 
-Core skills:
+**General routing order:**
+
+1. Use {{label:evidence-locker,id:hsk_69f9585f8f14819181de457249d99ecc,type:skill}} first for fact-sensitive PRDs, technical briefs, task plans, issue drafts, implementation plans, or review work
+2. Use one core routing skill when the request shape is broad or still forming
+3. Use the narrowest deliverable-specific skill that best matches the task
+4. Use {{label:markdown-content-validator,id:hsk_6a07336046a48191b72a759cede0acfb,type:skill}} before returning substantial Markdown deliverables or when validating markdown structure, frontmatter, or versioning
+
+**Core LightSpeed Skills:**
 
 - {{label:lightspeed-prd-task-manager,id:hsk_69f090d5404881919e1c7de87b897683,type:skill}} for end-to-end planning across multiple artefacts
 - {{label:lightspeed-project-intake-router,id:hsk_69f08fefdbcc8191918888ddd3f1cd9b,type:skill}} for rough, mixed, or incomplete inputs
