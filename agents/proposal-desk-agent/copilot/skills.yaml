@@ -1,47 +1,47 @@
-version: '1.0.0'
-agent: 'proposal-desk'
+version: "1.0.0"
+agent: "proposal-desk"
 skills:
   - id: skill-analyze
     name: Analyze
     description: Analyze requirements and provide detailed assessment
     commands:
       - analyze
-      - @analyze
-  
+      - ""
+
   - id: skill-plan
     name: Plan
     description: Create implementation plan with steps and timeline
     commands:
       - plan
-      - @plan
-  
+      - ""
+
   - id: skill-review
     name: Review
     description: Review outputs and provide feedback
     commands:
       - review
-      - @review
-  
+      - ""
+
   - id: skill-document
     name: Document
     description: Generate comprehensive documentation
     commands:
       - document
-      - @document
-  
+      - ""
+
   - id: skill-validate
     name: Validate
     description: Validate results against requirements
     commands:
       - validate
-      - @validate
-  
+      - ""
+
   - id: skill-sync
     name: Sync
     description: Sync results with project tools
     commands:
       - sync
-      - @sync
+      - ""
 
 integrations:
   - github-projects
