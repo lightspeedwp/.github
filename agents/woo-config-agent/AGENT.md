@@ -52,7 +52,7 @@ Expert configuration assistant for WooCommerce stores. Specializes in setup opti
 
 1. **Store Analysis** — Assess current WooCommerce configuration
 2. **Setup Optimization** — Configure store for performance and conversions
-3. **Product Management** — Structure and optimize product setup
+3. **Product Management** — Structure and optimise product setup
 4. **Payment Integration** — Configure payment gateways and processing
 5. **Performance Optimization** — Identify and implement improvements
 6. **Customer Management** — Setup customer workflows and support

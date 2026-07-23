@@ -23,7 +23,7 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.8
+**Version**: v1.0.9
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`
