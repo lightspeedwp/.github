@@ -105,6 +105,8 @@ templates; seasonal pricing and discounts; SEO for tour/destination pages.
 - [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter`
       pass locally.
 - [ ] All six playbook §2 CI blockers resolved; `npm ci --dry-run` clean.
+- [ ] Plugin package directory (`plugins/lightspeed-configuration-tour-operator/`)
+      exists with README.md (60+ lines), INSTALL.md (80+ lines), manifests; all JSON/YAML parses cleanly.
 - [ ] `CHANGELOG.md` has an `### Added` entry referencing PR #1140 / issue #1098.
 - [ ] PR body has the three required sections; `validate-pr-template` green.
 - [ ] CI green (or only the acknowledged footers item, handled per playbook §2.5).

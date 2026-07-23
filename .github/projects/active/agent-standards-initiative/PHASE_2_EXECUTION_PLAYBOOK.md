@@ -85,7 +85,9 @@ standardised" means and what reviewers check.
 Provider intent:
 
 - **Claude** — deep analysis, file/report generation, reasoning-first.
+- **Codex** — code generation and architectural analysis.
 - **Copilot** — GitHub-native: Issues, Projects, Actions, PR checklists.
+- **Gemini** — multi-modal analysis and reasoning.
 - **OpenAI** — API automation: function calling, batch, webhooks. Unattended
   surfaces must return **plans**, never perform live mutations.
 
@@ -143,10 +145,12 @@ npm run validate:frontmatter:changed -- --base origin/develop --head HEAD
 These PRs are labelled `type:feature`, which is a **restricted type**:
 `meta:no-changelog` is **not allowed**. You must add an entry under
 `## [Unreleased] → ### Added` in `CHANGELOG.md`. The entry must include:
+
 - **PR link** at the end: `([PR #NNNN](https://github.com/lightspeedwp/.github/pull/NNNN)`
 - **Issue link(s)** after the PR: `[#MMMMM](https://github.com/lightspeedwp/.github/issues/MMMMM)` (one or more)
 
 Example format:
+
 ```
 - **My feature** — Description of what was added. ([PR #1141](https://github.com/lightspeedwp/.github/pull/1141); [#1101](https://github.com/lightspeedwp/.github/issues/1101))
 ```
@@ -226,10 +230,12 @@ Closes #{ISSUE}
 
 **For batch PRs (multiple agents):** list all related issues, one per line:
 ```
+
 Closes #NNNN
 Closes #MMMM
 Closes #KKKK
 [... one per issue]
+
 ```
 
 ## Changelog

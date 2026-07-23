@@ -125,10 +125,20 @@ Expected: Toggle works → pages reference correct branch in GitHub links
 - Tools: 5+ deep-dive examples
 - Advanced: custom integration patterns
 
+### Codex (Anthropic Codex)
+- Setup: link to `instructions/{slug}-agent-codex-quickstart.md`
+- Tools: code generation and analysis examples
+- Advanced: custom agent implementations
+
 ### Copilot (GitHub)
 - Setup: link to `instructions/{slug}-agent-copilot-quickstart.md`
 - Skills: how to integrate with Issues, PRs, Actions
 - Advanced: Copilot chat in Issues workflow
+
+### Gemini (Google)
+- Setup: link to `instructions/{slug}-agent-gemini-quickstart.md`
+- Tools: API integration and capabilities
+- Advanced: Gemini extensions and custom workflows
 
 ### OpenAI (API)
 - Setup: link to `instructions/{slug}-agent-openai-quickstart.md`
@@ -202,7 +212,7 @@ A: [Composition guide]
 3. Create/Expand Learn page
    - Getting started (users vs developers)
    - By use case (10+ routing paths)
-   - By provider (Claude, Copilot, OpenAI)
+   - By provider (Claude, Copilot, Codex, Gemini, OpenAI)
    - Architecture overview
    - Documentation index
    - FAQ (10+ questions)

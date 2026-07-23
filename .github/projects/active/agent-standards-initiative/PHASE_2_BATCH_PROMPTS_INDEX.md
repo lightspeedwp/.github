@@ -62,6 +62,7 @@ was merged separately in PR #1139 and is not part of the four open branches.
 These agents manage website/store configuration.
 
 #### 1. **PROMPT_BATCH_2_TOUR_OPERATOR_CONFIG_AGENT.md**
+
 - **Folder:** `.github/agents/tour-operator-config-agent/`
 - **Domain:** configuration  
 - **Focus:** tour-operator  
@@ -71,6 +72,7 @@ These agents manage website/store configuration.
 - **Key Capabilities:** Tour settings, integration setup, deployment config
 
 #### 2. **PROMPT_BATCH_2_WP_CONFIG_AGENT.md**
+
 - **Folder:** `.github/agents/wp-config-agent/`
 - **Domain:** wordpress  
 - **Focus:** configuration  
@@ -80,6 +82,7 @@ These agents manage website/store configuration.
 - **Key Capabilities:** WP settings, security hardening, performance optimization
 
 #### 3. **PROMPT_BATCH_2_WOO_CONFIG_AGENT.md**
+
 - **Folder:** `.github/agents/woo-config-agent/`
 - **Domain:** ecommerce  
 - **Focus:** woocommerce  
@@ -91,6 +94,7 @@ These agents manage website/store configuration.
 ### Batch 2: Planning Agents (1 combined agent)
 
 #### 4. **PROMPT_BATCH_2_PRD_COMBINED_AGENT.md** ⭐ MERGE OPERATION
+
 - **Folders:** `.github/agents/prd-agent/` + `.github/agents/prd-factory-planner-agent/`
 - **Domain:** planning  
 - **Focus:** product-requirements  
@@ -103,6 +107,7 @@ These agents manage website/store configuration.
 ### Batch 3: Design & Proposals (2 agents)
 
 #### 5. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 5)
+
 - **Folder:** `.github/agents/design-partner-agent/`
 - **Domain:** design  
 - **Focus:** partner-collaboration  
@@ -112,6 +117,7 @@ These agents manage website/store configuration.
 - **Key Capabilities:** Design review, design system, accessibility
 
 #### 6. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 6)
+
 - **Folder:** `.github/agents/proposal-desk-agent/`
 - **Domain:** proposals  
 - **Focus:** proposal-generation  
@@ -123,6 +129,7 @@ These agents manage website/store configuration.
 ### Batch 4: Discovery & Estimation (2 agents)
 
 #### 7. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 7)
+
 - **Folder:** `.github/agents/client-website-discovery-assistant-agent/`
 - **Domain:** discovery  
 - **Focus:** website-assessment  
@@ -132,6 +139,7 @@ These agents manage website/store configuration.
 - **Key Capabilities:** Website audit, competitor analysis, recommendations
 
 #### 8. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 8)
+
 - **Folder:** `.github/agents/website-scope-estimator-agent/`
 - **Domain:** estimation  
 - **Focus:** project-scoping  
@@ -143,6 +151,7 @@ These agents manage website/store configuration.
 ### Batch 5: Content & Performance (2 agents)
 
 #### 9. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 9)
+
 - **Folder:** `.github/agents/website-content-strategist-agent/`
 - **Domain:** content  
 - **Focus:** content-strategy  
@@ -152,6 +161,7 @@ These agents manage website/store configuration.
 - **Key Capabilities:** Content strategy, audit, SEO optimization
 
 #### 10. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 10)
+
 - **Folder:** `.github/agents/pagespeed-agent/`
 - **Domain:** performance  
 - **Focus:** performance-optimization  
@@ -163,6 +173,7 @@ These agents manage website/store configuration.
 ### Batch 6: Project Management (1 agent)
 
 #### 11. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 11)
+
 - **Folder:** `.github/agents/linear-advisor-agent/`
 - **Domain:** project-management  
 - **Focus:** linear-integration  
@@ -174,6 +185,7 @@ These agents manage website/store configuration.
 ### Batch 7: Analytics & Support (2 agents)
 
 #### 12. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 12)
+
 - **Folder:** `.github/agents/harvest-analytical-agent/`
 - **Domain:** analytics  
 - **Focus:** time-tracking-analysis  
@@ -183,6 +195,7 @@ These agents manage website/store configuration.
 - **Key Capabilities:** Time analysis, profitability, reports
 
 #### 13. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 13)
+
 - **Folder:** `.github/agents/zendesk-support-agent/`
 - **Domain:** support  
 - **Focus:** customer-support  
@@ -194,6 +207,7 @@ These agents manage website/store configuration.
 ### Batch 8: Assessment (1 agent)
 
 #### 14. **PROMPT_BATCH_2_AGENTS_5_14.md** (Agent 14)
+
 - **Folder:** `.github/agents/ai-readiness-estimator-agent/`
 - **Domain:** assessment  
 - **Focus:** ai-readiness  
@@ -229,37 +243,44 @@ These agents manage website/store configuration.
 ## Execution Timeline Suggestions
 
 ### Week 1: Configuration Agents
+
 - Agent 1: Tour Operator Config (2-4h)
 - Agent 2: WordPress Config (2-4h)
 - Agent 3: WooCommerce Config (2-4h)
 - **Total: 6-12 hours**
 
 ### Week 2: Planning & Design
+
 - Agent 4: PRD Combined (4-6h) ⭐
 - Agent 5: Design Partner (2-4h)
 - **Total: 6-10 hours**
 
 ### Week 3: Proposals & Discovery
+
 - Agent 6: Proposal Desk (2-4h)
 - Agent 7: Website Discovery (2-4h)
 - **Total: 4-8 hours**
 
 ### Week 4: Estimation & Content
+
 - Agent 8: Website Scope (2-4h)
 - Agent 9: Content Strategist (2-4h)
 - **Total: 4-8 hours**
 
 ### Week 5: Performance & PM
+
 - Agent 10: PageSpeed (2-4h)
 - Agent 11: Linear Advisor (2-4h)
 - **Total: 4-8 hours**
 
 ### Week 6: Analytics & Support
+
 - Agent 12: Harvest Analytical (2-4h)
 - Agent 13: Zendesk Support (2-4h)
 - **Total: 4-8 hours**
 
 ### Week 7: Assessment
+
 - Agent 14: AI Readiness (2-4h)
 - **Total: 2-4 hours**
 
@@ -284,15 +305,18 @@ These agents manage website/store configuration.
 ## Key References
 
 **Main Templates:**
+
 - `PROMPT_2_GENERIC_AGENT_REWRITE.md` — Master template (8 phases, detailed)
 - `AGENT_STANDARDIZATION_AUDIT.md` — Standardization framework
 
 **Folder Structure Reference:**
+
 - `.github/projects/active/agent-standards-initiative/` — All project files
 - `.github/agents/{agent-slug}/` — Agent implementations
 - `.github/plugins/lightspeed-*/` — Plugin groupings
 
 **Standards Documentation:**
+
 - `.github/instructions/agent-creation-workflow.instructions.md`
 - `.github/instructions/multi-provider-compatibility.instructions.md`
 - `.github/instructions/plugin-architecture.instructions.md`
@@ -319,14 +343,17 @@ When each agent batch prompt is executed, you'll know it's complete when:
 ## Navigation
 
 **Phase 1 (Playwright Pilot):**
+
 - See `STANDALONE_PROMPT_PHASE_1.md`
 
 **Phase 2 (This Phase - 14 Agents):**
+
 - Agents 1-3: Configuration → `PROMPT_BATCH_2_TOUR_OPERATOR_CONFIG_AGENT.md`, etc.
 - Agent 4: PRD Combined → `PROMPT_BATCH_2_PRD_COMBINED_AGENT.md`
 - Agents 5-14: Quick Ref → `PROMPT_BATCH_2_AGENTS_5_14.md`
 
 **Phase 3 (Governance):**
+
 - See `IMPLEMENTATION_SUMMARY.md` Phase 3 section
 
 ---

@@ -21,7 +21,9 @@ plugins/lightspeed-{domain}-{focus}/
 ├── copilot-plugin.json                # Copilot-specific manifest
 ├── provider-manifests/
 │   ├── claude-manifest.json
+│   ├── codex-manifest.json
 │   ├── copilot-manifest.json
+│   ├── gemini-manifest.json
 │   └── openai-manifest.json
 ├── package.json                       # Plugin metadata: name, version, keywords
 └── LICENSE                            # (usually GPL-3.0 like the repo)
@@ -47,7 +49,7 @@ plugins/lightspeed-{domain}-{focus}/
 
 1. **README.md (60+ lines)**
    - Agent overview (what it does, who uses it)
-   - Key capabilities matrix (Claude / Copilot / OpenAI)
+   - Key capabilities matrix (Claude / Copilot / Codex / Gemini / OpenAI)
    - Use-case examples (3–5 concrete scenarios)
    - Installation path (quick link to INSTALL.md)
    - Troubleshooting section (common issues)
@@ -55,7 +57,7 @@ plugins/lightspeed-{domain}-{focus}/
 
 2. **INSTALL.md (80+ lines)**
    - Prerequisites (API keys, permissions, versions)
-   - Step-by-step installation for each provider (Claude, Copilot, OpenAI)
+   - Step-by-step installation for each provider (Claude, Copilot, Codex, Gemini, OpenAI)
    - Configuration checklist
    - Verification steps (how to confirm it's working)
    - Uninstall / cleanup instructions
@@ -66,16 +68,18 @@ plugins/lightspeed-{domain}-{focus}/
    - Permissions & scopes required
    - Repository link
 
-4. **provider-manifests/** (Claude, Copilot, OpenAI)
+4. **provider-manifests/** (Claude, Copilot, Codex, Gemini, OpenAI)
    - claude-manifest.json: agent name, tools, version
+   - codex-manifest.json: agent configuration, tools, capabilities
    - copilot-manifest.json: skills, commands
+   - gemini-manifest.json: agent capabilities, function definitions
    - openai-manifest.json: functions, schema
 
 5. **package.json**
    - name: "lightspeed-{domain}-{focus}"
    - version: "1.0.0"
    - description: (from agent README)
-   - keywords: (agent, claude, copilot, openai, {domain})
+   - keywords: (agent, claude, codex, copilot, gemini, openai, {domain})
 
 ### Reference implementations
 
@@ -87,7 +91,7 @@ plugins/lightspeed-{domain}-{focus}/
 ### Validation
 
 - Lint all JSON (copilot-plugin.json, manifests)
-- Verify INSTALL.md has steps for all 3 providers (Claude, Copilot, OpenAI)
+- Verify INSTALL.md has steps for all 5 providers (Claude, Copilot, Codex, Gemini, OpenAI)
 - Confirm README links to agent documentation (if public)
 - Test that package.json is valid
 
@@ -115,9 +119,9 @@ Once merged, run the **Hooks Integration** prompt next.
 ## Checklist (Per Plugin)
 
 - [ ] README.md written (60+ lines, agent overview + capabilities + use cases)
-- [ ] INSTALL.md written (80+ lines, step-by-step for Claude/Copilot/OpenAI)
+- [ ] INSTALL.md written (80+ lines, step-by-step for all 5 providers)
 - [ ] copilot-plugin.json valid and matches agent skills
-- [ ] provider-manifests/ created (3 JSON files, all valid)
+- [ ] provider-manifests/ created (5 JSON files, all valid)
 - [ ] package.json complete with correct name, version, keywords
 - [ ] All JSON lints clean (`npm run lint:json`)
 - [ ] Verified against Phase 1 plugin template

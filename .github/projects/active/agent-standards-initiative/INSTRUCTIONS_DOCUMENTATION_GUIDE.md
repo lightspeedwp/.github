@@ -27,7 +27,7 @@ name: {slug}-agent
 title: {Agent Name} Instructions
 description: >
   Comprehensive instructions for the {Agent Name} agent.
-  Provider-agnostic, reusable across Claude, Copilot, OpenAI.
+  Provider-agnostic, reusable across Claude, Copilot, Codex, Gemini, OpenAI.
 
 version: '2.0.0'
 status: active
@@ -120,7 +120,7 @@ Output: Branch `feat/agent-standards-{slug}-instructions`
    - Links to instruction file + provider docs
 
 5. **Provider-Specific Notes** (new)
-   - Brief note per provider (Claude/Copilot/OpenAI)
+   - Brief note per provider (Claude / Copilot / Codex / Gemini / OpenAI)
    - Any differences or caveats
 
 ---
@@ -128,7 +128,7 @@ Output: Branch `feat/agent-standards-{slug}-instructions`
 ## 3. Provider-Specific Quick-Start Guides
 
 **Location:** `instructions/{slug}-agent-{provider}-quickstart.md`  
-**Purpose:** Provider-specific getting-started guide (Claude Code setup, Copilot skill installation, OpenAI API wiring).
+**Purpose:** Provider-specific getting-started guide (Claude Code setup, Copilot skill installation, Codex configuration, Gemini API setup, OpenAI API wiring).
 
 ### Template
 
@@ -167,7 +167,7 @@ Troubleshooting: [Common issues on this provider]
 
 - [ ] `instructions/{slug}-agent.instructions.md` (200+ lines, all sections)
 - [ ] `agents/{slug}-agent/README.md` enhanced (Getting Started + Use Cases + Best Practices + Troubleshooting + Provider Notes)
-- [ ] 3 provider quick-starts: `instructions/{slug}-agent-claude-quickstart.md`, `*-copilot-*.md`, `*-openai-*.md`
+- [ ] 5 provider quick-starts: `instructions/{slug}-agent-claude-quickstart.md`, `*-codex-*.md`, `*-copilot-*.md`, `*-gemini-*.md`, `*-openai-*.md`
 - [ ] Optional: `instructions/{slug}-agent-LEARN.md` (learning path index)
 - [ ] All markdown lints clean
 - [ ] No broken links (if published online)

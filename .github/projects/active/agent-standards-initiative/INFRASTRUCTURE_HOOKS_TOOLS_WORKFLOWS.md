@@ -28,7 +28,7 @@ Create a pre-commit or pre-push hook that validates agent quality standards.
 3. **Trigger:** Pre-commit (validate before commit)
 4. **What to check:**
    - AGENT.md has required frontmatter & sections
-   - All provider configs (claude/, copilot/, openai/) present
+   - All agent-only provider configs (claude/, copilot/, codex/, gemini/) present
    - JSON/YAML files parse cleanly
    - No credentials in output or config files
    - Line-count floors met (playbook §0)

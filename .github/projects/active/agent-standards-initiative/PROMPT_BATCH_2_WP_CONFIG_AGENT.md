@@ -110,6 +110,8 @@ uptime); compliance (WCAG 2.2 AA, GDPR). Prefer native/WP-CLI over custom code.
 - [ ] `claude/tools.json` + `openai/tools.json` parse; `skills.yaml` parses.
 - [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter` pass.
 - [ ] All six playbook §2 CI blockers resolved on this branch; `npm ci --dry-run` clean.
+- [ ] Plugin package directory (`plugins/lightspeed-configuration-wordpress/`)
+      exists with README.md (60+ lines), INSTALL.md (80+ lines), manifests; all JSON/YAML parses cleanly.
 - [ ] `CHANGELOG.md` has an `### Added` entry referencing PR #1142 / issue #1102.
 - [ ] PR body has the three required sections; `validate-pr-template` green.
 - [ ] CI green (or only the acknowledged footers item, handled per playbook §2.5).

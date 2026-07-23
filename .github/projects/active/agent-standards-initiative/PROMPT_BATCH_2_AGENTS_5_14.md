@@ -133,6 +133,8 @@ available in the workspace and reflect the actual tool surface in the configs.
 - [ ] Every `tools.json` / `skills.yaml` across all 10 agents parses.
 - [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter` pass.
 - [ ] All six playbook §2 CI blockers resolved on this branch; `npm ci --dry-run` clean.
+- [ ] All 10 agent plugin packages exist (`plugins/lightspeed-{domain}-{focus}/` for each agent)
+      with README.md (60+ lines), INSTALL.md (80+ lines), manifests; all JSON/YAML parses cleanly.
 - [ ] `CHANGELOG.md` has an `### Added` entry covering the batch and linking all
       ten issues (#1088–#1093, #1096, #1099, #1100, #1103).
 - [ ] PR body has the three required sections and lists all ten `Closes #…`
