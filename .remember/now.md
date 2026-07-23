@@ -22,3 +22,35 @@ Merged PRs #1061, #1053, #1133 to develop; #1061 required --admin flag to bypass
 ## 16:00 | claude/phase-2-agent-standards-9274ea
 
 Expanded Phase 2 docs to four-provider contract (Claude, Copilot, Codex, Gemini) across 5 files; added plugin directory checklist to 3 batch prompts; merged PR #1157 to docs/agent-standards-phase-2-prompts; PR #1144 queued for auto-merge, investigating CI failures.
+
+## 16:03 | docs/agent-standards-phase-2-prompts
+
+Merged PRs #1061, #1053, #1133 to develop (eslint/astro/meta-agent updates); resolved #1061 merge conflicts using --admin flag.
+
+## 16:03 | feat/org-issue-field-writer
+
+Cleared PR #1151 CI by removing unused updateOrgIssueFields; Phase 1 project-creation scoped: Epic #1154 + Stories #1155–#1156.
+
+## 16:16 | feat/project-milestone-allocation-strategy
+
+Merged PR #1113 deploying version-based milestone allocation (v1.0–v1.6) with auto-sync to Project 33; GitHub App configured (ID 4367005), issue #1128 verifying auto-allocation workflow.
+
+## 16:50 | feat/org-issue-field-writer
+
+Removed unused updateOrgIssueFields fn from PR #1151 (org-issue-field-writer); PR now APPROVED; PR template updates applied to #1150 & #1151, issue template to #1146.
+
+## 17:25 | feat/project-milestone-allocation-strategy
+
+Merged PR #1113 (milestone allocation: v1.0–v1.6) to develop w/ GitHub App secrets for Project 33; 3 validation investigations passed (strategy approved, project routing confirmed); Node v24 fix applied; test #1128 created; removed 7 misnamed branches.
+
+## 16:09 | build/project-meta-sync-secret-gating
+
+Designed bulk-create system for 2 GitHub Projects templates from CSV; committed planning docs to .github/projects/active/; created Epic #1154 w/ Stories #1155–1156; PR #1151 approved (removed unused fn); PR #1150 docs fixed, shell logic CI issue remains.
+
+## 16:13 | build/project-meta-sync-secret-gating
+
+Fixed shell preflight & ISSUE_FIELDS.md (added "50" limits), addressed CodeRabbit on PR #1150; validation/linting/labeling CI failing.
+
+## 16:15 | claude/phase-2-agent-standards-9274ea
+
+Expanded Phase 2 agent standards to four-provider contract (Claude, Copilot, Codex, Gemini); added plugin checklist to batch prompts; merged PR #1157; fixed PR #1144 CI (ISSUE_FIELDS.md), auto-merge enabled.
