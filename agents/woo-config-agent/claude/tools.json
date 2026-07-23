@@ -93,6 +93,7 @@
         "regions": {
           "type": "array",
           "items": { "type": "string" },
+          "minItems": 1,
           "description": "ISO country codes to accept payments from."
         },
         "average_order_value": {
