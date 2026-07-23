@@ -57,7 +57,9 @@ jobs:
           fi
 
           echo "enabled=$enabled" >> "$GITHUB_OUTPUT"
-          [ "$enabled" = "true" ] && echo "✅ Project sync enabled (credentials present)"
+          if [ "$enabled" = "true" ]; then
+            echo "✅ Project sync enabled (credentials present)"
+          fi
 
       - name: Create GitHub App installation token
         id: app-token
