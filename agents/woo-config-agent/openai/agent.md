@@ -70,3 +70,7 @@ mirror the core prompt's report structure (Summary / Findings / Recommendations
 - Never emit a call that mutates live store data — emit a plan instead.
 - Include the PCI DSS scope statement whenever payments are in scope.
 - Respect data minimisation and GDPR in any customer-data function output.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

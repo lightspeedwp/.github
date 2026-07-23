@@ -80,3 +80,7 @@ Expert configuration assistant for WooCommerce stores. Specializes in setup opti
 ---
 
 *Multi-provider WooCommerce configuration assistant*
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
