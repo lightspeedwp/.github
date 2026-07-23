@@ -139,7 +139,7 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 ## Integration & gating
 
 - **Changelog validation**: enforce schema via `.github/workflows/changelog.yml` and `changelog.schema.json`; unreleased section must exist.
-- **Lint/test gates**: reuse `linting.yml` (or equivalent) as a hard gate before running the agent in `release.yml`.
+- **Lint/test gates**: reuse `checks.yml` (unified linting/testing workflow) as a hard gate before running the agent in `release.yml`.
 - **Branch strategy**: develop → `release/vX.Y.Z` → main; tags pushed after PR creation.
 - **Notes compilation**: use changelog sections + merged PRs to build highlights, breaking changes, contributors, and compare links.
 - **Label hygiene**: prefer single `release:*` label per PR to align human intent with scope selection.
@@ -152,11 +152,11 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
 
 **Invoked Sequentially (Must All Pass)**:
 
-1. **`linting.yml`** via `workflow_call`
-   - **Purpose**: Enforce code quality and standard compliance
+1. **`checks.yml`** (unified Linting/Testing) via `workflow_call`
+   - **Purpose**: Enforce code quality and standard compliance (lint, test, validate)
    - **Input**: None (triggers on repo state)
-   - **Expected Output**: Exit code 0 (all lint checks pass)
-   - **Failure Handling**: Abort release preparation; report lint errors
+   - **Expected Output**: Exit code 0 (all lint, test, and validation checks pass)
+   - **Failure Handling**: Abort release preparation; report failures
    - **Used For**: Gate: prevents release if linting fails
 
 2. **`testing.yml`** via `workflow_call`
@@ -233,9 +233,9 @@ Release Agent Orchestration:
    └─ Ask user for confirmation (dry-run or actual release)
 
 2. Pre-Release Validation (Sequential, All Must Pass)
-   ├─ Call linting.yml (hard gate)
+   ├─ Call checks.yml (linting + testing, hard gate)
    │  └─ If fails: abort with error
-   ├─ Call testing.yml (hard gate)
+   ├─ Call validate.yml (schema/structure validation)
    │  └─ If fails: abort with error
    ├─ Call changelog-validate.yml (hard gate)
    │  └─ If fails: abort with error
