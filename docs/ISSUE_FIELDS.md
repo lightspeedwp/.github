@@ -2,7 +2,7 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.8
+version: v1.0.9
 created_date: '2026-05-31'
 last_updated: '2026-07-23'
 authors:
