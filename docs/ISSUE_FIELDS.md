@@ -23,10 +23,16 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.4
+**Version**: v1.0.8
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`
+
+**Canonical Label Limits**:
+
+- **Single-select field options**: Max 50 per field
+- **Total project fields**: Max 50 per project
+- **Organisation issue fields**: Max 25 per organisation
 
 ---
 
