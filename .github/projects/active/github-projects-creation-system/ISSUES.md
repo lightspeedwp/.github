@@ -1,7 +1,7 @@
 ---
 title: "GitHub Issue Templates — Ready to Create"
 description: "Copy-paste ready Epic and Story issue templates for GitHub Projects creation system."
-file_type: "reference"
+file_type: "documentation"
 status: "ready"
 version: "v1.0"
 created_date: "2026-07-23"

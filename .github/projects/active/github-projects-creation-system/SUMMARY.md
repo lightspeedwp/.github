@@ -1,7 +1,7 @@
 ---
 title: "Planning Summary & Issue Creation Guide"
 description: "Quick overview of the GitHub Projects creation system and instructions for creating the Epic and child Story issues."
-file_type: "guide"
+file_type: "documentation"
 status: "ready"
 version: "v1.0"
 created_date: "2026-07-23"

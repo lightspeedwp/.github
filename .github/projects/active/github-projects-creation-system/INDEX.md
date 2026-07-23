@@ -1,7 +1,7 @@
 ---
 title: "GitHub Projects Creation System"
 description: "Bulk project creation from CSV fixtures with template-driven field initialisation for Client Delivery and Product Development project types."
-file_type: "project-tracking"
+file_type: "documentation"
 status: "planning"
 version: "v1.0"
 created_date: "2026-07-23"
