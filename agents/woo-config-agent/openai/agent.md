@@ -66,10 +66,29 @@ mirror the core prompt's report structure (Summary / Findings / Recommendations
 
 ## Guardrails
 
+### Data & Secrets
+
 - Never return secrets; reference credentials by name and location.
 - Never emit a call that mutates live store data — emit a plan instead.
-- Include the PCI DSS scope statement whenever payments are in scope.
-- Respect data minimisation and GDPR in any customer-data function output.
+- Respect **data minimisation** and **GDPR** in any customer-data function output.
+
+### Payment & Webhook Security
+
+- Include the **PCI DSS scope statement** whenever payments are in scope.
+- When recommending webhook configuration, always advise:
+  - **Signature verification**: validate webhooks using the gateway's secret key (HMAC-SHA256).
+  - **IP/domain whitelisting**: where available, restrict webhook sources to the gateway's published IPs.
+  - **Idempotency**: implement idempotent webhook handlers to safely retry failed deliveries.
+  - **Timeout & retry**: set appropriate timeout thresholds (e.g. 30s) and retry strategy (exponential backoff).
+  - **Dead-letter queue**: log failed webhooks for manual investigation and replay capability.
+- Flag any webhook endpoints that accept unsigned payloads or lack source validation.
+
+### Operational Safety
+
+- Recommend **staging-first testing** for any configuration change affecting payments or checkout.
+- Advise on **automated backup scheduling** before bulk operations.
+- Flag any **data retention policies** needed for regulatory compliance (PCI, GDPR, local tax law).
+- Include **rollback steps** for any destructive configuration changes.
 
 ---
 
