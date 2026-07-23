@@ -13,7 +13,8 @@
     - "^docs?/.*"
     - "^ai/.*"
     - "^automation/.*"
-    - "^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*"
+    - "^research/.*"
+    - "^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry|i18n|revert|ops)/.*"
 
 # Type mapping (by branch)
 "type:feature":
@@ -44,6 +45,8 @@
   head-branch: ["^ai/.*"]
 "type:automation":
   head-branch: ["^automation/.*"]
+"type:research":
+  head-branch: ["^research/.*"]
 
 # Priority mapping (by branch)
 "priority:critical":

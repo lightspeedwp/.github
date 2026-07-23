@@ -25,16 +25,7 @@
     "plugins/lightspeed-github-ops/skills/lightspeed-label-governance",
     "plugins/lightspeed-github-ops/skills/lightspeed-pr-review"
   ],
-  "batch2PlatformYamlScope": [
-    "skills/design-md-agent/ai-readiness-assessor",
-    "skills/design-md-agent/lightspeed-project-intake-router",
-    "skills/design-md-agent/lightspeed-implementation-plan-generator",
-    "skills/design-md-agent/lightspeed-task-breakdown-planner",
-    "skills/design-md-agent/wordpress-block-theme-router",
-    "skills/design-md-agent/wordpress-theme-validation",
-    "skills/design-md-agent/wordpress-plugin-packaging-review",
-    "skills/design-md-agent/lightspeed-launch-readiness-auditor"
-  ],
+  "batch2PlatformYamlScope": [],
   "batch3PlatformYamlScope": [
     "plugins/lightspeed-release-ops/skills/lightspeed-release-readiness",
     "plugins/lightspeed-release-ops/skills/lightspeed-changelog-compliance",

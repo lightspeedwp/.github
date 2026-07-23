@@ -1,221 +1,116 @@
 # PHASE 2 BATCH PROMPT: Tour Operator Configuration Agent
 
-**Agent:** tour-operator-config-agent  
-**Domain:** configuration  
-**Focus:** tour-operator  
-**Purpose:** Configure and manage tour operator website settings and configurations  
-**Effort:** 2-4 hours  
-**Use:** Copy-paste into Claude Code chat and execute  
+> **Self-contained brief for a fresh Claude Code chat.** Everything needed to
+> take this agent from its current state to a merged PR is here or in the two
+> referenced documents. Read the playbook first.
 
----
+| | |
+| --- | --- |
+| **Agent** | Tour Operator Config Agent |
+| **Slug** | `tour-operator-config` (folder `agents/tour-operator-config-agent/`) |
+| **Branch** | `feat/agent-standards-tour-operator-config` |
+| **PR** | [#1140](https://github.com/lightspeedwp/.github/pull/1140) |
+| **Related issue** | [#1098](https://github.com/lightspeedwp/.github/issues/1098) — *feat(agents): rewrite Tour Operator Config Agent for multi-provider support* |
+| **Base** | `develop` |
+| **Domain / Focus** | configuration / tour-operator |
 
-## CONTEXT
+## Required reading (in order)
 
-You are rewriting the **Tour Operator Config Agent** from ChatGPT format into a standardized multi-provider agent compatible with Claude, GitHub Copilot, and OpenAI Codex.
+1. **`PHASE_2_EXECUTION_PLAYBOOK.md`** — real-content rules, the six pre-existing
+   `develop` CI blockers + fixes, commit/push mechanics, PR-body template, merge
+   protocol, and definition of done. **Do not skip.**
+2. `agents/woo-config-agent/` — the Phase 2 **reference implementation**. Copy
+   its shape and depth.
+3. `PROMPT_2_GENERIC_AGENT_REWRITE.md` — detailed per-phase templates.
 
-**Current Location:** `.github/agents/tour-operator-config-agent/`
+## Current state (as of hand-off)
 
-**Reference Documents:**
-- `PROMPT_2_GENERIC_AGENT_REWRITE.md` — Template structure (available in project folder)
-- `AGENT_STANDARDIZATION_AUDIT.md` — Standardization framework
+- Branch exists and is pushed; PR #1140 is open against `develop`.
+- The PR body has already been updated to satisfy `validate-pr-template`, and
+  the branch was updated against `develop` server-side.
+- ⚠️ **The agent files are stubs** (5–20 lines each) — they were reported as
+  complete in a prior run but were never actually written. Your job is to
+  replace them with real content per the playbook's §0 line floors.
+- The pre-existing `develop` CI blockers (playbook §2) still apply and must be
+  fixed on this branch.
 
-**Timeline:** 2-4 hours  
-**Branch:** `feat/agent-standards-tour-operator-config`  
-**Target:** `develop`
-
----
-
-## QUICK PARAMETER MAP
+## Parameter map
 
 | Parameter | Value |
 | --- | --- |
-| {AGENT_NAME} | Tour Operator Config Agent |
-| {agent-slug} | tour-operator-config |
-| {DOMAIN} | configuration |
-| {FOCUS} | tour-operator |
-| {Agent Purpose} | Configure and manage tour operator website settings, integrations, and deployment configurations |
+| `{AGENT_NAME}` | Tour Operator Config Agent |
+| `{agent-slug}` | tour-operator-config |
+| `{DOMAIN}` | configuration |
+| `{FOCUS}` | tour-operator |
+| `{Agent Purpose}` | Configure and manage tour-operator WordPress/WooCommerce sites: bookings & availability, tour products, payments, notifications, SEO/performance, and deployment |
+| `{Plugin}` | `lightspeed-configuration-tour-operator` |
 
----
+## AGENT.md frontmatter (starting point — expand the body to the §0 floor)
 
-## EXECUTION INSTRUCTIONS
-
-Follow these 8 phases (reference PROMPT_2_GENERIC_AGENT_REWRITE.md for detailed guidance):
-
-### Phase 1: Analyze Existing Export
-- Examine `.github/agents/tour-operator-config-agent/`
-- Document current capabilities & tools
-- Create analysis file
-
-### Phase 2: Create Folder Structure
-- Backup existing → `tour-operator-config-agent-backup`
-- Create new structure (claude/, copilot/, openai/, shared/)
-- Preserve skills & manifests
-
-### Phase 3: Create AGENT.md Specification
 ```yaml
 name: tour-operator-config
 title: Tour Operator Config Agent
-description: >
-  Configure and manage tour operator website settings, integrations,
-  deployment configurations, and operational parameters for tour-based
-  WordPress and WooCommerce sites.
-
+description: >-
+  Configure and manage tour-operator WordPress and WooCommerce sites —
+  bookings and availability, tour products, payment and notification
+  integrations, SEO/performance, and deployment configuration.
 version: '2.0.0'
 category: configuration
-providers:
-  - claude
-  - copilot
-  - openai
-
+providers: [claude, copilot, openai]
 capabilities:
-  - tour-operator-configuration
-  - settings-management
-  - integration-setup
-  - deployment-configuration
-  - performance-optimization
-  - backup-management
-
-requirements:
-  - WordPress 6.0+
-  - WooCommerce 7.0+ (if ecommerce)
-  - Tour plugin (specific version TBD)
-  - SSH/SFTP access (optional)
-
-constraints:
-  - No production data modification without confirmation
-  - Config backups required before changes
-  - Limited to configuration files (no core modifications)
-  - Requires admin credentials for some operations
-
+  - site-analysis
+  - architecture-recommendations
+  - setup-validation
+  - optimization-planning
+  - booking-system-configuration
 security:
   rules:
-    - No credentials in configuration files
-    - Credentials stored in environment variables only
+    - No credentials in configuration files or output
+    - Config backup required before changes; staging-first
     - Config changes logged for audit
-    - Backup before major changes
 ```
 
-### Phase 4: Create Core Prompt
-Write `.github/agents/tour-operator-config-agent/shared/core-prompt.md`:
+## Real-content file manifest (verify on disk — see playbook §0)
 
-```markdown
-# Tour Operator Config Agent — Core Prompt
+Write genuine tour-operator domain content, not padding:
 
-You are a tour operator website configuration expert. Your role is to:
+- `AGENT.md` (120+) — overview, responsibilities, capabilities/limitations, 2–3
+  usage examples, provider matrix, security guardrails.
+- `shared/core-prompt.md` (180+) — methodology across **site analysis →
+  architecture recommendation → setup validation → optimisation → booking-system
+  configuration**, with constraints and inputs/outputs.
+- `claude/agent.md` (70+) + `claude/tools.json` (150+) — 5 tools with full input
+  schemas: `site_analyzer`, `architecture_recommender`, `setup_validator`,
+  `optimization_planner`, `booking_system_configurator`.
+- `copilot/agent.md` (60+) + `copilot/skills.yaml` (120+) — matching skills with
+  GitHub Issues/Projects/Actions integration.
+- `openai/agent.md` (60+) + `openai/tools.json` (150+) — matching functions.
+- `README.md` (60+) — overview + provider matrix.
+- `plugins/lightspeed-configuration-tour-operator/` — `README.md`, `INSTALL.md`,
+  `copilot-plugin.json`, and provider manifests.
 
-1. **Configure** tour operator settings and integrations
-2. **Manage** WordPress and WooCommerce configurations
-3. **Optimize** performance and deployment settings
-4. **Guide** users through configuration processes
-5. **Validate** configuration changes before applying
+## Domain notes
 
-## Key Responsibilities
+Tour-operator specifics to reflect in the content: multi-location tour
+management; availability/booking configuration and booking-system integration;
+guide assignment and scheduling; tour products (variable/bookable) in
+WooCommerce; deposit/balance and cancellation policies; customer communication
+templates; seasonal pricing and discounts; SEO for tour/destination pages.
 
-- Tour operator plugin configuration
-- Payment gateway integration setup
-- Email notification configuration
-- SEO and performance settings
-- Backup and recovery procedures
-- Deployment configuration
+## Success criteria (verified, not claimed)
 
-## Constraints
+- [ ] Nine files meet the playbook §0 line floors; verification output pasted in
+      the PR.
+- [ ] `claude/tools.json` + `openai/tools.json` parse; `skills.yaml` parses.
+- [ ] `npm run validate:agents` / `validate:json:all` / `validate:frontmatter`
+      pass locally.
+- [ ] All six playbook §2 CI blockers resolved; `npm ci --dry-run` clean.
+- [ ] Plugin package directory (`plugins/lightspeed-configuration-tour-operator/`)
+      exists with README.md (60+ lines), INSTALL.md (80+ lines), manifests; all JSON/YAML parses cleanly.
+- [ ] `CHANGELOG.md` has an `### Added` entry referencing PR #1140 / issue #1098.
+- [ ] PR body has the three required sections; `validate-pr-template` green.
+- [ ] CI green (or only the acknowledged footers item, handled per playbook §2.5).
+- [ ] Squash-merged to `develop`, branch deleted, issue #1098 closed.
 
-- Never modify code without explicit instruction
-- Always backup configuration before changes
-- Validate configurations after updates
-- Log all changes for audit trail
-- Never expose credentials in output
-
-## Best Practices
-
-1. Document all configuration changes
-2. Test changes in staging before production
-3. Maintain configuration version history
-4. Provide clear rollback instructions
-5. Validate third-party integrations
-```
-
-### Phase 5: Create Provider Configs
-Create provider-specific files:
-- `claude/agent.md` — Claude-specific instructions & tools
-- `copilot/agent.md` — Copilot chat format & skills
-- `openai/agent.md` — OpenAI function calling format
-
-(See PROMPT_2 Phase 3 for templates)
-
-### Phase 6: Define Tools Per Provider
-Create tool definitions:
-- `claude/tools.json` — 5+ tools (config-read, config-validate, config-update, file-backup, settings-apply)
-- `copilot/skills.yaml` — Skill references (tour-operator-settings, wordpress-config, woocommerce-setup)
-- `openai/tools.json` — Function definitions following OpenAI spec
-
-### Phase 7: Create Plugin
-- Create `.github/plugins/lightspeed-configuration-tour-operator/`
-- Create `plugin.json` with agent reference
-- Create `copilot-plugin.json` for GitHub Copilot
-- Create provider-specific configs
-- Create README.md & INSTALL.md
-
-### Phase 8: Validate & Test
-- Run schema validation
-- Run hook validation
-- Test provider configs load
-- Verify documentation complete
-- Create PR to develop
-
----
-
-## FILE CHECKLIST
-
-- [ ] Analysis document created
-- [ ] Folder structure created
-- [ ] AGENT.md written & validated
-- [ ] Core prompt created
-- [ ] Claude config & tools created
-- [ ] Copilot config & skills created
-- [ ] OpenAI config & functions created
-- [ ] Plugin created with all configs
-- [ ] README & INSTALL.md created
-- [ ] Schema validation passing
-- [ ] Hook validation passing
-- [ ] Tests passing
-- [ ] PR created & merged
-
----
-
-## REFERENCE CHECKLIST
-
-Use PROMPT_2_GENERIC_AGENT_REWRITE.md for:
-- Task 1: Analysis procedure
-- Task 2: Folder structure details
-- Task 3: AGENT.md template
-- Task 4: Core prompt template
-- Tasks 5-7: Provider config templates
-- Task 8: Tool definition formats
-- Tasks 9-14: Plugin & documentation
-- Tasks 15-20: Validation & testing
-- Tasks 21-26: Git workflow
-
----
-
-## DOMAIN NOTES
-
-**Tour Operator Configuration Focus:**
-- Settings specific to tour/travel websites
-- Multi-location tour management
-- Booking & availability configuration
-- Integration with tour booking systems
-- Guide assignment and scheduling
-- Customer communication templates
-- Pricing and discount structures
-
----
-
-## SUCCESS CRITERIA
-
-When all checkboxes above are checked, this agent is complete and ready for merge to develop.
-
----
-
-**Total Estimated Time:** 2-4 hours  
-**Begin with Phase 1 (Analysis)** → Work systematically through Phase 8 (Validation & Test)
+**Begin:** read the playbook, read `agents/woo-config-agent/`, then write real
+content and verify it on disk before committing.

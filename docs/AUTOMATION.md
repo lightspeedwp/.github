@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.6"
-last_updated: "2026-06-19"
+version: "v1.0.7"
+last_updated: "2026-07-23"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
@@ -162,6 +162,54 @@ Issue types are defined once in `.github/issue-types.yml` and used by both:
 - `Start date` and `Target date` remain empty until the item is explicitly marked `status:ready` or `status:in-progress`.
 - Template enforcement must flag incomplete issues, apply `status:needs-more-info`, and keep the item open.
 
+### Project Sync: GitHub App Configuration
+
+The `project-meta-sync.yml` workflow syncs issue/PR metadata to the organisation Project board. It requires a GitHub App with the correct scopes and credentials configured.
+
+**Setup (org admins only):**
+
+1. **Create GitHub App**
+   - Go to org settings → Developer settings → GitHub Apps
+   - Create a new app (e.g., "LightSpeed Project Sync")
+   - Required permissions:
+     - `Contents: read` (to detect PR head branch for type inference)
+     - `Issues: read & write` (to read/update issue labels and metadata)
+     - `Pull Requests: read & write` (to read/update PR labels and metadata)
+     - `Projects: read & write` (to sync fields to the project board — API still preview, verify scopes are available)
+   - Disable webhooks (not needed)
+
+2. **Install the App**
+   - Only on the `.github` repository (or whichever repo owns the org project)
+   - Grant access to this repo only
+
+3. **Store Credentials**
+   - Go to org settings → Secrets and variables → Actions
+   - Create **repository secrets** (on the `.github` repo):
+     - `LS_APP_PRIVATE_KEY`: PEM content from the GitHub App (Settings → Private keys → Generate)
+   - Create **repository variables** (on the `.github` repo):
+     - `LS_PROJECT_URL`: e.g., `https://github.com/orgs/lightspeedwp/projects/33`
+     - `LS_APP_ID`: numeric app ID from the GitHub App settings
+
+4. **Verify**
+   - Open any issue in a .github repository
+   - The workflow should run and sync Status/Priority/Type/Effort to the board
+   - If credentials are missing, the workflow now **fails loudly** with an error listing exactly which var/secret is missing
+
+**Troubleshooting:**
+
+If the workflow fails during preflight:
+
+- Check that `LS_PROJECT_URL`, `LS_APP_ID`, and `LS_APP_PRIVATE_KEY` are set on the `.github` repo (not your local repo)
+- Verify the GitHub App still has valid permissions
+- Re-run the workflow after fixing credentials
+
+**Intentional disable:**
+
+To intentionally disable project sync (e.g., if you don't have a Project board set up):
+
+- Leave `LS_PROJECT_URL` unset
+- The workflow will skip silently with a notice (not an error)
+
 ---
 
 ## Workflow & Agent Governance
@@ -264,8 +312,6 @@ All configuration files are validated:
 - [Portable Automation Instructions](../instructions/automation.instructions.md)
 - [Workflow Specifications](../.github/workflows/)
 - [Agent Specifications](../.github/agents/)
-
----
 
 ---
 
