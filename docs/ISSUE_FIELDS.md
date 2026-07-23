@@ -173,7 +173,7 @@ All organization issues support these fields:
 
 | Field | Type | Values | Required | Notes |
 | --- | --- | --- | --- | --- |
-| **Priority** | single_select | Urgent, High, Medium, Low | No | Current importance level |
+| **Priority** | single_select | Critical, Important, Normal, Minor | No | Current importance level |
 | **Effort** | single_select | XS, S, M, L, XL, XXL, XXXL | No | Relative sizing estimate |
 | **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 32 types covered |
 | **Start date** | date | YYYY-MM-DD | No | Planned start date |
@@ -427,7 +427,7 @@ The following project field features are enabled across all LightSpeed repositor
 - **Linked pull requests** — Connecting issues to PRs
 - **Reviewers** — Assigning code reviewers
 - **Sprint** — Iteration field for sprint planning
-- **Priority** — Issue importance level (Urgent, High, Medium, Low)
+- **Priority** — Issue importance level (Critical, Important, Normal, Minor)
 - **Effort** — Relative sizing (XS, S, M, L, XL, XXL, XXXL)
 - **Type** — 10 semantic project fields (Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task)
 - **date** — Start and target dates
@@ -461,10 +461,10 @@ Status mappings:
 
 Priority mappings:
 
-- Urgent: priority:critical
-- High: priority:important
+- Critical: priority:critical
+- Important: priority:important
 - Normal: priority:normal
-- Low: priority:minor
+- Minor: priority:minor
 
 Default priority: priority:normal
 
