@@ -170,3 +170,7 @@ Audited agent-standards-init, completed Phase 1 (Playwright multi-provider std),
 ## 22:43 | feat/agent-standards-batch-5-14
 
 Restructured 3 agents (WordPress 3,412, WooCommerce 4,498, Tour Operator 3,329 lines) to Phase 1 multi-provider standards w/ claude/copilot/openai/shared/ configs, committed branches; Batch 5-14 (10 agents) impl ongoing.
+
+## 22:16 | feat/agent-standards-tour-operator-config
+
+Tour Operator Config Agent Phase 2: 9-file multi-provider impl (1,100+ lines), fixed tools.json provider envelope format (claude/openai), enabled auto-merge #1140→develop, updated #1098.
