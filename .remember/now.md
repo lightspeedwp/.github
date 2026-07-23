@@ -170,3 +170,15 @@ Diagnosed & fixed issue-fields workflow no-op: Priority vocab mismatch; reconcil
 ## 08:55 | feat/agent-standards-woo-config
 
 Expanded WooCommerce Config Agent stubs (164→1,046 lines): wrote real shared/core-prompt.md (185 lines, 7-phase methodology), claude provider config (79+204 lines, 8 tools w/ schemas), copilot (61+133 lines, 7 skills), openai (72+163 lines, 8 functions); fixed 4 pre-existing develop CI blockers (package-lock.json sync, ISSUE_FIELDS docs, frontmatter freshness, changelog); PR #1141 now 16/20 checks passing with footer-violations blocker remaining (pre-existing repo-wide issue, not agent-caused).
+
+## 08:56 | feat/project-milestone-allocation-strategy
+
+Milestone allocation strategy (v1.0–v1.6) delivered: .github/project-routes.yml conf file + 3 scripts (milestone-allocation, allocate, capacity-check); GitHub App configured (ID 4367005, projects:write scope); validated by 3 agents (strategy approved, Projects v2 no IaC option found); fixed Node 24 + 1,143 footer corrections; merged PR #1113 to develop; test #1128 verifying auto-allocation.
+
+## 08:57 | claude/issue-fields-workflow-review-c73e08
+
+Fixed meta-agent-sync PR accumulation: refactored meta.yml + mergify.yml (fixed branch name, force-push, auto-merge rule), closed 7 stale PRs (#1081-#1131), merged PR #1138 to develop for single-active-PR auto-merge workflow.
+
+## 08:59 | feat/agent-standards-woo-config
+
+PRD agent PR #1139 merged to develop; created Phase 2 feature branches PR #1140-#1143 w/ 13 multi-provider agents, fixed CI blockers (lockfile sync, pr-template validation), exposed pre-existing footer violations on develop, refined 4 prompts w/ branch/PR/issue context for standalone chats.
