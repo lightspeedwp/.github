@@ -1,0 +1,311 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "linear-api-client",
+      "description": "Query and interact with Linear API for projects, issues, teams, and workflows. Supports GraphQL queries for flexible data retrieval.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["query", "mutation", "fetch-project", "fetch-issues", "fetch-team"],
+            "description": "Type of API action to perform"
+          },
+          "query": {
+            "type": "string",
+            "description": "GraphQL query or action parameters"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Linear project ID for scoped queries"
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "state": {"type": "string"},
+              "assignee": {"type": "string"},
+              "priority": {"type": "integer"},
+              "label": {"type": "string"}
+            },
+            "description": "Filters for issue queries"
+          },
+          "options": {
+            "type": "object",
+            "properties": {
+              "limit": {"type": "integer"},
+              "offset": {"type": "integer"},
+              "includeArchived": {"type": "boolean"}
+            },
+            "description": "Query options and pagination"
+          }
+        },
+        "required": ["action", "query"]
+      }
+    },
+    {
+      "name": "issue-manager",
+      "description": "Create, update, and manage Linear issues with full support for relationships, assignments, and custom fields.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["create", "update", "comment", "link", "assign", "archive"],
+            "description": "Action to perform on issue"
+          },
+          "issueId": {
+            "type": "string",
+            "description": "Linear issue ID for update/comment actions"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project ID for issue creation"
+          },
+          "title": {
+            "type": "string",
+            "description": "Issue title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed issue description"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "Team member to assign issue to"
+          },
+          "priority": {
+            "type": "integer",
+            "enum": [0, 1, 2, 3, 4],
+            "description": "Priority level (0=none, 1=urgent, 4=low)"
+          },
+          "estimate": {
+            "type": "number",
+            "description": "Story points or effort estimate"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Due date for the issue"
+          },
+          "labels": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Labels to apply"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Parent issue ID for sub-issues"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "project-planner",
+      "description": "Plan and configure Linear projects including workflow states, templates, and team settings.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["create-project", "configure-workflow", "add-team", "create-template"],
+            "description": "Project planning action"
+          },
+          "projectName": {
+            "type": "string",
+            "description": "Name of the project"
+          },
+          "description": {
+            "type": "string",
+            "description": "Project description and goals"
+          },
+          "leadId": {
+            "type": "string",
+            "description": "Project lead user ID"
+          },
+          "teamMembers": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Team member IDs to add"
+          },
+          "workflowStates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "type": {"type": "string", "enum": ["backlog", "unstarted", "started", "completed", "cancelled"]}
+              }
+            },
+            "description": "Custom workflow states"
+          },
+          "issueTemplate": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "fields": {"type": "array"}
+            },
+            "description": "Issue template configuration"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "sprint-organizer",
+      "description": "Create and manage sprints, assign issues, calculate capacity, and track burndown.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["create-sprint", "add-issues", "calculate-capacity", "track-burndown", "complete-sprint"],
+            "description": "Sprint organization action"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project ID for sprint"
+          },
+          "sprintName": {
+            "type": "string",
+            "description": "Sprint name (e.g., 'Sprint 42')"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Sprint start date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Sprint end date"
+          },
+          "issues": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Issue IDs to add to sprint"
+          },
+          "teamMembers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {"type": "string"},
+                "capacityHours": {"type": "number"}
+              }
+            },
+            "description": "Team capacity for sprint"
+          }
+        },
+        "required": ["action", "projectId"]
+      }
+    },
+    {
+      "name": "release-planner",
+      "description": "Plan releases, manage versions, generate release notes, and coordinate deployments.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["create-release", "plan-version", "generate-notes", "coordinate-deployment"],
+            "description": "Release planning action"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project ID for release"
+          },
+          "version": {
+            "type": "string",
+            "description": "Release version (e.g., 'v1.2.0')"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Planned release date"
+          },
+          "features": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Feature issue IDs to include"
+          },
+          "bugfixes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Bug fix issue IDs"
+          },
+          "breakingChanges": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Breaking changes to document"
+          },
+          "deploymentChecklist": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Pre-deployment verification steps"
+          }
+        },
+        "required": ["action", "projectId"]
+      }
+    },
+    {
+      "name": "workflow-automator",
+      "description": "Set up workflow automation rules, state transitions, assignments, and notification triggers.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["create-rule", "auto-assign", "auto-transition", "trigger-notification"],
+            "description": "Automation action"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project to apply automation to"
+          },
+          "triggerCondition": {
+            "type": "object",
+            "properties": {
+              "event": {"type": "string"},
+              "criteria": {"type": "object"}
+            },
+            "description": "Condition that triggers automation"
+          },
+          "action": {
+            "type": "object",
+            "properties": {
+              "type": {"type": "string"},
+              "parameters": {"type": "object"}
+            },
+            "description": "Action to execute when triggered"
+          },
+          "assignmentRules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "criteria": {"type": "object"},
+                "assignee": {"type": "string"}
+              }
+            },
+            "description": "Rules for auto-assignment"
+          },
+          "notificationTriggers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "event": {"type": "string"},
+                "recipients": {"type": "array"}
+              }
+            },
+            "description": "Events that trigger notifications"
+          }
+        },
+        "required": ["action", "projectId"]
+      }
+    }
+  ]
+}

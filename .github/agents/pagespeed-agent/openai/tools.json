@@ -1,0 +1,138 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_performance",
+      "description": "Analyze Performance for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_performance"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "test_speed",
+      "description": "Test Speed for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for test_speed"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "detect_bottlenecks",
+      "description": "Detect Bottlenecks for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for detect_bottlenecks"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "recommend_optimizations",
+      "description": "Recommend Optimizations for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for recommend_optimizations"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "strategize_caching",
+      "description": "Strategize Caching for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for strategize_caching"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "optimize_cdn",
+      "description": "Optimize Cdn for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for optimize_cdn"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "optimize_images",
+      "description": "Optimize Images for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for optimize_images"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_bundle",
+      "description": "Analyze Bundle for pagespeed operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_bundle"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  }
+]

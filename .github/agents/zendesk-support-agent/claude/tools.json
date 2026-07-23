@@ -1,0 +1,154 @@
+[
+  {
+    "name": "zendesk-api-client",
+    "description": "Zendesk Api Client for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for zendesk-api-client"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "ticket-manager",
+    "description": "Ticket Manager for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for ticket-manager"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "response-generator",
+    "description": "Response Generator for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for response-generator"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "knowledge-base-searcher",
+    "description": "Knowledge Base Searcher for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for knowledge-base-searcher"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "sentiment-analyzer",
+    "description": "Sentiment Analyzer for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for sentiment-analyzer"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "escalation-router",
+    "description": "Escalation Router for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for escalation-router"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "workflow-automator",
+    "description": "Workflow Automator for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for workflow-automator"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  },
+  {
+    "name": "satisfaction-tracker",
+    "description": "Satisfaction Tracker for zendesk-support workflows",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Input for satisfaction-tracker"
+        },
+        "options": {
+          "type": "object",
+          "description": "Optional configuration",
+          "properties": {}
+        }
+      },
+      "required": ["input"]
+    }
+  }
+]

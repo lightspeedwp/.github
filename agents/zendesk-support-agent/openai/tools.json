@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "functions": [
+    {
+      "type": "function",
+      "function": {
+        "name": "zendesk-api-client",
+        "description": "Zendesk Api Client",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "ticket-manager",
+        "description": "Ticket Manager",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "response-generator",
+        "description": "Response Generator",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "knowledge-base-searcher",
+        "description": "Knowledge Base Searcher",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "sentiment-analyzer",
+        "description": "Sentiment Analyzer",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "escalation-router",
+        "description": "Escalation Router",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    }
+  ],
+  "api_format": "openai"
+}

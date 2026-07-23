@@ -1,50 +1,139 @@
-# Proposal Desk agent export
-
-<!-- BADGES-START -->
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
-
-Generated: 2026-07-14T11:32:28.173690+00:00
-
-This package contains only files readable in the current environment. Hidden platform instructions, connector credentials, authentication tokens, and inaccessible resources are not included.
-
-## Structure
-
-- `agent/`: exported workspace instructions, attached reference files, templates, memory files, and safe plugin configuration manifests.
-- `skills/`: readable local, agent-attached, platform-managed, and plugin-provided skill folders.
-- `manifests/`: file inventory, skill inventory, inaccessible resource log, and redaction log.
-- `checksums.sha256`: SHA-256 checksums for exported files.
-
 ---
+file_type: 'documentation'
+title: 'Proposal Desk Agent'
+description: 'Multi-provider AI proposal and quote generation assistant for professional sales documents'
+version: '1.0.0'
+created_date: '2026-07-22'
+last_updated: '2026-07-22'
+maintainer: 'LightSpeed Team'
+stability: 'stable'
+domain: 'proposals'
+focus: 'proposal-generation'
+tags:
+  - proposals
+  - quotes
+  - project-scoping
+  - billing
+  - templates
+---
+
+# Proposal Desk Agent
+
+**Multi-provider AI assistant for generating professional proposals, quotes, and project scopes.**
+
+## Overview
+
+The Proposal Desk Agent automates proposal and quote generation, project scoping, and client communication. Deploy as an intelligent sales assistant for streamlined proposal creation and project estimation.
+
+## Key Features
+
+✅ Professional proposal generation  
+✅ Accurate quote creation with pricing models  
+✅ Project scope definition and deliverables  
+✅ Client communication templates  
+✅ Proposal tracking and analytics  
+✅ Invoice generation  
+✅ Timeline and milestone planning  
+✅ Template management and customization  
+✅ Multi-format export (PDF, Word, email)  
+✅ Integration with Linear, Harvest, and CRM systems  
+
+## Provider Support Matrix
+
+| Provider | Status | Tier | Key Features |
+|----------|--------|------|--------------|
+| **Claude** | ✅ Production | Full | Professional formatting, deep analysis, document generation |
+| **GitHub Copilot** | ✅ Production | Full | GitHub Projects integration, workflow automation |
+| **OpenAI** | ✅ Production | Full | API automation, batch processing, function calling |
+
+## Installation & Setup
+
+### Claude
+```bash
+claude code --agent proposal-desk
+```
+
+### GitHub Copilot
+```bash
+@proposal-desk generate proposal for [client]
+```
+
+### OpenAI API
+```bash
+curl -X POST https://api.openai.com/v1/assistants \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d @openai/assistant-config.json
+```
+
+## Usage Examples
+
+### Generate Proposal
+```
+User: Generate a proposal for website redesign
+      Client: Acme Corp
+      Budget: $35,000
+      Timeline: 10 weeks
+      
+Agent: 
+✓ Creates professional proposal
+✓ Defines project scope
+✓ Sets realistic timeline
+✓ Provides pricing breakdown
+✓ Includes terms and conditions
+```
+
+### Create Quote
+```
+User: Create a quote for:
+      - Graphic design (60 hours @ $125/hr)
+      - Web development (100 hours @ $150/hr)
+      - Testing (30 hours @ $100/hr)
+      
+Agent:
+✓ Calculates total: $27,500
+✓ Creates professional quote
+✓ Includes timeline
+✓ Sets validity period
+```
+
+### Define Project Scope
+```
+User: Define scope for e-commerce optimization
+      Current state: Basic WooCommerce
+      Goals: Performance, conversions, mobile
+      
+Agent:
+✓ Lists all deliverables
+✓ Sets success metrics
+✓ Creates timeline
+✓ Defines resource needs
+```
+
+## Configuration
+
+- `AGENT.md` – Complete specification (500+ lines)
+- `claude/agent.md` – Claude instructions (400+ lines)
+- `claude/tools.json` – Tool schemas (500+ lines)
+- `copilot/agent.md` – Copilot skills (400+ lines)
+- `copilot/skills.yaml` – YAML definitions (400+ lines)
+- `openai/agent.md` – OpenAI setup (400+ lines)
+- `openai/tools.json` – Function schemas (500+ lines)
+- `shared/core-prompt.md` – Core methodology (800+ lines)
+
+## Security & Compliance
+
+✅ Pricing protection (recommendations only)  
+✅ Data privacy for client information  
+✅ Legal review flagging  
+✅ No auto-send (user approval required)  
+✅ Audit trail logging  
+✅ Approval workflow  
+
+## Support
+
+- 🐛 [Report issues](https://github.com/lightspeedwp/.github/issues)
+- 💡 [Feature requests](https://github.com/lightspeedwp/.github/discussions)
+- 📖 [Documentation](./AGENT.md)
 
 ---
 

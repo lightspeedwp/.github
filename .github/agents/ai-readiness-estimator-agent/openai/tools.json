@@ -1,0 +1,138 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "assess_capability",
+      "description": "Assess Capability for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for assess_capability"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_workflow",
+      "description": "Analyze Workflow for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_workflow"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "check_data_quality",
+      "description": "Check Data Quality for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for check_data_quality"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "evaluate_infrastructure",
+      "description": "Evaluate Infrastructure for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for evaluate_infrastructure"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "survey_readiness",
+      "description": "Survey Readiness for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for survey_readiness"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_roadmap",
+      "description": "Generate Roadmap for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for generate_roadmap"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_risks",
+      "description": "Analyze Risks for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_risks"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "plan_implementation",
+      "description": "Plan Implementation for ai-readiness-estimator operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for plan_implementation"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  }
+]

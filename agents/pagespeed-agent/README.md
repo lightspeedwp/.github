@@ -1,63 +1,196 @@
-# PageSpeed Sitemap Audit Reporter Agent Export
+# PageSpeed Agent — Performance Optimization Specialist
 
-<!-- BADGES-START -->
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
+The PageSpeed Agent is an intelligent performance optimization assistant that analyzes website performance, identifies bottlenecks, and provides data-driven recommendations for improving Core Web Vitals, load times, and user experience.
 
-Created: 2026-07-14
+## Quick Start
 
-This archive contains the readable, environment-accessible files for the `PageSpeed Sitemap Audit Reporter` agent plus an inventory of all visible skills. It intentionally excludes hidden platform messages, protected runtime configuration, connector credentials, authentication tokens, API keys, and internal secrets.
+### Analyze Website Performance
 
-## Included
+**Claude:**
+```
+You: Analyze the performance of example.com
+Agent: Provides detailed performance analysis with Core Web Vitals, bottlenecks, and recommendations
+```
 
-- Workspace-visible agent instructions from `/workspace/AGENTS.md`
-- Agent Builder attached files from `/workspace/agent_files`
-- Readable local skill folders from `/root/.codex/skills`
-- Readable Google Drive plugin skill folders from `/root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills`
-- Manifests for agent files, skills, inaccessible resources, redactions, and SHA-256 checksums
+**OpenAI API:**
+```python
+import openai
 
-## Not Included
+response = openai.ChatCompletion.create(
+  model="gpt-4-turbo",
+  messages=[{"role": "user", "content": "Analyze example.com performance"}],
+  functions=[...],
+  function_call="auto"
+)
+```
 
-- Hidden system/developer prompts and protected platform internals
-- Connector credentials, OAuth material, tokens, API keys, or other secrets
-- Runtime caches outside the explicitly visible agent and skill folders
-- Version-control metadata from `/workspace/memory/.git`
+**GitHub Copilot:**
+```
+@pagespeed-analyze
+Analyze performance for example.com
+```
 
-## Validation Summary
+### Get Optimization Recommendations
 
-Validation details are summarized in `manifests/validation-summary.md`; file-level checksums are in `checksums.sha256`
+Receive prioritized optimization recommendations with impact estimates, effort levels, and implementation guides.
+
+### Set Up Performance Monitoring
+
+Configure continuous performance monitoring with alerts for regressions and automated reporting.
+
+## Features
+
+### Performance Analysis
+- **Core Web Vitals Assessment** – LCP, INP, CLS measurement and analysis
+- **Load Time Auditing** – TTFB, FCP, Speed Index tracking
+- **Bottleneck Detection** – Identify performance bottlenecks by type
+- **Competitive Benchmarking** – Compare against industry standards
+- **Device-Specific Analysis** – Mobile vs. desktop performance differences
+
+### Optimization Recommendations
+- **Prioritized Actions** – Organized by impact/effort ratio
+- **Implementation Guides** – Step-by-step optimization instructions
+- **Impact Estimates** – Expected performance improvements
+- **Timeline Planning** – Realistic implementation schedule
+- **Risk Mitigation** – Potential side effects and mitigation strategies
+
+### Caching & Delivery Optimization
+- **Caching Strategy Development** – Browser, server, CDN caching plans
+- **CDN Configuration** – Optimization recommendations for edge delivery
+- **Service Worker Implementation** – Offline support and prefetching
+- **Cache Invalidation** – Smart cache busting strategies
+
+### Performance Monitoring
+- **Continuous Monitoring** – Real-time performance tracking
+- **Alert Configuration** – Automatic alerts for regressions
+- **Dashboard Setup** – Visibility into performance metrics
+- **Reporting** – Regular performance reports and insights
+
+## Usage Scenarios
+
+### Scenario 1: Performance Audit
+Client wants to understand current performance and improvement opportunities.
+```
+Agent analyzes → Identifies bottlenecks → Provides recommendations → Creates roadmap
+```
+
+### Scenario 2: Optimization Implementation
+Team wants to improve Core Web Vitals for SEO and user experience.
+```
+Agent prioritizes → Provides step-by-step guides → Monitors progress → Validates improvements
+```
+
+### Scenario 3: Caching Strategy
+Organization needs better caching strategy for global users.
+```
+Agent analyzes delivery → Recommends CDN strategy → Plans cache configuration → Monitors effectiveness
+```
+
+### Scenario 4: Third-Party Optimization
+Website has too many third-party scripts impacting performance.
+```
+Agent audits scripts → Identifies impact → Recommends alternatives → Tracks improvements
+```
+
+## Integration with LightSpeed Tools
+
+### Linear (Project Management)
+- Create optimization tasks from recommendations
+- Link performance issues to project milestones
+- Track implementation progress
+- Validate improvements against targets
+
+### Harvest (Time Tracking)
+- Estimate effort for optimization tasks
+- Track actual time spent on improvements
+- Correlate performance gains with resource investment
+- Measure ROI of optimization efforts
+
+### GitHub
+- File performance issues as GitHub issues
+- Automate performance checks in CI/CD
+- Track progress in GitHub Projects
+- Integrate with code review workflow
+
+## Core Web Vitals Explained
+
+| Metric | Target | Impact |
+|--------|--------|--------|
+| **LCP** (Largest Contentful Paint) | < 2.5s | Perceived load speed |
+| **INP** (Interaction to Next Paint) | < 200ms | Interactivity responsiveness |
+| **CLS** (Cumulative Layout Shift) | < 0.1 | Visual stability |
+
+## Optimization Priority Framework
+
+### 1. Quick Wins (1-2 weeks)
+- Image optimization and compression
+- Minify CSS and JavaScript
+- Enable GZIP compression
+- Browser cache configuration
+- **Expected Impact:** 30-50% improvement
+
+### 2. Medium Priority (2-8 weeks)
+- Code splitting and lazy loading
+- Caching strategy implementation
+- Font optimization
+- CDN setup and configuration
+- **Expected Impact:** 50-70% improvement
+
+### 3. Long-Term (8+ weeks)
+- Architecture refactoring
+- Full JavaScript rewrite
+- Service Worker implementation
+- Advanced performance monitoring
+- **Expected Impact:** 70%+ improvement
+
+## Best Practices
+
+1. **Measure First** – Always establish baseline before optimizing
+2. **Prioritize by Impact** – Focus on optimizations with highest ROI
+3. **Test Thoroughly** – Validate improvements in staging
+4. **Monitor Continuously** – Track performance over time
+5. **Iterate Regularly** – Optimize based on real user data
+
+## Provider Implementations
+
+### Claude Implementation
+Best for: Strategic analysis, comprehensive recommendations, detailed guidance
+- Deep reasoning about performance trade-offs
+- Detailed optimization strategies
+- Long-form implementation guides
+- Complex bottleneck analysis
+
+### OpenAI Implementation
+Best for: API integration, batch processing, automation
+- Function calling for structured analysis
+- Batch API for bulk site analysis
+- Cost-effective for high volume
+- Webhook integration
+
+### GitHub Copilot Implementation
+Best for: Developer workflow, integrated optimization
+- Performance checks in IDE
+- Pull request performance impact analysis
+- GitHub Actions automation
+- Knowledge base integration
+
+## Resources
+
+- **AGENT.md** – Full agent specification and capabilities
+- **claude/agent.md** – Claude-specific implementation details
+- **openai/agent.md** – OpenAI API integration guide
+- **copilot/agent.md** – GitHub Copilot workflow patterns
+- **shared/core-prompt.md** – Core methodology and process
+
+## Support & Documentation
+
+For detailed information on:
+- **Performance metrics** – See AGENT.md
+- **Implementation guides** – See claude/agent.md
+- **API integration** – See openai/agent.md
+- **GitHub workflows** – See copilot/agent.md
+- **Optimization methodology** – See shared/core-prompt.md
 
 ---
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+**Built by LightSpeedWP with open-source spirit!**

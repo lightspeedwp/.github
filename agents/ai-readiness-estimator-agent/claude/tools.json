@@ -1,0 +1,403 @@
+{
+  "version": "1.0.0",
+  "description": "Tool specifications for AI Readiness Estimator (Claude)",
+  "tools": [
+    {
+      "name": "capability-assessor",
+      "description": "Assess AI capability opportunities and use case potential across the organization. Evaluates business impact, technical feasibility, resource requirements, and ROI for potential AI initiatives.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "organization_type": {
+            "type": "string",
+            "description": "Type of organization (e.g., 'financial services', 'healthcare', 'retail', 'manufacturing', 'technology')"
+          },
+          "business_challenges": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of key business challenges and pain points"
+          },
+          "current_capabilities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Existing AI/ML capabilities and experience"
+          },
+          "industry_context": {
+            "type": "object",
+            "description": "Industry-specific context, benchmarks, and competitive landscape",
+            "properties": {
+              "industry": { "type": "string" },
+              "market_position": { "type": "string" },
+              "competitive_pressures": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "regulatory_context": { "type": "string" }
+            }
+          },
+          "focus_areas": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Specific areas to focus assessment on (e.g., 'sales', 'operations', 'customer service')"
+          }
+        },
+        "required": ["organization_type", "business_challenges"]
+      }
+    },
+    {
+      "name": "workflow-analyzer",
+      "description": "Analyze current business workflows and identify AI integration opportunities, automation points, and process optimization potential. Maps workflows and recommends improvements.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "workflow_category": {
+            "type": "string",
+            "description": "Business area to analyze (e.g., 'sales', 'operations', 'customer service', 'finance', 'hr')"
+          },
+          "current_process": {
+            "type": "string",
+            "description": "Detailed description of the current workflow and process steps"
+          },
+          "pain_points": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Identified pain points and inefficiencies in the current workflow"
+          },
+          "performance_metrics": {
+            "type": "object",
+            "description": "Current workflow metrics and performance indicators",
+            "properties": {
+              "cycle_time": { "type": "string" },
+              "error_rate": { "type": "string" },
+              "cost_per_transaction": { "type": "string" },
+              "manual_effort_hours": { "type": "number" }
+            }
+          },
+          "goals": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Desired outcomes and improvement targets"
+          },
+          "constraints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Constraints and limitations (regulatory, technical, organizational)"
+          }
+        },
+        "required": ["workflow_category", "current_process"]
+      }
+    },
+    {
+      "name": "data-quality-checker",
+      "description": "Evaluate data readiness, quality, accessibility, and governance. Assesses data infrastructure maturity and identifies improvement opportunities.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "data_sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "system": { "type": "string" },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "relational",
+                    "document",
+                    "time_series",
+                    "file_based",
+                    "api",
+                    "streaming"
+                  ]
+                },
+                "volume_gb": { "type": "number" }
+              }
+            },
+            "description": "List of data sources and systems"
+          },
+          "data_volume": {
+            "type": "object",
+            "description": "Data volume and growth metrics",
+            "properties": {
+              "current_volume_gb": { "type": "number" },
+              "daily_growth_gb": { "type": "number" },
+              "projected_12_month_volume_gb": { "type": "number" }
+            }
+          },
+          "quality_issues": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Known data quality issues (missing values, duplicates, inconsistencies, etc.)"
+          },
+          "compliance_requirements": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Regulatory and compliance requirements (GDPR, HIPAA, SOX, etc.)"
+          },
+          "governance_maturity": {
+            "type": "string",
+            "enum": ["none", "basic", "intermediate", "advanced"],
+            "description": "Current data governance maturity level"
+          }
+        },
+        "required": ["data_sources"]
+      }
+    },
+    {
+      "name": "infrastructure-evaluator",
+      "description": "Assess technical infrastructure capabilities, cloud readiness, security, and scalability for AI/ML workloads. Identifies infrastructure gaps and improvement opportunities.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "current_infrastructure": {
+            "type": "string",
+            "description": "Description of current infrastructure setup (on-premises, hybrid, cloud, etc.)"
+          },
+          "cloud_platforms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "provider": {
+                  "type": "string",
+                  "enum": ["aws", "azure", "gcp", "other"]
+                },
+                "usage_level": {
+                  "type": "string",
+                  "enum": ["none", "minimal", "moderate", "extensive"]
+                },
+                "services": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "description": "Current cloud platform usage and services"
+          },
+          "computing_resources": {
+            "type": "object",
+            "description": "Current computing resources",
+            "properties": {
+              "cpu_cores": { "type": "number" },
+              "gpu_availability": { "type": "string" },
+              "memory_gb": { "type": "number" },
+              "storage_gb": { "type": "number" }
+            }
+          },
+          "security_requirements": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Security and compliance requirements"
+          },
+          "scalability_goals": {
+            "type": "string",
+            "description": "Expected scale, growth rate, and performance requirements"
+          }
+        },
+        "required": ["current_infrastructure"]
+      }
+    },
+    {
+      "name": "readiness-surveyor",
+      "description": "Conduct organizational readiness assessment including team capabilities, leadership alignment, cultural readiness, and change management capacity.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "organization_profile": {
+            "type": "object",
+            "description": "Organization size and structure",
+            "properties": {
+              "employee_count": { "type": "number" },
+              "structure": { "type": "string" },
+              "industry": { "type": "string" },
+              "maturity_level": {
+                "type": "string",
+                "enum": ["startup", "growth", "established", "enterprise"]
+              }
+            }
+          },
+          "current_team": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string" },
+                "count": { "type": "number" },
+                "experience_years": { "type": "number" },
+                "ai_experience": { "type": "boolean" },
+                "skills": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "description": "Current team composition and skills"
+          },
+          "ai_experience": {
+            "type": "string",
+            "enum": ["none", "limited", "moderate", "extensive"],
+            "description": "Prior AI/ML project experience"
+          },
+          "change_capacity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Organization's capacity for change and transformation"
+          },
+          "leadership_alignment": {
+            "type": "string",
+            "enum": [
+              "not_aligned",
+              "partially_aligned",
+              "aligned",
+              "strongly_aligned"
+            ],
+            "description": "Leadership alignment on AI strategy"
+          }
+        },
+        "required": ["organization_profile"]
+      }
+    },
+    {
+      "name": "roadmap-generator",
+      "description": "Create detailed phased implementation roadmap for AI adoption. Includes timelines, resource requirements, budget allocation, milestone definitions, and success metrics.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "priorities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "use_case": { "type": "string" },
+                "priority_rank": { "type": "number" },
+                "business_impact": { "type": "string" },
+                "technical_complexity": {
+                  "type": "string",
+                  "enum": ["low", "medium", "high"]
+                }
+              }
+            },
+            "description": "Prioritized use cases and initiatives"
+          },
+          "budget": {
+            "type": "object",
+            "description": "Budget information",
+            "properties": {
+              "total_budget_usd": { "type": "number" },
+              "budget_constraints": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "currency": { "type": "string", "default": "USD" }
+            }
+          },
+          "timeline": {
+            "type": "object",
+            "description": "Desired timeline and constraints",
+            "properties": {
+              "start_date": { "type": "string", "format": "date" },
+              "target_completion_date": { "type": "string", "format": "date" },
+              "phase_duration_months": { "type": "number", "default": 3 },
+              "max_phases": { "type": "number", "default": 4 }
+            }
+          },
+          "constraints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Organizational constraints (team size, budget, timeline, regulatory, etc.)"
+          },
+          "success_criteria": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Define success metrics and KPIs"
+          }
+        },
+        "required": ["priorities", "budget"]
+      }
+    },
+    {
+      "name": "roi-calculator",
+      "description": "Calculate financial projections and ROI modeling for AI initiatives. Projects revenue impact, cost savings, implementation costs, and payback period.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "use_case": {
+            "type": "string",
+            "description": "AI use case being evaluated"
+          },
+          "revenue_impact": {
+            "type": "object",
+            "description": "Projected revenue impact drivers",
+            "properties": {
+              "new_revenue_annual": { "type": "number" },
+              "pricing_optimization_percent": { "type": "number" },
+              "market_expansion_revenue": { "type": "number" }
+            }
+          },
+          "cost_savings": {
+            "type": "object",
+            "description": "Projected cost savings",
+            "properties": {
+              "labor_savings_annual": { "type": "number" },
+              "efficiency_savings_annual": { "type": "number" },
+              "waste_reduction_annual": { "type": "number" }
+            }
+          },
+          "implementation_cost": {
+            "type": "number",
+            "description": "Total implementation cost (one-time)"
+          },
+          "annual_operating_cost": {
+            "type": "number",
+            "description": "Annual ongoing operational cost"
+          },
+          "projection_years": {
+            "type": "number",
+            "default": 3,
+            "description": "Number of years to project (typically 3)"
+          }
+        },
+        "required": ["use_case", "implementation_cost"]
+      }
+    },
+    {
+      "name": "risk-assessor",
+      "description": "Identify and assess AI implementation risks including technical, organizational, market, and operational risks. Provides risk scoring and mitigation strategies.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "initiative": {
+            "type": "string",
+            "description": "AI initiative being assessed"
+          },
+          "risk_categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "technical",
+                "organizational",
+                "market",
+                "operational",
+                "regulatory",
+                "financial"
+              ]
+            },
+            "description": "Risk categories to assess"
+          },
+          "context": {
+            "type": "object",
+            "description": "Context for risk assessment",
+            "properties": {
+              "team_experience": { "type": "string" },
+              "technology_maturity": { "type": "string" },
+              "organizational_change_readiness": { "type": "string" },
+              "market_conditions": { "type": "string" }
+            }
+          },
+          "known_risks": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Known risks or concerns"
+          }
+        },
+        "required": ["initiative"]
+      }
+    }
+  ]
+}

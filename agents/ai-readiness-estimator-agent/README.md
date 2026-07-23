@@ -1,48 +1,187 @@
-# LightSpeed AI Readiness Estimator Agent Export
+# AI Readiness Estimator — Quick Reference
 
-<!-- BADGES-START -->
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
+**Version:** 1.0.0 | **Status:** Production | **Created:** 2026-07-22
 
-Created: 2026-07-15
+## Overview
 
-This portable export contains files that were readable in the current agent environment only. It includes workspace agent instructions, attached agent reference files, durable memory/project-context files excluding internal repository metadata, safe plugin marketplace metadata, and locally readable skill folders.
+The AI Readiness Estimator assesses organizational readiness for AI implementation. This agent evaluates data maturity, infrastructure capabilities, team skills, identifies high-impact use cases, and creates strategic roadmaps for successful AI adoption.
 
-It does not include hidden platform prompts, developer messages, connector credentials, authentication tokens, inaccessible platform internals, or any source file that could not be read. Metadata-only records are listed in `manifests/skills.md` and `manifests/inaccessible-resources.md`.
+## Quick Start
 
-Redactions, if any, are documented in `manifests/redactions.md`
+### 1. Capability Assessment
+Input: Organization profile, goals, current technology
+Process: Identify where AI can create value
+Output: Use case opportunities with business impact
+
+### 2. Data Assessment
+Input: Current data infrastructure and sources
+Process: Evaluate data quality and readiness
+Output: Data maturity report with improvement roadmap
+
+### 3. Infrastructure Evaluation
+Input: Technical infrastructure details
+Process: Assess AI/ML infrastructure readiness
+Output: Infrastructure gaps and scaling recommendations
+
+### 4. Team Readiness
+Input: Current team composition and skills
+Process: Assess organizational AI readiness
+Output: Skill gap analysis and training plan
+
+### 5. Implementation Roadmap
+Input: Priorities, budget, timeline, constraints
+Process: Create phased AI adoption plan
+Output: Detailed roadmap with resources and timeline
+
+## Core Capabilities
+
+- AI use case identification and prioritization
+- Data maturity assessment and gap analysis
+- Infrastructure readiness evaluation
+- Team capability assessment and skill mapping
+- Implementation roadmap generation with timelines
+- ROI projections and business case development
+- Risk identification and mitigation strategies
+- Change management planning
+- Success metrics definition and measurement
+- Vendor technology recommendations
+- Competitive readiness benchmarking
+
+## Assessment Framework
+
+### Use Case Scoring (0-10)
+Evaluates business impact, technical feasibility, resource needs, risk level
+
+### Readiness Scoring (0-100%)
+- Data Readiness: Volume, quality, governance maturity
+- Infrastructure: Computing, cloud, security, integration
+- Team Skills: Data science, engineering, domain expertise
+- Organizational: Buy-in, budget, process maturity, change capacity
+
+## Implementation Phases
+
+**Phase 1 (Months 1-2): Foundation**
+- Data pipeline establishment
+- Infrastructure setup
+- Team assembly and training
+- Success metrics definition
+
+**Phase 2 (Months 3-4): Quick Wins**
+- Deploy pilot use cases
+- Demonstrate ROI
+- Build organizational confidence
+- Refine processes
+
+**Phase 3 (Months 5-8): Scale**
+- Production deployment
+- System integration
+- Ongoing optimization
+- Capability expansion
+
+**Phase 4 (Months 9+): Center of Excellence**
+- Additional use cases
+- Innovation focus
+- Continuous improvement
+- Knowledge sharing
+
+## Key Assessment Areas
+
+### Data Assessment
+- Data volume, variety, velocity
+- Data quality and completeness
+- Data accessibility and governance
+- Privacy and compliance readiness
+- Data pipeline maturity
+
+### Infrastructure
+- Computing resources and scalability
+- Cloud platform capabilities
+- Database and data warehouse
+- Security architecture
+- Integration capabilities
+
+### Team & Organization
+- Data science expertise
+- ML engineering capability
+- Domain knowledge depth
+- Leadership support
+- Change management readiness
+- Organizational culture fit
+
+## ROI Framework
+
+Calculate business impact across three years:
+- **Revenue Impact:** New revenue from AI features, pricing optimization, market expansion
+- **Cost Savings:** Operational efficiency, automation, process optimization
+- **Implementation Cost:** Personnel, technology, infrastructure (one-time)
+- **Ongoing Costs:** Team, operations, technology maintenance (annual)
+
+**Example: Churn Prediction**
+- Year 1 ROI: 50-70% (implementation focused)
+- Year 2-3 ROI: 200-300% (operational efficiency)
+- Payback Period: 8-12 months
+
+## Success Factors
+
+1. **Clear Business Alignment** – AI goals tied to business objectives
+2. **Data Foundation** – Quality, accessible, governed data
+3. **Capable Team** – Data scientists, engineers, domain experts
+4. **Right Technology** – Scalable, secure, integrated platforms
+5. **Executive Support** – Leadership backing and resources
+6. **Change Management** – Organization ready for transformation
+7. **Iterative Approach** – Quick wins with long-term strategy
+8. **Measurement Focus** – Clear metrics and monitoring
+
+## Risk Mitigation
+
+**Data Quality Risk** → Invest in data engineering upfront
+**Scope Creep** → Clear governance and prioritization
+**Change Resistance** → Executive sponsorship and training
+**Skill Gaps** → Hiring and development plan
+**Budget Overruns** → Phased approach with stage gates
+
+## Key Metrics
+
+### Business Metrics
+- Revenue impact and ROI
+- Cost savings realization
+- Competitive advantage gains
+- Time-to-market improvements
+
+### Technical Metrics
+- Model accuracy and performance
+- System latency and uptime
+- Data quality improvements
+- Integration success rate
+
+### Adoption Metrics
+- User adoption rates
+- Feature utilization
+- Feedback and satisfaction
+- Team capability growth
+
+## Configuration Checklist
+
+- [ ] Stakeholder interviews completed
+- [ ] Current state documented
+- [ ] Data inventory compiled
+- [ ] Infrastructure assessed
+- [ ] Team skills evaluated
+- [ ] Use cases prioritized
+- [ ] Budget determined
+- [ ] Timeline established
+- [ ] Success metrics defined
+- [ ] Risks identified
+- [ ] Roadmap approved
+
+## Provider Support
+
+| Provider | Integration | Capabilities |
+|----------|-------------|--------------|
+| Claude | Full API | Deep analysis, comprehensive assessment |
+| GitHub Copilot | GitHub native | Project integration, GitHub workflows |
+| OpenAI | Function calling | Structured data, batch processing |
 
 ---
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Built by LightSpeedWP with open-source spirit!*

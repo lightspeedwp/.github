@@ -1,0 +1,67 @@
+skills:
+  - id: content-strategist
+    name: "Content Strategist"
+    description: "Content Strategist capability for website-content-strategist workflows"
+    commands:
+      - "content-strategist"
+      - "use-content-strategist"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: content-auditor
+    name: "Content Auditor"
+    description: "Content Auditor capability for website-content-strategist workflows"
+    commands:
+      - "content-auditor"
+      - "use-content-auditor"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: gap-analyzer
+    name: "Gap Analyzer"
+    description: "Gap Analyzer capability for website-content-strategist workflows"
+    commands:
+      - "gap-analyzer"
+      - "use-gap-analyzer"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: seo-optimizer
+    name: "Seo Optimizer"
+    description: "Seo Optimizer capability for website-content-strategist workflows"
+    commands:
+      - "seo-optimizer"
+      - "use-seo-optimizer"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: keyword-researcher
+    name: "Keyword Researcher"
+    description: "Keyword Researcher capability for website-content-strategist workflows"
+    commands:
+      - "keyword-researcher"
+      - "use-keyword-researcher"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: content-planner
+    name: "Content Planner"
+    description: "Content Planner capability for website-content-strategist workflows"
+    commands:
+      - "content-planner"
+      - "use-content-planner"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat

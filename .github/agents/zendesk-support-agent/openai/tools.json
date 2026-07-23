@@ -1,0 +1,138 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "manage_tickets",
+      "description": "Manage Tickets for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for manage_tickets"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_responses",
+      "description": "Generate Responses for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for generate_responses"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_knowledge_base",
+      "description": "Search Knowledge Base for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for search_knowledge_base"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_sentiment",
+      "description": "Analyze Sentiment for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_sentiment"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "route_escalation",
+      "description": "Route Escalation for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for route_escalation"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "automate_workflow",
+      "description": "Automate Workflow for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for automate_workflow"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "track_satisfaction",
+      "description": "Track Satisfaction for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for track_satisfaction"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "analyze_tickets",
+      "description": "Analyze Tickets for zendesk-support operations",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Input for analyze_tickets"
+          }
+        },
+        "required": ["input"]
+      }
+    }
+  }
+]

@@ -1,0 +1,67 @@
+skills:
+  - id: website-analyzer
+    name: "Website Analyzer"
+    description: "Website Analyzer capability for client-website-discovery-assistant workflows"
+    commands:
+      - "website-analyzer"
+      - "use-website-analyzer"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: seo-auditor
+    name: "Seo Auditor"
+    description: "Seo Auditor capability for client-website-discovery-assistant workflows"
+    commands:
+      - "seo-auditor"
+      - "use-seo-auditor"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: performance-tester
+    name: "Performance Tester"
+    description: "Performance Tester capability for client-website-discovery-assistant workflows"
+    commands:
+      - "performance-tester"
+      - "use-performance-tester"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: ux-assessor
+    name: "Ux Assessor"
+    description: "Ux Assessor capability for client-website-discovery-assistant workflows"
+    commands:
+      - "ux-assessor"
+      - "use-ux-assessor"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: competitor-analyzer
+    name: "Competitor Analyzer"
+    description: "Competitor Analyzer capability for client-website-discovery-assistant workflows"
+    commands:
+      - "competitor-analyzer"
+      - "use-competitor-analyzer"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat
+  - id: recommendation-engine
+    name: "Recommendation Engine"
+    description: "Recommendation Engine capability for client-website-discovery-assistant workflows"
+    commands:
+      - "recommendation-engine"
+      - "use-recommendation-engine"
+    applicable_contexts:
+      - github-comment
+      - github-pr
+      - github-issue
+      - copilot-chat

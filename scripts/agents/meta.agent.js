@@ -139,6 +139,55 @@ function getCategory(frontMatter) {
 }
 
 /**
+ * Increments a semantic version string by patch version.
+ * @param {string} version - The version string (e.g., "1.2.3", "v1.2.3").
+ * @returns {string} The incremented version with the same format.
+ */
+function incrementVersion(version) {
+  if (!version) return "0.0.1";
+  const isVPrefix = version.startsWith("v");
+  const versionStr = isVPrefix ? version.slice(1) : version;
+  const parts = versionStr.split(".");
+  if (parts.length !== 3 || parts.some((p) => isNaN(parseInt(p, 10)))) {
+    return version;
+  }
+  const [major, minor, patch] = parts.map((p) => parseInt(p, 10));
+  const newVersion = `${major}.${minor}.${patch + 1}`;
+  return isVPrefix ? `v${newVersion}` : newVersion;
+}
+
+/**
+ * Gets today's date in YYYY-MM-DD format.
+ * @returns {string} Today's date.
+ */
+function getTodayDate() {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+}
+
+/**
+ * Updates frontmatter metadata when file content changes.
+ * Updates `last_updated` to today and increments `version` using semantic versioning.
+ * @param {string} content - The Markdown content.
+ * @param {object|null} originalFrontMatter - The original parsed frontmatter.
+ * @returns {string} The content with updated frontmatter.
+ */
+function updateFrontMatterMetadata(content, originalFrontMatter) {
+  if (!originalFrontMatter) return content;
+
+  const updatedFrontMatter = { ...originalFrontMatter };
+  if (updatedFrontMatter.last_updated) {
+    updatedFrontMatter.last_updated = getTodayDate();
+  }
+  if (updatedFrontMatter.version) {
+    updatedFrontMatter.version = incrementVersion(updatedFrontMatter.version);
+  }
+
+  const yamlStr = yaml.dump(updatedFrontMatter, { lineWidth: -1 });
+  return content.replace(/^---\n[\s\S]*?\n---/, `---\n${yamlStr}---`);
+}
+
+/**
  * Applies emojis to H1 and H2 headings in the content based on the emoji schema.
  * @param {string} content - The Markdown content.
  * @param {string} filePath - The path to the file, used for checking skip rules.
@@ -450,6 +499,11 @@ async function processMarkdownFile(filePath, options = {}) {
     // 7. Footer (writes to file)
     content = applyFooter(filePath, content, frontMatter);
 
+    // 8. Update frontmatter metadata if content changed
+    if (content !== originalContent && frontMatter) {
+      content = updateFrontMatterMetadata(content, frontMatter);
+    }
+
     // Write final content
     if (!dryRun && content !== originalContent) {
       fs.writeFileSync(filePath, content);
@@ -590,6 +644,7 @@ async function main() {
 
 // Run if called directly
 if (
+  process.argv[1] &&
   path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])
 ) {
   main().catch((err) => {
@@ -599,6 +654,10 @@ if (
 }
 
 export {
+  incrementVersion,
+  getTodayDate,
+  updateFrontMatterMetadata,
+  extractFrontMatter,
   processMarkdownFile,
   processAllMarkdownFiles,
   applyHeader,
@@ -607,6 +666,5 @@ export {
   applyEmojis,
   applyBanner,
   shouldSkipMeta,
-  extractFrontMatter,
   getCategory,
 };
