@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-22"
+last_updated: "2026-07-23"
 owners:
   - LightSpeed Team
 tags:
@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- **Multi-provider agent standardization — Phase 2 batch (agents 5–14)** — Standardized 10 agents (Design Partner, Proposal Desk, Client Website Discovery, Website Scope Estimator, Website Content Strategist, PageSpeed, Linear Advisor, Harvest Analytical, Zendesk Support, AI Readiness Estimator) for multi-provider support (Claude, GitHub Copilot, OpenAI Codex). Each agent includes AGENT.md with unified spec, provider-specific system prompts and tool/skill definitions (claude/copilot/openai/), provider-agnostic core-prompt.md with domain-specific 6-phase methodology, comprehensive README, and rich tool/function schemas with full input validation. Total: 17,600+ lines of real content across 10 agents × 9 files. Packaged each agent as a lightweight plugin for marketplace distribution. Establishes the reusable Phase 2 pattern for enterprise multi-provider agent governance. ([PR #1143](https://github.com/lightspeedwp/.github/pull/1143); [#1090](https://github.com/lightspeedwp/.github/issues/1090), [#1096](https://github.com/lightspeedwp/.github/issues/1096), [#1089](https://github.com/lightspeedwp/.github/issues/1089), [#1100](https://github.com/lightspeedwp/.github/issues/1100), [#1099](https://github.com/lightspeedwp/.github/issues/1099), [#1093](https://github.com/lightspeedwp/.github/issues/1093), [#1092](https://github.com/lightspeedwp/.github/issues/1092), [#1091](https://github.com/lightspeedwp/.github/issues/1091), [#1103](https://github.com/lightspeedwp/.github/issues/1103), [#1088](https://github.com/lightspeedwp/.github/issues/1088))
 
 - **Multi-provider agent standardization — Phase 1 pilot (Playwright Testing Agent)** — Converted the `agents/playwright-testing-agent/` ChatGPT/Codex export into a standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added a provider-agnostic `AGENT.md` and `shared/core-prompt.md` (faithful to the real WordPress/WooCommerce test-pack-builder, review-before-code workflow), per-provider configs and tool/skill definitions (`claude/`, `copilot/`, `openai/`), and agent-level `.github/` metadata (INSTALL, MANIFEST, security-policy); the original export is preserved in place. Packaged as the new `plugins/lightspeed-playwright-testing/` plugin (four provider manifests, registered in `PLUGIN_MANIFEST.json`). Added four JSON schemas (`multi-provider-agent`, `agent-plugin-binding`, `provider-config`, `agent-capability-manifest`) with examples and registry entries; four validation hooks (`agent-spec-validator`, `multi-provider-consistency-checker`, `plugin-integrity-checker`, `agent-security-auditor`) with unit tests and registry entries; four instruction files and a cookbook playbook. Establishes the reusable pattern for the remaining 15 agents. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108); [#1087](https://github.com/lightspeedwp/.github/issues/1087), [#1104](https://github.com/lightspeedwp/.github/issues/1104), [#1105](https://github.com/lightspeedwp/.github/issues/1105), [#1106](https://github.com/lightspeedwp/.github/issues/1106), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
