@@ -34,8 +34,6 @@ This project establishes comprehensive, cohesive documentation standards for cre
 ## Key Resources
 
 - **[PLAN.md](./PLAN.md)** — Comprehensive plan with all requirements and reference links
-- **[RESEARCH_NOTES.md](./RESEARCH_NOTES.md)** — Findings from awesome-copilot audit (when created)
-- **[PROGRESS.md](./PROGRESS.md)** — Daily progress tracking
 
 ## Reference Links
 
@@ -53,8 +51,8 @@ This project establishes comprehensive, cohesive documentation standards for cre
 
 ### Internal References
 
-- [AGENT_CREATION.md](../../AGENT_CREATION.md) — Current agent spec (to extend)
-- [BRANCHING_STRATEGY.md](../../BRANCHING_STRATEGY.md) — Branch naming and workflow
+- [AGENT_CREATION.md](../../docs/AGENT_CREATION.md) — Current agent spec (to extend)
+- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Branch naming and workflow
 - [AGENTS.md](../../AGENTS.md) — Global AI rules
 
 ## Timeline

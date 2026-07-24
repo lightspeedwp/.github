@@ -417,8 +417,8 @@ Lightweight model for simple tasks.
 ## Related Documentation
 
 - [CLAUDE.md](../CLAUDE.md) — Project instructions
-- [Agent Standards](../docs/AGENT_STANDARDS.md) — Using models in agents
-- [Workflows Standards](../docs/WORKFLOWS_STANDARDS.md) — Multi-agent patterns
+- [Agent Standards](./AGENT_STANDARDS.md) — Using models in agents
+- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Multi-agent patterns
 
 ## External Resources
 
