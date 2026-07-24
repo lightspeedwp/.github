@@ -44,7 +44,7 @@ let quirkyFootersConfig;
 
 try {
   const configContent = fs.readFileSync(FOOTER_CONFIG_PATH, "utf8");
-  footerConfig = yaml.safeLoad(configContent);
+  footerConfig = yaml.load(configContent);
   console.log("✅ Loaded footer configuration");
 } catch (err) {
   console.error("❌ Failed to load footer configuration:", err.message);
@@ -53,7 +53,7 @@ try {
 
 try {
   const quirkyConfigContent = fs.readFileSync(QUIRKY_FOOTERS_PATH, "utf8");
-  quirkyFootersConfig = yaml.safeLoad(quirkyConfigContent);
+  quirkyFootersConfig = yaml.load(quirkyConfigContent);
   console.log("✅ Loaded quirky footers configuration");
 } catch (err) {
   console.warn(
