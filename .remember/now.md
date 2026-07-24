@@ -139,3 +139,11 @@ Completed Phase 2B Batch 2-3 skills audit (11 agents, 258 skills); PR #1284 push
 ## 15:33 | refactor/repo-structure-realignment
 
 Applied refactor PR templates to #1303/#1289 with comprehensive issue linking; schema consolidation verified (26 files migrated to .schemas/, 4 validation tests passing); code review feedback added & applied to CLAUDE.md (path reference table); marked child issues #1292/#1295/#1296 complete; merge conflicts in memory tracking files identified during rebase, resolving.
+
+## 15:35 | docs/changelog-project-status-update
+
+Merged PRs #1281 & #1315 recovering 127 total PR entries (76 + 51) for 100% post-v1.0.0 changelog coverage (June 23—July 24), added validation automation (7 rules, integration tests), updated PROJECT_PLAN.md phases to ✅ Complete for Phases 1-2.5, created README.md tracking all deliverables in `.github/projects/active/changelog-automation-hardening/`.
+
+## 15:50 | develop
+
+Rebuilt CHANGELOG.md [Unreleased] with 37 entries from 40+ merged PRs (May—July), renamed branch to `chore/changelog-rebuild-phase-2`, merged PR #1279 to develop after rebasing & resolving conflicts, fixed Codex feedback (removed duplicate Dependabot, corrected automation PR link #1275→#1276).
