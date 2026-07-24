@@ -30,3 +30,7 @@ PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/promp
 ## 10:55 | docs/agent-skills-standards-comprehensive
 
 PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
+
+## 13:40 | chore/changelog-phase-2-rebuild
+
+Phase 2 rebuild: recovered all 76 merged PRs (May 24—Jul 24) into CHANGELOG.md [Unreleased] w/ full PR+issue linking; implemented 5 critical hardening fixes (validation automation, integration tests, contributor docs, workflow enhancement); created audit identifying 14 gaps w/ fix specs; PR #1281 addressed code review feedback & queued for merge.
