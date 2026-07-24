@@ -10,3 +10,5 @@ Fixed linting in PR #1201 (ci/template-enforcement-fix) and template issues in #
 ## 08:25 | claude/issue-type-templates-e90252
 
 Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk template process in docs/ISSUE_TRIAGE.md.
+
+## 10:34 | Workflows consolidation Phase 1A complete: removed testing.yml (issue #1231), extracted template validation helpers to scripts/validation/template-helpers.cjs (issue #1233), created project documentation at .github/projects/active/workflows-consolidation-2026-q3/, and linked Epic #1227 with detailed audit & playbook for 19% workflow reduction goal
