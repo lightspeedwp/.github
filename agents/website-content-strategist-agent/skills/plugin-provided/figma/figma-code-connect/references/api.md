@@ -588,13 +588,13 @@ npm install --global @figma/code-connect@latest
 Publish all templates to make them visible in Figma Dev Mode:
 
 ```bash
-npx figma connect publish --token=[REDACTED_TOKEN]
+npx figma connect publish --token=YOUR_FIGMA_TOKEN
 ```
 
 **Using environment variable:**
 
 ```bash
-export FIGMA_ACCESS_TOKEN=[REDACTED_TOKEN]
+export FIGMA_ACCESS_TOKEN=YOUR_FIGMA_TOKEN
 npx figma connect publish
 ```
 

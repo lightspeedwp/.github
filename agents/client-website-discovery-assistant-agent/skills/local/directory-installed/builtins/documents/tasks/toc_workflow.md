@@ -64,7 +64,7 @@ See: `tasks/navigation_internal_links.md`.
 
 1) Add a single paragraph containing the placeholder token:
 
-[REDACTED_TOKEN]
+<!-- Insert TOC here -->
 [[TOC]]
 
 ```

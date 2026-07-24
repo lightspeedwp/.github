@@ -67,7 +67,7 @@ timestamp down to seconds, which is the recommended path for routine local itera
 Only use a manual cachebuster override when the user explicitly asks for one or when a workflow
 outside Codex depends on a specific token:
 
-[REDACTED_TOKEN]
+```bash
 python3 scripts/update_plugin_cachebuster.py \
   <plugin-path> \
   --cachebuster local-20260519-184516

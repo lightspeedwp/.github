@@ -73,24 +73,30 @@ The Design Partner Agent provides expert design consultation across Figma, desig
 claude code --agent design-partner
 
 # 2. Configure Figma API access in .claude/settings.json
+
+<!-- security:documentation-example - placeholder value, not a real credential -->
+```json
 {
   "agents": {
     "design-partner": {
       "enabled": true,
       "integrations": {
         "figma": {
-          "api_key": "figma_api_key_from_environment"
+          "api_key": "YOUR_FIGMA_API_KEY_HERE"
         }
       }
     }
   }
 }
-
-# 3. Verify configuration
-claude agent validate design-partner
 ```
 
-### GitHub Copilot Integration
+# 3. Verify configuration
+
+claude agent validate design-partner
+
+```
+
+## GitHub Copilot Integration
 
 ```bash
 # 1. Install skill in GitHub Copilot
@@ -109,7 +115,7 @@ agents:
 gh project configure --agent design-partner
 ```
 
-### OpenAI Integration
+## OpenAI Integration
 
 ```bash
 # 1. Configure API credentials
@@ -194,12 +200,14 @@ Agent generates:
 ## Core Capabilities
 
 ### 1. Design System Analysis
+
 - Component library structure review
 - Token organization assessment
 - Design pattern identification
 - Consistency checking across components
 
 ### 2. Accessibility Assessment
+
 - WCAG 2.2 AA compliance verification
 - Color contrast ratio analysis
 - Keyboard navigation review
@@ -207,6 +215,7 @@ Agent generates:
 - Focus management assessment
 
 ### 3. Component Documentation
+
 - Specification generation
 - Variant and state documentation
 - Usage guidelines and examples
@@ -214,12 +223,14 @@ Agent generates:
 - Code Connect mapping
 
 ### 4. Design Token Management
+
 - Token extraction from Figma
 - Token naming conventions
 - Token hierarchy validation
 - Export to multiple formats (JSON, CSS, JavaScript)
 
 ### 5. Figma Integration
+
 - Design file inspection and analysis
 - Component variant mapping
 - Design token extraction
@@ -227,6 +238,7 @@ Agent generates:
 - Design-to-code documentation
 
 ### 6. UI/UX Review
+
 - Visual consistency assessment
 - Interaction pattern review
 - Responsive design validation
