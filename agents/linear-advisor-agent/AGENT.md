@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - linear-issue-management
@@ -74,6 +78,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 **Input:** Project scope, team, timeline, deliverables
 
 **Output:**
+
 - Linear project created
 - Issues generated from deliverables
 - Team assigned
@@ -86,6 +91,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 **Input:** Team capacity, backlog, priorities
 
 **Output:**
+
 - Sprint plan
 - Committed items
 - Capacity allocation
@@ -98,6 +104,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 **Input:** Features, timeline, dependencies
 
 **Output:**
+
 - Release plan
 - Version bumping strategy
 - Release notes outline
@@ -108,6 +115,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 ## Key Workflows
 
 ### Project Setup Workflow
+
 1. Gather project requirements, scope, and team information
 2. Create Linear project with appropriate settings
 3. Define issue templates and workflow states
@@ -117,6 +125,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 7. Initialize sprint schedule and milestones
 
 ### Issue Management Workflow
+
 1. Receive issue creation requests with full context
 2. Validate requirements and scope
 3. Create Linear issues with proper relationships
@@ -126,6 +135,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 7. Configure workflow automation
 
 ### Sprint Execution Workflow
+
 1. Analyze backlog and team capacity
 2. Select issues for sprint commitment
 3. Create sprint in Linear with dates
@@ -135,6 +145,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 7. Support mid-sprint adjustments
 
 ### Release Coordination Workflow
+
 1. Plan release scope and timeline
 2. Define version and naming strategy
 3. Create milestone in Linear
@@ -146,6 +157,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 ## Integration Patterns
 
 ### Linear API Integration
+
 - Query issues and projects
 - Create and update issues
 - Manage workflows and states
@@ -153,6 +165,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 - Sync team and user data
 
 ### GitHub Actions Integration
+
 - Trigger workflows from Linear events
 - Sync Linear issues to GitHub Projects
 - Auto-create GitHub releases from Linear milestones
@@ -160,6 +173,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 - Generate reports from Linear data
 
 ### Workflow Automation
+
 - Auto-transition issues based on conditions
 - Auto-assign issues based on skills
 - Auto-label issues by category
@@ -169,6 +183,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 ## Advanced Features
 
 ### Capacity Planning
+
 - Historical velocity tracking
 - Team capacity calculation
 - Resource allocation optimization
@@ -176,6 +191,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 - Burndown forecasting
 
 ### Dependency Management
+
 - Issue blocking relationships
 - Component dependency mapping
 - Cross-team coordination
@@ -183,6 +199,7 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 - Critical path analysis
 
 ### Reporting & Analytics
+
 - Sprint metrics and burndown
 - Velocity trends
 - Release readiness assessment
@@ -203,24 +220,28 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 ## Best Practices
 
 ### Project Structure
+
 - Use consistent naming conventions for projects
 - Group related issues with components
 - Define clear workflow states
 - Establish standard lifecycle definitions
 
 ### Team Coordination
+
 - Clear RACI matrix definition
 - Regular sync meetings scheduled
 - Async communication channels established
 - Decision-making process documented
 
 ### Issue Management
+
 - Detailed acceptance criteria
 - Clear scope and out-of-scope items
 - Proper estimation techniques
 - Regular backlog grooming
 
 ### Release Management
+
 - Version numbering strategy
 - Feature freeze processes
 - Deployment verification plans

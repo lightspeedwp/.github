@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - time-tracking-analysis
@@ -74,6 +78,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 **Input:** Project, time tracking data, budget
 
 **Output:**
+
 - Profitability report
 - Margin analysis
 - Budget vs. actual
@@ -86,6 +91,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 **Input:** Team, time period, projects
 
 **Output:**
+
 - Productivity metrics
 - Billable utilization
 - Time allocation
@@ -98,6 +104,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 **Input:** Project, budget, time period
 
 **Output:**
+
 - Budget tracking report
 - Variance analysis
 - Projected final cost
@@ -108,6 +115,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 ## Key Workflows
 
 ### Data Collection Workflow
+
 1. Connect to Harvest API
 2. Extract time entries
 3. Gather project and budget data
@@ -116,6 +124,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 6. Aggregate cost data
 
 ### Analysis Workflow
+
 1. Validate time tracking data
 2. Calculate utilization rates
 3. Compute profitability metrics
@@ -124,6 +133,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 6. Compare against benchmarks
 
 ### Reporting Workflow
+
 1. Aggregate analysis results
 2. Generate visualizations
 3. Create summary insights
@@ -132,6 +142,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 6. Schedule automated reports
 
 ### Optimization Workflow
+
 1. Identify improvement opportunities
 2. Analyze cost drivers
 3. Recommend process changes
@@ -142,6 +153,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 ## Advanced Analytics
 
 ### Profitability Metrics
+
 - Gross margin by project
 - Net margin analysis
 - Billable vs. non-billable ratio
@@ -150,6 +162,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Project ROI
 
 ### Team Productivity Metrics
+
 - Billable utilization rate
 - Hours per project
 - Average hourly rate
@@ -158,6 +171,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Overtime tracking
 
 ### Budget Analytics
+
 - Budget burn rate
 - Variance trending
 - Projected overruns
@@ -166,6 +180,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Contingency adequacy
 
 ### Forecasting
+
 - Project cost forecasts
 - Profitability projections
 - Resource demand forecasting
@@ -187,6 +202,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 ## Integration Patterns
 
 ### Harvest API Integration
+
 - Real-time time entry access
 - Project and client data
 - Team member information
@@ -194,6 +210,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Custom report fields
 
 ### Financial System Integration
+
 - Project cost data
 - Budget allocation
 - Invoice generation
@@ -201,6 +218,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Tax compliance
 
 ### Dashboard Integration
+
 - Real-time metrics
 - Custom KPI tracking
 - Trend visualization
@@ -210,6 +228,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 ## Best Practices
 
 ### Data Quality
+
 - Regular time tracking audits
 - Consistent project categorization
 - Accurate task classification
@@ -218,6 +237,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Data entry procedures documented
 
 ### Analysis Quality
+
 - Use consistent period definitions
 - Account for non-billable time
 - Consider seasonal variations
@@ -226,6 +246,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Document assumptions
 
 ### Reporting Quality
+
 - Clear data presentation
 - Actionable insights
 - Peer review of recommendations
@@ -236,6 +257,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 ## Implementation Considerations
 
 ### Data Source Integration
+
 - API authentication and token management
 - Historical data retention policies
 - Real-time vs. batch reporting
@@ -243,6 +265,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Backup and recovery procedures
 
 ### Calculation Methodology
+
 - Overhead allocation methods
 - Rate standardization
 - Currency conversion handling
@@ -250,6 +273,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 - Seasonal adjustment approaches
 
 ### Stakeholder Communication
+
 - Report frequency and distribution
 - Executive summary formats
 - Drill-down capabilities
@@ -259,6 +283,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 ## Common Analysis Scenarios
 
 ### Identifying Profitability Issues
+
 1. Calculate gross margin by project
 2. Compare to industry benchmarks
 3. Identify low-margin projects
@@ -267,6 +292,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 6. Project impact of changes
 
 ### Optimizing Resource Allocation
+
 1. Analyze utilization by team member
 2. Identify skill gaps
 3. Review capacity constraints
@@ -275,6 +301,7 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 6. Monitor improvements
 
 ### Budget Performance Tracking
+
 1. Track spend vs. budget weekly
 2. Calculate variance trends
 3. Identify overrun patterns

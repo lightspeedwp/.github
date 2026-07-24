@@ -12,6 +12,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - proposal-template-generation
@@ -20,14 +24,6 @@ capabilities:
   - client-communication
   - proposal-tracking
   - invoice-generation
-
-providers:
-  claude:
-    status: 'production'
-    tier: 'full'
-    tools: 8
-  copilot:
-    status: 'production'
     tier: 'full'
     skills: 6
   openai:
@@ -100,6 +96,7 @@ The agent combines proposal expertise with:
 ### Example 1: Generate Proposal
 
 **Input:**
+
 ```
 Create a proposal for a website redesign project.
 Client: Acme Corp
@@ -109,6 +106,7 @@ Key deliverables: Design system, responsive website, testing
 ```
 
 **Output:**
+
 - Professional proposal document
 - Project scope and deliverables
 - Timeline with milestones
@@ -119,6 +117,7 @@ Key deliverables: Design system, responsive website, testing
 ### Example 2: Create Quote
 
 **Input:**
+
 ```
 Generate a quote for:
 - Website content strategy (40 hours @ $150/hr)
@@ -128,6 +127,7 @@ Generate a quote for:
 ```
 
 **Output:**
+
 - Professional quote document
 - Line-item breakdown
 - Total cost calculation
@@ -138,6 +138,7 @@ Generate a quote for:
 ### Example 3: Scope Definition
 
 **Input:**
+
 ```
 Define scope for WooCommerce store optimization.
 Current: Basic setup, no customization
@@ -146,6 +147,7 @@ Focus: Performance, conversions, mobile
 ```
 
 **Output:**
+
 - Detailed scope document
 - In-scope deliverables
 - Out-of-scope items
