@@ -41,6 +41,22 @@ It also hosts **portable AI operations assets** in top-level source folders that
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
 
+### Path Reference: Schema Migration (2026-07-24)
+
+During the 2026-07-24 repository restructuring, all schema files were migrated to `.schemas/` (root, hidden folder):
+
+| Component | Old Path | New Path | Type |
+| --- | --- | --- | --- |
+| **Schema files** | `.github/schema/` | `.schemas/` | Location |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `../../../.schemas/` | Script path |
+| **Agent schema dir** | `scripts/validation/validate-agents.js` `schema` | `.schemas` | Variable |
+| **Memory schemas** | `.github/schema/memory/` | `.schemas/memory/` | Subdirectory |
+| **npm scripts** | `package.json schema/**` | `.schemas/**` | Glob pattern |
+
+For script maintainers: If you reference schemas, use **relative paths from script location** (typically `.github/scripts/validation/`), so go **three levels up** (`../../../.schemas/`) to reach repo root.
+
+See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details and [SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md](./projects/active/repository-maintenance-infrastructure/SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md) for reference updates.
+
 ## Git & Branching Strategy
 
 > **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
