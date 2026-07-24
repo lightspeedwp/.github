@@ -16,3 +16,7 @@ Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk t
 ## 10:36 | docs/issue-template-triage-guide
 
 Fixed docs/ISSUE_TRIAGE.md per code review (subprocess timeouts, path corrections, idempotency); PR #1250 template-compliant & pending merge.
+
+## 10:38 | audit/workflows-consolidation-audit
+
+Completed Phase 1A (#1231, #1233): removed testing.yml, extracted template helpers to scripts/validation/template-helpers.cjs (45 tests), fixed PR #1228 w/ missing docs & frontmatter validation, 135 lines dedup, ~2-3% GHA mins savings.
