@@ -18,3 +18,7 @@ Completed Phase 1A workflow consolidation: deleted duplicate testing.yml, extrac
 ## 10:19 | chore/gitignore-skill-artifacts
 
 Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #1221 (Phase 2B audit) by correcting Mergify link—all 3 v1.0 PRs unblocked via pre-existing agent spec validation bypass.
+
+## 10:25 | docs/issue-template-triage-guide
+
+Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk runbook + troubleshooting); PR #1250 on docs/issue-template-triage-guide; fixed relative paths, instruction struct, idempotent transforms, unchecked defaults, workflow validation accuracy.
