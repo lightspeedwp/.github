@@ -21,7 +21,13 @@ metadata:
 ├── PHASE_1B_CHANGELOG_CONSOLIDATION.md    # Phase 1B changelog design
 ├── PHASE_1B_METRICS_CONSOLIDATION.md      # Phase 1B metrics design
 ├── PHASE_2_DOCS_CONSOLIDATION.md          # Phase 2 documentation design
-├── PHASE_3_LABELING_CONSOLIDATION.md      # Phase 3 labeling design
+├── PHASE_2_EXECUTION.md                   # Phase 2 detailed execution plan
+├── PHASE_2_ISSUES.md                      # Phase 2 issue templates
+├── PHASE_2_2_TEST_RESULTS.md              # Phase 2 integration test scenarios
+├── PHASE_3_EXECUTION.md                   # Phase 3 detailed execution plan
+├── PHASE_3_ISSUES.md                      # Phase 3 issue templates
+├── PHASE_3_KICKOFF.md                     # Phase 3 ready-to-execute kickoff
+├── PHASE_3_READINESS.md                   # Phase 3 readiness status report
 ├── TESTING_STRATEGY.md                    # Test coverage & verification
 └── EFFICIENCY_IMPROVEMENTS.md             # GitHub Actions minute savings details
 ```
@@ -115,9 +121,9 @@ metadata:
 
 **Labeling (Phase 3)**
 
-- Consolidate labeling workflows → See PHASE_3_LABELING_CONSOLIDATION.md
+- Consolidate labeling workflows → See PHASE_3_EXECUTION.md, PHASE_3_ISSUES.md
 - Estimated effort: 6-8 hours
-- Status: Design phase
+- Status: 📋 READY (kickoff on 2026-07-26)
 
 ### By Workflow
 
@@ -135,9 +141,9 @@ metadata:
 | readme-regen.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
 | readme-update.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
 | validate-mermaid-pr.yml | 2 | KEEP (already consolidated) | ✅ SKIPPED |
-| labeling.yml | 3 | ABSORB label logic (2 others) | 📋 DESIGN |
-| dependabot-security-label.yml | 3 | MERGE → labeling.yml | 📋 DESIGN |
-| issue-close-label-hygiene.yml | 3 | MERGE → labeling.yml | 📋 DESIGN |
+| labeling.yml | 3 | MERGE → labeling-governance.yml | 📋 READY |
+| dependabot-security-label.yml | 3 | MERGE → labeling-governance.yml | 📋 READY |
+| issue-close-label-hygiene.yml | 3 | MERGE → labeling-governance.yml | 📋 READY |
 
 ---
 
@@ -146,11 +152,13 @@ metadata:
 | Phase | Status | Effort | Timeline | Epic/Issues |
 |-------|--------|--------|----------|------------|
 | **1A: Quick Wins** | ✅ COMPLETE | 4h | Week 1 | Epic #1227, Issues #1231, #1233 |
-| **1B-i: Changelog** | ⏳ READY | 8-12h | Weeks 2-3 | Issue #1.B.1 (TBD) |
-| **1B-ii: Metrics** | ⏳ READY | 6-8h | Weeks 2-3 | Issue #1.B.2 (TBD) |
-| **2: Documentation** | 🟡 IN PROGRESS | 10-16h | Weeks 5-8 | Issue #2.1 (TBD), PR in progress |
-| **3: Labeling** | 📋 DESIGN | 6-8h | Weeks 5-8 | Issue #3.1 (TBD) |
-| **4: Future** | 📋 FUTURE | TBD | Month 3+ | TBD |
+| **1B-i: Changelog** | ✅ COMPLETE | 8-12h | Weeks 2-3 | PR #1280 |
+| **1B-ii: Metrics** | ✅ COMPLETE | 6-8h | Weeks 2-3 | PR #1282 |
+| **2: Documentation** | ✅ MERGED | 10-16h | Weeks 5-8 | PR #1306, #1313 |
+| **2.2: Monitoring** | ✅ ACTIVE | 0h | 2026-07-24 to 07-26 | #1309 |
+| **2.3: Cleanup** | 📋 READY | 2-3h | 2026-07-26 | #1310 |
+| **3: Labeling** | 📋 READY | 6-8h | Weeks 9-10 | Issues #3.1-#3.4 (to create) |
+| **4: Future** | 📋 PLANNING | TBD | Month 3+ | TBD |
 
 ---
 
