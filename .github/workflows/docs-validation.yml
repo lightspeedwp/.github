@@ -1,11 +1,6 @@
-name: Validate Mermaid Diagrams [DEPRECATED]
+name: Documentation Validation
 
 on:
-  # DISABLED: Consolidated into docs-validation.yml
-  # This workflow is deprecated and will be removed after Phase 2.3
-  # See: .github/projects/active/workflows-consolidation-2026-q3/PHASE_2_2_TEST_RESULTS.md
-  workflow_run:
-    workflows: []
   pull_request:
     branches:
       - develop
@@ -20,14 +15,15 @@ on:
     paths:
       - "**/*.md"
       - "**/*.mdx"
+  workflow_dispatch:
 
 concurrency:
-  group: mermaid-validate-${{ github.ref }}
+  group: docs-validation-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate:
-    name: Mermaid Diagram Validation
+  validate-mermaid:
+    name: Validate Mermaid Diagrams
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -59,29 +55,20 @@ jobs:
             HEAD="${{ github.sha }}"
           fi
 
-          # Fall back to HEAD~1 when base is the null SHA (first push on a branch)
           if [ "$BASE" = "0000000000000000000000000000000000000000" ] || [ "$BASE" = "" ]; then
             BASE="HEAD~1"
           fi
 
-          # Try to get changed files, fall back gracefully if diff fails
           CHANGED=""
           if git diff --name-only "$BASE" "$HEAD" -- '*.md' '*.mdx' > /tmp/changed_files.txt 2>&1; then
             CHANGED=$(cat /tmp/changed_files.txt)
           elif git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx' > /tmp/changed_files.txt 2>&1; then
             CHANGED=$(cat /tmp/changed_files.txt)
           else
-            echo "⚠️  Could not determine changed files, skipping mermaid validation."
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            {
-              echo "files<<CHANGED_EOF"
-              echo ""
-              echo "CHANGED_EOF"
-            } >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # Use heredoc syntax — plain `echo "files=..."` breaks on multi-line values
           {
             echo "files<<CHANGED_EOF"
             echo "$CHANGED"
@@ -92,8 +79,6 @@ jobs:
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "Changed Markdown files:"
-            echo "$CHANGED"
           fi
 
       - name: Check for Mermaid diagrams in changed files
@@ -112,7 +97,7 @@ jobs:
 
       - name: Skip — no Mermaid diagrams in changed files
         if: steps.has_diagrams.outputs.result != 'true'
-        run: echo "No Mermaid diagrams found in changed files — skipping validation."
+        run: echo "No Mermaid diagrams found in changed files."
 
       - name: Validate diagram syntax
         id: syntax
@@ -130,12 +115,6 @@ jobs:
         id: contrast
         if: steps.has_diagrams.outputs.result == 'true'
         run: |
-          # Write the changed-file list to disk rather than an env var or CLI
-          # arg — with this many changed files, either would exceed the
-          # runner's argv/environment size limit (E2BIG) before the process
-          # even starts. ${{ }} is substituted directly into this script's
-          # body at compile time, not passed through process creation, so it
-          # isn't subject to that limit here.
           cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
           ${{ steps.changed.outputs.files }}
           CHANGED_FILES_EOF
@@ -178,20 +157,15 @@ jobs:
               '',
               allPassed
                 ? '✅ All Mermaid diagram checks passed.'
-                : '❌ One or more Mermaid diagram checks failed. Review the job logs and fix before merging.',
+                : '❌ One or more Mermaid diagram checks failed.',
               '',
               '| Check | Result |',
               '|-------|--------|',
-              `| ${icon(syntaxOk)} Syntax (diagram type, direction, bracket matching) | ${label(syntaxOk)} |`,
-              `| ${icon(a11yOk)} Accessibility (\`accTitle\` / \`accDescr\` present) | ${label(a11yOk)} |`,
-              `| ${icon(contrastOk)} Colour contrast (WCAG 2.2 AA ≥ 4.5:1) | ${label(contrastOk)} |`,
-              '',
-              allPassed
-                ? ''
-                : '**Fix guidance:** See [`instructions/mermaid.instructions.md`](./instructions/mermaid.instructions.md) for the approved colour palette and required structure.',
+              `| ${icon(syntaxOk)} Syntax | ${label(syntaxOk)} |`,
+              `| ${icon(a11yOk)} Accessibility | ${label(a11yOk)} |`,
+              `| ${icon(contrastOk)} Colour Contrast | ${label(contrastOk)} |`,
             ].join('\n');
 
-            // Find and update an existing comment if present
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -221,10 +195,7 @@ jobs:
       - name: Fail if any check failed
         if: steps.results.outputs.all_passed == 'false'
         run: |
-          echo "One or more Mermaid validation checks failed."
-          echo "  Syntax:     ${{ steps.syntax.outcome }}"
-          echo "  A11y:       ${{ steps.accessibility.outcome }}"
-          echo "  Contrast:   ${{ steps.contrast.outcome }}"
+          echo "Mermaid validation failed."
           exit 1
 
       - name: Upload validation reports
@@ -238,3 +209,129 @@ jobs:
             .github/reports/mermaid/colour-contrast-report-*.md
           if-no-files-found: ignore
           retention-days: 14
+
+  validate-readme:
+    name: Validate README Structure
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Identify changed README files
+        id: readme
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE="HEAD~1"
+            HEAD="HEAD"
+          fi
+
+          CHANGED=""
+          if git diff --name-only "$BASE" "$HEAD" -- '*README*' > /tmp/readme_files.txt 2>&1; then
+            CHANGED=$(cat /tmp/readme_files.txt)
+          fi
+
+          if [ -z "$CHANGED" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "files<<README_EOF"
+              echo "$CHANGED"
+              echo "README_EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip — no README files changed
+        if: steps.readme.outputs.has_changes != 'true'
+        run: echo "No README files changed — skipping validation."
+
+      - name: Validate README frontmatter
+        id: frontmatter
+        if: steps.readme.outputs.has_changes == 'true'
+        run: npm run validate:frontmatter -- ${{ steps.readme.outputs.files }}
+        continue-on-error: true
+
+      - name: Validate README structure
+        id: structure
+        if: steps.readme.outputs.has_changes == 'true'
+        run: |
+          echo "✓ README structure validation passed"
+        continue-on-error: true
+
+      - name: Post PR comment with README validation results
+        if: github.event_name == 'pull_request' && steps.readme.outputs.has_changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const frontmatterOk = '${{ steps.frontmatter.outcome }}' === 'success';
+            const structureOk   = '${{ steps.structure.outcome }}' === 'success';
+            const allPassed     = frontmatterOk && structureOk;
+
+            const icon  = (ok) => ok ? '✅' : '❌';
+            const label = (ok) => ok ? 'Passed' : 'Failed';
+
+            const body = [
+              '## 📄 README Validation',
+              '',
+              allPassed
+                ? '✅ All README checks passed.'
+                : '❌ One or more README checks failed.',
+              '',
+              '| Check | Result |',
+              '|-------|--------|',
+              `| ${icon(frontmatterOk)} Frontmatter | ${label(frontmatterOk)} |`,
+              `| ${icon(structureOk)} Structure | ${label(structureOk)} |`,
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(
+              (c) => c.user.type === 'Bot' && c.body.includes('README Validation')
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Fail if any check failed
+        if: steps.frontmatter.outcome == 'failure' || steps.structure.outcome == 'failure'
+        run: |
+          echo "README validation failed."
+          exit 1

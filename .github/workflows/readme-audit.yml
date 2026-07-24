@@ -1,6 +1,11 @@
-name: README Audit & Validation
+name: README Audit & Validation [DEPRECATED]
 
 on:
+  # DISABLED: Consolidated into docs-validation.yml and docs-maintenance.yml
+  # This workflow is deprecated and will be removed after Phase 2.3
+  # See: .github/projects/active/workflows-consolidation-2026-q3/PHASE_2_2_TEST_RESULTS.md
+  workflow_run:
+    workflows: []
   workflow_dispatch:
     inputs:
       scope:
