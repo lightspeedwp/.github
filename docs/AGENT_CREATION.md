@@ -26,6 +26,8 @@ tags:
 [![Validation](https://img.shields.io/badge/validation-automated-informational)](../schema/)
 
 > **Complete guide** for authoring agent specification files that follow LightSpeed organizational standards, including frontmatter requirements, documentation structure, implementation patterns, and validation processes.
+>
+> **NOTE (Phase 3A):** This guide is now supplemented by the comprehensive [AGENT_STANDARDS.md](./AGENT_STANDARDS.md) document, which provides end-to-end standards for agent design and architecture. For detailed agent structure, patterns, and quality gates, see [AGENT_STANDARDS.md](./AGENT_STANDARDS.md).
 
 ---
 

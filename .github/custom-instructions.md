@@ -24,6 +24,22 @@ language: en
 
 These instructions apply to work performed inside the LightSpeed `.github` control-plane repository.
 
+## Documentation Standards for AI Infrastructure
+
+All agents, skills, instructions, workflows, plugins, and related AI components must comply with the 9 comprehensive standards documented in `docs/`. When creating or modifying AI infrastructure:
+
+- **Creating an agent?** → Reference [docs/AGENT_STANDARDS.md](../docs/AGENT_STANDARDS.md)
+- **Building a skill?** → Reference [docs/SKILLS_STANDARDS.md](../docs/SKILLS_STANDARDS.md)
+- **Writing instructions?** → Reference [docs/INSTRUCTIONS_STANDARDS.md](../docs/INSTRUCTIONS_STANDARDS.md)
+- **Designing a workflow?** → Reference [docs/WORKFLOWS_STANDARDS.md](../docs/WORKFLOWS_STANDARDS.md)
+- **Creating a cookbook?** → Reference [docs/COOKBOOKS_STANDARDS.md](../docs/COOKBOOKS_STANDARDS.md)
+- **Building prompts?** → Reference [docs/PROMPTS_STANDARDS.md](../docs/PROMPTS_STANDARDS.md)
+- **Developing a plugin?** → Reference [docs/PLUGINS_STANDARDS.md](../docs/PLUGINS_STANDARDS.md)
+- **Creating hooks?** → Reference [docs/HOOKS_STANDARDS.md](../docs/HOOKS_STANDARDS.md)
+- **Maintaining AI references?** → Reference [docs/AI_REFERENCES_STANDARDS.md](../docs/AI_REFERENCES_STANDARDS.md)
+
+See [AGENTS.md](../AGENTS.md#documentation-standards) for the complete quick reference guide and standards overview.
+
 ## Branch Protocol
 
 1. Before the first edit, confirm the current branch is in scope for the requested task.
