@@ -22,3 +22,7 @@ Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #12
 ## 10:25 | docs/issue-template-triage-guide
 
 Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk runbook + troubleshooting); PR #1250 on docs/issue-template-triage-guide; fixed relative paths, instruction struct, idempotent transforms, unchecked defaults, workflow validation accuracy.
+
+## 10:49 | docs/agent-skills-standards-comprehensive
+
+PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) + planning in .github/projects/active/; epic #1261 + child issues #1262-#1270; multiple CI iterations fixing frontmatter/CodeEx P2 feedback/links/validation pending merge.
