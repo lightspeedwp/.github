@@ -24,7 +24,7 @@ language: en
 
 ## Executive Summary
 
-The current [Unreleased] section in CHANGELOG.md (as of 2026-07-23), contains comprehensive documentation of recent work, but with significant verbosity that could be condensed by 40-50% while retaining all critical information and PR/issue references.
+The current [Unreleased] section in CHANGELOG.md (as of 2026-07-23) contains comprehensive documentation of recent work but with significant verbosity that could be condensed by 40-50% while retaining all critical information and PR/issue references.
 
 ### Key Findings
 
@@ -183,7 +183,7 @@ The current [Unreleased] section in CHANGELOG.md (as of 2026-07-23), contains co
 
 ## Files Affected
 
-- `CHANGELOG.md` — Audited [Unreleased] section; consolidation reserved for Phase 2 (not included in this Phase 1 audit) (target: 40-42% reduction)
+- `CHANGELOG.md` — Audited [Unreleased] section; consolidation planned for Phase 2 (target: 40-42% reduction)
 - `.gitignore` — Add generated skill patterns (future PR)
 - Documentation updated with audit findings (this file)
 
