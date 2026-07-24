@@ -1,34 +1,52 @@
 {
   "version": "1.0.0",
   "provider": "openai",
-  "tools": [
+  "functions": [
     {
-      "type": "function",
-      "function": {
-        "name": "generate_prd",
-        "description": "Generate a complete PRD document",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "title": { "type": "string" },
-            "description": { "type": "string" },
-            "scope": { "type": "array" }
+      "name": "generate_prd",
+      "description": "Generate a complete PRD document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "PRD title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description and overview"
+          },
+          "scope": {
+            "type": "array",
+            "description": "List of features and requirements",
+            "items": { "type": "string" }
           }
-        }
+        },
+        "required": ["title", "description"]
       }
     },
     {
-      "type": "function",
-      "function": {
-        "name": "estimate_timeline",
-        "description": "Estimate project timeline",
-        "parameters": {
-          "type": "object",
-          "properties": {
-            "requirements": { "type": "array" },
-            "team_size": { "type": "integer" }
+      "name": "estimate_timeline",
+      "description": "Estimate project timeline and milestones",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "requirements": {
+            "type": "array",
+            "description": "List of project requirements",
+            "items": { "type": "string" }
+          },
+          "team_size": {
+            "type": "integer",
+            "description": "Expected team size"
+          },
+          "complexity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Project complexity level"
           }
-        }
+        },
+        "required": ["requirements"]
       }
     }
   ],

@@ -1,5 +1,5 @@
-92f23af302000a3ecb347e3d19665fce5de0b550a8dcd78d6dcdb0e1ac27ce03  ./AGENT.md
-83490174916965bff275113c49c305aa427f45a58c5c3def36662b6f14214598  ./README.md
+f80e678677248372018e073b5fc63d6d59c1ed1146ae347e35881e0342f999af  ./AGENT.md
+a5eaaf43430848074da404293c901c04e739570be7108f196958ce7e78a4716d  ./README.md
 d3a3d338329a0996403e513d1e7542c97fbcc60df2916631d39a81fb5e9d5b96  ./agent/configuration/agent_files/Files/Intake/url-evidence-token-schema.yaml
 e19f8aa6209cb5c0e66bf9cf45cd9a802f3832be02f8cf3a93cbd98e11a02a50  ./agent/configuration/agent_files/memory-schemas/active-context.schema.yaml
 f275fbdcdec52f4e3f153d33394257101e43022da9cd243942842e68eeb66ed3  ./agent/configuration/agent_files/memory-schemas/assumptions-and-risks.schema.yaml
@@ -135,10 +135,11 @@ ca568bd26ba0454f50b3eeef504c69ea25e6ac47e814fcfe12c713a67893a946  ./agent/templa
 f92c8a9f9e730ae8eb6d5a1f697cda6301a8a1160f09998a6f21f643d9bb2beb  ./agent/templates/agent_files/templates/questionnaire-intake/intake-review-table.md
 0642f08f3cef2675a27ed81a92ac97e5605e3e6af201f4484e091e2f0cec19c4  ./agent/templates/agent_files/templates/questionnaire-intake/intake-wizard-template.yaml
 2d8e069c0277386cef2b2dd7a225058d2a09e991d9a505aa454d430556d9faa7  ./agent/templates/agent_files/templates/questionnaire-intake/questionnaire-field-library.yaml
-a82aa2fe3bd4733faa2de0e541c9c3ac3ddef278dd06dafddc87dd01cd74daf4  ./checksums.sha256.new
+81fccefe38b609fc386885cb7c7a40a6fadf5aefaa6842654d6f3a35013074b4  ./checksums.sha256.new
 1fa31aa503953fbca66b14e9cb82b725a6f52482e0283720bfccc219a6c4a94c  ./claude/agent.md
-dba852dbd1daa96c1fd43cd00e51e709a56f4aef53a99f9383650b763b1547e6  ./claude/tools.json
+1a3ac1f2fef64086d345f18b7186abca362df6bb0e5c4597efb5f8331a25b72e  ./claude/tools.json
 3bed1cacab90557eb5aa3eadcfbe2f8d5c6af584f9cc8fa961eceee9960d58dc  ./copilot/agent.md
+883c5fc21c650161b906a242c78f0c86301085b133101cb600e2615d4bbed6b9  ./copilot/skills.yaml
 349c0f11544311f414dceca937127c72d8ad6768a5dad587ede4c5a08b3f20be  ./copilot/tools.json
 747c0f2f40fb8e1ee9ddfe48575c05e9bd46b24a1486f4d4c01d278945ff375c  ./manifests/agent-files.md
 8066c1387405b0c410397e7dbb817629ca05c0f2294be5eff1adae49c4efd914  ./manifests/inaccessible-resources.md
@@ -147,8 +148,8 @@ ee539baac0e038c1a16bd3d1d89400fe1304242eb66f807cff9b2e942bcb5ec0  ./manifests/sk
 7f09c397c19eadb3ffa6997afb2756a7320788c7fe9fa4b08b943e5e478cc9d8  ./manifests/skills.csv.backup
 ad2103d658bd279df413f4ed92ea4cc962562db91cba3e38e6ab2c71b5e79c0b  ./manifests/skills.md
 81419f33828b7073192a699d317d8e0a8f473673868ab69e5e359542bd161581  ./openai/agent.md
-edd3635179410ef78102ccf889c8e22ea71d970a39c8c66c1742d3d7d3419884  ./openai/tools.json
-ba36ad9f3f6ae1097f75ab8817a651d0bcf010b1d974f5dd8b93ec231a8df5b4  ./shared/core-prompt.md
+7db401e36204e13f587ae3979d6d685adedad580fdc06cf9b3eb10175698f958  ./openai/tools.json
+e4a0bd56c1d956dabe88473fa1516e1dd14a5db5063d2f114f9d29599d9e6fa6  ./shared/core-prompt.md
 89b3d96b2eafe45e40f4cf2ecb71f50abd8d1723aa0fbdbf5fae82977761d815  ./skills/agent-attached/content-file-validator/README.md
 1fa42fca58f2407099bdf53a2057bf592824487fe1ea5064dfa1ecefee6c27b2  ./skills/agent-attached/content-file-validator/SKILL.md
 a4a9e29c79f7840e5ea0b93e384735be21ff67dcaaaa2e2050b161a1cadf1ce2  ./skills/agent-attached/content-file-validator/agents/openai.yaml
