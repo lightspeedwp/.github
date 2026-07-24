@@ -1,4 +1,6 @@
 ---
+name: 'PageSpeed Agent'
+description: 'Web performance optimization tool for load-time analysis, resource optimization, and caching strategies'
 agent_id: 'agent-10'
 agent_slug: 'pagespeed'
 agent_name: 'PageSpeed Agent'
@@ -9,7 +11,7 @@ created_date: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 providers:
   - claude
   - copilot

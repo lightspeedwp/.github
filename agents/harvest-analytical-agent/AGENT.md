@@ -1,4 +1,6 @@
 ---
+name: 'Harvest Analytical Agent'
+description: 'Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation'
 agent_id: 'agent-12'
 agent_slug: 'harvest-analytical'
 agent_name: 'Harvest Analytical Agent'
@@ -9,7 +11,7 @@ created_date: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 providers:
   - claude
   - copilot

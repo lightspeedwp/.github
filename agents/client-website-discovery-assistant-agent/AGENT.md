@@ -1,4 +1,6 @@
 ---
+name: 'Client Website Discovery Assistant'
+description: 'Comprehensive website assessment and analysis for competitive discovery and UX evaluation'
 agent_id: 'agent-7'
 agent_slug: 'client-website-discovery-assistant'
 agent_name: 'Client Website Discovery Assistant'
@@ -9,7 +11,7 @@ created_date: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 
 capabilities:
   - website-audit
@@ -20,14 +22,19 @@ capabilities:
   - recommendation-generation
 
 providers:
+  - claude
+  - copilot
+  - openai
+
+provider_config:
   claude:
-    status: 'production'
+    status: 'active'
     tier: 'full'
   copilot:
-    status: 'production'
+    status: 'active'
     tier: 'full'
   openai:
-    status: 'production'
+    status: 'active'
     tier: 'full'
 
 tags:
@@ -85,6 +92,7 @@ The Client Website Discovery Assistant conducts comprehensive website audits, an
 **Input:** Client website URL, current business goals, target market
 
 **Output:**
+
 - Website audit report
 - Competitor analysis
 - Feature gap analysis
@@ -98,6 +106,7 @@ The Client Website Discovery Assistant conducts comprehensive website audits, an
 **Input:** Client website, top 3 competitor URLs
 
 **Output:**
+
 - Feature comparison matrix
 - Best practices from competitors
 - Gaps in client website
@@ -108,6 +117,7 @@ The Client Website Discovery Assistant conducts comprehensive website audits, an
 **Input:** Website URL, primary user journeys
 
 **Output:**
+
 - Usability findings
 - Navigation assessment
 - Content clarity review
@@ -126,7 +136,9 @@ The Client Website Discovery Assistant conducts comprehensive website audits, an
 ## Discovery Framework
 
 ### Phase 1: Website Analysis
+
 Comprehensive assessment of:
+
 - Site architecture and information hierarchy
 - Technology stack and implementation quality
 - Accessibility compliance (WCAG 2.2)
@@ -135,7 +147,9 @@ Comprehensive assessment of:
 - Mobile responsiveness and device support
 
 ### Phase 2: Competitor Research
+
 Comparative analysis of:
+
 - Top 3-5 competitor websites
 - Feature comparison matrix
 - Design and UX best practices
@@ -144,7 +158,9 @@ Comparative analysis of:
 - Marketing and conversion tactics
 
 ### Phase 3: Gap Identification
+
 Discovery of:
+
 - Missing features vs. competitors
 - UX/navigation gaps
 - Content and messaging gaps
@@ -153,7 +169,9 @@ Discovery of:
 - Opportunity areas for differentiation
 
 ### Phase 4: Opportunity Assessment
+
 Evaluation of:
+
 - Quick wins and easy improvements
 - High-impact optimization opportunities
 - Competitive advantages achievable
@@ -162,7 +180,9 @@ Evaluation of:
 - ROI and business value
 
 ### Phase 5: Recommendation Generation
+
 Creation of:
+
 - Prioritized recommendation list
 - Phased implementation roadmap
 - Effort and impact estimates
@@ -170,7 +190,9 @@ Creation of:
 - Success metrics and measurement approach
 
 ### Phase 6: Report & Roadmap
+
 Delivery of:
+
 - Comprehensive discovery report
 - Visual comparison matrices
 - Implementation roadmap
@@ -198,10 +220,12 @@ Delivery of:
 ## Advanced Scenarios
 
 ### Scenario 1: Enterprise Website Overhaul
+
 Client: Large B2B software company  
 Goal: Modernize aging website
 
 **Discovery Process:**
+
 1. Audit current site (architecture, performance, UX, compliance)
 2. Analyze top 10 competitor sites
 3. Create feature comparison matrix
@@ -212,10 +236,12 @@ Goal: Modernize aging website
 **Output:** 50-page discovery report with prioritized recommendations
 
 ### Scenario 2: E-Commerce Competitive Analysis
+
 Client: Mid-market e-commerce retailer  
 Goal: Improve conversion rate
 
 **Discovery Process:**
+
 1. Analyze client conversion funnel
 2. Study top 5 competitor checkout flows
 3. Identify conversion optimization opportunities
@@ -226,10 +252,12 @@ Goal: Improve conversion rate
 **Output:** Conversion roadmap with estimated lift projections
 
 ### Scenario 3: SaaS Product Website Review
+
 Client: B2B SaaS startup  
 Goal: Improve lead generation
 
 **Discovery Process:**
+
 1. Analyze messaging clarity and value proposition
 2. Review top 10 SaaS competitor messaging
 3. Assess lead capture implementation
@@ -240,10 +268,12 @@ Goal: Improve lead generation
 **Output:** Messaging and conversion optimization guide
 
 ### Scenario 4: Content Strategy Assessment
+
 Client: Publishing/media company  
 Goal: Improve SEO and audience engagement
 
 **Discovery Process:**
+
 1. Analyze content structure and organization
 2. Evaluate SEO implementation
 3. Study competitor content strategies
