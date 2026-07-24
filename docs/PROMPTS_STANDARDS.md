@@ -14,6 +14,21 @@ Guidelines for creating reusable, well-tested prompt templates that agents and t
 
 Prompts are structured templates that guide AI models towards consistent, high-quality outputs. Reusable prompts reduce duplication, improve consistency, and enable easier testing and refinement.
 
+### Prompt Development Lifecycle
+
+```mermaid
+graph LR
+    A["Define<br/>Use Case"] --> B["Draft<br/>Prompt"]
+    B --> C["Test with<br/>Model"]
+    C --> D["Tune<br/>Parameters"]
+    D --> E["Create Test<br/>Cases"]
+    E --> F["Document<br/>Variables"]
+    F --> G["Validate<br/>Output"]
+    G --> H["Publish to<br/>prompts/"]
+    H --> I["Monitor<br/>Performance"]
+    I --> J["Update &<br/>Maintain"]
+```
+
 ---
 
 ## Prompt Concept
@@ -38,6 +53,22 @@ A reusable prompt is a template that:
 | **Testing** | Comprehensive test suite | Manual validation |
 | **Versioning** | Semantic versioning | Not versioned |
 | **Sharing** | Multiple agents | Single context |
+
+### Prompt Type Selection
+
+```mermaid
+graph TD
+    A{"What's the<br/>primary goal?"} -->|Accuracy &<br/>Consistency| B{"Need exact<br/>output format?"}
+    A -->|Creativity &<br/>Variation| C["Use High Temperature<br/>0.8-1.0"]
+    B -->|Yes| D["Deterministic Prompt<br/>Temperature: 0-0.3"]
+    B -->|No| E{"Need structured<br/>output?"}
+    E -->|Yes| F["Structured Prompt<br/>with JSON schema"]
+    E -->|No| G["Creative Prompt<br/>Temperature: 0.5-0.7"]
+    C --> H["✅ Set up Testing<br/>for Variety"]
+    D --> H
+    F --> H
+    G --> H
+```
 
 ---
 
@@ -448,9 +479,42 @@ API style: {{style}}
 
 ---
 
-## Related Documentation
+## Real-World Repository Examples
+
+Repository reference prompts are stored in `prompts/` and can be referenced by agents:
+
+**Directory:** `prompts/`
+
+Explore available prompt templates and reusable prompt patterns in the repository.
+
+### Prompt Usage in Agents
+
+Agents reference prompts through their configuration:
+
+```yaml
+# In agent.md
+prompts:
+  - code-review-template
+  - documentation-generator
+```
+
+At runtime, agents substitute variables and invoke prompts with specific values.
+
+See: [`prompts/README.md`](../../prompts/README.md)
+
+---
+
+## See Also
 
 - [Agent Standards](./AGENT_STANDARDS.md) — Agents using prompts
+- [Skills Standards](./SKILLS_STANDARDS.md) — Prompts in skills
+- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Workflow prompts
+- [AI References Standards](./AI_REFERENCES_STANDARDS.md) — Model selection for prompts
+
+---
+
+## Related Documentation
+
 - [Prompt Engineering Guide](https://www.anthropic.com/engineering/building-effective-agents)
 - [Claude Documentation](https://platform.claude.com/docs/)
 
