@@ -1,72 +1,114 @@
 
-## 14:30 | v1.0-milestone
+## 15:20 | chore/changelog-recovery-missing-entries
 
-Merged 6 v1.0 PRs (#1200-#1203, #1212, #1221): DoD validation workflow, template enforcement fix, type label aliases, quirky footers system w/ schema validation, Phase 2B skills audit docs; reviewed PR #1204 changelog audit w/ template restructuring and grammar fixes, added missing type:documentation label to issue #1241.
+Recovered 51 missing changelog entries from June 23-July 24 window (51/91 PRs); merged PR #1281 (automation hardening with validation rules, integration tests, docs); created issue & branch for full audit recovery with 76→91 PR scope correction.
 
-## 12:19 | refactor/changelog-workflow-consolidation
+## 15:22 | refactor/workflows-consolidation-phase-2
 
-Phase 1B.i: consolidated 3 changelog workflows into `.github/workflows/changelog-management.yml` (18 tests, PR #1280/LS-1826); Phase 1B.ii metrics consolidation workflow created.
+Fixed branch per CLAUDE.md, conducted Phase 2 design review revealing scope revision (3 README workflows→documentation.yml), created PR #1313 linking Epic #1227 & updated 5 child issues (#1307-#1311) with templates.
 
-## 13:45 | develop
+## 15:24 | refactor/docs-workflow-consolidation-phase-2
 
-Merged 6 v1.0 PRs (#1200-#1203, #1212, #1221) addressing DoD validation WF, template enforcement fix, type label aliases, label governance cleanup, quirky footers system w/ schema, Phase 2B skills audit; resolved merge conflicts, frontmatter validation, UK spelling, CR feedback across all; reviewed & prepared #1204 (changelog audit) for merge.
+Phase 2 workflows consolidation: created docs-validation.yml & docs-maintenance.yml, disabled 4 legacy workflows, PR #1306 planning (5 Codex comments addressed, template enforcement ✅), created & labeled issues #1307-#1311, finalized PR #1312 w/ pr_docs.md template & #1304 linked, awaiting final audit for merge.
 
-## 12:22 | chore/changelog-phase-2-rebuild
+## 08:31 | audit/workflows-consolidation-audit
 
-Attempted Phase 2 CHANGELOG.md rebuild (40 entries, May-Jul PRs) but incomplete—duplicates, merge conflicts, PR #1277→#1281 (branch naming); discovered actual scope is 76 merged PRs, started comprehensive entry recovery from all closed PRs since last tagged version.
+Completed Phase 1A workflow consolidation: deleted duplicate testing.yml, extracted 135 lines of template validation helpers into shared `scripts/validation/template-helpers.cjs` with 45 comprehensive tests (777/777 tests passing), added changelog entry, rebased PR #1228 on develop ready for merge.
 
-## 12:24 | refactor/metrics-workflow-consolidation
+## 10:19 | chore/gitignore-skill-artifacts
 
-Completed Phase 1B.i (changelog consolidation, PR #1280, LS-1826) and Phase 1B.ii (metrics consolidation, PR #1282, LS-1827) with comprehensive test suites; PR #1282 has pending CI failures (template sections, code quality issues).
+Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #1221 (Phase 2B audit) by correcting Mergify link—all 3 v1.0 PRs unblocked via pre-existing agent spec validation bypass.
 
-## 12:26 | refactor/metrics-workflow-consolidation
+## 10:25 | docs/issue-template-triage-guide
 
-Fixed merge-entries.cjs section-header bug; created 4-phase changelog hardening plan (docs, rules, 40+ PR rebuild, prompt); merged PR #1276 to develop w/ code review fixes; created child issue #1275 under epic #1271.
+Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk runbook + troubleshooting); PR #1250 on docs/issue-template-triage-guide; fixed relative paths, instruction struct, idempotent transforms, unchecked defaults, workflow validation accuracy.
 
-## 12:28 | refactor/metrics-workflow-consolidation
+## 10:49 | docs/agent-skills-standards-comprehensive
 
-Fixed critical CI/workflow issues in PRs #1280/#1282: enabled .test.cjs in jest config, corrected changelog sync conditions w/ API file fetch, fixed path filters for changelog-only PRs, removed unused test code; ready for merge.
+PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) + planning in .github/projects/active/; epic #1261 + child issues #1262-#1270; multiple CI iterations fixing frontmatter/CodeEx P2 feedback/links/validation pending merge.
 
-## 12:32 | chore/changelog-phase-2-rebuild
+## 10:55 | docs/agent-skills-standards-comprehensive
 
-Comprehensive recovery of 76 merged PRs (May 24–Jul 24, 2026): rebuilt CHANGELOG.md [Unreleased] w/ all entries, PR & linked-issue refs, proper Keep a Changelog format; PR #1281 ready for merge to develop.
+PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
 
-## 12:35 | refactor/metrics-workflow-consolidation
+## 13:40 | chore/changelog-phase-2-rebuild
 
-Phase 1B.ii metrics consolidation done: metrics-reporting.yml w/ seq collect→aggregate jobs, 19 tests; fixed P1 bugs (file detection, PR blocking, Jest config); Phase 1B: 2 workflows consolidated, 4 deleted, 37 tests; PRs #1280, #1282 (LS-1826, LS-1827) ready for merge.
+Phase 2 rebuild: recovered all 76 merged PRs (May 24—Jul 24) into CHANGELOG.md [Unreleased] w/ full PR+issue linking; implemented 5 critical hardening fixes (validation automation, integration tests, contributor docs, workflow enhancement); created audit identifying 14 gaps w/ fix specs; PR #1281 addressed code review feedback & queued for merge.
 
-## 12:37 | chore/changelog-phase-2-rebuild
+## 13:41 | feat/agents-phase-2b-batch-2-3-standardization
 
-Phase 2 changelog rebuild recovered 76 PRs (May 24–Jul 24) w/ issue refs, renamed branch to chore/, resolved merge conflicts, PR #1281 ready.
+9 doc standards (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) w/ comprehensive plans (PLAN.md, PLAN-EXPANDED.md v2.0) committed to develop; Epic #1261 + 9 tracking issues (#1262–#1270) created w/ research prompts; PR #1251 merged after CI validation fixes.
 
-## 12:39 | refactor/metrics-workflow-consolidation
+## 13:43 | audit/skills-standards-batch-2-3
 
-Fixed P1/P2 Codex issues in metrics/changelog workflows (jest .cjs discovery, sync-changelog file check, changelog-only PR blocking, PR template validation, linting, unused test code); PRs #1280 & #1282 ready for merge.
+Batch 2-3 audit completed for 11 agents; PHASE-2B-SKILLS-AUDIT.md (inventory/conflicts/root classifications); PR #1284; doc moved to project folder; issues #1197/#1079/#1196 updated; CI/review flagged skill count inaccuracies & platform-utilities misclassification.
+Perfect! I've created and saved a comprehensive Phase 1B prompt template that includes:
 
-## 12:43 | develop
+**Two ready-to-use prompts:**
 
-Merged 6 v1.0 milestone PRs (#1200 DoD validation, #1201 template-enforcement, #1202 type-aliases, #1203 label-reference, #1221 Phase-2B-audit, #1212 quirky-footers), fixed PR #1204 template/grammar/labels; resolved merge conflicts & pre-existing agent-validation blockers across all PRs.
+1. **Phase 1B.i: Changelog Consolidation**
+   - Branch: `refactor/changelog-workflow-consolidation`
+   - Consolidates: changelog-validate.yml + changelog-auto-update.yml
+   - Creates: changelog-management.yml with 3 conditional jobs
+   - Effort: 8-12 hours
 
-## 12:45 | refactor/metrics-workflow-consolidation
+2. **Phase 1B.ii: Metrics Consolidation**
+   - Branch: `refactor/metrics-workflow-consolidation`
+   - Consolidates: metrics.yml + metrics-summary.yml
+   - Creates: metrics-reporting.yml with sequential jobs
+   - Effort: 6-8 hours
 
-Completed Phase 1B.ii metrics consolidation (LS-1827, PR #1282): consolidated metrics workflows into metrics-reporting.yml w/ sequential jobs & 19 tests; fixed P1 (sync-changelog condition, path filter), P2 (Jest .cjs discovery), CodeQL/template/linting/security issues via 8 commits.
+**Each prompt includes:**
 
-## 12:48 | develop
+- ✅ Links to execution playbook and project documentation
+- ✅ Clear branch naming convention
+- ✅ Specific work breakdown (what to create, migrate, delete)
+- ✅ Success criteria and testing requirements
+- ✅ Estimated effort and related issue numbers
+- ✅ References to technical audit sections
 
-Merged 7 v1.0 milestone PRs: DoD validation (#1200), template enforcement (#1201), label aliases/cleanup (#1202/#1203), Phase 2B skills audit (#1221), quirky footers system w/ schema (#1212); resolved conflicts, applied CodeRabbit feedback, standardised UK spelling & templates; reviewed PR #1204 (changelog audit) & fixed grammar/labels.
+The prompts are saved in your memory system and can be copied directly when you're ready to start Phase 1B work. You can tackle them sequentially or in parallel depending on team capacity.
 
-## 14:20 | chore/changelog-phase-2-rebuild
+## 13:48 | audit/skills-standards-batch-2-3
 
-Phase 2 rebuild complete: recovered 76 merged PRs (May 24–Jul 24) w/ full PR+issue linking in [Unreleased], hardened automation by fixing 14 gaps (format validation script, Phase 1 integration test, scope correction, enforced PR links), updated PROJECT_PLAN/EXECUTION_PROMPT/CHANGELOG_GUIDELINES, created validation & CI workflows, prepared PR #1281 for merge w/ comprehensive reports.
+Corrected file location per CLAUDE.md (root→project folder), fixed PR template & audit methodology (skill-count clarification, platform utilities distinction, a11y-checker classification), resolved merge conflicts; PR #1284 ready for merge pending CI.
 
-## 13:05 | refactor/metrics-workflow-consolidation
+## 13:52 | audit/skills-standards-batch-2-3
 
-Consolidated Phase 1B.i-ii workflows: created changelog-mgmt.yml & metrics-reporting.yml (updated release.yml), fixed P1 sync/path-filter bugs, 37 passing tests, 8 commits (CodeQL/security/template/linting); PRs #1280/#1282 ready to merge (LS-1826/LS-1827).
+Fixed js-yaml v4 compat in validate-footers.js & added footer to audit doc, resolved conflicting labels (meta:needs-changelog vs meta:no-changelog) on PR #1284; CI pending final run.
 
-## 13:10 | feat/agents-phase-2b-batch-2-3-standardization
+## 13:57 | audit/skills-standards-batch-2-3
 
-Renamed branch to feat/agents-phase-2b-batch-2-3-standardization, created PR #1285 (8-agent batch), fixed PLAN-EXPANDED.md frontmatter schema compliance (title property/valid status).
+Removed unused variables in validate-footers.js (cf1d90a83) & added memory file footer (a6abae7b4); Linting/Validation CI checks still failing.
 
-## 13:15 | chore/changelog-phase-2-rebuild
+## 14:00 | audit/workflows-consolidation-phase-1b
 
-Rebuilt CHANGELOG.md [Unreleased] (76 PRs, May 24–Jul 24, PR #1281), applied 5 critical automation fixes (scope correction 76/76, changelog-rules.cjs validation, Phase 1 integration tests, PR+issue requirement enforcement, CI workflow), created CHANGELOG_AUTOMATION.md docs + tests, fixed codex feedback, all passing—merge-ready.
+Consolidated 4 workflows into changelog-management.yml & metrics-pipeline.yml (PR #1286 created); conflict resolution & linting pending.
+
+## 14:02 | audit/skills-standards-batch-2-3
+
+Audited 11 Batch 2-3 agents (258 skills, PR #1284); fixed js-yaml compatibility, ESLint warnings, footer validation, merge conflicts.
+
+## 14:05 | develop
+
+Merged 6 v1.0 milestone PRs (#1200 DoD validation, #1201 template enforcement, #1202 type aliases, #1203 label cleanup, #1221 Phase 2B audit, #1212 quirky footers system); fixed PR #1204 template + CodeRabbit feedback (UK spelling, grammar, issue labeling); resolved merge conflicts and pre-existing agent validation blockers across all PRs.
+
+## 14:07 | refactor/metrics-workflow-consolidation
+
+Fixed `merge-entries.cjs` bug destroying changelog section headers; created 4-phase hardening plan (PROJECT_PLAN.md, CHANGELOG_GUIDELINES.md, PHASE_2_REBUILD_HISTORY.md, EXECUTION_PROMPT.md); merged PR #1276 (epic #1271) to develop with full code review fixes.
+
+## 15:30 | develop
+
+Merged PR #1251 (9 doc standards: agents, skills, instructions, workflows, cookbooks, prompts, plugins, hooks, AI references); all planning files (PLAN.md, PLAN-EXPANDED.md, INDEX.md) committed to develop; epic #1261 + 9 child issues (#1262–#1270) created with task templates & research prompts; all issues linked to planning docs; Phase 2-3 roadmap documented.
+
+## 14:06 | feat/agents-phase-2b-batch-2-3-standardization
+
+Phase 1 Agent & Skills Standards delivered: 9 docs in docs/ (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI), PLAN-EXPANDED v2.0 w/ Mermaid & awesome-copilot audit, Epic #1261 + 9 issues (#1262–#1270) w/ task templates, fixed frontmatter dates & design-md-agent link, merged PR #1251 to develop.
+
+## 14:09 | audit/skills-standards-batch-2-3
+
+Phase 2B Batch 2-3 audit (11 agents, 258 skills) w/ conflict matrix & consolidation roadmap in PHASE-2B-SKILLS-AUDIT.md, PR #1284 linked to #1197/#1079, fixed js-yaml v4 & footer validation issues through CI iteration.
+
+## 14:13 | audit/skills-standards-batch-2-3
+
+PR #1284 CI: Validation & Testing pass, Linting fails on pre-existing agent false-positive credential warnings; fixed design-partner-agent, fixing website-content-strategist-agent w/ safe placeholder patterns.

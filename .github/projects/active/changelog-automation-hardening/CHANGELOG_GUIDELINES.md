@@ -275,8 +275,8 @@ All entries must follow this exact format:
 | Bullet + bold title | ✅ Yes | `- **Feature Name**` | Capitalize each major word |
 | Em-dash separator | ✅ Yes | ` — ` | Space before & after em-dash (U+2014) |
 | Description | ✅ Yes | `descriptive text` | 1-2 sentences, max 150 chars |
-| PR link | ✅ Yes | `([PR #1234](url))` | Full GitHub URL |
-| Issue link | If applicable | `([#5678](url))` | Link parent/related issues |
+| PR link | ✅ REQUIRED | `([PR #1234](url))` | Full GitHub URL (required for every entry) |
+| Issue link | Optional | `([#5678](url))` | Link parent/related issues only when applicable |
 
 ### Description Style Guide
 
@@ -312,6 +312,39 @@ echo "My Feature Title" | wc -c  # Should be < 60
 
 # Description
 echo "This is what the feature does in brief" | wc -c  # Should be < 150
+```
+
+### PR Link Requirement
+
+**Every changelog entry MUST include a PR link.** This provides:
+
+- Clear traceability to the implementation
+- Ability to verify changes
+- Context for users reading release notes
+- Reference for future retrospectives
+
+**Issue links are optional** and should only be included if:
+
+- The PR addresses a specific GitHub issue
+- The issue provides important context
+- The issue is referenced in the PR description
+
+**Invalid (no PR link):**
+
+```markdown
+- **New feature** — Added amazing functionality
+```
+
+**Valid (PR link required):**
+
+```markdown
+- **New feature** — Added amazing functionality. ([PR #1234](url))
+```
+
+**Valid (PR + optional issue link):**
+
+```markdown
+- **New feature** — Added amazing functionality. ([PR #1234](url), [#1050](url))
 ```
 
 ---

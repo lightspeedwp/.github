@@ -30,7 +30,8 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | Folder | Purpose |
 | --- | --- |
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
-| `agents/` | Portable agent specifications |
+| `agents/` | Portable agent specifications (multi-file implementations) |
+| `.schemas/` | JSON schema definitions (hidden folder, awesome-copilot pattern) |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -39,6 +40,22 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | `workflows/` | Portable agentic workflows |
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
+
+### Path Reference: Schema Migration (2026-07-24)
+
+During the 2026-07-24 repository restructuring, all schema files were migrated to `.schemas/` (root, hidden folder):
+
+| Component | Old Path | New Path | Type |
+| --- | --- | --- | --- |
+| **Schema files** | `.github/schema/` | `.schemas/` | Location |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `../../../.schemas/` | Script path |
+| **Agent schema dir** | `scripts/validation/validate-agents.js` `schema` | `.schemas` | Variable |
+| **Memory schemas** | `.github/schema/memory/` | `.schemas/memory/` | Subdirectory |
+| **npm scripts** | `package.json schema/**` | `.schemas/**` | Glob pattern |
+
+For script maintainers: If you reference schemas, use **relative paths from script location** (typically `.github/scripts/validation/`), so go **three levels up** (`../../../.schemas/`) to reach repo root.
+
+See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details and [SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md](./projects/active/repository-maintenance-infrastructure/SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md) for reference updates.
 
 ## Git & Branching Strategy
 
@@ -280,12 +297,18 @@ npm run validate:frontmatter
 | Asset Type | Belongs In |
 | --- | --- |
 | GitHub-native governance (templates, labels, workflows) | `.github/` |
-| Repo-local Copilot/agent instructions | `.github/instructions/` or `.github/custom-instructions.md` |
+| Portable instruction standards (a11y, coding, documentation) | `instructions/` (root) |
+| Repo-local Copilot/agent instructions (control-plane-specific) | `.github/instructions/` or `.github/custom-instructions.md` |
+| Portable JSON schemas (validation definitions) | `.schemas/` (hidden folder at root) |
+| Portable agent specifications (multi-file implementations) | `agents/` (root) |
+| Spec-based agents (simple YAML/JSON definitions) | `.github/agents/` (GitHub-native only) |
 | Reports, audits, metrics | `.github/reports/{category}/` |
 | Active project artefacts | `.github/projects/active/{slug}/` |
 | Temporary scratch files | `.github/tmp/` (clean up before PR) |
-| Portable reusable AI assets | top-level source folders above |
+| Portable reusable AI assets | top-level source folders (see table above) |
 | Permanent human documentation | `docs/` |
+
+**Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
 ## What Not to Do
 

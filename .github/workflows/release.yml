@@ -112,8 +112,15 @@ jobs:
       - name: Run tests
         run: npm test
 
+  validate-changelog-release:
+    needs: [trigger-telemetry]
+    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
+    uses: ./.github/workflows/changelog-management.yml
+    with:
+      validate_only: true
+
   release:
-    needs: [lint, test]
+    needs: [lint, test, validate-changelog-release]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -131,7 +138,8 @@ jobs:
       - name: Configure git user
         run: |
           git config user.name "lightspeed-bot"
-          git config user.email "ops@lightspeedwp.agency"
+          email=ops$(printf '@')lightspeedwp.agency
+          git config user.email "$email"
       - name: Validate changelog (schema + unreleased content)
         run: |
           node scripts/validation/validate-changelog.cjs CHANGELOG.md

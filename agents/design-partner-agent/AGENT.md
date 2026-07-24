@@ -1,4 +1,6 @@
 ---
+name: 'Design Partner Agent'
+description: 'AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment'
 agent_id: 'agent-5'
 agent_slug: 'design-partner'
 agent_name: 'Design Partner Agent'
@@ -13,7 +15,7 @@ authors:
   - LightSpeed Team
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 tier: 'premium'
 
 capabilities:
@@ -25,8 +27,13 @@ capabilities:
   - figma-integration
 
 providers:
+  - claude
+  - copilot
+  - openai
+
+provider_config:
   claude:
-    status: 'production'
+    status: 'active'
     tier: 'full'
     tools: 8
     integrations:
@@ -34,14 +41,14 @@ providers:
       - design-system-validator
       - accessibility-checker
   copilot:
-    status: 'production'
+    status: 'active'
     tier: 'full'
     skills: 6
     integrations:
       - github-projects
       - figma-sync
   openai:
-    status: 'production'
+    status: 'active'
     tier: 'full'
     functions: 8
     integrations:
@@ -55,8 +62,6 @@ tags:
   - accessibility
   - figma
   - design-systems
-
-description: 'AI design partner for consultative design work, design system management, and accessibility assessment across multiple provider platforms.'
 ---
 
 # Design Partner Agent
@@ -113,12 +118,14 @@ This agent is intended for design teams, design system maintainers, and product 
 ### Example 1: Design System Audit
 
 **Input:**
+
 ```
 Audit our design system in Figma (file: https://figma.com/file/abc123).
 Check component consistency, document design tokens, and identify gaps.
 ```
 
 **Agent Process:**
+
 1. Access Figma file via API
 2. Extract design tokens (colors, typography, spacing)
 3. Analyze component library structure
@@ -127,6 +134,7 @@ Check component consistency, document design tokens, and identify gaps.
 6. Generate audit report with recommendations
 
 **Output:**
+
 - Design system audit report
 - Token documentation (CSV/JSON export)
 - Component inventory with usage examples
@@ -136,12 +144,14 @@ Check component consistency, document design tokens, and identify gaps.
 ### Example 2: Accessibility Assessment
 
 **Input:**
+
 ```
 Review the product marketing site (Figma file: xyz789) for WCAG 2.2 AA compliance.
 Focus on color contrast, semantic structure, and interactive elements.
 ```
 
 **Agent Process:**
+
 1. Inspect design file for color usage
 2. Measure contrast ratios against WCAG AA standards
 3. Check semantic element structure
@@ -150,6 +160,7 @@ Focus on color contrast, semantic structure, and interactive elements.
 6. Generate compliance report
 
 **Output:**
+
 - WCAG 2.2 AA compliance report
 - Contrast ratio audit with pass/fail status
 - Interactive element checklist
@@ -159,12 +170,14 @@ Focus on color contrast, semantic structure, and interactive elements.
 ### Example 3: Component Documentation
 
 **Input:**
+
 ```
 Generate comprehensive documentation for our Button component family.
 Include all states, sizes, variants, and usage guidelines.
 ```
 
 **Agent Process:**
+
 1. Inspect Button component in design system
 2. Identify all variants (primary, secondary, danger)
 3. Document all states (default, hover, active, disabled)
@@ -173,6 +186,7 @@ Include all states, sizes, variants, and usage guidelines.
 6. Create Code Connect mappings to React component
 
 **Output:**
+
 - Component specification document
 - Visual component catalog
 - Props and variant matrix
