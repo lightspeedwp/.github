@@ -30,3 +30,11 @@ PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/promp
 ## 10:55 | docs/agent-skills-standards-comprehensive
 
 PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
+
+## 11:51 | develop
+
+Merged 6 v1.0 milestone PRs to develop (#1200 DoD validation, #1201 template-enforcement, #1202 type-aliases, #1203 label-governance, #1212 quirky-footers system, #1221 Phase 2B skills audit); resolved CI failures and merge conflicts; prepared #1204 changelog-consolidation audit for merge.
+
+## 12:01 | claude/changelog-workflow-consolidation-23ba51
+
+Applied issue type templates to 22 issues (#1220-#1241) w/ DoR/DoD sections; merged PR #1250 w/ `docs/ISSUE_TRIAGE.md` guide covering manual application (6-step) & Python bulk runbook.
