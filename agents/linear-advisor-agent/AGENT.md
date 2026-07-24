@@ -1,4 +1,6 @@
 ---
+name: 'Linear Advisor Agent'
+description: 'Project management integration tool for Linear issue management, sprint planning, and team coordination'
 agent_id: 'agent-11'
 agent_slug: 'linear-advisor'
 agent_name: 'Linear Advisor Agent'
@@ -9,7 +11,7 @@ created_date: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 providers:
   - claude
   - copilot
