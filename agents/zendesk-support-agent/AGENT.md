@@ -1,4 +1,6 @@
 ---
+name: 'Zendesk Support Agent'
+description: 'Customer support agent for ticket management, customer communication, and knowledge base integration'
 agent_id: 'agent-14'
 agent_slug: 'zendesk-support'
 agent_name: 'Zendesk Support Agent'
@@ -9,7 +11,7 @@ created_date: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 providers:
   - claude
   - copilot

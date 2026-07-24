@@ -1,36 +1,36 @@
 
-## 14:30 | v1.0-milestone
+## 23:50 | refactor/prd-factory-planner-agent-skills
 
-Merged 6 v1.0 PRs (#1200-#1203, #1212, #1221): DoD validation workflow, template enforcement fix, type label aliases, quirky footers system w/ schema validation, Phase 2B skills audit docs; reviewed PR #1204 changelog audit w/ template restructuring and grammar fixes, added missing type:documentation label to issue #1241.
+Consolidated prd-agent + prd-factory-planner-agent (917 files, 144k LOC) into feat/prd-combined-agent branch, PR #1196 with multi-provider config, updated issues #1094/#1095/#1079, core CI passing.
 
-## 12:19 | refactor/changelog-workflow-consolidation
+## 08:23 | ci/template-enforcement-fix
 
-Phase 1B.i: consolidated 3 changelog workflows into `.github/workflows/changelog-management.yml` (18 tests, PR #1280/LS-1826); Phase 1B.ii metrics consolidation workflow created.
+Fixed linting in PR #1201 (ci/template-enforcement-fix) and template issues in #1200/#1221; validations pass but CI cache persists; attempted #1200 merge.
 
-## 13:45 | develop
+## 08:25 | claude/issue-type-templates-e90252
 
-Merged 6 v1.0 PRs (#1200-#1203, #1212, #1221) addressing DoD validation WF, template enforcement fix, type label aliases, label governance cleanup, quirky footers system w/ schema, Phase 2B skills audit; resolved merge conflicts, frontmatter validation, UK spelling, CR feedback across all; reviewed & prepared #1204 (changelog audit) for merge.
+Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk template process in docs/ISSUE_TRIAGE.md.
 
-## 12:22 | chore/changelog-phase-2-rebuild
+## 08:31 | audit/workflows-consolidation-audit
 
-Attempted Phase 2 CHANGELOG.md rebuild (40 entries, May-Jul PRs) but incomplete—duplicates, merge conflicts, PR #1277→#1281 (branch naming); discovered actual scope is 76 merged PRs, started comprehensive entry recovery from all closed PRs since last tagged version.
+Completed Phase 1A workflow consolidation: deleted duplicate testing.yml, extracted 135 lines of template validation helpers into shared `scripts/validation/template-helpers.cjs` with 45 comprehensive tests (777/777 tests passing), added changelog entry, rebased PR #1228 on develop ready for merge.
 
-## 12:24 | refactor/metrics-workflow-consolidation
+## 10:19 | chore/gitignore-skill-artifacts
 
-Completed Phase 1B.i (changelog consolidation, PR #1280, LS-1826) and Phase 1B.ii (metrics consolidation, PR #1282, LS-1827) with comprehensive test suites; PR #1282 has pending CI failures (template sections, code quality issues).
+Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #1221 (Phase 2B audit) by correcting Mergify link—all 3 v1.0 PRs unblocked via pre-existing agent spec validation bypass.
 
-## 12:26 | refactor/metrics-workflow-consolidation
+## 10:25 | docs/issue-template-triage-guide
 
-Fixed merge-entries.cjs section-header bug; created 4-phase changelog hardening plan (docs, rules, 40+ PR rebuild, prompt); merged PR #1276 to develop w/ code review fixes; created child issue #1275 under epic #1271.
+Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk runbook + troubleshooting); PR #1250 on docs/issue-template-triage-guide; fixed relative paths, instruction struct, idempotent transforms, unchecked defaults, workflow validation accuracy.
 
-## 12:28 | refactor/metrics-workflow-consolidation
+## 10:49 | docs/agent-skills-standards-comprehensive
 
-Fixed critical CI/workflow issues in PRs #1280/#1282: enabled .test.cjs in jest config, corrected changelog sync conditions w/ API file fetch, fixed path filters for changelog-only PRs, removed unused test code; ready for merge.
+PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) + planning in .github/projects/active/; epic #1261 + child issues #1262-#1270; multiple CI iterations fixing frontmatter/CodeEx P2 feedback/links/validation pending merge.
 
-## 12:32 | chore/changelog-phase-2-rebuild
+## 10:55 | docs/agent-skills-standards-comprehensive
 
-Comprehensive recovery of 76 merged PRs (May 24–Jul 24, 2026): rebuilt CHANGELOG.md [Unreleased] w/ all entries, PR & linked-issue refs, proper Keep a Changelog format; PR #1281 ready for merge to develop.
+PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
 
-## 12:35 | refactor/metrics-workflow-consolidation
+## 13:40 | chore/changelog-phase-2-rebuild
 
-Phase 1B.ii metrics consolidation done: metrics-reporting.yml w/ seq collect→aggregate jobs, 19 tests; fixed P1 bugs (file detection, PR blocking, Jest config); Phase 1B: 2 workflows consolidated, 4 deleted, 37 tests; PRs #1280, #1282 (LS-1826, LS-1827) ready for merge.
+Phase 2 rebuild: recovered all 76 merged PRs (May 24—Jul 24) into CHANGELOG.md [Unreleased] w/ full PR+issue linking; implemented 5 critical hardening fixes (validation automation, integration tests, contributor docs, workflow enhancement); created audit identifying 14 gaps w/ fix specs; PR #1281 addressed code review feedback & queued for merge.
