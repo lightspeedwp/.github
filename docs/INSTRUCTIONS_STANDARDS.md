@@ -47,6 +47,19 @@ Instructions can address:
 - **Processes** — Step-by-step procedures
 - **Governance** — Approval workflows and escalation paths
 
+### Instruction Lifecycle
+
+```mermaid
+graph LR
+    A["Draft<br/>instructions.md"] --> B["Add<br/>Frontmatter"]
+    B --> C["Write<br/>Sections"]
+    C --> D["Add Real<br/>Examples"]
+    D --> E["Link from<br/>Agents"]
+    E --> F["Review &<br/>Validate"]
+    F --> G["Publish<br/>active"]
+    G --> H["Maintain &<br/>Iterate"]
+```
+
 ---
 
 ## File Format & Structure
@@ -64,6 +77,20 @@ Where `{scope}` describes the instruction's domain (kebab-case).
 - `instructions/coding-standards.instructions.md`
 - `instructions/pr-review-guidelines.instructions.md`
 - `instructions/accessibility-wcag22.instructions.md`
+
+### Scope Selection
+
+```mermaid
+graph TD
+    A{"Who needs<br/>these rules?"} -->|All teams<br/>everywhere| B["organisation"]
+    A -->|One team| C["team"]
+    A -->|One repository| D["repository"]
+    A -->|Specific<br/>workflow| E["process"]
+    B --> B1["✅ instructions/coding-standards.instructions.md"]
+    C --> C1["✅ instructions/qa-team-procedures.instructions.md"]
+    D --> D1["✅ instructions/github-repo-conventions.instructions.md"]
+    E --> E1["✅ instructions/pr-review-workflow.instructions.md"]
+```
 
 ### File Format
 
@@ -320,6 +347,16 @@ Agents use instructions to understand:
 
 ## Examples
 
+### Real-World Repository Examples
+
+**Existing instruction files in this repository:**
+
+- [coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — Organisation-wide coding standards (kebab-case, scope: organisation)
+- [a11y.instructions.md](../instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility guidelines
+- [documentation-formats.instructions.md](../instructions/documentation-formats.instructions.md) — Markdown and YAML standards
+- [issues.instructions.md](../instructions/issues.instructions.md) — Issue creation and triage workflow
+- [pull-requests.instructions.md](../instructions/pull-requests.instructions.md) — PR creation and review standards
+
 ### Example 1: Code Review Guidelines
 
 ```yaml
@@ -388,12 +425,20 @@ for all user-facing content.
 
 ---
 
+## See Also
+
+- [Agent Standards](./AGENT_STANDARDS.md) — How agents reference and use instructions
+- [Skills Standards](./SKILLS_STANDARDS.md) — Skills as reusable capabilities
+- [Hooks Standards](./HOOKS_STANDARDS.md) — Event-driven handlers that follow instruction patterns
+- [Documentation Formats](./documentation-formats.instructions.md) — Markdown and YAML standards for instruction files
+
+---
+
 ## Related Documentation
 
 - [CLAUDE.md](../CLAUDE.md) — Project-specific instructions
 - [Coding Standards](./coding-standards.instructions.md)
-- [Agent Standards](./AGENT_STANDARDS.md) — Agents using instructions
-- [Documentation Formats](./documentation-formats.instructions.md)
+- [AGENTS.md](../AGENTS.md) — Organisation-wide AI governance rules
 
 ---
 

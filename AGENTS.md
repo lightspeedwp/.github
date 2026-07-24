@@ -23,16 +23,42 @@ stability: "stable"
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
 - Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `docs/MIGRATION.md`).
-- Canonical instruction reference policy: use `.github/instructions/` for
-  repo-local maintenance guidance and `instructions/` for portable standards;
-  see `instructions/file-organisation.instructions.md#canonical-instruction-reference-policy`.
+- **Instruction reference policy:** Use `.github/instructions/` for repo-local guidance and `instructions/` for portable standards. See [file-organisation.instructions.md](instructions/file-organisation.instructions.md).
+- **Agent tier structure:** Portable agents (multi-file implementations) live in `agents/` (root); spec-based agents (simple YAML/JSON) live in `.github/agents/` (GitHub-native only). See [Agent Directory](#agent-directory) for specs.
+- **Schemas location:** JSON validation schemas live in `.schemas/` (hidden folder at root, following awesome-copilot pattern). See [Schema Migration](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
 ## Agent Directory
 
+### Two-Tier Agent Structure
+
+The repository implements a two-tier agent architecture:
+
+1. **Portable Agents** (`agents/` at root)
+   - Multi-file implementations with provider-specific variants (Claude, Copilot, OpenAI)
+   - Installable by the LightSpeedWP team for external use
+   - Structure: `agents/{name}-agent/` with `AGENT.md`, `claude/`, `copilot/`, `openai/` subdirectories
+   - Examples: prd-agent, playwright-testing-agent, linear-advisor-agent
+   - Documentation: See [file-organisation.instructions.md](instructions/file-organisation.instructions.md#file-placement-rules)
+
+2. **Spec-Based Agents** (`.github/agents/` — GitHub-native only)
+   - Simple YAML/JSON definitions for control-plane automation
+   - Single-file specs (`.agent.md` format)
+   - Repository-specific; not intended for external distribution
+   - Examples: labeling.agent.md, release.agent.md, metrics.agent.md
+
+### Discovery & Implementation
+
 - Canonical AI source map: [ai/agents.md](ai/agents.md)
-- See [Main Agent Index](agents/agent.md) for all agent implementations and specs.
-- Each agent must have both a code file (`.js`, `.py`, etc.) and a spec (`.md`) following the template.
+- Portable agent index: [agents/](agents/) directory (multi-file agents)
+- Spec-based agent index: [.github/agents/](.github/agents/) directory (single-file specs)
+- Each agent must follow the template in its respective directory.
 - All contributors must follow the org [Coding Standards](instructions/coding-standards.instructions.md).
+
+### Related Documentation
+
+- Migration to two-tier structure: [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293)
+- Agent standardization: [Issue #653 File Organization Audit](https://github.com/lightspeedwp/.github/issues/653)
+- Memory profile system: Memory profiles expect root-level agent paths (`agents/`)
 
 ## Agent Test Status
 

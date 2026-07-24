@@ -16,6 +16,21 @@ Workflows are JavaScript/TypeScript scripts that coordinate multiple agents, man
 
 **Important:** Workflows are NOT GitHub Actions workflows. They are agentic orchestration scripts.
 
+### Workflow Execution Patterns
+
+```mermaid
+graph TB
+    A["Task Input"] --> B{Execution Type}
+    B -->|Sequential| C["Phase 1 → Phase 2 → Phase 3"]
+    B -->|Parallel| D["Task A ⊕ Task B ⊕ Task C"]
+    B -->|Fan-Out| E["Item 1 → Stage 1-3<br/>Item 2 → Stage 1-3<br/>Item 3 → Stage 1-3"]
+    B -->|Iterative| F["Loop Until<br/>No New Results"]
+    C --> G["Aggregated Result"]
+    D --> G
+    E --> G
+    F --> G
+```
+
 ## Overview Details
 
 Workflows are documented as Markdown files describing orchestration logic and patterns.
@@ -132,6 +147,21 @@ export const meta = {
 ---
 
 ## Execution Patterns
+
+### Choosing an Execution Pattern
+
+```mermaid
+graph TD
+    A{"Do tasks<br/>depend on<br/>each other?"} -->|YES| B["Sequential"]
+    A -->|NO| C{Many items<br/>to process?}
+    C -->|Few tasks| D["Parallel"]
+    C -->|Many items<br/>through stages| E["Pipeline"]
+    C -->|Discover until<br/>no new results| F["Loop-Until-Dry"]
+    B --> B1["✅ Phase 1 → Phase 2 → Phase 3"]
+    D --> D1["✅ Task A,B,C in parallel"]
+    E --> E1["✅ Items flow through stages"]
+    F --> F1["✅ Repeat discovery rounds"]
+```
 
 ### Sequential Execution
 
@@ -351,11 +381,19 @@ return report
 
 ---
 
+## See Also
+
+- [Agent Standards](./AGENT_STANDARDS.md) — Agents that invoke workflows
+- [Skills Standards](./SKILLS_STANDARDS.md) — Reusable capabilities in workflows
+- [Cookbooks Standards](./COOKBOOKS_STANDARDS.md) — Executable workflow recipes and playbooks
+- [Hooks Standards](./HOOKS_STANDARDS.md) — Event handlers during workflow execution
+
+---
+
 ## Related Documentation
 
 - [Agent Standards](./AGENT_STANDARDS.md) — Agents that invoke workflows
-- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — This document
-- Anthropic Claude Agent SDK documentation
+- Anthropic Claude Agent SDK documentation — Workflow execution engine
 
 ---
 

@@ -14,10 +14,23 @@ Guidelines for creating reusable skills that agents can leverage to reduce dupli
 
 Skills are discrete, reusable capabilities designed to be shared across multiple agents. A skill encapsulates specific functionality (code analysis, documentation generation, testing, etc.) and exposes a clear interface for agent consumption.
 
+### Skill Lifecycle
+
+```mermaid
+graph LR
+    A["Create<br/>SKILL.md"] --> B["Implement<br/>Functionality"]
+    B --> C["Document<br/>Interface"]
+    C --> D["Test<br/>Independently"]
+    D --> E["Publish<br/>to skills/"]
+    E --> F["Agents<br/>Reference"]
+    F --> G["Monitor<br/>Usage"]
+    G --> H["Maintain &<br/>Version"]
+```
+
 ## Quick Links
 
 - [Skill Concept](#skill-concept)
-- [Shared vs. Dedicated Skills](#shared-vs-dedicated-skills)
+- [Shared vs. Dedicated Skills](#shared-vs-dedicated-skills-decision-tree)
 - [Folder Structure](#folder-structure)
 - [SKILL.md Specification](#skillmd-specification)
 - [Best Practices](#best-practices)
@@ -46,7 +59,19 @@ A skill is a focused, reusable capability that:
 
 ---
 
-## Shared vs. Dedicated Skills
+## Shared vs. Dedicated Skills Decision Tree
+
+```mermaid
+graph TD
+    A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"} 
+    A -->|NO| C["Dedicated Skill<br/>agents/agent-name/skills/"]
+    B -->|YES| D["Shared Skill<br/>skills/skill-name/"]
+    B -->|NO| C
+    D --> E["✅ skills/code-analysis/<br/>SKILL.md"]
+    C --> F["✅ agents/my-agent/<br/>skills/SKILL.md"]
+```
+
+## Shared vs. Dedicated Skills Detail
 
 ### Shared Skills
 

@@ -14,6 +14,20 @@ Guidelines for creating practical implementation guides, recipes, and playbooks 
 
 Cookbooks are step-by-step guides that teach a specific workflow or technique. Unlike reference documentation, cookbooks are narrative—they walk through real scenarios with actual code examples, explaining decisions along the way.
 
+### Cookbook Lifecycle
+
+```mermaid
+graph LR
+    A["Identify<br/>Common Pattern"] --> B["Create Recipe<br/>Structure"]
+    B --> C["Write README &<br/>STEPS.md"]
+    C --> D["Add CODE<br/>Examples"]
+    D --> E["Create<br/>TROUBLESHOOTING"]
+    E --> F["Test All<br/>Examples"]
+    F --> G["Publish to<br/>cookbook/"]
+    G --> H["Update<br/>README.md"]
+    H --> I["Monitor<br/>Usage"]
+```
+
 ---
 
 ## Cookbook Concept
@@ -43,7 +57,23 @@ A cookbook is a practical guide that:
 
 ## When to Create a Cookbook
 
-Create a cookbook for:
+### Decision Tree: Cookbook vs. Other Documentation
+
+```mermaid
+graph TD
+    A{"Is it a<br/>step-by-step guide?"} -->|No| B["Use Reference Docs<br/>or API Spec"]
+    A -->|Yes| C{"Multi-step<br/>workflow?"} 
+    C -->|No| D["Document in Tool<br/>Official Docs"]
+    C -->|Yes| E{"Team needs<br/>to learn it?"} 
+    E -->|No| F["Document in<br/>docs/ folder"]
+    E -->|Yes| G{"Multiple team<br/>members?"} 
+    G -->|No| H["Create internal<br/>playbook"]
+    G -->|Yes| I["✅ Create Cookbook<br/>in cookbook/"]
+```
+
+### When to Create
+
+Create cookbooks when you have:
 
 - **Complex workflows** that span multiple tools/agents
 - **Common patterns** that multiple team members need to learn
@@ -52,7 +82,7 @@ Create a cookbook for:
 - **Integration examples** showing agents working together
 - **Educational content** teaching new team members
 
-Do NOT create a cookbook for:
+### When NOT to Create
 
 - Simple, single-step tasks (use reference docs)
 - Tool documentation (use tool's official docs)
@@ -376,6 +406,42 @@ aggregates their findings, and produces a comprehensive audit report.
 5. Filter and synthesize results
 6. Return structured report
 ```
+
+---
+
+## Real-World Repository Examples
+
+The LightSpeedWP `.github` repository includes working cookbook examples:
+
+### Published Cookbooks
+
+**File:** `cookbook/playwright-agent-creation-guide.md`
+
+A comprehensive guide for creating Playwright-based agents with integration patterns.
+
+**File:** `cookbook/project-planning-and-prd-playbook.md`
+
+Walkthrough for planning projects and creating product requirement documents using agents.
+
+**File:** `cookbook/spec-driven-workflow-example.md`
+
+Demonstrates the spec-driven development workflow for agent creation.
+
+**File:** `cookbook/wordpress-plugin-checklist.md`
+
+Complete checklist and walkthrough for WordPress plugin development standards.
+
+See all cookbooks: [`cookbook/README.md`](../../cookbook/README.md)
+
+---
+
+## See Also
+
+- [Agent Standards](./AGENT_STANDARDS.md) — Creating agents referenced in cookbooks
+- [Skills Standards](./SKILLS_STANDARDS.md) — Shared skills used in recipes
+- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Multi-agent workflows in cookbooks
+- [Instructions Standards](./INSTRUCTIONS_STANDARDS.md) — Instruction files for agents
+- [Plugins Standards](./PLUGINS_STANDARDS.md) — Plugin integration in recipes
 
 ---
 

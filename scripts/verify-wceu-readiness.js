@@ -169,18 +169,18 @@ function main() {
   console.log("=== Schema Migration ===");
 
   checkDirExists(".schemas", true); // Inverted - should NOT exist
-  checkFileExists("schema/frontmatter.schema.json");
-  checkFileExists("schema/plugin-manifest.schema.json");
-  checkDirExists("schema/memory");
+  checkFileExists(".schemas/frontmatter.schema.json");
+  checkFileExists(".schemas/plugin-manifest.schema.json");
+  checkDirExists(".schemas/memory");
 
-  const memorySchemaCount = countFiles("schema/memory", ".json$");
+  const memorySchemaCount = countFiles(".schemas/memory", ".json$");
   if (memorySchemaCount === 5) {
-    passCheck("schema/memory/ has 5 memory schemas");
+    passCheck(".schemas/memory/ has 5 memory schemas");
   } else {
     failCheck(`schema/memory/ has ${memorySchemaCount} schemas (expected 5)`);
   }
 
-  checkFileExists("schema/schema-registry.json");
+  checkFileExists(".schemas/schema-registry.json");
 
   // Check for remaining .schemas references
   const schemasRefs = grepRecursive(".", "\\.schemas", {
