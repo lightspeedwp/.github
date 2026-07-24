@@ -188,7 +188,6 @@ setup();
 
 test('Pipeline: Collection runs first', () => {
   const collectStart = new Date('2026-07-28T06:00:00Z');
-  const now = new Date();
 
   assert(collectStart, 'Collection stage should be scheduled');
 });

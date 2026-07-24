@@ -49,9 +49,6 @@ function assert(condition, message) {
   }
 }
 
-function assertEquals(actual, expected, message) {
-  assert(actual === expected, `${message}\nExpected: ${expected}\nActual: ${actual}`);
-}
 
 function assertIncludes(haystack, needle, message) {
   assert(haystack.includes(needle), `${message}\nExpected to include: ${needle}`);
@@ -233,7 +230,7 @@ test('Handles empty entry extraction gracefully', () => {
   const hasEntries = false; // Simulates steps.extract.outputs.has_entries
 
   // Workflow should report gracefully without commit
-  assert(true, 'Empty entries should not cause sync failure');
+  assert(!hasEntries, 'Empty entries should not cause sync failure');
 });
 
 test('Formats commit message correctly', () => {
