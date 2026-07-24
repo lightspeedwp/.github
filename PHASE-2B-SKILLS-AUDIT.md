@@ -995,6 +995,81 @@ When this audit is complete, you should be able to answer:
 
 ---
 
-**Audit Status:** In Progress  
-**Branch:** `feat/agents-phase-2b-skills-audit`  
+---
+
+## Phase B: Planning & Architecture (Next Steps)
+
+Phase B (Weeks 3-4) focuses on translating audit findings into an implementation roadmap. Three core deliverables:
+
+### Phase B Deliverable 1: Skill Dependency Map
+
+**Timeline:** Week 3 (3-4 hours)
+
+**Scope:**
+
+- Create dependency matrix showing skill usage across 16 agents
+- Identify Tier 1 consolidation candidates (used by 2+ agents)
+- Visualize override patterns and shared skill usage
+
+**Key Inputs (from Phase A):**
+
+- 65 local utilities identified for consolidation
+- Plugin-provided patterns across agents
+- Agent-specific skill customizations documented
+
+**Key Outputs:**
+
+- Skill usage graph (agent → skill → tier mapping)
+- Consolidation candidate list (15-20 skills)
+- Override pattern documentation
+
+### Phase B Deliverable 2: Architecture Plan
+
+**Timeline:** Week 3-4 (3-4 hours)
+
+**Scope:**
+
+- Define override system interface (how agents reference vs customize skills)
+- Document agent-local vs shared skill contract
+- Establish governance rules and enforcement mechanisms
+
+**Key Inputs:**
+
+- Conflict resolution matrix from Phase A
+- Skill categorization (Tier 0-3)
+- Agent specialization patterns
+
+**Key Outputs:**
+
+- Override system specification
+- Skill governance rules document
+- CI/CD validation requirements
+
+### Phase B Deliverable 3: Implementation Roadmap
+
+**Timeline:** Week 4 (4-6 hours)
+
+**Scope:**
+
+- Create per-phase consolidation tasks (Phase C rollout)
+- Estimate effort per consolidation candidate
+- Plan risk mitigation and testing strategy
+
+**Key Inputs:**
+
+- High/medium-severity conflicts identified
+- Consolidation candidate list
+- Agent dependency patterns
+
+**Key Outputs:**
+
+- Phase C task breakdown (per skill, per agent)
+- Effort estimates (Tier 0, Tier 1, Tier 2-3)
+- Risk and testing plan
+
+---
+
+**Audit Status:** Phase A Complete ✅  
+**Branch:** `audit/phase-2b-batch-2-3-skills`  
+**PR:** #1283  
 **Last Updated:** 2026-07-24
