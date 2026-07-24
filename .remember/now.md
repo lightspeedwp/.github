@@ -14,3 +14,6 @@ Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk t
 ## 10:29 | develop
 
 Implemented quirky footers system w/ JSON schema (#1212), linked 7 v1.0 PRs to correctly-templated issues (#1200-#1203, #1221, #1225), created Phase 2B audit issue/PR (#1225, #1221), fixed CI/frontmatter/YAML issues across all, merged #1200/#1201/#1221 to develop.
+
+## 10:45 | docs/agent-skills-standards-comprehensive
+Created 9 agent/skills stds docs (agents, skills, instructions, workflows, cookbooks, prompts, plugins, hooks, AI refs); project tracking setup (epic #1261 + child issues #1262-#1270) on develop; PR #1251 w/ batched CI fixes (frontmatter, links, CodeEx feedback) pending merge.
