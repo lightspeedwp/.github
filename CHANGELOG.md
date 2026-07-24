@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-(none identified)
+- **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
 
 ### Deprecated
 
