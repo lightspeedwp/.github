@@ -5,6 +5,8 @@ description: "GitHub Actions workflows for CI, automation, labeling, metrics, an
 version: "v2.1.0"
 last_updated: "2026-07-24"
 maintainer: "LightSpeed Team"
+owners:
+  - LightSpeed Team
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---
 
