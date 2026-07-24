@@ -1,6 +1,7 @@
 ---
 name: Execution Playbook
 description: Step-by-step implementation guide for workflows consolidation phases
+file_type: documentation
 metadata:
   status: active
   phase: implementation

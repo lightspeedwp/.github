@@ -1,6 +1,7 @@
 ---
 name: Implementation Summary
 description: Executive overview of the 4-phase workflows consolidation strategy
+file_type: documentation
 metadata:
   status: active
   phase: planning

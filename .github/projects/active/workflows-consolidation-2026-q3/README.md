@@ -1,14 +1,3 @@
----
-name: GitHub Workflows Consolidation Initiative
-description: Strategic consolidation of 31 workflows for efficiency, maintainability, and reduced Actions minutes
-status: active
-created: 2026-07-24
-last_updated: 2026-07-24
-owner: Ash Shaw
-related_issue: '#1227'
-epic: workflows-consolidation-2026-q3
----
-
 # GitHub Workflows Consolidation Initiative
 
 ## Quick Facts

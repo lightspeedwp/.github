@@ -1,6 +1,7 @@
 ---
 name: Project Index
 description: Complete navigation map and cross-reference guide for the workflows consolidation initiative
+file_type: documentation
 metadata:
   status: active
   phase: planning
