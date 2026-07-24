@@ -1,0 +1,119 @@
+---
+name: GitHub Workflows Consolidation Initiative
+description: Strategic consolidation of 31 workflows for efficiency, maintainability, and reduced Actions minutes
+status: active
+created: 2026-07-24
+last_updated: 2026-07-24
+owner: Ash Shaw
+related_issue: '#1227'
+epic: workflows-consolidation-2026-q3
+---
+
+# GitHub Workflows Consolidation Initiative
+
+## Quick Facts
+
+| Metric | Value |
+|--------|-------|
+| **Current Workflows** | 31 |
+| **Target Workflows** | 25 |
+| **Reduction** | 19% (6 workflows) |
+| **Code Duplication** | ~500 lines to eliminate |
+| **Actions Minutes Savings** | 15-20% (estimated) |
+| **Total Effort** | 60-85 hours |
+| **Timeline** | 12 weeks (5-7h/week) |
+| **Start Date** | 2026-07-24 |
+| **Epic Issue** | [#1227](https://github.com/lightspeedwp/.github/issues/1227) |
+
+---
+
+## Navigation Guide
+
+This project is organized into **4 phases** with supporting documentation:
+
+### 📋 Core Documents
+
+1. **IMPLEMENTATION_SUMMARY.md**
+   - Executive overview of the consolidation strategy
+   - High-level roadmap and phase breakdown
+   - Success metrics and risk mitigation
+
+2. **EXECUTION_PLAYBOOK.md**
+   - Step-by-step implementation guide
+   - Issue creation templates
+   - Testing and verification checklist
+
+3. **PROJECT_INDEX.md**
+   - Complete file index and navigation
+   - Reading guide by role
+   - Cross-references by consolidation type
+
+### 🎯 Phase-Specific Documents
+
+- **PHASE_1A_QUICK_WINS.md** - Quick wins (Remove testing.yml, Extract helpers)
+- **PHASE_1B_CHANGELOG_CONSOLIDATION.md** - Merge changelog workflows
+- **PHASE_1B_METRICS_CONSOLIDATION.md** - Consolidate metrics pipeline
+- **PHASE_2_DOCS_CONSOLIDATION.md** - Documentation & README consolidation
+- **PHASE_3_LABELING_CONSOLIDATION.md** - Labeling workflows consolidation
+
+### 📊 Supporting Documents
+
+- **TESTING_STRATEGY.md** - Test coverage requirements
+- **EFFICIENCY_IMPROVEMENTS.md** - GitHub Actions minutes optimization details
+- **PROJECT_INDEX.md** - Complete file index with cross-references
+
+### 🔗 GitHub Issue Templates
+
+- **GITHUB_ISSUE_EPIC.md** - Epic issue (✅ Already created: #1227)
+- **GITHUB_ISSUE_PHASE_1A.md** - Phase 1A issues template
+
+---
+
+## Success Criteria
+
+**Quantitative:**
+
+- ✅ Workflow count: 31 → 25
+- ✅ Code duplication: Eliminate ~500 lines
+- ✅ GitHub Actions minutes: 15-20% reduction
+- ✅ Test coverage: Maintain or improve
+- ✅ Scheduled run collisions: Reduce from 4+ to 2
+
+**Qualitative:**
+
+- ✅ Single source of truth for validation logic
+- ✅ Clear separation of concerns across workflows
+- ✅ Improved developer experience
+- ✅ Eliminated time-coupling assumptions
+
+---
+
+## Phase Timeline
+
+| Phase | Duration | Effort | Status |
+|-------|----------|--------|--------|
+| **1A: Quick Wins** | Week 1 | 4h | 🟢 Ready to start |
+| **1B: Medium-Impact** | Weeks 2-3 | 14-20h | ⏳ Depends on 1A |
+| **2: Documentation** | Weeks 5-8 | 12-16h | ⏳ Design-heavy |
+| **3: Labeling** | Weeks 5-8 | 6-8h | ⏳ Independent |
+| **4: Future** | Month 3+ | TBD | 📋 Planning phase |
+
+---
+
+## Related Links
+
+- **Epic Issue:** [#1227](https://github.com/lightspeedwp/.github/issues/1227)
+- **Audit Report:** `.github/reports/workflows/WORKFLOWS-CONSOLIDATION-AUDIT.md`
+- **Branching Guide:** `docs/BRANCHING_STRATEGY.md`
+- **Issue Templates:** `.github/ISSUE_TEMPLATE/`
+
+---
+
+## Recent Updates
+
+- **2026-07-24:** Project initiated, audit completed, implementation plan created, Epic issue #1227 created
+
+---
+
+**Project Owner:** Ash Shaw  
+**Last Updated:** 2026-07-24
