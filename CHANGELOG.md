@@ -4,6 +4,7 @@ description: "All notable changes to this project, formatted per Keep a Changelo
 file_type: "documentation"
 created_date: "2025-09-20"
 last_updated: "2026-07-24"
+consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
 tags:
@@ -25,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Improved
+### Changed
 
 - **CI/CD markdown linting scope optimization (Phase 1)** — Comprehensive audit of 9,024 markdown files identified opportunity to reduce CI linting scope by 38% by excluding vendored assets, generated reports, and platform-managed content. Implemented Phase 1: updated .markdownlint-cli2.config.cjs with documented exclusion patterns for vendored directories and narrowed generated-output exclusions to avoid over-exclusion of tracked documentation; aligned package.json npm scripts with exclusion patterns; updated testing.yml workflow with clarifying comments. All exclusions now consistent across workflows, eliminating false positives from third-party documentation and reducing CI processing overhead. Audit framework and implementation guide available in .github/projects/active/markdown-audit-ci-optimization/ for future standardization phases. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226); [Issue #1224](https://github.com/lightspeedwp/.github/issues/1224), [#1229](https://github.com/lightspeedwp/.github/issues/1229), [#1230](https://github.com/lightspeedwp/.github/issues/1230), [#1232](https://github.com/lightspeedwp/.github/issues/1232))
 
@@ -59,22 +60,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **`js-yaml` upgraded** — Bumped from `4.2.0` to `5.2.1`. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
-- **ESLint upgraded to 10.x** — Bumped `eslint` from `8.57.1` to `10.5.0` (two major versions). Added `@eslint/js` as an explicit devDependency (no longer bundled transitively by `eslint` itself), raised `engines.node` from `>=18.0.0` to `>=20.19.0` to satisfy ESLint 10's Node requirement, fixed 25 new-rule violations (`no-useless-assignment`, `preserve-caught-error`), and migrated the dead `.eslintignore` file into `eslint.config.cjs`'s flat-config `ignores`. ([PR #1046](https://github.com/lightspeedwp/.github/pull/1046))
-- **`@typescript-eslint/eslint-plugin` upgraded** — Bumped from `8.60.1` to `8.61.1` (patch release). ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
-- **GitHub Actions minute optimisation and reporting automation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation across key workflows, added `actions-minute-savings-watch.yml` to auto-publish before/after minute-savings reports once post-change run volume reaches a configurable threshold, and disabled sub-issue relationship sync in metadata automation pending a non-GraphQL implementation path. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054))
-- **Babel toolchain upgraded to 8.x** — Bumped `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `@babel/preset-typescript`, `@babel/plugin-transform-runtime`, and `@babel/runtime` to their 8.x releases together (they peer-require each other at `^8.0.0`, so they couldn't land as separate Dependabot PRs — see [#1002](https://github.com/lightspeedwp/.github/pull/1002), [#1004](https://github.com/lightspeedwp/.github/pull/1004), [#1007](https://github.com/lightspeedwp/.github/pull/1007), [#1026](https://github.com/lightspeedwp/.github/pull/1026)). Removed `@babel/plugin-proposal-class-properties`, `@babel/plugin-proposal-object-rest-spread`, and `@babel/plugin-syntax-import-meta` (no 8.x release exists; their proposals are natively handled by `preset-env` now) and bumped `babel-jest` to `30.4.1` for babel 8 compatibility. Set Jest's `coverageProvider` to `v8` to avoid a circular-require bug in Jest's Istanbul-based coverage instrumentation exposed by babel 8. ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
+- **Dependency Updates** — Upgraded `js-yaml` (4.2.0 → 5.2.1), ESLint (8.57.1 → 10.5.0, Node >= 20.19.0), `@typescript-eslint/eslint-plugin` (8.60.1 → 8.61.1), Babel (consolidated 6 packages to 8.x, removed legacy proposal plugins). ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047), [PR #1046](https://github.com/lightspeedwp/.github/pull/1046), [PR #1045](https://github.com/lightspeedwp/.github/pull/1045), [PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
+
+- **GitHub Actions Optimisation** — Reduced duplicate CI triggers, strengthened concurrency cancellation, added minute-savings reporting. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054))
 
 ### Added
 
-- **Version-based milestone allocation strategy** — Implemented version-based milestone allocation (v1.0–v1.6) for structured release planning. Added `.github/project-routes.yml` configuration file for declarative project routing rules, `scripts/agents/includes/milestone-allocation.cjs` core logic module for milestone resolution and capacity tracking, and two workflow steps (`allocate-issue-to-version-milestone` and `check-milestone-capacity-and-warn`) integrated into `metadata-governance.yml` for automatic issue/PR milestone assignment and capacity monitoring. Configured GitHub App credentials (LS_PROJECT_URL, LS_APP_ID, LS_APP_PRIVATE_KEY) for automated project sync to GitHub Projects v2 instance. ([#1112](https://github.com/lightspeedwp/.github/issues/1112), [PR #1113](https://github.com/lightspeedwp/.github/pull/1113))
-
-- **16 new specialist agents** — Added `ai-readiness-estimator-agent`, `client-website-discovery-assistant-agent`, `design-partner-agent`, `harvest-analytical-agent`, `linear-advisor-agent`, `pagespeed-agent`, `playwright-testing-agent`, `prd-agent`, `prd-factory-planner-agent`, `proposal-desk-agent`, `tour-operator-config-agent`, `website-content-strategist-agent`, `website-scope-estimator-agent`, `woo-config-agent`, `wp-config-agent`, and `zendesk-support-agent` to `agents/`, each with full documentation, configuration, and reference materials following the LightSpeed agent template standards. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
+- **Version-based Milestone Allocation** — Implemented v1.0–v1.6 allocation with `.github/project-routes.yml`, capacity tracking, and automatic assignment via `metadata-governance.yml`. ([#1112](https://github.com/lightspeedwp/.github/issues/1112), [PR #1113](https://github.com/lightspeedwp/.github/pull/1113))
 
 ### Fixed
 
-- **Babel peer-dependency conflict** — Reverted `@babel/plugin-transform-runtime` and `@babel/preset-react` from `8.0.1` to `7.29.7` after a Dependabot major-version bump left them requiring `@babel/core@^8.0.0` while `@babel/core` and the rest of the toolchain remained on `7.x`, which broke `npm ci` (and therefore every CI job) repo-wide. ([#1042](https://github.com/lightspeedwp/.github/issues/1042), [PR #1043](https://github.com/lightspeedwp/.github/pull/1043))
-- **Changelog-gate buffer overflow** — Added an explicit `maxBuffer` to the `git diff --name-only` call in `changelog-validate.yml` so the changelog gate no longer crashes with `ENOBUFS` on pull requests with very large file counts. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
+- **Babel Peer-Dependency Conflict** — Reverted `@babel/plugin-transform-runtime` and `@babel/preset-react` to resolve 8.0.1 misalignment. ([PR #1043](https://github.com/lightspeedwp/.github/pull/1043))
 
 ## [0.6.0] - 2026-06-19
 
