@@ -110,8 +110,8 @@ metadata:
 **Documentation (Phase 2)**
 
 - Consolidate README/docs workflows → See PHASE_2_DOCS_CONSOLIDATION.md
-- Estimated effort: 12-16 hours
-- Status: Design phase
+- Estimated effort: 10-16 hours (revised: 3 workflows, not 5)
+- Status: 🟡 IMPLEMENTATION IN PROGRESS
 
 **Labeling (Phase 3)**
 
@@ -131,10 +131,10 @@ metadata:
 | metrics.yml | 1B-ii | MERGE → metrics-reporting.yml | ⏳ READY |
 | metrics-summary.yml | 1B-ii | MERGE → metrics-reporting.yml | ⏳ READY |
 | meta.yml | 2 | SPLIT (validation vs. maintenance) | 📋 DESIGN |
-| readme-audit.yml | 2 | MERGE → docs-maintenance.yml | 📋 DESIGN |
-| readme-regen.yml | 2 | MERGE → docs-validation.yml | 📋 DESIGN |
-| readme-update.yml | 2 | MERGE → docs-maintenance.yml | 📋 DESIGN |
-| validate-mermaid-pr.yml | 2 | MERGE → docs-validation.yml | 📋 DESIGN |
+| readme-audit.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
+| readme-regen.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
+| readme-update.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
+| validate-mermaid-pr.yml | 2 | KEEP (already consolidated) | ✅ SKIPPED |
 | labeling.yml | 3 | ABSORB label logic (2 others) | 📋 DESIGN |
 | dependabot-security-label.yml | 3 | MERGE → labeling.yml | 📋 DESIGN |
 | issue-close-label-hygiene.yml | 3 | MERGE → labeling.yml | 📋 DESIGN |
@@ -148,7 +148,7 @@ metadata:
 | **1A: Quick Wins** | ✅ COMPLETE | 4h | Week 1 | Epic #1227, Issues #1231, #1233 |
 | **1B-i: Changelog** | ⏳ READY | 8-12h | Weeks 2-3 | Issue #1.B.1 (TBD) |
 | **1B-ii: Metrics** | ⏳ READY | 6-8h | Weeks 2-3 | Issue #1.B.2 (TBD) |
-| **2: Documentation** | 📋 DESIGN | 12-16h | Weeks 5-8 | Issue #2.1 (TBD) |
+| **2: Documentation** | 🟡 IN PROGRESS | 10-16h | Weeks 5-8 | Issue #2.1 (TBD), PR in progress |
 | **3: Labeling** | 📋 DESIGN | 6-8h | Weeks 5-8 | Issue #3.1 (TBD) |
 | **4: Future** | 📋 FUTURE | TBD | Month 3+ | TBD |
 

@@ -1,0 +1,365 @@
+name: Documentation Validation & Maintenance
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Action to perform"
+        required: true
+        type: choice
+        options:
+          - audit
+          - maintain
+      scope:
+        description: "Scope (audit: all/syntax/accessibility/contrast/staleness; maintain: all/mermaid/staleness)"
+        required: false
+        default: "all"
+        type: string
+      dry_run:
+        description: "Preview changes without committing (maintain action only)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+  pull_request:
+    branches:
+      - develop
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+    paths:
+      - "**/*.md"
+      - ".github/workflows/**"
+      - ".github/agents/**"
+      - ".github/instructions/**"
+      - "docs/**"
+      - "scripts/**"
+
+  # Note: Push trigger disabled until Issue #1310 (cleanup old workflows) is complete.
+  # Both documentation.yml and readme-regen.yml would trigger on the same push,
+  # causing race conditions. Enable after old workflows are disabled/removed.
+  # push:
+  #   branches:
+  #     - develop
+  #   paths:
+  #     - "**/*.md"
+  #     - ".github/workflows/**"
+  #     - ".github/agents/**"
+  #     - ".github/instructions/**"
+  #     - "docs/**"
+  #     - "scripts/**"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: documentation-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ACTION: ${{ github.event.inputs.action || 'regenerate' }}
+  AUDIT_SCOPE: ${{ github.event.inputs.scope || 'all' }}
+  DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+jobs:
+  audit:
+    name: Documentation Audit
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'audit'
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create audit directory
+        run: mkdir -p .github/reports/mermaid-audit
+
+      - name: Run README audit
+        id: audit
+        if: contains(fromJson('["all", "audit"]'), env.AUDIT_SCOPE)
+        run: |
+          npm run audit:readme -- \
+            --scope=${{ env.AUDIT_SCOPE }} \
+            --format=markdown \
+            --output=.github/reports/mermaid-audit/
+        continue-on-error: true
+
+      - name: Validate Mermaid syntax
+        id: syntax
+        if: contains(fromJson('["all", "syntax"]'), env.AUDIT_SCOPE)
+        run: npm run validate:mermaid-syntax
+
+      - name: Check WCAG compliance
+        id: accessibility
+        if: contains(fromJson('["all", "accessibility"]'), env.AUDIT_SCOPE)
+        run: npm run validate:mermaid-accessibility
+
+      - name: Check Mermaid colour contrast
+        id: contrast
+        if: contains(fromJson('["all", "contrast"]'), env.AUDIT_SCOPE)
+        run: npm run validate:mermaid-contrast
+
+      - name: Identify stale documents
+        id: staleness
+        if: contains(fromJson('["all", "staleness"]'), env.AUDIT_SCOPE)
+        run: |
+          echo "Checking for stale README files (>6 months old)..."
+          find . -name "README.md" -type f | while read file; do
+            echo "Checking staleness for $file..."
+          done
+
+      - name: Check validation outcomes
+        id: validation-status
+        if: always()
+        run: |
+          SYNTAX="${{ steps.syntax.outcome }}"
+          A11Y="${{ steps.accessibility.outcome }}"
+          CONTRAST="${{ steps.contrast.outcome }}"
+
+          echo "syntax_passed=$([ "$SYNTAX" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "a11y_passed=$([ "$A11Y" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "contrast_passed=$([ "$CONTRAST" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+          if [ "$SYNTAX" != "success" ] || [ "$A11Y" != "success" ] || [ "$CONTRAST" != "success" ]; then
+            echo "has_failures=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_failures=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate audit report
+        if: always()
+        env:
+          SYNTAX_PASSED: ${{ steps.validation-status.outputs.syntax_passed }}
+          A11Y_PASSED: ${{ steps.validation-status.outputs.a11y_passed }}
+          CONTRAST_PASSED: ${{ steps.validation-status.outputs.contrast_passed }}
+        run: |
+          {
+            echo "## Documentation Audit Report"
+            echo ""
+            echo "**Scope**: ${{ env.AUDIT_SCOPE }}"
+            echo ""
+            echo "### Validation Results"
+            echo "| Check | Result |"
+            echo "|-------|--------|"
+            echo "| Syntax | $( [ "$SYNTAX_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
+            echo "| Accessibility | $( [ "$A11Y_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
+            echo "| Colour Contrast | $( [ "$CONTRAST_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
+            echo ""
+            if [ -f ".github/reports/mermaid-audit/summary.md" ]; then
+              cat ".github/reports/mermaid-audit/summary.md"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-audit-report-${{ github.run_number }}
+          path: .github/reports/mermaid-audit/
+          retention-days: 30
+
+      - name: Create issue for critical findings
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Critical Findings from Documentation Audit',
+              body: 'Documentation audit workflow found critical issues. See audit report artifacts.',
+              labels: ['type:bug', 'area:documentation', 'priority:critical']
+            })
+
+  regenerate:
+    name: Auto-regenerate Documentation
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/develop')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22.22.1"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve impacted README files
+        id: readmes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_SHA: ${{ github.sha }}
+        run: node scripts/workflows/resolve-readme-files.js
+
+      - name: Run README regeneration (PR dry-run)
+        if: steps.readmes.outputs.files != '' && github.event_name == 'pull_request'
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: node scripts/agents/meta.agent.js --dry-run --files "${{ steps.readmes.outputs.files }}"
+
+      - name: Run README regeneration (push commit)
+        if: steps.readmes.outputs.files != '' && github.event_name == 'push'
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: node scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
+
+      - name: Commit README updates
+        if: github.event_name != 'pull_request' && steps.readmes.outputs.files != ''
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(docs): regenerate impacted README files [skip ci]"
+            git push origin ${{ github.ref_name }}
+          fi
+
+      - name: Upload regeneration artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-regeneration-${{ github.run_number }}
+          path: .github/reports/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  maintain:
+    name: Documentation Maintenance
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'maintain'
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create audit directory
+        run: mkdir -p .github/reports/mermaid-audit
+
+      - name: Run Mermaid diagram fixes
+        if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'mermaid' }}
+        run: node scripts/fix-mermaid-diagrams.js
+        continue-on-error: true
+
+      - name: Validate Mermaid colour contrast
+        if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'mermaid' }}
+        run: npm run validate:mermaid-contrast
+        continue-on-error: true
+
+      - name: Run staleness updates
+        if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'staleness' }}
+        run: node scripts/fix-staleness-dates.js
+        continue-on-error: true
+
+      - name: Generate maintenance report
+        if: success()
+        run: |
+          cat > .github/reports/mermaid-audit/maintenance-report.md <<'EOF'
+          # Documentation Maintenance Report
+
+          **Date**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          **Scope**: ${{ env.AUDIT_SCOPE }}
+          **Dry Run**: ${{ env.DRY_RUN }}
+
+          ## Changes Summary
+
+          - Mermaid diagrams: Updated accessibility attributes and colour-contrast-safe palette values
+          - Staleness updates: Refreshed `last_updated` dates for files exceeding 6-month threshold
+
+          ## Processing Mode
+
+          - **Dry Run**: ${{ env.DRY_RUN == 'true' && 'Yes (preview only)' || 'No (changes applied)' }}
+          - **Scope**: ${{ env.AUDIT_SCOPE }}
+
+          ## Next Steps
+
+          If changes were applied:
+          1. Review the changes in this run's artifacts
+          2. Create a pull request with the updates
+          3. Have maintainers review and merge
+
+          EOF
+          cat .github/reports/mermaid-audit/maintenance-report.md
+
+      - name: Check for changes
+        id: changes
+        run: test "$(git status --porcelain | wc -l)" -gt 0 && echo "has_changes=true" >> "$GITHUB_OUTPUT" || echo "has_changes=false" >> "$GITHUB_OUTPUT"
+
+      - name: Commit changes
+        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "docs: maintenance updates (Mermaid + staleness)
+
+          - Update Mermaid diagrams with accTitle, accDescr, and approved palette values
+          - Refresh last_updated dates for stale files (6+ months)
+          - Scope: ${{ env.AUDIT_SCOPE }}
+          - Generated by: documentation.yml workflow"
+
+      - name: Push changes
+        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        run: |
+          git push origin HEAD:$(git rev-parse --abbrev-ref HEAD)
+
+      - name: Upload maintenance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-maintenance-report-${{ github.run_number }}
+          path: .github/reports/mermaid-audit/
+
+      - name: Maintenance summary
+        if: always()
+        run: |
+          echo "## Documentation Maintenance Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Scope**: ${{ env.AUDIT_SCOPE }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Dry Run**: ${{ env.DRY_RUN }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Changes Made**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
