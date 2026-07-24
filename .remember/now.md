@@ -58,3 +58,15 @@ Merged 7 v1.0 milestone PRs: DoD validation (#1200), template enforcement (#1201
 ## 14:20 | chore/changelog-phase-2-rebuild
 
 Phase 2 rebuild complete: recovered 76 merged PRs (May 24–Jul 24) w/ full PR+issue linking in [Unreleased], hardened automation by fixing 14 gaps (format validation script, Phase 1 integration test, scope correction, enforced PR links), updated PROJECT_PLAN/EXECUTION_PROMPT/CHANGELOG_GUIDELINES, created validation & CI workflows, prepared PR #1281 for merge w/ comprehensive reports.
+
+## 13:05 | refactor/metrics-workflow-consolidation
+
+Consolidated Phase 1B.i-ii workflows: created changelog-mgmt.yml & metrics-reporting.yml (updated release.yml), fixed P1 sync/path-filter bugs, 37 passing tests, 8 commits (CodeQL/security/template/linting); PRs #1280/#1282 ready to merge (LS-1826/LS-1827).
+
+## 13:10 | feat/agents-phase-2b-batch-2-3-standardization
+
+Renamed branch to feat/agents-phase-2b-batch-2-3-standardization, created PR #1285 (8-agent batch), fixed PLAN-EXPANDED.md frontmatter schema compliance (title property/valid status).
+
+## 13:15 | chore/changelog-phase-2-rebuild
+
+Rebuilt CHANGELOG.md [Unreleased] (76 PRs, May 24–Jul 24, PR #1281), applied 5 critical automation fixes (scope correction 76/76, changelog-rules.cjs validation, Phase 1 integration tests, PR+issue requirement enforcement, CI workflow), created CHANGELOG_AUTOMATION.md docs + tests, fixed codex feedback, all passing—merge-ready.
