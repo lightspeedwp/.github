@@ -1,9 +1,7 @@
 ---
-name: skills-standards
+file_type: documentation
+title: Skills Standards
 description: Comprehensive standards for creating shared and dedicated skills
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

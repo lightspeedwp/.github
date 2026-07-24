@@ -1,9 +1,7 @@
 ---
-name: workflows-standards
+file_type: documentation
+title: Workflows Standards
 description: Standards for creating reusable agentic workflows
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

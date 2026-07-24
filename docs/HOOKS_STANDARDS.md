@@ -1,9 +1,7 @@
 ---
-name: hooks-standards
+file_type: documentation
+title: Hooks Standards
 description: Standards for creating event-driven hooks for agents and automation
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

@@ -1,9 +1,7 @@
 ---
-name: instructions-standards
+file_type: documentation
+title: Instructions Standards
 description: Standards for creating portable instruction files for agents and tools
-file_type: instructions
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

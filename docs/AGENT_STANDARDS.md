@@ -1,9 +1,7 @@
 ---
-name: agent-standards
+file_type: documentation
+title: Agent Standards
 description: Comprehensive standards for creating agents (single-file & folder-based)
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

@@ -1,9 +1,7 @@
 ---
-name: prompts-standards
+file_type: documentation
+title: Prompts Standards
 description: Standards for creating reusable prompt templates and patterns
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

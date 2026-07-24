@@ -1,9 +1,7 @@
 ---
-name: ai-references-standards
+file_type: documentation
+title: AI References Standards
 description: Standards for maintaining canonical AI model and runner references
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---

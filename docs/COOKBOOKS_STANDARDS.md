@@ -1,9 +1,7 @@
 ---
-name: cookbooks-standards
+file_type: documentation
+title: Cookbooks Standards
 description: Standards for creating implementation guides and recipes
-type: standards
-language: markdown
-scope: organisation
 version: 1.0.0
 last_updated: 2026-07-24
 ---
