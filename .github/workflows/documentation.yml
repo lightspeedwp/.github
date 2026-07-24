@@ -216,7 +216,7 @@ jobs:
           PR_HEAD: ${{ github.event.pull_request.head.sha }}
           PUSH_BEFORE: ${{ github.event.before }}
           PUSH_SHA: ${{ github.sha }}
-        run: node scripts/workflows/resolve-readme-files.js
+        run: node scripts/workflows/resolve-readme-files.cjs
 
       - name: Run README regeneration (PR dry-run)
         if: steps.readmes.outputs.files != '' && github.event_name == 'pull_request'

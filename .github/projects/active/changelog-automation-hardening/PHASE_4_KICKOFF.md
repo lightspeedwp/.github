@@ -1,294 +1,493 @@
-# Phase 4: Changelog Automation & Guardrails — Execution Prompt
+---
+title: "Phase 4: Automation & Guardrails — Implementation Kickoff"
+description: "Execute Phase 4 deliverables: validation workflow, PR-to-changelog linking, review checklist, merge safeguards"
+phase: 4
+epic: "#1271"
+branch: "feat/changelog-phase-4-guardrails"
+target_date: "2026-08-07"
+---
 
-**Branch Name:** `feat/changelog-phase-4-guardrails`
+# Phase 4: Automation & Guardrails — Implementation Kickoff
 
-**Active Project Folder:** [.github/projects/active/changelog-automation-hardening/](https://github.com/lightspeedwp/.github/tree/develop/.github/projects/active/changelog-automation-hardening/)
-
-**Epic:** [#1271](https://github.com/lightspeedwp/.github/issues/1271) — Changelog Automation Hardening
+**Status:** 🔄 Active  
+**Branch:** `feat/changelog-phase-4-guardrails`  
+**Epic:** [#1271](https://github.com/lightspeedwp/.github/issues/1271)  
+**Timeline:** 2026-07-24 — 2026-08-07 (40–50 hours)
 
 ---
 
-## Overview
+## 📋 Executive Summary
 
-Phase 4 completes the changelog automation hardening initiative by implementing safeguards, automated linking, and contributor tooling to ensure long-term sustainability of the changelog process.
+Phase 4 implements automated validation, safeguards, and contributor tooling to prevent future changelog corruption. It includes:
 
-**Previous Phases Status:**
-
-- ✅ Phase 1: Section header corruption fix (PR #1276) — MERGED
-- ✅ Phase 2: Rebuild lost history (127 PRs) (PR #1281, #1315) — MERGED
-- ✅ Phase 3: Rules & guidelines (PR #1281) — MERGED
-- 🔄 Phase 4: Guardrails — THIS PHASE
+1. **4A: Automated PR-to-Changelog Linking** — Auto-add entries on merge
+2. **4B: Maintainer Review Checklist** — 10-item review protocol
+3. **4C: Enhanced Merge Safeguards** — Pre/post-write validation & rollback
+4. **4D: Integration Testing & Monitoring** — 10 PR test & monitoring dashboard
 
 ---
 
-## Phase 4 Objectives
+## 📂 Branch Name
 
-### 1. Automated PR-to-Changelog Linking
+```
+feat/changelog-phase-4-guardrails
+```
 
-**What:** Automatically add entries to CHANGELOG.md when PRs merge if they meet criteria.
-
-**Implementation:**
-
-- Create `scripts/workflows/changelog/auto-link-pr.cjs` script
-- Trigger on PR merge to develop/main
-- Auto-add entry if:
-  - PR has `changelog:included` label, OR
-  - PR title matches changelog-worthy patterns, OR
-  - PR explicitly added CHANGELOG.md entry
-- Format entry per CHANGELOG_GUIDELINES.md
-- Link to both PR and referenced issues
-
-**Testing:**
-
-- Manual verification on next 5 PRs
-- Test with feature/fix/chore PR types
-- Verify links are valid and formatted correctly
-
-**GitHub Issue:** Create new if not exists → "Phase 4A: Automated PR-to-changelog linking" (Link to Epic #1271)
+Follow CLAUDE.md naming convention: `feat/` (type) + `changelog-phase-4-guardrails` (scope-title)
 
 ---
 
-### 2. Maintainer Review Checklist
+## 🎯 Sub-Task Breakdown
 
-**What:** Create a checklist for maintainers reviewing changelog entries before merge.
+### **4A: Automated PR-to-Changelog Linking**
 
-**File:** `.github/CHANGELOG_REVIEW_CHECKLIST.md`
+**GitHub Issue:** [#1316](https://github.com/lightspeedwp/.github/issues/1316)  
+**Estimated:** 8–10 hours  
+**Trigger:** On PR merge to develop
 
-**Contents:**
+#### Objective
 
-- [ ] All entries are user-facing (not docs-only, test-only, internal refactoring)
-- [ ] All entries are concise (under 150 chars, 1-2 sentences max)
-- [ ] All PR/issue links are valid (URLs exist, formats correct)
-- [ ] Section organization is logical (Added/Fixed/Changed/etc.)
-- [ ] No duplicate entries exist in [Unreleased]
-- [ ] Proper markdown formatting (bold title, em-dash, links)
-- [ ] All linked PRs/issues actually exist and are referenced correctly
-- [ ] No breaking changes unmarked in "Changed" section
-- [ ] Security fixes are in "Security" section (not "Fixed")
-- [ ] No verbose/jargon entries without explanation
+Auto-add changelog entries on merge if criteria are met:
 
-**Integration:**
+- PR has `changelog:included` label OR
+- PR title matches changelog-worthy pattern (feat/, fix/, etc.) OR
+- User explicitly added CHANGELOG.md entry
 
-- Reference in PR template (optional guidance section)
-- Reference in contributor checklist
-- Link from CLAUDE.md and AGENTS.md (if applicable)
+#### Deliverables
 
-**GitHub Issue:** Create new if not exists → "Phase 4B: Maintainer review checklist" (Link to Epic #1271)
+1. **Script:** `scripts/workflows/changelog/auto-link-pr.cjs` (new)
+   - Read PR metadata (title, labels, changed files)
+   - Check if CHANGELOG.md was modified
+   - If not, attempt to auto-generate entry based on PR title
+   - Add to [Unreleased] section
+   - Run validation before write
 
----
+2. **Workflow Integration:** Extend `.github/workflows/changelog-automation.yml`
+   - Trigger on PR merge event
+   - Call `auto-link-pr.cjs`
+   - Report success/skip in commit comment
 
-### 3. Enhanced Merge Safeguards
+3. **Test Cases:** 5 PR scenarios
+   - PR with `changelog:included` label
+   - PR with `feat/` prefix (auto-match)
+   - PR with manual CHANGELOG.md entry (skip auto-generation)
+   - PR with `chore/` prefix (skip)
+   - PR with neither label nor pattern match (skip)
 
-**What:** Add safety mechanisms to `scripts/workflows/changelog/merge-entries.cjs`
+4. **Documentation:** Update PR template guidance
+   - Add optional section: "Changelog Entry (if applicable)"
+   - Checklist for manual entry
+   - Guidance on using `changelog:included` label
 
-**Safeguards to Implement:**
+#### Implementation Steps
 
-1. **Pre-write validation**
-   - Run changelog validation BEFORE write
-   - Halt if validation fails
-   - Report specific errors to console
-
-2. **Backup before modify**
-   - Create timestamped backup of CHANGELOG.md
-   - Store in `.github/backups/changelog/CHANGELOG.md.backup-YYYYMMDD-HHMMSS`
-   - Keep last 10 backups (delete older ones)
-
-3. **Post-write verification**
-   - Verify [Unreleased] section exists after write
-   - Verify no section headers were lost
-   - Verify file is not corrupted
-
-4. **Rollback instruction**
-   - If write fails, emit clear error message with rollback command
-   - Example: `git checkout HEAD -- CHANGELOG.md && git restore-working-directory`
-
-5. **Logging**
-   - Log all operations (validation pass/fail, backup created, write result)
-   - Save logs to `.github/logs/changelog-merge-{TIMESTAMP}.log`
-   - Reference log file in error messages
-
-**Testing:**
-
-- Test validation failure scenario (intentionally create invalid entry)
-- Test backup creation (verify file exists)
-- Test post-write verification (verify sections preserved)
-- Test rollback instructions (verify they work)
-
-**GitHub Issue:** Create new if not exists → "Phase 4C: Enhanced merge safeguards" (Link to Epic #1271)
+1. Create `scripts/workflows/changelog/auto-link-pr.cjs`
+2. Add extraction logic (PR title, labels, changed files)
+3. Implement auto-generation from PR title
+4. Call existing validation rules
+5. Write entry if valid, skip if not
+6. Add 5 test cases
+7. Update `.github/PULL_REQUEST_TEMPLATE/` with guidance
+8. Document in `CHANGELOG_GUIDELINES.md`
 
 ---
 
-### 4. Integration Testing & Monitoring
+### **4B: Maintainer Review Checklist**
 
-**What:** Monitor next 10 PRs that modify CHANGELOG.md and verify zero automation failures.
+**GitHub Issue:** [#1317](https://github.com/lightspeedwp/.github/issues/1317)  
+**Estimated:** 4–6 hours  
+**When:** Before merging PRs that touch CHANGELOG.md
 
-**Success Criteria:**
+#### Objective
 
-- ✅ 10 PRs merged with CHANGELOG changes
-- ✅ 0 automation failures (validation, linking, safeguards)
-- ✅ 0 section header loss
-- ✅ 0 duplicate entries
-- ✅ 100% of entries properly linked to PRs/issues
-- ✅ All entries follow format guidelines
+Create a 10-item checklist for maintainers to verify changelog entries before merge.
 
-**Process:**
+#### Deliverables
 
-- Create monitoring dashboard or tracking sheet
-- Log each PR merge event
-- Note any warnings or issues
-- Report findings to team
+1. **Document:** `CHANGELOG_REVIEW_CHECKLIST.md` (new)
 
-**GitHub Issue:** Create new if not exists → "Phase 4D: Integration testing & monitoring" (Link to Epic #1271)
+   ```markdown
+   # Changelog Entry Review Checklist
+   
+   Before merging a PR that touches CHANGELOG.md, verify:
+   
+   - [ ] All entries are user-facing (not internal refactor, docs-only, test-only)
+   - [ ] All entries are concise (1-2 sentences, <150 chars)
+   - [ ] All PR/issue links are valid and formatted correctly
+   - [ ] Section headers are correct (### Added, ### Fixed, etc.)
+   - [ ] No duplicate entries exist in [Unreleased]
+   - [ ] Entries follow format: `- **Title** — description ([PR #N](url))`
+   - [ ] Referenced PRs/issues actually exist and are accurate
+   - [ ] No internal jargon without explanation
+   - [ ] Date/version frontmatter is correct (if applicable)
+   - [ ] Credit section lists all contributors
+   ```
 
----
+2. **Integration:** Add to PR review comment template
+   - Post checklist as review guide
+   - Flag for review if CHANGELOG.md modified
 
-## Project Folder Updates (MANDATORY)
+3. **Automation:** Optional comment bot
+   - Detect CHANGELOG.md changes
+   - Post checklist as reminder in PR comments
 
-Before starting work, complete these steps:
+4. **Documentation:** Link from `CHANGELOG_GUIDELINES.md`
+   - Include in maintainer runbook
+   - Link from CLAUDE.md process docs
 
-### Step 1: Review Current Status
+#### Implementation Steps
 
-- [ ] Read [README.md](README.md)
-- [ ] Read [PROJECT_PLAN.md](PROJECT_PLAN.md)
-
-### Step 2: Update PROJECT_PLAN.md
-
-- [ ] Change Phase 4 status from "🔄 PARTIAL" to "🔄 IN PROGRESS"
-- [ ] Update timeline entry: "2026-08-07 (target)" → "2026-07-24 (started)"
-- [ ] Add detailed breakdown of Phase 4 sub-tasks (4A-4D)
-- [ ] Link to new GitHub issues created for each sub-task
-
-### Step 3: Update README.md
-
-- [ ] Change Phase 4 status to "🔄 IN PROGRESS (4A-4D)"
-- [ ] Update "Last Updated" timestamp to current date
-- [ ] Add Phase 4 sub-task details under "Pending (Phase 4 Guardrails)"
-- [ ] Update success criteria progress as items complete
-
-### Step 4: Create GitHub Issues
-
-Create the following issues linked to Epic #1271 (if they don't already exist):
-
-- [ ] Phase 4A: Automated PR-to-changelog linking
-- [ ] Phase 4B: Maintainer review checklist
-- [ ] Phase 4C: Enhanced merge safeguards
-- [ ] Phase 4D: Integration testing & monitoring
+1. Create `CHANGELOG_REVIEW_CHECKLIST.md`
+2. Add to PR template as optional link
+3. Document in maintainer workflow (if exists)
+4. Test with 3 sample PRs
 
 ---
 
-## Issue Closure Verification (CRITICAL)
+### **4C: Enhanced Merge Safeguards**
 
-**Check existing issues from Phases 1-3 and close completed ones:**
+**GitHub Issue:** [#1318](https://github.com/lightspeedwp/.github/issues/1318)  
+**Estimated:** 12–16 hours  
+**Location:** `scripts/workflows/changelog/merge-entries.cjs`
 
-### Issues to Review
+#### Objective
 
-| Issue | Phase | Status | Action |
-|-------|-------|--------|--------|
-| [#1275](https://github.com/lightspeedwp/.github/issues/1275) | 1 | ✅ MERGED (PR #1276) | ✅ **CLOSE** with: "Phase 1 complete. Section header fix verified and deployed. See PR #1276." |
-| [#1272](https://github.com/lightspeedwp/.github/issues/1272) | 2 | ✅ MERGED (PR #1281, #1315) | ✅ **CLOSE** with: "Phase 2 complete. All 127 PRs recovered and merged. See PR #1281, #1315." |
-| [#1273](https://github.com/lightspeedwp/.github/issues/1273) | 3 | ✅ MERGED (PR #1281) | ✅ **CLOSE** with: "Phase 3 complete. Rules, guidelines, and validation deployed. See PR #1281." |
-| [#1314](https://github.com/lightspeedwp/.github/issues/1314) | 2.5 | ✅ MERGED (PR #1315) | ✅ **CLOSE** with: "Additional recovery complete. 51 missing entries added. See PR #1315." |
+Harden the changelog merge script against corruption:
 
-### Closure Process
+- Pre-write validation (all rules pass)
+- Backup mechanism (snapshot before changes)
+- Post-write verification (verify correctness)
+- Rollback instructions (recovery guidance)
+- Enhanced logging (audit trail)
 
-1. Navigate to each issue on GitHub
-2. Add comment: "Phase complete as of [DATE]. All deliverables merged and validated. See related PR: [LINK]"
-3. Click "Close issue" button
-4. Verify status shows as "Closed"
+#### Deliverables
 
----
+1. **Pre-Write Validation**
+   - Run all rules before write:
+     - Entry format validation
+     - Link validation (PR/issue URLs exist)
+     - Section header correctness
+     - No duplicate entries
+     - Max verbosity check
+   - **Fail if any rule violated**
+   - Log violations to console
 
-## Deliverables Checklist
+2. **Backup Mechanism**
+   - Before writing, create backup:
 
-### Phase 4A: Automated PR Linking
+     ```bash
+     cp CHANGELOG.md CHANGELOG.md.backup-{timestamp}
+     ```
 
-- [ ] `scripts/workflows/changelog/auto-link-pr.cjs` created
-- [ ] Integration with PR merge workflow complete
-- [ ] Tested on 5+ PRs
-- [ ] Issue #TBD updated with completion status
-- [ ] PR created and merged to develop
+   - Store in same directory
+   - Keep last 5 backups
+   - Document recovery procedure
 
-### Phase 4B: Maintainer Checklist
+3. **Post-Write Verification**
+   - After write, re-validate file:
+     - File exists and is readable
+     - Frontmatter is valid
+     - All sections parse correctly
+     - No syntax errors
+   - On failure: restore from backup, throw error
 
-- [ ] `.github/CHANGELOG_REVIEW_CHECKLIST.md` created
-- [ ] 10-item checklist with clear criteria
-- [ ] Linked from PR template
-- [ ] Linked from CLAUDE.md
-- [ ] Issue #TBD updated with completion status
-- [ ] PR created and merged to develop
+4. **Rollback Instructions**
+   - On error, output recovery steps:
 
-### Phase 4C: Merge Safeguards
+     ```
+     Error: Changelog merge failed. Recovery steps:
+     1. Restore from backup: cp CHANGELOG.md.backup-{timestamp} CHANGELOG.md
+     2. Run validation: npm run validate:changelog
+     3. Review CHANGELOG_GUIDELINES.md
+     4. Create new PR with corrected entry
+     ```
 
-- [ ] Pre-write validation implemented in merge-entries.cjs
-- [ ] Backup mechanism created (with rotation logic)
-- [ ] Post-write verification implemented
-- [ ] Rollback instructions emitted on failure
-- [ ] Logging infrastructure added
-- [ ] All 4 safeguards tested
-- [ ] Issue #TBD updated with completion status
-- [ ] PR created and merged to develop
+5. **Enhanced Logging**
+   - Log to `scripts/logs/changelog-merge.log`:
+     - Start/end times
+     - Files processed
+     - Validation results
+     - Entries added/modified
+     - Any errors/warnings
+   - Include in CI artifact uploads
 
-### Phase 4D: Integration Testing
+6. **Test Cases**
+   - Test backup creation & restoration
+   - Test validation failure & rollback
+   - Test post-write verification
+   - Test logging output
 
-- [ ] Monitoring dashboard/sheet created
-- [ ] 10 PRs tracked with zero failures
-- [ ] All success criteria met (0 failures, 100% compliance)
-- [ ] Report generated with findings
-- [ ] Issue #TBD updated with completion status
-- [ ] PR created and merged to develop
+#### Implementation Steps
 
----
-
-## Final Success Criteria (Phase 4 Complete)
-
-✅ ALL of the following must be true:
-
-- ✅ Automated PR-to-changelog linking works on merge
-- ✅ Maintainer review checklist is published and integrated
-- ✅ Enhanced safeguards prevent corruption (backup, validation, rollback)
-- ✅ 10 monitored PR merges show 0 automation failures
-- ✅ All Phase 4 GitHub issues (4A-4D) closed with completion comments
-- ✅ Completion notes added to issues #1271, #1272, #1273, #1275, #1314
-- ✅ PROJECT_PLAN.md updated with Phase 4 completion date
-- ✅ README.md shows Phase 4 as ✅ COMPLETE
-- ✅ Epic #1271 ready for closure (all phases complete and merged)
-
----
-
-## Related References
-
-- **Epic:** [#1271](https://github.com/lightspeedwp/.github/issues/1271) — Changelog Automation Hardening
-- **Phase 1:** [#1275](https://github.com/lightspeedwp/.github/issues/1275) — Section header fix
-- **Phase 2:** [#1272](https://github.com/lightspeedwp/.github/issues/1272) — Rebuild lost history
-- **Phase 3:** [#1273](https://github.com/lightspeedwp/.github/issues/1273) — Rules & guidelines
-- **Guidelines:** [CHANGELOG_GUIDELINES.md](CHANGELOG_GUIDELINES.md)
-- **Automation Guide:** [docs/CHANGELOG_AUTOMATION.md](../../../../docs/CHANGELOG_AUTOMATION.md)
-- **Keep a Changelog:** <https://keepachangelog.com/en/1.1.0/>
+1. Update `merge-entries.cjs` with validation hooks
+2. Add backup mechanism (copy + cleanup)
+3. Implement post-write verification
+4. Create rollback instruction generator
+5. Add logging to dedicated log file
+6. Create 6 test scenarios (normal, failures, recovery)
+7. Document in `CHANGELOG_GUIDELINES.md` → Recovery section
 
 ---
 
-## Work Timeline
+### **4D: Integration Testing & Monitoring**
 
-**Estimated Effort:** 40-50 hours across 4 sub-tasks (2-3 weeks)
+**GitHub Issue:** [#1319](https://github.com/lightspeedwp/.github/issues/1319)  
+**Estimated:** 16–20 hours  
+**When:** After 4A, 4B, 4C deployed
 
-| Sub-task | Est. Effort | Dependencies | Status |
-|----------|------------|--------------|--------|
-| 4A: Automated linking | 8-10h | Phase 3 ✅ | 🔴 Not Started |
-| 4B: Maintainer checklist | 4-6h | Phase 3 ✅ | 🔴 Not Started |
-| 4C: Enhanced safeguards | 12-16h | Phase 1-3 ✅ | 🔴 Not Started |
-| 4D: Integration testing | 16-20h | 4A-4C | 🔴 Not Started |
+#### Objective
 
-**Total:** ~40-50 hours | **Target:** 2-3 weeks | **Deadline:** August 7, 2026
+Monitor 10 PRs to verify:
+
+- Automated linking works correctly
+- Validation catches errors
+- No failures occur
+- All links remain valid
+- Section structure is preserved
+
+#### Deliverables
+
+1. **Test Plan Document**
+   - 10 PR scenarios to monitor:
+     1. Feature PR with auto-link (should add entry)
+     2. Bug fix with auto-link (should add entry)
+     3. Chore PR (should skip auto-link)
+     4. PR with manual CHANGELOG entry (should validate only)
+     5. PR with invalid entry format (should fail validation)
+     6. PR with duplicate entry (should fail validation)
+     7. PR with broken link (should fail validation)
+     8. PR with verbose entry (should fail validation)
+     9. PR with non-changelog content (should fail validation)
+     10. PR with multiple entries (should validate all)
+
+2. **Monitoring Dashboard**
+   - Document: `.github/projects/active/changelog-automation-hardening/PHASE_4_MONITORING.md`
+   - Track each PR:
+     - PR number & title
+     - Auto-link attempted? Y/N
+     - Validation passed? Y/N
+     - Entry added? Y/N
+     - All links valid? Y/N
+     - Date/time
+   - Summary stats:
+     - Total PRs monitored
+     - Success rate (%)
+     - Failures (count + details)
+     - Average processing time
+
+3. **Failure Response Protocol**
+   - If validation fails:
+     1. Check PR for issues
+     2. Comment with specific errors
+     3. Suggest corrected format
+     4. Require user to fix before merge
+   - Log all failures for post-analysis
+
+4. **Success Criteria** (all must pass)
+   - ✅ 10/10 PRs processed successfully
+   - ✅ 0 validation failures
+   - ✅ 0 broken links
+   - ✅ 0 section corruption
+   - ✅ 100% auto-link accuracy (when applicable)
+
+#### Implementation Steps
+
+1. Create test plan document
+2. Set up monitoring spreadsheet/dashboard
+3. Execute 10 PR test scenarios
+4. Log results (success/failure, reasons)
+5. Document any issues found
+6. Generate monitoring report
+7. Close Phase 4D issue when all tests pass
 
 ---
 
-## Next Steps
+## 🔄 Workflow: Creating Issues & Completing Phases
 
-1. Create feature branch: `feat/changelog-phase-4-guardrails`
-2. **CLOSE completed issues:** #1275, #1272, #1273, #1314
-3. Create GitHub issues for sub-tasks (4A-4D) linked to Epic #1271
-4. Update PROJECT_PLAN.md and README.md with Phase 4 kickoff details
-5. Assign team members to each sub-task
-6. Begin Phase 4A (automated linking) implementation
+### Step 1: Create GitHub Issues (4A–4D)
 
-🚀 **All Phases 1-3 complete and merged to develop. Ready to start Phase 4.**
+Create 4 new issues on GitHub, linked to Epic #1271:
+
+**Template for each:**
+
+```markdown
+---
+## Issue Title
+Phase 4X: [Deliverable Name]
+
+## Description
+[Copy from corresponding section above: 4A, 4B, 4C, or 4D]
+
+## Objective
+[Copy from section]
+
+## Deliverables
+[Copy from section]
+
+## Related
+- Epic: #1271
+- Related Phase issues: #1275, #1272, #1273
+- Branch: feat/changelog-phase-4-guardrails
+
+## Labels
+- `changelog`
+- `automation`
+- `phase-4`
+- `epic:#1271`
+```
+
+### Step 2: Close Completed Phase Issues
+
+**Issues to close with completion notes:**
+
+| Issue | Phase | Completion Note |
+|-------|-------|-----------------|
+| #1275 | 1 | Section header preservation verified in 3+ merges; fix stable |
+| #1272 | 2 | 127 entries recovered & merged; [Unreleased] complete |
+| #1273 | 3 | Guidelines deployed; contributor checklist active |
+| #1314 | 2.5 | 51 additional entries recovered; merge complete |
+
+**Closure steps:**
+
+1. Add comment with completion note
+2. Add `status:complete` label (if exists)
+3. Close issue
+
+### Step 3: Implement 4A–4D in Parallel
+
+Use branch `feat/changelog-phase-4-guardrails` for all work:
+
+```bash
+git checkout feat/changelog-phase-4-guardrails
+# Implement 4A, 4B, 4C, 4D in feature branches or commits
+# Commit regularly with clear messages
+git push origin feat/changelog-phase-4-guardrails
+```
+
+### Step 4: Create PR & Merge
+
+When all 4A–4D deliverables are complete:
+
+1. **Create PR** from `feat/changelog-phase-4-guardrails` → `develop`
+2. **Use template:** `pr_feature.md` (from PULL_REQUEST_TEMPLATE/config.yml)
+3. **Link issues:** #1316, #1317, #1318, #1319
+4. **Merge when approved** (squash merge recommended)
+5. **Close branch** after merge
+
+### Step 5: Mark Phase 4 Complete
+
+After PR merges:
+
+1. **Update PROJECT_PLAN.md**
+
+   ```markdown
+   | Phase 4 | Automation setup | ✅ Complete | #1316-#1319 | 2026-08-07 |
+   | **Epic** | **All phases** | **✅ Complete** | **#1271** | **2026-08-14** |
+   ```
+
+2. **Update README.md**
+
+   ```markdown
+   | 4 | Validation & guardrails | ✅ Complete | #1316–#1319 | 2026-08-07 |
+   ```
+
+3. **Close Epic #1271** with completion note:
+
+   ```
+   ✅ All 4 phases complete!
+   - Phase 1: Fix automation ✅
+   - Phase 2: Rebuild history ✅  
+   - Phase 3: Rules & guidelines ✅
+   - Phase 4: Validation & guardrails ✅
+   
+   Ready for v1.0 release.
+   ```
+
+---
+
+## 📊 Success Criteria
+
+### Quality Gates
+
+All must be true to mark Phase 4 complete:
+
+- ✅ **Script:** `auto-link-pr.cjs` deployed & tested (5 scenarios)
+- ✅ **Checklist:** `CHANGELOG_REVIEW_CHECKLIST.md` documented & integrated
+- ✅ **Safeguards:** `merge-entries.cjs` hardened with backup, validation, logging
+- ✅ **Testing:** 10 PR scenarios monitored; 0 failures
+- ✅ **Documentation:** All guidelines updated with Phase 4 changes
+
+### Success Metrics
+
+| Metric | Target | Status |
+|--------|--------|--------|
+| 0 broken links | 0 | Verify with validation |
+| 0 verbose entries | 0 | Enforce in validation |
+| Auto-link accuracy | 100% | Test on 10 PRs |
+| Validation failure rate | 0% | Monitor 10 PRs |
+| Merge safeguards | Deployed | Check merge-entries.cjs |
+| Documentation complete | 100% | Review all guides |
+
+---
+
+## 📅 Timeline & Estimates
+
+| Task | Estimate | Start | End | Owner |
+|------|----------|-------|-----|-------|
+| 4A: Auto-linking | 8–10h | 2026-07-24 | 2026-07-27 | Team |
+| 4B: Review checklist | 4–6h | 2026-07-25 | 2026-07-27 | Team |
+| 4C: Merge safeguards | 12–16h | 2026-07-26 | 2026-07-31 | Team |
+| 4D: Testing & monitoring | 16–20h | 2026-08-01 | 2026-08-07 | Team |
+| **Total** | **40–50h** | **2026-07-24** | **2026-08-07** | **Team** |
+
+---
+
+## 🔗 Related Documentation
+
+- **[PROJECT_PLAN.md](./PROJECT_PLAN.md)** — Full strategic overview
+- **[README.md](./README.md)** — Quick reference & status
+- **[CHANGELOG_GUIDELINES.md](./CHANGELOG_GUIDELINES.md)** — Entry format & rules
+- **[EXECUTION_PROMPT.md](./EXECUTION_PROMPT.md)** — Quick checklist
+
+---
+
+## ✅ Pre-Implementation Checklist
+
+Before starting Phase 4:
+
+- [ ] All Phase 1–3 issues closed (#1275, #1272, #1273, #1314)
+- [ ] Branch created: `feat/changelog-phase-4-guardrails`
+- [ ] GitHub issues 4A–4D created & linked to #1271
+- [ ] PROJECT_PLAN.md updated with Phase 4 status
+- [ ] README.md updated with Phase 4 links
+- [ ] Team members assigned to 4A–4D
+- [ ] This document reviewed & understood
+- [ ] Changelog GUIDELINES reviewed (reference during implementation)
+
+---
+
+## 🚀 Getting Started
+
+1. **Read this document** ← You are here
+2. **Create issues** for 4A–4D (link to #1271)
+3. **Close Phase 1–3 issues** with completion notes
+4. **Start implementation** of 4A in parallel with 4B
+5. **Monitor progress** via branch commits
+6. **Test Phase 4D** after 4A, 4B, 4C deployed
+7. **Create final PR** when all deliverables complete
+8. **Close Epic #1271** when merged
+
+---
+
+## 📞 Questions & Support
+
+- **Stuck on 4A?** Check `scripts/workflows/changelog/` for similar script patterns
+- **Stuck on 4B?** Review existing checklists in `.github/` for format examples
+- **Stuck on 4C?** Check `merge-entries.cjs` for existing validation hooks
+- **Stuck on 4D?** Create monitoring doc in same folder as PROJECT_PLAN.md
+
+---
+
+**Phase 4 Kickoff Created:** 2026-07-24  
+**Branch:** `feat/changelog-phase-4-guardrails`  
+**Status:** 🔄 Ready to Implement
