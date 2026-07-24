@@ -53,7 +53,8 @@ try {
   }
 
   // Find the end of the [Unreleased] section (next ## heading)
-  let unreleasedEndIdx = insertIdx;
+  // Default to end of file if [Unreleased] is the final section
+  let unreleasedEndIdx = mainLines.length;
   for (let i = insertIdx; i < mainLines.length; i++) {
     if (mainLines[i].match(/^##\s+\[/)) {
       unreleasedEndIdx = i;
@@ -118,15 +119,17 @@ function deduplicateEntries(prEntries, existingContent) {
       .filter(Boolean)
   );
   const newEntries = [];
-  let lastSectionHeader = null;
 
   for (const entry of prEntries) {
     const trimmed = entry.trim();
 
     // Preserve section headers (### Added, ### Fixed, etc.)
+    // Only add if it's not already in the existing content
     if (trimmed.match(/^###\s+/)) {
-      lastSectionHeader = entry;
-      newEntries.push(entry);
+      const headerKey = normalizeEntryForComparison(entry);
+      if (headerKey && !normalizedExisting.has(headerKey)) {
+        newEntries.push(entry);
+      }
       continue;
     }
 

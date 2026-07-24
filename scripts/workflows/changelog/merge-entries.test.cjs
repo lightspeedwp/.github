@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { spawnSync } = require('child_process');
 
 const TEST_DIR = path.join(__dirname, '../../..', '.github/tmp/merge-test');
 const TEST_CHANGELOG = path.join(TEST_DIR, 'CHANGELOG.md');
@@ -44,6 +44,20 @@ function assert(condition, message) {
   if (!condition) {
     throw new Error(message);
   }
+}
+
+// Helper function to run merge-entries as a subprocess
+function runMergeScript(env) {
+  const result = spawnSync('node', [path.join(__dirname, 'merge-entries.cjs')], {
+    env: { ...process.env, ...env },
+    stdio: 'pipe',
+  });
+
+  if (result.error) {
+    throw result.error;
+  }
+
+  return result;
 }
 
 // Test 1: Preserve section headers when merging new entries
@@ -86,10 +100,11 @@ title: "Changelog"
   fs.writeFileSync(TEST_CHANGELOG, initialChangelog, 'utf8');
   fs.writeFileSync(TEST_ENTRIES, prEntries, 'utf8');
 
-  // Run the merge script
-  process.env.PR_ENTRIES = TEST_ENTRIES;
-  process.env.CHANGELOG_PATH = TEST_CHANGELOG;
-  require('./merge-entries.cjs');
+  // Run the merge script as a subprocess
+  runMergeScript({
+    PR_ENTRIES: TEST_ENTRIES,
+    CHANGELOG_PATH: TEST_CHANGELOG,
+  });
 
   const result = fs.readFileSync(TEST_CHANGELOG, 'utf8');
 
@@ -136,9 +151,10 @@ title: "Changelog"
   fs.writeFileSync(TEST_CHANGELOG, initialChangelog, 'utf8');
   fs.writeFileSync(TEST_ENTRIES, prEntries, 'utf8');
 
-  process.env.PR_ENTRIES = TEST_ENTRIES;
-  process.env.CHANGELOG_PATH = TEST_CHANGELOG;
-  require('./merge-entries.cjs');
+  runMergeScript({
+    PR_ENTRIES: TEST_ENTRIES,
+    CHANGELOG_PATH: TEST_CHANGELOG,
+  });
 
   const result = fs.readFileSync(TEST_CHANGELOG, 'utf8');
 
@@ -179,9 +195,6 @@ title: "Changelog"
   fs.writeFileSync(TEST_CHANGELOG, changelog, 'utf8');
   fs.writeFileSync(TEST_ENTRIES, entries, 'utf8');
 
-  process.env.PR_ENTRIES = TEST_ENTRIES;
-  process.env.CHANGELOG_PATH = TEST_CHANGELOG;
-
   // Capture original mtime
   const originalMtime = fs.statSync(TEST_CHANGELOG).mtime.getTime();
 
@@ -191,7 +204,10 @@ title: "Changelog"
     // Wait 100ms
   }
 
-  require('./merge-entries.cjs');
+  runMergeScript({
+    PR_ENTRIES: TEST_ENTRIES,
+    CHANGELOG_PATH: TEST_CHANGELOG,
+  });
 
   const newMtime = fs.statSync(TEST_CHANGELOG).mtime.getTime();
 
