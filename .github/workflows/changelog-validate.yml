@@ -89,3 +89,23 @@ jobs:
         run: |
           node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
+
+      - name: Validate changelog format (entries, links, length)
+        if: steps.changelog_gate.outputs.run_validation == 'true'
+        run: npm run validate:changelog
+
+      - name: Run integration tests (section header preservation)
+        if: steps.changelog_gate.outputs.run_validation == 'true'
+        run: npm run test:integration
+
+      - name: Verify section headers preserved
+        if: steps.changelog_gate.outputs.run_validation == 'true'
+        run: |
+          # Check that [Unreleased] section exists
+          grep -q "^## \[Unreleased\]" CHANGELOG.md || (echo "❌ Missing [Unreleased] header" && exit 1)
+
+          # Warn if no section headers (optional)
+          grep -q "^### Added" CHANGELOG.md || echo "⚠️  No Added section (optional)"
+          grep -q "^### Fixed" CHANGELOG.md || echo "⚠️  No Fixed section (optional)"
+
+          echo "✅ Changelog structure verified"
