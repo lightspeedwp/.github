@@ -134,19 +134,25 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 ## Batch 2-3 Conflict & Reusability Analysis
 
+### Audit Methodology Note
+
+**Skill Count Clarification:** The inventory counts top-level skill *categories* (directories/bundles), not individual entrypoints. Actual implementation entrypoints (individual skill files) are higher; this count reflects reusable skill *units* for consolidation planning. Platform-managed utilities (sourced from `/root/.codex/skills/.system/`) are included for visibility but are not consolidation targets (they're system-level, not repository-owned).
+
+---
+
 ### Identified High-Severity Conflicts
 
-#### 1. **wordpress-accessibility-checker** — Used by MULTIPLE agents
+#### 1. **wordpress-accessibility-checker** — Identical shared implementation
 
-| Agent | Type | Status |
-|-------|------|--------|
-| tour-operator-config-agent | agent-attached | ✅ Active |
-| woo-config-agent | agent-attached | ✅ Active |
-| wp-config-agent | (not found; similar skills: wordpress-accessibility-checker?) | ❓ |
+| Agent | Type | Implementation | Status |
+|-------|------|-----------------|--------|
+| tour-operator-config-agent | agent-attached | ✅ Identical | SHARED |
+| woo-config-agent | agent-attached | ✅ Identical | SHARED |
+| wp-config-agent | agent-attached | ✅ Identical | SHARED |
 
-**Status:** MEDIUM CONFLICT - Same skill name used identically; unclear if implementations are identical or customised per domain (tour-ops, WooCommerce, generic WP)
+**Status:** ✅ **IDENTICAL SHARED IMPLEMENTATION** - Same Git tree object across all three agents; no domain-specific customisation exists.
 
-**Resolution:** Need to audit if implementations can be consolidated to root `skills/wordpress-accessibility-checker/` with per-agent configurations
+**Resolution:** Consolidate to root `skills/wordpress-accessibility-checker/` with single source of truth (no per-domain overlays needed)
 
 ---
 
@@ -259,16 +265,22 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 #### **Tier 0: Generic Utilities (Keep in root, reference from all agents)**
 
-| Skill | Reuse | Status | Action |
-|-------|-------|--------|--------|
-| documents | 6+ agents | ✅ Stable | CONSOLIDATE to root |
-| pdf | 6 agents | ✅ Stable | CONSOLIDATE to root |
-| presentations | 5 agents | ✅ Stable | CONSOLIDATE to root |
-| spreadsheets | 5 agents | ✅ Stable | CONSOLIDATE to root |
-| frontend-skill | 11/11 agents | ✅ CRITICAL | MOVE to root immediately |
-| plugin-creator | 3 agents (local) | ✅ Stable | CONSOLIDATE to root |
-| skill-creator | 3 agents (local) | ✅ Stable | CONSOLIDATE to root |
-| skill-installer | 3 agents (local) | ✅ Stable | CONSOLIDATE to root |
+**Note:** Platform-managed utilities (sourced from `/root/.codex/skills/.system/`) are excluded from consolidation; they are system-level exports, not repository-owned implementations.
+
+| Skill | Reuse | Source | Status | Action |
+|-------|-------|--------|--------|--------|
+| frontend-skill | 11/11 agents | Repository-owned | ✅ CRITICAL | MOVE to root immediately |
+| documents | 6+ agents | Repository-owned (some local copies) | ✅ Stable | CONSOLIDATE to root |
+| pdf | 4 agents (repo-owned) | Mix: directory-installed (repo) + local copies | ✅ Stable | CONSOLIDATE repo-owned to root |
+| presentations | 4 agents (repo-owned) | Mix: directory-installed (repo) + local copies | ✅ Stable | CONSOLIDATE repo-owned to root |
+| spreadsheets | 4 agents (repo-owned) | Mix: directory-installed (repo) + local copies | ✅ Stable | CONSOLIDATE repo-owned to root |
+| plugin-creator | 3 agents (local) | Repository-owned | ✅ Stable | CONSOLIDATE to root |
+| skill-creator | 3 agents (local) | Repository-owned | ✅ Stable | CONSOLIDATE to root |
+| skill-installer | 3 agents (local) | Repository-owned | ✅ Stable | CONSOLIDATE to root |
+
+**Platform-Managed (DO NOT CONSOLIDATE):**
+
+- imagegen, openai-docs, builtins, system (sourced from `/root/.codex/skills/.system/`) — system-level utilities, not consolidation targets
 
 ---
 
@@ -1012,27 +1024,31 @@ When this audit is complete, you should be able to answer:
 
 ```
 EFFORT: 4-6 hours
-IMPACT: Reduce duplication across 6-11 agents
+IMPACT: Reduce duplication across 6-11 agents (repository-owned only)
 
-☐ frontend-skill             (11/11 agents) → skills/frontend-skill/
-☐ documents                  (6+ agents)    → skills/documents/ [if not already]
-☐ pdf                        (6 agents)     → skills/pdf/ [consolidate copies]
-☐ presentations              (5 agents)     → skills/presentations/ [consolidate copies]
-☐ spreadsheets               (5 agents)     → skills/spreadsheets/ [consolidate copies]
+☐ frontend-skill             (11/11 agents) → skills/frontend-skill/ [repository-owned]
+☐ documents                  (6+ agents)    → skills/documents/ [if not already; consolidate local copies]
+☐ pdf (repo-owned)           (4 agents)     → skills/pdf/ [consolidate repo-owned copies; exclude platform-managed]
+☐ presentations (repo-owned) (4 agents)     → skills/presentations/ [consolidate repo-owned copies; exclude platform-managed]
+☐ spreadsheets (repo-owned)  (4 agents)     → skills/spreadsheets/ [consolidate repo-owned copies; exclude platform-managed]
 ```
 
-#### MEDIUM IMPACT — Consolidate with Per-Domain Configs
+**DO NOT CONSOLIDATE (platform-managed):**
+
+- imagegen, openai-docs (sourced from `/root/.codex/skills/.system/`) — these are system-level utilities
+
+#### MEDIUM IMPACT — Consolidate (No Per-Domain Configs Needed)
 
 ```
-EFFORT: 6-8 hours
-IMPACT: Reduce customisation conflicts; enable code reuse
+EFFORT: 4-6 hours
+IMPACT: Single source of truth for shared implementations
 
-☐ wordpress-accessibility-checker (3 agents)  → skills/wordpress-accessibility-checker/ + tour-ops.config.yaml + woo.config.yaml + wp.config.yaml
+☐ wordpress-accessibility-checker (3 agents: wp-config, woo-config, tour-operator)  
+  → skills/wordpress-accessibility-checker/ [IDENTICAL implementation; no variants]
+
 ☐ plugin-creator               (3 agents)     → skills/plugin-creator/ [consolidate]
 ☐ skill-creator                (3 agents)     → skills/skill-creator/ [consolidate]
 ☐ skill-installer              (3 agents)     → skills/skill-installer/ [consolidate]
-☐ openai-docs                  (3 agents)     → skills/openai-docs/ [consolidate]
-☐ imagegen                     (3 agents)     → skills/imagegen/ [consolidate]
 ```
 
 #### LOWER PRIORITY — Resolve Design Skills Framework
