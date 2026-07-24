@@ -1151,8 +1151,6 @@ IMPACT: Clarify hermes framework; reduce design-agent drift
 | **Agent-Specific Skills** | N/A | 40+ | **40+** |
 | **% Skills to Consolidate** | ~20% | ~25% | ~22% |
 
----
-
 **Audit Status:** ✅ **BATCH 2-3 COMPLETE** — Phase B inventory and conflict identification complete  
 **Branch:** `audit/skills-standards-batch-2-3`  
 **Last Updated:** 2026-07-24  
