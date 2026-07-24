@@ -34,3 +34,27 @@ Comprehensive recovery of 76 merged PRs (May 24–Jul 24, 2026): rebuilt CHANGEL
 ## 12:35 | refactor/metrics-workflow-consolidation
 
 Phase 1B.ii metrics consolidation done: metrics-reporting.yml w/ seq collect→aggregate jobs, 19 tests; fixed P1 bugs (file detection, PR blocking, Jest config); Phase 1B: 2 workflows consolidated, 4 deleted, 37 tests; PRs #1280, #1282 (LS-1826, LS-1827) ready for merge.
+
+## 12:37 | chore/changelog-phase-2-rebuild
+
+Phase 2 changelog rebuild recovered 76 PRs (May 24–Jul 24) w/ issue refs, renamed branch to chore/, resolved merge conflicts, PR #1281 ready.
+
+## 12:39 | refactor/metrics-workflow-consolidation
+
+Fixed P1/P2 Codex issues in metrics/changelog workflows (jest .cjs discovery, sync-changelog file check, changelog-only PR blocking, PR template validation, linting, unused test code); PRs #1280 & #1282 ready for merge.
+
+## 12:43 | develop
+
+Merged 6 v1.0 milestone PRs (#1200 DoD validation, #1201 template-enforcement, #1202 type-aliases, #1203 label-reference, #1221 Phase-2B-audit, #1212 quirky-footers), fixed PR #1204 template/grammar/labels; resolved merge conflicts & pre-existing agent-validation blockers across all PRs.
+
+## 12:45 | refactor/metrics-workflow-consolidation
+
+Completed Phase 1B.ii metrics consolidation (LS-1827, PR #1282): consolidated metrics workflows into metrics-reporting.yml w/ sequential jobs & 19 tests; fixed P1 (sync-changelog condition, path filter), P2 (Jest .cjs discovery), CodeQL/template/linting/security issues via 8 commits.
+
+## 12:48 | develop
+
+Merged 7 v1.0 milestone PRs: DoD validation (#1200), template enforcement (#1201), label aliases/cleanup (#1202/#1203), Phase 2B skills audit (#1221), quirky footers system w/ schema (#1212); resolved conflicts, applied CodeRabbit feedback, standardised UK spelling & templates; reviewed PR #1204 (changelog audit) & fixed grammar/labels.
+
+## 14:20 | chore/changelog-phase-2-rebuild
+
+Phase 2 rebuild complete: recovered 76 merged PRs (May 24–Jul 24) w/ full PR+issue linking in [Unreleased], hardened automation by fixing 14 gaps (format validation script, Phase 1 integration test, scope correction, enforced PR links), updated PROJECT_PLAN/EXECUTION_PROMPT/CHANGELOG_GUIDELINES, created validation & CI workflows, prepared PR #1281 for merge w/ comprehensive reports.
