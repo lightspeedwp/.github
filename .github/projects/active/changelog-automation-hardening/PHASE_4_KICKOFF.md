@@ -13,6 +13,7 @@
 Phase 4 completes the changelog automation hardening initiative by implementing safeguards, automated linking, and contributor tooling to ensure long-term sustainability of the changelog process.
 
 **Previous Phases Status:**
+
 - ✅ Phase 1: Section header corruption fix (PR #1276) — MERGED
 - ✅ Phase 2: Rebuild lost history (127 PRs) (PR #1281, #1315) — MERGED
 - ✅ Phase 3: Rules & guidelines (PR #1281) — MERGED
@@ -27,6 +28,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 **What:** Automatically add entries to CHANGELOG.md when PRs merge if they meet criteria.
 
 **Implementation:**
+
 - Create `scripts/workflows/changelog/auto-link-pr.cjs` script
 - Trigger on PR merge to develop/main
 - Auto-add entry if:
@@ -37,6 +39,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 - Link to both PR and referenced issues
 
 **Testing:**
+
 - Manual verification on next 5 PRs
 - Test with feature/fix/chore PR types
 - Verify links are valid and formatted correctly
@@ -52,6 +55,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 **File:** `.github/CHANGELOG_REVIEW_CHECKLIST.md`
 
 **Contents:**
+
 - [ ] All entries are user-facing (not docs-only, test-only, internal refactoring)
 - [ ] All entries are concise (under 150 chars, 1-2 sentences max)
 - [ ] All PR/issue links are valid (URLs exist, formats correct)
@@ -64,6 +68,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 - [ ] No verbose/jargon entries without explanation
 
 **Integration:**
+
 - Reference in PR template (optional guidance section)
 - Reference in contributor checklist
 - Link from CLAUDE.md and AGENTS.md (if applicable)
@@ -103,6 +108,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
    - Reference log file in error messages
 
 **Testing:**
+
 - Test validation failure scenario (intentionally create invalid entry)
 - Test backup creation (verify file exists)
 - Test post-write verification (verify sections preserved)
@@ -117,6 +123,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 **What:** Monitor next 10 PRs that modify CHANGELOG.md and verify zero automation failures.
 
 **Success Criteria:**
+
 - ✅ 10 PRs merged with CHANGELOG changes
 - ✅ 0 automation failures (validation, linking, safeguards)
 - ✅ 0 section header loss
@@ -125,6 +132,7 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 - ✅ All entries follow format guidelines
 
 **Process:**
+
 - Create monitoring dashboard or tracking sheet
 - Log each PR merge event
 - Note any warnings or issues
@@ -139,23 +147,28 @@ Phase 4 completes the changelog automation hardening initiative by implementing 
 Before starting work, complete these steps:
 
 ### Step 1: Review Current Status
+
 - [ ] Read [README.md](README.md)
 - [ ] Read [PROJECT_PLAN.md](PROJECT_PLAN.md)
 
 ### Step 2: Update PROJECT_PLAN.md
+
 - [ ] Change Phase 4 status from "🔄 PARTIAL" to "🔄 IN PROGRESS"
 - [ ] Update timeline entry: "2026-08-07 (target)" → "2026-07-24 (started)"
 - [ ] Add detailed breakdown of Phase 4 sub-tasks (4A-4D)
 - [ ] Link to new GitHub issues created for each sub-task
 
 ### Step 3: Update README.md
+
 - [ ] Change Phase 4 status to "🔄 IN PROGRESS (4A-4D)"
 - [ ] Update "Last Updated" timestamp to current date
 - [ ] Add Phase 4 sub-task details under "Pending (Phase 4 Guardrails)"
 - [ ] Update success criteria progress as items complete
 
 ### Step 4: Create GitHub Issues
+
 Create the following issues linked to Epic #1271 (if they don't already exist):
+
 - [ ] Phase 4A: Automated PR-to-changelog linking
 - [ ] Phase 4B: Maintainer review checklist
 - [ ] Phase 4C: Enhanced merge safeguards
@@ -167,7 +180,7 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 
 **Check existing issues from Phases 1-3 and close completed ones:**
 
-### Issues to Review:
+### Issues to Review
 
 | Issue | Phase | Status | Action |
 |-------|-------|--------|--------|
@@ -176,7 +189,8 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 | [#1273](https://github.com/lightspeedwp/.github/issues/1273) | 3 | ✅ MERGED (PR #1281) | ✅ **CLOSE** with: "Phase 3 complete. Rules, guidelines, and validation deployed. See PR #1281." |
 | [#1314](https://github.com/lightspeedwp/.github/issues/1314) | 2.5 | ✅ MERGED (PR #1315) | ✅ **CLOSE** with: "Additional recovery complete. 51 missing entries added. See PR #1315." |
 
-### Closure Process:
+### Closure Process
+
 1. Navigate to each issue on GitHub
 2. Add comment: "Phase complete as of [DATE]. All deliverables merged and validated. See related PR: [LINK]"
 3. Click "Close issue" button
@@ -187,6 +201,7 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 ## Deliverables Checklist
 
 ### Phase 4A: Automated PR Linking
+
 - [ ] `scripts/workflows/changelog/auto-link-pr.cjs` created
 - [ ] Integration with PR merge workflow complete
 - [ ] Tested on 5+ PRs
@@ -194,6 +209,7 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 - [ ] PR created and merged to develop
 
 ### Phase 4B: Maintainer Checklist
+
 - [ ] `.github/CHANGELOG_REVIEW_CHECKLIST.md` created
 - [ ] 10-item checklist with clear criteria
 - [ ] Linked from PR template
@@ -202,6 +218,7 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 - [ ] PR created and merged to develop
 
 ### Phase 4C: Merge Safeguards
+
 - [ ] Pre-write validation implemented in merge-entries.cjs
 - [ ] Backup mechanism created (with rotation logic)
 - [ ] Post-write verification implemented
@@ -212,6 +229,7 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 - [ ] PR created and merged to develop
 
 ### Phase 4D: Integration Testing
+
 - [ ] Monitoring dashboard/sheet created
 - [ ] 10 PRs tracked with zero failures
 - [ ] All success criteria met (0 failures, 100% compliance)
@@ -245,7 +263,7 @@ Create the following issues linked to Epic #1271 (if they don't already exist):
 - **Phase 3:** [#1273](https://github.com/lightspeedwp/.github/issues/1273) — Rules & guidelines
 - **Guidelines:** [CHANGELOG_GUIDELINES.md](CHANGELOG_GUIDELINES.md)
 - **Automation Guide:** [docs/CHANGELOG_AUTOMATION.md](../../../../docs/CHANGELOG_AUTOMATION.md)
-- **Keep a Changelog:** https://keepachangelog.com/en/1.1.0/
+- **Keep a Changelog:** <https://keepachangelog.com/en/1.1.0/>
 
 ---
 
