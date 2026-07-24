@@ -220,6 +220,21 @@ jobs:
 
             if (missingSections.length === 0 && !hasNeedsMoreInfo) {
               core.info(`Issue #${issue.number} meets close requirements.`);
+
+              // Remove status:needs-template-fix label if present (issue is now compliant)
+              const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+              if (currentLabels.has('status:needs-template-fix')) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: 'status:needs-template-fix',
+                  });
+                } catch (error) {
+                  core.info(`Unable to remove status:needs-template-fix from #${issue.number}: ${error.message}`);
+                }
+              }
               return;
             }
 
@@ -240,10 +255,11 @@ jobs:
               ...reasons.map((r) => `- ${r}`),
               '',
               '**What you can do:**',
-              '1. **Fix the issue:** Update the issue body with the correct template sections',
-              '2. **Reopen it:** Comment to reopen, or use the "Reopen issue" button',
-              '3. **Force close:** Add the `meta:force-close` label if closure is necessary despite incomplete requirements',
+              '1. **Fix the issue:** Edit this issue and update the body with the correct template sections (DoR and DoD sections)',
+              '2. **Reopen it:** Click the "Reopen issue" button on this page to reopen after fixing',
+              '3. **Force close:** Add the `meta:force-close` label to this issue if closure is necessary despite incomplete requirements',
               '',
+              '**After fixing:** The issue will no longer show this warning and can be closed normally.',
               '**Need help?** See the issue template guide: https://github.com/lightspeedwp/.github/issues/new/choose',
             ].join('\n');
 
