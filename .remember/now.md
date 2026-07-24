@@ -112,3 +112,7 @@ Phase 2B Batch 2-3 audit (11 agents, 258 skills) w/ conflict matrix & consolidat
 ## 14:13 | audit/skills-standards-batch-2-3
 
 PR #1284 CI: Validation & Testing pass, Linting fails on pre-existing agent false-positive credential warnings; fixed design-partner-agent, fixing website-content-strategist-agent w/ safe placeholder patterns.
+
+## 14:20 | claude/workflows-consolidation-phase-2-fa76e8
+
+Fixed critical merge-entries.cjs bug destroying changelog entries (section header preservation), created 4-phase hardening plan w/ CHANGELOG_GUIDELINES.md & Phase 2 rebuild docs, filed child issue #1275, merged PR #1276 to develop.
