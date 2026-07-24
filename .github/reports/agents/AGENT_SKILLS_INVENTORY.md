@@ -33,8 +33,8 @@ related_documents:
 | tour-operator-config-agent | 30 | 10 | 20 | 0 | 0 | 0 |
 | woo-config-agent | 21 | 10 | 1 | 1 | 4 | 5 |
 | wp-config-agent | 31 | 11 | 1 | 10 | 0 | 9 |
-| **Batch 2-3 Subtotal** | **285** | **108** | **62** | **52** | **10** | **20** |
-| **TOTAL (16 Agents)** | **410** | **192** | **78** | **72** | **10** | **21** |
+| **Batch 2-3 Subtotal** | **252** | **108** | **62** | **52** | **10** | **20** |
+| **TOTAL (16 Agents)** | **377** | **192** | **78** | **72** | **10** | **21** |
 
 ---
 
@@ -210,7 +210,7 @@ related_documents:
 
 ✅ **All 16 agents audited**  
 ✅ **All skills documented by category**  
-✅ **410 total skills cataloged**  
+✅ **377 total skills cataloged** (Batch 1: 125, Batch 2-3: 252)  
 ✅ **Ready for reuse analysis and consolidation planning**
 
 **Date Completed:** 2026-07-24  

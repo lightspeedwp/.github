@@ -278,22 +278,22 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 | Category | Count | Notes |
 |----------|-------|-------|
-| **Agent-Attached** | 110 | Domain-specific custom skills across all agents |
-| **Local** | 65 | Reusable utilities (documents, reports, export-tools, etc.) |
-| **Plugin-Provided** | 65 | External service integrations (github, linear, google-drive, figma, etc.) |
+| **Agent-Attached** | 108 | Domain-specific custom skills across all agents |
+| **Local** | 62 | Reusable utilities (documents, reports, export-tools, etc.) |
+| **Plugin-Provided** | 52 | External service integrations (github, linear, google-drive, figma, etc.) |
 | **Directory-Installed** | 10 | Pre-built modules (builtins, system, documents, pdf, presentations, spreadsheets) |
-| **Platform-Managed** | 35 | Platform capabilities (imagegen, openai-docs, plugin-creator, skill-creator, skill-installer, etc.) |
-| **BATCH 2-3 TOTAL** | **285 skills** | 11 agents, significant consolidation opportunity |
+| **Platform-Managed** | 20 | Platform capabilities (imagegen, openai-docs, plugin-creator, skill-creator, skill-installer, etc.) |
+| **BATCH 2-3 TOTAL** | **252 skills** | 11 agents, significant consolidation opportunity |
 
 ### Batch 1 vs. Batch 2-3 Comparison
 
 | Metric | Batch 1 (5 agents) | Batch 2-3 (11 agents) | Total (16 agents) |
 |--------|------------------|----------------------|------------------|
-| **Total Skills** | 125 | 285 | 410 |
-| **Agent-Attached** | 88 | 110 | 198 |
-| **Local** | 19 | 65 | 84 |
-| **Plugin-Provided** | 18 | 65 | 83 |
-| **Avg Skills/Agent** | 25 | 26 | 25.6 |
+| **Total Skills** | 125 | 252 | 377 |
+| **Agent-Attached** | 84 | 108 | 192 |
+| **Local** | 16 | 62 | 78 |
+| **Plugin-Provided** | 20 | 52 | 72 |
+| **Avg Skills/Agent** | 25 | 23 | 23.6 |
 
 ### Key Observations
 

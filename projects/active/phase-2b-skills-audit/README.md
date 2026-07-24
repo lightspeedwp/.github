@@ -31,7 +31,7 @@ related_branches:
 | Project | Phase 2B Skills Architecture Audit & Consolidation |
 | Version | 1.1.0 (Batch 2-3 Complete) |
 | Status | Phase A: Audit Complete (100%) |
-| Scope | 16 agents (410 total skills), 123 root skills, 285 skills in Batch 2-3 |
+| Scope | 16 agents (377 total skills), 123 root skills, 252 skills in Batch 2-3 |
 | Deliverables | 8 audit documents, 3-phase consolidation strategy |
 | Date Started | 2026-07-24 |
 | Phase A Completed | 2026-07-24 |
