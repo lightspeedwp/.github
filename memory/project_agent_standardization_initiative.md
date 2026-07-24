@@ -65,7 +65,7 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
   - tool-guardian
 - README.md with hook-registry.json
 
-### Schema Folder (`/schema/`)
+### Schema Folder (`/.schemas/`)
 
 - 16 schema files including:
   - agent-config.schema.json

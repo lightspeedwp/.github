@@ -90,7 +90,7 @@ Reference plugin:
 
 ## References
 
-- [agent-plugin-binding.schema.json](../schema/agent-plugin-binding.schema.json)
+- [agent-plugin-binding.schema.json](../.schemas/agent-plugin-binding.schema.json)
 - [agent-creation-workflow.instructions.md](./agent-creation-workflow.instructions.md)
 
 ---

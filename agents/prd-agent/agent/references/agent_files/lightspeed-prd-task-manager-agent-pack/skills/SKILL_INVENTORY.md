@@ -67,7 +67,7 @@ Apply these principles before selecting any skill:
 | `lightspeed-github-issue-drafter` | GitHub-ready Markdown issue drafts | PRDs, task plans, bugs, QA findings, implementation plans | Review-ready issue bodies, acceptance criteria, labels, dependency notes | The user needs full task planning rather than issue drafting |
 | `lightspeed-implementation-plan-generator` | Developer sequencing and handoff planning | Approved requirements, technical briefs, task plans, issue drafts | Implementation plans, sequencing, testing approach, dependency handling, handoff notes | The work should still be defined at PRD or task-plan level |
 | `lightspeed-prd-task-reviewer` | Quality review of existing planning artefacts | Existing PRDs, briefs, task plans, issue drafts, handoff packs | Gap analysis, readiness review, revision guidance, stronger rewritten drafts | The user needs a first draft, not a review pass |
-| `markdown-content-validator` | Markdown/frontmatter/schema/version validation | Existing Markdown deliverables or files | Validation findings, schema issues, version issues, recommended fixes | The user needs planning content created rather than validated |
+| `markdown-content-validator` | Markdown/frontmatter/.schemas/version validation | Existing Markdown deliverables or files | Validation findings, schema issues, version issues, recommended fixes | The user needs planning content created rather than validated |
 
 ## Supporting specialist skills
 

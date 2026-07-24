@@ -46,7 +46,7 @@ The current scaffold is intended to validate:
 - required folder and file presence
 - nested-folder README coverage
 - README/file inventory alignment
-- schema presence and schema/file alignment
+- schema presence and .schemas/file alignment
 - markdown structure
 - naming conventions
 - memory hygiene

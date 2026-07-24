@@ -91,7 +91,7 @@ This document summarizes the complete standardization initiative for converting 
 │   └── ...
 ├── skills/                    # Shared skills
 ├── hooks/                     # Shared hooks
-├── schema/                    # Plugin-specific schema
+├── .schemas/                    # Plugin-specific schema
 └── cookbook/                  # Integration recipes
 ```
 
@@ -377,7 +377,7 @@ Is this agent part of an existing domain/category?
 - **LightSpeed CLAUDE.md** — Repository governance rules
 - **AGENTS.md** — Global AI rules
 - **.github/instructions/** — Existing instruction files
-- **.github/schema/** — Existing schemas
+- **.github/.schemas/** — Existing schemas
 - **.github/hooks/** — Existing hook patterns
 - **.github/plugins/lightspeed-*/** — Reference plugin implementations
 

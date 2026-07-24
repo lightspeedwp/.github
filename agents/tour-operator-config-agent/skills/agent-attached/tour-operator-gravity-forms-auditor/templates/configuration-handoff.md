@@ -48,7 +48,7 @@
 
 ## Validation checklist
 
-- Inspect post-change form schema/settings.
+- Inspect post-change form .schemas/settings.
 - Inspect notifications/confirmations/feeds.
 - Inspect page embed.
 - Run approved safe test submission only if permitted.

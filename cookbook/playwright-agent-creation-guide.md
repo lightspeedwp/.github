@@ -53,7 +53,7 @@ mkdir -p $A/shared/{tools,memory,hooks} $A/claude $A/copilot $A/openai $A/.githu
 ## Phase 3 — Spec and core prompt
 
 - `AGENT.md` — frontmatter valid against
-  [`multi-provider-agent.schema.json`](../schema/multi-provider-agent.schema.json);
+  [`multi-provider-agent.schema.json`](../.schemas/multi-provider-agent.schema.json);
   documents the real responsibilities, workflow, source priority, and integrations.
 - `shared/core-prompt.md` — provider-agnostic instructions (routing, requirement
   discipline, Playwright rules, WP/Woo rules, safety).

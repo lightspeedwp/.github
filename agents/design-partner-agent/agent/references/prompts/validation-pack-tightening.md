@@ -57,7 +57,7 @@ Tighten visible validation coverage around the current workflow names, file stru
 
 ## What to look for
 
-- schema/template/example families that no longer line up cleanly
+- .schemas/template/example families that no longer line up cleanly
 - validator scripts that only check part of a workflow family and leave obvious drift uncaught
 - README or prompt wording that overclaims validation coverage
 - stale references to hidden or unstaged test sources

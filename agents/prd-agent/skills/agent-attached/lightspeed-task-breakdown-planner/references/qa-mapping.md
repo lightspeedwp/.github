@@ -47,7 +47,7 @@ Every implementation task should map to at least one QA check.
 - performance
 - content accuracy
 - analytics/tracking
-- schema/search
+- .schemas/search
 - regression risk
 
 ## QA note format

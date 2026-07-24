@@ -208,7 +208,7 @@ labels: ["type:bug", "status:needs-triage", "priority:normal"]
 
 - Required fields: `name`, `about`, `title`, `labels`
 - Optional fields: `assignees`, `projects`, `milestone`, `type`
-- References FRONTMATTER_SCHEMA.md and schema/frontmatter.schema.json
+- References FRONTMATTER_SCHEMA.md and .schemas/frontmatter.schema.json
 
 **Assessment:** **instructions/issues.instructions.md is authoritative.** ISSUE_CREATION_GUIDE.md should reference it or include summary.
 

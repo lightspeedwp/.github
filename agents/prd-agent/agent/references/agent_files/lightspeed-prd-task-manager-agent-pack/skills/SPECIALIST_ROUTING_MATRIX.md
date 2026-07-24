@@ -71,7 +71,7 @@ Use these rules in order:
 | GitHub-ready issue bodies | `lightspeed-github-issue-drafter` | `evidence-locker` if issue content must stay tightly grounded | `markdown-content-validator` |
 | Developer sequencing, implementation workstreams, handoff plan | `lightspeed-implementation-plan-generator` | `evidence-locker` when implementation claims need source support | `lightspeed-acceptance-test-planner`, `lightspeed-release-handoff-generator` |
 | Review of a PRD, brief, task plan, issue draft, or handoff pack | `lightspeed-prd-task-reviewer` | `evidence-locker` when unsupported claims or assumption drift are likely | `markdown-content-validator` |
-| Markdown/frontmatter/schema/version validation | `markdown-content-validator` | None by default | Return fixes or send back to the originating planning skill |
+| Markdown/frontmatter/.schemas/version validation | `markdown-content-validator` | None by default | Return fixes or send back to the originating planning skill |
 | Acceptance testing or QA planning | `lightspeed-acceptance-test-planner` | `evidence-locker` if acceptance criteria must be source-backed | `lightspeed-qa-findings-router` |
 | QA findings triage | `lightspeed-qa-findings-router` | `evidence-locker` when severity or claims must be justified | `lightspeed-github-issue-drafter` |
 | Launch-readiness routing | `lightspeed-launch-task-router` | `evidence-locker` when launch evidence is incomplete or risky | `lightspeed-release-handoff-generator`, `lightspeed-project-status-reporter` |

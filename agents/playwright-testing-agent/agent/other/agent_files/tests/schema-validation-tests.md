@@ -53,7 +53,7 @@ Verify the root `README.md` and each folder `README.md` use the expected section
 
 ## Required Folder Checks
 
-Verify required folders exist, required files exist, file naming conventions are followed, and fail if `schema/` exists instead of `schemas/`.
+Verify required folders exist, required files exist, file naming conventions are followed, and fail if `.schemas/` exists instead of `schemas/`.
 
 ## Routing Checks
 
@@ -85,7 +85,7 @@ Verify prompt files, README files, and validation docs use current folder names,
 
 ## Link And Reference Checks
 
-Verify internal file references resolve, example and schema references are valid, no broken relative links remain in the documented pack layer, and no invalid references point to a missing `schema/` path.
+Verify internal file references resolve, example and schema references are valid, no broken relative links remain in the documented pack layer, and no invalid references point to a missing `.schemas/` path.
 
 ## Markdown Structure Checks
 

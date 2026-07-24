@@ -20,7 +20,7 @@
 | Evidence source | Detail | Confidence | Notes |
 |---|---|---|---|
 | MCP preflight |  |  |  |
-| Form schema/settings |  |  |  |
+| Form .schemas/settings |  |  |  |
 | Page/embed evidence |  |  |  |
 | Logs/metadata |  |  |  |
 

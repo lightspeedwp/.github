@@ -99,7 +99,7 @@ Scope:
    - `references/CONNECTORS.md`
 2. Ensure the instructions clearly reflect that:
    - any local memory guidance governs memory structure and durable memory usage notes when present
-   - `schemas/*.json` are schema/validation files
+   - `schemas/*.json` are .schemas/validation files
    - `tests/` contains QA sources, scenario checks, and validation-supporting materials
    - `references/` contains durable guidance and standards
    - `scripts/` contains maintenance and validation helpers

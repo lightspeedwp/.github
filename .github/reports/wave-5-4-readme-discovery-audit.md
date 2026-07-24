@@ -120,7 +120,7 @@ This audit discovered **57 README.md files** across the LightSpeed `.github` rep
 | File | Path | Status |
 | --- | --- | --- |
 | Schemas (.github) | `.github/schemas/README.md` | ✅ No diagrams |
-| Schemas (top-level) | `schema/README.md` | ✅ No diagrams |
+| Schemas (top-level) | `.schemas/README.md` | ✅ No diagrams |
 | Prompts (.github) | `.github/prompts/README.md` | ✅ No diagrams |
 
 ### Scripts & Validation (5 files)

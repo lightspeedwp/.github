@@ -180,7 +180,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ├── hooks/
 │   ├── agent-validation.js
 │   └── security-checks.js
-├── schema/
+├── .schemas/
 │   └── agent-manifest.schema.json  # Plugin-specific schema
 └── cookbook/
     └── playwright-testing-playbook.md

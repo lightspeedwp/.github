@@ -63,7 +63,7 @@ The PRD Task Manager should create a planning-level QA section and then route sp
 - forms and conversion QA
 - analytics/tagging QA
 - redirects/SEO QA
-- schema/AI discoverability QA
+- .schemas/AI discoverability QA
 - policy/governance QA
 - go/no-go gates
 

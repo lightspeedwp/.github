@@ -39,7 +39,7 @@
 
 - **Source package root:** `prompts/tour-operator-website`
 - **Working package label:** `tour-operator-website`
-- **Verified domain identity:** a specialist Tour Operator WordPress reference/source tree for website audits, content-model interpretation, schema/Yoast readiness, QA planning, and implementation handoffs
+- **Verified domain identity:** a specialist Tour Operator WordPress reference/source tree for website audits, content-model interpretation, .schemas/Yoast readiness, QA planning, and implementation handoffs
 - **Canonical skill name:** unverified
 - **Canonical packaged entrypoint:** unverified
 - **Buildable local skill root shape:** unverified

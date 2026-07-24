@@ -55,7 +55,7 @@ Scope:
    - `references/CONNECTORS.md`
 2. Ensure the instructions clearly reflect that:
    - `memory/defaults/*.md` are reusable memory starter files
-   - `memory/schemas/*.schema.yaml` are schema/validation files
+   - `memory/schemas/*.schema.yaml` are .schemas/validation files
    - `intake/` contains intake scaffolds, registers, checklists, and memory-promotion helpers
 3. Update `memory/README.md` with:
    - folder purpose

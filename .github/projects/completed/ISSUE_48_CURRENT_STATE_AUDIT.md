@@ -34,7 +34,7 @@ domain: governance
 This document audits the current state of branding implementations across the LightSpeed `.github` repository against the new unified branding agent specification (Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49)). The audit identifies:
 
 - Existing branding patterns and inconsistencies
-- Compliance gaps with the new schema/config model
+- Compliance gaps with the new .schemas/config model
 - High-priority remediation areas
 - Remediation sequencing and effort estimates
 - Documentation updates required for agent implementation
@@ -70,7 +70,7 @@ The goal is to establish a baseline understanding of current branding state and 
 The audit follows a staged approach:
 
 1. **Inventory Phase**: Catalog current branding implementations
-2. **Validation Phase**: Check compliance with new schema/config
+2. **Validation Phase**: Check compliance with new .schemas/config
 3. **Gap Analysis Phase**: Identify discrepancies and inconsistencies
 4. **Remediation Planning Phase**: Create prioritized fix list
 5. **Documentation Phase**: Update guidance and governance docs

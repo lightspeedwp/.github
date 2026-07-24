@@ -103,7 +103,7 @@ Scope:
    - `references/audit-docs-validation-workflow.md`
 2. Ensure the instructions clearly reflect that:
    - `memory/*.md` are durable working-memory files
-   - `schemas/*.json` are schema/validation files
+   - `schemas/*.json` are .schemas/validation files
    - `templates/` contains reusable output templates and checklists
    - `examples/` contains worked examples and sample outputs
    - `profiles/` contains reusable WordPress operating profiles

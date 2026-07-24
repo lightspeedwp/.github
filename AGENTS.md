@@ -328,7 +328,7 @@ Use [.github/PULL_REQUEST_TEMPLATE/config.yml](.github/PULL_REQUEST_TEMPLATE/con
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `schema/` | `pr_feature.md` |
+| `.schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |
@@ -404,7 +404,7 @@ Start here for all key standards:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
 - [Main Documentation](README.md) - Project overview
-- [Frontmatter Schema](schema/frontmatter.schema.json) - Schema validation
+- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

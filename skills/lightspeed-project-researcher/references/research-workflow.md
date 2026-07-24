@@ -62,7 +62,7 @@ Group findings by:
 - integrations
 - data/analytics
 - accessibility/performance
-- SEO/schema/redirects
+- SEO/.schemas/redirects
 - governance/policies
 - launch constraints
 

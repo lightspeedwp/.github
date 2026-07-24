@@ -23,4 +23,4 @@ Map current repository structure against `CLAUDE.md` boundary rules and identify
 
 - `CLAUDE.md`
 - `.github/`
-- `agents/`, `scripts/`, `schema/`, `instructions/`, `workflows/`
+- `agents/`, `scripts/`, `.schemas/`, `instructions/`, `workflows/`

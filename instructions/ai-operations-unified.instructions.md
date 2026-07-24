@@ -53,7 +53,7 @@ id). The requirement is an auditable trail, not a specific URL format.
 ### File placement
 
 - Portable AI assets live in top-level source folders: `agents/`, `plugins/`,
-  `skills/`, `hooks/`, `instructions/`, `cookbook/`, `schema/`, `ai/`.
+  `skills/`, `hooks/`, `instructions/`, `cookbook/`, `.schemas/`, `ai/`.
 - GitHub-native governance lives under `.github/`.
 - Temporary scratch lives in `.github/tmp/` and is removed before a PR.
 

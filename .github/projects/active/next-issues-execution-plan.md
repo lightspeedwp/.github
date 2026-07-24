@@ -381,13 +381,13 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 - [x] Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (parent spec) completed and merged
 - [x] Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (template design) completed and merged
-- [x] Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config spec) completed and merged
+- [x] Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (.schemas/config spec) completed and merged
 - [x] Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (documentation) completed and merged
 
 **Next Steps (Implementation — Claude Code)**:
 
 - [x] Create Wave 4C issue ([#553](https://github.com/lightspeedwp/.github/issues/553) current-state audit)
-- [x] Create Wave 4D issue ([#554](https://github.com/lightspeedwp/.github/issues/554) schema/config implementation)
+- [x] Create Wave 4D issue ([#554](https://github.com/lightspeedwp/.github/issues/554) .schemas/config implementation)
 - [x] Create Wave 4E issue ([#555](https://github.com/lightspeedwp/.github/issues/555) agent merge/refactor)
 - [x] Create Wave 4F issue ([#556](https://github.com/lightspeedwp/.github/issues/556) remediation & validation)
 - [ ] Execute [#553](https://github.com/lightspeedwp/.github/issues/553)–[#556](https://github.com/lightspeedwp/.github/issues/556) in sequence (ready to start)

@@ -73,7 +73,7 @@ You can also validate the `tools.json` files against the provider-config schema:
 node -e '
 const fs=require("fs"),Ajv=require("ajv"),addFormats=require("ajv-formats");
 const ajv=new Ajv({allErrors:true,strict:false}); addFormats(ajv);
-const v=ajv.compile(JSON.parse(fs.readFileSync("schema/provider-config.schema.json")));
+const v=ajv.compile(JSON.parse(fs.readFileSync(".schemas/provider-config.schema.json")));
 for (const p of ["claude/tools.json","openai/tools.json"]) {
   const ok=v(JSON.parse(fs.readFileSync("agents/playwright-testing-agent/"+p)));
   console.log(p, ok ? "VALID" : JSON.stringify(v.errors));

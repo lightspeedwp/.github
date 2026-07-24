@@ -1,7 +1,7 @@
 # PROMPT 1: Playwright Testing Agent Rewrite + Repository Standardization
 
 **Use Case:** Initial pilot rewrite of ChatGPT agent export into multi-provider format  
-**Scope:** Agent rewrite + repo audit + schema/hooks/instruction creation  
+**Scope:** Agent rewrite + repo audit + .schemas/hooks/instruction creation  
 **Branch:** `feat/agent-standards-playwright-testing`  
 **Target:** `develop`  
 
@@ -94,11 +94,11 @@ Create `.github/tmp/hooks-audit.md` proposing:
 **Objective:** Review existing schemas and create new schemas for multi-provider agents.
 
 **Sources to Review:**
-- `.github/schema/agent-config.schema.json`
-- `.github/schema/plugin-manifest.schema.json`
-- `.github/schema/skill-agent-config.schema.json`
-- `.github/schema/frontmatter.schema.json`
-- `.github/schema/schema-registry.json`
+- `.github/.schemas/agent-config.schema.json`
+- `.github/.schemas/plugin-manifest.schema.json`
+- `.github/.schemas/skill-agent-config.schema.json`
+- `.github/.schemas/frontmatter.schema.json`
+- `.github/.schemas/schema-registry.json`
 
 **Deliverable:**
 Create `.github/tmp/schema-audit.md` documenting:
@@ -153,7 +153,7 @@ Create `.github/tmp/ai-config-audit.md` proposing:
 **Objective:** Audit memory schema and work-focus folder to ensure agent memory persistence aligns with new standards.
 
 **Sources:**
-- `.github/schema/memory/` folder
+- `.github/.schemas/memory/` folder
 - `.github/.remember/` folder (session memory)
 
 **Deliverable:**
@@ -1552,13 +1552,13 @@ This cookbook entry walks through the creation of the Playwright Testing Agent a
 
 **Deliverables:**
 
-A. `.github/schema/multi-provider-agent.schema.json` — Validates multi-provider agent structure
+A. `.github/.schemas/multi-provider-agent.schema.json` — Validates multi-provider agent structure
 
-B. `.github/schema/agent-plugin-binding.schema.json` — Validates agent-plugin relationships
+B. `.github/.schemas/agent-plugin-binding.schema.json` — Validates agent-plugin relationships
 
-C. `.github/schema/provider-config.schema.json` — Validates per-provider configs
+C. `.github/.schemas/provider-config.schema.json` — Validates per-provider configs
 
-D. `.github/schema/agent-capability-manifest.schema.json` — Validates agent capabilities
+D. `.github/.schemas/agent-capability-manifest.schema.json` — Validates agent capabilities
 
 [Full JSON schema specifications for each]
 

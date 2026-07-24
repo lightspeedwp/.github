@@ -61,7 +61,7 @@ Load only the files needed for the current configuration, validation, troublesho
 - Repository, uploaded-source, branch, tag or code-evidence review: `references/workflows/repository-evidence-review.md`.
 - Updating bundled source-backed content-model files: `references/workflows/content-model-maintenance.md`.
 - Enquiry, quote request, lead routing, spam, privacy or Gravity Forms tasks: `references/workflows/gravity-forms-tour-operator-workflows.md`.
-- Yoast, JSON-LD, structured data, ratings, pricing, review or destination schema tasks: `references/workflows/jsonld-yoast-workflow.md` and `references/schema/jsonld-yoast-schema-map.json`.
+- Yoast, JSON-LD, structured data, ratings, pricing, review or destination schema tasks: `references/workflows/jsonld-yoast-workflow.md` and `references/.schemas/jsonld-yoast-schema-map.json`.
 - Site Editor, block-theme, template, pattern, archive or single-template work: `references/workflows/block-theme-tour-operator-patterns.md`.
 - Acceptance criteria, QA matrices, retest scripts or go/no-go coverage: `references/workflows/acceptance-test-planning.md` and `references/outputs/acceptance-criteria-library.md`.
 - GitHub, Linear, Asana or internal issue drafts from findings: `references/workflows/issue-handoff-workflow.md` and `references/outputs/issue-draft-templates.md`.

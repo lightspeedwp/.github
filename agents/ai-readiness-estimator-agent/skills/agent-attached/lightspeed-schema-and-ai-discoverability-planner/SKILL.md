@@ -41,7 +41,7 @@ Accept any combination of:
 - schema validation results
 - internal linking plans
 
-If input evidence is missing, create a safe schema/discoverability plan and list the missing evidence rather than pretending validation has been completed.
+If input evidence is missing, create a safe .schemas/discoverability plan and list the missing evidence rather than pretending validation has been completed.
 
 ## Output types
 
@@ -78,7 +78,7 @@ Generate:
 
 ## Required output sections
 
-For schema/discoverability plans, include:
+For .schemas/discoverability plans, include:
 
 - Executive summary
 - Page-level schema recommendations

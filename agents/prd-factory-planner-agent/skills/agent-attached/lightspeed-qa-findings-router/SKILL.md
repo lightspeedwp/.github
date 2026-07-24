@@ -1,6 +1,6 @@
 ---
 name: lightspeed-qa-findings-router
-description: triage qa findings for lightspeed figma design system to wordpress block theme, block plugin, woocommerce, publishing, tourism and hybrid-theme projects. use when the user has acceptance test results, launch qa findings, figma-to-wordpress parity issues, accessibility failures, responsive bugs, form/tracking defects, schema/redirect issues or content/governance review notes and needs prioritised fixes, severity classification, ownership, github-ready issue drafts, retest steps or launch blocker routing.
+description: triage qa findings for lightspeed figma design system to wordpress block theme, block plugin, woocommerce, publishing, tourism and hybrid-theme projects. use when the user has acceptance test results, launch qa findings, figma-to-wordpress parity issues, accessibility failures, responsive bugs, form/tracking defects, .schemas/redirect issues or content/governance review notes and needs prioritised fixes, severity classification, ownership, github-ready issue drafts, retest steps or launch blocker routing.
 ---
 
 # LightSpeed QA Findings Router
@@ -70,7 +70,7 @@ Route findings to existing specialist skills when needed:
 - design parity findings → `lightspeed-figma-wordpress-parity-auditor`
 - launch readiness findings → `lightspeed-launch-readiness-auditor`
 - redirect/404 findings → `lightspeed-redirect-map-planner`
-- schema/AI search findings → `lightspeed-schema-and-ai-discoverability-planner`
+- .schemas/AI search findings → `lightspeed-schema-and-ai-discoverability-planner`
 - GA4/GTM findings → `lightspeed-ga4-conversion-tracking-planner`
 - claim/content findings → `lightspeed-claim-register-auditor` or `lightspeed-website-content-generator`
 - policy/trust findings → `lightspeed-policy-page-generator`

@@ -163,7 +163,7 @@ Use this file to answer feature-by-feature questions. It is a routing and QA ref
 - **What it does:** internal architecture storing SEO data for efficient output.
 - **Plugin scope:** free; internal architecture; verify current product boundaries before client-facing claims.
 - **Configuration:** load `references/configuration-reference.md`; exact UI paths need live verification.
-- **Output changed:** metadata/schema/canonical resolution.
+- **Output changed:** metadata/.schemas/canonical resolution.
 - **Common mistakes:** treating product marketing as implementation evidence; changing output without rendered-source QA; failing to align indexation, canonical and sitemap decisions.
 - **Recommended QA:** check rendered source, relevant sitemap entries, robots/meta robots state, schema validation where relevant, and Search Console tools where applicable.
 - **Developer extension points:** verify in `references/developer-api-reference.md` before naming filters/actions.
@@ -240,7 +240,7 @@ Use this file to answer feature-by-feature questions. It is a routing and QA ref
 - **What it does:** shop/product category/product tag indexing, schema and metadata.
 - **Plugin scope:** free+woocommerce; verify add-on boundary; verify current product boundaries before client-facing claims.
 - **Configuration:** load `references/configuration-reference.md`; exact UI paths need live verification.
-- **Output changed:** archive metadata/schema/sitemaps.
+- **Output changed:** archive metadata/.schemas/sitemaps.
 - **Common mistakes:** treating product marketing as implementation evidence; changing output without rendered-source QA; failing to align indexation, canonical and sitemap decisions.
 - **Recommended QA:** check rendered source, relevant sitemap entries, robots/meta robots state, schema validation where relevant, and Search Console tools where applicable.
 - **Developer extension points:** verify in `references/developer-api-reference.md` before naming filters/actions.
