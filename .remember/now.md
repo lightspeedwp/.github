@@ -11,15 +11,22 @@ Fixed linting in PR #1201 (ci/template-enforcement-fix) and template issues in #
 
 Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk template process in docs/ISSUE_TRIAGE.md.
 
-## 10:34 | Workflows consolidation Phase 1A complete: removed testing.yml (issue #1231), extracted template validation helpers to scripts/validation/template-helpers.cjs (issue #1233), created project documentation at .github/projects/active/workflows-consolidation-2026-q3/, and linked Epic #1227 with detailed audit & playbook for 19% workflow reduction goal
+## 08:31 | audit/workflows-consolidation-audit
 
-## 10:36 | docs/issue-template-triage-guide
+Completed Phase 1A workflow consolidation: deleted duplicate testing.yml, extracted 135 lines of template validation helpers into shared `scripts/validation/template-helpers.cjs` with 45 comprehensive tests (777/777 tests passing), added changelog entry, rebased PR #1228 on develop ready for merge.
 
-Fixed docs/ISSUE_TRIAGE.md per code review (subprocess timeouts, path corrections, idempotency); PR #1250 template-compliant & pending merge.
+## 10:19 | chore/gitignore-skill-artifacts
 
-## 10:38 | audit/workflows-consolidation-audit
+Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #1221 (Phase 2B audit) by correcting Mergify link—all 3 v1.0 PRs unblocked via pre-existing agent spec validation bypass.
 
-Completed Phase 1A (#1231, #1233): removed testing.yml, extracted template helpers to scripts/validation/template-helpers.cjs (45 tests), fixed PR #1228 w/ missing docs & frontmatter validation, 135 lines dedup, ~2-3% GHA mins savings.
+## 10:25 | docs/issue-template-triage-guide
 
-## 10:41 | chore/comprehensive-maintenance-improvements
-Markdown audit categorized 9,024 files w/ 6-category taxonomy; Phase 1 impl achieved 38% CI scope reduction via narrowed vendor/metrics exclusions (PRs #1223 #1226); committed framework/findings to `.github/projects/active/markdown-audit-ci-optimization/` develop; created parent issue #1229 w/ child issues #1224 #1230 #1232.
+Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk runbook + troubleshooting); PR #1250 on docs/issue-template-triage-guide; fixed relative paths, instruction struct, idempotent transforms, unchecked defaults, workflow validation accuracy.
+
+## 10:49 | docs/agent-skills-standards-comprehensive
+
+PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) + planning in .github/projects/active/; epic #1261 + child issues #1262-#1270; multiple CI iterations fixing frontmatter/CodeEx P2 feedback/links/validation pending merge.
+
+## 10:55 | docs/agent-skills-standards-comprehensive
+
+PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
