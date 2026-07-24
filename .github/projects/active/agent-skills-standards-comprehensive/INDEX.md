@@ -1,9 +1,10 @@
 ---
+file_type: documentation
 name: Agent & Skills Standards Comprehensive Documentation
 description: Unified documentation standards for agents, skills, instructions, workflows, cookbooks, plugins, hooks, and prompts
 status: active
 created: 2026-07-24
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Agent & Skills Standards Comprehensive Documentation Initiative
