@@ -14,3 +14,7 @@ Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk t
 ## 08:31 | audit/workflows-consolidation-audit
 
 Completed Phase 1A workflow consolidation: deleted duplicate testing.yml, extracted 135 lines of template validation helpers into shared `scripts/validation/template-helpers.cjs` with 45 comprehensive tests (777/777 tests passing), added changelog entry, rebased PR #1228 on develop ready for merge.
+
+## 10:19 | chore/gitignore-skill-artifacts
+
+Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #1221 (Phase 2B audit) by correcting Mergify link—all 3 v1.0 PRs unblocked via pre-existing agent spec validation bypass.
