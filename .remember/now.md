@@ -135,3 +135,7 @@ Audited schema consolidation (26 files, 150+ refs), agents (35 agents, 12k+ file
 ## 14:28 | audit/skills-standards-batch-2-3
 
 Completed Phase 2B Batch 2-3 skills audit (11 agents, 258 skills); PR #1284 pushed with all CI checks passing after fixing npm script argument forwarding (root cause of footer validation scanning all 9074 files), security audit false positives, frontmatter freshness, and broken badge links; audit doc at `.github/projects/active/agent-skills-standards-comprehensive/PHASE-2B-SKILLS-AUDIT.md` ready for merge.
+
+## 15:33 | refactor/repo-structure-realignment
+
+Applied refactor PR templates to #1303/#1289 with comprehensive issue linking; schema consolidation verified (26 files migrated to .schemas/, 4 validation tests passing); code review feedback added & applied to CLAUDE.md (path reference table); marked child issues #1292/#1295/#1296 complete; merge conflicts in memory tracking files identified during rebase, resolving.
