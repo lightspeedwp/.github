@@ -1,6 +1,11 @@
-name: Validate Mermaid Diagrams
+name: Validate Mermaid Diagrams [DEPRECATED]
 
 on:
+  # DISABLED: Consolidated into docs-validation.yml
+  # This workflow is deprecated and will be removed after Phase 2.3
+  # See: .github/projects/active/workflows-consolidation-2026-q3/PHASE_2_2_TEST_RESULTS.md
+  workflow_run:
+    workflows: []
   pull_request:
     branches:
       - develop
