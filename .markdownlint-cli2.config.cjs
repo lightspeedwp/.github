@@ -116,6 +116,21 @@ module.exports = {
     "AWESOME_GITHUB_MAPPING_STRATEGY.md",
     "wceu-2026/**/*.md",
     ".github/projects/**/*.md",
+
+    // Vendored/platform-managed content (not repo-authored)
+    // These are bundled references, external platform docs, market-sourced components
+    "*/plugin-provided/**",
+    "*/platform-managed/**",
+    "*/directory-installed/**",
+    "*/agentskills-main/**",
+    "*/tests/markdown-issues.md",
+
+    // Generated audit/report outputs (not source documentation)
+    // Note: .github/metrics/README.md is hand-authored and should be linted
+    ".github/reports/**",
+    ".github/audits/**",
+    ".github/metrics/out/**",
+    ".github/metrics/**/*.json",
   ],
 
   /**
