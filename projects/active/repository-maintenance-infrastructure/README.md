@@ -4,7 +4,7 @@ title: Repository Maintenance & Branch Cleanup Automation
 description: Comprehensive maintenance procedures, automated cleanup tooling, and team documentation for .github repository operations
 status: completed
 last_updated: 2026-07-24
-version: 1.0.0
+version: 1.0.1
 owners:
   - lightspeedwp/maintainers
 tags:
