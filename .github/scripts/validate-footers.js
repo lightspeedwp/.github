@@ -33,18 +33,6 @@ const FOOTER_CONFIG_PATH = path.join(
   "../../config/footers.config.yaml",
 );
 
-// Load configuration
-let footerConfig;
-
-try {
-  const configContent = fs.readFileSync(FOOTER_CONFIG_PATH, "utf8");
-  footerConfig = yaml.load(configContent);
-  console.log("✅ Loaded footer configuration");
-} catch (err) {
-  console.error("❌ Failed to load configuration:", err.message);
-  process.exit(1);
-}
-
 // Parse command-line flags
 const args = process.argv.slice(2);
 const shouldFix = args.includes("--fix");
@@ -55,6 +43,18 @@ const verbose = args.includes("--verbose");
 const changedOnly = args.includes("--changed-only");
 const baseSha = args.find((arg) => arg.startsWith("--base="))?.split("=")[1];
 const headSha = args.find((arg) => arg.startsWith("--head="))?.split("=")[1];
+
+// Load configuration
+let footerConfig;
+
+try {
+  const configContent = fs.readFileSync(FOOTER_CONFIG_PATH, "utf8");
+  footerConfig = yaml.load(configContent);
+  if (verbose) console.log("✅ Loaded footer configuration");
+} catch (err) {
+  console.error("❌ Failed to load configuration:", err.message);
+  process.exit(1);
+}
 
 // Track violations
 const violations = {
