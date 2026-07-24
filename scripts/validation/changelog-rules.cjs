@@ -118,7 +118,6 @@ class ChangelogValidator {
     };
 
     let inUnreleased = false;
-    let inEntry = false;
     let currentEntry = "";
     let currentLine = 0;
 
