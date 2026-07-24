@@ -2,9 +2,9 @@
 file_type: 'documentation'
 title: 'Design Partner Agent'
 description: 'Multi-provider AI design consultant for design systems, accessibility assessment, and UI/UX review'
-version: '1.0.0'
+version: '1.0.1'
 created_date: '2026-07-22'
-last_updated: '2026-07-22'
+last_updated: '2026-07-24'
 maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team
