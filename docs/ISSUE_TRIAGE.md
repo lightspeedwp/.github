@@ -284,14 +284,21 @@ def create_issue_body(issue_id, current_body, template_info):
 ```python
 import subprocess
 
-def update_issue(issue_id, new_body):
-    """Update GitHub issue with new body"""
+def update_issue(issue_id, new_body, timeout=30):
+    """Update GitHub issue with new body.
+    
+    Args:
+        issue_id: GitHub issue number
+        new_body: Issue body content
+        timeout: Maximum seconds to wait for gh CLI (default 30)
+    """
     try:
         result = subprocess.run(
             ['gh', 'issue', 'edit', str(issue_id), '--body', new_body],
             cwd='/path/to/.github',
             capture_output=True,
-            text=True
+            text=True,
+            timeout=timeout
         )
         
         if result.returncode == 0:
@@ -300,6 +307,9 @@ def update_issue(issue_id, new_body):
         else:
             print(f"❌ Failed to update #{issue_id}: {result.stderr}")
             return False
+    except subprocess.TimeoutExpired:
+        print(f"❌ Timeout updating #{issue_id} (exceeded {timeout}s)")
+        return False
     except Exception as e:
         print(f"❌ Error updating #{issue_id}: {e}")
         return False
@@ -314,12 +324,18 @@ def main():
     
     for issue_id in sorted(ISSUE_TEMPLATES.keys(), key=int):
         # Get current body
-        result = subprocess.run(
-            ['gh', 'issue', 'view', str(issue_id), '--json', 'body', '-q', '.body'],
-            cwd='/path/to/.github',
-            capture_output=True,
-            text=True
-        )
+        try:
+            result = subprocess.run(
+                ['gh', 'issue', 'view', str(issue_id), '--json', 'body', '-q', '.body'],
+                cwd='/path/to/.github',
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+        except subprocess.TimeoutExpired:
+            print(f"❌ Timeout fetching #{issue_id} (exceeded 30s)")
+            failed += 1
+            continue
         
         if result.returncode != 0:
             failed += 1
