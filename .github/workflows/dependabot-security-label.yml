@@ -7,7 +7,9 @@ on:
 
 jobs:
   label-security-updates:
-    if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'app/dependabot'
+    if: false # DEPRECATED: Consolidated into labeling-governance.yml (Phase 3.1) — See PR #1319
+    # Original condition preserved below for reference:
+    # if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'app/dependabot'
     runs-on: ubuntu-latest
     permissions:
       contents: read
