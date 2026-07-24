@@ -3,7 +3,7 @@ name: Metrics • Collection & Reporting
 on:
   schedule:
     # Monday 6:00 AM UTC - triggers both jobs sequentially
-    - cron: "0 6 * * 1"
+    - cron: "0 6 ** 1"
   workflow_dispatch:
     inputs:
       stage:
@@ -28,6 +28,7 @@ env:
 
 jobs:
   # Stage 1: Collect metrics (from metrics.yml)
+
   collect:
     name: Collect frontmatter metrics
     if: |
@@ -105,7 +106,9 @@ jobs:
             }
 
   # Stage 2: Aggregate & report (from metrics-summary.yml)
+
   # Runs after collect completes (dependency chain ensures sequential execution)
+
   aggregate:
     name: Aggregate metrics & generate report
     needs: collect
@@ -188,6 +191,7 @@ jobs:
           node -e "const fs=require('fs');const p='${{ env.REPORTS_DIR }}/weekly-summary-latest.md';if(fs.existsSync(p)){console.log('## Weekly Metrics Summary');console.log(fs.readFileSync(p,'utf8').split('\n').slice(0,30).join('\n'));console.log('');console.log('Full report: '+p);}"
 
   # Post results to discussions
+
   post-to-discussions:
     name: Post report to discussions
     needs: aggregate

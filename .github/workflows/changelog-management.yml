@@ -25,6 +25,7 @@ permissions:
 
 jobs:
   # Job 1: Validate changelog on PR
+
   validate-changelog:
     name: Validate changelog on PR
     if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.actor != 'imgbot[bot]'
@@ -105,6 +106,7 @@ jobs:
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
 
   # Job 2: Sync changelog on merge to develop
+
   sync-changelog:
     name: Auto-sync merged changelog entries
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -199,6 +201,7 @@ jobs:
           fi
 
   # Job 3: Pre-release validation check (called from release.yml)
+
   pre-release-check:
     name: Pre-release changelog validation
     if: github.event_name == 'workflow_call'
