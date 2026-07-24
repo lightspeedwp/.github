@@ -1,6 +1,6 @@
 ---
 title: Phase 2B Skills Architecture Audit
-description: Comprehensive analysis of agent skills organization, reusability, and architectural patterns
+description: Comprehensive analysis of agent skills organisation, reusability, and architectural patterns
 created: 2026-07-24
 status: in-progress
 related_issues: '#1079'
@@ -13,10 +13,10 @@ related_branches:
 
 ## Objective
 
-Audit all 16 agents' skills to establish a clear taxonomy and architecture for skill organization. Determine:
+Audit all 16 agents' skills to establish a clear taxonomy and architecture for skill organisation. Determine:
 
 1. **Which skills are truly shared** (same implementation across multiple agents)
-2. **Which skills are agent-specific variations** (similar purpose, agent-customized implementation)
+2. **Which skills are agent-specific variations** (similar purpose, agent-customised implementation)
 3. **Which skills are unique to a single agent** (agent-specific only)
 4. **Where each skill type should be stored** (`skills/`, agent-local, or shared)
 5. **How to define and enforce the taxonomy** going forward
@@ -27,7 +27,7 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 #### ai-readiness-estimator-agent (25 skills)
 
-- **Agent-Attached (19):** ai-capability-evaluator, use-case-identifier, business-impact-analyzer, feasibility-assessor, opportunity-scorer, infrastructure-evaluator, data-quality-analyzer, workflow-analyzer, technology-auditor, scalability-assessor, team-readiness-assessor, organizational-readiness-analyzer, skill-gap-analyzer, change-capacity-evaluator, roadmap-generator, risk-assessor, roi-calculator, timeline-estimator, budget-planner
+- **Agent-Attached (19):** ai-capability-evaluator, use-case-identifier, business-impact-analyzer, feasibility-assessor, opportunity-scorer, infrastructure-evaluator, data-quality-analyzer, workflow-analyzer, technology-auditor, scalability-assessor, team-readiness-assessor, organisational-readiness-analyzer, skill-gap-analyzer, change-capacity-evaluator, roadmap-generator, risk-assessor, roi-calculator, timeline-estimator, budget-planner
 - **Local (1):** documents
 - **Plugin-Provided (4):** github, google-drive, linear, gmail
 - **Platform-Managed (1):** [extended capabilities]
@@ -64,12 +64,12 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 ### Executive Summary of Current State
 
-**Problem Identified:** The repository has 123 items in `skills/` directory, but agent standardization is happening independently. This creates:
+**Problem Identified:** The repository has 123 items in `skills/` directory, but agent standardisation is happening independently. This creates:
 
 - **Duplicate Implementations:** Same skills may be defined in root AND in agent folders
 - **Version Conflicts:** Root skills may be outdated compared to agent-specific versions
 - **Unclear Ownership:** No clear governance on which is "source of truth"
-- **Scaling Risk:** Each new agent repeats the wheel instead of reusing centralized utilities
+- **Scaling Risk:** Each new agent repeats the wheel instead of reusing centralised utilities
 
 ### Root `skills/` Directory Detailed Catalog
 
@@ -150,8 +150,8 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 1. **Figma Skills Conflict**
 
    ```
-   ROOT: /skills/figma-use/ (2023 vintage, archived as .zip)
-   AGENT: design-partner-agent/skills/figma-integration (2026-07, active)
+   ROOT: skills/figma-use/ (2023 vintage, archived as .zip)
+   AGENT: design-partner-agentskills/figma-integration (2026-07, active)
    ISSUE: Dual implementations, root is outdated
    RESOLUTION: Promote agent version to root; archive old root version
    ```
@@ -159,7 +159,7 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 2. **AI Readiness Skill**
 
    ```
-   ROOT: /skills/ai-readiness-assessor/ (generic agency skill)
+   ROOT: skills/ai-readiness-assessor/ (generic agency skill)
    AGENT: ai-readiness-estimator-agent (25 skills, specialized)
    ISSUE: Root skill may be superseded by agent-specific version
    RESOLUTION: Audit for overlap; consolidate if possible
@@ -168,8 +168,8 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 3. **Design System Audit Conflict**
 
    ```
-   ROOT: /skills/audit-design-system/ (generic)
-   AGENT: design-partner-agent/skills/design-system-audit (agent-customized)
+   ROOT: skills/audit-design-system/ (generic)
+   AGENT: design-partner-agentskills/design-system-audit (agent-customised)
    ISSUE: Two versions for same domain
    RESOLUTION: Create shared `audit-design-system` with agent-specific config
    ```
@@ -184,7 +184,7 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 - [ ] **Exact Duplicates:** Skills with identical names (e.g., `sentiment-analyzer` in zendesk-support-agent, analyzer needed elsewhere?)
 - [ ] **Semantic Duplicates:** Skills that do the same thing but are named differently (e.g., `content-auditor` vs `website-auditor` — both audit things)
-- [ ] **Partial Overlaps:** Skills that share 60-80% functionality but need agent-specific customization
+- [ ] **Partial Overlaps:** Skills that share 60-80% functionality but need agent-specific customisation
 - [ ] **Unique-Only Skills:** Skills that appear in only one agent and serve that agent's unique domain
 
 **Key Skills to Investigate:**
@@ -243,19 +243,19 @@ skills/
 └── roadmap-generation/      # Roadmap and implementation planning
 ```
 
-### Tier 2: Agent-Attached Customized Skills (`agents/{agent}/skills/` directory)
+### Tier 2: Agent-Attached Customized Skills (`agents/{agent}skills/` directory)
 
-**Definition:** Skills that are **derived from shared skills** but have agent-specific customization OR serve a specific agent's unique domain.
+**Definition:** Skills that are **derived from shared skills** but have agent-specific customisation OR serve a specific agent's unique domain.
 
 **Examples:**
 
 ```
-agents/zendesk-support-agent/skills/
+agents/zendesk-support-agentskills/
 ├── response-drafting/       # Customized for support tone/empathy
 ├── ticket-management/       # Zendesk-specific workflow
 └── quality-scoring/         # Support-specific quality metrics
 
-agents/ai-readiness-estimator-agent/skills/
+agents/ai-readiness-estimator-agentskills/
 ├── roi-calculator/          # Customized for AI/ML project ROI
 ├── workflow-analyzer/       # Customized for AI integration points
 └── team-readiness-assessment/  # AI-specific skill evaluation
@@ -299,10 +299,10 @@ agents/ai-readiness-estimator-agent/skills/
 
 - A) **Single implementation with config** — One `sentiment-analyzer` skill with agent-specific configuration
 - B) **Inheritance model** — Shared skill is a base; agents extend with agent-specific logic
-- C) **Dual-storage** — Shared skill in `skills/` + agent override in `agents/{agent}/skills/`
+- C) **Dual-storage** — Shared skill in `skills/` + agent override in `agents/{agent}skills/`
 - D) **Agent-local only** — Each agent maintains its own copy; no shared skills
 
-**Recommendation:** Option C. Shared skills live in `skills/` with clear interface; agents can extend/override in `agents/{agent}/skills/` directory with custom configuration.
+**Recommendation:** Option C. Shared skills live in `skills/` with clear interface; agents can extend/override in `agents/{agent}skills/` directory with custom configuration.
 
 ### Decision 3: Shared Skill Governance
 
@@ -339,7 +339,7 @@ shared_skills:
 
 **Question:** Where do agent-specific skills live?
 
-**Option A: `agents/{agent}/skills/` (Recommended)**
+**Option A: `agents/{agent}skills/` (Recommended)**
 
 ```
 agents/zendesk-support-agent/
@@ -352,7 +352,7 @@ agents/zendesk-support-agent/
     ├── ticket-management/
     │   ├── SKILL.md
     │   └── implementation.json
-    └── response-optimization/
+    └── response-optimisation/
         ├── SKILL.md
         └── config.yaml
 ```
@@ -364,7 +364,7 @@ agents/zendesk-support-agent/claude/
 ├── agent.md
 └── skills/                              # Provider-specific skill implementation
     ├── ticket-management/
-    └── response-optimization/
+    └── response-optimisation/
 ```
 
 **Recommendation:** Option A (agent-level skills directory). Allows skills to be provider-agnostic at the definition level; provider-specific implementations go in provider directories if needed.
@@ -415,7 +415,7 @@ conflicts:
     
   audit-design-system:
     root_version: "2025-11-10"
-    agent_version: "design-partner-agent: 2026-07-01 (agent-customized)"
+    agent_version: "design-partner-agent: 2026-07-01 (agent-customised)"
     status: "DUAL VERSIONS - Different purposes"
     action: "REFACTOR - Create shared base + agent override"
     effort: "3-4 hours"
@@ -496,25 +496,25 @@ ACTION ITEM TEMPLATE:
 ─────────────────────────────────────────
 Title: Consolidate [SKILL] from agents to root
 Effort: X hours
-Locations Affected: /skills/[skill], agents/[agent1]/skills, agents/[agent2]/skills
+Locations Affected: skills/[skill], agents/[agent1]/skills, agents/[agent2]/skills
 
 Steps:
 1. Read all versions from:
-   - /skills/[skill]/SKILL.md
-   - agents/[agent1]/skills/[skill]/SKILL.md
-   - agents/[agent2]/skills/[skill]/SKILL.md
+   - skills/[skill]/SKILL.md
+   - agents/[agent1]skills/[skill]/SKILL.md
+   - agents/[agent2]skills/[skill]/SKILL.md
 
 2. Compare implementations:
-   - Identify common logic vs. agent-specific customizations
+   - Identify common logic vs. agent-specific customisations
    - Document variations
 
 3. Create consolidated version:
-   - Write /skills/[skill]/SKILL.md (root version)
-   - Extract agent-specific config to /skills/[skill]/[agent].config.json
+   - Write skills/[skill]/SKILL.md (root version)
+   - Extract agent-specific config to skills/[skill]/[agent].config.json
 
 4. Update agent references:
    - Change agents/[agent]/AGENT.md to reference root skill
-   - Create agents/[agent]/skills/[skill].override.md if needed
+   - Create agents/[agent]skills/[skill].override.md if needed
 
 5. Archive old agent versions:
    - Move to agents/[agent]/.archive/[skill].old/
@@ -535,15 +535,15 @@ For skills marked "ARCHIVE":
 
 ```bash
 # Example: Archive unused agency skill
-mkdir -p /skills/.archive/2026-Q3/
-mv /skills/lightspeed-ai-readiness/ /skills/.archive/2026-Q3/
-mv /skills/lightspeed-ai-readiness.zip /skills/.archive/2026-Q3/
+mkdir -p skills/.archive/2026-Q3/
+mv skills/lightspeed-ai-readiness/ skills/.archive/2026-Q3/
+mv skills/lightspeed-ai-readiness.zip skills/.archive/2026-Q3/
 
 # Update SKILL_REGISTRY.json to mark as archived
 # Document in ARCHIVE_LOG.md why and when
 ```
 
-**Deliverable:** Cleaned root `/skills/` directory with archived versions documented
+**Deliverable:** Cleaned root `skills/` directory with archived versions documented
 
 ---
 
@@ -552,7 +552,7 @@ mv /skills/lightspeed-ai-readiness.zip /skills/.archive/2026-Q3/
 For skills with both shared AND agent-specific versions:
 
 ```yaml
-# /skills/audit-design-system/SKILL.md (shared)
+# skills/audit-design-system/SKILL.md (shared)
 name: audit-design-system
 scope: shared
 used_by: [design-partner-agent, potentially-others]
@@ -561,7 +561,7 @@ agent_overrides:
 ```
 
 ```yaml
-# /skills/audit-design-system/configs/design-partner-agent.override.yaml
+# skills/audit-design-system/configs/design-partner-agent.override.yaml
 agent: design-partner-agent
 applies_to_methods:
   - audit_color_contrast
@@ -599,7 +599,7 @@ custom_checks:
 
 - [ ] **Create `skills/` directory structure** with tier-1 candidates
 - [ ] **Extract & refactor shared skills** from agent definitions
-- [ ] **Create `agents/{agent}/skills/` directories** for agent-specific skills
+- [ ] **Create `agents/{agent}skills/` directories** for agent-specific skills
 - [ ] **Update AGENT.md files** with skill references (shared vs. local)
 - [ ] **Create SKILL_REGISTRY.yaml** with governance metadata
 
@@ -624,7 +624,7 @@ custom_checks:
 
 ## Related Issues & PRs
 
-- Epic #1079: Agent standardization Phase 2B
+- Epic #1079: Agent standardisation Phase 2B
 - PR #1199: Phase 2A (prd-factory-planner-agent, 12-phase pattern established)
 - PR (pending): Phase 2B Batch 1 (5 agents, skills documentation)
 
@@ -667,7 +667,7 @@ custom_checks:
 
 - [ ] **Create Agent Override System**
   - Document in `SKILLS_GOVERNANCE.md`
-  - Set up directory structure: `/skills/[skill]/configs/[agent].override.yaml`
+  - Set up directory structure: `skills/[skill]/configs/[agent].override.yaml`
   - Create first few overrides for conflict skills
   - Effort: 3-4 hours
 
@@ -683,7 +683,7 @@ custom_checks:
 - [ ] Update all 16 agents to reference root skills where applicable
 - [ ] Create SKILL_LOOKUP_GUIDE.md (how to find, create, override skills)
 - [ ] Implement linting rules to enforce skill governance
-- [ ] Update AGENTS.md with skill organization standards
+- [ ] Update AGENTS.md with skill organisation standards
 
 ---
 

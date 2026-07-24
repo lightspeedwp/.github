@@ -98,7 +98,7 @@ agents/*/skills/agent-attached/gravity-forms-*/examples/
 - ✅ Merge method is `squash`
 - **Status**: ✅ Correctly configured
 
-**Rule 3: Keep imgbot image optimizations current on develop**
+**Rule 3: Keep imgbot image optimisations current on develop**
 
 - ✅ Author pattern supports both `imgbot[bot]` and `app/imgbot`
 - ✅ Base branch is `develop`
@@ -106,7 +106,7 @@ agents/*/skills/agent-attached/gravity-forms-*/examples/
 - ⚠️ **No recent test data** - no ImgBot PRs created recently to verify effectiveness
 - **Status**: ✅ Correctly configured (untested recently)
 
-**Rule 4: Auto-merge imgbot image optimizations on develop**
+**Rule 4: Auto-merge imgbot image optimisations on develop**
 
 - ✅ Author pattern supports both identities
 - ✅ Base branch is `develop`
@@ -383,7 +383,7 @@ gh pr merge --auto --squash \
 
 **Finding**: ✅ **SECURE**
 
-- All Dependabot PRs are **labeled** (traceable)
+- All Dependabot PRs are **labelled** (traceable)
 - All must pass **full CI suite** before auto-merge
 - Uses **squash merge** (clean history)
 - Limited to 10 open PRs per ecosystem (prevents flooding)
