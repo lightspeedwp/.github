@@ -1,7 +1,11 @@
 ---
+file_type: documentation
 title: Mergify Strategy & Implementation
 description: Complete guide to Mergify configuration, auto-merge rules, and troubleshooting
-last_updated: 2026-07-24
+version: v1.0.0
+last_updated: '2026-07-24'
+owners:
+  - lightspeedwp
 ---
 
 # Mergify Strategy & Implementation
