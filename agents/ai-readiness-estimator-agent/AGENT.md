@@ -1,4 +1,6 @@
 ---
+name: 'AI Readiness Estimator'
+description: 'Comprehensive AI capability assessment and readiness evaluation tool'
 agent_id: 'agent-13'
 agent_slug: 'ai-readiness-estimator'
 agent_name: 'AI Readiness Estimator'
@@ -9,7 +11,7 @@ created_date: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 providers:
   - claude
   - copilot

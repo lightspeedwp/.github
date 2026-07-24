@@ -1,4 +1,6 @@
 ---
+name: 'Proposal Desk Agent'
+description: 'Proposal and quote generation tool for scope definition, client communication, and billing management'
 agent_id: 'agent-6'
 agent_slug: 'proposal-desk'
 agent_name: 'Proposal Desk Agent'
@@ -11,7 +13,7 @@ last_updated: '2026-07-22'
 maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
-status: 'production'
+status: 'active'
 providers:
   - claude
   - copilot
@@ -24,10 +26,18 @@ capabilities:
   - client-communication
   - proposal-tracking
   - invoice-generation
+
+provider_config:
+  claude:
+    status: 'active'
+    tier: 'full'
+    tools: 8
+  copilot:
+    status: 'active'
     tier: 'full'
     skills: 6
   openai:
-    status: 'production'
+    status: 'active'
     tier: 'full'
     functions: 8
 
@@ -38,8 +48,6 @@ tags:
   - client-communication
   - billing
   - templates
-
-description: 'AI proposal and quote generation assistant for creating professional proposals, scoping projects, and managing client communication across multiple provider platforms.'
 ---
 
 # Proposal Desk Agent
