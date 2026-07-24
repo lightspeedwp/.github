@@ -98,19 +98,47 @@ metadata:
 ```yaml
 jobs:
   validate-mermaid:
-    if: contains(github.event.pull_request.title, 'docs') || 
-        contains(github.event.pull_request.files.*.filename, '.md')
     runs-on: ubuntu-latest
     steps:
       # From validate-mermaid-pr.yml
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Identify changed files using git diff
+        id: changed
+        run: |
+          # Derive changed files via git diff since pull_request.files is not 
+          # always present (especially when PR title doesn't contain 'docs')
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+            HEAD="${{ github.sha }}"
+          fi
+          git diff --name-only "$BASE" "$HEAD" -- '*.md' '*.mdx' > /tmp/changed_files.txt
+          echo "files=$(cat /tmp/changed_files.txt | tr '\n' ',')" >> "$GITHUB_OUTPUT"
       - name: Setup Node.js
       - name: Install dependencies
+      - name: Check for Mermaid diagrams in changed files
+        id: has_diagrams
+        run: |
+          CHANGED="${{ steps.changed.outputs.files }}"
+          if grep -q '```mermaid' $CHANGED; then
+            echo "result=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Validate Mermaid diagrams
+        if: steps.has_diagrams.outputs.result == 'true'
+        run: npm run validate:mermaid-syntax && npm run validate:mermaid-accessibility
+      - name: Validate colour contrast (WCAG 2.2 AA)
+        if: steps.has_diagrams.outputs.result == 'true'
+        run: npm run validate:mermaid-contrast
       - name: Post comment on PR
+        if: github.event_name == 'pull_request' && steps.has_diagrams.outputs.result == 'true'
+        run: |
+          # Post validation results as PR comment
 
   validate-readme:
-    if: contains(github.event.pull_request.files.*.filename, 'README')
     runs-on: ubuntu-latest
     steps:
       # From readme-audit.yml (validation aspects)
@@ -143,13 +171,23 @@ jobs:
 ```yaml
 jobs:
   regen-readme:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    if: |
+      (github.event_name == 'pull_request' && github.base_ref == 'develop') ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/develop')
     runs-on: ubuntu-latest
     steps:
       # From readme-regen.yml
       - uses: actions/checkout@v7
-      - name: Regenerate README
-      - name: Create/update PR if needed
+      - name: Regenerate README (dry-run on PR, commit on push)
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            node scripts/agents/meta.agent.js --dry-run --files "${{ env.CHANGED_FILES }}"
+          else
+            node scripts/agents/meta.agent.js --files "${{ env.CHANGED_FILES }}"
+            git add -A
+            git commit -m "chore(readme): regenerate impacted README files [skip ci]"
+            git push
+          fi
 
   audit-docs:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -253,11 +291,12 @@ jobs:
 **Steps:**
 
 1. **Disable Old Workflows** (in this order)
-   - Add `if: false` to top-level condition in:
+   - **Method:** Add `if: false` to every job in:
      - `validate-mermaid-pr.yml`
      - `readme-regen.yml`
      - `readme-update.yml`
      - `readme-audit.yml`
+   - **Note:** GitHub Actions doesn't support workflow-level `if` conditions, so each job must have `if: false` added individually
    - Commit: "chore(docs): disable legacy workflows during Phase 2"
 
 2. **Monitor for Issues** (24-48 hours)

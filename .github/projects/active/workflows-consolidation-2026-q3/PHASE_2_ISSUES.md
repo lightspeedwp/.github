@@ -118,13 +118,16 @@ Create a new consolidated workflow that handles all documentation maintenance ta
 2. **Manual Update Job**
    - Copy all steps from `readme-update.yml`
    - Add condition: `github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'update'`
-   - Add input parameter for update scope (readme, mermaid, both)
+   - Add input parameter for update scope: `all`, `mermaid`, `staleness` (preserve existing values from original workflow)
    - Execute selected update logic
 
 3. **Scheduled Audit Job**
    - Copy all steps from `readme-audit.yml`
    - Add condition: `github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'audit')`
    - Configure schedule: Weekly (e.g., Monday 9 AM UTC)
+   - **IMPORTANT:** When `schedule` event fires, `inputs.scope` and `inputs.output_format` are not provided
+     - Define default values in workflow: `scope: 'all'`, `output_format: 'markdown'`
+     - Use: `${{ inputs.scope || 'all' }}` and `${{ inputs.output_format || 'markdown' }}` in steps
    - Generate comprehensive audit report
    - Post results to discussions or issue
 
