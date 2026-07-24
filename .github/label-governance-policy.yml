@@ -58,6 +58,5 @@ destructive_cleanup:
     - lang:md
     - lang:json
     - lang:yaml
-    - comp:help-tabs
     - meta:duplicate
     - meta:dependabot-security

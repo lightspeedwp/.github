@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - ticket-management
@@ -74,6 +78,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 **Input:** Customer ticket, context, tone preference
 
 **Output:**
+
 - Professional response draft
 - Knowledge base references
 - Tone and sentiment analysis
@@ -85,6 +90,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 **Input:** Ticket history, time period
 
 **Output:**
+
 - Common issues identified
 - Response time analysis
 - Customer satisfaction trends
@@ -97,6 +103,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 **Input:** Ticket details, team availability
 
 **Output:**
+
 - Routing recommendation
 - Priority assessment
 - Context for receiving team
@@ -106,6 +113,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ## Key Workflows
 
 ### Ticket Triage Workflow
+
 1. Receive new ticket from Zendesk
 2. Analyze ticket content and categorize
 3. Assess priority and complexity
@@ -114,6 +122,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 6. Monitor response time
 
 ### Response Assistance Workflow
+
 1. Review customer ticket
 2. Search knowledge base for solutions
 3. Draft professional response
@@ -122,6 +131,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 6. Provide alternative phrasings
 
 ### Issue Resolution Workflow
+
 1. Gather context and history
 2. Identify root cause
 3. Provide solution guidance
@@ -130,6 +140,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 6. Track customer satisfaction
 
 ### Escalation Workflow
+
 1. Identify escalation triggers
 2. Assess escalation criteria
 3. Route to escalation team
@@ -140,6 +151,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ## Advanced Features
 
 ### Sentiment Analysis
+
 - Customer emotional state detection
 - Issue severity assessment
 - Frustration level indication
@@ -147,6 +159,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Emotional response triggers
 
 ### Knowledge Base Integration
+
 - Relevant article suggestions
 - Solution-matching algorithms
 - Article quality assessment
@@ -154,6 +167,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Content recommendation
 
 ### Performance Analytics
+
 - Response time tracking
 - First-contact resolution rate
 - Customer satisfaction metrics
@@ -161,6 +175,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Trend identification
 
 ### Quality Assurance
+
 - Response quality scoring
 - Tone appropriateness assessment
 - Completeness verification
@@ -170,6 +185,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ## Best Practices
 
 ### Response Quality
+
 - Professional tone maintenance
 - Clear and concise language
 - Empathy and understanding
@@ -178,6 +194,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Grammar and formatting excellence
 
 ### Customer Communication
+
 - Personalization and context awareness
 - Timely and appropriate responses
 - Active listening demonstration
@@ -186,6 +203,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Follow-up and satisfaction checks
 
 ### Knowledge Management
+
 - Regular KB updates
 - Solution documentation
 - Trend-based content creation
@@ -194,6 +212,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Version control and tracking
 
 ### Agent Development
+
 - Skills assessment and improvement
 - Quality feedback provision
 - Training recommendations
@@ -204,6 +223,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ### Agent Guidelines
 
 **Before Sending Response:**
+
 - Read full ticket context
 - Search KB for solutions
 - Consider customer emotion
@@ -214,6 +234,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Add KB references
 
 **Escalation Criteria:**
+
 - Issue severity > standard
 - Multiple resolution attempts failed
 - Customer expressing high frustration
@@ -224,6 +245,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ## Support Metrics
 
 ### Response Metrics
+
 - Average response time
 - First-contact resolution rate
 - Customer satisfaction score (CSAT)
@@ -232,6 +254,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Time to first response
 
 ### Workload Metrics
+
 - Tickets per agent
 - Queue depth and trends
 - Escalation rate
@@ -240,6 +263,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Capacity utilization
 
 ### Quality Metrics
+
 - Customer satisfaction
 - Agent performance ratings
 - Knowledge base usage
@@ -248,6 +272,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Quality score consistency
 
 ### Operational Metrics
+
 - System uptime
 - KB article coverage
 - SLA compliance rate
@@ -258,24 +283,28 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ## Implementation Roadmap
 
 ### Phase 1: Setup (Week 1-2)
+
 - Configure Zendesk integration
 - Build knowledge base
 - Define team structure
 - Set escalation rules
 
 ### Phase 2: Training (Week 3-4)
+
 - Agent training program
 - Response quality standards
 - KB best practices
 - System workflow
 
 ### Phase 3: Launch (Week 5-6)
+
 - Go live with agent
 - Monitor metrics closely
 - Gather feedback
 - Refine processes
 
 ### Phase 4: Optimization (Week 7+)
+
 - Analyze performance data
 - Improve KB coverage
 - Enhance agent skills
@@ -295,6 +324,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ## Compliance & Standards
 
 ### Service Level Agreements
+
 - Define response time targets
 - Set resolution time goals
 - Establish escalation procedures
@@ -302,6 +332,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Document SLA penalties
 
 ### Quality Standards
+
 - Response professionalism
 - Accuracy and completeness
 - Grammar and formatting
@@ -309,6 +340,7 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 - Solution effectiveness
 
 ### Compliance Requirements
+
 - Data privacy and security
 - GDPR compliance
 - PCI DSS for payments
@@ -336,4 +368,3 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
-

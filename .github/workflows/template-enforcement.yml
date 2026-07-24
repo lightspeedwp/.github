@@ -182,6 +182,16 @@ jobs:
               return;
             }
 
+            // Check for force-close override
+            const hasForceClose = (issue.labels || []).some(
+              (label) => label.name === 'meta:force-close'
+            );
+
+            if (hasForceClose) {
+              core.info(`Issue #${issue.number} has meta:force-close label; allowing close despite incomplete requirements.`);
+              return;
+            }
+
             const author = issue.user?.login || '';
             const isBot = issue.user?.type === 'Bot' ||
               author === 'dependabot[bot]' ||
@@ -210,16 +220,25 @@ jobs:
 
             if (missingSections.length === 0 && !hasNeedsMoreInfo) {
               core.info(`Issue #${issue.number} meets close requirements.`);
+
+              // Remove status:needs-template-fix label if present (issue is now compliant)
+              const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+              if (currentLabels.has('status:needs-template-fix')) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: 'status:needs-template-fix',
+                  });
+                } catch (error) {
+                  core.info(`Unable to remove status:needs-template-fix from #${issue.number}: ${error.message}`);
+                }
+              }
               return;
             }
 
-            await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              state: 'open',
-            });
-
+            // Issue has incomplete requirements. Post guidance comment and add label (don't reopen).
             const reasons = [];
             if (missingSections.length > 0) {
               reasons.push(`Missing required section(s): ${missingSections.join(', ')}`);
@@ -230,12 +249,18 @@ jobs:
 
             const message = [
               marker,
-              '🔄 This issue was automatically re-opened because it does not meet the close requirements.',
+              '⚠️ This issue was closed but does not meet our completion requirements.',
               '',
+              '**Issues preventing closure:**',
               ...reasons.map((r) => `- ${r}`),
               '',
-              'Please resolve the above, update the issue body with the correct template, then close again.',
-              '- Template guide: https://github.com/lightspeedwp/.github/issues/new/choose',
+              '**What you can do:**',
+              '1. **Fix the issue:** Edit this issue and update the body with the correct template sections (DoR and DoD sections)',
+              '2. **Reopen it:** Click the "Reopen issue" button on this page to reopen after fixing',
+              '3. **Force close:** Add the `meta:force-close` label to this issue if closure is necessary despite incomplete requirements',
+              '',
+              '**After fixing:** The issue will no longer show this warning and can be closed normally.',
+              '**Need help?** See the issue template guide: https://github.com/lightspeedwp/.github/issues/new/choose',
             ].join('\n');
 
             const comments = await github.paginate(github.rest.issues.listComments, {
@@ -265,7 +290,18 @@ jobs:
               });
             }
 
-            core.setFailed(`Issue #${issue.number} re-opened: does not meet close requirements (${reasons.join('; ')}).`);
+            // Add status:needs-template-fix label
+            const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+            if (!currentLabels.has('status:needs-template-fix')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['status:needs-template-fix'],
+              });
+            }
+
+            core.warning(`Issue #${issue.number} was closed but does not meet requirements (${reasons.join('; ')}). Added guidance comment and status:needs-template-fix label.`);
 
   validate-push-guardrail:
     if: github.event_name == 'push'

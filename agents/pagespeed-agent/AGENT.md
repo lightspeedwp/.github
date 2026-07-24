@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - performance-analysis
@@ -74,6 +78,7 @@ The PageSpeed Agent analyzes website performance, identifies optimization opport
 **Input:** Website URL, target metrics, priority
 
 **Output:**
+
 - Core Web Vitals assessment
 - Performance report
 - Bottleneck identification
@@ -87,6 +92,7 @@ The PageSpeed Agent analyzes website performance, identifies optimization opport
 **Input:** Current metrics, budget, timeline
 
 **Output:**
+
 - Detailed improvement plan
 - Optimization recommendations by impact
 - Implementation sequence
@@ -99,6 +105,7 @@ The PageSpeed Agent analyzes website performance, identifies optimization opport
 **Input:** Website content, target performance
 
 **Output:**
+
 - Image audit report
 - Optimization recommendations
 - Format recommendations (WebP, AVIF)
@@ -127,11 +134,13 @@ The PageSpeed Agent analyzes website performance, identifies optimization opport
 ## Performance Metrics Explained
 
 ### Core Web Vitals (Google's 2024 standards)
+
 - **LCP (Largest Contentful Paint):** < 2.5s for good (rendering performance)
 - **INP (Interaction to Next Paint):** < 200ms for good (interactivity)
 - **CLS (Cumulative Layout Shift):** < 0.1 for good (visual stability)
 
 ### Additional Performance Metrics
+
 - **FCP (First Contentful Paint):** Time until first content renders
 - **TTFB (Time to First Byte):** Server response time (ideally < 600ms)
 - **Total Blocking Time (TBT):** JavaScript execution blocking time
@@ -149,7 +158,9 @@ The PageSpeed Agent analyzes website performance, identifies optimization opport
 ## Advanced Scenarios
 
 ### Scenario 1: Large-Scale E-Commerce Optimization
+
 Client wants to improve conversion rate. Current metrics: LCP 4.2s, INP 450ms, CLS 0.25
+
 - Recommend critical path optimization (reduce CSS)
 - Image optimization strategy (WebP + lazy loading)
 - Third-party script deferral
@@ -157,7 +168,9 @@ Client wants to improve conversion rate. Current metrics: LCP 4.2s, INP 450ms, C
 - Expected impact: LCP 2.0s, INP 120ms, CLS 0.05 → estimated 35% conversion lift
 
 ### Scenario 2: Mobile-First Optimization
+
 Mobile traffic 70%, but mobile metrics much worse than desktop
+
 - Diagnose network/device constraints
 - Recommend responsive images and adaptive bitrate
 - Prioritize mobile-specific issues (layout shift on touch)
@@ -165,7 +178,9 @@ Mobile traffic 70%, but mobile metrics much worse than desktop
 - Test on real devices vs. lab data
 
 ### Scenario 3: Third-Party Optimization
+
 Site bloated with tracking, ads, and embedded content (analytics, ads, chat)
+
 - Audit third-party scripts and their impact
 - Recommend lazy loading for non-critical scripts
 - Suggest alternative lightweight services
@@ -173,7 +188,9 @@ Site bloated with tracking, ads, and embedded content (analytics, ads, chat)
 - Expected improvement: 40-60% reduction in blocking JavaScript
 
 ### Scenario 4: CDN & Caching Strategy
+
 Current: No CDN, browser cache not optimized
+
 - Recommend CDN for static assets (images, fonts, CSS)
 - Set appropriate cache headers (immutable for versioned assets, 1yr for hashed files)
 - Suggest service worker for offline capability
@@ -183,24 +200,28 @@ Current: No CDN, browser cache not optimized
 ## Optimization Priority Framework
 
 **High Impact, Low Effort** (do first):
+
 - Minify CSS/JavaScript
 - Enable GZIP compression
 - Optimize images (compression, next-gen formats)
 - Implement browser caching
 
 **High Impact, Medium Effort** (do second):
+
 - Lazy load images and off-screen content
 - Remove unused CSS/JavaScript
 - Implement CDN
 - Code splitting and dynamic imports
 
 **Medium Impact, Low Effort** (do anytime):
+
 - Preload critical resources
 - Prefetch DNS
 - Optimize fonts (subset, font-display)
 - Remove render-blocking resources
 
 **Nice-to-Have, High Effort** (consider last):
+
 - Complete architectural refactor
 - Full JavaScript rewrite
 - Custom optimization infrastructure

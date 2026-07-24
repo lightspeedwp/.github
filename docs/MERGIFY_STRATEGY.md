@@ -1,7 +1,11 @@
 ---
+file_type: documentation
 title: Mergify Strategy & Implementation
 description: Complete guide to Mergify configuration, auto-merge rules, and troubleshooting
-last_updated: 2026-07-24
+version: v1.0.0
+last_updated: '2026-07-24'
+owners:
+  - lightspeedwp
 ---
 
 # Mergify Strategy & Implementation
@@ -25,7 +29,7 @@ This document describes how Mergify is configured and used for automated pull re
 Mergify is a GitHub App that automates pull request merging based on configurable rules. We use it for:
 
 1. **Dependabot dependency updates** - Auto-merge when CI passes
-2. **ImgBot image optimizations** - Auto-merge when CI passes
+2. **ImgBot image optimisations** - Auto-merge when CI passes
 3. **Meta-agent sync PRs** - Auto-merge automated metadata updates
 4. **Merge queue management** - Sequential merging to prevent conflicts
 5. **Flaky test detection** - Integration with CI/CD health monitoring
@@ -262,7 +266,7 @@ queue_rules:
     merge_method: squash
 ```
 
-### Behavior
+### Behaviour
 
 1. PRs are added to the queue when they meet rule conditions
 2. Mergify processes the queue in FIFO order

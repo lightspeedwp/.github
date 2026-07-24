@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - ai-capability-assessment

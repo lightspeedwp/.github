@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - feature-scope-analysis
@@ -71,6 +75,7 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 **Input:** Website requirements, features, current state, target timeline
 
 **Output:**
+
 - Detailed scope breakdown
 - Effort estimates by feature
 - Resource recommendations
@@ -84,6 +89,7 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 **Input:** Features, team size, current capacity
 
 **Output:**
+
 - Realistic project timeline
 - Phase breakdown
 - Milestone definitions
@@ -96,6 +102,7 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 **Input:** Project complexity, team experience, constraints
 
 **Output:**
+
 - Risk identification
 - Impact assessment
 - Probability estimates
@@ -115,12 +122,14 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 ## Estimation Framework
 
 ### Feature Complexity Scoring
+
 **Low** (1-2 days): Simple feature, well-defined, no dependencies  
 **Medium** (3-5 days): Standard feature, some integration, moderate complexity  
 **High** (1-2 weeks): Complex feature, multiple integrations, significant testing  
 **Very High** (2-4 weeks): Highly complex, many dependencies, custom solutions  
 
 ### Effort Estimation Components
+
 - **Analysis & Design** – 10-15% of total
 - **Development** – 50-60% of total
 - **Testing & QA** – 15-25% of total
@@ -128,18 +137,22 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 - **Deployment & Support** – 5-10% of total
 
 ### Resource Allocation Models
+
 **Small Project (< 4 weeks):**
+
 - 1 Full-stack Developer
 - 0.5 QA Engineer (shared)
 - 0.25 PM (oversight)
 
 **Medium Project (4-12 weeks):**
+
 - 1-2 Developers
 - 1 QA Engineer
 - 1 PM (part-time)
 - 0.5 Designer (as needed)
 
 **Large Project (12+ weeks):**
+
 - 2-4 Developers (by specialty)
 - 1-2 QA Engineers
 - 1 PM (full-time)
@@ -149,8 +162,10 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 ## Advanced Scenarios
 
 ### Scenario 1: E-Commerce Site Redesign
+
 **Scope:** Complete redesign, new features, migration
-**Features:** 
+**Features:**
+
 - Design system (120h)
 - Homepage (40h)
 - Product pages (60h)
@@ -161,8 +176,10 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 **Estimate:** 680 hours | 4 weeks | $68,000 (@ $100/hr) | Team: 2 devs + 1 QA
 
 ### Scenario 2: SaaS Product Launch
+
 **Scope:** Full product build from scratch
 **Features:**
+
 - Authentication (80h)
 - User dashboard (100h)
 - Core product (200h)
@@ -173,8 +190,10 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 **Estimate:** 720 hours | 5 weeks | $72,000 | Team: 2 devs + 1 QA
 
 ### Scenario 3: Content Website Build
+
 **Scope:** Content-heavy site with custom features
 **Features:**
+
 - Static pages (40h)
 - Blog system (80h)
 - Search (60h)
@@ -186,6 +205,7 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 ## Risk Assessment Framework
 
 ### Technical Risks
+
 - **Architecture complexity** – Unknown system design
 - **Technology choices** – Unfamiliar tech stack
 - **Integration challenges** – Third-party system integration
@@ -193,12 +213,14 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 - **Security requirements** – Complex security needs
 
 ### Team Risks
+
 - **Skill gaps** – Team lacks required expertise
 - **Resource availability** – People unavailable when needed
 - **Communication** – Poor communication across team
 - **Turnover** – Key people leaving mid-project
 
 ### Project Risks
+
 - **Scope creep** – Requirements expanding
 - **Unclear requirements** – Ambiguous specifications
 - **Stakeholder involvement** – Low engagement from client
@@ -208,18 +230,21 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 ## Mitigation Strategies
 
 **For Technical Risks:**
+
 - Conduct proof-of-concept for new technologies
 - Allocate extra time for integration work
 - Plan architecture review sessions
 - Budget for performance optimization
 
 **For Team Risks:**
+
 - Cross-train team members
 - Document all decisions and processes
 - Schedule regular sync meetings
 - Plan for contingency resources
 
 **For Project Risks:**
+
 - Define scope clearly in writing
 - Get stakeholder sign-off early
 - Build in contingency buffer (15-25%)
@@ -229,18 +254,21 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 ## Timeline Templates
 
 ### 2-4 Week Project
+
 - Week 1: Analysis, design, setup
 - Week 2: Core development
 - Week 3: Feature completion, testing
 - Week 4: Bug fixes, deployment
 
 ### 4-8 Week Project
+
 - Week 1-2: Analysis, architecture, design
 - Week 3-5: Development (phased)
 - Week 6: Integration, testing
 - Week 7-8: QA, revision, deployment
 
 ### 8+ Week Project
+
 - Phase 1: Requirements, design, architecture
 - Phase 2: Core development
 - Phase 3: Additional features
@@ -250,18 +278,21 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 ## Budget Estimation Models
 
 ### Fixed-Price Model
+
 - Full estimation upfront
 - 25-30% contingency built in
 - Clear scope definition required
 - Higher risk on developer side
 
 ### Time & Materials Model
+
 - Hourly rates defined upfront
 - Flexible scope
 - Regular billing
 - Lower risk on developer side
 
 ### Retainer Model
+
 - Fixed monthly cost
 - Capped hours included
 - Additional hours billed separately

@@ -10,6 +10,10 @@ maintainer: 'LightSpeed Team'
 license: 'GPL-3.0'
 stability: 'stable'
 status: 'production'
+providers:
+  - claude
+  - copilot
+  - openai
 
 capabilities:
   - content-strategy-development
@@ -74,6 +78,7 @@ The Website Content Strategist develops comprehensive content strategies, audits
 **Input:** Business goals, target audience, current content, competitors
 
 **Output:**
+
 - Comprehensive content strategy
 - Target audience definition
 - Topic clusters
@@ -87,6 +92,7 @@ The Website Content Strategist develops comprehensive content strategies, audits
 **Input:** Website URL, business goals
 
 **Output:**
+
 - Content audit report
 - Quality assessment
 - Gap analysis
@@ -99,6 +105,7 @@ The Website Content Strategist develops comprehensive content strategies, audits
 **Input:** Website content, target keywords, current rankings
 
 **Output:**
+
 - Keyword opportunity analysis
 - Content optimization recommendations
 - On-page SEO improvements

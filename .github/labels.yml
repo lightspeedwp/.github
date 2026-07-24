@@ -117,6 +117,9 @@
 - name: type:task
   color: 0969DA
   description: "Task or to-do"
+  aliases:
+    - task
+    - todo
 
 - name: type:bug
   color: CF222E
@@ -127,6 +130,11 @@
 - name: type:feature
   color: 1A7F37
   description: "Feature or enhancement"
+  aliases:
+    - feature
+    - feat
+    - enhancement
+    - feature-request
 
 - name: type:design
   color: "8957E5"
@@ -139,6 +147,8 @@
 - name: type:epic
   color: "8957E5"
   description: "Large multi-scope initiative"
+  aliases:
+    - epic
 
 - name: type:story
   color: 0969DA
@@ -147,6 +157,9 @@
 - name: type:improve
   color: 57606A
   description: "Improvement to existing behaviour/UX"
+  aliases:
+    - improve
+    - improvement
 
 - name: type:enhancement
   color: 57606A
@@ -155,14 +168,24 @@
 - name: type:refactor
   color: 57606A
   description: "Refactor or internal change"
+  aliases:
+    - refactor
+    - cleanup
+    - refactoring
 
 - name: type:build
   color: 0969DA
   description: "Build & CI"
+  aliases:
+    - build
+    - build-system
 
 - name: type:ci
   color: 0969DA
   description: "CI/CD pipeline work"
+  aliases:
+    - ci
+    - ci/cd
 
 - name: type:automation
   color: 0969DA
@@ -235,6 +258,9 @@
 - name: type:chore
   color: 57606A
   description: "Chore / small hygiene change"
+  aliases:
+    - chore
+    - housekeeping
 
 - name: type:audit
   color: 57606A

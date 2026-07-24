@@ -54,6 +54,15 @@ npm-debug.log*
 output-plugin/
 generated-plugins/
 
+# Generated skill directories (from skill scaffolding tools)
+agents/*/skills/agent-attached/gravity-forms-*/
+agents/*/skills/agent-attached/yoast-*/
+agents/*/skills/agent-attached/*/references/
+agents/*/skills/agent-attached/*/examples/
+agents/*/skills/agent-attached/*/profiles/
+agents/*/skills/agent-attached/*/templates/
+agents/*/skills/agent-attached/*/tests/
+
 # Misc
 tmp/
 *.zip

@@ -10,6 +10,7 @@
  * script, and .github/workflows/meta.yml's `lint-and-links` job.
  */
 const EXCLUDED_PATTERNS = [
+  /^projects\/active\//,
   /\/plugin-provided\//,
   /\/platform-managed\//,
   /\/directory-installed\//,
