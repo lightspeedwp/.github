@@ -9,7 +9,17 @@ category: "operations"
 
 # Issue Triage & Template Application Guide
 
-This guide documents procedures for applying GitHub issue templates to issues that are missing the required **Definition of Ready (DoR)** and **Definition of Done (DoD)** sections, as enforced by the [`template-enforcement.yml`](.github/workflows/template-enforcement.yml) GitHub Actions workflow.
+**Role:** Team members and automation systems responsible for issue triage, template enforcement, and bulk issue template application.
+
+This guide documents procedures for applying GitHub issue templates to issues that are missing the required **Definition of Ready (DoR)** and **Definition of Done (DoD)** sections, as enforced by the [`template-enforcement.yml`](../.github/workflows/template-enforcement.yml) GitHub Actions workflow.
+
+## General Rules
+
+1. **Template Selection** — Choose the issue type template that best matches the issue's purpose and scope
+2. **Content Preservation** — All existing issue content must be preserved when applying templates
+3. **Idempotency** — Repeated template applications must not duplicate sections or lose content
+4. **Validation** — After applying templates, verify that DoR and DoD sections are present
+5. **Workflow Compliance** — Issue bodies must pass the template-enforcement workflow validation
 
 ## Overview
 
@@ -24,7 +34,7 @@ Issue templates in this repository ensure:
 
 ### Issue Type Templates
 
-The repository includes **25 issue type templates** in [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/):
+The repository includes **25 issue type templates** in [`.github/ISSUE_TEMPLATE/`](../.github/ISSUE_TEMPLATE/):
 
 | Template | File | Use When |
 |----------|------|----------|
@@ -75,7 +85,7 @@ Issue Title: "Consolidate 31 workflows into 25"
 
 ### Step 2: Read the Template
 
-Open the appropriate template file in [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/):
+Open the appropriate template file in [`.github/ISSUE_TEMPLATE/`](../.github/ISSUE_TEMPLATE/):
 
 ```bash
 cat .github/ISSUE_TEMPLATE/20-documentation.md
@@ -184,13 +194,15 @@ For applying templates to **multiple issues at once** (e.g., batch-created issue
 
 #### 1. Create Issue Type Mapping
 
-Create a Python dictionary mapping issue numbers to their types and template info:
+Create a Python dictionary mapping issue numbers to their types and template info. This example shows the abbreviated structure; a complete runbook would include all issue numbers:
 
 ```python
+import pathlib
+
 ISSUE_TEMPLATES = {
     '1220': {
         'type': 'build-ci',
-        'template_name': 'Build/CI',
+        'template_file': '10-build-ci.md',
         'dor': [
             'Requirements for CI/CD changes defined',
             'Impact on workflows assessed',
@@ -206,17 +218,27 @@ ISSUE_TEMPLATES = {
     },
     '1221': {
         'type': 'documentation',
-        'template_name': 'Documentation',
-        # ... additional entries
-    }
+        'template_file': '20-documentation.md',
+        # Actual template-specific sections loaded from file
+    },
+    # ... additional entries (1222–1241 following same pattern)
 }
+
+# Path to template directory
+TEMPLATE_DIR = pathlib.Path('.github/ISSUE_TEMPLATE')
 ```
 
 #### 2. Create Body Transformation Function
 
 ```python
+import re
+
 def create_issue_body(issue_id, current_body, template_info):
-    """Create properly formatted issue body with DoR and DoD sections"""
+    """Create properly formatted issue body with DoR and DoD sections.
+    
+    Makes the transformation idempotent by detecting and replacing existing
+    DoR/DoD blocks instead of appending to them.
+    """
     
     dor_items = template_info.get('dor', [
         'Requirements clearly defined',
@@ -232,14 +254,17 @@ def create_issue_body(issue_id, current_body, template_info):
         'Changes merged'
     ])
     
-    # Create DoR checklist
-    dor_section = '\n'.join([f'- [x] {item}' for item in dor_items])
+    # Generate unchecked checklist items by default
+    dor_section = '\n'.join([f'- [ ] {item}' for item in dor_items])
+    dod_section = '\n'.join([f'- [ ] {item}' for item in dod_items])
     
-    # Create DoD checklist
-    dod_section = '\n'.join([f'- [x] {item}' for item in dod_items])
+    # Remove any existing DoR/DoD sections (idempotent)
+    # Pattern matches optional separator followed by DoR/DoD blocks
+    pattern = r'(?:\n---\n)?## Definition of Ready.*?## Definition of Done.*?(?=\Z|\n---)'
+    clean_body = re.sub(pattern, '', current_body, flags=re.DOTALL)
     
     # Combine into new body
-    new_body = f"""{current_body}
+    new_body = f"""{clean_body.strip()}
 
 ---
 
@@ -347,66 +372,93 @@ python3 apply_issue_templates.py
 
 ### Issue: "Template enforcement workflow still flagging issue"
 
-**Cause:** The issue body still doesn't contain both `## Definition of Ready (DoR)` and `## Definition of Done (DoD)` sections.
+**Cause:** The issue body doesn't contain the required text patterns for Definition of Ready and Definition of Done.
+
+**Actual Validation:** The workflow in [`../.github/workflows/template-enforcement.yml`](../.github/workflows/template-enforcement.yml) performs **case-insensitive, unanchored text checks**:
+
+```javascript
+const dorRegex = /definition of ready \(dor\)/i;
+const dodRegex = /definition of done \(dod\)/i;
+```
+
+This means:
+
+- ✅ `## Definition of Ready (DoR)` works
+- ✅ `### Definition of ready (dor)` works (case-insensitive)
+- ✅ `Some text with Definition of Ready (DoR) inline` works
+- ✅ Any heading level (##, ###, ####) works
 
 **Solution:**
 
-1. Verify both section headers are exact (including case and spacing)
-2. Re-run the template update
+1. Verify the phrase "Definition of Ready (DoR)" appears somewhere in the issue body
+2. Verify the phrase "Definition of Done (DoD)" appears somewhere in the issue body
 3. Wait for the next workflow run to validate (typically within 5 minutes)
+4. If the workflow still flags the issue, check the workflow logs for the specific error
 
 ### Issue: "Original content was lost during template application"
 
-**Cause:** Template structure wasn't carefully preserving existing issue details.
+**Cause:** Template structure wasn't carefully preserving existing issue details, or the transformation function wasn't idempotent.
 
 **Solution:**
 
 1. Revert the issue (undo the last edit)
 2. Carefully map original content into template sections
 3. Ensure all acceptance criteria, links, and context are preserved
-4. Re-apply the template
+4. Use the idempotent transformation function to avoid data loss on retries
+5. Re-apply the template
 
-### Issue: "Workflow says template is invalid"
+## Detailed Guidance
 
-**Cause:** Template sections might not match the expected regex pattern in the workflow.
+### Choosing the Right Template
 
-**Check:** The workflow regex in `.github/workflows/template-enforcement.yml`:
+When multiple issue types seem applicable, consider these tiers:
 
-```javascript
-const dorRegex = /^##\s+Definition of Ready \(DoR\)/m;
-const dodRegex = /^##\s+Definition of Done \(DoD\)/m;
-```
+1. **Primary Category** — The main work type (feature, bug, refactor, documentation, etc.)
+2. **Sub-Category** — More specific type if appropriate (e.g., a11y for accessibility, security for vulnerabilities)
+3. **Context** — Epic for multi-part initiatives, research for exploratory work, task for small scoped items
 
-**Solution:** Ensure section headers match exactly:
+### Handling Incomplete Issues
 
-- `## Definition of Ready (DoR)` ✅
-- `## Definition of Done (DoD)` ✅
-- NOT: `### Definition of Ready` ❌
-- NOT: `## DoR` ❌
+If an issue is created without a template or with an incomplete template:
 
-## Best Practices
+1. Identify the issue type based on title and description
+2. Preserve all existing content
+3. Restructure into the appropriate template
+4. Run template validation against the workflow requirements
+5. Verify DoR and DoD sections are present
 
-1. **Use templates when creating issues** — The GitHub issue form makes it easy; don't create issues without templates
-2. **Map issue content carefully** — Preserve all important context when restructuring
-3. **Verify markdown syntax** — Test formatting in a preview before updating
-4. **Bulk operations** — Use the Python script approach for 3+ issues; manual for 1-2
-5. **Document deviations** — If an issue type doesn't fit perfectly, document why in Additional Context
-6. **Keep templates updated** — When template structures change, revalidate issues accordingly
+### Bulk Operations Best Practices
 
-## Related Documentation
+- Use the Python script for 3+ issues requiring template application
+- Test the script on 1-2 issues first before bulk runs
+- Always make transformations idempotent to safely retry failed batches
+- Log each issue update with the applied template type
+- Verify success rate before considering the batch complete
+
+## Validation
+
+After applying templates to any issue:
+
+1. **Visual Check** — Confirm the issue body renders correctly on GitHub
+2. **Workflow Check** — Wait for the template-enforcement workflow to validate
+3. **Content Check** — Ensure no original content was lost or corrupted
+4. **Reference Check** — Verify any links to related issues/PRs are still valid
+5. **Format Check** — Confirm markdown syntax is correct (no broken lists, formatting)
+
+The template-enforcement workflow will:
+
+- ✅ Pass if both "Definition of Ready (DoR)" and "Definition of Done (DoD)" text appear anywhere in the body
+- ❌ Fail if either phrase is missing or misspelled
+- 🏷️ Label the issue with `status:needs-more-info` if validation fails (automatically removed when fixed)
+
+## References
 
 - [BRANCHING_STRATEGY.md](BRANCHING_STRATEGY.md) — Issue creation and branching workflows
-- [AUTOMATION.md](AUTOMATION.md) — GitHub Actions workflow details
+- [AUTOMATION.md](AUTOMATION.md) — GitHub Actions workflow details  
 - [PR_CREATION_PROCESS.md](PR_CREATION_PROCESS.md) — Pull request templates and processes
-- [Template Enforcement Workflow](.github/workflows/template-enforcement.yml) — Automation that validates templates
-
-## Contact & Support
-
-For questions about issue templates or triage procedures:
-
-1. Review the template files in [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/)
-2. Check the [template enforcement workflow](.github/workflows/template-enforcement.yml) for validation rules
-3. Consult [AUTOMATION.md](AUTOMATION.md) for workflow details
+- [Template Enforcement Workflow](../.github/workflows/template-enforcement.yml) — Automation that validates templates
+- [Issue Templates](../.github/ISSUE_TEMPLATE/) — All 25 issue type template files
+- [AGENTS.md](AGENTS.md) — AI governance rules for issue automation
 
 ---
 
