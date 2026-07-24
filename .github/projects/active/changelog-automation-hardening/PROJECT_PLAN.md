@@ -87,26 +87,33 @@ The automated changelog workflow has critical bugs that are destroying section s
 
 ---
 
-## Phase 2: Rebuild Lost History (IN PROGRESS)
+## Phase 2: Rebuild Lost History (🔴 BLOCKED — INCOMPLETE)
 
 ### Objective
+
+⚠️ **CRITICAL STATUS UPDATE:** Phase 2 is INCOMPLETE (GitHub Issue #1271)
+
+Only 40 of 76 PRs were captured in previous attempt.
+36 PRs (47% of scope) are missing from PHASE_2_REBUILD_HISTORY.md.
+Requires full recovery of all 76 PR entries before continuing.
+**Do NOT proceed with Phase 2 until all 76 PRs are recovered.**
 
 Reconstruct [Unreleased] section entries from merged PRs (#1082–#1250) covering the past 2 months.
 
 ### Source Data
 
-**40+ Merged PRs** (May 24 — July 24, 2026)
+**76 Merged PRs** (May 24 — July 24, 2026)
 
 Categorized by change type:
 
-| Category | Count | Examples |
+| Category | Count | Coverage |
 |----------|-------|----------|
-| Features | 8 | Agents, skills, infrastructure |
-| Fixes | 12 | CI, validation, automation |
-| Docs | 6 | Guides, audits, standards |
-| Refactors | 5 | Code cleanup, structure |
-| Chores | 7 | Dependencies, housekeeping |
-| Research | 2 | Audits, analysis |
+| Features | 14 | Agents, skills, infrastructure |
+| Fixes | 16 | CI, validation, automation, lifecycle |
+| Docs | 12 | Guides, audits, standards |
+| Chores | 10 | Dependencies, housekeeping, infra |
+| Breaking Changes | 7 | Dependency upgrades, workflow changes |
+| Research/Audit | 3 | Audits, analysis, governance |
 
 ### Methodology
 

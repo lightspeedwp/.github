@@ -9,9 +9,18 @@ file_type: "prompt"
 
 Use this prompt in a fresh Claude Code chat to rebuild and improve the changelog.
 
+⚠️ **CRITICAL ALERT:** This prompt references Phase 2 work that is INCOMPLETE.
+
+**DO NOT USE THIS PROMPT.**
+
+Phase 2 was only 40% complete (40 of 76 PRs captured).
+See GitHub Issue #1271 for recovery status and blocking issues.
+
+This prompt will be updated once Phase 2 recovery is complete.
+
 ---
 
-## Prompt to Paste
+## Prompt to Paste (OUTDATED — DO NOT USE)
 
 ```
 The .github project has critical changelog automation issues that need fixing urgently.
@@ -21,6 +30,7 @@ I've created a comprehensive 4-phase plan at:
 - .github/projects/active/changelog-automation-hardening/PHASE_2_REBUILD_HISTORY.md (rebuild plan)
 
 Phase 1 (automation bug fix) is complete and merged: fix/changelog-section-headers-preserve branch.
+Phase 2 (history rebuild) is BLOCKED and INCOMPLETE — see Issue #1271 for details.
 
 I need you to execute Phase 2: Rebuild Lost History. Here's what to do:
 
@@ -57,8 +67,8 @@ Reference:
 **Current State:**
 
 - Phase 1 bug fix merged to `fix/changelog-section-headers-preserve` branch
-- 40+ PRs from past 2 months have lost history
-- No changelog entries since May 24, 2026
+- 76 PRs from past 2 months (May 24 — July 24) lost history
+- PHASE 2 INCOMPLETE: Only 40 of 76 PRs captured (GitHub Issue #1271)
 - Current CHANGELOG.md has verbose, inconsistent entries
 - No validation rules defined
 - No contributor guidelines published
