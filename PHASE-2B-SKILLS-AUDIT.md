@@ -60,6 +60,122 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 - **Plugin-Provided (4):** github, linear, google-drive, figma
 - **Platform-Managed (0)**
 
+## Root `skills/` Directory vs. Agent Skills: Deep Analysis
+
+### Executive Summary of Current State
+
+**Problem Identified:** The repository has 123 items in `skills/` directory, but agent standardization is happening independently. This creates:
+
+- **Duplicate Implementations:** Same skills may be defined in root AND in agent folders
+- **Version Conflicts:** Root skills may be outdated compared to agent-specific versions
+- **Unclear Ownership:** No clear governance on which is "source of truth"
+- **Scaling Risk:** Each new agent repeats the wheel instead of reusing centralized utilities
+
+### Root `skills/` Directory Detailed Catalog
+
+**Tier Classification of Existing Root Skills:**
+
+#### **Tier 0: Generic Cross-Cutting Utilities (Should be referenced by ALL agents)**
+
+✅ These ARE portable and should be reused:
+
+| Skill | Status | Used By | Notes |
+|-------|--------|---------|-------|
+| `documents/` | ✅ Stable | ALL agents | Document generation (Markdown, PDF) |
+| `pdfs/` | ✅ Stable | Design agents | PDF manipulation |
+| `docx/` | ✅ Stable | Some agents | DOCX generation |
+| `slides/` | ✅ Stable | Presentation agents | Slide generation |
+| `spreadsheets/` | ✅ Stable | Data agents | Excel/CSV utilities |
+| `web-artifacts-builder/` | ✅ Stable | Web agents | Web page builders |
+| `linear/` | ✅ Stable | Project agents | Linear integration (plugin) |
+
+**Action:** ✅ **KEEP IN ROOT** — These are truly portable and reusable
+
+---
+
+#### **Tier 1: Domain-Specific But Reusable (Should be moved to root IF used by 2+ agents)**
+
+⚠️ These are reusable but may have outdated versions:
+
+| Skill | Status | Current Root Version | Agent Versions | Conflict Level |
+|-------|--------|---------------------|-----------------|--------|
+| `figma-use/` | ⚠️ Mixed | 2023-09 | design-partner-agent (2026-07) | HIGH - Agent version newer |
+| `figma-code-connect/` | ⚠️ Archived | .zip only | design-partner-agent (2026-07) | HIGH - Root archived |
+| `figma-generate-design/` | ⚠️ Mixed | Root + .zip | design-partner-agent (2026-07) | MEDIUM - Dual versions |
+| `figma-generate-library/` | ⚠️ Mixed | Root + .zip | design-partner-agent (2026-07) | MEDIUM - Dual versions |
+| `audit-design-system/` | ⚠️ Mixed | Root | design-partner-agent (2026-07) | MEDIUM - Agent variant exists |
+| `apply-design-system/` | ⚠️ Mixed | Root | design-partner-agent (2026-07) | MEDIUM - Agent variant exists |
+| `sync-figma-token/` | ⚠️ Mixed | Root + .zip | design-partner-agent (2026-07) | HIGH - Dual versions |
+
+**Action:** ⚠️ **REQUIRES AUDIT** — Determine which version is current, consolidate into root
+
+---
+
+#### **Tier 2: LightSpeed Agency-Specific Skills (May be obsolete or superseded)**
+
+🔴 These are specialized for agency workflow, NOT portable to agents:
+
+| Skill | Status | Purpose | Agent Compatibility | Action |
+|-------|--------|---------|-------------------|--------|
+| `lightspeed-ai-readiness/` | ? | Agency AI assessment | Conflict? | AUDIT |
+| `lightspeed-prd-generator/` | ? | Agency PRD workflow | vs. prd-factory-planner-agent? | AUDIT |
+| `lightspeed-project-researcher/` | ❓ | Agency research | Reusable? | EVALUATE |
+| `lightspeed-launch-readiness-auditor/` | ❓ | Launch process | Agency-specific | ARCHIVE |
+| 25+ other lightspeed-* skills | ❓ | Various | Mostly agency-specific | EVALUATE |
+
+**Action:** 🔴 **REQUIRES CLASSIFICATION** — Determine if these should be agent-embedded or archived
+
+---
+
+#### **Tier 3: WordPress-Specific Skills (Niche, but portable)**
+
+🟡 These serve WordPress block/theme development. Question: Do agents use these?
+
+| Skill | Status | Current Usage | Portability |
+|-------|--------|---------------|------------|
+| `wordpress-block-theme-router/` | ✅ | WordPress agents? | HIGH if used |
+| `wordpress-template-generator/` | ✅ | WordPress agents? | HIGH if used |
+| `wordpress-pattern-generator/` | ✅ | WordPress agents? | HIGH if used |
+| `wordpress-plugin-packaging-review/` | ✅ | WordPress audit? | MEDIUM |
+| `wp-db-override-reconciliation/` | ✅ | WP-specific ops | LOW (ops tool) |
+
+**Action:** 🟡 **REQUIRES AGENT MAPPING** — Verify which agents use these
+
+---
+
+### Skills Conflicts & Duplications
+
+**Identified Conflicts (Require Resolution):**
+
+1. **Figma Skills Conflict**
+
+   ```
+   ROOT: /skills/figma-use/ (2023 vintage, archived as .zip)
+   AGENT: design-partner-agent/skills/figma-integration (2026-07, active)
+   ISSUE: Dual implementations, root is outdated
+   RESOLUTION: Promote agent version to root; archive old root version
+   ```
+
+2. **AI Readiness Skill**
+
+   ```
+   ROOT: /skills/ai-readiness-assessor/ (generic agency skill)
+   AGENT: ai-readiness-estimator-agent (25 skills, specialized)
+   ISSUE: Root skill may be superseded by agent-specific version
+   RESOLUTION: Audit for overlap; consolidate if possible
+   ```
+
+3. **Design System Audit Conflict**
+
+   ```
+   ROOT: /skills/audit-design-system/ (generic)
+   AGENT: design-partner-agent/skills/design-system-audit (agent-customized)
+   ISSUE: Two versions for same domain
+   RESOLUTION: Create shared `audit-design-system` with agent-specific config
+   ```
+
+---
+
 ## Analysis Questions
 
 ### 1. Skill Reusability Patterns
@@ -253,6 +369,212 @@ agents/zendesk-support-agent/claude/
 
 **Recommendation:** Option A (agent-level skills directory). Allows skills to be provider-agnostic at the definition level; provider-specific implementations go in provider directories if needed.
 
+## Detailed Remediation Plan: Shared Skills Restructuring
+
+### Strategy: Three-Phase Consolidation
+
+#### **PHASE A: Root Skills Evaluation** (This Quarter)
+
+**Objective:** Classify every skill in `/skills` directory as Keep/Consolidate/Archive
+
+**Step 1: Categorize All 70 Active Skills**
+
+For each skill in `/skills`, assign to one of these categories:
+
+| Category | Action | Deadline | Owner |
+|----------|--------|----------|-------|
+| **Tier 0: Generic Utilities** | ✅ KEEP IN ROOT | Week 1 | Agent Audit |
+| **Tier 1: Reusable Domain Skills** | ⚠️ AUDIT FOR CONSOLIDATION | Week 2 | Agent Audit |
+| **Tier 2: Agency-Specific** | 🔴 EVALUATE FOR ARCHIVAL | Week 3 | Agent Audit |
+| **Tier 3: WordPress/Niche** | 🟡 MAP TO AGENTS | Week 2 | Agent Audit |
+
+**Deliverable:** `SKILLS_CATEGORIZATION_REPORT.md` with all 70 skills classified
+
+---
+
+**Step 2: Identify Version Conflicts**
+
+For each skill that appears in BOTH root and agent folders:
+
+```yaml
+# Example: CONFLICT_MATRIX.yaml
+conflicts:
+  figma-use:
+    root_version: "2023-09-15"
+    agent_version: "design-partner-agent: 2026-07-01"
+    status: "ROOT OUTDATED"
+    action: "CONSOLIDATE - Promote agent version to root"
+    effort: "1-2 hours"
+  
+  ai-readiness-assessor:
+    root_version: "2024-03-20"
+    agent_version: "ai-readiness-estimator-agent: 2026-07-24 (25 skills)"
+    status: "SUPERSEDED - Agent has comprehensive version"
+    action: "CONSOLIDATE - Move to root, retire old version"
+    effort: "2-3 hours"
+    
+  audit-design-system:
+    root_version: "2025-11-10"
+    agent_version: "design-partner-agent: 2026-07-01 (agent-customized)"
+    status: "DUAL VERSIONS - Different purposes"
+    action: "REFACTOR - Create shared base + agent override"
+    effort: "3-4 hours"
+```
+
+**Deliverable:** `CONFLICT_MATRIX.yaml` identifying all dual implementations
+
+---
+
+#### **PHASE B: Agent Skills Inventory** (This Quarter)
+
+**Objective:** Catalog all skills in all 16 agents; identify candidates for root promotion
+
+**Step 1: Complete Agent Skills Audit (Batch 2 & 3)**
+
+Currently we have audited **5 agents**. Need to audit remaining **11 agents**:
+
+```
+Batch 2 (5 agents):
+  - design-partner-agent         [ ] Extract all skills
+  - harvest-analytical-agent     [ ] Extract all skills
+  - linear-advisor-agent         [ ] Extract all skills
+  - pagespeed-agent              [ ] Extract all skills
+  - playwright-testing-agent     [ ] Extract all skills
+
+Batch 3 (6 agents):
+  - prd-agent                    [ ] Extract all skills
+  - proposal-desk-agent          [ ] Extract all skills
+  - tour-operator-config-agent   [ ] Extract all skills
+  - woo-config-agent             [ ] Extract all skills
+  - wp-config-agent              [ ] Extract all skills
+  - [1 more to identify]         [ ] Extract all skills
+```
+
+**For each agent, capture:**
+
+- Agent-attached skills (names, descriptions, when added)
+- Local skills (reusable or agent-specific?)
+- Plugin dependencies
+- Version dates (when last updated)
+
+**Deliverable:** Complete `AGENT_SKILLS_INVENTORY.md` for all 16 agents
+
+---
+
+**Step 2: Skills Reuse Analysis**
+
+Create a **Skills Popularity Matrix** showing how many agents use each skill:
+
+```
+SKILL NAME                 | USED BY (Agents) | CURRENT LOCATION    | RECOMMENDATION
+documents                  | 5 agents         | agent-local (each)  | MOVE TO ROOT
+reports                    | 4 agents         | agent-local (each)  | MOVE TO ROOT
+export-tools               | 4 agents         | agent-local (each)  | MOVE TO ROOT
+gap-analysis               | 3 agents         | agent-local (each)  | MOVE TO ROOT
+seo-audit                  | 3 agents         | agent-local (each)  | MOVE TO ROOT
+sentiment-analyzer         | 2 agents         | agent-local (each)  | CONSOLIDATE (threshold: 2+)
+risk-assessment            | 2 agents         | agent-local (each)  | CONSOLIDATE
+response-drafting          | 1 agent          | zendesk-support     | KEEP LOCAL
+ticket-management          | 1 agent          | zendesk-support     | KEEP LOCAL
+[continue for all shared]  |                  |                     |
+```
+
+**Deliverable:** `SKILLS_POPULARITY_MATRIX.csv` showing reuse patterns
+
+---
+
+#### **PHASE C: Consolidation & Restructuring** (Next Quarter)
+
+**Objective:** Physically move, refactor, and consolidate skills according to taxonomy
+
+**Step 1: Create Consolidated Shared Skills**
+
+For each skill identified for promotion to root:
+
+```
+ACTION ITEM TEMPLATE:
+─────────────────────────────────────────
+Title: Consolidate [SKILL] from agents to root
+Effort: X hours
+Locations Affected: /skills/[skill], agents/[agent1]/skills, agents/[agent2]/skills
+
+Steps:
+1. Read all versions from:
+   - /skills/[skill]/SKILL.md
+   - agents/[agent1]/skills/[skill]/SKILL.md
+   - agents/[agent2]/skills/[skill]/SKILL.md
+
+2. Compare implementations:
+   - Identify common logic vs. agent-specific customizations
+   - Document variations
+
+3. Create consolidated version:
+   - Write /skills/[skill]/SKILL.md (root version)
+   - Extract agent-specific config to /skills/[skill]/[agent].config.json
+
+4. Update agent references:
+   - Change agents/[agent]/AGENT.md to reference root skill
+   - Create agents/[agent]/skills/[skill].override.md if needed
+
+5. Archive old agent versions:
+   - Move to agents/[agent]/.archive/[skill].old/
+   - Document migration in commit message
+
+6. Test:
+   - Verify agent can still invoke skill
+   - Check skill resolution logic
+```
+
+**Deliverable:** 10-15 consolidated skills moved to root with proper versioning
+
+---
+
+**Step 2: Archive Outdated Root Skills**
+
+For skills marked "ARCHIVE":
+
+```bash
+# Example: Archive unused agency skill
+mkdir -p /skills/.archive/2026-Q3/
+mv /skills/lightspeed-ai-readiness/ /skills/.archive/2026-Q3/
+mv /skills/lightspeed-ai-readiness.zip /skills/.archive/2026-Q3/
+
+# Update SKILL_REGISTRY.json to mark as archived
+# Document in ARCHIVE_LOG.md why and when
+```
+
+**Deliverable:** Cleaned root `/skills/` directory with archived versions documented
+
+---
+
+**Step 3: Create Agent Override System**
+
+For skills with both shared AND agent-specific versions:
+
+```yaml
+# /skills/audit-design-system/SKILL.md (shared)
+name: audit-design-system
+scope: shared
+used_by: [design-partner-agent, potentially-others]
+agent_overrides:
+  design-partner-agent: configs/design-partner-agent.override.yaml
+```
+
+```yaml
+# /skills/audit-design-system/configs/design-partner-agent.override.yaml
+agent: design-partner-agent
+applies_to_methods:
+  - audit_color_contrast
+  - audit_typography
+custom_checks:
+  - figma_integration_validation
+  - wordpress_parity_check
+```
+
+**Deliverable:** Override system documented in SKILLS_GOVERNANCE.md
+
+---
+
 ## Audit Tasks
 
 ### Phase 1: Skill Inventory & Classification
@@ -305,6 +627,88 @@ agents/zendesk-support-agent/claude/
 - Epic #1079: Agent standardization Phase 2B
 - PR #1199: Phase 2A (prd-factory-planner-agent, 12-phase pattern established)
 - PR (pending): Phase 2B Batch 1 (5 agents, skills documentation)
+
+## Concrete Implementation Timeline
+
+### IMMEDIATE (This Week)
+
+- [ ] **Task 1:** Create `SKILLS_CATEGORIZATION_REPORT.md`
+  - Go through all 70 active skills in `/skills`
+  - Classify each as Tier 0/1/2/3
+  - Effort: 2-3 hours
+  - Owner: Audit Lead
+
+- [ ] **Task 2:** Create `CONFLICT_MATRIX.yaml`
+  - Identify all skills appearing in BOTH root AND agent folders
+  - Document version dates and current status
+  - Effort: 1-2 hours
+  - Owner: Audit Lead
+
+- [ ] **Task 3:** Create `AGENT_SKILLS_INVENTORY.md` (Batch 1 COMPLETE, start Batch 2-3)
+  - Extract all skills from remaining 11 agents
+  - Capture skill names, descriptions, dates, locations
+  - Effort: 3-4 hours
+  - Owner: Agent Standardization Team
+
+### THIS MONTH (Consolidation Sprint)
+
+- [ ] **Consolidate Tier 1 Skills** (10-15 skills)
+  - `documents`, `reports`, `export-tools`, `gap-analysis`, `seo-audit`
+  - Create merged versions in root
+  - Update all agent references
+  - Archive agent-local duplicates
+  - Effort: 10-12 hours (1-2 days)
+
+- [ ] **Archive Tier 2/3 Skills**
+  - Move unused agency/WordPress skills to `.archive/`
+  - Document why and when archived
+  - Update SKILL_REGISTRY.json
+  - Effort: 2-3 hours
+
+- [ ] **Create Agent Override System**
+  - Document in `SKILLS_GOVERNANCE.md`
+  - Set up directory structure: `/skills/[skill]/configs/[agent].override.yaml`
+  - Create first few overrides for conflict skills
+  - Effort: 3-4 hours
+
+- [ ] **Update SKILL_REGISTRY.json**
+  - Comprehensive registry of all shared + agent-specific skills
+  - Include version dates, agent references, status
+  - Make it machine-readable (JSON Schema)
+  - Effort: 2-3 hours
+
+### NEXT QUARTER (Rollout & Governance)
+
+- [ ] Apply restructured skills to remaining agents (Batch 2-3)
+- [ ] Update all 16 agents to reference root skills where applicable
+- [ ] Create SKILL_LOOKUP_GUIDE.md (how to find, create, override skills)
+- [ ] Implement linting rules to enforce skill governance
+- [ ] Update AGENTS.md with skill organization standards
+
+---
+
+## Success Metrics for Phase 2B Completion
+
+When this audit is complete, you should be able to answer:
+
+- ✅ **Clarity:** I can list all 60+ root skills and their current status (active/archived/conflicting)
+- ✅ **Inventory:** I can map which agents use which skills, with version dates
+- ✅ **Ownership:** Each skill has a clear "source of truth" location (root shared OR agent-specific)
+- ✅ **Conflicts:** All dual implementations are documented with a remediation plan
+- ✅ **Governance:** Clear rules exist for when a skill should be shared vs. agent-local
+- ✅ **Scalability:** New agents can easily discover and reuse existing skills without duplication
+
+---
+
+## Related Issues & PRs
+
+- **Epic:** #1079 (Agent Standardization Phase 2B)
+- **Current PR:** #1198 (chore/agents-finalize-incomplete-agents)
+- **Related PRs:** #1199 (Phase 2A complete), #1196 (PRD agent consolidated)
+- **Audit Branch:** `feat/agents-phase-2b-skills-audit`
+- **Implementation Branches:** `feat/phase-2b-agent-skills-batch-1` (active), `feat/phase-2b-agent-skills-batch-2` (pending)
+
+---
 
 ## Next Steps
 
