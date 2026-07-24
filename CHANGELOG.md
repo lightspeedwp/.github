@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Phase 2B Phase B Skills Consolidation Planning** — Comprehensive Phase B planning deliverables establishing architectural foundation for Phase C execution (weeks 5-12). Includes skill dependency map (377 skills across 16 agents), architecture plan resolving 3 critical architectural decisions (Tier 0/1/2/3 organization, override system design, HIGH-severity conflict resolution), and implementation roadmap with 32 templated Phase C tasks (62-84 hours estimated). ([PR #1370](https://github.com/lightspeedwp/.github/pull/1370), [#1316](https://github.com/lightspeedwp/.github/issues/1316), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
+
 - **Playwright Testing Agent multi-provider support** — Converted ChatGPT/Codex export into standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added provider-agnostic AGENT.md, per-provider configs, tools/skill definitions, and plugin packaging. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
 - **Agent standardization Phase 1 infrastructure** — Established reusable multi-provider agent pattern with JSON schemas, validation hooks, instruction files, and cookbook playbooks. Four validators with unit tests for agent-spec, consistency, plugin integrity, and security. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108))
