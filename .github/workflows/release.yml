@@ -138,7 +138,7 @@ jobs:
       - name: Configure git user
         run: |
           git config user.name "lightspeed-bot"
-          git config user.email "ops@lightspeedwp.agency"
+          git config user.email "<ops@lightspeedwp.agency>"
       - name: Validate changelog (schema + unreleased content)
         run: |
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
