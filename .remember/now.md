@@ -1,3 +1,6 @@
+## 14:30 | feat/agents-phase-2b-batch-2-3-standardization
+
+Fixed PLAN-EXPANDED.md frontmatter schema compliance (file_type: documentation, quoted date '2026-07-24'); amended commit message to clarify documentation-only update referencing previously-completed agent standardization (8 agents, 72 files, 2,100+ LOC, completed in commits #1157/#1199); PR #1285 updated with accurate description; CodeRabbit feedback addressed: commit explicitly states "documentation only" and links to prior implementation work.
 
 ## 15:20 | chore/changelog-recovery-missing-entries
 
@@ -112,3 +115,35 @@ Phase 2B Batch 2-3 audit (11 agents, 258 skills) w/ conflict matrix & consolidat
 ## 14:13 | audit/skills-standards-batch-2-3
 
 PR #1284 CI: Validation & Testing pass, Linting fails on pre-existing agent false-positive credential warnings; fixed design-partner-agent, fixing website-content-strategist-agent w/ safe placeholder patterns.
+
+## 14:20 | claude/workflows-consolidation-phase-2-fa76e8
+
+Fixed critical merge-entries.cjs bug destroying changelog entries (section header preservation), created 4-phase hardening plan w/ CHANGELOG_GUIDELINES.md & Phase 2 rebuild docs, filed child issue #1275, merged PR #1276 to develop.
+
+## 14:22 | claude/repo-structure-instructions-81094d
+
+Audited consolidation scope (502 instr refs, 35 agents, 26 schemas across 2 locations), created migration plan w/ DoD checklist, filed #1288, opened PR #1289.
+
+## 14:24 | audit/skills-standards-batch-2-3
+
+Completed Phase 2B Batch 2-3 skills audit (11 agents, 258 skills), created audit doc in project folder, opened PR #1284 w/ footer validation arg forwarding fix (root cause), resolved security audit false positives across 8 files, removed broken badge links; updated issues #1197, #1079.
+
+## 14:26 | refactor/repo-structure-realignment
+
+Audited schema consolidation (26 files, 150+ refs), agents (35 agents, 12k+ files), instructions (502 refs/156 files); opened issue #1288 & PR #1289 (refactor/repo-structure-schema-consolidation); Phase 1 validation identified 35 script refs needing path updates.
+
+## 14:28 | audit/skills-standards-batch-2-3
+
+Completed Phase 2B Batch 2-3 skills audit (11 agents, 258 skills); PR #1284 pushed with all CI checks passing after fixing npm script argument forwarding (root cause of footer validation scanning all 9074 files), security audit false positives, frontmatter freshness, and broken badge links; audit doc at `.github/projects/active/agent-skills-standards-comprehensive/PHASE-2B-SKILLS-AUDIT.md` ready for merge.
+
+## 15:33 | refactor/repo-structure-realignment
+
+Applied refactor PR templates to #1303/#1289 with comprehensive issue linking; schema consolidation verified (26 files migrated to .schemas/, 4 validation tests passing); code review feedback added & applied to CLAUDE.md (path reference table); marked child issues #1292/#1295/#1296 complete; merge conflicts in memory tracking files identified during rebase, resolving.
+
+## 15:35 | docs/changelog-project-status-update
+
+Merged PRs #1281 & #1315 recovering 127 total PR entries (76 + 51) for 100% post-v1.0.0 changelog coverage (June 23—July 24), added validation automation (7 rules, integration tests), updated PROJECT_PLAN.md phases to ✅ Complete for Phases 1-2.5, created README.md tracking all deliverables in `.github/projects/active/changelog-automation-hardening/`.
+
+## 15:50 | develop
+
+Rebuilt CHANGELOG.md [Unreleased] with 37 entries from 40+ merged PRs (May—July), renamed branch to `chore/changelog-rebuild-phase-2`, merged PR #1279 to develop after rebasing & resolving conflicts, fixed Codex feedback (removed duplicate Dependabot, corrected automation PR link #1275→#1276).
