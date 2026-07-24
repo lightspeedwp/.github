@@ -52,14 +52,16 @@ Defines consistent directory structure and file placement conventions for all Li
 project-root/
 ├── .github/                          # GitHub-native files (workflows, templates, actions)
 │   ├── workflows/                    # CI/CD and automation workflows
-│   ├── instructions/                 # Repo-local Copilot instructions
+│   ├── agents/                       # Spec-based agents (GitHub-native only)
+│   ├── instructions/                 # Repo-local Copilot instructions (control-plane-specific)
 │   ├── custom-instructions.md        # Copilot instructions for this repo
 │   ├── CONTRIBUTING.md               # Contribution guidelines
 │   ├── CODE_OF_CONDUCT.md           # Community standards
 │   ├── SECURITY.md                   # Security policy
 │   └── [other community health files]
 │
-├── agents/                           # Portable agent specifications
+├── .schemas/                         # JSON schemas (hidden folder, validation definitions)
+├── agents/                           # Portable agent specifications (multi-file implementations)
 ├── cookbook/                         # Recipes, playbooks, implementation guides
 ├── hooks/                           # Portable hooks and guardrails
 ├── instructions/                    # Portable instruction files (no .github assumptions)
@@ -86,9 +88,11 @@ project-root/
 |---|---|---|
 | CI/CD workflows | `.github/workflows/` | `{purpose}.yml` |
 | GitHub templates | `.github/{issue,pull_request,discussion}_template/` | Standard GitHub structure |
-| Repo-local instructions | `.github/instructions/` | `{topic}.instructions.md` |
+| Spec-based agents | `.github/agents/` | `{name}.agent.md` (GitHub-native only) |
+| Portable multi-file agents | `agents/` | `{name}-agent/` folder with AGENT.md |
+| Repo-local instructions | `.github/instructions/` | `{topic}.instructions.md` (control-plane-specific) |
 | Portable instructions | `instructions/` | `{topic}.instructions.md` |
-| Portable agents | `agents/` | `{name}.agent.md` |
+| JSON schemas (validation) | `.schemas/` | `{type}.schema.json` (hidden folder) |
 | Portable workflows | `workflows/` | `{name}.md` |
 | Recipes/playbooks | `cookbook/` | `{topic}.md` |
 | Plugins | `plugins/` | One folder per plugin |
