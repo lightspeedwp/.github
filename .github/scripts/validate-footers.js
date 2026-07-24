@@ -33,6 +33,35 @@ const FOOTER_CONFIG_PATH = path.join(
   "../../config/footers.config.yaml",
 );
 
+const QUIRKY_FOOTERS_PATH = path.join(
+  __dirname,
+  "../../config/quirky-footers.yaml",
+);
+
+// Load configurations
+let footerConfig;
+let quirkyFootersConfig;
+
+try {
+  const configContent = fs.readFileSync(FOOTER_CONFIG_PATH, "utf8");
+  footerConfig = yaml.safeLoad(configContent);
+  console.log("✅ Loaded footer configuration");
+} catch (err) {
+  console.error("❌ Failed to load footer configuration:", err.message);
+  process.exit(1);
+}
+
+try {
+  const quirkyConfigContent = fs.readFileSync(QUIRKY_FOOTERS_PATH, "utf8");
+  quirkyFootersConfig = yaml.safeLoad(quirkyConfigContent);
+  console.log("✅ Loaded quirky footers configuration");
+} catch (err) {
+  console.warn(
+    "⚠️  Quirky footers configuration not found, using standard footers",
+  );
+  quirkyFootersConfig = null;
+}
+
 // Parse command-line flags
 const args = process.argv.slice(2);
 const shouldFix = args.includes("--fix");
@@ -43,18 +72,6 @@ const verbose = args.includes("--verbose");
 const changedOnly = args.includes("--changed-only");
 const baseSha = args.find((arg) => arg.startsWith("--base="))?.split("=")[1];
 const headSha = args.find((arg) => arg.startsWith("--head="))?.split("=")[1];
-
-// Load configuration
-let footerConfig;
-
-try {
-  const configContent = fs.readFileSync(FOOTER_CONFIG_PATH, "utf8");
-  footerConfig = yaml.load(configContent);
-  if (verbose) console.log("✅ Loaded footer configuration");
-} catch (err) {
-  console.error("❌ Failed to load configuration:", err.message);
-  process.exit(1);
-}
 
 // Track violations
 const violations = {
@@ -178,27 +195,51 @@ function replaceFooterTail(content, footerTemplate) {
   return `${contentWithFrontmatter}${footerBlock}`;
 }
 
-// Bundled/vendored skill reference material (third-party snapshots embedded
-// in agent skill folders, not repo-authored) is exempt from footer
-// requirements — mirrors the exclusions in eslint.config.cjs and
-// scripts/validation/validate-mermaid-syntax.js.
-const VENDOR_PATH_PATTERN =
-  /\/(plugin-provided|platform-managed|directory-installed|agentskills-main)\//;
+// Check if a file should be exempt from footer requirements
+function isExcludedFromFooterValidation(filePath) {
+  const config = quirkyFootersConfig || {};
+  const exclusionPatterns = config.exclusion_patterns || {};
+  const normalizedPath = filePath.replace(/\\/g, "/");
+
+  // Check each exclusion category
+  const allExclusions = [
+    ...(exclusionPatterns.vendor_paths || []),
+    ...(exclusionPatterns.system_files || []),
+    ...(exclusionPatterns.archives || []),
+    ...(exclusionPatterns.templates || []),
+    ...(exclusionPatterns.references || []),
+  ];
+
+  for (const pattern of allExclusions) {
+    try {
+      const regex = new RegExp(pattern);
+      if (regex.test(normalizedPath)) {
+        return true;
+      }
+    } catch (err) {
+      // Invalid regex pattern, skip
+    }
+  }
+
+  return false;
+}
 
 function inferCategory(filePath, frontmatter) {
-  const normalizedForVendorCheck = filePath.replace(/\\/g, "/");
-  if (VENDOR_PATH_PATTERN.test(normalizedForVendorCheck)) {
+  const normalizedPath = filePath.replace(/\\/g, "/");
+
+  // Check exclusions first
+  if (isExcludedFromFooterValidation(filePath)) {
     return "";
   }
 
   if (
     frontmatter?.category &&
-    footerConfig.categories?.[frontmatter.category]
+    (footerConfig.categories?.[frontmatter.category] ||
+      quirkyFootersConfig?.categories?.[frontmatter.category])
   ) {
     return frontmatter.category;
   }
 
-  const normalizedPath = filePath.replace(/\\/g, "/");
   const pathPatterns = [
     {
       pattern: /^\.github\/ISSUE_TEMPLATE\/.*\.md$/i,
