@@ -11,9 +11,15 @@ Fixed linting in PR #1201 (ci/template-enforcement-fix) and template issues in #
 
 Applied issue templates to 22 issues (#1220-#1241) w/ DoR/DoD; documented bulk template process in docs/ISSUE_TRIAGE.md.
 
-## 10:29 | develop
+## 10:34 | Workflows consolidation Phase 1A complete: removed testing.yml (issue #1231), extracted template validation helpers to scripts/validation/template-helpers.cjs (issue #1233), created project documentation at .github/projects/active/workflows-consolidation-2026-q3/, and linked Epic #1227 with detailed audit & playbook for 19% workflow reduction goal
 
-Implemented quirky footers system w/ JSON schema (#1212), linked 7 v1.0 PRs to correctly-templated issues (#1200-#1203, #1221, #1225), created Phase 2B audit issue/PR (#1225, #1221), fixed CI/frontmatter/YAML issues across all, merged #1200/#1201/#1221 to develop.
+## 10:36 | docs/issue-template-triage-guide
 
-## 10:45 | docs/agent-skills-standards-comprehensive
-Created 9 agent/skills stds docs (agents, skills, instructions, workflows, cookbooks, prompts, plugins, hooks, AI refs); project tracking setup (epic #1261 + child issues #1262-#1270) on develop; PR #1251 w/ batched CI fixes (frontmatter, links, CodeEx feedback) pending merge.
+Fixed docs/ISSUE_TRIAGE.md per code review (subprocess timeouts, path corrections, idempotency); PR #1250 template-compliant & pending merge.
+
+## 10:38 | audit/workflows-consolidation-audit
+
+Completed Phase 1A (#1231, #1233): removed testing.yml, extracted template helpers to scripts/validation/template-helpers.cjs (45 tests), fixed PR #1228 w/ missing docs & frontmatter validation, 135 lines dedup, ~2-3% GHA mins savings.
+
+## 10:41 | chore/comprehensive-maintenance-improvements
+Markdown audit categorized 9,024 files w/ 6-category taxonomy; Phase 1 impl achieved 38% CI scope reduction via narrowed vendor/metrics exclusions (PRs #1223 #1226); committed framework/findings to `.github/projects/active/markdown-audit-ci-optimization/` develop; created parent issue #1229 w/ child issues #1224 #1230 #1232.
