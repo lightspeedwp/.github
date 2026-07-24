@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: Agent Skills Inventory
-description: Complete catalog of skills across all 16 agents with categorization
+description: Complete catalog of skills across all 16 agents with categorisation
 created: 2026-07-24
 status: complete
 related_issues: '#1079'

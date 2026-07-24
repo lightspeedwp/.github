@@ -228,7 +228,7 @@ agents/{agent-slug}/skills/{skill-name}-override/
 
 - ✅ Inventory remaining 11 agents (285 skills documented)
 - ✅ Document all conflicts (HIGH/MEDIUM/LOW severity identified)
-- ✅ Finalize root skills classification
+- ✅ Finalise root skills classification
 - ✅ Create consolidation strategy insights
 
 ### Phase B Planning (Upcoming ⏳)

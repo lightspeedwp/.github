@@ -441,7 +441,7 @@ STATUS: Informational only
 
 **Action:** Extract these to root `skills/` directory; update agent references
 
-### 4. Plugin-Provided Integration Standardization
+### 4. Plugin-Provided Integration Standardisation
 
 **Question:** Should plugin-provided skills follow a naming convention?
 
