@@ -46,7 +46,7 @@ For live or staging sites, review or request evidence for:
 - performance baseline
 - accessibility baseline
 - analytics/tracking baseline
-- schema/rich results
+- .schemas/rich results
 - privacy/cookie/accessibility policies
 - WooCommerce or custom plugin features where relevant
 

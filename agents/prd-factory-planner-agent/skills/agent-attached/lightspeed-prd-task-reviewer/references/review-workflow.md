@@ -103,7 +103,7 @@ Check routing to:
 - launch QA
 - Figma parity
 - redirects
-- schema/AI discoverability
+- .schemas/AI discoverability
 - GA4/conversion tracking
 - policy/trust pages
 - claim register

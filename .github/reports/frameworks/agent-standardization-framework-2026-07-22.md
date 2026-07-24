@@ -22,7 +22,7 @@ This document was drafted before implementation. The following points supersede
 any conflicting text below; the implemented code and the living guidance in
 `instructions/` are authoritative.
 
-- **Asset locations are top-level**, not under `.github/`: `hooks/`, `schema/`,
+- **Asset locations are top-level**, not under `.github/`: `hooks/`, `.schemas/`,
   `instructions/`, `plugins/`, `cookbook/`, `agents/`. (Report/audit files
   correctly live under `.github/reports/`.)
 - **Plugin manifest contract:** a plugin has **no root `plugin.json`**. It ships
@@ -264,7 +264,7 @@ plugins/lightspeed-playwright-testing/
 ├── hooks/
 │   ├── hook-references.json
 │   └── [hook implementations if plugin-specific]
-├── schema/
+├── .schemas/
 │   └── [plugin-specific schemas if needed]
 ├── docs/
 │   ├── agent-guide.md
@@ -316,7 +316,7 @@ capabilities:
 | `providers` | Array of valid providers (min 1) | `["claude", "copilot", "openai"]` |
 | `capabilities` | Non-empty array of strings | `["browser-automation", "visual-regression"]` |
 
-**Schema:** `schema/multi-provider-agent.schema.json`
+**Schema:** `.schemas/multi-provider-agent.schema.json`
 
 ### Provider Configuration Validation
 
@@ -338,7 +338,7 @@ capabilities:
 - Response format: function_call + JSON
 - Must follow OpenAI API specifications
 
-**Schema:** `schema/provider-config.schema.json`
+**Schema:** `.schemas/provider-config.schema.json`
 
 ### Plugin Manifest Validation
 
@@ -368,7 +368,7 @@ capabilities:
 - ✅ All hooks are registered in `hooks/hook-registry.json`
 - ✅ Providers object has valid entries
 
-**Schema:** `schema/agent-plugin-binding.schema.json`
+**Schema:** `.schemas/agent-plugin-binding.schema.json`
 
 ### Capability Manifest Validation
 
@@ -385,7 +385,7 @@ capabilities:
 - Rule must be clear and enforceable
 - Scope must be one of: strict, moderate, permissive, restricted
 
-**Schema:** `schema/agent-capability-manifest.schema.json`
+**Schema:** `.schemas/agent-capability-manifest.schema.json`
 
 ---
 
@@ -535,7 +535,7 @@ capabilities:
 | provider-config | provider-config.schema.json | Per-provider agent config | Validate claude/copilot/openai agent.md |
 | agent-capability-manifest | agent-capability-manifest.schema.json | Capabilities and constraints | Validate capability definitions |
 
-**Location:** `schema/` with entries in `schema-registry.json`
+**Location:** `.schemas/` with entries in `schema-registry.json`
 
 ---
 
@@ -668,11 +668,11 @@ Implementation of agent rewrite, plugin creation, validation, and merge follows 
 
 **Repository Updates:**
 
-- [ ] `schema/multi-provider-agent.schema.json`
-- [ ] `schema/agent-plugin-binding.schema.json`
-- [ ] `schema/provider-config.schema.json`
-- [ ] `schema/agent-capability-manifest.schema.json`
-- [ ] Update `schema/schema-registry.json`
+- [ ] `.schemas/multi-provider-agent.schema.json`
+- [ ] `.schemas/agent-plugin-binding.schema.json`
+- [ ] `.schemas/provider-config.schema.json`
+- [ ] `.schemas/agent-capability-manifest.schema.json`
+- [ ] Update `.schemas/schema-registry.json`
 - [ ] `hooks/agent-spec-validator/`
 - [ ] `hooks/multi-provider-consistency-checker/`
 - [ ] `hooks/plugin-integrity-checker/`

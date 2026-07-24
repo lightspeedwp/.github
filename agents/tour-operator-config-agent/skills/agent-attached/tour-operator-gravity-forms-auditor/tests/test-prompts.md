@@ -3,7 +3,7 @@
 | # | Test prompt | Expected behaviour |
 |---:|---|---|
 | 1 | Run a whole-site Gravity Forms audit for this WordPress site running the Tour Operator plugin and extension plugins. | Discover read-only MCP capabilities, run preflight, inspect only needed evidence, produce internal report, findings register, scorecard, limitations, and handoff items. |
-| 2 | Audit the Contact Us form only. | Scope to one form, read schema/notifications/confirmations/embed evidence, avoid unrelated forms, produce focused findings. |
+| 2 | Audit the Contact Us form only. | Scope to one form, read .schemas/notifications/confirmations/embed evidence, avoid unrelated forms, produce focused findings. |
 | 3 | Check why notifications may be unreliable. | Inspect notification settings, From/Reply-To, recipients, routing, SMTP evidence, logs if safe, and separate Gravity Forms config from mail-stack delivery. |
 | 4 | Audit spam protection on all public Tour Operator plugin enquiry forms. | Review honeypot/CAPTCHA/Turnstile/reCAPTCHA/Akismet/Zero Spam, spam counts, false-positive signals, and plugin support caveats. |
 | 5 | Run an accessibility audit on our lead form. | Load accessibility reference, check labels/placeholders/required/errors/keyboard/focus/contrast limitations, mark visual checks by evidence level. |

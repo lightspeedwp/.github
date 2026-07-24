@@ -117,7 +117,7 @@
 | agent/instructions/prompts/tour-operator-website/references/outputs/finding-register.schema.json | /workspace/agent_files/prompts/tour-operator-website/references/outputs/finding-register.schema.json | prompts | yes |  |
 | agent/instructions/prompts/tour-operator-website/references/outputs/issue-draft-templates.md | /workspace/agent_files/prompts/tour-operator-website/references/outputs/issue-draft-templates.md | prompts | yes |  |
 | agent/instructions/prompts/tour-operator-website/references/outputs/output-contracts.md | /workspace/agent_files/prompts/tour-operator-website/references/outputs/output-contracts.md | prompts | yes |  |
-| agent/instructions/prompts/tour-operator-website/references/schema/jsonld-yoast-schema-map.json | /workspace/agent_files/prompts/tour-operator-website/references/schema/jsonld-yoast-schema-map.json | prompts | yes |  |
+| agent/instructions/prompts/tour-operator-website/references/.schemas/jsonld-yoast-schema-map.json | /workspace/agent_files/prompts/tour-operator-website/references/.schemas/jsonld-yoast-schema-map.json | prompts | yes |  |
 | agent/instructions/prompts/tour-operator-website/references/validation/anti-drift-tests.md | /workspace/agent_files/prompts/tour-operator-website/references/validation/anti-drift-tests.md | prompts | yes |  |
 | agent/instructions/prompts/tour-operator-website/references/validation/content-model-consistency.md | /workspace/agent_files/prompts/tour-operator-website/references/validation/content-model-consistency.md | prompts | yes |  |
 | agent/instructions/prompts/tour-operator-website/references/validation/output-contract-lint.md | /workspace/agent_files/prompts/tour-operator-website/references/validation/output-contract-lint.md | prompts | yes |  |
@@ -409,7 +409,7 @@
 | skills/agent-attached/tour-operator-website/references/outputs/finding-register.schema.json | /workspace/agent_files/prompts/tour-operator-website/references/outputs/finding-register.schema.json | skill | yes |  |
 | skills/agent-attached/tour-operator-website/references/outputs/issue-draft-templates.md | /workspace/agent_files/prompts/tour-operator-website/references/outputs/issue-draft-templates.md | skill | yes |  |
 | skills/agent-attached/tour-operator-website/references/outputs/output-contracts.md | /workspace/agent_files/prompts/tour-operator-website/references/outputs/output-contracts.md | skill | yes |  |
-| skills/agent-attached/tour-operator-website/references/schema/jsonld-yoast-schema-map.json | /workspace/agent_files/prompts/tour-operator-website/references/schema/jsonld-yoast-schema-map.json | skill | yes |  |
+| skills/agent-attached/tour-operator-website/references/.schemas/jsonld-yoast-schema-map.json | /workspace/agent_files/prompts/tour-operator-website/references/.schemas/jsonld-yoast-schema-map.json | skill | yes |  |
 | skills/agent-attached/tour-operator-website/references/validation/anti-drift-tests.md | /workspace/agent_files/prompts/tour-operator-website/references/validation/anti-drift-tests.md | skill | yes |  |
 | skills/agent-attached/tour-operator-website/references/validation/content-model-consistency.md | /workspace/agent_files/prompts/tour-operator-website/references/validation/content-model-consistency.md | skill | yes |  |
 | skills/agent-attached/tour-operator-website/references/validation/output-contract-lint.md | /workspace/agent_files/prompts/tour-operator-website/references/validation/output-contract-lint.md | skill | yes |  |

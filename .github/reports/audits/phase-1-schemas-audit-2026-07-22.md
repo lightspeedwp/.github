@@ -17,7 +17,7 @@ scope: phase-1-agent-standardization
 
 ## Current Schemas
 
-**Registry:** `.github/schema/schema-registry.json`
+**Registry:** `.github/.schemas/schema-registry.json`
 
 ### Registered Schemas
 
@@ -649,7 +649,7 @@ scope: phase-1-agent-standardization
 
 ## Schema Registry Update
 
-Update `.github/schema/schema-registry.json`:
+Update `.github/.schemas/schema-registry.json`:
 
 ```json
 {
@@ -659,60 +659,60 @@ Update `.github/schema/schema-registry.json`:
   "entries": [
     {
       "id": "frontmatter",
-      "path": "schema/frontmatter.schema.json",
+      "path": ".schemas/frontmatter.schema.json",
       "status": "active"
     },
     {
       "id": "changelog",
-      "path": "schema/changelog.schema.json",
+      "path": ".schemas/changelog.schema.json",
       "status": "active"
     },
     {
       "id": "project-fields",
-      "path": "schema/project-fields.schema.json",
+      "path": ".schemas/project-fields.schema.json",
       "status": "active"
     },
     {
       "id": "version",
-      "path": "schema/version.schema.json",
+      "path": ".schemas/version.schema.json",
       "status": "active"
     },
     {
       "id": "skill-metadata",
-      "path": "schema/skill-metadata.schema.json",
+      "path": ".schemas/skill-metadata.schema.json",
       "status": "active"
     },
     {
       "id": "skill-agent-config",
-      "path": "schema/skill-agent-config.schema.json",
+      "path": ".schemas/skill-agent-config.schema.json",
       "status": "active"
     },
     {
       "id": "plugin-manifest",
-      "path": "schema/plugin-manifest.schema.json",
+      "path": ".schemas/plugin-manifest.schema.json",
       "status": "active"
     },
     {
       "id": "multi-provider-agent",
-      "path": "schema/multi-provider-agent.schema.json",
+      "path": ".schemas/multi-provider-agent.schema.json",
       "status": "active",
       "category": "agent-validation"
     },
     {
       "id": "agent-plugin-binding",
-      "path": "schema/agent-plugin-binding.schema.json",
+      "path": ".schemas/agent-plugin-binding.schema.json",
       "status": "active",
       "category": "agent-validation"
     },
     {
       "id": "provider-config",
-      "path": "schema/provider-config.schema.json",
+      "path": ".schemas/provider-config.schema.json",
       "status": "active",
       "category": "agent-validation"
     },
     {
       "id": "agent-capability-manifest",
-      "path": "schema/agent-capability-manifest.schema.json",
+      "path": ".schemas/agent-capability-manifest.schema.json",
       "status": "active",
       "category": "agent-validation"
     }
@@ -726,25 +726,25 @@ Update `.github/schema/schema-registry.json`:
 
 ### Schema Files to Create
 
-- [ ] `.github/schema/multi-provider-agent.schema.json`
-- [ ] `.github/schema/agent-plugin-binding.schema.json`
-- [ ] `.github/schema/provider-config.schema.json`
-- [ ] `.github/schema/agent-capability-manifest.schema.json`
+- [ ] `.github/.schemas/multi-provider-agent.schema.json`
+- [ ] `.github/.schemas/agent-plugin-binding.schema.json`
+- [ ] `.github/.schemas/provider-config.schema.json`
+- [ ] `.github/.schemas/agent-capability-manifest.schema.json`
 
 ### Example Files to Create (for documentation)
 
-- [ ] `.github/schema/multi-provider-agent.example.json`
-- [ ] `.github/schema/agent-plugin-binding.example.json`
-- [ ] `.github/schema/provider-config.example.json`
-- [ ] `.github/schema/agent-capability-manifest.example.json`
+- [ ] `.github/.schemas/multi-provider-agent.example.json`
+- [ ] `.github/.schemas/agent-plugin-binding.example.json`
+- [ ] `.github/.schemas/provider-config.example.json`
+- [ ] `.github/.schemas/agent-capability-manifest.example.json`
 
 ### Registry Update
 
-- [ ] Update `.github/schema/schema-registry.json` with 4 new entries
+- [ ] Update `.github/.schemas/schema-registry.json` with 4 new entries
 
 ### Documentation
 
-- [ ] Update `.github/schema/README.md` with new schemas
+- [ ] Update `.github/.schemas/README.md` with new schemas
 - [ ] Add schema usage examples
 
 ---

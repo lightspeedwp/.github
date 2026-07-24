@@ -64,7 +64,7 @@ This folder contains the validation and maintenance scripts for Design Partner.
 - `validate_business_context.py` — validates the business-context file for core completeness markers
 - `validate_links_and_references.py` — validates relative links and referenced local file targets in package Markdown
 - `validate_starter_prompts.py` — validates an exported starter-prompt JSON file when available
-- `validate-folder-schemas.sh` — shell-based schema/folder helper retained for compatibility
+- `validate-folder-schemas.sh` — shell-based .schemas/folder helper retained for compatibility
 
 ## When to run each script
 

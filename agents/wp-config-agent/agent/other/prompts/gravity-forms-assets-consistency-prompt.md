@@ -83,7 +83,7 @@ Output:
 2. Files updated
 3. Any stale Gravity Forms references removed
 4. Any configuration-vs-audit ambiguity found
-5. Any schema/template/reference mismatches found
+5. Any .schemas/template/reference mismatches found
 6. A clear statement on whether the Gravity Forms asset set is now aligned
 
 ---

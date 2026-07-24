@@ -52,7 +52,7 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 ### Portable AI Source Folders
 
-- [schema/README.md](./schema/README.md) - Portable schema ownership
+- [.schemas/README.md](./.schemas/README.md) - Portable schema ownership
 - [agents/README.md](./agents/README.md) - Portable agent specs
 - [cookbook/README.md](./cookbook/README.md) - Recipes and examples
 - [hooks/README.md](./hooks/README.md) - Hooks and guardrails

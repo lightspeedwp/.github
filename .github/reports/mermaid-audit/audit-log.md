@@ -202,7 +202,7 @@ The following 26 README files were scanned and contain no Mermaid diagrams (no a
 - `./.github/reports/README.md`
 - `./.github/schemas/README.md`
 - `./.github/workflows/README.md`
-- `./schema/README.md`
+- `./.schemas/README.md`
 - `./.vscode/README.md`
 - `./agents/README.md`
 - `./cookbook/README.md`

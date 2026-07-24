@@ -43,7 +43,7 @@ Use these tests to confirm `yoast-configuration` routes live audit/edit work to 
 
 **Expected route:** Stay in `yoast-configuration`.
 
-**Expected output:** Configuration plan, assumptions, product/schema/WooCommerce QA checks, no live edit claim.
+**Expected output:** Configuration plan, assumptions, product/.schemas/WooCommerce QA checks, no live edit claim.
 
 ## Scenario 2: Live admin audit routes to yoast-auditor
 

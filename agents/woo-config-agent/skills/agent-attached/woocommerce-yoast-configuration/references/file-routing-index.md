@@ -154,7 +154,7 @@ Use this route when the risk depends on old URL decisions, redirect implementati
 |---|---|---|---|
 | Live Yoast audit or WordPress admin edit | `woocommerce-yoast-auditor` via handoff | `references/related-skills-routing.md`, `references/access-level-workflow.md`, `templates/wordpress-admin-change-plan.md` | Route, do not duplicate |
 | Approved bulk metadata implementation inside WordPress | `woocommerce-yoast-auditor` via handoff after planning | `references/bulk-metadata-governance.md`, `references/approval-queue-workflow.md`, `templates/metadata-bulk-edit-plan.md` | Keep candidate rows, approval status and post-change QA separate |
-| Live taxonomy SEO/noindex/schema/breadcrumb/redirect-manager edit | `woocommerce-yoast-auditor` via handoff | `references/related-skills-routing.md`, `references/remediation-backlog-model.md`, relevant decision template | Use `woocommerce-yoast-configuration` for decision context and `woocommerce-yoast-auditor` for live implementation |
+| Live taxonomy SEO/noindex/.schemas/breadcrumb/redirect-manager edit | `woocommerce-yoast-auditor` via handoff | `references/related-skills-routing.md`, `references/remediation-backlog-model.md`, relevant decision template | Use `woocommerce-yoast-configuration` for decision context and `woocommerce-yoast-auditor` for live implementation |
 
 Stay in `woocommerce-yoast-configuration` when the user only needs planning, evidence interpretation, exported-settings review, rendered-output QA, source-register updates, decision packs, remediation backlogs, or client-safe summaries.
 

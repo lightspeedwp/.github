@@ -84,7 +84,7 @@ the same capabilities expressed per provider.
 ## References
 
 - [agent-creation-workflow.instructions.md](./agent-creation-workflow.instructions.md)
-- [provider-config.schema.json](../schema/provider-config.schema.json)
+- [provider-config.schema.json](../.schemas/provider-config.schema.json)
 
 ---
 

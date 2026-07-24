@@ -31,7 +31,7 @@ Expected behaviour:
 
 - Load WooCommerce reference/intake where needed.
 - Mark product-data claims as blocked until source evidence is supplied.
-- Require product schema/rendered-output QA after approval.
+- Require product .schemas/rendered-output QA after approval.
 
 ## Test 4: AI Plus proposal note
 

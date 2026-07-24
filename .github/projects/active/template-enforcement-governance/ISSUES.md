@@ -111,7 +111,7 @@ ops/ → pr_chore.md
 proto/ → pr_feature.md
 ds/ → pr_feature.md
 api/ → pr_feature.md
-schema/ → pr_feature.md
+.schemas/ → pr_feature.md
 telemetry/ → pr_feature.md
 content/ → pr_docs.md
 seo/ → pr_docs.md

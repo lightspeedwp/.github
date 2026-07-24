@@ -87,7 +87,7 @@ node scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
 ## Changelog governance
 
 - Format: Keep a Changelog.
-- Schema: `../schema/changelog.schema.json` enforced by:
+- Schema: `../.schemas/changelog.schema.json` enforced by:
   - `scripts/validation/validate-changelog.cjs`
   - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:

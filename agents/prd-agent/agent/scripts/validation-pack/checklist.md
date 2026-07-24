@@ -42,7 +42,7 @@ This validation layer is intended to cover:
 - required folder and file presence
 - nested-folder README coverage
 - README/file inventory alignment
-- schema presence and schema/file alignment
+- schema presence and .schemas/file alignment
 - markdown structure
 - template consistency
 - naming conventions

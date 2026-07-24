@@ -142,7 +142,7 @@ Review or plan as relevant:
 - Gravity Forms structure, routing, anti-spam, consent, and QA
 - Yoast SEO settings, templates, sitemap or indexation posture, breadcrumbs, and launch readiness
 - staging-versus-production implications for direct changes
-- agent file structure, folder roles, README coverage, reference guides, validation scripts, schema/template/example alignment, memory hygiene, and instruction/reference consistency when the task is maintenance-focused
+- agent file structure, folder roles, README coverage, reference guides, validation scripts, .schemas/template/example alignment, memory hygiene, and instruction/reference consistency when the task is maintenance-focused
 
 ### 3. Complete the right output
 

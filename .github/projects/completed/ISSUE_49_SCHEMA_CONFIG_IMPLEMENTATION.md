@@ -51,7 +51,7 @@ The recommended approach is **YAML authoring with JSON Schema validation**, whic
 
 **Format**: YAML (human-friendly authoring)
 **Validation**: JSON Schema v7
-**Storage**: `config/branding.config.yaml` (main config) and `schema/branding.schema.json` (validation schema)
+**Storage**: `config/branding.config.yaml` (main config) and `.schemas/branding.schema.json` (validation schema)
 
 **Rationale**:
 
@@ -78,7 +78,7 @@ The branding agent supports 16 document categories as defined in Issue [#33](htt
 | `documentation` | Documentation | General documentation, guides, tutorials | `docs/`, `README.md` |
 | `agents` | AI Agents | Agent specifications and behavior definitions | `.github/agents/`, agent specs |
 | `instructions` | Instructions | Procedural documentation, workflow steps | `.github/instructions/` |
-| `schemas` | Schemas | JSON Schema, data model definitions | `schema/` |
+| `schemas` | Schemas | JSON Schema, data model definitions | `.schemas/` |
 | `prompts` | Prompts | AI/ML prompts, templates, examples | `prompts/`, agent prompts |
 | `governance` | Governance | Policies, standards, guidelines | `CLAUDE.md`, `.coderabbit.yaml` |
 | `issue-template` | Issue Templates | GitHub issue templates | `.github/ISSUE_TEMPLATE/` |
@@ -201,7 +201,7 @@ category: "agents"  # Always respected if present and valid
 prompts/generation/**       → category: "prompts"
 agents/**                   → category: "agents"
 instructions/**             → category: "instructions"
-schema/**                   → category: "schemas"
+.schemas/**                   → category: "schemas"
 schemas/**                  → category: "schemas"
 .github/workflows/**        → category: "workflow"
 .github/ISSUE_TEMPLATE/**   → category: "issue-template"
@@ -572,7 +572,7 @@ path_mappings:
   "agents/**": "agents"
   ".github/instructions/**": "instructions"
   "instructions/**": "instructions"
-  "schema/**": "schemas"
+  ".schemas/**": "schemas"
   "prompts/**": "prompts"
   ".github/workflows/**": "workflow"
   ".github/ISSUE_TEMPLATE/**": "issue-template"
@@ -716,7 +716,7 @@ maintainability:
 
 ## 10. Implementation Relationship
 
-This schema/config specification is the bridge between:
+This .schemas/config specification is the bridge between:
 
 - **Issue [#33](https://github.com/lightspeedwp/.github/issues/33)** (parent specification): Defines category taxonomy and requirements
 - **Issue [#46](https://github.com/lightspeedwp/.github/issues/46)** (template design): Defines actual header/footer content and examples
@@ -767,11 +767,11 @@ Issue #? (Agent Implementation) ← depends on [#33](https://github.com/lightspe
 
 Once this specification is approved:
 
-1. **PR Creation**: Create PR with this schema/config specification
+1. **PR Creation**: Create PR with this .schemas/config specification
 2. **Code Review**: Address any feedback on structure or clarity
 3. **Merge**: Integrate into develop branch
 4. **Issue [#48](https://github.com/lightspeedwp/.github/issues/48)**: Proceed to current-state audit using this schema
-5. **Agent Implementation**: Begin branding agent implementation with validated schema/config contract
+5. **Agent Implementation**: Begin branding agent implementation with validated .schemas/config contract
 
 ---
 
@@ -786,7 +786,7 @@ Once this specification is approved:
 **Related Files** (will be created or updated):
 
 - `config/branding.config.yaml` — Main configuration file
-- `schema/branding.schema.json` — JSON Schema validation
+- `.schemas/branding.schema.json` — JSON Schema validation
 - `.github/instructions/branding-config.instructions.md` — Maintainer guidance
 - `scripts/validation/validate-branding.js` — Validation script
 
