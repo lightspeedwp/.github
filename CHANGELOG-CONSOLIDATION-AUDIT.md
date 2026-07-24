@@ -118,7 +118,7 @@ The current [Unreleased] section in CHANGELOG.md (as of 2026-07-23) contains com
 **Recommended (2 lines, ~250 chars):**
 
 ```
-- **Multi-Provider Agent Standardization — WooCommerce & Playwright** — Standardised `agents/woo-config-agent/` with seven-phase core prompt, 8 Claude tools, 7 Copilot skills, 8 OpenAI functions. Converted `agents/playwright-testing-agent/` to multi-provider with per-provider configs, four JSON schemas, validation hooks with tests, and plugin packaging. ([PR #1141](ref), [PR #1108](ref), [#1087](ref)–[#1106](ref), [#1079](ref))
+- **Multi-Provider Agent Standardisation — WooCommerce & Playwright** — Standardised `agents/woo-config-agent/` with seven-phase core prompt, 8 Claude tools, 7 Copilot skills, 8 OpenAI functions. Converted `agents/playwright-testing-agent/` to multi-provider with per-provider configs, four JSON schemas, validation hooks with tests, and plugin packaging. ([PR #1141](ref), [PR #1108](ref), [#1087](ref)–[#1106](ref), [#1079](ref))
 ```
 
 **Benefit:** 61% reduction in characters while preserving all essential information and PR references.
@@ -183,7 +183,7 @@ The current [Unreleased] section in CHANGELOG.md (as of 2026-07-23) contains com
 
 ## Files Affected
 
-- `CHANGELOG.md` — Consolidated [Unreleased] section (target: 40-42% reduction)
+- `CHANGELOG.md` — Audited [Unreleased] section; consolidation planned for Phase 2 (target: 40-42% reduction)
 - `.gitignore` — Add generated skill patterns (future PR)
 - Documentation updated with audit findings (this file)
 
