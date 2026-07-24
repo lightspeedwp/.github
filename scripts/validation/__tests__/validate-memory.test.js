@@ -16,8 +16,8 @@ function writeJson(filePath, data) {
 }
 
 function copySchemas(tempRoot) {
-  const schemaSrc = path.join(repoRoot, "schema", "memory");
-  const schemaDst = path.join(tempRoot, "schema", "memory");
+  const schemaSrc = path.join(repoRoot, ".schemas", "memory");
+  const schemaDst = path.join(tempRoot, ".schemas", "memory");
   mkdirp(schemaDst);
   for (const file of fs.readdirSync(schemaSrc)) {
     fs.copyFileSync(path.join(schemaSrc, file), path.join(schemaDst, file));
