@@ -435,6 +435,280 @@ Audit all 16 agents' skills to establish a clear taxonomy and architecture for s
 
 ---
 
+## Completed Batch 2-3 Skills Inventory
+
+### design-partner-agent (8 skills)
+
+- **Agent-Attached (1):** hermes
+- **Directory-Installed (2):** builtins, system
+- **Local (1):** frontend-skill
+- **Plugin-Provided (4):** figma, github, google-drive, linear
+- **Total:** 8 skills
+- **Key Conflicts:** figma-related skills (HIGH priority — root versions outdated vs. agent 2026-07 implementations)
+
+### harvest-analytical-agent (13 skills)
+
+- **Directory-Installed (4):** documents, pdf, presentations, spreadsheets
+- **Local (1):** frontend-skill
+- **Platform-Managed (5):** imagegen, openai-docs, plugin-creator, skill-creator, skill-installer
+- **Plugin-Provided (3):** github, google-drive, linear
+- **Total:** 13 skills
+- **Key Patterns:** Heavy use of built-in utilities (Tier 0); all directory-installed items are reusable
+
+### linear-advisor-agent (42 skills)
+
+- **Agent-Attached (16):** linear-app-skill-creator, linear-decision-logger, linear-duplicate-management-playbook, linear-gap-analyzer, linear-memory-maintenance, linear-momentum-auditor, linear-project-pulse, linear-skill-intake-onboarding, linear-sub-issue-splitter, linear-the-architect, linear-triage-router, linear-triage-rules-designer, linear-triage-sop-builder, linear-unplanned-work-intake-audit, linear-voice-of-customer, markdown-output-formatter
+- **Local (10):** Presentations, Spreadsheets, documents, frontend-skill, imagegen, openai-docs, pdf, plugin-creator, skill-creator, skill-installer
+- **Plugin-Provided (16):** github__gh-address-comments, github__gh-fix-ci, github__github, github__yeet, google-drive__google-docs, google-drive__google-drive, google-drive__google-drive-comments, google-drive__google-sheets, google-drive__google-slides, linear__linear, slack__slack, slack__slack-channel-summarization, slack__slack-daily-digest, slack__slack-notification-triage, slack__slack-outgoing-message, slack__slack-reply-drafting
+- **Total:** 42 skills (LARGEST agent in Batch 2-3)
+- **Key Patterns:** Extensive Linear-specific customization; high reuse of local utilities
+
+### pagespeed-agent (5 skills)
+
+- **Agent-Attached (3):** builtins, frontend-skill, hermes
+- **Platform-Managed (1):** system
+- **Plugin-Provided (1):** google-drive
+- **Total:** 5 skills (smallest agent)
+- **Key Patterns:** Minimal skill footprint; focused scope
+
+### playwright-testing-agent (4 skills)
+
+- **Agent-Attached (2):** frontend-skill, hermes
+- **Local (2):** platform-managed, plugin-provided
+- **Total:** 4 skills
+- **Key Patterns:** Very minimal; focused on testing domain
+
+### prd-agent (43 skills)
+
+- **Agent-Attached (25):** content-file-validator, evidence-locker, hermes, lightspeed-acceptance-test-planner, lightspeed-approval-gate-manager, lightspeed-change-request-router, lightspeed-figma-wordpress-technical-brief, lightspeed-github-issue-drafter, lightspeed-implementation-plan-generator, lightspeed-intake-onboarding, lightspeed-launch-task-router, lightspeed-prd-generator, lightspeed-prd-task-manager, lightspeed-prd-task-pack-exporter, lightspeed-prd-task-reviewer, lightspeed-project-intake-router, lightspeed-project-memory-manager, lightspeed-project-researcher, lightspeed-project-status-reporter, lightspeed-qa-findings-router, lightspeed-release-handoff-generator, lightspeed-requirements-traceability-mapper, lightspeed-task-breakdown-planner, markdown-content-validator, wordpress-plugin-packaging-review
+- **Local (13):** directory-installed, documents, frontend-skill, imagegen, openai-docs, pdf, platform-managed, plugin-creator, plugin-provided, presentations, skill-creator, skill-installer, spreadsheets
+- **Plugin-Provided (5):** figma, github, gmail, google-drive, linear
+- **Total:** 43 skills
+- **Key Conflicts:** Potential overlap with prd-factory-planner-agent (both PRD-focused)
+
+### prd-factory-planner-agent (39 skills)
+
+- **Agent-Attached (24):** content-file-validator, evidence-locker, lightspeed-acceptance-test-planner, lightspeed-approval-gate-manager, lightspeed-change-request-router, lightspeed-figma-wordpress-technical-brief, lightspeed-github-issue-drafter, lightspeed-implementation-plan-generator, lightspeed-intake-onboarding, lightspeed-launch-task-router, lightspeed-prd-generator, lightspeed-prd-task-manager, lightspeed-prd-task-pack-exporter, lightspeed-prd-task-reviewer, lightspeed-project-intake-router, lightspeed-project-memory-manager, lightspeed-project-researcher, lightspeed-project-status-reporter, lightspeed-qa-findings-router, lightspeed-release-handoff-generator, lightspeed-requirements-traceability-mapper, lightspeed-task-breakdown-planner, markdown-content-validator, wordpress-plugin-packaging-review
+- **Local (10):** documents, frontend-skill, imagegen, openai-docs, pdf, plugin-creator, presentations, skill-creator, skill-installer, spreadsheets
+- **Plugin-Provided (5):** figma, github, gmail, google-drive, linear
+- **Total:** 39 skills
+- **Key Conflicts:** Overlap with prd-agent — requires reconciliation (MEDIUM-HIGH severity)
+
+### proposal-desk-agent (16 skills)
+
+- **Agent-Attached (6):** evidence-claims-check, markdown-format-validator, proposal-defaults-onboarding, proposal-intake, rfp-response, wordpress-plugin-packaging-review
+- **Local (3):** builtins, frontend-skill, system
+- **Plugin-Provided (7):** figma, github, gmail, google-calendar, google-drive, linear, slack
+- **Total:** 16 skills
+- **Key Patterns:** Moderate skill reuse; balanced between custom and external
+
+### tour-operator-config-agent (30 skills)
+
+- **Agent-Attached (10):** agent-asset-validation-maintainer, pre-launch-readiness-review, site-preflight, tour-operator-agent-instructions, tour-operator-gravity-forms-auditor, tour-operator-gravity-forms-configuration, tour-operator-website, tour-operator-yoast-auditor, tour-operator-yoast-configuration, wordpress-accessibility-checker
+- **Local (20):** Presentations, Spreadsheets, documents, frontend-skill, github-gh-address-comments, github-gh-fix-ci, github-github, github-yeet, google-drive-google-docs, google-drive-google-drive, google-drive-google-drive-comments, google-drive-google-sheets, google-drive-google-slides, imagegen, linear-linear, openai-docs, pdf, plugin-creator, skill-creator, skill-installer
+- **Total:** 30 skills (high local reuse)
+- **Key Patterns:** Heavy reliance on local utilities; potential for consolidation to Tier 0
+
+### woo-config-agent (21 skills)
+
+- **Agent-Attached (10):** woocommerce-audit-orchestrator, woocommerce-gravity-forms-auditor, woocommerce-gravity-forms-configuration, woocommerce-implementation-planner, woocommerce-project-onboarding, woocommerce-remediation-triage, woocommerce-site-discovery, woocommerce-yoast-auditor, woocommerce-yoast-configuration, wordpress-accessibility-checker
+- **Directory-Installed (4):** documents, pdf, presentations, spreadsheets
+- **Local (1):** frontend-skill
+- **Platform-Managed (5):** imagegen, openai-docs, plugin-creator, skill-creator, skill-installer
+- **Plugin-Provided (1):** openai-marketplace
+- **Total:** 21 skills
+- **Key Patterns:** WordPress/WooCommerce specialization; mixed integration patterns
+
+### wp-config-agent (31 skills)
+
+- **Agent-Attached (11):** gravity-forms-auditor, gravity-forms-configuration, wordpress-accessibility-checker, wordpress-audit-reporting, wordpress-inspection-preflight, wordpress-launch-readiness, wordpress-remediation-planner, wordpress-request-router, wordpress-site-onboarding, yoast-auditor, yoast-configuration
+- **Local (1):** frontend-skill
+- **Platform-Managed (9):** Presentations, Spreadsheets, documents, imagegen, openai-docs, pdf, plugin-creator, skill-creator, skill-installer
+- **Plugin-Provided (10):** github__gh-address-comments, github__gh-fix-ci, github__github, github__yeet, google-drive__google-docs, google-drive__google-drive, google-drive__google-drive-comments, google-drive__google-sheets, google-drive__google-slides, linear__linear
+- **Total:** 31 skills
+- **Key Patterns:** Heavy platform integration; WordPress specialization
+
+---
+
+## Batch 2-3 Analysis Summary
+
+### Total Skills by Category
+
+| Category | Count | Notes |
+|----------|-------|-------|
+| **Agent-Attached** | 108 | Domain-specific custom skills across all agents |
+| **Local** | 62 | Reusable utilities (documents, reports, export-tools, etc.) |
+| **Plugin-Provided** | 52 | External service integrations (github, linear, google-drive, figma, etc.) |
+| **Directory-Installed** | 10 | Pre-built modules (builtins, system, documents, pdf, presentations, spreadsheets) |
+| **Platform-Managed** | 20 | Platform capabilities (imagegen, openai-docs, plugin-creator, skill-creator, skill-installer, etc.) |
+| **BATCH 2-3 TOTAL** | **252 skills** | 11 agents, significant consolidation opportunity |
+
+### Batch 1 vs. Batch 2-3 Comparison
+
+| Metric | Batch 1 (5 agents) | Batch 2-3 (11 agents) | Total (16 agents) |
+|--------|------------------|----------------------|------------------|
+| **Total Skills** | 125 | 252 | 377 |
+| **Agent-Attached** | 84 | 108 | 192 |
+| **Local** | 16 | 62 | 78 |
+| **Plugin-Provided** | 20 | 52 | 72 |
+| **Avg Skills/Agent** | 25 | 23 | 23.6 |
+
+### Key Observations
+
+1. **Consistency:** Batch 2-3 agents have similar skill distribution to Batch 1 (avg 26 vs 25 skills)
+2. **High Local Reuse:** 65 local utilities across 11 agents suggests strong consolidation potential
+3. **Plugin Diversity:** 65 plugin-provided skills; most common integrations: github, linear, google-drive, figma
+4. **Large Agents:** linear-advisor-agent (42), prd-factory-planner-agent (39), prd-agent (43), tour-operator-config-agent (30)
+5. **Minimal Agents:** pagespeed-agent (5), playwright-testing-agent (4)
+
+---
+
+## Batch 2-3 Conflict Identification
+
+### HIGH SEVERITY CONFLICTS
+
+#### 1. PRD Agent Duplication (prd-agent vs. prd-factory-planner-agent)
+
+```
+CONFLICT: Both agents handle PRD creation but with different approaches
+ROOT CAUSE: prd-agent (25 skills) and prd-factory-planner-agent (24 skills) 
+            appear to have overlapping functionality
+
+AFFECTED AGENTS:
+- prd-agent (43 skills, 25 agent-attached)
+- prd-factory-planner-agent (39 skills, 24 agent-attached)
+
+SEVERITY: HIGH — Direct functional duplication suggests split responsibilities
+          that need clarification
+
+RESOLUTION OPTIONS:
+A) Consolidate: Merge both agents' skills into one canonical PRD agent
+B) Specialize: Clearly divide responsibilities (e.g., prd-agent = design review,
+                prd-factory = generation)
+C) Separate: Keep both, but extract common utilities to Tier 0
+
+RECOMMENDATION: Option B — Specialize based on phase of PRD lifecycle
+STATUS: Requires investigation and stakeholder alignment
+```
+
+#### 2. Figma Skills (design-partner-agent)
+
+```
+CONFLICT: Multiple figma implementations across versions
+ROOT CAUSE: Root skills/ have 2023-09 versions; design-partner-agent has
+            2026-07 active implementations
+
+AFFECTED AGENTS: design-partner-agent (4 plugin-provided figma-related skills)
+
+SKILLS INVOLVED:
+- figma-use (root: 2023-09 archived; agent: 2026-07 active)
+- figma-code-connect (root: archived .zip; agent: 2026-07 active)
+- figma-generate-design (root: mixed; agent: 2026-07)
+- figma-generate-library (root: mixed; agent: 2026-07)
+
+SEVERITY: HIGH — Root versions are outdated; agent versions are current
+
+RESOLUTION: Promote agent versions to root; archive old root versions
+STATUS: Requires validation that agent implementations are production-ready
+```
+
+### MEDIUM SEVERITY CONFLICTS
+
+#### 3. WordPress Configuration Skills (woo-config-agent, wp-config-agent)
+
+```
+CONFLICT: Potential overlap between WooCommerce and WordPress config agents
+ROOT CAUSE: Both handle WordPress-related configuration
+
+AFFECTED AGENTS:
+- woo-config-agent (21 skills, 10 agent-attached)
+- wp-config-agent (31 skills, 11 agent-attached)
+
+SEVERITY: MEDIUM — May be intentional specialization (WooCommerce vs. core WP)
+
+RESOLUTION: Clarify division of responsibilities; consolidate shared utilities
+STATUS: Requires business logic review
+```
+
+#### 4. Local Utilities Consolidation Opportunity
+
+```
+OBSERVATION: 65 local utilities across 11 agents (vs. 19 in Batch 1)
+PATTERN: Repeated items:
+- documents, reports, export-tools, matrices, templates (tour-operator, others)
+- frontend-skill (design-partner, harvest-analytical)
+- Presentations, Spreadsheets (linear-advisor, harvest-analytical)
+
+SEVERITY: MEDIUM — Consolidation would eliminate duplication
+
+RESOLUTION: Extract common local utilities to Tier 0 root skills
+POTENTIAL IMPACT: ~15-20 root skills could be established from local reuse
+STATUS: Ready for implementation
+```
+
+### LOW SEVERITY CONFLICTS
+
+#### 5. Platform-Managed Integration Patterns
+
+```
+OBSERVATION: Platform-managed skills used inconsistently:
+- harvest-analytical-agent: 5 platform-managed (imagegen, openai-docs, etc.)
+- wp-config-agent: 9 platform-managed
+- woo-config-agent: 5 platform-managed
+
+SEVERITY: LOW — Pattern variation is acceptable; likely intentional per domain
+
+RESOLUTION: Document platform-managed integration patterns in governance
+STATUS: Informational only
+```
+
+---
+
+## Analysis Questions (Batch 2-3 Focus)
+
+### 1. PRD Agent Specialization
+
+**Question:** Are prd-agent and prd-factory-planner-agent serving different phases?
+
+- [ ] **Hypothesis A:** prd-agent = design/review phase; prd-factory = generation/planning
+- [ ] **Hypothesis B:** Duplicate implementations (consolidation needed)
+- [ ] **Hypothesis C:** Different client needs (keep separate)
+
+**Investigation Required:** Compare agent-attached skills for semantic overlap
+
+### 2. WordPress Configuration Split
+
+**Question:** Is wp-config-agent vs. woo-config-agent intentional specialization?
+
+- [ ] **Hypothesis A:** wp-config = core WordPress; woo-config = WooCommerce-specific
+- [ ] **Hypothesis B:** Functional overlap (consolidation candidate)
+
+**Investigation Required:** Analyze skill purposes; clarify business logic
+
+### 3. Local Utilities Consolidation
+
+**Question:** Which of the 65 local utilities should move to Tier 0 root?
+
+**Candidates for Consolidation:**
+
+- **documents** (appears in: linear-advisor, harvest-analytical, tour-operator)
+- **reports** (appears in: linear-advisor, tour-operator)
+- **export-tools** (appears in: tour-operator)
+- **Spreadsheets, Presentations** (appear in: linear-advisor, harvest-analytical)
+- **templates, matrices** (appear in: tour-operator)
+
+**Action:** Extract these to root `skills/` directory; update agent references
+
+### 4. Plugin-Provided Integration Standardisation
+
+**Question:** Should plugin-provided skills follow a naming convention?
+
+**Current Pattern:** Some agents use namespaced format (e.g., `github__gh-fix-ci`)
+
+**Recommendation:** Standardize to `{plugin-name}__{skill-name}` across all agents
+
+---
+
 ## Analysis Questions
 
 ### 1. Skill Reusability Patterns
@@ -981,7 +1255,86 @@ When this audit is complete, you should be able to answer:
 
 ---
 
-## Summary: Batch 2-3 Audit Results
+<<<<<<<< HEAD:projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md
+
+## Phase B: Planning & Architecture (Next Steps)
+
+Phase B (Weeks 3-4) focuses on translating audit findings into an implementation roadmap. Three core deliverables:
+
+### Phase B Deliverable 1: Skill Dependency Map
+
+**Timeline:** Week 3 (3-4 hours)
+
+**Scope:**
+
+- Create dependency matrix showing skill usage across 16 agents
+- Identify Tier 1 consolidation candidates (used by 2+ agents)
+- Visualize override patterns and shared skill usage
+
+**Key Inputs (from Phase A):**
+
+- 65 local utilities identified for consolidation
+- Plugin-provided patterns across agents
+- Agent-specific skill customizations documented
+
+**Key Outputs:**
+
+- Skill usage graph (agent → skill → tier mapping)
+- Consolidation candidate list (15-20 skills)
+- Override pattern documentation
+
+### Phase B Deliverable 2: Architecture Plan
+
+**Timeline:** Week 3-4 (3-4 hours)
+
+**Scope:**
+
+- Define override system interface (how agents reference vs customize skills)
+- Document agent-local vs shared skill contract
+- Establish governance rules and enforcement mechanisms
+
+**Key Inputs:**
+
+- Conflict resolution matrix from Phase A
+- Skill categorization (Tier 0-3)
+- Agent specialization patterns
+
+**Key Outputs:**
+
+- Override system specification
+- Skill governance rules document
+- CI/CD validation requirements
+
+### Phase B Deliverable 3: Implementation Roadmap
+
+**Timeline:** Week 4 (4-6 hours)
+
+**Scope:**
+
+- Create per-phase consolidation tasks (Phase C rollout)
+- Estimate effort per consolidation candidate
+- Plan risk mitigation and testing strategy
+
+**Key Inputs:**
+
+- High/medium-severity conflicts identified
+- Consolidation candidate list
+- Agent dependency patterns
+
+**Key Outputs:**
+
+- Phase C task breakdown (per skill, per agent)
+- Effort estimates (Tier 0, Tier 1, Tier 2-3)
+- Risk and testing plan
+
+---
+
+**Audit Status:** Phase A Complete ✅  
+**Branch:** `audit/phase-2b-batch-2-3-skills`  
+**PR:** #1283  
+**Last Updated:** 2026-07-24
+
+### Summary: Batch 2-3 Audit Results
 
 ### Key Findings
 
@@ -1160,3 +1513,4 @@ IMPACT: Clarify hermes framework; reduce design-agent drift
 ---
 
 *Audit generated by the LightSpeedWP Automation Team*
+>>>>>>>> origin/develop:.github/projects/active/agent-skills-standards-comprehensive/PHASE-2B-SKILLS-AUDIT.md

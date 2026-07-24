@@ -1,6 +1,11 @@
-name: readme-regen
+name: readme-regen [DEPRECATED]
 
 on:
+  # DISABLED: Consolidated into docs-maintenance.yml
+  # This workflow is deprecated and will be removed after Phase 2.3
+  # See: .github/projects/active/workflows-consolidation-2026-q3/PHASE_2_2_TEST_RESULTS.md
+  workflow_run:
+    workflows: []
   pull_request:
     branches: [develop]
     types: [opened, edited, synchronize, reopened, ready_for_review]

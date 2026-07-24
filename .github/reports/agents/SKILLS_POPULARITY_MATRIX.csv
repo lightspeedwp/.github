@@ -1,0 +1,36 @@
+SKILL_NAME,USED_BY_COUNT,AGENTS,CURRENT_LOCATION,TIER,RECOMMENDATION,CONSOLIDATION_PRIORITY
+documents,11,"ai-readiness-estimator, website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery, linear-advisor, prd-agent, prd-factory-planner, tour-operator-config, woo-config, wp-config",agent-local (each),0,MOVE_TO_ROOT,CRITICAL
+reports,5,"website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery, linear-advisor, prd-agent, prd-factory-planner, tour-operator-config",agent-local (each),0,MOVE_TO_ROOT,CRITICAL
+export-tools,5,"website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery, tour-operator-config",agent-local (each),0,MOVE_TO_ROOT,HIGH
+templates,3,"website-content-strategist, zendesk-support, client-website-discovery",agent-local (each),0,MOVE_TO_ROOT,HIGH
+matrices,2,"client-website-discovery, tour-operator-config",agent-local (each),0,MOVE_TO_ROOT,HIGH
+github,13,"ai-readiness-estimator, website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery, design-partner, harvest-analytical, linear-advisor, prd-agent, prd-factory-planner, proposal-desk, wp-config",plugin-provided (mixed),0,STANDARDIZE_NAMING,MEDIUM
+google-drive,11,"ai-readiness-estimator, website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery, design-partner, harvest-analytical, linear-advisor, prd-agent, prd-factory-planner, proposal-desk",plugin-provided (mixed),0,STANDARDIZE_NAMING,MEDIUM
+linear,9,"ai-readiness-estimator, website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery, design-partner, harvest-analytical, linear-advisor, prd-factory-planner",plugin-provided (mixed),0,STANDARDIZE_NAMING,MEDIUM
+figma,4,"website-content-strategist, website-scope-estimator, client-website-discovery, design-partner, prd-factory-planner",plugin-provided (mixed),1,CONSOLIDATE_AND_OVERRIDE,HIGH
+frontend-skill,3,"design-partner, harvest-analytical, linear-advisor",local (each),1,MOVE_TO_ROOT,MEDIUM
+sentiment-analyzer,2,"zendesk-support, linear-advisor",agent-attached (zendesk),2,EVALUATE,LOW
+gap-analyzer,2,"website-content-strategist, client-website-discovery",agent-attached (each),2,EVALUATE,LOW
+competitor-analyzer,2,"website-content-strategist, client-website-discovery",agent-attached (each),2,EVALUATE,LOW
+risk-assessor,2,"ai-readiness-estimator, website-scope-estimator",agent-attached (each),2,EVALUATE,LOW
+seo-audit,2,"website-content-strategist, client-website-discovery",agent-attached (each),2,EVALUATE,LOW
+seo-auditor,2,"website-content-strategist, client-website-discovery",agent-attached (each),2,EVALUATE,LOW
+content-auditor,1,website-content-strategist,agent-attached,3,KEEP_LOCAL,NONE
+response-drafting,1,zendesk-support,agent-attached,3,KEEP_LOCAL,NONE
+ticket-management,1,zendesk-support,agent-attached,3,KEEP_LOCAL,NONE
+website-auditor,1,client-website-discovery-assistant,agent-attached,3,KEEP_LOCAL,NONE
+scope-analyzer,1,website-scope-estimator,agent-attached,3,KEEP_LOCAL,NONE
+effort-estimator,1,website-scope-estimator,agent-attached,3,KEEP_LOCAL,NONE
+hermes,1,design-partner,agent-attached,3,KEEP_LOCAL,NONE
+ai-capability-evaluator,1,ai-readiness-estimator,agent-attached,3,KEEP_LOCAL,NONE
+content-strategy-generator,1,website-content-strategist,agent-attached,3,KEEP_LOCAL,NONE
+imagegen,2,"harvest-analytical, linear-advisor",platform-managed (mixed),0,STANDARDIZE,MEDIUM
+openai-docs,1,harvest-analytical,platform-managed,0,KEEP_LOCAL,NONE
+plugin-creator,1,harvest-analytical,platform-managed,0,KEEP_LOCAL,NONE
+skill-creator,1,harvest-analytical,platform-managed,0,KEEP_LOCAL,NONE
+skill-installer,1,harvest-analytical,platform-managed,0,KEEP_LOCAL,NONE
+builtins,1,design-partner,directory-installed,0,KEEP_LOCAL,NONE
+system,1,design-partner,directory-installed,0,KEEP_LOCAL,NONE
+pdf,1,harvest-analytical,directory-installed,0,KEEP_LOCAL,NONE
+presentations,2,"harvest-analytical, linear-advisor",directory-installed,0,MOVE_TO_ROOT,MEDIUM
+spreadsheets,2,"harvest-analytical, linear-advisor",directory-installed,0,MOVE_TO_ROOT,MEDIUM
