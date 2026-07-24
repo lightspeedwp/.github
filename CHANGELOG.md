@@ -26,55 +26,107 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Removed
 
-- **CI/CD markdown linting scope optimization (Phase 1)** — Comprehensive audit of 9,024 markdown files identified opportunity to reduce CI linting scope by 38% by excluding vendored assets, generated reports, and platform-managed content. Implemented Phase 1: updated .markdownlint-cli2.config.cjs with documented exclusion patterns for vendored directories and narrowed generated-output exclusions to avoid over-exclusion of tracked documentation; aligned package.json npm scripts with exclusion patterns; updated testing.yml workflow with clarifying comments. All exclusions now consistent across workflows, eliminating false positives from third-party documentation and reducing CI processing overhead. Audit framework and implementation guide available in .github/projects/active/markdown-audit-ci-optimization/ for future standardization phases. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226); [Issue #1224](https://github.com/lightspeedwp/.github/issues/1224), [#1229](https://github.com/lightspeedwp/.github/issues/1229), [#1230](https://github.com/lightspeedwp/.github/issues/1230), [#1232](https://github.com/lightspeedwp/.github/issues/1232))
+(none identified)
+
+### Deprecated
+
+(none identified)
 
 ### Added
 
-- **Quirky Footers System with Schema Validation** — Implemented extensible footer configuration system supporting branded and custom footer templates. Added `config/quirky-footers.yaml` for custom footer definitions, `schema/quirky-footers.schema.json` for validation, and enhanced `.github/scripts/validate-footers.js` to load and validate quirky footers alongside standard branding footers. Created comprehensive documentation: `docs/FOOTER_VALIDATION_AUDIT.md` (audit findings and consolidation opportunities) and `docs/QUIRKY_FOOTERS_GUIDE.md` (implementation guide for contributors). System gracefully falls back to standard footers when quirky footers config is not present, enabling optional adoption. ([PR #1212](https://github.com/lightspeedwp/.github/pull/1212))
+- **Playwright Testing Agent multi-provider support** — Converted ChatGPT/Codex export into standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added provider-agnostic AGENT.md, per-provider configs, tools/skill definitions, and plugin packaging. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
-- **Mergify Strategy & Implementation Documentation** — Comprehensive guide to Mergify configuration, auto-merge rules, and CI/CD integration. Documents all 5 auto-merge rules with detailed analysis of known issues (Dependabot auto-merge broken, meta-agent double-merge race condition, ImgBot effectiveness unknown). Includes troubleshooting guide, best practices, and prioritised improvement recommendations. Identifies critical issues: check-name mismatch ("All Checks Passed" vs actual names), meta-agent workflow + Mergify rule redundancy, and missing MERGIFY_TOKEN configuration. Created `docs/MERGIFY_STRATEGY.md` (687 lines) with architecture diagrams, configuration examples, and detailed fix recommendations by priority. ([#1209](https://github.com/lightspeedwp/.github/issues/1209), [PR #1210](https://github.com/lightspeedwp/.github/pull/1210))
+- **Agent standardization Phase 1 infrastructure** — Established reusable multi-provider agent pattern with JSON schemas, validation hooks, instruction files, and cookbook playbooks. Four validators with unit tests for agent-spec, consistency, plugin integrity, and security. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108))
 
 - **GitHub Workflows Consolidation Initiative — Phase 1A (Quick Wins)** — Initiated systematic consolidation of 31 GitHub workflows to reduce Actions minutes and eliminate code duplication. Phase 1A completed two high-impact quick wins: removed legacy `testing.yml` workflow (duplicate of `checks.yml`, saving ~2-3% monthly Actions minutes), and extracted template validation helpers from `validate-pr-template.yml` and `template-enforcement.yml` into a shared `scripts/validation/template-helpers.cjs` module with 45 comprehensive unit tests (>90% coverage). Created comprehensive project documentation in `.github/projects/active/workflows-consolidation-2026-q3/` including audit report, implementation playbook, GitHub issue templates, and 12-week execution plan across 4 phases (target: 31 → 25 workflows, ~15-20% Actions minute reduction, ~500 lines code duplication eliminated). Established reusable consolidation patterns for Phase 1B (changelog & metrics consolidation) and future phases. ([Epic #1227](https://github.com/lightspeedwp/.github/issues/1227); [PR #1228](https://github.com/lightspeedwp/.github/pull/1228); [#1231](https://github.com/lightspeedwp/.github/issues/1231), [#1233](https://github.com/lightspeedwp/.github/issues/1233))
 
-- **PRD Factory & Planner Agent — Phase 2A standardization (12-phase skill integration)** — Completed comprehensive standardization of `agents/prd-factory-planner-agent/` following the full 12-phase checklist. Inventoried and documented all 39 available skills (24 agent-attached, 10 local, 5 plugin-provided) with clear categorization and workflow integration patterns. Updated `AGENT.md` with detailed Skills section showing which skills to use for PRD generation, timeline planning, stakeholder alignment, validation, and exports. Enhanced all provider configs (`claude/agent.md`, `copilot/agent.md`, `openai/agent.md`, `shared/core-prompt.md`) to explicitly document skill availability and invocation patterns. Updated core instructions (`agent/instructions/AGENTS.md`) with skill routing guidance (6 task categories, skill selection patterns, LightSpeed skill references). Regenerated checksums for 932 files, passed all validation tests (skill manifests, Markdown linting, skill discovery), and updated documentation with Phase 2A completion status. Established the reusable 12-phase standardization pattern for the remaining 15 agents. ([PR #1199](https://github.com/lightspeedwp/.github/pull/1199); [#1197](https://github.com/lightspeedwp/.github/issues/1197), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
+- **Version-based milestone allocation strategy** — Implemented automatic version-based milestone assignment (v1.0–v1.6) for structured release planning with capacity tracking and type-exclusion filtering. ([PR #1113](https://github.com/lightspeedwp/.github/pull/1113), [#1112](https://github.com/lightspeedwp/.github/issues/1112))
 
-- **Multi-provider WooCommerce Config Agent (Phase 2)** — Standardised `agents/woo-config-agent/` to the Phase 1 multi-provider pattern with real, substantial content: a seven-phase provider-agnostic `shared/core-prompt.md` (store analysis → setup → products → payments → performance → operations → analytics), Claude tools (`claude/agent.md`, `claude/tools.json`, 8 tools with input schemas), Copilot skills (`copilot/agent.md`, `copilot/skills.yaml`, 7 skills with GitHub integration), and OpenAI functions (`openai/agent.md`, `openai/tools.json`, 8 functions). Includes payment-security guardrails (PCI DSS scope, tokenisation, no card data in the database). Also synced `package-lock.json` with `package.json` and documented the 50-option/50-field project limits in `docs/ISSUE_FIELDS.md` so pre-existing CI checks pass. ([PR #1141](https://github.com/lightspeedwp/.github/pull/1141); [#1101](https://github.com/lightspeedwp/.github/issues/1101))
+- **PRD Factory & Planner Agent Phase 2A standardization** — Completed comprehensive standardization of 39 available skills with skill routing guidance, provider config documentation, and Phase 2A completion status. ([PR #1199](https://github.com/lightspeedwp/.github/pull/1199), [#1197](https://github.com/lightspeedwp/.github/issues/1197), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
-- **Multi-provider agent standardization — Phase 1 pilot (Playwright Testing Agent)** — Converted the `agents/playwright-testing-agent/` ChatGPT/Codex export into a standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added a provider-agnostic `AGENT.md` and `shared/core-prompt.md` (faithful to the real WordPress/WooCommerce test-pack-builder, review-before-code workflow), per-provider configs and tool/skill definitions (`claude/`, `copilot/`, `openai/`), and agent-level `.github/` metadata (INSTALL, MANIFEST, security-policy); the original export is preserved in place. Packaged as the new `plugins/lightspeed-playwright-testing/` plugin (four provider manifests, registered in `PLUGIN_MANIFEST.json`). Added four JSON schemas (`multi-provider-agent`, `agent-plugin-binding`, `provider-config`, `agent-capability-manifest`) with examples and registry entries; four validation hooks (`agent-spec-validator`, `multi-provider-consistency-checker`, `plugin-integrity-checker`, `agent-security-auditor`) with unit tests and registry entries; four instruction files and a cookbook playbook. Establishes the reusable pattern for the remaining 15 agents. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108); [#1087](https://github.com/lightspeedwp/.github/issues/1087), [#1104](https://github.com/lightspeedwp/.github/issues/1104), [#1105](https://github.com/lightspeedwp/.github/issues/1105), [#1106](https://github.com/lightspeedwp/.github/issues/1106), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
+- **Multi-provider WooCommerce Config Agent** — Standardised woo-config-agent to Phase 1 pattern with seven-phase provider-agnostic prompt, Claude tools, Copilot skills, and OpenAI functions with PCI DSS guardrails. ([PR #1141](https://github.com/lightspeedwp/.github/pull/1141), [#1101](https://github.com/lightspeedwp/.github/issues/1101))
 
-### Fixed
+- **Multi-provider WordPress Config & Tour Operator Config Agents** — Standardised wp-config-agent and tour-operator-config-agent to Phase 1 pattern with per-provider implementations. ([PR #1142](https://github.com/lightspeedwp/.github/pull/1142), [PR #1140](https://github.com/lightspeedwp/.github/pull/1140))
 
-- **Milestone capacity: type exclusion filtering not implemented** — The capacity check configuration specified `exclude_types: [chore, task, documentation]` but the code didn't filter by type when counting issues, causing false positives (chores/tasks counted toward the 50/100 thresholds despite being configured to exclude). Implemented type-based filtering in `getMilestoneStats()` to properly exclude configured issue types. Added 24 unit tests covering milestone allocation logic and capacity exclusion filtering, and documented the allocation strategy for contributors. ([PR #1132](https://github.com/lightspeedwp/.github/pull/1132))
+- **PRD Combined Agent (Phase 2B)** — Consolidated prd-agent and prd-factory-planner-agent (917 files, 144k LOC) into unified multi-provider agent with full standardization. ([PR #1196](https://github.com/lightspeedwp/.github/pull/1196), [#1094](https://github.com/lightspeedwp/.github/issues/1094), [#1095](https://github.com/lightspeedwp/.github/issues/1095))
 
-- **Validation tool robustness: footer truncation and mermaid workflow** — Fixed critical data loss bug in `validate-footers.js` where the `replaceFooterTail()` function truncated entire file bodies by using the wrong `---` separator reference (17 files destroyed in PR #1108, now fixed). Improved `.github/workflows/validate-mermaid-pr.yml` error handling for edge cases (git diff failures, empty base refs, no markdown changes) to reduce false CI failures. ([PR #1123](https://github.com/lightspeedwp/.github/pull/1123), [#1118](https://github.com/lightspeedwp/.github/issues/1118), [#1119](https://github.com/lightspeedwp/.github/issues/1119))
+- **Agent batch standardization (Phase 1 complete)** — Standardised 4 agents to multi-provider pattern with 6 more in progress as part of Phase 2A. ([PR #1195](https://github.com/lightspeedwp/.github/pull/1195))
 
-- **Meta Agent workflow: missing dependency install and direct push to a protected branch** — The `apply-meta` job ran the meta agent with no `npm ci` step, so `js-yaml` and other dependencies weren't guaranteed to be present, and it failed for real on a `develop` push with `ERR_MODULE_NOT_FOUND`. Separately, `apply-meta` and the former `metrics-update` job pushed straight to `develop`, which is structurally rejected because `develop`'s branch protection requires the `Validate PR Template` check, and that check only runs on `pull_request` events, never on `push`. Added the missing `npm ci` step, merged the two jobs into one, and routed the resulting content/metrics commit through an auto-merged pull request instead of a direct push. ([PR #1073](https://github.com/lightspeedwp/.github/pull/1073), [#1072](https://github.com/lightspeedwp/.github/issues/1072))
+- **Issue Definition of Done (DoD) validation workflow** — Automated CI workflow validates all issues have DoD sections with proper formatting, preventing incomplete issues from being shipped. ([PR #1200](https://github.com/lightspeedwp/.github/pull/1200), [#1014](https://github.com/lightspeedwp/.github/issues/1014))
 
-- **`cleanup-branches.yml` invalid YAML** — The `cleanup` job's `env:` mapping was immediately followed by a `- name: Checkout repository` list item with no `steps:` parent key, which is invalid YAML. This broke `npm run lint:all` — and therefore the required `All Checks Passed` status check — for every PR into `develop`, regardless of what the PR touched. Added the missing `steps:` key. ([PR #1075](https://github.com/lightspeedwp/.github/pull/1075), [#1074](https://github.com/lightspeedwp/.github/issues/1074))
+- **Quirky footers system with schema validation** — Implemented footer parsing and schema validation infrastructure with comprehensive test coverage. ([PR #1212](https://github.com/lightspeedwp/.github/pull/1212))
 
-- **Mergify config: invalid `speculative_checks` field** — `queue_rules[0]` in `.github/mergify.yml` set `speculative_checks: 1`, a field Mergify's schema no longer accepts. This made Mergify's own status checks ("Summary", "Mergify Merge Queue") permanently fail with a config error on every PR, which was enough to block merging into `develop` even when both actually-required checks passed. Removed the unsupported field. ([PR #1077](https://github.com/lightspeedwp/.github/pull/1077), [#1076](https://github.com/lightspeedwp/.github/issues/1076))
+- **KWV block-theme skills** — Contributed 8 skill stubs and 11 new substantive block-theme skills for WordPress theme development. ([PR #1149](https://github.com/lightspeedwp/.github/pull/1149))
 
-- **Branch cleanup automation: safety hardening** — Fixed four critical safety issues in the branch cleanup script: `daysSince()` now treats invalid/missing dates as recent (0 days) instead of Infinity (preventing accidental deletion), `isMerged()` uses exact line matching instead of substring matching (preventing false positives), `deleteLocalBranch()` fails safely instead of force-deleting (preserving unmerged work), and `buildExcludeRegex()` adds error handling for invalid patterns (graceful degradation instead of crash). Enhanced test coverage to 6 tests including edge-case handling. ([PR #1071](https://github.com/lightspeedwp/.github/pull/1071), [#1069](https://github.com/lightspeedwp/.github/issues/1069))
+- **Org issue-field writer infrastructure (MVP)** — Added infrastructure for programmatic issue field writing to support automation. ([PR #1151](https://github.com/lightspeedwp/.github/pull/1151), [#1145](https://github.com/lightspeedwp/.github/issues/1145))
 
-- **Branch cleanup automation** — Added a reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches. The new automation supports dry-run previews, protected-branch guardrails, open-PR filtering, local branch deletion, and markdown/json metrics output. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
+- **CI markdown-linting scope optimization** — Comprehensive audit of 9,024 markdown files identified 38–45% scope reduction by excluding vendored assets, generated reports, and platform-managed content. Updated CI workflow with documented exclusion patterns. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226), [#1224](https://github.com/lightspeedwp/.github/issues/1224))
 
-- **`js-yaml` 5.x default-export removal** — 15 files using `import yaml from "js-yaml"` broke when `js-yaml` 5.x dropped its default export (named exports only: `load`, `dump`, etc.). Switched to namespace imports (`import * as yaml from "js-yaml"`). ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
+- **PR automation workflow improvements** — Added PR labeling rules and research/* label automation to prevent duplicate labeling. ([PR #1191](https://github.com/lightspeedwp/.github/pull/1191))
 
 ### Changed
 
-- **Dependency Updates** — Upgraded `js-yaml` (4.2.0 → 5.2.1), ESLint (8.57.1 → 10.5.0, Node >= 20.19.0), `@typescript-eslint/eslint-plugin` (8.60.1 → 8.61.1), Babel (consolidated 6 packages to 8.x, removed legacy proposal plugins). ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047), [PR #1046](https://github.com/lightspeedwp/.github/pull/1046), [PR #1045](https://github.com/lightspeedwp/.github/pull/1045), [PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
+- **Babel toolchain upgraded to 8.x** — Major version bump with peer-dependency requirements. Removed deprecated proposal plugins (natively handled by preset-env now). ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
 
-- **GitHub Actions Optimisation** — Reduced duplicate CI triggers, strengthened concurrency cancellation, added minute-savings reporting. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054))
+- **ESLint upgraded to 10.x** — Major version bump from 8.57.1 to 10.5.0. Added @eslint/js devDependency, raised Node requirement to >=20.19.0, fixed 25 new-rule violations, migrated .eslintignore to flat-config. ([PR #1046](https://github.com/lightspeedwp/.github/pull/1046))
 
-### Added
+- **js-yaml upgraded to 5.x** — Updated from 4.2.0 to 5.2.1. Default export removed; all code updated to use named imports. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
 
-- **Version-based Milestone Allocation** — Implemented v1.0–v1.6 allocation with `.github/project-routes.yml`, capacity tracking, and automatic assignment via `metadata-governance.yml`. ([#1112](https://github.com/lightspeedwp/.github/issues/1112), [PR #1113](https://github.com/lightspeedwp/.github/pull/1113))
+- **@typescript-eslint/eslint-plugin upgraded** — Bumped from 8.60.1 to 8.61.1 (patch release). ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
+
+- **GitHub Actions minute optimisation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054))
+
+- **Dependabot auto-merge unblocked** — Fixed Mergify configuration that prevented all dependabot PRs from merging. Consolidated redundant rules, replaced invalid approve action with review action, added backup GitHub Actions workflow. ([PR #1020](https://github.com/lightspeedwp/.github/pull/1020), [#968](https://github.com/lightspeedwp/.github/issues/968))
+
+- **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
 
 ### Fixed
 
-- **Babel Peer-Dependency Conflict** — Reverted `@babel/plugin-transform-runtime` and `@babel/preset-react` to resolve 8.0.1 misalignment. ([PR #1043](https://github.com/lightspeedwp/.github/pull/1043))
+- **Changelog automation: Section headers destroyed on merge** — The merge-entries workflow was discarding section headers during deduplication, corrupting changelog structure on every PR merge. Fixed deduplication logic to preserve headers and limited scope to [Unreleased] section only. ([PR #1275](https://github.com/lightspeedwp/.github/pull/1275))
+
+- **Meta-agent workflow: Missing npm dependency and direct push to protected branch** — Added missing npm ci step and routed commits through auto-merged PR instead of direct push to respect branch protection. ([PR #1073](https://github.com/lightspeedwp/.github/pull/1073), [#1072](https://github.com/lightspeedwp/.github/issues/1072))
+
+- **Validation tool robustness: Footer truncation and mermaid workflow** — Fixed critical data loss bug where replaceFooterTail() truncated file bodies; improved mermaid workflow error handling. ([PR #1123](https://github.com/lightspeedwp/.github/pull/1123), [#1118](https://github.com/lightspeedwp/.github/issues/1118), [#1119](https://github.com/lightspeedwp/.github/issues/1119))
+
+- **Milestone capacity: Type exclusion filtering not implemented** — Configured type exclusions (chore, task, docs) were not applied when counting issues toward capacity limits. Implemented type-based filtering. ([PR #1132](https://github.com/lightspeedwp/.github/pull/1132), [#1131](https://github.com/lightspeedwp/.github/issues/1131))
+
+- **CI linting workflow blockers** — Consolidated duplicate checks and fixed invalid YAML structure in cleanup-branches.yml workflow. ([PR #1159](https://github.com/lightspeedwp/.github/pull/1159), [PR #1075](https://github.com/lightspeedwp/.github/pull/1075), [#1074](https://github.com/lightspeedwp/.github/issues/1074))
+
+- **Mergify config: Invalid speculative_checks field** — Removed unsupported field that was causing Mergify's status checks to permanently fail on all PRs. ([PR #1077](https://github.com/lightspeedwp/.github/pull/1077), [#1076](https://github.com/lightspeedwp/.github/issues/1076))
+
+- **Branch cleanup automation: Safety hardening** — Fixed four critical safety issues: daysSince() date handling, isMerged() false positives, deleteLocalBranch() force-delete risk, and error handling for invalid patterns. ([PR #1071](https://github.com/lightspeedwp/.github/pull/1071), [#1069](https://github.com/lightspeedwp/.github/issues/1069))
+
+- **Meta-agent workflow: Branch name accumulation** — Fixed branch naming to prevent PR accumulation and added Mergify rule. ([PR #1138](https://github.com/lightspeedwp/.github/pull/1138))
+
+- **YAML deprecation and footer validation** — Resolved js-yaml 5.x safeLoad deprecation and fixed false positives in footer validation. ([PR #1137](https://github.com/lightspeedwp/.github/pull/1137))
+
+- **Priority field vocabulary reconciliation** — Reconciled conflicting Priority field values and added regression test. ([PR #1148](https://github.com/lightspeedwp/.github/pull/1148))
+
+- **Project-meta-sync secret-gating** — Made GitHub App secret gating explicit to fail loudly on configuration errors instead of silently. ([PR #1150](https://github.com/lightspeedwp/.github/pull/1150))
+
+- **CI template enforcement: Re-fetch live issue state** — Fixed stale issue state being used in template enforcement guards. ([PR #1086](https://github.com/lightspeedwp/.github/pull/1086), [#1085](https://github.com/lightspeedwp/.github/issues/1085))
+
+- **Meta-agent: Honour --dry-run flag** — Fixed dry-run mode not being honoured in footer, badges, and metrics writes. ([PR #1084](https://github.com/lightspeedwp/.github/pull/1084), [#1083](https://github.com/lightspeedwp/.github/issues/1083))
+
+- **CI label governance: Missing labels** — Added missing type label aliases and removed non-existent labels from governance configuration. ([PR #1202](https://github.com/lightspeedwp/.github/pull/1202), [PR #1203](https://github.com/lightspeedwp/.github/pull/1203))
+
+- **Template enforcement: Silent issue reopening** — Replaced silent reopening with guidance comment and status:needs-more-info label for incomplete issues. ([PR #1201](https://github.com/lightspeedwp/.github/pull/1201), [#1014](https://github.com/lightspeedwp/.github/issues/1014))
+
+- **Footer cleanup and validation** — Comprehensive footer format standardization and validation improvements. ([PR #1115](https://github.com/lightspeedwp/.github/pull/1115))
+
+### Security
+
+(none identified)
+
+## Contributors
+
+The entries in this [Unreleased] section represent work from 40+ merged PRs between May 24 — July 24, 2026.
+
+**PR Range:** #1020, #1043–#1077, #1082–#1086, #1108, #1112–#1115, #1118–#1119, #1123, #1131–#1132, #1137–#1142, #1145, #1148–#1151, #1159, #1191, #1195–#1203, #1212, #1224–#1226, #1275
+
+Thank you to everyone who contributed to these improvements!
 
 ## [0.6.0] - 2026-06-19
 
