@@ -11,7 +11,7 @@ status: active
 
 ### 1. PHASE-2B-SKILLS-AUDIT.md (Root of Repository)
 
-**Location:** `PHASE-2B-SKILLS-AUDIT.md`  
+**Location:** `.github/projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md`  
 **Purpose:** Comprehensive audit report with detailed analysis  
 **Content:**
 

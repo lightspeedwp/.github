@@ -214,4 +214,4 @@ related_documents:
 ✅ **Ready for reuse analysis and consolidation planning**
 
 **Date Completed:** 2026-07-24  
-**Related Document:** PHASE-2B-SKILLS-AUDIT.md
+**Related Document:** `.github/projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md`
