@@ -26,6 +26,8 @@ module.exports = {
         process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',
         process.env.JEST_TEST_MATCH_3 || '**/__tests__/**/*.test.js',
         process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.ts',
+        process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.cjs',
+        process.env.JEST_TEST_MATCH_6 || '**/tests/**/*.test.cjs',
     ],
     verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
     transform: {

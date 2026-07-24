@@ -231,7 +231,7 @@ example_tokens:
     source_type: questionnaire
     source_locator: questionnaires/website-briefing-questionnaire.md
     content_scope: project
-    extracted_token: [REDACTED_TOKEN]
+    extracted_token: redacted
     extracted_value: operations leaders at growing service businesses
     status: inferred
     verification_level: questionnaire_inferred
@@ -246,7 +246,7 @@ example_tokens:
     source_type: document
     source_locator: strategy-brief-v3.docx
     content_scope: website
-    extracted_token: [REDACTED_TOKEN]
+    extracted_token: redacted
     extracted_value: generate qualified consultation enquiries
     status: confirmed
     verification_level: approved_source

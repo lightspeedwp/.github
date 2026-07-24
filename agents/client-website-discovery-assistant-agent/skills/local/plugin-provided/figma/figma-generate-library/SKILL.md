@@ -129,7 +129,7 @@ For EACH component (in dependency order: atoms before molecules), run the checkl
 
 **Design system rules**:
 
-1. **Variables BEFORE components** — components bind to variables. No token = [REDACTED_TOKEN] component.
+1. **Variables BEFORE components** — components bind to variables. No token = broken component.
 2. **Inspect before creating** — run read-only `use_figma` to discover existing conventions. Match them.
 3. **One page per component** *(default)* — exception: tightly related families (e.g., Input + helpers) may share a page with clear section separation.
 4. **Bind visual properties to variables** *(default)* — fills, strokes, padding, radius, gap. Exceptions: intentionally fixed geometry (icon pixel-grid sizes, static dividers).

@@ -260,8 +260,8 @@ related_branches:
 
 | Phase | Timeline | Status | Hours | Savings |
 |-------|----------|--------|-------|---------|
-| **Phase 1A: Quick Wins** | Week 1-2 | 🟡 Starting | 15 | ~100 min/week |
-| **Phase 1B: Changelog & Metrics** | Week 2-3 | ⏳ Upcoming | 30 | ~75 min/week |
+| **Phase 1A: Quick Wins** | Week 1-2 | ✅ Complete | 15 | ~100 min/week |
+| **Phase 1B: Changelog & Metrics** | Week 2-3 | ✅ Complete | 30 | ~75 min/week |
 | **Phase 2: Documentation** | Week 4-6 | ⏳ Upcoming | 20 | ~40 min/week |
 | **Phase 3: Labeling** | Week 7-12 | ⏳ Upcoming | 20 | ~50 min/week |
 | **Total** | 12 weeks | | **85 hours** | **~265 min/week** (15-20% savings) |
@@ -279,6 +279,9 @@ related_branches:
 ### Related PRs
 
 - **PR #1228** — Workflows consolidation audit and project documentation
+- **PR #1280** — Phase 1B.i: Consolidate changelog management workflows
+- **PR #1282** — Phase 1B.ii: Consolidate metrics collection and reporting workflows
+- **PR #1286** — Phase 1B: Consolidate changelog & metrics workflows (unified PR)
 
 ### Documentation
 
