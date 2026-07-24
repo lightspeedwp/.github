@@ -1,0 +1,493 @@
+---
+version: "1.0.0"
+created_date: "2026-07-24"
+updated_date: "2026-07-24"
+
+# ============================================================================
+# QUIRKY FOOTERS BY CATEGORY
+# ============================================================================
+# Each category has personality! These footers add charm to our documentation.
+
+categories:
+  readme:
+    name: "README & Overview"
+    quirky_footers:
+      - readme-telescope
+      - readme-treasure
+      - readme-rocket
+    default_quirky_footer: readme-telescope
+
+  docs:
+    name: "Documentation"
+    quirky_footers:
+      - docs-compass
+      - docs-lighthouse
+      - docs-scroll
+    default_quirky_footer: docs-compass
+
+  agents:
+    name: "Agent Specifications"
+    quirky_footers:
+      - agents-orchestrated
+      - agents-thinking
+      - agents-collaborative
+    default_quirky_footer: agents-orchestrated
+
+  instructions:
+    name: "Instructions & Standards"
+    quirky_footers:
+      - instructions-blueprint
+      - instructions-compass
+      - instructions-scroll
+    default_quirky_footer: instructions-blueprint
+
+  schema:
+    name: "Schema & Validation"
+    quirky_footers:
+      - schema-structure
+      - schema-validator
+      - schema-contract
+    default_quirky_footer: schema-structure
+
+  audit:
+    name: "Audit & Reports"
+    quirky_footers:
+      - audit-examined
+      - audit-findings
+      - audit-certified
+    default_quirky_footer: audit-examined
+
+  research:
+    name: "Research & Analysis"
+    quirky_footers:
+      - research-discovered
+      - research-studied
+      - research-synthesized
+    default_quirky_footer: research-discovered
+
+  ai-ops:
+    name: "AI Operations"
+    quirky_footers:
+      - aiops-orchestrated
+      - aiops-automated
+      - aiops-intelligent
+    default_quirky_footer: aiops-orchestrated
+
+  issue-template:
+    name: "Issue Templates"
+    quirky_footers:
+      - issues-tracked
+      - issues-managed
+    default_quirky_footer: issues-tracked
+
+  pull-request-template:
+    name: "Pull Request Templates"
+    quirky_footers:
+      - pr-reviewed
+      - pr-merged
+    default_quirky_footer: pr-reviewed
+
+# ============================================================================
+# QUIRKY FOOTER DEFINITIONS
+# ============================================================================
+# Personality-driven footers with charm and context-awareness
+
+footers:
+  # --- README FOOTERS ---
+
+  readme-telescope:
+    id: readme-telescope
+    name: "README Telescope"
+    category: readme
+    tone: playful
+    emoji_count: 2
+    template: |
+      ---
+
+      *🔭 Look through the telescope and explore what's possible!*
+    accessibility_notes: "Uses telescope emoji to suggest exploration and discovery"
+
+  readme-treasure:
+    id: readme-treasure
+    name: "README Treasure Map"
+    category: readme
+    tone: playful
+    emoji_count: 2
+    template: |
+      ---
+
+      *🗺️ Chart your course through this README treasure map!*
+    accessibility_notes: "Uses map emoji to suggest navigation and guidance"
+
+  readme-rocket:
+    id: readme-rocket
+    name: "README Launch"
+    category: readme
+    tone: encouraging
+    emoji_count: 2
+    template: |
+      ---
+
+      *🚀 Ready to launch? This README is your launchpad!*
+    accessibility_notes: "Uses rocket emoji to suggest momentum and forward progress"
+
+  # --- DOCUMENTATION FOOTERS ---
+
+  docs-compass:
+    id: docs-compass
+    name: "Documentation Compass"
+    category: docs
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *🧭 Your compass through the documentation landscape*
+    accessibility_notes: "Compass emoji represents guidance and navigation"
+
+  docs-lighthouse:
+    id: docs-lighthouse
+    name: "Documentation Lighthouse"
+    category: docs
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *🏮 This documentation is your lighthouse in the fog*
+    accessibility_notes: "Lighthouse emoji represents clarity and guidance"
+
+  docs-scroll:
+    id: docs-scroll
+    name: "Documentation Scroll"
+    category: docs
+    tone: welcoming
+    emoji_count: 1
+    template: |
+      ---
+
+      *📜 A scroll of knowledge, unfurled for your enlightenment*
+    accessibility_notes: "Scroll emoji represents written knowledge and tradition"
+
+  # --- AGENT FOOTERS ---
+
+  agents-orchestrated:
+    id: agents-orchestrated
+    name: "Agents Orchestrated"
+    category: agents
+    tone: technical
+    emoji_count: 2
+    template: |
+      ---
+
+      *🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
+    accessibility_notes: "Robot emoji represents automation and agents"
+
+  agents-thinking:
+    id: agents-thinking
+    name: "Agents Thinking"
+    category: agents
+    tone: technical
+    emoji_count: 1
+    template: |
+      ---
+
+      *💭 Agent specifications: where intelligent systems are born*
+    accessibility_notes: "Thought bubble emoji represents AI cognition"
+
+  agents-collaborative:
+    id: agents-collaborative
+    name: "Agents Collaborative"
+    category: agents
+    tone: welcoming
+    emoji_count: 2
+    template: |
+      ---
+
+      *👥 These agents work together in harmony — collaborative intelligence*
+    accessibility_notes: "People emoji represents teamwork and collaboration"
+
+  # --- INSTRUCTIONS FOOTERS ---
+
+  instructions-blueprint:
+    id: instructions-blueprint
+    name: "Instructions Blueprint"
+    category: instructions
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *📐 The blueprint for getting things right, every time*
+    accessibility_notes: "Compass/blueprint emoji represents planning and structure"
+
+  instructions-compass:
+    id: instructions-compass
+    name: "Instructions Compass"
+    category: instructions
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *🧭 Your north star for standards and best practices*
+    accessibility_notes: "Compass emoji represents direction and guidance"
+
+  instructions-scroll:
+    id: instructions-scroll
+    name: "Instructions Scroll"
+    category: instructions
+    tone: welcoming
+    emoji_count: 1
+    template: |
+      ---
+
+      *📜 The sacred scroll of how we build, together*
+    accessibility_notes: "Scroll emoji represents documented knowledge"
+
+  # --- SCHEMA FOOTERS ---
+
+  schema-structure:
+    id: schema-structure
+    name: "Schema Structure"
+    category: schema
+    tone: technical
+    emoji_count: 1
+    template: |
+      ---
+
+      *🏗️ The structural foundation of our data universe*
+    accessibility_notes: "Building emoji represents structure and architecture"
+
+  schema-validator:
+    id: schema-validator
+    name: "Schema Validator"
+    category: schema
+    tone: technical
+    emoji_count: 2
+    template: |
+      ---
+
+      *✓ Schema validated, data integrity guaranteed*
+    accessibility_notes: "Checkmark emoji represents validation and correctness"
+
+  schema-contract:
+    id: schema-contract
+    name: "Schema Contract"
+    category: schema
+    tone: technical
+    emoji_count: 1
+    template: |
+      ---
+
+      *📋 The contract that keeps our systems in sync*
+    accessibility_notes: "Contract emoji represents agreements and specifications"
+
+  # --- AUDIT FOOTERS ---
+
+  audit-examined:
+    id: audit-examined
+    name: "Audit Examined"
+    category: audit
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *🔍 Examined with rigor, reported with integrity*
+    accessibility_notes: "Magnifying glass emoji represents thorough investigation"
+
+  audit-findings:
+    id: audit-findings
+    name: "Audit Findings"
+    category: audit
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *📊 Findings documented, insights delivered*
+    accessibility_notes: "Chart emoji represents data and analysis"
+
+  audit-certified:
+    id: audit-certified
+    name: "Audit Certified"
+    category: audit
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *✅ Reviewed and certified by the LightSpeedWP audit team*
+    accessibility_notes: "Checkmark emoji represents verification"
+
+  # --- RESEARCH FOOTERS ---
+
+  research-discovered:
+    id: research-discovered
+    name: "Research Discovered"
+    category: research
+    tone: playful
+    emoji_count: 1
+    template: |
+      ---
+
+      *🔬 Discovered through experimentation and curiosity*
+    accessibility_notes: "Microscope emoji represents scientific inquiry"
+
+  research-studied:
+    id: research-studied
+    name: "Research Studied"
+    category: research
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *📚 Studied thoroughly, findings shared freely*
+    accessibility_notes: "Books emoji represents learning and research"
+
+  research-synthesized:
+    id: research-synthesized
+    name: "Research Synthesized"
+    category: research
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *🧬 Synthesized insights from research and observation*
+    accessibility_notes: "DNA emoji represents analysis and synthesis"
+
+  # --- AI OPS FOOTERS ---
+
+  aiops-orchestrated:
+    id: aiops-orchestrated
+    name: "AI Ops Orchestrated"
+    category: ai-ops
+    tone: technical
+    emoji_count: 2
+    template: |
+      ---
+
+      *🎼 Orchestrated automation — where intelligence meets operations*
+    accessibility_notes: "Music note emoji represents harmony and coordination"
+
+  aiops-automated:
+    id: aiops-automated
+    name: "AI Ops Automated"
+    category: ai-ops
+    tone: technical
+    emoji_count: 2
+    template: |
+      ---
+
+      *⚙️ Automated workflows, intelligent decisions*
+    accessibility_notes: "Gear emoji represents automation and machinery"
+
+  aiops-intelligent:
+    id: aiops-intelligent
+    name: "AI Ops Intelligent"
+    category: ai-ops
+    tone: technical
+    emoji_count: 1
+    template: |
+      ---
+
+      *💡 Intelligent operations, powered by AI*
+    accessibility_notes: "Lightbulb emoji represents ideas and intelligence"
+
+  # --- ISSUE & PR FOOTERS ---
+
+  issues-tracked:
+    id: issues-tracked
+    name: "Issues Tracked"
+    category: issue-template
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *📍 Issue tracked, progress monitored*
+    accessibility_notes: "Pin emoji represents tracking and location"
+
+  issues-managed:
+    id: issues-managed
+    name: "Issues Managed"
+    category: issue-template
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *✓ Issue managed with care and attention*
+    accessibility_notes: "Checkmark emoji represents completion and management"
+
+  pr-reviewed:
+    id: pr-reviewed
+    name: "PR Reviewed"
+    category: pull-request-template
+    tone: professional
+    emoji_count: 1
+    template: |
+      ---
+
+      *👀 Reviewed with care, merged with confidence*
+    accessibility_notes: "Eyes emoji represents code review and attention"
+
+  pr-merged:
+    id: pr-merged
+    name: "PR Merged"
+    category: pull-request-template
+    tone: encouraging
+    emoji_count: 1
+    template: |
+      ---
+
+      *✨ This PR brings sparkle to the codebase*
+    accessibility_notes: "Sparkle emoji represents positive contribution"
+
+# ============================================================================
+# VALIDATION RULES
+# ============================================================================
+
+validation_rules:
+  require_category_in_frontmatter: false # Category can be inferred from path
+  require_footer_in_document: true
+  allow_custom_footer_in_frontmatter: true
+  max_footer_lines: 3
+  footer_randomization_enabled: false # Consistent footers, not random
+
+# ============================================================================
+# EXCLUSION PATTERNS
+# ============================================================================
+# Files that should NOT require quirky footers
+
+exclusion_patterns:
+  vendor_paths:
+    - "/(plugin-provided|platform-managed|directory-installed|agentskills-main)/"
+
+  system_files:
+    - ".git/"
+    - "node_modules/"
+    - "/\\..*" # Hidden files/directories
+    - ".backup$"
+    - ".tmp$"
+
+  archives:
+    - "/.archive/"
+    - "/completed/"
+    - "/deprecated/"
+    - "/legacy/"
+
+  templates:
+    - "/.github/(ISSUE_TEMPLATE|PULL_REQUEST_TEMPLATE|DISCUSSION_TEMPLATE)/"
+    - "/template(s)?/"
+    - "/(example|sample|fixture)/"
+
+  references:
+    - "/references/"
+    - "/examples/"
+    - "/samples/"
+    - "/fixtures/"
+    - "/mock(s)?/"
