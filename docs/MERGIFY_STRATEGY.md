@@ -682,7 +682,7 @@ queue_rules:
 - [Mergify Documentation](https://docs.mergify.io/)
 - [GitHub PR Conditions](https://docs.mergify.io/conditions/)
 - [Queue Rules Guide](https://docs.mergify.io/merge-queue/)
-- [Troubleshooting Guide](https://docs.mergify.com/faq/)
+- [Troubleshooting Guide](https://docs.mergify.io/faq/)
 
 ## Change Log
 
