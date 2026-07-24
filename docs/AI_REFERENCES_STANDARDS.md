@@ -21,6 +21,22 @@ The `ai/` folder contains canonical reference documents for:
 
 These references inform agent and workflow design across the organisation.
 
+### AI Reference Maintenance Lifecycle
+
+```mermaid
+graph LR
+    A["Monitor<br/>Industry"] --> B["New Model<br/>Released?"]
+    B -->|Yes| C["Evaluate<br/>Capabilities"]
+    B -->|No| D["Annual<br/>Audit"]
+    C --> E["Create/Update<br/>Reference"]
+    E --> F["Document in<br/>ai/ folder"]
+    D --> G{"Changes<br/>needed?"}
+    F --> H["Update<br/>Decision Log"]
+    G -->|Yes| E
+    G -->|No| I["Continue<br/>Monitoring"]
+    H --> J["Review<br/>Deprecations"]
+```
+
 ## Quick Links
 
 - [Folder Purpose](#folder-purpose)
@@ -63,6 +79,21 @@ ai/
 ---
 
 ## Document Types
+
+### AI Reference Type Selection
+
+```mermaid
+graph TD
+    A{"What should be<br/>documented?"} -->|Model capabilities<br/>& versions| B["Model Reference<br/>e.g., Claude.md"]
+    A -->|Agent execution<br/>patterns| C["Runner Reference<br/>RUNNERS.md"]
+    A -->|Major decisions| D["Decision Log<br/>DECISION_LOG.md"]
+    B --> E["Capabilities, costs,<br/>constraints"]
+    C --> F["Orchestration patterns,<br/>error handling"]
+    D --> G["Design decisions,<br/>rationale, impact"]
+    E --> H["✅ Store in ai/<br/>as {Model}.md"]
+    F --> H
+    G --> I["✅ Store in ai/<br/>as DECISION_LOG.md"]
+```
 
 ### Model References
 
@@ -411,6 +442,49 @@ Lightweight model for simple tasks.
 - **Use:** Fast responses, simple operations
 
 ```
+
+---
+
+## Real-World Repository Examples
+
+### AI Reference Documents
+
+The LightSpeedWP `.github` repository maintains canonical AI reference documents:
+
+**File:** `ai/Claude.md`
+
+Authoritative reference for Claude model capabilities, versions, and use cases.
+
+Contains: Latest Claude versions, capabilities matrix, recommended settings, pricing, and use case guidance.
+
+**File:** `ai/Gemini.md`
+
+Reference for Google Gemini models and alternative provider patterns.
+
+Contains: Gemini capabilities, GCP integration, comparison with Claude, when to use.
+
+**File:** `ai/RUNNERS.md`
+
+Orchestration patterns and runner configurations for agentic workflows.
+
+Contains: Sequential/parallel/pipeline execution patterns, budget management, error handling, multi-agent patterns.
+
+**File:** `ai/DECISION_LOG.md`
+
+Log of major AI-related decisions and their rationale.
+
+Contains: Decision records, impact analysis, alternatives considered, review dates.
+
+See all references: [`ai/`](../../ai/)
+
+---
+
+## See Also
+
+- [Agent Standards](./AGENT_STANDARDS.md) — Using models in agents
+- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Multi-agent patterns
+- [Skills Standards](./SKILLS_STANDARDS.md) — Model selection in skills
+- [Prompts Standards](./PROMPTS_STANDARDS.md) — Prompt tuning for models
 
 ---
 
