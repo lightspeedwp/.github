@@ -119,9 +119,9 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (16): linear-app-skill-creator, linear-decision-logger, linear-duplicate-management-playbook, linear-gap-analyzer, linear-memory-maintenance, [11 more]
-- Local (10): Presentations, Spreadsheets, documents, frontend-skill, imagegen, [5 more]
-- Plugin-Provided (16): github__*, google-drive__*, [14 more namespaced integrations]
+- Agent-Attached (16): linear-app-skill-creator, linear-decision-logger, linear-duplicate-management-playbook, linear-gap-analyzer, linear-memory-maintenance, linear-momentum-auditor, linear-project-pulse, linear-skill-intake-onboarding, linear-sub-issue-splitter, linear-the-architect, linear-triage-router, linear-triage-rules-designer, linear-triage-sop-builder, linear-unplanned-work-intake-audit, linear-voice-of-customer, markdown-output-formatter
+- Local (10): Presentations, Spreadsheets, documents, frontend-skill, imagegen, openai-docs, pdf, plugin-creator, skill-creator, skill-installer
+- Plugin-Provided (16): github__gh-address-comments, github__gh-fix-ci, github__github, github__yeet, google-drive__google-docs, google-drive__google-drive, google-drive__google-drive-comments, google-drive__google-sheets, google-drive__google-slides, linear__linear, slack__slack, slack__slack-channel-summarization, slack__slack-daily-digest, slack__slack-notification-triage, slack__slack-outgoing-message, slack__slack-reply-drafting
 
 ---
 
@@ -129,9 +129,9 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (3): [3 pagespeed-specific skills]
-- Platform-Managed (1): [1 platform capability]
-- Plugin-Provided (1): [1 external service]
+- Agent-Attached (3): builtins, frontend-skill, hermes
+- Platform-Managed (1): system
+- Plugin-Provided (1): google-drive
 
 ---
 
@@ -139,8 +139,8 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (2): [2 playwright-specific skills]
-- Local (2): [2 local utilities]
+- Agent-Attached (2): frontend-skill, hermes
+- Local (2): platform-managed, plugin-provided
 
 ---
 
@@ -148,9 +148,9 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (25): [25 PRD-specific skills]
-- Local (13): documents, reports, [11 more local utilities]
-- Plugin-Provided (5): github, linear, google-drive, [2 more]
+- Agent-Attached (25): content-file-validator, evidence-locker, hermes, lightspeed-acceptance-test-planner, lightspeed-approval-gate-manager, lightspeed-change-request-router, lightspeed-figma-wordpress-technical-brief, lightspeed-github-issue-drafter, lightspeed-implementation-plan-generator, lightspeed-intake-onboarding, lightspeed-launch-task-router, lightspeed-prd-generator, lightspeed-prd-task-manager, lightspeed-prd-task-pack-exporter, lightspeed-prd-task-reviewer, lightspeed-project-intake-router, lightspeed-project-memory-manager, lightspeed-project-researcher, lightspeed-project-status-reporter, lightspeed-qa-findings-router, lightspeed-release-handoff-generator, lightspeed-requirements-traceability-mapper, lightspeed-task-breakdown-planner, markdown-content-validator, wordpress-plugin-packaging-review
+- Local (13): directory-installed, documents, frontend-skill, imagegen, openai-docs, pdf, platform-managed, plugin-creator, plugin-provided, presentations, skill-creator, skill-installer, spreadsheets
+- Plugin-Provided (5): figma, github, gmail, google-drive, linear
 
 ---
 
@@ -158,9 +158,9 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (24): [24 PRD factory-specific skills]
-- Local (10): documents, reports, [8 more local utilities]
-- Plugin-Provided (5): github, linear, figma, google-drive, slack
+- Agent-Attached (24): content-file-validator, evidence-locker, lightspeed-acceptance-test-planner, lightspeed-approval-gate-manager, lightspeed-change-request-router, lightspeed-figma-wordpress-technical-brief, lightspeed-github-issue-drafter, lightspeed-implementation-plan-generator, lightspeed-intake-onboarding, lightspeed-launch-task-router, lightspeed-prd-generator, lightspeed-prd-task-manager, lightspeed-prd-task-pack-exporter, lightspeed-prd-task-reviewer, lightspeed-project-intake-router, lightspeed-project-memory-manager, lightspeed-project-researcher, lightspeed-project-status-reporter, lightspeed-qa-findings-router, lightspeed-release-handoff-generator, lightspeed-requirements-traceability-mapper, lightspeed-task-breakdown-planner, markdown-content-validator, wordpress-plugin-packaging-review
+- Local (10): documents, frontend-skill, imagegen, openai-docs, pdf, plugin-creator, presentations, skill-creator, skill-installer, spreadsheets
+- Plugin-Provided (5): figma, github, gmail, google-drive, linear
 
 ---
 
@@ -168,9 +168,9 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (6): [6 proposal-specific skills]
-- Local (3): [3 local utilities]
-- Plugin-Provided (7): github, google-drive, [5 more service integrations]
+- Agent-Attached (6): evidence-claims-check, markdown-format-validator, proposal-defaults-onboarding, proposal-intake, rfp-response, wordpress-plugin-packaging-review
+- Local (3): builtins, frontend-skill, system
+- Plugin-Provided (7): figma, github, gmail, google-calendar, google-drive, linear, slack
 
 ---
 
@@ -178,8 +178,8 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (10): [10 tour operator/config management skills]
-- Local (20): [extensive local utility suite: documents, reports, export-tools, matrices, templates, etc.]
+- Agent-Attached (10): agent-asset-validation-maintainer, pre-launch-readiness-review, site-preflight, tour-operator-agent-instructions, tour-operator-gravity-forms-auditor, tour-operator-gravity-forms-configuration, tour-operator-website, tour-operator-yoast-auditor, tour-operator-yoast-configuration, wordpress-accessibility-checker
+- Local (20): Presentations, Spreadsheets, documents, frontend-skill, github-gh-address-comments, github-gh-fix-ci, github-github, github-yeet, google-drive-google-docs, google-drive-google-drive, google-drive-google-drive-comments, google-drive-google-sheets, google-drive-google-slides, imagegen, linear-linear, openai-docs, pdf, plugin-creator, skill-creator, skill-installer
 
 ---
 
@@ -187,11 +187,11 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (10): [10 WooCommerce-specific configuration skills]
-- Directory-Installed (4): [4 directory modules]
-- Local (1): [1 local utility]
-- Platform-Managed (5): [5 platform capabilities]
-- Plugin-Provided (1): [1 plugin integration]
+- Agent-Attached (10): woocommerce-audit-orchestrator, woocommerce-gravity-forms-auditor, woocommerce-gravity-forms-configuration, woocommerce-implementation-planner, woocommerce-project-onboarding, woocommerce-remediation-triage, woocommerce-site-discovery, woocommerce-yoast-auditor, woocommerce-yoast-configuration, wordpress-accessibility-checker
+- Directory-Installed (4): documents, pdf, presentations, spreadsheets
+- Local (1): frontend-skill
+- Platform-Managed (5): imagegen, openai-docs, plugin-creator, skill-creator, skill-installer
+- Plugin-Provided (1): openai-marketplace
 
 ---
 
@@ -199,10 +199,10 @@ related_documents:
 
 **Skills by Category:**
 
-- Agent-Attached (11): [11 WordPress configuration skills]
-- Local (1): [1 local utility]
-- Platform-Managed (9): [9 platform capabilities]
-- Plugin-Provided (10): github, linear, google-drive, figma, [6 more]
+- Agent-Attached (11): gravity-forms-auditor, gravity-forms-configuration, wordpress-accessibility-checker, wordpress-audit-reporting, wordpress-inspection-preflight, wordpress-launch-readiness, wordpress-remediation-planner, wordpress-request-router, wordpress-site-onboarding, yoast-auditor, yoast-configuration
+- Local (1): frontend-skill
+- Platform-Managed (9): Presentations, Spreadsheets, documents, imagegen, openai-docs, pdf, plugin-creator, skill-creator, skill-installer
+- Plugin-Provided (10): github__gh-address-comments, github__gh-fix-ci, github__github, github__yeet, google-drive__google-docs, google-drive__google-drive, google-drive__google-drive-comments, google-drive__google-sheets, google-drive__google-slides, linear__linear
 
 ---
 
