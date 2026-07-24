@@ -26,3 +26,7 @@ Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk r
 ## 10:49 | docs/agent-skills-standards-comprehensive
 
 PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) + planning in .github/projects/active/; epic #1261 + child issues #1262-#1270; multiple CI iterations fixing frontmatter/CodeEx P2 feedback/links/validation pending merge.
+
+## 10:55 | docs/agent-skills-standards-comprehensive
+
+PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
