@@ -36,16 +36,19 @@ on:
       - "docs/**"
       - "scripts/**"
 
-  push:
-    branches:
-      - develop
-    paths:
-      - "**/*.md"
-      - ".github/workflows/**"
-      - ".github/agents/**"
-      - ".github/instructions/**"
-      - "docs/**"
-      - "scripts/**"
+  # Note: Push trigger disabled until Issue #1310 (cleanup old workflows) is complete.
+  # Both documentation.yml and readme-regen.yml would trigger on the same push,
+  # causing race conditions. Enable after old workflows are disabled/removed.
+  # push:
+  #   branches:
+  #     - develop
+  #   paths:
+  #     - "**/*.md"
+  #     - ".github/workflows/**"
+  #     - ".github/agents/**"
+  #     - ".github/instructions/**"
+  #     - "docs/**"
+  #     - "scripts/**"
 
 permissions:
   contents: write
@@ -103,19 +106,16 @@ jobs:
         id: syntax
         if: contains(fromJson('["all", "syntax"]'), env.AUDIT_SCOPE)
         run: npm run validate:mermaid-syntax
-        continue-on-error: true
 
       - name: Check WCAG compliance
         id: accessibility
         if: contains(fromJson('["all", "accessibility"]'), env.AUDIT_SCOPE)
         run: npm run validate:mermaid-accessibility
-        continue-on-error: true
 
       - name: Check Mermaid colour contrast
         id: contrast
         if: contains(fromJson('["all", "contrast"]'), env.AUDIT_SCOPE)
         run: npm run validate:mermaid-contrast
-        continue-on-error: true
 
       - name: Identify stale documents
         id: staleness
@@ -125,12 +125,48 @@ jobs:
           find . -name "README.md" -type f | while read file; do
             echo "Checking staleness for $file..."
           done
-        continue-on-error: true
+
+      - name: Check validation outcomes
+        id: validation-status
+        if: always()
+        run: |
+          SYNTAX="${{ steps.syntax.outcome }}"
+          A11Y="${{ steps.accessibility.outcome }}"
+          CONTRAST="${{ steps.contrast.outcome }}"
+
+          echo "syntax_passed=$([ "$SYNTAX" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "a11y_passed=$([ "$A11Y" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "contrast_passed=$([ "$CONTRAST" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+          if [ "$SYNTAX" != "success" ] || [ "$A11Y" != "success" ] || [ "$CONTRAST" != "success" ]; then
+            echo "has_failures=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_failures=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Generate audit report
         if: always()
-        run: >-
-          node -e "const fs=require('fs');const scope='${{ env.AUDIT_SCOPE }}';let out='## Documentation Audit Report\\n\\n';out+='**Scope**: '+scope+'\\n\\n';const p='.github/reports/mermaid-audit/summary.md';if(fs.existsSync(p)){out+=fs.readFileSync(p,'utf8');}fs.appendFileSync('${{ github.step_summary }}',out);"
+        env:
+          SYNTAX_PASSED: ${{ steps.validation-status.outputs.syntax_passed }}
+          A11Y_PASSED: ${{ steps.validation-status.outputs.a11y_passed }}
+          CONTRAST_PASSED: ${{ steps.validation-status.outputs.contrast_passed }}
+        run: |
+          {
+            echo "## Documentation Audit Report"
+            echo ""
+            echo "**Scope**: ${{ env.AUDIT_SCOPE }}"
+            echo ""
+            echo "### Validation Results"
+            echo "| Check | Result |"
+            echo "|-------|--------|"
+            echo "| Syntax | $( [ "$SYNTAX_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
+            echo "| Accessibility | $( [ "$A11Y_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
+            echo "| Colour Contrast | $( [ "$CONTRAST_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
+            echo ""
+            if [ -f ".github/reports/mermaid-audit/summary.md" ]; then
+              cat ".github/reports/mermaid-audit/summary.md"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload audit artifacts
         if: always()
