@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-23"
+last_updated: "2026-07-24"
 owners:
   - LightSpeed Team
 tags:
@@ -24,6 +24,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Improved
+
+- **CI/CD markdown linting scope optimization (Phase 1)** — Comprehensive audit of 9,024 markdown files identified opportunity to reduce CI linting scope by 38% by excluding vendored assets, generated reports, and platform-managed content. Implemented Phase 1: updated .markdownlint-cli2.config.cjs with documented exclusion patterns for vendored directories and narrowed generated-output exclusions to avoid over-exclusion of tracked documentation; aligned package.json npm scripts with exclusion patterns; updated testing.yml workflow with clarifying comments. All exclusions now consistent across workflows, eliminating false positives from third-party documentation and reducing CI processing overhead. Audit framework and implementation guide available in .github/projects/active/markdown-audit-ci-optimization/ for future standardization phases. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226); [Issue #1224](https://github.com/lightspeedwp/.github/issues/1224), [#1229](https://github.com/lightspeedwp/.github/issues/1229), [#1230](https://github.com/lightspeedwp/.github/issues/1230), [#1232](https://github.com/lightspeedwp/.github/issues/1232))
 
 ### Added
 
