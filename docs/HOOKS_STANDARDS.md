@@ -14,6 +14,22 @@ Guidelines for creating event-driven hooks that automate tasks and enforce gover
 
 Hooks are JavaScript/TypeScript functions that execute in response to specific events. They enable automation, validation, and cross-cutting concerns without modifying core logic.
 
+### Hook Execution Lifecycle
+
+```mermaid
+graph LR
+    A["Event<br/>Triggered"] --> B["Load Hook<br/>Handler"]
+    B --> C["Extract<br/>Context"]
+    C --> D["Execute<br/>Hook"]
+    D --> E{"Hook<br/>Result?"}
+    E -->|Success| F["Return Data"]
+    E -->|Error| G["Throw Error"]
+    E -->|Block| H["Stop Execution"]
+    F --> I["Next Hook/<br/>Continue"]
+    G --> J["Error Handler"]
+    H --> K["Operation<br/>Blocked"]
+```
+
 ## Quick Links
 
 - [Hook Concept](#hook-concept)
@@ -50,6 +66,26 @@ Hooks differ from middleware:
 ---
 
 ## Hook Types
+
+### Hook Type Selection
+
+```mermaid
+graph TD
+    A{"What should<br/>happen?"} -->|Check<br/>conditions| B["Validation Hook"]
+    A -->|Transform<br/>data| C["Preprocessing Hook"]
+    A -->|React to<br/>event| D["Event Hook"]
+    A -->|Record<br/>info| E["Logging Hook"]
+    A -->|Enforce<br/>policy| F["Policy Hook"]
+    B --> G{"Throw on<br/>fail?"}
+    G -->|Yes| H["Blocking Hook"]
+    G -->|No| I["Warning Hook"]
+    C --> J["✅ Pre-process Data"]
+    D --> K["✅ Register Event"]
+    E --> L["✅ Log & Continue"]
+    F --> M["✅ Enforce Rule"]
+    H --> N["✅ Return or Throw"]
+    I --> N
+```
 
 ### Event Hooks
 
@@ -395,11 +431,60 @@ export async function enforceCIChecks(context) {
 
 ---
 
-## Related Documentation
+## Real-World Repository Examples
+
+### Production Hooks
+
+The LightSpeedWP `.github` repository implements governance and validation hooks:
+
+**Hook:** `agent-spec-validator`
+
+Validates agent specifications against standards before acceptance.
+
+**Location:** `hooks/agent-spec-validator/`
+
+Type: Validation Hook | Event: `before-commit`
+
+**Hook:** `plugin-integrity-checker`
+
+Checks plugin manifests and configurations for consistency and compliance.
+
+**Location:** `hooks/plugin-integrity-checker/`
+
+Type: Policy Hook | Event: `before-publish`
+
+**Hook:** `multi-provider-consistency-checker`
+
+Ensures agent configurations work across multiple LLM providers.
+
+**Location:** `hooks/multi-provider-consistency-checker/`
+
+Type: Validation Hook | Event: `before-agent-publish`
+
+**Hook:** `agent-security-auditor`
+
+Performs security analysis on agent code and configurations.
+
+**Location:** `hooks/agent-security-auditor/`
+
+Type: Security Policy Hook | Event: `before-production-deploy`
+
+See all hooks: [`hooks/`](../../hooks/)
+
+---
+
+## See Also
 
 - [Agent Standards](./AGENT_STANDARDS.md) — Agents using hooks
 - [Plugins Standards](./PLUGINS_STANDARDS.md) — Plugin hooks
 - [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Workflow hooks
+- [Skills Standards](./SKILLS_STANDARDS.md) — Skill validation hooks
+
+---
+
+## Related Documentation
+
+- [Hooks Standards](./HOOKS_STANDARDS.md) — Event-driven handlers
 
 ---
 
