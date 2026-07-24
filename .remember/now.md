@@ -34,3 +34,49 @@ PR #1251: 9 standard docs + project files all pass validation after CI fixes (fr
 ## 13:40 | chore/changelog-phase-2-rebuild
 
 Phase 2 rebuild: recovered all 76 merged PRs (May 24—Jul 24) into CHANGELOG.md [Unreleased] w/ full PR+issue linking; implemented 5 critical hardening fixes (validation automation, integration tests, contributor docs, workflow enhancement); created audit identifying 14 gaps w/ fix specs; PR #1281 addressed code review feedback & queued for merge.
+
+## 13:41 | feat/agents-phase-2b-batch-2-3-standardization
+
+9 doc standards (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) w/ comprehensive plans (PLAN.md, PLAN-EXPANDED.md v2.0) committed to develop; Epic #1261 + 9 tracking issues (#1262–#1270) created w/ research prompts; PR #1251 merged after CI validation fixes.
+
+## 13:43 | audit/skills-standards-batch-2-3
+
+Batch 2-3 audit completed for 11 agents; PHASE-2B-SKILLS-AUDIT.md (inventory/conflicts/root classifications); PR #1284; doc moved to project folder; issues #1197/#1079/#1196 updated; CI/review flagged skill count inaccuracies & platform-utilities misclassification.
+Perfect! I've created and saved a comprehensive Phase 1B prompt template that includes:
+
+**Two ready-to-use prompts:**
+
+1. **Phase 1B.i: Changelog Consolidation**
+   - Branch: `refactor/changelog-workflow-consolidation`
+   - Consolidates: changelog-validate.yml + changelog-auto-update.yml
+   - Creates: changelog-management.yml with 3 conditional jobs
+   - Effort: 8-12 hours
+
+2. **Phase 1B.ii: Metrics Consolidation**
+   - Branch: `refactor/metrics-workflow-consolidation`
+   - Consolidates: metrics.yml + metrics-summary.yml
+   - Creates: metrics-reporting.yml with sequential jobs
+   - Effort: 6-8 hours
+
+**Each prompt includes:**
+
+- ✅ Links to execution playbook and project documentation
+- ✅ Clear branch naming convention
+- ✅ Specific work breakdown (what to create, migrate, delete)
+- ✅ Success criteria and testing requirements
+- ✅ Estimated effort and related issue numbers
+- ✅ References to technical audit sections
+
+The prompts are saved in your memory system and can be copied directly when you're ready to start Phase 1B work. You can tackle them sequentially or in parallel depending on team capacity.
+
+## 13:48 | audit/skills-standards-batch-2-3
+
+Corrected file location per CLAUDE.md (root→project folder), fixed PR template & audit methodology (skill-count clarification, platform utilities distinction, a11y-checker classification), resolved merge conflicts; PR #1284 ready for merge pending CI.
+
+## 13:52 | audit/skills-standards-batch-2-3
+
+Fixed js-yaml v4 compat in validate-footers.js & added footer to audit doc, resolved conflicting labels (meta:needs-changelog vs meta:no-changelog) on PR #1284; CI pending final run.
+
+## 13:57 | audit/skills-standards-batch-2-3
+
+Removed unused variables in validate-footers.js (cf1d90a83) & added memory file footer (a6abae7b4); Linting/Validation CI checks still failing.
