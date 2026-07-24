@@ -65,14 +65,7 @@ jobs:
               return;
             }
 
-            // Issue has unchecked DoD items; reopen and notify
-            await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              state: 'open',
-            });
-
+            // Issue has unchecked DoD items; post guidance comment and label (don't reopen)
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -86,7 +79,7 @@ jobs:
 
             const message = [
               marker,
-              '🔄 This issue was automatically re-opened because the Definition of Done (DoD) is not complete.',
+              '⚠️ This issue was closed but the Definition of Done (DoD) is not complete.',
               '',
               '**Unchecked DoD items found.** Please complete all checklist items before closing this issue.',
               '',
