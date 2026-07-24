@@ -3,7 +3,7 @@ file_type: documentation
 title: Prompts Standards
 description: Standards for creating reusable prompt templates and patterns
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Prompts Standards

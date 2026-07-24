@@ -3,7 +3,7 @@ file_type: documentation
 title: Agent Standards
 description: Comprehensive standards for creating agents (single-file & folder-based)
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Agent Standards

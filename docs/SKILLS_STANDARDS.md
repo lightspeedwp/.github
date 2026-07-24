@@ -3,7 +3,7 @@ file_type: documentation
 title: Skills Standards
 description: Comprehensive standards for creating shared and dedicated skills
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Skills Standards

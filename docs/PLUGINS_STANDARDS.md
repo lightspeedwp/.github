@@ -3,7 +3,7 @@ file_type: documentation
 title: Plugins Standards
 description: Standards for creating Claude Code plugins
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Plugins Standards

@@ -3,7 +3,7 @@ file_type: documentation
 title: Workflows Standards
 description: Standards for creating reusable agentic workflows
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Workflows Standards

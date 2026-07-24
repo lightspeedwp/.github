@@ -3,7 +3,7 @@ file_type: documentation
 title: AI References Standards
 description: Standards for maintaining canonical AI model and runner references
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # AI References Standards

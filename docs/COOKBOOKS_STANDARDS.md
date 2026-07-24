@@ -3,7 +3,7 @@ file_type: documentation
 title: Cookbooks Standards
 description: Standards for creating implementation guides and recipes
 version: 1.0.0
-last_updated: 2026-07-24
+last_updated: '2026-07-24'
 ---
 
 # Cookbooks Standards
