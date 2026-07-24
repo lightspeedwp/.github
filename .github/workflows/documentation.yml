@@ -36,19 +36,16 @@ on:
       - "docs/**"
       - "scripts/**"
 
-  # Note: Push trigger disabled until Issue #1310 (cleanup old workflows) is complete.
-  # Both documentation.yml and readme-regen.yml would trigger on the same push,
-  # causing race conditions. Enable after old workflows are disabled/removed.
-  # push:
-  #   branches:
-  #     - develop
-  #   paths:
-  #     - "**/*.md"
-  #     - ".github/workflows/**"
-  #     - ".github/agents/**"
-  #     - ".github/instructions/**"
-  #     - "docs/**"
-  #     - "scripts/**"
+  push:
+    branches:
+      - develop
+    paths:
+      - "**/*.md"
+      - ".github/workflows/**"
+      - ".github/agents/**"
+      - ".github/instructions/**"
+      - "docs/**"
+      - "scripts/**"
 
 permissions:
   contents: write
