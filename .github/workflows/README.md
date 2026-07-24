@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: ".github Workflows Directory"
 description: "GitHub Actions workflows for CI, automation, labeling, metrics, and community health across the LightSpeed organisation"
-version: "v2.0.1"
-last_updated: "2026-06-18"
+version: "v2.1.0"
+last_updated: "2026-07-24"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---
@@ -35,9 +35,7 @@ This directory contains the GitHub Actions workflows that power CI/CD, automatio
 
 | Workflow | File | Trigger |
 |---|---|---|
-| Unified Labeling | `labeling.yml` | issues, pull_request |
-| Dependabot Security Label | `dependabot-security-label.yml` | pull_request (Dependabot only) |
-| Issue Close Label Hygiene | `issue-close-label-hygiene.yml` | issues (closed) |
+| Labeling Governance (Consolidated) | `labeling-governance.yml` | issues, pull_request (opened/edited/closed), discussion, push → develop, workflow_dispatch |
 | Checklist Finalisation | `checklist-finalisation.yml` | issues, pull_request (closed/merged) |
 
 ### Automation & Agents
@@ -81,10 +79,10 @@ This directory contains the GitHub Actions workflows that power CI/CD, automatio
 
 | Trigger type | Workflows |
 |---|---|
-| `pull_request` / `pull_request_target` | checks, linting, testing, validate-pr-template, labeling, reviewer, dependabot-security-label, readme-regen, changelog-validate, metadata-governance |
-| `push → develop` | checks, linting, testing, meta, labeling, readme-regen, readme-update, template-enforcement |
+| `pull_request` / `pull_request_target` | checks, linting, testing, validate-pr-template, labeling-governance, reviewer, readme-regen, changelog-validate, metadata-governance |
+| `push → develop` | checks, linting, testing, meta, labeling-governance, readme-regen, readme-update, template-enforcement |
 | `push → main` | main-branch-guard, release, awesome-github-site |
-| `issues` | labeling, planner, issues, template-enforcement, issue-close-label-hygiene, project-meta-sync, metadata-governance, checklist-finalisation |
+| `issues` | labeling-governance, planner, issues, template-enforcement, project-meta-sync, metadata-governance, checklist-finalisation |
 | `schedule` | meta (Mon 03:00), metrics (Mon 06:00), metrics-summary (Mon 09:00), reporting, readme-audit, project-archival |
 | `workflow_dispatch` | most workflows (manual trigger) |
 
