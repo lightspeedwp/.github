@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: ".gitignore Configuration Audit & Documentation"
 description: "Comprehensive audit of .gitignore patterns, related configuration files, and workflows for consistency and correctness"
 last_updated: 2026-07-24
