@@ -17,6 +17,24 @@ Agents are autonomous AI entities designed to accomplish specific tasks by lever
 - **Single-file agents** (`.agent.md` spec) — Simple agents with basic requirements
 - **Folder-based agents** — Complex agents with multiple files, shared skills, and custom hooks
 
+### Agent Architecture
+
+```mermaid
+graph TB
+    A["Agent (AGENT.md)"] --> B["Core Prompt<br/>(shared/core-prompt.md)"]
+    A --> C["Provider Configs<br/>(claude/, copilot/, openai/)"]
+    A --> D["Shared Skills<br/>(skills.md)"]
+    A --> E["Tools/Functions<br/>(tools.json)"]
+    A --> F["Hooks<br/>(hooks/)"]
+    B --> G["Provider-Agnostic<br/>Methodology"]
+    C --> H["Claude SDK"]
+    C --> I["GitHub Copilot"]
+    C --> J["OpenAI API"]
+    D --> K["Reusable<br/>Capabilities"]
+    E --> L["Typed<br/>Schemas"]
+    F --> M["Validation<br/>Automation"]
+```
+
 ## Quick Links
 
 - [Single-File Agent Spec](#single-file-agent-spec)
@@ -309,6 +327,39 @@ Manual validation required. Ensure:
 - All referenced skills and hooks exist
 - Implementation files are functional
 - README.md documents the agent
+
+---
+
+## Decision Tree: Single-File vs. Folder-Based
+
+```mermaid
+graph TD
+    A{"Agent Complexity?"} -->|Simple task<br/>1-2 skills| B["Single-File Agent<br/>agents/name.agent.md"]
+    A -->|Complex<br/>Multiple skills<br/>Custom hooks| C["Folder-Based Agent<br/>agents/name-agent/"]
+    B --> D["✅ Use .agent.md format"]
+    C --> E["✅ Use multi-file structure<br/>+ provider configs"]
+```
+
+## Real-World Examples
+
+### Single-File Agent
+
+**File:** `agents/code-reviewer.agent.md`
+
+A focused agent that performs code quality reviews using shared skills.
+
+### Folder-Based Agent Reference
+
+**Location:** `.github/agents/playwright-testing-agent/`
+
+Complete reference implementation with:
+
+- Multi-provider configs (Claude, Copilot, OpenAI)
+- Shared provider-agnostic core prompt
+- Full tool definitions and skill inventory
+- README with installation and usage
+
+**See:** [agents/playwright-testing-agent/AGENT.md](../../agents/playwright-testing-agent/AGENT.md)
 
 ---
 
