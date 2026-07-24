@@ -14,6 +14,20 @@ Guidelines for creating installable plugins that extend Claude Code and agent ca
 
 Plugins are standalone extensions for Claude Code (VS Code, JetBrains, CLI) that add new commands, hooks, and integrations. This document covers standards for plugin creation, configuration, and distribution.
 
+### Plugin Development Lifecycle
+
+```mermaid
+graph LR
+    A["Plan Plugin<br/>Capabilities"] --> B["Create Directory<br/>Structure"]
+    B --> C["Write plugin.json<br/>Manifest"]
+    C --> D["Implement Commands<br/>& Hooks"]
+    D --> E["Add MCP<br/>Servers"]
+    E --> F["Write Tests &<br/>Examples"]
+    F --> G["Create<br/>README"]
+    G --> H["Validate<br/>plugin.json"]
+    H --> I["Publish to<br/>Registry"]
+```
+
 ## Quick Links
 
 - [Plugin Concept](#plugin-concept)
@@ -46,6 +60,25 @@ Plugins can target:
 | **Workspace** | Current project only |
 | **User** | Current user account |
 | **Global** | All installations |
+
+### Plugin Type Decision Tree
+
+```mermaid
+graph TD
+    A{"What should<br/>the plugin do?"} -->|Execute<br/>code action| B["Command Plugin"]
+    A -->|React to<br/>events| C["Hook Plugin"]
+    A -->|Add external<br/>tools| D["MCP Server<br/>Plugin"]
+    A -->|Automation<br/>workflow| E{"Automate<br/>when?"}
+    E -->|On file events| F["File-triggered<br/>Hook Plugin"]
+    E -->|On user action| G["Command-based<br/>Plugin"]
+    E -->|Continuous| H["Startup Hook<br/>Plugin"]
+    B --> I["✅ Implement commands<br/>in plugin.json"]
+    C --> J["✅ Register hooks<br/>with events"]
+    D --> K["✅ Configure MCP<br/>servers"]
+    F --> K
+    G --> I
+    H --> J
+```
 
 ---
 
@@ -425,9 +458,45 @@ Plugins can be distributed via:
 
 ---
 
-## Related Documentation
+## Real-World Repository Examples
+
+### Production Plugins
+
+The LightSpeedWP organisation maintains several working plugin implementations:
+
+**Plugin:** `lightspeed-quality-assurance`
+
+A multi-provider plugin for quality assurance automation, supporting Claude, Gemini, and Codex environments.
+
+**Location:** `plugins/lightspeed-quality-assurance/`
+
+Features
+
+- Multi-provider configurations (`.claude-plugin/`, `.gemini-plugin/`, `.codex-plugin/`)
+- Command-based automation
+- Quality gate enforcement
+
+**Plugin:** `lightspeed-wordpress-governance`
+
+WordPress-specific governance plugin with compliance checking and policy enforcement.
+
+**Location:** `plugins/lightspeed-wordpress-governance/`
+
+See all plugins: [`plugins/`](../../plugins/)
+
+---
+
+## See Also
 
 - [Agent Standards](./AGENT_STANDARDS.md) — Agents in plugins
+- [Hooks Standards](./HOOKS_STANDARDS.md) — Plugin hooks
+- [Skills Standards](./SKILLS_STANDARDS.md) — Reusable skills for plugins
+- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Plugin-triggered workflows
+
+---
+
+## Related Documentation
+
 - [Code Claude Documentation](https://code.claude.com/docs/en/plugins)
 - [GitHub Copilot Plugins](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-creating)
 
