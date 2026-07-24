@@ -112,10 +112,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **GitHub Actions minute optimisation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054))
 
-- **Dependabot auto-merge unblocked** — Fixed Mergify configuration that prevented all dependabot PRs from merging. Consolidated redundant rules, replaced invalid approve action with review action, added backup GitHub Actions workflow. ([PR #1020](https://github.com/lightspeedwp/.github/pull/1020), [#968](https://github.com/lightspeedwp/.github/issues/968))
-
-- **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
-
 ### Contributors
 
 Special thanks to the following for contributions to this release:
