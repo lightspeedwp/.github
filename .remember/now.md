@@ -20,3 +20,6 @@ Fixed docs/ISSUE_TRIAGE.md per code review (subprocess timeouts, path correction
 ## 10:38 | audit/workflows-consolidation-audit
 
 Completed Phase 1A (#1231, #1233): removed testing.yml, extracted template helpers to scripts/validation/template-helpers.cjs (45 tests), fixed PR #1228 w/ missing docs & frontmatter validation, 135 lines dedup, ~2-3% GHA mins savings.
+
+## 10:41 | chore/comprehensive-maintenance-improvements
+Markdown audit categorized 9,024 files w/ 6-category taxonomy; Phase 1 impl achieved 38% CI scope reduction via narrowed vendor/metrics exclusions (PRs #1223 #1226); committed framework/findings to `.github/projects/active/markdown-audit-ci-optimization/` develop; created parent issue #1229 w/ child issues #1224 #1230 #1232.

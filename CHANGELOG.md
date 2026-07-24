@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-23"
+last_updated: "2026-07-24"
 owners:
   - LightSpeed Team
 tags:
@@ -25,7 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Improved
+
+- **CI/CD markdown linting scope optimization (Phase 1)** — Comprehensive audit of 9,024 markdown files identified opportunity to reduce CI linting scope by 38% by excluding vendored assets, generated reports, and platform-managed content. Implemented Phase 1: updated .markdownlint-cli2.config.cjs with documented exclusion patterns for vendored directories and narrowed generated-output exclusions to avoid over-exclusion of tracked documentation; aligned package.json npm scripts with exclusion patterns; updated testing.yml workflow with clarifying comments. All exclusions now consistent across workflows, eliminating false positives from third-party documentation and reducing CI processing overhead. Audit framework and implementation guide available in .github/projects/active/markdown-audit-ci-optimization/ for future standardization phases. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226); [Issue #1224](https://github.com/lightspeedwp/.github/issues/1224), [#1229](https://github.com/lightspeedwp/.github/issues/1229), [#1230](https://github.com/lightspeedwp/.github/issues/1230), [#1232](https://github.com/lightspeedwp/.github/issues/1232))
+
 ### Added
+
+- **Mergify Strategy & Implementation Documentation** — Comprehensive guide to Mergify configuration, auto-merge rules, and CI/CD integration. Documents all 5 auto-merge rules with detailed analysis of known issues (Dependabot auto-merge broken, meta-agent double-merge race condition, ImgBot effectiveness unknown). Includes troubleshooting guide, best practices, and prioritised improvement recommendations. Identifies critical issues: check-name mismatch ("All Checks Passed" vs actual names), meta-agent workflow + Mergify rule redundancy, and missing MERGIFY_TOKEN configuration. Created `docs/MERGIFY_STRATEGY.md` (687 lines) with architecture diagrams, configuration examples, and detailed fix recommendations by priority. ([#1209](https://github.com/lightspeedwp/.github/issues/1209), [PR #1210](https://github.com/lightspeedwp/.github/pull/1210))
 
 - **PRD Factory & Planner Agent — Phase 2A standardization (12-phase skill integration)** — Completed comprehensive standardization of `agents/prd-factory-planner-agent/` following the full 12-phase checklist. Inventoried and documented all 39 available skills (24 agent-attached, 10 local, 5 plugin-provided) with clear categorization and workflow integration patterns. Updated `AGENT.md` with detailed Skills section showing which skills to use for PRD generation, timeline planning, stakeholder alignment, validation, and exports. Enhanced all provider configs (`claude/agent.md`, `copilot/agent.md`, `openai/agent.md`, `shared/core-prompt.md`) to explicitly document skill availability and invocation patterns. Updated core instructions (`agent/instructions/AGENTS.md`) with skill routing guidance (6 task categories, skill selection patterns, LightSpeed skill references). Regenerated checksums for 932 files, passed all validation tests (skill manifests, Markdown linting, skill discovery), and updated documentation with Phase 2A completion status. Established the reusable 12-phase standardization pattern for the remaining 15 agents. ([PR #1199](https://github.com/lightspeedwp/.github/pull/1199); [#1197](https://github.com/lightspeedwp/.github/issues/1197), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
