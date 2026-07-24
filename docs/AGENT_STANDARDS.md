@@ -85,17 +85,34 @@ Expected output structure.
 
 ### Minimum Requirements
 
-- **name** — Unique agent identifier (kebab-case)
-- **description** — One-line summary
-- **version** — Semantic version (e.g., 1.0.0)
-- **providers** — Array of supported LLM providers
+Single-file agents require BOTH specification and implementation files:
+
+**Specification file** (`.agent.md`):
+
+- `name` — Unique agent identifier (kebab-case)
+- `description` — One-line summary
+- `version` — Semantic version (e.g., 1.0.0)
+- `providers` — Array of supported LLM providers
 - **Purpose section** — Explains what the agent does
 
-Optional but recommended:
+**Implementation file** (`.js`, `.ts`, `.py`, or equivalent):
+
+- Actual agent logic and execution code
+- Located alongside the `.agent.md` file
+
+Optional but recommended in specification:
 
 - **skills** — Array of referenced skills
 - **hooks** — Event-driven hooks
 - **workflows** — Referenced workflows
+
+Example single-file agent structure:
+
+```
+agents/
+├── code-reviewer.agent.md
+└── code-reviewer.js
+```
 
 ---
 
@@ -266,6 +283,7 @@ Each skill must have a `SKILL.md` file with frontmatter and documentation.
 - [ ] At least one provider is specified
 - [ ] All referenced skills exist (shared or local)
 - [ ] All referenced hooks exist
+- [ ] Implementation file exists and is executable
 - [ ] README.md is present (for folder-based agents)
 - [ ] Examples are provided
 - [ ] Markdown linting passes: `npm run lint:md`
@@ -273,18 +291,26 @@ Each skill must have a `SKILL.md` file with frontmatter and documentation.
 
 ### Automated Validation
 
-Agents are validated by the CI pipeline:
+**Single-file agents** (`.agent.md` in `agents/` folder):
 
 ```bash
 npm run validate:agents
 ```
 
-This checks:
+This validates:
 
-- Frontmatter syntax
-- Referenced skills and hooks exist
+- Frontmatter syntax for `.agent.md` files
 - Required fields are present
 - Naming conventions are followed
+
+**Folder-based agents** (`agents/{name}/agent.md`):
+
+Manual validation required. Ensure:
+
+- `agent.md` is present and valid YAML
+- All referenced skills and hooks exist
+- Implementation files are functional
+- README.md documents the agent
 
 ---
 

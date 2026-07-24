@@ -1,7 +1,7 @@
 ---
 name: instructions-standards
 description: Standards for creating portable instruction files for agents and tools
-type: standards
+file_type: instructions
 language: markdown
 scope: organisation
 version: 1.0.0
@@ -75,7 +75,7 @@ Instructions use Markdown with YAML frontmatter.
 ---
 name: instruction-name
 description: One-line description of instruction scope
-type: instructions
+file_type: instructions
 language: markdown
 scope: organisation  # or team, repository, process
 version: 1.0.0

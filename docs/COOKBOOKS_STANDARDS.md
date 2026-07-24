@@ -304,15 +304,17 @@ graph LR
 
 ## Integration with Other Standards
 
-Reference related documentation:
+From within a cookbook recipe, reference related documentation from the repository root:
 
 ```markdown
 ## See Also
 
-- [Agent Standards](../AGENT_STANDARDS.md) — Understanding agents
-- [Skills Standards](../SKILLS_STANDARDS.md) — Creating skills
-- [Workflows Standards](../WORKFLOWS_STANDARDS.md) — Multi-agent workflows
+- [Agent Standards](../../docs/AGENT_STANDARDS.md) — Understanding agents
+- [Skills Standards](../../docs/SKILLS_STANDARDS.md) — Creating skills
+- [Workflows Standards](../../docs/WORKFLOWS_STANDARDS.md) — Multi-agent workflows
 ```
+
+Note: Cookbook files are stored in `cookbook/{recipe-name}/`, so relative paths must traverse up two levels (`../../`) to reach the `docs/` folder.
 
 ---
 

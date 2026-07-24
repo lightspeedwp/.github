@@ -18,14 +18,9 @@ Workflows are JavaScript/TypeScript scripts that coordinate multiple agents, man
 
 **Important:** Workflows are NOT GitHub Actions workflows. They are agentic orchestration scripts.
 
-## Quick Links
+## Overview Details
 
-- [Workflow Concept](#workflow-concept)
-- [Folder Structure](#folder-structure)
-- [Workflow Script Format](#workflow-script-format)
-- [Execution Patterns](#execution-patterns)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
+Workflows are documented as Markdown files describing orchestration logic and patterns.
 
 ---
 
@@ -76,36 +71,46 @@ workflows/
 
 ---
 
-## Workflow Script Format
+## Workflow Documentation Format
 
-Every workflow must follow the Claude Agent SDK workflow structure.
+Workflows are documented as Markdown files in the `workflows/` folder, following the repository's established conventions.
 
 ### File Format
 
-```javascript
-export const meta = {
-  name: 'workflow-name',
-  description: 'One-line description of what the workflow does',
-  phases: [
-    { title: 'Discovery', detail: 'Find and analyse items' },
-    { title: 'Verification', detail: 'Verify findings' },
-  ],
-}
+Workflows are defined as Markdown documents describing workflow logic, patterns, and orchestration:
 
-// Workflow body
-phase('Discovery')
-const items = await agent('Find all X in the codebase', {
-  label: 'find-x',
-  phase: 'Discovery',
-  schema: ITEMS_SCHEMA,
-})
+```markdown
+# Workflow Name
 
-phase('Verification')
-const verified = await parallel(items.map(item => () =>
-  agent(`Verify: ${item.name}`, { phase: 'Verification' })
-))
+## Purpose
+What this workflow accomplishes.
 
-return { verified }
+## Phases
+1. **Discovery** — Find and analyse items
+2. **Verification** — Verify findings
+
+## Pattern
+[Describe execution pattern: sequential, parallel, pipeline, etc.]
+
+## Process
+
+### Phase 1: Discovery
+- Step 1: description
+- Step 2: description
+
+### Phase 2: Verification
+- Independent verification of each finding
+- Parallel execution of verification agents
+- Aggregation of results
+
+## Agent Invocation
+How this workflow invokes agents (conceptual, not executable).
+
+## Error Handling
+How failures are handled and recovered.
+
+## Budget Management
+How token budget is managed across phases.
 ```
 
 ### Metadata Object (Required)
