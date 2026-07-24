@@ -95,6 +95,7 @@ jobs:
                   sed '/^AWESOME_GITHUB_MAPPING_STRATEGY\.md$/d' | \
                   sed '/^docs\/MIGRATION\.md$/d' | \
                   sed '/^\.github\/reports\//d' | \
+                  sed '/^projects\/active\//d' | \
                   sed '/\/plugin-provided\//d' | \
                   sed '/\/platform-managed\//d' | \
                   sed '/\/directory-installed\//d' | \
