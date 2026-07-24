@@ -18,11 +18,12 @@ Comprehensive integration testing for the consolidated `documentation.yml` workf
 
 | Test # | Scenario | Status | Evidence | Verified By | Date |
 |--------|----------|--------|----------|-------------|------|
-| 1 | PR dry-run regeneration | ⏳ PENDING | — | — | — |
-| 2 | Push auto-commit regeneration | ⏳ PENDING | — | — | — |
-| 3 | Manual audit (dispatch) | ⏳ PENDING | — | — | — |
-| 4 | Manual maintain (dispatch) | ⏳ PENDING | — | — | — |
-| 5 | Conditional job execution | ⏳ PENDING | — | — | — |
+| 1 | PR dry-run regeneration | 🟡 IN PROGRESS | [PR #1365](https://github.com/lightspeedwp/.github/pull/1365) | Automated workflow | 2026-07-24 |
+| 2 | Push auto-commit regeneration | 🟡 IN PROGRESS | [PR #1366](https://github.com/lightspeedwp/.github/pull/1366) | Automated workflow | 2026-07-24 |
+| 3 | Manual audit (dispatch) | 🟡 IN PROGRESS | [Run #30105991164](https://github.com/lightspeedwp/.github/actions/runs/30105991164) | Dispatch triggered | 2026-07-24 |
+| 4A | Manual maintain (dry-run) | 🟡 IN PROGRESS | [Run #30106000420](https://github.com/lightspeedwp/.github/actions/runs/30106000420) | Dispatch triggered | 2026-07-24 |
+| 4B | Manual maintain (commit) | 🟡 IN PROGRESS | [Run #30106002628](https://github.com/lightspeedwp/.github/actions/runs/30106002628) | Dispatch triggered | 2026-07-24 |
+| 5 | Conditional job execution | 📋 READY | See Scenarios 1-4 results | Cross-verification | 2026-07-24 |
 
 ---
 
@@ -215,15 +216,22 @@ Comprehensive integration testing for the consolidated `documentation.yml` workf
 
 ## Testing Summary
 
-### Pass Rate
+### Execution Status (2026-07-24)
 
-- Tests Passed: ⏳ 0/5
-- Tests Failed: ⏳ 0/5
-- Tests Skipped: ⏳ 0/5
+**Tests Triggered:** 5/5 scenarios initiated with live GitHub Actions execution
+
+- **Scenario 1 (PR dry-run):** 🟡 In progress — [PR #1365](https://github.com/lightspeedwp/.github/pull/1365)
+- **Scenario 2 (Push commit):** 🟡 In progress — [PR #1366](https://github.com/lightspeedwp/.github/pull/1366)
+- **Scenario 3 (Audit dispatch):** 🟡 In progress — [Run #30105991164](https://github.com/lightspeedwp/.github/actions/runs/30105991164)
+- **Scenario 4A (Maintain dry-run):** 🟡 In progress — [Run #30106000420](https://github.com/lightspeedwp/.github/actions/runs/30106000420)
+- **Scenario 4B (Maintain commit):** 🟡 In progress — [Run #30106002628](https://github.com/lightspeedwp/.github/actions/runs/30106002628)
+- **Scenario 5 (Conditional verification):** 📋 Verified after scenarios 1-4 complete
 
 ### Overall Status
 
-**🟡 TESTING IN PROGRESS**
+**🟡 AUTOMATED TESTING IN PROGRESS — LIVE WORKFLOW EXECUTION**
+
+Tests are currently running on GitHub Actions. Workflow runs will complete in 1-5 minutes. Check the links above to monitor live execution status.
 
 ---
 
@@ -237,12 +245,24 @@ Comprehensive integration testing for the consolidated `documentation.yml` workf
 
 ## Sign-Off
 
-**Testing Completed By:** TBD  
-**Date Completed:** TBD  
-**All Tests Passed:** ⏳ PENDING  
+**Testing Framework Completed:** ✅ 2026-07-24  
+**Testing Execution Started:** ✅ 2026-07-24 15:36 UTC  
+**Testing Status:** 🟡 In Progress (5 scenarios running)
+**All Tests Passed:** ⏳ Pending completion
 
-**Approval for Phase 2.4 Cleanup:** ⏳ PENDING  
-**Approval for Push Trigger Re-enablement:** ⏳ PENDING
+**Live Test Results:**
+
+- Monitor in Actions tab: <https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml>
+- Test branches/PRs created and pushed
+- Workflow dispatch runs triggered
+- Expected completion: Within 5 minutes
+
+**Next Steps:**
+
+1. ✅ Phase 2.3 testing framework complete
+2. ⏳ Tests executing (5/5 scenarios live)
+3. 📋 Results will be documented as workflows complete
+4. 📋 Phase 2.4 Cleanup approval pending
 
 ---
 
