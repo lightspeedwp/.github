@@ -13,17 +13,18 @@ metadata:
 
 ```
 .github/projects/active/workflows-consolidation-2026-q3/
-├── README.md                              # Project overview & quick facts
-├── IMPLEMENTATION_SUMMARY.md              # Executive roadmap (4 phases)
-├── EXECUTION_PLAYBOOK.md                  # Step-by-step implementation guide
-├── PROJECT_INDEX.md                       # This file (navigation & cross-refs)
-├── GITHUB_ISSUE_PHASE_1A.md               # Ready-to-use issue templates
-├── PHASE_1B_CHANGELOG_CONSOLIDATION.md    # Phase 1B changelog design
-├── PHASE_1B_METRICS_CONSOLIDATION.md      # Phase 1B metrics design
-├── PHASE_2_DOCS_CONSOLIDATION.md          # Phase 2 documentation design
-├── PHASE_3_LABELING_CONSOLIDATION.md      # Phase 3 labeling design
-├── TESTING_STRATEGY.md                    # Test coverage & verification
-└── EFFICIENCY_IMPROVEMENTS.md             # GitHub Actions minute savings details
+├── README.md                                   # Project overview & quick facts
+├── IMPLEMENTATION_SUMMARY.md                   # Executive roadmap (4 phases)
+├── EXECUTION_PLAYBOOK.md                       # Step-by-step implementation guide
+├── PROJECT_INDEX.md                            # This file (navigation & cross-refs)
+├── GITHUB_ISSUE_PHASE_1A.md                    # Ready-to-use issue templates
+├── PHASE_1B_CHANGELOG_CONSOLIDATION.md         # Phase 1B changelog design
+├── PHASE_1B_METRICS_CONSOLIDATION.md           # Phase 1B metrics design
+├── PHASE_2_DOCS_CONSOLIDATION.md               # Phase 2 documentation design
+├── PHASE_2_3_INTEGRATION_TESTING.md            # Phase 2.3 testing framework
+├── PHASE_3_LABELING_CONSOLIDATION_PLAN.md      # Phase 3 labeling consolidation design
+├── TESTING_STRATEGY.md                         # Test coverage & verification
+└── EFFICIENCY_IMPROVEMENTS.md                  # GitHub Actions minute savings details
 ```
 
 ## Quick Navigation by Role
@@ -110,14 +111,15 @@ metadata:
 **Documentation (Phase 2)**
 
 - Consolidate README/docs workflows → See PHASE_2_DOCS_CONSOLIDATION.md
-- Estimated effort: 10-16 hours (revised: 3 workflows, not 5)
-- Status: 🟡 IMPLEMENTATION IN PROGRESS
+- Actual effort: ~12 hours (3 workflows, 449 lines consolidated)
+- Deliverables: ✅ Consolidated documentation.yml, ✅ PR #1313 merged, ✅ Phase 2.3 testing plan, ✅ PR #1317 cleanup
+- Status: ✅ COMPLETE (Phase 2.4 cleanup in progress)
 
 **Labeling (Phase 3)**
 
-- Consolidate labeling workflows → See PHASE_3_LABELING_CONSOLIDATION.md
-- Estimated effort: 6-8 hours
-- Status: Design phase
+- Consolidate labeling workflows → See PHASE_3_LABELING_CONSOLIDATION_PLAN.md
+- Estimated effort: 6-8 hours (3 workflows, ~234 lines to consolidate)
+- Status: 📋 DESIGN COMPLETE (implementation pending)
 
 ### By Workflow
 
@@ -131,13 +133,13 @@ metadata:
 | metrics.yml | 1B-ii | MERGE → metrics-reporting.yml | ⏳ READY |
 | metrics-summary.yml | 1B-ii | MERGE → metrics-reporting.yml | ⏳ READY |
 | meta.yml | 2 | SPLIT (validation vs. maintenance) | 📋 DESIGN |
-| readme-audit.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
-| readme-regen.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
-| readme-update.yml | 2 | MERGE → documentation.yml | 🔄 IMPLEMENTATION |
+| readme-audit.yml | 2 | MERGE → documentation.yml | ✅ COMPLETE (deleted in PR #1317) |
+| readme-regen.yml | 2 | MERGE → documentation.yml | ✅ COMPLETE (deleted in PR #1317) |
+| readme-update.yml | 2 | MERGE → documentation.yml | ✅ COMPLETE (deleted in PR #1317) |
 | validate-mermaid-pr.yml | 2 | KEEP (already consolidated) | ✅ SKIPPED |
-| labeling.yml | 3 | ABSORB label logic (2 others) | 📋 DESIGN |
-| dependabot-security-label.yml | 3 | MERGE → labeling.yml | 📋 DESIGN |
-| issue-close-label-hygiene.yml | 3 | MERGE → labeling.yml | 📋 DESIGN |
+| labeling.yml | 3 | ABSORB label logic (2 others) | 📋 DESIGN (PHASE_3_PLAN ready) |
+| dependabot-security-label.yml | 3 | MERGE → labeling.yml | 📋 DESIGN (PHASE_3_PLAN ready) |
+| issue-close-label-hygiene.yml | 3 | MERGE → labeling.yml | 📋 DESIGN (PHASE_3_PLAN ready) |
 
 ---
 
@@ -148,8 +150,11 @@ metadata:
 | **1A: Quick Wins** | ✅ COMPLETE | 4h | Week 1 | Epic #1227, Issues #1231, #1233 |
 | **1B-i: Changelog** | ⏳ READY | 8-12h | Weeks 2-3 | Issue #1.B.1 (TBD) |
 | **1B-ii: Metrics** | ⏳ READY | 6-8h | Weeks 2-3 | Issue #1.B.2 (TBD) |
-| **2: Documentation** | 🟡 IN PROGRESS | 10-16h | Weeks 5-8 | Issue #2.1 (TBD), PR in progress |
-| **3: Labeling** | 📋 DESIGN | 6-8h | Weeks 5-8 | Issue #3.1 (TBD) |
+| **2.1: Consolidation** | ✅ COMPLETE | 10-16h | Weeks 5-8 | PR #1313 (merged) |
+| **2.2: Review** | ✅ COMPLETE | — | — | PR #1313 (merged) |
+| **2.3: Integration Testing** | 🟡 TESTING PLAN | 4h | Week 8-9 | Issue #1309 (testing framework ready) |
+| **2.4: Cleanup Old Workflows** | ✅ IN PROGRESS | 2h | Week 9 | PR #1317 (cleanup merged) |
+| **3: Labeling Consolidation** | 📋 DESIGN | 6-8h | Weeks 9-10 | PHASE_3_LABELING_CONSOLIDATION_PLAN.md (design complete) |
 | **4: Future** | 📋 FUTURE | TBD | Month 3+ | TBD |
 
 ---
@@ -228,4 +233,6 @@ metadata:
 
 **Last Updated:** 2026-07-24  
 **Epic:** [#1227](https://github.com/lightspeedwp/.github/issues/1227)  
-**Related PR:** [#1228](https://github.com/lightspeedwp/.github/pull/1228)
+**Phase 2 PR:** [#1313](https://github.com/lightspeedwp/.github/pull/1313) (consolidated documentation.yml) — ✅ Merged  
+**Phase 2.4 PR:** [#1317](https://github.com/lightspeedwp/.github/pull/1317) (cleanup legacy workflows) — ✅ Merged  
+**Phase 3 Status:** Design complete (PHASE_3_LABELING_CONSOLIDATION_PLAN.md), ready for implementation
