@@ -38,32 +38,62 @@ Mergify is a GitHub App that automates pull request merging based on configurabl
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Pull Request Events                   │
-│              (opened, synchronize, edited)               │
-└────────────────────┬────────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────────┐
-│                 Mergify Rules Engine                     │
-│            Evaluates conditions for each PR              │
-└────────┬──────────────────┬──────────────────┬──────────┘
-         │                  │                  │
-         ▼                  ▼                  ▼
-    ┌─────────┐      ┌───────────┐      ┌────────────┐
-    │ Queue   │      │ Direct    │      │ No Action  │
-    │ (Merge) │      │ Merge     │      │            │
-    └─────────┘      └───────────┘      └────────────┘
+### High-Level Flow
+
+Mergify processes pull requests through a rule-based evaluation engine that determines how (or if) they should be merged:
+
+```mermaid
+graph TD
+    A["📬 PR Event<br/>(opened, synchronized, edited)"] --> B["🔍 Evaluate All Rules<br/>(in order)"]
+    B --> C{"✅ All conditions<br/>met?"}
+    C -->|Yes| D{"Action<br/>type?"}
+    C -->|No| E["⏸️ Wait for<br/>next event"]
+    D -->|Queue| F["📋 Add to<br/>Merge Queue"]
+    D -->|Merge| G["✔️ Direct<br/>Merge"]
+    D -->|Review| H["👍 Approve &<br/>Stop"]
+    D -->|Update| I["🔄 Rebase &<br/>Stop"]
+    F --> J["⏳ Process Queue<br/>(FIFO order)"]
+    J --> K["✅ Verify PR<br/>before merge"]
+    K --> L["✔️ Merge to<br/>develop"]
+    G --> M["✔️ Merge to<br/>develop"]
+    E --> A
+    style A fill:#e1f5ff
+    style B fill:#fff3e0
+    style F fill:#f3e5f5
+    style G fill:#e8f5e9
+    style H fill:#fff9c4
 ```
 
 ### Components
 
-1. **Rules Engine** - Evaluates PR conditions against defined rules
+1. **Rules Engine** - Evaluates PR conditions against defined rules in order
 2. **Queue System** - Manages sequential merging to prevent race conditions
 3. **Check Validation** - Verifies CI status before merging
 4. **Workflow Integration** - Communicates with GitHub Actions workflows
 5. **Flaky Test Detection** - Reports test reliability metrics
+
+### Rule Evaluation Timeline
+
+```mermaid
+timeline
+    title PR Lifecycle with Mergify
+    
+    section PR Creation
+    PR Created (draft): PR opened
+    Labels Applied: area:dependencies, type:chore
+    CI Triggers: Tests, linting, validation
+    
+    section Mergify Processing
+    Rule 1 Checks: Author check passes
+    Rule 2 Checks: Label check passes
+    Check Success: All checks completed
+    
+    section Merge Phase
+    Queue Added: PR queued for merge
+    Validation: Final pre-merge check
+    Merge Executed: PR merged via squash
+    Branch Deleted: Remote branch removed
+```
 
 ## Configuration
 
@@ -103,6 +133,34 @@ merge_protections_settings:
 - **rebase**: Rebase onto base branch
 
 We standardly use **squash** for clean history.
+
+### Condition Evaluation Process
+
+When a PR event occurs, Mergify evaluates all conditions using AND logic (all must be true):
+
+```mermaid
+graph TD
+    A["PR Event Triggered"] --> B["Load PR Details"]
+    B --> C["Check Condition 1:<br/>Author matches?"]
+    C -->|❌ No| D["Skip this rule<br/>Try next rule"]
+    C -->|✅ Yes| E["Check Condition 2:<br/>Base branch OK?"]
+    E -->|❌ No| D
+    E -->|✅ Yes| F["Check Condition 3:<br/>Has required label?"]
+    F -->|❌ No| D
+    F -->|✅ Yes| G["Check Condition 4:<br/>Checks passing?"]
+    G -->|❌ No| D
+    G -->|✅ Yes| H["✅ All conditions met!<br/>Execute actions"]
+    H --> I{"Action"}
+    I -->|queue| J["📋 Queue for merge"]
+    I -->|merge| K["✔️ Merge immediately"]
+    I -->|review| L["👍 Approve PR"]
+    I -->|update| M["🔄 Rebase PR"]
+    style A fill:#e1f5ff
+    style D fill:#ffebee
+    style H fill:#e8f5e9
+    style J fill:#f3e5f5
+    style K fill:#c8e6c9
+```
 
 ## Auto-Merge Rules
 
@@ -248,6 +306,48 @@ Remove the `gh pr merge --auto --squash` from meta.yml workflow and rely on Merg
 
 ---
 
+### Rules at a Glance
+
+```mermaid
+graph TD
+    A["Pull Request"] --> B{"Author?"}
+    
+    B -->|dependabot| C["✅ Rule 2:<br/>Auto-approve & queue"]
+    B -->|imgbot| D["✅ Rule 4:<br/>Auto-merge"]
+    B -->|lightspeed-bot| E["✅ Rule 5:<br/>Meta-agent sync"]
+    B -->|Other| F["❌ No matching rule"]
+    
+    C --> C1{"CI passes?"}
+    C1 -->|Yes| C2["📋 Queue for merge"]
+    C1 -->|No| C3["⏸️ Wait for CI"]
+    
+    D --> D1{"CI passes?"}
+    D1 -->|Yes| D2["✔️ Direct merge"]
+    D1 -->|No| D3["⏸️ Wait for CI"]
+    
+    E --> E1{"Has label:<br/>meta:no-changelog?"}
+    E1 -->|Yes| E2["✔️ Direct merge"]
+    E1 -->|No| E3["❌ Skip merge"]
+    
+    C2 --> G["✔️ Merged to develop"]
+    D2 --> G
+    E2 --> G
+    
+    F --> H["⏸️ Waiting for<br/>manual merge"]
+    C3 --> H
+    D3 --> H
+    E3 --> H
+    
+    style A fill:#e1f5ff
+    style C2 fill:#f3e5f5
+    style D2 fill:#c8e6c9
+    style E2 fill:#c8e6c9
+    style G fill:#a5d6a7
+    style H fill:#ffccbc
+```
+
+---
+
 ## Queue System
 
 ### Purpose
@@ -262,13 +362,74 @@ queue_rules:
     merge_method: squash
 ```
 
+### Queue Processing Flow
+
+```mermaid
+graph LR
+    A["📋 Queue"] --> B["PR #1<br/>Dependabot"]
+    A --> C["PR #2<br/>Dependabot"]
+    A --> D["PR #3<br/>Dependabot"]
+    
+    B --> E{"Validate<br/>PR #1"}
+    E -->|❌ Validation<br/>fails| F["❌ Remove<br/>from queue"]
+    E -->|✅ All checks<br/>pass| G["✔️ Merge PR #1<br/>to develop"]
+    
+    G --> H{"Base branch<br/>updated?"}
+    H -->|Yes| I["🔄 Rebase<br/>next PR"]
+    H -->|No| J["✅ Proceed to<br/>next PR"]
+    
+    I --> C
+    J --> C
+    
+    C --> K{"Validate<br/>PR #2"}
+    K -->|✅ Pass| L["✔️ Merge PR #2"]
+    L --> D
+    
+    style A fill:#f3e5f5
+    style B fill:#fff9c4
+    style C fill:#fff9c4
+    style D fill:#fff9c4
+    style G fill:#c8e6c9
+    style L fill:#c8e6c9
+    style F fill:#ffcdd2
+```
+
 ### Behavior
 
 1. PRs are added to the queue when they meet rule conditions
-2. Mergify processes the queue in FIFO order
+2. Mergify processes the queue in FIFO (First In, First Out) order
 3. Each PR is validated before merge
-4. If merge succeeds, next PR in queue is processed
+4. If merge succeeds, the next PR in queue is processed
 5. If merge fails, PR is removed from queue and error logged
+6. If base branch changes, next PR is automatically rebased before merge
+
+### Queue vs Direct Merge Comparison
+
+```mermaid
+graph TD
+    A["Merge Strategy Decision"] --> B{"Use Queue?"}
+    
+    B -->|Yes: Queue| C["📋 Queue Merge"]
+    B -->|No: Direct| D["✔️ Direct Merge"]
+    
+    C --> C1["Sequential processing<br/>FIFO order"]
+    C --> C2["Auto-rebase if<br/>base changes"]
+    C --> C3["Prevents race<br/>conditions"]
+    C --> C4["Slower (sequential)"]
+    
+    D --> D1["Merge immediately<br/>when conditions met"]
+    D --> D2["No auto-rebase"]
+    D --> D3["Risk of conflicts<br/>if multiple PRs"]
+    D --> D4["Faster<br/>(parallel)"]
+    
+    C1 --> E["✅ Use Queue for:<br/>- Dependabot updates<br/>- Any high-volume<br/>  dependency-heavy PRs"]
+    D1 --> F["✅ Use Direct for:<br/>- Meta-agent syncs<br/>- ImgBot<br/>- Single, simple PRs"]
+    
+    style C fill:#f3e5f5
+    style D fill:#c8e6c9
+    style E fill:#f3e5f5
+    style F fill:#c8e6c9
+```
 
 ### Current Queues
 
@@ -395,6 +556,41 @@ Remove the `gh pr merge --auto` call from meta.yml and let Mergify rule handle i
 
 ## Troubleshooting
 
+### Mergify Troubleshooting Flowchart
+
+```mermaid
+graph TD
+    A["❌ PR not merging?"] --> B{"Mergify checks<br/>appearing?"}
+    
+    B -->|No| C["⚠️ Mergify not running"]
+    C --> C1["Check: Is Mergify app<br/>installed?"]
+    C1 --> C2["Check: Is workflow<br/>permission correct?"]
+    
+    B -->|Yes| D{"Mergify status?"}
+    D -->|Red X| E["❌ Mergify rule failed"]
+    D -->|Green ✓| F["✅ Mergify passed,<br/>other checks failing"]
+    
+    E --> E1{"Which check<br/>failed?"}
+    E1 -->|Summary| E2["Check Mergify dashboard<br/>for config error"]
+    E1 -->|Merge Queue| E3["Queue processing issue"]
+    
+    E3 --> E4{"Are conditions<br/>matching?"}
+    E4 -->|No| E5["➡️ Go to:<br/>Check if rule is matching"]
+    E4 -->|Yes| E6["➡️ Check queue<br/>processing below"]
+    
+    F --> F1["Check required CI<br/>checks passing"]
+    F1 --> F2{"All checks<br/>passed?"}
+    F2 -->|No| F3["⏸️ Wait for CI<br/>or fix failures"]
+    F2 -->|Yes| F4["Check branch<br/>protection rules"]
+    
+    style A fill:#ffcdd2
+    style C fill:#ffccbc
+    style E fill:#ffccbc
+    style F fill:#fff9c4
+    style F3 fill:#ffccbc
+    style E5 fill:#c8e6c9
+```
+
 ### Check if Mergify is Running
 
 1. Look for "Mergify" checks on PR
@@ -417,6 +613,31 @@ Remove the `gh pr merge --auto` call from meta.yml and let Mergify rule handle i
 
 ```yaml
 check-success=All Checks Passed
+```
+
+**Check Name Matching Diagram**:
+
+```mermaid
+graph TD
+    A["Mergify evaluates:<br/>check-success=All Checks Passed"] --> B["Look for check named<br/>exactly 'All Checks Passed'"]
+    
+    B --> C{"Found matching<br/>check?"}
+    
+    C -->|❌ No match| D["❌ Condition fails<br/>Rule doesn't apply"]
+    C -->|✅ Found| E["✅ Check status?"]
+    
+    E --> F{"Status"}
+    F -->|🔄 Pending| G["⏸️ Wait for check"]
+    F -->|❌ Failed| H["❌ Don't merge"]
+    F -->|✅ Success| I["✅ Condition passes"]
+    
+    D --> J["Real checks in repo:<br/>- CI • Unified Checks<br/>- CodeQL<br/>- Meta Agent<br/>- etc."]
+    J --> K["⚠️ None match<br/>'All Checks Passed'"]
+    
+    style A fill:#fff3e0
+    style D fill:#ffccbc
+    style I fill:#c8e6c9
+    style K fill:#ffcdd2
 ```
 
 **Better options**:
@@ -531,6 +752,33 @@ Track over time:
 - False negatives (PRs that should have merged but didn't)
 
 ## Improvement Recommendations
+
+### Improvement Roadmap
+
+```mermaid
+graph LR
+    A["🚨 Current State<br/>Broken auto-merge"] --> B["P1: Identify<br/>check names"]
+    B --> C["P1: Fix Dependabot<br/>rules"]
+    C --> D["✅ Dependabot<br/>working"]
+    
+    D --> E["P2: Remove<br/>double-merge"]
+    E --> F["✅ Meta-agent<br/>clean"]
+    
+    F --> G["P3: Standardize<br/>check names"]
+    G --> H["✅ All rules<br/>consistent"]
+    
+    H --> I["P4: Add<br/>monitoring"]
+    I --> J["✅ Full visibility<br/>& health tracking"]
+    
+    K["📅 Timeline<br/>P1: This sprint<br/>P2: Next sprint<br/>P3: Week 3<br/>P4: Week 4+"] 
+    
+    style A fill:#ffcdd2
+    style D fill:#c8e6c9
+    style F fill:#c8e6c9
+    style H fill:#c8e6c9
+    style J fill:#a5d6a7
+    style K fill:#e3f2fd
+```
 
 ### Priority 1: Fix Dependabot Auto-Merge
 
