@@ -151,3 +151,7 @@ Rebuilt CHANGELOG.md [Unreleased] with 37 entries from 40+ merged PRs (May—Jul
 ## 19:21 | test/phase-2-3-scenario-2-push-commit
 
 Merged PRs #1313 & #1317 (Phase 2 docs workflow consolidation + cleanup), executed Phase 2.3 integration tests (PRs #1365–#1366, manual audit/maintain dispatches), created Phase 3 labeling consolidation plan for Epic #1227.
+
+## 10:38 | feat/agents-phase-2b-batch-2-3-standardization
+
+Merged PR #1251 w/ 9 doc standards & planning docs to develop; created epic #1261 + 9 child issues (#1262–#1270) & phase 2-3 tracker #1274, all linked w/ research prompts.
