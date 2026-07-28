@@ -73,7 +73,7 @@ You can also validate the `tools.json` files against the provider-config schema:
 node -e '
 const fs=require("fs"),Ajv=require("ajv"),addFormats=require("ajv-formats");
 const ajv=new Ajv({allErrors:true,strict:false}); addFormats(ajv);
-const v=ajv.compile(JSON.parse(fs.readFileSync(".schemas/provider-config.schema.json")));
+const v=ajv.compile(JSON.parse(fs.readFileSync("schema/provider-config.schema.json")));
 for (const p of ["claude/tools.json","openai/tools.json"]) {
   const ok=v(JSON.parse(fs.readFileSync("agents/playwright-testing-agent/"+p)));
   console.log(p, ok ? "VALID" : JSON.stringify(v.errors));
@@ -154,6 +154,12 @@ Regardless of provider, a correct run:
       `@a11y` and scoped per page/widget, keyboard-traversal cases for custom
       interactive widgets, and cites WCAG 2.2 AA success criteria — asserting **no
       new** violations against the recorded baseline, not zero outright.
+- [ ] Given a PRD that **excludes** a category of work (e.g. "formal accessibility
+      audit is excluded") while an org standard would require it: records a
+      change-control item naming the standard and the exclusion, and generates
+      **no** cases for it. It must not promote the org standard into a Confirmed
+      Requirement, and must not write the coverage and defer the scope question to
+      the review gate.
 - [ ] For SEO/metadata requirements: derives the URL set from a site inventory
       where one is available rather than hand-listing pages, and asserts only the
       rules the source states.

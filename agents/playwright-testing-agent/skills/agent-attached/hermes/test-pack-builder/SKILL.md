@@ -100,8 +100,19 @@ Keep these in their own sections instead of mixing them into confirmed requireme
 - gaps in source material
 - suggested extra coverage
 - execution risks or environment dependencies
+- **change-control items** — work an organisational standard would call for but the
+  project's scope excludes
 
 Never label these as confirmed requirements.
+
+**Scope exclusions are evidence, not gaps.** If the source says a category of work
+is out of scope, record it as an out-of-scope note and generate no coverage for it.
+House standards (an org accessibility baseline, coding standards, a security
+policy) govern how in-scope work is built; they never create new deliverables. Do
+not promote one into a Confirmed Requirement for excluded work, and do not write
+the cases and seek approval afterwards — raise it as a change-control item naming
+the standard, the exclusion it collides with, and the coverage that would be
+needed. "It is good practice" is not authorisation.
 
 ### 4. Generate the human-readable test pack
 
@@ -281,6 +292,7 @@ Use this compact template shape:
 - If the request includes Figma context, use it as design evidence, not as the sole source of functional truth.
 - If the request asks for performance testing, page speed, or Core Web Vitals, say that this agent does not measure performance, name **pagespeed-agent** as the owner, and still extract the performance rules so nothing is lost.
 - If an accessibility or console gate is requested but its baseline is unrecorded, emit the gate as proposed and list the baseline capture as the blocking prerequisite — do not assert zero violations against unmeasured debt.
+- If the source excludes a category of work (accessibility, SEO, performance, security) but an organisational standard would call for it, raise a change-control item and generate no cases. Do not build the coverage and defer the scope question to the review gate.
 
 ## Quality Bar
 
@@ -292,6 +304,9 @@ Before finishing, check that:
   another agent; none is silently dropped
 - performance rules, where present, are classified and routed rather than turned
   into timing assertions
+- no Confirmed Requirement rests on a house standard for work the project's scope
+  excludes; such items are change-control entries, not requirements, and carry no
+  test cases
 - assumptions are not mixed into confirmed requirements
 - review-before-code is enforced unless explicitly waived
 - the Environment & Test-Data Contract is present, with every unknown field marked as a gap rather than fabricated

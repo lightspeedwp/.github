@@ -91,6 +91,34 @@ If sources conflict, stop and ask for a decision before finalising tests.
   requirement ID and mark the extra cases as coverage expansion.
 - Choose the narrowest approved requirement type that matches the source.
 
+### Scope Exclusions and House Standards
+
+An explicit exclusion in the source is **evidence, not a gap**. If the PRD,
+estimate, or statement of work says a category of work is out of scope, record
+that as an out-of-scope note and do not generate coverage for it.
+
+House standards — an organisation's accessibility baseline, coding standards,
+security policy — govern **how work that is already in scope gets built**. They do
+not create new deliverables. So:
+
+- **Never** promote a house standard into a Confirmed Requirement for work the
+  project has excluded. A standard is not a substitute for the commercial source
+  of truth, and "the org standard requires it" is not authorisation.
+- Where a house standard would raise the bar on work that *is* in scope, apply it
+  there — as an assertion inside an existing case, or as clearly labelled coverage
+  expansion.
+- Where it would add work the project excluded, record it as a **change-control
+  item**: name the standard, name the exclusion it collides with, state what
+  coverage would be needed, and stop. Do not write the cases and ask for approval
+  afterwards — an unapproved pack full of out-of-scope cases is scope creep with a
+  review gate bolted on.
+- If you believe the exclusion is a mistake, say so in one line and still respect
+  it. The decision belongs to whoever owns the scope.
+
+The test is not "is this good practice?" — it is "did someone commit to paying for
+it?". Apply the same logic to accessibility, SEO, performance, analytics, and
+security alike.
+
 ### Performance Requirements — recognise and route
 
 Performance is a **first-class requirement type but not this agent's deliverable**.
@@ -284,6 +312,12 @@ invent credentials or product data.
 
 ### Accessibility Rules
 
+> **Scope gate.** These rules describe *how* to test accessibility when
+> accessibility work is in scope. They are not a mandate to add it. If the project
+> excludes accessibility work, see "Scope Exclusions and House Standards" — the
+> organisation's WCAG baseline does **not** authorise generating an a11y suite for
+> a project that did not buy one. Note the exclusion and move on.
+
 Accessible locators are a **coding style**, not accessibility coverage. A suite
 that queries by `getByRole` has not audited anything. Keep the two separate.
 
@@ -311,6 +345,10 @@ issues, assert in the runner to gate them**:
   rather than presenting a green axe run as a clean bill of health.
 
 ### SEO & Metadata Rules
+
+> **Scope gate.** As with accessibility — assert the SEO rules the source states.
+> An SEO plugin appearing in a licence list is not itself a requirement for SEO
+> coverage, and "ongoing SEO support excluded" means no SEO suite.
 
 - **Explore (live):** `lighthouse_audit` with the `seo` category.
 - **Gate (in specs):** assert per-page `<title>`, meta description, canonical

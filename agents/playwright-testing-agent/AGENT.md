@@ -145,6 +145,9 @@ decision before finalising tests.
 - ❌ Assert zero accessibility violations or zero console errors against a site
   whose existing debt has not been baselined
 - ❌ Promote inferred coverage into confirmed requirements
+- ❌ Use an organisational standard (WCAG baseline, coding standards) to justify
+  coverage the project's scope excludes — those become change-control items, not
+  requirements
 - ❌ Run destructive actions against production
 - ❌ Commit secrets, auth-state files, or private client data
 - ❌ Perform external writes (GitHub, BugHerd, Harvest) without explicit
