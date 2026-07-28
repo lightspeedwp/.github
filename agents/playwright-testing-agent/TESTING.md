@@ -5,7 +5,7 @@ description: >-
   How to validate the Playwright Testing Agent's packaging and exercise its
   behaviour across Claude, GitHub Copilot, and OpenAI, including the execution
   model and a worked end-to-end example.
-last_updated: '2026-07-24'
+last_updated: '2026-07-28'
 domain: generic
 tags:
   - playwright
@@ -89,11 +89,14 @@ for (const p of ["claude/tools.json","openai/tools.json"]) {
 1. Install the plugin from `plugins/lightspeed-playwright-testing/`
    (`.claude-plugin/plugin.json`).
 2. Connect the **Playwright MCP** server so the agent has live browser tools.
+   Optionally connect the **Chrome DevTools MCP** server for live accessibility
+   and SEO auditing (`lighthouse_audit`).
 3. Give it a real PRD/acceptance criteria and confirm it follows the
    **review-before-code** contract (see checklist below) — it must return the
    canonical test pack (full eight sections, or the condensed form for a small
-   single flow), persist it to `.github/reports/test-packs/`, and **stop at the
-   review gate**, not jump to code.
+   single flow), persist it to the project's test-pack directory
+   (`.github/reports/test-packs/` in a repo with a `.github/` control plane), and
+   **stop at the review gate**, not jump to code.
 4. Approve the pack, then ask for specs; confirm it emits `@playwright/test`
    files with accessible locators and traceability comments.
 
@@ -114,10 +117,12 @@ for (const p of ["claude/tools.json","openai/tools.json"]) {
 
 Regardless of provider, a correct run:
 
-- [ ] Opens with a one-line integration pre-flight (Playwright MCP / Figma /
-      BugHerd / GitHub — available or degraded path).
+- [ ] Opens with a one-line integration pre-flight (Playwright MCP / Chrome
+      DevTools MCP / Figma / BugHerd / GitHub — available or degraded path), and
+      lists only capabilities actually wired into the session.
 - [ ] Establishes an Environment & Test-Data Contract, marking unknown fields as
-      gaps rather than fabricating values.
+      gaps rather than fabricating values — including the accessibility and
+      console-error baselines.
 - [ ] Produces requirements with stable IDs, grounded in the supplied sources
       (no invented requirements).
 - [ ] Emits the full eight sections in order (Scope Summary → Sources Used →
@@ -125,8 +130,10 @@ Regardless of provider, a correct run:
       Gaps → Human-Readable Test Cases → Traceability Matrix → Review Gate), or
       the condensed form when right-sized to a small/single flow — and states
       which form it used.
-- [ ] Persists the pack to `.github/reports/test-packs/<flow>-<date>.md` and
-      reports the path.
+- [ ] Persists the pack to the project's test-pack directory
+      (`.github/reports/test-packs/<flow>-<date>.md` where a `.github/` control
+      plane exists, otherwise the project-configured or repo-local equivalent) and
+      reports the written path.
 - [ ] **Stops at the review gate** before generating any Playwright code
       (unless you explicitly asked for a quick prototype).
 - [ ] After approval, generates `@playwright/test` specs using
@@ -138,6 +145,21 @@ Regardless of provider, a correct run:
 - [ ] Flags state-changing WooCommerce tests (`@stateful`), detects Blocks vs
       classic checkout, waits on Store API recalculation, and prefers staging
       over production.
+- [ ] Given a PRD containing a **speed / Core Web Vitals / Lighthouse-score**
+      requirement: classifies it as a `performance rule`, records
+      `deferred → pagespeed-agent` in the Traceability Matrix, and names that
+      agent as owner. It must **not** invent a threshold, emit a wall-clock timing
+      assertion, or drop the requirement silently.
+- [ ] For accessibility requirements: emits `@axe-core/playwright` gates tagged
+      `@a11y` and scoped per page/widget, keyboard-traversal cases for custom
+      interactive widgets, and cites WCAG 2.2 AA success criteria — asserting **no
+      new** violations against the recorded baseline, not zero outright.
+- [ ] For SEO/metadata requirements: derives the URL set from a site inventory
+      where one is available rather than hand-listing pages, and asserts only the
+      rules the source states.
+- [ ] Emits a per-page console-error check gated against the recorded
+      console-error baseline, and treats a new error as a finding rather than
+      widening the baseline.
 
 ## Try the generated specs for real
 

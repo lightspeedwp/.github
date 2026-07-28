@@ -46,14 +46,17 @@ When multiple inputs are present, treat user instructions as highest priority, t
 Before building the pack:
 
 - **Integration pre-flight** — state which capabilities are available (Playwright
-  MCP, Figma, BugHerd, GitHub) and the degraded path for any that are not, so a
-  missing integration is not discovered at write time.
+  MCP, Chrome DevTools MCP, Figma, BugHerd, GitHub) and the degraded path for any
+  that are not, so a missing integration is not discovered at write time. Only
+  list capabilities actually wired into the session.
 - **Environment & Test-Data Contract** — capture the reusable environment block
   (base URL, sandbox/payment mode, test card(s), test customer, seeded
   product(s), known coupon(s), shipping/tax/discount rule source, Subscriptions
-  test data). Fill each field from evidence or mark it as a gap and request it —
-  never fabricate a value. Order-placing cases stay blocked until sandbox mode and
-  a test card are supplied.
+  test data, accessibility baseline, console-error baseline). Fill each field from
+  evidence or mark it as a gap and request it — never fabricate a value.
+  Order-placing cases stay blocked until sandbox mode and a test card are
+  supplied. The two baseline fields are captured from an audit run, never guessed;
+  without them, an a11y or console gate is proposed rather than asserted.
 
 ### 1. Build the evidence set
 
@@ -75,10 +78,18 @@ For each requirement:
 
 - assign a requirement ID
 - write one short requirement statement
-- classify it as one of: functional flow, content rule, visual rule, accessibility rule, analytics/conversion rule, integration rule, or error/empty state
+- classify it as one of: functional flow, content rule, visual rule, accessibility rule, performance rule, analytics/conversion rule, integration rule, or error/empty state
 - cite the source evidence that supports it
 
 Do not split one criterion into many IDs unless the evidence clearly supports separate traceable requirements.
+
+**Performance rules are extracted, then routed.** A speed, Core Web Vitals,
+page-weight, or Lighthouse-score requirement gets an ID and evidence like any
+other, but produces no test case here: record its planned output as
+`deferred → pagespeed-agent` and name that agent as owner in Assumptions and Gaps.
+Do not convert it into a wall-clock timing assertion, do not invent a threshold the
+source did not state, and do not present lab metrics from a slow staging
+environment as a production baseline.
 
 ### 3. Separate non-requirements
 
@@ -108,7 +119,8 @@ Each test case should include:
 - numbered steps
 - expected result
 - core assertions
-- accessibility or visual checks when applicable
+- accessibility or visual checks when applicable, citing the WCAG 2.2 AA success
+  criterion rather than a generic "accessibility check"
 - state-change note when applicable
 - evidence references
 - implementation notes or open questions when useful
@@ -124,6 +136,10 @@ Map:
 - test case ID -> planned Playwright spec or coverage area
 
 If code has not been authorised yet, mark the planned Playwright output as proposed rather than complete.
+
+A requirement routed to another agent records that disposition in the planned-output
+column (for example `deferred → pagespeed-agent`) instead of a test case ID. Every
+requirement is accounted for; none is left unmapped.
 
 ### 6. Persist the pack
 
@@ -157,6 +173,12 @@ If the user has authorised continuing:
   only, never real secrets), and a cart/checkout fixture with a `@stateful` guard
   for order-placing cases. Derive it from the Environment & Test-Data Contract;
   do not invent credentials or product data.
+- where accessibility, SEO, or console requirements are in the pack, emit them as
+  gated specs: `@axe-core/playwright` scoped per page/widget and tagged `@a11y`,
+  metadata assertions over a site-derived URL set, and a per-page console-error
+  check. Assert **no new** violations/errors against the recorded baselines rather
+  than zero outright; where a baseline is still a gap, emit the spec as proposed
+  and say so.
 
 If the approved pack still has open questions, carry them forward as blockers or TODO review notes rather than guessing.
 
@@ -203,6 +225,8 @@ Use this compact template shape:
 | Known coupon(s) | ... |
 | Shipping / tax / discount rule source | ... |
 | Subscriptions test data | ... if in scope |
+| Accessibility baseline | ... recorded axe violations, or gap |
+| Console-error baseline | ... known console errors, or gap |
 
 ### Confirmed Requirements
 
@@ -238,6 +262,7 @@ Use this compact template shape:
 | Requirement ID | Evidence | Test Case IDs | Planned Playwright Coverage |
 |---|---|---|---|
 | RQ-001 | ... | TC-001 | proposed spec/module |
+| RQ-002 | ... | — | deferred → pagespeed-agent |
 
 ### Review Gate / Next Step
 
@@ -254,6 +279,8 @@ Use this compact template shape:
 - If the request is only for human-readable cases, still include requirement IDs and evidence references.
 - If the request includes repo context, use it to shape implementation notes and planned Playwright coverage, not to invent product requirements.
 - If the request includes Figma context, use it as design evidence, not as the sole source of functional truth.
+- If the request asks for performance testing, page speed, or Core Web Vitals, say that this agent does not measure performance, name **pagespeed-agent** as the owner, and still extract the performance rules so nothing is lost.
+- If an accessibility or console gate is requested but its baseline is unrecorded, emit the gate as proposed and list the baseline capture as the blocking prerequisite — do not assert zero violations against unmeasured debt.
 
 ## Quality Bar
 
@@ -261,6 +288,10 @@ Before finishing, check that:
 
 - every confirmed requirement has evidence
 - every test case maps to at least one requirement
+- every requirement has a disposition — a test case, or an explicit route to
+  another agent; none is silently dropped
+- performance rules, where present, are classified and routed rather than turned
+  into timing assertions
 - assumptions are not mixed into confirmed requirements
 - review-before-code is enforced unless explicitly waived
 - the Environment & Test-Data Contract is present, with every unknown field marked as a gap rather than fabricated

@@ -4,7 +4,7 @@ title: Playwright Testing Agent — Claude Configuration
 description: >-
   Claude-specific configuration for the Playwright Testing Agent: tools,
   guardrails, and structured response format. Layers on shared/core-prompt.md.
-last_updated: '2026-07-24'
+last_updated: '2026-07-28'
 domain: generic
 tags:
   - playwright
@@ -54,8 +54,14 @@ path.
 ## Response Format
 
 Open every run with a one-line **integration pre-flight** status
-(Playwright MCP / Figma / BugHerd / GitHub — `available` or
-`unavailable → <degraded path>`), per `core-prompt.md`.
+(Playwright MCP / Chrome DevTools MCP / Figma / BugHerd / GitHub — `available` or
+`unavailable → <degraded path>`), per `core-prompt.md`. List only the capabilities
+actually wired into the session.
+
+If the request asks for performance, page-speed, or Core Web Vitals work, state
+that this agent does not measure performance and name **pagespeed-agent** as the
+owner — then continue, extracting any performance rules and routing them in the
+Traceability Matrix.
 
 For a **test pack**, return the canonical sections as Markdown — the full eight
 sections (Scope Summary, Sources Used, Environment & Test-Data Contract, Confirmed

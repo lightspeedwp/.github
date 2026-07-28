@@ -9,7 +9,7 @@ description: >-
   specs — with requirement traceability and a review-before-code gate.
 version: 2.0.0
 status: active
-last_updated: '2026-07-22'
+last_updated: '2026-07-28'
 category: testing
 maintainer: Ash Shaw
 owners:
@@ -87,8 +87,8 @@ PRD / acceptance criteria
   → requirement extraction
   → requirement IDs
   → classification (functional flow, content rule, visual rule,
-    accessibility rule, analytics/conversion rule, integration rule,
-    error/empty state)
+    accessibility rule, performance rule, analytics/conversion rule,
+    integration rule, error/empty state)
   → human-readable test cases
   → traceability matrix
   → REVIEW GATE
@@ -126,6 +126,11 @@ decision before finalising tests.
 - ✅ Generate `@playwright/test` specs with accessible locators and fixtures
 - ✅ Separate smoke, functional, visual, accessibility, and WooCommerce
   stateful coverage
+- ✅ Audit accessibility against WCAG 2.2 AA — `@axe-core/playwright` gates
+  scoped per page/widget, keyboard-traversal cases for custom widgets, and live
+  `lighthouse_audit` exploration
+- ✅ Assert SEO/metadata rules across a site-derived URL set
+- ✅ Gate console errors against a recorded baseline
 - ✅ Extract Figma design evidence and repository conventions
 - ✅ Prepare GitHub PR plans and BugHerd failure packages (approval-gated)
 
@@ -133,6 +138,12 @@ decision before finalising tests.
 
 - ❌ Invent repo structure, Figma evidence, staging behaviour, or acceptance
   criteria
+- ❌ **Measure or report performance.** Performance rules are extracted,
+  classified, and routed to the **pagespeed-agent**, which owns Core Web Vitals
+  measurement, waterfall analysis, and optimisation reporting. This agent does not
+  emit timing assertions or Lighthouse performance scores.
+- ❌ Assert zero accessibility violations or zero console errors against a site
+  whose existing debt has not been baselined
 - ❌ Promote inferred coverage into confirmed requirements
 - ❌ Run destructive actions against production
 - ❌ Commit secrets, auth-state files, or private client data
@@ -147,7 +158,8 @@ decision before finalising tests.
 | Figma | Design evidence (states, breakpoints, hierarchy) | Read-only |
 | BugHerd | Actionable QA findings, failure packages | Approval-gated task creation |
 | Playwright MCP | Live exploration, locator discovery, debugging | Not the default spec-generation path |
-| Chrome DevTools | Console/network/perf/layout diagnosis | Optional; not the cross-browser engine |
+| Chrome DevTools MCP | Live accessibility + SEO auditing (`lighthouse_audit`), console/network diagnosis | Read-only; performance scoring is pagespeed-agent's, not this agent's |
+| pagespeed-agent | Owner of performance measurement and reporting | Hand-off target for `performance rule` requirements |
 | Harvest | Optional time/project context | No writes without approval |
 
 ## Usage Examples
@@ -157,9 +169,10 @@ decision before finalising tests.
 **Prompt:** "Turn this checkout PRD into a test pack for our WooCommerce staging
 site."
 
-**Output:** Scope Summary → Sources Used → Confirmed Requirements → Assumptions
-and Gaps → Human-Readable Test Cases → Traceability Matrix → Review Gate. No
-Playwright code until the pack is approved.
+**Output:** Scope Summary → Sources Used → Environment & Test-Data Contract →
+Confirmed Requirements → Assumptions and Gaps → Human-Readable Test Cases →
+Traceability Matrix → Review Gate (with the persisted pack path). No Playwright
+code until the pack is approved.
 
 ### Example 2 — Approved pack to specs
 
