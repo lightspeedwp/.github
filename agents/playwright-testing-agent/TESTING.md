@@ -5,7 +5,7 @@ description: >-
   How to validate the Playwright Testing Agent's packaging and exercise its
   behaviour across Claude, GitHub Copilot, and OpenAI, including the execution
   model and a worked end-to-end example.
-last_updated: '2026-07-22'
+last_updated: '2026-07-24'
 domain: generic
 tags:
   - playwright
@@ -91,7 +91,9 @@ for (const p of ["claude/tools.json","openai/tools.json"]) {
 2. Connect the **Playwright MCP** server so the agent has live browser tools.
 3. Give it a real PRD/acceptance criteria and confirm it follows the
    **review-before-code** contract (see checklist below) — it must return the
-   seven-section test pack and **stop at the review gate**, not jump to code.
+   canonical test pack (full eight sections, or the condensed form for a small
+   single flow), persist it to `.github/reports/test-packs/`, and **stop at the
+   review gate**, not jump to code.
 4. Approve the pack, then ask for specs; confirm it emits `@playwright/test`
    files with accessible locators and traceability comments.
 
@@ -112,18 +114,30 @@ for (const p of ["claude/tools.json","openai/tools.json"]) {
 
 Regardless of provider, a correct run:
 
+- [ ] Opens with a one-line integration pre-flight (Playwright MCP / Figma /
+      BugHerd / GitHub — available or degraded path).
+- [ ] Establishes an Environment & Test-Data Contract, marking unknown fields as
+      gaps rather than fabricating values.
 - [ ] Produces requirements with stable IDs, grounded in the supplied sources
       (no invented requirements).
-- [ ] Emits the seven sections in order: Scope Summary → Sources Used →
-      Confirmed Requirements → Assumptions and Gaps → Human-Readable Test Cases
-      → Traceability Matrix → Review Gate.
+- [ ] Emits the full eight sections in order (Scope Summary → Sources Used →
+      Environment & Test-Data Contract → Confirmed Requirements → Assumptions and
+      Gaps → Human-Readable Test Cases → Traceability Matrix → Review Gate), or
+      the condensed form when right-sized to a small/single flow — and states
+      which form it used.
+- [ ] Persists the pack to `.github/reports/test-packs/<flow>-<date>.md` and
+      reports the path.
 - [ ] **Stops at the review gate** before generating any Playwright code
       (unless you explicitly asked for a quick prototype).
 - [ ] After approval, generates `@playwright/test` specs using
       `getByRole`/`getByLabel`/`getByText`/`getByTestId`, fixtures for repeated
-      setup, and `// requirement: R# / test-case: TC#` traceability comments.
+      setup, and `// requirement: R# / test-case: TC#` traceability comments,
+      plus a fixtures/env starter kit (`playwright.config` sketch, `.env.example`,
+      cart/checkout fixture).
 - [ ] Uses environment variables for base URLs/credentials — never literals.
-- [ ] Flags state-changing WooCommerce tests and prefers staging over production.
+- [ ] Flags state-changing WooCommerce tests (`@stateful`), detects Blocks vs
+      classic checkout, waits on Store API recalculation, and prefers staging
+      over production.
 
 ## Try the generated specs for real
 

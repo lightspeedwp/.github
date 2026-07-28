@@ -41,6 +41,20 @@ When multiple inputs are present, treat user instructions as highest priority, t
 
 ## Workflow
 
+### 0. Pre-flight and environment contract
+
+Before building the pack:
+
+- **Integration pre-flight** — state which capabilities are available (Playwright
+  MCP, Figma, BugHerd, GitHub) and the degraded path for any that are not, so a
+  missing integration is not discovered at write time.
+- **Environment & Test-Data Contract** — capture the reusable environment block
+  (base URL, sandbox/payment mode, test card(s), test customer, seeded
+  product(s), known coupon(s), shipping/tax/discount rule source, Subscriptions
+  test data). Fill each field from evidence or mark it as a gap and request it —
+  never fabricate a value. Order-placing cases stay blocked until sandbox mode and
+  a test card are supplied.
+
 ### 1. Build the evidence set
 
 List the sources that are actually present and usable for this request.
@@ -111,7 +125,16 @@ Map:
 
 If code has not been authorised yet, mark the planned Playwright output as proposed rather than complete.
 
-### 6. Enforce review-before-code
+### 6. Persist the pack
+
+Write the completed pack to a conventional path — default
+`.github/reports/test-packs/<flow>-<YYYY-MM-DD>.md` (create the directory if
+missing), or a project-configured location if one is set. Return the written path
+so the reviewer knows where the artefact lives. On a later failure-triage run,
+update the same file in place rather than starting a new one. If writing is not
+possible, say so and fall back to inline output — do not silently skip this step.
+
+### 7. Enforce review-before-code
 
 Unless the user already authorised code generation in the current request:
 
@@ -121,27 +144,36 @@ Unless the user already authorised code generation in the current request:
 
 Skip this gate only when the user explicitly asks for direct code generation or says review is already complete.
 
-### 7. Generate Playwright code only when authorised
+### 8. Generate Playwright code only when authorised
 
 If the user has authorised continuing:
 
 - convert approved test cases into maintainable Playwright specs
 - preserve requirement IDs and test case IDs in comments or traceability notes
 - keep the code aligned with the approved pack instead of expanding scope silently
+- emit a minimal fixtures/env starter kit alongside the specs: a
+  `playwright.config` sketch (baseURL from env, target browsers/viewports,
+  failure traces), a `.env.example` with the keys the specs read (placeholders
+  only, never real secrets), and a cart/checkout fixture with a `@stateful` guard
+  for order-placing cases. Derive it from the Environment & Test-Data Contract;
+  do not invent credentials or product data.
 
 If the approved pack still has open questions, carry them forward as blockers or TODO review notes rather than guessing.
 
 ## Default Output Structure
 
-When creating a test pack, use this section order unless the user asks for a different format:
+When creating a **full** test pack, use this section order unless the user asks for a different format:
 
 1. Scope Summary
 2. Sources Used
-3. Confirmed Requirements
-4. Assumptions and Gaps
-5. Human-Readable Test Cases
-6. Traceability Matrix
-7. Review Gate / Next Step
+3. Environment & Test-Data Contract
+4. Confirmed Requirements
+5. Assumptions and Gaps
+6. Human-Readable Test Cases
+7. Traceability Matrix
+8. Review Gate / Next Step
+
+Right-size to scope by requirement count (the primary driver): when the confirmed-requirement count is ≤ 4, default to a **condensed** pack — Scope Summary, Environment & Test-Data Contract, a merged Requirements + Test Cases table, Traceability, and the Review Gate — keeping requirement IDs and evidence links. Use the full form when there are > 4 confirmed requirements, a whole PRD, or a stateful/multi-gateway flow; a single named flow that still yields > 4 requirements (e.g. checkout) takes the full form — being "single" does not by itself force condensed. State which form you used.
 
 ## Output Template
 
@@ -158,6 +190,19 @@ Use this compact template shape:
 - source name
 - status: reviewed / mentioned but unavailable
 - notes
+
+### Environment & Test-Data Contract
+
+| Field | Value or gap |
+|---|---|
+| Base URL / environment | ... |
+| Payment / sandbox mode | ... |
+| Test card(s) | ... |
+| Test customer | ... |
+| Seeded product(s) | ... |
+| Known coupon(s) | ... |
+| Shipping / tax / discount rule source | ... |
+| Subscriptions test data | ... if in scope |
 
 ### Confirmed Requirements
 
@@ -196,11 +241,13 @@ Use this compact template shape:
 
 ### Review Gate / Next Step
 
+- Pack written to: `<path>` (state the persisted location).
 - If code is not yet authorised: ask for review approval before Playwright generation.
-- If code is authorised: state that the approved pack will now be converted into Playwright specs.
+- If code is authorised: state that the approved pack will now be converted into Playwright specs plus a fixtures/env starter kit.
 
 ## Decision Rules
 
+- Right-size by scope automatically: if the confirmed-requirement count is ≤ 4 or the user names a single flow, default to the condensed pack without waiting for a "quick prototype" request; state which form you used.
 - If the user asks for a quick prototype, reduce ceremony but still keep requirement IDs and a minimal traceability section.
 - If there is only partial evidence, produce the strongest draft pack possible and clearly mark uncertainty.
 - If the request is only for requirement extraction, stop after requirements plus gaps.
@@ -216,8 +263,11 @@ Before finishing, check that:
 - every test case maps to at least one requirement
 - assumptions are not mixed into confirmed requirements
 - review-before-code is enforced unless explicitly waived
+- the Environment & Test-Data Contract is present, with every unknown field marked as a gap rather than fabricated
+- the pack is persisted to a stated path (or the inability to persist is stated explicitly)
+- the pack form (full vs condensed) matches the scope
 - the output is easy for a human reviewer to approve
-- Playwright generation, when included, stays within the approved pack
+- Playwright generation, when included, stays within the approved pack and emits the fixtures/env starter kit
 
 ---
 

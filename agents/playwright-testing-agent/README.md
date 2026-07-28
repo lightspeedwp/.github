@@ -33,6 +33,13 @@
 [![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
 <!-- BADGES-END -->
 
+> **Historical snapshot — reference only.** This is a point-in-time export
+> captured at migration. It is **not kept in sync** with the live agent and is
+> **not an integrity gate**; some files have been edited since. Canonical
+> behaviour lives in [`AGENT.md`](./AGENT.md),
+> [`shared/core-prompt.md`](./shared/core-prompt.md), and the live
+> `test-pack-builder` skill — see AGENT.md §"Preserved Source Export".
+
 This portable export contains the readable files, safe configuration metadata, and installed-skill inventory visible to the Playwright Testing Agent in this environment.
 
 ## Contents
@@ -40,7 +47,8 @@ This portable export contains the readable files, safe configuration metadata, a
 - `agent/`: exported workspace instructions, builder-attached agent files, and safe configuration/plugin metadata.
 - `skills/`: readable local, agent-attached, platform-managed, and plugin-provided skill folders, preserving relative file structure.
 - `manifests/`: file and skill inventories, inaccessible-resource notes, and redaction log.
-- `checksums.sha256`: SHA-256 checksums for exported files.
+
+The original export shipped a `checksums.sha256` manifest; it was removed because it mixed frozen export artefacts with living source and gave false provenance once files were edited (see AGENT.md §"Preserved Source Export").
 
 ## Boundaries
 

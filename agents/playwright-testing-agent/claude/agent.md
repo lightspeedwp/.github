@@ -4,7 +4,7 @@ title: Playwright Testing Agent — Claude Configuration
 description: >-
   Claude-specific configuration for the Playwright Testing Agent: tools,
   guardrails, and structured response format. Layers on shared/core-prompt.md.
-last_updated: '2026-07-22'
+last_updated: '2026-07-24'
 domain: generic
 tags:
   - playwright
@@ -53,19 +53,35 @@ path.
 
 ## Response Format
 
-For a **test pack**, return the seven canonical sections in order (Scope Summary,
-Sources Used, Confirmed Requirements, Assumptions and Gaps, Human-Readable Test
-Cases, Traceability Matrix, Review Gate / Next Step) as Markdown.
+Open every run with a one-line **integration pre-flight** status
+(Playwright MCP / Figma / BugHerd / GitHub — `available` or
+`unavailable → <degraded path>`), per `core-prompt.md`.
 
-For a **spec-generation run** (after approval), return a structured summary:
+For a **test pack**, return the canonical sections as Markdown — the full eight
+sections (Scope Summary, Sources Used, Environment & Test-Data Contract, Confirmed
+Requirements, Assumptions and Gaps, Human-Readable Test Cases, Traceability Matrix,
+Review Gate / Next Step), or the condensed form (Scope, Environment & Test-Data
+Contract, merged Requirements + Cases, Traceability, Review Gate) when the pack is
+right-sized to a small/single-flow scope. State which form you used. Then **persist** the pack to
+`.github/reports/test-packs/<flow>-<date>.md` (or the project-configured path) and
+report the written path in the Review Gate section.
+
+For a **spec-generation run** (after approval), return a structured summary — the
+approved pack path, the generated specs, and the fixtures/env starter kit:
 
 ```json
 {
   "run_type": "spec-generation",
   "status": "generated|blocked",
+  "pack_path": ".github/reports/test-packs/checkout-2026-07-24.md",
   "specs": [
     { "path": "tests/checkout.spec.ts", "requirement_ids": ["R1", "R2"], "test_case_ids": ["TC1", "TC2"] }
   ],
+  "starter_kit": {
+    "config": "playwright.config.ts",
+    "env_example": ".env.example",
+    "fixtures": ["tests/fixtures/checkout.ts"]
+  },
   "execution": { "local": "npx playwright test", "ci": ".github/workflows/testing.yml" },
   "blockers": []
 }

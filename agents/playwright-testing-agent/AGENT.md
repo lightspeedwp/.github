@@ -181,18 +181,28 @@ See [`.github/security-policy.md`](./.github/security-policy.md).
 
 ## Preserved Source Export
 
-This agent was migrated from a ChatGPT/Codex export. The original export is
-preserved in place for provenance:
+This agent was migrated from a ChatGPT/Codex export. That export is kept **as a
+point-in-time historical snapshot from migration** — for reference only:
 
 - `agent/` — exported workspace instructions and safe configuration metadata
 - `skills/` — readable skill folders (agent-attached, platform-managed,
   plugin-provided)
 - `manifests/` — file and skill inventories, redaction log
-- `checksums.sha256` — SHA-256 checksums for exported files
 
-The canonical behaviour is defined by this `AGENT.md` and
-[`shared/core-prompt.md`](./shared/core-prompt.md); the core agent-attached skill
-is `test-pack-builder`.
+> **Not an integrity gate.** The snapshot is **not kept in sync** with the live
+> agent. Several of these files have been edited since migration (the READMEs,
+> the `agent/other/agent_files/**` tree, and the `test-pack-builder` skill, which
+> is simultaneously an exported file and the live skill). A former
+> `checksums.sha256` manifest was removed because it mixed frozen export
+> artefacts with living source, drifted to ~47% failing, and — lacking any
+> signer, verifier, or trusted baseline — gave false provenance rather than real
+> tamper-evidence. Do not treat the snapshot as authoritative or re-introduce a
+> self-referential checksum over files that are actively edited.
+
+The **canonical behaviour** is defined by this `AGENT.md`,
+[`shared/core-prompt.md`](./shared/core-prompt.md), and the provider configs; the
+core agent-attached skill is `test-pack-builder`
+([`skills/agent-attached/hermes/test-pack-builder/SKILL.md`](./skills/agent-attached/hermes/test-pack-builder/SKILL.md)).
 
 ## Related Documentation
 
