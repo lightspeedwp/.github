@@ -18,7 +18,7 @@ addFormats(ajv);
 // Load the unified frontmatter schema
 const schemaPath = path.join(
   __dirname,
-  "../../../.schemas/frontmatter.schema.json",
+  "../../.schemas/frontmatter.schema.json",
 );
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 
