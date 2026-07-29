@@ -6,7 +6,7 @@ version: v2.0.0
 last_updated: "2026-07-29"
 owners:
   - lightspeedwp/maintainers
-domain: agents
+domain: governance
 tags:
   - agents
   - playwright
