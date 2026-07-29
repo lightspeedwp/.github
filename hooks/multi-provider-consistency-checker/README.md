@@ -3,7 +3,7 @@ file_type: documentation
 title: multi-provider-consistency-checker Hook
 description: Detects divergences across an agent's Claude, Copilot, and OpenAI provider configurations.
 version: v0.1.0
-last_updated: '2026-07-22'
+last_updated: "2026-07-22"
 owners:
   - lightspeedwp/maintainers
 domain: governance

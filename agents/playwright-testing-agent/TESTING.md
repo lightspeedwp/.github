@@ -100,14 +100,28 @@ line-wrapping may differ between files. The check runs as part of
 
 Confirm it actually fails on drift rather than trusting a green run:
 
+Run it against a **throwaway copy** so your working tree is never touched — and
+so uncommitted edits can't be lost:
+
 ```bash
-# temporarily remove one type from AGENT.md, expect a non-zero exit
-sed -i '' 's/accessibility rule, performance rule/accessibility rule/' \
-  agents/playwright-testing-agent/AGENT.md
-node hooks/multi-provider-consistency-checker/index.js agents/playwright-testing-agent
-# → Shared phrase 'requirement-type-taxonomy' is out of sync: AGENT.md …
-git checkout agents/playwright-testing-agent/AGENT.md
+WORK="$(mktemp -d)"
+cp -R agents/playwright-testing-agent "$WORK/agent"
+trap 'rm -rf "$WORK"' EXIT
+
+# drop one type from the copy, then expect a non-zero exit
+sed -i.bak 's/accessibility rule, performance rule/accessibility rule/' \
+  "$WORK/agent/AGENT.md" && rm -f "$WORK/agent/AGENT.md.bak"
+node hooks/multi-provider-consistency-checker/index.js "$WORK/agent"
+# → ❌ Shared phrase 'requirement-type-taxonomy' is out of sync: AGENT.md …
+echo "exit: $?"   # expect 1
 ```
+
+> **Never** use `git checkout <file>` to undo a deliberate edit like this. It
+> discards *all* uncommitted changes to that file, including unrelated work in
+> progress. Copy first, or back the file up and restore it from a `trap`.
+>
+> `sed -i.bak` is used rather than the BSD-only `sed -i ''`, so the same command
+> works on Linux and macOS.
 
 **Add an entry whenever you introduce wording that must match across files.** A
 hand-run `grep` is not a substitute — it verifies today and protects nothing
@@ -185,6 +199,13 @@ Regardless of provider, a correct run:
       `@a11y` and scoped per page/widget, keyboard-traversal cases for custom
       interactive widgets, and cites WCAG 2.2 AA success criteria — asserting **no
       new** violations against the recorded baseline, not zero outright.
+- [ ] **When no baseline has been recorded**, the a11y and console gates are
+      emitted as **proposed/deferred** with baseline capture named as the blocking
+      prerequisite. The agent must **not** emit a comparison assertion with
+      nothing to compare against, and must **not** fabricate a baseline or an
+      allowlist to make the gate look runnable. Same rule for any requirement
+      whose supporting evidence is missing: mark it proposed, state what is
+      needed, and stop.
 - [ ] Given a PRD that **excludes** a category of work (e.g. "formal accessibility
       audit is excluded") while an org standard would require it: records a
       change-control item naming the standard and the exclusion, and generates
