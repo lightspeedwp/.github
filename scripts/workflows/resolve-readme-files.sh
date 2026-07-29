@@ -1,6 +1,10 @@
 #!/bin/bash
 # Resolve impacted README files from git diff
 # Usage: resolve-readme-files.sh <base-sha> <head-sha>
+#
+# Output format: Comma-separated list of README file paths.
+# This script is provided for reference; prefer resolve-readme-files.js
+# for security (execFileSync) and consistency.
 
 set -euo pipefail
 
@@ -14,22 +18,32 @@ if [ -z "$CHANGED" ]; then
 fi
 
 TMP=$(mktemp)
+trap "rm -f '$TMP'" EXIT
+
+HAS_SUBDIR_CHANGES=0
+
 while IFS= read -r file; do
   [ -z "$file" ] && continue
   dir=$(dirname "$file")
+
   if [ -f "$dir/README.md" ]; then
     echo "$dir/README.md" >> "$TMP"
   fi
-  if [ "$dir" != "." ] && [ -f "README.md" ]; then
-    echo "README.md" >> "$TMP"
+
+  if [ "$dir" != "." ]; then
+    HAS_SUBDIR_CHANGES=1
   fi
 done <<EOF
 $CHANGED
 EOF
 
+# Only add root README if files in subdirectories changed
+if [ "$HAS_SUBDIR_CHANGES" = "1" ] && [ -f "README.md" ]; then
+  echo "README.md" >> "$TMP"
+fi
+
 if [ -f "$TMP" ]; then
-  sort -u "$TMP" | tr '\n' ','  | sed 's/,$//'
+  sort -u "$TMP" | tr '\n' ',' | sed 's/,$//'
 else
   echo ""
 fi
-rm -f "$TMP"

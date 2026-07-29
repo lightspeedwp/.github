@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 /**
- * Resolve impacted README files from git diff
- * Outputs space-separated list of README files to GITHUB_OUTPUT
+ * Resolve impacted README files from git diff.
+ *
+ * Output format: Comma-separated list of README file paths written to GITHUB_OUTPUT.
+ * This matches the format expected by GitHub Actions workflow variable interpolation
+ * when passing values to shell commands via ${{ steps.readmes.outputs.files }}.
+ *
+ * Example output:
+ *   files=README.md,.github/projects/README.md,docs/README.md
  */
 
 const { execFileSync } = require("child_process");
@@ -29,6 +35,7 @@ function getChangedFiles(baseSha, headSha) {
 
 function resolveReadmeFiles(changedFiles) {
   const readmes = new Set();
+  let hasSubdirChanges = false;
 
   changedFiles.forEach((file) => {
     const dir = path.dirname(file);
@@ -39,11 +46,16 @@ function resolveReadmeFiles(changedFiles) {
       readmes.add(readmeInDir);
     }
 
-    // Check for root README.md if not in root already
-    if (dir !== "." && fs.existsSync("README.md")) {
-      readmes.add("README.md");
+    // Track if changes are in subdirectories (not root)
+    if (dir !== ".") {
+      hasSubdirChanges = true;
     }
   });
+
+  // Only add root README if files in subdirectories changed AND root README exists
+  if (hasSubdirChanges && fs.existsSync("README.md")) {
+    readmes.add("README.md");
+  }
 
   return Array.from(readmes).sort();
 }
