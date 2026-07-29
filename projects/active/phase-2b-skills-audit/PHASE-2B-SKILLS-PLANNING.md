@@ -25,6 +25,7 @@ This document consolidates Phase A audit findings into a strategic plan for Phas
 - Titles now map to canonical task codes (W5-2 through W12-1) and use descriptive naming.
 - Bodies now follow task template conventions, including Definition of Ready (DoR) and Definition of Done (DoD).
 - Status labels updated to `status:ready` across the remediated issue set.
+- Follow-up workflow remediation issue created: #1404 (validate:workflows multiline run-block control-flow fixes).
 
 ---
 
@@ -530,6 +531,19 @@ Per-agent cleanup (5-6 hours each due to higher complexity):
 1. ✅ Share Phase B planning with team (Issue #1316)
 2. ✅ Request decision on PRD agents (Option A/B/C) — 2-3 day discussion window
 3. ✅ Finalize Figma audit plan scope
+
+### Active TODO: Workflow Backfill Debug Pack (Issue #1404)
+
+- [x] Confirm action runtime compatibility for `actions/create-github-app-token@v2` and `actions/github-script@v7` under Node 24.
+- [x] Review each action release note/changelog and pin to Node 24-compatible versions where available.
+- [ ] If upstream action support is pending, document temporary mitigation and owner for follow-up.
+- [ ] Reproduce GraphQL project lookup locally using the same project URL/number values from workflow inputs.
+- [x] Patch project number parsing in `.github/workflows/issue-fields-backfill.yml` run script to avoid invalid `Int!` coercion.
+- [x] Add guardrail validation that fails fast with explicit logging when project URL parsing cannot produce a valid numeric project ID.
+- [ ] Verify GitHub App permissions for org issue types query and confirm required org/project scopes are granted.
+- [x] Add fallback behavior for org issue type sync when integration scope is insufficient, including actionable summary output.
+- [ ] Re-run `Issue Fields • Bulk Backfill` after fixes and capture before/after metrics: native types set, project fields set, errors.
+- [ ] Post a run-summary update to issue #1404 and link final remediation PR.
 
 ### Phase C Kickoff (Week 5)
 

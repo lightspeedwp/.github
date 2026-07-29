@@ -74,13 +74,14 @@ jobs:
 
       - name: Create GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
 
       - name: Run bulk backfill
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           APP_TOKEN: ${{ steps.app-token.outputs.token }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
@@ -113,6 +114,17 @@ jobs:
             const enabledTypes = new Set(
               (config?.organization_issue_fields?.enabled_issue_types ?? []).map(s => s.toLowerCase())
             );
+
+            function resolveProjectNumberFromUrl(url) {
+              try {
+                const segments = new URL(url).pathname.split('/').filter(Boolean);
+                const projectsIdx = segments.indexOf('projects');
+                if (projectsIdx < 0 || projectsIdx === segments.length - 1) return Number.NaN;
+                return parseInt(segments[projectsIdx + 1], 10);
+              } catch {
+                return Number.NaN;
+              }
+            }
 
             // ─── Resolve project URL/number ─────────────────────────────
             let projectUrl = process.env.PROJECT_URL;
@@ -160,7 +172,10 @@ jobs:
                 }
                 core.info(`Org has ${orgTypeMap.size} enabled issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
               } catch (err) {
-                core.warning(`Could not fetch org issue types: ${err.message}`);
+                core.warning(
+                  `Could not fetch org issue types: ${err.message}. ` +
+                  'Ensure the app installation token has org-level access and includes Organization members: read.'
+                );
               }
 
               for (const issue of issues) {
@@ -199,34 +214,43 @@ jobs:
               core.info(`Syncing project fields to ${projectUrl}...`);
 
               // Resolve project node ID and fields
-              const [, , , orgOrUser, , projNumStr] = new URL(projectUrl).pathname.split('/');
-              const projNum = parseInt(projNumStr, 10);
+              const projNumFromUrl = resolveProjectNumberFromUrl(projectUrl);
+              const projNum = Number.isInteger(projectNumber) && projectNumber > 0
+                ? projectNumber
+                : projNumFromUrl;
 
               let projectId, fieldMeta;
-              try {
-                const projData = await github.graphql(`
-                  query($owner: String!, $number: Int!) {
-                    organization(login: $owner) {
-                      projectV2(number: $number) {
-                        id
-                        fields(first: 30) {
-                          nodes {
-                            ... on ProjectV2Field { id name dataType }
-                            ... on ProjectV2SingleSelectField { id name dataType options { id name } }
+              if (!Number.isInteger(projNum) || projNum <= 0) {
+                core.warning(
+                  `Could not parse a valid project number. ` +
+                  `PROJECT_NUMBER="${process.env.PROJECT_NUMBER || ''}" PROJECT_URL="${projectUrl}"`
+                );
+              } else {
+                try {
+                  const projData = await github.graphql(`
+                    query($owner: String!, $number: Int!) {
+                      organization(login: $owner) {
+                        projectV2(number: $number) {
+                          id
+                          fields(first: 30) {
+                            nodes {
+                              ... on ProjectV2Field { id name dataType }
+                              ... on ProjectV2SingleSelectField { id name dataType options { id name } }
+                            }
                           }
                         }
                       }
                     }
+                  `, { owner, number: projNum });
+                  projectId = projData.organization.projectV2.id;
+                  fieldMeta = {};
+                  for (const f of projData.organization.projectV2.fields.nodes) {
+                    fieldMeta[f.name.toLowerCase()] = f;
                   }
-                `, { owner, number: projNum });
-                projectId = projData.organization.projectV2.id;
-                fieldMeta = {};
-                for (const f of projData.organization.projectV2.fields.nodes) {
-                  fieldMeta[f.name.toLowerCase()] = f;
+                  core.info(`Project "${projectId}" fields: ${Object.keys(fieldMeta).join(', ')}`);
+                } catch (err) {
+                  core.warning(`Could not access project: ${err.message}`);
                 }
-                core.info(`Project "${projectId}" fields: ${Object.keys(fieldMeta).join(', ')}`);
-              } catch (err) {
-                core.warning(`Could not access project: ${err.message}`);
               }
 
               if (projectId) {
