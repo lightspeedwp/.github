@@ -3,7 +3,7 @@ file_type: documentation
 title: Phase 2B Phase B - Skills Consolidation Planning & Architecture
 description: Strategic planning, architectural decisions, and implementation roadmap for Phase C skill consolidation
 created: 2026-07-24
-last_updated: 2026-07-24
+last_updated: 2026-07-29
 status: in-progress
 related_issues: '#1316'
 related_pr: '#1370'
@@ -18,6 +18,13 @@ This document consolidates Phase A audit findings into a strategic plan for Phas
 1. **Skill Dependency Map** — visual relationship of agents & reuse patterns
 2. **Architecture Plan** — decisions on Tier 0/1/2/3 organization and override system
 3. **Implementation Roadmap** — sequenced tasks for Phase C (weeks 5-12)
+
+## Status Update (2026-07-29)
+
+- Phase C execution issue hygiene pass completed for issues #1326-#1355.
+- Titles now map to canonical task codes (W5-2 through W12-1) and use descriptive naming.
+- Bodies now follow task template conventions, including Definition of Ready (DoR) and Definition of Done (DoD).
+- Status labels updated to `status:ready` across the remediated issue set.
 
 ---
 
@@ -321,8 +328,8 @@ SEVERITY: MEDIUM — causes confusion, not functional breakage
 
 ### A. Phase C Overview
 
-**Duration:** 40–60 hours (8 weeks, ~5-7.5h/week)  
-**Scope:** Execute consolidation tasks sequenced by agent and tier  
+**Duration:** 40–60 hours (8 weeks, ~5-7.5h/week)
+**Scope:** Execute consolidation tasks sequenced by agent and tier
 **Success Criteria:** All 65 local utilities → root; override system in place; conflicts resolved
 
 ### B. Per-Agent Consolidation Tasks
