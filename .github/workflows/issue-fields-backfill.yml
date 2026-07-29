@@ -6,7 +6,8 @@ name: Issue Fields • Bulk Backfill
 #
 # PREREQUISITES
 # ─────────────
-# 1. vars.LS_APP_ID          — GitHub App ID (integer)
+# 1. vars.LS_APP_CLIENT_ID   — GitHub App client ID (preferred)
+#    vars.LS_APP_ID          — Legacy GitHub App ID (fallback)
 # 2. secrets.LS_APP_PRIVATE_KEY — GitHub App private key (PEM)
 # 3. vars.LS_PROJECT_NUMBER  — Projects v2 board number (integer, e.g. 33)
 #    OR vars.LS_PROJECT_URL  — Full URL  (e.g. https://github.com/orgs/…/projects/33)
@@ -76,7 +77,7 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.LS_APP_ID }}
+          client-id: ${{ vars.LS_APP_CLIENT_ID != '' && vars.LS_APP_CLIENT_ID || vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
@@ -155,27 +156,54 @@ jobs:
 
             // ─── Step 2 (optional): Native issue type sync ───────────────
             if (syncNativeTypes) {
-              core.info('Fetching org issue types...');
+              core.info('Fetching issue types...');
               let orgTypeMap = new Map();
+              let orgFetchError = '';
+
               try {
                 const typeData = await github.graphql(`
                   query($org: String!) {
                     organization(login: $org) {
                       issueTypes(first: 50) {
-                        nodes { id name isEnabled }
+                        nodes { id name }
                       }
                     }
                   }
                 `, { org: owner });
                 for (const node of typeData.organization.issueTypes.nodes) {
-                  if (node.isEnabled !== false) orgTypeMap.set(node.name.toLowerCase(), node.id);
+                  orgTypeMap.set(node.name.toLowerCase(), node.id);
                 }
-                core.info(`Org has ${orgTypeMap.size} enabled issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+                core.info(`Organization has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
               } catch (err) {
+                orgFetchError = err.message;
                 core.warning(
                   `Could not fetch org issue types: ${err.message}. ` +
-                  'Ensure the app installation token has org-level access and includes Organization members: read.'
+                  'Attempting repository-scoped issue type fallback.'
                 );
+              }
+
+              if (orgTypeMap.size === 0) {
+                try {
+                  const repoTypeData = await github.graphql(`
+                    query($owner: String!, $repo: String!) {
+                      repository(owner: $owner, name: $repo) {
+                        issueTypes(first: 50) {
+                          nodes { id name }
+                        }
+                      }
+                    }
+                  `, { owner, repo });
+                  for (const node of repoTypeData.repository.issueTypes.nodes) {
+                    orgTypeMap.set(node.name.toLowerCase(), node.id);
+                  }
+                  core.info(`Repository fallback has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+                } catch (err) {
+                  core.warning(
+                    `Could not fetch repository issue types: ${err.message}. ` +
+                    `${orgFetchError ? `Org query error: ${orgFetchError}. ` : ''}` +
+                    'Ensure the app token has permission to read issue types at org or repository scope.'
+                  );
+                }
               }
 
               for (const issue of issues) {
