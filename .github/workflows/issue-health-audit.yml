@@ -31,14 +31,13 @@ on:
     # Run every Monday at 08:00 UTC
     - cron: "0 8 * * 1"
 
-permissions:
-  issues: write
-  contents: read
-
 jobs:
   audit-and-fix:
     name: Audit & Fix Issue Health
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
 
     steps:
       - name: Run issue health audit
@@ -70,7 +69,7 @@ jobs:
               if (/^refactor[\(:]/.test(t)) return 'type:refactor';
               if (/^docs[\(:]/.test(t) || /documentation/.test(t)) return 'type:documentation';
               if (/^audit[\(:]/.test(t) || /\baudit\b/.test(t)) return 'type:audit';
-              if (/^build[\(-]ci|^ci[\(:]|^build[\(:]/.test(t)) return 'type:ci';
+              if (/^build[\(-]ci|^ci[\(:]|^build[\(:]/.test(t)) return 'type:build';
               if (/^test[\(:]|testing/.test(t)) return 'type:test';
               if (/^perf[\(:]|performance/.test(t)) return 'type:performance';
               if (/^security[\(:]|security/.test(t)) return 'type:security';
@@ -99,6 +98,8 @@ jobs:
               state: 'open',
               per_page: 100,
             });
+            // Filter to only issues (not PRs)
+            openIssues = openIssues.filter(i => !i.pull_request);
             core.info(`Found ${openIssues.length} open issues.`);
 
             // ─── Fetch recently closed issues (last 28 days) ────────────
@@ -107,15 +108,14 @@ jobs:
             let closedIssues = [];
             if (reopenIncomplete) {
               core.info('Fetching recently closed issues...');
-              closedIssues = await github.paginate(github.rest.issues.listForRepo, {
+              const allClosed = await github.paginate(github.rest.issues.listForRepo, {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 state: 'closed',
-                since,
                 per_page: 100,
               });
-              // Filter to only issues (not PRs)
-              closedIssues = closedIssues.filter(i => !i.pull_request);
+              // Filter to only issues (not PRs) closed within the last 28 days
+              closedIssues = allClosed.filter(i => !i.pull_request && i.closed_at && i.closed_at >= since);
               core.info(`Found ${closedIssues.length} recently closed issues.`);
             }
 
@@ -129,11 +129,19 @@ jobs:
                   continue;
                 }
 
-                const body = issue.body || '';
+                const body = (issue.body || '').trim();
 
-                // Count unchecked checkboxes in the entire body
-                const uncheckedMatches = (body.match(/- \[ \]/g) || []).length;
-                const checkedMatches = (body.match(/- \[[xX]\]/g) || []).length;
+                // Extract DoD section only (matches validate-issue-dod-before-close.yml policy)
+                const dodMatch = body.match(/^#{2,3}\s+Definition of Done \(DoD\)\s*$\n?([\s\S]*?)(?=\n#{1,3}\s+|$)/im);
+                if (!dodMatch) {
+                  report.skipped.push(`#${issue.number} (no DoD section)`);
+                  continue;
+                }
+                const dodSection = dodMatch[1].trim();
+
+                // Count unchecked and checked checkboxes within the DoD section only
+                const uncheckedMatches = (dodSection.match(/(?:^|\n)\s*-\s*\[\s\]\s+/g) || []).length;
+                const checkedMatches = (dodSection.match(/(?:^|\n)\s*-\s*\[[xX]\]\s+/g) || []).length;
                 const totalCheckboxes = uncheckedMatches + checkedMatches;
 
                 if (totalCheckboxes > 0 && uncheckedMatches > 0) {
@@ -171,24 +179,27 @@ jobs:
                 const labelsToAdd = [];
 
                 // Infer and apply missing type label
+                let inferredType = null;
+                let needsTriageLabel = false;
                 if (!hasTypeLabel(labels)) {
-                  const inferred = inferTypeLabel(issue.title);
-                  if (inferred) {
-                    labelsToAdd.push(inferred);
-                    report.labeledType.push(`#${issue.number} → ${inferred}`);
-                  } else {
+                  inferredType = inferTypeLabel(issue.title);
+                  if (!inferredType) {
                     // Cannot infer — apply needs-triage if not already present
                     const hasNeedsTriage = labels.some(l => l.name === 'status:needs-triage');
                     if (!hasNeedsTriage) {
+                      needsTriageLabel = true;
                       labelsToAdd.push('status:needs-triage');
                     }
+                  } else {
+                    labelsToAdd.push(inferredType);
                   }
                 }
 
                 // Apply missing priority label
+                let addPriority = false;
                 if (!hasPriorityLabel(labels)) {
+                  addPriority = true;
                   labelsToAdd.push('priority:normal');
-                  report.labeledPriority.push(`#${issue.number}`);
                 }
 
                 if (labelsToAdd.length > 0) {
@@ -201,9 +212,16 @@ jobs:
                         issue_number: issue.number,
                         labels: labelsToAdd,
                       });
+                      if (inferredType) report.labeledType.push(`#${issue.number} → ${inferredType}`);
+                      if (needsTriageLabel) report.labeledType.push(`#${issue.number} → status:needs-triage`);
+                      if (addPriority) report.labeledPriority.push(`#${issue.number}`);
                     } catch (err) {
                       report.errors.push(`#${issue.number} label failed: ${err.message}`);
                     }
+                  } else {
+                    if (inferredType) report.labeledType.push(`#${issue.number} [DRY RUN] → ${inferredType}`);
+                    if (needsTriageLabel) report.labeledType.push(`#${issue.number} [DRY RUN] → status:needs-triage`);
+                    if (addPriority) report.labeledPriority.push(`#${issue.number} [DRY RUN]`);
                   }
                 }
               }
