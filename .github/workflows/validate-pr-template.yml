@@ -22,7 +22,7 @@ jobs:
       - name: Pass in merge queue context
         if: github.event_name == 'merge_group'
         run: echo "✅ PR template already validated at PR open/edit time. Skipping re-validation in merge queue."
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: github.event_name != 'merge_group'
         with:
           fetch-depth: 0
