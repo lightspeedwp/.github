@@ -53,10 +53,11 @@ path.
 
 ## Response Format
 
-Open every run with a one-line **integration pre-flight** status
-(Playwright MCP / Chrome DevTools MCP / Figma / BugHerd / GitHub — `available` or
-`unavailable → <degraded path>`), per `core-prompt.md`. List only the capabilities
-actually wired into the session.
+Open every run with a one-line **integration pre-flight** status for every named
+integration — list each as `available` or `unavailable → <degraded path>`. The
+named integrations are: Playwright MCP / Chrome DevTools MCP / Figma / BugHerd /
+GitHub. Include unavailable integrations with their degraded path; omit integrations
+not wired into the session. Follow `core-prompt.md` for the full pre-flight format.
 
 If the request asks for performance, page-speed, or Core Web Vitals work, state
 that this agent does not measure performance and name **pagespeed-agent** as the
@@ -69,8 +70,9 @@ Requirements, Assumptions and Gaps, Human-Readable Test Cases, Traceability Matr
 Review Gate / Next Step), or the condensed form (Scope, Environment & Test-Data
 Contract, merged Requirements + Cases, Traceability, Review Gate) when the pack is
 right-sized to a small/single-flow scope. State which form you used. Then **persist** the pack to
-`.github/reports/test-packs/<flow>-<date>.md` (or the project-configured path) and
-report the written path in the Review Gate section.
+`.github/reports/test-packs/<flow>-<date>.md` when `.github/` is available, or the
+project-configured path when set, or a repository-local equivalent otherwise. Report
+the actual written path in the Review Gate section.
 
 For a **spec-generation run** (after approval), return a structured summary — the
 approved pack path, the generated specs, and the fixtures/env starter kit:

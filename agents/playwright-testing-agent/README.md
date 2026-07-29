@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: Playwright Testing Agent Export
-description: Portable export of the Playwright Testing Agent — provider-agnostic multi-provider agent for automated accessibility, performance, SEO, and console-error gating.
+description: Portable export of the Playwright Testing Agent — provider-agnostic multi-provider agent for automated accessibility, SEO, and console-error gating. Performance requirements are extracted and routed to the pagespeed-agent.
 version: v2.0.0
 last_updated: "2026-07-29"
 owners:

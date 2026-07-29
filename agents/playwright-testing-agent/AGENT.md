@@ -87,8 +87,8 @@ PRD / acceptance criteria
   → requirement extraction
   → requirement IDs
   → classification (functional flow, content rule, visual rule,
-    accessibility rule, performance rule, analytics/conversion rule,
-    integration rule, error/empty state)
+    accessibility rule, performance rule, analytics or conversion rule,
+    integration rule, error or empty state)
   → human-readable test cases
   → traceability matrix
   → REVIEW GATE

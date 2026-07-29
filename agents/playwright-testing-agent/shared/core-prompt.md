@@ -331,8 +331,9 @@ issues, assert in the runner to gate them**:
   and gets disabled.
 - **Explore (live, Chrome DevTools MCP):** `lighthouse_audit` with the
   `accessibility` category during pack-building, to find issues worth writing
-  cases for. Findings become requirements or gaps; they are not themselves the
-  gate.
+  cases for. Findings are gaps or proposed coverage by default; they become
+  confirmed requirements only when explicitly supported by the PRD, acceptance
+  criteria, or an approved decision — they are not themselves the gate.
 - **Keyboard traversal:** for every custom interactive widget, add a
   keyboard-only case — tab order reaches it, Enter/Space activate it, Escape
   dismisses it, focus is visible, and focus returns to the trigger on close.

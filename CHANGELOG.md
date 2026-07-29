@@ -1120,9 +1120,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Contributors
 
-The entries in this [Unreleased] section represent work from 40+ merged PRs between May 24 — July 24, 2026.
+The entries in this [Unreleased] section represent work from 40+ merged PRs between May 24 — July 29, 2026.
 
-**PR Range:** #1020, #1043–#1077, #1082–#1086, #1108, #1112–#1115, #1118–#1119, #1123, #1131–#1132, #1137–#1142, #1145, #1148–#1151, #1159, #1191, #1195–#1203, #1212, #1224–#1226, #1275
+**PR Range:** #1020, #1043–#1077, #1082–#1086, #1108, #1112–#1115, #1118–#1119, #1123, #1131–#1132, #1137–#1142, #1145, #1148–#1151, #1159, #1191, #1195–#1203, #1212, #1224–#1226, #1275, #1367, #1392, #1399, #1401, #1405
 
 Thank you to everyone who contributed to these improvements!
 
@@ -1135,7 +1135,8 @@ Thank you to everyone who contributed to these improvements!
 - [LABELING.md](docs/LABELING.md): Default issue, PR, and discussion label guidance.
 - [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
 
-[Unreleased]: https://github.com/lightspeedwp/.github/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/lightspeedwp/.github/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/lightspeedwp/.github/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/lightspeedwp/.github/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/lightspeedwp/.github/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/lightspeedwp/.github/compare/v0.2.0...v0.3.0
