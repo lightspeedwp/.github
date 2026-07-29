@@ -160,7 +160,7 @@
     "jest": "30.4.2",
     "jest-environment-jsdom": "^30.0.1",
     "js-yaml": "^5.2.1",
-    "lint-staged": "^17.1.1",
+    "lint-staged": "^17.2.0",
     "markdownlint": "^0.41.0",
     "markdownlint-cli2": "0.23.1",
     "markdownlint-cli2-formatter-pretty": "^0.0.6",
