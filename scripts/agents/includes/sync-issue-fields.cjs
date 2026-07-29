@@ -132,8 +132,7 @@ async function run() {
   const token = process.env.GITHUB_TOKEN;
   const eventPath = process.env.GITHUB_EVENT_PATH;
   const repo = process.env.GITHUB_REPOSITORY || "";
-  const dryRun =
-    (process.env.DRY_RUN || "false").toLowerCase() === "true";
+  const dryRun = (process.env.DRY_RUN || "false").toLowerCase() === "true";
 
   if (!token) throw new Error("GITHUB_TOKEN is required");
   if (!eventPath) throw new Error("GITHUB_EVENT_PATH is required");
