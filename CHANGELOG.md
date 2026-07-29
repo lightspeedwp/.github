@@ -90,6 +90,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Issue fields backfill workflow hardened** — Upgraded actions to current major versions, added safer project number extraction to avoid invalid `Int!` coercion, and improved diagnostics with guardrail warnings. ([PR #1405](https://github.com/lightspeedwp/.github/pull/1405), [#1404](https://github.com/lightspeedwp/.github/issues/1404))
+
 - **Routine dependency updates** — Multiple rounds of security and feature updates across project dependencies including TypeScript (5.9.3 → 7.0.2), markdownlint-cli2 (0.19.0 → 0.23.1), Svelte ecosystem updates (5.56.3 → 5.56.6 in website), Astro framework (6.4.8 → 7.1.3), and GitHub Actions (setup-node 4 → 7, mergifyio/gha-mergify-ci 22 → 24). ([PR #1027](https://github.com/lightspeedwp/.github/pull/1027), [#1030](https://github.com/lightspeedwp/.github/pull/1030), [#1032](https://github.com/lightspeedwp/.github/pull/1032), [#1034](https://github.com/lightspeedwp/.github/pull/1034), [#1035](https://github.com/lightspeedwp/.github/pull/1035), [#1037](https://github.com/lightspeedwp/.github/pull/1037), [#1038](https://github.com/lightspeedwp/.github/pull/1038), [#1048](https://github.com/lightspeedwp/.github/pull/1048), [#1049](https://github.com/lightspeedwp/.github/pull/1049), [#1050](https://github.com/lightspeedwp/.github/pull/1050), [#1051](https://github.com/lightspeedwp/.github/pull/1051), [#1052](https://github.com/lightspeedwp/.github/pull/1052), [#1053](https://github.com/lightspeedwp/.github/pull/1053), [#1056](https://github.com/lightspeedwp/.github/pull/1056), [#1060](https://github.com/lightspeedwp/.github/pull/1060), [#1061](https://github.com/lightspeedwp/.github/pull/1061), [#1062](https://github.com/lightspeedwp/.github/pull/1062), [#1063](https://github.com/lightspeedwp/.github/pull/1063), [#1064](https://github.com/lightspeedwp/.github/pull/1064), [#1065](https://github.com/lightspeedwp/.github/pull/1065))
 
 - **Dependabot automation hardening** — Enhanced dependabot auto-merge via Mergify queue configuration, adding dependency update batching and merge queue integration for improved CI stability. ([PR #1059](https://github.com/lightspeedwp/.github/pull/1059))
@@ -109,6 +111,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
 
 ### Fixed
+
+- **Issue fields backfill: Node 20 deprecation and project number coercion warnings** — Removed Node 20 deprecation warnings and resolved invalid project number coercion (`String` to `Int!`) in the backfill run path. Added fallback behaviour for org issue type sync when integration scope is insufficient. ([PR #1405](https://github.com/lightspeedwp/.github/pull/1405), [#1404](https://github.com/lightspeedwp/.github/issues/1404))
 
 - **Changelog automation: Section headers destroyed on merge** — The merge-entries workflow was discarding section headers during deduplication, corrupting changelog structure on every PR merge. Fixed deduplication logic to preserve headers and limited scope to [Unreleased] section only. ([PR #1276](https://github.com/lightspeedwp/.github/pull/1276), [#1275](https://github.com/lightspeedwp/.github/issues/1275))
 
