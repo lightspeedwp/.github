@@ -3,8 +3,8 @@ file_type: documentation
 title: Phase 2B Phase C - Task Breakdown & Issue Template
 description: Detailed breakdown of Phase C consolidation tasks for Linear/GitHub issue creation
 created: 2026-07-24
-last_updated: 2026-07-24
-status: draft
+last_updated: 2026-07-29
+status: active
 related_issues: '#1316'
 related_pr: '#1370'
 ---
@@ -13,13 +13,30 @@ related_pr: '#1370'
 
 This document provides structured task definitions for Phase C execution (weeks 5-12). Each section corresponds to a GitHub issue or Linear task to be created at Phase C kickoff.
 
+## Task Status Snapshot (2026-07-29)
+
+- Phase C execution issue set is now active and normalised on GitHub.
+- Updated issues: #1326-#1355 (Task 2 through Task 31).
+- All updated issues now use task-specific titles, template-compliant bodies, and include both DoR and DoD sections.
+- Status labels were moved from `status:needs-more-info` to `status:ready` for all updated tasks.
+
+### Phase C Issue Coverage
+
+| Scope | Issue Range | Status |
+|----------|----------|--------|
+| Parent epic | #1320 | Open, active |
+| Foundation and audit tasks | #1321, #1326-#1330 | Open, ready |
+| Batch consolidation tasks | #1331-#1346 | Open, ready |
+| Standardisation and governance tasks | #1347-#1353 | Open, ready |
+| Integration and completion tasks | #1354-#1355 | Open, ready |
+
 ---
 
 ## Epic: Phase 2B Skills Consolidation Phase C
 
-**Parent Issue:** #1316 (Phase 2B Planning)  
-**Epic Description:** Consolidate 65 local agent utilities to Tier 0, implement override system for Tier 1 skills, and resolve HIGH-severity conflicts identified in Phase A/B audit.  
-**Duration:** 8-10 weeks, 62-84 hours  
+**Parent Issue:** #1316 (Phase 2B Planning)
+**Epic Description:** Consolidate 65 local agent utilities to Tier 0, implement override system for Tier 1 skills, and resolve HIGH-severity conflicts identified in Phase A/B audit.
+**Duration:** 8-10 weeks, 62-84 hours
 **Owner:** @code-lead + @agent-specialists
 
 ---
@@ -28,10 +45,10 @@ This document provides structured task definitions for Phase C execution (weeks 
 
 ### Task W5-1: Figma Skills Audit & Promotion Plan
 
-**Type:** Task (Research + Planning)  
-**Priority:** CRITICAL  
-**Assignee:** @design-partner-lead  
-**Hours:** 4  
+**Type:** Task (Research + Planning)
+**Priority:** CRITICAL
+**Assignee:** @design-partner-lead
+**Hours:** 4
 
 **Definition of Done:**
 
@@ -52,10 +69,10 @@ This document provides structured task definitions for Phase C execution (weeks 
 
 ### Task W5-2: Implement Override System Template
 
-**Type:** Task (Implementation)  
-**Priority:** CRITICAL  
-**Assignee:** @code-lead  
-**Hours:** 4  
+**Type:** Task (Implementation)
+**Priority:** CRITICAL
+**Assignee:** @code-lead
+**Hours:** 4
 
 **Definition of Done:**
 
@@ -77,10 +94,10 @@ This document provides structured task definitions for Phase C execution (weeks 
 
 ### Task W5-3: Create skills/frontend-skill (Tier 0)
 
-**Type:** Task (Implementation)  
-**Priority:** CRITICAL  
-**Assignee:** @code-lead  
-**Hours:** 3  
+**Type:** Task (Implementation)
+**Priority:** CRITICAL
+**Assignee:** @code-lead
+**Hours:** 3
 
 **Definition of Done:**
 
@@ -100,10 +117,10 @@ This document provides structured task definitions for Phase C execution (weeks 
 
 ### Task W5-4: Move plugin-creator, skill-creator, skill-installer to Tier 0
 
-**Type:** Task (Implementation)  
-**Priority:** HIGH  
-**Assignee:** @code-lead  
-**Hours:** 5  
+**Type:** Task (Implementation)
+**Priority:** HIGH
+**Assignee:** @code-lead
+**Hours:** 5
 
 **Definition of Done:**
 
@@ -125,10 +142,10 @@ This document provides structured task definitions for Phase C execution (weeks 
 
 ### Task W5-5: PRD Agent Consolidation Decision (Stakeholder Alignment)
 
-**Type:** Epic sub-task (Research + Decision)  
-**Priority:** CRITICAL  
-**Assignee:** @ashleyshaw (PM) + @prd-lead  
-**Hours:** 3 (interview) + 6 (implementation planning, if Option C chosen)  
+**Type:** Epic sub-task (Research + Decision)
+**Priority:** CRITICAL
+**Assignee:** @ashleyshaw (PM) + @prd-lead
+**Hours:** 3 (interview) + 6 (implementation planning, if Option C chosen)
 
 **Definition of Done (Interview Phase):**
 
@@ -155,10 +172,10 @@ This document provides structured task definitions for Phase C execution (weeks 
 
 ### Task W5-6: Assess Design-Partner Hermes Integration
 
-**Type:** Task (Research)  
-**Priority:** MEDIUM  
-**Assignee:** @design-partner-lead  
-**Hours:** 3  
+**Type:** Task (Research)
+**Priority:** MEDIUM
+**Assignee:** @design-partner-lead
+**Hours:** 3
 
 **Definition of Done:**
 
@@ -183,9 +200,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 **Agents:** ai-readiness-estimator, website-content-strategist, website-scope-estimator, zendesk-support, client-website-discovery
 
-**Type:** Task (Refactoring)  
-**Priority:** MEDIUM  
-**Hours:** 4 per agent  
+**Type:** Task (Refactoring)
+**Priority:** MEDIUM
+**Hours:** 4 per agent
 **Sprint:** W6
 
 **Definition of Done (per agent):**
@@ -208,10 +225,10 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W6-B1: Consolidate linear-advisor-agent
 
-**Type:** Task (Refactoring + Override Implementation)  
-**Priority:** MEDIUM  
-**Assignee:** @agent-specialist-2  
-**Hours:** 6  
+**Type:** Task (Refactoring + Override Implementation)
+**Priority:** MEDIUM
+**Assignee:** @agent-specialist-2
+**Hours:** 6
 **Sprint:** W6
 
 **Definition of Done:**
@@ -235,10 +252,10 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 **Agents:** prd-agent, prd-factory-planner-agent
 
-**Type:** Task (Refactoring + Override Implementation)  
-**Priority:** CRITICAL  
-**Assignee:** @prd-lead  
-**Hours:** 6 per agent  
+**Type:** Task (Refactoring + Override Implementation)
+**Priority:** CRITICAL
+**Assignee:** @prd-lead
+**Hours:** 6 per agent
 **Sprint:** W6-W7
 
 **Definition of Done:**
@@ -263,9 +280,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 **Agents:** tour-operator-config-agent, wp-config-agent
 
-**Type:** Task (Refactoring + Override Implementation)  
-**Priority:** MEDIUM  
-**Hours:** 5 per agent  
+**Type:** Task (Refactoring + Override Implementation)
+**Priority:** MEDIUM
+**Hours:** 5 per agent
 **Sprint:** W7
 
 **Definition of Done:**
@@ -289,9 +306,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W7-C1: Consolidate design-partner-agent (AFTER Figma Audit)
 
-**Type:** Task (Refactoring + Version Migration)  
-**Priority:** CRITICAL  
-**Hours:** 6  
+**Type:** Task (Refactoring + Version Migration)
+**Priority:** CRITICAL
+**Hours:** 6
 **Sprint:** W7 (depends on W5-1)
 
 **Definition of Done:**
@@ -317,9 +334,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 **Agents:** harvest-analytical, pagespeed, playwright-testing, proposal-desk, woo-config
 
-**Type:** Task (Refactoring)  
-**Priority:** MEDIUM  
-**Hours:** 4 per agent  
+**Type:** Task (Refactoring)
+**Priority:** MEDIUM
+**Hours:** 4 per agent
 **Sprint:** W7
 
 **Definition of Done (per agent):**
@@ -345,9 +362,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-1: Standardize Plugin Skill Naming
 
-**Type:** Task (Refactoring + Validation)  
-**Priority:** MEDIUM  
-**Hours:** 6  
+**Type:** Task (Refactoring + Validation)
+**Priority:** MEDIUM
+**Hours:** 6
 **Sprint:** W8
 
 **Definition of Done:**
@@ -370,9 +387,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-2: Comprehensive Agent Boot Testing
 
-**Type:** Task (Testing)  
-**Priority:** HIGH  
-**Hours:** 4  
+**Type:** Task (Testing)
+**Priority:** HIGH
+**Hours:** 4
 **Sprint:** W8 (parallel with W8-1)
 
 **Definition of Done:**
@@ -396,9 +413,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-3: Document Override Patterns in AGENTS.md
 
-**Type:** Task (Documentation)  
-**Priority:** HIGH  
-**Hours:** 3  
+**Type:** Task (Documentation)
+**Priority:** HIGH
+**Hours:** 3
 **Sprint:** W8-W9
 
 **Definition of Done:**
@@ -419,9 +436,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-4: Create Skill Tier Matrix
 
-**Type:** Task (Documentation)  
-**Priority:** MEDIUM  
-**Hours:** 2  
+**Type:** Task (Documentation)
+**Priority:** MEDIUM
+**Hours:** 2
 **Sprint:** W9
 
 **Definition of Done:**
@@ -442,9 +459,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-5: Document Figma Version Strategy
 
-**Type:** Task (Documentation)  
-**Priority:** HIGH  
-**Hours:** 2  
+**Type:** Task (Documentation)
+**Priority:** HIGH
+**Hours:** 2
 **Sprint:** W9
 
 **Definition of Done:**
@@ -465,9 +482,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-6: Create Phase D Plan (Skills Governance)
 
-**Type:** Task (Planning)  
-**Priority:** HIGH  
-**Hours:** 3  
+**Type:** Task (Planning)
+**Priority:** HIGH
+**Hours:** 3
 **Sprint:** W10
 
 **Definition of Done:**
@@ -489,9 +506,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W8-7: Archive Obsolete Skills
 
-**Type:** Task (Refactoring + Housekeeping)  
-**Priority:** MEDIUM  
-**Hours:** 2  
+**Type:** Task (Refactoring + Housekeeping)
+**Priority:** MEDIUM
+**Hours:** 2
 **Sprint:** W10
 
 **Definition of Done:**
@@ -513,9 +530,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W10-1: Comprehensive Integration Testing
 
-**Type:** Task (Testing)  
-**Priority:** CRITICAL  
-**Hours:** 8  
+**Type:** Task (Testing)
+**Priority:** CRITICAL
+**Hours:** 8
 **Sprint:** W10-W11
 
 **Definition of Done:**
@@ -543,9 +560,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W12-1: Create Phase 2B Phase C Completion PR
 
-**Type:** Task (Merge)  
-**Priority:** CRITICAL  
-**Hours:** 2-4  
+**Type:** Task (Merge)
+**Priority:** CRITICAL
+**Hours:** 2-4
 **Sprint:** W12
 
 **Definition of Done:**
@@ -571,9 +588,9 @@ Create 5 identical issues (one per agent), scheduled in series:
 
 ### Task W12-2: Update Phase Status & Create Phase D Issue
 
-**Type:** Task (Housekeeping)  
-**Priority:** MEDIUM  
-**Hours:** 1  
+**Type:** Task (Housekeeping)
+**Priority:** MEDIUM
+**Hours:** 1
 **Sprint:** W12
 
 **Definition of Done:**

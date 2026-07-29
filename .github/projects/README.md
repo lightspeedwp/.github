@@ -3,7 +3,7 @@ title: "Projects Directory"
 description: "Project planning documents, task tracking files, implementation roadmaps, and progress tracking for LightSpeed initiatives. Includes active projects, completed archives, and planning documents."
 file_type: documentation
 version: v1.1
-last_updated: "2026-05-31"
+last_updated: "2026-07-29"
 created_date: "2025-12-08"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -33,6 +33,12 @@ This directory contains all task tracking files, project planning documents, imp
 ```
 
 ## Subdirectory Purposes
+
+## Active Projects Status Update (2026-07-29)
+
+- Phase 2B Skills Audit Phase C issue hygiene updates were completed for #1326-#1355.
+- Issue titles, task-template structure (including DoR/DoD), and ready-state labels were normalised.
+- Active task tracking docs were synchronised in `projects/active/phase-2b-skills-audit/`.
 
 ### active/
 

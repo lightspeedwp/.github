@@ -2,7 +2,8 @@ name: Metadata • Issues & PRs
 
 on:
   issues:
-    types: [opened, reopened, edited]
+    # labeled/unlabeled added so native type syncs when a type:* label changes
+    types: [opened, reopened, edited, labeled, unlabeled]
   pull_request_target:
     types: [opened, reopened, edited, synchronize, ready_for_review]
 
@@ -10,6 +11,8 @@ permissions:
   contents: read
   issues: write
   pull-requests: write
+  # Required for GraphQL mutations that set native issue types
+  repository-projects: write
 
 concurrency:
   group: metadata-governance-${{ github.event_name }}-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
@@ -79,4 +82,47 @@ jobs:
             echo "- Blocks refs: ${METADATA_BLOCKS_REFS:-none}"
             echo "- Blocked-by refs: ${METADATA_BLOCKED_BY_REFS:-none}"
             echo "- Security refs: ${METADATA_SECURITY_REFS:-none}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ── Native issue type sync ────────────────────────────────────────────────
+      # Sets the GitHub native issue type (Bug / Feature / Task / etc.) directly
+      # on the issue using the type:* label → project_field_mappings.Type mapping
+      # in .github/issue-fields.yml. Requires a GitHub App token with
+      # issues:write and project scope (supplied via LS_APP_PRIVATE_KEY secret).
+      - name: Create GitHub App token for native type sync
+        id: app-token
+        if: |
+          github.event_name == 'issues' &&
+          vars.LS_APP_ID != '' &&
+          secrets.LS_APP_PRIVATE_KEY != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+
+      - name: Sync native issue type from type:* label
+        id: native-type
+        if: github.event_name == 'issues' && steps.app-token.outputs.token != ''
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
+          DRY_RUN: "false"
+        run: node scripts/agents/includes/sync-issue-fields.cjs
+
+      - name: Append native type result to summary
+        if: github.event_name == 'issues'
+        env:
+          NATIVE_TYPE: ${{ steps.native-type.outputs.native_type_set || '' }}
+          APP_CONFIGURED: ${{ vars.LS_APP_ID != '' && secrets.LS_APP_PRIVATE_KEY != '' }}
+        run: |
+          {
+            echo "### Native issue type sync"
+            if [ "${APP_CONFIGURED}" != "true" ]; then
+              echo "- Status: ⚠️ Skipped (LS_APP_ID or LS_APP_PRIVATE_KEY not configured)"
+              echo "- Setup: add vars.LS_APP_ID and secrets.LS_APP_PRIVATE_KEY to enable"
+            elif [ -n "${NATIVE_TYPE}" ]; then
+              echo "- Status: ✅ Set to **${NATIVE_TYPE}**"
+            else
+              echo "- Status: — No matching type:* label found"
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
