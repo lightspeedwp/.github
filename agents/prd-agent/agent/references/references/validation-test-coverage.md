@@ -53,7 +53,7 @@ Describe how the current fixture set maps to the validation layer and workflow-t
 - `fixtures/conflicting-source.fixture.md` -> contradiction handling and evidence discipline
 - `fixtures/conflicting-estimate-readiness.fixture.md` -> estimate-readiness conflict handling
 - `fixtures/validator-failure-readme-coverage.fixture.md` -> README coverage and inventory-alignment failures
-- `fixtures/validator-failure-schema-alignment.fixture.md` -> schema presence and schema/file alignment failures
+- `fixtures/validator-failure-schema-alignment.fixture.md` -> schema presence and .schemas/file alignment failures
 
 ## Coverage strengths
 

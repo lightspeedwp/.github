@@ -60,7 +60,7 @@ Written to be portable across WordPress projects. Concrete project details appea
 ## Failure modes
 
 - **Multi-file deploy fatals the site *and* the MCP endpoint** → you can't self-recover. Prevent with dependency ordering; recover out-of-band. → `references/deploy-ordering.md`
-- **A write returns a schema/serialisation error but actually succeeded** → verify against the DB; **do not blindly retry** a destructive content replace. → `references/mcp-write-quirks.md`
+- **A write returns a .schemas/serialisation error but actually succeeded** → verify against the DB; **do not blindly retry** a destructive content replace. → `references/mcp-write-quirks.md`
 - **A correct write stays invisible** (stale counts/options/badges) → the MCP process's cache backend differs from the web workers'; evict via a real hook-firing mutation. → `references/caching.md`
 - **WP-CLI won't run / raw SQL fails / new patterns don't register** → memory limit, missing `mysql` client, version-keyed pattern-cache transient. → `references/local-env.md`
 - **Repo working dir isn't a runnable site** → placeholder DB creds; offline you can only lint. → `references/local-env.md`

@@ -43,7 +43,7 @@ Each issue should include at least one QA route:
 - responsive check
 - accessibility check
 - performance check
-- schema/analytics check
+- .schemas/analytics check
 - regression check
 
 ## Review notes

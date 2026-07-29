@@ -315,7 +315,7 @@ Defines frontmatter field types and constraints.
 | `instructions` | `instructions/**/*.md` | Yes | Yes | `standards-footer` |
 | `ai-ops` | `docs/**/*governance*.md` | Yes | Yes | `ai-ops-standard` |
 | `prompts` | `prompts/**/*.md` | Optional | Optional | `ai-ops-standard` |
-| `schema` | `schema/**/*.md` | Yes | Yes | `schema-footer` |
+| `schema` | `.schemas/**/*.md` | Yes | Yes | `schema-footer` |
 | `audit` | `.github/reports/**/*.md` | Yes | Yes | `audit-footer` |
 | `research` | `research/**/*.md` | Yes | Yes | `research-footer` |
 | `workflow` | `.github/workflows/**/*.md` | Yes | Yes | `ai-ops-standard` |

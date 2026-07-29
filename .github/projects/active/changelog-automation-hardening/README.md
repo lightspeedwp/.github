@@ -1,93 +1,186 @@
-# Changelog Automation Hardening — Project Status
+# Changelog Automation Hardening — Project Control Panel
 
-**Status:** ✅ **SUBSTANTIALLY COMPLETE** (Phases 1-3 DONE, Phase 4 Partially Complete)
+> **Epic:** [#1271](https://github.com/lightspeedwp/.github/issues/1271) | **Status:** Phase 4 Active | **Owner:** Changelog & Release Engineering
 
-**Epic:** [#1271](https://github.com/lightspeedwp/.github/issues/1271) — Changelog Automation Hardening
+## 📋 Quick Links
 
-**Last Updated:** 2026-07-24
-
----
-
-## Project Overview
-
-Comprehensive hardening initiative to fix critical changelog automation bugs, rebuild lost history, and establish lasting solutions through rules, validation, and contributor guidance.
-
-## Phase Status
-
-| Phase | Goal | Status | Completion |
-|-------|------|--------|-----------|
-| **Phase 1** | Fix section header corruption | ✅ COMPLETE | [PR #1276](https://github.com/lightspeedwp/.github/pull/1276) |
-| **Phase 2** | Rebuild lost history (127 PRs) | ✅ COMPLETE | [PR #1281](https://github.com/lightspeedwp/.github/pull/1281), [#1315](https://github.com/lightspeedwp/.github/pull/1315) |
-| **Phase 3** | Define rules & guidelines | ✅ COMPLETE | [PR #1281](https://github.com/lightspeedwp/.github/pull/1281) |
-| **Phase 4** | Establish guardrails | 🔄 PARTIAL | Validation ✅, Automated linking/safeguards 🔴 |
-
-## Key Deliverables
-
-### ✅ Completed (Merged to develop)
-
-- **CHANGELOG.md** — Rebuilt with 127 entries covering May 24 — July 24, 2026
-- **CHANGELOG_GUIDELINES.md** — Format rules, scope, examples
-- **CHANGELOG_AUTOMATION.md** — Comprehensive implementation guide (630+ lines)
-- **CHANGELOG_CONTRIBUTOR_CHECKLIST.md** — Pre-submission checklist
-- **scripts/validation/changelog-rules.cjs** — 7 validation rules (format, links, length, etc.)
-- **scripts/workflows/changelog/merge-entries.integration.test.cjs** — Integration tests
-- **.github/workflows/changelog-validate.yml** — Enhanced CI validation pipeline
-
-### 🔄 Pending (Phase 4 Guardrails)
-
-- Automated PR-to-changelog linking on merge
-- Changelog Review Checklist for maintainers
-- Additional safeguards in merge-entries.cjs (backup, rollback, verification)
-
-## Coverage Metrics
-
-- **PRs Recovered:** 127 total (76 in PR #1281, 51 in PR #1315)
-- **Time Period:** May 24 — July 24, 2026 (61 days)
-- **Post-v1.0.0 Coverage:** 100% (June 23 — July 24)
-- **Validation Rules:** 7 rules enforced
-- **Test Coverage:** Integration tests for section header preservation
-
-## GitHub Issues (Epic #1271)
-
-- ✅ #1275 — Phase 1: Section header fix (MERGED)
-- ✅ #1272 — Phase 2: Rebuild lost history (COMPLETE)
-- ✅ #1273 — Phase 3: Rules & guidelines (COMPLETE)
-- ✅ #1314 — Additional recovery: 51 entries (MERGED)
-
-## Related Documentation
-
-- **PROJECT_PLAN.md** — Strategic overview & timeline
-- **HARDENING_IMPLEMENTATION_REPORT.md** — Detailed audit findings & fixes
-- **GITHUB_ISSUES_ALIGNMENT_REVIEW.md** — Issue tracking & alignment
-- **CHANGELOG_GUIDELINES.md** — Format rules & contributor guide
-- **docs/CHANGELOG_AUTOMATION.md** — Implementation guide
-
-## Next Steps (Phase 4 Completion)
-
-1. Implement automated PR-to-changelog linking
-2. Create maintainer review checklist
-3. Add rollback/backup safeguards to merge-entries.cjs
-4. Train team on new process & guidelines
-5. Monitor next 10 PR merges for automation failures
-
-## Success Criteria (As of 2026-07-24)
-
-✅ Achieved:
-
-- Automation bug fixed & validated
-- Lost history reconstructed (127 PRs)
-- Clear rules & guidelines defined
-- Validation automated in CI
-- All links verified (127/127 entries)
-- 0 duplicates in [Unreleased]
-- 0 entries without PR/issue reference
-
-🔄 In Progress:
-
-- Team training on new process
-- Guardrails monitoring on live PRs
+- **[PROJECT_PLAN.md](./PROJECT_PLAN.md)** — Full 4-phase strategic plan
+- **[PHASE_4_KICKOFF.md](./PHASE_4_KICKOFF.md)** — Phase 4 execution instructions (current)
+- **[CHANGELOG_GUIDELINES.md](./CHANGELOG_GUIDELINES.md)** — What belongs in CHANGELOG.md
+- **[Active Issues (Phase 4)](#-active-issues-phase-4)** — All tracked work
 
 ---
 
-**Maintained by:** Changelog & Release Engineering  
-**Last Updated:** 2026-07-24 13:32 UTC
+## 🎯 What This Project Does
+
+This initiative fixes critical changelog automation bugs, rebuilds lost history from the past 2 months, defines clear rules for changelog entries, and establishes lasting safeguards to prevent future corruption.
+
+**Key Problem:** The automated changelog workflow was destroying section structure and losing historical information. This project:
+
+1. ✅ **Phase 1** — Fixed the automation bug
+2. ✅ **Phase 2** — Recovered lost history (40+ PRs)
+3. ✅ **Phase 3** — Defined rules & contributor guidelines
+4. 🔄 **Phase 4** — Added automated validation & guardrails (IN PROGRESS)
+
+---
+
+## 📊 Completion Status
+
+| Phase | Deliverable | Status | Issue | Target Date |
+|-------|-------------|--------|-------|-------------|
+| 1 | Fix section header corruption | ✅ Complete | #1275 | 2026-07-24 |
+| 2 | Rebuild lost history (40+ PRs) | ✅ Complete | #1272, #1314 | 2026-07-26 |
+| 3 | Define rules & guidelines | ✅ Complete | #1273 | 2026-07-31 |
+| 4 | Validation & guardrails | 🔄 **IN PROGRESS** | #1316–#1319 | 2026-08-07 |
+| **Epic** | **All phases delivered** | **On Track** | **#1271** | **2026-08-14** |
+
+---
+
+## 📂 Project Structure
+
+```
+.github/projects/active/changelog-automation-hardening/
+├── README.md (this file)
+├── PROJECT_PLAN.md (strategic overview)
+├── PHASE_4_KICKOFF.md (implementation instructions)
+├── CHANGELOG_GUIDELINES.md (entry format & rules)
+├── EXECUTION_PROMPT.md (quick reference)
+└── Phase reports & documentation
+```
+
+---
+
+## 🔄 Active Issues (Phase 4)
+
+### Phase 4A: Automated PR-to-Changelog Linking
+
+**Issue:** [#1316](https://github.com/lightspeedwp/.github/issues/1316)
+
+Auto-add changelog entries on PR merge if criteria met:
+
+- PR has `changelog:included` label OR
+- PR title matches changelog-worthy patterns OR
+- User explicitly added CHANGELOG.md entry
+
+**Script:** `scripts/workflows/changelog/auto-link-pr.cjs` (new)
+
+### Phase 4B: Maintainer Review Checklist
+
+**Issue:** [#1317](https://github.com/lightspeedwp/.github/issues/1317)
+
+10-item checklist for reviewers before merging PRs that touch CHANGELOG.md:
+
+- All entries are user-facing ✓
+- All entries are concise ✓
+- All PR/issue links valid ✓
+- No duplicates ✓
+- Proper formatting ✓
+
+**Document:** `CHANGELOG_REVIEW_CHECKLIST.md` (new)
+
+### Phase 4C: Enhanced Merge Safeguards
+
+**Issue:** [#1318](https://github.com/lightspeedwp/.github/issues/1318)
+
+Hardening in `merge-entries.cjs`:
+
+- Pre-write validation (all rules pass before write)
+- Backup mechanism (snapshot CHANGELOG.md before modifications)
+- Post-write verification (verify changes are correct)
+- Rollback instructions (on-failure guidance)
+- Enhanced logging (all operations logged)
+
+### Phase 4D: Integration Testing & Monitoring
+
+**Issue:** [#1319](https://github.com/lightspeedwp/.github/issues/1319)
+
+Monitor 10 PRs for zero automation failures:
+
+- All entries auto-linked correctly
+- No validation failures
+- All links remain valid
+- Section structure preserved
+
+---
+
+## 🚀 Getting Started with Phase 4
+
+### For Implementation Teams
+
+1. **Read PHASE_4_KICKOFF.md** for full instructions
+2. **Create GitHub issues** for sub-tasks 4A–4D (linked to Epic #1271)
+3. **Close completed Phase issues:** #1275, #1272, #1273, #1314
+4. **Begin implementation** of 4A–4D in parallel
+5. **Monitor** via PR testing (Phase 4D)
+
+### For Reviewers
+
+**Before merging PRs touching CHANGELOG.md:**
+
+1. Open `CHANGELOG_GUIDELINES.md` for format rules
+2. Use the Maintainer Review Checklist (Phase 4B)
+3. Verify:
+   - All entries are user-facing
+   - All entries are concise (<150 chars)
+   - All PR/issue links are valid
+   - Section structure is correct
+   - No duplicates exist
+
+### For Contributors
+
+**When your PR includes user-facing changes:**
+
+1. Check [CHANGELOG_GUIDELINES.md](./CHANGELOG_GUIDELINES.md)
+2. Add an entry to `CHANGELOG.md` [Unreleased] if applicable
+3. Use format: `- **Title** — description ([PR #123](url), [#456](issue-url))`
+4. Ensure entry is concise (1-2 sentences)
+5. Link to PR and any related issues
+
+---
+
+## 📈 Success Metrics
+
+### Quality Gates (Phase 4 completion)
+
+- ✅ **0 broken links** in CHANGELOG.md
+- ✅ **0 verbose entries** (all <150 chars)
+- ✅ **0 non-changelog entries** (no docs/project/report)
+- ✅ **100% PR coverage** (every entry linked)
+- ✅ **0 duplicates** in [Unreleased]
+- ✅ **0 automation failures** on 10 test PRs
+
+### Completed Deliverables
+
+- ✅ Changelog automation fix (Phase 1)
+- ✅ Lost history rebuilding (Phase 2)
+- ✅ Rules & guidelines documentation (Phase 3)
+- 🔄 Validation & automation guardrails (Phase 4 — IN PROGRESS)
+
+---
+
+## 📞 Contact & References
+
+- **Epic Owner:** Changelog & Release Engineering
+- **Tracking:** [Epic #1271](https://github.com/lightspeedwp/.github/issues/1271)
+- **Standards:** [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+- **Guidelines:** [CHANGELOG_GUIDELINES.md](./CHANGELOG_GUIDELINES.md)
+
+---
+
+## 📅 Timeline
+
+| Milestone | Target | Status |
+|-----------|--------|--------|
+| Phase 1 Complete | 2026-07-24 | ✅ Done |
+| Phase 2 Complete | 2026-07-26 | ✅ Done |
+| Phase 3 Complete | 2026-07-31 | ✅ Done |
+| **Phase 4 Complete** | **2026-08-07** | **🔄 In Progress** |
+| **Epic Complete** | **2026-08-14** | **On Track** |
+
+---
+
+*Last updated: 2026-07-24 | Phase 4 Kickoff*
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -10,6 +10,7 @@ permissions:
 jobs:
   remove-needs-triage:
     name: Remove status:needs-triage from closed issues
+    if: false # DEPRECATED: Consolidated into labeling-governance.yml (Phase 3.1) — See PR #1319
     runs-on: ubuntu-latest
     steps:
       - name: Remove status:needs-triage label if present

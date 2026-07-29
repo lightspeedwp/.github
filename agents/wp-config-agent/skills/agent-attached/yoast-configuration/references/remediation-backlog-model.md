@@ -53,9 +53,9 @@ Use this model to turn Yoast audit findings, settings-export reviews, rendered-o
 | `recommended_action` | yes | Smallest safe action |
 | `approval_required` | yes | Name what approval is needed or `none` |
 | `qa_check` | yes | How the fix will be validated |
-| `rollback_or_reversal` | no | Useful for risky indexation/canonical/schema/server changes |
+| `rollback_or_reversal` | no | Useful for risky indexation/canonical/.schemas/server changes |
 | `dependencies` | no | Prior tasks or evidence needed |
-| `decision_record_needed` | yes | True for material indexation/canonical/schema/product/redirect/product mix changes |
+| `decision_record_needed` | yes | True for material indexation/canonical/.schemas/product/redirect/product mix changes |
 | `sources` | no | Source register IDs, user evidence references or live checks |
 
 ## Owner routing

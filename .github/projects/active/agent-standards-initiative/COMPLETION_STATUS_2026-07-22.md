@@ -55,10 +55,10 @@
 
 **Schemas:**
 
-- `schema/multi-provider-agent.schema.json`
-- `schema/agent-plugin-binding.schema.json`
-- `schema/provider-config.schema.json`
-- `schema/agent-capability-manifest.schema.json`
+- `.schemas/multi-provider-agent.schema.json`
+- `.schemas/agent-plugin-binding.schema.json`
+- `.schemas/provider-config.schema.json`
+- `.schemas/agent-capability-manifest.schema.json`
 
 **Hooks:**
 

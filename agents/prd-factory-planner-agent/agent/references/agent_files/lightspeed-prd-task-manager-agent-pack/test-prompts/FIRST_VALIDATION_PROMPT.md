@@ -73,7 +73,7 @@ Flag:
 - Figma parity checks
 - redirect requirements
 - GA4/GTM requirements
-- schema/AI discoverability requirements
+- .schemas/AI discoverability requirements
 ```
 
 ---

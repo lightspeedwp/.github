@@ -52,7 +52,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## AggregateOffer
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/aggregateoffer/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/aggregateoffer/>
 - **Plugin scope:** woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -65,7 +65,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Article
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/article/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/article/>
 - **Plugin scope:** free/premium; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -78,7 +78,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Breadcrumb
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/breadcrumb/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/breadcrumb/>
 - **Plugin scope:** free/premium/woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -91,7 +91,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Comment
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/comment/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/comment/>
 - **Plugin scope:** free/premium; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -104,7 +104,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Event
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/event/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/event/>
 - **Plugin scope:** plugin integration; verify; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -117,7 +117,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## HowTo
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/howto/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/howto/>
 - **Plugin scope:** free/premium blocks; verify current availability; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -130,7 +130,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Image
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/image/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/image/>
 - **Plugin scope:** free/premium/woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -143,7 +143,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## LocalBusiness
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/localbusiness/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/localbusiness/>
 - **Plugin scope:** local seo comparison; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -156,7 +156,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Offer
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/offer/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/offer/>
 - **Plugin scope:** woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -169,7 +169,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Organization
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/organization/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/organization/>
 - **Plugin scope:** free/premium; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -182,7 +182,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Person
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/person/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/person/>
 - **Plugin scope:** free/premium; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -195,7 +195,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## PostalAddress
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/postaladdress/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/postaladdress/>
 - **Plugin scope:** local seo comparison; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -208,7 +208,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Product
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/product/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/product/>
 - **Plugin scope:** woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -221,7 +221,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## ProductGroup
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/productgroup/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/productgroup/>
 - **Plugin scope:** woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -234,7 +234,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Question
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/question/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/question/>
 - **Plugin scope:** faq/howto; verify current rich-result caveat; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -247,7 +247,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Recipe
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/recipe/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/recipe/>
 - **Plugin scope:** integration; verify; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -260,7 +260,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Review
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/review/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/review/>
 - **Plugin scope:** woocommerce/reviews; verify; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -273,7 +273,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## SearchAction
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/searchaction/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/searchaction/>
 - **Plugin scope:** free/premium; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -286,7 +286,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## Video
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/video/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/video/>
 - **Plugin scope:** video seo comparison; verify; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -299,7 +299,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## WebPage
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/webpage/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/webpage/>
 - **Plugin scope:** free/premium/woocommerce; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
@@ -312,7 +312,7 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 
 ## WebSite
 
-- **Source URL:** <https://developer.yoast.com/features/schema/pieces/website/>
+- **Source URL:** <https://developer.yoast.com/features/.schemas/pieces/website/>
 - **Plugin scope:** free/premium; verify current output conditions.
 - **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
 - **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.

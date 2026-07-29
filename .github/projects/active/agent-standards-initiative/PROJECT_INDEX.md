@@ -200,7 +200,7 @@ priority: high
 - `.github/agents/` — Agent specifications (41 total)
 - `.github/plugins/` — Plugin implementations (6 existing)
 - `.github/instructions/` — Instruction files (42 total)
-- `.github/schema/` — Schema definitions (16 total)
+- `.github/.schemas/` — Schema definitions (16 total)
 - `.github/hooks/` — Hook implementations (3 existing)
 
 ### External

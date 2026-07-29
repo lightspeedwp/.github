@@ -121,7 +121,7 @@ IMPLEMENTATION_SUMMARY.md
 1. IMPLEMENTATION_SUMMARY.md (section: Success Criteria)
 2. AGENT_STANDARDIZATION_AUDIT.md (Part 2: Schemas & Hooks)
 3. PROMPT_1_PLAYWRIGHT_AGENT_REWRITE.md (Phase 5: Testing)
-4. Reference: .github/schema/multi-provider-agent.schema.json
+4. Reference: .github/.schemas/multi-provider-agent.schema.json
 ```
 
 ### By Workflow
@@ -323,7 +323,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 - `.github/agents/agent.md` — Agent index
 - `.github/agents/playwright-testing-agent/` — Reference implementation (to be created)
 - `.github/instructions/` — Existing instruction files
-- `.github/schema/` — Schema definitions
+- `.github/.schemas/` — Schema definitions
 - `.github/hooks/` — Hook implementations
 
 ### External Resources

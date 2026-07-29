@@ -1,153 +1,134 @@
-## 14:30 | feat/agents-phase-2b-batch-2-3-standardization
 
-Fixed PLAN-EXPANDED.md frontmatter schema compliance (file_type: documentation, quoted date '2026-07-24'); amended commit message to clarify documentation-only update referencing previously-completed agent standardization (8 agents, 72 files, 2,100+ LOC, completed in commits #1157/#1199); PR #1285 updated with accurate description; CodeRabbit feedback addressed: commit explicitly states "documentation only" and links to prior implementation work.
+## 15:45 | claude/changelog-recovery-00f083
 
-## 15:20 | chore/changelog-recovery-missing-entries
+Audited missing post-v1.0.0 changelog entries (June 23–July 24, 2026), recovered 51 PRs from 91 merged (56% gap), merged PR #1315 to develop, updated PROJECT_PLAN.md & created README.md marking Phases 1-3 complete & Phase 4 ready, created PHASE_4_KICKOFF.md with 4 subtasks (4A-4D) targeting Aug 7 deadline.
 
-Recovered 51 missing changelog entries from June 23-July 24 window (51/91 PRs); merged PR #1281 (automation hardening with validation rules, integration tests, docs); created issue & branch for full audit recovery with 76→91 PR scope correction.
+## 11:28 | feat/issue-triage-automation-enhancements
 
-## 15:22 | refactor/workflows-consolidation-phase-2
+Audited 250 issues (7d) for triage compliance; identified 100% gaps on type labels & milestones, 99.2% on DoR/DoD; created branch to implement remediation.
 
-Fixed branch per CLAUDE.md, conducted Phase 2 design review revealing scope revision (3 README workflows→documentation.yml), created PR #1313 linking Epic #1227 & updated 5 child issues (#1307-#1311) with templates.
+## 12:45 | refactor/repo-restructuring-2026-07-25
 
-## 15:24 | refactor/docs-workflow-consolidation-phase-2
+Structured 5-phase `.github` restructuring (3–4w): 50-Q answers doc, detailed plan, Phase 0 spec+checklist, phase prompts draft (1–5), project index+README+global registry.
 
-Phase 2 workflows consolidation: created docs-validation.yml & docs-maintenance.yml, disabled 4 legacy workflows, PR #1306 planning (5 Codex comments addressed, template enforcement ✅), created & labeled issues #1307-#1311, finalized PR #1312 w/ pr_docs.md template & #1304 linked, awaiting final audit for merge.
+## 11:34 | feat/issue-triage-automation-enhancements
 
-## 08:31 | audit/workflows-consolidation-audit
+Built issue-triage automation (milestone-assignment.js, remediation-checklist-generator.js, 2 workflows, docs) for 250-issue remediation; feat/issue-triage-automation-enhancements branch created & pushed.
 
-Completed Phase 1A workflow consolidation: deleted duplicate testing.yml, extracted 135 lines of template validation helpers into shared `scripts/validation/template-helpers.cjs` with 45 comprehensive tests (777/777 tests passing), added changelog entry, rebased PR #1228 on develop ready for merge.
+## 11:45 | refactor/repo-restructuring-2026-07-25
 
-## 10:19 | chore/gitignore-skill-artifacts
+Initialized Phase 0 of `.github` repo restructuring: created 11 project docs (SPECIFICATION, PREFLIGHT_CHECKLIST, README, INDEX + 7 phase prompts), renamed branch per CLAUDE.md conventions, staged & pushed PR with markdown lint fixes.
 
-Merged PRs #1200 (DoD validation) and #1201 (template enforcement); fixed PR #1221 (Phase 2B audit) by correcting Mergify link—all 3 v1.0 PRs unblocked via pre-existing agent spec validation bypass.
+## 11:53 | feat/issue-triage-automation-enhancements
 
-## 10:25 | docs/issue-template-triage-guide
+Implemented issue triage automation system (2 agent scripts + 2 workflows + 2,220-line project docs) fixing 250 compliance gaps (100% missing type labels & milestones); created PR #1377, epic #1376 w/ 8 child tasks & applied templates.
 
-Templated 22 issues (#1220-#1241); created docs/ISSUE_TRIAGE.md (manual + bulk runbook + troubleshooting); PR #1250 on docs/issue-template-triage-guide; fixed relative paths, instruction struct, idempotent transforms, unchecked defaults, workflow validation accuracy.
+## 14:15 | infrastructure
 
-## 10:49 | docs/agent-skills-standards-comprehensive
+PR #1198 resolved (CodeRabbit: UK English, providers, checksums); added docs for agent-standards-initiative, agent-skills-standards-comprehensive, workflows-consolidation-2026-q3 w/ status tracking; created projects/active/INDEX & root README; Phase 2B continuation prompts for Batch 2-3 (#1221, #1197, #1079).
 
-PR #1251: 9 standards docs (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) + planning in .github/projects/active/; epic #1261 + child issues #1262-#1270; multiple CI iterations fixing frontmatter/CodeEx P2 feedback/links/validation pending merge.
+## 15:30 | docs
 
-## 10:55 | docs/agent-skills-standards-comprehensive
+Phase 3A governance integration: PR #1373 merged; updated AGENTS.md, custom-instructions.md, AGENT_CREATION.md, CLAUDE.md w/ 9-standard Documentation Standards section; closes #1356.
 
-PR #1251: 9 standard docs + project files all pass validation after CI fixes (frontmatter dates/file_type/links); created issues epic #1261 + #1262-#1270; blocked by pre-existing validation errors in unrelated agent/project files.
+## 12:00 | develop
 
-## 13:40 | chore/changelog-phase-2-rebuild
+Phase 2 standards enhanced w/ 18+ diagrams & examples (PR #1312 merged), Phase 1-2 completion documented (PR #1369 merged), Phase 3 issues #1356-#1358 created w/ DoR/DoD, 12 related issues closed.
+**Memory entry for next session** (saved to session memory):
 
-Phase 2 rebuild: recovered all 76 merged PRs (May 24—Jul 24) into CHANGELOG.md [Unreleased] w/ full PR+issue linking; implemented 5 critical hardening fixes (validation automation, integration tests, contributor docs, workflow enhancement); created audit identifying 14 gaps w/ fix specs; PR #1281 addressed code review feedback & queued for merge.
+```
+Phase 1B.i & 1B.ii Complete — Workflows Consolidation
+- 7 workflows → 2 consolidated (changelog-management.yml, metrics-reporting.yml)
+- Fixed critical bugs: sync-changelog condition (pull_request events lack files), path filter blocking changelog-only PRs
+- 37 tests added (18 + 19), all passing; 10-12% Actions minutes saved in scope
+- Both PRs #1280 and #1282 merged to develop after resolving merge conflicts
+- Pre-existing validation errors in .github/agents/* block full CI but documented separately (issue #1287)
+- Phase 2 (docs consolidation, 12-16h) ready to start; Phase 1B unblocks it
+```
 
-## 13:41 | feat/agents-phase-2b-batch-2-3-standardization
+---
 
-9 doc standards (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI refs) w/ comprehensive plans (PLAN.md, PLAN-EXPANDED.md v2.0) committed to develop; Epic #1261 + 9 tracking issues (#1262–#1270) created w/ research prompts; PR #1251 merged after CI validation fixes.
+## To Kick Off Phase 2
 
-## 13:43 | audit/skills-standards-batch-2-3
+**Option 1: Direct Prompt**
 
-Batch 2-3 audit completed for 11 agents; PHASE-2B-SKILLS-AUDIT.md (inventory/conflicts/root classifications); PR #1284; doc moved to project folder; issues #1197/#1079/#1196 updated; CI/review flagged skill count inaccuracies & platform-utilities misclassification.
-Perfect! I've created and saved a comprehensive Phase 1B prompt template that includes:
+```
+For Epic #1227 Phase 2 (Documentation Consolidation):
+Consolidate 5 docs workflows into 2: docs-validation.yml and docs-maintenance.yml
+Workflows: docs-changed, docs-lint, readme-generate, readme-lint, mermaid-accessibility
+Target: 4-6% Actions minutes saved
+Reference: .github/projects/active/workflows-consolidation-2026-q3/EXECUTION_PLAYBOOK.md
+```
 
-**Two ready-to-use prompts:**
+**Option 2: Use Execution Playbook**
+Read `.github/projects/active/workflows-consolidation-2026-q3/EXECUTION_PLAYBOOK.md` → jump to "Phase 2: Documentation" section → follow step-by-step
 
-1. **Phase 1B.i: Changelog Consolidation**
-   - Branch: `refactor/changelog-workflow-consolidation`
-   - Consolidates: changelog-validate.yml + changelog-auto-update.yml
-   - Creates: changelog-management.yml with 3 conditional jobs
-   - Effort: 8-12 hours
+---
 
-2. **Phase 1B.ii: Metrics Consolidation**
-   - Branch: `refactor/metrics-workflow-consolidation`
-   - Consolidates: metrics.yml + metrics-summary.yml
-   - Creates: metrics-reporting.yml with sequential jobs
-   - Effort: 6-8 hours
+**Next Issue:** Create Linear issue for Phase 2 (similar to LS-1826 and LS-1827), then kick off with either prompt above.
 
-**Each prompt includes:**
+## 12:02 | refactor/workflows-consolidation-phase-2-cleanup
 
-- ✅ Links to execution playbook and project documentation
-- ✅ Clear branch naming convention
-- ✅ Specific work breakdown (what to create, migrate, delete)
-- ✅ Success criteria and testing requirements
-- ✅ Estimated effort and related issue numbers
-- ✅ References to technical audit sections
+Identified 8 CodeRabbit issues (command injection, permission scoping, error masking) in Phase 2 consolidation PRs; prepared follow-up PR before Phase 2.3 integration testing.
 
-The prompts are saved in your memory system and can be copied directly when you're ready to start Phase 1B work. You can tackle them sequentially or in parallel depending on team capacity.
+## 14:45 | develop
 
-## 13:48 | audit/skills-standards-batch-2-3
+Created COMPLETION_STATUS.md (Phase 1-2 completion: 9 standards, 18+ diagrams, 5 PRs, 11 issues); created Phase 3 issues #1356-#1358 w/ DoR/DoD; merged PR #1369 to develop.
 
-Corrected file location per CLAUDE.md (root→project folder), fixed PR template & audit methodology (skill-count clarification, platform utilities distinction, a11y-checker classification), resolved merge conflicts; PR #1284 ready for merge pending CI.
+## 12:10 | test/feat-labeling-test-1
 
-## 13:52 | audit/skills-standards-batch-2-3
+Phase 3.1 labeling consolidation merged (PR #1367 → develop); Phase 3.2 (#1323) test framework created on test/labeling-consolidation-integration w/ 14-test plan (5 scenarios).
 
-Fixed js-yaml v4 compat in validate-footers.js & added footer to audit doc, resolved conflicting labels (meta:needs-changelog vs meta:no-changelog) on PR #1284; CI pending final run.
+## 12:12 | fix/workflows-documentation-security-hardening
 
-## 13:57 | audit/skills-standards-batch-2-3
+Security hardening PR created for documentation.yml addressing CodeRabbit feedback (job-scoped perms, persist-credentials, README resolver logic, maintenance report accuracy); related issue #1312 created; Phase 2.4 PR #1317 merged to develop; Phase 2.3 test plan & Phase 3 design complete; next session prompt updated w/ all refs & committed to active project.
 
-Removed unused variables in validate-footers.js (cf1d90a83) & added memory file footer (a6abae7b4); Linting/Validation CI checks still failing.
+## 12:13 | develop
 
-## 14:00 | audit/workflows-consolidation-phase-1b
+Created consolidated `labeling-governance.yml` combining 3 labeling workflows (labeling.yml, dependabot-security-label.yml, issue-close-label-hygiene.yml into 1), merged PR #1319 to develop, created Phase 3 tracking issues #1360-#1363, disabled legacy workflows (`if: false`) for 24h monitoring; Phase 3.1 complete & deployed.
 
-Consolidated 4 workflows into changelog-management.yml & metrics-pipeline.yml (PR #1286 created); conflict resolution & linting pending.
+## 12:13 | Phase 3 labeling consolidation merged to develop; project nav updated; feature branch deleted; Phase 3 kickoff prompt created
 
-## 14:02 | audit/skills-standards-batch-2-3
+## 12:15 | feat/issue-triage-automation-enhancements
 
-Audited 11 Batch 2-3 agents (258 skills, PR #1284); fixed js-yaml compatibility, ESLint warnings, footer validation, merge conflicts.
+Built comprehensive issue triage automation system in PR #1377 with milestone-assignment & remediation-checklist agents, enhanced issue-creation & bulk-remediation workflows; created epic #1376 with 8 child issues (#1378-#1385); added `.github/projects/active/issue-triage-automation-system/` project documentation & continuation prompt.
 
-## 14:05 | develop
+## 12:17 | docs/workflows-consolidation-phase-2-documentation
 
-Merged 6 v1.0 milestone PRs (#1200 DoD validation, #1201 template enforcement, #1202 type aliases, #1203 label cleanup, #1221 Phase 2B audit, #1212 quirky footers system); fixed PR #1204 template + CodeRabbit feedback (UK spelling, grammar, issue labeling); resolved merge conflicts and pre-existing agent validation blockers across all PRs.
+Phase 2 workflows-consol complete (merged PRs #1313 documentation.yml, #1317 cleanup); addressed CodeRabbit feedback (PR #1387 security-fixes, Issue #1386); committed PHASE_2_3_TEST_EXECUTION_PLAN.md, PHASE_2_COMPLETION_SUMMARY.md, PHASE_3_LABELING_CONSOLIDATION_PLAN.md to develop.
 
-## 14:07 | refactor/metrics-workflow-consolidation
+## 12:28 | develop
 
-Fixed `merge-entries.cjs` bug destroying changelog section headers; created 4-phase hardening plan (PROJECT_PLAN.md, CHANGELOG_GUIDELINES.md, PHASE_2_REBUILD_HISTORY.md, EXECUTION_PROMPT.md); merged PR #1276 (epic #1271) to develop with full code review fixes.
+Phase 3.1: Merged PR #1319 (labeling-gov.yml consolidates 3 workflows), disabled legacy workflows, opened tracking issues #1360-#1363.
 
-## 15:30 | develop
+## 12:36 | test/feat-labeling-test-1
 
-Merged PR #1251 (9 doc standards: agents, skills, instructions, workflows, cookbooks, prompts, plugins, hooks, AI references); all planning files (PLAN.md, PLAN-EXPANDED.md, INDEX.md) committed to develop; epic #1261 + 9 child issues (#1262–#1270) created with task templates & research prompts; all issues linked to planning docs; Phase 2-3 roadmap documented.
+Committed Phase 3.2 test plan + 8 active project planning docs (commit 76fb9ad94), push to develop blocked by release.agent.js test validation failures in pre-push hooks.
 
-## 14:06 | feat/agents-phase-2b-batch-2-3-standardization
+## 12:36 | develop
 
-Phase 1 Agent & Skills Standards delivered: 9 docs in docs/ (agents/skills/instructions/workflows/cookbooks/prompts/plugins/hooks/AI), PLAN-EXPANDED v2.0 w/ Mermaid & awesome-copilot audit, Epic #1261 + 9 issues (#1262–#1270) w/ task templates, fixed frontmatter dates & design-md-agent link, merged PR #1251 to develop.
+Merged PR #1319: consolidated 3 labeling workflows into labeling-governance.yml (Phase 3.1 complete), disabled old workflows, created tracking issues #1360-#1363.
 
-## 14:09 | audit/skills-standards-batch-2-3
+## 15:30 | chore/changelog-automation-completion
 
-Phase 2B Batch 2-3 audit (11 agents, 258 skills) w/ conflict matrix & consolidation roadmap in PHASE-2B-SKILLS-AUDIT.md, PR #1284 linked to #1197/#1079, fixed js-yaml v4 & footer validation issues through CI iteration.
+Completed changelog automation Phases 1-3 (127 PR entries recovered, PRs #1281/#1315 merged to develop), finalized project status docs (README.md, PROJECT_PLAN.md, PHASE_4_KICKOFF.md with 4A-4D sub-tasks), all changes committed to develop.
 
-## 14:13 | audit/skills-standards-batch-2-3
+## 12:37 | develop
 
-PR #1284 CI: Validation & Testing pass, Linting fails on pre-existing agent false-positive credential warnings; fixed design-partner-agent, fixing website-content-strategist-agent w/ safe placeholder patterns.
+Phase 3 labeling consolidation: consolidated labeling.yml, dependabot-security-label.yml, issue-close-label-hygiene.yml → labeling-governance.yml; PR #1319 merged to develop; created tracking issues #1360-#1363; disabled legacy workflows for 24h monitoring.
 
-## 14:20 | claude/workflows-consolidation-phase-2-fa76e8
+## [TIME] | refactor/repo-restructuring-2026-07-25
 
-Fixed critical merge-entries.cjs bug destroying changelog entries (section header preservation), created 4-phase hardening plan w/ CHANGELOG_GUIDELINES.md & Phase 2 rebuild docs, filed child issue #1275, merged PR #1276 to develop.
+Repo restructuring project initialized: renamed branch per governance, created 12 docs (SPECIFICATION.md, PREFLIGHT_CHECKLIST.md, 7 PHASE-*.md prompts, project README/INDEX, continuation prompt), fixed 185 lint issues, created PR #1384; Phase 1.A ready.
 
-## 14:22 | claude/repo-structure-instructions-81094d
+## 12:43 | test/feat-labeling-test-1
 
-Audited consolidation scope (502 instr refs, 35 agents, 26 schemas across 2 locations), created migration plan w/ DoD checklist, filed #1288, opened PR #1289.
+Merged PR #1367 (Phase 3.1 labeling consolidation): consolidated 3 workflows→1 via labeling-governance.yml (47% reduction, 204 lines eliminated); Phase 3.2 test plan prepared (5 scenarios, 14 test cases, branches test/labeling-consolidation-integration & test/feat-labeling-test-1); staged 9 active proj planning files + workflow for develop PR.
 
-## 14:24 | audit/skills-standards-batch-2-3
+## 12:49 | develop
 
-Completed Phase 2B Batch 2-3 skills audit (11 agents, 258 skills), created audit doc in project folder, opened PR #1284 w/ footer validation arg forwarding fix (root cause), resolved security audit false positives across 8 files, removed broken badge links; updated issues #1197, #1079.
+Merged labeling-governance.yml consolidation (PR #1319) to develop; created issues #1360-#1363; Phase 3.3 deprecation underway.
 
-## 14:26 | refactor/repo-structure-realignment
+## 12:53 | test/feat-labeling-test-1
 
-Audited schema consolidation (26 files, 150+ refs), agents (35 agents, 12k+ files), instructions (502 refs/156 files); opened issue #1288 & PR #1289 (refactor/repo-structure-schema-consolidation); Phase 1 validation identified 35 script refs needing path updates.
-
-## 14:28 | audit/skills-standards-batch-2-3
-
-Completed Phase 2B Batch 2-3 skills audit (11 agents, 258 skills); PR #1284 pushed with all CI checks passing after fixing npm script argument forwarding (root cause of footer validation scanning all 9074 files), security audit false positives, frontmatter freshness, and broken badge links; audit doc at `.github/projects/active/agent-skills-standards-comprehensive/PHASE-2B-SKILLS-AUDIT.md` ready for merge.
-
-## 15:33 | refactor/repo-structure-realignment
-
-Applied refactor PR templates to #1303/#1289 with comprehensive issue linking; schema consolidation verified (26 files migrated to .schemas/, 4 validation tests passing); code review feedback added & applied to CLAUDE.md (path reference table); marked child issues #1292/#1295/#1296 complete; merge conflicts in memory tracking files identified during rebase, resolving.
-
-## 15:35 | docs/changelog-project-status-update
-
-Merged PRs #1281 & #1315 recovering 127 total PR entries (76 + 51) for 100% post-v1.0.0 changelog coverage (June 23—July 24), added validation automation (7 rules, integration tests), updated PROJECT_PLAN.md phases to ✅ Complete for Phases 1-2.5, created README.md tracking all deliverables in `.github/projects/active/changelog-automation-hardening/`.
-
-## 15:50 | develop
-
-Rebuilt CHANGELOG.md [Unreleased] with 37 entries from 40+ merged PRs (May—July), renamed branch to `chore/changelog-rebuild-phase-2`, merged PR #1279 to develop after rebasing & resolving conflicts, fixed Codex feedback (removed duplicate Dependabot, corrected automation PR link #1275→#1276).
-
-## 19:21 | test/phase-2-3-scenario-2-push-commit
-
-Merged PRs #1313 & #1317 (Phase 2 docs workflow consolidation + cleanup), executed Phase 2.3 integration tests (PRs #1365–#1366, manual audit/maintain dispatches), created Phase 3 labeling consolidation plan for Epic #1227.
+Merged PR #1367 (labeling-gov consolidation) to develop; created test/feat-labeling-test-1 for Phase 3.2 w/ test plans (5 scenarios, 14 tests); staged PR #1390 for project docs.

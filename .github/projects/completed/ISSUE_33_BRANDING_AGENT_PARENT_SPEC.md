@@ -1,6 +1,6 @@
 ---
 title: "Unified Branding Agent — Parent Specification (Issue [#33](https://github.com/lightspeedwp/.github/issues/33))"
-description: "Complete parent specification for unified branding agent defining category taxonomy, header/footer requirements, badge system, and schema/config approach"
+description: "Complete parent specification for unified branding agent defining category taxonomy, header/footer requirements, badge system, and .schemas/config approach"
 file_type: "documentation"
 created_date: "2026-05-28"
 last_updated: "2026-05-28"
@@ -12,7 +12,7 @@ tags: ["branding", "governance", "automation", "specification"]
 # Unified Branding Agent — Parent Specification
 
 **Issue**: [#33](https://github.com/lightspeedwp/.github/issues/33)
-**Related Issues**: [#46](https://github.com/lightspeedwp/.github/issues/46) (template design), [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config), [#48](https://github.com/lightspeedwp/.github/issues/48) (agent implementation)
+**Related Issues**: [#46](https://github.com/lightspeedwp/.github/issues/46) (template design), [#49](https://github.com/lightspeedwp/.github/issues/49) (.schemas/config), [#48](https://github.com/lightspeedwp/.github/issues/48) (agent implementation)
 **Status**: Specification Phase
 **Effort**: 12–16 hours (planning complete)
 **Timeline**: Week 1–2 implementation
@@ -48,7 +48,7 @@ Create a **unified branding agent** that:
 - `prompts/` — Prompt templates
 - `agents/` — Agent specifications
 - `awesome-copilot/` — Awesome Copilot resources
-- `schema/` — Data validation schemas
+- `.schemas/` — Data validation schemas
 - `.github/projects/active/` — Planning documents
 - `wceu-2026/` — Talk planning and assets
 - Root-level `.md` files — `README.md`, `CHANGELOG.md`, etc.
@@ -163,7 +163,7 @@ The branding agent supports **16 document categories**, each with distinct purpo
 
 **Purpose**: Data schema definitions, validation rules, and format specifications
 **Audience**: Developers consuming schema, API users, automation engineers
-**File Patterns**: `schema/**/*.md`, `schemas/**/*.md`, `*.schema.md`
+**File Patterns**: `.schemas/**/*.md`, `schemas/**/*.md`, `*.schema.md`
 **Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "schema"`
 **Header Behavior**: Required; includes schema version, validation tool, status
 **Footer Behavior**: Links to schema implementation, validation results, related schemas
@@ -486,7 +486,7 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 ```
 ---
 **Schema Version**: v2.0 | **Validation Tool**: JSON Schema v7
-[JSON File](./../schemas/SCHEMA_NAME.schema.json) | [Edit spec](https://github.com/lightspeedwp/.github/edit/develop/schema/SCHEMA_NAME.schema.md)
+[JSON File](./../schemas/SCHEMA_NAME.schema.json) | [Edit spec](https://github.com/lightspeedwp/.github/edit/develop/.schemas/SCHEMA_NAME.schema.md)
 ```
 
 **Variant 2** (With Validation Status):
@@ -905,7 +905,7 @@ tags: ["governance", "automation"]  # Optional; max 8
 | `instructions/**/*.md` | `instructions` |
 | `agents/**/*.md` | `agents` |
 | `prompts/**/*.md` | `prompts` |
-| `schema/**/*.md` | `schema` |
+| `.schemas/**/*.md` | `schema` |
 | `awesome-copilot/**/*.md` | `awesome-copilot` |
 | `research/**/*.md` | `research` |
 | `.github/workflows/**/*.md` | `workflow` |
@@ -1021,7 +1021,7 @@ Example of appropriate-noise:
 
 - ✅ Complete Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (parent spec) — *This document*
 - Complete Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (template design)
-- Complete Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config model)
+- Complete Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (.schemas/config model)
 
 **Deliverables**: 3 merged specification issues ready for implementation
 

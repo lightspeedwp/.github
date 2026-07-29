@@ -29,7 +29,7 @@ Split issues when any of these are true:
 
 - Different owners are likely required: content, design, development, SEO, forms, hosting, or client.
 - A high-risk production change is mixed with a low-risk content update.
-- A schema/readiness task is mixed with implementation work.
+- A .schemas/readiness task is mixed with implementation work.
 - Core content-model work is mixed with extension-specific work.
 - Wetu import/sync work is mixed with manual WordPress content cleanup.
 

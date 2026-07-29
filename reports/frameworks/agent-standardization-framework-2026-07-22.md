@@ -235,7 +235,7 @@ plugins/lightspeed-playwright-testing/
 ├── hooks/
 │   ├── hook-references.json
 │   └── [hook implementations if plugin-specific]
-├── schema/
+├── .schemas/
 │   └── [plugin-specific schemas if needed]
 ├── docs/
 │   ├── agent-guide.md
@@ -287,7 +287,7 @@ capabilities:
 | `providers` | Array of valid providers (min 1) | `["claude", "copilot", "openai"]` |
 | `capabilities` | Non-empty array of strings | `["browser-automation", "visual-regression"]` |
 
-**Schema:** `.github/schema/multi-provider-agent.schema.json`
+**Schema:** `.github/.schemas/multi-provider-agent.schema.json`
 
 ### Provider Configuration Validation
 
@@ -309,7 +309,7 @@ capabilities:
 - Response format: function_call + JSON
 - Must follow OpenAI API specifications
 
-**Schema:** `.github/schema/provider-config.schema.json`
+**Schema:** `.github/.schemas/provider-config.schema.json`
 
 ### Plugin Manifest Validation
 
@@ -339,7 +339,7 @@ capabilities:
 - ✅ All hooks are registered in `.github/hooks/hook-registry.json`
 - ✅ Providers object has valid entries
 
-**Schema:** `.github/schema/agent-plugin-binding.schema.json`
+**Schema:** `.github/.schemas/agent-plugin-binding.schema.json`
 
 ### Capability Manifest Validation
 
@@ -356,7 +356,7 @@ capabilities:
 - Rule must be clear and enforceable
 - Scope must be one of: strict, moderate, permissive, restricted
 
-**Schema:** `.github/schema/agent-capability-manifest.schema.json`
+**Schema:** `.github/.schemas/agent-capability-manifest.schema.json`
 
 ---
 
@@ -506,7 +506,7 @@ capabilities:
 | provider-config | provider-config.schema.json | Per-provider agent config | Validate claude/copilot/openai agent.md |
 | agent-capability-manifest | agent-capability-manifest.schema.json | Capabilities and constraints | Validate capability definitions |
 
-**Location:** `.github/schema/` with entries in `schema-registry.json`
+**Location:** `.github/.schemas/` with entries in `schema-registry.json`
 
 ---
 
@@ -639,11 +639,11 @@ Implementation of agent rewrite, plugin creation, validation, and merge follows 
 
 **Repository Updates:**
 
-- [ ] `.github/schema/multi-provider-agent.schema.json`
-- [ ] `.github/schema/agent-plugin-binding.schema.json`
-- [ ] `.github/schema/provider-config.schema.json`
-- [ ] `.github/schema/agent-capability-manifest.schema.json`
-- [ ] Update `.github/schema/schema-registry.json`
+- [ ] `.github/.schemas/multi-provider-agent.schema.json`
+- [ ] `.github/.schemas/agent-plugin-binding.schema.json`
+- [ ] `.github/.schemas/provider-config.schema.json`
+- [ ] `.github/.schemas/agent-capability-manifest.schema.json`
+- [ ] Update `.github/.schemas/schema-registry.json`
 - [ ] `.github/hooks/agent-spec-validator/`
 - [ ] `.github/hooks/multi-provider-consistency-checker/`
 - [ ] `.github/hooks/plugin-integrity-checker/`

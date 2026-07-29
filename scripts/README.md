@@ -190,7 +190,7 @@ Scripts integrate with GitHub Actions workflows:
 Scripts work with various configuration files:
 
 - `.coderabbit.yml` — CodeRabbit configuration
-- `../schema/` — JSON/YAML validation schemas
+- `../.schemas/` — JSON/YAML validation schemas
 - `.github/workflows/` — GitHub Actions definitions
 - `fixtures/` — Test data and templates
 
@@ -361,7 +361,7 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 - [Coding Standards](../instructions/coding-standards.instructions.md)
 - [Quality Assurance](../instructions/quality-assurance.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
-- [Schema Definitions](../schema/)
+- [Schema Definitions](../.schemas/)
 
 ## External Dependencies
 
@@ -449,7 +449,7 @@ When contributing new scripts or modifications:
 ## Development Resources
 
 - [GitHub Actions Workflows](../.github/workflows/)
-- [Schema Definitions](../schema/)
+- [Schema Definitions](../.schemas/)
 - [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 

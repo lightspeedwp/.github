@@ -55,7 +55,7 @@ Use this file after reading `references/mcp-and-rest-api-contract.md` when a tas
 | Site preflight | `wp_site_preflight`, `wp_list_plugins`, `gravityforms_get_system_status` | Ask for System Status export and plugin list screenshots |
 | Form inventory | `gravityforms_list_forms` | Ask for exported forms JSON or admin list screenshot |
 | Inspect form | `gravityforms_get_form` | Ask for form JSON export and screenshots of settings |
-| Create form | `gravityforms_create_form` with schema/body validation | Provide manual admin build plan |
+| Create form | `gravityforms_create_form` with .schemas/body validation | Provide manual admin build plan |
 | Update form | `gravityforms_update_form` after current form read | Provide JSON diff/manual edit checklist |
 | Preserve production form | `gravityforms_duplicate_form`, then edit duplicate | Manual duplicate in admin first |
 | Notifications | `gravityforms_list_notifications`, then `gravityforms_update_notifications` | Manual notification table and merge tag checklist |

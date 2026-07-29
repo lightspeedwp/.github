@@ -70,7 +70,7 @@ Use the specialized prompt that best matches the requested cleanup:
 - Choose the example-family, template-schema, or file-family-gap prompts when the main issue is workflow-family structure drift.
 - Choose the starter-prompt alignment prompt when the main issue is public-facing presentation drift in the tagline or starter prompts.
 - Choose the README refresh prompt when the main issue is stale folder descriptions, file lists, or package structure references.
-- Choose the validation tightening prompt when the main issue is schema/template/example/validator drift or overclaimed validation coverage.
+- Choose the validation tightening prompt when the main issue is .schemas/template/example/validator drift or overclaimed validation coverage.
 - Choose the recommended cleanup pass when the main issue is broader non-blocking package consistency rather than one narrow cleanup surface.
 - Choose the prompt-library consistency prompt when the main issue is that the prompt system itself is no longer indexed or routed cleanly.
 - If the request clearly spans more than one of those areas, you may use the specialized prompts in sequence, starting with the narrowest high-impact pass first.

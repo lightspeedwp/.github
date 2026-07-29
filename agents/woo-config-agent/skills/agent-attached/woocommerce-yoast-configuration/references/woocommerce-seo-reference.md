@@ -14,7 +14,7 @@ Use this file for WooCommerce catalogue, transactional store, product schema, pr
 
 | Situation | Product posture | Notes |
 |---|---|---|
-| Small catalogue, no transactions | Yoast SEO Free may cover general metadata; evaluate WooCommerce SEO if product schema/social/product archive control matters | Verify product schema needs |
+| Small catalogue, no transactions | Yoast SEO Free may cover general metadata; evaluate WooCommerce SEO if product .schemas/social/product archive control matters | Verify product schema needs |
 | Transactional WooCommerce store | Evaluate Yoast WooCommerce SEO alongside Yoast SEO base plugin | Product data and variation output matter |
 | Store with frequent product URL changes | Consider Premium only if redirects/internal linking/orphaned content provide operational value | Verify packaging |
 | Store with AI-assisted metadata workflow | Consider AI Plus only after verifying current entitlement, data policy, review process, and approval workflow | Do not publish generated metadata without human QA |

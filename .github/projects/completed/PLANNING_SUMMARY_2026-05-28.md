@@ -79,7 +79,7 @@ A comprehensive planning document covering:
 2. **Week 1**:
    - Complete issue [#33](https://github.com/lightspeedwp/.github/issues/33) (parent spec)
    - Complete issue [#46](https://github.com/lightspeedwp/.github/issues/46) (template design)
-   - Complete issue [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config model)
+   - Complete issue [#49](https://github.com/lightspeedwp/.github/issues/49) (.schemas/config model)
    - Complete issue [#48](https://github.com/lightspeedwp/.github/issues/48) (documentation & agent spec)
 
 3. **Week 2**:

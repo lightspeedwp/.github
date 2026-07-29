@@ -3,16 +3,24 @@ name: Phase 2B Skills Audit - Implementation Notes
 description: Technical implementation details, file references, and audit methodology
 created: 2026-07-24
 status: complete
+last_updated: 2026-07-29
 ---
 
 # Phase 2B Skills Audit — Implementation Notes
+
+## Task Status Update (2026-07-29)
+
+- Issue quality remediation completed for Phase 2B Phase C task issues #1326-#1355.
+- All remediated issues now have descriptive titles aligned to Phase C task codes.
+- Issue bodies are now template-compliant, with DoR and DoD sections present.
+- Execution status moved from `status:needs-more-info` to `status:ready` for all remediated tasks.
 
 ## Core Audit Documents
 
 ### 1. PHASE-2B-SKILLS-AUDIT.md (Root of Repository)
 
-**Location:** `.github/projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md`  
-**Purpose:** Comprehensive audit report with detailed analysis  
+**Location:** `.github/projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md`
+**Purpose:** Comprehensive audit report with detailed analysis
 **Content:**
 
 - Skills inventory for Batch 1 (5 agents completed, 11 to audit)
@@ -275,8 +283,8 @@ agents/{agent-slug}/skills/{skill-name}-override/
 
 ---
 
-**Last Updated:** 2026-07-24  
-**Status:** Phase A (Audit) — 100% complete ✅  
+**Last Updated:** 2026-07-24
+**Status:** Phase A (Audit) — 100% complete ✅
 **Next Milestone:** Phase B Planning (Week 3) - Skill dependency map & architecture
 
 ---

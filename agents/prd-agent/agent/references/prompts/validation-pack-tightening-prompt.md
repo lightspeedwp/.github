@@ -67,7 +67,7 @@ Priority validation concerns:
 - markdown structure checks
 - naming-convention checks
 - memory hygiene
-- schema presence and schema/file alignment
+- schema presence and .schemas/file alignment
 - starter-prompt documentation coverage
 - template consistency
 - example/template separation

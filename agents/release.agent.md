@@ -235,7 +235,7 @@ Release Agent Orchestration:
 2. Pre-Release Validation (Sequential, All Must Pass)
    ├─ Call checks.yml (linting + testing, hard gate)
    │  └─ If fails: abort with error
-   ├─ Call validate.yml (schema/structure validation)
+   ├─ Call validate.yml (.schemas/structure validation)
    │  └─ If fails: abort with error
    ├─ Call changelog-validate.yml (hard gate)
    │  └─ If fails: abort with error
@@ -271,7 +271,7 @@ Release Agent Orchestration:
 | --------------------------- | -------------------------------------------------- |
 | Linting fails               | Abort; report lint errors; suggest fixes           |
 | Tests fail                  | Abort; report test failures; suggest fixes         |
-| Changelog invalid           | Abort; report schema/content errors; suggest fixes |
+| Changelog invalid           | Abort; report .schemas/content errors; suggest fixes |
 | Release workflow fails      | Rollback tag creation; abort; notify maintainers   |
 | Post-release workflow fails | Continue; warn user; log issue for manual review   |
 

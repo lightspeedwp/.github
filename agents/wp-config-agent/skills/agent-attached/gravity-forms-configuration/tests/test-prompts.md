@@ -141,7 +141,7 @@ Expected behaviour: Expected: do not configure payments; request gateway evidenc
 
 Prompt: "Build a change plan but do not apply it."
 
-Expected behaviour: Expected: produce change-plan schema/template output with approval gate.
+Expected behaviour: Expected: produce change-plan .schemas/template output with approval gate.
 
 ## 19. Produce a handoff note after changes
 

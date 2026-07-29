@@ -150,7 +150,7 @@ First, what category does this report belong to?
 - audits (compliance audits, system-wide checks)
 - implementation (implementation tracking, completion summaries)
 - migration (migration reports, data transfers, transitions)
-- validation (schema/config validation, compliance)
+- validation (.schemas/config validation, compliance)
 - agents (agent execution reports, performance logs)
 - coverage (test coverage, quality metrics)
 - frontmatter (frontmatter validation, compliance)

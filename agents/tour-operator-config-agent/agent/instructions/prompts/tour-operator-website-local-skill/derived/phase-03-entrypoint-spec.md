@@ -41,7 +41,7 @@ The packaged skill should own this specialist role:
 
 - audit Tour Operator WordPress sites
 - interpret Tour Operator content-model evidence conservatively
-- support schema/Yoast readiness analysis
+- support .schemas/Yoast readiness analysis
 - support QA, launch-readiness, and implementation handoffs
 - preserve strict evidence boundaries between confirmed core structures, extension placeholders, integration placeholders, and unknowns
 
