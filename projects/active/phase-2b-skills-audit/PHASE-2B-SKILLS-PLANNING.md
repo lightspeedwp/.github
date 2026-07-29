@@ -542,8 +542,8 @@ Per-agent cleanup (5-6 hours each due to higher complexity):
 - [x] Add guardrail validation that fails fast with explicit logging when project URL parsing cannot produce a valid numeric project ID.
 - [ ] Verify GitHub App permissions for org issue types query and confirm required org/project scopes are granted.
 - [x] Add fallback behavior for org issue type sync when integration scope is insufficient, including actionable summary output.
-- [ ] Re-run `Issue Fields • Bulk Backfill` after fixes and capture before/after metrics: native types set, project fields set, errors.
-- [ ] Post a run-summary update to issue #1404 and link final remediation PR.
+- [x] Re-run `Issue Fields • Bulk Backfill` after fixes and capture before/after metrics: native types set, project fields set, errors.
+- [x] Post a run-summary update to issue #1404 and link final remediation PR.
 
 ### Phase C Kickoff (Week 5)
 
