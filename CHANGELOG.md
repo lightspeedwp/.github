@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
+
 - **Phase 2B Phase B Skills Consolidation Planning** — Comprehensive Phase B planning deliverables establishing architectural foundation for Phase C execution (weeks 5-12). Includes skill dependency map (377 skills across 16 agents), architecture plan resolving 3 critical architectural decisions (Tier 0/1/2/3 organization, override system design, HIGH-severity conflict resolution), and implementation roadmap with 32 templated Phase C tasks (62-84 hours estimated). ([PR #1370](https://github.com/lightspeedwp/.github/pull/1370), [#1316](https://github.com/lightspeedwp/.github/issues/1316), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
 - **Playwright Testing Agent multi-provider support** — Converted ChatGPT/Codex export into standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added provider-agnostic AGENT.md, per-provider configs, tools/skill definitions, and plugin packaging. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
@@ -164,6 +166,8 @@ Thank you to everyone who contributed to these improvements!
 
 ### Added
 
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
+
 - **Issue automation hardening** — Expanded `checklist-finalisation.yml` to auto-tick `Steps / Checklist` and `Acceptance Criteria` sections on issue close (previously only DoR/DoD were covered). Added `enforce-close-guard` job to `template-enforcement.yml`: issues closed as "completed" that are missing DoR/DoD sections or still carry `status:needs-more-info` are automatically re-opened with an explanation comment. Activated `issues.agent.js` apply mode — the workflow now writes `status:needs-triage`, `priority:normal`, and a detected `type:*` label to newly opened issues when those label categories are not already present; updated `issues.yml` permissions from `issues: read` to `issues: write`. ([#1014](https://github.com/lightspeedwp/.github/issues/1014))
 
 - **GitHub Merge Queue support** — Added `merge_group: types: [checks_requested]` trigger to `checks.yml`, `validate-pr-template.yml`, and `main-branch-guard.yml` so required status checks fire correctly inside GitHub's Merge Queue. Skipped branch-name validation for `merge_group` runs and updated the changed-files comparison to use merge-queue SHAs. Added `merge_queue` rule (ALLGREEN grouping, 60-minute check timeout) to both `develop` and `main` branch rulesets. ([PR #1008](https://github.com/lightspeedwp/.github/pull/1008), [Issue #1008](https://github.com/lightspeedwp/.github/issues/1008))
@@ -210,6 +214,8 @@ Thank you to everyone who contributed to these improvements!
 
 ### Added
 
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
+
 - **Claude Code session-start hook** — Added `.claude/hooks/session-start.sh` and `.claude/settings.json` to install npm dependencies and auto-rename auto-generated `claude/` prefixed branches (forbidden by `CLAUDE.md`) to valid `chore/session-{hash}` names at the start of every remote session. Prevents forbidden branch names from ever reaching a commit and reduces manual cleanup overhead. ([#984](https://github.com/lightspeedwp/.github/pull/984))
 
 - **Mergify flaky test detection** — Added `.github/workflows/flaky-test-detection.yml` to detect flaky Jest unit tests via Mergify CI. Runs 5 parallel matrix jobs every 12 hours on weekdays and uploads JUnit XML results to Mergify using `mergifyio/gha-mergify-ci@v14` with `flaky_test_detection: true`. ([#979](https://github.com/lightspeedwp/.github/issues/979))
@@ -231,6 +237,8 @@ Thank you to everyone who contributed to these improvements!
 - **Awesome GitHub Site Phase 05: Homepage all 5 blocks wired to live data** — Rebuilt the homepage with the spec-aligned hero, live catalogue counts, feature strip, and Cook+Learn cards. Added the typed catalogue exports used by the homepage counts, copied the Wapuu assets into `website/public/assets/wapuus/`, and added an `onboarding/` alias that redirects to `getting-started/` for the primary CTA. ([#861](https://github.com/lightspeedwp/.github/issues/861), [#862](https://github.com/lightspeedwp/.github/pull/862))
 
 ### Added
+
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
 
 - **Awesome GitHub Site Phase 13: Search command palette** — Site-wide ⌘K search palette (`website/src/components/SearchPalette.astro` + `website/src/scripts/search.js`) added to `AwesomeGithubLayout`. Build-time JSON index of all catalogue items serialised into a `data-items` attribute. Empty query shows 7 Popular items; typed query uses multi-word AND substring matching across name, description, tags, and category (capped at 12 results). Keyboard navigation (↑↓ arrow keys, Enter to open result, Escape to close, Tab focus-trap between input, close button, and result items). Fully accessible: `role="dialog"`, `aria-modal`, `aria-selected`, focus returns to trigger on dismiss. ([#764](https://github.com/lightspeedwp/.github/issues/764), [#889](https://github.com/lightspeedwp/.github/pull/889))
 
@@ -335,6 +343,8 @@ Thank you to everyone who contributed to these improvements!
 - **WCEU 2026 Branch Name References** — Updated references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md` from old branch name `claude/charming-goldberg-Pqc69` to correct branch `claude/affectionate-bohr-AX2jS`
 
 ### Added
+
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
 
 - **WCEU 2026 Phase 2 Refinement: Complete Speaker Notes and Visual Design Specifications** — Finalised all speaker notes and visual design guidance for 25-minute WordCamp Europe 2026 presentation on ".github repository automation":
   - `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
@@ -632,6 +642,8 @@ Thank you to everyone who contributed to these improvements!
 
 ### Added
 
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
+
 - Comprehensive meta agent (`meta.agent.js`) for unified front matter, badge, human reference, and footer automation (renamed from branding agent)
 - Unified labeling agent (`labeling.agent.js`) replacing split status/type/standardization agents
 - Extended README management with support for dynamic header/footer insertion and frontmatter validation
@@ -686,6 +698,8 @@ Thank you to everyone who contributed to these improvements!
 ## [0.1.0] - 2025-09-25
 
 ### Added
+
+- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
 
 - Initial release of LightSpeed WordPress organisation community health files
 - GitHub Copilot custom instructions and organisation-wide guidelines
