@@ -159,7 +159,7 @@
     "husky": "^9.0.0",
     "jest": "30.4.2",
     "jest-environment-jsdom": "^30.0.1",
-    "js-yaml": "^5.2.1",
+    "js-yaml": "^5.2.2",
     "lint-staged": "^17.1.1",
     "markdownlint": "^0.41.0",
     "markdownlint-cli2": "0.23.1",
