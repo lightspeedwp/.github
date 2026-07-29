@@ -61,7 +61,7 @@ pull_request_rules:
       - author=lightspeed-bot
       - base=develop
       - label=meta:no-changelog
-      - "title~=^chore\\(meta\\): automated meta-agent sync$"
+      - "title~=^chore\\(meta\\).*automated meta-agent sync$"
       - check-success=All Checks Passed
       - -draft
       - -conflict
