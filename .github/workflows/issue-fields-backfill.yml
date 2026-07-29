@@ -178,12 +178,12 @@ jobs:
                 if (!dryRun) {
                   try {
                     await github.graphql(`
-                      mutation($issueId: ID!, $typeId: ID) {
-                        updateIssue(input: { id: $issueId, typeId: $typeId }) {
+                      mutation($issueId: ID!, $issueTypeId: ID) {
+                        updateIssue(input: { id: $issueId, issueTypeId: $issueTypeId }) {
                           issue { id issueType { name } }
                         }
                       }
-                    `, { issueId: issue.node_id, typeId });
+                    `, { issueId: issue.node_id, issueTypeId: typeId });
                     report.nativeTypeSet.push(`#${issue.number} → ${targetName}`);
                   } catch (err) {
                     report.errors.push(`#${issue.number} native type failed: ${err.message}`);
