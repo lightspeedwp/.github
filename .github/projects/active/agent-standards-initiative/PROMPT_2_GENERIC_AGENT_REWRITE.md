@@ -49,7 +49,7 @@ You are rewriting **{AGENT_NAME}** from ChatGPT format into a standardized multi
 - Folder structure: See `.github/agents/playwright-testing-agent/` (pilot implementation)
 - Naming conventions: See `ai/agents-unified.md`
 - Instruction files: See `.github/instructions/agent-creation-workflow.instructions.md`
-- Schema validation: See `.github/schema/multi-provider-agent.schema.json`
+- Schema validation: See `.github/.schemas/multi-provider-agent.schema.json`
 
 ### PHASE 1: ANALYZE EXISTING EXPORT
 
@@ -885,7 +885,7 @@ git checkout -b feat/{agent-slug}-multi-provider
 git add .github/agents/{agent-slug}-agent/
 git add .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/
 git add .github/instructions/
-git add .github/schema/
+git add .github/.schemas/
 
 git commit -m "feat: add {Agent Name} multi-provider support
 

@@ -5,7 +5,7 @@ Audit repository file placement against `CLAUDE.md` boundaries and organisation 
 ## In-Scope
 
 - Compare current placement with declared boundaries for `.github/`, root-level portable assets, and docs locations
-- Identify misplaced agents/scripts/schema/docs assets
+- Identify misplaced agents/scripts/.schemas/docs assets
 - Produce migration, validation, and rollback plans
 
 ## Out-of-Scope
@@ -37,6 +37,6 @@ Audit repository file placement against `CLAUDE.md` boundaries and organisation 
 - `.github/`
 - `agents/`
 - `scripts/`
-- `schema/`
+- `.schemas/`
 - `workflows/`
 - `instructions/`

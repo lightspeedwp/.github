@@ -121,8 +121,8 @@ Create `.github/tmp/hooks-audit.md` with structure for each hook:
 
 **Action:**
 ```bash
-ls -la .github/schema/ | grep -E "agent|plugin|provider"
-cat .github/schema/schema-registry.json
+ls -la .github/.schemas/ | grep -E "agent|plugin|provider"
+cat .github/.schemas/schema-registry.json
 ```
 
 **Current Relevant Schemas:**
@@ -197,7 +197,7 @@ Create `.github/tmp/ai-config-audit.md` documenting:
 **Action:**
 ```bash
 ls -la .github/.remember/
-ls -la .github/schema/memory/
+ls -la .github/.schemas/memory/
 ```
 
 **Deliverable:**
@@ -1052,7 +1052,7 @@ All three agent-level config files.
 
 **Actions:**
 
-**A. Create `.github/schema/multi-provider-agent.schema.json`**
+**A. Create `.github/.schemas/multi-provider-agent.schema.json`**
 
 ```json
 {
@@ -1089,7 +1089,7 @@ All three agent-level config files.
 }
 ```
 
-**B. Create `.github/schema/agent-plugin-binding.schema.json`**
+**B. Create `.github/.schemas/agent-plugin-binding.schema.json`**
 
 ```json
 {
@@ -1121,7 +1121,7 @@ All three agent-level config files.
 }
 ```
 
-**C. Create `.github/schema/provider-config.schema.json`**
+**C. Create `.github/.schemas/provider-config.schema.json`**
 
 ```json
 {
@@ -1147,7 +1147,7 @@ All three agent-level config files.
 }
 ```
 
-**D. Create `.github/schema/agent-capability-manifest.schema.json`**
+**D. Create `.github/.schemas/agent-capability-manifest.schema.json`**
 
 ```json
 {
@@ -1194,7 +1194,7 @@ All 4 schema files created.
 **Objective:** Update schema registry with new schemas.
 
 **Action:**
-Update `.github/schema/schema-registry.json` to include:
+Update `.github/.schemas/schema-registry.json` to include:
 
 ```json
 {
@@ -1711,7 +1711,7 @@ lightspeed-{domain}-{focus}/
 │   └── agent-2/
 ├── skills/                    # Shared skills
 ├── hooks/                     # Shared hooks
-└── schema/                    # Plugin-specific schema
+└── .schemas/                    # Plugin-specific schema
 ```
 
 ## Agent Grouping
@@ -1951,7 +1951,7 @@ git checkout -b feat/agent-standards-playwright-testing
 git add .github/agents/playwright-testing-agent/
 git add .github/plugins/lightspeed-playwright-testing/
 git add .github/instructions/
-git add .github/schema/
+git add .github/.schemas/
 git add .github/hooks/
 git add .github/cookbook/
 

@@ -99,7 +99,7 @@ Scope:
    - `references/CONNECTORS.md`
 2. Ensure the instructions clearly reflect that:
    - root-level `memory/*.md` files are the current durable memory files
-   - `schemas/*.json` are schema/validation files
+   - `schemas/*.json` are .schemas/validation files
    - `templates/` contains reusable output templates
    - `examples/` contains maintained example outputs
    - `tests/` contains validation sources, checklists, and consistency fixtures

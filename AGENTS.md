@@ -273,6 +273,7 @@ gh issue create --title "Bug title" --body "$BODY"
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| **Documentation Standards** | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) + 8 more | 9 comprehensive standards for agents, skills, workflows, plugins, and AI infrastructure (SEE BELOW) |
 | **Coding Standards**      | [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md)                 | Unified standards for all code                                |
 | **File Organisation**     | [instructions/file-organisation.instructions.md](instructions/file-organisation.instructions.md) | Where to create reports, tasks, and project files (CRITICAL)  |
 | **Quality Assurance**     | [instructions/quality-assurance.instructions.md](instructions/quality-assurance.instructions.md)               | Testing pyramid, Jest, coverage, CI/CD (3 files consolidated) |
@@ -288,6 +289,58 @@ gh issue create --title "Bug title" --body "$BODY"
 - **quality-assurance.instructions.md** - Testing, Jest, coverage, CI/CD (consolidated 3 files)
 - **automation.instructions.md** - Agents, labeling, release, metrics (consolidated 8 files)
 - **community-standards.instructions.md** - Files, naming, README, saved replies (consolidated 4 files)
+
+---
+
+## Documentation Standards
+
+All agents, skills, instructions, and related AI infrastructure must follow the 9 comprehensive standards documented below. These standards ensure consistency, maintainability, and professional quality across all AI-driven components.
+
+### Quick Reference Guide
+
+| Standard | Primary Use | Key Sections | Reference |
+| --- | --- | --- | --- |
+| **Agent Standards** | Single-file & folder-based agent design | Architecture, structure, configuration, patterns | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) |
+| **Skills Standards** | Shared and dedicated skill creation | Skill lifecycle, structure, templates, quality gates | [docs/SKILLS_STANDARDS.md](docs/SKILLS_STANDARDS.md) |
+| **Instructions Standards** | Portable instruction files for agents | File structure, frontmatter, role declarations, validation | [docs/INSTRUCTIONS_STANDARDS.md](docs/INSTRUCTIONS_STANDARDS.md) |
+| **Workflows Standards** | Reusable agentic workflow patterns | Execution patterns, composition, error handling, examples | [docs/WORKFLOWS_STANDARDS.md](docs/WORKFLOWS_STANDARDS.md) |
+| **Cookbooks Standards** | Implementation guides and recipes | Cookbook lifecycle, structure, audience targeting, testing | [docs/COOKBOOKS_STANDARDS.md](docs/COOKBOOKS_STANDARDS.md) |
+| **Prompts Standards** | Reusable prompt templates & patterns | Prompt lifecycle, taxonomy, composition rules, validation | [docs/PROMPTS_STANDARDS.md](docs/PROMPTS_STANDARDS.md) |
+| **Plugins Standards** | Claude Code plugin architecture | Plugin lifecycle, structure, manifest, validation | [docs/PLUGINS_STANDARDS.md](docs/PLUGINS_STANDARDS.md) |
+| **Hooks Standards** | Event-driven hooks for automation | Hook execution, structure, validation, patterns | [docs/HOOKS_STANDARDS.md](docs/HOOKS_STANDARDS.md) |
+| **AI References Standards** | Canonical AI model & runner references | Reference lifecycle, maintenance, scope, tools | [docs/AI_REFERENCES_STANDARDS.md](docs/AI_REFERENCES_STANDARDS.md) |
+
+### When to Use Each Standard
+
+- **Creating a new agent?** → Read [AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md)
+- **Building a reusable skill?** → Read [SKILLS_STANDARDS.md](docs/SKILLS_STANDARDS.md)
+- **Writing instruction files?** → Read [INSTRUCTIONS_STANDARDS.md](docs/INSTRUCTIONS_STANDARDS.md)
+- **Designing an agentic workflow?** → Read [WORKFLOWS_STANDARDS.md](docs/WORKFLOWS_STANDARDS.md)
+- **Creating a how-to guide?** → Read [COOKBOOKS_STANDARDS.md](docs/COOKBOOKS_STANDARDS.md)
+- **Building prompt templates?** → Read [PROMPTS_STANDARDS.md](docs/PROMPTS_STANDARDS.md)
+- **Developing a plugin?** → Read [PLUGINS_STANDARDS.md](docs/PLUGINS_STANDARDS.md)
+- **Creating event hooks?** → Read [HOOKS_STANDARDS.md](docs/HOOKS_STANDARDS.md)
+- **Maintaining AI references?** → Read [AI_REFERENCES_STANDARDS.md](docs/AI_REFERENCES_STANDARDS.md)
+
+### Standards Highlights
+
+Each standard document includes:
+
+- **Overview** — Purpose, scope, and use cases
+- **Lifecycle** — Phases from creation through maintenance
+- **Structure** — File organisation and mandatory sections
+- **Quality Gates** — Validation rules and compliance checklist
+- **Examples** — Real-world implementations and templates
+- **References** — Related standards and cross-links
+
+### Compliance & Validation
+
+All standards include:
+
+- **Frontmatter schema** — Validated against `.schemas/frontmatter.schema.json`
+- **Linting rules** — Markdown and content validation via `npm run lint:md`
+- **Type checking** — Schema compliance via `npm run validate:frontmatter`
+- **CI enforcement** — Automated validation in `.github/workflows/`
 
 ---
 
@@ -328,7 +381,7 @@ Use [.github/PULL_REQUEST_TEMPLATE/config.yml](.github/PULL_REQUEST_TEMPLATE/con
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `schema/` | `pr_feature.md` |
+| `.schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |
@@ -391,6 +444,7 @@ Start here for all key standards:
 
 | Resource Name             | Reference                                                        | Purpose / Notes                                                    |
 | ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Documentation Standards** | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) (+ 8 more) | 9 comprehensive standards; see "Documentation Standards" section above |
 | **Instructions Guide**    | [instructions/instructions.instructions.md](instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files              |
 | **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot instructions and `.github` boundary rules       |
 | **Claude Instructions**   | [CLAUDE.md](CLAUDE.md)                                           | Claude-specific project instructions; companion to this file       |
@@ -404,7 +458,7 @@ Start here for all key standards:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
 - [Main Documentation](README.md) - Project overview
-- [Frontmatter Schema](schema/frontmatter.schema.json) - Schema validation
+- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

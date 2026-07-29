@@ -86,7 +86,7 @@ GitHub Markdown issue templates use `about` for the chooser metadata. Do not dup
 
 - `title`, `labels`, `assignees`, `projects`, `milestone`, `type`
 
-See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](../schema/frontmatter.schema.json) for validation details.
+See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](../.schemas/frontmatter.schema.json) for validation details.
 
 ---
 

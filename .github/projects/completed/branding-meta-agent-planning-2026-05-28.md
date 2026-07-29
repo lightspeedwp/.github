@@ -56,7 +56,7 @@ The goal is to build a **unified, schema-driven branding agent** that automates 
 
 Build one **unified branding meta agent** that:
 
-- Centralises branding logic in schema/config
+- Centralises branding logic in .schemas/config
 - Makes category and template selection explicit and testable
 - Supports deterministic, reproducible output
 - Reduces maintenance cost through config-driven rules rather than code logic
@@ -113,7 +113,7 @@ Build one **unified branding meta agent** that:
 
 ### Phase 3: Schema & Config Implementation
 
-**Objective**: Translate specification into working schema/config.
+**Objective**: Translate specification into working .schemas/config.
 
 **Tasks**:
 

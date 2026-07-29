@@ -29,7 +29,7 @@ Accept any combination of:
 - release notes
 - deployment notes
 - project memory bank
-- redirect/schema/GA4/policy/parity audit outputs
+- redirect/.schemas/GA4/policy/parity audit outputs
 - client sign-off notes
 - support/retainer requirements
 

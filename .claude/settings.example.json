@@ -1,0 +1,41 @@
+{
+  "model": "claude-opus-5",
+  "reasoning_effort": "medium",
+  "fast_mode": false,
+  "tools": {
+    "enable_bash": true,
+    "enable_file_operations": true,
+    "enable_browser": true,
+    "enable_git": true,
+    "enable_agents": true
+  },
+  "workspace": {
+    "primary_directory": "/Users/ash/Studio/LightSpeedWP.Agency/.github",
+    "auto_save": true,
+    "memory_enabled": true
+  },
+  "integrations": {
+    "github": {
+      "enabled": true,
+      "token_env": "GITHUB_TOKEN"
+    },
+    "linear": {
+      "enabled": true,
+      "api_key_env": "LINEAR_API_KEY"
+    },
+    "slack": {
+      "enabled": false,
+      "token_env": "SLACK_BOT_TOKEN"
+    }
+  },
+  "hooks": {
+    "session_start": "npm run validate:frontmatter",
+    "before_commit": "npm run lint:md && npm run lint:js"
+  },
+  "ai_settings": {
+    "context_window": "standard",
+    "cache_enabled": true,
+    "memory_type": "persistent"
+  },
+  "notes": "Copy this file to settings.local.json and customize for your environment. Do not commit settings.local.json."
+}

@@ -110,7 +110,7 @@ assets/
 | `examples/memory/` | Optional v2 | Example agency defaults and client-site profiles | Memory structure demonstration | “Show example memory/defaults” | Avoids polluting real defaults | Loaded only for memory onboarding | Update with memory schema changes |
 | `fixtures/` | Recommended v2 | Small anonymised sample settings, content types, taxonomies, schema output | Testing scripts/scenarios | “Run validation”, “test input handling” | Fixtures support repeatability | Never loaded during normal advice | Keep small and anonymised |
 | `rollout/` | Optional v2 | Implementation plan, validation plan, team adoption, versioning | Team rollout or release work | “Roll this out to the team” | Rollout is not task execution | Keeps adoption content separate | Update each release |
-| `scripts/` | Optional v2 | Deterministic validators and generators | Validation/generation task | “Validate this package”, “generate QA checklist” | Scripts reduce fragile manual checks | Executed only when requested | Test after schema/reference edits |
+| `scripts/` | Optional v2 | Deterministic validators and generators | Validation/generation task | “Validate this package”, “generate QA checklist” | Scripts reduce fragile manual checks | Executed only when requested | Test after .schemas/reference edits |
 | `tests/` | Recommended v2 | Scenario tests and regression notes | Skill QA or release validation | “Test the skill”, “check regression” | Tests are not runtime guidance | Loaded only for package QA | Add tests for every real-world failure |
 | `assets/` | Avoid unless needed | Icon or genuinely useful small binary/static assets | UI metadata or artifact generation | “Add skill icon” | Most work is text/reference based | No reasoning load when unused | Keep tiny; avoid binary bloat |
 
@@ -202,7 +202,7 @@ Add these files when the skill needs to preserve approval decisions, explain con
 | `templates/client-safe-summary.md` | Recommended v2 | Client-facing summary structure | Client update, approval note, audit summary, or implementation note | Keep aligned with reporting style |
 | `schemas/decision-record.schema.json` | Optional v2 | Machine-readable decision record structure | Structured decision log validation | Version before changing required fields |
 | `fixtures/sample-decision-record.json` | Optional v2 | Example valid decision record | Testing or demonstration | Keep anonymised |
-| `scripts/validate_decision_records.py` | Optional v2 | Deterministic decision schema/fixture check | Package QA after decision file changes | Test after schema edits |
+| `scripts/validate_decision_records.py` | Optional v2 | Deterministic decision .schemas/fixture check | Package QA after decision file changes | Test after schema edits |
 | `tests/decision-conflict-scenario-tests.md` | Recommended v2 | Regression scenarios for client approvals and evidence conflicts | Package QA and behaviour refinement | Add real-world failure cases |
 
 ## Artefact review maintenance
@@ -222,7 +222,7 @@ Add these files when the skill needs to compare Yoast state over time, run post-
 | `templates/yoast-acceptance-criteria.md` | Recommended v2 | Evidence-led pass/fail acceptance gate | Client approval, release sign-off, migration go/no-go | Keep aligned with QA checklist and decision log |
 | `schemas/regression-check.schema.json` | Optional v2 | Machine-readable regression check structure | Structured regression report validation | Version before changing required fields |
 | `fixtures/sample-regression-check.json` | Optional v2 | Example regression-check fixture | Testing validators or examples | Keep anonymised and small |
-| `scripts/validate_regression_pack.py` | Optional v2 | Deterministic validation for regression pack files and routing | Package QA after comparison/regression edits | Test after every regression schema/template change |
+| `scripts/validate_regression_pack.py` | Optional v2 | Deterministic validation for regression pack files and routing | Package QA after comparison/regression edits | Test after every regression .schemas/template change |
 | `tests/comparison-regression-scenario-tests.md` | Recommended v2 | Regression scenarios for before/after settings, plugin updates, acceptance criteria and accepted regressions | Package QA and skill refinement | Add scenarios from real update failures |
 
 Keep this layer outside `SKILL.md` because comparison and release QA are workflow-specific. Load it only when the user asks for before/after analysis, post-update QA, retainer comparison, release validation or acceptance criteria.

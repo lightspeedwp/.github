@@ -59,7 +59,7 @@
 
 ## Go/no-go guidance
 
-Do not mark schema/search launch-ready if:
+Do not mark .schemas/search launch-ready if:
 
 - key pages are blocked from indexing unintentionally
 - major schema errors exist on core templates

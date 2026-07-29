@@ -122,7 +122,7 @@ flowchart TD
 ### 🧪 Testing & Quality
 
 - [Testing Framework](../tests/README.md) - Test suites and coverage documentation
-- [JSON Schemas](../schema/README.md) - Schema validation and IDE integration
+- [JSON Schemas](../.schemas/README.md) - Schema validation and IDE integration
 - [Main Repository](../README.md) - LightSpeed community health repository
 
 ---

@@ -201,7 +201,7 @@ All Mermaid diagrams use styled color fills that are designed to work in both li
 4. `instructions/README.md` ✓
 5. `plugins/README.md` ✓
 6. `prompts/README.md` ✓
-7. `schema/README.md` ✓
+7. `.schemas/README.md` ✓
 8. `scripts/README.md` ✓
 9. `skills/README.md` ✓
 10. `tests/README.md` ✓

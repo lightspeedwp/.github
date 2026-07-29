@@ -105,7 +105,7 @@ Use this map to choose the primary next skill. Do not list every possible option
 
 ### QA, launch and acceptance routes
 
-- Use `lightspeed-qa-findings-router` for acceptance-test output, launch QA findings, Figma-to-WordPress parity issues, accessibility failures, responsive bugs, form/tracking defects, schema/redirect issues, or content/governance QA notes that need severity, ownership, issue drafts, retest steps, or launch-blocker routing.
+- Use `lightspeed-qa-findings-router` for acceptance-test output, launch QA findings, Figma-to-WordPress parity issues, accessibility failures, responsive bugs, form/tracking defects, .schemas/redirect issues, or content/governance QA notes that need severity, ownership, issue drafts, retest steps, or launch-blocker routing.
 - Use `lightspeed-acceptance-test-planner` for acceptance test plans, QA scripts, validation matrices, regression tests, accessibility checks, responsive checks, editor-experience tests, or go/no-go acceptance coverage.
 - Use `lightspeed-launch-qa-planner` when final launch QA needs planning for WordPress block themes, block plugins, page/template matrices, accessibility, responsive, conversion tracking, launch gates, specialist routing, or go/no-go framework.
 - Use `lightspeed-launch-readiness-auditor` for final pre-launch checks, page-by-page QA, broken links, forms, analytics/tagging, redirects, SEO launch checks, mobile/responsive checks, or go/no-go summary.

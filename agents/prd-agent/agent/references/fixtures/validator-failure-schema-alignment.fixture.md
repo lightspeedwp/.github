@@ -37,7 +37,7 @@
 
 ## Scenario
 
-This fixture represents a scaffold state that should fail schema presence or schema/file alignment checks in the validation pack.
+This fixture represents a scaffold state that should fail schema presence or .schemas/file alignment checks in the validation pack.
 
 ## Failure conditions to simulate
 
@@ -48,7 +48,7 @@ This fixture represents a scaffold state that should fail schema presence or sch
 
 ## Expected use
 
-Use this fixture to test validation-pack behaviour for schema presence, schema/file alignment, and memory-schema consistency failures.
+Use this fixture to test validation-pack behaviour for schema presence, .schemas/file alignment, and memory-schema consistency failures.
 
 ---
 

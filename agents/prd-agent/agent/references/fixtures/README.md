@@ -51,7 +51,7 @@ Store fixed input fixtures used by workflow tests and validation checks, includi
 - `conflicting-source.fixture.md` — conflicting-source evidence pack for fact-discipline and contradiction handling.
 - `conflicting-estimate-readiness.fixture.md` — mixed estimate-readiness signals for readiness review.
 - `validator-failure-readme-coverage.fixture.md` — negative fixture for README coverage and inventory-alignment failures.
-- `validator-failure-schema-alignment.fixture.md` — negative fixture for schema presence and schema/file alignment failures.
+- `validator-failure-schema-alignment.fixture.md` — negative fixture for schema presence and .schemas/file alignment failures.
 
 ## Naming conventions
 

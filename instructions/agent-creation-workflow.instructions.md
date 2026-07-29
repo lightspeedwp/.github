@@ -68,7 +68,7 @@ agents/{slug}-agent/
 ### Phase 3 — Write the spec and core prompt
 
 Write `AGENT.md` (YAML frontmatter valid against
-[`multi-provider-agent.schema.json`](../schema/multi-provider-agent.schema.json))
+[`multi-provider-agent.schema.json`](../.schemas/multi-provider-agent.schema.json))
 and `shared/core-prompt.md` (provider-agnostic). Capture the real workflow, not a
 generic template.
 

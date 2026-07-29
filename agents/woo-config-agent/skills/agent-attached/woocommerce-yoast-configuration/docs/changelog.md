@@ -32,13 +32,13 @@
 
 ## 2026-07-03 - redirect and migration control layer
 
-- Added redirect/migration governance playbook, redirect-map decision model, redirect-map review template, migration launch SEO control plan, redirect-map row schema/fixture, validator and scenario tests.
+- Added redirect/migration governance playbook, redirect-map decision model, redirect-map review template, migration launch SEO control plan, redirect-map row .schemas/fixture, validator and scenario tests.
 - Updated SKILL routing, file routing, usage guide, maintenance guide, architecture notes and validators.
 - Preserved evidence boundary: redirect maps, Yoast redirect screenshots and migration spreadsheets do not prove live status codes, chains, canonical targets or sitemap state.
 
 ## 2026-07-03 - multilingual and hreflang workflow layer
 
-- Added multilingual hreflang playbook, locale metadata governance, multilingual QA report template, translated metadata approval template, multilingual page-set schema/fixture, validator, and scenario tests.
+- Added multilingual hreflang playbook, locale metadata governance, multilingual QA report template, translated metadata approval template, multilingual page-set .schemas/fixture, validator, and scenario tests.
 - Updated SKILL routing, file routing, multilingual profile, usage guide, maintenance guide, architecture notes, and package validators.
 - Preserved evidence boundary: Yoast settings do not prove rendered hreflang, language relationships, translated metadata, or multilingual sitemap behaviour.
 

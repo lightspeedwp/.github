@@ -2,9 +2,9 @@
 name: Phase 2B Skills Architecture Audit
 title: Skills Architecture Audit & Consolidation Strategy
 description: Comprehensive analysis and consolidation roadmap for agent skills organisation across 16 agents
-status: complete
+status: active
 created: 2026-07-24
-last_updated: 2026-07-24
+last_updated: 2026-07-29
 version: 1.0.0
 owners:
   - lightspeedwp/maintainers
@@ -17,6 +17,10 @@ tags:
 related_issues:
   - '#1225'
   - '#1079'
+  - '#1316'
+  - '#1320'
+  - '#1321'
+  - '#1326-#1355'
 related_branches:
   - feat/agents-phase-2b-skills-audit
   - feat/phase-2b-agent-skills-batch-1
@@ -35,8 +39,18 @@ related_branches:
 | Deliverables | 8 audit documents, 3-phase consolidation strategy |
 | Date Started | 2026-07-24 |
 | Phase A Completed | 2026-07-24 |
-| Related Issues | #1225, #1079 |
+| Related Issues | #1225, #1079, #1316, #1320, #1321, #1326-#1355 |
 | Related PRs | #1221, #1198 |
+
+## Current Task Status (Phase C)
+
+| Metric | Value |
+|--------|-------|
+| Phase C parent epic | #1320 |
+| Child execution issues normalised | #1326-#1355 |
+| Child issue status | Open + status:ready |
+| Template compliance update | Complete (DoR/DoD sections present) |
+| Title quality update | Complete (task-specific naming applied) |
 
 ## Project Goals
 
@@ -237,10 +251,10 @@ related_branches:
 
 ---
 
-**Project Lead**: Ash Shaw  
-**Started**: 2026-07-24  
-**Status**: Actively Building  
-**Next Review**: End of Week 2  
+**Project Lead**: Ash Shaw
+**Started**: 2026-07-24
+**Status**: Actively Building
+**Next Review**: End of Week 2
 **Related PR**: #1221
 
 ---

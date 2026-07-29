@@ -1,6 +1,6 @@
 ---
 name: lightspeed-ai-readiness-router
-description: route lightspeed ai readiness client projects, proposals and messy briefs into the right specialist workflow. use when the lightspeed team asks where an ai readiness, ai governance, content collection, chatbot, faq/source, schema/ai-discoverability, policy, claim, estimate or combined project-pack request should go; when a client-specific ai readiness project needs a guided sequence; when inputs are incomplete or scattered across notes, urls, docs, email, tickets or discovery calls; or when the team needs a proposal-ready next-step recommendation without skipping readiness, governance, source quality, escalation or launch gates.
+description: route lightspeed ai readiness client projects, proposals and messy briefs into the right specialist workflow. use when the lightspeed team asks where an ai readiness, ai governance, content collection, chatbot, faq/source, .schemas/ai-discoverability, policy, claim, estimate or combined project-pack request should go; when a client-specific ai readiness project needs a guided sequence; when inputs are incomplete or scattered across notes, urls, docs, email, tickets or discovery calls; or when the team needs a proposal-ready next-step recommendation without skipping readiness, governance, source quality, escalation or launch gates.
 ---
 
 # LightSpeed AI Readiness Router

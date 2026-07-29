@@ -342,7 +342,7 @@ See child issues for detailed audits of:
 - `.github/` (all folders)
 - `agents/`
 - `scripts/`
-- `schema/` or `schemas/`
+- `.schemas/` or `schemas/`
 - `workflows/`
 - `instructions/`
 ```

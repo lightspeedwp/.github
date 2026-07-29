@@ -9,7 +9,7 @@ description: triage qa findings for lightspeed wordpress, figma design system, b
 
 Turn messy QA evidence into a practical LightSpeed fix-routing pack.
 
-Use this skill after acceptance testing, launch QA, design parity review, accessibility checks, responsive review, form testing, analytics validation, schema/redirect QA, Lighthouse/PageSpeed checks, stakeholder review or post-implementation smoke testing.
+Use this skill after acceptance testing, launch QA, design parity review, accessibility checks, responsive review, form testing, analytics validation, .schemas/redirect QA, Lighthouse/PageSpeed checks, stakeholder review or post-implementation smoke testing.
 
 ## Core rules
 

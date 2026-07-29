@@ -207,8 +207,8 @@ stability: stable
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-sprint-roadmap/SKILL.md
 - profile/README.md
 - prompts/README.md
-- schema/README.md
-- schema/agent-config.example.md
+- .schemas/README.md
+- .schemas/agent-config.example.md
 - scripts/README.md
 - scripts/agents/**tests**/README.md
 - scripts/agents/includes/README.md

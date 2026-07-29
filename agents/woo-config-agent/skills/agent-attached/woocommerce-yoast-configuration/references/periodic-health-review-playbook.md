@@ -70,7 +70,7 @@ Check:
 - Sitemap exposure.
 - Robots.txt and llms.txt state where relevant.
 - Schema graph on sample priority pages.
-- WooCommerce product/schema/archive checks if relevant.
+- WooCommerce product/.schemas/archive checks if relevant.
 - Open decisions and accepted exceptions.
 
 ### Level 3: retainer audit checkpoint

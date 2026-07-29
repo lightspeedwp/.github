@@ -96,7 +96,7 @@ For each workstream, define:
 Recommended order:
 
 1. Content/claims/policy readiness
-2. Redirect/schema/analytics planning
+2. Redirect/.schemas/analytics planning
 3. Figma parity and implementation QA
 4. Launch QA planning
 5. Final launch readiness audit

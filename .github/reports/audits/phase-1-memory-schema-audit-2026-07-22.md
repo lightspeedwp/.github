@@ -41,7 +41,7 @@ The memory system is actively tracking:
 
 ## Memory Schema Structure
 
-**Location:** `.github/schema/memory/`
+**Location:** `.github/.schemas/memory/`
 
 ### Existing Schemas
 
@@ -103,7 +103,7 @@ The memory system is actively tracking:
 │   │   ├── REWRITE_STATUS.md
 │   │   └── DECISIONS.md
 │   └── [future-agents]/
-└── schema/                         # Initiative-specific schemas
+└── .schemas/                         # Initiative-specific schemas
     ├── agent-migration.schema.json
     └── phase-tracking.schema.json
 ```
@@ -318,7 +318,7 @@ Move all audit reports to `.github/reports/audits/` with naming convention `{pha
 - [ ] Create `.github/projects/active/agent-standards-initiative/` (already exists)
 - [ ] Create `reports/` subfolder for phase outputs
 - [ ] Create `agents/` subfolder for per-agent tracking
-- [ ] Create `schema/` subfolder if needed
+- [ ] Create `.schemas/` subfolder if needed
 
 ### Documentation
 
@@ -328,8 +328,8 @@ Move all audit reports to `.github/reports/audits/` with naming convention `{pha
 
 ### Memory Registry Updates
 
-- [ ] Add initiative memory to `.github/schema/memory/memory-registry.schema.json`
-- [ ] Create examples in `.github/schema/memory/memory-example-pack.schema.json`
+- [ ] Add initiative memory to `.github/.schemas/memory/memory-registry.schema.json`
+- [ ] Create examples in `.github/.schemas/memory/memory-example-pack.schema.json`
 
 ---
 

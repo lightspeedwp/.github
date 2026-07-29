@@ -25,7 +25,7 @@ Capture:
 2. Inspect registration code before usage code.
 3. Confirm post types from explicit registration/configuration only.
 4. Confirm taxonomies from explicit registration/configuration only.
-5. Confirm fields from field schema/configuration, not from incidental display code alone.
+5. Confirm fields from field .schemas/configuration, not from incidental display code alone.
 6. Confirm relationships from relationship field definitions when available; treat FacetWP sources as indexing/linkage evidence only.
 7. Confirm settings from option registration, settings pages, constants, or documented filters.
 8. Confirm templates from block theme files, template registration, or active theme evidence.
