@@ -1,3 +1,20 @@
+---
+file_type: documentation
+title: Playwright Testing Agent Export
+description: Portable export of the Playwright Testing Agent — provider-agnostic multi-provider agent for automated accessibility, performance, SEO, and console-error gating.
+version: v2.0.0
+last_updated: "2026-07-29"
+owners:
+  - lightspeedwp/maintainers
+domain: agents
+tags:
+  - agents
+  - playwright
+  - testing
+  - multi-provider
+status: active
+---
+
 # Playwright Testing Agent Export
 
 <!-- BADGES-START -->
