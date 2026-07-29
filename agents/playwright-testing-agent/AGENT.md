@@ -7,9 +7,9 @@ description: >-
   Turns PRDs, acceptance criteria, and design/repository evidence into
   review-ready human-readable test cases first, then maintainable Playwright
   specs — with requirement traceability and a review-before-code gate.
-version: 2.0.0
+version: 2.0.1
 status: active
-last_updated: '2026-07-28'
+last_updated: '2026-07-29'
 category: testing
 maintainer: Ash Shaw
 owners:

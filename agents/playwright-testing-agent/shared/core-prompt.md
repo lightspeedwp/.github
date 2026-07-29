@@ -4,7 +4,7 @@ title: Playwright Testing Agent — Core Prompt
 description: >-
   Provider-agnostic core instructions for the Playwright Testing Agent. Shared
   by the Claude, GitHub Copilot, and OpenAI configurations.
-last_updated: '2026-07-28'
+last_updated: '2026-07-29'
 domain: generic
 tags:
   - playwright

@@ -5,7 +5,7 @@ description: >-
   How to validate the Playwright Testing Agent's packaging and exercise its
   behaviour across Claude, GitHub Copilot, and OpenAI, including the execution
   model and a worked end-to-end example.
-last_updated: '2026-07-28'
+last_updated: '2026-07-29'
 domain: generic
 tags:
   - playwright
