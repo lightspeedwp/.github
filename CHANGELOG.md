@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **`agents/playwright-testing-agent/checksums.sha256`** — Removed a manifest that provided the appearance of integrity without the substance: nothing in CI, `scripts/` or `hooks/` generated or verified it, and an audit of all 15 agents found twelve at 44–71% invalid, invalidated by the repo's own markdown normalisation sweeps and `lint-staged --fix`. Because it sat alongside the files it hashed it could not evidence tampering either. Note this diverges from the other 14 agents pending an org-wide decision. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392), [#1394](https://github.com/lightspeedwp/.github/issues/1394))
+
 - **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
 
 ### Deprecated
@@ -35,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 (none identified)
 
 ### Added
+
+- **Playwright Testing Agent — performance routing, accessibility/SEO/console gates, and scope-exclusion discipline** — Added `performance rule` as an eighth requirement type: such requirements are now extracted with an ID and evidence, then routed `deferred → pagespeed-agent` rather than dropped at extraction or turned into flaky wall-clock assertions. Added accessibility (axe-core scoped per page/widget, keyboard traversal for custom widgets, WCAG 2.2 AA criteria cited per case), SEO/metadata, and console-error-budget rules — all asserting *no new* violations against a recorded baseline rather than zero outright, so they can land on a site with existing debt. Added `Accessibility baseline` and `Console-error baseline` to the Environment & Test-Data Contract, captured from an audit run rather than guessed. Added a "Scope Exclusions and House Standards" rule so an organisational standard can no longer authorise coverage a project's scope excludes. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392), [#1393](https://github.com/lightspeedwp/.github/issues/1393), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
+
+- **Content-parity enforcement in `multi-provider-consistency-checker`** — Agents may now ship an optional `consistency.json` declaring shared phrases that must appear in several files; the hook fails when any copy drifts. Whitespace is normalised so line-wrapping may differ. Opt-in — agents without the file are unaffected. Covers the Playwright Testing Agent's requirement-type taxonomy, which is restated in three files and was previously only verified by hand. Nine new unit tests. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392), [#1393](https://github.com/lightspeedwp/.github/issues/1393))
 
 - **Phase 2B Phase B Skills Consolidation Planning** — Comprehensive Phase B planning deliverables establishing architectural foundation for Phase C execution (weeks 5-12). Includes skill dependency map (377 skills across 16 agents), architecture plan resolving 3 critical architectural decisions (Tier 0/1/2/3 organization, override system design, HIGH-severity conflict resolution), and implementation roadmap with 32 templated Phase C tasks (62-84 hours estimated). ([PR #1370](https://github.com/lightspeedwp/.github/pull/1370), [#1316](https://github.com/lightspeedwp/.github/issues/1316), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
@@ -107,6 +113,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
 
 ### Fixed
+
+- **Playwright Testing Agent docs: broken schema path and a `.github/`-layout assumption** — `TESTING.md` documented a validation command reading `.schemas/provider-config.schema.json`, which crashed as written because that schema is still at `schema/provider-config.schema.json`; the command now runs and both provider tool configs validate. The same file hardcoded `.github/reports/test-packs/`, contradicting `core-prompt.md`'s requirement that the portable agent not assume a `.github/` layout. `AGENT.md`'s usage example also still listed the superseded seven-section pack. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392), [#1395](https://github.com/lightspeedwp/.github/issues/1395))
 
 - **Changelog automation: Section headers destroyed on merge** — The merge-entries workflow was discarding section headers during deduplication, corrupting changelog structure on every PR merge. Fixed deduplication logic to preserve headers and limited scope to [Unreleased] section only. ([PR #1276](https://github.com/lightspeedwp/.github/pull/1276), [#1275](https://github.com/lightspeedwp/.github/issues/1275))
 

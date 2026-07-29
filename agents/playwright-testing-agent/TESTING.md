@@ -52,6 +52,7 @@ Run from the repo root:
 node hooks/agent-spec-validator/index.js agents/playwright-testing-agent
 
 # Provider parity (shared core prompt + claude/copilot/openai configs present)
+# and content parity for the invariants declared in consistency.json
 node hooks/multi-provider-consistency-checker/index.js agents/playwright-testing-agent
 
 # No hardcoded secrets anywhere in the agent
@@ -81,6 +82,36 @@ for (const p of ["claude/tools.json","openai/tools.json"]) {
 ```
 
 **Expected:** every command exits `0` / prints `VALID`.
+
+### Content-parity invariants (`consistency.json`)
+
+Some wording is deliberately restated in more than one file — most importantly the
+**approved requirement types**, which appear in `shared/core-prompt.md`,
+`AGENT.md`, and the `test-pack-builder` SKILL. If those copies drift, an
+extraction run can classify against a list that one file does not recognise,
+which is exactly how performance requirements went missing before `performance
+rule` became a first-class type.
+
+[`consistency.json`](./consistency.json) declares those invariants, and
+`multi-provider-consistency-checker` enforces them — whitespace is normalised, so
+line-wrapping may differ between files. The check runs as part of
+`npm run validate:agent-hooks`, and its own tests live in
+`hooks/multi-provider-consistency-checker/__tests__/`.
+
+Confirm it actually fails on drift rather than trusting a green run:
+
+```bash
+# temporarily remove one type from AGENT.md, expect a non-zero exit
+sed -i '' 's/accessibility rule, performance rule/accessibility rule/' \
+  agents/playwright-testing-agent/AGENT.md
+node hooks/multi-provider-consistency-checker/index.js agents/playwright-testing-agent
+# → Shared phrase 'requirement-type-taxonomy' is out of sync: AGENT.md …
+git checkout agents/playwright-testing-agent/AGENT.md
+```
+
+**Add an entry whenever you introduce wording that must match across files.** A
+hand-run `grep` is not a substitute — it verifies today and protects nothing
+tomorrow.
 
 ## 2. Test the behaviour per provider
 
