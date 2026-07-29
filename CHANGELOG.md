@@ -114,6 +114,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`documentation.yml` workflow security hardening and correctness fixes** — Scoped workflow permissions to individual jobs: global demoted to `contents: read`; `regenerate` and `maintain` jobs receive only the write scopes they need. Added `persist-credentials: false` for the read-only audit checkout and `persist-credentials: true` for write jobs. Fixed maintenance report accuracy: per-step outcomes for mermaid, contrast, and staleness tasks are now captured and displayed instead of always showing success. Fixed README resolver over-inclusion: root README is now only added to the regeneration list when subdirectory files change. ([PR #1387](https://github.com/lightspeedwp/.github/pull/1387), [#1386](https://github.com/lightspeedwp/.github/issues/1386), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227))
+
 - **Changelog automation: Section headers destroyed on merge** — The merge-entries workflow was discarding section headers during deduplication, corrupting changelog structure on every PR merge. Fixed deduplication logic to preserve headers and limited scope to [Unreleased] section only. ([PR #1276](https://github.com/lightspeedwp/.github/pull/1276), [#1275](https://github.com/lightspeedwp/.github/issues/1275))
 
 - **Meta-agent workflow: Missing npm dependency and direct push to protected branch** — Added missing npm ci step and routed commits through auto-merged PR instead of direct push to respect branch protection. ([PR #1073](https://github.com/lightspeedwp/.github/pull/1073), [#1072](https://github.com/lightspeedwp/.github/issues/1072))
