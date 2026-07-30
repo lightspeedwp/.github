@@ -4,7 +4,7 @@
  * Outputs: has_changes, files (multiline heredoc format)
  */
 
-const { execFileSync } = require("child_process");
+import { execFileSync } from "child_process";
 
 let base = process.env.BASE_SHA || "";
 let head = process.env.HEAD_SHA || process.env.GITHUB_SHA || "";

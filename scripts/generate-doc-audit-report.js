@@ -4,11 +4,12 @@
  * Reads validation outcome environment variables and generates step summary
  */
 
+import fs from "fs";
+
 const syntaxPassed = process.env.SYNTAX_PASSED === "true";
 const a11yPassed = process.env.A11Y_PASSED === "true";
 const contrastPassed = process.env.CONTRAST_PASSED === "true";
 const auditScope = process.env.AUDIT_SCOPE || "documentation";
-const fs = require("fs");
 
 const report = [
   "## Documentation Audit Report",
