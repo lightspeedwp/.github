@@ -269,7 +269,13 @@ jobs:
       - name: Validate README frontmatter
         id: frontmatter
         if: steps.readme.outputs.has_changes == 'true'
-        run: npm run validate:frontmatter -- ${{ steps.readme.outputs.files }}
+        # Convert newline-separated paths to space-separated before passing to npm.
+        # Direct ${{ }} substitution embeds literal newlines which bash interprets
+        # as separate commands, causing exit code 126 on the second file.
+        run: |
+          FILES=$(echo "${{ steps.readme.outputs.files }}" | tr '\n' ' ')
+          # shellcheck disable=SC2086
+          npm run validate:frontmatter -- $FILES
         continue-on-error: true
 
       - name: Validate README structure
