@@ -21,7 +21,10 @@ function sectionBody(body, headingRegex) {
 
 function hasIssueReference(sectionText) {
   const cleaned = stripHtmlComments(sectionText);
-  return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to)\s+)?#\d+\b/i.test(cleaned);
+  // Matches same-repo (#123) or cross-repo (owner/repo#123) issue references,
+  // with or without GitHub closing keywords, at the start of a line.
+  return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to)\s+)?(?:[\w.-]+\/[\w.-]+)?#\d+\b/i.test(cleaned)
+    || /https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/(?:issues|pull)\/\d+\b/.test(cleaned);
 }
 
 function hasChangelogEntry(sectionText) {
