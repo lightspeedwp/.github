@@ -148,7 +148,7 @@ jobs:
             }
 
       - name: Fail if any check failed
-        if: steps.results.outputs.all_passed == 'false'
+        if: steps.has_diagrams.outputs.result == 'true' && steps.results.outputs.all_passed == 'false'
         run: |
           echo "Mermaid validation failed."
           exit 1

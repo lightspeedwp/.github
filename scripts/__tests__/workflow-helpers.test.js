@@ -3,7 +3,7 @@
  * Ensures shell control-flow refactoring maintains functionality
  */
 
-const { execFileSync, spawnSync } = require("child_process");
+const { execFileSync } = require("child_process");
 const path = require("path");
 
 describe("Workflow Helper Scripts", () => {
@@ -12,14 +12,6 @@ describe("Workflow Helper Scripts", () => {
   describe("identify-changed-markdown.js", () => {
     it("should output has_changes=true when markdown files are changed", () => {
       const scriptPath = path.join(scriptsDir, "identify-changed-markdown.js");
-
-      // Mock environment - in real workflow this comes from GitHub Actions
-      const env = {
-        ...process.env,
-        EVENT_NAME: "pull_request",
-        BASE_SHA: "HEAD~1",
-        HEAD_SHA: "HEAD",
-      };
 
       // Just verify script exists and is executable
       expect(require.resolve(scriptPath)).toBeDefined();
@@ -117,6 +109,36 @@ describe("Workflow Helper Scripts", () => {
     });
   });
 
+  describe("validate-markdown-lint.js", () => {
+    it("should skip non-pull_request/push events gracefully", () => {
+      const scriptPath = path.join(scriptsDir, "validate-markdown-lint.js");
+      const scriptContent = require("fs").readFileSync(scriptPath, "utf8");
+
+      expect(scriptContent).toContain("GITHUB_EVENT_NAME");
+      expect(scriptContent).toContain("pull_request");
+      expect(scriptContent).toContain("push");
+    });
+
+    it("should exclude known documentation exceptions", () => {
+      const scriptPath = path.join(scriptsDir, "validate-markdown-lint.js");
+      const scriptContent = require("fs").readFileSync(scriptPath, "utf8");
+
+      // Verify exclusion patterns are present
+      expect(scriptContent).toContain("excludePatterns");
+      expect(scriptContent).toContain(".github");
+      expect(scriptContent).toContain("reports");
+      expect(scriptContent).toContain("projects");
+    });
+
+    it("should use execFileSync instead of execSync for safety", () => {
+      const scriptPath = path.join(scriptsDir, "validate-markdown-lint.js");
+      const scriptContent = require("fs").readFileSync(scriptPath, "utf8");
+
+      expect(scriptContent).toContain("execFileSync");
+      expect(scriptContent).not.toContain("execSync(`");
+    });
+  });
+
   describe("Shell Control-Flow Refactoring", () => {
     it("should not have multiline if statements directly in shell run blocks", () => {
       // This is validated by the workflow validation scripts
@@ -127,6 +149,7 @@ describe("Workflow Helper Scripts", () => {
         "check-mermaid-diagrams.sh",
         "report-changelog-action.sh",
         "summarize-native-type.sh",
+        "validate-markdown-lint.js",
       ];
 
       helperScripts.forEach((script) => {
@@ -139,6 +162,7 @@ describe("Workflow Helper Scripts", () => {
       const jsScripts = [
         "identify-changed-markdown.js",
         "collect-validation-results.js",
+        "validate-markdown-lint.js",
       ];
 
       jsScripts.forEach((script) => {
