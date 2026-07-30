@@ -90,39 +90,49 @@ version: 1.0.0
 
 ### ✓ Phase 4: Workflow Standardisation
 
-**Duration:** 1 hour | **Owner:** [Name]
+**Duration:** 1 hour | **Owner:** Claude Code Agent
 
 **Action:** Update all workflows to use `.nvmrc` for Node version
 
-- [ ] **4A** — Hardcoded versions replaced
-  - [ ] cleanup-branches.yml: node-version: "20" → node-version-file: .nvmrc
-  - [ ] metrics-pipeline.yml: standardise versions → node-version-file: .nvmrc
-  - [ ] project-archival.yml: node-version: "20" → node-version-file: .nvmrc
-  - [ ] labeling-governance.yml: node-version: "22.22.1" → node-version-file: .nvmrc
-  - [ ] reviewer.yml: node-version: "22.22.1" → node-version-file: .nvmrc
-  - [ ] issue-create-enhanced.yml: node-version: "22.22.1" → node-version-file: .nvmrc
+- [x] **4A** — Hardcoded versions replaced ✅
+  - [x] cleanup-branches.yml: node-version: "20" → node-version-file: .nvmrc ✓
+  - [x] metrics-pipeline.yml: standardise versions → node-version-file: .nvmrc ✓
+  - [x] metrics-reporting.yml: node-version: "20" → node-version-file: .nvmrc ✓
+  - [x] project-archival.yml: node-version: "20" → node-version-file: .nvmrc ✓
+  - [x] issues.yml: node-version: "20" → node-version-file: .nvmrc ✓
+  - [x] labeling-governance.yml: node-version: "22.22.1" → node-version-file: .nvmrc ✓
+  - [x] reviewer.yml: node-version: "22.22.1" → node-version-file: .nvmrc ✓
+  - [x] issue-create-enhanced.yml: node-version: "22.22.1" → node-version-file: .nvmrc ✓
+  - [x] 9 other Node 22.22.1 workflows: → node-version-file: .nvmrc ✓
+  - [x] docs-validation.yml: node-version: "22" → node-version-file: .nvmrc ✓
+  - [x] validate-mermaid-pr.yml: node-version: "22" → node-version-file: .nvmrc ✓
+  - [x] docs-maintenance.yml: node-version: "22" → node-version-file: .nvmrc ✓
+  - [x] documentation.yml: node-version: "22" → node-version-file: .nvmrc ✓
 
-- [ ] **4B** — Node 24 workflows downgraded
-  - [ ] issue-fields-backfill.yml: node-version: "24" → node-version-file: .nvmrc
-  - [ ] awesome-github-site.yml: node-version: "24" → node-version-file: .nvmrc
-  - [ ] project-meta-sync.yml: node-version: "24" → node-version-file: .nvmrc
+- [x] **4B** — Node 24 workflows downgraded ✅
+  - [x] issue-fields-backfill.yml: node-version: "24" → node-version-file: .nvmrc ✓
+  - [x] awesome-github-site.yml: node-version: "24" → node-version-file: .nvmrc ✓
+  - [x] project-meta-sync.yml: node-version: "24" → node-version-file: .nvmrc ✓
+  - [x] metadata-governance.yml: node-version: "24" → node-version-file: .nvmrc ✓
 
-- [ ] **4C** — Already-correct workflows verified (no change)
-  - [ ] flaky-test-detection.yml: ✓ (uses node-version-file)
-  - [ ] checks.yml: ✓ (uses node-version-file)
-  - [ ] release.yml: ✓ (uses lts/*, no change needed)
+- [x] **4C** — Already-correct workflows verified (no change) ✅
+  - [x] flaky-test-detection.yml: ✓ (uses node-version-file)
+  - [x] checks.yml: ✓ (uses node-version-file)
+  - [x] release.yml: ✓ (uses lts/*, no change needed)
 
-- [ ] **4D** — Validation complete
-  - [ ] npm run lint:workflows passed
-  - [ ] npm run validate:workflows passed
-  - [ ] All YAML syntax correct (no indentation errors)
+- [x] **4D** — Validation complete ✅
+  - [x] npm run lint:workflows passed (0 errors) ✓
+  - [x] npm run validate:workflows passed ✓
+  - [x] All YAML syntax correct (no indentation errors) ✓
+  - [x] No node-version-related validation errors ✓
 
-- [ ] **4E** — Committed
-  - [ ] Branch: feat/nodejs-upgrade-22-phase-4
-  - [ ] All .github/workflows/*.yml files committed
-  - [ ] Commit message explains standardisation
+- [x] **4E** — Committed ✅
+  - [x] Branch: chore/nodejs-upgrade-2026-q3
+  - [x] All 21 .github/workflows/*.yml files committed ✓
+  - [x] Commit: ba7103821 "ci: standardise Node version across workflows — use .nvmrc"
+  - [x] 31 node-version references updated
 
-**Completion:** ___________ Date
+**Completion:** 2026-07-30 ✅ COMPLETE
 
 ---
 
