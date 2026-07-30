@@ -65,13 +65,13 @@ jobs:
         if: steps.changed.outputs.has_changes == 'true'
         env:
           CHANGED_FILES: ${{ steps.changed.outputs.files }}
-        run: bash scripts/check-mermaid-diagrams.sh "$CHANGED_FILES" | xargs -I {} echo "result={}" >> "$GITHUB_OUTPUT"
-
-      - name: Skip — no Mermaid diagrams in changed files
-        if: steps.has_diagrams.outputs.result != 'true'
         run: |
-          echo "No Mermaid diagrams found in changed files."
-          exit 0
+          result=$(bash scripts/check-mermaid-diagrams.sh "$CHANGED_FILES")
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if no Mermaid diagrams found
+        if: steps.has_diagrams.outcome == 'skipped' || steps.has_diagrams.outputs.result != 'true'
+        run: echo "Skipped - no Mermaid diagrams in changed files"
 
       - name: Validate diagram syntax
         id: syntax
