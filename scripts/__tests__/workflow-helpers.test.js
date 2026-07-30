@@ -3,7 +3,6 @@
  * Ensures shell control-flow refactoring maintains functionality
  */
 
-const { execFileSync } = require("child_process");
 const path = require("path");
 
 describe("Workflow Helper Scripts", () => {

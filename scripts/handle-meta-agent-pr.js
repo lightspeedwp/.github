@@ -4,7 +4,7 @@
  * Safely replaces multiline shell logic with Node.js
  */
 
-const { execSync, spawnSync } = require("child_process");
+const { execSync } = require("child_process");
 
 function runCommand(cmd, options = {}) {
   try {

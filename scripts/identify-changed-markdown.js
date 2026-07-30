@@ -6,7 +6,6 @@
 
 const { execFileSync } = require("child_process");
 
-const eventName = process.env.EVENT_NAME || "pull_request";
 let base = process.env.BASE_SHA || "";
 let head = process.env.HEAD_SHA || process.env.GITHUB_SHA || "";
 
@@ -15,7 +14,7 @@ if (base === "0000000000000000000000000000000000000000" || !base) {
   base = "HEAD~1";
 }
 
-if (!base || !head) {
+if (!head) {
   console.error("Missing BASE_SHA or HEAD_SHA environment variables");
   process.exit(1);
 }
