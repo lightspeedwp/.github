@@ -175,7 +175,8 @@ site."
 **Output:** Scope Summary → Sources Used → Environment & Test-Data Contract →
 Confirmed Requirements → Assumptions and Gaps → Human-Readable Test Cases →
 Traceability Matrix → Review Gate (with the persisted pack path). No Playwright
-code until the pack is approved.
+code until the pack is approved, unless an explicitly authorised quick prototype
+has been requested.
 
 ### Example 2 — Approved pack to specs
 
