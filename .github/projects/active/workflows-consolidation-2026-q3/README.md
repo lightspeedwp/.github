@@ -13,7 +13,7 @@
 | **Timeline** | 12 weeks (5-7h/week) |
 | **Start Date** | 2026-07-24 |
 | **Epic Issue** | [#1227](https://github.com/lightspeedwp/.github/issues/1227) |
-| **Current Status** | 🟢 Phase 2 ✅ COMPLETE; Phase 3 🔄 IN PROGRESS (3.1 done, PR #1319) |
+| **Current Status** | 🟢 Phase 2 ✅ COMPLETE; Phase 3 🔄 IN PROGRESS (3.1 done, PR #1319); Phase 4 🔄 IN PROGRESS (shell control-flow refactor, PR #1412) |
 
 ---
 
@@ -31,7 +31,9 @@
 | **3.2** | Integration Testing | ⏳ PENDING | #1319 | #1361 |
 | **3.3** | Deprecation & Cleanup | ⏳ PENDING | - | #1362 |
 | **3.4** | Review & Merge | 🔄 IN PROGRESS | #1319 | #1363 |
-| **4** | Future Work | 📋 PLANNING | - | - |
+| **4.1** | Shell Control-Flow Refactor | 🔄 IN PROGRESS | #1412 | #1413 |
+| **4.2** | Integration Testing | ⏳ PENDING | - | - |
+| **4.3** | Final Review & Merge | ⏳ PENDING | - | - |
 
 ---
 
