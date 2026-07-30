@@ -28,6 +28,10 @@ metadata:
 ├── PHASE_3_ISSUES.md                      # Phase 3 issue templates
 ├── PHASE_3_KICKOFF.md                     # Phase 3 ready-to-execute kickoff
 ├── PHASE_3_READINESS.md                   # Phase 3 readiness status report
+├── PHASE_3_CONTINUATION_PROMPT.md         # Phase 3 continuation prompt
+├── PHASE_4_CI_WORKFLOWS_REFACTORING.md    # Phase 4 shell control-flow refactoring
+├── PHASE_4_PLANNING.md                    # Phase 4 detailed planning
+├── PHASE_4_COMPLETION.md                  # Phase 4 completion status ✅
 ├── TESTING_STRATEGY.md                    # Test coverage & verification
 └── EFFICIENCY_IMPROVEMENTS.md             # GitHub Actions minute savings details
 ```
