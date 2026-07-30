@@ -388,7 +388,7 @@ Create reference hub linking to all reusable assets:
 
 ### Example: Website Content Strategist
 **File:** `/agents/website-content-strategist-agent/`
-**Description:** Generates SEO-optimized content for websites
+**Description:** Generates SEO-optimised content for websites
 **Use When:** Writing homepage copy, landing pages, blog posts
 **Status:** Stable
 **Link:** [View AGENT.md]
@@ -430,7 +430,7 @@ Create reference hub linking to all reusable assets:
 
 - Available hooks (pre-commit, pre-push, etc.)
 - How to install
-- How to customize
+- How to customise
 - Link to: `/hooks/` directory
 
 #### `/references/plugins/`
@@ -744,7 +744,7 @@ Post-launch, track:
 
 ### Timeline
 
-- **July 26 (Today):** This requirements document created
+- **26 July 2026:** This requirements document created
 - **August 2–9:** Web team implementation
 - **August 10–23:** Testing and refinement
 - **August 24:** Soft launch (internal team testing)

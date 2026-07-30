@@ -242,22 +242,22 @@ Create custom agents for repetitive tasks:
    - Name: e.g., "Test Coverage Analyzer"
    - Description: What it does
    - Trigger: When to run (manual, on save, on push)
-   - Instructions: Detailed behavior rules
+   - Instructions: Detailed behaviour rules
 3. Save your agent to `.claude/agents/`
 4. Run from **Agents panel** anytime
 
 ### Terminal Integration
 
-Run commands directly from Claude:
+Claude proposes terminal commands for your approval before execution:
 
-1. In **Claude Chat**, ask to run a command:
+1. In **Claude Chat**, ask Claude to run a command:
 
    ```
    Run npm test and show me which tests failed
    ```
 
-2. Claude executes the command and shows output
-3. Ask follow-up questions about the results
+2. Claude proposes the command — **review it before approving**, especially for destructive or network-affecting operations (e.g. `rm -rf`, deployments, database changes)
+3. Approve to execute; Claude shows the output and you can ask follow-up questions
 
 ---
 

@@ -30,7 +30,7 @@ GitHub Copilot is an AI-powered coding assistant that provides real-time code su
 
 - **VS Code:** Version 1.77.0 or higher
 - **GitHub Account:** Active GitHub account with Copilot enabled
-- **Copilot License:** Individual, Business, or Education plan
+- **Copilot Licence:** Individual, Business, or Education plan
 - **Operating System:** macOS, Windows, or Linux
 - **Internet Connection:** Required for real-time suggestions
 
@@ -118,7 +118,7 @@ This disables Copilot for non-code files where suggestions are often irrelevant.
 | **Alt+[** / **Alt+]** | Previous/next suggestion |
 | **Ctrl+Enter** (Cmd+Enter) | Open suggestion details |
 
-### Customize Shortcuts
+### Customise Shortcuts
 
 1. Open **Keyboard Shortcuts** (Cmd+K Cmd+S / Ctrl+K Ctrl+S)
 2. Search for `copilot` or `inlineSuggest`
@@ -302,11 +302,12 @@ Copilot sees:
 - Comments and context
 - Your IDE and plugin versions
 
-Copilot does NOT access:
+Copilot does NOT guarantee that it never accesses:
 
-- Your `.env` files or secrets
-- Private GitHub repositories (unless shared)
-- Other open files (unless you reference them)
+> ⚠️ **Do not rely on automatic secret exclusion.** Copilot may analyse open files including `.env` files, other open editor tabs, and files referenced in context. Do not keep secrets in files that are open in your editor during a Copilot session, and do not assume excluded content is guaranteed to be withheld. Use VS Code's [content exclusions](https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-github-copilot-features-in-your-organization/about-content-exclusions-for-github-copilot) to configure explicit exclusions, and review its [documented limitations](https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-github-copilot-features-in-your-organization/about-content-exclusions-for-github-copilot#limitations-of-content-exclusions) before relying on them for sensitive data.
+
+- **Content exclusions** are available but have known limitations — they do not provide a security guarantee
+- Never open `.env` files, secrets, or credential files in your editor during a Copilot session
 
 ### Disable Copilot for Sensitive Projects
 

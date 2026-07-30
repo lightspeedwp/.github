@@ -16,7 +16,8 @@ A comprehensive testing guide for verifying Claude Code and GitHub Copilot funct
 
 ### Prerequisites
 
-- [ ] VS Code installed (v1.86+)
+- [ ] VS Code installed (v1.94.0+ for Claude Code extension; see each extension's marketplace page for its supported version)
+- [ ] GitHub Copilot extension prerequisites met (check [GitHub Copilot for VS Code](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) for current requirements)
 - [ ] Internet connection active
 - [ ] Both plugins installed and authenticated
 - [ ] Test project cloned locally
