@@ -285,19 +285,23 @@ describe("declared paths cannot escape the agent directory", () => {
     );
   });
 
-  test("a symlink pointing outside is rejected after resolution", () => {
-    const { root, dir } = agentWithSecretSibling([
-      "sneaky.txt",
-      "shared/core-prompt.md",
-    ]);
-    fs.symlinkSync(
-      path.join(root, "outside-secret.txt"),
-      path.join(dir, "sneaky.txt"),
-    );
-    expect(hook.checkSharedPhrases(dir).errors.join(" ")).toMatch(
-      /resolves outside the agent directory/,
-    );
-  });
+  const maybeSymlink = process.platform === "win32" ? test.skip : test;
+  maybeSymlink(
+    "a symlink pointing outside is rejected after resolution",
+    () => {
+      const { root, dir } = agentWithSecretSibling([
+        "sneaky.txt",
+        "shared/core-prompt.md",
+      ]);
+      fs.symlinkSync(
+        path.join(root, "outside-secret.txt"),
+        path.join(dir, "sneaky.txt"),
+      );
+      expect(hook.checkSharedPhrases(dir).errors.join(" ")).toMatch(
+        /resolves outside the agent directory/,
+      );
+    },
+  );
 
   test("a directory target is rejected rather than read", () => {
     const { dir } = agentWithSecretSibling(["shared", "shared/core-prompt.md"]);

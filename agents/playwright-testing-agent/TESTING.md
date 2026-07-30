@@ -173,7 +173,7 @@ Regardless of provider, a correct run:
 - [ ] Emits the full eight sections in order (Scope Summary → Sources Used →
       Environment & Test-Data Contract → Confirmed Requirements → Assumptions and
       Gaps → Human-Readable Test Cases → Traceability Matrix → Review Gate), or
-      the condensed form when right-sized to a small/single flow — and states
+      the condensed form when the confirmed-requirement count is ≤ 4 — and states
       which form it used.
 - [ ] Persists the pack to the project's test-pack directory
       (`.github/reports/test-packs/<flow>-<date>.md` where a `.github/` control

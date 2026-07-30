@@ -69,10 +69,11 @@ sections (Scope Summary, Sources Used, Environment & Test-Data Contract, Confirm
 Requirements, Assumptions and Gaps, Human-Readable Test Cases, Traceability Matrix,
 Review Gate / Next Step), or the condensed form (Scope, Environment & Test-Data
 Contract, merged Requirements + Cases, Traceability, Review Gate) when the pack is
-right-sized to a small/single-flow scope. State which form you used. Then **persist** the pack to
-`.github/reports/test-packs/<flow>-<date>.md` when `.github/` is available, or the
-project-configured path when set, or a repository-local equivalent otherwise. Report
-the actual written path in the Review Gate section.
+right-sized to ≤4 confirmed requirements. State which form you used. Then **persist** the pack
+to a project-configured location if one is set, otherwise to `.github/reports/test-packs/<flow>-<date>.md`
+when the repo has a `.github/` control plane, or `test-packs/<flow>-<date>.md` when it does not
+(this agent is portable and must not assume a `.github/` layout). Report the actual written path in
+the Review Gate section.
 
 For a **spec-generation run** (after approval), return a structured summary — the
 approved pack path, the generated specs, and the fixtures/env starter kit:

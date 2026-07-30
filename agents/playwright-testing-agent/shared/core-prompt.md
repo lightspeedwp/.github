@@ -232,6 +232,7 @@ gap and request it. Never fabricate a value.
 | Shipping / tax / discount rule source | The document or config that supplies rule *values* (not guessed). |
 | Subscriptions test data | Subscription product(s) + billing-interval expectations, if in scope. |
 | Accessibility baseline | Recorded axe-core violations that already exist, per page/widget. Required before an a11y gate can assert "no new violations". |
+| SEO baseline | Recorded metadata, structured-data, and heading-hierarchy issues that already exist, per page. Required before an SEO gate can assert "no new issues". |
 | Console-error baseline | Known console errors already present, per page. Required before a console gate can assert "no new errors". |
 
 Order-placing cases must not run until the sandbox-mode and test-card fields are
@@ -335,11 +336,11 @@ issues, assert in the runner to gate them**:
   confirmed requirements only when explicitly supported by the PRD, acceptance
   criteria, or an approved decision — they are not themselves the gate.
 - **Keyboard traversal:** for every custom interactive widget, add a
-  keyboard-only case — tab order reaches it, Enter/Space activate it, Escape
-  dismisses it, focus is visible, and focus returns to the trigger on close.
-  Mega-menus, drawers, modals, accordions, and interstitial gates are the usual
-  candidates; a widget the design treats as custom needs this case even when the
-  functional path already passes.
+  keyboard-only case — tab order reaches it, Enter/Space activate it, and focus
+  is visible. For dismissible custom widgets (menus, modals, drawers, accordions,
+  popovers), also test Escape dismissal and focus return to the trigger. Tabs,
+  non-dismissible comboboxes, and other custom widgets retain the tab-order,
+  activation, and focus-visibility checks.
 - Target **WCAG 2.2 AA**. Cite the specific success criterion in the test case
   rather than saying "accessibility check".
 - Automated audits catch a minority of real barriers. State that explicitly

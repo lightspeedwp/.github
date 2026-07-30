@@ -78,7 +78,7 @@ For each requirement:
 
 - assign a requirement ID
 - write one short requirement statement
-- classify it as one of: functional flow, content rule, visual rule, accessibility rule, performance rule, analytics/conversion rule, integration rule, or error/empty state
+- classify it as one of: functional flow, content rule, visual rule, accessibility rule, performance rule, analytics or conversion rule, integration rule, or error or empty state
 - cite the source evidence that supports it
 
 Do not split one criterion into many IDs unless the evidence clearly supports separate traceable requirements.
@@ -236,6 +236,7 @@ Use this compact template shape:
 | Shipping / tax / discount rule source | ... |
 | Subscriptions test data | ... if in scope |
 | Accessibility baseline | ... recorded axe violations, or gap |
+| SEO baseline | ... recorded metadata/structured-data issues, or gap |
 | Console-error baseline | ... known console errors, or gap |
 
 ### Confirmed Requirements
@@ -282,7 +283,7 @@ Use this compact template shape:
 
 ## Decision Rules
 
-- Right-size by scope automatically: if the confirmed-requirement count is ≤ 4 or the user names a single flow, default to the condensed pack without waiting for a "quick prototype" request; state which form you used.
+- Right-size by scope automatically: if the confirmed-requirement count is ≤ 4, default to the condensed pack without waiting for a "quick prototype" request; state which form you used.
 - If the user asks for a quick prototype, reduce ceremony but still keep requirement IDs and a minimal traceability section.
 - If there is only partial evidence, produce the strongest draft pack possible and clearly mark uncertainty.
 - If the request is only for requirement extraction, stop after requirements plus gaps.
