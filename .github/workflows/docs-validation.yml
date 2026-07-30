@@ -28,6 +28,10 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+    if: |
+      github.event_name == 'pull_request' ||
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout repository
@@ -52,6 +56,10 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: node scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
 
+      - name: Early exit if no Markdown files changed
+        if: steps.changed.outputs.has_changes != 'true'
+        run: echo "No Markdown files changed, skipping Mermaid validation" && exit 0
+
       - name: Check for Mermaid diagrams in changed files
         id: has_diagrams
         if: steps.changed.outputs.has_changes == 'true'
@@ -61,7 +69,9 @@ jobs:
 
       - name: Skip — no Mermaid diagrams in changed files
         if: steps.has_diagrams.outputs.result != 'true'
-        run: echo "No Mermaid diagrams found in changed files."
+        run: |
+          echo "No Mermaid diagrams found in changed files."
+          exit 0
 
       - name: Validate diagram syntax
         id: syntax
