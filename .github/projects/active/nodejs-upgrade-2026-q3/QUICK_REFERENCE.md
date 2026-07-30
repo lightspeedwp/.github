@@ -228,18 +228,35 @@ All changes are reversible; no data loss risk.
 
 ---
 
-## Execution Log
+## Execution Tracking
+
+### GitHub Issues
+
+| Issue | Phase | Status | Link |
+| --- | --- | --- | --- |
+| #1414 | Epic (Parent) | ⬜ Pending | [Open](https://github.com/lightspeedwp/.github/issues/1414) |
+| #1415 | Phase 1: Audit & Documentation | ⬜ Pending | [Open](https://github.com/lightspeedwp/.github/issues/1415) |
+| #1416 | Phase 2: Local Environment Upgrade | ⬜ Pending | [Open](https://github.com/lightspeedwp/.github/issues/1416) |
+| #1417 | Phase 3: Test & Validation | ⬜ Pending | [Open](https://github.com/lightspeedwp/.github/issues/1417) |
+| #1418 | Phase 4: Workflow Standardisation | ⬜ Pending | [Open](https://github.com/lightspeedwp/.github/issues/1418) |
+| #1419 | Phase 5: CI/CD Verification & Merge | ⬜ Pending | [Open](https://github.com/lightspeedwp/.github/issues/1419) |
+
+### Pull Request
+
+- **#1420** — Planning PR: chore/nodejs-upgrade-2026-q3 → develop — [Open](https://github.com/lightspeedwp/.github/pull/1420)
+
+### Execution Log
 
 | Date | Phase | Owner | Status | Notes |
 | --- | --- | --- | --- | --- |
-| | Phase 1 | | ⬜ | |
-| | Phase 2 | | ⬜ | |
-| | Phase 3 | | ⬜ | |
-| | Phase 4 | | ⬜ | |
-| | Phase 5 | | ⬜ | |
-| | Merge | | ⬜ | |
+| | Phase 1 (#1415) | | ⬜ | |
+| | Phase 2 (#1416) | | ⬜ | |
+| | Phase 3 (#1417) | | ⬜ | |
+| | Phase 4 (#1418) | | ⬜ | |
+| | Phase 5 (#1419) | | ⬜ | |
+| | Merge (#1420) | | ⬜ | |
 
 ---
 
 **Last Updated:** 2026-07-30  
-**Plan Status:** Ready for Approval
+**Plan Status:** ✅ Issues Created — Ready for Assignment
