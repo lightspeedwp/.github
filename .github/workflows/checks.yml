@@ -3,16 +3,44 @@ name: CI • Unified Checks (Lint, Test, Validate)
 on:
   pull_request:
     branches: [develop]
+    paths:
+      - "agents/**"
+      - "skills/**"
+      - "hooks/**"
+      - "workflows/**"
+      - "instructions/**"
+      - "plugins/**"
+      - ".github/**"
+      - "scripts/**"
+      - "cookbook/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".nvmrc"
+      - "*.md"
     paths-ignore:
       - ".github/reports/**"
-      - "reports/**"
       - ".github/projects/**"
+      - ".github/tmp/**"
   push:
     branches: [develop]
+    paths:
+      - "agents/**"
+      - "skills/**"
+      - "hooks/**"
+      - "workflows/**"
+      - "instructions/**"
+      - "plugins/**"
+      - ".github/**"
+      - "scripts/**"
+      - "cookbook/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".nvmrc"
+      - "*.md"
     paths-ignore:
       - ".github/reports/**"
-      - "reports/**"
       - ".github/projects/**"
+      - ".github/tmp/**"
   merge_group:
     types: [checks_requested]
 
@@ -55,6 +83,9 @@ jobs:
     name: Validation
     if: github.actor != 'imgbot[bot]'
     runs-on: ubuntu-latest
+    env:
+      BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
+      HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -68,11 +99,16 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.event.merge_group.head_ref || github.event.pull_request.head.ref || github.ref_name }}
         run: npm run validate:branch-name
-      - run: npm run validate:json
-      - run: npm run validate:issue-fields
-      - run: npm run validate:retired-doc-links
-      - run: npm run validate:footers -- --changed-only --base=${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }} --head=${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
-      - run: npm run validate:frontmatter:changed -- --base ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
+      - name: Validate changed JSON files only
+        run: npm run validate:json
+      - name: Validate issue fields (changed files only)
+        run: npm run validate:issue-fields
+      - name: Validate retired documentation links (changed files only)
+        run: npm run validate:retired-doc-links
+      - name: Validate footers (changed only)
+        run: npm run validate:footers -- --changed-only --base=${{ env.BASE_SHA }} --head=${{ env.HEAD_SHA }}
+      - name: Validate frontmatter (changed only)
+        run: npm run validate:frontmatter:changed -- --base ${{ env.BASE_SHA }} --head ${{ env.HEAD_SHA }}
 
   # Composite status check: ensures all checks pass before merge
   all-checks:

@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-29"
+last_updated: "2026-07-30"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -26,91 +26,92 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Removed
-
-- **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
-
-### Deprecated
-
-(none identified)
-
 ### Added
+
+- **Playwright Testing Agent — performance routing, accessibility/SEO/console gates, and scope-exclusion discipline** — Added `performance rule` as an eighth requirement type: such requirements are now extracted with an ID and evidence, then routed `deferred → pagespeed-agent` rather than dropped at extraction or turned into flaky wall-clock assertions. Added accessibility (axe-core scoped per page/widget, keyboard traversal for custom widgets, WCAG 2.2 AA criteria cited per case), SEO/metadata, and console-error-budget rules — all asserting *no new* violations against a recorded baseline rather than zero outright, so they can land on a site with existing debt. Added `Accessibility baseline` and `Console-error baseline` to the Environment & Test-Data Contract, captured from an audit run rather than guessed. Added a "Scope Exclusions and House Standards" rule so an organisational standard can no longer authorise coverage a project's scope excludes. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392) — *feat(playwright-testing-agent): performance routing, a11y/SEO/console gates, and scope-exclusion discipline*, [#1393](https://github.com/lightspeedwp/.github/issues/1393), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
 - **Issue triage automation system** — Implemented `MilestoneAssignmentAgent` (6 priority-ordered rules, 95%-50% confidence), `RemediationChecklistGenerator` (type-specific DoR/DoD templates for 10+ issue types), `issue-create-enhanced.yml` workflow (auto-applies type labels, milestones, parent/PR links), and `issue-remediation-bulk.yml` workflow (bulk remediation with dry-run preview). Fixes 100% compliance gap affecting 250 non-compliant issues and prevents future metadata gaps. ([PR #1377](https://github.com/lightspeedwp/.github/pull/1377), [#1376](https://github.com/lightspeedwp/.github/issues/1376))
 
 - **Issue health audit workflow** — Added `issue-health-audit.yml` to reopen issues closed with unchecked checkboxes and apply missing `type:`/`priority:` labels across all open issues. Runs weekly Monday 08:00 UTC and on `workflow_dispatch` with `dry_run` mode. Added `issue-project-field-sync.yml` for on-demand sync of open issues to a GitHub Projects v2 board, auto-discovering field IDs via GraphQL. Includes manual triage that reopened 8 issues and applied 75 label fixes on 2026-07-29. ([PR #1399](https://github.com/lightspeedwp/.github/pull/1399), [#1402](https://github.com/lightspeedwp/.github/issues/1402))
 
 - **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
-
 - **Phase 2B Phase B Skills Consolidation Planning** — Comprehensive Phase B planning deliverables establishing architectural foundation for Phase C execution (weeks 5-12). Includes skill dependency map (377 skills across 16 agents), architecture plan resolving 3 critical architectural decisions (Tier 0/1/2/3 organization, override system design, HIGH-severity conflict resolution), and implementation roadmap with 32 templated Phase C tasks (62-84 hours estimated). ([PR #1370](https://github.com/lightspeedwp/.github/pull/1370), [#1316](https://github.com/lightspeedwp/.github/issues/1316), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
-- **Playwright Testing Agent multi-provider support** — Converted ChatGPT/Codex export into standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added provider-agnostic AGENT.md, per-provider configs, tools/skill definitions, and plugin packaging. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
+- **Content-parity enforcement in `multi-provider-consistency-checker`** — Agents may now ship an optional `consistency.json` declaring shared phrases that must appear in several files; the hook fails when any copy drifts. Whitespace is normalised so line-wrapping may differ. Opt-in — agents without the file are unaffected. Covers the Playwright Testing Agent's requirement-type taxonomy, which is restated in three files and was previously only verified by hand. Nine new unit tests. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392) — *feat(playwright-testing-agent): performance routing, a11y/SEO/console gates, and scope-exclusion discipline*, [#1393](https://github.com/lightspeedwp/.github/issues/1393))
 
-- **Agent standardization Phase 1 infrastructure** — Established reusable multi-provider agent pattern with JSON schemas, validation hooks, instruction files, and cookbook playbooks. Four validators with unit tests for agent-spec, consistency, plugin integrity, and security. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108))
+- **Playwright Testing Agent multi-provider support** — Converted ChatGPT/Codex export into standardised multi-provider agent supporting Claude, GitHub Copilot, and OpenAI Codex. Added provider-agnostic AGENT.md, per-provider configs, tools/skill definitions, and plugin packaging. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108) — *feat(agents): Playwright Testing Agent multi-provider rewrite + Phase 1 standardization infra*, [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
-- **GitHub Workflows Consolidation Initiative — Phase 1A (Quick Wins)** — Initiated systematic consolidation of 31 GitHub workflows to reduce Actions minutes and eliminate code duplication. Phase 1A completed two high-impact quick wins: removed legacy `testing.yml` workflow (duplicate of `checks.yml`, saving ~2-3% monthly Actions minutes), and extracted template validation helpers from `validate-pr-template.yml` and `template-enforcement.yml` into a shared `scripts/validation/template-helpers.cjs` module with 45 comprehensive unit tests (>90% coverage). Created comprehensive project documentation in `.github/projects/active/workflows-consolidation-2026-q3/` including audit report, implementation playbook, GitHub issue templates, and 12-week execution plan across 4 phases (target: 31 → 25 workflows, ~15-20% Actions minute reduction, ~500 lines code duplication eliminated). Established reusable consolidation patterns for Phase 1B (changelog & metrics consolidation) and future phases. ([Epic #1227](https://github.com/lightspeedwp/.github/issues/1227); [PR #1228](https://github.com/lightspeedwp/.github/pull/1228); [#1231](https://github.com/lightspeedwp/.github/issues/1231), [#1233](https://github.com/lightspeedwp/.github/issues/1233))
+- **Agent standardization Phase 1 infrastructure** — Established reusable multi-provider agent pattern with JSON schemas, validation hooks, instruction files, and cookbook playbooks. Four validators with unit tests for agent-spec, consistency, plugin integrity, and security. ([PR #1108](https://github.com/lightspeedwp/.github/pull/1108) — *feat(agents): Playwright Testing Agent multi-provider rewrite + Phase 1 standardization infra*)
 
-- **Version-based milestone allocation strategy** — Implemented automatic version-based milestone assignment (v1.0–v1.6) for structured release planning with capacity tracking and type-exclusion filtering. ([PR #1113](https://github.com/lightspeedwp/.github/pull/1113), [#1112](https://github.com/lightspeedwp/.github/issues/1112))
+- **GitHub Workflows Consolidation Initiative — Phase 1A (Quick Wins)** — Initiated systematic consolidation of 31 GitHub workflows to reduce Actions minutes and eliminate code duplication. Phase 1A completed two high-impact quick wins: removed legacy `testing.yml` workflow (duplicate of `checks.yml`, saving ~2-3% monthly Actions minutes), and extracted template validation helpers from `validate-pr-template.yml` and `template-enforcement.yml` into a shared `scripts/validation/template-helpers.cjs` module with 45 comprehensive unit tests (>90% coverage). Created comprehensive project documentation in `.github/projects/active/workflows-consolidation-2026-q3/` including audit report, implementation playbook, GitHub issue templates, and 12-week execution plan across 4 phases (target: 31 → 25 workflows, ~15-20% Actions minute reduction, ~500 lines code duplication eliminated). Established reusable consolidation patterns for Phase 1B (changelog & metrics consolidation) and future phases. ([Epic #1227](https://github.com/lightspeedwp/.github/issues/1227); [PR #1228](https://github.com/lightspeedwp/.github/pull/1228) — *docs: Workflows consolidation project documentation for Epic #1227*; [#1231](https://github.com/lightspeedwp/.github/issues/1231), [#1233](https://github.com/lightspeedwp/.github/issues/1233))
 
-- **PRD Factory & Planner Agent Phase 2A standardization** — Completed comprehensive standardization of 39 available skills with skill routing guidance, provider config documentation, and Phase 2A completion status. ([PR #1199](https://github.com/lightspeedwp/.github/pull/1199), [#1197](https://github.com/lightspeedwp/.github/issues/1197), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
+- **Version-based milestone allocation strategy** — Implemented automatic version-based milestone assignment (v1.0–v1.6) for structured release planning with capacity tracking and type-exclusion filtering. ([PR #1113](https://github.com/lightspeedwp/.github/pull/1113) — *feat: implement version-based milestone allocation strategy*, [#1112](https://github.com/lightspeedwp/.github/issues/1112))
 
-- **Multi-provider WooCommerce Config Agent** — Standardised woo-config-agent to Phase 1 pattern with seven-phase provider-agnostic prompt, Claude tools, Copilot skills, and OpenAI functions with PCI DSS guardrails. ([PR #1141](https://github.com/lightspeedwp/.github/pull/1141), [#1101](https://github.com/lightspeedwp/.github/issues/1101))
+- **PRD Factory & Planner Agent Phase 2A standardization** — Completed comprehensive standardization of 39 available skills with skill routing guidance, provider config documentation, and Phase 2A completion status. ([PR #1199](https://github.com/lightspeedwp/.github/pull/1199) — *refactor(prd-factory-planner-agent): Phase 2A standardization — complete 12-phase skill integration*, [#1197](https://github.com/lightspeedwp/.github/issues/1197), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
-- **GitHub Workflows Consolidation Initiative — Phase 3.1 (Labeling Governance)** — Created consolidated `labeling-governance.yml` workflow merging three legacy labeling workflows: standard PR/issue labeling (`labeling.yml`, 250 lines), Dependabot security labeling (`dependabot-security-label.yml`, 85 lines), and label cleanup on issue close (`issue-close-label-hygiene.yml`, 95 lines). New workflow includes three conditional jobs (standard labeling, Dependabot detection, cleanup) reducing duplication (~180 lines), eliminating overlapping triggers, and centralizing labeling logic while preserving all existing behavior and performance. ([PR #1367](https://github.com/lightspeedwp/.github/pull/1367); [Issue #1322](https://github.com/lightspeedwp/.github/issues/1322); [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227))
+- **Multi-provider WooCommerce Config Agent** — Standardised woo-config-agent to Phase 1 pattern with seven-phase provider-agnostic prompt, Claude tools, Copilot skills, and OpenAI functions with PCI DSS guardrails. ([PR #1141](https://github.com/lightspeedwp/.github/pull/1141) — *feat: standardize woo-config-agent for multi-provider support*, [#1101](https://github.com/lightspeedwp/.github/issues/1101))
 
-- **Multi-provider WordPress Config & Tour Operator Config Agents** — Standardised wp-config-agent and tour-operator-config-agent to Phase 1 pattern with per-provider implementations. ([PR #1142](https://github.com/lightspeedwp/.github/pull/1142), [PR #1140](https://github.com/lightspeedwp/.github/pull/1140))
+- **GitHub Workflows Consolidation Initiative — Phase 3.1 (Labeling Governance)** — Created consolidated `labeling-governance.yml` workflow merging three legacy labeling workflows: standard PR/issue labeling (`labeling.yml`, 250 lines), Dependabot security labeling (`dependabot-security-label.yml`, 85 lines), and label cleanup on issue close (`issue-close-label-hygiene.yml`, 95 lines). New workflow includes three conditional jobs (standard labeling, Dependabot detection, cleanup) reducing duplication (~180 lines), eliminating overlapping triggers, and centralizing labeling logic while preserving all existing behavior and performance. ([PR #1367](https://github.com/lightspeedwp/.github/pull/1367) — *refactor: Phase 3.1 labeling consolidation — create labeling-governance.yml*; [Issue #1322](https://github.com/lightspeedwp/.github/issues/1322); [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227))
 
-- **PRD Combined Agent (Phase 2B)** — Consolidated prd-agent and prd-factory-planner-agent (917 files, 144k LOC) into unified multi-provider agent with full standardization. ([PR #1196](https://github.com/lightspeedwp/.github/pull/1196), [#1094](https://github.com/lightspeedwp/.github/issues/1094), [#1095](https://github.com/lightspeedwp/.github/issues/1095))
+- **Multi-provider WordPress Config & Tour Operator Config Agents** — Standardised wp-config-agent and tour-operator-config-agent to Phase 1 pattern with per-provider implementations. ([PR #1142](https://github.com/lightspeedwp/.github/pull/1142) — *feat: standardize wp-config-agent for multi-provider support*, [PR #1140](https://github.com/lightspeedwp/.github/pull/1140) — *feat: standardize tour-operator-config-agent for multi-provider support*)
 
-- **Agent batch standardization (Phase 1 complete)** — Standardised 4 agents to multi-provider pattern with 6 more in progress as part of Phase 2A. ([PR #1195](https://github.com/lightspeedwp/.github/pull/1195))
+- **PRD Combined Agent (Phase 2B)** — Consolidated prd-agent and prd-factory-planner-agent (917 files, 144k LOC) into unified multi-provider agent with full standardization. ([PR #1196](https://github.com/lightspeedwp/.github/pull/1196) — *feat(agents): Phase 2 Batch 2 - PRD Combined Agent*, [#1094](https://github.com/lightspeedwp/.github/issues/1094), [#1095](https://github.com/lightspeedwp/.github/issues/1095))
 
-- **Issue Definition of Done (DoD) validation workflow** — Automated CI workflow validates all issues have DoD sections with proper formatting, preventing incomplete issues from being shipped. ([PR #1200](https://github.com/lightspeedwp/.github/pull/1200), [#1014](https://github.com/lightspeedwp/.github/issues/1014))
+- **Agent batch standardization (Phase 1 complete)** — Standardised 4 agents to multi-provider pattern with 6 more in progress as part of Phase 2A. ([PR #1195](https://github.com/lightspeedwp/.github/pull/1195) — *feat(agents): Phase 2A standardization — 4 agents complete, 6 in progress*)
 
-- **Quirky footers system with schema validation** — Implemented footer parsing and schema validation infrastructure with comprehensive test coverage. ([PR #1212](https://github.com/lightspeedwp/.github/pull/1212))
+- **Issue Definition of Done (DoD) validation workflow** — Automated CI workflow validates all issues have DoD sections with proper formatting, preventing incomplete issues from being shipped. ([PR #1200](https://github.com/lightspeedwp/.github/pull/1200) — *feat(ci): add issue DoD validation workflow*, [#1014](https://github.com/lightspeedwp/.github/issues/1014))
 
-- **KWV block-theme skills** — Contributed 8 skill stubs and 11 new substantive block-theme skills for WordPress theme development. ([PR #1149](https://github.com/lightspeedwp/.github/pull/1149))
+- **Quirky footers system with schema validation** — Implemented footer parsing and schema validation infrastructure with comprehensive test coverage. ([PR #1212](https://github.com/lightspeedwp/.github/pull/1212) — *feat: implement quirky footers system with schema validation*)
 
-- **Org issue-field writer infrastructure (MVP)** — Added infrastructure for programmatic issue field writing to support automation. ([PR #1151](https://github.com/lightspeedwp/.github/pull/1151), [#1145](https://github.com/lightspeedwp/.github/issues/1145))
+- **KWV block-theme skills** — Contributed 8 skill stubs and 11 new substantive block-theme skills for WordPress theme development. ([PR #1149](https://github.com/lightspeedwp/.github/pull/1149) — *feat(skills): contribute KWV block-theme skills — flesh out 8 stubs + add 11 new*)
 
-- **GitHub Workflows Consolidation Initiative — Phase 1B.i (Changelog Management)** — Consolidated `changelog-validate.yml` and `changelog-auto-update.yml` into unified `changelog-management.yml` workflow with three conditional jobs: validate-changelog (PR validation with label enforcement), sync-changelog (auto-sync on merge), and pre-release-check (release validation). Comprehensive test suite with 18 tests covering all scenarios and edge cases. Fixed critical bug in sync-changelog condition that prevented PR file detection, added support for changelog-only PRs, and improved error handling. ([PR #1280](https://github.com/lightspeedwp/.github/pull/1280), [#1227](https://github.com/lightspeedwp/.github/issues/1227))
+- **Org issue-field writer infrastructure (MVP)** — Added infrastructure for programmatic issue field writing to support automation. ([PR #1151](https://github.com/lightspeedwp/.github/pull/1151) — *feat: add org issue-field writer infrastructure (MVP for #1145)*, [#1145](https://github.com/lightspeedwp/.github/issues/1145))
 
-- **GitHub Workflows Consolidation Initiative — Phase 1B.ii (Metrics Collection & Reporting)** — Consolidated `metrics.yml` and `metrics-summary.yml` into unified `metrics-reporting.yml` workflow with sequential job execution (collect → aggregate → post-to-discussions). Eliminated 3-hour scheduling gap through explicit job dependencies, reducing from dual 6 AM + 9 AM runs to sequential execution (~3-5 minutes). Added comprehensive test suite with 19 tests covering collection, aggregation, pipeline, and discussion posting. Manual workflow dispatch with stage selection (all/collect-only/aggregate-only) for flexibility. ([PR #1282](https://github.com/lightspeedwp/.github/pull/1282), [#1227](https://github.com/lightspeedwp/.github/issues/1227))
+- **GitHub Workflows Consolidation Initiative — Phase 1B.i (Changelog Management)** — Consolidated `changelog-validate.yml` and `changelog-auto-update.yml` into unified `changelog-management.yml` workflow with three conditional jobs: validate-changelog (PR validation with label enforcement), sync-changelog (auto-sync on merge), and pre-release-check (release validation). Comprehensive test suite with 18 tests covering all scenarios and edge cases. Fixed critical bug in sync-changelog condition that prevented PR file detection, added support for changelog-only PRs, and improved error handling. ([PR #1280](https://github.com/lightspeedwp/.github/pull/1280) — *refactor: Consolidate changelog management workflows (Phase 1B.i)*, [#1227](https://github.com/lightspeedwp/.github/issues/1227))
 
-- **CI markdown-linting scope optimization** — Comprehensive audit of 9,024 markdown files identified 38–45% scope reduction by excluding vendored assets, generated reports, and platform-managed content. Updated CI workflow with documented exclusion patterns. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226), [#1224](https://github.com/lightspeedwp/.github/issues/1224))
+- **GitHub Workflows Consolidation Initiative — Phase 1B.ii (Metrics Collection & Reporting)** — Consolidated `metrics.yml` and `metrics-summary.yml` into unified `metrics-reporting.yml` workflow with sequential job execution (collect → aggregate → post-to-discussions). Eliminated 3-hour scheduling gap through explicit job dependencies, reducing from dual 6 AM + 9 AM runs to sequential execution (~3-5 minutes). Added comprehensive test suite with 19 tests covering collection, aggregation, pipeline, and discussion posting. Manual workflow dispatch with stage selection (all/collect-only/aggregate-only) for flexibility. ([PR #1282](https://github.com/lightspeedwp/.github/pull/1282) — *refactor: Consolidate metrics collection and reporting workflows (Phase 1B.ii)*, [#1227](https://github.com/lightspeedwp/.github/issues/1227))
 
-- **PR automation workflow improvements** — Added PR labeling rules and research/* label automation to prevent duplicate labeling. ([PR #1191](https://github.com/lightspeedwp/.github/pull/1191))
+- **CI markdown-linting scope optimization** — Comprehensive audit of 9,024 markdown files identified 38–45% scope reduction by excluding vendored assets, generated reports, and platform-managed content. Updated CI workflow with documented exclusion patterns. ([PR #1226](https://github.com/lightspeedwp/.github/pull/1226) — *ci(markdown-linting): Optimize CI scope by excluding vendored and generated content — Phase 1*, [#1224](https://github.com/lightspeedwp/.github/issues/1224))
 
-- **16 new specialist agents** — Expanded agent portfolio with 16 new specialist agents in agents directory for expanded capability coverage. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
+- **PR automation workflow improvements** — Added PR labeling rules and research/* label automation to prevent duplicate labeling. ([PR #1191](https://github.com/lightspeedwp/.github/pull/1191) — *docs: Add PR automation workflow audit framework + fix research/\* label automation*)
 
-- **Phase 2B Skills Audit completion** — Comprehensive audit of Batch 2-3 agents completed (11 agents, 258 skills) with full skill inventory, conflict analysis, and classification framework. ([PR #1284](https://github.com/lightspeedwp/.github/pull/1284))
+- **16 new specialist agents** — Expanded agent portfolio with 16 new specialist agents in agents directory for expanded capability coverage. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040) — *feat: add 16 new specialist agents to agents directory*)
 
-- **Documentation standards expansion** — Added comprehensive GitHub template governance guidance for AI agents, establishing canonical patterns for agent instruction files and template structures. ([PR #1082](https://github.com/lightspeedwp/.github/pull/1082))
+- **Phase 2B Skills Audit completion** — Comprehensive audit of Batch 2-3 agents completed (11 agents, 258 skills) with full skill inventory, conflict analysis, and classification framework. ([PR #1284](https://github.com/lightspeedwp/.github/pull/1284) — *audit(phase-2b): Complete skills audit for Batch 2-3 agents (11 agents, 258 skills)*)
 
-- **Changelog automation hardening (Phase 2)** — Rebuilt lost history from 76 PRs (May 24–July 24), implemented format validation rules, integration tests for section header preservation, and contributor guidelines. Created comprehensive automation documentation with validation, testing, and release integration guidance. ([PR #1281](https://github.com/lightspeedwp/.github/pull/1281), [#1271](https://github.com/lightspeedwp/.github/issues/1271))
+- **Documentation standards expansion** — Added comprehensive GitHub template governance guidance for AI agents, establishing canonical patterns for agent instruction files and template structures. ([PR #1082](https://github.com/lightspeedwp/.github/pull/1082) — *docs: add GitHub template governance guidance for AI agents*)
 
-- **Workflows consolidation Phase 1B completion** — Consolidated changelog and metrics workflow suites into unified management workflows (Phase 1B.i and Phase 1B.ii), eliminating scheduling gaps and reducing configuration complexity. ([PR #1280](https://github.com/lightspeedwp/.github/pull/1280), [PR #1282](https://github.com/lightspeedwp/.github/pull/1282), [PR #1286](https://github.com/lightspeedwp/.github/pull/1286), [#1227](https://github.com/lightspeedwp/.github/issues/1227))
+- **Changelog automation hardening (Phase 2)** — Rebuilt lost history from 76 PRs (May 24–July 24), implemented format validation rules, integration tests for section header preservation, and contributor guidelines. Created comprehensive automation documentation with validation, testing, and release integration guidance. ([PR #1281](https://github.com/lightspeedwp/.github/pull/1281) — *chore(changelog): rebuild lost history & apply phase 2*, [#1271](https://github.com/lightspeedwp/.github/issues/1271))
 
-- **Schema consolidation and PLAN-EXPANDED updates** — Fixed schema compliance issues and documented previously-completed Batch 2-3 standardization work with expanded planning documentation. ([PR #1285](https://github.com/lightspeedwp/.github/pull/1285))
+- **Workflows consolidation Phase 1B completion** — Consolidated changelog and metrics workflow suites into unified management workflows (Phase 1B.i and Phase 1B.ii), eliminating scheduling gaps and reducing configuration complexity. ([PR #1280](https://github.com/lightspeedwp/.github/pull/1280) — *refactor: Consolidate changelog management workflows (Phase 1B.i)*, [PR #1282](https://github.com/lightspeedwp/.github/pull/1282) — *refactor: Consolidate metrics collection and reporting workflows (Phase 1B.ii)*, [PR #1286](https://github.com/lightspeedwp/.github/pull/1286) — *refactor(workflows): consolidate changelog & metrics workflows (Phase 1B)*, [#1227](https://github.com/lightspeedwp/.github/issues/1227))
+
+- **Schema consolidation and PLAN-EXPANDED updates** — Fixed schema compliance issues and documented previously-completed Batch 2-3 standardization work with expanded planning documentation. ([PR #1285](https://github.com/lightspeedwp/.github/pull/1285) — *docs(standards): Fix PLAN-EXPANDED.md schema compliance and document Batch 2-3 agent standardization*)
 
 ### Changed
 
-- **Routine dependency updates** — Multiple rounds of security and feature updates across project dependencies including TypeScript (5.9.3 → 7.0.2), markdownlint-cli2 (0.19.0 → 0.23.1), Svelte ecosystem updates (5.56.3 → 5.56.6 in website), Astro framework (6.4.8 → 7.1.3), and GitHub Actions (setup-node 4 → 7, mergifyio/gha-mergify-ci 22 → 24). ([PR #1027](https://github.com/lightspeedwp/.github/pull/1027), [#1030](https://github.com/lightspeedwp/.github/pull/1030), [#1032](https://github.com/lightspeedwp/.github/pull/1032), [#1034](https://github.com/lightspeedwp/.github/pull/1034), [#1035](https://github.com/lightspeedwp/.github/pull/1035), [#1037](https://github.com/lightspeedwp/.github/pull/1037), [#1038](https://github.com/lightspeedwp/.github/pull/1038), [#1048](https://github.com/lightspeedwp/.github/pull/1048), [#1049](https://github.com/lightspeedwp/.github/pull/1049), [#1050](https://github.com/lightspeedwp/.github/pull/1050), [#1051](https://github.com/lightspeedwp/.github/pull/1051), [#1052](https://github.com/lightspeedwp/.github/pull/1052), [#1053](https://github.com/lightspeedwp/.github/pull/1053), [#1056](https://github.com/lightspeedwp/.github/pull/1056), [#1060](https://github.com/lightspeedwp/.github/pull/1060), [#1061](https://github.com/lightspeedwp/.github/pull/1061), [#1062](https://github.com/lightspeedwp/.github/pull/1062), [#1063](https://github.com/lightspeedwp/.github/pull/1063), [#1064](https://github.com/lightspeedwp/.github/pull/1064), [#1065](https://github.com/lightspeedwp/.github/pull/1065))
+- **Routine dependency updates** — Multiple rounds of security and feature updates across project dependencies including TypeScript (5.9.3 → 7.0.2), markdownlint-cli2 (0.19.0 → 0.23.1), Svelte ecosystem updates (5.56.3 → 5.56.6 in website), Astro framework (6.4.8 → 7.1.3), and GitHub Actions (setup-node 4 → 7, mergifyio/gha-mergify-ci 22 → 24). ([PR #1027](https://github.com/lightspeedwp/.github/pull/1027) — *chore(deps-dev): bump lint-staged from 17.0.7 to 17.0.8*, [PR #1030](https://github.com/lightspeedwp/.github/pull/1030) — *chore(deps): bump svelte from 5.56.3 to 5.56.4 in /website*, [PR #1032](https://github.com/lightspeedwp/.github/pull/1032) — *chore(deps-dev): bump markdownlint-cli2 from 0.19.0 to 0.23.0*, [PR #1034](https://github.com/lightspeedwp/.github/pull/1034) — *chore(deps): bump @astrojs/svelte from 8.1.2 to 9.0.1 in /website*, [PR #1035](https://github.com/lightspeedwp/.github/pull/1035) — *chore(deps-dev): bump @typescript-eslint/parser from 8.61.1 to 8.62.1*, [PR #1037](https://github.com/lightspeedwp/.github/pull/1037) — *chore(deps): bump marked from 18.0.5 to 18.0.6 in /website*, [PR #1038](https://github.com/lightspeedwp/.github/pull/1038) — *chore(deps): bump astro from 6.4.8 to 7.0.7 in /website*, [PR #1048](https://github.com/lightspeedwp/.github/pull/1048) — *chore(deps): bump mergifyio/gha-mergify-ci from 22 to 23*, [PR #1049](https://github.com/lightspeedwp/.github/pull/1049) — *chore(deps): bump actions/setup-node from 4 to 7*, [PR #1050](https://github.com/lightspeedwp/.github/pull/1050) — *chore(deps-dev): bump typescript from 5.9.3 to 7.0.2*, [PR #1051](https://github.com/lightspeedwp/.github/pull/1051) — *chore(deps-dev): bump markdownlint-cli2 from 0.23.0 to 0.23.1*, [PR #1052](https://github.com/lightspeedwp/.github/pull/1052) — *chore(deps): bump svelte from 5.56.5 to 5.56.6 in /website*, [PR #1053](https://github.com/lightspeedwp/.github/pull/1053) — *chore(deps): bump astro from 7.0.9 to 7.1.0 in /website*, [PR #1056](https://github.com/lightspeedwp/.github/pull/1056) — *chore(deps): bump astro from 7.0.9 to 7.1.3 in /website*, [PR #1060](https://github.com/lightspeedwp/.github/pull/1060) — *chore(deps): bump marked from 18.0.6 to 18.0.7 in /website*, [PR #1061](https://github.com/lightspeedwp/.github/pull/1061) — *chore(deps-dev): bump @typescript-eslint/eslint-plugin from 8.64.0 to 8.65.0*, [PR #1062](https://github.com/lightspeedwp/.github/pull/1062) — *chore(deps-dev): bump prettier from 3.9.5 to 3.9.6*, [PR #1063](https://github.com/lightspeedwp/.github/pull/1063) — *chore(deps-dev): bump @typescript-eslint/parser from 8.64.0 to 8.65.0*, [PR #1064](https://github.com/lightspeedwp/.github/pull/1064) — *chore(deps-dev): bump lint-staged from 17.0.8 to 17.1.1*, [PR #1065](https://github.com/lightspeedwp/.github/pull/1065) — *chore(deps-dev): bump @stoplight/spectral-cli from 6.16.1 to 6.16.2*)
 
-- **Dependabot automation hardening** — Enhanced dependabot auto-merge via Mergify queue configuration, adding dependency update batching and merge queue integration for improved CI stability. ([PR #1059](https://github.com/lightspeedwp/.github/pull/1059))
+- **Dependabot automation hardening** — Enhanced dependabot auto-merge via Mergify queue configuration, adding dependency update batching and merge queue integration for improved CI stability. ([PR #1059](https://github.com/lightspeedwp/.github/pull/1059) — *chore(ci): enable reliable mergify auto-merge for dependabot PRs*)
 
-- **GitHub Actions minutes optimisation (Phase 2)** — Reduced monthly GitHub Actions consumption by optimising workflow triggers, parallel job execution, and caching strategies across changelog and metrics workflows. ([PR #1057](https://github.com/lightspeedwp/.github/pull/1057))
+- **GitHub Actions minutes optimisation (Phase 2)** — Reduced monthly GitHub Actions consumption by optimising workflow triggers, parallel job execution, and caching strategies across changelog and metrics workflows. ([PR #1057](https://github.com/lightspeedwp/.github/pull/1057) — *Feat/reduce gh actions minutes*)
 
-- **Babel toolchain upgraded to 8.x** — Major version bump with peer-dependency requirements. Removed deprecated proposal plugins (natively handled by preset-env now). ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
+- **Babel toolchain upgraded to 8.x** — Major version bump with peer-dependency requirements. Removed deprecated proposal plugins (natively handled by preset-env now). ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044) — *chore(deps): upgrade Babel toolchain to 8.x (coordinated migration)*)
 
-- **ESLint upgraded to 10.x** — Major version bump from 8.57.1 to 10.5.0. Added @eslint/js devDependency, raised Node requirement to >=20.19.0, fixed 25 new-rule violations, migrated .eslintignore to flat-config. ([PR #1046](https://github.com/lightspeedwp/.github/pull/1046))
+- **ESLint upgraded to 10.x** — Major version bump from 8.57.1 to 10.5.0. Added @eslint/js devDependency, raised Node requirement to >=20.19.0, fixed 25 new-rule violations, migrated .eslintignore to flat-config. ([PR #1046](https://github.com/lightspeedwp/.github/pull/1046) — *chore(deps-dev): bump eslint from 8.57.1 to 10.5.0*)
 
-- **js-yaml upgraded to 5.x** — Updated from 4.2.0 to 5.2.1. Default export removed; all code updated to use named imports. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
+- **js-yaml upgraded to 5.x** — Updated from 4.2.0 to 5.2.1. Default export removed; all code updated to use named imports. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047) — *chore(deps-dev): bump js-yaml from 4.2.0 to 5.2.1*)
 
-- **@typescript-eslint/eslint-plugin upgraded** — Bumped from 8.60.1 to 8.61.1 (patch release). ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
+- **@typescript-eslint/eslint-plugin upgraded** — Bumped from 8.60.1 to 8.61.1 (patch release). ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045) — *chore(deps-dev): bump @typescript-eslint/eslint-plugin from 8.60.1 to 8.61.1*)
 
-- **GitHub Actions minute optimisation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054))
+- **GitHub Actions minute optimisation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054) — *ci: reduce Actions minute consumption and add savings watcher*)
 
-- **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067), [#1066](https://github.com/lightspeedwp/.github/issues/1066))
+- **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067) — *Add scheduled branch cleanup automation and reporting*, [#1066](https://github.com/lightspeedwp/.github/issues/1066))
+
+### Removed
+
+- **`agents/playwright-testing-agent/checksums.sha256`** — Removed a manifest that provided the appearance of integrity without the substance: nothing in CI, `scripts/` or `hooks/` generated or verified it, and an audit of all 15 agents found twelve at 44–71% invalid, invalidated by the repo's own markdown normalisation sweeps and `lint-staged --fix`. Because it sat alongside the files it hashed it could not evidence tampering either. Note this diverges from the other 14 agents pending an org-wide decision. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392) — *feat(playwright-testing-agent): performance routing, a11y/SEO/console gates, and scope-exclusion discipline*, [#1394](https://github.com/lightspeedwp/.github/issues/1394))
+
+- **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317) — *chore(workflows): cleanup legacy README workflows (Phase 2.4)*, [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
 
 ### Fixed
 
@@ -118,525 +119,814 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Changelog automation: Section headers destroyed on merge** — The merge-entries workflow was discarding section headers during deduplication, corrupting changelog structure on every PR merge. Fixed deduplication logic to preserve headers and limited scope to [Unreleased] section only. ([PR #1276](https://github.com/lightspeedwp/.github/pull/1276), [#1275](https://github.com/lightspeedwp/.github/issues/1275))
 
-- **Meta-agent workflow: Missing npm dependency and direct push to protected branch** — Added missing npm ci step and routed commits through auto-merged PR instead of direct push to respect branch protection. ([PR #1073](https://github.com/lightspeedwp/.github/pull/1073), [#1072](https://github.com/lightspeedwp/.github/issues/1072))
+- **Playwright Testing Agent docs: broken schema path and a `.github/`-layout assumption** — `TESTING.md` documented a validation command reading `.schemas/provider-config.schema.json`, which crashed as written because that schema is still at `schema/provider-config.schema.json`; the command now runs and both provider tool configs validate. The same file hardcoded `.github/reports/test-packs/`, contradicting `core-prompt.md`'s requirement that the portable agent not assume a `.github/` layout. `AGENT.md`'s usage example also still listed the superseded seven-section pack. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392) — *feat(playwright-testing-agent): performance routing, a11y/SEO/console gates, and scope-exclusion discipline*, [#1395](https://github.com/lightspeedwp/.github/issues/1395))
 
-- **Validation tool robustness: Footer truncation and mermaid workflow** — Fixed critical data loss bug where replaceFooterTail() truncated file bodies; improved mermaid workflow error handling. ([PR #1123](https://github.com/lightspeedwp/.github/pull/1123), [#1118](https://github.com/lightspeedwp/.github/issues/1118), [#1119](https://github.com/lightspeedwp/.github/issues/1119))
+- **Changelog automation: Section headers destroyed on merge** — The merge-entries workflow was discarding section headers during deduplication, corrupting changelog structure on every PR merge. Fixed deduplication logic to preserve headers and limited scope to [Unreleased] section only. ([PR #1276](https://github.com/lightspeedwp/.github/pull/1276) — *fix(changelog): preserve section headers & establish automation hardening initiative*, [#1275](https://github.com/lightspeedwp/.github/issues/1275))
 
-- **Milestone capacity: Type exclusion filtering not implemented** — Configured type exclusions (chore, task, docs) were not applied when counting issues toward capacity limits. Implemented type-based filtering. ([PR #1132](https://github.com/lightspeedwp/.github/pull/1132), [#1131](https://github.com/lightspeedwp/.github/issues/1131))
+- **Meta-agent workflow: Missing npm dependency and direct push to protected branch** — Added missing npm ci step and routed commits through auto-merged PR instead of direct push to respect branch protection. ([PR #1073](https://github.com/lightspeedwp/.github/pull/1073) — *ci(meta): install deps before meta agent; route content/metrics through a PR*, [#1072](https://github.com/lightspeedwp/.github/issues/1072))
 
-- **CI linting workflow blockers** — Consolidated duplicate checks and fixed invalid YAML structure in cleanup-branches.yml workflow. ([PR #1159](https://github.com/lightspeedwp/.github/pull/1159), [PR #1075](https://github.com/lightspeedwp/.github/pull/1075), [#1074](https://github.com/lightspeedwp/.github/issues/1074))
+- **Validation tool robustness: Footer truncation and mermaid workflow** — Fixed critical data loss bug where replaceFooterTail() truncated file bodies; improved mermaid workflow error handling. ([PR #1123](https://github.com/lightspeedwp/.github/pull/1123) — *fix(validation): address footer truncation and mermaid workflow robustness*, [#1118](https://github.com/lightspeedwp/.github/issues/1118), [#1119](https://github.com/lightspeedwp/.github/issues/1119))
 
-- **Mergify config: Invalid speculative_checks field** — Removed unsupported field that was causing Mergify's status checks to permanently fail on all PRs. ([PR #1077](https://github.com/lightspeedwp/.github/pull/1077), [#1076](https://github.com/lightspeedwp/.github/issues/1076))
+- **Milestone capacity: Type exclusion filtering not implemented** — Configured type exclusions (chore, task, docs) were not applied when counting issues toward capacity limits. Implemented type-based filtering. ([PR #1132](https://github.com/lightspeedwp/.github/pull/1132) — *fix(milestones): implement capacity exclusion filtering*, [#1131](https://github.com/lightspeedwp/.github/issues/1131))
 
-- **Branch cleanup automation: Safety hardening** — Fixed four critical safety issues: daysSince() date handling, isMerged() false positives, deleteLocalBranch() force-delete risk, and error handling for invalid patterns. ([PR #1071](https://github.com/lightspeedwp/.github/pull/1071), [#1069](https://github.com/lightspeedwp/.github/issues/1069))
+- **CI linting workflow blockers** — Consolidated duplicate checks and fixed invalid YAML structure in cleanup-branches.yml workflow. ([PR #1159](https://github.com/lightspeedwp/.github/pull/1159) — *ci: fix linting workflow blockers — consolidate duplicate checks, exclude temporary directories*, [PR #1075](https://github.com/lightspeedwp/.github/pull/1075) — *fix(ci): add missing steps key in cleanup-branches.yml*, [#1074](https://github.com/lightspeedwp/.github/issues/1074))
 
-- **Meta-agent workflow: Branch name accumulation** — Fixed branch naming to prevent PR accumulation and added Mergify rule. ([PR #1138](https://github.com/lightspeedwp/.github/pull/1138))
+- **Mergify config: Invalid speculative_checks field** — Removed unsupported field that was causing Mergify's status checks to permanently fail on all PRs. ([PR #1077](https://github.com/lightspeedwp/.github/pull/1077) — *fix(ci): remove unsupported speculative\_checks field from mergify.yml*, [#1076](https://github.com/lightspeedwp/.github/issues/1076))
 
-- **YAML deprecation and footer validation** — Resolved js-yaml 5.x safeLoad deprecation and fixed false positives in footer validation. ([PR #1137](https://github.com/lightspeedwp/.github/pull/1137))
+- **Branch cleanup automation: Safety hardening** — Fixed four critical safety issues: daysSince() date handling, isMerged() false positives, deleteLocalBranch() force-delete risk, and error handling for invalid patterns. ([PR #1071](https://github.com/lightspeedwp/.github/pull/1071) — *fix: improve branch cleanup safety and robustness*, [#1069](https://github.com/lightspeedwp/.github/issues/1069))
 
-- **Priority field vocabulary reconciliation** — Reconciled conflicting Priority field values and added regression test. ([PR #1148](https://github.com/lightspeedwp/.github/pull/1148))
+- **Meta-agent workflow: Branch name accumulation** — Fixed branch naming to prevent PR accumulation and added Mergify rule. ([PR #1138](https://github.com/lightspeedwp/.github/pull/1138) — *fix(meta): use fixed branch name to prevent PR accumulation + add mergify rule*)
 
-- **Project-meta-sync secret-gating** — Made GitHub App secret gating explicit to fail loudly on configuration errors instead of silently. ([PR #1150](https://github.com/lightspeedwp/.github/pull/1150))
+- **YAML deprecation and footer validation** — Resolved js-yaml 5.x safeLoad deprecation and fixed false positives in footer validation. ([PR #1137](https://github.com/lightspeedwp/.github/pull/1137) — *fix(ci): resolve yaml.safeLoad deprecation and footer validation false positives*)
 
-- **CI template enforcement: Re-fetch live issue state** — Fixed stale issue state being used in template enforcement guards. ([PR #1086](https://github.com/lightspeedwp/.github/pull/1086), [#1085](https://github.com/lightspeedwp/.github/issues/1085))
+- **Priority field vocabulary reconciliation** — Reconciled conflicting Priority field values and added regression test. ([PR #1148](https://github.com/lightspeedwp/.github/pull/1148) — *fix: reconcile Priority field vocabulary + add parity regression test*)
 
-- **Meta-agent: Honour --dry-run flag** — Fixed dry-run mode not being honoured in footer, badges, and metrics writes. ([PR #1084](https://github.com/lightspeedwp/.github/pull/1084), [#1083](https://github.com/lightspeedwp/.github/issues/1083))
+- **Project-meta-sync secret-gating** — Made GitHub App secret gating explicit to fail loudly on configuration errors instead of silently. ([PR #1150](https://github.com/lightspeedwp/.github/pull/1150) — *build: make project-meta-sync secret-gating explicit (fail loud, not silent)*)
 
-- **CI label governance: Missing labels** — Added missing type label aliases and removed non-existent labels from governance configuration. ([PR #1202](https://github.com/lightspeedwp/.github/pull/1202), [PR #1203](https://github.com/lightspeedwp/.github/pull/1203))
+- **CI template enforcement: Re-fetch live issue state** — Fixed stale issue state being used in template enforcement guards. ([PR #1086](https://github.com/lightspeedwp/.github/pull/1086) — *fix(ci): re-fetch live issue state in template-enforcement guards*, [#1085](https://github.com/lightspeedwp/.github/issues/1085))
 
-- **Template enforcement: Silent issue reopening** — Replaced silent reopening with guidance comment and status:needs-more-info label for incomplete issues. ([PR #1201](https://github.com/lightspeedwp/.github/pull/1201), [#1014](https://github.com/lightspeedwp/.github/issues/1014))
+- **Meta-agent: Honour --dry-run flag** — Fixed dry-run mode not being honoured in footer, badges, and metrics writes. ([PR #1084](https://github.com/lightspeedwp/.github/pull/1084) — *fix: honour --dry-run in meta.agent.js footer, badges, and metrics writes*, [#1083](https://github.com/lightspeedwp/.github/issues/1083))
 
-- **Footer cleanup and validation** — Comprehensive footer format standardization and validation improvements. ([PR #1115](https://github.com/lightspeedwp/.github/pull/1115))
+- **CI label governance: Missing labels** — Added missing type label aliases and removed non-existent labels from governance configuration. ([PR #1202](https://github.com/lightspeedwp/.github/pull/1202) — *fix(ci): add missing aliases for type labels*, [PR #1203](https://github.com/lightspeedwp/.github/pull/1203) — *fix(ci): remove non-existent comp:help-tabs from label governance*)
 
-- **Babel peer-dependency conflict resolution** — Fixed critical npm ci blocker caused by Babel 8.x peer-dependency constraints, enabling consistent builds across development environments. ([PR #1043](https://github.com/lightspeedwp/.github/pull/1043))
+- **Template enforcement: Silent issue reopening** — Replaced silent reopening with guidance comment and status:needs-more-info label for incomplete issues. ([PR #1201](https://github.com/lightspeedwp/.github/pull/1201) — *fix(ci): replace silent reopening with guidance comment and label*, [#1014](https://github.com/lightspeedwp/.github/issues/1014))
 
-- **Documentation and guidance enhancements** — Added missing documentation for schema consolidation migration path and AI reference standards, improving developer onboarding and maintenance visibility. ([PR #1211](https://github.com/lightspeedwp/.github/pull/1211), [#1221](https://github.com/lightspeedwp/.github/pull/1221), [#1222](https://github.com/lightspeedwp/.github/pull/1222), [#1223](https://github.com/lightspeedwp/.github/pull/1223), [#1250](https://github.com/lightspeedwp/.github/pull/1250), [#1251](https://github.com/lightspeedwp/.github/pull/1251))
+- **Footer cleanup and validation** — Comprehensive footer format standardization and validation improvements. ([PR #1115](https://github.com/lightspeedwp/.github/pull/1115) — *fix: footer cleanup and validation*)
 
-- **Agent skills documentation pipeline** — Resolved workflow configuration issues in documentation generation pipeline for agent skills standards, ensuring schema-compliant documentation generation. ([PR #1204](https://github.com/lightspeedwp/.github/pull/1204))
+- **Babel peer-dependency conflict resolution** — Fixed critical npm ci blocker caused by Babel 8.x peer-dependency constraints, enabling consistent builds across development environments. ([PR #1043](https://github.com/lightspeedwp/.github/pull/1043) — *fix(deps): resolve Babel peer-dependency conflict blocking npm ci*)
 
-- **GitHub Actions workflow hardening** — Applied hardening measures across workflow execution including improved dependency resolution, enhanced error handling, and security context validation. ([PR #1093](https://github.com/lightspeedwp/.github/pull/1093), [#1096](https://github.com/lightspeedwp/.github/pull/1096), [#1099](https://github.com/lightspeedwp/.github/pull/1099), [#1100](https://github.com/lightspeedwp/.github/pull/1100), [#1126](https://github.com/lightspeedwp/.github/pull/1126), [#1127](https://github.com/lightspeedwp/.github/pull/1127), [#1130](https://github.com/lightspeedwp/.github/pull/1130), [#1133](https://github.com/lightspeedwp/.github/pull/1133), [#1139](https://github.com/lightspeedwp/.github/pull/1139), [#1144](https://github.com/lightspeedwp/.github/pull/1144), [#1145](https://github.com/lightspeedwp/.github/pull/1145), [#1161](https://github.com/lightspeedwp/.github/pull/1161), [#1068](https://github.com/lightspeedwp/.github/pull/1068))
+- **Documentation and guidance enhancements** — Added missing documentation for schema consolidation migration path and AI reference standards, improving developer onboarding and maintenance visibility. ([PR #1211](https://github.com/lightspeedwp/.github/pull/1211) — *chore: add .gitignore entries for generated skill directories*, [PR #1221](https://github.com/lightspeedwp/.github/pull/1221) — *docs(agents): Phase 2B skills architecture audit and consolidation plan*, [PR #1222](https://github.com/lightspeedwp/.github/pull/1222) — *docs: comprehensive maintenance & branch cleanup infrastructure*, [PR #1223](https://github.com/lightspeedwp/.github/pull/1223) — *research(markdown-audit-ci-optimization): Complete audit with findings and implementation guide*, [PR #1250](https://github.com/lightspeedwp/.github/pull/1250) — *docs: Add issue triage & template application guide*, [PR #1251](https://github.com/lightspeedwp/.github/pull/1251) — *docs(standards): Agent & Skills Standards Comprehensive Documentation - Batch 1*)
 
-### Security
+- **Agent skills documentation pipeline** — Resolved workflow configuration issues in documentation generation pipeline for agent skills standards, ensuring schema-compliant documentation generation. ([PR #1204](https://github.com/lightspeedwp/.github/pull/1204) — *docs: audit changelog consolidation needs — Phase 1 findings & recommendations*)
 
-(none identified)
-
-## Contributors
-
-The entries in this [Unreleased] section represent work from 40+ merged PRs between May 24 — July 24, 2026.
-
-**PR Range:** #1020, #1043–#1077, #1082–#1086, #1108, #1112–#1115, #1118–#1119, #1123, #1131–#1132, #1137–#1142, #1145, #1148–#1151, #1159, #1191, #1195–#1203, #1212, #1224–#1226, #1275
-
-Thank you to everyone who contributed to these improvements!
+- **GitHub Actions workflow hardening** — Applied hardening measures across workflow execution including improved dependency resolution, enhanced error handling, and security context validation. ([#1093](https://github.com/lightspeedwp/.github/issues/1093), [#1096](https://github.com/lightspeedwp/.github/issues/1096), [#1099](https://github.com/lightspeedwp/.github/issues/1099), [#1100](https://github.com/lightspeedwp/.github/issues/1100), [#1126](https://github.com/lightspeedwp/.github/issues/1126), [PR #1127](https://github.com/lightspeedwp/.github/pull/1127) — *chore: apply CodeRabbit code quality improvements from #1126*, [PR #1130](https://github.com/lightspeedwp/.github/pull/1130) — *chore: improve .gitattributes for consistent line ending normalization*, [PR #1133](https://github.com/lightspeedwp/.github/pull/1133) — *chore(meta): automated meta-agent sync*, [PR #1139](https://github.com/lightspeedwp/.github/pull/1139) — *feat: complete agent-standards-initiative Phase 1 + Phase 2 PRD agent merge*, [PR #1144](https://github.com/lightspeedwp/.github/pull/1144) — *docs(agent-standards): refine Phase 2 prompts into per-chat briefs + execution playbook*, [#1145](https://github.com/lightspeedwp/.github/issues/1145), [PR #1161](https://github.com/lightspeedwp/.github/pull/1161) — *audit: comprehensive aging and SLA annotation system review*, [PR #1068](https://github.com/lightspeedwp/.github/pull/1068) — *chore(deps): bump fast-uri from 3.1.3 to 3.1.4*)
 
 ## [0.6.0] - 2026-06-19
 
 ### Added
 
-- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
-
 - **Issue automation hardening** — Expanded `checklist-finalisation.yml` to auto-tick `Steps / Checklist` and `Acceptance Criteria` sections on issue close (previously only DoR/DoD were covered). Added `enforce-close-guard` job to `template-enforcement.yml`: issues closed as "completed" that are missing DoR/DoD sections or still carry `status:needs-more-info` are automatically re-opened with an explanation comment. Activated `issues.agent.js` apply mode — the workflow now writes `status:needs-triage`, `priority:normal`, and a detected `type:*` label to newly opened issues when those label categories are not already present; updated `issues.yml` permissions from `issues: read` to `issues: write`. ([#1014](https://github.com/lightspeedwp/.github/issues/1014))
 
-- **GitHub Merge Queue support** — Added `merge_group: types: [checks_requested]` trigger to `checks.yml`, `validate-pr-template.yml`, and `main-branch-guard.yml` so required status checks fire correctly inside GitHub's Merge Queue. Skipped branch-name validation for `merge_group` runs and updated the changed-files comparison to use merge-queue SHAs. Added `merge_queue` rule (ALLGREEN grouping, 60-minute check timeout) to both `develop` and `main` branch rulesets. ([PR #1008](https://github.com/lightspeedwp/.github/pull/1008), [Issue #1008](https://github.com/lightspeedwp/.github/issues/1008))
+- **GitHub Merge Queue support** — Added `merge_group: types: [checks_requested]` trigger to `checks.yml`, `validate-pr-template.yml`, and `main-branch-guard.yml` so required status checks fire correctly inside GitHub's Merge Queue. Skipped branch-name validation for `merge_group` runs and updated the changed-files comparison to use merge-queue SHAs. Added `merge_queue` rule (ALLGREEN grouping, 60-minute check timeout) to both `develop` and `main` branch rulesets. ([PR #1008](https://github.com/lightspeedwp/.github/pull/1008) — *ci(workflows): add merge\_group trigger to unblock GitHub Merge Queue*, [Issue #1008](https://github.com/lightspeedwp/.github/issues/1008))
 
-- **Mermaid WCAG 2.2 AA colour contrast validation** — Added `scripts/validation/validate-mermaid-colour-contrast.js` which checks every `style` declaration in Mermaid diagrams against a pre-verified WCAG 2.2 AA palette (minimum 4.5:1 contrast ratio). The validator supports `--changed-files` scoping for CI efficiency, flags unparseable hex values as errors, strips inline `%%` comments before parsing, and generates a dated markdown report under `.github/reports/mermaid/`. Added `npm run validate:mermaid-contrast` script. Updated `.github/workflows/validate-mermaid-pr.yml` to run all three diagram checks (syntax, accessibility, contrast) on every PR that modifies `.md`/`.mdx` files, posting a consolidated status comment. Updated `instructions/mermaid.instructions.md` with the approved seven-role WCAG AA palette and required structure. Fixed all existing diagram `style` declarations across `README.md`, `docs/AGENT_CREATION.md`, `profile/README.md`, `scripts/README.md`, `tests/README.md`, and `.github/ISSUE_TEMPLATE/README.md` to use the approved palette triples (`fill`, `color`, `stroke`). ([#977](https://github.com/lightspeedwp/.github/pull/977), [#976](https://github.com/lightspeedwp/.github/issues/976))
+- **Mermaid WCAG 2.2 AA colour contrast validation** — Added `scripts/validation/validate-mermaid-colour-contrast.js` which checks every `style` declaration in Mermaid diagrams against a pre-verified WCAG 2.2 AA palette (minimum 4.5:1 contrast ratio). The validator supports `--changed-files` scoping for CI efficiency, flags unparseable hex values as errors, strips inline `%%` comments before parsing, and generates a dated markdown report under `.github/reports/mermaid/`. Added `npm run validate:mermaid-contrast` script. Updated `.github/workflows/validate-mermaid-pr.yml` to run all three diagram checks (syntax, accessibility, contrast) on every PR that modifies `.md`/`.mdx` files, posting a consolidated status comment. Updated `instructions/mermaid.instructions.md` with the approved seven-role WCAG AA palette and required structure. Fixed all existing diagram `style` declarations across `README.md`, `docs/AGENT_CREATION.md`, `profile/README.md`, `scripts/README.md`, `tests/README.md`, and `.github/ISSUE_TEMPLATE/README.md` to use the approved palette triples (`fill`, `color`, `stroke`). ([PR #977](https://github.com/lightspeedwp/.github/pull/977) — *feat(mermaid): WCAG 2.2 AA colour contrast validation and updated diagram standards*, [#976](https://github.com/lightspeedwp/.github/issues/976))
+
+- **Claude Code session-start hook** — Added `.claude/hooks/session-start.sh` and `.claude/settings.json` to install npm dependencies and auto-rename auto-generated `claude/` prefixed branches (forbidden by `CLAUDE.md`) to valid `chore/session-{hash}` names at the start of every remote session. Prevents forbidden branch names from ever reaching a commit and reduces manual cleanup overhead. ([PR #984](https://github.com/lightspeedwp/.github/pull/984) — *feat(ops): session-start hook — install deps and enforce branch naming*)
 
 ### Fixed
 
 - **Dependabot auto-merge unblocked** — Fixed Mergify configuration that prevented all dependabot PRs from being automatically merged: consolidated the redundant security/non-security rules into one, replaced the invalid `approve:` action with `review: type: APPROVE` (which satisfies branch-protection review requirements), and added a `dependabot-automerge.yml` GitHub Actions backup workflow that approves and enables squash auto-merge via `workflow_run` when CI passes on a dependabot PR. ([#1020](https://github.com/lightspeedwp/.github/pull/1020), relates to [#968](https://github.com/lightspeedwp/.github/issues/968))
-
 - **Release agent hardening** — Fixed four bugs in `scripts/agents/release.agent.js`: (1) regex escape `\\d+` → `\d+` in `getMergedPRs` so PR numbers are correctly extracted from `git log`; (2) automated release PR body now includes all three sections (`## Linked issues & merged PRs`, `## Changelog`, `### Checklist (Global DoD / PR)`) required by the main-branch-guard; (3) `createReleasePR` (shell provider) now writes the body to a temp file and uses `--body-file` to avoid shell injection from backtick-containing markdown; (4) corrected Husky v9 command from `npx husky run pre-commit` to `npx lint-staged`. Added full test suites for `changelogUtils.cjs`, `validate-main-branch-pr.cjs`, and `release.agent.js` (ESM subprocess pattern); rewrote the stub in `validate-changelog.test.js` with real CLI and integration tests. Clarified the `develop → release/vX.Y.Z → main` flow in the release issue template. ([#1018](https://github.com/lightspeedwp/.github/pull/1018), [#968](https://github.com/lightspeedwp/.github/issues/968))
 
 ### Changed
 
 - **Release issue template rewrite (v2.0.0)** — Rewrote `.github/ISSUE_TEMPLATE/18-release.md` with step-by-step release initiation commands, changelog validation steps, dry-run and live release instructions, explicit squash-merge warning, open PR tracking section, rollback commands, and expanded Definition of Ready/Done. Aligns template with the release process documented in issue #968. ([#1021](https://github.com/lightspeedwp/.github/pull/1021), [#968](https://github.com/lightspeedwp/.github/issues/968))
-
 - **Frontmatter standardisation across issue templates, docs, and validation** — Normalised markdown issue templates to use `name` + `about`, aligned the frontmatter schema and validation scripts with the GitHub-supported template contract, and updated the issue-creation workflow plus related docs, instructions, and prompts to match the canonical template layout. ([#1016](https://github.com/lightspeedwp/.github/pull/1016), [#1012](https://github.com/lightspeedwp/.github/issues/1012), [#1015](https://github.com/lightspeedwp/.github/issues/1015))
-
 - **Automation governance for Dependabot PRs and branding footers** — Stopped the metadata sync flow from auto-creating a milestone for each Dependabot PR, switched footer detection to the canonical branding config with tail-aware matching, and backfilled branded markdown footers across the repository. Updated the related CI, workflow, and documentation surfaces to keep the behaviour durable. ([#1010](https://github.com/lightspeedwp/.github/issues/1010), [#1013](https://github.com/lightspeedwp/.github/pull/1013))
-
 - **Metadata governance automation for issues and pull requests** — Added and hardened the GitHub automation that assigns project items, milestones, assignees, issue/PR relationships, project field values, and labelling behaviour for new issues and pull requests. Also updated the related docs, workflow guards, and test coverage to match the current codebase. ([#974](https://github.com/lightspeedwp/.github/pull/974))
-
 - **Community health audit — PR templates, governance docs, and README alignment** — Completed a comprehensive audit of all community health files: updated WCAG version references from 2.1 to 2.2 AA in `pr_bug.md`, `pr_chore.md`, `pr_ci.md`, and `pr_dep_update.md`; added 15 missing branch-prefix rows to the default `pull_request_template.md` quick-selector table to align with `PULL_REQUEST_TEMPLATE/config.yml`; expanded `AGENTS.md` issue template list from 10 to 23 entries and added Saved Replies section; expanded `CLAUDE.md` issue template list to match; fixed template count, range, and parity note in `.github/custom-instructions.md`; completely rewrote `.github/workflows/README.md` with an accurate inventory of all 27 real workflows (removed 4 phantom workflow references); updated `.github/README.md` version date; added 20 missing files to `.github/SAVED_REPLIES/README.md`; added template index table to `.github/ISSUE_TEMPLATE/README.md`; replaced generic category list with the 9 actual YAML file inventory in `.github/DISCUSSION_TEMPLATE/README.md`; updated `docs/ISSUE_CREATION_GUIDE.md` to 25-template parity and corrected label values. ([#966](https://github.com/lightspeedwp/.github/pull/966))
-
-### Fixed
-
 - **Mermaid validator hardened to reject `accTitle`/`accDescr` placed before diagram type** — Added a guard in `scripts/validation/validate-mermaid-accessibility.js` that rejects any Mermaid block where `accTitle` or `accDescr` appears before the diagram type declaration (e.g. `flowchart TD`). Corrected all 20 affected diagrams across 9 files (`.github/instructions/.archive/frontmatter.instructions.md`, `.github/instructions/.archive/tests.instructions.md`, `.github/reports/mermaid/diagram-validation-2025-12-11.md`, `CONTRIBUTING.md`, `docs/HUSKY_PRECOMMITS.md`, `instructions/automation.instructions.md`, `instructions/documentation-formats.instructions.md`, `instructions/linting.instructions.md`, `instructions/quality-assurance.instructions.md`) to place the diagram type first. 60/60 diagrams are now compliant.
-
 - **Mermaid YAML front-matter converted to inline accessibility syntax** — Replaced all Mermaid `---` YAML front-matter blocks (unsupported by GitHub's renderer) with inline `accTitle` and `accDescr` attributes placed directly after the diagram type declaration. Affected files: `.github/ISSUE_TEMPLATE/README.md`, `.github/README.md`, `.github/prompts/update-mermaid-diagrams.prompt.md`, `.github/reports/audits/2026-06-03-file-organisation-migration-plan-673.md`, `.vscode/README.md`, `docs/AGENT_CREATION.md`, `docs/CANONICAL_CONFIGS_GUIDE.md`. Updated `scripts/validation/validate-mermaid-accessibility.js` to ignore `.claude/**` worktree directories and use a regex for `accDescr {` block detection. Updated `instructions/mermaid.instructions.md` to explicitly forbid YAML front-matter syntax. Closes [#991](https://github.com/lightspeedwp/.github/issues/991). ([#995](https://github.com/lightspeedwp/.github/pull/995))
-
 - **`label-sync.js` crash on YAML-ambiguous hex color values** — YAML parses bare hex strings such as `8957E5` (parsed as scientific notation `895700000`) and `007580` (parsed as integer `7580`) as numbers, causing `labelObj.color.replace is not a function` in the Unified Labeling workflow. Quoted all affected `color:` values in `.github/labels.yml` and added `String()` coercion in `scripts/agents/includes/label-sync.js` as defence-in-depth. ([#995](https://github.com/lightspeedwp/.github/pull/995))
-
 - **Repository-wide Mermaid accessibility and contrast coverage** — Added `accTitle` and `accDescr` to every Mermaid diagram in the repository, updated the Mermaid prompt/instructions/workflows to enforce the approved contrast-safe palette, and added repository-wide syntax, accessibility, and colour-contrast validators. Closes [#986](https://github.com/lightspeedwp/.github/issues/986). ([#987](https://github.com/lightspeedwp/.github/pull/987))
-
 - **Repository-wide Mermaid diagram WCAG 2.2 AA colour-contrast sweep** — Applied the approved 7-role semantic palette (`fill`/`color`/`stroke` triples, all ≥ 4.5:1 in light and dark mode) to all Mermaid diagrams across 47 Markdown files. Eliminates the dark-mode white-text-on-pastel contrast failures identified by the new `validate-mermaid-colour-contrast` validator introduced in [#977](https://github.com/lightspeedwp/.github/pull/977). ([#982](https://github.com/lightspeedwp/.github/pull/982))
-
 - **Template enforcement now skips Dependabot merged PRs** — Updated the push-side template guardrail so Dependabot-authored merged pull requests are not blocked by standard PR template enforcement, matching the PR-side skip already in place. ([#972](https://github.com/lightspeedwp/.github/pull/972))
-
 - **Issue template alignment: add `about` field, align with 25 org issue types, and polish** — Added the required GitHub `about` frontmatter field to all issue templates, resolving the "About can't be blank" critical error in the new-issue chooser. Replaced the non-standard `User Experience Feedback` template with a `Chore` template to match the organisation's 25 canonical issue types; removed the `Help / Support` template (not an org type). Standardised `about` field punctuation across all templates. Bumped `version` and `last_updated` frontmatter on all changed files per freshness policy. Updated `config.yml` inventory note. ([#965](https://github.com/lightspeedwp/.github/issues/965), [#966](https://github.com/lightspeedwp/.github/pull/966))
-
 - **Awesome GitHub Site Phase 14: Full light/dark token audit** — Final systematic audit of every CSS colour value in the Awesome GitHub site against `AWESOME_GITHUB_THEME_TOKENS_SPEC.md`. All deviations fixed across 7 files. Hero sections on catalogue, tools, learn, and lesson pages now use `var(--bg)` + `var(--fg-1)` instead of hardcoded dark gradients. `.ag-action-btn--primary` changed from `var(--accent)` to `var(--c-brand-blue)` (spec mandates btn-primary never uses `--accent`). Status/type badges converted from `rgba()` hardcodes to `color-mix(in srgb, var(--c-status-*) …, transparent)`. Progress bar tracks now use `var(--panel-2)` + `var(--hair)` per §3.6 spec. `SearchPalette` hover states refactored to new `--overlay-hover` token (eliminates dark-mode overrides). Fixed `.lesson-h1` white-on-white visibility bug in light mode. WCAG AA contrast corrected: `.ag-status-active` and `.tb-script` switched from `--c-status-success-2` (#22C55E, ~2.3:1) to `--c-status-success` (#16A34A, ≥4.5:1). Added `--c-type-pack` and `--c-type-schema` palette tokens; added `--overlay-hover` surface token. `npm run build` exits 0 at 333 pages. ([#891](https://github.com/lightspeedwp/.github/issues/891), [#892](https://github.com/lightspeedwp/.github/pull/892))
-
 - **Awesome GitHub Site Phase 12: Editorial pages missing header/footer** — All 7 Phase 12 editorial pages (`getting-started`, `why`, `onboarding`, `references`, `glossary/index`, `glossary/[term]`, `404`) were using `BaseLayout` (an HTML-only scaffold with no nav or footer). Switched all to `AwesomeGithubLayout` which provides `<Header />`, `<AwesomeGithubFooter />`, skip-to-content link, and theme initialisation. Removed now-redundant inner `<main>` wrappers. Fixed hardcoded hex colours in `getting-started.astro` `.run-pill`. ([#887](https://github.com/lightspeedwp/.github/issues/887), [#888](https://github.com/lightspeedwp/.github/pull/888))
 
 ### Added
 
-- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
-
-- **Claude Code session-start hook** — Added `.claude/hooks/session-start.sh` and `.claude/settings.json` to install npm dependencies and auto-rename auto-generated `claude/` prefixed branches (forbidden by `CLAUDE.md`) to valid `chore/session-{hash}` names at the start of every remote session. Prevents forbidden branch names from ever reaching a commit and reduces manual cleanup overhead. ([#984](https://github.com/lightspeedwp/.github/pull/984))
-
 - **Mergify flaky test detection** — Added `.github/workflows/flaky-test-detection.yml` to detect flaky Jest unit tests via Mergify CI. Runs 5 parallel matrix jobs every 12 hours on weekdays and uploads JUnit XML results to Mergify using `mergifyio/gha-mergify-ci@v14` with `flaky_test_detection: true`. ([#979](https://github.com/lightspeedwp/.github/issues/979))
 
-- **Branch Governance Hardening** — Converts advisory branching rules into machine-enforceable controls across three layers. Added GitHub Ruleset JSON files for `develop` and `main` with application instructions (`scripts/validation/rulesets/`). Extended `scripts/validation/validate-branch-name.js` with a `--base` flag for merge-target policy enforcement (only `release/*` and `hotfix/*` may target `main`) and branch-reuse detection via git log and `CHANGELOG.md` references. Added 35-test Jest suite covering naming, base-branch policy, and reuse prevention. Updated `AGENTS.md` and `CLAUDE.md` with Branch Governance and Branch Reuse Prevention sections. ([#898](https://github.com/lightspeedwp/.github/issues/898), [#899](https://github.com/lightspeedwp/.github/issues/899), [#900](https://github.com/lightspeedwp/.github/issues/900), [#901](https://github.com/lightspeedwp/.github/issues/901), [#915](https://github.com/lightspeedwp/.github/pull/915))
+- **Branch Governance Hardening** — Converts advisory branching rules into machine-enforceable controls across three layers. Added GitHub Ruleset JSON files for `develop` and `main` with application instructions (`scripts/validation/rulesets/`). Extended `scripts/validation/validate-branch-name.js` with a `--base` flag for merge-target policy enforcement (only `release/*` and `hotfix/*` may target `main`) and branch-reuse detection via git log and `CHANGELOG.md` references. Added 35-test Jest suite covering naming, base-branch policy, and reuse prevention. Updated `AGENTS.md` and `CLAUDE.md` with Branch Governance and Branch Reuse Prevention sections. ([#898](https://github.com/lightspeedwp/.github/issues/898), [#899](https://github.com/lightspeedwp/.github/issues/899), [#900](https://github.com/lightspeedwp/.github/issues/900), [#901](https://github.com/lightspeedwp/.github/issues/901), [PR #915](https://github.com/lightspeedwp/.github/pull/915) — *ops(governance): harden branch naming, merge-target and reuse enforcement*)
 
-- **Issue Template Frontmatter Policy** — Documented the decision to keep frontmatter in issue templates (no stripping). Updated `docs/ISSUE_CREATION_GUIDE.md` with frontmatter retention rationale. Fixed regex in `scripts/agents/includes/check-template-labels.js` to correctly strip bracket characters without an invalid character class. Updated `docs/AUTOMATION.md` and `.github/custom-instructions.md` with alignment notes. ([#880](https://github.com/lightspeedwp/.github/issues/880), [#893](https://github.com/lightspeedwp/.github/pull/893))
+- **Issue Template Frontmatter Policy** — Documented the decision to keep frontmatter in issue templates (no stripping). Updated `docs/ISSUE_CREATION_GUIDE.md` with frontmatter retention rationale. Fixed regex in `scripts/agents/includes/check-template-labels.js` to correctly strip bracket characters without an invalid character class. Updated `docs/AUTOMATION.md` and `.github/custom-instructions.md` with alignment notes. ([#880](https://github.com/lightspeedwp/.github/issues/880), [PR #893](https://github.com/lightspeedwp/.github/pull/893) — *docs: codify issue template frontmatter policy (#880)*)
 
-- **Template Enforcement Governance Closeout** — Added the canonical PR routing map, refreshed the root PR router and governance guidance, updated the template-enforcement workflow and fixtures, and split the remaining organisation-admin checks into `REMOTE_ADMIN_CHECKS.md`. ([#955](https://github.com/lightspeedwp/.github/pull/955))
+- **Template Enforcement Governance Closeout** — Added the canonical PR routing map, refreshed the root PR router and governance guidance, updated the template-enforcement workflow and fixtures, and split the remaining organisation-admin checks into `REMOTE_ADMIN_CHECKS.md`. ([PR #955](https://github.com/lightspeedwp/.github/pull/955) — *Align template governance routing*)
 
 - **Test Coverage Implementation Phase 3: Linting agent coverage** — Replaced the linting agent stub with a deterministic helper surface for lint target parsing, rule selection, findings grouping, report formatting, config loading, cache isolation, and async orchestration. Added a focused Jest suite that covers parsing, selection ordering, invalid config handling, malformed findings, empty-input handling, and repository-wide lint/test validation. ([#935](https://github.com/lightspeedwp/.github/issues/935))
 
 - **Test Coverage Implementation Phase 2: Metrics agent coverage** — Added a pure, testable metrics-agent helper module with repository-level aggregation, issue and pull request metric calculations, markdown/CSV report generation, date-range filtering, and multi-repository support. Added a focused Jest suite that covers the collection, aggregation, reporting, and error-handling paths for `scripts/agents/metrics.agent.js`. ([#934](https://github.com/lightspeedwp/.github/issues/934))
 
-- **Plugin Pack Waves: WordPress 10-plugin catalogue and AI readiness assessor planning set** — Expanded `.github/projects/active/plugin-pack-waves/` from legacy wave scaffolding into a complete WordPress-focused planning pack with a ten-plugin catalogue (P01-P10), issue draft files, OpenSpec strict proposal inputs, execution controls (`ISSUE_EXECUTION_PLAN.md`, `ISSUE_REGISTER.md`, `RUN_LOG.md`), and linked GitHub issues [#940](https://github.com/lightspeedwp/.github/issues/940) through [#950](https://github.com/lightspeedwp/.github/issues/950), including the new **WP AI Readiness Assessor** task for WordPress site readiness evaluation. ([#951](https://github.com/lightspeedwp/.github/pull/951))
+- **Plugin Pack Waves: WordPress 10-plugin catalogue and AI readiness assessor planning set** — Expanded `.github/projects/active/plugin-pack-waves/` from legacy wave scaffolding into a complete WordPress-focused planning pack with a ten-plugin catalogue (P01-P10), issue draft files, OpenSpec strict proposal inputs, execution controls (`ISSUE_EXECUTION_PLAN.md`, `ISSUE_REGISTER.md`, `RUN_LOG.md`), and linked GitHub issues [#940](https://github.com/lightspeedwp/.github/issues/940) through [#950](https://github.com/lightspeedwp/.github/issues/950), including the new **WP AI Readiness Assessor** task for WordPress site readiness evaluation. ([PR #951](https://github.com/lightspeedwp/.github/pull/951) — *feat: expand plugin-pack-waves to 10 WordPress plugin tasks and AI readiness assessor*)
 
 - **Awesome GitHub Site Phase 06: Wapuu mascot system** — Added a reusable `WapuuHero` Astro component with a canonical page-type mapping, copied the three confirmed Wapuu assets into `website/public/assets/wapuus/`, and wired the learn, cookbook, tools, and catalogue hero sections to render the correct mascot with responsive hiding at ≤860px and decorative accessibility attributes. ([#864](https://github.com/lightspeedwp/.github/issues/864))
-- **Awesome GitHub Site Phase 07: Catalogue list pages with filter bar and Wapuu hero** — Replaced the old catalogue index with a spec-aligned `/c/[cat]` route, added the shared Wapuu hero component, introduced tag-chip filtering with AND logic, and surfaced the category type note and install-action cards for all eight catalogue pages. ([#866](https://github.com/lightspeedwp/.github/issues/866), [#867](https://github.com/lightspeedwp/.github/pull/867))
-- **Awesome GitHub Site Phase 05: Homepage all 5 blocks wired to live data** — Rebuilt the homepage with the spec-aligned hero, live catalogue counts, feature strip, and Cook+Learn cards. Added the typed catalogue exports used by the homepage counts, copied the Wapuu assets into `website/public/assets/wapuus/`, and added an `onboarding/` alias that redirects to `getting-started/` for the primary CTA. ([#861](https://github.com/lightspeedwp/.github/issues/861), [#862](https://github.com/lightspeedwp/.github/pull/862))
 
-### Added
+- **Awesome GitHub Site Phase 07: Catalogue list pages with filter bar and Wapuu hero** — Replaced the old catalogue index with a spec-aligned `/c/[cat]` route, added the shared Wapuu hero component, introduced tag-chip filtering with AND logic, and surfaced the category type note and install-action cards for all eight catalogue pages. ([#866](https://github.com/lightspeedwp/.github/issues/866), [PR #867](https://github.com/lightspeedwp/.github/pull/867) — *feat(ag-p07): 8 catalogue list pages — hero, filter bar, item grid*)
 
-- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
+- **Awesome GitHub Site Phase 05: Homepage all 5 blocks wired to live data** — Rebuilt the homepage with the spec-aligned hero, live catalogue counts, feature strip, and Cook+Learn cards. Added the typed catalogue exports used by the homepage counts, copied the Wapuu assets into `website/public/assets/wapuus/`, and added an `onboarding/` alias that redirects to `getting-started/` for the primary CTA. ([#861](https://github.com/lightspeedwp/.github/issues/861), [PR #862](https://github.com/lightspeedwp/.github/pull/862) — *feat(ag-p05): homepage — all 5 blocks wired to live data*)
 
 - **Awesome GitHub Site Phase 13: Search command palette** — Site-wide ⌘K search palette (`website/src/components/SearchPalette.astro` + `website/src/scripts/search.js`) added to `AwesomeGithubLayout`. Build-time JSON index of all catalogue items serialised into a `data-items` attribute. Empty query shows 7 Popular items; typed query uses multi-word AND substring matching across name, description, tags, and category (capped at 12 results). Keyboard navigation (↑↓ arrow keys, Enter to open result, Escape to close, Tab focus-trap between input, close button, and result items). Fully accessible: `role="dialog"`, `aria-modal`, `aria-selected`, focus returns to trigger on dismiss. ([#764](https://github.com/lightspeedwp/.github/issues/764), [#889](https://github.com/lightspeedwp/.github/pull/889))
 
-- **Awesome GitHub Site Phase 11: Tools page + Phosphor Icons sitewide** — Standalone `/c/tools.astro` with astropuu Wapuu hero, section nav pills (AI Defaults, Scripts, Schemas, Config & Setup), and a build-time Phosphor icon loader (`website/src/lib/phosphor.ts`) using `createRequire` for robust package resolution. Updated `Icon.astro` with `ph:` prefix routing to load any Phosphor icon at SSG time. Migrated item card and type badge styles into `global.css` for reuse across catalogue and tools pages. Updated all category, nav, learn, and home icons to Phosphor equivalents sitewide. ([#885](https://github.com/lightspeedwp/.github/issues/885), [#886](https://github.com/lightspeedwp/.github/pull/886))
+- **Awesome GitHub Site Phase 11: Tools page + Phosphor Icons sitewide** — Standalone `/c/tools.astro` with astropuu Wapuu hero, section nav pills (AI Defaults, Scripts, Schemas, Config & Setup), and a build-time Phosphor icon loader (`website/src/lib/phosphor.ts`) using `createRequire` for robust package resolution. Updated `Icon.astro` with `ph:` prefix routing to load any Phosphor icon at SSG time. Migrated item card and type badge styles into `global.css` for reuse across catalogue and tools pages. Updated all category, nav, learn, and home icons to Phosphor equivalents sitewide. ([#885](https://github.com/lightspeedwp/.github/issues/885), [PR #886](https://github.com/lightspeedwp/.github/pull/886) — *feat(ag-p11): tools page — hero, section nav pills, grouped tool sections*)
 
-- **Awesome GitHub Site Phase 02: CSS Token Layer + Global Styles** — Established the complete CSS foundation for the Awesome GitHub site. Added `website/src/styles/site-tokens.css` with app-specific surface tokens (`--panel`, `--panel-2`, `--hair`), font stacks, radius/shadow/transition scales, and `color-scheme` declarations for both light and dark themes. Added `website/src/styles/global.css` with container system (`.wrap` 1320px, `.wrap-prose` 820px), section rhythm via `clamp()`, button system (`.btn-primary`, `.btn-ghost`, `.btn-soft`, `.icon-btn`) with `:focus-visible` rings and browser-compat fallbacks, breadcrumb, kbd chip, burger breakpoints, `.md` prose styles, and scroll-motion accessibility guard. Fixed `BaseLayout.astro` CSS import order and corrected `localStorage` theme key to `ag-theme`. ([#852](https://github.com/lightspeedwp/.github/issues/852), [#853](https://github.com/lightspeedwp/.github/pull/853))
+- **Awesome GitHub Site Phase 02: CSS Token Layer + Global Styles** — Established the complete CSS foundation for the Awesome GitHub site. Added `website/src/styles/site-tokens.css` with app-specific surface tokens (`--panel`, `--panel-2`, `--hair`), font stacks, radius/shadow/transition scales, and `color-scheme` declarations for both light and dark themes. Added `website/src/styles/global.css` with container system (`.wrap` 1320px, `.wrap-prose` 820px), section rhythm via `clamp()`, button system (`.btn-primary`, `.btn-ghost`, `.btn-soft`, `.icon-btn`) with `:focus-visible` rings and browser-compat fallbacks, breadcrumb, kbd chip, burger breakpoints, `.md` prose styles, and scroll-motion accessibility guard. Fixed `BaseLayout.astro` CSS import order and corrected `localStorage` theme key to `ag-theme`. ([#852](https://github.com/lightspeedwp/.github/issues/852), [PR #853](https://github.com/lightspeedwp/.github/pull/853) — *feat(ag-p02): CSS token layer, global styles, and theme key alignment*)
 
-- **Awesome GitHub Site: UI Redesign — Dark Mode, Navigation & Responsive Layout** — Complete navigation and UI overhaul. Added desktop Browse mega-dropdown with 4-column category grid (hover/click open, keyboard Escape dismiss, focus-out close). Added full-height mobile drawer sliding from right with backdrop overlay, scroll-lock, and `inert` guard. Fixed dark-mode nav header (was showing light background). Added fluid responsive CSS tokens for spacing and font sizes across breakpoints. Improved accessibility: Disclosure pattern (`aria-expanded`/`aria-controls`, no `role="menu"`), `aria-pressed` on theme toggle buttons, `inert` on closed drawer, nav z-index raised above drawer so hamburger stays accessible. ([#847](https://github.com/lightspeedwp/.github/issues/847), [#845](https://github.com/lightspeedwp/.github/pull/845))
-- **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+- **Awesome GitHub Site: UI Redesign — Dark Mode, Navigation & Responsive Layout** — Complete navigation and UI overhaul. Added desktop Browse mega-dropdown with 4-column category grid (hover/click open, keyboard Escape dismiss, focus-out close). Added full-height mobile drawer sliding from right with backdrop overlay, scroll-lock, and `inert` guard. Fixed dark-mode nav header (was showing light background). Added fluid responsive CSS tokens for spacing and font sizes across breakpoints. Improved accessibility: Disclosure pattern (`aria-expanded`/`aria-controls`, no `role="menu"`), `aria-pressed` on theme toggle buttons, `inert` on closed drawer, nav z-index raised above drawer so hamburger stays accessible. ([#847](https://github.com/lightspeedwp/.github/issues/847), [PR #845](https://github.com/lightspeedwp/.github/pull/845) — *feat(website): UI redesign — dark mode, mega menu, mobile drawer, responsive layout*)
+
+- **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [PR #843](https://github.com/lightspeedwp/.github/pull/843) — *feat(website): Phosphor icon system + mobile nav fix*)
+
+### Changed
 
 ### Fixed
 
-- **Issue-Field Write Boundary Verification Docs (`#879`)** — Clarified the live project-meta-sync write boundary, documented that `Status`/`Priority`/`Type` are label-mapped while `Effort` and `Start date` are derived from canonical defaults/runtime context, and added a dedicated verification audit record for private-project issue-field support decisions. ([#884](https://github.com/lightspeedwp/.github/pull/884))
+- **Issue-Field Write Boundary Verification Docs (`#879`)** — Clarified the live project-meta-sync write boundary, documented that `Status`/`Priority`/`Type` are label-mapped while `Effort` and `Start date` are derived from canonical defaults/runtime context, and added a dedicated verification audit record for private-project issue-field support decisions. ([PR #884](https://github.com/lightspeedwp/.github/pull/884) — *docs: verify private-project issue-field write boundary (#879)*)
 
-- **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+- **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [PR #843](https://github.com/lightspeedwp/.github/pull/843) — *feat(website): Phosphor icon system + mobile nav fix*)
+
 - **Awesome GitHub Site: Phase 01 Scaffold Merge Hardening (`#851`)** — Finalised the Phase 01 scaffold branch for merge by replacing stale `/talk/*` links with valid `/wceu-2026/slides/*` routes on agent pages and aligning key CI workflows to Node `22.22.1` so Astro 6/lint-staged engine checks pass in PR validation.
 
----
-
-- **Awesome GitHub Site: Complete Astro Rebuild** — Rebuilt the Awesome GitHub site from a React/Babel prototype into a production-ready Astro 5 static site. Includes: a fully-typed TypeScript data layer (`catalogue.ts`, `learn.ts`, `glossary.ts`) porting 110+ catalogue items across 8 categories; Svelte `SearchPalette` component with Cmd/Ctrl+K activation; 252 statically-generated pages (catalogue, learn tracks, glossary, cookbook, getting-started, why); detail pages with Install-in-VS-Code, copy-URL, copy-file, and View-on-GitHub action buttons; mobile hamburger navigation with animated X icon and keyboard Escape support; expanded footer with brand and navigation columns; and a `why.astro` editorial page. ([#841](https://github.com/lightspeedwp/.github/pull/841), [#842](https://github.com/lightspeedwp/.github/issues/842))
+- **Awesome GitHub Site: Complete Astro Rebuild** — Rebuilt the Awesome GitHub site from a React/Babel prototype into a production-ready Astro 5 static site. Includes: a fully-typed TypeScript data layer (`catalogue.ts`, `learn.ts`, `glossary.ts`) porting 110+ catalogue items across 8 categories; Svelte `SearchPalette` component with Cmd/Ctrl+K activation; 252 statically-generated pages (catalogue, learn tracks, glossary, cookbook, getting-started, why); detail pages with Install-in-VS-Code, copy-URL, copy-file, and View-on-GitHub action buttons; mobile hamburger navigation with animated X icon and keyboard Escape support; expanded footer with brand and navigation columns; and a `why.astro` editorial page. ([PR #841](https://github.com/lightspeedwp/.github/pull/841) — *fix(website): nav contrast, accessibility, and colour consistency*, [#842](https://github.com/lightspeedwp/.github/issues/842))
 
 - **LightSpeedWP Agency Homepage: Complete Component System** — Built a production-ready homepage for the LightSpeedWP Agency website with 9 modular Astro components (Nav, HeroPlanner, TrustStrip, SolutionPaths, WhyLightSpeed, FAQ, FinalCTA, Footer, ContactOverlay). Features include sticky navigation with scroll detection, mobile drawer with theme toggle, AI project planner with form validation, responsive stats grid, 4 solution path cards with highlighting, single-open accordion FAQ with 7 questions, contact modal with success state, and comprehensive design system with light/dark mode support across 9 responsive breakpoints. All components include WCAG 2.2 AA accessibility attributes, semantic HTML5, and CSS variable theming for consistent branding.
+
 - **Awesome GitHub Navigation Redesign: Mega Menu & Accessibility Enhancements** — Redesigned header navigation with single "Browse" mega menu organizing 22 resources across 4 logical sections (Catalogues, More, Cook & Learn, Resources). Implemented comprehensive accessibility improvements including keyboard navigation (Tab+Enter/Space activation), proper ARIA attributes, semantic button elements replacing non-focusable anchors, centered menu positioning to prevent viewport clipping at 1025-1180px widths, and fixed drawer overflow for smooth scrolling. All changes comply with WCAG 2.2 AA+ contrast ratios in both light and dark modes.
+
 - **Awesome GitHub Site Phase 2a: Three-Pillar Governance Framework** — Integrated PR #809's three-pillar design approach on top of Phase 2a's dynamic foundation by adding comprehensive CSS styling for the pillar section (`.pillar-grid`, `.pillar`, `.pillar-links`). Features 3-column responsive grid layout with hover effects, accent color styling, light/dark theme variants, and mobile collapse to single column. Completes visual integration of Automation, Governance, and AI Integration framework while preserving dynamic catalogue loading and conference messaging.
+
 - **Awesome GitHub Site Phase 2a: Homepage & Navigation Redesign** — Initiated Phase 2a execution by restructuring header navigation to support Phase 2 catalogues, redesigning homepage with "One .GitHub to Rule Them All" positioning, and establishing foundation for Phase 2b–2c expansion:
+
   - Reorganized nav sections (Conference → Catalogues → About) with dedicated catalogue dropdown showing all 8 Phase 2 resources (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub).
+
   - Redesigned homepage hero and value proposition to position site as unified discovery platform for AI operations ecosystem.
+
   - Added 8-catalogue card grid with direct links to Phase 2 resources on homepage.
+
   - Reorganized Phase 1 conference content into dedicated "Phase 1" section.
+
   - Created Phase 2a implementation roadmap (`.github/projects/active/awesome-github-site/phase-2a/IMPLEMENTATION_ROADMAP.md`) documenting remaining Phase 2a tasks, success criteria, and Phase 2 gate requirements.
+
   - Website builds successfully with 62 pages and no errors; foundation ready for Phase 2b catalogue population.
+
 - **AI Governance: Workflow Enforcement Clarity & PR Merge Protocol** — Enhanced `CLAUDE.md` governance documentation to precisely align with `main-branch-guard.yml` workflow enforcement. Added comprehensive PR Merge & Cleanup Protocol with strict enforcement requirements (branch verification, merge execution, automatic cleanup). Clarified that only `release/*` and `hotfix/*` branches are permitted to merge to main, enforced automatically by `.github/workflows/main-branch-guard.yml` and `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`. Emphasizes "NO EXCEPTIONS" in AI Governance header and removes ambiguity about enforcement mechanisms.
+
 - **AI Governance & Branch Protection Enforcement** — Added comprehensive AI governance rules to `CLAUDE.md` with explicit branch naming enforcement (`{type}/{scope}-{short-title}` format, no `claude/` prefixes), clarification that explicit user instructions must be executed immediately without reinterpretation, and main branch protection policies for release cycles only.
+
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
+
 - **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
+
 - **WCEU 2026 Conference Site Expansion** — Expanded the public site into a conference-ready talk hub with per-slide pages, updated navigation and footer elements, a light/dark mode switcher, and GitHub Pages-safe slide parsing dependencies for CI builds.
+
 - **Fullscreen Slideshow Component for WCEU 2026 Talk** — Implemented a production-ready Svelte slideshow viewer with keyboard navigation (arrow keys, space, N for notes, R for references, F for fullscreen), speaker notes and references overlays, slide indicator grid, responsive design, and light/dark mode support. Component integrates with 20 pre-built slide pages and is optimized for conference presentation delivery.
 
 - **Awesome GitHub Site: Enhanced Wapuu Character Integration Across Pages** — Added Wapuu SVG graphics to hero sections across five key pages for improved visual engagement and character consistency:
-  - Getting Started page: Wapuu-Rocket for dynamic energy and action orientation
-  - Why This Exists page: Wapuu-Astropuu for big-picture vision and exploration
-  - Onboarding page: Wapuu-Yoduu for wisdom and guidance
-  - Glossary page: Wapuu-Astropuu for reference and learning
-  - References page: Wapuu-Rocket for navigation and discovery
-    All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
 
-### Fixed
+  - Getting Started page: Wapuu-Rocket for dynamic energy and action orientation
+
+  - Why This Exists page: Wapuu-Astropuu for big-picture vision and exploration
+
+  - Onboarding page: Wapuu-Yoduu for wisdom and guidance
+
+  - Glossary page: Wapuu-Astropuu for reference and learning
+
+  - References page: Wapuu-Rocket for navigation and discovery
 
 - **Awesome GitHub Site: NotFound Page Accessibility Improvement** — Added `aria-hidden="true"` attribute to decorative Wapuu-Astropuu image in the NotFound component (learn.jsx) to improve WCAG 2.2 AA+ accessibility compliance. Empty alt text combined with aria-hidden ensures screen readers properly skip decorative content.
+
 - **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
 
 ## [0.5.0] - 2026-06-03
 
+### Added
+
+- **WCEU 2026 Phase 2 Refinement: Complete Speaker Notes and Visual Design Specifications** — Finalised all speaker notes and visual design guidance for 25-minute WordCamp Europe 2026 presentation on ".github repository automation":
+
+  - `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
+
+  - `wceu-2026/VISUAL_DESIGN_SPECIFICATIONS.md` — Full design system guide (dark mode, 8-colour palette with WCAG AA+ contrast, typography 44–56pt titles/18–24pt body, layout specs, accessibility checklist)
+
+  - `wceu-2026/SLIDES_INDEX.md` — Quick-reference index of all 24 slides organised by section (Hook/Architecture/Implementation/Adoption) with layout, timing, key message, accent colour assignments, and build checklist
+
+  - All three files validated for WCAG 2.2 AA accessibility compliance and ready for Phase 3 Google Slides implementation ([PR #640](https://github.com/lightspeedwp/.github/pull/640) — *Phase 2 refinement: Complete 24-slide speaker notes and visual design specs*)
+
+- **Documentation Consolidation & Repository Structure Refinement** — Streamlined documentation by consolidating redundant files and clarifying scope boundaries:
+
+  - Consolidated labelling documentation: merged `docs/LABEL_STRATEGY.md`, `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md` into single comprehensive `docs/LABELING.md` (covers strategy, issue/PR/discussion labelling, agent integration, and best practices)
+
+  - Consolidated automation documentation: merged `docs/AUTOMATION_GOVERNANCE.md`, `docs/WORKFLOWS.md` into single `docs/AUTOMATION.md` (covers strategy, governance, workflow registry, and configuration management)
+
+  - Corrected nested file path: moved `.github/.github/docs/workflow-coordination.md` to `docs/WORKFLOW_COORDINATION.md`
+
+  - Updated `instructions/DEPRECATED.md` with deprecation index and migration guide for consolidated files
+
+  - Maintained portable instructions (`instructions/labeling.instructions.md`, `instructions/automation.instructions.md`) for cross-repository reusability
+
+  - Result: Eliminated 5 redundant documentation files; improved discoverability and maintainability ([#636](https://github.com/lightspeedwp/.github/issues/636))
+
+- **Standardised Prompts Directory** — Created `/prompts` directory at repository root with 7 reusable prompt templates for agents and AI scenarios:
+
+  - `agent-setup.prompt` — Initial agent context, instructions, and operational guidelines
+
+  - `code-generation.prompt` — Code implementation, scaffolding, and generation scenarios
+
+  - `documentation.prompt` — Documentation creation, updates, and refinement workflows
+
+  - `testing.prompt` — Test suite creation, coverage improvement, and test debugging
+
+  - `code-review.prompt` — Code review, quality feedback, and standards enforcement
+
+  - `debugging.prompt` — Problem diagnosis, root cause analysis, and resolution procedures
+
+  - `refactoring.prompt` — Code refactoring, optimisation, and modernisation workflows
+
+  - Each prompt follows consistent structure (Context, Task, Constraints, Acceptance Criteria, References) for reusability across agents and projects
+
+  - Added `prompts/README.md` with usage guide and contribution guidelines ([#636](https://github.com/lightspeedwp/.github/issues/636))
+
+- **Workflow Standards Comprehensive Audit & Improvement Plan** — Completed systematic audit of linting, meta, branding, and CI/CD workflows with detailed improvement roadmap:
+
+  - `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
+
+  - Identified critical gap: no changelog auto-sync on PR merge to develop
+
+  - High priorities: automated project archival, planner agent implementation, workflow consolidation
+
+  - Created 6 GitHub issues (#618–#623) tracking each improvement with acceptance criteria
+
+  - Success criteria defined for changelog, projects, CI/CD, and documentation ([#618](https://github.com/lightspeedwp/.github/issues/618), [#619](https://github.com/lightspeedwp/.github/issues/619), [#620](https://github.com/lightspeedwp/.github/issues/620), [#621](https://github.com/lightspeedwp/.github/issues/621), [#622](https://github.com/lightspeedwp/.github/issues/622), [#623](https://github.com/lightspeedwp/.github/issues/623))
+
+- **Changelog Auto-Sync Workflow** — Implemented `.github/workflows/changelog-auto-update.yml` to automatically synchronise changelog entries when PRs merge to develop:
+
+  - Triggers on PR merge with CHANGELOG.md changes
+
+  - Extracts entries from merged PR using `extract-pr-entries.cjs`
+
+  - Merges entries into main CHANGELOG.md [Unreleased] section
+
+  - Deduplicates entries to prevent duplicates
+
+  - Validates schema before committing changes
+
+  - Uses `[skip ci]` flag to prevent workflow loops ([#618](https://github.com/lightspeedwp/.github/issues/618))
+
+- **Automated Project Archival Workflow** — Implemented `.github/workflows/project-archival.yml` to detect and archive completed projects:
+
+  - Triggers on-demand (workflow_dispatch) or weekly (Sunday 02:00 UTC)
+
+  - Scans active projects for completion markers (status: completed)
+
+  - Moves completed projects to `.github/projects/archived/{YYYY-MM-DD}-{name}/`
+
+  - Creates archival summary with metrics and completion date
+
+  - Dry-run mode for safe preview before archiving
+
+  - Generates audit trail and report for archival actions ([#619](https://github.com/lightspeedwp/.github/issues/619))
+
+- **Planner Agent Implementation** — Enhanced and enabled `scripts/agents/planner.agent.js` with project detection logic:
+
+  - Detects active projects from `.github/projects/active/` directory
+
+  - Supports dry-run mode (default) for safe analysis
+
+  - Ready for GitHub API integration to auto-assign issues to projects
+
+  - Logs proposed project assignments with reasoning
+
+  - Enabled planner workflow in `.github/workflows/planner.yml` (removed if: false condition) ([#620](https://github.com/lightspeedwp/.github/issues/620))
+
+- **Standardised Project Planning Template** — Created `.github/projects/PLANNING_TEMPLATE.md` to structure issue planning before creation:
+
+  - Comprehensive template with 9 sections: overview, scope, timeline, architecture, risks, testing, documentation, references, sign-off
+
+  - Includes planning checklist before creating related GitHub issues
+
+  - Standardises documentation of goals, success criteria, milestones, and dependencies
+
+  - Helps ensure planning decisions are captured and shared with team ([#621](https://github.com/lightspeedwp/.github/issues/621))
+
+- **Unified Checks Workflow** — Created `.github/workflows/checks.yml` to consolidate pre-merge validation:
+
+  - Consolidates linting, testing, and validation into single workflow
+
+  - Uses concurrency groups to prevent redundant runs
+
+  - Clear trigger: pull_request and push (develop branch)
+
+  - Composite status job ensures all checks pass before merge
+
+  - Separate meta.yml workflow maintains different cadence (post-push)
+
+  - Recommended replacement for scattered linting.yml and testing.yml ([#622](https://github.com/lightspeedwp/.github/issues/622))
+
+- **Weekly Metrics Summary Workflow** — Implemented `.github/workflows/metrics-summary.yml` for scheduled reporting:
+
+  - Triggers weekly (Monday 09:00 UTC) or on-demand via workflow_dispatch
+
+  - Aggregates metrics from meta.json, git activity, and changelogs
+
+  - Generates human-readable markdown summary report
+
+  - Archives weekly reports in `.github/reports/metrics/weekly/`
+
+  - Posts report to GitHub discussions (configurable)
+
+  - Provides visibility into repository health, activity, and automation effectiveness ([#623](https://github.com/lightspeedwp/.github/issues/623))
+
+- **WCEU 2026 Comprehensive Audit and Execution Plan** — Completed systematic audit and documentation update for May 30–31 Phase 2–3 execution:
+
+  - `wceu-2026/FILE_UPDATE_AUDIT.md` — Comprehensive audit of 17 primary + 8 supporting files with critical issue identification and update recommendations
+
+  - `wceu-2026/EXECUTION_PLAN.md` — Master execution plan consolidating Phase 1 validation results (16/18 passing), Phase 2 content generation workflow (4–6 hours), Phase 3 finalization timeline (6–8 hours), success criteria, risk mitigation, and open questions
+
+  - Updated `wceu-2026/README.md` to reflect Phase 2 in-progress status with detailed checklist tracking
+
+  - Fixed branch name references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md`
+
+  - All wceu-2026 documentation validated and consistent; ready for Phase 2–3 execution ([#564](https://github.com/lightspeedwp/.github/issues/564), [#567](https://github.com/lightspeedwp/.github/issues/567), [#573](https://github.com/lightspeedwp/.github/issues/573))
+
+- **WCEU 2026 Validation Scripts (Bash-to-JavaScript Migration)** — Completed migration of WCEU validation scripts from Bash to JavaScript with improvements:
+
+  - `scripts/verify-wceu-readiness.js` — Automated Phase 1 validation for schema migration, agent slides reorganization, and content file completeness
+
+  - `scripts/validate-phase2-completion.js` — Interactive Phase 2 validation for NotebookLM output, Google Slides foundation, and design system documentation
+
+  - Benefits: ES module compatibility, robust error handling, cross-platform support (no sed/awk/grep dependencies), comprehensive logging
+
+  - Added npm scripts: `validate:wceu:phase1` and `validate:wceu:phase2` for CLI integration
+
+  - Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
+
+  - Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
+
+- **Release Automation Framework Phase 2: Semantic Versioning & Release Notes Generation** — Implemented core semantic versioning detection and release notes formatting modules enabling automated version bumping and changelog generation ([PR #598](https://github.com/lightspeedwp/.github/pull/598) — *feat(#592): Release Workflow - Add post-release changelog validation*):
+
+  - `scripts/agents/includes/versionDetector.js` — Semantic version bump detection from changelog entries with Conventional Commits integration. Analyzes breaking changes, feature additions, deprecations, and removals to determine patch/minor/major version bumps per Semantic Versioning 2.0.0. Functions: parseVersion, formatVersion, compareVersions, determineBumpType, calculateNextVersion, detectBump, suggestNextVersion
+
+  - `scripts/agents/includes/releaseNotesFormatter.js` — Release notes generation from changelog entries with Markdown formatting and metadata support (scope, commit hash, PR number, author). Configurable section ordering (security → removed → deprecated → added → changed → fixed → documentation → performance) and summary text generation. Functions: formatSectionTitle, formatEntry, buildReleaseNotes, generateReleaseNotes, extractSummary, generateSummaryText
+
+  - `scripts/agents/includes/duplicateDetector.js` — Enhanced duplicate detection using fuzzy matching with Levenshtein distance algorithm and semantic analysis via key-term overlap. Configurable similarity threshold (default 0.85). Functions: normalize, levenshteinDistance, calculateSimilarity, isFuzzyDuplicate, hasSemanticDuplicate, findBestMatch, deduplicateEntries, groupDuplicates
+
+  - Comprehensive test coverage: 99 Jest tests across all three modules (32 versionDetector tests, 27 releaseNotesFormatter tests, 40 duplicateDetector tests) with >90% code coverage
+
+  - Integration tests validate semantic versioning logic, Markdown formatting, fuzzy matching algorithms, and edge case handling
+
+- **Complete Agent Specifications & Documentation Audit** — Completed specification documentation for tracking agents and audited documentation cross-references:
+
+  - Completed `agents/template.agent.md` with canonical agent specification template, usage guidelines, structure documentation, and best practices ([#488](https://github.com/lightspeedwp/.github/issues/488))
+
+  - Enhanced `agents/testing.agent.md` with comprehensive role/responsibilities, capabilities, configuration, examples, and related agent references ([#490](https://github.com/lightspeedwp/.github/issues/490))
+
+  - Audited documentation cross-references to CONTRIBUTING.md, GOVERNANCE.md, coding standards, and linting instructions ([#22](https://github.com/lightspeedwp/.github/issues/22))
+
+  - Verified CONTRIBUTING.md has adequate Quick Start section and workflow diagram ([#18](https://github.com/lightspeedwp/.github/issues/18))
+
+  - Verified PR template includes comprehensive accessibility and security checklists ([#21](https://github.com/lightspeedwp/.github/issues/21))
+
+- **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/wceu-2026/agent-slides/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
+
+  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
+
+  - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
+
+  - **8 Process & Lifecycle Prompts**: PR lifecycle, issue triage, release process, documentation standards, repository metrics, QA/testing, plugin deep-dive, and observability/logging
+
+  - **2 Governance & Standards Prompts**: WordPress-specific requirements and contributing guidelines
+
+  - **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
+
+  - Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([PR #549](https://github.com/lightspeedwp/.github/pull/549) — *docs: add comprehensive 25-slide-deck prompt suite*)
+
+- **Design Markdown Agent: P3 Shell Script Modernization** — Completed migration of PDF tooling dependency installation from Bash to JavaScript:
+
+  - `skills/design-md-agent/pdfs/js/installDeps.js` — New JavaScript module replacing `install_deps.sh` shell script with async/await pattern
+
+  - `skills/design-md-agent/pdfs/js/__tests__/installDeps.test.js` — Comprehensive test suite with 11 tests covering node_modules fast-path, package.json validation, error handling, npm install execution, and console logging
+
+  - Performance improvement: promisified `exec()` replaces blocking subprocess; non-blocking async operation for CI/CD pipelines
+
+  - Code review refinements: proper error wrapping, fast-path optimization, comprehensive mock-based testing, silent npm install flag validation
+
+  - Returns structured result object with success/installed/directory properties for programmatic integration ([#616](https://github.com/lightspeedwp/.github/issues/616), [PR #639](https://github.com/lightspeedwp/.github/pull/639) — *feat: Migrate install\_deps.sh to JavaScript (installDeps.js)*)
+
+- **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
+
+  - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
+
+  - Maintains all public API functions for footer selection, insertion, removal, and badge generation
+
+  - Supports configuration-driven footer phrases and badge schema mapping
+
+  - Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/issues/47))
+
+- **Wave 3C: README and Mermaid Maintenance Workflow** — New `.github/workflows/readme-update.yml` workflow automates README and Mermaid diagram maintenance with:
+
+  - Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
+
+  - Stale frontmatter date updates (6+ month threshold)
+
+  - Support for manual dispatch (`workflow_dispatch`) and Release Agent orchestration (`workflow_call`)
+
+  - Dry-run mode for safe preview before applying changes
+
+  - Audit reporting at `.github/reports/mermaid-audit/update-report.md`
+
+  - Integrated into Release Agent post-release phase ([PR #536](https://github.com/lightspeedwp/.github/pull/536) — *Wave 3C: README Update Workflow & Wave 4 Specification*)
+
+- **Wave 4 Specification** — Added `.github/projects/active/wave-4-continuous-monitoring.md` comprehensive specification for continuous README and Mermaid diagram monitoring:
+
+  - Scheduled weekly audit workflows
+
+  - Drift detection on push events
+
+  - Monthly freshness notifications
+
+  - Quarterly health reports with recommendations
+
+  - CI/CD integration patterns and metric collection
+
+  - Foundation for long-term automation roadmap (Waves 5-7) ([PR #536](https://github.com/lightspeedwp/.github/pull/536) — *Wave 3C: README Update Workflow & Wave 4 Specification*)
+
+- **Comprehensive Documentation Index** — Created `docs/README.md` with complete documentation hub and navigation guide:
+
+  - Quick-start sections for First-Time Contributors, Maintainers, and Workflow & Automation teams
+
+  - 9 logical documentation categories with 36+ indexed files (Architecture & Strategy, Workflows & Processes, Labeling & Project Management, Configuration & Setup, Development & Standards, Governance & Decisions, Monitoring & Metrics, Adoption & Integration)
+
+  - Role-based navigation table (Developer, Reviewer, Maintainer, Automation/DevOps, Organisation Lead)
+
+  - Task-based quick-reference table (8 common tasks with relevant documentation links)
+
+  - Documentation standards reference (UK English, Markdown with YAML frontmatter, relative links, WCAG 2.2 AA compliance)
+
+  - Related resources and help section for discoverability
+
+  - Updated Mermaid diagrams with WCAG 2.2 AA accessibility attributes (`accTitle`, `accDescr`)
+
+  - Removed prohibited `references` fields from README files per CLAUDE.md governance rules
+
+  - Closes Issue [#19](https://github.com/lightspeedwp/.github/issues/19) ([PR #552](https://github.com/lightspeedwp/.github/pull/552) — *Docs: Create comprehensive documentation index and quickstart*)
+
+- **Wave 4C: Current-State Audit & Remediation Plan** — Completed comprehensive audit of 932 markdown files with detailed remediation strategy:
+
+  - `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+
+  - Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
+
+  - `.github/reports/wave-4c-audit-report.md`: Current-state findings with category-specific breakdown and recommendations
+
+  - `.github/reports/wave-4c-remediation-plan.md`: Phased remediation roadmap (Phase 1-3 over 9-12 hours, Waves 4D-4F)
+
+  - High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
+
+  - Risk assessment, success criteria, and dependency analysis for phased execution
+
+  - Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
+
+  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) (PR #558)
+
+### Changed
+
+- Added guarded Dependabot security auto-merge automation for `develop` by introducing Mergify conditions tied to Dependabot author, dependency/security labels, conflict/draft guards, and successful required checks. Added and wired a Dependabot security labelling workflow and aligned labels to canonical naming (`meta:dependabot-security`) to satisfy label governance and enable controlled auto-merge behaviour. ([PR #563](https://github.com/lightspeedwp/.github/pull/563) — *feat(ci): add guarded Mergify auto-merge for Dependabot security PRs*)
+
+- **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
+
+  - Documented workflow contract with inputs, outputs, and failure handling
+
+  - Added to orchestration algorithm as non-blocking post-release action
+
+  - Conditional execution based on README maintenance requirements ([PR #536](https://github.com/lightspeedwp/.github/pull/536) — *Wave 3C: README Update Workflow & Wave 4 Specification*)
+
+- **Workflow Coordination Documentation** — Updated `.github/docs/workflow-coordination.md` (v1.0.0 → v1.1.0):
+
+  - Documented `readme-update.yml` in Agent-Triggered Workflow Registry
+
+  - Added comprehensive specification with inputs, outputs, and integration points
+
+  - Clarified Release Agent orchestration pattern for post-release actions ([PR #536](https://github.com/lightspeedwp/.github/pull/536) — *Wave 3C: README Update Workflow & Wave 4 Specification*)
+
+- **Plugin Structure Migration** — Migrated `instructions/plugin-structure.instructions.md` from `.github/instructions/` to top-level `instructions/` folder:
+
+  - Follows CLAUDE.md guidelines for portable reusable assets
+
+  - Updated references across `.github/README.md` and `CLAUDE.md`
+
+  - Clarified repository structure: GitHub-native files in `.github/`, portable assets in top-level folders ([PR #536](https://github.com/lightspeedwp/.github/pull/536) — *Wave 3C: README Update Workflow & Wave 4 Specification*)
+
 ### Fixed
 
 - **v0.5.0 Readiness: Frontmatter schema cleanup for release docs and site-planning briefs** — Normalised invalid frontmatter values across the Awesome GitHub Site planning tree and related website docs so the repo’s frontmatter validator no longer trips on release-blocking schema errors:
+
   - Replaced unsupported `domain: website` and `domain: opsx` values with schema-valid `domain: governance`.
+
   - Updated draft-only site brief metadata to use supported `stability: experimental`.
+
   - Converted the stray `report` frontmatter type in the agent permissions audit to `documentation`.
 
 - **v0.5.0 Readiness: Coverage and Reliability Gate Execution (`#746`, `#602`, `#599`, `#600`, `#601`)** — Re-activated planner/reviewer test coverage from skipped state into active Jest suites, added module-system consistency guards, and improved reviewer workflow dry-run support for safe validation:
+
   - Added `scripts/agents/__tests__/planner.agent.test.js` and `scripts/agents/__tests__/reviewer.agent.test.js` with expanded fatal-path, dry-run, blocker-detection, and API-failure coverage.
+
   - Added `scripts/agents/__tests__/module-system-consistency.test.js` to enforce ESM consistency across planner/reviewer and `package.json` module type.
+
   - Removed obsolete skipped test files `.jest-skip/planner.agent.test.js` and `.jest-skip/reviewer.agent.test.js` after active coverage migration.
+
   - Updated `.github/workflows/reviewer.yml` to support `workflow_dispatch` and `workflow_call` dry-run inputs via `DRY_RUN` environment pass-through.
+
   - Updated planner/reviewer CLI guard logic to remove `import.meta` runtime coupling in test execution paths.
+
   - Validation evidence: focused reliability suite `20/20` passing; focused statement coverage `planner.agent.js 82.20%` and `reviewer.agent.js 91.34%`; release gates (`validate:frontmatter`, `validate:workflows`, `validate:agents`, `validate:skill-manifests`, `validate:plugins`, `npm test`) passing.
 
 - **v0.5.0 Readiness: Release Completeness Execution (`#594`, `#592`, `#591`, `#595`, `#593`)** — Completed release safety/governance hardening and removed legacy duplication:
+
   - Added `scripts/workflows/release/rollback.cjs` for failed-release recovery (`--version`, `--force`, `--dry-run`).
+
   - Strengthened `.github/workflows/release.yml` post-release changelog validation with schema + utility checks.
+
   - Enforced explicit version/scope alignment guard in `scripts/agents/release.agent.js` with controlled `RELEASE_FORCE_VERSION=1` bypass.
+
   - Removed obsolete `scripts/create-release-pr.cjs` duplicate flow.
+
   - Completed `instructions/release.instructions.md` with full phase/gate/rollback governance content.
 
 - **v0.5.0 Readiness: Launch-Gate and Scope Closeout (`#729`, `#730`, `#731`, `#728`, `#614`, `#615`, `#616`, `#627`, `#628`, `#629`, `#632`, `#747`)** — Closed launch child/parent gate issues after blocker completion, then performed release-scope triage for non-blocking enhancement/debt items and closed them as `not planned` for the milestone, followed by final meta-tracker closure.
 
 - **v0.5.0 Readiness: CI gate verification and frontmatter blocker remediation** — Verified CI hard-blocker chain (`#642`, `#643`, `#644`) against live `develop` with passing `npm test`, `npm run validate:agents`, and `npm run validate:workflows`. Resolved release-gate regression in `validate:frontmatter` by fixing invalid frontmatter in 13 active prompt-migration artefacts under `.github/projects/active/refactor-migrate-prompts/`, restoring `npm run validate:frontmatter` to zero errors.
-- **Mermaid Accessibility Compliance (Issue #669)** — Added missing `accTitle` and `accDescr` accessibility attributes to 7 non-compliant Mermaid diagrams across `.github/`, `.vscode/`, and root-level README files. All 24 diagrams now achieve 100% WCAG 2.2 AA compliance. Also improved validation scripts with cross-platform line ending support and enhanced diagram type detection ([#696](https://github.com/lightspeedwp/.github/pull/696))
+
+- **Mermaid Accessibility Compliance (Issue #669)** — Added missing `accTitle` and `accDescr` accessibility attributes to 7 non-compliant Mermaid diagrams across `.github/`, `.vscode/`, and root-level README files. All 24 diagrams now achieve 100% WCAG 2.2 AA compliance. Also improved validation scripts with cross-platform line ending support and enhanced diagram type detection ([PR #696](https://github.com/lightspeedwp/.github/pull/696) — *Wave 5: Mermaid Accessibility Compliance + README Frontmatter Updates*)
+
 - **Wave 5: Label Color Consistency Audit** — Comprehensive audit of all 160 canonical labels in `.github/labels.yml` against documented 8-family colour strategy with findings, recommendations, and migration roadmap:
+
   - `.github/reports/audits/label-color-consistency-audit-2026-06-01.md` — Executive summary identifying 96 aligned labels (60%), 64 misaligned labels (40%), critical semantic mismatches in 5+ families, and detailed family-by-family analysis with root cause analysis and prioritised Phase 1–3 recommendations
+
   - `.github/reports/audits/label-color-audit-spreadsheet-2026-06-01.csv` — Complete label-by-label audit data (160+ labels) with current vs. recommended colours, family assignments, alignment status, and prioritised migration levels
+
   - Deliverables ready for dependent implementation work (Issues #683–#686): label update, documentation refresh, and follow-up validation ([#658](https://github.com/lightspeedwp/.github/issues/658))
+
 - **Wave 5.1: Issue Template Audit, Automation Recommendations & AI Agent Integration Guide** — Completed comprehensive audit of all 25 GitHub issue templates with documentation, automation gap analysis, and contributor guidance:
+
   - `.github/reports/issue-template-audit-2026-05-31.md` — Complete audit report cataloguing all 25 templates, documenting current state analysis (strengths/gaps), identifying critical automation gap in labeler.yml, and providing 6 prioritised recommendations with effort/impact estimates
+
   - `docs/ISSUE_CREATION_GUIDE.md` — Comprehensive guide for contributors and AI agents with quick-reference template selection table, step-by-step issue creation instructions, clear distinction between current (manual) vs planned (Wave 5.1.2) automation, label selection logic for agents
+
   - `.github/labeler.yml` — Cleaned up configuration by removing unsupported issue-body/issue-labels rules pending infrastructure upgrade, maintained stable PR/branch rules, added documentation comments for Wave 5.1.2 planned work
+
   - `.github/projects/active/next-issues-execution-plan.md` — Updated execution plan documenting Wave 5 structure and sequence for remaining audits (5.2–5.5)
+
   - All deliverables validated and ready for next phase implementation ([#649](https://github.com/lightspeedwp/.github/issues/649))
+
 - **Wave 5 Audit #654: Template Inventory & Standardisation Findings** — Completed comprehensive audit of 26 issue templates in `.github/ISSUE_TEMPLATE/` documenting 100% frontmatter compliance, identifying 1 critical duplicate numbering issue (07-improvement + 07-user-experience-feedback), 2 type mapping gaps (Chore, User Experience Feedback, Help/Support), and providing recommendations for Phase 1 (numbering fixes), Phase 2 (type clarification), and Phase 3 (documentation updates). Created audit findings document at `.github/projects/active/wave-5-documentation-audit/findings/654-template-inventory-findings.md` with complete inventory metrics, critical/medium/low issue analysis, and phased remediation roadmap ([#654](https://github.com/lightspeedwp/.github/issues/654))
-- **WCEU 2026 Documentation: Merge Conflict Resolution and Frontmatter Corrections** — Resolved merge conflict marker in CHANGELOG.md, corrected `file_type: documentation` in ROLLOUT_PLAN_60_DAYS.md (was `rollout_plan`), added missing frontmatter fields (`stability: stable`, `domain: governance`), and fixed UK English spelling (`finalize`→`finalise`, `customize`→`customise`, `customizations`→`customisations`) ([#676](https://github.com/lightspeedwp/.github/pull/676))
+
+- **WCEU 2026 Documentation: Merge Conflict Resolution and Frontmatter Corrections** — Resolved merge conflict marker in CHANGELOG.md, corrected `file_type: documentation` in ROLLOUT_PLAN_60_DAYS.md (was `rollout_plan`), added missing frontmatter fields (`stability: stable`, `domain: governance`), and fixed UK English spelling (`finalize`→`finalise`, `customize`→`customise`, `customizations`→`customisations`) ([PR #676](https://github.com/lightspeedwp/.github/pull/676) — *fix: WCEU 2026 validation scripts and governance rollout documentation*)
+
 - **Planner & Reviewer Agents: Code Review Fixes** — Fixed six critical issues from CodeRabbit review: dryRun option precedence, CLI entry point execution, null-safe comment body checks, extended dependency file detection (package.json, composer.json), improved rollback migration detection (.down.sql), and prevented crashes from null comment bodies ([#603](https://github.com/lightspeedwp/.github/issues/603), [#604](https://github.com/lightspeedwp/.github/issues/604), [#605](https://github.com/lightspeedwp/.github/issues/605), [#606](https://github.com/lightspeedwp/.github/issues/606), [#607](https://github.com/lightspeedwp/.github/issues/607))
+
 - **Reviewer Agent: File Pagination** — Implemented proper pagination using `octokit.paginate()` for PR file analysis to ensure all files are analyzed even when a PR has >100 changed files; prevents missing high-risk files on subsequent pages
+
 - **Release Agent: Branch Push Upstream Tracking** — Fixed release agent to use `git push -u origin` when pushing release branches, ensuring proper upstream tracking for subsequent PR creation ([#585](https://github.com/lightspeedwp/.github/issues/585))
+
 - **Release Agent: [Unreleased] Section Recreation** — Fixed release agent to inject new `[Unreleased]` section after rolling version, ensuring changelog is ready for next contribution cycle ([#586](https://github.com/lightspeedwp/.github/issues/586))
+
 - **Release Agent: Sandboxed Dry-Run Mode** — Implemented proper dry-run mode that creates temporary git branch, validates file changes, runs linting, and tests git operations before cleanup—enabling safe end-to-end release testing ([#587](https://github.com/lightspeedwp/.github/issues/587))
+
 - **Release Workflow: Enforce Authorization Gate** — Fixed release workflow authorization check to actually block unauthorized trigger attempts. Modified `trigger-telemetry.cjs` to validate actor membership in `lightspeedwp/maintainers` team via GitHub API; workflow now exits with error if actor is not authorized. Updated `.github/workflows/release.yml` to pass `GITHUB_TOKEN` for authorization validation and report `is_authorized` status ([#588](https://github.com/lightspeedwp/.github/issues/588))
+
 - **Release Workflow: Tests as Hard Gate** — Added test job to release workflow as mandatory pre-release gate. New `test` job runs full test suite (`npm test`) and must pass before release proceeds. Updated `release` job to depend on both `lint` and `test`, ensuring untested code cannot be released ([#589](https://github.com/lightspeedwp/.github/issues/589))
+
 - **Release Agent: PR Creation Failures Block Release** — Fixed release agent to treat PR creation failures as fatal errors, stopping the entire release process. Removed silent error catch block in `createReleasePR()` to propagate exceptions to outer error handler, preventing release tag/GitHub release publication when PR creation fails ([#590](https://github.com/lightspeedwp/.github/issues/590))
+
 - **Release Agent: Version Override Scope Alignment** — Added validation to ensure explicit version overrides (`--version=X.Y.Z`) align with the specified scope. Version mismatches now throw an error unless `RELEASE_FORCE_VERSION=1` environment variable is set. Includes clear warning when override is forced ([#591](https://github.com/lightspeedwp/.github/issues/591))
+
 - **Mergify Dependabot Auto-merge Rules** — Corrected Mergify configuration to automatically merge Dependabot PRs by fixing the author condition from `author=dependabot` to `author=dependabot[bot]` to match GitHub's actual Dependabot bot account name ([#573](https://github.com/lightspeedwp/.github/issues/573))
+
 - **WCEU 2026 Branch Name References** — Updated references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md` from old branch name `claude/charming-goldberg-Pqc69` to correct branch `claude/affectionate-bohr-AX2jS`
 
 ### Added
 
-- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
-
-- **WCEU 2026 Phase 2 Refinement: Complete Speaker Notes and Visual Design Specifications** — Finalised all speaker notes and visual design guidance for 25-minute WordCamp Europe 2026 presentation on ".github repository automation":
-  - `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
-  - `wceu-2026/VISUAL_DESIGN_SPECIFICATIONS.md` — Full design system guide (dark mode, 8-colour palette with WCAG AA+ contrast, typography 44–56pt titles/18–24pt body, layout specs, accessibility checklist)
-  - `wceu-2026/SLIDES_INDEX.md` — Quick-reference index of all 24 slides organised by section (Hook/Architecture/Implementation/Adoption) with layout, timing, key message, accent colour assignments, and build checklist
-  - All three files validated for WCAG 2.2 AA accessibility compliance and ready for Phase 3 Google Slides implementation ([#640](https://github.com/lightspeedwp/.github/pull/640))
-
-- **Documentation Consolidation & Repository Structure Refinement** — Streamlined documentation by consolidating redundant files and clarifying scope boundaries:
-  - Consolidated labelling documentation: merged `docs/LABEL_STRATEGY.md`, `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md` into single comprehensive `docs/LABELING.md` (covers strategy, issue/PR/discussion labelling, agent integration, and best practices)
-  - Consolidated automation documentation: merged `docs/AUTOMATION_GOVERNANCE.md`, `docs/WORKFLOWS.md` into single `docs/AUTOMATION.md` (covers strategy, governance, workflow registry, and configuration management)
-  - Corrected nested file path: moved `.github/.github/docs/workflow-coordination.md` to `docs/WORKFLOW_COORDINATION.md`
-  - Updated `instructions/DEPRECATED.md` with deprecation index and migration guide for consolidated files
-  - Maintained portable instructions (`instructions/labeling.instructions.md`, `instructions/automation.instructions.md`) for cross-repository reusability
-  - Result: Eliminated 5 redundant documentation files; improved discoverability and maintainability ([#636](https://github.com/lightspeedwp/.github/issues/636))
-
-- **Standardised Prompts Directory** — Created `/prompts` directory at repository root with 7 reusable prompt templates for agents and AI scenarios:
-  - `agent-setup.prompt` — Initial agent context, instructions, and operational guidelines
-  - `code-generation.prompt` — Code implementation, scaffolding, and generation scenarios
-  - `documentation.prompt` — Documentation creation, updates, and refinement workflows
-  - `testing.prompt` — Test suite creation, coverage improvement, and test debugging
-  - `code-review.prompt` — Code review, quality feedback, and standards enforcement
-  - `debugging.prompt` — Problem diagnosis, root cause analysis, and resolution procedures
-  - `refactoring.prompt` — Code refactoring, optimisation, and modernisation workflows
-  - Each prompt follows consistent structure (Context, Task, Constraints, Acceptance Criteria, References) for reusability across agents and projects
-  - Added `prompts/README.md` with usage guide and contribution guidelines ([#636](https://github.com/lightspeedwp/.github/issues/636))
-
-- **Workflow Standards Comprehensive Audit & Improvement Plan** — Completed systematic audit of linting, meta, branding, and CI/CD workflows with detailed improvement roadmap:
-  - `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
-  - Identified critical gap: no changelog auto-sync on PR merge to develop
-  - High priorities: automated project archival, planner agent implementation, workflow consolidation
-  - Created 6 GitHub issues (#618–#623) tracking each improvement with acceptance criteria
-  - Success criteria defined for changelog, projects, CI/CD, and documentation ([#618](https://github.com/lightspeedwp/.github/issues/618), [#619](https://github.com/lightspeedwp/.github/issues/619), [#620](https://github.com/lightspeedwp/.github/issues/620), [#621](https://github.com/lightspeedwp/.github/issues/621), [#622](https://github.com/lightspeedwp/.github/issues/622), [#623](https://github.com/lightspeedwp/.github/issues/623))
-
-- **Changelog Auto-Sync Workflow** — Implemented `.github/workflows/changelog-auto-update.yml` to automatically synchronise changelog entries when PRs merge to develop:
-  - Triggers on PR merge with CHANGELOG.md changes
-  - Extracts entries from merged PR using `extract-pr-entries.cjs`
-  - Merges entries into main CHANGELOG.md [Unreleased] section
-  - Deduplicates entries to prevent duplicates
-  - Validates schema before committing changes
-  - Uses `[skip ci]` flag to prevent workflow loops ([#618](https://github.com/lightspeedwp/.github/issues/618))
-
-- **Automated Project Archival Workflow** — Implemented `.github/workflows/project-archival.yml` to detect and archive completed projects:
-  - Triggers on-demand (workflow_dispatch) or weekly (Sunday 02:00 UTC)
-  - Scans active projects for completion markers (status: completed)
-  - Moves completed projects to `.github/projects/archived/{YYYY-MM-DD}-{name}/`
-  - Creates archival summary with metrics and completion date
-  - Dry-run mode for safe preview before archiving
-  - Generates audit trail and report for archival actions ([#619](https://github.com/lightspeedwp/.github/issues/619))
-
-- **Planner Agent Implementation** — Enhanced and enabled `scripts/agents/planner.agent.js` with project detection logic:
-  - Detects active projects from `.github/projects/active/` directory
-  - Supports dry-run mode (default) for safe analysis
-  - Ready for GitHub API integration to auto-assign issues to projects
-  - Logs proposed project assignments with reasoning
-  - Enabled planner workflow in `.github/workflows/planner.yml` (removed if: false condition) ([#620](https://github.com/lightspeedwp/.github/issues/620))
-
-- **Standardised Project Planning Template** — Created `.github/projects/PLANNING_TEMPLATE.md` to structure issue planning before creation:
-  - Comprehensive template with 9 sections: overview, scope, timeline, architecture, risks, testing, documentation, references, sign-off
-  - Includes planning checklist before creating related GitHub issues
-  - Standardises documentation of goals, success criteria, milestones, and dependencies
-  - Helps ensure planning decisions are captured and shared with team ([#621](https://github.com/lightspeedwp/.github/issues/621))
-
-- **Unified Checks Workflow** — Created `.github/workflows/checks.yml` to consolidate pre-merge validation:
-  - Consolidates linting, testing, and validation into single workflow
-  - Uses concurrency groups to prevent redundant runs
-  - Clear trigger: pull_request and push (develop branch)
-  - Composite status job ensures all checks pass before merge
-  - Separate meta.yml workflow maintains different cadence (post-push)
-  - Recommended replacement for scattered linting.yml and testing.yml ([#622](https://github.com/lightspeedwp/.github/issues/622))
-
-- **Weekly Metrics Summary Workflow** — Implemented `.github/workflows/metrics-summary.yml` for scheduled reporting:
-  - Triggers weekly (Monday 09:00 UTC) or on-demand via workflow_dispatch
-  - Aggregates metrics from meta.json, git activity, and changelogs
-  - Generates human-readable markdown summary report
-  - Archives weekly reports in `.github/reports/metrics/weekly/`
-  - Posts report to GitHub discussions (configurable)
-  - Provides visibility into repository health, activity, and automation effectiveness ([#623](https://github.com/lightspeedwp/.github/issues/623))
-
-- **WCEU 2026 Comprehensive Audit and Execution Plan** — Completed systematic audit and documentation update for May 30–31 Phase 2–3 execution:
-  - `wceu-2026/FILE_UPDATE_AUDIT.md` — Comprehensive audit of 17 primary + 8 supporting files with critical issue identification and update recommendations
-  - `wceu-2026/EXECUTION_PLAN.md` — Master execution plan consolidating Phase 1 validation results (16/18 passing), Phase 2 content generation workflow (4–6 hours), Phase 3 finalization timeline (6–8 hours), success criteria, risk mitigation, and open questions
-  - Updated `wceu-2026/README.md` to reflect Phase 2 in-progress status with detailed checklist tracking
-  - Fixed branch name references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md`
-  - All wceu-2026 documentation validated and consistent; ready for Phase 2–3 execution ([#564](https://github.com/lightspeedwp/.github/issues/564), [#567](https://github.com/lightspeedwp/.github/issues/567), [#573](https://github.com/lightspeedwp/.github/issues/573))
-
-- **WCEU 2026 Validation Scripts (Bash-to-JavaScript Migration)** — Completed migration of WCEU validation scripts from Bash to JavaScript with improvements:
-  - `scripts/verify-wceu-readiness.js` — Automated Phase 1 validation for schema migration, agent slides reorganization, and content file completeness
-  - `scripts/validate-phase2-completion.js` — Interactive Phase 2 validation for NotebookLM output, Google Slides foundation, and design system documentation
-  - Benefits: ES module compatibility, robust error handling, cross-platform support (no sed/awk/grep dependencies), comprehensive logging
-  - Added npm scripts: `validate:wceu:phase1` and `validate:wceu:phase2` for CLI integration
-  - Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
-  - Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
-
-- **Release Automation Framework Phase 2: Semantic Versioning & Release Notes Generation** — Implemented core semantic versioning detection and release notes formatting modules enabling automated version bumping and changelog generation ([#598](https://github.com/lightspeedwp/.github/pull/598)):
-  - `scripts/agents/includes/versionDetector.js` — Semantic version bump detection from changelog entries with Conventional Commits integration. Analyzes breaking changes, feature additions, deprecations, and removals to determine patch/minor/major version bumps per Semantic Versioning 2.0.0. Functions: parseVersion, formatVersion, compareVersions, determineBumpType, calculateNextVersion, detectBump, suggestNextVersion
-  - `scripts/agents/includes/releaseNotesFormatter.js` — Release notes generation from changelog entries with Markdown formatting and metadata support (scope, commit hash, PR number, author). Configurable section ordering (security → removed → deprecated → added → changed → fixed → documentation → performance) and summary text generation. Functions: formatSectionTitle, formatEntry, buildReleaseNotes, generateReleaseNotes, extractSummary, generateSummaryText
-  - `scripts/agents/includes/duplicateDetector.js` — Enhanced duplicate detection using fuzzy matching with Levenshtein distance algorithm and semantic analysis via key-term overlap. Configurable similarity threshold (default 0.85). Functions: normalize, levenshteinDistance, calculateSimilarity, isFuzzyDuplicate, hasSemanticDuplicate, findBestMatch, deduplicateEntries, groupDuplicates
-  - Comprehensive test coverage: 99 Jest tests across all three modules (32 versionDetector tests, 27 releaseNotesFormatter tests, 40 duplicateDetector tests) with >90% code coverage
-  - Integration tests validate semantic versioning logic, Markdown formatting, fuzzy matching algorithms, and edge case handling
-
-- **Complete Agent Specifications & Documentation Audit** — Completed specification documentation for tracking agents and audited documentation cross-references:
-  - Completed `agents/template.agent.md` with canonical agent specification template, usage guidelines, structure documentation, and best practices ([#488](https://github.com/lightspeedwp/.github/issues/488))
-  - Enhanced `agents/testing.agent.md` with comprehensive role/responsibilities, capabilities, configuration, examples, and related agent references ([#490](https://github.com/lightspeedwp/.github/issues/490))
-  - Audited documentation cross-references to CONTRIBUTING.md, GOVERNANCE.md, coding standards, and linting instructions ([#22](https://github.com/lightspeedwp/.github/issues/22))
-  - Verified CONTRIBUTING.md has adequate Quick Start section and workflow diagram ([#18](https://github.com/lightspeedwp/.github/issues/18))
-  - Verified PR template includes comprehensive accessibility and security checklists ([#21](https://github.com/lightspeedwp/.github/issues/21))
-
-- **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/wceu-2026/agent-slides/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
-  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
-  - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
-  - **8 Process & Lifecycle Prompts**: PR lifecycle, issue triage, release process, documentation standards, repository metrics, QA/testing, plugin deep-dive, and observability/logging
-  - **2 Governance & Standards Prompts**: WordPress-specific requirements and contributing guidelines
-  - **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
-  - Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([#549](https://github.com/lightspeedwp/.github/pull/549))
-
-- **Design Markdown Agent: P3 Shell Script Modernization** — Completed migration of PDF tooling dependency installation from Bash to JavaScript:
-  - `skills/design-md-agent/pdfs/js/installDeps.js` — New JavaScript module replacing `install_deps.sh` shell script with async/await pattern
-  - `skills/design-md-agent/pdfs/js/__tests__/installDeps.test.js` — Comprehensive test suite with 11 tests covering node_modules fast-path, package.json validation, error handling, npm install execution, and console logging
-  - Performance improvement: promisified `exec()` replaces blocking subprocess; non-blocking async operation for CI/CD pipelines
-  - Code review refinements: proper error wrapping, fast-path optimization, comprehensive mock-based testing, silent npm install flag validation
-  - Returns structured result object with success/installed/directory properties for programmatic integration ([#616](https://github.com/lightspeedwp/.github/issues/616), [#639](https://github.com/lightspeedwp/.github/pull/639))
-
-- **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
-  - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
-  - Maintains all public API functions for footer selection, insertion, removal, and badge generation
-  - Supports configuration-driven footer phrases and badge schema mapping
-  - Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/issues/47))
-
-- **Wave 3C: README and Mermaid Maintenance Workflow** — New `.github/workflows/readme-update.yml` workflow automates README and Mermaid diagram maintenance with:
-  - Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
-  - Stale frontmatter date updates (6+ month threshold)
-  - Support for manual dispatch (`workflow_dispatch`) and Release Agent orchestration (`workflow_call`)
-  - Dry-run mode for safe preview before applying changes
-  - Audit reporting at `.github/reports/mermaid-audit/update-report.md`
-  - Integrated into Release Agent post-release phase ([#536](https://github.com/lightspeedwp/.github/pull/536))
-
-- **Wave 4 Specification** — Added `.github/projects/active/wave-4-continuous-monitoring.md` comprehensive specification for continuous README and Mermaid diagram monitoring:
-  - Scheduled weekly audit workflows
-  - Drift detection on push events
-  - Monthly freshness notifications
-  - Quarterly health reports with recommendations
-  - CI/CD integration patterns and metric collection
-  - Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
-
-- **Comprehensive Documentation Index** — Created `docs/README.md` with complete documentation hub and navigation guide:
-  - Quick-start sections for First-Time Contributors, Maintainers, and Workflow & Automation teams
-  - 9 logical documentation categories with 36+ indexed files (Architecture & Strategy, Workflows & Processes, Labeling & Project Management, Configuration & Setup, Development & Standards, Governance & Decisions, Monitoring & Metrics, Adoption & Integration)
-  - Role-based navigation table (Developer, Reviewer, Maintainer, Automation/DevOps, Organisation Lead)
-  - Task-based quick-reference table (8 common tasks with relevant documentation links)
-  - Documentation standards reference (UK English, Markdown with YAML frontmatter, relative links, WCAG 2.2 AA compliance)
-  - Related resources and help section for discoverability
-  - Updated Mermaid diagrams with WCAG 2.2 AA accessibility attributes (`accTitle`, `accDescr`)
-  - Removed prohibited `references` fields from README files per CLAUDE.md governance rules
-  - Closes Issue [#19](https://github.com/lightspeedwp/.github/issues/19) ([#552](https://github.com/lightspeedwp/.github/pull/552))
-
-- **Wave 4C: Current-State Audit & Remediation Plan** — Completed comprehensive audit of 932 markdown files with detailed remediation strategy:
-  - `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
-  - Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
-  - `.github/reports/wave-4c-audit-report.md`: Current-state findings with category-specific breakdown and recommendations
-  - `.github/reports/wave-4c-remediation-plan.md`: Phased remediation roadmap (Phase 1-3 over 9-12 hours, Waves 4D-4F)
-  - High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
-  - Risk assessment, success criteria, and dependency analysis for phased execution
-  - Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
-  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) (PR #558)
+- `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
+- `wceu-2026/VISUAL_DESIGN_SPECIFICATIONS.md` — Full design system guide (dark mode, 8-colour palette with WCAG AA+ contrast, typography 44–56pt titles/18–24pt body, layout specs, accessibility checklist)
+- `wceu-2026/SLIDES_INDEX.md` — Quick-reference index of all 24 slides organised by section (Hook/Architecture/Implementation/Adoption) with layout, timing, key message, accent colour assignments, and build checklist
+- All three files validated for WCAG 2.2 AA accessibility compliance and ready for Phase 3 Google Slides implementation ([#640](https://github.com/lightspeedwp/.github/pull/640))
+- Consolidated labelling documentation: merged `docs/LABEL_STRATEGY.md`, `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md` into single comprehensive `docs/LABELING.md` (covers strategy, issue/PR/discussion labelling, agent integration, and best practices)
+- Consolidated automation documentation: merged `docs/AUTOMATION_GOVERNANCE.md`, `docs/WORKFLOWS.md` into single `docs/AUTOMATION.md` (covers strategy, governance, workflow registry, and configuration management)
+- Corrected nested file path: moved `.github/.github/docs/workflow-coordination.md` to `docs/WORKFLOW_COORDINATION.md`
+- Updated `instructions/DEPRECATED.md` with deprecation index and migration guide for consolidated files
+- Maintained portable instructions (`instructions/labeling.instructions.md`, `instructions/automation.instructions.md`) for cross-repository reusability
+- Result: Eliminated 5 redundant documentation files; improved discoverability and maintainability ([#636](https://github.com/lightspeedwp/.github/issues/636))
+- `agent-setup.prompt` — Initial agent context, instructions, and operational guidelines
+- `code-generation.prompt` — Code implementation, scaffolding, and generation scenarios
+- `documentation.prompt` — Documentation creation, updates, and refinement workflows
+- `testing.prompt` — Test suite creation, coverage improvement, and test debugging
+- `code-review.prompt` — Code review, quality feedback, and standards enforcement
+- `debugging.prompt` — Problem diagnosis, root cause analysis, and resolution procedures
+- `refactoring.prompt` — Code refactoring, optimisation, and modernisation workflows
+- Each prompt follows consistent structure (Context, Task, Constraints, Acceptance Criteria, References) for reusability across agents and projects
+- Added `prompts/README.md` with usage guide and contribution guidelines ([#636](https://github.com/lightspeedwp/.github/issues/636))
+- `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
+- Identified critical gap: no changelog auto-sync on PR merge to develop
+- High priorities: automated project archival, planner agent implementation, workflow consolidation
+- Created 6 GitHub issues (#618–#623) tracking each improvement with acceptance criteria
+- Success criteria defined for changelog, projects, CI/CD, and documentation ([#618](https://github.com/lightspeedwp/.github/issues/618), [#619](https://github.com/lightspeedwp/.github/issues/619), [#620](https://github.com/lightspeedwp/.github/issues/620), [#621](https://github.com/lightspeedwp/.github/issues/621), [#622](https://github.com/lightspeedwp/.github/issues/622), [#623](https://github.com/lightspeedwp/.github/issues/623))
+- Triggers on PR merge with CHANGELOG.md changes
+- Extracts entries from merged PR using `extract-pr-entries.cjs`
+- Merges entries into main CHANGELOG.md [Unreleased] section
+- Deduplicates entries to prevent duplicates
+- Validates schema before committing changes
+- Uses `[skip ci]` flag to prevent workflow loops ([#618](https://github.com/lightspeedwp/.github/issues/618))
+- Triggers on-demand (workflow_dispatch) or weekly (Sunday 02:00 UTC)
+- Scans active projects for completion markers (status: completed)
+- Moves completed projects to `.github/projects/archived/{YYYY-MM-DD}-{name}/`
+- Creates archival summary with metrics and completion date
+- Dry-run mode for safe preview before archiving
+- Generates audit trail and report for archival actions ([#619](https://github.com/lightspeedwp/.github/issues/619))
+- Detects active projects from `.github/projects/active/` directory
+- Supports dry-run mode (default) for safe analysis
+- Ready for GitHub API integration to auto-assign issues to projects
+- Logs proposed project assignments with reasoning
+- Enabled planner workflow in `.github/workflows/planner.yml` (removed if: false condition) ([#620](https://github.com/lightspeedwp/.github/issues/620))
+- Comprehensive template with 9 sections: overview, scope, timeline, architecture, risks, testing, documentation, references, sign-off
+- Includes planning checklist before creating related GitHub issues
+- Standardises documentation of goals, success criteria, milestones, and dependencies
+- Helps ensure planning decisions are captured and shared with team ([#621](https://github.com/lightspeedwp/.github/issues/621))
+- Consolidates linting, testing, and validation into single workflow
+- Uses concurrency groups to prevent redundant runs
+- Clear trigger: pull_request and push (develop branch)
+- Composite status job ensures all checks pass before merge
+- Separate meta.yml workflow maintains different cadence (post-push)
+- Recommended replacement for scattered linting.yml and testing.yml ([#622](https://github.com/lightspeedwp/.github/issues/622))
+- Triggers weekly (Monday 09:00 UTC) or on-demand via workflow_dispatch
+- Aggregates metrics from meta.json, git activity, and changelogs
+- Generates human-readable markdown summary report
+- Archives weekly reports in `.github/reports/metrics/weekly/`
+- Posts report to GitHub discussions (configurable)
+- Provides visibility into repository health, activity, and automation effectiveness ([#623](https://github.com/lightspeedwp/.github/issues/623))
+- `wceu-2026/FILE_UPDATE_AUDIT.md` — Comprehensive audit of 17 primary + 8 supporting files with critical issue identification and update recommendations
+- `wceu-2026/EXECUTION_PLAN.md` — Master execution plan consolidating Phase 1 validation results (16/18 passing), Phase 2 content generation workflow (4–6 hours), Phase 3 finalization timeline (6–8 hours), success criteria, risk mitigation, and open questions
+- Updated `wceu-2026/README.md` to reflect Phase 2 in-progress status with detailed checklist tracking
+- Fixed branch name references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md`
+- All wceu-2026 documentation validated and consistent; ready for Phase 2–3 execution ([#564](https://github.com/lightspeedwp/.github/issues/564), [#567](https://github.com/lightspeedwp/.github/issues/567), [#573](https://github.com/lightspeedwp/.github/issues/573))
+- `scripts/verify-wceu-readiness.js` — Automated Phase 1 validation for schema migration, agent slides reorganization, and content file completeness
+- `scripts/validate-phase2-completion.js` — Interactive Phase 2 validation for NotebookLM output, Google Slides foundation, and design system documentation
+- Benefits: ES module compatibility, robust error handling, cross-platform support (no sed/awk/grep dependencies), comprehensive logging
+- Added npm scripts: `validate:wceu:phase1` and `validate:wceu:phase2` for CLI integration
+- Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
+- Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
+- `scripts/agents/includes/versionDetector.js` — Semantic version bump detection from changelog entries with Conventional Commits integration. Analyzes breaking changes, feature additions, deprecations, and removals to determine patch/minor/major version bumps per Semantic Versioning 2.0.0. Functions: parseVersion, formatVersion, compareVersions, determineBumpType, calculateNextVersion, detectBump, suggestNextVersion
+- `scripts/agents/includes/releaseNotesFormatter.js` — Release notes generation from changelog entries with Markdown formatting and metadata support (scope, commit hash, PR number, author). Configurable section ordering (security → removed → deprecated → added → changed → fixed → documentation → performance) and summary text generation. Functions: formatSectionTitle, formatEntry, buildReleaseNotes, generateReleaseNotes, extractSummary, generateSummaryText
+- `scripts/agents/includes/duplicateDetector.js` — Enhanced duplicate detection using fuzzy matching with Levenshtein distance algorithm and semantic analysis via key-term overlap. Configurable similarity threshold (default 0.85). Functions: normalize, levenshteinDistance, calculateSimilarity, isFuzzyDuplicate, hasSemanticDuplicate, findBestMatch, deduplicateEntries, groupDuplicates
+- Comprehensive test coverage: 99 Jest tests across all three modules (32 versionDetector tests, 27 releaseNotesFormatter tests, 40 duplicateDetector tests) with >90% code coverage
+- Integration tests validate semantic versioning logic, Markdown formatting, fuzzy matching algorithms, and edge case handling
+- Completed `agents/template.agent.md` with canonical agent specification template, usage guidelines, structure documentation, and best practices ([#488](https://github.com/lightspeedwp/.github/issues/488))
+- Enhanced `agents/testing.agent.md` with comprehensive role/responsibilities, capabilities, configuration, examples, and related agent references ([#490](https://github.com/lightspeedwp/.github/issues/490))
+- Audited documentation cross-references to CONTRIBUTING.md, GOVERNANCE.md, coding standards, and linting instructions ([#22](https://github.com/lightspeedwp/.github/issues/22))
+- Verified CONTRIBUTING.md has adequate Quick Start section and workflow diagram ([#18](https://github.com/lightspeedwp/.github/issues/18))
+- Verified PR template includes comprehensive accessibility and security checklists ([#21](https://github.com/lightspeedwp/.github/issues/21))
+- **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
+- **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
+- **8 Process & Lifecycle Prompts**: PR lifecycle, issue triage, release process, documentation standards, repository metrics, QA/testing, plugin deep-dive, and observability/logging
+- **2 Governance & Standards Prompts**: WordPress-specific requirements and contributing guidelines
+- **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
+- Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([#549](https://github.com/lightspeedwp/.github/pull/549))
+- `skills/design-md-agent/pdfs/js/installDeps.js` — New JavaScript module replacing `install_deps.sh` shell script with async/await pattern
+- `skills/design-md-agent/pdfs/js/__tests__/installDeps.test.js` — Comprehensive test suite with 11 tests covering node_modules fast-path, package.json validation, error handling, npm install execution, and console logging
+- Performance improvement: promisified `exec()` replaces blocking subprocess; non-blocking async operation for CI/CD pipelines
+- Code review refinements: proper error wrapping, fast-path optimization, comprehensive mock-based testing, silent npm install flag validation
+- Returns structured result object with success/installed/directory properties for programmatic integration ([#616](https://github.com/lightspeedwp/.github/issues/616), [#639](https://github.com/lightspeedwp/.github/pull/639))
+- Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
+- Maintains all public API functions for footer selection, insertion, removal, and badge generation
+- Supports configuration-driven footer phrases and badge schema mapping
+- Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/issues/47))
+- Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
+- Stale frontmatter date updates (6+ month threshold)
+- Support for manual dispatch (`workflow_dispatch`) and Release Agent orchestration (`workflow_call`)
+- Dry-run mode for safe preview before applying changes
+- Audit reporting at `.github/reports/mermaid-audit/update-report.md`
+- Integrated into Release Agent post-release phase ([#536](https://github.com/lightspeedwp/.github/pull/536))
+- Scheduled weekly audit workflows
+- Drift detection on push events
+- Monthly freshness notifications
+- Quarterly health reports with recommendations
+- CI/CD integration patterns and metric collection
+- Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
+- Quick-start sections for First-Time Contributors, Maintainers, and Workflow & Automation teams
+- 9 logical documentation categories with 36+ indexed files (Architecture & Strategy, Workflows & Processes, Labeling & Project Management, Configuration & Setup, Development & Standards, Governance & Decisions, Monitoring & Metrics, Adoption & Integration)
+- Role-based navigation table (Developer, Reviewer, Maintainer, Automation/DevOps, Organisation Lead)
+- Task-based quick-reference table (8 common tasks with relevant documentation links)
+- Documentation standards reference (UK English, Markdown with YAML frontmatter, relative links, WCAG 2.2 AA compliance)
+- Related resources and help section for discoverability
+- Updated Mermaid diagrams with WCAG 2.2 AA accessibility attributes (`accTitle`, `accDescr`)
+- Removed prohibited `references` fields from README files per CLAUDE.md governance rules
+- Closes Issue [#19](https://github.com/lightspeedwp/.github/issues/19) ([#552](https://github.com/lightspeedwp/.github/pull/552))
+- `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+- Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
+- `.github/reports/wave-4c-audit-report.md`: Current-state findings with category-specific breakdown and recommendations
+- `.github/reports/wave-4c-remediation-plan.md`: Phased remediation roadmap (Phase 1-3 over 9-12 hours, Waves 4D-4F)
+- High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
+- Risk assessment, success criteria, and dependency analysis for phased execution
+- Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
+- Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) (PR #558)
 
 ### Fixed
 
 - **Plugin Structure Instructions Frontmatter** — Added missing `title` and `category` fields to `instructions/plugin-structure.instructions.md` to meet frontmatter schema requirements ([#535](https://github.com/lightspeedwp/.github/pull/547))
 
-### Changed
+- Remediated duplicate and multiple footer blocks across 664 Markdown files using schema-driven validation. Created footer configuration schema (`.schemas/footer-config.schema.json`), centralized footer library with 15 document categories (`config/footers.config.yaml`), and automated validation/remediation script (`.github/scripts/validate-footers.js`). Violations fixed: 51 duplicate footer files → 0, 613 multiple-footer files → 0. Published remediation guide (`.github/FOOTER_REMEDIATION_GUIDE.md`). Related to branding meta agent planning (#33, #46, #48, #49). ([PR #534](https://github.com/lightspeedwp/.github/pull/534) — *fix/plan: footer remediation + branding meta agent planning*)
 
-- Added guarded Dependabot security auto-merge automation for `develop` by introducing Mergify conditions tied to Dependabot author, dependency/security labels, conflict/draft guards, and successful required checks. Added and wired a Dependabot security labelling workflow and aligned labels to canonical naming (`meta:dependabot-security`) to satisfy label governance and enable controlled auto-merge behaviour. ([#563](https://github.com/lightspeedwp/.github/pull/563))
+- Removed prohibited `references:` frontmatter field from 9 README files (`README.md`, `.github/README.md`, `.github/agents/README.md`, `.github/instructions/README.md`, `.github/metrics/README.md`, `.github/schemas/README.md`, `.schemas/README.md`, `profile/README.md`, `scripts/README.md`) per CLAUDE.md governance rule. Added missing required frontmatter fields (`owners`, `status`, `stability`, `domain`) to affected files. Removed 13 duplicate footer blocks from root `README.md`. Added `.lycheeignore` excluding social-platform and LightSpeed external domains from CI link checking. Added `docs/MIGRATION.md` portable AI plugin restructure migration maps (completed and pending migrations, file placement quick-reference). Related to [#18](https://github.com/lightspeedwp/.github/issues/18). ([PR #527](https://github.com/lightspeedwp/.github/pull/527) — *fix(docs): remove prohibited references: frontmatter field from 9 READMEs*)
 
-- **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
-  - Documented workflow contract with inputs, outputs, and failure handling
-  - Added to orchestration algorithm as non-blocking post-release action
-  - Conditional execution based on README maintenance requirements ([#536](https://github.com/lightspeedwp/.github/pull/536))
+- Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([PR #455](https://github.com/lightspeedwp/.github/pull/455) — *fix: replace deprecated MCP tool refs (create\_issue → issue\_write, get\_issue → issue\_read)*)
 
-- **Workflow Coordination Documentation** — Updated `.github/docs/workflow-coordination.md` (v1.0.0 → v1.1.0):
-  - Documented `readme-update.yml` in Agent-Triggered Workflow Registry
-  - Added comprehensive specification with inputs, outputs, and integration points
-  - Clarified Release Agent orchestration pattern for post-release actions ([#536](https://github.com/lightspeedwp/.github/pull/536))
+- Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([PR #460](https://github.com/lightspeedwp/.github/pull/460) — *fix: add explicit accessibility and security DoD checklist items to issue templates*)
 
-- **Plugin Structure Migration** — Migrated `instructions/plugin-structure.instructions.md` from `.github/instructions/` to top-level `instructions/` folder:
-  - Follows CLAUDE.md guidelines for portable reusable assets
-  - Updated references across `.github/README.md` and `CLAUDE.md`
-  - Clarified repository structure: GitHub-native files in `.github/`, portable assets in top-level folders ([#536](https://github.com/lightspeedwp/.github/pull/536))
-
-### Documentation
-
-- Confirmed GitHub Copilot continuation in `.github/projects/active/next-issues-execution-plan.md` (v2.1.2) for the remaining Wave 2A issues (`#476`, `#480`, `#482`) and Wave 2C issues (`#488`, `#490`), explicitly requiring execution to continue until implementation, validation, and PR-ready merge state for `develop` are reached.
-- Added comprehensive WCEU 2026 talk asset pack audit and NotebookLM hardening plan (Issue #529): `.github/wceu-2026/WCEU_2026_AUDIT_AND_READINESS_PLAN.md` (500+ lines). Audits folder structure, identifies critical gaps in NotebookLM prompts, provides hardening roadmap with explicit develop-branch URLs. Hardened `wceu-2026/notebooklm/deep-research-prompt.md` (450+ lines) with 14 canonical approved sources, source ingestion order, analysis objectives, and constraints. Created comprehensive `wceu-2026/notebooklm/source-ingestion-checklist.md` (350+ lines) with repo-only source policy, validation checklist, prohibited sources list, and enforcement rules. Ensures NotebookLM analysis is grounded in authoritative internal sources only. ([#543](https://github.com/lightspeedwp/.github/pull/543))
-- Clarified mandatory execution ownership in `.github/projects/active/next-issues-execution-plan.md` (v2.1.1), explicitly splitting task streams between **GitHub Copilot** and **Claude Code** with a dedicated ownership matrix, updated wave labels, and explicit no-cross-execution policy language for exclusive workstreams.
-- Updated `.github/projects/active/next-issues-execution-plan.md` to v2.1.0 and synchronised the Active Project Files Inventory with all current artefacts in `.github/projects/active/`, including Wave 3B/3C specs, Wave 4 branding specifications (`ISSUE_33`, `ISSUE_46`, `ISSUE_48`, `ISSUE_49`), planning summaries, plugin-pack wave task lists, and continuous monitoring planning assets.
-- Added comprehensive current-state audit specification for unified branding agent (Issue #48): `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` (489 lines). Audits existing branding implementations against new .schemas/config standards, inventories frontmatter completeness (90.6% compliant, 70 files missing required fields), category mapping accuracy (98%+ correct), header/footer patterns (84.5% missing footers), badge usage (1.9% adoption), and WCAG AA accessibility (95%+ compliance). Documents gap analysis, remediation priorities with effort estimates (16–23 hours), remediation scripts needed, risk assessment, and success criteria. Provides baseline for planning agent rollout and documentation updates. ([#541](https://github.com/lightspeedwp/.github/pull/541))
-- Added comprehensive schema and config implementation specification for unified branding agent (Issue #49): `.github/projects/active/ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` (800+ lines). Specification defines YAML + JSON Schema approach for configuration, documents all 16 document categories with metadata, specifies 4 required and 7 optional frontmatter fields, details path-based category inference with priority rules, documents badge types and category-specific placement rules, defines header/footer template reference structure, specifies validation rules and safe failure behavior, includes complete example configuration, and establishes dependency relationships with Issues #33 and #46. Unblocks current-state audit (Issue #48) and agent implementation. ([#539](https://github.com/lightspeedwp/.github/pull/539))
-- Added comprehensive template design specification for unified branding agent (Issue #46): `.github/projects/active/ISSUE_46_TEMPLATE_DESIGN.md` (950+ lines). Specification defines header templates for all 16 document categories, footer variants (5 each for 6 key categories: Docs, Agents, Instructions, Schemas, Prompts, Governance; 1 each for 10 other categories), badge templates (Status, Category, Version, Review Status), accessibility constraints (WCAG AA compliance, contrast ratios, alt text), readability guidelines (line length, nesting, bullet lists), and YAML configuration structure for `config/templates.config.yaml`. Unblocks .schemas/config implementation (Issue #49) and current-state audit (Issue #48). Depends on Issue #33 parent specification. ([#538](https://github.com/lightspeedwp/.github/pull/538))
-- Added comprehensive parent specification for unified branding agent (Issue #33): `.github/projects/active/ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` (1,100+ lines). Specification locks down category taxonomy (16 document categories), header/footer requirements with 5 variants each for 6 key categories, badge system, .schemas/config model (YAML + JSON Schema), frontmatter standards, and 4-phase delivery roadmap. Unblocks child issues #46 (template design), #49 (schema implementation), and #48 (agent development). ([#537](https://github.com/lightspeedwp/.github/pull/537))
-- Added WCAG 2.2 AA accessibility attributes (`accTitle` and `accDescr`) to all Mermaid diagrams across `profile/README.md`, `scripts/README.md`, `.github/README.md`, and supporting files. Closes [#513](https://github.com/lightspeedwp/.github/issues/513). ([#526](https://github.com/lightspeedwp/.github/pull/526))
-
-### Fixed
-
-- Remediated duplicate and multiple footer blocks across 664 Markdown files using schema-driven validation. Created footer configuration schema (`.schemas/footer-config.schema.json`), centralized footer library with 15 document categories (`config/footers.config.yaml`), and automated validation/remediation script (`.github/scripts/validate-footers.js`). Violations fixed: 51 duplicate footer files → 0, 613 multiple-footer files → 0. Published remediation guide (`.github/FOOTER_REMEDIATION_GUIDE.md`). Related to branding meta agent planning (#33, #46, #48, #49). ([#534](https://github.com/lightspeedwp/.github/pull/534))
-- Removed prohibited `references:` frontmatter field from 9 README files (`README.md`, `.github/README.md`, `.github/agents/README.md`, `.github/instructions/README.md`, `.github/metrics/README.md`, `.github/schemas/README.md`, `.schemas/README.md`, `profile/README.md`, `scripts/README.md`) per CLAUDE.md governance rule. Added missing required frontmatter fields (`owners`, `status`, `stability`, `domain`) to affected files. Removed 13 duplicate footer blocks from root `README.md`. Added `.lycheeignore` excluding social-platform and LightSpeed external domains from CI link checking. Added `docs/MIGRATION.md` portable AI plugin restructure migration maps (completed and pending migrations, file placement quick-reference). Related to [#18](https://github.com/lightspeedwp/.github/issues/18). ([#527](https://github.com/lightspeedwp/.github/pull/527))
-- Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([#455](https://github.com/lightspeedwp/.github/pull/455))
-- Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([#460](https://github.com/lightspeedwp/.github/pull/460))
 - Updated `.coderabbit.yml`: corrected schema URL to `docs.coderabbit.ai/.schemas/schema.v2.json`; added `language: en-GB`, `inheritance: true`, `chat.auto_reply: true`; added `reviews.profile: chill` and `reviews.review_details: true`; hardened workflow path instructions with security guidance (least-privilege permissions, secret injection prevention, action pinning); added `instructions/**` and `CHANGELOG.md` path instructions; expanded path filters. Closes [#23](https://github.com/lightspeedwp/.github/issues/23).
 
 ### Documentation
 
-- **Comprehensive 25-Slide-Deck Prompt Suite** — Complete NotebookLM and design-tool integration documentation with 25 production-ready slide deck prompts:
-  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, Planner agents
-  - **3 Infrastructure Prompts**: Plugin/agents/skills/hooks ecosystem, scripts and automation, GitHub Actions workflows
-  - **15 Ecosystem Prompts**: Pull request lifecycle, issue triage, release process, documentation standards, repository metrics/KPIs, QA/testing, plugin architecture, observability/logging, WordPress governance, contributing guidelines, onboarding, developer experience, troubleshooting, roadmap/vision, case studies
-  - **Navigation**: Updated `.github/wceu-2026/agent-slides/README.md` with comprehensive index across all 25 prompts
-  - **Structure**: Each prompt includes overview, capabilities, integration points, use cases, slide structure, evidence anchors, design notes, quality bar
-  - Enables complete NotebookLM knowledge base generation and design system documentation ([#539](https://github.com/lightspeedwp/.github/pull/539))
+- Confirmed GitHub Copilot continuation in `.github/projects/active/next-issues-execution-plan.md` (v2.1.2) for the remaining Wave 2A issues (`#476`, `#480`, `#482`) and Wave 2C issues (`#488`, `#490`), explicitly requiring execution to continue until implementation, validation, and PR-ready merge state for `develop` are reached.
 
-- Added comprehensive branding meta agent planning documentation: `branding-meta-agent-planning-2026-05-28.md` (2,100 lines with 6-phase implementation roadmap), `PLANNING_SUMMARY_2026-05-28.md` (359 lines executive summary), and `SLIDES_GENERATION_PROMPT.md` (789 lines for WCEU 2026 20-slide generation). Updated `next-issues-execution-plan.md` with Wave 4 (branding meta agent, Claude-exclusive) and Wave 3D (WCEU 2026 talk planning). Hardened NotebookLM source prompts with explicit develop-branch URLs. Related to issues #33, #46, #48, #49, #529. ([#534](https://github.com/lightspeedwp/.github/pull/534))
-- Added plugin-pack specialised skill rollout updates across active packs with per-platform manifest parity, expanded `SKILL_REGISTRY` scope coverage (`batch6PlatformYamlScope`), and refreshed rollout task tracking documentation. Closes [#524](https://github.com/lightspeedwp/.github/issues/524). ([#525](https://github.com/lightspeedwp/.github/pull/525))
+- Added comprehensive WCEU 2026 talk asset pack audit and NotebookLM hardening plan (Issue #529): `.github/wceu-2026/WCEU_2026_AUDIT_AND_READINESS_PLAN.md` (500+ lines). Audits folder structure, identifies critical gaps in NotebookLM prompts, provides hardening roadmap with explicit develop-branch URLs. Hardened `wceu-2026/notebooklm/deep-research-prompt.md` (450+ lines) with 14 canonical approved sources, source ingestion order, analysis objectives, and constraints. Created comprehensive `wceu-2026/notebooklm/source-ingestion-checklist.md` (350+ lines) with repo-only source policy, validation checklist, prohibited sources list, and enforcement rules. Ensures NotebookLM analysis is grounded in authoritative internal sources only. ([PR #543](https://github.com/lightspeedwp/.github/pull/543) — *feat(wceu-2026): Complete NotebookLM pipeline hardening and audit report*)
+
+- Clarified mandatory execution ownership in `.github/projects/active/next-issues-execution-plan.md` (v2.1.1), explicitly splitting task streams between **GitHub Copilot** and **Claude Code** with a dedicated ownership matrix, updated wave labels, and explicit no-cross-execution policy language for exclusive workstreams.
+
+- Updated `.github/projects/active/next-issues-execution-plan.md` to v2.1.0 and synchronised the Active Project Files Inventory with all current artefacts in `.github/projects/active/`, including Wave 3B/3C specs, Wave 4 branding specifications (`ISSUE_33`, `ISSUE_46`, `ISSUE_48`, `ISSUE_49`), planning summaries, plugin-pack wave task lists, and continuous monitoring planning assets.
+
+- Added comprehensive current-state audit specification for unified branding agent (Issue #48): `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` (489 lines). Audits existing branding implementations against new .schemas/config standards, inventories frontmatter completeness (90.6% compliant, 70 files missing required fields), category mapping accuracy (98%+ correct), header/footer patterns (84.5% missing footers), badge usage (1.9% adoption), and WCAG AA accessibility (95%+ compliance). Documents gap analysis, remediation priorities with effort estimates (16–23 hours), remediation scripts needed, risk assessment, and success criteria. Provides baseline for planning agent rollout and documentation updates. ([PR #541](https://github.com/lightspeedwp/.github/pull/541) — *Issue #48: Current-state audit specification for branding agent*)
+
+- Added comprehensive schema and config implementation specification for unified branding agent (Issue #49): `.github/projects/active/ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` (800+ lines). Specification defines YAML + JSON Schema approach for configuration, documents all 16 document categories with metadata, specifies 4 required and 7 optional frontmatter fields, details path-based category inference with priority rules, documents badge types and category-specific placement rules, defines header/footer template reference structure, specifies validation rules and safe failure behavior, includes complete example configuration, and establishes dependency relationships with Issues #33 and #46. Unblocks current-state audit (Issue #48) and agent implementation. ([PR #539](https://github.com/lightspeedwp/.github/pull/539) — *docs: add comprehensive slide deck prompt suite (25 total)*)
+
+- Added comprehensive template design specification for unified branding agent (Issue #46): `.github/projects/active/ISSUE_46_TEMPLATE_DESIGN.md` (950+ lines). Specification defines header templates for all 16 document categories, footer variants (5 each for 6 key categories: Docs, Agents, Instructions, Schemas, Prompts, Governance; 1 each for 10 other categories), badge templates (Status, Category, Version, Review Status), accessibility constraints (WCAG AA compliance, contrast ratios, alt text), readability guidelines (line length, nesting, bullet lists), and YAML configuration structure for `config/templates.config.yaml`. Unblocks .schemas/config implementation (Issue #49) and current-state audit (Issue #48). Depends on Issue #33 parent specification. ([PR #538](https://github.com/lightspeedwp/.github/pull/538) — *Issue #46: Template design specification for branding agent*)
+
+- Added comprehensive parent specification for unified branding agent (Issue #33): `.github/projects/active/ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` (1,100+ lines). Specification locks down category taxonomy (16 document categories), header/footer requirements with 5 variants each for 6 key categories, badge system, .schemas/config model (YAML + JSON Schema), frontmatter standards, and 4-phase delivery roadmap. Unblocks child issues #46 (template design), #49 (schema implementation), and #48 (agent development). ([PR #537](https://github.com/lightspeedwp/.github/pull/537) — *spec: Issue #33 - Comprehensive parent specification for unified branding agent*)
+
+- Added WCAG 2.2 AA accessibility attributes (`accTitle` and `accDescr`) to all Mermaid diagrams across `profile/README.md`, `scripts/README.md`, `.github/README.md`, and supporting files. Closes [#513](https://github.com/lightspeedwp/.github/issues/513). ([PR #526](https://github.com/lightspeedwp/.github/pull/526) — *docs(a11y): add accTitle/accDescr to all Mermaid diagrams — Wave 3B (#513)*)
+
+- **Comprehensive 25-Slide-Deck Prompt Suite** — Complete NotebookLM and design-tool integration documentation with 25 production-ready slide deck prompts:
+
+  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, Planner agents
+
+  - **3 Infrastructure Prompts**: Plugin/agents/skills/hooks ecosystem, scripts and automation, GitHub Actions workflows
+
+  - **15 Ecosystem Prompts**: Pull request lifecycle, issue triage, release process, documentation standards, repository metrics/KPIs, QA/testing, plugin architecture, observability/logging, WordPress governance, contributing guidelines, onboarding, developer experience, troubleshooting, roadmap/vision, case studies
+
+  - **Navigation**: Updated `.github/wceu-2026/agent-slides/README.md` with comprehensive index across all 25 prompts
+
+  - **Structure**: Each prompt includes overview, capabilities, integration points, use cases, slide structure, evidence anchors, design notes, quality bar
+
+  - Enables complete NotebookLM knowledge base generation and design system documentation ([PR #539](https://github.com/lightspeedwp/.github/pull/539) — *docs: add comprehensive slide deck prompt suite (25 total)*)
+
+- Added comprehensive branding meta agent planning documentation: `branding-meta-agent-planning-2026-05-28.md` (2,100 lines with 6-phase implementation roadmap), `PLANNING_SUMMARY_2026-05-28.md` (359 lines executive summary), and `SLIDES_GENERATION_PROMPT.md` (789 lines for WCEU 2026 20-slide generation). Updated `next-issues-execution-plan.md` with Wave 4 (branding meta agent, Claude-exclusive) and Wave 3D (WCEU 2026 talk planning). Hardened NotebookLM source prompts with explicit develop-branch URLs. Related to issues #33, #46, #48, #49, #529. ([PR #534](https://github.com/lightspeedwp/.github/pull/534) — *fix/plan: footer remediation + branding meta agent planning*)
+
+- Added plugin-pack specialised skill rollout updates across active packs with per-platform manifest parity, expanded `SKILL_REGISTRY` scope coverage (`batch6PlatformYamlScope`), and refreshed rollout task tracking documentation. Closes [#524](https://github.com/lightspeedwp/.github/issues/524). ([PR #525](https://github.com/lightspeedwp/.github/pull/525) — *feat: roll out plugin-pack specialised skills and manifest parity*)
 
 - Added `accTitle` and `accDescr` accessibility attributes to all 15 Mermaid diagrams across 8 README files (`.github/README.md`, `profile/README.md`, `scripts/README.md`, `scripts/validation/README.md`, `.github/ISSUE_TEMPLATE/README.md`, `.github/projects/README.md`, `.vscode/README.md`, `tests/README.md`), bringing WCAG 2.2 AA compliance to 100%. Added Wave 3A/3B audit report, findings CSV, and repair log to `.github/reports/mermaid-audit/`. Closes [#513](https://github.com/lightspeedwp/.github/issues/513).
-- Upgraded `.github/instructions/markdown.instructions.md` to v1.1: added canonical scope and precedence statement, related-files summary table, expanded WCAG 2.2 AA accessibility section with required checks, expanded examples (tables, images, links, frontmatter), contribution/review process, and branded footer. Closes [#31](https://github.com/lightspeedwp/.github/issues/31).
-- Added universal issue-field governance for `Priority`, `Start date`,
-  `Target date`, and `Effort`; aligned canonical config and instructions; and
-  automated project sync updates for `Effort` and `Start date`. ([#501](https://github.com/lightspeedwp/.github/pull/501))
 
-- CONTRIBUTING.md: removed forbidden `references` frontmatter field, corrected stale body date, and applied UK English consistency. Closes [#18](https://github.com/lightspeedwp/.github/issues/18). ([#457](https://github.com/lightspeedwp/.github/pull/457))
+- Upgraded `.github/instructions/markdown.instructions.md` to v1.1: added canonical scope and precedence statement, related-files summary table, expanded WCAG 2.2 AA accessibility section with required checks, expanded examples (tables, images, links, frontmatter), contribution/review process, and branded footer. Closes [#31](https://github.com/lightspeedwp/.github/issues/31).
+
+- Added universal issue-field governance for `Priority`, `Start date`,
+
+- CONTRIBUTING.md: removed forbidden `references` frontmatter field, corrected stale body date, and applied UK English consistency. Closes [#18](https://github.com/lightspeedwp/.github/issues/18). ([PR #457](https://github.com/lightspeedwp/.github/pull/457) — *docs: CONTRIBUTING.md — remove references frontmatter, npm ci, date fix*)
+
 - Clarified frontmatter version governance to use SemVer-aligned change
-  classification with patch-first progression where appropriate, and aligned
-  release instructions to Keep a Changelog 1.1.0 taxonomy.
+
 - Updated the active next-issues execution plan with current closure state
-  (`#61` merged via `#493`), explicit Codex/Claude ownership split, and next
-  actionable focus on `#60` while `#52` remains in-flight.
+
 - Added `docs/downstream/tour-operator-adoption.md` with pilot telemetry
-  baseline checklist, target metrics, documented opt-out points, metrics
-  emission example, and dashboard-consumption stub for `#60`.
+
 - Added spec-only agent issue conversion tracking under `#61`, including
-  canonical issue mapping and duplicate cleanup notes.
-- Added Husky pre-push hook (`.husky/pre-push`) and updated `DEVELOPMENT.md` to document the enforced pre-push test gate (`npm run test:js`, `npm run test:bash`). Closes [#62](https://github.com/lightspeedwp/.github/issues/62). ([#458](https://github.com/lightspeedwp/.github/pull/458))
+
+- Added Husky pre-push hook (`.husky/pre-push`) and updated `DEVELOPMENT.md` to document the enforced pre-push test gate (`npm run test:js`, `npm run test:bash`). Closes [#62](https://github.com/lightspeedwp/.github/issues/62). ([PR #458](https://github.com/lightspeedwp/.github/pull/458) — *ci: add Husky pre-push test gate and docs (#62)*)
+
 - Expanded issue field governance to an organisation-level v2 model aligned to
-  GitHub field capabilities (typed custom fields, hidden/system fields, and
-  iteration policy) with stricter validation.
+
 - Clarified adoption workstream tracker links and historical issue references
-  in the active adoption pack documentation.
+
 - Hardened canonical label seeding with policy-gated orphan cleanup, added
-  label-governance policy config, and documented #95 decision gating for
-  destructive cleanup.
+
 - Started Wave 2A execution for `#465` (`issues.agent`) by validating canonical
-  spec/runtime paths, documenting current apply-mode gap, and recording the
-  next implementation step for guarded mutation support.
+
 - Started Wave 2A execution for `#466` (`labeling.agent`) by confirming
-  spec/runtime parity, recording implemented status, and capturing the next
-  hardening step for edge-case test coverage.
+
 - Started Wave 2A execution for `#467` (`linting.agent`) by confirming
-  spec/runtime paths, documenting the stub implementation gap, and recording
-  the next step for structured lint orchestration and test coverage.
+
 - Started Wave 2A execution for `#468` (`meta.agent`) by confirming
-  spec/runtime parity, recording active workflow-integrated status, and
-  capturing hardening follow-ups for header cleanup and opt-out edge-case
-  tests.
 
 - Closed Wave 2A tracking issue `#469` (`metrics.agent`) by confirming
-  spec/runtime references, documenting the current runtime placeholder gap, and
-  queuing implementation follow-up under the next ready Wave 2A issue.
-- Upgraded `agents/mode-demonstrate-understanding.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#470](https://github.com/lightspeedwp/.github/issues/470). ([#515](https://github.com/lightspeedwp/.github/pull/515))
-- Upgraded `agents/mode-document-reviewer.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#471](https://github.com/lightspeedwp/.github/issues/471). ([#516](https://github.com/lightspeedwp/.github/pull/516))
-- Upgraded `agents/mode-prd.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent with inline `issue_write`). Closes [#473](https://github.com/lightspeedwp/.github/issues/473). ([#517](https://github.com/lightspeedwp/.github/pull/517))
-- Upgraded `agents/mode-thinking.agent.md` to v2.1: added missing frontmatter fields (`owners`, `tags`, `domain`, `stability`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#475](https://github.com/lightspeedwp/.github/issues/475). ([#518](https://github.com/lightspeedwp/.github/pull/518))
-- Upgraded `agents/prompt-engineer.agent.md` to v2.1: added missing frontmatter fields (`domain`, `stability`), Implementation Status gap-analysis table (including prompt-tester handoff gap), Dependencies section, and Changelog. Closes [#478](https://github.com/lightspeedwp/.github/issues/478). ([#519](https://github.com/lightspeedwp/.github/pull/519))
-- Upgraded `agents/task-planner.agent.md` to v3.1: added Implementation Status gap-analysis table confirming spec/workflow parity with `planner.yml`, and Changelog. Closes [#484](https://github.com/lightspeedwp/.github/issues/484). ([#520](https://github.com/lightspeedwp/.github/pull/520))
-- Upgraded `agents/task-researcher.agent.md` to v1.1: added complete frontmatter, full spec body (was an empty stub in v1.0), Implementation Status gap-analysis table, Dependencies section, and Changelog. Closes [#486](https://github.com/lightspeedwp/.github/issues/486). ([#521](https://github.com/lightspeedwp/.github/pull/521))
+
+- Upgraded `agents/mode-demonstrate-understanding.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#470](https://github.com/lightspeedwp/.github/issues/470). ([PR #515](https://github.com/lightspeedwp/.github/pull/515) — *feat(agents): upgrade mode-demonstrate-understanding spec to v1.1*)
+
+- Upgraded `agents/mode-document-reviewer.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#471](https://github.com/lightspeedwp/.github/issues/471). ([PR #516](https://github.com/lightspeedwp/.github/pull/516) — *feat(agents): upgrade mode-document-reviewer spec to v1.1*)
+
+- Upgraded `agents/mode-prd.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent with inline `issue_write`). Closes [#473](https://github.com/lightspeedwp/.github/issues/473). ([PR #517](https://github.com/lightspeedwp/.github/pull/517) — *feat(agents): upgrade mode-prd spec to v1.1*)
+
+- Upgraded `agents/mode-thinking.agent.md` to v2.1: added missing frontmatter fields (`owners`, `tags`, `domain`, `stability`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#475](https://github.com/lightspeedwp/.github/issues/475). ([PR #518](https://github.com/lightspeedwp/.github/pull/518) — *feat(agents): upgrade mode-thinking spec to v2.1*)
+
+- Upgraded `agents/prompt-engineer.agent.md` to v2.1: added missing frontmatter fields (`domain`, `stability`), Implementation Status gap-analysis table (including prompt-tester handoff gap), Dependencies section, and Changelog. Closes [#478](https://github.com/lightspeedwp/.github/issues/478). ([PR #519](https://github.com/lightspeedwp/.github/pull/519) — *feat(agents): upgrade prompt-engineer spec to v2.1*)
+
+- Upgraded `agents/task-planner.agent.md` to v3.1: added Implementation Status gap-analysis table confirming spec/workflow parity with `planner.yml`, and Changelog. Closes [#484](https://github.com/lightspeedwp/.github/issues/484). ([PR #520](https://github.com/lightspeedwp/.github/pull/520) — *feat(agents): upgrade task-planner spec to v3.1*)
+
+- Upgraded `agents/task-researcher.agent.md` to v1.1: added complete frontmatter, full spec body (was an empty stub in v1.0), Implementation Status gap-analysis table, Dependencies section, and Changelog. Closes [#486](https://github.com/lightspeedwp/.github/issues/486). ([PR #521](https://github.com/lightspeedwp/.github/pull/521) — *feat(agents): upgrade task-researcher spec to v1.1*)
 
 ## [0.4.0] - 2026-05-27
 
 ### Documentation
 
 - Added a canonical shared `.github` adoption guide with required, recommended,
-  optional, and repo-local-only classifications, plus update and validation
-  workflows for consuming repositories.
+
 - Added a downstream override policy document for org defaults and linked it
-  from contribution and docs index pages to support repository-level adoption
-  decisions.
+
 - Added canonical issue-field governance documentation and automation, including
-  `.github/issue-fields.yml`, `docs/ISSUE-FIELDS.md`, and workflow validation
-  support for metadata consistency across issues and PRs.
 
 ## [0.3.0] - 2025-12-18
 
@@ -648,133 +938,193 @@ Thank you to everyone who contributed to these improvements!
 
 ### Added
 
-- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
-
 - Comprehensive meta agent (`meta.agent.js`) for unified front matter, badge, human reference, and footer automation (renamed from branding agent)
+
 - Unified labeling agent (`labeling.agent.js`) replacing split status/type/standardization agents
+
 - Extended README management with support for dynamic header/footer insertion and frontmatter validation
+
 - Footer schema configuration (`footer.schema.json`) and header schema for consistent presentation
+
 - Enhanced frontmatter validation across all `.md` files in repository
+
 - Support for multiple footer variants with deterministic selection via seeding
+
 - Emoji support in README headings for improved visual hierarchy
+
 - Mermaid diagram preservation in all README updates
+
 - Batch processing capabilities for efficient multi-file updates
 
 ### Changed
 
 - Updated all README files with emoji-enhanced headings for better visual hierarchy
+
 - Migrated frontmatter across core documentation to unified `frontmatter.schema.json` standard
+
 - Reorganised `.github/agents/` structure with shared utilities in `includes/` subdirectory
+
 - Consolidated badge management under meta agent (deprecated `badges.agent.js`)
+
 - Unified header/footer handling under meta agent (deprecated `header-footer.agent.js`)
+
 - Standardised YAML frontmatter metadata across all documentation files
+
 - Enhanced README file templates with proper frontmatter structure
+
 - Updated version numbers for all core README files to reflect latest changes
 
 ### Deprecated
 
 - `badges.agent.js` - Use `meta.agent.js` instead for unified badge/header/footer management
+
 - `header-footer.agent.js` - Use `meta.agent.js` instead for unified automation
-
-### Documentation
-
-- Added comprehensive meta agent specification in `.github/agents/meta.agent.md`
-- Updated unified labeling agent documentation with latest configuration options
-- Created detailed README templates for nested project directories
-- Enhanced footer-content.json with multiple funky footer variants
-- Documented footer schema validation and implementation
-- Added examples for frontmatter validation across file types
-- Created inline documentation for all agent helper functions
 
 ### Fixed
 
 - Corrected frontmatter schema validation errors in documentation files
+
 - Fixed missing `created_date` fields in core README files
+
 - Resolved inconsistent emoji usage across headings
+
 - Fixed footer text alignment and markdown formatting
+
 - Corrected references paths in frontmatter to use relative paths consistently
+
 - Fixed mermaid diagram formatting in README files
+
+### Documentation
+
+- Added comprehensive meta agent specification in `.github/agents/meta.agent.md`
+
+- Updated unified labeling agent documentation with latest configuration options
+
+- Created detailed README templates for nested project directories
+
+- Enhanced footer-content.json with multiple funky footer variants
+
+- Documented footer schema validation and implementation
+
+- Added examples for frontmatter validation across file types
+
+- Created inline documentation for all agent helper functions
 
 ### Performance
 
 - Optimised README file updates with batch multi-replace operations
+
 - Improved footer selection performance with deterministic seeding
+
 - Enhanced memory efficiency in meta agent for large file batches
 
 ## [0.1.0] - 2025-09-25
 
 ### Added
 
-- **Native GitHub issue type sync** — Added `scripts/agents/includes/sync-issue-fields.cjs` to set the GitHub native issue type from `type:*` labels using the canonical 32-type mapping in `.github/issue-fields.yml`. Added `issue-fields-backfill.yml` for bulk backfill of native types and project board fields across all open issues. Fixed `project-meta-sync.yml` which was silently disabled — now accepts `LS_PROJECT_NUMBER` as a fallback for `LS_PROJECT_URL` (project #33 now active). Updated `metadata-governance.yml` to trigger on `labeled`/`unlabeled` events and set native issue type on every label change. ([PR #1401](https://github.com/lightspeedwp/.github/pull/1401), [#1403](https://github.com/lightspeedwp/.github/issues/1403), [#1174](https://github.com/lightspeedwp/.github/issues/1174))
-
 - Initial release of LightSpeed WordPress organisation community health files
+
 - GitHub Copilot custom instructions and organisation-wide guidelines
+
 - Comprehensive instruction files for WordPress development:
+
   - `coding-standards.instructions.md` - WordPress coding standards for PHP, JS, CSS
+
   - `html-template.instructions.md` - Block template and template part guidelines
+
   - `pattern-development.instructions.md` - Block pattern creation and advanced usage
+
   - `php-block.instructions.md` - PHP block development and theme setup
+
   - `playwright-tests.instructions.md` - Browser automation and accessibility testing
+
   - `theme-json.instructions.md` - Theme.json configuration and design tokens
+
 - AI prompt templates for:
+
   - `accessibility-review.prompt.md` - Accessibility compliance review
+
   - `dev-code-review.prompt.md` - Code review and standards verification
+
   - `pattern-generation.prompt.md` - Block pattern generation assistance
+
   - `refactor-theme-types.prompt.md` - WordPress theme refactoring guidance
+
 - Issue templates for comprehensive project management:
+
   - Bug reports, feature requests, documentation requests
+
   - Performance issues, UX feedback, integration issues
+
   - Code refactoring, task management, custom instructions proposals
+
 - Pull request templates with WordPress-specific checklists
+
 - VS Code configuration optimised for WordPress development:
+
   - MCP (Model Context Protocol) auto-start configuration
+
   - WordPress-specific extensions and settings
+
   - GitHub Copilot integration with custom instructions
+
   - Proper file associations for instruction and prompt files
+
 - Example WordPress block structure following best practices
+
 - Comprehensive documentation and README files
+
 - GitHub Actions workflows for issue metrics and labeling
+
 - Saved replies for common support scenarios
+
 - Organisation profile README showcasing LightSpeed projects
-
-### Deprecated
-
-- [placeholder]
-
-### Fixed
-
-- Standardised YAML frontmatter across all instruction files
-- Corrected indentation and formatting inconsistencies
-- Aligned VS Code settings with repository structure
-- Removed non-standard configuration keys for better compatibility
 
 ### Changed
 
 - Updated author attribution to "LightSpeedWP Team" for consistency
+
 - Standardised related_links format as simple URL lists
+
 - Enhanced MCP configuration for WordPress development context
+
 - Improved file associations and discovery paths for AI tools
 
-### Documentation
+### Fixed
 
-- Added comprehensive README files for instructions and prompts
-- Created implementation guide for WordPress block development
-- Established clear contribution guidelines and coding standards
-- Documented VS Code configuration and MCP setup procedures
+- Standardised YAML frontmatter across all instruction files
 
-### Performance
+- Corrected indentation and formatting inconsistencies
 
-- [placeholder]
+- Aligned VS Code settings with repository structure
 
-### Removed
-
-- [placeholder]
+- Removed non-standard configuration keys for better compatibility
 
 ### Security
 
 - Implemented proper input sanitisation and output escaping in examples
+
 - Added security guidelines in coding standards
+
 - Established secure development practices in instruction files
+
+### Documentation
+
+- Added comprehensive README files for instructions and prompts
+
+- Created implementation guide for WordPress block development
+
+- Established clear contribution guidelines and coding standards
+
+- Documented VS Code configuration and MCP setup procedures
+
+## Contributors
+
+The entries in this [Unreleased] section represent work from 40+ merged PRs between May 24 — July 29, 2026.
+
+**PR Range:** #1020, #1043–#1077, #1082–#1086, #1108, #1112–#1115, #1118–#1119, #1123, #1131–#1132, #1137–#1142, #1145, #1148–#1151, #1159, #1191, #1195–#1203, #1212, #1224–#1226, #1275, #1367, #1392, #1399, #1401, #1405
+
+Thank you to everyone who contributed to these improvements!
 
 ## Reference
 
@@ -784,3 +1134,10 @@ Thank you to everyone who contributed to these improvements!
 - [AUTOMATION.md](docs/AUTOMATION.md): Org-wide automation, branching, labelling, and release strategy.
 - [LABELING.md](docs/LABELING.md): Default issue, PR, and discussion label guidance.
 - [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
+
+[Unreleased]: https://github.com/lightspeedwp/.github/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/lightspeedwp/.github/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/lightspeedwp/.github/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/lightspeedwp/.github/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/lightspeedwp/.github/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/lightspeedwp/.github/releases/tag/v0.2.0
