@@ -10,12 +10,12 @@ let base = process.env.BASE_SHA || "";
 let head = process.env.HEAD_SHA || process.env.GITHUB_SHA || "";
 
 // Fallback for null SHAs
-if (base === "0000000000000000000000000000000000000000" || !base) {
+if (base === "0000000000000000000000000000000000000000") {
   base = "HEAD~1";
 }
 
 if (!head) {
-  console.error("Missing BASE_SHA or HEAD_SHA environment variables");
+  console.error("Missing HEAD_SHA environment variable");
   process.exit(1);
 }
 
