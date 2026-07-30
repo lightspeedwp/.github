@@ -154,12 +154,11 @@ requirement is accounted for; none is left unmapped.
 
 ### 6. Persist the pack
 
-Write the completed pack to a conventional path — default
-`.github/reports/test-packs/<flow>-<YYYY-MM-DD>.md` (create the directory if
-missing), or a project-configured location if one is set. Return the written path
-so the reviewer knows where the artefact lives. On a later failure-triage run,
-update the same file in place rather than starting a new one. If writing is not
-possible, say so and fall back to inline output — do not silently skip this step.
+Write the completed pack to a conventional path. Prefer a project-configured location if one is set;
+otherwise use `.github/reports/test-packs/<flow>-<YYYY-MM-DD>.md` when the repo has a `.github/` control plane,
+or `test-packs/<flow>-<YYYY-MM-DD>.md` when it does not (this agent is portable and must not assume a `.github/` layout).
+Return the written path so the reviewer knows where the artefact lives. On a later failure-triage run,
+update the same file in place rather than starting a new one. If writing is not possible, say so and fall back to inline output — do not silently skip this step.
 
 ### 7. Enforce review-before-code
 
