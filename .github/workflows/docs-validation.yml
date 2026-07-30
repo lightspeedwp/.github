@@ -46,54 +46,18 @@ jobs:
 
       - name: Identify changed Markdown files
         id: changed
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BASE="${{ github.event.pull_request.base.sha }}"
-            HEAD="${{ github.event.pull_request.head.sha }}"
-          else
-            BASE="${{ github.event.before }}"
-            HEAD="${{ github.sha }}"
-          fi
-
-          if [ "$BASE" = "0000000000000000000000000000000000000000" ] || [ "$BASE" = "" ]; then
-            BASE="HEAD~1"
-          fi
-
-          CHANGED=""
-          if git diff --name-only "$BASE" "$HEAD" -- '*.md' '*.mdx' > /tmp/changed_files.txt 2>&1; then
-            CHANGED=$(cat /tmp/changed_files.txt)
-          elif git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx' > /tmp/changed_files.txt 2>&1; then
-            CHANGED=$(cat /tmp/changed_files.txt)
-          else
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          {
-            echo "files<<CHANGED_EOF"
-            echo "$CHANGED"
-            echo "CHANGED_EOF"
-          } >> "$GITHUB_OUTPUT"
-
-          if [ -z "$CHANGED" ]; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          fi
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: node scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
 
       - name: Check for Mermaid diagrams in changed files
         id: has_diagrams
         if: steps.changed.outputs.has_changes == 'true'
-        run: |
-          CHANGED="${{ steps.changed.outputs.files }}"
-          HAS_MERMAID=false
-          for f in $CHANGED; do
-            if [ -f "$f" ] && grep -q '```mermaid' "$f"; then
-              HAS_MERMAID=true
-              break
-            fi
-          done
-          echo "result=$HAS_MERMAID" >> "$GITHUB_OUTPUT"
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
+        run: bash scripts/check-mermaid-diagrams.sh "$CHANGED_FILES" | xargs -I {} echo "result={}" >> "$GITHUB_OUTPUT"
 
       - name: Skip — no Mermaid diagrams in changed files
         if: steps.has_diagrams.outputs.result != 'true'
@@ -124,20 +88,11 @@ jobs:
       - name: Collect results
         id: results
         if: steps.has_diagrams.outputs.result == 'true'
-        run: |
-          SYNTAX="${{ steps.syntax.outcome }}"
-          A11Y="${{ steps.accessibility.outcome }}"
-          CONTRAST="${{ steps.contrast.outcome }}"
-
-          echo "syntax_ok=$([ "$SYNTAX" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-          echo "a11y_ok=$([ "$A11Y" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-          echo "contrast_ok=$([ "$CONTRAST" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-
-          if [ "$SYNTAX" = "success" ] && [ "$A11Y" = "success" ] && [ "$CONTRAST" = "success" ]; then
-            echo "all_passed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "all_passed=false" >> "$GITHUB_OUTPUT"
-          fi
+        env:
+          SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
+          A11Y_OUTCOME: ${{ steps.accessibility.outcome }}
+          CONTRAST_OUTCOME: ${{ steps.contrast.outcome }}
+        run: node scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
 
       - name: Post PR comment with results
         if: github.event_name == 'pull_request' && steps.has_diagrams.outputs.result == 'true'

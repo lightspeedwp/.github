@@ -125,44 +125,20 @@ jobs:
       - name: Check validation outcomes
         id: validation-status
         if: always()
-        run: |
-          SYNTAX="${{ steps.syntax.outcome }}"
-          A11Y="${{ steps.accessibility.outcome }}"
-          CONTRAST="${{ steps.contrast.outcome }}"
-
-          echo "syntax_passed=$([ "$SYNTAX" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-          echo "a11y_passed=$([ "$A11Y" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-          echo "contrast_passed=$([ "$CONTRAST" = "success" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-
-          if [ "$SYNTAX" != "success" ] || [ "$A11Y" != "success" ] || [ "$CONTRAST" != "success" ]; then
-            echo "has_failures=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_failures=false" >> "$GITHUB_OUTPUT"
-          fi
+        env:
+          SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
+          A11Y_OUTCOME: ${{ steps.accessibility.outcome }}
+          CONTRAST_OUTCOME: ${{ steps.contrast.outcome }}
+        run: node scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
 
       - name: Generate audit report
         if: always()
         env:
-          SYNTAX_PASSED: ${{ steps.validation-status.outputs.syntax_passed }}
-          A11Y_PASSED: ${{ steps.validation-status.outputs.a11y_passed }}
-          CONTRAST_PASSED: ${{ steps.validation-status.outputs.contrast_passed }}
-        run: |
-          {
-            echo "## Documentation Audit Report"
-            echo ""
-            echo "**Scope**: ${{ env.AUDIT_SCOPE }}"
-            echo ""
-            echo "### Validation Results"
-            echo "| Check | Result |"
-            echo "|-------|--------|"
-            echo "| Syntax | $( [ "$SYNTAX_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
-            echo "| Accessibility | $( [ "$A11Y_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
-            echo "| Colour Contrast | $( [ "$CONTRAST_PASSED" = "true" ] && echo "✅ Passed" || echo "❌ Failed" ) |"
-            echo ""
-            if [ -f ".github/reports/mermaid-audit/summary.md" ]; then
-              cat ".github/reports/mermaid-audit/summary.md"
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
+          SYNTAX_PASSED: ${{ steps.validation-status.outputs.syntax_ok }}
+          A11Y_PASSED: ${{ steps.validation-status.outputs.a11y_ok }}
+          CONTRAST_PASSED: ${{ steps.validation-status.outputs.contrast_ok }}
+          AUDIT_SCOPE: ${{ env.AUDIT_SCOPE }}
+        run: node scripts/generate-doc-audit-report.js >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload audit artifacts
         if: always()
