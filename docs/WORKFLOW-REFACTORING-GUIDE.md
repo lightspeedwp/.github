@@ -184,5 +184,5 @@ npm test -- scripts/__tests__/workflow-helpers.test.js
 
 - [GitHub Actions Limitations](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun)
 - [Using Node.js safely in workflows](https://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback)
-- [Workflow validation script](scripts/validation/validate-workflows.js)
-- [CODEOWNERS configuration guide](CODEOWNERS)
+- [Workflow validation script](../scripts/validation/validate-workflows.js)
+- [CODEOWNERS configuration guide](../CODEOWNERS)

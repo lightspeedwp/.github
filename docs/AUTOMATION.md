@@ -111,7 +111,7 @@ GitHub Actions does not allow multiline shell control-flow (if/for/while) direct
 - ✅ Changed from shell interpolation to execFileSync with argument arrays
 - ✅ All configuration passed via environment variables
 
-**Detailed Documentation:** See [WORKFLOW-REFACTORING-GUIDE.md](../WORKFLOW-REFACTORING-GUIDE.md) for complete Phase 4 implementation details, including:
+**Detailed Documentation:** See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for complete Phase 4 implementation details, including:
 
 - Root cause analysis of GitHub Actions shell control-flow constraints
 - Safe patterns for extracting shell logic

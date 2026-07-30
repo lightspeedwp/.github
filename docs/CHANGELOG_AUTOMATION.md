@@ -58,7 +58,7 @@ The changelog automation system:
 - `report-changelog-action.sh` — Safely report changelog merge action status
 - `scripts/agents/changelog.agent.js` — Changelog validation and management
 
-These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](../WORKFLOW-REFACTORING-GUIDE.md) for details.
+These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
 ---
 
