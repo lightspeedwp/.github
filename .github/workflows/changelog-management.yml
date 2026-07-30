@@ -194,12 +194,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HAS_ENTRIES: ${{ steps.extract.outputs.has_entries }}
-        run: |
-          if [ "$HAS_ENTRIES" = "true" ]; then
-            echo "✅ Changelog entries merged from PR #${PR_NUMBER}"
-          else
-            echo "ℹ️  No changelog entries to merge from PR #${PR_NUMBER}"
-          fi
+        run: bash scripts/report-changelog-action.sh
 
   # Job 3: Pre-release validation check (called from release.yml)
 
