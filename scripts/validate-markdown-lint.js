@@ -4,7 +4,7 @@
  * Replaces multiline shell logic with Node.js
  */
 
-const { execFileSync } = require("child_process");
+import { execFileSync } from "child_process";
 
 const eventName = process.env.GITHUB_EVENT_NAME;
 const baseSha = process.env.BASE_SHA;
