@@ -35,4 +35,8 @@ exclude = [
   "^https?://www\\.w3\\.org/WAI/WCAG22/quickref/",
   "^https?://semver\\.org",
   "^https?://keepachangelog\\.com",
+
+  # CHANGELOG comparison links referencing tags that predate the first tagged
+  # release (v0.6.0 was never published; tag history jumps v0.5.1 → v0.7.0)
+  "^https?://github\\.com/lightspeedwp/\\.github/compare/v0\\.6\\.0",
 ]
