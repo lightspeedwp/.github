@@ -138,6 +138,24 @@ describe("Workflow Helper Scripts", () => {
     });
   });
 
+  describe("collect-link-targets.js", () => {
+    it("should collect markdown files with URLs for link checking", () => {
+      const scriptPath = path.join(scriptsDir, "collect-link-targets.js");
+      const scriptContent = require("fs").readFileSync(scriptPath, "utf8");
+
+      expect(scriptContent).toContain("GITHUB_EVENT_NAME");
+      expect(scriptContent).toContain("linkFiles");
+    });
+
+    it("should use ES module imports", () => {
+      const scriptPath = path.join(scriptsDir, "collect-link-targets.js");
+      const scriptContent = require("fs").readFileSync(scriptPath, "utf8");
+
+      expect(scriptContent).toContain("import");
+      expect(scriptContent).not.toContain('require("');
+    });
+  });
+
   describe("Shell Control-Flow Refactoring", () => {
     it("should not have multiline if statements directly in shell run blocks", () => {
       // This is validated by the workflow validation scripts
@@ -149,6 +167,7 @@ describe("Workflow Helper Scripts", () => {
         "report-changelog-action.sh",
         "summarize-native-type.sh",
         "validate-markdown-lint.js",
+        "collect-link-targets.js",
       ];
 
       helperScripts.forEach((script) => {
@@ -162,6 +181,7 @@ describe("Workflow Helper Scripts", () => {
         "identify-changed-markdown.js",
         "collect-validation-results.js",
         "validate-markdown-lint.js",
+        "collect-link-targets.js",
       ];
 
       jsScripts.forEach((script) => {
