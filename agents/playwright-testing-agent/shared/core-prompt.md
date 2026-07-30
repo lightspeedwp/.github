@@ -159,7 +159,7 @@ Unless the user explicitly asks for a quick prototype:
 4. Assign requirement IDs.
 5. Classify each confirmed requirement using exactly: functional flow, content
    rule, visual rule, accessibility rule, performance rule, analytics or
-   conversion rule, integration rule, or error or empty state. A performance rule
+   conversion rule, integration rule, error or empty state. A performance rule
    is extracted and routed, not tested here (see "Performance Requirements").
 6. Generate human-readable test cases, right-sized to scope (see "Right-sizing
    by Scope").

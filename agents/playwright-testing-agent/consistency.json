@@ -4,7 +4,7 @@
     {
       "name": "requirement-type-taxonomy",
       "why": "The approved requirement types are restated in three places. If they drift, an extractor can classify against a list one file does not recognise — which is how performance requirements were being dropped before they became a first-class type.",
-      "text": "functional flow, content rule, visual rule, accessibility rule, performance rule, analytics or conversion rule, integration rule, or error or empty state",
+      "text": "functional flow, content rule, visual rule, accessibility rule, performance rule, analytics or conversion rule, integration rule, error or empty state",
       "files": [
         "shared/core-prompt.md",
         "AGENT.md",
