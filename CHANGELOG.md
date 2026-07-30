@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Content-parity invariant covers all eight requirement types** — `consistency.json` declares the full taxonomy so any type change breaks the check, which required unifying the list's phrasing across three files. ([PR #1421](https://github.com/lightspeedwp/.github/pull/1421))
+- **Content-parity invariant covers all eight requirement types** — `consistency.json` declares the full taxonomy so any type change breaks the check, which required unifying the list's phrasing across three files. ([PR #1422](https://github.com/lightspeedwp/.github/pull/1422))
 
 - **Playwright Testing Agent — performance routing, accessibility/SEO/console gates, and scope-exclusion discipline** — Added `performance rule` as an eighth requirement type: such requirements are now extracted with an ID and evidence, then routed `deferred → pagespeed-agent` rather than dropped at extraction or turned into flaky wall-clock assertions. Added accessibility (axe-core scoped per page/widget, keyboard traversal for custom widgets, WCAG 2.2 AA criteria cited per case), SEO/metadata, and console-error-budget rules — all asserting *no new* violations against a recorded baseline rather than zero outright, so they can land on a site with existing debt. Added `Accessibility baseline` and `Console-error baseline` to the Environment & Test-Data Contract, captured from an audit run rather than guessed. Added a "Scope Exclusions and House Standards" rule so an organisational standard can no longer authorise coverage a project's scope excludes. ([PR #1392](https://github.com/lightspeedwp/.github/pull/1392) — *feat(playwright-testing-agent): performance routing, a11y/SEO/console gates, and scope-exclusion discipline*, [#1393](https://github.com/lightspeedwp/.github/issues/1393), [#1079](https://github.com/lightspeedwp/.github/issues/1079))
 
@@ -117,9 +117,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Restored changelog audit destroyed during a rebase** — The Keep a Changelog conformance audit was cut from 117 lines to 22, losing its entire body. Recovered intact. ([PR #1421](https://github.com/lightspeedwp/.github/pull/1421))
+- **Restored changelog audit destroyed during a rebase** — The Keep a Changelog conformance audit was cut from 117 lines to 22, losing its entire body. Recovered intact. ([PR #1422](https://github.com/lightspeedwp/.github/pull/1422))
 
-- **`validate-pr-template` rejected cross-repo issue references** — `hasIssueReference` matched only bare `#123`, so `owner/repo#123` and URL forms were wrongly flagged as missing. Regex widened, with tests. ([PR #1421](https://github.com/lightspeedwp/.github/pull/1421))
+- **`validate-pr-template` rejected cross-repo issue references** — `hasIssueReference` matched only bare `#123`, so `owner/repo#123` and URL forms were wrongly flagged as missing. Regex widened, with tests. ([PR #1422](https://github.com/lightspeedwp/.github/pull/1422))
 
 - **`documentation.yml` workflow security hardening and correctness fixes** — Scoped workflow permissions to individual jobs: global demoted to `contents: read`; `regenerate` and `maintain` jobs receive only the write scopes they need. Added `persist-credentials: false` for the read-only audit checkout and `persist-credentials: true` for write jobs. Fixed maintenance report accuracy: per-step outcomes for mermaid, contrast, and staleness tasks are now captured and displayed instead of always showing success. Fixed README resolver over-inclusion: root README is now only added to the regeneration list when subdirectory files change. ([PR #1387](https://github.com/lightspeedwp/.github/pull/1387), [#1386](https://github.com/lightspeedwp/.github/issues/1386), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227))
 
