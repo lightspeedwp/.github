@@ -419,11 +419,12 @@ git push -u origin refactor/schema-consolidation-scripts-move
 
 ## References
 
-- [PHASE_0_TASKS.md](./PHASE_0_TASKS.md) — Original task definitions
 - [SPECIFICATION.md](./SPECIFICATION.md) — Detailed implementation plan
-- [50-questions-and-answers.md](../../downloads/50-questions-and-answers.md) — Decision framework
+- [DECISIONS_FRAMEWORK-50-QUESTIONS.md](./DECISIONS_FRAMEWORK-50-QUESTIONS.md) — Decision framework (50-question review)
 - [CLAUDE.md](../../CLAUDE.md) — Repo instructions
+- [AGENTS.md](../../AGENTS.md) — AI governance standards
 - [docs/BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Branch naming rules
+- [docs/PR_CREATION_PROCESS.md](../../docs/PR_CREATION_PROCESS.md) — PR process standards
 
 ---
 
