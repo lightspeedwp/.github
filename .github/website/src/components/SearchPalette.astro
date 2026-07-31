@@ -1,0 +1,250 @@
+---
+import { ITEMS, CATEGORIES } from '../lib/catalogue';
+
+const base = import.meta.env.BASE_URL;
+
+const catLabelMap = Object.fromEntries(CATEGORIES.map(c => [c.id, c.label]));
+
+const paletteItems = ITEMS.map(item => ({
+  id:       item.id,
+  name:     item.name,
+  desc:     item.description,
+  cat:      item.cat,
+  catLabel: catLabelMap[item.cat] ?? item.cat,
+  tags:     item.tags,
+  href:     `${base}item/${item.cat}--${item.slug}/`,
+}));
+---
+
+<div
+  id="search-palette"
+  data-items={JSON.stringify(paletteItems)}
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search"
+>
+  <div class="sp-scrim" id="sp-scrim"></div>
+  <div class="sp-box">
+    <div class="sp-input-row">
+      <input
+        id="sp-input"
+        class="sp-input"
+        type="search"
+        placeholder="Search resources…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search resources"
+        aria-autocomplete="list"
+        aria-controls="sp-results"
+      />
+      <button id="sp-close" class="sp-close" type="button" aria-label="Close search">
+        <kbd>Esc</kbd>
+      </button>
+    </div>
+    <ul id="sp-results" class="sp-results" role="listbox" aria-label="Search results"></ul>
+    <div class="sp-footer" aria-hidden="true">
+      <span class="sp-hint"><kbd>↑↓</kbd> navigate</span>
+      <span class="sp-hint"><kbd>↵</kbd> open</span>
+      <span class="sp-hint"><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/search.js';
+</script>
+
+<style>
+  #search-palette {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+  }
+
+  #search-palette[hidden] { display: none; }
+
+  .sp-scrim {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-scrim);
+    z-index: 0;
+  }
+
+  .sp-box {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 16px;
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-lg, 12px);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+  }
+
+  .sp-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--hair);
+    background: var(--panel-2);
+  }
+
+  .sp-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    padding: 16px 8px;
+    outline: none;
+  }
+
+  .sp-input::-webkit-search-cancel-button { display: none; }
+
+  .sp-close {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-radius: 6px;
+    color: var(--fg-3);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 4px 7px;
+    transition: color var(--dur, 120ms), border-color var(--dur, 120ms);
+  }
+
+  .sp-close:hover { color: var(--fg); border-color: var(--fg-3); }
+  .sp-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .sp-results {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    max-height: 360px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .sp-group-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-3);
+    padding: 8px 16px 4px;
+  }
+
+  .sp-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background var(--dur, 120ms) var(--ease-out);
+  }
+
+  .sp-item:hover,
+  .sp-item.sel {
+    background: var(--overlay-hover);
+  }
+
+  .sp-item:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  .sp-item-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    color: var(--fg-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sp-item-name mark {
+    background: transparent;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .sp-item-cat {
+    flex-shrink: 0;
+    font-size: 11px;
+    background: var(--overlay-hover);
+    color: var(--fg-2);
+    border: 1px solid var(--hair);
+    border-radius: 4px;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+
+  .sp-empty {
+    list-style: none;
+    padding: 24px 16px;
+    color: var(--fg-3);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .sp-footer {
+    display: flex;
+    gap: 16px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .sp-hint {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--fg-3);
+  }
+
+  .sp-hint kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--overlay-hover);
+    border: 1px solid var(--hair);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 2px 5px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 600px) {
+    #search-palette {
+      padding-top: 0;
+      align-items: flex-end;
+    }
+
+    .sp-box {
+      margin: 0;
+      max-width: 100%;
+      border-radius: var(--radius-lg, 12px) var(--radius-lg, 12px) 0 0;
+    }
+  }
+</style>
+
+<style is:global>
+  body.search-open {
+    overflow: hidden;
+  }
+</style>

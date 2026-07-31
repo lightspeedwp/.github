@@ -164,7 +164,7 @@ Use focused searches before fetching:
 ## Starter Scaffold Script
 
 - Use `./scripts/scaffold_node_ext_apps.mjs <output-dir> --app-name <name>` only when the user wants a greenfield Node + `@modelcontextprotocol/ext-apps` starter and no upstream example is the better fit.
-- If the file is not executable in the current environment, fall back to `node scripts/scaffold_node_ext_apps.mjs <output-dir> --app-name <name>`.
+- If the file is not executable in the current environment, fall back to `node .github/scripts/scaffold_node_ext_apps.mjs <output-dir> --app-name <name>`.
 - The script generates `package.json`, `tsconfig.json`, `public/widget.html`, and `src/server.ts`.
 - It intentionally uses the MCP Apps bridge by default, keeps follow-up messaging on `ui/message`, and limits `window.openai` to optional host signals/extensions.
 - After generation, compare the output against the docs you fetched and adjust package versions, metadata, transport details, or URI/versioning if the docs changed.

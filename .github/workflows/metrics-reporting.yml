@@ -144,7 +144,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "${{ env.REPORTS_DIR }}"
-          node scripts/workflows/metrics/aggregate.cjs
+          node .github/scripts/workflows/metrics/aggregate.cjs
 
       - name: Generate summary report
         id: report
@@ -153,7 +153,7 @@ jobs:
           METRICS_JSON: ${{ steps.aggregate.outputs.metrics_json }}
         run: |
           set -euo pipefail
-          node scripts/workflows/metrics/generate-report.cjs
+          node .github/scripts/workflows/metrics/generate-report.cjs
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v4

@@ -57,7 +57,7 @@ npm run cleanup:report
 # 2. Review report at .github/reports/stale-branches-*.md
 
 # 3. Execute cleanup (with confirmations)
-node scripts/cleanup-branches.js --dryRun=false
+node .github/scripts/cleanup-branches.js --dryRun=false
 
 # 4. Sync local repo
 git fetch origin --prune
@@ -304,7 +304,7 @@ npm run lint:all
 npm run cleanup:report
 
 # Execute branch cleanup (interactive)
-node scripts/cleanup-branches.js --dryRun=false
+node .github/scripts/cleanup-branches.js --dryRun=false
 
 # Validate branch names
 npm run validate:branch-name
