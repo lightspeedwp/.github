@@ -3,7 +3,8 @@
 # Wave 5 Batch 1 GitHub Issue Rewrite Script
 # Updates 5 critical issues (#904, #916-920) with Phase 3-aligned content
 #
-# Usage: bash execute-batch-1-rewrites.sh [--dry-run]
+# Location: .github/projects/active/wave-5-documentation-audit/batch-1-execution/
+# Usage: bash execute-batch-1-rewrites.sh [--dry-run|--execute]
 #
 # This script updates:
 # - #904: Documentation Consolidation (parent)
@@ -13,6 +14,10 @@
 # - #920: Documentation Index
 
 set -e
+
+# Change to script directory to ensure relative paths work
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 REPO="lightspeedwp/.github"
 DRY_RUN=${1:-"--dry-run"}
