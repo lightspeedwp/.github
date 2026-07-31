@@ -50,6 +50,7 @@ Phase 1 (Folder Moves & Reference Updates) of the repository restructuring initi
 ### Validation Results
 
 ✅ **PASSING:**
+
 - `npm run validate:frontmatter` — 858 files validated (100% pass)
 - `npm run validate:json` — 690 files validated (100% pass)
 - `npm run validate:json:schemas` — 24 schema files validated (100% pass)
@@ -58,6 +59,7 @@ Phase 1 (Folder Moves & Reference Updates) of the repository restructuring initi
 - `npm run validate:links` — No broken links detected
 
 ⚠️ **PARTIALLY PASSING:**
+
 - `npm test` — 149/157 suites passing (96% pass rate)
   - Pre-existing Jest module resolution issue identified (not caused by Phase 1)
   - Issue: Check-template-labels test path resolution
