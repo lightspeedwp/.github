@@ -2,15 +2,32 @@
 file_type: documentation
 title: "Wave 5 Documentation Audit - Issue Index"
 description: "Complete index of all parent and child issues for the Documentation Audit project"
-version: "1.2.0"
+version: "1.3.0"
 created_date: "2026-05-31"
-last_updated: "2026-06-08"
+last_updated: "2026-07-31"
 status: active
 ---
 
 # Wave 5 Documentation Audit — Issue Index
 
 This directory contains all parent and child issues for the comprehensive documentation audit initiative. **A new seeded issue set was created on 2026-06-08 ([#902](https://github.com/lightspeedwp/.github/issues/902)–[#927](https://github.com/lightspeedwp/.github/issues/927), with expected sequence gap at [#915](https://github.com/lightspeedwp/.github/issues/915)).**
+
+## 🚀 Phase 3: Documentation Update Strategy (Active)
+
+**Status:** ✅ Strategy Defined | 🔵 Ready to Execute  
+**Strategy Document:** [DOCUMENTATION_UPDATE_STRATEGY.md](./DOCUMENTATION_UPDATE_STRATEGY.md)  
+**Latest Findings:** [DOCS_AUDIT_2026-07-30.md](./findings/DOCS_AUDIT_2026-07-30.md)  
+**Timeline:** 2026-08-01 to 2026-08-21 (4 weeks)
+
+Phase 3 provides a detailed 5-phase approach to:
+
+- **Phase 3A:** Archive completed audits & align file organization (Days 1-4)
+- **Phase 3B:** Consolidate overlapping documentation (Days 5-11)
+- **Phase 3C:** Verify accuracy of operational documents (Days 6-10, parallel)
+- **Phase 3D:** Create comprehensive documentation index (Days 12-16)
+- **Phase 3E:** Project closure & recommendations (Days 17-19)
+
+See [DOCUMENTATION_UPDATE_STRATEGY.md](./DOCUMENTATION_UPDATE_STRATEGY.md) for detailed execution plan.
 
 ## Archive Note (2026-06-01)
 
@@ -34,6 +51,13 @@ This active folder now tracks only open-issue execution paths and shared context
 ```
 wave-5-documentation-audit/
 ├── INDEX.md (this file)
+├── DOCUMENTATION_UPDATE_STRATEGY.md (Phase 3 detailed execution plan)
+├── findings/
+│   ├── 654-template-inventory-findings.md
+│   └── DOCS_AUDIT_2026-07-30.md (Latest: archive & consolidation recommendations)
+├── execution/
+│   ├── wave-5-3-phase-2-execution-plan.md
+│   └── issue-seed-2026-06-08/ (GitHub issue seed files)
 ├── parents/
 │   ├── 01-issue-templates-automation-audit.md
 │   ├── 02-canonical-configs-audit.md
@@ -195,6 +219,35 @@ Before creating issues in GitHub, verify:
 
 ---
 
-**Last Updated:** 2026-06-08
+## 📊 Phase 3 Status & Documents
+
+### Latest Findings (2026-07-31)
+
+- **Location:** `findings/DOCS_AUDIT_2026-07-30.md`
+- **Scope:** 63 files in `docs/` folder audit
+- **Key Findings:**
+  - 4 completed audit/remediation reports for archival
+  - 3 documentation content groups with consolidation opportunities
+  - 4 operational documents requiring accuracy verification
+
+### Execution Strategy
+
+- **Document:** `DOCUMENTATION_UPDATE_STRATEGY.md`
+- **Timeline:** 19 working days (~4 weeks)
+- **Phases:** 5 phases with clear deliverables and dependencies
+- **Effort:** 120-150 hours (can be parallelized)
+
+### Archive Note
+
+Completed audit findings and remediation guides are archived to:
+
+- `.github/archived-docs/audits/` (audit reports)
+- `.github/archived-docs/remediation/` (remediation guides)
+
+See `findings/` directory for phase-by-phase audit reports.
+
+---
+
+**Last Updated:** 2026-07-31
 **Created By:** Claude Code
 **For:** LightSpeed Team
