@@ -24,7 +24,7 @@ Use this skill directly for docs-only questions, citations, model/API guidance, 
 - For API reference, schema, parameter, or required-field questions, use `mcp__openaiDeveloperDocs__get_openapi_spec` when available to verify the API shape alongside the relevant guide or reference page.
 - Use `mcp__openaiDeveloperDocs__list_openai_docs` only when you need to browse or discover non-Codex pages without a clear query.
 - For model-selection, "latest model", or default-model questions, fetch `https://developers.openai.com/api/docs/guides/latest-model.md` first. If that is unavailable, load `references/latest-model.md`.
-- For model upgrades or prompt upgrades, run `node scripts/resolve-latest-model-info.js` only when the target is latest/current/default or otherwise unspecified; otherwise preserve the explicitly requested target.
+- For model upgrades or prompt upgrades, run `node .github/scripts/resolve-latest-model-info.js` only when the target is latest/current/default or otherwise unspecified; otherwise preserve the explicitly requested target.
 - Preserve explicit target requests: if the user names a target model like "migrate to GPT-5.4", keep that requested target even if `latest-model.md` names a newer model. Mention newer guidance only as optional.
 - If current remote guidance is needed, fetch both the returned migration and prompting guide URLs directly. If direct fetch fails, use MCP/search fallback; if that also fails, use bundled fallback references and disclose the fallback.
 
@@ -128,7 +128,7 @@ If MCP tools fail or no OpenAI docs resources are available:
    - Find the latest model ID and explicit migration or prompt-guidance links.
    - Prefer explicit links from the latest-model page over derived URLs.
    - For explicit named-model requests, preserve the requested model target. Mention newer remote guidance only as optional.
-   - For dynamic latest/current/default upgrades, run `node scripts/resolve-latest-model-info.js`, then fetch both returned guide URLs directly when possible.
+   - For dynamic latest/current/default upgrades, run `node .github/scripts/resolve-latest-model-info.js`, then fetch both returned guide URLs directly when possible.
    - If direct guide fetch fails, use the developer-docs MCP tools or official OpenAI-domain search to find the same guide content.
    - If remote docs are unavailable, use bundled fallback references and say that fallback guidance was used.
 4. For model upgrades, keep changes narrow: update active OpenAI API model defaults and directly related prompts only when safe.

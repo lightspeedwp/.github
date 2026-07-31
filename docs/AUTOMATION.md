@@ -281,9 +281,9 @@ All workflows must:
 **File locations:**
 
 - Agent specifications: `.github/agents/`
-- Agent scripts: `scripts/agents/`
-- Agent utilities: `scripts/agents/includes/`
-- Tests: `scripts/agents/__tests__/` and `scripts/agents/includes/__tests__/`
+- Agent scripts: `.github/scripts/agents/`
+- Agent utilities: `.github/scripts/agents/includes/`
+- Tests: `.github/scripts/agents/__tests__/` and `.github/scripts/agents/includes/__tests__/`
 
 **Requirements:**
 

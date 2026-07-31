@@ -57,22 +57,22 @@ jobs:
         run: npm ci
 
       - name: Validate labeling config schema
-        run: node scripts/validation/validate-labeling-configs.cjs
+        run: node .github/scripts/validation/validate-labeling-configs.cjs
 
       - name: Validate canonical issue fields and docs
-        run: node scripts/validation/validate-issue-fields.cjs
+        run: node .github/scripts/validation/validate-issue-fields.cjs
 
       - name: Sync labels with canonical set
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || inputs.dry_run || 'false' }}
           LABEL_SYNC_REPORT_PATH: .github/reports/labeling/label-sync-${{ github.run_id }}.md
-        run: node scripts/agents/includes/label-sync.js
+        run: node .github/scripts/agents/includes/label-sync.js
         continue-on-error: false
 
       # Guardrail: Check for unknown labels in templates/types
       - name: Guardrail — Check for unknown labels in templates/types
-        run: node scripts/agents/includes/check-template-labels.js
+        run: node .github/scripts/agents/includes/check-template-labels.js
         continue-on-error: false
 
       # Run unified labeling agent for issues and PRs
@@ -80,13 +80,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
-        run: node scripts/agents/run-labeling-agent.cjs
+        run: node .github/scripts/agents/run-labeling-agent.cjs
 
       - name: Generate report
         id: report
         run: |
           mkdir -p .github/reports/labeling
-          node scripts/agents/includes/report-writer.js > .github/reports/labeling/${{ github.run_id }}.md
+          node .github/scripts/agents/includes/report-writer.js > .github/reports/labeling/${{ github.run_id }}.md
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v4

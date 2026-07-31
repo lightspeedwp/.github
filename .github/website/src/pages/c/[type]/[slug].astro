@@ -1,0 +1,818 @@
+---
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS, itemRouteId } from "../../../lib/catalogue";
+
+const base = import.meta.env.BASE_URL;
+
+const { type, slug } = Astro.params;
+
+export async function getStaticPaths() {
+  return ITEMS.map((item) => ({ params: { type: item.cat, slug: item.slug } }));
+}
+
+const item = getItemBySlug(type!, slug!);
+if (!item) return Astro.redirect(`${base}`);
+
+const category = getCategoryInfo(type!);
+const typeInfo = item.tree ? TYPES["pack"] : TYPES[item.type];
+const relatedItems = getItemsByCategory(type!).filter((i) => i.slug !== slug).slice(0, 3);
+
+const urls = urlsFor(item, "main");
+const canInstall = installable(item);
+---
+
+<AwesomeGithubLayout
+  title={`${item.name} — ${category?.label || type} — Awesome GitHub`}
+  description={item.description}
+>
+  <section class="ag-breadcrumb-section">
+    <div class="ag-container">
+      <nav class="ag-breadcrumb" aria-label="Breadcrumb">
+        <a href={`${base}`}>Home</a>
+        <span class="ag-breadcrumb-separator">/</span>
+        <a href={`${base}c/${type}/`}>{category?.label}</a>
+        <span class="ag-breadcrumb-separator">/</span>
+        <span>{item.name}</span>
+      </nav>
+    </div>
+  </section>
+
+  <section class="ag-resource-hero">
+    <div class="ag-container">
+      <div class="ag-resource-header">
+        <div class="ag-resource-meta-header">
+          <span class="ag-resource-type">{typeInfo?.badge || category?.label}</span>
+          <span class="ag-resource-version">{item.version}</span>
+          <span class="ag-resource-updated">{item.updated}</span>
+        </div>
+        <h1 class="ag-h1">{item.name}</h1>
+        <p class="ag-lead">{item.description}</p>
+        {typeInfo && <p class="ag-type-note">{typeInfo.note}</p>}
+      </div>
+
+      <!-- Action buttons -->
+      <div class="ag-actions">
+        {canInstall && (
+          <a href={urls.vscode} class="ag-action-btn ag-action-btn--primary" data-vscode-link>
+            <span aria-hidden="true">↓</span> Install in VS Code
+          </a>
+        )}
+        {!item.tree && (
+          <button
+            class="ag-action-btn ag-action-btn--secondary"
+            data-copy-url={urls.raw}
+            type="button"
+          >
+            <span aria-hidden="true">📋</span> Copy raw URL
+          </button>
+        )}
+        {!item.tree && (
+          <button
+            class="ag-action-btn ag-action-btn--secondary"
+            data-copy-content={urls.raw}
+            type="button"
+          >
+            <span aria-hidden="true">⎘</span> Copy file
+          </button>
+        )}
+        <a
+          href={urls.blob}
+          class="ag-action-btn ag-action-btn--ghost"
+          data-gh-link
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span aria-hidden="true">↗</span> View on GitHub
+        </a>
+        <button
+          class="ag-action-btn ag-action-btn--ghost ag-branch-toggle"
+          type="button"
+          data-branch-toggle
+          data-path={item.path || ""}
+          data-cat={item.cat}
+          data-tree={String(item.tree)}
+          title="Toggle between main and develop branch"
+          aria-label="Switch to develop branch"
+        >
+          <span aria-hidden="true">⎇</span>
+          <span class="ag-branch-label">main</span>
+        </button>
+      </div>
+
+      {item.applyTo && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Applies to:</span>
+          <code class="ag-apply-value">{item.applyTo}</code>
+        </div>
+      )}
+      {item.run && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Run:</span>
+          <code class="ag-apply-value">{item.run}</code>
+        </div>
+      )}
+      {item.validates && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Validates:</span>
+          <span class="ag-apply-text">{item.validates}</span>
+        </div>
+      )}
+      {item.duration && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Duration:</span>
+          <span class="ag-apply-text">{item.duration}</span>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="ag-content-section">
+    <div class="ag-content-container">
+      <div class="ag-main-content">
+        <div class="ag-resource-content">
+          {item.body ? (
+            <pre class="ag-body-pre"><code>{item.body}</code></pre>
+          ) : (
+            <div class="ag-no-body">
+              <p>This resource is stored at <code>{item.path}</code> in the repository.</p>
+              <a href={urls.blob} target="_blank" rel="noopener noreferrer" class="ag-gh-link" data-gh-link>
+                View on GitHub ↗
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <aside class="ag-sidebar">
+        {item.tags.length > 0 && (
+          <div class="ag-sidebar-section">
+            <h3>Tags</h3>
+            <div class="ag-tags-list">
+              {item.tags.map((tag) => (
+                <span class="ag-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {item.path && (
+          <div class="ag-sidebar-section">
+            <h3>Path</h3>
+            <code class="ag-path-code">{item.path}</code>
+          </div>
+        )}
+
+        <div class="ag-sidebar-section">
+          <a href={`${base}c/${type}/`} class="ag-back-link">
+            ← Back to {category?.label}
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {relatedItems.length > 0 && (
+    <section class="ag-section-alt">
+      <div class="ag-container">
+        <h2 class="ag-h2">More {category?.label}</h2>
+        <div class="ag-related-grid">
+          {relatedItems.map((rel) => (
+            <a href={`${base}item/${itemRouteId(rel)}/`} class="ag-related-card">
+              <h3 class="ag-related-title">{rel.name}</h3>
+              <p class="ag-related-description">{rel.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</AwesomeGithubLayout>
+
+<script>
+  // Copy raw URL buttons
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-url]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = btn.dataset.copyUrl || "";
+      try {
+        await navigator.clipboard.writeText(url);
+        const orig = btn.textContent;
+        btn.textContent = "✓ Copied!";
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+      } catch { /* denied */ }
+    });
+  });
+
+  // Copy file content buttons
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-content]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = btn.dataset.copyContent || "";
+      const orig = btn.textContent;
+      try {
+        btn.textContent = "⏳ Copying…";
+        btn.disabled = true;
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const text = await resp.text();
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "✓ Copied!";
+      } catch {
+        btn.textContent = "❌ Failed";
+      } finally {
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+      }
+    });
+  });
+
+  // Branch toggle
+  (function () {
+    const REPO = "lightspeedwp/.github";
+    const VS_ROUTES: Record<string, string> = {
+      instructions: "chat-instructions",
+      prompts: "chat-prompt",
+      agents: "chat-mode",
+      skills: "chat-prompt",
+    };
+
+    function computeUrls(path: string, cat: string, isTree: boolean, branch: string) {
+      const kind = isTree ? "tree" : "blob";
+      const raw = `https://raw.githubusercontent.com/${REPO}/${branch}/${path}`;
+      return {
+        blob: `https://github.com/${REPO}/${kind}/${branch}/${path}`,
+        raw,
+        vscode: `vscode:${VS_ROUTES[cat] || "chat-instructions"}/install?url=${encodeURIComponent(raw)}`,
+      };
+    }
+
+    const toggle = document.querySelector<HTMLButtonElement>("[data-branch-toggle]");
+    if (!toggle) return;
+
+    const path = toggle.dataset.path || "";
+    const cat = toggle.dataset.cat || "";
+    const isTree = toggle.dataset.tree === "true";
+    let branch = "main";
+    try {
+      const saved = localStorage.getItem("github_branch");
+      branch = saved === "main" || saved === "develop" ? saved : "main";
+    } catch { /* localStorage blocked in private browsing */ }
+
+    function applyBranch(b: string) {
+      const urls = computeUrls(path, cat, isTree, b);
+      document.querySelectorAll<HTMLAnchorElement>("[data-vscode-link]").forEach((el) => { el.href = urls.vscode; });
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-url]").forEach((el) => { el.dataset.copyUrl = urls.raw; });
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-content]").forEach((el) => { el.dataset.copyContent = urls.raw; });
+      document.querySelectorAll<HTMLAnchorElement>("[data-gh-link]").forEach((el) => { el.href = urls.blob; });
+      const label = toggle.querySelector(".ag-branch-label");
+      if (label) label.textContent = b;
+      toggle.setAttribute("aria-label", `Switch to ${b === "main" ? "develop" : "main"} branch`);
+      toggle.title = `Currently on ${b}. Click to switch to ${b === "main" ? "develop" : "main"}.`;
+    }
+
+    applyBranch(branch);
+
+    toggle.addEventListener("click", () => {
+      branch = branch === "main" ? "develop" : "main";
+      try {
+        localStorage.setItem("github_branch", branch);
+      } catch { /* localStorage blocked in private browsing */ }
+      applyBranch(branch);
+    });
+  })();
+</script>
+
+<style>
+  .ag-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .ag-breadcrumb-section {
+    background: var(--bg);
+    padding: var(--space-4) var(--gutter);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ag-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-body-sm);
+    flex-wrap: wrap;
+  }
+
+  .ag-breadcrumb a {
+    color: var(--fg-link);
+    text-decoration: none;
+    transition: color 0.2s ease-out;
+  }
+
+  .ag-breadcrumb a:hover {
+    color: var(--fg-link-hover);
+  }
+
+  .ag-breadcrumb-separator {
+    color: var(--fg-2);
+  }
+
+  .ag-resource-hero {
+    background: var(--bg);
+    color: var(--fg-1);
+    padding: var(--space-40) var(--gutter);
+  }
+
+  .ag-resource-header {
+    margin-bottom: var(--space-12);
+  }
+
+  .ag-resource-meta-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .ag-resource-type {
+    display: inline-block;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--accent);
+    padding: var(--space-2) var(--space-4);
+    background: var(--accent-soft);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-pill);
+  }
+
+  .ag-resource-status {
+    font-size: var(--fs-body-sm);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-weight: var(--weight-semibold);
+    text-transform: capitalize;
+  }
+
+  .ag-status-active {
+    background: color-mix(in srgb, var(--c-status-success) 15%, transparent);
+    color: var(--c-status-success);
+  }
+
+  .ag-status-deprecated {
+    background: color-mix(in srgb, var(--c-status-error) 15%, transparent);
+    color: var(--c-status-error);
+  }
+
+  .ag-status-beta {
+    background: color-mix(in srgb, var(--c-status-warning) 15%, transparent);
+    color: var(--c-status-warning);
+  }
+
+  .ag-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .ag-resource-metadata {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--hair);
+  }
+
+  .ag-metadata-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ag-metadata-label {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-300);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .ag-metadata-value {
+    font-size: var(--fs-body);
+    color: var(--c-light-blue);
+  }
+
+  .ag-content-section {
+    padding: var(--section-y) var(--gutter);
+    background: var(--bg);
+  }
+
+  .ag-content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-12);
+  }
+
+  .ag-main-content {
+    min-width: 0;
+  }
+
+  .ag-resource-content {
+    font-size: var(--fs-body);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+  }
+
+  .ag-resource-content :global(h2) {
+    font-size: var(--fs-h3);
+    font-weight: var(--weight-bold);
+    margin: var(--space-8) 0 var(--space-4) 0;
+    color: var(--fg-1);
+  }
+
+  .ag-resource-content :global(h3) {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: var(--space-6) 0 var(--space-3) 0;
+    color: var(--fg-1);
+  }
+
+  .ag-resource-content :global(p) {
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ag-resource-content :global(ul),
+  .ag-resource-content :global(ol) {
+    margin: 0 0 var(--space-4) var(--space-6);
+    padding: 0;
+  }
+
+  .ag-resource-content :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .ag-resource-content :global(code) {
+    background: var(--bg-alt);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  .ag-resource-content :global(pre) {
+    background: var(--bg-alt);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ag-sidebar {
+    position: sticky;
+    top: 100px;
+  }
+
+  .ag-sidebar-section {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .ag-sidebar-section h3 {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-4) 0;
+    color: var(--fg-1);
+  }
+
+  .ag-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .ag-tag {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .ag-tools-list,
+  .ag-handoffs-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ag-tools-list li,
+  .ag-handoffs-list li {
+    font-size: var(--fs-body-sm);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ag-tools-list li:last-child,
+  .ag-handoffs-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .ag-handoffs-list li strong {
+    display: block;
+    color: var(--fg-1);
+    margin-bottom: var(--space-2);
+  }
+
+  .ag-handoffs-list li p {
+    margin: 0;
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+  }
+
+  .ag-back-link {
+    display: inline-block;
+    color: var(--fg-link);
+    text-decoration: none;
+    font-weight: var(--weight-semibold);
+    transition: color 0.2s ease-out;
+  }
+
+  .ag-back-link:hover {
+    color: var(--fg-link-hover);
+  }
+
+  .ag-section-alt {
+    padding: var(--section-y) var(--gutter);
+    background: var(--bg-alt);
+  }
+
+  .ag-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  .ag-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .ag-related-card {
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.2s ease-out;
+  }
+
+  .ag-related-card:hover {
+    border-color: var(--c-light-blue);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .ag-related-title {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .ag-related-description {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-snug);
+  }
+
+  .ag-resource-version,
+  .ag-resource-updated {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-300);
+  }
+
+  .ag-type-note {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-400, #94a3b8);
+    margin: var(--space-3) 0 0 0;
+    font-style: italic;
+  }
+
+  /* Action buttons */
+  .ag-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .ag-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-body);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.15s ease-out;
+    line-height: 1;
+  }
+
+  .ag-action-btn--primary {
+    background: var(--c-brand-blue);
+    color: #fff;
+    border-color: var(--c-brand-blue);
+  }
+
+  .ag-action-btn--primary:hover {
+    background: var(--c-brand-blue-hover);
+    border-color: var(--c-brand-blue-hover);
+    box-shadow: var(--shadow-md);
+  }
+
+  .ag-action-btn--secondary {
+    background: var(--panel-2);
+    color: var(--fg-1);
+    border-color: var(--hair);
+  }
+
+  .ag-action-btn--secondary:hover {
+    background: var(--panel);
+    border-color: var(--border-strong);
+  }
+
+  .ag-action-btn--ghost {
+    background: transparent;
+    color: var(--fg-2);
+    border-color: var(--hair);
+  }
+
+  .ag-action-btn--ghost:hover {
+    color: var(--fg-1);
+    border-color: var(--border-strong);
+    background: var(--panel-2);
+  }
+
+  .ag-branch-toggle {
+    margin-left: auto;
+    opacity: 0.7;
+    font-size: 11px;
+    gap: var(--space-1);
+  }
+
+  .ag-branch-toggle:hover { opacity: 1; }
+
+  .ag-branch-label {
+    font-family: var(--font-mono);
+  }
+
+  /* Metadata rows (applyTo, run, validates, duration) */
+  .ag-apply-to {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    font-size: var(--fs-body-sm);
+  }
+
+  .ag-apply-label {
+    flex-shrink: 0;
+    color: var(--c-slate-300, #cbd5e1);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+  }
+
+  .ag-apply-value {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .ag-apply-text {
+    color: var(--c-slate-200, #e2e8f0);
+  }
+
+  /* Body content */
+  .ag-body-pre {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .ag-body-pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+  }
+
+  /* No-body fallback */
+  .ag-no-body {
+    padding: var(--space-10);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--fg-2);
+  }
+
+  .ag-no-body p {
+    margin: 0 0 var(--space-4) 0;
+    font-size: var(--fs-body-sm);
+  }
+
+  .ag-gh-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    transition: background 0.15s ease-out;
+  }
+
+  .ag-gh-link:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Sidebar path */
+  .ag-path-code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .ag-resource-hero {
+      padding: var(--space-20) var(--gutter) var(--space-16);
+    }
+
+    .ag-h1 {
+      font-size: var(--fs-h2);
+    }
+
+    .ag-content-container {
+      grid-template-columns: 1fr;
+    }
+
+    .ag-sidebar {
+      position: static;
+      top: auto;
+    }
+
+    .ag-resource-metadata {
+      grid-template-columns: 1fr;
+    }
+
+    .ag-related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

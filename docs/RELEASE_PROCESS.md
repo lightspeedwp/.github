@@ -51,9 +51,9 @@ tags: ["release", "process", "automation"]
 - Agent command examples:
 
 ```bash
-node scripts/agents/release.agent.js --scope=patch
-node scripts/agents/release.agent.js --scope=minor --dry-run
-node scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
+node .github/scripts/agents/release.agent.js --scope=patch
+node .github/scripts/agents/release.agent.js --scope=minor --dry-run
+node .github/scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
 ```
 
 ## MCP provider runtime settings
@@ -88,8 +88,8 @@ node scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
 
 - Format: Keep a Changelog.
 - Schema: `../.schemas/changelog.schema.json` enforced by:
-  - `scripts/validation/validate-changelog.cjs`
-  - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
+  - `.github/scripts/validation/validate-changelog.cjs`
+  - `.github/scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:
   - `[Unreleased]` section must exist and contain entries before release.
   - Sections allowed: Added, Changed, Deprecated, Removed, Fixed, Security, Documentation, Performance.
@@ -106,7 +106,7 @@ node scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
 
 ## Troubleshooting
 
-- **Changelog validation fails:** run `node scripts/validation/validate-changelog.cjs CHANGELOG.md` and fix schema violations/empty sections.
+- **Changelog validation fails:** run `node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md` and fix schema violations/empty sections.
 - **No unreleased changes:** add entries under `[Unreleased]` before running release agent.
 - **PR not created:** ensure `gh` CLI and `GITHUB_TOKEN` available; otherwise create PR from `release/vX.Y.Z` → `main` manually.
 - **Tag conflicts:** delete or move existing tag before rerunning; ensure working tree clean.
@@ -127,8 +127,8 @@ If a release is started but must be rolled back:
 Rollback utility supports provider-aware cleanup:
 
 ```bash
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry-run
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry-run
 ```
 
 ---

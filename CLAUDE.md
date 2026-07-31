@@ -101,7 +101,7 @@ See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migra
 
 #### main Branch — LOCKED (Release Only)
 
-**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches starting with `release/` or `hotfix/` (enforced by `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`; branches should follow the `release/vX.Y.Z` or `hotfix/<slug>` naming convention).
+**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches starting with `release/` or `hotfix/` (enforced by `.github/scripts/workflows/branch-policy/validate-main-branch-pr.cjs`; branches should follow the `release/vX.Y.Z` or `hotfix/<slug>` naming convention).
 
 - **ALLOWED BRANCHES:** Only `release/*` and `hotfix/*` branches may merge to `main`
   - Example: `release/v1.5.0`, `hotfix/critical-security-patch`

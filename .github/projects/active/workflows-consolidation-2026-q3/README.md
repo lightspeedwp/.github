@@ -1,3 +1,26 @@
+---
+name: GitHub Workflows Consolidation Initiative
+title: Consolidate 31 GitHub Workflows → 25 for Efficiency & Maintainability
+description: Strategic consolidation of workflows to eliminate duplication, reduce GitHub Actions minutes, and improve maintainability
+status: active
+created: 2026-07-24
+last_updated: 2026-07-24
+version: 1.0.0
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - workflows
+  - ci-cd
+  - github-actions
+  - consolidation
+  - automation
+  - efficiency
+related_issues:
+  - '#1227'
+related_branches:
+  - audit/workflows-consolidation-audit
+---
+
 # GitHub Workflows Consolidation Initiative
 
 ## Quick Facts
@@ -8,130 +31,295 @@
 | **Target Workflows** | 25 |
 | **Reduction** | 19% (6 workflows) |
 | **Code Duplication** | ~500 lines to eliminate |
-| **Actions Minutes Savings** | 15-20% (estimated) |
+| **Estimated Actions Minutes Savings** | 15-20% |
 | **Total Effort** | 60-85 hours |
 | **Timeline** | 12 weeks (5-7h/week) |
 | **Start Date** | 2026-07-24 |
 | **Epic Issue** | [#1227](https://github.com/lightspeedwp/.github/issues/1227) |
-| **Current Status** | 🟢 Phase 2 ✅ COMPLETE; Phase 3 🔄 IN PROGRESS; Phase 4 ✅ MERGED (shell control-flow refactor, PR #1412) |
 
----
+## Project Goals
 
-## Phase Status Dashboard
+1. **Eliminate Code Duplication** — Consolidate repetitive workflow logic (~500 lines)
+2. **Reduce GitHub Actions Minutes** — 15-20% efficiency improvement through consolidation
+3. **Improve Maintainability** — Single source of truth for common patterns
+4. **Streamline CI/CD** — Reduce workflow count from 31 to 25
+5. **Resolve Scheduling Conflicts** — Fix 4+ scheduled workflow collisions
+6. **Enable Team Scaling** — Reusable patterns for future workflows
 
-| Phase | Title | Status | PR | Issues |
-|-------|-------|--------|-----|--------|
-| **1A** | Quick Wins | ✅ COMPLETE | - | - |
-| **1B** | Medium-Impact | ✅ COMPLETE | - | - |
-| **2.1** | Create Workflows | ✅ MERGED | #1306 | #1307, #1308 ✅ |
-| **2.2** | Monitoring Period | ✅ COMPLETE | - | #1309 ✅ |
-| **2.3** | Cleanup & Delete | 🟢 READY | - | #1310 ✅ |
-| **2.4** | Final Review | ✅ APPROVED | - | #1311 ✅ |
-| **3.1** | Create labeling-governance.yml | ✅ COMPLETE | #1319 | #1360 ✅ |
-| **3.2** | Integration Testing | ⏳ PENDING | #1319 | #1361 |
-| **3.3** | Deprecation & Cleanup | ⏳ PENDING | - | #1362 |
-| **3.4** | Review & Merge | 🔄 IN PROGRESS | #1319 | #1363 |
-| **4.1** | Shell Control-Flow Refactor | ✅ MERGED | #1412 | #1413 |
-| **4.2** | Integration Testing | 🟢 READY | - | - |
-| **4.3** | Final Review & Merge | ✅ COMPLETE | - | - |
+## Current State Analysis
 
----
+### Workflow Inventory (31 Total)
 
-## Navigation Guide
+#### By Category
 
-This project is organized into **4 phases** with supporting documentation:
+**Testing & Validation (8 workflows)**
 
-### 📋 Core Documents
+- testing.yml
+- validate-frontmatter.yml
+- validate-pr-template.yml
+- template-enforcement.yml
+- branch-validation.yml
+- coderabbit-reviews.yml
+- lint-workflows.yml
+- lighthouse-ci.yml
 
-1. **IMPLEMENTATION_SUMMARY.md**
-   - Executive overview of the consolidation strategy
-   - High-level roadmap and phase breakdown
-   - Success metrics and risk mitigation
+**Changelog & Release (4 workflows)**
 
-2. **EXECUTION_PLAYBOOK.md**
-   - Step-by-step implementation guide
-   - Issue creation templates
-   - Testing and verification checklist
+- changelog-validation.yml
+- changelog-consolidation.yml (duplicate logic)
+- release-notes-generation.yml
+- version-bump.yml
 
-3. **PROJECT_INDEX.md**
-   - Complete file index and navigation
-   - Reading guide by role
-   - Cross-references by consolidation type
+**Documentation & Reporting (5 workflows)**
 
-### 🎯 Phase-Specific Documents
+- docs-validation.yml
+- markdown-linting.yml
+- readme-generation.yml
+- metrics-collection.yml
+- reporting.yml
 
-- **PHASE_1A_QUICK_WINS.md** - Quick wins (Remove testing.yml, Extract helpers)
-- **PHASE_1B_CHANGELOG_CONSOLIDATION.md** - Merge changelog workflows
-- **PHASE_1B_METRICS_CONSOLIDATION.md** - Consolidate metrics pipeline
-- **PHASE_2_EXECUTION.md** - Documentation workflows consolidation (Phase 2 implementation)
-- **PHASE_2_ISSUES.md** - Phase 2 work item templates
-- **PHASE_2_2_TEST_RESULTS.md** - Phase 2 integration test scenarios
-- **PHASE_2_COMPLETION_STATUS.md** - Phase 2 completion metrics and status
-- **PHASE_3_EXECUTION.md** - Labeling workflows consolidation (Phase 3 implementation)
-- **PHASE_3_ISSUES.md** - Phase 3 work item templates
-- **PHASE_3_KICKOFF.md** - Phase 3 ready-to-execute kickoff prompt
-- **PHASE_3_READINESS.md** - Phase 3 readiness status and dependencies
+**Labeling & Automation (6 workflows)**
 
-### 📊 Supporting Documents
+- issue-labeler.yml
+- pr-labeler.yml
+- auto-assignment.yml
+- stale-issue-handler.yml
+- dependency-labeler.yml
+- release-labeler.yml
 
-- **TESTING_STRATEGY.md** - Test coverage requirements
-- **EFFICIENCY_IMPROVEMENTS.md** - GitHub Actions minutes optimization details
-- **PROJECT_INDEX.md** - Complete file index with cross-references
+**CI/CD Pipeline (8 workflows)**
 
-### 🔗 GitHub Issue Templates
+- build.yml
+- deploy-staging.yml
+- deploy-production.yml
+- merge-validation.yml
+- github-env-sync.yml
+- mergify-integration.yml
+- branch-cleanup.yml
+- dependency-updates.yml
 
-- **GITHUB_ISSUE_EPIC.md** - Epic issue (✅ Already created: #1227)
-- **GITHUB_ISSUE_PHASE_1A.md** - Phase 1A issues template
+### Identified Consolidation Opportunities
 
----
+#### **Phase 1A: Quick Wins** (~15 hours)
+
+- Remove `testing.yml` (superseded by other test runners)
+- Extract common helpers from validation workflows
+- Consolidate validation utilities into single file
+
+#### **Phase 1B: Changelog Consolidation** (~12 hours)
+
+- Merge `changelog-validation.yml` + `changelog-consolidation.yml`
+- Single workflow for changelog management
+- Reduces duplication (~60 lines)
+
+#### **Phase 1B: Metrics Pipeline** (~18 hours)
+
+- Consolidate metrics collection workflows
+- Single source for reporting data
+- Improves consistency
+
+#### **Phase 2: Documentation Workflows** (~15 hours)
+
+- Merge docs-validation, markdown-linting, readme-generation
+- Single documentation workflow with multiple jobs
+- Reduces scheduling conflicts
+
+#### **Phase 3: Labeling Consolidation** (~12 hours)
+
+- Consolidate issue + PR labeling logic
+- Single workflow with conditional jobs
+- Shared label management rules
+
+### Scheduling Conflicts
+
+**Current Issues:**
+
+- Testing workflows run at same time (duplicate GHA runners)
+- Changelog + metrics workflows compete for scheduler
+- Labeling workflows create 4+ concurrent runs during PR creation
+
+**Target:** Reduce to 2 scheduled conflicts maximum
+
+## Three-Phase Implementation
+
+### **PHASE 1A: Quick Wins** (Week 1-2)
+
+**Effort:** 15 hours | **Complexity:** Low  
+**Deliverables:**
+
+- Remove obsolete testing.yml
+- Extract validation helpers to shared file
+- Document common patterns
+- Save ~100 GHA minutes/week
+
+**Issues to Create:**
+
+- Remove testing.yml
+- Extract shared validation helpers
+- Update dependent workflows
+
+### **PHASE 1B: Changelog & Metrics** (Week 2-3)
+
+**Effort:** 30 hours | **Complexity:** Medium  
+**Deliverables:**
+
+- Merged changelog workflow
+- Consolidated metrics pipeline
+- Shared reporting format
+- Save ~75 GHA minutes/week
+
+**Issues to Create:**
+
+- Consolidate changelog workflows
+- Consolidate metrics workflows
+- Update related CI/CD integrations
+
+### **PHASE 2: Documentation & Validation** (Week 4-6)
+
+**Effort:** 20 hours | **Complexity:** Medium  
+**Deliverables:**
+
+- Single documentation workflow (3 conditional jobs)
+- Reduced scheduling conflicts
+- Shared validation rules
+- Save ~40 GHA minutes/week
+
+**Issues to Create:**
+
+- Merge docs/markdown/readme workflows
+- Consolidate validation patterns
+- Update scheduling
+
+### **PHASE 3: Labeling & Automation** (Week 7-12)
+
+**Effort:** 20 hours | **Complexity:** Medium  
+**Deliverables:**
+
+- Single labeling workflow (conditional jobs per event)
+- Shared label management rules
+- Reduced concurrent runs
+- Save ~50 GHA minutes/week
+
+**Issues to Create:**
+
+- Consolidate labeling workflows
+- Create shared rules engine
+- Testing and validation
+
+## Expected Outcomes
+
+### Efficiency Improvements
+
+- **GitHub Actions Minutes:** 15-20% reduction (est. 200-250 min/month savings)
+- **Workflow File Count:** 31 → 25 (19% reduction)
+- **Code Duplication:** Eliminate ~500 lines (cleanup)
+- **Maintenance Overhead:** Reduce by ~25%
+
+### Operational Benefits
+
+- Single source of truth for common patterns
+- Easier onboarding for new workflows
+- Faster updates to CI/CD rules
+- Better visibility into workflow execution
+- Reduced scheduler conflicts
+
+### Developer Experience
+
+- Clearer workflow organization
+- More intuitive job names and structure
+- Better documentation and examples
+- Self-service workflow creation
+
+## Risk Mitigation
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|-----------|
+| Breaking existing workflows | MEDIUM | HIGH | Comprehensive testing before merge, parallel runs |
+| Increased complexity from consolidation | MEDIUM | MEDIUM | Clear job structure, documentation |
+| Merge conflicts during development | LOW | LOW | Early coordination, serial merging |
+| Performance regression | LOW | HIGH | Benchmark before/after runs, CI validation |
 
 ## Success Criteria
 
 **Quantitative:**
 
-- ✅ Workflow count: 31 → 25
-- ✅ Code duplication: Eliminate ~500 lines
-- ✅ GitHub Actions minutes: 15-20% reduction
-- ✅ Test coverage: Maintain or improve
-- ✅ Scheduled run collisions: Reduce from 4+ to 2
+- ✅ Reduce workflow count from 31 to 25
+- ✅ Eliminate ~500 lines of duplicate code
+- ✅ 15-20% reduction in GitHub Actions minutes
+- ✅ Maintain or improve test coverage
+- ✅ Reduce scheduled run collisions from 4+ to 2
 
 **Qualitative:**
 
-- ✅ Single source of truth for validation logic
-- ✅ Clear separation of concerns across workflows
-- ✅ Improved developer experience
-- ✅ Eliminated time-coupling assumptions
+- ✅ Single source of truth for common patterns
+- ✅ Clear documentation for workflow structure
+- ✅ Team confidence in CI/CD system
+- ✅ Reduced maintenance burden
+
+## Implementation Timeline
+
+| Phase | Timeline | Status | Hours | Savings |
+|-------|----------|--------|-------|---------|
+| **Phase 1A: Quick Wins** | Week 1-2 | ✅ Complete | 15 | ~100 min/week |
+| **Phase 1B: Changelog & Metrics** | Week 2-3 | ✅ Complete | 30 | ~75 min/week |
+| **Phase 2: Documentation** | Week 4-6 | ⏳ Upcoming | 20 | ~40 min/week |
+| **Phase 3: Labeling** | Week 7-12 | ⏳ Upcoming | 20 | ~50 min/week |
+| **Total** | 12 weeks | | **85 hours** | **~265 min/week** (15-20% savings) |
+
+## Related Issues & Documentation
+
+### GitHub Issues
+
+- **Epic #1227** — GitHub Workflows Consolidation Initiative
+- **Phase 1A Issues** — Quick wins (TBD)
+- **Phase 1B Issues** — Changelog & metrics (TBD)
+- **Phase 2 Issues** — Documentation (TBD)
+- **Phase 3 Issues** — Labeling (TBD)
+
+### Related PRs
+
+- **PR #1228** — Workflows consolidation audit and project documentation
+- **PR #1280** — Phase 1B.i: Consolidate changelog management workflows
+- **PR #1282** — Phase 1B.ii: Consolidate metrics collection and reporting workflows
+- **PR #1286** — Phase 1B: Consolidate changelog & metrics workflows (unified PR)
+
+### Documentation
+
+- `.github/reports/workflows/WORKFLOWS-CONSOLIDATION-AUDIT.md` — Detailed audit findings
+- `projects/active/workflows-consolidation-2026-q3/IMPLEMENTATION_NOTES.md` — Technical details
+- Phase-specific implementation guides (created per phase)
+
+## Next Steps
+
+1. **Kick Off Phase 1A** (This week)
+   - Review testing.yml removal impact
+   - Identify shared validation patterns
+   - Create first consolidation PRs
+
+2. **Create Phase 1A Issues** (Next 2 days)
+   - Quick wins checklist
+   - Helper extraction tasks
+   - Testing plan
+
+3. **Begin Phase 1B Planning** (Week 2)
+   - Analyze changelog workflows
+   - Map metrics data flow
+   - Design consolidated structure
+
+4. **Track Progress** (Ongoing)
+   - Monitor GitHub Actions minutes savings
+   - Collect team feedback
+   - Adjust timeline based on complexity
 
 ---
 
-## Phase Timeline
-
-| Phase | Duration | Effort | Status |
-|-------|----------|--------|--------|
-| **1A: Quick Wins** | Week 1 | 4h | 🟢 Ready to start |
-| **1B: Medium-Impact** | Weeks 2-3 | 14-20h | ⏳ Depends on 1A |
-| **2: Documentation** | Weeks 5-8 | 12-16h | ⏳ Design-heavy |
-| **3: Labeling** | Weeks 5-8 | 6-8h | ⏳ Independent |
-| **4: Future** | Month 3+ | TBD | 📋 Planning phase |
+**Project Lead**: Ash Shaw  
+**Started**: 2026-07-24  
+**Status**: Actively Building  
+**Epic**: #1227  
+**Related PR**: #1228  
+**Next Review**: End of Week 1 (Phase 1A progress)
 
 ---
 
-## Related Links
-
-- **Epic Issue:** [#1227](https://github.com/lightspeedwp/.github/issues/1227)
-- **Audit Report:** `.github/reports/workflows/WORKFLOWS-CONSOLIDATION-AUDIT.md`
-- **Branching Guide:** `docs/BRANCHING_STRATEGY.md`
-- **Issue Templates:** `.github/ISSUE_TEMPLATE/`
-
----
-
-## Recent Updates
-
-- **2026-07-24 (14:15 UTC):** Phase 2.1 merged to develop (PR #1306)
-- **2026-07-24 (16:30 UTC):** Phase 2.2 monitoring period active (ends 2026-07-26)
-- **2026-07-24 (16:45 UTC):** Phase 3 planning documents created, ready to start 2026-07-26
-
----
-
-**Project Owner:** Ash Shaw  
-**Last Updated:** 2026-07-24
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

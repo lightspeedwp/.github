@@ -43,7 +43,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
-        run: node scripts/agents/includes/issue-pr-metadata.cjs
+        run: node .github/scripts/agents/includes/issue-pr-metadata.cjs
 
       - name: Allocate issue to version milestone
         id: milestone-allocation
@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_ROUTES_CONFIG: .github/project-routes.yml
           GITHUB_EVENT_PATH: ${{ github.event_path }}
-        run: node scripts/agents/includes/allocate-milestone.cjs
+        run: node .github/scripts/agents/includes/allocate-milestone.cjs
 
       - name: Check milestone capacity and warn
         id: capacity-check
@@ -59,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_ROUTES_CONFIG: .github/project-routes.yml
           GITHUB_EVENT_PATH: ${{ github.event_path }}
-        run: node scripts/agents/includes/check-milestone-capacity.cjs
+        run: node .github/scripts/agents/includes/check-milestone-capacity.cjs
 
       - name: Summarise metadata sync
         env:
@@ -107,7 +107,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
           DRY_RUN: "false"
-        run: node scripts/agents/includes/sync-issue-fields.cjs
+        run: node .github/scripts/agents/includes/sync-issue-fields.cjs
 
       - name: Append native type result to summary
         if: github.event_name == 'issues'
