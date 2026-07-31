@@ -1,0 +1,13 @@
+name: gitleaks
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full-history:
+        type: boolean
+        default: false
+jobs:
+  scan:
+    uses: lightspeedwp/.github/.github/workflows/gitleaks-reusable.yml@main
+    with:
+      full-history: ${{ github.event_name == 'workflow_dispatch' && inputs.full-history || false }}
