@@ -177,7 +177,7 @@ function main() {
   if (memorySchemaCount === 5) {
     passCheck(".schemas/memory/ has 5 memory schemas");
   } else {
-    failCheck(`schema/memory/ has ${memorySchemaCount} schemas (expected 5)`);
+    failCheck(`schemas/memory/ has ${memorySchemaCount} schemas (expected 5)`);
   }
 
   checkFileExists(".schemas/schema-registry.json");
