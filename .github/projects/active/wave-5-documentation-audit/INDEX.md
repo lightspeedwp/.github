@@ -46,6 +46,8 @@ Phase 3 provides a detailed 5-phase approach to:
 
 See [AUDIT_REPORT_2026-07-31.md](./AUDIT_REPORT_2026-07-31.md) and [GITHUB_ISSUES_REWRITE_PLAN.md](./GITHUB_ISSUES_REWRITE_PLAN.md) for details.
 
+See also [DOCUMENTATION_UPDATE_STRATEGY.md](./DOCUMENTATION_UPDATE_STRATEGY.md) for detailed execution plan.
+
 ## Archive Note (2026-06-01)
 
 Documentation-complete specs linked to closed issues were archived to:
