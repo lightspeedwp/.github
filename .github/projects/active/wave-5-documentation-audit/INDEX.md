@@ -14,10 +14,12 @@ This directory contains all parent and child issues for the comprehensive docume
 
 ## 🚀 Phase 3: Documentation Update Strategy (Active)
 
-**Status:** ✅ Strategy Defined | 🔵 Ready to Execute  
+**Status:** ✅ Strategy Defined | 🔴 GitHub Issues Rewrite In Progress  
 **Strategy Document:** [DOCUMENTATION_UPDATE_STRATEGY.md](./DOCUMENTATION_UPDATE_STRATEGY.md)  
 **Latest Findings:** [DOCS_AUDIT_2026-07-30.md](./findings/DOCS_AUDIT_2026-07-30.md)  
-**Timeline:** 2026-08-01 to 2026-08-21 (4 weeks)
+**Project Audit:** [AUDIT_REPORT_2026-07-31.md](./AUDIT_REPORT_2026-07-31.md)  
+**Issue Rewrite Plan:** [GITHUB_ISSUES_REWRITE_PLAN.md](./GITHUB_ISSUES_REWRITE_PLAN.md)  
+**Timeline:** Phase 3 Execution 2026-08-01 to 2026-08-21 (4 weeks)
 
 Phase 3 provides a detailed 5-phase approach to:
 
@@ -27,7 +29,22 @@ Phase 3 provides a detailed 5-phase approach to:
 - **Phase 3D:** Create comprehensive documentation index (Days 12-16)
 - **Phase 3E:** Project closure & recommendations (Days 17-19)
 
-See [DOCUMENTATION_UPDATE_STRATEGY.md](./DOCUMENTATION_UPDATE_STRATEGY.md) for detailed execution plan.
+### Project Audit & Issue Rewrite (2026-07-31)
+
+**Audit Findings:**
+
+- All 25 original GitHub issues (#902-927) severely outdated (created 2026-06-08)
+- Only 2 of 5 parent issues stored locally
+- 26+ issues require complete rewrite to align with Phase 3 strategy
+
+**Rewrite Plan:**
+
+- **AUDIT_REPORT_2026-07-31.md** — Comprehensive audit of issues and project state
+- **GITHUB_ISSUES_REWRITE_PLAN.md** — Detailed before/after specs for 26+ issues
+- **Execution Schedule:** 2026-08-04 to 2026-08-15 (2 weeks)
+- **Batches:** 4 batches organized by priority and type
+
+See [AUDIT_REPORT_2026-07-31.md](./AUDIT_REPORT_2026-07-31.md) and [GITHUB_ISSUES_REWRITE_PLAN.md](./GITHUB_ISSUES_REWRITE_PLAN.md) for details.
 
 ## Archive Note (2026-06-01)
 
@@ -52,6 +69,8 @@ This active folder now tracks only open-issue execution paths and shared context
 wave-5-documentation-audit/
 ├── INDEX.md (this file)
 ├── DOCUMENTATION_UPDATE_STRATEGY.md (Phase 3 detailed execution plan)
+├── AUDIT_REPORT_2026-07-31.md (Project audit & GitHub issues assessment)
+├── GITHUB_ISSUES_REWRITE_PLAN.md (Detailed before/after specs for 26+ issues)
 ├── findings/
 │   ├── 654-template-inventory-findings.md
 │   └── DOCS_AUDIT_2026-07-30.md (Latest: archive & consolidation recommendations)
