@@ -40,7 +40,7 @@ The Reviewer Agent is integrated into GitHub Actions workflows. To enable:
   if: github.event_name == 'pull_request'
   with:
     script: |
-      const { run } = await import('./scripts/agents/reviewer.agent.js');
+      const { run } = await import('./.github/scripts/agents/reviewer.agent.js');
       await run(context, { dryRun: false });
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,7 +56,7 @@ The Reviewer Agent is integrated into GitHub Actions workflows. To enable:
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     script: |
-      const { run } = await import('./scripts/agents/reviewer.agent.js');
+      const { run } = await import('./.github/scripts/agents/reviewer.agent.js');
       await run(context, { dryRun: false });
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,10 +66,10 @@ The Reviewer Agent is integrated into GitHub Actions workflows. To enable:
 
 ```bash
 # Dry-run mode (safe, logs comment without posting)
-DRY_RUN=true node scripts/agents/reviewer.agent.js
+DRY_RUN=true node .github/scripts/agents/reviewer.agent.js
 
 # Apply mode (posts to PR)
-GITHUB_TOKEN=your_token node scripts/agents/reviewer.agent.js
+GITHUB_TOKEN=your_token node .github/scripts/agents/reviewer.agent.js
 ```
 
 ## Configuration

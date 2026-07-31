@@ -55,7 +55,7 @@ jobs:
           PROJECT_FILTER: ${{ inputs.project_name || '' }}
         run: |
           set -euo pipefail
-          node scripts/workflows/projects/scan-completion.cjs
+          node .github/scripts/workflows/projects/scan-completion.cjs
 
   archive-projects:
     name: Archive completed projects
@@ -81,7 +81,7 @@ jobs:
           PROJECTS_JSON: ${{ needs.scan-projects.outputs.projects_json }}
         run: |
           set -euo pipefail
-          node scripts/workflows/projects/archive-projects.cjs
+          node .github/scripts/workflows/projects/archive-projects.cjs
 
       - name: Commit archival
         if: inputs.dry_run != 'true'

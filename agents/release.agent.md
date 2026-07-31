@@ -386,7 +386,7 @@ On every new conversation:
 
 - `--scope` controls SemVer bumps: `patch` (default), `minor`, `major`.
 - Use `patch` for fixes/docs/perf tweaks; `minor` for new features/backward-compatible changes; `major` for breaking changes or required platform bumps.
-- Dry-run support for safe previews: `node scripts/agents/release.agent.js --scope=major --dry-run`.
+- Dry-run support for safe previews: `node .github/scripts/agents/release.agent.js --scope=major --dry-run`.
 
 # Release label guidance
 

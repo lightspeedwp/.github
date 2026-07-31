@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lightspeedwp.dev/schemas/memory/memory-record.schema.json",
+  "title": "Memory Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "asset_id",
+    "asset_type",
+    "key",
+    "family",
+    "value",
+    "status",
+    "confidence",
+    "source",
+    "updated_at"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "asset_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": ["agent", "skill"]
+    },
+    "key": {
+      "type": "string",
+      "minLength": 3
+    },
+    "family": {
+      "type": "string",
+      "enum": [
+        "user_defaults",
+        "project_context",
+        "decision_log",
+        "risks_blockers",
+        "execution_state",
+        "qa_gates",
+        "tool_runtime_constraints",
+        "compliance_privacy",
+        "output_preferences",
+        "handoff"
+      ]
+    },
+    "value": {},
+    "status": {
+      "type": "string",
+      "enum": ["confirmed", "assumption", "derived", "stale"]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 3
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

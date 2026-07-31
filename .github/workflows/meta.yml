@@ -80,7 +80,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD~1' }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: node scripts/validate-markdown-lint.js
+        run: node .github/scripts/validate-markdown-lint.js
 
       - name: Collect Link Targets
         id: link_targets
@@ -88,7 +88,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD~1' }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: node scripts/collect-link-targets.js >> "$GITHUB_OUTPUT"
+        run: node .github/scripts/collect-link-targets.js >> "$GITHUB_OUTPUT"
 
       - name: Check Links
         if: steps.link_targets.outputs.files != ''
@@ -117,7 +117,7 @@ jobs:
         env:
           META_SKIP_README: "true"
         run: |
-          node scripts/agents/meta.agent.js
+          node .github/scripts/agents/meta.agent.js
 
       - name: Update Metrics Snapshot
         run: |
@@ -150,4 +150,4 @@ jobs:
       - name: Open or update automation PR
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/handle-meta-agent-pr.js
+        run: node .github/scripts/handle-meta-agent-pr.js

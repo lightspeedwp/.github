@@ -61,7 +61,7 @@ src/content/
 ├── hooks/                     # From hooks/ folder
 ├── workflows/                 # From workflows/ folder
 ├── prompts/                   # From prompts/ folder
-├── tools/                     # From scripts/ + tools/ documentation
+├── tools/                     # From .github/scripts/ + tools/ documentation
 └── config.ts                  # Unified schema definitions
 ```
 
