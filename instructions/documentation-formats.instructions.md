@@ -604,7 +604,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
       - run: npm ci
-      - run: node scripts/validate-frontmatter.js
+      - run: node .github/scripts/validate-frontmatter.js
 
   check-links:
     runs-on: ubuntu-latest

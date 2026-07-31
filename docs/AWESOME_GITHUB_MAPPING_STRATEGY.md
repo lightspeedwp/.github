@@ -37,7 +37,7 @@ This document provides a **complete, actionable mapping** between:
 | **`workflows/`** | Workflow definitions | Portable agentic workflows | Workflows catalogue |
 | **`prompts/`** | Prompt library files | Reusable prompts & templates | Prompts catalogue |
 | **`.schemas/`** | Data structure definitions | Configuration schemas | Reference section |
-| **`scripts/`** | Script documentation | Utility scripts | Tools section |
+| **`.github/scripts/`** | Script documentation | Utility scripts | Tools section |
 | **`profile/`** | Profile configurations | Profile definitions | Tools section |
 | **`.github/instructions/`** | Repo-local Copilot instructions | Control-plane-specific guidance | Reference section |
 | **`docs/`** | Permanent documentation | Persistent human documentation | References, editorial |
@@ -106,7 +106,7 @@ Core categories:
 - Hooks          → /hooks/ folder
 - Workflows      → /workflows/ folder
 - Plugins        → /plugins/ folder
-- Tools/Scripts  → /scripts/ + /tools/ documentation
+- Tools/Scripts  → /.github/scripts/ + /tools/ documentation
 - Cookbook       → /cookbook/ folder
 ```
 
@@ -307,7 +307,7 @@ Core categories:
 **Route:** `/awesome-github/c/tools/` → `/awesome-github/c/tools/[slug]`
 **Content Sources:**
 
-- `scripts/` folder (utility scripts documentation)
+- `.github/scripts/` folder (utility scripts documentation)
 - `profile/` folder (profile configurations)
 - `.github/` folder (GitHub-native tools)
 

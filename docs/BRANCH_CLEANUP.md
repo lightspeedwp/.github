@@ -45,23 +45,23 @@ This document describes how to identify and safely remove stale, merged branches
 npm run cleanup:report
 
 # Full report with JSON output
-node scripts/cleanup-branches.js --reportFormat=json
+node .github/scripts/cleanup-branches.js --reportFormat=json
 
 # Custom inactivity threshold (45 days)
-node scripts/cleanup-branches.js --inactiveDays=45
+node .github/scripts/cleanup-branches.js --inactiveDays=45
 ```
 
 ### Execute Cleanup (With Safety Checks)
 
 ```bash
 # Dry run (default) — preview what would be deleted
-node scripts/cleanup-branches.js --dryRun=true
+node .github/scripts/cleanup-branches.js --dryRun=true
 
 # Actually delete remote branches (interactive)
-node scripts/cleanup-branches.js --dryRun=false
+node .github/scripts/cleanup-branches.js --dryRun=false
 
 # Also delete local tracking branches
-node scripts/cleanup-branches.js --dryRun=false --deleteLocal
+node .github/scripts/cleanup-branches.js --dryRun=false --deleteLocal
 ```
 
 ### Post-Cleanup Sync
@@ -170,25 +170,25 @@ Storage freed: ~112 MB (estimate)
 **Preserve dependabot and renovate branches:**
 
 ```bash
-node scripts/cleanup-branches.js --preserveAuthors="dependabot|renovate"
+node .github/scripts/cleanup-branches.js --preserveAuthors="dependabot|renovate"
 ```
 
 **Custom exclusion patterns:**
 
 ```bash
-node scripts/cleanup-branches.js --excludePatterns="release/.*|hotfix/.*|wip/.*"
+node .github/scripts/cleanup-branches.js --excludePatterns="release/.*|hotfix/.*|wip/.*"
 ```
 
 **45-day inactivity threshold:**
 
 ```bash
-node scripts/cleanup-branches.js --inactiveDays=45
+node .github/scripts/cleanup-branches.js --inactiveDays=45
 ```
 
 **Generate JSON report (no deletions):**
 
 ```bash
-node scripts/cleanup-branches.js --dryRun=true --reportFormat=json
+node .github/scripts/cleanup-branches.js --dryRun=true --reportFormat=json
 ```
 
 ---
@@ -204,7 +204,7 @@ node scripts/cleanup-branches.js --dryRun=true --reportFormat=json
 1. Generate report: `npm run cleanup:report`
 2. Review report in `.github/reports/stale-branches-{date}.md`
 3. Verify no critical branches are marked for deletion
-4. Execute cleanup: `node scripts/cleanup-branches.js --dryRun=false`
+4. Execute cleanup: `node .github/scripts/cleanup-branches.js --dryRun=false`
 5. Sync local repo: `git fetch origin --prune`
 
 ### Automated Cleanup (Optional)
@@ -258,7 +258,7 @@ sudo apt install gh  # Ubuntu
 gh auth login
 
 # Retry cleanup
-node scripts/cleanup-branches.js --reportFormat=markdown
+node .github/scripts/cleanup-branches.js --reportFormat=markdown
 ```
 
 ### Issue: Deletion fails for a specific branch

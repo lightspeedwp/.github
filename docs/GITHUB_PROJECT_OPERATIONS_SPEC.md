@@ -106,7 +106,7 @@ Use at least one scope label where relevant (`area:*` or `comp:*`).
 
 Template labels must remain canonical and pass:
 
-- `node scripts/agents/includes/check-template-labels.js`
+- `node .github/scripts/agents/includes/check-template-labels.js`
 
 ## Project Meta Sync Contract (Current State)
 
@@ -144,9 +144,9 @@ Verification reference: `.github/reports/audits/2026-06-07-private-project-issue
 ```bash
 npx markdownlint-cli2 "**/*.md"
 git diff --check
-node scripts/agents/includes/check-template-labels.js
-node scripts/validation/validate-labeling-configs.cjs
-node scripts/validation/validate-issue-fields.cjs
+node .github/scripts/agents/includes/check-template-labels.js
+node .github/scripts/validation/validate-labeling-configs.cjs
+node .github/scripts/validation/validate-issue-fields.cjs
 npm run validate:workflows
 ```
 

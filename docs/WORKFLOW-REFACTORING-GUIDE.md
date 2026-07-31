@@ -17,8 +17,8 @@ This document tracks the refactoring of GitHub Actions workflows to fix shell co
 2. ✅ **validate-pr-template** - Removed duplicate merge_group trigger, fixed template validation
 3. ✅ **validate-mermaid-pr** - Fully disabled (consolidated to docs-validation.yml)
 4. ✅ **metrics-reporting** - Fixed invalid cron syntax (`0 6 ** 1` → `0 6 * * 1`)
-5. ✅ **metadata-governance** - Moved shell logic to `scripts/summarize-native-type.sh`
-6. ✅ **changelog-management** - Moved shell logic to `scripts/report-changelog-action.sh`
+5. ✅ **metadata-governance** - Moved shell logic to `.github/scripts/summarize-native-type.sh`
+6. ✅ **changelog-management** - Moved shell logic to `.github/scripts/report-changelog-action.sh`
 
 **Commits:** f3e42f9ad
 
@@ -37,7 +37,7 @@ This document tracks the refactoring of GitHub Actions workflows to fix shell co
     EVENT_NAME: ${{ github.event_name }}
     BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
     HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-  run: node scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
+  run: node .github/scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
 ```
 
 **Lines 84-96: Check for Mermaid diagrams**
@@ -50,7 +50,7 @@ This document tracks the refactoring of GitHub Actions workflows to fix shell co
   if: steps.changed.outputs.has_changes == 'true'
   env:
     CHANGED_FILES: ${{ steps.changed.outputs.files }}
-  run: bash scripts/check-mermaid-diagrams.sh
+  run: bash .github/scripts/check-mermaid-diagrams.sh
 ```
 
 **Lines 124-140: Collect results**
@@ -65,36 +65,36 @@ This document tracks the refactoring of GitHub Actions workflows to fix shell co
     SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
     A11Y_OUTCOME: ${{ steps.accessibility.outcome }}
     CONTRAST_OUTCOME: ${{ steps.contrast.outcome }}
-  run: node scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
+  run: node .github/scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
 ```
 
 #### 2. **documentation.yml** ✅ (2 steps)
 
-**Step: Check validation outcomes** → `scripts/collect-validation-results.js`
-**Step: Generate audit report** → `scripts/generate-doc-audit-report.js`
+**Step: Check validation outcomes** → `.github/scripts/collect-validation-results.js`
+**Step: Generate audit report** → `.github/scripts/generate-doc-audit-report.js`
 
 **Commits:** ed68bf312
 
 #### 3. **meta.yml** ✅ (2 steps)
 
-**Step: Open or update automation PR** → `scripts/handle-meta-agent-pr.js`  
-**Step: Lint changed Markdown** → `scripts/validate-markdown-lint.js`
+**Step: Open or update automation PR** → `.github/scripts/handle-meta-agent-pr.js`  
+**Step: Lint changed Markdown** → `.github/scripts/validate-markdown-lint.js`
 
 **Commits:** ed68bf312, d34280e94 (ES module syntax fix)
 
 #### 4. **docs-validation.yml** ✅ (3 steps)
 
-**Step: Identify changed Markdown files** → `scripts/identify-changed-markdown.js`  
-**Step: Check for Mermaid diagrams** → `scripts/check-mermaid-diagrams.sh`  
-**Step: Collect results** → `scripts/collect-validation-results.js`  
+**Step: Identify changed Markdown files** → `.github/scripts/identify-changed-markdown.js`  
+**Step: Check for Mermaid diagrams** → `.github/scripts/check-mermaid-diagrams.sh`  
+**Step: Collect results** → `.github/scripts/collect-validation-results.js`  
 **Early exit logic** → Added early exit when no markdown changes
 
 **Commits:** ed68bf312, 21874dc3d
 
 #### 5. **metrics-pipeline.yml** ✅ (2 steps)
 
-**Step: Validate report structure** → `scripts/validate-reports-structure.js`  
-**Step: Check for uppercase filenames** → `scripts/validate-reports-structure.js`
+**Step: Validate report structure** → `.github/scripts/validate-reports-structure.js`  
+**Step: Check for uppercase filenames** → `.github/scripts/validate-reports-structure.js`
 
 **Commits:** ed68bf312
 
@@ -132,7 +132,7 @@ run: |
 **After (✅ Valid):**
 
 ```yaml
-run: node scripts/my-helper.js
+run: node .github/scripts/my-helper.js
 env:
   EVENT_NAME: ${{ github.event_name }}
 ```
@@ -142,15 +142,15 @@ env:
 1. **Always use environment variables** - Never pass complex values as command-line arguments
 2. **Use execFileSync** - In Node.js scripts, prefer execFileSync over execSync for safety
 3. **One script per workflow operation** - Keep scripts focused and testable
-4. **Add tests** - Every helper script should have tests in `scripts/__tests__/`
+4. **Add tests** - Every helper script should have tests in `.github/scripts/__tests__/`
 5. **Document the purpose** - Add comments explaining what the script does
 
 ## Testing
 
-All helper scripts have tests in `scripts/__tests__/workflow-helpers.test.js`:
+All helper scripts have tests in `.github/scripts/__tests__/workflow-helpers.test.js`:
 
 ```bash
-npm test -- scripts/__tests__/workflow-helpers.test.js
+npm test -- .github/scripts/__tests__/workflow-helpers.test.js
 ```
 
 ## Project Tracking
@@ -184,5 +184,5 @@ npm test -- scripts/__tests__/workflow-helpers.test.js
 
 - [GitHub Actions Limitations](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun)
 - [Using Node.js safely in workflows](https://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback)
-- [Workflow validation script](../scripts/validation/validate-workflows.js)
+- [Workflow validation script](../.github/scripts/validation/validate-workflows.js)
 - [CODEOWNERS configuration guide](../CODEOWNERS)
