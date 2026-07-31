@@ -3,40 +3,12 @@ name: CI • Unified Checks (Lint, Test, Validate)
 on:
   pull_request:
     branches: [develop]
-    paths:
-      - "agents/**"
-      - "skills/**"
-      - "hooks/**"
-      - "workflows/**"
-      - "instructions/**"
-      - "plugins/**"
-      - ".github/**"
-      - ".github/scripts/**"
-      - "cookbook/**"
-      - "package.json"
-      - "package-lock.json"
-      - ".nvmrc"
-      - "*.md"
     paths-ignore:
       - ".github/reports/**"
       - ".github/projects/**"
       - ".github/tmp/**"
   push:
     branches: [develop]
-    paths:
-      - "agents/**"
-      - "skills/**"
-      - "hooks/**"
-      - "workflows/**"
-      - "instructions/**"
-      - "plugins/**"
-      - ".github/**"
-      - ".github/scripts/**"
-      - "cookbook/**"
-      - "package.json"
-      - "package-lock.json"
-      - ".nvmrc"
-      - "*.md"
     paths-ignore:
       - ".github/reports/**"
       - ".github/projects/**"
