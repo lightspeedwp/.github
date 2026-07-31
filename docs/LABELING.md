@@ -288,7 +288,7 @@ Discussion labels organize community conversations by topic, making it easy for 
 
 ### Unified Labelling Agent
 
-All labelling, status enforcement, type assignment, and standardisation are handled by the **unified labelling agent** (`scripts/agents/labeling.agent.js`) and **labelling workflow** (`.github/workflows/labeling.yml`).
+All labelling, status enforcement, type assignment, and standardisation are handled by the **unified labelling agent** (`.github/scripts/agents/labeling.agent.js`) and **labelling workflow** (`.github/workflows/labeling.yml`).
 
 **How it works:**
 
@@ -305,7 +305,7 @@ All labelling, status enforcement, type assignment, and standardisation are hand
 
 ### Agent Utilities
 
-The agent orchestrates reusable utility modules in `scripts/agents/includes/`:
+The agent orchestrates reusable utility modules in `.github/scripts/agents/includes/`:
 
 | Utility | Responsibility |
 | --- | --- |
@@ -346,7 +346,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 
 - Check `.github/labels.yml` for missing/typo entries
 - Verify branch prefix or file pattern matches in `.github/labeler.yml`
-- Run `node scripts/agents/includes/check-template-labels.js` to validate issue/PR templates
+- Run `node .github/scripts/agents/includes/check-template-labels.js` to validate issue/PR templates
 
 **Label not applied as expected?**
 
@@ -376,7 +376,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)
 - [Labelling Workflow](../.github/workflows/labeling.yml)
-- [Labelling Agent](../scripts/agents/labeling.agent.js)
+- [Labelling Agent](../.github/scripts/agents/labeling.agent.js)
 - [Issue Creation Standards](../instructions/issues.instructions.md)
 - [PR Creation Standards](../instructions/pull-requests.instructions.md)
 

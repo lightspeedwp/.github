@@ -1,0 +1,112 @@
+---
+---
+
+<section class="hp-final-cta" data-screen-label="06 Final CTA">
+  <div class="wrap hp-final-cta-wrap">
+    <h2 class="hp-h2 hp-final-cta-h2">
+      Ready to move from patchwork to a clearer platform?
+    </h2>
+    <p class="hp-final-cta-lead">
+      If the website is commercially important and the current setup is creating friction, LightSpeed can help you define the smartest next step. If you still need internal alignment first, start with the AI Readiness Checklist.
+    </p>
+
+    <div class="hp-final-cta-buttons">
+      <a href="#contact" class="hp-final-cta-primary">
+        Book your consultation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+      <a href="#" class="hp-final-cta-ghost">
+        AI Readiness Checklist
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hp-final-cta {
+    background: #1e6aff;
+    padding: clamp(64px, 9vw, 96px) 0;
+  }
+
+  .hp-final-cta-wrap {
+    max-width: 680px;
+    text-align: center;
+  }
+
+  .hp-final-cta-h2 {
+    color: #ffffff;
+    text-wrap: balance;
+    margin-bottom: 18px;
+  }
+
+  .hp-final-cta-lead {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0 0 36px;
+    text-wrap: pretty;
+  }
+
+  .hp-final-cta-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hp-final-cta-primary,
+  .hp-final-cta-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: var(--weight-extrabold);
+    font-size: 15px;
+    padding: 14px 26px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+
+  .hp-final-cta-primary {
+    background: #ffffff;
+    color: #1e6aff;
+    border: 1px solid #ffffff;
+  }
+
+  .hp-final-cta-primary:hover {
+    transform: translateY(-2px);
+  }
+
+  .hp-final-cta-primary svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hp-final-cta-ghost {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .hp-final-cta-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  @media (max-width: 480px) {
+    .hp-final-cta-buttons {
+      flex-direction: column;
+    }
+
+    .hp-final-cta-primary,
+    .hp-final-cta-ghost {
+      width: 100%;
+    }
+  }
+</style>

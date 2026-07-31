@@ -56,7 +56,7 @@ The changelog automation system:
 **Update (2026-07-30):** The changelog automation workflows were refactored in Phase 4 to use helper scripts instead of multiline shell logic. The changelog-management.yml workflow now uses:
 
 - `report-changelog-action.sh` — Safely report changelog merge action status
-- `scripts/agents/changelog.agent.js` — Changelog validation and management
+- `.github/scripts/agents/changelog.agent.js` — Changelog validation and management
 
 These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
@@ -256,7 +256,7 @@ Developer commits CHANGELOG.md update
 PR created (changelog-validate.yml triggered)
          ↓
 ┌─ Validation Step 1: Format Check
-│  └─ scripts/validation/changelog-rules.cjs
+│  └─ .github/scripts/validation/changelog-rules.cjs
 │     • Title <60 chars
 │     • Description <150 chars
 │     • PR link required
@@ -266,14 +266,14 @@ PR created (changelog-validate.yml triggered)
 │     ↓ (PASS/FAIL)
 │
 ├─ Validation Step 2: Integration Tests
-│  └─ scripts/workflows/changelog/merge-entries.integration.test.cjs
+│  └─ .github/scripts/workflows/changelog/merge-entries.integration.test.cjs
 │     • Section headers preserved
 │     • No duplicate entries
 │     • Entry format consistency
 │     ↓ (PASS/FAIL)
 │
 ├─ Validation Step 3: Schema Compliance
-│  └─ scripts/validation/validate-changelog.cjs
+│  └─ .github/scripts/validation/validate-changelog.cjs
 │     • Conforms to changelog.schema.json
 │     • Required sections present
 │     • Proper YAML frontmatter
@@ -461,7 +461,7 @@ npm run lint:all
 
 ### Release Agent Changelog Handling
 
-**File:** `scripts/agents/release.agent.js`
+**File:** `.github/scripts/agents/release.agent.js`
 
 **Operations:**
 
@@ -665,11 +665,11 @@ npm run validate:changelog
 
 ### Automation Scripts
 
-- `scripts/validation/changelog-rules.cjs` — Format validation (7 rules)
-- `scripts/workflows/changelog/merge-entries.cjs` — Merge & deduplicate entries
-- `scripts/workflows/changelog/merge-entries.integration.test.cjs` — Merge validation tests
-- `scripts/validation/validate-changelog.cjs` — Schema compliance
-- `scripts/agents/release.agent.js` — Release automation
+- `.github/scripts/validation/changelog-rules.cjs` — Format validation (7 rules)
+- `.github/scripts/workflows/changelog/merge-entries.cjs` — Merge & deduplicate entries
+- `.github/scripts/workflows/changelog/merge-entries.integration.test.cjs` — Merge validation tests
+- `.github/scripts/validation/validate-changelog.cjs` — Schema compliance
+- `.github/scripts/agents/release.agent.js` — Release automation
 
 ### Workflow Files
 
@@ -718,16 +718,16 @@ npm run validate:changelog
 
 ```bash
 # Patch release (default)
-node scripts/agents/release.agent.js
+node .github/scripts/agents/release.agent.js
 
 # Minor release
-node scripts/agents/release.agent.js --scope=minor
+node .github/scripts/agents/release.agent.js --scope=minor
 
 # Major release
-node scripts/agents/release.agent.js --scope=major
+node .github/scripts/agents/release.agent.js --scope=major
 
 # Dry run (preview only, no commits/tags)
-node scripts/agents/release.agent.js --scope=minor --dry-run
+node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 ```
 
 ---

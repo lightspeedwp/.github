@@ -51,7 +51,7 @@ The system is **config-driven** and **automation-friendly**, allowing the unifie
 | `issue-template` | Issue Templates | Contributors | `.github/ISSUE_TEMPLATE/*.md` | Optional | Optional | `issue-footer` |
 | `pull-request-template` | Pull Request Templates | Contributors | `.github/PULL_REQUEST_TEMPLATE/*.md` | Optional | Optional | `pr-footer` |
 | `test` | Test Documentation | QA, developers | `test/**/*.md`, `*test*.md`, `**/*-test.md` | Optional | Optional | `lightspeed-standard` |
-| `utility` | Utility Documentation | DevOps, automation engineers | `scripts/**/*.md`, `utils/**/*.md`, `*.utility.md` | Optional | Optional | `utility-footer` |
+| `utility` | Utility Documentation | DevOps, automation engineers | `.github/scripts/**/*.md`, `utils/**/*.md`, `*.utility.md` | Optional | Optional | `utility-footer` |
 | `awesome-copilot` | Awesome Copilot | Copilot users, extension developers | `awesome-copilot/**/*.md` | Required | Required | `copilot-footer` |
 | `governance` | Governance & Policy | Maintainers, decision makers | `governance/**/*.md`, `docs/**/*governance*.md` | Required | Required | `governance-footer` |
 
@@ -184,7 +184,7 @@ Patterns are evaluated in this order; first match wins:
 | 9 | `.github/reports/**/*.md` or `*audit*.md` | `audit` |
 | 10 | `*research*.md` or `research/**/*.md` | `research` |
 | 11 | `test/**/*.md` or `*test*.md` | `test` |
-| 12 | `scripts/**/*.md` or `utils/**/*.md` or `*.utility.md` | `utility` |
+| 12 | `.github/scripts/**/*.md` or `utils/**/*.md` or `*.utility.md` | `utility` |
 | 13 | `docs/**/*governance*.md` or `governance/**/*.md` | `governance` |
 | 14 | `docs/**/*automation*.md` or `docs/**/*ai-ops*.md` | `ai-ops` |
 | 15 | `docs/**/*.md` | `docs` |
