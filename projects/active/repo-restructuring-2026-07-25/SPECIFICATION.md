@@ -589,6 +589,17 @@ Before proceeding to implementation, please confirm:
 
 ---
 
+## 10. References & Related Documents
+
+- **[DECISIONS_FRAMEWORK-50-QUESTIONS.md](./DECISIONS_FRAMEWORK-50-QUESTIONS.md)** — The 50-question framework that informed all decisions in this specification
+- **[PREFLIGHT_CHECKLIST.md](./PREFLIGHT_CHECKLIST.md)** — Phase 0 readiness checklist before Phase 1 implementation
+- **[CLAUDE.md](../../CLAUDE.md)** — Repository instructions and governance
+- **[docs/BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md)** — Branch naming and PR process
+- **[AGENTS.md](../../AGENTS.md)** — AI governance and standards
+
+---
+
 **Created by:** Claude Code  
 **Status:** Draft (awaiting user review)  
-**Last Updated:** 2026-07-31
+**Last Updated:** 2026-07-31  
+**Decision Framework:** See [DECISIONS_FRAMEWORK-50-QUESTIONS.md](./DECISIONS_FRAMEWORK-50-QUESTIONS.md)
