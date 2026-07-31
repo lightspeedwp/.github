@@ -3,7 +3,7 @@ title: Agent Includes Directory
 description: Shared utility modules for LightSpeedWP automation agents
 version: '1.3'
 last_updated: '2026-06-03'
-file_type: documentation
+file_type: "documentation"
 ---
 
 # Agent Includes Directory

@@ -1,5 +1,5 @@
 ---
-file_type: 'documentation'
+file_type: "documentation"
 title: 'Agent Test Suite'
 description: 'Comprehensive Jest tests for all LightSpeed agents'
 version: 'v1.1'
