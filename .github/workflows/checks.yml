@@ -17,10 +17,6 @@ on:
       - "package-lock.json"
       - ".nvmrc"
       - "*.md"
-    paths-ignore:
-      - ".github/reports/**"
-      - ".github/projects/**"
-      - ".github/tmp/**"
   push:
     branches: [develop]
     paths:
@@ -37,10 +33,6 @@ on:
       - "package-lock.json"
       - ".nvmrc"
       - "*.md"
-    paths-ignore:
-      - ".github/reports/**"
-      - ".github/projects/**"
-      - ".github/tmp/**"
   merge_group:
     types: [checks_requested]
 
