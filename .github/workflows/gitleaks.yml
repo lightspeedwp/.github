@@ -9,6 +9,6 @@ on:
         default: false
 jobs:
   scan:
-    uses: lightspeedwp/.github/.github/workflows/gitleaks-reusable.yml@develop
+    uses: ./.github/workflows/gitleaks-reusable.yml
     with:
       full-history: ${{ github.event_name == 'workflow_dispatch' && inputs.full-history || false }}
