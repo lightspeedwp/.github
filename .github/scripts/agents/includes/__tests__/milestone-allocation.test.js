@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 const {
-  readConfig,
   getMilestoneForIssue,
   getProjectForIssue,
   checkMilestoneCapacity,

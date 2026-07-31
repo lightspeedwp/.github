@@ -57,26 +57,6 @@ function loadBrandingConfig() {
   }
 }
 
-/**
- * Load frontmatter schema
- */
-function loadFrontmatterSchema() {
-  const projectRoot = getProjectRoot();
-  const schemaPath = path.join(projectRoot, ".schemas/frontmatter.schema.json");
-  if (!fs.existsSync(schemaPath)) {
-    console.warn(`Frontmatter schema not found: ${schemaPath}`);
-    return null;
-  }
-
-  try {
-    const content = fs.readFileSync(schemaPath, "utf-8");
-    return JSON.parse(content);
-  } catch (error) {
-    console.warn(`Failed to load frontmatter schema: ${error.message}`);
-    return null;
-  }
-}
-
 // ============================================================================
 // FRONTMATTER PARSING
 // ============================================================================
@@ -466,7 +446,6 @@ function processBrandingDocument(filePath, options = {}) {
   const {
     dry_run = true,
     apply = false,
-    verbose = false,
     infer_missing_metadata = false,
   } = options;
 
@@ -532,10 +511,6 @@ function processBrandingDocument(filePath, options = {}) {
     if (categoryConfig.header_behavior !== "omitted") {
       const header = generateHeader(frontmatter, category, config);
       if (header) {
-        // Remove old header if exists
-        const headerRegex = /^# .*\n\n---\n/m;
-        content = content.replace(headerRegex, "");
-
         // Reconstruct content with new header
         const frontmatterBlock = `---\n${raw_frontmatter}\n---\n`;
         content = frontmatterBlock + header + body;

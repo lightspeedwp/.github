@@ -17,7 +17,6 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 const fs = require("fs");
-const path = require("path");
 
 /**
  * Parse a Keep a Changelog formatted CHANGELOG.md file

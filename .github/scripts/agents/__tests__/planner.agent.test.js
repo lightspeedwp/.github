@@ -3,12 +3,9 @@
  * @see ../planner.agent.js
  */
 
-const path = require("path");
-
 function createPlannerHarness(options = {}) {
   const {
     tokenInput = "",
-    envToken = "test-token",
     contextPayload = {
       issue: { number: 42, title: "Implement feature", body: "Links #100" },
     },
