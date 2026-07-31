@@ -60,9 +60,10 @@ You're starting Phase 3 of the Wave 5 Documentation Audit initiative. This phase
 
 **Batch 1 (Critical):** Ready to execute
 
-- **Files:** batch-1-issue-*.md files in root directory
+- **Location:** `.github/projects/active/wave-5-documentation-audit/batch-1-execution/`
+- **Files:** batch-1-issue-*.md files
 - **Script:** execute-batch-1-rewrites.sh
-- **Guide:** BATCH-1-EXECUTION-SUMMARY.md
+- **Guide:** [../BATCH-1-EXECUTION-SUMMARY.md](../BATCH-1-EXECUTION-SUMMARY.md)
 - **Timeline:** 2026-08-04 (review) → 2026-08-05 (execute)
 
 **Batches 2-4:** Specifications ready in GITHUB_ISSUES_REWRITE_PLAN.md
@@ -86,12 +87,14 @@ You're starting Phase 3 of the Wave 5 Documentation Audit initiative. This phase
 
 **Monday 8/4:**
 
+- [ ] Navigate to: `cd .github/projects/active/wave-5-documentation-audit/batch-1-execution/`
 - [ ] Run dry-run: `bash execute-batch-1-rewrites.sh --dry-run`
 - [ ] Review output with team
 - [ ] Get final approval for execution
 
 **Tuesday 8/5:**
 
+- [ ] Navigate to: `cd .github/projects/active/wave-5-documentation-audit/batch-1-execution/`
 - [ ] Execute Batch 1: `bash execute-batch-1-rewrites.sh --execute`
 - [ ] Verify issues #904, #916-920 updated in GitHub
 - [ ] Confirm cross-references and parent-child links
