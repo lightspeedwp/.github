@@ -95,16 +95,14 @@ Rewrites 5 critical GitHub issues (#904, #916-920) to align with Phase 3B Docume
 
 1. GitHub CLI (`gh`) is installed and authenticated
 2. You have write access to `lightspeedwp/.github` repository
-3. All issue body files are in the current directory:
-   - `batch-1-issue-904-new-body.md`
-   - `batch-1-issue-916-new-body.md`
-   - `batch-1-issue-917-new-body.md`
-   - `batch-1-issue-918-new-body.md`
-   - `batch-1-issue-920-new-body.md`
+3. Navigate to the execution directory: `.github/projects/active/wave-5-documentation-audit/batch-1-execution/`
 
 ### Step 1: Review (DRY RUN)
 
 ```bash
+# Navigate to the execution directory
+cd .github/projects/active/wave-5-documentation-audit/batch-1-execution/
+
 # See what will be updated without making changes
 bash execute-batch-1-rewrites.sh --dry-run
 ```
@@ -203,7 +201,7 @@ After Batch 1 is complete:
 1. **Commit History:** Create commit documenting the issue rewrites
 
    ```bash
-   git add batch-1-issue-*-new-body.md execute-batch-1-rewrites.sh
+   git add .github/projects/active/wave-5-documentation-audit/batch-1-execution/
    git commit -m "docs(wave-5): execute Batch 1 issue rewrites for Phase 3 alignment"
    ```
 
