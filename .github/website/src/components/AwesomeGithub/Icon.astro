@@ -1,0 +1,35 @@
+---
+import { getIconSvg } from "../../lib/icons";
+import { getPhosphorSvg } from "../../lib/phosphor";
+import type { PhosphorWeight } from "../../lib/phosphor";
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  /** Phosphor icon weight — only used when name starts with "ph:" */
+  weight?: PhosphorWeight;
+}
+
+const { name, size = 24, class: className, weight = "regular" } = Astro.props;
+
+const svgContent = name.startsWith("ph:")
+  ? getPhosphorSvg(name.slice(3), weight, size)
+  : getIconSvg(name, size);
+---
+
+<span class:list={["ag-icon", className]} aria-hidden="true" set:html={svgContent} />
+
+<style>
+  .ag-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .ag-icon svg {
+    display: block;
+  }
+</style>

@@ -102,9 +102,9 @@ sequenceDiagram
 
 ## Recommended Validation Hooks
 
-- `scripts/validation/validate-issue-fields.cjs` enforces strict cross-file parity for `Status`, `Priority`, and `Type` mappings.
-- `scripts/validation/validate-labeling-configs.cjs` fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
-- `scripts/validation/validate-branch-name.js` enforces branch naming discipline for pull requests targeting `develop`.
+- `.github/scripts/validation/validate-issue-fields.cjs` enforces strict cross-file parity for `Status`, `Priority`, and `Type` mappings.
+- `.github/scripts/validation/validate-labeling-configs.cjs` fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
+- `.github/scripts/validation/validate-branch-name.js` enforces branch naming discipline for pull requests targeting `develop`.
 - Run parity checks in CI on every PR touching any canonical config file.
 
 ## Related Documentation

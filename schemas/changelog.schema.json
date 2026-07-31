@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lightspeedwp.com/schemas/changelog.schema.json",
+  "title": "Changelog Schema",
+  "description": "JSON schema for validating Keep a Changelog format CHANGELOG.md files",
+  "type": "object",
+  "properties": {
+    "releases": {
+      "type": "array",
+      "description": "List of all releases in the changelog",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^(Unreleased|\\d+\\.\\d+\\.\\d+(?:-[a-zA-Z0-9.-]+)?)$",
+            "description": "Version number or 'Unreleased'",
+            "examples": ["Unreleased", "1.0.0", "0.1.0", "2.1.3-alpha"]
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^(\\d{4}-\\d{2}-\\d{2}|DD-MM-YYYY|YYYY-MM-DD)$",
+            "description": "Release date in YYYY-MM-DD format or placeholder",
+            "examples": ["2025-11-17", "DD-MM-YYYY", "YYYY-MM-DD"]
+          },
+          "sections": {
+            "type": "object",
+            "description": "Changelog sections following Keep a Changelog format",
+            "properties": {
+              "added": {
+                "type": "array",
+                "description": "New features added",
+                "items": { "type": "string" }
+              },
+              "changed": {
+                "type": "array",
+                "description": "Changes in existing functionality",
+                "items": { "type": "string" }
+              },
+              "deprecated": {
+                "type": "array",
+                "description": "Soon-to-be removed features",
+                "items": { "type": "string" }
+              },
+              "removed": {
+                "type": "array",
+                "description": "Removed features",
+                "items": { "type": "string" }
+              },
+              "fixed": {
+                "type": "array",
+                "description": "Bug fixes",
+                "items": { "type": "string" }
+              },
+              "security": {
+                "type": "array",
+                "description": "Security fixes and improvements",
+                "items": { "type": "string" }
+              },
+              "documentation": {
+                "type": "array",
+                "description": "Documentation changes",
+                "items": { "type": "string" }
+              },
+              "performance": {
+                "type": "array",
+                "description": "Performance improvements",
+                "items": { "type": "string" }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": ["version", "date"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "format": {
+      "type": "string",
+      "enum": ["keepachangelog"],
+      "description": "Changelog format standard"
+    },
+    "semver": {
+      "type": "boolean",
+      "description": "Whether the project follows Semantic Versioning"
+    }
+  },
+  "required": ["releases"],
+  "additionalProperties": true
+}

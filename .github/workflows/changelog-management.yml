@@ -103,8 +103,8 @@ jobs:
       - name: Validate changelog schema
         if: steps.gate.outputs.run_validation == 'true'
         run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
 
   # Job 2: Sync changelog on merge to develop
 
@@ -156,12 +156,12 @@ jobs:
           CHANGELOG_PATH: CHANGELOG.md
         run: |
           set -euo pipefail
-          node scripts/workflows/changelog/extract-pr-entries.cjs
+          node .github/scripts/workflows/changelog/extract-pr-entries.cjs
 
       - name: Validate extracted entries
         if: steps.extract.outputs.has_entries == 'true'
         run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
 
       - name: Merge changelog entries
         if: steps.extract.outputs.has_entries == 'true'
@@ -170,12 +170,12 @@ jobs:
           CHANGELOG_PATH: CHANGELOG.md
         run: |
           set -euo pipefail
-          node scripts/workflows/changelog/merge-entries.cjs
+          node .github/scripts/workflows/changelog/merge-entries.cjs
 
       - name: Validate final changelog schema
         if: steps.extract.outputs.has_entries == 'true'
         run: |
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
 
       - name: Commit changelog update
         if: steps.extract.outputs.has_entries == 'true'
@@ -215,8 +215,8 @@ jobs:
 
       - name: Validate changelog for release
         run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
 
       - name: Check for unreleased section
         run: |
