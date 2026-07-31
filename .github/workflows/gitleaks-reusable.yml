@@ -1,0 +1,23 @@
+name: gitleaks (reusable)
+on:
+  workflow_call:
+    inputs:
+      full-history:
+        type: boolean
+        default: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ inputs.full-history && '0' || '1' }}
+      - name: Scan for secrets
+        run: |
+          GITLEAKS_VERSION=$(curl -sS https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep -Po '"tag_name": *"v\K[^"]+')
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
+          if [ "${{ inputs.full-history }}" = "true" ]; then
+            ./gitleaks detect --config .gitleaks.toml --redact -v
+          else
+            ./gitleaks detect --no-git --source . --config .gitleaks.toml --redact -v
+          fi
