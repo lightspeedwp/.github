@@ -13,6 +13,14 @@ on:
         description: Scan the full git history instead of the working tree.
         type: boolean
         default: false
+      runner:
+        description: >-
+          JSON runner selection for the scan job. Either a JSON string such as
+          '"ubuntu-latest"' or a JSON array such as
+          '["self-hosted","linux","x64","dependency-ci"]'. Defaults to the
+          GitHub-hosted runner so existing callers are unaffected.
+        type: string
+        default: '"ubuntu-latest"'
 
 permissions:
   contents: read
@@ -20,7 +28,7 @@ permissions:
 jobs:
   scan:
     name: Scan for secrets
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(inputs.runner) }}
     timeout-minutes: 15
     permissions:
       contents: read
