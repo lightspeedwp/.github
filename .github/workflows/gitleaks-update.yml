@@ -29,6 +29,19 @@ jobs:
         with:
           app-id: ${{ vars.DEP_MERGE_APP_ID }}
           private-key: ${{ secrets.DEP_MERGE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: .github
+          # Least privilege, each justified against what this job actually does:
+          #   contents      : push the deps/gitleaks-* branch
+          #   pull-requests : open the update pull request
+          #   workflows     : the diff edits .github/workflows/gitleaks-reusable.yml,
+          #                   and a push touching a workflow file is rejected without
+          #                   this scope. GITHUB_TOKEN cannot be used for the same
+          #                   reason, which is why an App token is required here.
+          # metadata is granted implicitly and is read-only.
+          permission-contents: write
+          permission-pull-requests: write
+          permission-workflows: write
 
       - name: Check out
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -108,10 +121,24 @@ jobs:
           branch="deps/gitleaks-${NEW_VERSION}"
           git config user.name "lightspeed-dependency-bot[bot]"
           git config user.email "lightspeed-dependency-bot[bot]@users.noreply.github.com"
-          git checkout -b "${branch}"
+
+          # Idempotent across repeated scheduled runs. Four states are possible:
+          # no branch and no PR; an open PR for this version; a branch with no PR;
+          # and a stale branch whose content differs. All converge on "branch
+          # matches the current pin, exactly one open PR".
+          git checkout -B "${branch}"
           git add .github/workflows/gitleaks-reusable.yml
-          git commit -m "build(deps): bump gitleaks from ${CURRENT} to ${NEW_VERSION}"
-          git push -u origin "${branch}"
+          if git diff --cached --quiet; then
+            echo "Working tree already matches the target pin; nothing to commit."
+          else
+            git commit -m "build(deps): bump gitleaks from ${CURRENT} to ${NEW_VERSION}"
+          fi
+          # force-with-lease so a stale remote branch is refreshed, but a branch
+          # someone else advanced is never silently discarded.
+          if ! git push --force-with-lease -u origin "${branch}"; then
+            echo "Remote branch ${branch} moved unexpectedly; refusing to overwrite." >&2
+            exit 1
+          fi
           body="$(mktemp)"
           {
             echo "Automated gitleaks pin update."
@@ -123,7 +150,12 @@ jobs:
             echo
             echo "Release notes: https://github.com/gitleaks/gitleaks/releases/tag/v${NEW_VERSION}"
           } > "${body}"
-          gh pr create --base develop --head "${branch}" \
-            --title "build(deps): bump gitleaks from ${CURRENT} to ${NEW_VERSION}" \
-            --body-file "${body}"
+          existing="$(gh pr list --head "${branch}" --state open --json number --jq '.[0].number // empty')"
+          if [ -n "${existing}" ]; then
+            echo "PR #${existing} is already open for ${branch}; head refreshed in place."
+          else
+            gh pr create --base develop --head "${branch}" \
+              --title "build(deps): bump gitleaks from ${CURRENT} to ${NEW_VERSION}" \
+              --body-file "${body}"
+          fi
           rm -f "${body}"
