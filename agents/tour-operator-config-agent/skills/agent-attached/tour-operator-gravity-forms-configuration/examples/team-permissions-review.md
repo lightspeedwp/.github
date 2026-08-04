@@ -16,3 +16,7 @@ Review whether our support and content teams have appropriate Gravity Forms acce
 ## Output
 
 Use `templates/permissions-review.md`.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -183,3 +183,7 @@ npm test -- hooks/ --coverage
 - **Hook Registry:** `.github/hooks/hook-registry.json`
 - **Hook Docs:** `.github/hooks/{hook-name}/README.md`
 - **Examples:** `.github/hooks/agent-spec-validator/`
+
+---
+
+*🎼 Orchestrated automation — where intelligence meets operations*

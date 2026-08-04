@@ -27,3 +27,7 @@ Expected:
 
 - Inspect meta robots, sitemap status and canonical output.
 - Classify accidental indexation as a launch risk if confirmed.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

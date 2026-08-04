@@ -14,3 +14,7 @@ Use this when current details may have changed.
 ## Response rule
 
 If current verification was not possible, state the limitation and keep recommendations at planning level.
+
+---
+
+*🧭 Your compass through the documentation landscape*

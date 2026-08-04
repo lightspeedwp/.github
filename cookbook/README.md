@@ -80,3 +80,5 @@ See [cookbook.yml](./cookbook.yml) for metadata about all recipes, including ver
 ---
 
 ---
+
+*🧭 Your compass through the documentation landscape*

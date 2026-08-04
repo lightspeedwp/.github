@@ -47,3 +47,7 @@ Summarise lean v1 and fuller v2 structure.
 
 | Page title | URL | Accessed date | Source type | Key facts | Relevance | Limitations | Duplicate status | Confidence |
 |---|---|---|---|---|---|---|---|---|
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

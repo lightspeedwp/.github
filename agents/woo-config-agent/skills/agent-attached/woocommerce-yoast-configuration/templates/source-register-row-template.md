@@ -18,3 +18,7 @@ Use this template when adding or refreshing a source-register row.
 - Limitations include version sensitivity, UI volatility, product packaging caveats or Google/Search eligibility caveats.
 - Verification status matches the evidence state model.
 - Accessed date is only filled after a real scan.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

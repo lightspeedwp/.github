@@ -22,3 +22,7 @@ Route custom plugin code, legal policy wording, whole-site accessibility/perform
 ## Client-safe boundary
 
 Do not expose connector internals, raw logs, private entries, licence/API keys, or internal owner notes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

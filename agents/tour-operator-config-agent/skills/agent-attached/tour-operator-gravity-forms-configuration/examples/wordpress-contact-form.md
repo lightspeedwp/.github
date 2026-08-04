@@ -8,3 +8,7 @@ Use for a general website contact page. Keep it short and accessible.
 - Spam: honeypot or layered protection; Turnstile only if add-on/keys confirmed.
 - Embed: Gravity Forms block on Contact page where available.
 - Test: submit realistic test data, verify confirmation, admin email, entry, and mobile/keyboard basics.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

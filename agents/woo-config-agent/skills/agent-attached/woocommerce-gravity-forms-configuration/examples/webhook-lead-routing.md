@@ -29,3 +29,7 @@ Send approved, minimised form data to a staging or production endpoint after sub
 - Do not send uploaded files, IP addresses, hidden admin notes, or secrets unless explicitly approved.
 - Redact headers and tokens in all outputs.
 - Confirm external-system receipt before declaring success.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

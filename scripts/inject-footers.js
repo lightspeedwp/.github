@@ -42,7 +42,7 @@ const CONFIG = {
   backupDir: path.join(__dirname, '../.github/tmp/footer-backups'),
   reportDir: path.join(__dirname, '../.github/reports'),
 
-  // Exclude patterns (from FOOTER_VALIDATION_AUDIT.md)
+  // Exclude patterns (from FOOTER_VALIDATION_AUDIT.md + quirky-footers.yaml)
   excludePatterns: [
     '**/node_modules/**',
     '**/.git/**',
@@ -67,6 +67,11 @@ const CONFIG = {
     '**/completed/**',
     '**/deprecated/**',
     '**/legacy/**',
+    // Vendor/plugin paths that shouldn't have footers
+    '**/plugin-provided/**',
+    '**/platform-managed/**',
+    '**/directory-installed/**',
+    '**/agentskills-main/**',
   ],
 };
 
@@ -83,10 +88,10 @@ const PATH_CATEGORY_MAP = {
   'scripts/': 'ai-ops',
   'schemas/': 'schema',
   '.github/instructions/': 'instructions',
-  'workflows/': 'workflow',
+  'workflows/': 'ai-ops',
   'cookbook/': 'docs',
   'plugins/': 'ai-ops',
-  'prompts/': 'prompts',
+  'prompts/': 'ai-ops',
 };
 
 // ============================================================================

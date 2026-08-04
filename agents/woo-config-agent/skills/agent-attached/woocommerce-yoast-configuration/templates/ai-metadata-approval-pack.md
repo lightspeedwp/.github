@@ -49,3 +49,7 @@ List any site-wide template, archive, product, AI-assisted metadata policy or cl
 ## Client-safe note
 
 Use cautious language: these drafts improve metadata quality and consistency; they do not guarantee rankings, indexing, rich results or AI visibility.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

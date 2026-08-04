@@ -35,3 +35,7 @@ GitHub Copilot-specific configuration for PRD generation and project planning wi
 - Reference skills directly in Chat: "Use the github skill to create issues from this PRD"
 - Skills available in Code and PR contexts
 - Full access to all 39 agent-attached and local skills
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -29,3 +29,7 @@ Expected: mark blocked evidence and state the minimum evidence needed.
 Input: "Turn launch blockers into developer handoff notes."
 
 Expected: each item includes problem, evidence, affected locations, expected output, implementation route and QA steps.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

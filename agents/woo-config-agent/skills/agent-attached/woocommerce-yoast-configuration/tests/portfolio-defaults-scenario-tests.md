@@ -65,3 +65,7 @@ Expected behaviour:
 - Produce an evidence-limited intake summary, not a full audit.
 - Request the smallest useful artefacts: product mix, settings export or representative rendered samples.
 - Offer a staged Level 1 portfolio triage route.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

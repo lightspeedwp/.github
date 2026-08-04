@@ -10,7 +10,7 @@ description: >-
 version: 2.0.0
 status: active
 last_updated: '2026-07-23'
-category: automation
+category: agents
 maintainer: Ash Shaw
 owners:
   - lightspeedwp/maintainers
@@ -140,3 +140,5 @@ See [manifests/skills.md](manifests/skills.md) for the complete skills inventory
 See [agent/instructions/AGENTS.md](agent/instructions/AGENTS.md) for detailed agent configuration, usage guidelines, and workflow patterns.
 
 ---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

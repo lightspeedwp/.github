@@ -30,3 +30,7 @@ Expected:
 - Uses developer handoff fields.
 - Does not prescribe unsupported code changes.
 - Keeps content/editorial actions separate.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

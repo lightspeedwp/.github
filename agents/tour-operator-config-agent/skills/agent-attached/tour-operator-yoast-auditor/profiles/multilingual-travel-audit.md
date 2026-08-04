@@ -13,3 +13,7 @@ Use this profile when a travel website has multiple languages, regional pages or
 ## Evidence requirements
 
 Request representative URLs in each language, sitemap evidence and rendered/source metadata output before scoring multilingual behaviour.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

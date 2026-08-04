@@ -56,3 +56,7 @@ Define when this decision must be revisited, such as Yoast product change, plugi
 - Superseded by:
 - Related source-register rows:
 - Related audit findings:
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

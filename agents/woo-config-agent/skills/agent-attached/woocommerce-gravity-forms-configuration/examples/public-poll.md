@@ -21,3 +21,7 @@ Use for editorial polls, quick audience feedback, or campaign questions.
 - Test result display settings.
 - Test spam controls and repeat submission behaviour.
 - Check page cache/CDN impact if results appear stale.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

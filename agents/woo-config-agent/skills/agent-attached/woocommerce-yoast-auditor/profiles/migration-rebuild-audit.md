@@ -20,3 +20,7 @@ Focus on redirects, canonicals, sitemap changes, metadata migration, taxonomy ch
 ## Output expectation
 
 Use go/no-go language for launch QA and clearly mark blocked evidence.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

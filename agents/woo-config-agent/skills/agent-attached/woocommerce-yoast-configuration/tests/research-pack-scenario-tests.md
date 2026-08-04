@@ -57,3 +57,7 @@ Expected behaviour:
 - Mark the claim as contradicted or needs live verification.
 - Recommend the smallest verification action.
 - Do not update the capability matrix as confirmed until resolved.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

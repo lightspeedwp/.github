@@ -23,3 +23,7 @@ Use this as a lightweight Gravity Forms pattern for consent-based newsletter cap
 - Confirm entry creation.
 - Confirm admin notification.
 - Confirm list feed only on staging/test list before production sync.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

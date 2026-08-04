@@ -31,3 +31,7 @@ Advanced Post Creation can be used only if the listing post type already exists.
 ## Handoff
 
 Directory owner reviews content, confirms category/area, checks image/logo rights, and publishes manually after approval.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

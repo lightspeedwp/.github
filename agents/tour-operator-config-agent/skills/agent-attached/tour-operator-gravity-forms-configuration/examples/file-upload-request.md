@@ -26,3 +26,7 @@ Use this pattern when a client needs supporting documents with an enquiry or sup
 - Submit an oversized file.
 - Confirm useful validation messages.
 - Confirm notification does not expose file unnecessarily.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

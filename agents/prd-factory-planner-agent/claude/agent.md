@@ -19,3 +19,7 @@ Automated Product Requirements Document (PRD) generation and project planning sp
 **Extended Thinking Support:** Claude can use extended thinking to plan complex multi-skill workflows before execution.
 
 See [AGENT.md](../AGENT.md) for complete skill descriptions and invocation patterns.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
