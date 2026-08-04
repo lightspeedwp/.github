@@ -20,6 +20,8 @@ Workflows are JavaScript/TypeScript scripts that coordinate multiple agents, man
 
 ```mermaid
 graph TB
+    accTitle: Workflow execution patterns
+    accDescr: Diagrams sequential, parallel, fan-out, and iterative execution types that aggregate results
     A["Task Input"] --> B{Execution Type}
     B -->|Sequential| C["Phase 1 → Phase 2 → Phase 3"]
     B -->|Parallel| D["Task A ⊕ Task B ⊕ Task C"]
