@@ -168,7 +168,7 @@ function main() {
   // 1. Schema Migration Checks
   console.log("=== Schema Migration ===");
 
-  checkDirExists(".schemas", true); // Inverted - should NOT exist
+  checkDirExists(".schemas"); // Schema consolidation target directory
   checkFileExists(".schemas/frontmatter.schema.json");
   checkFileExists(".schemas/plugin-manifest.schema.json");
   checkDirExists(".schemas/memory");
