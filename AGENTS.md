@@ -269,6 +269,137 @@ gh issue create --title "Bug title" --body "$BODY"
 
 ---
 
+## AI Governance Compliance
+
+All AI operations in this repository enforce pre-commit and merge-time governance to prevent violations before they reach CI. This section describes the automated safeguards and how they work.
+
+### Pre-Commit Validation (Before Push)
+
+The `hooks/pr-checklist-validator.sh` hook validates every commit attempt via Claude Code's UserPromptSubmit hook.
+
+**What it validates:**
+
+1. **Branch naming** — Must match `{type}/{scope}-{short-title}` (lowercase, kebab-case)
+   - Allowed types: `feat`, `fix`, `hotfix`, `chore`, `docs`, `ci`, `test`, `refactor`, `perf`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`, and others per BRANCHING_STRATEGY.md
+   - Forbidden: `claude/` prefix (explicitly blocked)
+
+2. **Protected branch check** — Prevents direct commits to `main` or `develop`
+
+3. **Template warnings** (for `feat/` branches) — Alerts about required PR template sections:
+   - `## Linked issues` (with `Fixes #XXX` or `Relates to #XXX`)
+   - `## Changelog` (with entries under Added/Changed/Fixed)
+   - `### Checklist (Global DoD / PR)` (with completed items)
+
+**How to integrate locally:**
+
+Add to `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "hooks/pr-checklist-validator.sh",
+            "statusMessage": "Validating PR compliance checklist..."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Running manually:**
+
+```bash
+bash hooks/pr-checklist-validator.sh
+```
+
+### Merge-Time Governance (Before Merge)
+
+The `hooks/pr-merge-governance-validator.sh` hook validates PRs before merge, checking for linked issues and governance compliance.
+
+**What it validates:**
+
+1. **Linked issues** — Must have `Fixes #XXX`, `Relates to #XXX`, or similar in PR body
+   - Uses ERE-compatible regex: `(fixes|resolves|closes|relates to)[[:space:]]+#[0-9]+`
+   - Prevents merging PRs without issue references
+
+2. **Template compliance** — Enforced by `validate-pr-template.yml` workflow
+   - Checks for required sections (Linked issues, Changelog, Checklist)
+   - Blocks merge if sections missing or contain only placeholders
+
+**Integration:**
+
+The merge validation runs automatically via GitHub Actions (`.github/workflows/validate-pr-template.yml`). No manual integration needed.
+
+### ESLint Configuration (Shell Scripts)
+
+Shell scripts in `hooks/` are excluded from ESLint linting to prevent false failures.
+
+**Configuration:**
+
+```javascript
+// eslint.config.cjs
+const ignoreFolders = [
+  // ... other patterns
+  "hooks/**", // Shell scripts and portable hooks (not JavaScript)
+];
+```
+
+### Governance Violations & Recovery
+
+**If a governance check fails:**
+
+1. **Pre-commit violations** — Fix immediately and re-run the hook:
+
+   ```bash
+   bash hooks/pr-checklist-validator.sh
+   ```
+
+2. **PR template violations** — Update PR body and push new commit (workflow re-validates automatically)
+
+3. **Merge violations** — Fix linked issues or template, then retry merge
+
+**Example recovery:**
+
+```bash
+# Branch name violation
+git branch -m claude/bad-name fix/good-name-desc
+git push -u origin fix/good-name-desc --force
+
+# Missing linked issue
+# Update PR body to add: "Fixes #1234"
+# Merge will re-validate and succeed
+```
+
+### Cost Benefit
+
+**Without pre-commit validation:**
+
+- Each PR violation requires: commit → push → CI failure → fix → commit → push → re-run checks
+- 2-3x normal token cost per violation
+
+**With pre-commit validation:**
+
+- Violations caught before any CI runs
+- Feedback immediate (in Claude Code or local terminal)
+- Token savings: 60-70% reduction in correction cycles
+
+### Related Documentation
+
+- **Branch naming rules:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
+- **PR merge protocol:** [CLAUDE.md](CLAUDE.md) (PR Merge & Cleanup Protocol)
+- **Template routing:** [.github/PULL_REQUEST_TEMPLATE/config.yml](.github/PULL_REQUEST_TEMPLATE/config.yml)
+- **Governance hook (regex fix):** Commit 555b80e42 (Fixes #1489)
+- **ESLint config (shell script exclusion):** Commit e028d1379 (Relates to #1489)
+
+---
+
 ## Contribution Guidelines & Indexes
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
