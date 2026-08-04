@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: 'v1.9'
-last_updated: '2026-08-04'
+version: 'v2.0'
+last_updated: '2026-08-05'
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -65,9 +65,23 @@ The repository implements a two-tier agent architecture established during Phase
 
 ### Related Documentation
 
+**Phase 1 Audit Reports (Completed 2026-08-05):**
+
+- **Agent Audit (Phase 1C):** [AGENT-AUDIT-COMPREHENSIVE.md](./.github/projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md) — 37 agents catalogued (19 spec-based, 16 multi-file), 788+ references mapped, two-tier structure validated
+- **Instruction Audit (Phase 1A):** [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./.github/projects/active/repo-restructuring-2026-07-25/INSTRUCTION_FILES_AUDIT_2026-08-05.md) — 58 instruction files audited, 502+ references, portable/local classification complete
+- **Schema Audit (Phase 1B):** [SCHEMA_AUDIT_REPORT.md](./.github/projects/active/repo-restructuring-2026-07-25/SCHEMA_AUDIT_REPORT.md) — 25 core schemas across 3 locations, consolidation plan documented
+
+**Phase Implementation Issues:**
+
 - **Phase 1C Migration:** [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293) — Two-tier agent structure implementation
+- **Phase 1A Migration:** [Issue #1299](https://github.com/lightspeedwp/.github/issues/1299) — Instruction files audit & reorganization (Restructured)
+- **Phase 1B Migration:** [Issue #1300](https://github.com/lightspeedwp/.github/issues/1300) — Schema consolidation audit (Restructured)
 - **File Organization Audit:** [Issue #653](https://github.com/lightspeedwp/.github/issues/653) — Agent standardization history
+
+**Other References:**
+
 - **Memory Profile System:** Memory profiles expect root-level agent paths (`agents/` only; spec-based agents in `.github/` are control-plane specific)
+- **Phase 2 Governance Updates:** [Issue #1295](https://github.com/lightspeedwp/.github/issues/1295) — Update CLAUDE.md, AGENTS.md documentation
 
 ## Agent Test Status
 

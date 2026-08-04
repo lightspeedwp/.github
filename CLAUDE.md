@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.8"
-last_updated: "2026-06-18"
+version: "v1.9"
+last_updated: "2026-08-05"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
@@ -41,35 +41,49 @@ It also hosts **portable AI operations assets** in top-level source folders that
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
 
-### Path Reference: Repository Restructuring (2026-08-02)
+### Path Reference: Repository Restructuring Initiative
 
-**Phase 1 Implementation (2026-08-02):** Complete folder consolidation and reference updates.
+**Phase 1 Audits Completed (2026-08-05):** Comprehensive audits of instructions, schemas, and agents.
 
-During the 2026-08-02 repository restructuring (Phase 1), the following locations were reorganized:
+The repository restructuring initiative includes Phase 1 audits that map all portable and control-plane assets. Phase 1 audit reports are available in [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/):
 
-| Component | Old Path | New Path | Type |
-| --- | --- | --- | --- |
-| **Schema files** | `schema/` | `.schemas/` (root, hidden, portable) | Consolidation |
-| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then back to portable root |
-| **Website** | `website/` | `.github/website/` | Move to .github |
-| **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `scripts/validation/validate-frontmatter.js:../../../.schemas/` → `.schemas/` | Updated script path |
-| **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
+**Phase 1 Audit Reports (Completed 2026-08-05):**
+- **INSTRUCTION_FILES_AUDIT_2026-08-05.md** — 58 instruction files mapped (27 portable, 17 local, 15 archived; 502+ references)
+- **SCHEMA_AUDIT_REPORT.md** — 25 core schemas across 3 locations; consolidation plan
+- **AGENT-AUDIT-COMPREHENSIVE.md** — 37 agents (19 spec-based, 16 multi-file; 788+ references)
 
-**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location** to reach `.schemas/` at repo root:
+**Historical Reference:** Restructuring phases completed and planned:
 
-**Portable scripts (root location):**
+| Component | Old Path | New Path | Type | Status |
+| --- | --- | --- | --- | --- |
+| **Schema files** | `schema/` | `.schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
+| **Schema visibility** | `schemas/` | (visible root copy maintained) | Reference | Current (npm package reference) |
+| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then portable | ✅ Complete (Phase 2B) |
+| **Website** | `website/` | `.github/website/` | Move to .github | ✅ Complete |
+| **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github | ✅ Complete |
+| **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
+| **Agents** | `.github/agents/` (mixed) | `agents/` + `.github/agents/` (split) | Reorganize | Phase 3 (audit complete) |
 
+**Schema consolidation note:** Three schema folders currently exist due to incremental migration:
+- `schema/` — old location (25 files, deprecated, source for consolidation)
+- `schemas/` — visible root (25 files, npm-referenced, currently used)
+- `.schemas/` — hidden target (23 files, incomplete, destination for consolidation)
+
+The Phase 1B audit identified all 25 core schemas and consolidation path. Phase 3 will complete the migration to `.schemas/` as the canonical portable location.
+
+**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
+
+**Portable scripts (root location, Phase 2B):**
 - From `scripts/validation/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/` at repo root
-- From `scripts/agents/includes/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/` at repo root
-- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/` at repo root
+- From `scripts/agents/includes/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
+- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
 
-**Control-plane scripts (.github location):**
+**Control-plane scripts (.github location, Phase 1):**
+- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root (or `.schemas/` once consolidated in Phase 3)
+- From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/` at repo root
+- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
 
-- From `.github/scripts/agents/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/`
-- From `.github/scripts/workflows/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
-
-**All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
+**All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the initial restructuring epic and [issue #1290](https://github.com/lightspeedwp/.github/issues/1290) for the current Phase 1 initiative.
 
 ## Git & Branching Strategy
 
@@ -344,23 +358,63 @@ npm run validate:frontmatter
 
 ## Repository Boundaries
 
-| Asset Type | Belongs In |
-| --- | --- |
-| GitHub-native governance (templates, labels, workflows) | `.github/` |
-| Portable instruction standards (a11y, coding, documentation) | `instructions/` (root) |
-| Repo-local Copilot/agent instructions (control-plane-specific) | `.github/instructions/` or `.github/custom-instructions.md` |
-| Portable JSON schemas (validation definitions) | `.schemas/` (hidden folder at root) |
-| Portable agent specifications (multi-file implementations) | `agents/` (root) |
-| Spec-based agents (simple YAML/JSON definitions) | `.github/agents/` (GitHub-native only) |
-| Reports, audits, metrics | `.github/reports/{category}/` |
-| Active project artefacts | `.github/projects/active/{slug}/` |
-| Temporary scratch files | `.github/tmp/` (clean up before PR) |
-| Portable reusable AI assets | top-level source folders (see table above) |
-| Permanent human documentation | `docs/` |
+| Asset Type | Belongs In | Type |
+| --- | --- | --- |
+| GitHub-native governance (templates, labels, workflows) | `.github/` | Control-plane only |
+| **Portable instruction standards** (a11y, coding, documentation, issues, PRs, community) | `instructions/` (root) | Portable, reusable |
+| **Repo-local Copilot/agent instructions** (control-plane-specific) | `.github/instructions/` or `.github/custom-instructions.md` | Control-plane only |
+| **Portable JSON schemas** (validation for frontmatter, agents, plugins, skills) | `.schemas/` (hidden folder at root) | Portable, reusable |
+| **Portable agent specifications** — Multi-file implementations (16 agents) | `agents/` (root) | Portable, installable |
+| **Spec-based agents** — Simple YAML/JSON definitions (19 agents) | `.github/agents/` | GitHub-native only |
+| Reports, audits, metrics | `.github/reports/{category}/` | Control-plane only |
+| Active project artefacts | `.github/projects/active/{slug}/` | Control-plane only |
+| Temporary scratch files | `.github/tmp/` (clean up before PR) | Control-plane only |
+| Portable reusable AI assets | top-level source folders (see table above) | Portable |
+| Permanent human documentation | `docs/` | Control-plane only |
 
-**Active projects note:** All active project artefacts MUST be in `.github/projects/active/{slug}/`. Do NOT create project folders in root `projects/` directory (e.g., ~~`projects/active/`~~). The root `projects/` folder is not permitted; all project documentation belongs under `.github/`. This ensures consistent governance and access control per CLAUDE.md line 312.
+### Two-Tier Agent Structure (Phase 1C)
 
-**Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
+The repository implements a **two-tier agent architecture** separating GitHub-native and portable implementations:
+
+**Tier 1: GitHub-Native (`.github/agents/`)**
+
+- 19 spec-based agents: Simple YAML/JSON definitions
+- Single `.agent.md` file per agent
+- Control-plane specific, not installable elsewhere
+- Examples: AI-Readiness-Estimator, Website-Scope-Estimator, Zendesk-Support
+
+**Tier 2: Portable (`agents/` root)**
+
+- 16 multi-file agents: Complex implementations (9+ files per agent)
+- Full implementation with skills, configurations, schemas
+- Installable and reusable in other LightSpeedWP projects
+- Examples: PRD-Agent (1,637 files), Playwright-Testing-Agent (458 files)
+
+**Total: 37 agents (12,459 files), 788+ references across codebase**
+
+**Key Principle:** Portable agents (Tier 2) go to root `agents/` directory. Control-plane-specific agents (Tier 1) remain in `.github/agents/`.
+
+### Portable vs Control-Plane Assets
+
+**Portable Assets** (reusable across LightSpeedWP projects):
+
+- Located at **root level** (top-level folders)
+- Include: `agents/`, `instructions/`, `.schemas/`, `skills/`, `plugins/`, `workflows/`, `hooks/`, `cookbook/`
+- No `.github/` assumptions in code or documentation
+- Suitable for import/fork into other repositories
+
+**Control-Plane Assets** (LightSpeed .github specific):
+
+- Located under **`.github/`** directory
+- Include: governance files, workflows, scripts, reports, projects, local instructions
+- May reference this repository's structure
+- Not intended for reuse elsewhere
+
+**Active projects note:** All active project artefacts MUST be in `.github/projects/active/{slug}/`. Do NOT create project folders in root `projects/` directory (e.g., ~~`projects/active/`~~). The root `projects/` folder is not permitted; all project documentation belongs under `.github/`. This ensures consistent governance and access control.
+
+**Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. The older `schema/` and `schemas/` folders are maintained for backward compatibility during consolidation; see [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details.
+
+**Instruction files note:** Portable instruction files live in root `instructions/` folder. Repo-local control-plane instructions remain in `.github/instructions/`. See Phase 1A audit report in [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for complete migration mapping.
 
 **Documentation Standards note (Phase 3A):** Comprehensive standards for creating agents, skills, instructions, workflows, plugins, and other AI infrastructure are maintained in `docs/`. These 9 standards documents are the authoritative reference for all AI-driven work. See [AGENTS.md#documentation-standards](./AGENTS.md#documentation-standards) for the complete quick reference guide.
 
@@ -375,21 +429,30 @@ npm run validate:frontmatter
 
 ## Related Files
 
-**Organisation-wide instructions** (reusable across all LightSpeedWP repos):
+**Organisation-wide portable instructions** (reusable across all LightSpeedWP repos):
 
-- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
+Located in root `instructions/` directory:
+
+- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards (76 refs)
+- [instructions/pull-requests.instructions.md](./instructions/pull-requests.instructions.md) — PR creation & labeling standards (40 refs)
+- [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) — Markdown, YAML, Mermaid standards (32 refs)
 - [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards
-- [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) — Markdown, YAML, Mermaid standards
 - [instructions/issues.instructions.md](./instructions/issues.instructions.md) — issue creation & labeling standards
-- [instructions/pull-requests.instructions.md](./instructions/pull-requests.instructions.md) — PR creation & labeling standards
 - [instructions/community-standards.instructions.md](./instructions/community-standards.instructions.md) — community health standards
 
-**Repo-local instructions** (specific to this .github control plane):
+**Repo-local control-plane instructions** (specific to this .github control plane):
 
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [instructions/file-organisation.instructions.md](./instructions/file-organisation.instructions.md) — this repo's file placement rules
-- [AGENTS.md](./AGENTS.md) — full global AI rules
-- [instructions/plugin-structure.instructions.md](./instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+- [instructions/file-organisation.instructions.md](./instructions/file-organisation.instructions.md) — repository file placement rules and portable asset organization
+- [instructions/plugin-structure.instructions.md](./instructions/plugin-structure.instructions.md) — WordPress block plugin structure standards
+- [AGENTS.md](./AGENTS.md) — full global AI governance and standards
+- [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) — Git branching discipline and branch naming rules
+
+**Key reference documents:**
+
+- [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) — Phase 1 audit reports (instructions, schemas, agents)
+- [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLATE/config.yml) — issue template routing
+- [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/config.yml) — PR template routing
 
 ---
 
