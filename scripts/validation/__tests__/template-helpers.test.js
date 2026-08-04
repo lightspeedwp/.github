@@ -113,6 +113,28 @@ describe("hasIssueReference", () => {
   it("detects issue at document start", () => {
     expect(hasIssueReference("#999")).toBe(true);
   });
+
+  it("detects cross-repo references (owner/repo#number)", () => {
+    expect(hasIssueReference("Closes lightspeedwp/.github#1393")).toBe(true);
+    expect(hasIssueReference("Fixes org/repo#456")).toBe(true);
+    expect(hasIssueReference("lightspeedwp/.github#1087")).toBe(true);
+  });
+
+  it("detects cross-repo references with closing keywords", () => {
+    expect(hasIssueReference("Relates to lightspeedwp/.github#1079")).toBe(
+      true,
+    );
+    expect(hasIssueReference("resolves org/repo#100")).toBe(true);
+  });
+
+  it("detects full GitHub issue/PR URLs", () => {
+    expect(hasIssueReference("https://github.com/org/repo/issues/123")).toBe(
+      true,
+    );
+    expect(hasIssueReference("https://github.com/org/repo/pull/456")).toBe(
+      true,
+    );
+  });
 });
 
 describe("hasChangelogEntry", () => {
