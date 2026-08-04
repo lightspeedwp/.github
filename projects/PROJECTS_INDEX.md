@@ -68,7 +68,7 @@ Central registry of all active projects within the LightSpeed `.github` control 
 **Description:** Consolidate 31 workflows → 25, eliminate duplication, improve maintainability  
 **Recent Progress:**
 
-- ✅ Phase 3.3: Labeling Workflows Consolidation (merged PR #1496)
+- ✅ Phase 3.3: Labelling Workflows Consolidation (merged PR #1496)
   - Deleted legacy workflows: `dependabot-security-label.yml`, `issue-close-label-hygiene.yml`
   - Unified into single `labeling-governance.yml`
   - Created comprehensive documentation: `docs/LABELING_GOVERNANCE.md` (360 lines)
@@ -94,11 +94,11 @@ Central registry of all active projects within the LightSpeed `.github` control 
 
 ### [Release Workflow Authorization Fixes](./active/release-workflow-authorization-fixes/)
 
-**Status:** 🟡 IN PROGRESS  
+**Status:** ✅ COMPLETE  
 **Issue:** [#1453](https://github.com/lightspeedwp/.github/issues/1453)  
 **Description:** Fix pre-existing authorization failure in release.yml workflow (42+ days old)  
 **Solution:** Made telemetry check non-blocking to unblock downstream jobs (PR #1460)  
-**Status Details:** Critical issues identified but solution applied  
+**Status Details:** Critical issues identified and solution applied.  
 **Key Files:** [README.md](./active/release-workflow-authorization-fixes/README.md)
 
 ### [Phase 2B Skills Audit](./active/phase-2b-skills-audit/)
@@ -190,4 +190,4 @@ Central registry of all active projects within the LightSpeed `.github` control 
 
 **Last Updated:** 2026-08-04  
 **Maintained by:** LightSpeed Team  
-**Total Active Projects:** 12 | **Recently Completed:** 4 | **Planned:** 7
+**Total Projects:** 8 active projects, 12 total (including completed)

@@ -78,14 +78,14 @@ related_branches:
 - metrics-collection.yml
 - reporting.yml
 
-**Labeling & Automation (6 workflows)**
+**Labelling & Automation (6 workflows)**
 
-- issue-labeler.yml
-- pr-labeler.yml
+- issue-labeller.yml
+- pr-labeller.yml
 - auto-assignment.yml
 - stale-issue-handler.yml
-- dependency-labeler.yml
-- release-labeler.yml
+- dependency-labeller.yml
+- release-labeller.yml
 
 **CI/CD Pipeline (8 workflows)**
 
@@ -124,9 +124,9 @@ related_branches:
 - Single documentation workflow with multiple jobs
 - Reduces scheduling conflicts
 
-#### **Phase 3: Labeling Consolidation** (~12 hours)
+#### **Phase 3: Labelling Consolidation** (~12 hours)
 
-- Consolidate issue + PR labeling logic
+- Consolidate issue + PR labelling logic
 - Single workflow with conditional jobs
 - Shared label management rules
 
@@ -136,7 +136,7 @@ related_branches:
 
 - Testing workflows run at same time (duplicate GHA runners)
 - Changelog + metrics workflows compete for scheduler
-- Labeling workflows create 4+ concurrent runs during PR creation
+- Labelling workflows create 4+ concurrent runs during PR creation
 
 **Target:** Reduce to 2 scheduled conflicts maximum
 
@@ -190,19 +190,19 @@ related_branches:
 - Consolidate validation patterns
 - Update scheduling
 
-### **PHASE 3: Labeling & Automation** (Week 7-12)
+### **PHASE 3: Labelling & Automation** (Week 7-12)
 
 **Effort:** 20 hours | **Complexity:** Medium  
 **Deliverables:**
 
-- Single labeling workflow (conditional jobs per event)
+- Single labelling workflow (conditional jobs per event)
 - Shared label management rules
 - Reduced concurrent runs
 - Save ~50 GHA minutes/week
 
 **Issues to Create:**
 
-- Consolidate labeling workflows
+- Consolidate labelling workflows
 - Create shared rules engine
 - Testing and validation
 
@@ -263,7 +263,7 @@ related_branches:
 | **Phase 1A: Quick Wins** | Week 1-2 | ✅ Complete | 15 | ~100 min/week |
 | **Phase 1B: Changelog & Metrics** | Week 2-3 | ✅ Complete | 30 | ~75 min/week |
 | **Phase 2: Documentation** | Week 4-6 | ⏳ Upcoming | 20 | ~40 min/week |
-| **Phase 3: Labeling** | Week 7-12 | ⏳ Upcoming | 20 | ~50 min/week |
+| **Phase 3: Labelling** | Week 7-12 | ⏳ Upcoming | 20 | ~50 min/week |
 | **Total** | 12 weeks | | **85 hours** | **~265 min/week** (15-20% savings) |
 
 ## Related Issues & Documentation
@@ -274,7 +274,7 @@ related_branches:
 - **Phase 1A Issues** — Quick wins (TBD)
 - **Phase 1B Issues** — Changelog & metrics (TBD)
 - **Phase 2 Issues** — Documentation (TBD)
-- **Phase 3 Issues** — Labeling (TBD)
+- **Phase 3 Issues** — Labelling (TBD)
 
 ### Related PRs
 

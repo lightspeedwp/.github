@@ -25,7 +25,7 @@ status: active
 
 ### 2. Project Documentation
 
-**Location:** `projects/active/workflows-consolidation-2026-q3/`  
+**Location:** `.github/projects/active/workflows-consolidation-2026-q3/`  
 **Contents:**
 
 - README.md — Project overview and timeline
@@ -43,7 +43,7 @@ status: active
    - CI/CD Pipeline
    - Release & Changelog
    - Documentation
-   - Labeling & Automation
+   - Labelling & Automation
    - Maintenance
 
 2. **Trigger Type:**
@@ -244,17 +244,17 @@ status: active
 
 ---
 
-### Phase 3: Labeling & Automation (20 hours)
+### Phase 3: Labelling & Automation (20 hours)
 
-#### Consolidation 8: Unified Labeling Workflow
+#### Consolidation 8: Unified Labelling Workflow
 
 **Current Workflows:**
 
-- `issue-labeler.yml` — Labels issues
-- `pr-labeler.yml` — Labels PRs
+- `issue-labeller.yml` — Labels issues
+- `pr-labeller.yml` — Labels PRs
 - `auto-assignment.yml` — Auto-assigns issues
-- `dependency-labeler.yml` — Labels dependency PRs
-- `release-labeler.yml` — Labels releases
+- `dependency-labeller.yml` — Labels dependency PRs
+- `release-labeller.yml` — Labels releases
 
 **Common Logic:**
 
@@ -283,7 +283,7 @@ status: active
 **Deliverable:**
 
 - `scripts/automation/rules.js` — Label mapping and assignment logic
-- Used by labeling workflow
+- Used by labelling workflow
 - Maintainable from single file
 
 **Estimate:** 5 hours
@@ -349,7 +349,7 @@ module.exports = {
 
 - Testing workflows: ~450 minutes
 - CI/CD pipeline: ~320 minutes
-- Labeling automation: ~180 minutes
+- Labelling automation: ~180 minutes
 - Documentation: ~120 minutes
 - Other: ~130 minutes
 - **Total:** ~1,180 minutes/month
@@ -361,7 +361,7 @@ module.exports = {
 - Phase 1A: ~100 min/week (~430 min/month) — Quick wins
 - Phase 1B: ~75 min/week (~320 min/month) — Changelog/metrics
 - Phase 2: ~40 min/week (~170 min/month) — Documentation
-- Phase 3: ~50 min/week (~215 min/month) — Labeling
+- Phase 3: ~50 min/week (~215 min/month) — Labelling
 - **Total Savings:** ~265 min/week (~1,135 min/month) — 15-20% reduction
 
 **New Total:** ~45-50 minutes/week (~190-215 minutes/month)
@@ -453,7 +453,7 @@ module.exports = {
 - **Week 1-2:** Phase 1A (Quick wins)
 - **Week 2-3:** Phase 1B (Changelog & metrics)
 - **Week 4-6:** Phase 2 (Documentation)
-- **Week 7-12:** Phase 3 (Labeling)
+- **Week 7-12:** Phase 3 (Labelling)
 - **End of Week 12:** Full consolidation complete, 25 workflows active
 
 ---
