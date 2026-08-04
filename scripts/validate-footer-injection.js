@@ -170,7 +170,6 @@ async function validateInjection() {
   console.log();
 
   // Step 2: Find latest injection report
-  let latestReport = null;
   const reportFiles = fs.readdirSync(CONFIG.injectionReportPath).filter(f =>
     f.startsWith('footer-injection-'),
   );
@@ -183,6 +182,7 @@ async function validateInjection() {
   const latestReportFile = reportFiles.sort().pop();
   const reportPath = path.join(CONFIG.injectionReportPath, latestReportFile);
 
+  let latestReport;
   try {
     latestReport = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
     console.log(`📄 Using report: ${latestReportFile}`);
