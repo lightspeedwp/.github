@@ -1,18 +1,10 @@
 ---
-file_type: documentation
-title: Labelling Governance
-description: Unified labelling and metadata governance system for issues, PRs, and discussions
-version: 1.0.0
-created_date: 2026-08-04
-last_updated: 2026-08-04
-author: LightSpeed Team
-maintainer: LightSpeed Team
-domain: governance
-stability: stable
-tags:
-  - labeling
-  - workflows
-  - governance
+title: Labeling Governance
+description: Unified labeling and metadata governance system for issues, PRs, and discussions
+author: LightSpeedWP
+created: 2026-08-04
+updated: 2026-08-04
+status: Active
 ---
 
 # Labeling Governance
@@ -125,7 +117,7 @@ Scans PR title and body for security-related keywords:
 
 - `meta:dependabot-security` — Marks Dependabot update as security-related
 
-**Use Case:**
+**Uses Case:**
 Security-related Dependabot PRs can be auto-merged or fast-tracked via mergify rules when this label is present.
 
 ---
@@ -223,7 +215,7 @@ gh workflow run labeling-governance.yml \
 
 ### Execution Reports
 
-Each run generates a report in `.github/reports/labeling/YYYY-MM-DD-labeling-{run_id}.md` containing:
+Each run generates a report in `.github/reports/labeling/{run_id}.md` containing:
 
 - Labels applied
 - Skipped items (and reasons)
@@ -232,7 +224,7 @@ Each run generates a report in `.github/reports/labeling/YYYY-MM-DD-labeling-{ru
 
 ### Artifacts
 
-Reports are automatically uploaded as GitHub Actions artifacts for retention following the `YYYY-MM-DD-{descriptor}.md` naming convention.
+Reports are automatically uploaded as GitHub Actions artifacts for retention.
 
 ### Logs
 
@@ -257,7 +249,7 @@ Full execution logs available in **Actions** tab under **Labeling • Unified Go
 
 ### Status Labels Not Removed on Close
 
-1. **Check issue closure** — Verify the issue emitted the expected `closed` event
+1. **Check issue closure** — Verify issue was actually closed (not draft)
 2. **Review label names** — Ensure labels match exactly: `status:needs-triage`, etc.
 3. **Check permissions** — Workflow needs `issues: write` permission
 
@@ -278,9 +270,9 @@ Full execution logs available in **Actions** tab under **Labeling • Unified Go
 
 ### Savings
 
-- **Previous:** ~10 min/run per workflow (3 workflows × ~3 runs/week) = ~90 min/week total
-- **Current:** ~2.4 min/run per workflow (1 workflow × ~3 runs/week) = ~7.2 min/week total
-- **Reduction:** 92% fewer minutes per week (~470 min/month savings)
+- **Previous:** 3 workflows × ~10 min/run = ~30 min/week
+- **Current:** 1 workflow × ~2.4 min/run = ~10 min/week
+- **Reduction:** 67% fewer minutes (savings: ~85 min/month)
 
 ---
 
