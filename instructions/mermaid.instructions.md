@@ -203,7 +203,7 @@ The PR validation workflow (`.github/workflows/validate-mermaid-pr.yml`) runs al
 To validate only changed files locally:
 
 ```bash
-node .github/scripts/validation/validate-mermaid-colour-contrast.js --changed-files=path/to/file.md
+node scripts/validation/validate-mermaid-colour-contrast.js --changed-files=path/to/file.md
 ```
 
 ---

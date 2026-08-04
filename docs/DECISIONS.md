@@ -120,7 +120,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **Impact**:
 
-- Shared utilities in `../.github/scripts/agents/includes/`
+- Shared utilities in `../scripts/agents/includes/`
 - Focused agent files orchestrating utilities
 - Unit test coverage for each utility
 - Clear separation of concerns

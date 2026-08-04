@@ -180,9 +180,9 @@ To adjust the allocation strategy:
 ### Workflow Files
 
 - `.github/workflows/metadata-governance.yml` — Main workflow orchestrator
-- `.github/scripts/agents/includes/milestone-allocation.cjs` — Allocation logic and label routing
-- `.github/scripts/agents/includes/allocate-milestone.cjs` — GitHub API integration
-- `.github/scripts/agents/includes/check-milestone-capacity.cjs` — Capacity monitoring
+- `scripts/agents/includes/milestone-allocation.cjs` — Allocation logic and label routing
+- `scripts/agents/includes/allocate-milestone.cjs` — GitHub API integration
+- `scripts/agents/includes/check-milestone-capacity.cjs` — Capacity monitoring
 - `.github/project-routes.yml` — Configuration
 
 ### Label Extraction
