@@ -112,41 +112,38 @@ jobs:
           RUN_ID: ${{ github.run_id }}
         with:
           script: |
-            console.log('1. Script started');
+            core.info('1. Script started');
 
             try {
-              console.log('2. Before require');
+              core.info('2. Before require');
               const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
-              console.log('3. After require');
+              core.info('3. After require');
 
-              console.log('4. Parsing JSON...');
+              core.info('4. Parsing JSON...');
               const issuesJson = process.env.ISSUES_JSON;
-              console.log(`5. JSON length: ${issuesJson?.length}`);
+              core.info(`5. JSON length: ${issuesJson?.length}`);
               const issues = JSON.parse(issuesJson);
-              console.log(`6. Parsed ${issues.length} issues`);
+              core.info(`6. Parsed ${issues.length} issues`);
 
               const dryRun = process.env.DRY_RUN === 'true';
               const runId = process.env.RUN_ID;
-              console.log(`7. Mode: dry-run=${dryRun}, runId=${runId}`);
-
-              core.info(`Starting milestone assignment for ${issues.length} issues (dry-run: ${dryRun})`);
+              core.info(`7. Mode: dry-run=${dryRun}, runId=${runId}`);
 
               const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
-              console.log('8. Agent created');
+              core.info('8. Agent created');
 
               const reportPath = `.github/reports/remediation/milestone-assignment-${runId}.md`;
               const results = await agent.bulkAssignMilestones(issues, { dryRun, reportPath });
-              console.log('9. Bulk assignment done');
+              core.info(`9. Bulk assignment done: ${results.length} results`);
 
               const assigned = results.filter((r) => r.status === 'assigned' || r.status === 'dry-run-success').length;
               const errors = results.filter((r) => r.status === 'error').length;
               const skipped = results.filter((r) => r.status === 'no-milestone-found').length;
 
               core.info(`Milestone assignment complete: ${assigned} assigned, ${skipped} skipped, ${errors} errors`);
-              console.log('10. Done');
             } catch (error) {
-              console.error('ERROR:', error.message);
-              console.error('STACK:', error.stack);
+              core.error(`ERROR at step: ${error.message}`);
+              core.error(`STACK: ${error.stack}`);
               core.setFailed(`Milestone assignment failed: ${error.message}`);
             }
 
