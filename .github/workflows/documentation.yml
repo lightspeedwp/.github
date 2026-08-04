@@ -45,7 +45,7 @@ on:
       - ".github/agents/**"
       - ".github/instructions/**"
       - "docs/**"
-      - ".github/scripts/**"
+      - "scripts/**"
 
 permissions:
   contents: read
