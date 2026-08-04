@@ -258,6 +258,8 @@ Cookbooks benefit from visual explanations. Use Mermaid for:
 
 ```mermaid
 graph LR
+  accTitle: Agent and Skill Architecture
+  accDescr: Shows how agents interact with skills and hooks to produce outputs
   A[Agent 1] --> B[Skill]
   B --> C[Output]
   A --> D[Hook]
@@ -268,6 +270,8 @@ graph LR
 
 ```mermaid
 graph TD
+  accTitle: Conditional Decision Tree
+  accDescr: Flowchart showing conditional logic with yes/no paths leading to different actions
   Start{Condition?}
   Start -->|Yes| A[Action A]
   Start -->|No| B[Action B]
@@ -279,6 +283,8 @@ graph TD
 
 ```mermaid
 graph LR
+  accTitle: Branching Process Flow
+  accDescr: Process flow diagram showing input going through processes with conditional branching leading to output
   A[Input] --> B[Process 1]
   B --> C{Decision}
   C -->|Path 1| D[Process 2]
