@@ -301,7 +301,7 @@ Each template includes:
 
 ### MilestoneAssignmentAgent
 
-**Location:** `.github/scripts/agents/includes/milestone-assignment.js`
+**Location:** `scripts/agents/includes/milestone-assignment.js`
 
 Intelligently assigns milestones based on:
 
@@ -313,7 +313,7 @@ Intelligently assigns milestones based on:
 **API:**
 
 ```javascript
-const { MilestoneAssignmentAgent } = require('./.github/scripts/agents/includes/milestone-assignment.js');
+const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
 
 const agent = new MilestoneAssignmentAgent(github, owner, repo);
 const assignment = await agent.assignMilestone(issue);
@@ -323,14 +323,14 @@ const assignment = await agent.assignMilestone(issue);
 
 ### RemediationChecklistGenerator
 
-**Location:** `.github/scripts/agents/includes/remediation-checklist-generator.js`
+**Location:** `scripts/agents/includes/remediation-checklist-generator.js`
 
 Generates type-specific DoR/DoD templates and posts as issue comments.
 
 **API:**
 
 ```javascript
-const { RemediationChecklistGenerator } = require('./.github/scripts/agents/includes/remediation-checklist-generator.js');
+const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
 
 const generator = new RemediationChecklistGenerator(github, owner, repo);
 const results = await generator.postRemediationChecklists(issues, { dryRun: true });
