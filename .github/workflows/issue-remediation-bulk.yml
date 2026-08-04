@@ -108,7 +108,44 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            core.info('TEST: Assign milestones step running');
+            try {
+              core.info('Step 1: Loading agent module...');
+              const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
+              core.info('Step 2: Parsing issues JSON...');
+              const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
+              core.info(`Step 3: Found ${issues.length} issues`);
+              const dryRun = '${{ inputs.dry_run }}' === 'true';
+              core.info(`Step 4: Dry-run mode = ${dryRun}`);
+
+              core.info('Step 5: Instantiating agent...');
+              const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
+              core.info('Step 6: Loading milestones from GitHub...');
+              await agent.loadMilestones();
+              core.info(`Step 7: Loaded ${agent.milestones ? agent.milestones.length : 0} milestones`);
+
+              core.info('Step 8: Running bulk assignment...');
+              const results = await agent.bulkAssignMilestones(issues, {
+                dryRun,
+                reportPath: '.github/reports/remediation/milestone-assignment-${{ github.run_id }}.md',
+              });
+              core.info(`Step 9: Completed with ${results.length} results`);
+
+              const assigned = results.filter((r) => r.status === 'assigned' || r.status === 'dry-run-success');
+              const skipped = results.filter((r) => r.status === 'no-milestone-found');
+              const errors = results.filter((r) => r.status === 'error');
+
+              core.info(`SUCCESS: ${assigned.length} assigned, ${skipped.length} skipped, ${errors.length} errors`);
+              core.summary
+                .addHeading('Milestone Assignment Summary')
+                .addRaw(`- Total: ${results.length}\n`)
+                .addRaw(`- Assigned: ${assigned.length}\n`)
+                .addRaw(`- Skipped: ${skipped.length}\n`)
+                .addRaw(`- Errors: ${errors.length}\n`)
+                .write();
+            } catch (error) {
+              core.setFailed(`Milestone assignment failed at step: ${error.message}`);
+              throw error;
+            }
 
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
