@@ -108,40 +108,46 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            try {
-              const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
-              const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
-              const dryRun = '${{ inputs.dry_run }}' === 'true';
+            console.log('=== MILESTONE ASSIGNMENT DEBUG ===');
+            console.log('Require path: ./scripts/agents/includes/milestone-assignment.js');
+            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
+            console.log('✓ Agent required successfully');
 
-              core.info(`Starting milestone assignment for ${issues.length} issues (dry-run: ${dryRun})`);
+            const issuesJson = '${{ steps.fetch.outputs.issues }}';
+            console.log('Raw JSON length:', issuesJson.length);
+            console.log('Raw JSON preview:', issuesJson.substring(0, 100));
 
-              const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
-              await agent.loadMilestones();
-              core.info(`Loaded ${agent.milestones ? agent.milestones.length : 0} milestones`);
+            const issues = JSON.parse(issuesJson);
+            console.log(`✓ Parsed ${issues.length} issues`);
 
-              const results = await agent.bulkAssignMilestones(issues, {
-                dryRun,
-                reportPath: '.github/reports/remediation/milestone-assignment-${{ github.run_id }}.md',
-              });
+            const dryRun = '${{ inputs.dry_run }}' === 'true';
+            console.log(`Dry-run mode: ${dryRun}`);
 
-              const assigned = results.filter((r) => r.status === 'assigned' || r.status === 'dry-run-success');
-              const skipped = results.filter((r) => r.status === 'no-milestone-found');
-              const errors = results.filter((r) => r.status === 'error');
+            const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
+            console.log('✓ Agent instantiated');
 
-              core.summary
-                .addHeading('Milestone Assignment Summary')
-                .addRaw(`- Total: ${results.length}\n`)
-                .addRaw(`- Assigned: ${assigned.length}\n`)
-                .addRaw(`- Skipped: ${skipped.length}\n`)
-                .addRaw(`- Errors: ${errors.length}\n`)
-                .write();
+            await agent.loadMilestones();
+            console.log(`✓ Loaded ${agent.milestones ? agent.milestones.length : 0} milestones`);
 
-              core.info(`Milestone assignment complete: ${assigned.length} assigned, ${skipped.length} skipped, ${errors.length} errors`);
-            } catch (error) {
-              core.setFailed(`Milestone assignment failed: ${error.message}`);
-              console.error(error);
-              throw error;
-            }
+            const results = await agent.bulkAssignMilestones(issues, {
+              dryRun,
+              reportPath: '.github/reports/remediation/milestone-assignment-${{ github.run_id }}.md',
+            });
+            console.log(`✓ Bulk assignment complete: ${results.length} results`);
+
+            const assigned = results.filter((r) => r.status === 'assigned' || r.status === 'dry-run-success');
+            const skipped = results.filter((r) => r.status === 'no-milestone-found');
+            const errors = results.filter((r) => r.status === 'error');
+
+            core.summary
+              .addHeading('Milestone Assignment Summary')
+              .addRaw(`- Total: ${results.length}\n`)
+              .addRaw(`- Assigned: ${assigned.length}\n`)
+              .addRaw(`- Skipped: ${skipped.length}\n`)
+              .addRaw(`- Errors: ${errors.length}\n`)
+              .write();
+
+            console.log(`✓ Milestone assignment complete: ${assigned.length} assigned, ${skipped.length} skipped, ${errors.length} errors`);
 
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
