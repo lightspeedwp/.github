@@ -57,6 +57,7 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
+
 - From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
 - From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
@@ -313,6 +314,8 @@ npm run validate:frontmatter
 | Temporary scratch files | `.github/tmp/` (clean up before PR) |
 | Portable reusable AI assets | top-level source folders (see table above) |
 | Permanent human documentation | `docs/` |
+
+**Active projects note:** All active project artefacts MUST be in `.github/projects/active/{slug}/`. Do NOT create project folders in root `projects/` directory (e.g., ~~`projects/active/`~~). The root `projects/` folder is not permitted; all project documentation belongs under `.github/`. This ensures consistent governance and access control per CLAUDE.md line 312.
 
 **Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
