@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-30"
+last_updated: "2026-08-04"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 (none identified)
+
 ### Added
 
 - **Content-parity invariant covers all eight requirement types** — `consistency.json` declares the full taxonomy so any type change breaks the check, which required unifying the list's phrasing across three files. ([PR #1422](https://github.com/lightspeedwp/.github/pull/1422), [#1421](https://github.com/lightspeedwp/.github/issues/1421))
@@ -134,6 +135,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317) — *chore(workflows): cleanup legacy README workflows (Phase 2.4)*, [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
 
 ### Fixed
+
+- **PR merge governance validation: regex syntax and false positives** — Fixed critical regex bug in `hooks/pr-merge-governance-validator.sh` line 102 where `\s+` (POSIX character class) was used in ERE regex context; corrected to `[[:space:]]+` for proper ERE compatibility. Added word boundary check to prevent false positives where linked-issue keywords appear inside longer words (e.g., 'prefixes #123' no longer incorrectly matches 'fixes'). The governance hook now correctly detects linked issues (`Fixes #XXX`, `Relates to #XXX`, etc.) and allows valid PRs to merge. ([PR #1494](https://github.com/lightspeedwp/.github/pull/1494), [#1489](https://github.com/lightspeedwp/.github/issues/1489))
 
 - **Restored changelog audit destroyed during a rebase** — The Keep a Changelog conformance audit was cut from 117 lines to 22, losing its entire body. Recovered intact. ([PR #1422](https://github.com/lightspeedwp/.github/pull/1422), [#1421](https://github.com/lightspeedwp/.github/issues/1421))
 
