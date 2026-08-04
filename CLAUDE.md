@@ -57,9 +57,11 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
+
 - From `scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
-- From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
-- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+- From `scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
+- From `scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+- From `.github/scripts/` (legacy): scripts have been moved to portable root `scripts/` in Phase 2B
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
 
@@ -354,6 +356,7 @@ YYYY-MM-DD-{descriptor}.md
 **Organization-wide instructions** (reusable across all LightSpeedWP repos):
 
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
+
 - [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards
 - [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) — Markdown, YAML, Mermaid standards
 - [instructions/issues.instructions.md](./instructions/issues.instructions.md) — issue creation & labeling standards
