@@ -6,7 +6,8 @@ name: Issue Fields • Bulk Backfill
 #
 # PREREQUISITES
 # ─────────────
-# 1. vars.LS_APP_ID          — GitHub App ID (integer)
+# 1. vars.LS_APP_CLIENT_ID   — GitHub App client ID (preferred)
+#    vars.LS_APP_ID          — Legacy GitHub App ID (fallback)
 # 2. secrets.LS_APP_PRIVATE_KEY — GitHub App private key (PEM)
 # 3. vars.LS_PROJECT_NUMBER  — Projects v2 board number (integer, e.g. 33)
 #    OR vars.LS_PROJECT_URL  — Full URL  (e.g. https://github.com/orgs/…/projects/33)
@@ -67,20 +68,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
       - name: Create GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.LS_APP_ID }}
+          client-id: ${{ vars.LS_APP_CLIENT_ID != '' && vars.LS_APP_CLIENT_ID || vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
 
       - name: Run bulk backfill
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           APP_TOKEN: ${{ steps.app-token.outputs.token }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
@@ -114,6 +116,17 @@ jobs:
               (config?.organization_issue_fields?.enabled_issue_types ?? []).map(s => s.toLowerCase())
             );
 
+            function resolveProjectNumberFromUrl(url) {
+              try {
+                const segments = new URL(url).pathname.split('/').filter(Boolean);
+                const projectsIdx = segments.indexOf('projects');
+                if (projectsIdx < 0 || projectsIdx === segments.length - 1) return Number.NaN;
+                return parseInt(segments[projectsIdx + 1], 10);
+              } catch {
+                return Number.NaN;
+              }
+            }
+
             // ─── Resolve project URL/number ─────────────────────────────
             let projectUrl = process.env.PROJECT_URL;
             const projectNumber = parseInt(process.env.PROJECT_NUMBER || '0', 10);
@@ -143,24 +156,54 @@ jobs:
 
             // ─── Step 2 (optional): Native issue type sync ───────────────
             if (syncNativeTypes) {
-              core.info('Fetching org issue types...');
+              core.info('Fetching issue types...');
               let orgTypeMap = new Map();
+              let orgFetchError = '';
+
               try {
                 const typeData = await github.graphql(`
                   query($org: String!) {
                     organization(login: $org) {
                       issueTypes(first: 50) {
-                        nodes { id name isEnabled }
+                        nodes { id name }
                       }
                     }
                   }
                 `, { org: owner });
                 for (const node of typeData.organization.issueTypes.nodes) {
-                  if (node.isEnabled !== false) orgTypeMap.set(node.name.toLowerCase(), node.id);
+                  orgTypeMap.set(node.name.toLowerCase(), node.id);
                 }
-                core.info(`Org has ${orgTypeMap.size} enabled issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+                core.info(`Organization has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
               } catch (err) {
-                core.warning(`Could not fetch org issue types: ${err.message}`);
+                orgFetchError = err.message;
+                core.warning(
+                  `Could not fetch org issue types: ${err.message}. ` +
+                  'Attempting repository-scoped issue type fallback.'
+                );
+              }
+
+              if (orgTypeMap.size === 0) {
+                try {
+                  const repoTypeData = await github.graphql(`
+                    query($owner: String!, $repo: String!) {
+                      repository(owner: $owner, name: $repo) {
+                        issueTypes(first: 50) {
+                          nodes { id name }
+                        }
+                      }
+                    }
+                  `, { owner, repo });
+                  for (const node of repoTypeData.repository.issueTypes.nodes) {
+                    orgTypeMap.set(node.name.toLowerCase(), node.id);
+                  }
+                  core.info(`Repository fallback has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+                } catch (err) {
+                  core.warning(
+                    `Could not fetch repository issue types: ${err.message}. ` +
+                    `${orgFetchError ? `Org query error: ${orgFetchError}. ` : ''}` +
+                    'Ensure the app token has permission to read issue types at org or repository scope.'
+                  );
+                }
               }
 
               for (const issue of issues) {
@@ -178,12 +221,12 @@ jobs:
                 if (!dryRun) {
                   try {
                     await github.graphql(`
-                      mutation($issueId: ID!, $typeId: ID) {
-                        updateIssue(input: { id: $issueId, typeId: $typeId }) {
+                      mutation($issueId: ID!, $issueTypeId: ID) {
+                        updateIssue(input: { id: $issueId, issueTypeId: $issueTypeId }) {
                           issue { id issueType { name } }
                         }
                       }
-                    `, { issueId: issue.node_id, typeId });
+                    `, { issueId: issue.node_id, issueTypeId: typeId });
                     report.nativeTypeSet.push(`#${issue.number} → ${targetName}`);
                   } catch (err) {
                     report.errors.push(`#${issue.number} native type failed: ${err.message}`);
@@ -199,34 +242,43 @@ jobs:
               core.info(`Syncing project fields to ${projectUrl}...`);
 
               // Resolve project node ID and fields
-              const [, , , orgOrUser, , projNumStr] = new URL(projectUrl).pathname.split('/');
-              const projNum = parseInt(projNumStr, 10);
+              const projNumFromUrl = resolveProjectNumberFromUrl(projectUrl);
+              const projNum = Number.isInteger(projectNumber) && projectNumber > 0
+                ? projectNumber
+                : projNumFromUrl;
 
               let projectId, fieldMeta;
-              try {
-                const projData = await github.graphql(`
-                  query($owner: String!, $number: Int!) {
-                    organization(login: $owner) {
-                      projectV2(number: $number) {
-                        id
-                        fields(first: 30) {
-                          nodes {
-                            ... on ProjectV2Field { id name dataType }
-                            ... on ProjectV2SingleSelectField { id name dataType options { id name } }
+              if (!Number.isInteger(projNum) || projNum <= 0) {
+                core.warning(
+                  `Could not parse a valid project number. ` +
+                  `PROJECT_NUMBER="${process.env.PROJECT_NUMBER || ''}" PROJECT_URL="${projectUrl}"`
+                );
+              } else {
+                try {
+                  const projData = await github.graphql(`
+                    query($owner: String!, $number: Int!) {
+                      organization(login: $owner) {
+                        projectV2(number: $number) {
+                          id
+                          fields(first: 30) {
+                            nodes {
+                              ... on ProjectV2Field { id name dataType }
+                              ... on ProjectV2SingleSelectField { id name dataType options { id name } }
+                            }
                           }
                         }
                       }
                     }
+                  `, { owner, number: projNum });
+                  projectId = projData.organization.projectV2.id;
+                  fieldMeta = {};
+                  for (const f of projData.organization.projectV2.fields.nodes) {
+                    fieldMeta[f.name.toLowerCase()] = f;
                   }
-                `, { owner, number: projNum });
-                projectId = projData.organization.projectV2.id;
-                fieldMeta = {};
-                for (const f of projData.organization.projectV2.fields.nodes) {
-                  fieldMeta[f.name.toLowerCase()] = f;
+                  core.info(`Project "${projectId}" fields: ${Object.keys(fieldMeta).join(', ')}`);
+                } catch (err) {
+                  core.warning(`Could not access project: ${err.message}`);
                 }
-                core.info(`Project "${projectId}" fields: ${Object.keys(fieldMeta).join(', ')}`);
-              } catch (err) {
-                core.warning(`Could not access project: ${err.message}`);
               }
 
               if (projectId) {

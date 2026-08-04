@@ -41,7 +41,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
@@ -70,95 +70,25 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Lint changed Markdown
-        run: |
-          set -euo pipefail
-          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            BASE_SHA="${{ github.event.pull_request.base.sha }}"
-            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
-          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            BASE_SHA="${{ github.event.before }}"
-            HEAD_SHA="${{ github.sha }}"
-          else
-            echo "Skipping markdown lint for event ${GITHUB_EVENT_NAME}"
-            exit 0
-          fi
-
-          # Get changed markdown files, excluding files with deferred formatting
-          # and bundled/vendored skill reference material (not repo-authored)
-          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
-                  sed '/^AWESOME_GITHUB_MAPPING_STRATEGY\.md$/d' | \
-                  sed '/^docs\/MIGRATION\.md$/d' | \
-                  sed '/^\.github\/reports\//d' | \
-                  sed '/^projects\/active\//d' | \
-                  sed '/\/plugin-provided\//d' | \
-                  sed '/\/platform-managed\//d' | \
-                  sed '/\/directory-installed\//d' | \
-                  sed '/\/tests\/markdown-issues\.md$/d' | \
-                  sed '/\/agentskills-main\//d')
-
-          if [ -z "$FILES" ]; then
-            echo "No Markdown files to lint (all changed files are in ignore list)."
-            exit 0
-          fi
-
-          # Pipe through xargs (rather than unquoted word-splitting) so very
-          # large changed-file counts are chunked instead of overflowing the
-          # shell's argument-list limit (E2BIG).
-          echo "$FILES" | xargs -r npx markdownlint-cli2
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD~1' }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: node .github/scripts/validate-markdown-lint.js
 
       - name: Collect Link Targets
         id: link_targets
-        run: |
-          set -euo pipefail
-          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            BASE_SHA="${{ github.event.pull_request.base.sha }}"
-            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
-          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            BASE_SHA="${{ github.event.before }}"
-            HEAD_SHA="${{ github.sha }}"
-          else
-            echo "files=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
-            grep -v '^\.github/instructions/\.archive/' | \
-            grep -v '^\.github/reports/')
-          if [ -z "$CHANGED_FILES" ]; then
-            echo "files=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          LINK_FILES=""
-          LINK_FILE_COUNT=0
-          # Cap the file count passed to lychee-action's `args:` input — that
-          # string is substituted into an environment variable at process
-          # start, so an unbounded count can exceed the runner's
-          # argv/environment size limit (E2BIG) on exceptionally large PRs.
-          MAX_LINK_FILES=300
-          while IFS= read -r file; do
-            [ -z "$file" ] && continue
-            if grep -Eq 'https?://|www\.|mailto:|^\[[^]]+\]:\s*https?://' "$file"; then
-              LINK_FILE_COUNT=$((LINK_FILE_COUNT + 1))
-              if [ "$LINK_FILE_COUNT" -le "$MAX_LINK_FILES" ]; then
-                LINK_FILES="${LINK_FILES}${file} "
-              fi
-            fi
-          done <<EOF
-          $CHANGED_FILES
-          EOF
-
-          if [ "$LINK_FILE_COUNT" -gt "$MAX_LINK_FILES" ]; then
-            echo "::warning::Changed files with URLs ($LINK_FILE_COUNT) exceed the $MAX_LINK_FILES-file link-check cap; only the first $MAX_LINK_FILES were checked. Remaining $((LINK_FILE_COUNT - MAX_LINK_FILES)) file(s) were not link-checked."
-          fi
-
-          echo "files=${LINK_FILES}" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD~1' }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: node .github/scripts/collect-link-targets.js >> "$GITHUB_OUTPUT"
 
       - name: Check Links
         if: steps.link_targets.outputs.files != ''
@@ -178,7 +108,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
@@ -187,7 +117,7 @@ jobs:
         env:
           META_SKIP_README: "true"
         run: |
-          node scripts/agents/meta.agent.js
+          node .github/scripts/agents/meta.agent.js
 
       - name: Update Metrics Snapshot
         run: |
@@ -220,61 +150,4 @@ jobs:
       - name: Open or update automation PR
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          git config user.name "lightspeed-bot"
-          git config user.email "ops@lightspeedwp.agency"
-          git add -A
-
-          if git diff --cached --quiet; then
-            echo "No content or metrics changes to apply."
-            exit 0
-          fi
-
-          BRANCH="chore/meta-agent-sync"
-          git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"
-          git commit -m "chore(meta): apply frontmatter/badges/references/footer + metrics snapshot"
-          git push origin "$BRANCH" --force
-
-          PR_BODY=$(node -e "
-            const body = [
-              '## Linked issues',
-              '',
-              'Relates to #1070',
-              '',
-              '## Summary',
-              '',
-              'Automated meta-agent run: applies frontmatter/badge/footer metadata and refreshes the metrics snapshot. Content-only, no functional code changes.',
-              '',
-              '## Changelog',
-              '',
-              'No changelog entry - internal automation metadata only (see the meta:no-changelog label).',
-              '',
-              '### Checklist (Global DoD / PR)',
-              '',
-              '- [x] Automated content-only change - no functional code modified',
-              '- [x] CI must pass before auto-merge completes',
-            ].join(String.fromCharCode(10));
-            process.stdout.write(body);
-          ")
-
-          # Check if PR already exists
-          EXISTING_PR=$(gh pr list --base develop --head "$BRANCH" --state open --json url --jq '.[0].url' 2>/dev/null || echo "")
-
-          if [ -n "$EXISTING_PR" ]; then
-            PR_URL="$EXISTING_PR"
-            echo "Updating existing PR: $PR_URL"
-          else
-            PR_URL=$(gh pr create \
-              --base develop \
-              --head "$BRANCH" \
-              --title "chore(meta): automated meta-agent sync" \
-              --label "meta:no-changelog" \
-              --body "$PR_BODY")
-            echo "Created new PR: $PR_URL"
-          fi
-
-          # Enable auto-merge if checks pass
-          gh pr merge --auto --squash \
-            --subject "chore(meta): apply frontmatter/badges/references/footer + metrics snapshot [skip ci]" \
-            "$PR_URL" || true
+        run: node .github/scripts/handle-meta-agent-pr.js
