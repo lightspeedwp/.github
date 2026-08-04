@@ -105,15 +105,39 @@ jobs:
 
       - name: Assign milestones
         if: ${{ inputs.remediate_milestones == 'true' && steps.fetch.outputs.count > 0 }}
-        shell: bash
-        run: |
-          set -x
-          pwd
-          echo "Step 1: Starting"
-          ls -la .github/scripts/remediation/ 2>&1 || echo "Directory check failed: $?"
-          echo "Step 2: Done"
+        uses: actions/github-script@v7
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          RUN_ID: ${{ github.run_id }}
+        with:
+          script: |
+            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
+
+            const issues = JSON.parse(process.env.ISSUES_JSON);
+            const dryRun = process.env.DRY_RUN === 'true';
+            const runId = process.env.RUN_ID;
+
+            core.info(`Starting milestone assignment for ${issues.length} issues (dry-run: ${dryRun})`);
+
+            try {
+              const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
+              const reportPath = `.github/reports/remediation/milestone-assignment-${runId}.md`;
+
+              const results = await agent.bulkAssignMilestones(issues, {
+                dryRun,
+                reportPath,
+              });
+
+              const assigned = results.filter((r) => r.status === 'assigned' || r.status === 'dry-run-success').length;
+              const errors = results.filter((r) => r.status === 'error').length;
+              const skipped = results.filter((r) => r.status === 'no-milestone-found').length;
+
+              core.info(`Milestone assignment complete: ${assigned} assigned, ${skipped} skipped, ${errors} errors`);
+            } catch (error) {
+              core.setFailed(`Milestone assignment failed: ${error.message}`);
+              console.error(error.stack);
+            }
 
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
