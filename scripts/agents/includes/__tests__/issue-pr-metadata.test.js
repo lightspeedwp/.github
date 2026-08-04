@@ -30,6 +30,7 @@ describe("issue-pr-metadata helpers", () => {
       blocksRefs: [15],
       blockedByRefs: [16],
       securityRefs: ["GHSA-ABCD-1234-ABCD"],
+      hasBidirectionalBlocking: true,
     });
   });
 
