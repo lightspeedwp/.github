@@ -1,4 +1,8 @@
 
-## 12:05 | claude/pr-1392-codeql-review-0344d2
+## 09:08 | chore/nodejs-22-post-merge-monitoring-day-1
 
-Consolidated PR #1412 with 9 workflow refactors, 11 helper scripts, 17 tests; updated docs/WORKFLOW-REFACTORING-GUIDE.md, .github/projects/active/workflows-consolidation-2026-q3/, Issue #1413; identified 3 failing workflow checks (Mermaid validation, lint-and-links) for resolution.
+Consolidated Node 22 monitoring Day 1-2 findings, closed dup #1457, documented Phase 1 restructuring blocker (tests broken, not Node upgrade), planned Day 3, drafted release workflow remediation prompt.
+
+## 09:15 | chore/nodejs-22-post-merge-monitoring-day-1
+
+Created active proj for release-wf fix (#1453): modified release.yml (trigger-telemetry non-blocking), documented project, updated PROJECTS_INDEX.md, committed to develop.

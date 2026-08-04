@@ -314,6 +314,28 @@ npm run validate:frontmatter
 | Portable reusable AI assets | top-level source folders (see table above) |
 | Permanent human documentation | `docs/` |
 
+**Report File Naming Convention:**
+
+All report files in `.github/reports/` MUST follow this naming pattern:
+
+```
+YYYY-MM-DD-{descriptor}.md
+```
+
+**Examples:**
+- `2026-08-04-release-workflow-fix-verification.md` ✓ Correct
+- `2026-08-04-script-organization-concern.md` ✓ Correct
+- `2026-07-23-branch-cleanup-report.md` ✓ Correct
+- `script-organization-concern.md` ✗ Missing date
+- `SCRIPT-ORG-CONCERN.md` ✗ Missing date
+- `report-2026-08-04.md` ✗ Date in wrong position
+
+**Rationale:**
+- Dates enable chronological sorting and archiving
+- Consistent naming makes reports discoverable
+- Timestamp helps identify when analysis was conducted
+- Supports automation and tooling that expects date-prefixed files
+
 **Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
 **Documentation Standards note (Phase 3A):** Comprehensive standards for creating agents, skills, instructions, workflows, plugins, and other AI infrastructure are maintained in `docs/`. These 9 standards documents are the authoritative reference for all AI-driven work. See [AGENTS.md#documentation-standards](./AGENTS.md#documentation-standards) for the complete quick reference guide.
