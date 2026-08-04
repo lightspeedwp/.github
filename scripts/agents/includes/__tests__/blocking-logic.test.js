@@ -90,4 +90,38 @@ describe("blocking relationship logic", () => {
     expect(hints.blockedByRefs).toEqual([1324]);
     expect(hints.blocksRefs).toEqual([1400, 1401]);
   });
+
+  test("identifies blocking issues correctly", () => {
+    const blockingIssueBody =
+      "Blocks: #100, #200, #300\n\nThis issue blocks three other issues.";
+    const nonBlockingIssueBody = "Some issue without blocking relationships";
+
+    const blockingHints = parseRelationshipHints(blockingIssueBody);
+    const nonBlockingHints = parseRelationshipHints(nonBlockingIssueBody);
+
+    expect(blockingHints.blocksRefs).toEqual([100, 200, 300]);
+    expect(blockingHints.hasBidirectionalBlocking).toBe(true);
+
+    expect(nonBlockingHints.blocksRefs).toEqual([]);
+    expect(nonBlockingHints.hasBidirectionalBlocking).toBe(false);
+  });
+
+  test("prevents both blocked and blocking issues from closing inappropriately", () => {
+    const issueBlockedAndBlocking = [
+      "Description",
+      "Blocked by: #1000",
+      "Blocks: #2000, #2001",
+    ].join("\n");
+
+    const hints = parseRelationshipHints(issueBlockedAndBlocking);
+
+    // Issue is both blocked and blocking
+    expect(hints.blockedByRefs).toEqual([1000]);
+    expect(hints.blocksRefs).toEqual([2000, 2001]);
+    expect(hints.hasBidirectionalBlocking).toBe(true);
+
+    // Should not be allowed to close until:
+    // 1. Its blocker (#1000) is closed, AND
+    // 2. The issues it blocks (#2000, #2001) are closed
+  });
 });
