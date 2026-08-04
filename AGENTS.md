@@ -275,7 +275,7 @@ All AI operations in this repository enforce pre-commit and merge-time governanc
 
 ### Pre-Commit Validation (Before Push)
 
-The `hooks/pr-checklist-validator.sh` hook validates every commit attempt via Claude Code's UserPromptSubmit hook.
+The `hooks/pr-checklist-validator.sh` hook can be integrated into Claude Code's UserPromptSubmit hook to validate branch names and PR template compliance before pushing. It is an optional local integration that must be manually configured in `.claude/settings.json`.
 
 **What it validates:**
 
