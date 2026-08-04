@@ -646,7 +646,7 @@ instructions/documentation-formats.instructions.md
 - ✅ All reports include frontmatter with `file_type`, `category`, `created_date`
 - ✅ Archived reports moved to `.github/reports/archived/` with timestamp
 
-## References
+## Cross-References
 
 - [CLAUDE.md](../CLAUDE.md) — Project-specific instructions and file boundaries
 - [AGENTS.md](../AGENTS.md) — AI agent rules and two-tier agent structure (spec-based vs. multi-file)
