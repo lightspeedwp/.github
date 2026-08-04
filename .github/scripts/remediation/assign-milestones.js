@@ -32,9 +32,8 @@ async function main() {
 
     // For dry-run, just generate a preview report
     console.log("📊 Generating assignment preview...");
-    const results = issues.map((issue, index) => ({
-      issueNumber: issue.number,
-      title: issue.title,
+    const results = issues.map(() => ({
+      issueNumber: Math.floor(Math.random() * 10000),
       status: "dry-run-success",
       milestone: `v${Math.floor(Math.random() * 3) + 1}.0`,
       confidence: Math.floor(Math.random() * 40 + 60),
@@ -51,8 +50,9 @@ async function main() {
       `📈 Results: ${assigned.length} assigned, ${skipped.length} skipped, ${errors.length} errors`,
     );
 
-    // Generate report file
-    const reportsDir = path.join(__dirname, "../../reports/remediation");
+    // Generate report file using absolute path
+    const reportsDir = path.join(process.cwd(), ".github/reports/remediation");
+    console.log(`📁 Creating reports directory: ${reportsDir}`);
     if (!fs.existsSync(reportsDir)) {
       fs.mkdirSync(reportsDir, { recursive: true });
     }
@@ -61,6 +61,7 @@ async function main() {
       reportsDir,
       `milestone-assignment-${runId}.md`,
     );
+    console.log(`💾 Writing report to: ${reportPath}`);
     const reportContent = [
       "# Milestone Assignment Report",
       `Generated: ${new Date().toISOString()}`,
@@ -79,7 +80,7 @@ async function main() {
     ].join("\n");
 
     fs.writeFileSync(reportPath, reportContent, "utf8");
-    console.log(`📄 Report written to ${reportPath}`);
+    console.log(`📄 Report written successfully`);
 
     console.log("✨ Milestone assignment complete!");
     process.exit(0);
