@@ -25,3 +25,7 @@ Use for structured customer support intake where entries become support work, no
 - Do not request passwords, API keys, licence keys, payment details, or private access credentials.
 - Treat screenshots and uploads as potentially sensitive.
 - Record retention and access owner before launch.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

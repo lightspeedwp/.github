@@ -27,3 +27,7 @@ Ask for:
 ## Output formats
 
 Default output is Google Doc-ready Markdown. Use client report, internal report, page table, tour relationship report, schema QA, launch QA, migration report, evidence gap report or developer handoff as appropriate.
+
+---
+
+*🧭 Your compass through the documentation landscape*

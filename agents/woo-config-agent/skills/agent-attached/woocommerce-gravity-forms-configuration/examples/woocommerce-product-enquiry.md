@@ -7,3 +7,7 @@ Use when a product needs pre-sales questions without replacing WooCommerce check
 - Notification: route to sales/product owner; include product context and Reply-To submitter.
 - Guardrail: do not create orders, take payments, or alter checkout unless explicitly scoped and approved.
 - Test: submit from at least one product page and verify context is captured correctly.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

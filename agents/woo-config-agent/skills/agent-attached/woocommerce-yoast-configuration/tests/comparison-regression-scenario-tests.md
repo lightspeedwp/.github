@@ -53,3 +53,7 @@ Expected behaviour:
 - Create or recommend a decision record.
 - Classify as intentional decision, not unresolved regression.
 - Include QA checks for sitemap exclusion and rendered meta robots.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

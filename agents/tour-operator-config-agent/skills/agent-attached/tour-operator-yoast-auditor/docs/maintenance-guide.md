@@ -25,3 +25,7 @@ Do not turn the audit skill into a setup playbook. Route setup work to `tour-ope
 ## Versioning
 
 Record meaningful changes in `docs/changelog.md`, especially changes to routing, templates, evidence requirements, safety rules and source handling.
+
+---
+
+*🧭 Your compass through the documentation landscape*

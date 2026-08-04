@@ -61,3 +61,7 @@
 4. We provide a closure note.
 
 Do not include licence keys, API keys, private entry data, raw logs, internal connector details, or unredacted personal information in this summary.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

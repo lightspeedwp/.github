@@ -17,3 +17,7 @@
 
 - `woocommerce-gravity-forms-auditor`: inspect, assess, score, report, and hand off WooCommerce Gravity Forms findings.
 - `woocommerce-gravity-forms-configuration`: verify current state, plan, configure, validate, and report approved WooCommerce Gravity Forms changes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

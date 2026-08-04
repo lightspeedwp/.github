@@ -47,3 +47,7 @@ Expected: inspect the entrypoint first, then referenced templates, intake files,
 Input: "Turn these Yoast notes into a client-ready audit report."
 
 Expected: use the required report structure with executive summary, scope reviewed, evidence status, score or score status, findings by priority, evidence gaps and limitations, recommended next actions and client-safe note.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

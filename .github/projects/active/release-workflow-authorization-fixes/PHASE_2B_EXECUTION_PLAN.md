@@ -1,385 +1,298 @@
 ---
-file_type: project_document
-description: Phase 2B (Script Reorganization) execution plan and inventory
-date: 2026-08-02
-author: Claude Haiku 4.5
-status: in-progress-with-issues
+file_type: implementation-plan
+title: Phase 2B Execution Plan — Script Migration & Path Updates
+created_date: 2026-08-04
+phase_2a_reference: SCRIPTS_INVENTORY.md
+status: ready-to-execute
+owner: Ash Shaw (DevOps)
+timeline: v1.0 Weeks 1-2
+effort_hours: 16-20
 ---
 
-# Phase 2B Execution Plan
+# Phase 2B: Script Migration & Path Updates
 
-**Initiative:** Script Organization & Validation (Issue #1461)  
-**Phase:** 2B (Portable Scripts Migration)  
-**Status:** ⚠️ IN PROGRESS WITH CRITICAL ISSUES  
-**Target:** Move 117 portable scripts from `.github/scripts/` to root `scripts/` folder
-
----
-
-## Critical Issues Identified (2026-08-04)
-
-### Issue 1: Dual Path Problem ❌
-
-- **Finding:** Both `.github/scripts/` (107 files) AND `scripts/` (217 files) exist
-- **Impact:** Workflows reference both old `.github/` and new `scripts/` locations
-- **Root Cause:** Phase 2B migration was incomplete - scripts were copied but not removed from source
-- **Status:** BLOCKING further validation
-
-### Issue 2: Inconsistent Workflow References ❌
-
-- **Finding:** 21 workflows still use `.github/scripts/` references
-- **Impact:** Running workflows may fail if files moved without updating references
-- **Workflows affected:**
-  - documentation.yml
-  - docs-maintenance.yml
-  - docs-validation.yml
-  - labeling.yml
-  - labeling-governance.yml
-  - issue-remediation-bulk.yml
-  - metrics-pipeline.yml
-  - project-archival.yml
-  - issues.yml
-  - metrics-reporting.yml
-  - reviewer.yml
-  - release.yml
-  - meta.yml
-  - planner.yml
-  - (and 7 more)
-- **Status:** CRITICAL - must be resolved before merge
-
-### Issue 3: Missing Project Documentation ❌
-
-- **Finding:** PHASE_2B_EXECUTION_PLAN.md and SCRIPTS_INVENTORY.md not in develop
-- **Impact:** Phase 2B progress cannot be tracked or verified
-- **Root Cause:** Files created in prior worktree but never committed to develop
-- **Status:** Blocking Phase 2C completion
+**Status:** READY TO EXECUTE  
+**Phase 2A Reference:** [SCRIPTS_INVENTORY.md](./SCRIPTS_INVENTORY.md)  
+**Owner:** Ash Shaw (DevOps)  
+**Timeline:** v1.0 Weeks 1-2  
+**Total Effort:** 16-20 hours  
+**GitHub Issue:** [#1464](https://github.com/lightspeedwp/.github/issues/1464)
 
 ---
 
-## Phase 2B Objectives
+## Overview
 
-### Primary Goal
+Phase 2B executes the actual migration of 58 PORTABLE scripts from `.github/scripts/` to root `scripts/` folder, with comprehensive test coverage strategy.
 
-Reorganize 117 portable scripts from `.github/scripts/` to root-level `scripts/` folder structure while maintaining backward compatibility and updating all references.
+**Key Decision:** Defer hybrid script refactoring to Phase 3 (defer 4-6 hour task to maintain v1.0 timeline)
 
-### Organizational Structure
+---
+
+## Revised Scope (From Phase 2A Audit)
+
+**Original Estimate:** 5 portable scripts → **Actual: 58 portable scripts**
+
+### Scripts to Move (58 total)
+
+| Category | Count | Examples | Test Files |
+|---|---|---|---|
+| Validation Scripts | 25 | validate-changelog, validate-frontmatter | 14 test files |
+| Utility Libraries | 16 | changelogUtils, commitParser, footerUtils | 8 test files |
+| Changelog Utilities | 3 | extract-pr-entries, merge-entries | 2 integration tests |
+| TOTAL PORTABLE | 58 | — | ~24 test files |
+
+### Scripts to Keep in .github/scripts (79 total)
+
+- Core agents (22): labeling, release, issue-type, etc.
+- Workflow scripts (10): release, branch-policy, metrics
+- GitHub-specific utilities (12): milestone checks, template validation
+- Design/config tools (10+): DESIGN.md validation, skill packaging
+
+### Scripts to Defer (27 HYBRID)
+
+- Mark as "Future Refactoring Candidates"
+- Document refactoring strategy in separate Phase 3 document
+- Defer to balance Phase 2B timeline within v1.0
+
+---
+
+## Test Coverage Strategy
+
+### Test Files to Migrate WITH Scripts (24 total)
+
+**Validation Test Files (14):**
+
+- validate-changelog.test.js
+- validate-frontmatter.test.js
+- And 12 other test files in `.github/scripts/validation/__tests__/`
+
+**Agent Include Test Files (8):**
+
+- badgeUtils.test.js, changelogUtils.test.js, footerUtils.test.js
+- And 5 other test files in `.github/scripts/agents/includes/__tests__/`
+
+**Changelog Integration Tests (2):**
+
+- changelog-management.test.cjs
+- merge-entries.integration.test.cjs
+
+### Test Coverage Actions
+
+**Task 2B.1: Audit Test Coverage**
+
+- Verify each of 58 portable scripts has corresponding test file(s)
+- Document test file locations and dependencies
+- Identify any portable scripts lacking test coverage
+- List 24 test files that will be moved with scripts
+
+**Task 2B.2: Update Test Path References**
+
+- Update all imports in test files to reference new script locations
+- Verify all test paths resolve correctly
+- Run test suite pre-migration to establish baseline
+
+**Task 2B.3: Test Execution After Migration**
+
+- Run full test suite after moving scripts
+- Verify all 24 test files still pass
+- Check for any module resolution errors
+- Document any test failures and remediate
+
+---
+
+## Phase 2B Task Breakdown
+
+### Task 2B.1: Create Directory Structure (1 hour)
+
+Create root `scripts/` folder hierarchy:
 
 ```
 scripts/
-├── validation/              # 59 files - general validation scripts
-│   ├── validate-*.js       # Individual validators
-│   └── __tests__/          # Unit tests
-├── workflows/              # 56 files - GitHub Actions workflow integrations
-│   ├── changelog/          # 5 files + tests
-│   ├── metrics/            # Metrics aggregation & reporting
-│   ├── projects/           # Project archival & management
-│   ├── release/            # Release automation
-│   └── __tests__/          # Integration tests
-└── agents/                 # 102 files - portable agent implementations
-    └── includes/           # 62 agent utility libraries
-        ├── milestone-assignment.js
-        ├── issue-pr-metadata.cjs
-        ├── allocate-milestone.cjs
-        └── ...
-
-.github/scripts/           # GitHub-ONLY scripts (control-plane specific)
-├── agents/                # GitHub-specific agents
-│   ├── meta.agent.js
-│   ├── issues.agent.js
-│   ├── reviewer.agent.js
-│   ├── planner.agent.js
-│   └── run-labeling-agent.cjs
-├── workflows/            # GitHub-specific workflow scripts
-│   ├── assign-milestones-workflow.js    # SHOULD MOVE OR REFERENCE
-│   └── ...
-└── *.js                  # Control-plane validation scripts
-    ├── identify-changed-markdown.js
-    ├── collect-validation-results.js
-    ├── validate-markdown-lint.js
-    └── ...
+├── validation/              (25 validation scripts + 14 test files)
+│   └── __tests__/
+├── workflows/               (3 changelog utilities + 2 integration tests)
+│   ├── changelog/
+│   └── __tests__/
+├── agents/                  (16 utility libraries + 8 test files)
+│   ├── includes/
+│   └── __tests__/
+├── utils/                   (general utilities)
+└── README.md                (portable scripts overview)
 ```
 
----
+**Acceptance Criteria:**
 
-## Script Classification (Portable vs GitHub-Only)
+- All 5 directories created
+- README.md files in each category
+- Directory structure matches Phase 2B plan
+- No files in place yet (just structure)
 
-### PORTABLE (Move to `scripts/`)
+### Task 2B.2: Move Portable Scripts Using git mv (5 hours)
 
-Scripts that have **no GitHub-specific assumptions** and can be reused outside this repo:
+Move scripts in logical batches to preserve git history:
 
-- ✅ Validation scripts (frontmatter, JSON, links, etc.)
-- ✅ Agent utility libraries (milestone assignment, metadata handling)
-- ✅ Changelog utilities
-- ✅ Schema validators
+**Batch 1: Validation Scripts (2 hours)**
 
-**Total:** ~160 files
+- Move 25 validation scripts to scripts/validation/
+- Move 14 validation test files to scripts/validation/**tests**/
+- Commit: "refactor(scripts): Move validation scripts to portable root (#1464)"
 
-### GITHUB-ONLY (Stay in `.github/scripts/`)
+**Batch 2: Changelog Utilities (1.5 hours)**
 
-Scripts with **GitHub Actions assumptions** or **control-plane specificity**:
+- Move 3 changelog utilities to scripts/workflows/changelog/
+- Move 2 integration tests to scripts/workflows/changelog/**tests**/
+- Commit: "refactor(scripts): Move changelog utilities to portable root (#1464)"
 
-- 🔧 Agent implementations using GitHub API directly
-  - meta.agent.js (GitHub project metadata)
-  - issues.agent.js (GitHub issue operations)
-  - reviewer.agent.js (PR reviewer assignment)
-  - planner.agent.js (GitHub project planning)
-  - run-labeling-agent.cjs (GitHub labeling)
+**Batch 3: Agent Utility Libraries (1.5 hours)**
 
-- 🔧 Workflow integrations with GitHub Actions context
-  - Scripts that read `github.event`
-  - Scripts that use `core.setOutput()`
-  - Scripts that require `@actions/*` packages
+- Move 16 portable agent utilities to scripts/agents/includes/
+- Move 8 test files to scripts/agents/includes/**tests**/
+- Commit: "refactor(scripts): Move agent utility libraries to portable root (#1464)"
 
-**Total:** ~107 files
+**Acceptance Criteria:**
 
----
+- All 58 portable scripts moved to `scripts/`
+- All 24 test files moved alongside scripts
+- Git history preserved (used `git mv`)
+- 3 commits created, one per batch
 
-## Phase 2B Execution Status
+### Task 2B.3: Update All Path References (6-8 hours)
 
-### Stage 1: Inventory & Classification ✅ DONE
+Update references across 30-40 files:
 
-- [x] Identified all scripts
-- [x] Classified portable vs GitHub-only
-- [x] Documented folder structure
+**Subtask 2B.3.1: Update Workflow YAML Files (2 hours)**
 
-### Stage 2: File Migration 🔄 IN PROGRESS
+- Update ~15 workflows with new paths
+- Pattern: `../../../scripts/validation/` instead of `../../.github/scripts/validation/`
+- Test workflow YAML syntax with `npm run lint:workflows`
 
-- [x] Copy portable scripts to root `scripts/`
-- ❌ **ISSUE:** Did not remove from `.github/scripts/` (dual state)
-- ⏳ Fix required: Remove old files or resolve conflicts
+**Subtask 2B.3.2: Update npm Scripts in package.json (1 hour)**
 
-### Stage 3: Reference Updates 🔴 NEEDS IMMEDIATE WORK
+- Update ~20 npm scripts
+- Pattern: `scripts/validation/` instead of `.github/scripts/validation/`
 
-- [ ] Update all workflow references (21 files)
-  - [ ] documentation.yml
-  - [ ] docs-maintenance.yml
-  - [ ] docs-validation.yml
-  - [ ] labeling.yml
-  - [ ] labeling-governance.yml
-  - [ ] issue-remediation-bulk.yml
-  - [ ] metrics-pipeline.yml
-  - [ ] project-archival.yml
-  - [ ] issues.yml
-  - [ ] metrics-reporting.yml
-  - [ ] reviewer.yml
-  - [ ] release.yml
-  - [ ] meta.yml
-  - [ ] planner.yml
-  - [ ] (and more)
-- [ ] Update all documentation references
-- [ ] Update schema path references in scripts
+**Subtask 2B.3.3: Update Script-to-Script Imports (2 hours)**
 
-### Stage 4: Testing & Validation ⏳ PENDING
+- Update validation scripts importing parsers
+- Update changelog utilities importing changelogUtils
+- Test imports by running scripts locally
 
-- [ ] Unit tests pass (validation scripts)
-- [ ] Integration tests pass (workflow scripts)
-- [ ] No regressions in existing functionality
-- [ ] All paths resolve correctly
+**Subtask 2B.3.4: Update Test File Imports (1.5 hours)**
 
-### Stage 5: Archive & Closure ⏳ PENDING
+- Update all test file imports to new paths
+- Run test suite: `npm test`
 
-- [ ] Close issue #1461, #1464, #1465
-- [ ] Merge to develop
-- [ ] Update epic #1376
+**Subtask 2B.3.5: Documentation References (1 hour)**
 
----
+- Update any markdown/docs that reference script paths
+- Update CLAUDE.md references
 
-## Required Actions (Blocking)
+**Acceptance Criteria:**
 
-### ACTION 1: Resolve Dual Path Problem
+- 15 workflow YAML files updated and linted
+- 20+ npm scripts updated and tested
+- 10-15 script imports updated and tested
+- 24 test file imports updated and passing
+- 5+ documentation references updated
+- Total: 30-40 files updated
 
-**Priority:** CRITICAL  
-**Owner:** Phase 2C Validation
+### Task 2B.4: Comprehensive Testing (2 hours)
 
-Need to decide:
+**Phase 1: Unit Tests (30 min)**
 
-1. ❓ Keep both copies (doubles maintenance burden)?
-2. ✅ RECOMMENDED: Remove `.github/scripts/` for portable files
-3. Keep GitHub-only scripts in `.github/scripts/`
+- Run full test suite
+- Expected: All 24 moved test files pass
 
-### ACTION 2: Update All Workflow References
+**Phase 2: npm Script Validation (30 min)**
 
-**Priority:** CRITICAL  
-**Owner:** Phase 2C Validation
+- Test each validation npm script
+- Expected: All scripts execute successfully
 
-For each workflow using `.github/scripts/`:
+**Phase 3: Workflow Dry-Run (30 min)**
 
-- Determine if file should be portable or GitHub-only
-- Update reference path accordingly
-- Test in dry-run mode
+- Test key workflows with dry-run
+- Expected: Workflows run without path errors
 
-**Example:**
+**Phase 4: Integration Test (30 min)**
 
-```yaml
-# BEFORE
-run: node .github/scripts/workflows/assign-milestones-workflow.js
+- Test full workflow execution
+- Expected: All checks pass
 
-# AFTER (if portable)
-run: node scripts/workflows/assign-milestones-workflow.js
+**Acceptance Criteria:**
 
-# OR (if stays in .github/scripts/)
-run: node .github/scripts/workflows/assign-milestones-workflow.js
-```
-
-### ACTION 3: Verify Schema Path References
-
-**Priority:** HIGH  
-**Owner:** Phase 2C Validation
-
-All scripts using schema files need correct relative paths:
-
-- From `scripts/validation/` → `../../../schemas/`
-- From `scripts/agents/includes/` → `../../../../schemas/`
-- From `scripts/workflows/changelog/` → `../../../../schemas/`
-
-**Current Status:** ⚠️ Partially updated, needs full audit
+- All 24 test files pass
+- All npm scripts execute without errors
+- 3+ key workflows run successfully in dry-run
+- Full integration test suite passes
+- No regressions in existing functionality
 
 ---
 
-## File Location Reference Matrix
+## Stacked PR Strategy
 
-| Script Type | Old Location | New Location | Status |
-|------------|-------------|------------|--------|
-| Validation | `.github/scripts/validate-*.js` | `scripts/validation/` | ✅ Copied |
-| Changelog | `.github/scripts/workflows/changelog/` | `scripts/workflows/changelog/` | ✅ Copied |
-| Metrics | `.github/scripts/workflows/metrics/` | `scripts/workflows/metrics/` | ✅ Copied |
-| Projects | `.github/scripts/workflows/projects/` | `scripts/workflows/projects/` | ✅ Copied |
-| Agent Utils | `.github/scripts/agents/includes/` | `scripts/agents/includes/` | ✅ Copied |
-| **GitHub Agents** | `.github/scripts/agents/*.js` | **STAYS** | ✅ No change needed |
+Create 4-5 stacked PRs for atomic, reviewable changes:
 
----
+### PR 1: Create Directory Structure
 
-## Path Reference Updates Needed
+- Create scripts/ directories and README templates
+- Commits: 1
+- Reviewable: Yes
 
-### Workflows to Update (21 total)
+### PR 2: Move Validation Scripts
 
-```
-Priority 1 (Highest Impact):
-- labeling.yml
-- labeling-governance.yml
-- release.yml
-- changelog-management.yml
-- metadata-governance.yml
+- Move 25 validation scripts + 14 test files
+- Commits: 1
+- Reviewable: Yes
 
-Priority 2 (Medium Impact):
-- issue-remediation-bulk.yml
-- issues.yml
-- reviewer.yml
-- planner.yml
-- meta.yml
-- docs-maintenance.yml
-- docs-validation.yml
+### PR 3: Move Workflow/Agent Utilities
 
-Priority 3 (Specific Paths):
-- metrics-pipeline.yml
-- metrics-reporting.yml
-- project-archival.yml
-- documentation.yml
-```
+- Move 3 changelog scripts + 16 agent utilities + 10 test files
+- Commits: 2 (one per category)
+- Reviewable: Yes
 
-### Documentation to Update (28 files)
+### PR 4: Update All Path References
 
-All `docs/*.md` files referencing `.github/scripts/` need updates to reflect new structure.
+- Update workflows, npm scripts, imports, tests, docs (~30-40 files)
+- Commits: 5 (grouped by type)
+- Reviewable: Yes
+
+### PR 5: Phase 2B Completion (if needed)
+
+- Any remaining cleanup
+- Commits: 1
 
 ---
 
-## Test Coverage Requirements
+## Success Criteria for Phase 2B
 
-### Unit Tests (Must Pass)
-
-```bash
-npm test
-# Expected: 1,114+ tests passing
-```
-
-### Validation Tests (Must Pass)
-
-```bash
-npm run validate:all
-# Expected: All 13 validators passing
-```
-
-### Workflow Tests (Recommended)
-
-```bash
-# For each workflow using scripts:
-# 1. Verify script path resolution
-# 2. Dry-run with test inputs
-# 3. Confirm no breaking changes
-```
+- All 58 portable scripts moved to `scripts/` (preserving git history)
+- All 24 test files moved alongside scripts
+- All 30-40 path references updated
+- Full test suite passes with new paths
+- All npm scripts execute successfully
+- Key workflows run without errors in dry-run
+- 4-5 stacked PRs created and reviewed
+- Zero test coverage loss
+- Hybrid script refactoring deferred to Phase 3
+- CLAUDE.md updated with portable assets documentation
+- Ready to merge to develop
 
 ---
 
-## Success Criteria
+## Timeline & Effort Estimate
 
-✅ Phase 2B is COMPLETE when:
-
-- [x] Portable scripts migrated to `scripts/`
-- [ ] All workflow references updated ⚠️ BLOCKING
-- [ ] All documentation updated
-- [ ] All unit tests passing
-- [ ] No path resolution errors
-- [ ] Zero regressions in existing workflows
-- [ ] `.github/scripts/` contains only GitHub-specific code
-- [ ] Pull request merged to develop
+| Task | Duration |
+|---|---|
+| 2B.1: Create directory structure | 1h |
+| 2B.2: Move 58 scripts + tests | 5h |
+| 2B.3: Update path references | 6-8h |
+| 2B.4: Comprehensive testing | 2h |
+| **Total Phase 2B** | **16-20h** |
 
 ---
 
-## Timeline
-
-| Phase | Target | Status |
-|-------|--------|--------|
-| 2B.1 | Inventory & classification | ✅ DONE (2026-08-02) |
-| 2B.2 | File migration | ✅ DONE (2026-08-02) |
-| 2B.3 | Reference updates | 🔴 **BLOCKED** |
-| 2B.4 | Testing & validation | ⏳ WAITING FOR 2B.3 |
-| 2B.5 | Merge & archive | ⏳ WAITING FOR 2B.4 |
-
-**Current Status:** Phase 2B is **INCOMPLETE** due to unresolved path references.
-
----
-
-## Related Issues & Epics
-
-- **Issue #1461:** Script Organization Architecture (parent)
-- **Issue #1464:** Phase 2B Execution (THIS PHASE)
-- **Issue #1465:** Phase 2C Testing & Documentation
-- **Epic #1376:** Script Organization & Validation
-- **PR #1482:** Initial script movement (NEEDS REWORK)
-- **PR #1483:** Changelog utilities (merged with caveats)
-- **PR #1484:** Path reference updates (INCOMPLETE)
-
----
-
-## Notes & Observations
-
-### What Went Wrong
-
-1. Scripts were copied to `scripts/` but not removed from `.github/scripts/`
-2. Not all workflow references were updated
-3. Phase 2B was merged to develop before Phase 2C validation completed
-4. No comprehensive reference audit was performed before marking complete
-
-### What Needs to Happen Now (Phase 2C Fix)
-
-1. **Resolve dual paths:** Consolidate portable scripts, clean up `.github/scripts/`
-2. **Update all references:** 21 workflows + 28 docs need path corrections
-3. **Verify execution:** Test each workflow with new paths
-4. **Document rationale:** Explain which scripts are portable vs GitHub-only
-5. **Complete audit:** Ensure NO orphaned or duplicate scripts
-
-### Prevention for Future Phases
-
-- Run full reference audit BEFORE marking phase complete
-- Use automated path validation in CI/CD
-- Require workflow dry-run tests before merge
-- Maintain clear portable vs GitHub-only classification
-
----
-
-**Document Status:** ⚠️ This plan reflects CURRENT findings from Phase 2C audit.  
-**Last Updated:** 2026-08-04 (by Phase 2C validation)  
-**Ready for:** Immediate remediation in Phase 2C.X (scope expansion)
-
----
-
-*This document was created to address critical gaps identified during Phase 2C validation. Phase 2B marked as INCOMPLETE pending reference updates.*
+**Document Status:** READY FOR PHASE 2B EXECUTION  
+**Phase 2A Dependency:** COMPLETE (see SCRIPTS_INVENTORY.md)  
+**GitHub Issue:** #1464  
+**Owner:** Ash Shaw (DevOps)  
+**Created:** 2026-08-04

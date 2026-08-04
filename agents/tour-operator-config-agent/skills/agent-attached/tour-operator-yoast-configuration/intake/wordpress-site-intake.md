@@ -14,3 +14,7 @@ Use this for WordPress-specific context.
 - sitemap URL
 - robots URL
 - sample URLs
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

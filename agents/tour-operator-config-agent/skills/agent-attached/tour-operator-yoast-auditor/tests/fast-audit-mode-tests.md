@@ -20,3 +20,7 @@ Expected:
 - States that the review applies only to the sample.
 - Checks metadata, canonical, meta robots, schema and internal travel relationships where evidence supports it.
 - Recommends the minimum next check.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

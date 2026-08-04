@@ -45,3 +45,7 @@ Expected routing:
 Expected behaviour:
 
 - Flag crawl/index bloat, canonical/noindex/sitemap alignment, and developer escalation where custom logic is required.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

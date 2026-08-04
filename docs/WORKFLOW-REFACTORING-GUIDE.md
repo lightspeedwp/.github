@@ -37,7 +37,7 @@ This document tracks the refactoring of GitHub Actions workflows to fix shell co
     EVENT_NAME: ${{ github.event_name }}
     BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
     HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-  run: node .github/scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
+  run: node scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
 ```
 
 **Lines 84-96: Check for Mermaid diagrams**
@@ -65,28 +65,28 @@ This document tracks the refactoring of GitHub Actions workflows to fix shell co
     SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
     A11Y_OUTCOME: ${{ steps.accessibility.outcome }}
     CONTRAST_OUTCOME: ${{ steps.contrast.outcome }}
-  run: node .github/scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
+  run: node scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
 ```
 
 #### 2. **documentation.yml** ✅ (2 steps)
 
-**Step: Check validation outcomes** → `.github/scripts/collect-validation-results.js`
-**Step: Generate audit report** → `.github/scripts/generate-doc-audit-report.js`
+**Step: Check validation outcomes** → `scripts/collect-validation-results.js`
+**Step: Generate audit report** → `scripts/generate-doc-audit-report.js`
 
 **Commits:** ed68bf312
 
 #### 3. **meta.yml** ✅ (2 steps)
 
 **Step: Open or update automation PR** → `.github/scripts/handle-meta-agent-pr.js`  
-**Step: Lint changed Markdown** → `.github/scripts/validate-markdown-lint.js`
+**Step: Lint changed Markdown** → `scripts/validate-markdown-lint.js`
 
 **Commits:** ed68bf312, d34280e94 (ES module syntax fix)
 
 #### 4. **docs-validation.yml** ✅ (3 steps)
 
-**Step: Identify changed Markdown files** → `.github/scripts/identify-changed-markdown.js`  
+**Step: Identify changed Markdown files** → `scripts/identify-changed-markdown.js`  
 **Step: Check for Mermaid diagrams** → `.github/scripts/check-mermaid-diagrams.sh`  
-**Step: Collect results** → `.github/scripts/collect-validation-results.js`  
+**Step: Collect results** → `scripts/collect-validation-results.js`  
 **Early exit logic** → Added early exit when no markdown changes
 
 **Commits:** ed68bf312, 21874dc3d
@@ -186,3 +186,7 @@ npm test -- .github/scripts/__tests__/workflow-helpers.test.js
 - [Using Node.js safely in workflows](https://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback)
 - [Workflow validation script](../scripts/validation/validate-workflows.js)
 - [CODEOWNERS configuration guide](../CODEOWNERS)
+
+---
+
+*🧭 Your compass through the documentation landscape*

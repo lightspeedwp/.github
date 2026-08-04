@@ -16,3 +16,7 @@ Ask only if the answer changes the recommendation.
 ## Safe assumptions
 
 If details are missing, assume planning mode and avoid recommending live indexation, canonical, schema or redirect changes without approval.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

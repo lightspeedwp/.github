@@ -3,7 +3,7 @@ file_type: documentation
 title: Phase 2B Skills Architecture Audit
 description: Comprehensive analysis of agent skills organisation, reusability, and architectural patterns
 created: 2026-07-24
-status: complete
+status: active
 related_issues: '#1079'
 related_branches:
   - feat/agents-phase-2b-skills-audit

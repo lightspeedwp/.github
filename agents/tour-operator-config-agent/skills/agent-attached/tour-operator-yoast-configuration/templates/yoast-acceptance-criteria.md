@@ -8,3 +8,7 @@
 - Breadcrumb output matches approved structure.
 - Redirect samples pass without avoidable chains.
 - Taxonomy archive decisions are documented and approved.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

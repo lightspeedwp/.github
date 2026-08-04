@@ -23,3 +23,7 @@ Use this when a travel site rebuild, URL change, site merge or launch migration 
 - Sitemaps should use the final domain.
 - Destination, accommodation and travel-style archive behaviour should be deliberate.
 - Enquiry and thank-you page indexation should match the intended search policy.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

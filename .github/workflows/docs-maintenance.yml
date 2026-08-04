@@ -10,6 +10,7 @@ on:
       - ".github/instructions/**"
       - "docs/**"
       - ".github/scripts/**"
+      - "scripts/**"
   schedule:
     - cron: "0 9 * * MON"
   workflow_dispatch:
@@ -139,7 +140,7 @@ jobs:
         if: |
           github.event.inputs.action == 'update-readme' ||
           github.event.inputs.action == 'update-mermaid'
-        run: node .github/scripts/fix-mermaid-diagrams.js
+        run: node scripts/fix-mermaid-diagrams.js
         continue-on-error: true
 
       - name: Validate Mermaid colour contrast
@@ -153,7 +154,7 @@ jobs:
         if: |
           github.event.inputs.action == 'update-readme' ||
           github.event.inputs.action == 'update-staleness'
-        run: node .github/scripts/fix-staleness-dates.js
+        run: node scripts/fix-staleness-dates.js
         continue-on-error: true
 
       - name: Generate update report

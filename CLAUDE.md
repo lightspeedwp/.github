@@ -50,24 +50,17 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 | Component | Old Path | New Path | Type |
 | --- | --- | --- | --- |
 | **Schema files** | `schema/` | `schemas/` (root, visible) | Consolidation |
-| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then back to portable root |
+| **Scripts** | `scripts/` | `.github/scripts/` | Move to .github |
 | **Website** | `website/` | `.github/website/` | Move to .github |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `.github/scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
 
-**Portable scripts (root location):**
-
-- From `scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
-- From `scripts/agents/includes/`: go **four levels up** (`../../../../schemas/`) to reach `schemas/` at repo root
-- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../schemas/`) to reach `schemas/` at repo root
-
-**Control-plane scripts (.github location):**
-
+- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
-- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`) to reach `schemas/`
+- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
 
@@ -315,8 +308,6 @@ npm run validate:frontmatter
 | Repo-local Copilot/agent instructions (control-plane-specific) | `.github/instructions/` or `.github/custom-instructions.md` |
 | Portable JSON schemas (validation definitions) | `.schemas/` (hidden folder at root) |
 | Portable agent specifications (multi-file implementations) | `agents/` (root) |
-| Portable reusable scripts (validation, changelog, agent utilities) | `scripts/` (root) |
-| Control-plane-specific scripts (agents, validators, project utilities) | `.github/scripts/` |
 | Spec-based agents (simple YAML/JSON definitions) | `.github/agents/` (GitHub-native only) |
 | Reports, audits, metrics | `.github/reports/{category}/` |
 | Active project artefacts | `.github/projects/active/{slug}/` |
@@ -324,29 +315,7 @@ npm run validate:frontmatter
 | Portable reusable AI assets | top-level source folders (see table above) |
 | Permanent human documentation | `docs/` |
 
-**Report File Naming Convention:**
-
-All report files in `.github/reports/` MUST follow this naming pattern:
-
-```
-YYYY-MM-DD-{descriptor}.md
-```
-
-**Examples:**
-
-- `2026-08-04-release-workflow-fix-verification.md` ✓ Correct
-- `2026-08-04-script-organization-concern.md` ✓ Correct
-- `2026-07-23-branch-cleanup-report.md` ✓ Correct
-- `script-organization-concern.md` ✗ Missing date
-- `SCRIPT-ORG-CONCERN.md` ✗ Missing date
-- `report-2026-08-04.md` ✗ Date in wrong position
-
-**Rationale:**
-
-- Dates enable chronological sorting and archiving
-- Consistent naming makes reports discoverable
-- Timestamp helps identify when analysis was conducted
-- Supports automation and tooling that expects date-prefixed files
+**Active projects note:** All active project artefacts MUST be in `.github/projects/active/{slug}/`. Do NOT create project folders in root `projects/` directory (e.g., ~~`projects/active/`~~). The root `projects/` folder is not permitted; all project documentation belongs under `.github/`. This ensures consistent governance and access control per CLAUDE.md line 312.
 
 **Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 

@@ -7,3 +7,7 @@ These are reusable LightSpeed-style defaults for Yoast planning.
 - Approval before risky live settings changes.
 - Rendered-output QA after implementation.
 - Smallest useful deliverable rather than over-sized reports.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

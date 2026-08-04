@@ -21,3 +21,7 @@
 
 - `tour-operator-gravity-forms-auditor`: inspect, assess, score, report, handoff.
 - `tour-operator-gravity-forms-configuration` skill: plan, configure, validate approved changes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

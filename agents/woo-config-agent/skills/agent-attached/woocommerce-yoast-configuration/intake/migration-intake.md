@@ -23,3 +23,7 @@ Use this for redesigns, rebuilds, domain moves, URL changes, WooCommerce migrati
 - Check that canonical URLs point to final indexable destinations.
 - Test representative old-to-new redirects and product/category redirects.
 - Treat exact post-launch Google behaviour as uncertain; verify with Search Console after launch.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

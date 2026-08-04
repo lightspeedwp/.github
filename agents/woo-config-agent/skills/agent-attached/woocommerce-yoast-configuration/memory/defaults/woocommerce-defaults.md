@@ -5,3 +5,7 @@
 - Validate product schema on representative product types.
 - Complete product identifiers and availability fields where supported.
 - Keep product sitemap clean and aligned with indexation.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

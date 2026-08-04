@@ -68,3 +68,7 @@
 - Approved exceptions:
 - Accepted risks:
 - Follow-up date:
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

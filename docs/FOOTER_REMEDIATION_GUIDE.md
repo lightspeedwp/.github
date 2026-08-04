@@ -54,7 +54,7 @@ Currently, footers are:
 
 1. **`.schemas/footer-config.schema.json`** — JSON Schema defining valid footer structure
 2. **`config/footers.config.yaml`** — Predefined footer library with 13 category-specific templates
-3. **`.github/scripts/validate-footers.js`** — Validation script to detect, fix, and backfill violations
+3. **`scripts/validate-footers.js`** — Validation script to detect, fix, and backfill violations
 
 ### Key Principles
 
@@ -211,7 +211,7 @@ category: "readme"
 Run the validation script:
 
 ```bash
-node .github/scripts/validate-footers.js --verbose
+node scripts/validate-footers.js --verbose
 ```
 
 Expected output:
@@ -241,25 +241,25 @@ References: branding meta agent initiative #33"
 ### Check All Files
 
 ```bash
-node .github/scripts/validate-footers.js
+node scripts/validate-footers.js
 ```
 
 ### Check with Verbose Output
 
 ```bash
-node .github/scripts/validate-footers.js --verbose
+node scripts/validate-footers.js --verbose
 ```
 
 ### Save Report to JSON
 
 ```bash
-node .github/scripts/validate-footers.js --report=violations.json
+node scripts/validate-footers.js --report=violations.json
 ```
 
 ### Auto-Fix Violations (Creates Backups)
 
 ```bash
-node .github/scripts/validate-footers.js --fix
+node scripts/validate-footers.js --fix
 ```
 
 This will:
@@ -439,7 +439,7 @@ Action: Replace and note in commit
 
 - **Schema definition**: `.schemas/footer-config.schema.json`
 - **Footer library**: `config/footers.config.yaml`
-- **Validation script**: `.github/scripts/validate-footers.js`
+- **Validation script**: `scripts/validate-footers.js`
 - **Branding meta agent**: Issue #33 (automation to follow)
 - **Execution plan**: `.github/projects/active/next-issues-execution-plan.md`
 
@@ -448,7 +448,7 @@ Action: Replace and note in commit
 ## Next Steps
 
 1. ✅ **Review this guide** — Understand the problem and solution
-2. ⬜ **Run validation script** — Audit all files: `node .github/scripts/validate-footers.js`
+2. ⬜ **Run validation script** — Audit all files: `node scripts/validate-footers.js`
 3. ⬜ **Fix root README.md** — Remove duplicate footers (manually or with `--fix`)
 4. ⬜ **Validate changes** — Confirm no violations remain
 5. ⬜ **Commit & push** — Create PR with fixes

@@ -17,3 +17,7 @@ Use this when multiple team members will use the Yoast configuration skill.
 - Code-level filters/API changes go to developer handoff.
 - Google Search interpretation should be source-backed and caveated.
 - WooCommerce product data issues should be separated from Yoast configuration.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

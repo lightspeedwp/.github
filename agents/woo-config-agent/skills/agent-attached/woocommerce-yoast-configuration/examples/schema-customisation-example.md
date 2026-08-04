@@ -17,3 +17,7 @@
 3. Recommend graph-aware extension rather than duplicate hard-coded JSON-LD.
 4. Require JSON-LD validation, rendered output checks and regression coverage.
 5. Mark unsupported implementation details as pseudo-code.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

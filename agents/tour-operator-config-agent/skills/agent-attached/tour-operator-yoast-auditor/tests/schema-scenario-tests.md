@@ -19,3 +19,7 @@ Expected:
 
 - Mark schema review as blocked.
 - Request raw schema output or source HTML.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -43,3 +43,7 @@ All skills are available as OpenAI functions:
 - Cost-effective long-document generation with gpt-3.5-turbo
 - Wide ecosystem support through OpenAI API partners
 - Multi-skill orchestration through function composition
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

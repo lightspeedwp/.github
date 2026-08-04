@@ -40,11 +40,55 @@ Made the `trigger-telemetry` job non-blocking with `continue-on-error: true` so 
 - [x] Root cause identified and documented  
 - [x] Fix implemented (non-blocking telemetry)
 - [x] Project created and documented
-- [ ] Merged to develop
-- [ ] Tested via workflow execution
-- [ ] Issue #1453 closed
+- [x] Merged to develop (PR #1462, commit 5e0400377)
+- [ ] Tested via workflow execution (Phase 1: Dry-run pending)
+- [ ] Issue #1453 closed (pending test validation)
+
+## Testing & Validation
+
+**Test Execution Plan:** `TEST_EXECUTION_PLAN.md`
+
+Comprehensive testing strategy for validating the fix:
+
+- **Phase 1:** Dry-run test (non-destructive, safest first)
+- **Phase 2:** Failure simulation (verify graceful handling)
+- **Phase 3:** Validation (job execution order & dependencies)
+- **Phase 4:** Logging & artifacts (capture test results)
+
+**How to Trigger Test:**
+
+```bash
+gh workflow run release.yml --ref develop \
+  -f version="" -f scope="patch" -f provider="shell" \
+  -f dry_run="true" -f notes_from=""
+```
+
+## Project Structure
+
+```
+.github/projects/active/release-workflow-authorization-fixes/
+├── README.md                      # This file (project overview)
+├── STATUS.md                      # Current status and progress
+├── TEST_EXECUTION_PLAN.md         # Comprehensive testing strategy
+└── TEST_RESULTS.md               # Test results (TBD, created after testing)
+```
+
+## Success Criteria
+
+For the fix to be considered validated:
+
+✓ Workflow executes successfully (green status badge)  
+✓ trigger-telemetry fails gracefully (continue-on-error works)  
+✓ Downstream jobs execute normally without blocking  
+✓ Lint and test jobs complete (skipped or passed)  
+✓ Release job generates dry-run artifacts  
+✓ All artifacts properly uploaded  
+✓ Logs clearly show job execution flow  
 
 ## Related
 
-- **Issue #1453:** Investigation: release.yml workflow failing
+- **Issue #1453:** Investigation: release.yml workflow failing (42+ day blocker)
+- **Issue #1461:** Script organization architecture concern (secondary discovery)
 - **Parent Epic #1427:** Node.js 22 Upgrade Post-Merge Monitoring
+- **PR #1462:** Release workflow telemetry non-blocking + script organization review
+- **Reports:** `.github/reports/workflow-testing/2026-08-04-*.md`

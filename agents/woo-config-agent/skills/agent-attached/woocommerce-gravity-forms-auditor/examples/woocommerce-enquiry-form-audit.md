@@ -26,3 +26,7 @@ Prepare a configuration handoff for dynamic product context validation and optio
 ## Additional WooCommerce checks
 
 Also verify product context capture, stock or availability wording where relevant, B2B/wholesale segmentation, order-related data minimisation, and quote/payment boundary wording.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

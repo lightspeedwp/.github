@@ -23,3 +23,7 @@ Expected: route to `woocommerce-yoast-configuration`.
 Input: "Does this site need Yoast WooCommerce SEO?"
 
 Expected: request/inspect plugin stack and output; do not make capability claims without current evidence or scanned official source.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

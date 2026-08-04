@@ -10,3 +10,7 @@ Use this skill when a Tour Operator Configuration Agent needs Yoast SEO planning
 - Check whether these old tour URLs should redirect.
 - Prepare a client-safe Yoast QA summary.
 - Create a developer handoff for custom schema output.
+
+---
+
+*🧭 Your compass through the documentation landscape*
