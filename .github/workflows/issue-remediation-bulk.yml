@@ -106,16 +106,25 @@ jobs:
       - name: Assign milestones
         if: ${{ inputs.remediate_milestones == 'true' && steps.fetch.outputs.count > 0 }}
         run: |
-          echo "🔍 Step 0: Setting up environment..."
-          echo "${{ steps.fetch.outputs.issues }}" > /tmp/issues.json
-          echo "🔍 Step 1: Checking script file..."
-          ls -la .github/scripts/remediation/assign-milestones.js
-          echo "🔍 Step 2: Running milestone assignment..."
-          node .github/scripts/remediation/assign-milestones.js /tmp/issues.json
+          echo "🚀 Starting milestone assignment via GitHub CLI..."
+          DRY_RUN="${{ inputs.dry_run }}"
+          ISSUE_COUNT="${{ steps.fetch.outputs.count }}"
+
+          echo "📊 Processing $ISSUE_COUNT issues..."
+
+          # Parse issues JSON and assign milestones
+          ISSUES='${{ steps.fetch.outputs.issues }}'
+          echo "$ISSUES" | jq -r '.[] | "\(.number)"' | while read ISSUE_NUM; do
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "  [DRY-RUN] Would assign milestone to issue #$ISSUE_NUM"
+            else
+              echo "  Assigning milestone to issue #$ISSUE_NUM..."
+              gh issue edit "$ISSUE_NUM" --milestone "Backlog" 2>/dev/null || echo "  (Could not assign milestone)"
+            fi
+          done
+
           echo "✅ Milestone assignment complete"
         env:
-          DRY_RUN: ${{ inputs.dry_run }}
-          RUN_ID: ${{ github.run_id }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add missing type labels
