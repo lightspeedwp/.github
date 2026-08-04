@@ -9,6 +9,7 @@ on:
       - ".github/agents/**"
       - ".github/instructions/**"
       - "docs/**"
+      - ".github/scripts/**"
       - "scripts/**"
   schedule:
     - cron: "0 9 * * MON"
@@ -60,7 +61,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
@@ -103,7 +104,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
         run: |
-          node scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
+          node .github/scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
 
   manual-update:
     name: Manual Documentation Updates
@@ -226,7 +227,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
           cache: "npm"
 
       - name: Install dependencies

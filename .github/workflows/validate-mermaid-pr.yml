@@ -4,22 +4,9 @@ on:
   # DISABLED: Consolidated into docs-validation.yml
   # This workflow is deprecated and will be removed after Phase 2.3
   # See: .github/projects/active/workflows-consolidation-2026-q3/PHASE_2_2_TEST_RESULTS.md
+  # All triggers have been disabled. Use docs-validation.yml instead.
   workflow_run:
     workflows: []
-  pull_request:
-    branches:
-      - develop
-      - main
-    paths:
-      - "**/*.md"
-      - "**/*.mdx"
-  push:
-    branches-ignore:
-      - main
-      - develop
-    paths:
-      - "**/*.md"
-      - "**/*.mdx"
 
 concurrency:
   group: mermaid-validate-${{ github.ref }}
@@ -42,7 +29,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
           cache: "npm"
 
       - name: Install dependencies

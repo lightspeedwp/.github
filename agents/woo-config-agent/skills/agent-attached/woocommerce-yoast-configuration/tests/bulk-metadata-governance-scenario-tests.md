@@ -62,3 +62,7 @@ Expected behaviour:
 - Use `templates/yoast-approval-queue.md`.
 - Remove internal implementation detail that is not client-safe.
 - Keep caveats about search display and approval boundaries.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

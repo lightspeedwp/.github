@@ -60,3 +60,7 @@
 ## Suggested configuration prompt
 
 Use `woocommerce-gravity-forms-configuration` to prepare a remediation plan for this WooCommerce Gravity Forms auditor handoff. Treat the handoff as evidence, verify current site state first, preserve finding IDs, do not make changes until the change plan and approval requirements are confirmed, and return validation steps mapped to the original findings.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

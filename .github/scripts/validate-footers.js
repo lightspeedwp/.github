@@ -55,7 +55,6 @@ try {
   const quirkyConfigContent = fs.readFileSync(QUIRKY_FOOTERS_PATH, "utf8");
   quirkyFootersConfig = yaml.load(quirkyConfigContent);
   console.log("✅ Loaded quirky footers configuration");
-  // eslint-disable-next-line no-unused-vars
 } catch (err) {
   // Quirky footers config not found; will use standard footers
   console.warn(
@@ -218,7 +217,6 @@ function isExcludedFromFooterValidation(filePath) {
       if (regex.test(normalizedPath)) {
         return true;
       }
-      // eslint-disable-next-line no-unused-vars
     } catch (err) {
       // Invalid regex pattern, skip silently
     }

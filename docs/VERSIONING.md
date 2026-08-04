@@ -240,17 +240,17 @@ A file **must not** have a minor version exceeding the repository minor version:
 
 ### Automation
 
-Use `scripts/versioning/bump-file-version.js` for single or bulk version bumps:
+Use `.github/scripts/versioning/bump-file-version.js` for single or bulk version bumps:
 
 ```bash
 # Bump patch version of a single file
-node scripts/versioning/bump-file-version.js ../instructions/coding-standards.instructions.md patch
+node .github/scripts/versioning/bump-file-version.js ../instructions/coding-standards.instructions.md patch
 
 # Bump minor version (with guardrail check)
-node scripts/versioning/bump-file-version.js .github/prompts/review.prompt.md minor
+node .github/scripts/versioning/bump-file-version.js .github/prompts/review.prompt.md minor
 
 # Bulk bump patch versions
-node scripts/versioning/bump-file-version.js --bulk ".github/instructions/**/*.md" patch
+node .github/scripts/versioning/bump-file-version.js --bulk ".github/instructions/**/*.md" patch
 ```
 
 The script will:
@@ -268,7 +268,7 @@ Add a CI check to ensure file versions don't exceed repository version:
 - name: Validate file versions
   run: |
     REPO_VERSION=$(cat VERSION)
-    node scripts/versioning/validate-versions.js --repo-version $REPO_VERSION
+    node .github/scripts/versioning/validate-versions.js --repo-version $REPO_VERSION
 ```
 
 ### When to Use
@@ -291,34 +291,34 @@ Add a CI check to ensure file versions don't exceed repository version:
 
 ### Available Scripts
 
-#### `scripts/versioning/bump-file-version.cjs`
+#### `.github/scripts/versioning/bump-file-version.cjs`
 
 Bump individual or bulk file versions with guardrails:
 
 ```bash
 # Single file
-node scripts/versioning/bump-file-version.cjs <file> [patch|minor]
+node .github/scripts/versioning/bump-file-version.cjs <file> [patch|minor]
 
 # Bulk update
-node scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
+node .github/scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
 
 # Help
-node scripts/versioning/bump-file-version.cjs --help
+node .github/scripts/versioning/bump-file-version.cjs --help
 ```
 
-#### `scripts/maintenance/fix-references.cjs`
+#### `.github/scripts/maintenance/fix-references.cjs`
 
 Validate and fix broken reference links in frontmatter:
 
 ```bash
 # Scan and fix all references
-node scripts/maintenance/fix-references.cjs
+node .github/scripts/maintenance/fix-references.cjs
 
 # Show current fix map
-node scripts/maintenance/fix-references.cjs --fix-map
+node .github/scripts/maintenance/fix-references.cjs --fix-map
 
 # Help
-node scripts/maintenance/fix-references.cjs --help
+node .github/scripts/maintenance/fix-references.cjs --help
 ```
 
 ### Integration with CI/CD

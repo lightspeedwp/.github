@@ -124,10 +124,10 @@ Examples:
   node validate-json.js --glob "**/*.json" --format-only
 
   # Validate against schema
-  node validate-json.js --glob "data/**/*.json" --schema "schema/my-doc.schema.json"
+  node validate-json.js --glob "data/**/*.json" --schema "schemas/my-doc.schema.json"
 
   # Read-only validation (don't modify files)
-  node validate-json.js --glob "**/*.json" --schema "schema/my-doc.schema.json" --read-only
+  node validate-json.js --glob "**/*.json" --schema "schemas/my-doc.schema.json" --read-only
 
   # Strict syntax check with JSONLint
   node validate-json.js --glob "config/**/*.json" --strict

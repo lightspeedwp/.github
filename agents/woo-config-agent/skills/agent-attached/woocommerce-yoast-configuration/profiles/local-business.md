@@ -41,3 +41,7 @@ Use Yoast SEO as the base for the WooCommerce site. Consider Local SEO only afte
 ## Output recommendation
 
 Use `templates/yoast-configuration-report.md` for setup, `templates/yoast-audit-report.md` for an existing site, and `templates/launch-qa-checklist.md` for launch or migration validation.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

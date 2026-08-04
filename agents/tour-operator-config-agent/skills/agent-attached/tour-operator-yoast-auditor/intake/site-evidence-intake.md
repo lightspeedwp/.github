@@ -25,3 +25,7 @@ Use this when direct evidence is needed before making findings.
 | Schema QA | Schema output from representative URLs |
 | Migration readiness | Old/new URL examples, redirect map, sitemap plan and canonical evidence |
 | Launch QA | Staging/live URL, sitemap, robots, metadata, schema and redirect evidence |
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

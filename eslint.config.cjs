@@ -48,6 +48,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "website/dist/**", // Migrated from .eslintignore
       "website/node_modules/**", // Migrated from .eslintignore
       "projects/active/**", // Project documentation and deliverables (excluded from linting)
+      "hooks/**", // Shell scripts and portable hooks (not JavaScript)
     ];
 
 /**

@@ -20,3 +20,7 @@ Use this when rolling the Yoast configuration skill into an agency workflow.
 2. Define which deliverables are internal-only versus client-facing.
 3. Add scenario tests for every repeated workflow.
 4. Version the skill package and changelog every release.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -144,7 +144,7 @@ exclusion_patterns:
 
 ### Solution 4: Enhanced Validation Script
 
-Updated `.github/scripts/validate-footers.js`:
+Updated `scripts/validate-footers.js`:
 
 - Loads both standard and quirky footer configurations
 - Uses `yaml.safeLoad()` for security
@@ -195,7 +195,7 @@ Updated `.github/scripts/validate-footers.js`:
 
 ### Modified Files
 
-1. **`.github/scripts/validate-footers.js`**
+1. **`scripts/validate-footers.js`**
    - Load quirky footers configuration
    - Add `isExcludedFromFooterValidation()` function
    - Switch to `yaml.safeLoad()` for security
@@ -246,7 +246,7 @@ npx ajv validate \
 npm run validate:footers
 
 # Check changed files only
-node .github/scripts/validate-footers.js \
+node scripts/validate-footers.js \
   --changed-only \
   --base=develop \
   --head=HEAD

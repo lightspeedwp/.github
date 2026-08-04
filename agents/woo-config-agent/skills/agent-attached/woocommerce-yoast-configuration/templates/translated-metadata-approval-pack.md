@@ -55,3 +55,7 @@
 - AI-generated or machine-translated metadata is not approved source evidence.
 - Do not import this batch until approval owner and QA route are recorded.
 - Final acceptance requires rendered-output QA after implementation.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

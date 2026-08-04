@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.7"
-last_updated: "2026-07-23"
+version: "v1.0.8"
+last_updated: "2026-07-30"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
@@ -73,7 +73,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
 | **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **metadata-governance.yml** | issues / pull_request_target | Apply assignee and relationship metadata; inherit milestones only when explicitly linked | issue-pr-metadata.cjs |
-| **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `.github/scripts/validate-footers.js` |
+| **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `scripts/validate-footers.js` |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | issues / pull_request | Sync project board fields from labels, title/body fallbacks, and kickoff metadata | derive-project-fields.cjs |
@@ -81,6 +81,42 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
 | **metrics.yml** | develop | Track and report organisation metrics | metrics.agent.js |
+
+---
+
+## Workflow Architecture & Helper Scripts (Phase 4)
+
+**Status:** Phase 4 refactoring complete (2026-07-30)
+
+GitHub Actions does not allow multiline shell control-flow (if/for/while) directly in `run:` blocks. Phase 4 refactored 9 workflows to extract this logic into 12 dedicated helper scripts using safe patterns (execFileSync, environment variables).
+
+### Helper Scripts Overview
+
+| Script | Type | Purpose |
+|--------|------|---------|
+| identify-changed-markdown.js | Node.js | Find changed Markdown files safely |
+| collect-validation-results.js | Node.js | Aggregate validation outcomes |
+| collect-link-targets.js | Node.js | Collect markdown files with URLs for link checking |
+| check-mermaid-diagrams.sh | Bash | Detect Mermaid syntax in files |
+| report-changelog-action.sh | Bash | Report changelog merge results |
+| summarize-native-type.sh | Bash | Summarize native type sync |
+| generate-doc-audit-report.js | Node.js | Generate documentation audit reports |
+| handle-meta-agent-pr.js | Node.js | Manage meta-agent PR creation/merge |
+| validate-reports-structure.js | Node.js | Validate report directory structure |
+| validate-markdown-lint.js | Node.js | Lint markdown with exclusions (ES modules) |
+
+**Security Improvements:**
+
+- ✅ 9 command injection risks eliminated
+- ✅ Changed from shell interpolation to execFileSync with argument arrays
+- ✅ All configuration passed via environment variables
+
+**Detailed Documentation:** See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for complete Phase 4 implementation details, including:
+
+- Root cause analysis of GitHub Actions shell control-flow constraints
+- Safe patterns for extracting shell logic
+- Test coverage (17 passing tests)
+- Commit history and deployment status
 
 ---
 
@@ -245,9 +281,9 @@ All workflows must:
 **File locations:**
 
 - Agent specifications: `.github/agents/`
-- Agent scripts: `scripts/agents/`
+- Agent scripts: `.github/scripts/agents/`
 - Agent utilities: `scripts/agents/includes/`
-- Tests: `scripts/agents/__tests__/` and `scripts/agents/includes/__tests__/`
+- Tests: `.github/scripts/agents/__tests__/` and `scripts/agents/includes/__tests__/`
 
 **Requirements:**
 

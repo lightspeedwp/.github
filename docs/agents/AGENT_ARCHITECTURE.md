@@ -80,7 +80,7 @@ Both functions return `Promise<void>`. Exit code is set via `core.setFailed()` o
 
 ### Logger Class
 
-Located: `scripts/utils/logger.js`
+Located: `.github/scripts/utils/logger.js`
 
 ```javascript
 class Logger {
@@ -185,7 +185,7 @@ logger.info("Agent started", {
 
 ### Location
 
-`scripts/agents/planner.agent.js`
+`.github/scripts/agents/planner.agent.js`
 
 ### Main Functions
 
@@ -245,7 +245,7 @@ const existingComment = prComments.data.find((c) =>
 
 ### Location
 
-`scripts/agents/reviewer.agent.js`
+`.github/scripts/agents/reviewer.agent.js`
 
 ### Main Functions
 
@@ -381,7 +381,7 @@ if (dryRun) {
 
 ### Test Patterns
 
-Tests located in `scripts/agents/__tests__/`:
+Tests located in `.github/scripts/agents/__tests__/`:
 
 - `planner.agent.test.js`
 - `reviewer.agent.test.js`
@@ -448,10 +448,10 @@ Typical execution: 500-2000ms (depends on API latency)
 
 ## Related Files
 
-- Source: `scripts/agents/planner.agent.js`
-- Source: `scripts/agents/reviewer.agent.js`
-- Logger: `scripts/utils/logger.js`
-- Tests: `scripts/agents/__tests__/`
+- Source: `.github/scripts/agents/planner.agent.js`
+- Source: `.github/scripts/agents/reviewer.agent.js`
+- Logger: `.github/scripts/utils/logger.js`
+- Tests: `.github/scripts/agents/__tests__/`
 - Runbooks: `docs/agents/PLANNER_RUNBOOK.md`, `REVIEWER_RUNBOOK.md`
 
 ---

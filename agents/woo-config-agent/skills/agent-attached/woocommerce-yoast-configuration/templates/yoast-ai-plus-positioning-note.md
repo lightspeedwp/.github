@@ -42,3 +42,7 @@ Explain how AI-assisted features affect the team workflow:
 ## Recommended next action
 
 State the smallest safe next action: verify product packaging, run metadata review, pilot on selected pages, create approval pack, or defer.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

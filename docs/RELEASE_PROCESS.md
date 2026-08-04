@@ -51,9 +51,9 @@ tags: ["release", "process", "automation"]
 - Agent command examples:
 
 ```bash
-node scripts/agents/release.agent.js --scope=patch
-node scripts/agents/release.agent.js --scope=minor --dry-run
-node scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
+node .github/scripts/agents/release.agent.js --scope=patch
+node .github/scripts/agents/release.agent.js --scope=minor --dry-run
+node .github/scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
 ```
 
 ## MCP provider runtime settings
@@ -127,8 +127,8 @@ If a release is started but must be rolled back:
 Rollback utility supports provider-aware cleanup:
 
 ```bash
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry-run
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry-run
 ```
 
 ---

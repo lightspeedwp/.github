@@ -23,3 +23,7 @@ Use for a post-project, post-support, or post-purchase feedback form.
 - Submit with and without follow-up consent.
 - Check survey result view and entry export behaviour.
 - Confirm notifications do not expose sensitive feedback beyond approved recipients.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

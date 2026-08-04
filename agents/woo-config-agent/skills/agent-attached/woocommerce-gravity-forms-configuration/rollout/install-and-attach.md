@@ -20,3 +20,7 @@ Run these prompts in a safe workspace:
 ## Upgrade notes
 
 When updating, replace the whole skill package with the new `skill.zip`; do not patch individual files in production unless the workspace supports controlled skill versioning.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

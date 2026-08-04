@@ -4,7 +4,7 @@ const path = require("path");
 const { execFileSync } = require("child_process");
 
 const scriptPath = path.join(__dirname, "../validate-memory.js");
-const repoRoot = path.resolve(__dirname, "../../../..");
+const repoRoot = path.resolve(__dirname, "../../..");
 
 function mkdirp(dir) {
   fs.mkdirSync(dir, { recursive: true });
@@ -16,8 +16,8 @@ function writeJson(filePath, data) {
 }
 
 function copySchemas(tempRoot) {
-  const schemaSrc = path.join(repoRoot, ".schemas", "memory");
-  const schemaDst = path.join(tempRoot, ".schemas", "memory");
+  const schemaSrc = path.join(repoRoot, "schemas", "memory");
+  const schemaDst = path.join(tempRoot, "schemas", "memory");
   mkdirp(schemaDst);
   for (const file of fs.readdirSync(schemaSrc)) {
     fs.copyFileSync(path.join(schemaSrc, file), path.join(schemaDst, file));

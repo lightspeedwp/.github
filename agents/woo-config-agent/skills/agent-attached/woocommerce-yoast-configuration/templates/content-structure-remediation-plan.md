@@ -65,3 +65,7 @@
 ## Client-safe summary
 
 Use plain language. Avoid promising ranking, traffic, indexing or rich-result outcomes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -24,3 +24,7 @@ Use for simple event interest or attendance registration where a dedicated ticke
 - Do not use as a full ticketing/seat-allocation system unless scoped and approved.
 - Avoid collecting unnecessary health or identity data.
 - If payments are involved, use the payment feed risk workflow.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

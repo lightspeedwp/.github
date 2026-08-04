@@ -10,3 +10,7 @@ Use this when the site is a standard WordPress business website rather than a fu
 - sitemap and robots checks
 - breadcrumb consistency
 - low-value archive cleanup
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

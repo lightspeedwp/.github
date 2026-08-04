@@ -1,0 +1,26 @@
+name: gitleaks
+
+on:
+  pull_request:
+    branches: [develop, main]
+  workflow_dispatch:
+    inputs:
+      full-history:
+        description: Scan the full git history.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitleaks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    uses: ./.github/workflows/gitleaks-reusable.yml
+    permissions:
+      contents: read
+    with:
+      full-history: ${{ github.event_name == 'workflow_dispatch' && inputs.full-history || false }}

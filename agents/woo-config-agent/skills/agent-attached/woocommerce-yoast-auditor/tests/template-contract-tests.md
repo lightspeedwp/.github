@@ -29,3 +29,7 @@ Every client-facing audit, launch, migration, WooCommerce or schema template mus
 Input: "Check template contract after editing templates."
 
 Expected output: list each checked template, pass/fail status, missing required fields, and any score/client-safe wording gaps.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

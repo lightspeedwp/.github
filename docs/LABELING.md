@@ -288,7 +288,7 @@ Discussion labels organize community conversations by topic, making it easy for 
 
 ### Unified Labelling Agent
 
-All labelling, status enforcement, type assignment, and standardisation are handled by the **unified labelling agent** (`scripts/agents/labeling.agent.js`) and **labelling workflow** (`.github/workflows/labeling.yml`).
+All labelling, status enforcement, type assignment, and standardisation are handled by the **unified labelling agent** (`.github/scripts/agents/labeling.agent.js`) and **labelling workflow** (`.github/workflows/labeling.yml`).
 
 **How it works:**
 
@@ -376,7 +376,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)
 - [Labelling Workflow](../.github/workflows/labeling.yml)
-- [Labelling Agent](../scripts/agents/labeling.agent.js)
+- [Labelling Agent](../.github/scripts/agents/labeling.agent.js)
 - [Issue Creation Standards](../instructions/issues.instructions.md)
 - [PR Creation Standards](../instructions/pull-requests.instructions.md)
 

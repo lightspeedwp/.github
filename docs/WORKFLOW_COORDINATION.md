@@ -2,8 +2,8 @@
 title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
-last_updated: "2026-07-23"
-version: "v1.1.5"
+last_updated: "2026-07-30"
+version: "v1.1.6"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "automation", "agents", "coordination", "ci-cd"]
@@ -50,6 +50,8 @@ Always-run workflows trigger automatically on push/PR events without agent invol
 | `metadata-governance.yml` | issues / pull_request_target | Assign assignees, milestones, and relationship metadata | ❌ No (metadata only) |
 | `project-meta-sync.yml` | issues / pull_request | Sync GitHub Project board fields | ❌ No (metadata only) |
 | `readme-regen.yml` | push/PR on `.md` files | Validate/regenerate README indices | ❌ No (informational) |
+
+**Note (Phase 4 - 2026-07-30):** All workflows listed above use safe shell patterns (helper scripts instead of multiline control-flow) as of Phase 4 refactoring. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for implementation details.
 
 ### When to Use
 

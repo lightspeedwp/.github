@@ -66,3 +66,7 @@ Expected:
 - Refuse to give green current status.
 - Mark evidence as stale.
 - Provide qualitative historical summary and current evidence request.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

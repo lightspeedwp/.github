@@ -14,7 +14,9 @@ permissions:
   pull-requests: write
 
 env:
-  PROJECT_URL: ${{ vars.LS_PROJECT_URL }}
+  # Prefer explicit URL; derive from LS_PROJECT_NUMBER if only number is set.
+  # e.g. set vars.LS_PROJECT_NUMBER=33 → https://github.com/orgs/lightspeedwp/projects/33
+  PROJECT_URL: ${{ vars.LS_PROJECT_URL || (vars.LS_PROJECT_NUMBER && format('https://github.com/orgs/{0}/projects/{1}', github.repository_owner, vars.LS_PROJECT_NUMBER)) || '' }}
   SLA_WARN_DAYS: "7"
   SLA_BREACH_DAYS: "14"
 
@@ -36,10 +38,10 @@ jobs:
           enabled="true"
           reason=""
 
-          # If PROJECT_URL is not set, workflow is intentionally disabled
+          # If neither PROJECT_URL nor LS_PROJECT_NUMBER is set, disable gracefully
           if [ -z "${PROJECT_URL:-}" ]; then
             enabled="false"
-            reason="LS_PROJECT_URL is not configured (project sync disabled)"
+            reason="Neither LS_PROJECT_URL nor LS_PROJECT_NUMBER is configured (project sync disabled)"
             echo "::notice::Project sync disabled: $reason"
           # If PROJECT_URL is set but app credentials are missing, fail loudly
           elif [ -z "${APP_ID:-}" ] || [ -z "${APP_PRIVATE_KEY:-}" ]; then
@@ -87,7 +89,7 @@ jobs:
         if: steps.preflight.outputs.enabled == 'true'
         uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version-file: ".nvmrc"
 
       - name: Install workflow dependencies
         if: steps.preflight.outputs.enabled == 'true'

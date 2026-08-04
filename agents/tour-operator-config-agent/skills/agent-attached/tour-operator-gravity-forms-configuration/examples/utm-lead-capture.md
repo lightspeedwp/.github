@@ -30,3 +30,7 @@ Capture a lead enquiry while preserving campaign attribution in hidden fields wi
 - Submit without UTM parameters.
 - Submit with validation errors and confirm no successful conversion event is counted.
 - Confirm entry is created before tracking is considered valid.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

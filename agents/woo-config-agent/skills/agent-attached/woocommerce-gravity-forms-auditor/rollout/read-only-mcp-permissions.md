@@ -33,3 +33,7 @@ Avoid broad access to:
 ## Permission posture
 
 If the connector exposes mixed read/write permissions, the auditor must call only read/list/get/export/inspect actions. If safe read capabilities are not available, request screenshots, exported JSON, redacted logs, or admin notes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

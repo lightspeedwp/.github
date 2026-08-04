@@ -3,8 +3,8 @@ title: "Changelog Automation & Integration"
 description: "Complete guide to changelog management, automation workflows, and integration with release processes"
 file_type: "documentation"
 created_date: "2026-07-24"
-last_updated: "2026-07-24"
-version: "1.0.0"
+last_updated: "2026-07-30"
+version: "1.0.1"
 owners: ["LightSpeed Team"]
 tags: ["changelog", "automation", "release", "versioning"]
 ---
@@ -50,6 +50,15 @@ The changelog automation system:
 - ✅ Prevents section header corruption during merges
 - ✅ Integrates with semantic versioning for releases
 - ✅ Generates GitHub Releases with compiled release notes
+
+### Implementation (Phase 4 Refactoring)
+
+**Update (2026-07-30):** The changelog automation workflows were refactored in Phase 4 to use helper scripts instead of multiline shell logic. The changelog-management.yml workflow now uses:
+
+- `report-changelog-action.sh` — Safely report changelog merge action status
+- `.github/scripts/agents/changelog.agent.js` — Changelog validation and management
+
+These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
 ---
 
@@ -452,7 +461,7 @@ npm run lint:all
 
 ### Release Agent Changelog Handling
 
-**File:** `scripts/agents/release.agent.js`
+**File:** `.github/scripts/agents/release.agent.js`
 
 **Operations:**
 
@@ -660,7 +669,7 @@ npm run validate:changelog
 - `scripts/workflows/changelog/merge-entries.cjs` — Merge & deduplicate entries
 - `scripts/workflows/changelog/merge-entries.integration.test.cjs` — Merge validation tests
 - `scripts/validation/validate-changelog.cjs` — Schema compliance
-- `scripts/agents/release.agent.js` — Release automation
+- `.github/scripts/agents/release.agent.js` — Release automation
 
 ### Workflow Files
 
@@ -709,16 +718,16 @@ npm run validate:changelog
 
 ```bash
 # Patch release (default)
-node scripts/agents/release.agent.js
+node .github/scripts/agents/release.agent.js
 
 # Minor release
-node scripts/agents/release.agent.js --scope=minor
+node .github/scripts/agents/release.agent.js --scope=minor
 
 # Major release
-node scripts/agents/release.agent.js --scope=major
+node .github/scripts/agents/release.agent.js --scope=major
 
 # Dry run (preview only, no commits/tags)
-node scripts/agents/release.agent.js --scope=minor --dry-run
+node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 ```
 
 ---

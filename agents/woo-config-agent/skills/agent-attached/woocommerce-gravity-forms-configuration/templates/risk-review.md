@@ -32,3 +32,7 @@
 
 - Proceed / revise / route away / refuse:
 - Smallest safe next action:
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

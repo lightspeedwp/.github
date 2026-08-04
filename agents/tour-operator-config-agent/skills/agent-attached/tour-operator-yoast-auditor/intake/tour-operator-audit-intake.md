@@ -21,3 +21,7 @@ Use this when tours, destinations, accommodation, travel styles, specials, revie
 - 1 accommodation URL if accommodation is in scope.
 - 1 travel-style archive if travel styles are in scope.
 - 1 enquiry path.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

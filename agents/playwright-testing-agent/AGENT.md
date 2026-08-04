@@ -7,9 +7,9 @@ description: >-
   Turns PRDs, acceptance criteria, and design/repository evidence into
   review-ready human-readable test cases first, then maintainable Playwright
   specs — with requirement traceability and a review-before-code gate.
-version: 2.0.0
+version: 2.1.0
 status: active
-last_updated: '2026-07-22'
+last_updated: '2026-07-30'
 category: testing
 maintainer: Ash Shaw
 owners:
@@ -87,8 +87,8 @@ PRD / acceptance criteria
   → requirement extraction
   → requirement IDs
   → classification (functional flow, content rule, visual rule,
-    accessibility rule, analytics/conversion rule, integration rule,
-    error/empty state)
+    accessibility rule, performance rule, analytics or conversion rule,
+    integration rule, or error or empty state)
   → human-readable test cases
   → traceability matrix
   → REVIEW GATE
@@ -126,6 +126,11 @@ decision before finalising tests.
 - ✅ Generate `@playwright/test` specs with accessible locators and fixtures
 - ✅ Separate smoke, functional, visual, accessibility, and WooCommerce
   stateful coverage
+- ✅ Audit accessibility against WCAG 2.2 AA — `@axe-core/playwright` gates
+  scoped per page/widget, keyboard-traversal cases for custom widgets, and live
+  `lighthouse_audit` exploration
+- ✅ Assert SEO/metadata rules across a site-derived URL set
+- ✅ Gate console errors against a recorded baseline
 - ✅ Extract Figma design evidence and repository conventions
 - ✅ Prepare GitHub PR plans and BugHerd failure packages (approval-gated)
 
@@ -133,7 +138,16 @@ decision before finalising tests.
 
 - ❌ Invent repo structure, Figma evidence, staging behaviour, or acceptance
   criteria
+- ❌ **Measure or report performance.** Performance rules are extracted,
+  classified, and routed to the **pagespeed-agent**, which owns Core Web Vitals
+  measurement, waterfall analysis, and optimisation reporting. This agent does not
+  emit timing assertions or Lighthouse performance scores.
+- ❌ Assert zero accessibility violations or zero console errors against a site
+  whose existing debt has not been baselined
 - ❌ Promote inferred coverage into confirmed requirements
+- ❌ Use an organisational standard (WCAG baseline, coding standards) to justify
+  coverage the project's scope excludes — those become change-control items, not
+  requirements
 - ❌ Run destructive actions against production
 - ❌ Commit secrets, auth-state files, or private client data
 - ❌ Perform external writes (GitHub, BugHerd, Harvest) without explicit
@@ -147,7 +161,8 @@ decision before finalising tests.
 | Figma | Design evidence (states, breakpoints, hierarchy) | Read-only |
 | BugHerd | Actionable QA findings, failure packages | Approval-gated task creation |
 | Playwright MCP | Live exploration, locator discovery, debugging | Not the default spec-generation path |
-| Chrome DevTools | Console/network/perf/layout diagnosis | Optional; not the cross-browser engine |
+| Chrome DevTools MCP | Live accessibility + SEO auditing (`lighthouse_audit`), console/network diagnosis | Read-only; performance scoring is pagespeed-agent's, not this agent's |
+| pagespeed-agent | Owner of performance measurement and reporting | Hand-off target for `performance rule` requirements |
 | Harvest | Optional time/project context | No writes without approval |
 
 ## Usage Examples
@@ -157,9 +172,11 @@ decision before finalising tests.
 **Prompt:** "Turn this checkout PRD into a test pack for our WooCommerce staging
 site."
 
-**Output:** Scope Summary → Sources Used → Confirmed Requirements → Assumptions
-and Gaps → Human-Readable Test Cases → Traceability Matrix → Review Gate. No
-Playwright code until the pack is approved.
+**Output:** Scope Summary → Sources Used → Environment & Test-Data Contract →
+Confirmed Requirements → Assumptions and Gaps → Human-Readable Test Cases →
+Traceability Matrix → Review Gate (with the persisted pack path). No Playwright
+code until the pack is approved, unless an explicitly authorised quick prototype
+has been requested.
 
 ### Example 2 — Approved pack to specs
 
@@ -181,18 +198,28 @@ See [`.github/security-policy.md`](./.github/security-policy.md).
 
 ## Preserved Source Export
 
-This agent was migrated from a ChatGPT/Codex export. The original export is
-preserved in place for provenance:
+This agent was migrated from a ChatGPT/Codex export. That export is kept **as a
+point-in-time historical snapshot from migration** — for reference only:
 
 - `agent/` — exported workspace instructions and safe configuration metadata
 - `skills/` — readable skill folders (agent-attached, platform-managed,
   plugin-provided)
 - `manifests/` — file and skill inventories, redaction log
-- `checksums.sha256` — SHA-256 checksums for exported files
 
-The canonical behaviour is defined by this `AGENT.md` and
-[`shared/core-prompt.md`](./shared/core-prompt.md); the core agent-attached skill
-is `test-pack-builder`.
+> **Not an integrity gate.** The snapshot is **not kept in sync** with the live
+> agent. Several of these files have been edited since migration (the READMEs,
+> the `agent/other/agent_files/**` tree, and the `test-pack-builder` skill, which
+> is simultaneously an exported file and the live skill). A former
+> `checksums.sha256` manifest was removed because it mixed frozen export
+> artefacts with living source, drifted to ~47% failing, and — lacking any
+> signer, verifier, or trusted baseline — gave false provenance rather than real
+> tamper-evidence. Do not treat the snapshot as authoritative or re-introduce a
+> self-referential checksum over files that are actively edited.
+
+The **canonical behaviour** is defined by this `AGENT.md`,
+[`shared/core-prompt.md`](./shared/core-prompt.md), and the provider configs; the
+core agent-attached skill is `test-pack-builder`
+([`skills/agent-attached/hermes/test-pack-builder/SKILL.md`](./skills/agent-attached/hermes/test-pack-builder/SKILL.md)).
 
 ## Related Documentation
 
@@ -207,6 +234,4 @@ is `test-pack-builder`.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

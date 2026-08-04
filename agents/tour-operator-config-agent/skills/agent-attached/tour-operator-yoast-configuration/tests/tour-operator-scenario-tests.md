@@ -15,3 +15,7 @@ Expected route: `references/ai-assisted-seo-workflow.md`, `references/ai-metadat
 ## Scenario 4: Live admin edit request
 
 Expected route: prepare handoff using `references/related-skills-routing.md` and route implementation to `tour-operator-yoast-auditor`.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

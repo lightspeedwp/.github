@@ -57,3 +57,7 @@ Expected behaviour:
 - Route owner to `hosting`, `developer` or `wordpress_admin` depending on evidence.
 - Use conflict-resolution playbook and access-level workflow.
 - Create `verify_first` or `server_change` remediation item with HTTP/robots retest.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

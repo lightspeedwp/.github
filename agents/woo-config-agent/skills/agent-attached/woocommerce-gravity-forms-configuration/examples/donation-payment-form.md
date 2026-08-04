@@ -17,3 +17,7 @@ Use this example for a simple donation form that may collect one-time donations 
 - Do not imply charitable, tax, Gift Aid, nonprofit or deductible status unless approved.
 - Do not enable recurring donations unless subscription operations are approved.
 - Test successful, failed/declined and zero/invalid amount cases before launch.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

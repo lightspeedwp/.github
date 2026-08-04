@@ -73,3 +73,7 @@ Expected behaviour:
 - Require redirect/internal link/canonical/sitemap checks.
 - Create decision records for removed or consolidated archive surfaces.
 - Use migration and content-structure workflows together.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

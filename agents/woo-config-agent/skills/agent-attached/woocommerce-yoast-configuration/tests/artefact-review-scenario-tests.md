@@ -56,3 +56,7 @@ Expected behaviour:
 - Review only visible settings.
 - Identify missing WooCommerce and rendered-output QA evidence.
 - Recommend a decision record if product tag indexation changes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

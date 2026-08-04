@@ -38,3 +38,7 @@ Use a language-matched thank-you message with a realistic next step.
 - Submit each language variant.
 - Confirm visible labels, validation messages, confirmation, notifications, and admin routing.
 - Confirm consent entry records the correct language-specific wording.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

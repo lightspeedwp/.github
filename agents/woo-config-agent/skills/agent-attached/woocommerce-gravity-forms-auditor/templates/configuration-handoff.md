@@ -71,3 +71,7 @@ Use the woocommerce-gravity-forms-configuration skill. Apply only the approved W
 
 [Paste handoff summary and findings here]
 ```
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

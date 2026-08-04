@@ -34,3 +34,7 @@ Allowed references:
 ## Manual QA prompts
 
 Run representative prompts from `tests/test-prompts.md` and check that the model never performs configuration, never invents evidence, always stays WooCommerce-scoped, and always produces a handoff for approved changes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

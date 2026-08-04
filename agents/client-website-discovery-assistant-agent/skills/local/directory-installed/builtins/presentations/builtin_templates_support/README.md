@@ -28,3 +28,7 @@ template and should not be reused verbatim for a different source deck.
 4. Keep reusable execution logic in `builtin_templates_support/scripts/`; do
    not copy the same runner into each asset archive.
 5. Update the Presentations skill's built-in-template selection guidance.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

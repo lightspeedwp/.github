@@ -23,3 +23,7 @@ Checkout rebuild, tax/shipping/subscriptions, order fulfilment, payment gateway 
 ## Scope boundary
 
 This skill is not the owner for non-WooCommerce Gravity Forms work. Confirm WooCommerce core/plugin context before recommending WooCommerce-specific form changes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

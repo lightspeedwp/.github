@@ -9,3 +9,7 @@
 - Open questions:
 - Evidence source:
 - Last verified:
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

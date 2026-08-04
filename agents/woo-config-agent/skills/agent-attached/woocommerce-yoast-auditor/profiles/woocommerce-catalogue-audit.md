@@ -19,3 +19,7 @@ Prioritise product discoverability, categories, product identifiers, quote-led p
 ## Routing note
 
 Audit findings here. Route catalogue SEO setup or default templates to `woocommerce-yoast-configuration`.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

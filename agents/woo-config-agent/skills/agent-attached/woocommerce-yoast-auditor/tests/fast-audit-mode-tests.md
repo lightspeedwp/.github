@@ -17,3 +17,7 @@ Expected output: fast audit snapshot or compressed page-level review. Findings m
 Input: "Quickly audit this new site and tell me the defaults to set up."
 
 Expected output: fast audit or evidence gap first, then route setup/defaults to `woocommerce-yoast-configuration`.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

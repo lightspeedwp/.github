@@ -3,7 +3,7 @@ name: Metrics • Collection & Reporting
 on:
   schedule:
     # Monday 6:00 AM UTC - triggers both jobs sequentially
-    - cron: "0 6 ** 1"
+    - cron: "0 6 * * 1"
   workflow_dispatch:
     inputs:
       stage:
@@ -50,7 +50,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
 
       - name: Install deps
         run: npm ci || npm i
@@ -134,7 +134,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci --ignore-scripts

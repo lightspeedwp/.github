@@ -7,3 +7,7 @@
 - Reworked the entrypoint around tours, destinations, accommodation, travel styles, specials, enquiries, reviews, itineraries, schema, migration and launch readiness.
 - Added tour relationship audit guidance and test scenarios.
 - Renamed the capability reference to `yoast-capability-boundaries.md`.
+
+---
+
+*🧭 Your compass through the documentation landscape*
