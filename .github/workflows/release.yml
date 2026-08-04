@@ -85,7 +85,6 @@ jobs:
 
   lint:
     needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -100,7 +99,6 @@ jobs:
 
   test:
     needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -115,7 +113,6 @@ jobs:
 
   validate-changelog-release:
     needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     uses: ./.github/workflows/changelog-management.yml
     with:
       validate_only: true
