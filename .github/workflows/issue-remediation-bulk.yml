@@ -111,9 +111,11 @@ jobs:
           echo "🔍 Step 1: Checking script file..."
           ls -la .github/scripts/remediation/assign-milestones.js
           echo "🔍 Step 2: Running milestone assignment..."
-          DRY_RUN="${{ inputs.dry_run }}" RUN_ID="${{ github.run_id }}" node .github/scripts/remediation/assign-milestones.js /tmp/issues.json
+          node .github/scripts/remediation/assign-milestones.js /tmp/issues.json
           echo "✅ Milestone assignment complete"
         env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          RUN_ID: ${{ github.run_id }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add missing type labels
