@@ -109,7 +109,7 @@ jobs:
       - name: Derive Status/Priority/Type from canonical issue fields
         id: derive
         if: steps.preflight.outputs.enabled == 'true'
-        run: node .github/scripts/agents/includes/derive-project-fields.cjs
+        run: node scripts/agents/includes/derive-project-fields.cjs
         env:
           LABELS: ${{ steps.collect-labels.outputs.labels }}
           EVENT_NAME: ${{ github.event_name }}

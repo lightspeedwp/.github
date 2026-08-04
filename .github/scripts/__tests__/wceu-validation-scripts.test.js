@@ -12,7 +12,7 @@ const path = require("path");
 
 describe("WCEU Validation Scripts", () => {
   const scriptDir = path.join(__dirname, "..");
-  const rootDir = path.join(__dirname, "../..");
+  const rootDir = path.join(__dirname, "../../..");
 
   describe("verify-wceu-readiness.js", () => {
     const scriptPath = path.join(scriptDir, "verify-wceu-readiness.js");

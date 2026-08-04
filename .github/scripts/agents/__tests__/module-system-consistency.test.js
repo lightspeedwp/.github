@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 describe("agent module-system consistency", () => {
-  const repoRoot = path.resolve(__dirname, "..", "..", "..");
+  const repoRoot = path.resolve(__dirname, "..", "..", "..", "..");
   const plannerPath = path.join(repoRoot, "scripts/agents/planner.agent.js");
   const reviewerPath = path.join(repoRoot, "scripts/agents/reviewer.agent.js");
   const packageJsonPath = path.join(repoRoot, "package.json");

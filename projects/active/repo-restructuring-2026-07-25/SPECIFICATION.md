@@ -150,13 +150,13 @@ config/
 
 ## 2. File References That Require Updates
 
-### 2.1 Script Updates (in `.github/scripts/validation/`)
+### 2.1 Script Updates (in `scripts/validation/`)
 
 **Files to audit and update:**
 
 1. **`validate-frontmatter.js`**
    - Current: `../../schema/frontmatter.schema.json`
-   - New: `../../../schemas/frontmatter.schema.json` (move to `.github/scripts/validation/`)
+   - New: `../../../schemas/frontmatter.schema.json` (move to `scripts/validation/`)
    - Search & replace all schema path references
 
 2. **`validate-agents.js`**
@@ -329,7 +329,7 @@ schema/
    - Find & replace `schema/` → `schemas/`
    - Find & replace `.schemas/` → `schemas/`
 
-2. **Update validation scripts** (`.github/scripts/validation/*.js`)
+2. **Update validation scripts** (`scripts/validation/*.js`)
    - Update all relative paths
    - Test each script individually
 
