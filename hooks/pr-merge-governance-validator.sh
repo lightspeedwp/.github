@@ -99,7 +99,7 @@ esac
 
 has_linked_issues=false
 
-if echo "$pr_body" | grep -qiE "(fixes|resolves|closes|relates to)[[:space:]]+#[0-9]+"; then
+if echo "$pr_body" | grep -qiE "(^|[[:space:]])(fixes|resolves|closes|relates[[:space:]]+to)[[:space:]]+#[0-9]+"; then
   has_linked_issues=true
 fi
 
