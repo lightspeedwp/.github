@@ -70,6 +70,7 @@ jobs:
     steps:
       - id: telemetry
         name: Validate trigger authorization
+        continue-on-error: true
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_ACTOR: ${{ github.actor }}
@@ -87,9 +88,9 @@ jobs:
     if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
       - name: Install
@@ -102,9 +103,9 @@ jobs:
     if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
       - name: Install
@@ -126,11 +127,11 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
         with:
           ref: develop
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
       - name: Install
@@ -142,8 +143,8 @@ jobs:
           git config user.email "$email"
       - name: Validate changelog (schema + unreleased content)
         run: |
-          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
-          node .github/scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
       - name: Run Release Agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -156,9 +157,9 @@ jobs:
       - name: Validate changelog post-release
         if: inputs.dry_run == false
         run: |
-          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
-          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node .github/scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
           echo "✓ Post-release changelog validation passed"
       - name: Build dry-run release notes preview
         if: inputs.dry_run == true

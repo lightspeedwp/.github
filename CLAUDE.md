@@ -53,13 +53,15 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 | **Scripts** | `scripts/` | `.github/scripts/` | Move to .github |
 | **Website** | `website/` | `.github/website/` | Move to .github |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `.github/scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
-- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
-- From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
-- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+
+- From `scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
+- From `scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
+- From `scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+- From `.github/scripts/` (legacy): scripts have been moved to portable root `scripts/` in Phase 2B
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
 
@@ -314,6 +316,30 @@ npm run validate:frontmatter
 | Portable reusable AI assets | top-level source folders (see table above) |
 | Permanent human documentation | `docs/` |
 
+**Report File Naming Convention:**
+
+All report files in `.github/reports/` MUST follow this naming pattern:
+
+```
+YYYY-MM-DD-{descriptor}.md
+```
+
+**Examples:**
+
+- `2026-08-04-release-workflow-fix-verification.md` ✓ Correct
+- `2026-08-04-script-organization-concern.md` ✓ Correct
+- `2026-07-23-branch-cleanup-report.md` ✓ Correct
+- `script-organization-concern.md` ✗ Missing date
+- `SCRIPT-ORG-CONCERN.md` ✗ Missing date
+- `report-2026-08-04.md` ✗ Date in wrong position
+
+**Rationale:**
+
+- Dates enable chronological sorting and archiving
+- Consistent naming makes reports discoverable
+- Timestamp helps identify when analysis was conducted
+- Supports automation and tooling that expects date-prefixed files
+
 **Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
 **Documentation Standards note (Phase 3A):** Comprehensive standards for creating agents, skills, instructions, workflows, plugins, and other AI infrastructure are maintained in `docs/`. These 9 standards documents are the authoritative reference for all AI-driven work. See [AGENTS.md#documentation-standards](./AGENTS.md#documentation-standards) for the complete quick reference guide.
@@ -332,6 +358,7 @@ npm run validate:frontmatter
 **Organization-wide instructions** (reusable across all LightSpeedWP repos):
 
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
+
 - [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards
 - [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) — Markdown, YAML, Mermaid standards
 - [instructions/issues.instructions.md](./instructions/issues.instructions.md) — issue creation & labeling standards

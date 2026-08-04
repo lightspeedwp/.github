@@ -666,7 +666,7 @@ jobs:
       - run: npm run validate:frontmatter
 ```
 
-**Validation Script** (`.github/scripts/validation/validate-frontmatter.js`):
+**Validation Script** (`scripts/validation/validate-frontmatter.js`):
 
 ```javascript
 const Ajv = require("ajv");
@@ -732,7 +732,7 @@ npm run validate:frontmatter
 ```json
 {
   "scripts": {
-    "validate:frontmatter": "node .github/scripts/validation/validate-frontmatter.js"
+    "validate:frontmatter": "node scripts/validation/validate-frontmatter.js"
   }
 }
 ```
