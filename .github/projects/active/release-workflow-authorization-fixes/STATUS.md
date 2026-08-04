@@ -8,10 +8,10 @@ status: complete-awaiting-phase2
 
 # Project Status: Release Workflow Authorization Fixes
 
-## Current Status: PHASE 1 COMPLETE | PHASE 2 READY TO EXECUTE
+## Current Status: PHASE 1 COMPLETE | PHASE 2B BATCH 1 COMPLETE
 
 **Created:** 2026-08-04  
-**Status:** Phase 1 fix merged to develop and validated ✅ | Phase 2 (Script Organization) awaiting team decision
+**Status:** Phase 1 fix merged ✅ | Phase 2A audit complete ✅ | Phase 2B Batch 1 merged to develop ✅
 
 ## What's Been Done
 
@@ -64,13 +64,23 @@ status: complete-awaiting-phase2
 
 **Phase 2B: Script Migration & Path Updates (Issue #1464)**
 
-📋 **STATUS:** Ready to execute (awaiting Issue #1461 team decision and approval)
+✅ **STATUS:** Batch 1 COMPLETE | Batches 2-3 READY TO EXECUTE
 
-- ⏳ Create root `scripts/` folder structure
-- ⏳ Move 58 portable scripts via stacked PRs (6-8 PRs total)
-- ⏳ Update all path references (~30-40 files)
-- ⏳ Defer hybrid script refactoring to Phase 3 (scope control)
-- **Duration:** 16-20 hours (revised) | **Timeline:** Weeks 1-2 of v1.0
+**Batch 1 (Validation Scripts)** ✅ COMPLETE
+
+- ✅ Created root `scripts/` folder structure
+- ✅ Moved 25 validation scripts from .github/scripts/validation/ to scripts/validation/
+- ✅ Updated 29 package.json references
+- ✅ Updated 9 workflow file references
+- ✅ Fixed schema resolution paths for new location
+- ✅ PR #1504 merged to develop (commit: TBD)
+- **Duration:** 2-3 hours | **Completion Date:** 2026-08-04
+
+**Batch 2 & 3** ⏳ PENDING
+
+- ⏳ Batch 2: Agent utilities migration (depends on Batch 1)
+- ⏳ Batch 3: Changelog utilities migration (depends on Batches 1-2)
+- **Duration:** 16-20 hours total for Batches 2-3
 - **Execution Plan:** [PHASE_2B_EXECUTION_PLAN.md](./PHASE_2B_EXECUTION_PLAN.md)
 
 **Phase 2C: Testing, Documentation & Merge (Issue #1465)**
