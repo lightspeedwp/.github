@@ -25,6 +25,8 @@ These references inform agent and workflow design across the organisation.
 
 ```mermaid
 graph LR
+    accTitle: AI Reference Maintenance Lifecycle
+    accDescr: Lifecycle workflow for monitoring industry developments, evaluating new models, updating documentation, and managing deprecations
     A["Monitor<br/>Industry"] --> B["New Model<br/>Released?"]
     B -->|Yes| C["Evaluate<br/>Capabilities"]
     B -->|No| D["Annual<br/>Audit"]
@@ -84,6 +86,8 @@ ai/
 
 ```mermaid
 graph TD
+    accTitle: AI Reference Document Type Selection
+    accDescr: Decision tree for selecting appropriate document type between model references, runner references, and decision logs based on content
     A{"What should be<br/>documented?"} -->|Model capabilities<br/>& versions| B["Model Reference<br/>e.g., Claude.md"]
     A -->|Agent execution<br/>patterns| C["Runner Reference<br/>RUNNERS.md"]
     A -->|Major decisions| D["Decision Log<br/>DECISION_LOG.md"]

@@ -18,6 +18,8 @@ Skills are discrete, reusable capabilities designed to be shared across multiple
 
 ```mermaid
 graph LR
+    accTitle: Skill Development Lifecycle
+    accDescr: Sequential workflow for skill creation from specification through implementation, testing, publication, and ongoing maintenance
     A["Create<br/>SKILL.md"] --> B["Implement<br/>Functionality"]
     B --> C["Document<br/>Interface"]
     C --> D["Test<br/>Independently"]
@@ -63,6 +65,8 @@ A skill is a focused, reusable capability that:
 
 ```mermaid
 graph TD
+    accTitle: Skill Type Decision Tree
+    accDescr: Decision tree for determining whether to create a shared skill or dedicated skill based on usage scope and stability
     A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"} 
     A -->|NO| C["Dedicated Skill<br/>agents/agent-name/skills/"]
     B -->|YES| D["Shared Skill<br/>skills/skill-name/"]

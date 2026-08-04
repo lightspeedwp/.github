@@ -18,6 +18,8 @@ Cookbooks are step-by-step guides that teach a specific workflow or technique. U
 
 ```mermaid
 graph LR
+    accTitle: Cookbook Development Lifecycle
+    accDescr: Sequential workflow from identifying patterns through creating, testing, publishing, and monitoring cookbook recipes
     A["Identify<br/>Common Pattern"] --> B["Create Recipe<br/>Structure"]
     B --> C["Write README &<br/>STEPS.md"]
     C --> D["Add CODE<br/>Examples"]
@@ -61,6 +63,8 @@ A cookbook is a practical guide that:
 
 ```mermaid
 graph TD
+    accTitle: Cookbook Creation Decision Tree
+    accDescr: Decision tree determining whether to create a cookbook or use alternative documentation based on guide type and audience
     A{"Is it a<br/>step-by-step guide?"} -->|No| B["Use Reference Docs<br/>or API Spec"]
     A -->|Yes| C{"Multi-step<br/>workflow?"} 
     C -->|No| D["Document in Tool<br/>Official Docs"]

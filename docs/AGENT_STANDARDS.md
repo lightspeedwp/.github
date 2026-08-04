@@ -21,6 +21,8 @@ Agents are autonomous AI entities designed to accomplish specific tasks by lever
 
 ```mermaid
 graph TB
+    accTitle: Agent Architecture Overview
+    accDescr: Shows how an agent specification connects to core prompts, provider configurations, shared skills, tools, and hooks for multi-provider implementation
     A["Agent (AGENT.md)"] --> B["Core Prompt<br/>(shared/core-prompt.md)"]
     A --> C["Provider Configs<br/>(claude/, copilot/, openai/)"]
     A --> D["Shared Skills<br/>(skills.md)"]
@@ -334,6 +336,8 @@ Manual validation required. Ensure:
 
 ```mermaid
 graph TD
+    accTitle: Agent Type Decision Tree
+    accDescr: Decision tree showing when to use single-file agents versus folder-based agents based on complexity and skill requirements
     A{"Agent Complexity?"} -->|Simple task<br/>1-2 skills| B["Single-File Agent<br/>agents/name.agent.md"]
     A -->|Complex<br/>Multiple skills<br/>Custom hooks| C["Folder-Based Agent<br/>agents/name-agent/"]
     B --> D["✅ Use .agent.md format"]
