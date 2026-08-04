@@ -325,6 +325,7 @@ YYYY-MM-DD-{descriptor}.md
 ```
 
 **Examples:**
+
 - `2026-08-04-release-workflow-fix-verification.md` ✓ Correct
 - `2026-08-04-script-organization-concern.md` ✓ Correct
 - `2026-07-23-branch-cleanup-report.md` ✓ Correct
@@ -333,6 +334,7 @@ YYYY-MM-DD-{descriptor}.md
 - `report-2026-08-04.md` ✗ Date in wrong position
 
 **Rationale:**
+
 - Dates enable chronological sorting and archiving
 - Consistent naming makes reports discoverable
 - Timestamp helps identify when analysis was conducted
