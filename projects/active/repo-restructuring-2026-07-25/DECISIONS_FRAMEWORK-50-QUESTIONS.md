@@ -1430,7 +1430,7 @@ Schemas organized by **type**:
 Validation scripts use schemas to check file compliance:
 
 ```bash
-node .github/scripts/validation/validate-frontmatter.js  # Uses schemas/
+node scripts/validation/validate-frontmatter.js  # Uses schemas/
 ````
 
 #### **For Developers**
@@ -1479,7 +1479,7 @@ See [Migration Guide](http://../docs/MIGRATION.md) for details.
 1. `.github/workflows/template-enforcement.yml` → Validates issue/PR templates
 2. `.github/workflows/frontmatter-validation.yml` → Validates doc frontmatter
 3. `npm run validate:*` scripts → Validate agents, skills, plugins
-4. Validation scripts in `.github/scripts/validation/` → Check structure
+4. Validation scripts in `scripts/validation/` → Check structure
 
 **WordPress Projects Can Use Schemas:**
 1. Reference for understanding format requirements
@@ -1825,14 +1825,14 @@ After consolidation:
 
 Based on your `npm run` output, these scripts reference schemas:
 
-1. **`scripts/validation/validate-json.js`** (now `.github/scripts/validation/validate-json.js`)  
+1. **`scripts/validation/validate-json.js`** (now `scripts/validation/validate-json.js`)  
      
    - Likely references `schema/**/*.json`  
    - Will need to update to `schemas/**/*.json`
 
    
 
-2. **`scripts/validation/validate-frontmatter.js`** (now `.github/scripts/validation/validate-frontmatter.js`)  
+2. **`scripts/validation/validate-frontmatter.js`** (now `scripts/validation/validate-frontmatter.js`)  
      
    - References `../../schema/frontmatter.schema.json`  
    - Will need to update to `../../../schemas/frontmatter.schema.json`
@@ -1909,7 +1909,7 @@ For each file found:
 
 1. **Validation Scripts** (Internal)  
      
-   - `.github/scripts/validation/*.js` read JSON schemas  
+   - `scripts/validation/*.js` read JSON schemas  
    - Check file compliance against schemas  
    - Report validation errors
 
@@ -2020,7 +2020,7 @@ Fix the issues and re-run validation.
 If you need to validate custom files:
 
 1. Create a schema file in `schemas/yourtype/yourschema.schema.json`  
-2. Create a validation script in `.github/scripts/validation/validate-yourtype.js`  
+2. Create a validation script in `scripts/validation/validate-yourtype.js`  
 3. Reference the schema in npm scripts  
 4. Document in `schemas/README.md`
 
@@ -2130,7 +2130,7 @@ mv scripts/ .github/scripts/
 ```
 
 2. **I'll update**:  
-   * `package.json` scripts (paths like `npm run validate:frontmatter` → `.github/scripts/validation/validate-frontmatter.js`)  
+   * `package.json` scripts (paths like `npm run validate:frontmatter` → `scripts/validation/validate-frontmatter.js`)  
    * `.github/workflows/` (path references to scripts)  
    * `docs/` files that reference script locations  
    * Root `README.md` (link to `.github/scripts/README.md` for technical maintainers)
