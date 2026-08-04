@@ -105,7 +105,8 @@ jobs:
 
       - name: Assign milestones
         if: ${{ inputs.remediate_milestones == 'true' && steps.fetch.outputs.count > 0 }}
-        run: node .github/scripts/workflows/assign-milestones-workflow.js
+        shell: bash
+        run: set +e; node .github/scripts/workflows/assign-milestones-workflow.js; echo "Exit code: $?"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
