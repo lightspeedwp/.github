@@ -1,605 +1,415 @@
-# Restructuring Specification — Phase 0 Deliverable
+# Repository Restructuring Specification
 
-**Status:** Draft (awaiting user feedback on 50-question decisions)  
-**Date Created:** 2026-07-31  
-**Owner:** Ash Shaw (review), Claude Code (implementation support)  
-**Target Completion:** Phase 1 implementation begins 2026-08-02
+## LightSpeed .github Control Plane — Phase 0
+
+**Project ID:** `repo-restructuring-2026-07-25`  
+**Initiated:** 2026-07-26  
+**Owner:** Ash Shaw (<ashley@lightspeedwp.agency>)  
+**Status:** Phase 0 — Pre-flight Validation
 
 ---
 
 ## Executive Summary
 
-This specification defines the folder reorganisation, file migrations, and reference updates required to implement the repository restructuring decisions from the 50-questions review.
+The `.github` repository is undergoing a comprehensive restructuring to optimize for **multi-project portability** and **team governance**. This initiative moves portable reusable assets from `.github/`-scoped locations to visible root folders (e.g., `scripts/` → root-level `scripts/`), consolidates duplicate schema definitions, establishes VSCode multi-root workspace configuration, and prepares infrastructure for phased plugin adoption (Claude Code → GitHub Copilot → Gemini).
 
-**Core Changes:**
+**Goals:**
 
-- Consolidate `.schemas/` and `schema/` → single visible `schemas/` folder at root
-- Separate portable assets (agents, skills, hooks, etc.) from `.github`-specific tools
-- Reorganise root folder to reduce clutter and improve cross-project discoverability
-- Update all script references and documentation links
+- Centralize portable AI operations assets in root-level folders (agents, skills, instructions, plugins, hooks, workflows, schemas)
+- Separate `.github/`-scoped repo-specific internals (templates, labels, workflows, CI/CD)
+- Enable three-tier team collaboration: 2–3 core maintainers, 4–5 contributors, 8–9 WordPress project consumers
+- Establish VSCode multi-root workspace for `.github` repository + linked WordPress projects
+- Consolidate schemas from `.schemas/` (hidden) + legacy `schema/` (root) → visible `schemas/` (root)
+- Create clean, unambiguous path references in validation scripts, workflows, and documentation
+- Support phased plugin ecosystem rollout (Aug 2026 Claude Code → Sept Copilot → Oct Gemini)
 
-**Estimated Effort:** 2–3 days (implementation + validation + documentation)  
-**Risk Level:** Medium (schema consolidation affects validation workflows; testing required)
-
----
-
-## 1. Folder-by-Folder Mapping
-
-### 1.1 Schema Consolidation
-
-**Current State:**
-
-```
-.schemas/memory/                      (6 files, hidden)
-  ├── memory-example-pack.schema.json
-  ├── memory-profile.schema.json
-  ├── memory-record.schema.json
-  ├── memory-registry.schema.json
-  └── memory-snapshot.schema.json
-
-schema/                               (25+ files, visible root)
-  ├── agent-*.json
-  ├── frontmatter.schema.json
-  ├── plugin-manifest.schema.json
-  ├── memory/                         (duplicate of .schemas/memory/)
-  └── ... (15+ other schemas)
-```
-
-**Target State:**
-
-```
-schemas/                              (visible root, single source of truth)
-  ├── README.md
-  ├── memory/
-  │   ├── memory-example-pack.schema.json
-  │   ├── memory-profile.schema.json
-  │   ├── memory-record.schema.json
-  │   ├── memory-registry.schema.json
-  │   └── memory-snapshot.schema.json
-  ├── frontmatter/                    (future: agent.schema.json, documentation.schema.json, etc.)
-  ├── github/                         (future: issue.schema.json, pr.schema.json)
-  ├── plugins/
-  └── ... (all other schemas consolidated)
-```
-
-**Migration Steps:**
-
-1. Create `schemas/` at root (if not already present)
-2. Copy all files from `schema/` → `schemas/` (preserving subdirectory structure)
-3. Move `memory/` from `.schemas/` → `schemas/memory/` (already exists in `schema/memory/`, deduplicate if needed)
-4. Archive old locations: `.schemas/` → `.github/tmp/schema-archive/` (backup, don't delete yet)
-5. Archive old location: `schema/` → `.github/tmp/schema-archive/` (backup, don't delete yet)
-6. **Do NOT delete** until all references are updated and validation passes
+**Timeline:** ~3–4 weeks (Phases 0–5)
 
 ---
 
-### 1.2 Root Cleanup — Move to `.github/`
+## Confirmed Decisions
 
-**Move these folders from root → `.github/`:**
-
-| Current Location | New Location | Reason |
-| --- | --- | --- |
-| `scripts/` | `.github/scripts/` | `.github`-specific validation & automation |
-| `website/` | `.github/website/` | `.github` documentation site (github.lightspeedwp.agency) |
-| `config/` (GitHub-specific) | `.github/config/` | GitHub labels, workflows, issue types |
-| `.github/config/` → consolidate | `.github/config/` | Already in right place; consolidate splits if any |
-
-**Keep at root (portable):**
-
-| Folder | Reason |
-| --- | --- |
-| `agents/` | Reusable agents for all projects |
-| `skills/` | Portable skills for all projects |
-| `hooks/` | Cross-project git hooks & guardrails |
-| `instructions/` | Reusable instruction standards |
-| `plugins/` | Plugin specs for all external tools |
-| `prompts/` | Reusable prompt templates |
-| `cookbook/` | Implementation recipes for all projects |
-| `docs/` | Permanent documentation (org-wide + repo-specific) |
-| `schemas/` | Consolidated JSON schemas (consolidated, visible) |
-
-**Keep in `.github/` (repo-specific):**
-
-| Folder | Reason |
-| --- | --- |
-| `.github/workflows/` | GitHub Actions (`.github`-only) |
-| `.github/ISSUE_TEMPLATE/` | GitHub issue templates |
-| `.github/PULL_REQUEST_TEMPLATE/` | GitHub PR templates |
-| `.github/agents/` | `.github`-specific agents (repo structure linter, changelog recovery, etc.) |
-| `.github/skills/` | `.github`-specific skills (changelog entry, PR review, release audit) |
-| `.github/instructions/` | `.github`-specific instruction files |
-| `.github/custom-instructions.md` | Copilot configuration for this repo |
-| `.github/scripts/` | Validation scripts tightly coupled to repo structure (move from root) |
-| `.github/config/` | GitHub labels, labeler rules, issue types |
-| `.github/website/` | github.lightspeedwp.agency documentation site (move from root) |
-| `.github/projects/` | Active/archived project documentation |
-| `.github/reports/` | Reports and audit artefacts |
-| `.github/tmp/` | Temporary scratch files (cleanup before PR) |
+| Decision | Value | Rationale |
+|----------|-------|-----------|
+| **Team Structure** | 2–3 core + 4–5 contributors + 8–9 consumers | Aligns infrastructure with actual team capacity and role diversity |
+| **Folder Organization** | Portable (root) vs. Repo-specific (.github/) | Enables portable asset reuse across LightSpeedWP projects without modification |
+| **Schema Consolidation** | `.schemas/` + `schema/` → visible `schemas/` | Single source of truth; visible to all developers; simplifies relative paths in scripts |
+| **VSCode Setup** | Multi-root workspace (`.github` + WordPress projects) | Developers work on both simultaneously; shared settings in `.github/.vscode/` |
+| **Manual vs. Automation** | User moves folders (Finder) → Claude updates references (scripts) | Minimizes file overwrite risk; separates concerns; reduces errors |
+| **Plugin Adoption** | Phased: Tier 1 (Claude Code + Copilot Aug/Sept) → Tier 2 (Codex opt-in Oct) → Tier 3 (Gemini emerging) | Allows iterative testing, feedback integration, and vendor evaluation |
+| **Branch Naming** | `{type}/{scope}-{short-title}` (no `claude/` prefix) | Enforces governance; prevents accidental commits to protected branches |
+| **PR Merge Target** | `develop` (default) | Only `release/*` and `hotfix/*` can target `main` |
+| **Branch Reuse** | Names retired after merge | Prevents confusion from reused slugs in history; requires new branch names for new work |
 
 ---
 
-### 1.3 `config/` Folder Consolidation
+## Folder Architecture Mapping
 
-**Current:** `config/` at root (mixed GitHub-native + portable)
+### Portable Reusable Assets (Moving to Root)
 
-**Action:** Split into two locations:
+| Old Path | New Path | Type | Contents | Portable? |
+|----------|----------|------|----------|-----------|
+| `.github/scripts/` | `scripts/` | Directory | Validation, build, setup scripts (JSON schemas, node modules, etc.) | ✅ Yes |
+| `.github/reports/` | `reports/` | Directory | Audit reports, metrics, release notes, project artefacts | ✅ Yes |
+| `.github/projects/` | `projects/` | Directory | Active planning docs, diffs, decision records | ✅ Yes |
+| `.github/tmp/` | `tmp/` | Directory | Temporary scratch files (cleaned before PR merge) | ✅ Yes |
+| `.github/memory/` | `memory/` | Directory | Session memory, conversation logs, context | ✅ Yes |
+| `.github/website/` | `website/` | Directory | Content for github.lightspeedwp.agency (handoff to web team) | ✅ Yes |
+| `.schemas/` + `schema/` | `schemas/` | Directory (visible root) | JSON schemas for validation (single source of truth) | ✅ Yes |
+| `agents/` | `agents/` | Directory | Portable agent specifications (already at root) | ✅ Yes |
+| `skills/` | `skills/` | Directory | Portable skill implementations (already at root) | ✅ Yes |
+| `instructions/` | `instructions/` | Directory | Portable instruction standards (already at root) | ✅ Yes |
+| `hooks/` | `hooks/` | Directory | Portable Git hooks and guardrails (already at root) | ✅ Yes |
+| `plugins/` | `plugins/` | Directory | Installable plugin bundles (already at root) | ✅ Yes |
+| `cookbook/` | `cookbook/` | Directory | Recipes and implementation guides (already at root) | ✅ Yes |
+| `workflows/` | `workflows/` | Directory | Portable agentic workflows (already at root) | ✅ Yes |
 
-**Portable Config → Root `config/`:**
+### Repo-Specific Assets (Remaining in `.github/`)
 
-```
-config/
-  ├── eslintrc.json              (shared across projects)
-  ├── prettier.json              (shared across projects)
-  ├── tsconfig.json              (shared across projects)
-  ├── phpcs.xml                  (shared across projects)
-  ├── commitlint.config.js       (shared across projects)
-```
-
-**GitHub-Native Config → `.github/config/`:**
-
-```
-.github/config/
-  ├── labels.yml                 (GitHub-native)
-  ├── labeler.yml                (GitHub Actions labeler)
-  ├── issue-types.yml            (GitHub issue types)
-  ├── eslintrc-strict.json       (stricter for .github repo)
-  ├── prettier-strict.json       (stricter for .github repo)
-```
-
----
-
-## 2. File References That Require Updates
-
-### 2.1 Script Updates (in `.github/scripts/validation/`)
-
-**Files to audit and update:**
-
-1. **`validate-frontmatter.js`**
-   - Current: `../../schema/frontmatter.schema.json`
-   - New: `../../../schemas/frontmatter.schema.json` (move to `.github/scripts/validation/`)
-   - Search & replace all schema path references
-
-2. **`validate-agents.js`**
-   - Current: references `schema` directory
-   - New: references `schemas` directory
-   - Update all glob patterns and requires
-
-3. **`validate-skills.js`** (if exists)
-   - Current: references `schema` directory
-   - New: references `schemas` directory
-
-4. **`validate-plugins.js`** (if exists)
-   - Current: references `schema` directory
-   - New: references `schemas` directory
-
-5. **`validate-json.js`**
-   - Current: likely references `schema/**/*.json`
-   - New: references `schemas/**/*.json`
+| Path | Type | Contents | Portable? |
+|------|------|----------|-----------|
+| `.github/` (root) | Directory | GitHub-native configuration, templates, workflows | ❌ No |
+| `.github/ISSUE_TEMPLATE/` | Directory | Issue templates (GitHub-native) | ❌ No |
+| `.github/PULL_REQUEST_TEMPLATE/` | Directory | PR templates (GitHub-native) | ❌ No |
+| `.github/workflows/` | Directory | GitHub Actions workflows | ❌ No |
+| `.github/DISCUSSION_TEMPLATE/` | Directory | Discussion templates (GitHub-native) | ❌ No |
+| `.github/labels.yml` | File | Label definitions | ❌ No |
+| `.github/custom-instructions.md` | File | Repo-local Copilot instructions | ❌ No |
+| `.github/.vscode/` | Directory | Shared VSCode settings for `.github` repo | ❌ No |
 
 ---
 
-### 2.2 npm Scripts (in `package.json`)
+## Dependency & Impact Audit
 
-**Audit and update glob patterns:**
+### Files That Will Require Path Updates
 
-```bash
-# BEFORE:
-npm run validate:json         # May use schema/**/*.json glob
-npm run validate:agents       # May reference schema/ path
+**1. Package.json**
 
-# AFTER:
-npm run validate:json         # Uses schemas/**/*.json glob
-npm run validate:agents       # References schemas/ path
-```
+- Schema validation globs: `schema/**` → `schemas/**`
+- Script paths: `.github/scripts/` references → `scripts/`
+- Test/validation command paths
 
-**Action:** Search `package.json` for all `schema/` references; replace with `schemas/`
+**2. GitHub Actions Workflows** (`.github/workflows/*.yml`)
 
----
+- Schema reference paths in validation steps
+- Script invocation paths (e.g., `node .github/scripts/validate-*.js` → `node scripts/validate-*.js`)
+- Artifact upload paths
+- Workflow input/output references
 
-### 2.3 GitHub Workflows (in `.github/workflows/`)
+**3. Validation Scripts** (currently in `.github/scripts/`)
 
-**Files to audit:**
+- Relative path adjustments when moved to `scripts/`
+- Schema path references (e.g., `../../.schemas/` → `../.schemas/` or `../../schemas/`)
+- Documentation references
 
-1. **`template-enforcement.yml`** (if references schemas)
-   - Search for `schema/` paths → update to `schemas/`
+**4. Documentation** (`docs/**/*.md`)
 
-2. **`frontmatter-validation.yml`** (if exists)
-   - Update schema path references
+- Path references to scripts, reports, projects, schemas
+- Setup guides (VSCode, Git hooks, validation)
+- Migration guide updates
+- API/CLI reference updates
 
-3. **Any validation workflows**
-   - Update glob patterns and path references
+**5. Root-Level Configuration**
 
----
+- `.gitignore` — may need updates for new root folder locations
+- `CLAUDE.md` — references to folder paths
+- `package.json` — schema, script, and glob references
 
-### 2.4 Documentation Links (in `docs/` and `README.md`)
+**6. CI/CD & Build Files**
 
-**Search for:**
+- Linting configuration (ESLint, Prettier, markdownlint)
+- Pre-commit hooks (shell scripts)
+- Build configuration files
 
-```
-schema/
-.schemas/
-```
+### Services & Features That May Be Impacted
 
-**Replace with:**
-
-```
-schemas/
-```
-
-**Files to check:**
-
-- `docs/*.md` (all documentation files)
-- `README.md` (root)
-- `.github/README.md` (if exists)
-- `agents/README.md`
-- `skills/README.md`
-- Any other `.md` files that reference schemas
+- **Validation Pipeline:** Schema validation, frontmatter checks, branch naming validation
+- **Website Generation:** github.lightspeedwp.agency routing, documentation rendering, asset loading
+- **Local Development:** VSCode workspace setup, Git hook installation, script paths
+- **GitHub Automation:** Labeler workflows, template routing, PR checks
+- **Documentation Generation:** Markdown linting, schema documentation rendering
 
 ---
 
-### 2.5 Instruction Files (in `instructions/` and `.github/instructions/`)
+## Phase Roadmap with Success Criteria
 
-**Search for schema references:**
+### Phase 0: Pre-flight Validation & Specification (Current)
 
-```
-schema/
-.schemas/
-```
+**Duration:** 1–2 days  
+**Owner:** Ash Shaw  
+**Output:** SPECIFICATION.md, PREFLIGHT_CHECKLIST.md, sign-off
 
-**Examples likely to reference schemas:**
+**Success Criteria:**
 
-- `instructions/documentation-formats.instructions.md`
-- `instructions/file-organisation.instructions.md`
-- `.github/custom-instructions.md`
-- `.github/instructions/agent-development.instructions.md` (if exists)
-
----
-
-### 2.6 Agent & Skill Specs
-
-**If any agent or skill specs reference schemas:**
-
-- `agents/README.md` — update links to schema documentation
-- `skills/README.md` — update links to schema documentation
-- Individual agent/skill files — update any hardcoded schema path references
+- ✅ All environment checks pass (Node.js, npm, Git versions)
+- ✅ Repository is in clean state (no uncommitted changes)
+- ✅ All existing tests pass
+- ✅ All validation scripts pass
+- ✅ Backup tag created and pushed: `backup/pre-restructure-2026-07-26`
+- ✅ User signs off on specification and readiness
 
 ---
 
-### 2.7 Configuration Files
+### Phase 1: Folder Reorganization (3 days)
 
-**Update `.github/` relative paths:**
+#### Phase 1.A: Manual Folder Moves via macOS Finder
 
-- `.eslintrc.json` (if references schema)
-- Any config files that reference schema paths
+**Duration:** 1–2 hours  
+**Owner:** Ash Shaw (manual in Finder)  
+**Pre-requisite:** Phase 0 complete + sign-off
 
----
+**Moves:**
 
-## 3. Implementation Sequencing
+1. `.github/scripts/` → `scripts/`
+2. `.github/reports/` → `reports/`
+3. `.github/projects/` → `projects/`
+4. `.github/tmp/` → `tmp/`
+5. `.github/memory/` → `memory/`
+6. `.github/website/` → `website/`
+7. `.schemas/` + `schema/` → `schemas/` (consolidation, visible root)
 
-### Phase 0 (Pre-work) — Before Any Code Changes
+**Success Criteria:**
 
-- [ ] User confirms all 50-question decisions (**BLOCKER**)
-- [ ] Git status is clean; no uncommitted changes
-- [ ] Create backup branch: `git checkout -b backup/pre-restructure-2026-07-31`
-- [ ] Tag current state: `git tag backup/pre-restructure-2026-07-31`
+- ✅ All folders moved without file overwrites
+- ✅ Folders verified at new locations
+- ✅ Old `.github/` subfolders removed (except those in repo-specific list)
+- ✅ Backup verified to prevent data loss
 
-### Phase 1: Folder Moves (Safe, Reversible)
-
-1. **Create `schemas/` folder** (if not present)
-
-   ```bash
-   mkdir -p schemas
-   ```
-
-2. **Copy content from `schema/` → `schemas/`** (don't delete yet)
-
-   ```bash
-   cp -r schema/* schemas/
-   ```
-
-3. **Verify consolidation**
-
-   ```bash
-   ls -la schemas/ | head -20
-   find schemas -type f | wc -l
-   ```
-
-4. **Create `.github/scripts/` folder** (if not present)
-
-   ```bash
-   mkdir -p .github/scripts
-   ```
-
-5. **Move scripts from `scripts/` → `.github/scripts/`** (don't delete yet)
-
-   ```bash
-   cp -r scripts/* .github/scripts/
-   ```
-
-6. **Move website** (if applicable)
-
-   ```bash
-   mkdir -p .github/website
-   cp -r website/* .github/website/
-   ```
-
-### Phase 2: Reference Updates (Per File Type)
-
-1. **Update npm scripts** (`package.json`)
-   - Find & replace `schema/` → `schemas/`
-   - Find & replace `.schemas/` → `schemas/`
-
-2. **Update validation scripts** (`.github/scripts/validation/*.js`)
-   - Update all relative paths
-   - Test each script individually
-
-3. **Update GitHub workflows** (`.github/workflows/*.yml`)
-   - Test workflows in CI before merging
-
-4. **Update documentation** (`docs/`, `README.md`, agent/skill files)
-   - Bulk find & replace `schema/` → `schemas/`
-
-5. **Update instruction files**
-   - Bulk find & replace schema path references
-
-### Phase 3: Validation & Testing
-
-1. **Run all validation scripts**
-
-   ```bash
-   npm run validate:frontmatter
-   npm run validate:agents
-   npm run validate:plugins
-   npm run validate:json
-   ```
-
-2. **Run full test suite**
-
-   ```bash
-   npm test
-   ```
-
-3. **Manual verification**
-   - Verify `schemas/` contains all expected files
-   - Verify `.github/scripts/` contains all scripts
-   - Verify no broken imports in scripts
-   - Verify documentation links work (grep for broken refs)
-
-### Phase 4: Cleanup (After Validation Success)
-
-1. **Archive old locations** (do NOT delete immediately)
-
-   ```bash
-   mkdir -p .github/tmp/schema-archive
-   mv .schemas .github/tmp/schema-archive/dot-schemas-backup
-   mv schema .github/tmp/schema-archive/schema-backup
-   mkdir -p .github/tmp/scripts-archive
-   mv scripts .github/tmp/scripts-archive/scripts-backup
-   ```
-
-2. **Commit cleanup**
-
-   ```bash
-   git add .github/tmp/schema-archive/ .github/tmp/scripts-archive/
-   git commit -m "refactor: archive old schema and scripts locations"
-   ```
-
-3. **Final cleanup** (only after PR merges and no issues reported)
-   - Remove `.github/tmp/schema-archive/` and `.github/tmp/scripts-archive/`
-   - (Keep backups in Git history via tags)
-
-### Phase 5: Documentation Updates
-
-1. **Create migration guide** (`.github/docs/MIGRATION.md`)
-   - Document schema consolidation
-   - Document folder moves
-   - Provide reference update checklist
-
-2. **Update README files**
-   - `schemas/README.md` — new file documenting schema organisation
-   - `agents/README.md` — update links
-   - `skills/README.md` — update links
-
-3. **Update CLAUDE.md** (this file)
-   - Update path reference section with migration details
-   - Link to migration guide
+**⚠️ Important:** Only move folders if they don't already exist at the destination. If a folder exists in both locations, Finder will merge and potentially overwrite files.
 
 ---
 
-## 4. Dependency Graph — What Must Happen First
+#### Phase 1.B: Path Reference Updates (Claude Automation)
 
-```
-┌─────────────────────────────────────────┐
-│ 0. User confirms all 50-question        │
-│    decisions (BLOCKER)                  │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│ 1. Folder moves (create new locations)  │
-│    - Create schemas/                    │
-│    - Create .github/scripts/            │
-│    - Create .github/website/            │
-│    - Copy files (don't delete yet)      │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│ 2. Reference updates (by type)          │
-│    - Update npm scripts                 │
-│    - Update validation scripts          │
-│    - Update workflows                   │
-│    - Update docs & instructions         │
-│    - Test each script                   │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│ 3. Validation & testing                 │
-│    - Run validation scripts             │
-│    - Run full test suite                │
-│    - Manual verification                │
-│    - Fix any issues                     │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│ 4. Create PR & merge                    │
-│    - Create branch: refactor/...        │
-│    - All validation passes              │
-│    - Merge to develop                   │
-└────────────────┬────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────┐
-│ 5. Final cleanup                        │
-│    - Archive old locations              │
-│    - Remove archives (after PR merges)  │
-│    - Update documentation               │
-└─────────────────────────────────────────┘
-```
+**Duration:** 2–3 days  
+**Owner:** Claude (via detailed prompt execution)  
+**Pre-requisite:** Phase 1.A complete
+
+**Tasks:**
+
+1. Update `package.json` schema globs and script paths
+2. Update all `.github/workflows/*.yml` files with new script/schema paths
+3. Update validation scripts with relative path adjustments
+4. Update documentation (`docs/**/*.md`) with path references
+5. Verify all updated files for syntax correctness
+
+**Success Criteria:**
+
+- ✅ All path references updated and validated
+- ✅ No broken globs or invalid paths
+- ✅ Validation scripts run successfully with new paths
+- ✅ Tests pass with updated configurations
 
 ---
 
-## 5. Success Criteria
+#### Phase 1.C: Folder Finalization & Documentation
 
-### Phase 1 Success (Folder Moves)
+**Duration:** 1 day  
+**Owner:** Claude (via prompt execution)  
+**Pre-requisite:** Phase 1.B complete
 
-- ✅ `schemas/` folder exists at root with all schema files
-- ✅ `.github/scripts/` folder exists with all scripts
-- ✅ No data loss (old folders still exist in `.github/tmp/`)
-- ✅ Git status shows new files (not yet committed)
+**Tasks:**
 
-### Phase 2 Success (Reference Updates)
+1. Create `README.md` files in new root folders (scripts/, reports/, projects/, etc.)
+2. Create `schemas/README.md` with schema organization and usage guide
+3. Create `.gitkeep` files for initially-empty directories
+4. Update `CLAUDE.md` with new folder locations
+5. Create migration guide: `docs/MIGRATION.md`
 
-- ✅ All npm scripts reference `schemas/` (not `schema/` or `.schemas/`)
-- ✅ All validation scripts use correct relative paths
-- ✅ All GitHub workflows updated
-- ✅ All documentation links point to `schemas/`
-- ✅ Grep finds zero references to old paths
+**Success Criteria:**
 
-### Phase 3 Success (Validation)
-
-- ✅ `npm run validate:frontmatter` passes
-- ✅ `npm run validate:agents` passes
-- ✅ `npm run validate:plugins` passes
-- ✅ `npm run validate:json` passes
-- ✅ `npm test` passes (all tests)
-- ✅ No broken documentation links
-- ✅ No import errors in scripts
-
-### Phase 4 Success (PR Merge)
-
-- ✅ PR created on branch `refactor/schema-consolidation-scripts-move`
-- ✅ All CI checks pass
-- ✅ PR reviewed and approved
-- ✅ PR merged to `develop`
-- ✅ Branch deleted
-
-### Phase 5 Success (Documentation)
-
-- ✅ Migration guide exists at `.github/docs/MIGRATION.md`
-- ✅ README files updated (`schemas/README.md`, agents, skills)
-- ✅ CLAUDE.md updated with migration reference
-- ✅ Documentation reviewed by user
+- ✅ All new root folders have documentation
+- ✅ Schema organization documented
+- ✅ Migration guide complete and reviewed
+- ✅ Git status shows expected changes
 
 ---
 
-## 6. Risk Mitigation
+### Phase 2: Schema Consolidation & Validation (2–3 days)
 
-| Risk | Mitigation |
-| --- | --- |
-| Broken script imports during consolidation | Test each script individually in Phase 2 before merging |
-| Missing schema files during copy | Verify file counts before/after: `find schemas -type f \| wc -l` |
-| Workflow failures due to path changes | Test workflows in CI; revert PR if tests fail |
-| Documentation becomes outdated | Comprehensive migration guide in Phase 5 |
-| Team members use old paths | Clear communication in PR description + migration guide |
+**Duration:** 2–3 days  
+**Owner:** Claude (via detailed prompt execution)  
+**Pre-requisite:** Phase 1 complete
 
----
+**Tasks:**
 
-## 7. Rollback Plan
+1. Audit existing schemas in `schemas/` directory (previously `.schemas/` + `schema/`)
+2. Identify duplicate or conflicting schema definitions
+3. Update validation scripts to reference new `schemas/` location
+4. Create schema registry documentation
+5. Verify all schema references resolve correctly
 
-**If validation fails at any point:**
+**Success Criteria:**
 
-1. **Do NOT proceed** to next phase
-2. **Revert local changes** (don't commit)
-
-   ```bash
-   git reset --hard HEAD
-   git clean -fd
-   ```
-
-3. **Or revert PR** (if already merged)
-
-   ```bash
-   git revert <merge-commit-hash>
-   ```
-
-4. **Return to backup branch**
-
-   ```bash
-   git checkout backup/pre-restructure-2026-07-31
-   ```
+- ✅ Schema audit complete; duplicates identified and resolved
+- ✅ Validation scripts updated and tested
+- ✅ All schemas accessible from new location
+- ✅ Documentation updated
 
 ---
 
-## 8. Communication Plan
+### Phase 3: VSCode Workspace Setup & Documentation (3–4 days)
 
-### Before Starting (Phase 0)
+**Duration:** 3–4 days  
+**Owner:** Claude (via detailed prompt execution)  
+**Pre-requisite:** Phase 2 complete
 
-- Share this specification with team
-- Wait for user approval on 50-question decisions
+**Tasks:**
 
-### During Implementation (Phases 1–4)
+1. Create `.github/lightspeed-dev.code-workspace` (multi-root workspace definition)
+2. Create `.github/.vscode/settings.json` (shared settings)
+3. Create `.github/scripts/setup-vscode-workspace.sh` (automated setup with color-coded output)
+4. Create `.github/scripts/setup-git-hooks.sh` (pre-commit hook installation)
+5. Create `docs/vscode-workspace-setup.md` (comprehensive setup guide with troubleshooting)
 
-- Create PR on `refactor/schema-consolidation-scripts-move` branch
-- Link to this specification in PR description
-- Request review from team
-- Run CI/CD checks
+**Success Criteria:**
 
-### After Merging (Phase 5)
-
-- Share migration guide in team channel
-- Update project documentation
-- Document any learnings for next refactoring
-
----
-
-## 9. Questions for User
-
-Before proceeding to implementation, please confirm:
-
-1. **Are all 50-question decisions finalized?** (BLOCKER)
-   - If not, provide feedback on any questions that need clarification
-2. **Should we keep the archived folders** (`.github/tmp/schema-archive/`) **in Git?**
-   - Or delete them after PR merges (keep only in Git history)?
-3. **Any other teams or projects** that reference these schema paths?
-   - May need additional communication/updates in their repos
-4. **Timeline preference** — start implementation today, or wait?
+- ✅ Workspace file created and valid
+- ✅ Setup scripts executable and functional
+- ✅ Documentation complete with troubleshooting
+- ✅ Local developers can run `./setup-vscode-workspace.sh` and achieve full setup
 
 ---
 
-## Next Steps
+### Phase 4: Plugin Adoption Strategy & Website Updates (3–4 days)
 
-1. User reviews this specification
-2. User confirms or requests changes
-3. Once approved: Proceed to task 0.4 (Pre-Flight Checklist)
-4. Once checklist is ready: Begin Phase 0 implementation (0.1–0.2 completion + backup)
-5. Phase 1 begins: Folder moves
+**Duration:** 3–4 days  
+**Owner:** Claude (documentation) + Web team (github.lightspeedwp.agency deployment)  
+**Pre-requisite:** Phase 3 complete
+
+**Tasks:**
+
+1. Create `docs/plugin-setup-claude-code.md` (Claude Code setup guide)
+2. Create `docs/plugin-setup-github-copilot.md` (GitHub Copilot setup guide)
+3. Create `docs/plugin-comparison.md` (feature matrix)
+4. Create `docs/plugin-adoption-phases.md` (phased rollout timeline and support)
+5. Document website update requirements for github.lightspeedwp.agency
+   - Onboarding routing by role (contributor vs. consumer)
+   - Getting-started guides (separate paths)
+   - Documentation rendering
+   - References/API updates
+
+**Success Criteria:**
+
+- ✅ Plugin setup guides complete and tested
+- ✅ Phased rollout timeline documented
+- ✅ Website update requirements documented and handed off to web team
+- ✅ Tier 1 (Claude Code + Copilot) ready for Aug/Sept deployment
 
 ---
 
-## 10. References & Related Documents
+### Phase 5: Rollout & Team Communication (3+ weeks)
 
-- **[DECISIONS_FRAMEWORK-50-QUESTIONS.md](./DECISIONS_FRAMEWORK-50-QUESTIONS.md)** — The 50-question framework that informed all decisions in this specification
-- **[PREFLIGHT_CHECKLIST.md](./PREFLIGHT_CHECKLIST.md)** — Phase 0 readiness checklist before Phase 1 implementation
-- **[CLAUDE.md](../../CLAUDE.md)** — Repository instructions and governance
-- **[docs/BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md)** — Branch naming and PR process
-- **[AGENTS.md](../../AGENTS.md)** — AI governance and standards
+**Duration:** 3+ weeks  
+**Owner:** Ash Shaw (communications) + Team (feedback)  
+**Pre-requisite:** Phase 4 complete
+
+**Timeline:**
+
+- **Week 1 (Aug):** Announce Phase 0–3 completion; invite Tier 1 (Claude Code + Copilot) adoption
+- **Week 2 (Sept):** Monitor adoption feedback; refine documentation; prepare Tier 2 (Codex optional)
+- **Week 3+ (Oct onwards):** Evaluate emerging providers (Gemini); manage grace period for holdouts
+
+**Tasks:**
+
+1. Create team announcement communicating new folder structure
+2. Publish plugin setup guides to team
+3. Track adoption metrics (VSCode setup, plugin install, feedback)
+4. Monitor grace period for developers using old paths
+5. Provide support and answer questions
+6. Iterate on documentation based on feedback
+7. Plan Tier 2 rollout (optional plugins like Codex)
+
+**Success Criteria:**
+
+- ✅ Core team (Tier 1) fully migrated to new structure
+- ✅ Contributors adopting new setup with minimal friction
+- ✅ Documentation revised based on feedback
+- ✅ Adoption tracking shows >80% team uptake
+- ✅ Readiness for Tier 2 expansion
 
 ---
 
-**Created by:** Claude Code  
-**Status:** Draft (awaiting user review)  
-**Last Updated:** 2026-07-31  
-**Decision Framework:** See [DECISIONS_FRAMEWORK-50-QUESTIONS.md](./DECISIONS_FRAMEWORK-50-QUESTIONS.md)
+## What You Do vs. What Claude Does
+
+### Phase 0
+
+| Task | Owner | Method |
+|------|-------|--------|
+| Review SPECIFICATION.md & PREFLIGHT_CHECKLIST.md | You | Manual review |
+| Run environment validation checks | You | Manual commands (checklist) |
+| Verify `git status` clean | You | Manual command |
+| Run test suites and validation scripts | You | Manual commands (checklist) |
+| Create backup tag | You | Manual command |
+| Sign off on readiness | You | Manual confirmation |
+
+### Phase 1.A (Manual Folder Moves)
+
+| Task | Owner | Method |
+|------|-------|--------|
+| Open macOS Finder | You | Click Finder icon |
+| Navigate to repo root | You | Manual navigation |
+| Drag `.github/scripts/` to `scripts/` | You | Drag & drop (Finder) |
+| Drag `.github/reports/` to `reports/` | You | Drag & drop (Finder) |
+| [... other moves ...] | You | Drag & drop (Finder) |
+| Verify all moves complete | You | Spot-check in Finder |
+
+### Phase 1.B (Path Reference Updates)
+
+| Task | Owner | Method |
+|------|-------|--------|
+| Update package.json globs | Claude | Scripted edit (prompt-driven) |
+| Update .github/workflows/*.yml | Claude | Scripted edit (prompt-driven) |
+| Update validation scripts | Claude | Scripted edit (prompt-driven) |
+| Update documentation paths | Claude | Scripted edit (prompt-driven) |
+| Verify all changes | You | Review diffs before commit |
+
+### Phase 1.C (Folder Finalization)
+
+| Task | Owner | Method |
+|------|-------|--------|
+| Create README.md files | Claude | Scripted write (prompt-driven) |
+| Create .gitkeep files | Claude | Scripted write (prompt-driven) |
+| Update CLAUDE.md | Claude | Scripted edit (prompt-driven) |
+| Create MIGRATION.md | Claude | Scripted write (prompt-driven) |
+
+### Phases 2–5
+
+| Task | Owner | Method |
+|------|-------|--------|
+| Schema audit & consolidation | Claude | Scripted analysis + updates |
+| VSCode workspace setup | Claude | Scripted generation + documentation |
+| Plugin adoption guides | Claude | Scripted documentation generation |
+| Website update requirements | Claude | Documentation → handed to web team |
+| Team communication | You | Publish announcements, manage adoption |
+
+---
+
+## Sign-Off
+
+**Specification Reviewed & Approved By:**
+
+- [ ] Ash Shaw (<ashley@lightspeedwp.agency>) — Date: _______________
+
+**Pre-flight Validation Complete:**
+
+- [ ] Environment checks: PASS
+- [ ] Repository integrity: PASS
+- [ ] Backup created: PASS
+- [ ] Ready to proceed to Phase 1: **YES / NO**
+
+---
+
+## References
+
+- [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) — Branch naming and protection rules
+- [PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md) — PR workflow and templates
+- [AGENTS.md](./AGENTS.md) — Global AI governance rules
+- [ANSWERS-TO-50-QUESTIONS-FINAL.md](./projects/active/repo-restructuring-2026-07-25/ANSWERS-TO-50-QUESTIONS-FINAL.md) — Detailed decision rationale
+- [DETAILED-RESTRUCTURING-PLAN-FINAL.md](./projects/active/repo-restructuring-2026-07-25/DETAILED-RESTRUCTURING-PLAN-FINAL.md) — Full implementation plan with phase prompts
+
+---
+
+**Document Version:** 1.0  
+**Last Updated:** 2026-07-26  
+**Status:** Phase 0 — Awaiting Sign-Off
