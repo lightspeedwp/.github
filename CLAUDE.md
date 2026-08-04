@@ -32,6 +32,10 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications (multi-file implementations) |
 | `schemas/` | JSON schema definitions (visible, portable) |
+| `scripts/` | Portable operational scripts (validation, agents, workflows — 82 utilities, Phase 2B migrated) |
+| `scripts/validation/` | Validation utilities for frontmatter, agents, workflows, changelog, plugins, skills |
+| `scripts/agents/` | Agent implementations and utility libraries for automation workflows |
+| `scripts/workflows/` | Workflow-specific utilities for branch policy, changelog, metrics, release, projects |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -40,6 +44,25 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | `workflows/` | Portable agentic workflows |
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
+
+### Phase 2B: Portable Scripts Migration (2026-08-05)
+
+**Phase 2B Complete**: All 82 operational scripts successfully migrated from `.github/scripts/` to root `scripts/` for organization-wide reuse.
+
+| Component | Old Path | New Path | Files | Status |
+| --- | --- | --- | --- | --- |
+| **Validation** | `.github/scripts/validation/` | `scripts/validation/` | 34 files | ✅ Migrated |
+| **Agent utilities** | `.github/scripts/agents/includes/` | `scripts/agents/includes/` | 44 files | ✅ Migrated |
+| **Changelog utilities** | `.github/scripts/workflows/changelog/` | `scripts/workflows/changelog/` | 4 files | ✅ Migrated |
+| **Total** | | | **82 files** | **✅ All migrated** |
+
+**Rationale:** Scripts moved from `.github/` control plane to root `scripts/` for portability across all organization repositories. All are now available for enterprise-wide reuse.
+
+**For script references in your code:** Import from the new root `scripts/` location. Examples:
+
+- Node.js: `require('../../scripts/validation/validate-json.js')`
+- Workflows: `scripts/validation/validate-frontmatter.js`
+- Package.json: `scripts/validation/validate-*.js`
 
 ### Path Reference: Repository Restructuring (2026-08-02)
 
