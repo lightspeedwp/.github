@@ -152,6 +152,8 @@ function parseRelationshipHints(body) {
     blocksRefs: [...blocksRefs],
     blockedByRefs: [...blockedByRefs],
     securityRefs: [...securityRefs],
+    hasBidirectionalBlocking:
+      blocksRefs.size > 0 || blockedByRefs.size > 0,
   };
 }
 
