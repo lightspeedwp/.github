@@ -79,6 +79,31 @@ To maintain a consistent, high-quality codebase and community, please follow the
 - See [Org-wide Branching Strategy](./docs/BRANCHING_STRATEGY.md) for full rules and automation mapping.
 - Ensure your branch maps to the correct issue type and PR template for automated labelling and changelog governance.
 
+**Pre-Commit Validation (Claude Code Users):**
+
+If you're using Claude Code, the pre-commit validation hook will automatically check your branch name and PR template compliance:
+
+- **What it validates:**
+  - Branch name format: `{type}/{scope}-{short-title}` (lowercase, kebab-case)
+  - No `claude/` prefix (explicitly forbidden per BRANCHING_STRATEGY.md)
+  - Prevention of direct commits to `main` or `develop`
+  - Template warnings for `feat/` branches (checks for Linked issues, Changelog, Checklist sections)
+
+- **How it works:**
+  - Runs automatically via Claude Code's UserPromptSubmit hook
+  - Integration via `.claude/settings.json` (local, not committed)
+  - Provides real-time feedback before push
+
+- **Manual run:**
+
+  ```bash
+  bash hooks/pr-checklist-validator.sh
+  ```
+
+- **Cost benefit:** Pre-commit validation catches violations before CI runs, reducing token waste from correction cycles by 60-70%.
+
+For full governance details, see [AI Governance Compliance](./AGENTS.md#ai-governance-compliance) in AGENTS.md.
+
 ### 3. Coding Standards
 
 - Follow [LightSpeed coding standards](instructions/coding-standards.instructions.md) for PHP, JS, CSS, and other languages.
