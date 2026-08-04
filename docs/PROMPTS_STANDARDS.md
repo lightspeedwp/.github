@@ -18,6 +18,8 @@ Prompts are structured templates that guide AI models towards consistent, high-q
 
 ```mermaid
 graph LR
+    accTitle: Prompt Development Lifecycle
+    accDescr: Sequential workflow for prompt development from defining use case through drafting, testing, tuning, documenting, validating, publishing, and maintaining prompts
     A["Define<br/>Use Case"] --> B["Draft<br/>Prompt"]
     B --> C["Test with<br/>Model"]
     C --> D["Tune<br/>Parameters"]
@@ -58,6 +60,8 @@ A reusable prompt is a template that:
 
 ```mermaid
 graph TD
+    accTitle: Prompt Type Selection Decision Tree
+    accDescr: Decision tree for selecting appropriate prompt type based on primary goal, output format requirements, and temperature settings for consistency, creativity, or structured output
     A{"What's the<br/>primary goal?"} -->|Accuracy &<br/>Consistency| B{"Need exact<br/>output format?"}
     A -->|Creativity &<br/>Variation| C["Use High Temperature<br/>0.8-1.0"]
     B -->|Yes| D["Deterministic Prompt<br/>Temperature: 0-0.3"]

@@ -112,9 +112,7 @@ agents/{agent-name}.agent.md
 ```mermaid
 graph TB
     accTitle: Agent specification architecture
-    accDescr {
-      Three-layer architecture showing Agent Specification (YAML frontmatter, purpose, responsibilities, process flow, guardrails, integration, references), Implementation (agent code, utilities, tests), and Automation (workflows, triggers, validation) with their interconnections.
-    }
+    accDescr: Three-layer architecture showing Agent Specification (YAML frontmatter, purpose, responsibilities, process flow, guardrails, integration, references), Implementation (agent code, utilities, tests), and Automation (workflows, triggers, validation) with their interconnections
     subgraph "📝 Agent Specification"
         A[YAML Frontmatter]
         B[Purpose & Overview]
@@ -358,9 +356,7 @@ Frontmatter is **machine-validated**. Errors break CI.
 ```mermaid
 mindmap
     accTitle: Agent frontmatter fields scope map
-    accDescr {
-      Mind map centred on Frontmatter with four branches: Required fields (file_type, name, description, version, last_updated, owners), Recommended fields (category, status, visibility, tools), Agent-Specific fields (handoffs, references, metadata.guardrails), and Validation rules (semantic versioning, ISO date, unique naming).
-    }
+    accDescr: Mind map centred on Frontmatter with four branches — Required fields (file_type, name, description, version, last_updated, owners), Recommended fields (category, status, visibility, tools), Agent-Specific fields (handoffs, references, metadata.guardrails), and Validation rules (semantic versioning, ISO date, unique naming)
   root((Frontmatter))
     Required
       file_type
