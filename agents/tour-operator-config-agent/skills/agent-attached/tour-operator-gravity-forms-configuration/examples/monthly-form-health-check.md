@@ -17,3 +17,7 @@ Run a monthly Gravity Forms health check for this production WordPress site. Do 
 ## Output
 
 Use `templates/form-inventory-audit.md`.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

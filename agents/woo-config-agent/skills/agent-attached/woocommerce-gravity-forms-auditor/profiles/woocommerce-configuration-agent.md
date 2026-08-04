@@ -23,3 +23,7 @@ Route checkout replacement, tax, order creation, subscriptions, stock, shipping,
 ## Client-safe boundary
 
 Keep payment credentials, customer personal data, order data, account data, and internal routing rules out of client-safe summaries unless explicitly approved and redacted.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

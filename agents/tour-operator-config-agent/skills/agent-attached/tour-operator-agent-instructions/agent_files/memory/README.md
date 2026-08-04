@@ -53,3 +53,7 @@ Memory files in this folder should be checked with:
 - `scripts/validate-memory-files.py`
 
 This helps keep durable preferences, active work, history, and handoff state clearly separated.
+
+---
+
+*📐 The blueprint for getting things right, every time*

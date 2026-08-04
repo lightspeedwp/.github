@@ -51,3 +51,7 @@ Expected behaviour:
 
 - Require redirect, canonical, noindex, sitemap, robots, schema and Search Console checks.
 - Avoid promising Google recrawl timing or ranking outcomes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

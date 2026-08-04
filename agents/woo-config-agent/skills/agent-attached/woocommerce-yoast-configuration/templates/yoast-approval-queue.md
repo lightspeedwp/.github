@@ -42,3 +42,7 @@
 ## Client-safe caveat
 
 These items are metadata recommendations and approval decisions. Search engines may rewrite displayed titles or descriptions, and approval does not guarantee ranking, indexing, rich results, or AI visibility.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

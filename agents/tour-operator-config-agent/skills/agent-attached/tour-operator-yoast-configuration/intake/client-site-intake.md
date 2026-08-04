@@ -14,3 +14,7 @@ Use this for general client context.
 - known risks
 - approval owner
 - source evidence supplied
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

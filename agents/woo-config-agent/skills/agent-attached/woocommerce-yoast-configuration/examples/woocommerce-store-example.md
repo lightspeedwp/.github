@@ -18,3 +18,7 @@
 3. Index useful product and category URLs; avoid arbitrary filter/tag index bloat unless curated.
 4. Validate Product, ProductGroup, Offer/AggregateOffer, AggregateRating/Review and Breadcrumb output.
 5. Separate product data cleanup tasks from Yoast configuration tasks.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

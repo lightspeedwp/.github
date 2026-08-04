@@ -21,3 +21,7 @@ Ask for the smallest set needed for the selected audit:
 ## Output expectation
 
 If enough evidence is still unavailable, produce an evidence gap report rather than guessing.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

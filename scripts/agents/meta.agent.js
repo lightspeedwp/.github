@@ -366,13 +366,13 @@ function applyHeader(content) {
 function updateReadmeStructure(content, filePath) {
   // TODO: Implement logic to ensure required sections (Overview, Features, etc.) exist in the root README.md.
   // Ensure proper heading hierarchy
-  let lines = content.split("\n");
 
   // Check for required sections in repository root README
   const fileName = path.basename(filePath);
   if (fileName === "README.md" && path.dirname(filePath) === process.cwd()) {
     // Root README should have standard sections
-    const requiredSections = [
+    // TODO: Validate these required sections exist in the content
+    const _requiredSections = [
       "## Overview",
       "## Features",
       "## Installation",

@@ -15,3 +15,7 @@
 - High-risk findings need explicit approval before configuration.
 - Payment, User Registration, file upload, privacy/retention, logging, webhook/API, production embed, and live notification changes require an approval note.
 - Retest evidence must be recorded against the original finding ID.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

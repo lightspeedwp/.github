@@ -23,3 +23,7 @@ Expected: use travel relationship audit; inspect rendered links, metadata, sitem
 Input: "Turn these schema findings into developer notes."
 
 Expected: use developer handoff template with required fields.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

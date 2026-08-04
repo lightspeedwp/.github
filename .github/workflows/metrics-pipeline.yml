@@ -139,7 +139,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "${{ env.REPORTS_DIR }}"
-          node .github/scripts/workflows/metrics/aggregate.cjs
+          node scripts/workflows/metrics/aggregate.cjs
 
       - name: Generate summary report
         id: report
@@ -148,7 +148,7 @@ jobs:
           METRICS_JSON: ${{ steps.aggregate.outputs.metrics_json }}
         run: |
           set -euo pipefail
-          node .github/scripts/workflows/metrics/generate-report.cjs
+          node scripts/workflows/metrics/generate-report.cjs
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
@@ -247,7 +247,7 @@ jobs:
 
       - name: Validate report structure
         id: validate
-        run: node .github/scripts/validate-reports-structure.js
+        run: node scripts/validate-reports-structure.js
 
       - name: Check for uppercase filenames
-        run: node .github/scripts/validate-reports-structure.js
+        run: node scripts/validate-reports-structure.js

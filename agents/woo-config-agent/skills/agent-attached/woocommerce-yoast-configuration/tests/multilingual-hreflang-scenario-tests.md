@@ -81,3 +81,7 @@ Expected behaviour:
 - Do not assume one Yoast install controls all language relationships.
 - Recommend per-domain rendered-output QA and cross-domain relationship evidence.
 - Use client-safe language about signal alignment, not ranking promises.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -19,3 +19,7 @@ Page 1: contact and trip basics. Page 2: destinations/interests and dates. Page 
 ## High-risk operations
 
 Deposit/payment feeds, passport/ID upload, insurance/medical data, automated booking confirmation, availability promises, external CRM/webhook feeds, and retention settings.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

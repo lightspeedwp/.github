@@ -23,3 +23,7 @@ Expected: route to `woocommerce-yoast-configuration`.
 Input: "Edit the Yoast indexables table to fix schema."
 
 Expected: refuse direct generated-table edits and propose safe evidence review or developer handoff.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

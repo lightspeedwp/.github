@@ -35,3 +35,7 @@ Use this template when a Yoast setup, audit remediation, migration, plugin updat
 - Approved by:
 - Date:
 - Conditions:
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

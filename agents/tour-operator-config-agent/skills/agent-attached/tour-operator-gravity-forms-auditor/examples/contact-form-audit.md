@@ -21,3 +21,7 @@ Single public contact form on `/contact/`; internal audit with client-safe summa
 ## Handoff item
 
 Route GF-AUD-001 to the `tour-operator-gravity-forms-configuration` skill to update notification sender safely after approval.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -31,3 +31,7 @@ After a Yoast product, WooCommerce SEO, AI Plus or developer API change:
 2. Update product capability boundaries.
 3. Update output references only where audit behaviour changes.
 4. Add or update scenario tests if routing or evidence handling changes.
+
+---
+
+*🧭 Your compass through the documentation landscape*

@@ -59,3 +59,7 @@
 - Confirm generated post status, author, title, content, taxonomies, media, and visibility.
 - Confirm no unintended public publishing.
 - Confirm rollback/cleanup steps for test post and uploaded files.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -55,3 +55,7 @@ Use one of these phrases in deliverables:
 4. If a fact contradicts older reference material, keep both notes until resolved and label the older row `contradicted evidence` or `stale evidence`.
 5. Run `scripts/validate_source_register.py`, `scripts/validate_reference_data.py`, `scripts/validate_skill_structure.py`, and `scripts/validate_evidence_states.py` when available.
 6. Update `docs/changelog.md` with the source refresh and affected files.
+
+---
+
+*🧭 Your compass through the documentation landscape*

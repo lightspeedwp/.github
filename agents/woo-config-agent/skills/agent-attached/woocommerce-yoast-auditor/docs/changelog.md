@@ -42,3 +42,7 @@
 - Added explicit routing boundary with `woocommerce-yoast-configuration`.
 - Added lean version-one references, intake files, profiles, templates, team docs and scenario tests.
 - Added source register structure with pending-scan source entries.
+
+---
+
+*🧭 Your compass through the documentation landscape*

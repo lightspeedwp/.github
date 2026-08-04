@@ -40,3 +40,7 @@ Return a compact intake summary:
 - Proposed safe defaults
 - Risk level
 - Recommended next output: preflight, configuration plan, change plan, or manual implementation plan
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

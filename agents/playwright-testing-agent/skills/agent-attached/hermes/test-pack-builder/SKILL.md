@@ -78,7 +78,7 @@ For each requirement:
 
 - assign a requirement ID
 - write one short requirement statement
-- classify it as one of: functional flow, content rule, visual rule, accessibility rule, performance rule, analytics/conversion rule, integration rule, or error/empty state
+- classify it as one of the following: functional flow, content rule, visual rule, accessibility rule, performance rule, analytics or conversion rule, integration rule, or error or empty state
 - cite the source evidence that supports it
 
 Do not split one criterion into many IDs unless the evidence clearly supports separate traceable requirements.

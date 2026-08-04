@@ -23,3 +23,7 @@ Ask a question only when the answer changes a recommendation. Otherwise state as
 - Treat current source-register rows without accessed dates as research targets.
 - Prefer conservative indexation decisions until content value is known.
 - Require QA for any canonical, robots, sitemap, schema, redirect, or WooCommerce product-data change.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
