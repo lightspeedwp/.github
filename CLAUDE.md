@@ -53,11 +53,11 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 | **Scripts** | `scripts/` | `.github/scripts/` | Move to .github |
 | **Website** | `website/` | `.github/website/` | Move to .github |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `.github/scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
-- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
+- From `scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
 - From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
 
