@@ -1,10 +1,18 @@
 ---
+file_type: documentation
 title: Labeling Governance
 description: Unified labeling and metadata governance system for issues, PRs, and discussions
-author: LightSpeedWP
-created: 2026-08-04
-updated: 2026-08-04
-status: Active
+version: 1.0.0
+created_date: 2026-08-04
+last_updated: 2026-08-04
+author: LightSpeed Team
+maintainer: LightSpeed Team
+domain: governance
+stability: stable
+tags:
+  - labeling
+  - workflows
+  - governance
 ---
 
 # Labeling Governance
