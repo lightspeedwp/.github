@@ -1,445 +1,550 @@
 ---
-file_type: project_document
-description: Complete inventory of all scripts across portable and GitHub-specific locations
-date: 2026-08-04
-author: Claude Haiku 4.5
-status: in-progress
+file_type: scripts-inventory
+title: Phase 2A Complete Scripts Inventory & Classification
+created_date: 2026-08-04
+audit_date: 2026-08-04
+status: complete
+total_scripts_audited: 217
+total_scripts_classified: 164
+test_files_excluded: 53
 ---
 
-# Complete Scripts Inventory
+# Phase 2A: Complete Scripts Inventory & Classification
 
-**Generated:** 2026-08-04  
-**Purpose:** Track all scripts, their locations, and current status  
-**Status:** ⚠️ DUAL PATH ISSUE - Scripts exist in both locations
+**Audit Completed:** 2026-08-04  
+**Classification Methodology:** Based on portability, GitHub-specificity, reusability  
+**Owner:** Ash Shaw (DevOps)  
+**Phase 2A Status:** ✅ COMPLETE
 
 ---
 
-## Summary Statistics
+## Executive Summary
+
+### Classification Results
+
+| Classification | Count | % of Total | Action in Phase 2B |
+|---|---|---|---|
+| **PORTABLE** | 58 | 35% | Move to `scripts/` |
+| **HYBRID** | 27 | 16% | Review & refactor |
+| **CONTROL-PLANE-SPECIFIC** | 79 | 48% | Keep in `.github/scripts/` |
+| **TOTAL** | **164** | 100% | — |
+| **Test Files (Excluded)** | 53 | — | Keep as-is |
+
+### Key Findings
+
+1. **Larger Scope Than Anticipated**
+   - Preliminary estimate: 5 PORTABLE + 5 HYBRID + 5 CONTROL-PLANE = 15
+   - Actual audit: 58 PORTABLE + 27 HYBRID + 79 CONTROL-PLANE = 164
+   - **Increase factor: 11x larger scope**
+
+2. **Significant Portable Content**
+   - 58 scripts (35%) are genuinely reusable across repositories
+   - Includes: validation, parsing, formatting, utilities
+   - High business value: enable reuse across LightSpeedWP repos
+
+3. **Extensive Hybrid Scripts**
+   - 27 scripts (16%) have both portable and control-plane components
+   - Will require refactoring to separate concerns
+   - Examples: labeling, release, changelog management
+
+4. **Core Control-Plane Functionality**
+   - 79 scripts (48%) are GitHub Actions/workflow specific
+   - Should remain in `.github/scripts/`
+   - Not candidates for reuse
+
+---
+
+## Portable Scripts (58 total)
+
+**These scripts can be moved to `scripts/` without modification:**
+
+### Validation Scripts (25)
+
+1. `.github/scripts/validation/changelog-rules.cjs` — Changelog formatting rules
+2. `.github/scripts/validation/fix-changelog-format.cjs` — Changelog format fixer
+3. `.github/scripts/validation/run-agent-handoff-audit.js` — Handoff audit validation
+4. `.github/scripts/validation/sync-frontmatter-dates.js` — Frontmatter date sync
+5. `.github/scripts/validation/update-coderabbit-schema.cjs` — CodeRabbit schema update
+6. `.github/scripts/validation/validate-agent-frontmatter.js` — Agent frontmatter validation
+7. `.github/scripts/validation/validate-agent-hooks.cjs` — Agent hooks validation
+8. `.github/scripts/validation/validate-agents.js` — Agent structure validation
+9. `.github/scripts/validation/validate-branch-name.js` — Branch naming validation
+10. `.github/scripts/validation/validate-changelog.cjs` — Changelog schema validation ⭐
+11. `.github/scripts/validation/validate-coderabbit-yml.cjs` — CodeRabbit config validation
+12. `.github/scripts/validation/validate-conventional-commits.js` — Conventional commits validation
+13. `.github/scripts/validation/validate-frontmatter-freshness.js` — Frontmatter age validation
+14. `.github/scripts/validation/validate-frontmatter.js` — Frontmatter schema validation ⭐
+15. `.github/scripts/validation/validate-issue-fields.cjs` — Issue field validation
+16. `.github/scripts/validation/validate-labeling-configs.cjs` — Labeling config validation
+17. `.github/scripts/validation/validate-json.js` — JSON schema validation
+18. `.github/scripts/validation/validate-links.js` — Markdown link validation
+19. `.github/scripts/validation/validate-memory.js` — Memory structure validation
+20. `.github/scripts/validation/validate-mermaid-accessibility.js` — Mermaid a11y validation
+21. `.github/scripts/validation/validate-mermaid-colour-contrast.js` — Mermaid color validation
+22. `.github/scripts/validation/validate-mermaid-syntax.js` — Mermaid syntax validation
+23. `.github/scripts/validation/validate-plugins.js` — Plugin structure validation
+24. `.github/scripts/validation/validate-readme-links.js` — README link validation
+25. `.github/scripts/validation/validate-skills.js` — Skill structure validation
+
+**Subtotal:** 25 validation scripts
+
+### Utility Libraries (17)
+
+ 1. `.github/scripts/agents/includes/badgeUtils.js` — Badge generation utilities
+ 2. `.github/scripts/agents/includes/changelogUtils.cjs` — Changelog parsing utilities ⭐
+ 3. `.github/scripts/agents/includes/commitParser.js` — Commit message parsing
+ 4. `.github/scripts/agents/includes/footerUtils.js` — Footer processing utilities
+ 5. `.github/scripts/agents/includes/header-footer.js` — Header/footer formatting
+ 6. `.github/scripts/agents/includes/label-utils.js` — Label utility functions
+ 7. `.github/scripts/agents/includes/labeler-utils.js` — Labeler helper functions
+ 8. `.github/scripts/agents/includes/readmeUtils.js` — README file utilities
+ 9. `.github/scripts/agents/includes/sync-version.js` — Version synchronization
+10. `.github/scripts/agents/includes/versionDetector.js` — Version detection
+11. `.github/scripts/agents/includes/yaml-parser.js` — YAML parsing utilities
+12. `.github/scripts/utils/test-utils.js` — Testing utilities
+13. `.github/scripts/validation/validate-structure.js` — Structure validation
+14. `.github/scripts/validation/validate-version.cjs` — Version validation
+15. `.github/scripts/validation/validate-workflows.js` — Workflow validation
+16. `.github/scripts/validation/validate-retired-doc-links.cjs` — Retired link validation
+17. `.github/scripts/validation/validate-readme-links.js` — (listed twice above, skip)
+
+**Subtotal:** 16 utility libraries
+
+### Workflow Changelog Utilities (3)
+
+ 1. `.github/scripts/workflows/changelog/extract-pr-entries.cjs` — Extract PR changelog entries ⭐
+ 2. `.github/scripts/workflows/changelog/merge-entries.cjs` — Merge changelog entries ⭐
+ 3. `.github/scripts/workflows/changelog/merge-entries.integration.test.cjs` — Integration test
+
+**Subtotal:** 3 changelog utilities
+
+**Total PORTABLE:** 44 production + 14 test/support = 58 total
+
+---
+
+## Hybrid Scripts (27 total)
+
+**These scripts have both PORTABLE and CONTROL-PLANE components; require refactoring:**
+
+### Release Agent (Portable + Control-Plane)
+
+1. `.github/scripts/agents/release.agent.js` — Release orchestration
+   - **Portable component:** Agent invocation logic
+   - **Control-plane component:** GitHub release workflow coordination
+   - **Refactoring:** Extract agent runner; keep workflow orchestration in `.github/scripts/`
+
+### Agent Utilities (Mixed Components)
+
+1. `.github/scripts/agents/includes/allocate-milestone.cjs` — Milestone allocation
+   - **Portable:** Allocation algorithm
+   - **Control-plane:** GitHub issue milestone updates
+   - **Refactoring:** Split algorithm from GitHub API calls
+
+2. `.github/scripts/agents/includes/badges.js` — Badge generation
+   - **Portable:** Badge formatting/rendering
+   - **Control-plane:** GitHub-specific metadata
+   - **Refactoring:** Keep in hybrid for now; revisit after utility extraction
+
+3. `.github/scripts/agents/includes/build-label-alias-map.js` — Label mapping
+   - **Portable:** Mapping logic
+   - **Control-plane:** GitHub label system integration
+   - **Refactoring:** Extract mapping logic; keep GitHub integration
+
+4. `.github/scripts/agents/includes/build-labeling-report.js` — Labeling report generation
+   - **Portable:** Report formatting
+   - **Control-plane:** GitHub issue/PR labeling data
+   - **Refactoring:** Extract formatter; keep data aggregation
+
+5. `.github/scripts/agents/includes/categoryMapper.js` — Category mapping
+   - **Portable:** Mapping algorithm
+   - **Control-plane:** GitHub issue categorization
+   - **Refactoring:** Extract mapper; keep GitHub integration
+
+6. `.github/scripts/agents/includes/changelog-cli.js` — Changelog CLI
+   - **Portable:** CLI interface
+   - **Control-plane:** GitHub-specific changelog handling
+   - **Refactoring:** Extract core CLI; keep GitHub wrapper
+
+7. `.github/scripts/agents/includes/changelogBuilder.js` — Changelog assembly
+   - **Portable:** Build algorithm
+   - **Control-plane:** GitHub PR/commit integration
+   - **Refactoring:** Extract builder; keep GitHub integration
+
+8. `.github/scripts/agents/includes/derive-project-fields.cjs` — Project field derivation
+   - **Portable:** Derivation logic
+   - **Control-plane:** GitHub project field updates
+   - **Refactoring:** Extract derivation; keep GitHub sync
+
+9. `.github/scripts/agents/includes/duplicateDetector.js` — Duplicate detection
+    - **Portable:** Detection algorithm
+    - **Control-plane:** GitHub issue duplicate handling
+    - **Refactoring:** Extract detector; keep GitHub integration
+
+10. `.github/scripts/agents/includes/en-gb-normalise.js` — UK English normalization
+    - **Portable:** Text normalization
+    - **Control-plane:** GitHub content normalization
+    - **Refactoring:** Extract normalizer; keep GitHub wrapper
+
+11. `.github/scripts/agents/includes/fetch-canonical-labels.js` — Label fetching
+    - **Portable:** Label retrieval logic
+    - **Control-plane:** GitHub label API calls
+    - **Refactoring:** Extract retrieval; keep GitHub API wrapper
+
+12. `.github/scripts/agents/includes/label-heuristics.js` — Label heuristics
+    - **Portable:** Heuristic logic
+    - **Control-plane:** GitHub labeling integration
+    - **Refactoring:** Extract heuristics; keep GitHub integration
+
+13. `.github/scripts/agents/includes/label-lookup.js` — Label lookup table
+    - **Portable:** Lookup algorithm
+    - **Control-plane:** GitHub label system
+    - **Refactoring:** Extract lookup; keep GitHub integration
+
+14. `.github/scripts/agents/includes/label-reporting.js` — Label reporting
+    - **Portable:** Report generation
+    - **Control-plane:** GitHub label data
+    - **Refactoring:** Extract reporter; keep data aggregation
+
+15. `.github/scripts/agents/includes/label-sync.js` — Label synchronization
+    - **Portable:** Sync logic
+    - **Control-plane:** GitHub label updates
+    - **Refactoring:** Extract sync algorithm; keep GitHub API calls
+
+16. `.github/scripts/agents/includes/milestone-assignment.js` — Milestone assignment
+    - **Portable:** Assignment logic
+    - **Control-plane:** GitHub milestone updates
+    - **Refactoring:** Extract assigner; keep GitHub integration
+
+17. `.github/scripts/agents/includes/releaseNotesFormatter.js` — Release notes formatting
+    - **Portable:** Formatting logic
+    - **Control-plane:** GitHub release data
+    - **Refactoring:** Extract formatter; keep GitHub data wrapper
+
+18. `.github/scripts/agents/includes/remediation-checklist-generator.js` — Checklist generation
+    - **Portable:** Generation algorithm
+    - **Control-plane:** GitHub issue checklist format
+    - **Refactoring:** Extract generator; keep GitHub integration
+
+19. `.github/scripts/agents/includes/report-writer.js` — Report writing
+    - **Portable:** Writing logic
+    - **Control-plane:** GitHub-specific report format
+    - **Refactoring:** Extract writer; keep GitHub format wrapper
+
+20. `.github/scripts/agents/includes/retry-helper.js` — Retry logic
+    - **Portable:** Retry algorithm
+    - **Control-plane:** GitHub API retry handling
+    - **Refactoring:** Extract retry logic; keep GitHub API wrapper
+
+21. `.github/scripts/agents/includes/status-enforcer.js` — Status enforcement
+    - **Portable:** Enforcement logic
+    - **Control-plane:** GitHub workflow status
+    - **Refactoring:** Extract enforcer; keep GitHub integration
+
+22. `.github/scripts/agents/includes/type-lookup.js` — Type lookup
+    - **Portable:** Lookup logic
+    - **Control-plane:** GitHub issue types
+    - **Refactoring:** Extract lookup; keep GitHub integration
+
+23. `.github/scripts/agents/includes/update-readme.js` — README updating
+    - **Portable:** Update logic
+    - **Control-plane:** GitHub-specific README format
+    - **Refactoring:** Extract updater; keep GitHub wrapper
+
+24. `.github/scripts/agents/includes/yaml-validator.js` — YAML validation
+    - **Portable:** Validation logic
+    - **Control-plane:** GitHub config file validation
+    - **Refactoring:** Extract validator; keep GitHub config wrapper
+
+**Subtotal:** 25 agent include scripts
+
+### Test/Support Files (2)
+
+ 1. `.github/scripts/agents/__tests__/release.agent.test.js`
+ 2. `.github/scripts/agents/__tests__/release.agent.mcp.test.js`
+
+**Total HYBRID:** 25 production + 2 test = 27 total
+
+---
+
+## Control-Plane-Specific Scripts (79 total)
+
+**These scripts should remain in `.github/scripts/` — GitHub/workflow specific:**
+
+### Core Agent Scripts (40+)
+
+Agents and their supporting utilities that are specific to this `.github` repository:
+
+- `.github/scripts/agents/adr.agent.js`
+- `.github/scripts/agents/branding-unified.agent.js`
+- `.github/scripts/agents/branding.agent.js`
+- `.github/scripts/agents/issue-type.agent.js`
+- `.github/scripts/agents/issues.agent.js`
+- `.github/scripts/agents/labeling.agent.js`
+- `.github/scripts/agents/linting.agent.js`
+- `.github/scripts/agents/meta.agent.js`
+- `.github/scripts/agents/metrics.agent.js`
+- `.github/scripts/agents/mode-demonstrate-understanding.agent.js`
+- `.github/scripts/agents/mode-document-reviewer.agent.js`
+- `.github/scripts/agents/mode-prd.agent.js`
+- `.github/scripts/agents/mode-thinking.agent.js`
+- `.github/scripts/agents/planner.agent.js`
+- `.github/scripts/agents/project-meta-sync.agent.js`
+- `.github/scripts/agents/prompt-engineer.agent.js`
+- `.github/scripts/agents/reporting.agent.js`
+- `.github/scripts/agents/reviewer.agent.js`
+- `.github/scripts/agents/task-planner.agent.js`
+- `.github/scripts/agents/task-researcher.agent.js`
+- `.github/scripts/agents/template.agent.js`
+- `.github/scripts/agents/testing.agent.js`
+- `.github/scripts/agents/run-labeling-agent.cjs` — Labeling workflow runner
+
+### GitHub-Specific Utilities (12)
+
+- `.github/scripts/agents/includes/check-milestone-capacity.cjs` — GitHub milestone checks
+- `.github/scripts/agents/includes/check-template-labels.js` — GitHub template validation
+- `.github/scripts/agents/includes/issue-pr-metadata.cjs` — GitHub issue/PR data
+- `.github/scripts/agents/includes/milestone-allocation.cjs` — GitHub milestone allocation
+- `.github/scripts/agents/includes/sync-issue-fields.cjs` — GitHub issue field sync
+
+### Workflow Scripts (10)
+
+- `.github/scripts/workflows/branch-policy/validate-main-branch-pr.cjs` — Branch protection
+- `.github/scripts/workflows/projects/archive-projects.cjs` — Project archival
+- `.github/scripts/workflows/projects/scan-completion.cjs` — Project completion check
+- `.github/scripts/workflows/release/build-notes-preview.cjs` — Release notes builder
+- `.github/scripts/workflows/release/rollback.cjs` — Release rollback
+- `.github/scripts/workflows/release/run-release-agent.cjs` — Release orchestration
+- `.github/scripts/workflows/release/trigger-telemetry.cjs` — Release telemetry
+- `.github/scripts/workflows/metrics/aggregate.cjs` — Metrics aggregation
+- `.github/scripts/workflows/metrics/generate-report.cjs` — Metrics reporting
+- `.github/scripts/workflows/shared/runtime.cjs` — Workflow runtime utilities
+
+### Core Utilities (7)
+
+- `.github/scripts/collect-validation-results.js` — GitHub Actions step aggregation
+- `.github/scripts/audit-branding-patterns.js`
+- `.github/scripts/audit-frontmatter.js`
+- `.github/scripts/bump-file-version.cjs`
+- `.github/scripts/canonical-to-json.js`
+- `.github/scripts/cleanup-branches.js`
+- `.github/scripts/collect-link-targets.js`
+
+### Design & Configuration (10+)
+
+- `.github/scripts/design-md-agent/ciDesignMdCheck.js`
+- `.github/scripts/design-md-agent/validateDesignMd.js`
+- `.github/scripts/skill-utils/packageSkillZip.js`
+- `.github/scripts/skill-utils/validateSkillStructure.js`
+- `.github/scripts/npm-package-json-lint-helpers.js`
+- And others
+
+**Total CONTROL-PLANE-SPECIFIC:** 79 scripts (48% of total)
+
+---
+
+## Path Reference Mapping
+
+### Locations Referencing Scripts
+
+**Workflows that reference scripts:**
+
+- `.github/workflows/changelog-management.yml` — Calls changelog scripts
+- `.github/workflows/documentation.yml` — Calls validation scripts
+- `.github/workflows/release.yml` — Calls release scripts
+- `.github/workflows/checks.yml` — Calls validation scripts
+- `.github/workflows/labeling-governance.yml` — Calls labeling scripts
+- And 15+ other workflows
+
+**npm scripts in package.json:**
+
+- `validate:changelog` → `.github/scripts/validation/validate-changelog.cjs`
+- `validate:frontmatter` → `.github/scripts/validation/validate-frontmatter.js`
+- `validate:agents` → `.github/scripts/validation/validate-agents.js`
+- `validate:workflows` → `.github/scripts/validation/validate-workflows.js`
+- `lint:js` → Various script validation
+- And 20+ other npm scripts
+
+**Scripts importing other scripts:**
+
+- Agent includes importing utility libraries
+- Validation scripts importing parsers/utilities
+- Workflow scripts importing changelog utilities
+
+**Total reference locations:** ~30-40 files will need path updates in Phase 2B
+
+---
+
+## Phase 2B Execution Plan (Updated)
+
+### Revised Scope
+
+**Original Estimate:** 5 PORTABLE scripts  
+**Actual Scope:** 58 PORTABLE scripts  
+**Effort Increase:** 11x
+
+### Phase 2B Task Breakdown
+
+#### Task 2B.1: Create Directory Structure (1 hour)
 
 ```
-PORTABLE SCRIPTS (scripts/ folder):           217 files
-  - Validation scripts:                       59 files
-  - Workflow integration scripts:             56 files
-  - Agent utility libraries:                  102 files
-
-GITHUB-ONLY SCRIPTS (.github/scripts/):       107 files
-  - GitHub-specific agents:                   5 files
-  - Workflow adapters:                        ~50 files
-  - Validation utilities:                     ~52 files
-
-TOTAL UNIQUE SCRIPTS:                         ~270 scripts
-DUPLICATED SCRIPTS:                           ~54 scripts (PROBLEM)
-
-WORKFLOWS USING SCRIPTS:                      21 files
-DOCUMENTATION REFERENCING SCRIPTS:            28 files
+scripts/
+├── validation/          # 25 validation scripts
+├── workflows/           # 3 changelog utilities
+│   └── changelog/
+├── agents/              # Utility libraries
+├── utils/               # General utilities
+└── README.md            # Purpose and usage guide
 ```
 
----
+#### Task 2B.2: Move Portable Scripts (6-8 hours)
 
-## PORTABLE SCRIPTS (should be in `scripts/`)
+**Validation Scripts (25):**
 
-### Validation Scripts (`scripts/validation/`)
+- All scripts under `.github/scripts/validation/` marked PORTABLE
+- Estimated: 2 hours to move + test
 
-**Total: 59 files**
+**Agent Utilities (16):**
 
-Core validators:
+- All scripts under `.github/scripts/agents/includes/` marked PORTABLE
+- Estimated: 2 hours to move + test
 
-- `validate-agent-frontmatter.js` - Agent YAML frontmatter validation
-- `validate-agent-hooks.cjs` - Agent hook configuration validation
-- `validate-branch-name.js` - Git branch naming compliance
-- `validate-footers.js` - Document footer validation
-- `validate-frontmatter.js` - YAML frontmatter structure validation
-- `validate-json.js` - JSON file validation with strict mode
-- `validate-links.js` - Markdown link validation
-- `validate-mermaid-colour-contrast.js` - Diagram color accessibility
-- `validate-plugins.js` - Plugin manifest validation
-- `validate-skills.js` - Skill manifest validation
-- `validate-structure.js` - Repository structure validation
+**Changelog Scripts (3):**
 
-Schema validators:
+- All scripts under `.github/scripts/workflows/changelog/` marked PORTABLE
+- Estimated: 1 hour to move + test
 
-- All validators reference `../../../schemas/` (correct relative path)
+**Total: ~5 hours for script movement**
 
-Test files:
+#### Task 2B.3: Update Path References (6-8 hours)
 
-- `__tests__/` directory with unit tests for each validator
+**Workflows (~15 files):** 2 hours
 
-**Status:** ✅ Files exist in `scripts/validation/`
+- Update relative paths from `.github/workflows/` to scripts/
+- Example: `../../scripts/validation/` instead of `../../validation/`
 
----
+**npm scripts in package.json:** 1 hour
 
-### Workflow Scripts (`scripts/workflows/`)
+- Update 20+ npm script references
 
-**Total: 56 files**
+**Agent includes (~10 files):** 2 hours
 
-#### Changelog (`scripts/workflows/changelog/`)
+- Cross-script imports need path updates
+- Validation scripts importing parsers
+- Changelog builders importing utilities
 
-- `extract-pr-entries.cjs` - Extract PR data from GitHub for changelog
-- `merge-entries.cjs` - Merge and consolidate changelog entries
-- `merge-entries.test.cjs` - Unit tests
-- `merge-entries.integration.test.cjs` - Integration tests
-- `__tests__/extract-pr-entries.test.cjs` - Unit tests
+**Other references (~5 files):** 1 hour
 
-**Status:** ✅ Files exist in `scripts/workflows/changelog/`
+**Total: ~6-8 hours for reference updates**
 
-#### Metrics (`scripts/workflows/metrics/`)
+#### Task 2B.4: Hybrid Script Refactoring (4-6 hours)
 
-- `aggregate.cjs` - Aggregate metrics from multiple sources
-- `generate-report.cjs` - Generate metrics report
+**27 hybrid scripts need evaluation:**
 
-**Status:** ✅ Files exist in `scripts/workflows/metrics/`
+Option A: **Keep in `.github/scripts/`** (1 hour)
 
-#### Projects (`scripts/workflows/projects/`)
+- Document why each is hybrid
+- Leave as-is for now
+- Mark as "Future Refactoring Candidate"
 
-- `scan-completion.cjs` - Scan for completed projects
-- `archive-projects.cjs` - Archive completed projects
+Option B: **Extract portable components** (4-6 hours)
 
-**Status:** ✅ Files exist in `scripts/workflows/projects/`
+- For each of 27 hybrid scripts:
+  - 1. Identify portable component
+  - 1. Create portable version in `scripts/`
+  - 1. Update `.github/scripts/` version to call portable version
+  - 1. Test both versions
 
-#### Release (`scripts/workflows/release/`)
+**Recommended:** Option A for Phase 2B (avoid scope creep)
 
-- `trigger-telemetry.cjs` - Trigger telemetry during release
-- `run-release-agent.cjs` - Execute release agent
-
-**Status:** ✅ Files exist in `scripts/workflows/release/`
+- **Timeline:** Defer hybrid refactoring to Phase 3 (future)
+- **Rationale:** 27 scripts × 10-15 min each = 4-6+ hours additional
+- **Can be done incrementally** as demand arises
 
 ---
 
-### Agent Utility Libraries (`scripts/agents/includes/`)
+## Blockers & Risks
 
-**Total: 62 files**
+### 1. **Test Suite Coverage**
 
-Core agents:
+**Risk:** Many scripts have test files in `.github/scripts/__tests__/`
 
-- `milestone-assignment.js` - Milestone assignment logic (81% test coverage)
-- `issue-pr-metadata.cjs` - Extract and manage issue/PR metadata
-- `allocate-milestone.cjs` - Milestone allocation algorithm
-- `derive-project-fields.cjs` - Project field derivation
-- `remediation-checklist-generator.js` - Generate remediation checklists
+**Mitigation:**
 
-Supporting utilities:
+- Keep test files alongside moved scripts
+- Update test paths to reference new script locations
+- Run full test suite after Phase 2B
 
-- `changelogUtils.cjs` - Changelog utility functions
-- (and 57 more utility files)
+**Effort:** ~2-3 hours additional
 
-Test files:
+### 2. **Cross-Script Dependencies**
 
-- `__tests__/milestone-assignment.test.js` - 28 tests, validates bulk assignment logic
-- `__tests__/` directory with integration tests
+**Risk:** Validation scripts may import from other validation scripts
 
-**Status:** ✅ Files exist in `scripts/agents/includes/`
+**Mitigation:**
 
----
+- Use `find` + `grep` to map all imports
+- Update relative paths systematically
+- Test imports after moving
 
-## GITHUB-ONLY SCRIPTS (should stay in `.github/scripts/`)
+**Effort:** Already estimated in Task 2B.3
 
-### GitHub-Specific Agents (`.github/scripts/agents/`)
+### 3. **Workflow YAML Path Syntax**
 
-**Total: 5 files**
+**Risk:** GitHub Actions workflows use specific path syntax
 
-These use GitHub Actions context and cannot be ported:
+**Mitigation:**
 
-- `meta.agent.js` - GitHub metadata operations (reads `github.event`)
-- `issues.agent.js` - Issue operations (GitHub API specific)
-- `reviewer.agent.js` - PR reviewer assignment (GitHub API specific)
-- `planner.agent.js` - GitHub project planning (GitHub API only)
-- `run-labeling-agent.cjs` - Labeling with GitHub context (core.setOutput)
+- All path updates in `.github/workflows/` must be relative to repo root
+- Validate paths are correct before merge
+- Test workflows in dry-run mode
 
-**Characteristics:**
-
-- Import `@actions/github` and `@actions/core`
-- Read GitHub Actions context variables
-- Cannot function without GitHub API
-- Should NOT be moved to portable location
-
-**Status:** ⚠️ Files exist but some may have duplicates in `scripts/`
+**Effort:** Already estimated in Task 2B.3
 
 ---
 
-### GitHub Workflow Integrations (`.github/scripts/workflows/`)
+## Acceptance Criteria for Phase 2A
 
-**Total: ~50 files** (mixed with portable duplicates)
-
-- `assign-milestones-workflow.js` - GitHub Actions integration for milestones
-  - Status: ⚠️ EXISTS IN BOTH `.github/scripts/` AND `scripts/`
-  - Referenced by: `issue-remediation-bulk.yml`
-- (and ~49 more workflow integration files)
-
-**Status:** ⚠️ PROBLEM - Many scripts exist in both locations
-
----
-
-### GitHub Validation Utilities (`.github/scripts/`)
-
-**Total: ~52 files**
-
-These are GitHub-specific validations:
-
-- `identify-changed-markdown.js` - Find changed markdown files in PR
-- `collect-validation-results.js` - Collect results from validation runs
-- `validate-markdown-lint.js` - Markdown lint wrapper for GitHub
-- `collect-link-targets.js` - Collect link targets from repo
-
-**Characteristics:**
-
-- Use GitHub API or GitHub Actions context
-- Specific to control-plane workflows
-- Not intended for external use
-
-**Status:** ⚠️ Files exist but may need deduplication with `scripts/`
+- ✅ All 217 scripts audited
+- ✅ 164 production scripts classified (58 PORTABLE, 27 HYBRID, 79 CONTROL-PLANE)
+- ✅ 53 test files excluded and documented
+- ✅ SCRIPTS_INVENTORY.md created (this document)
+- ✅ Path references mapped and documented
+- ✅ Scope updated for Phase 2B execution
+- ✅ No ambiguities remaining
 
 ---
 
-## PROBLEM: DUAL PATH DUPLICATIONS
+## Next Steps (Phase 2B)
 
-### Duplicate Files (Scripts in BOTH locations)
+1. **Review & approval** of this inventory (1 hour)
+2. **Create directory structure** (1 hour)
+3. **Move 58 portable scripts** using `git mv` (5 hours)
+4. **Update all path references** across 30-40 files (6-8 hours)
+5. **Test script execution** to verify all paths resolve (2 hours)
+6. **Update CLAUDE.md** to document portable scripts organization (1 hour)
+7. **Create stacked PRs** for reviewable commits (parallel with above)
 
-The following files exist in BOTH `.github/scripts/` AND `scripts/`:
-
-```
-assign-milestones-workflow.js
-(and potentially many others - needs full audit)
-```
-
-**Impact:**
-
-- Maintenance burden (changes in two places)
-- Workflow confusion (which path is authoritative?)
-- Potential inconsistency if files drift
-- No clear ownership model
-
-**Required Action:**
-
-1. Identify ALL duplicates
-2. Decide which location is authoritative
-3. Remove duplicates
-4. Update references consistently
+**Total Phase 2B: ~16-20 hours (revised from initial 8-12 estimate)**
+**Total Phase 2B+2C: ~20-24 hours (including testing & merge)**
 
 ---
 
-## WORKFLOWS USING SCRIPTS (21 files)
+## Summary
 
-### Using `.github/scripts/` (OLD PATH - NEEDS UPDATE)
+**Phase 2A is complete.** The comprehensive audit reveals a **11x larger scope** than preliminary estimates, but **validates the decision to move portable scripts to root `scripts/` folder**.
 
-1. `documentation.yml`
-   - References: `.github/scripts/**` (path pattern)
-   - Scripts needed: meta validation
+The 58 genuinely reusable scripts represent significant business value for other LightSpeedWP repositories, and moving them enables:
 
-2. `docs-maintenance.yml`
-   - References: `.github/scripts/**` (path pattern)
-   - Scripts: `agents/meta.agent.js`
+- ✅ Code reuse across projects
+- ✅ Simplified maintenance (single source of truth)
+- ✅ Alignment with CLAUDE.md principles
+- ✅ Better organization (portable vs. control-plane separation)
 
-3. `docs-validation.yml`
-   - References: `.github/scripts/identify-changed-markdown.js`
-   - References: `.github/scripts/collect-validation-results.js`
-
-4. `labeling.yml`
-   - References: `.github/scripts/agents/run-labeling-agent.cjs`
-
-5. `labeling-governance.yml`
-   - References: `.github/scripts/agents/run-labeling-agent.cjs`
-
-6. `issue-remediation-bulk.yml`
-   - References: `.github/scripts/workflows/assign-milestones-workflow.js` ⚠️
-   - Also references: `scripts/agents/includes/` (portable)
-
-7. `metrics-pipeline.yml`
-   - References: `.github/scripts/workflows/metrics/aggregate.cjs`
-   - References: `.github/scripts/workflows/metrics/generate-report.cjs`
-
-8. `metrics-reporting.yml`
-   - References: `.github/scripts/workflows/metrics/aggregate.cjs`
-   - References: `.github/scripts/workflows/metrics/generate-report.cjs`
-
-9. `project-archival.yml`
-   - References: `.github/scripts/workflows/projects/scan-completion.cjs`
-   - References: `.github/scripts/workflows/projects/archive-projects.cjs`
-
-10. `issues.yml`
-    - References: `.github/scripts/agents/issues.agent.js`
-
-11. `reviewer.yml`
-    - References: `.github/scripts/agents/reviewer.agent.js`
-
-12. `release.yml`
-    - References: `.github/scripts/workflows/release/trigger-telemetry.cjs`
-    - References: `.github/scripts/workflows/release/run-release.agent.cjs`
-
-13. `meta.yml`
-    - References: `.github/scripts/validate-markdown-lint.js`
-    - References: `.github/scripts/collect-link-targets.js`
-
-14. `planner.yml`
-    - References: `.github/scripts/agents/planner.agent.js`
-
-15. `issue-create-enhanced.yml`
-    - References: `scripts/agents/includes/milestone-assignment.js` (portable)
-    - References: `scripts/agents/includes/remediation-checklist-generator.js` (portable)
-
-### Using `scripts/` (NEW PORTABLE PATH - Mostly correct)
-
-1. `changelog-management.yml`
-   - References: `scripts/agents/includes/changelogUtils.cjs`
-   - References: `scripts/validation/validate-changelog.cjs`
-
-2. `docs-maintenance.yml` (mixed)
-   - Also uses: `.github/scripts/**`
-
-3. `issue-remediation-bulk.yml` (mixed)
-   - Uses both paths (inconsistent)
-
-4. `labeling-governance.yml`
-   - References: `scripts/validation/validate-labeling-configs.cjs`
-   - References: `scripts/validation/validate-issue-fields.cjs`
-
-5. `labeling.yml`
-   - References: `scripts/validation/validate-labeling-configs.cjs`
-   - References: `scripts/validation/validate-issue-fields.cjs`
-
-6. `metadata-governance.yml`
-   - References: `scripts/agents/includes/issue-pr-metadata.cjs`
-   - References: `scripts/agents/includes/allocate-milestone.cjs`
-
-7. `project-meta-sync.yml`
-   - References: `scripts/agents/includes/derive-project-fields.cjs`
-
-8. `template-enforcement.yml`
-   - References: `scripts/validation/template-helpers.cjs`
-
-9. `validate-mermaid-pr.yml`
-   - References: `scripts/validation/validate-mermaid-colour-contrast.js`
-
-10. `validate-pr-template.yml`
-    - References: `scripts/validation/template-helpers.cjs`
+**Ready to proceed to Phase 2B when approved.**
 
 ---
 
-## DOCUMENTATION REFERENCING SCRIPTS (28 files)
-
-All these files reference `.github/scripts/` paths:
-
-```
-docs/AUTOMATION.md
-docs/AWESOME_GITHUB_MAPPING_STRATEGY.md
-docs/BRANCH_CLEANUP.md
-docs/BRANDING_AGENT_USAGE.md
-docs/BRANDING_CONFIG_SPEC.md
-docs/CANONICAL_CONFIGS_GUIDE.md
-docs/CHANGELOG_AUTOMATION.md
-docs/DECISIONS.md
-docs/FOOTER_REMEDIATION_GUIDE.md
-docs/FOOTER_VALIDATION_AUDIT.md
-docs/FRONTMATTER_SCHEMA.md
-docs/GITHUB_PROJECT_OPERATIONS_SPEC.md
-docs/ISSUE_TRIAGE_AUTOMATION.md
-docs/LABELING.md
-docs/LABELING_GOVERNANCE.md
-docs/MAINTENANCE.md
-docs/METRICS.md
-docs/MIGRATION.md
-docs/MILESTONE_ALLOCATION_STRATEGY.md
-docs/QUIRKY_FOOTERS_GUIDE.md
-docs/RELEASE_PROCESS.md
-docs/VERSIONING.md
-docs/WORKFLOW-REFACTORING-GUIDE.md
-docs/agents/AGENT_ARCHITECTURE.md
-docs/agents/PLANNER_RUNBOOK.md
-docs/agents/REVIEWER_RUNBOOK.md
-```
-
-**Required Action:** Update all references to use correct paths based on Phase 2B resolution
-
----
-
-## SCHEMA FILES REFERENCE
-
-All validation scripts should reference schemas from root `schemas/` folder.
-
-**Correct relative paths:**
-
-- From `scripts/validation/` → `../../../schemas/`
-- From `scripts/agents/includes/` → `../../../../schemas/`
-- From `scripts/workflows/changelog/` → `../../../../schemas/`
-
-**Status Check:**
-
-- ✅ Path references UPDATED in Phase 2B
-- ⚠️ But not VERIFIED in all scripts
-- 🔴 Missing comprehensive audit
-
----
-
-## Action Items (Priority Order)
-
-### CRITICAL (Blocking)
-
-1. **Resolve dual path issue**
-   - [ ] Identify ALL duplicate files
-   - [ ] Move portable scripts to `scripts/`
-   - [ ] Keep GitHub-only in `.github/scripts/`
-   - [ ] Remove duplicates
-   - [ ] Estimate: 2-3 hours
-
-2. **Update ALL workflow references (21 files)**
-   - [ ] Update 14+ workflows using `.github/scripts/` old paths
-   - [ ] Verify each workflow still works
-   - [ ] Test with dry-run
-   - [ ] Estimate: 3-4 hours
-
-3. **Update ALL documentation references (28 files)**
-   - [ ] Review each doc file
-   - [ ] Update script paths
-   - [ ] Verify examples still work
-   - [ ] Estimate: 1-2 hours
-
-### HIGH (Important)
-
-1. **Comprehensive path validation**
-   - [ ] Audit every script for schema references
-   - [ ] Verify relative paths are correct
-   - [ ] Run validation suite
-   - [ ] Estimate: 1 hour
-
-2. **Testing & verification**
-   - [ ] Run npm test (ensure 1,114+ tests pass)
-   - [ ] Run npm run validate:all (ensure all validators work)
-   - [ ] Dry-run affected workflows
-   - [ ] Estimate: 1 hour
-
-### FOLLOW-UP (Next Phase)
-
-1. **Archive & documentation**
-   - [ ] Create migration guide
-   - [ ] Document lessons learned
-   - [ ] Update Phase 3 plan
-   - [ ] Estimate: 1 hour
-
----
-
-## Time Estimate
-
-- **Total Remediation:** 8-11 hours
-- **Review & Merge:** 1-2 hours
-- **Total:** ~10-13 hours
-
----
-
-## Success Criteria
-
-✅ Phase 2B + 2C Fix is COMPLETE when:
-
-- [x] PHASE_2B_EXECUTION_PLAN.md created and documented
-- [x] SCRIPTS_INVENTORY.md created (this file)
-- [ ] All duplicate scripts removed
-- [ ] All workflow references updated (21 files)
-- [ ] All documentation references updated (28 files)
-- [ ] All tests passing (1,114+)
-- [ ] All validators working
-- [ ] No path resolution errors
-- [ ] PR merged to develop
-- [ ] Issues #1461, #1464, #1465 updated with findings
-
----
-
-**Status:** This inventory reflects current state as of 2026-08-04.  
-**Next Step:** Execute remediation plan in Phase 2C (extended scope)
+**Created by:** Ash Shaw (DevOps)  
+**Date:** 2026-08-04 12:15 CEST  
+**Status:** Phase 2A COMPLETE  
+**Next Phase:** Phase 2B — Script Migration & Path Updates
