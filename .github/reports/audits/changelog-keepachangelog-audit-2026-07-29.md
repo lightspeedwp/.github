@@ -53,7 +53,7 @@ language: en
 Applied as two scripted passes rather than hand edits, each with an invariant check:
 
 1. **Structural** — merged duplicate type sections, ordered canonically, dropped empty/placeholder sections, moved non-version `##` sections below the version list.
-   *Invariant:* every list item preserved. 462 items in, 462 out, zero lost, zero invented. Total list items went 465 → 462, exactly the three `- [placeholder]` items removed. The two `(none identified)` lines were not list items.
+   *Invariant:* all 462 non-placeholder items preserved. Total list items went 465 → 462, exactly the three `- [placeholder]` items removed intentionally. The two `(none identified)` lines were not list items.
 2. **References** — injected 160 PR titles, corrected 6 mislabelled issue URLs, appended 5 version link definitions.
 
 **Entry format for PR references** is now:
