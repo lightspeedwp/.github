@@ -84,7 +84,7 @@ Over time, these metrics will tell us if our efforts are paying off. For example
 - [docs/HUSKY_PRECOMMITS.md](./HUSKY_PRECOMMITS.md) — Pre-commit hooks setup
 - [docs/LINTING.md](./LINTING.md) — Linting strategy and tools
 - [.github/workflows/ci-metrics.yml](../.github/workflows/ci-metrics.yml) — Metrics collection workflow
-- [scripts/gather-metrics.js](../scripts/gather-metrics.js) — Metrics gathering script
+- [.github/scripts/gather-metrics.js](../.github/scripts/gather-metrics.js) — Metrics gathering script
 
 ---
 
