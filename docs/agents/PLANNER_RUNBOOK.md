@@ -37,7 +37,7 @@ The Planner Agent is integrated into GitHub Actions workflows. To enable:
   uses: actions/github-script@v7
   with:
     script: |
-      const { run } = await import('./scripts/agents/planner.agent.js');
+      const { run } = await import('./.github/scripts/agents/planner.agent.js');
       await run(context, { dryRun: false });
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,17 +50,17 @@ The Planner Agent is integrated into GitHub Actions workflows. To enable:
   env:
     DRY_RUN: "true"
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  run: node scripts/agents/planner.agent.js
+  run: node .github/scripts/agents/planner.agent.js
 ```
 
 ### Local Testing
 
 ```bash
 # Dry-run mode (safe, doesn't post)
-DRY_RUN=true node scripts/agents/planner.agent.js
+DRY_RUN=true node .github/scripts/agents/planner.agent.js
 
 # Apply mode (posts to issue)
-GITHUB_TOKEN=your_token node scripts/agents/planner.agent.js --apply
+GITHUB_TOKEN=your_token node .github/scripts/agents/planner.agent.js --apply
 ```
 
 ## Configuration
@@ -77,7 +77,7 @@ GITHUB_TOKEN=your_token node scripts/agents/planner.agent.js --apply
 ### Input Options (Programmatic)
 
 ```javascript
-import { run } from './scripts/agents/planner.agent.js';
+import { run } from './.github/scripts/agents/planner.agent.js';
 
 await run(context, {
   dryRun: false,      // Override DRY_RUN env var

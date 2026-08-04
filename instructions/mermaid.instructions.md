@@ -203,7 +203,7 @@ The PR validation workflow (`.github/workflows/validate-mermaid-pr.yml`) runs al
 To validate only changed files locally:
 
 ```bash
-node scripts/validation/validate-mermaid-colour-contrast.js --changed-files=path/to/file.md
+node .github/scripts/validation/validate-mermaid-colour-contrast.js --changed-files=path/to/file.md
 ```
 
 ---
@@ -216,7 +216,7 @@ When diagrams across the repository need to be updated (new palette, new structu
 2. **Run the fixer script** to apply approved palette colours to all existing style declarations:
 
    ```bash
-   node scripts/fix-mermaid-diagrams.js
+   node .github/scripts/fix-mermaid-diagrams.js
    ```
 
 3. **Run all three validators** to confirm no regressions:

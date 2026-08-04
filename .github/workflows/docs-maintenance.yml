@@ -9,7 +9,7 @@ on:
       - ".github/agents/**"
       - ".github/instructions/**"
       - "docs/**"
-      - "scripts/**"
+      - ".github/scripts/**"
   schedule:
     - cron: "0 9 * * MON"
   workflow_dispatch:
@@ -60,7 +60,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
@@ -103,7 +103,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
         run: |
-          node scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
+          node .github/scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
 
   manual-update:
     name: Manual Documentation Updates
@@ -139,7 +139,7 @@ jobs:
         if: |
           github.event.inputs.action == 'update-readme' ||
           github.event.inputs.action == 'update-mermaid'
-        run: node scripts/fix-mermaid-diagrams.js
+        run: node .github/scripts/fix-mermaid-diagrams.js
         continue-on-error: true
 
       - name: Validate Mermaid colour contrast
@@ -153,7 +153,7 @@ jobs:
         if: |
           github.event.inputs.action == 'update-readme' ||
           github.event.inputs.action == 'update-staleness'
-        run: node scripts/fix-staleness-dates.js
+        run: node .github/scripts/fix-staleness-dates.js
         continue-on-error: true
 
       - name: Generate update report
@@ -226,7 +226,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
           cache: "npm"
 
       - name: Install dependencies

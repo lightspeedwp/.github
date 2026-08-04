@@ -42,7 +42,7 @@ It reads from the canonical branding configuration (`config/footers.config.yaml`
 
 ```bash
 # Check that the agent file exists
-ls -la scripts/agents/branding-unified.agent.js
+ls -la .github/scripts/agents/branding-unified.agent.js
 
 # Check configuration files exist
 ls -la config/footers.config.yaml
@@ -56,7 +56,7 @@ ls -la .schemas/branding-schema.json
 ### Command Line Interface
 
 ```bash
-node scripts/agents/branding-unified.agent.js <file-path> [options]
+node .github/scripts/agents/branding-unified.agent.js <file-path> [options]
 ```
 
 ### Arguments
@@ -81,7 +81,7 @@ node scripts/agents/branding-unified.agent.js <file-path> [options]
 
 ```bash
 # Default: dry-run shows what would change
-node scripts/agents/branding-unified.agent.js docs/guide.md
+node .github/scripts/agents/branding-unified.agent.js docs/guide.md
 
 # Output:
 # 📄 File: docs/guide.md
@@ -97,7 +97,7 @@ node scripts/agents/branding-unified.agent.js docs/guide.md
 
 ```bash
 # --apply flag writes changes to the file
-node scripts/agents/branding-unified.agent.js docs/guide.md --apply
+node .github/scripts/agents/branding-unified.agent.js docs/guide.md --apply
 
 # Output includes "Status: applied"
 ```
@@ -106,14 +106,14 @@ node scripts/agents/branding-unified.agent.js docs/guide.md --apply
 
 ```bash
 # Shows detailed processing information
-node scripts/agents/branding-unified.agent.js docs/guide.md --verbose
+node .github/scripts/agents/branding-unified.agent.js docs/guide.md --verbose
 ```
 
 #### Infer missing metadata
 
 ```bash
 # Automatically fills in missing required fields with sensible defaults
-node scripts/agents/branding-unified.agent.js docs/guide.md --apply --infer-metadata
+node .github/scripts/agents/branding-unified.agent.js docs/guide.md --apply --infer-metadata
 
 # Output:
 # ✅ Changes:
@@ -126,7 +126,7 @@ node scripts/agents/branding-unified.agent.js docs/guide.md --apply --infer-meta
 #### Help message
 
 ```bash
-node scripts/agents/branding-unified.agent.js --help
+node .github/scripts/agents/branding-unified.agent.js --help
 ```
 
 ---
@@ -322,7 +322,7 @@ Defines frontmatter field types and constraints.
 | `awesome-copilot` | `awesome-copilot/**/*.md` | Yes | Yes | `copilot-footer` |
 | `governance` | `governance/**/*.md` | Yes | Yes | `governance-footer` |
 | `test` | `test/**/*.md` | Optional | Optional | `lightspeed-standard` |
-| `utility` | `scripts/**/*.md` | Optional | Optional | `utility-footer` |
+| `utility` | `.github/scripts/**/*.md` | Optional | Optional | `utility-footer` |
 | `readme` | `README.md` | No | Yes | `lightspeed-standard` |
 | `issue-template` | `.github/ISSUE_TEMPLATE/*.md` | No | Optional | `issue-footer` |
 | `pull-request-template` | `.github/PULL_REQUEST_TEMPLATE/*.md` | No | Optional | `pr-footer` |
@@ -354,7 +354,7 @@ To install...
 **Command**:
 
 ```bash
-node scripts/agents/branding-unified.agent.js docs/getting-started.md --apply
+node .github/scripts/agents/branding-unified.agent.js docs/getting-started.md --apply
 ```
 
 **Result**:
@@ -411,7 +411,7 @@ This is an agent specification...
 **Command**:
 
 ```bash
-node scripts/agents/branding-unified.agent.js agents/my-agent.md --apply --infer-metadata
+node .github/scripts/agents/branding-unified.agent.js agents/my-agent.md --apply --infer-metadata
 ```
 
 **Result**:
@@ -430,7 +430,7 @@ The agent:
 **Command**:
 
 ```bash
-node scripts/agents/branding-unified.agent.js docs/guide.md --verbose
+node .github/scripts/agents/branding-unified.agent.js docs/guide.md --verbose
 ```
 
 **Output**:
@@ -457,12 +457,12 @@ Category: docs
 ```bash
 # Process all docs
 for file in docs/**/*.md; do
-  node scripts/agents/branding-unified.agent.js "$file" --apply
+  node .github/scripts/agents/branding-unified.agent.js "$file" --apply
 done
 
 # Process all agents
 for file in agents/**/*.md; do
-  node scripts/agents/branding-unified.agent.js "$file" --apply
+  node .github/scripts/agents/branding-unified.agent.js "$file" --apply
 done
 ```
 
@@ -471,12 +471,12 @@ done
 ```bash
 # Dry-run on all markdown files
 find . -name "*.md" -type f | while read file; do
-  node scripts/agents/branding-unified.agent.js "$file"
+  node .github/scripts/agents/branding-unified.agent.js "$file"
 done
 
 # Apply to all (careful!)
 find . -name "*.md" -type f | while read file; do
-  node scripts/agents/branding-unified.agent.js "$file" --apply
+  node .github/scripts/agents/branding-unified.agent.js "$file" --apply
 done
 ```
 
@@ -530,7 +530,7 @@ import {
   generateHeader,
   getFooter,
   processBrandingDocument,
-} from "./scripts/agents/branding-unified.agent.js";
+} from "./.github/scripts/agents/branding-unified.agent.js";
 
 // Parse a file
 const content = fs.readFileSync("docs/guide.md", "utf-8");
@@ -560,7 +560,7 @@ const result = processBrandingDocument("docs/guide.md", {
 ### Agent not found
 
 ```
-node: no such file or directory: scripts/agents/branding-unified.agent.js
+node: no such file or directory: .github/scripts/agents/branding-unified.agent.js
 ```
 
 **Solution**: Verify file exists and you're in the project root.
@@ -584,10 +584,10 @@ Error: Cannot find module 'js-yaml'
 ### Permission denied
 
 ```
--bash: scripts/agents/branding-unified.agent.js: Permission denied
+-bash: .github/scripts/agents/branding-unified.agent.js: Permission denied
 ```
 
-**Solution**: Add execute permission: `chmod +x scripts/agents/branding-unified.agent.js`
+**Solution**: Add execute permission: `chmod +x .github/scripts/agents/branding-unified.agent.js`
 
 ---
 
@@ -597,10 +597,10 @@ Error: Cannot find module 'js-yaml'
 
 ```bash
 # Preview changes before applying
-node scripts/agents/branding-unified.agent.js file.md
+node .github/scripts/agents/branding-unified.agent.js file.md
 
 # Review output, then apply
-node scripts/agents/branding-unified.agent.js file.md --apply
+node .github/scripts/agents/branding-unified.agent.js file.md --apply
 ```
 
 ### 2. Provide Complete Frontmatter
@@ -677,7 +677,7 @@ jobs:
       - name: Apply branding to changed files
         run: |
           git diff --name-only HEAD~1 | grep '\.md$' | while read file; do
-            node scripts/agents/branding-unified.agent.js "$file" --apply
+            node .github/scripts/agents/branding-unified.agent.js "$file" --apply
           done
 
       - name: Commit changes

@@ -98,19 +98,19 @@ Dry-run expectation:
 - If release execution fails after partial mutation, run:
 
 ```bash
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z
 ```
 
 - For best-effort cleanup when one step fails:
 
 ```bash
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z --force
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --force
 ```
 
 - Optional preview mode:
 
 ```bash
-node scripts/workflows/release/rollback.cjs --version=X.Y.Z --dry-run
+node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --dry-run
 ```
 
 ## Validation Checklist

@@ -31,7 +31,7 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | --- | --- |
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications (multi-file implementations) |
-| `.schemas/` | JSON schema definitions (hidden folder, awesome-copilot pattern) |
+| `schemas/` | JSON schema definitions (visible, portable) |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -41,21 +41,27 @@ It also hosts **portable AI operations assets** in top-level source folders that
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
 
-### Path Reference: Schema Migration (2026-07-24)
+### Path Reference: Repository Restructuring (2026-08-02)
 
-During the 2026-07-24 repository restructuring, all schema files were migrated to `.schemas/` (root, hidden folder):
+**Phase 1 Implementation (2026-08-02):** Complete folder consolidation and reference updates.
+
+During the 2026-08-02 repository restructuring (Phase 1), the following locations were reorganized:
 
 | Component | Old Path | New Path | Type |
 | --- | --- | --- | --- |
-| **Schema files** | `.github/schema/` | `.schemas/` | Location |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `../../../.schemas/` | Script path |
-| **Agent schema dir** | `scripts/validation/validate-agents.js` `schema` | `.schemas` | Variable |
-| **Memory schemas** | `.github/schema/memory/` | `.schemas/memory/` | Subdirectory |
-| **npm scripts** | `package.json schema/**` | `.schemas/**` | Glob pattern |
+| **Schema files** | `schema/` | `schemas/` (root, visible) | Consolidation |
+| **Scripts** | `scripts/` | `.github/scripts/` | Move to .github |
+| **Website** | `website/` | `.github/website/` | Move to .github |
+| **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `.github/scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
+| **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
-For script maintainers: If you reference schemas, use **relative paths from script location** (typically `.github/scripts/validation/`), so go **three levels up** (`../../../.schemas/`) to reach repo root.
+**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
+- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
+- From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
+- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
 
-See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details and [SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md](./projects/active/repository-maintenance-infrastructure/SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md) for reference updates.
+**All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
 
 ## Git & Branching Strategy
 
@@ -101,7 +107,7 @@ See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migra
 
 #### main Branch — LOCKED (Release Only)
 
-**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches starting with `release/` or `hotfix/` (enforced by `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`; branches should follow the `release/vX.Y.Z` or `hotfix/<slug>` naming convention).
+**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches starting with `release/` or `hotfix/` (enforced by `.github/scripts/workflows/branch-policy/validate-main-branch-pr.cjs`; branches should follow the `release/vX.Y.Z` or `hotfix/<slug>` naming convention).
 
 - **ALLOWED BRANCHES:** Only `release/*` and `hotfix/*` branches may merge to `main`
   - Example: `release/v1.5.0`, `hotfix/critical-security-patch`
@@ -307,6 +313,28 @@ npm run validate:frontmatter
 | Temporary scratch files | `.github/tmp/` (clean up before PR) |
 | Portable reusable AI assets | top-level source folders (see table above) |
 | Permanent human documentation | `docs/` |
+
+**Report File Naming Convention:**
+
+All report files in `.github/reports/` MUST follow this naming pattern:
+
+```
+YYYY-MM-DD-{descriptor}.md
+```
+
+**Examples:**
+- `2026-08-04-release-workflow-fix-verification.md` ✓ Correct
+- `2026-08-04-script-organization-concern.md` ✓ Correct
+- `2026-07-23-branch-cleanup-report.md` ✓ Correct
+- `script-organization-concern.md` ✗ Missing date
+- `SCRIPT-ORG-CONCERN.md` ✗ Missing date
+- `report-2026-08-04.md` ✗ Date in wrong position
+
+**Rationale:**
+- Dates enable chronological sorting and archiving
+- Consistent naming makes reports discoverable
+- Timestamp helps identify when analysis was conducted
+- Supports automation and tooling that expects date-prefixed files
 
 **Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. See [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 

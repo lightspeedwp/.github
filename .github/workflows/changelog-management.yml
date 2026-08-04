@@ -98,13 +98,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Validate changelog schema
         if: steps.gate.outputs.run_validation == 'true'
         run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
 
   # Job 2: Sync changelog on merge to develop
 
@@ -140,7 +140,7 @@ jobs:
         if: steps.check_changelog.outputs.has_changelog == 'true'
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         if: steps.check_changelog.outputs.has_changelog == 'true'
@@ -156,12 +156,12 @@ jobs:
           CHANGELOG_PATH: CHANGELOG.md
         run: |
           set -euo pipefail
-          node scripts/workflows/changelog/extract-pr-entries.cjs
+          node .github/scripts/workflows/changelog/extract-pr-entries.cjs
 
       - name: Validate extracted entries
         if: steps.extract.outputs.has_entries == 'true'
         run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
 
       - name: Merge changelog entries
         if: steps.extract.outputs.has_entries == 'true'
@@ -170,12 +170,12 @@ jobs:
           CHANGELOG_PATH: CHANGELOG.md
         run: |
           set -euo pipefail
-          node scripts/workflows/changelog/merge-entries.cjs
+          node .github/scripts/workflows/changelog/merge-entries.cjs
 
       - name: Validate final changelog schema
         if: steps.extract.outputs.has_entries == 'true'
         run: |
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
 
       - name: Commit changelog update
         if: steps.extract.outputs.has_entries == 'true'
@@ -194,12 +194,7 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HAS_ENTRIES: ${{ steps.extract.outputs.has_entries }}
-        run: |
-          if [ "$HAS_ENTRIES" = "true" ]; then
-            echo "✅ Changelog entries merged from PR #${PR_NUMBER}"
-          else
-            echo "ℹ️  No changelog entries to merge from PR #${PR_NUMBER}"
-          fi
+        run: bash scripts/report-changelog-action.sh
 
   # Job 3: Pre-release validation check (called from release.yml)
 
@@ -216,12 +211,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "22.22.1"
+          node-version-file: ".nvmrc"
 
       - name: Validate changelog for release
         run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
 
       - name: Check for unreleased section
         run: |
