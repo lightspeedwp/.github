@@ -1,5 +1,6 @@
 name: Issue Close Label Hygiene
 
+if: false
 on:
   issues:
     types: [closed]

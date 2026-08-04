@@ -1,5 +1,6 @@
 name: dependabot-security-label
 
+if: false
 on:
   pull_request:
     types: [opened, reopened, edited, synchronize]
