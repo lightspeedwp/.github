@@ -13,16 +13,17 @@ async function main() {
   try {
     console.log("🚀 Starting milestone assignment...");
 
-    // Get environment variables
-    const issuesJson = process.env.ISSUES_JSON;
+    // Get arguments and environment
+    const issuesFile = process.argv[2];
     const dryRun = process.env.DRY_RUN === "true";
     const runId = process.env.RUN_ID;
 
-    if (!issuesJson) {
-      throw new Error("ISSUES_JSON environment variable is required");
+    if (!issuesFile) {
+      throw new Error("Usage: node assign-milestones.js <issues-json-file>");
     }
 
-    console.log("📖 Parsing issues from environment...");
+    console.log(`📖 Reading issues from file: ${issuesFile}`);
+    const issuesJson = fs.readFileSync(issuesFile, "utf8");
     const issues = JSON.parse(issuesJson);
     console.log(`✅ Found ${issues.length} issues to process`);
 

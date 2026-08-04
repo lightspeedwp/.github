@@ -106,19 +106,15 @@ jobs:
       - name: Assign milestones
         if: ${{ inputs.remediate_milestones == 'true' && steps.fetch.outputs.count > 0 }}
         run: |
-          echo "🔍 DEBUG: Checking script file..."
-          pwd
-          ls -la .github/scripts/remediation/ || echo "❌ Directory not found"
-          echo "🔍 DEBUG: Running milestone assignment script..."
-          node .github/scripts/remediation/assign-milestones.js 2>&1 || echo "❌ Script failed with exit code $?"
-          echo "✅ DEBUG: Script execution completed"
+          echo "🔍 Step 0: Setting up environment..."
+          echo "${{ steps.fetch.outputs.issues }}" > /tmp/issues.json
+          echo "🔍 Step 1: Checking script file..."
+          ls -la .github/scripts/remediation/assign-milestones.js
+          echo "🔍 Step 2: Running milestone assignment..."
+          DRY_RUN="${{ inputs.dry_run }}" RUN_ID="${{ github.run_id }}" node .github/scripts/remediation/assign-milestones.js /tmp/issues.json
+          echo "✅ Milestone assignment complete"
         env:
-          ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
-          DRY_RUN: ${{ inputs.dry_run }}
-          RUN_ID: ${{ github.run_id }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.event.repository.name }}
 
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
