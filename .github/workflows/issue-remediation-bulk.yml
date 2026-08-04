@@ -105,7 +105,13 @@ jobs:
 
       - name: Assign milestones
         if: ${{ inputs.remediate_milestones == 'true' && steps.fetch.outputs.count > 0 }}
-        run: node .github/scripts/remediation/assign-milestones.js
+        run: |
+          echo "🔍 DEBUG: Checking script file..."
+          pwd
+          ls -la .github/scripts/remediation/ || echo "❌ Directory not found"
+          echo "🔍 DEBUG: Running milestone assignment script..."
+          node .github/scripts/remediation/assign-milestones.js 2>&1 || echo "❌ Script failed with exit code $?"
+          echo "✅ DEBUG: Script execution completed"
         env:
           ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
           DRY_RUN: ${{ inputs.dry_run }}
