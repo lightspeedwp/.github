@@ -79,9 +79,9 @@ To maintain a consistent, high-quality codebase and community, please follow the
 - See [Org-wide Branching Strategy](./docs/BRANCHING_STRATEGY.md) for full rules and automation mapping.
 - Ensure your branch maps to the correct issue type and PR template for automated labelling and changelog governance.
 
-**Pre-Commit Validation (Claude Code Users):**
+**Pre-Commit Validation (Claude Code Users — Optional):**
 
-If you're using Claude Code, the pre-commit validation hook will automatically check your branch name and PR template compliance:
+If you're using Claude Code, you can optionally configure the pre-commit validation hook to check your branch name and PR template compliance before pushing:
 
 - **What it validates:**
   - Branch name format: `{type}/{scope}-{short-title}` (lowercase, kebab-case)
@@ -90,8 +90,8 @@ If you're using Claude Code, the pre-commit validation hook will automatically c
   - Template warnings for `feat/` branches (checks for Linked issues, Changelog, Checklist sections)
 
 - **How it works:**
-  - Runs automatically via Claude Code's UserPromptSubmit hook
-  - Integration via `.claude/settings.json` (local, not committed)
+  - Runs via Claude Code's UserPromptSubmit hook (only if configured in `.claude/settings.json`)
+  - Configuration is local, not committed to the repository
   - Provides real-time feedback before push
 
 - **Manual run:**
