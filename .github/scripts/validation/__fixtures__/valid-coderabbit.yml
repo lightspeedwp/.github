@@ -1,8 +1,0 @@
-# Minimal valid .coderabbit.yml for test
-language: "en-GB"
-reviews:
-  path_filters:
-    - "!build/**"
-    - "!node_modules/**"
-  profile: "chill"
-  review_status: true

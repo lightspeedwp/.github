@@ -26,21 +26,21 @@ import {
   fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
-} from "./includes/label-lookup.js";
+} from "../../../scripts/agents/includes/label-lookup.js";
 import {
   enforceOneHotLabels,
   applyDefaultStatus,
   applyDefaultPriority,
   applyDefaultType,
-} from "./includes/status-enforcer.js";
+} from "../../../scripts/agents/includes/status-enforcer.js";
 import {
   fetchLabelerRules,
   applyLabelerRules,
-} from "./includes/labeler-utils.js";
+} from "../../../scripts/agents/includes/labeler-utils.js";
 import {
   buildLabelingReport,
   formatErrors,
-} from "./includes/label-reporting.js";
+} from "../../../scripts/agents/includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
