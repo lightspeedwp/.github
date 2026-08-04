@@ -66,7 +66,7 @@ Create a hook in `.claude/settings.json` that runs the governance checklist BEFO
 }
 ```
 
-**Create script:** `scripts/hooks/pr-checklist-validator.sh`
+**Create script:** `hooks/pr-checklist-validator.sh` (root-level portable hook, NOT under scripts/)
 
 - Verify branch naming compliance
 - Warn if on feat/ without proper PR body structure
@@ -114,7 +114,7 @@ After implementation:
 
 - [ ] PR #1490 merged to develop
 - [ ] Regex fix verified working
-- [ ] Pre-commit validation script created: `scripts/hooks/pr-checklist-validator.sh`
+- [ ] Pre-commit validation script created: `hooks/pr-checklist-validator.sh` (root-level portable hook)
 - [ ] `.claude/settings.json` updated with UserPromptSubmit hook
 - [ ] Test on new feat/ branch: validation prevents commit without proper structure
 - [ ] Document in AGENTS.md: "AI Governance Compliance" section
