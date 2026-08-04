@@ -41,3 +41,19 @@ See [REMOTE_ADMIN_CHECKS.md](./REMOTE_ADMIN_CHECKS.md) for the smaller follow-up
 
 - The repository-side implementation is ready for closeout.
 - The remaining checks are administrative and should not block the documented implementation scope.
+
+---
+
+## Phase 2: AI Governance Process Improvement (Active — 2026-08-04)
+
+**Issue:** #1489 — PR #1488 governance validation hook has regex bug + process workflow gaps
+
+**What:** Discovered critical regex bug in governance validation hook (prevents linked-issue detection) and governance process violations in AI operations (template compliance issues repeated across chats).
+
+**Action:**
+
+- PR #1490: Regex fix merged/pending
+- Pre-commit validation hook: TO BE IMPLEMENTED
+- See [CONTINUATION_PROMPT_2026-08-04.md](./CONTINUATION_PROMPT_2026-08-04.md) for next steps
+
+**Impact:** Prevents token waste from commit → CI failure → correction cycles by enforcing compliance BEFORE push.
