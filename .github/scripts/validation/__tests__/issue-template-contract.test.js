@@ -15,7 +15,10 @@ function readFrontmatter(filePath) {
 
 describe("issue template contract", () => {
   it("uses about instead of description in issue template frontmatter", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+    const templateDir = path.join(
+      __dirname,
+      "../../../../.github/ISSUE_TEMPLATE",
+    );
     const templateFiles = fs
       .readdirSync(templateDir)
       .filter((file) => /^\d{2}-.+\.md$/u.test(file));
@@ -31,10 +34,13 @@ describe("issue template contract", () => {
   it("references existing template files in the issue creation workflow", () => {
     const workflowPath = path.join(
       __dirname,
-      "../../../.github/workflows/issue-create-from-template.yml",
+      "../../../../.github/workflows/issue-create-from-template.yml",
     );
     const workflow = fs.readFileSync(workflowPath, "utf8");
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+    const templateDir = path.join(
+      __dirname,
+      "../../../../.github/ISSUE_TEMPLATE",
+    );
     const existingFiles = new Set(
       fs
         .readdirSync(templateDir)

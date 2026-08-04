@@ -8,7 +8,7 @@ describe("check-template-labels.js", () => {
   it("validates the current issue template frontmatter and mappings", () => {
     const scriptPath = path.join(__dirname, "../check-template-labels.js");
     const output = execFileSync(process.execPath, [scriptPath], {
-      cwd: path.join(__dirname, "../../../.."),
+      cwd: path.join(__dirname, "../../../../.."),
       encoding: "utf8",
     });
 

@@ -9,7 +9,7 @@ const yaml = require("js-yaml");
 describe("project-meta-sync workflow contract", () => {
   const workflowPath = path.join(
     __dirname,
-    "../../../.github/workflows/project-meta-sync.yml",
+    "../../../../.github/workflows/project-meta-sync.yml",
   );
 
   test("runs on issue and PR label churn instead of push", () => {
