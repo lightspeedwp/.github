@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'harvest-analytical'
 agent_name: 'Harvest Analytical Agent'
 domain: 'analytics'

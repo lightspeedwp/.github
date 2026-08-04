@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'website-content-strategist'
 agent_name: 'Website Content Strategist'
 domain: 'content'

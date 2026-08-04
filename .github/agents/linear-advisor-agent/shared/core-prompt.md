@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'linear-advisor'
 agent_name: 'Linear Advisor Agent'
 domain: 'project-management'

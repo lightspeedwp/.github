@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'pagespeed'
 agent_name: 'PageSpeed Agent'
 domain: 'performance'

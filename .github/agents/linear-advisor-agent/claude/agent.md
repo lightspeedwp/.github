@@ -1,4 +1,6 @@
 ---
+file_type: 'agent'
+
 provider: 'claude'
 agent_slug: 'linear-advisor'
 agent_name: 'Linear Advisor Agent (Claude)'

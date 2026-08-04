@@ -1,4 +1,6 @@
 ---
+file_type: 'agent'
+
 provider: 'claude'
 agent_slug: 'proposal-desk'
 agent_name: 'Proposal Desk Agent (Claude)'

@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'website-scope-estimator'
 agent_name: 'Website Scope Estimator'
 domain: 'estimation'

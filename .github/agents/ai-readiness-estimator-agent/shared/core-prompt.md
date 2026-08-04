@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'ai-readiness-estimator'
 agent_name: 'AI Readiness Estimator'
 domain: 'ai-assessment'

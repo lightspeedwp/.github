@@ -1,4 +1,6 @@
 ---
+file_type: 'agent'
+
 provider: 'claude'
 agent_slug: 'client-website-discovery-assistant'
 agent_name: 'Client Website Discovery Assistant (Claude)'

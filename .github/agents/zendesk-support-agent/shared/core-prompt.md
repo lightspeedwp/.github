@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'zendesk-support'
 agent_name: 'Zendesk Support Agent'
 domain: 'support'

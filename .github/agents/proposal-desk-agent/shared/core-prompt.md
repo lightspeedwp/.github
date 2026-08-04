@@ -1,4 +1,5 @@
 ---
+file_type: 'prompt'
 agent_slug: 'proposal-desk'
 agent_name: 'Proposal Desk Agent'
 domain: 'proposals'
