@@ -1,13 +1,13 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: 'v1.8'
-last_updated: '2026-06-18'
+version: 'v1.9'
+last_updated: '2026-08-04'
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
 license: "GPL-3.0"
-tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
+tags: ["agents", "ai", "coding-standards", "governance", "wordpress", "phase-1-restructuring"]
 domain: "governance"
 stability: "stable"
 ---
@@ -23,42 +23,51 @@ stability: "stable"
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
 - Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `docs/MIGRATION.md`).
-- **Instruction reference policy:** Use `.github/instructions/` for repo-local guidance and `instructions/` for portable standards. See [file-organisation.instructions.md](instructions/file-organisation.instructions.md).
-- **Agent tier structure:** Portable agents (multi-file implementations) live in `agents/` (root); spec-based agents (simple YAML/JSON) live in `.github/agents/` (GitHub-native only). See [Agent Directory](#agent-directory) for specs.
-- **Schemas location:** JSON validation schemas live in `.schemas/` (hidden folder at root, following awesome-copilot pattern). See [Schema Migration](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
+- **Instruction reference policy (Phase 1A):** Use `.github/instructions/` for repo-local guidance only; use `instructions/` (root) for portable standards shared across LightSpeedWP projects. See [file-organisation.instructions.md](instructions/file-organisation.instructions.md) for placement rules.
+- **Agent tier structure (Phase 1C):** Portable agents (multi-file implementations) live in `agents/` (root); spec-based agents (simple YAML/JSON definitions) live in `.github/agents/` (GitHub-native, control-plane only). See [Agent Directory](#agent-directory) for specs and examples.
+- **Schemas location (Phase 1B):** JSON validation schemas live in `.schemas/` (hidden folder at repo root, following awesome-copilot pattern). Reference validation is performed against `.schemas/{type}.schema.json` files. See [Issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
 ## Agent Directory
 
-### Two-Tier Agent Structure
+### Two-Tier Agent Structure (Phase 1C)
 
-The repository implements a two-tier agent architecture:
+The repository implements a two-tier agent architecture established during Phase 1 restructuring (2026-08-02):
 
-1. **Portable Agents** (`agents/` at root)
-   - Multi-file implementations with provider-specific variants (Claude, Copilot, OpenAI)
-   - Installable by the LightSpeedWP team for external use
-   - Structure: `agents/{name}-agent/` with `AGENT.md`, `claude/`, `copilot/`, `openai/` subdirectories
-   - Examples: prd-agent, playwright-testing-agent, linear-advisor-agent
-   - Documentation: See [file-organisation.instructions.md](instructions/file-organisation.instructions.md#file-placement-rules)
+#### 1. Portable Agents — `agents/` (Root)
 
-2. **Spec-Based Agents** (`.github/agents/` — GitHub-native only)
-   - Simple YAML/JSON definitions for control-plane automation
-   - Single-file specs (`.agent.md` format)
-   - Repository-specific; not intended for external distribution
-   - Examples: labeling.agent.md, release.agent.md, metrics.agent.md
+- **Purpose:** Reusable, multi-file agent implementations shared across LightSpeedWP projects
+- **Structure:** `agents/{name}-agent/` directory with:
+  - `AGENT.md` — main agent definition
+  - `claude/` — Claude implementation (provider-specific)
+  - `copilot/` — Copilot implementation (provider-specific)
+  - `openai/` — OpenAI implementation (provider-specific)
+  - Supporting documentation and configuration files
+- **Use When:** Building reusable, installable agents for external use or multi-project deployment
+- **Examples:** `prd-agent/`, `playwright-testing-agent/`, `linear-advisor-agent/`
+- **Standards:** Follow [AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) and [file-organisation.instructions.md](instructions/file-organisation.instructions.md#file-placement-rules)
+
+#### 2. Spec-Based Agents — `.github/agents/` (GitHub-Native Only)
+
+- **Purpose:** Simple, single-file agent definitions for control-plane automation; GitHub-specific
+- **Structure:** Single `.agent.md` file per agent with YAML frontmatter and agent definition
+- **Use When:** Creating GitHub Actions automation, labeling rules, release automation, or control-plane workflows
+- **Scope:** Repository-specific; not intended for external distribution or reuse
+- **Examples:** `labeling.agent.md`, `release.agent.md`, `metrics.agent.md`
+- **Standards:** Follow [AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) spec-based section
 
 ### Discovery & Implementation
 
-- Canonical AI source map: [ai/agents.md](ai/agents.md)
-- Portable agent index: [agents/](agents/) directory (multi-file agents)
-- Spec-based agent index: [.github/agents/](.github/agents/) directory (single-file specs)
-- Each agent must follow the template in its respective directory.
-- All contributors must follow the org [Coding Standards](instructions/coding-standards.instructions.md).
+- **Canonical AI source map:** [ai/agents.md](ai/agents.md) — curated reference of all agent implementations
+- **Portable agent index:** [agents/](agents/) directory — browse multi-file agent implementations
+- **Spec-based agent index:** [.github/agents/](.github/agents/) — browse single-file GitHub automation agents
+- **Each agent must:** Follow the template in [AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) for its respective tier
+- **All contributors must:** Follow [Coding Standards](instructions/coding-standards.instructions.md) organisation-wide
 
 ### Related Documentation
 
-- Migration to two-tier structure: [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293)
-- Agent standardization: [Issue #653 File Organization Audit](https://github.com/lightspeedwp/.github/issues/653)
-- Memory profile system: Memory profiles expect root-level agent paths (`agents/`)
+- **Phase 1C Migration:** [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293) — Two-tier agent structure implementation
+- **File Organization Audit:** [Issue #653](https://github.com/lightspeedwp/.github/issues/653) — Agent standardization history
+- **Memory Profile System:** Memory profiles expect root-level agent paths (`agents/` only; spec-based agents in `.github/` are control-plane specific)
 
 ## Agent Test Status
 
@@ -67,6 +76,64 @@ The repository implements a two-tier agent architecture:
 | *TBD* | ⏳    | Awaiting test implementation |
 
 > **Note:** As agents are developed and tested, this table will be updated with their status. ✅ indicates passing tests, ❌ indicates failing tests, and ⏳ indicates tests pending implementation.
+
+---
+
+## Canonical Paths (Phase 1 Consolidation)
+
+The following canonical paths document the Phase 1 restructuring (2026-08-02). All asset creation and referencing must use these paths.
+
+### Instructions
+
+| Asset Type | Phase 1 Path | Use Case | Scope |
+| --- | --- | --- | --- |
+| **Portable Instructions** | `instructions/{name}.instructions.md` | Reusable standards across all LightSpeedWP projects | Org-wide |
+| **Repo-Local Instructions** | `.github/instructions/{name}.instructions.md` | Control-plane specific guidance | This repo only |
+| **Instruction Index** | `instructions/instructions.instructions.md` | Guide for authoring instruction files | Reference |
+
+**Key Examples:**
+
+- Portable: `instructions/coding-standards.instructions.md`, `instructions/file-organisation.instructions.md`
+- Repo-local: `.github/instructions/` (control-plane customizations)
+
+### Schemas
+
+| Asset Type | Phase 1 Path | Purpose | Reference |
+| --- | --- | --- | --- |
+| **Validation Schemas** | `.schemas/{type}.schema.json` | JSON schema definitions (hidden folder) | All validation |
+| **Frontmatter Schema** | `.schemas/frontmatter.schema.json` | Metadata validation for all structured files | YAML frontmatter |
+| **Issue Types Schema** | `.schemas/issue-types.schema.json` | Issue type definitions | GitHub automation |
+
+**Note:** `.schemas/` is a hidden folder at repo root following the awesome-copilot pattern. All JSON schema validation references this location.
+
+### Agents
+
+| Tier | Phase 1 Path | Structure | Distribution |
+| --- | --- | --- | --- |
+| **Portable Agents** | `agents/{name}-agent/` | Multi-file with AGENT.md + provider subdirs | Reusable, installable |
+| **Spec-Based Agents** | `.github/agents/{name}.agent.md` | Single-file YAML/JSON definitions | Control-plane only |
+| **Agent Standards** | `docs/AGENT_STANDARDS.md` | Normative standard for all agents | Reference |
+
+### Reports & Projects
+
+| Asset Type | Phase 1 Path | Use Case |
+| --- | --- | --- |
+| **Active Projects** | `.github/projects/active/{slug}/` | In-progress work, epic tracking, milestone deliverables |
+| **Reports** | `.github/reports/{category}/` | Metrics, audits, status updates, structured data |
+| **Temporary Files** | `.github/tmp/` | Scratch space (clean up before PR) |
+
+### Other Key Locations
+
+| Asset Type | Phase 1 Path | Purpose |
+| --- | --- | --- |
+| **Skills** | `skills/{name}/` | Self-contained reusable skills with SKILL.md |
+| **Workflows** | `workflows/{name}/` | Portable agentic workflow patterns |
+| **Hooks** | `hooks/` | Event-driven automation hooks |
+| **Cookbooks** | `cookbook/` | Implementation guides and recipes |
+| **Plugins** | `plugins/` | Installable plugin bundles |
+| **AI References** | `ai/` | Canonical AI model references (Claude, Gemini, RUNNERS) |
+| **Portable Scripts** | `scripts/` | Reusable scripts shared across projects |
+| **Documentation** | `docs/` | Permanent human documentation and standards |
 
 ---
 
@@ -269,18 +336,19 @@ gh issue create --title "Bug title" --body "$BODY"
 
 ---
 
-## Contribution Guidelines & Indexes
+## Contribution Guidelines & Indexes (Phase 1A Consolidated)
 
-| Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| **Documentation Standards** | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) + 8 more | 9 comprehensive standards for agents, skills, workflows, plugins, and AI infrastructure (SEE BELOW) |
-| **Coding Standards**      | [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md)                 | Unified standards for all code                                |
-| **File Organisation**     | [instructions/file-organisation.instructions.md](instructions/file-organisation.instructions.md) | Where to create reports, tasks, and project files (CRITICAL)  |
-| **Quality Assurance**     | [instructions/quality-assurance.instructions.md](instructions/quality-assurance.instructions.md)               | Testing pyramid, Jest, coverage, CI/CD (3 files consolidated) |
-| **Languages & Linting**   | [instructions/languages.instructions.md](instructions/languages.instructions.md)                               | JS/TS, JSON, YAML, JSDoc, linting (4 files consolidated)      |
-| **Documentation Formats** | [instructions/documentation-formats.instructions.md](instructions/documentation-formats.instructions.md)       | Markdown, YAML frontmatter, Mermaid (3 files consolidated)    |
-| **Automation**            | [instructions/automation.instructions.md](instructions/automation.instructions.md)                             | Agents, labeling, release, metrics (8 files consolidated)     |
-| **Community Standards**   | [instructions/community-standards.instructions.md](instructions/community-standards.instructions.md)           | Files, naming, README, replies (4 files consolidated)         |
+| Area                      | File Reference (Phase 1A) | Scope | Type |
+| --- | --- | --- | --- |
+| **Documentation Standards** | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) + 8 more | Normative standards for agents, skills, workflows, plugins (SEE SECTION BELOW) | Portable |
+| **Coding Standards** | [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md) | Unified standards for PHP, JS/TS, CSS, HTML across all code | Portable |
+| **File Organisation** | [instructions/file-organisation.instructions.md](instructions/file-organisation.instructions.md) | Where to create reports, tasks, agents, scripts, and project files (CRITICAL) | Portable |
+| **Quality Assurance** | [instructions/quality-assurance.instructions.md](instructions/quality-assurance.instructions.md) | Testing pyramid, Jest, coverage targets, CI/CD practices (3 files consolidated) | Portable |
+| **Languages & Linting** | [instructions/languages.instructions.md](instructions/languages.instructions.md) | JS/TS, JSON, YAML, JSDoc, linting rules (4 files consolidated) | Portable |
+| **Documentation Formats** | [instructions/documentation-formats.instructions.md](instructions/documentation-formats.instructions.md) | Markdown, YAML frontmatter, Mermaid diagram standards (3 files consolidated) | Portable |
+| **Automation** | [instructions/automation.instructions.md](instructions/automation.instructions.md) | Agents, labeling rules, release automation, metrics (8 files consolidated) | Portable |
+| **Community Standards** | [instructions/community-standards.instructions.md](instructions/community-standards.instructions.md) | Files, naming conventions, README patterns, saved replies (4 files consolidated) | Portable |
+| **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot and control-plane agent guidance | Repo-local |
 
 **Consolidated Instructions (5 Files):**
 
@@ -333,14 +401,15 @@ Each standard document includes:
 - **Examples** — Real-world implementations and templates
 - **References** — Related standards and cross-links
 
-### Compliance & Validation
+### Compliance & Validation (Phase 1B Schemas)
 
 All standards include:
 
-- **Frontmatter schema** — Validated against `.schemas/frontmatter.schema.json`
-- **Linting rules** — Markdown and content validation via `npm run lint:md`
-- **Type checking** — Schema compliance via `npm run validate:frontmatter`
-- **CI enforcement** — Automated validation in `.github/workflows/`
+- **Frontmatter schema validation** — All YAML frontmatter validated against `.schemas/frontmatter.schema.json` (Phase 1B canonical location)
+- **Linting enforcement** — Markdown and content validation via `npm run lint:md`
+- **Schema type checking** — Schema compliance via `npm run validate:frontmatter` and type-specific validators
+- **CI enforcement** — Automated validation via `.github/workflows/` (prevents non-compliant files from merging)
+- **Schema reference** — All validation schemas consolidated to `.schemas/{type}.schema.json` (hidden root folder)
 
 ---
 
@@ -442,26 +511,45 @@ Start here for all key standards:
 
 ## Cross-References & Discoverability
 
-| Resource Name             | Reference                                                        | Purpose / Notes                                                    |
-| ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
-| **Documentation Standards** | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) (+ 8 more) | 9 comprehensive standards; see "Documentation Standards" section above |
-| **Instructions Guide**    | [instructions/instructions.instructions.md](instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files              |
-| **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot instructions and `.github` boundary rules       |
-| **Claude Instructions**   | [CLAUDE.md](CLAUDE.md)                                           | Claude-specific project instructions; companion to this file       |
-| **Main Agent Index**      | [agents/agent.md](agents/agent.md)                               | Directory of agent specs, stubs, usage, implementation             |
-| **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
-| **Instruction Migration** | [docs/MIGRATION.md](docs/MIGRATION.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
+| Resource Name             | Reference | Phase | Purpose / Notes |
+| --- | --- | --- | --- |
+| **Documentation Standards** | [docs/AGENT_STANDARDS.md](docs/AGENT_STANDARDS.md) (+ 8 more) | Core | 9 comprehensive standards for all AI infrastructure (see "Documentation Standards" section) |
+| **Instructions Guide** | [instructions/instructions.instructions.md](instructions/instructions.instructions.md) | Phase 1A | Guide for authoring portable instruction files (consolidated, root-level) |
+| **File Organisation** | [instructions/file-organisation.instructions.md](instructions/file-organisation.instructions.md) | Phase 1A | Canonical placement rules for agents, scripts, reports, and all assets |
+| **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local | Control-plane Copilot instructions and `.github` boundary definitions |
+| **Claude Instructions** | [CLAUDE.md](CLAUDE.md) | Repo-local | Claude-specific guidance including Phase 1 Path Reference section |
+| **Portable Agent Index** | [agents/](agents/) directory | Phase 1C | Directory listing all multi-file portable agents at root |
+| **Spec-Based Agent Index** | [.github/agents/](.github/agents/) directory | Phase 1C | Directory listing all single-file GitHub automation agents |
+| **Prompts Index** | [.github/prompts/prompts.md](.github/prompts/prompts.md) | Legacy | Legacy prompt index (pending migration to skills/cookbook) |
+| **Instruction Migration** | [docs/MIGRATION.md](docs/MIGRATION.md) | Phase 1A | Mapping from legacy files to 5 consolidated instruction guides |
+| **Repository Restructuring** | [Issue #1438](https://github.com/lightspeedwp/.github/issues/1438) | Phase 1 | Epic tracking Phase 1A (instructions), 1B (schemas), 1C (agents) implementation |
+| **Schema Consolidation** | [Issue #1292](https://github.com/lightspeedwp/.github/issues/1292) | Phase 1B | Schema migration from `schema/` → `.schemas/` (hidden root folder) |
+| **Agent Two-Tier Structure** | [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293) | Phase 1C | Agent architecture migration: portable (`agents/`) + spec-based (`.github/agents/`) |
 
 ---
 
 ## References
 
-- [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
-- [Main Documentation](README.md) - Project overview
-- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
+**Foundational Documentation:**
 
-*This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
-All contributors, agents, and AI assistants must comply with these standards.*
+- [Contributing Guidelines](CONTRIBUTING.md) — For human contributor guidelines
+- [Main Documentation](README.md) — Project overview and core documentation
+- [CLAUDE.md](CLAUDE.md) — Claude-specific instructions and Phase 1 Path Reference
+
+**Phase 1 Structure (2026-08-02):**
+
+- [Phase 1A: Instruction Consolidation](docs/MIGRATION.md) — Portable instructions consolidated to root `instructions/`
+- [Phase 1B: Schema Consolidation](https://github.com/lightspeedwp/.github/issues/1292) — Schemas moved to `.schemas/` (hidden root folder)
+- [Phase 1C: Agent Two-Tier Structure](https://github.com/lightspeedwp/.github/issues/1293) — Portable agents in `agents/` + spec-based in `.github/agents/`
+
+**Schema Files (Phase 1B Canonical Locations):**
+
+- [Frontmatter Schema](.schemas/frontmatter.schema.json) — Metadata validation for all YAML frontmatter
+- [Agent Schema](.schemas/agent.schema.json) — Agent definition validation
+- [Issue Types Schema](.schemas/issue-types.schema.json) — GitHub issue type definitions
+
+*This file is the canonical reference for all AI agent rules, coding standards, and repository structure in LightSpeedWP projects.
+All contributors, agents, and AI assistants must comply with these standards and use the Phase 1 canonical paths.*
 
 ---
 
