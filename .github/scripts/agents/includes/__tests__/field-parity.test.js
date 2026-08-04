@@ -18,7 +18,7 @@ const { deriveProjectFieldValues } = require("../derive-project-fields.cjs");
  * writing empty fields.
  */
 
-const REPO_ROOT = path.resolve(__dirname, "../../../..");
+const REPO_ROOT = path.resolve(__dirname, "../../../../..");
 
 function loadYaml(relativePath) {
   return yaml.load(fs.readFileSync(path.join(REPO_ROOT, relativePath), "utf8"));

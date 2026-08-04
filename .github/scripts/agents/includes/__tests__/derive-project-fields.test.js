@@ -9,7 +9,7 @@ const {
 
 const issueFieldsConfig = yaml.load(
   fs.readFileSync(
-    path.join(__dirname, "../../../../.github/issue-fields.yml"),
+    path.join(__dirname, "../../../../../.github/issue-fields.yml"),
     "utf8",
   ),
 );

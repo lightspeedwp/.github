@@ -4,7 +4,7 @@ const path = require("path");
 const { execFileSync } = require("child_process");
 
 const scriptPath = path.join(__dirname, "../validate-memory.js");
-const repoRoot = path.resolve(__dirname, "../../..");
+const repoRoot = path.resolve(__dirname, "../../../..");
 
 function mkdirp(dir) {
   fs.mkdirSync(dir, { recursive: true });
