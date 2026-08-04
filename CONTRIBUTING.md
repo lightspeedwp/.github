@@ -30,14 +30,9 @@ For details, see the full guidelines below and the [Documentation Index](./docs/
 ---
 
 ```mermaid
----
-config:
-  flowchart:
-    accessibility: true
----
 flowchart TD
   accTitle: Contribution workflow
-  accDescr: Shows the end-to-end contribution path from issue discussion through branch creation, implementation, validation, pull request review, and merge.
+  accDescr: Shows the end-to-end contribution path from issue discussion through branch creation, implementation, validation, pull request review, and merge
   A[Open Issue or Feature Request] --> B[Discuss & Plan]
   B --> C[Create Branch]
   C --> D[Write Code & Tests]
