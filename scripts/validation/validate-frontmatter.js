@@ -20,7 +20,7 @@ const glob = require("glob");
 
 // Configuration
 const CONFIG = {
-  schemaPath: path.join(__dirname, "../../../schemas/frontmatter.schema.json"),
+  schemaPath: path.join(__dirname, "../../schemas/frontmatter.schema.json"),
   rootDir: path.join(__dirname, "../.."),
   logDir: path.join(__dirname, "../../logs/validation"),
   outputFile: path.join(
