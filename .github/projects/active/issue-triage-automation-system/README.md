@@ -1,3 +1,22 @@
+---
+name: Issue Triage Automation System
+title: Automated Issue Triage & Bulk Remediation System
+description: Implement automated issue triage to fix compliance gaps and prevent future automation failures
+status: active
+created: 2026-07-26
+last_updated: 2026-08-04
+version: 1.0.0
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - automation
+  - issue-triage
+  - governance
+  - compliance
+related_issues:
+  - '#1376'
+---
+
 # Issue Triage Automation System
 
 **Status:** 🟡 Phase 2 Execution In Progress | **Start:** July 26, 2026 | **Last Updated:** August 4, 2026

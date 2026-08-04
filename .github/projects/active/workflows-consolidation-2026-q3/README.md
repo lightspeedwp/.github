@@ -2,6 +2,7 @@
 name: GitHub Workflows Consolidation Initiative
 title: Consolidate 31 GitHub Workflows → 25 for Efficiency & Maintainability
 description: Strategic consolidation of workflows to eliminate duplication, reduce GitHub Actions minutes, and improve maintainability
+file_type: readme
 status: active
 created: 2026-07-24
 last_updated: 2026-08-04
