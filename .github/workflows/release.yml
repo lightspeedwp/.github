@@ -142,7 +142,7 @@ jobs:
           git config user.email "$email"
       - name: Validate changelog (schema + unreleased content)
         run: |
-          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node .github/scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
       - name: Run Release Agent
         env:
@@ -156,7 +156,7 @@ jobs:
       - name: Validate changelog post-release
         if: inputs.dry_run == false
         run: |
-          node .github/scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node .github/scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
           node .github/scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
           echo "✓ Post-release changelog validation passed"

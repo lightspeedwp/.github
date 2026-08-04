@@ -57,10 +57,10 @@ jobs:
         run: npm ci
 
       - name: Validate labeling config schema
-        run: node .github/scripts/validation/validate-labeling-configs.cjs
+        run: node scripts/validation/validate-labeling-configs.cjs
 
       - name: Validate canonical issue fields and docs
-        run: node .github/scripts/validation/validate-issue-fields.cjs
+        run: node scripts/validation/validate-issue-fields.cjs
 
       - name: Sync labels with canonical set
         env:
