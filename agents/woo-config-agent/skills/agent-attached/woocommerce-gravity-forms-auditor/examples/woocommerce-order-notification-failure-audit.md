@@ -22,3 +22,7 @@ Troubleshoot a complaint that admin emails are not arriving from a WooCommerce o
 ## Handoff item
 
 Route GF-AUD-001 to `woocommerce-gravity-forms-configuration`. Keep GF-AUD-002 as a limitation until safe mail log evidence is available.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

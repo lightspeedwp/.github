@@ -73,7 +73,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
 | **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **metadata-governance.yml** | issues / pull_request_target | Apply assignee and relationship metadata; inherit milestones only when explicitly linked | issue-pr-metadata.cjs |
-| **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `.github/scripts/validate-footers.js` |
+| **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `scripts/validate-footers.js` |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | issues / pull_request | Sync project board fields from labels, title/body fallbacks, and kickoff metadata | derive-project-fields.cjs |
@@ -282,8 +282,8 @@ All workflows must:
 
 - Agent specifications: `.github/agents/`
 - Agent scripts: `.github/scripts/agents/`
-- Agent utilities: `.github/scripts/agents/includes/`
-- Tests: `.github/scripts/agents/__tests__/` and `.github/scripts/agents/includes/__tests__/`
+- Agent utilities: `scripts/agents/includes/`
+- Tests: `.github/scripts/agents/__tests__/` and `scripts/agents/includes/__tests__/`
 
 **Requirements:**
 

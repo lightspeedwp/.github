@@ -48,3 +48,7 @@ List only questions that materially affect the fix or approval.
 ## Client-safe summary
 
 One or two plain-English sentences that can be reused in a client update without overstating search impact or promising outcomes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

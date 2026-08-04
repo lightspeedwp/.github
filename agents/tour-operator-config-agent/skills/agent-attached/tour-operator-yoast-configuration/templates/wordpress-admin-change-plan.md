@@ -22,3 +22,7 @@
 - schema
 - breadcrumbs
 - redirects where relevant
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

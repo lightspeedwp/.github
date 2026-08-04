@@ -24,3 +24,7 @@
 - sitemap inclusion
 - title and description
 - internal links
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

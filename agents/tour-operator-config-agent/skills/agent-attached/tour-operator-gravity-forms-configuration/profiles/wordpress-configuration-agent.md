@@ -19,3 +19,7 @@ Deleting forms/entries, changing production embeds, uploading files, retention c
 ## Output preference
 
 Preflight report first for live sites. Configuration plan for new forms. Change summary and test report after approved changes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

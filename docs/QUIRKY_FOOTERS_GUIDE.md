@@ -135,7 +135,7 @@ Available footer IDs are listed in `config/quirky-footers.yaml`.
 
 - **Quirky Footer Definitions**: `config/quirky-footers.yaml`
 - **Schema Validation**: `.schemas/quirky-footers.schema.json`
-- **Validation Script**: `.github/scripts/validate-footers.js`
+- **Validation Script**: `scripts/validate-footers.js`
 
 ### Configuration Structure
 
@@ -205,13 +205,13 @@ Run the footer validation script:
 npm run validate:footers
 
 # Check only changed files
-node .github/scripts/validate-footers.js --changed-only --base=develop --head=HEAD
+node scripts/validate-footers.js --changed-only --base=develop --head=HEAD
 
 # Generate a detailed report
-node .github/scripts/validate-footers.js --verbose --report=report.json
+node scripts/validate-footers.js --verbose --report=report.json
 
 # Fix missing footers automatically
-node .github/scripts/validate-footers.js --fix
+node scripts/validate-footers.js --fix
 ```
 
 ## Accessibility Notes
@@ -362,7 +362,7 @@ Here's how to use the API...
 - [Footer Configuration](../config/footers.config.yaml) — Standard footers
 - [Quirky Footers Configuration](../config/quirky-footers.yaml) — Category-specific footers
 - [Footer Validation Schema](../.schemas/quirky-footers.schema.json) — Configuration validation
-- [Validation Script](../.github/scripts/validate-footers.js) — Automation
+- [Validation Script](../scripts/validate-footers.js) — Automation
 
 ---
 

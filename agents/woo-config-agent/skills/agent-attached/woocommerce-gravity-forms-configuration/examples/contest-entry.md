@@ -33,3 +33,7 @@ Route admin entries to the campaign owner. Include entry source and opt-in state
 - Confirm entries record required consent.
 - Confirm marketing feed does not run without opt-in.
 - Confirm retention and export/erase stance is documented.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -3,6 +3,8 @@
  * @see ../planner.agent.js
  */
 
+const path = require("path");
+
 function createPlannerHarness(options = {}) {
   const {
     tokenInput = "",

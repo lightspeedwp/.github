@@ -83,3 +83,7 @@ Expected behaviour:
 - Check product replacement, category value, search demand/backlink evidence where available, and business approval.
 - Accept 410/404 only when intentionally removed and no equivalent exists.
 - Require product sitemap, schema and internal-link QA.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

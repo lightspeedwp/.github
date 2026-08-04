@@ -17,3 +17,7 @@ Every client-facing audit, launch, migration, relationship or schema template mu
 ## Score rule
 
 A score may only be used when reviewed evidence is broad enough. Otherwise output `## Score status` and state what evidence is needed before scoring.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -42,3 +42,7 @@ Expected behaviour:
 - Warn against direct manipulation unless official documentation supports it.
 - Recommend supported re-index/rebuild or documented API path after verification.
 - Require before/after rendered output checks.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

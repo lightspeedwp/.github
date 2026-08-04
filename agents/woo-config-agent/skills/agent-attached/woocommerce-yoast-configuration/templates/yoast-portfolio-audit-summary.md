@@ -71,3 +71,7 @@
 - Settings exports do not prove rendered output.
 - A sampled rendered URL does not prove whole-site behaviour.
 - Product packaging, UI paths, Yoast developer APIs, Google Search guidance, WooCommerce behaviour, and Schema.org vocabulary may require current verification before client-facing claims or implementation decisions.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

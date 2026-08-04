@@ -18,3 +18,7 @@ Ask only if missing:
 ## Routing note
 
 Prepare handoff notes, not code changes, unless another workflow explicitly owns implementation.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

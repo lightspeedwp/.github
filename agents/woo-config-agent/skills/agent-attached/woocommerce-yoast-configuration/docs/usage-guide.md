@@ -159,3 +159,7 @@ Use `templates/redirect-map-review.md` for old-to-new URL decisions and `templat
 ## Related skill routing
 
 Use `woocommerce-yoast-configuration` for planning, evidence interpretation, reports, decision packs and handoffs. Route live WordPress admin inspection or approved Yoast edits to `woocommerce-yoast-auditor` using `references/related-skills-routing.md`.
+
+---
+
+*🧭 Your compass through the documentation landscape*

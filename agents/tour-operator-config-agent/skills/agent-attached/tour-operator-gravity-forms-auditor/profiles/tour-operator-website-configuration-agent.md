@@ -22,3 +22,7 @@ Route booking engine architecture, live availability, payment/refund/cancellatio
 ## Client-safe boundary
 
 Avoid exposing traveller personal data, budget details, health/accessibility details, passport/document information, or internal CRM routing in client-safe summaries.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

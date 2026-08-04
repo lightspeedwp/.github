@@ -28,3 +28,7 @@ Collect service requirements, apply simple conditional logic, show an estimated 
 - Do not present calculated totals as final prices without approval.
 - Test each conditional branch and pricing boundary.
 - Record fields whose choices drive calculations.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

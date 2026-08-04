@@ -21,3 +21,7 @@ Troubleshoot complaint that admin emails are not arriving for a lead form.
 ## Handoff item
 
 Route GF-AUD-001 to the `tour-operator-gravity-forms-configuration` skill. Keep GF-AUD-002 as a limitation until mail log evidence is available.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

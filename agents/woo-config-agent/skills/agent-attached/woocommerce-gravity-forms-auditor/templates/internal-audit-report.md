@@ -95,3 +95,7 @@ Use `templates/findings-register.md`.
 2. Confirm which quick wins should proceed.
 3. Route approved items to `woocommerce-gravity-forms-configuration`.
 4. Retest after changes and produce closure note.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

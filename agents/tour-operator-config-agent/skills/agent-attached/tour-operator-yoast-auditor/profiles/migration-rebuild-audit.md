@@ -16,3 +16,7 @@ Use this profile when a travel site is moving domains, changing URLs, rebuilding
 ## Handoff emphasis
 
 Separate SEO migration risks from content strategy issues. Developer handoff items should name affected URLs, expected output and QA steps.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

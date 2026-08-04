@@ -62,3 +62,7 @@ Expected behaviour:
 - Load client communication guardrails.
 - Keep caveats clear but not alarmist.
 - Avoid internal labels unless translated into client-safe wording.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

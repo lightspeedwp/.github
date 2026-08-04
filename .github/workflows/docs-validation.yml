@@ -54,7 +54,7 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: node .github/scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
+        run: node scripts/identify-changed-markdown.js >> "$GITHUB_OUTPUT"
 
       - name: Early exit if no Markdown files changed
         if: steps.changed.outputs.has_changes != 'true'
@@ -102,7 +102,7 @@ jobs:
           SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
           A11Y_OUTCOME: ${{ steps.accessibility.outcome }}
           CONTRAST_OUTCOME: ${{ steps.contrast.outcome }}
-        run: node .github/scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
+        run: node scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
 
       - name: Post PR comment with results
         if: github.event_name == 'pull_request' && steps.has_diagrams.outputs.result == 'true'

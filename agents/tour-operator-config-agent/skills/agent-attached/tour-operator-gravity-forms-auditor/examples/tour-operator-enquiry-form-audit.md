@@ -21,3 +21,7 @@ Tour enquiry form for safari/travel website; audit enquiry quality, consent, par
 ## Handoff item
 
 Route privacy/retention settings and consent wording to the `tour-operator-gravity-forms-configuration` skill after approval. Do not collect passports or health data without separate secure handling.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

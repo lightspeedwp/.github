@@ -35,6 +35,7 @@ on:
       - ".github/instructions/**"
       - "docs/**"
       - ".github/scripts/**"
+      - "scripts/**"
 
   push:
     branches:
@@ -45,6 +46,7 @@ on:
       - ".github/agents/**"
       - ".github/instructions/**"
       - "docs/**"
+      - ".github/scripts/**"
       - "scripts/**"
 
 permissions:
@@ -129,7 +131,7 @@ jobs:
           SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
           A11Y_OUTCOME: ${{ steps.accessibility.outcome }}
           CONTRAST_OUTCOME: ${{ steps.contrast.outcome }}
-        run: node .github/scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
+        run: node scripts/collect-validation-results.js >> "$GITHUB_OUTPUT"
 
       - name: Generate audit report
         if: always()
@@ -138,7 +140,7 @@ jobs:
           A11Y_PASSED: ${{ steps.validation-status.outputs.a11y_ok }}
           CONTRAST_PASSED: ${{ steps.validation-status.outputs.contrast_ok }}
           AUDIT_SCOPE: ${{ env.AUDIT_SCOPE }}
-        run: node .github/scripts/generate-doc-audit-report.js >> "$GITHUB_STEP_SUMMARY"
+        run: node scripts/generate-doc-audit-report.js >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload audit artifacts
         if: always()
@@ -195,7 +197,7 @@ jobs:
           PR_HEAD: ${{ github.event.pull_request.head.sha }}
           PUSH_BEFORE: ${{ github.event.before }}
           PUSH_SHA: ${{ github.sha }}
-        run: node .github/scripts/workflows/resolve-readme-files.cjs
+        run: node scripts/workflows/resolve-readme-files.cjs
 
       - name: Run README regeneration (PR dry-run)
         if: steps.readmes.outputs.files != '' && github.event_name == 'pull_request'
@@ -260,7 +262,7 @@ jobs:
       - name: Run Mermaid diagram fixes
         id: mermaid
         if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'mermaid' }}
-        run: node .github/scripts/fix-mermaid-diagrams.js
+        run: node scripts/fix-mermaid-diagrams.js
         continue-on-error: true
 
       - name: Validate Mermaid colour contrast
@@ -272,7 +274,7 @@ jobs:
       - name: Run staleness updates
         id: staleness
         if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'staleness' }}
-        run: node .github/scripts/fix-staleness-dates.js
+        run: node scripts/fix-staleness-dates.js
         continue-on-error: true
 
       - name: Generate maintenance report

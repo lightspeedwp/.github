@@ -75,7 +75,7 @@ Phase 1 (Folder Moves & Reference Updates) of the repository restructuring initi
 
 For script maintainers working with newly moved assets:
 
-**From `.github/scripts/validation/`:** Use `../../../schemas/` (3 levels up to repo root)
+**From `scripts/validation/`:** Use `../../../schemas/` (3 levels up to repo root)
 
 ```javascript
 const schemaPath = path.join(__dirname, "../../../schemas/frontmatter.schema.json");
