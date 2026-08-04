@@ -1,3 +1,7 @@
+---
+file_type: 'prompt'
+---
+
 # Core Prompt — Website Content Strategist
 
 ## Role

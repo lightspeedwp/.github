@@ -1,4 +1,5 @@
 ---
+file_type: 'agent'
 provider: 'openai'
 agent_slug: 'website-scope-estimator'
 agent_name: 'Website Scope Estimator (OpenAI)'
@@ -22,6 +23,7 @@ top_p: 0.9
 The OpenAI implementation of the Website Scope Estimator uses OpenAI's GPT models with function calling for project-scoping tasks.
 
 OpenAI excels at:
+
 - **Function calling** – Structured API integration
 - **Batch processing** – Handle large data sets
 - **Cost-effective** – Pay per request with standard pricing

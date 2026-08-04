@@ -1,4 +1,5 @@
 ---
+file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'pagespeed'
 agent_name: 'PageSpeed Agent (GitHub Copilot)'
@@ -17,6 +18,7 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the PageSpeed Agent integrates directly with GitHub's development environment, providing intelligent assistance within code editors and pull requests.
 
 Copilot excels at:
+
 - **GitHub Projects integration** – Manage issues and projects
 - **Code analysis** – Review and improve code
 - **Workflow automation** – Trigger GitHub Actions
@@ -36,6 +38,7 @@ Skills are triggered using @ mentions in Copilot Chat:
 ## Response Format
 
 Copilot provides responses optimized for GitHub:
+
 - Markdown-formatted explanations
 - Code snippets with syntax highlighting
 - Links to related GitHub issues and discussions
@@ -44,6 +47,7 @@ Copilot provides responses optimized for GitHub:
 ## GitHub Integration
 
 Works with:
+
 - **GitHub Projects (beta)** – Task management and optimization issue tracking
 - **GitHub Discussions** – Team collaboration and feedback
 - **Pull Requests** – Code review and performance impact analysis
@@ -69,6 +73,7 @@ Create a performance report and post it to the discussion.
 ## GitHub Actions Integration
 
 **Automated Performance Checks on Pull Requests:**
+
 ```yaml
 name: Performance Check
 on: [pull_request]
@@ -85,6 +90,7 @@ jobs:
 ```
 
 **Scheduled Performance Analysis:**
+
 ```yaml
 name: Weekly Performance Report
 on:
@@ -161,16 +167,19 @@ jobs:
 ## Error Handling in Copilot Chat
 
 **Missing URL Information:**
+
 - Request user to provide website URL
 - Suggest checking issue description
 - Ask for environment if needed
 
 **API Failures:**
+
 - Continue with local analysis
 - Suggest manual sync when connection restored
 - Provide fallback recommendations
 
 **Ambiguous Scope:**
+
 - Ask clarifying questions in chat
 - Suggest breaking into smaller issues
 - Offer to create multiple sub-issues
@@ -178,6 +187,7 @@ jobs:
 ## Response Format for GitHub
 
 Copilot optimizes responses for GitHub platform:
+
 - **Tables** – Performance metrics in markdown tables
 - **Code blocks** – Configuration examples with syntax highlighting
 - **Checkboxes** – Implementation checklists
