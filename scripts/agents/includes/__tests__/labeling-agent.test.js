@@ -41,7 +41,7 @@ describe("LabelingAgent", () => {
     it("should detect feature type from acceptance criteria", () => {
       const issue = {
         number: 101,
-        title: "Add two-factor authentication",
+        title: "New feature: Add two-factor support",
         body: "## Acceptance Criteria\n- Support TOTP tokens\n- Email recovery codes",
         labels: [],
       };
@@ -54,7 +54,7 @@ describe("LabelingAgent", () => {
     it("should detect task type from simple keywords", () => {
       const issue = {
         number: 102,
-        title: "Update dependencies",
+        title: "Task: Update dependencies",
         body: "## Steps\n1. Run npm update\n2. Test",
         labels: [],
       };
@@ -267,8 +267,8 @@ describe("LabelingAgent", () => {
     it("should return null when no priority keywords found", () => {
       const issue = {
         number: 304,
-        title: "Regular maintenance task",
-        body: "Standard update",
+        title: "Housekeeping improvements",
+        body: "Minor changes",
         labels: [],
       };
 
