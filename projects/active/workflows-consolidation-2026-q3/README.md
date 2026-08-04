@@ -78,14 +78,14 @@ related_branches:
 - metrics-collection.yml
 - reporting.yml
 
-**Labeling & Automation (6 workflows)**
+**Labelling & Automation (6 workflows)**
 
-- issue-labeler.yml
-- pr-labeler.yml
+- issue-labeller.yml
+- pr-labeller.yml
 - auto-assignment.yml
 - stale-issue-handler.yml
-- dependency-labeler.yml
-- release-labeler.yml
+- dependency-labeller.yml
+- release-labeller.yml
 
 **CI/CD Pipeline (8 workflows)**
 
@@ -124,9 +124,9 @@ related_branches:
 - Single documentation workflow with multiple jobs
 - Reduces scheduling conflicts
 
-#### **Phase 3: Labeling Consolidation** (~12 hours)
+#### **Phase 3: Labelling Consolidation** (~12 hours)
 
-- Consolidate issue + PR labeling logic
+- Consolidate issue + PR labelling logic
 - Single workflow with conditional jobs
 - Shared label management rules
 
@@ -190,19 +190,19 @@ related_branches:
 - Consolidate validation patterns
 - Update scheduling
 
-### **PHASE 3: Labeling & Automation** (Week 7-12)
+### **PHASE 3: Labelling & Automation** (Week 7-12)
 
 **Effort:** 20 hours | **Complexity:** Medium  
 **Deliverables:**
 
-- Single labeling workflow (conditional jobs per event)
+- Single labelling workflow (conditional jobs per event)
 - Shared label management rules
 - Reduced concurrent runs
 - Save ~50 GHA minutes/week
 
 **Issues to Create:**
 
-- Consolidate labeling workflows
+- Consolidate labelling workflows
 - Create shared rules engine
 - Testing and validation
 
