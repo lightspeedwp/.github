@@ -115,7 +115,7 @@ function main() {
   const root = config.root;
   const errors = [];
 
-  const schemaDir = path.join(root, ".schemas", "memory");
+  const schemaDir = path.join(root, "schemas", "memory");
   const registryPath = path.join(
     root,
     "workflows",
