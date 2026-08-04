@@ -54,7 +54,7 @@ Consolidate schemas:
 Update all references in:
 
 - **npm scripts** (`package.json`)
-- **Validation scripts** (`.github/scripts/validation/*.js`)
+- **Validation scripts** (`scripts/validation/*.js`)
 - **GitHub workflows** (`.github/workflows/*.yml`)
 - **Documentation** (`docs/**/*.md`, `agents/`, `skills/`)
 - **Instruction files** (`instructions/`, `.github/instructions/`)
@@ -143,7 +143,7 @@ Finalize:
 **Critical files to update:**
 
 - [ ] `package.json` — Search/replace all `schema/` with `schemas/`
-- [ ] `.github/scripts/validation/*.js` — Update all relative paths
+- [ ] `scripts/validation/*.js` — Update all relative paths
 - [ ] `.github/workflows/*.yml` — Update schema/script paths
 - [ ] `docs/**/*.md` — Update all documentation links
 - [ ] `agents/README.md`, `skills/README.md` — Update cross-references
@@ -190,7 +190,7 @@ During the 2026-08-02 repository restructuring, the following locations were mov
 | **Website** | `website/` | `.github/website/` | Move to .github |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
 
-For script maintainers: If you reference schemas or scripts, use paths relative to your script location. Example: a validation script at `.github/scripts/validation/validate-frontmatter.js` should reference `../../../schemas/` (three levels up).
+For script maintainers: If you reference schemas or scripts, use paths relative to your script location. Example: a validation script at `scripts/validation/validate-frontmatter.js` should reference `../../../schemas/` (three levels up).
 
 See [SPECIFICATION.md](./projects/active/repo-restructuring-2026-07-25/SPECIFICATION.md) for full migration details.
 ```

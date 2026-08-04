@@ -11,8 +11,8 @@
  * @module scripts/agents/meta.agent.js
  */
 
-import { ensureFooter } from "./includes/header-footer.js";
-import { updateBadgesInReadme } from "./includes/badges.js";
+import { ensureFooter } from "../../../scripts/agents/includes/header-footer.js";
+import { updateBadgesInReadme } from "../../../scripts/agents/includes/badges.js";
 import fs from "fs";
 import path from "path";
 import * as yaml from "js-yaml";

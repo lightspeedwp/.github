@@ -256,7 +256,7 @@ Developer commits CHANGELOG.md update
 PR created (changelog-validate.yml triggered)
          ↓
 ┌─ Validation Step 1: Format Check
-│  └─ .github/scripts/validation/changelog-rules.cjs
+│  └─ scripts/validation/changelog-rules.cjs
 │     • Title <60 chars
 │     • Description <150 chars
 │     • PR link required
@@ -266,14 +266,14 @@ PR created (changelog-validate.yml triggered)
 │     ↓ (PASS/FAIL)
 │
 ├─ Validation Step 2: Integration Tests
-│  └─ .github/scripts/workflows/changelog/merge-entries.integration.test.cjs
+│  └─ scripts/workflows/changelog/merge-entries.integration.test.cjs
 │     • Section headers preserved
 │     • No duplicate entries
 │     • Entry format consistency
 │     ↓ (PASS/FAIL)
 │
 ├─ Validation Step 3: Schema Compliance
-│  └─ .github/scripts/validation/validate-changelog.cjs
+│  └─ scripts/validation/validate-changelog.cjs
 │     • Conforms to changelog.schema.json
 │     • Required sections present
 │     • Proper YAML frontmatter
@@ -665,10 +665,10 @@ npm run validate:changelog
 
 ### Automation Scripts
 
-- `.github/scripts/validation/changelog-rules.cjs` — Format validation (7 rules)
-- `.github/scripts/workflows/changelog/merge-entries.cjs` — Merge & deduplicate entries
-- `.github/scripts/workflows/changelog/merge-entries.integration.test.cjs` — Merge validation tests
-- `.github/scripts/validation/validate-changelog.cjs` — Schema compliance
+- `scripts/validation/changelog-rules.cjs` — Format validation (7 rules)
+- `scripts/workflows/changelog/merge-entries.cjs` — Merge & deduplicate entries
+- `scripts/workflows/changelog/merge-entries.integration.test.cjs` — Merge validation tests
+- `scripts/validation/validate-changelog.cjs` — Schema compliance
 - `.github/scripts/agents/release.agent.js` — Release automation
 
 ### Workflow Files
