@@ -108,32 +108,32 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            console.log('=== MILESTONE ASSIGNMENT DEBUG ===');
-            console.log('Require path: ./scripts/agents/includes/milestone-assignment.js');
+            core.info('=== MILESTONE ASSIGNMENT DEBUG ===');
+            core.info('Require path: ./scripts/agents/includes/milestone-assignment.js');
             const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
-            console.log('✓ Agent required successfully');
+            core.info('✓ Agent required successfully');
 
             const issuesJson = '${{ steps.fetch.outputs.issues }}';
-            console.log('Raw JSON length:', issuesJson.length);
-            console.log('Raw JSON preview:', issuesJson.substring(0, 100));
+            core.info(`Raw JSON length: ${issuesJson.length}`);
+            core.info(`Raw JSON preview: ${issuesJson.substring(0, 100)}`);
 
             const issues = JSON.parse(issuesJson);
-            console.log(`✓ Parsed ${issues.length} issues`);
+            core.info(`✓ Parsed ${issues.length} issues`);
 
             const dryRun = '${{ inputs.dry_run }}' === 'true';
-            console.log(`Dry-run mode: ${dryRun}`);
+            core.info(`Dry-run mode: ${dryRun}`);
 
             const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
-            console.log('✓ Agent instantiated');
+            core.info('✓ Agent instantiated');
 
             await agent.loadMilestones();
-            console.log(`✓ Loaded ${agent.milestones ? agent.milestones.length : 0} milestones`);
+            core.info(`✓ Loaded ${agent.milestones ? agent.milestones.length : 0} milestones`);
 
             const results = await agent.bulkAssignMilestones(issues, {
               dryRun,
               reportPath: '.github/reports/remediation/milestone-assignment-${{ github.run_id }}.md',
             });
-            console.log(`✓ Bulk assignment complete: ${results.length} results`);
+            core.info(`✓ Bulk assignment complete: ${results.length} results`);
 
             const assigned = results.filter((r) => r.status === 'assigned' || r.status === 'dry-run-success');
             const skipped = results.filter((r) => r.status === 'no-milestone-found');
@@ -147,7 +147,7 @@ jobs:
               .addRaw(`- Errors: ${errors.length}\n`)
               .write();
 
-            console.log(`✓ Milestone assignment complete: ${assigned.length} assigned, ${skipped.length} skipped, ${errors.length} errors`);
+            core.info(`✓ Milestone assignment complete: ${assigned.length} assigned, ${skipped.length} skipped, ${errors.length} errors`);
 
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
