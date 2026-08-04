@@ -19,3 +19,7 @@ Load for migration, rebuild, domain change, permalink change or post-launch vali
 ## Output expectation
 
 If redirect/canonical evidence is missing, label the finding as blocked and state the minimum evidence needed.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

@@ -56,3 +56,7 @@
 4. Record approved exceptions.
 5. Retest rendered output or relevant live artefacts.
 6. Update reusable defaults only after approval.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

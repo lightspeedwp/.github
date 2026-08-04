@@ -17,3 +17,7 @@
 2. Check staging leakage, canonicals, noindex rules, XML sitemaps, schema, social metadata and redirects.
 3. Validate representative high-value URLs before launch and after launch.
 4. Avoid promising Google indexing or ranking outcomes.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

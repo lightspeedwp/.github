@@ -20,3 +20,7 @@ Collect only what is relevant:
 ## Routing note
 
 Audit existing output here. Route setup or default template design to `woocommerce-yoast-configuration`.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

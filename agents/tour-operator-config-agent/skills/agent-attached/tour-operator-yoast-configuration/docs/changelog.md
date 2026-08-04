@@ -12,3 +12,7 @@
 - Reworked the router, references, intake, profile, templates, tests and validators around WordPress tour operator website needs.
 - Added destination, tour, accommodation, travel-style, itinerary, enquiry, taxonomy, migration, schema and multilingual guidance.
 - Removed commerce-specific scope from the package files and validation set.
+
+---
+
+*🧭 Your compass through the documentation landscape*

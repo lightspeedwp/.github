@@ -153,3 +153,7 @@ The skill is complete only when:
 - [x] Legacy normalised auditor handoff fields remain accepted for backwards compatibility.
 - [x] Missing canonical handoff fields are treated as readiness gaps, not permission to infer or execute changes.
 
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

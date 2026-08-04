@@ -18,3 +18,7 @@ python scripts/validate_skill_structure.py .
 python scripts/validate_reference_data.py .
 python scripts/generate_qa_checklist.py --profile tour-operator
 ```
+
+---
+
+*🧭 Your compass through the documentation landscape*

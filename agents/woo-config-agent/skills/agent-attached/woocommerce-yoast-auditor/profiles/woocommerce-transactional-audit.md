@@ -18,3 +18,7 @@ Focus on product schema, variations, offer data, stock and price signals, produc
 ## Output expectation
 
 Prioritise commercial impact but avoid ranking guarantees.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

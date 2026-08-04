@@ -10,3 +10,7 @@ Use this when the site has translated pages or language-specific content.
 - translated sitemap inclusion
 - language switcher sanity checks
 - duplicate intent review
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

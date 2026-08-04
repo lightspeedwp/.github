@@ -11,3 +11,7 @@ Use this when URL structure, domain, IA or content relationships are changing.
 - metadata preservation for key pages
 - launch-day rendered-output QA
 - Search Console follow-up after launch
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

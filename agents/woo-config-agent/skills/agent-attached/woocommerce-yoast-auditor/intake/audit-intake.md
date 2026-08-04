@@ -19,3 +19,7 @@ Ask only what is needed:
 ## Routing note
 
 If the user asks for setup, defaults or configuration strategy, route to `woocommerce-yoast-configuration` or the parent WooCommerce Configuration Agent instead of continuing intake here.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

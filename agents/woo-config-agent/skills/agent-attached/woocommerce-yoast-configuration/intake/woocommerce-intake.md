@@ -28,3 +28,7 @@ Use this before any WooCommerce SEO, product schema, product archive, ProductGro
 - Validate schema on representative products and variations.
 - Align product archive indexation with sitemap inclusion and canonical output.
 - Record product data gaps separately from Yoast configuration issues.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

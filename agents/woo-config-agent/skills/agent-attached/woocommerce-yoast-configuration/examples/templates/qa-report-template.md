@@ -10,3 +10,7 @@
 - [ ] Check breadcrumbs and schema graph.
 - [ ] Check redirects and canonical alignment for migrations.
 - [ ] Record evidence and unresolved risks.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

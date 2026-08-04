@@ -17,3 +17,7 @@ Expected: inspect or request redirect map, old/new URL structure, canonicals, me
 Input: "Can we launch if staging canonicals are still present?"
 
 Expected: classify as a likely launch blocker if confirmed on important public pages; include affected URLs, owner, fix path and retest.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

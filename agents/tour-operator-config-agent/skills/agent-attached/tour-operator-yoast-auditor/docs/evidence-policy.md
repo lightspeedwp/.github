@@ -16,3 +16,7 @@ Prefer direct site evidence, official Yoast documentation, Yoast developer docum
 - Do not guess redirect targets, canonical intent, schema customisation intent or taxonomy visibility intent.
 - Keep editorial judgement separate from confirmed technical output.
 - Use evidence gap tables when the minimum evidence is missing.
+
+---
+
+*🧭 Your compass through the documentation landscape*

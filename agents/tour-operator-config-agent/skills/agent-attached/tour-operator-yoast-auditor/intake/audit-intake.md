@@ -16,3 +16,7 @@ Ask only for blocking information. Prefer the smallest useful set.
 ## Fast intake question
 
 > Please share the site URL, the audit focus, and any important tour, destination, accommodation or taxonomy URLs you want checked.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

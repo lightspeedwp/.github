@@ -33,3 +33,7 @@ Use this profile for tour operator, safari, travel agency, destination-led, and 
 - Staging URLs leaking into metadata or sitemaps.
 - Thank-you pages accidentally indexable.
 - Schema conflicts caused by theme or plugin output overlap.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

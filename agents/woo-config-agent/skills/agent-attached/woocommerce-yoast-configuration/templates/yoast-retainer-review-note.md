@@ -37,3 +37,7 @@ Escalate to a focused Yoast audit if:
 - WooCommerce product schema changes materially
 - a plugin update affects Yoast output
 - evidence is too thin to support client-facing confidence
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*

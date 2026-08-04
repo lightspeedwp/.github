@@ -186,3 +186,7 @@ npm test -- .github/scripts/__tests__/workflow-helpers.test.js
 - [Using Node.js safely in workflows](https://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback)
 - [Workflow validation script](../scripts/validation/validate-workflows.js)
 - [CODEOWNERS configuration guide](../CODEOWNERS)
+
+---
+
+*🧭 Your compass through the documentation landscape*

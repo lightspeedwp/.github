@@ -27,3 +27,7 @@ Use this when a Yoast recommendation depends on WordPress content structure, tem
 - Redirect or disable attachment URLs where they create duplicate thin pages.
 - Align noindex decisions with sitemap exclusion.
 - QA rendered output rather than relying only on settings screens.
+
+---
+
+*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
