@@ -2,9 +2,16 @@
 title: Active Projects Index
 description: Central index of all active projects in the .github control plane
 version: 1.1.0
-file_type: index
+file_type: documentation
 status: active
 last_updated: 2026-08-04
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - projects
+  - index
+  - planning
+  - tracking
 ---
 
 # Active Projects Index
