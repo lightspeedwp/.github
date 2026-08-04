@@ -959,3 +959,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## Test: Feature Branch Labeling
 
 # Scenario 1.1 test
+
+# Scenario 1.2 test
