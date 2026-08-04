@@ -20,6 +20,8 @@ Workflows are JavaScript/TypeScript scripts that coordinate multiple agents, man
 
 ```mermaid
 graph TB
+    accTitle: Workflow execution patterns
+    accDescr: Shows different execution patterns for agentic workflows including sequential, parallel, fan-out, and iterative patterns that combine into aggregated results.
     A["Task Input"] --> B{Execution Type}
     B -->|Sequential| C["Phase 1 → Phase 2 → Phase 3"]
     B -->|Parallel| D["Task A ⊕ Task B ⊕ Task C"]
@@ -152,6 +154,8 @@ export const meta = {
 
 ```mermaid
 graph TD
+    accTitle: Execution pattern selection
+    accDescr: Decision tree for choosing the appropriate execution pattern based on task dependencies and workload characteristics.
     A{"Do tasks<br/>depend on<br/>each other?"} -->|YES| B["Sequential"]
     A -->|NO| C{Many items<br/>to process?}
     C -->|Few tasks| D["Parallel"]
