@@ -31,7 +31,6 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `.github/scripts/validate-footers.js:58,220` - err (2x)
 - `.github/scripts/validate-markdown-lint.js:72` - error
 - `.github/scripts/validate-reports-structure.js:39` - err
-- `.github/scripts/verify-wceu-readiness.js:256,269` - err (2x)
 - `hooks/multi-provider-consistency-checker/index.js:200` - error
 - `scripts/agents/__tests__/planner.agent.test.js:11,70` - envToken, exitSpy
 - `scripts/agents/__tests__/release.agent.mcp.test.js:2` - path
@@ -60,7 +59,6 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `scripts/validation/validate-agents.js:29` - WORKFLOWS_DIR
 - `scripts/validation/validate-mermaid-colour-contrast.js:240` - theme
 - `scripts/validation/validate-readme-links.js:40` - filePath
-- `scripts/verify-wceu-readiness.js:256,269` - err (2x)
 - `scripts/workflows/__tests__/release-workflow-scripts.test.js:38` - error
 - `skills/slides/pptxgenjs_helpers/code.js:40` - err
 - `skills/slides/pptxgenjs_helpers/image.js:163` - blockLength
@@ -99,8 +97,9 @@ Use detailed code review to confirm each change is safe
 After fixes:
 
 ```bash
-npm run lint:js 2>&1 | grep "problems"
-# Should output: ✖ 0 problems (0 errors, 0 warnings)
+npm run lint:js -- --max-warnings=0
+npm run lint:md
+npm run validate:frontmatter
 ```
 
 ## Related Work
