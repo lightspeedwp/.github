@@ -31,7 +31,7 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | --- | --- |
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications (multi-file implementations) |
-| `schemas/` | JSON schema definitions (visible, portable) |
+| `.schemas/` | JSON schema definitions (root, hidden, portable) |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -49,18 +49,25 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 
 | Component | Old Path | New Path | Type |
 | --- | --- | --- | --- |
-| **Schema files** | `schema/` | `schemas/` (root, visible) | Consolidation |
-| **Scripts** | `scripts/` | `.github/scripts/` | Move to .github |
+| **Schema files** | `schema/` | `.schemas/` (root, hidden, portable) | Consolidation |
+| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then back to portable root |
 | **Website** | `website/` | `.github/website/` | Move to .github |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `.github/scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `scripts/validation/validate-frontmatter.js:../../../.schemas/` → `.schemas/` | Updated script path |
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
-**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
+**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location** to reach `.schemas/` at repo root:
 
-- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
-- From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
-- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+**Portable scripts (root location):**
+
+- From `scripts/validation/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/` at repo root
+- From `scripts/agents/includes/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/` at repo root
+- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/` at repo root
+
+**Control-plane scripts (.github location):**
+
+- From `.github/scripts/agents/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/`
+- From `.github/scripts/workflows/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
 
@@ -368,7 +375,7 @@ npm run validate:frontmatter
 
 ## Related Files
 
-**Organization-wide instructions** (reusable across all LightSpeedWP repos):
+**Organisation-wide instructions** (reusable across all LightSpeedWP repos):
 
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
 - [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards
