@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-30"
+last_updated: "2026-08-05"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -37,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 (none identified)
 
 ### Fixed
+
+- **README frontmatter schema compliance (Phase 2B Skills Audit)** — Corrected frontmatter in Phase 2B skills audit README files to comply with LightSpeed documentation schema: added required `file_type: readme` field, renamed `created` to `created_date`, updated `last_updated` and `version` fields, and removed non-schema fields (`name`, `related_issues`, `related_branches`). Resolves frontmatter validation failures and ensures project documentation adheres to canonical schema standards. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540), [#1375](https://github.com/lightspeedwp/.github/issues/1375))
+
+- **Labeling agent module import error** — Fixed labeling agent import statement that referenced non-existent export `_fetchCanonicalLabels` (with underscore); corrected to use actual function name `fetchCanonicalLabels` (without underscore) from `label-lookup.js`. Unblocks PR labeling workflows that were failing with module resolution errors. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540))
 
 - **Agent file_type frontmatter validation (Phase 1 restructuring)** — Added missing `file_type` frontmatter to all root agent configuration files: 48 provider-specific agent.md files (claude/, copilot/, openai/) with `file_type: 'agent'`, and 16 shared core-prompt.md files with `file_type: 'prompt'`. Fixes 200+ frontmatter validation errors and ensures all agent files comply with documentation schema requirements. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510), [#1507](https://github.com/lightspeedwp/.github/issues/1507))
 
