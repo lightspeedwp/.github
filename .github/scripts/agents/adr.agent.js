@@ -1,7 +1,7 @@
 /**
  * ADR agent placeholder that will orchestrate the creation and upkeep of Architectural Decision Records.
  * @module scripts/agents/adr.agent.js
- * @see ../../agents/adr.agent.md
+ * @see ../../../.github/agents/adr.agent.md
  */
 
 // Wave 2A note (#464): runtime orchestration is intentionally deferred while

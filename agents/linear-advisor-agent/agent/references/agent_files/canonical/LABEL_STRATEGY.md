@@ -145,7 +145,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 - Use the most specific `area:*` or `comp:*` for filtering.
 - Update labels as work progresses or scope changes.
 - Review and clean up labels quarterly; remove unused or redundant entries.
-- Reference [labeling.agent.md](./agents/labeling.agent.md) for agent logic details.
+- Reference [labeling.agent.md]../.github/agents/labeling.agent.md) for agent logic details.
 - See `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for configs.
 
 ---
@@ -171,7 +171,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 - [PR Labels Guide](./PR_LABELS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
+- [Agent Spec for Labeling](../.gith../.github/agents/labeling.agent.md)
 - [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 *For questions or changes, open a PR or discussion in the `.github` repository.*
@@ -203,7 +203,7 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ## 3. **Utility Modules (Modularization)**
 
-**Utilities are located in `.github/agents/includes/` and imported as needed:**
+**Utilities are located in `.gith../.github/agents/includes/` and imported as needed:**
 
 | Utility File          | Core Functions (examples)                                                  | Used by                       |
 | --------------------- | -------------------------------------------------------------------------- | ----------------------------- |
@@ -225,30 +225,30 @@ const {
   fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
-} = require("../../.github/agents/includes/label-lookup");
+} = require("../../.gith../.github/agents/includes/label-lookup");
 const {
   fetchLabelerRules,
   applyLabelerRules,
-} = require("../../.github/agents/includes/labeler-utils");
+} = require("../../.gith../.github/agents/includes/labeler-utils");
 const {
   syncLabelsWithCanonical,
   standardizeLabelsOnRepo,
-} = require("../../.github/agents/includes/label-sync");
+} = require("../../.gith../.github/agents/includes/label-sync");
 const {
   enforceOneHotStatus,
   applyDefaultStatus,
   applyDefaultPriority,
-} = require("../../.github/agents/includes/status-enforcer");
+} = require("../../.gith../.github/agents/includes/status-enforcer");
 const {
   buildLabelingReport,
-} = require("../../.github/agents/includes/label-reporting");
+} = require("../../.gith../.github/agents/includes/label-reporting");
 const {
   loadIssueTypes,
   findIssueTypeByNameOrAlias,
-} = require("../../.github/agents/includes/type-lookup");
+} = require("../../.gith../.github/agents/includes/type-lookup");
 const {
   suggestLabelsFromContent,
-} = require("../../.github/agents/includes/label-heuristics");
+} = require("../../.gith../.github/agents/includes/label-heuristics");
 
 // Example usage in agent's main function:
 async function runLabelingAgent(context, configs, dryRun = false) {
@@ -295,7 +295,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - `.github/labels.yml`: Canonical label definitions (names, colors, aliases)
 - `.github/labeler.yml`: File/branch-based label rules
 - `.github/issue-types.yml`: Canonical issue type definitions
-- `.github/agents/includes/`: Shared JS helpers for all agents/scripts
+- `.gith../.github/agents/includes/`: Shared JS helpers for all agents/scripts
 
 ---
 
@@ -306,7 +306,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Always use canonical config:**
   Never hardcode label/type lists; always read from YAML.
 - **Write utility tests:**
-  Each utility in `scripts/agents/includes/` should have a test in `scripts/agents/includes/__tests__/`.
+  Each utility in `scrip../.github/agents/includes/` should have a test in `scrip../.github/agents/includes/__tests__/`.
 - **Keep logic DRY:**
   Avoid duplicate logic for label lookup, migration, or reporting.
 - **Document all new utility functions:**
@@ -319,9 +319,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Missing labels or types?**
   Check `.github/labels.yml` and `.github/issue-types.yml` for missing/typo entries.
 - **Label not applied as expected?**
-  Debug with utility tests in `.github/agents/includes/__tests__/`.
+  Debug with utility tests in `.gith../.github/agents/includes/__tests__/`.
 - **Want to add a new heuristic or report?**
-  Add it as a new utility in `.github/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
+  Add it as a new utility in `.gith../.github/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
 
 ---
 
@@ -332,7 +332,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - [issue-types.yml](../.github/issue-types.yml)
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
 - [Custom Instructions](../.github/custom-instructions.md)
-- [Main Agent Spec](../.github/agents/labeling.agent.md)
+- [Main Agent Spec](../.gith../.github/agents/labeling.agent.md)
 
 ---
 

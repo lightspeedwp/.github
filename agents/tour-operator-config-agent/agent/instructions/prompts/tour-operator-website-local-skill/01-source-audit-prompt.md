@@ -47,7 +47,7 @@ Produce a verified inventory of what the source folder actually contains and wha
 
 Inspect, where present and readable:
 
-- `prompts/tour-operator-website/agents/`
+- `prompts/tour-operator-websi../.github/agents/`
 - `prompts/tour-operator-website/references/`
 - `prompts/tour-operator-website/memory/`
 - `prompts/tour-operator-website/assets/`

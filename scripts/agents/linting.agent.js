@@ -14,7 +14,7 @@
  *   can be covered with Jest without depending on a live linter process
  *
  * @module scripts/agents/linting.agent.js
- * @see ../../agents/linting.agent.md
+ * @see ../../../.github/agents/linting.agent.md
  */
 
 const fs = require("fs");

@@ -17,11 +17,11 @@ tags:
   - automation
   - specifications
 references:
-  - path: "../.github/agents/README.md"
+  - path: "../.gith../.github/agents/README.md"
     description: "Agents directory overview"
-  - path: "../.github/agents/agent.md"
+  - path: "../.gith../.github/agents/agent.md"
     description: "Main agent index"
-  - path: "../.github/agents/template.agent.md"
+  - path: "../.gith../.github/agents/template.agent.md"
     description: "Agent specification template"
   - path: "../.github/schemas/frontmatter.schema.json"
     description: "Frontmatter validation schema"
@@ -110,7 +110,7 @@ meta.agent.md
 All agent specifications must be stored in:
 
 ```
-.github/agents/{agent-name}.agent.md
+.gith../.github/agents/{agent-name}.agent.md
 ```
 
 ---
@@ -397,7 +397,7 @@ accDescr: Mindmap of the required and optional frontmatter fields for an agent s
    npm run validate:agents
    ```
 
-3. Add entry to `.github/agents/agent.md`
+3. Add entry to `.gith../.github/agents/agent.md`
 4. Commit the **spec only**
 5. Write the `.agent.js` implementation
 6. Write tests (`__tests__/`)
@@ -548,7 +548,7 @@ accDescr: Flowchart showing a labeling agent handing off to a reviewer agent onc
 ### 12. Quick Start Template
 
 ```bash
-cp .github/agents/template.agent.md .github/agents/my-agent.agent.md
+cp .gith../.github/agents/template.agent.md .gith../.github/agents/my-agent.agent.md
 ```
 
 Then follow the governance checklist on this page.
@@ -557,7 +557,7 @@ Then follow the governance checklist on this page.
 
 ### 13. References
 
-- Organisation-wide agent index (`.github/agents/agent.md`)
+- Organisation-wide agent index (`.gith../.github/agents/agent.md`)
 - Agent Specification Authoring Guide
 - Frontmatter schema (`.github/schemas/frontmatter.schema.json`)
 - Agent instructions (`agent-spec.instructions.md`)

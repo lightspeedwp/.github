@@ -90,8 +90,8 @@ This directory contains standardized saved replies for consistent and profession
 Saved replies integrate with:
 
 - **[Saved Replies Prompt](../prompts/saved-replies.prompt.md)** - AI-powered reply suggestions
-- **[Issue Management Agents](../agents/README.md#issue-management)** - Automated issue responses
-- **[PR Automation](../agents/reviewer.agent.md)** - Automated PR feedback
+- **[Issue Management Agents](../.github/agents/README.md#issue-management)** - Automated issue responses
+- **[PR Automation](../.github/agents/reviewer.agent.md)** - Automated PR feedback
 - **[Community Management](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)** - Community interaction automation
 
 ## 📚 Related Documentation
