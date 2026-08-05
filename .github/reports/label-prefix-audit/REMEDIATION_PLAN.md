@@ -128,7 +128,7 @@ gh issue create \
 
 **Label Family Reference**
 
-See [docs/LABEL_STRATEGY.md](docs/LABEL_STRATEGY.md) for complete taxonomy.
+See [docs/LABEL_STRATEGY.md](../../../docs/LABEL_STRATEGY.md) for complete taxonomy.
 
 | Family | Count | Examples | Prefix |
 |--------|-------|----------|--------|
