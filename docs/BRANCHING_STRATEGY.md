@@ -328,10 +328,104 @@ reused so automation stays predictable.
 
 ## 7. Release & Hotfix Flow
 
-- **Release:** Open `release/vX.Y.Z`, bump versions and changelog, run full CI, QA on staging, merge to `main`, tag, deploy.
-- **Hotfix:** Branch from `main` as `hotfix/<slug>`, minimal fix, PR to `main`, tag, cherry-pick/back-merge to `develop` (if used).
-  **[NEW]**
+### 7.1 Release Flow (Develop-First Stacked PRs)
+
+The release flow uses a **develop-first stacked PR model** to ensure all release changes integrate to `develop` before merging to `main`:
+
+**Architecture:**
+
+```
+develop (feature work integrated)
+    ↓
+release/vX.Y.Z (agent-created, from develop)
+    ↓
+[STACKED PR #1] release/vX.Y.Z → develop (changelog + version bump)
+    ↓ (after PR #1 merges)
+[STACKED PR #2] release/vX.Y.Z → main (release to production)
+    ↓ (after PR #2 merges)
+post-release-sync (chore: main → develop, automatic)
+```
+
+**Flow:**
+
+1. **Prepare on develop:**
+   - Ensure all features merged to `develop`.
+   - Verify `CHANGELOG.md` has unreleased entries.
+   - Confirm no uncommitted changes (`git status`).
+   - Verify actor is in `maintainers` team (authorization required).
+
+2. **Trigger release workflow:**
+   - Go to **Actions** → **release** → **Run workflow**.
+   - Configure: `scope` (patch/minor/major), `provider` (shell/mcp), `dry_run` (true/false).
+   - Workflow validates actor, runs lint/tests, triggers release agent.
+
+3. **Agent creates `release/vX.Y.Z` branch:**
+   - Bumps `VERSION` file.
+   - Updates `CHANGELOG.md`: rolls `[Unreleased]` to `[X.Y.Z] - YYYY-MM-DD`.
+   - Commits: `"chore: Release vX.Y.Z"`.
+   - Creates **PR #1**: `release/vX.Y.Z` → `develop`.
+
+4. **Developer reviews and merges PR #1:**
+   - Open PR #1, verify changelog and version bump.
+   - Approve and merge to `develop`.
+
+5. **Agent creates **PR #2** (stacked):**
+   - After PR #1 merges, agent automatically creates **PR #2**: `release/vX.Y.Z` → `main`.
+   - Includes compiled release notes (from CHANGELOG + merged PRs).
+   - Creates annotated tag `vX.Y.Z`.
+
+6. **Developer reviews and merges PR #2:**
+   - Open PR #2, verify release notes.
+   - Approve and merge to `main`.
+   - GitHub Release publishes automatically.
+
+7. **Post-release sync (automatic):**
+   - `post-release-sync` workflow runs after PR #2 merges.
+   - Creates `chore/post-release-sync-main-to-develop` branch.
+   - Merges `main` → `develop` to keep branches synchronized.
+   - Developer merges the sync PR.
+
+**Authorization gating:**
+
+- Only `workflow_dispatch` and `workflow_call` trigger events allowed.
+- Actor must be member of `maintainers` team.
+- Unauthorized attempts logged in `trigger-telemetry.json`; workflow fails immediately.
+- See [Release Process](./RELEASE_PROCESS.md#authorization-gating) for full details.
+
+### 7.2 Hotfix Flow
+
+Hotfixes are urgent production fixes merged directly to `main`:
+
+1. **Create hotfix branch from `main`:**
+
+   ```bash
+   git checkout main
+   git pull origin main
+   git checkout -b hotfix/fix-description
+   ```
+
+2. **Minimal fix + tests:**
+   - Single fix only; no feature work.
+   - Update tests; confirm all pass locally.
+
+3. **PR to `main`:**
+   - Open PR `hotfix/...` → `main`.
+   - Required checks: lint, tests, changelog (if applicable).
+   - Approve and merge to `main`.
+
+4. **Tag and release:**
+   - Agent tags `vX.Y.Z-hotfix.N` or similar (per semantic versioning).
+   - GitHub Release published.
+
+5. **Back-merge to `develop`:**
+   - Cherry-pick the hotfix commit to `develop`, or
+   - Create PR: `main` → `develop` to sync the hotfix.
+   - Resolve any conflicts if `develop` has diverged.
+
+**[NEW]**
+
 - Always update release notes and changelog for each release/hotfix, even when changes seem minor.
+- Use `release/` prefix for normal version bumps; use `hotfix/` for urgent production fixes only.
 
 ---
 
