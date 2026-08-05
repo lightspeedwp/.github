@@ -45,12 +45,13 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 
 **Phase 1 Audits Completed (2026-08-05):** Comprehensive audits of instructions, schemas, and agents.
 
-The repository restructuring initiative includes Phase 1 audits that map all portable and control-plane assets. Phase 1 audit reports are available in [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/):
+The repository restructuring initiative includes Phase 1 audits that map all portable and control-plane assets. Phase 1 audit reports are available in [.github/projects/active/repo-restructuring-2026-07-25/](./.github/projects/active/repo-restructuring-2026-07-25/):
 
 **Phase 1 Audit Reports (Completed 2026-08-05):**
+
 - **INSTRUCTION_FILES_AUDIT_2026-08-05.md** — 58 instruction files mapped (27 portable, 17 local, 15 archived; 502+ references)
 - **SCHEMA_AUDIT_REPORT.md** — 25 core schemas across 3 locations; consolidation plan
-- **AGENT-AUDIT-COMPREHENSIVE.md** — 37 agents (19 spec-based, 16 multi-file; 788+ references)
+- **AGENT-AUDIT-COMPREHENSIVE.md** — 35 agents (19 spec-based, 16 multi-file; 788+ references)
 
 **Historical Reference:** Restructuring phases completed and planned:
 
@@ -65,6 +66,7 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 | **Agents** | `.github/agents/` (mixed) | `agents/` + `.github/agents/` (split) | Reorganize | Phase 3 (audit complete) |
 
 **Schema consolidation note:** Three schema folders currently exist due to incremental migration:
+
 - `schema/` — old location (25 files, deprecated, source for consolidation)
 - `schemas/` — visible root (25 files, npm-referenced, currently used)
 - `.schemas/` — hidden target (23 files, incomplete, destination for consolidation)
@@ -74,11 +76,13 @@ The Phase 1B audit identified all 25 core schemas and consolidation path. Phase 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
 
 **Portable scripts (root location, Phase 2B):**
+
 - From `scripts/validation/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/` at repo root
 - From `scripts/agents/includes/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
 - From `scripts/workflows/changelog/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
 
 **Control-plane scripts (.github location, Phase 1):**
+
 - From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root (or `.schemas/` once consolidated in Phase 3)
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
@@ -390,7 +394,7 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 - Installable and reusable in other LightSpeedWP projects
 - Examples: PRD-Agent (1,637 files), Playwright-Testing-Agent (458 files)
 
-**Total: 37 agents (12,459 files), 788+ references across codebase**
+**Total: 35 agents (19 spec-based + 16 multi-file; 12,459 files), 788+ references across codebase**
 
 **Key Principle:** Portable agents (Tier 2) go to root `agents/` directory. Control-plane-specific agents (Tier 1) remain in `.github/agents/`.
 
@@ -414,7 +418,7 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 
 **Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. The older `schema/` and `schemas/` folders are maintained for backward compatibility during consolidation; see [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details.
 
-**Instruction files note:** Portable instruction files live in root `instructions/` folder. Repo-local control-plane instructions remain in `.github/instructions/`. See Phase 1A audit report in [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for complete migration mapping.
+**Instruction files note:** Portable instruction files live in root `instructions/` folder. Repo-local control-plane instructions remain in `.github/instructions/`. See Phase 1A audit report in [.github/projects/active/repo-restructuring-2026-07-25/](./.github/projects/active/repo-restructuring-2026-07-25/) for complete migration mapping.
 
 **Documentation Standards note (Phase 3A):** Comprehensive standards for creating agents, skills, instructions, workflows, plugins, and other AI infrastructure are maintained in `docs/`. These 9 standards documents are the authoritative reference for all AI-driven work. See [AGENTS.md#documentation-standards](./AGENTS.md#documentation-standards) for the complete quick reference guide.
 
@@ -450,7 +454,7 @@ Located in root `instructions/` directory:
 
 **Key reference documents:**
 
-- [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) — Phase 1 audit reports (instructions, schemas, agents)
+- [.github/projects/active/repo-restructuring-2026-07-25/](./.github/projects/active/repo-restructuring-2026-07-25/) — Phase 1 audit reports (instructions, schemas, agents)
 - [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLATE/config.yml) — issue template routing
 - [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/config.yml) — PR template routing
 

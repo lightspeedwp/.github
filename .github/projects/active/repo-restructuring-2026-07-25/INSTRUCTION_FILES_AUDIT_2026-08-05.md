@@ -1,3 +1,21 @@
+---
+file_type: audit-report
+title: Instruction Files Comprehensive Audit Report
+description: Complete inventory and analysis of all .instructions.md files across portable and control-plane locations
+version: v1.0
+last_updated: '2026-08-05'
+owners:
+  - AI Operations Team
+tags:
+  - audit
+  - instructions
+  - phase-1-restructuring
+  - governance
+status: complete
+stability: stable
+domain: documentation
+---
+
 # Instruction Files Comprehensive Audit Report
 
 **Initiative:** Repository Restructuring #1299  
@@ -9,15 +27,17 @@
 
 ## Executive Summary
 
-- **Total instruction files:** 58 (43 active, 15 archived)
+- **Total instruction files:** 58 (43 active + 15 archived in separate `.github/instructions/.archive/` folder)
 - **Total lines of documentation:** 11,082 across all files
-- **Portable (organization-wide):** 27 files (47%)
-- **Repo-local (control-plane specific):** 17 files (29%)
-- **Archived (pending consolidation):** 15 files (26%)
+- **Portable (organisation-wide):** 27 files (47% of active)
+- **Repo-local (control-plane specific):** 17 files (29% of active)
+- **Archived (pending consolidation):** 15 files (26%, stored separately in archive)
 - **High-touch files (10+ references each):** 12 files requiring careful migration
 - **Total references across codebase:** 502+ references in 156+ files
-- **Duplicate files identified:** 2-3 pairs requiring consolidation
+- **Duplicate files identified:** 2–3 pairs requiring consolidation
 - **Files with unspecified scope:** 10 files needing frontmatter updates
+
+**Clarification:** The 27 portable + 17 repo-local = 44 active files (not 43, reflects updated active count). The 15 archived files are stored in a separate archive folder and are not included in the 44-file active count.
 
 ---
 
@@ -54,28 +74,28 @@ These files have significant reference footprint and require careful planning du
 
 | File | References | Lines | Scope | Description |
 |------|------------|-------|-------|-------------|
-| `coding-standards.instructions.md` | 76 | 128 | organization-wide | Unified coding standards for all LightSpeedWP projects |
-| `pull-requests.instructions.md` | 40 | 244 | organization-wide | Canonical instructions for creating, labeling, and submitting PRs |
-| `documentation-formats.instructions.md` | 32 | 638 | organization-wide | Unified standards for Markdown, YAML frontmatter, Mermaid |
+| `coding-standards.instructions.md` | 76 | 128 | organisation-wide | Unified coding standards for all LightSpeedWP projects |
+| `pull-requests.instructions.md` | 40 | 244 | organisation-wide | Canonical instructions for creating, labeling, and submitting PRs |
+| `documentation-formats.instructions.md` | 32 | 638 | organisation-wide | Unified standards for Markdown, YAML frontmatter, Mermaid |
 | `automation.instructions.md` | 24 | 786 | repo-local | Comprehensive standards for GitHub automation agents and workflows |
-| `quality-assurance.instructions.md` | 24 | 573 | organization-wide | Testing, validation, and quality assurance standards |
-| `languages.instructions.md` | 19 | 449 | organization-wide | Unified linting and formatting standards for all languages |
-| `file-organisation.instructions.md` | 16 | 669 | organization-wide | File placement rules and directory structure conventions |
-| `community-standards.instructions.md` | 15 | 692 | organization-wide | Community health standards and naming conventions |
+| `quality-assurance.instructions.md` | 24 | 573 | organisation-wide | Testing, validation, and quality assurance standards |
+| `languages.instructions.md` | 19 | 449 | organisation-wide | Unified linting and formatting standards for all languages |
+| `file-organisation.instructions.md` | 16 | 669 | organisation-wide | File placement rules and directory structure conventions |
+| `community-standards.instructions.md` | 15 | 692 | organisation-wide | Community health standards and naming conventions |
 | `agent-spec.instructions.md` | 14 | 136 | repo-local | How to design and write LightSpeed Copilot agent specifications |
-| `a11y.instructions.md` | 13 | 394 | organization-wide | WCAG 2.2 AA accessibility standards and guidance |
-| `linting.instructions.md` | 13 | 211 | organization-wide | Master index for all linting instructions |
-| `issues.instructions.md` | 12 | 172 | organization-wide | Canonical instructions for creating and labeling issues |
+| `a11y.instructions.md` | 13 | 394 | organisation-wide | WCAG 2.2 AA accessibility standards and guidance |
+| `linting.instructions.md` | 13 | 211 | organisation-wide | Master index for all linting instructions |
+| `issues.instructions.md` | 12 | 172 | organisation-wide | Canonical instructions for creating and labeling issues |
 
 ---
 
 ## Organization: Portable vs Repo-Local Split
 
-### Portable (Organization-Wide) — 27 files
+### Portable (Organisation-Wide) — 27 files
 
 These files are reusable standards intended to be copied or referenced across all LightSpeedWP projects.
 
-**Coding & Quality (11 files)**
+**Coding & Quality (12 files)**
 
 - `coding-standards.instructions.md` (76 refs) — Core reference for development standards
 - `quality-assurance.instructions.md` (24 refs) — Testing pyramid and coverage targets
@@ -100,7 +120,7 @@ These files are reusable standards intended to be copied or referenced across al
 - `wordpress-project-planning.instructions.md` (2 refs)
 - `pr-automation-review.instructions.md` (1 ref)
 
-**AI & Operations (8 files)**
+**AI & Operations (7 files)**
 
 - `agent-creation-workflow.instructions.md` (8 refs)
 - `copilot-operations.instructions.md` (6 refs)
@@ -253,7 +273,7 @@ Before cleaning the archive, audit all 40 references to determine if they should
 Add explicit `scope:` field to all files:
 
 ```yaml
-scope: organization-wide  # or repo-local or control-plane-specific
+scope: organisation-wide  # or repo-local or control-plane-specific
 ```
 
 ### Challenge 5: Directory Organization Violations (MODERATE)
@@ -304,7 +324,7 @@ scope: organization-wide  # or repo-local or control-plane-specific
 - `task-implementation.instructions.md` (189 lines, 5 refs)
 - `issue-templates.instructions.md` (95 lines, 1 ref)
 - `pr-templates.instructions.md` (108 lines, 1 ref)
-- **Subtotal: 2,456 lines**
+- **Subtotal: 2,457 lines**
 
 **Documentation & Development Process (8 files)**
 
@@ -330,7 +350,7 @@ scope: organization-wide  # or repo-local or control-plane-specific
 - `multi-platform-skill-manifests.instructions.md` (147 lines, 1 ref)
 - **Subtotal: 677 lines**
 
-**Total Portable:** 27 files, 6,610 lines, 221 references
+**Total Portable:** 27 files, 6,611 lines, 221 references
 
 ### Repo-Local Files by Category (17 files, 2,505 lines)
 
@@ -369,7 +389,7 @@ scope: organization-wide  # or repo-local or control-plane-specific
 
 **Total Repo-Local:** 17 files, 2,900 lines, 83 references
 
-### Archived Files (15 files, 1,567 lines, 40 references)
+### Archived Files (15 files, 1,677 lines, 40 references)
 
 Located in `.github/instructions/.archive/`:
 
@@ -456,7 +476,7 @@ Referenced in:
 
 ### TIER-2 HIGH — Significant Reference Updates Required
 
-**Files with 12-24 references:**
+**Files with 12–24 references:**
 
 - `automation.instructions.md` (24 refs)
 - `quality-assurance.instructions.md` (24 refs)
@@ -514,14 +534,14 @@ Referenced in:
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Total instruction files** | 58 | 43 active + 15 archived |
+| **Total instruction files** | 58 | 44 active + 15 archived (separate) |
 | **Total lines of documentation** | 11,082 | Compressed ~190 KB |
-| **Portable (org-wide)** | 27 (47%) | Reusable across LightSpeedWP |
-| **Repo-local (control-plane)** | 17 (29%) | Specific to .github repository |
-| **Archived (pending review)** | 15 (26%) | Awaiting consolidation/cleanup |
-| **High-touch files (10+ refs)** | 12 (21%) | Require careful migration planning |
+| **Portable (organisation-wide)** | 27 (61% of active) | Reusable across LightSpeedWP |
+| **Repo-local (control-plane)** | 17 (39% of active) | Specific to .github repository |
+| **Archived (separate folder)** | 15 (26% of total) | Awaiting consolidation/cleanup |
+| **High-touch files (10+ refs)** | 12 (27% of active) | Require careful migration planning |
 | **Files with unspecified scope** | 10 | Need frontmatter updates |
-| **Duplicate files** | 2-3 pairs | Immediate consolidation needed |
+| **Duplicate files** | 2–3 pairs | Immediate consolidation needed |
 | **References across codebase** | 502+ | In 156+ files across entire repo |
 | **Archived files with active refs** | 15 | 40+ references to consolidate |
 | **Files requiring scope field** | 10 | Missing frontmatter classification |
@@ -621,7 +641,7 @@ repository/
 **Owner:** AI Operations  
 **Estimated Effort:** 16 hours
 
-### Phase P1: Consolidation (Week 2-3)
+### Phase P1: Consolidation (Week 2–3)
 
 **Deliverables:**
 
