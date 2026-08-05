@@ -34,13 +34,10 @@
  *   --verbose              Show detailed logging
  */
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { glob } from "glob";
-import * as yaml from "js-yaml";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const fs = require("fs");
+const path = require("path");
+const { glob } = require("glob");
+const yaml = require("js-yaml");
 
 // ============================================================================
 // CONFIGURATION
@@ -116,11 +113,11 @@ function extractFrontmatterSafely(content) {
  * @returns {boolean} - True if footer signature found
  */
 function hasFooter(content) {
-  // Check for footer markers
+  // Check for specific footer markers (NOT just "---" which appears in frontmatter)
   const footerMarkers = [
     "Maintained by the 🤖 LightSpeedWP",
-    "---",
     "_🤖 Maintained by",
+    "LightSpeedWP Automation Team",
   ];
 
   return footerMarkers.some((marker) => content.includes(marker));
@@ -275,10 +272,14 @@ async function main() {
 }
 
 // Export functions for testing
-export { extractFrontmatterSafely, hasFooter, injectFooterSafely };
+module.exports = {
+  extractFrontmatterSafely,
+  hasFooter,
+  injectFooterSafely,
+};
 
 // Run main if this is the entry point
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
   main().catch((error) => {
     console.error("❌ Fatal error:", error.message);
     process.exit(1);

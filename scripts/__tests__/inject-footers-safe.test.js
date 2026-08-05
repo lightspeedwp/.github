@@ -8,12 +8,12 @@
  * - Footer detection and skipping
  */
 
-import { describe, it, expect } from "@jest/globals";
-import {
+const { describe, it, expect } = require("@jest/globals");
+const {
   extractFrontmatterSafely,
   hasFooter,
   injectFooterSafely,
-} from "../inject-footers-safe.js";
+} = require("../inject-footers-safe.js");
 
 describe("Safe Footer Injection", () => {
   describe("extractFrontmatterSafely", () => {

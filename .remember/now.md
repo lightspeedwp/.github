@@ -14,3 +14,11 @@ Phase 2B Batch 2 executed: migrated 10 agent utils to `scripts/agents/includes/`
 ## 13:26 | chore/phase-3-copilot-review-fixes
 
 Audited PRs #1534 (merged without CodeRabbit feedback) and #1538 (closed with unresolved Copilot feedback); removed invalid file_type entries from 33 agent.md files; identified governance violations requiring remediation.
+
+## 13:28 | chore/footer-automation-redesign
+
+Audited inject-footers.js, found truncation bug; created inject-footers-safe.js w/ tests, dry-run verified, updated issue #1531 w/ audit report, PR created.
+
+## 13:30 | claude/issues-needs-more-info-1cbeb6
+
+Cleaned 30+ issues (labels/assign/v1.0 milestone/DoR/DoD), reviewed 6 PRs (#1591, #1582, #1541, #1540, #1538, #1529), scanned closed issues for incomplete checklists.
