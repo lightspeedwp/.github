@@ -101,7 +101,7 @@ function shouldSkipMeta(filePath, content) {
       ) {
         return true;
       }
-    } catch (e) {
+    } catch (_e) {
       // Continue if front matter parsing fails
     }
   }
@@ -366,13 +366,13 @@ function applyHeader(content) {
 function updateReadmeStructure(content, filePath) {
   // TODO: Implement logic to ensure required sections (Overview, Features, etc.) exist in the root README.md.
   // Ensure proper heading hierarchy
-  let lines = content.split("\n");
+  let _lines = content.split("\n");
 
   // Check for required sections in repository root README
   const fileName = path.basename(filePath);
   if (fileName === "README.md" && path.dirname(filePath) === process.cwd()) {
     // Root README should have standard sections
-    const requiredSections = [
+    const _requiredSections = [
       "## Overview",
       "## Features",
       "## Installation",

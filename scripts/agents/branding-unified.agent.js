@@ -60,7 +60,7 @@ function loadBrandingConfig() {
 /**
  * Load frontmatter schema
  */
-function loadFrontmatterSchema() {
+function _loadFrontmatterSchema() {
   const projectRoot = getProjectRoot();
   const schemaPath = path.join(projectRoot, ".schemas/frontmatter.schema.json");
   if (!fs.existsSync(schemaPath)) {
@@ -466,7 +466,7 @@ function processBrandingDocument(filePath, options = {}) {
   const {
     dry_run = true,
     apply = false,
-    verbose = false,
+    _verbose = false,
     infer_missing_metadata = false,
   } = options;
 

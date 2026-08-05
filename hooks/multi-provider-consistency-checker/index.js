@@ -197,7 +197,7 @@ function readProviders(agentPath) {
   try {
     const fm = yaml.load(match[1]);
     return Array.isArray(fm.providers) ? fm.providers : [];
-  } catch (error) {
+  } catch (_error) {
     return [];
   }
 }

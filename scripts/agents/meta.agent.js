@@ -101,7 +101,7 @@ function shouldSkipMeta(filePath, content) {
       ) {
         return true;
       }
-    } catch (e) {
+    } catch (_e) {
       // Continue if front matter parsing fails
     }
   }

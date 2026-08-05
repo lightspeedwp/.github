@@ -107,7 +107,7 @@ function applyBrandingAgent(filePath, dryRun = true) {
 /**
  * Generate remediation report
  */
-function generateRemediationReport(results, config) {
+function generateRemediationReport(results, _config) {
   const report = [];
   const timestamp = new Date().toISOString();
 
