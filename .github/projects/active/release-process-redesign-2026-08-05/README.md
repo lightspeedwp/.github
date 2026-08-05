@@ -1,9 +1,14 @@
 ---
+file_type: markdown
 title: "Release Process Redesign Project"
 description: "Complete audit, redesign, and implementation of release workflow, documentation, and governance"
-status: "ACTIVE"
-phase: "Requirements Gathering"
-start_date: "2026-08-05"
+status: active
+version: "1.0"
+last_updated: "2026-08-05"
+owners: ["Ash Shaw"]
+tags: ["release", "automation", "documentation", "project"]
+stability: stable
+domain: "Release Engineering"
 ---
 
 # Release Process Redesign Project

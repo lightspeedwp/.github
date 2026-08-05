@@ -1,9 +1,12 @@
 ---
-title: Release Process Redesign Questionnaire
-description: 50 questions to guide comprehensive release workflow and documentation redesign
-date: "2026-08-05"
+file_type: markdown
+title: "Release Process Redesign Questionnaire"
+description: "50 questions to guide comprehensive release workflow and documentation redesign"
+status: active
 version: "1.0"
-status: "ACTIVE"
+last_updated: "2026-08-05"
+owners: ["Ash Shaw"]
+tags: ["questionnaire", "release", "design"]
 ---
 
 # Release Process Redesign Questionnaire

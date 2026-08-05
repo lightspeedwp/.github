@@ -1,8 +1,12 @@
 ---
+file_type: markdown
 title: "OpenSpec Analysis Report — Release Process V2"
 description: "Formal specification generated from questionnaire analysis (50 questions, 15 issues, multi-repo architecture)"
-date: "2026-08-05"
-status: "COMPLETE - READY FOR IMPLEMENTATION"
+status: active
+version: "1.0"
+last_updated: "2026-08-05"
+owners: ["Ash Shaw"]
+tags: ["specification", "openspec", "release", "analysis"]
 ---
 
 # OpenSpec Analysis Report

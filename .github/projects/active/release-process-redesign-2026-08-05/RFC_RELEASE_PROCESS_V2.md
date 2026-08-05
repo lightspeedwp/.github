@@ -1,8 +1,13 @@
 ---
+file_type: markdown
 title: "RFC: Release Process V2 — Multi-Repo Support & Governance"
 description: "Request for Comments on release process redesign covering control plane, WordPress plugins, and themes"
-status: "DRAFT - AWAITING QUESTIONNAIRE ANSWERS"
-date: "2026-08-05"
+status: draft
+version: "1.0"
+last_updated: "2026-08-05"
+owners: ["Ash Shaw"]
+tags: ["rfc", "release", "multi-repo", "automation"]
+stability: stable
 ---
 
 # RFC: Release Process V2 — Multi-Repo Support & Governance
