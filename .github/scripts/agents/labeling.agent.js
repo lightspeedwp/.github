@@ -23,7 +23,6 @@ import * as yaml from "js-yaml";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import {
-  fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
 } from "../../../scripts/agents/includes/label-lookup.js";
