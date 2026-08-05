@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllAgents } from "../../lib/agents";
-import { getWceuSlides } from "../../lib/wceuSlides";
 
 export async function getStaticPaths() {
   return getAllAgents().map((agent) => ({
@@ -15,11 +14,6 @@ const { agent } = Astro.props;
 if (!agent) {
   throw new Error("Agent data was not provided.");
 }
-
-const slidePathByNumber = new Map(
-  getWceuSlides().map((slide) => [slide.number, slide.pageHref]),
-);
-const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? "/wceu-2026/slides/";
 ---
 
 <BaseLayout
@@ -32,8 +26,6 @@ const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? 
     <p class="lede">{agent.description}</p>
     <div class="hero-actions">
       <a class="button primary" href="/agents/">Back to Agents</a>
-      <a class="button secondary" href={primarySlideHref}>See in Presentation</a>
-      <a class="button secondary" href="/wceu-2026/slides/">All Slides</a>
     </div>
   </section>
 
