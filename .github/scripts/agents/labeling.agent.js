@@ -23,7 +23,7 @@ import * as yaml from "js-yaml";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import {
-  _fetchCanonicalLabels,
+  fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
 } from "../../../scripts/agents/includes/label-lookup.js";
@@ -39,7 +39,7 @@ import {
 } from "../../../scripts/agents/includes/labeler-utils.js";
 import {
   buildLabelingReport,
-  _formatErrors,
+  formatErrors,
 } from "../../../scripts/agents/includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
