@@ -4,7 +4,7 @@ title: Playwright Testing Agent — GitHub Copilot Configuration
 description: >-
   GitHub Copilot configuration for the Playwright Testing Agent: skills, chat
   response format, and Actions integration. Layers on shared/core-prompt.md.
-last_updated: '2026-07-22'
+last_updated: '2026-08-05'
 domain: generic
 tags:
   - playwright
