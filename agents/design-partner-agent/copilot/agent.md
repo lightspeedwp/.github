@@ -1,5 +1,5 @@
 ---
-provider: 'github-copilot'
+provider: 'copilot'
 agent_slug: 'design-partner'
 agent_name: 'Design Partner Agent (GitHub Copilot)'
 status: 'production'
