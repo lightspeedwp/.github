@@ -68,8 +68,8 @@ const CONFIG = {
 // ============================================================================
 
 /**
- * SAFE: Extract frontmatter from lines 1-3 ONLY
- * Pattern: ^---\n...\n---\n
+ * SAFE: Extract frontmatter from lines 0-2 ONLY (first 3 lines)
+ * Pattern: ^---\n...\n---\n (strict 3-line limit, not actual YAML closing)
  *
  * @param {string} content - File content
  * @returns {{frontmatter: string, body: string}} - Separated frontmatter and body
@@ -82,28 +82,17 @@ function extractFrontmatterSafely(content) {
     return { frontmatter: "", body: content };
   }
 
-  // Find closing --- (should be line 3 or earlier)
-  let closingLineIndex = -1;
-  for (let i = 1; i < Math.min(lines.length, 10); i++) {
-    if (lines[i].startsWith("---")) {
-      closingLineIndex = i;
-      break;
-    }
+  // SAFETY: Only take lines 0-2 (first 3 lines max), regardless of actual YAML structure
+  // This prevents extracting overly long frontmatter sections
+  if (lines.length >= 3) {
+    const frontmatterLines = lines.slice(0, 3);
+    const frontmatter = frontmatterLines.join("\n") + "\n";
+    const body = lines.slice(3).join("\n");
+    return { frontmatter, body };
   }
 
-  if (closingLineIndex === -1) {
-    // No closing ---, treat as body
-    return { frontmatter: "", body: content };
-  }
-
-  // Extract frontmatter (lines 0 to closingLineIndex inclusive, plus newline)
-  const frontmatterLines = lines.slice(0, closingLineIndex + 1);
-  const frontmatter = frontmatterLines.join("\n") + "\n";
-
-  // Extract body (everything after frontmatter)
-  const body = lines.slice(closingLineIndex + 1).join("\n");
-
-  return { frontmatter, body };
+  // If file has fewer than 3 lines, treat entire thing as body
+  return { frontmatter: "", body: content };
 }
 
 /**
