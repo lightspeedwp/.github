@@ -237,7 +237,7 @@ function parseStyleDeclarations(diagramRaw) {
  * @param {string} theme  Detected diagram theme
  * @returns {Array<{level: 'error'|'warning', message: string}>}
  */
-function validateStyleContrast(styleDecl, theme) {
+function validateStyleContrast(styleDecl, _theme) {
   const issues = [];
   const { nodeId, fill, color } = styleDecl;
 

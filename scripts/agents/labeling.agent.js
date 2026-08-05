@@ -23,7 +23,7 @@ import * as yaml from "js-yaml";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import {
-  fetchCanonicalLabels,
+  _fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
 } from "./includes/label-lookup.js";
@@ -39,12 +39,12 @@ import {
 } from "./includes/labeler-utils.js";
 import {
   buildLabelingReport,
-  formatErrors,
+  _formatErrors,
 } from "./includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
-const ISSUE_TYPES_CONFIG =
+const _ISSUE_TYPES_CONFIG =
   process.env.ISSUE_TYPES_CONFIG || ".github/issue-types.yml";
 const LABELER_RULES = process.env.LABELER_RULES || ".github/labeler.yml";
 

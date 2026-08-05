@@ -297,7 +297,7 @@ function ensureFooter(file, options = {}) {
  * @param {object} options - Options: { backup: boolean, category: string, seed: string }
  * @returns {Promise<boolean>} true if successful
  */
-async function insertHeaderFooter(filePath, config = {}, options = {}) {
+async function insertHeaderFooter(filePath, _config = {}, options = {}) {
   const { backup = false, category = "default", seed = null } = options;
 
   if (!fs.existsSync(filePath)) {

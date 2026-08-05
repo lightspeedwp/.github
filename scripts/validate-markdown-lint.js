@@ -69,7 +69,7 @@ try {
   execFileSync("npx", ["markdownlint-cli2", ...filteredFiles], {
     stdio: "inherit",
   });
-} catch (error) {
+} catch (_error) {
   console.error("Markdown linting failed");
   process.exit(1);
 }

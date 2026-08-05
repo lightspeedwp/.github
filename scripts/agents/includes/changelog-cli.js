@@ -83,7 +83,7 @@ function generateEntriesFromCommits(since = "origin/develop..HEAD") {
       if (prMatch) {
         prNumber = prMatch[1];
       }
-    } catch (e) {
+    } catch (_e) {
       // Ignore if not on a branch
     }
 

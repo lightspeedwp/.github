@@ -66,13 +66,13 @@ function loadPlannerWithMocks(harness) {
 }
 
 describe("planner.agent run", () => {
-  let exitSpy;
+  let _exitSpy;
 
   beforeEach(() => {
     process.env.GITHUB_TOKEN = "test-token";
     delete process.env.DRY_RUN;
 
-    exitSpy = jest.spyOn(process, "exit").mockImplementation((code) => {
+    _exitSpy = jest.spyOn(process, "exit").mockImplementation((code) => {
       throw new Error(`process.exit:${code}`);
     });
   });
