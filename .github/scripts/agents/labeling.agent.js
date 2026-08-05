@@ -36,10 +36,7 @@ import {
   fetchLabelerRules,
   applyLabelerRules,
 } from "../../../scripts/agents/includes/labeler-utils.js";
-import {
-  buildLabelingReport,
-  formatErrors,
-} from "../../../scripts/agents/includes/label-reporting.js";
+import { buildLabelingReport } from "../../../scripts/agents/includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
