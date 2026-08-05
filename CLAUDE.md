@@ -31,7 +31,7 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | --- | --- |
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications (multi-file implementations) |
-| `schemas/` | JSON schema definitions (visible, portable) |
+| `.schemas/` | JSON schema definitions (root, hidden, portable) |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -49,18 +49,25 @@ During the 2026-08-02 repository restructuring (Phase 1), the following location
 
 | Component | Old Path | New Path | Type |
 | --- | --- | --- | --- |
-| **Schema files** | `schema/` | `schemas/` (root, visible) | Consolidation |
-| **Scripts** | `scripts/` | `.github/scripts/` | Move to .github |
+| **Schema files** | `schema/` | `.schemas/` (root, hidden, portable) | Consolidation |
+| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then back to portable root |
 | **Website** | `website/` | `.github/website/` | Move to .github |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github |
-| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `.github/scripts/validation/validate-frontmatter.js:../../../schemas/` | Updated script path |
+| **Frontmatter schema** | `scripts/validation/validate-frontmatter.js:../../schema/` | `scripts/validation/validate-frontmatter.js:../../../.schemas/` → `.schemas/` | Updated script path |
 | **npm scripts** | `package.json schema/**` | `package.json schemas/**` | Updated glob pattern |
 
-**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
+**For script maintainers:** If you reference schemas or other assets, use **relative paths from script location** to reach `.schemas/` at repo root:
 
-- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
-- From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/`
-- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+**Portable scripts (root location):**
+
+- From `scripts/validation/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/` at repo root
+- From `scripts/agents/includes/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/` at repo root
+- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/` at repo root
+
+**Control-plane scripts (.github location):**
+
+- From `.github/scripts/agents/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/`
+- From `.github/scripts/workflows/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the Phase 1 restructuring epic and [.github/projects/active/repo-restructuring-2026-07-25/](./projects/active/repo-restructuring-2026-07-25/) for documentation.
 
@@ -259,6 +266,42 @@ Templates located in `.github/ISSUE_TEMPLATE/`:
 - Flags non-compliant issues with `status:needs-more-info` label
 - See [AGENTS.md](./AGENTS.md) for programmatic issue creation guidance
 
+### AI Feedback PR Review Validation
+
+**New Feature:** Automated workflow to ensure AI feedback in PRs is reviewed, documented, and tracked.
+
+**Workflow:** `.github/workflows/ai-feedback-validation.yml`
+
+- Validates PR links to one or more GitHub issues (`Resolves #123`, `Closes #456`)
+- Checks for `FEEDBACK_RESPONSE.md` tracking file with feedback documentation
+- Validates feedback status markers: `✅ Addressed`, `📋 Deferred`, `❌ Rejected`
+- Ensures addressed items reference commits, deferred items reference issues
+- Posts helpful validation comments with actionable guidance
+
+**For PR Authors:**
+
+1. Link PR to issue(s): `Resolves #123` in PR description
+2. Copy template: `cp .github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md ./FEEDBACK_RESPONSE.md`
+3. Document AI feedback: add rows to feedback response table
+4. Assign status: `✅ Addressed`, `📋 Deferred`, or `❌ Rejected`
+5. Commit and push — validation runs automatically
+
+**Key Resources:**
+
+- **Quick Reference:** [docs/QUICK_REFERENCE_AI_FEEDBACK.md](./docs/QUICK_REFERENCE_AI_FEEDBACK.md) — 4-step guide
+- **Full Guide:** [docs/ai-feedback-response-tracking.md](./docs/ai-feedback-response-tracking.md) — Comprehensive guide with examples
+- **Workflow Details:** [docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md](./docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md) — Technical configuration
+- **Template:** [PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md](./PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md) — Template to copy
+- **Examples:** [examples/FEEDBACK_RESPONSE_example-simple.md](./examples/FEEDBACK_RESPONSE_example-simple.md) and [examples/FEEDBACK_RESPONSE_example-complex.md](./examples/FEEDBACK_RESPONSE_example-complex.md)
+
+**What This Enables:**
+
+✅ **Automatic validation** — Every PR validated for issue linking and feedback tracking  
+✅ **Clear decisions** — Document whether feedback is addressed, deferred, or rejected  
+✅ **Process enforcement** — Workflow prevents merge without proper issue links  
+✅ **Team consistency** — Same process across all PRs  
+✅ **Transparent tracking** — All feedback decisions visible in commit history
+
 ### Before Every Push
 
 1. Verify the current branch: `git branch -v`
@@ -332,7 +375,7 @@ npm run validate:frontmatter
 
 ## Related Files
 
-**Organization-wide instructions** (reusable across all LightSpeedWP repos):
+**Organisation-wide instructions** (reusable across all LightSpeedWP repos):
 
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
 - [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards

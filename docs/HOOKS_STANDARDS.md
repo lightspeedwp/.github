@@ -18,6 +18,8 @@ Hooks are JavaScript/TypeScript functions that execute in response to specific e
 
 ```mermaid
 graph LR
+    accTitle: Hook execution lifecycle
+    accDescr: Illustrates the event-driven lifecycle of hooks from trigger through loading, execution, result handling, and continuation or blocking of operations.
     A["Event<br/>Triggered"] --> B["Load Hook<br/>Handler"]
     B --> C["Extract<br/>Context"]
     C --> D["Execute<br/>Hook"]
@@ -71,6 +73,8 @@ Hooks differ from middleware:
 
 ```mermaid
 graph TD
+    accTitle: Hook type selection tree
+    accDescr: Decision tree for selecting the appropriate hook type based on the required functionality, from validation to policy enforcement.
     A{"What should<br/>happen?"} -->|Check<br/>conditions| B["Validation Hook"]
     A -->|Transform<br/>data| C["Preprocessing Hook"]
     A -->|React to<br/>event| D["Event Hook"]
