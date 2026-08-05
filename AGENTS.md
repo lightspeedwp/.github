@@ -350,6 +350,51 @@ gh issue create --title "Bug title" --body "$BODY"
 
 ---
 
+## Label Creation for Programmatic Issue Creation
+
+When your code creates issues via `gh issue create` or GitHub API:
+
+1. **Always validate labels against canonical set** (`.github/labels.yml`)
+2. **All labels MUST include family prefix**:
+   - `type:*` for issue classification (bug, feature, documentation, task, design, etc.)
+   - `status:*` for workflow state (needs-triage, ready, in-progress, blocked, done, etc.)
+   - `priority:*` for urgency (critical, important, normal, minor)
+   - `area:*` for domain/component (ci, docs, security, labels, tests, scripts, etc.)
+   - `meta:*` for automation markers (needs-changelog, has-pr, duplicate, etc.)
+
+**Example: Creating an issue with correct labels**
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:block-editor" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "block-editor" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+**Validation Checklist**
+
+Before creating any issue programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, etc.)
+- [ ] No bare labels (labels without colons are invalid)
+- [ ] Root cause analysis: [Label Prefix Enforcement Project](./.github/projects/active/label-prefix-enforcement-2026-08-05/)
+
+---
+
 ## Contribution Guidelines & Indexes (Phase 1A Consolidated)
 
 | Area                      | File Reference (Phase 1A) | Scope | Type |
