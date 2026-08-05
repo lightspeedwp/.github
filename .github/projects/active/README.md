@@ -1,7 +1,7 @@
 ---
 title: "Active Projects Index"
 description: "Comprehensive index of all active projects, initiatives, and work in progress for the LightSpeed .github control plane"
-file_type: index
+file_type: readme
 version: v2.0
 last_updated: "2026-08-05"
 created_date: "2025-12-08"
