@@ -21,7 +21,7 @@ let detectIssueTypeFromContent;
 try {
   const labelingAgent = require("./labeling.agent.js");
   detectIssueTypeFromContent = labelingAgent.detectIssueTypeFromContent;
-} catch (e) {
+} catch (_e) {
   // Fallback for ES module import
   // This will be handled at runtime when called as an agent
 }

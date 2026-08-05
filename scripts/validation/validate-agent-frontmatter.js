@@ -61,7 +61,7 @@ console.log("🔍 Validating Agent Frontmatter\n");
 console.log("=".repeat(80));
 
 // Validate each agent file
-agentFiles.forEach(({ filename, filePath, displayPath }) => {
+agentFiles.forEach(({ _filename, filePath, displayPath }) => {
   if (!fs.existsSync(filePath)) {
     console.log(`⚠️  ${displayPath}: File not found`);
     results.total++;

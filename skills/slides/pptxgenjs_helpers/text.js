@@ -205,7 +205,7 @@ function autoFontSize(textOrRuns, fontFace, opts = {}) {
 // Throws when insufficient info is provided.
 function calcTextBox(fontSizePt, opts = {}) {
   const textInput = opts.text ?? "";
-  const text = normalizeText(textInput || "");
+  const _text = normalizeText(textInput || "");
   const face =
     typeof opts.fontFace === "string" && opts.fontFace.trim().length > 0
       ? opts.fontFace.trim()
@@ -221,7 +221,7 @@ function calcTextBox(fontSizePt, opts = {}) {
   const paraSpaceAfterPt = toNumber(opts.paraSpaceAfter, 0) || 0; // points
   const lineHeightIn = (fontSizePt / 72) * leading;
   const margins = normalizeMargins(opts.margin);
-  const measurer = TEXT_MEASURER;
+  const _measurer = TEXT_MEASURER;
 
   const hasLines = Number.isFinite(toNumber(opts.lines, NaN));
   const hasWidth = Number.isFinite(toNumber(opts.w, NaN));
@@ -332,7 +332,7 @@ function calcTextBox(fontSizePt, opts = {}) {
     let best = hi;
     for (let iter = 0; iter < 32; iter++) {
       const mid = (lo + hi) / 2;
-      const { lines, heightIn } = layoutGivenWidth(paragraphs, mid);
+      const { _lines, heightIn } = layoutGivenWidth(paragraphs, mid);
       const totalH = heightIn + padding;
       if (totalH <= innerH + 1e-6) {
         best = mid;
@@ -597,7 +597,7 @@ function getFontData(face, fontStyle, fontWeight) {
     const payload = { font, path: fontPath };
     fontKitCache.set(key, payload);
     return payload;
-  } catch (err) {
+  } catch (_err) {
     fontKitCache.set(key, null);
     return null;
   }
@@ -625,7 +625,7 @@ function registerCanvasFontVariant(
       weight: fontWeight || "normal",
     });
     registeredFontVariants.add(cacheKey);
-  } catch (err) {
+  } catch (_err) {
     // ignore registration failure; measurement will fall back to Skia default
   }
 }

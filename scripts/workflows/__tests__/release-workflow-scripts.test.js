@@ -35,7 +35,7 @@ describe("release workflow JS scripts", () => {
         encoding: "utf8",
         stdio: "pipe",
       });
-    } catch (error) {
+    } catch (_error) {
       // Expected to fail when GITHUB_TOKEN is missing
     }
 

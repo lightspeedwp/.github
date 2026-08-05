@@ -42,7 +42,7 @@ try {
     changed.forEach((f) => console.log(f));
     console.log("CHANGED_EOF");
   }
-} catch (err) {
+} catch (_err) {
   // Fallback if diff fails
   console.log("has_changes=false");
   console.log("files<<CHANGED_EOF");

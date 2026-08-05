@@ -55,7 +55,7 @@ try {
   const quirkyConfigContent = fs.readFileSync(QUIRKY_FOOTERS_PATH, "utf8");
   quirkyFootersConfig = yaml.load(quirkyConfigContent);
   console.log("✅ Loaded quirky footers configuration");
-} catch (err) {
+} catch (_err) {
   // Quirky footers config not found; will use standard footers
   console.warn(
     "⚠️  Quirky footers configuration not found, using standard footers",
@@ -217,7 +217,7 @@ function isExcludedFromFooterValidation(filePath) {
       if (regex.test(normalizedPath)) {
         return true;
       }
-    } catch (err) {
+    } catch (_err) {
       // Invalid regex pattern, skip silently
     }
   }

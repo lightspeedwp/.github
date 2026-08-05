@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 
-function findDesignMdRepo(designDir, searchRoots = []) {
+function findDesignMdRepo(designDir, _searchRoots = []) {
   const repoPath = process.env.DESIGNMD_REPO_PATH;
   if (repoPath && isDesignMdCliRepo(repoPath)) {
     return repoPath;

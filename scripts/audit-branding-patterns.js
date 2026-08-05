@@ -48,7 +48,7 @@ function extractFrontmatter(content) {
 
   try {
     return yaml.load(match[1]);
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -149,7 +149,7 @@ function scanMarkdownFiles() {
           missing,
         });
       }
-    } catch (e) {
+    } catch (_e) {
       // Skip files that can't be read
     }
   });
