@@ -47,7 +47,7 @@ title: "Task"
 
 This is important content`;
 
-      const { frontmatter, body } = extractFrontmatterSafely(content);
+      const { body } = extractFrontmatterSafely(content);
 
       // Should NOT truncate at the visual separator
       expect(body).toContain("## Section 1");
