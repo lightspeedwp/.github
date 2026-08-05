@@ -45,16 +45,6 @@ if (!agent) {
           ))}
         </div>
       </div>
-      <div class="info-block">
-        <strong>Related Slides</strong>
-        <div class="related-links">
-          {agent.relatedSlides.map((slideNum) => (
-            <a href={slidePathByNumber.get(slideNum) ?? "/wceu-2026/slides/"} class="related-slide">
-              Slide {slideNum.toString().padStart(2, "0")}
-            </a>
-          ))}
-        </div>
-      </div>
     </div>
   </section>
 
@@ -109,12 +99,6 @@ if (!agent) {
           <a href="/agents/">All Agent Guides</a> — Compare capabilities
         </li>
         <li>
-          <a href="/wceu-2026/slides/slide-13-agent-layer/">Slide 13: Agent Layer</a> — Introduction to agents in the talk
-        </li>
-        <li>
-          <a href="/wceu-2026/slides/slide-14-skill-layer/">Slide 14: Skill Layer</a> — How agents use skills
-        </li>
-        <li>
           <a href="/getting-started/">Implementation Roadmap</a> — Adoption
           sequence
         </li>
@@ -167,8 +151,7 @@ if (!agent) {
     gap: 0.5rem;
   }
 
-  .related-agent,
-  .related-slide {
+  .related-agent {
     display: inline-block;
     padding: 0.375rem 0.75rem;
     background: var(--bg-soft);
@@ -181,8 +164,7 @@ if (!agent) {
     transition: all 0.2s ease-out;
   }
 
-  .related-agent:hover,
-  .related-slide:hover {
+  .related-agent:hover {
     background: var(--accent);
     color: var(--bg);
     border-color: var(--accent);
