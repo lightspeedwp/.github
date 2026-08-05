@@ -4,7 +4,7 @@ title: Phase 2B Skills Architecture Audit
 description: Comprehensive analysis and consolidation roadmap for agent skills organisation across 16 agents
 created_date: 2026-07-24
 last_updated: 2026-08-05
-version: 1.0.1
+version: 1.1.0
 maintainer: lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
