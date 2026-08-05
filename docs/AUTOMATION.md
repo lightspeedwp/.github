@@ -345,7 +345,7 @@ All configuration files are validated:
 - [Canonical Labels](../.github/labels.yml)
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)
-- [Portable Automation Instructions](../instructions/automation.instructions.md)
+- [Control-Plane Automation Instructions](../.github/instructions/automation.instructions.md)
 - [Workflow Specifications](../.github/workflows/)
 - [Agent Specifications](../.github/agents/)
 
