@@ -25,7 +25,7 @@ status: active
 
 ### 2. Project Documentation
 
-**Location:** `projects/active/workflows-consolidation-2026-q3/`  
+**Location:** `.github/projects/active/workflows-consolidation-2026-q3/`  
 **Contents:**
 
 - README.md — Project overview and timeline

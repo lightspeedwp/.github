@@ -6,3 +6,7 @@ Consolidated Node 22 monitoring Day 1-2 findings, closed dup #1457, documented P
 ## 09:15 | chore/nodejs-22-post-merge-monitoring-day-1
 
 Created active proj for release-wf fix (#1453): modified release.yml (trigger-telemetry non-blocking), documented project, updated PROJECTS_INDEX.md, committed to develop.
+
+## 00:08 | fix/1514-ci-failures-and-accuracy
+
+Phase 2B Batch 2 executed: migrated 10 agent utils to `scripts/agents/includes/` via PR #1518 (queued for merge); fixed PR #1517 template and resolved merge conflicts with develop.

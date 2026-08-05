@@ -1,3 +1,10 @@
+---
+title: "Status Review Audit — 2026-08-04"
+description: "Comprehensive audit of all issues with status:needs-review label"
+date: "2026-08-04"
+category: "governance-audit"
+---
+
 # Status Review Audit — 2026-08-04
 
 ## Summary
@@ -6,7 +13,7 @@ Completed comprehensive audit of all issues with `status:needs-review` label. Al
 
 ## Open Issues — 11 Total (All Assigned ✅)
 
-### Core Phase Series (6 issues)
+### Core Phase Series (7 issues)
 
 1. **#1009** — "Audit and simplify changelog governance, links, and automation"
    - Priority: normal
@@ -94,4 +101,4 @@ Additionally assigned all previously-unassigned closed issues to `ashleyshaw`.
 
 **All open issues are properly assigned and require review.**
 
-Current state is clean and ready for continued work. The Phase 1-6 series and cleanup tasks are all prioritized and assigned for execution.
+Current state is clean and ready for continued work. The Phase 1-6 series and cleanup tasks are all prioritised and assigned for execution.

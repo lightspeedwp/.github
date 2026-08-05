@@ -190,4 +190,4 @@ Central registry of all active projects within the LightSpeed `.github` control 
 
 **Last Updated:** 2026-08-04  
 **Maintained by:** LightSpeed Team  
-**Total Active Projects:** 12 | **Recently Completed:** 4 | **Planned:** 7
+**Total Projects:** 8 active projects, 12 total (including completed)
