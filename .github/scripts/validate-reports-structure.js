@@ -36,7 +36,7 @@ files.forEach((file) => {
       if (file.endsWith(".json")) {
         JSON.parse(fs.readFileSync(fullPath, "utf8"));
       }
-    } catch (err) {
+    } catch (_err) {
       console.error(`❌ Invalid format: ${file}`);
       hasIssues = true;
     }

@@ -253,7 +253,7 @@ function main() {
       cwd: process.cwd(),
     });
     passCheck("npm run validate:frontmatter passed");
-  } catch (err) {
+  } catch (_err) {
     failCheck("npm run validate:frontmatter failed");
   }
 
@@ -266,7 +266,7 @@ function main() {
       cwd: process.cwd(),
     });
     passCheck("npm run lint:md wceu-2026/ passed");
-  } catch (err) {
+  } catch (_err) {
     failCheck("npm run lint:md wceu-2026/ failed");
   }
 

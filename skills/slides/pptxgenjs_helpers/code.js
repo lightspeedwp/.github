@@ -37,7 +37,7 @@ function buildThemeMap(themeCssModule = "prismjs/themes/prism-okaidia.css") {
         ),
       ].map(([, t, c]) => [t, c.replace(/#|!important/g, "").trim()]),
     );
-  } catch (err) {
+  } catch (_err) {
     return { plain: "FFFFFF", comment: "999999" };
   }
 }

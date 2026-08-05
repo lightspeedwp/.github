@@ -3,8 +3,8 @@ file_type: custom-instructions
 title: Repo-local Copilot Instructions
 description: Repo-local Copilot and agent instructions for maintaining the LightSpeed .github control-plane repository.
 mode: agent
-version: v1.4
-last_updated: '2026-06-18'
+version: v1.5
+last_updated: '2026-08-05'
 owners:
   - LightSpeed Team
 tags:
@@ -12,6 +12,7 @@ tags:
   - agent
   - governance
   - instructions
+  - phase-1-restructuring
 status: active
 stability: stable
 domain: governance
@@ -23,6 +24,32 @@ language: en
 ## Scope
 
 These instructions apply to work performed inside the LightSpeed `.github` control-plane repository.
+
+## Phase 1 Restructuring (Completed 2026-08-05)
+
+**Phase 1 audits are complete.** Comprehensive audit reports document the current repository structure:
+
+- **Phase 1A Audit** — 58 instruction files (27 portable, 17 repo-local, 15 archived); 502+ references mapped
+  - Report: [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./projects/active/repo-restructuring-2026-07-25/INSTRUCTION_FILES_AUDIT_2026-08-05.md)
+  - Portable instructions belong in root `instructions/` directory
+  - Repo-local instructions stay in `.github/instructions/` or `.github/custom-instructions.md`
+  
+- **Phase 1B Audit** — 25 core schema files across 3 locations; consolidation plan documented
+  - Report: [SCHEMA_AUDIT_REPORT.md](./projects/active/repo-restructuring-2026-07-25/SCHEMA_AUDIT_REPORT.md)
+  - Canonical location: `.schemas/` (hidden folder at root)
+  - Current duplication: `schema/`, `schemas/`, `.schemas/` all maintained during migration
+  
+- **Phase 1C Audit** — 35 agents (19 spec-based, 16 multi-file); 788+ references mapped
+  - Report: [AGENT-AUDIT-COMPREHENSIVE.md](./projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md)
+  - Portable multi-file agents: `agents/` (root)
+  - Spec-based control-plane agents: `.github/agents/`
+
+**Key Principles:**
+
+- **Portable assets** (instructions, agents, skills, etc.) go to root-level directories
+- **Control-plane specific assets** (governance, workflows, local scripts) stay in `.github/`
+- **No assumptions about other repositories** in portable code/docs
+- See [CLAUDE.md](../CLAUDE.md#repository-boundaries) for complete boundary rules
 
 ## Documentation Standards for AI Infrastructure
 

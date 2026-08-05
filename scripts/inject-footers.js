@@ -24,11 +24,11 @@
  *   --backup-dir=PATH      Store backups in custom directory
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { glob } from 'glob';
-import * as yaml from 'js-yaml';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { glob } from "glob";
+import * as yaml from "js-yaml";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -37,41 +37,41 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // ============================================================================
 
 const CONFIG = {
-  footerConfigPath: path.join(__dirname, '../config/footers.config.yaml'),
-  quirkyFootersPath: path.join(__dirname, '../config/quirky-footers.yaml'),
-  backupDir: path.join(__dirname, '../.github/tmp/footer-backups'),
-  reportDir: path.join(__dirname, '../.github/reports'),
+  footerConfigPath: path.join(__dirname, "../config/footers.config.yaml"),
+  quirkyFootersPath: path.join(__dirname, "../config/quirky-footers.yaml"),
+  backupDir: path.join(__dirname, "../.github/tmp/footer-backups"),
+  reportDir: path.join(__dirname, "../.github/reports"),
 
   // Exclude patterns (from FOOTER_VALIDATION_AUDIT.md + quirky-footers.yaml)
   excludePatterns: [
-    '**/node_modules/**',
-    '**/.git/**',
-    '**/.github/reports/**',
-    '**/.github/projects/**',
-    '**/*tmp*/**',
-    '**/dist/**',
-    '**/build/**',
-    '**/__tests__/**',
-    '**/*.test.md',
-    '**/test-*.md',
-    '**/.github/ISSUE_TEMPLATE/**',
-    '**/.github/PULL_REQUEST_TEMPLATE/**',
-    '**/.github/DISCUSSION_TEMPLATE/**',
-    '/**/template(s)?/**',
-    '/**/example(s)?/**',
-    '/**/sample(s)?/**',
-    '/**/fixture(s)?/**',
-    '/**/references/**',
-    '/**/mock(s)?/**',
-    '**/.archive/**',
-    '**/completed/**',
-    '**/deprecated/**',
-    '**/legacy/**',
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.github/reports/**",
+    "**/.github/projects/**",
+    "**/*tmp*/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/__tests__/**",
+    "**/*.test.md",
+    "**/test-*.md",
+    "**/.github/ISSUE_TEMPLATE/**",
+    "**/.github/PULL_REQUEST_TEMPLATE/**",
+    "**/.github/DISCUSSION_TEMPLATE/**",
+    "/**/template(s)?/**",
+    "/**/example(s)?/**",
+    "/**/sample(s)?/**",
+    "/**/fixture(s)?/**",
+    "/**/references/**",
+    "/**/mock(s)?/**",
+    "**/.archive/**",
+    "**/completed/**",
+    "**/deprecated/**",
+    "**/legacy/**",
     // Vendor/plugin paths that shouldn't have footers
-    '**/plugin-provided/**',
-    '**/platform-managed/**',
-    '**/directory-installed/**',
-    '**/agentskills-main/**',
+    "**/plugin-provided/**",
+    "**/platform-managed/**",
+    "**/directory-installed/**",
+    "**/agentskills-main/**",
   ],
 };
 
@@ -80,18 +80,18 @@ const CONFIG = {
 // ============================================================================
 
 const PATH_CATEGORY_MAP = {
-  'docs/': 'docs',
-  'instructions/': 'instructions',
-  'agents/': 'agents',
-  'skills/': 'ai-ops',
-  'hooks/': 'ai-ops',
-  'scripts/': 'ai-ops',
-  'schemas/': 'schema',
-  '.github/instructions/': 'instructions',
-  'workflows/': 'ai-ops',
-  'cookbook/': 'docs',
-  'plugins/': 'ai-ops',
-  'prompts/': 'ai-ops',
+  "docs/": "docs",
+  "instructions/": "instructions",
+  "agents/": "agents",
+  "skills/": "ai-ops",
+  "hooks/": "ai-ops",
+  "scripts/": "ai-ops",
+  "schemas/": "schema",
+  ".github/instructions/": "instructions",
+  "workflows/": "ai-ops",
+  "cookbook/": "docs",
+  "plugins/": "ai-ops",
+  "prompts/": "ai-ops",
 };
 
 // ============================================================================
@@ -114,7 +114,7 @@ const injectionState = {
 
 function loadConfig(configPath, configName) {
   try {
-    const content = fs.readFileSync(configPath, 'utf8');
+    const content = fs.readFileSync(configPath, "utf8");
     const config = yaml.load(content);
     console.log(`✅ Loaded ${configName}`);
     return config;
@@ -124,13 +124,13 @@ function loadConfig(configPath, configName) {
   }
 }
 
-function shouldExclude(filePath) {
-  return CONFIG.excludePatterns.some(pattern => {
+function _shouldExclude(filePath) {
+  return CONFIG.excludePatterns.some((pattern) => {
     // Convert glob pattern to regex
     const regexPattern = pattern
-      .replace(/\*\*/g, '.*')
-      .replace(/\*/g, '[^/]*')
-      .replace(/\?/g, '.');
+      .replace(/\*\*/g, ".*")
+      .replace(/\*/g, "[^/]*")
+      .replace(/\?/g, ".");
     return new RegExp(regexPattern).test(filePath);
   });
 }
@@ -149,7 +149,7 @@ function inferCategory(filePath, frontmatter) {
   }
 
   // Default
-  return 'docs';
+  return "docs";
 }
 
 function extractFrontmatter(content) {
@@ -158,21 +158,21 @@ function extractFrontmatter(content) {
 
   try {
     return yaml.load(match[1]);
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
 
 function hasFooter(content) {
-  const lastSeparatorIndex = content.lastIndexOf('\n---');
+  const lastSeparatorIndex = content.lastIndexOf("\n---");
   if (lastSeparatorIndex === -1) return false;
 
   const afterLastSeparator = content.substring(lastSeparatorIndex + 4).trim();
   return afterLastSeparator.length > 0;
 }
 
-function getFooterBlock(content) {
-  const lastSeparatorIndex = content.lastIndexOf('\n---');
+function _getFooterBlock(content) {
+  const lastSeparatorIndex = content.lastIndexOf("\n---");
   if (lastSeparatorIndex === -1) return null;
 
   return content.substring(lastSeparatorIndex);
@@ -182,7 +182,14 @@ function getFooterBlock(content) {
 // FOOTER INJECTION
 // ============================================================================
 
-function injectFooter(filePath, content, category, quirkyConfig, footerConfig, dryRun) {
+function injectFooter(
+  filePath,
+  content,
+  category,
+  quirkyConfig,
+  footerConfig,
+  dryRun,
+) {
   try {
     // Get default quirky footer for category
     const categoryConfig = quirkyConfig?.categories?.[category];
@@ -211,13 +218,13 @@ function injectFooter(filePath, content, category, quirkyConfig, footerConfig, d
     let newContent = content;
 
     // Remove existing footer if present
-    const lastSeparatorIndex = content.lastIndexOf('\n---');
+    const lastSeparatorIndex = content.lastIndexOf("\n---");
     if (lastSeparatorIndex > 0) {
       newContent = content.substring(0, lastSeparatorIndex);
     }
 
     // Append new footer
-    newContent += '\n' + footerTemplate.template.trim() + '\n';
+    newContent += "\n" + footerTemplate.template.trim() + "\n";
 
     if (dryRun) {
       return { newContent, footerId: defaultQuirkyFooterId };
@@ -228,12 +235,15 @@ function injectFooter(filePath, content, category, quirkyConfig, footerConfig, d
       fs.mkdirSync(CONFIG.backupDir, { recursive: true });
     }
 
-    const backupPath = path.join(CONFIG.backupDir, `${path.basename(filePath)}.backup`);
-    fs.writeFileSync(backupPath, content, 'utf8');
+    const backupPath = path.join(
+      CONFIG.backupDir,
+      `${path.basename(filePath)}.backup`,
+    );
+    fs.writeFileSync(backupPath, content, "utf8");
     injectionState.backups[filePath] = backupPath;
 
     // Write new content
-    fs.writeFileSync(filePath, newContent, 'utf8');
+    fs.writeFileSync(filePath, newContent, "utf8");
 
     injectionState.filesInjected++;
     injectionState.changes.push({
@@ -259,19 +269,24 @@ function injectFooter(filePath, content, category, quirkyConfig, footerConfig, d
 // ============================================================================
 
 async function main() {
-  const dryRun = process.argv.includes('--dry-run');
+  const dryRun = process.argv.includes("--dry-run");
 
-  console.log('📝 Footer Injection Script');
-  console.log(`Mode: ${dryRun ? 'DRY RUN (no changes)' : 'LIVE (will modify files)'}\n`);
+  console.log("📝 Footer Injection Script");
+  console.log(
+    `Mode: ${dryRun ? "DRY RUN (no changes)" : "LIVE (will modify files)"}\n`,
+  );
 
   // Load configurations
-  const footerConfig = loadConfig(CONFIG.footerConfigPath, 'footer config');
-  const quirkyConfig = loadConfig(CONFIG.quirkyFootersPath, 'quirky footers config');
+  const footerConfig = loadConfig(CONFIG.footerConfigPath, "footer config");
+  const quirkyConfig = loadConfig(
+    CONFIG.quirkyFootersPath,
+    "quirky footers config",
+  );
 
-  console.log('\n🔍 Scanning for markdown files without footers...\n');
+  console.log("\n🔍 Scanning for markdown files without footers...\n");
 
   // Find all markdown files
-  const files = await glob('**/*.md', {
+  const files = await glob("**/*.md", {
     ignore: CONFIG.excludePatterns,
     nodir: true,
   });
@@ -282,7 +297,7 @@ async function main() {
     try {
       injectionState.filesProcessed++;
 
-      const content = fs.readFileSync(file, 'utf8');
+      const content = fs.readFileSync(file, "utf8");
 
       // Skip if already has footer
       if (hasFooter(content)) {
@@ -307,7 +322,9 @@ async function main() {
       );
 
       if (result) {
-        console.log(`${dryRun ? '📋' : '✅'} ${file} [${category}] <- ${result.footerId}`);
+        console.log(
+          `${dryRun ? "📋" : "✅"} ${file} [${category}] <- ${result.footerId}`,
+        );
       }
     } catch (err) {
       injectionState.filesFailed++;
@@ -323,9 +340,9 @@ async function main() {
   // REPORTING
   // ========================================================================
 
-  console.log('\n' + '='.repeat(80));
-  console.log('INJECTION SUMMARY');
-  console.log('='.repeat(80) + '\n');
+  console.log("\n" + "=".repeat(80));
+  console.log("INJECTION SUMMARY");
+  console.log("=".repeat(80) + "\n");
 
   console.log(`📊 Statistics:`);
   console.log(`  Total files processed: ${injectionState.filesProcessed}`);
@@ -351,22 +368,24 @@ async function main() {
 
   const reportPath = path.join(
     CONFIG.reportDir,
-    `footer-injection-${new Date().toISOString().split('T')[0]}.json`,
+    `footer-injection-${new Date().toISOString().split("T")[0]}.json`,
   );
 
   fs.writeFileSync(reportPath, JSON.stringify(injectionState, null, 2));
   console.log(`📄 Report saved to: ${reportPath}\n`);
 
   if (dryRun) {
-    console.log('ℹ️  DRY RUN COMPLETE - No files were modified.\n');
-    console.log('To apply changes, run: node scripts/inject-footers.js\n');
+    console.log("ℹ️  DRY RUN COMPLETE - No files were modified.\n");
+    console.log("To apply changes, run: node scripts/inject-footers.js\n");
   } else {
-    console.log(`✅ Injection complete! ${injectionState.filesInjected} files modified.\n`);
+    console.log(
+      `✅ Injection complete! ${injectionState.filesInjected} files modified.\n`,
+    );
     console.log(`Backups stored in: ${CONFIG.backupDir}\n`);
   }
 }
 
-main().catch(err => {
-  console.error('Fatal error:', err);
+main().catch((err) => {
+  console.error("Fatal error:", err);
   process.exit(1);
 });

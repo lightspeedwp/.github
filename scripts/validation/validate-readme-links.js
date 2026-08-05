@@ -37,7 +37,7 @@ function discoverReadmeFiles() {
   return Array.from(new Set(files)).sort();
 }
 
-function extractLinks(content, filePath) {
+function extractLinks(content, _filePath) {
   const links = [];
   // Markdown links: [text](url)
   const mdLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
