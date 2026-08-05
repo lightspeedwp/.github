@@ -74,7 +74,7 @@ Completed comprehensive audit of all issues with `status:needs-review` label. Al
 
 ## Closed Issues — Cleanup Completed ✅
 
-Removed `status:needs-review` label from 9 recently-closed issues (all now properly closed with no pending review label):
+Removed `status:needs-review` label from 9 recently closed issues (all now properly closed with no pending review label):
 
 - **#1187** — Closed 2026-07-23 — "Audit GitHub Actions PR Automation Workflows — Framework & Implementation"
 - **#1011** — Closed 2026-06-19 — "Automate issue and PR metadata completion end to end"
@@ -86,7 +86,7 @@ Removed `status:needs-review` label from 9 recently-closed issues (all now prope
 - **#505** — Closed 2026-05-28 — "[Task] Slim down branching strategy and align with live labeler rules"
 - **#504** — Closed 2026-05-28 — "[Task] Unify project template and governance into one canonical operations spec"
 
-Additionally assigned all previously-unassigned closed issues to `ashleyshaw`.
+Additionally assigned all previously unassigned closed issues to `ashleyshaw`.
 
 ## Actions Completed This Session
 
