@@ -1,5 +1,6 @@
 ---
 file_type: 'prompt'
+description: 'Core prompt for agent configuration'
 ---
 
 # PRD Factory & Planner Agent — Core Prompt (Provider-Agnostic)

@@ -1,5 +1,6 @@
 ---
 file_type: 'prompt'
+description: 'Core prompt for agent configuration'
 ---
 
 # Tour Operator Config Agent — Core Prompt

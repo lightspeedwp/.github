@@ -1,5 +1,6 @@
 ---
 file_type: 'prompt'
+description: 'Core prompt for agent configuration'
 ---
 
 # Core Prompt — PageSpeed Agent
