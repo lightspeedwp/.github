@@ -1,3 +1,13 @@
+---
+file_type: report
+title: "ESLint Fix Specification — Issue #1486"
+description: "Specification for fixing 68 ESLint no-unused-vars violations"
+date: "2026-08-04"
+status: "documented"
+category: "linting"
+version: "1.0.0"
+---
+
 # ESLint Fix Specification — Issue #1486
 
 **Date**: 2026-08-04  
@@ -9,6 +19,7 @@
 Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch (error)` → `catch (_error)`
 
 **Files**:
+
 - `.github/scripts/agents/__tests__/planner.agent.test.js:69` - exitSpy
 - `.github/scripts/agents/issue-type.agent.js:24` - e
 - `.github/scripts/agents/meta.agent.js:104` - e
@@ -59,6 +70,7 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 ## Implementation Options
 
 ### Option A: Automated (Sed/Perl)
+
 ```bash
 # Unused caught errors
 find . -name "*.js" -type f | xargs sed -i 's/} catch (e) {/} catch (_e) {/g'
@@ -67,9 +79,11 @@ find . -name "*.js" -type f | xargs sed -i 's/} catch (error) {/} catch (_error)
 ```
 
 ### Option B: Manual File-by-File
+
 Use Edit tool with exact line references (preferred for safety)
 
 ### Option C: Manual Verification
+
 Use detailed code review to confirm each change is safe
 
 ## Risks & Mitigations
@@ -83,6 +97,7 @@ Use detailed code review to confirm each change is safe
 ## Verification
 
 After fixes:
+
 ```bash
 npm run lint:js 2>&1 | grep "problems"
 # Should output: ✖ 0 problems (0 errors, 0 warnings)
