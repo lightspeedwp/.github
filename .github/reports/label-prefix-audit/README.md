@@ -239,32 +239,32 @@ Recommend creating:
 
 ### Canonical Sources (Truth)
 
-- [.github/labels.yml](./.github/labels.yml) — All 158 canonical labels
-- [.github/issue-types.yml](./.github/issue-types.yml) — Issue type definitions
-- [.github/labeler.yml](./.github/labeler.yml) — Labeling rules
-- [.github/label-governance-policy.yml](./.github/label-governance-policy.yml) — Governance policy
+- [.github/labels.yml](../../../.github/labels.yml) — All 158 canonical labels
+- [.github/issue-types.yml](../../../.github/issue-types.yml) — Issue type definitions
+- [.github/labeler.yml](../../../.github/labeler.yml) — Labeling rules
+- [.github/label-governance-policy.yml](../../../.github/label-governance-policy.yml) — Governance policy
 
 ### Documentation
 
-- [docs/LABELING.md](./docs/LABELING.md) — Labeling guide
-- [docs/LABEL_STRATEGY.md](./docs/LABEL_STRATEGY.md) — Label taxonomy
-- [docs/LABELING_GOVERNANCE.md](./docs/LABELING_GOVERNANCE.md) — Workflow architecture
-- [docs/LABEL_COLOR_STRATEGY.md](./docs/LABEL_COLOR_STRATEGY.md) — Color assignments
+- [docs/LABELING.md](../../../docs/LABELING.md) — Labeling guide
+- [docs/LABEL_STRATEGY.md](../../../docs/LABEL_STRATEGY.md) — Label taxonomy
+- [docs/LABELING_GOVERNANCE.md](../../../docs/LABELING_GOVERNANCE.md) — Workflow architecture
+- [docs/LABEL_COLOR_STRATEGY.md](../../../docs/LABEL_COLOR_STRATEGY.md) — Color assignments
 
 ### Governance (Needs Update)
 
-- [CLAUDE.md](./CLAUDE.md) — **UPDATE NEEDED**: Add label creation rules
-- [AGENTS.md](./AGENTS.md) — **UPDATE NEEDED**: Add label governance section
+- [CLAUDE.md](../../../CLAUDE.md) — **UPDATE NEEDED**: Add label creation rules
+- [AGENTS.md](../../../AGENTS.md) — **UPDATE NEEDED**: Add label governance section
 
 ### Defective Code (DELETE)
 
-- [scripts/agents/includes/labeling-agent.js](./scripts/agents/includes/labeling-agent.js) — ❌ DELETE THIS
-- [scripts/agents/includes/**tests**/labeling-agent.test.js](./scripts/agents/includes/__tests__/labeling-agent.test.js) — ❌ DELETE THIS
+- [scripts/agents/includes/labeling-agent.js](../../../scripts/agents/includes/labeling-agent.js) — ❌ DELETE THIS
+- [scripts/agents/includes/**tests**/labeling-agent.test.js](../../../scripts/agents/includes/__tests__/labeling-agent.test.js) — ❌ DELETE THIS
 
 ### Correct Code (KEEP)
 
-- [.github/scripts/agents/labeling.agent.js](./.github/scripts/agents/labeling.agent.js) — ✅ Correct
-- [.github/scripts/agents/issues.agent.js](./.github/scripts/agents/issues.agent.js) — ✅ Correct
+- [.github/scripts/agents/labeling.agent.js](../../../.github/scripts/agents/labeling.agent.js) — ✅ Correct
+- [.github/scripts/agents/issues.agent.js](../../../.github/scripts/agents/issues.agent.js) — ✅ Correct
 
 ---
 

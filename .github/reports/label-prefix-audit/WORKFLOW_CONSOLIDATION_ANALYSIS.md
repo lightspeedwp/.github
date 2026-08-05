@@ -361,10 +361,10 @@ tags:
 
 ## References
 
-- [workflows-consolidation-2026-q3 Project](./.github/projects/active/workflows-consolidation-2026-q3/)
+- [workflows-consolidation-2026-q3 Project](../../../.github/projects/active/workflows-consolidation-2026-q3/)
 - [LABEL_PREFIX_AUDIT_REPORT.md](./LABEL_PREFIX_AUDIT_REPORT.md)
-- [docs/LABELING_GOVERNANCE.md](./docs/LABELING_GOVERNANCE.md)
-- [.github/workflows/](./.github/workflows/) — All workflow files
+- [docs/LABELING_GOVERNANCE.md](../../../docs/LABELING_GOVERNANCE.md)
+- [.github/workflows/](../../../.github/workflows/) — All workflow files
 
 ---
 
