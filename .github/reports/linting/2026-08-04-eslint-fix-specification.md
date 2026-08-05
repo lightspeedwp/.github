@@ -14,6 +14,14 @@ version: "1.0.0"
 **Status**: DOCUMENTED (ready for implementation)  
 **Total Warnings**: 68 (0 errors)
 
+## Warning Breakdown
+
+| Pattern | Count | Fix | Example |
+|---------|-------|-----|---------|
+| **Unused caught errors** | 35 | Prefix parameter with `_` | `catch (_e)`, `catch (_err)` |
+| **Unused imports, constants, parameters** | 33 | Prefix with `_` | `_glob`, `_config`, `_theme` |
+| **TOTAL** | **68** | Apply underscore convention | |
+
 ## Pattern 1: Unused Caught Errors (35 instances)
 
 Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch (error)` → `catch (_error)`
@@ -64,6 +72,16 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `skills/slides/pptxgenjs_helpers/image.js:163` - blockLength
 - `skills/slides/pptxgenjs_helpers/layout.js:120` - proj
 - `skills/slides/pptxgenjs_helpers/text.js:208,224,335,600,628` - text, measurer, lines, err (2x)
+
+## Pattern 2: Other Unused Variables (33 instances)
+
+Unused imports, constants, function parameters, and local variables that don't follow the underscore convention.
+
+**Examples**: Unused imports (`_glob`, `_path`), unused parameters (`_config`, `_theme`, `_filename`), unused constants (`_WORKFLOWS_DIR`, `_ISSUE_TYPES_CONFIG`).
+
+**Fix**: Apply the same underscore convention: prefix unused variables with `_` to indicate intentional non-use.
+
+**Note**: This covers the remaining 33 warnings after catch-error pattern (35) = 68 total.
 
 ## Implementation Options
 
