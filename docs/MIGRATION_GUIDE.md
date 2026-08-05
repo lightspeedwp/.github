@@ -103,7 +103,7 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 ---
 
-### 4. **AUTOMATION & WORKFLOWS** → `instructions/automation.instructions.md`
+### 4. **AUTOMATION & WORKFLOWS** → `.github/instructions/automation.instructions.md`
 
 **Old Files (8):**
 
@@ -123,11 +123,11 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 ```markdown
 # OLD
 
-[Release Management](instructions/release.instructions.md)
+[Release Management](.github/instructions/release.instructions.md)
 
 # NEW
 
-[Release Management](instructions/automation.instructions.md#56-release-management)
+[Release Management](.github/instructions/automation.instructions.md#56-release-management)
 ```
 
 **Critical Files Affected:**
