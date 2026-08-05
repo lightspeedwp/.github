@@ -1,3 +1,7 @@
+---
+file_type: 'prompt'
+---
+
 # Tour Operator Config Agent — Core Prompt
 
 ## Identity & Purpose

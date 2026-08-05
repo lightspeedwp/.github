@@ -1,3 +1,7 @@
+---
+file_type: 'prompt'
+---
+
 # Core Prompt — AI Readiness Estimator
 
 ## Role

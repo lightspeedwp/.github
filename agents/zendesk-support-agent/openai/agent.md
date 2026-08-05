@@ -1,4 +1,5 @@
 ---
+file_type: 'agent'
 provider: 'openai'
 agent_slug: 'zendesk-support'
 agent_name: 'Zendesk Support Agent (OpenAI)'
@@ -22,6 +23,7 @@ top_p: 0.9
 The OpenAI implementation of the Zendesk Support Agent uses OpenAI's GPT models with function calling for zendesk-integration tasks.
 
 OpenAI excels at:
+
 - **Function calling** – Structured API integration
 - **Batch processing** – Handle large data sets
 - **Cost-effective** – Pay per request with standard pricing
@@ -147,6 +149,7 @@ while True:
 OpenAI returns responses in standard format:
 
 ### Support Response
+
 ```json
 {
   "choices": [
@@ -164,6 +167,7 @@ OpenAI returns responses in standard format:
 ```
 
 ### Support Analysis
+
 ```json
 {
   "choices": [
@@ -252,11 +256,13 @@ def search_kb_for_tickets(ticket_ids):
 ## Configuration
 
 ### Model Selection
+
 - **gpt-4** – Complex tickets, sentiment analysis
 - **gpt-4-turbo** – Faster processing, batch operations
 - **gpt-3.5-turbo** – Budget-friendly option
 
 ### Temperature Settings
+
 - `temperature: 0.5` – Professional responses (default)
 - `temperature: 0.3` – Consistent tone
 - `temperature: 0.7` – Varied approaches
@@ -264,18 +270,21 @@ def search_kb_for_tickets(ticket_ids):
 ### Best Practices
 
 ### Response Quality
+
 - Validate tone and completeness
 - Check grammar and clarity
 - Ensure solution-focused
 - Include empathy indicators
 
 ### Batch Processing
+
 - Parallelize independent tickets
 - Use appropriate batch size
 - Monitor rate limits
 - Cache common solutions
 
 ### Performance
+
 - Use gpt-3.5-turbo for simple classifications
 - Batch similar requests
 - Cache KB search results

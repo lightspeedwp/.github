@@ -1,3 +1,7 @@
+---
+file_type: 'prompt'
+---
+
 # PRD Agent — Core Prompt (Provider-Agnostic)
 
 ## Identity & Purpose

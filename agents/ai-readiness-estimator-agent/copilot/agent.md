@@ -1,4 +1,5 @@
 ---
+file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'ai-readiness-estimator'
 agent_name: 'AI Readiness Estimator (GitHub Copilot)'

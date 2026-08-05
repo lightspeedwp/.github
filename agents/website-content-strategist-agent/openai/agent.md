@@ -1,4 +1,5 @@
 ---
+file_type: 'agent'
 provider: 'openai'
 agent_slug: 'website-content-strategist'
 agent_name: 'Website Content Strategist (OpenAI)'

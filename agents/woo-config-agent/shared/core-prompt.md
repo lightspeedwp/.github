@@ -1,3 +1,7 @@
+---
+file_type: 'prompt'
+---
+
 # WooCommerce Config Agent — Core Prompt
 
 > Provider-agnostic core instructions shared by the Claude, Copilot, and OpenAI

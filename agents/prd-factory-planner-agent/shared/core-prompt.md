@@ -1,3 +1,7 @@
+---
+file_type: 'prompt'
+---
+
 # PRD Factory & Planner Agent — Core Prompt (Provider-Agnostic)
 
 ## Role & Responsibilities
