@@ -1,3 +1,10 @@
+---
+title: "Status Review Audit — 2026-08-04"
+description: "Comprehensive audit of all issues with status:needs-review label"
+date: "2026-08-04"
+category: "governance-audit"
+---
+
 # Status Review Audit — 2026-08-04
 
 ## Summary

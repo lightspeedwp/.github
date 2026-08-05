@@ -244,6 +244,8 @@ Example:
 
 ```mermaid
 graph LR
+    accTitle: Agent composition with skills and workflows
+    accDescr: Diagram showing how an agent imports shared skills, uses hooks, and invokes workflows from the skills and workflows folders.
     Agent["Agent (agent.md)"]
     Agent -->|imports| Skill1["Skill A (skills/skill-a/)"]
     Agent -->|imports| Skill2["Skill B (skills/skill-b/)"]
