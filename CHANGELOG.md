@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-07-30"
+last_updated: "2026-08-05"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **WCEU 2026 conference content** — Removed all WCEU-related assets and references across the repository: deleted `verify-wceu-readiness.js` scripts and tests from both `.github/scripts/` and `scripts/` folders, removed `website/src/lib/wceuSlides.ts` and WCEU conference pages (`website/src/pages/wceu-2026/`), deleted WCEU-specific image assets, and removed all WCEU slide references from website components. WCEU content was out of scope for this repository. ([PR #1541](https://github.com/lightspeedwp/.github/pull/1541), [#1539](https://github.com/lightspeedwp/.github/issues/1539))
+
 - **Duplicate `.github/agents/` folder (Phase 1 restructuring compliance)** — Deleted entire `.github/agents/` folder (55 files) consolidating all agent implementations to root `agents/` folder per Phase 1 restructuring rules. The `.github/agents/` folder violated the portable assets rule by containing multi-file agent implementations (Claude/Copilot/OpenAI) when it should only contain "simple YAML/JSON definitions" (GitHub-native only). All agent implementations now properly organized at root as portable reusable assets. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510), [#1507](https://github.com/lightspeedwp/.github/issues/1507))
 
 - **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
@@ -37,6 +39,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 (none identified)
 
 ### Fixed
+
+- **README frontmatter schema compliance (Phase 2B Skills Audit)** — Corrected frontmatter in `.github/projects/active/phase-2b-skills-audit/README.md` to comply with LightSpeed documentation schema: added required `file_type: readme` field, renamed `created` to `created_date`, updated `last_updated` and `version` fields, and removed non-schema fields (`name`, `related_issues`, `related_branches`). Resolves frontmatter validation failures and ensures project documentation adheres to canonical schema standards. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540), [#1375](https://github.com/lightspeedwp/.github/issues/1375))
+
+- **Labeling agent module import error** — Fixed labeling agent import statement that referenced non-existent export `_fetchCanonicalLabels` (with underscore); corrected to use actual function name `fetchCanonicalLabels` (without underscore) from `label-lookup.js`. Unblocks PR labeling workflows that were failing with module resolution errors. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540))
+
+- **ESLint import validation errors in labeling agent and utilities** — Resolved 5 critical import validation errors from PR #1536 ESLint fixes: removed invalid `_glob` import from validate-footer-injection.js (module doesn't export `_glob`), removed non-existent `_readConfig` import from milestone-allocation tests, prefixed unused `_footerConfig` parameter following repository conventions, and removed unused imports from labeling agents. All changes are non-functional and fix runtime import errors. ([PR #1541](https://github.com/lightspeedwp/.github/pull/1541), [#1539](https://github.com/lightspeedwp/.github/issues/1539))
+
+- **Website build error from deleted WCEU imports** — Removed WCEU slide references from website agents page (website/src/pages/agents/[slug].astro): deleted imports and usage of removed wceuSlides module, removed "Related Slides" section with slidePathByNumber variable, removed WCEU slide links from navigation. Fixes website build failure (ReferenceError: slidePathByNumber). ([PR #1541](https://github.com/lightspeedwp/.github/pull/1541))
 
 - **Agent file_type frontmatter validation (Phase 1 restructuring)** — Added missing `file_type` frontmatter to all root agent configuration files: 48 provider-specific agent.md files (claude/, copilot/, openai/) with `file_type: 'agent'`, and 16 shared core-prompt.md files with `file_type: 'prompt'`. Fixes 200+ frontmatter validation errors and ensures all agent files comply with documentation schema requirements. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510), [#1507](https://github.com/lightspeedwp/.github/issues/1507))
 

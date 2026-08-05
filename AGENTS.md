@@ -360,7 +360,7 @@ gh issue create --title "Bug title" --body "$BODY"
 | **Quality Assurance** | [instructions/quality-assurance.instructions.md](instructions/quality-assurance.instructions.md) | Testing pyramid, Jest, coverage targets, CI/CD practices (3 files consolidated) | Portable |
 | **Languages & Linting** | [instructions/languages.instructions.md](instructions/languages.instructions.md) | JS/TS, JSON, YAML, JSDoc, linting rules (4 files consolidated) | Portable |
 | **Documentation Formats** | [instructions/documentation-formats.instructions.md](instructions/documentation-formats.instructions.md) | Markdown, YAML frontmatter, Mermaid diagram standards (3 files consolidated) | Portable |
-| **Automation** | [instructions/automation.instructions.md](instructions/automation.instructions.md) | Agents, labeling rules, release automation, metrics (8 files consolidated) | Portable |
+| **Automation** | [.github/instructions/automation.instructions.md](.github/instructions/automation.instructions.md) | GitHub automation, release automation, labeling rules, metrics (control-plane-specific) | Repo-local |
 | **Community Standards** | [instructions/community-standards.instructions.md](instructions/community-standards.instructions.md) | Files, naming conventions, README patterns, saved replies (4 files consolidated) | Portable |
 | **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot and control-plane agent guidance | Repo-local |
 

@@ -1,14 +1,33 @@
+---
+file_type: report
+title: "ESLint Fix Specification — Issue #1486"
+description: "Specification for fixing 68 ESLint no-unused-vars violations"
+date: "2026-08-04"
+status: "documented"
+category: "linting"
+version: "1.0.0"
+---
+
 # ESLint Fix Specification — Issue #1486
 
 **Date**: 2026-08-04  
 **Status**: DOCUMENTED (ready for implementation)  
 **Total Warnings**: 68 (0 errors)
 
+## Warning Breakdown
+
+| Pattern | Count | Fix | Example |
+|---------|-------|-----|---------|
+| **Unused caught errors** | 35 | Prefix parameter with `_` | `catch (_e)`, `catch (_err)` |
+| **Unused imports, constants, parameters** | 33 | Prefix with `_` | `_glob`, `_config`, `_theme` |
+| **TOTAL** | **68** | Apply underscore convention | |
+
 ## Pattern 1: Unused Caught Errors (35 instances)
 
 Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch (error)` → `catch (_error)`
 
 **Files**:
+
 - `.github/scripts/agents/__tests__/planner.agent.test.js:69` - exitSpy
 - `.github/scripts/agents/issue-type.agent.js:24` - e
 - `.github/scripts/agents/meta.agent.js:104` - e
@@ -20,7 +39,6 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `.github/scripts/validate-footers.js:58,220` - err (2x)
 - `.github/scripts/validate-markdown-lint.js:72` - error
 - `.github/scripts/validate-reports-structure.js:39` - err
-- `.github/scripts/verify-wceu-readiness.js:256,269` - err (2x)
 - `hooks/multi-provider-consistency-checker/index.js:200` - error
 - `scripts/agents/__tests__/planner.agent.test.js:11,70` - envToken, exitSpy
 - `scripts/agents/__tests__/release.agent.mcp.test.js:2` - path
@@ -49,16 +67,26 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `scripts/validation/validate-agents.js:29` - WORKFLOWS_DIR
 - `scripts/validation/validate-mermaid-colour-contrast.js:240` - theme
 - `scripts/validation/validate-readme-links.js:40` - filePath
-- `scripts/verify-wceu-readiness.js:256,269` - err (2x)
 - `scripts/workflows/__tests__/release-workflow-scripts.test.js:38` - error
 - `skills/slides/pptxgenjs_helpers/code.js:40` - err
 - `skills/slides/pptxgenjs_helpers/image.js:163` - blockLength
 - `skills/slides/pptxgenjs_helpers/layout.js:120` - proj
 - `skills/slides/pptxgenjs_helpers/text.js:208,224,335,600,628` - text, measurer, lines, err (2x)
 
+## Pattern 2: Other Unused Variables (33 instances)
+
+Unused imports, constants, function parameters, and local variables that don't follow the underscore convention.
+
+**Examples**: Unused imports (`_glob`, `_path`), unused parameters (`_config`, `_theme`, `_filename`), unused constants (`_WORKFLOWS_DIR`, `_ISSUE_TYPES_CONFIG`).
+
+**Fix**: Apply the same underscore convention: prefix unused variables with `_` to indicate intentional non-use.
+
+**Note**: This covers the remaining 33 warnings after catch-error pattern (35) = 68 total.
+
 ## Implementation Options
 
 ### Option A: Automated (Sed/Perl)
+
 ```bash
 # Unused caught errors
 find . -name "*.js" -type f | xargs sed -i 's/} catch (e) {/} catch (_e) {/g'
@@ -67,9 +95,11 @@ find . -name "*.js" -type f | xargs sed -i 's/} catch (error) {/} catch (_error)
 ```
 
 ### Option B: Manual File-by-File
+
 Use Edit tool with exact line references (preferred for safety)
 
 ### Option C: Manual Verification
+
 Use detailed code review to confirm each change is safe
 
 ## Risks & Mitigations
@@ -83,9 +113,11 @@ Use detailed code review to confirm each change is safe
 ## Verification
 
 After fixes:
+
 ```bash
-npm run lint:js 2>&1 | grep "problems"
-# Should output: ✖ 0 problems (0 errors, 0 warnings)
+npm run lint:js -- --max-warnings=0
+npm run lint:md
+npm run validate:frontmatter
 ```
 
 ## Related Work

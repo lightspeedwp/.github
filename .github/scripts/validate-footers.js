@@ -476,6 +476,14 @@ function main() {
   let totalViolations = 0;
 
   for (const file of files) {
+    // Skip deleted files (from --changed-only mode)
+    if (!fs.existsSync(file)) {
+      if (verbose) {
+        console.log(`⏭️  ${file} (deleted, skipped)`);
+      }
+      continue;
+    }
+
     const fileViolations = validateFile(file);
 
     if (fileViolations.length > 0) {
