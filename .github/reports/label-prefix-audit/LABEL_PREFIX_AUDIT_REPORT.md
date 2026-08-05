@@ -8,7 +8,8 @@ last_updated: "2026-08-05"
 author: "Claude Code Audit"
 maintainer: "LightSpeed Team"
 domain: "governance"
-status: "in-progress"
+status: "complete"
+stability: "stable"
 severity: "critical"
 tags:
   - labeling

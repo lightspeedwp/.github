@@ -6,7 +6,10 @@ version: "1.0.0"
 created_date: "2026-08-05"
 last_updated: "2026-08-05"
 author: "Claude Code Audit"
+maintainer: "LightSpeed Team"
 domain: "governance"
+status: "complete"
+stability: "stable"
 tags:
   - workflows
   - labeling
