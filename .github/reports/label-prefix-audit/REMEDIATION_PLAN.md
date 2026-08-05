@@ -254,7 +254,7 @@ if (errors.length > 0) {
   console.log("\nInvalid labels:");
   errors.forEach((e) => console.log(e));
   console.log(
-    "\nFor canonical label list, see: .github/labels.yml or run: npm run list:labels"
+    "\nFor canonical label list, see: .github/labels.yml"
   );
   process.exit(1);
 }
@@ -624,7 +624,7 @@ label-validation:
     - name: Load Canonical Labels
       id: load-labels
       run: |
-        LABELS=$(jq -r '.[] | .name' .github/labels.yml | paste -sd '|' -)
+        LABELS=$(grep -oP "name: \K['\"]?[^'\"]*['\"]?" .github/labels.yml | tr '\n' '|' | sed 's/|$//')
         echo "canonical=$LABELS" >> $GITHUB_OUTPUT
     
     - name: Validate Issue Labels

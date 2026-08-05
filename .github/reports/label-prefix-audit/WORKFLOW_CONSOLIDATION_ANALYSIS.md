@@ -56,7 +56,7 @@ tags:
 | `validate-pr-template.yml` | PR event | PR-specific template validation (DoR/DoD required sections) | Active |
 | `validate-issue-dod-before-close.yml` | Issue close | Prevent closing issues without DoD met | Active |
 | `validate-blocking-issue-before-close.yml` | Issue close | Prevent closing issues with open blockers | Active |
-| `validate-blocking-status-before-close.yml` | PR close | Guard blocking status on PR close | Active |
+| `validate-blocking-status-before-close.yml` | Issue close | Guard blocking status on issue close | Active |
 
 ### AI/Feedback Validation Workflows (1)
 

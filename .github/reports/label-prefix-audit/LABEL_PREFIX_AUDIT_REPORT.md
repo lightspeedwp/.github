@@ -428,10 +428,10 @@ gh issue create \
 
 ### Canonical Files
 
-- [.github/labels.yml](./.github/labels.yml) — All 158 canonical labels
-- [.github/labeler.yml](./.github/labeler.yml) — Automatic labeling rules
-- [.github/issue-types.yml](./.github/issue-types.yml) — Issue type definitions
-- [.github/label-governance-policy.yml](./.github/label-governance-policy.yml) — Governance policy
+- [.github/labels.yml](../../../.github/labels.yml) — All 158 canonical labels
+- [.github/labeler.yml](../../../.github/labeler.yml) — Automatic labeling rules
+- [.github/issue-types.yml](../../../.github/issue-types.yml) — Issue type definitions
+- [.github/label-governance-policy.yml](../../../.github/label-governance-policy.yml) — Governance policy
 
 ### Documentation
 

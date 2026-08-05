@@ -219,10 +219,10 @@ This violates the canonical labeling system defined in `.github/labels.yml` (158
 
 ### Active Projects
 
-- **[workflows-consolidation-2026-q3](./.github/projects/active/workflows-consolidation-2026-q3/)** — Main consolidation initiative; recommend adding labeling consolidation to scope
-- **[issue-triage-automation-system](./.github/projects/active/issue-triage-automation-system/)** — Related issue automation work
-- **[issue-type-workflow-automation](./.github/projects/active/issue-type-workflow-automation/)** — Related issue type automation
-- **[template-enforcement-governance](./.github/projects/active/template-enforcement-governance/)** — Template validation (related to label validation)
+- **[workflows-consolidation-2026-q3](../../../.github/projects/active/workflows-consolidation-2026-q3/)** — Main consolidation initiative; recommend adding labeling consolidation to scope
+- **[issue-triage-automation-system](../../../.github/projects/active/issue-triage-automation-system/)** — Related issue automation work
+- **[issue-type-workflow-automation](../../../.github/projects/active/issue-type-workflow-automation/)** — Related issue type automation
+- **[template-enforcement-governance](../../../.github/projects/active/template-enforcement-governance/)** — Template validation (related to label validation)
 
 ### Create New Project
 
