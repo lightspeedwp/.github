@@ -1,16 +1,14 @@
 ---
 title: "Label Prefix Audit Report"
 description: "Comprehensive audit of label prefix violations in issues 1500-1600 range and root cause analysis"
-file_type: "report"
+file_type: "agent-index"
 version: "1.0.0"
 created_date: "2026-08-05"
 last_updated: "2026-08-05"
 author: "Claude Code Audit"
 maintainer: "LightSpeed Team"
 domain: "governance"
-status: "complete"
-stability: "stable"
-severity: "critical"
+status: "active"
 tags:
   - labeling
   - governance

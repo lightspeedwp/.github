@@ -1,15 +1,14 @@
 ---
 title: "Label Prefix Audit — Complete Documentation"
 description: "Index of all audit reports, findings, and remediation materials"
-file_type: "report-index"
+file_type: "agent-index"
 version: "1.0.0"
 created_date: "2026-08-05"
 last_updated: "2026-08-05"
 author: "Claude Code Audit"
 maintainer: "LightSpeed Team"
 domain: "governance"
-status: "complete"
-stability: "stable"
+status: "active"
 tags:
   - audit
   - labeling
