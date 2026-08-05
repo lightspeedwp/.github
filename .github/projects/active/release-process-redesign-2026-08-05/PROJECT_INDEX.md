@@ -336,9 +336,10 @@ OPENSPEC_SETUP.md
 
 ## 📍 Current Status
 
-**Phase:** Requirements & Design  
-**Blocking Item:** Questionnaire approval  
-**Next Gate:** OpenSpec analysis
+**Phase:** Requirements, Design & Issue Creation ✅  
+**Epic Issue:** [#1546 — Release Process Redesign & Multi-Repo Support](https://github.com/lightspeedwp/.github/issues/1546)  
+**Child Issues:** All 47 issues created and OPEN  
+**Status Indicators:** Applied to all issues (use emoji badges to track progress)
 
 ### What's Done ✅
 
@@ -348,15 +349,41 @@ OPENSPEC_SETUP.md
 - [x] Create project folder & documentation
 - [x] Design epic & child issues
 - [x] Document multi-repo agent strategy
+- [x] OpenSpec analysis complete (OPENSPEC_ANALYSIS_REPORT.md)
+- [x] Create GitHub epic issue (#1546)
+- [x] Create all 47 child issues (#1547–#1549, #1553–#1572, #1574–#1580, #1584–#1590)
+- [x] Apply status indicators to all issues (🔴🟠🟡🟣🔷🔵)
+- [x] Document current status in each issue
 
-### What's Pending ⏳
+### What's Next ⏳
 
-- [ ] You review RFC & questionnaire
-- [ ] You approve questionnaire for OpenSpec
-- [ ] OpenSpec analysis runs (2-3 hours)
-- [ ] You review OpenSpec output
-- [ ] Create GitHub epic + 47 child issues
-- [ ] Begin implementation (18-23 days)
+- [ ] **Phase 1 (Critical Fixes):** CHILD-001 through CHILD-003 (#1547–#1549)
+  - Fix Authorization Gating Failure
+  - Fix Release Flow Architecture
+  - Remove Broken Workflow Badges
+- [ ] **Phase 2 (Major Issues):** CHILD-004 through CHILD-010 (#1584–#1590)
+  - Implement Post-Release Sync
+  - Clarify Changelog Validation Timing
+  - Change Dry-Run Default
+  - (and 4 more major fixes)
+- [ ] **Phase 3 (Design):** CHILD-011 through CHILD-017 (#1553–#1559)
+  - Generate Requirements Specification
+  - Create Architecture Diagrams
+  - Write Agent Specifications
+  - (and 4 more design docs)
+- [ ] **Phase 4 (Implementation):** CHILD-020 through CHILD-032 (#1560–#1572)
+  - Update release.yml Workflow
+  - Modify release.agent.js
+  - Build Portable Agents
+  - Update Documentation
+  - (and 8 more implementation tasks)
+- [ ] **Phase 5 (Testing):** CHILD-040 through CHILD-047 (#1573–#1580)
+  - Test Dry-Run Release
+  - Test Live Patch/Minor Releases
+  - Test Plugin & Theme Releases
+  - Test Hotfix & Rollback
+  - Team Training
+- [ ] Begin implementation (estimated 18-23 days)
 
 ---
 
@@ -393,29 +420,78 @@ All documents saved to:
 
 ---
 
-## 🚀 How to Proceed
+## 🚀 Implementation Kickoff
+
+**Current State:**
+
+- ✅ Epic #1546 created and open
+- ✅ All 47 child issues created and open
+- ✅ Status indicators applied to epic and all child issues
+- ✅ Clear descriptions with Acceptance Criteria and DoD
+- ✅ All issues linked to parent epic
+
+**How Issues Are Organized:**
+
+Issues use priority and phase indicators in the status section:
+
+```
+## Current Status
+
+🔴 **Priority:** CRITICAL          (🔴 critical, 🟠 major, 🟣 important, 🔷 high, 🔵 important)
+🟡 **Progress:** Not Started       (🟡 not started, 🟢 in progress, ✅ complete)
+**Epic:** #1546
+**Phase:** 1 — Critical Fixes      (Phase 1-5)
+**Last Updated:** 2026-08-05
+```
+
+**Phase Breakdown:**
+
+- **Phase 1 (Critical):** Issues #1547–#1549 — 3-4 days
+- **Phase 2 (Major):** Issues #1584–#1590 — 6 days
+- **Phase 3 (Design):** Issues #1553–#1559 — 3 days
+- **Phase 4 (Implementation):** Issues #1560–#1572 — 18 days
+- **Phase 5 (Testing):** Issues #1573–#1580 — 4 days
+
+**Total Timeline:** 18-23 days
 
 **Next Action (for you):**
 
-1. **Read in this order:**
-   1. This INDEX (you just did!)
-   2. [RFC_RELEASE_PROCESS_V2.md](./RFC_RELEASE_PROCESS_V2.md) (15 min)
-   3. [AUDIT_REPORT.md](./AUDIT_REPORT.md) summary (10 min)
+1. **Review the epic:** [#1546 on GitHub](https://github.com/lightspeedwp/.github/issues/1546)
+   - See overall structure and success criteria
+   - Verify all phases are clear
 
-2. **Decide:**
-   - Do you agree with proposed architecture?
-   - Should we proceed with questionnaire → OpenSpec?
+2. **Start Phase 1 (Critical Fixes):**
+   - [#1547 — CHILD-001: Fix Authorization Gating](https://github.com/lightspeedwp/.github/issues/1547)
+   - [#1548 — CHILD-002: Fix Release Flow Architecture](https://github.com/lightspeedwp/.github/issues/1548)
+   - [#1549 — CHILD-003: Remove Broken Badges](https://github.com/lightspeedwp/.github/issues/1549)
 
-3. **If yes:**
-   - Message: "Approved, ready for OpenSpec"
-   - I'll trigger analysis immediately
+3. **Proceed through phases in order:**
+   - As Phase 1 completes, start Phase 2
+   - As Phase 2 completes, start Phase 3
+   - And so on...
 
-4. **If no/questions:**
-   - Message questions/concerns
-   - We'll refine proposal before proceeding
+**Status Tracking:**
 
-**Time commitment:** ~30 minutes from you, then wait 2-3 hours for OpenSpec.
+Update issue status as work progresses:
+
+```
+🟡 **Progress:** Not Started    →    🟢 **Progress:** In Progress    →    ✅ **Progress:** Complete
+```
 
 ---
 
-*All documents created 2026-08-05 — Ready for your review.*
+## 📋 Issue Numbering Reference
+
+| Phase | Name | Issues | GitHub Issues |
+|-------|------|--------|---------------|
+| 1 | Critical Fixes | CHILD-001–003 | #1547–#1549 |
+| 2 | Major Issues | CHILD-004–010 | #1584–#1590 |
+| 3 | Design | CHILD-011–017 | #1553–#1559 |
+| 4 | Implementation | CHILD-020–032 | #1560–#1572 |
+| 5 | Testing | CHILD-040–047 | #1573–#1580 |
+
+---
+
+*All documents and issues created 2026-08-05*  
+*Epic #1546 live and ready for implementation*  
+*All child issues OPEN with clear acceptance criteria and DoD*
