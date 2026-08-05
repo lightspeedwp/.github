@@ -2,9 +2,9 @@
 file_type: documentation
 title: "Awesome GitHub Site"
 description: "Public website for the Awesome GitHub project."
-version: "0.1.4"
+version: "0.1.5"
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
+last_updated: "2026-08-05"
 language: "en-GB"
 status: active
 stability: stable
