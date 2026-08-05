@@ -98,7 +98,7 @@ Central registry of all active projects within the LightSpeed `.github` control 
 **Issue:** [#1453](https://github.com/lightspeedwp/.github/issues/1453)  
 **Description:** Fix pre-existing authorization failure in release.yml workflow (42+ days old)  
 **Solution:** Made telemetry check non-blocking to unblock downstream jobs (PR #1460)  
-**Status Details:** Critical issues identified and solution applied.  
+**Status Details:** Critical issues identified, but solution applied.  
 **Key Files:** [README.md](./active/release-workflow-authorization-fixes/README.md)
 
 ### [Phase 2B Skills Audit](./active/phase-2b-skills-audit/)

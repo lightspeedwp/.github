@@ -78,14 +78,12 @@ related_branches:
 - metrics-collection.yml
 - reporting.yml
 
-**Labelling & Automation (6 workflows)**
+**Labelling & Automation (4 workflows)**
 
-- issue-labeller.yml
-- pr-labeller.yml
-- auto-assignment.yml
-- stale-issue-handler.yml
-- dependency-labeller.yml
-- release-labeller.yml
+- labeling.yml
+- issue-labeling-automation.yml
+- labeling-governance.yml
+- manage-blocking-status-labels.yml
 
 **CI/CD Pipeline (8 workflows)**
 

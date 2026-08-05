@@ -25,7 +25,7 @@ status: active
 
 ### 2. Project Documentation
 
-**Location:** `.github/projects/active/workflows-consolidation-2026-q3/`  
+**Location:** `projects/active/workflows-consolidation-2026-q3/`  
 **Contents:**
 
 - README.md — Project overview and timeline
@@ -250,11 +250,10 @@ status: active
 
 **Current Workflows:**
 
-- `issue-labeller.yml` — Labels issues
-- `pr-labeller.yml` — Labels PRs
-- `auto-assignment.yml` — Auto-assigns issues
-- `dependency-labeller.yml` — Labels dependency PRs
-- `release-labeller.yml` — Labels releases
+- `labeling.yml` — Labels issues and PRs
+- `issue-labeling-automation.yml` — Labels issues
+- `labeling-governance.yml` — Governance and enforcement
+- `manage-blocking-status-labels.yml` — Manages blocking status labels
 
 **Common Logic:**
 
