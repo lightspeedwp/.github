@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'openai'
 agent_slug: 'design-partner'
 agent_name: 'Design Partner Agent (OpenAI)'

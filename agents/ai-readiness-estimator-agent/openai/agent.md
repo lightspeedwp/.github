@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'openai'
 agent_slug: 'ai-readiness-estimator'
 agent_name: 'AI Readiness Estimator (OpenAI)'

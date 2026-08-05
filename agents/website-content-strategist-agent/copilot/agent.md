@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'website-content-strategist'
 agent_name: 'Website Content Strategist (GitHub Copilot)'

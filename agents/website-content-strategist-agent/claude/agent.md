@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'claude'
 agent_slug: 'website-content-strategist'
 agent_name: 'Website Content Strategist (Claude)'

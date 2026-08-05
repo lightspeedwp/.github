@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'openai'
 agent_slug: 'client-website-discovery-assistant'
 agent_name: 'Client Website Discovery Assistant (OpenAI)'

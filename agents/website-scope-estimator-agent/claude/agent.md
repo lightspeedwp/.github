@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'claude'
 agent_slug: 'website-scope-estimator'
 agent_name: 'Website Scope Estimator (Claude)'

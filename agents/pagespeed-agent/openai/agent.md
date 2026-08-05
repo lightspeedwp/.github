@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'openai'
 agent_slug: 'pagespeed'
 agent_name: 'PageSpeed Agent (OpenAI)'

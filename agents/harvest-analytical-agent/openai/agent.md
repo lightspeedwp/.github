@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'openai'
 agent_slug: 'harvest-analytical'
 agent_name: 'Harvest Analytical Agent (OpenAI)'

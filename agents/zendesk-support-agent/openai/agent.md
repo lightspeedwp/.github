@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'openai'
 agent_slug: 'zendesk-support'
 agent_name: 'Zendesk Support Agent (OpenAI)'

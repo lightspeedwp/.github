@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'website-scope-estimator'
 agent_name: 'Website Scope Estimator (GitHub Copilot)'

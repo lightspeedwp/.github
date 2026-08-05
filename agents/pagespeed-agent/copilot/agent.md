@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'pagespeed'
 agent_name: 'PageSpeed Agent (GitHub Copilot)'

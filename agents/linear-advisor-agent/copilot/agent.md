@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'linear-advisor'
 agent_name: 'Linear Advisor Agent (GitHub Copilot)'

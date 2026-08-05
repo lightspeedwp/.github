@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'copilot'
 agent_slug: 'proposal-desk'
 agent_name: 'Proposal Desk Agent (GitHub Copilot)'

@@ -1,5 +1,4 @@
 ---
-file_type: 'agent'
 provider: 'claude'
 agent_slug: 'zendesk-support'
 agent_name: 'Zendesk Support Agent (Claude)'
