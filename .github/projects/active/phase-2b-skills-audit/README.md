@@ -1,11 +1,11 @@
 ---
-name: Phase 2B Skills Architecture Audit
-title: Skills Architecture Audit & Consolidation Strategy
+file_type: readme
+title: Phase 2B Skills Architecture Audit
 description: Comprehensive analysis and consolidation roadmap for agent skills organisation across 16 agents
-status: active
-created: 2026-07-24
-last_updated: 2026-07-29
-version: 1.0.0
+created_date: 2026-07-24
+last_updated: 2026-08-05
+version: 1.0.1
+maintainer: lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
 tags:
@@ -14,16 +14,6 @@ tags:
   - architecture
   - audit
   - consolidation
-related_issues:
-  - '#1225'
-  - '#1079'
-  - '#1316'
-  - '#1320'
-  - '#1321'
-  - '#1326-#1355'
-related_branches:
-  - feat/agents-phase-2b-skills-audit
-  - feat/phase-2b-agent-skills-batch-1
 ---
 
 # Phase 2B Skills Architecture Audit
