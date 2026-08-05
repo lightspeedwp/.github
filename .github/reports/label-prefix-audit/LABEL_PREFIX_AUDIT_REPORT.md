@@ -506,4 +506,6 @@ gh issue create \
 
 ---
 
-*Built by Claude Code Audit · LightSpeedWP · 2026-08-05*
+---
+
+*Built with ☕ and 🚀 by Claude Code Audit · LightSpeedWP*
