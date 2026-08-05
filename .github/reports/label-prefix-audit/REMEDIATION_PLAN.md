@@ -819,4 +819,4 @@ git checkout .github/workflows/template-enforcement.yml
 
 ---
 
-*Built with ☕ and 🚀 by Claude Code Audit · LightSpeedWP*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

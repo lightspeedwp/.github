@@ -370,4 +370,4 @@ tags:
 
 ---
 
-*Built with ☕ and 🚀 by Claude Code Audit · LightSpeedWP*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
