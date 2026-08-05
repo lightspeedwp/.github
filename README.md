@@ -65,7 +65,7 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 - [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md) - Coding standards
 - [instructions/languages.instructions.md](instructions/languages.instructions.md) - Language-specific standards
-- [instructions/automation.instructions.md](instructions/automation.instructions.md) - Automation standards
+- [.github/instructions/automation.instructions.md](.github/instructions/automation.instructions.md) - GitHub automation standards
 
 ### 🏷️ Labels & Issue Management
 
