@@ -90,7 +90,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 ## Label Automation
 
-- All label assignment, enforcement, and standardization is handled by the **unified labeling agent** ([labeling.agent.js](../.github/agents/labeling.agent.js)).
+- All label assignment, enforcement, and standardization is handled by the **unified labeling agent** ([labeling.agent.js](../.gith../.github/agents/labeling.agent.js)).
 - **File/branch-based rules** are defined in [labeler.yml](../.github/labeler.yml).
 - **Non-canonical or legacy labels** are automatically removed or migrated.
 
@@ -116,7 +116,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 - [labels.yml](../.github/labels.yml)
 - [labeler.yml](../.github/labeler.yml)
 - [issue-types.yml](../.github/issue-types.yml)
-- [labeling.agent.md](../.github/agents/labeling.agent.md)
+- [labeling.agent.md](../.gith../.github/agents/labeling.agent.md)
 - [labeling.yml](../.github/workflows/labeling.yml)
 - [Labeling Strategy](./LABEL_STRATEGY.md)
 - [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)

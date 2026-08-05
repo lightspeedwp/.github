@@ -70,8 +70,8 @@ auditable.
 ## Examples
 
 See the Playwright agent's
-[`claude/tools.json`](../agents/playwright-testing-agent/claude/tools.json) and
-[`openai/tools.json`](../agents/playwright-testing-agent/openai/tools.json) for
+[`claude/tools.json`](../.github/agents/playwright-testing-agent/claude/tools.json) and
+[`openai/tools.json`](../.github/agents/playwright-testing-agent/openai/tools.json) for
 the same capabilities expressed per provider.
 
 ## Validation

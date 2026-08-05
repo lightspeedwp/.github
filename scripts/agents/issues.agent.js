@@ -6,7 +6,7 @@
  * default; pass --apply to write labels to GitHub.
  *
  * @module scripts/agents/issues.agent.js
- * @see ../../agents/issues.agent.md
+ * @see ../../../.github/agents/issues.agent.md
  */
 
 import fs from "fs";

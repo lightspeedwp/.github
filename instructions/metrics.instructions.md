@@ -16,7 +16,7 @@ tags:
 stability: experimental
 domain: governance
 apply_to:
-- ../agents/metrics.agent.md
+- ../.github/agents/metrics.agent.md
 - scripts/agents/metrics.agent.js
 - .github/workflows/metrics.yml
 ---

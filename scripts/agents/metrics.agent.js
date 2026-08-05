@@ -3,7 +3,7 @@
  * The module is deliberately pure so it can be covered by unit tests without GitHub API calls.
  *
  * @module scripts/agents/metrics.agent.js
- * @see ../../agents/metrics.agent.md
+ * @see ../../../.github/agents/metrics.agent.md
  */
 
 function normaliseDate(value) {

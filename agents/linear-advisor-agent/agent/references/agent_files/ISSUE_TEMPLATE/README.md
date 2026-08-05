@@ -101,7 +101,7 @@ These templates integrate with:
 ## 📚 Related Documentation
 
 - [**Instructions Index**](../instructions/README.md) - All instruction files
-- [**Agents Directory**](../agents/README.md) - Automation agents
+- [**Agents Directory**](../.github/agents/README.md) - Automation agents
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - Response templates
 - [**Workflows**](../workflows/README.md) - GitHub Actions automation
 

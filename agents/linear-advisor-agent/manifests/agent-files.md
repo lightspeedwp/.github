@@ -173,7 +173,7 @@
 | agent/references/agent_files/lightspeed-agent-pilot-rollout-checklist.tsv | /workspace/agent_files/lightspeed-agent-pilot-rollout-checklist.tsv | reference/template/code asset | yes |  |
 | agent/references/agent_files/lightspeed-agent-pilot-testing-guide.md | /workspace/agent_files/lightspeed-agent-pilot-testing-guide.md | reference/template/code asset | yes |  |
 | agent/references/agent_files/linear-app-skill-creator/SKILL.md | /workspace/agent_files/linear-app-skill-creator/SKILL.md | reference/template/code asset | yes |  |
-| agent/references/agent_files/linear-app-skill-creator/agents/openai.yaml | /workspace/agent_files/linear-app-skill-creator/agents/openai.yaml | reference/template/code asset | yes |  |
+| agent/references/agent_files/linear-app-skill-creat../.github/agents/openai.yaml | /workspace/agent_files/linear-app-skill-creat../.github/agents/openai.yaml | reference/template/code asset | yes |  |
 | agent/references/agent_files/linear-app-skill-creator/references/eval-and-trigger-rubric.md | /workspace/agent_files/linear-app-skill-creator/references/eval-and-trigger-rubric.md | reference/template/code asset | yes |  |
 | agent/references/agent_files/linear-app-skill-creator/references/linear-workflow-patterns.md | /workspace/agent_files/linear-app-skill-creator/references/linear-workflow-patterns.md | reference/template/code asset | yes |  |
 | agent/references/agent_files/linear-app-skill-creator/references/output-templates.md | /workspace/agent_files/linear-app-skill-creator/references/output-templates.md | reference/template/code asset | yes |  |

@@ -5372,91 +5372,91 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "projects/active/workflows-consolidation-2026-q3/README.md",
+      "path": ".github/projects/active/workflows-consolidation-2026-q3/README.md",
       "category": "workflow",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "projects/active/workflows-consolidation-2026-q3/IMPLEMENTATION_NOTES.md",
+      "path": ".github/projects/active/workflows-consolidation-2026-q3/IMPLEMENTATION_NOTES.md",
       "category": "workflow",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "projects/active/repository-maintenance-infrastructure/SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md",
+      "path": ".github/projects/active/repository-maintenance-infrastructure/SCHEMA-CONSOLIDATION-MIGRATION-PLAN.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repository-maintenance-infrastructure/README.md",
+      "path": ".github/projects/active/repository-maintenance-infrastructure/README.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repository-maintenance-infrastructure/IMPLEMENTATION_NOTES.md",
+      "path": ".github/projects/active/repository-maintenance-infrastructure/IMPLEMENTATION_NOTES.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repository-maintenance-infrastructure/COMPLETION_SUMMARY.md",
+      "path": ".github/projects/active/repository-maintenance-infrastructure/COMPLETION_SUMMARY.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repo-restructuring-2026-07-25/SPECIFICATION.md",
+      "path": ".github/projects/active/repo-restructuring-2026-07-25/SPECIFICATION.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repo-restructuring-2026-07-25/PREFLIGHT_CHECKLIST.md",
+      "path": ".github/projects/active/repo-restructuring-2026-07-25/PREFLIGHT_CHECKLIST.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repo-restructuring-2026-07-25/PHASE_1_KICKOFF_PROMPT.md",
+      "path": ".github/projects/active/repo-restructuring-2026-07-25/PHASE_1_KICKOFF_PROMPT.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/repo-restructuring-2026-07-25/DECISIONS_FRAMEWORK-50-QUESTIONS.md",
+      "path": ".github/projects/active/repo-restructuring-2026-07-25/DECISIONS_FRAMEWORK-50-QUESTIONS.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/prd-combined-agent/README.md",
+      "path": ".github/projects/active/prd-combined-agent/README.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/prd-combined-agent/IMPLEMENTATION_NOTES.md",
+      "path": ".github/projects/active/prd-combined-agent/IMPLEMENTATION_NOTES.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/prd-combined-agent/COMPLETION_SUMMARY.md",
+      "path": ".github/projects/active/prd-combined-agent/COMPLETION_SUMMARY.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/milestone-planning-v1/ROADMAP_VISUAL.md",
+      "path": ".github/projects/active/milestone-planning-v1/ROADMAP_VISUAL.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/milestone-planning-v1/ROADMAP.md",
+      "path": ".github/projects/active/milestone-planning-v1/ROADMAP.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
@@ -5468,37 +5468,37 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "projects/active/phase-2b-skills-audit/README.md",
+      "path": ".github/projects/active/phase-2b-skills-audit/README.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/phase-2b-skills-audit/PHASE-C-TASK-BREAKDOWN.md",
+      "path": ".github/projects/active/phase-2b-skills-audit/PHASE-C-TASK-BREAKDOWN.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-PLANNING.md",
+      "path": ".github/projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-PLANNING.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md",
+      "path": ".github/projects/active/phase-2b-skills-audit/PHASE-2B-SKILLS-AUDIT.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/phase-2b-skills-audit/INDEX.md",
+      "path": ".github/projects/active/phase-2b-skills-audit/INDEX.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "projects/active/phase-2b-skills-audit/IMPLEMENTATION_NOTES.md",
+      "path": ".github/projects/active/phase-2b-skills-audit/IMPLEMENTATION_NOTES.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"

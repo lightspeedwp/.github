@@ -34,7 +34,7 @@ references:
     description: "Automation governance policies"
   - path: "../.github/issue-types.yml"
     description: "Canonical issue type definitions"
-  - path: "../agents/labeling.agent.md"
+  - path: "../.github/agents/labeling.agent.md"
     description: "Labeling agent specification"
   - path: "../.github/workflows/labeling.yml"
     description: "Labeling workflow implementation"
@@ -44,7 +44,7 @@ references:
 
 # Issue Types Reference Guide
 
-> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
+> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
 
 ---
 
@@ -154,7 +154,7 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 
 - The unified labeling agent automatically assigns and enforces type labels
 - Type assignment uses config, heuristics, branch patterns, and content analysis
-- See [labeling agent spec](../agents/labeling.agent.md) for details
+- See [labeling agent spec](../.github/agents/labeling.agent.md) for details
 
 ### Color Palette
 
@@ -201,7 +201,7 @@ Keep a default \`pull_request_template.md\` and optional specialised templates (
 - [PR Labels Guide](./PR_LABELS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [Agent Spec for Labeling](../agents/labeling.agent.md)
+- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
 - [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 ---

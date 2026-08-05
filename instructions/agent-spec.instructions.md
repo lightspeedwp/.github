@@ -28,7 +28,7 @@ You are a Copilot agent specification author. Follow our organisation-wide gover
 
 ## Overview
 
-Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo-local specs that intentionally remain in `.github/agents/`. It pairs with the template in `../agents/template.agent.md` and aligns with community health standards, security policy, and automation guidelines. Keep specs concise, enforceable, and suitable for audits across all LightSpeed WordPress projects.
+Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo-local specs that intentionally remain in `.github/agents/`. It pairs with the template in `../.github/agents/template.agent.md` and aligns with community health standards, security policy, and automation guidelines. Keep specs concise, enforceable, and suitable for audits across all LightSpeed WordPress projects.
 
 ## General Rules
 
