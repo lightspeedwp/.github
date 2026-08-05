@@ -1,9 +1,9 @@
 ---
-provider: 'github-copilot'
+provider: 'copilot'
 agent_slug: 'design-partner'
 agent_name: 'Design Partner Agent (GitHub Copilot)'
 status: 'production'
-version: '1.0.0'
+version: '1.0.1'
 platform: 'github'
 integration_type: 'copilot-skills'
 ---

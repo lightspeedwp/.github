@@ -3,9 +3,9 @@ provider: 'openai'
 agent_slug: 'ai-readiness-estimator'
 agent_name: 'AI Readiness Estimator (OpenAI)'
 status: 'production'
-version: '1.0.0'
+version: '1.0.1'
 created_date: '2026-07-22'
-last_updated: '2026-07-22'
+last_updated: '2026-08-05'
 model_compatibility:
   - gpt-4
   - gpt-4-turbo
