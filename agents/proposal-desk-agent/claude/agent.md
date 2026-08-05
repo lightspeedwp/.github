@@ -4,9 +4,9 @@ provider: 'claude'
 agent_slug: 'proposal-desk'
 agent_name: 'Proposal Desk Agent (Claude)'
 status: 'production'
-version: '1.0.0'
+version: '1.0.1'
 created_date: '2026-07-22'
-last_updated: '2026-07-23'
+last_updated: '2026-08-05'
 model_compatibility:
   - claude-opus-4.8
   - claude-sonnet-5
