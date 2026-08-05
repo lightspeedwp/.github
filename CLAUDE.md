@@ -384,7 +384,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 - Source of truth: `.github/labels.yml` (158 canonical labels)
 - Labeling guide: `docs/LABELING.md`
 - Label taxonomy: `docs/LABEL_STRATEGY.md`
-- Root cause analysis: [Label Prefix Enforcement Project](./github/projects/active/label-prefix-enforcement-2026-08-05/)
+- Root cause analysis: [Label Prefix Enforcement Project](./.github/projects/active/label-prefix-enforcement-2026-08-05/)
 
 ## Repository Boundaries
 
