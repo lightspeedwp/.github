@@ -1,5 +1,4 @@
 const {
-  _readConfig,
   getMilestoneForIssue,
   getProjectForIssue,
   checkMilestoneCapacity,
