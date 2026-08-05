@@ -238,7 +238,7 @@ These files are specific to the `.github` control plane and not intended for reu
 
 - Active code referencing archived files indicates incomplete migration
 - Confusing about authoritative sources
-- Archive folder violates repository organization rules
+- Archive folder violates repository organisation rules
 
 **Total archived references:** 40+ across 15 files
 
@@ -290,7 +290,7 @@ scope: organisation-wide  # or repo-local or control-plane-specific
 
 **Issues:**
 
-- Mixed organization violates stated rules
+- Mixed organisation violates stated rules
 - Confusing search and discovery
 - `.github/instructions/` should only contain truly repo-local files
 
@@ -656,7 +656,7 @@ repository/
 **Owner:** AI Operations + Documentation Team  
 **Estimated Effort:** 20 hours
 
-### Phase P2: Reorganization (Week 4)
+### Phase P2: Reorganisation (Week 4)
 
 **Deliverables:**
 

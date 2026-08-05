@@ -186,7 +186,7 @@ Comprehensive markdown documentation includes 1,951+ references to schema concep
 |------|---------|-----------|------|
 | **CLAUDE.md** | Project instructions | Schema boundary definition | pipe references in governance section |
 | **AGENTS.md** | AI operations standards | `.schemas/` as canonical | Multiple references to schema governance |
-| **instructions/file-organisation.instructions.md** | File placement standards | `.schemas/` detailed documentation | Full section on schema organization |
+| **instructions/file-organisation.instructions.md** | File placement standards | `.schemas/` detailed documentation | Full section on schema organisation |
 | **instructions/plugin-architecture.instructions.md** | Plugin structure guide | `.schemas/` references | Agent-plugin binding schema |
 | **instructions/multi-provider-compatibility.instructions.md** | Multi-provider guidance | `.schemas/` references | Provider config schema |
 | **instructions/agent-spec.instructions.md** | Agent specification | `.schemas/frontmatter.schema.json` | Authority statement |
@@ -361,7 +361,7 @@ Docs (canonical)   │ .schemas/ │ .schemas/ │ ✅ Yes  │ No change
 
 ### Phase 3: Documentation (Weeks 3-4)
 
-**Goal:** Document new schema authority and file organization
+**Goal:** Document new schema authority and file organisation
 
 1. **Update CLAUDE.md**
    - Clarify `.schemas/` as canonical hidden location
