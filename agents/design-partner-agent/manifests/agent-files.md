@@ -167,12 +167,12 @@
 | agent/configuration/plugins/figma/mcp.json | /root/.codex/plugins/cache/openai-marketplace/figma/local/.mcp.json | configuration | yes | plugin configuration |
 | agent/configuration/plugins/github/mcp.json | /root/.codex/plugins/cache/openai-marketplace/github/local/.mcp.json | configuration | yes | plugin configuration |
 | agent/configuration/plugins/linear/mcp.json | /root/.codex/plugins/cache/openai-marketplace/linear/local/.mcp.json | configuration | yes | plugin configuration |
-| agent/configuration/plugins/figma/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/figma/local/agents/openai.yaml | configuration | yes | plugin configuration |
+| agent/configuration/plugins/figma/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/figma/loc../.github/agents/openai.yaml | configuration | yes | plugin configuration |
 | agent/configuration/plugins/figma/hooks.json | /root/.codex/plugins/cache/openai-marketplace/figma/local/hooks.json | configuration | yes | plugin configuration |
 | agent/configuration/plugins/figma/plugin.lock.json | /root/.codex/plugins/cache/openai-marketplace/figma/local/plugin.lock.json | configuration | yes | plugin configuration |
 | skills/directory-installed/system/imagegen/LICENSE.txt | /root/.codex/skills/.system/imagegen/LICENSE.txt | skill | yes | skill:imagegen |
 | skills/directory-installed/system/imagegen/SKILL.md | /root/.codex/skills/.system/imagegen/SKILL.md | skill | yes | skill:imagegen |
-| skills/directory-installed/system/imagegen/agents/openai.yaml | /root/.codex/skills/.system/imagegen/agents/openai.yaml | skill | yes | skill:imagegen |
+| skills/directory-installed/system/imageg../.github/agents/openai.yaml | /root/.codex/skills/.system/imageg../.github/agents/openai.yaml | skill | yes | skill:imagegen |
 | skills/directory-installed/system/imagegen/assets/imagegen-small.svg | /root/.codex/skills/.system/imagegen/assets/imagegen-small.svg | skill | yes | skill:imagegen |
 | skills/directory-installed/system/imagegen/assets/imagegen.png | /root/.codex/skills/.system/imagegen/assets/imagegen.png | skill | yes | skill:imagegen |
 | skills/directory-installed/system/imagegen/references/cli.md | /root/.codex/skills/.system/imagegen/references/cli.md | skill | yes | skill:imagegen |
@@ -184,7 +184,7 @@
 | skills/directory-installed/system/imagegen/scripts/remove_chroma_key.py | /root/.codex/skills/.system/imagegen/scripts/remove_chroma_key.py | skill | yes | skill:imagegen |
 | skills/directory-installed/system/openai-docs/LICENSE.txt | /root/.codex/skills/.system/openai-docs/LICENSE.txt | skill | yes | skill:openai-docs |
 | skills/directory-installed/system/openai-docs/SKILL.md | /root/.codex/skills/.system/openai-docs/SKILL.md | skill | yes | skill:openai-docs |
-| skills/directory-installed/system/openai-docs/agents/openai.yaml | /root/.codex/skills/.system/openai-docs/agents/openai.yaml | skill | yes | skill:openai-docs |
+| skills/directory-installed/system/openai-do../.github/agents/openai.yaml | /root/.codex/skills/.system/openai-do../.github/agents/openai.yaml | skill | yes | skill:openai-docs |
 | skills/directory-installed/system/openai-docs/assets/openai-small.svg | /root/.codex/skills/.system/openai-docs/assets/openai-small.svg | skill | yes | skill:openai-docs |
 | skills/directory-installed/system/openai-docs/assets/openai.png | /root/.codex/skills/.system/openai-docs/assets/openai.png | skill | yes | skill:openai-docs |
 | skills/directory-installed/system/openai-docs/references/latest-model.md | /root/.codex/skills/.system/openai-docs/references/latest-model.md | skill | yes | skill:openai-docs |
@@ -193,7 +193,7 @@
 | skills/directory-installed/system/openai-docs/scripts/fetch-codex-manual.mjs | /root/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs | skill | yes | skill:openai-docs |
 | skills/directory-installed/system/openai-docs/scripts/resolve-latest-model-info.js | /root/.codex/skills/.system/openai-docs/scripts/resolve-latest-model-info.js | skill | yes | skill:openai-docs |
 | skills/directory-installed/system/plugin-creator/SKILL.md | /root/.codex/skills/.system/plugin-creator/SKILL.md | skill | yes | skill:plugin-creator |
-| skills/directory-installed/system/plugin-creator/agents/openai.yaml | /root/.codex/skills/.system/plugin-creator/agents/openai.yaml | skill | yes | skill:plugin-creator |
+| skills/directory-installed/system/plugin-creat../.github/agents/openai.yaml | /root/.codex/skills/.system/plugin-creat../.github/agents/openai.yaml | skill | yes | skill:plugin-creator |
 | skills/directory-installed/system/plugin-creator/assets/plugin-creator-small.svg | /root/.codex/skills/.system/plugin-creator/assets/plugin-creator-small.svg | skill | yes | skill:plugin-creator |
 | skills/directory-installed/system/plugin-creator/assets/plugin-creator.png | /root/.codex/skills/.system/plugin-creator/assets/plugin-creator.png | skill | yes | skill:plugin-creator |
 | skills/directory-installed/system/plugin-creator/references/installing-and-updating.md | /root/.codex/skills/.system/plugin-creator/references/installing-and-updating.md | skill | yes | skill:plugin-creator |
@@ -203,7 +203,7 @@
 | skills/directory-installed/system/plugin-creator/scripts/update_plugin_cachebuster.py | /root/.codex/skills/.system/plugin-creator/scripts/update_plugin_cachebuster.py | skill | yes | skill:plugin-creator |
 | skills/directory-installed/system/plugin-creator/scripts/validate_plugin.py | /root/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py | skill | yes | skill:plugin-creator |
 | skills/directory-installed/system/skill-creator/SKILL.md | /root/.codex/skills/.system/skill-creator/SKILL.md | skill | yes | skill:skill-creator |
-| skills/directory-installed/system/skill-creator/agents/openai.yaml | /root/.codex/skills/.system/skill-creator/agents/openai.yaml | skill | yes | skill:skill-creator |
+| skills/directory-installed/system/skill-creat../.github/agents/openai.yaml | /root/.codex/skills/.system/skill-creat../.github/agents/openai.yaml | skill | yes | skill:skill-creator |
 | skills/directory-installed/system/skill-creator/assets/skill-creator-small.svg | /root/.codex/skills/.system/skill-creator/assets/skill-creator-small.svg | skill | yes | skill:skill-creator |
 | skills/directory-installed/system/skill-creator/assets/skill-creator.png | /root/.codex/skills/.system/skill-creator/assets/skill-creator.png | skill | yes | skill:skill-creator |
 | skills/directory-installed/system/skill-creator/license.txt | /root/.codex/skills/.system/skill-creator/license.txt | skill | yes | skill:skill-creator |
@@ -213,7 +213,7 @@
 | skills/directory-installed/system/skill-creator/scripts/quick_validate.py | /root/.codex/skills/.system/skill-creator/scripts/quick_validate.py | skill | yes | skill:skill-creator |
 | skills/directory-installed/system/skill-installer/LICENSE.txt | /root/.codex/skills/.system/skill-installer/LICENSE.txt | skill | yes | skill:skill-installer |
 | skills/directory-installed/system/skill-installer/SKILL.md | /root/.codex/skills/.system/skill-installer/SKILL.md | skill | yes | skill:skill-installer |
-| skills/directory-installed/system/skill-installer/agents/openai.yaml | /root/.codex/skills/.system/skill-installer/agents/openai.yaml | skill | yes | skill:skill-installer |
+| skills/directory-installed/system/skill-install../.github/agents/openai.yaml | /root/.codex/skills/.system/skill-install../.github/agents/openai.yaml | skill | yes | skill:skill-installer |
 | skills/directory-installed/system/skill-installer/assets/skill-installer-small.svg | /root/.codex/skills/.system/skill-installer/assets/skill-installer-small.svg | skill | yes | skill:skill-installer |
 | skills/directory-installed/system/skill-installer/assets/skill-installer.png | /root/.codex/skills/.system/skill-installer/assets/skill-installer.png | skill | yes | skill:skill-installer |
 | skills/directory-installed/system/skill-installer/scripts/github_utils.py | /root/.codex/skills/.system/skill-installer/scripts/github_utils.py | skill | yes | skill:skill-installer |
@@ -221,7 +221,7 @@
 | skills/directory-installed/system/skill-installer/scripts/list-skills.py | /root/.codex/skills/.system/skill-installer/scripts/list-skills.py | skill | yes | skill:skill-installer |
 | skills/directory-installed/builtins/documents/LICENSE.txt | /root/.codex/skills/builtins/documents/LICENSE.txt | skill | yes | skill:documents |
 | skills/directory-installed/builtins/documents/SKILL.md | /root/.codex/skills/builtins/documents/SKILL.md | skill | yes | skill:documents |
-| skills/directory-installed/builtins/documents/agents/openai.yaml | /root/.codex/skills/builtins/documents/agents/openai.yaml | skill | yes | skill:documents |
+| skills/directory-installed/builtins/documen../.github/agents/openai.yaml | /root/.codex/skills/builtins/documen../.github/agents/openai.yaml | skill | yes | skill:documents |
 | skills/directory-installed/builtins/documents/assets/file-document.png | /root/.codex/skills/builtins/documents/assets/file-document.png | skill | yes | skill:documents |
 | skills/directory-installed/builtins/documents/examples/end_to_end_smoke_test.md | /root/.codex/skills/builtins/documents/examples/end_to_end_smoke_test.md | skill | yes | skill:documents |
 | skills/directory-installed/builtins/documents/manifest.txt | /root/.codex/skills/builtins/documents/manifest.txt | skill | yes | skill:documents |
@@ -296,10 +296,10 @@
 | skills/directory-installed/builtins/documents/troubleshooting/libreoffice_headless.md | /root/.codex/skills/builtins/documents/troubleshooting/libreoffice_headless.md | skill | yes | skill:documents |
 | skills/directory-installed/builtins/documents/troubleshooting/run_splitting.md | /root/.codex/skills/builtins/documents/troubleshooting/run_splitting.md | skill | yes | skill:documents |
 | skills/directory-installed/builtins/pdf/SKILL.md | /root/.codex/skills/builtins/pdf/SKILL.md | skill | yes | skill:pdf |
-| skills/directory-installed/builtins/pdf/agents/openai.yaml | /root/.codex/skills/builtins/pdf/agents/openai.yaml | skill | yes | skill:pdf |
+| skills/directory-installed/builtins/p../.github/agents/openai.yaml | /root/.codex/skills/builtins/p../.github/agents/openai.yaml | skill | yes | skill:pdf |
 | skills/directory-installed/builtins/pdf/assets/file-document.png | /root/.codex/skills/builtins/pdf/assets/file-document.png | skill | yes | skill:pdf |
 | skills/directory-installed/builtins/presentations/SKILL.md | /root/.codex/skills/builtins/presentations/SKILL.md | skill | yes | skill:presentations |
-| skills/directory-installed/builtins/presentations/agents/openai.yaml | /root/.codex/skills/builtins/presentations/agents/openai.yaml | skill | yes | skill:presentations |
+| skills/directory-installed/builtins/presentatio../.github/agents/openai.yaml | /root/.codex/skills/builtins/presentatio../.github/agents/openai.yaml | skill | yes | skill:presentations |
 | skills/directory-installed/builtins/presentations/artifact_tool/API_QUICK_START.md | /root/.codex/skills/builtins/presentations/artifact_tool/API_QUICK_START.md | skill | yes | skill:presentations |
 | skills/directory-installed/builtins/presentations/artifact_tool/api/API_DOCS.md | /root/.codex/skills/builtins/presentations/artifact_tool/api/API_DOCS.md | skill | yes | skill:presentations |
 | skills/directory-installed/builtins/presentations/artifact_tool/api/references/auto-layout.spec.md | /root/.codex/skills/builtins/presentations/artifact_tool/api/references/auto-layout.spec.md | skill | yes | skill:presentations |
@@ -412,7 +412,7 @@
 | skills/directory-installed/builtins/presentations/template_following_scripts/validate_template_plan.mjs | /root/.codex/skills/builtins/presentations/template_following_scripts/validate_template_plan.mjs | skill | yes | skill:presentations |
 | skills/directory-installed/builtins/spreadsheets/API_QUICK_START.md | /root/.codex/skills/builtins/spreadsheets/API_QUICK_START.md | skill | yes | skill:spreadsheets |
 | skills/directory-installed/builtins/spreadsheets/SKILL.md | /root/.codex/skills/builtins/spreadsheets/SKILL.md | skill | yes | skill:spreadsheets |
-| skills/directory-installed/builtins/spreadsheets/agents/openai.yaml | /root/.codex/skills/builtins/spreadsheets/agents/openai.yaml | skill | yes | skill:spreadsheets |
+| skills/directory-installed/builtins/spreadshee../.github/agents/openai.yaml | /root/.codex/skills/builtins/spreadshee../.github/agents/openai.yaml | skill | yes | skill:spreadsheets |
 | skills/directory-installed/builtins/spreadsheets/assets/file-spreadsheet.png | /root/.codex/skills/builtins/spreadsheets/assets/file-spreadsheet.png | skill | yes | skill:spreadsheets |
 | skills/directory-installed/builtins/spreadsheets/charts.md | /root/.codex/skills/builtins/spreadsheets/charts.md | skill | yes | skill:spreadsheets |
 | skills/directory-installed/builtins/spreadsheets/domain_guidance/corporate_finance_fpa.md | /root/.codex/skills/builtins/spreadsheets/domain_guidance/corporate_finance_fpa.md | skill | yes | skill:spreadsheets |
@@ -423,12 +423,12 @@
 | skills/directory-installed/builtins/spreadsheets/routing/google_sheets.md | /root/.codex/skills/builtins/spreadsheets/routing/google_sheets.md | skill | yes | skill:spreadsheets |
 | skills/directory-installed/builtins/spreadsheets/style_guidelines.md | /root/.codex/skills/builtins/spreadsheets/style_guidelines.md | skill | yes | skill:spreadsheets |
 | skills/agent-attached/hermes/audit/SKILL.md | /root/.codex/skills/hermes/audit/SKILL.md | skill | yes | skill:audit |
-| skills/agent-attached/hermes/audit/agents/openai.yaml | /root/.codex/skills/hermes/audit/agents/openai.yaml | skill | yes | skill:audit |
+| skills/agent-attached/hermes/aud../.github/agents/openai.yaml | /root/.codex/skills/hermes/aud../.github/agents/openai.yaml | skill | yes | skill:audit |
 | skills/agent-attached/hermes/brief/SKILL.md | /root/.codex/skills/hermes/brief/SKILL.md | skill | yes | skill:brief |
-| skills/agent-attached/hermes/brief/agents/openai.yaml | /root/.codex/skills/hermes/brief/agents/openai.yaml | skill | yes | skill:brief |
+| skills/agent-attached/hermes/bri../.github/agents/openai.yaml | /root/.codex/skills/hermes/bri../.github/agents/openai.yaml | skill | yes | skill:brief |
 | skills/agent-attached/hermes/content-file-validator/README.md | /root/.codex/skills/hermes/content-file-validator/README.md | skill | yes | skill:content-file-validator |
 | skills/agent-attached/hermes/content-file-validator/SKILL.md | /root/.codex/skills/hermes/content-file-validator/SKILL.md | skill | yes | skill:content-file-validator |
-| skills/agent-attached/hermes/content-file-validator/agents/openai.yaml | /root/.codex/skills/hermes/content-file-validator/agents/openai.yaml | skill | yes | skill:content-file-validator |
+| skills/agent-attached/hermes/content-file-validat../.github/agents/openai.yaml | /root/.codex/skills/hermes/content-file-validat../.github/agents/openai.yaml | skill | yes | skill:content-file-validator |
 | skills/agent-attached/hermes/content-file-validator/assets/icon.svg | /root/.codex/skills/hermes/content-file-validator/assets/icon.svg | skill | yes | skill:content-file-validator |
 | skills/agent-attached/hermes/content-file-validator/content-validation-report.md | /root/.codex/skills/hermes/content-file-validator/content-validation-report.md | skill | yes | skill:content-file-validator |
 | skills/agent-attached/hermes/content-file-validator/references/example-validation-report.md | /root/.codex/skills/hermes/content-file-validator/references/example-validation-report.md | skill | yes | skill:content-file-validator |
@@ -444,9 +444,9 @@
 | skills/agent-attached/hermes/content-file-validator/tests/missing-frontmatter.md | /root/.codex/skills/hermes/content-file-validator/tests/missing-frontmatter.md | skill | yes | skill:content-file-validator |
 | skills/agent-attached/hermes/content-file-validator/tests/valid-example.md | /root/.codex/skills/hermes/content-file-validator/tests/valid-example.md | skill | yes | skill:content-file-validator |
 | skills/agent-attached/hermes/critique/SKILL.md | /root/.codex/skills/hermes/critique/SKILL.md | skill | yes | skill:critique |
-| skills/agent-attached/hermes/critique/agents/openai.yaml | /root/.codex/skills/hermes/critique/agents/openai.yaml | skill | yes | skill:critique |
+| skills/agent-attached/hermes/critiq../.github/agents/openai.yaml | /root/.codex/skills/hermes/critiq../.github/agents/openai.yaml | skill | yes | skill:critique |
 | skills/agent-attached/hermes/design-md-generator/SKILL.md | /root/.codex/skills/hermes/design-md-generator/SKILL.md | skill | yes | skill:design-md-generator |
-| skills/agent-attached/hermes/design-md-generator/agents/openai.yaml | /root/.codex/skills/hermes/design-md-generator/agents/openai.yaml | skill | yes | skill:design-md-generator |
+| skills/agent-attached/hermes/design-md-generat../.github/agents/openai.yaml | /root/.codex/skills/hermes/design-md-generat../.github/agents/openai.yaml | skill | yes | skill:design-md-generator |
 | skills/agent-attached/hermes/design-md-generator/assets/github-actions/design-md-lint.yml | /root/.codex/skills/hermes/design-md-generator/assets/github-actions/design-md-lint.yml | skill | yes | skill:design-md-generator |
 | skills/agent-attached/hermes/design-md-generator/assets/icon.svg | /root/.codex/skills/hermes/design-md-generator/assets/icon.svg | skill | yes | skill:design-md-generator |
 | skills/agent-attached/hermes/design-md-generator/references/design-md-cli-and-portability.md | /root/.codex/skills/hermes/design-md-generator/references/design-md-cli-and-portability.md | skill | yes | skill:design-md-generator |
@@ -460,14 +460,14 @@
 | skills/agent-attached/hermes/design-md-generator/scripts/collect-design-md-evidence.js | /root/.codex/skills/hermes/design-md-generator/scripts/collect-design-md-evidence.js | skill | yes | skill:design-md-generator |
 | skills/agent-attached/hermes/design-md-generator/scripts/validate-design-md.sh | /root/.codex/skills/hermes/design-md-generator/scripts/validate-design-md.sh | skill | yes | skill:design-md-generator |
 | skills/agent-attached/hermes/design-qa-readiness/SKILL.md | /root/.codex/skills/hermes/design-qa-readiness/SKILL.md | skill | yes | skill:design-qa-readiness |
-| skills/agent-attached/hermes/design-qa-readiness/agents/openai.yaml | /root/.codex/skills/hermes/design-qa-readiness/agents/openai.yaml | skill | yes | skill:design-qa-readiness |
+| skills/agent-attached/hermes/design-qa-readine../.github/agents/openai.yaml | /root/.codex/skills/hermes/design-qa-readine../.github/agents/openai.yaml | skill | yes | skill:design-qa-readiness |
 | skills/agent-attached/hermes/design-qa-readiness/assets/icon.svg | /root/.codex/skills/hermes/design-qa-readiness/assets/icon.svg | skill | yes | skill:design-qa-readiness |
 | skills/agent-attached/hermes/experiments/SKILL.md | /root/.codex/skills/hermes/experiments/SKILL.md | skill | yes | skill:experiments |
-| skills/agent-attached/hermes/experiments/agents/openai.yaml | /root/.codex/skills/hermes/experiments/agents/openai.yaml | skill | yes | skill:experiments |
+| skills/agent-attached/hermes/experimen../.github/agents/openai.yaml | /root/.codex/skills/hermes/experimen../.github/agents/openai.yaml | skill | yes | skill:experiments |
 | skills/agent-attached/hermes/handoff/SKILL.md | /root/.codex/skills/hermes/handoff/SKILL.md | skill | yes | skill:handoff |
-| skills/agent-attached/hermes/handoff/agents/openai.yaml | /root/.codex/skills/hermes/handoff/agents/openai.yaml | skill | yes | skill:handoff |
+| skills/agent-attached/hermes/hando../.github/agents/openai.yaml | /root/.codex/skills/hermes/hando../.github/agents/openai.yaml | skill | yes | skill:handoff |
 | skills/agent-attached/hermes/lightspeed-claim-register-auditor/SKILL.md | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/SKILL.md | skill | yes | skill:lightspeed-claim-register-auditor |
-| skills/agent-attached/hermes/lightspeed-claim-register-auditor/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/agents/openai.yaml | skill | yes | skill:lightspeed-claim-register-auditor |
+| skills/agent-attached/hermes/lightspeed-claim-register-audit../.github/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-claim-register-audit../.github/agents/openai.yaml | skill | yes | skill:lightspeed-claim-register-auditor |
 | skills/agent-attached/hermes/lightspeed-claim-register-auditor/assets/approved-wording-template.md | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/assets/approved-wording-template.md | skill | yes | skill:lightspeed-claim-register-auditor |
 | skills/agent-attached/hermes/lightspeed-claim-register-auditor/assets/claim-register-template.md | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/assets/claim-register-template.md | skill | yes | skill:lightspeed-claim-register-auditor |
 | skills/agent-attached/hermes/lightspeed-claim-register-auditor/assets/evidence-needed-template.md | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/assets/evidence-needed-template.md | skill | yes | skill:lightspeed-claim-register-auditor |
@@ -484,7 +484,7 @@
 | skills/agent-attached/hermes/lightspeed-claim-register-auditor/references/evidence-standards.md | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/references/evidence-standards.md | skill | yes | skill:lightspeed-claim-register-auditor |
 | skills/agent-attached/hermes/lightspeed-claim-register-auditor/references/report-template.md | /root/.codex/skills/hermes/lightspeed-claim-register-auditor/references/report-template.md | skill | yes | skill:lightspeed-claim-register-auditor |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/SKILL.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/SKILL.md | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
-| skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/agents/openai.yaml | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
+| skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-audit../.github/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-audit../.github/agents/openai.yaml | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/assets/accessibility-state-template.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/assets/accessibility-state-template.md | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/assets/component-block-map-template.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/assets/component-block-map-template.md | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/assets/icon.svg | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/assets/icon.svg | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
@@ -503,7 +503,7 @@
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/references/responsive-state-qa.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/references/responsive-state-qa.md | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-parity-auditor/references/theme-json-token-mapping.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-parity-auditor/references/theme-json-token-mapping.md | skill | yes | skill:lightspeed-figma-wordpress-parity-auditor |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/SKILL.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/SKILL.md | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
-| skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/agents/openai.yaml | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
+| skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-bri../.github/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-bri../.github/agents/openai.yaml | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/assets/block-plugin-requirements-template.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/assets/block-plugin-requirements-template.md | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/assets/component-block-map-template.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/assets/component-block-map-template.md | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/assets/github-issue-seeds-template.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/assets/github-issue-seeds-template.md | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
@@ -522,7 +522,7 @@
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/references/technical-brief-workflow.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/references/technical-brief-workflow.md | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
 | skills/agent-attached/hermes/lightspeed-figma-wordpress-technical-brief/references/theme-json-token-mapping.md | /root/.codex/skills/hermes/lightspeed-figma-wordpress-technical-brief/references/theme-json-token-mapping.md | skill | yes | skill:lightspeed-figma-wordpress-technical-brief |
 | skills/agent-attached/hermes/lightspeed-release-handoff-generator/SKILL.md | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/SKILL.md | skill | yes | skill:lightspeed-release-handoff-generator |
-| skills/agent-attached/hermes/lightspeed-release-handoff-generator/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/agents/openai.yaml | skill | yes | skill:lightspeed-release-handoff-generator |
+| skills/agent-attached/hermes/lightspeed-release-handoff-generat../.github/agents/openai.yaml | /root/.codex/skills/hermes/lightspeed-release-handoff-generat../.github/agents/openai.yaml | skill | yes | skill:lightspeed-release-handoff-generator |
 | skills/agent-attached/hermes/lightspeed-release-handoff-generator/assets/client-handoff-template.md | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/assets/client-handoff-template.md | skill | yes | skill:lightspeed-release-handoff-generator |
 | skills/agent-attached/hermes/lightspeed-release-handoff-generator/assets/icon.svg | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/assets/icon.svg | skill | yes | skill:lightspeed-release-handoff-generator |
 | skills/agent-attached/hermes/lightspeed-release-handoff-generator/assets/internal-handoff-template.md | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/assets/internal-handoff-template.md | skill | yes | skill:lightspeed-release-handoff-generator |
@@ -537,17 +537,17 @@
 | skills/agent-attached/hermes/lightspeed-release-handoff-generator/references/release-notes-rules.md | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/references/release-notes-rules.md | skill | yes | skill:lightspeed-release-handoff-generator |
 | skills/agent-attached/hermes/lightspeed-release-handoff-generator/references/support-transition-rules.md | /root/.codex/skills/hermes/lightspeed-release-handoff-generator/references/support-transition-rules.md | skill | yes | skill:lightspeed-release-handoff-generator |
 | skills/agent-attached/hermes/reference-site-analysis/SKILL.md | /root/.codex/skills/hermes/reference-site-analysis/SKILL.md | skill | yes | skill:reference-site-analysis |
-| skills/agent-attached/hermes/reference-site-analysis/agents/openai.yaml | /root/.codex/skills/hermes/reference-site-analysis/agents/openai.yaml | skill | yes | skill:reference-site-analysis |
+| skills/agent-attached/hermes/reference-site-analys../.github/agents/openai.yaml | /root/.codex/skills/hermes/reference-site-analys../.github/agents/openai.yaml | skill | yes | skill:reference-site-analysis |
 | skills/agent-attached/hermes/reference-site-analysis/references/output-template.md | /root/.codex/skills/hermes/reference-site-analysis/references/output-template.md | skill | yes | skill:reference-site-analysis |
 | skills/agent-attached/hermes/research-synthesis/SKILL.md | /root/.codex/skills/hermes/research-synthesis/SKILL.md | skill | yes | skill:research-synthesis |
-| skills/agent-attached/hermes/research-synthesis/agents/openai.yaml | /root/.codex/skills/hermes/research-synthesis/agents/openai.yaml | skill | yes | skill:research-synthesis |
+| skills/agent-attached/hermes/research-synthes../.github/agents/openai.yaml | /root/.codex/skills/hermes/research-synthes../.github/agents/openai.yaml | skill | yes | skill:research-synthesis |
 | skills/agent-attached/hermes/ux-writing/SKILL.md | /root/.codex/skills/hermes/ux-writing/SKILL.md | skill | yes | skill:ux-writing |
-| skills/agent-attached/hermes/ux-writing/agents/openai.yaml | /root/.codex/skills/hermes/ux-writing/agents/openai.yaml | skill | yes | skill:ux-writing |
+| skills/agent-attached/hermes/ux-writi../.github/agents/openai.yaml | /root/.codex/skills/hermes/ux-writi../.github/agents/openai.yaml | skill | yes | skill:ux-writing |
 | skills/agent-attached/hermes/wordpress-block-theme-handoff/SKILL.md | /root/.codex/skills/hermes/wordpress-block-theme-handoff/SKILL.md | skill | yes | skill:wordpress-block-theme-handoff |
-| skills/agent-attached/hermes/wordpress-block-theme-handoff/agents/openai.yaml | /root/.codex/skills/hermes/wordpress-block-theme-handoff/agents/openai.yaml | skill | yes | skill:wordpress-block-theme-handoff |
+| skills/agent-attached/hermes/wordpress-block-theme-hando../.github/agents/openai.yaml | /root/.codex/skills/hermes/wordpress-block-theme-hando../.github/agents/openai.yaml | skill | yes | skill:wordpress-block-theme-handoff |
 | skills/agent-attached/hermes/wordpress-block-theme-handoff/assets/icon.svg | /root/.codex/skills/hermes/wordpress-block-theme-handoff/assets/icon.svg | skill | yes | skill:wordpress-block-theme-handoff |
 | skills/local/frontend-skill/SKILL.md | /root/.codex/skills/frontend-skill/SKILL.md | skill | yes | skill:frontend-skill |
-| skills/local/frontend-skill/agents/openai.yaml | /root/.codex/skills/frontend-skill/agents/openai.yaml | skill | yes | skill:frontend-skill |
+| skills/local/frontend-ski../.github/agents/openai.yaml | /root/.codex/skills/frontend-ski../.github/agents/openai.yaml | skill | yes | skill:frontend-skill |
 | skills/plugin-provided/figma/figma-code-connect/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/figma/local/skills/figma-code-connect/SKILL.md | skill | yes | skill:figma:figma-code-connect |
 | skills/plugin-provided/figma/figma-code-connect/references/advanced-patterns.md | /root/.codex/plugins/cache/openai-marketplace/figma/local/skills/figma-code-connect/references/advanced-patterns.md | skill | yes | skill:figma:figma-code-connect |
 | skills/plugin-provided/figma/figma-code-connect/references/api.md | /root/.codex/plugins/cache/openai-marketplace/figma/local/skills/figma-code-connect/references/api.md | skill | yes | skill:figma:figma-code-connect |
@@ -637,27 +637,27 @@
 | skills/plugin-provided/figma/figma-use-slides/references/slide-properties.md | /root/.codex/plugins/cache/openai-marketplace/figma/local/skills/figma-use-slides/references/slide-properties.md | skill | yes | skill:figma:figma-use-slides |
 | skills/plugin-provided/github/gh-address-comments/LICENSE.txt | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments/LICENSE.txt | skill | yes | skill:github:gh-address-comments |
 | skills/plugin-provided/github/gh-address-comments/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments/SKILL.md | skill | yes | skill:github:gh-address-comments |
-| skills/plugin-provided/github/gh-address-comments/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments/agents/openai.yaml | skill | yes | skill:github:gh-address-comments |
+| skills/plugin-provided/github/gh-address-commen../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-commen../.github/agents/openai.yaml | skill | yes | skill:github:gh-address-comments |
 | skills/plugin-provided/github/gh-address-comments/assets/github-small.svg | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments/assets/github-small.svg | skill | yes | skill:github:gh-address-comments |
 | skills/plugin-provided/github/gh-address-comments/assets/github.png | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments/assets/github.png | skill | yes | skill:github:gh-address-comments |
 | skills/plugin-provided/github/gh-address-comments/scripts/fetch_comments.py | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments/scripts/fetch_comments.py | skill | yes | skill:github:gh-address-comments |
 | skills/plugin-provided/github/gh-fix-ci/LICENSE.txt | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci/LICENSE.txt | skill | yes | skill:github:gh-fix-ci |
 | skills/plugin-provided/github/gh-fix-ci/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci/SKILL.md | skill | yes | skill:github:gh-fix-ci |
-| skills/plugin-provided/github/gh-fix-ci/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci/agents/openai.yaml | skill | yes | skill:github:gh-fix-ci |
+| skills/plugin-provided/github/gh-fix-../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-../.github/agents/openai.yaml | skill | yes | skill:github:gh-fix-ci |
 | skills/plugin-provided/github/gh-fix-ci/assets/github-small.svg | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci/assets/github-small.svg | skill | yes | skill:github:gh-fix-ci |
 | skills/plugin-provided/github/gh-fix-ci/assets/github.png | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci/assets/github.png | skill | yes | skill:github:gh-fix-ci |
 | skills/plugin-provided/github/gh-fix-ci/scripts/inspect_pr_checks.py | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci/scripts/inspect_pr_checks.py | skill | yes | skill:github:gh-fix-ci |
 | skills/plugin-provided/github/github/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/github/SKILL.md | skill | yes | skill:github:github |
-| skills/plugin-provided/github/github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/github/agents/openai.yaml | skill | yes | skill:github:github |
+| skills/plugin-provided/github/gith../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gith../.github/agents/openai.yaml | skill | yes | skill:github:github |
 | skills/plugin-provided/github/github/assets/github-small.svg | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/github/assets/github-small.svg | skill | yes | skill:github:github |
 | skills/plugin-provided/github/github/assets/github.png | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/github/assets/github.png | skill | yes | skill:github:github |
 | skills/plugin-provided/github/yeet/LICENSE.txt | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet/LICENSE.txt | skill | yes | skill:github:yeet |
 | skills/plugin-provided/github/yeet/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet/SKILL.md | skill | yes | skill:github:yeet |
-| skills/plugin-provided/github/yeet/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet/agents/openai.yaml | skill | yes | skill:github:yeet |
+| skills/plugin-provided/github/ye../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/ye../.github/agents/openai.yaml | skill | yes | skill:github:yeet |
 | skills/plugin-provided/github/yeet/assets/yeet-small.svg | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet/assets/yeet-small.svg | skill | yes | skill:github:yeet |
 | skills/plugin-provided/github/yeet/assets/yeet.png | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet/assets/yeet.png | skill | yes | skill:github:yeet |
 | skills/plugin-provided/google-drive/google-docs/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/SKILL.md | skill | yes | skill:google-drive:google-docs |
-| skills/plugin-provided/google-drive/google-docs/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/agents/openai.yaml | skill | yes | skill:google-drive:google-docs |
+| skills/plugin-provided/google-drive/google-do../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-do../.github/agents/openai.yaml | skill | yes | skill:google-drive:google-docs |
 | skills/plugin-provided/google-drive/google-docs/assets/google-docs-small.svg | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/assets/google-docs-small.svg | skill | yes | skill:google-drive:google-docs |
 | skills/plugin-provided/google-drive/google-docs/assets/google-docs.png | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/assets/google-docs.png | skill | yes | skill:google-drive:google-docs |
 | skills/plugin-provided/google-drive/google-docs/references/reference-citations-and-hyperlinks.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/references/reference-citations-and-hyperlinks.md | skill | yes | skill:google-drive:google-docs |
@@ -676,7 +676,7 @@
 | skills/plugin-provided/google-drive/google-docs/references/reference-smart-chips-and-building-blocks.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/references/reference-smart-chips-and-building-blocks.md | skill | yes | skill:google-drive:google-docs |
 | skills/plugin-provided/google-drive/google-docs/references/reference-table-formatting-deep-dive.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs/references/reference-table-formatting-deep-dive.md | skill | yes | skill:google-drive:google-docs |
 | skills/plugin-provided/google-drive/google-drive/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/SKILL.md | skill | yes | skill:google-drive:google-drive |
-| skills/plugin-provided/google-drive/google-drive/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/agents/openai.yaml | skill | yes | skill:google-drive:google-drive |
+| skills/plugin-provided/google-drive/google-dri../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-dri../.github/agents/openai.yaml | skill | yes | skill:google-drive:google-drive |
 | skills/plugin-provided/google-drive/google-drive/assets/app-icon.png | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/assets/app-icon.png | skill | yes | skill:google-drive:google-drive |
 | skills/plugin-provided/google-drive/google-drive/assets/google-drive-small.svg | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/assets/google-drive-small.svg | skill | yes | skill:google-drive:google-drive |
 | skills/plugin-provided/google-drive/google-drive/assets/google-drive.png | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/assets/google-drive.png | skill | yes | skill:google-drive:google-drive |
@@ -686,9 +686,9 @@
 | skills/plugin-provided/google-drive/google-drive/references/slides/sheets-chart-replacement.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/references/slides/sheets-chart-replacement.md | skill | yes | skill:google-drive:google-drive |
 | skills/plugin-provided/google-drive/google-drive/references/slides/visual-change-loop.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive/references/slides/visual-change-loop.md | skill | yes | skill:google-drive:google-drive |
 | skills/plugin-provided/google-drive/google-drive-comments/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive-comments/SKILL.md | skill | yes | skill:google-drive:google-drive-comments |
-| skills/plugin-provided/google-drive/google-drive-comments/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive-comments/agents/openai.yaml | skill | yes | skill:google-drive:google-drive-comments |
+| skills/plugin-provided/google-drive/google-drive-commen../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive-commen../.github/agents/openai.yaml | skill | yes | skill:google-drive:google-drive-comments |
 | skills/plugin-provided/google-drive/google-sheets/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/SKILL.md | skill | yes | skill:google-drive:google-sheets |
-| skills/plugin-provided/google-drive/google-sheets/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/agents/openai.yaml | skill | yes | skill:google-drive:google-sheets |
+| skills/plugin-provided/google-drive/google-shee../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-shee../.github/agents/openai.yaml | skill | yes | skill:google-drive:google-sheets |
 | skills/plugin-provided/google-drive/google-sheets/assets/google-sheets-small.svg | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/assets/google-sheets-small.svg | skill | yes | skill:google-drive:google-sheets |
 | skills/plugin-provided/google-drive/google-sheets/assets/google-sheets.png | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/assets/google-sheets.png | skill | yes | skill:google-drive:google-sheets |
 | skills/plugin-provided/google-drive/google-sheets/references/reference-batch-update-recipes.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/references/reference-batch-update-recipes.md | skill | yes | skill:google-drive:google-sheets |
@@ -699,7 +699,7 @@
 | skills/plugin-provided/google-drive/google-sheets/references/reference-live-read-search-safety.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/references/reference-live-read-search-safety.md | skill | yes | skill:google-drive:google-sheets |
 | skills/plugin-provided/google-drive/google-sheets/references/style-profiles.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets/references/style-profiles.md | skill | yes | skill:google-drive:google-sheets |
 | skills/plugin-provided/google-drive/google-slides/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/SKILL.md | skill | yes | skill:google-drive:google-slides |
-| skills/plugin-provided/google-drive/google-slides/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/agents/openai.yaml | skill | yes | skill:google-drive:google-slides |
+| skills/plugin-provided/google-drive/google-slid../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slid../.github/agents/openai.yaml | skill | yes | skill:google-drive:google-slides |
 | skills/plugin-provided/google-drive/google-slides/assets/google-slides-small.svg | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/assets/google-slides-small.svg | skill | yes | skill:google-drive:google-slides |
 | skills/plugin-provided/google-drive/google-slides/assets/google-slides.png | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/assets/google-slides.png | skill | yes | skill:google-drive:google-slides |
 | skills/plugin-provided/google-drive/google-slides/references/reference-batch-update-recipes.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/references/reference-batch-update-recipes.md | skill | yes | skill:google-drive:google-slides |
@@ -719,7 +719,7 @@
 | skills/plugin-provided/google-drive/google-slides/references/reference-visual-iteration.md | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides/references/reference-visual-iteration.md | skill | yes | skill:google-drive:google-slides |
 | skills/plugin-provided/linear/linear/LICENSE.txt | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/LICENSE.txt | skill | yes | skill:linear:linear |
 | skills/plugin-provided/linear/linear/SKILL.md | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/SKILL.md | skill | yes | skill:linear:linear |
-| skills/plugin-provided/linear/linear/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/agents/openai.yaml | skill | yes | skill:linear:linear |
+| skills/plugin-provided/linear/line../.github/agents/openai.yaml | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/line../.github/agents/openai.yaml | skill | yes | skill:linear:linear |
 | skills/plugin-provided/linear/linear/assets/linear-small.svg | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/assets/linear-small.svg | skill | yes | skill:linear:linear |
 | skills/plugin-provided/linear/linear/assets/linear.png | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/assets/linear.png | skill | yes | skill:linear:linear |
 

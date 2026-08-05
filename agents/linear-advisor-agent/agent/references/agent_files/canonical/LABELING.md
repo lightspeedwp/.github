@@ -58,7 +58,7 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ## 3. Utility Modules (Modularization)
 
-**Utilities are located in `scripts/agents/includes/` and imported as needed:**
+**Utilities are located in `scrip../.github/agents/includes/` and imported as needed:**
 
 | Utility File          | Core Functions (examples)                                                  | Used by                       |
 | --------------------- | -------------------------------------------------------------------------- | ----------------------------- |
@@ -80,30 +80,30 @@ const {
   fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
-} = require("../../scripts/agents/includes/label-lookup");
+} = require("../../scrip../.github/agents/includes/label-lookup");
 const {
   fetchLabelerRules,
   applyLabelerRules,
-} = require("../../scripts/agents/includes/labeler-utils");
+} = require("../../scrip../.github/agents/includes/labeler-utils");
 const {
   syncLabelsWithCanonical,
   standardizeLabelsOnRepo,
-} = require("../../scripts/agents/includes/label-sync");
+} = require("../../scrip../.github/agents/includes/label-sync");
 const {
   enforceOneHotStatus,
   applyDefaultStatus,
   applyDefaultPriority,
-} = require("../../scripts/agents/includes/status-enforcer");
+} = require("../../scrip../.github/agents/includes/status-enforcer");
 const {
   buildLabelingReport,
-} = require("../../scripts/agents/includes/label-reporting");
+} = require("../../scrip../.github/agents/includes/label-reporting");
 const {
   loadIssueTypes,
   findIssueTypeByNameOrAlias,
-} = require("../../scripts/agents/includes/type-lookup");
+} = require("../../scrip../.github/agents/includes/type-lookup");
 const {
   suggestLabelsFromContent,
-} = require("../../scripts/agents/includes/label-heuristics");
+} = require("../../scrip../.github/agents/includes/label-heuristics");
 
 // Example usage in agent's main function:
 async function runLabelingAgent(context, configs, dryRun = false) {
@@ -161,7 +161,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Always use canonical config:**
   Never hardcode label/type lists; always read from YAML.
 - **Write utility tests:**
-  Each utility in `scripts/agents/includes/` should have a test in `scripts/agents/includes/__tests__/`.
+  Each utility in `scrip../.github/agents/includes/` should have a test in `scrip../.github/agents/includes/__tests__/`.
 - **Keep logic DRY:**
   Avoid duplicate logic for label lookup, migration, or reporting.
 - **Document all new utility functions:**
@@ -174,9 +174,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Missing labels or types?**
   Check `.github/labels.yml` and `.github/issue-types.yml` for missing/typo entries.
 - **Label not applied as expected?**
-  Debug with utility tests in `scripts/agents/includes/__tests__/`.
+  Debug with utility tests in `scrip../.github/agents/includes/__tests__/`.
 - **Want to add a new heuristic or report?**
-  Add it as a new utility in `scripts/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
+  Add it as a new utility in `scrip../.github/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
 
 ---
 
@@ -187,7 +187,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - [issue-types.yml](../.github/issue-types.yml)
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
 - [Custom Instructions](../.github/custom-instructions.md)
-- [Main Agent Spec](../.github/agents/labeling.agent.md)
+- [Main Agent Spec](../.gith../.github/agents/labeling.agent.md)
 
 ---
 

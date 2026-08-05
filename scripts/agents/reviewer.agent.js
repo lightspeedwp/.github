@@ -16,7 +16,7 @@
  *   - Add new helpers to tests/utility/test-helpers.js as needed
  * ============================================================================
  * @module scripts/agents/reviewer.agent.js
- * @see ../../agents/reviewer.agent.md
+ * @see ../../../.github/agents/reviewer.agent.md
  */
 
 import * as core from "@actions/core";

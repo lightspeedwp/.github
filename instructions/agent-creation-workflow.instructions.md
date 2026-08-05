@@ -29,7 +29,7 @@ validated, and portable across Claude, GitHub Copilot, and OpenAI Codex.
 ## Overview
 
 The reference implementation is
-[`agents/playwright-testing-agent/`](../agents/playwright-testing-agent/AGENT.md),
+[`agents/playwright-testing-agent/`](../.github/agents/playwright-testing-agent/AGENT.md),
 packaged by
 [`plugins/lightspeed-playwright-testing/`](../plugins/lightspeed-playwright-testing/README.md).
 

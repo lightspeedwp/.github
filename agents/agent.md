@@ -33,7 +33,7 @@ This document serves as the master index for all agent specifications, templates
 
 ## Agent File Index
 
-All agent specs are in the `.github/agents/` directory:
+All agent specs are in the `.gith../.github/agents/` directory:
 
 - [`*.agent.md`](./) — All Markdown files ending with `.agent.md` are considered reusable agents for Copilot Chat, GitHub Actions, and agent workflows.
 
