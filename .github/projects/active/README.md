@@ -1,98 +1,260 @@
+---
+title: "Active Projects Index"
+description: "Comprehensive index of all active projects, initiatives, and work in progress for the LightSpeed .github control plane"
+file_type: index
+version: v2.0
+last_updated: "2026-08-05"
+created_date: "2025-12-08"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["projects", "planning", "tracking", "governance", "documentation"]
+domain: "governance"
+stability: "stable"
+---
+
 # Active Projects Index
 
-## LightSpeed `.github` Repository — Project Tracking
-
-**Index Version:** 1.0  
-**Last Updated:** 2026-07-26  
-**Status:** Active Project Management  
+**Index Version:** 2.0  
+**Last Updated:** 2026-08-05  
+**Status:** Phase 3D Enforcement — Reports Consolidation  
+**Total Active Projects:** 23
 
 ---
 
 ## Overview
 
-This directory tracks active projects, initiatives, and work in progress for the LightSpeed `.github` control plane. Each project is self-contained with its own scope, timeline, owner, and documentation.
+This directory contains all active projects, initiatives, and work in progress for the LightSpeed `.github` control plane. Each project is self-contained with its own scope, timeline, documentation, and deliverables.
+
+**Key Principle:** All active project artefacts MUST be located in `.github/projects/active/{slug}/` only. The root `projects/` directory is not permitted.
 
 ---
 
-## 📋 Active Projects
+## 📋 Active Projects (23 Total)
 
-### 1. Repository Restructuring (2026-07-25)
+### Core Infrastructure & Standards
 
-**Status:** 🟡 Phase 0 Complete — Phase 1 Ready  
+#### 1. Repository Restructuring Phase 1 (2026-07-25)
+
+**Directory:** [`repo-restructuring-2026-07-25/`](./repo-restructuring-2026-07-25/)  
+**Status:** 🟡 Phase 1 → Phase 3D Complete  
 **Owner:** Ash Shaw  
-**Duration:** ~3–4 weeks  
-**Start Date:** 2026-07-25
-
-**Overview:**  
-Major restructuring of the `.github` repository to optimize folder organization, consolidate schemas, enable multi-project VSCode setup, and support phased plugin adoption.
-
 **Key Deliverables:**
 
-- ✅ Repository specification and decision documentation
-- ✅ Automated developer setup scripts
-- ✅ VSCode multi-root workspace configuration
-- ✅ Comprehensive migration guide
-- ✅ Plugin adoption roadmap
-- ✅ Team support infrastructure
+- Phase 1A Audit: Instruction files (58 files, 502+ references)
+- Phase 1B Audit: Schema consolidation (25 schemas, 3 locations)
+- Phase 1C Audit: Agent specifications (35 agents, 788+ references)
 
-**Current Phase:**  
-Phase 0 (Pre-flight validation) — COMPLETE
+#### 2. Repository Maintenance Infrastructure
 
-**Next Phase:**  
-Phase 1.A (Manual folder moves via Finder)
+**Directory:** [`repository-maintenance-infrastructure/`](./repository-maintenance-infrastructure/)  
+**Status:** 🟢 Complete  
+**Owner:** LightSpeed Team  
+**Key Deliverables:**
 
-**Status Dashboard:**
+- Schema consolidation migration plan
+- Repository maintenance procedures
 
-| Phase | Status | Duration |
-|-------|--------|----------|
-| 0 | ✅ Complete | 1–2 days |
-| 1.A | 🔜 Ready | 1–2 hours |
-| 1.B | 🔜 Ready | 2–3 days |
-| 1.C | 🔜 Ready | 1 day |
-| 2 | 🔜 Ready | 2–3 days |
-| 3 | 🔜 Ready | 3–4 days |
-| 4 | 🔜 Ready | 3–4 days |
-| 5 | 🔜 Ready | 3+ weeks |
+#### 3. Workflows Consolidation 2026-Q3
 
-**Key Files:**
+**Directory:** [`workflows-consolidation-2026-q3/`](./workflows-consolidation-2026-q3/)  
+**Status:** 🟡 Phase 3.2 In Progress  
+**Owner:** LightSpeed Team  
+**Scope:** 31 GitHub workflows → consolidate to 25 workflows, 15-20% Actions minute reduction
 
-- [README.md](./repo-restructuring-2026-07-25/README.md) — Project overview
-- [INDEX.md](./repo-restructuring-2026-07-25/INDEX.md) — Document index and navigation
-- [SPECIFICATION.md](./repo-restructuring-2026-07-25/SPECIFICATION.md) — Full specification
-- [PHASE-1A-MANUAL-MOVES.md](./repo-restructuring-2026-07-25/PHASE-1A-MANUAL-MOVES.md) — Next phase
-- [PHASE-1B-PATH-UPDATES.md](./repo-restructuring-2026-07-25/PHASE-1B-PATH-UPDATES.md) — Claude automation
+### Agent & Skill Standards
 
-**Directory:** [`repo-restructuring-2026-07-25/`](./repo-restructuring-2026-07-25/)
+#### 4. Agent Skills Standards Comprehensive
+
+**Directory:** [`agent-skills-standards-comprehensive/`](./agent-skills-standards-comprehensive/)  
+**Status:** 🟡 Active  
+**Focus:** Comprehensive standards for agent skills across all platforms
+
+#### 5. Agent Standards Initiative
+
+**Directory:** [`agent-standards-initiative/`](./agent-standards-initiative/)  
+**Status:** 🟡 Active  
+**Focus:** Unified standards for agent creation, documentation, and validation
+
+#### 6. Phase 2B Skills Audit
+
+**Directory:** [`phase-2b-skills-audit/`](./phase-2b-skills-audit/)  
+**Status:** 🟡 Phase C → Complete  
+**Key Deliverables:**
+
+- Comprehensive skills inventory
+- Phase-specific task breakdowns
+
+### Documentation & Governance
+
+#### 7. Template Enforcement Governance
+
+**Directory:** [`template-enforcement-governance/`](./template-enforcement-governance/)  
+**Status:** 🟡 Active  
+**Focus:** Issue and PR template compliance, validation workflows
+
+#### 8. Wave 5 Documentation Audit
+
+**Directory:** [`wave-5-documentation-audit/`](./wave-5-documentation-audit/)  
+**Status:** 🟡 Active (Batch 1 → Execution)  
+**Scope:** Comprehensive documentation audit across repository
+**Key Directories:**
+
+- `batch-1-execution/` — Batch 1 execution tracking
+- `findings/` — Audit findings and reports
+- `execution/` — Overall execution tracking
+
+#### 9. Changelog Automation Hardening
+
+**Directory:** [`changelog-automation-hardening/`](./changelog-automation-hardening/)  
+**Status:** 🟡 Active  
+**Focus:** Changelog entry validation, standards enforcement, automation
+
+#### 10. Markdown Audit CI Optimization
+
+**Directory:** [`markdown-audit-ci-optimization/`](./markdown-audit-ci-optimization/)  
+**Status:** 🟡 Active  
+**Focus:** Markdown linting optimization, CI performance improvements
+
+### Testing & Quality Assurance
+
+#### 11. Test Coverage Implementation
+
+**Directory:** [`test-coverage-implementation/`](./test-coverage-implementation/)  
+**Status:** 🟡 Active  
+**Key Directories:**
+
+- `children/` — Child issues and dependencies
+- `openspec-strict/` — OpenSpec strict validation
+- `parents/` — Parent issue tracking
+**Focus:** Comprehensive test coverage across codebase
+
+#### 12. Issue Triage Automation System
+
+**Directory:** [`issue-triage-automation-system/`](./issue-triage-automation-system/)  
+**Status:** 🟡 Active  
+**Key Directories:**
+
+- `reports/` — Triage analysis and reports
+**Focus:** Automated issue triage, categorization, and routing
+
+#### 13. Status Needs Review Audit 2026-08-04
+
+**Directory:** [`status-needs-review-audit-2026-08-04/`](./status-needs-review-audit-2026-08-04/)  
+**Status:** 🟡 Active  
+**Focus:** Issue status review and validation audit
+
+### Issue & Workflow Systems
+
+#### 14. Issue Type Workflow Automation
+
+**Directory:** [`issue-type-workflow-automation/`](./issue-type-workflow-automation/)  
+**Status:** 🟡 Active  
+**Key Directories:**
+
+- `issues/` — Workflow-related issues
+**Focus:** Automated issue type detection and workflow routing
+
+#### 15. GitHub Projects Creation System
+
+**Directory:** [`github-projects-creation-system/`](./github-projects-creation-system/)  
+**Status:** 🟡 Active  
+**Focus:** Automated GitHub project creation and management
+
+### Release & Deployment
+
+#### 16. Release Workflow Authorization Fixes
+
+**Directory:** [`release-workflow-authorization-fixes/`](./release-workflow-authorization-fixes/)  
+**Status:** 🟡 Active  
+**Focus:** Release workflow permissions, authorization, and hardening
+
+#### 17. Node.js Upgrade 2026-Q3
+
+**Directory:** [`nodejs-upgrade-2026-q3/`](./nodejs-upgrade-2026-q3/)  
+**Status:** 🟢 Complete  
+**Focus:** Node.js version upgrade planning and execution
+
+#### 18. Node.js Upgrade 2026-Q3 Post-Merge Monitoring
+
+**Directory:** [`nodejs-upgrade-2026-q3-post-merge-monitoring/`](./nodejs-upgrade-2026-q3-post-merge-monitoring/)  
+**Status:** 🟡 Active  
+**Focus:** Post-upgrade monitoring and verification
+
+### Planning & Strategy
+
+#### 19. Milestone Planning v1
+
+**Directory:** [`milestone-planning-v1/`](./milestone-planning-v1/)  
+**Status:** 🟡 Active  
+**Focus:** Long-term milestone planning and roadmap
+
+#### 20. Repository Restructuring Phase 1
+
+**Directory:** [`repository-restructuring-phase-1/`](./repository-restructuring-phase-1/)  
+**Status:** 🟡 Active  
+**Focus:** Legacy phase 1 documentation and planning
+
+#### 21. PR Review Project Planning 2026-08-04
+
+**Directory:** [`pr-review-project-planning-2026-08-04/`](./pr-review-project-planning-2026-08-04/)  
+**Status:** 🟡 Active  
+**Focus:** PR review workflow planning and optimization
+
+### Agents & Implementation
+
+#### 22. PRD Combined Agent
+
+**Directory:** [`prd-combined-agent/`](./prd-combined-agent/)  
+**Status:** 🟢 Complete  
+**Focus:** Combined PRD agent implementation and documentation
+
+#### 23. OpenSpec
+
+**Directory:** [`openspec/`](./openspec/)  
+**Status:** 🟡 Active  
+**Key Directories:**
+
+- `changes/` — Specification changes and updates
+**Focus:** OpenSpec validation and strict compliance
 
 ---
 
-## 📊 Project Status Overview
+## 📊 Project Status Summary
 
-| Project | Status | Owner | Phase | Timeline |
-|---------|--------|-------|-------|----------|
-| **Repository Restructuring** | 🟡 Active | Ash Shaw | Phase 0→1 | Jul 25–Sep 9 |
+| Status | Count | Projects |
+|--------|-------|----------|
+| 🟡 Active | 19 | Most projects (ongoing work) |
+| 🟢 Complete | 4 | Node.js upgrade, Repository restructuring, PRD agent, Repository maintenance |
+| 🟠 Blocked | 0 | None currently |
+| ⚪ Archived | Many | See `../archived/` |
 
 ---
 
-## 🗂️ Project Structure
+## 🗂️ Directory Structure Rules
 
-Each active project directory contains:
+**Active Project Placement:**
 
 ```
-active/
-└── {project-slug}-{date}/
-    ├── README.md                  # Project overview & quick start
-    ├── INDEX.md                   # Document index & navigation
-    ├── SPECIFICATION.md           # Project specification
-    ├── PREFLIGHT_CHECKLIST.md     # Pre-flight validation
-    ├── PHASE-1-*.md              # Phase-specific documentation
-    ├── PHASE-2-*.md
-    ├── [etc.]
-    └── [generated documents]      # Created during execution
-        ├── AUDIT-RESULTS.md
-        ├── SUMMARY.md
-        └── [etc.]
+.github/projects/active/
+├── project-1-slug/
+│   ├── README.md                  # Project overview
+│   ├── SPECIFICATION.md           # Full specification
+│   ├── reports/                   # Generated reports
+│   ├── issues/                    # Related issues
+│   └── [documentation]/
+├── project-2-slug/
+└── [23 total projects]
 ```
+
+**Key Rules:**
+
+- ✅ All active projects in `.github/projects/active/{slug}/`
+- ✅ Each project self-contained with clear documentation
+- ✅ Subdirectories allowed (reports, issues, etc.)
+- ❌ No projects in root `projects/` directory
+- ❌ No project files in `docs/` or repository root
+- ❌ Each project has clear ownership and status
 
 ---
 
@@ -100,140 +262,106 @@ active/
 
 ### Quick Navigation
 
-**Repository Restructuring:**
+**Example: Repository Restructuring**
 
-1. Open: [`repo-restructuring-2026-07-25/`](./repo-restructuring-2026-07-25/)
+1. Open: [`.github/projects/active/repo-restructuring-2026-07-25/`](./repo-restructuring-2026-07-25/)
 2. Start with: [`README.md`](./repo-restructuring-2026-07-25/README.md)
-3. Navigate with: [`INDEX.md`](./repo-restructuring-2026-07-25/INDEX.md)
+3. Full specification: [`SPECIFICATION.md`](./repo-restructuring-2026-07-25/SPECIFICATION.md)
 
 ### By Role
 
-**Project Owner (Ash Shaw):**
+**Project Owner:**
 
-1. Open [`README.md`](./repo-restructuring-2026-07-25/README.md) for overview
-2. Read [`SPECIFICATION.md`](./repo-restructuring-2026-07-25/SPECIFICATION.md) for full context
-3. Execute phase instructions from PHASE-*.md files
+1. Read project `README.md` for overview
+2. Review `SPECIFICATION.md` for full context
+3. Execute from phase-specific documents
 
 **Claude Code Agent:**
 
-1. Find the phase-specific PHASE-*.md file
-2. Copy the prompt section
-3. Execute in Claude Code
-4. Review results and commit
+1. Find phase-specific documentation
+2. Copy execution prompt
+3. Execute and commit results
 
 **Team Members:**
 
-1. Wait for Phase 5 (rollout announcement)
-2. Follow setup instructions from docs/
-3. Ask questions in GitHub issues
-
----
-
-## 📈 Project Metrics
-
-### Repository Restructuring (2026-07-25)
-
-**Documentation Created:**
-
-- 10+ phase-specific documents
-- 20+ supporting documents
-- 40+ sections of detailed guidance
-
-**Scope:**
-
-- 7 folders being reorganized
-- 50+ files requiring path updates
-- 1+ week of team time (distributed)
-
-**Success Criteria:**
-
-- ✅ Phase 0 complete (pre-flight validation)
-- ⏳ Phase 1 ready (folder moves)
-- ⏳ Phases 2–5 waiting (schema→plugin→rollout)
-
----
-
-## 🔄 Project Lifecycle
-
-### Active Project States
-
-**🟡 In Progress**  
-Active work ongoing, phases in execution
-
-**🟢 Planning**  
-Pre-work phase, gathering requirements (not currently active)
-
-**🟠 Blocked**  
-Awaiting dependencies or decisions (none currently)
-
-**✅ Complete**  
-All phases finished, team operating under new structure
-
-**⚪ Archived**  
-Completed and moved to archived projects
+1. Check project `README.md` for status
+2. Ask questions in linked GitHub issues
+3. Contact project owner for blockers
 
 ---
 
 ## 📝 Creating New Projects
 
-When starting a significant initiative:
-
-### 1. Create Project Directory
+### Step 1: Create Directory
 
 ```bash
 mkdir -p .github/projects/active/{project-slug}-{YYYY-MM-DD}/
 ```
 
-Example: `repo-restructuring-2026-07-25/`
+Example: `feature-x-planning-2026-08-15/`
 
-### 2. Create Core Documents
+### Step 2: Create Core Documents
 
-- `README.md` — Project overview, quick start, status dashboard
-- `INDEX.md` — Document index and navigation guide
-- `SPECIFICATION.md` — Goals, decisions, architecture
-- `PREFLIGHT_CHECKLIST.md` — Pre-work validation (if applicable)
-- `PHASE-*.md` — Phase-specific documentation (one per phase)
+- **README.md** — Project overview, status, quick start
+- **SPECIFICATION.md** — Goals, scope, architecture
+- **PREFLIGHT_CHECKLIST.md** — Pre-work validation (if applicable)
+- **PHASE-*.md** — Phase-specific documentation
 
-### 3. Add to Active Projects Index
+### Step 3: Add to This Index
 
-Update `.github/projects/active/README.md` (this file):
+Update `.github/projects/active/README.md`:
 
 ```markdown
-### N. Project Name (YYYY-MM-DD)
-
+#### N. Project Name (YYYY-MM-DD)
+**Directory:** [`project-slug-date/`](./project-slug-date/)  
 **Status:** 🟡 Phase X  
 **Owner:** Person Name  
-**Duration:** Estimated timeline  
-**Start Date:** YYYY-MM-DD
-
-[Brief description]
-
-**Key Files:**
-- [README.md](...) — Overview
-- [INDEX.md](...) — Navigation
-- [SPECIFICATION.md](...) — Specification
-
-**Directory:** [`project-slug-date/`](./project-slug-date/)
+**Focus:** 1-2 sentence description
 ```
 
-### 4. Reference in Global Index
+### Step 4: Update Status Table
 
-Add entry to status table at top of this file.
+Add row to the project summary section above.
 
 ---
 
-## 🔗 Related Documents
+## 🔗 Related Documentation
 
-### Repository-Wide
+### Repository Governance
 
-- [CLAUDE.md](../../CLAUDE.md) — Repository governance and organization
-- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Git workflow and branch rules
+- [CLAUDE.md](../../CLAUDE.md) — Repository organization and boundaries
 - [AGENTS.md](../../AGENTS.md) — Global AI operations governance
+- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Git workflow and branch rules
 
-### Project Planning
+### Project Infrastructure
 
-- [Repository Restructuring Project](./repo-restructuring-2026-07-25/README.md) — Current major initiative
-- [Archived Projects](../archived/README.md) — Completed initiatives
+- [.github/projects/README.md](../README.md) — Projects directory overview
+- [../archived/README.md](../archived/README.md) — Completed projects
+- [File Organisation Instructions](../../instructions/file-organisation.instructions.md) — Asset placement rules
+
+---
+
+## 🎯 Phase 3D: Reports Placement Enforcement
+
+**Current Phase:** Phase 3D — Reports Consolidation (2026-08-05)
+
+**Scope:**
+
+- ✅ Verified all active projects in `.github/projects/active/`
+- ✅ Confirmed no projects in root `projects/` directory
+- ✅ Updated 50+ references across codebase
+- ⏳ Creating comprehensive project index
+- ⏳ Documenting project creation process
+- ⏳ Finalizing governance enforcement
+
+**Key Files Updated:**
+
+- `.github/custom-instructions.md` — Fixed 3 project reference paths
+- `.github/CHANGELOG_CONTRIBUTOR_CHECKLIST.md` — Fixed relative paths
+- `.github/projects/README.md` — Updated project references
+- `eslint.config.cjs` — Fixed ignore patterns
+- `.github/reports/footer-audit-2026-08-04.json` — Fixed 21 paths
+- `.remember/phase-3.2-continuation-prompt.md` — Fixed directory structure
 
 ---
 
@@ -241,53 +369,25 @@ Add entry to status table at top of this file.
 
 ### For Project Owners
 
-- Review project README.md for complete context
-- Check SPECIFICATION.md for decisions and rationale
-- Reference PHASE-*.md files for execution guidance
+- Review project README.md
+- Check SPECIFICATION.md for decisions
+- Reference phase documents for execution
 
 ### For Team Members
 
-- Check Phase 5 documentation for rollout information
-- Ask questions in GitHub issues with appropriate labels
-- Contact Ash Shaw for critical blockers
+- Check project status in this index
+- Review project README.md for overview
+- Ask in GitHub issues
 
 ### For Future Maintainers
 
-- This index shows active projects only
+- This index covers active projects only
 - See `../archived/` for completed projects
-- Project documents are self-contained and portable
+- Projects are self-contained and portable
 
 ---
 
-## 🎯 Success Indicators
-
-**Repository Restructuring Project (Current):**
-
-- ✅ Specification created and decision-locked
-- ⏳ Phase 0 validation in progress
-- ⏳ Phase 1–5 awaiting execution
-- Expected: Full team adoption by September 2026
-
----
-
-## 📋 Checklist: Creating New Projects
-
-When starting a new project:
-
-- [ ] Create project directory with slug and date: `{type}-{date}/`
-- [ ] Create README.md with overview and quick start
-- [ ] Create INDEX.md with document navigation
-- [ ] Create SPECIFICATION.md with goals and decisions
-- [ ] Create PHASE-*.md documents for each phase
-- [ ] Add project entry to this index (README.md)
-- [ ] Add status table entry
-- [ ] Add directory link
-- [ ] Brief team on project (if applicable)
-- [ ] Begin Phase 0 or Phase 1
-
----
-
-**Index Version:** 1.0  
-**Last Updated:** 2026-07-26  
-**Next Review:** After Repository Restructuring Phase 1 completion  
-**Maintained By:** Ash Shaw
+**Index Version:** 2.0  
+**Last Updated:** 2026-08-05  
+**Maintained By:** LightSpeed Team  
+**Next Review:** After Phase 3D completion
