@@ -42,10 +42,10 @@ All agent specs are in the `.gith../.github/agents/` directory:
 | Resource Name           | Reference                                                    | Purpose / Notes                                  |
 | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
 | **Main Agent Index**    | [agent.md](./agent.md)                                       | Directory of agent specs and usage               |
-| **Instructions Guide**  | [../instructions/instructions.instructions.md](../instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files |
+| **Instructions Guide**  | [../../.github/instructions/instructions.instructions.md](../../.github/instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files |
 | **Global AI Rules**     | ../../AGENTS.md                                              | Organisation-wide AI agent rules                 |
 | **Prompts Index**       | [../prompts/prompts.md](../prompts/prompts.md)               | Master prompt index and conventions              |
-| **Automation Standards**| [../instructions/automation.instructions.md](../instructions/automation.instructions.md) | Comprehensive automation standards for agents    |
+| **Automation Standards**| [../.github/instructions/automation.instructions.md](../.github/instructions/automation.instructions.md) | Comprehensive automation standards for agents    |
 
 ---
 
@@ -55,14 +55,14 @@ The following instruction files provide detailed standards for agent development
 
 | Instruction File | Purpose | Agent(s) |
 |-----------------|---------|----------|
-| [automation.instructions.md](../instructions/automation.instructions.md) | Comprehensive automation standards for agents, workflows, and repository health | All agents |
+| [automation.instructions.md](../.github/instructions/automation.instructions.md) | Comprehensive automation standards for agents, workflows, and repository health | All agents |
 | [LABELING.md](../docs/LABELING.md) | Comprehensive labeling documentation and automation rules | labeling.agent.md |
 | [metrics.instructions.md](../instructions/metrics.instructions.md) | Metrics collection, aggregation, and reporting standards | metrics.agent.md |
 | [planner.instructions.md](../instructions/planner.instructions.md) | PR planning, checklist generation, and merge readiness validation | planner.agent.md (to be created) |
 | [project-meta-sync.instructions.md](../instructions/project-meta-sync.instructions.md) | Deprecated compatibility guidance for project metadata sync | project-meta-sync.agent.md |
-| [release.instructions.md](../instructions/release.instructions.md) | Release management, semantic versioning, and changelog compliance | release.agent.md |
-| [workflows.instructions.md](../instructions/workflows.instructions.md) | GitHub Actions workflow standards and patterns | All workflow files |
-| [reporting.instructions.md](../instructions/reporting.instructions.md) | Report generation, storage, and formatting standards | All agents that generate reports |
+| [release.instructions.md](../.github/instructions/release.instructions.md) | Release management, semantic versioning, and changelog compliance | release.agent.md |
+| [workflows.instructions.md](../.github/instructions/workflows.instructions.md) | GitHub Actions workflow standards and patterns | All workflow files |
+| [reporting.instructions.md](../.github/instructions/reporting.instructions.md) | Report generation, storage, and formatting standards | All agents that generate reports |
 
 ---
 

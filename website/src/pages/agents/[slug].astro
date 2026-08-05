@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllAgents } from "../../lib/agents";
-import { getWceuSlides } from "../../lib/wceuSlides";
 
 export async function getStaticPaths() {
   return getAllAgents().map((agent) => ({
@@ -15,11 +14,6 @@ const { agent } = Astro.props;
 if (!agent) {
   throw new Error("Agent data was not provided.");
 }
-
-const slidePathByNumber = new Map(
-  getWceuSlides().map((slide) => [slide.number, slide.pageHref]),
-);
-const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? "/wceu-2026/slides/";
 ---
 
 <BaseLayout
@@ -32,8 +26,6 @@ const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? 
     <p class="lede">{agent.description}</p>
     <div class="hero-actions">
       <a class="button primary" href="/agents/">Back to Agents</a>
-      <a class="button secondary" href={primarySlideHref}>See in Presentation</a>
-      <a class="button secondary" href="/wceu-2026/slides/">All Slides</a>
     </div>
   </section>
 
@@ -49,16 +41,6 @@ const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? 
           {agent.relatedAgents.map((agentSlug) => (
             <a href={`/agents/${agentSlug}/`} class="related-agent">
               {agentSlug.charAt(0).toUpperCase() + agentSlug.slice(1)} Agent
-            </a>
-          ))}
-        </div>
-      </div>
-      <div class="info-block">
-        <strong>Related Slides</strong>
-        <div class="related-links">
-          {agent.relatedSlides.map((slideNum) => (
-            <a href={slidePathByNumber.get(slideNum) ?? "/wceu-2026/slides/"} class="related-slide">
-              Slide {slideNum.toString().padStart(2, "0")}
             </a>
           ))}
         </div>
@@ -117,12 +99,6 @@ const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? 
           <a href="/agents/">All Agent Guides</a> — Compare capabilities
         </li>
         <li>
-          <a href="/wceu-2026/slides/slide-13-agent-layer/">Slide 13: Agent Layer</a> — Introduction to agents in the talk
-        </li>
-        <li>
-          <a href="/wceu-2026/slides/slide-14-skill-layer/">Slide 14: Skill Layer</a> — How agents use skills
-        </li>
-        <li>
           <a href="/getting-started/">Implementation Roadmap</a> — Adoption
           sequence
         </li>
@@ -175,8 +151,7 @@ const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? 
     gap: 0.5rem;
   }
 
-  .related-agent,
-  .related-slide {
+  .related-agent {
     display: inline-block;
     padding: 0.375rem 0.75rem;
     background: var(--bg-soft);
@@ -189,8 +164,7 @@ const primarySlideHref = slidePathByNumber.get(agent.relatedSlides[0] ?? 13) ?? 
     transition: all 0.2s ease-out;
   }
 
-  .related-agent:hover,
-  .related-slide:hover {
+  .related-agent:hover {
     background: var(--accent);
     color: var(--bg);
     border-color: var(--accent);

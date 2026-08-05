@@ -187,7 +187,7 @@ function injectFooter(
   content,
   category,
   quirkyConfig,
-  footerConfig,
+  _footerConfig,
   dryRun,
 ) {
   try {

@@ -40,8 +40,6 @@ import { buildLabelingReport } from "../../../scripts/agents/includes/label-repo
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
-const _ISSUE_TYPES_CONFIG =
-  process.env.ISSUE_TYPES_CONFIG || ".github/issue-types.yml";
 const LABELER_RULES = process.env.LABELER_RULES || ".github/labeler.yml";
 
 // Enhanced content-based type detection heuristics
