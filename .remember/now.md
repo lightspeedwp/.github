@@ -19,6 +19,6 @@ Audited PRs #1534 (merged without CodeRabbit feedback) and #1538 (closed with un
 
 Audited inject-footers.js, found truncation bug; created inject-footers-safe.js w/ tests, dry-run verified, updated issue #1531 w/ audit report, PR created.
 
-## 13:30 | claude/issues-needs-more-info-1cbeb6
+## 13:30 | task:issues-needs-more-info-1cbeb6
 
 Cleaned 30+ issues (labels/assign/v1.0 milestone/DoR/DoD), reviewed 6 PRs (#1591, #1582, #1541, #1540, #1538, #1529), scanned closed issues for incomplete checklists.
