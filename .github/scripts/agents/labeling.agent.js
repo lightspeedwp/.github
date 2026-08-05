@@ -13,7 +13,7 @@
  *   alias migration edge cases
  *
  * @module scripts/agents/labeling.agent.js
- * @see ../../agents/labeling.agent.md
+ * @see ../../../.github/agents/labeling.agent.md
  * @version 2.0.0
  * @author LightSpeedWP
  */

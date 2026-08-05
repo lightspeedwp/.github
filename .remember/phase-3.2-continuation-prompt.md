@@ -120,7 +120,9 @@
 .github/
 ├── workflows/
 │   └── labeling-governance.yml ← NEW (consolidated workflow, live on develop)
-└── projects/active/workflows-consolidation-2026-q3/
+└── projects/
+    └── active/
+        └── workflows-consolidation-2026-q3/
     ├── README.md
     ├── PHASE_3_EXECUTION.md
     ├── PHASE_3.2_TEST_PLAN.md ← Test scenarios & success criteria

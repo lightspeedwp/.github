@@ -82,7 +82,7 @@ Colors are assigned by family and purpose; see `../.github/labels.yml` for mappi
 
 ## Automation
 
-- **Labeling, status, type, and standardization** are all handled by the **unified agent and workflow** ([labeling.agent.js](../scripts/agents/labeling.agent.js), [labeling.yml](../.github/workflows/labeling.yml)).
+- **Labeling, status, type, and standardization** are all handled by the **unified agent and workflow** ([labeling.agent.js](../scrip../.github/agents/labeling.agent.js), [labeling.yml](../.github/workflows/labeling.yml)).
 - **Default labels** are applied and enforced on all issues.
 - **Label conflicts and non-canonical labels** are removed or migrated automatically.
 

@@ -83,7 +83,7 @@ Use agents in workflows:
 
 ```yaml
 - name: Run labeling agent
-  uses: lightspeedwp/.github/agents/labeling.agent@main
+  uses: lightspeedwp/.gith../.github/agents/labeling.agent@main
   with:
     repository: my-org/my-repo
     issues: 'state:open'

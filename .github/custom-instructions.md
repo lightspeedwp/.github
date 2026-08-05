@@ -30,17 +30,17 @@ These instructions apply to work performed inside the LightSpeed `.github` contr
 **Phase 1 audits are complete.** Comprehensive audit reports document the current repository structure:
 
 - **Phase 1A Audit** — 58 instruction files (27 portable, 17 repo-local, 15 archived); 502+ references mapped
-  - Report: [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./projects/active/repo-restructuring-2026-07-25/INSTRUCTION_FILES_AUDIT_2026-08-05.md)
+  - Report: [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./.github/projects/active/repo-restructuring-2026-07-25/INSTRUCTION_FILES_AUDIT_2026-08-05.md)
   - Portable instructions belong in root `instructions/` directory
   - Repo-local instructions stay in `.github/instructions/` or `.github/custom-instructions.md`
   
 - **Phase 1B Audit** — 25 core schema files across 3 locations; consolidation plan documented
-  - Report: [SCHEMA_AUDIT_REPORT.md](./projects/active/repo-restructuring-2026-07-25/SCHEMA_AUDIT_REPORT.md)
+  - Report: [SCHEMA_AUDIT_REPORT.md](./.github/projects/active/repo-restructuring-2026-07-25/SCHEMA_AUDIT_REPORT.md)
   - Canonical location: `.schemas/` (hidden folder at root)
   - Current duplication: `schema/`, `schemas/`, `.schemas/` all maintained during migration
   
 - **Phase 1C Audit** — 35 agents (19 spec-based, 16 multi-file); 788+ references mapped
-  - Report: [AGENT-AUDIT-COMPREHENSIVE.md](./projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md)
+  - Report: [AGENT-AUDIT-COMPREHENSIVE.md](./.github/projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md)
   - Portable multi-file agents: `agents/` (root)
   - Spec-based control-plane agents: `.github/agents/`
 

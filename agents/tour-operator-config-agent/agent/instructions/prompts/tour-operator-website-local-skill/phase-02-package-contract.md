@@ -71,7 +71,7 @@ Based on currently verified files, the following source material is supported as
 Package-critical entry and metadata files remain unverified:
 
 - `prompts/tour-operator-website/SKILL.md`
-- `prompts/tour-operator-website/agents/`
+- `prompts/tour-operator-websi../.github/agents/`
 
 ## 3. Optional but supported files and folders
 

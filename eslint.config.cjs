@@ -47,7 +47,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "design_handoff_awesome_github/design_source/**", // Migrated from .eslintignore (no longer read by ESLint 10+)
       "website/dist/**", // Migrated from .eslintignore
       "website/node_modules/**", // Migrated from .eslintignore
-      "projects/active/**", // Project documentation and deliverables (excluded from linting)
+      ".github/projects/active/**", // Project documentation and deliverables (excluded from linting)
       "hooks/**", // Shell scripts and portable hooks (not JavaScript)
     ];
 

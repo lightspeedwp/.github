@@ -448,7 +448,7 @@ with:
 - [Next Issues Execution Plan](../.github/projects/active/next-issues-execution-plan.md) — Overall roadmap
 - [Workflow Instructions](../instructions/workflows.instructions.md) — Workflow authoring standards
 - [GitHub Actions Documentation](https://docs.github.com/en/actions) — Official reference
-- [Release Agent Specification](../agents/release.agent.md) — Release orchestration contract
+- [Release Agent Specification](../.github/agents/release.agent.md) — Release orchestration contract
 - [Workflow Files](../workflows/) — Repository workflow implementations
 
 ---

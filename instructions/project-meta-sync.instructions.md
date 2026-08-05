@@ -17,7 +17,7 @@ tags:
 stability: experimental
 domain: governance
 apply_to:
-- ../agents/project-meta-sync.agent.md
+- ../.github/agents/project-meta-sync.agent.md
 - scripts/agents/project-meta-sync.agent.js
 - .github/workflows/project-meta-sync.yml
 - .github/workflows/metadata-governance.yml

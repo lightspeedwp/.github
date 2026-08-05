@@ -71,7 +71,7 @@ human changes. PR descriptions state what the agent did and why.
 ## Examples
 
 The Playwright agent's provider configs each defer to
-[`shared/core-prompt.md`](../agents/playwright-testing-agent/shared/core-prompt.md)
+[`shared/core-prompt.md`](../.github/agents/playwright-testing-agent/shared/core-prompt.md)
 for these operational rules and only add provider mechanics.
 
 ## Validation

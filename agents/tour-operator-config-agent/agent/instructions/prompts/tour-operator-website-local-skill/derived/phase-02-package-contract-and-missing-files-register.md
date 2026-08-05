@@ -71,7 +71,7 @@ Based on currently verified files, the following source material is supported as
 Package-critical entry and metadata files remain unverified:
 
 - `prompts/tour-operator-website/SKILL.md`
-- `prompts/tour-operator-website/agents/`
+- `prompts/tour-operator-websi../.github/agents/`
 
 ## 3. Optional but supported files and folders
 
@@ -137,7 +137,7 @@ Also exclude any claim that the current source tree is already a complete skill 
 These remain safer to mark as **unverified**, not definitively missing:
 
 - `prompts/tour-operator-website/SKILL.md`
-- `prompts/tour-operator-website/agents/`
+- `prompts/tour-operator-websi../.github/agents/`
 - `prompts/tour-operator-website/scripts/`
 - `prompts/tour-operator-website/schemas/`
 - `prompts/tour-operator-website/assets/`

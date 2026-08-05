@@ -9,7 +9,7 @@
  * @author LightSpeed Team
  * @license GPL-3.0
  * @module scripts/agents/reporting.agent.js
- * @see ../../agents/reporting.agent.md
+ * @see ../../../.github/agents/reporting.agent.md
  */
 
 import fs from "fs";
