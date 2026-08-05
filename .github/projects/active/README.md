@@ -1,3 +1,15 @@
+---
+file_type: project-index
+title: Active Projects Index
+description: Central tracking for all active projects, initiatives, and work in progress in the LightSpeed .github repository
+version: 2.0
+last_updated: '2026-08-05'
+owners:
+  - LightSpeed Team
+status: active
+stability: stable
+---
+
 # Active Projects Index
 
 ## LightSpeed `.github` Repository — Project Tracking
