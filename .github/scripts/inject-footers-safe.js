@@ -83,7 +83,7 @@ function extractFrontmatterSafely(content) {
 
   // Find closing --- (should be line 3 or earlier)
   let closingLineIndex = -1;
-  for (let i = 1; i < Math.min(lines.length, 10); i++) {
+  for (let i = 1; i < Math.min(lines.length, 20); i++) {
     if (lines[i].startsWith("---")) {
       closingLineIndex = i;
       break;
