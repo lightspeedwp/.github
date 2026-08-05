@@ -137,7 +137,7 @@ type: "agent"
 references:
   - "../workflows/labeling.yml"
   - "../prompts/label-issues.prompt.md"
-  - "../instructions/automation.instructions.md"
+  - "../.github/instructions/automation.instructions.md"
   - "./LABELING.md"
   - "./LABELING.md#issue-labelling"
   - "./LABELING.md#pull-request-labelling"
@@ -212,7 +212,7 @@ references:
 ```yaml
 references:
   - "../agents/agent-name.agent.md"
-  - "../instructions/workflows.instructions.md"
+  - "../.github/instructions/workflows.instructions.md"
   - "./AUTOMATION.md"
 ```
 
