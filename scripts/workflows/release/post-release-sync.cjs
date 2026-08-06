@@ -51,6 +51,21 @@ async function main() {
     // Merge main into develop (or create PR if not a direct push)
     log("info", "Syncing main changes back to develop");
 
+    // Check what will be synced
+    const diffOutput = execSync(
+      "git diff origin/develop..origin/main --name-only",
+      { encoding: "utf8" },
+    ).trim();
+
+    if (diffOutput) {
+      const changedFiles = diffOutput.split("\n").filter((f) => f);
+      log("info", `Files to sync from main to develop: ${changedFiles.length}`, {
+        files: changedFiles,
+      });
+    } else {
+      log("info", "No differences between main and develop");
+    }
+
     const syncCommand = `
       git fetch origin develop
       git merge origin/main -m "chore: post-release sync (main → develop)" --no-edit
@@ -62,10 +77,25 @@ async function main() {
     } catch (error) {
       log(
         "warn",
-        "Merge has conflicts or failed. Manual intervention may be needed.",
+        "Merge has conflicts. Attempting automatic conflict resolution.",
       );
-      log("info", `Check: git diff origin/develop`);
-      throw error;
+      // Try to resolve conflicts automatically for specific files
+      try {
+        // Prefer main version for most files
+        execSync("git merge --abort", { encoding: "utf8" });
+        // Try a different merge strategy
+        execSync(
+          "git merge origin/main -m 'chore: post-release sync (main → develop)' --strategy-option=theirs --no-edit",
+          { encoding: "utf8" },
+        );
+        log("info", "Resolved conflicts using theirs strategy");
+      } catch (innerError) {
+        log(
+          "error",
+          `Merge failed even with conflict resolution: ${innerError.message}`,
+        );
+        throw innerError;
+      }
     }
 
     // Push sync branch

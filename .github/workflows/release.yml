@@ -119,8 +119,54 @@ jobs:
     with:
       validate_only: true
 
+  pre-release-checklist:
+    needs: [trigger-telemetry, lint, test, validate-changelog-release]
+    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install
+        run: npm ci
+      - name: Check branch is develop
+        run: |
+          if [ "$(git rev-parse --abbrev-ref HEAD)" != "develop" ]; then
+            echo "❌ Not on develop branch"
+            exit 1
+          fi
+          echo "✓ On develop branch"
+      - name: Verify no uncommitted changes
+        run: |
+          if ! git diff --quiet; then
+            echo "❌ Uncommitted changes detected"
+            git status
+            exit 1
+          fi
+          echo "✓ No uncommitted changes"
+      - name: Verify VERSION file exists
+        run: |
+          if [ ! -f VERSION ]; then
+            echo "❌ VERSION file not found"
+            exit 1
+          fi
+          echo "✓ VERSION file found: $(cat VERSION)"
+      - name: Verify CHANGELOG.md has unreleased entries
+        run: |
+          if ! grep -q "## Unreleased" CHANGELOG.md; then
+            echo "❌ CHANGELOG.md missing Unreleased section"
+            exit 1
+          fi
+          echo "✓ CHANGELOG.md has Unreleased section"
+      - name: All pre-release checks passed
+        run: echo "✅ Pre-release checklist complete"
+
   release:
-    needs: [lint, test, validate-changelog-release]
+    needs: [pre-release-checklist]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -145,8 +191,10 @@ jobs:
           git config user.email "$email"
       - name: Validate changelog (schema + unreleased content)
         run: |
+          echo "ℹ️  PRE-RELEASE VALIDATION: Checking changelog structure and unreleased entries"
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
+          echo "✓ Changelog validation passed (schema + unreleased content verified)"
       - name: Run Release Agent (develop-first flow)
         id: agent
         env:
