@@ -27,32 +27,41 @@ domain: "Release Engineering"
 
 ## Current Status
 
-### Phase 1: Requirements Gathering (CURRENT)
+### Phase 1: Critical Fixes ✅ COMPLETE
 
-- [x] Complete release process audit (15 findings documented)
-- [x] Read additional documentation (ARCHITECTURE.md, AUTOMATION.md, DECISIONS.md, etc.)
-- [ ] **YOU ARE HERE:** Answer 50-question questionnaire
-- [ ] Run OpenSpec analysis on questionnaire responses
-- [ ] Produce requirements document
+- [x] Authorization gating for release workflow (CHILD-001)
+- [x] Implement develop-first release flow (CHILD-002)
+- [x] Remove broken workflow badges (CHILD-003)
 
-### Phase 2: Design (PLANNED)
+### Phase 2: Major Issues 🔄 IN PROGRESS (3/6 COMPLETE)
+
+**Priority 1: No Dependencies** ✅
+
+- [x] CHILD-006: Change dry-run default to false
+- [x] CHILD-010: Improve release notes preview
+
+**Priority 2: Depends on Phase 1** ✅
+
+- [x] CHILD-009: Fix trigger telemetry authorization
+
+**Priority 3: Major Fixes** ✅
+
+- [x] CHILD-004: Implement post-release sync automation
+- [x] CHILD-005: Clarify changelog validation timing
+- [x] CHILD-007: Enforce pre-release checklist
+- [x] CHILD-008: Create rollback.cjs automation
+
+**Status:** 6 major issues fixed. Ready for testing.
+
+### Phase 3: Design & Documentation (PLANNED)
 
 - [ ] Document desired release flow with diagrams
 - [ ] Define workflow gates and validation requirements
-- [ ] Specify error handling and rollback procedures
 - [ ] Create ADR for major decisions
-- [ ] Map documentation structure
-
-### Phase 3: Implementation (PLANNED)
-
-- [ ] Update release.yml workflow
-- [ ] Modify release.agent.js to match new flow
-- [ ] Create rollback.cjs automation
-- [ ] Rewrite RELEASE_PROCESS.md
+- [ ] Update RELEASE_PROCESS.md with new flow
 - [ ] Update related docs (BRANCHING_STRATEGY.md, CHANGELOG_AUTOMATION.md, VERSIONING.md)
-- [ ] Remove broken badges from docs
 
-### Phase 4: Validation & Testing (PLANNED)
+### Phase 4: Implementation & Testing (PLANNED)
 
 - [ ] Test dry-run release
 - [ ] Test live patch release
