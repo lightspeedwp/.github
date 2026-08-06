@@ -69,7 +69,14 @@ async function main() {
         "error",
         `Authorization check failed: ${error.message}. Blocking release trigger.`,
       );
+      // Ensure unauthorized_attempts is set to non-zero on error
+      unauthorizedAttempts = Math.max(unauthorizedAttempts, 1);
     }
+  }
+
+  // If any failures occurred, ensure workflow is blocked
+  if (!isAuthorized && unauthorizedAttempts === 0) {
+    unauthorizedAttempts = 1;
   }
 
   // Output status for workflow conditional
