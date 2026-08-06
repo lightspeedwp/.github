@@ -51,6 +51,7 @@ describe("release workflow JS scripts", () => {
       actor: "ash",
       is_authorized: false,
       unauthorized_attempts: 1,
+      failure_reason: expect.stringContaining("GITHUB_TOKEN"),
       timestamp: expect.any(String),
     });
   });
