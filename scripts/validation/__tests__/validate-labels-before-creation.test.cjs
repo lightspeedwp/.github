@@ -232,8 +232,8 @@ describe('Label Validation', () => {
 
     test('ignores whitespace in labels', () => {
       const result = validateLabels(['type:bug ', ' status:needs-triage']);
-      // Script should handle this gracefully
-      expect(result).toHaveProperty('valid');
+      expect(result.valid).toBe(true);
+      expect(result.errors).toEqual([]);
     });
 
     test('handles very long label list', () => {
