@@ -2,12 +2,12 @@
 title: "Labeling Strategy & Governance"
 description: "Label taxonomy, automation rules, and governance for LightSpeed repositories."
 file_type: "documentation"
-version: 'v1.0.2'
-last_updated: '2026-06-18'
+version: 'v1.1.0'
+last_updated: '2026-08-06'
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp"]
-tags: ["labels", "automation", "governance", "colours", "accessibility"]
+tags: ["labels", "automation", "governance", "colours", "accessibility", "validation"]
 ---
 
 # GitHub Labelling & Automation
@@ -24,8 +24,9 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 4. [Pull Request Labelling](#pull-request-labelling)
 5. [Discussion Labelling](#discussion-labelling)
 6. [Automation & Agent Integration](#automation--agent-integration)
-7. [Best Practices](#best-practices)
-8. [Troubleshooting](#troubleshooting)
+7. [Pre-Creation Label Validation (Phase 3)](#pre-creation-label-validation-phase-3)
+8. [Best Practices](#best-practices)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -327,6 +328,96 @@ All automation reads from these files; there is no hardcoded label logic in agen
 
 ---
 
+## Pre-Creation Label Validation (Phase 3)
+
+To prevent bare labels and invalid label combinations, all issues and PRs are validated **before creation** by an automated validation workflow.
+
+### How It Works
+
+1. **Trigger:** Validation runs on issue/PR creation, editing, and labeling events
+2. **Script:** `scripts/validation/validate-labels-before-creation.cjs` enforces 5 rules
+3. **Workflow:** `.github/workflows/validate-issue-labels.yml` posts guidance on failure
+4. **Outcome:** Valid labels pass silently; invalid labels receive a helpful error comment
+
+### Validation Rules
+
+| Rule | Requirement | Example ✅ | Example ❌ |
+|------|-------------|-----------|-----------|
+| **Rule 1: Existence** | Label must exist in canonical set (.github/labels.yml) | `type:bug` | `type:bugfix` |
+| **Rule 2: Family Prefix** | Label must have family prefix (type:, status:, priority:, etc.) | `status:needs-triage` | `needs-triage` |
+| **Rule 3: One-hot per Family** | Only one label per family (except meta:, comp:, lang:) | `type:bug`, `status:ready` | `type:bug`, `type:feature` |
+| **Rule 4: Required Families** | All issues/PRs must have a `type:*` label | `type:documentation` | (no type:) |
+| **Rule 5: Warnings** | Common mistakes flagged with suggestions | `type:bug` (after correction) | `bug` (bare, triggers warning) |
+
+### Validation in Practice
+
+**✅ Valid labels** (all rules pass):
+
+```
+type:bug
+status:needs-triage
+priority:critical
+area:ci
+meta:needs-changelog
+```
+
+**❌ Invalid labels** (caught by validation):
+
+```
+bug                    # ❌ Rule 2 (missing type: prefix)
+feature                # ❌ Rule 2 (missing type: prefix)
+type:bug, type:feature # ❌ Rule 3 (multiple type: labels)
+status:ready           # ❌ Rule 4 (missing type:*)
+urgent                 # ❌ Rule 2 (bare label, not in canonical set)
+```
+
+### Error Messages & Fixes
+
+When validation fails, the workflow posts a comment with:
+
+1. **Issue description** — What's wrong and why
+2. **Valid examples** — Copy-paste ready label combinations
+3. **Documentation link** — This page and other resources
+4. **Canonical label reference** — Link to `.github/labels.yml` (158 total labels)
+
+**Example error comment:**
+
+> **⚠️ Label Validation Failed**
+>
+> **Labels on this issue:** `bug, feature, ci`
+>
+> **Issues:**
+>
+> - Label 'bug' missing required family prefix. Use one of: type:, status:, priority:, area:, meta:, release:, lang:, env:, compat:, comp:
+> - Label 'feature' missing required family prefix. Use one of: type:, status:, priority:, area:, meta:, release:, lang:, env:, compat:, comp:
+> - Label 'ci' missing required family prefix. Use one of: type:, status:, priority:, area:, meta:, release:, lang:, env:, compat:, comp:
+>
+> **How to fix:**
+>
+> 1. Use only canonical labels with family prefixes: `type:`, `status:`, `priority:`, `area:`, `meta:`, etc.
+> 2. Check the [canonical labels](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml) (158 total)
+> 3. Each family allows ONE label (except `meta:` and `comp:` which allow multiple)
+> 4. All issues/PRs must have a `type:*` label
+>
+> **Valid Examples:**
+>
+> ```
+> type:bug, status:needs-triage, priority:critical, area:ci
+> type:feature, priority:normal, area:documentation
+> type:task, status:ready, area:automation
+> ```
+
+### Re-running Validation
+
+If you receive a validation error:
+
+1. **Remove bare labels** (bug, feature, urgent, ci, docs, etc.)
+2. **Add family prefix** (type:bug, area:ci, priority:urgent → priority:critical, etc.)
+3. **Edit the issue/PR** to apply corrected labels
+4. **Validation re-runs automatically** when labels change
+
+---
+
 ## Best Practices
 
 1. **Keep exactly one `status:*` and `priority:*`** on every issue/PR.
@@ -342,30 +433,66 @@ All automation reads from these files; there is no hardcoded label logic in agen
 
 ## Troubleshooting
 
-**Missing or incorrect labels?**
+### Label Validation Errors
+
+**"Label 'X' missing required family prefix"**
+
+- The label isn't prefixed (e.g., `bug` instead of `type:bug`)
+- **Fix:** Edit the issue/PR and apply canonical labels with family prefix (type:, status:, priority:, area:, etc.)
+- **Reference:** See [Validation Rules](#validation-rules) above and `.github/labels.yml` for all 158 canonical labels
+
+**"Label 'X' not found in canonical set"**
+
+- The label doesn't exist in `.github/labels.yml` (typo or custom label)
+- **Fix:** Use a canonical label from the 158-label set; custom labels are not allowed
+- **Reference:** [Canonical labels](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml)
+
+**"Multiple labels from family 'Y' found: [a, b]"**
+
+- You applied more than one label from the same family (e.g., `type:bug` AND `type:feature`)
+- **Fix:** Keep only one label per family (except meta:, comp:, lang: which allow multiples)
+- **Reference:** [Validation Rules](#validation-rules) — one-hot per family
+
+**"Missing required 'type:\*' label for classification"**
+
+- The issue/PR has no `type:*` label (e.g., missing `type:bug`, `type:feature`, `type:task`)
+- **Fix:** Add a `type:*` label that matches the work type
+- **Reference:** [Type Labels](#type-labels-type) — choose the correct type for your issue/PR
+
+**Validation failed but I don't see a comment**
+
+- The issue/PR might not have raised a validation event yet
+- **Fix:** Edit the issue/PR and save (even without label changes) to trigger validation re-run
+- **Alternative:** Remove and re-apply labels to trigger the workflow
+
+### Missing or Incorrect Labels?
 
 - Check `.github/labels.yml` for missing/typo entries
 - Verify branch prefix or file pattern matches in `.github/labeler.yml`
 - Run `node scripts/agents/includes/check-template-labels.js` to validate issue/PR templates
+- Use `scripts/validation/validate-labels-before-creation.cjs` to test labels locally
 
-**Label not applied as expected?**
+### Label Not Applied as Expected?
 
 - Review labeler workflow logs in the PR/issue activity
 - Check if the labelling workflow is enabled and up-to-date
 - Verify the labelling agent has access to read/write labels
+- Run the pre-creation validation script to check if labels are canonical
 
-**Want to add a new label or modify rules?**
+### Want to Add a New Label or Modify Rules?
 
 1. Update `.github/labels.yml` with the new canonical definition
 2. Update `.github/labeler.yml` if you need automatic application rules
 3. Update this documentation to describe the new label
-4. Create a PR and reference this issue #636
+4. Create a PR and reference issue #636
+5. **Note:** New labels must follow the family-prefix naming convention (e.g., `area:newarea`, not `newarea`)
 
-**Non-canonical labels appearing?**
+### Non-Canonical Labels Appearing?
 
 - The labelling agent automatically migrates old labels to canonical equivalents
 - If a label persists, check `.github/label-governance-policy.yml` for exceptions
 - Open an issue if a label should be migrated or removed
+- Run `scripts/validation/validate-labels-before-creation.cjs` to test label canonicality
 
 ---
 
