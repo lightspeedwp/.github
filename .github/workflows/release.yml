@@ -33,7 +33,7 @@ on:
       dry_run:
         description: "Run safety mode without creating commits/tags/releases."
         required: false
-        default: true
+        default: false
         type: boolean
   workflow_call:
     inputs:
@@ -55,7 +55,7 @@ on:
         type: string
       dry_run:
         required: false
-        default: true
+        default: false
         type: boolean
 
 permissions:
