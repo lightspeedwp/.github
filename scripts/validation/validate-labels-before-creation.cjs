@@ -20,7 +20,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 const yaml = require('js-yaml');
 
 // ============================================================================
@@ -152,13 +151,15 @@ function validateLabels(labels, canonicalLabels) {
     }
   }
 
-  // ---- Rule 4: Type label is required ----
-  const hasType = labels.some(label => getFamily(label) === 'type');
-  if (!hasType) {
-    errors.push(
-      `Missing required 'type:*' label for classification. ` +
-      `Examples: type:bug, type:feature, type:task, type:documentation`
-    );
+  // ---- Rule 4: Required family labels must be present ----
+  for (const requiredFamily of REQUIRED_FAMILIES) {
+    const hasRequired = labels.some(label => getFamily(label) === requiredFamily);
+    if (!hasRequired) {
+      errors.push(
+        `Missing required '${requiredFamily}:*' label for classification. ` +
+        `Examples: type:bug, type:feature, type:task, type:documentation`
+      );
+    }
   }
 
   // ---- Rule 5: Warnings for common mistakes ----
@@ -171,7 +172,6 @@ function validateLabels(labels, canonicalLabels) {
 
   for (const label of labels) {
     if (bareLabels.includes(label)) {
-      const family = getFamily(label);
       warnings.push(
         `Bare label '${label}' detected. ` +
         `This is not the canonical form. Did you mean 'type:${label}' or 'priority:${label}' or 'area:${label}'?`
