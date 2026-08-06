@@ -77,7 +77,7 @@ related_branches:
 
 ## Current State Analysis
 
-### Workflow Inventory (31 Total)
+### Workflow Inventory (29 Total)
 
 #### By Category
 
@@ -107,14 +107,12 @@ related_branches:
 - metrics-collection.yml
 - reporting.yml
 
-**Labeling & Automation (6 workflows)**
+**Labeling & Automation (4 workflows)**
 
-- issue-labeler.yml
-- pr-labeler.yml
-- auto-assignment.yml
-- stale-issue-handler.yml
-- dependency-labeler.yml
-- release-labeler.yml
+- labeling.yml
+- labeling-governance.yml
+- issue-labeling-automation.yml
+- manage-blocking-status-labels.yml
 
 **CI/CD Pipeline (8 workflows)**
 

@@ -61,6 +61,13 @@ async function main() {
     );
   }
 
+  if (!dryRun) {
+    log("warn", "⚠️  PRODUCTION RELEASE INITIATED");
+    log("warn", "This will create actual commits, tags, and releases.");
+    log("warn", "If this is unintended, cancel the workflow immediately.");
+    log("info", `Release details: scope=${scope}, provider=${provider}`);
+  }
+
   const agentPath = path.resolve(
     process.cwd(),
     readEnv("RELEASE_AGENT_PATH", {

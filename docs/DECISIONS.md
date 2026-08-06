@@ -53,7 +53,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [labeling.agent.md](../agents/labeling.agent.md)
+- [labeling.agent.md](../.github/agents/labeling.agent.md)
 - [labels.yml](../.github/labels.yml)
 - [labeler.yml](../.github/labeler.yml)
 
@@ -127,7 +127,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [automation.instructions.md](../instructions/automation.instructions.md)
+- [automation.instructions.md](../.github/instructions/automation.instructions.md)
 - [.github/agents/](../.github/agents/)
 
 ### ADR-005: Canonical Configuration Over Convention

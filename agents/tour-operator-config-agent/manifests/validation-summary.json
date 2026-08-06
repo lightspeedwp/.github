@@ -86,8 +86,8 @@
       "agent/instructions/prompts/tour-operator-website/scripts/validate_payload.py"
     ],
     [
-      "skills/agent-attached/tour-operator-website/agents/openai.yaml",
-      "agent/instructions/prompts/tour-operator-website/agents/openai.yaml"
+      "skills/agent-attached/tour-operator-websi../.github/agents/openai.yaml",
+      "agent/instructions/prompts/tour-operator-websi../.github/agents/openai.yaml"
     ],
     [
       "skills/agent-attached/tour-operator-website/references/README.md",

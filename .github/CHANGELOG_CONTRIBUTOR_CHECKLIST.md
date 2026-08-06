@@ -11,7 +11,7 @@ Use this checklist when your PR includes changes worth documenting in CHANGELOG.
 
 - [ ] Your PR is ready for review
 - [ ] You understand what a "user-facing change" is
-- [ ] You've read [`CHANGELOG_GUIDELINES.md`](./../projects/active/changelog-automation-hardening/CHANGELOG_GUIDELINES.md) for examples
+- [ ] You've read [`CHANGELOG_GUIDELINES.md`](./projects/active/changelog-automation-hardening/CHANGELOG_GUIDELINES.md) for examples
 
 ## Entry Content
 
@@ -75,8 +75,8 @@ Use this checklist when your PR includes changes worth documenting in CHANGELOG.
 
 ## Questions?
 
-- See [`CHANGELOG_GUIDELINES.md`](./../projects/active/changelog-automation-hardening/CHANGELOG_GUIDELINES.md) for detailed rules
-- See [`PROJECT_PLAN.md`](./../projects/active/changelog-automation-hardening/PROJECT_PLAN.md) for the hardening initiative
+- See [`CHANGELOG_GUIDELINES.md`](./projects/active/changelog-automation-hardening/CHANGELOG_GUIDELINES.md) for detailed rules
+- See [`PROJECT_PLAN.md`](./projects/active/changelog-automation-hardening/PROJECT_PLAN.md) for the hardening initiative
 - Reference <https://keepachangelog.com/en/1.1.0/> for the official standard
 
 ---

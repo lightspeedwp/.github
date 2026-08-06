@@ -62,13 +62,67 @@ async function main() {
   );
 
   const targetRef = resolveTargetRef();
-  const content = buildGitLogContent(rangeStart, targetRef);
-  fs.writeFileSync(previewPath, `${content}\n`, "utf8");
+  const gitLogContent = buildGitLogContent(rangeStart, targetRef);
 
-  log("info", "Built dry-run release notes preview", {
+  // Get version from package.json
+  const pkgPath = path.resolve(process.cwd(), "package.json");
+  let currentVersion = "?.?.?";
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+    currentVersion = pkg.version || "?.?.?";
+  } catch (error) {
+    log("warn", "Could not read version from package.json");
+  }
+
+  // Get affected files
+  let affectedFiles = "";
+  if (rangeStart) {
+    affectedFiles = execGit(
+      `git diff --name-only ${rangeStart}..${targetRef}`,
+      true,
+    );
+  }
+
+  // Read changelog excerpt
+  let changelogExcerpt = "";
+  const changelogPath = path.resolve(process.cwd(), "CHANGELOG.md");
+  if (fs.existsSync(changelogPath)) {
+    const changelogContent = fs.readFileSync(changelogPath, "utf8");
+    const lines = changelogContent.split("\n");
+    const unreleaseIdx = lines.findIndex((l) => l.includes("## Unreleased"));
+    if (unreleaseIdx !== -1) {
+      const nextSectionIdx = lines
+        .slice(unreleaseIdx + 1)
+        .findIndex((l) => l.match(/^## \[/));
+      const endIdx =
+        nextSectionIdx !== -1 ? unreleaseIdx + 1 + nextSectionIdx : Math.min(unreleaseIdx + 20, lines.length);
+      changelogExcerpt = lines.slice(unreleaseIdx, endIdx).join("\n").trim();
+    }
+  }
+
+  // Build comprehensive preview
+  const preview = [
+    "# Release Notes Preview (Dry-Run)",
+    "",
+    `**Current Version:** ${currentVersion}`,
+    "",
+    "## Unreleased Changes",
+    gitLogContent,
+    "",
+    ...(changelogExcerpt ? ["## Changelog Excerpt", changelogExcerpt, ""] : []),
+    ...(affectedFiles ? ["## Affected Files", affectedFiles.split("\n").map((f) => `- ${f}`).join("\n"), ""] : []),
+    "---",
+    "ℹ️  This is a dry-run preview. No commits, tags, or releases will be created.",
+  ].join("\n");
+
+  fs.writeFileSync(previewPath, preview, "utf8");
+
+  log("info", "Built comprehensive dry-run release notes preview", {
     rangeStart,
     targetRef,
+    currentVersion,
     previewPath,
+    affectedFilesCount: affectedFiles.split("\n").filter((f) => f).length,
   });
 }
 

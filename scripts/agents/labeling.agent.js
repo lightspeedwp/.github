@@ -13,7 +13,7 @@
  *   alias migration edge cases
  *
  * @module scripts/agents/labeling.agent.js
- * @see ../../agents/labeling.agent.md
+ * @see ../../../.github/agents/labeling.agent.md
  * @version 2.0.0
  * @author LightSpeedWP
  */
@@ -23,7 +23,6 @@ import * as yaml from "js-yaml";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import {
-  _fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
 } from "./includes/label-lookup.js";
@@ -37,15 +36,10 @@ import {
   fetchLabelerRules,
   applyLabelerRules,
 } from "./includes/labeler-utils.js";
-import {
-  buildLabelingReport,
-  _formatErrors,
-} from "./includes/label-reporting.js";
+import { buildLabelingReport } from "./includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
-const _ISSUE_TYPES_CONFIG =
-  process.env.ISSUE_TYPES_CONFIG || ".github/issue-types.yml";
 const LABELER_RULES = process.env.LABELER_RULES || ".github/labeler.yml";
 
 // Enhanced content-based type detection heuristics

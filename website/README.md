@@ -1,10 +1,10 @@
 ---
 file_type: documentation
 title: "Awesome GitHub Site"
-description: "Public website for the Awesome GitHub project and its WCEU 2026 talk."
-version: "0.1.4"
+description: "Public website for the Awesome GitHub project."
+version: "0.1.5"
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
+last_updated: "2026-08-05"
 language: "en-GB"
 status: active
 stability: stable
@@ -13,20 +13,15 @@ owners:
   - Ash Shaw
 tags:
   - website
-  - conference
-  - talk
 ---
 
 # Awesome GitHub Site
 
-Public website for the `Awesome GitHub` project and its WCEU 2026 talk.
+Public website for the `Awesome GitHub` project.
 
 ## Scope
 
 - Home
-- WCEU 2026 talk
-- WCEU 2026 slides index
-- WCEU 2026 slide subpages
 - Why this exists
 - References
 
@@ -35,7 +30,6 @@ Public website for the `Awesome GitHub` project and its WCEU 2026 talk.
 - Uses GitHub Pages-friendly static output.
 - Includes a light and dark mode switcher in the shared shell.
 - Keeps the header and footer reusable across all pages.
-- Scans the full `wceu-2026` tree to build slide pages, accessibility notes, and references.
 
 ## Local development
 

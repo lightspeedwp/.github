@@ -42,7 +42,7 @@ These templates integrate with:
 - **[PR Labels](../../docs/PR_LABELS.md)** - Automated PR labeling system
 - **[Branching Strategy](../docs/BRANCHING_STRATEGY.md)** - Branch naming and PR workflow
 - **[Automation Governance](../docs/AUTOMATION.md)** - Agent-driven PR workflows
-- **[Reviewer Agent](../agents/reviewer.agent.md)** - Automated code review
+- **[Reviewer Agent](../.github/agents/reviewer.agent.md)** - Automated code review
 
 ## 🤖 Automation Features
 
@@ -54,7 +54,7 @@ These templates integrate with:
 
 ## 📚 Related Documentation
 
-- [**Agents Directory**](../agents/agent.md) - PR automation agents
+- [**Agents Directory**](../.github/agents/agent.md) - PR automation agents
 - [**Workflows**](../workflows/README.md) - GitHub Actions for PRs
 - [**Saved Replies**](./SAVED_REPLIES.md) - PR response templates
 - [**Instructions**](../instructions/instructions.md) - PR handling instructions

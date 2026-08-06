@@ -20,9 +20,19 @@ async function main() {
 
   let unauthorizedAttempts = 1;
   let isAuthorized = false;
+  let authFailureReason = null;
 
+  // Validate inputs
+  if (!actor) {
+    authFailureReason = "GITHUB_ACTOR not provided";
+    log("error", authFailureReason);
+  } else if (!eventName) {
+    authFailureReason = "GITHUB_EVENT_NAME not provided";
+    log("error", authFailureReason);
+  }
   // Only workflow_dispatch and workflow_call are valid triggers
-  if (!["workflow_dispatch", "workflow_call"].includes(eventName)) {
+  else if (!["workflow_dispatch", "workflow_call"].includes(eventName)) {
+    authFailureReason = `Invalid trigger event: ${eventName}`;
     log(
       "error",
       `Unauthorized trigger event: ${eventName}. Only workflow_dispatch and workflow_call are allowed.`,
@@ -31,6 +41,7 @@ async function main() {
     // Check if actor is in the maintainers team
     try {
       if (!token) {
+        authFailureReason = "GITHUB_TOKEN not available";
         throw new Error("GITHUB_TOKEN not available for authorization check");
       }
 
@@ -44,19 +55,28 @@ async function main() {
       ) {
         isAuthorized = true;
         unauthorizedAttempts = 0;
-        log("info", `Actor ${actor} is authorized to trigger releases`);
+        log("info", `✓ Authorized: Actor ${actor} is authorized to trigger releases`);
       } else {
+        authFailureReason = `Actor ${actor} is not an active member of the maintainers team (state: ${membership.state})`;
         log(
           "error",
-          `Actor ${actor} is not an active member of the maintainers team`,
+          authFailureReason,
         );
       }
     } catch (error) {
+      authFailureReason = error.message;
       log(
         "error",
         `Authorization check failed: ${error.message}. Blocking release trigger.`,
       );
+      // Ensure unauthorized_attempts is set to non-zero on error
+      unauthorizedAttempts = Math.max(unauthorizedAttempts, 1);
     }
+  }
+
+  // If any failures occurred, ensure workflow is blocked
+  if (!isAuthorized && unauthorizedAttempts === 0) {
+    unauthorizedAttempts = 1;
   }
 
   // Output status for workflow conditional
@@ -72,13 +92,14 @@ async function main() {
     actor,
     is_authorized: isAuthorized,
     unauthorized_attempts: unauthorizedAttempts,
+    failure_reason: authFailureReason,
     timestamp: new Date().toISOString(),
   };
 
   fs.writeFileSync(telemetryPath, `${JSON.stringify(payload)}\n`, "utf8");
   log("info", "Release trigger telemetry recorded", payload);
 
-  // Exit with error if unauthorized
+  // Exit with error if unauthorized (this now enforces gating since continue-on-error is removed)
   if (!isAuthorized) {
     process.exit(1);
   }

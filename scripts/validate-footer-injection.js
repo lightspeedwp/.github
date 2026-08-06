@@ -20,7 +20,6 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { _glob } from "glob";
 import * as yaml from "js-yaml";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";

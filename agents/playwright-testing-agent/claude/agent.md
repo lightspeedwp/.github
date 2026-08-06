@@ -4,7 +4,7 @@ title: Playwright Testing Agent — Claude Configuration
 description: >-
   Claude-specific configuration for the Playwright Testing Agent: tools,
   guardrails, and structured response format. Layers on shared/core-prompt.md.
-last_updated: '2026-07-30'
+last_updated: '2026-08-05'
 domain: generic
 tags:
   - playwright

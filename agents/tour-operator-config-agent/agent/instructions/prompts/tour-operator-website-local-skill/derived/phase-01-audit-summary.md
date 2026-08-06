@@ -62,7 +62,7 @@
 ## 2. Results of unverified-path inspection
 
 - `prompts/tour-operator-website/SKILL.md` -> not verified present
-- `prompts/tour-operator-website/agents/` -> not verified present
+- `prompts/tour-operator-websi../.github/agents/` -> not verified present
 - `prompts/tour-operator-website/scripts/` -> not verified present
 - `prompts/tour-operator-website/schemas/` -> not verified present
 - `prompts/tour-operator-website/assets/` -> not verified present

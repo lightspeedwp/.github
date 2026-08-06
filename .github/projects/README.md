@@ -38,7 +38,7 @@ This directory contains all task tracking files, project planning documents, imp
 
 - Phase 2B Skills Audit Phase C issue hygiene updates were completed for #1326-#1355.
 - Issue titles, task-template structure (including DoR/DoD), and ready-state labels were normalised.
-- Active task tracking docs were synchronised in `projects/active/phase-2b-skills-audit/`.
+- Active task tracking docs were synchronised in `.github/projects/active/phase-2b-skills-audit/`.
 
 ### active/
 

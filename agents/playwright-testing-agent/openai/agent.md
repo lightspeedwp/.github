@@ -5,7 +5,7 @@ description: >-
   OpenAI (Codex/GPT) configuration for the Playwright Testing Agent: function
   calling, API integration, and structured responses. Layers on
   shared/core-prompt.md.
-last_updated: '2026-07-22'
+last_updated: '2026-08-05'
 domain: generic
 tags:
   - playwright

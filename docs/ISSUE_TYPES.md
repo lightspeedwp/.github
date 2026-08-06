@@ -25,7 +25,7 @@ stability: stable
 
 # Issue Types Reference Guide
 
-> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
+> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
 
 ---
 
@@ -261,7 +261,7 @@ START: What's the nature of the work?
 
 - The unified labeling agent automatically assigns and enforces type labels
 - Type assignment uses config, heuristics, branch patterns, and content analysis
-- See [labeling agent spec](../agents/labeling.agent.md) for details
+- See [labeling agent spec](../.github/agents/labeling.agent.md) for details
 
 ### Color Palette
 

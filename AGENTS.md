@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: 'v1.9'
-last_updated: '2026-08-04'
+version: 'v2.0'
+last_updated: '2026-08-05'
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -65,9 +65,23 @@ The repository implements a two-tier agent architecture established during Phase
 
 ### Related Documentation
 
+**Phase 1 Audit Reports (Completed 2026-08-05):**
+
+- **Agent Audit (Phase 1C):** [AGENT-AUDIT-COMPREHENSIVE.md](./.github/projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md) — 37 agents catalogued (19 spec-based, 16 multi-file), 788+ references mapped, two-tier structure validated
+- **Instruction Audit (Phase 1A):** [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./.github/projects/active/repo-restructuring-2026-07-25/INSTRUCTION_FILES_AUDIT_2026-08-05.md) — 58 instruction files audited, 502+ references, portable/local classification complete
+- **Schema Audit (Phase 1B):** [SCHEMA_AUDIT_REPORT.md](./.github/projects/active/repo-restructuring-2026-07-25/SCHEMA_AUDIT_REPORT.md) — 25 core schemas across 3 locations, consolidation plan documented
+
+**Phase Implementation Issues:**
+
 - **Phase 1C Migration:** [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293) — Two-tier agent structure implementation
+- **Phase 1A Migration:** [Issue #1299](https://github.com/lightspeedwp/.github/issues/1299) — Instruction files audit & reorganization (Restructured)
+- **Phase 1B Migration:** [Issue #1300](https://github.com/lightspeedwp/.github/issues/1300) — Schema consolidation audit (Restructured)
 - **File Organization Audit:** [Issue #653](https://github.com/lightspeedwp/.github/issues/653) — Agent standardization history
+
+**Other References:**
+
 - **Memory Profile System:** Memory profiles expect root-level agent paths (`agents/` only; spec-based agents in `.github/` are control-plane specific)
+- **Phase 2 Governance Updates:** [Issue #1295](https://github.com/lightspeedwp/.github/issues/1295) — Update CLAUDE.md, AGENTS.md documentation
 
 ## Agent Test Status
 
@@ -336,6 +350,51 @@ gh issue create --title "Bug title" --body "$BODY"
 
 ---
 
+## Label Creation for Programmatic Issue Creation
+
+When your code creates issues via `gh issue create` or GitHub API:
+
+1. **Always validate labels against canonical set** (`.github/labels.yml`)
+2. **All labels MUST include family prefix**:
+   - `type:*` for issue classification (bug, feature, documentation, task, design, etc.)
+   - `status:*` for workflow state (needs-triage, ready, in-progress, blocked, done, etc.)
+   - `priority:*` for urgency (critical, important, normal, minor)
+   - `area:*` for domain/component (ci, docs, security, labels, tests, scripts, etc.)
+   - `meta:*` for automation markers (needs-changelog, has-pr, duplicate, etc.)
+
+**Example: Creating an issue with correct labels**
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:block-editor" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "block-editor" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+**Validation Checklist**
+
+Before creating any issue programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, etc.)
+- [ ] No bare labels (labels without colons are invalid)
+- [ ] Root cause analysis: [Label Prefix Enforcement Project](./.github/projects/active/label-prefix-enforcement-2026-08-05/)
+
+---
+
 ## Contribution Guidelines & Indexes (Phase 1A Consolidated)
 
 | Area                      | File Reference (Phase 1A) | Scope | Type |
@@ -346,7 +405,7 @@ gh issue create --title "Bug title" --body "$BODY"
 | **Quality Assurance** | [instructions/quality-assurance.instructions.md](instructions/quality-assurance.instructions.md) | Testing pyramid, Jest, coverage targets, CI/CD practices (3 files consolidated) | Portable |
 | **Languages & Linting** | [instructions/languages.instructions.md](instructions/languages.instructions.md) | JS/TS, JSON, YAML, JSDoc, linting rules (4 files consolidated) | Portable |
 | **Documentation Formats** | [instructions/documentation-formats.instructions.md](instructions/documentation-formats.instructions.md) | Markdown, YAML frontmatter, Mermaid diagram standards (3 files consolidated) | Portable |
-| **Automation** | [instructions/automation.instructions.md](instructions/automation.instructions.md) | Agents, labeling rules, release automation, metrics (8 files consolidated) | Portable |
+| **Automation** | [.github/instructions/automation.instructions.md](.github/instructions/automation.instructions.md) | GitHub automation, release automation, labeling rules, metrics (control-plane-specific) | Repo-local |
 | **Community Standards** | [instructions/community-standards.instructions.md](instructions/community-standards.instructions.md) | Files, naming conventions, README patterns, saved replies (4 files consolidated) | Portable |
 | **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot and control-plane agent guidance | Repo-local |
 
