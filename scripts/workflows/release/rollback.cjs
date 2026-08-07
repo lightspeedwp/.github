@@ -69,17 +69,19 @@ async function githubApiRequest(path, options = {}) {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
-      const response = await fetch(`https://api.github.com${path}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `token ${token}`,
-          "Content-Type": "application/json",
-        },
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeout);
-
+      let response;
+      try {
+        response = await fetch(`https://api.github.com${path}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `token ${token}`,
+            "Content-Type": "application/json",
+          },
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timeout);
+      }
       if (!response.ok) {
         const text = await response.text();
         lastError = new Error(`GitHub API error: ${response.status} ${response.statusText} - ${text}`);
