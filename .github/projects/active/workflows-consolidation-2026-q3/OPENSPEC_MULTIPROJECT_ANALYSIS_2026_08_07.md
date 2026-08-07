@@ -1,6 +1,7 @@
 ---
 title: OpenSpec Multi-Project Analysis & Integration Framework
-subtitle: Cross-project alignment and dependency mapping for 11 active LightSpeed initiatives
+description: Cross-project alignment and dependency mapping for 11 active LightSpeed initiatives
+file_type: "documentation"
 date: 2026-08-07
 version: 1.0
 status: draft
