@@ -68,8 +68,8 @@ const CONFIG = {
 // ============================================================================
 
 /**
- * SAFE: Extract frontmatter ONLY if closing --- appears within first 3 lines
- * Pattern: ^---\n...\n---\n (closing must be on line 2, max)
+ * SAFE: Extract frontmatter if closing --- appears within first 100 lines
+ * Pattern: ^---\n...\n---\n (find closing --- after opening ---)
  * Prevents extracting overly long YAML frontmatter as valid frontmatter
  *
  * @param {string} content - File content
@@ -83,16 +83,25 @@ function extractFrontmatterSafely(content) {
     return { frontmatter: "", body: content };
   }
 
-  // SAFETY: Only accept closing --- if it appears on line 2 (index 2)
-  // This enforces the minimal YAML structure: --- content ---
-  if (lines.length >= 3 && lines[2].startsWith("---")) {
-    const frontmatterLines = lines.slice(0, 3);
+  // SAFETY: Find closing --- within a reasonable limit (first 100 lines max)
+  // Look for the closing --- after the opening ---
+  let closingIndex = -1;
+  for (let i = 1; i < Math.min(lines.length, 100); i++) {
+    if (lines[i].startsWith("---")) {
+      closingIndex = i;
+      break;
+    }
+  }
+
+  // If we found a closing ---, extract frontmatter and body
+  if (closingIndex > 0) {
+    const frontmatterLines = lines.slice(0, closingIndex + 1);
     const frontmatter = frontmatterLines.join("\n") + "\n";
-    const body = lines.slice(3).join("\n");
+    const body = lines.slice(closingIndex + 1).join("\n");
     return { frontmatter, body };
   }
 
-  // If closing --- not on line 2, treat entire content as body (no frontmatter)
+  // If closing --- not found, treat entire content as body (no frontmatter)
   return { frontmatter: "", body: content };
 }
 
