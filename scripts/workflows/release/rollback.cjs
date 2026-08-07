@@ -5,7 +5,7 @@ const { process } = globalThis;
 
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
+const { execSync, execFileSync } = require("child_process");
 const { readEnv, log, runMain } = require("../shared/runtime.cjs");
 
 function execGit(command, allowError = false) {
@@ -131,6 +131,13 @@ async function rollbackRelease(options = {}) {
     );
   }
 
+  // Validate version format: semver-like (e.g., 1.2.3, 1.2.3-alpha)
+  if (targetVersion && !/^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9.]+)?$/i.test(targetVersion)) {
+    throw new Error(
+      `Invalid version format: ${targetVersion}. Expected semver format (e.g., 1.2.3).`,
+    );
+  }
+
   console.log(
     `⚠️  RELEASE ROLLBACK INITIATED: Rolling back release ${targetVersion || "(dry-run)"}`,
   );
@@ -185,7 +192,7 @@ async function rollbackRelease(options = {}) {
 
       execGit(`git tag -d v${targetVersion}`, true);
       execGit(`git push origin :refs/tags/v${targetVersion}`);
-      execSync(`gh release delete v${targetVersion} --yes`, { stdio: "inherit" });
+      execFileSync("gh", ["release", "delete", `v${targetVersion}`, "--yes"], { stdio: "inherit" });
       execGit(`git push origin --delete release/v${targetVersion}`, true);
     }
 
