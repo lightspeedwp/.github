@@ -126,7 +126,7 @@ async function rollbackRelease(options = {}) {
     force = false,
   } = options;
 
-  const targetVersion = version.trim();
+  const targetVersion = String(version ?? "").trim().replace(/^v/i, "");
 
   if (!targetVersion && !dryRun) {
     throw new Error(
