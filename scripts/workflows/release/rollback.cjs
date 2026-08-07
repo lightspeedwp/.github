@@ -177,4 +177,7 @@ async function main() {
   }
 }
 
-runMain(main);
+// Only execute when this script is run directly, not when imported by tests
+if (require.main === module) {
+  runMain(main);
+}
