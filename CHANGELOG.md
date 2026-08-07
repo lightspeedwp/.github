@@ -28,11 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- **Delete `.github/agents/` per Phase 1 restructuring** — Removed `.github/agents/` directory (55 files) consolidating all agent implementations to root `agents/` folder following Phase 1 restructuring rules. The `.github/agents/` folder violated the portable assets rule by containing multi-file implementations when it should only contain spec-based definitions. ([PR #1537](https://github.com/lightspeedwp/.github/pull/1537), [#1510](https://github.com/lightspeedwp/.github/issues/1510))
+- **Update validation script for Phase 1 restructuring** — Updated `.github/scripts/validate-footers.js` to skip validation of deleted `.github/agents/` files in `--changed-only` mode. Ensures validation scripts correctly handle agents consolidated to root per Phase 1 restructuring. ([PR #1537](https://github.com/lightspeedwp/.github/pull/1537), [#1510](https://github.com/lightspeedwp/.github/issues/1510))
 
 - **WCEU 2026 conference content** — Removed all WCEU-related assets and references across the repository: deleted `verify-wceu-readiness.js` scripts and tests from both `.github/scripts/` and `scripts/` folders, removed `website/src/lib/wceuSlides.ts` and WCEU conference pages (`website/src/pages/wceu-2026/`), deleted WCEU-specific image assets, and removed all WCEU slide references from website components. WCEU content was out of scope for this repository. ([PR #1541](https://github.com/lightspeedwp/.github/pull/1541), [#1539](https://github.com/lightspeedwp/.github/issues/1539))
-
-- **Duplicate `.github/agents/` folder (Phase 1 restructuring compliance)** — Deleted entire `.github/agents/` folder (55 files) consolidating all agent implementations to root `agents/` folder per Phase 1 restructuring rules. The `.github/agents/` folder violated the portable assets rule by containing multi-file agent implementations (Claude/Copilot/OpenAI) when it should only contain "simple YAML/JSON definitions" (GitHub-native only). All agent implementations now properly organized at root as portable reusable assets. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510), [#1507](https://github.com/lightspeedwp/.github/issues/1507))
 
 - **Legacy README workflows (Phase 2.4 consolidation)** — Removed three legacy README management workflows (`readme-audit.yml`, `readme-regen.yml`, `readme-update.yml`) consolidated into unified `documentation.yml` workflow. Eliminates 449 lines of code duplication (~44% reduction for README workflows), saves ~3-4 min/month GitHub Actions execution time, and establishes single source of truth for README validation logic. Push trigger re-enabled in `documentation.yml` following consolidation. ([PR #1317](https://github.com/lightspeedwp/.github/pull/1317), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227), [#1310](https://github.com/lightspeedwp/.github/issues/1310))
 
@@ -66,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Label prefix governance enforcement audit** — Comprehensive audit identifying 100+ label governance violations with structured 5-phase remediation strategy covering governance updates, validation enforcement, pre-creation scripts, documentation, and team training. ([PR #1591](https://github.com/lightspeedwp/.github/pull/1591), [#1292](https://github.com/lightspeedwp/.github/issues/1292))
+- **Label prefix governance enforcement audit** — Comprehensive audit identifying 100+ label governance violations with structured 5-phase remediation strategy covering governance updates, validation enforcement, pre-creation scripts, documentation, and team training. ([PR #1591](https://github.com/lightspeedwp/.github/pull/1591), [#1592](https://github.com/lightspeedwp/.github/issues/1592))
 
 - **Implement Phase 3 labeling automation for issue triage** — Implemented automated labeling rules and infrastructure for phase 3 of issue triage system with type assignment and status classification. ([PR #1505](https://github.com/lightspeedwp/.github/pull/1505))
 
