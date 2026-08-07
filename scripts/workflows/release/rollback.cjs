@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* eslint-env node */
+/* global AbortController, fetch, setTimeout, clearTimeout, console */
 
 const { process } = globalThis;
 
