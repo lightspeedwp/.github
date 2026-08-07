@@ -15,10 +15,10 @@ stability: "stable"
 
 # Active Projects Index
 
-**Index Version:** 2.0  
-**Last Updated:** 2026-08-05  
-**Status:** Phase 3D Enforcement — Reports Consolidation  
-**Total Active Projects:** 23
+**Index Version:** 2.1  
+**Last Updated:** 2026-08-07  
+**Status:** Phase 3D Enforcement — Reports Consolidation + Label Prefix Projects Added  
+**Total Active Projects:** 25
 
 ---
 
@@ -93,7 +93,28 @@ This directory contains all active projects, initiatives, and work in progress f
 **Status:** 🟡 Active  
 **Focus:** Issue and PR template compliance, validation workflows
 
-#### 8. Wave 5 Documentation Audit
+#### 8. Label Prefix Audit (2026-08-05)
+
+**Directory:** [`label-prefix-audit-2026-08-05/`](./label-prefix-audit-2026-08-05/)  
+**Status:** 🔴 Audit Complete | 🟡 Remediation In Progress  
+**Owner:** LightSpeed Team  
+**Severity:** CRITICAL  
+**Key Deliverables:**
+
+- Root cause analysis: 100+ violations of label prefix standards
+- 5-phase remediation plan
+- Workflow consolidation analysis (19 workflows)
+
+**Related Project:** See also [`label-prefix-enforcement-2026-08-05/`](./label-prefix-enforcement-2026-08-05/) for enforcement implementation
+
+#### 9. Label Prefix Enforcement (2026-08-05)
+
+**Directory:** [`label-prefix-enforcement-2026-08-05/`](./label-prefix-enforcement-2026-08-05/)  
+**Status:** 🟡 Phase 3 In Progress  
+**Owner:** LightSpeed Team  
+**Focus:** Implementing validation and enforcement of label prefix standards
+
+#### 11. Wave 5 Documentation Audit
 
 **Directory:** [`wave-5-documentation-audit/`](./wave-5-documentation-audit/)  
 **Status:** 🟡 Active (Batch 1 → Execution)  
@@ -104,13 +125,13 @@ This directory contains all active projects, initiatives, and work in progress f
 - `findings/` — Audit findings and reports
 - `execution/` — Overall execution tracking
 
-#### 9. Changelog Automation Hardening
+#### 12. Changelog Automation Hardening
 
 **Directory:** [`changelog-automation-hardening/`](./changelog-automation-hardening/)  
 **Status:** 🟡 Active  
 **Focus:** Changelog entry validation, standards enforcement, automation
 
-#### 10. Markdown Audit CI Optimization
+#### 13. Markdown Audit CI Optimization
 
 **Directory:** [`markdown-audit-ci-optimization/`](./markdown-audit-ci-optimization/)  
 **Status:** 🟡 Active  
@@ -118,7 +139,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ### Testing & Quality Assurance
 
-#### 11. Test Coverage Implementation
+#### 14. Test Coverage Implementation
 
 **Directory:** [`test-coverage-implementation/`](./test-coverage-implementation/)  
 **Status:** 🟡 Active  
@@ -129,7 +150,7 @@ This directory contains all active projects, initiatives, and work in progress f
 - `parents/` — Parent issue tracking
 **Focus:** Comprehensive test coverage across codebase
 
-#### 12. Issue Triage Automation System
+#### 15. Issue Triage Automation System
 
 **Directory:** [`issue-triage-automation-system/`](./issue-triage-automation-system/)  
 **Status:** 🟡 Active  
@@ -138,7 +159,7 @@ This directory contains all active projects, initiatives, and work in progress f
 - `reports/` — Triage analysis and reports
 **Focus:** Automated issue triage, categorization, and routing
 
-#### 13. Status Needs Review Audit 2026-08-04
+#### 16. Status Needs Review Audit 2026-08-04
 
 **Directory:** [`status-needs-review-audit-2026-08-04/`](./status-needs-review-audit-2026-08-04/)  
 **Status:** 🟡 Active  
@@ -146,7 +167,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ### Issue & Workflow Systems
 
-#### 14. Issue Type Workflow Automation
+#### 17. Issue Type Workflow Automation
 
 **Directory:** [`issue-type-workflow-automation/`](./issue-type-workflow-automation/)  
 **Status:** 🟡 Active  
@@ -155,7 +176,7 @@ This directory contains all active projects, initiatives, and work in progress f
 - `issues/` — Workflow-related issues
 **Focus:** Automated issue type detection and workflow routing
 
-#### 15. GitHub Projects Creation System
+#### 18. GitHub Projects Creation System
 
 **Directory:** [`github-projects-creation-system/`](./github-projects-creation-system/)  
 **Status:** 🟡 Active  
@@ -163,19 +184,19 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ### Release & Deployment
 
-#### 16. Release Workflow Authorization Fixes
+#### 19. Release Workflow Authorization Fixes
 
 **Directory:** [`release-workflow-authorization-fixes/`](./release-workflow-authorization-fixes/)  
 **Status:** 🟡 Active  
 **Focus:** Release workflow permissions, authorization, and hardening
 
-#### 17. Node.js Upgrade 2026-Q3
+#### 20. Node.js Upgrade 2026-Q3
 
 **Directory:** [`nodejs-upgrade-2026-q3/`](./nodejs-upgrade-2026-q3/)  
 **Status:** 🟢 Complete  
 **Focus:** Node.js version upgrade planning and execution
 
-#### 18. Node.js Upgrade 2026-Q3 Post-Merge Monitoring
+#### 21. Node.js Upgrade 2026-Q3 Post-Merge Monitoring
 
 **Directory:** [`nodejs-upgrade-2026-q3-post-merge-monitoring/`](./nodejs-upgrade-2026-q3-post-merge-monitoring/)  
 **Status:** 🟡 Active  
@@ -183,19 +204,19 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ### Planning & Strategy
 
-#### 19. Milestone Planning v1
+#### 22. Milestone Planning v1
 
 **Directory:** [`milestone-planning-v1/`](./milestone-planning-v1/)  
 **Status:** 🟡 Active  
 **Focus:** Long-term milestone planning and roadmap
 
-#### 20. Repository Restructuring Phase 1
+#### 23. Repository Restructuring Phase 1
 
 **Directory:** [`repository-restructuring-phase-1/`](./repository-restructuring-phase-1/)  
 **Status:** 🟡 Active  
 **Focus:** Legacy phase 1 documentation and planning
 
-#### 21. PR Review Project Planning 2026-08-04
+#### 24. PR Review Project Planning 2026-08-04
 
 **Directory:** [`pr-review-project-planning-2026-08-04/`](./pr-review-project-planning-2026-08-04/)  
 **Status:** 🟡 Active  
@@ -203,13 +224,13 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ### Agents & Implementation
 
-#### 22. PRD Combined Agent
+#### 25. PRD Combined Agent
 
 **Directory:** [`prd-combined-agent/`](./prd-combined-agent/)  
 **Status:** 🟢 Complete  
 **Focus:** Combined PRD agent implementation and documentation
 
-#### 23. OpenSpec
+#### 26. OpenSpec
 
 **Directory:** [`openspec/`](./openspec/)  
 **Status:** 🟡 Active  
@@ -224,8 +245,9 @@ This directory contains all active projects, initiatives, and work in progress f
 
 | Status | Count | Projects |
 |--------|-------|----------|
-| 🟡 Active | 19 | Most projects (ongoing work) |
-| 🟢 Complete | 4 | Node.js upgrade, Repository restructuring, PRD agent, Repository maintenance |
+| 🟡 Active | 21 | Most projects (ongoing work) |
+| 🔴 Critical | 1 | Label Prefix Audit (remediation in progress) |
+| 🟢 Complete | 3 | Node.js upgrade, Repository restructuring, PRD agent |
 | 🟠 Blocked | 0 | None currently |
 | ⚪ Archived | Many | See `../archived/` |
 
