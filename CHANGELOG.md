@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-05"
+last_updated: "2026-08-07"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Delete `.github/agents/` per Phase 1 restructuring** — Removed `.github/agents/` directory (55 files) consolidating all agent implementations to root `agents/` folder following Phase 1 restructuring rules. The `.github/agents/` folder violated the portable assets rule by containing multi-file implementations when it should only contain spec-based definitions. ([PR #1537](https://github.com/lightspeedwp/.github/pull/1537), [#1510](https://github.com/lightspeedwp/.github/issues/1510))
+
 - **WCEU 2026 conference content** — Removed all WCEU-related assets and references across the repository: deleted `verify-wceu-readiness.js` scripts and tests from both `.github/scripts/` and `scripts/` folders, removed `website/src/lib/wceuSlides.ts` and WCEU conference pages (`website/src/pages/wceu-2026/`), deleted WCEU-specific image assets, and removed all WCEU slide references from website components. WCEU content was out of scope for this repository. ([PR #1541](https://github.com/lightspeedwp/.github/pull/1541), [#1539](https://github.com/lightspeedwp/.github/issues/1539))
 
 - **Duplicate `.github/agents/` folder (Phase 1 restructuring compliance)** — Deleted entire `.github/agents/` folder (55 files) consolidating all agent implementations to root `agents/` folder per Phase 1 restructuring rules. The `.github/agents/` folder violated the portable assets rule by containing multi-file agent implementations (Claude/Copilot/OpenAI) when it should only contain "simple YAML/JSON definitions" (GitHub-native only). All agent implementations now properly organized at root as portable reusable assets. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510), [#1507](https://github.com/lightspeedwp/.github/issues/1507))
@@ -40,6 +42,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Resolve Phase 1 critical issues** — Fixed critical schema path references and unresolved merge conflicts from Phase 1 restructuring that prevented builds and asset discovery. ([PR #1502](https://github.com/lightspeedwp/.github/pull/1502), [#1290](https://github.com/lightspeedwp/.github/issues/1290))
+
+- **Implement blocking logic enforcement for issue state validation** — Added validation logic to prevent invalid issue state transitions and enforce proper workflow compliance. ([PR #1503](https://github.com/lightspeedwp/.github/pull/1503))
+
+- **Address PR #1514 review feedback and CI failures** — Resolved review comments and CI pipeline failures in project status documentation updates. ([PR #1527](https://github.com/lightspeedwp/.github/pull/1527))
+
+- **Address review feedback and CI failures** — Fixed review feedback items and CI pipeline errors in active projects documentation. ([PR #1529](https://github.com/lightspeedwp/.github/pull/1529))
+
+- **Fix 68 ESLint no-unused-vars violations** — Eliminated widespread unused variable errors across codebase improving code quality. ([PR #1536](https://github.com/lightspeedwp/.github/pull/1536))
+
+- **Correct broken agent references in instruction files** — Fixed incorrect cross-references in portable instruction files pointing to agents. ([PR #1602](https://github.com/lightspeedwp/.github/pull/1602))
+
 - **README frontmatter schema compliance (Phase 2B Skills Audit)** — Corrected frontmatter in `.github/projects/active/phase-2b-skills-audit/README.md` to comply with LightSpeed documentation schema: added required `file_type: readme` field, renamed `created` to `created_date`, updated `last_updated` and `version` fields, and removed non-schema fields (`name`, `related_issues`, `related_branches`). Resolves frontmatter validation failures and ensures project documentation adheres to canonical schema standards. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540), [#1375](https://github.com/lightspeedwp/.github/issues/1375))
 
 - **Labeling agent module import error** — Fixed labeling agent import statement that referenced non-existent export `_fetchCanonicalLabels` (with underscore); corrected to use actual function name `fetchCanonicalLabels` (without underscore) from `label-lookup.js`. Unblocks PR labeling workflows that were failing with module resolution errors. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540))
@@ -51,6 +65,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Agent file_type frontmatter validation (Phase 1 restructuring)** — Added missing `file_type` frontmatter to all root agent configuration files: 48 provider-specific agent.md files (claude/, copilot/, openai/) with `file_type: 'agent'`, and 16 shared core-prompt.md files with `file_type: 'prompt'`. Fixes 200+ frontmatter validation errors and ensures all agent files comply with documentation schema requirements. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510), [#1507](https://github.com/lightspeedwp/.github/issues/1507))
 
 ### Added
+
+- **Label prefix governance enforcement audit** — Comprehensive audit identifying 100+ label governance violations with structured 5-phase remediation strategy covering governance updates, validation enforcement, pre-creation scripts, documentation, and team training. ([PR #1591](https://github.com/lightspeedwp/.github/pull/1591), [#1292](https://github.com/lightspeedwp/.github/issues/1292))
+
+- **Implement Phase 3 labeling automation for issue triage** — Implemented automated labeling rules and infrastructure for phase 3 of issue triage system with type assignment and status classification. ([PR #1505](https://github.com/lightspeedwp/.github/pull/1505))
+
+- **Add status:needs-review audit report** — Generated comprehensive audit report identifying all issues requiring review using new status labeling system. ([PR #1506](https://github.com/lightspeedwp/.github/pull/1506))
+
+- **Add pre-commit validation hook for PR template compliance** — Added pre-commit hook to enforce PR template compliance before commits preventing non-compliant PRs. ([PR #1508](https://github.com/lightspeedwp/.github/pull/1508))
+
+- **Add AI feedback PR review validation workflow** — Implemented automated workflow to validate AI feedback in PRs with issue linking and decision tracking (addressed/deferred/rejected). ([PR #1526](https://github.com/lightspeedwp/.github/pull/1526))
+
+- **Add Mermaid accessibility attributes repository-wide** — Added ARIA labels and accessibility attributes to all Mermaid diagrams across codebase improving accessibility compliance. ([PR #1530](https://github.com/lightspeedwp/.github/pull/1530))
+
+- **Release Process V2 specification and OpenSpec analysis** — Defined Release Process V2 specification with comprehensive OpenSpec analysis for standardized release workflows and automation. ([PR #1545](https://github.com/lightspeedwp/.github/pull/1545))
 
 - **Gitleaks secret scanning** — Added `gitleaks-reusable.yml`, an organisation-wide reusable workflow other repositories call via `workflow_call`, plus a `gitleaks.yml` caller running on pull requests into `develop`/`main`. Runs the open-source Gitleaks CLI directly (the `gitleaks-action` wrapper requires a paid licence for organisation repositories). Per-PR runs scan the working tree; `workflow_dispatch` accepts a `full-history` input for on-demand full-history rescans. A baseline full-history scan of this repository returned 50 hits, all verified as placeholder values in documentation and tests, allowlisted in `.gitleaks.toml`. ([PR #1444](https://github.com/lightspeedwp/.github/pull/1444))
 
@@ -136,6 +164,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **GitHub Actions minute optimisation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054) — *ci: reduce Actions minute consumption and add savings watcher*)
 
 - **Branch cleanup automation** — Added reusable cleanup script, weekly scheduled workflow, and report generation for stale merged branches with safety guardrails. ([PR #1067](https://github.com/lightspeedwp/.github/pull/1067) — *Add scheduled branch cleanup automation and reporting*, [#1066](https://github.com/lightspeedwp/.github/issues/1066))
+
+### Changed
+
+- **Reorganize label-prefix audit to active projects** — Moved label-prefix audit project artifacts from reports directory to active projects following active work convention. ([PR #1625](https://github.com/lightspeedwp/.github/pull/1625))
+
+- **Phase 3D - Reports Placement Enforcement** — Enforced reports placement in `.github/reports/` directory with validation to prevent misplaced artifacts following Phase 3D standards. ([PR #1581](https://github.com/lightspeedwp/.github/pull/1581), [#1290](https://github.com/lightspeedwp/.github/issues/1290))
+
+- **Phase 3C - Agent Reorganization and Two-Tier Structure** — Completed Phase 3C restructuring establishing two-tier agent architecture with 19 spec-based (GitHub-native) agents in `.github/agents/` and 16 portable multi-file agents in root `agents/`. ([PR #1583](https://github.com/lightspeedwp/.github/pull/1583), [#1290](https://github.com/lightspeedwp/.github/issues/1290))
+
+- **Phase 3A - Instructions Migration and Consolidation** — Migrated portable instruction files from `.github/instructions/` to root `instructions/` directory establishing clear portable/control-plane separation. ([PR #1582](https://github.com/lightspeedwp/.github/pull/1582), [#1290](https://github.com/lightspeedwp/.github/issues/1290))
+
+- **Complete Phase 2B script migration (Batches 1-3)** — Migrated 117 portable scripts from `.github/scripts/` to root `scripts/` directory with full path reference updates (Batches 1-3 complete). ([PR #1528](https://github.com/lightspeedwp/.github/pull/1528))
+
+- **Migrate agent utilities to portable location (Phase 2B Batch 2)** — Migrated shared agent utility functions and libraries to portable location under `agents/` directory following Phase 2B plan. ([PR #1518](https://github.com/lightspeedwp/.github/pull/1518))
+
+- **Phase 2B Batch 1 — Move validation scripts to root** — Migrated validation scripts from `.github/scripts/validation/` to portable root `scripts/validation/` location with reference updates. ([PR #1504](https://github.com/lightspeedwp/.github/pull/1504))
+
+- **Phase 2 governance updates with Phase 1 audit findings** — Updated governance documentation with comprehensive Phase 1 audit findings, consolidation status, and remediation paths for remaining phases. ([PR #1534](https://github.com/lightspeedwp/.github/pull/1534), [#1295](https://github.com/lightspeedwp/.github/issues/1295))
+
+- **Post-merge governance refinements** — Applied governance refinements, corrected naming conventions, and updated standards documentation following Phase 2 major merges. ([PR #1516](https://github.com/lightspeedwp/.github/pull/1516), [#1515](https://github.com/lightspeedwp/.github/issues/1515))
+
+- **Update active project statuses and phase progress** — Updated active project documentation reflecting completion of Phase 1-2 work and progress toward Phase 3 completion. ([PR #1514](https://github.com/lightspeedwp/.github/pull/1514))
+
+- **Document ESLint fixes and footer automation issues** — Documented ESLint fixes applied during linting phase and identified footer automation issues for follow-up. ([PR #1519](https://github.com/lightspeedwp/.github/pull/1519), [#1486](https://github.com/lightspeedwp/.github/issues/1486))
 
 ### Removed
 
