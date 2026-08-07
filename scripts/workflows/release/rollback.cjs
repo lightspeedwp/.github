@@ -108,11 +108,6 @@ async function githubApiRequest(path, options = {}) {
         backoffMs *= backoffFactor;
         continue;
       }
-      if (attempt < retries && error.message && error.message.includes("500")) {
-        await new Promise((resolve) => setTimeout(resolve, backoffMs));
-        backoffMs *= backoffFactor;
-        continue;
-      }
       throw error;
     }
   }
