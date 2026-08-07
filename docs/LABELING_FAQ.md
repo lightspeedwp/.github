@@ -20,7 +20,7 @@ Quick answers to common questions about label validation, canonical labels, and 
 
 ### What is label validation?
 
-Label validation is an automated system that checks all labels on issues and PRs **before creation** to ensure they follow the canonical label system. It prevents bare labels (like `bug`, `feature`, `urgent`) and enforces the use of prefixed labels (like `type:bug`, `type:feature`, `priority:urgent`).
+Label validation is an automated system that checks all labels on issues and PRs **when creating, editing, or labeling** to ensure they follow the canonical label system. It prevents bare labels (like `bug`, `feature`, `urgent`) and enforces the use of prefixed labels (like `type:bug`, `type:feature`, `priority:critical`).
 
 ### Why are bare labels not allowed?
 
@@ -43,7 +43,7 @@ The authoritative source is [`.github/labels.yml`](https://github.com/lightspeed
 
 - Label name (e.g., `type:bug`)
 - Description
-- Color (WCAG AA compliant)
+- Colour (WCAG AA compliant)
 - Aliases (if any)
 
 You can also read the summary in [`docs/LABELING.md`](./LABELING.md).
@@ -181,7 +181,7 @@ You used a bare label without a prefix.
 **Example:**
 
 - ❌ Remove: `bug`, `feature`, `urgent`, `ci`, `docs`
-- ✅ Add: `type:bug`, `type:feature`, `priority:urgent`, `area:ci`, `type:documentation`
+- ✅ Add: `type:bug`, `type:feature`, `priority:critical`, `area:ci`, `type:documentation`
 
 ### "Label 'X' not found in canonical set"
 
@@ -204,7 +204,7 @@ The label you used doesn't exist.
 
 - `type:bugfix` → `type:bug`
 - `type:improvment` → `type:improve` or `type:enhancement`
-- `area:documention` → `type:documentation`
+- `area:documention` → `area:documentation`
 - `status:todo` → `status:ready` (no "todo" status)
 
 ### "Multiple labels from family 'type' found"

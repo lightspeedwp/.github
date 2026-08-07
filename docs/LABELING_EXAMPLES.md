@@ -270,7 +270,7 @@ release:patch
 - `release:patch` — Bug fix requires patch version bump
 - (Otherwise same as the bug issue)
 
-**Branch name for auto-labeling:** `fix/theme-customizer-crash`
+**Branch name for auto-labelling:** `fix/theme-customizer-crash`
 
 ---
 
@@ -294,7 +294,7 @@ release:minor
 - `release:minor` — New feature requires minor version bump
 - (Otherwise same as feature issue)
 
-**Branch name for auto-labeling:** `feat/theme-json-css-variables`
+**Branch name for auto-labelling:** `feat/theme-json-css-variables`
 
 ---
 
@@ -317,7 +317,7 @@ meta:no-changelog
 - `meta:no-changelog` — Documentation-only, no changelog needed
 - (No release: label—docs don't trigger version bumps)
 
-**Branch name for auto-labeling:** `docs/guide-theme-json-breakpoints`
+**Branch name for auto-labelling:** `docs/guide-theme-json-breakpoints`
 
 ---
 
@@ -340,7 +340,7 @@ meta:no-changelog
 - `meta:no-changelog` — Internal refactoring, no user-facing change
 - (No release: label—refactors don't bump versions)
 
-**Branch name for auto-labeling:** `refactor/consolidate-label-utils`
+**Branch name for auto-labelling:** `refactor/consolidate-label-utils`
 
 ---
 
@@ -365,7 +365,7 @@ release:patch
 - `meta:needs-changelog` — Security fixes must be documented
 - `release:patch` — Security patches use patch bumps (or hotfix)
 
-**Branch name for auto-labeling:** `security/block-editor-xss`
+**Branch name for auto-labelling:** `security/block-editor-xss`
 
 ---
 
@@ -387,7 +387,7 @@ meta:no-changelog
 - `meta:no-changelog` — Internal tooling, no user impact
 - (No release: label)
 
-**Branch name for auto-labeling:** `ci/add-codeql-scanning`
+**Branch name for auto-labelling:** `ci/add-codeql-scanning`
 
 ---
 
@@ -412,7 +412,7 @@ release:patch
 - `release:patch` — Security patch needs release
 - `meta:needs-changelog` — Security update is user-facing
 
-**Branch name for auto-labeling:** `deps/update-js-yaml`
+**Branch name for auto-labelling:** `deps/update-js-yaml`
 
 ---
 

@@ -330,14 +330,14 @@ All automation reads from these files; there is no hardcoded label logic in agen
 
 ## Pre-Creation Label Validation (Phase 3)
 
-To prevent bare labels and invalid label combinations, all issues and PRs are validated **before creation** by an automated validation workflow.
+To prevent bare labels and invalid label combinations, all issues and PRs are validated by an automated validation workflow after creation.
 
 ### How It Works
 
-1. **Trigger:** Validation runs on issue/PR creation, editing, and labeling events
+1. **Trigger:** Validation runs on issue/PR `opened`, `edited`, `labeled`, `unlabeled`, and PR `synchronize` events (after creation)
 2. **Script:** `scripts/validation/validate-labels-before-creation.cjs` enforces 5 rules
 3. **Workflow:** `.github/workflows/validate-issue-labels.yml` posts guidance on failure
-4. **Outcome:** Valid labels pass silently; invalid labels receive a helpful error comment
+4. **Outcome:** Valid labels pass silently; invalid labels receive a helpful error comment with corrected examples
 
 ### Validation Rules
 
