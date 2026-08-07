@@ -1,3 +1,13 @@
+---
+file_type: project-index
+title: "Repository Restructuring Project"
+description: "Optimize folder organization, consolidate schemas, enable multi-project work, support plugin adoption"
+status: active
+created_date: "2026-07-25"
+last_updated: "2026-08-07"
+version: "1.0"
+---
+
 # Repository Restructuring Project
 
 ## LightSpeed `.github` Control Plane — 2026-07-25
@@ -329,11 +339,13 @@ repo-restructuring-2026-07-25/
 - [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Branch naming and protection rules
 - [AGENTS.md](../../AGENTS.md) — Global AI governance
 
-**Future reference:**
+**Future reference (planned documents):**
 
-- [MIGRATION.md](../../docs/MIGRATION.md) — Path update guide (created Phase 2)
-- [VSCode Setup](../../docs/vscode-workspace-setup.md) — Developer setup guide (created Phase 3)
-- [Plugin Guides](../../docs/) — Plugin setup documentation (created Phase 4)
+- MIGRATION.md — Path update guide (to be created Phase 2)
+- vscode-workspace-setup.md — Developer setup guide (to be created Phase 3)
+- Plugin Guides — Plugin setup documentation (to be created Phase 4)
+
+For current troubleshooting: [vscode-plugin-troubleshooting.md](https://github.com/lightspeedwp/.github/blob/develop/docs/vscode-plugin-troubleshooting.md)
 
 ---
 

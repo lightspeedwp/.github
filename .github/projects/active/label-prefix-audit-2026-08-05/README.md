@@ -139,10 +139,10 @@ This violates the canonical labeling system defined in `.github/labels.yml` (158
 
 ### Documentation (Mixed)
 
-- `docs/LABELING.md` — Clear, explicit, requires prefixes ✅
-- `docs/LABEL_STRATEGY.md` — Clear taxonomy with prefixes ✅
-- `CLAUDE.md` — **MISSING**: No explicit "use prefixed labels" rule ⚠️
-- `AGENTS.md` — **INCOMPLETE**: Labels not covered in governance section ⚠️
+- [docs/LABELING.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md) — Clear, explicit, requires prefixes ✅
+- [docs/LABEL_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md) — Clear taxonomy with prefixes ✅
+- [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md) — **MISSING**: No explicit "use prefixed labels" rule ⚠️
+- [AGENTS.md](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) — **INCOMPLETE**: Labels not covered in governance section ⚠️
 
 ### Implementation (Mixed)
 
@@ -246,15 +246,15 @@ Recommend creating:
 
 ### Documentation
 
-- [docs/LABELING.md](../../../docs/LABELING.md) — Labeling guide
-- [docs/LABEL_STRATEGY.md](../../../docs/LABEL_STRATEGY.md) — Label taxonomy
-- [docs/LABELING_GOVERNANCE.md](../../../docs/LABELING_GOVERNANCE.md) — Workflow architecture
-- [docs/LABEL_COLOR_STRATEGY.md](../../../docs/LABEL_COLOR_STRATEGY.md) — Color assignments
+- [docs/LABELING.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md) — Labeling guide
+- [docs/LABEL_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md) — Label taxonomy
+- [docs/LABELING_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING_GOVERNANCE.md) — Workflow architecture
+- [docs/LABEL_COLOR_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_COLOR_STRATEGY.md) — Color assignments
 
 ### Governance (Needs Update)
 
-- [CLAUDE.md](../../../CLAUDE.md) — **UPDATE NEEDED**: Add label creation rules
-- [AGENTS.md](../../../AGENTS.md) — **UPDATE NEEDED**: Add label governance section
+- [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md) — **UPDATE NEEDED**: Add label creation rules
+- [AGENTS.md](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) — **UPDATE NEEDED**: Add label governance section
 
 ### Defective Code (DELETE)
 

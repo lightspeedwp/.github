@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Test Coverage Implementation - v1.0.1"
 description: "Actionable tasks for implementing test coverage expansion to achieve 80%+ coverage before release"
 created_date: "2025-12-10"
-last_updated: "2026-06-08"
+last_updated: "2026-08-07"
 version: "1.0.1"
 status: active
 priority: "critical"
@@ -1819,9 +1819,9 @@ jest.mock("child_process", () => ({
 
 ## See Also
 
-- [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
-- [Release Readiness Tasks](launch-agents-checklist.md)
-- [Testing Standards](../../../docs/TESTING.md)
+- [Test Coverage Expansion Plan](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/analysis/test-coverage-expansion-plan.md)
+- [Release Readiness Tasks](ISSUE_EXECUTION_PLAN.md)
+- [Testing Standards](https://github.com/lightspeedwp/.github/blob/develop/docs/TESTING.md)
 
 ---
 

@@ -81,15 +81,15 @@ domain: "Release Engineering"
 
 ### Audit Report
 
-**File:** [RELEASE_PROCESS_AUDIT_REPORT.md](../../../../../../private/tmp/.../RELEASE_PROCESS_AUDIT_REPORT.md)  
+**File:** [AUDIT_REPORT.md](./AUDIT_REPORT.md)  
 **Status:** Complete  
 **Findings:** 3 critical, 7 major, 5 medium issues
 
 ### Supporting Documentation
 
 - [ADDITIONAL_DOCS_AUDIT.md](./ADDITIONAL_DOCS_AUDIT.md) — Audit of ARCHITECTURE.md, AUTOMATION.md, DECISIONS.md, etc.
-- [OPENSPEC_SETUP.md](./OPENSPEC_SETUP.md) — Instructions for running OpenSpec analysis
-- [IMPLEMENTATION_PLAN_TEMPLATE.md](./IMPLEMENTATION_PLAN_TEMPLATE.md) — Template for final plan
+- [OPENSPEC_ANALYSIS_REPORT.md](./OPENSPEC_ANALYSIS_REPORT.md) — OpenSpec analysis findings and recommendations
+- [PHASE_2_IMPLEMENTATION_PLAN.md](./PHASE_2_IMPLEMENTATION_PLAN.md) — Implementation plan for Phase 2
 
 ---
 
