@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-05"
+last_updated: "2026-08-07"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -40,6 +40,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Phase 3 label validation enforcement — Validation script & workflow** — Pre-creation label validation script (`validate-labels-before-creation.cjs`) enforces canonical label prefixes and one-hot constraint per family. GitHub Actions workflow validates on issue/PR creation, editing, labeling, and PR synchronization. Prevents bare labels (e.g., `bug`, `feature`, `urgent`) and enforces required prefixes (e.g., `type:bug`, `priority:critical`). ([PR #1613](https://github.com/lightspeedwp/.github/pull/1613), [#1612](https://github.com/lightspeedwp/.github/issues/1612))
+
+- **Phase 1 critical fixes — broken badges and release process** — Fixed 33 broken documentation badges (workflow status, build badges); fixed release workflow to default to `--dry-run` with explicit `--live` flag requirement; added authorization gating for release operations. ([PR #1609](https://github.com/lightspeedwp/.github/pull/1609), [#1547](https://github.com/lightspeedwp/.github/issues/1547), [#1548](https://github.com/lightspeedwp/.github/issues/1548), [#1549](https://github.com/lightspeedwp/.github/issues/1549))
+
+- **Address Copilot review feedback on PR #1591** — Fixed broken relative paths in audit report files and adjusted path resolution for portable asset locations. ([PR #1610](https://github.com/lightspeedwp/.github/pull/1610), [#1591](https://github.com/lightspeedwp/.github/issues/1591))
+
 - **Fix README frontmatter** — Corrected Phase 2B project README frontmatter. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540), [#1375](https://github.com/lightspeedwp/.github/issues/1375))
 
 - **Fix import error** — Fixed `_fetchCanonicalLabels` function reference. ([PR #1540](https://github.com/lightspeedwp/.github/pull/1540))
@@ -51,6 +57,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Add file_type frontmatter** — Added to 48 agent and 16 prompt files. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510))
 
 ### Added
+
+- **Phase 1–3 completion documentation** — Comprehensive project completion report documenting Phase 1 restructuring, Phase 2 label remediation, and Phase 3 validation enforcement. Includes audit findings, 5-phase remediation timeline, and governance architecture. ([PR #1624](https://github.com/lightspeedwp/.github/pull/1624))
+
+- **Label creation governance in CLAUDE.md and AGENTS.md** — Added mandatory label prefix enforcement rules to organization-wide governance documents. All labels must use canonical prefixes (type:, status:, priority:, area:, etc.) from `.github/labels.yml` (158 canonical labels). One-hot constraint per family except meta:, comp:, lang: which allow multiples. Prevents bare labels and enforces validation at issue/PR creation time. ([PR #1611](https://github.com/lightspeedwp/.github/pull/1611))
+
+- **Phase 4 label validation documentation** — Comprehensive documentation package: updated LABELING.md v1.1.0 with ~500 lines on validation rules and error guidance; new LABELING_FAQ.md (~2,500 lines) with 30+ FAQs organized by topic; new LABELING_EXAMPLES.md (~1,000 lines) with 20+ real-world label combinations for issues and PRs. ([PR #1613](https://github.com/lightspeedwp/.github/pull/1613), [docs/LABELING.md](./docs/LABELING.md), [docs/LABELING_FAQ.md](./docs/LABELING_FAQ.md), [docs/LABELING_EXAMPLES.md](./docs/LABELING_EXAMPLES.md))
 
 - **Add Gitleaks scanning** — Reusable workflows for PR secret scanning. ([PR #1444](https://github.com/lightspeedwp/.github/pull/1444))
 
