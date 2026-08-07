@@ -69,7 +69,6 @@ const CONFIG = {
 /**
  * SAFE: Extract frontmatter by finding closing --- marker
  * Supports standard YAML frontmatter: --- YAML content ---
- * SAFETY: Only extracts up to 50 lines of frontmatter to prevent abuse
  * Uses exact match (trim() === '---') to avoid false positives on content lines
  *
  * @param {string} content - File content
@@ -83,27 +82,28 @@ function extractFrontmatterSafely(content) {
     return { frontmatter: "", body: content };
   }
 
-  // Find closing --- marker (search up to line 50 for safety)
-  const maxFrontmatterLines = 50;
-  let closingIndex = -1;
-
-  for (let i = 1; i < Math.min(lines.length, maxFrontmatterLines); i++) {
+  // Find closing --- (can be anywhere, but typically within first 50 lines)
+  let closingLineIndex = -1;
+  for (let i = 1; i < lines.length; i++) {
     if (lines[i].trim() === "---") {
-      closingIndex = i;
+      closingLineIndex = i;
       break;
     }
   }
 
-  // If closing --- found, extract frontmatter
-  if (closingIndex > 0) {
-    const frontmatterLines = lines.slice(0, closingIndex + 1);
-    const frontmatter = frontmatterLines.join("\n") + "\n";
-    const body = lines.slice(closingIndex + 1).join("\n");
-    return { frontmatter, body };
+  if (closingLineIndex === -1) {
+    // No closing ---, treat as body
+    return { frontmatter: "", body: content };
   }
 
-  // If closing --- not found, treat entire content as body (no frontmatter)
-  return { frontmatter: "", body: content };
+  // Extract frontmatter (lines 0 to closingLineIndex inclusive, plus newline)
+  const frontmatterLines = lines.slice(0, closingLineIndex + 1);
+  const frontmatter = frontmatterLines.join("\n") + "\n";
+
+  // Extract body (everything after frontmatter)
+  const body = lines.slice(closingLineIndex + 1).join("\n");
+
+  return { frontmatter, body };
 }
 
 /**
