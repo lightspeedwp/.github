@@ -3,7 +3,7 @@
 **Project Slug:** `repo-restructuring-2026-07-25`  
 **Owner:** Ash Shaw  
 **Duration:** ~3–4 weeks  
-**Status:** In Progress (Phase 0 Complete)
+**Status:** ✅ COMPLETE (Phases 1-3 Final)
 
 ---
 
@@ -51,107 +51,56 @@
   - [SPECIFICATION.md](./SPECIFICATION.md) — Project spec created
   - [PREFLIGHT_CHECKLIST.md](./PREFLIGHT_CHECKLIST.md) — Validation checklist created
 
-### Phase 1.A: Manual Folder Moves
+### ✅ Phase 1: Agent Consolidation & Foundation (COMPLETE)
 
-- **Status:** 🔜 READY TO EXECUTE
-- **Document:** [PHASE-1A-MANUAL-MOVES.md](./PHASE-1A-MANUAL-MOVES.md)
-- **Owner:** Ash Shaw (manual Finder operations)
-- **Duration:** 1–2 hours
-- **Tasks:**
-  1. Backup current state
-  2. Create `.github/` subdirectories
-  3. Move folders using Finder
-  4. Consolidate schemas
-  5. Verify moves
-  6. Stage changes in git
-  7. Create commit
+- **Status:** ✅ COMPLETE
+- **Completion Date:** 2026-08-05
+- **Key Work:**
+  - Agents consolidated to root `agents/` (16 portable multi-file agents)
+  - GitHub-native agents in `.github/agents/` (19 spec-based agents, two-tier structure)
+  - File type frontmatter added to 64 agent files
+  - Provider naming corrected (github-copilot → copilot)
+- **PRs Merged:** #1537, #1538/1603
+- **Key Commits:** 7311922ee (agent consolidation), 86f175995 (file_type), a2f491990 (two-tier structure)
 
-### Phase 1.B: Path Reference Updates
+### ✅ Phase 2: Portable Scripts Standardization (COMPLETE)
 
-- **Status:** 🔜 READY TO EXECUTE
-- **Document:** [PHASE-1B-PATH-UPDATES.md](./PHASE-1B-PATH-UPDATES.md)
-- **Owner:** Claude Code Agent (automated)
-- **Duration:** 2–3 days
-- **Tasks:**
-  1. Audit path references
-  2. Update package.json
-  3. Update workflows
-  4. Update documentation
-  5. Update script relative paths
-  6. Validate all changes
-  7. Create commit
+- **Status:** ✅ COMPLETE
+- **Completion Date:** 2026-08-05
+- **Key Work:**
+  - 117 portable scripts migrated to root `scripts/`
+  - Path references updated across 26 files (np scripts, workflows, docs)
+  - Phase 2B Batches 1-3 completed (PRs #1504, #1518, #1528)
+  - Phase 2C validation: 1,120 tests passing, 0 regressions
+  - Phase 2C.X remediation: 8 workflows updated, 20 docs corrected
+- **PRs Merged:** #1504, #1518, #1528
+- **Key Commits:** 5085cb41a (Phase 2B complete), d0ea51e94 (Phase 2C.X remediation)
+- **Issues Closed:** #1461, #1464, #1465
 
-### Phase 1.C: Folder Finalization
+### ✅ Phase 3: File Migrations & Governance (COMPLETE)
 
-- **Status:** 🔜 READY TO EXECUTE
-- **Document:** [PHASE-1C-FINALIZATION.md](./PHASE-1C-FINALIZATION.md)
-- **Owner:** Claude Code Agent (automated)
-- **Duration:** 1 day
-- **Tasks:**
-  1. Create README files
-  2. Create .gitkeep files
-  3. Create .gitignore files
-  4. Update root .gitignore
-  5. Update CLAUDE.md
-  6. Verify structure
-  7. Create commit
+- **Status:** ✅ COMPLETE
+- **Completion Date:** 2026-08-05
+- **Key Work:**
+  - **Phase 3A:** 27 portable instruction files migrated to root `instructions/` with 502+ reference updates
+  - **Phase 3C:** Two-tier agent structure implemented (Tier 1: .github/agents/, Tier 2: agents/) with 788+ reference updates
+  - **Phase 3D:** Reports consolidated in `.github/reports/` and `.github/projects/active/`
+- **PRs Merged:** #1582 (3A), #1583 (3C), #1581 (3D)
+- **Key Commits:** 37b1ea11b (Phase 3A), a2f491990 (Phase 3C), 5bbe023c5 (Phase 3D)
+- **Issues Closed:** #1543 (3C), #1544 (3D)
 
-### Phase 2: Schema Consolidation
+### Phase 4: Schema Consolidation (Next)
 
-- **Status:** 🔜 READY TO EXECUTE
+- **Status:** 🔜 PLANNED (Phase 4+)
 - **Document:** [PHASE-2-SCHEMA-CONSOLIDATION.md](./PHASE-2-SCHEMA-CONSOLIDATION.md)
-- **Owner:** Claude Code Agent (automated)
-- **Duration:** 2–3 days
-- **Tasks:**
-  1. Audit consolidated schemas
-  2. Update validation scripts
-  3. Update documentation
-  4. Create migration guide
-  5. Create commit
+- **Objective:** Complete schema consolidation from 3 locations → 1 canonical (`.schemas/`)
+- **Note:** Phase 1-3 now complete; Phase 4 will focus on schema finalization
 
-### Phase 3: VSCode Setup
+### Phase 5: Rollout & Communications (Next)
 
-- **Status:** 🔜 READY TO EXECUTE
-- **Document:** [PHASE-3-VSCODE-SETUP.md](./PHASE-3-VSCODE-SETUP.md)
-- **Owner:** Claude Code Agent (automated)
-- **Duration:** 3–4 days
-- **Tasks:**
-  1. Create setup scripts (3 files)
-  2. Create workspace definition
-  3. Create VSCode settings
-  4. Create setup documentation
-  5. Create FAQ
-  6. Test scripts locally
-  7. Create commit
-
-### Phase 4: Plugin Adoption
-
-- **Status:** 🔜 READY TO EXECUTE
-- **Document:** [PHASE-4-PLUGIN-ADOPTION.md](./PHASE-4-PLUGIN-ADOPTION.md)
-- **Owner:** Claude Code Agent + Web team
-- **Duration:** 3–4 days
-- **Tasks:**
-  1. Create plugin setup guides (3 files)
-  2. Create adoption phases doc
-  3. Document website updates
-  4. Create testing guide
-  5. Create troubleshooting guide
-  6. Create commit
-
-### Phase 5: Rollout & Communications
-
-- **Status:** 🔜 READY TO EXECUTE
+- **Status:** 🔜 PLANNED (Post-Phase 4)
 - **Document:** [PHASE-5-ROLLOUT.md](./PHASE-5-ROLLOUT.md)
-- **Owner:** Ash Shaw + Team
-- **Duration:** 3+ weeks
-- **Tasks:**
-  1. Merge to develop
-  2. Create announcements
-  3. Deploy website updates
-  4. Monitor team adoption
-  5. Support and FAQ
-  6. Grace period management
-  7. Cutover phase
+- **Note:** Core restructuring complete; Phase 5 focuses on team adoption & final communications
 
 ---
 
@@ -159,10 +108,12 @@
 
 ### Audit & Summary Documents
 
-- [SCHEMA-AUDIT.md](./SCHEMA-AUDIT.md) — Created during Phase 2.A
-- [PHASE-2-SUMMARY.md](./PHASE-2-SUMMARY.md) — Created at end of Phase 2
-- [WEBSITE-UPDATE-REQUIREMENTS.md](./WEBSITE-UPDATE-REQUIREMENTS.md) — Created in Phase 4
-- [SUPPORT-TRACKER.md](./SUPPORT-TRACKER.md) — Created during Phase 5
+- [COMPLETION_REPORT_PHASES_1-3.md](./COMPLETION_REPORT_PHASES_1-3.md) — ✅ Phases 1-3 final completion report
+- [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./INSTRUCTION_FILES_AUDIT_2026-08-05.md) — Phase 1 instruction audit (58 files)
+- [SCHEMA_AUDIT_REPORT.md](./SCHEMA_AUDIT_REPORT.md) — Phase 1 schema audit (25 core schemas)
+- [PHASE-3A-STATUS.md](./PHASE-3A-STATUS.md) — Phase 3A status and progress
+- [WEBSITE-UPDATE-REQUIREMENTS.md](./WEBSITE-UPDATE-REQUIREMENTS.md) — Phase 4 handoff doc
+- [SUPPORT-TRACKER.md](./SUPPORT-TRACKER.md) — Phase 5 adoption tracking
 
 ### Templates & Announcements
 
@@ -267,13 +218,13 @@ Phase 5: Rollout (Weeks 4–8+)
 | Phase | Status | Owner | Duration | Completion |
 |-------|--------|-------|----------|------------|
 | 0 | ✅ Complete | Ash | 1–2 days | 2026-07-26 |
-| 1.A | 🔜 Ready | Ash | 1–2 hours | TBD |
-| 1.B | 🔜 Ready | Claude | 2–3 days | TBD |
-| 1.C | 🔜 Ready | Claude | 1 day | TBD |
-| 2 | 🔜 Ready | Claude | 2–3 days | TBD |
-| 3 | 🔜 Ready | Claude | 3–4 days | TBD |
-| 4 | 🔜 Ready | Claude + Web | 3–4 days | TBD |
-| 5 | 🔜 Ready | Ash + Team | 3+ weeks | TBD |
+| 1 | ✅ Complete | Claude | ~3 days | 2026-08-05 |
+| 2 | ✅ Complete | Claude | ~4 days | 2026-08-05 |
+| 3 | ✅ Complete | Claude | ~2 days | 2026-08-05 |
+| 4 | 🔜 Planned | Claude | 2–3 days | TBD |
+| 5 | 🔜 Planned | Ash + Team | 3+ weeks | TBD |
+
+**Phases 1-3 COMPLETE:** Aug 6, 2026 ✅
 
 ---
 
