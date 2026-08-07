@@ -19,7 +19,7 @@ These issue templates are ready to be created as GitHub issues #1406-#1411. Each
 **Effort:** 1 hour  
 **Dependency:** Phase 3.3 (labeling consolidation) must be complete
 
-```markdown
+````markdown
 # Phase 4.1: Delete Deprecated Workflows
 
 ## Summary
@@ -76,7 +76,7 @@ Remove 2 deprecated workflows that are fully superseded by other workflows:
 ```bash
 git rm .github/workflows/validate-mermaid-pr.yml
 git rm .github/workflows/metrics-pipeline.yml
-```
+````
 
 ### 4. Verify
 
@@ -124,7 +124,7 @@ If issues discovered:
 **Effort:** 4-5 hours  
 **Dependency:** Phase 4.1 (can run parallel)
 
-```markdown
+````markdown
 # Phase 4.2: Consolidate Issue-Close Governance Workflows
 
 ## Summary
@@ -210,7 +210,7 @@ jobs:
   finalise-checklists:    # From checklist-finalisation.yml
     if: github.event.action == 'closed'
     # ... checklist finalization logic
-```
+````
 
 ### Testing Protocol
 
@@ -402,7 +402,7 @@ If issues occur:
 **Effort:** 1-2 hours  
 **Dependency:** Phase 4.1 (can run parallel)
 
-```markdown
+````markdown
 # Phase 4.4: Absorb Flaky Test Detection into Checks Workflow
 
 ## Summary
@@ -464,7 +464,7 @@ Add `flaky-detection` job to `checks.yml` with:
          run_number: [1, 2, 3]
      steps:
        # ... copy steps from flaky-test-detection.yml
-   ```
+````
 
 1. Add schedule trigger to `checks.yml`
 2. Test locally
@@ -582,7 +582,7 @@ If issues occur:
 **Effort:** 3-4 hours  
 **Dependency:** Both source workflows must have ≥1 production run
 
-```markdown
+````markdown
 # Phase 4.6: Consolidate Issue Audit & Remediation Workflows
 
 ## Summary
@@ -662,7 +662,7 @@ jobs:
     
   remediate:  # From issue-remediation-bulk.yml
     if: inputs.mode == 'remediate' || inputs.mode == 'full'
-```
+````
 
 ## Interaction Chain (Safe)
 

@@ -297,7 +297,7 @@ Contains:
 
 ## Part 4: Execution Timeline
 
-```
+```text
 WEEK 1 (Aug 5-11)
 │
 ├─ Mon 08 [EXECUTE IMMEDIATELY]

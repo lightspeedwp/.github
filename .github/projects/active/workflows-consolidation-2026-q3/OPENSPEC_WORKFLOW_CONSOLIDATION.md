@@ -474,7 +474,7 @@ Every consolidated workflow must pass:
 
 ## 7. Dependency Graph & Execution Order
 
-```
+```text
 Phase 3.3 (Labeling consolidation) — MUST COMPLETE FIRST
     │
     ├─► Phase 4.1 (Delete deprecated) ✅ Independent
