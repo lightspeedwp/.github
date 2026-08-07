@@ -53,6 +53,7 @@ async function githubApiRequest(path, options = {}) {
     retries = 3,
     initialBackoffMs = 1000,
     backoffFactor = 2,
+    timeoutMs = 30000,
   } = options;
 
   const token = process.env.GITHUB_TOKEN;
@@ -65,13 +66,19 @@ async function githubApiRequest(path, options = {}) {
 
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
       const response = await fetch(`https://api.github.com${path}`, {
         method: "DELETE",
         headers: {
           Authorization: `token ${token}`,
           "Content-Type": "application/json",
         },
+        signal: controller.signal,
       });
+
+      clearTimeout(timeout);
 
       if (!response.ok) {
         const text = await response.text();
@@ -86,10 +93,20 @@ async function githubApiRequest(path, options = {}) {
         throw lastError;
       }
 
-      return JSON.parse(await response.text());
+      const text = await response.text();
+      if (response.status === 204 || !text.trim()) {
+        return { ok: true };
+      }
+
+      return JSON.parse(text);
     } catch (error) {
       lastError = error;
-      if (attempt < retries && error.message.includes("500")) {
+      if (attempt < retries && error.name === "AbortError") {
+        await new Promise((resolve) => setTimeout(resolve, backoffMs));
+        backoffMs *= backoffFactor;
+        continue;
+      }
+      if (attempt < retries && error.message && error.message.includes("500")) {
         await new Promise((resolve) => setTimeout(resolve, backoffMs));
         backoffMs *= backoffFactor;
         continue;
@@ -159,12 +176,13 @@ async function rollbackRelease(options = {}) {
 
     if (!dryRun && !force) {
       console.log("");
-      console.log("Rollback complete (dry-run or test mode)");
+      console.log("No changes applied. Re-run with --force to apply the rollback.");
     } else if (!dryRun && force) {
       console.log("Applying rollback...");
       if (provider === "shell") {
         execGit(`git tag -d v${targetVersion}`);
-        execGit(`git push origin --delete v${targetVersion}`);
+        execGit(`git push origin :refs/tags/v${targetVersion}`);
+        execGit(`git push origin --delete release/v${targetVersion}`);
       }
     }
 
@@ -173,28 +191,28 @@ async function rollbackRelease(options = {}) {
   } catch (error) {
     console.error(`❌ Rollback failed: ${error.message}`);
     console.error("Manual recovery may be required. Check git status and verify main/develop branches.");
-    if (!dryRun) {
-      process.exit(1);
-    }
+    throw error;
   }
 }
 
 async function main() {
-  const dryRun = process.argv.includes("--dry-run");
-  const targetVersion = readEnv("ROLLBACK_TARGET_VERSION", {
-    defaultValue: "",
-  }).trim();
+  const args = parseArgs(process.argv);
+  const targetVersion = (
+    args.version ??
+    readEnv("ROLLBACK_TARGET_VERSION", { defaultValue: "" })
+  ).trim();
 
   if (!targetVersion) {
     throw new Error(
-      "ROLLBACK_TARGET_VERSION required. Set it to the version to rollback to.",
+      "ROLLBACK_TARGET_VERSION required. Set it via --version=... or ROLLBACK_TARGET_VERSION environment variable.",
     );
   }
 
   await rollbackRelease({
     version: targetVersion,
-    dryRun,
-    provider: "shell",
+    dryRun: args.dryRun,
+    provider: args.provider,
+    force: args.force,
   });
 }
 
