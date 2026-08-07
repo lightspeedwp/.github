@@ -37,7 +37,6 @@
 const fs = require("fs");
 const path = require("path");
 const { glob } = require("glob");
-const yaml = require("js-yaml");
 
 // ============================================================================
 // CONFIGURATION
@@ -68,8 +67,9 @@ const CONFIG = {
 // ============================================================================
 
 /**
- * SAFE: Extract frontmatter from lines 1-3 onwards
- * Pattern: ^---\n...\n---\n
+ * SAFE: Extract frontmatter by finding closing --- marker
+ * Supports standard YAML frontmatter: --- YAML content ---
+ * Uses exact match (trim() === '---') to avoid false positives on content lines
  *
  * @param {string} content - File content
  * @returns {{frontmatter: string, body: string}} - Separated frontmatter and body
@@ -78,7 +78,7 @@ function extractFrontmatterSafely(content) {
   const lines = content.split("\n");
 
   // Check if file starts with --- (YAML frontmatter marker)
-  if (!lines[0] || !lines[0].startsWith("---")) {
+  if (!lines[0] || lines[0].trim() !== "---") {
     return { frontmatter: "", body: content };
   }
 
