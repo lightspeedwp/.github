@@ -1,10 +1,10 @@
 ---
 title: "Label Prefix Enforcement Project"
 description: "Remediation and permanent governance for label prefix violations"
-file_type: "project-index"
+file_type: "readme"
 version: "1.1.0"
 created_date: "2026-08-05"
-updated_date: "2026-08-07"
+last_updated: "2026-08-07"
 author: "Claude Code Audit"
 maintainer: "LightSpeed Team"
 domain: "governance"

@@ -1,10 +1,10 @@
 ---
 title: "Label Prefix Enforcement Implementation Guide"
 description: "Step-by-step implementation procedures for all 5 phases"
-file_type: "project-document"
+file_type: "documentation"
 version: "1.0.0"
 created_date: "2026-08-07"
-updated_date: "2026-08-07"
+last_updated: "2026-08-07"
 author: "Claude Code"
 maintainer: "LightSpeed Team"
 domain: "governance"
