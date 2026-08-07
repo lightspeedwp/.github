@@ -1,8 +1,12 @@
 ---
 title: Consolidated Action Plan — Workflow Consolidation Audit
+description: Execution timeline and action items for Phase 4 workflow consolidation
+file_type: "plan"
 date: 2026-08-07
-status: ready-for-execution
-version: 1.0
+status: "ready"
+version: "1.0"
+created_date: "2026-08-07"
+last_updated: "2026-08-07"
 ---
 
 # Consolidated Action Plan — Workflow Consolidation Audit
