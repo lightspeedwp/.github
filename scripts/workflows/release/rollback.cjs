@@ -181,11 +181,17 @@ async function rollbackRelease(options = {}) {
       console.log("No changes applied. Re-run with --force to apply the rollback.");
     } else if (!dryRun && force) {
       console.log("Applying rollback...");
-      if (provider === "shell") {
-        execGit(`git tag -d v${targetVersion}`);
-        execGit(`git push origin :refs/tags/v${targetVersion}`);
-        execGit(`git push origin --delete release/v${targetVersion}`);
+
+      if (provider !== "shell") {
+        throw new Error(
+          `Provider "${provider}" does not support live rollback. Use --provider=shell or --dry-run.`,
+        );
       }
+
+      execGit(`git tag -d v${targetVersion}`, true);
+      execGit(`git push origin :refs/tags/v${targetVersion}`);
+      execSync(`gh release delete v${targetVersion} --yes`, { stdio: "inherit" });
+      execGit(`git push origin --delete release/v${targetVersion}`, true);
     }
 
     console.log("");
