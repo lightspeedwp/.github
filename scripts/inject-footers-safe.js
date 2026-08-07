@@ -37,7 +37,6 @@
 const fs = require("fs");
 const path = require("path");
 const { glob } = require("glob");
-const yaml = require("js-yaml");
 
 // ============================================================================
 // CONFIGURATION
@@ -68,9 +67,10 @@ const CONFIG = {
 // ============================================================================
 
 /**
- * SAFE: Extract frontmatter if closing --- appears within first 100 lines
- * Pattern: ^---\n...\n---\n (find closing --- after opening ---)
- * Prevents extracting overly long YAML frontmatter as valid frontmatter
+ * SAFE: Extract frontmatter by finding closing --- marker
+ * Supports standard YAML frontmatter: --- YAML content ---
+ * SAFETY: Only extracts up to 50 lines of frontmatter to prevent abuse
+ * Uses exact match (trim() === '---') to avoid false positives on content lines
  *
  * @param {string} content - File content
  * @returns {{frontmatter: string, body: string}} - Separated frontmatter and body
@@ -79,21 +79,22 @@ function extractFrontmatterSafely(content) {
   const lines = content.split("\n");
 
   // Check if file starts with --- (YAML frontmatter marker)
-  if (!lines[0] || !lines[0].startsWith("---")) {
+  if (!lines[0] || lines[0].trim() !== "---") {
     return { frontmatter: "", body: content };
   }
 
-  // SAFETY: Find closing --- within a reasonable limit (first 100 lines max)
-  // Look for the closing --- after the opening ---
+  // Find closing --- marker (search up to line 50 for safety)
+  const maxFrontmatterLines = 50;
   let closingIndex = -1;
-  for (let i = 1; i < Math.min(lines.length, 100); i++) {
-    if (lines[i].startsWith("---")) {
+
+  for (let i = 1; i < Math.min(lines.length, maxFrontmatterLines); i++) {
+    if (lines[i].trim() === "---") {
       closingIndex = i;
       break;
     }
   }
 
-  // If we found a closing ---, extract frontmatter and body
+  // If closing --- found, extract frontmatter
   if (closingIndex > 0) {
     const frontmatterLines = lines.slice(0, closingIndex + 1);
     const frontmatter = frontmatterLines.join("\n") + "\n";

@@ -67,8 +67,10 @@ const CONFIG = {
 // ============================================================================
 
 /**
- * SAFE: Extract frontmatter from lines 1-3 ONLY
- * Pattern: ^---\n...\n---\n
+ * SAFE: Extract frontmatter using closing --- marker detection
+ * Supports standard YAML frontmatter: --- YAML content ---
+ * SAFETY: Only extracts up to 50 lines of frontmatter to prevent abuse
+ * Uses exact match (trim() === '---') to avoid false positives on content lines
  *
  * @param {string} content - File content
  * @returns {{frontmatter: string, body: string}} - Separated frontmatter and body
@@ -77,14 +79,14 @@ function extractFrontmatterSafely(content) {
   const lines = content.split("\n");
 
   // Check if file starts with --- (YAML frontmatter)
-  if (!lines[0].startsWith("---")) {
+  if (!lines[0] || lines[0].trim() !== "---") {
     return { frontmatter: "", body: content };
   }
 
-  // Find closing --- (should be within first 100 lines max)
+  // Find closing --- (search up to line 50 for safety)
   let closingLineIndex = -1;
-  for (let i = 1; i < Math.min(lines.length, 100); i++) {
-    if (lines[i].startsWith("---")) {
+  for (let i = 1; i < Math.min(lines.length, 50); i++) {
+    if (lines[i].trim() === "---") {
       closingLineIndex = i;
       break;
     }

@@ -70,12 +70,14 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 ## Executive Summary
 
 ### Current State
+
 - **41 workflows** (as of 2026-08-07)
 - **Phases 1-3:** Complete (~500 lines consolidated, 6+ workflows merged)
 - **Phase 4:** Planned, ready to execute
 - **Target:** 25 workflows (overachieve to 20-23 expected)
 
 ### What Phase 4 Accomplishes
+
 - Deletes 8 deprecated/superseded workflows
 - Consolidates 6 complex workflows into 3 unified ones
 - Reduces GitHub Actions minutes by 15-20%
@@ -96,18 +98,21 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 ### Blockers Identified
 
 **BLOCKER #1: Issue Type & Metadata Automation**
+
 - Blocks: Phase 4.2 consolidation
 - Reason: Project enhancing template-enforcement.yml (Phase 4.2 target)
 - Resolution: Wait for Phase 1 (Aug 13), merge consolidation + enhancements together
 - Action: Schedule coordination call Aug 13 AM
 
 **BLOCKER #2: Release Process Redesign**
+
 - Blocks: Phase 4.3 (conditional)
 - Reason: May add project-sync workflows that become Phase 4.3 targets
 - Resolution: Clarify workflow plans by Aug 12, incorporate into Phase 4.3
 - Action: Request workflow list by Aug 11 EOD
 
 **BLOCKER #3: GitHub Projects Creation System**
+
 - Blocks: Phase 4.3 (conditional)
 - Reason: May create project-management workflows conflicting with Phase 4.3
 - Resolution: Clarify plans by Aug 12, ensure uses post-Phase 4.3 patterns
@@ -116,16 +121,19 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 ### Success Criteria
 
 **By Aug 9:**
+
 - Phases 4.1, 4.4, 4.5 complete
 - Workflow count: 41 → 25 ✅ TARGET REACHED
 - All quick-win consolidations done
 
 **By Aug 18:**
+
 - All Phase 4 sub-phases complete
 - Workflow count: 41 → 20-23 ✅ EXCEEDS TARGET
 - All blockers resolved
 
 **By Aug 25:**
+
 - Epic #1227 closed
 - Phase 4 metrics compiled
 - Team trained on new patterns
@@ -161,22 +169,22 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 
 ### THIS WEEK (Aug 8-11)
 
-5. **Execute Phase 4.1** (Delete deprecated workflows)
+1. **Execute Phase 4.1** (Delete deprecated workflows)
    - See: GITHUB_ISSUES_PHASE_4_TEMPLATES.md for #1406 details
    - Effort: 1 hour
    - Reduction: −2 workflows (41 → 39)
 
-6. **Execute Phase 4.4** (Flaky test absorption)
+2. **Execute Phase 4.4** (Flaky test absorption)
    - See: GITHUB_ISSUES_PHASE_4_TEMPLATES.md for #1409 details
    - Effort: 1-2 hours
    - Reduction: −1 workflow (39 → 25) ✅ TARGET REACHED
 
-7. **Execute Phase 4.5** (Delete superseded workflow)
+3. **Execute Phase 4.5** (Delete superseded workflow)
    - See: GITHUB_ISSUES_PHASE_4_TEMPLATES.md for #1410 details
    - Effort: 0.5 hours
    - Reduction: −1 workflow (25 → 24)
 
-8. **Execute Phase 4.6** (If source workflows ready)
+4. **Execute Phase 4.6** (If source workflows ready)
    - See: GITHUB_ISSUES_PHASE_4_TEMPLATES.md for #1411 details
    - Effort: 3-4 hours
    - Reduction: −1 workflow (24 → 23)
@@ -184,24 +192,24 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 
 ### NEXT WEEK (Aug 12-18)
 
-9. **Resolve Blockers** (By Aug 13)
+1. **Resolve Blockers** (By Aug 13)
    - Issue Type coordination call (Aug 13 AM)
    - Release Redesign clarification (by Aug 12)
    - Projects System clarification (by Aug 12)
 
-10. **Execute Phase 4.2** (After Issue Type coordination)
+2. **Execute Phase 4.2** (After Issue Type coordination)
     - See: GITHUB_ISSUES_PHASE_4_TEMPLATES.md for #1407 details
     - Effort: 4-5 hours
     - Includes: Issue Type Phase 1 enhancements + consolidation
     - Reduction: −2 workflows (23 → 21)
 
-11. **Execute Phase 4.3** (After Release Redesign + Projects System coordination)
+3. **Execute Phase 4.3** (After Release Redesign + Projects System coordination)
     - See: GITHUB_ISSUES_PHASE_4_TEMPLATES.md for #1408 details
     - Effort: 3-4 hours
     - Includes: Any Release Redesign project-sync additions
     - Reduction: −1 workflow (21 → 20)
 
-12. **Verify & Sign-Off** (Aug 18)
+4. **Verify & Sign-Off** (Aug 18)
     - All phases tested + merged
     - Metrics compiled
     - Team feedback collected
@@ -225,18 +233,21 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 ## Contact List for Coordination
 
 **Issue Type & Metadata Automation Project**
+
 - Epic: #1167
 - Owner: [Assign from team]
 - Deadline: Aug 13 (Phase 1 completion)
 - Action: Schedule coordination call Aug 13 AM for Phase 4.2 planning
 
 **Release Process Redesign Project**
+
 - Epic: [TBD from project]
 - Owner: [Assign from team]
 - Deadline: Aug 12 EOD (workflow list)
 - Action: Request: "What project-sync or field-sync workflows does Release Redesign plan to add?"
 
 **GitHub Projects Creation System Project**
+
 - Epic: [TBD from project]
 - Owner: [Assign from team]
 - Deadline: Aug 12 EOD (workflow list)
@@ -247,21 +258,27 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 ## FAQs
 
 ### Q: Can we start Phase 4 now?
+
 **A:** Yes! Phases 4.1, 4.4, 4.5, 4.6 have no dependencies and can start immediately. Expected to reach 25-target by Aug 9. Phases 4.2 and 4.3 require coordination but can follow closely after.
 
 ### Q: What if coordination calls don't happen on time?
+
 **A:** Phase 4 can still complete Phases 4.1, 4.4, 4.5 by Aug 9 (reaching 25-target). Phases 4.2 and 4.3 would be delayed until coordination is complete, but timeline still targets Aug 25 closure.
 
 ### Q: Do we need to implement all of Phase 4?
+
 **A:** Phase 4 is broken into 6 independent sub-phases. You can:
+
 - Execute Phases 4.1, 4.4, 4.5 to reach 25-target (fastest path, lowest risk)
 - Also execute 4.6 if you want to beat target (23 workflows)
 - Execute 4.2 and 4.3 only after coordination (both require external input)
 
 ### Q: What if Phase 4 consolidations cause regressions?
+
 **A:** Each consolidation includes a "disable and monitor 24-72h" period before deletion. If issues found, you can revert and investigate before rescheduling.
 
 ### Q: How do we prevent new workflows from being added after Phase 4?
+
 **A:** The OPENSPEC document includes "Workflow Naming Convention" and "Consolidation Decision Matrix" that teams should follow for future workflow creation. This prevents ad-hoc duplication.
 
 ---
@@ -269,6 +286,7 @@ This comprehensive audit and planning effort has prepared Phase 4 of the GitHub 
 ## Closing Notes
 
 This comprehensive audit and planning effort represents:
+
 - **~40 hours of analysis work**
 - **6 major planning documents** (100+ pages total)
 - **11 projects analyzed** for conflicts and dependencies
