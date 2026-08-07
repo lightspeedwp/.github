@@ -37,7 +37,6 @@
 const fs = require("fs");
 const path = require("path");
 const { glob } = require("glob");
-const yaml = require("js-yaml");
 
 // ============================================================================
 // CONFIGURATION
@@ -68,9 +67,9 @@ const CONFIG = {
 // ============================================================================
 
 /**
- * SAFE: Extract frontmatter ONLY if closing --- appears within first 3 lines
- * Pattern: ^---\n...\n---\n (closing must be on line 2, max)
- * Prevents extracting overly long YAML frontmatter as valid frontmatter
+ * SAFE: Extract frontmatter by finding closing --- marker
+ * Supports standard YAML frontmatter: --- YAML content ---
+ * Uses exact match (trim() === '---') to avoid false positives on content lines
  *
  * @param {string} content - File content
  * @returns {{frontmatter: string, body: string}} - Separated frontmatter and body
@@ -79,21 +78,32 @@ function extractFrontmatterSafely(content) {
   const lines = content.split("\n");
 
   // Check if file starts with --- (YAML frontmatter marker)
-  if (!lines[0] || !lines[0].startsWith("---")) {
+  if (!lines[0] || lines[0].trim() !== "---") {
     return { frontmatter: "", body: content };
   }
 
-  // SAFETY: Only accept closing --- if it appears on line 2 (index 2)
-  // This enforces the minimal YAML structure: --- content ---
-  if (lines.length >= 3 && lines[2].startsWith("---")) {
-    const frontmatterLines = lines.slice(0, 3);
-    const frontmatter = frontmatterLines.join("\n") + "\n";
-    const body = lines.slice(3).join("\n");
-    return { frontmatter, body };
+  // Find closing --- (can be anywhere, but typically within first 50 lines)
+  let closingLineIndex = -1;
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i].trim() === "---") {
+      closingLineIndex = i;
+      break;
+    }
   }
 
-  // If closing --- not on line 2, treat entire content as body (no frontmatter)
-  return { frontmatter: "", body: content };
+  if (closingLineIndex === -1) {
+    // No closing ---, treat as body
+    return { frontmatter: "", body: content };
+  }
+
+  // Extract frontmatter (lines 0 to closingLineIndex inclusive, plus newline)
+  const frontmatterLines = lines.slice(0, closingLineIndex + 1);
+  const frontmatter = frontmatterLines.join("\n") + "\n";
+
+  // Extract body (everything after frontmatter)
+  const body = lines.slice(closingLineIndex + 1).join("\n");
+
+  return { frontmatter, body };
 }
 
 /**

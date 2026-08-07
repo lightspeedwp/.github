@@ -5,7 +5,7 @@ const { process } = globalThis;
 
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
+const { execSync, execFileSync } = require("child_process");
 const { readEnv, log, runMain } = require("../shared/runtime.cjs");
 
 function execGit(command, allowError = false) {
@@ -22,159 +22,217 @@ function execGit(command, allowError = false) {
   }
 }
 
-async function main() {
-  const dryRun = process.argv.includes("--dry-run");
-  const targetVersion = readEnv("ROLLBACK_TARGET_VERSION", {
-    defaultValue: "",
-  }).trim();
+function parseArgs(argv) {
+  const args = {
+    version: null,
+    provider: "shell",
+    dryRun: false,
+    force: false,
+  };
 
-  if (!targetVersion) {
+  for (const arg of argv.slice(2)) {
+    if (arg.startsWith("--version=")) {
+      args.version = arg.split("=")[1];
+    } else if (arg.startsWith("--provider=")) {
+      args.provider = arg.split("=")[1];
+      if (!["shell", "mcp"].includes(args.provider)) {
+        throw new Error(`Invalid provider: ${args.provider}`);
+      }
+    } else if (arg === "--dry-run") {
+      args.dryRun = true;
+    } else if (arg === "--force") {
+      args.force = true;
+    }
+  }
+
+  return args;
+}
+
+async function githubApiRequest(path, options = {}) {
+  const {
+    retries = 3,
+    initialBackoffMs = 1000,
+    backoffFactor = 2,
+    timeoutMs = 30000,
+  } = options;
+
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error("GITHUB_TOKEN not set");
+  }
+
+  let lastError;
+  let backoffMs = initialBackoffMs;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+      let response;
+      try {
+        response = await fetch(`https://api.github.com${path}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `token ${token}`,
+            "Content-Type": "application/json",
+          },
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timeout);
+      }
+      if (!response.ok) {
+        const text = await response.text();
+        lastError = new Error(`GitHub API error: ${response.status} ${response.statusText} - ${text}`);
+
+        if (response.status >= 500 && attempt < retries) {
+          await new Promise((resolve) => setTimeout(resolve, backoffMs));
+          backoffMs *= backoffFactor;
+          continue;
+        }
+
+        throw lastError;
+      }
+
+      const text = await response.text();
+      if (response.status === 204 || !text.trim()) {
+        return { ok: true };
+      }
+
+      return JSON.parse(text);
+    } catch (error) {
+      lastError = error;
+      if (attempt < retries && error.name === "AbortError") {
+        await new Promise((resolve) => setTimeout(resolve, backoffMs));
+        backoffMs *= backoffFactor;
+        continue;
+      }
+      throw error;
+    }
+  }
+
+  throw lastError;
+}
+
+async function rollbackRelease(options = {}) {
+  const {
+    version = process.env.ROLLBACK_TARGET_VERSION || "",
+    dryRun = false,
+    provider = "shell",
+    force = false,
+  } = options;
+
+  const targetVersion = String(version ?? "").trim().replace(/^v/i, "");
+
+  if (!targetVersion && !dryRun) {
     throw new Error(
-      "ROLLBACK_TARGET_VERSION required. Set it to the version to rollback to.",
+      "ROLLBACK_TARGET_VERSION required or version option must be set.",
     );
   }
 
-  log(
-    "warn",
-    `⚠️  RELEASE ROLLBACK INITIATED: Rolling back release ${targetVersion}`,
+  // Validate version format: semver-like (e.g., 1.2.3, 1.2.3-alpha)
+  if (targetVersion && !/^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9.]+)?$/i.test(targetVersion)) {
+    throw new Error(
+      `Invalid version format: ${targetVersion}. Expected semver format (e.g., 1.2.3).`,
+    );
+  }
+
+  console.log(
+    `⚠️  RELEASE ROLLBACK INITIATED: Rolling back release ${targetVersion || "(dry-run)"}`,
   );
-  log("info", dryRun ? "Running in DRY-RUN mode" : "Running in LIVE mode");
-  log("info", "");
+  console.log(dryRun ? "Running in DRY-RUN mode" : "Running in LIVE mode");
+  console.log(`Provider: ${provider}`);
+  console.log("");
 
   try {
-    execGit("git fetch origin main develop");
-    log("info", "✓ Git access verified");
+    if (!dryRun) {
+      execGit("git fetch origin main develop");
+      console.log("✓ Git access verified");
 
-    const tagExists = execGit(`git rev-parse ${targetVersion}`, true);
-    if (!tagExists) {
-      log("warn", `Tag ${targetVersion} not found locally, checking remote...`);
-      const remoteTagExists = execGit(
-        `git ls-remote origin refs/tags/${targetVersion}`,
-        true,
-      );
-      if (!remoteTagExists) {
+      const tagExists = execGit(`git rev-parse v${targetVersion}`, true);
+      if (!tagExists) {
+        console.log(`Tag v${targetVersion} not found locally, checking remote...`);
+        const remoteTagExists = execGit(
+          `git ls-remote origin refs/tags/v${targetVersion}`,
+          true,
+        );
+        if (!remoteTagExists) {
+          throw new Error(
+            `Release tag v${targetVersion} not found. Cannot rollback.`,
+          );
+        }
+      }
+      console.log(`✓ Release tag v${targetVersion} found`);
+    }
+
+    if (provider === "shell") {
+      console.log(`[${dryRun ? "DRY-RUN" : "SHELL"}] Deleting tag v${targetVersion}...`);
+      console.log(`  ${dryRun ? "[DRY-RUN]" : ""} git push origin :refs/tags/v${targetVersion}`);
+      console.log(`  ${dryRun ? "[DRY-RUN]" : ""} gh release delete v${targetVersion} --yes`);
+      console.log(`  ${dryRun ? "[DRY-RUN]" : ""} git push origin --delete release/v${targetVersion}`);
+    } else if (provider === "mcp") {
+      console.log(`[${dryRun ? "DRY-RUN" : "MCP"}] Deleting release via MCP...`);
+      console.log(`  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete remote tag v${targetVersion}`);
+      console.log(`  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete release v${targetVersion}`);
+      console.log(`  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete remote release branch release/v${targetVersion}`);
+    }
+
+    if (!dryRun && !force) {
+      console.log("");
+      console.log("No changes applied. Re-run with --force to apply the rollback.");
+    } else if (!dryRun && force) {
+      console.log("Applying rollback...");
+
+      if (provider !== "shell") {
         throw new Error(
-          `Release tag ${targetVersion} not found. Cannot rollback.`,
+          `Provider "${provider}" does not support live rollback. Use --provider=shell or --dry-run.`,
         );
       }
-    }
-    log("info", `✓ Release tag ${targetVersion} found`);
 
-    log("info", "Finding release commits to revert...");
-    const releaseCommits = execGit(
-      `git log main --grep="Release ${targetVersion}" --oneline`,
-      true,
-    );
-
-    if (!releaseCommits) {
-      log("warn", "No release commit found. Looking for recent main commits...");
-      const recentCommits = execGit("git log main --oneline -5");
-      log("info", `Recent commits on main:\n${recentCommits}`);
-      log("warn", "Please manually verify and run: git revert <commit-hash>");
-      process.exit(1);
+      execGit(`git tag -d v${targetVersion}`, true);
+      execGit(`git push origin :refs/tags/v${targetVersion}`);
+      execFileSync("gh", ["release", "delete", `v${targetVersion}`, "--yes"], { stdio: "inherit" });
+      execGit(`git push origin --delete release/v${targetVersion}`, true);
     }
 
-    if (!dryRun) {
-      log("info", `Deleting tag ${targetVersion}...`);
-      execGit(`git tag -d ${targetVersion}`);
-      execGit(`git push origin --delete ${targetVersion}`);
-    } else {
-      log("info", `[DRY-RUN] Would delete tag ${targetVersion}`);
-    }
-    log("info", `✓ Tag ${targetVersion} handled`);
-
-    log("info", "Reverting version file...");
-    const versionFile = path.resolve(process.cwd(), "VERSION");
-    if (fs.existsSync(versionFile)) {
-      const currentVersion = fs.readFileSync(versionFile, "utf8").trim();
-      log("info", `Current VERSION: ${currentVersion}`);
-
-      const previousVersionCommit = execGit(
-        `git log --all --grep="bump version" --pretty=format:"%H" -n 2`,
-        true,
-      );
-
-      if (previousVersionCommit) {
-        const commits = previousVersionCommit.split("\n");
-        const prevCommit = commits[1];
-        if (prevCommit) {
-          const prevVersion = execGit(`git show ${prevCommit}:VERSION`, true);
-          if (prevVersion) {
-            log("info", `Previous VERSION: ${prevVersion}`);
-            if (!dryRun) {
-              fs.writeFileSync(versionFile, `${prevVersion}\n`, "utf8");
-              execGit(
-                `git add VERSION && git commit -m "chore: rollback version to ${prevVersion}"`,
-              );
-            } else {
-              log("info", `[DRY-RUN] Would update VERSION to ${prevVersion}`);
-            }
-          }
-        }
-      }
-    }
-    log("info", `✓ Version file handled`);
-
-    log("info", "Reverting CHANGELOG.md...");
-    const changelogFile = path.resolve(process.cwd(), "CHANGELOG.md");
-    if (fs.existsSync(changelogFile)) {
-      const content = fs.readFileSync(changelogFile, "utf8");
-      const lines = content.split("\n");
-
-      const releaseHeaderIdx = lines.findIndex((l) =>
-        l.includes(`## [${targetVersion}]`),
-      );
-      if (releaseHeaderIdx !== -1) {
-        const nextReleaseIdx = lines
-          .slice(releaseHeaderIdx + 1)
-          .findIndex((l) => l.match(/^## \[/));
-        const endIdx =
-          nextReleaseIdx !== -1
-            ? releaseHeaderIdx + 1 + nextReleaseIdx
-            : lines.length;
-
-        const newLines = [
-          ...lines.slice(0, releaseHeaderIdx),
-          ...lines.slice(endIdx),
-        ];
-
-        if (!dryRun) {
-          fs.writeFileSync(changelogFile, newLines.join("\n"), "utf8");
-          execGit(
-            `git add CHANGELOG.md && git commit -m "chore: rollback CHANGELOG.md (remove ${targetVersion})"`,
-          );
-        } else {
-          log("info", `[DRY-RUN] Would remove release section from CHANGELOG.md`);
-        }
-      }
-    }
-    log("info", `✓ CHANGELOG.md handled`);
-
-    if (!dryRun) {
-      log("info", "Pushing rollback changes to main...");
-      execGit("git push origin main");
-      log("info", "✓ Rollback pushed to main");
-
-      log("info", "Syncing main back to develop...");
-      execGit(
-        "git checkout develop && git pull origin develop && git merge origin/main -m 'chore: rollback sync (main → develop)' --no-edit",
-      );
-      execGit("git push origin develop");
-      log("info", "✓ Develop synced with rolled-back main");
-    } else {
-      log("info", "[DRY-RUN] Would push rollback changes");
-    }
-
-    log("info", "");
-    log("info", `✅ Rollback of ${targetVersion} complete`);
-    if (dryRun) {
-      log("info", "This was a dry-run. Run again without --dry-run to apply rollback.");
-    }
+    console.log("");
+    console.log(`✅ Rollback of v${targetVersion} complete`);
   } catch (error) {
-    log("error", `❌ Rollback failed: ${error.message}`);
-    log("warn", "Manual recovery may be required. Check git status and verify main/develop branches.");
-    process.exit(1);
+    console.error(`❌ Rollback failed: ${error.message}`);
+    console.error("Manual recovery may be required. Check git status and verify main/develop branches.");
+    throw error;
   }
 }
 
-runMain(main);
+async function main() {
+  const args = parseArgs(process.argv);
+  const targetVersion = (
+    args.version ??
+    readEnv("ROLLBACK_TARGET_VERSION", { defaultValue: "" })
+  ).trim();
+
+  if (!targetVersion) {
+    throw new Error(
+      "ROLLBACK_TARGET_VERSION required. Set it via --version=... or ROLLBACK_TARGET_VERSION environment variable.",
+    );
+  }
+
+  await rollbackRelease({
+    version: targetVersion,
+    dryRun: args.dryRun,
+    provider: args.provider,
+    force: args.force,
+  });
+}
+
+module.exports = {
+  rollbackRelease,
+  parseArgs,
+  githubApiRequest,
+};
+
+// Only execute when this script is run directly, not when imported by tests
+if (require.main === module) {
+  runMain(main);
+}
