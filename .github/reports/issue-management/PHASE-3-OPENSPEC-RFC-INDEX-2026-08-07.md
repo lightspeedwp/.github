@@ -1,5 +1,5 @@
 ---
-file_type: documentation
+file_type: report
 title: "Phase 3: OpenSpec RFC Index for 22 Incomplete Projects (2026-08-07)"
 description: "Executive summary and strategic overview of OpenSpec RFCs for all incomplete active projects"
 created_date: "2026-08-07"
