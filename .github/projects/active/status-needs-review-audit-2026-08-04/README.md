@@ -118,6 +118,6 @@ Comprehensive audit and cleanup of all issues with `status:needs-review` label t
 **Related Documentation:**
 
 - [PR #1506](https://github.com/lightspeedwp/.github/pull/1506)
-- [Audit Report](.github/reports/2026-08-04-status-needs-review-audit.md)
-- [CLAUDE.md](./CLAUDE.md) — Repository governance
-- [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) — Branch standards
+- [Audit Report](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/2026-08-04-status-needs-review-audit.md)
+- [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md) — Repository governance
+- [BRANCHING_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/develop/docs/BRANCHING_STRATEGY.md) — Branch standards

@@ -1819,9 +1819,9 @@ jest.mock("child_process", () => ({
 
 ## See Also
 
-- [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
-- [Release Readiness Tasks](launch-agents-checklist.md)
-- [Testing Standards](../../../docs/TESTING.md)
+- [Test Coverage Expansion Plan](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/analysis/test-coverage-expansion-plan.md)
+- [Release Readiness Tasks](ISSUE_EXECUTION_PLAN.md)
+- [Testing Standards](https://github.com/lightspeedwp/.github/blob/develop/docs/TESTING.md)
 
 ---
 
