@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Safe Footer Injection frontmatter detection** — Extended YAML frontmatter detection from 10-line to 50-line limit to support standard-length headers. Changed delimiter matching from `startsWith('---')` to exact match `trim() === '---'` to prevent false positives on YAML content lines. Fixes test failures blocking dependabot PR automation. ([PR #1632](https://github.com/lightspeedwp/.github/pull/1632))
+
 - **Phase 3 label validation enforcement — Validation script & workflow** — Pre-creation label validation script (`validate-labels-before-creation.cjs`) enforces canonical label prefixes and one-hot constraint per family. GitHub Actions workflow validates on issue/PR creation, editing, labeling, and PR synchronization. Prevents bare labels (e.g., `bug`, `feature`, `urgent`) and enforces required prefixes (e.g., `type:bug`, `priority:critical`). ([PR #1613](https://github.com/lightspeedwp/.github/pull/1613), [#1612](https://github.com/lightspeedwp/.github/issues/1612))
 
 - **Phase 1 critical fixes — broken badges and release process** — Fixed 33 broken documentation badges (workflow status, build badges); fixed release workflow to default to `--dry-run` with explicit `--live` flag requirement; added authorization gating for release operations. ([PR #1609](https://github.com/lightspeedwp/.github/pull/1609), [#1547](https://github.com/lightspeedwp/.github/issues/1547), [#1548](https://github.com/lightspeedwp/.github/issues/1548), [#1549](https://github.com/lightspeedwp/.github/issues/1549))
