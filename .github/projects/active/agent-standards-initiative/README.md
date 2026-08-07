@@ -1,3 +1,13 @@
+---
+file_type: project-index
+title: "Agent & Plugin Standardization Initiative"
+description: "Complete documentation package for multi-provider agent standardization (Claude, GitHub Copilot, OpenAI Codex)"
+status: active
+created_date: "2026-07-22"
+last_updated: "2026-08-07"
+version: "1.0"
+---
+
 # Agent & Plugin Standardization Initiative — Complete Documentation Package
 
 **Created:** 2026-07-22  
@@ -92,6 +102,7 @@ This package contains everything you need to standardize the LightSpeedWP agent 
 ### By Role
 
 **Executive Sponsor:**
+
 ```
 IMPLEMENTATION_SUMMARY.md
   ├─ Overview
@@ -101,6 +112,7 @@ IMPLEMENTATION_SUMMARY.md
 ```
 
 **Technical Lead:**
+
 ```
 1. AGENT_STANDARDIZATION_AUDIT.md (complete)
 2. PROMPT_1_PLAYWRIGHT_AGENT_REWRITE.md (PHASE 1)
@@ -109,6 +121,7 @@ IMPLEMENTATION_SUMMARY.md
 ```
 
 **Individual Contributor (Agent Developer):**
+
 ```
 1. IMPLEMENTATION_SUMMARY.md (sections 2-3: Framework, Roadmap)
 2. AGENT_STANDARDIZATION_AUDIT.md (Part 2: Folder Structure)
@@ -117,6 +130,7 @@ IMPLEMENTATION_SUMMARY.md
 ```
 
 **QA / Testing:**
+
 ```
 1. IMPLEMENTATION_SUMMARY.md (section: Success Criteria)
 2. AGENT_STANDARDIZATION_AUDIT.md (Part 2: Schemas & Hooks)
@@ -127,12 +141,14 @@ IMPLEMENTATION_SUMMARY.md
 ### By Workflow
 
 **To Understand the Standards:**
+
 ```
 1. AGENT_STANDARDIZATION_AUDIT.md (Part 2: Standardization Framework)
 2. IMPLEMENTATION_SUMMARY.md (section: Standardization Framework)
 ```
 
 **To Execute Phase 1:**
+
 ```
 1. PROMPT_1_PLAYWRIGHT_AGENT_REWRITE.md (read all 7 phases first)
 2. AGENT_STANDARDIZATION_AUDIT.md (reference folder structures)
@@ -140,6 +156,7 @@ IMPLEMENTATION_SUMMARY.md
 ```
 
 **To Execute Phase 2 (Per Agent - 14 agents available):**
+
 ```
 1. PHASE_2_BATCH_PROMPTS_INDEX.md (select your agent)
 2. Use agent-specific batch prompt:
@@ -151,6 +168,7 @@ IMPLEMENTATION_SUMMARY.md
 ```
 
 **To Understand Agent-Plugin Relationships:**
+
 ```
 AGENT_STANDARDIZATION_AUDIT.md
   └─ Part 2: Standardization Framework
@@ -183,16 +201,19 @@ AGENT_STANDARDIZATION_AUDIT.md
 ### The Three Layers of Structure
 
 **Shared (Provider-Agnostic):**
+
 - Core prompt (shared/core-prompt.md)
 - Agent spec (AGENT.md)
 - Common tools/skills
 
 **Provider-Specific:**
+
 - Agent instructions (claude/agent.md, copilot/agent.md, openai/agent.md)
 - Tool definitions (claude/tools.json, copilot/skills.yaml, openai/tools.json)
 - Response formats
 
 **Plugin-Level:**
+
 - Multiple agents grouped by domain
 - Shared skills across agents
 - Shared hooks for validation
@@ -200,6 +221,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 ### The Agents to Convert
 
 **Current ChatGPT Exports (16 total):**
+
 1. playwright-testing-agent ← **Phase 1 (PILOT)**
 2. ai-readiness-estimator-agent
 3. client-website-discovery-assistant-agent
@@ -222,6 +244,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 ## 📊 Project Statistics
 
 ### Current State
+
 - **Agents:** 41 total (25 `.agent.md` specs + 16 ChatGPT exports)
 - **ChatGPT Exports:** 16 (not yet multi-provider compatible)
 - **Plugins:** 6 existing
@@ -230,12 +253,14 @@ AGENT_STANDARDIZATION_AUDIT.md
 - **Hooks:** 3
 
 ### After Phase 1 (Playwright)
+
 - **New Schemas:** 4
 - **New Hooks:** 4
 - **New Instructions:** 4
 - **New Plugin:** 1 (`lightspeed-playwright-testing`)
 
 ### After Phase 2 (Remaining Agents)
+
 - **Converted Agents:** 16 total
 - **Plugins:** 6-8 (grouped by domain)
 - **Schemas:** 20 total
@@ -243,6 +268,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 - **Instructions:** 46 total
 
 ### After Phase 3 (Governance)
+
 - **Unified AI Config:** ✅
 - **Canonical Schema Registry:** ✅
 - **Org-wide Hook Enforcement:** ✅
@@ -253,11 +279,13 @@ AGENT_STANDARDIZATION_AUDIT.md
 ## ⏱️ Timeline & Effort
 
 ### Phase 1: Playwright Testing Agent (Pilot)
+
 - **Effort:** 12-18 hours
 - **Duration:** 1-2 days of focused work
 - **Benefit:** Define pattern for all future agents
 
 **Breakdown:**
+
 - Audit & Plan: 2-3h
 - Restructure & Specs: 3-4h
 - Provider Configs: 2-3h
@@ -266,6 +294,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 - Testing & Docs: 1-2h
 
 ### Phase 2: Remaining 15 Agents
+
 - **Effort per Agent:** 2-4 hours
 - **Total Effort:** 30-60 hours
 - **Batching:** 2-3 agents per week
@@ -273,12 +302,14 @@ AGENT_STANDARDIZATION_AUDIT.md
 - **Benefit:** Complete multi-provider ecosystem
 
 **Suggested Batching:**
+
 - Week 1: Agents 1-3 (project-mgmt, planning, design)
 - Week 2: Agents 4-6 (time-tracking, performance, estimation)
 - Week 3: Agents 7-9 (prd, proposals, tour-operator)
 - ... and so on
 
 ### Phase 3: Governance & Consolidation
+
 - **Effort:** 4-8 hours
 - **Duration:** 1-2 days
 - **Benefit:** Unified, enforceable architecture
@@ -288,6 +319,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 ## ✅ Success Criteria
 
 ### Phase 1 Success
+
 - ✅ Playwright agent restructured
 - ✅ Claude, Copilot, OpenAI configs created
 - ✅ Plugin created & functional
@@ -298,6 +330,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 - ✅ All tests passing
 
 ### Full Project Success
+
 - ✅ 16 agents converted
 - ✅ 6-8 plugins created/organized
 - ✅ Schemas & hooks enforcing standards
@@ -363,19 +396,23 @@ AGENT_STANDARDIZATION_AUDIT.md
 ## 📞 Support & Questions
 
 ### Documentation Questions
+
 → Review the appropriate audit or prompt document  
 → Check `.github/instructions/` for additional guidance  
 
 ### Implementation Questions
+
 → Refer to PROMPT_1 or PROMPT_2 step-by-step  
 → Review playwright-testing-agent as reference  
 
 ### Standards Questions
+
 → Check AGENT_STANDARDIZATION_AUDIT.md Part 2  
 → Review IMPLEMENTATION_SUMMARY.md standardization section  
 
 ### Technical Issues
-→ Contact: contact@lightspeedwp.agency  
+
+→ Contact: <contact@lightspeedwp.agency>  
 → Check: `.github/CLAUDE.md` for governance  
 
 ---
@@ -409,7 +446,7 @@ AGENT_STANDARDIZATION_AUDIT.md
 ## 📋 Checklist: Before You Begin
 
 - [ ] Read `IMPLEMENTATION_SUMMARY.md` completely
-- [ ] Review `AGENT_STANDARDIZATION_AUDIT.md` 
+- [ ] Review `AGENT_STANDARDIZATION_AUDIT.md`
 - [ ] Understand naming conventions
 - [ ] Understand folder structure
 - [ ] Get team approval on standards

@@ -1,3 +1,13 @@
+---
+file_type: project-index
+title: "Repository Restructuring Project"
+description: "Optimize folder organization, consolidate schemas, enable multi-project work, support plugin adoption"
+status: active
+created_date: "2026-07-25"
+last_updated: "2026-08-07"
+version: "1.0"
+---
+
 # Repository Restructuring Project
 
 ## LightSpeed `.github` Control Plane — 2026-07-25

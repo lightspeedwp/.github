@@ -2,8 +2,9 @@
 title: "OpenSpec Project Location"
 description: "Project-local guidance for storing OpenSpec changes under .github/projects/active while preserving CLI compatibility."
 file_type: "documentation"
+status: active
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
+last_updated: "2026-08-07"
 version: "v1.0.0"
 authors: ["github-copilot"]
 tags: ["openspec", "opsx", "projects", "active"]
