@@ -1,10 +1,10 @@
 ---
 title: "Label Prefix Enforcement Project"
 description: "Remediation and permanent governance for label prefix violations"
-file_type: "project-index"
-version: "1.0.0"
+file_type: "readme"
+version: "1.1.0"
 created_date: "2026-08-05"
-updated_date: "2026-08-05"
+last_updated: "2026-08-07"
 author: "Claude Code Audit"
 maintainer: "LightSpeed Team"
 domain: "governance"
@@ -38,8 +38,10 @@ Comprehensive remediation of ~100 issues (#1500–#1600) with non-canonical labe
 | Document | Purpose |
 |----------|---------|
 | [ACTION_PLAN.md](./ACTION_PLAN.md) | Complete 5-phase remediation roadmap |
+| [IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md) | **NEW** — Step-by-step procedures for all phases |
+| [RISK_MITIGATION.md](./RISK_MITIGATION.md) | **NEW** — Risk assessment & contingency procedures |
+| [TESTING_VALIDATION.md](./TESTING_VALIDATION.md) | **NEW** — Testing & validation procedures |
 | [OPENSPEC_RFC_REFINED.md](./OPENSPEC_RFC_REFINED.md) | Refined OpenSpec RFC incorporating audit results (2.0) |
-| [AUDIT_SUMMARY.md](./AUDIT_SUMMARY.md) | Executive summary of audit findings |
 
 ---
 
