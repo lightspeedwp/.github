@@ -1,7 +1,7 @@
 ---
 title: "OpenSpec: GitHub Workflows Consolidation & Governance"
 description: "Specification for workflow consolidation, from 41 to 25 workflows, with governance and best practices"
-file_type: "rfc"
+file_type: "documentation"
 version: "1.0.0"
 status: "draft"
 created_date: "2026-08-07"

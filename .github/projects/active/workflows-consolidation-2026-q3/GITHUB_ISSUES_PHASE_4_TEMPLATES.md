@@ -1,7 +1,7 @@
 ---
 title: GitHub Issues Templates for Phase 4
 description: Issue templates for Phase 4 sub-phases (#1406-#1411) ready for creation
-file_type: "guide"
+file_type: "issue-template"
 status: "ready"
 created_date: "2026-08-07"
 last_updated: "2026-08-07"

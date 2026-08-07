@@ -1,7 +1,7 @@
 ---
 title: Workflow Consolidation Comprehensive Audit
 description: Current state analysis of 41 workflows and Phase 4 consolidation targets
-file_type: "audit"
+file_type: "documentation"
 date: 2026-08-07
 author: Claude Code + Ash Shaw
 status: "complete"
