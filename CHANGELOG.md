@@ -130,9 +130,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Upgrade ESLint to 10.x** — Major bump with 25 violations fixed. ([PR #1046](https://github.com/lightspeedwp/.github/pull/1046))
 
-- **Upgrade js-yaml to 5.x** — Updated to 5.2.1 with named imports. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
+- **Upgrade js-yaml to 5.x** — Updated version. ([PR #1047](https://github.com/lightspeedwp/.github/pull/1047))
 
-- **Upgrade @typescript-eslint** — Bumped to 8.61.1. ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
+- **Upgrade @typescript-eslint** — Version bump. ([PR #1045](https://github.com/lightspeedwp/.github/pull/1045))
 
 - **GitHub Actions minute optimisation** — Reduced duplicate CI and high-fanout workflow triggers, strengthened concurrency cancellation. ([PR #1054](https://github.com/lightspeedwp/.github/pull/1054) — *ci: reduce Actions minute consumption and add savings watcher*)
 
