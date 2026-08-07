@@ -81,10 +81,10 @@ function extractFrontmatterSafely(content) {
     return { frontmatter: "", body: content };
   }
 
-  // Find closing --- (should be line 3 or earlier)
+  // Find closing --- (can be anywhere, but typically within first 50 lines for reasonable YAML)
   let closingLineIndex = -1;
-  for (let i = 1; i < Math.min(lines.length, 10); i++) {
-    if (lines[i].startsWith("---")) {
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i].trim() === "---") {
       closingLineIndex = i;
       break;
     }
