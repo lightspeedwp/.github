@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Jest test infrastructure blocker** — Fixed critical blocker preventing all 90+ test suites from running. The `rollback.cjs` script had executable code at module load time that called `process.exit(1)` when `ROLLBACK_TARGET_VERSION` environment variable was missing. Wrapped `runMain(main)` in `require.main === module` check to prevent execution during test imports. Refactored module to export `rollbackRelease()`, `parseArgs()`, and `githubApiRequest()` for unit testing. All 1,069 tests now pass. ([PR #1633](https://github.com/lightspeedwp/.github/pull/1633), [#1628](https://github.com/lightspeedwp/.github/issues/1628))
+
 - **Safe Footer Injection frontmatter detection** — Extended YAML frontmatter detection from 10-line to 50-line limit to support standard-length headers. Changed delimiter matching from `startsWith('---')` to exact match `trim() === '---'` to prevent false positives on YAML content lines. Fixes test failures blocking dependabot PR automation. ([PR #1632](https://github.com/lightspeedwp/.github/pull/1632))
 
 - **Phase 3 label validation enforcement — Validation script & workflow** — Pre-creation label validation script (`validate-labels-before-creation.cjs`) enforces canonical label prefixes and one-hot constraint per family. GitHub Actions workflow validates on issue/PR creation, editing, labeling, and PR synchronization. Prevents bare labels (e.g., `bug`, `feature`, `urgent`) and enforces required prefixes (e.g., `type:bug`, `priority:critical`). ([PR #1613](https://github.com/lightspeedwp/.github/pull/1613), [#1612](https://github.com/lightspeedwp/.github/issues/1612))
