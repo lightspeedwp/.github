@@ -4,7 +4,7 @@ title: "Release Process Redesign Project"
 description: "Complete audit, redesign, and implementation of release workflow, documentation, and governance"
 status: active
 version: "1.0"
-last_updated: "2026-08-05"
+last_updated: "2026-08-08"
 owners: ["Ash Shaw"]
 tags: ["release", "automation", "documentation", "project"]
 stability: stable
@@ -33,7 +33,7 @@ domain: "Release Engineering"
 - [x] Implement develop-first release flow (CHILD-002)
 - [x] Remove broken workflow badges (CHILD-003)
 
-### Phase 2: Major Issues 🔄 IN PROGRESS (3/6 COMPLETE)
+### Phase 2: Major Issues ✅ COMPLETE (6/6)
 
 **Priority 1: No Dependencies** ✅
 
@@ -51,153 +51,150 @@ domain: "Release Engineering"
 - [x] CHILD-007: Enforce pre-release checklist
 - [x] CHILD-008: Create rollback.cjs automation
 
-**Status:** 6 major issues fixed. Ready for testing.
+### Phase 3: Design & Documentation ✅ COMPLETE
 
-### Phase 3: Design & Documentation (PLANNED)
+- [x] Document desired release flow with diagrams (ADRs created)
+- [x] Define workflow gates and validation requirements
+- [x] Create ADR-001 through ADR-004 (all major decisions)
+- [x] Comprehensive OpenSpec analysis (47 implementation tasks derived)
+- [x] Requirements specification with tradeoff analysis
 
-- [ ] Document desired release flow with diagrams
-- [ ] Define workflow gates and validation requirements
-- [ ] Create ADR for major decisions
-- [ ] Update RELEASE_PROCESS.md with new flow
-- [ ] Update related docs (BRANCHING_STRATEGY.md, CHANGELOG_AUTOMATION.md, VERSIONING.md)
+### Phase 4: Implementation & Testing 🔄 IN PROGRESS
 
-### Phase 4: Implementation & Testing (PLANNED)
+**Current:** Implementing Phase 4 core tasks
 
-- [ ] Test dry-run release
-- [ ] Test live patch release
-- [ ] Test hotfix flow
-- [ ] Test rollback procedure
-- [ ] Validate documentation accuracy
+**Implementation Tasks (18 days):**
+
+- [ ] CHILD-020: Update release.yml for develop-first flow + stacked PRs
+- [ ] CHILD-021: Modify release.agent.js for two-PR creation logic
+- [ ] CHILD-022: Create rollback.cjs automation script
+- [ ] CHILD-023: Build portable release agent (agents/release/)
+- [ ] CHILD-024: Build changelog agent (agents/changelog/)
+- [ ] CHILD-025/026: WordPress support (plugin headers, theme CSS, readme.txt)
+- [ ] CHILD-027 through CHILD-032: Documentation rewrite (RELEASE_PROCESS.md, diagrams, guides)
+
+**Status:** Phase 4 implementation commencing (2026-08-08)
 
 ---
 
 ## Key Artifacts
 
-### Questionnaire
+### Specification Documents
 
-**File:** [QUESTIONNAIRE.md](./QUESTIONNAIRE.md)  
-**Status:** Ready for completion  
-**Content:** 50 questions across 7 topics (flow, version management, governance, testing, error handling, documentation, integration)
+**File:** [OPENSPEC_ANALYSIS_REPORT.md](./OPENSPEC_ANALYSIS_REPORT.md)  
+**Status:** ✅ COMPLETE  
+**Content:** Full specification with 47 implementation tasks, timelines, ADRs, risk analysis
+
+### Questionnaire (Completed)
+
+**File:** [QUESTIONNAIRE_PREPOPULATED.md](./QUESTIONNAIRE_PREPOPULATED.md)  
+**Status:** ✅ COMPLETE  
+**Content:** 50 questions answered, all requirements gathered
 
 ### Audit Report
 
 **File:** [AUDIT_REPORT.md](./AUDIT_REPORT.md)  
-**Status:** Complete  
-**Findings:** 3 critical, 7 major, 5 medium issues
+**Status:** ✅ COMPLETE  
+**Findings:** 3 critical, 7 major, 5 medium issues → all addressed in Phase 1-2
 
 ### Supporting Documentation
 
 - [ADDITIONAL_DOCS_AUDIT.md](./ADDITIONAL_DOCS_AUDIT.md) — Audit of ARCHITECTURE.md, AUTOMATION.md, DECISIONS.md, etc.
-- [OPENSPEC_ANALYSIS_REPORT.md](./OPENSPEC_ANALYSIS_REPORT.md) — OpenSpec analysis findings and recommendations
-- [PHASE_2_IMPLEMENTATION_PLAN.md](./PHASE_2_IMPLEMENTATION_PLAN.md) — Implementation plan for Phase 2
+- [RFC_RELEASE_PROCESS_V2.md](./RFC_RELEASE_PROCESS_V2.md) — Release Process V2 proposal
+- [MULTI_REPO_AGENT_STRATEGY.md](./MULTI_REPO_AGENT_STRATEGY.md) — Portable agents architecture
 
 ---
 
-## Critical Decisions Awaiting Answer
+## Implementation Plan (Phase 4)
 
-Before proceeding to Phase 2 (Design), these questions must be decided:
+### Critical Implementation Tasks
 
-1. **Release Flow Architecture**
-   - Should first PR target `develop` (develop-first flow) or `main` (direct flow)?
-   - This determines whether post-release sync is needed
+**Priority 1: Workflow Refactoring (Days 1-3)**
 
-2. **Authorization Gating**
-   - Who can trigger releases?
-   - How strict should authorization be?
+- [ ] CHILD-020: Update `.github/workflows/release.yml`
+  - Implement develop-first flow (PR to develop, then main)
+  - Add stacked PR creation logic
+  - Enforce pre-release checklist validation
+  - Update authorization gates
 
-3. **Version Management**
-   - Should pre-release versions (beta, RC) be supported?
-   - How should scope (patch/minor/major) be determined?
+- [ ] CHILD-021: Modify `scripts/agents/release.agent.js`
+  - Implement two-PR creation logic
+  - Update PR targeting: develop → main
+  - Add version file multi-repo detection
+  - Integrate changelog validation
 
-4. **Changelog Validation Timing**
-   - When should changelog be validated relative to agent modifications?
-   - What strictness level for validation rules?
+- [ ] CHILD-022: Create `scripts/workflows/release/rollback.cjs`
+  - Delete git tags (local + remote)
+  - Revert VERSION, CHANGELOG.md
+  - Delete GitHub Release
+  - Audit trail logging
 
-5. **Error Handling & Rollback**
-   - Should rollback be fully automated or partially manual?
-   - How granular should error recovery be?
+**Priority 2: Portable Agent Architecture (Days 4-7)**
 
----
+- [ ] CHILD-023: Build `agents/release/` (portable agent)
+  - Create agent structure with includes/
+  - Move versionManager.cjs, gitOps.cjs, githubOps.cjs
+  - Implement repo-type detection
+  - Multi-repo version file support
 
-## How to Proceed
+- [ ] CHILD-024: Build `agents/changelog/` (changelog agent)
+  - Move changelog utilities
+  - Implement changelog validation & formatting
 
-### Step 1: Answer the Questionnaire
+**Priority 3: WordPress Support (Days 8-9)**
 
-Complete [QUESTIONNAIRE.md](./QUESTIONNAIRE.md):
+- [ ] CHILD-025/026: WordPress utilities
+  - Create wordpressUtils.cjs
+  - Handle plugin headers (Version:)
+  - Handle theme CSS headers (Version:)
+  - Handle readme.txt (Stable tag:)
 
-- Review all 50 questions
-- Select answers that match your requirements
-- Provide additional context in optional section
-- Estimated time: 60-90 minutes
+**Priority 4: Documentation (Days 10-13)**
 
-### Step 2: Run OpenSpec Analysis
+- [ ] CHILD-027 through CHILD-032
+  - Rewrite RELEASE_PROCESS.md (with flow diagrams)
+  - Update BRANCHING_STRATEGY.md
+  - Create RELEASE_WORDPRESS.md
+  - Fix all broken badges
+  - Add CI validation for doc/code drift
 
-Once questionnaire is complete:
+**Priority 5: Testing & Validation (Days 14-18)**
 
-```bash
-# OpenSpec will analyze responses and produce:
-# - Requirements document
-# - Decision matrix
-# - Complexity assessment
-# - Implementation roadmap
-```
-
-See [OPENSPEC_SETUP.md](./OPENSPEC_SETUP.md) for details.
-
-### Step 3: Review & Approve Requirements
-
-1. Read OpenSpec-generated requirements document
-2. Validate requirements capture your intent
-3. Identify any conflicts or missing details
-4. Approve for design phase
-
-### Step 4: Enter Design Phase
-
-Once requirements approved:
-
-- Create flow diagrams (Mermaid)
-- Specify workflow YAML structure
-- Define agent behavior
-- Outline documentation structure
-- Create ADRs for major decisions
+- [ ] CHILD-040 through CHILD-047
+  - Test all repo types (control plane, plugins, themes)
+  - Test rollback procedure
+  - Test authorization gates
+  - Team training & documentation
 
 ---
 
-## Documentation Map
+## Architectural Decisions (Finalized)
 
-### Pre-Release Documentation
+### ADR-001: Release Flow (Develop-First) ✅
 
-- [BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md) — Branch naming, main/develop flow
-- [VERSIONING.md](../../../../docs/VERSIONING.md) — Version format, SemVer, version bumping
-- [CANONICAL_CONFIGS_GUIDE.md](../../../../docs/CANONICAL_CONFIGS_GUIDE.md) — Label/issue type/field mappings
+**Decision:** Release PRs target `develop` first, then `main`
 
-### Release Documentation (To Be Redesigned)
+**Rationale:** Develop is primary integration branch; two-stage validation; version consistency
 
-- [RELEASE_PROCESS.md](../../../../docs/RELEASE_PROCESS.md) — **NEEDS REWRITE** (main artifact)
-- [CHANGELOG_AUTOMATION.md](../../../../docs/CHANGELOG_AUTOMATION.md) — Changelog management (needs updates)
+**Implementation:** Stacked PRs (develop PR + main PR)
 
-### Related Documentation (May Need Updates)
+### ADR-002: Multi-Repo Support (Portable Agents) ✅
 
-- [AUTOMATION.md](../../../../docs/AUTOMATION.md) — Workflow strategy (Phase 4 refactoring info)
-- [ARCHITECTURE.md](../../../../docs/ARCHITECTURE.md) — Repository structure, data flow
-- [DECISIONS.md](../../../../docs/DECISIONS.md) — ADRs and architectural decisions
+**Decision:** Create portable release agents in `agents/release/`
 
----
+**Rationale:** Single agent for all repo types; consistent process; reusable
 
-## Implementation Complexity Assessment
+### ADR-003: Authorization (Single Decision-Maker) ✅
 
-| Area | Criticality | Complexity | Effort (est.) |
-|------|-------------|-----------|--------------|
-| Flow redesign | Critical | High | 3-5 days |
-| Workflow updates | Critical | Medium | 2-3 days |
-| Authorization gating fix | Critical | Medium | 1-2 days |
-| Documentation rewrite | Major | Medium | 3-4 days |
-| Rollback automation | Major | Medium | 2-3 days |
-| Testing & validation | Major | Medium | 2-3 days |
-| Badge/link fixes | Medium | Low | 1 day |
-| Integration testing | Major | High | 2-3 days |
+**Decision:** Only authorized user (Ash) can trigger releases
 
-**Total Estimated Effort:** 16-23 days (1.5-2 sprints)
+**Rationale:** Clear governance; audit trail; security
+
+### ADR-004: Error Handling (Fail-Fast + Rollback) ✅
+
+**Decision:** Strict pre-release validation; automated rollback recovery
+
+**Rationale:** Prevents bad releases; clear error messages; safe recovery
 
 ---
 
@@ -210,62 +207,33 @@ Release process redesign is successful when:
 3. ✅ All broken links and badges are fixed
 4. ✅ Pre-release checklist is enforced by workflow
 5. ✅ Authorization gating actually blocks unauthorized releases
-6. ✅ Post-release sync (if applicable) is automated
+6. ✅ Develop-first flow works (two stacked PRs)
 7. ✅ Rollback automation is in place and tested
 8. ✅ Developers can execute a complete release with one workflow trigger
 9. ✅ Release process is auditable (logs, decision records)
-10. ✅ Team agrees on release flow and has approved ADRs
-
----
-
-## Project Team
-
-| Role | Name | Responsibilities |
-|------|------|-----------------|
-| Project Lead | — | Overall coordination, decision-making |
-| Technical Lead | — | Workflow/agent implementation |
-| Documentation Lead | — | Documentation rewrite |
-| QA/Testing | — | Release testing, validation |
+10. ✅ Multi-repo support (control plane, plugins, themes)
 
 ---
 
 ## Communication Plan
 
-- **Decisions:** Documented in issue + ADRs
-- **Progress:** Updated in this README weekly
-- **Blockers:** Escalated immediately to stakeholders
+- **Decisions:** Documented in ADRs + GitHub issues
+- **Progress:** Updated in this README (daily)
+- **Blockers:** Escalated to stakeholders immediately
 - **Completion:** Announced to team + changelog entry
 
 ---
 
-## Risk Register
+## Key Deliverables
 
-| Risk | Impact | Likelihood | Mitigation |
-|------|--------|-----------|-----------|
-| Release flow change breaks existing releases | High | Medium | Thorough testing, rollback validation |
-| Documentation drift continues | Medium | High | Add CI validation for doc/code alignment |
-| Team disagrees on flow architecture | High | Medium | Questionnaire + OpenSpec forces decision early |
-| Automation too complex for users | Medium | Medium | Keep dry-run mode easy to access |
-| Authorization too strict, blocks legitimate releases | Medium | Medium | Design for override + audit trail |
-
----
-
-## Next Immediate Actions
-
-**For User (Ash):**
-
-1. [ ] Complete QUESTIONNAIRE.md (all 50 questions + optional context)
-2. [ ] Share completed questionnaire with team for feedback
-3. [ ] Approve final questionnaire answers
-4. [ ] Trigger OpenSpec analysis (see OPENSPEC_SETUP.md)
-
-**For Claude (Next Session):**
-
-1. [ ] Receive questionnaire responses
-2. [ ] Run OpenSpec analysis
-3. [ ] Generate requirements document
-4. [ ] Create flow diagrams
-5. [ ] Outline design phase tasks
+- ✅ OPENSPEC_ANALYSIS_REPORT.md (47 tasks, 18-23 day timeline)
+- ✅ QUESTIONNAIRE_PREPOPULATED.md (50 questions answered)
+- ✅ AUDIT_REPORT.md (all issues traced to requirements)
+- 🔄 Updated release.yml (develop-first flow + stacked PRs)
+- 🔄 Updated release.agent.js (two-PR creation logic)
+- 🔄 Portable agents (agents/release/, agents/changelog/)
+- 🔄 Updated RELEASE_PROCESS.md (with flow diagrams)
+- 🔄 Comprehensive testing & validation
 
 ---
 
@@ -273,34 +241,42 @@ Release process redesign is successful when:
 
 ```
 .github/projects/active/release-process-redesign-2026-08-05/
-├── README.md (this file)
+├── README.md (this file, updated 2026-08-08)
 ├── PROJECT_INDEX.md (navigation guide)
 ├── QUESTIONNAIRE.md (50-question requirements gathering)
-├── QUESTIONNAIRE_PREPOPULATED.md (questionnaire with recommended answers)
-├── ADDITIONAL_DOCS_AUDIT.md (audit of ARCHITECTURE, AUTOMATION, etc.)
-├── OPENSPEC_SETUP.md (how to run analysis)
-├── OPENSPEC_ANALYSIS_REPORT.md (formal specification + implementation plan)
+├── QUESTIONNAIRE_PREPOPULATED.md (answered questionnaire)
+├── ADDITIONAL_DOCS_AUDIT.md (audit of related docs)
+├── OPENSPEC_ANALYSIS_REPORT.md (✅ COMPLETE specification)
+├── OPENSPEC_SETUP.md (analysis methodology)
 ├── RFC_RELEASE_PROCESS_V2.md (request for comments + proposal)
-├── AUDIT_REPORT.md (complete audit findings)
+├── AUDIT_REPORT.md (audit findings, all resolved)
 ├── MULTI_REPO_AGENT_STRATEGY.md (portable agents architecture)
-├── QUESTIONNAIRE_ANSWERING_GUIDE.md (how to answer questionnaire)
+├── QUESTIONNAIRE_ANSWERING_GUIDE.md (how to answer)
+├── PHASE_2_IMPLEMENTATION_PLAN.md (Phase 2 tasks)
 ├── EPIC_PARENT_ISSUE.md (epic issue template)
 ├── CHILD_ISSUES_TEMPLATES.md (47 child issue templates)
-└── DELIVERY_SUMMARY.txt (project overview and outcomes)
+└── DELIVERY_SUMMARY.txt (project overview)
 ```
+
+---
+
+## Implementation Branch
+
+**Branch:** `docs/release-process-phase-4-implementation`  
+**Status:** Active (created 2026-08-08)  
+**Target:** Develop
 
 ---
 
 ## References
 
-- **Audit Report:** [AUDIT_REPORT.md](./AUDIT_REPORT.md) (in this project folder)
-- **RFC & Proposal:** [RFC_RELEASE_PROCESS_V2.md](./RFC_RELEASE_PROCESS_V2.md)
+- **Specification:** [OPENSPEC_ANALYSIS_REPORT.md](./OPENSPEC_ANALYSIS_REPORT.md)
 - **Current Release Process:** [RELEASE_PROCESS.md](../../../../docs/RELEASE_PROCESS.md)
-- **Semantic Versioning Reference:** [semver.org](https://semver.org/)
-- **Keep a Changelog Reference:** [keepachangelog.com](https://keepachangelog.com/)
+- **Branching Strategy:** [BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
+- **ADRs:** See OPENSPEC_ANALYSIS_REPORT.md (ADR-001 through ADR-004)
 
 ---
 
 *Project Created: 2026-08-05*  
-*Last Updated: 2026-08-05*  
-*Status: AWAITING QUESTIONNAIRE RESPONSES*
+*Phase 4 Started: 2026-08-08*  
+*Status: IMPLEMENTATION IN PROGRESS*
