@@ -18,47 +18,6 @@ let tempDir;
 let originalCwd;
 
 // Helper functions from generate-schema.js
-function getWorkflowCategory(workflowName) {
-  const WORKFLOW_CATEGORIES = {
-    critical: [
-      "checks",
-      "docs-validation",
-      "gitleaks",
-      "main-branch-guard",
-      "metadata-governance",
-      "release",
-      "template-enforcement",
-      "validate-pr-template",
-    ],
-    automation: [
-      "issue-create-enhanced",
-      "issue-create-from-template",
-      "issue-labeling-automation",
-      "issue-project-field-sync",
-      "labeling",
-      "labeling-governance",
-      "manage-blocking-status-labels",
-    ],
-    validation: [
-      "checklist-finalisation",
-      "docs-maintenance",
-      "issue-fields-backfill",
-      "issue-health-audit",
-      "validate-blocking-issue-before-close",
-      "validate-blocking-status-before-close",
-      "validate-issue-dod-before-close",
-      "validate-mermaid-pr",
-    ],
-  };
-
-  for (const [category, workflows] of Object.entries(WORKFLOW_CATEGORIES)) {
-    if (workflows.includes(workflowName)) {
-      return category;
-    }
-  }
-  return "other";
-}
-
 function workflowNameToLabel(workflowName) {
   return workflowName
     .split("-")
@@ -162,53 +121,10 @@ function createSchema(workflows) {
     },
   };
 
-  const groups = {};
-  const WORKFLOW_CATEGORIES = {
-    critical: [
-      "checks",
-      "docs-validation",
-      "gitleaks",
-      "main-branch-guard",
-      "metadata-governance",
-      "release",
-      "template-enforcement",
-      "validate-pr-template",
-    ],
-    automation: [
-      "issue-create-enhanced",
-      "issue-create-from-template",
-      "issue-labeling-automation",
-      "issue-project-field-sync",
-      "labeling",
-      "labeling-governance",
-      "manage-blocking-status-labels",
-    ],
-    validation: [
-      "checklist-finalisation",
-      "docs-maintenance",
-      "issue-fields-backfill",
-      "issue-health-audit",
-      "validate-blocking-issue-before-close",
-      "validate-blocking-status-before-close",
-      "validate-issue-dod-before-close",
-      "validate-mermaid-pr",
-    ],
-  };
-
-  for (const [category, workflowList] of Object.entries(WORKFLOW_CATEGORIES)) {
-    groups[category] = {
-      label: category.charAt(0).toUpperCase() + category.slice(1),
-      description: `${category} workflows`,
-      workflows: workflowList.filter((w) => workflows.includes(w)),
-      badge_color: category === "critical" ? "critical" : "blue",
-    };
-  }
-
   return {
     badges,
     mapping,
     config,
-    groups,
   };
 }
 
@@ -286,40 +202,6 @@ describe("Badge Schema Generation", () => {
 
       const workflows = scanWorkflows(emptyDir);
       expect(Array.isArray(workflows)).toBe(true);
-    });
-  });
-
-  describe("Workflow Categorization", () => {
-    it("should categorize critical workflows", () => {
-      expect(getWorkflowCategory("checks")).toBe("critical");
-      expect(getWorkflowCategory("release")).toBe("critical");
-      expect(getWorkflowCategory("main-branch-guard")).toBe("critical");
-    });
-
-    it("should categorize automation workflows", () => {
-      expect(getWorkflowCategory("labeling")).toBe("automation");
-      expect(getWorkflowCategory("issue-labeling-automation")).toBe(
-        "automation",
-      );
-    });
-
-    it("should categorize validation workflows", () => {
-      expect(getWorkflowCategory("validate-mermaid-pr")).toBe("validation");
-      expect(getWorkflowCategory("validate-blocking-issue-before-close")).toBe(
-        "validation",
-      );
-    });
-
-    it("should default uncategorized workflows to 'other'", () => {
-      expect(getWorkflowCategory("custom-workflow")).toBe("other");
-      expect(getWorkflowCategory("unknown-workflow")).toBe("other");
-    });
-
-    it("should handle workflow names with varying cases", () => {
-      const category = getWorkflowCategory("checks");
-      expect(["critical", "automation", "validation", "other"]).toContain(
-        category,
-      );
     });
   });
 
@@ -415,24 +297,6 @@ describe("Badge Schema Generation", () => {
       expect(schema.config.default_branch).toBe("develop");
       expect(schema.config.enabled).toBe(true);
     });
-
-    it("should include workflow groups", () => {
-      const workflows = ["checks", "release", "labeling"];
-      const schema = createSchema(workflows);
-
-      expect(schema.groups).toBeDefined();
-      expect(Object.keys(schema.groups).length).toBeGreaterThan(0);
-    });
-
-    it("should categorize workflows into groups", () => {
-      const workflows = ["checks", "labeling", "validate-mermaid-pr"];
-      const schema = createSchema(workflows);
-
-      // Should have critical, automation, and validation groups
-      expect(schema.groups.critical).toBeDefined();
-      expect(schema.groups.automation).toBeDefined();
-      expect(schema.groups.validation).toBeDefined();
-    });
   });
 
   describe("Existing Schema Loading", () => {
@@ -490,7 +354,6 @@ describe("Badge Schema Generation", () => {
       expect(schema.badges).toBeDefined();
       expect(schema.mapping).toBeDefined();
       expect(schema.config).toBeDefined();
-      expect(schema.groups).toBeDefined();
     });
 
     it("should create valid marker configuration", () => {

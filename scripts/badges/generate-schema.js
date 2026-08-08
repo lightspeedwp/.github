@@ -20,53 +20,6 @@ const SCHEMA_PATH = path.join(
   ".github/automation/badges.schema.yml",
 );
 
-// Workflow categories for organization
-const WORKFLOW_CATEGORIES = {
-  critical: [
-    "checks",
-    "docs-validation",
-    "gitleaks",
-    "main-branch-guard",
-    "metadata-governance",
-    "release",
-    "template-enforcement",
-    "validate-pr-template",
-  ],
-  automation: [
-    "issue-create-enhanced",
-    "issue-create-from-template",
-    "issue-labeling-automation",
-    "issue-project-field-sync",
-    "labeling",
-    "labeling-governance",
-    "manage-blocking-status-labels",
-  ],
-  validation: [
-    "checklist-finalisation",
-    "docs-maintenance",
-    "issue-fields-backfill",
-    "issue-health-audit",
-    "validate-blocking-issue-before-close",
-    "validate-blocking-status-before-close",
-    "validate-issue-dod-before-close",
-    "validate-mermaid-pr",
-  ],
-};
-
-/**
- * Get workflow category
- * Note: This function is available for potential future use and is tested in generate-schema.test.js
- */
-// eslint-disable-next-line no-unused-vars
-function getWorkflowCategory(workflowName) {
-  for (const [category, workflows] of Object.entries(WORKFLOW_CATEGORIES)) {
-    if (workflows.includes(workflowName)) {
-      return category;
-    }
-  }
-  return "other";
-}
-
 /**
  * Convert workflow name to display label
  */
@@ -218,22 +171,10 @@ function createSchema(workflows) {
     },
   };
 
-  // Create workflow groups
-  const groups = {};
-  for (const [category, workflowList] of Object.entries(WORKFLOW_CATEGORIES)) {
-    groups[category] = {
-      label: category.charAt(0).toUpperCase() + category.slice(1),
-      description: `${category} workflows`,
-      workflows: workflowList.filter((w) => workflows.includes(w)),
-      badge_color: category === "critical" ? "critical" : "blue",
-    };
-  }
-
   return {
     badges,
     mapping,
     config,
-    groups,
   };
 }
 
