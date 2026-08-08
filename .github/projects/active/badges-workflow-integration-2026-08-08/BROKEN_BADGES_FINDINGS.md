@@ -1,7 +1,7 @@
 ---
 title: "Broken Badges Audit — Detailed Findings"
 description: "Analysis of 12 broken badge links that were removed from VERSIONING.md"
-file_type: "audit-findings"
+file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
 last_updated: "2026-08-08"
@@ -32,7 +32,7 @@ The `docs/VERSIONING.md` file contained badge links to 12 non-existent GitHub Ac
 
 ## Broken Badge Inventory
 
-### Complete List: 12 Broken Links
+### Complete List: 11 Clearly Identified Broken Links
 
 | Broken Reference | Expected Workflow | Status | Likely Reason | Priority |
 |-----------------|-------------------|--------|-------|----------|
@@ -47,7 +47,8 @@ The `docs/VERSIONING.md` file contained badge links to 12 non-existent GitHub Ac
 | `readme-update.yml` | `docs-maintenance.yml` | ❌ Not found | Renamed | Medium |
 | `testing.yml` | Part of `checks.yml` | ❌ Not found | Consolidated | Medium |
 | `dependabot-security-label.yml` | Workflow removed | ❌ Not found | Deleted | Low |
-| `[unknown 12th]` | Unknown | ❌ Not found | Unknown | TBD |
+
+**Note:** The referenced "12 broken badges" in commit 427b7ed62 may refer to the removal of 33 total badge *instances* in BRANCHING_STRATEGY.md (PR #1609) plus additional removals from VERSIONING.md. The 11 broken *workflow references* are clearly documented above. Investigation in #1655 (Phase 4) should verify the exact count and source of the "12" figure.
 
 ---
 

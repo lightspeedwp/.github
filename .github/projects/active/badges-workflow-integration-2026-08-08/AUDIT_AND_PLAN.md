@@ -1,7 +1,7 @@
 ---
 title: "Badges Workflow Integration — Comprehensive Audit & Plan"
 description: "Complete audit of existing badges infrastructure and integration plan for workflow automation"
-file_type: "project-planning"
+file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
 last_updated: "2026-08-08"

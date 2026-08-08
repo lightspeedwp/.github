@@ -1,7 +1,7 @@
 ---
 title: "Badges Workflow Integration — Project Overview"
 description: "Active project to audit, plan, and integrate badges workflow automation into GitHub Actions"
-file_type: "project-overview"
+file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
 last_updated: "2026-08-08"
@@ -44,13 +44,13 @@ This project audits the existing badges infrastructure and plans its integration
 
 ## Quick Links
 
-| Document | Purpose |
-|----------|---------|
-| **[AUDIT_AND_PLAN.md](./AUDIT_AND_PLAN.md)** | Complete audit findings + detailed 4-phase implementation plan |
-| **[BROKEN_BADGES_FINDINGS.md](./BROKEN_BADGES_FINDINGS.md)** | Detailed analysis of the 12 broken badge links from VERSIONING.md |
-| **[PROJECT_TRACKER.md](./PROJECT_TRACKER.md)** | GitHub issues checklist and progress tracking |
-| **[WORKFLOW_ARCHITECTURE.md](./WORKFLOW_ARCHITECTURE.md)** | Technical design for the 4 new workflows |
-| **[OPENSPEC_ANALYSIS.md](./OPENSPEC_ANALYSIS.md)** | Optional: Complex decision analysis via OpenSpec |
+| Document | Purpose | Status |
+|----------|---------|--------|
+| **[AUDIT_AND_PLAN.md](./AUDIT_AND_PLAN.md)** | Complete audit findings + detailed 4-phase implementation plan | ✅ Created |
+| **[BROKEN_BADGES_FINDINGS.md](./BROKEN_BADGES_FINDINGS.md)** | Detailed analysis of broken badge links from VERSIONING.md | ✅ Created |
+| **[PROJECT_TRACKER.md](./PROJECT_TRACKER.md)** | GitHub issues checklist and progress tracking | ✅ Created |
+| WORKFLOW_ARCHITECTURE.md | Technical design for the 4 new workflows | 📋 Planned (Phase 2) |
+| OPENSPEC_ANALYSIS.md | Optional: Complex decision analysis via OpenSpec | 📋 Planned (if needed) |
 
 ---
 

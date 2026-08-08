@@ -1,7 +1,7 @@
 ---
 title: "Badges Workflow Integration — Project Tracker"
 description: "GitHub issue checklist and progress tracking for badges workflow integration"
-file_type: "project-tracker"
+file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
 last_updated: "2026-08-08"
@@ -14,7 +14,7 @@ tags: ["badges", "project-tracking", "github-issues", "checklist"]
 
 **Project:** Badges Workflow Integration  
 **Timeline:** 2026-08-08 → 2026-08-22 (15 days)  
-**Total Issues:** 15 (1 epic + 14 tasks)  
+**Total Issues:** 14 (1 epic + 13 child tasks)  
 **Status:** 📋 Ready to Create
 
 ---
