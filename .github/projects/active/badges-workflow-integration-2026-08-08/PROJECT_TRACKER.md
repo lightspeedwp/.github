@@ -23,10 +23,10 @@ tags: ["badges", "project-tracking", "github-issues", "checklist"]
 
 | Phase | Duration | Issues | Status |
 |-------|----------|--------|--------|
-| Phase 1: Schema & Config | 5 days (8-12) | 4 | 📋 Ready |
-| Phase 2: Workflows | 5 days (13-17) | 5 | 📋 Ready |
+| Phase 1: Schema & Config | 5 days (8-12) | 3 | 📋 Ready |
+| Phase 2: Workflows | 5 days (13-17) | 4 | 📋 Ready |
 | Phase 3: Integration | 3 days (18-20) | 3 | 📋 Ready |
-| Phase 4: Governance | 2 days (21-22) | 2 | 📋 Ready |
+| Phase 4: Governance | 2 days (21-22) | 3 | 📋 Ready |
 
 ---
 
@@ -73,7 +73,7 @@ Audit, plan, and implement badges workflow automation to:
 - Phase 3: Integration (3 days)
 - Phase 4: Governance (2 days)
 
-## Child Issues
+## Child Issues (13 total)
 - CHILD-001: Create badge schema configuration
 - CHILD-002: Align badges.js with automation spec
 - CHILD-003: Create badge governance documentation
@@ -86,8 +86,7 @@ Audit, plan, and implement badges workflow automation to:
 - CHILD-010: Documentation & examples
 - CHILD-011: Monitoring dashboard
 - CHILD-012: Update policy documentation
-- CHILD-013: Team training & communication
-- CHILD-014: Issue resolution & edge cases
+- CHILD-013: Phase 4 completion and project summary
 
 ## References
 - [Audit & Plan](./AUDIT_AND_PLAN.md)
@@ -232,39 +231,9 @@ Create comprehensive governance documentation including:
 
 ---
 
-### CHILD-004: Create Phase 1 Documentation
-
-**Title:** Document Phase 1 completion and readiness for Phase 2  
-**Labels:** `type:documentation`, `phase:1`, `priority:medium`  
-**Assignee:** Ash Shaw  
-**Points:** 2  
-
-**Description:**
-
-```markdown
-## Task
-Document Phase 1 completion:
-- Summary of schema created
-- Validation results
-- Known limitations
-- Readiness assessment for Phase 2
-
-## Deliverable
-`PHASE_1_COMPLETION.md` including:
-- [ ] What was created
-- [ ] What was validated
-- [ ] Issues discovered
-- [ ] Recommendations for Phase 2
-- [ ] Metrics and statistics
-```
-
-**Due Date:** 2026-08-13
-
----
-
 ## Phase 2: Workflow Implementation (5 days)
 
-### CHILD-005: Documentation Badge Update Workflow
+### CHILD-004: Documentation Badge Update Workflow
 
 **Title:** Create workflow to auto-generate badges when documentation changes  
 **Labels:** `type:feature`, `phase:2`, `priority:critical`, `area:automation`  
@@ -592,16 +561,16 @@ Document:
 | CHILD-001 | Create badge schema | 5 | 📋 Ready |
 | CHILD-002 | Align badges.js | 3 | 📋 Ready |
 | CHILD-003 | Badge governance docs | 3 | 📋 Ready |
-| CHILD-004 | Phase 1 completion | 2 | 📋 Ready |
-| CHILD-005 | Documentation update workflow | 5 | 📋 Ready |
-| CHILD-006 | README status workflow | 4 | 📋 Ready |
-| CHILD-007 | Workflow sync workflow | 4 | 📋 Ready |
-| CHILD-008 | Health check workflow | 4 | 📋 Ready |
-| CHILD-009 | Test all workflows | 5 | 📋 Ready |
-| CHILD-010 | Initial schema generation | 3 | 📋 Ready |
-| CHILD-011 | Documentation & examples | 3 | 📋 Ready |
-| CHILD-012 | Monitoring dashboard | 2 | 📋 Ready |
-| CHILD-013 | Update policy | 2 | 📋 Ready |
+| CHILD-004 | Documentation update workflow | 5 | 📋 Ready |
+| CHILD-005 | README status workflow | 4 | 📋 Ready |
+| CHILD-006 | Workflow sync workflow | 4 | 📋 Ready |
+| CHILD-007 | Health check workflow | 4 | 📋 Ready |
+| CHILD-008 | Test all workflows | 5 | 📋 Ready |
+| CHILD-009 | Initial schema generation | 3 | 📋 Ready |
+| CHILD-010 | Documentation & examples | 3 | 📋 Ready |
+| CHILD-011 | Monitoring dashboard | 2 | 📋 Ready |
+| CHILD-012 | Update policy | 2 | 📋 Ready |
+| CHILD-013 | Project completion | 2 | 📋 Ready |
 | **TOTAL** | | **46 points** | |
 
 ---
@@ -611,10 +580,10 @@ Document:
 ### Current Status
 
 ```
-Phase 1 (Schema & Config)     ░░░░░░░░░░ 0% (0/4 issues)
+Phase 1 (Schema & Config)     ░░░░░░░░░░ 0% (0/3 issues)
 Phase 2 (Workflows)          ░░░░░░░░░░ 0% (0/4 issues)
 Phase 3 (Integration)        ░░░░░░░░░░ 0% (0/3 issues)
-Phase 4 (Governance)         ░░░░░░░░░░ 0% (0/2 issues)
+Phase 4 (Governance)         ░░░░░░░░░░ 0% (0/3 issues)
 
 Overall Progress             ░░░░░░░░░░ 0% (0/13 child issues + epic)
 ```
