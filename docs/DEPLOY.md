@@ -2,8 +2,8 @@
 file_type: "documentation"
 description: "Deployment guide for LightSpeedWP Agency site on GitHub Pages"
 name: "Deployment Guide"
-version: "1.0.0"
-last_updated: "2026-06-05"
+version: "1.0.1"
+last_updated: "2026-08-08"
 ---
 
 # Deploy — LightSpeedWP Agency site on GitHub Pages

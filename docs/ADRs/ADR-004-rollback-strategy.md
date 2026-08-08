@@ -1,8 +1,10 @@
 ---
 title: "ADR-004: Rollback & Error Handling Strategy"
 description: "Decision to provide automated rollback automation with manual final control"
+file_type: documentation
 date: 2026-08-08
-status: accepted
+adr_status: accepted
+status: active
 authors: ["LightSpeed Team"]
 ---
 
@@ -177,6 +179,6 @@ on:
 
 ## References
 
-- [scripts/agents/release/rollback.cjs](../scripts/agents/release/rollback.cjs) — Rollback automation
-- [RELEASE_PROCESS.md](../RELEASE_PROCESS.md#error-handling--rollback) — Error handling details
+- [scripts/agents/release/rollback.cjs](../../scripts/workflows/release/rollback.cjs) — Rollback automation
+- [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#error-handling--rollback) — Error handling details
 - [Emergency Response Runbook](../RUNBOOKS/EMERGENCY_RESPONSE.md) — When to use rollback

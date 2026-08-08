@@ -37,10 +37,9 @@ All instruction files follow a consistent format: frontmatter + role declaration
 | [documentation-formats.instructions.md](./documentation-formats.instructions.md) | Markdown, YAML, Mermaid, and documentation standards |
 | [community-standards.instructions.md](./community-standards.instructions.md) | Contributing, conduct, and community guidelines |
 | [a11y.instructions.md](./a11y.instructions.md) | WCAG 2.2 AA accessibility standards |
-| [quality-assurance.instructions.md](./quality-assurance.instructions.md) | Testing, linting, and quality gates |
-| [automation.instructions.md](./automation.instructions.md) | Safe automation practices and governance |
+| [linting.instructions.md](./linting.instructions.md) | Linting standards and quality gates |
 | [issues.instructions.md](./issues.instructions.md) | Issue creation, labeling, and triage standards |
-| [pull-requests.instructions.md](./pull-requests.instructions.md) | PR creation, review, and merge standards |
+| [pr-automation-review.instructions.md](./pr-automation-review.instructions.md) | PR creation, automation, review, and merge standards |
 
 ## Using Instructions
 
