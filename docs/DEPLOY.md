@@ -2,8 +2,8 @@
 file_type: "documentation"
 description: "Deployment guide for LightSpeedWP Agency site on GitHub Pages"
 name: "Deployment Guide"
-version: "1.0.0"
-last_updated: "2026-06-05"
+version: "1.0.1"
+last_updated: "2026-08-08"
 ---
 
 # Deploy — LightSpeedWP Agency site on GitHub Pages
@@ -96,6 +96,17 @@ Re-run the §5 checks live:
 - [x] Verify favicon, fonts, and all assets load correctly
 - [x] Test light/dark theme toggle
 - [x] Planner fallback works (no console errors)
+
+### Integration with Release Workflow
+
+**Note:** Changes to this website are deployed automatically on every push to `develop`. When a release is created, the release workflow:
+
+1. Creates PR #1: `release/vX.Y.Z` → `develop` (changelog + version bump)
+2. Developer merges PR #1 to `develop`
+3. This merge triggers the GitHub Pages workflow automatically
+4. Website is updated with latest released version
+
+See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for complete release workflow details.
 
 ## Deployment Summary
 

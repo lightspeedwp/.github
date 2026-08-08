@@ -1,6 +1,6 @@
 ---
-version: v0.1.1
-last_updated: '2026-05-29'
+version: v0.1.2
+last_updated: '2026-08-08'
 title: Architecture Guide
 owners:
 - lightspeedwp
@@ -65,27 +65,38 @@ Issue Created
   → Closed with documentation
 ```
 
-### Release Workflow
+### Release Workflow (Develop-First Stacked PR Flow)
 
 ```
-Feature Complete
-  → PR Created
-  → Automated Checks (tests, linting, security)
-  → Code Review
-  → Merge to Main
-  → Release Workflow Triggered
-  → Release Created
-  → Announced
+Feature Complete (on develop)
+  → PR Created to develop
+  → Automated Checks (tests, linting, changelog validation)
+  → Code Review & Merge to develop
+  → Release Workflow Triggered (manual, workflow_dispatch)
+  → Authorisation Gating (actor in maintainers team)
+  → Release Agent Creates release/vX.Y.Z branch from develop
+  → PR #1: release/vX.Y.Z → develop (changelog + version)
+  → Developer Merges PR #1
+  → PR #2: release/vX.Y.Z → main (stacked)
+  → Developer Merges PR #2
+  → Git tag created, GitHub Release published
+  → Post-Release Sync: main → develop (automatic)
 ```
+
+See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) and [ADR-001](./ADRs/ADR-001-develop-first-release-flow.md) for complete details on release flow rationale.
 
 ## Key Components
 
 ### Workflows (`workflows/` and `.github/workflows/`)
 
-- **Labeling Workflow**: Applies labels based on content analysis
-- **Release Workflow**: Manages versioning and releases
-- **Validation Workflow**: Checks code quality and standards
-- **Metrics Workflow**: Gathers organization-wide metrics
+| Workflow | Trigger | Purpose | Agent |
+|----------|---------|---------|-------|
+| **Labelling** | PR/issue created | Apply labels based on content | labeler.agent.js |
+| **Validation** | PR opened, push | Lint, test, security checks | validation.agent.js |
+| **Changelog** | PR/push to develop | Validate changelog format | changelog.agent.js |
+| **Release** | Manual `workflow_dispatch` | Version bumps, tag, publish | release.agent.js |
+| **Post-Release Sync** | After release publish | Sync main → develop | post-release-sync.agent.js |
+| **Metrics** | Scheduled (daily) | Gather org-wide metrics | metrics.agent.js |
 
 ### Instructions (`instructions/` and `.github/instructions/`)
 
@@ -107,7 +118,7 @@ Feature Complete
 
 ### Agent Types
 
-- **Labeling Agent**: Applies organization labels
+- **Labelling Agent**: Applies organization labels
 - **Release Agent**: Manages releases and versioning
 - **Metrics Agent**: Gathers and reports metrics
 - **Review Agent**: Automated code review
