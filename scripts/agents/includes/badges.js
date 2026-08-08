@@ -11,6 +11,15 @@ import * as yaml from "js-yaml";
 
 /**
  * Validate badge schema structure
+ *
+ * TESTING NOTE (Phase 4): This function should be covered by unit tests:
+ * - Test valid schema structure (all required sections present)
+ * - Test missing required sections (badges, mapping, config)
+ * - Test edge cases (empty arrays, null values, malformed YAML)
+ * - Test schema versioning and compatibility
+ *
+ * TODO: Add comprehensive test suite via jest in tests/badges.schema.test.js
+ *
  * @param {object} schema - Loaded schema object
  * @returns {boolean} true if valid, throws error if invalid
  */
@@ -100,6 +109,20 @@ function generateWorkflowBadges(repo, branch = "main", format = "stacked") {
 
 /**
  * Generate metadata badges from schema configuration
+ *
+ * Supports conditional badge generation based on document frontmatter:
+ * - has_front_matter: Check if document has YAML frontmatter
+ * - front_matter.license: Match license field against allowed values
+ * - front_matter.tags: Match tags field with "any" or "all" logic
+ *
+ * Tag Matching (v1.1.0+):
+ * Supports both simple array matching and advanced matching with match strategy:
+ *   tags: ["workflow", "automation"]           # Simple: matches if any tag present
+ *   tags: { match: "any", values: [...] }     # Advanced: explicit match strategy
+ *   tags: { match: "all", values: [...] }     # Requires all tags to match
+ *
+ * @param {object} frontMatter - Document frontmatter object
+ * @returns {array} Array of badge markdown strings
  */
 function generateMetadataBadges(frontMatter) {
   const schema = loadBadgeSchema();
@@ -132,6 +155,39 @@ function generateMetadataBadges(frontMatter) {
         !allowedLicenses.includes(frontMatter.license)
       ) {
         conditionMet = false;
+      }
+    }
+
+    // Check front matter tags field (supports both simple array and advanced matching)
+    if (rule.when.front_matter && rule.when.front_matter.tags && frontMatter) {
+      const tagsConfig = rule.when.front_matter.tags;
+      const docTags = frontMatter.tags || [];
+
+      if (Array.isArray(tagsConfig)) {
+        // Simple array matching: match if any document tag is in allowed list
+        const hasMatch = docTags.some((tag) => tagsConfig.includes(tag));
+        if (!hasMatch) {
+          conditionMet = false;
+        }
+      } else if (tagsConfig.match && tagsConfig.values) {
+        // Advanced matching with explicit strategy
+        const values = Array.isArray(tagsConfig.values)
+          ? tagsConfig.values
+          : [tagsConfig.values];
+
+        if (tagsConfig.match === "any") {
+          // Match if any document tag is in values list
+          const hasMatch = docTags.some((tag) => values.includes(tag));
+          if (!hasMatch) {
+            conditionMet = false;
+          }
+        } else if (tagsConfig.match === "all") {
+          // Match if all values are in document tags
+          const hasAllMatch = values.every((tag) => docTags.includes(tag));
+          if (!hasAllMatch) {
+            conditionMet = false;
+          }
+        }
       }
     }
 

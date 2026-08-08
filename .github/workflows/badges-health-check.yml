@@ -20,14 +20,17 @@ jobs:
       contents: read
       issues: write
 
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@6d0aea72b9a5f25ac9f0adfbbad656007faf0907 # v4.2.0
         with:
           fetch-depth: 1
 
       - name: "Setup Node.js"
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@1e60f620b9541d910af73a0410c36514fad91657 # v4.0.3
         with:
           node-version: "18"
           cache: "npm"
@@ -40,12 +43,13 @@ jobs:
         run: |
           echo "Finding markdown files with badge markers..."
 
-          find . -name "*.md" -type f \
+          find . -type f -name "*.md" \
             ! -path "*/node_modules/*" \
             ! -path "*/.git/*" \
+            ! -path "*/.github/*" \
             -exec grep -l "<!-- BADGES-START -->" {} \; > /tmp/files_with_badges.txt
 
-          count=$(wc -l < /tmp/files_with_badges.txt)
+          count=$(grep -c . /tmp/files_with_badges.txt || echo 0)
           echo "files_count=$count" >> $GITHUB_OUTPUT
 
           echo "Found $count files with badges"
@@ -56,7 +60,7 @@ jobs:
           echo "Extracting badge URLs from markdown files..."
 
           total_badges=0
-          total_files=$(wc -l < /tmp/files_with_badges.txt)
+          total_files=$(grep -c . /tmp/files_with_badges.txt || echo 0)
 
           > /tmp/all_badges.txt
 
@@ -65,8 +69,8 @@ jobs:
 
             echo "Processing: $file"
 
-            # Extract URLs from badge markdown
-            grep -oP 'https?://[^)]+' "$file" | sort -u >> /tmp/all_badges.txt
+            # Extract badge URLs only (img.shields.io and github.com/...badge.svg)
+            grep -oP '(?:https?://img\.shields\.io/|https?://github\.com/)[^)]+' "$file" | sort -u >> /tmp/all_badges.txt
 
           done < /tmp/files_with_badges.txt
 
@@ -74,7 +78,7 @@ jobs:
           sort -u /tmp/all_badges.txt > /tmp/unique_badges.txt
           mv /tmp/unique_badges.txt /tmp/all_badges.txt
 
-          total_badges=$(wc -l < /tmp/all_badges.txt)
+          total_badges=$(grep -c . /tmp/all_badges.txt || echo 0)
           echo "badges_count=$total_badges" >> $GITHUB_OUTPUT
 
           echo "Found $total_badges unique badge URLs"
@@ -102,26 +106,26 @@ jobs:
             case "$response" in
               200|301|302|304)
                 echo "✓ OK"
-                ((working_count++))
+                ((++working_count))
                 ;;
               404)
                 echo "✗ BROKEN (404)"
                 echo "$url" >> /tmp/broken_links.txt
-                ((broken_count++))
+                ((++broken_count))
                 ;;
               403|410)
                 echo "✗ BROKEN ($response)"
                 echo "$url" >> /tmp/broken_links.txt
-                ((broken_count++))
+                ((++broken_count))
                 ;;
               timeout)
                 echo "⚠ TIMEOUT"
                 echo "$url" >> /tmp/timeout_links.txt
-                ((timeout_count++))
+                ((++timeout_count))
                 ;;
               *)
                 echo "? UNKNOWN ($response)"
-                ((working_count++))
+                ((++working_count))
                 ;;
             esac
           done < /tmp/all_badges.txt
@@ -166,14 +170,29 @@ jobs:
         if: steps.validate.outputs.broken_count > 0 && !inputs.report_only
         continue-on-error: true
         run: |
-          ISSUE_BODY=$(cat /tmp/health_report.md)
+          # Prepend DoR/DoD to health report
+          {
+            echo "## Definition of Ready (DoR)"
+            echo ""
+            echo "- [x] Badge validation workflow completed"
+            echo "- [x] Broken links identified"
+            echo "- [x] Health report generated"
+            echo ""
+            cat /tmp/health_report.md
+            echo ""
+            echo "## Definition of Done (DoD)"
+            echo ""
+            echo "- [ ] Broken links investigated"
+            echo "- [ ] Schema corrected or links validated"
+            echo "- [ ] Documentation updated if needed"
+            echo "- [ ] Health check rerun confirms resolution"
+          } > /tmp/issue_body.txt
 
           gh issue create \
             --repo "${{ github.repository }}" \
             --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
-            --body "$ISSUE_BODY" \
-            --label "type:issue,area:automation,priority:important" \
-            --assignee "${{ github.repository_owner }}" || {
+            --body-file /tmp/issue_body.txt \
+            --label "type:task,area:automation,priority:important" || {
               echo "::warning::Could not create issue"
             }
 

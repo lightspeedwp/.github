@@ -252,9 +252,9 @@ Your documentation content starts here...
 
 ---
 
-### 5.2 Scheduled Updates (Weekly)
+### 5.2 Scheduled Updates (Daily)
 
-**When:** Every Monday at 00:00 UTC
+**When:** Every day at 00:00 UTC
 
 **What:** Status badges are validated and README updated
 
@@ -270,9 +270,9 @@ Your documentation content starts here...
 
 ---
 
-### 5.3 Workflow Discovery (Weekly)
+### 5.3 Workflow Discovery (Daily)
 
-**When:** Every Monday at 00:00 UTC
+**When:** Every day at 01:00 UTC
 
 **What:** Detects new/deleted workflows and updates schema
 
@@ -605,10 +605,10 @@ npm run validate:badges-schema
 
 ## 12. Related Documents
 
-- [Badge Schema Reference](../.github/automation/badges.schema.yml)
-- [Badge Examples & Use Cases](./BADGES_EXAMPLES.md)
-- [Badge Troubleshooting Guide](./BADGES_TROUBLESHOOTING.md)
-- [Project Audit & Plan](./.github/projects/active/badges-workflow-integration-2026-08-08/AUDIT_AND_PLAN.md)
+- [Badge Schema Reference](../.github/automation/badges.schema.yml) — Schema configuration and workflow definitions
+- [Badge Examples & Use Cases](./BADGES_EXAMPLES.md) — Real-world badge usage examples
+- [Badge Troubleshooting Guide](./BADGES_TROUBLESHOOTING.md) — Common issues and solutions
+- [Project Audit & Plan](../.github/projects/active/badges-workflow-integration-2026-08-08/AUDIT_AND_PLAN.md) — Implementation audit and planning document
 
 ---
 

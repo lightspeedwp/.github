@@ -2,7 +2,7 @@
 # Badge Schema Configuration
 # Defines badge metadata and mapping rules for automated badge generation
 # Last updated: 2026-08-08
-# Version: 1.0.0
+# Version: 1.1.0
 
 # ============================================================================
 # BADGE DEFINITIONS
@@ -12,7 +12,7 @@
 # Metadata badges are conditional based on frontmatter
 
 badges:
-  # Workflow status badges (41 workflows)
+  # Workflow status badges (45 workflows)
   workflow:
     actions-minute-savings-watch:
       label: "Actions Minute Savings"
@@ -22,6 +22,26 @@ badges:
     awesome-github-site:
       label: "Awesome GitHub Site"
       description: "Builds and deploys awesome-github site"
+      branch: "develop"
+
+    badges-documentation-update:
+      label: "Badges: Documentation Update"
+      description: "Automatically updates documentation badges on push"
+      branch: "develop"
+
+    badges-health-check:
+      label: "Badges: Health Check"
+      description: "Validates all badge links for health and correctness"
+      branch: "develop"
+
+    badges-readme-status:
+      label: "Badges: README Status Maintenance"
+      description: "Updates README status badges from workflow runs"
+      branch: "develop"
+
+    badges-workflow-audit:
+      label: "Badges: Workflow Inventory Audit"
+      description: "Audits workflow inventory and updates schema"
       branch: "develop"
 
     changelog-management:
@@ -273,13 +293,16 @@ mapping:
     add:
       - "meta.license"
 
-  # Rule 3: Apply all workflow badges to automation/workflow documentation
+  # Rule 3: Apply all workflow badges to automation/workflow documentation (tag matching)
   - when:
       front_matter:
         tags:
-          - "workflow"
-          - "automation"
-          - "ci"
+          match: "any" # Match if any tag matches the list
+          values:
+            - "workflow"
+            - "automation"
+            - "ci"
+            - "badges"
     add:
       # Include all critical workflows for CI/automation docs
       - "workflow.checks"
@@ -291,6 +314,10 @@ mapping:
       - "workflow.release"
       - "workflow.template-enforcement"
       - "workflow.validate-pr-template"
+      - "workflow.badges-documentation-update"
+      - "workflow.badges-health-check"
+      - "workflow.badges-readme-status"
+      - "workflow.badges-workflow-audit"
 
 # ============================================================================
 # CONFIGURATION
@@ -380,6 +407,10 @@ groups:
     label: "Automation"
     description: "Automated workflow and issue management"
     workflows:
+      - badges-documentation-update
+      - badges-health-check
+      - badges-readme-status
+      - badges-workflow-audit
       - issue-create-enhanced
       - issue-create-from-template
       - issue-labeling-automation
@@ -445,6 +476,14 @@ groups:
 # Tracking changes to this schema for compatibility
 
 versions:
+  "1.1.0":
+    date: "2026-08-08"
+    author: "Ash Shaw"
+    changes:
+      - "Added 4 new badge workflows (badges-*)"
+      - "Implemented tag matching in mapping rules"
+      - "Updated automation group with badge workflows"
+      - "Enhanced conditional rule matching"
   "1.0.0":
     date: "2026-08-08"
     author: "Ash Shaw"

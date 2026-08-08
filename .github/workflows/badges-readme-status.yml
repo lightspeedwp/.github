@@ -20,16 +20,20 @@ jobs:
       contents: write
       pull-requests: write
       checks: read
+      issues: write
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@6d0aea72b9a5f25ac9f0adfbbad656007faf0907 # v4.2.0
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Setup Node.js"
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@1e60f620b9541d910af73a0410c36514fad91657 # v4.0.3
         with:
           node-version: "18"
           cache: "npm"
@@ -45,9 +49,9 @@ jobs:
           OWNER="${REPO%/*}"
           REPO_NAME="${REPO#*/}"
 
-          echo "owner=$OWNER" >> $GITHUB_OUTPUT
-          echo "name=$REPO_NAME" >> $GITHUB_OUTPUT
-          echo "full_name=$REPO" >> $GITHUB_OUTPUT
+          echo "owner=${OWNER}" >> $GITHUB_OUTPUT
+          echo "name=${REPO_NAME}" >> $GITHUB_OUTPUT
+          echo "full_name=${REPO}" >> $GITHUB_OUTPUT
 
       - name: "Query workflow status"
         id: workflows
@@ -181,8 +185,8 @@ jobs:
           timeout_count=0
 
           while IFS= read -r line; do
-            # Extract URL from badge markdown
-            url=$(echo "$line" | grep -oP 'https?://[^)]+' | head -1)
+            # Extract URLs only from badge markdown (img.shields.io and github.com badge URLs)
+            url=$(echo "$line" | grep -oP '(?:https?://img\.shields\.io/|https?://github\.com/)[^)]+' | head -1)
 
             if [[ -z "$url" ]]; then
               continue
@@ -197,11 +201,11 @@ jobs:
                 ;;
               404)
                 echo "  ✗ $url (404 Not Found)"
-                ((broken_count++))
+                ((++broken_count))
                 ;;
               timeout)
                 echo "  ⚠ $url (Timeout)"
-                ((timeout_count++))
+                ((++timeout_count))
                 ;;
               *)
                 echo "  ? $url (HTTP $response)"
@@ -217,23 +221,38 @@ jobs:
         run: |
           # Create temporary issue body file
           {
+            echo "## Definition of Ready (DoR)"
+            echo ""
+            echo "- [x] Broken badge links have been detected"
+            echo "- [x] Validation workflow has completed"
+            echo "- [x] Issue list has been generated"
+            echo ""
             echo "## Broken Badge Links"
             echo ""
             echo "The following badge links returned 404 errors:"
             echo ""
-            cat /tmp/broken_badges.txt 2>/dev/null || echo "(See workflow logs)"
+            echo "(See validation workflow logs for details)"
             echo ""
-            echo "### Action Items"
+            echo "## Action Items"
+            echo ""
             echo "- [ ] Verify workflow names in schema"
-            echo "- [ ] Update schema with corrections"
-            echo "- [ ] Re-run badge health check"
+            echo "- [ ] Correct workflow names/paths"
+            echo "- [ ] Update .github/automation/badges.schema.yml"
+            echo "- [ ] Re-run badge validation"
+            echo ""
+            echo "## Definition of Done (DoD)"
+            echo ""
+            echo "- [ ] All broken links identified"
+            echo "- [ ] Schema corrected"
+            echo "- [ ] Validation rerun confirms links work"
+            echo "- [ ] Issue resolved and closed"
           } > /tmp/issue_body.txt
 
           gh issue create \
             --repo "${{ github.repository }}" \
             --title "Broken Badge Links Detected" \
             --body-file /tmp/issue_body.txt \
-            --label "type:issue,area:automation" || true
+            --label "type:task,area:automation,priority:normal" || true
 
       - name: "Report summary"
         if: always()
