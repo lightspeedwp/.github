@@ -1,8 +1,10 @@
 ---
 title: "ADR-004: Rollback & Error Handling Strategy"
 description: "Decision to provide automated rollback automation with manual final control"
+file_type: documentation
 date: 2026-08-08
-status: accepted
+adr_status: accepted
+status: active
 authors: ["LightSpeed Team"]
 ---
 

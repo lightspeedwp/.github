@@ -1,8 +1,10 @@
 ---
 title: "ADR-001: Develop-First Release Flow"
 description: "Decision to use a stacked PR model with develop as primary, then release PR to main"
+file_type: documentation
 date: 2026-08-08
-status: accepted
+adr_status: accepted
+status: active
 authors: ["LightSpeed Team"]
 ---
 

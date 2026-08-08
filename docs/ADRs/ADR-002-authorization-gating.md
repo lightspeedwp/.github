@@ -1,8 +1,10 @@
 ---
 title: "ADR-002: Authorisation Gating Strategy"
 description: "Decision to gate release workflow triggers to maintainers team with audit logging"
+file_type: documentation
 date: 2026-08-08
-status: accepted
+adr_status: accepted
+status: active
 authors: ["LightSpeed Team"]
 ---
 

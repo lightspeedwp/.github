@@ -1,8 +1,10 @@
 ---
 title: "ADR-003: Post-Release Sync Automation"
 description: "Decision to automate main→develop sync after releases to keep branches aligned"
+file_type: documentation
 date: 2026-08-08
-status: accepted
+adr_status: accepted
+status: active
 authors: ["LightSpeed Team"]
 ---
 
