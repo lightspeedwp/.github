@@ -1,0 +1,495 @@
+---
+# Badge Schema Configuration
+# Defines badge metadata and mapping rules for automated badge generation
+# Last updated: 2026-08-08
+# Version: 1.1.0
+
+# ============================================================================
+# BADGE DEFINITIONS
+# ============================================================================
+# Hierarchical badge definitions referenced by mapping rules
+# Workflow badges are auto-generated from GitHub Actions
+# Metadata badges are conditional based on frontmatter
+
+badges:
+  # Workflow status badges (45 workflows)
+  workflow:
+    actions-minute-savings-watch:
+      label: "Actions Minute Savings"
+      description: "Monitors GitHub Actions minute usage"
+      branch: "develop"
+
+    awesome-github-site:
+      label: "Awesome GitHub Site"
+      description: "Builds and deploys awesome-github site"
+      branch: "develop"
+
+    badges-documentation-update:
+      label: "Badges: Documentation Update"
+      description: "Automatically updates documentation badges on push"
+      branch: "develop"
+
+    badges-health-check:
+      label: "Badges: Health Check"
+      description: "Validates all badge links for health and correctness"
+      branch: "develop"
+
+    badges-readme-status:
+      label: "Badges: README Status Maintenance"
+      description: "Updates README status badges from workflow runs"
+      branch: "develop"
+
+    badges-workflow-audit:
+      label: "Badges: Workflow Inventory Audit"
+      description: "Audits workflow inventory and updates schema"
+      branch: "develop"
+
+    changelog-management:
+      label: "Changelog Management"
+      description: "Manages changelog entries and updates"
+      branch: "develop"
+
+    checklist-finalisation:
+      label: "Checklist Finalisation"
+      description: "Finalizes and validates checklist items"
+      branch: "develop"
+
+    checks:
+      label: "Checks"
+      description: "Runs core validation checks"
+      branch: "develop"
+      critical: true
+
+    cleanup-branches:
+      label: "Cleanup Branches"
+      description: "Cleans up merged and abandoned branches"
+      branch: "develop"
+
+    docs-maintenance:
+      label: "Docs Maintenance"
+      description: "Maintains documentation integrity"
+      branch: "develop"
+
+    docs-validation:
+      label: "Docs Validation"
+      description: "Validates documentation structure and links"
+      branch: "develop"
+      critical: true
+
+    documentation:
+      label: "Documentation"
+      description: "Builds and publishes documentation"
+      branch: "develop"
+
+    flaky-test-detection:
+      label: "Flaky Test Detection"
+      description: "Detects and reports flaky tests"
+      branch: "develop"
+
+    gitleaks-reusable:
+      label: "GitLeaks Reusable"
+      description: "Reusable GitLeaks scanning workflow"
+      branch: "develop"
+
+    gitleaks-update:
+      label: "GitLeaks Update"
+      description: "Updates GitLeaks rules and patterns"
+      branch: "develop"
+
+    gitleaks:
+      label: "GitLeaks"
+      description: "Scans for secrets and sensitive data"
+      branch: "develop"
+      critical: true
+
+    issue-create-enhanced:
+      label: "Issue Create Enhanced"
+      description: "Enhanced issue creation workflow"
+      branch: "develop"
+
+    issue-create-from-template:
+      label: "Issue Create from Template"
+      description: "Creates issues from templates"
+      branch: "develop"
+
+    issue-fields-backfill:
+      label: "Issue Fields Backfill"
+      description: "Backfills missing issue fields"
+      branch: "develop"
+
+    issue-health-audit:
+      label: "Issue Health Audit"
+      description: "Audits issue health and compliance"
+      branch: "develop"
+
+    issue-labeling-automation:
+      label: "Issue Labeling Automation"
+      description: "Automates issue labeling"
+      branch: "develop"
+
+    issue-project-field-sync:
+      label: "Issue Project Field Sync"
+      description: "Syncs project fields with issues"
+      branch: "develop"
+
+    issue-remediation-bulk:
+      label: "Issue Remediation Bulk"
+      description: "Bulk remediation for issues"
+      branch: "develop"
+
+    issues:
+      label: "Issues"
+      description: "Core issue management workflow"
+      branch: "develop"
+
+    labeling-governance:
+      label: "Labeling Governance"
+      description: "Enforces labeling policies"
+      branch: "develop"
+      critical: true
+
+    labeling:
+      label: "Labeling"
+      description: "Applies and manages labels"
+      branch: "develop"
+
+    main-branch-guard:
+      label: "Main Branch Guard"
+      description: "Protects main branch integrity"
+      branch: "main"
+      critical: true
+
+    manage-blocking-status-labels:
+      label: "Manage Blocking Status Labels"
+      description: "Manages blocking status labels"
+      branch: "develop"
+
+    meta:
+      label: "Meta"
+      description: "Meta workflow for coordination"
+      branch: "develop"
+
+    metadata-governance:
+      label: "Metadata Governance"
+      description: "Ensures metadata compliance"
+      branch: "develop"
+      critical: true
+
+    metrics-pipeline:
+      label: "Metrics Pipeline"
+      description: "Processes metrics data"
+      branch: "develop"
+
+    metrics-reporting:
+      label: "Metrics Reporting"
+      description: "Generates metrics reports"
+      branch: "develop"
+
+    planner:
+      label: "Planner"
+      description: "Planning and scheduling workflow"
+      branch: "develop"
+
+    project-archival:
+      label: "Project Archival"
+      description: "Archives completed projects"
+      branch: "develop"
+
+    project-meta-sync:
+      label: "Project Meta Sync"
+      description: "Syncs project metadata"
+      branch: "develop"
+
+    release:
+      label: "Release"
+      description: "Release coordination workflow"
+      branch: "main"
+      critical: true
+
+    reporting:
+      label: "Reporting"
+      description: "Generates reports"
+      branch: "develop"
+
+    reviewer:
+      label: "Reviewer"
+      description: "Manages review assignments"
+      branch: "develop"
+
+    template-enforcement:
+      label: "Template Enforcement"
+      description: "Enforces template compliance"
+      branch: "develop"
+
+    validate-blocking-issue-before-close:
+      label: "Validate Blocking Issue Before Close"
+      description: "Validates blocking issues before closure"
+      branch: "develop"
+
+    validate-blocking-status-before-close:
+      label: "Validate Blocking Status Before Close"
+      description: "Validates blocking status before closure"
+      branch: "develop"
+
+    validate-issue-dod-before-close:
+      label: "Validate Issue DoD Before Close"
+      description: "Validates Definition of Done before closure"
+      branch: "develop"
+
+    validate-mermaid-pr:
+      label: "Validate Mermaid PR"
+      description: "Validates Mermaid diagrams in PRs"
+      branch: "develop"
+
+    validate-pr-template:
+      label: "Validate PR Template"
+      description: "Enforces PR template compliance"
+      branch: "develop"
+      critical: true
+
+  # Metadata badges (conditional)
+  meta:
+    license:
+      label: "License"
+      description: "License badge from frontmatter"
+      color: "blue"
+
+    file-type:
+      label: "File Type"
+      description: "Document file type badge"
+      color: "lightgrey"
+
+    status:
+      label: "Status"
+      description: "Document status badge"
+      color: "yellow"
+
+# ============================================================================
+# MAPPING RULES
+# ============================================================================
+# Rules that define when and how badges are applied to documents
+# Supports conditional logic based on frontmatter fields
+
+mapping:
+  # Rule 1: Apply workflow badges to all documentation files
+  - when:
+      has_front_matter: true
+    add:
+      # Only apply critical workflow badges to keep docs clean
+      - "workflow.checks"
+      - "workflow.docs-validation"
+      - "workflow.gitleaks"
+      - "workflow.main-branch-guard"
+      - "workflow.release"
+
+  # Rule 2: Apply license badge to files with license in frontmatter
+  - when:
+      front_matter:
+        license:
+          - "MIT"
+          - "GPL-3.0"
+          - "Apache-2.0"
+          - "CC-BY-4.0"
+    add:
+      - "meta.license"
+
+  # Rule 3: Apply all workflow badges to automation/workflow documentation (tag matching)
+  - when:
+      front_matter:
+        tags:
+          match: "any" # Match if any tag matches the list
+          values:
+            - "workflow"
+            - "automation"
+            - "ci"
+            - "badges"
+    add:
+      # Include all critical workflows for CI/automation docs
+      - "workflow.checks"
+      - "workflow.docs-validation"
+      - "workflow.gitleaks"
+      - "workflow.labeling-governance"
+      - "workflow.main-branch-guard"
+      - "workflow.metadata-governance"
+      - "workflow.release"
+      - "workflow.template-enforcement"
+      - "workflow.validate-pr-template"
+      - "workflow.badges-documentation-update"
+      - "workflow.badges-health-check"
+      - "workflow.badges-readme-status"
+      - "workflow.badges-workflow-audit"
+
+# ============================================================================
+# CONFIGURATION
+# ============================================================================
+# Global badge generation settings
+
+config:
+  # Repository identifier for badge generation
+  repository: "lightspeedwp/.github"
+
+  # Default branch for workflow badges
+  default_branch: "develop"
+
+  # Badge format (stacked, inline, table)
+  format: "stacked"
+
+  # Enable/disable badge generation
+  enabled: true
+
+  # Marker comments for badge insertion points
+  markers:
+    start: "<!-- BADGES-START -->"
+    end: "<!-- BADGES-END -->"
+
+  # Files to skip badge generation (glob patterns)
+  skip_files:
+    - "**/.git/**"
+    - "**/node_modules/**"
+    - "**/.next/**"
+    - "**/dist/**"
+    - "**/build/**"
+
+  # Document types that should receive badges
+  document_types:
+    - "documentation"
+    - "specification"
+    - "guide"
+    - "workflow"
+    - "automation"
+
+  # Validation settings
+  validation:
+    # Check for broken badge links
+    validate_links: true
+
+    # Frequency of validation (days)
+    validation_frequency: 7
+
+    # Create issues for broken links
+    report_broken_links: true
+
+    # Maximum timeout for badge link checks (seconds)
+    link_timeout: 10
+
+  # Coverage tracking
+  coverage:
+    # Track badge coverage percentage
+    track_coverage: true
+
+    # Target coverage percentage
+    target_coverage: 75
+
+    # Report coverage metrics
+    report_metrics: true
+
+# ============================================================================
+# WORKFLOW GROUPING
+# ============================================================================
+# Group workflows by category for organized badge management
+
+groups:
+  critical:
+    label: "Critical"
+    description: "Essential production workflows"
+    workflows:
+      - checks
+      - docs-validation
+      - gitleaks
+      - main-branch-guard
+      - metadata-governance
+      - release
+      - template-enforcement
+      - validate-pr-template
+    badge_color: "critical"
+
+  automation:
+    label: "Automation"
+    description: "Automated workflow and issue management"
+    workflows:
+      - badges-documentation-update
+      - badges-health-check
+      - badges-readme-status
+      - badges-workflow-audit
+      - issue-create-enhanced
+      - issue-create-from-template
+      - issue-labeling-automation
+      - issue-project-field-sync
+      - labeling
+      - labeling-governance
+      - manage-blocking-status-labels
+    badge_color: "blue"
+
+  validation:
+    label: "Validation"
+    description: "Validation and health checking"
+    workflows:
+      - checklist-finalisation
+      - docs-maintenance
+      - issue-fields-backfill
+      - issue-health-audit
+      - validate-blocking-issue-before-close
+      - validate-blocking-status-before-close
+      - validate-issue-dod-before-close
+      - validate-mermaid-pr
+    badge_color: "yellow"
+
+  documentation:
+    label: "Documentation"
+    description: "Documentation and reporting"
+    workflows:
+      - awesome-github-site
+      - changelog-management
+      - documentation
+      - docs-maintenance
+      - reporting
+    badge_color: "lightblue"
+
+  maintenance:
+    label: "Maintenance"
+    description: "Repository and project maintenance"
+    workflows:
+      - actions-minute-savings-watch
+      - cleanup-branches
+      - flaky-test-detection
+      - gitleaks-reusable
+      - gitleaks-update
+      - project-archival
+      - project-meta-sync
+    badge_color: "lightgrey"
+
+  coordination:
+    label: "Coordination"
+    description: "Workflow coordination and metadata"
+    workflows:
+      - meta
+      - metadata-governance
+      - metrics-pipeline
+      - metrics-reporting
+      - planner
+      - reviewer
+    badge_color: "purple"
+
+# ============================================================================
+# VERSION HISTORY
+# ============================================================================
+# Tracking changes to this schema for compatibility
+
+versions:
+  "1.1.0":
+    date: "2026-08-08"
+    author: "Ash Shaw"
+    changes:
+      - "Added 4 new badge workflows (badges-*)"
+      - "Implemented tag matching in mapping rules"
+      - "Updated automation group with badge workflows"
+      - "Enhanced conditional rule matching"
+  "1.0.0":
+    date: "2026-08-08"
+    author: "Ash Shaw"
+    changes:
+      - "Initial schema creation"
+      - "Added 41 workflow definitions"
+      - "Implemented mapping rules"
+      - "Added validation configuration"
+      - "Defined workflow groups"
