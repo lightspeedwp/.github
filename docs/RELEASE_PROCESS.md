@@ -47,7 +47,9 @@ post-release-sync (chore: main → develop)
 ### Visual flow diagram (Mermaid)
 
 ```mermaid
-graph TD
+flowchart TD
+    accTitle: Release workflow full flow
+    accDescr: Developer triggers release, authorization checks, CI gates, version bump, stacked PRs to develop and main, tag and release, post-release sync
     A["👤 Developer (on develop)<br/>Trigger release workflow"] -->|"gh workflow run release.yml"| B["🔐 Trigger Telemetry<br/>Validate authorization"]
     B -->|Authorized| C["✅ Lint & Test Gates<br/>Run checks"]
     B -->|Unauthorized| Z1["❌ Workflow Fails<br/>Log attempt"]
@@ -60,18 +62,18 @@ graph TD
     H -->|Post-release| I["🔄 Post-Release Sync<br/>Merge main → develop<br/>PR for review"]
     I -->|Developer merges| J["✅ Release Complete<br/>Branches in sync"]
     
-    style A fill:#01579b,color:#fff
-    style B fill:#e65100,color:#fff
-    style C fill:#1b5e20,color:#fff
-    style D fill:#4a148c,color:#fff
-    style E fill:#880e4f,color:#fff
-    style F fill:#00695c,color:#fff
-    style G fill:#880e4f,color:#fff
-    style H fill:#f57f17,color:#000
-    style I fill:#00695c,color:#fff
-    style J fill:#2e7d32,color:#fff
-    style Z1 fill:#b71c1c,color:#fff
-    style Z2 fill:#b71c1c,color:#fff
+    style A fill:#01579b,color:#fff,stroke:#000,stroke-width:2px
+    style B fill:#e65100,color:#fff,stroke:#000,stroke-width:2px
+    style C fill:#1b5e20,color:#fff,stroke:#000,stroke-width:2px
+    style D fill:#4a148c,color:#fff,stroke:#000,stroke-width:2px
+    style E fill:#880e4f,color:#fff,stroke:#000,stroke-width:2px
+    style F fill:#00695c,color:#fff,stroke:#000,stroke-width:2px
+    style G fill:#880e4f,color:#fff,stroke:#000,stroke-width:2px
+    style H fill:#f57f17,color:#000,stroke:#000,stroke-width:2px
+    style I fill:#00695c,color:#fff,stroke:#000,stroke-width:2px
+    style J fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
+    style Z1 fill:#b71c1c,color:#fff,stroke:#000,stroke-width:2px
+    style Z2 fill:#b71c1c,color:#fff,stroke:#000,stroke-width:2px
 ```
 
 ## Authorization gating
@@ -99,7 +101,9 @@ graph TD
 ### Authorization validation flow (Mermaid)
 
 ```mermaid
-graph TD
+flowchart TD
+    accTitle: Authorization validation flow
+    accDescr: Event type validation, actor team membership check, authorization decision with audit logging
     A["Workflow triggered<br/>workflow_dispatch or<br/>other event"] -->|Check event| B{Valid event type?}
     B -->|No| C["❌ FAIL<br/>Invalid trigger event<br/>Log: Invalid event type"]
     B -->|Yes| D{Actor in<br/>maintainers team?}
@@ -113,16 +117,16 @@ graph TD
     G --> I["🔍 Review audit logs<br/>Identify unauthorized attempts"]
     H --> J["▶️ Continue workflow<br/>Proceed to lint & test"]
     
-    style A fill:#e3f2fd
-    style B fill:#fff9c4
-    style C fill:#ffcdd2
-    style D fill:#fff9c4
-    style E fill:#ffcdd2
-    style F fill:#c8e6c9
-    style G fill:#ffccbc
-    style H fill:#c8e6c9
-    style I fill:#ffccbc
-    style J fill:#c8e6c9
+    style A fill:#01579b,color:#fff,stroke:#000,stroke-width:2px
+    style B fill:#f57f17,color:#000,stroke:#000,stroke-width:2px
+    style C fill:#b71c1c,color:#fff,stroke:#000,stroke-width:2px
+    style D fill:#f57f17,color:#000,stroke:#000,stroke-width:2px
+    style E fill:#b71c1c,color:#fff,stroke:#000,stroke-width:2px
+    style F fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
+    style G fill:#d84315,color:#fff,stroke:#000,stroke-width:2px
+    style H fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
+    style I fill:#d84315,color:#fff,stroke:#000,stroke-width:2px
+    style J fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
 ```
 
 See [ADR-002: Authorization Gating Strategy](./ADRs/ADR-002-authorization-gating.md) for detailed rationale.
@@ -283,7 +287,9 @@ After PR #2 merges:
 ### Post-release sync flow (Mermaid)
 
 ```mermaid
-graph TD
+flowchart TD
+    accTitle: Post-release sync flow
+    accDescr: Automatic merge of main into develop after release, handling conflicts with manual PR if needed
     A["PR #2 merges to main<br/>Release tagged & published"] -->|Trigger sync job| B["🔄 post-release-sync<br/>Create branch from main"]
     B -->|Attempt merge| C{Merge conflicts?}
     C -->|No| D["✅ Clean merge<br/>No conflicts"]
@@ -355,7 +361,9 @@ node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=m
 ### Rollback decision tree (Mermaid)
 
 ```mermaid
-graph TD
+flowchart TD
+    accTitle: Rollback decision tree
+    accDescr: Diagnose release failure timing and decide rollback scope (metadata only, main only, or full)
     A["🚨 Release problem detected<br/>When did it occur?"] -->|Before merge| B{PR #1 or PR #2<br/>merged yet?}
     A -->|After release| C["Released code is broken<br/>Assess impact"]
     B -->|No| D["✅ Simple fix<br/>Delete release branch<br/>Fix code, retry"]
