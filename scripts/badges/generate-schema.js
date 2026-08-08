@@ -55,7 +55,9 @@ const WORKFLOW_CATEGORIES = {
 
 /**
  * Get workflow category
+ * Note: This function is available for potential future use and is tested in generate-schema.test.js
  */
+// eslint-disable-next-line no-unused-vars
 function getWorkflowCategory(workflowName) {
   for (const [category, workflows] of Object.entries(WORKFLOW_CATEGORIES)) {
     if (workflows.includes(workflowName)) {

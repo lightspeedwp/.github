@@ -241,7 +241,7 @@ async function runTest(name, testFn) {
 async function runTests() {
   console.log("\n🧪 Badge Workflow Test Suite\n");
 
-  for (const [key, test] of Object.entries(TESTS)) {
+  for (const [_key, test] of Object.entries(TESTS)) {
     console.log(`${test.name}`);
     await runTest(test.name, test.run);
     console.log();
