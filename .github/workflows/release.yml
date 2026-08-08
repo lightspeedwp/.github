@@ -173,7 +173,7 @@ jobs:
       - name: All pre-release checks passed
         run: echo "✅ Pre-release checklist complete"
 
-  release:
+  release-to-develop:
     needs: [pre-release-checklist]
     runs-on: ubuntu-latest
     permissions:
@@ -203,7 +203,7 @@ jobs:
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
           echo "✓ Changelog validation passed (schema + unreleased content verified)"
-      - name: Run Release Agent (develop-first flow)
+      - name: Run Release Agent (Phase 1 - develop-first flow)
         id: agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -237,8 +237,48 @@ jobs:
         if: always()
         run: echo "metric=release_cycle conclusion=${{ job.status }}"
 
+  release-to-main:
+    needs: [release-to-develop]
+    if: inputs.dry_run == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install
+        run: npm ci
+      - name: Configure git user
+        run: |
+          git config user.name "lightspeed-bot"
+          email=ops$(printf '@')lightspeedwp.agency
+          git config user.email "$email"
+      - name: Create Release PR (Phase 2 - develop → main)
+        id: main-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
+          INPUT_VERSION: ${{ needs.release-to-develop.outputs.release_version }}
+        run: node scripts/workflows/release/create-main-release-pr.cjs | tee release-main-pr.log
+      - name: Create GitHub Release
+        id: github-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_VERSION: ${{ needs.release-to-develop.outputs.release_version }}
+          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
+        run: node scripts/workflows/release/create-github-release.cjs | tee release-github-release.log
+      - name: Post metrics
+        if: always()
+        run: echo "metric=release_cycle_main conclusion=${{ job.status }}"
+
   post-release-sync:
-    needs: [release]
+    needs: [release-to-main]
     if: inputs.dry_run == false
     runs-on: ubuntu-latest
     permissions:
