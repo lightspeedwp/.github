@@ -1,40 +1,5 @@
 # Versioning Guidelines
 
-<!-- BADGES-START -->
-[![actions-minute-savings-watch](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml)
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![cleanup-branches](https://github.com/lightspeedwp/.github/actions/workflows/cleanup-branches.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/cleanup-branches.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
-
 LightSpeedWP projects follow [Semantic Versioning](https://semver.org/) (SemVer) principles.
 
 ---
@@ -108,12 +73,21 @@ May include identifiers:
 
 ## Release Process
 
-1. **Feature Development**: Work in `feature/*` branches
-2. **Integration**: Merge features into `develop`
-3. **Release Preparation**: Create `release/*` branch from `develop`
-4. **Testing**: Test the release branch
-5. **Release**: Merge to `main` and tag the version
-6. **Hotfixes**: Apply fixes via `hotfix/*` branches
+LightSpeedWP uses a **develop-first stacked PR model** for releases:
+
+1. **Feature Development**: Work in `feature/*` branches, merge to `develop`
+2. **Release Trigger**: Run `release.yml` workflow manually (`workflow_dispatch`)
+3. **Authorization**: Only members of `maintainers` team can trigger releases
+4. **Version Bump**: Release agent bumps `VERSION` file and rolls `CHANGELOG.md`
+5. **PR #1**: Create stacked PR: `release/vX.Y.Z` → `develop` (changelog + version)
+6. **Review & Merge PR #1**: Developer reviews and merges to `develop`
+7. **PR #2**: Create stacked PR: `release/vX.Y.Z` → `main` (for release)
+8. **Review & Merge PR #2**: Developer reviews and merges to `main`
+9. **Release & Tag**: Git tag created, GitHub Release published
+10. **Post-Release Sync**: Automatic sync job merges `main` → `develop` if needed
+11. **Hotfixes**: Apply via `hotfix/*` branches targeting `main`, then sync back to `develop`
+
+**See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for complete details** including authorization gating, dry-run mode, and rollback procedures.
 
 ---
 
@@ -153,10 +127,30 @@ Consider tools for version management:
 1.2.3
 ```
 
-## Example: Plugin Version Bump
+## Example: Release via Workflow (Automated)
+
+**Recommended approach:** Use the automated release workflow:
 
 ```bash
-# Update version in files
+# Trigger release workflow (via GitHub UI or CLI)
+gh workflow run release.yml --ref develop -f scope=patch -f dry_run=false
+
+# Workflow automatically:
+# 1. Validates authorization (you must be in maintainers team)
+# 2. Bumps VERSION (patch/minor/major per scope)
+# 3. Updates CHANGELOG.md with [Unreleased] → [X.Y.Z]
+# 4. Creates PR #1: release/vX.Y.Z → develop
+# 5. Waits for PR #1 merge
+# 6. Creates PR #2: release/vX.Y.Z → main
+# 7. Waits for PR #2 merge
+# 8. Creates git tag and publishes GitHub Release
+# 9. Auto-syncs main → develop via post-release-sync
+```
+
+**Manual release (not recommended):**
+
+```bash
+# Update version in files (not needed—workflow handles this)
 npm version patch  # Updates package.json
 # Update plugin header, readme.txt, and frontmatter versions manually
 

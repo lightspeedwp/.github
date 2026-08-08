@@ -1,8 +1,10 @@
 ---
 title: "ADR-003: Post-Release Sync Automation"
 description: "Decision to automate main→develop sync after releases to keep branches aligned"
+file_type: documentation
 date: 2026-08-08
-status: accepted
+adr_status: accepted
+status: active
 authors: ["LightSpeed Team"]
 ---
 
@@ -174,5 +176,5 @@ jobs:
 
 ## References
 
-- [RELEASE_PROCESS.md](../RELEASE_PROCESS.md#post-release-sync) — Implementation details
-- [.github/workflows/release.yml](.github/workflows/release.yml) — post-release-sync job
+- [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#post-release-sync) — Implementation details
+- [.github/workflows/release.yml](../../.github/workflows/release.yml) — post-release-sync job

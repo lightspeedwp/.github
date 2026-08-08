@@ -180,7 +180,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines. Key 
 ## Related Documentation
 
 - [Cross-Platform Skill YAML Spec](../docs/CROSS_PLATFORM_SKILL_YAML_SPEC.md) – Technical specification for skill YAML
-- [Automation Documentation](../instructions/automation.instructions.md) – Automation standards
+- [AI Operations Standards](../instructions/ai-operations-unified.instructions.md) – AI automation and operations standards
 - [AGENTS.md](../AGENTS.md) – Global AI rules
 
 ---
