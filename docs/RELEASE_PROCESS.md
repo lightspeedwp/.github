@@ -60,18 +60,18 @@ graph TD
     H -->|Post-release| I["🔄 Post-Release Sync<br/>Merge main → develop<br/>PR for review"]
     I -->|Developer merges| J["✅ Release Complete<br/>Branches in sync"]
     
-    style A fill:#e1f5ff
-    style B fill:#fff3e0
-    style C fill:#e8f5e9
-    style D fill:#f3e5f5
-    style E fill:#fce4ec
-    style F fill:#e0f2f1
-    style G fill:#fce4ec
-    style H fill:#fff9c4
-    style I fill:#e0f2f1
-    style J fill:#c8e6c9
-    style Z1 fill:#ffcdd2
-    style Z2 fill:#ffcdd2
+    style A fill:#01579b,color:#fff
+    style B fill:#e65100,color:#fff
+    style C fill:#1b5e20,color:#fff
+    style D fill:#4a148c,color:#fff
+    style E fill:#880e4f,color:#fff
+    style F fill:#00695c,color:#fff
+    style G fill:#880e4f,color:#fff
+    style H fill:#f57f17,color:#000
+    style I fill:#00695c,color:#fff
+    style J fill:#2e7d32,color:#fff
+    style Z1 fill:#b71c1c,color:#fff
+    style Z2 fill:#b71c1c,color:#fff
 ```
 
 ## Authorization gating
