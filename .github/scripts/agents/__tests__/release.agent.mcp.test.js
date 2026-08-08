@@ -154,7 +154,7 @@ describe("release.agent MCP provider", () => {
     expect(typeof body.sha).toBe("string");
   });
 
-  test("createReleasePR mutation calls pulls endpoint", () => {
+  test("createReleasePR mutation calls pulls endpoint (develop target)", () => {
     const output = runNodeEsm(`
       process.env.GITHUB_TOKEN = 'token';
       process.env.GITHUB_REPOSITORY = 'lightspeedwp/.github';
@@ -178,8 +178,36 @@ describe("release.agent MCP provider", () => {
     expect(call.url).toContain("/repos/lightspeedwp/.github/pulls");
     expect(call.method).toBe("POST");
     const body = JSON.parse(call.body);
-    expect(body.base).toBe("main");
+    expect(body.base).toBe("develop");
     expect(body.head).toBe("release/v9.9.9");
+  });
+
+  test("createReleasePRToMain mutation creates PR from develop to main", () => {
+    const output = runNodeEsm(`
+      process.env.GITHUB_TOKEN = 'token';
+      process.env.GITHUB_REPOSITORY = 'lightspeedwp/.github';
+      const calls = [];
+      globalThis.fetch = async (url, options) => {
+        calls.push({ url, method: options.method, body: options.body });
+        return {
+          ok: true,
+          status: 201,
+          statusText: 'Created',
+          text: async () => JSON.stringify({ number: 2 }),
+        };
+      };
+      const { createMcpReleaseProvider } = await import('./scripts/agents/release.agent.js');
+      const provider = createMcpReleaseProvider();
+      await provider.createReleasePRToMain('9.9.9', { dryRun: false, developPRNumber: '1' });
+      console.log(JSON.stringify(calls[0]));
+    `);
+
+    const call = JSON.parse(output);
+    expect(call.url).toContain("/repos/lightspeedwp/.github/pulls");
+    expect(call.method).toBe("POST");
+    const body = JSON.parse(call.body);
+    expect(body.base).toBe("main");
+    expect(body.head).toBe("develop");
   });
 
   test("githubApiRequest retries on 500 and succeeds", () => {
