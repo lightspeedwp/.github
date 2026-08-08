@@ -212,7 +212,17 @@ jobs:
           INPUT_VERSION: ${{ inputs.version || github.event.inputs.version || '' }}
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
-        run: node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
+        run: |
+          node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
+      - name: Export release version and branch to GITHUB_OUTPUT
+        if: inputs.dry_run == false
+        run: |
+          # Parse release agent log for version and branch
+          RELEASE_VERSION=$(grep "Version:" release-agent.log | tail -1 | awk '{print $NF}')
+          RELEASE_BRANCH=$(grep "release/v" release-agent.log | head -1 | awk '{print $NF}')
+          echo "release_version=${RELEASE_VERSION:-unknown}" >> $GITHUB_OUTPUT
+          echo "release_branch=${RELEASE_BRANCH:-unknown}" >> $GITHUB_OUTPUT
+          echo "✓ Exported: release_version=${RELEASE_VERSION}, release_branch=${RELEASE_BRANCH}"
       - name: Validate changelog post-release
         if: inputs.dry_run == false
         run: |
@@ -259,17 +269,19 @@ jobs:
           git config user.name "lightspeed-bot"
           email=ops$(printf '@')lightspeedwp.agency
           git config user.email "$email"
-      - name: Create Release PR (Phase 2 - develop → main)
+      - name: Create Release PR (Phase 2 - release branch → main)
         id: main-pr
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
           INPUT_VERSION: ${{ needs.release-to-develop.outputs.release_version }}
+          INPUT_RELEASE_BRANCH: ${{ needs.release-to-develop.outputs.release_branch }}
         run: node scripts/workflows/release/create-main-release-pr.cjs | tee release-main-pr.log
-      - name: Create GitHub Release
+      - name: Publish GitHub Release (Phase 2 - after main PR merge)
         id: github-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
           INPUT_VERSION: ${{ needs.release-to-develop.outputs.release_version }}
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
         run: node scripts/workflows/release/create-github-release.cjs | tee release-github-release.log

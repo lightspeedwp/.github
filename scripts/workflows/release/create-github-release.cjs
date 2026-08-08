@@ -2,7 +2,6 @@
 /* eslint-env node */
 
 const { process } = globalThis;
-const path = require("path");
 const {
   readEnv,
   log,

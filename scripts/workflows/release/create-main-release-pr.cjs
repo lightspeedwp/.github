@@ -2,7 +2,6 @@
 /* eslint-env node */
 
 const { process } = globalThis;
-const path = require("path");
 const {
   readEnv,
   log,
@@ -11,13 +10,16 @@ const {
 
 async function main() {
   const version = readEnv("INPUT_VERSION", { required: true }).trim();
+  const releaseBranch = readEnv("INPUT_RELEASE_BRANCH", {
+    required: true,
+  }).trim();
   const provider = readEnv("INPUT_PROVIDER", {
     defaultValue: "shell",
   })
     .toLowerCase()
     .trim();
 
-  log(`Creating release PR from develop to main for v${version}...`);
+  log(`Creating release PR from ${releaseBranch} to main for v${version}...`);
   log(`Provider: ${provider}`);
 
   // Dynamic import the ES module
@@ -35,14 +37,15 @@ async function main() {
   }
 
   try {
-    // Create PR from develop to main
-    await releaseProvider.createReleasePRToMain(version, {
+    // Create PR from release branch to main (Phase 2 of stacked PR flow)
+    const prNumber = await releaseProvider.createReleasePRToMain(version, {
       dryRun: false,
-      developPRNumber: null, // Could be passed via env if needed
+      branch: releaseBranch,
     });
 
-    log(`✓ Release PR (develop → main) created for v${version}`);
+    log(`✓ Release PR (${releaseBranch} → main) created for v${version}`);
     console.log(`release_version=${version}`);
+    console.log(`main_pr_number=${prNumber}`);
   } catch (error) {
     console.error(`✗ Failed to create main release PR: ${error.message}`);
     if (error.stack) {

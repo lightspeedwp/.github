@@ -94,10 +94,11 @@ describe("release.agent MCP provider", () => {
       /\[DRY-RUN\] \[MCP\] Preflight passed for v\d+\.\d+\.\d+/,
     );
     expect(joinedLogs).toContain("[DRY-RUN] [MCP] Would create tag ref v");
-    expect(joinedLogs).toContain("[DRY-RUN] [MCP] Would create release PR");
-    expect(joinedLogs).toContain("[DRY-RUN] [MCP] Would publish release v");
+    expect(joinedLogs).toContain(
+      "[DRY-RUN] [MCP] Would create release PR from release/v",
+    );
+    expect(joinedLogs).not.toContain("Would publish release v");
     expect(joinedLogs).not.toContain("✓ [MCP] Tag");
-    expect(joinedLogs).not.toContain("✓ [MCP] Release PR created");
     expect(joinedLogs).not.toContain("✓ [MCP] GitHub Release");
   });
 

@@ -942,13 +942,14 @@ function createReleasePRToDevelop(version, branch, options = {}) {
  * Create release PR from develop to main (Phase 2 of develop-first flow)
  */
 function createReleasePRToMain(version, options = {}) {
-  const { dryRun = false, developPRNumber } = options;
-  const title = `chore(release): v${version} (develop → main)`;
+  const { dryRun = false, branch, developPRNumber } = options;
+  const headBranch = branch || "develop";
+  const title = `chore(release): v${version} (${headBranch} → main)`;
   const body = buildReleasePRBodyToMain(version, developPRNumber || "N/A");
 
   if (dryRun) {
     console.log(
-      `[DRY-RUN] Would create PR from develop to main with title "${title}"`,
+      `[DRY-RUN] Would create PR from ${headBranch} to main with title "${title}"`,
     );
     return;
   }
@@ -957,10 +958,11 @@ function createReleasePRToMain(version, options = {}) {
   fs.writeFileSync(bodyFile, body, "utf8");
   try {
     exec(
-      `gh pr create --base main --head develop --title "${title}" --body-file "${bodyFile}"`,
+      `gh pr create --base main --head ${headBranch} --title "${title}" --body-file "${bodyFile}"`,
       dryRun,
     );
-    console.log("✓ Release PR (main) created");
+    console.log(`✓ Release PR (${headBranch} → main) created`);
+    return headBranch; // Return the branch for logging purposes
   } finally {
     if (fs.existsSync(bodyFile)) fs.unlinkSync(bodyFile);
   }
@@ -1116,14 +1118,15 @@ function createMcpReleaseProvider() {
       console.log("✓ [MCP] Release PR (develop) created");
     },
     async createReleasePRToMain(version, options = {}) {
-      const { dryRun = false, developPRNumber } = options;
+      const { dryRun = false, branch, developPRNumber } = options;
+      const headBranch = branch || "develop";
       const { owner, repo } = getRepositoryContext();
-      const title = `chore(release): v${version} (develop → main)`;
+      const title = `chore(release): v${version} (${headBranch} → main)`;
       const body = buildReleasePRBodyToMain(version, developPRNumber || "N/A");
 
       if (dryRun) {
         console.log(
-          `[DRY-RUN] [MCP] Would create release PR from develop to main for v${version}`,
+          `[DRY-RUN] [MCP] Would create release PR from ${headBranch} to main for v${version}`,
         );
         return;
       }
@@ -1132,12 +1135,13 @@ function createMcpReleaseProvider() {
         method: "POST",
         body: {
           title,
-          head: "develop",
+          head: headBranch,
           base: "main",
           body,
         },
       });
-      console.log("✓ [MCP] Release PR (main) created");
+      console.log(`✓ [MCP] Release PR (${headBranch} → main) created`);
+      return headBranch;
     },
     async createRelease(version, options = {}) {
       const { dryRun = false } = options;
@@ -1339,18 +1343,18 @@ async function run() {
     // Step 7: Push changes
     provider.pushChanges({ dryRun, branch: releaseBranch });
 
-    // Step 7b: Open release PR (develop -> main via release branch)
-    provider.createReleasePR(nextVersion, releaseBranch, { dryRun });
-
-    // Step 8: Create GitHub Release
-    provider.createRelease(nextVersion, { dryRun, notesFrom });
+    // Step 7b: Open release PR to develop (Phase 1 of stacked PR flow)
+    provider.createReleasePRToDevelop(nextVersion, releaseBranch, { dryRun });
 
     console.log("\n");
     console.log("╔════════════════════════════════════════╗");
-    console.log("║   ✅ Release completed successfully!   ║");
+    console.log("║   ✅ Phase 1 completed successfully!   ║");
     console.log("╚════════════════════════════════════════╝");
     console.log(`\nVersion: ${nextVersion}`);
-    console.log(`Tag: v${nextVersion}`);
+    console.log(`Release Branch: ${releaseBranch}`);
+    console.log(
+      `\nNext Step: Phase 2 (release → main) will run automatically after PR merge.`,
+    );
 
     if (dryRun) {
       console.log("\n⚠️  This was a DRY-RUN. No changes were made.");
