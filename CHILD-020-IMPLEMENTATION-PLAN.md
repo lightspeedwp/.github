@@ -3,6 +3,7 @@ title: "CHILD-020 Implementation Plan"
 description: "Detailed plan for updating release.yml for develop-first stacked PR flow"
 status: "Phase 2 Complete"
 last_updated: "2026-08-08"
+version: "v1.1.0"
 ---
 
 # CHILD-020: Update `.github/workflows/release.yml` Implementation Plan
@@ -150,5 +151,5 @@ Status:
 
 - Issue: [#1560 CHILD-020](https://github.com/lightspeedwp/.github/issues/1560)
 - Epic: [#1640 Phase 4 Implementation](https://github.com/lightspeedwp/.github/issues/1640)
-- Plan: [Phase 4 Implementation Plan](../.github/projects/active/release-process-redesign-2026-08-05/PHASE_4_IMPLEMENTATION_PLAN.md)
-- OpenSpec: [OPENSPEC_ANALYSIS_REPORT.md](../.github/projects/active/release-process-redesign-2026-08-05/OPENSPEC_ANALYSIS_REPORT.md)
+- Plan: [Phase 4 Implementation Plan](.github/projects/active/release-process-redesign-2026-08-05/PHASE_4_IMPLEMENTATION_PLAN.md)
+- OpenSpec: [OPENSPEC_ANALYSIS_REPORT.md](.github/projects/active/release-process-redesign-2026-08-05/OPENSPEC_ANALYSIS_REPORT.md)

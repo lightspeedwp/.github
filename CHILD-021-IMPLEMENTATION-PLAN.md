@@ -1,6 +1,7 @@
 ---
 title: "CHILD-021 Implementation Plan"
 description: "Detailed plan for updating release.agent.js for two-PR creation logic"
+version: "v1.1.0"
 ---
 
 # CHILD-021: Modify `scripts/agents/release.agent.js` Implementation Plan
