@@ -1,5 +1,5 @@
 ---
-file_type: markdown
+file_type: documentation
 title: "Phase 4 Implementation Plan — Release Process V2"
 description: "Detailed implementation roadmap for Phase 4 (Workflow + Agents + Documentation + Testing)"
 status: active
@@ -7,6 +7,7 @@ version: "1.0"
 last_updated: "2026-08-08"
 owners: ["Ash Shaw"]
 tags: ["implementation", "phase-4", "workflow", "agents", "release"]
+category: "release-engineering"
 ---
 
 # Phase 4 Implementation Plan
