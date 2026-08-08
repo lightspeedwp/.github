@@ -63,7 +63,7 @@ flowchart TD
     I -->|Developer merges| J["✅ Release Complete<br/>Branches in sync"]
     
     style A fill:#01579b,color:#fff,stroke:#000,stroke-width:2px
-    style B fill:#e65100,color:#fff,stroke:#000,stroke-width:2px
+    style B fill:#bf360c,color:#fff,stroke:#000,stroke-width:2px
     style C fill:#1b5e20,color:#fff,stroke:#000,stroke-width:2px
     style D fill:#4a148c,color:#fff,stroke:#000,stroke-width:2px
     style E fill:#880e4f,color:#fff,stroke:#000,stroke-width:2px
@@ -123,9 +123,9 @@ flowchart TD
     style D fill:#f57f17,color:#000,stroke:#000,stroke-width:2px
     style E fill:#b71c1c,color:#fff,stroke:#000,stroke-width:2px
     style F fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
-    style G fill:#d84315,color:#fff,stroke:#000,stroke-width:2px
+    style G fill:#bf360c,color:#fff,stroke:#000,stroke-width:2px
     style H fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
-    style I fill:#d84315,color:#fff,stroke:#000,stroke-width:2px
+    style I fill:#bf360c,color:#fff,stroke:#000,stroke-width:2px
     style J fill:#2e7d32,color:#fff,stroke:#000,stroke-width:2px
 ```
 
@@ -299,14 +299,14 @@ flowchart TD
     E -->|Create PR| H["📝 PR: main → develop<br/>Awaiting manual merge"]
     H -->|Developer resolves<br/>& merges| G
     
-    style A fill:#fff9c4
-    style B fill:#e0f2f1
-    style C fill:#fff3e0
-    style D fill:#c8e6c9
-    style E fill:#ffe0b2
-    style F fill:#c8e6c9
-    style G fill:#c8e6c9
-    style H fill:#ffccbc
+    style A fill:#fff9c4,color:#000,stroke:#000,stroke-width:2px
+    style B fill:#e0f2f1,color:#000,stroke:#000,stroke-width:2px
+    style C fill:#fff3e0,color:#000,stroke:#000,stroke-width:2px
+    style D fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
+    style E fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
+    style F fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
+    style G fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
+    style H fill:#ffccbc,color:#000,stroke:#000,stroke-width:2px
 ```
 
 See [ADR-003: Post-Release Sync Automation](./ADRs/ADR-003-post-release-sync.md) for detailed rationale.
@@ -379,18 +379,18 @@ flowchart TD
     H -->|Execute| L
     I -->|Execute| L
     
-    style A fill:#ffccbc
-    style B fill:#fff3e0
-    style C fill:#ffccbc
-    style D fill:#c8e6c9
-    style E fill:#fff3e0
-    style F fill:#ffe0b2
-    style G fill:#ffe0b2
-    style H fill:#ffcdd2
-    style I fill:#ffe0b2
-    style J fill:#ffcdd2
-    style K fill:#ffcdd2
-    style L fill:#e0e0e0
+    style A fill:#ffccbc,color:#000,stroke:#000,stroke-width:2px
+    style B fill:#fff3e0,color:#000,stroke:#000,stroke-width:2px
+    style C fill:#ffccbc,color:#000,stroke:#000,stroke-width:2px
+    style D fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
+    style E fill:#fff3e0,color:#000,stroke:#000,stroke-width:2px
+    style F fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
+    style G fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
+    style H fill:#ffcdd2,color:#000,stroke:#000,stroke-width:2px
+    style I fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
+    style J fill:#ffcdd2,color:#000,stroke:#000,stroke-width:2px
+    style K fill:#ffcdd2,color:#000,stroke:#000,stroke-width:2px
+    style L fill:#e0e0e0,color:#000,stroke:#000,stroke-width:2px
 ```
 
 See [ADR-004: Rollback & Error Handling Strategy](./ADRs/ADR-004-rollback-strategy.md) for detailed rationale and rollback scopes.
