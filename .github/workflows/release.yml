@@ -276,26 +276,3 @@ jobs:
       - name: Post metrics
         if: always()
         run: echo "metric=release_cycle_main conclusion=${{ job.status }}"
-
-  post-release-sync:
-    needs: [release-to-main]
-    if: inputs.dry_run == false
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-      - name: Configure git user
-        run: |
-          git config user.name "lightspeed-bot"
-          email=ops$(printf '@')lightspeedwp.agency
-          git config user.email "$email"
-      - name: Sync main back to develop
-        run: node scripts/workflows/release/post-release-sync.cjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
