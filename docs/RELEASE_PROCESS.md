@@ -44,6 +44,36 @@ post-release-sync (chore: main → develop)
 8. GitHub Release published with compiled notes (sections, highlights, contributors).
 9. `post-release-sync` workflow automatically creates PR: `main` → `develop` to keep branches in sync.
 
+### Visual flow diagram (Mermaid)
+
+```mermaid
+graph TD
+    A["👤 Developer (on develop)<br/>Trigger release workflow"] -->|"gh workflow run release.yml"| B["🔐 Trigger Telemetry<br/>Validate authorization"]
+    B -->|Authorized| C["✅ Lint & Test Gates<br/>Run checks"]
+    B -->|Unauthorized| Z1["❌ Workflow Fails<br/>Log attempt"]
+    C -->|Checks pass| D["🔄 Release Agent<br/>Create release/vX.Y.Z"]
+    C -->|Checks fail| Z2["❌ Workflow Fails<br/>Fix issues & retry"]
+    D -->|"Version + CHANGELOG"| E["📝 PR #1<br/>release/vX.Y.Z → develop<br/>For review"]
+    E -->|Developer merges| F["✅ develop updated<br/>Version + changelog rolled"]
+    F -->|Auto-trigger| G["📝 PR #2<br/>release/vX.Y.Z → main<br/>For final review"]
+    G -->|Developer merges| H["🏷️ Tag created<br/>Release published<br/>GitHub Release live"]
+    H -->|Post-release| I["🔄 Post-Release Sync<br/>Merge main → develop<br/>PR for review"]
+    I -->|Developer merges| J["✅ Release Complete<br/>Branches in sync"]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff3e0
+    style C fill:#e8f5e9
+    style D fill:#f3e5f5
+    style E fill:#fce4ec
+    style F fill:#e0f2f1
+    style G fill:#fce4ec
+    style H fill:#fff9c4
+    style I fill:#e0f2f1
+    style J fill:#c8e6c9
+    style Z1 fill:#ffcdd2
+    style Z2 fill:#ffcdd2
+```
+
 ## Authorization gating
 
 **New in v3.0:** Authorization validation gates all release workflow triggers.
@@ -65,6 +95,37 @@ post-release-sync (chore: main → develop)
   "timestamp": "2026-08-05T19:00:00Z"
 }
 ```
+
+### Authorization validation flow (Mermaid)
+
+```mermaid
+graph TD
+    A["Workflow triggered<br/>workflow_dispatch or<br/>other event"] -->|Check event| B{Valid event type?}
+    B -->|No| C["❌ FAIL<br/>Invalid trigger event<br/>Log: Invalid event type"]
+    B -->|Yes| D{Actor in<br/>maintainers team?}
+    D -->|No| E["❌ FAIL<br/>Unauthorized actor<br/>Log: Actor not in team"]
+    D -->|Yes| F["✅ PASS<br/>Release authorized<br/>Log: Success"]
+    
+    C -->|Artifact| G["📋 trigger-telemetry.json<br/>Timestamp, actor, reason,<br/>is_authorized: false"]
+    E -->|Artifact| G
+    F -->|Artifact| H["📋 trigger-telemetry.json<br/>Timestamp, actor, reason,<br/>is_authorized: true"]
+    
+    G --> I["🔍 Review audit logs<br/>Identify unauthorized attempts"]
+    H --> J["▶️ Continue workflow<br/>Proceed to lint & test"]
+    
+    style A fill:#e3f2fd
+    style B fill:#fff9c4
+    style C fill:#ffcdd2
+    style D fill:#fff9c4
+    style E fill:#ffcdd2
+    style F fill:#c8e6c9
+    style G fill:#ffccbc
+    style H fill:#c8e6c9
+    style I fill:#ffccbc
+    style J fill:#c8e6c9
+```
+
+See [ADR-002: Authorization Gating Strategy](./ADRs/ADR-002-authorization-gating.md) for detailed rationale.
 
 ## Automation & gates
 
@@ -219,6 +280,31 @@ After PR #2 merges:
 4. Creates PR: `main` → `develop` for developer review.
 5. Developer merges to keep branches synchronized.
 
+### Post-release sync flow (Mermaid)
+
+```mermaid
+graph TD
+    A["PR #2 merges to main<br/>Release tagged & published"] -->|Trigger sync job| B["🔄 post-release-sync<br/>Create branch from main"]
+    B -->|Attempt merge| C{Merge conflicts?}
+    C -->|No| D["✅ Clean merge<br/>No conflicts"]
+    C -->|Yes| E["⚠️ Conflicts detected<br/>Manual intervention needed"]
+    D -->|Auto-merge| F["📝 PR: main → develop<br/>Merged automatically"]
+    F --> G["✅ Sync complete<br/>Branches in sync"]
+    E -->|Create PR| H["📝 PR: main → develop<br/>Awaiting manual merge"]
+    H -->|Developer resolves<br/>& merges| G
+    
+    style A fill:#fff9c4
+    style B fill:#e0f2f1
+    style C fill:#fff3e0
+    style D fill:#c8e6c9
+    style E fill:#ffe0b2
+    style F fill:#c8e6c9
+    style G fill:#c8e6c9
+    style H fill:#ffccbc
+```
+
+See [ADR-003: Post-Release Sync Automation](./ADRs/ADR-003-post-release-sync.md) for detailed rationale.
+
 ## Changelog governance
 
 - Format: Keep a Changelog.
@@ -265,6 +351,41 @@ Rollback utility supports provider-aware cleanup:
 node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
 node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry-run
 ```
+
+### Rollback decision tree (Mermaid)
+
+```mermaid
+graph TD
+    A["🚨 Release problem detected<br/>When did it occur?"] -->|Before merge| B{PR #1 or PR #2<br/>merged yet?}
+    A -->|After release| C["Released code is broken<br/>Assess impact"]
+    B -->|No| D["✅ Simple fix<br/>Delete release branch<br/>Fix code, retry"]
+    B -->|Yes| E{Which branch<br/>needs revert?}
+    E -->|"main only"| F["💾 Rollback: release_only<br/>Delete release + tag<br/>Code cleanup later"]
+    E -->|"main + main commits"| G["💾 Rollback: release_and_main<br/>Revert main commits<br/>Delete tag"]
+    E -->|"both branches"| H["💾 Rollback: full<br/>Revert both branches<br/>Delete tag & release"]
+    C -->|"Minor bug"| I["⚠️ Hotfix approach<br/>Create fix PR to main<br/>Release vX.Y.Z+1"]
+    C -->|"Critical issue"| J["🚨 Emergency rollback<br/>See ADR-004 for scope"]
+    J --> K["Trigger rollback.cjs<br/>Provide scope & reason"]
+    F -->|Execute| L["Post-rollback:<br/>Analyze failure<br/>Update process"]
+    G -->|Execute| L
+    H -->|Execute| L
+    I -->|Execute| L
+    
+    style A fill:#ffccbc
+    style B fill:#fff3e0
+    style C fill:#ffccbc
+    style D fill:#c8e6c9
+    style E fill:#fff3e0
+    style F fill:#ffe0b2
+    style G fill:#ffe0b2
+    style H fill:#ffcdd2
+    style I fill:#ffe0b2
+    style J fill:#ffcdd2
+    style K fill:#ffcdd2
+    style L fill:#e0e0e0
+```
+
+See [ADR-004: Rollback & Error Handling Strategy](./ADRs/ADR-004-rollback-strategy.md) for detailed rationale and rollback scopes.
 
 ---
 
