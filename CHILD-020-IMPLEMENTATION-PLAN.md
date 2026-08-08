@@ -1,9 +1,31 @@
 ---
 title: "CHILD-020 Implementation Plan"
 description: "Detailed plan for updating release.yml for develop-first stacked PR flow"
+status: "Phase 2 Complete"
+last_updated: "2026-08-08"
 ---
 
 # CHILD-020: Update `.github/workflows/release.yml` Implementation Plan
+
+## Progress Summary
+
+### ✅ Phase 1: Authorization Gate (COMPLETE)
+
+- Hard-fail authorization check implemented
+- Commit: 409800378
+
+### ✅ Phase 2: Stacked PR Architecture (COMPLETE)
+
+- Renamed "release" → "release-to-develop" job
+- Created new "release-to-main" job with proper sequencing
+- Created wrapper scripts for Phase 2 operations
+- Commit: 77acd7577
+
+### ⏳ Phase 3: Remove Post-Release Sync (TODO)
+
+### ⏳ Phase 4: Dry-run Verification (TODO)
+
+---
 
 ## Current State Analysis
 
