@@ -42,6 +42,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (none identified)
 
+### Added
+
+- **Phase 2 release workflow redesign — Two-PR stacked flow with branch guard compliance** — Refactored release workflow to implement develop-first two-PR stacked architecture. Phase 1 creates `release/vX.Y.Z → develop` PR with changelog and version updates. Phase 2 creates `release/vX.Y.Z → main` PR (not `develop → main`) and publishes GitHub Release. Fixes main-branch-guard violation by using release branch as PR head for both phases. Added comprehensive tests for wrapper scripts and release agent providers. ([PR #1658](https://github.com/lightspeedwp/.github/pull/1658), CHILD-020, CHILD-021)
+
 ### Fixed
 
 - **Phase 3 label validation enforcement — Validation script & workflow** — Pre-creation label validation script (`validate-labels-before-creation.cjs`) enforces canonical label prefixes and one-hot constraint per family. GitHub Actions workflow validates on issue/PR creation, editing, and PR synchronization. Prevents bare labels (e.g., `bug`, `feature`, `urgent`) and enforces required prefixes (e.g., `type:bug`, `priority:critical`). ([PR #1613](https://github.com/lightspeedwp/.github/pull/1613), [#1612](https://github.com/lightspeedwp/.github/issues/1612))
