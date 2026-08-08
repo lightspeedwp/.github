@@ -3,7 +3,7 @@ file_type: documentation
 title: "Phase 4 Implementation Plan — Release Process V2"
 description: "Detailed implementation roadmap for Phase 4 (Workflow + Agents + Documentation + Testing)"
 status: active
-version: "1.0"
+version: "1.1"
 last_updated: "2026-08-08"
 owners: ["Ash Shaw"]
 tags: ["implementation", "phase-4", "workflow", "agents", "release"]
@@ -144,21 +144,21 @@ This plan directly implements requirements from [OPENSPEC_ANALYSIS_REPORT.md](./
 
 **Effort:** 2 days | **Branch:** `docs/release-process-phase-4-implementation`
 
-#### CHILD-022: Create `scripts/workflows/release/rollback.cjs`
+#### CHILD-022: Integrate & Test `scripts/workflows/release/rollback.cjs`
 
-**Current State:** Does not exist
+**Current State:** Rollback script exists at `scripts/workflows/release/rollback.cjs`; needs integration testing and validation
 
 **Implementation Tasks:**
 
-1. **Rollback Script**
-   - Accept `--version=X.Y.Z` argument
-   - Delete local git tag: `git tag -d vX.Y.Z`
-   - Delete remote git tag: `git push origin --delete vX.Y.Z`
-   - Revert VERSION file to previous version
-   - Revert CHANGELOG.md ([X.Y.Z] → [Unreleased])
-   - Delete GitHub Release (via API)
-   - Create rollback commit (signed, clear message)
-   - Push rollback commit to main
+1. **Integration & Testing**
+   - Verify rollback script accepts `--version=X.Y.Z` argument
+   - Test delete local git tag: `git tag -d vX.Y.Z`
+   - Test delete remote git tag: `git push origin --delete vX.Y.Z`
+   - Test revert VERSION file to previous version
+   - Test revert CHANGELOG.md ([X.Y.Z] → [Unreleased])
+   - Test delete GitHub Release (via API)
+   - Verify rollback commit creation (signed, clear message)
+   - Test push rollback commit to main
 
 2. **Error Handling**
    - Graceful if tag doesn't exist (already deleted)

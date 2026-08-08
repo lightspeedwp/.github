@@ -3,7 +3,7 @@ file_type: documentation
 title: "Release Process Redesign Project"
 description: "Complete audit, redesign, and implementation of release workflow, documentation, and governance"
 status: active
-version: "1.0"
+version: "1.1"
 last_updated: "2026-08-08"
 owners: ["Ash Shaw"]
 tags: ["release", "automation", "documentation", "project"]
@@ -122,11 +122,12 @@ category: "release-engineering"
   - Add version file multi-repo detection
   - Integrate changelog validation
 
-- [ ] CHILD-022: Create `scripts/workflows/release/rollback.cjs`
-  - Delete git tags (local + remote)
-  - Revert VERSION, CHANGELOG.md
-  - Delete GitHub Release
-  - Audit trail logging
+- [ ] CHILD-022: Integrate & test `scripts/workflows/release/rollback.cjs`
+  - Verify rollback automation works end-to-end
+  - Test delete git tags (local + remote)
+  - Test revert VERSION, CHANGELOG.md
+  - Test delete GitHub Release
+  - Validate audit trail logging
 
 **Priority 2: Portable Agent Architecture (Days 4-7)**
 
