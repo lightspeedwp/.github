@@ -11,7 +11,7 @@ last_updated: "2026-08-08"
 
 ### ✅ Phase 1: Authorization Gate (COMPLETE)
 
-- Hard-fail authorization check implemented
+- Hard-fail authorisation check implemented
 - Commit: 409800378
 
 ### ✅ Phase 2: Stacked PR Architecture (COMPLETE)
@@ -43,7 +43,7 @@ last_updated: "2026-08-08"
 
 **Current Flow:**
 
-1. trigger-telemetry validates authorization (but doesn't hard-fail)
+1. trigger-telemetry validates authorisation (but doesn't hard-fail)
 2. lint, test, validate-changelog run in parallel
 3. pre-release-checklist validates prerequisites
 4. release agent creates PR to main
@@ -60,7 +60,7 @@ last_updated: "2026-08-08"
 ### 1. Authorization Gate Hardening
 
 - **Current:** `if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'`
-- **Issue:** Job still runs; authorization is soft-check
+- **Issue:** Job still runs; authorisation is soft-check
 - **Change:** Make trigger-telemetry fail the workflow entirely if unauthorized
 - **Implementation:** Remove soft-check; make trigger-telemetry.cjs exit with non-zero if unauthorized
 

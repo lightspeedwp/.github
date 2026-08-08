@@ -276,5 +276,5 @@ Merge to main, and GitHub Release will be created automatically.
 - **Issue:** [#1561 CHILD-021](https://github.com/lightspeedwp/.github/issues/1561)
 - **Related:** [#1560 CHILD-020](https://github.com/lightspeedwp/.github/issues/1560)
 - **Epic:** [#1640 Phase 4 Implementation](https://github.com/lightspeedwp/.github/issues/1640)
-- **File:** [scripts/agents/release.agent.js](../blob/feat/release-agent-two-pr-flow/scripts/agents/release.agent.js)
-- **Workflow:** [.github/workflows/release.yml](../blob/feat/release-agent-two-pr-flow/.github/workflows/release.yml)
+- **File:** `scripts/agents/release.agent.js`
+- **Workflow:** `.github/workflows/release.yml`

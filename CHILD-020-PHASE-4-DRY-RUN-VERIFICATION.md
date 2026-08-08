@@ -152,9 +152,9 @@ The `release.agent.js` uses dry-run mode to:
 
 ### Authorization Gate (Phase 1)
 
-- [x] Hard-fail authorization check
+- [x] Hard-fail authorisation check
 - [x] Unauthorized users blocked
-- [x] Log authorization failures
+- [x] Log authorisation failures
 
 ### Stacked PR Architecture (Phase 2)
 
