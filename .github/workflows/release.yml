@@ -69,12 +69,20 @@ jobs:
       is_authorized: ${{ steps.telemetry.outputs.is_authorized }}
     steps:
       - id: telemetry
-        name: Validate trigger authorization
+        name: Validate trigger authorization (hard-fail if unauthorized)
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/workflows/release/trigger-telemetry.cjs
+        run: |
+          node scripts/workflows/release/trigger-telemetry.cjs
+          # Check if authorized; hard fail if not
+          if grep -q '"is_authorized":false' trigger-telemetry.json 2>/dev/null; then
+            echo "❌ AUTHORIZATION FAILED: Unauthorized user attempted release trigger"
+            cat trigger-telemetry.json
+            exit 1
+          fi
+          echo "✅ Authorization check passed"
       - name: Upload telemetry artefact
         uses: actions/upload-artifact@v4
         if: always()
