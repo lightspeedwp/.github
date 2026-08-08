@@ -1,6 +1,6 @@
 ---
-version: v0.1.1
-last_updated: '2026-05-29'
+version: v0.1.2
+last_updated: '2026-08-08'
 title: Architecture Guide
 owners:
 - lightspeedwp
