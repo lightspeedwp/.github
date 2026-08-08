@@ -174,5 +174,5 @@ jobs:
 
 ## References
 
-- [RELEASE_PROCESS.md](../RELEASE_PROCESS.md#post-release-sync) — Implementation details
-- [.github/workflows/release.yml](.github/workflows/release.yml) — post-release-sync job
+- [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#post-release-sync) — Implementation details
+- [.github/workflows/release.yml](../../.github/workflows/release.yml) — post-release-sync job

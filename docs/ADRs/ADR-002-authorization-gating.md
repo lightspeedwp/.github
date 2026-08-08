@@ -1,12 +1,12 @@
 ---
-title: "ADR-002: Authorization Gating Strategy"
+title: "ADR-002: Authorisation Gating Strategy"
 description: "Decision to gate release workflow triggers to maintainers team with audit logging"
 date: 2026-08-08
 status: accepted
 authors: ["LightSpeed Team"]
 ---
 
-# ADR-002: Authorization Gating Strategy
+# ADR-002: Authorisation Gating Strategy
 
 ## Status
 
@@ -33,10 +33,10 @@ Three gating strategies exist:
 
 - Only members of the `maintainers` team in lightspeedwp organisation can trigger releases
 - Trigger validation runs as a separate job (before any release logic)
-- All authorization attempts (success + failure) logged to `trigger-telemetry.json`
+- All authorisation attempts (success + failure) logged to `trigger-telemetry.json`
 - Unauthorized attempts cause the workflow to fail immediately (no override possible)
 
-**Authorization validation includes:**
+**Authorisation validation includes:**
 
 1. **Event validation:** Only `workflow_dispatch` and `workflow_call` events allowed (blocks `push`, `schedule`, malformed events)
 2. **Actor validation:** Trigger actor must be current member of `maintainers` team (cached, refreshed hourly)
@@ -54,13 +54,13 @@ Three gating strategies exist:
 **Why audit logging:**
 
 - ✅ **Compliance** — Records intent for security audits
-- ✅ **Debugging** — Helps diagnose authorization failures
+- ✅ **Debugging** — Helps diagnose authorisation failures
 - ✅ **Forensics** — Complete history of who attempted releases, when, and whether they succeeded
 - ✅ **Transparency** — Team can review all release activity
 
 **Why fail-fast (no override):**
 
-- ✅ **Security** — Prevents accidental override of authorization checks
+- ✅ **Security** — Prevents accidental override of authorisation checks
 - ✅ **Simplicity** — No special cases or bypass codes to manage
 - ✅ **Clarity** — If workflow fails, reason is always visible in logs
 
@@ -142,7 +142,7 @@ jobs:
 **Negative:**
 
 - ❌ Requires PR to add new members to maintainers team
-- ❌ If team sync fails (API issue), authorization may incorrectly reject valid actors
+- ❌ If team sync fails (API issue), authorisation may incorrectly reject valid actors
 
 **Mitigation for team sync failure:**
 
@@ -156,6 +156,6 @@ jobs:
 
 ## References
 
-- [RELEASE_PROCESS.md](../RELEASE_PROCESS.md#authorization-gating) — Authorization implementation
-- [.github/workflows/release.yml](.github/workflows/release.yml) — Trigger validation job
+- [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#authorisation-gating) — Authorisation implementation
+- [.github/workflows/release.yml](../../.github/workflows/release.yml) — Trigger validation job
 - [GitHub Teams API](https://docs.github.com/en/rest/teams) — Team membership lookup

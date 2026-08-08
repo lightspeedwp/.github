@@ -73,7 +73,7 @@ Feature Complete (on develop)
   → Automated Checks (tests, linting, changelog validation)
   → Code Review & Merge to develop
   → Release Workflow Triggered (manual, workflow_dispatch)
-  → Authorization Gating (actor in maintainers team)
+  → Authorisation Gating (actor in maintainers team)
   → Release Agent Creates release/vX.Y.Z branch from develop
   → PR #1: release/vX.Y.Z → develop (changelog + version)
   → Developer Merges PR #1
@@ -91,7 +91,7 @@ See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) and [ADR-001](./ADRs/ADR-001-deve
 
 | Workflow | Trigger | Purpose | Agent |
 |----------|---------|---------|-------|
-| **Labeling** | PR/issue created | Apply labels based on content | labeler.agent.js |
+| **Labelling** | PR/issue created | Apply labels based on content | labeler.agent.js |
 | **Validation** | PR opened, push | Lint, test, security checks | validation.agent.js |
 | **Changelog** | PR/push to develop | Validate changelog format | changelog.agent.js |
 | **Release** | Manual `workflow_dispatch` | Version bumps, tag, publish | release.agent.js |
@@ -118,7 +118,7 @@ See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) and [ADR-001](./ADRs/ADR-001-deve
 
 ### Agent Types
 
-- **Labeling Agent**: Applies organization labels
+- **Labelling Agent**: Applies organization labels
 - **Release Agent**: Manages releases and versioning
 - **Metrics Agent**: Gathers and reports metrics
 - **Review Agent**: Automated code review

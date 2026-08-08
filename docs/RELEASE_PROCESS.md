@@ -360,8 +360,8 @@ graph TD
     A -->|After release| C["Released code is broken<br/>Assess impact"]
     B -->|No| D["✅ Simple fix<br/>Delete release branch<br/>Fix code, retry"]
     B -->|Yes| E{Which branch<br/>needs revert?}
-    E -->|"main only"| F["💾 Rollback: release_only<br/>Delete release + tag<br/>Code cleanup later"]
-    E -->|"main + main commits"| G["💾 Rollback: release_and_main<br/>Revert main commits<br/>Delete tag"]
+    E -->|"release metadata only"| F["💾 Rollback: release_only<br/>Delete release + tag<br/>Code cleanup later"]
+    E -->|"main only"| G["💾 Rollback: release_and_main<br/>Revert main commits<br/>Delete tag"]
     E -->|"both branches"| H["💾 Rollback: full<br/>Revert both branches<br/>Delete tag & release"]
     C -->|"Minor bug"| I["⚠️ Hotfix approach<br/>Create fix PR to main<br/>Release vX.Y.Z+1"]
     C -->|"Critical issue"| J["🚨 Emergency rollback<br/>See ADR-004 for scope"]
