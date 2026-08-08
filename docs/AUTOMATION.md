@@ -56,9 +56,10 @@ LightSpeedWP follows a **develop → main** branching model:
 
 - Production-ready code only
 - Reserved for releases and hotfixes
-- Only release, changelog, versioning, and publishing workflows run here
+- Release workflow creates stacked PRs: first to develop, then to main
 - Code is merged into `main` only for tagging and deploying a release
-- Workflows: Release, Tag, Publish, Deployment
+- Workflows: release.yml (tagging & publishing), post-release-sync.yml (auto sync back to develop)
+- See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for complete release flow details
 
 ### Hotfixes
 
@@ -78,7 +79,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | issues / pull_request | Sync project board fields from labels, title/body fallbacks, and kickoff metadata | derive-project-fields.cjs |
 | **checklist-finalisation.yml** | issues.closed / pull_request_target.closed | Final checklist sync for completed issues and merged PRs | workflow backstop |
-| **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
+| **release.yml** | manual (`workflow_dispatch`) | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
 | **metrics.yml** | develop | Track and report organisation metrics | metrics.agent.js |
 
