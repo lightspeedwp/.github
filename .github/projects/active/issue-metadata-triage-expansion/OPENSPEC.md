@@ -1,10 +1,14 @@
 ---
+file_type: documentation
 title: Issue Metadata Triage Expansion Specification
+description: Comprehensive specification for 4-5 week initiative to expand issue triage system across 9 status:needs-* label categories
 id: issue-metadata-triage-expansion
 version: 1.0.0
-created: 2026-08-09
+created_date: 2026-08-09
 last_updated: 2026-08-09
-status: planning
+status: active
+authors:
+  - lightspeedwp/maintainers
 ---
 
 # Issue Metadata Triage Expansion — Specification

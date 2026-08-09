@@ -10,8 +10,8 @@
  * Reuses template logic from scripts/automation/add-issue-template-sections.js (PR #1669)
  *
  * Usage:
- *   const handler = require('./handle-needs-template-fix');
- *   const result = await handler.process(issue, { dryRun: true });
+ *   import { processIssue } from './handle-needs-template-fix.js';
+ *   const result = await processIssue(issue, { dryRun: true, githubRequest });
  */
 
 // Issue type to template section mapping (reused from PR #1669)
@@ -150,12 +150,12 @@ function getIssueType(issue) {
   return "default";
 }
 
-// Check if issue already has DoR/DoD sections
+// Check if issue already has BOTH DoR and DoD sections
 function hasTemplateSections(body) {
   return (
     body &&
-    (body.includes("## Definition of Ready") ||
-      body.includes("## Definition of Done"))
+    body.includes("## Definition of Ready") &&
+    body.includes("## Definition of Done")
   );
 }
 
@@ -205,7 +205,12 @@ function validateTemplateStructure(body) {
 
 // Process a single issue
 async function processIssue(issue, options = {}) {
-  const { dryRun = true, githubRequest = null } = options;
+  const {
+    dryRun = true,
+    githubRequest = null,
+    owner = "lightspeedwp",
+    repo = ".github",
+  } = options;
 
   const issueNumber = issue.number;
   const issueType = getIssueType(issue);
@@ -261,13 +266,13 @@ async function processIssue(issue, options = {}) {
 
   try {
     // Update issue body
-    const updatePath = `/repos/lightspeedwp/.github/issues/${issueNumber}`;
+    const updatePath = `/repos/${owner}/${repo}/issues/${issueNumber}`;
     await githubRequest("PATCH", updatePath, { body: newBody });
 
     // Try to remove label
     let labelRemoved = false;
     try {
-      const removeLabel = `/repos/lightspeedwp/.github/issues/${issueNumber}/labels/status%3Aneeds-template-fix`;
+      const removeLabel = `/repos/${owner}/${repo}/issues/${issueNumber}/labels/status%3Aneeds-template-fix`;
       await githubRequest("DELETE", removeLabel);
       labelRemoved = true;
     } catch {

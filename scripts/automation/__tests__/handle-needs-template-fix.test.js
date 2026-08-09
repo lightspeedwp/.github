@@ -83,10 +83,10 @@ describe("handle-needs-template-fix", () => {
       labels: [{ name: "type:feature" }],
     };
 
-    it("should skip if issue already has template sections", async () => {
+    it("should skip if issue already has BOTH DoR and DoD sections", async () => {
       const issueWithTemplate = {
         ...mockIssue,
-        body: "Content\n\n## Definition of Ready\n\n- [ ] Test",
+        body: "Content\n\n## Definition of Ready\n\n- [ ] Test\n\n## Definition of Done\n\n- [ ] Verify",
       };
 
       const result = await handler.processIssue(issueWithTemplate, {

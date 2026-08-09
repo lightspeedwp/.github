@@ -186,19 +186,21 @@ async function fetchAllIssues() {
   console.log("📥 Fetching all open issues...");
 
   while (hasMore && allIssues.length < config.limit) {
-    const query = config.filter
-      ? `label:"${config.filter}"+state:open`
-      : "state:open";
-
-    const path = `/repos/${config.owner}/${config.repo}/issues?q=${encodeURIComponent(query)}&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
+    // Build path using labels parameter if filter is specified
+    let path = `/repos/${config.owner}/${config.repo}/issues?state=open&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
+    if (config.filter) {
+      path += `&labels=${encodeURIComponent(config.filter)}`;
+    }
 
     try {
       const response = await githubRequest("GET", path);
-      const issues = response.data;
+      let issues = response.data;
 
       if (!issues || issues.length === 0) {
         hasMore = false;
       } else {
+        // Filter out pull requests (API returns both issues and PRs)
+        issues = issues.filter((item) => !item.pull_request);
         allIssues.push(...issues);
 
         if (config.verbose) {
@@ -247,7 +249,7 @@ function generateAuditReport(analyzedIssues) {
       priority: 0,
       assignee: 0,
       milestone: 0,
-      prLink: 0,
+      "pr-link": 0,
     },
     statusLabelDistribution: {},
     topGaps: [],
