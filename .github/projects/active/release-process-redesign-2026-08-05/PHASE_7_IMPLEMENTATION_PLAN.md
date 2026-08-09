@@ -344,9 +344,9 @@ Shows what would happen without changes.
 ```markdown
 ## References
 
-- **Branching Strategy:** [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
-- **WordPress Releases:** [RELEASE_WORDPRESS.md](./RELEASE_WORDPRESS.md)
-- **Changelog Guide:** [CHANGELOG_AUTOMATION.md](./CHANGELOG_AUTOMATION.md)
+- **Branching Strategy:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
+- **WordPress Releases:** Phase 7 deliverable (RELEASE_WORDPRESS.md will be created)
+- **Changelog Guide:** [docs/CHANGELOG_AUTOMATION.md](../../../../docs/CHANGELOG_AUTOMATION.md)
 - **GitHub Issues:** [Issue #1290 Epic](https://github.com/lightspeedwp/.github/issues/1290)
 - **Architectural Decisions:** Project README ADR section
 ```
@@ -444,9 +444,9 @@ Tag created + Release published
 ```markdown
 ## Complete Release Process
 
-For detailed release workflow, see [RELEASE_PROCESS.md](./RELEASE_PROCESS.md).
+For detailed release workflow, see [docs/RELEASE_PROCESS.md](../../../../docs/RELEASE_PROCESS.md) (will be rewritten in Phase 7).
 
-For WordPress-specific release process, see [RELEASE_WORDPRESS.md](./RELEASE_WORDPRESS.md).
+For WordPress-specific release process, see [RELEASE_WORDPRESS.md](./RELEASE_WORDPRESS.md) (Phase 7 deliverable).
 ```
 
 ---
@@ -739,8 +739,8 @@ This reverts all files including style.css.
 
 ## References
 
-- **Release Process:** [RELEASE_PROCESS.md](./RELEASE_PROCESS.md)
-- **Branching Strategy:** [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
+- **Release Process:** [docs/RELEASE_PROCESS.md](../../../../docs/RELEASE_PROCESS.md)
+- **Branching Strategy:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
 - **Plugin Development:** <https://developer.wordpress.org/plugins/>
 - **Theme Development:** <https://developer.wordpress.org/themes/>
 - **readme.txt Format:** <https://developer.wordpress.org/plugins/wordpress-org/readme/>
