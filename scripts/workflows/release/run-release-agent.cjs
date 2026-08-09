@@ -86,7 +86,8 @@ async function main() {
   });
 
   const result = spawnSync(process.execPath, [agentPath, ...args], {
-    stdio: "inherit",
+    stdio: ["inherit", "pipe", "inherit"],
+    encoding: "utf-8",
   });
 
   if (result.error) {
@@ -96,6 +97,26 @@ async function main() {
   if (result.status !== 0) {
     throw new Error(`Release agent exited with status ${result.status}`);
   }
+
+  // Parse agent output to extract version and release branch
+  const output = result.stdout || "";
+  const versionMatch = output.match(/Version:\s*(.+?)(?:\n|$)/);
+  const branchMatch = output.match(/Release Branch:\s*(.+?)(?:\n|$)/);
+
+  const releaseVersion = versionMatch ? versionMatch[1].trim() : "";
+  const releaseBranch = branchMatch ? branchMatch[1].trim() : "";
+
+  if (!releaseVersion || !releaseBranch) {
+    log("warn", "Could not parse version/branch from agent output");
+    log("warn", `Version: ${releaseVersion || "NOT FOUND"}`);
+    log("warn", `Branch: ${releaseBranch || "NOT FOUND"}`);
+  } else {
+    log("info", `Extracted version=${releaseVersion}, branch=${releaseBranch}`);
+  }
+
+  // Output for parsing by the workflow step
+  console.log(`RELEASE_VERSION=${releaseVersion}`);
+  console.log(`RELEASE_BRANCH=${releaseBranch}`);
 }
 
 module.exports = { buildArgs };

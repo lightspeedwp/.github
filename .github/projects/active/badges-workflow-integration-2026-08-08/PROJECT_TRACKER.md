@@ -4,8 +4,8 @@ description: "GitHub issue checklist and progress tracking for badges workflow i
 file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
-last_updated: "2026-08-08"
-version: "v1.0.0"
+last_updated: "2026-08-09"
+version: "v1.1.0"
 authors: ["Ash Shaw"]
 tags: ["badges", "project-tracking", "github-issues", "checklist"]
 ---

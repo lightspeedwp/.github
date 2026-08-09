@@ -844,16 +844,83 @@ See \`CHANGELOG.md\` for the full [\`${version}\`] entry dated ${today}.
 }
 
 /**
- * Create release PR from release branch to main
+ * Build release PR body for develop target (first PR in develop-first flow)
  */
-function createReleasePR(version, branch, options = {}) {
+function buildReleasePRBodyToDevelop(version) {
+  const today = new Date().toISOString().split("T")[0];
+  return `## Linked issues & merged PRs
+
+<!-- Auto-generated release PR (Phase 1: develop-first flow). List any additional issues or PRs here. -->
+
+## Changelog
+
+See \`CHANGELOG.md\` for the full [\`${version}\`] entry dated ${today}.
+
+### Release Flow (Develop-First)
+
+This is **Phase 1** of the two-phase release flow:
+
+1. ✅ **Phase 1 (This PR):** Merge release branch → \`develop\`
+   - Bumped VERSION to \`${version}\`
+   - Updated CHANGELOG.md with release notes
+   - Ready for integration testing on develop
+
+2. ⏳ **Phase 2 (Automatic):** Create second PR \`develop\` → \`main\`
+   - Created after this PR merges
+   - Ready for production deployment
+
+### Checklist (Global DoD / PR)
+
+- [x] Release branch \`release/v${version}\` created from \`develop\`
+- [x] \`VERSION\` bumped to \`${version}\`
+- [x] \`CHANGELOG.md\` \`[Unreleased]\` rolled to \`[${version}] - ${today}\`
+- [x] Release notes compiled
+- [ ] CI checks green
+- [ ] Approved by maintainer
+`;
+}
+
+/**
+ * Build release PR body for main target (second PR in develop-first flow)
+ */
+function buildReleasePRBodyToMain(version, developPRNumber) {
+  return `## Release v${version} (Develop → Main)
+
+This is **Phase 2** of the two-phase release flow (develop-first):
+
+### Phase 1 ✅ Complete
+- PR #${developPRNumber}: Merged release branch to \`develop\`
+- VERSION and CHANGELOG updated and integrated
+
+### Phase 2 (This PR) 🚀
+- Promoting \`develop\` to \`main\` for production
+- Ready for GitHub Release creation
+
+### Release Notes
+
+See #${developPRNumber} for full release notes and changelog.
+
+### Checklist (Global DoD / PR)
+
+- [x] Phase 1 (develop) PR merged: #${developPRNumber}
+- [x] Develop branch contains v${version} with all changes
+- [ ] CI checks green on this PR
+- [ ] Approved by maintainer
+- [ ] Merge to main
+`;
+}
+
+/**
+ * Create release PR from release branch to develop (Phase 1 of develop-first flow)
+ */
+function createReleasePRToDevelop(version, branch, options = {}) {
   const { dryRun = false } = options;
   const title = `chore(release): v${version}`;
-  const body = buildReleasePRBody(version);
+  const body = buildReleasePRBodyToDevelop(version);
 
   if (dryRun) {
     console.log(
-      `[DRY-RUN] Would create PR from ${branch} to main with title "${title}"`,
+      `[DRY-RUN] Would create PR from ${branch} to develop with title "${title}"`,
     );
     return;
   }
@@ -862,13 +929,51 @@ function createReleasePR(version, branch, options = {}) {
   fs.writeFileSync(bodyFile, body, "utf8");
   try {
     exec(
-      `gh pr create --base main --head ${branch} --title "${title}" --body-file "${bodyFile}"`,
+      `gh pr create --base develop --head ${branch} --title "${title}" --body-file "${bodyFile}"`,
       dryRun,
     );
-    console.log("✓ Release PR created");
+    console.log("✓ Release PR (develop) created");
   } finally {
     if (fs.existsSync(bodyFile)) fs.unlinkSync(bodyFile);
   }
+}
+
+/**
+ * Create release PR from develop to main (Phase 2 of develop-first flow)
+ */
+function createReleasePRToMain(version, options = {}) {
+  const { dryRun = false, branch, developPRNumber } = options;
+  const headBranch = branch || "develop";
+  const title = `chore(release): v${version} (${headBranch} → main)`;
+  const body = buildReleasePRBodyToMain(version, developPRNumber || "N/A");
+
+  if (dryRun) {
+    console.log(
+      `[DRY-RUN] Would create PR from ${headBranch} to main with title "${title}"`,
+    );
+    return;
+  }
+
+  const bodyFile = path.join(os.tmpdir(), `release-pr-main-${version}.md`);
+  fs.writeFileSync(bodyFile, body, "utf8");
+  try {
+    exec(
+      `gh pr create --base main --head ${headBranch} --title "${title}" --body-file "${bodyFile}"`,
+      dryRun,
+    );
+    console.log(`✓ Release PR (${headBranch} → main) created`);
+    return headBranch; // Return the branch for logging purposes
+  } finally {
+    if (fs.existsSync(bodyFile)) fs.unlinkSync(bodyFile);
+  }
+}
+
+/**
+ * Create release PR (legacy, redirects to develop-first flow)
+ * @deprecated Use createReleasePRToDevelop for new code
+ */
+function createReleasePR(version, branch, options = {}) {
+  return createReleasePRToDevelop(version, branch, options);
 }
 
 /**
@@ -902,6 +1007,8 @@ function createShellReleaseProvider() {
     createTag,
     pushChanges,
     createReleasePR,
+    createReleasePRToDevelop,
+    createReleasePRToMain,
     createRelease,
   };
 }
@@ -984,14 +1091,17 @@ function createMcpReleaseProvider() {
       console.log("✓ Changes pushed");
     },
     async createReleasePR(version, branch, options = {}) {
+      return this.createReleasePRToDevelop(version, branch, options);
+    },
+    async createReleasePRToDevelop(version, branch, options = {}) {
       const { dryRun = false } = options;
       const { owner, repo } = getRepositoryContext();
       const title = `chore(release): v${version}`;
-      const body = buildReleasePRBody(version);
+      const body = buildReleasePRBodyToDevelop(version);
 
       if (dryRun) {
         console.log(
-          `[DRY-RUN] [MCP] Would create release PR from ${branch} to main for v${version}`,
+          `[DRY-RUN] [MCP] Would create release PR from ${branch} to develop for v${version}`,
         );
         return;
       }
@@ -1001,11 +1111,37 @@ function createMcpReleaseProvider() {
         body: {
           title,
           head: branch,
+          base: "develop",
+          body,
+        },
+      });
+      console.log("✓ [MCP] Release PR (develop) created");
+    },
+    async createReleasePRToMain(version, options = {}) {
+      const { dryRun = false, branch, developPRNumber } = options;
+      const headBranch = branch || "develop";
+      const { owner, repo } = getRepositoryContext();
+      const title = `chore(release): v${version} (${headBranch} → main)`;
+      const body = buildReleasePRBodyToMain(version, developPRNumber || "N/A");
+
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [MCP] Would create release PR from ${headBranch} to main for v${version}`,
+        );
+        return;
+      }
+
+      await githubApiRequest(createPrEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          title,
+          head: headBranch,
           base: "main",
           body,
         },
       });
-      console.log("✓ [MCP] Release PR created");
+      console.log(`✓ [MCP] Release PR (${headBranch} → main) created`);
+      return headBranch;
     },
     async createRelease(version, options = {}) {
       const { dryRun = false } = options;
@@ -1207,18 +1343,18 @@ async function run() {
     // Step 7: Push changes
     provider.pushChanges({ dryRun, branch: releaseBranch });
 
-    // Step 7b: Open release PR (develop -> main via release branch)
-    provider.createReleasePR(nextVersion, releaseBranch, { dryRun });
-
-    // Step 8: Create GitHub Release
-    provider.createRelease(nextVersion, { dryRun, notesFrom });
+    // Step 7b: Open release PR to develop (Phase 1 of stacked PR flow)
+    provider.createReleasePRToDevelop(nextVersion, releaseBranch, { dryRun });
 
     console.log("\n");
     console.log("╔════════════════════════════════════════╗");
-    console.log("║   ✅ Release completed successfully!   ║");
+    console.log("║   ✅ Phase 1 completed successfully!   ║");
     console.log("╚════════════════════════════════════════╝");
     console.log(`\nVersion: ${nextVersion}`);
-    console.log(`Tag: v${nextVersion}`);
+    console.log(`Release Branch: ${releaseBranch}`);
+    console.log(
+      `\nNext Step: Phase 2 (release → main) will run automatically after PR merge.`,
+    );
 
     if (dryRun) {
       console.log("\n⚠️  This was a DRY-RUN. No changes were made.");
@@ -1262,7 +1398,11 @@ export {
   generateHighlights,
   formatReleaseNotes,
   buildReleasePRBody,
+  buildReleasePRBodyToDevelop,
+  buildReleasePRBodyToMain,
   createReleasePR,
+  createReleasePRToDevelop,
+  createReleasePRToMain,
   createShellReleaseProvider,
   createMcpReleaseProvider,
   getReleaseProvider,

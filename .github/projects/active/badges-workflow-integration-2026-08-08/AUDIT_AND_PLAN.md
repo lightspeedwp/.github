@@ -4,8 +4,8 @@ description: "Complete audit of existing badges infrastructure and integration p
 file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
-last_updated: "2026-08-08"
-version: "v1.0.0"
+last_updated: "2026-08-09"
+version: "v1.1.0"
 authors: ["Ash Shaw", "Claude"]
 tags: ["badges", "workflow-integration", "documentation", "automation"]
 ---
@@ -245,7 +245,7 @@ From CHANGELOG.md:
 # Defines all available badges and conditional rules for their application
 
 version: "1.0.0"
-last_updated: "2026-08-08"
+last_updated: "2026-08-09"
 
 # Badge definitions
 badges:

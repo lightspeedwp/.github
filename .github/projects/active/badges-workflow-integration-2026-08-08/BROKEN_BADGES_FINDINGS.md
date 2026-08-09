@@ -4,8 +4,8 @@ description: "Analysis of 12 broken badge links that were removed from VERSIONIN
 file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
-last_updated: "2026-08-08"
-version: "v1.0.0"
+last_updated: "2026-08-09"
+version: "v1.1.0"
 authors: ["Ash Shaw", "Claude"]
 tags: ["badges", "broken-links", "workflow-audit", "documentation"]
 ---
