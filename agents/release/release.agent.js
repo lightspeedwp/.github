@@ -9,6 +9,16 @@ const gitOps = require("./includes/gitOps.cjs");
 const githubOps = require("./includes/githubOps.cjs");
 
 /**
+ * Mark the most recent step as complete
+ * @param {Array} steps - Steps array
+ */
+function completeLastStep(steps) {
+  if (steps.length > 0) {
+    steps[steps.length - 1].status = "complete";
+  }
+}
+
+/**
  * Main release workflow orchestrator
  * Handles: version detection, bumping, PR creation, merging, and release
  *
@@ -43,7 +53,7 @@ async function releaseWorkflow(options = {}) {
     // Step 1: Detect repository type
     result.steps.push({ step: "Detect repo type", status: "in-progress" });
     const repoConfig = repoDetector.detectRepoType(repoRoot);
-    result.steps[0].status = "complete";
+    completeLastStep(result.steps);
     result.steps.push({
       step: `Detected: ${repoConfig.type}`,
       status: "complete",
@@ -52,7 +62,7 @@ async function releaseWorkflow(options = {}) {
     // Step 2: Get all version files
     result.steps.push({ step: "Detect version files", status: "in-progress" });
     const versionMap = versionManager.detectAllVersionFiles(repoConfig);
-    result.steps[1].status = "complete";
+    completeLastStep(result.steps);
 
     // Step 3: Validate version consistency
     result.steps.push({
@@ -64,7 +74,7 @@ async function releaseWorkflow(options = {}) {
     if (!consistency.isConsistent) {
       throw new Error(`Version mismatch: ${consistency.mismatches.join(", ")}`);
     }
-    result.steps[2].status = "complete";
+    completeLastStep(result.steps);
 
     // Step 4: Get current and new versions
     result.currentVersion = versionManager.getCurrentVersion(versionMap);
@@ -89,7 +99,7 @@ async function releaseWorkflow(options = {}) {
     if (!gitOps.isWorkingTreeClean()) {
       throw new Error("Working tree has uncommitted changes");
     }
-    result.steps[4].status = "complete";
+    completeLastStep(result.steps);
 
     // Step 6: Apply version bump
     result.steps.push({
@@ -106,7 +116,7 @@ async function releaseWorkflow(options = {}) {
         `Failed to bump versions: ${bumpResult.failed.join(", ")}`,
       );
     }
-    result.steps[5].status = "complete";
+    completeLastStep(result.steps);
 
     // Step 7: Stage and commit version bump
     result.steps.push({
@@ -126,7 +136,7 @@ async function releaseWorkflow(options = {}) {
     if (!commitResult) {
       throw new Error("Failed to commit version bump");
     }
-    result.steps[6].status = "complete";
+    completeLastStep(result.steps);
 
     // Step 8: Create PR to develop (if not on develop)
     result.steps.push({
@@ -152,7 +162,7 @@ async function releaseWorkflow(options = {}) {
         throw new Error("Failed to create PR to develop");
       }
     }
-    result.steps[7].status = "complete";
+    completeLastStep(result.steps);
 
     // Step 9: (Manual) User merges PR, then creates main PR
     result.steps.push({

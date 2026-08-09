@@ -3,10 +3,27 @@
  * Handles GitHub API interactions: PRs, releases, etc.
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 
 /**
- * Execute gh (GitHub CLI) command
+ * Execute gh (GitHub CLI) command with arguments array
+ * Prevents command injection by using execFileSync with array args
+ * @param {string[]} args - Array of arguments to pass to gh
+ * @returns {string} Command output
+ * @throws {Error} If command fails
+ */
+function executeGhSafe(args) {
+  try {
+    return execFileSync('gh', args, {
+      encoding: 'utf8',
+    }).trim();
+  } catch (error) {
+    throw new Error(`GitHub CLI command failed: ${args.join(' ')}\n${error.message}`);
+  }
+}
+
+/**
+ * Execute gh (GitHub CLI) command (legacy, deprecated)
  * @param {string} command
  * @returns {string} Command output
  * @throws {Error} If command fails
@@ -36,17 +53,17 @@ function createPullRequest(options = {}) {
       draft = false,
     } = options;
 
-    let cmd = `pr create --title "${title}" --base ${base} --head ${head}`;
+    const args = ['pr', 'create', '--title', title, '--base', base, '--head', head];
 
     if (body) {
-      cmd += ` --body "${body}"`;
+      args.push('--body', body);
     }
 
     if (draft) {
-      cmd += ' --draft';
+      args.push('--draft');
     }
 
-    const output = executeGh(cmd);
+    const output = executeGhSafe(args);
 
     // Parse output to extract PR number and URL
     // GitHub CLI outputs the PR URL
@@ -73,13 +90,13 @@ function mergePullRequest(prNumber, options = {}) {
   try {
     const { method = 'squash', deleteAfter = true } = options;
 
-    let cmd = `pr merge ${prNumber} --${method}`;
+    const args = ['pr', 'merge', String(prNumber), `--${method}`];
 
     if (deleteAfter) {
-      cmd += ' --delete-branch';
+      args.push('--delete-branch');
     }
 
-    executeGh(cmd);
+    executeGhSafe(args);
     return true;
   } catch {
     return false;
@@ -101,25 +118,25 @@ function createGitHubRelease(options = {}) {
       prerelease = false,
     } = options;
 
-    let cmd = `release create ${tag}`;
+    const args = ['release', 'create', tag];
 
     if (title) {
-      cmd += ` --title "${title}"`;
+      args.push('--title', title);
     }
 
     if (body) {
-      cmd += ` --notes "${body}"`;
+      args.push('--notes', body);
     }
 
     if (draft) {
-      cmd += ' --draft';
+      args.push('--draft');
     }
 
     if (prerelease) {
-      cmd += ' --prerelease';
+      args.push('--prerelease');
     }
 
-    const output = executeGh(cmd);
+    const output = executeGhSafe(args);
 
     // Parse release URL from output
     const urlMatch = output.match(
@@ -142,7 +159,7 @@ function createGitHubRelease(options = {}) {
  */
 function deleteGitHubRelease(releaseId) {
   try {
-    executeGh(`release delete ${releaseId} --yes`);
+    executeGhSafe(['release', 'delete', releaseId, '--yes']);
     return true;
   } catch {
     return false;
@@ -174,13 +191,13 @@ function listPullRequests(options = {}) {
   try {
     const { state = 'open', limit = 10, base = 'develop' } = options;
 
-    let cmd = `pr list --state ${state} --limit ${limit}`;
+    const args = ['pr', 'list', '--state', state, '--limit', String(limit)];
 
     if (base) {
-      cmd += ` --base ${base}`;
+      args.push('--base', base);
     }
 
-    const output = executeGh(cmd);
+    const output = executeGhSafe(args);
 
     // Parse PR list output
     if (!output) return [];
@@ -206,9 +223,13 @@ function listPullRequests(options = {}) {
  */
 function getPullRequest(prNumber) {
   try {
-    const output = executeGh(
-      `pr view ${prNumber} --json number,title,state,body,baseRefName,headRefName`
-    );
+    const output = executeGhSafe([
+      'pr',
+      'view',
+      String(prNumber),
+      '--json',
+      'number,title,state,body,baseRefName,headRefName',
+    ]);
     return JSON.parse(output);
   } catch {
     return null;
@@ -223,7 +244,7 @@ function getPullRequest(prNumber) {
  */
 function addPRComment(prNumber, comment) {
   try {
-    executeGh(`pr comment ${prNumber} --body "${comment}"`);
+    executeGhSafe(['pr', 'comment', String(prNumber), '--body', comment]);
     return true;
   } catch {
     return false;
@@ -244,6 +265,7 @@ function isAuthenticated() {
 }
 
 module.exports = {
+  executeGhSafe,
   executeGh,
   createPullRequest,
   mergePullRequest,
