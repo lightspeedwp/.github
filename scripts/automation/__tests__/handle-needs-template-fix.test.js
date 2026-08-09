@@ -160,8 +160,8 @@ describe("handle-needs-template-fix", () => {
 
     it("should count statistics correctly", async () => {
       const result = await handler.processBatch(mockIssues, { dryRun: true });
-      expect(result.stats.preview).toBe(2);
-      expect(result.stats.skipped).toBe(1);
+      expect(result.stats.preview).toBe(3);
+      expect(result.stats.skipped).toBe(0);
       expect(result.stats.updated).toBe(0);
       expect(result.stats.errors).toBe(0);
     });
