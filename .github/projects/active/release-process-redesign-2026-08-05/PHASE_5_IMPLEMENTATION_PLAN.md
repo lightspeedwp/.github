@@ -394,22 +394,28 @@ getValidationErrors(entry)
 
 ```javascript
 formatEntry(entry)
-  → { title, description, prLink, formatted: true }
+  → {
+      title: <formatted with em-dashes>,
+      description: <formatted with em-dashes>,
+      prLink: <preserved as-is>,
+      formatted: true
+    }
 
-enforceEmDash(text)
-  → text with all hyphens converted to em-dashes
+enforceEmDash(proseText)
+  → prose text with only hyphens in hyphenated words
+      converted to em-dashes (NOT in URLs, code, or lists)
 
 truncateTitle(title)
-  → title truncated to 60 chars
+  → title truncated to 60 chars (after em-dash conversion)
 
 truncateDescription(description)
-  → description truncated to 150 chars
+  → description truncated to 150 chars (after em-dash conversion)
 
 extractPRLink(text)
-  → '#123' or null
+  → '#123' or null (PR link reference, preserved as-is)
 
 formatPRLink(prNumber)
-  → '#123'
+  → '#123' (never modified by em-dash normalization)
 ```
 
 #### 3. Keep a Changelog Parser (`keepAChangelogParser.cjs`)
@@ -549,7 +555,7 @@ Each module has comprehensive unit tests:
 ✓ Bumps minor version (1.2.3 → 1.3.0)
 ✓ Bumps major version (1.2.3 → 2.0.0)
 ✓ Writes all files simultaneously
-✓ Handles pre-release versions (-alpha, -beta, -rc)
+✓ Handles pre-release versions (if supported: -alpha, -beta, -rc1)
 
 // gitOps.test.js
 ✓ Creates and checks out branch
