@@ -1262,3 +1262,7 @@ Thank you to everyone who contributed to these improvements!
 [0.4.0]: https://github.com/lightspeedwp/.github/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/lightspeedwp/.github/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/lightspeedwp/.github/releases/tag/v0.2.0
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
