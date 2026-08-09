@@ -1,8 +1,7 @@
 {
-  "name": "@lightspeed/changelog-agent",
+  "name": "@lightspeedwp/changelog-agent",
   "version": "1.0.0",
   "description": "Portable changelog management agent with Keep a Changelog support",
-  "type": "module",
   "main": "changelog.agent.js",
   "exports": {
     ".": "./changelog.agent.js"
@@ -21,8 +20,14 @@
     "release",
     "portable"
   ],
+  "type": "module",
   "author": "LightSpeed Team",
-  "license": "GPL-2.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "agents/changelog"
+  },
+  "license": "GPL-3.0-or-later",
   "dependencies": {},
   "devDependencies": {}
 }
