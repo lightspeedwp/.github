@@ -126,7 +126,7 @@ detectAllVersionFiles()
   → {
       VERSION: { path: 'VERSION', current: '1.2.3' },
       packageJson: { path: 'package.json', current: '1.2.3' },
-      plugin: { path: 'plugin.php', current: '1.2.3' },
+      plugin: { path: 'my-plugin.php', current: '1.2.3' },  // actual detected path
       theme: { path: 'style.css', current: '1.2.3' },
       readme: { path: 'readme.txt', current: '1.2.3' }
     }
@@ -137,7 +137,7 @@ validateVersionConsistency()
 bumpVersion(scope)
   → { old: '1.2.3', new: '1.2.4', scope: 'patch' }
 
-applyVersionBump(newVersion)
+applyVersionBump(newVersion, repoType)
   → { updated: ['VERSION', 'package.json', ...], success: true }
 
 readVersionFile(path)
@@ -153,20 +153,41 @@ getNextVersion(scope)
   → '1.2.4'
 ```
 
+**Version File Requirements (per repo type):**
+
+**Control Plane:**
+
+- REQUIRED: VERSION
+- REQUIRED: package.json
+- OPTIONAL: none
+
+**WordPress Plugin:**
+
+- REQUIRED: VERSION
+- REQUIRED: plugin header (any PHP file with plugin metadata)
+- OPTIONAL: readme.txt
+- OPTIONAL: package.json
+
+**WordPress Theme:**
+
+- REQUIRED: VERSION
+- REQUIRED: style.css (with CSS header metadata)
+- OPTIONAL: package.json
+
 **Implementation Details:**
 
 - **VERSION file:** Plain text, no parsing needed
 - **package.json:** Parse JSON, update `version` field
-- **Plugin header:** Regex match `Version: X.Y.Z` (handle via wordpressUtils in Phase 6)
-- **Theme CSS:** Regex match `Version: X.Y.Z` (handle via wordpressUtils in Phase 6)
+- **Plugin header:** Regex match `Version: X.Y.Z` in first 8KB of file (handle via wordpressUtils in Phase 6)
+- **Theme CSS:** Regex match `Version: X.Y.Z` in first CSS comment block (handle via wordpressUtils in Phase 6)
 - **readme.txt:** Regex match `Stable tag: X.Y.Z` (handle via wordpressUtils in Phase 6)
 
 **Validation:**
 
-- All version files must exist before bumping
-- All versions must match (same X.Y.Z)
+- All REQUIRED files must exist and be readable
+- All found version files must contain consistent versions (same X.Y.Z)
 - New version must be valid SemVer (X.Y.Z)
-- Version files must be writable
+- All version files must be writable before bumping
 
 #### 3. Git Operations (`gitOps.cjs`)
 
@@ -472,10 +493,10 @@ async processChangelog(version, date)
 
 **Deliverables:**
 
-1. ✅ `agents/release/includes/repoDetector.cjs` — repo type detection
-2. ✅ `agents/release/includes/versionManager.cjs` — version file management
-3. ✅ `agents/release/includes/gitOps.cjs` — git operations
-4. ✅ `agents/release/includes/githubOps.cjs` — GitHub API
+1. [ ] `agents/release/includes/repoDetector.cjs` — repo type detection
+2. [ ] `agents/release/includes/versionManager.cjs` — version file management
+3. [ ] `agents/release/includes/gitOps.cjs` — git operations
+4. [ ] `agents/release/includes/githubOps.cjs` — GitHub API
 
 **Testing:**
 
@@ -486,9 +507,9 @@ async processChangelog(version, date)
 
 **Deliverables:**
 
-1. ✅ `agents/release/release.agent.js` — main release agent
-2. ✅ `agents/changelog/changelog.agent.js` — main changelog agent
-3. ✅ Complete agent READMEs
+1. [ ] `agents/release/release.agent.js` — main release agent
+2. [ ] `agents/changelog/changelog.agent.js` — main changelog agent
+3. [ ] Complete agent READMEs
 
 **Testing:**
 
@@ -499,10 +520,10 @@ async processChangelog(version, date)
 
 **Deliverables:**
 
-1. ✅ All unit tests passing (80%+ coverage)
-2. ✅ All integration tests passing
-3. ✅ Agent documentation complete
-4. ✅ Error messages clear and actionable
+1. [ ] All unit tests passing (80%+ coverage)
+2. [ ] All integration tests passing
+3. [ ] Agent documentation complete
+4. [ ] Error messages clear and actionable
 
 ---
 

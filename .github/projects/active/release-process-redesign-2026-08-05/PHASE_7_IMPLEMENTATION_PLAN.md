@@ -56,133 +56,46 @@ This plan directly implements requirements from [OPENSPEC_ANALYSIS_REPORT.md](./
 
 #### 1. Overview Section
 
-```markdown
-# Release Process
+**Content:** Introduction to release process, key principles (develop-first flow, two-stage validation, stacked PRs, single decision-maker, reversibility)
 
-## What is the Release Process?
+**Key Points:**
 
-The release process is how we prepare, validate, and publish new versions of our software. It ensures:
-- Versions are consistent across all version files
-- Changes are validated (tests, linting, changelog)
-- Releases are traceable and reversible
-- Team is aligned on release decisions
-
-## Key Principles
-
-1. **Develop-First Flow** — All releases go through develop first, then main
-2. **Two-Stage Validation** — Develop PR validates code; main PR validates release
-3. **Stacked PRs** — Two linked PRs (develop + main) per release
-4. **Single Decision-Maker** — Only authorized user (Ash) can trigger releases
-5. **Reversible** — Rollback automation available if release fails
-```
+- Explain what the release process is
+- Clarify the five key principles
+- Reference develop-first flow and stacked PR workflow
 
 #### 2. Prerequisites Section
 
-```markdown
-## Prerequisites
+**Content:** System requirements and environment checks
 
-### 1. Authorization
-- Must be authorized user (Ash Shaw)
-- Contact for authorization if needed
+**Checklist:**
 
-### 2. Tooling
-- Node.js 18+ installed
-- GitHub CLI (`gh`) installed and authenticated
-- Git CLI available (`git`)
-- npm with required packages
-
-### 3. Git State
-- On `develop` branch
-- Working tree clean (no uncommitted changes)
-- Latest changes pulled from origin
-
-### 4. Version Files
-- VERSION file exists and is readable
-- package.json has "version" field
-- (Plugin only) plugin.php or similar has Version header
-- (Theme only) style.css has Version header
-- All version files have matching versions
-```
+- Node.js 18+, GitHub CLI, Git, npm installed
+- Authorized user (Ash Shaw only)
+- On develop branch with clean working tree
+- All version files exist and match
 
 #### 3. Step-by-Step Guide Section
 
-```markdown
-## How to Release
+**Content:** Complete release workflow with 5 steps
 
-### Step 1: Trigger Release Workflow
+**Step 1:** Trigger release workflow
 
 ```bash
 npm run release -- --scope=patch
 ```
 
-Options:
+Options: patch (1.2.3 → 1.2.4), minor (1.2.3 → 1.3.0), major (1.2.3 → 2.0.0), --dry-run
 
-- `--scope=patch` — bug fix (1.2.3 → 1.2.4)
-- `--scope=minor` — new feature (1.2.3 → 1.3.0)
-- `--scope=major` — breaking change (1.2.3 → 2.0.0)
-- `--dry-run` — preview without committing
+**Step 2:** Review the generated PR (release branch → develop)
 
-### Step 2: Review Version Bump
+**Step 3:** Merge to develop after approval (squash merge)
 
-Workflow creates:
+**Step 4:** Review auto-generated main PR (develop → main)
 
-1. Release branch: `release/vX.Y.Z`
-2. Commit: version bump + changelog update
-3. PR to develop (e.g., PR #42)
+**Step 5:** Merge to main; tag and GitHub Release auto-created
 
-**Check:**
-
-- Version file bumped correctly
-- All version files synchronized
-- Changelog updated from [Unreleased]
-- All checks passing (tests, lint, changelog validation)
-
-### Step 3: Merge to Develop
-
-Review PR and approve:
-
-- [ ] Changelog looks correct
-- [ ] Version bump is right scope
-- [ ] No unintended changes
-- [ ] All CI checks pass
-
-Merge to develop using GitHub UI:
-
-1. Click "Merge pull request"
-2. Choose "Squash and merge"
-3. Workflow automatically creates PR to main
-
-### Step 4: Merge to Main
-
-After develop PR merges, workflow creates PR to main (e.g., PR #43)
-
-Review and merge:
-
-- [ ] Develop PR merged successfully
-- [ ] All CI checks pass
-- [ ] Release notes look good
-
-Merge to main:
-
-1. Click "Merge pull request"
-2. Choose "Squash and merge"
-3. Workflow automatically:
-   - Creates git tag (vX.Y.Z)
-   - Creates GitHub Release
-   - Sends notification
-
-### Step 5: Verify Release
-
-After main PR merges:
-
-1. Verify tag created: `git tag -l vX.Y.Z`
-2. Verify GitHub Release published
-3. Verify notification sent (optional)
-4. Release complete!
-
-**Time-to-Release:** ~10 minutes from trigger to published release
-
-```
+**Time:** ~10 minutes from trigger to published release
 
 #### 4. Flow Diagram Section
 
@@ -193,7 +106,7 @@ After main PR merges:
 
 ```mermaid
 graph TD
-    A["🔶 Trigger Release<br/>npm run release --scope=patch"] --> B["🔧 Create Release Branch<br/>release/vX.Y.Z"]
+    A["🔶 Trigger Release<br/>npm run release -- --scope=patch"] --> B["🔧 Create Release Branch<br/>release/vX.Y.Z"]
     B --> C["📝 Bump Versions<br/>VERSION + package.json + headers"]
     C --> D["📋 Update Changelog<br/>Unreleased → v1.2.4"]
     D --> E["🧪 Run Tests<br/>All CI checks"]
@@ -245,11 +158,13 @@ graph TD
 **Error:** "Merge conflict in CHANGELOG.md"
 
 **Solution:**
-1. On develop PR, resolve conflict
-2. Prefer develop version (ours)
-3. Commit and push
-4. CI re-runs, should pass
-5. Merge PR
+1. On develop PR, resolve conflict manually
+2. Inspect both sides of the CHANGELOG.md conflict
+3. Preserve all required release entries from both sides
+4. Run changelog validation to ensure structure is correct
+5. Commit and push the resolution
+6. CI re-runs; should pass
+7. Merge PR
 
 ### Q: Need to rollback
 **Command:**
@@ -398,16 +313,11 @@ Release branches are NOT protected. Any developer can create one via the release
 
 ### What are Stacked PRs?
 
-Stacked PRs are two linked pull requests:
-1. **First PR:** Develops → main branch
-2. **Second PR:** Main → base branch (to keep develop in sync)
+Stacked PRs are two linked pull requests in a sequential dependency chain:
+1. **First PR:** Release branch → develop (code quality validation)
+2. **Second PR:** Develop → main (release validation)
 
-Wait, that's backwards. Let me clarify for this project:
-
-1. **First PR:** Release branch → develop
-2. **Second PR:** Develop → main
-
-These PRs are "stacked" in the sense that the second PR depends on the first PR being merged.
+The second PR depends on the first PR being merged, creating a "stack" of linked changes.
 
 ### Workflow
 
