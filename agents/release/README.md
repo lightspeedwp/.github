@@ -6,6 +6,11 @@ version: "1.0.0"
 last_updated: "2026-08-09"
 owners:
   - Ash Shaw
+tags:
+  - agent
+  - release
+  - version-management
+  - portable
 ---
 
 # Release Agent
