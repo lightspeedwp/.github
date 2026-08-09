@@ -230,11 +230,11 @@ GitHub Actions v7 upgrade initiative completed successfully. All 15 workflows st
 
 ✅ **GitHub Actions Versions:**
 
-- All checkout actions use v7
+- All checkout actions use v7 (or patch-pinned for security-sensitive workflows)
 - All setup-node actions use v7
-- All github-script actions use v7
+- All github-script actions use v9 (latest available)
 - All create-github-app-token actions use v4
-- No SHA-based references remain
+- Invalid/broken SHA references removed (some workflows intentionally pin to release SHAs)
 - No outdated versions remain
 
 ✅ **Code Quality:**
