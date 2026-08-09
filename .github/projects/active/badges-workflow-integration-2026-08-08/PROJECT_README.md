@@ -4,8 +4,8 @@ description: "Active project to audit, plan, and integrate badges workflow autom
 file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
-last_updated: "2026-08-09"
-version: "v1.1.0"
+last_updated: "2026-08-09T14:08:00Z"
+version: "v1.2.0"
 authors: ["Ash Shaw"]
 tags: ["badges", "workflow-integration", "automation", "documentation"]
 ---
