@@ -104,16 +104,34 @@ function getUnreleasedEntries(parsed) {
  * @returns {string} Updated changelog content
  */
 function convertUnreleasedToRelease(changelogContent, version, date) {
-  // Replace [Unreleased] with [version] - date
-  const updated = changelogContent.replace(
+  // Replace [Unreleased] heading with [version] - date
+  let updated = changelogContent.replace(
     /## \[Unreleased\]/,
     `## [${version}] - ${date}`
   );
 
-  // Update links section if it exists
-  // Change [Unreleased]: ...compare/vX.Y.Z...HEAD
-  // To [Unreleased]: ...compare/vX.Y.Z...vNEW.VERSION
-  // And add [vX.Y.Z]: ...tag/vX.Y.Z
+  // Update reference links section
+  // Pattern: [Unreleased]: https://github.com/user/repo/compare/vX.Y.Z...HEAD
+  // Change to: [Unreleased]: https://github.com/user/repo/compare/v{version}...HEAD
+  // And add: [{version}]: https://github.com/user/repo/releases/tag/v{version}
+
+  const unreleasedLinkRegex = /\[Unreleased\]:\s*(.+\.com\/[^/]+\/[^/]+\/)compare\/[^.]+\.\.\.HEAD/;
+  const unreleasedLinkMatch = updated.match(unreleasedLinkRegex);
+
+  if (unreleasedLinkMatch) {
+    const baseUrl = unreleasedLinkMatch[1];
+    // Update Unreleased link to point from this version to HEAD
+    updated = updated.replace(
+      unreleasedLinkRegex,
+      `[Unreleased]: ${baseUrl}compare/v${version}...HEAD`
+    );
+
+    // Add new release link after Unreleased link
+    updated = updated.replace(
+      /(\[Unreleased\]:.+\n)/,
+      `$1[${version}]: ${baseUrl}releases/tag/v${version}\n`
+    );
+  }
 
   return updated;
 }
@@ -152,8 +170,8 @@ function getChangelogExcerpt(parsed, version) {
 function appendEntry(changelogContent, entry) {
   const { category = 'Changed', text = '' } = entry;
 
-  // Find [Unreleased] section
-  const unreleasedRegex = /## \[Unreleased\]\n([\s\S]*?)(?=\n### |$)/;
+  // Find entire [Unreleased] section — must capture all content until next version heading or reference links
+  const unreleasedRegex = /## \[Unreleased\]([\s\S]*?)(?=\n## \[[\d.]+\]|\n\[Unreleased\]:|\n\[[\w-]+\]:|\z)/;
   const match = changelogContent.match(unreleasedRegex);
 
   if (!match) {
@@ -162,25 +180,27 @@ function appendEntry(changelogContent, entry) {
     return newSection + changelogContent;
   }
 
+  const unreleasedContent = match[1];
+
   // Check if category already exists in [Unreleased]
-  const categoryRegex = new RegExp(`### ${category}\\n([\\s\\S]*?)(?=\\n###|$)`, 'i');
-  const categoryMatch = match[1].match(categoryRegex);
+  const categoryRegex = new RegExp(`### ${category}\\n([\\s\\S]*?)(?=\\n###|\\n## |\\n\\[|\\z)`, 'i');
+  const categoryMatch = unreleasedContent.match(categoryRegex);
 
   if (categoryMatch) {
     // Add to existing category
-    const updated = match[1].replace(
+    const updated = unreleasedContent.replace(
       categoryMatch[0],
       `### ${category}\n${categoryMatch[1]}- ${text}\n`
     );
-    return changelogContent.replace(match[0], `## [Unreleased]\n${updated}`);
+    return changelogContent.replace(match[0], `## [Unreleased]${updated}`);
   }
 
   // Create new category in [Unreleased]
-  const updated = match[1].replace(
-    /$/,
-    `\n### ${category}\n- ${text}`
+  const updated = unreleasedContent.replace(
+    /\s*$/,
+    `\n### ${category}\n- ${text}\n`
   );
-  return changelogContent.replace(match[0], `## [Unreleased]\n${updated}`);
+  return changelogContent.replace(match[0], `## [Unreleased]${updated}`);
 }
 
 /**

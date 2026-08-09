@@ -63,6 +63,7 @@ function detectControlPlane(repoRoot) {
 function detectWordPressPlugin(repoRoot) {
   const versionFile = path.join(repoRoot, 'VERSION');
   const readmeFile = path.join(repoRoot, 'readme.txt');
+  const packageJsonFile = path.join(repoRoot, 'package.json');
 
   // Must have VERSION file
   if (!fs.existsSync(versionFile)) return null;
@@ -71,8 +72,15 @@ function detectWordPressPlugin(repoRoot) {
   const pluginFile = findPluginFile(repoRoot);
   if (!pluginFile) return null;
 
-  const versionFiles = ['VERSION', 'package.json'];
+  const versionFiles = ['VERSION'];
+
+  // Only add plugin file
   versionFiles.push(path.basename(pluginFile));
+
+  // Only add optional files if they exist
+  if (fs.existsSync(packageJsonFile)) {
+    versionFiles.push('package.json');
+  }
 
   if (fs.existsSync(readmeFile)) {
     versionFiles.push('readme.txt');
