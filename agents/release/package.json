@@ -21,7 +21,6 @@
     "portable",
     "multi-repo"
   ],
-  "type": "module",
   "author": "LightSpeed Team",
   "repository": {
     "type": "git",

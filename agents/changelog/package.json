@@ -20,7 +20,6 @@
     "release",
     "portable"
   ],
-  "type": "module",
   "author": "LightSpeed Team",
   "repository": {
     "type": "git",
