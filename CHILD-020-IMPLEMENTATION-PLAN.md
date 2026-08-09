@@ -10,7 +10,7 @@ version: "v1.1.0"
 
 ## Progress Summary
 
-### ✅ Phase 1: Authorization Gate (COMPLETE)
+### ✅ Phase 1: Authorisation Gate (COMPLETE)
 
 - Hard-fail authorisation check implemented
 - Commit: 409800378
@@ -52,13 +52,13 @@ version: "v1.1.0"
 
 **Issues:**
 
-1. Authorization doesn't hard-fail (has `if` condition but continues on error)
+1. Authorisation doesn't hard-fail (has `if` condition but continues on error)
 2. PR goes to main directly (not develop-first)
 3. Post-release-sync required to keep develop updated
 
 ## Changes Required
 
-### 1. Authorization Gate Hardening
+### 1. Authorisation Gate Hardening
 
 - **Current:** `if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'`
 - **Issue:** Job still runs; authorisation is soft-check
@@ -90,7 +90,7 @@ version: "v1.1.0"
 
 ## Implementation Steps
 
-### Step 1: Fix Authorization Gate
+### Step 1: Fix Authorisation Gate
 
 **File:** `.github/workflows/release.yml` (lines 65-83)
 
@@ -125,7 +125,7 @@ Status:
 
 ## Validation Criteria
 
-✅ Authorization gate hard-fails workflow if unauthorized  
+✅ Authorisation gate hard-fails workflow if unauthorized  
 ✅ Release creates PR to develop (release-to-develop job)  
 ✅ Release then creates PR to main (release-to-main job)  
 ✅ Both PRs require approval before merge  

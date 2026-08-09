@@ -44,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Phase 2 release workflow redesign — Two-PR stacked flow with branch guard compliance** — Refactored release workflow to implement develop-first two-PR stacked architecture. Phase 1 creates `release/vX.Y.Z → develop` PR with changelog and version updates. Phase 2 creates `release/vX.Y.Z → main` PR (not `develop → main`) and publishes GitHub Release. Fixes main-branch-guard violation by using release branch as PR head for both phases. Added comprehensive tests for wrapper scripts and release agent providers. ([PR #1658](https://github.com/lightspeedwp/.github/pull/1658), CHILD-020, CHILD-021)
+- **Phase 2 release workflow redesign — Two-PR stacked flow with branch guard compliance** — Refactored release workflow to implement develop-first two-PR stacked architecture. Phase 1 creates `release/vX.Y.Z → develop` PR with changelog and version updates. Phase 2 creates `release/vX.Y.Z → main` PR (not `develop → main`) and publishes GitHub Release. Fixes main-branch-guard violation by using release branch as PR head for both phases. Added comprehensive tests for wrapper scripts and release agent providers. ([PR #1658](https://github.com/lightspeedwp/.github/pull/1658), [#1560](https://github.com/lightspeedwp/.github/issues/1560), [#1561](https://github.com/lightspeedwp/.github/issues/1561))
 
 ### Fixed
 

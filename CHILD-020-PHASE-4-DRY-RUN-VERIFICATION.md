@@ -150,10 +150,10 @@ The `release.agent.js` uses dry-run mode to:
 
 ## Verification Checklist
 
-### Authorization Gate (Phase 1)
+### Authorisation Gate (Phase 1)
 
 - [x] Hard-fail authorisation check
-- [x] Unauthorized users blocked
+- [x] Unauthorised users blocked
 - [x] Log authorisation failures
 
 ### Stacked PR Architecture (Phase 2)
