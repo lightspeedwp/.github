@@ -51,34 +51,34 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 
 ## Scope & Deliverables
 
-### Phase 1: Audit & Planning (Days 1-2) — IN PROGRESS
+### Phase 1: Audit & Planning (Days 1-2) — ✅ COMPLETE
 
 - ✅ Audit all 45 workflows for action versions
 - ✅ Document current state and blockers
-- 🔄 Create OpenSpec specification
-- 🔄 Create upgrade plan with phasing strategy
-- 🔄 Create GitHub issues (Epic + 5 child issues)
+- ✅ Create OpenSpec specification
+- ✅ Create upgrade plan with phasing strategy
+- ✅ Create GitHub issues (Epic + 5 child issues)
 
-### Phase 2: Badge Workflows Upgrade (Days 3-4)
+### Phase 2: Badge Workflows Upgrade (Days 3-4) — ✅ COMPLETE
 
-- Upgrade 4 badge workflows (invalid SHAs → v7)
-- Create PR with validation
-- Merge to develop
-- Target: Unblock Phase 4 integration testing
+- ✅ Upgrade 4 badge workflows (invalid SHAs → v7) — PR #1693 merged 2026-08-09
+- ✅ Create PR with validation
+- ✅ Merge to develop
+- ✅ Unblock Phase 4 integration testing
 
-### Phase 3: Standard Workflow Upgrades (Days 5-7)
+### Phase 3: Standard Workflow Upgrades (Days 5-7) — 🔄 IN PROGRESS
 
-- Upgrade 6 workflows with v4/v5 pins
-- Group updates by functional area (CI, automation, release)
-- Create separate PRs per functional area
+- 🔄 Upgrade 6 workflows with v4/v5 pins
+- 🔄 Group updates by functional area (CI, automation, release)
+- 🔄 Create separate PRs per functional area
 
-### Phase 4: Consistency & Validation (Days 8-10)
+### Phase 4: Consistency & Validation (Days 8-10) — 📋 PLANNED
 
 - Audit for remaining v4/v5/invalid references
 - Update any remaining outliers
 - Full test run on develop
 
-### Phase 5: Integration Testing & Closure (Days 11-15)
+### Phase 5: Integration Testing & Closure (Days 11-15) — 📋 PLANNED
 
 - Full CI/CD validation with upgraded actions
 - Verify all workflows pass with v7
