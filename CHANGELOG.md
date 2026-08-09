@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Upgrade badge workflow actions to v7** — Fixed invalid GitHub Actions references in badge workflows (badges-documentation-update, badges-readme-status, badges-workflow-audit, badges-health-check) by replacing broken SHAs with v7 tags. Actions/checkout and actions/setup-node now use v7 (latest stable) instead of v4 with invalid commit SHAs. Phase 4 integration testing and project closure. ([PR #1668](https://github.com/lightspeedwp/.github/pull/1668), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641))
+- **Upgrade badge workflow actions to v7** — Fixed invalid GitHub Actions references in badge workflows (badges-documentation-update, badges-readme-status, badges-workflow-audit, badges-health-check) by replacing broken SHAs with pinned v7 release SHAs. Actions/checkout and actions/setup-node now use v7 (latest stable) instead of v4 with invalid commit SHAs. ([PR #1668](https://github.com/lightspeedwp/.github/pull/1668), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641))
 
 ### Removed
 

@@ -179,8 +179,8 @@ Fixed invalid GitHub Actions references in all 4 badge workflows:
 |-------|---------|--------|--------|
 | Phase 1: Schema & Config | 2026-08-08 | ✅ Complete | Done |
 | Phase 2: Workflows | 2026-08-13 | ✅ Complete | Done |
-| Phase 3: Integration Testing | 2026-08-20 | ✅ Complete | Done |
-| Phase 4: Governance & Closure | 2026-08-21 to 2026-08-22 | 🟡 In Progress | Running |
+| Phase 3: Integration Testing | 2026-08-20 | ⏳ Pending | After PR merge |
+| Phase 4: Action Version Fixes & Testing | 2026-08-09 | 🟡 In Progress | PR under review |
 
 ---
 
