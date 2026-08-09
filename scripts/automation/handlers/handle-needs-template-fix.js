@@ -12,6 +12,9 @@
  * Usage:
  *   import { processIssue } from './handle-needs-template-fix.js';
  *   const result = await processIssue(issue, { dryRun: true, githubRequest });
+ *
+ * Note: Handles both DoR and DoD sections as required. Validates template
+ * structure and regenerates sections with appropriate behaviour for issue type.
  */
 
 // Issue type to template section mapping (reused from PR #1669)

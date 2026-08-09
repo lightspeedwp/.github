@@ -25,7 +25,7 @@ Expand the existing issue triage system (PR #1377, PR #1669) to comprehensively 
 
 ## Quick Links
 
-- **OpenSpec Specification:** `openspec/changes/...` (auto-generated)
+- **OpenSpec Specification:** [`OPENSPEC.md`](OPENSPEC.md)
 - **Phase 1 Audit Script:** `scripts/automation/audit-issue-metadata.js`
 - **Label Handlers:** `scripts/automation/handlers/handle-needs-*.js`
 - **Tests:** `scripts/automation/__tests__/`

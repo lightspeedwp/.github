@@ -29,6 +29,16 @@ import fs from "fs";
 import path from "path";
 
 // Configuration
+const limitArg = parseInt(
+  process.argv.find((arg) => arg.startsWith("--limit="))?.split("=")[1] ||
+    "999999",
+);
+
+if (!Number.isSafeInteger(limitArg) || limitArg <= 0) {
+  console.error(`Error: --limit must be a positive integer, got "${limitArg}"`);
+  process.exit(1);
+}
+
 const config = {
   owner: "lightspeedwp",
   repo: ".github",
@@ -38,10 +48,7 @@ const config = {
       .find((arg) => arg.startsWith("--output-dir="))
       ?.split("=")[1] ||
     ".github/projects/active/issue-metadata-triage-expansion/reports",
-  limit: parseInt(
-    process.argv.find((arg) => arg.startsWith("--limit="))?.split("=")[1] ||
-      "999999",
-  ),
+  limit: limitArg,
   filter:
     process.argv.find((arg) => arg.startsWith("--filter="))?.split("=")[1] ||
     null,
@@ -194,13 +201,14 @@ async function fetchAllIssues() {
 
     try {
       const response = await githubRequest("GET", path);
-      let issues = response.data;
+      const rawPage = response.data;
+      const pageSize = rawPage?.length || 0;
 
-      if (!issues || issues.length === 0) {
+      if (pageSize === 0) {
         hasMore = false;
       } else {
         // Filter out pull requests (API returns both issues and PRs)
-        issues = issues.filter((item) => !item.pull_request);
+        const issues = rawPage.filter((item) => !item.pull_request);
         allIssues.push(...issues);
 
         if (config.verbose) {
@@ -209,15 +217,19 @@ async function fetchAllIssues() {
           );
         }
 
-        if (issues.length < config.perPage) {
+        // Use raw page size to determine if more pages exist
+        if (pageSize < config.perPage) {
           hasMore = false;
         } else {
           page++;
         }
       }
     } catch (error) {
-      console.error(`Failed to fetch page ${page}: ${error.message}`);
-      hasMore = false;
+      console.error(`Error: Failed to fetch page ${page}: ${error.message}`);
+      console.error(
+        "Aborting audit due to fetch failure (partial data is unreliable)",
+      );
+      process.exit(1);
     }
 
     // Rate limit protection: sleep briefly between requests

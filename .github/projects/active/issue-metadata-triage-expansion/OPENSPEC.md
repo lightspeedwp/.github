@@ -55,7 +55,7 @@ authors:
 **Goal:** Build comprehensive inventory of all open issues and metadata gaps
 
 **Description:**
-Create a Node.js script that audits all open issues in the `.github` repository, analyzing metadata completeness across 9 `status:needs-*` label categories. Reuse architecture from `add-issue-template-sections.js` but extend to assess:
+Create a Node.js script that audits all open issues in the `.github` repository, analysing metadata completeness across 9 `status:needs-*` label categories. Reuse architecture from `add-issue-template-sections.js` but extend to assess:
 
 - Type labels (feature, bug, epic, story, task, etc.)
 - Area labels (ci, docs, security, etc.)
