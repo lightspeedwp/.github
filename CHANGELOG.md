@@ -30,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Badge workflow integration — Phases 1–3 complete** — Implemented comprehensive badges workflow automation system with schema-driven configuration, automated generation, validation, and discovery workflows. Phase 1 created badge schema with 41 workflow definitions, updated badges.js utility, and established governance policies. Phase 2 implemented four GitHub Actions workflows: documentation badge updates (on-push), README status maintenance (daily), workflow discovery (weekly), and badge health checks (weekly). Phase 3 added testing suite with schema validation, automated schema generation from workflows, comprehensive examples documentation, and detailed troubleshooting guide. ([PR #1659](https://github.com/lightspeedwp/.github/pull/1659), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641), child issues #1643–#1655)
 
+### Fixed
+
+- **Upgrade badge workflow actions to v7** — Fixed invalid GitHub Actions references in badge workflows (badges-documentation-update, badges-readme-status, badges-workflow-audit, badges-health-check) by replacing broken SHAs with pinned v7 release SHAs. Actions/checkout and actions/setup-node now use v7 (latest stable) instead of v4 with invalid commit SHAs. ([PR #1668](https://github.com/lightspeedwp/.github/pull/1668), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641))
+
 ### Removed
 
 - **Update validation script for Phase 1 restructuring** — Updated `.github/scripts/validate-footers.js` to skip validation of deleted `.github/agents/` files in `--changed-only` mode. Ensures validation scripts correctly handle agents consolidated to root per Phase 1 restructuring. ([PR #1537](https://github.com/lightspeedwp/.github/pull/1537), [#1510](https://github.com/lightspeedwp/.github/issues/1510))
