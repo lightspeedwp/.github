@@ -494,4 +494,6 @@ Run `gh auth login` to authenticate with GitHub CLI.
 
 ---
 
-Built with ☕ by Ash Shaw
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

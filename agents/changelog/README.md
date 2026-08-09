@@ -506,4 +506,6 @@ entry: {
 
 ---
 
-Built with ☕ by Ash Shaw
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
