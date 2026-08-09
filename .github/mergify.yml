@@ -37,6 +37,7 @@ pull_request_rules:
           - author~=^(dependabot\[bot\]|app/dependabot)$
           - base=develop
           - label=area:dependencies
+          - check-success=All Checks Passed
           - -draft
           - -conflict
 
