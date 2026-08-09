@@ -17,7 +17,7 @@
  *   --label=LABEL          Filter by specific label (default: status:needs-more-info)
  */
 
-const https = require("https");
+import https from "https";
 
 // Configuration
 const config = {
