@@ -24,7 +24,6 @@
  *     --batch-size 10
  */
 
-import { readFileSync } from "fs";
 import { Octokit } from "@octokit/rest";
 import * as templateFixHandler from "./handlers/handle-needs-template-fix.js";
 import * as triageHandler from "./handlers/handle-needs-triage.js";
