@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: "OpenSpec Re-Validation — Phases 5-7"
-description: "Validation that Phase 5-7 implementation plans cover all 47 original specification tasks"
+description: "Validation that Phase 5-7 implementation plans cover all 45 original specification tasks"
 status: active
 version: "1.0"
 last_updated: "2026-08-09"
