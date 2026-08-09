@@ -4,7 +4,7 @@ description: "Current status of Phase 4 action version fixes and integration tes
 file_type: "documentation"
 status: "in-progress"
 created_date: "2026-08-09"
-last_updated: "2026-08-09T14:05:00Z"
+last_updated: "2026-08-09"
 version: "v1.0.0"
 authors: ["Ash Shaw"]
 tags: ["badges", "phase-4", "action-versions", "status-report"]
