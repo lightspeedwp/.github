@@ -19,14 +19,15 @@ Portable, production-grade agent for managing releases across multiple repositor
 
 ## Overview
 
-The Release Agent automates the complete release workflow:
+The Release Agent automates the release preparation workflow (Phase 1):
 
 1. **Detect** repository type (control-plane, plugin, or theme)
 2. **Validate** version consistency across all version files
 3. **Bump** versions (major/minor/patch) across all files
 4. **Commit** version changes with proper messaging
-5. **Create PRs** to develop and main branches
-6. **Tag** and **release** on GitHub
+5. **Create PR** to develop branch with version bumps
+
+**Phase 2 (planned):** Create PR to main, tag, and GitHub release
 
 Supports:
 

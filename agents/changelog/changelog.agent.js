@@ -44,7 +44,7 @@ async function validateEntry(entry = {}, options = {}) {
 
     // Auto-format if requested and has errors
     if (autoFormat && result.errors.length > 0) {
-      const formatted = formatter.formatEntry(entry);
+      const formatted = formatter.formatEntryComprehensive(entry);
       result.formatted = formatted;
 
       // Re-validate formatted entry
