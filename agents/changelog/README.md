@@ -1,20 +1,11 @@
 ---
-file_type: agent-documentation
+file_type: readme
 title: Changelog Agent
 description: Portable changelog management agent with Keep a Changelog 1.1.0 support
-status: active
 version: "1.0.0"
 last_updated: "2026-08-09"
 owners:
   - Ash Shaw
-tags:
-  - agent
-  - changelog
-  - keep-a-changelog
-  - validation
-  - formatting
-  - portable
-language: en
 ---
 
 # Changelog Agent
