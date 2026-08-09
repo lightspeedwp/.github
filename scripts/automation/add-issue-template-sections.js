@@ -275,18 +275,37 @@ async function processIssue(issue) {
   }
 }
 
-// Fetch issues with status:needs-more-info label
+// Fetch issues with status:needs-more-info label (with pagination support)
 async function fetchIssues() {
   const query = `label:${config.label}`;
-  const path = `/repos/${config.owner}/${config.repo}/issues?q=${encodeURIComponent(query)}&state=open&per_page=${config.perPage}&sort=created&order=asc`;
+  let allIssues = [];
+  let page = 1;
+  let hasMore = true;
 
-  try {
-    const response = await githubRequest("GET", path);
-    return response.data;
-  } catch (error) {
-    console.error(`Failed to fetch issues: ${error.message}`);
-    return [];
+  while (hasMore) {
+    const path = `/repos/${config.owner}/${config.repo}/issues?q=${encodeURIComponent(query)}&state=open&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
+
+    try {
+      const response = await githubRequest("GET", path);
+      const data = response.data;
+
+      if (!data || data.length === 0) {
+        hasMore = false;
+      } else {
+        allIssues = allIssues.concat(data);
+        if (data.length < config.perPage) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      }
+    } catch (error) {
+      console.error(`Failed to fetch issues (page ${page}): ${error.message}`);
+      hasMore = false;
+    }
   }
+
+  return allIssues;
 }
 
 // Main execution
@@ -321,8 +340,9 @@ async function main() {
     }
   }
 
-  // Apply limit
-  issuesToProcess = issuesToProcess.slice(0, config.limit);
+  // Apply offset and limit
+  const startIdx = config.startFrom - 1;
+  issuesToProcess = issuesToProcess.slice(startIdx, startIdx + config.limit);
 
   // Process issues
   console.log(`\n🚀 Processing ${issuesToProcess.length} issue(s)...\n`);
