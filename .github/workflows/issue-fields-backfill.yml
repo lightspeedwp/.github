@@ -75,7 +75,7 @@ jobs:
 
       - name: Create GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v4
         with:
           client-id: ${{ vars.LS_APP_CLIENT_ID != '' && vars.LS_APP_CLIENT_ID || vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
