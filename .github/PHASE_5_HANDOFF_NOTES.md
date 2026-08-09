@@ -53,7 +53,7 @@ status: "Complete"
 - [x] YAML syntax valid (all 15 workflows)
 - [x] Action references valid (no broken links)
 - [x] Version tags correct (v7, v4, etc.)
-- [x] No SHA-based references
+- [x] Invalid/broken SHA references removed (some workflows intentionally pin to release SHAs)
 - [x] No outdated versions
 - [x] Code formatting correct (Prettier)
 - [x] No regressions introduced
@@ -107,7 +107,7 @@ git checkout develop
 git pull origin develop
 
 # Merge PR #1688 via GitHub UI or CLI
-gh pr merge 1688 --squash --admin
+gh pr merge 1688 --squash
 ```
 
 ### Post-Merge
