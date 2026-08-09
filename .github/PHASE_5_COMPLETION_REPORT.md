@@ -99,7 +99,7 @@ This document — final status report of Phase 5.
 - ✅ 5 test categories run
 - ✅ 100% pass rate
 - ✅ Test results documented
-- **File:** [.github/PHASE_4_TEST_RESULTS.md](./.github/PHASE_4_TEST_RESULTS.md)
+- **File:** [.github/PHASE_4_TEST_RESULTS.md](./PHASE_4_TEST_RESULTS.md)
 
 ### Phase 5: Documentation & Closure
 
@@ -107,9 +107,9 @@ This document — final status report of Phase 5.
 - ✅ Handoff notes created
 - ✅ Completion report created
 - **Files:**
-  - [.github/EPIC_1670_PROJECT_SUMMARY.md](./.github/EPIC_1670_PROJECT_SUMMARY.md)
-  - [.github/PHASE_5_HANDOFF_NOTES.md](./.github/PHASE_5_HANDOFF_NOTES.md)
-  - [.github/PHASE_5_COMPLETION_REPORT.md](./.github/PHASE_5_COMPLETION_REPORT.md)
+  - [.github/EPIC_1670_PROJECT_SUMMARY.md](./EPIC_1670_PROJECT_SUMMARY.md)
+  - [.github/PHASE_5_HANDOFF_NOTES.md](./PHASE_5_HANDOFF_NOTES.md)
+  - [.github/PHASE_5_COMPLETION_REPORT.md](./PHASE_5_COMPLETION_REPORT.md)
 
 ---
 
@@ -218,9 +218,9 @@ This document — final status report of Phase 5.
 
 For the next person:
 
-1. **Start Here:** [PHASE_5_HANDOFF_NOTES.md](./.github/PHASE_5_HANDOFF_NOTES.md)
-2. **For Details:** [EPIC_1670_PROJECT_SUMMARY.md](./.github/EPIC_1670_PROJECT_SUMMARY.md)
-3. **For Test Results:** [PHASE_4_TEST_RESULTS.md](./.github/PHASE_4_TEST_RESULTS.md)
+1. **Start Here:** [PHASE_5_HANDOFF_NOTES.md](./PHASE_5_HANDOFF_NOTES.md)
+2. **For Details:** [EPIC_1670_PROJECT_SUMMARY.md](./EPIC_1670_PROJECT_SUMMARY.md)
+3. **For Test Results:** [PHASE_4_TEST_RESULTS.md](./PHASE_4_TEST_RESULTS.md)
 4. **For Code:** [PR #1688](https://github.com/lightspeedwp/.github/pull/1688)
 
 ---
