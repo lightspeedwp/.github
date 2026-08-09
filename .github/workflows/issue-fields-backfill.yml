@@ -82,7 +82,7 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Run bulk backfill
-        uses: actions/github-script@v9
+        uses: actions/github-script@v7
         env:
           APP_TOKEN: ${{ steps.app-token.outputs.token }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
