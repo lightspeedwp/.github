@@ -277,17 +277,17 @@ async function processIssue(issue) {
 
 // Fetch issues with status:needs-more-info label (with pagination support)
 async function fetchIssues() {
-  const query = `label:${config.label}`;
+  const query = `repo:${config.owner}/${config.repo} label:${config.label} is:open`;
   let allIssues = [];
   let page = 1;
   let hasMore = true;
 
   while (hasMore) {
-    const path = `/repos/${config.owner}/${config.repo}/issues?q=${encodeURIComponent(query)}&state=open&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
+    const path = `/search/issues?q=${encodeURIComponent(query)}&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
 
     try {
       const response = await githubRequest("GET", path);
-      const data = response.data;
+      const data = response.data.items || response.data;
 
       if (!data || data.length === 0) {
         hasMore = false;
@@ -340,8 +340,8 @@ async function main() {
     }
   }
 
-  // Apply offset and limit
-  const startIdx = config.startFrom - 1;
+  // Apply offset and limit (clamp start index to prevent negative slice)
+  const startIdx = Math.max(0, config.startFrom - 1);
   issuesToProcess = issuesToProcess.slice(startIdx, startIdx + config.limit);
 
   // Process issues
