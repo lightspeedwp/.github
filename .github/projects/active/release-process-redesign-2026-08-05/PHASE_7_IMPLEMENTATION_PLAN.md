@@ -99,13 +99,15 @@ Options: patch (1.2.3 → 1.2.4), minor (1.2.3 → 1.3.0), major (1.2.3 → 2.0.
 
 #### 4. Flow Diagram Section
 
-```markdown
+````markdown
 ## Release Flow Diagram
 
 [Mermaid diagram showing develop → main flow]
 
 ```mermaid
-graph TD
+flowchart TD
+    accTitle: Release process flow with develop-first architecture
+    accDescr: Diagram shows the release workflow from triggering on develop through creating release branch, version bumps, changelog updates, testing, code review, merging to develop, auto-creating PR to main, final review, and merging to main with tag creation and release publication.
     A["🔶 Trigger Release<br/>npm run release -- --scope=patch"] --> B["🔧 Create Release Branch<br/>release/vX.Y.Z"]
     B --> C["📝 Bump Versions<br/>VERSION + package.json + headers"]
     C --> D["📋 Update Changelog<br/>Unreleased → v1.2.4"]
@@ -129,10 +131,11 @@ graph TD
     S --> T["📢 Send Notification"]
     T --> U["✨ Release Published!"]
 ```
+````
 
 #### 5. Troubleshooting Section
 
-```markdown
+````markdown
 ## Troubleshooting
 
 ### Q: Version files don't match
@@ -202,11 +205,11 @@ This:
 4. Investigation + fix (if needed)
 5. Release again when ready
 
-```
+````
 
 #### 6. FAQ Section
 
-```markdown
+````markdown
 ## FAQ
 
 ### Q: Why two PRs instead of one?
@@ -252,7 +255,7 @@ npm run release -- --scope=patch --dry-run
 
 Shows what would happen without changes.
 
-```
+````
 
 #### 7. References Section
 
@@ -308,7 +311,7 @@ Release branches are NOT protected. Any developer can create one via the release
 
 #### 2. Add Stacked PR Explanation
 
-```markdown
+````markdown
 ## Stacked Pull Requests (Release Flow)
 
 ### What are Stacked PRs?
@@ -347,7 +350,7 @@ Tag created + Release published
 - **Develop always current:** No version skew between develop and main
 - **Single source of truth:** Develop is primary integration branch
 - **Safe recovery:** Each stage can be tested independently
-```
+````
 
 #### 3. Link to Release Process
 
@@ -371,7 +374,7 @@ For WordPress-specific release process, see [RELEASE_WORDPRESS.md](./RELEASE_WOR
 
 **Structure:**
 
-```markdown
+````markdown
 # WordPress Release Process
 
 ## Overview
@@ -655,7 +658,7 @@ This reverts all files including style.css.
 - **Theme Development:** <https://developer.wordpress.org/themes/>
 - **readme.txt Format:** <https://developer.wordpress.org/plugins/wordpress-org/readme/>
 
-```
+````
 
 ---
 
@@ -671,7 +674,7 @@ This reverts all files including style.css.
 
 **Content:**
 
-```markdown
+````markdown
 # Release Process Training
 
 ## Who Should Read This?
@@ -870,7 +873,7 @@ All must match or release fails.
 - **Bug report?** Create issue with `type:bug` label
 - **Process improvement?** Create issue with `type:improvement` label
 
-```
+````
 
 #### CHILD-031: Create RELEASE_TROUBLESHOOTING.md
 
@@ -947,7 +950,7 @@ jobs:
 
 ## Success Criteria (Phase 7)
 
-✅ **Phase 7 is successful when:**
+**Phase 7 is successful when:**
 
 1. **RELEASE_PROCESS.md Complete**
    - [ ] Rewritten with develop-first flow

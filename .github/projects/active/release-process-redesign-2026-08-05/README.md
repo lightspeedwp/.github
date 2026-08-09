@@ -64,7 +64,7 @@ category: "release-engineering"
 
 **Implementation Tasks (18 planned, delivered in 1 day):**
 
-- [x] CHILD-020: Update release.yml for develop-first flow + stacked PRs (PR #1656)
+- [x] CHILD-020: Update release.yml for develop-first flow + stacked PRs (PR #1658)
 - [x] CHILD-021: Modify release.agent.js for two-PR creation logic (PR #1658)
 - [x] Authorization gates + dry-run validation implemented
 - [x] Mergify sequential configuration deployed (batch_size: 1, max_parallel_checks: 1)
