@@ -1,6 +1,9 @@
 ---
 title: "CHILD-020 Phase 4: Dry-Run Verification"
 description: "Verification that dry-run mode works correctly with two-PR stacked flow"
+file_type: "documentation"
+last_updated: "2026-08-09"
+version: "v1.1.0"
 ---
 
 # CHILD-020 Phase 4: Dry-Run Mode Verification

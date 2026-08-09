@@ -1,8 +1,9 @@
 ---
 title: "CHILD-020 Implementation Plan"
 description: "Detailed plan for updating release.yml for develop-first stacked PR flow"
+file_type: "documentation"
 status: "Phase 2 Complete"
-last_updated: "2026-08-08"
+last_updated: "2026-08-09"
 version: "v1.1.0"
 ---
 
