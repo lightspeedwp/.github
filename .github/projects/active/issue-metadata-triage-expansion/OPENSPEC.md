@@ -9,7 +9,9 @@ status: planning
 
 # Issue Metadata Triage Expansion — Specification
 
-**Epic Scope:** Comprehensive issue metadata validation and automation across 9 `status:needs-*` label categories, plus enhanced type detection, assignment, project association, and relationship mapping.
+**Parent Epic:** [#1679 — Comprehensive Issue Metadata Expansion & Automated Triage System](https://github.com/lightspeedwp/.github/issues/1679)
+
+**Scope:** Comprehensive issue metadata validation and automation across 9 `status:needs-*` label categories, plus enhanced type detection, assignment, project association, and relationship mapping.
 
 **Estimated Effort:** 4-5 weeks | **Team:** 1 engineer | **Risk:** Low
 

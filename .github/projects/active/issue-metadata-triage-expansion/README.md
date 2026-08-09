@@ -22,6 +22,8 @@ related_issues: []
 
 Expand the existing issue triage system (PR #1377, PR #1669) to comprehensively validate and automate GitHub issue metadata across **9 distinct `status:needs-*` label categories**, plus enhanced type detection, assignment, project association, and relationship mapping.
 
+**Parent Epic:** [#1679 — Comprehensive Issue Metadata Expansion & Automated Triage System](https://github.com/lightspeedwp/.github/issues/1679)
+
 ## Quick Links
 
 - **OpenSpec Specification:** `openspec/changes/...` (auto-generated)
