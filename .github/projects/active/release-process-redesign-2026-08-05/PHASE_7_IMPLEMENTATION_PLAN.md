@@ -903,7 +903,7 @@ Solution: Stop, add entries, commit, retry
 
 ### How to Get Help
 
-1. Check [RELEASE_TROUBLESHOOTING.md](./RELEASE_TROUBLESHOOTING.md)
+1. Check [RELEASE_TROUBLESHOOTING.md](./RELEASE_TROUBLESHOOTING.md) (Phase 7 deliverable)
 2. Ask in #engineering Slack channel
 3. Contact release manager (Ash)
 
@@ -949,8 +949,8 @@ All must match or release fails.
 
 ## Next Steps
 
-- Read [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for details
-- Read [RELEASE_WORDPRESS.md](./RELEASE_WORDPRESS.md) if working with plugins/themes
+- Read [docs/RELEASE_PROCESS.md](../../../../docs/RELEASE_PROCESS.md) for details (will be rewritten in Phase 7)
+- See [RELEASE_WORDPRESS.md](./RELEASE_WORDPRESS.md) for WordPress-specific process (Phase 7 deliverable)
 - Practice on test repository
 - Ask questions anytime
 
