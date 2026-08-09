@@ -15,10 +15,10 @@ stability: "stable"
 
 # Active Projects Index
 
-**Index Version:** 2.1  
-**Last Updated:** 2026-08-07  
-**Status:** Phase 3D Enforcement — Reports Consolidation + Label Prefix Projects Added  
-**Total Active Projects:** 25
+**Index Version:** 2.2  
+**Last Updated:** 2026-08-09 (19:35 UTC)  
+**Status:** 4 Recent Merges (PR #1692-#1694) — Issue Triage Phase Complete, Badge v7 Upgrade In Progress  
+**Total Active Projects:** 29
 
 ---
 
