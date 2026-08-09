@@ -4,7 +4,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 
 /**
  * Validate entry format (Gate 1 - on PR to develop)

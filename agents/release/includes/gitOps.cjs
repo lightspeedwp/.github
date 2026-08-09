@@ -4,7 +4,6 @@
  */
 
 const { execSync } = require('child_process');
-const fs = require('fs');
 
 /**
  * Execute git command and return output
