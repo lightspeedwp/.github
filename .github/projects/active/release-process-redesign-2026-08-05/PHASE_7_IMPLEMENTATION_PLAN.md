@@ -897,6 +897,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
       - name: Check RELEASE_PROCESS.md exists
         run: test -f docs/RELEASE_PROCESS.md
       

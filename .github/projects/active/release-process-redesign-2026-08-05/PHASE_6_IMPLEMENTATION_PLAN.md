@@ -99,8 +99,9 @@ Version: 1.2.4
 Author: Ash Shaw
 */
 
-// Regex pattern
-const headerRegex = /^(\s*\*?\s*Version:\s*).+/im;
+// Implementation: Parse only the plugin header block (first 8KB or until first PHP code)
+// Regex pattern (restricted to header comment block):
+const headerRegex = /\/\*[\s\S]*?Version:\s*([^\n]+)[\s\S]*?\*\//i;
 ```
 
 **Key Functions:**
@@ -171,11 +172,9 @@ Located in `style.css` at repo root.
 **Function:** `updateThemeCSSVersion(filePath, newVersion)`
 
 ```javascript
-// Find Version line in style.css header
-// Update to new version
-// Preserve all other header info
-
-const themeVersionRegex = /^(\s*\*?\s*Version:\s*).+/im;
+// Implementation: Parse only the CSS header block (first 10 lines, first /* */ block)
+// Regex pattern (restricted to CSS header comment):
+const themeVersionRegex = /\/\*[\s\S]*?Version:\s*([^\n]+)[\s\S]*?\*\//i;
 ```
 
 **Key Functions:**
@@ -235,11 +234,9 @@ The `Stable tag:` field indicates the current released version.
 **Function:** `updateReadmeTxtStableTag(filePath, newVersion)`
 
 ```javascript
-// Find "Stable tag: X.Y.Z" line
-// Update version
-// Preserve all other content
-
-const stableTagRegex = /^(Stable tag:\s*).+$/im;
+// Implementation: Parse the header metadata section (first ~20 lines)
+// Regex pattern (restricted to header section, case-insensitive):
+const stableTagRegex = /^Stable\s+tag:\s*([^\n]+)$/im;
 ```
 
 **Key Functions:**
@@ -290,29 +287,37 @@ async updateWordPressVersionFiles(repoType, newVersion) {
     readme: { updated: false, file: null },
   };
 
-  if (repoType === 'plugin') {
-    // 1. Find plugin file
-    const pluginFile = detectPluginFile();
-    if (!pluginFile) throw new Error('Plugin file not found');
-    
-    // 2. Update plugin header
-    updatePluginHeader(pluginFile, newVersion);
-    results.plugin = { updated: true, file: pluginFile };
-  }
+  try {
+    if (repoType === 'plugin') {
+      // 1. Find plugin file
+      const pluginFile = detectPluginFile();
+      if (!pluginFile) throw new Error('Plugin file not found');
+      
+      // 2. Update plugin header (validate return value)
+      const pluginUpdated = updatePluginHeader(pluginFile, newVersion);
+      if (!pluginUpdated) throw new Error(`Failed to update plugin header in ${pluginFile}`);
+      results.plugin = { updated: true, file: pluginFile };
+    }
 
-  if (repoType === 'theme') {
-    // 1. Update style.css header
-    updateThemeCSSVersion('style.css', newVersion);
-    results.theme = { updated: true, file: 'style.css' };
-  }
+    if (repoType === 'theme') {
+      // 1. Update style.css header (validate return value)
+      const themeUpdated = updateThemeCSSVersion('style.css', newVersion);
+      if (!themeUpdated) throw new Error('Failed to update theme CSS header in style.css');
+      results.theme = { updated: true, file: 'style.css' };
+    }
 
-  // 3. Update readme.txt if exists
-  if (fileExists('readme.txt')) {
-    updateReadmeTxtStableTag('readme.txt', newVersion);
-    results.readme = { updated: true, file: 'readme.txt' };
-  }
+    // 3. Update readme.txt if exists (validate return value)
+    if (fileExists('readme.txt')) {
+      const readmeUpdated = updateReadmeTxtStableTag('readme.txt', newVersion);
+      if (!readmeUpdated) throw new Error('Failed to update readme.txt stable tag');
+      results.readme = { updated: true, file: 'readme.txt' };
+    }
 
-  return results;
+    return results;
+  } catch (error) {
+    // On any failure, attempt to restore consistency or report partial success
+    throw new Error(`WordPress version file update failed: ${error.message}`);
+  }
 }
 ```
 
