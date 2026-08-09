@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.9"
-last_updated: "2026-08-05"
+version: "v2.0"
+last_updated: "2026-08-09"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
@@ -130,6 +130,52 @@ The Phase 1B audit identified all 25 core schemas and consolidation path. Phase 
    - If branch already auto-deleted by GitHub (typical): Expected behaviour, report as success
    - Delete the local branch via `git branch -d {branch-name}` (or `-D` if not fully merged locally)
    - Report status to user
+
+#### Mergify Queue Configuration — Sequential Processing
+
+**Configuration:** Mergify is configured in `.github/mergify.yml` to process PRs **sequentially** (one at a time) with automatic rebasing. This works in conjunction with GitHub's branch protection rule "Require branches to be up to date before merging."
+
+**How It Works:**
+
+1. PR enters Mergify queue → Mergify starts CI checks (in-place, not draft)
+2. Multiple PRs can be queued → Mergify processes them sequentially
+3. First PR finishes → Mergify verifies all conditions still pass
+4. If base branch (`develop`) has changed → Mergify auto-rebases the PR
+5. After rebase, checks re-run → If still green, PR merges automatically
+6. Second PR then starts CI → Cycle repeats
+
+**Key Configuration:**
+
+```yaml
+queue_rules:
+  - name: dependabot-develop
+    merge_method: squash
+    batch_size: 1  # Process one PR at a time
+
+merge_queue:
+  max_parallel_checks: 1  # Only one PR in CI at a time
+```
+
+**Why Sequential Instead of Parallel:**
+
+- GitHub's branch protection requires branches to be "up to date" before merge
+- Parallel draft checks conflict with this requirement (branch can't stay updated mid-test)
+- Sequential in-place checks maintain the safety invariant: branch is checked, then auto-rebased, then merged
+- Trade-off: Slower merge speed (one at a time) for explicit two-layer safety (GitHub + Mergify)
+
+**User-Facing Behaviour:**
+
+- ✅ Use "Add to merge queue" button instead of direct merge
+- ✅ Multiple PRs in queue is fine → Mergify handles sequencing
+- ✅ Auto-rebase happens transparently if base branch changes
+- ✅ If conflicts arise, PR author is notified
+- ⚠️ Merge is slower than parallel (expect ~10 min per PR, not instant)
+
+**Monitoring:**
+
+- Check Mergify dashboard for queue status
+- If a PR is stuck, check PR comments for Mergify diagnostics
+- Rare: If auto-rebase fails, manually rebase and push to unblock
 
 #### main Branch — LOCKED (Release Only)
 
