@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-07"
+last_updated: "2026-08-09"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -78,6 +78,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Add file_type frontmatter** — Added to 48 agent and 16 prompt files. ([PR #1533](https://github.com/lightspeedwp/.github/pull/1533), [#1510](https://github.com/lightspeedwp/.github/issues/1510))
 
 ### Added
+
+- **Phase 4 Implementation Plan — release process refactoring** — Complete implementation plan for Phase 4 with 22 detailed tasks across 5 priority areas (workflow refactoring, agent implementation, WordPress integration, testing, deployment). Includes 18-day timeline (2026-08-08 → 2026-08-25), validation against OPENSPEC analysis covering all 47 requirements and 4 ADRs, and comprehensive OpenSpec Issues Summary with complete task inventory. ([PR #1656](https://github.com/lightspeedwp/.github/pull/1656), [#1640](https://github.com/lightspeedwp/.github/issues/1640))
+
+- **Two-PR stacked creation logic for release.agent.js** — Implemented Phase 2 architecture for stacked PR workflow: added `createReleasePRToDevelop(version, branch, options)` for Phase 1 PR creation (release → develop with version bump + changelog), and `createReleasePRToMain(version, options)` for Phase 2 PR creation (stacked PR release → main after develop merge). Enables develop-first release flow with clear two-stage validation. ([PR #1658](https://github.com/lightspeedwp/.github/pull/1658), [#1561](https://github.com/lightspeedwp/.github/issues/1561))
 
 - **Phase 1–3 completion documentation** — Comprehensive project completion report documenting Phase 1 restructuring, Phase 2 label remediation, and Phase 3 validation enforcement. Includes audit findings, 5-phase remediation timeline, and governance architecture. ([PR #1624](https://github.com/lightspeedwp/.github/pull/1624), [Epic #1290](https://github.com/lightspeedwp/.github/issues/1290))
 
