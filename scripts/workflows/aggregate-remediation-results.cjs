@@ -12,9 +12,15 @@ const path = require('path');
 
 // Read remediation logs
 const reportsDir = 'reports';
-const logFiles = fs
-  .readdirSync(reportsDir)
-  .filter((f) => f.startsWith('remediation-') && f.endsWith('.log'));
+let logFiles = [];
+
+if (fs.existsSync(reportsDir)) {
+  logFiles = fs
+    .readdirSync(reportsDir)
+    .filter((f) => f.startsWith('remediation-') && f.endsWith('.log'));
+} else {
+  console.warn(`Reports directory not found: ${reportsDir}`);
+}
 
 const results = {
   timestamp: new Date().toISOString(),

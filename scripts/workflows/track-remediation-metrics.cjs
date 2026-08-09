@@ -112,7 +112,16 @@ function generateProgressReport(metrics) {
     fs.mkdirSync(reportDir, { recursive: true });
   }
 
-  let report = `# Issue Remediation Progress Report\n\n`;
+  // Add YAML frontmatter
+  let report = `---\n`;
+  report += `file_type: "report"\n`;
+  report += `title: "Issue Remediation Progress Report"\n`;
+  report += `description: "Ongoing metrics and progress tracking for automated issue metadata remediation"\n`;
+  report += `created_date: "${new Date().toISOString().split('T')[0]}"\n`;
+  report += `last_updated: "${new Date().toISOString()}"\n`;
+  report += `---\n\n`;
+
+  report += `# Issue Remediation Progress Report\n\n`;
   report += `**Last Updated:** ${new Date().toISOString()}\n\n`;
 
   if (metrics.current) {
