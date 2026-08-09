@@ -2,18 +2,18 @@
 name: Issue Metadata Triage Expansion
 title: Comprehensive Issue Metadata Validation & Automation
 description: Expand issue triage system to validate and automate metadata across 9 status:needs-* label categories
-status: planning
-created: 2026-08-09
+file_type: documentation
+status: active
+created_date: 2026-08-09
 last_updated: 2026-08-09
 version: 1.0.0
-owners:
+authors:
   - lightspeedwp/maintainers
 tags:
   - automation
   - issue-triage
   - metadata
   - governance
-related_issues: []
 ---
 
 # Issue Metadata Triage Expansion
