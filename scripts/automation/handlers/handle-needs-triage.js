@@ -8,10 +8,17 @@
  * 4. Adding inferred labels with confidence scoring
  * 5. Removing status:needs-triage label when complete
  *
- * Supports confidence-based filtering and dry-run/preview mode.
+ * Supports confidence-based filtering (default >90%) and dry-run/preview mode.
+ *
+ * Usage:
+ *   import { processIssue } from './handle-needs-triage.js';
+ *   const result = await processIssue(issue, { dryRun: true, confidenceThreshold: 0.9 });
+ *
+ * Note: Type and area detection use keyword matching and pattern recognition.
+ * Confidence scoring prevents false positives on edge cases.
  */
 
-// Type detection patterns
+// Type detection patterns (keyword → type mapping)
 const typePatterns = {
   feature: {
     keywords: [
@@ -21,105 +28,184 @@ const typePatterns = {
       "new capability",
       "feature request",
       "enhancement",
+      "would like",
+      "suggestion",
     ],
-    patterns: [/^(add|implement|create|new)\s+/i, /feature request/i],
+    patterns: [
+      /^(add|implement|create|new)\s+/i,
+      /feature request/i,
+      /would like to/i,
+    ],
     weight: 1.0,
   },
+
   bug: {
-    keywords: ["bug", "broken", "crash", "error", "failing", "regression"],
-    patterns: [/^(bug|error|crash|broken)/i, /doesn't?\s+work/i, /failing/i],
+    keywords: [
+      "bug",
+      "broken",
+      "crash",
+      "error",
+      "issue",
+      "failing",
+      "doesn't work",
+      "not working",
+      "regression",
+      "broken",
+    ],
+    patterns: [
+      /^(bug|error|issue|crash|broken)/i,
+      /doesn't?\s+work/i,
+      /failing/i,
+      /regression/i,
+    ],
     weight: 1.0,
   },
+
   epic: {
-    keywords: ["epic", "initiative", "roadmap", "phase"],
-    patterns: [/^epic:/i, /large initiative/i],
+    keywords: [
+      "epic",
+      "initiative",
+      "roadmap",
+      "large initiative",
+      "phase",
+      "program",
+    ],
+    patterns: [/^epic:/i, /large initiative/i, /multi-part/i],
     weight: 0.95,
   },
+
   story: {
-    keywords: ["user story", "as a", "i want", "so that"],
-    patterns: [/^as\s+a/i, /i want to/i, /so that/i],
+    keywords: [
+      "user story",
+      "as a",
+      "i want",
+      "so that",
+      "story",
+      "user request",
+    ],
+    patterns: [/^as\s+a/i, /i want to/i, /so that/i, /user story/i],
     weight: 0.9,
   },
+
   task: {
-    keywords: ["task", "refactor", "cleanup", "maintenance"],
-    patterns: [/^task:/i, /refactor/i, /cleanup/i],
+    keywords: [
+      "task",
+      "refactor",
+      "cleanup",
+      "update",
+      "maintenance",
+      "housekeeping",
+    ],
+    patterns: [/^task:/i, /refactor/i, /cleanup/i, /maintenance/i],
     weight: 0.85,
   },
+
   design: {
-    keywords: ["design", "ui", "ux", "figma"],
+    keywords: ["design", "ui", "ux", "interface", "layout", "component design"],
     patterns: [/design|ui|ux/i, /figma/i],
     weight: 0.85,
   },
 };
 
-// Area detection patterns
+// Area detection patterns (keyword → area mapping)
 const areaPatterns = {
   "area:ci": {
-    keywords: ["ci", "github actions", "workflow", "pipeline"],
-    patterns: [/ci|github actions|workflow|pipeline/i],
+    keywords: ["ci", "github actions", "workflow", "pipeline", "build", "test"],
+    patterns: [/ci|github actions|workflow|pipeline|build|test/i],
     weight: 1.0,
   },
+
   "area:docs": {
-    keywords: ["docs", "documentation", "readme", "guide"],
-    patterns: [/docs?|documentation|readme|guide/i],
+    keywords: [
+      "docs",
+      "documentation",
+      "readme",
+      "guide",
+      "example",
+      "tutorial",
+    ],
+    patterns: [/docs?|documentation|readme|guide|tutorial/i],
     weight: 1.0,
   },
+
   "area:security": {
-    keywords: ["security", "vulnerability", "permission", "auth"],
-    patterns: [/security|vulnerab|permission|auth/i],
+    keywords: [
+      "security",
+      "vulnerability",
+      "exploit",
+      "safe",
+      "permission",
+      "auth",
+    ],
+    patterns: [/security|vulnerab|exploit|permission|auth|safe/i],
     weight: 1.0,
   },
+
   "area:automation": {
-    keywords: ["automation", "automate", "script", "agent"],
-    patterns: [/automat|script|agent/i],
+    keywords: [
+      "automation",
+      "automate",
+      "script",
+      "scripting",
+      "workflow",
+      "agent",
+    ],
+    patterns: [/automat|script|workflow|agent/i],
     weight: 0.95,
   },
+
   "area:labels": {
-    keywords: ["label", "taxonomy", "governance"],
-    patterns: [/label|taxonomy|governance/i],
+    keywords: ["label", "labeling", "taxonomy", "governance"],
+    patterns: [/label|tagging|taxonomy|governance/i],
     weight: 0.9,
   },
+
   "area:tests": {
-    keywords: ["test", "testing", "coverage"],
+    keywords: ["test", "testing", "unit test", "integration test", "coverage"],
     patterns: [/test|coverage|spec/i],
     weight: 0.95,
   },
+
   "area:scripts": {
-    keywords: ["script", "tool", "utility"],
-    patterns: [/script|tool|utility/i],
+    keywords: ["script", "tool", "utility", "command"],
+    patterns: [/script|tool|utility|command/i],
     weight: 0.85,
   },
+
   "area:accessibility": {
-    keywords: ["a11y", "accessibility", "wcag"],
-    patterns: [/a11y|accessibil|wcag/i],
+    keywords: ["a11y", "accessibility", "wcag", "contrast", "keyboard"],
+    patterns: [/a11y|accessibil|wcag|contrast|keyboard/i],
     weight: 0.95,
   },
 };
 
-// Team lead mapping
+// Team lead mapping (area → assignee)
 const teamLeadMapping = {
-  "area:ci": "ashleyshaw",
-  "area:docs": "ashleyshaw",
-  "area:security": "ashleyshaw",
-  "area:automation": "ashleyshaw",
-  "area:labels": "ashleyshaw",
-  "area:tests": "ashleyshaw",
-  "area:scripts": "ashleyshaw",
-  "area:accessibility": "ashleyshaw",
+  "area:ci": "ashleyshaw", // CI owner
+  "area:docs": "ashleyshaw", // Docs lead
+  "area:security": "ashleyshaw", // Security lead
+  "area:automation": "ashleyshaw", // Automation lead
+  "area:labels": "ashleyshaw", // Labels governance
+  "area:tests": "ashleyshaw", // QA lead
+  "area:scripts": "ashleyshaw", // Scripts lead
+  "area:accessibility": "ashleyshaw", // A11y lead
 };
 
+// Score type/area inference
 function scoreMatch(text, patterns) {
   if (!text) return 0;
 
   const lowerText = text.toLowerCase();
   let score = 0;
 
+  // Check patterns
   for (const pattern of patterns.patterns) {
     if (pattern.test(text)) {
       score = Math.max(score, patterns.weight);
     }
   }
 
+  // Check keywords (lower weight)
   const keywordCount = patterns.keywords.filter((kw) =>
     lowerText.includes(kw.toLowerCase()),
   ).length;
@@ -131,6 +217,7 @@ function scoreMatch(text, patterns) {
   return score;
 }
 
+// Infer issue type from content
 function inferType(issue) {
   const text = `${issue.title} ${issue.body || ""}`;
   const scores = {};
@@ -148,6 +235,7 @@ function inferType(issue) {
   };
 }
 
+// Infer issue area from content
 function inferArea(issue) {
   const text = `${issue.title} ${issue.body || ""}`;
   const scores = {};
@@ -156,6 +244,7 @@ function inferArea(issue) {
     scores[area] = scoreMatch(text, patterns);
   }
 
+  // Return top 1-2 areas with confidence >0.5
   const ranked = Object.entries(scores)
     .filter(([_, score]) => score > 0.5)
     .sort((a, b) => b[1] - a[1])
@@ -167,6 +256,7 @@ function inferArea(issue) {
   }));
 }
 
+// Suggest assignee based on inferred area
 function suggestAssignee(inferredAreas) {
   if (!inferredAreas || inferredAreas.length === 0) {
     return null;
@@ -176,6 +266,7 @@ function suggestAssignee(inferredAreas) {
   return teamLeadMapping[topArea.area] || null;
 }
 
+// Process a single issue
 async function processIssue(issue, options = {}) {
   const {
     dryRun = true,
@@ -187,6 +278,7 @@ async function processIssue(issue, options = {}) {
 
   const issueNumber = issue.number;
 
+  // Check if already triaged (has type and area labels)
   const labels = (issue.labels || []).map((l) => l.name || l);
   const hasType = labels.some((l) => l.startsWith("type:"));
   const hasArea = labels.some((l) => l.startsWith("area:"));
@@ -199,10 +291,12 @@ async function processIssue(issue, options = {}) {
     };
   }
 
+  // Infer type and area
   const typeInference = inferType(issue);
   const areaInference = inferArea(issue);
   const suggestedAssignee = suggestAssignee(areaInference);
 
+  // Check confidence thresholds (warn only if both type and area are below threshold)
   const typeConfidentEnough =
     typeInference.confidence >= confidenceThreshold * 0.85;
   const areaConfidentEnough =
@@ -219,6 +313,7 @@ async function processIssue(issue, options = {}) {
     };
   }
 
+  // Prepare labels to add
   const labelsToAdd = [];
 
   if (!hasType) {
@@ -229,12 +324,13 @@ async function processIssue(issue, options = {}) {
     labelsToAdd.push(areaInference[0].area);
     if (
       areaInference.length > 1 &&
-      areaInference[1].confidence > confidenceThreshold * 0.85
+      areaInference[1].confidence > confidenceThreshold
     ) {
       labelsToAdd.push(areaInference[1].area);
     }
   }
 
+  // If dry-run, return preview
   if (dryRun) {
     return {
       status: "preview",
@@ -248,6 +344,7 @@ async function processIssue(issue, options = {}) {
     };
   }
 
+  // Apply changes (requires githubRequest function)
   if (!githubRequest) {
     return {
       status: "error",
@@ -257,11 +354,13 @@ async function processIssue(issue, options = {}) {
   }
 
   try {
+    // Add labels
     if (labelsToAdd.length > 0) {
       const addLabelsPath = `/repos/${owner}/${repo}/issues/${issueNumber}/labels`;
       await githubRequest("POST", addLabelsPath, { labels: labelsToAdd });
     }
 
+    // Assign team lead if suggested
     let assigneeAdded = false;
     if (suggestedAssignee) {
       try {
@@ -275,6 +374,7 @@ async function processIssue(issue, options = {}) {
       }
     }
 
+    // Try to remove needs-triage label
     let labelRemoved = false;
     try {
       const removeLabel = `/repos/${owner}/${repo}/issues/${issueNumber}/labels/status%3Aneeds-triage`;
@@ -302,6 +402,7 @@ async function processIssue(issue, options = {}) {
   }
 }
 
+// Batch process multiple issues
 async function processBatch(issues, options = {}) {
   const results = [];
   const stats = {
@@ -326,6 +427,7 @@ async function processBatch(issues, options = {}) {
   return { results, stats };
 }
 
+// Export for use in orchestrator
 export {
   processIssue,
   processBatch,

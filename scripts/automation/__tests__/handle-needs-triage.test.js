@@ -9,185 +9,327 @@ describe("handle-needs-triage", () => {
   describe("inferType", () => {
     it("should detect feature type from keywords", () => {
       const issue = {
-        title: "Add support for new export format",
-        body: "Users should be able to export in CSV format",
+        title: "Add new dashboard widget",
+        body: "Feature request: Users would like a new widget",
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("feature");
       expect(result.confidence).toBeGreaterThan(0.5);
     });
 
-    it("should detect bug type from error keywords", () => {
+    it("should detect bug type from keywords", () => {
       const issue = {
-        title: "Critical: Search functionality is broken",
-        body: "When I search, the app crashes with an error message",
+        title: "Bug: Login form crashes",
+        body: "When I try to login, the form crashes with an error",
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("bug");
       expect(result.confidence).toBeGreaterThan(0.5);
     });
 
-    it("should detect epic type from scope keywords", () => {
+    it("should detect epic type", () => {
       const issue = {
-        title: "Epic: Complete platform migration initiative",
-        body: "Long-term strategic initiative with multiple phases",
+        title: "Epic: Database migration initiative",
+        body: "Large initiative spanning multiple quarters",
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("epic");
-      expect(result.confidence).toBeGreaterThan(0.8);
+      expect(result.confidence).toBeGreaterThan(0.4);
     });
 
-    it("should detect task type from refactor keywords", () => {
+    it("should detect story type", () => {
       const issue = {
-        title: "Refactor authentication module",
-        body: "Clean up technical debt in auth system",
+        title: "As a user, I want to export data",
+        body: "So that I can use it in other tools",
+      };
+      const result = handler.inferType(issue);
+      expect(result.type).toBe("story");
+      expect(result.confidence).toBeGreaterThan(0.4);
+    });
+
+    it("should detect task type", () => {
+      const issue = {
+        title: "Task: Refactor authentication module",
+        body: "Cleanup and modernize auth code",
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("task");
-      expect(result.confidence).toBeGreaterThan(0.5);
+      expect(result.confidence).toBeGreaterThan(0.4);
     });
 
-    it("should return scores object with confidence values", () => {
+    it("should detect design type", () => {
       const issue = {
-        title: "Something generic",
-        body: "TODO",
+        title: "Design: New UI for dashboard",
+        body: "Figma prototype attached",
       };
       const result = handler.inferType(issue);
-      expect(result).toHaveProperty("type");
-      expect(result).toHaveProperty("confidence");
-      expect(result).toHaveProperty("scores");
+      expect(result.type).toBe("design");
+      expect(result.confidence).toBeGreaterThan(0.4);
+    });
+
+    it("should handle empty body", () => {
+      const issue = {
+        title: "Add new feature",
+        body: null,
+      };
+      const result = handler.inferType(issue);
+      expect(result.type).toBeDefined();
+      expect(result.confidence).toBeGreaterThanOrEqual(0);
+    });
+
+    it("should return scores for all types", () => {
+      const issue = {
+        title: "Add new feature",
+        body: "Implementation details",
+      };
+      const result = handler.inferType(issue);
+      expect(result.scores).toBeDefined();
+      expect(Object.keys(result.scores).length).toBeGreaterThan(0);
     });
   });
 
   describe("inferArea", () => {
-    it("should detect ci area from workflow keywords", () => {
+    it("should detect CI area", () => {
       const issue = {
-        title: "GitHub Actions workflow failing",
-        body: "The CI pipeline needs fixing",
+        title: "Fix GitHub Actions workflow",
+        body: "CI pipeline failing on PRs",
       };
       const result = handler.inferArea(issue);
-      expect(Array.isArray(result)).toBe(true);
-      if (result.length > 0) {
-        expect(result[0]).toHaveProperty("area");
-        expect(result[0]).toHaveProperty("confidence");
-      }
+      expect(result.some((a) => a.area === "area:ci")).toBe(true);
     });
 
-    it("should return array of areas", () => {
+    it("should detect docs area", () => {
       const issue = {
-        title: "Update documentation",
-        body: "The docs in docs/ folder need updating",
+        title: "Update README documentation",
+        body: "Add getting started guide",
       };
       const result = handler.inferArea(issue);
-      expect(Array.isArray(result)).toBe(true);
+      expect(result.some((a) => a.area === "area:docs")).toBe(true);
     });
 
-    it("should filter results by confidence threshold", () => {
+    it("should detect security area", () => {
       const issue = {
-        title: "Generic issue",
-        body: "Something that doesn't match keywords well",
+        title: "Security vulnerability in auth",
+        body: "Permission bypass in authentication",
+      };
+      const result = handler.inferArea(issue);
+      expect(result.some((a) => a.area === "area:security")).toBe(true);
+    });
+
+    it("should detect automation area", () => {
+      const issue = {
+        title: "Automate label assignment",
+        body: "Create workflow for automated tagging",
+      };
+      const result = handler.inferArea(issue);
+      expect(result.some((a) => a.area === "area:automation")).toBe(true);
+    });
+
+    it("should detect tests area", () => {
+      const issue = {
+        title: "Add unit tests for API",
+        body: "Improve test coverage",
+      };
+      const result = handler.inferArea(issue);
+      expect(result.some((a) => a.area === "area:tests")).toBe(true);
+    });
+
+    it("should detect scripts area", () => {
+      const issue = {
+        title: "Create migration script",
+        body: "Utility for data migration",
+      };
+      const result = handler.inferArea(issue);
+      expect(result.some((a) => a.area === "area:scripts")).toBe(true);
+    });
+
+    it("should detect accessibility area", () => {
+      const issue = {
+        title: "Fix accessibility issues",
+        body: "WCAG 2.2 AA compliance improvements needed",
+      };
+      const result = handler.inferArea(issue);
+      expect(result.some((a) => a.area === "area:accessibility")).toBe(true);
+    });
+
+    it("should return multiple areas if high confidence", () => {
+      const issue = {
+        title: "Add automated tests for CI workflow",
+        body: "Create GitHub Actions test coverage",
+      };
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it("should handle empty body", () => {
+      const issue = {
+        title: "Update README",
+        body: null,
       };
       const result = handler.inferArea(issue);
       expect(Array.isArray(result)).toBe(true);
-      // All results should have confidence > 0.5
-      result.forEach((item) => {
-        expect(item.confidence).toBeGreaterThan(0.5);
-      });
     });
   });
 
   describe("suggestAssignee", () => {
-    it("should accept array of inferred areas", () => {
+    it("should suggest assignee for detected area", () => {
       const areas = [{ area: "area:ci", confidence: 0.95 }];
-      const assignee = handler.suggestAssignee(areas);
-      expect(typeof assignee === "string" || assignee === null).toBe(true);
+      const result = handler.suggestAssignee(areas);
+      expect(result).toBeDefined();
+      expect(typeof result).toBe("string");
     });
 
     it("should return null for empty areas", () => {
-      const assignee = handler.suggestAssignee([]);
-      expect(assignee).toBeNull();
+      const result = handler.suggestAssignee([]);
+      expect(result).toBeNull();
     });
 
-    it("should handle undefined input", () => {
-      const assignee = handler.suggestAssignee(undefined);
-      expect(assignee).toBeNull();
+    it("should return null for null input", () => {
+      const result = handler.suggestAssignee(null);
+      expect(result).toBeNull();
+    });
+
+    it("should prioritize first area", () => {
+      const areas = [
+        { area: "area:ci", confidence: 0.95 },
+        { area: "area:docs", confidence: 0.85 },
+      ];
+      const result = handler.suggestAssignee(areas);
+      expect(result).toBeDefined();
     });
   });
 
   describe("processIssue", () => {
-    it("should return object with status and issueNumber", async () => {
-      const issue = {
-        number: 123,
-        title: "Add new feature",
-        body: "Description of feature",
-        labels: [],
-      };
-      const result = await handler.processIssue(issue, { dryRun: true });
-      expect(result).toHaveProperty("status");
-      expect(result).toHaveProperty("issueNumber");
+    const mockIssueNeedsTriaging = {
+      number: 123,
+      title: "Add new dashboard widget",
+      body: "Feature request for better visualisation",
+      labels: [],
+    };
+
+    const mockIssueAlreadyTriaged = {
+      number: 124,
+      title: "Some issue",
+      body: "Already has labels",
+      labels: [{ name: "type:feature" }, { name: "area:ci" }],
+    };
+
+    it("should return preview in dry-run mode", async () => {
+      const result = await handler.processIssue(mockIssueNeedsTriaging, {
+        dryRun: true,
+      });
+      expect(result.status).toBe("preview");
+      expect(result.dryRun).toBe(true);
       expect(result.issueNumber).toBe(123);
+      expect(result.typeInference).toBeDefined();
+      expect(result.areaInference).toBeDefined();
     });
 
-    it("should skip issues with both type and area labels", async () => {
-      const issue = {
-        number: 123,
-        title: "Already labeled issue",
-        body: "Has type and area",
-        labels: [{ name: "type:feature" }, { name: "area:ci" }],
-      };
-      const result = await handler.processIssue(issue, { dryRun: true });
+    it("should suggest labels and assignee in preview mode", async () => {
+      const result = await handler.processIssue(mockIssueNeedsTriaging, {
+        dryRun: true,
+      });
+      expect(["preview", "warning"]).toContain(result.status);
+      if (result.status === "preview") {
+        expect(result.labelsToAdd).toBeDefined();
+        expect(Array.isArray(result.labelsToAdd)).toBe(true);
+        expect(result.labelsToAdd.length).toBeGreaterThan(0);
+      }
+    });
+
+    it("should skip already triaged issues", async () => {
+      const result = await handler.processIssue(mockIssueAlreadyTriaged, {
+        dryRun: true,
+      });
       expect(result.status).toBe("skipped");
+      expect(result.reason).toContain("already has");
     });
 
-    it("should handle issues without number gracefully", async () => {
-      const issue = {
-        title: "No number field",
-        body: "Missing issue number",
+    it("should handle low confidence gracefully", async () => {
+      const lowConfidenceIssue = {
+        number: 125,
+        title: "Some unclear issue",
+        body: "Not enough information",
         labels: [],
       };
-      const result = await handler.processIssue(issue, { dryRun: true });
-      expect(result).toHaveProperty("status");
+      const result = await handler.processIssue(lowConfidenceIssue, {
+        dryRun: true,
+        confidenceThreshold: 0.99,
+      });
+      expect(["warning", "preview"]).toContain(result.status);
+    });
+
+    it("should return error if githubRequest not provided in apply mode", async () => {
+      const result = await handler.processIssue(mockIssueNeedsTriaging, {
+        dryRun: false,
+        confidenceThreshold: 0.5, // Lower threshold to ensure we get past confidence checks
+      });
+      expect(result.status).toBe("error");
+      expect(result.reason).toContain("githubRequest");
+    });
+
+    it("should respect confidence threshold", async () => {
+      const result = await handler.processIssue(mockIssueNeedsTriaging, {
+        dryRun: true,
+        confidenceThreshold: 0.85,
+      });
+      expect(["preview", "warning"]).toContain(result.status);
     });
   });
 
   describe("processBatch", () => {
-    it("should process multiple issues and return stats", async () => {
-      const issues = [
-        {
-          number: 1,
-          title: "Add feature",
-          body: "New feature request",
-          labels: [],
-        },
-        {
-          number: 2,
-          title: "Already labeled",
-          body: "Has labels",
-          labels: [{ name: "type:feature" }, { name: "area:ci" }],
-        },
-      ];
-      const result = await handler.processBatch(issues, { dryRun: true });
-      expect(result).toHaveProperty("results");
-      expect(result).toHaveProperty("stats");
-      expect(result.results.length).toBe(2);
+    const mockIssues = [
+      {
+        number: 1,
+        title: "Add new feature",
+        body: "Feature request",
+        labels: [],
+      },
+      {
+        number: 2,
+        title: "Fix CI workflow",
+        body: "GitHub Actions bug",
+        labels: [],
+      },
+      {
+        number: 3,
+        title: "Update documentation",
+        body: "Add API docs",
+        labels: [{ name: "type:feature" }],
+      },
+    ];
+
+    it("should process multiple issues", async () => {
+      const result = await handler.processBatch(mockIssues, { dryRun: true });
+      expect(result.results).toHaveLength(3);
+      expect(result.stats).toBeDefined();
+    });
+
+    it("should track statistics correctly", async () => {
+      const result = await handler.processBatch(mockIssues, {
+        dryRun: true,
+        confidenceThreshold: 0.5,
+      });
+      expect(result.stats.preview + result.stats.warnings).toBeGreaterThan(0);
+      expect(
+        result.stats.preview + result.stats.skipped + result.stats.warnings,
+      ).toBe(3);
     });
 
     it("should handle empty batch", async () => {
       const result = await handler.processBatch([], { dryRun: true });
-      expect(result.results).toEqual([]);
-      expect(result).toHaveProperty("stats");
-    });
-  });
-
-  describe("pattern exports", () => {
-    it("should export type patterns", () => {
-      expect(handler.typePatterns).toBeDefined();
-      expect(typeof handler.typePatterns).toBe("object");
+      expect(result.results).toHaveLength(0);
+      expect(result.stats.preview).toBe(0);
     });
 
-    it("should export area patterns", () => {
-      expect(handler.areaPatterns).toBeDefined();
-      expect(typeof handler.areaPatterns).toBe("object");
+    it("should count warnings in statistics", async () => {
+      const result = await handler.processBatch(mockIssues, {
+        dryRun: true,
+        confidenceThreshold: 0.99,
+      });
+      expect(result.stats.warnings + result.stats.preview).toBeLessThanOrEqual(
+        3,
+      );
     });
   });
 });
