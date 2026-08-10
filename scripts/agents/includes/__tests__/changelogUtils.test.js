@@ -96,7 +96,7 @@ describe("parseChangelog", () => {
       expect(versions).toContain("1.1.0");
       expect(versions).toContain("1.0.0");
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -110,7 +110,7 @@ describe("parseChangelog", () => {
       expect(release.sections.added).toContain("Feature Y");
       expect(release.sections).toHaveProperty("changed");
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -122,7 +122,7 @@ describe("parseChangelog", () => {
       expect(unreleased.sections.added).toContain("Upcoming feature");
       expect(unreleased.sections.fixed).toContain("Minor bug fix");
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -133,7 +133,7 @@ describe("parseChangelog", () => {
       const release = data.releases.find((r) => r.version === "1.2.0");
       expect(release.date).toBe("2025-06-01");
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -150,7 +150,9 @@ describe("parseChangelog", () => {
       expect(data.format).toBe("keepachangelog");
       expect(data.semver).toBe(true);
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) {
+        if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
+      }
     }
   });
 });
@@ -168,7 +170,7 @@ describe("validateChangelog", () => {
       expect(result.valid).toBe(true);
       expect(result.errors).toHaveLength(0);
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -245,7 +247,7 @@ describe("getLatestRelease", () => {
       const latest = getLatestRelease(data);
       expect(latest.version).toBe("1.2.0");
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -260,7 +262,7 @@ describe("getLatestRelease", () => {
       const data = parseChangelog(tmpFile);
       expect(getLatestRelease(data)).toBeNull();
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 });
@@ -278,7 +280,7 @@ describe("getUnreleasedChanges", () => {
       expect(unreleased).not.toBeNull();
       expect(unreleased.version).toBe("Unreleased");
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -288,7 +290,7 @@ describe("getUnreleasedChanges", () => {
       const data = parseChangelog(tmpFile);
       expect(getUnreleasedChanges(data)).toBeNull();
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 });
@@ -304,7 +306,7 @@ describe("hasUnreleasedChanges", () => {
       const data = parseChangelog(tmpFile);
       expect(hasUnreleasedChanges(data)).toBe(true);
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -314,7 +316,7 @@ describe("hasUnreleasedChanges", () => {
       const data = parseChangelog(tmpFile);
       expect(hasUnreleasedChanges(data)).toBe(false);
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 
@@ -324,7 +326,7 @@ describe("hasUnreleasedChanges", () => {
       const data = parseChangelog(tmpFile);
       expect(hasUnreleasedChanges(data)).toBe(false);
     } finally {
-      fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
     }
   });
 

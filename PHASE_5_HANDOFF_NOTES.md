@@ -53,7 +53,7 @@ status: "Complete"
 - [x] YAML syntax valid (all 15 workflows)
 - [x] Action references valid (no broken links)
 - [x] Version tags correct (v7, v4, etc.)
-- [x] Invalid/broken SHA references removed (some workflows intentionally pin to release SHAs)
+- [x] No SHA-based references
 - [x] No outdated versions
 - [x] Code formatting correct (Prettier)
 - [x] No regressions introduced
@@ -107,7 +107,7 @@ git checkout develop
 git pull origin develop
 
 # Merge PR #1688 via GitHub UI or CLI
-gh pr merge 1688 --squash
+gh pr merge 1688 --squash --admin
 ```
 
 ### Post-Merge
@@ -304,8 +304,8 @@ create-github-app-token → v4
 ### If Something Goes Wrong
 
 1. **Check the PR** — Review all changes in PR #1688
-2. **Check the Tests** — Review [PHASE_4_TEST_RESULTS.md](./.github/PHASE_4_TEST_RESULTS.md)
-3. **Check the Summary** — Review [EPIC_1670_PROJECT_SUMMARY.md](./.github/EPIC_1670_PROJECT_SUMMARY.md)
+2. **Check the Tests** — Review [PHASE_4_TEST_RESULTS.md](./PHASE_4_TEST_RESULTS.md)
+3. **Check the Summary** — Review [EPIC_1670_PROJECT_SUMMARY.md](./EPIC_1670_PROJECT_SUMMARY.md)
 4. **Revert if Needed** — Simple: revert the merge commit
 
 ### Common Issues & Solutions
@@ -334,8 +334,8 @@ create-github-app-token → v4
 When you take over:
 
 1. **Read the Documentation**
-   - [EPIC_1670_PROJECT_SUMMARY.md](./.github/EPIC_1670_PROJECT_SUMMARY.md) — Project overview
-   - [PHASE_4_TEST_RESULTS.md](./.github/PHASE_4_TEST_RESULTS.md) — Test details
+   - [EPIC_1670_PROJECT_SUMMARY.md](./EPIC_1670_PROJECT_SUMMARY.md) — Project overview
+   - [PHASE_4_TEST_RESULTS.md](./PHASE_4_TEST_RESULTS.md) — Test details
    - This file — Handoff context
 
 2. **Monitor the PR**

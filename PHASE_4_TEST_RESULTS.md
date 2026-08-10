@@ -78,7 +78,7 @@ All 15 updated workflows pass YAML syntax validation.
 
 **Status:** ✅ **PASSED**
 
-All actions now use proper version tags (invalid/broken SHA references removed; some workflows intentionally pin to release SHAs for security).
+All actions now use proper version tags (no SHA references remaining).
 
 **Actions found in updated workflows:**
 
