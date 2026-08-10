@@ -14,7 +14,7 @@ PR #1703 (Phase 5 GitHub Actions v7 upgrade completion) has multiple CI checks f
 - [Issue #1709](https://github.com/lightspeedwp/.github/issues/1709) — PR #1703 blockers (workspace path doubling root cause documented)
 - [PR #1703](https://github.com/lightspeedwp/.github/pull/1703) — Phase 5 handoff notes (failing checks)
 
-**Active Project:** [github-actions-v7-upgrade-2026-08-09](https://github.com/lightspeedwp/.github/projects/active/github-actions-v7-upgrade-2026-08-09/)
+**Active Project:** [github-actions-v7-upgrade-2026-08-09](./PROJECT_README.md)
 
 ---
 
@@ -162,5 +162,4 @@ node "$git_root/.github/scripts/agents/meta.agent.js"
 
 ---
 
-**Related Session:** [2026-08-10 PR #1703 Fixes](../session-2026-08-10-pr-1703-fixes.md)  
-**Status:** Ready for implementation in new session
+**Status:** Implementation complete — workspace path fixes verified and working in PR #1703

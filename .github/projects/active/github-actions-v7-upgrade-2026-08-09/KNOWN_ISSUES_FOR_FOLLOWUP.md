@@ -103,7 +103,7 @@ Identified during PR #1703 review. These require careful refactoring and testing
 
 ### Priority 2 (Correctness)
 
-1. **Fix changelog validation regex issues**
+1. **Fix changelog validation regex issues** (in `keepAChangelogParser.cjs`)
    - Line 111: Replace `\z` with `$` (end-of-line anchor)
    - Line 186: Escape `category` in regex: `new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))`
    - Line 41: Check for ` - ` (spaced dash) only, not hyphenated words
@@ -141,7 +141,7 @@ Identified during PR #1703 review. These require careful refactoring and testing
 ### PR 2: Changelog Agent Corrections
 
 - Fix validation regex issues
-- Fix keeper parser bugs
+- Fix `keepAChangelogParser.cjs` bugs (regex & validation)
 - Add atomic mutations
 - Status: Ready for implementation
 

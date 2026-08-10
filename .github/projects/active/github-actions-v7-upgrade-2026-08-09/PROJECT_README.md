@@ -24,12 +24,12 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 
 ### Phase Status (2026-08-10)
 
-**Phase 5: Integration Testing & Closure** — 🔄 FINALIZING
+**Phase 5: Integration Testing & Closure** — 🔄 FINALISING
 
 - ✅ Phase 1-4: Complete
 - 🔄 PR #1703: Phase 5 completion + portable agents (in review)
-- ⚠️ Known blockers: Workspace path doubling in CI workflows, orphaned test files
-- 📋 Ready for: Follow-up session to fix remaining CI path issues
+- ⚠️ Known blockers: Workspace path doubling in CI workflows (being fixed)
+- 📋 Ready for: Follow-up session for code-level fixes
 
 ### Audit Results (2026-08-09)
 
@@ -177,23 +177,17 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 - **Merge Conflict:** ✅ Resolved (04d9a4b7d)
 - **Workflow Action Versions:** ✅ Fixed v4→v1 (63e5bbbbc)
 - **Orphaned Test Files:** ✅ Removed (408fe8cf9)
-- **Workspace Path Doubling:** ⚠️ **Requires next session** — see WORKSPACE_PATH_DOUBLING_FIX.md
+- **Workspace Path Doubling:** ✅ Fixed (f6d338ccc) — all critical CI checks passing
 - **Known Code Issues:** 📋 Documented in KNOWN_ISSUES_FOR_FOLLOWUP.md — Ready for separate follow-up PRs
 
 ### Immediate Next Steps (Priority Order)
 
-1. **Fix Workspace Path Doubling** (blocks PR #1703 merge):
-   - **Reference:** `WORKSPACE_PATH_DOUBLING_FIX.md` (ready-to-copy prompt)
-   - **Issue:** [#1709](https://github.com/lightspeedwp/.github/issues/1709)
-   - **Affected Workflows:** 6 auto-generated workflows with hardcoded `.github/scripts/` paths
-   - **Solution:** Replace with `$GITHUB_WORKSPACE/.github/scripts/` or relative paths
-   - **Effort:** ~30-60 min (6 workflow files)
-
-2. **Merge PR #1703** (once workspace path issue is fixed):
-   - All other CI checks should pass
+1. **Merge PR #1703** (Workspace path fixes complete):
+   - All critical CI checks passing (documentation, labeling, planner agents)
+   - CodeRabbit review feedback being addressed
    - Completes Phase 5 delivery
 
-3. **Address Known Code Issues** (separate PRs):
+2. **Address Known Code Issues** (separate follow-up PRs):
    - **Priority 1:** Release agent shell injection fix (security)
    - **Priority 2:** Changelog agent regex fixes (correctness)
    - **Priority 3:** Test API alignment (quality)
@@ -201,4 +195,4 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 
 ---
 
-*Project initiated: 2026-08-09 | Last updated: 2026-08-10 (Phase 5 finalizing)*
+*Project initiated: 2026-08-09 | Last updated: 2026-08-10 (Phase 5 finalising)*

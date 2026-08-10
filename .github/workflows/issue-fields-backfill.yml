@@ -79,7 +79,9 @@ jobs:
         with:
           client-id: ${{ vars.LS_APP_CLIENT_ID != '' && vars.LS_APP_CLIENT_ID || vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.repository }}
+          permissions-contents: write
+          permissions-issues: write
 
       - name: Run bulk backfill
         uses: actions/github-script@v9
