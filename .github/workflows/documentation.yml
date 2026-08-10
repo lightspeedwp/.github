@@ -204,14 +204,14 @@ jobs:
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
-        run: node .github/scripts/agents/meta.agent.js --dry-run --files "${{ steps.readmes.outputs.files }}"
+        run: node $GITHUB_WORKSPACE/.github/scripts/agents/meta.agent.js --dry-run --files "${{ steps.readmes.outputs.files }}"
 
       - name: Run README regeneration (push commit)
         if: steps.readmes.outputs.files != '' && github.event_name == 'push'
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
-        run: node .github/scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
+        run: node $GITHUB_WORKSPACE/.github/scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
 
       - name: Commit README updates
         if: github.event_name != 'pull_request' && steps.readmes.outputs.files != ''

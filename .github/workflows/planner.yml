@@ -28,6 +28,6 @@ jobs:
         run: npm ci
 
       - name: Planner
-        run: node .github/scripts/agents/planner.agent.js
+        run: node $GITHUB_WORKSPACE/.github/scripts/agents/planner.agent.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

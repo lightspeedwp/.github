@@ -85,7 +85,7 @@ jobs:
         run: npm ci
 
       - name: Run Reviewer Agent
-        run: node .github/scripts/agents/reviewer.agent.js
+        run: node $GITHUB_WORKSPACE/.github/scripts/agents/reviewer.agent.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry-run || 'false' }}
