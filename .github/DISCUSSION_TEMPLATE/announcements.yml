@@ -2,6 +2,7 @@
 file_type: discussion_template
 name: Announcements
 about: Official news, releases, and updates from the LightSpeed team.
+description: Official news, releases, and updates from the LightSpeed team.
 ---
 name: "Announcements"
 description: "Official news, releases, and updates from the LightSpeed team."
