@@ -168,7 +168,7 @@ GitHub Actions v7 upgrade initiative completed successfully. All 15 workflows st
 
 **Deliverables:**
 
-- [PHASE_4_TEST_RESULTS.md](./.github/PHASE_4_TEST_RESULTS.md) — Detailed test report
+- [PHASE_4_TEST_RESULTS.md](./PHASE_4_TEST_RESULTS.md) — Detailed test report
 
 ---
 
@@ -230,11 +230,11 @@ GitHub Actions v7 upgrade initiative completed successfully. All 15 workflows st
 
 ✅ **GitHub Actions Versions:**
 
-- All checkout actions use v7 (or patch-pinned for security-sensitive workflows)
+- All checkout actions use v7
 - All setup-node actions use v7
-- All github-script actions use v9 (latest available)
+- All github-script actions use v7
 - All create-github-app-token actions use v4
-- Invalid/broken SHA references removed (some workflows intentionally pin to release SHAs)
+- No SHA-based references remain
 - No outdated versions remain
 
 ✅ **Code Quality:**
@@ -260,8 +260,8 @@ GitHub Actions v7 upgrade initiative completed successfully. All 15 workflows st
 
 ### Documentation Files
 
-- [PHASE_4_TEST_RESULTS.md](./.github/PHASE_4_TEST_RESULTS.md) — Integration test report
-- [EPIC_1670_PROJECT_SUMMARY.md](./.github/EPIC_1670_PROJECT_SUMMARY.md) — This document
+- [PHASE_4_TEST_RESULTS.md](./PHASE_4_TEST_RESULTS.md) — Integration test report
+- [EPIC_1670_PROJECT_SUMMARY.md](./EPIC_1670_PROJECT_SUMMARY.md) — This document
 
 ---
 
