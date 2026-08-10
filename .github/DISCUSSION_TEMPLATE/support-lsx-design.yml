@@ -4,8 +4,6 @@ name: Product Support - LSX Design
 about: Get help, ask questions, or share issues about the LSX Design theme or design system.
 description: Get help, ask questions, or share issues about the LSX Design theme or design system.
 ---
-name: "Product Support: LSX Design"
-description: "Get help, ask questions, or share issues about the LSX Design theme or design system."
 labels:
   - discussion:support
 template: |
