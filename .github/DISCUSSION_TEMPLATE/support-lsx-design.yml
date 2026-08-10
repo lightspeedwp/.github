@@ -1,9 +1,3 @@
----
-file_type: discussion_template
-name: Product Support - LSX Design
-about: Get help, ask questions, or share issues about the LSX Design theme or design system.
-description: Get help, ask questions, or share issues about the LSX Design theme or design system.
----
 labels:
   - discussion:support
 template: |

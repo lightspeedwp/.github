@@ -1,9 +1,3 @@
----
-file_type: discussion_template
-name: General / Community
-about: Open space for introductions, casual discussion, and general WordPress talk.
-description: Open space for introductions, casual discussion, and general WordPress talk.
----
 labels:
   - discussion:community
 template: |
