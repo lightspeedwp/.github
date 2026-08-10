@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: "Documentation Audit Prompt - Quick Start"
 description: "How to use the Comprehensive Documentation Audit Prompt to create GitHub issues"
 version: '1.0.1'

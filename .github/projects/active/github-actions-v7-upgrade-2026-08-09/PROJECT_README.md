@@ -1,5 +1,7 @@
 ---
+file_type: project
 name: GitHub Actions v7 Upgrade Initiative
+description: Comprehensive upgrade of GitHub Actions workflows to v7 with compliance validation and testing
 status: in-progress
 start_date: 2026-08-09
 target_completion: 2026-08-23
