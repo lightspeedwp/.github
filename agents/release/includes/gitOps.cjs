@@ -3,32 +3,59 @@
  * Handles git-level operations: commits, branches, tags, pushes
  */
 
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
+const fs = require('fs');
+
+/**
+ * Validate directory exists and is readable/writable
+ * @param {string} directory
+ * @throws {Error} If directory is invalid
+ */
+function validateDirectory(directory) {
+  if (!directory || typeof directory !== 'string') {
+    throw new Error('Directory must be a non-empty string');
+  }
+
+  try {
+    const stat = fs.statSync(directory);
+    if (!stat.isDirectory()) {
+      throw new Error(`Path is not a directory: ${directory}`);
+    }
+  } catch (error) {
+    throw new Error(`Invalid directory: ${directory}\n${error.message}`);
+  }
+}
 
 /**
  * Execute git command and return output
- * @param {string} command
+ * @param {string} command - Git subcommand and args (e.g., "branch main")
+ * @param {string} workDir - Working directory for git operations
  * @returns {string} Command output
  * @throws {Error} If command fails
  */
-function executeGit(command) {
+function executeGit(command, workDir = process.cwd()) {
+  validateDirectory(workDir);
+
   try {
-    return execSync(`git ${command}`, {
+    const args = command.split(' ');
+    return execFileSync('git', args, {
+      cwd: workDir,
       encoding: 'utf8',
     }).trim();
   } catch (error) {
-    throw new Error(`Git command failed: ${command}\n${error.message}`);
+    throw new Error(`Git command failed in ${workDir}: ${command}\n${error.message}`);
   }
 }
 
 /**
  * Create a new branch
  * @param {string} branchName
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function createBranch(branchName) {
+function createBranch(branchName, workDir = process.cwd()) {
   try {
-    executeGit(`branch ${branchName}`);
+    executeGit(`branch ${branchName}`, workDir);
     return true;
   } catch {
     return false;
@@ -38,11 +65,12 @@ function createBranch(branchName) {
 /**
  * Checkout a branch
  * @param {string} branchName
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function checkoutBranch(branchName) {
+function checkoutBranch(branchName, workDir = process.cwd()) {
   try {
-    executeGit(`checkout ${branchName}`);
+    executeGit(`checkout ${branchName}`, workDir);
     return true;
   } catch {
     return false;
@@ -51,11 +79,12 @@ function checkoutBranch(branchName) {
 
 /**
  * Get current branch name
+ * @param {string} workDir - Working directory for git operations
  * @returns {string}
  */
-function getCurrentBranch() {
+function getCurrentBranch(workDir = process.cwd()) {
   try {
-    return executeGit('rev-parse --abbrev-ref HEAD');
+    return executeGit('rev-parse --abbrev-ref HEAD', workDir);
   } catch {
     return null;
   }
@@ -63,11 +92,12 @@ function getCurrentBranch() {
 
 /**
  * Check if working tree is clean
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function isWorkingTreeClean() {
+function isWorkingTreeClean(workDir = process.cwd()) {
   try {
-    const status = executeGit('status --porcelain');
+    const status = executeGit('status --porcelain', workDir);
     return status.length === 0;
   } catch {
     return false;
@@ -77,12 +107,13 @@ function isWorkingTreeClean() {
 /**
  * Stage files for commit
  * @param {string[]} files - Array of file paths
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function stageFiles(files) {
+function stageFiles(files, workDir = process.cwd()) {
   try {
     for (const file of files) {
-      executeGit(`add "${file}"`);
+      executeGit(`add ${file}`, workDir);
     }
     return true;
   } catch {
@@ -93,17 +124,17 @@ function stageFiles(files) {
 /**
  * Commit changes
  * @param {string} message - Commit message
- * @param {Object} options - Author info {name, email}
+ * @param {Object} options - Author info {name, email} and workDir
  * @returns {Object} { commit: sha, message: string } or null
  */
 function commitChanges(message, options = {}) {
   try {
-    const { name = 'Release Bot', email = 'bot@lightspeedwp.agency' } = options;
+    const { name = 'Release Bot', email = 'bot@lightspeedwp.agency', workDir = process.cwd() } = options;
 
-    const commitCmd = `commit -m "${message}" --author="${name} <${email}>"`;
-    executeGit(commitCmd);
+    const commitCmd = `commit -m ${message} --author=${name} <${email}>`;
+    executeGit(commitCmd, workDir);
 
-    const sha = executeGit('rev-parse HEAD');
+    const sha = executeGit('rev-parse HEAD', workDir);
     return {
       commit: sha,
       message,
@@ -117,14 +148,15 @@ function commitChanges(message, options = {}) {
  * Create an annotated tag
  * @param {string} tagName
  * @param {string} message - Tag message
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function createTag(tagName, message = '') {
+function createTag(tagName, message = '', workDir = process.cwd()) {
   try {
     const cmd = message
-      ? `tag -a ${tagName} -m "${message}"`
+      ? `tag -a ${tagName} -m ${message}`
       : `tag ${tagName}`;
-    executeGit(cmd);
+    executeGit(cmd, workDir);
     return true;
   } catch {
     return false;
@@ -134,11 +166,12 @@ function createTag(tagName, message = '') {
 /**
  * Delete a local tag
  * @param {string} tagName
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function deleteTag(tagName) {
+function deleteTag(tagName, workDir = process.cwd()) {
   try {
-    executeGit(`tag -d ${tagName}`);
+    executeGit(`tag -d ${tagName}`, workDir);
     return true;
   } catch {
     return false;
@@ -149,11 +182,12 @@ function deleteTag(tagName) {
  * Delete a remote tag
  * @param {string} tagName
  * @param {string} remote - Default: 'origin'
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function deleteRemoteTag(tagName, remote = 'origin') {
+function deleteRemoteTag(tagName, remote = 'origin', workDir = process.cwd()) {
   try {
-    executeGit(`push ${remote} --delete tag ${tagName}`);
+    executeGit(`push ${remote} --delete tag ${tagName}`, workDir);
     return true;
   } catch {
     return false;
@@ -164,11 +198,12 @@ function deleteRemoteTag(tagName, remote = 'origin') {
  * Push branch to remote
  * @param {string} branch
  * @param {string} remote - Default: 'origin'
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function push(branch, remote = 'origin') {
+function push(branch, remote = 'origin', workDir = process.cwd()) {
   try {
-    executeGit(`push -u ${remote} ${branch}`);
+    executeGit(`push -u ${remote} ${branch}`, workDir);
     return true;
   } catch {
     return false;
@@ -177,11 +212,12 @@ function push(branch, remote = 'origin') {
 
 /**
  * Get latest tag
+ * @param {string} workDir - Working directory for git operations
  * @returns {string|null}
  */
-function getLatestTag() {
+function getLatestTag(workDir = process.cwd()) {
   try {
-    const tag = executeGit('describe --tags --abbrev=0');
+    const tag = executeGit('describe --tags --abbrev=0', workDir);
     return tag || null;
   } catch {
     return null;
@@ -191,12 +227,14 @@ function getLatestTag() {
 /**
  * Get commits since tag
  * @param {string} tag
+ * @param {string} workDir - Working directory for git operations
  * @returns {Array} Array of commits { sha, message }
  */
-function getCommitsSince(tag) {
+function getCommitsSince(tag, workDir = process.cwd()) {
   try {
     const output = executeGit(
-      `log ${tag}..HEAD --pretty=format:"%H|%s"`
+      `log ${tag}..HEAD --pretty=format:%H|%s`,
+      workDir
     );
 
     if (!output) return [];
@@ -212,11 +250,12 @@ function getCommitsSince(tag) {
 
 /**
  * Get commit count
+ * @param {string} workDir - Working directory for git operations
  * @returns {number}
  */
-function getCommitCount() {
+function getCommitCount(workDir = process.cwd()) {
   try {
-    const count = executeGit('rev-list --count HEAD');
+    const count = executeGit('rev-list --count HEAD', workDir);
     return parseInt(count, 10);
   } catch {
     return 0;
@@ -226,11 +265,12 @@ function getCommitCount() {
 /**
  * Check if branch exists
  * @param {string} branchName
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function branchExists(branchName) {
+function branchExists(branchName, workDir = process.cwd()) {
   try {
-    executeGit(`rev-parse --verify ${branchName}`);
+    executeGit(`rev-parse --verify ${branchName}`, workDir);
     return true;
   } catch {
     return false;
@@ -240,11 +280,12 @@ function branchExists(branchName) {
 /**
  * Check if tag exists
  * @param {string} tagName
+ * @param {string} workDir - Working directory for git operations
  * @returns {boolean}
  */
-function tagExists(tagName) {
+function tagExists(tagName, workDir = process.cwd()) {
   try {
-    executeGit(`rev-parse --verify refs/tags/${tagName}`);
+    executeGit(`rev-parse --verify refs/tags/${tagName}`, workDir);
     return true;
   } catch {
     return false;

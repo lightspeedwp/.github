@@ -15,10 +15,10 @@ stability: "stable"
 
 # Active Projects Index
 
-**Index Version:** 2.3  
-**Last Updated:** 2026-08-10 (18:08 UTC)  
+**Index Version:** 2.4  
+**Last Updated:** 2026-08-10 (19:00 UTC)  
 **Status:** PR #1703 Phase 5 Finalising — Workspace Path Fixes Complete, Security Hardening In Review  
-**Total Active Projects:** 29
+**Total Active Projects:** 30
 
 ---
 
@@ -248,15 +248,29 @@ This directory contains all active projects, initiatives, and work in progress f
 **Status:** 🟡 Phase 1-2 Complete (PR #1692 merged)  
 **Focus:** Automated issue triage, metadata expansion, bulk processing
 
+### Issue & Script Management
+
+#### 28. Issue Maintenance Scripts (2026-08-10)
+
+**Directory:** [`issue-maintenance-scripts-2026-08-10/`](./issue-maintenance-scripts-2026-08-10/)  
+**Status:** 🟡 Planning (Phase 1 Development Ready)  
+**Owner:** Ash Shaw  
+**Focus:** CLI scripts for automated meta: label management
+**Key Deliverables:**
+
+- 5 label management scripts (review, sync, manage, audit, orchestrate)
+- Comprehensive testing (50+ unit tests, 10+ integration tests)
+- Documentation and workflow integration
+
 ### Agents & Implementation
 
-#### 28. PRD Combined Agent
+#### 29. PRD Combined Agent
 
 **Directory:** [`prd-combined-agent/`](./prd-combined-agent/)  
 **Status:** 🟢 Complete  
 **Focus:** Combined PRD agent implementation and documentation
 
-#### 29. OpenSpec
+#### 30. OpenSpec
 
 **Directory:** [`openspec/`](./openspec/)  
 **Status:** 🟡 Active  
@@ -271,7 +285,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 | Status | Count | Projects |
 |--------|-------|----------|
-| 🟡 Active | 25 | Most projects (ongoing work) |
+| 🟡 Active | 26 | Most projects (ongoing work) |
 | 🔴 Critical | 1 | Label Prefix Audit (remediation in progress) |
 | 🟢 Complete | 3 | Node.js upgrade, Repository restructuring, PRD agent |
 | 🟠 Blocked | 0 | None currently |
