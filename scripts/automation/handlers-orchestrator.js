@@ -186,7 +186,7 @@ async function askForConfirmation(result) {
 }
 
 // Generate summary report
-function generateReport(allResults, config) {
+function generateReport(allResults, _config) {
   const stats = {
     total: 0,
     byStatus: {},

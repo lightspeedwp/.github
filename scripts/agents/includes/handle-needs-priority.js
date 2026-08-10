@@ -20,9 +20,6 @@ export async function handleNeedsPriority(
   }
 
   const priorityLabel = recommendations.priority.level;
-  const currentPriority = issue.labels.find((l) =>
-    l.name.startsWith("priority:"),
-  );
 
   if (!dryRun && githubAPI) {
     const newLabels = [
