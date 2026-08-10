@@ -1,6 +1,7 @@
 ---
 file_type: documentation
 name: Develop Branch Stability Initiative — Summary
+description: Session summary of develop branch stability work, progress tracking, and next steps
 status: active
 ---
 

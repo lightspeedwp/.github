@@ -1,6 +1,7 @@
 ---
 file_type: documentation
 name: Phase 2 — Frontmatter Validation Audit & Remediation
+description: Strategy for auditing and fixing 589 frontmatter validation errors
 status: in-progress
 ---
 

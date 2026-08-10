@@ -1,6 +1,7 @@
 ---
 file_type: documentation
 name: OPENSPEC Analysis — Develop Branch Stability Initiative
+description: Comprehensive analysis of develop branch stability initiative with issues, metrics, and roadmap
 status: active
 ---
 

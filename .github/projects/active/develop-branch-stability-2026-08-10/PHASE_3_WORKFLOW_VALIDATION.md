@@ -1,6 +1,7 @@
 ---
 file_type: documentation
 name: Phase 3 — Workflow CI Validation & Issue Documentation
+description: Plan for auditing workflow CI failures and documenting follow-up issues
 status: planned
 ---
 
