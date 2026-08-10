@@ -1,4 +1,5 @@
 ---
+file_type: project
 title: Issue Triage Automation System
 description: Fix 250-issue compliance gap with automated issue triage
 status: complete
