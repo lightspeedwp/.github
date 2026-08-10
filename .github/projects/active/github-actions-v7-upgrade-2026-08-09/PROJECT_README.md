@@ -22,6 +22,15 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 
 ## Current State
 
+### Phase Status (2026-08-10)
+
+**Phase 5: Integration Testing & Closure** — 🔄 FINALIZING
+
+- ✅ Phase 1-4: Complete
+- 🔄 PR #1703: Phase 5 completion + portable agents (in review)
+- ⚠️ Known blockers: Workspace path doubling in CI workflows, orphaned test files
+- 📋 Ready for: Follow-up session to fix remaining CI path issues
+
 ### Audit Results (2026-08-09)
 
 | Issue | Count | Files Affected | Priority |
@@ -149,6 +158,9 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 | **OpenSpec Analysis** | OPENSPEC_ANALYSIS.md | Formal specification & RFC |
 | **Upgrade Plan** | UPGRADE_PLAN.md | Detailed phased execution plan |
 | **Project Tracker** | PROJECT_TRACKER.md | Issue checklist and progress |
+| **Phase 5 Completion** | phase-5-completion-report.md | Final delivery status & test results |
+| **Known Issues** | KNOWN_ISSUES_FOR_FOLLOWUP.md | Code-level issues requiring follow-up PRs |
+| **Workspace Path Fix** | WORKSPACE_PATH_DOUBLING_FIX.md | Ready-to-copy prompt for fixing CI path issue |
 | **CLAUDE.md** | `/CLAUDE.md` | Repository governance & branch rules |
 
 ## Related Epics & Issues
@@ -158,27 +170,35 @@ This project systematically upgrades all GitHub Actions workflows to **v7** (or 
 - **PR #1659** — Badges workflow schema & validation (merged to develop)
 - **PR #1663** — Badges workflow integration (merge conflicts, blocked by action versions)
 
-## Next Steps
+## Outstanding Issues & Follow-Up Work
 
-1. **Complete Phase 1 planning** (this session):
-   - ✅ Audit workflows
-   - 🔄 Create OpenSpec specification
-   - 🔄 Create upgrade plan document
-   - 🔄 Create GitHub issues
+### PR #1703 Status
 
-2. **Create GitHub issues**:
-   - 1 Epic for the initiative
-   - 5 child issues (one per phase)
-   - Each with DoR/DoD checklists
+- **Merge Conflict:** ✅ Resolved (04d9a4b7d)
+- **Workflow Action Versions:** ✅ Fixed v4→v1 (63e5bbbbc)
+- **Orphaned Test Files:** ✅ Removed (408fe8cf9)
+- **Workspace Path Doubling:** ⚠️ **Requires next session** — see WORKSPACE_PATH_DOUBLING_FIX.md
+- **Known Code Issues:** 📋 Documented in KNOWN_ISSUES_FOR_FOLLOWUP.md — Ready for separate follow-up PRs
 
-3. **Rename branch**:
-   - Rename `claude/github-actions-v7-upgrade-828690` → `feat/github-actions-v7-upgrade`
-   - Follows CLAUDE.md naming conventions
+### Immediate Next Steps (Priority Order)
 
-4. **Phase 2 execution** (next session):
-   - Start badge workflow upgrades
-   - Target merge to develop
+1. **Fix Workspace Path Doubling** (blocks PR #1703 merge):
+   - **Reference:** `WORKSPACE_PATH_DOUBLING_FIX.md` (ready-to-copy prompt)
+   - **Issue:** [#1709](https://github.com/lightspeedwp/.github/issues/1709)
+   - **Affected Workflows:** 6 auto-generated workflows with hardcoded `.github/scripts/` paths
+   - **Solution:** Replace with `$GITHUB_WORKSPACE/.github/scripts/` or relative paths
+   - **Effort:** ~30-60 min (6 workflow files)
+
+2. **Merge PR #1703** (once workspace path issue is fixed):
+   - All other CI checks should pass
+   - Completes Phase 5 delivery
+
+3. **Address Known Code Issues** (separate PRs):
+   - **Priority 1:** Release agent shell injection fix (security)
+   - **Priority 2:** Changelog agent regex fixes (correctness)
+   - **Priority 3:** Test API alignment (quality)
+   - **Reference:** KNOWN_ISSUES_FOR_FOLLOWUP.md
 
 ---
 
-*Project initiated: 2026-08-09 | Last updated: 2026-08-09*
+*Project initiated: 2026-08-09 | Last updated: 2026-08-10 (Phase 5 finalizing)*
