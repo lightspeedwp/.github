@@ -2,7 +2,7 @@
 file_type: documentation
 name: Phase 1 — JS Linting Fixes
 description: Execution plan for fixing 3 unused variable warnings in JS linting
-status: in-progress
+status: active
 ---
 
 # Phase 1: Quick Wins — JS Linting Fixes
