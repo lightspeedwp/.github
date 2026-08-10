@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: Issue Maintenance Scripts — OPENSPEC
-description: Formal specification for automated issue maintenance CLI scripts managing meta: and status: labels
+description: "Formal specification for automated issue maintenance CLI scripts managing meta: and status: labels"
 version: 1.0.0
 created_date: 2026-08-10
 last_updated: 2026-08-10
