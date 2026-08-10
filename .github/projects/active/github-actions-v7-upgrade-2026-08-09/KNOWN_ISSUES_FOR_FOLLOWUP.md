@@ -83,15 +83,21 @@ Identified during PR #1703 review. These require careful refactoring and testing
 
 ### Priority 1 (Security & Correctness)
 
-1. **Fix `gitOps.cjs` shell injection** (line 18)
+1. **Fix `gitOps.cjs` process.cwd() data-corruption defect** (lines 16-18)
+   - **Remediation:** Accept working directory parameter in `gitOps` functions instead of hardcoding `process.cwd()`
+   - **Regression Test:** Create test using separate caller and target repositories to verify operations don't cross-contaminate
+   - **Completion Criterion:** gitOps must accept explicit directory parameter; verify no operation affects caller's repository when working on target
+   - **Risk if not fixed:** When used as portable API, caller's repository can be silently modified
+
+2. **Fix `gitOps.cjs` shell injection** (line 18)
    - Replace shell-executed commands with `execFileSync` using args array
    - Prevents metacharacter injection from branch names, tags, commit text
 
-2. **Add branch validation to release agent**
+3. **Add branch validation to release agent**
    - Check if branch is protected before committing/pushing
    - Fail gracefully with clear error message
 
-3. **Add pre-PR push step**
+4. **Add pre-PR push step**
    - Push release branch to remote before creating PR
    - Ensures remote branch exists with correct commits
 
@@ -121,11 +127,15 @@ Identified during PR #1703 review. These require careful refactoring and testing
 
 ## Follow-Up PR Roadmap
 
-### PR 1: Release Agent Security Fixes
+### PR 1: Release Agent Security & Data Integrity Fixes
 
-- Fix gitOps shell injection
-- Add branch validation
-- Add pre-PR push
+- **Fix gitOps process.cwd() data-corruption defect** (accept working directory parameter)
+  - Add regression test: separate caller/target repository isolation
+  - Completion: Verify no cross-repo contamination
+- Fix gitOps shell injection (execFileSync with args array)
+- Add branch validation (unprotected branch check before commit/push)
+- Add pre-PR push (push branch before creating PR)
+- **Completion Criterion:** All 4 items merged; regression test passing; data-corruption risk eliminated
 - Status: Ready for implementation
 
 ### PR 2: Changelog Agent Corrections
