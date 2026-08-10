@@ -1,4 +1,5 @@
 ---
+file_type: project
 title: Issue Type & Metadata Automation Initiative
 description: Fix issue creation automation to ensure all metadata is assigned at creation
 status: active
