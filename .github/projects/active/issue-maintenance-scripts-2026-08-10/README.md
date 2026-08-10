@@ -1,4 +1,5 @@
 ---
+file_type: project-readme
 name: Issue Maintenance Scripts — Meta Label Automation
 title: Automated Issue Maintenance Scripts for Meta Labels & Status Review
 description: Create dedicated CLI scripts for reviewing, validating, and maintaining meta: labels (needs-changelog, has-pr, stale, dependabot-security) and status: labels (needs-review, needs-triage)

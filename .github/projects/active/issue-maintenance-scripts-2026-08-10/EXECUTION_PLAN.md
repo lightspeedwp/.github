@@ -1,5 +1,5 @@
 ---
-file_type: documentation
+file_type: project-plan
 title: Issue Maintenance Scripts — Execution Plan
 description: Step-by-step plan for implementing automated issue maintenance scripts
 version: 1.0.0

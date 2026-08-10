@@ -1,5 +1,5 @@
 ---
-file_type: specification
+file_type: openspec
 title: Issue Maintenance Scripts — OPENSPEC
 description: Formal specification for automated issue maintenance CLI scripts managing meta: and status: labels
 id: issue-maintenance-scripts-openspec
