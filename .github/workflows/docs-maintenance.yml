@@ -103,8 +103,9 @@ jobs:
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
+          README_FILES: ${{ steps.readmes.outputs.files }}
         run: |
-          node .github/scripts/agents/meta.agent.js --files "${{ steps.readmes.outputs.files }}"
+          node scripts/agents/meta.agent.js --files "$README_FILES"
 
   manual-update:
     name: Manual Documentation Updates

@@ -99,7 +99,7 @@ jobs:
       - name: Apply labels
         if: steps.fetch.outputs.count > 0
         shell: bash
-        run: node .github/scripts/workflows/apply-labels-workflow.js
+        run: node scripts/workflows/apply-labels-workflow.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run == 'true' || 'true' }}

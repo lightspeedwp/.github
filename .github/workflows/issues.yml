@@ -25,6 +25,6 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Run Issues Agent
-        run: node .github/scripts/agents/issues.agent.js --apply
+        run: node scripts/agents/issues.agent.js --apply
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

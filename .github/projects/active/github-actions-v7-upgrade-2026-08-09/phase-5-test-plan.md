@@ -1,3 +1,8 @@
+---
+file_type: documentation
+description: Phase 5 integration testing and validation plan for GitHub Actions v7 upgrade
+---
+
 # Phase 5: Integration Testing & Closure — Test Plan
 
 **Project:** GitHub Actions v7 Upgrade Initiative

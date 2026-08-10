@@ -2,8 +2,8 @@
 title: "Active Projects Index"
 description: "Comprehensive index of all active projects, initiatives, and work in progress for the LightSpeed .github control plane"
 file_type: readme
-version: v2.0
-last_updated: "2026-08-05"
+version: v2.1
+last_updated: "2026-08-10"
 created_date: "2025-12-08"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -15,9 +15,9 @@ stability: "stable"
 
 # Active Projects Index
 
-**Index Version:** 2.2  
-**Last Updated:** 2026-08-09 (19:35 UTC)  
-**Status:** 4 Recent Merges (PR #1692-#1694) — Issue Triage Phase Complete, Badge v7 Upgrade In Progress  
+**Index Version:** 2.3  
+**Last Updated:** 2026-08-10 (18:08 UTC)  
+**Status:** PR #1703 Phase 5 Finalising — Workspace Path Fixes Complete, Security Hardening In Review  
 **Total Active Projects:** 29
 
 ---
@@ -30,7 +30,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ---
 
-## 📋 Active Projects (23 Total)
+## 📋 Active Projects (29 Total)
 
 ### Core Infrastructure & Standards
 
@@ -222,15 +222,41 @@ This directory contains all active projects, initiatives, and work in progress f
 **Status:** 🟡 Active  
 **Focus:** PR review workflow planning and optimization
 
+### Recent Work (2026-08-09 to Present)
+
+#### 25. GitHub Actions v7 Upgrade Initiative
+
+**Directory:** [`github-actions-v7-upgrade-2026-08-09/`](./github-actions-v7-upgrade-2026-08-09/)  
+**Status:** 🟡 Phase 5 Finalising (PR #1703)  
+**Owner:** claude  
+**Key Deliverables:**
+
+- Phase 1-4: Complete (11/45 workflows upgraded to v7, 24% coverage)
+- Phase 5: Workspace path fixes, security hardening, portable agents
+- Critical security fixes: Shell injection vulnerabilities, GitHub App token scoping
+- Known issues documented for follow-up PRs (Priority 1-3)
+
+#### 26. Badges Workflow Integration (2026-08-08)
+
+**Directory:** [`badges-workflow-integration-2026-08-08/`](./badges-workflow-integration-2026-08-08/)  
+**Status:** 🟡 In Progress  
+**Focus:** Badge workflow automation, integration testing, badge status updates
+
+#### 27. Issue Metadata Triage Expansion
+
+**Directory:** [`issue-metadata-triage-expansion/`](./issue-metadata-triage-expansion/)  
+**Status:** 🟡 Phase 1-2 Complete (PR #1692 merged)  
+**Focus:** Automated issue triage, metadata expansion, bulk processing
+
 ### Agents & Implementation
 
-#### 25. PRD Combined Agent
+#### 28. PRD Combined Agent
 
 **Directory:** [`prd-combined-agent/`](./prd-combined-agent/)  
 **Status:** 🟢 Complete  
 **Focus:** Combined PRD agent implementation and documentation
 
-#### 26. OpenSpec
+#### 29. OpenSpec
 
 **Directory:** [`openspec/`](./openspec/)  
 **Status:** 🟡 Active  
@@ -245,7 +271,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 | Status | Count | Projects |
 |--------|-------|----------|
-| 🟡 Active | 21 | Most projects (ongoing work) |
+| 🟡 Active | 25 | Most projects (ongoing work) |
 | 🔴 Critical | 1 | Label Prefix Audit (remediation in progress) |
 | 🟢 Complete | 3 | Node.js upgrade, Repository restructuring, PRD agent |
 | 🟠 Blocked | 0 | None currently |
@@ -266,7 +292,7 @@ This directory contains all active projects, initiatives, and work in progress f
 │   ├── issues/                    # Related issues
 │   └── [documentation]/
 ├── project-2-slug/
-└── [23 total projects]
+└── [29 total projects]
 ```
 
 **Key Rules:**
