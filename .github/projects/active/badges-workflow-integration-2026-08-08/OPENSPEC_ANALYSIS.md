@@ -2,10 +2,10 @@
 title: "Badges Workflow Integration — OpenSpec Analysis & Design Decisions"
 description: "Formal specification of design decisions, requirements, and architecture for badges workflow automation"
 file_type: "documentation"
-status: "in-progress"
+status: "active"
 created_date: "2026-08-08"
 last_updated: "2026-08-10"
-version: "v1.2.0"
+version: "v1.2.1"
 authors: ["Ash Shaw", "Claude"]
 tags: ["openspec", "badges", "design-decisions", "architecture"]
 ---
@@ -363,4 +363,7 @@ This specification locks down all architectural decisions and is ready for imple
 
 ---
 
-*Document created 2026-08-08 — OpenSpec analysis complete*
+**Document Version:** 1.2.1  
+**Last Updated:** 2026-08-10  
+**Status:** Phase 4 In Progress  
+**Next Review:** After integration testing completion
