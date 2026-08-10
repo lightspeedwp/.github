@@ -1,3 +1,8 @@
+---
+file_type: discussion_template
+name: Code & Contribution Help
+about: Ask for help with contributing, PRs, or setting up development.
+---
 name: "Code & Contribution Help"
 description: "Ask for help with contributing, PRs, or setting up development."
 labels:
