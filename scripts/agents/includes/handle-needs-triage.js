@@ -116,7 +116,7 @@ export function getHandlerPriority(needs) {
  * Generate remediation plan for issue
  */
 export function generateRemediationPlan(issue, triageAssessment) {
-  const { needs, analysis, suggestions, validation, relationships } =
+  const { needs, analysis, suggestions, validation, _relationships } =
     triageAssessment;
 
   const plan = {
