@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Mint a short-lived App token
         id: token
-        uses: actions/create-github-app-token@v4
+        uses: actions/create-github-app-token@v1
         with:
           client-id: ${{ vars.DEP_MERGE_APP_CLIENT_ID }}
           private-key: ${{ secrets.DEP_MERGE_APP_PRIVATE_KEY }}
