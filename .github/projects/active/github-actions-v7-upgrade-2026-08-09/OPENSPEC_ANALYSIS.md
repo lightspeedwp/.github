@@ -1,12 +1,14 @@
 ---
-name: GitHub Actions v7 Upgrade OpenSpec
-type: specification
-version: 1.1
-status: implemented
-author: claude
-date: 2026-08-09
-updated: 2026-08-10
-related_epic: "#1641 (Badges Workflow Integration)"
+title: "GitHub Actions v7 Upgrade OpenSpec"
+description: "Formal specification for GitHub Actions v7 upgrade initiative with workspace path fixes and security hardening"
+file_type: "documentation"
+status: "active"
+version: "1.1"
+created_date: "2026-08-09"
+last_updated: "2026-08-10"
+authors: ["claude"]
+owners: ["Ash Shaw"]
+tags: ["openspec", "github-actions", "v7-upgrade"]
 ---
 
 # GitHub Actions v7 Upgrade — OpenSpec & RFC
