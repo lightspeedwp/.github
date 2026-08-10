@@ -282,16 +282,20 @@ jobs:
       - name: Generate maintenance report
         if: always()
         run: |
+          REPORT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           MERMAID_STATUS="${{ steps.mermaid.outcome || 'skipped' }}"
           CONTRAST_STATUS="${{ steps.contrast.outcome || 'skipped' }}"
           STALENESS_STATUS="${{ steps.staleness.outcome || 'skipped' }}"
+          AUDIT_SCOPE="${{ env.AUDIT_SCOPE }}"
+          DRY_RUN="${{ env.DRY_RUN }}"
+          DRY_RUN_LABEL=$([ "$DRY_RUN" = "true" ] && echo "Yes (preview only)" || echo "No (changes applied)")
 
-          cat > .github/reports/mermaid-audit/maintenance-report.md <<'EOF'
+          cat > .github/reports/mermaid-audit/maintenance-report.md <<EOF
           # Documentation Maintenance Report
 
-          **Date**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          **Scope**: ${{ env.AUDIT_SCOPE }}
-          **Dry Run**: ${{ env.DRY_RUN }}
+          **Date**: ${REPORT_DATE}
+          **Scope**: ${AUDIT_SCOPE}
+          **Dry Run**: ${DRY_RUN}
 
           ## Processing Status
 
@@ -304,12 +308,12 @@ jobs:
           ## Changes Summary
 
           - Mermaid diagrams: Updated accessibility attributes and colour-contrast-safe palette values
-          - Staleness updates: Refreshed `last_updated` dates for files exceeding 6-month threshold
+          - Staleness updates: Refreshed \`last_updated\` dates for files exceeding 6-month threshold
 
           ## Processing Mode
 
-          - **Dry Run**: ${{ env.DRY_RUN == 'true' && 'Yes (preview only)' || 'No (changes applied)' }}
-          - **Scope**: ${{ env.AUDIT_SCOPE }}
+          - **Dry Run**: ${DRY_RUN_LABEL}
+          - **Scope**: ${AUDIT_SCOPE}
 
           ## Next Steps
 
