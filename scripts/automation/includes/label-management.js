@@ -227,7 +227,9 @@ export class LabelManager {
           break;
         }
 
-        issues.push(...response.data);
+        // Filter out PRs (issues.listForRepo returns both)
+        const filterData = response.data.filter((item) => !item.pull_request);
+        issues.push(...filterData);
         page++;
 
         if (response.data.length < 100) {
@@ -252,7 +254,7 @@ export class LabelManager {
    * @returns {Promise<object[]>} Array of issues
    */
   async fetchAllIssues(options = {}) {
-    const { state = "open", limit = 350 } = options;
+    const { state = "open", limit = 1000 } = options;
     const issues = [];
     let page = 1;
 
@@ -277,7 +279,9 @@ export class LabelManager {
           break;
         }
 
-        issues.push(...response.data);
+        // Filter out PRs (issues.listForRepo returns both)
+        const filterData = response.data.filter((item) => !item.pull_request);
+        issues.push(...filterData);
         page++;
 
         if (response.data.length < 100) {

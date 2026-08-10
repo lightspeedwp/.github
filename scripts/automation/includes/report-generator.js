@@ -49,11 +49,13 @@ export class ReportGenerator {
       const values = headers.map((key) => {
         const value = this.getNestedValue(record, key);
         const stringValue = String(value === undefined ? "" : value);
-        // Escape quotes and wrap in quotes if contains comma or newline
+        // Escape quotes and wrap in quotes if needed
         const escaped = stringValue.replace(/"/g, '""');
-        return escaped.includes(",") || escaped.includes("\n")
-          ? `"${escaped}"`
-          : escaped;
+        const needsQuotes =
+          escaped.includes(",") ||
+          escaped.includes("\n") ||
+          escaped.includes('"');
+        return needsQuotes ? `"${escaped}"` : escaped;
       });
       rows.push(values.join(","));
     });

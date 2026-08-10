@@ -1,13 +1,11 @@
 ---
-file_type: project-readme
-name: Issue Maintenance Scripts — Meta Label Automation
+file_type: readme
 title: Automated Issue Maintenance Scripts for Meta Labels & Status Review
 description: Create dedicated CLI scripts for reviewing, validating, and maintaining meta: labels (needs-changelog, has-pr, stale, dependabot-security) and status: labels (needs-review, needs-triage)
-status: planning
+version: 1.0.0
 created_date: 2026-08-10
 last_updated: 2026-08-10
-version: 1.0.0
-owners:
+authors:
   - lightspeedwp/maintainers
 tags:
   - automation
@@ -15,9 +13,6 @@ tags:
   - label-management
   - governance
   - scripts
-related_issues:
-  - '#1680'
-  - '#1167'
 ---
 
 # Issue Maintenance Scripts — Meta Label Automation

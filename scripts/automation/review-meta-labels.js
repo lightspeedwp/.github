@@ -79,8 +79,8 @@ async function auditMetaLabels(options = {}) {
       console.log(`Fetching issues...`);
     }
 
-    // Fetch all open issues
-    const allIssues = await manager.fetchAllIssues({ limit: 350 });
+    // Fetch all open issues (using higher limit to handle growth)
+    const allIssues = await manager.fetchAllIssues({ limit: 1000 });
 
     if (verbose) {
       console.log(`Fetched ${allIssues.length} issues`);
@@ -140,10 +140,14 @@ async function auditMetaLabels(options = {}) {
       meta_labels: labelAnalysis,
       summary: {
         total_gaps: recommendations.length,
-        coverage_percentage: Math.round(
-          ((allIssues.length - recommendations.length / 7) / allIssues.length) *
-            100,
-        ),
+        coverage_percentage:
+          allIssues.length > 0
+            ? Math.round(
+                ((allIssues.length - recommendations.length) /
+                  allIssues.length) *
+                  100,
+              )
+            : 0,
         top_gaps: Object.entries(labelAnalysis)
           .filter(([, data]) => data.count === 0)
           .map(([name]) => ({
@@ -180,7 +184,12 @@ async function auditMetaLabels(options = {}) {
 
     // Export if output path provided
     if (output) {
-      const ext = format === "json" ? ".json" : `.${format}`;
+      const ext =
+        format === "json"
+          ? ".json"
+          : format === "markdown"
+            ? ".md"
+            : `.${format}`;
       const outputPath = output.endsWith(ext) ? output : `${output}${ext}`;
       reporter.exportToFile(format, report, outputPath);
 

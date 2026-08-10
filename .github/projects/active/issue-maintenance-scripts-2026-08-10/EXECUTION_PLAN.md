@@ -1,10 +1,16 @@
 ---
-file_type: project-plan
+file_type: documentation
 title: Issue Maintenance Scripts — Execution Plan
 description: Step-by-step plan for implementing automated issue maintenance scripts
 version: 1.0.0
 created_date: 2026-08-10
 last_updated: 2026-08-10
+authors:
+  - lightspeedwp/maintainers
+tags:
+  - execution-plan
+  - project-planning
+  - issue-maintenance
 ---
 
 # Issue Maintenance Scripts — Execution Plan
