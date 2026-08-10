@@ -14,7 +14,7 @@ describe("handle-needs-triage", () => {
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("feature");
-      expect(result.confidence).toBeGreaterThan(50);
+      expect(result.confidence).toBeGreaterThan(0.5);
     });
 
     it("should detect bug type from error keywords", () => {
@@ -24,7 +24,7 @@ describe("handle-needs-triage", () => {
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("bug");
-      expect(result.confidence).toBeGreaterThan(50);
+      expect(result.confidence).toBeGreaterThan(0.5);
     });
 
     it("should detect epic type from scope keywords", () => {
@@ -34,58 +34,61 @@ describe("handle-needs-triage", () => {
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("epic");
-      expect(result.confidence).toBeGreaterThan(30);
+      expect(result.confidence).toBeGreaterThan(0.3);
     });
 
-    it("should detect refactor type from cleanup keywords", () => {
+    it("should detect task type from cleanup keywords", () => {
       const issue = {
         title: "Refactor authentication module",
         body: "Clean up technical debt in auth system",
       };
       const result = handler.inferType(issue);
-      expect(result.type).toBe("refactor");
-      expect(result.confidence).toBeGreaterThan(50);
+      expect(result.type).toBe("task");
+      expect(result.confidence).toBeGreaterThan(0.5);
     });
 
-    it("should return null for completely generic content", () => {
+    it("should return lowest confidence type for completely generic content", () => {
       const issue = {
         title: "Something",
         body: "TODO",
       };
       const result = handler.inferType(issue);
-      // Generic content returns null type
-      expect(result.type === null || result.confidence < 20).toBe(true);
+      expect(result.type).toBeDefined();
+      expect(result.confidence).toBeLessThan(0.3);
     });
 
-    it("should prioritize explicit type labels in title", () => {
+    it("should prioritize bug type when error keywords present", () => {
       const issue = {
         title: "[bug] Login form not working",
         body: "When I try to log in, nothing happens",
       };
       const result = handler.inferType(issue);
       expect(result.type).toBe("bug");
+      expect(result.confidence).toBeGreaterThan(0.5);
     });
   });
 
-  describe("detectArea", () => {
+  describe("inferArea", () => {
     it("should detect ci area from workflow keywords", () => {
       const issue = {
         title: "GitHub Actions workflow failing",
         body: "The CI pipeline needs fixing",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBe("area:ci");
-      expect(result.confidence).toBeGreaterThan(50);
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].area).toBe("area:ci");
+      expect(result[0].confidence).toBeGreaterThan(0.6);
     });
 
-    it("should detect documentation area", () => {
+    it("should detect docs area", () => {
       const issue = {
         title: "Update README",
         body: "The documentation needs updating in docs/ folder",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBe("area:documentation");
-      expect(result.confidence).toBeGreaterThan(50);
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].area).toBe("area:docs");
+      expect(result[0].confidence).toBeGreaterThan(0.6);
     });
 
     it("should detect security area", () => {
@@ -93,9 +96,10 @@ describe("handle-needs-triage", () => {
         title: "Security vulnerability in authentication",
         body: "Found an XSS vulnerability that needs patching",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBe("area:security");
-      expect(result.confidence).toBeGreaterThan(50);
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].area).toBe("area:security");
+      expect(result[0].confidence).toBeGreaterThan(0.6);
     });
 
     it("should detect automation area from script keywords", () => {
@@ -103,19 +107,21 @@ describe("handle-needs-triage", () => {
         title: "Automate issue triage",
         body: "Create a script to batch process issues",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBe("area:automation");
-      expect(result.confidence).toBeGreaterThan(50);
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].area).toBe("area:automation");
+      expect(result[0].confidence).toBeGreaterThan(0.6);
     });
 
-    it("should detect ai area from agent keywords", () => {
+    it("should detect accessibility area from a11y keywords", () => {
       const issue = {
-        title: "Enhance Claude agent",
-        body: "Improve the AI agent's prompt handling",
+        title: "Improve WCAG compliance",
+        body: "Need to improve a11y accessibility standards",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBe("area:ai");
-      expect(result.confidence).toBeGreaterThan(40);
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].area).toBe("area:accessibility");
+      expect(result[0].confidence).toBeGreaterThan(0.5);
     });
 
     it("should detect labels area from label keywords", () => {
@@ -123,35 +129,44 @@ describe("handle-needs-triage", () => {
         title: "Fix label prefix enforcement",
         body: "Need to fix canonical label validation",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBe("area:labels");
-      expect(result.confidence).toBeGreaterThan(50);
+      const result = handler.inferArea(issue);
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].area).toBe("area:labels");
+      expect(result[0].confidence).toBeGreaterThan(0.6);
     });
 
-    it("should return null area for generic content", () => {
+    it("should return empty array for generic content", () => {
       const issue = {
         title: "Random title",
         body: "Some text with no area hints",
       };
-      const result = handler.detectArea(issue);
-      expect(result.area).toBeNull();
+      const result = handler.inferArea(issue);
+      expect(result.length).toBe(0);
     });
   });
 
   describe("suggestAssignee", () => {
     it("should suggest ashleyshaw for ci area", () => {
-      const assignee = handler.suggestAssignee("area:ci");
+      const areaInference = [{ area: "area:ci", confidence: 0.95 }];
+      const assignee = handler.suggestAssignee(areaInference);
       expect(assignee).toBe("ashleyshaw");
     });
 
     it("should suggest ashleyshaw for security area", () => {
-      const assignee = handler.suggestAssignee("area:security");
+      const areaInference = [{ area: "area:security", confidence: 0.92 }];
+      const assignee = handler.suggestAssignee(areaInference);
       expect(assignee).toBe("ashleyshaw");
     });
 
-    it("should default to ashleyshaw for unknown area", () => {
-      const assignee = handler.suggestAssignee("area:unknown");
-      expect(assignee).toBe("ashleyshaw");
+    it("should return null for unknown area", () => {
+      const areaInference = [{ area: "area:unknown", confidence: 0.85 }];
+      const assignee = handler.suggestAssignee(areaInference);
+      expect(assignee).toBeNull();
+    });
+
+    it("should return null for empty area inference", () => {
+      const assignee = handler.suggestAssignee([]);
+      expect(assignee).toBeNull();
     });
   });
 
@@ -169,8 +184,9 @@ describe("handle-needs-triage", () => {
       expect(result.status).toBe("preview");
       expect(result.dryRun).toBe(true);
       expect(result.issueNumber).toBe(123);
-      expect(result.suggestedType).toBe("feature");
-      expect(result.labelsToRemove).toContain("status:needs-triage");
+      expect(result.typeInference).toBeDefined();
+      expect(result.typeInference.type).toBe("feature");
+      expect(result.labelsToAdd).toBeDefined();
     });
 
     it("should skip issues already triaged", async () => {
@@ -184,10 +200,10 @@ describe("handle-needs-triage", () => {
       const result = await handler.processIssue(issue, { dryRun: true });
 
       expect(result.status).toBe("skipped");
-      expect(result.reason).toContain("already triaged");
+      expect(result.reason).toContain("already has type and area labels");
     });
 
-    it("should skip issues with only type label", async () => {
+    it("should process issues with only type label", async () => {
       const issue = {
         number: 123,
         title: "Add new feature",
@@ -198,10 +214,10 @@ describe("handle-needs-triage", () => {
       const result = await handler.processIssue(issue, { dryRun: true });
 
       expect(result.status).toBe("preview");
-      expect(result.suggestedArea).toBeDefined();
+      expect(result.areaInference).toBeDefined();
     });
 
-    it("should skip issues with only area label", async () => {
+    it("should process issues with only area label", async () => {
       const issue = {
         number: 123,
         title: "Add new feature",
@@ -212,10 +228,10 @@ describe("handle-needs-triage", () => {
       const result = await handler.processIssue(issue, { dryRun: true });
 
       expect(result.status).toBe("preview");
-      expect(result.suggestedType).toBeDefined();
+      expect(result.typeInference).toBeDefined();
     });
 
-    it("should return low-confidence or preview depending on content confidence", async () => {
+    it("should return warning when confidence is below threshold", async () => {
       const issue = {
         number: 123,
         title: "TODO",
@@ -225,10 +241,10 @@ describe("handle-needs-triage", () => {
 
       const result = await handler.processIssue(issue, {
         dryRun: true,
-        confidenceThreshold: 95,
+        confidenceThreshold: 0.95,
       });
 
-      expect(["low-confidence", "preview"].includes(result.status)).toBe(true);
+      expect(["warning", "preview"].includes(result.status)).toBe(true);
     });
 
     it("should return error when githubRequest not provided in update mode", async () => {
@@ -256,7 +272,7 @@ describe("handle-needs-triage", () => {
       const result = await handler.processIssue(issue, { dryRun: true });
 
       // Assignee is set if area is detected
-      if (result.suggestedArea === "area:ci") {
+      if (result.areaInference && result.areaInference.length > 0) {
         expect(result.suggestedAssignee).toBe("ashleyshaw");
       }
     });
@@ -271,13 +287,13 @@ describe("handle-needs-triage", () => {
 
       const result = await handler.processIssue(issue, {
         dryRun: true,
-        confidenceThreshold: 85,
+        confidenceThreshold: 0.85,
       });
 
-      // Should skip or low-confidence depending on actual confidence
-      expect(
-        ["preview", "low-confidence", "skipped"].includes(result.status),
-      ).toBe(true);
+      // Should return preview or warning depending on actual confidence
+      expect(["preview", "warning", "skipped"].includes(result.status)).toBe(
+        true,
+      );
     });
   });
 
@@ -300,7 +316,7 @@ describe("handle-needs-triage", () => {
           number: 3,
           title: "Update docs",
           body: "Documentation is outdated",
-          labels: [{ name: "type:task" }, { name: "area:documentation" }],
+          labels: [{ name: "type:task" }, { name: "area:docs" }],
         },
       ];
 
@@ -329,12 +345,10 @@ describe("handle-needs-triage", () => {
 
       const result = await handler.processBatch(issues, {
         dryRun: true,
-        confidenceThreshold: 90,
+        confidenceThreshold: 0.9,
       });
 
-      expect(
-        result.stats.preview + result.stats["low-confidence"],
-      ).toBeGreaterThan(0);
+      expect(result.stats.preview + result.stats.warnings).toBeGreaterThan(0);
     });
   });
 });
