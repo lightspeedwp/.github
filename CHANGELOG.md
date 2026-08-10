@@ -37,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **OPENSPEC frontmatter and footer validation fixes** — Corrected invalid frontmatter values (status enum, version formatting) and added proper document footers to OPENSPEC specification files for active projects (github-actions-v7-upgrade, badges-workflow-integration, issue-metadata-triage-expansion). Bumped document versions (v1.2.0→v1.2.1, 1.1→1.1.1, 1.1.0→1.1.1) to satisfy frontmatter freshness validation. ([PR #1711](https://github.com/lightspeedwp/.github/pull/1711), [#1709](https://github.com/lightspeedwp/.github/issues/1709))
+
+- **Make confidence-status assertions deterministic in handle-needs-triage tests** — Updated test assertions to derive expected status from actual inference confidences rather than accepting multiple possible outcomes. Fixes CodeRabbit findings from PR #1703 with deterministic test expectations for low-confidence and high-confidence scenarios. ([PR #1712](https://github.com/lightspeedwp/.github/pull/1712), [#1709](https://github.com/lightspeedwp/.github/issues/1709))
+
 - **Add footer to PHASE-4-GUIDE.md for validation compliance** — Added proper footer format to Phase 4 implementation guide to pass markdown footer validation checks. Footer includes status metadata and workflow automation reference. ([PR #1694](https://github.com/lightspeedwp/.github/pull/1694), [#1679](https://github.com/lightspeedwp/.github/issues/1679))
 
 - **Upgrade badge workflow actions to v7** — Fixed invalid GitHub Actions references in badge workflows (badges-documentation-update, badges-readme-status, badges-workflow-audit, badges-health-check) by replacing broken SHAs with pinned v7 release SHAs. Actions/checkout and actions/setup-node now use v7 (latest stable) instead of v4 with invalid commit SHAs. ([PR #1668](https://github.com/lightspeedwp/.github/pull/1668), [PR #1693](https://github.com/lightspeedwp/.github/pull/1693), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641))
