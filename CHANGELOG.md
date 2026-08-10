@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-09"
+last_updated: "2026-08-10"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -36,6 +36,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Badge workflow integration — Phases 1–3 complete** — Implemented comprehensive badges workflow automation system with schema-driven configuration, automated generation, validation, and discovery workflows. Phase 1 created badge schema with 41 workflow definitions, updated badges.js utility, and established governance policies. Phase 2 implemented four GitHub Actions workflows: documentation badge updates (on-push), README status maintenance (daily), workflow discovery (weekly), and badge health checks (weekly). Phase 3 added testing suite with schema validation, automated schema generation from workflows, comprehensive examples documentation, and detailed troubleshooting guide. ([PR #1659](https://github.com/lightspeedwp/.github/pull/1659), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641), child issues #1643–#1655)
 
 ### Fixed
+
+- **OPENSPEC frontmatter and footer validation fixes** — Corrected invalid frontmatter values (status enum, version formatting) and added proper document footers to OPENSPEC specification files for active projects (github-actions-v7-upgrade, badges-workflow-integration, issue-metadata-triage-expansion). Bumped document versions (v1.2.0→v1.2.1, 1.1→1.1.1, 1.1.0→1.1.1) to satisfy frontmatter freshness validation. ([PR #1711](https://github.com/lightspeedwp/.github/pull/1711), [#1709](https://github.com/lightspeedwp/.github/issues/1709))
+
+- **Make confidence-status assertions deterministic in handle-needs-triage tests** — Updated test assertions to derive expected status from actual inference confidences rather than accepting multiple possible outcomes. Fixes CodeRabbit findings from PR #1703 with deterministic test expectations for low-confidence and high-confidence scenarios. ([PR #1712](https://github.com/lightspeedwp/.github/pull/1712), [#1709](https://github.com/lightspeedwp/.github/issues/1709))
 
 - **Add footer to PHASE-4-GUIDE.md for validation compliance** — Added proper footer format to Phase 4 implementation guide to pass markdown footer validation checks. Footer includes status metadata and workflow automation reference. ([PR #1694](https://github.com/lightspeedwp/.github/pull/1694), [#1679](https://github.com/lightspeedwp/.github/issues/1679))
 

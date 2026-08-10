@@ -1,14 +1,14 @@
 ---
 file_type: documentation
-title: Issue Metadata Triage Expansion Specification
-description: Comprehensive specification for 4-5 week initiative to expand issue triage system across 9 status:needs-* label categories
-id: issue-metadata-triage-expansion
-version: 1.1.0
-created_date: 2026-08-09
-last_updated: 2026-08-10
-status: in-progress
-authors:
-  - lightspeedwp/maintainers
+title: "Issue Metadata Triage Expansion Specification"
+description: "Comprehensive specification for 4-5 week initiative to expand issue triage system across 9 status:needs-* label categories"
+version: "1.1.1"
+created_date: "2026-08-09"
+last_updated: "2026-08-10"
+status: "active"
+authors: ["LightSpeedWP Team"]
+owners: ["Ash Shaw"]
+tags: ["openspec", "issue-triage", "automation", "metadata"]
 ---
 
 # Issue Metadata Triage Expansion — Specification
@@ -506,10 +506,7 @@ Implement remaining handlers:
 
 ---
 
-**Spec Owner:** Ash Shaw  
-**Created:** 2026-08-09  
-**Status:** 🟡 Planning → Execution (Phase 1 starting)
-
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+**Document Version:** 1.1.1  
+**Last Updated:** 2026-08-10  
+**Status:** Phase 0-2 Complete  
+**Next Review:** Phase 3 execution planning
