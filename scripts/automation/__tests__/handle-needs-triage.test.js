@@ -244,7 +244,8 @@ describe("handle-needs-triage", () => {
         confidenceThreshold: 0.95,
       });
 
-      expect(["warning", "preview"].includes(result.status)).toBe(true);
+      // Low-confidence, unlabeled fixture must return warning at 0.95 threshold
+      expect(result.status).toBe("warning");
     });
 
     it("should return error when githubRequest not provided in update mode", async () => {
@@ -290,10 +291,17 @@ describe("handle-needs-triage", () => {
         confidenceThreshold: 0.85,
       });
 
-      // Should return preview or warning depending on actual confidence
-      expect(["preview", "warning", "skipped"].includes(result.status)).toBe(
-        true,
-      );
+      // Derive expected status from inference confidences
+      const hasHighConfidenceInference =
+        (result.typeInference && result.typeInference.confidence >= 0.85) ||
+        (result.areaInference &&
+          result.areaInference.some((a) => a.confidence >= 0.85));
+
+      if (hasHighConfidenceInference) {
+        expect(result.status).toBe("preview");
+      } else {
+        expect(result.status).toBe("warning");
+      }
     });
   });
 
