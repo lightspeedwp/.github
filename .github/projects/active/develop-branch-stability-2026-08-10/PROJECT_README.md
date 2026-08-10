@@ -242,10 +242,35 @@ From recent Phase 5 GitHub Actions v7 upgrade (PR #1703):
 
 ---
 
+## Issues & Follow-Up Work
+
+**See OPENSPEC_ANALYSIS.md for comprehensive issue documentation**
+
+### P1 (High Priority - Non-Blocking)
+
+- **Release Agent Data Corruption Risk:** `gitOps.cjs` hardcodes `process.cwd()`. Fix: accept working directory parameter, add regression test, add branch validation, add pre-PR push step. Effort: 6–8 hrs.
+
+### P2 (Medium Priority - Non-Blocking)
+
+- **Changelog Validation Regex Bugs:** Multiple regex errors in `keepAChangelogParser.cjs`. Fix: `\z` → `$`, escape metacharacters, fix hyphenation detection. Effort: 3–4 hrs.
+- **Test Expectations Misalignment:** Tests codify arbitrary behavior. Fix: audit handler API, update test expectations, add edge case tests. Effort: 4–5 hrs.
+
+### P3 (Low Priority - Documentation)
+
+- **Discussion Template Schema Refinement:** Schema mismatches despite valid fields. Action: document acceptable exceptions or update validation rules.
+
+---
+
 ## Related Files
 
 - **Branch:** `chore/develop-branch-stability` (current work)
 - **Project Tracking:** `.github/projects/active/develop-branch-stability-2026-08-10/`
+  - **PROJECT_README.md** ← You are here
+  - **OPENSPEC_ANALYSIS.md** ← Comprehensive issue & metrics documentation
+  - **SUMMARY.md** ← Session summary
+  - **PHASE_1_LINTING_FIXES.md** ← Complete ✅
+  - **PHASE_2_FRONTMATTER_AUDIT.md** ← In Progress 🔄
+  - **PHASE_3_WORKFLOW_VALIDATION.md** ← Ready 📋
 - **Related Projects:**
   - `github-actions-v7-upgrade-2026-08-09/` (PR #1703 known issues)
   - `github-projects-creation-system/` (project structure reference)
@@ -258,5 +283,5 @@ From recent Phase 5 GitHub Actions v7 upgrade (PR #1703):
 ---
 
 **Owner:** @ash (LightSpeed AI Ops)  
-**Status:** In Progress  
-**Last Updated:** 2026-08-10
+**Status:** In Progress (Phase 1 ✅ | Phase 2A 🔄 | Phase 2B–3 📋)  
+**Last Updated:** 2026-08-10T18:55 CEST
