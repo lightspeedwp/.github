@@ -1,23 +1,24 @@
 ---
 name: GitHub Actions v7 Upgrade OpenSpec
 type: specification
-version: 1.0
-status: draft
+version: 1.1
+status: implemented
 author: claude
 date: 2026-08-09
-related_epic: "#[TBD]"
+updated: 2026-08-10
+related_epic: "#1641 (Badges Workflow Integration)"
 ---
 
 # GitHub Actions v7 Upgrade — OpenSpec & RFC
 
 ## Executive Summary
 
-This specification formalises the systematic upgrade of GitHub Actions workflows from outdated/invalid versions to v7 (or latest stable). The current state includes **4 critical blockers** (invalid SHAs in badge workflows) and **10+ additional outdated references** across 45 total workflows.
+This specification formalises the systematic upgrade of GitHub Actions workflows from outdated/invalid versions to v7 (or latest stable). **Phase 5 completion (2026-08-10):** All critical infrastructure checks passing, security hardening complete, workspace path doubling issue resolved.
 
 **Scope:** All `.github/workflows/*.yml` files (45 workflows)  
-**Target state:** 100% compliance with v7 (or latest stable versions)  
-**Priority:** 🔴 CRITICAL (blocking badges Phase 4 integration testing)  
-**Effort:** ~15 days (5 phases)
+**Target state:** 100% compliance with v7 (or latest stable versions) ✅ In Progress  
+**Priority:** 🔴 CRITICAL (blocking badges Phase 4 integration testing) → Now Unblocked  
+**Effort:** 5 phases complete (Days 1-2 audit, Days 3-4 badge upgrade, Days 5-7 standard upgrades, Days 8-10 integration testing, Phase 5 finalisation)
 
 ---
 
