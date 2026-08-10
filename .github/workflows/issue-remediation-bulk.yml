@@ -108,7 +108,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          node $GITHUB_WORKSPACE/.github/scripts/workflows/assign-milestones-workflow.js
+          node scripts/workflows/assign-milestones-workflow.js
           echo "Exit code: $?"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

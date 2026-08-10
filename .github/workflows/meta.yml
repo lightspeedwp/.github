@@ -117,7 +117,7 @@ jobs:
         env:
           META_SKIP_README: "true"
         run: |
-          node $GITHUB_WORKSPACE/.github/scripts/agents/meta.agent.js
+          node scripts/agents/meta.agent.js
 
       - name: Update Metrics Snapshot
         run: |
