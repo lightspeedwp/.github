@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Metadata Triage Expansion Specification"
 description: "Comprehensive specification for 4-5 week initiative to expand issue triage system across 9 status:needs-* label categories"
-version: "1.1.0"
+version: "1.1.1"
 created_date: "2026-08-09"
 last_updated: "2026-08-10"
 status: "active"

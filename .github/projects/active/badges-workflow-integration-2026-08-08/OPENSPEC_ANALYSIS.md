@@ -5,7 +5,7 @@ file_type: "documentation"
 status: "active"
 created_date: "2026-08-08"
 last_updated: "2026-08-10"
-version: "v1.2.0"
+version: "v1.2.1"
 authors: ["Ash Shaw", "Claude"]
 tags: ["openspec", "badges", "design-decisions", "architecture"]
 ---

@@ -3,7 +3,7 @@ title: "GitHub Actions v7 Upgrade OpenSpec"
 description: "Formal specification for GitHub Actions v7 upgrade initiative with workspace path fixes and security hardening"
 file_type: "documentation"
 status: "active"
-version: "1.1"
+version: "1.1.1"
 created_date: "2026-08-09"
 last_updated: "2026-08-10"
 authors: ["claude"]
