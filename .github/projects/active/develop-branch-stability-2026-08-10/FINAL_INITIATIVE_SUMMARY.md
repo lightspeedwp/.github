@@ -243,14 +243,23 @@ This PR should be merged to develop immediately as:
 
 ### For Follow-Up Action
 
-Schedule 3 follow-up PRs:
+Schedule 3 follow-up PRs (issues created):
 
-1. **PR 1 (P1):** Release Agent Security — 6–8 hrs (HIGH PRIORITY)
-2. **PR 2 (P2):** Changelog Regex Fixes — 3–4 hrs
-3. **PR 3 (P2):** Test API Alignment — 4–5 hrs
+1. **Issue #1714 (P1):** Release Agent Security — 6–8 hrs (HIGH PRIORITY)
+   - Fix: `gitOps.cjs` hardcoded `process.cwd()` vulnerability
+   - Add directory parameter, regression tests, branch validation
+
+2. **Issue #1715 (P2):** Changelog Regex Fixes — 3–4 hrs
+   - Fix: 3 regex bugs in `keepAChangelogParser.cjs`
+   - Lines 41, 111, 186 (hyphenation, anchors, metacharacters)
+
+3. **Issue #1716 (P2):** Test API Alignment — 4–5 hrs
+   - Audit `handle-needs-triage` handler API
+   - Update weak test assertions, add edge case coverage
 
 **Timeline:** 2–4 weeks depending on team capacity  
-**Effort:** 13–17 hours total (can be parallel)
+**Effort:** 13–17 hours total (can be parallel)  
+**Status:** All 3 follow-up issues created and ready for assignment
 
 ---
 

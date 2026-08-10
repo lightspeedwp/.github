@@ -223,8 +223,9 @@ From recent Phase 5 GitHub Actions v7 upgrade (PR #1703):
 
 - **Branch:** `chore/develop-branch-stability`
 - **Base Branch:** `develop`
+- **PR:** [#1713](https://github.com/lightspeedwp/.github/pull/1713) — Establish develop branch stability baseline
 - **Created:** 2026-08-10T18:26 CEST
-- **Status:** In Progress (Phase 1 starting)
+- **Status:** PR Created (Awaiting Review & Merge)
 
 ---
 
