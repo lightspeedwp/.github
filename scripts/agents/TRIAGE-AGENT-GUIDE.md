@@ -344,9 +344,9 @@ npm test -- scripts/agents/__tests__/metadata-suggester.test.js
 
 ## References
 
-- **Phase 1:** [AUDIT-GUIDE.md](./automation/AUDIT-GUIDE.md)
 - **Epic:** [Issue #1679](https://github.com/lightspeedwp/.github/issues/1679)
-- **Phase 2:** [Issue #1690](https://github.com/lightspeedwp/.github/issues/1690)
+- **Phase 1 audit:** [Issue #1680](https://github.com/lightspeedwp/.github/issues/1680)
+- **Phase 2 planning:** [Issue #1690](https://github.com/lightspeedwp/.github/issues/1690)
 
 ---
 
