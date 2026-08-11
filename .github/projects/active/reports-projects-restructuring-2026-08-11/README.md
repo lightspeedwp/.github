@@ -49,20 +49,22 @@ Establish a scalable, maintainable structure for reports and active projects tha
 
 ### Phase 1: Audit & Planning (Current)
 **Deliverable:** Complete analysis + planning documents  
-**Related Issues:** #TBD  
-**Timeline:** 1 week (2026-08-11 to 2026-08-17)
+**Related PR:** [#1730](https://github.com/lightspeedwp/.github/pull/1730)  
+**Related Issues:** [#1731](https://github.com/lightspeedwp/.github/issues/1731), [#1732](https://github.com/lightspeedwp/.github/issues/1732)  
+**Timeline:** 1 week (2026-08-11 to 2026-08-17) ✅
 
 - [x] Audit reports inventory
 - [x] Audit projects inventory
 - [x] Identify linking gaps
-- [ ] Design report folder structure
-- [ ] Design archival strategy
-- [ ] Create bidirectional linking standard
-- [ ] Create comprehensive execution plan
+- [x] Design report folder structure
+- [x] Design archival strategy
+- [x] Create bidirectional linking standard
+- [x] Create comprehensive execution plan
 
 ### Phase 2: Folder Structure & Linking (Planned)
 **Deliverable:** New folder structure in place + all projects linked  
-**Related Issues:** #TBD  
+**Related PR:** (Stacked on #1730)  
+**Related Issues:** [#1733](https://github.com/lightspeedwp/.github/issues/1733), [#1736](https://github.com/lightspeedwp/.github/issues/1736), [#1737](https://github.com/lightspeedwp/.github/issues/1737)  
 **Timeline:** 2 weeks (2026-08-18 to 2026-08-31)
 
 - [ ] Create new report folder structure
@@ -73,7 +75,8 @@ Establish a scalable, maintainable structure for reports and active projects tha
 
 ### Phase 3: Archive Workflow & Automation (Planned)
 **Deliverable:** Automated or manual archive process + CI validation  
-**Related Issues:** #TBD  
+**Related PR:** (Stacked on Phase 2)  
+**Related Issues:** [#1734](https://github.com/lightspeedwp/.github/issues/1734)  
 **Timeline:** 2 weeks (2026-09-01 to 2026-09-14)
 
 - [ ] Create `.archive-status.md` template
@@ -84,7 +87,8 @@ Establish a scalable, maintainable structure for reports and active projects tha
 
 ### Phase 4: Cleanup & Documentation (Planned)
 **Deliverable:** Final cleanup + updated project documentation  
-**Related Issues:** #TBD  
+**Related PR:** (Stacked on Phase 3)  
+**Related Issues:** [#1735](https://github.com/lightspeedwp/.github/issues/1735)  
 **Timeline:** 1 week (2026-09-15 to 2026-09-21)
 
 - [ ] Clean up temporary/test reports
