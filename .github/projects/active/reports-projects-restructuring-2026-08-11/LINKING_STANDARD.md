@@ -32,10 +32,10 @@ All active projects shall be discoverable from their related GitHub issues, and 
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1234](../../../issues/1234) | epic | Master coordination for this project | 🟢 Open |
-| [#1245](../../../issues/1245) | task | Phase 1: Planning & scoping | 🟢 Open |
-| [#1256](../../../issues/1256) | task | Phase 2: Implementation | ⏳ Blocked |
-| [#1267](../../../issues/1267) | task | Phase 3: Testing & validation | ⏰ Planned |
+| [#1234](https://github.com/lightspeedwp/.github/issues/1234) | epic | Master coordination for this project | 🟢 Open |
+| [#1245](https://github.com/lightspeedwp/.github/issues/1245) | task | Phase 1: Planning & scoping | 🟢 Open |
+| [#1256](https://github.com/lightspeedwp/.github/issues/1256) | task | Phase 2: Implementation | ⏳ Blocked |
+| [#1267](https://github.com/lightspeedwp/.github/issues/1267) | task | Phase 3: Testing & validation | ⏰ Planned |
 
 ## Related Active Projects
 
@@ -52,20 +52,22 @@ All active projects shall be discoverable from their related GitHub issues, and 
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#__](../../../issues/__) | epic | Master epic for this project | 🟢 Open |
-| [#__](../../../issues/__) | task | [Phase/Component]: [Description] | 🟢 Open |
+| [#__](https://github.com/lightspeedwp/.github/issues/__) | epic | Master epic for this project | 🟢 Open |
+| [#__](https://github.com/lightspeedwp/.github/issues/__) | task | [Phase/Component]: [Description] | 🟢 Open |
 
-**Note:** If this project has no linked issues, add them first (see "Linking Standard" in [docs/LINKING_STANDARD.md](../../../docs/LINKING_STANDARD.md)) or create an issue for this project before releasing it.
+**Note:** If this project has no linked issues, add them first (see "Linking Standard" in [.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md](./../reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)) or create an issue for this project before releasing it.
 ```
 
 ### 1.3 Validation Rules
 
 ✅ **Every active project must have:**
+
 - At least 1 master epic or tracking issue
-- Issue links relative to repo root (`../../../issues/1234`)
+- Issue links as absolute GitHub URLs (`https://github.com/lightspeedwp/.github/issues/1234`)
 - Status badges per issue (🟢 Open, ⏰ Planned, 🟡 In Progress, 🟠 Blocked, 🔴 Closed)
 
 ❌ **Invalid:**
+
 - Bare issue numbers (#1234 without link)
 - Absolute URLs (hardcoded github.com URLs)
 - Missing status info
@@ -114,23 +116,27 @@ This issue is part of the following active project(s):
 ### 2.3 When to Use
 
 ✅ **Add "Related Projects" section to:**
+
 - Issues that are deliverables from active projects
 - Issues that track phases or components of projects
 - Issues that coordinate work across multiple teams
 - Blockers or dependencies for project work
 
 ❌ **Do NOT add if:**
+
 - Issue is unrelated to any active project (orphaned issue is fine)
 - Issue is a one-off bug/chore with no project context
 
 ### 2.4 Validation Rules
 
 ✅ **Valid project link:**
+
 - Relative path starting with `./.github/projects/active/`
 - Brief description of purpose
 - Explains how issue contributes to project
 
 ❌ **Invalid:**
+
 - Bare project name without link
 - Absolute URLs
 - No explanation of connection
