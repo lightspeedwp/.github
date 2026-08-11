@@ -67,7 +67,7 @@ The repository implements a two-tier agent architecture established during Phase
 
 **Phase 1 Audit Reports (Completed 2026-08-05):**
 
-- **Agent Audit (Phase 1C):** [AGENT-AUDIT-COMPREHENSIVE.md](./.github/projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md) — 37 agents catalogued (19 spec-based, 16 multi-file), 788+ references mapped, two-tier structure validated
+- **Agent Audit (Phase 1C):** [AGENT-AUDIT-COMPREHENSIVE.md](./.github/projects/active/repo-restructuring-2026-07-25/AGENT-AUDIT-COMPREHENSIVE.md) — 35 agents catalogued (19 spec-based, 16 multi-file), 788+ references mapped, two-tier structure validated
 - **Instruction Audit (Phase 1A):** [INSTRUCTION_FILES_AUDIT_2026-08-05.md](./.github/projects/active/repo-restructuring-2026-07-25/INSTRUCTION_FILES_AUDIT_2026-08-05.md) — 58 instruction files audited, 502+ references, portable/local classification complete
 - **Schema Audit (Phase 1B):** [SCHEMA_AUDIT_REPORT.md](./.github/projects/active/repo-restructuring-2026-07-25/SCHEMA_AUDIT_REPORT.md) — 25 core schemas across 3 locations, consolidation plan documented
 
