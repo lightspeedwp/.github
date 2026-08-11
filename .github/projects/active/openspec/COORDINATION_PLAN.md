@@ -327,7 +327,7 @@ After: [Measured after completion]
 
 ### Step 1: Create All GitHub Issues
 
-Using the templates above, create **11 GitHub issues total:**
+Using the templates above, create **12 GitHub issues total:**
 
 - 1 Master Epic (agent-tool-permission-alignment)
 - 4 Phase Issues (Phases 1-4)
@@ -335,6 +335,7 @@ Using the templates above, create **11 GitHub issues total:**
 - 6 Phase Issues (Phases 1-6)
 
 **Command reference:**
+
 ```bash
 # Create issue via GitHub CLI
 gh issue create --title "..." --body "..." --type epic --label ...
@@ -401,7 +402,7 @@ Add at top:
 
 ## Success Criteria
 
-✅ All 11 GitHub issues created  
+✅ All 12 GitHub issues created  
 ✅ Bidirectional linking established (spec ↔ issue)  
 ✅ proposal.md files updated with issue links  
 ✅ OpenSpec README updated with coordination standard  

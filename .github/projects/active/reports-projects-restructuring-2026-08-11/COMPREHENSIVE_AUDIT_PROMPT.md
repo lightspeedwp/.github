@@ -18,6 +18,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Create a complete inventory of all reports with metadata and reference analysis.
 
 **Tasks:**
+
 1. List all files and folders in `.github/reports/`
 2. For each report, extract:
    - File size
@@ -42,6 +43,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Catalog all active projects with metadata and activity analysis.
 
 **Tasks:**
+
 1. List all project folders in `.github/projects/active/`
 2. For each project:
    - Get creation date (earliest file in folder)
@@ -67,6 +69,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Identify gaps in bidirectional linking between projects and issues.
 
 **Tasks:**
+
 1. For each active project:
    - Extract all issue numbers (grep project docs for `#\d{4,}`)
    - Note if issues are linked via `Resolves #`, `Closes #`, or just mentioned
@@ -88,6 +91,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Design the new report folder structure based on actual content patterns.
 
 **Tasks:**
+
 1. Group reports by inferred category (from audit data):
    - Audits (code audits, accessibility, schema validation)
    - Analysis (coverage analysis, workflow analysis, metrics)
@@ -108,6 +112,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Design process for safely archiving completed projects without breaking links.
 
 **Tasks:**
+
 1. For projects flagged as "completed":
    - Identify if any issues remain open (if API available)
    - Count external references
@@ -127,6 +132,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Design linking pattern for projects ↔ issues.
 
 **Tasks:**
+
 1. Create template for "Related Issues" section in project docs
 2. Create template for "Related Projects" comment in GitHub issues
 3. Document the linking format and when to use it
@@ -145,13 +151,15 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Create step-by-step plan to migrate reports to new structure.
 
 **Tasks:**
-1. For each report in "safe to delete" list:
+
+1. For each report in "safe to archive" list:
    - Note archive destination
    - Plan git mv command
 2. For reports in "keep" list:
    - Determine new location
    - Plan git mv command
 3. Create new folder structure:
+
    ```
    reports/
    ├── active/               # <2mo old, actively referenced
@@ -172,6 +180,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Create plan to link all unlinked projects to GitHub issues.
 
 **Tasks:**
+
 1. For projects flagged "unlinked":
    - Identify which issues should be linked (from related work, PRs, discussions)
    - Create list of: `project_slug → [issue#1, issue#2, ...]`
@@ -189,6 +198,7 @@ This prompt guides agents through a complete audit, cleanup, and restructuring o
 **Objective:** Plan GitHub issues for all cleanup work.
 
 **Tasks:**
+
 1. Create master issue: "Reports & Projects Restructuring Initiative"
    - Epic issue that tracks the entire work
    - References all sub-issues

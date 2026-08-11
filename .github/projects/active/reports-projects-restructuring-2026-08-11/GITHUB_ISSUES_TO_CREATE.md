@@ -9,7 +9,7 @@ created_date: "2026-08-11"
 
 ## Master Epic
 
-### Issue #1: Reports & Projects Restructuring Initiative (EPIC)
+### Issue #1731: Reports & Projects Restructuring Initiative (EPIC)
 
 **Type:** Epic  
 **Title:** Reports & Projects Restructuring Initiative  
@@ -60,7 +60,7 @@ Depends on completion of all 4 phases. Closes when all success criteria met.
 
 ## Phase Issues
 
-### Issue #2: Phase 1 — Audit & Planning
+### Issue #1732: Phase 1 — Audit & Planning
 
 **Type:** Task  
 **Title:** Phase 1: Audit & Planning — Reports & Projects Structure  
@@ -101,7 +101,7 @@ Complete comprehensive audit of `.github/reports/` and `.github/projects/active/
 - [PLANNING.md](./.github/projects/active/reports-projects-restructuring-2026-08-11/PLANNING.md)
 ```
 
-### Issue #3: Phase 2 — Folder Structure & Linking
+### Issue #1733: Phase 2 — Folder Structure & Linking
 
 **Type:** Task  
 **Title:** Phase 2: Folder Structure & Linking — Migrate Reports & Link Projects  
@@ -154,7 +154,7 @@ Restructure `.github/reports/` folder, migrate 80+ reports to appropriate locati
 - [PLANNING.md — Phase 2](./.github/projects/active/reports-projects-restructuring-2026-08-11/PLANNING.md#phase-2)
 ```
 
-### Issue #4: Phase 3 — Archive Workflow & Automation
+### Issue #1734: Phase 3 — Archive Workflow & Automation
 
 **Type:** Task  
 **Title:** Phase 3: Archive Workflow & Automation — Design & Implement  
@@ -207,7 +207,7 @@ Design and implement archive workflow for completed projects. Create CI validati
 - [PLANNING.md — Phase 3](./.github/projects/active/reports-projects-restructuring-2026-08-11/PLANNING.md#phase-3)
 ```
 
-### Issue #5: Phase 4 — Cleanup & Documentation
+### Issue #1735: Phase 4 — Cleanup & Documentation
 
 **Type:** Task  
 **Title:** Phase 4: Cleanup & Documentation — Finalize Restructuring  
@@ -259,7 +259,7 @@ Final cleanup, documentation updates, validation, and team communication to comp
 
 ## Project-Specific Linking Issues
 
-### Issue #6: Link openspec to GitHub Issues
+### Issue #1736: Link openspec to GitHub Issues
 
 **Type:** Task  
 **Title:** Link openspec project to GitHub issues  
