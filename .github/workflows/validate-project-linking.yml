@@ -1,0 +1,177 @@
+name: Validate Project Linking
+
+on:
+  pull_request:
+    paths:
+      - ".github/projects/active/**"
+      - ".github/ARCHIVE_WORKFLOW_GUIDE.md"
+      - "CLAUDE.md"
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  validate-project-linking:
+    name: Validate Project-Issue Linking
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Check all active projects have related issues
+        id: check-linking
+        continue-on-error: true
+        run: |
+          set +e
+          missing_links=()
+          projects_found=0
+          projects_with_links=0
+
+          # Iterate through all active projects
+          for project_dir in .github/projects/active/*/; do
+            if [ -d "$project_dir" ]; then
+              projects_found=$((projects_found + 1))
+              project_name=$(basename "$project_dir")
+
+              # Check if project has a README.md
+              if [ -f "$project_dir/README.md" ]; then
+                # Check for "Related Issues" section
+                if grep -q "## Related Issues" "$project_dir/README.md"; then
+                  projects_with_links=$((projects_with_links + 1))
+                  echo "✅ $project_name has Related Issues section"
+                else
+                  missing_links+=("$project_name")
+                  echo "❌ $project_name missing Related Issues section"
+                fi
+              else
+                echo "⚠️  $project_name has no README.md"
+              fi
+            fi
+          done
+
+          # Store results
+          echo "projects_found=$projects_found" >> $GITHUB_OUTPUT
+          echo "projects_with_links=$projects_with_links" >> $GITHUB_OUTPUT
+
+          # Check if any projects are missing links
+          if [ ${#missing_links[@]} -gt 0 ]; then
+            echo "missing_projects<<EOF" >> $GITHUB_OUTPUT
+            printf '%s\n' "${missing_links[@]}" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Validate issue numbers in related issues tables
+        id: validate-issue-numbers
+        continue-on-error: true
+        run: |
+          set +e
+          invalid_issues=()
+
+          # Find all issue numbers in Related Issues sections
+          for project_dir in .github/projects/active/*/; do
+            if [ -f "$project_dir/README.md" ]; then
+              project_name=$(basename "$project_dir")
+
+              # Extract issue numbers from Related Issues section
+              # Looks for [#XXXX] pattern
+              while read -r line; do
+                if [[ $line =~ \#([0-9]+) ]]; then
+                  issue_num="${BASH_REMATCH[1]}"
+
+                  # Basic validation: ensure it's a reasonable number
+                  if [[ ! $issue_num =~ ^[0-9]{1,5}$ ]]; then
+                    invalid_issues+=("$project_name: invalid issue #$issue_num")
+                    echo "❌ $project_name: invalid issue number #$issue_num"
+                  else
+                    echo "✅ $project_name: issue #$issue_num found"
+                  fi
+                fi
+              done < "$project_dir/README.md"
+            fi
+          done
+
+          # Output results
+          if [ ${#invalid_issues[@]} -gt 0 ]; then
+            echo "invalid_issues<<EOF" >> $GITHUB_OUTPUT
+            printf '%s\n' "${invalid_issues[@]}" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Check for orphaned projects
+        id: check-orphaned
+        run: |
+          # Note: Detailed issue link validation is deferred to Phase 4
+          # Phase 3 validates presence of Related Issues section
+          # Phase 4 will implement more sophisticated format validation
+          echo "Note: Orphaned project detection deferred to Phase 4 for refinement"
+
+      - name: Comment PR with validation results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const projectsFound = '${{ steps.check-linking.outputs.projects_found }}';
+            const projectsWithLinks = '${{ steps.check-linking.outputs.projects_with_links }}';
+            const missingProjects = `${{ steps.check-linking.outputs.missing_projects }}`.split('\n').filter(p => p);
+            const orphaned = `${{ steps.check-orphaned.outputs.orphaned }}`.split('\n').filter(p => p);
+
+            let comment = `## 🔗 Project Linking Validation\n\n`;
+            comment += `**Projects Checked:** ${projectsFound}\n`;
+            comment += `**Projects with Links:** ${projectsWithLinks}\n\n`;
+
+            if (missingProjects.length > 0) {
+              comment += `### ❌ Missing Related Issues Section\n`;
+              comment += `The following projects are missing a "Related Issues" section in their README.md:\n\n`;
+              missingProjects.forEach(p => {
+                comment += `- \`${p}\`\n`;
+              });
+              comment += `\nSee [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for format.\n\n`;
+            } else {
+              comment += `### ✅ All projects have Related Issues sections\n`;
+              comment += `Detailed issue link validation is deferred to Phase 4.\n\n`;
+            }
+
+            comment += `---\n`;
+            comment += `**Validation Date:** ${new Date().toISOString()}\n`;
+            comment += `**Validator:** GitHub Actions\n`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Report summary
+        if: always()
+        run: |
+          echo "## Project Linking Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Projects Found:** ${{ steps.check-linking.outputs.projects_found }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Projects with Links:** ${{ steps.check-linking.outputs.projects_with_links }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -n "${{ steps.check-linking.outputs.missing_projects }}" ]; then
+            echo "### ❌ Missing Related Issues" >> $GITHUB_STEP_SUMMARY
+            echo "${{ steps.check-linking.outputs.missing_projects }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ✅ All checks passed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Fail if validation failed
+        if: failure() && (steps.check-linking.outcome == 'failure' || steps.validate-issue-numbers.outcome == 'failure')
+        run: |
+          echo "❌ Project linking validation failed"
+          echo "Please ensure:"
+          echo "1. All active projects have a 'Related Issues' section in README.md"
+          echo "2. Issue numbers are valid (#XXXX format)"
+          echo "3. See LINKING_STANDARD.md for proper format"
+          exit 1
