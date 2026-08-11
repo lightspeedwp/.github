@@ -8,7 +8,6 @@
 
 import { LabelManager } from "./includes/label-management.js";
 import { ActivityAnalyzer } from "./includes/activity-analyzer.js";
-import { ReportGenerator } from "./includes/report-generator.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -211,7 +210,6 @@ async function manageStaleIssues(options = {}) {
               // Post warning comment if requested
               if (warn) {
                 try {
-                  const warningComment = generateWarningComment();
                   // Create comment (would use Octokit API)
                   results.warnings_posted.push({
                     issue: analysis.number,

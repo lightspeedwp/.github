@@ -194,7 +194,6 @@ describe("sync-pr-labels.js", () => {
 
   describe("Dry-run mode", () => {
     it("should preview changes without applying them", async () => {
-      const changes = [];
       const mockIssues = [
         {
           number: 1,
