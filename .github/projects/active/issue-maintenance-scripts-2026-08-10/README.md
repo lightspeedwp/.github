@@ -1,7 +1,7 @@
 ---
 file_type: readme
 title: Automated Issue Maintenance Scripts for Meta Labels & Status Review
-description: Create dedicated CLI scripts for reviewing, validating, and maintaining meta: labels (needs-changelog, has-pr, stale, dependabot-security) and status: labels (needs-review, needs-triage)
+description: "Create dedicated CLI scripts for reviewing, validating, and maintaining meta: labels (needs-changelog, has-pr, stale, dependabot-security) and status: labels (needs-review, needs-triage)"
 version: 1.0.0
 created_date: 2026-08-10
 last_updated: 2026-08-10

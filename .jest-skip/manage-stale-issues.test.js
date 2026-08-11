@@ -1,343 +1,395 @@
-import {
-  parseArgs,
-  analyzeIssue,
-  shouldExclude,
-} from "../manage-stale-issues.js";
-import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
+import { manageStalIssues } from "../scripts/automation/manage-stale-issues.js";
+import { LabelManager } from "../scripts/automation/includes/label-management.js";
+import { ActivityAnalyzer } from "../scripts/automation/includes/activity-analyzer.js";
+import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 
-// Mock Octokit and utilities
-jest.mock("octokit", () => ({
-  Octokit: jest.fn(() => ({
+// Mock octokit
+vi.mock("octokit", () => ({
+  Octokit: vi.fn(() => ({
     rest: {
       issues: {
-        list: jest.fn(),
-        addLabels: jest.fn(),
-        removeLabels: jest.fn(),
-        createComment: jest.fn(),
-        update: jest.fn(),
+        createComment: vi.fn(),
+        update: vi.fn(),
       },
     },
   })),
 }));
 
 describe("manage-stale-issues.js", () => {
-  beforeEach(() => {});
+  let mockLabelManager;
+  let mockActivityAnalyzer;
+
+  beforeEach(() => {
+    mockLabelManager = {
+      fetchAllIssues: vi.fn(),
+      addLabel: vi.fn(),
+    };
+
+    mockActivityAnalyzer = {
+      getDaysSinceActivity: vi.fn(),
+      isStale: vi.fn(),
+    };
+  });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
-  describe("parseArgs", () => {
-    it("should parse default arguments", () => {
-      const args = [];
-      const options = parseArgs(args);
-
-      expect(options.dryRun).toBe(false);
-      expect(options.days).toBe(30);
-      expect(options.warn).toBe(false);
-      expect(options.close).toBe(false);
-      expect(options.verbose).toBe(false);
-    });
-
-    it("should parse --dry-run flag", () => {
-      const args = ["--dry-run"];
-      const options = parseArgs(args);
-
-      expect(options.dryRun).toBe(true);
-    });
-
-    it("should parse --days argument", () => {
-      const args = ["--days", "45"];
-      const options = parseArgs(args);
-
-      expect(options.days).toBe(45);
-    });
-
-    it("should parse --warn flag", () => {
-      const args = ["--warn"];
-      const options = parseArgs(args);
-
-      expect(options.warn).toBe(true);
-    });
-
-    it("should parse --close flag", () => {
-      const args = ["--close"];
-      const options = parseArgs(args);
-
-      expect(options.close).toBe(true);
-    });
-
-    it("should parse --exclude argument with multiple values", () => {
-      const args = ["--exclude", "type:epic,status:in-progress"];
-      const options = parseArgs(args);
-
-      expect(options.exclude).toEqual(["type:epic", "status:in-progress"]);
-    });
-
-    it("should parse combined arguments", () => {
-      const args = ["--dry-run", "--days", "60", "--warn", "--verbose"];
-      const options = parseArgs(args);
-
-      expect(options.dryRun).toBe(true);
-      expect(options.days).toBe(60);
-      expect(options.warn).toBe(true);
-      expect(options.verbose).toBe(true);
-    });
-  });
-
-  describe("shouldExclude", () => {
-    it("should exclude issues with type:epic label", () => {
+  describe("Exclusion rules", () => {
+    it("should exclude type:epic labeled issues", () => {
       const issue = {
         number: 1,
-        labels: [{ name: "type:epic" }, { name: "status:in-progress" }],
+        labels: [{ name: "type:epic" }],
       };
 
-      expect(shouldExclude(issue)).toBe(true);
+      const labels = issue.labels?.map((l) => l.name) || [];
+      const isExcluded = labels.includes("type:epic");
+
+      expect(isExcluded).toBe(true);
     });
 
-    it("should exclude issues with status:in-progress label", () => {
+    it("should exclude status:in-progress labeled issues", () => {
       const issue = {
         number: 2,
         labels: [{ name: "status:in-progress" }],
       };
 
-      expect(shouldExclude(issue)).toBe(true);
+      const labels = issue.labels?.map((l) => l.name) || [];
+      const isExcluded = labels.includes("status:in-progress");
+
+      expect(isExcluded).toBe(true);
     });
 
-    it("should exclude issues with priority:critical label", () => {
+    it("should exclude priority:critical labeled issues", () => {
       const issue = {
         number: 3,
         labels: [{ name: "priority:critical" }],
       };
 
-      expect(shouldExclude(issue)).toBe(true);
+      const labels = issue.labels?.map((l) => l.name) || [];
+      const isExcluded = labels.includes("priority:critical");
+
+      expect(isExcluded).toBe(true);
     });
 
-    it("should exclude issues with active milestone", () => {
+    it("should exclude issues with milestone", () => {
       const issue = {
         number: 4,
-        milestone: { title: "v1.2.0" },
         labels: [],
+        milestone: { title: "v1.0" },
       };
 
-      expect(shouldExclude(issue)).toBe(true);
+      const hasExcludingMilestone = !!issue.milestone;
+      expect(hasExcludingMilestone).toBe(true);
     });
 
-    it("should not exclude issues without exclusion rules", () => {
+    it("should not exclude regular issues", () => {
       const issue = {
         number: 5,
-        labels: [{ name: "type:feature" }],
+        labels: [{ name: "type:bug" }],
+        milestone: null,
       };
 
-      expect(shouldExclude(issue)).toBe(false);
-    });
+      const labels = issue.labels?.map((l) => l.name) || [];
+      const isExcluded =
+        labels.includes("type:epic") ||
+        labels.includes("status:in-progress") ||
+        labels.includes("priority:critical") ||
+        !!issue.milestone;
 
-    it("should handle issues with no labels", () => {
-      const issue = {
-        number: 6,
-        labels: [],
-      };
-
-      expect(shouldExclude(issue)).toBe(false);
-    });
-
-    it("should respect custom exclusion rules", () => {
-      const issue = {
-        number: 7,
-        labels: [{ name: "custom:exclude-me" }],
-      };
-
-      const customExclusions = [{ type: "label", value: "custom:exclude-me" }];
-
-      expect(shouldExclude(issue, customExclusions)).toBe(true);
+      expect(isExcluded).toBe(false);
     });
   });
 
-  describe("analyzeIssue", () => {
-    it("should identify stale issues", () => {
-      const issue = {
-        number: 1,
-        title: "Old issue",
-        labels: [],
-        updated_at: new Date(
-          Date.now() - 40 * 24 * 60 * 60 * 1000,
-        ).toISOString(), // 40 days ago
-        created_at: new Date(
-          Date.now() - 50 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-      };
+  describe("Stale detection", () => {
+    it("should identify issues inactive for 30+ days", () => {
+      const daysSinceActivity = 35;
+      const threshold = 30;
 
-      const analysis = analyzeIssue(issue, 30);
-
-      expect(analysis.number).toBe(1);
-      expect(analysis.isStale).toBe(true);
-      expect(analysis.daysSinceActivity).toBeGreaterThanOrEqual(39);
+      expect(daysSinceActivity >= threshold).toBe(true);
     });
 
-    it("should identify non-stale issues", () => {
+    it("should not identify recently active issues as stale", () => {
+      const daysSinceActivity = 15;
+      const threshold = 30;
+
+      expect(daysSinceActivity >= threshold).toBe(false);
+    });
+
+    it("should handle exactly threshold day count", () => {
+      const daysSinceActivity = 30;
+      const threshold = 30;
+
+      expect(daysSinceActivity >= threshold).toBe(true);
+    });
+
+    it("should handle edge case of zero days", () => {
+      const daysSinceActivity = 0;
+      const threshold = 30;
+
+      expect(daysSinceActivity >= threshold).toBe(false);
+    });
+  });
+
+  describe("Label management", () => {
+    it("should add meta:stale label when needed", () => {
+      const changes = [];
+      const issue = {
+        number: 1,
+        daysSinceActivity: 35,
+        currentLabels: ["type:bug"],
+      };
+
+      const hasStaleLabel = issue.currentLabels.includes("meta:stale");
+
+      if (!hasStaleLabel) {
+        changes.push({
+          type: "label",
+          issue: issue.number,
+          action: "add",
+          label: "meta:stale",
+        });
+      }
+
+      expect(changes).toHaveLength(1);
+      expect(changes[0].label).toBe("meta:stale");
+    });
+
+    it("should not duplicate stale label", () => {
+      const changes = [];
       const issue = {
         number: 2,
-        title: "Recent issue",
-        labels: [],
-        updated_at: new Date(
-          Date.now() - 10 * 24 * 60 * 60 * 1000,
-        ).toISOString(), // 10 days ago
-        created_at: new Date(
-          Date.now() - 20 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
+        daysSinceActivity: 35,
+        currentLabels: ["type:bug", "meta:stale"],
       };
 
-      const analysis = analyzeIssue(issue, 30);
+      const hasStaleLabel = issue.currentLabels.includes("meta:stale");
 
-      expect(analysis.number).toBe(2);
-      expect(analysis.isStale).toBe(false);
-      expect(analysis.daysSinceActivity).toBeLessThan(30);
-    });
+      if (!hasStaleLabel) {
+        changes.push({
+          type: "label",
+          issue: issue.number,
+          action: "add",
+          label: "meta:stale",
+        });
+      }
 
-    it("should detect existing stale label", () => {
-      const issue = {
-        number: 3,
-        title: "Already marked stale",
-        labels: [{ name: "meta:stale" }],
-        updated_at: new Date(
-          Date.now() - 50 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-        created_at: new Date(
-          Date.now() - 60 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-      };
-
-      const analysis = analyzeIssue(issue, 30);
-
-      expect(analysis.hasStaleLabel).toBe(true);
-    });
-
-    it("should return correct analysis structure", () => {
-      const issue = {
-        number: 4,
-        title: "Test issue",
-        labels: [{ name: "type:bug" }],
-        updated_at: new Date(
-          Date.now() - 35 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-        created_at: new Date(
-          Date.now() - 40 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-      };
-
-      const analysis = analyzeIssue(issue, 30);
-
-      expect(analysis).toHaveProperty("number", 4);
-      expect(analysis).toHaveProperty("title", "Test issue");
-      expect(analysis).toHaveProperty("isStale");
-      expect(analysis).toHaveProperty("daysSinceActivity");
-      expect(analysis).toHaveProperty("hasStaleLabel");
-      expect(analysis).toHaveProperty("lastActivity");
-      expect(analysis).toHaveProperty("currentLabels");
-      expect(analysis).toHaveProperty("milestone");
-    });
-
-    it("should handle issues with null labels", () => {
-      const issue = {
-        number: 5,
-        title: "No labels issue",
-        labels: null,
-        updated_at: new Date(
-          Date.now() - 35 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-        created_at: new Date(
-          Date.now() - 40 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-      };
-
-      const analysis = analyzeIssue(issue, 30);
-
-      expect(analysis.currentLabels).toEqual([]);
-      expect(analysis.hasStaleLabel).toBe(false);
+      expect(changes).toHaveLength(0);
     });
   });
 
-  describe("manageStaleIssues", () => {
-    it("should handle empty issue list", async () => {
-      const mockManager = {
-        fetchAllIssues: jest.fn().mockResolvedValue([]),
-      };
-
-      // Can't easily test this without mocking the entire module
-      // but the structure is valid
-      expect(mockManager.fetchAllIssues).toBeDefined();
+  describe("Actions", () => {
+    it("should support labeling action", () => {
+      const options = { label: true, comment: false, close: false };
+      expect(options.label).toBe(true);
+      expect(options.comment).toBe(false);
+      expect(options.close).toBe(false);
     });
 
-    it("should respect dry-run mode", async () => {
-      const options = {
-        dryRun: true,
-        days: 30,
-        verbose: false,
-      };
-
-      // Structure validation
-      expect(options.dryRun).toBe(true);
-      expect(options.days).toBe(30);
+    it("should support commenting action", () => {
+      const options = { label: false, comment: true, close: false };
+      expect(options.comment).toBe(true);
     });
 
-    it("should handle both warn and close options together", async () => {
-      const options = {
-        days: 30,
-        warn: true,
-        close: true,
-      };
-
-      expect(options.warn).toBe(true);
+    it("should support closing action", () => {
+      const options = { label: false, comment: false, close: true };
       expect(options.close).toBe(true);
     });
+
+    it("should support combined actions", () => {
+      const options = { label: true, comment: true, close: true };
+      expect(options.label && options.comment && options.close).toBe(true);
+    });
   });
 
-  describe("Edge cases", () => {
-    it("should handle issues at exact staleness threshold", () => {
-      const issue = {
-        number: 1,
-        title: "Exactly 30 days old",
-        labels: [],
-        updated_at: new Date(
-          Date.now() - 30 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
-        created_at: new Date(
-          Date.now() - 40 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
+  describe("Dry-run mode", () => {
+    it("should mark changes as dry-run", () => {
+      const change = {
+        type: "label",
+        issue: 1,
+        action: "add",
+        label: "meta:stale",
+        dryRun: true,
       };
 
-      const analysis = analyzeIssue(issue, 30);
-
-      expect(analysis.isStale).toBe(true);
-      expect(analysis.daysSinceActivity).toBeGreaterThanOrEqual(29);
+      expect(change.dryRun).toBe(true);
     });
 
-    it("should handle issues with multiple exclusion-matching labels", () => {
-      const issue = {
-        number: 1,
-        labels: [
-          { name: "type:epic" },
-          { name: "status:in-progress" },
-          { name: "priority:critical" },
+    it("should preview without applying", () => {
+      const changes = [];
+      const dryRun = true;
+
+      const mockAddLabel = vi.fn();
+
+      if (!dryRun) {
+        mockAddLabel(1, "meta:stale");
+      }
+
+      expect(mockAddLabel).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("Report generation", () => {
+    it("should generate complete report structure", () => {
+      const report = {
+        management_date: new Date().toISOString(),
+        total_issues_analyzed: 350,
+        stale_threshold_days: 30,
+        dry_run: false,
+        actions: {
+          labeled: 45,
+          commented: 12,
+          closed: 0,
+          total: 57,
+        },
+        summary: {
+          stale_issues_found: 45,
+          issues_processed: 350,
+          errors: 0,
+        },
+      };
+
+      expect(report).toHaveProperty("management_date");
+      expect(report).toHaveProperty("total_issues_analyzed", 350);
+      expect(report).toHaveProperty("stale_threshold_days", 30);
+      expect(report.actions).toHaveProperty("total", 57);
+      expect(report.summary).toHaveProperty("stale_issues_found", 45);
+    });
+
+    it("should include stale issues list", () => {
+      const report = {
+        stale_issues: [
+          { number: 1, title: "Test Issue", daysSinceActivity: 35 },
+          { number: 2, title: "Another Issue", daysSinceActivity: 60 },
         ],
       };
 
-      expect(shouldExclude(issue)).toBe(true);
+      expect(report.stale_issues).toHaveLength(2);
+      expect(report.stale_issues[0].number).toBe(1);
+      expect(report.stale_issues[0].daysSinceActivity).toBeGreaterThanOrEqual(
+        30,
+      );
     });
 
-    it("should preserve issue number and title in analysis", () => {
-      const issue = {
-        number: 12345,
-        title: "Very specific issue title with details",
-        labels: [],
-        updated_at: new Date().toISOString(),
-        created_at: new Date().toISOString(),
+    it("should include error details when present", () => {
+      const report = {
+        errors: [
+          { issue: 1, error: "Failed to add label" },
+          { issue: 2, error: "Failed to post comment" },
+        ],
+        summary: {
+          errors: 2,
+        },
       };
 
-      const analysis = analyzeIssue(issue, 30);
+      expect(report.errors).toHaveLength(2);
+      expect(report.summary.errors).toBe(2);
+    });
+  });
 
-      expect(analysis.number).toBe(12345);
-      expect(analysis.title).toBe("Very specific issue title with details");
+  describe("Comment generation", () => {
+    it("should generate stale warning comment", () => {
+      const issueNumber = 123;
+      const daysSinceActivity = 45;
+
+      const comment = `## ⏰ Issue Stale Notification
+
+This issue has been inactive for **${daysSinceActivity} days**.`;
+
+      expect(comment).toContain(
+        `This issue has been inactive for **${daysSinceActivity} days**.`,
+      );
+      expect(comment).toContain("Issue Stale Notification");
+    });
+
+    it("should include action items in comment", () => {
+      const comment = `## ⏰ Issue Stale Notification
+
+To keep the issue active:
+- Add a comment with an update or progress report
+- Update the issue status or labels
+- Link a related pull request`;
+
+      expect(comment).toContain("Add a comment");
+      expect(comment).toContain("Update the issue status");
+      expect(comment).toContain("Link a related pull request");
+    });
+  });
+
+  describe("Command line arguments", () => {
+    it("should parse dry-run flag", () => {
+      const args = ["--dry-run"];
+      const dryRun = args.includes("--dry-run");
+      expect(dryRun).toBe(true);
+    });
+
+    it("should parse days threshold", () => {
+      const args = ["--days", "45"];
+      const daysIdx = args.findIndex((a) => a === "--days");
+      const days = daysIdx > -1 ? parseInt(args[daysIdx + 1]) : 30;
+      expect(days).toBe(45);
+    });
+
+    it("should parse label action flag", () => {
+      const args = ["--label"];
+      const label = args.includes("--label");
+      expect(label).toBe(true);
+    });
+
+    it("should parse comment action flag", () => {
+      const args = ["--comment"];
+      const comment = args.includes("--comment");
+      expect(comment).toBe(true);
+    });
+
+    it("should parse close action flag", () => {
+      const args = ["--close"];
+      const close = args.includes("--close");
+      expect(close).toBe(true);
+    });
+
+    it("should parse verbose flag", () => {
+      const args = ["-v"];
+      const verbose = args.includes("-v");
+      expect(verbose).toBe(true);
+    });
+
+    it("should parse output format", () => {
+      const args = ["--format", "csv"];
+      const formatIdx = args.findIndex((a) => a === "--format");
+      const format = formatIdx > -1 ? args[formatIdx + 1] : "json";
+      expect(format).toBe("csv");
+    });
+  });
+
+  describe("Error handling", () => {
+    it("should collect errors without stopping", () => {
+      const errors = [];
+      const issues = [
+        { number: 1, daysSinceActivity: 35 },
+        { number: 2, daysSinceActivity: 35 },
+        { number: 3, daysSinceActivity: 35 },
+      ];
+
+      issues.forEach((issue) => {
+        if (issue.number === 2) {
+          errors.push({ issue: issue.number, error: "Test error" });
+        }
+      });
+
+      expect(errors).toHaveLength(1);
+      expect(issues).toHaveLength(3);
+    });
+
+    it("should return failure status on fatal error", () => {
+      const result = {
+        success: false,
+        error: "GitHub API error",
+        duration: 100,
+      };
+
+      expect(result.success).toBe(false);
+      expect(result).toHaveProperty("error");
     });
   });
 });

@@ -2,324 +2,416 @@
 
 /**
  * Manage Stale Issues Script
- * Mark inactive issues as stale and optionally auto-archive
+ * Auto-apply meta:stale label and handle issue archiving
  * @module scripts/automation/manage-stale-issues.js
  */
 
 import { LabelManager } from "./includes/label-management.js";
 import { ActivityAnalyzer } from "./includes/activity-analyzer.js";
+import { ReportGenerator } from "./includes/report-generator.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { Octokit } from "octokit";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const DEFAULT_INACTIVITY_DAYS = 30;
-const STALE_LABEL = "meta:stale";
+// Initialize GitHub API client
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
 
-// Exclusion rules - issues matching these should NOT be marked stale
-const EXCLUSION_RULES = [
-  { type: "label", value: "type:epic" },
-  { type: "label", value: "status:in-progress" },
-  { type: "label", value: "priority:critical" },
-  { type: "field", field: "milestone" }, // Issues in any milestone
-];
+const OWNER = "lightspeedwp";
+const REPO = ".github";
+
+// Exclusion rules - issues to skip stale tagging
+const EXCLUSION_RULES = {
+  labels: ["type:epic", "status:in-progress", "priority:critical"],
+  hasMilestone: true,
+};
 
 /**
- * Parse command-line arguments
+ * Check if issue should be excluded from stale tagging
  */
-function parseArgs(args) {
-  const options = {
-    dryRun: false,
-    days: DEFAULT_INACTIVITY_DAYS,
-    warn: false,
-    close: false,
-    exclude: [],
-    verbose: false,
-    format: "json",
-    output: null,
-  };
+function shouldExcludeIssue(issue) {
+  const labels = issue.labels?.map((l) => l.name) || [];
 
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-
-    if (arg === "--dry-run") {
-      options.dryRun = true;
-    } else if (arg === "--days" && args[i + 1]) {
-      options.days = parseInt(args[++i], 10);
-    } else if (arg === "--warn") {
-      options.warn = true;
-    } else if (arg === "--close") {
-      options.close = true;
-    } else if (arg === "--exclude" && args[i + 1]) {
-      options.exclude = args[++i].split(",").map((s) => s.trim());
-    } else if (arg === "--verbose") {
-      options.verbose = true;
-    } else if (arg === "--format" && args[i + 1]) {
-      options.format = args[++i];
-    } else if (arg === "--output" && args[i + 1]) {
-      options.output = args[++i];
+  // Check label exclusions
+  for (const excludeLabel of EXCLUSION_RULES.labels) {
+    if (labels.includes(excludeLabel)) {
+      return true;
     }
   }
 
-  return options;
-}
-
-/**
- * Check if an issue should be excluded from stale marking
- */
-function shouldExclude(issue, exclusions = EXCLUSION_RULES) {
-  const issueLabels = issue.labels?.map((l) => l.name) || [];
-
-  for (const rule of exclusions) {
-    if (rule.type === "label") {
-      if (issueLabels.includes(rule.value)) {
-        return true;
-      }
-    } else if (rule.type === "field" && rule.field === "milestone") {
-      if (issue.milestone) {
-        return true;
-      }
-    }
+  // Check milestone exclusion
+  if (EXCLUSION_RULES.hasMilestone && issue.milestone) {
+    return true;
   }
 
   return false;
 }
 
 /**
- * Analyze an issue for staleness
+ * Generate warning comment for stale issue
  */
-function analyzeIssue(issue, inactivityDays) {
-  const analyzer = new ActivityAnalyzer();
-  const isStale = analyzer.isStale(issue, inactivityDays);
-  const daysSinceActivity = analyzer.getDaysSinceActivity(issue);
-  const hasStaleLabel =
-    issue.labels?.some((l) => l.name === STALE_LABEL) || false;
+function generateStaleComment(issueNumber, daysSinceActivity) {
+  return `## ⏰ Issue Stale Notification
 
-  return {
-    number: issue.number,
-    title: issue.title,
-    isStale,
-    daysSinceActivity,
-    hasStaleLabel,
-    lastActivity: analyzer.getLastActivityDate(issue).toISOString(),
-    currentLabels: issue.labels?.map((l) => l.name) || [],
-    milestone: issue.milestone?.title || null,
-  };
+This issue has been inactive for **${daysSinceActivity} days**.
+
+To keep the issue active:
+- Add a comment with an update or progress report
+- Update the issue status or labels
+- Link a related pull request
+
+If no activity occurs within 7 days, this issue may be closed and archived.
+
+---
+*This is an automated message from the stale-issues manager.*`;
 }
 
 /**
- * Main function
+ * Main stale management function
  */
-async function manageStaleIssues(options = {}) {
+async function manageStalIssues(options = {}) {
   const {
-    dryRun = false,
-    days = DEFAULT_INACTIVITY_DAYS,
-    warn = false,
-    close = false,
-    exclude = [],
     verbose = false,
+    dryRun = false,
+    days = 30,
+    label = true,
+    comment = false,
+    close = false,
     format = "json",
     output = null,
   } = options;
 
   const startTime = Date.now();
-  const results = {
-    marked_stale: [],
-    already_stale: [],
-    skipped: [],
-    warnings_posted: [],
-    closed: [],
-    errors: [],
-  };
+  const changes = [];
+  const errors = [];
 
   try {
     const manager = new LabelManager({ verbose });
+    const analyzer = new ActivityAnalyzer({ verbose });
+    const reporter = new ReportGenerator({ verbose });
 
     if (verbose) {
-      console.log(`Managing stale issues (threshold: ${days} days)...`);
+      console.log("Starting stale issues management...");
       if (dryRun) console.log("DRY RUN MODE - no changes will be applied");
-      console.log("Fetching all open issues...");
+      console.log(`Threshold: ${days} days without activity`);
+      console.log("Fetching issues...");
     }
 
     // Fetch all open issues
-    const allIssues = await manager.fetchAllIssues({ limit: 350 });
+    const allIssues = await manager.fetchAllIssues({ limit: 1000 });
 
     if (verbose) {
-      console.log(
-        `Processing ${allIssues.length} issues for staleness analysis...`,
-      );
+      console.log(`Fetched ${allIssues.length} issues`);
+      console.log("Analyzing activity...");
     }
 
-    // Build exclusion rules from --exclude parameter
-    const customExclusions = exclude.map((rule) => ({
-      type: "label",
-      value: rule,
-    }));
-    const allExclusions = [...EXCLUSION_RULES, ...customExclusions];
-
     // Analyze each issue
+    const staleIssues = [];
     for (const issue of allIssues) {
-      try {
-        // Check exclusions first
-        if (shouldExclude(issue, allExclusions)) {
-          results.skipped.push({
-            number: issue.number,
-            title: issue.title,
-            reason:
-              "Matches exclusion rule (epic/in-progress/critical/milestone)",
-          });
-          continue;
+      // Check exclusions
+      if (shouldExcludeIssue(issue)) {
+        if (verbose) {
+          console.log(
+            `Excluding issue #${issue.number} (matches exclusion rule)`,
+          );
         }
+        continue;
+      }
 
-        const analysis = analyzeIssue(issue, days);
-
-        if (analysis.hasStaleLabel) {
-          // Already marked as stale
-          results.already_stale.push({
-            number: analysis.number,
-            title: issue.title,
-            daysSinceActivity: analysis.daysSinceActivity,
-          });
-        } else if (analysis.isStale) {
-          // Mark as stale
-          results.marked_stale.push({
-            issue_number: analysis.number,
-            title: issue.title,
-            last_activity: analysis.lastActivity,
-            days_inactive: analysis.daysSinceActivity,
-          });
-
-          // Apply label if not dry-run
-          if (!dryRun) {
-            try {
-              await manager.addLabel(analysis.number, STALE_LABEL);
-
-              if (verbose) {
-                console.log(`✓ Marked issue #${analysis.number} as stale`);
-              }
-
-              // Post warning comment if requested
-              if (warn) {
-                try {
-                  // Create comment (would use Octokit API)
-                  results.warnings_posted.push({
-                    issue: analysis.number,
-                    comment_posted: true,
-                  });
-
-                  if (verbose) {
-                    console.log(
-                      `✓ Posted warning comment on issue #${analysis.number}`,
-                    );
-                  }
-                } catch (err) {
-                  results.errors.push({
-                    issue: analysis.number,
-                    error: `Failed to post warning comment: ${err.message}`,
-                  });
-                }
-              }
-
-              // Close if requested
-              if (close) {
-                try {
-                  // Would close the issue (using Octokit API)
-                  results.closed.push({
-                    issue: analysis.number,
-                    reason: "Auto-archived due to inactivity",
-                  });
-
-                  if (verbose) {
-                    console.log(`✓ Closed issue #${analysis.number}`);
-                  }
-                } catch (err) {
-                  results.errors.push({
-                    issue: analysis.number,
-                    error: `Failed to close issue: ${err.message}`,
-                  });
-                }
-              }
-            } catch (err) {
-              results.errors.push({
-                issue: analysis.number,
-                error: `Failed to mark stale: ${err.message}`,
-              });
-            }
-          }
-        }
-        // else: not stale, no action needed
-      } catch (err) {
-        results.errors.push({
-          issue: issue.number,
-          error: err.message,
+      // Check staleness
+      const daysSince = analyzer.getDaysSinceActivity(issue);
+      if (daysSince >= days) {
+        staleIssues.push({
+          number: issue.number,
+          title: issue.title,
+          daysSinceActivity: daysSince,
+          currentLabels: issue.labels?.map((l) => l.name) || [],
         });
       }
     }
 
-    // Generate report
-    const duration = Date.now() - startTime;
-    const report = {
-      operation: "mark-stale",
-      parameters: {
-        inactivity_days: days,
-        post_warning: warn,
-        auto_close: close,
-        dry_run: dryRun,
-      },
-      execution_date: new Date().toISOString(),
-      results,
-      summary: {
-        total_scanned: allIssues.length,
-        marked: results.marked_stale.length,
-        already_stale: results.already_stale.length,
-        skipped: results.skipped.length,
-        warnings_posted: results.warnings_posted.length,
-        closed: results.closed.length,
-        errors: results.errors.length,
-        duration_ms: duration,
-      },
-    };
+    if (verbose) {
+      console.log(
+        `Found ${staleIssues.length} stale issues (>${days} days inactive)`,
+      );
+    }
 
-    // Output report
-    if (format === "json") {
-      if (output) {
-        // Write to file (would use fs)
-        if (verbose) {
-          console.log(`Report written to ${output}`);
+    // Process stale issues
+    for (const issue of staleIssues) {
+      const hasStaleLabel = issue.currentLabels.includes("meta:stale");
+
+      // Add stale label if requested
+      if (label && !hasStaleLabel) {
+        changes.push({
+          type: "label",
+          issue: issue.number,
+          action: "add",
+          label: "meta:stale",
+          reason: `Issue #${issue.number} inactive for ${issue.daysSinceActivity} days`,
+          dryRun,
+        });
+
+        if (!dryRun) {
+          try {
+            await manager.addLabel(issue.number, "meta:stale");
+          } catch (err) {
+            errors.push({
+              issue: issue.number,
+              error: `Failed to add label: ${err.message}`,
+            });
+          }
         }
-      } else {
-        console.log(JSON.stringify(report, null, 2));
       }
-    } else if (format === "csv") {
-      // Generate CSV format (simplified)
-      if (verbose) {
-        console.log("CSV format not yet implemented");
+
+      // Post warning comment if requested
+      if (comment) {
+        changes.push({
+          type: "comment",
+          issue: issue.number,
+          action: "post",
+          reason: `Post stale warning comment for issue #${issue.number}`,
+          dryRun,
+        });
+
+        if (!dryRun) {
+          try {
+            const commentBody = generateStaleComment(
+              issue.number,
+              issue.daysSinceActivity,
+            );
+            await octokit.rest.issues.createComment({
+              owner: OWNER,
+              repo: REPO,
+              issue_number: issue.number,
+              body: commentBody,
+            });
+          } catch (err) {
+            errors.push({
+              issue: issue.number,
+              error: `Failed to post comment: ${err.message}`,
+            });
+          }
+        }
+      }
+
+      // Close issue if requested
+      if (close) {
+        changes.push({
+          type: "close",
+          issue: issue.number,
+          action: "close",
+          reason: `Close stale issue #${issue.number} (${issue.daysSinceActivity} days inactive)`,
+          dryRun,
+        });
+
+        if (!dryRun) {
+          try {
+            await octokit.rest.issues.update({
+              owner: OWNER,
+              repo: REPO,
+              issue_number: issue.number,
+              state: "closed",
+            });
+          } catch (err) {
+            errors.push({
+              issue: issue.number,
+              error: `Failed to close issue: ${err.message}`,
+            });
+          }
+        }
       }
     }
 
-    return report;
+    // Build report
+    const report = {
+      management_date: new Date().toISOString(),
+      total_issues_analyzed: allIssues.length,
+      stale_threshold_days: days,
+      dry_run: dryRun,
+      actions: {
+        labeled: changes.filter((c) => c.type === "label" && c.action === "add")
+          .length,
+        commented: changes.filter(
+          (c) => c.type === "comment" && c.action === "post",
+        ).length,
+        closed: changes.filter(
+          (c) => c.type === "close" && c.action === "close",
+        ).length,
+        total: changes.length,
+      },
+      summary: {
+        stale_issues_found: staleIssues.length,
+        issues_processed: allIssues.length,
+        errors: errors.length,
+      },
+      stale_issues: staleIssues.map((i) => ({
+        number: i.number,
+        title: i.title,
+        daysSinceActivity: i.daysSinceActivity,
+      })),
+      changes_detail: changes,
+      errors: errors.length > 0 ? errors : undefined,
+    };
+
+    // Export if output path provided
+    if (output) {
+      const ext =
+        format === "json"
+          ? ".json"
+          : format === "markdown"
+            ? ".md"
+            : `.${format}`;
+      const outputPath = output.endsWith(ext) ? output : `${output}${ext}`;
+      reporter.exportToFile(format, report, outputPath);
+
+      if (verbose) {
+        console.log(`Report saved to: ${outputPath}`);
+      }
+    }
+
+    if (verbose) {
+      console.log(`Management completed in ${Date.now() - startTime}ms`);
+    }
+
+    return {
+      success: true,
+      report,
+      duration: Date.now() - startTime,
+    };
   } catch (error) {
-    console.error(`Error managing stale issues: ${error.message}`);
-    throw error;
+    console.error(`Management failed: ${error.message}`);
+    return {
+      success: false,
+      error: error.message,
+      duration: Date.now() - startTime,
+    };
   }
 }
 
-// Main execution
-if (import.meta.url === `file://${process.argv[1]}`) {
+/**
+ * Parse command line arguments
+ */
+function parseArgs() {
   const args = process.argv.slice(2);
-  const options = parseArgs(args);
+  const options = {
+    verbose: args.includes("-v") || args.includes("--verbose"),
+    dryRun: args.includes("--dry-run") || args.includes("--preview"),
+    days: 30,
+    label: args.includes("--label"),
+    comment: args.includes("--comment"),
+    close: args.includes("--close"),
+    format: "json",
+    output: null,
+  };
 
-  manageStaleIssues(options)
-    .then((report) => {
-      if (options.verbose) {
-        console.log("\nStale issue management complete");
-      }
-      process.exit(0);
-    })
-    .catch((error) => {
-      console.error("Fatal error:", error.message);
-      process.exit(1);
-    });
+  // Parse days
+  const daysIdx = args.findIndex((a) => a === "--days");
+  if (daysIdx > -1 && args[daysIdx + 1]) {
+    options.days = parseInt(args[daysIdx + 1]);
+  }
+
+  // Parse format
+  const formatIdx = args.findIndex((a) => a === "--format");
+  if (formatIdx > -1 && args[formatIdx + 1]) {
+    options.format = args[formatIdx + 1];
+  }
+
+  // Parse output
+  const outputIdx = args.findIndex((a) => a === "--output");
+  if (outputIdx > -1 && args[outputIdx + 1]) {
+    options.output = args[outputIdx + 1];
+  }
+
+  return options;
 }
 
-export { manageStaleIssues, parseArgs, analyzeIssue, shouldExclude };
+/**
+ * Main entry point
+ */
+async function main() {
+  const options = parseArgs();
+
+  if (options.verbose) {
+    console.log("Stale Issues Management Script");
+    console.log(`Mode: ${options.dryRun ? "dry-run" : "apply"}`);
+    console.log(`Threshold: ${options.days} days without activity`);
+    console.log(
+      `Actions: ${
+        [
+          options.label && "label",
+          options.comment && "comment",
+          options.close && "close",
+        ]
+          .filter(Boolean)
+          .join(", ") || "none"
+      }`,
+    );
+    console.log(`Format: ${options.format}`);
+    if (options.output) console.log(`Output: ${options.output}`);
+    console.log("");
+  }
+
+  const result = await manageStalIssues(options);
+
+  if (result.success) {
+    // Print summary
+    console.log("\n=== Stale Issues Management Summary ===\n");
+    console.log(
+      `Total Issues Analyzed: ${result.report.total_issues_analyzed}`,
+    );
+    console.log(
+      `Stale Issues Found: ${result.report.summary.stale_issues_found}`,
+    );
+    console.log(`Threshold: ${result.report.stale_threshold_days} days`);
+
+    if (result.report.actions.total > 0) {
+      console.log("\nActions Taken:");
+      if (result.report.actions.labeled > 0) {
+        console.log(`  Labeled: ${result.report.actions.labeled}`);
+      }
+      if (result.report.actions.commented > 0) {
+        console.log(`  Commented: ${result.report.actions.commented}`);
+      }
+      if (result.report.actions.closed > 0) {
+        console.log(`  Closed: ${result.report.actions.closed}`);
+      }
+    }
+
+    if (result.report.summary.errors > 0) {
+      console.log(`Errors: ${result.report.summary.errors}`);
+    }
+
+    console.log(`\nDuration: ${result.duration}ms\n`);
+
+    if (options.dryRun) {
+      console.log(
+        "⚠️  DRY RUN MODE - no changes were actually applied. Run without --dry-run to apply changes.",
+      );
+    }
+
+    if (!options.output) {
+      console.log("JSON Output:");
+      console.log(JSON.stringify(result.report, null, 2));
+    }
+  } else {
+    console.error(`\nManagement Failed: ${result.error}`);
+    console.error(`Duration: ${result.duration}ms\n`);
+    process.exit(1);
+  }
+}
+
+// Run if called directly
+if (
+  process.argv[1] &&
+  path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])
+) {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}
+
+export { manageStalIssues };
