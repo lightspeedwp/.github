@@ -292,6 +292,39 @@ async function manageStalIssues(options = {}) {
 }
 
 /**
+ * Validate stale management options
+ */
+function validateOptions(options) {
+  const errors = [];
+
+  // Validate days is a positive integer
+  if (!Number.isInteger(options.days) || options.days <= 0) {
+    errors.push(
+      `Invalid --days value: "${options.days}" (must be a positive integer)`,
+    );
+  }
+
+  // Enforce minimum 7-day grace period
+  if (options.days < 7) {
+    errors.push(
+      `--days must be at least 7 (provided: ${options.days}). This grace period allows time for human review before action.`,
+    );
+  }
+
+  // Validate at least one action is selected if not dry-run
+  if (!options.dryRun) {
+    const hasAction = options.label || options.comment || options.close;
+    if (!hasAction) {
+      errors.push(
+        "At least one action (--label, --comment, or --close) must be specified",
+      );
+    }
+  }
+
+  return errors;
+}
+
+/**
  * Parse command line arguments
  */
 function parseArgs() {
@@ -310,7 +343,8 @@ function parseArgs() {
   // Parse days
   const daysIdx = args.findIndex((a) => a === "--days");
   if (daysIdx > -1 && args[daysIdx + 1]) {
-    options.days = parseInt(args[daysIdx + 1]);
+    const daysValue = parseInt(args[daysIdx + 1], 10);
+    options.days = daysValue;
   }
 
   // Parse format
@@ -333,6 +367,17 @@ function parseArgs() {
  */
 async function main() {
   const options = parseArgs();
+
+  // Validate options
+  const validationErrors = validateOptions(options);
+  if (validationErrors.length > 0) {
+    console.error("\n❌ Validation Errors:\n");
+    validationErrors.forEach((err) => {
+      console.error(`  • ${err}`);
+    });
+    console.error("");
+    process.exit(1);
+  }
 
   if (options.verbose) {
     console.log("Stale Issues Management Script");
