@@ -1,0 +1,112 @@
+name: Meta Labels Sync
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # Daily 3 AM UTC
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: "Run in dry-run mode (no changes)"
+        required: false
+        default: "true"
+      stalenessThreshold:
+        description: "Days of inactivity to mark as stale"
+        required: false
+        default: "30"
+      verbose:
+        description: "Enable verbose logging"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  sync-labels:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run PR label sync (scheduled)
+        if: github.event_name == 'schedule'
+        run: |
+          node scripts/automation/sync-pr-labels.js --verbose
+
+      - name: Run stale issue detection (scheduled)
+        if: github.event_name == 'schedule'
+        run: |
+          node scripts/automation/manage-stale-issues.js \
+            --days 30 \
+            --verbose
+
+      - name: Run PR label sync (manual - dry-run)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.dryRun == 'true'
+        env:
+          VERBOSE: ${{ github.event.inputs.verbose }}
+          DAYS: ${{ github.event.inputs.stalenessThreshold }}
+        run: |
+          VERBOSE_FLAG=""
+          [ "$VERBOSE" = "true" ] && VERBOSE_FLAG="--verbose"
+          node scripts/automation/sync-pr-labels.js \
+            --dry-run \
+            $VERBOSE_FLAG
+
+      - name: Run stale issue detection (manual - dry-run)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.dryRun == 'true'
+        env:
+          VERBOSE: ${{ github.event.inputs.verbose }}
+          DAYS: ${{ github.event.inputs.stalenessThreshold }}
+        run: |
+          VERBOSE_FLAG=""
+          [ "$VERBOSE" = "true" ] && VERBOSE_FLAG="--verbose"
+          node scripts/automation/manage-stale-issues.js \
+            --days $DAYS \
+            --dry-run \
+            $VERBOSE_FLAG
+
+      - name: Run PR label sync (manual - apply)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.dryRun == 'false'
+        env:
+          VERBOSE: ${{ github.event.inputs.verbose }}
+        run: |
+          VERBOSE_FLAG=""
+          [ "$VERBOSE" = "true" ] && VERBOSE_FLAG="--verbose"
+          node scripts/automation/sync-pr-labels.js $VERBOSE_FLAG
+
+      - name: Run stale issue detection (manual - apply)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.dryRun == 'false'
+        env:
+          VERBOSE: ${{ github.event.inputs.verbose }}
+          DAYS: ${{ github.event.inputs.stalenessThreshold }}
+        run: |
+          VERBOSE_FLAG=""
+          [ "$VERBOSE" = "true" ] && VERBOSE_FLAG="--verbose"
+          node scripts/automation/manage-stale-issues.js \
+            --days $DAYS \
+            $VERBOSE_FLAG
+
+      - name: Report workflow status
+        if: failure()
+        run: |
+          echo "❌ Meta labels sync failed"
+          exit 1
+
+      - name: Report workflow success
+        if: success()
+        run: |
+          echo "✅ Meta labels sync completed successfully"
