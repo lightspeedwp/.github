@@ -340,7 +340,7 @@ jq '.errors' ./report.json
 Run unit tests:
 
 ```bash
-npm test -- .jest-skip/manage-stale-issues.test.js
+npm test -- scripts/automation/__tests__/manage-stale-issues.test.js
 ```
 
 Test with specific threshold:
