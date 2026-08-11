@@ -1,13 +1,11 @@
-import { syncPRLabels } from "../scripts/automation/sync-pr-labels.js";
-import { LabelManager } from "../scripts/automation/includes/label-management.js";
-import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
 
 // Mock octokit
-vi.mock("octokit", () => ({
-  Octokit: vi.fn(() => ({
+jest.mock("octokit", () => ({
+  Octokit: jest.fn(() => ({
     rest: {
       pulls: {
-        get: vi.fn(),
+        get: jest.fn(),
       },
     },
   })),
@@ -18,21 +16,21 @@ describe("sync-pr-labels.js", () => {
 
   beforeEach(() => {
     mockLabelManager = {
-      fetchAllIssues: vi.fn(),
-      addLabel: vi.fn(),
-      removeLabel: vi.fn(),
-      hasLabel: vi.fn(),
-      getLabels: vi.fn(),
+      fetchAllIssues: jest.fn(),
+      addLabel: jest.fn(),
+      removeLabel: jest.fn(),
+      hasLabel: jest.fn(),
+      getLabels: jest.fn(),
     };
 
     // Mock LabelManager constructor
-    vi.spyOn(global, "LabelManager", "get").mockReturnValue(
-      () => mockLabelManager,
-    );
+    jest
+      .spyOn(global, "LabelManager", "get")
+      .mockReturnValue(() => mockLabelManager);
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   describe("PR detection", () => {
@@ -196,7 +194,6 @@ describe("sync-pr-labels.js", () => {
 
   describe("Dry-run mode", () => {
     it("should preview changes without applying them", async () => {
-      const changes = [];
       const mockIssues = [
         {
           number: 1,
@@ -208,11 +205,8 @@ describe("sync-pr-labels.js", () => {
 
       mockLabelManager.fetchAllIssues.mockResolvedValue(mockIssues);
 
-      // Simulate dry-run: prepare changes but don't apply
-      for (const change of changes) {
-        expect(mockLabelManager.addLabel).not.toHaveBeenCalled();
-        expect(mockLabelManager.removeLabel).not.toHaveBeenCalled();
-      }
+      expect(mockLabelManager.addLabel).not.toHaveBeenCalled();
+      expect(mockLabelManager.removeLabel).not.toHaveBeenCalled();
     });
 
     it("should mark changes as dry-run in output", () => {
