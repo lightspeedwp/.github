@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-10"
+last_updated: "2026-08-11"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Badge workflow integration — Phases 1–3 complete** — Implemented comprehensive badges workflow automation system with schema-driven configuration, automated generation, validation, and discovery workflows. Phase 1 created badge schema with 41 workflow definitions, updated badges.js utility, and established governance policies. Phase 2 implemented four GitHub Actions workflows: documentation badge updates (on-push), README status maintenance (daily), workflow discovery (weekly), and badge health checks (weekly). Phase 3 added testing suite with schema validation, automated schema generation from workflows, comprehensive examples documentation, and detailed troubleshooting guide. ([PR #1659](https://github.com/lightspeedwp/.github/pull/1659), [Epic #1641](https://github.com/lightspeedwp/.github/issues/1641), child issues #1643–#1655)
 
 ### Fixed
+
+- **Changelog validation regex bugs and test assertion improvements** — Fixed 3 critical regex bugs in changelog validation and parser: (1) em-dash validation now correctly checks for spaced hyphens (` - `) instead of flagging all hyphenated words like "backwards-compatible"; (2) replaced Perl syntax `\z` with JavaScript anchor `$` for end-of-string pattern matching; (3) added regex metacharacter escaping for category names to handle special characters. Added 14 comprehensive tests covering edge cases (empty content, special chars, boundary conditions) and documented confidence threshold behaviour (0.85 multiplier) in handle-needs-triage tests. Strengthened 38 test assertions to verify documented API behaviour instead of arbitrary expectations. ([PR #1729](https://github.com/lightspeedwp/.github/pull/1729), [#1715](https://github.com/lightspeedwp/.github/issues/1715), [#1716](https://github.com/lightspeedwp/.github/issues/1716))
 
 - **Release Agent gitOps.cjs — prevent cross-repo data corruption** — Refactored all 15 git operation functions to accept optional `workDir` parameter, eliminating hardcoded `process.cwd()` calls that risked cross-repo contamination in multi-repository release workflows. Added `validateDirectory()` function for pre-operation validation. Switched from `execSync` (shell-based) to `execFileSync` (args array) to prevent shell injection attacks. All functions maintain backwards compatibility with `process.cwd()` as default. Comprehensive test suite covers directory validation, cross-repo isolation, shell injection prevention, and backwards compatibility. ([PR #1724](https://github.com/lightspeedwp/.github/pull/1724), [#1714](https://github.com/lightspeedwp/.github/issues/1714))
 

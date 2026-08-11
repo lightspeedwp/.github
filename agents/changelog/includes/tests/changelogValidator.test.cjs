@@ -94,6 +94,44 @@ describe('changelogValidator', () => {
 
       assert.strictEqual(result.valid, true);
     });
+
+    it('should allow hyphenated compound words (backwards-compatible)', () => {
+      const entry = {
+        title: 'Add backwards-compatible API',
+        description: 'Supports state-of-the-art features',
+        prLink: '#123',
+      };
+
+      const result = validator.validateEntryFormat(entry);
+
+      assert.strictEqual(result.valid, true);
+      assert.strictEqual(result.errors.length, 0);
+    });
+
+    it('should reject spaced hyphens used as em-dashes', () => {
+      const entry = {
+        title: 'Add feature - improved',
+        prLink: '#123',
+      };
+
+      const result = validator.validateEntryFormat(entry);
+
+      assert.strictEqual(result.valid, false);
+      assert(result.errors.some((e) => e.includes('em-dashes')));
+    });
+
+    it('should reject spaced hyphens in description', () => {
+      const entry = {
+        title: 'Add feature',
+        description: 'Fixes bug - improves performance',
+        prLink: '#123',
+      };
+
+      const result = validator.validateEntryFormat(entry);
+
+      assert.strictEqual(result.valid, false);
+      assert(result.errors.some((e) => e.includes('em-dashes')));
+    });
   });
 
   describe('validateNoFormattingIssues()', () => {
