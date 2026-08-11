@@ -1,5 +1,3 @@
-import { syncPRLabels } from "../scripts/automation/sync-pr-labels.js";
-import { LabelManager } from "../scripts/automation/includes/label-management.js";
 import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 
 // Mock octokit
@@ -208,11 +206,8 @@ describe("sync-pr-labels.js", () => {
 
       mockLabelManager.fetchAllIssues.mockResolvedValue(mockIssues);
 
-      // Simulate dry-run: prepare changes but don't apply
-      for (const change of changes) {
-        expect(mockLabelManager.addLabel).not.toHaveBeenCalled();
-        expect(mockLabelManager.removeLabel).not.toHaveBeenCalled();
-      }
+      expect(mockLabelManager.addLabel).not.toHaveBeenCalled();
+      expect(mockLabelManager.removeLabel).not.toHaveBeenCalled();
     });
 
     it("should mark changes as dry-run in output", () => {

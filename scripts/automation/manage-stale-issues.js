@@ -14,8 +14,6 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const OWNER = "lightspeedwp";
-const REPO = ".github";
 const DEFAULT_INACTIVITY_DAYS = 30;
 const STALE_LABEL = "meta:stale";
 
@@ -120,15 +118,6 @@ If there is no activity in the next 7 days, it will be automatically closed and 
 }
 
 /**
- * Generate closure comment for archived issues
- */
-function generateClosureComment() {
-  return `This issue has been automatically closed due to prolonged inactivity (30+ days with no updates).
-
-If this issue is still relevant, please feel free to reopen it.`;
-}
-
-/**
  * Main function
  */
 async function manageStaleIssues(options = {}) {
@@ -155,8 +144,6 @@ async function manageStaleIssues(options = {}) {
 
   try {
     const manager = new LabelManager({ verbose });
-    const reporter = new ReportGenerator({ verbose });
-    const analyzer = new ActivityAnalyzer({ verbose });
 
     if (verbose) {
       console.log(`Managing stale issues (threshold: ${days} days)...`);

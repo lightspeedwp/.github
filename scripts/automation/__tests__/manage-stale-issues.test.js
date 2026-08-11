@@ -1,5 +1,4 @@
 import {
-  manageStaleIssues,
   parseArgs,
   analyzeIssue,
   shouldExclude,
