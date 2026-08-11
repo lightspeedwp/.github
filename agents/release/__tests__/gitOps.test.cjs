@@ -1,3 +1,11 @@
+/**
+ * Git Operations Test Suite
+ * Tests for git command execution, branch management, and cross-repo isolation
+ * @author Ash Shaw
+ * @date 2026-08-11
+ * @related-files gitOps.cjs, release.agent.js
+ */
+
 const path = require('path');
 const fs = require('fs');
 const { execSync } = require('child_process');

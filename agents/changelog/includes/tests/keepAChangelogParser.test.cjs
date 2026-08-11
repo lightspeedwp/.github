@@ -7,13 +7,13 @@
  * @related-files keepAChangelogParser.cjs, changelogValidator.cjs
  */
 
-/* global __dirname */
-
 const { describe, it, before, after } = require('node:test');
 const { strict: assert } = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
 const parser = require('../keepAChangelogParser.cjs');
+
+const __dirname = path.dirname(require.main === module ? require.main.filename : __filename);
 
 const testDir = path.join(__dirname, '..', '..', 'test-repos-parser');
 

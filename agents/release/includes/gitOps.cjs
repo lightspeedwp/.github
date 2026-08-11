@@ -19,10 +19,13 @@ function validateDirectory(directory) {
   try {
     const stat = fs.statSync(directory);
     if (!stat.isDirectory()) {
-      throw new Error(`Path is not a directory: ${directory}`);
+      throw new Error('Path is not a directory or does not exist');
     }
   } catch (error) {
-    throw new Error(`Invalid directory: ${directory}\n${error.message}`);
+    if (error.message.includes('Path is not a directory')) {
+      throw error;
+    }
+    throw new Error(`Invalid directory: ${error.code || 'unknown error'}`);
   }
 }
 
