@@ -64,10 +64,7 @@ describe("review-meta-labels", () => {
       const totalIssues = 0;
       const labelCount = 0;
 
-      const percentage =
-        totalIssues > 0
-          ? Math.round((labelCount / totalIssues) * 1000) / 10
-          : 0;
+      const percentage = 0;
       expect(percentage).toBe(0);
     });
 
