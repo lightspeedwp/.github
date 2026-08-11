@@ -12,6 +12,8 @@ import { ActivityAnalyzer } from "./includes/activity-analyzer.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const STATUS_LABELS = ["status:needs-review", "status:needs-triage"];
 
 /**
@@ -30,16 +32,15 @@ function extractBlockers(issue) {
   const blockers = new Set();
 
   if (issue.body) {
-    // Capture only references that follow a blocker keyword or are chained
-    const blockerPattern =
-      /(?:blocks?|blocking|duplicate\s+of|and)\s+(?:(?:#|`#)\d+(?:\s*,?\s*(?:and\s+)?(?:#|`#)\d+)*|\w+\s+#\d+)/gi;
+    // Match any issue reference in context of blocker keywords
+    const blockerPattern = /#(\d+)/g;
 
-    let match;
-    while ((match = blockerPattern.exec(issue.body)) !== null) {
-      // Extract all issue numbers from the matched text
-      const numberMatches = match[0].matchAll(/#(\d+)/g);
-      for (const numMatch of numberMatches) {
-        blockers.add(parseInt(numMatch[1], 10));
+    // Check if the body mentions any blocker keywords
+    if (/(blocks?|blocking|duplicate\s+of|and\s+#)/i.test(issue.body)) {
+      let match;
+      blockerPattern.lastIndex = 0;
+      while ((match = blockerPattern.exec(issue.body))) {
+        blockers.add(parseInt(match[1]));
       }
     }
   }
@@ -133,7 +134,7 @@ function generateRecommendations(analysis) {
     }
 
     // Blocking other issues
-    if (blockerIssueMap.has(issue.number)) {
+    if (issue.blockers.length === 0 && blockerIssueMap.has(issue.number)) {
       const blockedCount = blockerIssueMap.get(issue.number).length;
       recommendations.push({
         issue: issue.number,
@@ -240,21 +241,20 @@ async function auditStatusLabels(options = {}) {
         assignmentStats.unassigned++;
       }
 
-      // If issue references blockers, it is blocking those issues
       if (analysis.blockers.length > 0) {
-        blockerStats.blocking++;
+        blockerStats.blockedBy++;
       }
     });
 
-    // Find issues that are blocked by others
-    const blockedByIssues = new Set();
+    // Find blocking relationships
+    const blockedIssues = new Set();
     analyzedIssues.forEach((issue) => {
       issue.blockers.forEach((b) => {
-        blockedByIssues.add(b);
+        blockedIssues.add(b);
       });
     });
 
-    blockerStats.blockedBy = blockedByIssues.size;
+    blockerStats.blocking = blockedIssues.size;
 
     // Sort by age (oldest first)
     const sortedByAge = [...analyzedIssues].sort(
@@ -316,10 +316,8 @@ async function auditStatusLabels(options = {}) {
       };
     }
 
-    let finalReport = report;
-
     if (label) {
-      finalReport = {
+      const filtered = {
         ...report,
         issues_by_label: {
           [label]: report.issues_by_label[label],
@@ -330,6 +328,12 @@ async function auditStatusLabels(options = {}) {
         all_issues: analyzedIssues.filter((i) =>
           i.statusLabels.includes(label),
         ),
+      };
+      return {
+        success: true,
+        report: filtered,
+        duration: Date.now() - startTime,
+        dryRun,
       };
     }
 
@@ -347,7 +351,7 @@ async function auditStatusLabels(options = {}) {
       if (format === "csv") {
         reporter.exportToFile(format, analyzedIssues, outputPath);
       } else {
-        reporter.exportToFile(format, finalReport, outputPath);
+        reporter.exportToFile(format, report, outputPath);
       }
 
       if (verbose) {
@@ -361,7 +365,7 @@ async function auditStatusLabels(options = {}) {
 
     return {
       success: true,
-      report: finalReport,
+      report,
       duration: Date.now() - startTime,
       dryRun,
     };
@@ -380,7 +384,6 @@ async function auditStatusLabels(options = {}) {
  */
 function parseArgs() {
   const args = process.argv.slice(2);
-  const SUPPORTED_FORMATS = ["json", "csv", "markdown", "md"];
   const options = {
     verbose: args.includes("-v") || args.includes("--verbose"),
     dryRun: args.includes("--dry-run"),
@@ -389,39 +392,22 @@ function parseArgs() {
     label: null,
   };
 
-  // Parse and validate format
+  // Parse format
   const formatIdx = args.findIndex((a) => a === "--format");
-  if (formatIdx > -1) {
-    const value = args[formatIdx + 1];
-    if (!value || value.startsWith("--")) {
-      throw new Error("Missing value for --format");
-    }
-    if (!SUPPORTED_FORMATS.includes(value)) {
-      throw new Error(
-        `Unsupported format: ${value}. Supported: ${SUPPORTED_FORMATS.join(", ")}`,
-      );
-    }
-    options.format = value;
+  if (formatIdx > -1 && args[formatIdx + 1]) {
+    options.format = args[formatIdx + 1];
   }
 
-  // Parse and validate output
+  // Parse output
   const outputIdx = args.findIndex((a) => a === "--output");
-  if (outputIdx > -1) {
-    const value = args[outputIdx + 1];
-    if (!value || value.startsWith("--")) {
-      throw new Error("Missing value for --output");
-    }
-    options.output = value;
+  if (outputIdx > -1 && args[outputIdx + 1]) {
+    options.output = args[outputIdx + 1];
   }
 
-  // Parse and validate label
+  // Parse label
   const labelIdx = args.findIndex((a) => a === "--label");
-  if (labelIdx > -1) {
-    const value = args[labelIdx + 1];
-    if (!value || value.startsWith("--")) {
-      throw new Error("Missing value for --label");
-    }
-    options.label = value;
+  if (labelIdx > -1 && args[labelIdx + 1]) {
+    options.label = args[labelIdx + 1];
   }
 
   return options;
@@ -456,7 +442,7 @@ async function main() {
     console.log(`\nAge Distribution:`);
     console.log(`  Fresh (0-3 days): ${result.report.age_distribution.fresh}`);
     console.log(
-      `  Pending (4-7 days): ${result.report.age_distribution.pending}`,
+      `  Pending (3-7 days): ${result.report.age_distribution.pending}`,
     );
     console.log(
       `  Overdue (7+ days): ${result.report.age_distribution.overdue}`,
