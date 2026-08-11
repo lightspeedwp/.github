@@ -494,6 +494,74 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 
 **Documentation Standards note (Phase 3A):** Comprehensive standards for creating agents, skills, instructions, workflows, plugins, and other AI infrastructure are maintained in `docs/`. These 9 standards documents are the authoritative reference for all AI-driven work. See [AGENTS.md#documentation-standards](./AGENTS.md#documentation-standards) for the complete quick reference guide.
 
+## Project Management & Archival Process
+
+### Active Projects
+
+All active projects are stored in `.github/projects/active/{slug}/` and must:
+
+1. **Have a README.md** with project overview, phases, and deliverables
+2. **Link to GitHub issues** via a "Related Issues" section
+3. **Follow linking standards** — see [LINKING_STANDARD.md](./.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)
+4. **Be validated by CI** — workflow `validate-project-linking.yml` checks all active projects have ≥1 linked issue
+
+### Archiving Completed Projects
+
+When a project is complete:
+
+1. **Create `.archive-status.md`** in the project folder documenting:
+   - Project completion summary
+   - All deliverables completed
+   - Related issues resolved
+   - Archive date and reason
+
+2. **Move to archive:**
+
+   ```bash
+   git mv .github/projects/active/{slug} .github/projects/archive/{slug}
+   ```
+
+3. **Update related GitHub issues** with archive reference:
+   - Add comment: "✅ **ARCHIVED:** This project has been archived on [date]"
+   - Link to `.archive-status.md` for completion details
+
+4. **Create PR** with clear archive documentation
+   - Link to related issues being closed
+   - Include `.archive-status.md` in commit
+
+**Full guide:** [.github/ARCHIVE_WORKFLOW_GUIDE.md](./.github/ARCHIVE_WORKFLOW_GUIDE.md)
+
+### Project-Issue Linking Standard
+
+All active projects must establish bidirectional linking with GitHub issues:
+
+**Project → Issue:** Project README includes "Related Issues" section with table of linked issues  
+**Issue → Project:** GitHub issue includes "Related Projects" comment with link back to project
+
+**Format example:**
+
+In project README.md:
+
+```markdown
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1731](../../../issues/1731) | epic | Master Initiative Epic | 🟢 Open |
+| [#1733](../../../issues/1733) | task | Phase 2: Folder Structure | 🟢 Open |
+```
+
+In GitHub issue:
+
+```markdown
+## Related Active Projects
+
+This issue is part of:
+- [reports-projects-restructuring-2026-08-11](./.github/projects/active/reports-projects-restructuring-2026-08-11/)
+```
+
+**Complete standard:** [LINKING_STANDARD.md](./.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)
+
 ## What Not to Do
 
 - Do not add WordPress plugin or theme project-specific code to `.github/`.

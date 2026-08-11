@@ -30,7 +30,6 @@ function extractBlockers(issue) {
     // Match any issue reference in context of blocker keywords
     // Patterns: "blocks #123", "blocking: #456", "duplicate of #789", "and #456"
     const blockerPattern = /#(\d+)/g;
-    const bodyLower = issue.body.toLowerCase();
 
     // Check if the body mentions any blocker keywords
     if (/(blocks?|blocking|duplicate\s+of|and\s+#)/i.test(issue.body)) {
@@ -151,8 +150,8 @@ describe("Review Status Labels Script", () => {
     const {
       verbose = false,
       dryRun = false,
-      format = "json",
-      output = null,
+      _format = "json",
+      _output = null,
       label = null,
     } = options;
 
