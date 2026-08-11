@@ -108,15 +108,6 @@ function analyzeIssue(issue, inactivityDays) {
 }
 
 /**
- * Generate warning comment for stale issues
- */
-function generateWarningComment() {
-  return `This issue has been inactive for 30+ days.
-
-If there is no activity in the next 7 days, it will be automatically closed and archived. Please comment to keep it open or close it explicitly if it's complete.`;
-}
-
-/**
  * Main function
  */
 async function manageStaleIssues(options = {}) {
