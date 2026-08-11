@@ -315,8 +315,10 @@ async function auditStatusLabels(options = {}) {
       };
     }
 
+    let finalReport = report;
+
     if (label) {
-      const filtered = {
+      finalReport = {
         ...report,
         issues_by_label: {
           [label]: report.issues_by_label[label],
@@ -327,12 +329,6 @@ async function auditStatusLabels(options = {}) {
         all_issues: analyzedIssues.filter((i) =>
           i.statusLabels.includes(label),
         ),
-      };
-      return {
-        success: true,
-        report: filtered,
-        duration: Date.now() - startTime,
-        dryRun,
       };
     }
 
@@ -350,7 +346,7 @@ async function auditStatusLabels(options = {}) {
       if (format === "csv") {
         reporter.exportToFile(format, analyzedIssues, outputPath);
       } else {
-        reporter.exportToFile(format, report, outputPath);
+        reporter.exportToFile(format, finalReport, outputPath);
       }
 
       if (verbose) {
@@ -364,7 +360,7 @@ async function auditStatusLabels(options = {}) {
 
     return {
       success: true,
-      report,
+      report: finalReport,
       duration: Date.now() - startTime,
       dryRun,
     };
