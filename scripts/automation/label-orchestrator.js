@@ -15,27 +15,46 @@ import { syncPRLabels } from "./sync-pr-labels.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const VALID_MODES = ["audit", "sync", "apply"];
+const VALID_FORMATS = ["json", "markdown", "csv"];
+const VALID_SCRIPTS = [
+  "meta-labels",
+  "status-labels",
+  "pr-labels",
+  "stale-issues",
+];
+
 /**
  * Parse command line arguments into options object
  */
 function parseArguments(args) {
   const options = {
-    mode: "audit", // audit, sync, apply
+    mode: "audit",
     verbose: args.includes("-v") || args.includes("--verbose"),
-    dryRun: args.includes("--dry-run") || args.includes("--preview"),
-    format: "json", // json, markdown, csv
+    dryRun: false,
+    format: "json",
     output: null,
-    scripts: ["all"], // which scripts to run
+    scripts: ["all"],
     days: 30,
   };
 
-  // Parse mode (first positional argument)
-  const modeIdx = args.findIndex(
-    (a) => !a.startsWith("-") && ["audit", "sync", "apply"].includes(a),
-  );
-  if (modeIdx > -1) {
-    options.mode = args[modeIdx];
+  // Parse mode (first positional argument) — reject unsupported modes
+  const firstPositional = args.find((a) => !a.startsWith("-"));
+  if (firstPositional) {
+    if (VALID_MODES.includes(firstPositional)) {
+      options.mode = firstPositional;
+    } else {
+      throw new Error(
+        `Invalid mode '${firstPositional}'. Must be: ${VALID_MODES.join(", ")}`,
+      );
+    }
   }
+
+  // Determine dry-run default based on mode
+  options.dryRun =
+    args.includes("--dry-run") || args.includes("--preview")
+      ? true
+      : options.mode === "sync";
 
   // Parse format
   const formatIdx = args.findIndex((a) => a === "--format");
@@ -49,16 +68,24 @@ function parseArguments(args) {
     options.output = args[outputIdx + 1];
   }
 
-  // Parse days
+  // Parse days — reject invalid values early
   const daysIdx = args.findIndex((a) => a === "--days");
   if (daysIdx > -1 && args[daysIdx + 1]) {
-    options.days = parseInt(args[daysIdx + 1], 10);
+    options.days = Number(args[daysIdx + 1]);
   }
 
-  // Parse scripts to run
+  // Parse scripts to run — reject unsupported scripts
   const scriptsIdx = args.findIndex((a) => a === "--scripts");
   if (scriptsIdx > -1 && args[scriptsIdx + 1]) {
-    options.scripts = args[scriptsIdx + 1].split(",").map((s) => s.trim());
+    const requested = args[scriptsIdx + 1].split(",").map((s) => s.trim());
+    for (const script of requested) {
+      if (script !== "all" && !VALID_SCRIPTS.includes(script)) {
+        throw new Error(
+          `Invalid script '${script}'. Must be: all, ${VALID_SCRIPTS.join(", ")}`,
+        );
+      }
+    }
+    options.scripts = requested;
   }
 
   return options;
@@ -68,22 +95,37 @@ function parseArguments(args) {
  * Validate options
  */
 function validateOptions(options) {
-  const validModes = ["audit", "sync", "apply"];
-  if (!validModes.includes(options.mode)) {
+  if (!VALID_MODES.includes(options.mode)) {
     throw new Error(
-      `Invalid mode '${options.mode}'. Must be: ${validModes.join(", ")}`,
+      `Invalid mode '${options.mode}'. Must be: ${VALID_MODES.join(", ")}`,
     );
   }
 
-  const validFormats = ["json", "markdown", "csv"];
-  if (!validFormats.includes(options.format)) {
+  if (!VALID_FORMATS.includes(options.format)) {
     throw new Error(
-      `Invalid format '${options.format}'. Must be: ${validFormats.join(", ")}`,
+      `Invalid format '${options.format}'. Must be: ${VALID_FORMATS.join(", ")}`,
     );
   }
 
-  if (options.days <= 0) {
+  // Validate days as finite positive integer
+  if (!Number.isInteger(options.days) || options.days <= 0) {
     throw new Error("Days must be a positive integer");
+  }
+
+  // Validate script choices against mode constraints
+  const modeScripts = {
+    audit: VALID_SCRIPTS,
+    sync: ["pr-labels", "stale-issues"],
+    apply: ["pr-labels", "stale-issues"],
+  };
+  const allowed = modeScripts[options.mode];
+
+  for (const script of options.scripts) {
+    if (script !== "all" && !allowed.includes(script)) {
+      throw new Error(
+        `Script '${script}' not supported in ${options.mode} mode. Allowed: ${allowed.join(", ")}`,
+      );
+    }
   }
 }
 
@@ -278,7 +320,7 @@ async function runApply(options) {
           case "pr-labels":
             results["pr-labels"] = await syncPRLabels({
               verbose: options.verbose,
-              dryRun: false,
+              dryRun: options.dryRun,
               format: options.format,
               output: options.output,
             });
@@ -288,11 +330,11 @@ async function runApply(options) {
           case "stale-issues":
             results["stale-issues"] = await manageStalIssues({
               verbose: options.verbose,
-              dryRun: false,
+              dryRun: options.dryRun,
               days: options.days,
               label: true,
               comment: true,
-              close: true, // Apply mode closes stale issues
+              close: !options.dryRun,
               format: options.format,
               output: options.output,
             });
@@ -328,7 +370,7 @@ async function runApply(options) {
 }
 
 /**
- * Generate summary report
+ * Generate summary report — returns error count
  */
 function generateSummary(result, options) {
   console.log("\n" + "=".repeat(60));
@@ -356,12 +398,9 @@ function generateSummary(result, options) {
   }
 
   console.log(`\nResults: ${successCount} succeeded, ${errorCount} failed`);
-
-  if (options.output) {
-    console.log(`📁 Output saved to: ${options.output}`);
-  }
-
   console.log("=".repeat(60) + "\n");
+
+  return errorCount;
 }
 
 /**
@@ -441,8 +480,8 @@ async function main() {
         throw new Error(`Unknown mode: ${options.mode}`);
     }
 
-    generateSummary(result, options);
-    process.exit(0);
+    const errorCount = generateSummary(result, options);
+    process.exit(errorCount > 0 ? 1 : 0);
   } catch (error) {
     log(`Fatal error: ${error.message}`, "error");
     if (process.env.DEBUG) {
