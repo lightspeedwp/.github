@@ -30,15 +30,16 @@ function extractBlockers(issue) {
   const blockers = new Set();
 
   if (issue.body) {
-    // Match any issue reference in context of blocker keywords
-    const blockerPattern = /#(\d+)/g;
+    // Capture only references that follow a blocker keyword or are chained
+    const blockerPattern =
+      /(?:blocks?|blocking|duplicate\s+of|and)\s+(?:(?:#|`#)\d+(?:\s*,?\s*(?:and\s+)?(?:#|`#)\d+)*|\w+\s+#\d+)/gi;
 
-    // Check if the body mentions any blocker keywords
-    if (/(blocks?|blocking|duplicate\s+of|and\s+#)/i.test(issue.body)) {
-      let match;
-      blockerPattern.lastIndex = 0;
-      while ((match = blockerPattern.exec(issue.body))) {
-        blockers.add(parseInt(match[1]));
+    let match;
+    while ((match = blockerPattern.exec(issue.body)) !== null) {
+      // Extract all issue numbers from the matched text
+      const numberMatches = match[0].matchAll(/#(\d+)/g);
+      for (const numMatch of numberMatches) {
+        blockers.add(parseInt(numMatch[1], 10));
       }
     }
   }
@@ -132,7 +133,7 @@ function generateRecommendations(analysis) {
     }
 
     // Blocking other issues
-    if (issue.blockers.length === 0 && blockerIssueMap.has(issue.number)) {
+    if (blockerIssueMap.has(issue.number)) {
       const blockedCount = blockerIssueMap.get(issue.number).length;
       recommendations.push({
         issue: issue.number,
