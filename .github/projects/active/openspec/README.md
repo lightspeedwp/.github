@@ -26,15 +26,45 @@ Current OpenSpec CLI configuration only supports global profile/workflow setting
 
 The symlink keeps CLI behaviour unchanged while storing project artefacts in the preferred active planning structure.
 
-## Related Issues
+## About This Project
 
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#TBD](../../../issues/TBD) | epic | OpenSpec specification tracking & coordination | 🟢 Open |
-| [#TBD](../../../issues/TBD) | task | Agent-Tool Permission Alignment spec | 🟢 Open |
-| [#TBD](../../../issues/TBD) | task | Test Coverage Implementation spec | 🟢 Open |
+OpenSpec is a **structured specification system** for tracking and coordinating major changes across the repository.
 
-*Note: Issue links will be populated once GitHub issues are created. See [reports-projects-restructuring-2026-08-11](../reports-projects-restructuring-2026-08-11/) for linking coordination.*
+**What's Here:**
+- `changes/` — Active specifications (proposals, designs, formal specs)
+- `RFC.md` — Request for Comments establishing OpenSpec coordination model
+- `COORDINATION_PLAN.md` — Implementation plan for GitHub issue linking
+
+**Key Documents:**
+- **[RFC.md](./RFC.md)** — Read this first to understand the OpenSpec coordination model
+- **[COORDINATION_PLAN.md](./COORDINATION_PLAN.md)** — Step-by-step implementation plan
+
+## Active Specifications
+
+### 1. Agent-Tool Permission Alignment
+**Purpose:** Canonical contract for agent tool access & permissions  
+**Status:** 🟢 Active (Proposal phase)  
+**Docs:** [proposal.md](./changes/agent-tool-permission-alignment/proposal.md) · [design.md](./changes/agent-tool-permission-alignment/design.md) · [spec.md](./changes/agent-tool-permission-alignment/specs/agent-tool-permission-contract/spec.md)
+
+### 2. Test Coverage Implementation
+**Purpose:** Expand test coverage to 80%+ (62-task programme)  
+**Status:** 🟢 Active (Planning phase)  
+**Docs:** [proposal.md](./changes/test-coverage-implementation/proposal.md) · [design.md](./changes/test-coverage-implementation/design.md) · [spec.md](./changes/test-coverage-implementation/specs/coverage-programme-issue-chain/spec.md)
+
+## GitHub Issues (To Be Created)
+
+**Agent-Tool Permission Alignment Spec:**
+- Epic: Coordinate agent-tool permission contract work
+- Phase 1: Audit existing agent specs
+- Phase 2: Design contract & tiers
+- Phase 3: Implement validation & CI enforcement
+- Phase 4: Review & approve all agent specs
+
+**Test Coverage Implementation Spec:**
+- Epic: Expand test coverage to 80%+
+- Phase 1-6: One issue per phase (mapped to OpenSpec input files)
+
+*Issue numbers will be populated here after creation. See [COORDINATION_PLAN.md](./COORDINATION_PLAN.md#step-2-update-proposalmd-files-with-issue-links).*
 
 ## Operational notes
 
