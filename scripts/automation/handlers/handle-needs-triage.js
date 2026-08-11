@@ -278,6 +278,19 @@ async function processIssue(issue, options = {}) {
 
   const issueNumber = issue.number;
 
+  // Validate confidenceThreshold is in valid range [0, 1]
+  if (
+    typeof confidenceThreshold !== "number" ||
+    confidenceThreshold < 0 ||
+    confidenceThreshold > 1
+  ) {
+    return {
+      status: "invalid-configuration",
+      reason: `confidenceThreshold must be a number between 0 and 1, got ${confidenceThreshold}`,
+      issueNumber,
+    };
+  }
+
   // Check if already triaged (has type and area labels)
   const labels = (issue.labels || []).map((l) => l.name || l);
   const hasType = labels.some((l) => l.startsWith("type:"));

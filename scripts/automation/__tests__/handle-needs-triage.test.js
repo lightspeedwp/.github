@@ -446,13 +446,12 @@ describe("handle-needs-triage", () => {
       });
       expect(resultHigh.status).toBe("preview");
 
-      // At threshold 2.0 (impossibly high), effective check: 1.0 >= 2.0 * 0.85 = 1.7
-      // 1.0 < 1.7 AND no areas → warning
-      const resultLow = await handler.processIssue(issue, {
+      // At threshold 2.0 (out of valid range), invalid configuration error
+      const resultInvalid = await handler.processIssue(issue, {
         dryRun: true,
         confidenceThreshold: 2.0,
       });
-      expect(resultLow.status).toBe("warning");
+      expect(resultInvalid.status).toBe("invalid-configuration");
     });
 
     it("should return highest-scoring type when multiple types match", async () => {
