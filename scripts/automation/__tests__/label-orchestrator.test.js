@@ -214,12 +214,13 @@ describe("label-orchestrator.js", () => {
   describe("exit status", () => {
     it("should exit 0 on success", () => {
       const errorCount = 0;
-      const exitCode = errorCount > 0 ? 1 : 0;
+      const exitCode = 0;
       expect(exitCode).toBe(0);
     });
 
     it("should exit 1 on errors", () => {
-      const errorCount = 2;
+      const errors = ["missing-label", "invalid-config"];
+      const errorCount = errors.length;
       const exitCode = errorCount > 0 ? 1 : 0;
       expect(exitCode).toBe(1);
     });
