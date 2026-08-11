@@ -51,3 +51,12 @@ Optimization initiative for markdown validation and linting CI workflows. Focuse
 **Started:** 2026-08-05  
 **Status:** Active  
 **Last Updated:** 2026-08-06
+
+## Related Issues
+
+This project is coordinated with:
+
+- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+- [#1737](https://github.com/lightspeedwp/.github/issues/1737) — Phase 2: Link markdown-audit-ci-optimization
+
+See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.

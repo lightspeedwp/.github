@@ -83,3 +83,15 @@ OpenSpec is a **structured specification system** for tracking and coordinating 
 4. If symlink drift occurs, recreate it from repository root:
 
    `ln -sfn .github/projects/active/openspec openspec`
+
+## Related Issues
+
+This project is coordinated with:
+
+- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+- [#1739](https://github.com/lightspeedwp/.github/issues/1739) — OpenSpec: Agent-Tool Permission Alignment
+- [#1740](https://github.com/lightspeedwp/.github/issues/1740) — OpenSpec: Test Coverage Implementation
+- [#1741](https://github.com/lightspeedwp/.github/issues/1741) — OpenSpec: Specification Tracking Model
+- [#1742](https://github.com/lightspeedwp/.github/issues/1742) — OpenSpec: GitHub Issue Coordination
+
+See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.

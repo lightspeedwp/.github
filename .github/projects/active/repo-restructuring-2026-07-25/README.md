@@ -385,3 +385,11 @@ Ready to proceed? Open [PHASE-1A-MANUAL-MOVES.md](./PHASE-1A-MANUAL-MOVES.md) an
 **Project Version:** 1.0  
 **Last Updated:** 2026-07-26  
 **Maintained By:** Ash Shaw
+
+## Related Issues
+
+This project is coordinated with:
+
+- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+
+See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
