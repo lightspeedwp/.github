@@ -2,7 +2,24 @@
 
 **Project:** PR/Issue → Milestone Allocation Automation  
 **Timeline:** 2026-08-11 to 2026-08-25 (15 days)  
-**Phases:** 4 (Specification → Implementation → Refinement → Monitoring)
+**Phases:** 4 (Specification → Implementation → Refinement → Monitoring)  
+**Location:** `.github/projects/active/pr-issue-milestone-allocation-2026-08-11/PLANNING.md`  
+
+**Related Documents:**
+
+- 📖 [OPENSPEC.md](./OPENSPEC.md) — Feature specification
+- 📊 [OPENSPEC-PROJECT.md](./OPENSPEC-PROJECT.md) — Project specification
+- 🎯 [RFC.md](./RFC.md) — Design rationale
+- 📍 [PROJECT-README.md](./PROJECT-README.md) — Project overview
+- 🔗 [COORDINATION.md](./COORDINATION.md) — Issue tracking
+
+**GitHub Issues:**
+
+- #1762 — Epic (parent)
+- #1763 — Phase 1 (complete)
+- #1764 — Phase 2 (implementation, 72h)
+- #1765 — Phase 3 (refinement)
+- #1766 — Phase 4 (monitoring)
 
 ## Phase 1: Specification & Design (2026-08-11 to 2026-08-13)
 

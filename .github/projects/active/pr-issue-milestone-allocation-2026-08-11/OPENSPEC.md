@@ -4,6 +4,16 @@
 **Status:** Approved for Implementation  
 **Last Updated:** 2026-08-11  
 **Author:** ash  
+**Location:** `.github/projects/active/pr-issue-milestone-allocation-2026-08-11/OPENSPEC.md`  
+
+**Related Documents:**
+
+- 📋 [PLANNING.md](./PLANNING.md) — Implementation plan
+- 📖 [RFC.md](./RFC.md) — Design rationale
+- 📊 [OPENSPEC-PROJECT.md](./OPENSPEC-PROJECT.md) — Project specification
+- 🎯 [00-START-HERE.md](./00-START-HERE.md) — Quick start guide
+- 📍 [COORDINATION.md](./COORDINATION.md) — Issue tracking
+- 🔗 GitHub Issues: #1762 (Epic), #1763-1766 (Phases 1-4) — Project tracking  
 
 ## Abstract
 

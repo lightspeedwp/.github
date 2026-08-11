@@ -19,7 +19,9 @@ A **complete, production-ready project package** with:
 
 ## 📁 File Directory
 
-All files are in your scratchpad. Move to `.github/projects/active/pr-issue-milestone-allocation-2026-08-11/` when ready.
+**Active Project Location:** `.github/projects/active/pr-issue-milestone-allocation-2026-08-11/`
+
+✅ **All files deployed to active project**
 
 ```
 00-START-HERE.md ← You are here
@@ -93,13 +95,14 @@ All files are in your scratchpad. Move to `.github/projects/active/pr-issue-mile
 ## ✅ What's Already Done (Phase 1)
 
 - ✅ **Planning Prompt** — Requirements & approach defined
-- ✅ **OpenSpec** — Formal specification with 10 sections
+- ✅ **OpenSpec** — Formal specification with 10 sections + project spec
 - ✅ **RFC** — Design rationale + 5 alternatives
 - ✅ **PLANNING.md** — 4 phases, effort breakdown, critical path
 - ✅ **allocate-to-milestone.js** — Full Node.js implementation
 - ✅ **allocate-pr-issue-to-milestone.yml** — GitHub Actions workflow
-- ✅ **Documentation** — 7 comprehensive guides
-- ✅ **Issue Templates** — Ready to create GitHub issues
+- ✅ **Documentation** — 14 comprehensive guides + quick reference
+- ✅ **GitHub Issues** — Created & linked (#1762-1766 epic + phases)
+- ✅ **Active Project** — Deployed to .github/projects/active/
 
 ## ⏳ What's Next (Phase 2 - 6 Days)
 
@@ -207,23 +210,28 @@ TODAY (2026-08-11)
 - [ ] Zero critical issues in week 1
 - [ ] Team feedback incorporated
 
-## 📋 GitHub Issues (To Create)
+## 📋 GitHub Issues (✅ Created & Linked)
 
-Use [GITHUB-ISSUES-TEMPLATE.md](./GITHUB-ISSUES-TEMPLATE.md) to create:
+**Issues Created:**
 
-- **#EPIC** — PR/Issue → Milestone Allocation Automation (parent)
-- **#P1** — Phase 1: Specification & Design ✅ (status: complete)
-- **#P2** — Phase 2: Implementation & Testing ⏳ (status: pending)
-- **#P3** — Phase 3: Refinement & Rollout ⏳ (status: pending)
-- **#P4** — Phase 4: Monitoring & Maintenance ⏳ (status: pending)
+- **#1762** — PR/Issue → Milestone Allocation Automation (Epic) ⏳ Open
+- **#1763** — Phase 1: Specification & Design ✅ Complete
+- **#1764** — Phase 2: Implementation & Testing ⏳ Pending (72h, 6 days)
+- **#1765** — Phase 3: Refinement & Rollout ⏳ Pending (4 days)
+- **#1766** — Phase 4: Monitoring & Maintenance ⏳ Pending (monitoring)
 
-Link them in this pattern:
+**Linked:**
 
 ```
-#EPIC (parent)
-├── #P1 (Phase 1)
-├── #P2 (Phase 2) — Blocked by: #P1, Blocks: #P3
-├── #P3 (Phase 3) — Blocked by: #P2, Blocks: #P4
+#1762 (parent Epic)
+├── #1763 (Phase 1: COMPLETE)
+│   └── Blocks: #1764
+├── #1764 (Phase 2: PENDING)
+│   ├── Blocked by: #1763
+│   └── Blocks: #1765
+├── #1765 (Phase 3: PENDING)
+│   ├── Blocked by: #1764
+│   └── Blocks: #1766
 └── #P4 (Phase 4) — Blocked by: #P3
 ```
 
