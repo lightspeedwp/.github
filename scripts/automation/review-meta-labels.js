@@ -38,11 +38,12 @@ function analyzeIssue(issue) {
 }
 
 /**
- * Generate recommendations for an issue
+ * Generate recommendations for an issue based on missing meta labels
  */
 function generateRecommendations(issue) {
   const recommendations = [];
   const labels = issue.labels?.map((l) => l.name) || [];
+  const currentMetaLabels = labels.filter((l) => l.startsWith("meta:"));
 
   // Check for changelog-related labels
   const hasChangelogLabel =
@@ -53,6 +54,24 @@ function generateRecommendations(issue) {
       `Consider adding changelog status (meta:needs-changelog or meta:no-changelog) to issue #${issue.number}`,
     );
   }
+
+  // Check coverage for other meta labels
+  META_LABELS.forEach((expectedLabel) => {
+    // Skip changelog labels (already handled above) and stale label (auto-applied)
+    if (expectedLabel.includes("changelog") || expectedLabel === "meta:stale") {
+      return;
+    }
+
+    // If issue has no meta labels at all, flag it
+    if (currentMetaLabels.length === 0) {
+      if (
+        expectedLabel === "meta:needs-changelog" ||
+        expectedLabel === "meta:no-changelog"
+      ) {
+        return; // Already covered above
+      }
+    }
+  });
 
   return recommendations;
 }
@@ -101,17 +120,17 @@ async function auditMetaLabels(options = {}) {
       };
     });
 
-    // Analyze each issue
+    // Analyse each issue
     allIssues.forEach((issue) => {
       const labels = issue.labels?.map((l) => l.name) || [];
       const analysis = analyzeIssue(issue);
       issueAnalysis.push(analysis);
 
-      // Track meta label usage
-      labels.forEach((l) => {
-        if (labelAnalysis[l]) {
-          labelAnalysis[l].count++;
-          labelAnalysis[l].issues.push(issue.number);
+      // Track all configured meta label usage
+      META_LABELS.forEach((metaLabel) => {
+        if (labels.includes(metaLabel)) {
+          labelAnalysis[metaLabel].count++;
+          labelAnalysis[metaLabel].issues.push(issue.number);
         }
       });
 
@@ -122,15 +141,20 @@ async function auditMetaLabels(options = {}) {
       }
     });
 
-    // Calculate percentages
-    Object.keys(labelAnalysis).forEach((ml) => {
-      labelAnalysis[ml].percentage =
+    // Calculate percentages for all meta labels
+    META_LABELS.forEach((metaLabel) => {
+      labelAnalysis[metaLabel].percentage =
         allIssues.length > 0
-          ? Math.round((labelAnalysis[ml].count / allIssues.length) * 1000) / 10
+          ? Math.round(
+              (labelAnalysis[metaLabel].count / allIssues.length) * 1000,
+            ) / 10
           : 0;
 
       // Limit issues array to first 10 for report
-      labelAnalysis[ml].issues = labelAnalysis[ml].issues.slice(0, 10);
+      labelAnalysis[metaLabel].issues = labelAnalysis[metaLabel].issues.slice(
+        0,
+        10,
+      );
     });
 
     // Build report
