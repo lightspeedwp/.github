@@ -27,9 +27,11 @@ Comprehensive planning documentation for Reports & Projects Restructuring Initia
 ## Related Issues
 
 Resolves scope of planning phase:
+
 - [#1732](https://github.com/lightspeedwp/.github/issues/1732) — Phase 1: Audit & Planning ✅
 
 Sets foundation for:
+
 - [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
 - [#1738](https://github.com/lightspeedwp/.github/issues/1738) — OpenSpec Agent-Tool Permission Alignment Epic
 

@@ -4,8 +4,8 @@ description: "Project-local guidance for storing OpenSpec changes under .github/
 file_type: "documentation"
 status: active
 created_date: "2026-06-03"
-last_updated: "2026-08-07"
-version: "v1.0.0"
+last_updated: "2026-08-11"
+version: "v1.1.0"
 authors: ["github-copilot"]
 tags: ["openspec", "opsx", "projects", "active"]
 ---
@@ -31,22 +31,26 @@ The symlink keeps CLI behaviour unchanged while storing project artefacts in the
 OpenSpec is a **structured specification system** for tracking and coordinating major changes across the repository.
 
 **What's Here:**
+
 - `changes/` — Active specifications (proposals, designs, formal specs)
 - `RFC.md` — Request for Comments establishing OpenSpec coordination model
 - `COORDINATION_PLAN.md` — Implementation plan for GitHub issue linking
 
 **Key Documents:**
+
 - **[RFC.md](./RFC.md)** — Read this first to understand the OpenSpec coordination model
 - **[COORDINATION_PLAN.md](./COORDINATION_PLAN.md)** — Step-by-step implementation plan
 
 ## Active Specifications
 
 ### 1. Agent-Tool Permission Alignment
+
 **Purpose:** Canonical contract for agent tool access & permissions  
 **Status:** 🟢 Active (Proposal phase)  
 **Docs:** [proposal.md](./changes/agent-tool-permission-alignment/proposal.md) · [design.md](./changes/agent-tool-permission-alignment/design.md) · [spec.md](./changes/agent-tool-permission-alignment/specs/agent-tool-permission-contract/spec.md)
 
 ### 2. Test Coverage Implementation
+
 **Purpose:** Expand test coverage to 80%+ (62-task programme)  
 **Status:** 🟢 Active (Planning phase)  
 **Docs:** [proposal.md](./changes/test-coverage-implementation/proposal.md) · [design.md](./changes/test-coverage-implementation/design.md) · [spec.md](./changes/test-coverage-implementation/specs/coverage-programme-issue-chain/spec.md)
@@ -54,6 +58,7 @@ OpenSpec is a **structured specification system** for tracking and coordinating 
 ## GitHub Issues
 
 **Agent-Tool Permission Alignment Spec:**
+
 - [#1738](https://github.com/lightspeedwp/.github/issues/1738) — Epic: Agent-Tool Permission Contract
 - [#1739](https://github.com/lightspeedwp/.github/issues/1739) — Phase 1: Audit existing agent specs
 - [#1740](https://github.com/lightspeedwp/.github/issues/1740) — Phase 2: Design contract & tiers
@@ -61,6 +66,7 @@ OpenSpec is a **structured specification system** for tracking and coordinating 
 - [#1742](https://github.com/lightspeedwp/.github/issues/1742) — Phase 4: Review & approve all specs
 
 **Test Coverage Implementation Spec:**
+
 - [#1743](https://github.com/lightspeedwp/.github/issues/1743) — Epic: Test Coverage Expansion to 80%+
 - [#1744](https://github.com/lightspeedwp/.github/issues/1744) — Phase 1: Test Coverage Expansion
 - [#1745](https://github.com/lightspeedwp/.github/issues/1745) — Phase 2: Test Coverage Expansion
