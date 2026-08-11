@@ -171,7 +171,7 @@ function appendEntry(changelogContent, entry) {
   const { category = 'Changed', text = '' } = entry;
 
   // Find entire [Unreleased] section — must capture all content until next version heading or reference links
-  const unreleasedRegex = /## \[Unreleased\]([\s\S]*?)(?=\n## \[[\d.]+\]|\n\[Unreleased\]:|\n\[[\w-]+\]:|\z)/;
+  const unreleasedRegex = /## \[Unreleased\]([\s\S]*?)(?=\n## \[[\d.]+\]|\n\[Unreleased\]:|\n\[[\w-]+\]:|$)/;
   const match = changelogContent.match(unreleasedRegex);
 
   if (!match) {
@@ -183,7 +183,8 @@ function appendEntry(changelogContent, entry) {
   const unreleasedContent = match[1];
 
   // Check if category already exists in [Unreleased]
-  const categoryRegex = new RegExp(`### ${category}\\n([\\s\\S]*?)(?=\\n###|\\n## |\\n\\[|\\z)`, 'i');
+  const escapedCategory = category.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const categoryRegex = new RegExp(`### ${escapedCategory}\\n([\\s\\S]*?)(?=\\n###|\\n## |\\n\\[|$)`, 'i');
   const categoryMatch = unreleasedContent.match(categoryRegex);
 
   if (categoryMatch) {

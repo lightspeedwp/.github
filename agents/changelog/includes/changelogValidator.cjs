@@ -28,16 +28,11 @@ function validateEntryFormat(entry = {}) {
     );
   }
 
-  // Em-dash validation (not hyphen)
-  const hasHyphenForDash = /[A-Za-z]-[A-Za-z]/.test(title) ||
-    /[A-Za-z]-[A-Za-z]/.test(description);
+  // Em-dash validation: flag " - " (spaced hyphens used for pauses), not compound words
+  const hasSpacedHyphen = / - /.test(title) || / - /.test(description);
 
-  if (hasHyphenForDash) {
-    // Allow hyphens in words like "test-case", but flag em-dashes should be em-dashes
-    const isMultiWordHyphenated = /\w-\w/.test(title + description);
-    if (isMultiWordHyphenated) {
-      errors.push('Use em-dashes (—) instead of hyphens (-) for pauses');
-    }
+  if (hasSpacedHyphen) {
+    errors.push('Use em-dashes (—) instead of hyphens (-) for pauses');
   }
 
   // PR link validation
