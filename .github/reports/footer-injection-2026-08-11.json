@@ -1,0 +1,25 @@
+{
+  "filesProcessed": 3209,
+  "filesSkipped": 3207,
+  "filesInjected": 2,
+  "filesFailed": 0,
+  "errors": [],
+  "changes": [
+    {
+      "file": "instructions/saved-replies.instructions.md",
+      "category": "instructions",
+      "footer": "instructions-blueprint",
+      "backup": "/Users/ash/Studio/.github/.claude/worktrees/issue-maintenance-workflows-405070/.github/tmp/footer-backups/saved-replies.instructions.md.backup"
+    },
+    {
+      "file": "instructions/reviewer.instructions.md",
+      "category": "instructions",
+      "footer": "instructions-blueprint",
+      "backup": "/Users/ash/Studio/.github/.claude/worktrees/issue-maintenance-workflows-405070/.github/tmp/footer-backups/reviewer.instructions.md.backup"
+    }
+  ],
+  "backups": {
+    "instructions/saved-replies.instructions.md": "/Users/ash/Studio/.github/.claude/worktrees/issue-maintenance-workflows-405070/.github/tmp/footer-backups/saved-replies.instructions.md.backup",
+    "instructions/reviewer.instructions.md": "/Users/ash/Studio/.github/.claude/worktrees/issue-maintenance-workflows-405070/.github/tmp/footer-backups/reviewer.instructions.md.backup"
+  }
+}
