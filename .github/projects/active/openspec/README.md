@@ -26,6 +26,16 @@ Current OpenSpec CLI configuration only supports global profile/workflow setting
 
 The symlink keeps CLI behaviour unchanged while storing project artefacts in the preferred active planning structure.
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#TBD](../../../issues/TBD) | epic | OpenSpec specification tracking & coordination | 🟢 Open |
+| [#TBD](../../../issues/TBD) | task | Agent-Tool Permission Alignment spec | 🟢 Open |
+| [#TBD](../../../issues/TBD) | task | Test Coverage Implementation spec | 🟢 Open |
+
+*Note: Issue links will be populated once GitHub issues are created. See [reports-projects-restructuring-2026-08-11](../reports-projects-restructuring-2026-08-11/) for linking coordination.*
+
 ## Operational notes
 
 1. Run OpenSpec commands from repository root as usual.

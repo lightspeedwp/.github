@@ -1,0 +1,153 @@
+---
+title: "Reports & Projects Restructuring Initiative"
+description: "Comprehensive reorganization of .github/reports/ and .github/projects/active/ folders with proper categorization, linking, and archival strategy."
+status: "active"
+created_date: "2026-08-11"
+last_updated: "2026-08-11"
+author: "Ash Shaw"
+epic: true
+---
+
+# Reports & Projects Restructuring Initiative
+
+## Vision
+
+Establish a scalable, maintainable structure for reports and active projects that:
+- **Organizes reports by lifecycle** (active, archived, historical)
+- **Links all projects to GitHub issues** bidirectionally
+- **Preserves link integrity** when archiving completed projects
+- **Prevents link rot** through automated validation
+- **Enables clean discovery** of current vs. historical work
+
+## Current State
+
+**Reports Audit Results (2026-08-11):**
+- 106 total markdown files
+- 10+ categories (partially organized)
+- ~80 orphaned reports (0 references)
+- 25 weekly summaries (completely orphaned)
+- Key reports: wave-5-documentation-audit (33 refs), phase-1-audits (15+ refs)
+
+**Projects Audit Results (2026-08-11):**
+- 31 active projects
+- 29/31 with issue links ✅
+- 2/31 without issue links ⚠️ (openspec, markdown-audit-ci-optimization)
+- All created within last 3 months (very active)
+- 6 projects with external codebase references
+
+## Strategic Goals
+
+| Goal | Target | Status |
+|------|--------|--------|
+| **Reports organized** | 0 reports in root; all categorized | 0% |
+| **Projects linked** | All projects have ≥1 linked issue | 93.5% |
+| **Bidirectional linking** | All projects ↔ issues linked | 60% |
+| **Archive strategy** | Documented process, optional automation | 0% |
+| **Validation in CI** | CI checks for orphaned projects/reports | 0% |
+
+## Phases
+
+### Phase 1: Audit & Planning (Current)
+**Deliverable:** Complete analysis + planning documents  
+**Related Issues:** #TBD  
+**Timeline:** 1 week (2026-08-11 to 2026-08-17)
+
+- [x] Audit reports inventory
+- [x] Audit projects inventory
+- [x] Identify linking gaps
+- [ ] Design report folder structure
+- [ ] Design archival strategy
+- [ ] Create bidirectional linking standard
+- [ ] Create comprehensive execution plan
+
+### Phase 2: Folder Structure & Linking (Planned)
+**Deliverable:** New folder structure in place + all projects linked  
+**Related Issues:** #TBD  
+**Timeline:** 2 weeks (2026-08-18 to 2026-08-31)
+
+- [ ] Create new report folder structure
+- [ ] Migrate reports (80 → archive, 25 → archive/weekly-summaries)
+- [ ] Link unlinked projects (openspec, markdown-audit-ci-optimization)
+- [ ] Add "Related Issues" section to all projects
+- [ ] Update GitHub issues with "Related Projects" comments
+
+### Phase 3: Archive Workflow & Automation (Planned)
+**Deliverable:** Automated or manual archive process + CI validation  
+**Related Issues:** #TBD  
+**Timeline:** 2 weeks (2026-09-01 to 2026-09-14)
+
+- [ ] Create `.archive-status.md` template
+- [ ] Design archive workflow (GitHub Action or script)
+- [ ] Implement CI validation for linked projects
+- [ ] Document archive process in CLAUDE.md
+- [ ] Archive completed projects with `.archive-status.md`
+
+### Phase 4: Cleanup & Documentation (Planned)
+**Deliverable:** Final cleanup + updated project documentation  
+**Related Issues:** #TBD  
+**Timeline:** 1 week (2026-09-15 to 2026-09-21)
+
+- [ ] Clean up temporary/test reports
+- [ ] Update `.github/reports/README.md` with lifecycle policy
+- [ ] Update CLAUDE.md with new structure reference
+- [ ] Publish linking standard to `docs/`
+- [ ] Update this project with completion status
+
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| #TBD | epic | Master epic for full initiative | 🔄 TBD |
+| #TBD | task | Phase 1: Audit & Planning | 🔄 TBD |
+| #TBD | task | Phase 2: Folder Structure & Linking | ⏳ TBD |
+| #TBD | task | Phase 3: Archive Workflow | ⏳ TBD |
+| #TBD | task | Phase 4: Cleanup & Documentation | ⏳ TBD |
+| #TBD | task | Link openspec to GitHub issues | 🔄 TBD |
+| #TBD | task | Link markdown-audit-ci-optimization | 🔄 TBD |
+
+## Key Documents
+
+- **[AUDIT_RESULTS.md](./AUDIT_RESULTS.md)** — Full audit output (reports + projects inventory)
+- **[PLANNING.md](./PLANNING.md)** — Detailed planning for each phase
+- **[REPORT_CATEGORIZATION_PLAN.md](./REPORT_CATEGORIZATION_PLAN.md)** — New folder structure & migration map
+- **[LINKING_STANDARD.md](./LINKING_STANDARD.md)** — Bidirectional linking patterns & templates
+- **[ARCHIVE_STRATEGY.md](./ARCHIVE_STRATEGY.md)** — Archive process & automation design
+- **[EXECUTION_PLAN.md](./EXECUTION_PLAN.md)** — Step-by-step implementation guide
+
+## Quick Stats
+
+| Metric | Value |
+|--------|-------|
+| Total Reports | 106 |
+| Safe to Archive | 80+ |
+| Active/Preserve | 25 |
+| Total Projects | 31 |
+| Linked Projects | 29 (93.5%) |
+| Unlinked Projects | 2 (6.5%) |
+| Estimated Effort | 4-6 weeks |
+| Risk Level | Low (link preservation strategy in place) |
+
+## Success Criteria
+
+- [ ] Reports organized into active/archive/history folders
+- [ ] Zero reports in `.github/reports/` root
+- [ ] All 31 projects have ≥1 linked GitHub issue
+- [ ] Bidirectional linking templates created & documented
+- [ ] Archive workflow designed (manual or automated)
+- [ ] CI validation for project linking in place
+- [ ] All cleanup work tracked in GitHub issues
+- [ ] Final state documented in CLAUDE.md
+
+## Next Steps
+
+1. **Create GitHub Issues** → Link this project to all sub-tasks
+2. **Review Planning Documents** → Approve structure & timelines
+3. **Execute Phase 1 Cleanup** → Archive orphaned reports
+4. **Implement Phase 2** → Folder migration + project linking
+5. **Automate Phase 3** → Archive workflow + CI validation
+
+---
+
+**Project Owner:** Ash Shaw  
+**Last Updated:** 2026-08-11  
+**Status:** 🔄 Active (Phase 1: Planning)
