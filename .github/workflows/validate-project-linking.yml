@@ -115,8 +115,8 @@ jobs:
             if [ -f "$project_dir/README.md" ]; then
               project_name=$(basename "$project_dir")
 
-              # Count issue links in Related Issues section
-              issue_count=$(grep -oP '\[#\d+\]' "$project_dir/README.md" | wc -l)
+              # Count issue links in Related Issues section (both [#XXXX] and bare #XXXX formats)
+              issue_count=$(grep -oE '(\[)?#\d+(\])?|#\d+' "$project_dir/README.md" | grep -E '#[0-9]' | wc -l)
 
               if [ "$issue_count" -eq 0 ]; then
                 orphaned+=("$project_name")
