@@ -3,6 +3,16 @@
  */
 
 import { describe, it, expect, beforeEach, jest } from "@jest/globals";
+
+// Mock the LabelManager and ReportGenerator BEFORE importing review-status-labels
+jest.mock("../includes/label-management.js", () => ({
+  LabelManager: jest.fn(),
+}));
+jest.mock("../includes/report-generator.js", () => ({
+  ReportGenerator: jest.fn(),
+}));
+
+// Now import the modules and functions after mocking dependencies
 import { ActivityAnalyzer } from "../includes/activity-analyzer.js";
 import {
   auditStatusLabels,
@@ -11,16 +21,6 @@ import {
   extractBlockers,
   generateRecommendations,
 } from "../review-status-labels.js";
-
-// Mock the LabelManager and ReportGenerator
-jest.mock("../includes/label-management.js", () => ({
-  LabelManager: jest.fn(),
-}));
-jest.mock("../includes/report-generator.js", () => ({
-  ReportGenerator: jest.fn(),
-}));
-
-// Import LabelManager after mocking
 import { LabelManager } from "../includes/label-management.js";
 
 describe("Review Status Labels Script", () => {
@@ -29,156 +29,6 @@ describe("Review Status Labels Script", () => {
     process.env.GITHUB_TOKEN = "test-token";
   });
 
-  // Audit function for testing (simplified version)
-  async function auditStatusLabels(options = {}) {
-    const {
-      verbose = false,
-      dryRun = false,
-      format = "json",
-      output = null,
-      label = null,
-    } = options;
-
-    const startTime = Date.now();
-
-    try {
-      const manager = new LabelManager({ verbose });
-      const analyzer = new ActivityAnalyzer({ verbose });
-
-      const STATUS_LABELS = ["status:needs-review", "status:needs-triage"];
-      const allIssues = new Map();
-      const issuesByLabel = {};
-
-      for (const statusLabel of STATUS_LABELS) {
-        const issues = await manager.fetchIssuesWithLabel(statusLabel, {
-          limit: 500,
-        });
-        issuesByLabel[statusLabel] = issues.length;
-
-        issues.forEach((issue) => {
-          if (!allIssues.has(issue.number)) {
-            allIssues.set(issue.number, issue);
-          }
-        });
-      }
-
-      const analyzedIssues = [];
-      const ageDistribution = { fresh: 0, pending: 0, overdue: 0 };
-      const assignmentStats = { assigned: 0, unassigned: 0 };
-      const blockerStats = { hasBlockers: 0, blockedBy: 0, blocking: 0 };
-
-      allIssues.forEach((issue) => {
-        const analysis = analyzeStatusIssue(issue, analyzer);
-        analyzedIssues.push(analysis);
-
-        ageDistribution[analysis.ageCategory]++;
-
-        if (analysis.isAssigned) {
-          assignmentStats.assigned++;
-        } else {
-          assignmentStats.unassigned++;
-        }
-
-        if (analysis.blockers.length > 0) {
-          blockerStats.blockedBy++;
-        }
-      });
-
-      const blockedIssues = new Set();
-      analyzedIssues.forEach((issue) => {
-        issue.blockers.forEach((b) => {
-          blockedIssues.add(b);
-        });
-      });
-
-      blockerStats.blocking = blockedIssues.size;
-
-      const sortedByAge = [...analyzedIssues].sort(
-        (a, b) => b.daysSinceUpdate - a.daysSinceUpdate,
-      );
-
-      const oldestByStatus = {};
-      STATUS_LABELS.forEach((lbl) => {
-        const issuesWithLabel = analyzedIssues.filter((i) =>
-          i.statusLabels.includes(lbl),
-        );
-        issuesWithLabel.sort((a, b) => b.daysSinceUpdate - a.daysSinceUpdate);
-        oldestByStatus[lbl] = issuesWithLabel.slice(0, 5);
-      });
-
-      const recommendations = generateRecommendations({
-        issues: analyzedIssues,
-      });
-
-      recommendations.sort((a, b) => {
-        const severityOrder = { high: 0, medium: 1, low: 2 };
-        return severityOrder[a.severity] - severityOrder[b.severity];
-      });
-
-      const report = {
-        audit_date: new Date().toISOString(),
-        total_issues: allIssues.size,
-        issues_by_label: issuesByLabel,
-        age_distribution: ageDistribution,
-        assignment_stats: assignmentStats,
-        blocker_stats: blockerStats,
-        oldest_issues: sortedByAge.slice(0, 10),
-        oldest_by_status: oldestByStatus,
-        recommendations: recommendations.slice(0, 50),
-        all_issues: analyzedIssues,
-        summary: {
-          total_recommendations: recommendations.length,
-          critical_unassigned_overdue: recommendations.filter(
-            (r) => r.severity === "high" && r.type === "unassigned-overdue",
-          ).length,
-          blocking_issues: recommendations.filter(
-            (r) => r.type === "blocking-issues",
-          ).length,
-          action_items: recommendations.filter((r) => r.severity !== "low")
-            .length,
-        },
-      };
-
-      if (label && !STATUS_LABELS.includes(label)) {
-        return {
-          success: false,
-          error: `Label not found: ${label}. Available labels: ${STATUS_LABELS.join(", ")}`,
-          duration: Date.now() - startTime,
-        };
-      }
-
-      if (label) {
-        const filtered = {
-          ...report,
-          issues_by_label: { [label]: report.issues_by_label[label] },
-          oldest_by_status: { [label]: report.oldest_by_status[label] },
-          all_issues: analyzedIssues.filter((i) =>
-            i.statusLabels.includes(label),
-          ),
-        };
-        return {
-          success: true,
-          report: filtered,
-          duration: Date.now() - startTime,
-          dryRun,
-        };
-      }
-
-      return {
-        success: true,
-        report,
-        duration: Date.now() - startTime,
-        dryRun,
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.message,
-        duration: Date.now() - startTime,
-      };
-    }
-  }
-
   describe("categorizeAge", () => {
     it("should categorize fresh issues (0-3 days)", () => {
       expect(categorizeAge(0)).toBe("fresh");
@@ -186,7 +36,7 @@ describe("Review Status Labels Script", () => {
       expect(categorizeAge(3)).toBe("fresh");
     });
 
-    it("should categorize pending issues (3-7 days)", () => {
+    it("should categorize pending issues (4-7 days)", () => {
       expect(categorizeAge(4)).toBe("pending");
       expect(categorizeAge(5)).toBe("pending");
       expect(categorizeAge(7)).toBe("pending");
