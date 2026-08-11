@@ -1,3 +1,13 @@
+## GitHub Coordination
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1738](../../../../issues/1738) | epic | Agent-Tool Permission Contract — Master epic | 🟢 Open |
+| [#1739](../../../../issues/1739) | task | Phase 1: Audit existing agent specs | 🟢 Open |
+| [#1740](../../../../issues/1740) | task | Phase 2: Design contract & tiers | ⏳ Planned |
+| [#1741](../../../../issues/1741) | task | Phase 3: Implement validation & CI | ⏳ Planned |
+| [#1742](../../../../issues/1742) | task | Phase 4: Review & approve all specs | ⏳ Planned |
+
 ## Why
 
 Agent specifications in this repository are inconsistent in tool declarations and permissions, which causes unpredictable execution behaviour and weakens MCP security posture. We need a single enforceable contract based on the release agent model so all agents can execute safely and consistently.

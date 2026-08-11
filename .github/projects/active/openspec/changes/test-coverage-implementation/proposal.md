@@ -1,3 +1,15 @@
+## GitHub Coordination
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1743](../../../../issues/1743) | epic | Test Coverage Expansion to 80%+ — Master epic | 🟢 Open |
+| [#1744](../../../../issues/1744) | task | Phase 1: Test Coverage Expansion | 🟢 Open |
+| [#1745](../../../../issues/1745) | task | Phase 2: Test Coverage Expansion | ⏳ Planned |
+| [#1746](../../../../issues/1746) | task | Phase 3: Test Coverage Expansion | ⏳ Planned |
+| [#1747](../../../../issues/1747) | task | Phase 4: Test Coverage Expansion | ⏳ Planned |
+| [#1748](../../../../issues/1748) | task | Phase 5: Test Coverage Expansion | ⏳ Planned |
+| [#1749](../../../../issues/1749) | task | Phase 6: Test Coverage Expansion | ⏳ Planned |
+
 ## Why
 
 The test coverage implementation programme is currently a detailed task list but not yet a governed issue chain. Without a tracked parent issue and phase issues, the coverage work can drift, remain partially done, or get closed with incomplete checklists.
