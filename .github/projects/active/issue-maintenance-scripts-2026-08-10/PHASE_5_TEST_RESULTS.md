@@ -156,19 +156,23 @@ Phase 5 integration testing has validated core deliverables from Phases 1–4. I
 
 ## Known Issues
 
-### 1. Missing octokit Dependency
+### ✅ RESOLVED: octokit Dependency
 
-**Severity:** 🔴 High  
-**Status:** Issue #1782 created  
+**Severity:** ✅ False Alarm  
+**Status:** Issue #1782 Closed (Resolved)  
 **Details:**
 
-- Package not in `package.json` dependencies
-- Installed as transitive via other packages
-- Requires manual `npm install octokit --save` for users
+- octokit IS properly declared in package.json (v5.0.5)
+- Original error was transient npm installation issue
+- Resolved after `npm ci` completed successfully
 
-**Impact:** CLI fails if package.json is the only installation source.
+**Resolution:** No action required. Dependency is correct.
 
-**Resolution:** Add to package.json dependencies and update lock file.
+**Verification:**
+
+- `npm list octokit` → v5.0.5 installed ✅
+- CLI loads successfully with valid token ✅
+- Error handling works correctly (shows helpful messages) ✅
 
 ---
 
@@ -176,9 +180,9 @@ Phase 5 integration testing has validated core deliverables from Phases 1–4. I
 
 ### Immediate (Critical)
 
-1. **Resolve Issue #1782** — Add octokit to package.json
-2. **Re-test CLI** after dependency fix with valid token
-3. **Execute workflow tests** (manual trigger + validation)
+1. ✅ **Resolve Issue #1782** — octokit verified in package.json
+2. ✅ **Re-test CLI** — loads successfully, authenticates with token
+3. 🔄 **Execute workflow tests** — manual trigger + validation (next)
 
 ### Medium-term (Phase 5 Continuation)
 
