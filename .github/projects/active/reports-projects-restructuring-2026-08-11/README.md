@@ -97,13 +97,13 @@ Establish a scalable, maintainable structure for reports and active projects tha
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| #TBD | epic | Master epic for full initiative | 🔄 TBD |
-| #TBD | task | Phase 1: Audit & Planning | 🔄 TBD |
-| #TBD | task | Phase 2: Folder Structure & Linking | ⏳ TBD |
-| #TBD | task | Phase 3: Archive Workflow | ⏳ TBD |
-| #TBD | task | Phase 4: Cleanup & Documentation | ⏳ TBD |
-| #TBD | task | Link openspec to GitHub issues | 🔄 TBD |
-| #TBD | task | Link markdown-audit-ci-optimization | 🔄 TBD |
+| [#1731](https://github.com/lightspeedwp/.github/issues/1731) | epic | Master epic for full initiative | 🟢 Open |
+| [#1732](https://github.com/lightspeedwp/.github/issues/1732) | task | Phase 1: Audit & Planning | ✅ Complete |
+| [#1733](https://github.com/lightspeedwp/.github/issues/1733) | task | Phase 2: Folder Structure & Linking | ⏳ Planned |
+| [#1734](https://github.com/lightspeedwp/.github/issues/1734) | task | Phase 3: Archive Workflow | ⏳ Planned |
+| [#1735](https://github.com/lightspeedwp/.github/issues/1735) | task | Phase 4: Cleanup & Documentation | ⏳ Planned |
+| [#1736](https://github.com/lightspeedwp/.github/issues/1736) | task | Link openspec to GitHub issues | 🟢 Open |
+| [#1737](https://github.com/lightspeedwp/.github/issues/1737) | task | Link markdown-audit-ci-optimization | 🟢 Open |
 
 ## Key Documents
 

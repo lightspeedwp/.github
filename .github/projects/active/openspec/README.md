@@ -51,20 +51,23 @@ OpenSpec is a **structured specification system** for tracking and coordinating 
 **Status:** 🟢 Active (Planning phase)  
 **Docs:** [proposal.md](./changes/test-coverage-implementation/proposal.md) · [design.md](./changes/test-coverage-implementation/design.md) · [spec.md](./changes/test-coverage-implementation/specs/coverage-programme-issue-chain/spec.md)
 
-## GitHub Issues (To Be Created)
+## GitHub Issues
 
 **Agent-Tool Permission Alignment Spec:**
-- Epic: Coordinate agent-tool permission contract work
-- Phase 1: Audit existing agent specs
-- Phase 2: Design contract & tiers
-- Phase 3: Implement validation & CI enforcement
-- Phase 4: Review & approve all agent specs
+- [#1738](https://github.com/lightspeedwp/.github/issues/1738) — Epic: Agent-Tool Permission Contract
+- [#1739](https://github.com/lightspeedwp/.github/issues/1739) — Phase 1: Audit existing agent specs
+- [#1740](https://github.com/lightspeedwp/.github/issues/1740) — Phase 2: Design contract & tiers
+- [#1741](https://github.com/lightspeedwp/.github/issues/1741) — Phase 3: Implement validation & CI
+- [#1742](https://github.com/lightspeedwp/.github/issues/1742) — Phase 4: Review & approve all specs
 
 **Test Coverage Implementation Spec:**
-- Epic: Expand test coverage to 80%+
-- Phase 1-6: One issue per phase (mapped to OpenSpec input files)
-
-*Issue numbers will be populated here after creation. See [COORDINATION_PLAN.md](./COORDINATION_PLAN.md#step-2-update-proposalmd-files-with-issue-links).*
+- [#1743](https://github.com/lightspeedwp/.github/issues/1743) — Epic: Test Coverage Expansion to 80%+
+- [#1744](https://github.com/lightspeedwp/.github/issues/1744) — Phase 1: Test Coverage Expansion
+- [#1745](https://github.com/lightspeedwp/.github/issues/1745) — Phase 2: Test Coverage Expansion
+- [#1746](https://github.com/lightspeedwp/.github/issues/1746) — Phase 3: Test Coverage Expansion
+- [#1747](https://github.com/lightspeedwp/.github/issues/1747) — Phase 4: Test Coverage Expansion
+- [#1748](https://github.com/lightspeedwp/.github/issues/1748) — Phase 5: Test Coverage Expansion
+- [#1749](https://github.com/lightspeedwp/.github/issues/1749) — Phase 6: Test Coverage Expansion
 
 ## Operational notes
 
