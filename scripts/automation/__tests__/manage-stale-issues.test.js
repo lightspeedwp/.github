@@ -3,46 +3,28 @@ import {
   analyzeIssue,
   shouldExclude,
 } from "../manage-stale-issues.js";
-import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
 
 // Mock Octokit and utilities
-vi.mock("octokit", () => ({
-  Octokit: vi.fn(() => ({
+jest.mock("octokit", () => ({
+  Octokit: jest.fn(() => ({
     rest: {
       issues: {
-        list: vi.fn(),
-        addLabels: vi.fn(),
-        removeLabels: vi.fn(),
-        createComment: vi.fn(),
-        update: vi.fn(),
+        list: jest.fn(),
+        addLabels: jest.fn(),
+        removeLabels: jest.fn(),
+        createComment: jest.fn(),
+        update: jest.fn(),
       },
     },
   })),
 }));
 
 describe("manage-stale-issues.js", () => {
-  let mockLabelManager;
-  let mockAnalyzer;
-
-  beforeEach(() => {
-    // Mock LabelManager
-    mockLabelManager = {
-      fetchAllIssues: vi.fn(),
-      addLabel: vi.fn(),
-      removeLabel: vi.fn(),
-      hasLabel: vi.fn(),
-    };
-
-    // Mock ActivityAnalyzer
-    mockAnalyzer = {
-      isStale: vi.fn(),
-      getDaysSinceActivity: vi.fn(),
-      getLastActivityDate: vi.fn(),
-    };
-  });
+  beforeEach(() => {});
 
   afterEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   describe("parseArgs", () => {
@@ -278,7 +260,7 @@ describe("manage-stale-issues.js", () => {
   describe("manageStaleIssues", () => {
     it("should handle empty issue list", async () => {
       const mockManager = {
-        fetchAllIssues: vi.fn().mockResolvedValue([]),
+        fetchAllIssues: jest.fn().mockResolvedValue([]),
       };
 
       // Can't easily test this without mocking the entire module

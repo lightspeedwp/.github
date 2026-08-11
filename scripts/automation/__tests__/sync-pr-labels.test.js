@@ -1,11 +1,11 @@
-import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
 
 // Mock octokit
-vi.mock("octokit", () => ({
-  Octokit: vi.fn(() => ({
+jest.mock("octokit", () => ({
+  Octokit: jest.fn(() => ({
     rest: {
       pulls: {
-        get: vi.fn(),
+        get: jest.fn(),
       },
     },
   })),
@@ -16,21 +16,21 @@ describe("sync-pr-labels.js", () => {
 
   beforeEach(() => {
     mockLabelManager = {
-      fetchAllIssues: vi.fn(),
-      addLabel: vi.fn(),
-      removeLabel: vi.fn(),
-      hasLabel: vi.fn(),
-      getLabels: vi.fn(),
+      fetchAllIssues: jest.fn(),
+      addLabel: jest.fn(),
+      removeLabel: jest.fn(),
+      hasLabel: jest.fn(),
+      getLabels: jest.fn(),
     };
 
     // Mock LabelManager constructor
-    vi.spyOn(global, "LabelManager", "get").mockReturnValue(
-      () => mockLabelManager,
-    );
+    jest
+      .spyOn(global, "LabelManager", "get")
+      .mockReturnValue(() => mockLabelManager);
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   describe("PR detection", () => {
