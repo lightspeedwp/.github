@@ -61,9 +61,6 @@ describe("review-meta-labels", () => {
     });
 
     it("should handle zero issues gracefully", () => {
-      const totalIssues = 0;
-      const labelCount = 0;
-
       const percentage = 0;
       expect(percentage).toBe(0);
     });
