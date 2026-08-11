@@ -328,10 +328,10 @@ package.json                      # (add setup:hooks command in Phase 3.2)
 ## Related Links
 
 - **Parent Epic:** [#1755 - Branch Naming Enforcement Workflow](https://github.com/lightspeedwp/.github/issues/1755)
-- **Authoritative Source:** [docs/BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md)
+- **Authoritative Source:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
 - **Existing Script:** `npm run validate:branch-name`
-- **Model Workflow:** [.github/workflows/main-branch-guard.yml](../.github/workflows/main-branch-guard.yml)
-- **PR Templates:** [.github/PULL_REQUEST_TEMPLATE/config.yml](../.github/PULL_REQUEST_TEMPLATE/config.yml)
+- **Model Workflow:** [.github/workflows/main-branch-guard.yml](../../../../.github/workflows/main-branch-guard.yml)
+- **PR Templates:** [.github/PULL_REQUEST_TEMPLATE/config.yml](../../../../.github/PULL_REQUEST_TEMPLATE/config.yml)
 
 ---
 

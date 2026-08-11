@@ -261,9 +261,9 @@ Link branch names to issue keys (e.g., `feat/PROJ-123-description`)
 
 ## Resources & References
 
-- [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md) — Authoritative branching rules
-- [main-branch-guard.yml](../.github/workflows/main-branch-guard.yml) — Existing branch protection workflow (model)
-- [validate-branch-name script](../../../npm/validate:branch-name) — Existing validation utility
+- [BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md) — Authoritative branching rules
+- [main-branch-guard.yml](../../../../.github/workflows/main-branch-guard.yml) — Existing branch protection workflow (model)
+- `npm run validate:branch-name` — Existing validation utility script
 - Git Hooks Documentation: <https://git-scm.com/docs/githooks>
 
 ## Approval & Next Steps

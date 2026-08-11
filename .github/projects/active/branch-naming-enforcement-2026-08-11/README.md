@@ -41,10 +41,10 @@ This initiative addresses recurring violations of the branch naming convention `
 
 ## Key References
 
-- **Branching Strategy:** [docs/BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md)
+- **Branching Strategy:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
 - **Validation Script:** `npm run validate:branch-name`
-- **Existing Enforcement:** `.github/workflows/main-branch-guard.yml` (model for implementation)
-- **PR Templates:** [.github/PULL_REQUEST_TEMPLATE/config.yml](../.github/PULL_REQUEST_TEMPLATE/config.yml)
+- **Existing Enforcement:** [.github/workflows/main-branch-guard.yml](../../../../.github/workflows/main-branch-guard.yml) (model for implementation)
+- **PR Templates:** [.github/PULL_REQUEST_TEMPLATE/config.yml](../../../../.github/PULL_REQUEST_TEMPLATE/config.yml)
 
 ## Deliverables
 
@@ -84,8 +84,8 @@ This initiative addresses recurring violations of the branch naming convention `
 ## Related Issues & Epics
 
 - **Epic:** [#1755 - Branch Naming Enforcement Workflow](https://github.com/lightspeedwp/.github/issues/1755) (parent epic)
-- **Related:** [docs/BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md)
-- **Related:** [.github/workflows/main-branch-guard.yml](../.github/workflows/main-branch-guard.yml)
+- **Related:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
+- **Related:** [.github/workflows/main-branch-guard.yml](../../../../.github/workflows/main-branch-guard.yml)
 
 ---
 
