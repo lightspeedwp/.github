@@ -266,8 +266,8 @@ async function processClosedIssues(issues, milestone) {
   for (const issue of issues) {
     // Skip PRs (they'll be handled separately)
     if (issue.pull_request) {
-      log(
-        `   ⏭️  #${issue.number} is a PR, skipping (will be processed in PR phase)`,
+      verbose(
+        `⏭️  #${issue.number} is a PR, skipping (will be processed in PR phase)`,
       );
       continue;
     }
@@ -275,8 +275,8 @@ async function processClosedIssues(issues, milestone) {
     const alreadyAllocated =
       issue.milestone && issue.milestone.number === milestone.number;
     if (alreadyAllocated) {
-      log(
-        `   ⏭️  #${issue.number} already allocated to this milestone, skipping`,
+      verbose(
+        `⏭️  #${issue.number} already allocated to this milestone, skipping`,
       );
       continue;
     }
