@@ -122,7 +122,7 @@ export class ActivityAnalyzer {
   /**
    * Categorize issue by activity level
    * @param {object} issue - Issue object from GitHub API
-   * @returns {string} Activity level: 'active', 'stale', 'dormant', 'fresh'
+   * @returns {string} Activity level: 'active', 'stale', 'dormant', 'forgotten'
    */
   categorizeByActivity(issue) {
     const daysSince = this.getDaysSinceActivity(issue);
