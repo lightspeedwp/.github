@@ -74,3 +74,11 @@ This project monitors the Node.js 22 upgrade (merged 2026-07-30) for:
 ---
 
 **See parent project:** [nodejs-upgrade-2026-q3](../nodejs-upgrade-2026-q3/README.md)
+
+## Related Issues
+
+This project is coordinated with:
+
+- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+
+See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.

@@ -216,3 +216,11 @@ Reference `.github/labels.yml` (158 canonical labels).
 ---
 
 *Built with ☕ and 🚀 by Claude Code Audit · LightSpeedWP*
+
+## Related Issues
+
+This project is coordinated with:
+
+- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+
+See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.

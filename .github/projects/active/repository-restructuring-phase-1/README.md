@@ -165,3 +165,11 @@ See [CLAUDE.md Path Reference](https://github.com/lightspeedwp/.github/blob/deve
 **Project Status:** ✅ Complete (Phase 1)  
 **Last Updated:** 2026-08-07  
 **Maintained By:** LightSpeed Team with Claude Code
+
+## Related Issues
+
+This project is coordinated with:
+
+- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+
+See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
