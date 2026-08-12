@@ -128,43 +128,93 @@ hotfix/ga4-purchase-duplicate
 
 ## 4. Branch Name Enforcement via CI
 
-### 4.1 Human and Agent Branch Discipline
+### 4.1 Two-Layer Enforcement Strategy
+
+LightSpeed `.github` repository implements a **two-layer enforcement system** combining local pre-commit validation and remote GitHub Actions checks:
+
+**Layer 1: Local Pre-Commit Hook** (optional, recommended)
+
+- Validates branch names before each commit (instant feedback)
+- Skips main/develop to avoid trapping release workflows
+- Skips detached HEAD state (rebase, merge, bisect operations)
+- Installation: `npm run setup:hooks`
+- See [SETUP_BRANCH_VALIDATION.md](./SETUP_BRANCH_VALIDATION.md) for detailed setup
+
+**Layer 2: GitHub Actions PR Validation** (mandatory)
+
+- Enforces naming rules on every pull request
+- Blocks PR merge if branch name is invalid
+- Posts detailed comment with naming rules and examples
+- Exempts `release/*` and `hotfix/*` branches on `main` (required for release flow)
+
+### 4.2 Validation Pattern
+
+Strict kebab-case pattern with three components:
+
+```regex
+^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$
+```
+
+- **Type**: One of 30+ allowed prefixes (lowercase)
+- **Scope**: Lowercase kebab-case, no underscores or uppercase
+- **Title**: Lowercase kebab-case, no underscores or uppercase
+- **Separators**: Hyphens only (no underscores, dots, or spaces)
+
+**Examples:**
+
+✓ Valid:
+
+- `feat/branch-naming-enforcement`
+- `fix/validation-script-bug`
+- `chore/update-dependencies`
+- `release/v1-0-0`
+
+✗ Invalid:
+
+- `claude/my-branch` (type not allowed)
+- `feat/MyFeature` (uppercase not allowed)
+- `feat/my_feature` (underscores not allowed)
+- `fix-bug` (missing type prefix)
+
+### 4.3 Implementation Details
+
+**Validation Script** (`scripts/validation/validate-branch-name.cjs`):
+
+- Node.js CLI tool for branch name validation
+- Supports: `--verbose`, `--show-pattern`, `--branch <name>` flags
+- Exportable function for use in hooks and workflows
+- Comprehensive unit tests (82 tests, >95% coverage)
+
+**Workflow File** (`.github/workflows/branch-name-validation.yml`):
+
+- Triggered on PR open/reopen/synchronize events
+- Creates/updates check runs for PR enforcement
+- Posts failure comments with helpful guidance
+- Exempts release/*and hotfix/* on main
+
+**Setup Command** (`npm run setup:hooks`):
+
+- Installs pre-commit hook to `.git/hooks/`
+- Works on macOS, Linux, and Windows (Git Bash)
+- One-time setup per repository clone
+
+### 4.4 Human and Agent Branch Discipline
 
 - Validate branch relevance before the first edit.
 - If the current branch belongs to a different issue, PR, or task, create a new branch from `develop` before making changes.
 - Do not reuse in-flight branches for unrelated work, even when the working tree is already open.
 - If unrelated local changes are present, use a clean worktree rather than mixing scopes.
-- Temporary audit replay branches created for PR merge prep may use the form `pr-<number>-audit` when they need to keep a live PR attached to a historical review branch.
+- Temporary audit replay branches may use the form `pr-<number>-audit` (exempted from pattern validation).
 
-Use a single regex in a workflow to enforce naming discipline:
+### 4.5 Troubleshooting
 
-```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|codex)/[a-zA-Z0-9._-]+$
-```
+If a PR is blocked due to invalid branch name:
 
-Example workflow (`.github/workflows/validate-branch-name.yml`):
+1. **Rename locally:** `git branch -m <old-name> <new-name>`
+2. **Force push:** `git push -u origin <new-name> --force-with-lease`
+3. **Update PR:** Close the old PR and open a new one from the renamed branch
 
-```yaml
-name: Validate branch name
-on:
-  pull_request:
-    types: [opened, reopened, synchronize, edited, ready_for_review]
-jobs:
-  check-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Enforce {type}/{scope}-{short-title}
-        run: |
-          BRANCH="${{ github.head_ref }}"
-          # Allow dependabot/renovate
-          if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
-          # Allow temporary audit replay branches used for PR merge prep
-          if [[ "$BRANCH" =~ ^pr-[0-9]+-audit$ ]]; then exit 0; fi
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-zA-Z0-9._-]+$ ]]; then
-            echo "❌ Branch '$BRANCH' must match the required pattern."
-            exit 1
-          fi
-```
+See [SETUP_BRANCH_VALIDATION.md - Troubleshooting](./SETUP_BRANCH_VALIDATION.md#troubleshooting) for detailed solutions.
 
 **[NEW]**
 
