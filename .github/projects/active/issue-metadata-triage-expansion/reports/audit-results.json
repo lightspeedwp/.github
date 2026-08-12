@@ -1,65 +1,321 @@
 {
   "stats": {
-    "total": 372,
+    "total": 396,
     "metrics": {
-      "typeLabels": 334,
-      "areaLabels": 267,
-      "statusLabels": 158,
-      "priorityLabels": 308,
-      "assignees": 307,
+      "typeLabels": 358,
+      "areaLabels": 277,
+      "statusLabels": 180,
+      "priorityLabels": 330,
+      "assignees": 302,
       "milestones": 297,
-      "prLinks": 331
+      "prLinks": 354
     },
     "gaps": {
       "type": 38,
-      "area": 105,
-      "status": 214,
-      "priority": 64,
-      "assignee": 65,
-      "milestone": 75,
-      "prLink": 0
+      "area": 119,
+      "status": 216,
+      "priority": 66,
+      "assignee": 94,
+      "milestone": 99,
+      "pr-link": 42
     },
     "statusLabelDistribution": {
-      "status:needs-triage": 18,
+      "status:needs-triage": 34,
       "status:needs-template-fix": 0,
-      "status:needs-more-info": 12,
+      "status:needs-more-info": 36,
       "status:needs-audit": 0,
       "status:needs-documentation": 0,
-      "status:needs-review": 3,
+      "status:needs-review": 1,
       "status:needs-planning": 17,
       "status:needs-design": 0,
       "status:needs-dev": 0,
-      "(no status label)": 214
+      "(no status label)": 216
     },
     "topGaps": [
       {
         "gap": "status",
-        "count": 214,
-        "percentage": 58
+        "count": 216,
+        "percentage": 55
       },
       {
         "gap": "area",
-        "count": 105,
-        "percentage": 28
+        "count": 119,
+        "percentage": 30
       },
       {
         "gap": "milestone",
-        "count": 75,
-        "percentage": 20
+        "count": 99,
+        "percentage": 25
       },
       {
         "gap": "assignee",
-        "count": 65,
-        "percentage": 17
+        "count": 94,
+        "percentage": 24
       },
       {
         "gap": "priority",
-        "count": 64,
+        "count": 66,
         "percentage": 17
       }
     ],
     "issuesByStatusLabel": {
       "status:needs-triage": [
+        {
+          "number": 1778,
+          "title": "fix: CHANGELOG validation — reduce formatting strictness for older entries",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci", "area:documentation"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1760,
+          "title": "[Phase 6] Team rollout, deployment, and monitoring",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1759,
+          "title": "[Phase 5.1–5.3] Documentation (setup guide and troubleshooting)",
+          "labels": {
+            "type": ["type:documentation"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1758,
+          "title": "[Phase 4.1–4.2] GitHub Actions workflow and testing",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1757,
+          "title": "[Phase 3.1] Create pre-commit hook for branch name validation",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1756,
+          "title": "[Phase 2.1] Create branch name validation script",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1743,
+          "title": "Test Coverage Expansion — 80%+ Coverage with 62-Task Programme",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1742,
+          "title": "Phase 4: Review & Approve All Agent Specs — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1741,
+          "title": "Phase 3: Implement Validation & CI Enforcement — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1740,
+          "title": "Phase 2: Design Tool/Permission Contract — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1739,
+          "title": "Phase 1: Audit Existing Agent Specs — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1738,
+          "title": "Agent-Tool Permission Contract — Canonical Tool/Permission Alignment",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1735,
+          "title": "Phase 4: Cleanup & Documentation — Reports & Projects",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1731,
+          "title": "Reports & Projects Restructuring Initiative",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": ["meta:needs-changelog"]
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1721,
+          "title": "Task: Implement manage-stale-issues.js — Stale Issue Handler",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1719,
+          "title": "Task: Implement sync-pr-labels.js — Auto-Sync PR Labels",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
         {
           "number": 1655,
           "title": "CHILD-013: Phase 4 completion and project summary",
@@ -726,8 +982,168 @@
       "status:needs-template-fix": [],
       "status:needs-more-info": [
         {
-          "number": 1691,
-          "title": "Phase 3: Implement Status-Label-Specific Handlers & Orchestrator",
+          "number": 1778,
+          "title": "fix: CHANGELOG validation — reduce formatting strictness for older entries",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci", "area:documentation"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1766,
+          "title": "Phase 4: Monitoring & Maintenance — PR/Issue Milestone Allocation",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1765,
+          "title": "Phase 3: Refinement & Rollout — PR/Issue Milestone Allocation",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1764,
+          "title": "Phase 2: Implementation & Testing — PR/Issue Milestone Allocation",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1762,
+          "title": "PR/Issue → Milestone Allocation Automation (Epic)",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1760,
+          "title": "[Phase 6] Team rollout, deployment, and monitoring",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1759,
+          "title": "[Phase 5.1–5.3] Documentation (setup guide and troubleshooting)",
+          "labels": {
+            "type": ["type:documentation"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1758,
+          "title": "[Phase 4.1–4.2] GitHub Actions workflow and testing",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1757,
+          "title": "[Phase 3.1] Create pre-commit hook for branch name validation",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1756,
+          "title": "[Phase 2.1] Create branch name validation script",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:ci"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1749,
+          "title": "Phase 6: Test Coverage Expansion — test-coverage-implementation",
           "labels": {
             "type": ["type:task"],
             "area": [],
@@ -742,8 +1158,8 @@
           "statusLabels": ["status:needs-more-info"]
         },
         {
-          "number": 1690,
-          "title": "Phase 2: Build Automated Triage Agent & Metadata Suggester",
+          "number": 1748,
+          "title": "Phase 5: Test Coverage Expansion — test-coverage-implementation",
           "labels": {
             "type": ["type:task"],
             "area": [],
@@ -758,8 +1174,8 @@
           "statusLabels": ["status:needs-more-info"]
         },
         {
-          "number": 1689,
-          "title": "Phase 1: Create Issue Metadata Audit Script",
+          "number": 1747,
+          "title": "Phase 4: Test Coverage Expansion — test-coverage-implementation",
           "labels": {
             "type": ["type:task"],
             "area": [],
@@ -771,6 +1187,278 @@
           "milestone": null,
           "gapCount": 3,
           "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1746,
+          "title": "Phase 3: Test Coverage Expansion — test-coverage-implementation",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1745,
+          "title": "Phase 2: Test Coverage Expansion — test-coverage-implementation",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1744,
+          "title": "Phase 1: Test Coverage Expansion — test-coverage-implementation",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1743,
+          "title": "Test Coverage Expansion — 80%+ Coverage with 62-Task Programme",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1742,
+          "title": "Phase 4: Review & Approve All Agent Specs — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1741,
+          "title": "Phase 3: Implement Validation & CI Enforcement — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1740,
+          "title": "Phase 2: Design Tool/Permission Contract — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1739,
+          "title": "Phase 1: Audit Existing Agent Specs — agent-tool-permission-alignment",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1738,
+          "title": "Agent-Tool Permission Contract — Canonical Tool/Permission Alignment",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1735,
+          "title": "Phase 4: Cleanup & Documentation — Reports & Projects",
+          "labels": {
+            "type": ["type:task"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1731,
+          "title": "Reports & Projects Restructuring Initiative",
+          "labels": {
+            "type": ["type:epic"],
+            "area": [],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:important"],
+            "other": ["meta:needs-changelog"]
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["area", "assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1722,
+          "title": "Epic: Issue Maintenance Scripts Phase 1 — Core Scripts Implementation",
+          "labels": {
+            "type": ["type:epic"],
+            "area": ["area:automation"],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1721,
+          "title": "Task: Implement manage-stale-issues.js — Stale Issue Handler",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1719,
+          "title": "Task: Implement sync-pr-labels.js — Auto-Sync PR Labels",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": ["status:needs-triage", "status:needs-more-info"],
+            "priority": ["priority:normal"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 2,
+          "gaps": ["assignee", "milestone"],
+          "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+        },
+        {
+          "number": 1710,
+          "title": "GitHub Actions workflow checkout creating triple .github/ path",
+          "labels": {
+            "type": [],
+            "area": [],
+            "status": ["status:needs-more-info"],
+            "priority": [],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 5,
+          "gaps": ["type", "area", "priority", "assignee", "milestone"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1707,
+          "title": "fix: planner.agent.js GITHUB_TOKEN environment issue in tests",
+          "labels": {
+            "type": ["type:bug"],
+            "area": ["area:ci", "area:tests"],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:high"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["assignee", "milestone", "pr-link"],
+          "statusLabels": ["status:needs-more-info"]
+        },
+        {
+          "number": 1705,
+          "title": "fix: handle-needs-triage.test.js API mismatch — detectArea function missing",
+          "labels": {
+            "type": ["type:bug"],
+            "area": ["area:tests"],
+            "status": ["status:needs-more-info"],
+            "priority": ["priority:high"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["assignee", "milestone", "pr-link"],
           "statusLabels": ["status:needs-more-info"]
         },
         {
@@ -852,82 +1540,6 @@
         {
           "number": 1685,
           "title": "Task: Phase 2.3 - Integrate Tier 1 Handlers into Orchestrator",
-          "labels": {
-            "type": ["type:task"],
-            "area": ["area:automation"],
-            "status": ["status:needs-more-info"],
-            "priority": ["priority:critical"],
-            "other": []
-          },
-          "assignees": [
-            {
-              "login": "ashleyshaw",
-              "id": 1805352,
-              "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/ashleyshaw",
-              "html_url": "https://github.com/ashleyshaw",
-              "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-              "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-              "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-              "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-              "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-              "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            }
-          ],
-          "milestone": null,
-          "gapCount": 1,
-          "gaps": ["milestone"],
-          "statusLabels": ["status:needs-more-info"]
-        },
-        {
-          "number": 1684,
-          "title": "Task: Phase 2.2 - Create status:needs-triage Handler",
-          "labels": {
-            "type": ["type:task"],
-            "area": ["area:automation"],
-            "status": ["status:needs-more-info"],
-            "priority": ["priority:critical"],
-            "other": []
-          },
-          "assignees": [
-            {
-              "login": "ashleyshaw",
-              "id": 1805352,
-              "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/ashleyshaw",
-              "html_url": "https://github.com/ashleyshaw",
-              "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-              "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-              "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-              "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-              "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-              "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            }
-          ],
-          "milestone": null,
-          "gapCount": 1,
-          "gaps": ["milestone"],
-          "statusLabels": ["status:needs-more-info"]
-        },
-        {
-          "number": 1683,
-          "title": "Task: Phase 2.1 - Create status:needs-template-fix Handler",
           "labels": {
             "type": ["type:task"],
             "area": ["area:automation"],
@@ -1076,108 +1688,11 @@
           "gapCount": 1,
           "gaps": ["milestone"],
           "statusLabels": ["status:needs-more-info"]
-        },
-        {
-          "number": 1679,
-          "title": "Epic: Comprehensive Issue Metadata Expansion & Automated Triage System",
-          "labels": {
-            "type": ["type:epic"],
-            "area": [],
-            "status": ["status:needs-more-info"],
-            "priority": ["priority:important"],
-            "other": []
-          },
-          "assignees": [],
-          "milestone": null,
-          "gapCount": 3,
-          "gaps": ["area", "assignee", "milestone"],
-          "statusLabels": ["status:needs-more-info"]
         }
       ],
       "status:needs-audit": [],
       "status:needs-documentation": [],
       "status:needs-review": [
-        {
-          "number": 1692,
-          "title": "feat: Issue metadata triage expansion — Phase 0 & 1 planning",
-          "labels": {
-            "type": ["type:bug", "type:feature", "type:task", "type:chore"],
-            "area": [
-              "area:tests",
-              "area:scripts",
-              "area:labels",
-              "area:automation"
-            ],
-            "status": ["status:in-progress", "status:needs-review"],
-            "priority": ["priority:critical", "priority:normal"],
-            "other": ["lang:js", "meta:needs-changelog"]
-          },
-          "assignees": [
-            {
-              "login": "ashleyshaw",
-              "id": 1805352,
-              "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/ashleyshaw",
-              "html_url": "https://github.com/ashleyshaw",
-              "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-              "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-              "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-              "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-              "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-              "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            }
-          ],
-          "milestone": null,
-          "gapCount": 2,
-          "gaps": ["milestone", "pr-link"],
-          "statusLabels": ["status:in-progress", "status:needs-review"]
-        },
-        {
-          "number": 1664,
-          "title": "docs: Phase 5-7 Planning & Documentation for Release Process Redesign",
-          "labels": {
-            "type": ["type:documentation"],
-            "area": ["area:documentation"],
-            "status": ["status:needs-review"],
-            "priority": ["priority:normal"],
-            "other": ["lang:md", "meta:needs-changelog"]
-          },
-          "assignees": [
-            {
-              "login": "ashleyshaw",
-              "id": 1805352,
-              "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/ashleyshaw",
-              "html_url": "https://github.com/ashleyshaw",
-              "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-              "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-              "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-              "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-              "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-              "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            }
-          ],
-          "milestone": null,
-          "gapCount": 1,
-          "gaps": ["milestone"],
-          "statusLabels": ["status:needs-review"]
-        },
         {
           "number": 1597,
           "title": "Complete PR #1534 governance feedback - content reconciliation",
@@ -1759,26 +2274,67 @@
       "status:needs-dev": [],
       "(no status label)": [
         {
-          "number": 1688,
-          "title": "fix: Replace invalid action SHAs with v7 tags in badge workflows",
+          "number": 1726,
+          "title": "🏥 Badge Health Check - 26 Broken Links",
           "labels": {
-            "type": [],
-            "area": [],
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": [],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["status", "assignee", "milestone"],
+          "statusLabels": []
+        },
+        {
+          "number": 1725,
+          "title": "New Workflows Added to Badge Schema",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
             "status": [],
             "priority": [],
             "other": []
           },
           "assignees": [],
           "milestone": null,
-          "gapCount": 6,
-          "gaps": [
-            "type",
-            "area",
-            "status",
-            "priority",
-            "assignee",
-            "milestone"
-          ],
+          "gapCount": 4,
+          "gaps": ["status", "priority", "assignee", "milestone"],
+          "statusLabels": []
+        },
+        {
+          "number": 1702,
+          "title": "New Workflows Added to Badge Schema",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": [],
+            "priority": [],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 4,
+          "gaps": ["status", "priority", "assignee", "milestone"],
+          "statusLabels": []
+        },
+        {
+          "number": 1701,
+          "title": "🏥 Badge Health Check - 26 Broken Links",
+          "labels": {
+            "type": ["type:task"],
+            "area": ["area:automation"],
+            "status": [],
+            "priority": ["priority:important"],
+            "other": []
+          },
+          "assignees": [],
+          "milestone": null,
+          "gapCount": 3,
+          "gaps": ["status", "assignee", "milestone"],
           "statusLabels": []
         },
         {
@@ -1941,44 +2497,6 @@
             "area": ["area:ci"],
             "status": [],
             "priority": ["priority:high"],
-            "other": []
-          },
-          "assignees": [
-            {
-              "login": "ashleyshaw",
-              "id": 1805352,
-              "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/ashleyshaw",
-              "html_url": "https://github.com/ashleyshaw",
-              "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-              "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-              "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-              "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-              "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-              "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            }
-          ],
-          "milestone": null,
-          "gapCount": 2,
-          "gaps": ["status", "milestone"],
-          "statusLabels": []
-        },
-        {
-          "number": 1672,
-          "title": "Phase 2: Badge Workflows Upgrade - GitHub Actions v7",
-          "labels": {
-            "type": ["type:task"],
-            "area": ["area:ci"],
-            "status": [],
-            "priority": ["priority:critical"],
             "other": []
           },
           "assignees": [
@@ -8957,60 +9475,177 @@
   },
   "coverage": {
     "typeLabels": 90,
-    "areaLabels": 72,
-    "statusLabels": 42,
+    "areaLabels": 70,
+    "statusLabels": 45,
     "priorityLabels": 83,
-    "assignees": 83,
-    "milestones": 80,
+    "assignees": 76,
+    "milestones": 75,
     "prLinks": 89
   },
   "analyzedIssues": [
     {
-      "number": 1692,
-      "title": "feat: Issue metadata triage expansion — Phase 0 & 1 planning",
+      "number": 1778,
+      "title": "fix: CHANGELOG validation — reduce formatting strictness for older entries",
       "labels": {
-        "type": ["type:bug", "type:feature", "type:task", "type:chore"],
-        "area": [
-          "area:tests",
-          "area:scripts",
-          "area:labels",
-          "area:automation"
-        ],
-        "status": ["status:in-progress", "status:needs-review"],
-        "priority": ["priority:critical", "priority:normal"],
-        "other": ["lang:js", "meta:needs-changelog"]
+        "type": ["type:task"],
+        "area": ["area:ci", "area:documentation"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
       },
-      "assignees": [
-        {
-          "login": "ashleyshaw",
-          "id": 1805352,
-          "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/ashleyshaw",
-          "html_url": "https://github.com/ashleyshaw",
-          "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-          "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-          "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-          "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-          "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-          "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      ],
+      "assignees": [],
       "milestone": null,
       "gapCount": 2,
-      "gaps": ["milestone", "pr-link"],
-      "statusLabels": ["status:in-progress", "status:needs-review"]
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
     },
     {
-      "number": 1691,
-      "title": "Phase 3: Implement Status-Label-Specific Handlers & Orchestrator",
+      "number": 1766,
+      "title": "Phase 4: Monitoring & Maintenance — PR/Issue Milestone Allocation",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1765,
+      "title": "Phase 3: Refinement & Rollout — PR/Issue Milestone Allocation",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1764,
+      "title": "Phase 2: Implementation & Testing — PR/Issue Milestone Allocation",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1762,
+      "title": "PR/Issue → Milestone Allocation Automation (Epic)",
+      "labels": {
+        "type": ["type:epic"],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1760,
+      "title": "[Phase 6] Team rollout, deployment, and monitoring",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:ci"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1759,
+      "title": "[Phase 5.1–5.3] Documentation (setup guide and troubleshooting)",
+      "labels": {
+        "type": ["type:documentation"],
+        "area": ["area:ci"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1758,
+      "title": "[Phase 4.1–4.2] GitHub Actions workflow and testing",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:ci"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1757,
+      "title": "[Phase 3.1] Create pre-commit hook for branch name validation",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:ci"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1756,
+      "title": "[Phase 2.1] Create branch name validation script",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:ci"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1749,
+      "title": "Phase 6: Test Coverage Expansion — test-coverage-implementation",
       "labels": {
         "type": ["type:task"],
         "area": [],
@@ -9025,8 +9660,8 @@
       "statusLabels": ["status:needs-more-info"]
     },
     {
-      "number": 1690,
-      "title": "Phase 2: Build Automated Triage Agent & Metadata Suggester",
+      "number": 1748,
+      "title": "Phase 5: Test Coverage Expansion — test-coverage-implementation",
       "labels": {
         "type": ["type:task"],
         "area": [],
@@ -9041,8 +9676,8 @@
       "statusLabels": ["status:needs-more-info"]
     },
     {
-      "number": 1689,
-      "title": "Phase 1: Create Issue Metadata Audit Script",
+      "number": 1747,
+      "title": "Phase 4: Test Coverage Expansion — test-coverage-implementation",
       "labels": {
         "type": ["type:task"],
         "area": [],
@@ -9057,19 +9692,339 @@
       "statusLabels": ["status:needs-more-info"]
     },
     {
-      "number": 1688,
-      "title": "fix: Replace invalid action SHAs with v7 tags in badge workflows",
+      "number": 1746,
+      "title": "Phase 3: Test Coverage Expansion — test-coverage-implementation",
       "labels": {
-        "type": [],
+        "type": ["type:task"],
         "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1745,
+      "title": "Phase 2: Test Coverage Expansion — test-coverage-implementation",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1744,
+      "title": "Phase 1: Test Coverage Expansion — test-coverage-implementation",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1743,
+      "title": "Test Coverage Expansion — 80%+ Coverage with 62-Task Programme",
+      "labels": {
+        "type": ["type:epic"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1742,
+      "title": "Phase 4: Review & Approve All Agent Specs — agent-tool-permission-alignment",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1741,
+      "title": "Phase 3: Implement Validation & CI Enforcement — agent-tool-permission-alignment",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1740,
+      "title": "Phase 2: Design Tool/Permission Contract — agent-tool-permission-alignment",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1739,
+      "title": "Phase 1: Audit Existing Agent Specs — agent-tool-permission-alignment",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1738,
+      "title": "Agent-Tool Permission Contract — Canonical Tool/Permission Alignment",
+      "labels": {
+        "type": ["type:epic"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1735,
+      "title": "Phase 4: Cleanup & Documentation — Reports & Projects",
+      "labels": {
+        "type": ["type:task"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1731,
+      "title": "Reports & Projects Restructuring Initiative",
+      "labels": {
+        "type": ["type:epic"],
+        "area": [],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:important"],
+        "other": ["meta:needs-changelog"]
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["area", "assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1726,
+      "title": "🏥 Badge Health Check - 26 Broken Links",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:automation"],
+        "status": [],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["status", "assignee", "milestone"],
+      "statusLabels": []
+    },
+    {
+      "number": 1725,
+      "title": "New Workflows Added to Badge Schema",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:automation"],
         "status": [],
         "priority": [],
         "other": []
       },
       "assignees": [],
       "milestone": null,
-      "gapCount": 6,
-      "gaps": ["type", "area", "status", "priority", "assignee", "milestone"],
+      "gapCount": 4,
+      "gaps": ["status", "priority", "assignee", "milestone"],
+      "statusLabels": []
+    },
+    {
+      "number": 1722,
+      "title": "Epic: Issue Maintenance Scripts Phase 1 — Core Scripts Implementation",
+      "labels": {
+        "type": ["type:epic"],
+        "area": ["area:automation"],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1721,
+      "title": "Task: Implement manage-stale-issues.js — Stale Issue Handler",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:automation"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1719,
+      "title": "Task: Implement sync-pr-labels.js — Auto-Sync PR Labels",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:automation"],
+        "status": ["status:needs-triage", "status:needs-more-info"],
+        "priority": ["priority:normal"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 2,
+      "gaps": ["assignee", "milestone"],
+      "statusLabels": ["status:needs-triage", "status:needs-more-info"]
+    },
+    {
+      "number": 1710,
+      "title": "GitHub Actions workflow checkout creating triple .github/ path",
+      "labels": {
+        "type": [],
+        "area": [],
+        "status": ["status:needs-more-info"],
+        "priority": [],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 5,
+      "gaps": ["type", "area", "priority", "assignee", "milestone"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1707,
+      "title": "fix: planner.agent.js GITHUB_TOKEN environment issue in tests",
+      "labels": {
+        "type": ["type:bug"],
+        "area": ["area:ci", "area:tests"],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:high"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["assignee", "milestone", "pr-link"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1705,
+      "title": "fix: handle-needs-triage.test.js API mismatch — detectArea function missing",
+      "labels": {
+        "type": ["type:bug"],
+        "area": ["area:tests"],
+        "status": ["status:needs-more-info"],
+        "priority": ["priority:high"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["assignee", "milestone", "pr-link"],
+      "statusLabels": ["status:needs-more-info"]
+    },
+    {
+      "number": 1702,
+      "title": "New Workflows Added to Badge Schema",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:automation"],
+        "status": [],
+        "priority": [],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 4,
+      "gaps": ["status", "priority", "assignee", "milestone"],
+      "statusLabels": []
+    },
+    {
+      "number": 1701,
+      "title": "🏥 Badge Health Check - 26 Broken Links",
+      "labels": {
+        "type": ["type:task"],
+        "area": ["area:automation"],
+        "status": [],
+        "priority": ["priority:important"],
+        "other": []
+      },
+      "assignees": [],
+      "milestone": null,
+      "gapCount": 3,
+      "gaps": ["status", "assignee", "milestone"],
       "statusLabels": []
     },
     {
@@ -9151,82 +10106,6 @@
     {
       "number": 1685,
       "title": "Task: Phase 2.3 - Integrate Tier 1 Handlers into Orchestrator",
-      "labels": {
-        "type": ["type:task"],
-        "area": ["area:automation"],
-        "status": ["status:needs-more-info"],
-        "priority": ["priority:critical"],
-        "other": []
-      },
-      "assignees": [
-        {
-          "login": "ashleyshaw",
-          "id": 1805352,
-          "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/ashleyshaw",
-          "html_url": "https://github.com/ashleyshaw",
-          "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-          "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-          "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-          "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-          "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-          "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      ],
-      "milestone": null,
-      "gapCount": 1,
-      "gaps": ["milestone"],
-      "statusLabels": ["status:needs-more-info"]
-    },
-    {
-      "number": 1684,
-      "title": "Task: Phase 2.2 - Create status:needs-triage Handler",
-      "labels": {
-        "type": ["type:task"],
-        "area": ["area:automation"],
-        "status": ["status:needs-more-info"],
-        "priority": ["priority:critical"],
-        "other": []
-      },
-      "assignees": [
-        {
-          "login": "ashleyshaw",
-          "id": 1805352,
-          "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/ashleyshaw",
-          "html_url": "https://github.com/ashleyshaw",
-          "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-          "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-          "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-          "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-          "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-          "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      ],
-      "milestone": null,
-      "gapCount": 1,
-      "gaps": ["milestone"],
-      "statusLabels": ["status:needs-more-info"]
-    },
-    {
-      "number": 1683,
-      "title": "Task: Phase 2.1 - Create status:needs-template-fix Handler",
       "labels": {
         "type": ["type:task"],
         "area": ["area:automation"],
@@ -9374,22 +10253,6 @@
       "milestone": null,
       "gapCount": 1,
       "gaps": ["milestone"],
-      "statusLabels": ["status:needs-more-info"]
-    },
-    {
-      "number": 1679,
-      "title": "Epic: Comprehensive Issue Metadata Expansion & Automated Triage System",
-      "labels": {
-        "type": ["type:epic"],
-        "area": [],
-        "status": ["status:needs-more-info"],
-        "priority": ["priority:important"],
-        "other": []
-      },
-      "assignees": [],
-      "milestone": null,
-      "gapCount": 3,
-      "gaps": ["area", "assignee", "milestone"],
       "statusLabels": ["status:needs-more-info"]
     },
     {
@@ -9583,44 +10446,6 @@
       "statusLabels": []
     },
     {
-      "number": 1672,
-      "title": "Phase 2: Badge Workflows Upgrade - GitHub Actions v7",
-      "labels": {
-        "type": ["type:task"],
-        "area": ["area:ci"],
-        "status": [],
-        "priority": ["priority:critical"],
-        "other": []
-      },
-      "assignees": [
-        {
-          "login": "ashleyshaw",
-          "id": 1805352,
-          "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/ashleyshaw",
-          "html_url": "https://github.com/ashleyshaw",
-          "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-          "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-          "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-          "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-          "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-          "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      ],
-      "milestone": null,
-      "gapCount": 2,
-      "gaps": ["status", "milestone"],
-      "statusLabels": []
-    },
-    {
       "number": 1671,
       "title": "Phase 1: Audit & Planning - GitHub Actions v7 Upgrade",
       "labels": {
@@ -9657,44 +10482,6 @@
       "gapCount": 2,
       "gaps": ["priority", "milestone"],
       "statusLabels": ["status:done"]
-    },
-    {
-      "number": 1664,
-      "title": "docs: Phase 5-7 Planning & Documentation for Release Process Redesign",
-      "labels": {
-        "type": ["type:documentation"],
-        "area": ["area:documentation"],
-        "status": ["status:needs-review"],
-        "priority": ["priority:normal"],
-        "other": ["lang:md", "meta:needs-changelog"]
-      },
-      "assignees": [
-        {
-          "login": "ashleyshaw",
-          "id": 1805352,
-          "node_id": "MDQ6VXNlcjE4MDUzNTI=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/1805352?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/ashleyshaw",
-          "html_url": "https://github.com/ashleyshaw",
-          "followers_url": "https://api.github.com/users/ashleyshaw/followers",
-          "following_url": "https://api.github.com/users/ashleyshaw/following{/other_user}",
-          "gists_url": "https://api.github.com/users/ashleyshaw/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/ashleyshaw/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/ashleyshaw/subscriptions",
-          "organizations_url": "https://api.github.com/users/ashleyshaw/orgs",
-          "repos_url": "https://api.github.com/users/ashleyshaw/repos",
-          "events_url": "https://api.github.com/users/ashleyshaw/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/ashleyshaw/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      ],
-      "milestone": null,
-      "gapCount": 1,
-      "gaps": ["milestone"],
-      "statusLabels": ["status:needs-review"]
     },
     {
       "number": 1657,
