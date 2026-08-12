@@ -3,7 +3,11 @@ title: "Chat Closure Agent — Design Decisions"
 description: "Finalized decisions, best practices, and rationale for the agent implementation"
 version: "1.0.0"
 created_date: "2026-08-12"
-status: "approved"
+last_updated: "2026-08-12"
+file_type: documentation
+authors: ["Ash Shaw"]
+maintainer: "Ash Shaw"
+tags: ["design-decisions", "agent-design", "architecture"]
 ---
 
 # Chat Closure Agent — Design Decisions & Best Practices
