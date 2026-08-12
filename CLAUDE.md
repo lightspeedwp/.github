@@ -65,27 +65,28 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 | **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
 | **Agents** | `.github/agents/` (mixed) | `agents/` + `.github/agents/` (split) | Reorganize | Phase 3 (audit complete) |
 
-**Schema consolidation note:** Three schema folders currently exist due to incremental migration:
+**Schema consolidation note:** ✅ Phase 2 complete — All schemas consolidated into `schemas/` folder:
 
-- `schema/` — old location (25 files, deprecated, source for consolidation)
-- `schemas/` — visible root (25 files, npm-referenced, currently used)
-- `.schemas/` — hidden target (23 files, incomplete, destination for consolidation)
+- `schemas/` — canonical portable location (26 files: 17 core + memory/ subdirectory + examples/)
+- `.schemas/` — hidden folder for backward compatibility (contains full schema set)
+- `.github/schemas/` — ✅ removed (was control-plane marker folder)
+- `schema/` — ✅ removed (legacy duplicate folder)
 
-The Phase 1B audit identified all 25 core schemas and consolidation path. Phase 3 will complete the migration to `.schemas/` as the canonical portable location.
+All schema references should use `schemas/` as the canonical location.
 
 **For script maintainers:** If you reference schemas or other assets, use **relative paths from script location**:
 
-**Portable scripts (root location, Phase 2B):**
+**Portable scripts (root location):**
 
-- From `scripts/validation/`: go **three levels up** (`../../../.schemas/`) to reach `.schemas/` at repo root
-- From `scripts/agents/includes/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
-- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../.schemas/`) to reach `.schemas/`
+- From `scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
+- From `scripts/agents/includes/`: go **four levels up** (`../../../../schemas/`) to reach `schemas/`
+- From `scripts/workflows/changelog/`: go **four levels up** (`../../../../schemas/`) to reach `schemas/`
 
-**Control-plane scripts (.github location, Phase 1):**
+**Control-plane scripts (.github location):**
 
-- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root (or `.schemas/` once consolidated in Phase 3)
+- From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/` at repo root
-- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`)
+- From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the initial restructuring epic and [issue #1290](https://github.com/lightspeedwp/.github/issues/1290) for the current Phase 1 initiative.
 
@@ -439,7 +440,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | GitHub-native governance (templates, labels, workflows) | `.github/` | Control-plane only |
 | **Portable instruction standards** (a11y, coding, documentation, issues, PRs, community) | `instructions/` (root) | Portable, reusable |
 | **Repo-local Copilot/agent instructions** (control-plane-specific) | `.github/instructions/` or `.github/custom-instructions.md` | Control-plane only |
-| **Portable JSON schemas** (validation for frontmatter, agents, plugins, skills) | `.schemas/` (hidden folder at root) | Portable, reusable |
+| **Portable JSON schemas** (validation for frontmatter, agents, plugins, skills) | `schemas/` (root) | Portable, reusable |
 | **Portable agent specifications** — Multi-file implementations (16 agents) | `agents/` (root) | Portable, installable |
 | **Spec-based agents** — Simple YAML/JSON definitions (19 agents) | `.github/agents/` | GitHub-native only |
 | Reports, audits, metrics | `.github/reports/{category}/` | Control-plane only |

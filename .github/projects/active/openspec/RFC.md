@@ -67,6 +67,7 @@ spec/
 **Owner:** [TBD - Link to issue]
 
 **What:**
+
 - Define unified tool/permission contract in agent frontmatter
 - Introduce profile tiers (standard, reviewer-only, planning-only, etc.)
 - Add automated validation for all agent specs
@@ -75,6 +76,7 @@ spec/
 **Impact:** All `agents/*.agent.md`, `plugins/**/agents/*.agent.md` files must comply
 
 **Related:**
+
 - Proposal: `openspec/changes/agent-tool-permission-alignment/proposal.md`
 - Design: `openspec/changes/agent-tool-permission-alignment/design.md`
 - Tasks: `openspec/changes/agent-tool-permission-alignment/tasks.md`
@@ -89,6 +91,7 @@ spec/
 **Owner:** [TBD - Link to issue]
 
 **What:**
+
 - Expand test coverage from current baseline to 80%+
 - Track 62 implementation tasks across 6 phases
 - Create parent epic + 6 phase issues in GitHub
@@ -97,6 +100,7 @@ spec/
 **Timeline:** [6 phases mapped to GitHub issues]
 
 **Related:**
+
 - Source of Truth: `.github/projects/active/test-coverage-implementation/`
 - Proposal: `openspec/changes/test-coverage-implementation/proposal.md`
 - Design: `openspec/changes/test-coverage-implementation/design.md`
@@ -124,6 +128,7 @@ spec/
 **Example:**
 
 **openspec/changes/agent-tool-permission-alignment/proposal.md:**
+
 ```markdown
 ## GitHub Coordination
 
@@ -135,6 +140,7 @@ spec/
 ```
 
 **GitHub Issue #1234 (Epic):**
+
 ```markdown
 ## Related Spec
 
@@ -155,6 +161,7 @@ This epic coordinates the agent-tool permission contract specification.
 ### Phase 1: Establish Coordination Standard (This Session)
 
 **Deliverables:**
+
 - [x] RFC document (this file)
 - [x] OpenSpec project folder created
 - [ ] Coordination guidelines documented
@@ -162,6 +169,7 @@ This epic coordinates the agent-tool permission contract specification.
 - [ ] Links populated in proposal.md files
 
 **Tasks:**
+
 - [ ] Create GitHub issues for agent-tool-permission-alignment spec
   - Epic: Coordinate agent-tool permission contract work
   - Phase 1: Audit existing agent specs
@@ -181,6 +189,7 @@ This epic coordinates the agent-tool permission contract specification.
 **Goal:** Establish review & approval gates for specs before implementation
 
 **Deliverables:**
+
 - RFC review process (who approves, timeline)
 - Approval tracking in `.openspec.yaml` metadata
 - Automated validation for spec completeness
@@ -190,6 +199,7 @@ This epic coordinates the agent-tool permission contract specification.
 **Goal:** Use OpenSpec for all major changes going forward
 
 **Deliverables:**
+
 - Template for new specs
 - Process documentation for creating specs
 - Integration into PR templates & CI validation

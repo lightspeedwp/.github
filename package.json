@@ -142,6 +142,7 @@
     "@babel/preset-react": "8.0.1",
     "@babel/preset-typescript": "8.0.1",
     "@babel/runtime": "^8.0.0",
+    "@eslint/js": "^10.0.1",
     "@stoplight/spectral-cli": "^6.16.2",
     "@stoplight/spectral-core": "^1.23.0",
     "@stoplight/spectral-functions": "^1.10.3",
@@ -153,7 +154,6 @@
     "babel-jest": "30.4.1",
     "bats": "^1.8.0",
     "dotenv": "^16.4.5",
-    "@eslint/js": "^10.0.1",
     "eslint": "^10.8.0",
     "eslint-plugin-prettier": "^5.0.0",
     "glob": "10.5.0",
@@ -174,5 +174,8 @@
   "overrides": {
     "fast-json-patch": "3.1.1",
     "tmp": "0.2.7"
+  },
+  "dependencies": {
+    "octokit": "5.0.5"
   }
 }
