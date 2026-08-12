@@ -81,30 +81,29 @@ describe("Core Analysis Module", () => {
     const tmpDir = path.join(__dirname, "fixtures", "mock-repos");
 
     beforeAll(() => {
+      // Clean up if exists
+      if (fs.existsSync(tmpDir)) {
+        fs.rmSync(tmpDir, { recursive: true });
+      }
+
       // Create control-plane mock
       const controlPlane = path.join(tmpDir, "control-plane");
-      if (!fs.existsSync(controlPlane)) {
-        fs.mkdirSync(path.join(controlPlane, ".github", "projects", "active"), {
-          recursive: true,
-        });
-        fs.writeFileSync(path.join(controlPlane, ".github", "labels.yml"), "");
-      }
+      fs.mkdirSync(path.join(controlPlane, ".github", "projects", "active"), {
+        recursive: true,
+      });
+      fs.writeFileSync(path.join(controlPlane, ".github", "labels.yml"), "");
 
       // Create WordPress plugin mock
       const plugin = path.join(tmpDir, "wordpress-plugin");
-      if (!fs.existsSync(plugin)) {
-        fs.mkdirSync(plugin, { recursive: true });
-        fs.writeFileSync(path.join(plugin, "plugin.php"), "");
-        fs.writeFileSync(path.join(plugin, "composer.json"), "{}");
-      }
+      fs.mkdirSync(plugin, { recursive: true });
+      fs.writeFileSync(path.join(plugin, "plugin.php"), "");
+      fs.writeFileSync(path.join(plugin, "composer.json"), "{}");
 
       // Create WordPress theme mock
       const theme = path.join(tmpDir, "wordpress-theme");
-      if (!fs.existsSync(theme)) {
-        fs.mkdirSync(theme, { recursive: true });
-        fs.writeFileSync(path.join(theme, "style.css"), "");
-        fs.writeFileSync(path.join(theme, "theme.json"), "{}");
-      }
+      fs.mkdirSync(theme, { recursive: true });
+      fs.writeFileSync(path.join(theme, "style.css"), "");
+      fs.writeFileSync(path.join(theme, "theme.json"), "{}");
     });
 
     test("should detect control-plane repository", () => {
