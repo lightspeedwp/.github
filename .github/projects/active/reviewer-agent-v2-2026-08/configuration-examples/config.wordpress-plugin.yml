@@ -1,0 +1,99 @@
+# Reviewer Agent v2 Configuration — WordPress Block Plugin
+
+repo_type: wordpress-plugin
+
+# Tool Configuration
+tools:
+  coderabbit:
+    enabled: true
+    threshold: 0.8
+    timeout_seconds: 30
+
+  code_quality:
+    enabled: true
+    threshold: 0.7
+    timeout_seconds: 20
+
+  copilot:
+    enabled: true
+    threshold: 0.6
+    timeout_seconds: 20
+
+# Blocking Criteria
+blocking:
+  critical_threshold: 0
+  major_threshold: 5
+  halt_on_security: true
+
+# Focus Areas
+focus_areas:
+  - javascript
+  - php
+  - json
+  - yaml
+
+# WordPress-Specific Categories (enabled for plugins)
+wordpress_categories:
+  enabled: true
+  linters:
+    - phpstan # PHP type checking
+    - wpcs # WordPress coding standards
+    - block-validator # Block metadata & structure
+    - i18n-checker # Internationalization
+
+# WordPress-Specific Configuration
+wordpress:
+  # PHP Linting
+  phpstan:
+    enabled: true
+    level: 7
+    configuration_file: phpstan.neon
+
+  # WordPress Coding Standards
+  wpcs:
+    enabled: true
+    standard: WordPress-Core
+    tab_width: 4
+
+  # Block Registration
+  block_validator:
+    enabled: true
+    check_metadata: true
+    check_callbacks: true
+    check_variations: true
+
+  # Internationalization
+  i18n_checker:
+    enabled: true
+    text_domain: my-plugin
+    check_escaping: true
+
+# Polling & Timeout Configuration
+polling:
+  initial_interval_seconds: 10
+  max_interval_seconds: 60
+  backoff_multiplier: 2.0
+  max_retries: 10
+
+# Comment & State Configuration
+comments:
+  enabled: true
+  update_existing: true
+  include_progress: true
+  include_risk_score: true
+  include_wordpress_categories: true
+
+state:
+  enabled: true
+  retention_days: 90
+  path: .github/data/reviews
+
+# Token Resolution
+tokens:
+  coderabbit:
+    - CODERABBIT_API_TOKEN
+    - ORG_CODERABBIT_API_TOKEN
+  copilot:
+    - COPILOT_TOKEN
+    - ORG_COPILOT_TOKEN
+  code_quality: null
