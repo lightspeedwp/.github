@@ -1,6 +1,13 @@
 /**
  * Meta agent that applies metadata, badges, and category-specific footers to Markdown files.
  * Meta agent that applies metadata, badges, and category-specific footers to Markdown files.
+ *
+ * Wave 2A kickoff (#468):
+ * - canonical spec path confirmed: agents/meta.agent.md
+ * - runtime path confirmed: scripts/agents/meta.agent.js
+ * - implementation status: active and workflow-integrated
+ * - next concrete action: deduplicate module header text and add focused tests
+ *   for skip-marker/front-matter opt-out edge cases
  * @module scripts/agents/meta.agent.js
  */
 
@@ -8,7 +15,7 @@ import { ensureFooter } from "./includes/header-footer.js";
 import { updateBadgesInReadme } from "./includes/badges.js";
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { globSync } from "glob";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -61,6 +68,12 @@ const emojiSchema = loadEmojiSchema();
  */
 function shouldSkipMeta(filePath, content) {
   const fileName = path.basename(filePath);
+  const skipReadme =
+    String(process.env.META_SKIP_README || "").toLowerCase() === "true";
+
+  if (skipReadme && fileName === "README.md") {
+    return true;
+  }
 
   // Skip formal documents
   const formalDocs = ["CHANGELOG.md", "CODE_OF_CONDUCT.md"];
@@ -88,7 +101,7 @@ function shouldSkipMeta(filePath, content) {
       ) {
         return true;
       }
-    } catch (e) {
+    } catch (_e) {
       // Continue if front matter parsing fails
     }
   }
@@ -123,6 +136,55 @@ function extractFrontMatter(content) {
 function getCategory(frontMatter) {
   if (!frontMatter) return "default";
   return frontMatter.category || frontMatter.file_type || "default";
+}
+
+/**
+ * Increments a semantic version string by patch version.
+ * @param {string} version - The version string (e.g., "1.2.3", "v1.2.3").
+ * @returns {string} The incremented version with the same format.
+ */
+function incrementVersion(version) {
+  if (!version) return "0.0.1";
+  const isVPrefix = version.startsWith("v");
+  const versionStr = isVPrefix ? version.slice(1) : version;
+  const parts = versionStr.split(".");
+  if (parts.length !== 3 || parts.some((p) => isNaN(parseInt(p, 10)))) {
+    return version;
+  }
+  const [major, minor, patch] = parts.map((p) => parseInt(p, 10));
+  const newVersion = `${major}.${minor}.${patch + 1}`;
+  return isVPrefix ? `v${newVersion}` : newVersion;
+}
+
+/**
+ * Gets today's date in YYYY-MM-DD format.
+ * @returns {string} Today's date.
+ */
+function getTodayDate() {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+}
+
+/**
+ * Updates frontmatter metadata when file content changes.
+ * Updates `last_updated` to today and increments `version` using semantic versioning.
+ * @param {string} content - The Markdown content.
+ * @param {object|null} originalFrontMatter - The original parsed frontmatter.
+ * @returns {string} The content with updated frontmatter.
+ */
+function updateFrontMatterMetadata(content, originalFrontMatter) {
+  if (!originalFrontMatter) return content;
+
+  const updatedFrontMatter = { ...originalFrontMatter };
+  if (updatedFrontMatter.last_updated) {
+    updatedFrontMatter.last_updated = getTodayDate();
+  }
+  if (updatedFrontMatter.version) {
+    updatedFrontMatter.version = incrementVersion(updatedFrontMatter.version);
+  }
+
+  const yamlStr = yaml.dump(updatedFrontMatter, { lineWidth: -1 });
+  return content.replace(/^---\n[\s\S]*?\n---/, `---\n${yamlStr}---`);
 }
 
 /**
@@ -304,13 +366,13 @@ function applyHeader(content) {
 function updateReadmeStructure(content, filePath) {
   // TODO: Implement logic to ensure required sections (Overview, Features, etc.) exist in the root README.md.
   // Ensure proper heading hierarchy
-  let lines = content.split("\n");
 
   // Check for required sections in repository root README
   const fileName = path.basename(filePath);
   if (fileName === "README.md" && path.dirname(filePath) === process.cwd()) {
     // Root README should have standard sections
-    const requiredSections = [
+    // TODO: Validate these required sections exist in the content
+    const _requiredSections = [
       "## Overview",
       "## Features",
       "## Installation",
@@ -437,6 +499,11 @@ async function processMarkdownFile(filePath, options = {}) {
     // 7. Footer (writes to file)
     content = applyFooter(filePath, content, frontMatter);
 
+    // 8. Update frontmatter metadata if content changed
+    if (content !== originalContent && frontMatter) {
+      content = updateFrontMatterMetadata(content, frontMatter);
+    }
+
     // Write final content
     if (!dryRun && content !== originalContent) {
       fs.writeFileSync(filePath, content);
@@ -477,12 +544,15 @@ async function processMarkdownFile(filePath, options = {}) {
  * @returns {Promise<object>} A summary object of the results.
  */
 async function processAllMarkdownFiles(options = {}) {
-  const { pattern = "**/*.md" } = options;
+  const { pattern = "**/*.md", files: explicitFiles } = options;
 
-  const files = globSync(pattern, {
-    cwd: process.cwd(),
-    ignore: ["node_modules/**", ".git/**", "**/node_modules/**"],
-  });
+  const files =
+    Array.isArray(explicitFiles) && explicitFiles.length > 0
+      ? explicitFiles
+      : globSync(pattern, {
+          cwd: process.cwd(),
+          ignore: ["node_modules/**", ".git/**", "**/node_modules/**"],
+        });
 
   const results = {
     total: files.length,
@@ -521,12 +591,24 @@ async function main() {
   const verbose =
     process.argv.includes("--verbose") || process.argv.includes("-v");
   const dryRun = process.argv.includes("--dry-run");
+  const filesArgIndex = process.argv.findIndex((arg) => arg === "--files");
+  const fileList =
+    filesArgIndex > -1 && process.argv[filesArgIndex + 1]
+      ? process.argv[filesArgIndex + 1]
+          .split(",")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      : [];
 
   console.log("Meta Agent - Starting...");
   console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log("");
 
-  const results = await processAllMarkdownFiles({ verbose, dryRun });
+  const results = await processAllMarkdownFiles({
+    verbose,
+    dryRun,
+    files: fileList,
+  });
 
   console.log("\nMeta Agent - Summary:");
   console.log(`  Total files: ${results.total}`);
@@ -562,6 +644,7 @@ async function main() {
 
 // Run if called directly
 if (
+  process.argv[1] &&
   path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])
 ) {
   main().catch((err) => {
@@ -571,6 +654,10 @@ if (
 }
 
 export {
+  incrementVersion,
+  getTodayDate,
+  updateFrontMatterMetadata,
+  extractFrontMatter,
   processMarkdownFile,
   processAllMarkdownFiles,
   applyHeader,
@@ -579,6 +666,5 @@ export {
   applyEmojis,
   applyBanner,
   shouldSkipMeta,
-  extractFrontMatter,
   getCategory,
 };

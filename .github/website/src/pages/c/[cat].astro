@@ -1,0 +1,525 @@
+---
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import Icon from "../../components/AwesomeGithub/Icon.astro";
+import WapuuHero from "../../components/WapuuHero.astro";
+import { CATEGORIES, ITEMS, TYPES, getCategoryInfo, itemRouteId } from "../../lib/catalogue";
+import { matchesSearchQuery } from "../../scripts/search-utils";
+
+const base = import.meta.env.BASE_URL;
+const { cat } = Astro.params;
+
+export async function getStaticPaths() {
+  return CATEGORIES.map((category) => ({
+    params: { cat: category.id },
+  }));
+}
+
+const category = getCategoryInfo(cat ?? "");
+
+if (!category) {
+  return Astro.redirect(`${base}404/`);
+}
+
+const items = ITEMS.filter((item) => item.cat === category.id);
+const allTags = [...new Set(items.flatMap((item) => item.tags))].sort((a, b) => a.localeCompare(b));
+
+const categoryType = TYPES[category.type] ?? {
+  badge: "Mixed",
+  note: "This catalogue mixes several file types. Open a card to use the right install or copy action for that resource.",
+};
+
+const ITEM_MARKS: Record<string, string> = {
+  install:   "ph:download-simple",
+  aiDefault: "ph:robot",
+  workflow:  "ph:git-branch",
+  guardrail: "ph:shield-check",
+  pack:      "ph:package",
+  script:    "ph:terminal-window",
+  schema:    "ph:brackets-curly",
+  recipe:    "ph:cooking-pot",
+};
+
+function typeBadgeClass(type: string): string {
+  return `tb-${type}`;
+}
+---
+
+<AwesomeGithubLayout
+  title={`${category.label} — Awesome GitHub`}
+  description={category.blurb}
+>
+  <section class="cat-hero">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href={`${base}`}>Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span>{category.label}</span>
+      </nav>
+
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="cat-icon-row" aria-hidden="true">
+            <span class="cat-hero-ico">
+              <Icon name={category.icon} size={24} />
+            </span>
+          </div>
+          <h1 class="page-h1">{category.label}</h1>
+          <p class="page-lead">{category.blurb}</p>
+        </div>
+
+        <WapuuHero page={category.id} />
+      </div>
+
+      <div class="type-note" aria-label={`${category.label} type note`}>
+        <span class={`type-badge ${typeBadgeClass(category.type)}`}>{categoryType.badge}</span>
+        <span class="type-note-text">{categoryType.note}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section catalogue-section" data-catalogue-page>
+    <div class="wrap">
+      <div class="catalogue-toolbar">
+        <label class="filter-input" for="catalogue-filter">
+          <span class="filter-icon" aria-hidden="true">
+            <Icon name="ph:magnifying-glass" size={16} />
+          </span>
+          <input
+            id="catalogue-filter"
+            type="search"
+            placeholder={`Filter ${category.label.toLowerCase()}…`}
+            aria-label={`Filter ${category.label}`}
+          />
+        </label>
+
+        <div class="filter-meta" aria-live="polite">
+          <span class="result-count" id="result-count">
+            {items.length} of {items.length} shown
+          </span>
+          <button class="clear-filters" type="button" data-clear-filters hidden>
+            Clear filters
+          </button>
+        </div>
+      </div>
+
+      {allTags.length > 0 && (
+        <div class="tag-chips" role="group" aria-label="Filter by tag">
+          {allTags.map((tag) => (
+            <button
+              class="tag-chip"
+              type="button"
+              data-tag={tag}
+              aria-pressed="false"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div class="item-grid" id="item-grid">
+        {items.map((item) => (
+          <a
+            class="item-card"
+            href={`${base}item/${itemRouteId(item)}/`}
+            data-name={item.name}
+            data-description={item.description}
+            data-tags={item.tags.join(" ")}
+          >
+            <div class="item-card-head">
+              <span class="item-mark" aria-hidden="true">
+                <Icon name={ITEM_MARKS[item.type] || "ph:squares-four"} size={18} />
+              </span>
+              <span class={`type-badge ${typeBadgeClass(item.tree ? "pack" : item.type)}`}>
+                {item.tree ? "Package" : (TYPES[item.type]?.badge ?? item.type)}
+              </span>
+            </div>
+
+            <h3 class="item-name">{item.name}</h3>
+            <p class="item-desc">{item.description}</p>
+
+            <div class="item-tags" aria-label={`${item.name} tags`}>
+              {item.tags.slice(0, 4).map((tag) => (
+                <span class="item-tag">{tag}</span>
+              ))}
+              {item.tags.length > 4 && (
+                <span class="item-tag item-tag--more">+{item.tags.length - 4}</span>
+              )}
+            </div>
+
+            <div class="item-card-foot">
+              <span class="item-install-hint">Install →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p class="no-results" id="no-results" hidden>
+        No {category.label.toLowerCase()} match that filter.
+      </p>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<script>
+  import { matchesSearchQuery } from "../../scripts/search-utils.js";
+
+  (() => {
+    const root = document.querySelector("[data-catalogue-page]");
+    if (!root) return;
+
+    const input = root.querySelector("#catalogue-filter");
+    const cards = Array.from(root.querySelectorAll(".item-card"));
+    const chips = Array.from(root.querySelectorAll(".tag-chip"));
+    const countEl = root.querySelector("#result-count");
+    const noResults = root.querySelector("#no-results");
+    const clearBtn = root.querySelector("[data-clear-filters]");
+
+    if (!input || !countEl || !noResults || !clearBtn) return;
+
+    let activeTags = [];
+
+    const updateChipState = () => {
+      chips.forEach((chip) => {
+        const tag = (chip.dataset.tag || "").toLowerCase();
+        chip.setAttribute("aria-pressed", activeTags.includes(tag) ? "true" : "false");
+        chip.classList.toggle("is-active", activeTags.includes(tag));
+      });
+    };
+
+    const applyFilter = () => {
+      const term = input.value.trim();
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const name = card.dataset.name || "";
+        const description = card.dataset.description || "";
+        const tags = (card.dataset.tags || "").split(/\s+/).filter(Boolean);
+        const textMatch = matchesSearchQuery([name, description, tags.join(" ")], term);
+        const tagMatch = activeTags.length === 0 || activeTags.every((tag) => tags.includes(tag));
+        const show = textMatch && tagMatch;
+
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+
+      countEl.textContent = `${visible} of ${cards.length} shown`;
+      noResults.hidden = visible > 0;
+      clearBtn.hidden = term.length === 0 && activeTags.length === 0;
+    };
+
+    input.addEventListener("input", applyFilter);
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const tag = (chip.dataset.tag || "").toLowerCase();
+        if (!tag) return;
+
+        if (activeTags.includes(tag)) {
+          activeTags = activeTags.filter((value) => value !== tag);
+        } else {
+          activeTags = [...activeTags, tag];
+        }
+
+        updateChipState();
+        applyFilter();
+      });
+    });
+
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      activeTags = [];
+      updateChipState();
+      applyFilter();
+      input.focus();
+    });
+
+    updateChipState();
+    applyFilter();
+  })();
+</script>
+
+<style>
+  .cat-hero {
+    padding: clamp(36px, 5vw, 56px) 0 clamp(18px, 2.8vw, 28px);
+    border-bottom: 1px solid var(--hair);
+    background: var(--bg);
+  }
+
+  .cat-icon-row {
+    display: flex;
+    margin-bottom: 12px;
+  }
+
+  .cat-hero-ico {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-xl);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  .type-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 14px 16px;
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-lg);
+  }
+
+  .type-note-text {
+    color: var(--fg-2);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--hair);
+    background: var(--panel-2);
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .tb-install {
+    --badge-fg: var(--accent);
+    --badge-bg: var(--accent-soft);
+    --badge-border: color-mix(in srgb, var(--accent) 28%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-aiDefault {
+    --badge-fg: var(--c-cyan-500);
+    --badge-bg: color-mix(in srgb, var(--c-cyan-500) 14%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-cyan-500) 28%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-workflow {
+    --badge-fg: var(--c-status-success);
+    --badge-bg: color-mix(in srgb, var(--c-status-success) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-status-success) 24%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-guardrail {
+    --badge-fg: var(--c-status-warning);
+    --badge-bg: color-mix(in srgb, var(--c-status-warning) 14%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-status-warning) 26%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-pack {
+    --badge-fg: var(--c-light-blue);
+    --badge-bg: color-mix(in srgb, var(--c-light-blue) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-light-blue) 26%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-script {
+    --badge-fg: var(--c-brand-blue-700);
+    --badge-bg: color-mix(in srgb, var(--c-brand-blue-700) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-brand-blue-700) 24%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-schema {
+    --badge-fg: var(--c-brand-blue);
+    --badge-bg: var(--accent-soft);
+    --badge-border: color-mix(in srgb, var(--c-brand-blue) 26%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-recipe {
+    --badge-fg: var(--c-status-info);
+    --badge-bg: color-mix(in srgb, var(--c-status-info) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-status-info) 24%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-mixed {
+    --badge-fg: var(--fg-2);
+    --badge-bg: var(--panel-2);
+    --badge-border: var(--hair);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .catalogue-section {
+    background: var(--bg);
+  }
+
+  .catalogue-toolbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .filter-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 420px;
+    min-width: min(100%, 420px);
+    padding: 11px 14px;
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .filter-input:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .filter-icon {
+    display: grid;
+    place-items: center;
+    color: var(--fg-3);
+    flex: none;
+  }
+
+  .filter-input input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--fg-1);
+    font: inherit;
+  }
+
+  .filter-input input::placeholder {
+    color: var(--fg-3);
+  }
+
+  .filter-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+
+  .result-count {
+    color: var(--fg-3);
+    font-size: 13px;
+    font-family: var(--font-mono);
+  }
+
+  .clear-filters {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--accent);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .tag-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--hair);
+    background: var(--panel-2);
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  }
+
+  .tag-chip:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+
+  .tag-chip.is-active,
+  .tag-chip[aria-pressed="true"] {
+    background: var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--accent);
+  }
+
+
+
+  .no-results {
+    margin-top: 24px;
+    padding: 16px 18px;
+    border-radius: var(--radius-lg);
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
+    color: var(--fg-2);
+  }
+
+  @media (max-width: 860px) {
+    .page-hero-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .page-hero-text {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .catalogue-toolbar {
+      flex-direction: column;
+    }
+
+    .filter-input {
+      flex-basis: auto;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .item-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

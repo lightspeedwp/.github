@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms Data Retention Review",
+  "type": "object",
+  "required": [
+    "site_url",
+    "environment",
+    "forms",
+    "data_categories",
+    "retention_recommendations",
+    "approval_required",
+    "confidence"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "forms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "form_id",
+          "form_name"
+        ],
+        "properties": {
+          "form_id": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          },
+          "form_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "data_categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "category",
+          "sensitive",
+          "destinations"
+        ],
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "sensitive": {
+            "type": "boolean"
+          },
+          "destinations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "retention_status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "personal_data_settings": {
+      "type": "object"
+    },
+    "retention_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "data_group",
+          "recommendation",
+          "rationale"
+        ],
+        "properties": {
+          "data_group": {
+            "type": "string"
+          },
+          "recommendation": {
+            "type": "string"
+          },
+          "rationale": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,9 @@
+file	purpose
+focused-uat-plan.md	Focused user acceptance test plan for the current LightSpeed Linear Advisor configuration.
+memory-uat-scorecard-example.md	Filled example showing how to evaluate current Memory behaviour for this agent.
+memory-uat-scorecard.md	Blank scorecard for testing durable Memory judgement and reuse.
+rollout-index.tsv	Index of the current rollout folder and each file's purpose.
+skill-directory-audit.md	Audit of the currently attached skill set and rollout implications.
+team-onboarding-guide.md	Guide for teammates using the current Linear-first advisor during pilot rollout.
+teammate-rollout-checklist.md	Current-state rollout checklist covering presentation, apps, skills, channels, Memory, and live readiness.
+uat-index.md	Entry point for the rollout folder with recommended reading order.

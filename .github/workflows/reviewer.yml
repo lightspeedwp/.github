@@ -5,21 +5,81 @@ on:
     branches: [develop]
   pull_request:
     branches: [develop]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Run reviewer in dry-run mode (no PR comments posted)
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+  workflow_call:
+    inputs:
+      dry-run:
+        description: Run reviewer in dry-run mode (no PR comments posted)
+        required: false
+        default: "false"
+        type: string
 
 permissions:
   contents: read
+  statuses: read
   pull-requests: write
 
+concurrency:
+  group: reviewer-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  reviewer:
+  coderabbit-gate:
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.user.login != 'app/dependabot'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Require CodeRabbit success before reviewer
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const sha = context.payload.pull_request.head.sha;
+            const maxAttempts = 20;
+            const delayMs = 15000;
+
+            for (let i = 1; i <= maxAttempts; i++) {
+              const { data } = await github.rest.repos.getCombinedStatusForRef({
+                owner,
+                repo,
+                ref: sha,
+              });
+              const coderabbit = (data.statuses || []).find((s) => s.context === "CodeRabbit");
+              if (coderabbit && coderabbit.state === "success") {
+                core.info(`CodeRabbit is successful on attempt ${i}.`);
+                return;
+              }
+              if (coderabbit && coderabbit.state === "failure") {
+                core.setFailed("CodeRabbit failed; reviewer job is blocked until fixed.");
+                return;
+              }
+              core.info(`Waiting for CodeRabbit success (${i}/${maxAttempts})...`);
+              await new Promise((resolve) => setTimeout(resolve, delayMs));
+            }
+
+            core.setFailed("Timed out waiting for CodeRabbit success; reviewer job blocked.");
+
+  reviewer:
+    needs: [coderabbit-gate]
+    if: always() && (github.event_name != 'pull_request' || needs.coderabbit-gate.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
@@ -28,3 +88,4 @@ jobs:
         run: node scripts/agents/reviewer.agent.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry-run || 'false' }}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Brief"
+  short_description: "Frame a design problem with goals, context, and constraints"
+  default_prompt: "Use $brief to turn a rough design problem, redesign prompt, or feature ask into a structured design brief with goals, audiences, constraints, and open questions."
+policy:
+  allow_implicit_invocation: true

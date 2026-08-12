@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Budget Health Report Row",
+  "type": "object",
+  "required": ["generated_at", "date_range", "filters", "client_name", "project_name", "project_status", "budget_type", "budget_scope", "budget_total", "budget_used", "budget_remaining", "percentage_used", "budget_status", "risk_reason", "next_action", "confidence", "data_gaps"],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "date_range": {"type": "string"},
+    "filters": {"type": ["string", "array"]},
+    "client_name": {"type": "string"},
+    "project_name": {"type": "string"},
+    "project_status": {"type": "string"},
+    "budget_type": {"type": "string"},
+    "budget_scope": {"type": "string"},
+    "budget_total": {},
+    "budget_used": {},
+    "budget_remaining": {},
+    "percentage_used": {"type": "number"},
+    "budget_status": {"type": "string"},
+    "risk_reason": {"type": "string"},
+    "next_action": {"type": "string"},
+    "confidence": {"type": "string"},
+    "data_gaps": {"type": ["array", "string"]}
+  },
+  "additionalProperties": true
+}

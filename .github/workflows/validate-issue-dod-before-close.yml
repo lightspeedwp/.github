@@ -1,0 +1,113 @@
+name: Validate Issue DoD Before Close
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate-dod-before-close:
+    if: github.event.issue.state_reason != 'not_planned'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate DoD checklist completion before allowing close
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- validate-issue-dod -->';
+
+            // Re-fetch the issue to ensure we have the latest state
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+            });
+
+            if (issue.state !== 'closed') {
+              core.info(`Issue #${issue.number} is no longer closed; skipping DoD validation.`);
+              return;
+            }
+
+            // Check for force-close override
+            const hasForceClose = (issue.labels || []).some(
+              (label) => label.name === 'meta:force-close'
+            );
+
+            if (hasForceClose) {
+              core.info(`Issue #${issue.number} has meta:force-close label; allowing close despite incomplete DoD.`);
+              return;
+            }
+
+            // Extract DoD section (supports ## and ### heading levels)
+            const body = (issue.body || '').trim();
+            const dodMatch = body.match(/^#{2,3}\s+Definition of Done \(DoD\)\s*$\n?([\s\S]*?)(?=\n#{1,3}\s+|$)/im);
+
+            if (!dodMatch) {
+              core.info(`Issue #${issue.number} has no DoD section; skipping validation.`);
+              return;
+            }
+
+            const dodSection = dodMatch[1].trim();
+
+            // Count unchecked and checked items
+            const uncheckedPattern = /(?:^|\n)\s*-\s*\[\s\]\s+/;
+            const checkedPattern = /(?:^|\n)\s*-\s*\[[xX]\]\s+/;
+
+            const hasUnchecked = uncheckedPattern.test(dodSection);
+            const hasChecked = checkedPattern.test(dodSection);
+
+            // If no unchecked items, or no items at all, allow close
+            if (!hasUnchecked) {
+              core.info(`Issue #${issue.number} has completed DoD; allowing close.`);
+              return;
+            }
+
+            // Issue has unchecked DoD items; post guidance comment and label (don't reopen)
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              per_page: 100,
+            });
+
+            const existing = comments.find(
+              (comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            const message = [
+              marker,
+              '⚠️ This issue was closed but the Definition of Done (DoD) is not complete.',
+              '',
+              '**Unchecked DoD items found.** Please complete all checklist items before closing this issue.',
+              '',
+              '**To close this issue:**',
+              '- ✅ Complete all DoD checklist items and check them off',
+              '- 🔁 Close the issue again',
+              '',
+              '**To force close this issue without completing DoD:**',
+              '- Add the `meta:force-close` label',
+              '- The system will then allow closure',
+              '',
+              'For more information on Definition of Done standards, see the issue template guide: https://github.com/lightspeedwp/.github/issues/new/choose',
+            ].join('\n');
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: message,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: message,
+              });
+            }
+
+            core.setFailed(`Issue #${issue.number} re-opened: Definition of Done (DoD) is incomplete. Add 'meta:force-close' label to override.`);

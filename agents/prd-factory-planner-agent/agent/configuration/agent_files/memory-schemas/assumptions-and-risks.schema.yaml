@@ -1,0 +1,64 @@
+schema_version: 1.0.0
+file: risks/assumptions-and-risks.md
+purpose: Durable record of important assumptions, evidence gaps, risks, and mitigations.
+content_type: markdown_with_yaml_frontmatter
+required_frontmatter:
+  - version
+  - title
+  - project_key
+  - last_updated
+entry_types:
+  accepted_values:
+    - assumption
+    - risk
+    - evidence_gap
+required_entry_fields:
+  - id
+  - type
+  - statement
+  - status
+optional_entry_fields:
+  - impact
+  - mitigation
+  - owner
+  - source_needed
+field_definitions:
+  id: {type: string, required: true}
+  type:
+    type: string
+    required: true
+    accepted_values:
+      - assumption
+      - risk
+      - evidence_gap
+  statement: {type: string, required: true}
+  status:
+    type: string
+    required: true
+    accepted_values:
+      - open
+      - monitoring
+      - resolved
+  impact: {type: string, required: false}
+  mitigation: {type: string, required: false}
+  owner: {type: string, required: false}
+  source_needed: {type: string, required: false}
+validation_rules:
+  - assumptions and risks must be distinguishable from confirmed facts
+  - resolved items may remain for traceability but must be marked resolved
+update_rules:
+  - update when a meaningful assumption, risk, or evidence gap appears or changes
+example: |
+  ---
+  version: 1.0.0
+  title: "Safari Lodge redesign assumptions and risks"
+  project_key: safari-lodge-redesign
+  last_updated: 2026-05-15
+  ---
+  - id: RISK-001
+    type: risk
+    statement: Booking platform requirements are still unclear.
+    status: open
+    impact: Could change plugin scope and timeline.
+    mitigation: Confirm integration requirements before technical sign-off.
+    source_needed: Stakeholder confirmation

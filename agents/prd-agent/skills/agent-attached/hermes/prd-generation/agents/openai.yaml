@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD Generation"
+  short_description: "Drafts evidence-led PRDs from grounded source material"
+  default_prompt: "Use $prd-generation to turn grounded evidence into a structured PRD draft."

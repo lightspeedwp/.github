@@ -1,0 +1,26 @@
+routing_rules:
+  - id: direct-answer-for-light-personalization
+    preferred_skill: no-skill
+    use_when: The user wants a quick recommendation, naming opinion, or one small Linear workspace default.
+    avoid_when: The task needs durable memory updates across routing, sources, or taxonomy.
+    fallback_skill: linear-decision-logger
+  - id: decision-logger-for-durable-rules
+    preferred_skill: linear-decision-logger
+    use_when: The user wants a naming rule, routing default, approval preference, or other standing Linear convention remembered.
+    avoid_when: The main task is broad packaging or reusable skill creation.
+    fallback_skill: linear-app-skill-creator
+  - id: one-specialist-before-creator
+    preferred_skill: specialist-first
+    use_when: One clear Linear job dominates, such as routing one item, finding gaps, splitting work, or summarizing momentum.
+    avoid_when: The request spans multiple specialist phases or needs Builder-ready packaging.
+    fallback_skill: linear-app-skill-creator
+  - id: rules-designer-for-reusable-triage-logic
+    preferred_skill: linear-triage-rules-designer
+    use_when: The user wants durable routing logic, label rules, priority guidance, or escalation structure for future Linear intake.
+    avoid_when: The task is only classifying one incoming item.
+    fallback_skill: linear-triage-router
+  - id: canonical-taxonomy-before-legacy-labels
+    preferred_skill: no-skill
+    use_when: The task involves recommending labels, types, priorities, or status naming for future use.
+    avoid_when: The user explicitly asks to preserve an older naming scheme.
+    fallback_skill: linear-decision-logger

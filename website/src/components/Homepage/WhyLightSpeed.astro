@@ -1,0 +1,182 @@
+---
+---
+
+<section class="hp-why" data-screen-label="04 Why LightSpeed">
+  <div class="wrap">
+    <div class="hp-why-grid">
+      <!-- Left column -->
+      <div class="hp-why-left">
+        <span class="hp-eyebrow" style="color: #7be7ff;">WHY LIGHTSPEED</span>
+        <h2 class="hp-h2" style="color: #ffffff;">Most website problems are platform problems</h2>
+        <p class="hp-why-lead">
+          Messy content, unclear governance, brittle templates, hard-to-measure journeys and layers of technical debt. LightSpeed works across the full lifecycle to fix the right things, not just the visible ones.
+        </p>
+        <a href="#" class="hp-why-cta">How we work</a>
+      </div>
+
+      <!-- Right column: 2x2 grid -->
+      <div class="hp-why-points">
+        <div class="hp-why-point">
+          <div class="hp-why-point-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4m0-4h.01"></path>
+            </svg>
+          </div>
+          <h4 class="hp-h4">Platform thinking, not page thinking</h4>
+          <p class="hp-why-point-body">
+            We work across the full lifecycle — from content structure to design systems, engineering, launch control and long-term support.
+          </p>
+        </div>
+
+        <div class="hp-why-point">
+          <div class="hp-why-point-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h4 class="hp-h4">Less rework, more confidence</h4>
+          <p class="hp-why-point-body">
+            Better decisions made early mean better outcomes later. A platform your internal team can actually live with after launch.
+          </p>
+        </div>
+
+        <div class="hp-why-point">
+          <div class="hp-why-point-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+            </svg>
+          </div>
+          <h4 class="hp-h4">Built for maintainability</h4>
+          <p class="hp-why-point-body">
+            Clear governance, real documentation and a WordPress build model shaped for long-term confidence rather than short-term patchwork.
+          </p>
+        </div>
+
+        <div class="hp-why-point">
+          <div class="hp-why-point-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </div>
+          <h4 class="hp-h4">Strategy and delivery in one</h4>
+          <p class="hp-why-point-body">
+            We connect content, design, engineering and platform care — so the whole platform improves, not just the homepage.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hp-why {
+    background: #090909;
+    color: #ffffff;
+    padding: clamp(64px, 9vw, 96px) 0;
+  }
+
+  .hp-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .hp-why-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hp-why-lead {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+  }
+
+  .hp-why-cta {
+    display: inline-block;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-pill);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: 14px;
+    text-decoration: none;
+    transition: all var(--dur-fast) var(--ease-out);
+    align-self: flex-start;
+  }
+
+  .hp-why-cta:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .hp-why-points {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .hp-why-point {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hp-why-point-icon {
+    width: 20px;
+    height: 20px;
+    color: #7be7ff;
+    margin-bottom: 4px;
+  }
+
+  .hp-why-point-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hp-why-point .hp-h4 {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .hp-why-point-body {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .hp-why-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .hp-why-points {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hp-why-points {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

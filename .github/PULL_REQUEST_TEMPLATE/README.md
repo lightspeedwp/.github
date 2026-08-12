@@ -1,17 +1,16 @@
 ---
-file_type: "documentation"
 title: "Pull Request Templates Directory"
-description: "Standardized pull request templates for the LightSpeedWP organization"
-version: "v1.1"
+description: "Standardized pull request templates for the LightSpeedWP organization. Templates for bugs, features, chores, documentation, releases, and refactoring with automation integration."
+file_type: documentation
+version: v1.3.1
+last_updated: "2026-06-19"
 created_date: "2025-10-20"
-last_updated: "2025-11-25"
-author: "LightSpeed Team"
-maintainer: "Ash Shaw"
-owners: ["lightspeedwp/maintainers"]
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
 license: "GPL-3.0"
+tags: ["templates", "pull-requests", "governance", "automation"]
 domain: "governance"
 stability: "stable"
-tags: ["templates", "pull-requests", "governance", "automation"]
 ---
 
 # 🔀 Pull Request Templates Directory
@@ -20,6 +19,8 @@ tags: ["templates", "pull-requests", "governance", "automation"]
 ![Automation Badge](https://img.shields.io/badge/automation-enabled-blue?style=flat-square)
 
 This directory contains standardized pull request templates used across all LightSpeedWP repositories to ensure consistent PR creation and proper automation triggering.
+
+PR templates in this repository use `title` and `description` in front matter. Keep those repo-local metadata fields aligned with the template body and do not mirror the issue-template `about` field here.
 
 ## 📁 Available Templates
 
@@ -39,10 +40,10 @@ This directory contains standardized pull request templates used across all Ligh
 
 These templates integrate with:
 
-- **[PR Labels](../../docs/PR_LABELS.md)** - Automated PR labeling system
-- **[Branching Strategy](../docs/BRANCHING_STRATEGY.md)** - Branch naming and PR workflow
-- **[Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)** - Agent-driven PR workflows
-- **[Reviewer Agent](../agents/reviewer.agent.md)** - Automated code review
+- **[PR Labels](../../docs/LABELING.md#pull-request-labelling)** - Automated PR labeling system
+- **[Branching Strategy](../../docs/BRANCHING_STRATEGY.md)** - Branch naming and PR workflow
+- **[Automation Governance](../../docs/AUTOMATION.md)** - Agent-driven PR workflows
+- **[Reviewer Agent](../../.github/agents/reviewer.agent.md)** - Automated code review
 
 ## 🤖 Automation Features
 
@@ -55,16 +56,16 @@ These templates integrate with:
 
 ## 📚 Related Documentation
 
-- [**Agents Directory**](../agents/agent.md) - PR automation agents
+- [**Agents Directory**](../../.github/agents/agent.md) - PR automation agents
 - [**Workflows**](../workflows/README.md) - GitHub Actions for PRs
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - PR response templates
-- [**Instructions**](../instructions/pull-requests.instructions.md) - PR handling instructions
+- [**Instructions**](../../instructions/pull-requests.instructions.md) - PR handling instructions
 
 ## 💡 Usage Guidelines
 
 1. **Template Selection**: Choose the template that best matches your PR type
 2. **Required Fields**: Complete all required sections in the template
-3. **Branch Naming**: Follow the [branching strategy](../docs/BRANCHING_STRATEGY.md) for automatic detection
+3. **Branch Naming**: Follow the [branching strategy](../../docs/BRANCHING_STRATEGY.md) for automatic detection
 4. **A11y & Security**: Complete the WCAG 2.2 AA and OWASP-aligned checklist items before review
 5. **Automation**: Let the system handle labeling and assignment - avoid manual changes
 
@@ -76,8 +77,6 @@ These templates integrate with:
 
 ---
 
-*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
+*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
----
-
-<!-- RANDOM FOOTER: 🔀 Streamlined PRs, seamless integration! -->
+Closes: {closes_issues}

@@ -1,0 +1,15 @@
+interface:
+  display_name: Content File Validator
+  short_description: Validate Markdown, schemas, templates, and handoff readiness.
+  default_prompt: Use $content-file-validator to validate markdown, template, schema,
+    and handoff files for Markdown quality, YAML compliance, semantic versioning,
+    placeholder alignment, and downstream handoff readiness.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,14 +1,16 @@
 ---
-name: "Release PR"
-about: "Release new features or enhancements"
-title: "release: {short summary}"
-labels: ["status:needs-review", "area:release", "release:patch"]
+file_type: "pr-template"
+title: "PR Template - RELEASE"
+description: "Pull request template for RELEASE changes"
+version: "1.0.1"
+last_updated: "2026-06-03"
+category: "github-templates"
 ---
 
 # Release Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
+> This repository enforces changelog, release, and label automation for all PRs and issues.
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for contributor rules.
 
 ## Linked issues & merged PRs
 
@@ -26,7 +28,7 @@ Includes:
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -57,7 +59,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
 -->
 
 ---

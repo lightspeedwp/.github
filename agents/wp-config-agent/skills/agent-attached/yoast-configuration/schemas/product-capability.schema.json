@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast product capability",
+  "type": "object",
+  "required": [
+    "capability",
+    "free",
+    "premium",
+    "woocommerce",
+    "ai_plus",
+    "sources"
+  ],
+  "properties": {
+    "capability": {
+      "type": "string"
+    },
+    "free": {
+      "type": "string"
+    },
+    "premium": {
+      "type": "string"
+    },
+    "woocommerce": {
+      "type": "string"
+    },
+    "ai_plus": {
+      "type": "string"
+    },
+    "configuration_location": {
+      "type": "string"
+    },
+    "default_behaviour": {
+      "type": "string"
+    },
+    "seo_impact": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

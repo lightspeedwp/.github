@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Backlog Report Input",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["report_type", "scope", "tickets"],
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "enum": ["backlog_health", "weekly_report", "trend_comparison", "daily_digest", "repeated_theme_review", "queue_risk_check", "mixed_operational_report"]
+    },
+    "scope": {"type": "string"},
+    "current_window": {"type": ["string", "null"]},
+    "comparison_window": {"type": ["string", "null"]},
+    "filters": {"type": "object"},
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "ticket_counts": {"type": "boolean"},
+        "ticket_metadata": {"type": "boolean"},
+        "ticket_details": {"type": "boolean"},
+        "ticket_conversations": {"type": "boolean"},
+        "sla_visible": {"type": "boolean"},
+        "csat_visible": {"type": "boolean"},
+        "help_centre_visible": {"type": "boolean"}
+      }
+    },
+    "tickets": {
+      "type": "array",
+      "items": {"$ref": "zendesk-ticket-summary.schema.json"}
+    },
+    "counts": {"type": "object"},
+    "missing_evidence": {"type": "array", "items": {"type": "string"}}
+  }
+}

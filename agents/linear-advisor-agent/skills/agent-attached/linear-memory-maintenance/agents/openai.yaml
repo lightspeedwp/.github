@@ -1,0 +1,14 @@
+interface:
+  display_name: Linear Memory Maintenance
+  short_description: Keep Linear-focused Memory clean, durable, and useful.
+  default_prompt: Use $linear-memory-maintenance to decide what durable information
+    should be read, updated, or skipped in Memory for this Linear-focused task.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

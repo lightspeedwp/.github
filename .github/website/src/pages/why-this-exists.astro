@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Why this exists - Awesome GitHub"
+  description="Why the Awesome GitHub site exists and how it supports the conference talk."
+>
+  <section class="hero">
+    <div class="eyebrow">Context</div>
+    <h1>Why this exists</h1>
+    <p class="lede">
+      The site gives LightSpeed a clean public face for the ideas already living inside
+      the <code>.github</code> repository: governance, reusable patterns, the
+      conference talk, and the discipline that keeps AI-assisted workflows maintainable.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What it does</h2>
+    <div class="page-copy">
+      <p>
+        It keeps the public site focused on the talk and the standards behind it while
+        leaving room for additional pages later.
+      </p>
+      <ul>
+        <li>Shows the repository as a control plane rather than a document dump.</li>
+        <li>Gives the conference talk a clear home inside the same public site.</li>
+        <li>Keeps the shared header, footer, and page voice consistent across the site.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How it grows</h2>
+    <div class="page-copy">
+      <p>
+        As more conference or project pages are added, they should reuse the same design
+        language rather than reset it.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

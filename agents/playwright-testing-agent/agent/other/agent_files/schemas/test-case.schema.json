@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Test Case",
+  "type": "object",
+  "required": [
+    "test_case_id",
+    "source_requirement",
+    "requirement_type",
+    "page_or_flow",
+    "actor",
+    "preconditions",
+    "viewport",
+    "steps",
+    "expected_result",
+    "assertions",
+    "accessibility_checks",
+    "visual_checks",
+    "state_change",
+    "priority",
+    "evidence_references",
+    "playwright_implementation_notes"
+  ],
+  "properties": {
+    "test_case_id": {"type": "string", "minLength": 1},
+    "source_requirement": {"type": "string", "minLength": 1},
+    "requirement_type": {"type": "string", "enum": ["functional-flow", "content-rule", "visual-rule", "accessibility-rule", "analytics-conversion-rule", "integration-rule", "error-empty-state"]},
+    "page_or_flow": {"type": "string", "minLength": 1},
+    "actor": {"type": "string", "minLength": 1},
+    "preconditions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "viewport": {"type": "string", "minLength": 1},
+    "steps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "expected_result": {"type": "string", "minLength": 1},
+    "assertions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "accessibility_checks": {"type": "array", "items": {"type": "string"}},
+    "visual_checks": {"type": "array", "items": {"type": "string"}},
+    "state_change": {"type": "boolean"},
+    "priority": {"type": "string", "enum": ["high", "medium", "low"]},
+    "evidence_references": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "playwright_implementation_notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

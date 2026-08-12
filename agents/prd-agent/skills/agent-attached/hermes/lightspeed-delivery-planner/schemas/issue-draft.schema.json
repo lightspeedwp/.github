@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Issue draft",
+  "type": "object",
+  "required": ["title", "summary"],
+  "properties": {
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

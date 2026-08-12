@@ -41,6 +41,14 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
       "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
+      "agents/**/figma-generate-library/**", // Bundled Figma plugin skill scripts (run inside the Figma plugin sandbox, not Node)
+      "agents/**/figma-use/**", // Bundled Figma plugin API references/typings
+      "agents/**/openai-docs/**", // Bundled platform-managed OpenAI docs helper scripts (vendored reference, not repo-authored)
+      "design_handoff_awesome_github/design_source/**", // Migrated from .eslintignore (no longer read by ESLint 10+)
+      "website/dist/**", // Migrated from .eslintignore
+      "website/node_modules/**", // Migrated from .eslintignore
+      ".github/projects/active/**", // Project documentation and deliverables (excluded from linting)
+      "hooks/**", // Shell scripts and portable hooks (not JavaScript)
     ];
 
 /**
@@ -105,6 +113,10 @@ module.exports = [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       "prettier/prettier": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
     },
   },
   // CommonJS files (.cjs)
@@ -217,6 +229,39 @@ module.exports = [
       "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
+    },
+  },
+  // Website browser scripts — run in the browser, not Node.js
+  {
+    files: ["website/src/scripts/**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Browser globals
+        document: "readonly",
+        window: "readonly",
+        navigator: "readonly",
+        localStorage: "readonly",
+        sessionStorage: "readonly",
+        CustomEvent: "readonly",
+        Event: "readonly",
+        IntersectionObserver: "readonly",
+        MutationObserver: "readonly",
+        requestAnimationFrame: "readonly",
+        clearTimeout: "readonly",
+        setTimeout: "readonly",
+        console: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-console": "off",
+      "no-empty": ["error", { allowEmptyCatch: true }],
     },
   },
 ];

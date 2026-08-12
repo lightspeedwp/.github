@@ -1,34 +1,19 @@
 ---
-file_type: "documentation"
-title: "LightSpeed WordPress Development Agency - GitHub Profile"
-description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-version: "2.1"
-created_date: "2025-10-20"
-last_updated: "2025-12-04"
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-owners: ["lightspeedwp/maintainers"]
-license: "GPL-3.0"
-domain: "community"
-stability: "stable"
-tags:
-  [
-    "wordpress",
-    "agency",
-    "open-source",
-    "themes",
-    "plugins",
-    "lsx-design",
-    "tour-operator",
-    "community",
-  ]
-references:
-  - path: "../.github/custom-instructions.md"
-    description: "AI custom instructions"
-  - path: "../CONTRIBUTING.md"
-    description: "Contribution guidelines"
-  - path: "../SUPPORT.md"
-    description: "Support resources"
+file_type: documentation
+title: LightSpeed WordPress Development Agency - GitHub Profile
+description: Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003
+version: v2.2
+created_date: '2025-10-20'
+last_updated: '2026-06-18'
+maintainer: LightSpeed Team
+authors:
+  - LightSpeed Team
+license: GPL-3.0
+stability: stable
+domain: governance
+tags: []
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # 🚀 LightSpeed WordPress Development Agency
@@ -38,7 +23,7 @@ references:
 [![Since 2003](https://img.shields.io/badge/Since-2003-blue)](https://lightspeedwp.agency/about)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Community](https://img.shields.io/badge/Community-Driven-success)](https://github.com/orgs/lightspeedwp/discussions)
-[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](./.github/custom-instructions.md)
+[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](../.github/custom-instructions.md)
 
 ## 👋 Welcome to LightSpeed's GitHub Organization
 
@@ -48,6 +33,8 @@ We're a **WordPress design and development agency** with a focus on creating pow
 
 ```mermaid
 flowchart LR
+accTitle: "LightSpeed organization structure and products"
+accDescr: "Organization overview showing LightSpeed agency team, core products including LSX Design theme and Tour Operator plugin, and open source commitment with community support and documentation."
     subgraph "🏢 LightSpeed Agency"
         A[👥 Team Since 2003]
         B[🎯 WordPress Experts]
@@ -78,9 +65,9 @@ flowchart LR
     F --> J
     G --> K
 
-    style A fill:#e1f5fe
-    style D fill:#f3e5f5
-    style H fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style H fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## About Us
@@ -107,6 +94,8 @@ We believe in the power of community and open-source collaboration! If you're pa
 
 ```mermaid
 flowchart TD
+accTitle: "LightSpeed community contribution process"
+accDescr: "Complete contribution workflow from starting point through issue submission, feature requests, code contributions, documentation improvements, team triage, code review, merge and deployment, with feedback loop for requested changes."
     A[🚀 Start Here] --> B{What do you want to do?}
 
     B -->|🐛 Report Issue| C[📝 Submit Issue]
@@ -134,9 +123,9 @@ flowchart TD
     P --> I
     O --> Q[📢 Community Update]
 
-    style A fill:#e1f5fe
-    style E fill:#f3e5f5
-    style O fill:#c8e6c9
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style O fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ### 🤝 Ways to Contribute
@@ -157,6 +146,8 @@ At LightSpeed, we believe in the power of open-source software. We contribute to
 
 ```mermaid
 graph TB
+accTitle: "LightSpeed project architecture and ecosystem"
+accDescr: "Comprehensive architecture showing frontend solutions with LSX Design and custom blocks, backend functionality including Tour Operator plugin and WooCommerce extensions, developer tools with CI/CD workflows, documentation and community support forums."
     subgraph "🎨 Frontend Solutions"
         A[LSX Design Theme]
         B[Block Patterns]
@@ -203,11 +194,11 @@ graph TB
     K --> N
     L --> O
 
-    style A fill:#e1f5fe
-    style D fill:#f3e5f5
-    style G fill:#fff3e0
-    style J fill:#e8f5e8
-    style M fill:#fce4ec
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style G fill:#fef3c7,color:#4a2c00,stroke:#b45309
+    style J fill:#dcfce7,color:#14532d,stroke:#14532d
+    style M fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
 ### [LSX Design](https://lsx.design)
@@ -232,6 +223,8 @@ We welcome contributions from the community! If you're interested in collaborati
 
 ```mermaid
 stateDiagram-v2
+accTitle: "Community engagement and contribution lifecycle"
+accDescr: "State machine showing the journey from discovering projects through exploration, engagement, contributions, collaboration, leadership, and mentorship with feedback loops for continuous community participation."
     [*] --> Discover
     Discover --> Explore
     Explore --> Engage
@@ -305,9 +298,6 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 
 ---
 
-*This profile is part of our commitment to transparency, community engagement, and open-source collaboration. All our projects follow the [LightSpeed development standards](../instructions/coding-standards.instructions.md) and are enhanced with AI-powered development tools.*
+---
 
-<!-- RANDOM FOOTER: ✨ Maintained with ❤️ by LightSpeedWP Automation Team -->
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+*🧭 Your compass through the documentation landscape*

@@ -1,0 +1,14 @@
+interface:
+  display_name: Linear Unplanned Work Intake Audit
+  short_description: Audit how unplanned work enters Linear workflows.
+  default_prompt: Use $linear-unplanned-work-intake-audit to review how unplanned
+    work enters Linear and recommend a stronger intake flow.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

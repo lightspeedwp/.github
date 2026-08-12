@@ -1,0 +1,282 @@
+name: "Badges: Workflow Inventory Audit"
+
+on:
+  schedule:
+    # Run daily at 01:00 UTC for faster discovery
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+    inputs:
+      auto_update:
+        description: "Auto-update schema with new workflows"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  audit-workflows:
+    name: "Audit Workflow Inventory & Update Schema"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: read
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Scan workflow directory"
+        id: scan
+        run: |
+          SCHEMA_FILE=".github/automation/badges.schema.yml"
+
+          if [[ ! -f "$SCHEMA_FILE" ]]; then
+            echo "::error::Badge schema not found at $SCHEMA_FILE"
+            exit 1
+          fi
+
+          # Find all workflow files
+          echo "Scanning .github/workflows/ for workflow files..."
+          find .github/workflows -maxdepth 1 -type f \( -name "*.yml" -o -name "*.yaml" \) | sed 's|.*/||;s|\.ya\?ml$||' | sort > /tmp/all_workflows.txt
+
+          total_count=$(wc -l < /tmp/all_workflows.txt)
+          echo "total_workflows=$total_count" >> $GITHUB_OUTPUT
+
+          # Extract workflow names from schema using Node.js for reliable YAML parsing
+          echo "Extracting workflow definitions from schema..."
+          node -e "
+            const yaml = require('js-yaml');
+            const fs = require('fs');
+            try {
+              const schema = yaml.load(fs.readFileSync('${SCHEMA_FILE}', 'utf-8'));
+              if (schema.badges && schema.badges.workflow) {
+                const workflows = Object.keys(schema.badges.workflow).sort();
+                workflows.forEach(w => console.log(w));
+              }
+            } catch(e) {
+              console.error('YAML parsing failed:', e.message);
+              process.exit(1);
+            }
+          " > /tmp/schema_workflows.txt
+
+          schema_count=$(wc -l < /tmp/schema_workflows.txt)
+          echo "schema_workflows=$schema_count" >> $GITHUB_OUTPUT
+
+          # Find new workflows
+          echo "Detecting new workflows..."
+          comm -23 /tmp/all_workflows.txt /tmp/schema_workflows.txt > /tmp/new_workflows.txt || true
+
+          new_count=$(wc -l < /tmp/new_workflows.txt)
+          echo "new_workflows=$new_count" >> $GITHUB_OUTPUT
+
+          # Find removed workflows
+          echo "Detecting removed workflows..."
+          comm -13 /tmp/all_workflows.txt /tmp/schema_workflows.txt > /tmp/removed_workflows.txt || true
+
+          removed_count=$(wc -l < /tmp/removed_workflows.txt)
+          echo "removed_workflows=$removed_count" >> $GITHUB_OUTPUT
+
+          # Calculate coverage
+          if [[ $total_count -gt 0 ]]; then
+            coverage=$(( (schema_count * 100) / total_count ))
+          else
+            coverage=0
+          fi
+          echo "coverage=$coverage" >> $GITHUB_OUTPUT
+
+          echo ""
+          echo "📊 Workflow Inventory Report:"
+          echo "  Total Workflows: $total_count"
+          echo "  In Schema: $schema_count"
+          echo "  New Workflows: $new_count"
+          echo "  Removed Workflows: $removed_count"
+          echo "  Coverage: ${coverage}%"
+
+      - name: "Add new workflows to schema"
+        if: steps.scan.outputs.new_workflows > 0 && inputs.auto_update
+        id: update
+        run: |
+          SCHEMA_FILE=".github/automation/badges.schema.yml"
+
+          # Read new workflows
+          new_workflows=$(cat /tmp/new_workflows.txt | sort)
+
+          if [[ -z "$new_workflows" ]]; then
+            echo "No new workflows to add"
+            echo "schema_updated=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Create backup
+          cp "$SCHEMA_FILE" "${SCHEMA_FILE}.bak"
+
+          # Use Node.js for safe YAML manipulation
+          node -e "
+            const yaml = require('js-yaml');
+            const fs = require('fs');
+            const path = require('path');
+
+            try {
+              const schemaContent = fs.readFileSync('${SCHEMA_FILE}', 'utf-8');
+              const schema = yaml.load(schemaContent);
+
+              if (!schema.badges || !schema.badges.workflow) {
+                throw new Error('Schema missing workflow section');
+              }
+
+              const newWorkflows = \`$new_workflows\`.trim().split('\\n').filter(Boolean);
+              let updated = false;
+
+              for (const workflow of newWorkflows) {
+                if (!schema.badges.workflow[workflow]) {
+                  schema.badges.workflow[workflow] = {
+                    label: workflow.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+                    description: 'Auto-added workflow (needs review)',
+                    branch: 'develop'
+                  };
+                  updated = true;
+                  console.log('  - ' + workflow);
+                }
+              }
+
+              if (updated) {
+                fs.writeFileSync('${SCHEMA_FILE}', yaml.dump(schema));
+                console.log('schema_updated=true');
+              } else {
+                console.log('schema_updated=false');
+              }
+            } catch(e) {
+              console.error('Error updating schema:', e.message);
+              process.exit(1);
+            }
+          " | grep "^schema_updated=" >> $GITHUB_OUTPUT || {
+            echo "schema_updated=false" >> $GITHUB_OUTPUT
+          }
+
+      - name: "Commit schema updates"
+        if: steps.update.outputs.schema_updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .github/automation/badges.schema.yml
+
+          COMMIT_MSG="chore: Update badge schema with newly discovered workflows"
+          COMMIT_MSG="$COMMIT_MSG"$'\n\n'
+          COMMIT_MSG="$COMMIT_MSG"$'- '$"Auto-added ${{ steps.scan.outputs.new_workflows }} new workflow(s)"$'\n'
+          COMMIT_MSG="$COMMIT_MSG"$'- '$"Coverage: ${{ steps.scan.outputs.coverage }}%"
+
+          git commit -m "$COMMIT_MSG" || echo "No changes to commit"
+          git push origin HEAD:"${{ github.ref_name }}"
+
+      - name: "Create issue for removed workflows"
+        if: steps.scan.outputs.removed_workflows > 0
+        continue-on-error: true
+        run: |
+          # Create temporary issue body file
+          {
+            echo "## Definition of Ready (DoR)"
+            echo ""
+            echo "- [x] Issue is reproducible"
+            echo "- [x] Removed workflows have been identified"
+            echo "- [x] Schema has been scanned"
+            echo ""
+            echo "## Removed Workflows Detected"
+            echo ""
+            echo "The following workflows are defined in the badge schema but no longer exist:"
+            echo ""
+            cat /tmp/removed_workflows.txt
+            echo ""
+            echo "## Action Items"
+            echo ""
+            echo "- [ ] Verify workflows were intentionally removed"
+            echo "- [ ] Remove from schema (.github/automation/badges.schema.yml)"
+            echo "- [ ] Update documentation if needed"
+            echo ""
+            echo "## Definition of Done (DoD)"
+            echo ""
+            echo "- [ ] Schema updated"
+            echo "- [ ] No stale workflow references remain"
+            echo "- [ ] Documentation reviewed"
+          } > /tmp/removed_issue.txt
+
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "Removed Workflows Detected in Badge Schema" \
+            --body-file /tmp/removed_issue.txt \
+            --label "type:task,area:automation" || true
+
+      - name: "Create issue for new workflows"
+        if: steps.scan.outputs.new_workflows > 0
+        continue-on-error: true
+        run: |
+          # Create temporary issue body file
+          {
+            echo "## Definition of Ready (DoR)"
+            echo ""
+            echo "- [x] New workflows have been discovered"
+            echo "- [x] Workflows auto-added to schema"
+            echo "- [x] Schema validated"
+            echo ""
+            echo "## New Workflows Discovered"
+            echo ""
+            echo "The following new workflows have been discovered and auto-added:"
+            echo ""
+            cat /tmp/new_workflows.txt
+            echo ""
+            echo "## Review Checklist"
+            echo ""
+            echo "- [ ] Verify workflow descriptions are accurate"
+            echo "- [ ] Confirm workflow category assignment"
+            echo "- [ ] Review metadata in schema"
+            echo "- [ ] Validate against BADGES_GOVERNANCE.md coverage rules"
+            echo ""
+            echo "## Definition of Done (DoD)"
+            echo ""
+            echo "- [ ] Descriptions updated for clarity"
+            echo "- [ ] Category assigned correctly"
+            echo "- [ ] Metadata reviewed and approved"
+            echo "- [ ] Schema merged to develop"
+          } > /tmp/new_issue.txt
+
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "New Workflows Added to Badge Schema" \
+            --body-file /tmp/new_issue.txt \
+            --label "type:task,area:automation" || true
+
+      - name: "Report coverage metrics"
+        if: always()
+        run: |
+          echo "## 📈 Workflow Inventory Audit Results"
+          echo ""
+          echo "**Coverage Metrics:**"
+          echo "- Total Workflows Found: ${{ steps.scan.outputs.total_workflows }}"
+          echo "- In Schema: ${{ steps.scan.outputs.schema_workflows }}"
+          echo "- New Workflows: ${{ steps.scan.outputs.new_workflows }}"
+          echo "- Removed Workflows: ${{ steps.scan.outputs.removed_workflows }}"
+          echo "- **Coverage: ${{ steps.scan.outputs.coverage }}%**"
+          echo ""
+          echo "**Actions Taken:**"
+          if [[ "${{ steps.update.outputs.schema_updated }}" == "true" ]]; then
+            echo "✅ Schema updated with ${{ steps.scan.outputs.new_workflows }} new workflow(s)"
+          fi
+          if [[ "${{ steps.scan.outputs.removed_workflows }}" -gt 0 ]]; then
+            echo "⚠️ Issue created for ${{ steps.scan.outputs.removed_workflows }} removed workflow(s)"
+          fi

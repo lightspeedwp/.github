@@ -1,0 +1,47 @@
+schema:
+  type: object
+  additionalProperties: false
+  required:
+    - default_package_shape
+    - preferred_validation_level
+    - markdown_output_profile
+    - last_updated_at
+  properties:
+    default_package_shape:
+      type: string
+      enum:
+        - full-skill-package
+        - template-pack
+        - audit-pack
+        - builder-pack
+    preferred_validation_level:
+      type: string
+      enum:
+        - lightweight
+        - standard
+        - production-ready
+    markdown_output_profile:
+      type: string
+      enum:
+        - compact
+        - standard-factory
+        - copy-ready-heavy
+    include_examples:
+      type: boolean
+    include_copy_paste_sections:
+      type: boolean
+    last_updated_at:
+      type: string
+      pattern: '^\\d{4}-\\d{2}-\\d{2}$'
+validation:
+  min_required_fields: 4
+  max_top_level_keys: 6
+  update_rules:
+    - Update only after an explicit user preference or repeated stable pattern.
+example:
+  default_package_shape: full-skill-package
+  preferred_validation_level: production-ready
+  markdown_output_profile: standard-factory
+  include_examples: true
+  include_copy_paste_sections: true
+  last_updated_at: '2026-05-15'

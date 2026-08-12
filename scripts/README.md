@@ -1,32 +1,22 @@
 ---
+title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.5"
-last_updated: "2025-12-04"
+file_type: documentation
+version: "2.7"
+last_updated: "2026-06-18"
+created_date: "2025-12-04"
 owners:
   - LightSpeedWP Team
-references:
-  - path: ../instructions/coding-standards.instructions.md
-    description: Coding standards for all scripts
-  - path: ../instructions/documentation-formats.instructions.md
-    description: Frontmatter and documentation format standards
-  - path: ../.schemas/frontmatter.schema.json
-    description: Frontmatter schema
-  - path: ../.schemas/collection.schema.json
-    description: Collection schema
-  - path: ../tests/README.md
-    description: Testing framework
-  - path: ../docs/WORKFLOWS.md
-    description: Workflow documentation
-  - path: ../CHANGELOG.md
-    description: Project changelog
-  - path: ../docs/TESTING.md
-    description: Testing standards
-  - path: ../docs/LINTING.md
-    description: Linting standards
+maintainer: LightSpeed Team
+license: GPL-3.0
+tags:
+  - scripts
+  - automation
+  - utilities
+  - testing
+domain: lightspeed
+stability: stable
 ---
-
----
-
 # LightSpeedWP Scripts & Automation
 
 ![Scripts Badge](https://img.shields.io/badge/scripts-active-brightgreen?style=flat-square)
@@ -40,7 +30,10 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 ```mermaid
 graph TB
+accTitle: "Scripts and automation directory architecture"
+accDescr: "Shows the hierarchical structure of scripts directory including awesome-copilot, includes, validation, maintenance, and projects folders with their core utilities, test helpers, and integrations with GitHub Actions and CI/CD pipeline."
     A[Scripts Directory] --> B[awesome-copilot/]
+    A --> V[audit/]
     A --> C[includes/]
     A --> D[json-validation/]
     A --> E[maintenance/]
@@ -54,6 +47,7 @@ graph TB
     C --> L[File Operations]
 
     B --> M[Collection Management]
+    V --> W[Agent Frontmatter Audit]
     D --> N[Schema Validation]
     E --> O[Documentation Updates]
     F --> P[GitHub Projects]
@@ -64,15 +58,17 @@ graph TB
     T[Pre-commit Hooks] --> A
     U[CI/CD Pipeline] --> A
 
-    style A fill:#e1f5fe
-    style C fill:#f3e5f5
-    style S fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style C fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style S fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## Automation Workflow
 
 ```mermaid
 sequenceDiagram
+accTitle: "Scripts and automation workflow sequence"
+accDescr: "Sequential flow showing developer executing scripts, loading utilities, validating inputs, performing operations, running tests, triggering CI/CD workflows, and deployment with completion notification."
     participant Dev as Developer
     participant Scripts as Scripts System
     participant Tests as Test Suite
@@ -92,18 +88,19 @@ sequenceDiagram
 
 ## Directory Structure
 
-- **awesome-copilot/** — Utilities for prompt/collection management and validation.  
+- **awesome-copilot/** — Utilities for prompt/collection management and validation.
   *See:* `awesome-copilot/README.md`
-- **includes/** — Shared Bash helpers and test utilities.  
+- **audit/** — Point-in-time audit scripts, including agent frontmatter baseline comparison.
+- **includes/** — Shared Bash helpers and test utilities.
   *See:* `includes/README.md`
-- **json-validation/** — Node.js/YAML validation scripts and tests.  
+- **json-validation/** — Node.js/YAML validation scripts and tests.
   *See:* `json-validation/README.md`
 - **logs/** — Log output for script runs.
-- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.  
+- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.
   *See:* `maintenance/README.md`
-- **projects/** — GitHub Projects management and automation scripts.  
+- **projects/** — GitHub Projects management and automation scripts.
   *See:* `projects/README.md`
-- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.  
+- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.
   *See:* `utility/README.md`
 
 ## Core Components
@@ -213,7 +210,70 @@ scripts/utility/label-sync.js --dry-run
 
 # Validate configuration
 node scripts/validation/validate-coderabbit-yml.cjs
+
+# Audit agent frontmatter against release baseline
+npm run audit:agents:ruby
+
+# Validate WCEU 2026 Phase 1 (Schema migration, slides, etc.)
+npm run validate:wceu:phase1
+
+# Validate WCEU 2026 Phase 2 (NotebookLM output, design system, etc.)
+npm run validate:wceu:phase2
 ```
+
+## WCEU 2026 Validation Scripts
+
+Two JavaScript-based validation scripts have been created to replace legacy bash scripts:
+
+### `validate-phase2-completion.js`
+
+Validates Phase 2 WCEU 2026 deliverables including:
+
+- NotebookLM output files and content quality
+- Supporting documentation (prompts, checklists, sources index)
+- Google Slides foundation (interactive verification)
+- Frontmatter and Markdown validation
+- Content quality checks (timing, examples, visuals)
+
+**Usage:**
+
+```bash
+npm run validate:wceu:phase2
+# or
+node scripts/validate-phase2-completion.js
+```
+
+**Features:**
+
+- Interactive input for manual verification steps (Google Slides check)
+- Color-coded output for pass/fail/warning indicators
+- Detailed logging of validation results
+- Cross-platform compatible (uses Node.js built-ins)
+
+### `verify-wceu-readiness.js`
+
+Validates Phase 1 WCEU 2026 completion including:
+
+- Schema migration (.schemas directory removed, new schema structure)
+- Agent slides reorganization
+- Content file completeness
+- Frontmatter and Markdown validation
+- File reference integrity
+
+**Usage:**
+
+```bash
+npm run validate:wceu:phase1
+# or
+node scripts/verify-wceu-readiness.js
+```
+
+**Features:**
+
+- Non-interactive, fully automated validation
+- Comprehensive file existence and structure checks
+- Integration with `npm run validate:frontmatter` and `npm run lint:md`
+- Cross-platform compatible
 
 ## Running Test Suites
 
@@ -268,14 +328,14 @@ markdownlint scripts/**/*.md  # README / docs lint
 
 ## Change Log / History
 
-Version: 2.5 (increment when public script interfaces or includes contracts change).  
+Version: 2.5 (increment when public script interfaces or includes contracts change).
 Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ## FAQ / Troubleshooting
 
-**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.  
-**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.  
-**Permission denied running script?** Add executable bit: `chmod +x <script>`.  
+**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.
+**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.
+**Permission denied running script?** Add executable bit: `chmod +x <script>`.
 **Bats tests not found?** Verify test file naming pattern `test-*.bats` and correct path in run script.
 
 ## Limitations & Notes
@@ -340,6 +400,8 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ```mermaid
 flowchart TD
+accTitle: "Script execution flow and lifecycle"
+accDescr: "Detailed flowchart showing script execution lifecycle from dependency checking, includes loading, CLI argument parsing, input validation, main logic execution, test running, and exit handling with error and success paths."
     A[Script Execution] --> B{Check Dependencies}
     B -->|Missing| C[Install Dependencies]
     B -->|Available| D[Load Includes]
@@ -356,10 +418,10 @@ flowchart TD
     L --> N[Exit with Error]
     M --> O[Exit Successfully]
 
-    style A fill:#e1f5fe
-    style I fill:#e8f5e8
-    style O fill:#c8e6c9
-    style N fill:#ffcdd2
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style I fill:#dcfce7,color:#14532d,stroke:#14532d
+    style O fill:#ecfdf5,color:#064e3b,stroke:#059669
+    style N fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
 ## Contributing
@@ -388,7 +450,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
@@ -396,13 +458,13 @@ When contributing new scripts or modifications:
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Agents Documentation](../agents/agent.md)
 - [Prompts Library](../.github/prompts/prompts.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
+- [Automation & Workflows](../docs/AUTOMATION.md)
+- [Workflow Coordination](../docs/WORKFLOW_COORDINATION.md)
+- [Testing Standards](../docs/TESTING.md)
+- [Linting Standards](../docs/LINTING.md)
 
 ---
 
-*⚡ Empowering WordPress development through intelligent automation and shared utilities.*
+---
 
-<!-- RANDOM FOOTER: ⚡ Magic Automation Unicorns at work! -->
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+*🎼 Orchestrated automation — where intelligence meets operations*

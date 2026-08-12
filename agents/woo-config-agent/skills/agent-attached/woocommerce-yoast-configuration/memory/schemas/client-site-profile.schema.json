@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Client site profile",
+  "type": "object",
+  "required": [
+    "client_name",
+    "site_url",
+    "site_type",
+    "yoast_products"
+  ],
+  "properties": {
+    "client_name": {
+      "type": "string"
+    },
+    "site_url": {
+      "type": "string"
+    },
+    "site_type": {
+      "type": "string"
+    },
+    "yoast_products": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public_content_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public_taxonomies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "woocommerce": {
+      "type": "boolean"
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_verified": {
+      "type": "string"
+    }
+  }
+}

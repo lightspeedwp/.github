@@ -1,24 +1,16 @@
 ---
 title: "LightSpeed Metrics Directory"
-version: "v1.0"
-last_updated: "2025-12-04"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity."
+description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity across the LightSpeed organization."
+file_type: documentation
+version: v1.2
+last_updated: "2026-06-03"
+created_date: "2025-12-04"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
 tags: ["metrics", "analytics", "automation", "monitoring", "quality"]
-file_type: "documentation"
-category: "infrastructure"
-references:
-  - path: "../reports/README.md"
-    description: "Reporting documentation"
-  - path: "../agents/metrics.agent.md"
-    description: "Metrics agent configuration"
-  - path: "../../docs/BRANDING.md"
-    description: "Branding guidelines"
-  - path: "../workflows/branding.yml"
-    description: "Branding workflow"
-  - path: "../workflows/metrics.yml"
-    description: "Issue metrics workflow"
+domain: "governance"
+stability: "stable"
 ---
 
 # LightSpeed Metrics Directory
@@ -363,7 +355,7 @@ npx ajv validate -s schemas/frontmatter.schema.json -d path/to/file.md
 | **Metrics Agent Spec**    | Future automated metrics agent    | [.github/agents/metrics.agent.md](../agents/metrics.agent.md)                         |
 | **Branding Workflow**     | Branding metrics automation       | [.github/workflows/branding.yml](../workflows/branding.yml)                           |
 | **Frontmatter Schema**    | Validation schema for frontmatter | [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json)              |
-| **Automation Governance** | Metrics and reporting policies    | [.github/automation/AUTOMATION_GOVERNANCE.md](../automation/AUTOMATION_GOVERNANCE.md) |
+| **Automation Governance** | Metrics and reporting policies    | [docs/AUTOMATION.md](../../docs/AUTOMATION.md) |
 
 ## Future Enhancements
 

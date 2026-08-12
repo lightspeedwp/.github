@@ -1,0 +1,54 @@
+{
+  "name": "openai-marketplace",
+  "plugins": [
+    {
+      "name": "linear",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/linear/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "google-calendar",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/google-calendar/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "gmail",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/gmail/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "slack",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/slack/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "figma",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/figma/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "github",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/github/local",
+        "source": "local"
+      }
+    },
+    {
+      "name": "google-drive",
+      "source": {
+        "path": "/root/.codex/plugins/cache/openai-marketplace/google-drive/local",
+        "source": "local"
+      }
+    }
+  ]
+}

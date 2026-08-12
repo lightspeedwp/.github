@@ -1,9 +1,17 @@
 ---
-title: "Agent Test Suite"
-description: "Comprehensive Jest tests for all LightSpeed agents"
-version: "v1.0"
-last_updated: "2025-11-24"
-file_type: "documentation"
+file_type: 'documentation'
+title: 'Agent Test Suite'
+description: 'Comprehensive Jest tests for all LightSpeed agents'
+version: 'v1.1'
+created_date: '2026-05-29'
+last_updated: '2026-05-29'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # 🧪 Agent Test Suite
@@ -12,7 +20,7 @@ This directory contains comprehensive Jest tests for all LightSpeed agents, ensu
 
 ## Validation Status
 
-**Last Updated**: 2025-11-25  
+**Last Updated**: 2025-11-25
 **Status**: ✅ All agent files validated
 
 ### Validation Results
@@ -357,9 +365,4 @@ View CI status in GitHub Actions: `.github/workflows/jest-test-audit.yml`
 
 ---
 
-**Maintained by**: LightSpeed Automation Team  
-**Last Updated**: 2025-11-24  
-**Version**: v1.0
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+---

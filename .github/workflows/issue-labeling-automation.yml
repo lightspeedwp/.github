@@ -1,0 +1,144 @@
+name: Issue Labeling Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview labels without applying (dry-run mode)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      issue_filter:
+        description: 'Filter issues (e.g., "created >= 7 days ago")'
+        required: false
+        default: "created >= 7 days ago"
+        type: string
+      label_types:
+        description: "Which label types to apply"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - "all"
+          - "type"
+          - "area"
+          - "priority"
+      batch_size:
+        description: "Process issues in batches of this size"
+        required: false
+        default: "50"
+        type: string
+
+  schedule:
+    # Run daily at 02:00 UTC for ongoing labeling
+    - cron: "0 2 * * *"
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch issues to label
+        id: fetch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const filter = '${{ inputs.issue_filter || "created >= 7 days ago" }}';
+
+            try {
+              const issues = await github.paginate(
+                github.rest.issues.listForRepo,
+                {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'all',
+                  per_page: 100,
+                }
+              );
+
+              // Filter issues without type labels
+              const unlabeled = issues.filter(issue =>
+                !issue.pull_request && // Exclude PRs
+                !issue.labels.some(l => l.name.startsWith('type:'))
+              );
+
+              core.info(`Found ${unlabeled.length} issues without type labels`);
+
+              // Save to file for Node script processing
+              const fs = require('fs');
+              fs.writeFileSync(
+                'issues-to-label.json',
+                JSON.stringify(unlabeled, null, 2)
+              );
+
+              core.setOutput('count', unlabeled.length);
+              core.setOutput('issues_file', 'issues-to-label.json');
+            } catch (error) {
+              core.error(`Failed to fetch issues: ${error.message}`);
+              core.setOutput('count', 0);
+            }
+
+      - name: Apply labels
+        if: steps.fetch.outputs.count > 0
+        shell: bash
+        run: node scripts/workflows/apply-labels-workflow.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run == 'true' || 'true' }}
+          ISSUES_FILE: ${{ steps.fetch.outputs.issues_file }}
+          LABEL_TYPES: ${{ inputs.label_types || 'all' }}
+          BATCH_SIZE: ${{ inputs.batch_size || '50' }}
+
+      - name: Generate labeling report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            try {
+              if (!fs.existsSync('labeling-report.json')) {
+                core.info('No labeling report generated');
+                return;
+              }
+
+              const report = JSON.parse(fs.readFileSync('labeling-report.json', 'utf8'));
+
+              core.info(`Labeling Report:`);
+              core.info(`Total issues processed: ${report.summary.total}`);
+              core.info(`Successful: ${report.summary.succeeded}`);
+              core.info(`Errors: ${report.summary.errors}`);
+              core.info(`Type labels applied: ${report.summary.typeLabelsApplied}`);
+              core.info(`Area labels applied: ${report.summary.areaLabelsApplied}`);
+              core.info(`Priority labels applied: ${report.summary.priorityLabelsApplied}`);
+            } catch (error) {
+              core.error(`Failed to generate report: ${error.message}`);
+            }
+
+      - name: Upload labeling report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: labeling-report
+          path: |
+            labeling-report.json
+            issues-to-label.json
+          retention-days: 30

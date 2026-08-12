@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms QA Matrix",
+  "type": "object",
+  "required": ["form", "environment", "scenarios", "overall_status", "handoff_status"],
+  "properties": {
+    "form": {
+      "type": "object",
+      "required": ["id_or_name", "purpose"],
+      "properties": {
+        "id_or_name": {"type": "string"},
+        "purpose": {"type": "string"}
+      }
+    },
+    "environment": {"type": "string", "enum": ["local", "development", "staging", "production", "unknown"]},
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "checks"],
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"type": "string", "enum": ["pass", "fail", "blocked", "skipped", "needs retest"]},
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["check", "status"],
+              "properties": {
+                "check": {"type": "string"},
+                "status": {"type": "string", "enum": ["pass", "fail", "blocked", "skipped", "needs retest"]},
+                "evidence": {"type": "string"},
+                "risk": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "overall_status": {"type": "string", "enum": ["pass", "fail", "blocked", "partial", "needs retest"]},
+    "remaining_risks": {"type": "array", "items": {"type": "string"}},
+    "handoff_status": {"type": "string", "enum": ["ready", "needs owner review", "blocked", "not ready"]}
+  },
+  "additionalProperties": true
+}

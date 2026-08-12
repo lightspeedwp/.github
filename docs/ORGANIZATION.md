@@ -1,16 +1,17 @@
 ---
-file_type: "documentation"
-title: "Documentation Organization"
-description: "Document types, folder structure, and navigation guide for LightSpeedWP repository"
-version: "1.0"
-last_updated: "2025-12-04"
-owners: ["LightSpeed Team"]
-tags: ["documentation", "organization", "structure", "navigation"]
-references:
-  - path: VERSIONING.md
-    description: "Versioning conventions"
-  - path: FRONTMATTER_SCHEMA.md
-    description: "Frontmatter schema reference"
+file_type: documentation
+title: Documentation Organization
+description: Document types, folder structure, and navigation guide for LightSpeedWP
+  repository
+version: '1.1'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Team
+tags:
+- documentation
+- organization
+- structure
+- navigation
 ---
 
 # Documentation Organization
@@ -67,7 +68,4 @@ README.md
 
 ---
 
-*If you add new documentation types or major files, update this file and cross-references in the docs suite.*
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

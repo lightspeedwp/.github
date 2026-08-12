@@ -1,0 +1,79 @@
+project:
+  name: "Willow & Ash online store refresh"
+  scenario: "woocommerce"
+  stage: "intake-and-strategy"
+  source_authority:
+    - "product export"
+    - "stakeholder notes"
+    - "collection list"
+  next_workflow: "conversion-goal-strategy"
+  blocker: "no confirmed trust/proof set"
+
+voice_and_tone:
+  brand_personality_summary: "Premium, design-aware, clear, low-hype"
+  core_tone_pillars:
+    - "clear"
+    - "elevated"
+    - "commercially confident"
+  preferred_wording:
+    - "carefully curated"
+    - "premium materials"
+    - "designed for everyday use"
+  avoided_wording:
+    - "luxury lifestyle hype"
+    - "best ever"
+    - "guaranteed satisfaction"
+  trust_and_proof_sensitivity_notes:
+    - "Treat reviews, guarantees, and delivery promises as claim-sensitive"
+  tone_by_context:
+    - context: "product pages"
+      tone_guidance: "clear, benefit-led, purchase-confident"
+      what_to_avoid: "overclaiming craftsmanship or exclusivity"
+
+conversion_goals:
+  primary_audience_segments:
+    - "design-conscious shoppers"
+    - "premium home-accessory buyers"
+  audience_intent_notes:
+    - "compare quality and style"
+    - "build trust before purchase"
+  primary_conversion_goal: "purchase"
+  secondary_conversion_goal: "product exploration"
+  core_user_flow_priorities:
+    - "category to product"
+    - "product to cart"
+    - "product to trust content"
+  cta_model: "product-discovery-to-purchase"
+  routing_model: "category-page to product-page to cart"
+  page_role_definitions:
+    - page_family: "category pages"
+      role_in_flow: "help shoppers compare and narrow choices"
+      primary_cta: "view product"
+    - page_family: "product pages"
+      role_in_flow: "convert purchase-ready visitors"
+      primary_cta: "add to cart"
+  funnel_stage_defaults:
+    - "consideration"
+    - "decision"
+  friction_or_trust_notes:
+    - "buyers need reassurance on quality, shipping, and returns"
+
+preferences:
+  template_family: "category-and-product-pages"
+  output_type: "strategy-pack-then-page-drafts"
+  proof_sensitivity: "high"
+
+user:
+  english_style: "UK"
+  review_depth: "medium-to-deep"
+  blocker_style: "direct"
+
+todos:
+  active_deliverable: "category-product-page-strategy"
+  next_action: "define conversion logic"
+  biggest_blocker: "missing approved trust proof"
+
+open_items:
+  missing_input: "approved reviews/testimonials"
+  approval_dependency: "trust and guarantee wording"
+  evidence_gap: "no approved quantified proof"

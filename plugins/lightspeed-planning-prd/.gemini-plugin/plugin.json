@@ -1,0 +1,22 @@
+{
+  "name": "lightspeed-planning-prd",
+  "description": "Comprehensive product planning: PRD creation, feature planning, timeline estimation, and roadmap generation.",
+  "version": "2.0.0",
+  "provider": "google-gemini",
+  "agents": [
+    {
+      "id": "prd",
+      "name": "PRD Agent",
+      "description": "Expert product planning assistant for PRDs, features, timelines, and roadmaps",
+      "configPath": "../../agents/prd-agent/shared/core-prompt.md"
+    }
+  ],
+  "compatibility": {
+    "minVersion": "1.0.0",
+    "features": [
+      "multi-turn-conversations",
+      "function-calling",
+      "long-documents"
+    ]
+  }
+}

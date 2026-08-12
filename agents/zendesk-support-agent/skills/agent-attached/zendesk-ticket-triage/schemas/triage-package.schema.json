@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk Ticket Triage Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "issue_summary",
+    "urgency",
+    "severity",
+    "recommended_priority",
+    "issue_type",
+    "likely_owner",
+    "duplicate_or_pattern_risk",
+    "customer_impact",
+    "confirmed_facts",
+    "inferred_risks_or_concerns",
+    "missing_information",
+    "escalation_signals",
+    "recommended_next_action",
+    "recommended_downstream_skill"
+  ],
+  "properties": {
+    "issue_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "urgency": {
+      "enum": [
+        "critical",
+        "high",
+        "normal",
+        "low",
+        "unknown"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low",
+        "Unknown"
+      ]
+    },
+    "recommended_priority": {
+      "enum": [
+        "Urgent",
+        "High",
+        "Normal",
+        "Low",
+        "Unknown"
+      ]
+    },
+    "issue_type": {
+      "enum": [
+        "bug/technical fault",
+        "how-to/request",
+        "account/access",
+        "billing/refund",
+        "data/content",
+        "integration/API",
+        "performance/reliability",
+        "security/privacy",
+        "feature request",
+        "complaint/escalation",
+        "multi-issue",
+        "unclear"
+      ]
+    },
+    "likely_owner": {
+      "enum": [
+        "frontline support",
+        "senior/technical support",
+        "billing/finance/operations",
+        "customer success/account owner",
+        "product",
+        "engineering",
+        "integrations",
+        "infrastructure/ops",
+        "security/privacy",
+        "content/data",
+        "unknown"
+      ]
+    },
+    "likely_owner_rationale": {
+      "type": "string"
+    },
+    "duplicate_or_pattern_risk": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "not assessed",
+        "unknown"
+      ]
+    },
+    "duplicate_or_pattern_risk_rationale": {
+      "type": "string"
+    },
+    "customer_impact": {
+      "type": "string"
+    },
+    "confirmed_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inferred_risks_or_concerns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_signals": {
+      "enum": [
+        "none confirmed",
+        "possible",
+        "confirmed",
+        "unknown"
+      ]
+    },
+    "escalation_signals_rationale": {
+      "type": "string"
+    },
+    "recommended_next_action": {
+      "type": "string"
+    },
+    "recommended_downstream_skill": {
+      "oneOf": [
+        {
+          "enum": [
+            "zendesk-router-skill",
+            "zendesk-evidence-collector",
+            "zendesk-case-readiness-check",
+            "zendesk-draft-response",
+            "zendesk-customer-research",
+            "zendesk-customer-escalation",
+            "zendesk-handoff-prep",
+            "zendesk-duplicate-pattern-review",
+            "zendesk-knowledge-candidate-review",
+            "zendesk-create-knowledge",
+            "zendesk-evidence-quality-review",
+            "zendesk-refund-assessment",
+            "zendesk-bug-report-package",
+            "none yet",
+            "plain-language fallback"
+          ]
+        },
+        {
+          "pattern": "^plain-language fallback: .+"
+        }
+      ]
+    },
+    "recommended_downstream_rationale": {
+      "type": "string"
+    }
+  }
+}

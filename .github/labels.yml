@@ -1,27 +1,37 @@
 # Org-wide Canonical Labels (Issues, PRs, Discussions)
-# All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
+# All labeling, status, type, and standardisation is handled by the unified labeling agent and workflow.
 # This file is the single source of truth for all automation and label configuration.
+#
+# Color families (from docs/LABEL_COLOR_STRATEGY.md):
+#   Green  (Ready/Done):          1A7F37 | 2A7A3B | ABEBC6
+#   Blue   (Planning/Review):     0969DA | 3467D3 | C5DEF5
+#   Yellow (Testing/Audit):       D29922 | F2D06D | FCE2B7
+#   Red    (Blocked/Impediment):  CF222E | B91C1C | FCE2E2
+#   Orange (On-Hold/Deferred):    9A6700 | D5A87B | FDBF7C
+#   Purple (Design/UX):           8957E5 | B4A7E8 | D89AF6
+#   Gray   (Meta/Infrastructure): 57606A | B1BAC4 | D0D7DE
+#   Teal   (Integration/Deps):    007580 | 0D7F6F | 9FE1E3
 
 # --- Status ---
 
 - name: status:needs-planning
-  color: BFD4F2
+  color: C5DEF5
   description: "Awaiting planning / scoping"
 
 - name: status:needs-triage
-  color: BFD4F2
+  color: C5DEF5
   description: "Needs triage"
 
 - name: status:ready
-  color: 0E8A16
+  color: 1A7F37
   description: "Groomed and ready to start"
 
 - name: status:in-progress
-  color: 1D76DB
+  color: 0969DA
   description: "Work in progress"
 
 - name: status:on-hold
-  color: F9D0C4
+  color: 9A6700
   description: "Work on hold"
 
 - name: status:needs-design
@@ -41,43 +51,47 @@
   description: "Awaiting engineering implementation"
 
 - name: status:needs-review
-  color: BFD4F2
+  color: C5DEF5
   description: "Awaiting code review"
 
 - name: status:needs-qa
-  color: FBCA04
+  color: D29922
   description: "Quality assurance required"
 
 - name: status:needs-testing
-  color: FEF2C0
+  color: F2D06D
   description: "Testing needed (manual/automated)"
 
+- name: status:needs-audit
+  color: F2D06D
+  description: "Needs audit or validation pass"
+
 - name: status:needs-documentation
-  color: BFD4F2
+  color: C5DEF5
   description: "Needs documentation update"
 
 - name: status:in-discussion
-  color: BFD4F2
+  color: C5DEF5
   description: "Needs alignment/decision"
 
 - name: status:needs-more-info
-  color: BFD4F2
+  color: C5DEF5
   description: "Missing details to proceed"
 
 - name: status:blocked
-  color: E99695
+  color: CF222E
   description: "Blocked by dependency"
 
 - name: status:duplicate
-  color: E99695
+  color: CF222E
   description: "Duplicate of another issue"
 
 - name: status:wontfix
-  color: E1E4E8
+  color: 9A6700
   description: "Not planned to address"
 
 - name: status:done
-  color: 0E8A16
+  color: 1A7F37
   description: "Completed"
 
 # --- Priority ---
@@ -87,11 +101,11 @@
   description: "Production/launch-blocking"
 
 - name: priority:important
-  color: D93F0B
+  color: CF222E
   description: "Must-do high priority"
 
 - name: priority:normal
-  color: 0052CC
+  color: 0969DA
   description: "Default priority"
 
 - name: priority:minor
@@ -101,147 +115,234 @@
 # --- Types (Issue Types) ---
 
 - name: type:task
-  color: 4393F8
+  color: 0969DA
   description: "Task or to-do"
+  aliases:
+    - task
+    - todo
 
 - name: type:bug
-  color: 9F3734
+  color: CF222E
   description: "Bug or defect"
+  aliases:
+    - bug
 
 - name: type:feature
-  color: 3FB950
+  color: 1A7F37
   description: "Feature or enhancement"
+  aliases:
+    - feature
+    - feat
+    - enhancement
+    - feature-request
 
 - name: type:design
-  color: AB7DF8
+  color: "8957E5"
   description: "Design work"
 
+- name: type:ui
+  color: "8957E5"
+  description: "UI implementation and consistency"
+
 - name: type:epic
-  color: AB7DF8
+  color: "8957E5"
   description: "Large multi-scope initiative"
+  aliases:
+    - epic
 
 - name: type:story
-  color: 4393F8
+  color: 0969DA
   description: "User story"
 
 - name: type:improve
-  color: 9198A1
+  color: 57606A
   description: "Improvement to existing behaviour/UX"
+  aliases:
+    - improve
+    - improvement
+
+- name: type:enhancement
+  color: 57606A
+  description: "Enhancement to existing capability"
 
 - name: type:refactor
-  color: 9198A1
+  color: 57606A
   description: "Refactor or internal change"
+  aliases:
+    - refactor
+    - cleanup
+    - refactoring
 
 - name: type:build
-  color: 4393F8
+  color: 0969DA
   description: "Build & CI"
+  aliases:
+    - build
+    - build-system
+
+- name: type:ci
+  color: 0969DA
+  description: "CI/CD pipeline work"
+  aliases:
+    - ci
+    - ci/cd
 
 - name: type:automation
-  color: 4393F8
+  color: 0969DA
   description: "Automation"
+  aliases:
+    - automation
 
 - name: type:test
   color: D29922
   description: "Testing/coverage"
+  aliases:
+    - test
+
+- name: type:qa
+  color: D29922
+  description: "Quality assurance work"
 
 - name: type:performance
   color: D29922
   description: "Performance improvement"
 
 - name: type:a11y
-  color: DB61A2
+  color: "8957E5"
   description: "Accessibility"
+  aliases:
+    - a11y
 
 - name: type:security
-  color: 9F3734
+  color: CF222E
   description: "Security issue"
+  aliases:
+    - security
 
 - name: type:compatibility
-  color: 8D4821
+  color: "007580"
   description: "Compatibility"
 
+- name: type:dependency
+  color: "007580"
+  description: "Dependency management and updates"
+
 - name: type:integration
-  color: 8D4821
+  color: "007580"
   description: "Integration"
 
 - name: type:release
-  color: 3FB950
+  color: 1A7F37
   description: "Release"
 
 - name: type:maintenance
-  color: 9198A1
+  color: 57606A
   description: "Maintenance"
+  aliases:
+    - maintenance
 
 - name: type:documentation
-  color: 9198A1
+  color: 57606A
   description: "Documentation"
+  aliases:
+    - documentation
 
 - name: type:research
-  color: 9198A1
+  color: 57606A
   description: "Research / investigation"
 
+- name: type:investigation
+  color: 57606A
+  description: "Investigation and root-cause analysis"
+
 - name: type:chore
-  color: 9198A1
+  color: 57606A
   description: "Chore / small hygiene change"
+  aliases:
+    - chore
+    - housekeeping
 
 - name: type:audit
-  color: 9198A1
+  color: 57606A
   description: "Audit"
-
-- name: type:qa
-  color: D29922
-  description: "Quality assurance"
+  aliases:
+    - audit
 
 - name: type:review
-  color: 4393F8
+  color: 0969DA
   description: "Code or design review task"
 
 - name: type:ai-ops
-  color: 4393F8
+  color: 0969DA
   description: "AI Ops"
 
 - name: type:content-modelling
-  color: AB7DF8
+  color: "8957E5"
   description: "Content Modelling"
+
+- name: type:question
+  color: "5319E7"
+  description: "Question or request for clarification"
+  aliases:
+    - question
+
+- name: type:support
+  color: 1A7F37
+  description: "Support request"
+  aliases:
+    - support
+
+- name: type:help
+  color: 1A7F37
+  description: "Help request"
+  aliases:
+    - help
+
+- name: type:ux-feedback
+  color: "5319E7"
+  description: "User experience feedback"
+  aliases:
+    - ux-feedback
+    - user-experience-feedback
 
 # --- Meta / housekeeping ---
 
 - name: meta:needs-changelog
-  color: E1E4E8
+  color: D0D7DE
   description: "Requires a changelog entry before merge"
 
 - name: meta:no-changelog
-  color: E1E4E8
+  color: D0D7DE
   description: "No changelog needed"
 
 - name: meta:has-pr
-  color: E1E4E8
+  color: D0D7DE
   description: "Issue has an open linked PR"
 
 - name: meta:no-issue-activity
-  color: E1E4E8
+  color: D0D7DE
   description: "No recent issue activity"
 
 - name: meta:no-pr-activity
-  color: E1E4E8
+  color: D0D7DE
   description: "No recent PR activity"
 
 - name: meta:stale
-  color: 9198A1
+  color: 57606A
   description: "Marked as stale for review"
 
 # --- Release scope ---
 
 - name: release:patch
-  color: 3FB950
+  color: 1A7F37
   description: "Patch release"
 
 - name: release:minor
-  color: 58A6FF
+  color: 0969DA
   description: "Minor release"
 
 - name: release:major
-  color: F85149
+  color: CF222E
   description: "Major release"
 
 - name: release:hotfix
@@ -253,6 +354,10 @@
 - name: area:core
   color: C5DEF5
   description: "Core / shared infrastructure"
+
+- name: area:labels
+  color: C5DEF5
+  description: "Label governance and routing"
 
 - name: area:block-editor
   color: C5DEF5
@@ -269,6 +374,14 @@
 - name: area:tests
   color: D4C5F9
   description: "Test suites & harnesses"
+
+- name: area:testing
+  color: D4C5F9
+  description: "Testing and QA"
+
+- name: area:quality
+  color: D4C5F9
+  description: "Quality validation and QA controls"
 
 - name: area:scripts
   color: C5DEF5
@@ -310,32 +423,72 @@
   color: C2E0C6
   description: "Technical SEO (meta, schema, sitemaps)"
 
+- name: area:ai
+  color: C5DEF5
+  description: "AI and automation systems"
+
 - name: area:analytics
   color: C2E0C6
   description: "Analytics & tracking"
 
 - name: area:infrastructure
-  color: 006B75
+  color: "007580"
   description: "Infrastructure / hosting / platform"
+
+- name: area:automation
+  color: C5DEF5
+  description: "Automation workflows and agents"
+
+- name: area:performance
+  color: D29922
+  description: "Performance-focused work"
+
+- name: area:a11y
+  color: "8957E5"
+  description: "Accessibility-focused work"
+
+- name: area:security
+  color: CF222E
+  description: "Security-focused work"
+
+- name: area:compatibility
+  color: "007580"
+  description: "Compatibility and cross-environment concerns"
+
+- name: area:release
+  color: 1A7F37
+  description: "Release process and readiness"
+
+- name: area:maintenance
+  color: 57606A
+  description: "Maintenance and routine upkeep"
 
 - name: area:i18n
   color: C5DEF5
   description: "Internationalisation"
 
 - name: area:ci
-  color: BFD4F2
+  color: C5DEF5
   description: "Build and CI pipelines"
+  aliases:
+    - ci
 
 - name: area:deployment
-  color: 006B75
+  color: "007580"
   description: "Deploy/release operations"
 
 - name: area:dependencies
-  color: F9D0C4
+  color: "007580"
   description: "Composer/npm dependency work"
+  aliases:
+    - dependencies
+
+- name: meta:dependabot-security
+  color: B60205
+  description: "Dependabot update appears security-related and eligible for guarded automation"
 
 - name: area:integration
-  color: D93F0B
+  color: "007580"
   description: "3rd-party integrations / ecosystem"
 
 # --- Components (comp:*) ---
@@ -429,6 +582,10 @@
 - name: lang:js
   color: C5DEF5
   description: "JavaScript/TypeScript"
+  aliases:
+    - js
+    - javascript
+    - lang:javascript
 
 - name: lang:css
   color: C5DEF5
@@ -453,41 +610,41 @@
 # --- Environments ---
 
 - name: env:prototype
-  color: E1E4E8
+  color: D0D7DE
   description: "Prototype/sandbox"
 
 - name: env:staging
-  color: BFD4F2
+  color: C5DEF5
   description: "Staging/UAT"
 
 - name: env:live
-  color: 0E8A16
+  color: 1A7F37
   description: "Live/production"
 
 # --- Compatibility matrix ---
 
 - name: compat:wordpress
-  color: D93F0B
+  color: "007580"
   description: "WordPress core/Gutenberg compatibility"
 
 - name: compat:php
-  color: D93F0B
+  color: "007580"
   description: "PHP version compatibility"
 
 - name: compat:woocommerce
-  color: D93F0B
+  color: "007580"
   description: "WooCommerce versions"
 
 - name: compat:gutenberg
-  color: D93F0B
+  color: "007580"
   description: "Gutenberg package compatibility"
 
 - name: compat:rtl
-  color: D93F0B
+  color: "007580"
   description: "RTL languages support"
 
 - name: compat:multisite
-  color: F9D0C4
+  color: 9FE1E3
   description: "Multisite/network considerations"
 
 # --- Content types ---
@@ -503,31 +660,31 @@
 # --- AI Ops ---
 
 - name: ai-ops:instructions
-  color: 0052CC
+  color: 0969DA
   description: "AI instruction docs"
 
 - name: ai-ops:chat-modes
-  color: 0052CC
+  color: 0969DA
   description: "Prompt sets / chat modes"
 
 - name: ai-ops:agents
-  color: 0052CC
+  color: 0969DA
   description: "AI agent definitions"
 
 - name: ai-ops:prompts
-  color: 0052CC
+  color: 0969DA
   description: "Reusable prompts"
 
 - name: ai-ops:datasets
-  color: BFD4F2
+  color: C5DEF5
   description: "Training/evaluation datasets"
 
 - name: ai-ops:evaluations
-  color: BFD4F2
+  color: C5DEF5
   description: "Evaluation results"
 
 - name: ai-ops:tools
-  color: BFD4F2
+  color: C5DEF5
   description: "Tool/plugin manifests"
 
 # --- Contributor labels ---
@@ -547,29 +704,29 @@
 # --- Discussions (GitHub Discussions categories) ---
 
 - name: discussion:announcement
-  color: FBCA04
+  color: D29922
   description: "Official announcements"
 
 - name: discussion:showcase
-  color: 0E8A16
+  color: 1A7F37
   description: "Show & Tell"
 
 - name: discussion:community
-  color: 6f42c1
+  color: "8957E5"
   description: "Community/general"
 
 - name: discussion:feedback
-  color: 1d76db
+  color: 0969DA
   description: "Feedback/suggestions"
 
 - name: discussion:support
-  color: d73a4a
+  color: CF222E
   description: "Support/troubleshooting"
 
 - name: discussion:sponsorship
-  color: f9d0c4
+  color: FDBF7C
   description: "Sponsorship/funding"
 
 - name: discussion:partnership
-  color: bfd4f2
+  color: C5DEF5
   description: "Partnership/collaboration"

@@ -1,0 +1,19 @@
+{
+  "item_id": "BM-001",
+  "entity": "https://example.test/products/red-shoes/",
+  "entity_type": "product",
+  "change_type": "meta_description",
+  "current_value": "Buy red shoes online.",
+  "proposed_value": "Shop red leather shoes with secure checkout and delivery options.",
+  "source_basis": "client_copy",
+  "risk_level": "medium",
+  "approval_owner": "Ecommerce owner",
+  "approval_status": "needs_approval",
+  "implementation_route": "wordpress_admin",
+  "qa_required": [
+    "rendered_meta_description",
+    "product_schema_sample",
+    "social_preview_optional"
+  ],
+  "notes": "Check delivery wording against approved fulfilment policy before implementation."
+}

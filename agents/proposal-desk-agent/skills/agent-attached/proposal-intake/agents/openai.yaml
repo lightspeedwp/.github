@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proposal Intake"
+  short_description: "Analyse proposal requests and structure first-pass intake."
+  default_prompt: "Use $proposal-intake to analyse a proposal request, extract requirements, and produce a clear intake handoff."

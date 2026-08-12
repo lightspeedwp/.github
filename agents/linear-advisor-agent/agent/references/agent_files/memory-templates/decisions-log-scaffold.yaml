@@ -1,0 +1,46 @@
+profile:
+  purpose: Durable operating decisions the agent should reuse across future Linear-focused runs.
+  status: starter_scaffold
+  update_rule: Add entries only when a decision is likely to matter again.
+
+global_rules:
+  recommend_before_consequential_write: true
+  preserve_existing_workflow_unless_explicitly_changed: true
+  save_only_durable_decisions: true
+
+decision_defaults:
+  routing:
+    prefer_smallest_meaningful_change: true
+    linear_first: true
+    use_supporting_sources_only_when_material: true
+  issue_shaping:
+    concise_outcome_first_titles: true
+    preserve_uncertainty: true
+    prefer_copy_ready_outputs: true
+  taxonomy:
+    prefer_existing_label_families: true
+    avoid_inventing_new_taxonomy_without_evidence: true
+    recheck_live_linear_before_claiming_current_usage: true
+
+approval_preferences:
+  linear_writes:
+    default_posture: recommend_first
+    note: Consequential changes should be summarized before being carried out.
+
+reusable_decisions: []
+
+example_entry_shape:
+  id: decision-001
+  status: active
+  category: routing
+  decision: Prefer routing recommendations over workflow redesign unless the user explicitly asks for redesign.
+  rationale: Keeps the agent narrow and aligned with the current role.
+  applies_when:
+    - the request is about triage, shaping, or routing
+  created_from: repeated_usage
+  review_if:
+    - the workflow role broadens materially
+
+notes:
+  - Scaffold copy created from the first-pass memory template.
+  - Promote only stable, reusable decisions into reusable_decisions.

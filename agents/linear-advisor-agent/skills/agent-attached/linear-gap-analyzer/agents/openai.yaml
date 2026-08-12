@@ -1,0 +1,16 @@
+interface:
+  display_name: Linear Gap Analyzer
+  short_description: Find blocker gaps and route to the right team skill.
+  default_prompt: Use $linear-gap-analyzer to check a Linear issue, GitHub issue draft,
+    Asana task, bug report, QA finding, support escalation, design handoff, implementation
+    note, or LightSpeed delivery item for missing context, readiness, short follow-up
+    questions, and the correct related shared team skill to use next.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

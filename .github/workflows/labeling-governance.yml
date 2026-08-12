@@ -1,0 +1,232 @@
+name: Labeling • Unified Governance (PRs, Issues, Discussions & Cleanup)
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+  issues:
+    types: [opened, edited, reopened, closed]
+  discussion:
+    types: [created, edited, answered, reopened]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without writing labels"
+        required: false
+        default: "true"
+      report_commit:
+        description: "Commit report to repo (requires contents: write)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  discussions: write
+
+concurrency:
+  group: labeling-governance-${{ github.event_name }}-${{ github.event.number || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  LABELS_CONFIG: .github/labels.yml
+  ISSUE_TYPES_CONFIG: .github/issue-types.yml
+  LABELER_RULES: .github/labeler.yml
+
+jobs:
+  # Job 1: Standard PR/Issue/Discussion Labeling (from labeling.yml)
+  standard-labeling:
+    name: Standard Labeling, Status, and Type Assignment
+    runs-on: ubuntu-latest
+    if: |
+      (github.event.pull_request.draft == false || github.event_name != 'pull_request')
+      && !contains(github.event.head_commit.message, '[skip labeling]')
+      && github.actor != 'github-actions[bot]'
+      && github.event.action != 'closed'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate labeling config schema
+        run: node scripts/validation/validate-labeling-configs.cjs
+
+      - name: Validate canonical issue fields and docs
+        run: node scripts/validation/validate-issue-fields.cjs
+
+      - name: Sync labels with canonical set
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || inputs.dry_run || 'false' }}
+          LABEL_SYNC_REPORT_PATH: .github/reports/labeling/label-sync-${{ github.run_id }}.md
+        run: node scripts/agents/includes/label-sync.js
+        continue-on-error: false
+
+      # Guardrail: Check for unknown labels in templates/types
+      - name: Guardrail — Check for unknown labels in templates/types
+        run: node scripts/agents/includes/check-template-labels.js
+        continue-on-error: false
+
+      # Run unified labeling agent for issues and PRs
+      - name: Run labeling agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: node scripts/agents/run-labeling-agent.cjs
+
+      - name: Generate report
+        id: report
+        run: |
+          mkdir -p .github/reports/labeling
+          node scripts/agents/includes/report-writer.js > .github/reports/labeling/${{ github.run_id }}.md
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: labeling-report-${{ github.run_id }}
+          path: |
+            .github/reports/labeling/${{ github.run_id }}.md
+            .github/reports/labeling/label-sync-${{ github.run_id }}.md
+
+      - name: Optionally commit report
+        if: ${{ inputs.report_commit == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/reports/labeling/${{ github.run_id }}.md
+          git commit -m "chore(labeling): add report for run ${{ github.run_id }}"
+          git push origin HEAD:develop
+
+  # Job 2: Dependabot Security Labeling (from dependabot-security-label.yml)
+  label-dependabot-security:
+    name: Dependabot Security Label Detection
+    if: |
+      github.event_name == 'pull_request'
+      && (github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'app/dependabot')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Detect security-related Dependabot updates
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+            const labelName = 'meta:dependabot-security';
+
+            const title = context.payload.pull_request.title || '';
+            const body = context.payload.pull_request.body || '';
+            const text = `${title}\n${body}`;
+
+            // Keep this strict to avoid matching boilerplate text present in most Dependabot PRs.
+            const securityPatterns = [
+              /\bto fix\b/i,
+              /\bvulnerabilit(?:y|ies)\b/i,
+              /\bcve-\d{4}-\d+\b/i,
+              /\bghsa-[a-z0-9-]+\b/i,
+              /\bsecurity\s+fix\b/i,
+            ];
+
+            const isSecurityRelated = securityPatterns.some((pattern) => pattern.test(text));
+
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name: labelName });
+            } catch (error) {
+              if (error.status === 404) {
+                await github.rest.issues.createLabel({
+                  owner,
+                  repo,
+                  name: labelName,
+                  color: 'B60205',
+                  description: 'Dependabot update appears security-related and eligible for guarded automation',
+                });
+              } else {
+                throw error;
+              }
+            }
+
+            const existing = await github.rest.issues.listLabelsOnIssue({ owner, repo, issue_number });
+            const hasLabel = existing.data.some((label) => label.name === labelName);
+
+            if (isSecurityRelated && !hasLabel) {
+              await github.rest.issues.addLabels({ owner, repo, issue_number, labels: [labelName] });
+              core.notice(`Added '${labelName}' to PR #${issue_number}.`);
+              return;
+            }
+
+            if (!isSecurityRelated && hasLabel) {
+              await github.rest.issues.removeLabel({ owner, repo, issue_number, name: labelName });
+              core.notice(`Removed '${labelName}' from PR #${issue_number}.`);
+              return;
+            }
+
+            core.notice(
+              `No label change needed for PR #${issue_number}; security-related=${isSecurityRelated}, hasLabel=${hasLabel}.`,
+            );
+
+  # Job 3: Issue Label Cleanup on Close (from issue-close-label-hygiene.yml)
+  cleanup-labels-on-close:
+    name: Remove Status Labels When Closing Issues
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: Remove status:needs-triage label if present
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            if (!issue) {
+              core.info('No issue payload found; skipping.');
+              return;
+            }
+
+            const labelsToRemove = [
+              'status:needs-triage',
+              'status:in-progress',
+              'status:needs-review',
+            ];
+
+            const existingLabels = (issue.labels || []).map((label) => label.name);
+            const labelsToDelete = labelsToRemove.filter((labelName) => existingLabels.includes(labelName));
+
+            if (labelsToDelete.length === 0) {
+              core.info(`Issue #${issue.number} has no status labels to remove; nothing to clean up.`);
+              return;
+            }
+
+            for (const labelName of labelsToDelete) {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                name: labelName,
+              });
+
+              core.info(`Removed '${labelName}' from closed issue #${issue.number}.`);
+            }
+
+            core.notice(`Cleaned up ${labelsToDelete.length} status label(s) from closed issue #${issue.number}.`);

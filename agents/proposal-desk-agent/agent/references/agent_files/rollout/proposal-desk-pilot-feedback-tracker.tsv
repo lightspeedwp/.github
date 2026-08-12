@@ -1,0 +1,6 @@
+Bug ID	Linked Test Case ID	Agent Name	Reported By	Role	Date Reported	Issue Type	Severity	Priority	Status	Prompt Used	Expected Result	Actual Result	Why It Matters	Reproduction Steps	Evidence Link	Suggested Fix	Instruction Change Needed	Retest Owner	Retest Date	Retest Result	Owner Sign-off	Notes
+PD-BUG-001		Proposal Desk				Hallucination / unsupported claim			Not started													
+PD-BUG-002		Proposal Desk				Missing context handling			Not started													
+PD-BUG-003		Proposal Desk				Permission boundary			Not started													
+PD-BUG-004		Proposal Desk				Output quality / structure			Not started													
+PD-BUG-005		Proposal Desk				Access assumption / connector issue			Not started													

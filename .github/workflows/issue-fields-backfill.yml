@@ -1,0 +1,396 @@
+name: Issue Fields • Bulk Backfill
+
+# Back-fills GitHub native issue types and project board fields for all open
+# issues in one run. Useful for catching up after enabling the integration or
+# after a batch of issues was created without field values.
+#
+# PREREQUISITES
+# ─────────────
+# 1. vars.LS_APP_CLIENT_ID   — GitHub App client ID (preferred)
+#    vars.LS_APP_ID          — Legacy GitHub App ID (fallback)
+# 2. secrets.LS_APP_PRIVATE_KEY — GitHub App private key (PEM)
+# 3. vars.LS_PROJECT_NUMBER  — Projects v2 board number (integer, e.g. 33)
+#    OR vars.LS_PROJECT_URL  — Full URL  (e.g. https://github.com/orgs/…/projects/33)
+#
+# The GitHub App must have:
+#   • Issues: Read & Write
+#   • Projects: Read & Write
+#   • Organization members: Read  (needed to query org issue types)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — report only, no changes applied"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+      sync_native_types:
+        description: "Set GitHub native issue type from type:* labels"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      sync_project_fields:
+        description: "Add issues to project and set Status / Priority / Type / Effort"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      issue_limit:
+        description: "Max issues to process (0 = all open issues)"
+        required: false
+        default: "0"
+
+permissions:
+  issues: write
+  contents: read
+  repository-projects: write
+
+jobs:
+  backfill:
+    name: Back-fill issue fields
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          client-id: ${{ vars.LS_APP_CLIENT_ID != '' && vars.LS_APP_CLIENT_ID || vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+          repositories: ${{ github.repository }}
+          permissions-contents: write
+          permissions-issues: write
+
+      - name: Run bulk backfill
+        uses: actions/github-script@v9
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+          SYNC_NATIVE_TYPES: ${{ github.event.inputs.sync_native_types }}
+          SYNC_PROJECT_FIELDS: ${{ github.event.inputs.sync_project_fields }}
+          ISSUE_LIMIT: ${{ github.event.inputs.issue_limit }}
+          PROJECT_NUMBER: ${{ vars.LS_PROJECT_NUMBER || '' }}
+          PROJECT_URL: ${{ vars.LS_PROJECT_URL || '' }}
+          ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const yaml = require('js-yaml');
+
+            const dryRun = process.env.DRY_RUN === 'true';
+            const syncNativeTypes = process.env.SYNC_NATIVE_TYPES !== 'false';
+            const syncProjectFields = process.env.SYNC_PROJECT_FIELDS !== 'false';
+            const issueLimit = parseInt(process.env.ISSUE_LIMIT || '0', 10);
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // ─── Load canonical config ──────────────────────────────────
+            const configPath = path.resolve(process.env.ISSUE_FIELDS_CONFIG);
+            const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
+            const typeMapping = config?.project_field_mappings?.Type ?? {};
+            const priorityMapping = config?.project_field_mappings?.Priority ?? {};
+            const statusMapping = config?.project_field_mappings?.Status ?? {};
+            const enabledTypes = new Set(
+              (config?.organization_issue_fields?.enabled_issue_types ?? []).map(s => s.toLowerCase())
+            );
+
+            function resolveProjectNumberFromUrl(url) {
+              try {
+                const segments = new URL(url).pathname.split('/').filter(Boolean);
+                const projectsIdx = segments.indexOf('projects');
+                if (projectsIdx < 0 || projectsIdx === segments.length - 1) return Number.NaN;
+                return parseInt(segments[projectsIdx + 1], 10);
+              } catch {
+                return Number.NaN;
+              }
+            }
+
+            // ─── Resolve project URL/number ─────────────────────────────
+            let projectUrl = process.env.PROJECT_URL;
+            const projectNumber = parseInt(process.env.PROJECT_NUMBER || '0', 10);
+            if (!projectUrl && projectNumber) {
+              projectUrl = `https://github.com/orgs/${owner}/projects/${projectNumber}`;
+            }
+
+            // ─── Helper: first label match ───────────────────────────────
+            function firstMatch(labels, mapping) {
+              for (const label of labels) {
+                if (Object.prototype.hasOwnProperty.call(mapping, label)) return mapping[label];
+              }
+              return '';
+            }
+
+            // ─── Step 1: Fetch all open issues ───────────────────────────
+            core.info('Fetching open issues...');
+            const allIssues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const issues = allIssues
+              .filter(i => !i.pull_request)
+              .slice(0, issueLimit > 0 ? issueLimit : undefined);
+            core.info(`Processing ${issues.length} issue(s).`);
+
+            const report = { nativeTypeSet: [], projectFieldsSet: [], errors: [] };
+
+            // ─── Step 2 (optional): Native issue type sync ───────────────
+            if (syncNativeTypes) {
+              core.info('Fetching issue types...');
+              let orgTypeMap = new Map();
+              let orgFetchError = '';
+
+              try {
+                const typeData = await github.graphql(`
+                  query($org: String!) {
+                    organization(login: $org) {
+                      issueTypes(first: 50) {
+                        nodes { id name }
+                      }
+                    }
+                  }
+                `, { org: owner });
+                for (const node of typeData.organization.issueTypes.nodes) {
+                  orgTypeMap.set(node.name.toLowerCase(), node.id);
+                }
+                core.info(`Organization has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+              } catch (err) {
+                orgFetchError = err.message;
+                core.warning(
+                  `Could not fetch org issue types: ${err.message}. ` +
+                  'Attempting repository-scoped issue type fallback.'
+                );
+              }
+
+              if (orgTypeMap.size === 0) {
+                try {
+                  const repoTypeData = await github.graphql(`
+                    query($owner: String!, $repo: String!) {
+                      repository(owner: $owner, name: $repo) {
+                        issueTypes(first: 50) {
+                          nodes { id name }
+                        }
+                      }
+                    }
+                  `, { owner, repo });
+                  for (const node of repoTypeData.repository.issueTypes.nodes) {
+                    orgTypeMap.set(node.name.toLowerCase(), node.id);
+                  }
+                  core.info(`Repository fallback has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+                } catch (err) {
+                  core.warning(
+                    `Could not fetch repository issue types: ${err.message}. ` +
+                    `${orgFetchError ? `Org query error: ${orgFetchError}. ` : ''}` +
+                    'Ensure the app token has permission to read issue types at org or repository scope.'
+                  );
+                }
+              }
+
+              for (const issue of issues) {
+                const labelNames = (issue.labels ?? []).map(l => l.name);
+                const targetName = firstMatch(labelNames, typeMapping);
+                if (!targetName || !enabledTypes.has(targetName.toLowerCase())) continue;
+
+                const typeId = orgTypeMap.get(targetName.toLowerCase());
+                if (!typeId) {
+                  core.info(`#${issue.number}: type "${targetName}" not found in org types — skipping`);
+                  continue;
+                }
+
+                core.info(`#${issue.number}: native type → "${targetName}"${dryRun ? ' [DRY RUN]' : ''}`);
+                if (!dryRun) {
+                  try {
+                    await github.graphql(`
+                      mutation($issueId: ID!, $issueTypeId: ID) {
+                        updateIssue(input: { id: $issueId, issueTypeId: $issueTypeId }) {
+                          issue { id issueType { name } }
+                        }
+                      }
+                    `, { issueId: issue.node_id, issueTypeId: typeId });
+                    report.nativeTypeSet.push(`#${issue.number} → ${targetName}`);
+                  } catch (err) {
+                    report.errors.push(`#${issue.number} native type failed: ${err.message}`);
+                  }
+                } else {
+                  report.nativeTypeSet.push(`#${issue.number} → ${targetName} [DRY RUN]`);
+                }
+              }
+            }
+
+            // ─── Step 3 (optional): Project board field sync ─────────────
+            if (syncProjectFields && projectUrl) {
+              core.info(`Syncing project fields to ${projectUrl}...`);
+
+              // Resolve project node ID and fields
+              const projNumFromUrl = resolveProjectNumberFromUrl(projectUrl);
+              const projNum = Number.isInteger(projectNumber) && projectNumber > 0
+                ? projectNumber
+                : projNumFromUrl;
+
+              let projectId, fieldMeta;
+              if (!Number.isInteger(projNum) || projNum <= 0) {
+                core.warning(
+                  `Could not parse a valid project number. ` +
+                  `PROJECT_NUMBER="${process.env.PROJECT_NUMBER || ''}" PROJECT_URL="${projectUrl}"`
+                );
+              } else {
+                try {
+                  const projData = await github.graphql(`
+                    query($owner: String!, $number: Int!) {
+                      organization(login: $owner) {
+                        projectV2(number: $number) {
+                          id
+                          fields(first: 30) {
+                            nodes {
+                              ... on ProjectV2Field { id name dataType }
+                              ... on ProjectV2SingleSelectField { id name dataType options { id name } }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  `, { owner, number: projNum });
+                  projectId = projData.organization.projectV2.id;
+                  fieldMeta = {};
+                  for (const f of projData.organization.projectV2.fields.nodes) {
+                    fieldMeta[f.name.toLowerCase()] = f;
+                  }
+                  core.info(`Project "${projectId}" fields: ${Object.keys(fieldMeta).join(', ')}`);
+                } catch (err) {
+                  core.warning(`Could not access project: ${err.message}`);
+                }
+              }
+
+              if (projectId) {
+                // Get existing project item IDs
+                const existingItems = new Map();
+                let cursor = null;
+                do {
+                  const itemsPage = await github.graphql(`
+                    query($projectId: ID!, $cursor: String) {
+                      node(id: $projectId) {
+                        ... on ProjectV2 {
+                          items(first: 100, after: $cursor) {
+                            pageInfo { hasNextPage endCursor }
+                            nodes { id content { ... on Issue { number } } }
+                          }
+                        }
+                      }
+                    }
+                  `, { projectId, cursor });
+                  const page = itemsPage.node.items;
+                  for (const item of page.nodes) {
+                    if (item.content?.number != null) existingItems.set(item.content.number, item.id);
+                  }
+                  cursor = page.pageInfo.hasNextPage ? page.pageInfo.endCursor : null;
+                } while (cursor);
+                core.info(`Project has ${existingItems.size} existing item(s).`);
+
+                for (const issue of issues) {
+                  const labelNames = (issue.labels ?? []).map(l => l.name);
+                  let itemId = existingItems.get(issue.number);
+
+                  // Add to project if missing
+                  if (!itemId && !dryRun) {
+                    try {
+                      const addResult = await github.graphql(`
+                        mutation($projectId: ID!, $contentId: ID!) {
+                          addProjectV2ItemById(input: { projectId: $projectId, contentId: $contentId }) {
+                            item { id }
+                          }
+                        }
+                      `, { projectId, contentId: issue.node_id });
+                      itemId = addResult.addProjectV2ItemById.item.id;
+                    } catch (err) {
+                      report.errors.push(`#${issue.number} add to project failed: ${err.message}`);
+                      continue;
+                    }
+                  }
+
+                  if (!itemId) continue;
+
+                  // Derive field values using the canonical mapping
+                  const targetType = firstMatch(labelNames, typeMapping);
+                  const targetPriority = firstMatch(labelNames, priorityMapping) || 'Normal';
+                  const targetStatus = firstMatch(labelNames, statusMapping) || 'Triage';
+
+                  const fieldsToSet = [
+                    { key: 'type', value: targetType },
+                    { key: 'priority', value: targetPriority },
+                    { key: 'status', value: targetStatus },
+                  ].filter(f => f.value);
+
+                  for (const { key, value } of fieldsToSet) {
+                    const field = fieldMeta[key];
+                    if (!field?.options) continue;
+                    const opt = field.options.find(o => o.name.toLowerCase() === value.toLowerCase());
+                    if (!opt) continue;
+
+                    if (!dryRun) {
+                      try {
+                        await github.graphql(`
+                          mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                            updateProjectV2ItemFieldValue(input: {
+                              projectId: $projectId, itemId: $itemId,
+                              fieldId: $fieldId, value: { singleSelectOptionId: $optionId }
+                            }) { projectV2Item { id } }
+                          }
+                        `, { projectId, itemId, fieldId: field.id, optionId: opt.id });
+                      } catch (err) {
+                        report.errors.push(`#${issue.number} ${key} field failed: ${err.message}`);
+                      }
+                    }
+                  }
+
+                  report.projectFieldsSet.push(
+                    `#${issue.number}: Type→${targetType || '—'} Priority→${targetPriority} Status→${targetStatus}` +
+                    (dryRun ? ' [DRY RUN]' : '')
+                  );
+                }
+              }
+            } else if (syncProjectFields && !projectUrl) {
+              core.warning('sync_project_fields=true but no project URL/number configured — skipping project sync.');
+            }
+
+            // ─── Summary ────────────────────────────────────────────────
+            const lines = [
+              `# Issue Fields Backfill Report`,
+              `> ${dryRun ? '🔍 DRY RUN — no changes applied' : '✅ Changes applied'}`,
+              `> Run: ${new Date().toISOString()} | Issues processed: ${issues.length}`,
+              '',
+              `## Native Types Set (${report.nativeTypeSet.length})`,
+              report.nativeTypeSet.length ? report.nativeTypeSet.map(r => `- ${r}`).join('\n') : '_None_',
+              '',
+              `## Project Fields Set (${report.projectFieldsSet.length})`,
+              report.projectFieldsSet.length ? report.projectFieldsSet.map(r => `- ${r}`).join('\n') : '_None_',
+              '',
+              `## Errors (${report.errors.length})`,
+              report.errors.length ? report.errors.map(r => `- ⚠️ ${r}`).join('\n') : '_None_',
+            ].join('\n');
+
+            await core.summary.addRaw(lines).write();
+            core.info(lines);
+
+            if (report.errors.length > 0) core.setFailed(`Backfill completed with ${report.errors.length} error(s).`);

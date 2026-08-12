@@ -1,24 +1,23 @@
 ---
-file_type: "documentation"
-title: "Frontmatter Schema Documentation"
-version: "v2.0"
-last_updated: "2025-12-04"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw"
-description: "Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter schema, including GitHub templates, AI configurations, and validation guidelines."
+file_type: documentation
+title: Frontmatter Schema Documentation
+version: 'v2.3.1'
+last_updated: '2026-06-19'
+author: LightSpeedWP
+maintainer: Ash Shaw
+description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter
+  schema, including GitHub templates, AI configurations, and validation guidelines.
 tags:
-  [
-    "lightspeed",
-    "schema",
-    "frontmatter",
-    "governance",
-    "github",
-    "copilot",
-    "claude",
-    "gemini",
-  ]
-stability: "stable"
-domain: "governance"
+- lightspeed
+- schema
+- frontmatter
+- governance
+- github
+- copilot
+- claude
+- gemini
+stability: stable
+domain: governance
 ---
 
 ## Frontmatter Schema Specification
@@ -138,10 +137,10 @@ type: "agent"
 references:
   - "../workflows/labeling.yml"
   - "../prompts/label-issues.prompt.md"
-  - "../instructions/automation.instructions.md"
-  - "../instructions/labeling.instructions.md"
-  - "./ISSUE_LABELS.md"
-  - "./PR_LABELS.md"
+  - "../.github/instructions/automation.instructions.md"
+  - "./LABELING.md"
+  - "./LABELING.md#issue-labelling"
+  - "./LABELING.md#pull-request-labelling"
 ---
 
 # 🏷️ Labeling Agent Specification
@@ -151,8 +150,8 @@ references:
 ## 🔗 Related Documentation
 
 - **[Labeling Workflow](../.github/workflows/labeling.yml)** - GitHub Actions implementation
-- **[Issue Labels](./ISSUE_LABELS.md)** - Complete labeling taxonomy
-- **[PR Labels](./PR_LABELS.md)** - Pull request labeling standards
+- **[Issue Labels](./LABELING.md#issue-labelling)** - Complete labeling taxonomy
+- **[PR Labels](./LABELING.md#pull-request-labelling)** - Pull request labeling standards
 
 ---
 
@@ -186,7 +185,7 @@ references:
   - "../workflows/agent-name.yml"
   - "../prompts/agent-prompt.prompt.md"
   - "./agents.instructions.md"
-  - "../ISSUE_LABELS.md"
+  - "./LABELING.md#issue-labelling"
 ```
 
 #### Instruction Files (`.instructions.md`)
@@ -213,8 +212,8 @@ references:
 ```yaml
 references:
   - "../agents/agent-name.agent.md"
-  - "../instructions/workflows.instructions.md"
-  - "../AUTOMATION_GOVERNANCE.md"
+  - "../.github/instructions/workflows.instructions.md"
+  - "./AUTOMATION.md"
 ```
 
 ### 👥 Human Reference Patterns
@@ -226,7 +225,7 @@ Use descriptive markdown links that help humans understand context:
 
 ### 📚 Core Resources
 
-- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Organization automation policies
+- **[Automation Governance](./AUTOMATION.md)** - Organization automation policies
 - **[Coding Standards](./instructions/coding-standards.instructions.md)** - Development guidelines
 
 ### ⚙️ Implementation Details
@@ -242,24 +241,43 @@ Use descriptive markdown links that help humans understand context:
 
 ---
 
-## GitHub Issue Template Frontmatter (Issue Forms)
+## GitHub Issue Template Frontmatter
 
-GitHub **issue templates** use YAML frontmatter for the new **Issue Forms** feature to define metadata and form fields. All issue form files **must** begin with at least three keys: `name`, `description`, and `body`.
+### Markdown Issue Templates
 
-### Top-Level Frontmatter Fields
+Markdown issue templates in `.github/ISSUE_TEMPLATE/*.md` use `name` and `about` in front matter. The `about` field is what GitHub shows in the issue picker.
 
-| Field         | Type         | Required | Description                                                                |
-| ------------- | ------------ | -------- | -------------------------------------------------------------------------- |
-| `name`        | string       | ✅       | Unique name for the template (appears in template picker UI)               |
-| `description` | string       | ✅       | Short explanation of the template's purpose (shown in picker UI)           |
-| `body`        | array        | ✅       | Array defining the form fields and content blocks for the issue form       |
-| `title`       | string       | 📋       | Default title that will pre-fill in the new issue title input              |
-| `labels`      | array/string | 📋       | Labels to auto-apply on issue creation (array or comma-separated)          |
-| `assignees`   | array/string | 📋       | GitHub usernames to auto-assign the issue to (array or comma-separated)    |
+#### Markdown Template Example
+
+```yaml
+---
+file_type: "issue-template"
+name: "🐛 Bug report"
+about: "Report a bug to help us improve this project."
+version: "1.0.1"
+last_updated: "2026-06-18"
+category: "github-templates"
+---
+```
+
+### Issue Forms
+
+Issue forms in `.github/ISSUE_TEMPLATE/*.yml` use `name`, `description`, and `body`.
+
+#### Top-Level Frontmatter Fields
+
+| Field         | Type         | Required | Description                                                              |
+| ------------- | ------------ | -------- | ------------------------------------------------------------------------ |
+| `name`        | string       | ✅       | Unique name for the template (appears in template picker UI)             |
+| `description` | string       | ✅       | Short explanation of the template's purpose (shown in picker UI)         |
+| `body`        | array        | ✅       | Array defining the form fields and content blocks for the issue form     |
+| `title`       | string       | 📋       | Default title that will pre-fill in the new issue title input            |
+| `labels`      | array/string | 📋       | Labels to auto-apply on issue creation (array or comma-separated)        |
+| `assignees`   | array/string | 📋       | GitHub usernames to auto-assign the issue to (array or comma-separated)  |
 | `projects`    | array/string | 📋       | GitHub Projects to auto-add the issue to (format `"OWNER/PROJECT-NUMBER"`) |
-| `type`        | string       | 📋       | Issue type to assign (if your organization uses custom issue types)        |
+| `type`        | string       | 📋       | Issue type to assign (if your organization uses custom issue types)      |
 
-### Example Issue Form Template
+#### Example Issue Form Template
 
 ```yaml
 ---
@@ -282,7 +300,6 @@ body:
     id: "contact"
     attributes:
       label: "Contact Details"
-      description: "How can the team reach you for more info?"
       placeholder: "e.g. email@example.com"
     validations:
       required: false
@@ -291,7 +308,6 @@ body:
     id: "steps"
     attributes:
       label: "Steps to Reproduce"
-      description: "Provide step-by-step instructions to reproduce the issue."
       placeholder: |
         1. Step one...
         2. Step two...
@@ -303,7 +319,6 @@ body:
     id: "browser"
     attributes:
       label: "Affected Browser(s)"
-      description: "Which web browsers show the issue?"
       options:
         - "Firefox"
         - "Chrome"
@@ -317,7 +332,6 @@ body:
     id: "agree"
     attributes:
       label: "Code of Conduct Agreement"
-      description: "Please confirm:"
       options:
         - label: "I have searched for duplicate issues"
           required: true
@@ -349,17 +363,16 @@ The `body` array supports these input types:
 
 ## GitHub Pull Request Template Frontmatter
 
-Pull request templates are simpler — GitHub **does not currently support form-style PR templates with YAML-defined inputs**. Issue forms are for issues only.
+Pull request templates are simpler. GitHub **does not currently support form-style PR templates with YAML-defined inputs** for PRs, so any YAML front matter in a PR template is repo-local metadata only.
 
-You can include YAML frontmatter at the top of a PR template, but **GitHub ignores these fields for PRs**. Any frontmatter will simply remain as visible text in the PR body.
+In this repository, PR templates use `title` and `description` in front matter. Do not mirror the issue-template `about` field into PR templates.
 
 ### Example PR Template Frontmatter (Not Parsed)
 
 ```yaml
 ---
-name: "Feature PR Template"
-about: "Use this template for pull requests adding a new feature"
 title: "feat: <brief description of feature>"
+description: "Use this template for pull requests adding a new feature"
 labels: enhancement, needs-review
 assignees: octocat
 ---
@@ -820,7 +833,8 @@ npm run validate:frontmatter
 
 ---
 
-*This document is the canonical reference for LightSpeedWP frontmatter schema. Keep synchronized with `../.schemas/frontmatter.schema.json`. PRs welcome for improvements!*
+---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

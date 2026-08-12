@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project pack",
+  "type": "object",
+  "required": ["proposed_folder_structure", "included_artefacts", "validation_status"],
+  "properties": {
+    "proposed_folder_structure": { "type": "array", "items": { "type": "string" } },
+    "included_artefacts": { "type": "array", "items": { "type": "string" } },
+    "missing_artefacts": { "type": "array", "items": { "type": "string" } },
+    "generated_index": { "type": "array", "items": { "type": "string" } },
+    "source_notes": { "type": "array", "items": { "type": "string" } },
+    "review_checklist": { "type": "array", "items": { "type": "string" } },
+    "validation_status": { "type": "string" }
+  },
+  "additionalProperties": false
+}

@@ -1,11 +1,17 @@
 ---
-file_type: "documentation"
-title: "Husky Pre-commit Hooks"
-description: "Using Husky to enforce quality gates (linting/tests) before commits"
-version: "1.0.0"
-last_updated: "2025-11-18"
-owners: ["LightSpeed DevOps"]
-tags: ["husky", "pre-commit", "lint-staged", "automation", "linting"]
+file_type: documentation
+title: Husky Pre-commit Hooks
+description: Using Husky to enforce quality gates (linting/tests) before commits
+version: 1.0.3
+last_updated: '2026-06-19'
+owners:
+- LightSpeed DevOps
+tags:
+- husky
+- pre-commit
+- lint-staged
+- automation
+- linting
 ---
 
 # Husky Pre-commit Hooks
@@ -111,6 +117,8 @@ If tests fail, the push is aborted and you must fix the issues before trying aga
 
 ```mermaid
 flowchart LR
+accTitle: Husky workflow overview
+accDescr: Shows how staged files trigger lint-staged during pre-commit, then tests run during pre-push before code reaches the remote repository.
     A[Stage Files] --> B[git commit]
     B --> C{Pre-commit Hook}
     C -->|Run lint-staged| D{Checks Pass?}
@@ -682,7 +690,8 @@ After testing:
 
 ---
 
-**Last Updated**: 2025-11-25
+---
+
+---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

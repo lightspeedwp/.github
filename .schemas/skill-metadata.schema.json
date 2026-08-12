@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lightspeedwp.github.io/schemas/skill-metadata.schema.json",
+  "title": "LightSpeed Skill Metadata",
+  "description": "Metadata contract for portable skills across Claude, Copilot, Gemini, Codex, and OpenAI integrations.",
+  "type": "object",
+  "required": ["name", "version", "description", "platforms"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10
+    },
+    "owners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "platforms": {
+      "type": "object",
+      "required": ["claude", "copilot", "gemini", "codex"],
+      "properties": {
+        "claude": {
+          "$ref": "#/definitions/platform"
+        },
+        "copilot": {
+          "$ref": "#/definitions/platform"
+        },
+        "gemini": {
+          "$ref": "#/definitions/platform"
+        },
+        "codex": {
+          "$ref": "#/definitions/platform"
+        },
+        "openai": {
+          "$ref": "#/definitions/platform"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "platform": {
+      "type": "object",
+      "required": ["supported"],
+      "properties": {
+        "supported": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["first-class", "legacy-compatible", "experimental"]
+        },
+        "config": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

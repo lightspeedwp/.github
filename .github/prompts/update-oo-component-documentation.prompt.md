@@ -22,6 +22,13 @@ tools:
   ]
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/update-oo-component-documentation.prompt``.
+- Action: Use ``prompts/update-oo-component-documentation.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 # Update Standard OO Component Documentation
 
 Update the existing documentation file at: `${file}` by analyzing the corresponding component code.
@@ -93,94 +100,3 @@ last_updated: [YYYY-MM-DD - update to current date]
 owner: [Preserve existing or update if changed]
 tags: [Update tags as needed based on current functionality]
 ---
-
-# [Component Name] Documentation
-
-[Update introduction to reflect current component purpose and capabilities]
-
-## 1. Component Overview
-
-### Purpose/Responsibility
-
-- OVR-001: Update component's primary responsibility
-- OVR-002: Refresh scope (included/excluded functionality)
-- OVR-003: Update system context and relationships
-
-## 2. Architecture Section
-
-- ARC-001: Update design patterns used (Repository, Factory, Observer, etc.)
-- ARC-002: Refresh internal and external dependencies with current purposes
-- ARC-003: Update component interactions and relationships
-- ARC-004: Update visual diagrams (UML class, sequence, component)
-- ARC-005: Refresh mermaid diagram showing current component structure, relationships, and dependencies
-
-### Component Structure and Dependencies Diagram
-
-Update the mermaid diagram to show current:
-
-- **Component structure** - Current classes, interfaces, and their relationships
-- **Internal dependencies** - How components currently interact within the system
-- **External dependencies** - Current external libraries, services, databases, APIs
-- **Data flow** - Current direction of dependencies and interactions
-- **Inheritance/composition** - Current class hierarchies and composition relationships
-
-```mermaid
-[Update diagram to reflect current architecture]
-```
-````
-
-## 3. Interface Documentation
-
-- INT-001: Update all public interfaces and current usage patterns
-- INT-002: Refresh method/property reference table with current API
-- INT-003: Update events/callbacks/notification mechanisms
-
-| Method/Property                 | Purpose | Parameters | Return Type | Usage Notes |
-| ------------------------------- | ------- | ---------- | ----------- | ----------- |
-| [Update table with current API] |         |            |             |             |
-
-## 4. Implementation Details
-
-- IMP-001: Update main implementation classes and current responsibilities
-- IMP-002: Refresh configuration requirements and initialization patterns
-- IMP-003: Update key algorithms and business logic
-- IMP-004: Update performance characteristics and bottlenecks
-
-## 5. Usage Examples
-
-### Basic Usage
-
-```csharp
-// Update basic usage example to current API
-```
-
-### Advanced Usage
-
-```csharp
-// Update advanced configuration patterns to current implementation
-```
-
-- USE-001: Update basic usage examples
-- USE-002: Refresh advanced configuration patterns
-- USE-003: Update best practices and recommended patterns
-
-## 6. Quality Attributes
-
-- QUA-001: Update security (authentication, authorization, data protection)
-- QUA-002: Refresh performance (characteristics, scalability, resource usage)
-- QUA-003: Update reliability (error handling, fault tolerance, recovery)
-- QUA-004: Refresh maintainability (standards, testing, documentation)
-- QUA-005: Update extensibility (extension points, customization options)
-
-## 7. Reference Information
-
-- REF-001: Update dependencies with current versions and purposes
-- REF-002: Refresh configuration options reference
-- REF-003: Update testing guidelines and mock setup
-- REF-004: Refresh troubleshooting (common issues, error messages)
-- REF-005: Update related documentation links
-- REF-006: Add change history and migration notes for this update
-
-```
-
-```

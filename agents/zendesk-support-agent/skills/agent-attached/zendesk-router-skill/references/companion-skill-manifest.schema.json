@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk Router Companion Skill Manifest",
+  "type": "object",
+  "required": [
+    "version",
+    "purpose",
+    "router_skill",
+    "shared_agent_policy",
+    "output_contract",
+    "skills"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "router_skill": {
+      "const": "zendesk-router-skill"
+    },
+    "shared_agent_policy": {
+      "type": "object",
+      "required": [
+        "zendesk_connector_required_for_router",
+        "zendesk_connector_required_for_evidence_backed_downstream_work",
+        "fallback_when_connector_unavailable",
+        "personal_context_allowed",
+        "real_customer_data_allowed_in_examples"
+      ],
+      "properties": {
+        "zendesk_connector_required_for_router": {
+          "type": "boolean"
+        },
+        "zendesk_connector_required_for_evidence_backed_downstream_work": {
+          "type": "boolean"
+        },
+        "fallback_when_connector_unavailable": {
+          "type": "string"
+        },
+        "personal_context_allowed": {
+          "type": "boolean"
+        },
+        "real_customer_data_allowed_in_examples": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "output_contract": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 4
+    },
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "install_recommendation",
+          "zendesk_access",
+          "primary_when",
+          "supporting_when",
+          "fallback_when_unavailable"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^zendesk-"
+          },
+          "category": {
+            "type": "string"
+          },
+          "install_recommendation": {
+            "type": "string"
+          },
+          "zendesk_access": {
+            "type": "string"
+          },
+          "primary_when": {
+            "type": "string"
+          },
+          "supporting_when": {
+            "type": "string"
+          },
+          "fallback_when_unavailable": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

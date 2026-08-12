@@ -1,16 +1,18 @@
 ---
-file_type: "documentation"
-title: "Governance"
-description: "Maintainer and contributor roles, responsibilities, and decision-making processes for LightSpeed community health repository"
-version: "1.0"
-last_updated: "2025-12-04"
-owners: ["LightSpeed Maintainers"]
-tags: ["governance", "maintainers", "contributors", "decision-making", "roles"]
-references:
-  - path: "CONTRIBUTING.md"
-    description: "Contribution guidelines"
-  - path: "CODE_OF_CONDUCT.md"
-    description: "Code of conduct"
+file_type: documentation
+title: Governance
+description: Maintainer and contributor roles, responsibilities, and decision-making
+  processes for LightSpeed community health repository
+version: '1.1'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Maintainers
+tags:
+- governance
+- maintainers
+- contributors
+- decision-making
+- roles
 ---
 
 # LightSpeed Community Health Repo Governance
@@ -200,6 +202,4 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 ---
 
-*This document is maintained by the LightSpeed community. Propose changes via pull request.*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -15,7 +15,7 @@ import fs from "fs";
 import path from "path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { fileURLToPath } from "url";
 import { globSync } from "glob";
 
@@ -25,8 +25,8 @@ const AGENT_DIRS = [
   path.join(REPO_ROOT, "agents"),
   path.join(REPO_ROOT, ".github", "agents"),
 ].filter((dir) => fs.existsSync(dir));
-const SCHEMAS_DIR = path.join(REPO_ROOT, ".schemas");
-const WORKFLOWS_DIR = path.join(REPO_ROOT, ".github", "workflows");
+const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
+const _WORKFLOWS_DIR = path.join(REPO_ROOT, ".github", "workflows");
 
 // Configuration
 const args = process.argv.slice(2);

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WordPress Accessibility Audit Report",
+  "type": "object",
+  "required": [
+    "summary",
+    "scope",
+    "findings",
+    "manual_follow_ups",
+    "limitations"
+  ],
+  "properties": {
+    "summary": {
+      "type": "object"
+    },
+    "scope": {
+      "type": "object"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "finding.schema.json"
+      }
+    },
+    "fixes_applied": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "manual_follow_ups": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

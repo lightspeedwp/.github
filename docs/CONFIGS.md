@@ -1,208 +1,194 @@
 ---
+version: "v0.1.0"
+last_updated: "2026-05-29"
+owners: ["lightspeedwp"]
 file_type: "documentation"
-title: "Configurations"
-description: "Configuration management and environment setup guide for LightSpeedWP projects"
-version: "1.0.0"
-last_updated: "2025-12-04"
-owners: ["LightSpeed Team"]
-tags: ["configuration", "environment", "setup", "settings", "tooling"]
-references:
-  - path: "ORGANIZATION.md"
-    description: "Documentation organization and navigation guide"
-  - path: "VERSIONING.md"
-    description: "Versioning conventions and standards"
-  - path: "config/README.md"
-    description: "Detailed configuration files index"
+description: "Configuration reference for tools, standards, and automation"
 ---
 
-# Configuration Files & Environment Setup
+# Configuration Reference
 
-This guide provides an overview of configuration management for LightSpeedWP projects, including tooling setup, build configuration, linting rules, and development environment initialization.
+## Project Configuration Files
 
-## Overview
+### `.editorconfig`
 
-Configuration files define how LightSpeedWP projects behave across development, testing, and production environments. This document serves as a high-level guide to configuration management strategies and patterns.
+Ensures consistent coding style across all editors and IDEs.
 
-For detailed configuration file documentation, see [Configuration Files Index](./config/README.md).
+**Key Settings**:
 
-## Configuration Categories
+- Indent style: spaces (2 spaces)
+- End of line: LF
+- Charset: UTF-8
+- Trim trailing whitespace
+- Insert final newline
 
-### Build & Compilation
+### `.gitignore`
 
-Configuration files that control how code is built and compiled:
+Excludes files from version control.
 
-- `babel.config.md` — Babel transpilation configuration
-- `webpack.config.md` — Module bundling (if applicable)
-- `tsconfig.json` — TypeScript compilation settings
+**Common Entries**:
 
-### Linting & Code Quality
+- `node_modules/`
+- `.env` and `.env.local`
+- `build/` and `dist/`
+- `.DS_Store`
+- `*.log`
 
-Tools that enforce code standards:
+### `package.json`
 
-- `eslint.config.md` — JavaScript/TypeScript linting rules
-- `prettier.config.md` — Code formatting standards
-- `stylelint.config.md` — CSS/SCSS linting (if applicable)
-- `yamllint.config.md` — YAML validation
+NPM package configuration and scripts.
 
-### Testing & Coverage
+**Key Scripts**:
 
-Configuration for automated testing:
+- `npm test`: Run test suite
+- `npm run lint:md`: Lint Markdown files
+- `npm run lint:js`: Lint JavaScript/TypeScript
+- `npm run format`: Format code with Prettier
 
-- `jest.config.md` — JavaScript testing framework
-- `playwright.config.md` — End-to-end browser testing
+### `.npmrc` or `composer.json`
 
-### Environment & Runtime
+Package manager configuration.
 
-Files that configure runtime behavior:
+**Settings**:
 
-- `.editorconfig` — Editor standardization
-- `.env.example` — Environment variable templates
-- `.npmrc` / `.yarnrc` — Package manager settings
+- Registry configuration
+- Authentication tokens (in `.npmrc`)
+- Version constraints
+- Dependency specifications
 
-### Package & Dependencies
+## GitHub Configuration
 
-Dependency and package configuration:
+### Branch Protection Rules
 
-- `package.json` — NPM package definition and scripts
-- `package-lock.json` — Locked dependency versions
-- `composer.json` — PHP dependency management (if applicable)
+- Require status checks to pass
+- Require code review (1 approver minimum)
+- Require up-to-date branches
+- Include administrators
 
-### Validation & Standards
+### Labels
 
-Configuration for schema and compliance:
+Organization-wide label taxonomy:
 
-- `frontmatter.schema.json` — Documentation frontmatter validation
-- `.prettier.config.js` — Formatting consistency
+- **Type**: bug, feature, docs, refactor
+- **Priority**: critical, high, medium, low
+- **Status**: backlog, in-progress, review, done
+- **Component**: Component-specific labels
 
-## Environment Setup
+### Code Owners
 
-### Local Development
+Specifies required reviewers for files:
 
-1. **Install Dependencies**
-
-   ```bash
-   npm install    # JavaScript/Node.js dependencies
-   composer install  # PHP dependencies (if applicable)
-   ```
-
-2. **Configure Environment Variables**
-
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with local settings
-   ```
-
-3. **Initialize Pre-commit Hooks**
-
-   ```bash
-   npm run prepare  # Install Husky pre-commit hooks
-   ```
-
-### Build & Compilation
-
-```bash
-npm run build     # Production build
-npm run dev       # Development build with watch mode
-npm run lint      # Run linters (ESLint, Prettier, etc.)
+```
+* @default-owner
+src/core/ @core-team
+docs/ @docs-team
 ```
 
-### Testing
+## CI/CD Configuration
 
-```bash
-npm test          # Run all tests
-npm run test:e2e  # Run end-to-end tests
-npm run coverage  # Generate coverage reports
-```
+### GitHub Actions
 
-## Common Configuration Tasks
+- Workflow files in `.github/workflows/`
+- Trigger on: push, pull_request, schedule
+- Matrix strategy for multiple environments
+- Caching for dependencies
 
-### Adding a New Environment Variable
+### Status Checks
 
-1. Add to `.env.example` with explanation
-2. Document in `CONFIGURATIONS.md`
-3. Update deployment/CI configuration
-4. Test in all environments
+Required checks for all PRs:
 
-### Updating Linting Rules
+- Unit tests pass
+- Linting passes
+- Coverage maintained
+- Type checking passes
+- Security scanning passed
 
-1. Modify rule in `.eslintrc.json` or `eslint.config.cjs`
-2. Run linter across codebase: `npm run lint:fix`
-3. Document change in PR description
-4. Update this guide if needed
+## Tool Configuration Files
 
-### Changing Build Output
+### ESLint (`.eslintrc.js`)
 
-1. Update build config (`tsconfig.json`, `babel.config.js`, etc.)
-2. Test build locally: `npm run build`
-3. Verify output in build artifacts
-4. Update CI configuration if needed
+JavaScript/TypeScript linting.
 
-## Quick Reference
+**Rules**:
 
-| Config File            | Purpose         | Status |
-| ---------------------- | --------------- | ------ |
-| `eslint.config.cjs`    | JS/TS linting   | Active |
-| `prettier.config.js`   | Code formatting | Active |
-| `.editorconfig`        | Editor settings | Active |
-| `jest.config.js`       | Testing         | Active |
-| `package.json`         | Dependencies    | Active |
-| `tsconfig.json`        | TypeScript      | Active |
-| `playwright.config.js` | E2E testing     | Active |
+- Enforce consistent code style
+- Detect potential errors
+- Require accessibility best practices
+- No console statements in production
 
-## Configuration Standards
+### Prettier (`.prettierrc`)
 
-### Naming Conventions
+Code formatting.
 
-- Use lowercase for filenames: `.eslintrc.json`, `prettier.config.js`
-- Use camelCase for configuration keys: `ignorePattern`, `arrowParens`
-- Use kebab-case for CLI flags: `--no-cache`, `--max-workers`
+**Settings**:
 
-### File Format
+- Print width: 100
+- Tab width: 2
+- Use spaces (not tabs)
+- Trailing commas: es5
+- JSX single quotes
 
-- Prefer JSON for static configuration (validate against schema)
-- Use JavaScript files for dynamic configuration logic
-- YAML for Docker and CI/CD configuration
-- Comments in configuration files (where supported)
+### PHPCS (`.phpcs.xml.dist`)
 
-### Documentation
+PHP code quality.
 
-- Every configuration file should have a `.md` guide in `docs/config/`
-- Include purpose, structure, and common customizations
-- Provide examples and troubleshooting tips
+**Standards**:
 
-## Related Documentation
+- WordPress Coding Standards (WPCS)
+- Custom rule sets
+- Exclude test files and vendor
+- Auto-fixable violations
 
-- [Linting Standards](./LINTING.md)
-- [Testing Guide](./TESTING.md)
-- [Organization Structure](./ORGANIZATION.md)
-- [Configuration Files](./config/README.md)
+### TypeScript (`tsconfig.json`)
 
-## Troubleshooting
+Type checking configuration.
 
-**Issue: Configuration changes not taking effect**
+**Compiler Options**:
 
-- Clear build cache: `npm run clean` or `rm -rf dist/`
-- Verify file syntax: Run config validation
-- Check for duplicate configuration files
-- Restart development server
+- Strict mode enabled
+- Target: ES2020
+- Module: ESNext
+- Strict null checks
 
-**Issue: Linting failures after update**
+## Documentation Configuration
 
-- Review linting rule changes in `.eslintrc.json`
-- Run fixer: `npm run lint:fix`
-- Check for conflicting rules (ESLint ↔ Prettier)
+### Front Matter Schema
 
-**Issue: Environment variables not available**
+All documentation files use YAML front matter with:
 
-- Verify `.env.local` contains required variables
-- Check environment variable loading in build config
-- Ensure variables are exported in shell environment
+- `file_type`: Document type (instruction, documentation, etc.)
+- `title`: Human-readable title
+- `description`: Brief description
+- `version`: Semantic version
+- `last_updated`: Last modification date
+- `owners`: Team responsible for content
 
-## Next Steps
+### Markdown Standards
 
-- Review [Linting Standards](./LINTING.md) for code quality configuration
-- See [Configuration Files Index](./config/README.md) for detailed file documentation
-- Check [Testing Guide](./TESTING.md) for test configuration details
+- Headings: h1-h6 only (proper hierarchy)
+- Code blocks: language specified
+- Links: inline markdown format
+- Lists: 2-space indentation
+- Tables: markdown format
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+## Automation Configuration
+
+### Labeling Rules
+
+Automated labels based on:
+
+- File changes (e.g., `.github/` → governance)
+- Content matching (keywords trigger labels)
+- Type detection (PR vs issue)
+- Assignee based routing
+
+### Release Configuration
+
+- Version management: Semantic Versioning
+- Changelog format: Keep a Changelog
+- Release notes: GitHub releases
+- Tag format: `v{major}.{minor}.{patch}`
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

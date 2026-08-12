@@ -1,11 +1,20 @@
 ---
-file_type: "instructions"
-description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
-applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
-version: "v2.0"
-last_updated: "2025-11-27"
-owners: ["LightSpeedWP Team"]
-tags: ["linting", "standards", "eslint", "prettier", "automation"]
+file_type: instructions
+title: Linting Instructions
+description: Master index for all linting instructions in the LightSpeed organisation.
+  Lists and cross-references all linting instructions, config, and coding standards.
+scope: organization-wide
+applyTo: '**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}'
+version: v2.4
+last_updated: '2026-07-22'
+owners:
+- LightSpeedWP Team
+tags:
+- linting
+- standards
+- eslint
+- prettier
+- automation
 ---
 
 # 🔍 LightSpeed Linting Instructions Library
@@ -94,6 +103,8 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 
 ```mermaid
 graph TD
+accTitle: Linting process flow
+accDescr: Shows the linting workflow from code change through pre-commit hooks, local linting, CI/CD pipeline checks, and merge approval.
     A[Code Change] --> B[Pre-commit Hooks]
     B --> C[Local Linting]
     C --> D{Lint Passed?}
@@ -118,7 +129,7 @@ graph TD
 
 ### ⚙️ Tool Integration
 
-- **[Lint Workflow](../.github/workflows/lint.yml)** - GitHub Actions linting
+- **[Lint Workflow](../.github/workflows/linting.yml)** - GitHub Actions linting
 - **[Linting Agent](agent-spec.instructions.md)** - Automated code review
 - **Pre-commit Hooks** - Local validation setup
 
@@ -128,6 +139,8 @@ graph TD
 
 ```mermaid
 graph LR
+accTitle: Linting toolchain overview
+accDescr: Shows how source code feeds into ESLint, PHPCS, Prettier, Stylelint, and Markdownlint before reaching the CI/CD pipeline.
     A[Source Code] --> B[ESLint]
     A --> C[PHPCS]
     A --> D[Prettier]
@@ -186,23 +199,12 @@ Linting instructions should evolve with our standards and requirements. When upd
 
 ---
 
-## Related Guidance
+## Related Files
 
-- [Coding Standards Instructions](./coding-standards.instructions.md)
-- [Custom Instructions (Org-wide)](../.github/custom-instructions.md)
-- [Workflows Instructions](./workflows.instructions.md)
-- [Global AI Rules (AGENTS.md)](../AGENTS.md)
-- [Instructions Directory](../instructions/)
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards that linting tools enforce
+- **[languages.instructions.md](./languages.instructions.md)** — Language-specific linting configurations and rules
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing standards that complement linting
 
-## License
+---
 
-These linting instructions are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.
-
-## References
-
-- [instructions.instructions.md](./instructions.instructions.md)
-- [coding-standards.instructions.md](./coding-standards.instructions.md)
-- [languages.instructions.md](./languages.instructions.md)
-- [workflows.instructions.md](./workflows.instructions.md)
-- [Linting Agent Spec](../agents/linting.agent.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
+*Maintained by the 🤖 LightSpeedWP Automation Team*

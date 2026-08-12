@@ -1,0 +1,68 @@
+profile:
+  purpose: Durable rules for which systems to trust for which kinds of Linear-centred work.
+  status: starter_scaffold
+  update_rule: Update when source-selection behavior proves durable across repeated runs.
+
+primary_source:
+  linear:
+    role: primary_operational_source
+    use_for:
+      - issues
+      - projects
+      - initiatives
+      - cycles
+      - teams
+      - labels
+      - workflow evidence
+    default_first_check: true
+
+secondary_sources:
+  github:
+    role: implementation_context
+    use_when:
+      - code-level follow-through changes the recommendation
+      - PR or repository context materially affects issue shaping or routing
+  google_drive:
+    role: supporting_docs
+    use_when:
+      - docs, sheets, or slides provide planning context not present in Linear
+  gmail:
+    role: stakeholder_or_customer_evidence
+    use_when:
+      - email evidence materially sharpens prioritization or routing
+  slack:
+    role: supporting_message_context
+    use_when:
+      - message context clarifies urgency, intake path, or stakeholder intent
+    avoid_as_primary_anchor: true
+  figma:
+    role: design_context
+    use_when:
+      - design intent materially improves issue shaping or routing
+  asana:
+    role: cross_system_context
+    use_when:
+      - cross-system planning context materially matters
+  google_calendar:
+    role: timing_context
+    use_when:
+      - scheduling or timing context materially affects the recommendation
+  bugherd:
+    role: bug_report_evidence
+    use_when:
+      - incoming bug evidence helps explain or route Linear work
+
+evidence_rules:
+  - Default to the minimum source that materially improves the result.
+  - Treat supporting systems as evidence sources, not primary operating systems.
+  - Verify important routing or planning claims against the best available source.
+  - Re-check live Linear before claiming current operational reality when taxonomy or workflow usage matters.
+
+open_slots:
+  preferred_linear_teams: []
+  trusted_docs: []
+  known_exceptions: []
+
+notes:
+  - Seeded from the first-pass memory template.
+  - Add source-specific exceptions only when they are stable and reusable.

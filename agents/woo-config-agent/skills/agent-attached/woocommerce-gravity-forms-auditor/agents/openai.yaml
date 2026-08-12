@@ -1,0 +1,15 @@
+interface:
+  display_name: WooCommerce Gravity Forms Auditor
+  short_description: Read-only WooCommerce Gravity Forms audits and configuration
+    handoffs.
+  icon: form
+  color: '#4f46e5'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

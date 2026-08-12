@@ -1,3 +1,13 @@
+---
+title: "Context Reduction Task List"
+description: "High-risk context reduction planning that requires evidence-gated execution controls"
+file_type: documentation
+status: active
+issue_number: 744
+parent_issue: 573
+last_updated: "2026-06-01"
+---
+
 # Context Reduction Task List
 
 **Goal:** Reduce context bloat in `.github` repository from ~922K tokens to <500K tokens while maintaining essential functionality.
@@ -11,14 +21,13 @@
 
 ---
 
-## Phase 1: Delete Meta-Files (Immediate) ✅
+## Phase 1: Delete Meta-Files (Immediate) ⏳
 
 ### 1.1 Model-Specific Configuration Files
 
-- [x] ✅ Delete `DOCS.md` - Master index causing circular references
-- [x] ✅ Delete `GEMINI.md` - Model-specific config causing duplication
-- [x] ✅ Delete `CLAUDE.md` - Model-specific config causing duplication
-- [x] ✅ Delete `GPT.md` - Model-specific config causing duplication
+- [ ] ⏳ Delete `DOCS.md` - Master index causing circular references
+- [ ] ⏳ Delete `GEMINI.md` - Model-specific config causing duplication
+- [ ] ⏳ Delete `GPT.md` - Model-specific config causing duplication
 
 **Rationale:** These files duplicate content from `custom-instructions.md` and create circular reference chains.
 
@@ -50,7 +59,7 @@
   - release.agent.md
   - project-meta-sync.agent.md
   - status.agent.md
-- [ ] ⏳ Replace glob pattern with note: "See `.github/agents/*.agent.md` for full list"
+- [ ] ⏳ Replace glob pattern with note: "See `agents/*.agent.md` for full list"
 - [ ] ⏳ Remove redundant "Purpose" section
 - [ ] ⏳ Keep only essential discoverability table
 
@@ -272,7 +281,7 @@
 
 ### Decision Log
 
-- **2025-12-08:** Deleted DOCS.md, GEMINI.md, CLAUDE.md, GPT.md (circular references)
+- **2025-12-08:** Planned deletion of DOCS.md, GEMINI.md, CLAUDE.md, GPT.md for circular-reference reduction; revalidation required against current repo state.
 - **2025-12-08:** Created this task list for tracking
 
 ### Open Questions
@@ -292,11 +301,11 @@
 
 ## Progress Tracking
 
-**Overall Progress:** 5% (Phase 1 complete)
+**Overall Progress:** 0% (Phase 1 pending revalidation)
 
 **Phase Status:**
 
-- Phase 1: ✅ 100%
+- Phase 1: ⏳ 0%
 - Phase 2: ⏳ 0%
 - Phase 3: ⏳ 0%
 - Phase 4: ⏳ 0%
@@ -381,7 +390,7 @@
   - status.agent.md
   - (2-5 others based on usage frequency)
 - [ ] Replace detailed glob pattern references with single line:
-  - "See `.github/agents/*.agent.md` for full list of all agents"
+  - "See `agents/*.agent.md` for full list of all agents"
 - [ ] Remove redundant "Purpose" section
 - [ ] Keep only essential "Discoverability & Workflow Integration" table
 - [ ] Update frontmatter to remove unnecessary references
@@ -660,129 +669,3 @@
 - Phase 7: 3-4 hours (testing, reporting)
 
 ---
-
-## 📊 Execution Summary (Session 1)
-
-**Completed (This Session):**
-
-✅ **Phase 1:** Deleted 4 meta-files (DOCS.md, GEMINI.md, CLAUDE.md, GPT.md)
-
-✅ **Phase 2:** Trimmed core index files
-
-- AGENTS.md: 185 → 108 lines (-77 lines, ~385 tokens)
-- prompts.md: ~120 → 32 lines (-88 lines, ~440 tokens)
-- Total Phase 2: -165 lines, ~825 tokens saved
-
-✅ **Phase 3.1:** Created comprehensive frontmatter audit script
-
-- Successfully scanned 298 markdown files
-- Generated audit-frontmatter-report.csv
-- Identified 2 priority files for reference cleanup
-
-✅ **Phase 3.2:** Aggressively trimmed instruction files
-
-- workflows.instructions.md: 722 → 84 lines (-638 lines, ~3,190 tokens)
-- tasksync.instructions.md: 384 → 74 lines (-310 lines, ~1,550 tokens)
-- Total Phase 3: -948 lines, ~4,740 tokens saved
-
-✅ **Phase 6.1:** MASSIVE documentation consolidation (ISSUE_TYPES.md)
-
-- **ISSUE_TYPES.md: 953 → 195 lines (-758 lines, 79.5% reduction, ~3,790 tokens)**
-- Replaced 24 verbose type sections (each 30+ lines with repetitive headers) with single concise comparison table
-- Consolidated 25 occurrences each of: "Relevant labels", "Process", "DoR add-ons", "DoD add-ons", "Use when" (125 boilerplate headers eliminated)
-- Kept: Frontmatter, quick reference, detailed table, common requirements, usage guidelines, references
-- Linting status: ✅ CLEAN (fixed 3 table formatting errors with pipe escaping)
-- Total Phase 6.1: -758 lines, ~3,790 tokens saved
-
-✅ **Phase 6.2:** Removed duplicate validation section (FRONTMATTER_SCHEMA.md)
-
-- **FRONTMATTER_SCHEMA.md: 989 → 822 lines (-167 lines, 16.9% reduction, ~835 tokens)**
-- Found and removed complete duplicate of "Validation Tooling" section (lines 800-964)
-- Duplicate included: Schema validation, discriminator pattern, workflow, common failures, VS Code integration, CI/CD integration, validation scripts, pre-commit hooks
-- Original section (lines 564-728) preserved with all content
-- Linting status: ✅ CLEAN (0 errors in file)
-- Total Phase 6.2: -167 lines, ~835 tokens saved
-
-✅ **Phase 6.3:** Analyzed AGENT_SPEC_AUTHORING_GUIDE.md - NO CHANGES (intentional examples)
-
-- **AGENT_SPEC_AUTHORING_GUIDE.md: 801 lines (0 changes)**
-- Found apparent duplicate headers: Purpose, Responsibilities, Process, Guardrails, Integration, References (appearing 2-3× each)
-- Investigation revealed: Document is authoring guide with intentional pedagogical examples
-- Section "Examples and Templates" (line 602) contains complete example agent spec in code block
-- "Duplicates" are intentional: showing users proper agent spec structure
-- Decision: NO CHANGES - examples are valuable educational content
-- Lesson learned: Distinguish reference docs (true duplication) from tutorial docs (intentional examples)
-- Total Phase 6.3: 0 lines, 0 tokens (analysis complete, appropriate consolidation avoided)
-
-✅ **Phase 6.4:** Clarified duplicate section titles (WORKFLOWS.md) - Minor title clarity improvement
-
-- **WORKFLOWS.md: 657 lines (title renames only, no line changes)**
-- Found two "## Best Practices" sections (lines 307, 496) with different scopes but identical titles
-- Line 307: Renamed to "## Workflow Governance Principles" (organizational standards: DRY, agent-driven, canonical config)
-- Line 496: Renamed to "## Implementation Best Practices" (concrete YAML examples: permissions, pinning, concurrency)
-- Analysis: NOT duplicate content - naming clarity issue, not duplication
-- Linting status: ✅ CLEAN (0 errors in file)
-- Total Phase 6.4: 0 lines (title clarity only), ~0 tokens impact
-
-✅ **Phase 6.5:** Scanned remaining large documentation files - ALL CLEAN
-
-- AUTOMATION_GOVERNANCE.md: 601 lines, 23 H2 sections, no duplicate headers ✓
-- LINTING.md: 509 lines, 12 H2 sections, no duplicate headers ✓
-- HUSKY_PRECOMMITS.md: 685 lines, 19 H2 sections, no duplicate headers ✓
-- **Phase 6 COMPLETE:** All large files (500+ lines) scanned and optimized
-
-**Cumulative Reduction This Session:**
-
-- **Total Lines Removed:** ~2,088 lines (Session 1: 1,163, Phase 6.1: +758, Phase 6.2: +167, Phase 6.3: 0, Phase 6.4: 0)
-- **Estimated Tokens Saved:** ~10,440 tokens (1.13% of 922K target)
-- **Linting Status:** All changes pass ESLint, Spectral, and markdownlint validation
-- **Git Status:** All changes ready for commit on develop branch
-- **Files Modified:** 11 files (AGENTS.md, prompts.md, workflows.instructions.md, tasksync.instructions.md, ISSUE_TYPES.md, FRONTMATTER_SCHEMA.md, WORKFLOWS.md, CONTEXT_REDUCTION_TASKS.md, plus 3 backups)
-
-✅ **Phase 5:** Archived legacy migration guides and backup files (EXTENDED December 8, 2025)
-
-**Phase 5 Initial - Migration Guides & Backups:**
-
-- **Migration Guides Archived:**
-  - INSTRUCTION_CONSOLIDATION_MIGRATION.md: 394 lines (~1,970 tokens)
-  - CONSOLIDATION_MIGRATION_GUIDE.md: 387 lines (~1,935 tokens)
-  - Status: Superseded by canonical `/MIGRATION_GUIDE.md` at repository root
-  - Total migration guides: 781 lines, ~3,905 tokens saved
-- **Backup Files Archived:**
-  - FRONTMATTER_SCHEMA.md.backup: 989 lines (Phase 6.2 pre-consolidation)
-  - ISSUE_TYPES.md.backup: 952 lines (Phase 6.1 pre-consolidation)
-  - WORKFLOWS.md.backup: 657 lines (Phase 6.4 pre-edits)
-  - Total backups: 2,598 lines (organizational cleanup, minimal token impact as .backup files not processed)
-
-**Phase 5 Extension - 🎯 BREAKTHROUGH DISCOVERY:**
-
-- **Problem:** Token analysis revealed 21 archived instruction files in `.github/instructions/.archive/` still being processed by Copilot
-- **Root cause:** Files were in active `.github/` path despite being "archived"
-- **Discovery:** Comprehensive token analysis scan found archive files contributing 10,780+ tokens in top 30 list
-- **Solution:** Moved all 21 files from `.github/instructions/.archive/` → `docs/.archive/`
-- **Files:** javascript, jest, jsdoc, json, markdown, mermaid, metrics, naming-conventions, planner, project-meta-sync, readme, release, reporting, reviewer, saved-replies, testing, tests, yaml, agents, file-management, frontmatter
-- **Impact:** 4,161 lines, ~20,805 tokens saved (2.26% of 922K repository)
-- **Context:** These were original pre-consolidation files from December 7, 2025 (22 files → 5 consolidated files)
-- **Significance:** Single largest optimization gain in entire project (59% of total savings, more than all previous phases combined)
-
-**Phase 5 Totals:**
-
-- **Archive Location:** docs/.archive/ with comprehensive README documenting all 27 files
-- **Total Lines Archived:** 7,030 lines (781 migration + 2,598 backup + 4,161 instructions)
-- **Total Token Savings:** ~24,710 tokens (3,905 migration + 20,805 instructions)
-- **Files Archived:** 26 files (2 migration + 3 backup + 21 instructions) + 1 README
-- **Validation:** ✅ All files successfully moved, archive README updated, linting clean
-
-**Cumulative Reduction Through Phase 5 Extension:**
-
-- **Total Lines Archived:** ~7,030 lines (Previous: 2,869, Phase 5 extension: +4,161 instructions)
-- **Estimated Tokens Saved:** ~35,150 tokens (3.81% of 922K target, up from 1.56%)
-- **Progress:** 8.3% of 46% goal achieved (35,150 of 422,000 tokens needed)
-- **Breakthrough Impact:** Phase 5 extension alone saved 20,805 tokens - 144% increase over previous cumulative total
-- **Linting Status:** All changes pass validation
-- **Git Status:** develop branch, ready for commit
-
-**Remaining Work:**
-
-- [ ] Phase 4.2-4.4: Complete frontmatter reference cleanup (release.agent.md 7 refs, testing.agent.md 5 refs) - LOW PRIORITY (only 12 refs total, minimal impact)
-- [ ] Phase 7: Final validation and testing (after all reduction phases complete)

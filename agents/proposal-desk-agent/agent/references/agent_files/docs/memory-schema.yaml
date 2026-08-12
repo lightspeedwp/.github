@@ -1,0 +1,121 @@
+version: 1
+memory_files:
+  proposal-user-defaults.yaml:
+    description: Canonical machine-readable onboarding defaults for proposal work.
+    format: yaml
+    additional_properties: false
+    required:
+      - evidence_lookup
+      - output
+      - intake
+      - followups
+    schema:
+      evidence_lookup:
+        type: map
+        required:
+          - drive_scope
+          - preferred_sources
+          - search_conventions
+        properties:
+          drive_scope:
+            type: string
+            allowed_examples:
+              - Recent proposal folders
+              - Shared proposals drive
+              - Client delivery folders
+          preferred_sources:
+            type: list[string]
+            allowed_values:
+              - current_request
+              - business_context
+              - attached_files
+              - google_drive
+              - slack
+              - memory
+          search_conventions:
+            type: list[string]
+      output:
+        type: map
+        required:
+          - default_shape
+          - include_inline_explanation
+          - preferred_templates
+        properties:
+          default_shape:
+            type: string
+            allowed_values:
+              - inline_draft
+              - downloadable_md
+              - both
+          include_inline_explanation:
+            type: boolean
+          preferred_templates:
+            type: list[string]
+      intake:
+        type: map
+        required:
+          - default_route
+          - ask_for_artifact_first
+        properties:
+          default_route:
+            type: string
+            allowed_values:
+              - intake_then_draft
+              - evidence_first
+              - review_first
+              - gap_track_first
+          ask_for_artifact_first:
+            type: boolean
+      followups:
+        type: map
+        required:
+          - owner_label_style
+          - grouping_style
+        properties:
+          owner_label_style:
+            type: string
+            allowed_values:
+              - function_first
+              - named_owner_when_known
+              - mixed
+          grouping_style:
+            type: string
+            allowed_values:
+              - priority_then_owner
+              - owner_then_priority
+              - by_section
+  user-preferences.md:
+    description: Durable human-readable working preferences that are safe to reuse.
+    format: markdown
+    sections:
+      - tone_preferences
+      - summary_depth
+      - heading_style
+      - review_note_style
+      - gap_tracker_style
+      - evidence_strictness
+      - wrapper_style
+  proposal-working-defaults.md:
+    description: Stable workflow defaults and reusable proposal-working conventions.
+    format: markdown
+    sections:
+      - standard_workflow_order
+      - default_deliverable_sequence
+      - default_evidence_hierarchy
+      - default_review_handoffs
+      - preferred_packaging_rules
+  todos.md:
+    description: Concise durable follow-ups that remain relevant across runs.
+    format: markdown_checklist
+    item_fields:
+      - item
+      - owner
+      - status
+      - why_it_matters
+      - next_action
+      - last_updated
+validation_rules:
+  - Keep proposal-user-defaults.yaml machine-readable and compact.
+  - Do not store client-specific facts, proposal claims, pricing assumptions, or delivery commitments as reusable defaults.
+  - Treat Memory as working context, not source evidence.
+  - Current-request instructions always override remembered defaults.

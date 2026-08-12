@@ -1,20 +1,49 @@
+---
+title: "LightSpeedWP Testing Framework"
+description: "Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates."
+file_type: documentation
+version: 2.4.0
+last_updated: "2026-06-18"
+created_date: "2025-10-25"
+owners:
+  - Ash Shaw
+  - LightSpeedWP QA
+maintainer: LightSpeed Team
+license: GPL-3.0
+tags:
+  - testing
+  - bats
+  - jest
+  - quality-assurance
+  - automation
+domain: lightspeed
+stability: stable
+---
+
 # 🧪 LightSpeedWP Testing Framework
 
 <!-- BADGES-START -->
-
-[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
+[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
+[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
+[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
+[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
+[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
 [![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
 [![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
 [![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
 [![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
 [![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
 [![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
 [![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
+[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
+[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
 [![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
 [![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
 [![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
 [![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-
 <!-- BADGES-END -->
 
 ## Metadata
@@ -25,7 +54,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`../.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
+| Key References | [`scripts/README.md`](../scripts/README.md), [`.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/testing.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -42,6 +71,8 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 
 ```mermaid
 graph TB
+accTitle: "Testing framework architecture"
+accDescr: "Comprehensive testing framework showing Bats and Jest testing integration with coverage reporting, test helpers, and connections to CI/CD pipeline, pre-commit hooks, and manual testing workflows."
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
@@ -67,10 +98,10 @@ graph TB
     S[Pre-commit Hooks] --> A
     T[Manual Testing] --> A
 
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style C fill:#dcfce7,color:#14532d,stroke:#14532d
+    style D fill:#fef3c7,color:#4a2c00,stroke:#b45309
 ```
 
 ## Structure
@@ -79,29 +110,29 @@ graph TB
 
 Each subfolder includes comprehensive documentation and specialized test coverage:
 
-- **[`awesome-copilot/`](./awesome-copilot/README.md)** — Jest tests for awesome-copilot automation scripts
+- **`awesome-copilot/`** — Jest tests for awesome-copilot automation scripts
   - Tests for `update-readme.js`, `validate-collections.js`, and `yaml-parser.js`
   - Validates script loading and basic functionality
 
-- **[`includes/`](./includes/README.md)** — Shared test helpers and utilities with specialized subfolders:
-  - **[`cli/`](./includes/cli/README.md)** — CLI utility testing helpers and shared functions
-  - **[`core/`](./includes/core/README.md)** — Core testing functionality including colors, logging, and validation
-  - **[`deployment/`](./includes/deployment/README.md)** — Deployment testing helpers and environment setup
-  - **[`filesystem/`](./includes/filesystem/README.md)** — File system operation helpers and utilities
+- **`includes/`** — Shared test helpers and utilities with specialized subfolders:
+  - **`cli/`** — CLI utility testing helpers and shared functions
+  - **`core/`** — Core testing functionality including colors, logging, and validation
+  - **`deployment/`** — Deployment testing helpers and environment setup
+  - **`filesystem/`** — File system operation helpers and utilities
 
-- **[`maintenance/`](./maintenance/README.md)** — Comprehensive tests for maintenance and automation scripts
+- **`maintenance/`** — Comprehensive tests for maintenance and automation scripts
   - Tests for README generation, label management, badge updates, and changelog automation
   - Covers dry-run modes, CI/CD integration, and edge case handling
 
-- **[`projects/`](./projects/README.md)** — Project management and GitHub integration tests
-  - **[`fixtures/`](./projects/fixtures/README.md)** — Test fixtures and sample data for project tests
+- **`projects/`** — Project management and GitHub integration tests
+  - **`fixtures/`** — Test fixtures and sample data for project tests
   - Tests for client delivery projects, product development workflows, and project automation
 
-- **[`pytests/`](./pytests/README.md)** — Python-based tests for documentation validation
+- **`pytests/`** — Python-based tests for documentation validation
   - Tests for changelog validation, documentation links, markdown structure, and PR templates
   - Includes utility functions for changed file detection
 
-- **[`utility/`](./utility/README.md)** — Comprehensive Bats and Jest tests for all utility scripts
+- **`utility/`** — Comprehensive Bats and Jest tests for all utility scripts
   - `.bats` files: Shell/CLI tests for Node.js and shell scripts
   - `.test.js` files: Jest unit tests for Node.js modules and agent logic
 
@@ -109,7 +140,7 @@ Each subfolder includes comprehensive documentation and specialized test coverag
 
 - **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
 - **`tests-run-all-tests.bats`** — Bats test for the test runner script
-- **[`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md)** — Detailed documentation of test coverage, structure, and best practices
+- **`TEST_COVERAGE_SUMMARY.md`** — Detailed documentation of test coverage, structure, and best practices
 
 ## Usage & Quickstart
 
@@ -166,6 +197,8 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 
 ```mermaid
 sequenceDiagram
+accTitle: "Test execution workflow sequence"
+accDescr: "Sequential workflow showing developer executing test runner, running Bats shell tests and Jest JavaScript tests, generating coverage reports, uploading to CI/CD pipeline, and receiving comprehensive test automation results."
     participant Dev as Developer
     participant Runner as Test Runner
     participant Bats as Bats Framework
@@ -191,6 +224,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
+accTitle: "Test coverage analysis and quality gates flow"
+accDescr: "Comprehensive flow showing test execution branching by type, coverage collection from Bats and Jest tests, coverage analysis against thresholds, with success reporting and quality gate failure handling."
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]
@@ -218,10 +253,10 @@ flowchart TD
     N --> P[CI/CD Success]
     O --> Q[Quality Gate Failure]
 
-    style A fill:#e1f5fe
-    style K fill:#f3e5f5
-    style N fill:#c8e6c9
-    style Q fill:#ffcdd2
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style K fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style N fill:#dcfce7,color:#14532d,stroke:#14532d
+    style Q fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
 See `TEST_COVERAGE_SUMMARY.md` for full coverage details and examples.
@@ -267,7 +302,7 @@ See repository commit history for granular diffs.
 | Bash             | >= 5.x           | macOS ships with compatible version     |
 | Bats Core        | latest stable    | Install via Homebrew                    |
 | Jest             | ^29.x            | Provides coverage instrumentation       |
-| Pytest           | ^8.x             | For schema/doc validation tests         |
+| Pytest           | ^8.x             | For .schemas/doc validation tests         |
 | ShellCheck       | latest           | Static analysis for shell scripts       |
 | markdownlint-cli | latest           | Documentation linting                   |
 | ESLint           | project config   | JS style and static analysis            |
@@ -286,24 +321,22 @@ npm ci
 
 #### Core Testing Documentation
 
-- [Test Coverage Summary](./TEST_COVERAGE_SUMMARY.md) — Comprehensive coverage analysis and test details
-- [Jest Configuration](../jest.config.js) — JavaScript testing framework configuration
-- [Test Runner Script](../run-all-tests.sh) — Automated test execution script
+- [Jest Configuration](../.jest.config.cjs) — JavaScript testing framework configuration
 - [Quality Assurance](../instructions/quality-assurance.instructions.md) — Testing standards and best practices
 
 #### Test Folder Documentation
 
-- [Awesome Copilot Tests](./awesome-copilot/README.md) — Jest tests for awesome-copilot automation scripts
-- [Test Includes & Helpers](./includes/README.md) — Shared test utilities and helper functions
-- [CLI Testing Helpers](./includes/cli/README.md) — Command-line interface testing utilities
-- [Core Testing Functions](./includes/core/README.md) — Core testing functionality and validation
-- [Deployment Test Helpers](./includes/deployment/README.md) — Deployment testing and environment setup
-- [Filesystem Test Utilities](./includes/filesystem/README.md) — File system operation testing helpers
-- [Maintenance Script Tests](./maintenance/README.md) — Tests for maintenance and automation scripts
-- [Project Management Tests](./projects/README.md) — GitHub project integration and workflow tests
-- [Test Fixtures & Data](./projects/fixtures/README.md) — Sample data and test fixtures
-- [Python Documentation Tests](./pytests/README.md) — Python-based documentation validation tests
-- [Utility Script Tests](./utility/README.md) — Comprehensive utility script testing suite
+- **Awesome Copilot Tests** (`./awesome-copilot/`) — Jest tests for awesome-copilot automation scripts
+- **Test Includes & Helpers** (`./includes/`) — Shared test utilities and helper functions
+- **CLI Testing Helpers** (`./includes/cli/`) — Command-line interface testing utilities
+- **Core Testing Functions** (`./includes/core/`) — Core testing functionality and validation
+- **Deployment Test Helpers** (`./includes/deployment/`) — Deployment testing and environment setup
+- **Filesystem Test Utilities** (`./includes/filesystem/`) — File system operation testing helpers
+- **Maintenance Script Tests** (`./maintenance/`) — Tests for maintenance and automation scripts
+- **Project Management Tests** (`./projects/`) — GitHub project integration and workflow tests
+- **Test Fixtures & Data** (`./projects/fixtures/`) — Sample data and test fixtures
+- **Python Documentation Tests** (`./pytests/`) — Python-based documentation validation tests
+- **Utility Script Tests** (`./utility/`) — Comprehensive utility script testing suite
 
 ### 🛠️ Development Resources
 
@@ -311,17 +344,14 @@ npm ci
 
 - [Bats Testing Framework](https://github.com/bats-core/bats-core) — Bash Automated Testing System
 - [Jest Testing Documentation](https://jestjs.io/docs/getting-started) — JavaScript testing framework
-- [Shared Test Helpers](./test-helper.bash) — Common Bats testing utilities
-- [GitHub Actions Tests Workflow](../.github/workflows/tests.yml) — CI/CD testing automation
+- [GitHub Actions Tests Workflow](../.github/workflows/testing.yml) — CI/CD testing automation
 
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
-- [CodeRabbit Schemas](../.schemas/coderabbit/README.md) — AI code review configuration schemas
-- [WordPress Automation Schemas](../.schemas/header-footer-agent/README.md) — WordPress theme automation schemas
-- [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
-- [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
+- [CodeRabbit Configuration](../.coderabbit.yml) — AI code review configuration
+- [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
 
 #### 🎯 AI & Automation
 
@@ -333,9 +363,6 @@ npm ci
 
 ---
 
-*🧪 Ensuring quality through comprehensive testing and continuous coverage validation.*
+---
 
-<!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+*🧭 Your compass through the documentation landscape*

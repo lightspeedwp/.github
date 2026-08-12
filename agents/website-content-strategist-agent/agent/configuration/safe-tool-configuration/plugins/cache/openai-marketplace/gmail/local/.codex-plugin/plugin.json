@@ -1,0 +1,39 @@
+{
+  "apps": "./.app.json",
+  "author": {
+    "email": "support@openai.com",
+    "name": "OpenAI",
+    "url": "https://openai.com/"
+  },
+  "description": "Work with Gmail using the configured Gmail app connector.",
+  "homepage": "https://workspace.google.com/products/gmail/",
+  "interface": {
+    "brandColor": "#EA4335",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "category": "Communication",
+    "composerIcon": "./assets/gmail-small.svg",
+    "defaultPrompt": "Summarize inbox, draft replies, or process email threads",
+    "developerName": "OpenAI",
+    "displayName": "Gmail",
+    "logo": "./assets/logo.png",
+    "longDescription": "Use Gmail to summarize inbox activity, draft replies, and organize email threads through the connected Gmail app.",
+    "privacyPolicyURL": "https://policies.google.com/privacy",
+    "screenshots": [],
+    "shortDescription": "Read and manage Gmail",
+    "termsOfServiceURL": "https://policies.google.com/terms",
+    "websiteURL": "https://workspace.google.com/products/gmail/"
+  },
+  "keywords": [
+    "gmail",
+    "email",
+    "google"
+  ],
+  "license": "MIT",
+  "name": "gmail",
+  "repository": "https://github.com/openai/plugins",
+  "skills": "./skills/",
+  "version": "0.1.3"
+}

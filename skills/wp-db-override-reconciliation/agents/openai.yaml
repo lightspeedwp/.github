@@ -1,0 +1,4 @@
+interface:
+  display_name: "WP DB Override Reconciliation"
+  short_description: "Diagnose and reconcile block-theme pages rendering from DB Site Editor overrides instead of theme files."
+  default_prompt: "Use $wp-db-override-reconciliation to reconcile WordPress DB template/page overrides with theme files."

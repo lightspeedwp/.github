@@ -2,15 +2,22 @@
 file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
-version: "v1.0"
-last_updated: "2025-12-07"
+scope: "organization-wide"
+version: "v1.1.4"
+last_updated: "2026-07-22"
 owners: ["GitHub Community Health Team"]
 tags:
-  ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
-applyTo: ["**/*.md"]
-status: "active"
-stability: "stable"
-domain: "generic"
+- markdown
+- frontmatter
+- mermaid
+- documentation
+- diagrams
+- yaml
+applyTo:
+- '**/*.md'
+status: active
+stability: stable
+domain: generic
 ---
 
 # Documentation Formats Standards
@@ -61,7 +68,6 @@ Applies to Markdown files across the repository. Covers formatting rules, frontm
   - [Best Practices](#mermaid-best-practices)
   - [Accessibility](#diagram-accessibility)
 - [CI/CD Integration](#cicd-integration)
-- [References](#references)
 
 ---
 
@@ -159,9 +165,9 @@ function greet(name) {
 
 **Configuration Files:**
 
-- Config: [`.markdownlint.json`](../.markdownlint.json)
-- Ignore: [`.markdownlintignore`](../.markdownlintignore)
-- Prettier: [`prettier.config.js`](../prettier.config.js)
+- Config: [`.markdownlint.config.cjs`](../.markdownlint.config.cjs)
+- CLI config: [`.markdownlint-cli2.config.cjs`](../.markdownlint-cli2.config.cjs)
+- Prettier: [`.prettier.config.cjs`](../.prettier.config.cjs)
 - Editor: [`.editorconfig`](../.editorconfig)
 
 **NPM Scripts:**
@@ -227,7 +233,7 @@ status: "active"
 | `file_type`    | string       | ✅       | Document classification (see types below) |
 | `title`        | string       | ✅       | Human-readable title                      |
 | `description`  | string       | ✅       | Single-sentence summary (≤ 120 chars)     |
-| `version`      | string       | ✅       | Semantic version (e.g., `v1.0`)           |
+| `version`      | string       | ✅       | Semantic Versioning 2.0.0 (e.g., `v1.0.0`) |
 | `last_updated` | string       | ✅       | ISO date (YYYY-MM-DD)                     |
 | `author`       | string       | ✅       | Original author                           |
 | `maintainer`   | string       | ✅       | Current maintainer                        |
@@ -243,6 +249,30 @@ status: "active"
 > The `references` frontmatter field is retired; cite supporting resources inline or via approved footers instead.
 
 **Legend:** ✅ Required | 📋 Recommended
+
+### Frontmatter update policy
+
+When editing any file with YAML frontmatter:
+
+- Update `last_updated` on every content change.
+- Set `last_updated` to today's date in ISO format (`YYYY-MM-DD`).
+- Bump `version` on every content change using strict SemVer (`vMAJOR.MINOR.PATCH`).
+- Apply the same change classification principles used in changelog governance:
+  - Patch (`vX.Y.Z`): typo fixes, copy edits, clarifications, and non-behavioural tidy-ups.
+  - Minor (`vX.Y.0`): backward-compatible additions, expansions, or new guidance sections.
+  - Major (`vX.0.0`): breaking governance/process changes, removals, or incompatible restructures.
+- Keep file-level version format consistent after migration to SemVer (`vX.Y.Z` only).
+- Document meaningful changes under the appropriate Keep a Changelog section (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`).
+
+Governance references:
+
+- SemVer policy: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)
+- Changelog policy: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
+
+Validation and helper commands:
+
+- CI gate: `npm run validate:frontmatter:changed -- --base <base_sha> --head <head_sha>`
+- Local helper: `npm run docs:frontmatter:sync` (updates `last_updated` for staged markdown files).
 
 ### File Type Examples
 
@@ -372,6 +402,8 @@ Mermaid diagrams enhance documentation by visualizing complex relationships, pro
 
 ```mermaid
 flowchart TD
+accTitle: Flowchart diagram example
+accDescr: Shows a simple decision flowchart with yes and no branches ending in separate actions.
     A[Start] --> B{Decision?}
     B -->|Yes| C[Action 1]
     B -->|No| D[Action 2]
@@ -385,6 +417,8 @@ flowchart TD
 
 ```mermaid
 graph TB
+accTitle: Graph diagram example
+accDescr: Shows a relationship graph connecting issues, pull requests, discussions, and releases.
     A[Issues] --> B[Pull Requests]
     A --> C[Discussions]
     B --> D[Releases]
@@ -397,6 +431,8 @@ graph TB
 
 ```mermaid
 graph LR
+accTitle: Architecture diagram example
+accDescr: Shows a repository architecture split into internal repository components and external integration points.
     subgraph "Repository"
         A[Code] --> B[Tests]
         C[Docs] --> D[Automation]
@@ -417,6 +453,8 @@ graph LR
 
 ```mermaid
 sequenceDiagram
+accTitle: Sequence diagram example
+accDescr: Shows a simple request flow from user through GitHub and CI to deployment and back to the user.
     participant User
     participant GitHub
     participant CI
@@ -436,6 +474,8 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
+accTitle: State diagram example
+accDescr: Shows a linear issue lifecycle from draft to review, approval, and merge.
     [*] --> Draft
     Draft --> Review: Submit
     Review --> Approved: Accept
@@ -459,15 +499,19 @@ stateDiagram-v2
 
 **Color Coding:**
 
+Use the approved Mermaid palette for any `style` or `classDef` declaration. Keep fill, text, and stroke colours together so GitHub light and dark rendering stay readable.
+
 ```mermaid
 flowchart TD
+accTitle: Mermaid colour coding example
+accDescr: Shows the approved Mermaid palette with explicit fill, text, and stroke values applied to success and error classes.
     A[Input] --> B[Process]
     B --> C{Decision}
     C -->|Success| D[Output]
     C -->|Error| E[Error Handler]
 
-    classDef success fill:#e8f5e8
-    classDef error fill:#ffebee
+    classDef success fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef error fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 
     class D success
     class E error
@@ -501,6 +545,8 @@ The following diagram shows the issue lifecycle:
 
 ```mermaid
 stateDiagram-v2
+accTitle: Issue lifecycle example
+accDescr: Shows the issue lifecycle from open through in-progress, review, and closed states.
     [*] --> Open
     Open --> InProgress
     InProgress --> Review
@@ -558,7 +604,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
       - run: npm ci
-      - run: node scripts/validate-frontmatter.js
+      - run: node .github/scripts/validate-frontmatter.js
 
   check-links:
     runs-on: ubuntu-latest
@@ -579,21 +625,13 @@ jobs:
 
 ---
 
-## References
+## Related Files
 
-- [instructions.instructions.md](instructions.instructions.md)
-- [readme.instructions.md](readme.instructions.md)
-- [a11y.instructions.md](a11y.instructions.md)
-- [languages.instructions.md](languages.instructions.md)
-- [linting.instructions.md](linting.instructions.md)
-- [markdownlint Documentation](https://github.com/DavidAnson/markdownlint)
-- [Prettier Markdown Support](https://prettier.io/docs/en/options.html#prose-wrap)
-- [GitHub Flavored Markdown](https://github.github.com/gfm/)
-- [CommonMark Specification](https://commonmark.org/)
-- [YAML Specification](https://yaml.org/spec/)
-- [JSON Schema](https://json-schema.org/)
-- [GitHub Issue Templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests)
-- [Mermaid Documentation](https://mermaid.js.org/)
-- [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
-- [Mermaid Live Editor](https://mermaid.live)
-- [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in documentation
+- **[issues.instructions.md](./issues.instructions.md)** — Issue documentation and templates
+- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — PR documentation and templates
+- **[community-standards.instructions.md](./community-standards.instructions.md)** — Community health documentation standards
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

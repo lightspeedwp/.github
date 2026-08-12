@@ -1,21 +1,74 @@
 /**
  * @jest-environment jsdom
  */
-// Test for validate-workflows.js
-const path = require("path");
-const { execSync } = require("child_process");
+
+const { WorkflowValidator, GUARDRAILS } = require("../validate-workflows.js");
 
 describe("Workflow Validation", () => {
-  it("should run the workflow validation script and output expected result", () => {
-    const scriptPath = path.join(__dirname, "../validate-workflows.js");
-    let output = "";
-    try {
-      output = execSync(`node ${scriptPath}`, { encoding: "utf8" });
-    } catch (err) {
-      output = err.stdout || err.message;
-    }
-    expect(output).toBeDefined();
-    // Optionally, check for summary or error lines
-    expect(output).toMatch(/Validation|Guardrails|Summary|Error|Warning/i);
+  it("flags explicit shell:bash for run steps", () => {
+    const validator = new WorkflowValidator(GUARDRAILS);
+
+    const workflow = `
+name: test
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - name: bad bash
+        shell: bash
+        run: node scripts/example.js
+`;
+
+    const valid = validator.validate("test.yml", workflow);
+    expect(valid).toBe(false);
+    expect(
+      validator.results.errors.some((entry) =>
+        entry.message.includes("explicit shell:bash is not allowed"),
+      ),
+    ).toBe(true);
+  });
+
+  it("flags multiline shell control-flow in run blocks", () => {
+    const validator = new WorkflowValidator(GUARDRAILS);
+
+    const workflow = `
+name: test
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - name: inline control flow
+        run: |
+          if [ -z "$FOO" ]; then
+            echo "missing"
+          fi
+`;
+
+    const valid = validator.validate("test.yml", workflow);
+    expect(valid).toBe(false);
+    expect(
+      validator.results.errors.some((entry) =>
+        entry.message.includes("multiline shell control-flow is not allowed"),
+      ),
+    ).toBe(true);
+  });
+
+  it("accepts node-based single-line run steps without bash shell", () => {
+    const validator = new WorkflowValidator(GUARDRAILS);
+
+    const workflow = `
+name: test
+permissions:
+  contents: read
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - name: safe node call
+        run: node scripts/workflows/release/trigger-telemetry.cjs
+`;
+
+    const valid = validator.validate("test.yml", workflow);
+    expect(valid).toBe(true);
   });
 });

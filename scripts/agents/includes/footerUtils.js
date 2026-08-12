@@ -9,13 +9,14 @@ const fs = require("fs");
 
 /**
  * Array of fun footer variants (add more as desired).
+ * NOTE: No references below the footer line — design policy requires quirky line only.
  */
 const footers = [
-  "_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)",
-  "_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
-  "_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)",
-  "_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)",
-  "_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_",
+  "*Maintained by the 🤖 LightSpeedWP Automation Team*",
+  "*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*",
+  "*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*",
+  "*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*",
+  "*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*",
 ];
 
 /**

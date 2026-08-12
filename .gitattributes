@@ -1,18 +1,38 @@
 # Auto detect text files and ensure proper line endings
 * text=auto
 
-# Force LF (Unix) line endings for all common text-based files
+# Force LF (Unix) line endings for all text-based files
+# This prevents whitespace-only diffs from line ending normalization across platforms
 *.php text eol=lf
 *.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.jsx text eol=lf
 *.css text eol=lf
 *.scss text eol=lf
 *.json text eol=lf
+*.jsonc text eol=lf
 *.md text eol=lf
+*.mdx text eol=lf
 *.html text eol=lf
 *.txt text eol=lf
 *.xml text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+*.cjs text eol=lf
+*.mjs text eol=lf
+*.sh text eol=lf
+*.bash text eol=lf
+*.zsh text eol=lf
+
+# Documentation and configuration files
+.editorconfig text eol=lf
+.eslintignore text eol=lf
+.gitignore text eol=lf
+.prettierignore text eol=lf
+*.instructions.md text eol=lf
+Makefile text eol=lf
+*.mk text eol=lf
 
 # Treat images and fonts as binary
 *.png binary
@@ -23,3 +43,10 @@
 *.woff binary
 *.woff2 binary
 *.ttf binary
+*.otf binary
+*.ico binary
+
+# Office documents as binary
+*.docx binary
+*.xlsx binary
+*.pptx binary

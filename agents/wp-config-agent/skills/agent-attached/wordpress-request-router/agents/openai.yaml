@@ -1,0 +1,4 @@
+interface:
+  display_name: "WordPress Request Router"
+  short_description: "Route WordPress requests to the right workflow and format."
+  default_prompt: "Use $wordpress-request-router to classify WordPress requests, choose the right specialist skill, clarify dev vs live before site-specific inspection, and enforce the correct output structure."

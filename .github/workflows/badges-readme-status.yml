@@ -1,0 +1,272 @@
+name: "Badges: README Status Maintenance"
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: "Force update regardless of changes"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  update-readme-badges:
+    name: "Update README Status Badges"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
+      issues: write
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Get repository metadata"
+        id: repo
+        run: |
+          # Get repository name and owner
+          REPO="${{ github.repository }}"
+          OWNER="${REPO%/*}"
+          REPO_NAME="${REPO#*/}"
+
+          echo "owner=${OWNER}" >> $GITHUB_OUTPUT
+          echo "name=${REPO_NAME}" >> $GITHUB_OUTPUT
+          echo "full_name=${REPO}" >> $GITHUB_OUTPUT
+
+      - name: "Query workflow status"
+        id: workflows
+        run: |
+          # Get list of critical workflows
+          WORKFLOWS=(
+            "checks.yml"
+            "docs-validation.yml"
+            "gitleaks.yml"
+            "main-branch-guard.yml"
+            "labeling-governance.yml"
+            "metadata-governance.yml"
+            "release.yml"
+            "template-enforcement.yml"
+            "validate-pr-template.yml"
+          )
+
+          # Initialize badges list
+          BADGES=""
+
+          for workflow in "${WORKFLOWS[@]}"; do
+            workflow_name="${workflow%.yml}"
+
+            # Get latest run status from GitHub API
+            status=$(gh run list \
+              --repo "${{ steps.repo.outputs.full_name }}" \
+              --workflow "$workflow" \
+              --limit 1 \
+              --json conclusion \
+              --jq '.[0].conclusion // "unknown"' 2>/dev/null || echo "unknown")
+
+            # Convert status to badge color and text
+            case "$status" in
+              success)
+                badge_color="success"
+                badge_text="passing"
+                ;;
+              failure)
+                badge_color="failure"
+                badge_text="failing"
+                ;;
+              cancelled)
+                badge_color="inactive"
+                badge_text="cancelled"
+                ;;
+              *)
+                badge_color="lightgrey"
+                badge_text="unknown"
+                ;;
+            esac
+
+            # Create badge markdown
+            badge_url="https://img.shields.io/badge/${workflow_name}-${badge_text}-${badge_color}.svg"
+            badge_link="https://github.com/${{ steps.repo.outputs.full_name }}/actions/workflows/${workflow}"
+            badge_md="[![${workflow_name}](${badge_url})](${badge_link})"
+
+            BADGES="${BADGES}${badge_md}"$'\n'
+
+            echo "  ✓ $workflow_name: $badge_text"
+          done
+
+          # Save badges to file
+          echo "$BADGES" > /tmp/badges.txt
+          echo "badge_count=$(echo "$BADGES" | grep -c "^\[" || echo 0)" >> $GITHUB_OUTPUT
+
+      - name: "Update README.md"
+        id: update
+        run: |
+          README_FILE="./README.md"
+
+          if [[ ! -f "$README_FILE" ]]; then
+            echo "::warning::README.md not found - skipping update"
+            exit 0
+          fi
+
+          # Check if README has badge markers
+          if ! grep -q "<!-- BADGES-START -->" "$README_FILE"; then
+            echo "::warning::Badge markers not found in README.md - skipping update"
+            exit 0
+          fi
+
+          # Read new badges
+          NEW_BADGES=$(cat /tmp/badges.txt)
+
+          # Replace badges between markers
+          TEMP_FILE="${README_FILE}.tmp"
+          awk '
+            BEGIN { in_badges = 0 }
+            /<!-- BADGES-START -->/ {
+              print
+              in_badges = 1
+              while ((getline < "/tmp/badges.txt") > 0) {
+                print
+              }
+              next
+            }
+            /<!-- BADGES-END -->/ {
+              in_badges = 0
+              print
+              next
+            }
+            !in_badges || /<!-- BADGES-/ { print }
+          ' "$README_FILE" > "$TEMP_FILE"
+
+          # Check if file changed
+          if diff -q "$README_FILE" "$TEMP_FILE" > /dev/null 2>&1; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            rm "$TEMP_FILE"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            mv "$TEMP_FILE" "$README_FILE"
+          fi
+
+      - name: "Commit changes"
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+          git commit -m "docs: Update README status badges [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
+
+      - name: "Validate badge URLs"
+        id: validate
+        continue-on-error: true
+        run: |
+          echo "Validating badge URLs..."
+
+          broken_count=0
+          timeout_count=0
+
+          while IFS= read -r line; do
+            # Extract URLs only from badge markdown (img.shields.io and github.com badge URLs)
+            url=$(echo "$line" | grep -oP '(?:https?://img\.shields\.io/|https?://github\.com/)[^)]+' | head -1)
+
+            if [[ -z "$url" ]]; then
+              continue
+            fi
+
+            # Test URL with timeout
+            response=$(timeout 10 curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null || echo "timeout")
+
+            case "$response" in
+              200|302)
+                echo "  ✓ $url"
+                ;;
+              404)
+                echo "  ✗ $url (404 Not Found)"
+                ((++broken_count))
+                ;;
+              timeout)
+                echo "  ⚠ $url (Timeout)"
+                ((++timeout_count))
+                ;;
+              *)
+                echo "  ? $url (HTTP $response)"
+                ;;
+            esac
+          done < /tmp/badges.txt
+
+          echo "broken_count=$broken_count" >> $GITHUB_OUTPUT
+          echo "timeout_count=$timeout_count" >> $GITHUB_OUTPUT
+
+      - name: "Create issue for broken badges"
+        if: steps.validate.outputs.broken_count > 0
+        run: |
+          # Create temporary issue body file
+          {
+            echo "## Definition of Ready (DoR)"
+            echo ""
+            echo "- [x] Broken badge links have been detected"
+            echo "- [x] Validation workflow has completed"
+            echo "- [x] Issue list has been generated"
+            echo ""
+            echo "## Broken Badge Links"
+            echo ""
+            echo "The following badge links returned 404 errors:"
+            echo ""
+            echo "(See validation workflow logs for details)"
+            echo ""
+            echo "## Action Items"
+            echo ""
+            echo "- [ ] Verify workflow names in schema"
+            echo "- [ ] Correct workflow names/paths"
+            echo "- [ ] Update .github/automation/badges.schema.yml"
+            echo "- [ ] Re-run badge validation"
+            echo ""
+            echo "## Definition of Done (DoD)"
+            echo ""
+            echo "- [ ] All broken links identified"
+            echo "- [ ] Schema corrected"
+            echo "- [ ] Validation rerun confirms links work"
+            echo "- [ ] Issue resolved and closed"
+          } > /tmp/issue_body.txt
+
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "Broken Badge Links Detected" \
+            --body-file /tmp/issue_body.txt \
+            --label "type:task,area:automation,priority:normal" || true
+
+      - name: "Report summary"
+        if: always()
+        run: |
+          echo "## 📊 README Status Badges Update"
+          echo ""
+          echo "**Workflow Results:**"
+          echo "- Badges Updated: ${{ steps.update.outputs.changed }}"
+          echo "- Badge Count: ${{ steps.workflows.outputs.badge_count }}"
+          echo "- Broken Links: ${{ steps.validate.outputs.broken_count }}"
+          echo "- Timeouts: ${{ steps.validate.outputs.timeout_count }}"
+          echo ""
+          if [[ "${{ steps.update.outputs.changed }}" == "true" ]]; then
+            echo "✅ README.md updated with latest status badges"
+          else
+            echo "ℹ️ No changes needed"
+          fi

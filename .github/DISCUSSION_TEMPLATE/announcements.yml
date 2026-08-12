@@ -1,5 +1,3 @@
-name: "Announcements"
-description: "Official news, releases, and updates from the LightSpeed team."
 labels:
   - discussion:announcement
 template: |

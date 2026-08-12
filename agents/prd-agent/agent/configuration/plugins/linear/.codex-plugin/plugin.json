@@ -1,0 +1,32 @@
+{
+  "apps": "./.app.json",
+  "author": {
+    "name": "OpenAI",
+    "url": "https://linear.app/"
+  },
+  "description": "Find and reference issues and projects.",
+  "homepage": "https://linear.app/",
+  "interface": {
+    "brandColor": "#5E6AD2",
+    "capabilities": [],
+    "category": "Productivity",
+    "composerIcon": "./assets/linear-icon.svg",
+    "defaultPrompt": "Triage or update relevant issues for this task with clear next actions",
+    "developerName": "OpenAI",
+    "displayName": "Linear",
+    "logo": "./assets/app-icon.png",
+    "longDescription": "Manage issues, projects, and team workflows in Linear from Codex.",
+    "privacyPolicyURL": "https://linear.app/privacy",
+    "screenshots": [],
+    "shortDescription": "Find and reference issues and projects.",
+    "termsOfServiceURL": "https://linear.app/terms",
+    "websiteURL": "https://linear.app/"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "mcpServers": "./.mcp.json",
+  "name": "linear",
+  "repository": "https://github.com/openai/plugins",
+  "skills": "./skills/",
+  "version": "0.0.3"
+}

@@ -1,8 +1,10 @@
 ---
+file_type: "issue-template"
 name: "🚀 Feature"
 about: "Propose a net-new capability, enhancement, or workflow improvement."
-title: "[Feature] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+version: "1.0.2"
+last_updated: "2026-06-19"
+category: "github-templates"
 ---
 
 <!--
@@ -86,3 +88,7 @@ Use correct branch prefix (feat/) for any PR.
 - [ ] Release notes prepared; monitoring/alerts set
 
 ---
+
+---
+
+Related issues: {related_issues}

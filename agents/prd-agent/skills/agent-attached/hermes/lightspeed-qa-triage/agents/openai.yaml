@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS QA Triage"
+  short_description: "Triage LightSpeed QA findings by severity, owner, and launch impact."
+  default_prompt: "Use $lightspeed-qa-triage to triage LightSpeed QA findings with severity, evidence quality, retest steps, and next actions."

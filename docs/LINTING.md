@@ -1,20 +1,20 @@
 ---
-title: "Linting Strategy & Implementation Guide"
-description: "Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects"
-file_type: "documentation"
-version: "1.0"
-last_updated: "2025-10-26"
-owners: ["LightSpeed Team"]
+title: Linting Strategy & Implementation Guide
+description: Comprehensive guide to linting setup, configuration, and automation across
+  LightSpeed WordPress projects
+file_type: documentation
+version: '1.1'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Team
 tags:
-  [
-    "linting",
-    "quality",
-    "automation",
-    "eslint",
-    "stylelint",
-    "prettier",
-    "markdownlint",
-  ]
+- linting
+- quality
+- automation
+- eslint
+- stylelint
+- prettier
+- markdownlint
 ---
 
 # Linting Strategy & Implementation Guide
@@ -504,9 +504,4 @@ npx eslint --debug
 
 ---
 
-## Husky Pre-Commit Integration
-
-For details on how linting is enforced before commits, see [HUSKY_PRECOMMITS.md](./HUSKY_PRECOMMITS.md). This document explains how Husky is configured to run linting and other checks automatically, and how to manage or bypass hooks if needed.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

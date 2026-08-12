@@ -1,0 +1,113 @@
+{
+  "form_name": "Contest Entry Form",
+  "purpose": "Collect campaign or competition entries with separate competition consent and optional marketing opt-in.",
+  "audience": "Competition entrants",
+  "source_template": "Gravity Forms contest entry pattern with LightSpeed consent safeguards",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Name",
+      "type": "name",
+      "required": true
+    },
+    {
+      "id": 2,
+      "label": "Email",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": 3,
+      "label": "Phone",
+      "type": "phone",
+      "required": false
+    },
+    {
+      "id": 4,
+      "label": "Region",
+      "type": "select",
+      "required": false,
+      "choices": [
+        "Western Cape",
+        "Eastern Cape",
+        "Free State",
+        "Northern Cape",
+        "Other"
+      ]
+    },
+    {
+      "id": 5,
+      "label": "Competition answer",
+      "type": "textarea",
+      "required": true
+    },
+    {
+      "id": 6,
+      "label": "Competition terms consent",
+      "type": "consent",
+      "required": true
+    },
+    {
+      "id": 7,
+      "label": "Marketing opt-in",
+      "type": "checkbox",
+      "required": false,
+      "choices": [
+        "I would like to receive updates"
+      ]
+    }
+  ],
+  "field_settings": {
+    "consent": "Terms consent and marketing opt-in are separate.",
+    "eligibility": "Eligibility wording must be approved outside the skill."
+  },
+  "conditional_logic": [
+    {
+      "name": "Marketing feed only when opt-in checked",
+      "status": "planned-only until add-on detected"
+    }
+  ],
+  "confirmations": [
+    {
+      "name": "Default confirmation",
+      "type": "text",
+      "message": "Thanks for entering. Your entry has been received."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Campaign owner notification",
+      "recipients": "Configured campaign owner",
+      "reply_to": "{Email:2}",
+      "includes": "entry fields and opt-in state"
+    }
+  ],
+  "feeds": [],
+  "spam_settings": {
+    "honeypot": "enabled if available",
+    "additional": "Layered anti-spam recommended for public campaign pages"
+  },
+  "accessibility_settings": {
+    "labels": "Visible labels required",
+    "descriptions": "Keep competition instructions concise and linked to full terms"
+  },
+  "embedding_target": {
+    "page": "Campaign landing page",
+    "method": "Gravity Forms block preferred"
+  },
+  "data_retention_notes": "Set retention according to campaign rules and privacy review. Export/erase readiness depends on Email field. Consent record and wording must be reviewed for retention, export, and erase handling.",
+  "test_data": {
+    "name": "Contest Entrant",
+    "email": "entrant@example.com",
+    "answer": "Sample answer",
+    "terms_consent": true,
+    "marketing_opt_in": false
+  },
+  "required_addons": [],
+  "risks": [
+    "Terms/legal wording requires approval",
+    "Marketing feed must be opt-in only",
+    "Retention must match campaign rules"
+  ],
+  "approval_status": "draft"
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lsdev.biz/schemas/gravity-forms/tracking-qa-report.schema.json",
+  "title": "Gravity Forms Tracking QA Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "site_url",
+    "environment",
+    "form_id",
+    "page_url",
+    "scenarios",
+    "entry_result",
+    "analytics_result",
+    "consent_result",
+    "failed_checks",
+    "skipped_checks",
+    "handoff_status"
+  ],
+  "properties": {
+    "site_url": { "type": "string" },
+    "environment": { "type": "string" },
+    "form_id": { "type": ["string", "integer"] },
+    "page_url": { "type": "string" },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "expected", "actual", "status"],
+        "additionalProperties": true,
+        "properties": {
+          "name": { "type": "string" },
+          "expected": { "type": "string" },
+          "actual": { "type": "string" },
+          "status": { "type": "string", "enum": ["pass", "fail", "skipped", "blocked"] }
+        }
+      }
+    },
+    "entry_result": { "type": "string" },
+    "analytics_result": { "type": "string" },
+    "consent_result": { "type": "string" },
+    "failed_checks": { "type": "array", "items": { "type": "string" } },
+    "skipped_checks": { "type": "array", "items": { "type": "string" } },
+    "handoff_status": { "type": "string", "enum": ["ready", "needs retest", "blocked"] }
+  }
+}

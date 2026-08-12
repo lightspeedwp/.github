@@ -13,6 +13,7 @@
 
 import fs from "fs";
 import path from "path";
+import { pathToFileURL } from "url";
 
 /**
  * Reads telemetry data from the agent cache file if it exists
@@ -279,12 +280,15 @@ function generateReport(telemetry = null) {
 }
 
 // If run directly, output the report
-if (require.main === module) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   const report = generateReport();
   process.stdout.write(report);
 }
 
-module.exports = {
+export {
   generateReport,
   readTelemetryData,
   getDefaultTelemetry,

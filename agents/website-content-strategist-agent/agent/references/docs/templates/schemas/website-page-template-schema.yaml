@@ -1,0 +1,19 @@
+version: 1
+template_family: website-pages
+required_common_fields:
+  - page title
+  - page purpose
+  - primary audience
+  - user intent
+  - primary CTA
+required_common_sections:
+  - Hero
+optional_common_sections:
+  - FAQs
+  - Final CTA
+  - Proof or trust signals
+rules:
+  - Every page template must state its page purpose.
+  - Every page template must define CTA fields when conversion is expected.
+  - Pages with trust or claim-sensitive content should include proof or trust requirements.
+  - Utility pages may omit some commercial sections if the template explains why.

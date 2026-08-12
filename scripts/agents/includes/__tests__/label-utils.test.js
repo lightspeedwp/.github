@@ -53,12 +53,12 @@ describe("label-utils.js", () => {
     });
 
     test("formats labels with special characters", () => {
-      const labels = ["type:bug", "area:core", "priority:high"];
+      const labels = ["type:bug", "area:core", "priority:important"];
       const result = labelsToMarkdownTable(labels);
 
       expect(result).toContain("| `type:bug` |");
       expect(result).toContain("| `area:core` |");
-      expect(result).toContain("| `priority:high` |");
+      expect(result).toContain("| `priority:important` |");
     });
 
     test("handles labels with spaces", () => {
@@ -330,8 +330,12 @@ describe("label-utils.js", () => {
     });
 
     test("handles perfect alignment (no diff)", () => {
-      const current = ["type:bug", "status:in-progress", "priority:high"];
-      const canonical = ["type:bug", "status:in-progress", "priority:high"];
+      const current = ["type:bug", "status:in-progress", "priority:important"];
+      const canonical = [
+        "type:bug",
+        "status:in-progress",
+        "priority:important",
+      ];
 
       const diff = diffLabels(current, canonical);
 

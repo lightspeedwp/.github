@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Read-only Gravity Forms preflight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "site_url",
+    "environment",
+    "wordpress_version",
+    "php_version",
+    "gravity_forms_status",
+    "gravity_forms_version",
+    "mcp_capabilities",
+    "missing_evidence"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "wordpress_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "php_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gravity_forms_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "missing",
+        "unknown"
+      ]
+    },
+    "gravity_forms_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "licence_visibility": {
+      "type": "string",
+      "enum": [
+        "visible_valid",
+        "visible_problem",
+        "not_visible",
+        "not_assessed"
+      ]
+    },
+    "rest_api_availability": {
+      "type": "string",
+      "enum": [
+        "available",
+        "unavailable",
+        "restricted",
+        "not_assessed"
+      ]
+    },
+    "user_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "installed_addons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "smtp_email_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cache_optimisation_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "security_spam_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "theme": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "multisite": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "mcp_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

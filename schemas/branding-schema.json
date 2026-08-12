@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LightSpeed Unified Branding Schema",
+  "description": "Comprehensive schema for category-aware branding, frontmatter validation, header/footer management, and badge conventions for all document types in the LightSpeed .github repository",
+  "type": "object",
+  "required": [
+    "version",
+    "categories",
+    "frontmatter_fields",
+    "category_inference_rules"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version (semantic versioning)",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this schema was created"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this schema was last updated"
+    },
+    "categories": {
+      "type": "object",
+      "description": "Complete definition of all 16 document categories with metadata, templates, and rules",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "file_patterns",
+          "frontmatter_required",
+          "header_behavior"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable category name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Purpose and scope of documents in this category"
+          },
+          "audience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Target audience for this document type"
+          },
+          "file_patterns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Path patterns for automatic category inference (glob patterns)"
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Priority order for path-based inference (lower = higher priority)",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "frontmatter_required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of required frontmatter fields for this category"
+          },
+          "frontmatter_optional": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of optional but recommended frontmatter fields"
+          },
+          "header_behavior": {
+            "type": "string",
+            "enum": ["required", "optional", "omitted"],
+            "description": "Whether headers should be required, optional, or omitted"
+          },
+          "header_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Fields to include in generated headers"
+          },
+          "footer_behavior": {
+            "type": "string",
+            "enum": ["required", "optional", "minimal"],
+            "description": "Footer insertion and enforcement level"
+          },
+          "allowed_footers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of footer template IDs allowed for this category"
+          },
+          "default_footer": {
+            "type": "string",
+            "description": "Default footer template ID for this category"
+          },
+          "badge_conventions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Standard badges used to mark documents in this category"
+          },
+          "fallback_rules": {
+            "type": "object",
+            "description": "Rules for handling missing metadata",
+            "properties": {
+              "missing_frontmatter": {
+                "type": "string",
+                "enum": ["infer_from_path", "use_defaults", "skip_validation"],
+                "description": "How to handle documents with missing frontmatter"
+              },
+              "missing_header": {
+                "type": "string",
+                "enum": ["insert_auto", "skip", "warn"],
+                "description": "How to handle documents that should have headers"
+              },
+              "missing_footer": {
+                "type": "string",
+                "enum": ["insert_auto", "skip", "warn"],
+                "description": "How to handle documents that should have footers"
+              },
+              "category_inference": {
+                "type": "string",
+                "description": "Default category to use if inference fails"
+              }
+            }
+          },
+          "validation_rules": {
+            "type": "object",
+            "description": "Category-specific validation rules",
+            "properties": {
+              "max_header_lines": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "max_footer_lines": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "require_category_in_frontmatter": {
+                "type": "boolean"
+              },
+              "allow_duplicate_footers": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "frontmatter_fields": {
+      "type": "object",
+      "description": "Complete definition of all frontmatter fields",
+      "properties": {
+        "required_fields": {
+          "type": "object",
+          "description": "Fields that must be present in all documents",
+          "additionalProperties": {
+            "$ref": "#/definitions/frontmatterField"
+          }
+        },
+        "optional_fields": {
+          "type": "object",
+          "description": "Fields that may be present in documents",
+          "additionalProperties": {
+            "$ref": "#/definitions/frontmatterField"
+          }
+        }
+      }
+    },
+    "category_inference_rules": {
+      "type": "object",
+      "description": "Rules for inferring category from file path and frontmatter",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["frontmatter_first", "path_first", "hybrid"],
+          "description": "Priority strategy for category determination"
+        },
+        "path_priority": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Glob pattern to match file paths"
+              },
+              "category": {
+                "type": "string",
+                "description": "Inferred category for matching paths"
+              },
+              "priority": {
+                "type": "integer",
+                "description": "Priority order (lower = higher priority)"
+              }
+            }
+          },
+          "description": "Path-based category inference rules in priority order"
+        },
+        "fallback_category": {
+          "type": "string",
+          "description": "Default category if no inference rules match"
+        }
+      }
+    },
+    "validation_rules": {
+      "type": "object",
+      "description": "Global validation rules applied across all categories",
+      "properties": {
+        "max_frontmatter_size_bytes": {
+          "type": "integer",
+          "description": "Maximum size of frontmatter block in bytes"
+        },
+        "enforce_category_in_frontmatter": {
+          "type": "boolean",
+          "description": "Whether category field is required in frontmatter"
+        },
+        "allow_multiple_footers": {
+          "type": "boolean",
+          "description": "Whether a single document can have multiple footers"
+        },
+        "max_footer_lines": {
+          "type": "integer",
+          "description": "Global maximum lines in a footer"
+        },
+        "require_updated_date": {
+          "type": "boolean",
+          "description": "Whether last_updated date is required"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "frontmatterField": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["string", "array", "object", "boolean", "number", "date"],
+          "description": "Data type of the field"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of this field"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regex pattern for validation (strings only)"
+        },
+        "enum": {
+          "type": "array",
+          "description": "Allowed values for this field"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["date", "date-time", "email", "uri"],
+          "description": "Format validation for specific types"
+        },
+        "minLength": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum length for string fields"
+        },
+        "maxLength": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum length for string fields"
+        },
+        "example": {
+          "description": "Example value for this field"
+        }
+      }
+    }
+  }
+}

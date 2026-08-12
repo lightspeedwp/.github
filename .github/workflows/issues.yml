@@ -8,20 +8,23 @@ on:
 
 permissions:
   contents: read
-  issues: read
+  issues: write
 
 jobs:
   issues-agent:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
 
-      - name: Run Issues Agent (advisory)
-        run: node scripts/agents/issues.agent.js
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run Issues Agent
+        run: node scripts/agents/issues.agent.js --apply
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

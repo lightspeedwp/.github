@@ -1,0 +1,26 @@
+{
+  "site": "Example WooCommerce store",
+  "environment": "staging",
+  "changed_components": [
+    "yoast seo premium update",
+    "yoast woocommerce seo update"
+  ],
+  "baseline_date": "2026-07-01",
+  "current_date": "2026-07-03",
+  "overall_status": "needs_verification",
+  "checks": [
+    {
+      "area": "product schema",
+      "status": "needs_verification",
+      "evidence": "Settings export changed but rendered ProductGroup output was not supplied.",
+      "finding": "Variation schema cannot be confirmed from settings alone.",
+      "owner": "developer",
+      "next_action": "Capture rendered JSON-LD for one simple and one variable product."
+    },
+    {
+      "area": "canonicals",
+      "status": "pass",
+      "evidence": "Rendered canonical on sampled product points to the live product URL."
+    }
+  ]
+}

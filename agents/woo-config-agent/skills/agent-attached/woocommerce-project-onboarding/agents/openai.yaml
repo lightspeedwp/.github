@@ -1,0 +1,5 @@
+interface:
+  display_name: woocommerce-project-onboarding
+  short_description: Collect store defaults before repeat audits and planning
+  default_prompt: Use $woocommerce-project-onboarding to collect store defaults only
+    when needed before continuing the user request.

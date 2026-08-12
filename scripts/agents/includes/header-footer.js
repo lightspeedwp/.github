@@ -8,30 +8,116 @@
 
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 
 /**
- * Load footer configuration from footers.yml
+ * Resolve the canonical footer configuration path.
+ */
+function resolveFooterConfigPath() {
+  const explicitPath = process.env.BRANDING_FOOTER_CONFIG?.trim();
+  const projectRoot = process.cwd();
+  const candidatePaths = [
+    explicitPath ? path.resolve(explicitPath) : null,
+    path.join(projectRoot, "config/footers.config.yaml"),
+    path.join(projectRoot, ".github/automation/footers.yml"),
+  ].filter(Boolean);
+
+  return (
+    candidatePaths.find((candidatePath) => fs.existsSync(candidatePath)) || null
+  );
+}
+
+/**
+ * Load footer configuration from the canonical branding config.
  */
 function loadFooterConfig() {
-  const configPath = path.join(process.cwd(), ".github/automation/footers.yml");
-  if (!fs.existsSync(configPath)) {
+  const configPath = resolveFooterConfigPath();
+  if (!configPath) {
     return null;
   }
+
   const content = fs.readFileSync(configPath, "utf-8");
   return yaml.load(content);
 }
 
 /**
  * Standard footer variants (fallback if config not found)
+ * NOTE: No references below the footer line — design policy requires quirky line only.
  */
 const DEFAULT_FOOTERS = [
-  "_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)",
-  "_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
-  "_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)",
-  "_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)",
-  "_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_",
+  "*Maintained by the 🤖 LightSpeedWP Automation Team*",
+  "*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*",
+  "*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*",
+  "*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*",
+  "*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*",
 ];
+
+const DEFAULT_FOOTER_SIGNATURES = [
+  "*Maintained by the 🤖",
+  "*Built by 🧱",
+  "*Have questions?",
+  "*This page brought to you by",
+  "*Docs signed by 🤖",
+  "Maintained by the 🤖 LightSpeedWP Automation Team",
+];
+
+function getCanonicalFooterTemplates() {
+  const config = loadFooterConfig();
+  if (!config?.categories || !config?.footers) {
+    return [];
+  }
+
+  return Object.entries(config.categories)
+    .map(([, categoryConfig]) => config.footers[categoryConfig?.default_footer])
+    .filter((footer) => typeof footer?.template === "string")
+    .map((footer) => footer.template.trimEnd());
+}
+
+function getFooterSignatures() {
+  const canonicalTemplates = getCanonicalFooterTemplates();
+  const canonicalSignatures = canonicalTemplates
+    .map((template) =>
+      template
+        .split("\n")
+        .map((line) => line.trim())
+        .find(Boolean),
+    )
+    .filter(Boolean);
+
+  return [...new Set([...DEFAULT_FOOTER_SIGNATURES, ...canonicalSignatures])];
+}
+
+function stripFrontmatter(content) {
+  return content.replace(/^---\n[\s\S]*?\n---\n?/, "");
+}
+
+function extractFooterTail(content) {
+  const stripped = stripFrontmatter(content);
+  const lastSeparatorIndex = stripped.lastIndexOf("\n---\n");
+
+  if (lastSeparatorIndex === -1) {
+    return "";
+  }
+
+  return stripped.slice(lastSeparatorIndex + 1).trim();
+}
+
+function buildFooterBlock(footerText) {
+  const trimmed = footerText.trimEnd();
+  // Footer templates sourced from config/footers.config.yaml already include
+  // their own leading `---` divider; the legacy DEFAULT_FOOTERS phrases do
+  // not. Avoid emitting a duplicate divider for the former.
+  if (/^---\s*\n/.test(trimmed)) {
+    return `\n${trimmed}\n`;
+  }
+  return `\n---\n\n${trimmed}\n`;
+}
+
+function hasKnownFooter(content) {
+  const tail = extractFooterTail(content);
+  const signatures = getFooterSignatures();
+  return signatures.some((signature) => tail.includes(signature));
+}
 
 /**
  * Get footer phrases for a given category
@@ -40,18 +126,29 @@ const DEFAULT_FOOTERS = [
  */
 function getFooterPhrases(category = "default") {
   const config = loadFooterConfig();
-  if (!config || !config.categories) {
+  if (!config || !config.categories || !config.footers) {
     return DEFAULT_FOOTERS;
   }
 
-  // Try to get category-specific footers
-  if (config.categories[category] && config.categories[category].phrases) {
-    return config.categories[category].phrases;
+  const categoryConfig =
+    config.categories[category] ||
+    config.categories.docs ||
+    config.categories.readme ||
+    null;
+
+  const footerId = categoryConfig?.default_footer;
+  const footerTemplate = footerId && config.footers[footerId]?.template;
+  if (typeof footerTemplate === "string") {
+    return [footerTemplate.trimEnd()];
   }
 
-  // Fall back to default category
-  if (config.categories.default && config.categories.default.phrases) {
-    return config.categories.default.phrases;
+  // Fall back to a known default if the config is partial or missing the category mapping.
+  if (categoryConfig?.allowed_footers?.length) {
+    const fallbackFooter =
+      config.footers[categoryConfig.allowed_footers[0]]?.template;
+    if (typeof fallbackFooter === "string") {
+      return [fallbackFooter.trimEnd()];
+    }
   }
 
   return DEFAULT_FOOTERS;
@@ -96,30 +193,33 @@ function getRandomFooter(category = "default", seed = null) {
 
 /**
  * Regex pattern to match existing footers
+ * Footers are single-line quirky statements with NO references below
  */
 // List of footer patterns to match (add or update as needed)
 const FOOTER_PATTERNS = [
-  "_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Docs signed by 🤖[\\s\\S]*?",
-  "Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "Questions\\?[\\s\\S]*?",
-  "Prefer a guided[\\s\\S]*?",
-  "Clarity first[\\s\\S]*?",
-  "Improvements welcome[\\s\\S]*?",
-  "Copy, adapt[\\s\\S]*?",
-  "Tweak the variables[\\s\\S]*?",
-  "Your feedback shapes[\\s\\S]*?",
-  "Reuse beats[\\s\\S]*?",
-  "Keep prompts[\\s\\S]*?",
-  "Use responsibly[\\s\\S]*?",
-  "Keep tone[\\s\\S]*?",
-  "Update when[\\s\\S]*?",
-  "Link policies[\\s\\S]*?",
-  "Thanks for helping[\\s\\S]*?",
-  "Need help\\?[\\s\\S]*?",
+  "\\*Maintained by the 🤖[^\\n]*\\*",
+  "\\*Built by 🧱[^\\n]*\\*",
+  "\\*Have questions\\?[^\\n]*\\*",
+  "\\*This page brought to you by[^\\n]*\\*",
+  "\\*Docs signed by 🤖[^\\n]*\\*",
+  "Maintained with ❤️[^\\n]*",
+  "_Maintained with ❤️[^\\n]*_",
+  "Made with 💚[^\\n]*",
+  "Questions\\?[^\\n]*",
+  "Prefer a guided[^\\n]*",
+  "Clarity first[^\\n]*",
+  "Improvements welcome[^\\n]*",
+  "Copy, adapt[^\\n]*",
+  "Tweak the variables[^\\n]*",
+  "Your feedback shapes[^\\n]*",
+  "Reuse beats[^\\n]*",
+  "Keep prompts[^\\n]*",
+  "Use responsibly[^\\n]*",
+  "Keep tone[^\\n]*",
+  "Update when[^\\n]*",
+  "Link policies[^\\n]*",
+  "Thanks for helping[^\\n]*",
+  "Need help\\?[^\\n]*",
 ];
 
 /**
@@ -156,17 +256,36 @@ function ensureFooter(file, options = {}) {
 
   let content = fs.readFileSync(file, "utf-8");
   const nextFooter = getRandomFooter(category, seed);
+  const footerBlock = buildFooterBlock(nextFooter);
 
-  if (FOOTER_REGEX.test(content)) {
-    content = content.replace(FOOTER_REGEX, nextFooter);
-    fs.writeFileSync(file, content);
-    return true;
+  // buildFooterBlock's own leading newline is not sufficient to guarantee a
+  // *blank* line before the block — without one, a `---` directly abutting
+  // the preceding paragraph is parsed by CommonMark as a setext-heading
+  // underline for that paragraph rather than a thematic break. Strip it and
+  // always join with an explicit blank line instead.
+  const footerBlockBody = footerBlock.replace(/^\n+/, "");
+
+  if (hasKnownFooter(content)) {
+    const frontmatterStripped = stripFrontmatter(content);
+    const lastSeparatorIndex = frontmatterStripped.lastIndexOf("\n---\n");
+
+    if (lastSeparatorIndex !== -1) {
+      const prefix = content.slice(
+        0,
+        content.length - frontmatterStripped.length,
+      );
+      const bodyWithoutFooter = frontmatterStripped.slice(
+        0,
+        lastSeparatorIndex,
+      );
+      content = `${prefix}${bodyWithoutFooter.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
+    } else {
+      content = `${content.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
+    }
+  } else {
+    content = `${content.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
   }
 
-  if (!content.endsWith("\n")) {
-    content += "\n";
-  }
-  content += "\n" + nextFooter + "\n";
   fs.writeFileSync(file, content);
   return true;
 }
@@ -178,7 +297,7 @@ function ensureFooter(file, options = {}) {
  * @param {object} options - Options: { backup: boolean, category: string, seed: string }
  * @returns {Promise<boolean>} true if successful
  */
-async function insertHeaderFooter(filePath, config = {}, options = {}) {
+async function insertHeaderFooter(filePath, _config = {}, options = {}) {
   const { backup = false, category = "default", seed = null } = options;
 
   if (!fs.existsSync(filePath)) {

@@ -1,0 +1,160 @@
+profile:
+  agent_name: LightSpeed Linear Workflow Agent
+  purpose: >-
+    Durable defaults for Linear-first triage, routing, issue shaping, taxonomy,
+    and source-selection decisions.
+  status: draft
+  intended_use:
+    - Reuse as a starter memory scaffold for future runs.
+    - Update only when a preference proves durable across repeated work.
+
+routing:
+  default_mode: linear_first
+  primary_goal: >-
+    Recommend the smallest high-value next step for Linear triage, routing,
+    issue shaping, or workflow improvement.
+  default_decision_order:
+    - Check Linear context first when real workflow evidence is needed.
+    - Prefer one narrow recommendation over a broad redesign.
+    - Separate observed evidence from inference.
+    - Recommend writes before applying them.
+  routing_defaults:
+    prefer_smallest_meaningful_change: true
+    recommend_before_write: true
+    preserve_existing_linear_workflow: true
+    broaden_scope_only_on_explicit_request: true
+  escalation_rules:
+    ask_for_clarification_when:
+      - likely owner or team is genuinely ambiguous
+      - severity materially changes routing or urgency
+      - evidence is too thin for a confident recommendation
+    recommend_direct_routing_when:
+      - team ownership is already well understood
+      - taxonomy match is strong
+      - the issue can be shaped without inventing missing facts
+
+issue_shaping:
+  default_shape:
+    title_style: concise_outcome_first
+    body_sections:
+      - Summary
+      - User impact
+      - Evidence
+      - Recommended routing or next step
+    writing_rules:
+      - Prefer concrete, scannable language.
+      - Preserve uncertainty instead of filling gaps with assumptions.
+      - Rewrite for clarity without broadening the underlying ask.
+      - Keep Linear-ready outputs concise and copy-ready.
+  missing_context_policy:
+    flag_missing_context_before_over-specifying: true
+    common_missing_fields:
+      - owner or team
+      - severity or urgency
+      - reproduction context
+      - customer or stakeholder evidence
+      - desired outcome or success condition
+  decomposition_defaults:
+    split_large_work_only_when:
+      - the issue mixes multiple outcomes
+      - separate owners or workflows are implied
+      - a parent issue would otherwise be too vague to route cleanly
+
+taxonomy:
+  source_files:
+    labels_file: canonical/labels.yml
+    issue_types_file: canonical/issue-types.yml
+    supporting_docs:
+      - canonical/LABELING.md
+      - canonical/ISSUE_TYPES.md
+      - canonical/ISSUE_LABELS.md
+      - canonical/LABEL_STRATEGY.md
+      - canonical/ISSUE_CREATION_GUIDE.md
+      - canonical/PR_LABELS.md
+      - canonical/PR_CREATION_PROCESS.md
+  defaults:
+    canonical_files_are_primary_reference: true
+    recheck_live_linear_before_claiming_current_usage: true
+    avoid_inventing_new_taxonomy_without_evidence: true
+    prefer_existing_label_families_and_issue_types: true
+  synonym_policy:
+    map_common synonyms to canonical labels and issue types only after repeated evidence
+  refresh_rule: >-
+    Refresh when canonical files change or when live Linear shows a durable,
+    repeated taxonomy shift.
+
+source_of_truth:
+  primary_source:
+    linear:
+      role: primary_operational_source
+      use_for:
+        - issues
+        - projects
+        - initiatives
+        - cycles
+        - teams
+        - labels
+        - workflow evidence
+  secondary_sources:
+    github:
+      role: implementation_context
+      use_when:
+        - code-level follow-through matters
+        - PR or repo context materially changes a recommendation
+    google_drive:
+      role: supporting_docs
+      use_when:
+        - a document, sheet, or slide provides needed planning context
+    gmail:
+      role: stakeholder_or_customer_evidence
+      use_when:
+        - email evidence materially sharpens the Linear recommendation
+    slack:
+      role: supporting_message_context
+      use_when:
+        - message context helps explain intake, urgency, or stakeholder intent
+      avoid_as_primary_anchor: true
+    figma:
+      role: design_context
+      use_when:
+        - design intent materially improves issue shaping or routing
+    asana:
+      role: cross_system_context
+      use_when:
+        - cross-system planning context materially matters
+    google_calendar:
+      role: timing_context
+      use_when:
+        - scheduling or timing materially affects the recommendation
+    bugherd:
+      role: bug_report_evidence
+      use_when:
+        - incoming bug evidence helps explain or route Linear work
+  evidence_rules:
+    - Default to the minimum source that materially improves the result.
+    - Treat supporting systems as evidence sources, not primary operating systems.
+    - Verify important routing or planning claims against the best available source.
+
+memory_update_rules:
+  save_when:
+    - a preference affects future Linear-focused runs
+    - a routing or shaping rule has repeated value
+    - a source-selection rule is durable
+    - a taxonomy mapping is stable enough to reuse
+  do_not_save:
+    - one-off task details
+    - disposable summaries
+    - temporary audits
+    - speculative conclusions
+  preferred_files:
+    workspace_personalization: workspace-personalization.yaml
+    decisions_log: decisions-log.yaml
+    skill_routing_notes: skill-routing-notes.yaml
+    source_of_truth_register: source-of-truth-register.yaml
+    assumptions_open_questions: assumptions-open-questions.yaml
+    canonical_taxonomy_cache: canonical-taxonomy-cache.yaml
+
+seed_notes:
+  - Seeded from current agent instructions and attached canonical files.
+  - Treat this as a starter scaffold, not as proof that every rule is already validated in live workflow use.
+  - Tighten team-specific routing and label mappings after observing repeated real examples.

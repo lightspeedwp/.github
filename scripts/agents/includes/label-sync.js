@@ -5,34 +5,33 @@
  * Location: scripts/agents/includes/label-sync.js
  * Description: Utilities for syncing repository labels with canonical org standards.
  *   Includes functions for validation, standardization, and migration.
- * Version: v1.0.0
+ * Version: v1.1.0
  * Author: LightSpeed WP Team
  * License: GPL v3 or later
  * ============================================================================
  */
-// TODO: Align this helper with the latest automation spec updates.
 
 import { findStandardLabel } from "./label-lookup.js";
+import fs from "fs";
+import path from "path";
+import * as yaml from "js-yaml";
+import github from "@actions/github";
 
-/**
- * Sync repository labels with canonical set.
- * Creates, updates, and removes labels to match the canonical set.
- * @param {Object} octokit - GitHub API client
- * @param {string} owner - Repository owner
- * @param {string} repo - Repository name
- * @param {Array} canonicalLabels - Array of canonical label objects with name, color, description
- * @param {boolean} dryRun - If true, only report what would be changed
- * @returns {Promise<Object>} Sync report with created, updated, deleted counts
- */
 async function syncLabelsWithCanonical(
   octokit,
   owner,
   repo,
   canonicalLabels,
   dryRun = false,
+  options = {},
 ) {
+  const {
+    deletionMode = "none",
+    approvedDeletionSet = new Set(),
+    protectedDeletionSet = new Set(),
+  } = options;
+
   try {
-    // Fetch current repository labels
     const { data: repoLabels } = await octokit.rest.issues.listLabelsForRepo({
       owner,
       repo,
@@ -52,11 +51,11 @@ async function syncLabelsWithCanonical(
       created: [],
       updated: [],
       deleted: [],
+      deferredDeletes: [],
       unchanged: [],
       errors: [],
     };
 
-    // Create or update canonical labels
     for (const [labelName, canonicalLabel] of canonicalMap) {
       const existingLabel = repoLabelMap.get(labelName);
       const labelObj =
@@ -65,7 +64,6 @@ async function syncLabelsWithCanonical(
           : canonicalLabel;
 
       if (!existingLabel) {
-        // Create new label
         if (!dryRun) {
           try {
             await octokit.rest.issues.createLabel({
@@ -86,10 +84,9 @@ async function syncLabelsWithCanonical(
         }
         report.created.push(labelName);
       } else {
-        // Check if update is needed
+        const colorStr = labelObj.color != null ? String(labelObj.color) : null;
         const needsUpdate =
-          (labelObj.color &&
-            existingLabel.color !== labelObj.color.replace("#", "")) ||
+          (colorStr && existingLabel.color !== colorStr.replace("#", "")) ||
           (labelObj.description &&
             existingLabel.description !== labelObj.description);
 
@@ -100,8 +97,8 @@ async function syncLabelsWithCanonical(
                 owner,
                 repo,
                 name: labelName,
-                color: labelObj.color
-                  ? labelObj.color.replace("#", "")
+                color: colorStr
+                  ? colorStr.replace("#", "")
                   : existingLabel.color,
                 description:
                   labelObj.description !== undefined
@@ -124,10 +121,30 @@ async function syncLabelsWithCanonical(
       }
     }
 
-    // Identify labels to delete (repo labels not in canonical set)
     for (const [labelName] of repoLabelMap) {
       if (!canonicalMap.has(labelName)) {
-        // Check if it's being used before deleting
+        if (protectedDeletionSet.has(labelName)) {
+          report.deferredDeletes.push({
+            label: labelName,
+            reason: "protected-by-policy",
+          });
+          continue;
+        }
+
+        if (
+          deletionMode !== "approved" ||
+          !approvedDeletionSet.has(labelName)
+        ) {
+          report.deferredDeletes.push({
+            label: labelName,
+            reason:
+              deletionMode === "approved"
+                ? "not-approved-for-delete"
+                : "destructive-delete-disabled",
+          });
+          continue;
+        }
+
         try {
           const { data: issues } =
             await octokit.rest.search.issuesAndPullRequests({
@@ -163,19 +180,19 @@ async function syncLabelsWithCanonical(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to sync labels: ${error.message}`);
+    throw new Error(`Failed to sync labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
-/**
- * Validate repository labels against org standards.
- * @param {Object} octokit - GitHub API client
- * @param {string} owner - Repository owner
- * @param {string} repo - Repository name
- * @param {Array} canonicalLabels - Array of canonical label names/objects
- * @returns {Promise<Object>} Validation report with missing, extra, and non-compliant labels
- */
-async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
+async function validateRepoLabels(
+  octokit,
+  owner,
+  repo,
+  canonicalLabels,
+  allowedExtraSet = new Set(),
+) {
   try {
     const { data: repoLabels } = await octokit.rest.issues.listLabelsForRepo({
       owner,
@@ -202,28 +219,35 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
       missing: Array.from(canonicalSet).filter(
         (name) => !repoLabelSet.has(name),
       ),
-      extra: repoLabelNames.filter((name) => !canonicalSet.has(name)),
+      extra: repoLabelNames.filter(
+        (name) => !canonicalSet.has(name) && !allowedExtraSet.has(name),
+      ),
+      allowedExtra: repoLabelNames.filter(
+        (name) => !canonicalSet.has(name) && allowedExtraSet.has(name),
+      ),
       nonCompliant: [],
       summary: {
         totalCanonical: canonicalSet.size,
         totalRepo: repoLabels.length,
         missingCount: 0,
         extraCount: 0,
+        allowedExtraCount: 0,
         nonCompliantCount: 0,
       },
     };
 
-    // Check for non-compliant labels (wrong color/description)
     for (const repoLabel of repoLabels) {
       const canonicalLabel = canonicalMap.get(repoLabel.name);
       if (canonicalLabel) {
         const issues = [];
+        const canonicalColorStr =
+          canonicalLabel.color != null ? String(canonicalLabel.color) : null;
         if (
-          canonicalLabel.color &&
-          repoLabel.color !== canonicalLabel.color.replace("#", "")
+          canonicalColorStr &&
+          repoLabel.color !== canonicalColorStr.replace("#", "")
         ) {
           issues.push(
-            `color: expected ${canonicalLabel.color}, got ${repoLabel.color}`,
+            `color: expected ${canonicalColorStr}, got ${repoLabel.color}`,
           );
         }
         if (
@@ -245,6 +269,7 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
 
     report.summary.missingCount = report.missing.length;
     report.summary.extraCount = report.extra.length;
+    report.summary.allowedExtraCount = report.allowedExtra.length;
     report.summary.nonCompliantCount = report.nonCompliant.length;
     report.valid =
       report.missing.length === 0 &&
@@ -253,20 +278,12 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to validate labels: ${error.message}`);
+    throw new Error(`Failed to validate labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
-/**
- * Standardize labels in repo: migrate non-standard labels to canonical ones on issues/PRs.
- * @param {Object} octokit - GitHub API client
- * @param {string} owner - Repository owner
- * @param {string} repo - Repository name
- * @param {Object} aliasMap - Map of alias labels to canonical labels
- * @param {Set} canonicalSet - Set of canonical label names
- * @param {boolean} dryRun - If true, only report what would be changed
- * @returns {Promise<Object>} Standardization report
- */
 async function standardizeLabelsOnRepo(
   octokit,
   owner,
@@ -283,7 +300,6 @@ async function standardizeLabelsOnRepo(
       errors: [],
     };
 
-    // Search for issues and PRs with non-standard labels
     const nonStandardLabels = Object.keys(aliasMap);
 
     for (const nonStandardLabel of nonStandardLabels) {
@@ -308,7 +324,6 @@ async function standardizeLabelsOnRepo(
 
           try {
             if (!dryRun) {
-              // Remove non-standard label
               await octokit.rest.issues.removeLabel({
                 owner,
                 repo,
@@ -316,7 +331,6 @@ async function standardizeLabelsOnRepo(
                 name: nonStandardLabel,
               });
 
-              // Add canonical label
               await octokit.rest.issues.addLabels({
                 owner,
                 repo,
@@ -352,17 +366,12 @@ async function standardizeLabelsOnRepo(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to standardize labels: ${error.message}`);
+    throw new Error(`Failed to standardize labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
-/**
- * Generate a markdown report for label sync operations.
- * @param {Object} syncReport - Report from syncLabelsWithCanonical
- * @param {Object} validationReport - Report from validateRepoLabels
- * @param {Object} standardizationReport - Report from standardizeLabelsOnRepo
- * @returns {string} Markdown formatted report
- */
 function generateSyncReport(
   syncReport,
   validationReport,
@@ -375,6 +384,7 @@ function generateSyncReport(
     report += `- **Created:** ${syncReport.created.length} labels\n`;
     report += `- **Updated:** ${syncReport.updated.length} labels\n`;
     report += `- **Deleted:** ${syncReport.deleted.length} labels\n`;
+    report += `- **Deferred Deletes:** ${syncReport.deferredDeletes.length} labels\n`;
     report += `- **Unchanged:** ${syncReport.unchanged.length} labels\n`;
     report += `- **Errors:** ${syncReport.errors.length}\n\n`;
 
@@ -387,6 +397,14 @@ function generateSyncReport(
     if (syncReport.updated.length > 0) {
       report += "### Updated Labels\n";
       syncReport.updated.forEach((label) => (report += `- \`${label}\`\n`));
+      report += "\n";
+    }
+
+    if (syncReport.deferredDeletes.length > 0) {
+      report += "### Deferred Deletes (Policy-Gated)\n";
+      syncReport.deferredDeletes.forEach((entry) => {
+        report += `- \`${entry.label}\` (${entry.reason})\n`;
+      });
       report += "\n";
     }
 
@@ -406,6 +424,7 @@ function generateSyncReport(
     report += `- **Total Repository:** ${validationReport.summary.totalRepo}\n`;
     report += `- **Missing:** ${validationReport.summary.missingCount}\n`;
     report += `- **Extra:** ${validationReport.summary.extraCount}\n`;
+    report += `- **Allowed extra:** ${validationReport.summary.allowedExtraCount}\n`;
     report += `- **Non-compliant:** ${validationReport.summary.nonCompliantCount}\n\n`;
   }
 
@@ -427,6 +446,126 @@ function generateSyncReport(
 
   report += "_Generated by LightSpeedWP Label Sync Agent_";
   return report;
+}
+
+function loadYamlArray(filePath, purpose) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Missing ${purpose} file at: ${filePath}`);
+  }
+  const data = yaml.load(fs.readFileSync(filePath, "utf8"));
+  if (!Array.isArray(data)) {
+    throw new Error(`Expected array in ${purpose} file: ${filePath}`);
+  }
+  return data;
+}
+
+function loadPolicy(policyPath) {
+  if (!fs.existsSync(policyPath)) {
+    return null;
+  }
+  const data = yaml.load(fs.readFileSync(policyPath, "utf8"));
+  return data && typeof data === "object" ? data : null;
+}
+
+function asStringSet(value) {
+  if (!Array.isArray(value)) return new Set();
+  return new Set(value.filter((item) => typeof item === "string"));
+}
+
+function asBoolean(value) {
+  if (!value) return false;
+  return ["1", "true", "yes", "on"].includes(String(value).toLowerCase());
+}
+
+function resolveDeletionMode(policy) {
+  const envRequested = asBoolean(process.env.LABEL_SYNC_ALLOW_DESTRUCTIVE);
+  const policyEnabled = Boolean(policy?.destructive_cleanup?.enabled);
+  if (envRequested && policyEnabled) return "approved";
+  return "none";
+}
+
+async function runCli() {
+  const token = process.env.GITHUB_TOKEN;
+  const repoSlug = process.env.GITHUB_REPOSITORY;
+  if (!token || !repoSlug) {
+    console.log(
+      "[label-sync] Skipping sync: requires GITHUB_TOKEN and GITHUB_REPOSITORY.",
+    );
+    return;
+  }
+
+  const labelsConfigPath = process.env.LABELS_CONFIG || ".github/labels.yml";
+  const policyPath = ".github/label-governance-policy.yml";
+  const reportPath =
+    process.env.LABEL_SYNC_REPORT_PATH ||
+    path.join(".github", "reports", "labeling", "label-sync-report.md");
+  const dryRun =
+    asBoolean(process.env.LABEL_SYNC_DRY_RUN) || asBoolean(process.env.DRY_RUN);
+
+  const canonicalLabels = loadYamlArray(labelsConfigPath, "labels config");
+  const policy = loadPolicy(policyPath);
+  const deletionMode = resolveDeletionMode(policy);
+  const approvedDeletionSet = asStringSet(
+    policy?.destructive_cleanup?.approved_orphan_labels,
+  );
+  const protectedDeletionSet = asStringSet(
+    policy?.destructive_cleanup?.never_delete_labels,
+  );
+
+  const [owner, repo] = repoSlug.split("/");
+  const octokit = github.getOctokit(token);
+
+  const syncReport = await syncLabelsWithCanonical(
+    octokit,
+    owner,
+    repo,
+    canonicalLabels,
+    dryRun,
+    {
+      deletionMode,
+      approvedDeletionSet,
+      protectedDeletionSet,
+    },
+  );
+
+  const validationReport = await validateRepoLabels(
+    octokit,
+    owner,
+    repo,
+    canonicalLabels,
+    protectedDeletionSet,
+  );
+
+  const report = generateSyncReport(syncReport, validationReport, null);
+  fs.mkdirSync(path.dirname(reportPath), { recursive: true });
+  fs.writeFileSync(reportPath, `${report}\n`);
+
+  console.log(
+    `[label-sync] Created ${syncReport.created.length}, updated ${syncReport.updated.length}, deleted ${syncReport.deleted.length}, deferred ${syncReport.deferredDeletes.length}`,
+  );
+  console.log(
+    `[label-sync] Deletion mode: ${deletionMode} (policy + env gate)`,
+  );
+
+  if (!validationReport.valid && dryRun) {
+    console.warn(
+      `[label-sync] Dry-run detected label drift (missing=${validationReport.summary.missingCount}, extra=${validationReport.summary.extraCount}, nonCompliant=${validationReport.summary.nonCompliantCount})`,
+    );
+    return;
+  }
+
+  if (!validationReport.valid) {
+    throw new Error(
+      `Label validation failed (missing=${validationReport.summary.missingCount}, extra=${validationReport.summary.extraCount}, nonCompliant=${validationReport.summary.nonCompliantCount})`,
+    );
+  }
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runCli().catch((error) => {
+    console.error(`[label-sync] ${error.message}`);
+    process.exit(1);
+  });
 }
 
 export {

@@ -1,0 +1,14 @@
+interface:
+  display_name: Website Hosting Reviewer
+  short_description: Review website hosting setup, risk, and fit.
+  default_prompt: Use $website-hosting-reviewer to review website hosting arrangements,
+    risks, constraints, and next steps.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

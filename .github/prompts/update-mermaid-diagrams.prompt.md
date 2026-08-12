@@ -1,74 +1,131 @@
 ---
 file_type: "prompt"
 title: "Update Mermaid Diagrams"
-description: "Refresh Mermaid diagrams across the repository or targeted paths with WCAG AA accessibility and README alignment."
+description: "Refresh Mermaid diagrams across the repository or targeted paths with WCAG 2.2 AA colour contrast, updated content, and current standards."
 mode: "agent"
 tools: ["read", "edit", "search", "shell"]
-tags: ["mermaid", "documentation", "a11y", "readme", "automation"]
-last_updated: "2025-12-12"
-references:
-  - path: ".github/instructions/mermaid.instructions.md"
-    description: "Diagram crafting, WCAG AA contrast, placement"
-  - path: ".github/instructions/readme.instructions.md"
-    description: "When diagrams are required/optional in READMEs"
-  - path: ".github/instructions/file-organisation.instructions.md"
-    description: "File placement and naming rules"
-  - path: ".github/instructions/reporting.instructions.md"
-    description: "Report categories (including mermaid) and conventions"
-  - path: ".github/reports/README.md"
-    description: "Reports directory index"
+tags: ["mermaid", "documentation", "a11y", "wcag", "colour-contrast", "readme"]
+last_updated: "2026-06-19"
 ---
 
-# Update Mermaid Diagrams Prompt
+# Update Mermaid Diagrams
 
-## Purpose
+Refresh Mermaid diagrams across the repository to conform with the v2.0 standards in `instructions/mermaid.instructions.md`.
 
-Regenerate or add Mermaid diagrams with proper styling, accessibility (WCAG AA), and README alignment. Optional: produce a report under `.github/reports/mermaid/` summarising changes, coverage, and accessibility checks.
+## Standards Reference
 
-## Questions to Ask (gather scope)
+- **Instructions**: `instructions/mermaid.instructions.md` — v2.0 approved palette, required structure, emoji vocabulary
+- **Validator**: `scripts/validation/validate-mermaid-colour-contrast.js` — WCAG 2.2 AA contrast checker
+- **Workflow**: `.github/workflows/validate-mermaid-pr.yml` — PR enforcement
 
-1) Scope: update a single file, all files in a folder, or the entire repository?
-2) Targets: which path(s) (e.g., `README.md`, `.github/agents/`, `docs/`)? Any exclusions?
-3) Diagram need: add missing diagrams per `readme.instructions.md` rules, or just refresh existing ones?
-4) Focus: architecture, workflows, testing, agent ecosystems, schema relationships, or other?
-5) Accessibility: run contrast/structure checks and report findings? (default: yes)
-6) Output: generate a mermaid report under `.github/reports/mermaid/`? Provide desired filename/title.
-7) Review: show diff previews before writing, or apply directly?
-8) Palette: confirm use of an approved WCAG AA palette pair from `mermaid.instructions.md` (up to 20 listed).
-9) Labels: confirm edge/node label placement (no overlaps; mid-edge labels; minimal crossings).
-10) Accessible metadata: confirm `accTitle` and `accDescr` are present and meaningful; confirm nearby prose summary/HTML/table alternative when diagrams are key.
+## What to Fix in Every Diagram
 
-## Phase 1 — Validate (Audit Only)
+### 1. Required accessibility attributes — inline format only
 
-1. Load standards: `mermaid.instructions.md` (how), `readme.instructions.md` (when/placement), `file-organisation.instructions.md` (paths), `reporting.instructions.md` (mermaid reporting).
-2. Enumerate target files per scope; skip binary/non-Markdown.
-3. For each target:
-   - Determine if a diagram is mandatory/optional/unnecessary per README rules.
-   - Validate syntax (mermaid.live or VS Code preview).
-   - Validate contrast using approved palette pairs/classes; check light/dark readability.
-   - Check labels: node labels centered; edge labels mid-edge; minimal crossings; no overlaps.
-   - Check accessible metadata: `accTitle` short and descriptive; `accDescr` present (one-line or block); nearby prose summary; alternative HTML/table if diagram is key.
-   - Check placement: near overview/section entry; avoid colour-only meaning.
-4. Record findings:
-   - List issues per file (syntax, contrast, labels, metadata, placement, missing/extra diagrams).
-   - Save an audit report to `.github/reports/mermaid/{subject}-{YYYY-MM-DD}.md` with frontmatter.
-5. Present the audit summary and request approval for fixes.
+Every ` ```mermaid ` block must have `accTitle` and `accDescr` placed **inline**, immediately after the diagram type and before any nodes. GitHub's Mermaid renderer does **not** support the YAML `---` front-matter syntax — diagrams using it will show an error instead of rendering.
 
-## Phase 2 — Fix (Apply Changes)
+**Correct format:**
 
-1. Confirm scope to fix (all issues, or selected files/issues).
-2. Apply changes:
-   - Add/refresh diagrams; enforce palette classes, labels, `accTitle`/`accDescr`, summaries/alternatives.
-   - Adjust placement per `readme.instructions.md`; split diagrams if crowded.
-3. Re-validate quickly:
-   - Syntax, contrast, label placement, accessible metadata.
-4. Reporting:
-   - Update or create the mermaid report noting fixes and any residual warnings.
-5. Present results, diffs applied, and any follow-up actions.
+```text
+flowchart LR
+    accTitle: Short accessible title (max 80 chars)
+    accDescr: One-sentence description of what the diagram shows.
+    ...
+```
 
-## Output Expectations
+Use the block form for complex diagrams:
 
-- UK English, kebab-case filenames.
-- Diagrams sized reasonably (~15 nodes; split if larger).
-- Context + alt description in prose; labelled nodes/edges; WCAG AA-compliant colours; `accTitle`/`accDescr` set; nearby summary/alternative when needed.
-- Clear summary of changes and any follow-up actions.
+```text
+flowchart TD
+    accTitle: Title here
+    accDescr {
+      Multi-sentence description for screen readers.
+    }
+    ...
+```
+
+**Do NOT use** the YAML front-matter form (it breaks GitHub rendering):
+
+```text
+❌ WRONG — GitHub cannot render this:
+---
+accTitle: Title
+accDescr: Description
+---
+flowchart LR
+    ...
+```
+
+Remove any YAML `---` header blocks and replace them with inline attributes as shown above.
+
+### 2. Approved colour palette — replace ALL old `style` declarations
+
+Replace every old `style X fill:#colour` (single property) with an approved triple. Choose the role that best matches the node's meaning:
+
+| Role | fill | color | stroke |
+|------|------|-------|--------|
+| Information (entry points, primary) | `#dbeafe` | `#1e3a5f` | `#1e3a5f` |
+| Success (outputs, completed) | `#dcfce7` | `#14532d` | `#14532d` |
+| Warning (caution, external) | `#fef3c7` | `#4a2c00` | `#b45309` |
+| Error / Alert (failure, blockers) | `#fee2e2` | `#7f1d1d` | `#b91c1c` |
+| Documentation (specs, instructions, AI) | `#f3e8ff` | `#3b0764` | `#7e22ce` |
+| Neutral (connectors, supporting) | `#f1f5f9` | `#0f172a` | `#334155` |
+| Highlight (automation, key actions) | `#ecfdf5` | `#064e3b` | `#059669` |
+
+Example:
+
+```text
+style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+style B fill:#ecfdf5,color:#064e3b,stroke:#059669
+style C fill:#dcfce7,color:#14532d,stroke:#14532d
+```
+
+### 3. Diagram type and direction
+
+- Prefer `flowchart` over `graph` (current Mermaid standard).
+- Always specify direction: `flowchart LR`, `flowchart TD`, etc.
+
+### 4. Emoji vocabulary
+
+Use the canonical mapping from `instructions/mermaid.instructions.md`:
+
+- 👤 Developer/user, 📁 Repository, ⚙️ Automation, 📋 Instructions, 🤖 AI,
+  📝 Template, 🏷️ Labels, 🛡️ Security, 📊 Report, 🚀 Deploy,
+  ✅ Passed, ❌ Failed, ⚠️ Warning, 🌐 External, 🏛️ Organisation,
+  🧪 Tests, 🔒 Protected
+
+### 5. Content accuracy
+
+Update diagram content to reflect the current codebase. Check:
+
+- Node labels against actual file/folder names
+- Connection logic against real workflows
+- Subgraph titles against current repository structure
+
+## Process
+
+1. Run the contrast validator to get the full list of affected files:
+
+   ```bash
+   npm run validate:mermaid-contrast
+   ```
+
+2. For each file with findings, open it and apply the fixes above.
+
+3. After fixing all files, run the full suite to confirm zero failures:
+
+   ```bash
+   npm run validate:mermaid
+   ```
+
+4. If adding new diagrams to README files that don't have one, ensure the diagram accurately represents what that file/folder contains.
+
+## Validation Gate
+
+All three checks must pass before committing:
+
+```bash
+npm run validate:mermaid-syntax        # diagram type, direction, bracket matching
+npm run validate:mermaid-accessibility # accTitle and accDescr present
+npm run validate:mermaid-contrast      # WCAG 2.2 AA colour contrast
+```

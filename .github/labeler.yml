@@ -2,127 +2,191 @@
 # All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
 # This file maps branch patterns and file changes to canonical labels as defined in labels.yml.
 
+# NOTE: Issue-based automation (template-driven labeling) is planned as Wave 5.1.2 work
+# (see .github/reports/issue-template-audit-2026-05-31.md for proposed rules).
+# The labeling agent must be updated to support issue-body pattern matching before these rules can be activated.
 # Branch status kick-off
 "status:needs-review":
   head-branch:
-    - '^feat/.*'
-    - '^fix/.*'
-    - '^docs?/.*'
-    - '^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*'
+    - "^feat/.*"
+    - "^fix/.*"
+    - "^docs?/.*"
+    - "^ai/.*"
+    - "^automation/.*"
+    - "^research/.*"
+    - "^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry|i18n|revert|ops)/.*"
 
 # Type mapping (by branch)
 "type:feature":
-  head-branch: ['^feat/.*']
+  head-branch: ["^feat/.*"]
 "type:bug":
-  head-branch: ['^fix/.*', '^hotfix/.*']
+  head-branch: ["^fix/.*", "^hotfix/.*"]
 "type:documentation":
-  head-branch: ['^docs/.*']
+  head-branch: ["^docs/.*"]
 "type:chore":
-  head-branch: ['^chore/.*', '^build/.*', '^ci/.*']
+  head-branch: ["^chore/.*"]
+"type:build":
+  head-branch: ["^build/.*", "^ci/.*"]
 "type:refactor":
-  head-branch: ['^refactor/.*']
+  head-branch: ["^refactor/.*"]
 "type:test":
-  head-branch: ['^test/.*']
+  head-branch: ["^test/.*", "^qa/.*"]
 "type:performance":
-  head-branch: ['^perf/.*']
+  head-branch: ["^perf/.*"]
 "type:design":
-  head-branch: ['^design/.*']
+  head-branch: ["^design/.*"]
 "type:a11y":
-  head-branch: ['^a11y/.*']
-"type:qa":
-  head-branch: ['^qa/.*']
+  head-branch: ["^a11y/.*"]
+"type:question":
+  head-branch: ["^question/.*"]
+"type:support":
+  head-branch: ["^support/.*"]
+"type:ai-ops":
+  head-branch: ["^ai/.*"]
+"type:automation":
+  head-branch: ["^automation/.*"]
+"type:research":
+  head-branch: ["^research/.*"]
 
 # Priority mapping (by branch)
 "priority:critical":
-  head-branch: ['^hotfix/.*']
+  head-branch: ["^hotfix/.*"]
 "priority:normal":
-  head-branch: ['^feat/.*', '^fix/.*', '^docs/.*', '^chore/.*']
+  head-branch: ["^feat/.*", "^fix/.*", "^docs/.*", "^chore/.*"]
 
 # Area/component mapping (by file path)
 "area:block-editor":
   changed-files:
     any-glob-to-any-file:
-      - 'src/blocks/**'
-      - 'src/block-editor/**'
-      - '**/block.json'
+      - "src/blocks/**"
+      - "src/block-editor/**"
+      - "**/block.json"
 
 "area:theme":
   changed-files:
     any-glob-to-any-file:
-      - '**/theme.json'
-      - '**/templates/**'
-      - '**/patterns/**'
-      - '**/parts/**'
-      - 'theme/**/*'
+      - "**/theme.json"
+      - "**/templates/**"
+      - "**/patterns/**"
+      - "**/parts/**"
+      - "theme/**/*"
 
 "area:ci":
   changed-files:
     any-glob-to-any-file:
-      - '.github/workflows/**'
-      - '.github/actions/**'
-      - 'ci/**/*'
+      - ".github/workflows/**"
+      - ".github/actions/**"
+      - "ci/**/*"
+
+"area:labels":
+  changed-files:
+    any-glob-to-any-file:
+      - ".github/labels.yml"
+      - ".github/labeler.yml"
+      - ".github/issue-types.yml"
+      - "docs/ISSUE_LABELS.md"
+      - "docs/ISSUE_TYPES.md"
+      - "scripts/agents/labeling.agent.js"
+      - "scripts/agents/includes/*label*.js"
+
+"area:dependencies":
+  changed-files:
+    any-glob-to-any-file:
+      - "package.json"
+      - "package-lock.json"
+      - "composer.json"
+      - "composer.lock"
+      - ".github/dependabot.yml"
+
+"area:security":
+  changed-files:
+    any-glob-to-any-file:
+      - "SECURITY.md"
+      - ".github/workflows/*security*"
+      - "scripts/**/*security*"
+
+"area:a11y":
+  changed-files:
+    any-glob-to-any-file:
+      - "docs/**/*accessib*"
+      - "**/*a11y*"
 
 "area:documentation":
   changed-files:
     any-glob-to-any-file:
-      - '**/*.md'
-      - 'docs/**'
-      - 'README.md'
-      - '**/README.md'
+      - "**/*.md"
+      - "docs/**"
+      - "README.md"
+      - "**/README.md"
 
 "area:tests":
   changed-files:
     any-glob-to-any-file:
-      - 'tests/**/*'
-      - '**/*.test.*'
-      - '**/*.spec.*'
-      - '**/__tests__/**'
+      - "tests/**/*"
+      - "**/*.test.*"
+      - "**/*.spec.*"
+      - "**/__tests__/**"
 
 "area:scripts":
   changed-files:
     any-glob-to-any-file:
-      - 'scripts/**/*'
-      - '**/*.sh'
-      - '**/*.bash'
+      - "scripts/**/*"
+      - "**/*.sh"
+      - "**/*.bash"
 
 "area:assets":
   changed-files:
     any-glob-to-any-file:
-      - 'assets/**/*'
-      - 'images/**/*'
-      - '**/*.png'
-      - '**/*.jpg'
-      - '**/*.svg'
+      - "assets/**/*"
+      - "images/**/*"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "**/*.svg"
 
 "area:woocommerce":
   changed-files:
     any-glob-to-any-file:
-      - 'woocommerce/**/*'
-      - '**/woocommerce*.css'
-      - '**/woocommerce*.php'
-      - '**/woocommerce*.js'
+      - "woocommerce/**/*"
+      - "**/woocommerce*.css"
+      - "**/woocommerce*.php"
+      - "**/woocommerce*.js"
 
 # Language labels
 "lang:php":
   changed-files:
     any-glob-to-any-file:
-      - '**/*.php'
-      - 'composer.json'
-      - 'composer.lock'
-      - 'phpunit.xml'
+      - "**/*.php"
+      - "composer.json"
+      - "composer.lock"
+      - "phpunit.xml"
 
 "lang:js":
   changed-files:
     any-glob-to-any-file:
-      - '**/*.{js,jsx,ts,tsx}'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tsconfig.json'
+      - "**/*.{js,jsx,ts,tsx}"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
 
 "lang:css":
   changed-files:
     any-glob-to-any-file:
-      - '**/*.{css,scss,sass,less}'
+      - "**/*.{css,scss,sass,less}"
+
+"lang:md":
+  changed-files:
+    any-glob-to-any-file:
+      - "**/*.md"
+
+"lang:json":
+  changed-files:
+    any-glob-to-any-file:
+      - "**/*.json"
+
+"lang:yaml":
+  changed-files:
+    any-glob-to-any-file:
+      - "**/*.{yml,yaml}"
 
 # (Deliberately no direct changelog meta mapping; the labeling agent manages meta:needs-changelog)
 

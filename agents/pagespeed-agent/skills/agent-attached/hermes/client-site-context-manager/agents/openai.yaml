@@ -1,0 +1,15 @@
+interface:
+  display_name: Client Site Context Manager
+  short_description: Maintain lightweight reusable client and site context for audit
+    workflows.
+  icon: 🗂️
+  theme_color: '#2563EB'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

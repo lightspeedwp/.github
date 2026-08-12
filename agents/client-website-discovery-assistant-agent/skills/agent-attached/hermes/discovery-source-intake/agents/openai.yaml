@@ -1,0 +1,18 @@
+interface:
+  display_name: Discovery Source Intake
+  short_description:
+    Normalise messy LightSpeed discovery sources before drafting
+    or routing.
+  default_prompt:
+    Use discovery-source-intake to gather run-specific LightSpeed project
+    evidence, separate facts from assumptions and open questions, and prepare a clean
+    intake before drafting a discovery output or routing to a related skill.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

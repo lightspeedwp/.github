@@ -1,0 +1,52 @@
+profile:
+  purpose: Durable personalization defaults for Linear-focused reviews, shaping, and routing.
+  status: starter_scaffold
+  update_rule: Update only when a preference is stable across repeated runs.
+
+defaults:
+  workflow_mode: linear_first
+  prefer_smallest_meaningful_change: true
+  recommend_before_write: true
+  preserve_existing_linear_workflow: true
+  broaden_scope_only_on_explicit_request: true
+
+review_preferences:
+  preferred_triage_depth: medium
+  recommendation_style: concise_and_actionable
+  answer_style:
+    separate_evidence_from_inference: true
+    prefer_copy_ready_outputs: true
+    avoid_over_specifying_missing_context: true
+
+issue_shaping:
+  title_style: concise_outcome_first
+  default_sections:
+    - Summary
+    - User impact
+    - Evidence
+    - Recommended routing or next step
+  writing_rules:
+    - Prefer concrete, scannable wording.
+    - Preserve uncertainty instead of inventing facts.
+    - Keep outputs concise enough to paste into Linear.
+
+routing_preferences:
+  route_directly_when:
+    - team_ownership_is_clear
+    - taxonomy_match_is_strong
+    - enough_context_exists_for_a_confident_recommendation
+  ask_for_clarification_when:
+    - owner_is_ambiguous
+    - severity_changes_the_recommendation
+    - evidence_is_too_thin_for_confident_routing
+
+open_slots:
+  default_team: null
+  default_product_area: null
+  preferred_label_families: []
+  naming_conventions: []
+  recurring_owner_patterns: []
+
+notes:
+  - Seeded from the first-pass memory template.
+  - Fill in open slots only after repeated real usage confirms the preference.

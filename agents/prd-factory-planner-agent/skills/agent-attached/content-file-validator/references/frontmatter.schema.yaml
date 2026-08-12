@@ -1,0 +1,124 @@
+required:
+  - title
+  - status
+  - type
+  - version
+
+suggestedDefaults:
+  title: Example
+  status: draft
+  type: guide
+  version: 1.0.0
+  audience:
+    - internal
+  owner: LightSpeed
+  tags: []
+
+properties:
+  title:
+    type: string
+    minLength: 3
+    maxLength: 120
+    default: Example
+
+  description:
+    type: string
+    minLength: 10
+    maxLength: 300
+
+  status:
+    type: string
+    enum:
+      - draft
+      - review
+      - approved
+      - deprecated
+    default: draft
+
+  type:
+    type: string
+    enum:
+      - template
+      - guide
+      - checklist
+      - reference
+      - prompt
+      - spec
+      - issue
+      - qa-plan
+    default: guide
+
+  version:
+    type: string
+    pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    default: 1.0.0
+
+  audience:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      type: string
+      enum:
+        - internal
+        - client
+        - developer
+        - editor
+        - ai-agent
+
+  owner:
+    type: string
+    minLength: 2
+
+  last_reviewed:
+    type: string
+    format: date
+
+  tags:
+    type: array
+    minItems: 0
+    maxItems: 20
+    uniqueItems: true
+    items:
+      type: string
+      minLength: 1
+
+minProperties: 4
+maxProperties: 12
+additionalProperties: false
+
+fileTypeOverrides:
+  ".mdx":
+    properties:
+      type:
+        enum:
+          - template
+          - guide
+          - checklist
+          - reference
+          - prompt
+          - spec
+          - issue
+          - qa-plan
+  ".php":
+    properties:
+      tags:
+        maxItems: 10
+  ".html":
+    required:
+      - title
+      - status
+      - type
+      - version
+  ".yml":
+    required:
+      - title
+      - status
+      - type
+      - version
+  ".yaml":
+    required:
+      - title
+      - status
+      - type
+      - version

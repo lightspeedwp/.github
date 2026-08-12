@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Inactive Issue Saved Reply"
 description: "Message for closing an issue due to inactivity."
 category: "Issue"
@@ -15,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-This issue has been closed due to inactivity.  
+This issue has been closed due to inactivity.
 If you’re still experiencing this problem, please reply with the requested information or open a new issue.
 
 Thank you for your contribution!

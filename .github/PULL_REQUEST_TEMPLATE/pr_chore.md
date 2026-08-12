@@ -1,14 +1,16 @@
 ---
-name: "Chore PR"
-about: "Repo hygiene: configs, scripts, formatting — no behaviour change"
-title: "chore: {scope}"
-labels: ["status:needs-review", "priority:normal"]
+file_type: "pr-template"
+title: "PR Template - CHORE"
+description: "Pull request template for CHORE changes"
+version: "1.0.2"
+last_updated: "2026-06-18"
+category: "github-templates"
 ---
 
 # Chore Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
+> This repository enforces changelog, release, and label automation for all PRs and issues.
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for required rules.
 
 ## Linked issues
 
@@ -46,7 +48,7 @@ Closes #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -77,7 +79,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
 -->
 
 ---
@@ -90,7 +92,7 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
   - [ ] Semantic HTML and heading order verified
   - [ ] Keyboard navigation and visible focus states verified
   - [ ] ARIA used only where needed
-  - [ ] Contrast and non-colour cues reviewed (WCAG 2.1 AA or higher)
+  - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA or higher)
 - [ ] Docs/readme/changelog updated (if user-facing)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised

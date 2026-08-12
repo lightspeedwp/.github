@@ -1,0 +1,267 @@
+name: Issue Health Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (report only, no changes)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+      reopen_incomplete:
+        description: "Reopen issues closed with unchecked DoD items"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      fix_labels:
+        description: "Apply missing type/priority labels to open issues"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+  schedule:
+    # Run every Monday at 08:00 UTC
+    - cron: "0 8 * * 1"
+
+jobs:
+  audit-and-fix:
+    name: Audit & Fix Issue Health
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Run issue health audit
+        uses: actions/github-script@v7
+        env:
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          REOPEN_INCOMPLETE: ${{ github.event.inputs.reopen_incomplete || 'true' }}
+          FIX_LABELS: ${{ github.event.inputs.fix_labels || 'true' }}
+        with:
+          script: |
+            const dryRun = process.env.DRY_RUN === 'true';
+            const reopenIncomplete = process.env.REOPEN_INCOMPLETE === 'true';
+            const fixLabels = process.env.FIX_LABELS === 'true';
+
+            const report = {
+              reopened: [],
+              labeledType: [],
+              labeledPriority: [],
+              skipped: [],
+              errors: [],
+            };
+
+            // ─── Type inference from title patterns ───────────────────────
+            function inferTypeLabel(title) {
+              const t = title.toLowerCase();
+              if (/^fix[\(:]/.test(t) || /^bug/.test(t)) return 'type:bug';
+              if (/^feat[\(:]/.test(t) || /^feature/.test(t)) return 'type:feature';
+              if (/^chore[\(:]/.test(t)) return 'type:chore';
+              if (/^refactor[\(:]/.test(t)) return 'type:refactor';
+              if (/^docs[\(:]/.test(t) || /documentation/.test(t)) return 'type:documentation';
+              if (/^audit[\(:]/.test(t) || /\baudit\b/.test(t)) return 'type:audit';
+              if (/^build[\(-]ci|^ci[\(:]|^build[\(:]/.test(t)) return 'type:build';
+              if (/^test[\(:]|testing/.test(t)) return 'type:test';
+              if (/^perf[\(:]|performance/.test(t)) return 'type:performance';
+              if (/^security[\(:]|security/.test(t)) return 'type:security';
+              if (/^automation|workflows?\s+consolidation/i.test(t)) return 'type:automation';
+              if (/^epic:/i.test(t) || /\bepic\b/.test(t)) return 'type:epic';
+              if (/research/.test(t)) return 'type:research';
+              if (/maintenance/.test(t)) return 'type:maintenance';
+              return null; // Cannot infer — needs manual triage
+            }
+
+            // ─── Check for type label ───────────────────────────────────
+            function hasTypeLabel(labels) {
+              return labels.some(l => l.name.startsWith('type:'));
+            }
+
+            // ─── Check for priority label ───────────────────────────────
+            function hasPriorityLabel(labels) {
+              return labels.some(l => l.name.startsWith('priority:'));
+            }
+
+            // ─── Fetch all open issues (paginated) ──────────────────────
+            core.info('Fetching all open issues...');
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+            // Filter to only issues (not PRs)
+            openIssues = openIssues.filter(i => !i.pull_request);
+            core.info(`Found ${openIssues.length} open issues.`);
+
+            // ─── Fetch recently closed issues (last 28 days) ────────────
+            const since = new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).toISOString();
+
+            let closedIssues = [];
+            if (reopenIncomplete) {
+              core.info('Fetching recently closed issues...');
+              const allClosed = await github.paginate(github.rest.issues.listForRepo, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'closed',
+                per_page: 100,
+              });
+              // Filter to only issues (not PRs) closed within the last 28 days
+              closedIssues = allClosed.filter(i => !i.pull_request && i.closed_at && i.closed_at >= since);
+              core.info(`Found ${closedIssues.length} recently closed issues.`);
+            }
+
+            // ─── Step 1: Reopen issues with incomplete DoD ───────────────
+            if (reopenIncomplete) {
+              for (const issue of closedIssues) {
+                // Skip force-closed issues
+                const hasForceClose = issue.labels.some(l => l.name === 'meta:force-close');
+                if (hasForceClose) {
+                  report.skipped.push(`#${issue.number} (meta:force-close label present)`);
+                  continue;
+                }
+
+                const body = (issue.body || '').trim();
+
+                // Extract DoD section only (matches validate-issue-dod-before-close.yml policy)
+                const dodMatch = body.match(/^#{2,3}\s+Definition of Done \(DoD\)\s*$\n?([\s\S]*?)(?=\n#{1,3}\s+|$)/im);
+                if (!dodMatch) {
+                  report.skipped.push(`#${issue.number} (no DoD section)`);
+                  continue;
+                }
+                const dodSection = dodMatch[1].trim();
+
+                // Count unchecked and checked checkboxes within the DoD section only
+                const uncheckedMatches = (dodSection.match(/(?:^|\n)\s*-\s*\[\s\]\s+/g) || []).length;
+                const checkedMatches = (dodSection.match(/(?:^|\n)\s*-\s*\[[xX]\]\s+/g) || []).length;
+                const totalCheckboxes = uncheckedMatches + checkedMatches;
+
+                if (totalCheckboxes > 0 && uncheckedMatches > 0) {
+                  core.info(`#${issue.number}: ${uncheckedMatches}/${totalCheckboxes} unchecked — reopening`);
+
+                  if (!dryRun) {
+                    try {
+                      await github.rest.issues.update({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: issue.number,
+                        state: 'open',
+                      });
+                      await github.rest.issues.createComment({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: issue.number,
+                        body: `♻️ **Reopened by Issue Health Audit**\n\nThis issue was closed with **${uncheckedMatches} of ${totalCheckboxes} task(s) still unchecked**. Please complete all tasks before closing.\n\n> If this was intentional, add the \`meta:force-close\` label and close again.`,
+                      });
+                      report.reopened.push(`#${issue.number}: ${issue.title.slice(0, 60)}`);
+                    } catch (err) {
+                      report.errors.push(`#${issue.number} reopen failed: ${err.message}`);
+                    }
+                  } else {
+                    report.reopened.push(`#${issue.number} [DRY RUN]: ${issue.title.slice(0, 60)}`);
+                  }
+                }
+              }
+            }
+
+            // ─── Step 2: Fix labels on open issues ───────────────────────
+            if (fixLabels) {
+              for (const issue of openIssues) {
+                const labels = issue.labels || [];
+                const labelsToAdd = [];
+
+                // Infer and apply missing type label
+                let inferredType = null;
+                let needsTriageLabel = false;
+                if (!hasTypeLabel(labels)) {
+                  inferredType = inferTypeLabel(issue.title);
+                  if (!inferredType) {
+                    // Cannot infer — apply needs-triage if not already present
+                    const hasNeedsTriage = labels.some(l => l.name === 'status:needs-triage');
+                    if (!hasNeedsTriage) {
+                      needsTriageLabel = true;
+                      labelsToAdd.push('status:needs-triage');
+                    }
+                  } else {
+                    labelsToAdd.push(inferredType);
+                  }
+                }
+
+                // Apply missing priority label
+                let addPriority = false;
+                if (!hasPriorityLabel(labels)) {
+                  addPriority = true;
+                  labelsToAdd.push('priority:normal');
+                }
+
+                if (labelsToAdd.length > 0) {
+                  core.info(`#${issue.number}: adding labels [${labelsToAdd.join(', ')}]`);
+                  if (!dryRun) {
+                    try {
+                      await github.rest.issues.addLabels({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: issue.number,
+                        labels: labelsToAdd,
+                      });
+                      if (inferredType) report.labeledType.push(`#${issue.number} → ${inferredType}`);
+                      if (needsTriageLabel) report.labeledType.push(`#${issue.number} → status:needs-triage`);
+                      if (addPriority) report.labeledPriority.push(`#${issue.number}`);
+                    } catch (err) {
+                      report.errors.push(`#${issue.number} label failed: ${err.message}`);
+                    }
+                  } else {
+                    if (inferredType) report.labeledType.push(`#${issue.number} [DRY RUN] → ${inferredType}`);
+                    if (needsTriageLabel) report.labeledType.push(`#${issue.number} [DRY RUN] → status:needs-triage`);
+                    if (addPriority) report.labeledPriority.push(`#${issue.number} [DRY RUN]`);
+                  }
+                }
+              }
+            }
+
+            // ─── Generate summary report ─────────────────────────────────
+            const summary = [
+              `# Issue Health Audit Report`,
+              `> ${dryRun ? '🔍 DRY RUN — no changes were made' : '✅ Changes applied'}`,
+              `> Run: ${new Date().toISOString()}`,
+              '',
+              `## Reopened Issues (${report.reopened.length})`,
+              report.reopened.length > 0
+                ? report.reopened.map(r => `- ${r}`).join('\n')
+                : '_None_',
+              '',
+              `## Type Labels Applied (${report.labeledType.length})`,
+              report.labeledType.length > 0
+                ? report.labeledType.map(r => `- ${r}`).join('\n')
+                : '_None_',
+              '',
+              `## Priority Labels Applied (${report.labeledPriority.length})`,
+              report.labeledPriority.length > 0
+                ? `Issues: ${report.labeledPriority.join(', ')}`
+                : '_None_',
+              '',
+              `## Skipped (${report.skipped.length})`,
+              report.skipped.length > 0
+                ? report.skipped.map(r => `- ${r}`).join('\n')
+                : '_None_',
+              '',
+              `## Errors (${report.errors.length})`,
+              report.errors.length > 0
+                ? report.errors.map(r => `- ⚠️ ${r}`).join('\n')
+                : '_None_',
+            ].join('\n');
+
+            await core.summary.addRaw(summary).write();
+            core.info(summary);
+
+            if (report.errors.length > 0) {
+              core.setFailed(`Audit completed with ${report.errors.length} error(s).`);
+            }

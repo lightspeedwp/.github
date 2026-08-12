@@ -1,0 +1,33 @@
+# Awesome GitHub
+
+Machine-readable index for the public site.
+
+## Pages
+
+- `/` - Home
+- `/wceu-2026/` - WCEU 2026 talk
+- `/wceu-2026/slides/` - WCEU 2026 slides index
+- `/wceu-2026/slides/<slug>/` - Individual WCEU 2026 slide pages
+- `/why-this-exists/` - Why this exists
+- `/references/` - References
+
+## Source references
+
+- `github/awesome-copilot` repository
+- `awesome-copilot.github.com` reference site
+- `wceu-2026/website/mini-site-plan.md`
+- `wceu-2026/website/page-copy-starter.md`
+- `wceu-2026/slides/`
+- `wceu-2026/ACCESSIBILITY_AUDIT.md`
+- `wceu-2026/VISUAL_DESIGN_SPECIFICATIONS.md`
+- `wceu-2026/SPEAKER_NOTES_FINAL.md`
+- `wceu-2026/references/slide-to-source-mapping.md`
+- `wceu-2026/FINAL_REVIEW_CHECKLIST.md`
+
+## Notes
+
+- The WCEU section scans the full `wceu-2026` tree for accessibility advice, slide copy, and source references.
+- Each slide has a dedicated public page under `/wceu-2026/slides/` with its own references and source link.
+- The public site focuses on the conference talk, the repo-as-control-plane model,
+  and the supporting references.
+- Additional pages can be added without changing the shared shell.

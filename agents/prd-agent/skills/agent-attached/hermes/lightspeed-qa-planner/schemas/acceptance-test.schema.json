@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Acceptance test",
+  "type": "object",
+  "required": ["area", "scenario", "evidence_needed"],
+  "properties": {
+    "area": { "type": "string" },
+    "scenario": { "type": "string" },
+    "evidence_needed": { "type": "string" }
+  },
+  "additionalProperties": false
+}

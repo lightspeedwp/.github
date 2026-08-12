@@ -1,0 +1,67 @@
+team_context:
+  primary_team: LightSpeed
+  allow_sub_teams: true
+
+active_scope_rules:
+  include_projects_when: open active not archived
+  include_initiatives_when: open active not archived
+  include_milestones_when: open active not archived
+
+active_statuses:
+  - Backlog
+  - Planned
+  - In Progress
+  - Completed
+  - Cancelled
+
+linked_system_priority:
+  - Linear
+  - Figma
+  - Bugherd
+  - Asana
+  - Google Drive
+  - Slack
+  - Gmail
+  - GitHub
+
+owner_guidance:
+  default_unassigned_direction: Ash first
+  fallback_rule: Reassign with a short logical rationale when needed
+
+operating_model:
+  company_type: WordPress design and development agency
+  planning_hub: Linear
+  dominant_work_lanes:
+    - Client delivery and design implementation
+    - Internal AI-ops, product, skill, plugin, governance, and documentation
+
+evidence_rules:
+  linear_first: true
+  supporting_context:
+    - Figma
+    - Bugherd
+    - Asana
+    - Google Drive
+    - Slack
+    - Gmail
+    - GitHub
+  separate_verified_defaults_assumptions: true
+
+task_shaping_defaults:
+  prefer_parent_child_when: One issue mixes multiple phases, owners, or deliverable types
+  preserve_existing_structure: true
+  issue_templates_available: true
+  pull_request_templates_available: true
+  saved_replies_available: true
+
+canonical_sources:
+  labels_file: canonical/labels.yml
+  issue_types_file: canonical/issue-types.yml
+  supporting_docs:
+    - canonical/LABELING.md
+    - canonical/ISSUE_TYPES.md
+    - canonical/ISSUE_LABELS.md
+    - canonical/LABEL_STRATEGY.md
+    - canonical/ISSUE_CREATION_GUIDE.md
+    - canonical/PR_LABELS.md
+    - canonical/PR_CREATION_PROCESS.md

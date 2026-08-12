@@ -14,6 +14,9 @@ issue_types:
   - name: Design
     color: AB7DF8
     label: type:design
+  - name: UI
+    color: AB7DF8
+    label: type:ui
   - name: Epic
     color: AB7DF8
     label: type:epic
@@ -23,22 +26,31 @@ issue_types:
   - name: Improvement
     color: 9198A1
     label: type:improve
-  - name: Code Refactor
+  - name: Enhancement
+    color: 9198A1
+    label: type:enhancement
+  - name: Refactor
     color: 9198A1
     label: type:refactor
-  - name: Build & CI
+  - name: Build
     color: 4393F8
     label: type:build
+  - name: CI
+    color: 4393F8
+    label: type:ci
   - name: Automation
     color: 4393F8
     label: type:automation
-  - name: Test Coverage
+  - name: Testing
     color: D29922
     label: type:test
+  - name: QA
+    color: D29922
+    label: type:qa
   - name: Performance
     color: D29922
     label: type:performance
-  - name: A11y
+  - name: Accessibility
     color: DB61A2
     label: type:a11y
   - name: Security
@@ -47,6 +59,9 @@ issue_types:
   - name: Compatibility
     color: 8D4821
     label: type:compatibility
+  - name: Dependency
+    color: 8D4821
+    label: type:dependency
   - name: Integration
     color: 8D4821
     label: type:integration
@@ -62,13 +77,16 @@ issue_types:
   - name: Research
     color: 9198A1
     label: type:research
+  - name: Investigation
+    color: 9198A1
+    label: type:investigation
   - name: Chore
     color: 9198A1
     label: type:chore
   - name: Audit
     color: 9198A1
     label: type:audit
-  - name: Code Review
+  - name: Review
     color: 4393F8
     label: type:review
   - name: AI Ops
@@ -77,3 +95,15 @@ issue_types:
   - name: Content Modelling
     color: AB7DF8
     label: type:content-modelling
+  - name: Question
+    color: "5319E7"
+    label: type:question
+  - name: Support
+    color: 0E8A16
+    label: type:support
+  - name: User Experience Feedback
+    color: "5319E7"
+    label: type:ux-feedback
+  - name: Help
+    color: 0E8A16
+    label: type:help

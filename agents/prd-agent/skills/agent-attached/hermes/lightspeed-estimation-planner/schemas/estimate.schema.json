@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Estimate",
+  "type": "object",
+  "required": ["estimate_summary", "confidence_level", "workstream_breakdown"],
+  "properties": {
+    "estimate_summary": { "type": "string" },
+    "confidence_level": { "type": "string" },
+    "workstream_breakdown": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "exclusions": { "type": "array", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "items": { "type": "string" } },
+    "risk_buffer": { "type": "string" },
+    "optional_phasing": { "type": "array", "items": { "type": "string" } },
+    "decision_points": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

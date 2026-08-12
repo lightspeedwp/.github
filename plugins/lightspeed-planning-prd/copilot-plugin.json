@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json.schemastore.org/github-copilot-plugin.json",
+  "name": "lightspeed-planning-prd",
+  "version": "2.0.0",
+  "description": "Comprehensive product planning: PRD creation, feature planning, timeline estimation, and roadmap generation.",
+  "publisher": "LightSpeedWP",
+  "author": "Ash Shaw",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github"
+  },
+  "bugs": {
+    "url": "https://github.com/lightspeedwp/.github/issues"
+  },
+  "homepage": "https://github.com/lightspeedwp/.github/tree/develop/plugins/lightspeed-planning-prd",
+  "categories": ["planning", "product-management", "project-management"],
+  "keywords": [
+    "prd",
+    "product-requirements",
+    "planning",
+    "roadmap",
+    "feature-planning",
+    "user-stories",
+    "product-management"
+  ],
+  "agents": [
+    {
+      "id": "prd",
+      "name": "PRD Agent",
+      "description": "Expert product planning assistant for PRDs, features, timelines, and roadmaps",
+      "version": "2.0.0",
+      "path": "agents/prd-agent/"
+    }
+  ],
+  "skills": [
+    {
+      "id": "prd-writing",
+      "name": "PRD Writing",
+      "description": "Create comprehensive product requirement documents",
+      "commands": ["prd create", "prd template", "prd validate"]
+    },
+    {
+      "id": "feature-planning",
+      "name": "Feature Planning",
+      "description": "Plan features and generate user stories",
+      "commands": ["features plan", "features prioritize", "stories generate"]
+    },
+    {
+      "id": "sprint-planning",
+      "name": "Sprint Planning",
+      "description": "Plan sprints with GitHub Projects integration",
+      "commands": ["sprint plan", "sprint estimate", "sprint assign"]
+    },
+    {
+      "id": "roadmap-creation",
+      "name": "Roadmap Creation",
+      "description": "Build product roadmaps with timelines",
+      "commands": ["roadmap create", "roadmap timeline", "roadmap visual"]
+    },
+    {
+      "id": "timeline-estimation",
+      "name": "Timeline Estimation",
+      "description": "Estimate timelines and create schedules",
+      "commands": ["estimate timeline", "estimate effort", "estimate capacity"]
+    }
+  ],
+  "integrations": {
+    "github": {
+      "issues": {
+        "enabled": true,
+        "auto_create": false,
+        "permissions": ["write:issues", "read:issues"]
+      },
+      "projects": {
+        "enabled": true,
+        "sync": true,
+        "permissions": ["write:projects", "read:projects"]
+      },
+      "milestones": {
+        "enabled": true,
+        "mapping": "roadmap-phases",
+        "permissions": ["write:milestones"]
+      },
+      "releases": {
+        "enabled": true,
+        "notes_generation": true,
+        "permissions": ["write:releases"]
+      },
+      "discussions": {
+        "enabled": true,
+        "share_prd": true,
+        "permissions": ["write:discussions"]
+      }
+    }
+  },
+  "commands": {
+    "prd": {
+      "create": "Generate a complete PRD document",
+      "template": "Use a PRD template to get started",
+      "validate": "Check PRD for completeness and quality"
+    },
+    "features": {
+      "plan": "Plan features and create backlog",
+      "prioritize": "Prioritize features using impact/effort matrix",
+      "generate": "Generate features from requirements"
+    },
+    "sprint": {
+      "plan": "Plan a sprint with tasks and assignments",
+      "estimate": "Estimate sprint effort and timeline",
+      "assign": "Assign work to team members"
+    },
+    "roadmap": {
+      "create": "Create a product roadmap",
+      "timeline": "Show timeline with milestones",
+      "visual": "Generate visual roadmap"
+    },
+    "estimate": {
+      "timeline": "Estimate project timeline",
+      "effort": "Estimate effort for features",
+      "capacity": "Plan capacity and resources"
+    }
+  },
+  "resources": {
+    "documentation": "https://github.com/lightspeedwp/.github/tree/develop/plugins/lightspeed-planning-prd",
+    "installation": "plugins/lightspeed-planning-prd/INSTALL.md",
+    "changelog": "https://github.com/lightspeedwp/.github/releases",
+    "support": "https://github.com/lightspeedwp/.github/issues"
+  },
+  "metadata": {
+    "status": "active",
+    "created": "2026-07-22",
+    "updated": "2026-07-22",
+    "maintainers": ["lightspeedwp/maintainers"],
+    "owners": ["Ash Shaw"],
+    "merged_from": ["prd-agent", "prd-factory-planner-agent"],
+    "provides": {
+      "agents": 1,
+      "skills": 5,
+      "tools": 8
+    },
+    "requires": {
+      "min_copilot_version": "1.0.0",
+      "min_github_version": "3.0.0"
+    }
+  },
+  "providerConfigs": {
+    "claude": {
+      "enabled": true,
+      "configPath": "agents/prd-agent/claude/",
+      "tools": "agents/prd-agent/claude/tools.json"
+    },
+    "copilot": {
+      "enabled": true,
+      "configPath": "agents/prd-agent/copilot/",
+      "skills": "agents/prd-agent/copilot/skills.yaml"
+    },
+    "openai": {
+      "enabled": true,
+      "configPath": "agents/prd-agent/openai/",
+      "tools": "agents/prd-agent/openai/tools.json"
+    },
+    "gemini": {
+      "enabled": true,
+      "configPath": ".gemini-plugin/"
+    }
+  },
+  "permissions": {
+    "minimum": ["read"],
+    "required": ["read", "write"]
+  }
+}

@@ -6,7 +6,7 @@
  * Detects circular references and generates recommendations
  *
  * Usage: node scripts/audit-frontmatter.js
- * Output: audit-frontmatter-report.csv
+ * Output: .github/reports/audits/frontmatter/audit-frontmatter-report.csv
  *
  * @author LightSpeedWP
  * @version 1.0.0
@@ -32,6 +32,14 @@ const EXCLUDE_PATTERNS = [
   "logs",
   ".vscode",
 ];
+const REPORT_DIR = path.join(
+  REPO_ROOT,
+  ".github",
+  "reports",
+  "audits",
+  "frontmatter",
+);
+const REPORT_PATH = path.join(REPORT_DIR, "audit-frontmatter-report.csv");
 
 /**
  * Check if a path should be excluded
@@ -157,6 +165,7 @@ function exportToCSV(report, outputPath) {
     csv += row.join(",") + "\n";
   }
 
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, csv);
   console.log(`✅ Report exported to: ${outputPath}`);
 }
@@ -217,13 +226,14 @@ function main() {
   printSummary(report);
 
   // Export to CSV
-  const reportPath = path.join(REPO_ROOT, "audit-frontmatter-report.csv");
-  exportToCSV(report, reportPath);
+  exportToCSV(report, REPORT_PATH);
 
   console.log("\n✨ Audit complete! Review the CSV report above.");
 }
 
-main().catch((error) => {
+try {
+  main();
+} catch (error) {
   console.error("❌ Error:", error.message);
   process.exit(1);
-});
+}

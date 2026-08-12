@@ -1,0 +1,12 @@
+interface:
+  display_name: Audit QA Validator
+  short_description: QA reviews drafted PageSpeed audits before delivery.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -40,6 +40,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "docs/mustache-repo-templates/**", // Template files
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
+      "design_handoff_awesome_github/**", // Design prototype (reference, not production code)
     ];
 
 /**
@@ -122,9 +123,10 @@ module.exports = [
       "no-console": "off",
     },
   },
-  // ES Modules (.mjs and scripts that use import/export)
+  // Standard JavaScript files and test utilities (.js)
   {
-    files: [
+    files: ["**/*.js"],
+    ignores: [
       "**/*.mjs",
       "scripts/**/*.js",
       ".github/agents/**/*.js",
@@ -135,7 +137,7 @@ module.exports = [
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2024,
-        sourceType: "module",
+        sourceType: "commonjs",
       },
       globals: {
         // Node.js globals
@@ -147,6 +149,9 @@ module.exports = [
         clearTimeout: "readonly",
         global: "readonly",
         process: "readonly",
+        require: "readonly",
+        module: "readonly",
+        exports: "readonly",
         setImmediate: "readonly",
         setInterval: "readonly",
         setTimeout: "readonly",
@@ -172,13 +177,20 @@ module.exports = [
       "no-console": "off",
     },
   },
-  // Standard JavaScript files and test utilities (.js)
+  // ES Modules (.mjs and scripts that use import/export)
   {
-    files: ["**/*.js"],
+    files: [
+      "**/*.mjs",
+      "scripts/**/*.js",
+      ".github/agents/**/*.js",
+      ".github/metrics/**/*.js",
+      ".github/scripts/**/*.js",
+      "docs/ai/**/*.js",
+    ],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2024,
-        sourceType: "commonjs",
+        sourceType: "module",
       },
       globals: {
         // Node.js globals
@@ -190,9 +202,6 @@ module.exports = [
         clearTimeout: "readonly",
         global: "readonly",
         process: "readonly",
-        require: "readonly",
-        module: "readonly",
-        exports: "readonly",
         setImmediate: "readonly",
         setInterval: "readonly",
         setTimeout: "readonly",

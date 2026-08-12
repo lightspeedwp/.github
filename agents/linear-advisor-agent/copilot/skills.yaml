@@ -1,0 +1,50 @@
+version: "1.0.0"
+agent: "linear-advisor"
+skills:
+  - id: skill-analyze
+    name: Analyze
+    description: Analyze requirements and provide detailed assessment
+    commands:
+      - analyze
+      - ""
+
+  - id: skill-plan
+    name: Plan
+    description: Create implementation plan with steps and timeline
+    commands:
+      - plan
+      - ""
+
+  - id: skill-review
+    name: Review
+    description: Review outputs and provide feedback
+    commands:
+      - review
+      - ""
+
+  - id: skill-document
+    name: Document
+    description: Generate comprehensive documentation
+    commands:
+      - document
+      - ""
+
+  - id: skill-validate
+    name: Validate
+    description: Validate results against requirements
+    commands:
+      - validate
+      - ""
+
+  - id: skill-sync
+    name: Sync
+    description: Sync results with project tools
+    commands:
+      - sync
+      - ""
+
+integrations:
+  - github-projects
+  - github-actions
+  - github-issues
+  - github-discussions

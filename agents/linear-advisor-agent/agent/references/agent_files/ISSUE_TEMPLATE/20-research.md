@@ -1,0 +1,49 @@
+---
+name: "🔍 Research"
+about: "Propose or document technical research, investigation, or exploratory work."
+title: "[Research] <Brief summary>"
+labels: [status:needs-review, priority:minor, area:core]
+---
+
+## Research Goal
+
+<!-- Describe the objective or question you’re investigating. -->
+
+## Background / Motivation
+
+<!-- Why is this research needed? What problem, risk, or opportunity does it address? -->
+
+## Approach / Methods
+
+<!-- Describe steps, experiments, or techniques you’ll use. -->
+
+## Findings / Summary
+
+<!-- Summarize results, discoveries, and recommendations. -->
+
+## Next Steps
+
+<!-- Proposed actions, follow-ups, or related issues. -->
+
+## Additional Context
+
+<!-- Add links, diagrams, references, or related docs. -->
+
+---
+
+### Definition of Ready (DoR)
+
+- [ ] Research goal/objective defined
+- [ ] Background/context described
+- [ ] Approach/methods listed
+- [ ] Estimate added if relevant
+
+### Definition of Done (DoD)
+
+- [ ] Research performed and findings documented
+- [ ] Recommendations/next steps proposed
+- [ ] Documentation updated (if applicable)
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

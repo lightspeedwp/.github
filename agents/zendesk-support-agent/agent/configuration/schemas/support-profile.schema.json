@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk Support Profile",
+  "type": "object",
+  "required": [
+    "name",
+    "default_output_style",
+    "default_operating_mode",
+    "default_evidence_standard",
+    "default_write_behavior",
+    "required_output_sections"
+  ],
+  "properties": {
+    "name": {"type": "string", "minLength": 3},
+    "default_output_style": {"type": "string", "minLength": 3},
+    "default_operating_mode": {"type": "string", "const": "zendesk_first"},
+    "default_evidence_standard": {"type": "string", "minLength": 3},
+    "default_write_behavior": {"type": "string", "minLength": 3},
+    "required_output_sections": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 3,
+      "uniqueItems": true
+    },
+    "customer_reply_rules": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "internal_handoff_rules": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "backlog_report_rules": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "memory_rules": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "additionalProperties": false
+}

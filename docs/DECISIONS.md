@@ -1,18 +1,18 @@
 ---
-file_type: "documentation"
-title: "Architectural Decisions"
-description: "Architectural Decision Records (ADR) and rationale for major technical decisions in the LightSpeedWP .github repository"
-version: "1.0"
-last_updated: "2025-12-04"
-owners: ["LightSpeed Engineering"]
-tags: ["architecture", "decisions", "adr", "governance", "technical-decisions"]
-references:
-  - path: "ARCHITECTURE.md"
-    description: "Architecture documentation and system design"
-  - path: "ADR/"
-    description: "Individual Architectural Decision Records"
-  - path: "../docs/ADR"
-    description: "Detailed ADR documents"
+file_type: documentation
+title: Architectural Decisions
+description: Architectural Decision Records (ADR) and rationale for major technical
+  decisions in the LightSpeedWP .github repository
+version: '1.1'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Engineering
+tags:
+- architecture
+- decisions
+- adr
+- governance
+- technical-decisions
 ---
 
 # Architectural Decisions
@@ -53,7 +53,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [labeling.agent.md](../agents/labeling.agent.md)
+- [labeling.agent.md](../.github/agents/labeling.agent.md)
 - [labels.yml](../.github/labels.yml)
 - [labeler.yml](../.github/labeler.yml)
 
@@ -127,7 +127,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [automation.instructions.md](../instructions/automation.instructions.md)
+- [automation.instructions.md](../.github/instructions/automation.instructions.md)
 - [.github/agents/](../.github/agents/)
 
 ### ADR-005: Canonical Configuration Over Convention
@@ -238,8 +238,4 @@ All architectural decisions should follow this format:
 
 ---
 
-*Last reviewed: 2025-12-04*
-*Next review scheduled: 2025-12-31*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -1,3 +1,18 @@
+---
+title: "Reports Directory"
+description: "Repository for all generated reports, analysis outputs, audit files, and agent execution summaries. Includes analysis, audits, implementation tracking, migration reports, and metrics."
+file_type: documentation
+version: v1.1
+last_updated: "2026-05-31"
+created_date: "2026-05-01"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["reports", "audits", "analytics", "documentation", "governance"]
+domain: "governance"
+stability: "stable"
+---
+
 # Reports Directory
 
 This directory contains all generated reports, analysis outputs, audit files, and agent execution summaries.

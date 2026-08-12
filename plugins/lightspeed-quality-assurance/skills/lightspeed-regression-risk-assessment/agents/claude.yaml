@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Regression Risk Assessment
+  short_description: assess regression risk across changed areas and prioritise follow-up checks.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - claude
+  allow_implicit_invocation: true
+  compatibility_mode: standard

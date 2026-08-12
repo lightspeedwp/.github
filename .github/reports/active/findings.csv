@@ -1,0 +1,5 @@
+File Path,Diagram Count,Diagram Types,Missing accTitle,Missing accDescr,Last Updated,Priority,Notes
+README.md,7,graph/flowchart, sequence, state,3,3,2026-05-28,High,"Missing accTitle in 3 diagram(s); Missing accDescr in 3 diagram(s)"
+profile/README.md,4,graph/flowchart, state,4,4,2026-05-28,High,"Missing accTitle in 4 diagram(s); Missing accDescr in 4 diagram(s)"
+scripts/README.md,3,graph/flowchart, sequence,3,3,2026-05-28,High,"Missing accTitle in 3 diagram(s); Missing accDescr in 3 diagram(s)"
+tests/README.md,3,graph/flowchart, sequence,3,3,2026-05-28,High,"Missing accTitle in 3 diagram(s); Missing accDescr in 3 diagram(s)"

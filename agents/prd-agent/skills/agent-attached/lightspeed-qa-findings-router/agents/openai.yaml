@@ -1,0 +1,5 @@
+interface:
+  display_name: LightSpeed QA Findings Router
+  short_description: Triage QA findings into launch blockers, fixes and GitHub-ready issue drafts.
+  icon: assets/icon.svg
+  theme_color: "#1E73BE"

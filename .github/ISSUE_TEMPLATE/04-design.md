@@ -1,12 +1,10 @@
 ---
+file_type: "issue-template"
 name: "🎨 Design"
-about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
-title: "[Design] <Brief summary>"
-labels: [status:needs-design-review, priority:normal, area:design-system]
-assignees: []
-projects: []
-milestone: ""
-file_type: design
+about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications."
+version: "1.0.2"
+last_updated: "2026-06-19"
+category: "github-templates"
 ---
 
 <!--
@@ -81,3 +79,7 @@ Add links, screenshots, references, or other design docs.
 - [ ] PR uses correct branch prefix (design/)
 
 ---
+
+---
+
+Related issues: {related_issues}

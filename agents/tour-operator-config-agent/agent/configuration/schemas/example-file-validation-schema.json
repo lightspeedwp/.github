@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Example File Validation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "filename",
+    "title",
+    "matches_template_family",
+    "required_sections",
+    "contains_example_content"
+  ],
+  "properties": {
+    "filename": {
+      "type": "string",
+      "pattern": "^example-[a-z0-9-]+\\.md$"
+    },
+    "title": {
+      "type": "string",
+      "pattern": "^# Example .+"
+    },
+    "matches_template_family": {
+      "type": "string",
+      "minLength": 1
+    },
+    "required_sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contains_example_content": {
+      "type": "boolean",
+      "const": true
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

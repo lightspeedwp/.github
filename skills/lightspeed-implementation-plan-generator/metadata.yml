@@ -1,0 +1,22 @@
+name: lightspeed-implementation-plan-generator
+version: v0.1.0
+description: Generates implementation plans aligned with approved requirements and design outputs.
+owners:
+  - LightSpeedWP Team
+platforms:
+  claude:
+    supported: true
+    mode: first-class
+    config: agents/claude.yaml
+  copilot:
+    supported: true
+    mode: first-class
+    config: agents/copilot.yaml
+  gemini:
+    supported: true
+    mode: experimental
+    config: agents/gemini.yaml
+  codex:
+    supported: true
+    mode: legacy-compatible
+    config: agents/codex.yaml

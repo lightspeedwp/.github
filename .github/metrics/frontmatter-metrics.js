@@ -1,17 +1,16 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { glob } from "glob";
 import matter from "gray-matter";
 import micromatch from "micromatch";
-import YAML from "js-yaml";
+import * as YAML from "js-yaml";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function readJSON(p) {
   return JSON.parse(await fs.readFile(p, "utf8"));

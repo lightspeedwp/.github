@@ -10,13 +10,14 @@
  * Standards:
  *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md)
  *   - See org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
- *   - See spec: ../../agents/release.agent.md
+ *   - See spec: ../../../.github/agents/release.agent.md
  * ============================================================================
  * @module scripts/agents/release.agent.js
- * @see ../../agents/release.agent.md
+ * @see ../../../.github/agents/release.agent.md
  */
 
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
@@ -37,13 +38,11 @@ const validateVersionPath = path.join(
   "../validation/validate-version.cjs",
 );
 
-const {
-  parseChangelog,
-  validateChangelog,
-  getUnreleasedChanges,
-  hasUnreleasedChanges,
-} = require(changelogUtilsPath);
+const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
+  changelogUtilsPath,
+);
 const { validateVersion, parseVersion } = require(validateVersionPath);
+const VALID_PROVIDERS = new Set(["shell", "mcp"]);
 
 /**
  * Execute shell command
@@ -64,8 +63,135 @@ function exec(cmd, dryRun = false, allowError = false) {
       console.warn(`Command failed (allowed): ${cmd}\n${error.message}`);
       return "";
     }
-    throw new Error(`Command failed: ${cmd}\n${error.message}`);
+    throw new Error(`Command failed: ${cmd}\n${error.message}`, {
+      cause: error,
+    });
   }
+}
+
+/**
+ * Resolve repository owner/name from environment.
+ * @returns {{owner: string, repo: string}}
+ */
+function getRepositoryContext() {
+  const fromPair = process.env.GITHUB_REPOSITORY || "";
+  if (fromPair.includes("/")) {
+    const [owner, repo] = fromPair.split("/");
+    if (owner && repo) {
+      return { owner, repo };
+    }
+  }
+
+  const owner = process.env.RELEASE_REPO_OWNER || "";
+  const repo = process.env.RELEASE_REPO_NAME || "";
+  if (owner && repo) {
+    return { owner, repo };
+  }
+
+  throw new Error(
+    "Repository context missing. Set GITHUB_REPOSITORY or RELEASE_REPO_OWNER and RELEASE_REPO_NAME.",
+  );
+}
+
+/**
+ * Execute a GitHub API request for release provider operations.
+ * @param {string} endpoint - API endpoint beginning with '/'
+ * @param {Object} options - Request options
+ * @returns {Promise<any>} Parsed response body
+ */
+async function githubApiRequest(endpoint, options = {}) {
+  const {
+    method = "GET",
+    body,
+    allowNotFound = false,
+    token = process.env.GITHUB_TOKEN,
+    retries = Number.parseInt(process.env.RELEASE_MCP_RETRIES || "3", 10),
+    initialBackoffMs = Number.parseInt(
+      process.env.RELEASE_MCP_BACKOFF_MS || "250",
+      10,
+    ),
+    backoffFactor = Number.parseFloat(
+      process.env.RELEASE_MCP_BACKOFF_FACTOR || "2",
+    ),
+  } = options;
+
+  if (!token) {
+    throw new Error(
+      "GITHUB_TOKEN is required for MCP release provider operations.",
+    );
+  }
+
+  const url = `https://api.github.com${endpoint}`;
+  const fetchFn = globalThis.fetch;
+  if (typeof fetchFn !== "function") {
+    throw new Error(
+      "Fetch API is unavailable in this runtime. Use Node.js 18+ for MCP release provider operations.",
+    );
+  }
+
+  let attempt = 0;
+  let delayMs = Number.isNaN(initialBackoffMs) ? 250 : initialBackoffMs;
+  const maxRetries = Number.isNaN(retries) ? 3 : Math.max(retries, 0);
+  const growth = Number.isNaN(backoffFactor) ? 2 : Math.max(backoffFactor, 1);
+
+  while (attempt <= maxRetries) {
+    let response;
+    try {
+      response = await fetchFn(url, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "Content-Type": "application/json",
+        },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+    } catch (error) {
+      if (attempt >= maxRetries) {
+        throw new Error(
+          `GitHub API ${method} ${endpoint} request failed after ${attempt + 1} attempt(s): ${error.message}`,
+          { cause: error },
+        );
+      }
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, delayMs);
+      });
+      delayMs = Math.max(Math.ceil(delayMs * growth), delayMs);
+      attempt += 1;
+      continue;
+    }
+
+    if (allowNotFound && response.status === 404) {
+      return null;
+    }
+
+    const text = await response.text();
+    const parsed = text ? JSON.parse(text) : null;
+
+    if (response.ok) {
+      return parsed;
+    }
+
+    const shouldRetry = response.status === 429 || response.status >= 500;
+    const details = parsed?.message || text || response.statusText;
+    if (!shouldRetry || attempt >= maxRetries) {
+      throw new Error(
+        `GitHub API ${method} ${endpoint} failed (${response.status}): ${details}`,
+      );
+    }
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, delayMs);
+    });
+    delayMs = Math.max(Math.ceil(delayMs * growth), delayMs);
+    attempt += 1;
+  }
+
+  throw new Error(
+    `GitHub API ${method} ${endpoint} failed unexpectedly after retries.`,
+  );
 }
 
 /**
@@ -102,14 +228,55 @@ function determineNextVersion(currentVersion, scope = "patch") {
 }
 
 /**
+ * Compare two semver strings.
+ * @param {string} leftVersion - Left version
+ * @param {string} rightVersion - Right version
+ * @returns {number} -1 if left < right, 0 if equal, 1 if left > right
+ */
+function compareVersions(leftVersion, rightVersion) {
+  const left = parseVersion(leftVersion);
+  const right = parseVersion(rightVersion);
+  if (!left || !right) {
+    throw new Error(
+      `Cannot compare invalid versions: ${leftVersion}, ${rightVersion}`,
+    );
+  }
+
+  if (left.major !== right.major) return left.major > right.major ? 1 : -1;
+  if (left.minor !== right.minor) return left.minor > right.minor ? 1 : -1;
+  if (left.patch !== right.patch) return left.patch > right.patch ? 1 : -1;
+  return 0;
+}
+
+/**
  * Fetch merged PRs between two tags (inclusive of toTag)
  */
+function isValidGitRef(ref) {
+  if (!ref || typeof ref !== "string") {
+    return false;
+  }
+  const trimmed = ref.trim();
+  // Reject dangerous patterns: whitespace, leading -, git rev-spec operators (^, ~, @, etc)
+  if (/[\s]|^-|[\^~@*?:]/.test(trimmed)) {
+    return false;
+  }
+  // Allow: SHAs, tags (v1.2.3), branch names (develop, main, release/*)
+  // Roughly matches git refspec constraints
+  return /^[a-zA-Z0-9_./:-]+$/.test(trimmed);
+}
+
 function getMergedPRs(fromTag, toTag = "HEAD") {
   console.log(
     `Fetching merged PRs from ${fromTag || "start"} to ${toTag || "HEAD"}...`,
   );
 
-  let gitLog = "";
+  if (fromTag && !isValidGitRef(fromTag)) {
+    throw new Error(
+      `Invalid git ref for notes-from: "${fromTag}". Must be a commit SHA (7-40 hex), version tag, or ref path.`,
+    );
+  }
+
+  let gitLog;
   if (fromTag) {
     gitLog = exec(
       `git log ${fromTag}..${toTag} --merges --format="%H|%s|%an|%ae"`,
@@ -126,7 +293,7 @@ function getMergedPRs(fromTag, toTag = "HEAD") {
 
   if (!gitLog) return [];
 
-  const prPattern = /Merge pull request #(\\d+) from (.+)/;
+  const prPattern = /Merge pull request #(\d+) from (.+)/;
   const prs = [];
 
   gitLog
@@ -230,6 +397,7 @@ function formatReleaseNotes(options = {}) {
   const {
     version,
     changelogPath = "CHANGELOG.md",
+    notesFrom = "",
     includeContributors = true,
     includeBreakingChanges = true,
     includeHighlights = true,
@@ -254,8 +422,9 @@ function formatReleaseNotes(options = {}) {
     currentIndex >= 0 && currentIndex < tags.length - 1
       ? tags[currentIndex + 1]
       : null;
+  const rangeStart = notesFrom || previousTag;
 
-  const prs = getMergedPRs(previousTag, currentTag);
+  const prs = getMergedPRs(rangeStart, currentTag);
   const contributors = getContributors(prs);
   const breakingChanges = includeBreakingChanges
     ? detectBreakingChanges(changelogData, version)
@@ -335,8 +504,8 @@ function formatReleaseNotes(options = {}) {
 
   notes += "---\n\n";
   notes += "**Full Changelog**: ";
-  if (previousTag) {
-    notes += `[\`${previousTag}...v${version}\`](../../compare/${previousTag}...v${version})\n`;
+  if (rangeStart) {
+    notes += `[\`${rangeStart}...v${version}\`](../../compare/${rangeStart}...v${version})\n`;
   } else {
     notes += `[View all changes](../../commits/v${version})\n`;
   }
@@ -391,7 +560,6 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -473,21 +641,43 @@ function updateChangelog(newVersion, options = {}) {
   const content = fs.readFileSync(changelogPath, "utf8");
   const today = new Date().toISOString().split("T")[0];
 
-  // Replace [Unreleased] - DD-MM-YYYY with [newVersion] - YYYY-MM-DD
+  // Replace [Unreleased] (with or without date) with new [Unreleased] section + released version
+  const unreleasedTemplate = `## [Unreleased]
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+### Documentation
+
+### Performance
+
+## [${newVersion}] - ${today}`;
+
   const updatedContent = content.replace(
-    /^## \[Unreleased\] - (?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2})$/m,
-    `## [${newVersion}] - ${today}`,
+    /^## \[Unreleased\](?:\s*-\s*(?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2}))?$/m,
+    unreleasedTemplate,
   );
 
   if (dryRun) {
     console.log(
-      `[DRY-RUN] Would update CHANGELOG.md Unreleased section to [${newVersion}] - ${today}`,
+      `[DRY-RUN] Would update CHANGELOG.md: [Unreleased] → [Unreleased] + [${newVersion}] - ${today}`,
     );
-    return;
+    return updatedContent;
   }
 
   fs.writeFileSync(changelogPath, updatedContent, "utf8");
   console.log(`✓ CHANGELOG updated with version ${newVersion}`);
+  console.log(`✓ New [Unreleased] section injected for next cycle`);
+  return updatedContent;
 }
 
 /**
@@ -514,7 +704,7 @@ function pushChanges(options = {}) {
 
   console.log("\n=== Pushing Changes ===");
 
-  exec(`git push origin ${branch}`, dryRun);
+  exec(`git push -u origin ${branch}`, dryRun);
   exec("git push --tags", dryRun);
 
   console.log("✓ Changes and tags pushed");
@@ -526,12 +716,20 @@ function pushChanges(options = {}) {
  * @param {Object} options - Options
  */
 function createRelease(version, options = {}) {
-  const { changelogPath = "CHANGELOG.md", dryRun = false } = options;
+  const {
+    changelogPath = "CHANGELOG.md",
+    dryRun = false,
+    notesFrom = "",
+  } = options;
 
   console.log(`\n=== Creating GitHub Release for v${version} ===`);
 
   // Extract release notes from changelog
-  const releaseNotes = formatReleaseNotes({ version, changelogPath });
+  const releaseNotes = formatReleaseNotes({
+    version,
+    changelogPath,
+    notesFrom,
+  });
 
   // TODO (c): Harden GitHub release/tag creation with retries, templated notes, and PR gating before publishing.
 
@@ -542,7 +740,7 @@ function createRelease(version, options = {}) {
   }
 
   // Use gh CLI to create release
-  const notesFile = `/tmp/release-notes-${version}.md`;
+  const notesFile = path.join(os.tmpdir(), `release-notes-${version}.md`);
   fs.writeFileSync(notesFile, releaseNotes, "utf8");
 
   try {
@@ -559,32 +757,439 @@ function createRelease(version, options = {}) {
 }
 
 /**
- * Create release PR from release branch to main
+ * Validate changelog structure after release update
+ * Ensures the new [Unreleased] section conforms to schema
+ * @param {string} changelogPath - Path to CHANGELOG.md
+ * @param {string} nextVersion - Version that was just released
+ * @throws {Error} If validation fails
  */
-function createReleasePR(version, branch, options = {}) {
+function validatePostReleaseChangelog(
+  changelogPath = "CHANGELOG.md",
+  nextVersion,
+) {
+  console.log(`\n=== Validating Post-Release CHANGELOG ===`);
+
+  if (!nextVersion || typeof nextVersion !== "string") {
+    throw new Error(
+      `Invalid nextVersion parameter: "${nextVersion}" (expected semver string)`,
+    );
+  }
+
+  if (!fs.existsSync(changelogPath)) {
+    throw new Error(`CHANGELOG not found: ${changelogPath}`);
+  }
+
+  const content = fs.readFileSync(changelogPath, "utf8");
+
+  // Validate [Unreleased] section exists
+  if (!content.includes("## [Unreleased]")) {
+    throw new Error(
+      "New [Unreleased] section missing from CHANGELOG after update",
+    );
+  }
+
+  // Validate new version section exists
+  if (!content.includes(`## [${nextVersion}]`)) {
+    throw new Error(
+      `Release section [${nextVersion}] missing from CHANGELOG after update`,
+    );
+  }
+
+  // Validate schema via parseChangelog and validateChangelog
+  try {
+    const changelogData = parseChangelog(changelogPath);
+    const changelogResult = validateChangelog(changelogData);
+
+    if (!changelogResult.valid) {
+      throw new Error(
+        `CHANGELOG schema validation failed: ${changelogResult.errors.join(", ")}`,
+      );
+    }
+
+    console.log(`✓ [Unreleased] section is properly formatted`);
+    console.log(`✓ [${nextVersion}] section is properly formatted`);
+    console.log(`✓ CHANGELOG schema validation passed`);
+  } catch (error) {
+    throw new Error(
+      `Post-release CHANGELOG validation failed: ${error.message}`,
+      { cause: error },
+    );
+  }
+}
+
+/**
+ * Build a release PR body that satisfies the main-branch-guard required sections.
+ * @param {string} version - Release version (e.g. "1.2.3")
+ * @returns {string} PR body markdown
+ */
+function buildReleasePRBody(version) {
+  const today = new Date().toISOString().split("T")[0];
+  return `## Linked issues & merged PRs
+
+<!-- Auto-generated release PR. List any additional issues or PRs here. -->
+
+## Changelog
+
+See \`CHANGELOG.md\` for the full [\`${version}\`] entry dated ${today}.
+
+### Checklist (Global DoD / PR)
+
+- [x] Release branch \`release/v${version}\` created from \`develop\`
+- [x] \`VERSION\` bumped to \`${version}\`
+- [x] \`CHANGELOG.md\` \`[Unreleased]\` rolled to \`[${version}] - ${today}\`
+- [x] Release notes compiled
+- [ ] CI checks green
+- [ ] Approved by maintainer
+`;
+}
+
+/**
+ * Build release PR body for develop target (first PR in develop-first flow)
+ */
+function buildReleasePRBodyToDevelop(version) {
+  const today = new Date().toISOString().split("T")[0];
+  return `## Linked issues & merged PRs
+
+<!-- Auto-generated release PR (Phase 1: develop-first flow). List any additional issues or PRs here. -->
+
+## Changelog
+
+See \`CHANGELOG.md\` for the full [\`${version}\`] entry dated ${today}.
+
+### Release Flow (Develop-First)
+
+This is **Phase 1** of the two-phase release flow:
+
+1. ✅ **Phase 1 (This PR):** Merge release branch → \`develop\`
+   - Bumped VERSION to \`${version}\`
+   - Updated CHANGELOG.md with release notes
+   - Ready for integration testing on develop
+
+2. ⏳ **Phase 2 (Automatic):** Create second PR \`develop\` → \`main\`
+   - Created after this PR merges
+   - Ready for production deployment
+
+### Checklist (Global DoD / PR)
+
+- [x] Release branch \`release/v${version}\` created from \`develop\`
+- [x] \`VERSION\` bumped to \`${version}\`
+- [x] \`CHANGELOG.md\` \`[Unreleased]\` rolled to \`[${version}] - ${today}\`
+- [x] Release notes compiled
+- [ ] CI checks green
+- [ ] Approved by maintainer
+`;
+}
+
+/**
+ * Build release PR body for main target (second PR in develop-first flow)
+ */
+function buildReleasePRBodyToMain(version, developPRNumber) {
+  return `## Release v${version} (Develop → Main)
+
+This is **Phase 2** of the two-phase release flow (develop-first):
+
+### Phase 1 ✅ Complete
+- PR #${developPRNumber}: Merged release branch to \`develop\`
+- VERSION and CHANGELOG updated and integrated
+
+### Phase 2 (This PR) 🚀
+- Promoting \`develop\` to \`main\` for production
+- Ready for GitHub Release creation
+
+### Release Notes
+
+See #${developPRNumber} for full release notes and changelog.
+
+### Checklist (Global DoD / PR)
+
+- [x] Phase 1 (develop) PR merged: #${developPRNumber}
+- [x] Develop branch contains v${version} with all changes
+- [ ] CI checks green on this PR
+- [ ] Approved by maintainer
+- [ ] Merge to main
+`;
+}
+
+/**
+ * Create release PR from release branch to develop (Phase 1 of develop-first flow)
+ */
+function createReleasePRToDevelop(version, branch, options = {}) {
   const { dryRun = false } = options;
   const title = `chore(release): v${version}`;
-  const body =
-    "Automated release PR generated by release.agent.js. Includes version bump, changelog update, and tag creation.";
+  const body = buildReleasePRBodyToDevelop(version);
 
   if (dryRun) {
     console.log(
-      `[DRY-RUN] Would create PR from ${branch} to main with title "${title}"`,
+      `[DRY-RUN] Would create PR from ${branch} to develop with title "${title}"`,
     );
     return;
   }
 
+  const bodyFile = path.join(os.tmpdir(), `release-pr-body-${version}.md`);
+  fs.writeFileSync(bodyFile, body, "utf8");
   try {
     exec(
-      `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
+      `gh pr create --base develop --head ${branch} --title "${title}" --body-file "${bodyFile}"`,
       dryRun,
     );
-    console.log("✓ Release PR created");
-  } catch (error) {
-    console.warn(
-      `⚠️  Failed to auto-create release PR. Please create manually from ${branch} to main. (${error.message})`,
+    console.log("✓ Release PR (develop) created");
+  } finally {
+    if (fs.existsSync(bodyFile)) fs.unlinkSync(bodyFile);
+  }
+}
+
+/**
+ * Create release PR from develop to main (Phase 2 of develop-first flow)
+ */
+function createReleasePRToMain(version, options = {}) {
+  const { dryRun = false, branch, developPRNumber } = options;
+  const headBranch = branch || "develop";
+  const title = `chore(release): v${version} (${headBranch} → main)`;
+  const body = buildReleasePRBodyToMain(version, developPRNumber || "N/A");
+
+  if (dryRun) {
+    console.log(
+      `[DRY-RUN] Would create PR from ${headBranch} to main with title "${title}"`,
+    );
+    return;
+  }
+
+  const bodyFile = path.join(os.tmpdir(), `release-pr-main-${version}.md`);
+  fs.writeFileSync(bodyFile, body, "utf8");
+  try {
+    exec(
+      `gh pr create --base main --head ${headBranch} --title "${title}" --body-file "${bodyFile}"`,
+      dryRun,
+    );
+    console.log(`✓ Release PR (${headBranch} → main) created`);
+    return headBranch; // Return the branch for logging purposes
+  } finally {
+    if (fs.existsSync(bodyFile)) fs.unlinkSync(bodyFile);
+  }
+}
+
+/**
+ * Create release PR (legacy, redirects to develop-first flow)
+ * @deprecated Use createReleasePRToDevelop for new code
+ */
+function createReleasePR(version, branch, options = {}) {
+  return createReleasePRToDevelop(version, branch, options);
+}
+
+/**
+ * Create shell-backed release provider.
+ * @returns {{name: string, preflight: Function, createTag: Function, pushChanges: Function, createReleasePR: Function, createRelease: Function}}
+ */
+function createShellReleaseProvider() {
+  return {
+    name: "shell",
+    async preflight(version, options = {}) {
+      const { dryRun = false } = options;
+      const tagName = `v${version}`;
+      const remoteTag = exec(
+        `git ls-remote --tags origin refs/tags/${tagName}`,
+        dryRun,
+        true,
+      );
+
+      if (!dryRun && remoteTag && remoteTag.trim().length > 0) {
+        throw new Error(`Remote tag ${tagName} already exists.`);
+      }
+
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [SHELL] Preflight check completed for ${tagName}`,
+        );
+      } else {
+        console.log(`✓ [SHELL] Preflight passed for ${tagName}`);
+      }
+    },
+    createTag,
+    pushChanges,
+    createReleasePR,
+    createReleasePRToDevelop,
+    createReleasePRToMain,
+    createRelease,
+  };
+}
+
+/**
+ * Create MCP-backed release provider using GitHub API operations.
+ * @returns {{name: string, preflight: Function, createTag: Function, pushChanges: Function, createReleasePR: Function, createRelease: Function}}
+ */
+function createMcpReleaseProvider() {
+  const getTagRefEndpoint = (owner, repo, tagName) =>
+    `/repos/${owner}/${repo}/git/ref/tags/${tagName}`;
+  const getReleaseByTagEndpoint = (owner, repo, tagName) =>
+    `/repos/${owner}/${repo}/releases/tags/${tagName}`;
+  const createTagRefEndpoint = (owner, repo) =>
+    `/repos/${owner}/${repo}/git/refs`;
+  const createPrEndpoint = (owner, repo) => `/repos/${owner}/${repo}/pulls`;
+  const createReleaseEndpoint = (owner, repo) =>
+    `/repos/${owner}/${repo}/releases`;
+
+  return {
+    name: "mcp",
+    async preflight(version, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const tagName = `v${version}`;
+
+      const existingTag = await githubApiRequest(
+        getTagRefEndpoint(owner, repo, tagName),
+        {
+          allowNotFound: true,
+        },
+      );
+      if (existingTag) {
+        throw new Error(
+          `Remote tag ${tagName} already exists in ${owner}/${repo}.`,
+        );
+      }
+
+      const existingRelease = await githubApiRequest(
+        getReleaseByTagEndpoint(owner, repo, tagName),
+        {
+          allowNotFound: true,
+        },
+      );
+      if (existingRelease) {
+        throw new Error(
+          `GitHub release ${tagName} already exists in ${owner}/${repo}.`,
+        );
+      }
+
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Preflight passed for ${tagName}`);
+      } else {
+        console.log(`✓ [MCP] Preflight passed for ${tagName}`);
+      }
+    },
+    async createTag(version, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const tagName = `v${version}`;
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Would create tag ref ${tagName}`);
+        return;
+      }
+
+      const sha = exec("git rev-parse HEAD").trim();
+      await githubApiRequest(createTagRefEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          ref: `refs/tags/${tagName}`,
+          sha,
+        },
+      });
+      console.log(`✓ [MCP] Tag ${tagName} created`);
+    },
+    pushChanges(options = {}) {
+      const { dryRun = false, branch = "develop" } = options;
+      console.log("\n=== Pushing Changes ===");
+      exec(`git push -u origin ${branch}`, dryRun);
+      console.log("✓ Changes pushed");
+    },
+    async createReleasePR(version, branch, options = {}) {
+      return this.createReleasePRToDevelop(version, branch, options);
+    },
+    async createReleasePRToDevelop(version, branch, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const title = `chore(release): v${version}`;
+      const body = buildReleasePRBodyToDevelop(version);
+
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [MCP] Would create release PR from ${branch} to develop for v${version}`,
+        );
+        return;
+      }
+
+      await githubApiRequest(createPrEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          title,
+          head: branch,
+          base: "develop",
+          body,
+        },
+      });
+      console.log("✓ [MCP] Release PR (develop) created");
+    },
+    async createReleasePRToMain(version, options = {}) {
+      const { dryRun = false, branch, developPRNumber } = options;
+      const headBranch = branch || "develop";
+      const { owner, repo } = getRepositoryContext();
+      const title = `chore(release): v${version} (${headBranch} → main)`;
+      const body = buildReleasePRBodyToMain(version, developPRNumber || "N/A");
+
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [MCP] Would create release PR from ${headBranch} to main for v${version}`,
+        );
+        return;
+      }
+
+      await githubApiRequest(createPrEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          title,
+          head: headBranch,
+          base: "main",
+          body,
+        },
+      });
+      console.log(`✓ [MCP] Release PR (${headBranch} → main) created`);
+      return headBranch;
+    },
+    async createRelease(version, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const releaseNotes = formatReleaseNotes({
+        version,
+        changelogPath: options.changelogPath,
+        notesFrom: options.notesFrom,
+      });
+
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Would publish release v${version}`);
+        return;
+      }
+
+      await githubApiRequest(createReleaseEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          tag_name: `v${version}`,
+          target_commitish: "main",
+          name: `Release v${version}`,
+          body: releaseNotes,
+          draft: false,
+          prerelease: false,
+        },
+      });
+      console.log(`✓ [MCP] GitHub Release v${version} created`);
+    },
+  };
+}
+
+/**
+ * Resolve release provider from runtime config.
+ * @param {string} providerName - Provider identifier
+ * @returns {{name: string, preflight: Function, createTag: Function, pushChanges: Function, createReleasePR: Function, createRelease: Function}}
+ */
+function getReleaseProvider(providerName = "shell") {
+  if (!VALID_PROVIDERS.has(providerName)) {
+    throw new Error(
+      `Invalid release provider "${providerName}". Use one of: ${Array.from(VALID_PROVIDERS).join(", ")}.`,
     );
   }
+
+  if (providerName === "mcp") {
+    return createMcpReleaseProvider();
+  }
+
+  return createShellReleaseProvider();
 }
 
 /**
@@ -597,7 +1202,20 @@ async function run() {
     const dryRun =
       args.includes("--dry-run") || args.includes("--dry-run=true");
     const scopeArg = args.find((arg) => arg.startsWith("--scope="));
+    const versionArg = args.find((arg) => arg.startsWith("--version="));
+    const notesFromArg = args.find((arg) => arg.startsWith("--notes-from="));
+    const providerArg = args.find((arg) => arg.startsWith("--provider="));
     const scope = scopeArg ? scopeArg.split("=")[1] : "patch";
+    const explicitVersion = versionArg ? versionArg.split("=")[1] : "";
+    const notesFrom = notesFromArg ? notesFromArg.split("=")[1] : "";
+    const providerName =
+      (providerArg
+        ? providerArg.split("=")[1]
+        : process.env.RELEASE_PROVIDER || "shell"
+      )
+        .toLowerCase()
+        .trim() || "shell";
+    const provider = getReleaseProvider(providerName);
 
     console.log("╔════════════════════════════════════════╗");
     console.log("║     LightSpeed Release Agent           ║");
@@ -605,6 +1223,13 @@ async function run() {
     console.log("");
     console.log(`Mode: ${dryRun ? "DRY-RUN" : "LIVE"}`);
     console.log(`Scope: ${scope}`);
+    console.log(`Provider: ${provider.name}`);
+    if (explicitVersion) {
+      console.log(`Target Version: ${explicitVersion}`);
+    }
+    if (notesFrom) {
+      console.log(`Release Notes Start: ${notesFrom}`);
+    }
     // TODO (d): Clarify dry-run vs apply controls (additional flags or safeguards) so we can safely exercise the workflow end-to-end.
     console.log("");
 
@@ -626,61 +1251,125 @@ async function run() {
 
     // Step 2: Determine next version
     const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
-    const nextVersion = determineNextVersion(currentVersion, scope);
+    const expectedVersion = determineNextVersion(currentVersion, scope);
+    let nextVersion = expectedVersion;
+    if (explicitVersion) {
+      const versionResult = validateVersion(explicitVersion);
+      if (!versionResult.valid) {
+        throw new Error(
+          `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
+        );
+      }
+      if (compareVersions(explicitVersion, currentVersion) <= 0) {
+        throw new Error(
+          `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
+        );
+      }
+
+      if (explicitVersion !== expectedVersion) {
+        const forced = process.env.RELEASE_FORCE_VERSION === "1";
+        if (!forced) {
+          throw new Error(
+            `Explicit version ${explicitVersion} does not match scope ${scope} (expected ${expectedVersion}). Set RELEASE_FORCE_VERSION=1 to override.`,
+          );
+        }
+        console.warn(
+          `⚠️  Forced version override enabled: ${expectedVersion} → ${explicitVersion}`,
+        );
+      }
+
+      nextVersion = explicitVersion;
+    }
     const releaseBranch = `release/v${nextVersion}`;
 
     console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
     // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
 
-    // Step 2b: Create release branch
+    // Step 2b: Preflight remote collision checks
+    await provider.preflight(nextVersion, { dryRun });
+
+    // Step 2c: Create release branch
     if (!dryRun) {
       exec(`git checkout -b ${releaseBranch}`);
     } else {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
 
-
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });
 
     // Step 4: Update changelog
-    updateChangelog(nextVersion, { dryRun });
+    const updatedChangelogContent = updateChangelog(nextVersion, { dryRun });
 
-    // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
+    // Step 4b: Validate post-release changelog (runs in both dry-run and live)
+    if (dryRun && updatedChangelogContent) {
+      try {
+        // In dry-run, write to temp file and validate
+        const tempPath = ".CHANGELOG.tmp";
+        fs.writeFileSync(tempPath, updatedChangelogContent, "utf8");
+        validatePostReleaseChangelog(tempPath, nextVersion);
+        fs.unlinkSync(tempPath);
+      } catch (error) {
+        console.error(
+          `❌ Post-release changelog validation failed: ${error.message}`,
+        );
+        throw error;
+      }
+    } else if (!dryRun) {
+      try {
+        validatePostReleaseChangelog("CHANGELOG.md", nextVersion);
+      } catch (error) {
+        console.error(
+          `❌ Post-release changelog validation failed: ${error.message}`,
+        );
+        throw error;
+      }
+    }
+
+    // Step 5: Stage all changes and run lint-staged, then commit
     if (!dryRun) {
-      exec("git add .");
-      exec("npx husky run pre-commit");
+      exec("git add VERSION CHANGELOG.md");
+      exec("npx lint-staged");
       exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
     } else {
       console.log(
-        `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
+        `\n[DRY-RUN] Would stage VERSION and CHANGELOG.md, run lint-staged, and commit with message: "chore(release): bump version to ${nextVersion}"`,
       );
     }
 
     // Step 6: Create tag
-    createTag(nextVersion, { dryRun });
+    provider.createTag(nextVersion, { dryRun });
 
     // Step 7: Push changes
-    pushChanges({ dryRun, branch: releaseBranch });
+    provider.pushChanges({ dryRun, branch: releaseBranch });
 
-    // Step 7b: Open release PR (develop -> main via release branch)
-    createReleasePR(nextVersion, releaseBranch, { dryRun });
-
-    // Step 8: Create GitHub Release
-    createRelease(nextVersion, { dryRun });
+    // Step 7b: Open release PR to develop (Phase 1 of stacked PR flow)
+    provider.createReleasePRToDevelop(nextVersion, releaseBranch, { dryRun });
 
     console.log("\n");
     console.log("╔════════════════════════════════════════╗");
-    console.log("║   ✅ Release completed successfully!   ║");
+    console.log("║   ✅ Phase 1 completed successfully!   ║");
     console.log("╚════════════════════════════════════════╝");
     console.log(`\nVersion: ${nextVersion}`);
-    console.log(`Tag: v${nextVersion}`);
+    console.log(`Release Branch: ${releaseBranch}`);
+    console.log(
+      `\nNext Step: Phase 2 (release → main) will run automatically after PR merge.`,
+    );
 
     if (dryRun) {
       console.log("\n⚠️  This was a DRY-RUN. No changes were made.");
     }
   } catch (error) {
     console.error("\n❌ Release failed:", error.message);
+    if (/release\//.test(error.message) || /version/i.test(error.message)) {
+      const failedVersion =
+        process.argv
+          .find((arg) => arg.startsWith("--version="))
+          ?.split("=")[1] || "<target-version>";
+      console.error(
+        `Recovery hint: node scripts/workflows/release/rollback.cjs --version=${failedVersion}`,
+      );
+    }
     if (error.stack) {
       console.error(error.stack);
     }
@@ -698,10 +1387,24 @@ export {
   validateRelease,
   bumpVersion,
   updateChangelog,
+  validatePostReleaseChangelog,
   createTag,
   pushChanges,
   createRelease,
   determineNextVersion,
+  compareVersions,
+  isValidGitRef,
+  detectBreakingChanges,
+  generateHighlights,
   formatReleaseNotes,
+  buildReleasePRBody,
+  buildReleasePRBodyToDevelop,
+  buildReleasePRBodyToMain,
   createReleasePR,
+  createReleasePRToDevelop,
+  createReleasePRToMain,
+  createShellReleaseProvider,
+  createMcpReleaseProvider,
+  getReleaseProvider,
+  githubApiRequest,
 };

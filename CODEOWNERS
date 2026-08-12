@@ -1,43 +1,48 @@
 # CODEOWNERS for LightSpeed WP Scripts
-# Assign reviewers for critical paths in the repository
+# Reference document for code ownership and review responsibilities
 # See <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners>
-
-# Global Owner (fallback for all files)
-* @ashleyshaw @lightspeedwp
-
+#
+# NOTE: Auto-reviewer suggestions disabled via GitHub repository settings
+# to prevent spam reviews. This file is maintained for documentation and
+# audit purposes only. All reviews are manual and triggered by PR authors
+# via template fields. See: Settings → Code review assignment
+#
+# Code ownership mapping (documentation only, no auto-assignment):
+# - @ashleyshaw: Primary reviewer for all critical paths
+# - @lightspeedwp: Organization oversight (no auto-assignment)
+#
 # Governance and Documentation
-/GOVERNANCE.md @ashleyshaw
-/CONTRIBUTING.md @ashleyshaw
-/CODE_OF_CONDUCT.md @ashleyshaw
-/SECURITY.md @ashleyshaw
-/README.md @ashleyshaw
-
+# /GOVERNANCE.md → @ashleyshaw
+# /CONTRIBUTING.md → @ashleyshaw
+# /CODE_OF_CONDUCT.md → @ashleyshaw
+# /SECURITY.md → @ashleyshaw
+# /README.md → @ashleyshaw
+#
 # Workflows and Automation (critical for org-wide automation)
-/.github/workflows/ @ashleyshaw
-
+# /.github/workflows/ → @ashleyshaw
+#
 # Labels and Issue Types (critical for automation)
-/.github/labels.yml @ashleyshaw
-/.github/issue-types.yml @ashleyshaw
-/.github/labeler.yml @ashleyshaw
-
+# /.github/labels.yml → @ashleyshaw
+# /.github/issue-types.yml → @ashleyshaw
+# /.github/labeler.yml → @ashleyshaw
+#
 # AI and Copilot Instructions
-/.github/custom-instructions.md @ashleyshaw
-/.github/agents/ @ashleyshaw
-/agents/ @ashleyshaw
-/.github/prompts/ @ashleyshaw
-/.github/instructions/ @ashleyshaw
-/instructions/ @ashleyshaw
-/AGENTS.md @ashleyshaw
-
+# /.github/custom-instructions.md → @ashleyshaw
+# /.github/agents/ → @ashleyshaw
+# /agents/ → @ashleyshaw
+# /.github/prompts/ → @ashleyshaw
+# /.github/instructions/ → @ashleyshaw
+# /instructions/ → @ashleyshaw
+# /AGENTS.md → @ashleyshaw
+#
 # Core Documentation
-/docs/ @ashleyshaw
-
+# /docs/ → @ashleyshaw
+#
 # Scripts (validation, automation, testing)
-/scripts/ @ashleyshaw
-
+# /scripts/ → @ashleyshaw
+#
 # Tests (quality assurance)
-/tests/ @ashleyshaw
-
+# /tests/ → @ashleyshaw
+#
 # Schemas (JSON validation)
-/.schemas/ @ashleyshaw
-/.schemas/ @ashleyshaw
+# /.schemas/ → @ashleyshaw

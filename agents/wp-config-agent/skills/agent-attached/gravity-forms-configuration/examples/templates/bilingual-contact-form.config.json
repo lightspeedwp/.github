@@ -1,0 +1,115 @@
+{
+  "form_name": "Bilingual Contact Form",
+  "purpose": "Collect contact enquiries from a bilingual publication or service page while preserving language-specific consent and routing.",
+  "audience": "Readers, customers, or prospects using English or Afrikaans pages",
+  "source_template": "custom bilingual contact pattern",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Name / Naam",
+      "type": "name",
+      "required": true
+    },
+    {
+      "id": 2,
+      "label": "Email address / E-posadres",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": 3,
+      "label": "Phone / Telefoon",
+      "type": "phone",
+      "required": false
+    },
+    {
+      "id": 4,
+      "label": "Preferred language / Voorkeurtaal",
+      "type": "select",
+      "required": true,
+      "choices": [
+        "English",
+        "Afrikaans"
+      ]
+    },
+    {
+      "id": 5,
+      "label": "Enquiry type / Tipe navraag",
+      "type": "select",
+      "required": true,
+      "choices": [
+        "Newsdesk",
+        "Advertising",
+        "Subscription",
+        "General"
+      ]
+    },
+    {
+      "id": 6,
+      "label": "Message / Boodskap",
+      "type": "textarea",
+      "required": true
+    },
+    {
+      "id": 7,
+      "label": "Consent / Toestemming",
+      "type": "consent",
+      "required": true
+    }
+  ],
+  "field_settings": {
+    "labels": "Visible bilingual labels are used. Avoid placeholder-only translations.",
+    "consent": "Consent wording must be approved in each language before publishing.",
+    "routing": "Preferred language and enquiry type can route notifications if approved."
+  },
+  "conditional_logic": [],
+  "confirmations": [
+    {
+      "name": "Default confirmation",
+      "type": "text",
+      "message": "Thank you. We have received your enquiry and will route it to the correct team."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Admin notification",
+      "recipients": "Configured site team address",
+      "reply_to": "{Email address / E-posadres:2}",
+      "includes": "source page, preferred language, enquiry type, message"
+    }
+  ],
+  "feeds": [],
+  "spam_settings": {
+    "honeypot": "enabled if available",
+    "additional": "Turnstile/reCAPTCHA only if installed and approved"
+  },
+  "accessibility_settings": {
+    "labels": "Visible bilingual labels",
+    "descriptions": "Short descriptions only where needed",
+    "validation": "Test validation in each language variant"
+  },
+  "embedding_target": {
+    "page": "Language-specific contact page",
+    "method": "Gravity Forms block preferred"
+  },
+  "data_retention_notes": "Review retention, consent record, export/erase readiness, and whether bilingual consent text is approved.",
+  "test_data": {
+    "english": {
+      "name": "Test User",
+      "email": "test@example.com",
+      "language": "English"
+    },
+    "afrikaans": {
+      "name": "Toets Gebruiker",
+      "email": "toets@example.com",
+      "language": "Afrikaans"
+    }
+  },
+  "required_addons": [],
+  "risks": [
+    "Consent translation requires approval",
+    "Mixed-language labels may be unsuitable for some page contexts",
+    "Notification routing must be tested"
+  ],
+  "approval_status": "draft"
+}

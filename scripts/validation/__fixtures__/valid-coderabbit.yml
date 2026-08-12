@@ -1,5 +1,8 @@
 # Minimal valid .coderabbit.yml for test
+language: "en-GB"
 reviews:
   path_filters:
-    - "src/**/*.js"
-  auto_review: true
+    - "!build/**"
+    - "!node_modules/**"
+  profile: "chill"
+  review_status: true

@@ -25,7 +25,7 @@ function extractFrontmatter(content) {
   if (!m) return null;
   try {
     return yaml.load(m[1]);
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }

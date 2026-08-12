@@ -1,0 +1,132 @@
+name: Validate Issue Labels
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+  pull_request:
+    types: [opened, edited, labeled, unlabeled, synchronize]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  checks: write
+
+concurrency:
+  group: validate-labels-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  validate-labels:
+    name: Validate Canonical Labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "20"
+
+      - name: Install js-yaml
+        run: npm install js-yaml
+
+      - name: Extract labels
+        id: labels
+        run: |
+          if [ "${{ github.event_name }}" == "issues" ]; then
+            LABELS='${{ toJson(github.event.issue.labels.*.name) }}'
+            ITEM_TYPE="issue"
+            ITEM_NUMBER="${{ github.event.issue.number }}"
+          else
+            LABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
+            ITEM_TYPE="pull request"
+            ITEM_NUMBER="${{ github.event.pull_request.number }}"
+          fi
+
+          # Convert JSON array to comma-separated string
+          LABELS_STR=$(echo "$LABELS" | jq -r 'join(",")')
+
+          echo "labels=$LABELS_STR" >> $GITHUB_OUTPUT
+          echo "item_type=$ITEM_TYPE" >> $GITHUB_OUTPUT
+          echo "item_number=$ITEM_NUMBER" >> $GITHUB_OUTPUT
+
+      - name: Validate labels
+        id: validate
+        continue-on-error: true
+        run: |
+          node .github/scripts/validation/validate-labels-before-creation.cjs \
+            --labels "${{ steps.labels.outputs.labels }}" \
+            --canonical-file .github/labels.yml > validation-output.txt 2>&1
+
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Parse validation results
+        id: parse
+        run: |
+          if grep -q "✅ Label validation passed" validation-output.txt; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+            echo "message=✅ All labels are canonical and valid" >> $GITHUB_OUTPUT
+          else
+            echo "valid=false" >> $GITHUB_OUTPUT
+            # Extract error messages
+            ERRORS=$(grep "❌" validation-output.txt | sed 's/^  //' || echo "Validation failed")
+            echo "message=$ERRORS" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on validation failure
+        if: steps.parse.outputs.valid == 'false'
+        uses: actions/github-script@v7
+        env:
+          ITEM_TYPE: ${{ steps.labels.outputs.item_type }}
+          LABELS: ${{ steps.labels.outputs.labels }}
+          ERRORS: ${{ steps.parse.outputs.message }}
+        with:
+          script: |
+            const itemType = process.env.ITEM_TYPE;
+            const labels = process.env.LABELS;
+            const errors = process.env.ERRORS;
+
+            const message = [
+              '## ⚠️ Label Validation Failed',
+              '',
+              `**Labels on this ${itemType}:**`,
+              `\`${labels}\``,
+              '',
+              '**Issues:**',
+              errors,
+              '',
+              '**How to fix:**',
+              '1. Use only canonical labels with family prefixes: `type:`, `status:`, `priority:`, `area:`, `meta:`, etc.',
+              '2. Check the [canonical labels](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml) (158 total)',
+              '3. Each family allows ONE label (except `meta:` and `comp:` which allow multiple)',
+              '4. All issues/PRs must have a `type:*` label',
+              '',
+              '**Valid Examples:**',
+              '```',
+              'type:bug, status:needs-triage, priority:critical, area:ci',
+              'type:feature, priority:normal, area:documentation',
+              'type:task, status:ready, area:automation',
+              '```',
+              '',
+              '**Need help?** See [LABELING.md](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)'
+            ].join('\n');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+      - name: Report validation status
+        run: |
+          if [ "${{ steps.parse.outputs.valid }}" == "true" ]; then
+            echo "✅ Label validation passed"
+            exit 0
+          else
+            echo "❌ Label validation failed"
+            exit 1
+          fi
