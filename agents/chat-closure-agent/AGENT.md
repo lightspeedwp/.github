@@ -11,7 +11,7 @@ providers:
   - copilot
   - openai
 created_date: 2026-08-12
-last_updated: 2026-08-13
+last_updated: 2026-08-12
 authors:
   - Ash Shaw
 maintainer: Ash Shaw
