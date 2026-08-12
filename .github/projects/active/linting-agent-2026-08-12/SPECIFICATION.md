@@ -57,22 +57,21 @@ A **portable, configurable linting agent** that:
 ### 2.1 Agent Architecture
 
 ```mermaid
-%%{init: {'flowchart': {'htmlLabels': true}, 'theme': 'base', 'themeVariables': { 'primaryColor':'#f0f0f0', 'primaryTextColor':'#000000', 'primaryBorderColor':'#333333', 'lineColor':'#333333', 'secondBkgColor':'#f0f0f0', 'secondTextColor':'#000000', 'tertiaryColor':'#ffffff', 'tertiaryTextColor':'#000000', 'tertiaryBorderColor':'#333333'}}}%%
 graph TD
-    A[Linting Agent Invoked] --> B[Parse Input Targets]
-    B --> C[Load Canonical Config]
-    C --> D[Match Rules to Files]
-    D --> E{File Type Detected?}
-    E -->|Yes| F[Execute Linters]
-    E -->|No| G[Skip File]
-    F --> H[Collect Findings]
-    H --> I[Deduplicate Findings]
-    I --> J[Group by File]
-    J --> K[Generate Report]
-    K --> L[Summary + Findings + Remediation]
-    L --> M{User Requests Fixes?}
-    M -->|Yes| N[Handoff to Lint-Fixer Agent]
-    M -->|No| O[End]
+    A["Linting Agent Invoked"] --> B["Parse Input Targets"]
+    B --> C["Load Canonical Config"]
+    C --> D["Match Rules to Files"]
+    D --> E{"File Type Detected?"}
+    E -->|Yes| F["Execute Linters"]
+    E -->|No| G["Skip File"]
+    F --> H["Collect Findings"]
+    H --> I["Deduplicate Findings"]
+    I --> J["Group by File"]
+    J --> K["Generate Report"]
+    K --> L["Summary + Findings + Remediation"]
+    L --> M{"User Requests Fixes?"}
+    M -->|Yes| N["Handoff to Lint-Fixer Agent"]
+    M -->|No| O["End"]
     N --> O
 ```
 
@@ -105,17 +104,16 @@ graph TD
 ### 2.4 Supported Linters
 
 ```mermaid
-%%{init: {'flowchart': {'htmlLabels': true}, 'theme': 'base', 'themeVariables': { 'primaryColor':'#f0f0f0', 'primaryTextColor':'#000000', 'primaryBorderColor':'#333333', 'lineColor':'#333333', 'secondBkgColor':'#f0f0f0', 'secondTextColor':'#000000'}}}%%
 graph LR
-    A[Linting Agent] --> B[JavaScript/TypeScript]
-    A --> C[Markdown]
-    A --> D[YAML]
-    A --> E[JSON]
-    A --> F[Shell]
-    A --> G[PHP]
-    A --> H[CSS/SCSS]
-    A --> I[HTML]
-    A --> J[Python]
+    A["Linting Agent"] --> B["JavaScript/TypeScript"]
+    A --> C["Markdown"]
+    A --> D["YAML"]
+    A --> E["JSON"]
+    A --> F["Shell"]
+    A --> G["PHP"]
+    A --> H["CSS/SCSS"]
+    A --> I["HTML"]
+    A --> J["Python"]
 
     B --> B1["ESLint + Prettier"]
     C --> C1["markdownlint + Prettier"]
