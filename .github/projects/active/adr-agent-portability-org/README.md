@@ -341,13 +341,28 @@ Central registry, metrics, and knowledge management.
 
 ---
 
+## OpenSpec Documentation
+
+This project is tracked in the formal OpenSpec specification system:
+
+**OpenSpec Location:** `/openspec/changes/adr-agent-portability/`
+
+**Available Specs:**
+
+- **[proposal.md](/openspec/changes/adr-agent-portability/proposal.md)** — Problem statement, solution overview, scope, decision points
+- **[design.md](/openspec/changes/adr-agent-portability/design.md)** — Technical design, architecture, component specifications, implementation approach
+
+**OpenSpec Status:** 🔵 Active (Proposal & Design phases complete)
+
+---
+
 ## Next Steps
 
-1. Create linked GitHub epic issue
-2. Review and finalize decision points (DP-001 through DP-006)
-3. Run OpenSpec to flesh out Phase 1 details
-4. Create Phase 1A–1C implementation issues
-5. Begin Phase 1A work (configuration system)
+1. ✅ Create linked GitHub epic issue (#1828)
+2. ✅ Run OpenSpec to flesh out Phase 1 details (COMPLETE)
+3. ⏳ Review and finalize decision points (DP-001 through DP-006)
+4. ⏳ Create Phase 1A–1C implementation issues (#1829–#1831)
+5. ⏳ Begin Phase 1A work (configuration system)
 
 ---
 

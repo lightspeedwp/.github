@@ -2,7 +2,29 @@
 
 **Status:** 🟡 In Progress  
 **Last Updated:** 2026-08-12  
-**Owner:** @ash
+**Owner:** @ash  
+**Related Issue:** [#1828](https://github.com/lightspeedwp/.github/issues/1828)  
+**Related PR:** [#1826](https://github.com/lightspeedwp/.github/pull/1826)
+
+---
+
+## OpenSpec Documentation
+
+This document serves as the detailed implementation specification for the ADR Agent Portability project, formalizing the specifications tracked in the OpenSpec system.
+
+**OpenSpec Specs:**
+
+- **[proposal.md](/openspec/changes/adr-agent-portability/proposal.md)** — Problem statement and high-level solution
+- **[design.md](/openspec/changes/adr-agent-portability/design.md)** — Technical design and implementation approach
+
+**Coordination:**
+
+- **Active Project:** [.github/projects/active/adr-agent-portability-org/](./)
+- **GitHub Epic:** [#1828](https://github.com/lightspeedwp/.github/issues/1828)
+- **GitHub Phase Issues:** [#1829–#1831](https://github.com/lightspeedwp/.github/issues) (Phase 1A–1C)
+- **Planning PR:** [#1826](https://github.com/lightspeedwp/.github/pull/1826)
+
+**OpenSpec Status:** 🔵 Active (Proposal & Design phases complete)
 
 ---
 
