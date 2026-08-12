@@ -16,8 +16,7 @@ related_issues: []
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1798](../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
-| [#1855](../../../issues/1855) | task | Reviewer Agent v2 — Comprehensive Planning & Specification Phase Complete | 🟢 Open |
+| [#1798](../../../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
 
 ## Project Overview
 
