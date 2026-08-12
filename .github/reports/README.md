@@ -1,249 +1,115 @@
----
-title: "Reports Directory"
-description: "Repository for all generated reports, analysis outputs, audit files, and agent execution summaries. Includes analysis, audits, implementation tracking, migration reports, and metrics."
-file_type: documentation
-version: v1.1
-last_updated: "2026-05-31"
-created_date: "2026-05-01"
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-tags: ["reports", "audits", "analytics", "documentation", "governance"]
-domain: "governance"
-stability: "stable"
----
-
 # Reports Directory
 
-This directory contains all generated reports, analysis outputs, audit files, and agent execution summaries.
+This directory organises operational reports, audits, and analysis documents across their lifecycle.
 
-## Purpose
+## Folder Structure
 
-- Store all Copilot/agent-generated reports
-- Centralize analysis and audit outputs
-- Maintain organized report archives
-- Provide single source of truth for all reporting artifacts
+### `active/`
 
-## Directory Structure
+Current, referenced reports being actively used in planning, decision-making, or open initiatives.
 
-```
-.github/reports/
-├── analysis/        # Code analysis, technical audits, and investigation reports
-├── audits/          # One-time audit outputs (compliance, schema validation, system audits)
-├── implementation/  # Implementation tracking, completion summaries, and rollout reports
-├── migration/       # Migration reports, data transfer logs, and transition documentation
-├── validation/      # Schema validation, config validation, and compliance reports
-├── agents/          # Agent execution reports, completion summaries, and performance logs
-├── coverage/        # Test coverage reports and quality metrics
-├── frontmatter/     # Frontmatter schema validation and compliance reports
-├── issue-metrics/   # GitHub issue analytics, metrics, and trends
-├── labeling/        # Label automation reports, sync logs, and refactoring analysis
-├── linting/         # ESLint baselines, code quality reports, and wave plans
-├── meta/            # Documentation metadata (badges, references, footer updates)
-├── metrics/         # General metrics collection, weekly summaries, and trend reports
-├── optimisation/    # Performance optimisation reports, token reduction, context analysis
-└── progress/        # Daily updates and weekly summaries for long-running work
-```
+**Characteristics:**
 
-## Subdirectory Descriptions
+- Recently created or frequently referenced
+- Linked to open GitHub issues or active projects
+- Inform ongoing work or active decisions
+- Typically updated or validated in recent sprints
 
-### analysis/
+**When to Archive:**
 
-**Purpose:** General code and system analysis reports that don't fit into more specific categories.
+- Report is superseded by a newer version
+- Referenced initiative/issue is closed
+- Information is historical and no longer actionable
+- Over 90 days old AND no recent references
 
-**Examples:**
+### `archive/`
 
-- Technical debt analysis
-- Architecture reviews
-- Dependency audits
-- Security scans
+Completed, historical, or reference reports organized by category.
 
-### audits/
+#### `archive/weekly-summaries/`
 
-**Purpose:** Formal audit reports for compliance, standards verification, and system-wide checks.
+Automated weekly status summaries and standup reports (no longer active, kept for reference).
 
-**Examples:**
+#### `archive/deprecated-audits/`
 
-- `frontmatter-compliance-audit-2025-12-09.csv`
-- `workflow-security-audit-2025-12-09.md`
-- `accessibility-audit-report.md`
+Stub files, incomplete audits, test reports, and other incomplete work products.
 
-### implementation/
+#### `archive/workflow-artifacts/`
 
-**Purpose:** Track implementation progress, feature rollouts, and completion summaries.
+Release notes, changelogs, and CI/CD workflow outputs (preserved for historical record).
 
-**Examples:**
+#### `archive/a11y-completed/`
 
-- `phase-5-implementation-summary-2025-12-09.md`
-- `feature-rollout-status.md`
-- `deployment-completion-report.md`
+Accessibility (WCAG 2.2 AA) audit reports and remediation documentation from completed initiatives.
 
-### migration/
+#### `archive/historical/`
 
-**Purpose:** Document file migrations, data transfers, and system transitions.
+Pre-restructuring guides, legacy documentation, and organizational reference materials.
 
-**Examples:**
+### `archived/`
 
-- `file-organization-migration-2025-12-09.md`
-- `database-migration-log-2025-12-10.md`
-- `api-version-transition-report.md`
+Legacy folder for reports migrated during Phase 2 (maintained for backward compatibility during transition).
 
-### validation/
+### `audits/`
 
-**Purpose:** Validation results for schemas, configurations, and standards compliance.
+Audit reports and assessment documents (may be consolidated into `archive/` in future phases).
 
-**Examples:**
+## Report Lifecycle Policy
 
-- `schema-validation-errors-2025-12-09.json`
-- `config-compliance-report.md`
-- `frontmatter-validation-summary.md`
+### Creating a Report
 
-### agents/
+1. **Determine lifecycle:** Will this be actively used for >2 months? If yes, place in `active/`. If not, place directly in appropriate `archive/` subfolder.
+2. **Use descriptive naming:** `{category}-{descriptor}-{date}.md` (kebab-case, ISO date format)
+3. **Link to issues:** If report informs a decision, link to the related GitHub issue in the report header
+4. **Link to projects:** If report documents an active project, add to project README "Related Reports" section
 
-**Purpose:** Reports generated by automated agents, including completion summaries and performance metrics.
+### Archiving a Report
 
-**Examples:**
+**When to archive:**
 
-- `labeling-agent-completion-2025-12-09.md`
-- `release-agent-summary.md`
-- `automation-performance-metrics.json`
+- Initiative/issue is closed
+- Report is superseded by newer information
+- Report hasn't been referenced in 90+ days
+- Report is complete and no longer requires updates
 
-### coverage/
+**How to archive:**
 
-**Purpose:** Test coverage reports and quality assurance metrics.
+```bash
+# Move report to appropriate archive subfolder
+git mv .github/reports/active/report-name.md .github/reports/archive/{category}/report-name.md
 
-**Examples:**
-
-- `test-coverage-summary-2025-w50.md`
-- `unit-test-coverage-report.html`
-- `integration-coverage-metrics.json`
-
-### frontmatter/
-
-**Purpose:** Frontmatter-specific validation, compliance checks, and schema reports.
-
-**Examples:**
-
-- `frontmatter-schema-errors-2025-12-09.json`
-- `missing-frontmatter-report.md`
-- `frontmatter-compliance-summary.csv`
-
-### issue-metrics/
-
-**Purpose:** GitHub issue analytics, metrics collection, and trend analysis.
-
-**Examples:**
-
-- `weekly-issue-metrics-2025-w50.json`
-- `issue-resolution-trends.md`
-- `label-distribution-analysis.csv`
-
-### labeling/
-
-**Purpose:** Label automation reports, synchronization logs, and label refactoring analysis.
-
-**Examples:**
-
-- `label-sync-log-2025-12-09.md`
-- `labeling-refactor-analysis.md`
-- `label-coverage-report-run-12345.json`
-
-### linting/
-
-**Purpose:** Code quality reports, ESLint baselines, and linting wave plans.
-
-**Examples:**
-
-- `eslint-baseline-2025-12-09.json`
-- `linting-wave-1-plan.md`
-- `code-quality-improvements-summary.md`
-
-### meta/
-
-**Purpose:** Documentation metadata reports including badge updates, reference tracking, and footer management.
-
-**Examples:**
-
-- `badge-application-metrics-2025-12-09.json`
-- `footer-update-summary.md`
-- `reference-link-validation.csv`
-
-### metrics/
-
-**Purpose:** General metrics collection, weekly summaries, and organizational health tracking.
-
-**Examples:**
-
-- `weekly-summary-2025-12-08.md`
-- `repository-health-metrics.json`
-- `contributor-activity-trends.csv`
-
-### optimisation/
-
-**Purpose:** Performance optimisation analysis, token reduction reports, and efficiency improvements.
-
-**Examples:**
-
-- `priority1-analysis-2025-12-09.txt`
-- `token-reduction-summary.md`
-- `context-optimisation-report.json`
-
-### progress/
-
-**Purpose:** Chronological updates for multi-day or multi-week projects, including daily updates and weekly summaries.
-
-**Examples:**
-
-- `daily-update-2025-12-11.md`
-- `weekly-summary-2025-w50.md`
-- `week-of-2025-12-15-platform-refresh.md`
-
-## File Naming Convention
-
-Use descriptive names with timestamps for time-specific reports:
-
-```
-{type}-{subject}-{timestamp}.{ext}
-
-Examples:
-optimisation/priority1-analysis-2025-12-09.txt
-audits/frontmatter-compliance-2025-12-09.csv
-labeling/summary-run-12345.md
-metrics/weekly-summary-2025-w50.json
-migration/file-organization-migration-2025-12-09.md
-progress/daily-update-2025-12-11.md
-progress/weekly-summary-2025-w50.md
+# Create a commit
+git commit -m "archive: Move {report-name} to archive/{category}"
 ```
 
-**Naming Guidelines:**
+See [ARCHIVE_WORKFLOW_GUIDE.md](../..)/.github/ARCHIVE_WORKFLOW_GUIDE.md) for the complete archival process.
 
-- Use lowercase with hyphens (kebab-case)
-- Include ISO date format `YYYY-MM-DD` for time-specific reports
-- Use descriptive names that indicate content
-- Avoid generic names like `report.md` or `output.txt`
+## Quick Navigation
 
-## Guidelines
+| Folder | Purpose | Use For |
+|--------|---------|---------|
+| `active/` | Current, referenced reports | Decision-making, active planning |
+| `archive/weekly-summaries/` | Historical status summaries | Reference, historical context |
+| `archive/deprecated-audits/` | Incomplete/stub reports | (Archive only, don't create) |
+| `archive/workflow-artifacts/` | Releases, changelogs | Release notes, historical records |
+| `archive/a11y-completed/` | WCAG 2.2 AA audit results | Accessibility compliance history |
+| `archive/historical/` | Pre-restructuring guides | Legacy reference, organizational context |
 
-✅ **DO:**
+## Maintenance
 
-- Create all reports in this directory or appropriate subdirectory
-- Use descriptive filenames with timestamps
-- Include frontmatter in markdown reports for metadata
-- Commit reports that provide value for future reference
+**Monthly:** Review `active/` folder for reports ready to archive (no activity in 90+ days)
 
-❌ **DON'T:**
+**Quarterly:** Audit cross-references between reports and GitHub issues to identify orphaned reports
 
-- Create report files in repository root
-- Create report files in `docs/` folder
-- Create report files in `/tmp/` or other temporary locations
-- Use generic names like `report.txt` or `output.md`
+**Annual:** Review archival categories for consolidation opportunities
 
 ## Related Documentation
 
-- [File Organisation Instructions](../instructions/file-organisation.instructions.md)
-- [Community Standards](../instructions/community-standards.instructions.md)
-- [Agent Development Standards](../instructions/automation.instructions.md)
+- **[.github/ARCHIVE_WORKFLOW_GUIDE.md](../..)/.github/ARCHIVE_WORKFLOW_GUIDE.md)** — Project archival process
+- **[CLAUDE.md](../../)** — Reports folder structure reference (section: Reports & Projects Restructuring)
+- **[.github/projects/active/reports-projects-restructuring-2026-08-11/](../projects/active/reports-projects-restructuring-2026-08-11/)** — Initiative details
 
 ---
 
-*For questions about report organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
+**Last Updated:** 2026-08-12  
+**Restructuring Status:** ✅ Phase 4 Complete

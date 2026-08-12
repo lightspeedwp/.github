@@ -518,6 +518,39 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 
 **Documentation Standards note (Phase 3A):** Comprehensive standards for creating agents, skills, instructions, workflows, plugins, and other AI infrastructure are maintained in `docs/`. These 9 standards documents are the authoritative reference for all AI-driven work. See [AGENTS.md#documentation-standards](./AGENTS.md#documentation-standards) for the complete quick reference guide.
 
+## Reports Directory Structure
+
+All operational reports and audit documents are organized in `.github/reports/` by lifecycle:
+
+**Folder Structure:**
+
+- **`active/`** — Current, actively referenced reports used in decision-making and planning (63 reports)
+- **`archive/weekly-summaries/`** — Historical weekly status summaries (no longer active)
+- **`archive/deprecated-audits/`** — Incomplete/stub reports and test files
+- **`archive/workflow-artifacts/`** — Release notes, changelogs, and CI/CD outputs
+- **`archive/a11y-completed/`** — WCAG 2.2 AA audit reports from completed initiatives
+- **`archive/historical/`** — Pre-restructuring guides and legacy documentation
+
+**Report Lifecycle:**
+
+- Reports start in `active/` when created for decision-making
+- Move to appropriate `archive/` subfolder when:
+  - Initiative/issue is closed
+  - Report is superseded by newer information
+  - Report hasn't been referenced in 90+ days
+- See [.github/reports/README.md](./.github/reports/README.md) for full lifecycle policy
+
+**Archival Process:**
+
+```bash
+git mv .github/reports/active/{report-name} .github/reports/archive/{category}/{report-name}
+git commit -m "archive: Move {report-name} to archive/{category}"
+```
+
+See [.github/ARCHIVE_WORKFLOW_GUIDE.md](./.github/ARCHIVE_WORKFLOW_GUIDE.md) for complete archival process.
+
+**Restructuring Initiative:** [.github/projects/active/reports-projects-restructuring-2026-08-11/](./.github/projects/active/reports-projects-restructuring-2026-08-11/) (Phase 1-4 complete)
+
 ## Project Management & Archival Process
 
 ### Active Projects
@@ -526,7 +559,7 @@ All active projects are stored in `.github/projects/active/{slug}/` and must:
 
 1. **Have a README.md** with project overview, phases, and deliverables
 2. **Link to GitHub issues** via a "Related Issues" section
-3. **Follow linking standards** — see [LINKING_STANDARD.md](./.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)
+3. **Follow linking standards** — see [docs/PROJECT_ISSUE_LINKING_STANDARD.md](./docs/PROJECT_ISSUE_LINKING_STANDARD.md)
 4. **Be validated by CI** — workflow `validate-project-linking.yml` checks all active projects have ≥1 linked issue
 
 ### Archiving Completed Projects
@@ -584,7 +617,7 @@ This issue is part of:
 - [reports-projects-restructuring-2026-08-11](./.github/projects/active/reports-projects-restructuring-2026-08-11/)
 ```
 
-**Complete standard:** [LINKING_STANDARD.md](./.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)
+**Complete standard:** [docs/PROJECT_ISSUE_LINKING_STANDARD.md](./docs/PROJECT_ISSUE_LINKING_STANDARD.md)
 
 ## Agentic Release Workflows (Phase 5A)
 
