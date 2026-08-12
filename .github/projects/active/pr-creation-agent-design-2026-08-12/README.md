@@ -5,6 +5,14 @@
 **Initiative Type:** Agent Architecture & Design  
 **Scope:** Portable PR creation/implementer agent for multi-repo usage
 
+## 🔗 GitHub Tracking
+
+| Item | Link | Status |
+|------|------|--------|
+| **Design Issue** | [#1812 — PR Creation Agent Design Initiative](https://github.com/lightspeedwp/.github/issues/1812) | 🟢 Open |
+| **Delivery PR** | [#1796 — Design Phase Implementation](https://github.com/lightspeedwp/.github/pull/1796) | 📋 In Review |
+| **Parent Epic** | [#1722 — Repository Restructuring & Agent Standardisation](https://github.com/lightspeedwp/.github/issues/1722) | 🟢 Open |
+
 ## Overview
 
 This project defines a **portable PR creation agent** that can automate pull request generation across the LightSpeed ecosystem. The agent will encapsulate best practices for:
@@ -83,25 +91,39 @@ See [DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md) for 9 critical design questions
 8. Target repos?
 9. Repo-specific customisation?
 
-## Related Issues
+## Related Issues & Documents
 
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [PR Creation Agent Specification](../../../issues/new?title=feat:%20PR%20Creation%20Agent%20Specification&body=related%20to%20design%20initiative%202026-08-12) | task | Capture phase 1 requirements | 🟡 Pending |
+| Item | Type | Purpose | Status |
+|------|------|---------|--------|
+| [#1812](https://github.com/lightspeedwp/.github/issues/1812) | design | PR Creation Agent Design Initiative | 🟢 Tracking |
+| [#1796](https://github.com/lightspeedwp/.github/pull/1796) | pr | Design phase delivery PR | 📋 In Review |
+| [#1722](https://github.com/lightspeedwp/.github/issues/1722) | epic | Repository restructuring & agent standardisation | 🟢 Open |
+| [OPENSPEC.md](./OPENSPEC.md) | spec | Formal specification document | ✅ Complete |
+| [DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md) | qa | 9 design questions & answers | ✅ Complete |
 
 ## Key Files
 
-- **[DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md)** — Requirements, questions, and best-practice answers
-- **SPEC.md** (Phase 2) — Agent specification and schema
-- **ARCHITECTURE.md** (Phase 2) — Integration and portability architecture
-- **IMPLEMENTATION_PLAN.md** (Phase 3) — Implementation roadmap
+### Phase 1 (Complete)
 
-## Architecture Decisions (TBD)
+- **[OPENSPEC.md](./OPENSPEC.md)** — Formal specification with design decisions
+- **[DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md)** — 9 critical questions + comprehensive answers
+- **[README.md](./README.md)** — Project overview and planning
 
-- **Agent Tier:** Spec-based vs. multi-file (pending Phase 1 analysis)
-- **Skill Approach:** Monolithic vs. skill-delegating (pending requirements)
-- **Configuration Model:** Repo-specific customisation strategy (pending Phase 1)
-- **Integration Points:** Validation workflows, template routing, label enforcement (pending Phase 1)
+### Phase 2–4 (Planned)
+
+- **SPECIFICATION.md** — Agent specification and schema
+- **ARCHITECTURE.md** — Integration and portability architecture
+- **IMPLEMENTATION_PLAN.md** — Implementation roadmap
+- **INTEGRATION_GUIDE.md** — Per-repo installation guide
+
+## Architecture Decisions (Phase 1 Complete)
+
+- **Agent Tier:** ✅ **Multi-file agent** (not spec-based) — Complexity & skill reuse justify it
+- **Skill Approach:** ✅ **Skill-delegating** — 4 existing + 6 new skills for better reusability
+- **Configuration Model:** ✅ **Config-driven** — `.claude/pr-agent.config.yml` + optional hooks
+- **Integration Points:** ✅ **Full governance stack** — Branch naming, templates, labels, issues, feedback, Mergify
+- **Autonomy Level:** ✅ **Level 2 (Create + Commit + PR)** — Balance automation with safety & audit trail
+- **Portability:** ✅ **Single codebase, per-repo config** — Supports 8–12+ target repos
 
 ## Success Criteria
 
