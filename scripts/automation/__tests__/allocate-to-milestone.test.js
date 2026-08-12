@@ -2,25 +2,34 @@
  * allocate-to-milestone.test.js - Test suite for milestone allocation script
  */
 
-// Note: Script uses ES modules, tests use CommonJS. Mock only the Octokit dependency.
+import { jest } from "@jest/globals";
+import {
+  MilestoneAllocator,
+  AllocationError,
+} from "../allocate-to-milestone.js";
 
-jest.mock("octokit", () => {
-  return {
-    Octokit: jest.fn().mockImplementation(() => ({
-      rest: {
-        issues: {
-          listMilestones: jest.fn(),
-          get: jest.fn(),
-          update: jest.fn(),
+// Mock Octokit
+jest.mock(
+  "octokit",
+  () => {
+    return {
+      Octokit: jest.fn().mockImplementation(() => ({
+        rest: {
+          issues: {
+            listMilestones: jest.fn(),
+            get: jest.fn(),
+            update: jest.fn(),
+          },
+          pulls: {
+            get: jest.fn(),
+            update: jest.fn(),
+          },
         },
-        pulls: {
-          get: jest.fn(),
-          update: jest.fn(),
-        },
-      },
-    })),
-  };
-});
+      })),
+    };
+  },
+  { virtual: true },
+);
 
 describe("MilestoneAllocator", () => {
   let allocator;
