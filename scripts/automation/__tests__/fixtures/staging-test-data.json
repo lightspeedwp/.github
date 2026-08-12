@@ -64,9 +64,9 @@
       },
       "aging": {
         "count": 25,
-        "description": "Issues inactive 30-90 days",
-        "daysOld": 60,
-        "expectedMetaLabels": []
+        "description": "Issues inactive 30-90 days (stale threshold at 30 days)",
+        "daysOld": 45,
+        "expectedMetaLabels": ["meta:stale"]
       },
       "stale": {
         "count": 25,
