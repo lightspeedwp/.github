@@ -34,6 +34,22 @@ This project **bridges Phase 1 (Specification) and Phase 2 (Implementation)** by
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1800](../../../issues/1800) | task | Issue Management Agent — Phase 1 Planning Complete | 🟢 Open |
+| [#1771](../../../issues/1771) | epic | Issue Maintenance Scripts Phase 4 | 🟢 Open |
+| [#1786](../../../issues/1786) | task | Skill: audit-label-coverage | 🟢 Open |
+| [#1787](../../../issues/1787) | task | Skill: sync-labels | 🟢 Open |
+| [#1788](../../../issues/1788) | task | Skill: health-check | 🟢 Open |
+| [#1789](../../../issues/1789) | task | Skill: troubleshoot | 🟢 Open |
+| [#1790](../../../issues/1790) | task | Skill: report-generation | 🟢 Open |
+| [#1791](../../../issues/1791) | task | Skill: notify-stakeholders (Optional) | 🟢 Open |
+| [#1792](../../../issues/1792) | task | Skill: schedule-operations (Optional) | 🟢 Open |
+
+---
+
 ## Key Artifacts
 
 | Document | Status | Purpose |
