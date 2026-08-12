@@ -240,7 +240,7 @@ npm run benchmark:label-sync -- \
 # Simulate network timeout
 npm run test:staging -- --simulate network-timeout --count 10
 
-# Expected behavior:
+# Expected behaviour:
 # - Retry mechanism activates
 # - Exponential backoff applied
 # - Error logged without crashing
@@ -253,7 +253,7 @@ npm run test:staging -- --simulate network-timeout --count 10
 # Simulate approaching rate limit (< 100 calls remaining)
 npm run test:staging -- --simulate rate-limit --count 100
 
-# Expected behavior:
+# Expected behaviour:
 # - Detect rate limit approaching
 # - Gracefully pause/reduce batch size
 # - Resume when rate limit resets
@@ -266,7 +266,7 @@ npm run test:staging -- --simulate rate-limit --count 100
 # Simulate insufficient permissions
 npm run test:staging -- --simulate permission-denied
 
-# Expected behavior:
+# Expected behaviour:
 # - Error message clearly explains missing permission
 # - Suggest remediation (token scopes, repo access)
 # - Log permission context for debugging
@@ -279,7 +279,7 @@ npm run test:staging -- --simulate permission-denied
 # Test with edge cases: very long titles, special characters, emoji
 npm run test:staging -- --data-quality-check --count 20
 
-# Expected behavior:
+# Expected behaviour:
 # - Safely handle unicode/emoji
 # - Truncate/escape overly long content
 # - Log data quality issues
@@ -439,7 +439,7 @@ npm run check:data-integrity -- \
 # 1. No orphaned labels (labels on issues but not in schema)
 # 2. No conflicting labels (mutually exclusive labels together)
 # 3. No duplicate labels (same label applied twice)
-# 4. Label metadata consistent (description matches actual behavior)
+# 4. Label metadata consistent (description matches actual behaviour)
 # 5. Label relationships valid (dependent labels present together)
 ```
 

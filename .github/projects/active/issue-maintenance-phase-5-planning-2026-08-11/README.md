@@ -280,7 +280,7 @@ open https://github.com/lightspeedwp/.github/projects/1/... [dashboard URL]
 | Label not applied | Permission denied | Check token scopes, verify repo access |
 | High error rate (> 1%) | API rate limits | Reduce batch size, stagger requests |
 | Audit shows inconsistencies | Concurrent workflow runs | Add locking mechanism, reduce frequency |
-| Performance degradation | Too many API calls | Optimize query, use GraphQL batching |
+| Performance degradation | Too many API calls | Optimise query, use GraphQL batching |
 
 #### Incident Response
 
