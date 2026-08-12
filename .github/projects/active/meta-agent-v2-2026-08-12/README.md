@@ -4,12 +4,14 @@ description: >
   Implement organisation-wide Meta agent with automatic repo-type detection
   and context-specific metadata standards for WordPress block plugins, themes,
   and control-plane repos.
-file_type: project
+file_type: project-readme
 category: organisation
 version: 1.0
 author: Ash Shaw
 status: active
 language: en
+owners:
+  - lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
 ---
