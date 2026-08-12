@@ -1,3 +1,13 @@
+---
+title: "Portable Prompt Engineer Agent — Technical Design"
+description: "Technical design document with 7 key architectural decisions"
+file_type: "openspec"
+created_date: "2026-08-12"
+last_updated: "2026-08-12"
+status: "active"
+domain: "agent"
+---
+
 # Portable Prompt Engineer Agent — Technical Design
 
 ## Context

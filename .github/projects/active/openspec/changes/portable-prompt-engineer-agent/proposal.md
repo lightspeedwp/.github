@@ -1,3 +1,13 @@
+---
+title: "Portable Prompt Engineer Agent — OpenSpec Proposal"
+description: "OpenSpec proposal for portable prompt engineer agent initiative"
+file_type: "openspec"
+created_date: "2026-08-12"
+last_updated: "2026-08-12"
+status: "active"
+domain: "agent"
+---
+
 # Portable Prompt Engineer Agent — OpenSpec Proposal
 
 ## Why
