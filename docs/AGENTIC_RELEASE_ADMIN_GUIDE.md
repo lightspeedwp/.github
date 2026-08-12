@@ -1,9 +1,11 @@
 ---
+name: agentic-release-admin-guide
 title: Administering the Agentic Release Workflow
 description: Admin guide for Phase 5A agentic release workflow — architecture, authorization, gates, audit logging, security, troubleshooting
 author: Ash Shaw
-updated: 2026-08-28
-status: in-progress
+status: stable
+updated_date: 2026-08-12
+type: documentation
 ---
 
 # Administering the Agentic Release Workflow

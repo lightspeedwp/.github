@@ -1,9 +1,11 @@
 ---
+name: agentic-release-user-guide
 title: Using the Agentic Release Workflow
 description: User guide for the Phase 5A agentic release workflow — when, how, and why to use agentic releases
 author: Ash Shaw
-updated: 2026-08-28
-status: in-progress
+status: stable
+updated_date: 2026-08-12
+type: documentation
 ---
 
 # Using the Agentic Release Workflow
