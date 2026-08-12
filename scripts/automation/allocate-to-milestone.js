@@ -374,6 +374,10 @@ async function main() {
 
 export { MilestoneAllocator, AllocationError };
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// CLI entry point: only run main() if this file is executed directly (not imported)
+if (
+  typeof import.meta !== "undefined" &&
+  import.meta.url === `file://${process.argv[1]}`
+) {
   main();
 }
