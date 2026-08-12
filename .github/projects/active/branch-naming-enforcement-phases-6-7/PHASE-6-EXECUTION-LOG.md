@@ -1,6 +1,13 @@
 ---
-name: phase-6-execution-log
-description: Execution log tracking Phase 6 team rollout and adoption progress
+file_type: execution-log
+title: "Phase 6 Execution Log — Team Rollout & Adoption"
+description: "Execution tracking document for Phase 6 team rollout with adoption metrics, support requests, and daily metrics"
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors:
+  - Claude Code
+owner: Governance Team
 ---
 
 # Phase 6 Execution Log — Team Rollout & Adoption
