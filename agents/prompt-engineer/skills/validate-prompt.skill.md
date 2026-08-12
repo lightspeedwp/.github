@@ -435,10 +435,10 @@ Test validation with:
 
 ## References
 
-- [CLAUDE.md](../../CLAUDE.md) - Project standards and conventions
-- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) - GitHub governance rules
-- [LABELING.md](../../docs/LABELING.md) - Label naming standards
-- [.github/labels.yml](.github/labels.yml) - Canonical label set
+- [CLAUDE.md](../../../../CLAUDE.md) - Project standards and conventions
+- [BRANCHING_STRATEGY.md](../../../../.github/docs/BRANCHING_STRATEGY.md) - GitHub governance rules
+- [LABELING.md](../../../../.github/docs/LABELING.md) - Label naming standards
+- [.github/labels.yml](../../../../.github/labels.yml) - Canonical label set
 - [WordPress Plugin Development](https://developer.wordpress.org/plugins/)
 - [WordPress Theme Development](https://developer.wordpress.org/themes/)
 - [Theme.json Specification](https://developer.wordpress.org/themes/global-settings-and-styles/settings/)

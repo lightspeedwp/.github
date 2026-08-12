@@ -377,5 +377,5 @@ Test with:
 ## References
 
 - [Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
-- [CLAUDE.md](../../CLAUDE.md) - Project standards
-- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) - GitHub governance
+- [CLAUDE.md](../../../../CLAUDE.md) - Project standards
+- [BRANCHING_STRATEGY.md](../../../../.github/docs/BRANCHING_STRATEGY.md) - GitHub governance
