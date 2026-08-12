@@ -31,7 +31,7 @@ This skill generates concrete, actionable improvement suggestions for prompts. E
 **Undefined Terms → Defined Terms**
 
 - Undefined: "Use the standard approach"
-- Defined: "Use the approach documented in [docs/CONTRIBUTING.md](../docs/CONTRIBUTING.md): 3-layer validation (input, business logic, output)"
+- Defined: "Use the approach documented in project CONTRIBUTING guidelines: 3-layer validation (input, business logic, output)"
 
 **Ambiguous Instructions → Concrete Instructions**
 
@@ -377,5 +377,5 @@ Test with:
 ## References
 
 - [Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
-- [CLAUDE.md](../../../../CLAUDE.md) - Project standards
-- [BRANCHING_STRATEGY.md](../../../../.github/docs/BRANCHING_STRATEGY.md) - GitHub governance
+- [CLAUDE.md](../../../CLAUDE.md) - Project standards
+- [BRANCHING_STRATEGY.md](../../../.github/docs/BRANCHING_STRATEGY.md) - GitHub governance
