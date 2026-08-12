@@ -12,6 +12,13 @@ related_issues: []
 
 # Reviewer Agent v2 Implementation — Multi-Tool Orchestration & Feedback Processing
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1798](../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
+| [#1855](../../../issues/1855) | task | Reviewer Agent v2 — Comprehensive Planning & Specification Phase Complete | 🟢 Open |
+
 ## Project Overview
 
 Enhance the existing Reviewer Agent from a basic CI/PR monitoring tool into an intelligent, multi-tool orchestrator that:
