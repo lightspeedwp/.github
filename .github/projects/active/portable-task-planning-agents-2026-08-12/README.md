@@ -84,45 +84,74 @@ Six key architectural decisions with best practice answers:
 
 ---
 
-## Key Documents
+## Key Documents (Phase 1: Complete; Phase 2: TBD)
 
-- **[CLARIFYING_QUESTIONS_AND_ANSWERS.md](./CLARIFYING_QUESTIONS_AND_ANSWERS.md)** — Architectural decisions with best practice rationale
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** — (TBD) Agent design, parameter mapping, integration points
-- **[IMPLEMENTATION_ROADMAP.md](./IMPLEMENTATION_ROADMAP.md)** — (TBD) Phase-by-phase breakdown with deliverables
-- **[TEST_STRATEGY.md](./TEST_STRATEGY.md)** — (TBD) Test framework, coverage targets, integration approach
+**Phase 1 Deliverables (Specification):**
+
+- **[CLARIFYING_QUESTIONS_AND_ANSWERS.md](./CLARIFYING_QUESTIONS_AND_ANSWERS.md)** — ✅ Architectural decisions with best practice rationale (6 Q&As, 6 Mermaid diagrams)
+
+**Phase 2 Deliverables (Implementation Documentation — TBD):**
+
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** — Agent design, parameter mapping, integration points
+- **[MERMAID_DIAGRAMS.md](./MERMAID_DIAGRAMS.md)** — 6 workflow diagrams with accessibility compliance
+- **[IMPLEMENTATION_ROADMAP.md](./IMPLEMENTATION_ROADMAP.md)** — Phase breakdown with deliverables and timeline
+- **[TEST_STRATEGY.md](./TEST_STRATEGY.md)** — Test framework, coverage targets, Jest patterns
+- **[EXAMPLES.md](./EXAMPLES.md)** — Usage examples for all repository types
 
 ---
 
 ## Repository Structure (Post-Implementation)
 
 ```
-agents/
-├── task-planner-agent/               # Main agent folder
-│   ├── task-planner.agent.md          # Agent spec & role definition
-│   ├── skills/                        # Agent-specific skills
-│   │   ├── repository-analyzer.skill.md
-│   │   ├── planning-engine.skill.md
-│   │   └── scope-validator.skill.md
-│   ├── schemas/                       # Input/output JSON schemas
-│   │   ├── task-plan-output.schema.json
-│   │   └── repository-context.schema.json
-│   ├── scripts/                       # Support scripts
-│   │   ├── analyze-repo-context.js
-│   │   ├── generate-task-plan.js
-│   │   └── tests/
-│   │       ├── analyze-repo-context.test.js
-│   │       └── integration.test.js
-│   └── docs/                          # Implementation guide
-│       ├── README.md
-│       └── MERMAID_DIAGRAMS.md
-│
-└── task-researcher-agent/
-    ├── task-researcher.agent.md
-    ├── skills/
-    ├── schemas/
-    ├── scripts/
-    └── docs/
+agents/task-planner-agent/
+├── AGENT.md                            # Root agent spec with metadata
+├── README.md                            # User documentation
+├── shared/
+│   └── core-prompt.md                  # Provider-agnostic methodology
+├── claude/
+│   ├── agent.md                        # Claude guardrails + tools.json
+│   └── tools.json
+├── copilot/
+│   ├── agent.md                        # Copilot chat format + skills.yaml
+│   └── skills.yaml
+├── openai/
+│   ├── agent.md                        # OpenAI functions + tools.json
+│   └── tools.json
+├── skills/agent-attached/
+│   ├── repository-analyzer/SKILL.md
+│   ├── standards-validator/SKILL.md
+│   ├── report-generator/SKILL.md
+│   ├── planning-engine/SKILL.md
+│   └── scope-validator/SKILL.md
+├── schemas/
+│   ├── task-plan-output.schema.json
+│   ├── repository-context.schema.json
+│   └── research-report.schema.json
+├── scripts/
+│   ├── analyze-repo-context.js
+│   ├── generate-task-plan.js
+│   ├── validate-coding-standards.js
+│   ├── coordinate-agent-flow.js
+│   └── tests/
+│       ├── unit/
+│       ├── integration/
+│       ├── fixtures/
+│       └── mocks/
+├── docs/
+│   ├── README.md
+│   ├── ARCHITECTURE.md
+│   ├── MERMAID_DIAGRAMS.md
+│   ├── IMPLEMENTATION_ROADMAP.md
+│   ├── TEST_STRATEGY.md
+│   └── EXAMPLES.md
+└── manifests/
+    ├── validation-summary.json
+    ├── skills.md
+    ├── skills.csv
+    └── consistency.json
 ```
+
+**Parallel Structure:** `agents/task-researcher-agent/` (same pattern as planner)
 
 ---
 

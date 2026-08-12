@@ -15,12 +15,13 @@ Should we create:
 - **(A)** One unified agent that accepts repository-type parameters?
 - **(B)** Separate agents (task-planner-github, task-planner-wordpress)?
 
-### Best Practice Answer: **(A) One Unified Agent**
+### Best Practice Answer: **(A) One Unified Agent (Two-Agent Orchestrator Pattern)**
 
 **Rationale:**
 
 1. **Single Source of Truth**
-   - Shared core logic (research, planning, output formatting)
+   - Shared orchestrator with internal research and planning stages
+   - Sequence: Task Researcher (discovery) → Task Planner (synthesis)
    - Parameter-driven adaptation (not code duplication)
    - Easier maintenance and bug fixes
 
@@ -32,28 +33,38 @@ Should we create:
 3. **LightSpeed Architectural Alignment**
    - Follows portable agent principles: one implementation, many contexts
    - Similar to how WordPress plugins use `wp_get_environment_type()` for context
-   - Reduces maintenance burden (one agent, not three)
+   - Reduces maintenance burden (one agent orchestrator, not three)
 
 4. **Scalability**
    - Easy to add new repository types (monorepos, npm packages, etc.)
    - Parameter changes don't require new agent creation
    - Central place to document all supported types
 
-**Implementation:**
+**Implementation:** Two-stage orchestrator
 
 ```javascript
-// Unified Agent Pattern
+// Unified Agent with Internal Orchestration
 async function planTask(request) {
   const { repositoryType, taskDescription, context } = request;
   
   // Load repository-specific configuration
   const config = loadRepositoryConfig(repositoryType);
   
-  // Unified research → planning flow
-  const research = await researchTask(taskDescription, context);
-  const plan = await generatePlan(research, config);
+  // Stage 1: Task Researcher Agent (discovery, questions, audit)
+  const research = await taskResearcherAgent({
+    description: taskDescription,
+    context,
+    config,
+  });
   
-  return plan;
+  // Stage 2: Task Planner Agent (synthesis, planning, validation)
+  const plan = await taskPlannerAgent({
+    research,
+    context,
+    config,
+  });
+  
+  return { research, plan };
 }
 ```
 
@@ -166,16 +177,17 @@ Should the agent understand WordPress block structure?
    - Validate complex PHP (use PHPCS directly)
    - Perform security audits (use WordPress security tools)
 
-### WordPress Configuration Object
+### WordPress Configuration Object (Read-Only Planning Agent)
 
 ```javascript
 const wordPressConfig = {
   repositoryType: "wordpress-plugin",
   projectName: "Awesome Block Plugin",
   codingStandards: {
-    php: { tool: "phpcs", config: "wordpress", autofix: true },
-    js: { tool: "eslint", config: "wordpress", autofix: true },
-    css: { tool: "stylelint", config: "wordpress", autofix: true },
+    // Read-only validation (no autofix in planning agent)
+    php: { tool: "phpcs", config: "wordpress", autofix: false },
+    js: { tool: "eslint", config: "wordpress", autofix: false },
+    css: { tool: "stylelint", config: "wordpress", autofix: false },
   },
   labels: [
     "type:block-feature",
@@ -190,7 +202,9 @@ const wordPressConfig = {
 };
 ```
 
-**Decision:** ✅ **Agent should understand WordPress block structure strategically; knowledge stored in configuration object.**
+**Note:** Agent configuration keeps `autofix: false` (read-only planning). Autofix can be enabled in implementation-only tools, not in planning agent.
+
+**Decision:** ✅ **Agent should understand WordPress block structure strategically; knowledge stored in configuration object; agent remains read-only.**
 
 ---
 
@@ -245,40 +259,45 @@ Should these be:
      - `planning-engine.skill.md` — generate task plans
      - `scope-validator.skill.md` — validate task scope
 
-### Proposed Structure
+### Proposed Canonical Structure
+
+**Two-Agent System (Separate Folders):**
 
 ```
-agents/task-planner-agent/                 # Multi-file portable agent
-├── task-planner.agent.md                  # Main agent spec
-├── task-researcher.agent.md               # Research subagent
-├── skills/
-│   ├── repository-analyzer.skill.md       # Code audit skills
-│   ├── standards-validator.skill.md
-│   ├── report-generator.skill.md
-│   ├── planning-engine.skill.md           # Planning skills
-│   └── scope-validator.skill.md
-├── schemas/
-│   ├── task-plan-output.schema.json       # Output validation
-│   ├── repository-context.schema.json
-│   └── research-report.schema.json
-├── scripts/
-│   ├── analyze-repo-context.js            # Helper scripts
-│   ├── generate-task-plan.js
-│   ├── validate-coding-standards.js
-│   └── tests/
-│       ├── analyze-repo-context.test.js   # Full test coverage
-│       ├── generate-task-plan.test.js
-│       ├── integration.test.js
-│       └── coverage-report.json
-├── docs/
-│   ├── README.md                          # Implementation guide
-│   ├── ARCHITECTURE.md                    # Design decisions
-│   ├── MERMAID_DIAGRAMS.md                # Workflow diagrams
-│   └── EXAMPLES.md                        # Usage examples
-└── .agent-config.json                     # Agent configuration
+agents/
+├── task-researcher-agent/
+│   ├── AGENT.md                          # Agent metadata & definition
+│   ├── shared/core-prompt.md             # Provider-agnostic methodology
+│   ├── claude/agent.md + tools.json      # Claude implementation
+│   ├── copilot/agent.md + skills.yaml    # Copilot implementation
+│   ├── openai/agent.md + tools.json      # OpenAI implementation
+│   ├── skills/agent-attached/
+│   │   ├── requirement-discovery/SKILL.md
+│   │   ├── constraint-extraction/SKILL.md
+│   │   ├── context-mapping/SKILL.md
+│   │   └── research-synthesis/SKILL.md
+│   ├── schemas/ (research outputs)
+│   └── docs/ (README, ARCHITECTURE, EXAMPLES, TEST_STRATEGY)
+│
+└── task-planner-agent/
+    ├── AGENT.md
+    ├── shared/core-prompt.md
+    ├── claude/agent.md + tools.json
+    ├── copilot/agent.md + skills.yaml
+    ├── openai/agent.md + tools.json
+    ├── skills/agent-attached/
+    │   ├── planning-engine/SKILL.md
+    │   ├── scope-validator/SKILL.md
+    │   └── dependency-analyzer/SKILL.md
+    ├── schemas/ (planning outputs)
+    └── docs/ (README, ARCHITECTURE, EXAMPLES)
 ```
 
-**Decision:** ✅ **Adopt multi-file portable agents in root `agents/` folder.**
+**Core Skills (5 total):** repository-analyzer, standards-validator, report-generator, planning-engine, scope-validator
+
+**Support Scripts (4 total):** analyze-repo-context.js, generate-task-plan.js, validate-coding-standards.js, coordinate-agent-flow.js
+
+**Decision:** ✅ **Adopt multi-file portable agents in root `agents/` folder with separate task-researcher-agent and task-planner-agent folders, provider-specific subdirectories, and agent-attached skills.**
 
 ---
 
@@ -342,7 +361,7 @@ describe("Task Researcher Agent", () => {
     });
     
     expect(response.clarifyingQuestions).toHaveLength(3);
-    expect(response.questions[0]).toMatch(/WCAG/i);
+    expect(response.clarifyingQuestions[0]).toMatch(/WCAG/i);
   });
   
   test("generates audit report for GitHub control plane", async () => {
@@ -352,7 +371,7 @@ describe("Task Researcher Agent", () => {
     });
     
     expect(response).toHaveProperty("auditReport");
-    expect(response.auditReport).toMatchSchema(auditReportSchema);
+    expect(response.auditReport).toBeDefined();
   });
 });
 ```
@@ -467,19 +486,19 @@ PR with specification documents + implementation roadmap. Ready for Phase 2 kick
 - Deliverable: Integration tests pass, documentation review complete
 - Merge to `develop`
 
-#### Primary User/Maintainer: **TBD**
+#### Primary User/Maintainer: **ashleyshaw**
 
 **Ownership Model:**
 
-| Role | Responsibility |
-|------|-----------------|
-| **Initiative Lead** | Overall project roadmap, decision-making, stakeholder communication |
-| **Agent Developer** | Implement task-planner and task-researcher agents |
-| **Skills Developer** | Implement reusable skills (research, planning, validation) |
-| **Test Lead** | Design and implement test suite, coverage validation |
-| **Documentation Lead** | Write comprehensive guides, mermaid diagrams, examples |
+| Role | Owner | Responsibility |
+|------|-------|-----------------|
+| **Initiative Lead** | ashleyshaw | Overall project roadmap, decision-making, stakeholder communication |
+| **Agent Developer** | ashleyshaw | Implement task-planner and task-researcher agents |
+| **Skills Developer** | ashleyshaw | Implement reusable skills (research, planning, validation) |
+| **Test Lead** | ashleyshaw | Design and implement test suite, coverage validation |
+| **Documentation Lead** | ashleyshaw | Write comprehensive guides, mermaid diagrams, examples |
 
-**Recommendation:** Identify one **initiative lead** who owns the project end-to-end. Distribute implementation tasks across team.
+**Status:** All roles assigned to ashleyshaw (initiative lead). Cross-functional distribution can be expanded in Phase 2.
 
 **Decision:** ✅ **Phase 1 = specification only; 1 week timeline; identify ownership before Phase 2.**
 
@@ -509,9 +528,9 @@ Shows how the unified agent handles different repository types.
 │  Task Planning Request (repositoryType) │
 └────────────┬────────────────────────────┘
              │
-             ├─→ repositoryType = "github"     → Load GitHub config
-             ├─→ repositoryType = "wp-plugin"  → Load WordPress Plugin config
-             └─→ repositoryType = "wp-theme"   → Load WordPress Theme config
+             ├─→ repositoryType = "github"           → Load GitHub config
+             ├─→ repositoryType = "wordpress-plugin" → Load WordPress Plugin config
+             └─→ repositoryType = "wordpress-theme"  → Load WordPress Theme config
                                                     │
                                                     ▼
              ┌──────────────────────────────────────────┐
@@ -645,14 +664,13 @@ graph TB
     D --> D4["⚡ Planning Engine"]
     D --> D5["✓ Scope Validator"]
     
-    D1 --> E["Agent Database"]
+    D1 --> E["Output Schemas"]
     D2 --> E
     D3 --> E
     D4 --> E
     D5 --> E
     
-    E --> F["Output Schemas"]
-    F --> G["Task Plan JSON"]
+    E --> F["Task Plan JSON"]
     
     style A fill:#bbdefb,color:#000
     style B fill:#c8e6c9,color:#000
@@ -753,7 +771,7 @@ graph TD
     style B fill:#e8f5e9,color:#000
     style C fill:#c8e6c9,color:#000
     style D fill:#a5d6a7,color:#000
-    style Cov fill:#81c784,color:#fff
+    style Cov fill:#81c784,color:#000
 ```
 
 ### Documentation Spec
