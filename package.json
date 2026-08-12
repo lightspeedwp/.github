@@ -1,0 +1,26 @@
+{
+  "name": "lightspeed-github-org-control-plane",
+  "version": "1.0.0",
+  "description": "LightSpeed .github organization control plane",
+  "scripts": {
+    "test": "echo 'No tests configured'",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "lint:js": "eslint .",
+    "format": "prettier --write .",
+    "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
+    "validate:branch-name": "node scripts/validation/validate-branch-name.js"
+  },
+  "keywords": [
+    "github",
+    "organization",
+    "control-plane"
+  ],
+  "author": "LightSpeed Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.50.0",
+    "markdownlint": "^0.31.1",
+    "prettier": "^3.0.0"
+  }
+}
