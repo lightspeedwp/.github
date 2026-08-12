@@ -94,6 +94,21 @@ category: "release-engineering"
 
 **Status:** Phase 5 planning READY (detailed plan in PHASE_5_IMPLEMENTATION_PLAN.md)
 
+**NOTE:** Phase 5A (Agentic Workflows) runs **in parallel** with Phase 5. See [Release Agentic Workflows project](#related-projects) for details.
+
+### Phase 5A: Agentic Workflows (NEW) 🆕 PLANNING
+
+**Parallel initiative (Aug 12-30, 2026):** GitHub Agentic Workflows for release orchestration
+
+**Key points:**
+
+- Augments Phase 4 (wraps shell scripts, no breaking changes)
+- Runs in parallel with Phase 5 (portable agents)
+- Uses Phase 5 portable agents as optional integration
+- Separate project: [Release Agentic Workflows (2026-08-11)](#related-projects)
+
+**Status:** See related project for planning details
+
 ### Phase 6: WordPress Support 🔄 PLANNING
 
 **Planned:** 2026-08-13 onwards (estimated 1-2 days)
@@ -355,6 +370,22 @@ Release process redesign is successful when:
 *Project Created: 2026-08-05*  
 *Phase 4 Started: 2026-08-08*  
 *Status: IMPLEMENTATION IN PROGRESS*
+
+## Related Projects
+
+This project coordinates with:
+
+1. **[Release Agentic Workflows (2026-08-11)](../release-agentic-workflows-2026-08-11/)**
+   - **Status:** Phase 5A (NEW), runs in parallel with Phase 5
+   - **What:** GitHub Agentic Workflows for release orchestration
+   - **Relationship:** Augments Phase 4; uses Phase 5 portable agents (optional); provides LLM-driven UX
+
+2. **[Release Workflow Authorization Fixes (2026-08-04)](../release-workflow-authorization-fixes/)**
+   - **Status:** Fix complete; testing pending
+   - **What:** Authorization gating for trigger-telemetry job
+   - **Relationship:** Foundation for both Phase 5 portable agents and Phase 5A agentic workflows
+
+---
 
 ## Related Issues
 
