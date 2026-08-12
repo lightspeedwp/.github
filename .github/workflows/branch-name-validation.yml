@@ -1,0 +1,203 @@
+name: Branch Name Validation
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  checks: write
+
+jobs:
+  validate-branch-name:
+    name: Validate Branch Name
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate branch name
+        id: validate
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+          TARGET_BRANCH: ${{ github.base_ref }}
+        run: |
+          # Check exemptions: release/* and hotfix/* are allowed on main
+          if [[ "$TARGET_BRANCH" == "main" ]] && [[ "$BRANCH_NAME" =~ ^(release|hotfix)/ ]]; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+            echo "message=Branch is exempt (release or hotfix on main)"
+            exit 0
+          fi
+
+          # Run validation script
+          if node scripts/validation/validate-branch-name.cjs "$BRANCH_NAME" 2>&1 | tee validation-output.txt; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+          else
+            echo "valid=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post validation result
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const branch = '${{ github.head_ref }}';
+            const valid = '${{ steps.validate.outputs.valid }}' === 'true';
+            const targetBranch = '${{ github.base_ref }}';
+
+            // Read validation output if validation failed
+            let validationOutput = '';
+            if (!valid && fs.existsSync('validation-output.txt')) {
+              validationOutput = fs.readFileSync('validation-output.txt', 'utf8');
+            }
+
+            // Build status message
+            const validationResults = {
+              conclusion: valid ? 'success' : 'failure',
+              output: {
+                title: valid ? '✅ Branch Name Valid' : '❌ Branch Name Invalid',
+                summary: valid
+                  ? `Branch \`${branch}\` follows the LightSpeed branching strategy.`
+                  : `Branch \`${branch}\` does not follow the required naming pattern.`,
+                text: !valid
+                  ? `## Required Format\n\n\`\`\`\n{type}/{scope}-{short-title}\n\`\`\`\n\n### Validation Error\n\n${validationOutput}\n\n### Examples of Valid Branch Names\n\n- \`feat/branch-naming-enforcement\`\n- \`fix/validation-script-bug\`\n- \`chore/update-dependencies\`\n- \`docs/branching-strategy-guide\`\n- \`hotfix/critical-security-patch\`\n\n### More Information\n\nSee [docs/BRANCHING_STRATEGY.md](https://github.com/${{ github.repository }}/blob/${{ github.base_ref }}/docs/BRANCHING_STRATEGY.md) for the complete branching guide.`
+                  : '',
+              },
+            };
+
+            // Create or update check run
+            const checkRuns = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha,
+              check_name: 'Branch Name Validation',
+            });
+
+            const existingCheckRun = checkRuns.data.check_runs.find(
+              (check) => check.name === 'Branch Name Validation'
+            );
+
+            if (existingCheckRun) {
+              await github.rest.checks.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                check_run_id: existingCheckRun.id,
+                status: 'completed',
+                conclusion: validationResults.conclusion,
+                output: validationResults.output,
+              });
+            } else {
+              await github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'Branch Name Validation',
+                head_sha: context.payload.pull_request.head.sha,
+                status: 'completed',
+                conclusion: validationResults.conclusion,
+                output: validationResults.output,
+              });
+            }
+
+            // Post a comment on failure
+            if (!valid) {
+              const commentBody = [
+                '## ❌ Branch Name Validation Failed',
+                '',
+                `The branch name \`${branch}\` does not follow the LightSpeed branching strategy.`,
+                '',
+                '### Required Format',
+                '',
+                '```',
+                '{type}/{scope}-{short-title}',
+                '```',
+                '',
+                '- **type**: one of the allowed prefixes (lowercase)',
+                '- **scope**: lowercase, hyphens only (no underscores or uppercase)',
+                '- **title**: lowercase, hyphens only (no underscores or uppercase)',
+                '',
+                '### Allowed Branch Types',
+                '',
+                '`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`',
+                '',
+                '### Valid Examples',
+                '',
+                '- ✓ `feat/branch-naming-enforcement`',
+                '- ✓ `fix/validation-script-bug`',
+                '- ✓ `chore/update-dependencies`',
+                '- ✓ `docs/branching-strategy-guide`',
+                '- ✓ `hotfix/critical-security-patch`',
+                '',
+                '### Invalid Examples',
+                '',
+                '- ✗ `claude/my-branch` (type "claude" not allowed)',
+                '- ✗ `Feature/MyBranch` (uppercase not allowed)',
+                '- ✗ `fix-bug` (missing type prefix)',
+                '- ✗ `feat/my_feature` (underscores not allowed)',
+                '- ✗ `feat/MyFeature` (uppercase not allowed)',
+                '',
+                '### Solution',
+                '',
+                'Rename your branch to follow the pattern and update the PR.',
+                '',
+                'For more information, see [docs/BRANCHING_STRATEGY.md](https://github.com/${{ github.repository }}/blob/${{ github.base_ref }}/docs/BRANCHING_STRATEGY.md).',
+              ].join('\n');
+
+              // Check if comment already exists to avoid duplicates
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+              });
+
+              const existingComment = comments.data.find(
+                (comment) => comment.body.includes('Branch Name Validation Failed') && comment.user.type === 'Bot'
+              );
+
+              if (existingComment) {
+                // Update existing comment
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: commentBody,
+                });
+              } else {
+                // Create new comment
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: commentBody,
+                });
+              }
+            }
+
+      - name: Set status check status
+        if: always()
+        env:
+          VALID: ${{ steps.validate.outputs.valid }}
+        run: |
+          if [[ "$VALID" == "true" ]]; then
+            echo "✅ Branch name validation passed"
+            exit 0
+          else
+            echo "❌ Branch name validation failed"
+            exit 1
+          fi
