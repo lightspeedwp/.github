@@ -72,31 +72,49 @@ Six key architectural decisions with best practice answers:
 
 ## Related Issues & PR
 
+### Phase 1 (Specification)
+
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
 | [#1815](https://github.com/lightspeedwp/.github/issues/1815) | epic | Phase 1: Task Planning Agents — Specification & Design | 🟢 In Progress |
 | [#1803](https://github.com/lightspeedwp/.github/pull/1803) | pull request | Phase 1 Specification PR | 🟡 Awaiting Review |
-| TBD | epic | Phase 2: Task Planning Agents — Implementation | 🟡 To Create |
-| TBD | feature | Task Planner Agent Implementation | 🟡 To Create (Phase 2) |
-| TBD | feature | Task Researcher Agent Implementation | 🟡 To Create (Phase 2) |
-| TBD | task | Agent Documentation & Mermaid Diagrams | 🟡 To Create (Phase 2) |
-| TBD | task | Test Suite Development | 🟡 To Create (Phase 2) |
+
+### Phase 2 (Implementation)
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1838](https://github.com/lightspeedwp/.github/issues/1838) | epic | Phase 2: Task Planning Agents — Implementation | 🟡 Ready for Implementation |
+| [#1839](https://github.com/lightspeedwp/.github/issues/1839) | feature | Task Researcher Agent — Core Framework | 🟡 Week 1 |
+| [#1840](https://github.com/lightspeedwp/.github/issues/1840) | feature | Task Planner Agent — Core Framework | 🟡 Week 1 |
+| [#1841](https://github.com/lightspeedwp/.github/issues/1841) | feature | Provider-Specific Implementations | 🟡 Week 1 |
+| [#1842-#1843](https://github.com/lightspeedwp/.github/issues?q=is:open+label:area:ai+number:1842) | feature | Researcher Agent Skills | 🟡 Week 2-3 |
+| [#1844-#1845](https://github.com/lightspeedwp/.github/issues?q=is:open+label:area:ai+number:1844) | feature | Planner Agent Skills | 🟡 Week 3 |
+| [#1846-#1847](https://github.com/lightspeedwp/.github/issues?q=is:open+label:area:ai+number:1846) | feature | Support Scripts & Testing | 🟡 Week 4 |
+| [#1848-#1851](https://github.com/lightspeedwp/.github/issues?q=is:open+label:area:ai+number:1848) | task | Documentation (4 parts) | 🟡 Week 5-6 |
 
 ---
 
-## Key Documents (Phase 1: Complete; Phase 2: TBD)
+## Key Documents
 
-**Phase 1 Deliverables (Specification):**
+### Phase 1: Specification (Complete)
 
-- **[CLARIFYING_QUESTIONS_AND_ANSWERS.md](./CLARIFYING_QUESTIONS_AND_ANSWERS.md)** — ✅ Architectural decisions with best practice rationale (6 Q&As, 6 Mermaid diagrams)
+- **[CLARIFYING_QUESTIONS_AND_ANSWERS.md](./CLARIFYING_QUESTIONS_AND_ANSWERS.md)** — ✅ 6 architectural decisions with best practice rationale (6 Q&As, 6 Mermaid diagrams)
+- **[PHASE_2_IMPLEMENTATION_PLAN.md](./PHASE_2_IMPLEMENTATION_PLAN.md)** — ✅ Detailed implementation roadmap (5-6 weeks, 17 GitHub issues)
 
-**Phase 2 Deliverables (Implementation Documentation — TBD):**
+### Phase 1: OpenSpec Artifacts
 
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** — Agent design, parameter mapping, integration points
-- **[MERMAID_DIAGRAMS.md](./MERMAID_DIAGRAMS.md)** — 6 workflow diagrams with accessibility compliance
-- **[IMPLEMENTATION_ROADMAP.md](./IMPLEMENTATION_ROADMAP.md)** — Phase breakdown with deliverables and timeline
-- **[TEST_STRATEGY.md](./TEST_STRATEGY.md)** — Test framework, coverage targets, Jest patterns
-- **[EXAMPLES.md](./EXAMPLES.md)** — Usage examples for all repository types
+- **[OPENSPEC_PROPOSAL.md](./OPENSPEC_PROPOSAL.md)** — ✅ Proposal document (WHY: motivation, scope, capabilities, impact, success criteria)
+- **[OPENSPEC_DESIGN.md](./OPENSPEC_DESIGN.md)** — ✅ Design document (HOW: goals, decisions with alternatives, risks/mitigations, migration plan)
+
+**Canonical Location:** `.github/projects/active/openspec/changes/phase-2-task-planning-agents-implementation/` (proposal.md and design.md)
+
+### Phase 2: Implementation Documentation (Planned)
+
+- **ARCHITECTURE.md** — Agent design, parameter mapping, integration points
+- **MERMAID_DIAGRAMS.md** — 6 workflow diagrams with accessibility compliance
+- **IMPLEMENTATION_ROADMAP.md** — Detailed phase breakdown with deliverables
+- **TEST_STRATEGY.md** — Jest patterns, mocking strategies, coverage enforcement
+- **EXAMPLES.md** — Usage examples for all repository types
 
 ---
 
@@ -176,24 +194,43 @@ See [CLARIFYING_QUESTIONS_AND_ANSWERS.md](./CLARIFYING_QUESTIONS_AND_ANSWERS.md)
 2. ✅ Create GitHub issue #1815 for Phase 1 epic
 3. ✅ Create GitHub PR #1803 with specification documents
 4. ✅ Link PR and issue together (bidirectional reference)
-5. ⬜ Review and merge PR #1803 to `develop`
-6. ⬜ Create 17 Phase 2 GitHub issues (1 epic + 16 component tasks)
-7. ⬜ Begin Phase 2 implementation (5-6 week timeline)
+5. ✅ Create OpenSpec proposal and design documents
+6. ✅ Create 17 Phase 2 GitHub issues (1 epic #1838 + 14 component tasks #1839-#1851)
+7. ⬜ Review and merge PR #1803 to `develop` (pending CI checks)
+8. ⬜ Begin Phase 2 implementation (5-6 week timeline, starting ~2026-08-19)
 
 ---
 
 ## Documentation & Communication
 
-**OpenSpec Reference:** This project follows LightSpeed's Portable Task Planning Agents openspec.
+### OpenSpec Specification
 
-**GitHub References:**
+This project is formally specified using the OpenSpec framework:
+
+- **Proposal:** [OPENSPEC_PROPOSAL.md](./OPENSPEC_PROPOSAL.md) — Phase 2 motivation, scope, capabilities, impact
+- **Design:** [OPENSPEC_DESIGN.md](./OPENSPEC_DESIGN.md) — Phase 2 goals, decisions (6 major architectural decisions), risks, migration plan
+- **Canonical Location:** `.github/projects/active/openspec/changes/phase-2-task-planning-agents-implementation/`
+
+### GitHub References
+
+**Phase 1 (Specification):**
 
 - **Epic Issue:** [#1815](https://github.com/lightspeedwp/.github/issues/1815)
 - **Specification PR:** [#1803](https://github.com/lightspeedwp/.github/pull/1803)
-- **Active Project:** [.github/projects/active/portable-task-planning-agents-2026-08-12/](./)
+
+**Phase 2 (Implementation):**
+
+- **Epic Issue:** [#1838](https://github.com/lightspeedwp/.github/issues/1838) — Phase 2: Portable Task Planning Agents — Implementation
+- **Component Tasks:** [#1839-#1851](https://github.com/lightspeedwp/.github/issues?q=is:open+label:area:ai+number:1839) (14 tasks for agents, skills, scripts, docs)
+
+### Project Structure
+
+- **Active Project Folder:** `.github/projects/active/portable-task-planning-agents-2026-08-12/`
+- **Phase 1 Documents:** CLARIFYING_QUESTIONS_AND_ANSWERS.md, PHASE_2_IMPLEMENTATION_PLAN.md
+- **OpenSpec Artifacts:** OPENSPEC_PROPOSAL.md, OPENSPEC_DESIGN.md
 
 ---
 
 **Maintainers:** ashleyshaw (Initiative Lead, Agent Developer, Skills Developer, Test Lead, Documentation Lead)  
-**Last Updated:** 2026-08-12 11:57 CEST  
-**Project Link:** `.github/projects/active/portable-task-planning-agents-2026-08-12/`
+**Last Updated:** 2026-08-12  
+**Status:** Phase 1 Complete; Phase 2 Ready for Implementation (17 GitHub issues created)
