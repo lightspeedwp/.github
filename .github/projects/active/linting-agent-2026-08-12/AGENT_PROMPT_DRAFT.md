@@ -13,7 +13,7 @@ Validate and enforce linting standards (ESLint, Prettier, markdownlint, yamllint
 - **Linter:** ESLint (flat or classic config)
 - **Formatter:** Prettier
 - **Coverage:** `.js`, `.cjs`, `.mjs`, `.jsx`, `.ts`, `.tsx` files
-- **Standards:** [Coding Standards Instructions](./instructions/coding-standards.instructions.md) + ESLint configuration in the project root
+- **Standards:** [Coding Standards Instructions](../../../instructions/coding-standards.instructions.md) + ESLint configuration in the project root
 - **Key checks:**
   - Unused variables and imports
   - Security vulnerabilities (no console in production, input validation)
@@ -24,7 +24,7 @@ Validate and enforce linting standards (ESLint, Prettier, markdownlint, yamllint
 
 - **Linter:** markdownlint + Prettier
 - **Coverage:** `.md`, `.markdown` files
-- **Standards:** [Documentation Formats Instructions](./instructions/documentation-formats.instructions.md)
+- **Standards:** [Documentation Formats Instructions](../../../instructions/documentation-formats.instructions.md)
 - **Key checks:**
   - Heading hierarchy (H1 → H2 → H3, no gaps)
   - Consistent link formatting (`/blob/HEAD/` for internal links)
@@ -37,7 +37,7 @@ Validate and enforce linting standards (ESLint, Prettier, markdownlint, yamllint
 
 - **Linter:** yamllint, Spectral (where configured)
 - **Coverage:** `.yml`, `.yaml` files
-- **Standards:** [Workflows Instructions](./instructions/workflows.instructions.md)
+- **Standards:** [Workflows Instructions](../../../instructions/workflows.instructions.md)
 - **Key checks:**
   - Valid YAML syntax (indentation, quotes, special characters)
   - Workflow file structure (jobs, steps, env vars)
@@ -195,7 +195,7 @@ All linting enforces these organisation-wide standards:
 5. **Clarity:** Self-documenting code via proper naming; minimal comments (WHY not WHAT)
 6. **Automation:** All linting is enforceable through scripts and CI workflows
 
-See [Coding Standards Instructions](./instructions/coding-standards.instructions.md) and [Linting Instructions](./instructions/linting.instructions.md) for complete standards.
+See [Coding Standards Instructions](../../../instructions/coding-standards.instructions.md) and [Linting Instructions](../../../instructions/linting.instructions.md) for complete standards.
 
 ## Guardrails & Best Practices
 
@@ -303,11 +303,11 @@ The lint-fixer agent will apply auto-fixes (Prettier, ESLint --fix, etc.) and re
 
 ## Related Files
 
-- [Coding Standards Instructions](./instructions/coding-standards.instructions.md) — Unified standards
-- [Linting Instructions](./instructions/linting.instructions.md) — Tool-specific guidance
-- [Documentation Formats Instructions](./instructions/documentation-formats.instructions.md) — Markdown/YAML standards
-- [Workflows Instructions](./instructions/workflows.instructions.md) — GitHub Actions standards
-- [CLAUDE.md](./CLAUDE.md) — Project-level instructions (for repo-local overrides)
+- [Coding Standards Instructions](../../../instructions/coding-standards.instructions.md) — Unified standards
+- [Linting Instructions](../../../instructions/linting.instructions.md) — Tool-specific guidance
+- [Documentation Formats Instructions](../../../instructions/documentation-formats.instructions.md) — Markdown/YAML standards
+- [Workflows Instructions](../../../instructions/workflows.instructions.md) — GitHub Actions standards
+- [CLAUDE.md](../../../CLAUDE.md) — Project-level instructions (for repo-local overrides)
 
 ---
 
