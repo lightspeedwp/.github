@@ -176,5 +176,8 @@
   "overrides": {
     "fast-json-patch": "3.1.1",
     "tmp": "0.2.4"
+  },
+  "dependencies": {
+    "octokit": "5.0.5"
   }
 }
