@@ -4,6 +4,9 @@
 **Scope:** Transform the ADR Generator Agent into a portable, organization-agnostic system usable across all LightSpeedWP repositories (control-plane, WordPress plugins/themes, and organization-wide projects)  
 **Status:** 🔵 Planning Phase
 
+**PR:** [#1820](../../../pull/1820) — Planning documentation  
+**Epic Issue:** [#1816](../../../issues/1816) — Master initiative
+
 ---
 
 ## Project Overview

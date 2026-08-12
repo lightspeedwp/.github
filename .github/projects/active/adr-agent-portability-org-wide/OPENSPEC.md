@@ -4,6 +4,12 @@
 **Last Updated:** 2026-08-12  
 **Owner:** @ash
 
+**Related Links:**
+
+- **Epic Issue:** [#1816](../../../issues/1816) — Master Initiative Epic
+- **Planning PR:** [#1820](../../../pull/1820) — Planning Phase & Active Project
+- **Active Project:** [.github/projects/active/adr-agent-portability-org-wide/](./)
+
 ---
 
 ## Executive Summary
