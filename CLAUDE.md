@@ -586,6 +586,102 @@ This issue is part of:
 
 **Complete standard:** [LINKING_STANDARD.md](./.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)
 
+## Agentic Release Workflows (Phase 5A)
+
+**Governance Rules for Agentic Releases**
+
+### When Required vs. Optional
+
+- **Recommended:** For all releases to ensure consistency, safety, and audit trail
+- **Optional:** Phase 4 shell scripts remain available as fallback
+- **Required:** For production releases with breaking changes (major versions)
+
+### Authorization Model
+
+**Two-Layer Authorization:**
+
+1. **GitHub Team Membership:** User must be in `maintainers` team
+2. **Trigger-Telemetry:** Logs all release attempts (non-blocking, for audit)
+
+**Check Authorization:**
+
+```bash
+gh api /orgs/lightspeedwp/teams/maintainers/members/$(git config user.name)
+```
+
+### Approval Requirements
+
+**Tiered by Scope:**
+
+| Scope | Approval | Who Decides | Timeline |
+|-------|----------|------------|----------|
+| **Patch** | Auto-approve | Agentic (score ≥ 0.8) | < 5 min |
+| **Minor** | Manual review | 1 maintainer | 10–30 min |
+| **Major** | Dual approval | 2 maintainers + ADR | 1–4 hours |
+
+**How to Approve:**
+
+- Patch releases auto-approve if agentic confidence score is ≥ 0.8
+- Minor releases: Maintainer comments "approved" or "LGTM" on PR
+- Major releases: 2 maintainers approve + ADR linked in commit message
+
+### Audit Logging
+
+All releases logged to `.github/reports/agentic-releases/` with JSON structure:
+
+```json
+{
+  "timestamp": "2026-08-28T10:30:00Z",
+  "user": "ashley@lightspeedwp.agency",
+  "scope": "patch",
+  "agenticScore": 0.92,
+  "gates": {
+    "changelog": "PASS",
+    "version": "PASS",
+    "authorization": "PASS",
+    "approval": "AUTO_APPROVED"
+  },
+  "result": "SUCCESS"
+}
+```
+
+**Retention:** 90 days (GitHub Actions default) + archival in `.github/reports/`
+
+### Fallback Procedures
+
+If agentic layer fails, Phase 4 shell scripts available:
+
+```bash
+bash .github/scripts/release/release.sh patch
+```
+
+**This is always available** — releases are never blocked permanently.
+
+### Workflow Execution
+
+**Standard Flow:**
+
+1. Trigger: `gh workflow run release.yml -f scope=patch -f dry_run=true`
+2. Dry-run: Preview all 7 safety gates, agentic score, approval requirements
+3. Live: `gh workflow run release.yml -f scope=patch -f dry_run=false`
+4. Result: Auto-approve (patch) or await approval (minor/major)
+
+**See Also:**
+
+- **[RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md)** — Complete release workflow
+- **[BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md)** — Branch flow with agentic
+- **[AGENTIC_RELEASE_USER_GUIDE.md](./docs/AGENTIC_RELEASE_USER_GUIDE.md)** — End-user guide
+- **[AGENTIC_RELEASE_ADMIN_GUIDE.md](./docs/AGENTIC_RELEASE_ADMIN_GUIDE.md)** — Admin guide
+
+### Key Principles
+
+✅ **Authorization-first** — Maintainers team membership enforced always  
+✅ **Scope-based approval** — Patch auto, minor/major manual  
+✅ **Dry-run before live** — Always preview release first  
+✅ **Safety gates first** — 7-gate validation before any mutations  
+✅ **Fallback guaranteed** — Phase 4 scripts always available  
+✅ **Audit trail required** — All releases logged with timestamps  
+
 ## What Not to Do
 
 - Do not add WordPress plugin or theme project-specific code to `.github/`.
