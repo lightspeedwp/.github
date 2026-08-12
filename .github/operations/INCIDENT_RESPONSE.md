@@ -1,10 +1,13 @@
 ---
+file_type: documentation
 title: Incident Response Plan — Issue Maintenance System
 description: Incident handling procedures with severity levels, response times, and decision trees
 version: 1.0.0
 created_date: 2026-08-12
 last_updated: 2026-08-12
 authors:
+  - lightspeedwp/maintainers
+owners:
   - lightspeedwp/maintainers
 tags:
   - incident-response
