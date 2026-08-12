@@ -1,11 +1,13 @@
 ---
-file_type: readme
+file_type: documentation
 title: "GitHub Agentic Workflows Release Agent"
 description: "Phase 5A: Implement GitHub Agentic Workflows for release orchestration, augmenting shell-based approach with LLM-driven reasoning and improved UX"
-status: draft
-last_updated: "2026-08-12"
+status: planning
+version: "1.0"
+last_updated: "2026-08-11"
 owners: ["Ash Shaw"]
 tags: ["release", "agentic-workflows", "github-copilot", "automation", "phase-5a"]
+category: "release-engineering"
 ---
 
 # GitHub Agentic Workflows Release Agent — Phase 5A
@@ -30,14 +32,6 @@ tags: ["release", "agentic-workflows", "github-copilot", "automation", "phase-5a
 **Duration:** Phase 5A, 2-3 weeks (Aug 12-30, 2026)
 
 **Status:** PLANNING (Phase 5A specification in progress)
-
----
-
-## Related Issues
-
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#1777](../../../../../issues/1777) | pull | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Merged |
 
 ---
 
@@ -74,14 +68,6 @@ This project is part of the **Release Orchestration Initiative** and coordinates
 - Testing validates safety for agentic workflow
 
 **Link:** [`.github/projects/active/release-workflow-authorization-fixes/`](../release-workflow-authorization-fixes/)
-
----
-
-## Related Issues
-
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#1777](https://github.com/lightspeedwp/.github/issues/1777) | epic | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Open |
 
 ---
 
@@ -328,8 +314,7 @@ Phase 5A is successful when:
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1777](https://github.com/lightspeedwp/.github/issues/1777) | feat | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟡 In Progress |
-| [#1798](https://github.com/lightspeedwp/.github/issues/1798) | feature | GitHub Agentic Workflows Implementation | ⏳ Planned |
+| CHILD-050+ | task | Phase 5A subtasks (created during planning) | 🔄 Pending creation |
 
 ---
 
