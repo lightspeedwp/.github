@@ -11,13 +11,6 @@ const path = require("path");
  * Standard families: user_defaults, project_context, decision_log,
  * execution_state, handoff, and metadata in frontmatter.
  */
-const MEMORY_FAMILIES = [
-  "user_defaults",
-  "project_context",
-  "decision_log",
-  "execution_state",
-  "handoff",
-];
 
 /**
  * Format a memory entry with 10-family YAML structure.

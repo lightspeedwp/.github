@@ -6,7 +6,7 @@
 const workspaceCleaner = require("../shared/workspace-cleaner");
 const fs = require("fs");
 const path = require("path");
-const { execSync, execFileSync } = require("child_process");
+const { execFileSync } = require("child_process");
 
 describe("Workspace Cleaner Module", () => {
   const testDir = path.join(__dirname, "fixtures", "workspace-cleaner-test");

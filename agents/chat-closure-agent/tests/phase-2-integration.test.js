@@ -79,7 +79,7 @@ describe("Phase 2 Integration", () => {
       };
 
       // Step 1: Create and save memory entry
-      const memoryResult = memoryUpdater.updateMemoryForSessionClosure(
+      memoryUpdater.updateMemoryForSessionClosure(
         testDir,
         coreAnalysisData,
         memoryOptions,
@@ -183,7 +183,7 @@ describe("Phase 2 Integration", () => {
       };
 
       // Create memory with blockers
-      const memoryResult = memoryUpdater.updateMemoryForSessionClosure(
+      memoryUpdater.updateMemoryForSessionClosure(
         testDir,
         coreAnalysisData,
         memoryOptions,
@@ -257,7 +257,7 @@ describe("Phase 2 Integration", () => {
       };
 
       // Create memory with multiple decisions
-      const memoryResult = memoryUpdater.updateMemoryForSessionClosure(
+      memoryUpdater.updateMemoryForSessionClosure(
         testDir,
         coreAnalysisData,
         memoryOptions,
@@ -317,7 +317,7 @@ describe("Phase 2 Integration", () => {
       };
 
       // Create memory with empty decisions
-      const memoryResult = memoryUpdater.updateMemoryForSessionClosure(
+      memoryUpdater.updateMemoryForSessionClosure(
         testDir,
         coreAnalysisData,
         memoryOptions,
@@ -369,7 +369,7 @@ describe("Phase 2 Integration", () => {
         nextSteps: [],
       };
 
-      const memoryResult = memoryUpdater.updateMemoryForSessionClosure(
+      memoryUpdater.updateMemoryForSessionClosure(
         testDir,
         coreAnalysisData,
         memoryOptions,
