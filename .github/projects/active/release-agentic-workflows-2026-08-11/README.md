@@ -1,13 +1,11 @@
 ---
-file_type: documentation
+file_type: readme
 title: "GitHub Agentic Workflows Release Agent"
 description: "Phase 5A: Implement GitHub Agentic Workflows for release orchestration, augmenting shell-based approach with LLM-driven reasoning and improved UX"
-status: planning
-version: "1.1"
+status: draft
 last_updated: "2026-08-12"
 owners: ["Ash Shaw"]
 tags: ["release", "agentic-workflows", "github-copilot", "automation", "phase-5a"]
-category: "release-engineering"
 ---
 
 # GitHub Agentic Workflows Release Agent — Phase 5A
@@ -76,6 +74,14 @@ This project is part of the **Release Orchestration Initiative** and coordinates
 - Testing validates safety for agentic workflow
 
 **Link:** [`.github/projects/active/release-workflow-authorization-fixes/`](../release-workflow-authorization-fixes/)
+
+---
+
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1777](https://github.com/lightspeedwp/.github/issues/1777) | epic | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Open |
 
 ---
 

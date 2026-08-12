@@ -353,9 +353,10 @@ Templates located in `.github/ISSUE_TEMPLATE/`:
 
 **Key Resources:**
 
-- **Quick Reference:** [docs/QUICK_REFERENCE_AI_FEEDBACK.md](./docs/QUICK_REFERENCE_AI_FEEDBACK.md) — 4-step guide
+- **Quick Reference:** [docs/QUICK_REFERENCE_AI_FEEDBACK.md](./docs/QUICK_REFERENCE_AI_FEEDBACK.md) — 4-step implementation guide
+- **System Summary:** [docs/AI_FEEDBACK_SYSTEM_SUMMARY.md](./docs/AI_FEEDBACK_SYSTEM_SUMMARY.md) — Complete system overview
 - **Full Guide:** [docs/ai-feedback-response-tracking.md](./docs/ai-feedback-response-tracking.md) — Comprehensive guide with examples
-- **Workflow Details:** [docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md](./docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md) — Technical configuration
+- **Workflow Details:** [docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md](./docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md) — Technical configuration and automation
 - **Template:** [PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md](./PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md) — Template to copy
 - **Examples:** [examples/FEEDBACK_RESPONSE_example-simple.md](./examples/FEEDBACK_RESPONSE_example-simple.md) and [examples/FEEDBACK_RESPONSE_example-complex.md](./examples/FEEDBACK_RESPONSE_example-complex.md)
 
@@ -366,6 +367,28 @@ Templates located in `.github/ISSUE_TEMPLATE/`:
 ✅ **Process enforcement** — Workflow prevents merge without proper issue links  
 ✅ **Team consistency** — Same process across all PRs  
 ✅ **Transparent tracking** — All feedback decisions visible in commit history
+
+### Issue Maintenance Scripts & Label Management
+
+Comprehensive documentation for issue automation, triage workflows, and label management:
+
+**System Documentation:**
+
+- **[docs/ISSUE_MAINTENANCE_SCRIPTS.md](./docs/ISSUE_MAINTENANCE_SCRIPTS.md)** — Primary system guide for issue maintenance automation (800+ lines)
+- **[docs/LABEL_MANAGEMENT_CLI.md](./docs/LABEL_MANAGEMENT_CLI.md)** — CLI reference for label orchestrator and management tools
+- **[scripts/automation/README.md](./scripts/automation/README.md)** — Folder overview and quick-start guide
+
+**Reference Guides:**
+
+- **[docs/LABELING.md](./docs/LABELING.md)** — Complete labeling standards and conventions
+- **[docs/LABEL_STRATEGY.md](./docs/LABEL_STRATEGY.md)** — Label taxonomy and governance strategy
+- **[docs/LABELING_EXAMPLES.md](./docs/LABELING_EXAMPLES.md)** — Practical labeling examples
+- **[docs/LABELING_FAQ.md](./docs/LABELING_FAQ.md)** — Frequently asked questions
+- **[docs/LABELING_GOVERNANCE.md](./docs/LABELING_GOVERNANCE.md)** — Label governance rules and policies
+
+**Active Project:**
+
+- [issue-maintenance-scripts-2026-08-10](./.github/projects/active/issue-maintenance-scripts-2026-08-10/) — Phase 3-4 completed; Phase 5 integration testing in progress
 
 ### Before Every Push
 
