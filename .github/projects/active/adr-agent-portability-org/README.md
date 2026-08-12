@@ -332,12 +332,12 @@ Central registry, metrics, and knowledge management.
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| (Epic) | epic | Master Initiative Epic — ADR Agent Portability | 🟡 Planning |
-| (Phase 1A) | task | Phase 1A: Design & Configuration System | ⏳ Blocked |
-| (Phase 1B) | task | Phase 1B: Template & Validation Framework | ⏳ Blocked |
-| (Phase 1C) | task | Phase 1C: Test Suite & Documentation | ⏳ Blocked |
-| (Phase 2) | task | Phase 2: Cross-Repository Integration | ⏳ Blocked |
-| (Phase 3) | task | Phase 3: Registry & Organization-Wide Features | ⏳ Blocked |
+| [#1828](../../../issues/1828) | epic | Master Initiative Epic — ADR Agent Portability | 🟡 Planning |
+| [#1829](../../../issues/1829) | task | Phase 1A: Design & Configuration System | ⏳ Blocked |
+| [#1830](../../../issues/1830) | task | Phase 1B: Template & Validation Framework | ⏳ Blocked |
+| [#1831](../../../issues/1831) | task | Phase 1C: Test Suite & Documentation | ⏳ Blocked |
+| [#1832](../../../issues/1832) | task | Phase 2: Cross-Repository Integration | ⏳ Blocked |
+| [#1833](../../../issues/1833) | task | Phase 3: Registry & Organization-Wide Features | ⏳ Blocked |
 
 ---
 
