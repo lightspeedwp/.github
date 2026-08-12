@@ -200,54 +200,51 @@ async function updatePRMetadata(pr, linkedIssueNumber = null) {
       updates.push(`label: meta:needs-changelog`);
     }
 
-    if (!mode === "dry-run" || mode === "auto") {
-      // Apply updates if in auto mode
-      if (mode === "auto") {
-        // Update assignee
-        if (!pr.assignees || pr.assignees.length === 0) {
-          await octokit.rest.issues.addAssignees({
+    if (mode === "auto") {
+      // Update assignee
+      if (!pr.assignees || pr.assignees.length === 0) {
+        await octokit.rest.issues.addAssignees({
+          owner: OWNER,
+          repo: REPO,
+          issue_number: pr.number,
+          assignees: [config.assignee],
+        });
+      }
+
+      // Update milestone
+      if (!pr.milestone) {
+        // First fetch milestone ID
+        const milestones = await octokit.rest.issues.listMilestones({
+          owner: OWNER,
+          repo: REPO,
+        });
+        const targetMilestone = milestones.data.find(
+          (m) => m.title === config.milestone,
+        );
+        if (targetMilestone) {
+          await octokit.rest.issues.update({
             owner: OWNER,
             repo: REPO,
             issue_number: pr.number,
-            assignees: [config.assignee],
+            milestone: targetMilestone.number,
           });
         }
+      }
 
-        // Update milestone
-        if (!pr.milestone) {
-          // First fetch milestone ID
-          const milestones = await octokit.rest.issues.listMilestones({
-            owner: OWNER,
-            repo: REPO,
-          });
-          const targetMilestone = milestones.data.find(
-            (m) => m.title === config.milestone,
-          );
-          if (targetMilestone) {
-            await octokit.rest.issues.update({
-              owner: OWNER,
-              repo: REPO,
-              issue_number: pr.number,
-              milestone: targetMilestone.number,
-            });
-          }
-        }
+      // Add labels
+      const labelsToAdd = [];
+      if (!hasReviewLabel && pr.state === "open")
+        labelsToAdd.push("status:needs-review");
+      if (!hasChangelogLabel && pr.merged_at)
+        labelsToAdd.push("meta:needs-changelog");
 
-        // Add labels
-        const labelsToAdd = [];
-        if (!hasReviewLabel && pr.state === "open")
-          labelsToAdd.push("status:needs-review");
-        if (!hasChangelogLabel && pr.merged_at)
-          labelsToAdd.push("meta:needs-changelog");
-
-        if (labelsToAdd.length > 0) {
-          await octokit.rest.issues.addLabels({
-            owner: OWNER,
-            repo: REPO,
-            issue_number: pr.number,
-            labels: labelsToAdd,
-          });
-        }
+      if (labelsToAdd.length > 0) {
+        await octokit.rest.issues.addLabels({
+          owner: OWNER,
+          repo: REPO,
+          issue_number: pr.number,
+          labels: labelsToAdd,
+        });
       }
     }
 
