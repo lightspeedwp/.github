@@ -18,11 +18,16 @@ Consolidate LightSpeed's testing infrastructure from a fragmented playwright-foc
 
 ## Quick Links
 
+### Specification Documents
 - **Proposal:** [proposal.md](./proposal.md)
 - **Design:** [design.md](./design.md)
 - **Tasks:** [tasks.md](./tasks.md)
-- **Master Issue:** [#1799](https://github.com/lightspeedwp/.github/issues/1799)
-- **Planning PR:** [#1797](https://github.com/lightspeedwp/.github/pull/1797)
+
+### Related GitHub Issues & PRs
+- **Master Issue:** [#1799](https://github.com/lightspeedwp/.github/issues/1799) — Planning coordination
+- **Planning PR:** [#1797](https://github.com/lightspeedwp/.github/pull/1797) — Planning documentation (✅ merged)
+- **OpenSpec Issue:** [#1825](https://github.com/lightspeedwp/.github/issues/1825) — This specification
+- **OpenSpec PR:** [#1824](https://github.com/lightspeedwp/.github/pull/1824) — This specification review
 
 ## Key Decision
 
@@ -41,8 +46,10 @@ Consolidate LightSpeed's testing infrastructure from a fragmented playwright-foc
 ## Status
 
 - ✅ **Phase 1** — Design & Planning (Complete)
-  - Planning docs merged in PR #1797
-  - Master issue #1799 created
+  - Planning docs merged in [PR #1797](https://github.com/lightspeedwp/.github/pull/1797)
+  - Master issue [#1799](https://github.com/lightspeedwp/.github/issues/1799) created
+  - OpenSpec issue [#1825](https://github.com/lightspeedwp/.github/issues/1825) created
+  - OpenSpec PR [#1824](https://github.com/lightspeedwp/.github/pull/1824) under review
   
 - 🟡 **Phase 2** — Portable Agent Expansion (Planned)
   - Rename directory structure

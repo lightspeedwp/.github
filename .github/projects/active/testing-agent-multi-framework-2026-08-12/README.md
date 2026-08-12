@@ -184,12 +184,23 @@ This project consolidates LightSpeed's testing infrastructure into a unified, mu
 
 ## Related Issues & PRs
 
-| Item | Status | Purpose |
-|------|--------|---------|
-| [Rewrite Prompt](./TESTING_AGENT_REWRITE_PROMPT.md) | ✅ Complete | Architecture & rewrite guidance |
-| [Questions Doc](./QUESTIONS_AND_ANSWERS.md) | ⏳ In Progress | Answers to Q1-Q5 above |
-| [Implementation Plan](./IMPLEMENTATION_PLAN.md) | ⏳ Pending | Detailed step-by-step plan |
-| [Architecture Diagrams](./ARCHITECTURE_DIAGRAMS.md) | ⏳ Pending | Mermaid visuals (2-tier model, delegation flow) |
+### GitHub Issues & PRs
+
+| Item | Link | Status | Purpose |
+|------|------|--------|---------|
+| **Master Planning Issue** | [#1799](https://github.com/lightspeedwp/.github/issues/1799) | 🟡 In Progress | Centralized coordination for all 4 phases |
+| **Planning PR** | [#1797](https://github.com/lightspeedwp/.github/pull/1797) | ✅ Merged | Planning documentation (develop) |
+| **OpenSpec Issue** | [#1825](https://github.com/lightspeedwp/.github/issues/1825) | 🟡 Proposal | Formal specification tracking |
+| **OpenSpec PR** | [#1824](https://github.com/lightspeedwp/.github/pull/1824) | 🟡 In Review | OpenSpec specification (proposal, design, tasks) |
+
+### Project Documentation
+
+| Item | Location | Status | Purpose |
+|------|----------|--------|---------|
+| [Rewrite Prompt](./TESTING_AGENT_REWRITE_PROMPT.md) | Local | ✅ Complete | Architecture & rewrite guidance |
+| [Questions Doc](./QUESTIONS_AND_ANSWERS.md) | Local | ✅ Complete | Answers to Q1-Q5 above |
+| [Implementation Plan](./IMPLEMENTATION_PLAN.md) | Local | ✅ Complete | Detailed step-by-step plan |
+| [Architecture Diagrams](./ARCHITECTURE_DIAGRAMS.md) | Local | ✅ Complete | Mermaid visuals (2-tier model, delegation flow) |
 
 ---
 
