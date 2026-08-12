@@ -583,8 +583,8 @@ graph LR
     L --> M["✓ Scope<br/>Validator Skill"]
     M --> N["🎯 Final<br/>Task Plan"]
     
-    style A fill:#e1f5ff
-    style N fill:#c8e6c9
+    style A fill:#e1f5ff,color:#000
+    style N fill:#c8e6c9,color:#000
 ```
 
 #### Diagram 3: Repository-Type Branching
@@ -613,10 +613,10 @@ graph TD
     E --> E3["Standards: WordPress Coding Standards"]
     E --> E4["Block Knowledge: TRUE"]
     
-    style A fill:#fff3e0
-    style C fill:#e8f5e9
-    style D fill:#f3e5f5
-    style E fill:#f3e5f5
+    style A fill:#fff3e0,color:#000
+    style C fill:#e8f5e9,color:#000
+    style D fill:#f3e5f5,color:#000
+    style E fill:#f3e5f5,color:#000
 ```
 
 #### Diagram 4: Integration Points
@@ -654,12 +654,12 @@ graph TB
     E --> F["Output Schemas"]
     F --> G["Task Plan JSON"]
     
-    style A fill:#bbdefb
-    style B fill:#c8e6c9
-    style C fill:#fff9c4
-    style D fill:#f8bbd0
-    style F fill:#e1bee7
-    style G fill:#c8e6c9
+    style A fill:#bbdefb,color:#000
+    style B fill:#c8e6c9,color:#000
+    style C fill:#fff9c4,color:#000
+    style D fill:#f8bbd0,color:#000
+    style F fill:#e1bee7,color:#000
+    style G fill:#c8e6c9,color:#000
 ```
 
 #### Diagram 5: Skill Architecture
@@ -710,14 +710,14 @@ graph TD
     P2 --> Out3
     P3 --> Out3
     
-    style Agent fill:#bbdefb
-    style Agent2 fill:#bbdefb
-    style Research fill:#c8e6c9
-    style Reporting fill:#fff9c4
-    style Planning fill:#f8bbd0
-    style Out1 fill:#e1bee7
-    style Out2 fill:#e1bee7
-    style Out3 fill:#e1bee7
+    style Agent fill:#bbdefb,color:#000
+    style Agent2 fill:#bbdefb,color:#000
+    style Research fill:#c8e6c9,color:#000
+    style Reporting fill:#fff9c4,color:#000
+    style Planning fill:#f8bbd0,color:#000
+    style Out1 fill:#e1bee7,color:#000
+    style Out2 fill:#e1bee7,color:#000
+    style Out3 fill:#e1bee7,color:#000
 ```
 
 #### Diagram 6: Test Coverage Map
@@ -749,11 +749,11 @@ graph TD
     C1 --> Cov
     D1 --> Cov
     
-    style A fill:#fff3e0
-    style B fill:#e8f5e9
-    style C fill:#c8e6c9
-    style D fill:#a5d6a7
-    style Cov fill:#81c784
+    style A fill:#fff3e0,color:#000
+    style B fill:#e8f5e9,color:#000
+    style C fill:#c8e6c9,color:#000
+    style D fill:#a5d6a7,color:#000
+    style Cov fill:#81c784,color:#fff
 ```
 
 ### Documentation Spec
