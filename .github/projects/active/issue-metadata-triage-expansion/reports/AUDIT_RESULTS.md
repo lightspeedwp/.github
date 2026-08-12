@@ -32,7 +32,7 @@
 
 - **status:needs-triage**: 34 issues (9%)
 - **status:needs-more-info**: 36 issues (9%)
-- **status:needs-review**: 1 issues (0%)
+- **status:needs-review**: 1 issue (0%)
 - **status:needs-planning**: 17 issues (4%)
 
 - **(no status label)**: 216 issues (55%)
@@ -91,7 +91,7 @@
 **PR Links:** 89%
 
 - Issues with PR links: 354
-- Feature/bug issues without PR links: undefined
+- Issues without PR links: 42
 
 ## Next Steps
 

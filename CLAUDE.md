@@ -68,8 +68,9 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 **Schema consolidation note:** ✅ Phase 2 complete — All schemas consolidated into `schemas/` folder:
 
 - `schemas/` — canonical portable location (26 files: 17 core + memory/ subdirectory + examples/)
-- `.github/schemas/` — cleanup pending (only README.md remains, can be removed)
-- `schema/` — legacy location (pending removal, duplicate of schemas/)
+- `.schemas/` — hidden folder for backward compatibility (contains full schema set)
+- `.github/schemas/` — ✅ removed (was control-plane marker folder)
+- `schema/` — ✅ removed (legacy duplicate folder)
 
 All schema references should use `schemas/` as the canonical location.
 

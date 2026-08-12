@@ -1,9 +1,17 @@
 ---
+file_type: documentation
 title: Schema Consolidation Migration Guide
 description: Path updates for the Phase 2 schema consolidation (2026-08-11)
 version: "1.0"
 last_updated: "2026-08-11"
 status: active
+owners:
+  - LightSpeedWP Maintainers
+tags:
+  - schema
+  - consolidation
+  - migration
+  - documentation
 ---
 
 # Schema Consolidation Migration Guide
@@ -98,13 +106,13 @@ The following directories have been removed after confirming consolidation:
 
 - **Reason:** Control-plane schemas marker folder (minimal content, only README)
 - **Alternative:** Use `schemas/` at repo root
-- **Confirmed:** All 25 core schemas present in `schemas/`
+- **Confirmed:** All 26 portable schemas present in `schemas/`
 
 ### `schema/` — Removed ✅
 
 - **Reason:** Legacy duplicate folder from pre-consolidation structure
 - **Alternative:** Use `schemas/` at repo root  
-- **Confirmed:** All 25 core schemas present in `schemas/`
+- **Confirmed:** All 26 portable schemas present in `schemas/`
 
 ---
 
@@ -126,7 +134,7 @@ All validation scripts have been updated and tested:
 **Phase 2 Status:** ✅ Complete  
 **Next Phase:** Phase 3 — VSCode Workspace Setup
 
-All old paths (`.schemas/`, `schema/`) are no longer available in the repository.
+The `schema/` legacy directory has been removed. The `.schemas/` directory still exists in the repository for backward compatibility, but `schemas/` is the canonical portable location going forward.
 
 ---
 

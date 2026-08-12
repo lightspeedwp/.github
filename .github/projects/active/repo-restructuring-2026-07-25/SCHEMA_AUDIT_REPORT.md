@@ -35,13 +35,13 @@ The repository contains **25 portable schema files distributed across 3 primary 
 
 ### Current Distribution
 
-- `schema/` (old location): 25 files + README (readable location, potentially deprecated)
-- `schemas/` (visible root): 25 files + README (visible, portable, npm-referenced) — **COMPLETE**
-- `.schemas/` (hidden target): 23 files + README (missing `agent-config.example.md` and `examples/`) — **INCOMPLETE (migration pending)**
-- `.github/schemas/`: 1 file (README only, boundary marker)
+- `schema/` (old location): 26 files (removed in Phase 2, was duplicate of schemas/)
+- `schemas/` (visible root): 26 files + README (canonical portable location) — **COMPLETE**
+- `.schemas/` (hidden target): 26 files + README (contains all portable schemas) — **COMPLETE**
+- `.github/schemas/`: 1 file (README only, removed in Phase 2)
 - **Agent-local schemas**: 40+ custom schema folders across agent/skill subdirectories
 
-**Completeness Definition:** A location is considered "complete" when it contains all 25 core portable schemas. The `.schemas/` location is incomplete pending Phase 3 migration to consolidate `agent-config.example.md` and `examples/` directory.
+**Completeness Definition:** A location is considered "complete" when it contains all portable schemas (17 core + memory/ subdirectory + examples/ subdirectory + schema-registry.json + agent-config.example.md). Both `schemas/` and `.schemas/` are complete.
 
 ---
 
