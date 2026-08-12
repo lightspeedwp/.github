@@ -7,21 +7,19 @@
  * @module label-utils
  */
 
-import { findSimilar } from 'lodash';
-
 /**
  * Canonical label families recognized by the system
  * @type {string[]}
  */
 const LABEL_FAMILIES = [
-  'type',
-  'status',
-  'area',
-  'meta',
-  'priority',
-  'component',
-  'affects',
-  'requires'
+  "type",
+  "status",
+  "area",
+  "meta",
+  "priority",
+  "component",
+  "affects",
+  "requires",
 ];
 
 /**
@@ -30,62 +28,58 @@ const LABEL_FAMILIES = [
  */
 const CANONICAL_LABELS = {
   type: [
-    'type:bug',
-    'type:feature',
-    'type:task',
-    'type:documentation',
-    'type:chore',
-    'type:refactor',
-    'type:performance',
-    'type:security',
-    'type:accessibility'
+    "type:bug",
+    "type:feature",
+    "type:task",
+    "type:documentation",
+    "type:chore",
+    "type:refactor",
+    "type:performance",
+    "type:security",
+    "type:accessibility",
   ],
   status: [
-    'status:needs-triage',
-    'status:in-progress',
-    'status:review',
-    'status:blocked',
-    'status:done',
-    'status:cancelled'
+    "status:needs-triage",
+    "status:in-progress",
+    "status:review",
+    "status:blocked",
+    "status:done",
+    "status:cancelled",
   ],
   area: [
-    'area:ci',
-    'area:docs',
-    'area:security',
-    'area:labels',
-    'area:automation',
-    'area:testing',
-    'area:api',
-    'area:ui'
+    "area:ci",
+    "area:docs",
+    "area:security",
+    "area:labels",
+    "area:automation",
+    "area:testing",
+    "area:api",
+    "area:ui",
   ],
   meta: [
-    'meta:needs-changelog',
-    'meta:has-pr',
-    'meta:breaking-change',
-    'meta:needs-review'
+    "meta:needs-changelog",
+    "meta:has-pr",
+    "meta:breaking-change",
+    "meta:needs-review",
   ],
   priority: [
-    'priority:critical',
-    'priority:important',
-    'priority:normal',
-    'priority:low'
+    "priority:critical",
+    "priority:important",
+    "priority:normal",
+    "priority:low",
   ],
   component: [
-    'component:block-editor',
-    'component:theme',
-    'component:cli',
-    'component:api'
+    "component:block-editor",
+    "component:theme",
+    "component:cli",
+    "component:api",
   ],
-  affects: [
-    'affects:performance',
-    'affects:accessibility',
-    'affects:security'
-  ],
+  affects: ["affects:performance", "affects:accessibility", "affects:security"],
   requires: [
-    'requires:design-review',
-    'requires:security-review',
-    'requires:performance-audit'
-  ]
+    "requires:design-review",
+    "requires:security-review",
+    "requires:performance-audit",
+  ],
 };
 
 /**
@@ -107,25 +101,25 @@ const CANONICAL_LABELS = {
  * // → { family: null, name: 'urgent', full: 'urgent' }
  */
 export function parse(label) {
-  if (!label || typeof label !== 'string') {
-    return { family: null, name: '', full: '' };
+  if (!label || typeof label !== "string") {
+    return { family: null, name: "", full: "" };
   }
 
   const trimmed = label.trim().toLowerCase();
-  if (trimmed.includes(':')) {
-    const [family, ...rest] = trimmed.split(':');
-    const name = rest.join(':');
+  if (trimmed.includes(":")) {
+    const [family, ...rest] = trimmed.split(":");
+    const name = rest.join(":");
     return {
       family: family || null,
-      name: name || '',
-      full: trimmed
+      name: name || "",
+      full: trimmed,
     };
   }
 
   return {
     family: null,
     name: trimmed,
-    full: trimmed
+    full: trimmed,
   };
 }
 
@@ -148,12 +142,12 @@ export function parse(label) {
  * // → { valid: false, label: 'type:buge', suggestion: 'type:bug', reason: 'Not in canonical set' }
  */
 export function validate(label) {
-  if (!label || typeof label !== 'string') {
+  if (!label || typeof label !== "string") {
     return {
       valid: false,
-      label: '',
+      label: "",
       suggestion: null,
-      reason: 'Label is empty or not a string'
+      reason: "Label is empty or not a string",
     };
   }
 
@@ -165,7 +159,7 @@ export function validate(label) {
       valid: true,
       label: trimmed,
       suggestion: null,
-      reason: 'Label found in canonical set'
+      reason: "Label found in canonical set",
     };
   }
 
@@ -176,7 +170,7 @@ export function validate(label) {
     valid: false,
     label: trimmed,
     suggestion,
-    reason: 'Not in canonical set'
+    reason: "Not in canonical set",
   };
 }
 
@@ -199,7 +193,7 @@ export function validate(label) {
  * // → ['status:in-progress', 'status:needs-triage', 'status:blocked']
  */
 export function suggest(label, maxSuggestions = 3) {
-  if (!label || typeof label !== 'string') {
+  if (!label || typeof label !== "string") {
     return [];
   }
 
@@ -208,15 +202,15 @@ export function suggest(label, maxSuggestions = 3) {
 
   // Calculate similarity scores
   const scored = allCanonical
-    .filter(candidate => candidate !== trimmed)
-    .map(candidate => ({
+    .filter((candidate) => candidate !== trimmed)
+    .map((candidate) => ({
       label: candidate,
-      score: calculateSimilarity(trimmed, candidate)
+      score: calculateSimilarity(trimmed, candidate),
     }))
     .sort((a, b) => b.score - a.score)
     .slice(0, maxSuggestions);
 
-  return scored.map(item => item.label);
+  return scored.map((item) => item.label);
 }
 
 /**
@@ -242,15 +236,11 @@ export function suggest(label, maxSuggestions = 3) {
  * // → 60 (somewhat relevant, adds new dimension)
  */
 export function score(label, context = {}) {
-  if (!label || typeof label !== 'string') {
+  if (!label || typeof label !== "string") {
     return 0;
   }
 
-  const {
-    issueType = null,
-    existingLabels = [],
-    isCanonical = true
-  } = context;
+  const { issueType = null, existingLabels = [], isCanonical = true } = context;
 
   const trimmed = label.trim().toLowerCase();
   const parsed = parse(trimmed);
@@ -266,7 +256,7 @@ export function score(label, context = {}) {
 
   // Check for family conflicts
   if (parsed.family && existingLabels) {
-    const hasConflict = existingLabels.some(existing => {
+    const hasConflict = existingLabels.some((existing) => {
       const existingParsed = parse(existing);
       return existingParsed.family === parsed.family;
     });
@@ -277,7 +267,7 @@ export function score(label, context = {}) {
   }
 
   // Check context match
-  if (issueType && parsed.family === 'type') {
+  if (issueType && parsed.family === "type") {
     if (trimmed.includes(issueType)) {
       score += 20; // Context match bonus
     }
@@ -302,7 +292,7 @@ export function getFamilies() {
  * @returns {string[]} Array of canonical labels in the family, or empty array if family not found
  */
 export function getLabelsByFamily(family) {
-  const normalized = family.toLowerCase().replace(/[^a-z0-9-]/g, '');
+  const normalized = family.toLowerCase().replace(/[^a-z0-9-]/g, "");
   return CANONICAL_LABELS[normalized] || [];
 }
 
@@ -391,7 +381,7 @@ export const labelUtils = {
   score,
   getFamilies,
   getLabelsByFamily,
-  getAllCanonical
+  getAllCanonical,
 };
 
 export default labelUtils;
