@@ -24,6 +24,14 @@ status: "planning|active|blocked|paused|complete"
 
 Quick overview of the pr-issue-milestone-allocation-2026-08-11 project.
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| TBD | task | Link GitHub issue for PR-issue-milestone allocation | 📋 Pending |
+
+**Note:** This project needs a linked GitHub issue for tracking. Create an issue and update this section with the issue number.
+
 ---
 
 ## Quick Facts
