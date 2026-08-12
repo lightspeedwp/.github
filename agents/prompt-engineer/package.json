@@ -1,0 +1,66 @@
+{
+  "name": "@lightspeedwp/prompt-engineer-agent",
+  "version": "1.0.0",
+  "description": "Portable prompt engineering and validation agent for LightSpeed organization",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./analyze": "./skills/analyze-prompt.skill.md",
+    "./improve": "./skills/improve-prompt.skill.md",
+    "./validate": "./skills/validate-prompt.skill.md"
+  },
+  "scripts": {
+    "test": "node --test tests/**/*.test.js",
+    "test:unit": "node --test tests/unit/**/*.test.js",
+    "test:integration": "node --test tests/integration/**/*.test.js",
+    "test:coverage": "c8 npm test",
+    "lint": "eslint . --ext .js,.md",
+    "docs": "echo 'Documentation available in README.md, API.md, and EXAMPLES.md'"
+  },
+  "keywords": [
+    "prompt-engineering",
+    "prompt-analysis",
+    "validation",
+    "github",
+    "wordpress",
+    "agent",
+    "lightspeed"
+  ],
+  "author": "Ash Shaw (LightSpeed)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "agents/prompt-engineer"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "c8": "^8.0.1",
+    "eslint": "^8.50.0"
+  },
+  "files": [
+    "README.md",
+    "API.md",
+    "EXAMPLES.md",
+    "skills/",
+    "tests/",
+    "examples/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "metadata": {
+    "phase": "2",
+    "status": "active",
+    "created": "2026-08-12",
+    "contexts": [
+      ".github",
+      "wordpress-plugin",
+      "wordpress-theme",
+      "generic"
+    ]
+  }
+}
