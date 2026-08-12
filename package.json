@@ -1,45 +1,183 @@
 {
-  "name": "lightspeed-github-org-control-plane",
-  "version": "1.0.0",
-  "description": "LightSpeed .github organization control plane",
-  "scripts": {
-    "test": "echo '✓ Tests passed'",
-    "lint": "echo '✓ Linting passed'",
-    "lint:all": "echo '✓ All linting passed'",
-    "lint:md": "echo '✓ Markdown linting passed'",
-    "lint:js": "echo '✓ JavaScript linting passed'",
-    "build": "echo '✓ Build completed'",
-    "format": "echo '✓ Code formatted'",
-    "cleanup-branches": "echo '✓ Branches cleaned up'",
-    "generate:badges": "echo '✓ Badges generated'",
-    "metrics:ci": "echo '✓ Metrics collected'",
-    "audit:readme": "echo '✓ README audit completed'",
-    "validate:agent-hooks": "echo '✓ Agent hooks validated'",
-    "validate:badges-schema": "echo '✓ Badges schema validated'",
-    "validate:branch-name": "echo '✓ Branch name validated'",
-    "validate:footers": "echo '✓ Footers validated'",
-    "validate:frontmatter": "echo '✓ Frontmatter validated'",
-    "validate:frontmatter:changed": "echo '✓ Changed frontmatter validated'",
-    "validate:issue-fields": "echo '✓ Issue fields validated'",
-    "validate:json": "echo '✓ JSON validated'",
-    "validate:mermaid-accessibility": "echo '✓ Mermaid accessibility validated'",
-    "validate:mermaid-contrast": "echo '✓ Mermaid contrast validated'",
-    "validate:mermaid-syntax": "echo '✓ Mermaid syntax validated'",
-    "validate:plugins": "echo '✓ Plugins validated'",
-    "validate:retired-doc-links": "echo '✓ Retired doc links validated'",
-    "validate:skill-manifests": "echo '✓ Skill manifests validated'"
+  "name": "@lightspeedwp/github-community-health",
+  "version": "0.2.0",
+  "description": "The GitHub Community Health file for LightspeedWP. Community health files, agent scripts, and automation for the LightSpeed WordPress organization.",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "LightSpeedWP Team",
+    "email": "support@lightspeedwp.agency",
+    "url": "https://lightspeedwp.agency"
+  },
+  "repository": "https://github.com/lightspeedwp/.github.git",
+  "homepage": "https://github.com/lightspeedwp/.github",
+  "bugs": {
+    "url": "https://github.com/lightspeedwp/.github/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/lightspeedwp/"
   },
   "keywords": [
+    "agents",
+    "instructions",
+    "skills",
+    "prompts",
+    "ai",
+    "community-health",
     "github",
-    "organization",
-    "control-plane"
+    "workflows",
+    "wordpress",
+    "automation",
+    "contributing",
+    "security",
+    "support"
   ],
-  "author": "LightSpeed Team",
-  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Ash Shaw",
+      "email": "support@lightspeedwp.agency",
+      "url": "https://github.com/ashleyshaw"
+    },
+    {
+      "name": "LightSpeedWP Team",
+      "url": "https://github.com/lightspeedwp"
+    }
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "SUPPORT.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "CHANGELOG.md",
+    "DEVELOPMENT.md",
+    "CODEOWNERS",
+    "docs/",
+    "scripts/",
+    ".github/"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "check": "npm run lint:all && npm run test",
+    "lint:baseline": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern --format stylish > .github/reports/linting/eslint-baseline.txt || true",
+    "lint:baseline:json": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline.json || true",
+    "lint:baseline:post-wave-1": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline-post-wave-1.json || true",
+    "lint:pkg-json": "npmPkgJsonLint --configFile .npmpackagejsonlint.config.cjs .",
+    "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.config.cjs",
+    "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.cjs",
+    "lint:json": "node scripts/validation/validate-json.js --validate-only --strict --read-only",
+    "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
+    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
+    "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
+    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
+    "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
+    "format:json": "prettier '**/*.json' --write '!package-lock.json' '!**/node_modules/**'",
+    "format:json:schemas": "node scripts/validation/validate-json.js --glob '.schemas/**/*.json' --format-only",
+    "format": "npm run format:js && npm run format:json && npm run format:md",
+    "validate:json": "node scripts/validation/validate-json.js --validate-only --strict --read-only",
+    "validate:json:schemas": "node scripts/validation/validate-json.js --glob '.schemas/**/*.json' --validate-only --strict --read-only",
+    "validate:json:all": "node scripts/validation/validate-json.js --glob '**/*.json' --validate-only --strict --read-only",
+    "validate:structure": "node scripts/validation/validate-structure.js",
+    "validate:skills": "node scripts/validation/validate-skills.js",
+    "validate:plugins": "node scripts/validation/validate-plugins.js",
+    "validate:links": "node scripts/validation/validate-links.js",
+    "validate:agents": "node scripts/validation/validate-agent-frontmatter.js",
+    "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
+    "validate:workflows": "node scripts/validation/validate-workflows.js",
+    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:json:all",
+    "eslint:delta:wave-1": "node scripts/compute-eslint-delta-wave-1.js",
+    "sync-version": "node scripts/sync-version.js",
+    "metrics:run": "node metrics/frontmatter-metrics.js",
+    "metrics:ci": "node metrics/frontmatter-metrics.js",
+    "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles",
+    "test": "npm run test:js",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
+    "contributors:check": "all-contributors check"
+  },
   "devDependencies": {
+    "@actions/core": "1.11.1",
+    "@actions/github": "6.0.1",
+    "@babel/core": "7.29.7",
+    "@babel/plugin-proposal-class-properties": "7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "7.20.7",
+    "@babel/plugin-syntax-import-meta": "7.10.4",
+    "@babel/plugin-transform-runtime": "7.29.7",
+    "@babel/preset-env": "7.28.5",
+    "@babel/preset-react": "7.29.7",
+    "@babel/preset-typescript": "7.29.7",
+    "@babel/runtime": "^7.29.7",
+    "@github/markdownlint-github": "^0.8.0",
+    "@jest/pattern": "30.0.1",
+    "@mermaid-js/mermaid-cli": "11.4.0",
+    "@stoplight/spectral-cli": "^6.16.0",
+    "@stoplight/spectral-core": "^1.23.0",
+    "@stoplight/spectral-functions": "^1.10.2",
+    "@types/jest": "29.5.14",
     "@types/node": "^20.0.0",
-    "eslint": "^8.50.0",
-    "markdownlint": "^0.31.1",
-    "prettier": "^3.0.0"
+    "@typescript-eslint/eslint-plugin": "^8.60.0",
+    "@typescript-eslint/parser": "^8.60.0",
+    "ajv": "^8.17.1",
+    "ajv-cli": "5.0.0",
+    "ajv-formats": "^3.0.1",
+    "all-contributors-cli": "6.26.1",
+    "babel-jest": "29.7.0",
+    "bats": "^1.8.0",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "glob": "10.5.0",
+    "gray-matter": "^4.0.3",
+    "husky": "^9.0.0",
+    "jest": "30.2.0",
+    "jest-environment-jsdom": "^30.0.1",
+    "js-yaml": "^4.1.1",
+    "lint-staged": "^15.0.0",
+    "markdownlint": "^0.28.1",
+    "markdownlint-cli2": "0.19.0",
+    "markdownlint-cli2-formatter-pretty": "^0.0.6",
+    "mermaid": "^10.9.0",
+    "micromatch": "^4.0.7",
+    "node-fetch": "^3.3.2",
+    "npm-package-json-lint": "^7.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.0",
+    "puppeteer": "^23.11.1",
+    "ts-jest": "29.4.5",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "8.47.0",
+    "yaml": "2.8.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,mdx}": [
+      "markdownlint-cli2 --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "*.{yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "overrides": {
+    "fast-json-patch": "3.1.1",
+    "tmp": "0.2.4"
+  },
+  "dependencies": {
+    "octokit": "5.0.5"
   }
 }
