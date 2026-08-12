@@ -82,7 +82,7 @@ git mv .github/reports/active/report-name.md .github/reports/archive/{category}/
 git commit -m "archive: Move {report-name} to archive/{category}"
 ```
 
-See [ARCHIVE_WORKFLOW_GUIDE.md](../..)/.github/ARCHIVE_WORKFLOW_GUIDE.md) for the complete archival process.
+See [ARCHIVE_WORKFLOW_GUIDE.md](../ARCHIVE_WORKFLOW_GUIDE.md) for the complete archival process.
 
 ## Quick Navigation
 
@@ -105,8 +105,8 @@ See [ARCHIVE_WORKFLOW_GUIDE.md](../..)/.github/ARCHIVE_WORKFLOW_GUIDE.md) for th
 
 ## Related Documentation
 
-- **[.github/ARCHIVE_WORKFLOW_GUIDE.md](../..)/.github/ARCHIVE_WORKFLOW_GUIDE.md)** — Project archival process
-- **[CLAUDE.md](../../)** — Reports folder structure reference (section: Reports & Projects Restructuring)
+- **[.github/ARCHIVE_WORKFLOW_GUIDE.md](../ARCHIVE_WORKFLOW_GUIDE.md)** — Project archival process
+- **[CLAUDE.md](../../CLAUDE.md)** — Reports folder structure reference (section: Reports & Projects Restructuring)
 - **[.github/projects/active/reports-projects-restructuring-2026-08-11/](../projects/active/reports-projects-restructuring-2026-08-11/)** — Initiative details
 
 ---
