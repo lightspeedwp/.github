@@ -70,15 +70,17 @@ Six key architectural decisions with best practice answers:
 
 ---
 
-## Related Issues
+## Related Issues & PR
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| TBD | epic | Task Planning Agents Initiative | 🟡 To Create |
-| TBD | feature | Task Planner Agent Implementation | 🟡 To Create |
-| TBD | feature | Task Researcher Agent Implementation | 🟡 To Create |
-| TBD | task | Agent Documentation & Mermaid Diagrams | 🟡 To Create |
-| TBD | task | Test Suite Development | 🟡 To Create |
+| [#1815](https://github.com/lightspeedwp/.github/issues/1815) | epic | Phase 1: Task Planning Agents — Specification & Design | 🟢 In Progress |
+| [#1803](https://github.com/lightspeedwp/.github/pull/1803) | pull request | Phase 1 Specification PR | 🟡 Awaiting Review |
+| TBD | epic | Phase 2: Task Planning Agents — Implementation | 🟡 To Create |
+| TBD | feature | Task Planner Agent Implementation | 🟡 To Create (Phase 2) |
+| TBD | feature | Task Researcher Agent Implementation | 🟡 To Create (Phase 2) |
+| TBD | task | Agent Documentation & Mermaid Diagrams | 🟡 To Create (Phase 2) |
+| TBD | task | Test Suite Development | 🟡 To Create (Phase 2) |
 
 ---
 
@@ -142,13 +144,27 @@ See [CLARIFYING_QUESTIONS_AND_ANSWERS.md](./CLARIFYING_QUESTIONS_AND_ANSWERS.md)
 ## Next Steps
 
 1. ✅ Review clarifying questions and best practice answers
-2. ⬜ Create GitHub issues for Phase 1 deliverables
-3. ⬜ Enter PlanMode to flesh out implementation roadmap
-4. ⬜ Assign ownership and timeline
-5. ⬜ Begin Phase 2 implementation (separate branch)
+2. ✅ Create GitHub issue #1815 for Phase 1 epic
+3. ✅ Create GitHub PR #1803 with specification documents
+4. ✅ Link PR and issue together (bidirectional reference)
+5. ⬜ Review and merge PR #1803 to `develop`
+6. ⬜ Create 17 Phase 2 GitHub issues (1 epic + 16 component tasks)
+7. ⬜ Begin Phase 2 implementation (5-6 week timeline)
 
 ---
 
-**Maintainers:** TBD  
-**Last Updated:** 2026-08-12  
+## Documentation & Communication
+
+**OpenSpec Reference:** This project follows LightSpeed's Portable Task Planning Agents openspec.
+
+**GitHub References:**
+
+- **Epic Issue:** [#1815](https://github.com/lightspeedwp/.github/issues/1815)
+- **Specification PR:** [#1803](https://github.com/lightspeedwp/.github/pull/1803)
+- **Active Project:** [.github/projects/active/portable-task-planning-agents-2026-08-12/](./)
+
+---
+
+**Maintainers:** ashleyshaw (Initiative Lead, Agent Developer, Skills Developer, Test Lead, Documentation Lead)  
+**Last Updated:** 2026-08-12 11:57 CEST  
 **Project Link:** `.github/projects/active/portable-task-planning-agents-2026-08-12/`
