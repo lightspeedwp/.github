@@ -106,10 +106,10 @@ stateDiagram-v2
     SUCCESS --> [*]
     FAILED --> [*]
     
-    style IDLE fill:#e1f5ff
-    style SUCCESS fill:#c8e6c9
-    style FAILED fill:#ffcdd2
-    style ERROR fill:#ffcdd2
+    style IDLE fill:#e1f5ff,color:#000
+    style SUCCESS fill:#c8e6c9,color:#000
+    style FAILED fill:#ffcdd2,color:#000
+    style ERROR fill:#ffcdd2,color:#000
 ```
 
 ---
@@ -172,9 +172,9 @@ graph TD
     D -->|used by| E["Orchestrator"]
     D -->|used by| F["Skills"]
     
-    style A fill:#fff9c4
-    style B fill:#fff9c4
-    style C fill:#fff9c4
+    style A fill:#fff9c4,color:#000
+    style B fill:#fff9c4,color:#000
+    style C fill:#fff9c4,color:#000
     style D fill:#4CAF50,color:#fff
     style E fill:#2196F3,color:#fff
     style F fill:#2196F3,color:#fff

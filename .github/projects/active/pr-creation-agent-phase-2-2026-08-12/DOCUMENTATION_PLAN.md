@@ -463,9 +463,9 @@ graph TB
     Validator --> Composer
     Composer --> Output
     
-    style Validator fill:#FF6B6B
-    style Composer fill:#4ECDC4
-    style Output fill:#45B7D1
+    style Validator fill:#FF6B6B,color:#fff
+    style Composer fill:#4ECDC4,color:#000
+    style Output fill:#45B7D1,color:#fff
 ```
 
 #### 3.9.2 WORKFLOW_DIAGRAMS.md
