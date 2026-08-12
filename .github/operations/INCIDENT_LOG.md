@@ -1,3 +1,17 @@
+---
+title: Incident Log — Issue Maintenance System
+description: Historical record of all incidents with severity levels, resolutions, and archival tracking
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors:
+  - lightspeedwp/maintainers
+tags:
+  - incident-log
+  - operations
+  - tracking
+---
+
 # Incident Log — Issue Maintenance System
 
 **Location:** `.github/operations/INCIDENT_LOG.md`  

@@ -1,3 +1,17 @@
+---
+title: Issue Maintenance System — Operational Runbook
+description: Operational guide for daily operations, startup/shutdown, and troubleshooting
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors:
+  - lightspeedwp/maintainers
+tags:
+  - operations
+  - runbook
+  - troubleshooting
+---
+
 # Issue Maintenance System — Operational Runbook
 
 **Document Version:** 1.0.0  
