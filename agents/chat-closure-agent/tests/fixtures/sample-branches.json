@@ -1,0 +1,43 @@
+{
+  "valid": [
+    {
+      "name": "feat/chat-closure-agent-impl",
+      "expected": {
+        "type": "feat",
+        "scope": "chat-closure-agent",
+        "title": "impl"
+      }
+    },
+    {
+      "name": "fix/memory-updater-yaml-structure",
+      "expected": {
+        "type": "fix",
+        "scope": "memory-updater-yaml",
+        "title": "structure"
+      }
+    },
+    {
+      "name": "docs/testing-guide-updates",
+      "expected": {
+        "type": "docs",
+        "scope": "testing-guide",
+        "title": "updates"
+      }
+    },
+    {
+      "name": "feat/agent-impl",
+      "expected": {
+        "type": "feat",
+        "scope": "agent",
+        "title": "impl"
+      }
+    }
+  ],
+  "invalid": [
+    "main",
+    "develop",
+    "feat/nodash",
+    "feat_chat_closure_agent",
+    "feat/chat_closure-agent"
+  ]
+}
