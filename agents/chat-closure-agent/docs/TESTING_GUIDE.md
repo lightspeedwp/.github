@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Chat Closure Agent — Testing Guide"
 description: "Test architecture, patterns, coverage metrics, and how to run the full test suite"
 version: "1.0.0"

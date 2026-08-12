@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Chat Closure Agent — Usage & Customization"
 description: "How to invoke the agent, configure parameters, and adapt for different workflows"
 version: "1.0.0"

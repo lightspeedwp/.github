@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Chat Closure Agent — Architecture & Design"
 description: "System design, component interactions, and data flow documentation"
 version: "1.0.0"

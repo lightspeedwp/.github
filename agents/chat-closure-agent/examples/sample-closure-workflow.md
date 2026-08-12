@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Sample Closure Workflow — Chat Closure Agent"
 description: "Real-world example: Session closure on control-plane repository with project integration"
 scenario: "Phase 4 documentation work"

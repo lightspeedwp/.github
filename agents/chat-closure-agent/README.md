@@ -1,4 +1,5 @@
 ---
+file_type: "readme"
 title: "Chat Closure Agent"
 description: "Automate session handoff workflows with memory updates, prompt generation, and worktree cleanup"
 version: "1.0.0"
