@@ -143,11 +143,12 @@ This project is tracked by the following GitHub issues:
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| TBD | epic | Master epic for Reporting Agent v2 | 🟡 To be created |
-| TBD | task | Create active project and planning docs | 🟡 In progress |
-| TBD | task | Validate agent prompt in control-plane | ⏳ Queued |
-| TBD | task | Test block plugin integration | ⏳ Queued |
-| TBD | task | Test block theme integration | ⏳ Queued |
+| [#1898](../../issues/1898) | epic | Master epic for Reporting Agent v2 | 🟡 Open |
+| [#1900](../../issues/1900) | task | Phase 1: Agent Prompt v2 & Planning Documentation | ✅ Complete |
+| [#1901](../../issues/1901) | task | Phase 2: Control-Plane Validation & PR Merge | ⏳ In Progress |
+| [#1902](../../issues/1902) | task | Phase 3: Block Plugin Testing & Feedback | ⏳ Queued |
+| [#1903](../../issues/1903) | task | Phase 4: Block Theme Testing & Feedback | ⏳ Queued |
+| [#1904](../../issues/1904) | task | Phase 5: Org-Wide Rollout & Onboarding | ⏳ Queued |
 
 See [Linking Standard](./../reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
 
