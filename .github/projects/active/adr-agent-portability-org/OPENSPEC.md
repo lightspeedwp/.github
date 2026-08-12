@@ -523,5 +523,383 @@ Central ADR registry and organization-wide decision tracking.
 
 ---
 
+---
+
+## Phase 1 Detailed Implementation Roadmap
+
+### Phase 1A: Configuration System (Weeks 1–2)
+
+**Lead:** @ash  
+**Deliverables:** Configuration schema, loader, examples, documentation
+
+#### Week 1: Schema Design & Validation
+
+**Tasks:**
+
+1. Define JSON schema for `.adr-config.json` (adr-config.schema.json)
+2. Create configuration validation rules
+3. Define default configuration (defaults.json)
+4. Create configuration examples for different repository contexts
+5. Design configuration inheritance logic (org defaults + repo overrides)
+
+**Files:**
+
+- `agents/adr-generator/config/adr-config.schema.json` (500–700 lines)
+- `agents/adr-generator/config/defaults.json` (100–150 lines)
+- `agents/adr-generator/examples/org-config-example.json`
+- `agents/adr-generator/examples/repo-config-example.json`
+- `agents/adr-generator/examples/wordpress-plugin-example.json`
+- `agents/adr-generator/examples/wordpress-theme-example.json`
+
+**Tests (Unit):**
+
+- Schema validation tests (valid/invalid configs)
+- Default value tests
+- Error handling tests
+- Example configuration validation
+
+**Acceptance Criteria:**
+
+- Schema is JSON Schema Draft 7 compliant
+- All configuration options documented
+- Examples cover 4+ repository contexts
+- Zero-config scenario works (uses defaults)
+
+#### Week 2: Config Loader Skill & Integration
+
+**Tasks:**
+
+1. Implement adr-config-loader skill
+2. Build configuration loading logic
+3. Implement configuration inheritance
+4. Add environment-aware defaults
+5. Create configuration validation utility
+
+**Files:**
+
+- `agents/adr-generator/skills/adr-config-loader.md` (skill definition)
+- `agents/adr-generator/__tests__/config-loader.test.js` (>95% coverage)
+
+**Tests (Unit + Integration):**
+
+- Load valid .adr-config.json
+- Fall back to defaults when no config
+- Merge org + repo configs
+- Validate config schema
+- Error on invalid schema
+- Configuration inheritance edge cases
+
+**Acceptance Criteria:**
+>
+- >95% test coverage for config loader
+- Skill is reusable and independent
+- Configuration inheritance works correctly
+- Clear error messages on validation failures
+
+### Phase 1B: Template System & Validation (Weeks 3–5)
+
+**Lead:** @ash  
+**Deliverables:** Templates, template loader, validation rules
+
+#### Week 3–4: Template Design & Development
+
+**Tasks:**
+
+1. Create standard-adr.template.md (full-featured, 12+ sections)
+2. Create lightweight-adr.template.md (minimal, 6 sections)
+3. Create security-adr.template.md (domain-specific)
+4. Create infrastructure-adr.template.md (domain-specific)
+5. Implement template-loader skill
+6. Build template rendering system
+
+**Files:**
+
+- `agents/adr-generator/templates/standard-adr.template.md` (400–500 lines)
+- `agents/adr-generator/templates/lightweight-adr.template.md` (200–250 lines)
+- `agents/adr-generator/templates/security-adr.template.md` (350–400 lines)
+- `agents/adr-generator/templates/infrastructure-adr.template.md` (350–400 lines)
+- `agents/adr-generator/templates/TEMPLATE-GUIDE.md` (custom template guide)
+- `agents/adr-generator/skills/adr-template-loader.md`
+
+**Tests (Unit + Integration):**
+
+- Load all template variants
+- Render templates with values
+- Validate template structure
+- Error on missing placeholders
+- Support custom template paths
+- Template selection via config
+
+**Acceptance Criteria:**
+>
+- >90% test coverage for template system
+- All templates generate valid markdown
+- Template placeholders are consistent
+- Custom template paths work
+
+#### Week 5: Validation Framework
+
+**Tasks:**
+
+1. Implement adr-validator (orchestrator)
+2. Create modular validation rules:
+   - Structure validator (markdown + front matter)
+   - Metadata validator (YAML fields)
+   - Duplicate detector (repo-local)
+   - Completeness checker (required sections)
+   - Clarity checker (language quality)
+3. Build validation pipeline
+4. Create error message system
+
+**Files:**
+
+- `agents/adr-generator/skills/adr-validator.md` (orchestrator)
+- `agents/adr-generator/skills/adr-structure-validator.md`
+- `agents/adr-generator/skills/adr-metadata-validator.md`
+- `agents/adr-generator/skills/adr-duplicate-detector.md`
+- `agents/adr-generator/skills/adr-completeness-checker.md`
+- `agents/adr-generator/skills/adr-clarity-checker.md`
+- `agents/adr-generator/__tests__/validators/*.test.js`
+
+**Tests (Unit):**
+
+- Detect duplicate ADR titles
+- Check metadata completeness
+- Validate markdown structure
+- Enforce consequence coverage
+- Suggest improvements for clarity
+
+**Acceptance Criteria:**
+>
+- >90% coverage per validation rule
+- All rules are independent and composable
+- Clear, actionable error messages
+- Validation pipeline is configurable
+
+### Phase 1C: Agent Spec, Tests & Documentation (Weeks 6–8)
+
+**Lead:** @ash  
+**Deliverables:** Agent spec, test suite, complete documentation
+
+#### Week 6: Portable Agent Specification
+
+**Tasks:**
+
+1. Refactor current `.github/agents/adr.agent.md`
+2. Remove all hardcoded paths
+3. Remove organization-specific branding
+4. Integrate config loader at startup
+5. Orchestrate template system
+6. Orchestrate validation pipeline
+7. Design numbering logic (configurable)
+
+**Files:**
+
+- `agents/adr-generator/adr-generator.agent.md` (400–500 lines)
+
+**Tests (Integration):**
+
+- Agent workflow start-to-finish
+- Config-driven behavior
+- Different configs produce different outputs
+
+**Acceptance Criteria:**
+
+- Agent is organization-agnostic
+- All config options are used
+- Zero hardcoded assumptions
+- >85% integration coverage
+
+#### Week 7: Test Suite Development
+
+**Tasks:**
+
+1. Set up Jest configuration
+2. Create test fixtures and mocks
+3. Write comprehensive unit tests
+4. Write integration tests
+5. Set up CI/CD integration
+6. Configure code coverage reporting
+
+**Files:**
+
+- `agents/adr-generator/jest.config.js`
+- `agents/adr-generator/__tests__/config-loader.test.js` (>95%)
+- `agents/adr-generator/__tests__/template-loader.test.js` (>90%)
+- `agents/adr-generator/__tests__/validators/*.test.js` (>90% each)
+- `agents/adr-generator/__tests__/integration/*.test.js`
+- `agents/adr-generator/__tests__/fixtures/` (test data)
+
+**Test Coverage Targets:**
+
+- Config loader: >95% (critical)
+- Template system: >90%
+- Validators: >90% per rule
+- Agent spec: >85% (integration focus)
+- Overall: >85%
+
+**Acceptance Criteria:**
+>
+- >85% overall coverage
+- All CI checks passing
+- Test failures block merge
+- Code coverage reports available
+
+#### Week 8: Documentation & Review
+
+**Tasks:**
+
+1. Create INSTALL.md (setup guide)
+2. Create CONFIG.md (configuration reference)
+3. Create BEST-PRACTICES.md
+4. Create ARCHITECTURE.md (system design)
+5. Create API.md (skills and functions)
+6. Create TROUBLESHOOTING.md
+7. Generate mermaid diagrams
+8. Phase 1 review and sign-off
+
+**Files:**
+
+- `agents/adr-generator/INSTALL.md` (installation guide)
+- `agents/adr-generator/CONFIG.md` (config reference)
+- `agents/adr-generator/BEST-PRACTICES.md`
+- `agents/adr-generator/ARCHITECTURE.md` (with diagrams)
+- `agents/adr-generator/API.md` (skills reference)
+- `agents/adr-generator/TROUBLESHOOTING.md`
+
+**Mermaid Diagrams:**
+
+- System architecture (4-tier)
+- ADR creation workflow
+- Configuration decision tree
+- Validation pipeline
+- Template selection logic
+
+**Acceptance Criteria:**
+
+- Documentation is complete and clear
+- All examples work
+- Diagrams render correctly
+- Phase 1 sign-off from team
+
+### Phase 1 Completion Checklist
+
+- [ ] Configuration system implemented and tested (>95% coverage)
+- [ ] Template system with 4 variants (>90% coverage)
+- [ ] Modular validation rules (>90% per rule)
+- [ ] Portable agent specification (>85% coverage)
+- [ ] Complete test suite with Jest
+- [ ] CI/CD integration configured
+- [ ] Documentation complete with diagrams
+- [ ] Works in 3+ test repositories
+- [ ] Zero hardcoded assumptions
+- [ ] Team review and approval
+- [ ] Phase 1 deliverables signed off
+
+---
+
+## Phase 2 & 3 Roadmap (High-Level)
+
+### Phase 2: Cross-Repository Integration (6–8 weeks)
+
+**Deliverables:**
+
+- Cross-repo ADR discovery and linking
+- GitHub Actions for PR validation
+- Governance hooks for custom workflows
+- Support for different repository contexts
+
+**Key Features:**
+
+- ADR discovery across repositories
+- Cross-repo reference validation
+- PR validation workflows
+- GitHub Actions integration
+- Org-specific governance hooks
+
+### Phase 3: Organization-Wide Features (4–6 weeks)
+
+**Deliverables:**
+
+- Central ADR registry
+- Metrics and reporting
+- Knowledge management and archival
+- Organization-wide decision tracking
+
+**Key Features:**
+
+- ADR index and discovery
+- Decision analytics
+- ADR lifecycle management
+- Organizational metrics
+
+---
+
+## Success Metrics & Acceptance Criteria
+
+### Code Quality
+
+- ✅ Test coverage: >85% across all components
+- ✅ Jest test suite: Unit + integration tests
+- ✅ CI/CD: All checks passing before merge
+- ✅ Code review: Zero critical issues
+
+### Adoption & Usability
+
+- ✅ 5+ repositories using agent by Phase 1 completion
+- ✅ Zero code modification required for adoption
+- ✅ Installation time: <15 minutes
+- ✅ User satisfaction: Positive feedback
+
+### Documentation
+
+- ✅ Complete documentation with mermaid diagrams
+- ✅ Working examples for all use cases
+- ✅ Clear troubleshooting guide
+- ✅ API documentation for all skills
+
+### Technical Requirements
+
+- ✅ All paths configurable
+- ✅ All metadata customizable
+- ✅ Template system extensible
+- ✅ Validation rules modular
+- ✅ Skills reusable and independent
+
+---
+
+## Risk Mitigation Strategies
+
+### Risk 1: Configuration Complexity
+
+**Mitigation:**
+
+- Sensible defaults (zero-config works)
+- Interactive config wizard
+- Comprehensive documentation
+- Example configurations for all contexts
+
+### Risk 2: Version Incompatibility
+
+**Mitigation:**
+
+- Semantic versioning
+- Backward-compatible configuration
+- Migration guide for updates
+- Deprecation notices
+
+### Risk 3: Adoption Friction
+
+**Mitigation:**
+
+- One-command setup
+- Detailed installation guide
+- Example configurations
+- Proof-of-concept in 2 repositories
+- Demo and training materials
+
+---
+
 *Last Updated: 2026-08-12 by @ash*  
+*Status: Detailed Implementation Plan Ready for Execution*  
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
