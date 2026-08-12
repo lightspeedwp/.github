@@ -1,8 +1,8 @@
 # Issue Metadata Audit Report
 
-**Generated:** 2026-08-09T12:51:52.381Z
+**Generated:** 2026-08-11T15:13:46.019Z
 **Repository:** `lightspeedwp/.github`
-**Total Issues Analyzed:** 372
+**Total Issues Analyzed:** 396
 
 ## Executive Summary
 
@@ -10,48 +10,48 @@
 
 | Metric | Count | Coverage |
 |--------|-------|----------|
-| Type Labels | 334/372 | **90%** |
-| Area Labels | 267/372 | **72%** |
-| Status Labels | 158/372 | **42%** |
-| Priority Labels | 308/372 | **83%** |
-| Assignees | 307/372 | **83%** |
-| Milestones | 297/372 | **80%** |
-| PR Links | 331/372 | **89%** |
+| Type Labels | 358/396 | **90%** |
+| Area Labels | 277/396 | **70%** |
+| Status Labels | 180/396 | **45%** |
+| Priority Labels | 330/396 | **83%** |
+| Assignees | 302/396 | **76%** |
+| Milestones | 297/396 | **75%** |
+| PR Links | 354/396 | **89%** |
 
 ### Top 5 Metadata Gaps
 
-1. **status**: 214 issues (58%)
-2. **area**: 105 issues (28%)
-3. **milestone**: 75 issues (20%)
-4. **assignee**: 65 issues (17%)
-5. **priority**: 64 issues (17%)
+1. **status**: 216 issues (55%)
+2. **area**: 119 issues (30%)
+3. **milestone**: 99 issues (25%)
+4. **assignee**: 94 issues (24%)
+5. **priority**: 66 issues (17%)
 
 ## Distribution by Status Label
 
 ### Status Label Breakdown
 
-- **status:needs-triage**: 18 issues (5%)
-- **status:needs-more-info**: 12 issues (3%)
-- **status:needs-review**: 3 issues (1%)
-- **status:needs-planning**: 17 issues (5%)
+- **status:needs-triage**: 34 issues (9%)
+- **status:needs-more-info**: 36 issues (9%)
+- **status:needs-review**: 1 issue (0%)
+- **status:needs-planning**: 17 issues (4%)
 
-- **(no status label)**: 214 issues (58%)
+- **(no status label)**: 216 issues (55%)
 
 ## Recommendations
 
 ### Immediate Actions (Priority: Critical)
 
 1. **Type Labels**: ✅ Good coverage
-2. **Area Labels**: Only 72% coverage. Consider auto-detection from issue content.
-3. **Status Labels**: Only 42% coverage. Implement auto-labeling for new issues.
+2. **Area Labels**: Only 70% coverage. Consider auto-detection from issue content.
+3. **Status Labels**: Only 45% coverage. Implement auto-labeling for new issues.
 
 ### Handler Priority
 
 | Priority | Handler | Target Issues | Effort |
 |----------|---------|----------------|--------|
-| **Critical** | `handle-needs-triage` | 18 | Phase 2.2 |
+| **Critical** | `handle-needs-triage` | 34 | Phase 2.2 |
 | **Critical** | `handle-needs-template-fix` | 0 | Phase 2.1 |
-| **High** | `handle-needs-review` | 3 | Phase 3 |
+| **High** | `handle-needs-review` | 1 | Phase 3 |
 | **High** | `handle-needs-design` | 0 | Phase 4 |
 
 ## Technical Details
@@ -60,38 +60,38 @@
 
 **Type Labels:** 90%
 
-- Issues with type: 334
+- Issues with type: 358
 - Issues missing type: 38
 
-**Area Labels:** 72%
+**Area Labels:** 70%
 
-- Issues with area: 267
-- Issues missing area: 105
+- Issues with area: 277
+- Issues missing area: 119
 
-**Status Labels:** 42%
+**Status Labels:** 45%
 
-- Issues with status: 158
-- Issues missing status: 214
+- Issues with status: 180
+- Issues missing status: 216
 
 **Priority Labels:** 83%
 
-- Issues with priority: 308
-- Issues missing priority: 64
+- Issues with priority: 330
+- Issues missing priority: 66
 
-**Assignees:** 83%
+**Assignees:** 76%
 
-- Issues assigned: 307
-- Issues unassigned: 65
+- Issues assigned: 302
+- Issues unassigned: 94
 
-**Milestones:** 80%
+**Milestones:** 75%
 
 - Issues with milestone: 297
-- Issues without milestone: 75
+- Issues without milestone: 99
 
 **PR Links:** 89%
 
-- Issues with PR links: 331
-- Feature/bug issues without PR links: 0
+- Issues with PR links: 354
+- Issues without PR links: 42
 
 ## Next Steps
 
