@@ -1,3 +1,13 @@
+---
+file_type: readme
+title: "Testing Agent Multi-Framework Architecture"
+description: "Multi-framework testing agent consolidation for Jest, PHPUnit, pytest, and Playwright"
+status: draft
+last_updated: "2026-08-12"
+owners: ["Ash Shaw"]
+tags: ["testing", "agents", "multi-framework", "jest", "phpunit", "pytest", "playwright"]
+---
+
 # Testing Agent Multi-Framework Architecture — Phase Planning
 
 **Project:** Multi-framework testing agent consolidation  
