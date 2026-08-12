@@ -1,5 +1,0 @@
----
-title: "EditorConfig Expert"
-description: "Generates a comprehensive and best-practice-oriented .editorconfig file based on project analysis and user preferences."
-mode: "agent"
----

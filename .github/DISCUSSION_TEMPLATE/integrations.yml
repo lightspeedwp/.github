@@ -1,9 +1,0 @@
-labels:
-  - discussion:integrations
-template: |
-  ## 🔗 Integration or Ecosystem Discussion
-
-  - **Which integration (WooCommerce, Wetu, Figma, etc.)?**
-  - **Describe your use case or question:**
-  - **What have you tried so far?**
-  - **Links or screenshots (optional):**

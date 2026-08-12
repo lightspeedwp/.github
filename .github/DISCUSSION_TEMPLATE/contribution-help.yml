@@ -1,9 +1,0 @@
-labels:
-  - discussion:contribution
-template: |
-  ## 🛠️ Contributor Help
-
-  - **What are you trying to do?**
-  - **Which repo or product?**
-  - **Where are you stuck?**
-  - **Link to your fork, PR, or code (if public):**
