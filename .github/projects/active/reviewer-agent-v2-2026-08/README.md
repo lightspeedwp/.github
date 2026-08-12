@@ -40,6 +40,13 @@ Enhance the existing Reviewer Agent from a basic CI/PR monitoring tool into an i
 
 **Target merge:** 2026-08-26
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1819](https://github.com/lightspeedwp/.github/issues/1819) | epic | Master Epic: Reviewer Agent v2 Implementation | 🟢 Open |
+| [PR #1855](https://github.com/lightspeedwp/.github/pull/1855) | PR | Planning: Comprehensive Planning & Specification | 🟡 In Review |
+
 ## Architecture
 
 ```
