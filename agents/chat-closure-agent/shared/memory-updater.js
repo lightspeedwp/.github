@@ -7,19 +7,6 @@ const fs = require("fs");
 const path = require("path");
 
 /**
- * 10-family YAML structure for memory entries.
- * Standard families: user_defaults, project_context, decision_log,
- * execution_state, handoff, and metadata in frontmatter.
- */
-const MEMORY_FAMILIES = [
-  "user_defaults",
-  "project_context",
-  "decision_log",
-  "execution_state",
-  "handoff",
-];
-
-/**
  * Format a memory entry with 10-family YAML structure.
  * Returns structured object with frontmatter and families.
  */

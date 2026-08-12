@@ -369,7 +369,7 @@ describe("Phase 2 Integration", () => {
         nextSteps: [],
       };
 
-      const memoryResult = memoryUpdater.updateMemoryForSessionClosure(
+      memoryUpdater.updateMemoryForSessionClosure(
         testDir,
         coreAnalysisData,
         memoryOptions,

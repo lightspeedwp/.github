@@ -3,7 +3,7 @@
  * Safe worktree cleanup with user confirmation and status reporting.
  */
 
-const { execSync, execFileSync } = require("child_process");
+const { execFileSync } = require("child_process");
 const path = require("path");
 
 /**
