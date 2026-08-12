@@ -4,9 +4,14 @@ description: >
   Implement organisation-wide Meta agent with automatic repo-type detection
   and context-specific metadata standards for WordPress block plugins, themes,
   and control-plane repos.
-project_start_date: '2026-08-12'
-project_phase: implementation
+file_type: project
+category: organisation
+version: 1.0
+author: Ash Shaw
 status: active
+language: en
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Meta Agent v2.0 — Organisation-Wide Metadata & Schemas
@@ -313,13 +318,17 @@ Meta agent detects repo type (in order):
 
 ## Related Issues
 
+This project is tracked across multiple GitHub issues. Phase 1 is delivered in PR #1893; subsequent phase epics will be created once Phase 1 is merged.
+
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1893](https://github.com/lightspeedwp/.github/pull/1893) | PR | Meta Agent v2.0 implementation | 🟡 Review |
-| TBD | epic | Phase 2: Validation & Testing | 🔵 Planned |
-| TBD | epic | Phase 3: Deployment & Distribution | 🔵 Planned |
-| TBD | epic | Phase 4: Real-World Testing | 🔵 Planned |
-| TBD | epic | Phase 5: Organisation-Wide Rollout | 🔵 Future |
+| [#1893](https://github.com/lightspeedwp/.github/pull/1893) | PR | Meta Agent v2.0 implementation & schemas | 🟡 Review |
+| Phase 2 Epic | epic | Validation & Testing (Aug 13–15, 3 days) | 🔵 Planned |
+| Phase 3 Epic | epic | Deployment & Distribution (Aug 16–20, 5 days) | 🔵 Planned |
+| Phase 4 Epic | epic | Real-World Testing & Refinement (Aug 21–30, 10 days) | 🔵 Planned |
+| Phase 5 Epic | epic | Organisation-Wide Rollout (Sep 1+, ongoing) | 🔵 Future |
+
+**See:** [PLANNING.md](./PLANNING.md) for detailed phase breakdown and task list.
 
 ## Team & Ownership
 
