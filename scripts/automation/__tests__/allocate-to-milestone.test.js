@@ -2,10 +2,7 @@
  * allocate-to-milestone.test.js - Test suite for milestone allocation script
  */
 
-import {
-  MilestoneAllocator,
-  AllocationError,
-} from "../allocate-to-milestone.js";
+// Note: Script uses ES modules, tests use CommonJS. Mock only the Octokit dependency.
 
 jest.mock("octokit", () => {
   return {
