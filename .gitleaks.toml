@@ -13,4 +13,5 @@ regexes = [
 paths = [
   '''agents/.*/skills/.*/figma/figma-generate-library/references/token-creation\.md''',
   '''skills/design-md-agent/figma-implement-design/SKILL\.md''',
+  '''agents/chat-closure-agent/tests/fixtures/integration-e2e/(dirty-repo|memory-repo|report-repo)''',
 ]
