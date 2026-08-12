@@ -223,6 +223,10 @@ function validatePrompt(prompt) {
 
   if (!prompt.markdown || typeof prompt.markdown !== "string") {
     errors.push("Missing or invalid markdown content");
+    return {
+      valid: false,
+      errors,
+    };
   }
 
   if (prompt.markdown.length < 200) {
