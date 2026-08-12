@@ -105,9 +105,9 @@ Phases 6 and 7 focus on **team rollout and adoption** of the branch naming enfor
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1823](https://github.com/lightspeedwp/.github/issues/1823) | Planning | Phase 6-7 planning and execution | 🟡 Open (PR #1856) |
-| [#1824](https://github.com/lightspeedwp/.github/issues/1824) | Task | Execute Phase 6 team rollout | 🔄 Scheduled |
-| [#1825](https://github.com/lightspeedwp/.github/issues/1825) | Task | Execute Phase 7 metrics collection | 🔄 Scheduled |
+| [#1856](https://github.com/lightspeedwp/.github/pull/1856) | PR | Phase 6-7 planning documents + OpenSpec | 🟡 Open |
+| [#1857](https://github.com/lightspeedwp/.github/issues/1857) | Task | Execute Phase 6 team rollout & adoption | 🔄 Ready |
+| [#1858](https://github.com/lightspeedwp/.github/issues/1858) | Task | Execute Phase 7 metrics collection | 🔄 Ready |
 
 ---
 
