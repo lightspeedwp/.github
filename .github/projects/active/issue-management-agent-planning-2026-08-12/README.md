@@ -18,7 +18,7 @@ status: active
 
 **Project ID**: `issue-management-agent-planning-2026-08-12`  
 **Status**: 📋 Planning Phase (Aug 12-19, 2026)  
-**Branch**: `feat/issue-management-agent-planning`  
+**Branch**: `feat/issue-mgmt-planning`  
 **Parent Epic**: [#1771 — Issue Maintenance Scripts Phase 4](https://github.com/lightspeedwp/.github/issues/1771)
 
 ---
@@ -346,7 +346,7 @@ Deliverables (in progress):
 - **Parent Epic**: [#1720 — Phase 3 Parent](https://github.com/lightspeedwp/.github/issues/1720)
 - **Phase 3 PR**: [#1761 — Workflows](https://github.com/lightspeedwp/.github/pull/1761)
 - **Phase 4 PR**: [#1773 — Documentation](https://github.com/lightspeedwp/.github/pull/1773)
-- **Branch**: `feat/issue-management-agent-planning`
+- **Branch**: `feat/issue-mgmt-planning`
 
 ---
 
