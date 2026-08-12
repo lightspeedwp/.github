@@ -3,8 +3,8 @@ file_type: documentation
 title: "GitHub Agentic Workflows Release Agent"
 description: "Phase 5A: Implement GitHub Agentic Workflows for release orchestration, augmenting shell-based approach with LLM-driven reasoning and improved UX"
 status: planning
-version: "1.0"
-last_updated: "2026-08-11"
+version: "1.1"
+last_updated: "2026-08-12"
 owners: ["Ash Shaw"]
 tags: ["release", "agentic-workflows", "github-copilot", "automation", "phase-5a"]
 category: "release-engineering"
@@ -32,6 +32,14 @@ category: "release-engineering"
 **Duration:** Phase 5A, 2-3 weeks (Aug 12-30, 2026)
 
 **Status:** PLANNING (Phase 5A specification in progress)
+
+---
+
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1777](../../../../../issues/1777) | pull | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Merged |
 
 ---
 
