@@ -1,8 +1,12 @@
 ---
 title: Chat Closure Agent Design
 description: Technical design for chat session closure agent
-status: design
-created_date: 2026-08-12
+created_date: "2026-08-12"
+last_updated: "2026-08-12"
+file_type: documentation
+authors: ["Ash Shaw"]
+maintainer: "Ash Shaw"
+tags: [openspec, design, agent-design, architecture]
 ---
 
 ## Context

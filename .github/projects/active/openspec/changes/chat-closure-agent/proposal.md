@@ -1,8 +1,12 @@
 ---
 title: Chat Closure Agent
 description: Automate chat session closure and handoff workflows
-status: proposal
-created_date: 2026-08-12
+created_date: "2026-08-12"
+last_updated: "2026-08-12"
+file_type: documentation
+authors: ["Ash Shaw"]
+maintainer: "Ash Shaw"
+tags: [openspec, proposal, agent-design]
 ---
 
 ## Why
