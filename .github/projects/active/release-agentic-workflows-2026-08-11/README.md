@@ -35,6 +35,14 @@ category: "release-engineering"
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1777](../../../../../issues/1777) | pull | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Merged |
+
+---
+
 ## Related Projects
 
 This project is part of the **Release Orchestration Initiative** and coordinates with:
