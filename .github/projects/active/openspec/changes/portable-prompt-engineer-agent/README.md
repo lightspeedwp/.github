@@ -1,3 +1,12 @@
+---
+title: "Portable Prompt Engineer Agent — OpenSpec Specification"
+description: "OpenSpec specification and implementation planning for portable prompt engineering agent"
+project_type: "openspec-implementation"
+status: "phase-2-complete"
+created: "2026-08-12"
+last_updated: "2026-08-12"
+---
+
 # Portable Prompt Engineer Agent — OpenSpec Specification
 
 Portable Prompt Engineer Agent Specification & Implementation Planning
@@ -9,7 +18,8 @@ This project documents the OpenSpec specification for making the Prompt Engineer
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
 | [#1805](../../../../../issues/1805) | epic | Portable Prompt Engineer Agent Initiative | 🟢 Open |
-| [#1804](../../../../../pull/1804) | pull | OpenSpec Specification Phase Deliverables | 🟢 Open |
+| [#1804](../../../../../pull/1804) | pull | OpenSpec Specification Phase (Phase 1) | ✅ Merged |
+| [#1907](../../../../../pull/1907) | pull | Phase 2 Core Implementation | 🟢 Open |
 
 ## Project Contents
 
