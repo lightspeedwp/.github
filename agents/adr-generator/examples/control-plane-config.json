@@ -1,0 +1,34 @@
+{
+  "adr": {
+    "directory": ".github/adr",
+    "template": "standard",
+    "number_format": {
+      "style": "sequential",
+      "zero_padded": true,
+      "width": 4
+    },
+    "approval_workflow": {
+      "enabled": true,
+      "method": "codeowners",
+      "required_approvals": 2,
+      "custom_approvers": ["@lightspeedwp/architecture-team"]
+    },
+    "metadata": {
+      "required_fields": ["date", "status", "authors", "related-issues"],
+      "optional_fields": ["supersedes", "superseded-by", "tags", "priority"]
+    },
+    "custom_fields": {
+      "wordpress": {
+        "impact_areas": ["ci", "workflows", "automation"],
+        "performance_tier": "high",
+        "backwards_compatible": true
+      }
+    },
+    "validation": {
+      "enforce_unique_titles": true,
+      "enforce_valid_references": true,
+      "enforce_status_transitions": true,
+      "minimum_content_length": 200
+    }
+  }
+}

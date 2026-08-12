@@ -1,0 +1,37 @@
+{
+  "adr": {
+    "directory": "docs/architecture/decisions",
+    "template": "standard",
+    "number_format": {
+      "style": "sequential",
+      "zero_padded": true,
+      "width": 3
+    },
+    "approval_workflow": {
+      "enabled": false,
+      "method": "none"
+    },
+    "metadata": {
+      "required_fields": ["date", "status", "authors", "plugin-version"],
+      "optional_fields": [
+        "supersedes",
+        "superseded-by",
+        "tags",
+        "related-issues"
+      ]
+    },
+    "custom_fields": {
+      "wordpress": {
+        "impact_areas": ["blocks", "hooks", "settings"],
+        "performance_tier": "high",
+        "backwards_compatible": true
+      }
+    },
+    "validation": {
+      "enforce_unique_titles": true,
+      "enforce_valid_references": true,
+      "enforce_status_transitions": false,
+      "minimum_content_length": 150
+    }
+  }
+}
