@@ -32,13 +32,13 @@ graph TB
     CPBOut --> Output
     WCOut --> Output
     
-    style Input fill:#e1f5ff
-    style Output fill:#c8e6c9
-    style Orchestrator fill:#fff9c4
-    style CA fill:#f3e5f5
-    style MU fill:#f3e5f5
-    style CPB fill:#f3e5f5
-    style WC fill:#f3e5f5
+    style Input fill:#e1f5ff,color:#000
+    style Output fill:#c8e6c9,color:#000
+    style Orchestrator fill:#fff9c4,color:#000
+    style CA fill:#f3e5f5,color:#000
+    style MU fill:#f3e5f5,color:#000
+    style CPB fill:#f3e5f5,color:#000
+    style WC fill:#f3e5f5,color:#000
 ```
 
 ## Component Structure
@@ -232,10 +232,10 @@ graph TD
     Delete --> Success["✅ Cleanup Complete"]
     Abort --> Kept["⚠️ Cleanup Cancelled"]
     
-    style Start fill:#e1f5ff
-    style Success fill:#c8e6c9
-    style Kept fill:#ffe0b2
-    style Delete fill:#ffcdd2
+    style Start fill:#e1f5ff,color:#000
+    style Success fill:#c8e6c9,color:#000
+    style Kept fill:#ffe0b2,color:#000
+    style Delete fill:#ffcdd2,color:#000
 ```
 
 **Return Value:**
@@ -290,16 +290,16 @@ graph LR
     
     Archive --> NextSession["Next Session<br/>- Load memory<br/>- Use handoff prompt<br/>- Resume work"]
     
-    style Start fill:#e1f5ff
-    style Work fill:#fff9c4
-    style Closure fill:#f3e5f5
-    style CA fill:#e8f5e9
-    style MU fill:#e8f5e9
-    style CPB fill:#e8f5e9
-    style WC fill:#e8f5e9
-    style Report fill:#c8e6c9
-    style Archive fill:#c8e6c9
-    style NextSession fill:#bbdefb
+    style Start fill:#e1f5ff,color:#000
+    style Work fill:#fff9c4,color:#000
+    style Closure fill:#f3e5f5,color:#000
+    style CA fill:#e8f5e9,color:#000
+    style MU fill:#e8f5e9,color:#000
+    style CPB fill:#e8f5e9,color:#000
+    style WC fill:#e8f5e9,color:#000
+    style Report fill:#c8e6c9,color:#000
+    style Archive fill:#c8e6c9,color:#000
+    style NextSession fill:#bbdefb,color:#000
 ```
 
 ## Module Interaction Sequence
