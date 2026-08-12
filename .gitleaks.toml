@@ -14,5 +14,4 @@ paths = [
   '''agents/.*/skills/.*/figma/figma-generate-library/references/token-creation\.md''',
   '''skills/design-md-agent/figma-implement-design/SKILL\.md''',
   '''\.github/projects/_templates/OPENSPEC_TEMPLATE\.md''',
-  '''agents/chat-closure-agent/tests/fixtures/integration-e2e/(dirty-repo|memory-repo|report-repo)''',
 ]
