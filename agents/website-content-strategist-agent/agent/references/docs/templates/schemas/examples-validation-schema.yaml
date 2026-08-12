@@ -1,7 +1,0 @@
-version: 1
-examples_folder: docs/templates/examples
-rules:
-  - Example files must align with a named template family.
-  - Example files must include all required template sections.
-  - Example files should illustrate complete, polished outputs rather than placeholders.
-  - Example files must avoid unapproved or contradictory claims within the demo context.

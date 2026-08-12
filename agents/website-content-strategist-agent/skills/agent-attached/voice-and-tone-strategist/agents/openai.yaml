@@ -1,5 +1,0 @@
-interface:
-  display_name: voice-and-tone-strategist
-  short_description: Define brand voice, tone, and content personality
-  default_prompt: Use $voice-and-tone-strategist to define, refine, or apply a brand
-    voice and tone system with reusable intake defaults and Memory guidance.

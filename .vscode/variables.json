@@ -1,8 +1,0 @@
-{
-  "repo": "lightspeedwp/.github",
-  "defaultBranch": "develop",
-  "pluginRoot": "plugins",
-  "skillsRoot": "skills",
-  "instructionsRoot": "instructions",
-  "schemaRoot": "schema"
-}

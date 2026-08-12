@@ -1,6 +1,0 @@
-name: lightspeed-project-status-reporter
-interface:
-  display_name: LightSpeed Project Status Reporter
-  short_description: Create client and internal status updates for LightSpeed WordPress delivery projects.
-  icon: ../assets/icon.svg
-  accent_color: "#00AEEF"

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Estimator Onboarding"
-  short_description: "Collect reusable estimate defaults at first use"
-  default_prompt: "Use $estimator-onboarding to collect missing user defaults for recurring estimate and proposal work, save them in Memory, and resume the user\\s request."

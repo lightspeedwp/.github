@@ -1,5 +1,0 @@
-interface:
-  display_name: website-content-onboarding-intake
-  short_description: Collect project intake defaults for website-content work
-  default_prompt: Use $website-content-onboarding-intake to collect the minimum project
-    intake details needed for a new website-content scenario and resume the user request.

@@ -1,4 +1,0 @@
-interface:
-  display_name: "WP MCP + WP-CLI Ops"
-  short_description: "Operate a live or local WordPress site safely via a WordPress MCP server plus WP-CLI."
-  default_prompt: "Use $wp-mcp-wpcli-ops to operate a WordPress site safely via MCP and WP-CLI."

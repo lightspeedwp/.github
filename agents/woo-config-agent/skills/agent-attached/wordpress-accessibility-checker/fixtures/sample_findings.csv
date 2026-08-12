@@ -1,5 +1,0 @@
-Issue ID,Issue,URL,Content Type,Content ID,Element,Status
-AC-001,Missing image alt text,https://example.test/about/,page,42,.wp-image-123,open
-AC-002,Vague link text,https://example.test/services/,page,84,a.more-link,open
-AC-003,Low contrast,https://example.test/contact/,page,91,.wp-block-button__link,open
-AC-004,Heading order issue,https://example.test/home/,page,12,h4,open

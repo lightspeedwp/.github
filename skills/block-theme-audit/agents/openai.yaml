@@ -1,4 +1,0 @@
-interface:
-  display_name: "Block Theme Audit"
-  short_description: "Structured audit of a WordPress block theme (files, escaping, a11y, styling risks)."
-  default_prompt: "Use $block-theme-audit to run a structured audit of a WordPress block theme repository."

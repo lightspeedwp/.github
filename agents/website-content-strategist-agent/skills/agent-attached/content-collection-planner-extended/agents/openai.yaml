@@ -1,4 +1,0 @@
-interface:
-  display_name: "Content Collection Planner+"
-  short_description: "Plan collection for full sites, pages, and sections"
-  default_prompt: "Use $content-collection-planner-extended to plan website content collection for a full website, a single page, or a single section."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS Delivery Planner"
-  short_description: "Turn approved scope into sequenced delivery plans and task packs."
-  default_prompt: "Use $lightspeed-delivery-planner to convert LightSpeed scope into a structured delivery plan, task pack, and sequencing guidance."

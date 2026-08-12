@@ -1,7 +1,0 @@
-[
-  { "type": "function", "function": { "name": "audit_site" } },
-  { "type": "function", "function": { "name": "recommend_setup" } },
-  { "type": "function", "function": { "name": "analyze_performance" } },
-  { "type": "function", "function": { "name": "check_security" } },
-  { "type": "function", "function": { "name": "optimize_plugins" } }
-]

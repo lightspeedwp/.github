@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed PRD Task Manager
-  short_description: Plan PRDs, tasks and launch-ready WordPress delivery packs from Figma design systems.
-  icon: ../assets/icon.svg
-  accent_color: "#1F6FEB"

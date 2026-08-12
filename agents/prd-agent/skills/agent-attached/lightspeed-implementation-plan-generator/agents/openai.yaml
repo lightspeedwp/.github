@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Implementation Plan Generator
-  short_description: Create developer-ready implementation plans for Figma-to-WordPress projects.
-  icon: ../assets/icon.svg
-  accent_color: "#2563eb"

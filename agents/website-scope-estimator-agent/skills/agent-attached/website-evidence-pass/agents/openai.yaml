@@ -1,5 +1,0 @@
-interface:
-  display_name: website-evidence-pass
-  short_description: Structure website evidence before routing and estimates
-  default_prompt: Use $website-evidence-pass to turn scattered site evidence into
-    a clean pre-estimate evidence pass.

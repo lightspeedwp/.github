@@ -1,4 +1,0 @@
-interface:
-  display_name: "WordPress Theme Validation"
-  short_description: "Validate theme.json and block-theme surfaces."
-  default_prompt: "Use $wordpress-theme-validation to validate theme.json, block styles, section styles, style variations, theme-utils conventions, and Figma traceability."

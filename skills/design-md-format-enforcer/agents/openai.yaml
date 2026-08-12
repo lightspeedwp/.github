@@ -1,4 +1,0 @@
-interface:
-  display_name: "DESIGN.md Format Enforcer"
-  short_description: "Enforce consistent DESIGN.md output structure"
-  default_prompt: "Use $design-md-format-enforcer to enforce consistent formatting across DESIGN.md, design-md-source-map.md, and design-md-validation-report.md."

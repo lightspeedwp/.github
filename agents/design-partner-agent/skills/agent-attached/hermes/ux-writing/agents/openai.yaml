@@ -1,6 +1,0 @@
-interface:
-  display_name: "UX Writing"
-  short_description: "Write or refine interface copy for real product moments"
-  default_prompt: "Use $ux-writing to write or refine interface copy for onboarding, settings, actions, empty states, errors, and other product moments."
-policy:
-  allow_implicit_invocation: true

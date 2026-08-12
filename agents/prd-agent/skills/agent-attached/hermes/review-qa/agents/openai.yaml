@@ -1,4 +1,0 @@
-interface:
-  display_name: "Review and QA"
-  short_description: "Reviews planning outputs for gaps, risk, and readiness"
-  default_prompt: "Use $review-qa to review planning outputs for quality, gaps, contradictions, and readiness."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS PRD Writer"
-  short_description: "Draft and update source-backed LightSpeed project PRDs."
-  default_prompt: "Use $lightspeed-prd-writer to create or revise a grounded LightSpeed PRD from available evidence."

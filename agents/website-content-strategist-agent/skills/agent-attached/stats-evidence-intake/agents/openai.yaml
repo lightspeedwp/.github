@@ -1,5 +1,0 @@
-interface:
-  display_name: stats-evidence-intake
-  short_description: Collect approved stats and proof for content work
-  default_prompt: Use $stats-evidence-intake to collect approved stats, proof signals,
-    and evidence notes, then route them into the claim register for later drafting.

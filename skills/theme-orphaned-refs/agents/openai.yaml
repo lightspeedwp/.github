@@ -1,4 +1,0 @@
-interface:
-  display_name: "Theme Orphaned Refs"
-  short_description: "Detect and fix orphaned var:preset / --wp--preset references in a block theme."
-  default_prompt: "Use $theme-orphaned-refs to find and fix broken preset references in a WordPress theme."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "WooCommerce Remediation Triage"
-  short_description: "Turn findings into prioritised WooCommerce fix plans."
-  default_prompt: "Use $woocommerce-remediation-triage to turn WooCommerce findings into a prioritised remediation plan with dependencies, risk notes, and validation steps."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Pattern Extractor"
-  short_description: "Convert a Figma design into a production-ready WordPress block pattern for the current theme."
-  default_prompt: "Use $pattern-extractor to convert a Figma design into a WordPress block pattern for the current theme."

@@ -1,5 +1,0 @@
-interface:
-  display_name: faq-intake-claim-mapper
-  short_description: Collect 5 FAQs and map claim-sensitive answers
-  default_prompt: Use $faq-intake-claim-mapper to collect page FAQ inputs, define
-    five useful questions, and route claim-sensitive answers into the claim register.

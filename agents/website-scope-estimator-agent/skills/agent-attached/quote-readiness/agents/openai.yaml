@@ -1,6 +1,0 @@
-interface:
-  display_name: quote-readiness
-  short_description: Validate estimate and proposal readiness before final output
-  default_prompt: Use $quote-readiness to verify package fit, add-ons, commercial
-    rules, missing values, and template readiness before final estimate or proposal
-    output.

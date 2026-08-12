@@ -1,4 +1,0 @@
-interface:
-  display_name: "WooCommerce Implementation Planner"
-  short_description: "Turn audits into scoped implementation plans"
-  default_prompt: "Use $woocommerce-implementation-planner to turn WooCommerce audit or advisory findings into a scoped implementation plan, validation steps, risk notes, and a delivery-ready handoff summary."

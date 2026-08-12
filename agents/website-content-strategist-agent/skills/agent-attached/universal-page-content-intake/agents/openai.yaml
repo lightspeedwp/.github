@@ -1,5 +1,0 @@
-interface:
-  display_name: universal-page-content-intake
-  short_description: Collect intake for any page or content type
-  default_prompt: Use $universal-page-content-intake to collect the minimum reusable
-    intake needed for any website page or content task and resume the original request.

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Handoff"
-  short_description: "Package a bounded design slice for implementation"
-  default_prompt: "Use $handoff to turn a bounded frame, component, or short flow into an implementation-ready handoff with behaviors, states, edge cases, and acceptance criteria."
-policy:
-  allow_implicit_invocation: true

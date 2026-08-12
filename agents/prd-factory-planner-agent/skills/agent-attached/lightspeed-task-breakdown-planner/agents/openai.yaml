@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Task Breakdown Planner
-  short_description: Turn PRDs and Figma-to-WordPress briefs into epics, tasks, issue drafts and implementation waves.
-  icon: assets/icon.svg
-  accent_color: '#111827'
