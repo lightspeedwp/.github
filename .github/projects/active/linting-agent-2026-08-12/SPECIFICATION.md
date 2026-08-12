@@ -57,6 +57,7 @@ A **portable, configurable linting agent** that:
 ### 2.1 Agent Architecture
 
 ```mermaid
+%%{init: {'flowchart': {'htmlLabels': true}, 'theme': 'base', 'themeVariables': { 'primaryColor':'#f0f0f0', 'primaryTextColor':'#000000', 'primaryBorderColor':'#333333', 'lineColor':'#333333', 'secondBkgColor':'#f0f0f0', 'secondTextColor':'#000000', 'tertiaryColor':'#ffffff', 'tertiaryTextColor':'#000000', 'tertiaryBorderColor':'#333333'}}}%%
 graph TD
     A[Linting Agent Invoked] --> B[Parse Input Targets]
     B --> C[Load Canonical Config]
@@ -104,6 +105,7 @@ graph TD
 ### 2.4 Supported Linters
 
 ```mermaid
+%%{init: {'flowchart': {'htmlLabels': true}, 'theme': 'base', 'themeVariables': { 'primaryColor':'#f0f0f0', 'primaryTextColor':'#000000', 'primaryBorderColor':'#333333', 'lineColor':'#333333', 'secondBkgColor':'#f0f0f0', 'secondTextColor':'#000000'}}}%%
 graph LR
     A[Linting Agent] --> B[JavaScript/TypeScript]
     A --> C[Markdown]
