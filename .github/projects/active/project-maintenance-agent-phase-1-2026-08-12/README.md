@@ -212,10 +212,7 @@ agents/project-maintenance-agent/
 
 | Issue | Type | Status | Purpose |
 |-------|------|--------|---------|
-| [#1862](https://github.com/lightspeedwp/.github/issues/1862) | Epic | ✅ OPEN | Parent epic for all phases |
-| Phase 1 (Scripts) | Task | ✅ COMPLETE | Fix & enhance automation scripts |
-| Phase 2 (Agent) | Task | 🔄 IN PROGRESS | Design & build portable agent |
-| Phase 3 (Integration) | Task | 📋 PLANNED | Workflows & team integration |
+| [#1862](https://github.com/lightspeedwp/.github/issues/1862) | Epic | ✅ OPEN | Parent epic: Project Maintenance Agent initiative |
 
 ---
 
