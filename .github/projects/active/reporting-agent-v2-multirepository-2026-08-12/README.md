@@ -1,20 +1,18 @@
 ---
-file_type: readme
-title: Reporting Agent v2 — Multi-Repository Support
+file_type: project
+name: Reporting Agent v2 — Multi-Repository Support
 description: Enhanced reporting agent supporting WordPress plugins, themes, platform, and control-plane repositories with automatic context detection and repo-aware templates.
-created_date: 2026-08-12
-last_updated: 2026-08-12
-version: 1.0.0
 status: active
-maintainer: lightspeedwp/maintainers
-owners:
-  - lightspeedwp/maintainers
-tags:
-  - reporting
-  - agents
-  - multi-repository
-  - automation
-  - documentation
+start_date: 2026-08-12
+target_completion: 2026-09-09
+owner: lightspeedwp/maintainers
+epic: "#1898"
+related_issues:
+  - "#1900 (Phase 1: Agent Prompt v2 & Planning Documentation)"
+  - "#1901 (Phase 2: Control-Plane Validation & PR Merge)"
+  - "#1902 (Phase 3: Block Plugin Testing & Feedback)"
+  - "#1903 (Phase 4: Block Theme Testing & Feedback)"
+  - "#1904 (Phase 5: Org-Wide Rollout & Onboarding)"
 ---
 
 # Reporting Agent v2 — Multi-Repository Support
