@@ -310,6 +310,15 @@ Phase 5A is successful when:
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1777](https://github.com/lightspeedwp/.github/issues/1777) | feat | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟡 In Progress |
+| [#1798](https://github.com/lightspeedwp/.github/issues/1798) | feature | GitHub Agentic Workflows Implementation | ⏳ Planned |
+
+---
+
 ## References
 
 ### Related Projects
