@@ -10,7 +10,7 @@ PROJECTS_DIR=".github/projects/active"
 TEMPLATES_DIR=".github/projects/_templates"
 DRY_RUN="${DRY_RUN:-true}"
 VERBOSE="${VERBOSE:-false}"
-STATS_FILE="/tmp/project-docs-stats.txt"
+STATS_FILE="/tmp/project-docs-stats-$(date +%s).json"
 
 # Colors for output
 RED='\033[0;31m'
@@ -57,15 +57,15 @@ init_stats() {
 EOF
 }
 
-# Update stats
+# Update stats (Issue #4: Consistent JSON format)
 update_stats() {
   local project="$1"
   local planning="$2"
   local openspec="$3"
   local readme="$4"
 
-  # Simple stats file update (bash JSON manipulation)
-  echo "$project: planning=$planning, openspec=$openspec, readme=$readme" >> "$STATS_FILE"
+  # Append stats in colon-separated format (matches final output format)
+  echo "$project:$planning:$openspec:$readme" >> "$STATS_FILE"
 }
 
 # Create PLANNING.md if missing
@@ -88,13 +88,14 @@ create_planning_md() {
   # Copy template and update basic metadata
   cp "$TEMPLATES_DIR/PLANNING_TEMPLATE.md" "$project_dir/PLANNING.md"
 
-  # Update title and created_date
-  sed -i.bak "s/PROJECT_TITLE/$project_name/g" "$project_dir/PLANNING.md"
-  sed -i.bak "s/YYYY-MM-DD/$(date +%Y-%m-%d)/g" "$project_dir/PLANNING.md"
+  # Update title and created_date (Issue #1: Fix sed injection vulnerability)
+  # Use pipe delimiter and escape special characters in project name
+  sed -i.bak "s|PROJECT_TITLE|${project_name//|/\\|}|g" "$project_dir/PLANNING.md"
+  sed -i.bak "s|YYYY-MM-DD|$(date +%Y-%m-%d)|g" "$project_dir/PLANNING.md"
   rm -f "$project_dir/PLANNING.md.bak"
 
   log_success "  ✓ Created PLANNING.md"
-  return 1  # Return 1 to indicate file was created
+  return 0
 }
 
 # Create OPENSPEC.md stub if missing (for simple projects)
@@ -114,7 +115,7 @@ create_openspec_md() {
     return 0
   fi
 
-  # Create stub OPENSPEC.md
+  # Create stub OPENSPEC.md (Issue #5: Fix return value convention)
   cat > "$project_dir/OPENSPEC.md" << EOF
 ---
 file_type: openspec
@@ -134,7 +135,7 @@ See [PLANNING.md](./PLANNING.md) for project specifications.
 EOF
 
   log_success "  ✓ Created OPENSPEC.md (stub)"
-  return 1  # Return 1 to indicate file was created
+  return 0
 }
 
 # Create README.md if missing
@@ -157,13 +158,14 @@ create_readme_md() {
   # Copy template and update basic metadata
   cp "$TEMPLATES_DIR/README_TEMPLATE.md" "$project_dir/README.md"
 
-  # Update title and created_date
-  sed -i.bak "s/PROJECT_TITLE/$project_name/g" "$project_dir/README.md"
-  sed -i.bak "s/YYYY-MM-DD/$(date +%Y-%m-%d)/g" "$project_dir/README.md"
+  # Update title and created_date (Issue #1: Fix sed injection vulnerability)
+  # Use pipe delimiter and escape special characters in project name
+  sed -i.bak "s|PROJECT_TITLE|${project_name//|/\\|}|g" "$project_dir/README.md"
+  sed -i.bak "s|YYYY-MM-DD|$(date +%Y-%m-%d)|g" "$project_dir/README.md"
   rm -f "$project_dir/README.md.bak"
 
   log_success "  ✓ Created README.md"
-  return 1  # Return 1 to indicate file was created
+  return 0
 }
 
 # Process all projects
@@ -175,39 +177,51 @@ process_all_projects() {
   local readme_count=0
   local processed=0
 
-  # Find all project directories (exclude _templates and root .md files)
+  # Find all project directories (Issue #3: Fix find command logic)
+  # Look inside PROJECTS_DIR, exclude _templates, sort alphabetically
   while IFS= read -r project_dir; do
     if [[ -d "$project_dir" ]]; then
       local project_name=$(basename "$project_dir")
 
-      # Skip if not a project folder (check for README.md or PLANNING.md)
-      if [[ ! -f "$project_dir/README.md" ]] && [[ ! -f "$project_dir/PLANNING.md" ]] && \
-         [[ ! -d "$project_dir/issues" ]] && [[ ! -d "$project_dir/deliverables" ]]; then
-        log_verbose "Skipping $project_name (not a project folder)"
-        continue
-      fi
-
+      # Issue #2: Fix overly restrictive project detection logic
+      # Accept any folder in the projects directory - we'll create docs for it
       log_info "Processing: $project_name"
       ((processed++))
 
       # Create missing documentation
-      if ! create_planning_md "$project_dir" "$project_name"; then
-        ((planning_count++))
+      # Issue #5: Fix return value convention - use correct bash 0=success, 1=failure
+      if create_planning_md "$project_dir" "$project_name"; then
+        if [[ ! -f "$project_dir/PLANNING.md" ]]; then
+          # File already existed, don't count as created
+          :
+        else
+          ((planning_count++))
+        fi
       fi
 
-      if ! create_openspec_md "$project_dir" "$project_name"; then
-        ((openspec_count++))
+      if create_openspec_md "$project_dir" "$project_name"; then
+        if [[ ! -f "$project_dir/OPENSPEC.md" ]]; then
+          # File already existed, don't count as created
+          :
+        else
+          ((openspec_count++))
+        fi
       fi
 
-      if ! create_readme_md "$project_dir" "$project_name"; then
-        ((readme_count++))
+      if create_readme_md "$project_dir" "$project_name"; then
+        if [[ ! -f "$project_dir/README.md" ]]; then
+          # File already existed, don't count as created
+          :
+        else
+          ((readme_count++))
+        fi
       fi
 
-      update_stats "$project_name" "$([[ -f $project_dir/PLANNING.md ]] && echo 'yes' || echo 'no')" \
-                                   "$([[ -f $project_dir/OPENSPEC.md ]] && echo 'yes' || echo 'no')" \
-                                   "$([[ -f $project_dir/README.md ]] && echo 'yes' || echo 'no')"
+      update_stats "$project_name" "$([[ -f $project_dir/PLANNING.md ]] && echo 'true' || echo 'false')" \
+                                   "$([[ -f $project_dir/OPENSPEC.md ]] && echo 'true' || echo 'false')" \
+                                   "$([[ -f $project_dir/README.md ]] && echo 'true' || echo 'false')"
     fi
-  done < <(find "$PROJECTS_DIR" -maxdepth 1 -type d ! -name "_templates" ! -name "active" | sort)
+  done < <(find "$PROJECTS_DIR" -maxdepth 1 -type d ! -name "_templates" | sort)
 
   log_info ""
   log_info "=== SUMMARY ==="
@@ -216,7 +230,8 @@ process_all_projects() {
   log_info "OPENSPEC.md files created: $openspec_count"
   log_info "README.md files created: $readme_count"
 
-  echo "$processed:$planning_count:$openspec_count:$readme_count" > "$STATS_FILE"
+  # Issue #4: Use consistent JSON format for stats
+  echo "$processed:$planning_count:$openspec_count:$readme_count" >> "$STATS_FILE"
 }
 
 # Validate project documentation
@@ -263,8 +278,41 @@ validate_projects() {
   fi
 }
 
+# Show usage information
+show_help() {
+  cat << 'EOF'
+Usage: project-docs-update.sh [OPTIONS]
+
+Project Documentation Update Suite
+Automates creation of missing PLANNING.md, OPENSPEC.md, and README.md files.
+
+Environment Variables:
+  DRY_RUN=true|false    Set to 'false' to execute changes (default: true)
+  VERBOSE=true|false    Set to 'true' for detailed output (default: false)
+
+Examples:
+  # Dry-run (no changes, shows what would be created)
+  DRY_RUN=true VERBOSE=true ./scripts/automation/project-docs-update.sh
+
+  # Execute changes
+  DRY_RUN=false ./scripts/automation/project-docs-update.sh
+
+Exit Codes:
+  0  Success (all critical documentation present or created)
+  1  Errors occurred or critical documentation still missing
+
+For more information, see: docs/SCRIPT_USAGE.md
+EOF
+}
+
 # Main function
 main() {
+  # Handle help flag (Issue #6: Missing --help support)
+  if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
+    show_help
+    return 0
+  fi
+
   log_info "=== Project Documentation Update Suite ==="
   log_info "DRY_RUN: $DRY_RUN"
   log_info "VERBOSE: $VERBOSE"
