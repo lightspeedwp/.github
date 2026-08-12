@@ -314,9 +314,8 @@ Phase 5A is successful when:
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1546](../../../issues/1546) | epic | Release Process Redesign & Multi-Repo Support | 🟢 Open |
-| [#1777](../../../issues/1777) | feature | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Open |
-| [#1680](../../../issues/1680) | epic | Issue Metadata Triage Expansion (Phases 0-4) | 🟢 Open |
+| [#1777](https://github.com/lightspeedwp/.github/issues/1777) | feat | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟡 In Progress |
+| [#1798](https://github.com/lightspeedwp/.github/issues/1798) | feature | GitHub Agentic Workflows Implementation | ⏳ Planned |
 
 ---
 
