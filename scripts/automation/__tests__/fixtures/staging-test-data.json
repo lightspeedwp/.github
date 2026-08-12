@@ -1,0 +1,273 @@
+{
+  "_comment": "Phase 5.2 Staging Validation Test Data Fixtures",
+  "description": "Representative test issues for staging validation with various label scenarios",
+  "testDataSets": {
+    "issueTypes": {
+      "bugs": {
+        "count": 10,
+        "template": {
+          "title": "Bug: [description]",
+          "body": "## Description\n...\n\n## Reproduction Steps\n...",
+          "labels": ["type:bug"],
+          "expectedMetaLabels": ["meta:needs-triage"]
+        }
+      },
+      "features": {
+        "count": 10,
+        "template": {
+          "title": "Feature: [description]",
+          "body": "## Description\n...\n\n## Acceptance Criteria\n...",
+          "labels": ["type:feature"],
+          "expectedMetaLabels": ["meta:needs-triage"]
+        }
+      },
+      "tasks": {
+        "count": 10,
+        "template": {
+          "title": "Task: [description]",
+          "body": "## Objective\n...\n\n## Deliverables\n...",
+          "labels": ["type:task"],
+          "expectedMetaLabels": []
+        }
+      },
+      "stories": {
+        "count": 10,
+        "template": {
+          "title": "Story: [description]",
+          "body": "## User Story\n...\n\n## Acceptance Criteria\n...",
+          "labels": ["type:story"],
+          "expectedMetaLabels": ["meta:needs-triage"]
+        }
+      },
+      "chores": {
+        "count": 10,
+        "template": {
+          "title": "Chore: [description]",
+          "body": "## Objective\n...",
+          "labels": ["type:chore"],
+          "expectedMetaLabels": []
+        }
+      }
+    },
+    "ageDistribution": {
+      "recent": {
+        "count": 25,
+        "description": "Issues created < 7 days ago",
+        "daysOld": 1,
+        "expectedMetaLabels": []
+      },
+      "active": {
+        "count": 25,
+        "description": "Issues inactive 7-30 days",
+        "daysOld": 15,
+        "expectedMetaLabels": []
+      },
+      "aging": {
+        "count": 25,
+        "description": "Issues inactive 30-90 days",
+        "daysOld": 60,
+        "expectedMetaLabels": []
+      },
+      "stale": {
+        "count": 25,
+        "description": "Issues inactive > 90 days",
+        "daysOld": 120,
+        "expectedMetaLabels": ["meta:stale"]
+      }
+    },
+    "prRelationships": {
+      "withPR": {
+        "count": 30,
+        "description": "Issues with linked PRs",
+        "body": "Resolves #1234\n\nLinked PR: #5678",
+        "expectedMetaLabels": ["meta:has-pr"]
+      },
+      "withoutPR": {
+        "count": 70,
+        "description": "Issues without linked PRs",
+        "body": "Original issue description",
+        "expectedMetaLabels": []
+      }
+    },
+    "labelScenarios": {
+      "correctLabels": {
+        "count": 40,
+        "description": "Issues with correct labels already applied",
+        "currentLabels": ["type:bug", "status:needs-triage", "priority:normal"],
+        "expectedDiff": []
+      },
+      "missingLabels": {
+        "count": 30,
+        "description": "Issues missing expected labels",
+        "currentLabels": [],
+        "expectedDiff": ["type:bug", "status:needs-triage"]
+      },
+      "conflictingLabels": {
+        "count": 10,
+        "description": "Issues with conflicting/mutually exclusive labels",
+        "currentLabels": ["status:needs-triage", "status:done"],
+        "expectedDiff": ["status:needs-triage"]
+      },
+      "overriddenLabels": {
+        "count": 10,
+        "description": "Issues with manually overridden labels (should not be changed)",
+        "currentLabels": ["status:manual-override"],
+        "expectedDiff": []
+      },
+      "deprecatedLabels": {
+        "count": 10,
+        "description": "Issues with deprecated labels",
+        "currentLabels": ["type:legacy"],
+        "expectedDiff": ["type:legacy"]
+      }
+    },
+    "commentDensity": {
+      "highActivity": {
+        "count": 15,
+        "commentCount": 20,
+        "recentComment": "1 day ago",
+        "expectedMetaLabels": []
+      },
+      "mediumActivity": {
+        "count": 50,
+        "commentCount": 5,
+        "recentComment": "7 days ago",
+        "expectedMetaLabels": []
+      },
+      "lowActivity": {
+        "count": 35,
+        "commentCount": 1,
+        "recentComment": "30+ days ago",
+        "expectedMetaLabels": []
+      }
+    },
+    "edgeCases": {
+      "veryLongTitle": {
+        "count": 2,
+        "title": "This is a very long issue title that exceeds normal length and tests how the system handles edge cases with exceptionally long text in the issue title field to ensure proper truncation and handling of unicode characters like émojis 🎉",
+        "expectedBehavior": "Title safely truncated or escaped"
+      },
+      "unicodeAndEmoji": {
+        "count": 2,
+        "title": "Issue with emoji 🚀 and unicode: Ñ, é, ü, 中文",
+        "expectedBehavior": "Unicode/emoji preserved without data corruption"
+      },
+      "veryLongDescription": {
+        "count": 2,
+        "body": "[10,000+ character body]",
+        "expectedBehavior": "Long content safely processed without truncation loss"
+      },
+      "specialCharacters": {
+        "count": 2,
+        "body": "Contains: <script>, [SQL], `code`, {json}, @mentions, #hashtags",
+        "expectedBehavior": "Special characters properly escaped for safety"
+      },
+      "lockedIssue": {
+        "count": 1,
+        "locked": true,
+        "lockReason": "spam",
+        "expectedBehavior": "Locked status respected, no label changes attempted"
+      },
+      "archivedIssue": {
+        "count": 1,
+        "archived": true,
+        "expectedBehavior": "Archived status respected, minimal API calls"
+      }
+    }
+  },
+  "validationCriteria": {
+    "accuracy": {
+      "targetThreshold": "95%",
+      "truePositiveRate": "> 95%",
+      "trueNegativeRate": "> 95%",
+      "falsePositiveRate": "< 5%",
+      "falseNegativeRate": "< 5%"
+    },
+    "performance": {
+      "executionTime": "< 5 minutes for 100 issues",
+      "apiCallsPerIssue": "< 3",
+      "memoryUsage": "< 100 MB",
+      "errorRate": "< 0.5%",
+      "successRate": "> 99.5%"
+    },
+    "reliability": {
+      "errorHandling": "All failure scenarios handled gracefully",
+      "dataIntegrity": "100% consistency maintained",
+      "reportValidity": "All output formats valid and complete"
+    }
+  },
+  "sampleScenarios": [
+    {
+      "scenario": "Audit accuracy — correct label identification",
+      "issueCount": 30,
+      "labels": ["type:bug", "status:needs-triage", "priority:normal"],
+      "expectedAccuracy": "100%",
+      "notes": "Issues with all correct labels; system should identify 0 changes needed"
+    },
+    {
+      "scenario": "Missing label detection",
+      "issueCount": 30,
+      "currentLabels": [],
+      "expectedLabels": ["type:bug", "status:needs-triage"],
+      "expectedAccuracy": "95%+",
+      "notes": "System should recommend adding missing labels"
+    },
+    {
+      "scenario": "Stale issue detection",
+      "issueCount": 20,
+      "daysInactive": 120,
+      "expectedLabel": "meta:stale",
+      "expectedAccuracy": "100%",
+      "notes": "Issues inactive > 90 days should be marked stale"
+    },
+    {
+      "scenario": "PR link synchronization",
+      "issueCount": 30,
+      "prLinked": true,
+      "expectedLabel": "meta:has-pr",
+      "expectedAccuracy": "95%+",
+      "notes": "Issues with linked PRs should have meta:has-pr label"
+    },
+    {
+      "scenario": "Conflicting label resolution",
+      "issueCount": 10,
+      "conflictingLabels": ["status:needs-triage", "status:done"],
+      "expectedResolution": "Keep first, remove second",
+      "notes": "System should resolve conflicts predictably"
+    },
+    {
+      "scenario": "Edge case handling — unicode/emoji",
+      "issueCount": 5,
+      "contentType": "unicode + emoji",
+      "expectedBehavior": "Preserved without corruption",
+      "notes": "Test with non-ASCII characters and emoji"
+    },
+    {
+      "scenario": "Performance under load",
+      "issueCount": 100,
+      "targetDuration": "< 5 minutes",
+      "targetApiCalls": "< 300",
+      "notes": "Run label sync on 100 issues; measure time and API calls"
+    },
+    {
+      "scenario": "Rate limit handling",
+      "issueCount": 100,
+      "apiCallsRemaining": 50,
+      "expectedBehavior": "Gracefully pause and resume",
+      "notes": "Verify system detects rate limit and doesn't crash"
+    },
+    {
+      "scenario": "Permission error recovery",
+      "scenario_description": "Simulate insufficient token permissions",
+      "expectedBehavior": "Clear error message + suggested fix",
+      "notes": "User should know what permission to request"
+    }
+  ],
+  "metadata": {
+    "generatedDate": "2026-08-12",
+    "totalTestIssues": 100,
+    "testCategories": 7,
+    "edgeCaseCount": 10,
+    "expectedDuration": "~5 minutes per validation run"
+  }
+}
