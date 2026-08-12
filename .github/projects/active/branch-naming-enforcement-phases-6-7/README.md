@@ -10,7 +10,7 @@ status: In Progress
 
 **Project Type:** Process Rollout & Metrics  
 **Initiative:** LightSpeed Repository Governance  
-**Lead:** [Team Lead Name]  
+**Lead:** Repository Governance Team  
 **Duration:** 1 month (Phase 6: 7 days rollout + grace period; Phase 7: 23 days metrics)
 
 ---
