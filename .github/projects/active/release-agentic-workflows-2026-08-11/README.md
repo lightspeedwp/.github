@@ -310,6 +310,16 @@ Phase 5A is successful when:
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1546](../../../issues/1546) | epic | Release Process Redesign & Multi-Repo Support | 🟢 Open |
+| [#1777](../../../issues/1777) | feature | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Open |
+| [#1680](../../../issues/1680) | epic | Issue Metadata Triage Expansion (Phases 0-4) | 🟢 Open |
+
+---
+
 ## References
 
 ### Related Projects
