@@ -1,0 +1,77 @@
+---
+# OpenSpec Specification Metadata
+# Testing Agent Multi-Framework Architecture
+
+name: "Testing Agent Multi-Framework Architecture"
+title: "Consolidate Testing Frameworks into Unified Agent"
+version: "1.0.0"
+status: "proposal"
+priority: "high"
+created_date: "2026-08-12"
+updated_date: "2026-08-12"
+authors:
+  - name: "Ash Shaw"
+    role: "Architecture Lead"
+category: "agent-development"
+tags:
+  - "testing"
+  - "agents"
+  - "jest"
+  - "phpunit"
+  - "pytest"
+  - "playwright"
+  - "wordpress"
+  - "multi-framework"
+
+# Links to documentation
+documentation:
+  proposal: "PROPOSAL.md"
+  design: "DESIGN.md"
+  tasks: "TASKS.md"
+  implementation_plan: "PROJECT_PLAN.md"
+  test_strategy: "TEST_STRATEGY.md"
+  documentation_plan: "DOCUMENTATION_PLAN.md"
+  architecture_diagrams: "MERMAID_DIAGRAMS.md"
+
+# Related GitHub resources
+github:
+  epic_issue: "1799"
+  planning_pr: "1797"
+  openspec_issue: "1825"
+  architecture_pr: "1829"
+
+# Phase and timeline
+phases:
+  - name: "Phase 1: Planning & Design"
+    status: "in-progress"
+    duration_hours: "6-14"
+    completion_target: "2026-08-12"
+  - name: "Phase 2: Portable Agent Expansion"
+    status: "not-started"
+    duration_hours: "27-35"
+    completion_target: "2026-08-19"
+  - name: "Phase 3: Control-Plane Agent Rewrite"
+    status: "not-started"
+    duration_hours: "5-7"
+    completion_target: "2026-08-21"
+  - name: "Phase 4: Testing & Validation"
+    status: "not-started"
+    duration_hours: "16-23"
+    completion_target: "2026-08-26"
+
+# Total effort estimation
+effort:
+  total_hours_low: "54"
+  total_hours_high: "79"
+  estimated_weeks: "2"
+
+# Success criteria
+success_criteria:
+  - "All 4 frameworks (Jest, PHPUnit, pytest, Playwright) supported"
+  - "2-tier architecture implemented and validated"
+  - "Unit tests: 80%+ coverage"
+  - "Integration tests: 50%+ coverage"
+  - "E2E tests: 70%+ critical path coverage"
+  - "Comprehensive documentation (3,000+ words)"
+  - "All provider configs updated (Claude, Copilot, OpenAI)"
+  - "Ready for org-wide rollout"
