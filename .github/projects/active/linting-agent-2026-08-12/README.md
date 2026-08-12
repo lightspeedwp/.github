@@ -220,10 +220,10 @@ E2E Tests (3+ Real Repositories)
 
 | Issue | Type | Phase | Status |
 |---|---|---|---|
-| (TBD — created with PR) | epic | 1-4 | 🟡 Draft |
-| (TBD — Phase 2) | task | 2 | 🔵 Planned |
-| (TBD — Phase 3) | task | 3 | 🔵 Planned |
-| (TBD — Phase 4) | task | 4 | 🔵 Planned |
+| [#1818](https://github.com/lightspeedwp/.github/issues/1818) | epic | 1-4 | 🟡 Draft |
+| [#1819](https://github.com/lightspeedwp/.github/issues/1819) | task | 2 | 🔵 Planned |
+| [#1821](https://github.com/lightspeedwp/.github/issues/1821) | task | 3 | 🔵 Planned |
+| [#1822](https://github.com/lightspeedwp/.github/issues/1822) | task | 4 | 🔵 Planned |
 
 ---
 

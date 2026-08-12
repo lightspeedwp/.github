@@ -450,10 +450,10 @@ graph TD
 
 | Issue | Type | Purpose | Status |
 |---|---|---|---|
-| (TBD — created with PR) | epic | Linting Agent Design & Implementation | 🟡 Draft |
-| (TBD — Phase 2) | task | Phase 2 Implementation | 🔵 Planned |
-| (TBD — Phase 3) | task | Phase 3 Testing & Coverage | 🔵 Planned |
-| (TBD — Phase 4) | task | Phase 4 Documentation & Deployment | 🔵 Planned |
+| [#1818](https://github.com/lightspeedwp/.github/issues/1818) | epic | Linting Agent Design & Implementation | 🟡 Draft |
+| [#1819](https://github.com/lightspeedwp/.github/issues/1819) | task | Phase 2 Implementation | 🔵 Planned |
+| [#1821](https://github.com/lightspeedwp/.github/issues/1821) | task | Phase 3 Testing & Coverage | 🔵 Planned |
+| [#1822](https://github.com/lightspeedwp/.github/issues/1822) | task | Phase 4 Documentation & Deployment | 🔵 Planned |
 
 ---
 
