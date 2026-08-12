@@ -247,12 +247,12 @@ E2E Tests (3+ Real Repositories)
 
 ## Related Issues
 
-| Issue | Type | Phase | Purpose |
-|---|---|---|---|
-| [#1818](https://github.com/lightspeedwp/.github/issues/1818) | epic | 1-4 | Linting Agent Design & Implementation |
-| [#1819](https://github.com/lightspeedwp/.github/issues/1819) | task | 2 | Phase 2 Implementation |
-| [#1821](https://github.com/lightspeedwp/.github/issues/1821) | task | 3 | Phase 3 Testing & Coverage |
-| [#1822](https://github.com/lightspeedwp/.github/issues/1822) | task | 4 | Phase 4 Documentation & Deployment |
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1818](https://github.com/lightspeedwp/.github/issues/1818) | epic | Linting Agent Design & Implementation (Phases 1-4) | 🟡 In Progress |
+| [#1819](https://github.com/lightspeedwp/.github/issues/1819) | task | Phase 2: Implementation | ⏰ Planned |
+| [#1821](https://github.com/lightspeedwp/.github/issues/1821) | task | Phase 3: Testing & Coverage | ⏰ Planned |
+| [#1822](https://github.com/lightspeedwp/.github/issues/1822) | task | Phase 4: Documentation & Deployment | ⏰ Planned |
 
 ---
 
