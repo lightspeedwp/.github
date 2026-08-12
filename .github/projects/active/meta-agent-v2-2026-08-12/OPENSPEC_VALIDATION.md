@@ -8,6 +8,9 @@ category: project-planning
 status: active
 author: Ash Shaw
 date: '2026-08-12'
+language: en
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # OpenSpec Validation Report — Meta Agent v2.0

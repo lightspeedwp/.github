@@ -9,6 +9,9 @@ version: 1.0
 status: active
 author: Ash Shaw
 date: '2026-08-12'
+language: en
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Meta Agent v2.0 — Detailed Planning & Implementation Roadmap
