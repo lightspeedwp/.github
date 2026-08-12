@@ -204,11 +204,14 @@ This project consolidates LightSpeed's fragmented testing infrastructure into a 
 - ✅ All provider tests passing
 - ✅ Ready for org-wide rollout
 
-## Related Work
+## Related Issues
 
-- **Planning PR:** [#1797](https://github.com/lightspeedwp/.github/pull/1797) (merged)
-- **Master Issue:** [#1799](https://github.com/lightspeedwp/.github/issues/1799)
-- **OpenSpec Issue:** [#1825](https://github.com/lightspeedwp/.github/issues/1825)
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1799](https://github.com/lightspeedwp/.github/issues/1799) | epic | Master planning coordination | 🟡 In Progress |
+| [#1825](https://github.com/lightspeedwp/.github/issues/1825) | spec | OpenSpec specification tracking | 🟡 In Progress |
+| [#1797](https://github.com/lightspeedwp/.github/pull/1797) | pr | Planning documentation | ✅ Merged |
+| [#1829](https://github.com/lightspeedwp/.github/pull/1829) | pr | Architecture planning PR | 🟡 In Review |
 
 ## Next Steps
 
