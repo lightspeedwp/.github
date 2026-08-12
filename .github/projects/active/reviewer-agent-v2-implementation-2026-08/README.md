@@ -44,12 +44,8 @@ Enhance the existing [Reviewer Agent](./.github/agents/reviewer.agent.md) from a
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| TBD | epic | Master Epic: Reviewer Agent v2 Implementation | 🟢 To Open |
-| TBD | task | Planning: Clarifying Questions & Best Practices | 🟡 In Progress |
-| TBD | task | Phase 2: Core Implementation — Orchestrator Module | ⚪ Backlog |
-| TBD | task | Phase 2: Core Implementation — Feedback Processor | ⚪ Backlog |
-| TBD | task | Phase 3: Test Suite Development | ⚪ Backlog |
-| TBD | task | Phase 4: Documentation Generation | ⚪ Backlog |
+| [#1802](https://github.com/lightspeedwp/.github/issues/1802) | epic | Master Epic: Reviewer Agent v2 Implementation | 🟢 Open |
+| [#1798](https://github.com/lightspeedwp/.github/pull/1798) | PR | Planning: Implementation Roadmap & Specification | 🟡 In Review |
 
 ## Architecture
 
