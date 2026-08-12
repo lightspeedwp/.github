@@ -407,8 +407,6 @@ describe('Component A', () => {
 
 **Request Example:**
 
-<!-- gitleaks:allow -->
-
 ```bash
 curl -X GET \
   https://api.example.com/api/v1/resource/550e8400-e29b-41d4-a716-446655440000 \
