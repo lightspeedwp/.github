@@ -78,3 +78,5 @@ Automate Pull Request (PR) review summaries to standardize feedback, reduce revi
 - [Automation Governance](../../AUTOMATION_GOVERNANCE.md)
 
 ---
+
+*Instructions version: v1.0 | Updated: 2025-10-22 | Owner: LightSpeed Engineering*

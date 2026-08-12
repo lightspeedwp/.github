@@ -85,7 +85,23 @@ For the fix to be considered validated:
 ✓ All artifacts properly uploaded  
 ✓ Logs clearly show job execution flow  
 
-## Related
+## Related Projects
+
+This project provides foundation for:
+
+1. **[Release Process Redesign (2026-08-05)](../release-process-redesign-2026-08-05/)**
+   - **Status:** Phases 1-4 COMPLETE; Phases 5-7 PLANNING
+   - **What:** Complete release process redesign (Phase 4 just shipped)
+   - **Relationship:** Authorization fix enables Phase 5 (portable agents) and Phase 5A (agentic workflows)
+
+2. **[Release Agentic Workflows (2026-08-11)](../release-agentic-workflows-2026-08-11/)**
+   - **Status:** Phase 5A (NEW), running in parallel with Phase 5
+   - **What:** GitHub Agentic Workflows for release orchestration
+   - **Relationship:** This authorization work provides foundation for agentic auth gates
+
+---
+
+## Related Issues & References
 
 - **Issue #1453:** Investigation: release.yml workflow failing (42+ day blocker)
 - **Issue #1461:** Script organization architecture concern (secondary discovery)
