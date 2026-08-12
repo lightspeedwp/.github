@@ -1,26 +1,50 @@
 Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Milestone,Gaps
-1692,"feat: Issue metadata triage expansion — Phase 0 & 1 planning",type:bug;type:feature;type:task;type:chore,area:tests;area:scripts;area:labels;area:automation,status:in-progress;status:needs-review,priority:critical;priority:normal,ashleyshaw,,milestone;pr-link
-1691,"Phase 3: Implement Status-Label-Specific Handlers & Orchestrator",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
-1690,"Phase 2: Build Automated Triage Agent & Metadata Suggester",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
-1689,"Phase 1: Create Issue Metadata Audit Script",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
-1688,"fix: Replace invalid action SHAs with v7 tags in badge workflows",,,,,,,type;area;status;priority;assignee;milestone
+1778,"fix: CHANGELOG validation — reduce formatting strictness for older entries",type:task,area:ci;area:documentation,status:needs-triage;status:needs-more-info,priority:normal,,,assignee;milestone
+1766,"Phase 4: Monitoring & Maintenance — PR/Issue Milestone Allocation",type:task,,status:needs-more-info,priority:normal,,,area;assignee;milestone
+1765,"Phase 3: Refinement & Rollout — PR/Issue Milestone Allocation",type:task,,status:needs-more-info,priority:normal,,,area;assignee;milestone
+1764,"Phase 2: Implementation & Testing — PR/Issue Milestone Allocation",type:task,,status:needs-more-info,priority:normal,,,area;assignee;milestone
+1762,"PR/Issue → Milestone Allocation Automation (Epic)",type:epic,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1760,"[Phase 6] Team rollout, deployment, and monitoring",type:task,area:ci,status:needs-triage;status:needs-more-info,priority:important,,,assignee;milestone
+1759,"[Phase 5.1–5.3] Documentation (setup guide and troubleshooting)",type:documentation,area:ci,status:needs-triage;status:needs-more-info,priority:important,,,assignee;milestone
+1758,"[Phase 4.1–4.2] GitHub Actions workflow and testing",type:task,area:ci,status:needs-triage;status:needs-more-info,priority:important,,,assignee;milestone
+1757,"[Phase 3.1] Create pre-commit hook for branch name validation",type:task,area:ci,status:needs-triage;status:needs-more-info,priority:important,,,assignee;milestone
+1756,"[Phase 2.1] Create branch name validation script",type:task,area:ci,status:needs-triage;status:needs-more-info,priority:important,,,assignee;milestone
+1749,"Phase 6: Test Coverage Expansion — test-coverage-implementation",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1748,"Phase 5: Test Coverage Expansion — test-coverage-implementation",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1747,"Phase 4: Test Coverage Expansion — test-coverage-implementation",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1746,"Phase 3: Test Coverage Expansion — test-coverage-implementation",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1745,"Phase 2: Test Coverage Expansion — test-coverage-implementation",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1744,"Phase 1: Test Coverage Expansion — test-coverage-implementation",type:task,,status:needs-more-info,priority:important,,,area;assignee;milestone
+1743,"Test Coverage Expansion — 80%+ Coverage with 62-Task Programme",type:epic,,status:needs-triage;status:needs-more-info,priority:important,,,area;assignee;milestone
+1742,"Phase 4: Review & Approve All Agent Specs — agent-tool-permission-alignment",type:task,,status:needs-triage;status:needs-more-info,priority:normal,,,area;assignee;milestone
+1741,"Phase 3: Implement Validation & CI Enforcement — agent-tool-permission-alignment",type:task,,status:needs-triage;status:needs-more-info,priority:normal,,,area;assignee;milestone
+1740,"Phase 2: Design Tool/Permission Contract — agent-tool-permission-alignment",type:task,,status:needs-triage;status:needs-more-info,priority:important,,,area;assignee;milestone
+1739,"Phase 1: Audit Existing Agent Specs — agent-tool-permission-alignment",type:task,,status:needs-triage;status:needs-more-info,priority:important,,,area;assignee;milestone
+1738,"Agent-Tool Permission Contract — Canonical Tool/Permission Alignment",type:epic,,status:needs-triage;status:needs-more-info,priority:important,,,area;assignee;milestone
+1735,"Phase 4: Cleanup & Documentation — Reports & Projects",type:task,,status:needs-triage;status:needs-more-info,priority:normal,,,area;assignee;milestone
+1731,"Reports & Projects Restructuring Initiative",type:epic,,status:needs-triage;status:needs-more-info,priority:important,,,area;assignee;milestone
+1726,"🏥 Badge Health Check - 26 Broken Links",type:task,area:automation,,priority:important,,,status;assignee;milestone
+1725,"New Workflows Added to Badge Schema",type:task,area:automation,,,,,status;priority;assignee;milestone
+1722,"Epic: Issue Maintenance Scripts Phase 1 — Core Scripts Implementation",type:epic,area:automation,status:needs-more-info,priority:normal,,,assignee;milestone
+1721,"Task: Implement manage-stale-issues.js — Stale Issue Handler",type:task,area:automation,status:needs-triage;status:needs-more-info,priority:normal,,,assignee;milestone
+1719,"Task: Implement sync-pr-labels.js — Auto-Sync PR Labels",type:task,area:automation,status:needs-triage;status:needs-more-info,priority:normal,,,assignee;milestone
+1710,"GitHub Actions workflow checkout creating triple .github/ path",,,status:needs-more-info,,,,type;area;priority;assignee;milestone
+1707,"fix: planner.agent.js GITHUB_TOKEN environment issue in tests",type:bug,area:ci;area:tests,status:needs-more-info,priority:high,,,assignee;milestone;pr-link
+1705,"fix: handle-needs-triage.test.js API mismatch — detectArea function missing",type:bug,area:tests,status:needs-more-info,priority:high,,,assignee;milestone;pr-link
+1702,"New Workflows Added to Badge Schema",type:task,area:automation,,,,,status;priority;assignee;milestone
+1701,"🏥 Badge Health Check - 26 Broken Links",type:task,area:automation,,priority:important,,,status;assignee;milestone
 1687,"Task: Phase 4 - Implement Tier 3 Handlers + Complete Test Suite & Documentation",type:task,area:automation,status:needs-more-info,priority:normal,ashleyshaw,,milestone
 1686,"Task: Phase 3 - Implement Tier 2 Handlers (review, dev, planning)",type:task,area:automation,status:needs-more-info,priority:important,ashleyshaw,,milestone
 1685,"Task: Phase 2.3 - Integrate Tier 1 Handlers into Orchestrator",type:task,area:automation,status:needs-more-info,priority:critical,ashleyshaw,,milestone
-1684,"Task: Phase 2.2 - Create status:needs-triage Handler",type:task,area:automation,status:needs-more-info,priority:critical,ashleyshaw,,milestone
-1683,"Task: Phase 2.1 - Create status:needs-template-fix Handler",type:task,area:automation,status:needs-more-info,priority:critical,ashleyshaw,,milestone
 1682,"Task: Phase 1.2 - Document Audit Results & Gap Analysis",type:task,area:automation,status:needs-more-info,priority:critical,ashleyshaw,,milestone
 1681,"Task: Phase 1.1 - Create Issue Metadata Audit Script",type:task,area:automation,status:needs-more-info,priority:critical,ashleyshaw,,milestone
 1680,"Epic: Issue Metadata Triage Expansion (Phases 0-4)",type:epic,area:automation,status:needs-more-info,priority:critical,ashleyshaw,,milestone
-1679,"Epic: Comprehensive Issue Metadata Expansion & Automated Triage System",type:epic,,status:needs-more-info,priority:important,,,area;assignee;milestone
 1677,"Phase 5: Integration Testing & Closure - GitHub Actions v7",type:task,area:ci,,priority:medium,ashleyshaw,,status;milestone
 1676,"Phase 4: Consistency & Final Validation - GitHub Actions v7",type:task,area:ci,,priority:medium,ashleyshaw,,status;milestone
 1675,"Phase 3C: Site Generation Workflow Upgrade - GitHub Actions v7",type:task,area:ci,,priority:medium,ashleyshaw,,status;milestone
 1674,"Phase 3B: Release & Template Workflows Upgrade - GitHub Actions v7",type:task,area:ci,,priority:high,ashleyshaw,,status;milestone
 1673,"Phase 3A: Automation Workflows Upgrade - GitHub Actions v7",type:task,area:ci,,priority:high,ashleyshaw,,status;milestone
-1672,"Phase 2: Badge Workflows Upgrade - GitHub Actions v7",type:task,area:ci,,priority:critical,ashleyshaw,,status;milestone
 1671,"Phase 1: Audit & Planning - GitHub Actions v7 Upgrade",type:task,area:ci,status:done,,ashleyshaw,,priority;milestone
-1664,"docs: Phase 5-7 Planning & Documentation for Release Process Redesign",type:documentation,area:documentation,status:needs-review,priority:normal,ashleyshaw,,milestone
 1657,"Actions Minutes Savings Report (Auto)",,,,,,,type;area;status;priority;assignee;milestone
 1655,"CHILD-013: Phase 4 completion and project summary",type:task,,status:needs-triage,priority:high,ashleyshaw,,area;milestone
 1654,"CHILD-012: Document badge update policy and procedures",type:documentation,,status:needs-triage,priority:medium,ashleyshaw,,area;milestone
