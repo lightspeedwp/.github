@@ -1,17 +1,13 @@
 ---
-file_type: project-summary
+file_type: readme
 title: Issue Management Agent — Planning Phase Complete
 description: Summary of Phase 1 Planning completion, strategic decisions, and readiness for Phase 2
-created_date: 2026-08-12
-completed_date: 2026-08-12
 last_updated: 2026-08-12
-authors:
-  - LightSpeed Team
+status: draft
 tags:
   - planning-complete
   - strategic-decisions
   - phase-2-readiness
-status: complete
 ---
 
 # Issue Management Agent — Planning Phase Complete ✅
