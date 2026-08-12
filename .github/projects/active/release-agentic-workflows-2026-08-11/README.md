@@ -79,6 +79,14 @@ This project is part of the **Release Orchestration Initiative** and coordinates
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1777](https://github.com/lightspeedwp/.github/issues/1777) | epic | Phase 5A — GitHub Agentic Workflows Release Agent (Specification) | 🟢 Open |
+
+---
+
 ## Project Status
 
 ### Current Phase: PLANNING (Week 0, Aug 11)
