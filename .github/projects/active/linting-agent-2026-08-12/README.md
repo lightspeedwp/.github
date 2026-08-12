@@ -15,7 +15,7 @@ last_updated: 2026-08-12
 
 **Project Goal:** Design and implement a portable, organisation-wide linting agent that enforces code quality standards across all LightSpeedWP repositories (GitHub control plane, WordPress plugins, WordPress themes, and other projects).
 
-**Status:** 🔵 Phase 1 — Specification & Planning (Active)
+**Status:** 🟢 Phase 1 Complete — Phase 2 Planning Ready
 
 ---
 
@@ -46,30 +46,53 @@ last_updated: 2026-08-12
 ### Phase 1: Specification & Planning (Week 1)
 
 **Branch:** `design/linting-agent-specification`  
-**Status:** 🟢 In Progress
+**Status:** ✅ Complete
 
-- ✅ [SPECIFICATION.md](./SPECIFICATION.md) — Complete agent specification with architecture, requirements, test strategy
-- ✅ [README.md](./README.md) — This project overview
-- ✅ TEST_PLAN.md — Detailed test strategy and test cases
-- ⏳ WORDPRESS_GUIDE.md — WordPress plugin/theme integration guide (Phase 2)
-- ⏳ GitHub Issues created for Phases 2-4
+- ✅ [SPECIFICATION.md](./SPECIFICATION.md) — Complete agent specification with architecture, requirements, test strategy (471 lines, 5 diagrams)
+- ✅ [TEST_PLAN.md](./TEST_PLAN.md) — Detailed test strategy with 75+ test cases and 95%+ coverage target (506 lines)
+- ✅ [AGENT_PROMPT_DRAFT.md](./AGENT_PROMPT_DRAFT.md) — Full agent prompt ready for Phase 2 implementation (314 lines)
+- ✅ [README.md](./README.md) — This project overview with 4-phase timeline
+- ✅ GitHub Issues [#1818](https://github.com/lightspeedwp/.github/issues/1818)–[#1822](https://github.com/lightspeedwp/.github/issues/1822) created for all phases
 
-**Artifacts:** Specification document with 5+ Mermaid diagrams
+**Total Phase 1 Deliverables:** 1,800+ lines of specification, 5+ Mermaid diagrams, complete design decisions documented
 
 ### Phase 2: Implementation (Weeks 2-3)
 
 **Branch:** `feat/linting-agent-implementation`  
-**Status:** 🔵 Planned
+**Status:** 📋 OpenSpec Ready (10-16 hour estimate)
 
-- Update `.github/agents/linting.agent.md` with full prompt from draft
-- Enhance `scripts/agents/linting.agent.js`:
-  - Add WordPress-specific config helpers
-  - Improve error handling
-  - Add logging/debugging output
-- Create WordPress configuration guide
-- Integration with organisation instruction files
+**Deliverables:**
 
-**Deliverable:** Fully implemented agent ready for testing
+- ✅ [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) — Detailed Phase 2 roadmap with 4 Mermaid diagrams (317 lines)
+  - Component breakdown (Agent prompt, JavaScript, Config guide, Examples)
+  - 6-step implementation workflow with time estimates
+  - Success criteria checklist and risk mitigation table
+
+**Implementation Tasks (Ready for Execution):**
+
+1. **Agent Prompt** (1-2 hours)
+   - Copy full prompt from AGENT_PROMPT_DRAFT.md
+   - Create `.github/agents/linting.agent.md` with full implementation
+   - Integrate organisation standards references
+
+2. **JavaScript Enhancement** (4-6 hours)
+   - `detectRepositoryType()` function for control plane, plugin, theme detection
+   - WordPress config helpers: `getWordPressPhpcsConfig()`, `getBlockPluginConfig()`, `getBlockThemeConfig()`
+   - Path resolution: `resolveRepositoryRoot()` for Windows/Unix paths
+   - Error handling improvements
+
+3. **WordPress Configuration Guide** (2-3 hours)
+   - Plugin setup and configuration
+   - Theme setup and configuration
+   - Troubleshooting and CI/CD examples
+
+4. **Configuration Examples** (1-2 hours)
+   - `phpcs.xml` for WordPress plugins
+   - `stylelint.json` for WordPress themes
+   - `eslint.config.js` examples
+   - `agent-config.json` template
+
+**Deliverable:** Fully implemented agent ready for testing (Phase 3)
 
 ### Phase 3: Testing (Week 4)
 
@@ -182,37 +205,67 @@ E2E Tests (3+ Real Repositories)
 
 ```
 .github/projects/active/linting-agent-2026-08-12/
-├── README.md                          (this file)
-├── SPECIFICATION.md                   (complete spec with diagrams)
-├── TEST_PLAN.md                       (detailed test strategy)
-├── WORDPRESS_GUIDE.md                 (WordPress integration)
-├── IMPLEMENTATION_CHECKLIST.md        (phase 2 tasks)
-└── DEPLOYMENT_CHECKLIST.md            (phase 4 tasks)
+├── README.md                          (this file - project overview)
+├── SPECIFICATION.md                   (Phase 1: complete spec with diagrams, 471 lines)
+├── TEST_PLAN.md                       (Phase 1: detailed test strategy, 506 lines, 75+ test cases)
+├── AGENT_PROMPT_DRAFT.md              (Phase 1: full agent prompt draft, 314 lines)
+├── IMPLEMENTATION_PLAN.md             (Phase 2: detailed implementation roadmap, 317 lines)
+├── examples/                          (Phase 2: configuration examples - to be created)
+│   ├── wordpress-plugin-phpcs.xml
+│   ├── wordpress-theme-stylelint.json
+│   ├── wordpress-plugin-eslint.config.js
+│   └── block-plugin-agent-config.json
+└── Phase 3 & 4 files (test suite, documentation, deployment guide)
 ```
+
+**Total Specification:** 1,600+ lines across 4 Phase 1 & 2 documents
 
 ---
 
 ## 🚀 Next Steps
 
-### Immediate (Today)
+### Phase 1 ✅ Complete (Aug 12, 2026)
 
-1. ✅ Create specification document ← You are here
-2. ⏳ Create GitHub issues for Phases 2-4
-3. ⏳ Create PR with phase 1 deliverables
-4. ⏳ Get stakeholder feedback on specification
+- ✅ SPECIFICATION.md with architecture and design decisions
+- ✅ TEST_PLAN.md with 75+ test cases and 95%+ coverage target
+- ✅ AGENT_PROMPT_DRAFT.md ready for Phase 2 implementation
+- ✅ GitHub issues created (#1818–#1822)
+- ✅ PR #1817 submitted for Phase 1 deliverables
 
-### Phase 1 (This Week)
+### Phase 2 🚀 Ready to Start (Estimated Aug 19-Sep 2)
 
-- Complete TEST_PLAN.md with all test cases
-- Complete WORDPRESS_GUIDE.md with configuration examples
-- Create GitHub issues for each phase
-- Create detailed task checklists for Phases 2-4
+**Implementation tasks ready for execution (10-16 hours total):**
 
-### Phase 2 (Next Week)
+1. Implement Agent Prompt (`.github/agents/linting.agent.md`)
+   - Copy from AGENT_PROMPT_DRAFT.md
+   - Integrate organization standards
+   - Time: 1-2 hours
 
-- Update `.github/agents/linting.agent.md` with full prompt
-- Enhance `linting.agent.js` with additional helpers
-- Create WordPress-specific configuration examples
+2. Enhance JavaScript Implementation (`scripts/agents/linting.agent.js`)
+   - Add WordPress config helpers
+   - Improve path resolution and error handling
+   - Time: 4-6 hours
+
+3. Create WordPress Configuration Guide
+   - Plugin and theme setup instructions
+   - Configuration examples and troubleshooting
+   - Time: 2-3 hours
+
+4. Create Configuration Examples (phpcs.xml, stylelint.json, etc.)
+   - Ready-to-use templates for plugins and themes
+   - Time: 1-2 hours
+
+### Phase 3 📋 Test & Validation (Estimated Sep 3-10)
+
+- Create 75+ unit/integration/E2E tests
+- Achieve ≥95% code coverage
+- Validate across 3+ repository types
+
+### Phase 4 📚 Documentation & Deployment (Estimated Sep 11-18)
+
+- User guide, setup guide, troubleshooting guide
+- Mermaid diagrams for architecture and workflows
+- Deploy to develop/main branches
 
 ---
 
@@ -237,11 +290,21 @@ E2E Tests (3+ Real Repositories)
 
 ---
 
+## 📊 Project Status
+
+| Phase | Status | Deliverables | Start Date | Est. End |
+|-------|--------|--------------|------------|----------|
+| Phase 1 | ✅ Complete | Spec (471), Tests (506), Agent (314), Plan (317) | Aug 12 | Aug 12 |
+| Phase 2 | 📋 Ready | Agent Prompt, JS Enhancement, Config Guide, Examples | Aug 19 | Sep 2 |
+| Phase 3 | 📋 Planned | Test Suite (75+ tests, ≥95% coverage) | Sep 3 | Sep 10 |
+| Phase 4 | 📋 Planned | Documentation, Deployment, Release | Sep 11 | Sep 18 |
+
 ## 👥 Team
 
 - **Owner:** LightSpeedWP/maintainers
 - **Lead:** Ash Shaw
-- **Status:** Active Planning
+- **Phase 1 Status:** ✅ Specification & Planning Complete
+- **Phase 2 Status:** 📋 OpenSpec Planning Ready for Implementation
 
 ---
 
