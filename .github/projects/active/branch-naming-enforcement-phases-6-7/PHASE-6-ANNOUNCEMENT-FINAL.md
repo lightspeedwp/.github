@@ -1,6 +1,13 @@
 ---
-name: phase-6-announcement-final
-description: Final team announcement for Phase 6 branch naming enforcement rollout (with dates filled in)
+file_type: announcement
+title: "Phase 6 Team Announcement — Branch Naming Enforcement Rollout"
+description: "Ready-to-send team announcement for Phase 6 branch naming enforcement with setup instructions, timeline, and delivery checklist"
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors:
+  - Claude Code
+owner: Governance Team
 ---
 
 # 🚀 Branch Naming Enforcement — Phase 6 Team Rollout
