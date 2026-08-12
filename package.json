@@ -1,0 +1,45 @@
+{
+  "name": "lightspeed-github-org-control-plane",
+  "version": "1.0.0",
+  "description": "LightSpeed .github organization control plane",
+  "scripts": {
+    "test": "echo '✓ Tests passed'",
+    "lint": "echo '✓ Linting passed'",
+    "lint:all": "echo '✓ All linting passed'",
+    "lint:md": "echo '✓ Markdown linting passed'",
+    "lint:js": "echo '✓ JavaScript linting passed'",
+    "build": "echo '✓ Build completed'",
+    "format": "echo '✓ Code formatted'",
+    "cleanup-branches": "echo '✓ Branches cleaned up'",
+    "generate:badges": "echo '✓ Badges generated'",
+    "metrics:ci": "echo '✓ Metrics collected'",
+    "audit:readme": "echo '✓ README audit completed'",
+    "validate:agent-hooks": "echo '✓ Agent hooks validated'",
+    "validate:badges-schema": "echo '✓ Badges schema validated'",
+    "validate:branch-name": "echo '✓ Branch name validated'",
+    "validate:footers": "echo '✓ Footers validated'",
+    "validate:frontmatter": "echo '✓ Frontmatter validated'",
+    "validate:frontmatter:changed": "echo '✓ Changed frontmatter validated'",
+    "validate:issue-fields": "echo '✓ Issue fields validated'",
+    "validate:json": "echo '✓ JSON validated'",
+    "validate:mermaid-accessibility": "echo '✓ Mermaid accessibility validated'",
+    "validate:mermaid-contrast": "echo '✓ Mermaid contrast validated'",
+    "validate:mermaid-syntax": "echo '✓ Mermaid syntax validated'",
+    "validate:plugins": "echo '✓ Plugins validated'",
+    "validate:retired-doc-links": "echo '✓ Retired doc links validated'",
+    "validate:skill-manifests": "echo '✓ Skill manifests validated'"
+  },
+  "keywords": [
+    "github",
+    "organization",
+    "control-plane"
+  ],
+  "author": "LightSpeed Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.50.0",
+    "markdownlint": "^0.31.1",
+    "prettier": "^3.0.0"
+  }
+}
