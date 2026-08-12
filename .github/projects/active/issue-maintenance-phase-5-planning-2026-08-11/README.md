@@ -317,12 +317,12 @@ gh workflow enable meta-labels-sync.yml
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1680](../../../issues/1680) | epic | Issue Metadata Triage Expansion (parent) | 🟡 In Progress |
-| [#1728](../../../issues/1728) | pr | Phase 1.3 — manage-stale-issues.js | ✅ Merged |
-| [#1727](../../../issues/1727) | pr | Phase 1.4 — review-status-labels.js | ✅ Merged |
-| [#1774](../../../issues/1774) | pr | Phase 2 — Label Orchestrator CLI | ✅ Merged |
-| [#1761](../../../issues/1761) | pr | Phase 3 — GitHub Workflows | ✅ Merged |
-| [#1773](../../../issues/1773) | pr | Phase 4 — Documentation | ✅ Merged |
+| [#1680](https://github.com/lightspeedwp/.github/issues/1680) | epic | Issue Metadata Triage Expansion (parent) | 🟡 In Progress |
+| [#1728](https://github.com/lightspeedwp/.github/issues/1728) | pr | Phase 1.3 — manage-stale-issues.js | ✅ Merged |
+| [#1727](https://github.com/lightspeedwp/.github/issues/1727) | pr | Phase 1.4 — review-status-labels.js | ✅ Merged |
+| [#1774](https://github.com/lightspeedwp/.github/issues/1774) | pr | Phase 2 — Label Orchestrator CLI | ✅ Merged |
+| [#1761](https://github.com/lightspeedwp/.github/issues/1761) | pr | Phase 3 — GitHub Workflows | ✅ Merged |
+| [#1773](https://github.com/lightspeedwp/.github/issues/1773) | pr | Phase 4 — Documentation | ✅ Merged |
 
 ---
 

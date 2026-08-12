@@ -497,12 +497,12 @@ npm run check:data-integrity -- \
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1680](../../../issues/1680) | epic | Issue Metadata Triage Expansion — parent epic | 🟢 Open |
-| [#1728](../../../issues/1728) | task | Phase 1.3: Manage Stale Issues | 🟢 Closed |
-| [#1774](../../../issues/1774) | feat | Phase 2: Label Orchestrator | 🟢 Merged |
-| [#1761](../../../issues/1761) | feat | Phase 3: GitHub Workflows | 🟢 Merged |
-| [#1773](../../../issues/1773) | docs | Phase 4: Documentation | 🟢 Merged |
-| [#1780](../../../issues/1780) | docs | Phase 5.1: Integration Testing | ⏳ Review |
+| [#1680](https://github.com/lightspeedwp/.github/issues/1680) | epic | Issue Metadata Triage Expansion — parent epic | 🟢 Open |
+| [#1728](https://github.com/lightspeedwp/.github/issues/1728) | task | Phase 1.3: Manage Stale Issues | 🟢 Closed |
+| [#1774](https://github.com/lightspeedwp/.github/issues/1774) | feat | Phase 2: Label Orchestrator | 🟢 Merged |
+| [#1761](https://github.com/lightspeedwp/.github/issues/1761) | feat | Phase 3: GitHub Workflows | 🟢 Merged |
+| [#1773](https://github.com/lightspeedwp/.github/issues/1773) | docs | Phase 4: Documentation | 🟢 Merged |
+| [#1780](https://github.com/lightspeedwp/.github/issues/1780) | docs | Phase 5.1: Integration Testing | ⏳ Review |
 
 ---
 
