@@ -66,12 +66,13 @@ function createMemoryEntry(metadata) {
         `**Session date**: ${date}`,
         `**Work scope**: ${describeWorkScope(commits, repoType)}`,
       ],
-      decision_log: decisions
-        ? Object.entries(decisions).map(
-            ([key, value]) =>
-              `✅ **${key}**: ${value.choice} — ${value.rationale}`,
-          )
-        : ["(No major decisions documented)"],
+      decision_log:
+        decisions && Object.keys(decisions).length > 0
+          ? Object.entries(decisions).map(
+              ([key, value]) =>
+                `✅ **${key}**: ${value.choice} — ${value.rationale}`,
+            )
+          : ["(No major decisions documented)"],
       execution_state: [
         `✅ Commits: ${commits ? commits.length : 0} in this session`,
         `✅ Issues referenced: ${issueNumbers ? issueNumbers.join(", ") : "none"}`,
