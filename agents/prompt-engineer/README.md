@@ -361,11 +361,11 @@ A: Phase 2 uses Claude. Phase 3 will test against Claude Sonnet and Haiku for co
 
 ## Related Resources
 
-- **Project:** [portable-prompt-engineer-agent-spec](../../projects/active/openspec/changes/portable-prompt-engineer-agent/)
+- **Project:** [portable-prompt-engineer-agent-spec](../../../.github/projects/active/openspec/changes/portable-prompt-engineer-agent/)
 - **Issue:** [#1805 Epic](https://github.com/lightspeedwp/.github/issues/1805)
 - **Design:** Phase 1 specification document
-- **CLAUDE.md:** [Project standards](../../CLAUDE.md)
-- **BRANCHING_STRATEGY.md:** [Git governance](../../docs/BRANCHING_STRATEGY.md)
+- **CLAUDE.md:** [Project standards](../../../CLAUDE.md)
+- **BRANCHING_STRATEGY.md:** [Git governance](../../../.github/docs/BRANCHING_STRATEGY.md)
 
 ## Contributing
 
