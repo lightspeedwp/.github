@@ -30,6 +30,18 @@ Enhance the existing Reviewer Agent from a basic CI/PR monitoring tool into an i
 ✅ Enable reuse across LightSpeedWP organization repos  
 ✅ Maintain high signal-to-noise ratio (< 5% false positive rate)  
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#TBD](../../issues/TBD) | epic | Master epic for Reviewer Agent v2 | 🟡 Planned |
+| [#TBD](../../issues/TBD) | task | Phase 1: Planning & Specification | 🟡 Planned |
+| [#TBD](../../issues/TBD) | task | Phase 2: Core Implementation | ⏰ Queued |
+| [#TBD](../../issues/TBD) | task | Phase 3: Testing & Validation | ⏰ Queued |
+| [#TBD](../../issues/TBD) | task | Phase 4: Documentation & Rollout | ⏰ Queued |
+
+**Note:** GitHub issues for this project are planned. See [Linking Standard](../reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
+
 ## Timeline
 
 - **Phase 1: Planning & Specification** (Current) — 1 week
