@@ -37,12 +37,12 @@ graph TB
     PACKAGE -->|Handoff| REPORT
     REPORT --> OUTPUT
 
-    style CONFIG fill:#e1f5ff
-    style COLLECT fill:#fff3e0
-    style AGGREGATE fill:#f3e5f5
-    style ANALYZE fill:#e8f5e9
-    style PACKAGE fill:#fce4ec
-    style REPORT fill:#f1f8e9
+    style CONFIG fill:#01579B,color:#fff
+    style COLLECT fill:#E65100,color:#fff
+    style AGGREGATE fill:#4A148C,color:#fff
+    style ANALYZE fill:#1B5E20,color:#fff
+    style PACKAGE fill:#880E4F,color:#fff
+    style REPORT fill:#33691E,color:#fff
 ```
 
 ## Component Architecture
