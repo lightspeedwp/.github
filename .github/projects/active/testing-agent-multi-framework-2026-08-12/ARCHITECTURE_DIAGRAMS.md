@@ -46,12 +46,12 @@ graph TB
     pytest -->|executes| PYExecution["pytest"]
     Playwright -->|executes| PWExecution["playwright test"]
 
-    style GHAGENT fill:#e1f5ff
-    style ORGAGENT fill:#f3e5f5
-    style Jest fill:#fff3e0
-    style PHPUnit fill:#e8f5e9
-    style pytest fill:#fce4ec
-    style Playwright fill:#f1f8e9
+    style GHAGENT fill:#0288d1,color:#fff
+    style ORGAGENT fill:#7b1fa2,color:#fff
+    style Jest fill:#f57c00,color:#fff
+    style PHPUnit fill:#388e3c,color:#fff
+    style pytest fill:#c2185b,color:#fff
+    style Playwright fill:#689f38,color:#fff
 ```
 
 **Key Points:**
@@ -91,11 +91,11 @@ graph TD
     RESULT1 --> END["Report to user<br/>via PR comment<br/>or workflow output"]
     RESULT2 --> END
     
-    style C fill:#e1f5ff
-    style D fill:#f3e5f5
-    style D1 fill:#fff3e0
-    style D2 fill:#f5f5f5
-    style D3 fill:#f5f5f5
+    style C fill:#0288d1,color:#fff
+    style D fill:#7b1fa2,color:#fff
+    style D1 fill:#f57c00,color:#fff
+    style D2 fill:#616161,color:#fff
+    style D3 fill:#616161,color:#fff
 ```
 
 **Key Points:**
@@ -151,14 +151,14 @@ graph LR
     
     N --> O["Report to User<br/>(PR comment,<br/>GitHub Check,<br/>workflow output)"]
     
-    style C fill:#fff3e0
-    style F fill:#f5f5f5
-    style G fill:#ffccbc
-    style I fill:#e0f2f1
-    style J fill:#ffccbc
+    style C fill:#f57c00,color:#fff
+    style F fill:#616161,color:#fff
+    style G fill:#d84315,color:#fff
+    style I fill:#00897b,color:#fff
+    style J fill:#d84315,color:#fff
     style L fill:#c8e6c9
-    style M fill:#f5f5f5
-    style O fill:#e1f5ff
+    style M fill:#616161,color:#fff
+    style O fill:#0288d1,color:#fff
 ```
 
 **Key Points:**
@@ -213,10 +213,10 @@ graph TB
     E2 --> PLAYWRIGHT
     E3 --> PLAYWRIGHT
     
-    style JEST fill:#fff3e0
-    style PHPUNIT fill:#e8f5e9
-    style PYTEST fill:#fce4ec
-    style PLAYWRIGHT fill:#f1f8e9
+    style JEST fill:#f57c00,color:#fff
+    style PHPUNIT fill:#388e3c,color:#fff
+    style PYTEST fill:#c2185b,color:#fff
+    style PLAYWRIGHT fill:#689f38,color:#fff
 ```
 
 **Key Points:**
@@ -260,18 +260,18 @@ graph TD
     FRAMEWORKS --> PYTEST_GUIDE["PYTEST.md"]
     FRAMEWORKS --> PLAYWRIGHT_GUIDE["PLAYWRIGHT.md"]
     
-    style README fill:#e1f5ff
-    style AGENT fill:#e1f5ff
-    style CORE fill:#f3e5f5
-    style SELECTION fill:#f3e5f5
-    style JEST_SKILL fill:#fff3e0
-    style PHPUNIT_SKILL fill:#e8f5e9
-    style PYTEST_SKILL fill:#fce4ec
-    style PLAYWRIGHT_SKILL fill:#f1f8e9
-    style JEST_GUIDE fill:#fff3e0
-    style PHPUNIT_GUIDE fill:#e8f5e9
-    style PYTEST_GUIDE fill:#fce4ec
-    style PLAYWRIGHT_GUIDE fill:#f1f8e9
+    style README fill:#0288d1,color:#fff
+    style AGENT fill:#0288d1,color:#fff
+    style CORE fill:#7b1fa2,color:#fff
+    style SELECTION fill:#7b1fa2,color:#fff
+    style JEST_SKILL fill:#f57c00,color:#fff
+    style PHPUNIT_SKILL fill:#388e3c,color:#fff
+    style PYTEST_SKILL fill:#c2185b,color:#fff
+    style PLAYWRIGHT_SKILL fill:#689f38,color:#fff
+    style JEST_GUIDE fill:#f57c00,color:#fff
+    style PHPUNIT_GUIDE fill:#388e3c,color:#fff
+    style PYTEST_GUIDE fill:#c2185b,color:#fff
+    style PLAYWRIGHT_GUIDE fill:#689f38,color:#fff
 ```
 
 **Key Points:**
@@ -313,7 +313,7 @@ graph TB
     RESULT3 --> FINAL
     RESULT4 --> FINAL
     
-    style SCENARIOS fill:#f5f5f5
+    style SCENARIOS fill:#616161,color:#fff
     style RESULT1 fill:#c8e6c9
     style RESULT2 fill:#c8e6c9
     style RESULT3 fill:#c8e6c9
@@ -379,11 +379,11 @@ graph TD
     BLOCK --> PR_AUTHOR["Notify PR Author<br/>Fix tests or coverage"]
     ALLOW --> MERGIFY["Mergify Queue<br/>(ready to merge)"]
     
-    style GITHUB_ACTIONS fill:#f3e5f5
-    style INVOKE fill:#f3e5f5
-    style AGENT_RUN fill:#f5f5f5
-    style COMMENT fill:#e1f5ff
-    style BLOCK fill:#ffccbc
+    style GITHUB_ACTIONS fill:#7b1fa2,color:#fff
+    style INVOKE fill:#7b1fa2,color:#fff
+    style AGENT_RUN fill:#616161,color:#fff
+    style COMMENT fill:#0288d1,color:#fff
+    style BLOCK fill:#d84315,color:#fff
     style ALLOW fill:#c8e6c9
 ```
 
