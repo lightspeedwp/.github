@@ -367,10 +367,10 @@ agents/chat-closure-agent/
 
 ## Related Resources
 
-- [Chat Closure Agent Project](../.github/projects/active/chat-closure-agent-2026-08-12/README.md)
-- [Memory System Documentation](./.remember/)
+- [Chat Closure Agent Project](../../.github/projects/active/chat-closure-agent-2026-08-12/README.md)
 - [AGENTS.md](../../AGENTS.md) — Global AI governance
 - [AGENT_STANDARDS.md](../../docs/AGENT_STANDARDS.md) — Agent creation standards
+- [MEMORY_STANDARDS.md](../../docs/MEMORY_STANDARDS.md) — Memory system standards
 
 ## License
 
