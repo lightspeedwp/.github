@@ -1,0 +1,80 @@
+{
+  "id": "review-789012",
+  "status": "completed",
+  "created_at": "2026-08-12T10:30:00Z",
+  "completed_at": "2026-08-12T10:42:15Z",
+  "pr_number": 42,
+  "repo": "org/repo",
+  "findings": [
+    {
+      "id": "security-001",
+      "file": "src/api.js",
+      "line": 42,
+      "column": 8,
+      "severity": "critical",
+      "type": "security",
+      "message": "Potential SQL injection vulnerability detected",
+      "suggestion": "Use parameterized queries instead of string concatenation",
+      "code_snippet": "const query = `SELECT * FROM users WHERE id = ${userId}`;",
+      "documentation_url": "https://coderabbit.ai/docs/security/sql-injection"
+    },
+    {
+      "id": "perf-001",
+      "file": "src/utils/helpers.js",
+      "line": 156,
+      "column": 12,
+      "severity": "high",
+      "type": "performance",
+      "message": "Inefficient array operation in loop",
+      "suggestion": "Use Set.includes() instead of array.includes() for O(1) lookup",
+      "code_snippet": "for (const item of items) { if (allowedItems.includes(item)) { ... } }"
+    },
+    {
+      "id": "style-001",
+      "file": "src/components/Button.jsx",
+      "line": 8,
+      "column": 2,
+      "severity": "low",
+      "type": "style",
+      "message": "Inconsistent naming convention",
+      "suggestion": "Use camelCase for variable names",
+      "code_snippet": "const button_text = 'Click me';"
+    },
+    {
+      "id": "arch-001",
+      "file": "src/services/userService.js",
+      "line": 23,
+      "column": 0,
+      "severity": "high",
+      "type": "architecture",
+      "message": "Missing error handling in async function",
+      "suggestion": "Add try-catch block or error handling middleware",
+      "code_snippet": "async function fetchUser(id) { return db.query(...); }"
+    },
+    {
+      "id": "a11y-001",
+      "file": "src/components/Modal.jsx",
+      "line": 45,
+      "column": 4,
+      "severity": "medium",
+      "type": "accessibility",
+      "message": "Missing ARIA label for interactive element",
+      "suggestion": "Add aria-label attribute to describe the button purpose",
+      "code_snippet": "<button onClick={handleClose}>X</button>"
+    }
+  ],
+  "summary": {
+    "total_issues": 5,
+    "critical": 1,
+    "high": 2,
+    "medium": 1,
+    "low": 1,
+    "categories": {
+      "security": 1,
+      "performance": 1,
+      "architecture": 1,
+      "accessibility": 1,
+      "style": 1
+    }
+  }
+}

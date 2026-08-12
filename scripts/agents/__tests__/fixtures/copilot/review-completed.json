@@ -1,0 +1,66 @@
+{
+  "id": "copilot-review-789012",
+  "status": "success",
+  "created_at": "2026-08-12T10:30:00Z",
+  "completed_at": "2026-08-12T10:45:00Z",
+  "pr_number": 42,
+  "repo": "org/repo",
+  "suggestions": [
+    {
+      "id": "copilot-sec-001",
+      "file": "src/auth.js",
+      "line": 67,
+      "column": 10,
+      "priority": "critical",
+      "category": "security",
+      "message": "Passwords should never be logged or exposed",
+      "suggestion": "Remove password logging and use secure token instead",
+      "confidence": 0.98,
+      "code_context": "console.log('User login:', { email, password: user.password });"
+    },
+    {
+      "id": "copilot-perf-001",
+      "file": "src/database/queries.js",
+      "line": 142,
+      "column": 2,
+      "priority": "high",
+      "category": "performance",
+      "message": "N+1 query pattern detected",
+      "suggestion": "Use eager loading or batch queries instead of looping",
+      "confidence": 0.92,
+      "code_context": "for (const user of users) { const posts = db.query(...); }"
+    },
+    {
+      "id": "copilot-doc-001",
+      "file": "src/components/Avatar.jsx",
+      "line": 3,
+      "column": 0,
+      "priority": "medium",
+      "category": "documentation",
+      "message": "Function lacks JSDoc documentation",
+      "suggestion": "Add JSDoc comment describing purpose, parameters, and return type",
+      "confidence": 0.85,
+      "code_context": "function renderAvatar(user, size = 'md') { ... }"
+    },
+    {
+      "id": "copilot-test-001",
+      "file": "src/utils/validators.js",
+      "line": 89,
+      "column": 0,
+      "priority": "low",
+      "category": "testing",
+      "message": "Function lacks unit test coverage",
+      "suggestion": "Add unit tests for edge cases",
+      "confidence": 0.75,
+      "code_context": "export function validateEmail(email) { ... }"
+    }
+  ],
+  "summary": {
+    "total_suggestions": 4,
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 1,
+    "average_confidence": 0.875
+  }
+}

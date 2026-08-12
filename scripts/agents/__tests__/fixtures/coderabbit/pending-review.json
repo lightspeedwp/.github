@@ -1,0 +1,12 @@
+{
+  "id": "review-123456",
+  "status": "in_progress",
+  "created_at": "2026-08-12T10:30:00Z",
+  "pr_number": 42,
+  "repo": "org/repo",
+  "progress": {
+    "files_reviewed": 3,
+    "files_total": 5,
+    "percent": 60
+  }
+}

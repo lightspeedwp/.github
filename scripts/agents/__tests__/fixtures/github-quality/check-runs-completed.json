@@ -1,0 +1,44 @@
+{
+  "total_count": 3,
+  "check_runs": [
+    {
+      "id": 1,
+      "name": "ESLint Code Quality Check",
+      "status": "completed",
+      "conclusion": "neutral",
+      "started_at": "2026-08-12T10:30:00Z",
+      "completed_at": "2026-08-12T10:38:00Z",
+      "output": {
+        "title": "ESLint Results",
+        "summary": "Found 3 linting issues",
+        "text": "## Issues Found\n\n### src/app.js:42\n- [⚠️ warning] Unused variable 'config' (unused-vars)\n- [ℹ️ info] Missing semicolon (semi)\n\n### src/utils/helpers.js:156\n- [⚠️ warning] Function is too complex (complexity)\n"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Prettier Code Format",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-08-12T10:30:00Z",
+      "completed_at": "2026-08-12T10:32:00Z",
+      "output": {
+        "title": "Prettier Formatting",
+        "summary": "Code is properly formatted",
+        "text": "✓ All files conform to prettier formatting rules"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Static Code Analysis",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-08-12T10:30:00Z",
+      "completed_at": "2026-08-12T10:40:00Z",
+      "output": {
+        "title": "SonarQube Analysis",
+        "summary": "Found 2 code smells, 1 vulnerability",
+        "text": "## Critical Issues\n\n### src/api.js:85\n- [🔴 critical] Potential null pointer exception (null-pointer)\n\n## Code Smells\n\n### src/services/userService.js:23\n- [🟡 medium] Missing error handling in async function\n"
+      }
+    }
+  ]
+}

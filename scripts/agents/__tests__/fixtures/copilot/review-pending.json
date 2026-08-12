@@ -1,0 +1,12 @@
+{
+  "id": "copilot-review-456789",
+  "status": "in_progress",
+  "created_at": "2026-08-12T10:30:00Z",
+  "pr_number": 42,
+  "repo": "org/repo",
+  "suggestions": [],
+  "progress": {
+    "files_reviewed": 2,
+    "files_total": 5
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "total_count": 2,
+  "check_runs": [
+    {
+      "id": 1,
+      "name": "ESLint Check",
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-08-12T10:30:00Z",
+      "completed_at": null,
+      "output": {
+        "title": "ESLint Code Quality Check",
+        "summary": "Analyzing JavaScript code...",
+        "text": "Checking 12 files for linting issues..."
+      }
+    },
+    {
+      "id": 2,
+      "name": "Test Coverage",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-08-12T10:30:00Z",
+      "completed_at": "2026-08-12T10:35:00Z",
+      "output": {
+        "title": "Test Coverage Report",
+        "summary": "{\"findings\": []}",
+        "text": "Coverage: 85% (+2% from main)"
+      }
+    }
+  ]
+}
