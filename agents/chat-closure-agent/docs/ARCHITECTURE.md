@@ -95,7 +95,7 @@ sequenceDiagram
     CoreAnalysis->>CoreAnalysis: getCommitsAhead()
     CoreAnalysis->>CoreAnalysis: getChangedFiles()
     CoreAnalysis->>CoreAnalysis: extractIssueNumbers()
-    CoreAnalysis-->>Orchestrator: {<br/>  repoType: 'control-plane',<br/>  currentBranch: 'feat/x-y-z',<br/>  commitsAhead: 5,<br/>  changedFiles: [...],<br/>  issueNumbers: [123, 456]<br/>}
+    CoreAnalysis-->>Orchestrator: Git metadata object
 ```
 
 **Return Value:**
