@@ -7,8 +7,6 @@
  * Response: {check_runs: Array}
  */
 
-const toolRegistry = require("../tool-registry");
-
 // Module-level state for GitHub client (set by main agent)
 let githubClient = null;
 
