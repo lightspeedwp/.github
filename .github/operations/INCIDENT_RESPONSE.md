@@ -256,33 +256,48 @@ cat .github/reports/metrics-latest.json | jq '.errorRate'
 git log --oneline | grep -i "phase 5" | head -1
 # Example: abc1234 docs: Phase 5.1 — Integration Testing
 
-# 2. Create rollback commit
+# 2. Create rollback branch from known-good commit
 CURRENT=$(git rev-parse HEAD)
-ROLLBACK_TO="abc1234"
-git revert $CURRENT --no-edit
-git push origin develop
+ROLLBACK_TO="abc1234"  # Last known-good commit
+ROLLBACK_BRANCH="hotfix/rollback-$(date +%s)"
 
-# 3. Restore previous audit state
+git checkout -b $ROLLBACK_BRANCH $ROLLBACK_TO
+
+# 3. Push rollback branch for review
+git push -u origin $ROLLBACK_BRANCH
+
+# 4. Create pull request for rollback
+gh pr create \
+  --title "🚨 HOTFIX: Rollback to $ROLLBACK_TO" \
+  --body "Emergency rollback from $CURRENT to $ROLLBACK_TO due to critical incident." \
+  --base develop \
+  --head $ROLLBACK_BRANCH \
+  --label "type:hotfix,priority:critical"
+
+# 5. Merge rollback PR (follows standard flow)
+gh pr merge --squash --delete-branch
+
+# 6. Restore previous audit state
 ls -lt .github/reports/archive/audit-trail-*.json | head -1
 LATEST_BACKUP=$(ls -t .github/reports/archive/audit-trail-*.json | head -1)
 cp $LATEST_BACKUP .github/reports/audit-trail-latest.json
 
-# 4. Re-enable workflows with rollback version
+# 7. Re-enable workflows with rollback version
 gh workflow enable meta-labels-sync.yml --repo lightspeedwp/.github
 gh workflow enable label-audit-report.yml --repo lightspeedwp/.github
 
-# 5. Run manual test to verify
+# 8. Run manual test to verify
 node scripts/automation/label-orchestrator.js audit --output ./test-audit.json
 cat test-audit.json | jq '.summary'
 
-# 6. Verify success
+# 9. Verify success
 # Expected: Audit completes without errors
 
-# 7. Post rollback notice
-# Slack #deployments: "⚠️ ROLLED BACK: Previous version restored — investigating cause — ETA for fix [time]"
+# 10. Post rollback notice
+# Slack #deployments: "⚠️ ROLLED BACK: PR #[number] merged — previous version restored — investigating cause — ETA for fix [time]"
 
-# 8. Log rollback
-echo "CRITICAL: Rollback executed at $(date -u) due to [reason]. Commit: $CURRENT → $ROLLBACK_TO" >> .github/operations/INCIDENT_LOG.md
+# 11. Log rollback
+echo "CRITICAL: Rollback executed at $(date -u) to $ROLLBACK_TO due to [reason]. Rollback PR merged." >> .github/operations/INCIDENT_LOG.md
 ```
 
 #### Step 6: Post-Incident (Next 24 Hours)
