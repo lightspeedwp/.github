@@ -356,13 +356,34 @@ This project is tracked in the formal OpenSpec specification system:
 
 ---
 
+## Project Documentation Index
+
+### Core Planning Documents
+
+| Document | Purpose | Status |
+|----------|---------|--------|
+| [README.md](README.md) | Project overview, architecture, timeline | ✅ Complete |
+| [OPENSPEC.md](OPENSPEC.md) | Detailed Phase 1–3 specifications | ✅ Complete |
+| [PHASE_1_IMPLEMENTATION_PLAN.md](PHASE_1_IMPLEMENTATION_PLAN.md) | 8–10 week detailed roadmap with deliverables | ✅ Complete |
+| [ARCHITECTURE_DECISIONS.md](ARCHITECTURE_DECISIONS.md) | 6 architectural decisions (AD-001–AD-006) | ✅ Complete |
+
+### OpenSpec Formal Specifications
+
+| Document | Purpose | Status |
+|----------|---------|--------|
+| [proposal.md](/openspec/changes/adr-agent-portability/proposal.md) | Problem statement, solution, scope, success criteria | ✅ Complete |
+| [design.md](/openspec/changes/adr-agent-portability/design.md) | Technical design, architecture, configuration schema | ✅ Complete |
+
+---
+
 ## Next Steps
 
 1. ✅ Create linked GitHub epic issue (#1828)
 2. ✅ Run OpenSpec to flesh out Phase 1 details (COMPLETE)
-3. ⏳ Review and finalize decision points (DP-001 through DP-006)
-4. ⏳ Create Phase 1A–1C implementation issues (#1829–#1831)
-5. ⏳ Begin Phase 1A work (configuration system)
+3. ✅ Create comprehensive planning documentation (COMPLETE)
+4. ⏳ Review and finalize decision points (DP-001 through DP-006) with team
+5. ⏳ Create Phase 1A–1C implementation issues (#1829–#1831)
+6. ⏳ Begin Phase 1A work (configuration system, Weeks 1–2)
 
 ---
 
