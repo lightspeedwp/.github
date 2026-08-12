@@ -1,10 +1,16 @@
 ---
-file_type: project
 title: PRD Agent v2.1 — Organization-Wide Improvements
 description: Enhanced PRD Agent with context auto-detection and organization-wide reusability for WordPress projects
-domain: governance
-category: product-planning
 status: in-progress
+last_updated: 2026-08-12
+version: 1.0.0
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - prd
+  - product-planning
+  - agent
+  - wordpress
 ---
 
 # PRD Agent v2.1 — Organization-Wide Improvements
@@ -28,10 +34,9 @@ Enhance the PRD Agent (merged prd-agent + prd-factory-planner-agent) to be fully
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| TBD | epic | Master initiative epic | 🟡 Pending |
-| TBD | task | Phase 2: Implementation testing | 🟡 Ready |
-| TBD | task | Phase 3: Team rollout | 🟡 Ready |
-| TBD | task | Phase 4: Documentation updates | 🟡 Ready |
+| [#1896](../../issues/1896) | task | Phase 2: Testing & Validation | 🟡 In Progress |
+| [#1897](../../issues/1897) | task | Phase 3: Team Rollout & Documentation | 🟢 Ready |
+| [#1899](../../issues/1899) | task | Phase 4: Optional - Spec-Based Agent Sync | 🔵 Pending |
 
 ---
 
