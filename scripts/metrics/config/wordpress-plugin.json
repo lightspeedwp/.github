@@ -1,0 +1,17 @@
+{
+  "context": "wordpress-plugin",
+  "repositories": [
+    {
+      "owner": "lightspeedwp",
+      "name": "lswp-custom-fields-pro"
+    }
+  ],
+  "metrics": {
+    "issues": ["total", "closed", "ttf", "active"],
+    "pull_requests": ["total", "merged", "ttm", "review_time"],
+    "contributors": ["active", "top"]
+  },
+  "collection_period": 14,
+  "cache_ttl": 3600,
+  "output_dir": ".github/reports/metrics"
+}
