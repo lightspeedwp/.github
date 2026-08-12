@@ -70,6 +70,3 @@ tmp/
 *.tgz
 website/src/env.d.ts
 
-# Dependencies
-package-lock.json
-package.json

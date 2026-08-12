@@ -1,0 +1,133 @@
+name: Allocate PR/Issue to Milestone
+
+on:
+  pull_request:
+    types: [closed]
+  issues:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview without changes"
+        required: false
+        type: boolean
+        default: false
+      pr_number:
+        description: "PR number to allocate (optional)"
+        required: false
+        type: string
+      issue_number:
+        description: "Issue number to allocate (optional)"
+        required: false
+        type: string
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  allocate:
+    name: Allocate to Milestone
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Determine target PR/Issue
+        id: target
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "type=pr" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "issues" && "${{ github.event.issue.state }}" == "closed" ]]; then
+            echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+            echo "type=issue" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            if [[ ! -z "${{ github.event.inputs.pr_number }}" ]]; then
+              echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
+              echo "type=pr" >> $GITHUB_OUTPUT
+            elif [[ ! -z "${{ github.event.inputs.issue_number }}" ]]; then
+              echo "issue_number=${{ github.event.inputs.issue_number }}" >> $GITHUB_OUTPUT
+              echo "type=issue" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Run allocation script
+        id: allocate
+        if: steps.target.outputs.type
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: |
+          args=""
+
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            args="$args --dry-run"
+          fi
+
+          if [[ ! -z "${{ steps.target.outputs.pr_number }}" ]]; then
+            args="$args --pr ${{ steps.target.outputs.pr_number }}"
+          fi
+
+          if [[ ! -z "${{ steps.target.outputs.issue_number }}" ]]; then
+            args="$args --issue ${{ steps.target.outputs.issue_number }}"
+          fi
+
+          node scripts/automation/allocate-to-milestone.js $args 2>&1 | tee allocation-output.txt
+
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          cat allocation-output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post comment on PR
+        if: steps.target.outputs.type == 'pr' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ steps.target.outputs.pr_number }};
+            const output = `${{ steps.allocate.outputs.output }}`;
+            const dryRun = '${{ github.event.inputs.dry_run }}' === 'true';
+
+            const comment = `## Milestone Allocation${dryRun ? ' (Dry-Run)' : ''}
+
+            \`\`\`
+            ${output}
+            \`\`\``;
+
+            github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment,
+            });
+
+      - name: Post comment on issue
+        if: steps.target.outputs.type == 'issue' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = ${{ steps.target.outputs.issue_number }};
+            const output = `${{ steps.allocate.outputs.output }}`;
+            const dryRun = '${{ github.event.inputs.dry_run }}' === 'true';
+
+            const comment = `## Milestone Allocation${dryRun ? ' (Dry-Run)' : ''}
+
+            \`\`\`
+            ${output}
+            \`\`\``;
+
+            github.rest.issues.createComment({
+              issue_number: issueNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment,
+            });
