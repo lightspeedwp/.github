@@ -1,3 +1,11 @@
+---
+file_type: project-planning
+title: PRD Agent v2.1 — Detailed Planning & Execution Guide
+description: Comprehensive execution plan with testing checklists, success criteria, and phased rollout strategy
+domain: governance
+category: product-planning
+---
+
 # PRD Agent v2.1 — Detailed Planning & Execution Guide
 
 **Phase Status:** Phase 1 Complete ✅ | Phase 2 Ready (Testing) 🟡

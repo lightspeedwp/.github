@@ -1,3 +1,12 @@
+---
+file_type: project
+title: PRD Agent v2.1 — Organization-Wide Improvements
+description: Enhanced PRD Agent with context auto-detection and organization-wide reusability for WordPress projects
+domain: governance
+category: product-planning
+status: in-progress
+---
+
 # PRD Agent v2.1 — Organization-Wide Improvements
 
 **Project Status:** In Progress (Phase 1 Complete — Prompt Enhancement)  
