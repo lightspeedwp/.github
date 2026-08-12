@@ -8,14 +8,13 @@
 
 ---
 
-## 🔗 GitHub Tracking
+## Related Issues
 
-| Item | Link | Status |
-|------|------|--------|
-| **Phase 2 Issue** | [#1813](https://github.com/lightspeedwp/.github/issues/1813) | 🟡 Pending |
-| **Phase 1 PR** | [#1827 — Design Phase](https://github.com/lightspeedwp/.github/pull/1827) | ✅ Approved |
-| **Phase 1 Issue** | [#1812 — Design Initiative](https://github.com/lightspeedwp/.github/issues/1812) | ✅ Complete |
-| **Parent Epic** | [#1722 — Repository Restructuring](https://github.com/lightspeedwp/.github/issues/1722) | 🟢 Open |
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1813](../../../issues/1813) | task | PR Creation Agent — Phase 2: Specification & Planning | 🟡 Pending |
+| [#1812](../../../issues/1812) | epic | PR Creation Agent — Phase 1: Design | ✅ Complete |
+| [#1722](../../../issues/1722) | epic | Repository Restructuring Initiative | 🟢 Open |
 
 ---
 
