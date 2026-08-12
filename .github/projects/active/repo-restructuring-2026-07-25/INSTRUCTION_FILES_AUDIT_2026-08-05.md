@@ -27,11 +27,11 @@ domain: documentation
 
 ## Executive Summary
 
-- **Total instruction files:** 58 (43 active + 15 archived in separate `.github/instructions/.archive/` folder)
+- **Total instruction files:** 58 (44 active + 14 archived in separate `.github/instructions/.archive/` folder)
 - **Total lines of documentation:** 11,082 across all files
-- **Portable (organisation-wide):** 27 files (47% of active)
-- **Repo-local (control-plane specific):** 17 files (29% of active)
-- **Archived (pending consolidation):** 15 files (26%, stored separately in archive)
+- **Portable (organisation-wide):** 27 files (61% of active)
+- **Repo-local (control-plane specific):** 17 files (39% of active)
+- **Archived (pending consolidation):** 14 files (24% of total)
 - **High-touch files (10+ references each):** 12 files requiring careful migration
 - **Total references across codebase:** 502+ references in 156+ files
 - **Duplicate files identified:** 2–3 pairs requiring consolidation

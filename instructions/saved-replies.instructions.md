@@ -89,3 +89,5 @@ See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 - [Custom Instructions](../custom-instructions.md)
 
 ---
+
+*Instructions version: 1.0 | Updated: 2025-10-23 | Owner: LightSpeedWP Maintainers*
