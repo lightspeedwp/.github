@@ -1,0 +1,39 @@
+{
+  "adr": {
+    "directory": "docs/adr",
+    "template": "standard",
+    "number_format": {
+      "style": "sequential",
+      "zero_padded": true,
+      "width": 4
+    },
+    "approval_workflow": {
+      "enabled": false,
+      "method": "none",
+      "required_approvals": 1
+    },
+    "metadata": {
+      "required_fields": ["date", "status", "authors"],
+      "optional_fields": [
+        "supersedes",
+        "superseded-by",
+        "tags",
+        "priority",
+        "implementation-date"
+      ]
+    },
+    "custom_fields": {
+      "wordpress": {
+        "impact_areas": ["general"],
+        "performance_tier": "medium",
+        "backwards_compatible": true
+      }
+    },
+    "validation": {
+      "enforce_unique_titles": true,
+      "enforce_valid_references": true,
+      "enforce_status_transitions": false,
+      "minimum_content_length": 100
+    }
+  }
+}
