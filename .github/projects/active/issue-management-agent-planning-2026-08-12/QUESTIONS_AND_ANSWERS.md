@@ -733,12 +733,12 @@ graph LR
     Health -.->|uses data| Report
     Troubleshoot -.->|uses utilities| Report
     
-    style Shared fill:#e1f5ff
-    style Audit fill:#c8e6c9
-    style Sync fill:#c8e6c9
-    style Health fill:#c8e6c9
-    style Troubleshoot fill:#c8e6c9
-    style Report fill:#fff9c4
+    style Shared fill:#e1f5ff,color:#000000
+    style Audit fill:#c8e6c9,color:#000000
+    style Sync fill:#c8e6c9,color:#000000
+    style Health fill:#c8e6c9,color:#000000
+    style Troubleshoot fill:#c8e6c9,color:#000000
+    style Report fill:#fff9c4,color:#000000
 ```
 
 #### Week-by-Week Breakdown
