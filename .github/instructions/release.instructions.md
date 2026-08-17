@@ -35,7 +35,7 @@ This file defines how release preparation, execution, and recovery must run in t
   - `npm run validate:frontmatter`
   - `npm run validate:workflows`
   - `npm run validate:agents`
-  - `npm run validate:skill-manifests`
+  - `npm run validate:skills`
   - `npm run validate:plugins`
   - `npm test`
 - Confirm `CHANGELOG.md` has a valid `[Unreleased]` section.

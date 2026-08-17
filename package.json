@@ -76,6 +76,7 @@
     "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
     "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md:changed && npm run lint:json",
     "lint:md:changed": "node scripts/validation/lint-md-changed.cjs",
+    "validate:workflow-npm-scripts": "node scripts/validation/validate-workflow-npm-scripts.cjs",
     "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
