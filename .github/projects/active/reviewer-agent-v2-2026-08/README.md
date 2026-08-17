@@ -181,6 +181,12 @@ Enhance the existing Reviewer Agent from a basic CI/PR monitoring tool into an i
 └── .archive-status.md                          (Created when complete)
 ```
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1799](https://github.com/lightspeedwp/.github/issues/1799) | epic | Reviewer Agent v2 — Multi-Tool Orchestration & Feedback Processing | 🟡 In Progress |
+
 ## Next Steps
 
 1. ✅ Project structure created
