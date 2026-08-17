@@ -29,8 +29,16 @@ jobs:
     name: Linting
     if: github.actor != 'imgbot[bot]'
     runs-on: ubuntu-latest
+    env:
+      # lint:md:changed diffs this range; without it the base ref cannot be
+      # resolved from a shallow checkout and the markdown lint would silently
+      # skip. fetch-depth: 0 supplies the history the diff needs.
+      BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
+      HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"

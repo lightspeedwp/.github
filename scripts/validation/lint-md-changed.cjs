@@ -34,7 +34,13 @@ function resolveRange() {
 
 const range = resolveRange();
 if (!range) {
-  console.log("No base ref available to diff against — skipping markdown lint.");
+  const message = "No base ref available to diff against.";
+  if (process.env.CI) {
+    // Skipping silently in CI would let violations through unlinted.
+    console.error(`${message} Set BASE_SHA and HEAD_SHA, or check out with fetch-depth: 0.`);
+    process.exit(1);
+  }
+  console.log(`${message} Skipping markdown lint — run npm run lint:md for the full tree.`);
   process.exit(0);
 }
 
