@@ -83,8 +83,14 @@ jobs:
           app-id: ${{ vars.LS_APP_CLIENT_ID == '' && vars.LS_APP_ID || '' }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           repositories: ${{ github.repository }}
-          permission-contents: write
+          # Least privilege, each justified against what this job actually does:
+          #   issues                : set native issue types on open issues
+          #   organization-projects : add items to the org Projects v2 board and
+          #                           set Status / Priority / Type field values
+          # The repository checkout uses the default GITHUB_TOKEN, so this token
+          # needs no contents access.
           permission-issues: write
+          permission-organization-projects: write
 
       - name: Run bulk backfill
         uses: actions/github-script@v9
