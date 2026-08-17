@@ -8,8 +8,13 @@ const mockFs = {
 // Mock fs/promises before any other imports
 jest.unstable_mockModule("fs/promises", () => ({ ...mockFs }));
 
-// Now import the skill after mocking
-const { routePrTemplate } = await import("../../skills/route-pr-template.js");
+let routePrTemplate;
+
+// Import the skill before describing tests
+beforeAll(async () => {
+  const module = await import("../../skills/route-pr-template.js");
+  routePrTemplate = module.routePrTemplate;
+});
 
 describe("routePrTemplate", () => {
   beforeEach(() => {
