@@ -6,16 +6,23 @@
  * 2. Updates descriptions with correct template sections
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
+const { execFileSync } = require('child_process');
 
 const OWNER = 'lightspeedwp';
 const REPO = '.github';
 const DRY_RUN = process.argv.includes('--dry-run');
 const VERBOSE = process.argv.includes('--verbose');
-const BATCH_SIZE = process.argv.includes('--batch')
-  ? parseInt(process.argv[process.argv.indexOf('--batch') + 1])
-  : 10;
+
+let BATCH_SIZE = 10;
+if (process.argv.includes('--batch')) {
+  const batchIndex = process.argv.indexOf('--batch');
+  const batchValue = parseInt(process.argv[batchIndex + 1], 10);
+  if (!Number.isInteger(batchValue) || batchValue <= 0) {
+    console.error('Error: --batch must be a positive integer');
+    process.exit(1);
+  }
+  BATCH_SIZE = batchValue;
+}
 
 const stats = {
   issuesProcessed: 0,
@@ -39,35 +46,53 @@ function log(msg, type = 'info') {
   }
 }
 
-function exec(cmd, silent = false) {
+function exec(args, silent = false) {
   try {
-    return execSync(cmd, {
+    const result = execFileSync('gh', args, {
       encoding: 'utf-8',
       stdio: silent ? 'pipe' : 'inherit',
       maxBuffer: 10 * 1024 * 1024
-    }).trim();
-  } catch (e) {
-    if (!silent) log(`Command failed: ${cmd}`, 'error');
-    return '';
+    });
+    return result.trim();
+  } catch (_error) {
+    if (!silent) log(`Command failed: gh ${args.join(' ')}`, 'error');
+    stats.errors.push(`gh ${args.join(' ')}`);
+    throw _error;
   }
 }
 
 function getOpenIssues() {
   log('Fetching open issues...', 'info');
-  const result = exec(
-    `gh issue list --repo ${OWNER}/${REPO} --state open --limit 300 --json number,title,labels,body`,
-    true
-  );
-  return JSON.parse(result || '[]');
+  try {
+    const result = exec([
+      'issue', 'list',
+      '--repo', `${OWNER}/${REPO}`,
+      '--state', 'open',
+      '--limit', '300',
+      '--json', 'number,title,labels,body'
+    ], true);
+    return JSON.parse(result || '[]');
+  } catch (_error) {
+    log('Failed to fetch issues', 'error');
+    return [];
+  }
 }
 
 function getOpenPRs() {
   log('Fetching open PRs...', 'info');
-  const result = exec(
-    `gh pr list --repo ${OWNER}/${REPO} --state open --limit 100 --json number,title,labels,body`,
-    true
-  );
-  return JSON.parse(result || '[]');
+  try {
+    const result = exec([
+      'pr', 'list',
+      '--repo', `${OWNER}/${REPO}`,
+      '--state', 'open',
+      '--limit', '100',
+      '--json', 'number,title,labels,body'
+    ], true);
+    return JSON.parse(result || '[]');
+  } catch (_error) {
+    log('Failed to fetch PRs', 'error');
+    return [];
+  }
 }
 
 function detectIssueType(title) {
@@ -82,10 +107,6 @@ function detectIssueType(title) {
   if (/perf|speed|optim|memory|cache/i.test(title)) return 'type:performance';
   if (/security|vuln|auth|encrypt|protect/i.test(title)) return 'type:security';
   return 'type:task';
-}
-
-function hasLabel(labels, name) {
-  return labels && labels.some(l => l.name === name);
 }
 
 function hasTypeLabel(labels) {
@@ -103,15 +124,18 @@ function addLabelToIssue(number, label) {
   }
 
   try {
-    exec(`gh issue edit ${number} --repo ${OWNER}/${REPO} --add-label "${label}"`, true);
+    exec([
+      'issue', 'edit', String(number),
+      '--repo', `${OWNER}/${REPO}`,
+      '--add-label', label
+    ], true);
     log(`Added label "${label}" to issue #${number}`, 'success');
-  } catch (e) {
+  } catch (_error) {
     log(`Failed to add label to issue #${number}`, 'error');
   }
 }
 
-function updateIssueDescription(number, body, title) {
-  // Add Definition of Ready and Done sections if missing
+function updateIssueDescription(number, body) {
   let updated = false;
   let newBody = body || '';
 
@@ -135,11 +159,14 @@ function updateIssueDescription(number, body, title) {
     }
 
     try {
-      const escaped = newBody.replace(/"/g, '\\"').replace(/\n/g, '\\n');
-      exec(`gh issue edit ${number} --repo ${OWNER}/${REPO} --body "${escaped}"`, true);
+      exec([
+        'issue', 'edit', String(number),
+        '--repo', `${OWNER}/${REPO}`,
+        '--body', newBody
+      ], true);
       log(`Updated description for issue #${number}`, 'success');
       return true;
-    } catch (e) {
+    } catch (_error) {
       log(`Failed to update issue #${number} description`, 'error');
       return false;
     }
@@ -178,11 +205,14 @@ function updatePRDescription(number, body) {
     }
 
     try {
-      const escaped = newBody.replace(/"/g, '\\"').replace(/\n/g, '\\n');
-      exec(`gh pr edit ${number} --repo ${OWNER}/${REPO} --body "${escaped}"`, true);
+      exec([
+        'pr', 'edit', String(number),
+        '--repo', `${OWNER}/${REPO}`,
+        '--body', newBody
+      ], true);
       log(`Updated description for PR #${number}`, 'success');
       return true;
-    } catch (e) {
+    } catch (_error) {
       log(`Failed to update PR #${number} description`, 'error');
       return false;
     }
@@ -195,13 +225,12 @@ function processIssues(issues) {
   log(`\n📋 Processing ${issues.length} issues...`, 'info');
 
   issues.forEach((issue, index) => {
-    if (index % 10 === 0) {
+    if (index % BATCH_SIZE === 0) {
       log(`Progress: ${index}/${issues.length}`, 'debug');
     }
 
     stats.issuesProcessed++;
 
-    // Add missing labels
     const labelsToAdd = [];
 
     if (!hasTypeLabel(issue.labels)) {
@@ -217,8 +246,7 @@ function processIssues(issues) {
       stats.issuesLabeledAdded++;
     });
 
-    // Update description with template sections
-    if (updateIssueDescription(issue.number, issue.body, issue.title)) {
+    if (updateIssueDescription(issue.number, issue.body)) {
       stats.issuesDescriptionUpdated++;
     }
   });
@@ -232,13 +260,12 @@ function processPRs(prs) {
   log(`\n📋 Processing ${prs.length} PRs...`, 'info');
 
   prs.forEach((pr, index) => {
-    if (index % 10 === 0) {
+    if (index % BATCH_SIZE === 0) {
       log(`Progress: ${index}/${prs.length}`, 'debug');
     }
 
     stats.prsProcessed++;
 
-    // Update description with template sections
     if (updatePRDescription(pr.number, pr.body)) {
       stats.prsDescriptionUpdated++;
     }
@@ -259,7 +286,6 @@ function main() {
     processIssues(issues);
     processPRs(prs);
 
-    // Print final summary
     log('\n📊 Final Summary:', 'info');
     log(`  Issues processed: ${stats.issuesProcessed}`, 'debug');
     log(`  Labels added: ${stats.issuesLabeledAdded}`, 'success');
@@ -280,11 +306,14 @@ function main() {
     }
 
     log('\n✅ Comprehensive auto-update complete!', 'success');
-
-  } catch (e) {
-    log(`Failed: ${e.message}`, 'error');
+  } catch (_error) {
+    log(`Failed: ${_error.message}`, 'error');
     process.exit(1);
   }
 }
 
-main();
+module.exports = { detectIssueType, hasTypeLabel, hasPriorityLabel, addLabelToIssue, updateIssueDescription, updatePRDescription };
+
+if (require.main === module) {
+  main();
+}

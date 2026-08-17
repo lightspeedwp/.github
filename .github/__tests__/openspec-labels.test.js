@@ -13,7 +13,7 @@ describe('OpenSpec Status Labels', () => {
   beforeAll(() => {
     const labelsPath = path.join(__dirname, '..', 'labels.yml');
     const fileContent = fs.readFileSync(labelsPath, 'utf8');
-    labelsConfig = yaml.safeLoad(fileContent);
+    labelsConfig = yaml.load(fileContent);
   });
 
   describe('Label Configuration', () => {
