@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BugHerd Failure Package",
+  "type": "object",
+  "required": [
+    "bugherd_title",
+    "summary",
+    "requirement_id",
+    "test_case_id",
+    "failing_spec",
+    "failing_url",
+    "browser",
+    "viewport",
+    "environment",
+    "branch",
+    "commit_sha",
+    "steps_to_reproduce",
+    "expected_result",
+    "actual_result",
+    "attachments",
+    "suggested_labels",
+    "privacy_check"
+  ],
+  "properties": {
+    "bugherd_title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "requirement_id": { "type": "string", "minLength": 1 },
+    "test_case_id": { "type": "string", "minLength": 1 },
+    "failing_spec": { "type": "string", "minLength": 1 },
+    "failing_url": { "type": "string", "format": "uri" },
+    "browser": { "type": "string", "minLength": 1 },
+    "viewport": { "type": "string", "minLength": 1 },
+    "environment": { "type": "string", "minLength": 1 },
+    "branch": { "type": "string", "minLength": 1 },
+    "commit_sha": { "type": "string", "minLength": 1 },
+    "steps_to_reproduce": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "expected_result": { "type": "string", "minLength": 1 },
+    "actual_result": { "type": "string", "minLength": 1 },
+    "attachments": { "type": "array", "items": { "type": "string" } },
+    "suggested_labels": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "privacy_check": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}
