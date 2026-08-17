@@ -99,6 +99,8 @@
     "validate:issue-fields": "node scripts/validation/validate-issue-fields.cjs",
     "validate:retired-doc-links": "node scripts/validation/validate-retired-doc-links.cjs",
     "validate:workflows": "node scripts/validation/validate-workflows.js",
+    "validate:mermaid-syntax": "node scripts/validation/validate-mermaid-syntax.js",
+    "validate:mermaid-accessibility": "node scripts/validation/validate-mermaid-accessibility.js",
     "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:branch-name && npm run validate:workflows && npm run validate:json:all",
     "eslint:delta:wave-1": "node scripts/compute-eslint-delta-wave-1.js",
     "sync-version": "node scripts/sync-version.js",
