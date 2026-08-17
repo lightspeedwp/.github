@@ -12,8 +12,6 @@ status: active
 language: en
 owners:
   - lightspeedwp/maintainers
-owners:
-  - lightspeedwp/maintainers
 ---
 
 # Meta Agent v2.0 — Organisation-Wide Metadata & Schemas
