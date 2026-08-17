@@ -42,3 +42,13 @@ exclude = [
   # Also exclude v0.5.0→v0.6.0 compare (tag never existed)
   "compare.*v0\\.6\\.0",
 ]
+
+# CHANGELOG.md alone links dozens of github.com/lightspeedwp/.github/issues/N
+# and /pull/N URLs. Checking that many in one burst was observed rejecting
+# issues confirmed to exist via the GitHub API — a mix of 404 and 502
+# responses inconsistent with genuinely missing resources, and consistent
+# with GitHub's own anti-burst protection on its web frontend rather than a
+# real broken link. Retrying with backoff (lychee's default is 2 retries,
+# 2s wait) gives GitHub room to recover instead of failing the whole run.
+max_retries = 5
+retry_wait_time = 4
