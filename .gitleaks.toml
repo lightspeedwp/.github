@@ -15,5 +15,4 @@ paths = [
   '''skills/design-md-agent/figma-implement-design/SKILL\.md''',
   '''\.github/projects/_templates/OPENSPEC_TEMPLATE\.md''',
   '''agents/chat-closure-agent/tests/fixtures/integration-e2e/(dirty-repo|memory-repo|report-repo)''',
-  '''\.github/projects/_templates/OPENSPEC_TEMPLATE\.md''',
 ]
