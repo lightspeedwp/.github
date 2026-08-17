@@ -95,12 +95,12 @@ jobs:
           github.event_name == 'issues' &&
           vars.LS_APP_ID != '' &&
           secrets.LS_APP_PRIVATE_KEY != ''
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           repositories: ${{ github.repository }}
-          permissions-issues: write
+          permission-issues: write
 
       - name: Sync native issue type from type:* label
         id: native-type
