@@ -37,7 +37,7 @@
 
 ## Open questions
 
-- 
+-
 
 ---
 

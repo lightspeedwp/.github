@@ -1,9 +1,11 @@
 # Example: UTM lead capture form
 
 ## Purpose
+
 Capture a lead enquiry while preserving campaign attribution in hidden fields without sending personal data to analytics tools.
 
 ## Recommended fields
+
 - Name
 - Email
 - Phone, optional
@@ -19,6 +21,7 @@ Capture a lead enquiry while preserving campaign attribution in hidden fields wi
 - Hidden: referrer
 
 ## Configuration notes
+
 - Use prefixed dynamic population parameter names such as `ls_utm_source` and `ls_utm_campaign`.
 - Keep UTM fields optional because direct traffic and privacy tooling may strip parameters.
 - Store attribution in the entry and CRM feed only when governance allows it.
@@ -26,6 +29,7 @@ Capture a lead enquiry while preserving campaign attribution in hidden fields wi
 - Test with clean browser sessions and accepted/refused analytics consent states.
 
 ## QA
+
 - Submit with full UTM query string.
 - Submit without UTM parameters.
 - Submit with validation errors and confirm no successful conversion event is counted.

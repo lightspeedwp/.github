@@ -28,21 +28,21 @@
 
 ## Missing evidence
 
-- 
+-
 
 ## Recommended next actions
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Notes for developer or implementer
 
-- 
+-
 
 ## Client-safe wording, if needed
 
-- 
+-
 
 ---
 

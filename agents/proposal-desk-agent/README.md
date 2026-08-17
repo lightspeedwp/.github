@@ -49,16 +49,19 @@ The Proposal Desk Agent automates proposal and quote generation, project scoping
 ## Installation & Setup
 
 ### Claude
+
 ```bash
 claude code --agent proposal-desk
 ```
 
 ### GitHub Copilot
+
 ```bash
 @proposal-desk generate proposal for [client]
 ```
 
 ### OpenAI API
+
 ```bash
 curl -X POST https://api.openai.com/v1/assistants \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -68,6 +71,7 @@ curl -X POST https://api.openai.com/v1/assistants \
 ## Usage Examples
 
 ### Generate Proposal
+
 ```
 User: Generate a proposal for website redesign
       Client: Acme Corp
@@ -83,6 +87,7 @@ Agent:
 ```
 
 ### Create Quote
+
 ```
 User: Create a quote for:
       - Graphic design (60 hours @ $125/hr)
@@ -97,6 +102,7 @@ Agent:
 ```
 
 ### Define Project Scope
+
 ```
 User: Define scope for e-commerce optimization
       Current state: Basic WooCommerce

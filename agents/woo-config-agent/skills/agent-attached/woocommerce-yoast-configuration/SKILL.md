@@ -16,7 +16,6 @@ Use this skill to produce agency-ready Yoast SEO configuration plans, audits, QA
 - Separate confirmed facts, assumptions, recommendations, risks, and open questions.
 - State the access level used: no access, screenshots, exported settings, WordPress admin, staging, codebase, Search Console, live crawl evidence, rendered source, or scanned documentation.
 
-
 ## Mandatory output structure
 
 Use this response structure for all normal outputs unless the user explicitly asks for a different template or a specialist template in `templates/` is clearly more appropriate:
@@ -152,7 +151,6 @@ Always preserve these caveats when relevant:
 - IndexNow is documented, but implementation details may require fresh Yoast documentation or live-product verification.
 - Exact Yoast admin UI paths can change; verify them for client-facing instructions.
 - Yoast, WordPress, WooCommerce, Google Search Central, Schema.org, and product packaging are version-sensitive.
-
 
 ## Related skill routing
 

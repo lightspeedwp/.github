@@ -56,9 +56,9 @@
 
 ## 9. Prioritised actions
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## 10. QA and retest plan
 

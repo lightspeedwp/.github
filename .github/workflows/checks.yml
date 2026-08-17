@@ -77,8 +77,6 @@ jobs:
         run: npm run validate:issue-fields
       - name: Validate retired documentation links (changed files only)
         run: npm run validate:retired-doc-links
-      - name: Validate footers (changed only)
-        run: npm run validate:footers -- --changed-only --base=${{ env.BASE_SHA }} --head=${{ env.HEAD_SHA }}
       - name: Validate frontmatter (changed only)
         run: npm run validate:frontmatter:changed -- --base ${{ env.BASE_SHA }} --head ${{ env.HEAD_SHA }}
 

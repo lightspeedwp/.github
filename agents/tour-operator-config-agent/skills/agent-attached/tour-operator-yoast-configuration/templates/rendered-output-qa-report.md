@@ -13,11 +13,11 @@
 
 ## Findings
 
-- 
+-
 
 ## Required follow-up
 
-- 
+-
 
 ---
 

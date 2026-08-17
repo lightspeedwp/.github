@@ -9,6 +9,7 @@ The Zendesk Support Agent manages customer support tickets, drafts professional 
 ## Quick Start
 
 ### 1. Ticket Intake & Categorization
+
 ```
 Input: New customer ticket
 Process: Analyze content, categorize issue, assess priority
@@ -16,6 +17,7 @@ Output: Categorized ticket, priority, context summary
 ```
 
 ### 2. Response Assistance
+
 ```
 Input: Ticket details, tone preference
 Process: Search KB, draft response, analyze sentiment
@@ -23,6 +25,7 @@ Output: Professional response draft, alternatives, quality assessment
 ```
 
 ### 3. Knowledge Base Integration
+
 ```
 Input: Customer issue
 Process: Search relevant articles, assess relevance
@@ -30,6 +33,7 @@ Output: Recommended articles, solution suggestions
 ```
 
 ### 4. Escalation Routing
+
 ```
 Input: Ticket complexity, team availability
 Process: Assess routing criteria, determine team
@@ -58,21 +62,27 @@ Output: Routing recommendation, escalation justification
 ## Six-Phase Methodology
 
 ### Phase 1: Ticket Intake
+
 Receive and categorize incoming tickets with context assessment
 
 ### Phase 2: Context Gathering
+
 Search knowledge base and customer history for relevant information
 
 ### Phase 3: Problem Analysis
+
 Analyze customer sentiment and identify root cause
 
 ### Phase 4: Response Generation
+
 Draft professional response with KB article references
 
 ### Phase 5: Routing Decision
+
 Determine appropriate team or escalation path
 
 ### Phase 6: Quality & Follow-up
+
 Validate response quality and plan follow-up actions
 
 ## Key Files
@@ -87,6 +97,7 @@ Validate response quality and plan follow-up actions
 ## Ticket Management Features
 
 ### Automatic Classification
+
 - Category assignment
 - Priority determination
 - Urgency assessment
@@ -94,6 +105,7 @@ Validate response quality and plan follow-up actions
 - SLA compliance tracking
 
 ### Response Quality
+
 - Professional tone
 - Completeness verification
 - Empathy assessment
@@ -101,6 +113,7 @@ Validate response quality and plan follow-up actions
 - Grammar and clarity check
 
 ### Customer Insights
+
 - Sentiment analysis
 - Emotion detection
 - Satisfaction assessment
@@ -108,6 +121,7 @@ Validate response quality and plan follow-up actions
 - Communication patterns
 
 ### Knowledge Management
+
 - KB article recommendations
 - Solution matching
 - Coverage gap identification
@@ -117,6 +131,7 @@ Validate response quality and plan follow-up actions
 ## Configuration
 
 ### Zendesk Connection
+
 - API key setup
 - Workspace configuration
 - Ticket queue assignment
@@ -124,6 +139,7 @@ Validate response quality and plan follow-up actions
 - Automation rules
 
 ### Knowledge Base Setup
+
 - Category organization
 - Article management
 - Search optimization
@@ -131,6 +147,7 @@ Validate response quality and plan follow-up actions
 - Relevance tuning
 
 ### Team Configuration
+
 - Agent assignment
 - Skill-based routing
 - Availability management
@@ -140,6 +157,7 @@ Validate response quality and plan follow-up actions
 ## Support Metrics
 
 ### Response Metrics
+
 - Average response time
 - First-contact resolution rate
 - Response quality score
@@ -147,6 +165,7 @@ Validate response quality and plan follow-up actions
 - Time to resolution
 
 ### Workload Metrics
+
 - Tickets per agent
 - Queue depth trending
 - Escalation rate
@@ -154,6 +173,7 @@ Validate response quality and plan follow-up actions
 - Staffing needs
 
 ### Quality Metrics
+
 - Response accuracy
 - Customer satisfaction
 - Knowledge base usage
@@ -163,6 +183,7 @@ Validate response quality and plan follow-up actions
 ## Response Quality Checklist
 
 Before sending a response:
+
 - [ ] Addresses customer concern
 - [ ] Professional tone maintained
 - [ ] Clear and concise language
@@ -174,20 +195,25 @@ Before sending a response:
 ## Common Response Templates
 
 ### Problem Acknowledgment
+
 "Thank you for contacting us regarding [issue]. I understand how [emotion word] this must be."
 
 ### Investigation Statement
+
 "I've reviewed your account and ticket history. I can see that [context]."
 
 ### Solution Delivery
+
 "Here's how we can resolve this: [steps]. I've also included this [KB article] for additional guidance."
 
 ### Follow-up
+
 "Please let me know if this resolves your issue. I'm available [timeframe] if you need further assistance."
 
 ## Escalation Triggers
 
 Escalate when:
+
 - Issue severity is high
 - Multiple failed resolutions attempted
 - Customer expressed strong frustration
@@ -208,6 +234,7 @@ Escalate when:
 ## Performance Tips
 
 ### For Better Response Quality
+
 - Review response drafts before sending
 - Incorporate customer context
 - Reference relevant KB articles
@@ -215,6 +242,7 @@ Escalate when:
 - Show empathy and understanding
 
 ### For Faster Resolution
+
 - Use templates for common issues
 - Proactively provide KB articles
 - Clear escalation paths
@@ -222,6 +250,7 @@ Escalate when:
 - Defined SLAs and timeframes
 
 ### For Higher Satisfaction
+
 - Acknowledge customer emotions
 - Provide multiple options
 - Follow up proactively
@@ -231,24 +260,28 @@ Escalate when:
 ## Troubleshooting
 
 ### Issue: No Relevant KB Articles Found
+
 - Expand search criteria
 - Check KB article tags
 - Review article titles
 - Consider alternative keywords
 
 ### Issue: Sentiment Analysis Inaccurate
+
 - Review full ticket context
 - Check for sarcasm/cultural nuances
 - Consider communication style
 - Ask for clarification if needed
 
 ### Issue: Routing Recommendations Wrong
+
 - Review team skills and availability
 - Check SLA requirements
 - Verify escalation criteria
 - Update team configuration
 
 ### Issue: Response Quality Low
+
 - Review tone and language
 - Add more KB references
 - Include more context
@@ -257,6 +290,7 @@ Escalate when:
 ## Integration Checklist
 
 Before using the agent:
+
 - [ ] Zendesk account configured
 - [ ] API credentials set up
 - [ ] Knowledge base populated
@@ -269,6 +303,7 @@ Before using the agent:
 ## Support & Training
 
 For support team members:
+
 1. Review AGENT.md specification
 2. Check provider-specific implementation (claude, copilot, openai)
 3. Consult the 6-phase methodology in shared/core-prompt.md
@@ -287,20 +322,25 @@ For support team members:
 ## Sample Response Templates
 
 ### Technical Issue Acknowledgment
+
 "Thank you for reporting this issue. I've reviewed the error details you provided. This appears to be related to [system]. Let me help you resolve this."
 
 ### Billing Issue Resolution
+
 "I understand your concern about the charge. I've reviewed your account and found [explanation]. Here's how we'll resolve this: [steps]."
 
 ### Feature Request Response
+
 "Thank you for the feature suggestion. This is valuable feedback. We've noted your request and will consider it for future releases."
 
 ### Problem Escalation
+
 "Thank you for your patience. This issue requires specialized expertise. I'm escalating this to our [team], who will contact you within [timeframe]."
 
 ## Metrics Dashboard
 
 Track these metrics:
+
 - **Response Time** – Time from ticket arrival to first response
 - **Resolution Time** – Time from ticket arrival to closure
 - **CSAT Score** – Customer satisfaction rating (1-5)
@@ -313,6 +353,7 @@ Track these metrics:
 ## Common Issues & Solutions
 
 ### Long Response Times
+
 - Add more agents
 - Improve KB coverage
 - Streamline processes
@@ -323,6 +364,7 @@ Track these metrics:
 - Use templates
 
 ### Low Customer Satisfaction
+
 - Increase agent training
 - Improve KB articles
 - Review response quality
@@ -333,6 +375,7 @@ Track these metrics:
 - Gather feedback
 
 ### High Escalation Rate
+
 - Expand first-line authority
 - Add KB articles
 - Better routing
@@ -343,6 +386,7 @@ Track these metrics:
 - Regular reviews
 
 ### Agent Burnout
+
 - Monitor workload
 - Support career growth
 - Provide training

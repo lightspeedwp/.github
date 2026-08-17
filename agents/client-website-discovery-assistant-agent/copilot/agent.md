@@ -17,6 +17,7 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the Client Website Discovery Assistant integrates directly with GitHub's development environment, providing intelligent assistance within code editors and pull requests.
 
 Copilot excels at:
+
 - **GitHub Projects integration** – Manage issues and projects
 - **Code analysis** – Review and improve code
 - **Workflow automation** – Trigger GitHub Actions
@@ -36,6 +37,7 @@ Skills are triggered using @ mentions in Copilot Chat:
 ## Response Format
 
 Copilot provides responses optimized for GitHub:
+
 - Markdown-formatted explanations
 - Code snippets with syntax highlighting
 - Links to related GitHub issues and discussions
@@ -57,6 +59,7 @@ Discovery-specific skills triggered with @ mentions:
 ## GitHub Integration
 
 Works with:
+
 - **GitHub Projects** – Track discovery tasks and findings
 - **GitHub Discussions** – Share findings and get feedback
 - **Pull Requests** – Link analysis to code changes
@@ -241,16 +244,19 @@ Copilot provides GitHub-optimized responses:
 ## Error Handling
 
 **Missing URL:**
+
 - Request URL format clarification
 - Suggest checking issue description
 - Offer to analyze existing project websites
 
 **Rate Limiting:**
+
 - Queue analysis for later
 - Suggest scheduling regular audits
 - Provide interim manual checklist
 
 **Incomplete Findings:**
+
 - Note limitations in analysis
 - Suggest additional manual review
 - Flag areas needing expert input

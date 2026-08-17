@@ -2,11 +2,11 @@
 
 ## Decision
 
-- 
+-
 
 ## Context and evidence
 
-- 
+-
 
 ## Options considered
 

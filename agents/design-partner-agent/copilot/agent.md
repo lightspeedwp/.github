@@ -34,6 +34,7 @@ commands:
 ```
 
 **Integration:**
+
 - GitHub Issues: Create design system audit issues
 - GitHub Projects: Track design system improvements
 - Pull Requests: Review design changes
@@ -57,6 +58,7 @@ commands:
 ```
 
 **Integration:**
+
 - GitHub Issues: File accessibility issues automatically
 - Labels: Apply `a11y-compliance` label to issues
 - Automated workflow: Run accessibility audits on schedule
@@ -80,6 +82,7 @@ commands:
 ```
 
 **Integration:**
+
 - GitHub wiki: Publish component documentation
 - GitHub Pages: Generate design system docs site
 - Pull requests: Attach documentation to component PRs
@@ -104,6 +107,7 @@ commands:
 ```
 
 **Integration:**
+
 - GitHub artifacts: Store token exports
 - Pull requests: Attach token files to PRs
 - Workflows: Automated token extraction and validation
@@ -127,6 +131,7 @@ commands:
 ```
 
 **Integration:**
+
 - GitHub Projects: Sync design status to project board
 - Issues: Link design changes to GitHub issues
 - Pull requests: Reference design files in PRs
@@ -150,6 +155,7 @@ commands:
 ```
 
 **Integration:**
+
 - Pull request reviews: Add design feedback as comments
 - Issues: Create review checklist items
 - GitHub Discussions: Design review feedback

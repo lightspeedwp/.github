@@ -21,12 +21,14 @@ related_commits: ["71551c7e7", "15639bc3a", "8f12fa32e"]
 The `continue-on-error: true` fix for the release workflow telemetry step has been successfully applied, verified at the code level, and is **ready for merge**.
 
 **Code-Level Verification:** ✓ PASSED
+
 - Syntax validation: ✓ YAML valid
 - Logic verification: ✓ Sound implementation
 - Best practices: ✓ Matches GitHub Actions patterns
 - Dependencies: ✓ All scripts exist and are valid
 
 **Integration Testing:** ⏳ BLOCKED
+
 - Both fixed and unfixed branches fail with identical "startup_failure" errors
 - Root cause: Pre-existing infrastructure issue (unrelated to telemetry fix)
 - Requires: Separate GitHub infrastructure investigation
@@ -90,12 +92,14 @@ The `continue-on-error: true` fix for the release workflow telemetry step has be
 ## Workflow Runs Attempted
 
 ### Run 1: Initial Test (Fixed Branch)
+
 - **Run ID:** 30887251703
 - **Branch:** claude/release-workflow-test-8ea3aa (pre-fix)
 - **Result:** ✗ startup_failure (workflow file issue)
 - **Jobs Created:** None
 
 ### Run 2: Develop Branch (Baseline)
+
 - **Run ID:** 30887443464
 - **Branch:** develop (unfixed)
 - **Result:** ✗ startup_failure (workflow file issue)
@@ -103,18 +107,21 @@ The `continue-on-error: true` fix for the release workflow telemetry step has be
 - **Conclusion:** Proves issue is pre-existing, not caused by fix
 
 ### Run 3: With Fix Applied
+
 - **Run ID:** 30887366648
 - **Branch:** claude/release-workflow-test-8ea3aa (with fix)
 - **Result:** ✗ startup_failure (workflow file issue)
 - **Jobs Created:** None
 
 ### Run 4: Action Versions Updated
+
 - **Run ID:** 30887503910
 - **Branch:** claude/release-workflow-test-8ea3aa (fix + v7→v4 upgrade)
 - **Result:** ✗ startup_failure (workflow file issue)
 - **Jobs Created:** None
 
 ### Run 5: Diagnostic Test (No Conditionals)
+
 - **Run ID:** 30887561321
 - **Branch:** claude/release-workflow-test-8ea3aa (fix + no conditionals)
 - **Result:** ✗ startup_failure (workflow file issue)
@@ -132,22 +139,27 @@ The `continue-on-error: true` fix for the release workflow telemetry step has be
 ### What We Ruled Out
 
 ✓ **Not caused by:** Deprecated actions/checkout v7
+
 - **Action:** Updated to v4 as best practice
 - **Result:** Parse failure persisted
 
 ✓ **Not caused by:** Deprecated actions/setup-node v7
+
 - **Action:** Updated to v4 as best practice
 - **Result:** Parse failure persisted
 
 ✓ **Not caused by:** Output-based conditionals
+
 - **Test:** Removed all output-reference conditionals
 - **Result:** Parse failure persisted
 
 ✓ **Not caused by:** YAML syntax errors
+
 - **Validation:** Passed js-yaml parser
 - **Result:** Syntax is valid
 
 ✓ **Not caused by:** Missing trigger-telemetry.cjs script
+
 - **Check:** File exists at `.github/scripts/workflows/release/trigger-telemetry.cjs`
 - **Validation:** Node syntax check passed
 - **Result:** Script is valid
@@ -172,6 +184,7 @@ The `continue-on-error: true` fix for the release workflow telemetry step has be
 ### How to Investigate Further
 
 **Contact GitHub Support with:**
+
 - Repository: lightspeedwp/.github
 - Run IDs: 30887366648, 30887503910, 30887561321
 - Error: `startup_failure` — "This run likely failed because of a workflow file issue"
@@ -225,17 +238,20 @@ The `continue-on-error: true` fix for the release workflow telemetry step has be
 The `continue-on-error: true` fix is:
 
 **Code Quality:** ✓ GOOD
+
 - Syntax is valid
 - Logic is sound
 - Follows GitHub Actions best practices
 - Properly indented and formatted
 
 **Implementation:** ✓ CORRECT
+
 - Fix addresses the root cause (telemetry blocking downstream jobs)
 - Non-blocking pattern is the right solution
 - Artifact logging still occurs (if: always())
 
 **Test Status:** ⏳ BLOCKED (Not the fix's fault)
+
 - Integration testing blocked by pre-existing infrastructure issue
 - Issue affects both fixed and unfixed branches equally
 - Code-level verification is complete and successful
@@ -277,7 +293,7 @@ Type: Infrastructure issue (unrelated to telemetry fix)
 
 ## Next Steps
 
-1. **Review the fix** 
+1. **Review the fix**
    - Code review of commit `71551c7e7`
    - Verify logic and best practices
 

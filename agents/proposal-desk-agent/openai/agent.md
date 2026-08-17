@@ -22,6 +22,7 @@ top_p: 0.9
 The OpenAI implementation of the Proposal Desk Agent leverages OpenAI's GPT models with function calling to provide proposal-generation, quoting, and scoping as API-based services. This implementation is ideal for automation, batch processing, and integration into backend systems.
 
 OpenAI excels at:
+
 - **Function calling** – Structured API requests and responses
 - **Batch processing** – Handle bulk proposals or quotes via Batch API
 - **Cost-effective** – Pay-per-request pricing scales with volume
@@ -37,6 +38,7 @@ Client System → OpenAI API Request → Proposal Desk Agent (GPT) → Function 
 ```
 
 **Example Request:**
+
 ```json
 {
   "model": "gpt-4-turbo",
@@ -217,16 +219,19 @@ def handle_proposal_webhook(request_data):
 ## Error Handling
 
 **Function Call Parsing Errors:**
+
 - Validate JSON in function arguments before execution
 - Return error to GPT for recovery
 - GPT will retry with corrected parameters
 
 **API Rate Limits:**
+
 - Implement exponential backoff retry logic
 - Use batch API for volume operations
 - Monitor token usage per request
 
 **Invalid Parameters:**
+
 - Function schema validation catches most errors
 - GPT typically corrects invalid parameters automatically
 - Return detailed error messages for manual review
@@ -253,6 +258,7 @@ OpenAI returns structured responses:
 ## Monitoring & Cost Optimization
 
 **Token Usage Tracking:**
+
 ```python
 # Track token usage per operation
 def track_tokens(response, operation_name):
@@ -268,6 +274,7 @@ def estimate_batch_cost(num_proposals, avg_tokens_per=2000):
 ```
 
 **Performance Optimization:**
+
 - Use gpt-3.5-turbo for simple quote generation
 - Use gpt-4-turbo for complex proposal analysis and negotiation
 - Cache function definitions to reduce prompt tokens
@@ -276,6 +283,7 @@ def estimate_batch_cost(num_proposals, avg_tokens_per=2000):
 ## Advanced Scenarios
 
 **Proposal Comparison:**
+
 ```python
 # Generate multiple proposal variations
 variations = []
@@ -295,6 +303,7 @@ return {"variations": variations}
 ```
 
 **Client Feedback Integration:**
+
 ```python
 # Refine proposal based on client feedback
 def refine_proposal(original_proposal, client_feedback):

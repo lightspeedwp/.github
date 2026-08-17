@@ -102,14 +102,14 @@ Day 30                  → Phase 7 Begins: Metrics review & policy refinement
 
 ## What If Issues Arise?
 
-### If violations spike (>10% invalid branches):
+### If violations spike (>10% invalid branches)
 
 1. **Extend grace period** by 3-5 days
 2. **Send follow-up announcement** with common mistakes
 3. **Schedule office hours** for team Q&A
 4. **Review validation rules** for any false positives
 
-### If team requests rule changes:
+### If team requests rule changes
 
 1. **Document request** in GitHub issue
 2. **Review for Phase 7 refinement**

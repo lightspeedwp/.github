@@ -32,6 +32,7 @@ Phase 7 focuses on collecting, analyzing, and acting on metrics from the Phase 6
 | Violations by team member | Identify trends | Grouped logs |
 
 **Common Violation Types:**
+
 - Missing type prefix (e.g., `my-feature`)
 - Uppercase characters (e.g., `Feature/MyBranch`)
 - Underscores instead of hyphens (e.g., `feat/my_feature`)
@@ -66,6 +67,7 @@ Phase 7 focuses on collecting, analyzing, and acting on metrics from the Phase 6
 **Sections:**
 
 1. **Quick Stats (Top of dashboard)**
+
    ```
    ✅ Adoption Rate: 87% (target: 90%)
    ⚠️  Violations This Week: 3 (target: <7)
@@ -138,7 +140,7 @@ By Day 30, produce:
 
 ## Thresholds & Escalation
 
-### If Any Metric Misses Target:
+### If Any Metric Misses Target
 
 | Scenario | Action |
 |---|---|

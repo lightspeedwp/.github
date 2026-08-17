@@ -296,7 +296,7 @@ scope: phase-1-agent-standardization
 
 ## Next Steps (Task 2)
 
-Proceed to **Hooks Folder Audit** to review existing hooks and propose 4 new hooks for agent validation.
+Proceed to **Hooks Folder Audit** to review existing hooks and propose 4 new hooks for agent validation
 ---
 
 ---

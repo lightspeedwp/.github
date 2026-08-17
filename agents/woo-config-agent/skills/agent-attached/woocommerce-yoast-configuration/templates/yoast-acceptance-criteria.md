@@ -28,7 +28,7 @@ Use this template when a Yoast setup, audit remediation, migration, plugin updat
 
 ## Blockers
 
-- 
+-
 
 ## Approval
 

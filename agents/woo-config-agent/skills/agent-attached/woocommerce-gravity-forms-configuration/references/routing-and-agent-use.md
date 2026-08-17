@@ -36,18 +36,17 @@ Stay in `woocommerce-gravity-forms-configuration` for:
 
 When an auditor handoff is supplied, use `references/auditor-handoff-contract.md`; verify the current site state where possible, preserve finding IDs, and produce a change plan before any write operation. Accept canonical `woocommerce-gravity-forms-auditor` v0.2.1+ handoff packets as well as legacy normalised handoffs; missing canonical fields are readiness gaps, not approval to infer or execute changes.
 
-
 ## Standalone use
 
 When invoked directly, this skill owns Gravity Forms configuration, audit, validation, troubleshooting, testing, and handoff. It should collect only blocking missing details, run preflight where live tools exist, and produce the smallest useful output: report, plan, change summary, test report, or handoff.
 
-## 
+##
+
 Use for general site forms: contact, newsletter, quote, support, content submission, page embedding, notifications, confirmations, spam protection, accessibility, and troubleshooting. Prefer stable core features and official add-ons confirmed by preflight. If no write actions exist, produce manual admin steps.
 
 ## WooCommerce Configuration Agent
 
 Use for product enquiry, quote request, conditional option capture, deposit/payment forms, and customer onboarding. Do not replace WooCommerce checkout by default. Escalate checkout, tax, shipping, subscriptions, order creation, and fulfilment architecture outside this skill unless explicitly scoped and approved.
-
 
 ## Agent-specific defaults
 

@@ -22,10 +22,12 @@ type: "index"
 ## Document Descriptions
 
 ### [README.md](./README.md)
+
 **Owner:** Ash Shaw  
 **Status:** 📝 Active
 
 Main project entry point. Contains:
+
 - Vision & strategic goals
 - Current state snapshot
 - 4-phase timeline
@@ -37,9 +39,11 @@ Main project entry point. Contains:
 ---
 
 ### [AUDIT_RESULTS.md](./AUDIT_RESULTS.md)
+
 **Status:** ✅ Complete
 
 Complete inventory and analysis from 2026-08-11. Contains:
+
 - Reports inventory (106 files, categorization, references)
 - Active projects inventory (31 projects, linking status)
 - Bidirectional linking analysis
@@ -52,9 +56,11 @@ Complete inventory and analysis from 2026-08-11. Contains:
 ---
 
 ### [PLANNING.md](./PLANNING.md)
+
 **Status:** ✅ Complete
 
 Detailed phase-by-phase planning (Phases 1-4). Contains:
+
 - Phase objectives, deliverables, tasks
 - Timelines & milestones
 - Success criteria for each phase
@@ -67,9 +73,11 @@ Detailed phase-by-phase planning (Phases 1-4). Contains:
 ---
 
 ### [LINKING_STANDARD.md](./LINKING_STANDARD.md)
+
 **Status:** ✅ Complete
 
 Bidirectional linking standard & templates. Contains:
+
 - Project → Issue linking (templates & examples)
 - Issue → Project linking (templates & examples)
 - Status badges & patterns
@@ -82,9 +90,11 @@ Bidirectional linking standard & templates. Contains:
 ---
 
 ### [GITHUB_ISSUES_TO_CREATE.md](./GITHUB_ISSUES_TO_CREATE.md)
+
 **Status:** 📋 Ready
 
 Complete list of 7 GitHub issues to create. Contains:
+
 - Master epic (Issue #1)
 - Phase issues (Issues #2-5)
 - Project-specific linking issues (Issues #6-7)
@@ -96,9 +106,11 @@ Complete list of 7 GitHub issues to create. Contains:
 ---
 
 ### [COMPREHENSIVE_AUDIT_PROMPT.md](./COMPREHENSIVE_AUDIT_PROMPT.md)
+
 **Status:** 🔄 Reference
 
 Reusable prompt for agents to execute full audit cycle. Contains:
+
 - Phase 1: Inventory & Analysis (detailed tasks)
 - Phase 2: Prioritization & Structure Design
 - Phase 3: Implementation Planning
@@ -111,6 +123,7 @@ Reusable prompt for agents to execute full audit cycle. Contains:
 ## How to Use These Documents
 
 ### **Week 1 (Phase 1 — Audit & Planning)**
+
 1. Read [README.md](./README.md) — understand project vision
 2. Review [AUDIT_RESULTS.md](./AUDIT_RESULTS.md) — current state findings
 3. Approve [PLANNING.md](./PLANNING.md) — agree on approach
@@ -118,18 +131,21 @@ Reusable prompt for agents to execute full audit cycle. Contains:
 5. Create GitHub issues from [GITHUB_ISSUES_TO_CREATE.md](./GITHUB_ISSUES_TO_CREATE.md)
 
 ### **Weeks 2-3 (Phase 2 — Folder & Linking)**
+
 1. Reference [PLANNING.md — Phase 2](./PLANNING.md#phase-2) — execution guide
 2. Use [LINKING_STANDARD.md](./LINKING_STANDARD.md) — templates while linking projects
 3. Follow git workflow from [PLANNING.md](./PLANNING.md#git-workflow)
 4. Update GitHub issues with progress
 
 ### **Weeks 4-5 (Phase 3 — Archive Workflow)**
+
 1. Reference [PLANNING.md — Phase 3](./PLANNING.md#phase-3) — design options
 2. Implement chosen workflow
 3. Create `.archive-status.md` files using pattern from [LINKING_STANDARD.md](./LINKING_STANDARD.md)
 4. Test CI validation
 
 ### **Week 6 (Phase 4 — Cleanup & Documentation)**
+
 1. Reference [PLANNING.md — Phase 4](./PLANNING.md#phase-4) — documentation updates
 2. Update CLAUDE.md and `.github/reports/README.md`
 3. Publish linking standard to `docs/`
@@ -159,7 +175,8 @@ Reusable prompt for agents to execute full audit cycle. Contains:
 
 **Timeline Overview:** [PLANNING.md — Phase Overview](./PLANNING.md#phase-overview)
 
-**Unlinked Projects:** 
+**Unlinked Projects:**
+
 - [openspec](./../openspec/) — Issue #6
 - [markdown-audit-ci-optimization](./../markdown-audit-ci-optimization/) — Issue #7
 

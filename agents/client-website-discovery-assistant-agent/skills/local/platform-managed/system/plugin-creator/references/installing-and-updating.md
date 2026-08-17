@@ -39,7 +39,7 @@ python3 scripts/update_plugin_cachebuster.py \
 
 ```
 
-2. For the default scaffolded flow, read the marketplace name from the personal marketplace file:
+1. For the default scaffolded flow, read the marketplace name from the personal marketplace file:
 
 ```bash
 python3 scripts/read_marketplace_name.py

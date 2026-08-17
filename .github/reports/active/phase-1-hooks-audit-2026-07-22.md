@@ -602,7 +602,7 @@ Add to `hooks/hook-registry.json`:
 
 ## Next Steps (Task 3)
 
-Proceed to **Schemas Folder Audit** to review existing schemas and propose 4 new schemas for multi-provider agent validation.
+Proceed to **Schemas Folder Audit** to review existing schemas and propose 4 new schemas for multi-provider agent validation
 ---
 
 ---
