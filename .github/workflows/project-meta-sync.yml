@@ -66,7 +66,7 @@ jobs:
       - name: Create GitHub App installation token
         id: app-token
         if: steps.preflight.outputs.enabled == 'true'
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
