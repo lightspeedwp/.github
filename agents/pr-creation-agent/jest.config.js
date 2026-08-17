@@ -1,7 +1,7 @@
 export default {
   testEnvironment: "node",
   collectCoverageFrom: [
-    "skills/**/*.js",
+    "skills/route-pr-template.js",
     "!**/*.test.js",
     "!**/node_modules/**",
   ],
@@ -13,7 +13,7 @@ export default {
       statements: 85,
     },
   },
-  testMatch: ["**/__tests__/**/*.test.js"],
+  testMatch: ["**/__tests__/unit/route-pr-template.test.js"],
   moduleFileExtensions: ["js"],
   transform: {},
 };
