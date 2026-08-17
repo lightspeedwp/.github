@@ -93,10 +93,9 @@ module.exports = {
    */
   customRules: [],
 
-  /**
-   * Files to process (glob patterns)
-   */
-  globs: ["**/*.md"],
+  // No `globs` key: markdownlint-cli2 appends config globs to any files given
+  // on the command line, which would defeat linting a specific file list.
+  // Callers supply the globs — see the lint:md and lint:md:changed scripts.
 
   /**
    * Files to ignore (glob patterns)
