@@ -41,25 +41,4 @@ exclude = [
   "^https?://github\\.com/lightspeedwp/\\.github/compare/v0\\.6\\.0",
   # Also exclude v0.5.0→v0.6.0 compare (tag never existed)
   "compare.*v0\\.6\\.0",
-
-  # CHANGELOG.md links dozens of github.com/lightspeedwp/.github/issues/N
-  # URLs, all of which the GitHub REST API confirms exist (correct title,
-  # correct state — checked directly with `gh api`), including issues
-  # created minutes before a failing run. Neither authenticating lychee's
-  # requests (already the lycheeverse/lychee-action default) nor
-  # retry-with-backoff changed the outcome, and the specific set of
-  # rejected links varied between runs rather than being tied to any
-  # property of the URL itself (issue age, number, or content) — evidence
-  # against a fixed, fixable cause in this URL pattern and consistent with
-  # runs that coincided with an active GitHub platform incident (503s
-  # observed independently from the GraphQL and REST check-runs APIs in
-  # the same window). /pull/N links to the same repo were never rejected,
-  # so only /issues/ is excluded.
-  "github\\.com/lightspeedwp/\\.github/issues/[0-9]+\\b",
 ]
-
-# Retry with backoff before failing the run outright, as a safety net for
-# transient errors from GitHub's web frontend generally (a 502 was observed
-# alongside 404s from the issue-page checks excluded above).
-max_retries = 5
-retry_wait_time = 4

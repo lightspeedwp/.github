@@ -66,19 +66,10 @@ jobs:
       - name: Create GitHub App installation token
         id: app-token
         if: steps.preflight.outputs.enabled == 'true'
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
-          # Without explicit permission-* inputs the token inherits every
-          # permission the App installation holds. Scope it to what this job
-          # actually does:
-          #   organization-projects : add-to-project and update-project-fields
-          #                           operate on the org Projects v2 board
-          #   issues / pull-requests: resolve the item being added to the board
-          permission-organization-projects: write
-          permission-issues: write
-          permission-pull-requests: write
 
       - name: Add item to project (new issues/PRs)
         id: addp

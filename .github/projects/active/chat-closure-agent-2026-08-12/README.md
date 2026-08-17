@@ -3,11 +3,8 @@ title: "Chat Closure Agent Implementation"
 description: "Automate session handoff workflows across control-plane and WordPress repositories"
 version: "1.0.0"
 created_date: "2026-08-12"
-last_updated: "2026-08-12"
-file_type: readme
-authors: ["Ash Shaw"]
-maintainer: "Ash Shaw"
-tags: ["agent", "automation", "chat-closure", "portable"]
+status: "active"
+phase: "1-core-components"
 ---
 
 # Chat Closure Agent Implementation Project

@@ -16,8 +16,7 @@ related_issues: []
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1798](../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
-| [#1855](../../../issues/1855) | task | Reviewer Agent v2 — Comprehensive Planning & Specification Phase Complete | 🟢 Open |
+| [#1798](../../../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
 
 ## Project Overview
 
@@ -46,20 +45,6 @@ Enhance the existing Reviewer Agent from a basic CI/PR monitoring tool into an i
 - **Phase 5: Monitoring & Iteration** — Ongoing
 
 **Target merge:** 2026-08-26
-
-## Related Issues
-
-This project is tracked through GitHub issues for each phase and task breakdown.
-
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| TBD | epic | Phase 1: Planning & Specification | 🟡 In Progress |
-| TBD | epic | Phase 2: Core Implementation | 🔵 Planned |
-| TBD | epic | Phase 3: Testing & Validation | 🔵 Planned |
-| TBD | epic | Phase 4: Documentation & Rollout | 🔵 Planned |
-| TBD | epic | Phase 5: Monitoring & Iteration | 🔵 Future |
-
-**Note:** GitHub issues will be created as phases progress. See [[OPENSPEC_PLAN.md](./OPENSPEC_PLAN.md)] for detailed task breakdown.
 
 ## Architecture
 
@@ -194,12 +179,6 @@ This project is tracked through GitHub issues for each phase and task breakdown.
 │   └── config.wordpress-theme.yml
 └── .archive-status.md                          (Created when complete)
 ```
-
-## Related Issues
-
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#1799](https://github.com/lightspeedwp/.github/issues/1799) | epic | Reviewer Agent v2 — Multi-Tool Orchestration & Feedback Processing | 🟡 In Progress |
 
 ## Next Steps
 

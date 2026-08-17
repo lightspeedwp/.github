@@ -2,8 +2,8 @@
 file_type: "issue-template"
 name: "🚀 Release"
 about: "Track and coordinate a versioned release: changelog, tagging, GitHub Release publication, and post-merge verification."
-version: "2.0.1"
-last_updated: "2026-08-17"
+version: "2.0.0"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -26,7 +26,7 @@ git checkout develop && git pull origin develop
 npm run validate:frontmatter
 npm run validate:workflows
 npm run validate:agents
-npm run validate:skills
+npm run validate:skill-manifests
 npm run validate:plugins
 npm test
 ```
@@ -127,7 +127,7 @@ node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
 
 ### Release execution
 
-- [ ] All pre-release gates pass (`validate:frontmatter`, `validate:workflows`, `validate:agents`, `validate:skills`, `validate:plugins`, `npm test`)
+- [ ] All pre-release gates pass (`validate:frontmatter`, `validate:workflows`, `validate:agents`, `validate:skill-manifests`, `validate:plugins`, `npm test`)
 - [ ] `CHANGELOG.md` unreleased entries reviewed and finalised
 - [ ] Dry-run reviewed and output confirmed correct
 - [ ] Live release run completed — `release/vX.Y.Z` branch created, tag pushed, GitHub Release published

@@ -93,14 +93,6 @@ jobs:
       - name: Check Links
         if: steps.link_targets.outputs.files != ''
         uses: lycheeverse/lychee-action@v2
-        env:
-          # Unauthenticated requests to github.com hit GitHub's anonymous rate
-          # limit almost immediately once a Markdown file references more than
-          # a handful of issues/PRs, and lychee reports the resulting
-          # rate-limit response as a plain 404 rather than 429 — indistinguishable
-          # from a genuinely deleted issue without checking the API directly.
-          # Authenticating raises the limit enough for CHANGELOG.md's issue links.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --no-progress --verbose --config lychee.toml ${{ steps.link_targets.outputs.files }}
 

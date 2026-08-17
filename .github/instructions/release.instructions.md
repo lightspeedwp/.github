@@ -3,8 +3,8 @@ file_type: "instructions"
 scope: "repo-local"
 title: "Release Management Instructions"
 description: "Comprehensive standards for release preparation, validation, automation, semantic versioning, changelog management, and GitHub Release publication"
-version: "v2.0.2"
-last_updated: "2026-08-17"
+version: "v2.0.1"
+last_updated: "2026-05-29"
 owners: ["LightSpeed Engineering"]
 tags: ["release", "semantic-versioning", "changelog", "automation", "github", "governance"]
 applyTo: ["../.github/agents/release.agent.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
@@ -35,7 +35,7 @@ This file defines how release preparation, execution, and recovery must run in t
   - `npm run validate:frontmatter`
   - `npm run validate:workflows`
   - `npm run validate:agents`
-  - `npm run validate:skills`
+  - `npm run validate:skill-manifests`
   - `npm run validate:plugins`
   - `npm test`
 - Confirm `CHANGELOG.md` has a valid `[Unreleased]` section.

@@ -44,7 +44,6 @@ function assertLabelConfig(labels) {
     "discussion:",
     "release:",
     "meta:",
-    "openspec:",
   ];
 
   if (!Array.isArray(labels)) {

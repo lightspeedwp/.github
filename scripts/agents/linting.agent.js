@@ -324,161 +324,6 @@ function groupFindingsByFile(findings = []) {
   return grouped;
 }
 
-function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
-  const resolvedRoot = path.resolve(rootDir);
-
-  // Check for control-plane markers (.github/.claude/CLAUDE.md)
-  const claudeMdPath = path.join(resolvedRoot, ".github", "CLAUDE.md");
-  const agentsPath = path.join(resolvedRoot, ".github", "agents");
-  if (fsImpl.existsSync(claudeMdPath) && fsImpl.existsSync(agentsPath)) {
-    return "control-plane";
-  }
-
-  // Check for WordPress plugin markers (plugin.php with Plugin Header)
-  const pluginPhpPath = path.join(resolvedRoot, "plugin.php");
-  if (fsImpl.existsSync(pluginPhpPath)) {
-    const pluginContent = fsImpl.readFileSync(pluginPhpPath, "utf8");
-    if (pluginContent.includes("Plugin Name:")) {
-      return "wordpress-plugin";
-    }
-  }
-
-  // Check for WordPress theme markers (style.css with Theme Header)
-  const styleCssPath = path.join(resolvedRoot, "style.css");
-  if (fsImpl.existsSync(styleCssPath)) {
-    const styleContent = fsImpl.readFileSync(styleCssPath, "utf8");
-    if (styleContent.includes("Theme Name:")) {
-      return "wordpress-theme";
-    }
-  }
-
-  // Check for block plugin (src/plugin.php or block.json)
-  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
-  const blockJsonPath = path.join(resolvedRoot, "block.json");
-  if (fsImpl.existsSync(blockPluginPath) || fsImpl.existsSync(blockJsonPath)) {
-    return "wordpress-block-plugin";
-  }
-
-  return "generic";
-}
-
-function getWordPressPhpcsConfig(repositoryType = "wordpress-plugin") {
-  const baseConfig = {
-    standard: "WordPress",
-    extensions: ["php"],
-    exclude: ["vendor", "node_modules", "tests"],
-    severity: 5,
-  };
-
-  if (repositoryType === "wordpress-plugin") {
-    return {
-      ...baseConfig,
-      standard: "WordPress-Core,WordPress-Docs",
-      sniffs: {
-        "WordPress.Security.EscapeOutput": { severity: 5 },
-        "WordPress.DB.PreparedSQL": { severity: 5 },
-        "WordPress.Security.NonceVerification": { severity: 4 },
-      },
-    };
-  }
-
-  if (repositoryType === "wordpress-theme") {
-    return {
-      ...baseConfig,
-      standard: "WordPress",
-      sniffs: {
-        "WordPress.Theme.NoScriptTags": { severity: 5 },
-        "WordPress.Security.EscapeOutput": { severity: 5 },
-      },
-    };
-  }
-
-  if (repositoryType === "wordpress-block-plugin") {
-    return {
-      ...baseConfig,
-      standard: ["WordPress-Core", "WordPress-Docs"],
-      sniffs: {
-        "WordPress.Security.EscapeOutput": { severity: 5 },
-        "WordPress.DB.PreparedSQL": { severity: 5 },
-      },
-    };
-  }
-
-  return baseConfig;
-}
-
-function getBlockPluginConfig(projectRoot = process.cwd()) {
-  return {
-    eslintConfig: {
-      extends: ["plugin:@wordpress/eslint-plugin/recommended"],
-      rules: {
-        "no-unused-vars": "error",
-        "no-console": ["warn", { allow: ["warn", "error"] }],
-      },
-    },
-    stylelintConfig: {
-      extends: ["stylelint-config-standard"],
-      rules: {
-        "no-missing-end-of-source-newline": null,
-      },
-    },
-    phpcsConfig: getWordPressPhpcsConfig("wordpress-block-plugin"),
-  };
-}
-
-function getBlockThemeConfig(projectRoot = process.cwd()) {
-  return {
-    eslintConfig: {
-      extends: ["eslint:recommended"],
-      rules: {
-        "no-unused-vars": "error",
-      },
-    },
-    stylelintConfig: {
-      extends: ["stylelint-config-standard"],
-      rules: {
-        "unit-allowed-list": ["em", "rem", "px", "%"],
-      },
-    },
-    phpcsConfig: getWordPressPhpcsConfig("wordpress-theme"),
-  };
-}
-
-function resolveRepositoryRoot(startPath = process.cwd(), fsImpl = fs) {
-  let current = path.resolve(startPath);
-  const root = path.parse(current).root;
-
-  while (current !== root) {
-    const markers = [
-      path.join(current, ".github"),
-      path.join(current, "package.json"),
-      path.join(current, "composer.json"),
-      path.join(current, "plugin.php"),
-      path.join(current, "style.css"),
-    ];
-
-    if (markers.some((marker) => fsImpl.existsSync(marker))) {
-      return current;
-    }
-
-    current = path.dirname(current);
-  }
-
-  return startPath;
-}
-
-function withTimeout(promise, timeoutMs = 30000) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) =>
-      setTimeout(
-        () => reject(new Error(`Operation timed out after ${timeoutMs}ms`)),
-        timeoutMs,
-      ),
-    ),
-  ]);
-}
-
 function buildSummary(findings = [], targets = []) {
   const severityCounts = findings.reduce((accumulator, finding) => {
     accumulator[finding.severity] = (accumulator[finding.severity] || 0) + 1;
@@ -576,7 +421,6 @@ async function lintCodebase(rootDir = process.cwd(), options = {}) {
     (async () => ({
       findings: [],
     }));
-  const timeout = options.timeout || 30000;
 
   const collectedFindings = [];
 
@@ -585,31 +429,16 @@ async function lintCodebase(rootDir = process.cwd(), options = {}) {
     logger.info?.(
       `[linting.agent] Linting ${filePath} with ${rules.length} rule(s)`,
     );
+    const result = await Promise.resolve(
+      runner({
+        rootDir: resolvedRoot,
+        filePath,
+        rules,
+        config,
+      }),
+    );
 
-    try {
-      const result = await withTimeout(
-        Promise.resolve(
-          runner({
-            rootDir: resolvedRoot,
-            filePath,
-            rules,
-            config,
-          }),
-        ),
-        timeout,
-      );
-      collectedFindings.push(...flattenFindings(result, filePath));
-    } catch (error) {
-      if (error.message.includes("timed out")) {
-        logger.warn?.(
-          `[linting.agent] Timeout linting ${filePath}: ${error.message}`,
-        );
-      } else {
-        logger.error?.(
-          `[linting.agent] Error linting ${filePath}: ${error.message}`,
-        );
-      }
-    }
+    collectedFindings.push(...flattenFindings(result, filePath));
   }
 
   const findings = dedupeFindings(collectedFindings);
@@ -658,9 +487,3 @@ module.exports.dedupeFindings = dedupeFindings;
 module.exports.groupFindingsByFile = groupFindingsByFile;
 module.exports.buildSummary = buildSummary;
 module.exports.formatLintReport = formatLintReport;
-module.exports.detectRepositoryType = detectRepositoryType;
-module.exports.getWordPressPhpcsConfig = getWordPressPhpcsConfig;
-module.exports.getBlockPluginConfig = getBlockPluginConfig;
-module.exports.getBlockThemeConfig = getBlockThemeConfig;
-module.exports.resolveRepositoryRoot = resolveRepositoryRoot;
-module.exports.withTimeout = withTimeout;
