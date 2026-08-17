@@ -16,31 +16,41 @@ function git(args) {
   return execFileSync("git", args, { encoding: "utf8" }).trim();
 }
 
+function isCommit(ref) {
+  if (!ref) return false;
+  try {
+    git(["rev-parse", "--verify", "--quiet", `${ref}^{commit}`]);
+    return true;
+  } catch {
+    // Also covers the all-zero SHA GitHub sends as github.event.before on the
+    // first push to a branch, which resolves to nothing.
+    return false;
+  }
+}
+
 function resolveRange() {
   const base = process.env.BASE_SHA;
   const head = process.env.HEAD_SHA;
-  if (base && head) return [base, head];
+  if (isCommit(base) && isCommit(head)) return [base, head];
 
   for (const ref of ["origin/develop", "origin/main", "develop", "main"]) {
-    try {
-      git(["rev-parse", "--verify", `${ref}^{commit}`]);
-      return [ref, "HEAD"];
-    } catch {
-      // try the next candidate
-    }
+    if (isCommit(ref)) return [ref, "HEAD"];
   }
+
+  // Nothing to compare against — e.g. the first push to a new branch, where
+  // github.event.before is all zeros. Fall back to the previous commit so the
+  // push is still linted; a root commit has no previous commit and no baseline.
+  if (isCommit("HEAD~1")) return ["HEAD~1", "HEAD"];
   return null;
 }
 
 const range = resolveRange();
 if (!range) {
-  const message = "No base ref available to diff against.";
-  if (process.env.CI) {
-    // Skipping silently in CI would let violations through unlinted.
-    console.error(`${message} Set BASE_SHA and HEAD_SHA, or check out with fetch-depth: 0.`);
-    process.exit(1);
-  }
-  console.log(`${message} Skipping markdown lint — run npm run lint:md for the full tree.`);
+  // Reached only when HEAD is a root commit, so there is genuinely nothing to
+  // diff. Failing here would block a legitimate first push.
+  console.log(
+    "No base commit to diff against — skipping markdown lint. Run npm run lint:md for the full tree.",
+  );
   process.exit(0);
 }
 

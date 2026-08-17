@@ -44,7 +44,10 @@ jobs:
           node-version-file: ".nvmrc"
       - run: npm ci
       - run: npm run lint:all
-      - run: npm run validate:skill-manifests
+      # validate:skill-manifests removed: the npm script has never existed and
+      # there is no implementation for it anywhere in scripts/, so this step has
+      # only ever exited with "Missing script". Skill validation is covered by
+      # validate:skills in validate:all.
       - run: npm run validate:plugins
       - run: npm run validate:agent-hooks
 
