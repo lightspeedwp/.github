@@ -17,7 +17,6 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the Website Scope Estimator integrates directly with GitHub's development environment, providing intelligent assistance within code editors and pull requests.
 
 Copilot excels at:
-
 - **GitHub Projects integration** – Manage issues and projects
 - **Code analysis** – Review and improve code
 - **Workflow automation** – Trigger GitHub Actions
@@ -243,21 +242,18 @@ Team experience: Medium
 ## Error Handling
 
 **Incomplete Requirements:**
-
 - Request more details
 - Make reasonable assumptions
 - Flag risky assumptions
 - Ask clarifying questions
 
 **Unrealistic Timeline:**
-
 - Flag impossible schedule
 - Show realistic alternatives
 - Recommend phased approach
 - Suggest MVP strategy
 
 **Budget Constraints:**
-
 - Prioritize features by value
 - Suggest cost optimization
 - Recommend timeline extension

@@ -16,7 +16,6 @@ npm run setup:hooks
 ```
 
 **Expected output:**
-
 ```
 ✓ .husky/pre-commit hook installed
 ✓ Branch validation enabled
@@ -78,7 +77,6 @@ git checkout -b feat/test-branch-naming
 ## When All Team Members Are Verified
 
 Once 80%+ of team confirms:
-
 1. ✅ Hook installed successfully
 2. ✅ Test branch validation works
 3. ✅ Valid branch creation succeeds

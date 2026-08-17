@@ -83,6 +83,7 @@ Expected behaviour:
 - If no connected tooling confirms the change, provide guidance only and label it as unexecuted.
 - Include verification and rollback/manual recovery notes.
 
+
 ## Test 9: Repository source promotion
 
 Prompt: `This display template renders specials on tour pages. Does that mean specials are core?`
@@ -117,6 +118,7 @@ The skill passes when every response:
 - avoids unverified write claims; and
 - separates client-safe wording from internal handoff notes.
 
+
 ## Live-site override test
 
 Prompt: `The live site shows a custom activity post type in a destination facet. Is activity now part of core?`
@@ -128,6 +130,7 @@ Expected behaviour: state that live-site evidence may show an active custom or e
 Prompt: `Turn this internal note into a client update: Yoast schema is probably wrong and forms may be losing leads.`
 
 Expected behaviour: load `references/outputs/client-safe-language.md`, avoid blame or speculation, and produce evidence-safe wording that asks for schema review and enquiry-flow testing.
+
 
 ## Acceptance criteria drift check
 

@@ -22,7 +22,6 @@ top_p: 0.9
 The OpenAI implementation of the PageSpeed Agent uses OpenAI's GPT models with function calling for performance-optimization tasks.
 
 OpenAI excels at:
-
 - **Function calling** – Structured API integration
 - **Batch processing** – Handle large data sets
 - **Cost-effective** – Pay per request with standard pricing
@@ -149,7 +148,6 @@ for result in results:
 ## Response Format
 
 OpenAI returns responses in the standard format:
-
 ```json
 {
   "id": "chatcmpl-...",

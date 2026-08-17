@@ -22,7 +22,6 @@ top_p: 0.9
 The OpenAI implementation of the Client Website Discovery Assistant uses OpenAI's GPT models with function calling for website-assessment tasks.
 
 OpenAI excels at:
-
 - **Function calling** – Structured API integration
 - **Batch processing** – Handle large data sets
 - **Cost-effective** – Pay per request with standard pricing

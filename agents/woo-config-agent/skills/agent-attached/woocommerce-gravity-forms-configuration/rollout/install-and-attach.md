@@ -5,7 +5,7 @@
 1. Upload `skill.zip` to the LightSpeed ChatGPT workspace skill library.
 2. Confirm the skill appears as **WooCommerce Gravity Forms Configuration**.
 3. Attach it to:
-   - - WooCommerce Configuration Agent
+   -    - WooCommerce Configuration Agent
 4. Keep the skill standalone-enabled for direct Gravity Forms support prompts.
 
 ## Smoke test after install

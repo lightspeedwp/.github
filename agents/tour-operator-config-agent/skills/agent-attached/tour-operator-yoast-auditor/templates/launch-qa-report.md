@@ -1,11 +1,9 @@
 # Yoast Launch QA Report: [Site or Scope]
 
 ## Launch summary
-
 [Summarise launch readiness, blockers and safest next step.]
 
 ## Scope reviewed
-
 - Site/environment:
 - Launch status:
 - Reviewed sample:
@@ -13,11 +11,9 @@
 - Evidence source:
 
 ## Go/no-go status
-
 [Go / Conditional go / No-go]. This applies only to [reviewed scope].
 
 ## Launch QA checks
-
 | Area | Check | Status | Evidence | Priority | Owner / next route | Retest |
 |---|---|---|---|---|---|---|
 | Crawlability | Robots.txt and meta robots match launch intent |  |  |  |  |  |
@@ -31,12 +27,10 @@
 | Redirects | Important legacy URLs resolve to intended destinations |  |  |  |  |  |
 
 ## Blockers
-
 | Blocker | Impact | Minimum fix | Owner | Retest |
 |---|---|---|---|---|
 
 ## Client-safe note
-
 These recommendations are based on the reviewed evidence. They are intended to reduce SEO risk and improve search appearance clarity; they do not guarantee ranking changes.
 
 ---

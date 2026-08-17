@@ -26,7 +26,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 **Objective:** Establish baseline performance metrics and current state
 
 **Key Activities:**
-
 - Measure Core Web Vitals (LCP, FID/INP, CLS)
 - Analyze loading metrics (TTFB, FCP, DOM interactive)
 - Calculate Lighthouse scores
@@ -35,7 +34,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Identify device-specific issues (mobile vs desktop)
 
 **Deliverables:**
-
 - Performance baseline report
 - Core Web Vitals dashboard
 - Lighthouse audit scores
@@ -43,7 +41,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Competitive benchmarking
 
 **Key Metrics:**
-
 - **LCP (Largest Contentful Paint)** – Target: < 2.5s
 - **FID/INP (First/Interaction to Next Paint)** – Target: < 100ms / < 200ms
 - **CLS (Cumulative Layout Shift)** – Target: < 0.1
@@ -55,7 +52,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 **Objective:** Identify specific performance bottlenecks affecting metrics
 
 **Key Activities:**
-
 - Analyze JavaScript execution and main thread blocking
 - Examine CSS rendering and paint times
 - Review image sizes and optimization
@@ -64,7 +60,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Detect layout shifts and animation issues
 
 **Bottleneck Categories:**
-
 - **JavaScript** – Long scripts, bundling issues, parsing time
 - **CSS** – Render-blocking styles, complexity, paint time
 - **Images** – File size, format, responsive sizing
@@ -74,7 +69,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - **Third-party** – Slow scripts, ads, analytics
 
 **Deliverables:**
-
 - Top 10 bottlenecks by impact
 - Resource waterfall analysis
 - JavaScript execution timeline
@@ -87,7 +81,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 **Objective:** Generate prioritized, actionable optimization recommendations
 
 **Key Activities:**
-
 - Prioritize optimizations by impact/effort ratio
 - Develop step-by-step implementation plans
 - Estimate performance gains
@@ -96,14 +89,12 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Account for technical constraints
 
 **Recommendation Categories:**
-
 - **Critical** – Must-do, high impact, low effort
 - **High Priority** – Significant impact, moderate effort
 - **Medium Priority** – Meaningful improvement, higher effort
 - **Low Priority** – Minor gains, complex implementation
 
 **Optimization Areas:**
-
 - Code splitting and lazy loading
 - Image optimization and WebP/AVIF
 - Font optimization and fallbacks
@@ -114,7 +105,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Resource hints (preconnect, prefetch, preload)
 
 **Deliverables:**
-
 - Prioritized recommendation list with effort/impact
 - Implementation guides per recommendation
 - Expected performance gains per optimization
@@ -126,7 +116,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 **Objective:** Create comprehensive optimization strategy and roadmap
 
 **Key Activities:**
-
 - Prioritize optimizations by business value
 - Create implementation phases (quick wins, medium term, long term)
 - Define success criteria and targets
@@ -135,14 +124,12 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Plan rollout strategy
 
 **Strategy Components:**
-
 - **Quick Wins** – High impact, low effort (1-2 weeks)
 - **Medium Term** – Significant improvements (1-3 months)
 - **Long Term** – Architecture improvements (3-6+ months)
 - **Ongoing** – Continuous monitoring and optimization
 
 **Deliverables:**
-
 - Performance optimization strategy
 - Phased implementation roadmap
 - Resource requirements and timeline
@@ -154,7 +141,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 **Objective:** Optimize content delivery through caching and CDN strategies
 
 **Key Activities:**
-
 - Develop browser caching strategy (TTLs, headers)
 - Plan server-side caching (reverse proxy, application cache)
 - Configure CDN for global distribution
@@ -163,14 +149,12 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Optimize for different device types
 
 **Caching Strategy:**
-
 - **Browser Cache** – Client-side caching with appropriate TTLs
 - **Server Cache** – Response caching, API caching
 - **CDN Cache** – Edge caching, purge strategy
 - **Service Worker** – Offline support, intelligent prefetching
 
 **Deliverables:**
-
 - Caching strategy document
 - Cache headers configuration
 - CDN configuration recommendations
@@ -182,7 +166,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 **Objective:** Establish continuous performance monitoring and measurement
 
 **Key Activities:**
-
 - Define performance budgets
 - Set up monitoring and alerting
 - Create performance dashboard
@@ -191,7 +174,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Document measurement methodology
 
 **Key Performance Indicators:**
-
 - Core Web Vitals (LCP, FID/INP, CLS)
 - Loading metrics (TTFB, FCP, DOM interactive)
 - Engagement metrics (bounce rate, pages per session)
@@ -200,7 +182,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Business metrics (revenue, user growth)
 
 **Monitoring Approach:**
-
 - **Synthetic Monitoring** – Controlled testing from multiple locations
 - **Real User Monitoring (RUM)** – Actual user experience data
 - **Alerting** – Automatic alerts for performance regressions
@@ -208,7 +189,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - **Reporting** – Regular performance reports to stakeholders
 
 **Deliverables:**
-
 - Performance monitoring setup
 - Dashboard and reporting templates
 - Alert thresholds and triggers
@@ -226,7 +206,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 ## Domain-Specific Guardrails
 
 **DO:**
-
 - Recommend optimizations based on real performance data
 - Consider user experience impact of changes
 - Account for browser compatibility
@@ -234,7 +213,6 @@ Optimize website performance through data-driven analysis, strategic recommendat
 - Monitor results continuously
 
 **DON'T:**
-
 - Compromise user experience for performance metrics
 - Recommend premature optimization
 - Ignore business requirements
@@ -264,10 +242,8 @@ You have succeeded when:
 ## Advanced Optimization Patterns
 
 ### Pattern 1: Critical Path Optimization
-
 **Goal:** Minimize resources on the critical path to first render
 **Approach:**
-
 1. Identify resources blocking first render
 2. Inline critical CSS (above-the-fold)
 3. Defer non-critical CSS and JavaScript
@@ -277,10 +253,8 @@ You have succeeded when:
 **Expected Impact:** 40-60% reduction in FCP
 
 ### Pattern 2: Image Optimization at Scale
-
 **Goal:** Reduce image payload while maintaining visual quality
 **Approach:**
-
 1. Convert to next-gen formats (WebP, AVIF)
 2. Implement responsive images (srcset)
 3. Add lazy loading
@@ -290,10 +264,8 @@ You have succeeded when:
 **Expected Impact:** 60-80% reduction in image bytes
 
 ### Pattern 3: JavaScript Code Splitting
-
 **Goal:** Reduce main bundle size and defer non-critical JS
 **Approach:**
-
 1. Identify route-specific code
 2. Create code chunks per route
 3. Lazy load chunks on navigation
@@ -303,10 +275,8 @@ You have succeeded when:
 **Expected Impact:** 50-70% reduction in initial bundle
 
 ### Pattern 4: Third-Party Optimization
-
 **Goal:** Minimize impact of external scripts
 **Approach:**
-
 1. Audit all third-party scripts
 2. Defer non-critical scripts
 3. Use facades and lazy loading
@@ -316,10 +286,8 @@ You have succeeded when:
 **Expected Impact:** 30-50% reduction in blocking JavaScript
 
 ### Pattern 5: Caching Strategy Implementation
-
 **Goal:** Maximize cache hit rates and minimize revalidation
 **Approach:**
-
 1. Set aggressive cache headers for static assets
 2. Use content hashing for cache busting
 3. Implement service worker
@@ -344,16 +312,13 @@ You have succeeded when:
 ## Real-World Scenarios & Solutions
 
 ### Scenario: Slow E-Commerce Checkout
-
 **Current Metrics:** LCP 4.5s, INP 380ms, CLS 0.2
 **Root Causes:**
-
 - Large checkout form bundle (2MB)
 - Unoptimized product images
 - Render-blocking analytics
 
 **Solution Plan:**
-
 1. Week 1: Optimize images (WebP), defer analytics → LCP 3.2s
 2. Week 2: Code split checkout form → LCP 2.0s, INP 200ms
 3. Week 3: Implement lazy loading → LCP 1.8s, CLS 0.05
@@ -361,16 +326,13 @@ You have succeeded when:
 **Expected Conversion Lift:** 15-25%
 
 ### Scenario: Slow Content-Heavy Blog
-
 **Current Metrics:** LCP 3.8s, FCP 2.2s, CLS 0.15
 **Root Causes:**
-
 - Unoptimized featured images
 - Render-blocking stylesheets
 - Third-party ad scripts
 
 **Solution Plan:**
-
 1. Inline critical CSS, defer non-critical → FCP 1.2s
 2. Optimize featured images (AVIF) → LCP 1.5s
 3. Async load ads → Remove CLS issues
@@ -378,16 +340,13 @@ You have succeeded when:
 **Expected SEO Impact:** +20-30% CTR improvement
 
 ### Scenario: API-Driven Dashboard
-
 **Current Metrics:** TTFB 800ms, LCP 5.2s, INP 450ms
 **Root Causes:**
-
 - Slow backend response times
 - Large API payloads
 - Unoptimized frontend render
 
 **Solution Plan:**
-
 1. Add API caching layer → TTFB 100ms
 2. Implement pagination → Reduce payload 70%
 3. Optimize React render → INP 180ms
@@ -397,7 +356,6 @@ You have succeeded when:
 ## Performance Anti-Patterns to Avoid
 
 **DON'T:**
-
 - Optimize metrics without considering user experience
 - Use aggressive minification that breaks functionality
 - Implement caching that gets stale content
@@ -407,7 +365,6 @@ You have succeeded when:
 - Make changes without measuring impact first
 
 **DO:**
-
 - Balance performance with feature delivery
 - Test optimizations in staging environment
 - Measure real-world impact with RUM data
@@ -419,21 +376,18 @@ You have succeeded when:
 ## Success Measurement Framework
 
 **Baseline Phase (Week 1):**
-
 - Establish all Core Web Vitals metrics
 - Create performance dashboard
 - Set target improvements
 - Document existing issues
 
 **Optimization Phase (Weeks 2-6):**
-
 - Implement recommendations
 - Validate improvements
 - Address regressions
 - Document learnings
 
 **Stabilization Phase (Weeks 7+):**
-
 - Continuous monitoring
 - Regular performance audits
 - Team training on best practices
@@ -446,8 +400,8 @@ You have succeeded when:
 - [openai/agent.md](../openai/agent.md) – OpenAI implementation
 - [copilot/agent.md](../copilot/agent.md) – GitHub Copilot integration
 - [README.md](../README.md) – Quick reference
-- Google Web Vitals: <https://web.dev/vitals/>
-- Web Almanac: <https://almanac.httparchive.org/>
+- Google Web Vitals: https://web.dev/vitals/
+- Web Almanac: https://almanac.httparchive.org/
 
 ---
 

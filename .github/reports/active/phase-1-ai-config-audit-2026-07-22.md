@@ -418,7 +418,7 @@ description: Execution environments and runtime requirements per provider
 
 ## Next Steps (Task 5)
 
-Proceed to **Memory & Schema Structure Audit** to review memory persistence and work-focus organization
+Proceed to **Memory & Schema Structure Audit** to review memory persistence and work-focus organization.
 ---
 
 ---

@@ -12,7 +12,6 @@
 ## SPECIAL INSTRUCTIONS: AGENT MERGE
 
 This prompt combines TWO separate ChatGPT agents into ONE unified agent:
-
 - `.github/agents/prd-agent/`
 - `.github/agents/prd-factory-planner-agent/`
 
@@ -28,7 +27,6 @@ This prompt combines TWO separate ChatGPT agents into ONE unified agent:
 ### Result
 
 Single agent: `.github/agents/prd-agent/` (enhanced)  
-
 - Archive: `prd-factory-planner-agent-merged-into-prd-agent` (backup)
 
 ---
@@ -94,14 +92,12 @@ security:
 ## MERGED CAPABILITIES
 
 **From prd-agent:**
-
 - PRD creation and formatting
 - Executive summary generation
 - Requirements documentation
 - Success metrics definition
 
 **From prd-factory-planner-agent:**
-
 - Feature planning and prioritization
 - Sprint planning integration
 - Release planning
@@ -109,7 +105,6 @@ security:
 - Timeline and milestone planning
 
 **Combined:**
-
 - End-to-end product planning (requirements → execution)
 - PRD creation + planning artifact generation
 - Feature definition + prioritization
@@ -134,7 +129,6 @@ security:
 ## KEY TOOLS/CAPABILITIES
 
 **Claude Tools:**
-
 - prd-create
 - prd-validate
 - feature-prioritizer
@@ -144,7 +138,6 @@ security:
 - risk-assessor
 
 **Copilot Skills:**
-
 - prd-writing
 - feature-planning
 - sprint-planning
@@ -152,7 +145,6 @@ security:
 - timeline-estimation
 
 **OpenAI Functions:**
-
 - create_prd
 - generate_feature_spec
 - prioritize_features

@@ -23,11 +23,9 @@ status: "active"
 **Solution:** Add `continue-on-error: true` to trigger-telemetry step
 
 **Commits:**
-
 - `71551c7e7` — fix(ci): make release workflow telemetry non-blocking
 
 **Files Changed:**
-
 - `.github/workflows/release.yml` (line 73)
 
 ---
@@ -39,18 +37,15 @@ status: "active"
 **What:** Scripts in `.github/scripts/` violate CLAUDE.md portability principles
 
 **Decision Needed:** Choose between:
-
 - Option A: Clarify control-plane-specific intent
 - Option B: Move reusable scripts to root `scripts/` (recommended)
 - Option C: Hybrid organization approach
 
 **Commits:**
-
 - `c890562d9` — docs(reports): flag script organization architectural concern
 - (Future) — Implementation based on team decision
 
 **Files Changed:**
-
 - `.github/reports/workflow-testing/SCRIPT-ORGANIZATION-CONCERN.md`
 
 ---
@@ -71,7 +66,6 @@ status: "active"
 **PR:** `chore/release-workflow-testing` → `develop`
 
 **Commits in PR:**
-
 ```
 71551c7e7 fix(ci): make release workflow telemetry non-blocking
 15639bc3a chore(ci): update deprecated action versions
@@ -80,7 +74,6 @@ c890562d9 docs(reports): flag script organization architectural concern
 ```
 
 **Close Issues:**
-
 1. ✓ `#1453` — Fixed by commit `71551c7e7`
 2. ℹ️ `#1461` — Related work documented; implementation in Phase 2
 
@@ -140,7 +133,6 @@ Relates to #1461
 ## Documentation Location
 
 **Test Reports:** `.github/reports/workflow-testing/`
-
 - `2026-08-04-release-workflow-fix-summary.md` — Executive summary
 - `2026-08-04-release-workflow-fix-verification.md` — Detailed test methodology
 - `SCRIPT-ORGANIZATION-CONCERN.md` — Architectural issue analysis

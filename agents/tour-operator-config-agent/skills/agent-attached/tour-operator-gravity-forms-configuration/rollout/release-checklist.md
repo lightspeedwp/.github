@@ -92,6 +92,7 @@
 - [ ] Smoke-test quiz scoring change approval path.
 - [ ] Confirm package validator requires assessment and results-review assets.
 
+
 ## Payment batch release checks
 
 - Payment/donation/event reference is present and linked from SKILL.md.

@@ -16,7 +16,6 @@ category: "governance"
 This document describes the **safe, tested workflow** for injecting category-specific footers from `config/quirky-footers.yaml` into markdown files that are missing them.
 
 The system uses three complementary scripts:
-
 1. **inject-footers.js** — Performs the injection with backups
 2. **validate-footer-injection.js** — Validates schema and integrity
 3. **test-footer-injection-safety.js** — Runs comprehensive safety tests
@@ -28,19 +27,16 @@ The system uses three complementary scripts:
 Before running this workflow, ensure:
 
 ✅ All three scripts are in `scripts/` directory:
-
 - `scripts/inject-footers.js`
 - `scripts/validate-footer-injection.js`
 - `scripts/test-footer-injection-safety.js`
 
 ✅ Configuration files exist and are valid:
-
 - `config/footers.config.yaml` — Standard footer library
 - `config/quirky-footers.yaml` — Category-specific quirky footers
 - `.schemas/quirky-footers.schema.json` — Configuration schema
 
 ✅ Working directory is clean:
-
 ```bash
 git status  # Should show no uncommitted changes
 ```
@@ -58,7 +54,6 @@ node scripts/inject-footers.js --dry-run
 ```
 
 **Output**:
-
 - Preview of files that would be modified
 - Category assignments for each file
 - Footer IDs that would be injected
@@ -67,7 +62,6 @@ node scripts/inject-footers.js --dry-run
 **Action**: Review the preview and confirm it looks correct
 
 **Exit if**:
-
 - Categories are wrong (files in wrong category)
 - Footer IDs don't match expectations
 - File count seems incorrect
@@ -83,20 +77,17 @@ node scripts/inject-footers.js
 ```
 
 **What happens**:
-
 1. Creates `.github/tmp/footer-backups/` directory
 2. Backs up EVERY modified file with `.backup` extension
 3. Injects category-appropriate footer from `quirky-footers.yaml`
 4. Generates report: `.github/reports/footer-injection-YYYY-MM-DD.json`
 
 **Output**:
-
 ```
 ✅ path/to/file.md [category] <- footer-id
 ```
 
 **Keep watching for**:
-
 - ❌ Error messages (file not readable, category unknown, etc.)
 - ⚠️ Files with unexpected categories
 - Summary showing number of files injected
@@ -112,19 +103,16 @@ node scripts/validate-footer-injection.js
 ```
 
 **Checks**:
-
 1. ✅ Footer configuration schema is valid
 2. ✅ Every modified file has a footer
 3. ✅ Footer is properly placed (at end of file)
 4. ✅ Backup files exist and are readable
 
 **Exit codes**:
-
 - `0` = All validations passed ✅
 - `1` = Validation failures detected ❌
 
 **Exit if**:
-
 - Schema validation fails
 - Validation report shows failures
 - Backup integrity issues found
@@ -142,42 +130,35 @@ node scripts/test-footer-injection-safety.js
 **Test suites**:
 
 **Suite 1: Content Integrity**
-
 - Compares current file (minus footer) with backup
 - Detects if content was accidentally removed
 - Allows only whitespace normalization
 
 **Suite 2: Backup Restorability**
-
 - Verifies every backup file exists
 - Checks backup has valid markdown structure
 - Confirms backup is restorable
 
 **Suite 3: Footer Format**
-
 - Checks footer starts with `---` separator
 - Validates footer has content (not empty)
 - Detects suspiciously short content
 
 **Suite 4: Footer Config Matching**
-
 - Loads `quirky-footers.yaml`
 - Verifies footer matches expected template
 - Confirms footer ID is from config
 
 **Suite 5: Duplication Detection**
-
 - Searches for duplicate footer patterns
 - Ensures only ONE footer per file
 - Flags multiple instances of footer text
 
 **Exit codes**:
-
 - `0` = All tests passed ✅ Safe to commit
 - `1` = Tests failed ❌ DO NOT commit
 
 **Exit if**:
-
 - Any test suite fails
 - Content integrity check fails
 - Duplication detected
@@ -200,7 +181,6 @@ cat .github/reports/footer-injection-2026-08-04.json
 ```
 
 **Review checklist**:
-
 - [ ] All injected files have the correct category
 - [ ] Footers are appropriate for the file type
 - [ ] No accidental content removal
@@ -230,7 +210,6 @@ See .github/reports/footer-injection-*.json for detailed report"
 ```
 
 **After commit**:
-
 ```bash
 # Clean up backups (ONLY after confirming commit succeeded)
 find .github/tmp/footer-backups -name "*.backup" -delete
@@ -283,7 +262,6 @@ node scripts/inject-footers.js --dry-run
 ```
 
 **Review**:
-
 - [ ] Total files match expectations (~620 files need footers)
 - [ ] Files MISSING footers shown (should NOT include files already with footers)
 - [ ] Categories look correct for shown files
@@ -291,7 +269,6 @@ node scripts/inject-footers.js --dry-run
 - [ ] Footer IDs correspond to categories (e.g., agents → agents-orchestrated)
 
 **Example checks**:
-
 - docs/ files should get `docs-compass` footer ✓
 - agents/ files should get `agents-orchestrated` footer ✓
 - instructions/ files should get `instructions-blueprint` footer ✓
@@ -306,7 +283,6 @@ node scripts/inject-footers.js --dry-run
 **Cause**: File's category couldn't be inferred from path or frontmatter
 
 **Solution**:
-
 ```bash
 # Edit the file and add category to frontmatter:
 ---
@@ -322,7 +298,6 @@ Then re-run the injection script.
 **Cause**: `.github/tmp/footer-backups/` doesn't exist or isn't writable
 
 **Solution**:
-
 ```bash
 mkdir -p .github/tmp/footer-backups
 chmod 755 .github/tmp/footer-backups
@@ -335,7 +310,6 @@ Then re-run Phase 2.
 **Cause**: Footer wasn't injected (check Phase 2 output for errors)
 
 **Solution**:
-
 ```bash
 # Check for files that failed during injection
 cat .github/reports/footer-injection-*.json | jq '.errors'
@@ -348,7 +322,6 @@ cat .github/reports/footer-injection-*.json | jq '.errors'
 **Cause**: File content was removed during injection (BUG!)
 
 **Solution**:
-
 ```bash
 # DO NOT COMMIT - Restore from backups
 for backup in .github/tmp/footer-backups/*.backup; do
@@ -365,7 +338,7 @@ git checkout  # Reset any staged changes
 
 ## Expected Results
 
-### After successful injection
+### After successful injection:
 
 - ✅ ~620 files have footers injected
 - ✅ All files backup successfully
@@ -375,8 +348,7 @@ git checkout  # Reset any staged changes
 - ✅ Zero content loss
 - ✅ Backups are restorable
 
-### File structure after
-
+### File structure after:
 ```
 .github/tmp/footer-backups/
 ├── file1.md.backup
@@ -415,7 +387,6 @@ git checkout  # Reset any staged changes
 ---
 
 **Next Steps**:
-
 1. Ensure prerequisites are met
 2. Run Phase 1: `node scripts/inject-footers.js --dry-run`
 3. Review output and confirm categories

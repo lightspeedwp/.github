@@ -4,47 +4,47 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://www.gravityforms.com/> | official product | Homepage, feature groups, licence examples, system requirements footer | High | Stable product source; pricing and licence inclusions can change. |
-| <https://www.gravityforms.com/features/> | official product | Drag-and-drop builder, conditional logic, file uploads, accessibility, integrations | High | Marketing source; verify exact settings in docs and site preflight. |
-| <https://www.gravityforms.com/form-templates/> | official product | Template library and common workflows | High | Useful for recipes; template details can change. |
-| <https://www.gravityforms.com/form-templates/contact-form/> | official product | Contact template fields and licence note | High | Template-level source, not a live-site config. |
-| <https://www.gravityforms.com/form-templates/newsletter-signup-form/> | official product | Newsletter signup workflow | High | Use as pattern only. |
-| <https://www.gravityforms.com/form-templates/project-inquiry-form/> | official product | Project enquiry workflow | High | Use as pattern only. |
-| <https://www.gravityforms.com/form-templates/membership-form/> | official product | Membership sign-up and payment pattern | High | Payments require add-on/gateway verification. |
-| <https://www.gravityforms.com/form-templates/request-a-quote/> | official product | Quote request pattern | Medium | URL variants may change; verify in template library. |
-| <https://www.gravityforms.com/form-templates/contest-entry-form/> | official product | Contest entry pattern | High | Use as content/workflow pattern only. |
-| <https://www.gravityforms.com/form-templates/user-registration/> | official product | User registration pattern | High | Requires add-on/licence verification. |
-| <https://learn.gravity.com/> | training | Gravity Learn training courses, videos, webinars | Medium | Training content may shift; use for learning, not exact config. |
-| <https://docs.gravityforms.com/> | official docs | Documentation hub and category navigation | High | Primary source. |
-| <https://docs.gravityforms.com/gravity-forms-system-requirements/> | official docs | WordPress/PHP/MySQL/browser requirements | High | Use in preflight; requirements can change. |
-| <https://docs.gravityforms.com/rest-api-v2/> | official docs | REST API v2 authentication, submissions, endpoints, delete semantics | High | Basis for MCP/REST action mapping. |
-| <https://docs.gravityforms.com/category/user-guides/standard-fields/> | official docs | Standard field catalogue | High | Field availability can vary by version. |
-| <https://docs.gravityforms.com/category/user-guides/advanced-fields/> | official docs | Advanced field catalogue including Consent, File Upload, Turnstile, Repeater beta | High | Some fields require add-ons or beta caveats. |
-| <https://docs.gravityforms.com/category/user-guides/pricing-fields/> | official docs | Pricing/payment fields and add-on-dependent fields | High | Payment fields are high-risk. |
-| <https://docs.gravityforms.com/category/user-guides/post-fields/> | official docs | Post creation fields | High | Post creation is high-risk if publishing content/users. |
-| <https://docs.gravityforms.com/category/user-guides/field-settings-guide/> | official docs | Common field settings, calculations, dynamic population | High | Use for form object modelling. |
-| <https://docs.gravityforms.com/enable-conditional-logic/> | official docs | Conditional logic setup, limits, performance | High | Use for hidden-field and large-form cautions. |
-| <https://docs.gravityforms.com/category/user-guides/confirmations/> | official docs | Confirmation types and conditional confirmations | High | Redirect/query-string flows need privacy review. |
-| <https://docs.gravityforms.com/configuring-notifications-in-gravity-forms/> | official docs | Notification recipients, From/Reply-To, merge tags, conditional notifications | High | Email delivery also depends on WordPress/server/SMTP. |
-| <https://docs.gravityforms.com/troubleshooting-notifications/> | official docs | wp_mail handoff, valid From address, SMTP, routing checks | High | Primary troubleshooting source for missing notifications. |
-| <https://docs.gravityforms.com/category/user-guides/merge-tags-getting-started/> | official docs | Merge tag contexts and limitations | High | Avoid sensitive merge tags in user emails/URLs. |
-| <https://docs.gravityforms.com/category/user-guides/spam-detection-and-protection/> | official docs | Layered spam protection and false-positive review | High | No single anti-spam method catches all spam. |
-| <https://docs.gravityforms.com/spam-honeypot-enhancements/> | official docs | Enhanced honeypot behaviour and conflict risks | High | Cache/JS optimisation can affect behaviour. |
-| <https://docs.gravityforms.com/turnstile/> | official docs | Cloudflare Turnstile field, add-on dependency, theme/size settings | High | Requires Cloudflare Turnstile Add-On and keys. |
-| <https://docs.gravityforms.com/file-upload-security/> | official docs | Allowed extensions, upload storage, secure links, off-server storage | High | File uploads are high-risk. |
-| <https://docs.gravityforms.com/personal-data-settings/> | official docs | Personal Data settings, retention, export/erase integration | High | Operational privacy source, not legal advice. |
-| <https://docs.gravityforms.com/gravity-forms-commitment-to-accessibility/> | official docs | Accessibility commitment, WCAG 2.1 AA aim, theme responsibility | High | Accessibility depends on configuration/theme/content. |
-| <https://docs.gravityforms.com/accessibility-checklist-for-gravity-forms/> | official docs | Accessibility QA checklist | High | Primary QA checklist; if unavailable, use commitment and guides. |
-| <https://docs.gravityforms.com/category/gravity-forms-2-9/> | official docs | 2.9 archive: Image Choice, Multiple Choice, key features | High | Version-specific; verify active site version. |
-| <https://docs.gravityforms.com/category/gravity-forms-3-0/> | official docs | 3.0 beta: accessibility by default and international phone support | Medium | Beta/version-specific; do not treat as stable everywhere. |
-| <https://docs.gravityforms.com/logging-and-debugging/> | official docs | Logging, debugging, support handoff | High | Enable logs temporarily and avoid long-term sensitive logs. |
-| <https://www.gravityforms.com/add-ons/zero-spam/> | official product/add-on marketplace | Gravity Forms marketplace page for Zero Spam | Medium | Certified/community add-on context; verify installed plugin. |
-| <https://wordpress.org/plugins/zero-spam/> | WordPress.org | Zero Spam plugin capabilities, REST/API, integrations, caveats | Medium | Current plugin listing; review privacy and false positives before enabling. |
-| <https://github.com/Highfivery/zero-spam> | GitHub | Zero Spam source repository | Medium | Repository availability/ownership can change. |
-| <https://gravitywiz.com/gravity-perks/> | add-on vendor | Gravity Perks ecosystem overview | Medium | Third-party commercial add-ons; verify licence/support. |
-| <https://gravitywiz.com/documentation/gravity-perks/> | add-on vendor docs | Gravity Perks docs | Medium | Use only if a perk is installed/licensed. |
-| <https://www.gravityforms.com/developers/gravity-wiz/> | official product/vendor profile | Certified developer profile for Gravity Wiz | Medium | Ecosystem context only. |
-| <https://modelcontextprotocol.io/specification/2025-06-18/server/tools> | official MCP spec | Tool discovery, input/output schemas, human-in-the-loop and security considerations | High | Use for MCP capability discovery and confirmation rules. |
+| https://www.gravityforms.com/ | official product | Homepage, feature groups, licence examples, system requirements footer | High | Stable product source; pricing and licence inclusions can change. |
+| https://www.gravityforms.com/features/ | official product | Drag-and-drop builder, conditional logic, file uploads, accessibility, integrations | High | Marketing source; verify exact settings in docs and site preflight. |
+| https://www.gravityforms.com/form-templates/ | official product | Template library and common workflows | High | Useful for recipes; template details can change. |
+| https://www.gravityforms.com/form-templates/contact-form/ | official product | Contact template fields and licence note | High | Template-level source, not a live-site config. |
+| https://www.gravityforms.com/form-templates/newsletter-signup-form/ | official product | Newsletter signup workflow | High | Use as pattern only. |
+| https://www.gravityforms.com/form-templates/project-inquiry-form/ | official product | Project enquiry workflow | High | Use as pattern only. |
+| https://www.gravityforms.com/form-templates/membership-form/ | official product | Membership sign-up and payment pattern | High | Payments require add-on/gateway verification. |
+| https://www.gravityforms.com/form-templates/request-a-quote/ | official product | Quote request pattern | Medium | URL variants may change; verify in template library. |
+| https://www.gravityforms.com/form-templates/contest-entry-form/ | official product | Contest entry pattern | High | Use as content/workflow pattern only. |
+| https://www.gravityforms.com/form-templates/user-registration/ | official product | User registration pattern | High | Requires add-on/licence verification. |
+| https://learn.gravity.com/ | training | Gravity Learn training courses, videos, webinars | Medium | Training content may shift; use for learning, not exact config. |
+| https://docs.gravityforms.com/ | official docs | Documentation hub and category navigation | High | Primary source. |
+| https://docs.gravityforms.com/gravity-forms-system-requirements/ | official docs | WordPress/PHP/MySQL/browser requirements | High | Use in preflight; requirements can change. |
+| https://docs.gravityforms.com/rest-api-v2/ | official docs | REST API v2 authentication, submissions, endpoints, delete semantics | High | Basis for MCP/REST action mapping. |
+| https://docs.gravityforms.com/category/user-guides/standard-fields/ | official docs | Standard field catalogue | High | Field availability can vary by version. |
+| https://docs.gravityforms.com/category/user-guides/advanced-fields/ | official docs | Advanced field catalogue including Consent, File Upload, Turnstile, Repeater beta | High | Some fields require add-ons or beta caveats. |
+| https://docs.gravityforms.com/category/user-guides/pricing-fields/ | official docs | Pricing/payment fields and add-on-dependent fields | High | Payment fields are high-risk. |
+| https://docs.gravityforms.com/category/user-guides/post-fields/ | official docs | Post creation fields | High | Post creation is high-risk if publishing content/users. |
+| https://docs.gravityforms.com/category/user-guides/field-settings-guide/ | official docs | Common field settings, calculations, dynamic population | High | Use for form object modelling. |
+| https://docs.gravityforms.com/enable-conditional-logic/ | official docs | Conditional logic setup, limits, performance | High | Use for hidden-field and large-form cautions. |
+| https://docs.gravityforms.com/category/user-guides/confirmations/ | official docs | Confirmation types and conditional confirmations | High | Redirect/query-string flows need privacy review. |
+| https://docs.gravityforms.com/configuring-notifications-in-gravity-forms/ | official docs | Notification recipients, From/Reply-To, merge tags, conditional notifications | High | Email delivery also depends on WordPress/server/SMTP. |
+| https://docs.gravityforms.com/troubleshooting-notifications/ | official docs | wp_mail handoff, valid From address, SMTP, routing checks | High | Primary troubleshooting source for missing notifications. |
+| https://docs.gravityforms.com/category/user-guides/merge-tags-getting-started/ | official docs | Merge tag contexts and limitations | High | Avoid sensitive merge tags in user emails/URLs. |
+| https://docs.gravityforms.com/category/user-guides/spam-detection-and-protection/ | official docs | Layered spam protection and false-positive review | High | No single anti-spam method catches all spam. |
+| https://docs.gravityforms.com/spam-honeypot-enhancements/ | official docs | Enhanced honeypot behaviour and conflict risks | High | Cache/JS optimisation can affect behaviour. |
+| https://docs.gravityforms.com/turnstile/ | official docs | Cloudflare Turnstile field, add-on dependency, theme/size settings | High | Requires Cloudflare Turnstile Add-On and keys. |
+| https://docs.gravityforms.com/file-upload-security/ | official docs | Allowed extensions, upload storage, secure links, off-server storage | High | File uploads are high-risk. |
+| https://docs.gravityforms.com/personal-data-settings/ | official docs | Personal Data settings, retention, export/erase integration | High | Operational privacy source, not legal advice. |
+| https://docs.gravityforms.com/gravity-forms-commitment-to-accessibility/ | official docs | Accessibility commitment, WCAG 2.1 AA aim, theme responsibility | High | Accessibility depends on configuration/theme/content. |
+| https://docs.gravityforms.com/accessibility-checklist-for-gravity-forms/ | official docs | Accessibility QA checklist | High | Primary QA checklist; if unavailable, use commitment and guides. |
+| https://docs.gravityforms.com/category/gravity-forms-2-9/ | official docs | 2.9 archive: Image Choice, Multiple Choice, key features | High | Version-specific; verify active site version. |
+| https://docs.gravityforms.com/category/gravity-forms-3-0/ | official docs | 3.0 beta: accessibility by default and international phone support | Medium | Beta/version-specific; do not treat as stable everywhere. |
+| https://docs.gravityforms.com/logging-and-debugging/ | official docs | Logging, debugging, support handoff | High | Enable logs temporarily and avoid long-term sensitive logs. |
+| https://www.gravityforms.com/add-ons/zero-spam/ | official product/add-on marketplace | Gravity Forms marketplace page for Zero Spam | Medium | Certified/community add-on context; verify installed plugin. |
+| https://wordpress.org/plugins/zero-spam/ | WordPress.org | Zero Spam plugin capabilities, REST/API, integrations, caveats | Medium | Current plugin listing; review privacy and false positives before enabling. |
+| https://github.com/Highfivery/zero-spam | GitHub | Zero Spam source repository | Medium | Repository availability/ownership can change. |
+| https://gravitywiz.com/gravity-perks/ | add-on vendor | Gravity Perks ecosystem overview | Medium | Third-party commercial add-ons; verify licence/support. |
+| https://gravitywiz.com/documentation/gravity-perks/ | add-on vendor docs | Gravity Perks docs | Medium | Use only if a perk is installed/licensed. |
+| https://www.gravityforms.com/developers/gravity-wiz/ | official product/vendor profile | Certified developer profile for Gravity Wiz | Medium | Ecosystem context only. |
+| https://modelcontextprotocol.io/specification/2025-06-18/server/tools | official MCP spec | Tool discovery, input/output schemas, human-in-the-loop and security considerations | High | Use for MCP capability discovery and confirmation rules. |
 
 ## Source-use rules
 
@@ -58,9 +58,9 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/spam-detection-and-protection-first-steps/> | official docs | Honeypot, state validation, submission speed checks, multi-page/payment anti-spam positioning, spam consequences, logging | High | Last modified June 5, 2026; use for layered spam and false-positive diagnostics. Submission speed check is version-specific. |
-| <https://docs.gravityforms.com/spam-detection-and-protection-integrations-and-plugins/> | official docs | Official and third-party spam integrations, Turnstile, reCAPTCHA, Akismet, Save and Continue, Partial Entries, Zero Spam | High | Last modified June 5, 2026; third-party suggestions require site preflight and support review. |
-| <https://modelcontextprotocol.io/specification/2025-06-18/server/resources> | official MCP spec | MCP resources capability, listing/reading resources, resource templates, security considerations | High | Use where a WordPress MCP server exposes exported forms, schemas, logs, or site state as resources rather than tools. |
+| https://docs.gravityforms.com/spam-detection-and-protection-first-steps/ | official docs | Honeypot, state validation, submission speed checks, multi-page/payment anti-spam positioning, spam consequences, logging | High | Last modified June 5, 2026; use for layered spam and false-positive diagnostics. Submission speed check is version-specific. |
+| https://docs.gravityforms.com/spam-detection-and-protection-integrations-and-plugins/ | official docs | Official and third-party spam integrations, Turnstile, reCAPTCHA, Akismet, Save and Continue, Partial Entries, Zero Spam | High | Last modified June 5, 2026; third-party suggestions require site preflight and support review. |
+| https://modelcontextprotocol.io/specification/2025-06-18/server/resources | official MCP spec | MCP resources capability, listing/reading resources, resource templates, security considerations | High | Use where a WordPress MCP server exposes exported forms, schemas, logs, or site state as resources rather than tools. |
 
 ## Improvement-pass source notes
 
@@ -69,15 +69,16 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 - Gravity Forms 3.0 remains documented under a beta category in the docs navigation, so the skill must keep 3.0 accessibility-by-default and International Phone guidance behind version and beta-risk checks.
 - The current MCP tools specification describes model-discoverable tools with input schemas and recommends human confirmation for sensitive operations; the skill therefore requires capability discovery and explicit approval for high-risk writes.
 
+
 ## 2026-07-03 compatibility and migration improvement pass
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/gravity-forms-system-requirements/> | official docs | Current WordPress, PHP, MySQL/MariaDB, extension, add-on version, and support expectations | High | Last reviewed 2026-07-03. Use for environment preflight, not as a promise that older environments cannot work. |
-| <https://docs.gravityforms.com/not-receiving-notifications/> | official docs | Missing notification symptoms and email reliability checks | High | Last reviewed 2026-07-03. Supports domain-aligned From, SMTP, spam folder, and DNS checks. |
-| <https://docs.gravityforms.com/logging-and-debugging/> | official docs | Temporary logging, log access, rotation, and sensitive log handling | High | Last reviewed 2026-07-03. Logs can contain personal data and should not be left enabled after investigation. |
-| <https://docs.gravityforms.com/permitted-file-types-for-uploading/> | official docs | File Upload field permitted types and WordPress MIME validation | High | Last reviewed 2026-07-03. Use for upload risk and MIME caveats; do not broaden upload types without developer review. |
-| <https://docs.gravityforms.com/faq-on-cache-and-script-optimizer-issues/> | official docs | Cache, CDN, and script optimisation issues affecting forms | High | Last reviewed 2026-07-03. Use for cache exclusions, dynamic forms, AJAX, conditional logic, and troubleshooting. |
+| https://docs.gravityforms.com/gravity-forms-system-requirements/ | official docs | Current WordPress, PHP, MySQL/MariaDB, extension, add-on version, and support expectations | High | Last reviewed 2026-07-03. Use for environment preflight, not as a promise that older environments cannot work. |
+| https://docs.gravityforms.com/not-receiving-notifications/ | official docs | Missing notification symptoms and email reliability checks | High | Last reviewed 2026-07-03. Supports domain-aligned From, SMTP, spam folder, and DNS checks. |
+| https://docs.gravityforms.com/logging-and-debugging/ | official docs | Temporary logging, log access, rotation, and sensitive log handling | High | Last reviewed 2026-07-03. Logs can contain personal data and should not be left enabled after investigation. |
+| https://docs.gravityforms.com/permitted-file-types-for-uploading/ | official docs | File Upload field permitted types and WordPress MIME validation | High | Last reviewed 2026-07-03. Use for upload risk and MIME caveats; do not broaden upload types without developer review. |
+| https://docs.gravityforms.com/faq-on-cache-and-script-optimizer-issues/ | official docs | Cache, CDN, and script optimisation issues affecting forms | High | Last reviewed 2026-07-03. Use for cache exclusions, dynamic forms, AJAX, conditional logic, and troubleshooting. |
 
 ## Compatibility-pass source notes
 
@@ -91,16 +92,16 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/category/user-guides/add-on-feeds/> | official docs | Add-on feed documentation index, feed debugging, multiple feeds, conditional logic | High | Last reviewed 2026-07-03. Use as the routing point for feed-specific investigations. |
-| <https://docs.gravityforms.com/debugging-feed-issues/> | official docs | Feed troubleshooting, logs, conditional logic, mappings, active state, spam status, cleanup | High | Last modified February 20, 2026. Logs may contain sensitive data; disable/delete logs after investigation. |
-| <https://docs.gravityforms.com/working-with-multiple-feeds/> | official docs | Multiple feed behaviour, payment-feed constraints, User Registration feed limitations | High | Last modified February 12, 2026. Payment feeds need conditional logic where multiple payment processors or products exist. |
-| <https://docs.gravityforms.com/enabling-conditional-logic-for-feeds/> | official docs | Feed-level conditional logic and routing examples | High | Last modified February 12, 2026. Feed conditions must be tested with matching submitted values. |
-| <https://docs.gravityforms.com/stripe-add-on/> | official docs | Stripe add-on prerequisites, SSL, compatible form, feed setup, subscriptions | High | Last modified March 27, 2025. Payment work requires SSL, Stripe account, compatible form, and sandbox testing. |
-| <https://docs.gravityforms.com/setting-up-the-stripe-feeds/> | official docs | Stripe feed creation and testing | High | Last modified March 27, 2025. Stripe feed is the critical link between form submission and Stripe processing. |
-| <https://docs.gravityforms.com/user-registration-add-on/> | official docs | User Registration add-on prerequisites and required form fields | High | Last reviewed 2026-07-03. Username and Email fields are required for compatible registration forms. |
-| <https://docs.gravityforms.com/creating-feed-user-registration-add/> | official docs | User Registration feed actions, role mapping, activation, update-feed limits | High | Last modified September 12, 2024. Public role assignment is high risk; only one Update User feed per form is allowed. |
-| <https://docs.gravityforms.com/entries/> | official docs | Entry statuses, spam/trash, partial and payment filters, deletion consequences | High | Last modified May 14, 2026. Deleting entries from trash permanently deletes entries and uploaded files attached to them. |
-| <https://docs.gravityforms.com/personal-data-settings/> | official docs | Personal Data settings, retention, export/erase integration, IP storage | High | Last modified December 19, 2025. Personal Data settings support entries and Save and Continue draft submissions from Gravity Forms 2.4+. |
+| https://docs.gravityforms.com/category/user-guides/add-on-feeds/ | official docs | Add-on feed documentation index, feed debugging, multiple feeds, conditional logic | High | Last reviewed 2026-07-03. Use as the routing point for feed-specific investigations. |
+| https://docs.gravityforms.com/debugging-feed-issues/ | official docs | Feed troubleshooting, logs, conditional logic, mappings, active state, spam status, cleanup | High | Last modified February 20, 2026. Logs may contain sensitive data; disable/delete logs after investigation. |
+| https://docs.gravityforms.com/working-with-multiple-feeds/ | official docs | Multiple feed behaviour, payment-feed constraints, User Registration feed limitations | High | Last modified February 12, 2026. Payment feeds need conditional logic where multiple payment processors or products exist. |
+| https://docs.gravityforms.com/enabling-conditional-logic-for-feeds/ | official docs | Feed-level conditional logic and routing examples | High | Last modified February 12, 2026. Feed conditions must be tested with matching submitted values. |
+| https://docs.gravityforms.com/stripe-add-on/ | official docs | Stripe add-on prerequisites, SSL, compatible form, feed setup, subscriptions | High | Last modified March 27, 2025. Payment work requires SSL, Stripe account, compatible form, and sandbox testing. |
+| https://docs.gravityforms.com/setting-up-the-stripe-feeds/ | official docs | Stripe feed creation and testing | High | Last modified March 27, 2025. Stripe feed is the critical link between form submission and Stripe processing. |
+| https://docs.gravityforms.com/user-registration-add-on/ | official docs | User Registration add-on prerequisites and required form fields | High | Last reviewed 2026-07-03. Username and Email fields are required for compatible registration forms. |
+| https://docs.gravityforms.com/creating-feed-user-registration-add/ | official docs | User Registration feed actions, role mapping, activation, update-feed limits | High | Last modified September 12, 2024. Public role assignment is high risk; only one Update User feed per form is allowed. |
+| https://docs.gravityforms.com/entries/ | official docs | Entry statuses, spam/trash, partial and payment filters, deletion consequences | High | Last modified May 14, 2026. Deleting entries from trash permanently deletes entries and uploaded files attached to them. |
+| https://docs.gravityforms.com/personal-data-settings/ | official docs | Personal Data settings, retention, export/erase integration, IP storage | High | Last modified December 19, 2025. Personal Data settings support entries and Save and Continue draft submissions from Gravity Forms 2.4+. |
 
 ## Feed and lifecycle source notes
 
@@ -113,11 +114,11 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/category/getting-started/add-form-to-site/> | official docs | Primary form embedding methods: Embed Form button, Gravity Forms block, theme/hooks, classic editor, shortcode | High | Last reviewed 2026-07-03. Use for embed method selection and manual fallback instructions. |
-| <https://docs.gravityforms.com/adding-a-form-using-block/> | official docs | Gravity Forms block insertion and block-editor flow | High | Last modified October 9, 2023. Prefer for block-theme and Site Editor-era page integration when available. |
-| <https://docs.gravityforms.com/gravity-forms-form-shortcode/> | official docs | Shortcode parameters including id, title, description, AJAX, field values, tabindex, theme, and styles | High | Last modified May 26, 2026. Use for shortcode validation and dynamic field-value cautions. |
-| <https://docs.gravityforms.com/embedding-one-form-multiple-times-per-page/> | official docs | Duplicate same-form embeds on one page and related submission/focus/payment/CAPTCHA issues | High | Last modified August 13, 2024. Use as a blocker for repeated same-form placements. |
-| <https://docs.gravityforms.com/consent/> | official docs | Consent field behaviour, entry record, form revision, state validation, and consent text changes | High | Last modified March 5, 2026. Use for consent field reviews, audit trail notes, and approval requirements around consent wording. |
+| https://docs.gravityforms.com/category/getting-started/add-form-to-site/ | official docs | Primary form embedding methods: Embed Form button, Gravity Forms block, theme/hooks, classic editor, shortcode | High | Last reviewed 2026-07-03. Use for embed method selection and manual fallback instructions. |
+| https://docs.gravityforms.com/adding-a-form-using-block/ | official docs | Gravity Forms block insertion and block-editor flow | High | Last modified October 9, 2023. Prefer for block-theme and Site Editor-era page integration when available. |
+| https://docs.gravityforms.com/gravity-forms-form-shortcode/ | official docs | Shortcode parameters including id, title, description, AJAX, field values, tabindex, theme, and styles | High | Last modified May 26, 2026. Use for shortcode validation and dynamic field-value cautions. |
+| https://docs.gravityforms.com/embedding-one-form-multiple-times-per-page/ | official docs | Duplicate same-form embeds on one page and related submission/focus/payment/CAPTCHA issues | High | Last modified August 13, 2024. Use as a blocker for repeated same-form placements. |
+| https://docs.gravityforms.com/consent/ | official docs | Consent field behaviour, entry record, form revision, state validation, and consent text changes | High | Last modified March 5, 2026. Use for consent field reviews, audit trail notes, and approval requirements around consent wording. |
 
 ## Embed, consent, and localisation source notes
 
@@ -130,12 +131,12 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/using-dynamic-population/> | official docs | Dynamic population through query string, shortcode, block Field Values, and hooks | High | Last modified May 6, 2024. Use for dynamic population methods, cache limitations, and reserved parameter warnings. |
-| <https://docs.gravityforms.com/enable-conditional-logic/> | official docs | Field conditional logic, section/page examples, limitations, and performance | High | Last reviewed 2026-07-03. Use for branch testing and hidden/required field checks. |
-| <https://docs.gravityforms.com/using-calculations/> | official docs | Calculation-enabled fields and formula behaviour | High | Last reviewed 2026-07-03. Use for calculation checks, not as tax/payment architecture guidance. |
-| <https://docs.gravityforms.com/gravity-forms-pricing-fields-guide/> | official docs | Product, Option, Quantity, Shipping, Total, and quote/donation/order use cases | High | Last modified February 5, 2026. Use for pricing-field modelling and payment-adjacent risk. |
-| <https://docs.gravityforms.com/category/add-ons-gravity-forms/webhooks-add-on/> | official docs | Webhooks Add-On article index and supported integration patterns | High | Last reviewed 2026-07-03. Use for add-on availability and webhook routing. |
-| <https://docs.gravityforms.com/triggering-webhooks-form-submissions/> | official docs | Webhooks feed settings, request URL, method, format, headers, body, field mapping, and conditions | High | Last modified November 11, 2025. Use for webhook feed audits and selected-field recommendations. |
+| https://docs.gravityforms.com/using-dynamic-population/ | official docs | Dynamic population through query string, shortcode, block Field Values, and hooks | High | Last modified May 6, 2024. Use for dynamic population methods, cache limitations, and reserved parameter warnings. |
+| https://docs.gravityforms.com/enable-conditional-logic/ | official docs | Field conditional logic, section/page examples, limitations, and performance | High | Last reviewed 2026-07-03. Use for branch testing and hidden/required field checks. |
+| https://docs.gravityforms.com/using-calculations/ | official docs | Calculation-enabled fields and formula behaviour | High | Last reviewed 2026-07-03. Use for calculation checks, not as tax/payment architecture guidance. |
+| https://docs.gravityforms.com/gravity-forms-pricing-fields-guide/ | official docs | Product, Option, Quantity, Shipping, Total, and quote/donation/order use cases | High | Last modified February 5, 2026. Use for pricing-field modelling and payment-adjacent risk. |
+| https://docs.gravityforms.com/category/add-ons-gravity-forms/webhooks-add-on/ | official docs | Webhooks Add-On article index and supported integration patterns | High | Last reviewed 2026-07-03. Use for add-on availability and webhook routing. |
+| https://docs.gravityforms.com/triggering-webhooks-form-submissions/ | official docs | Webhooks feed settings, request URL, method, format, headers, body, field mapping, and conditions | High | Last modified November 11, 2025. Use for webhook feed audits and selected-field recommendations. |
 
 ## Conditional/dynamic/webhook source notes
 
@@ -149,11 +150,11 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/role-management-guide/> | official docs | Gravity Forms role/capability management and add-on capability warnings | High | Last modified March 22, 2026. Use for capability review, least privilege, and User Registration escalation risk. |
-| <https://docs.gravityforms.com/dashboard-widget/> | official docs | Dashboard widget showing unread and total entry counts by form | High | Last modified January 9, 2026. Use as a monitoring signal, not a complete audit. |
-| <https://docs.gravityforms.com/checking-environment-details/> | official docs | Environment and System Status checks for troubleshooting | High | Last reviewed 2026-07-03. Use when MCP can inspect or when requesting exported system-status evidence. |
-| <https://docs.gravityforms.com/troubleshooting-scheduled-events/> | official docs | Gravity Forms scheduled events, WP-Cron, background processors, feed/notification queues | High | Last reviewed 2026-07-03. Use for delayed feed/notification and retention-cleanup investigations. |
-| <https://docs.gravityforms.com/personal-data-settings/> | official docs | Retention rules and automatic entry cleanup dependencies | High | Last modified December 19, 2025. Retention cleanup depends on configured personal data settings and scheduled events. |
+| https://docs.gravityforms.com/role-management-guide/ | official docs | Gravity Forms role/capability management and add-on capability warnings | High | Last modified March 22, 2026. Use for capability review, least privilege, and User Registration escalation risk. |
+| https://docs.gravityforms.com/dashboard-widget/ | official docs | Dashboard widget showing unread and total entry counts by form | High | Last modified January 9, 2026. Use as a monitoring signal, not a complete audit. |
+| https://docs.gravityforms.com/checking-environment-details/ | official docs | Environment and System Status checks for troubleshooting | High | Last reviewed 2026-07-03. Use when MCP can inspect or when requesting exported system-status evidence. |
+| https://docs.gravityforms.com/troubleshooting-scheduled-events/ | official docs | Gravity Forms scheduled events, WP-Cron, background processors, feed/notification queues | High | Last reviewed 2026-07-03. Use for delayed feed/notification and retention-cleanup investigations. |
+| https://docs.gravityforms.com/personal-data-settings/ | official docs | Retention rules and automatic entry cleanup dependencies | High | Last modified December 19, 2025. Retention cleanup depends on configured personal data settings and scheduled events. |
 
 ## Operations and permissions source notes
 
@@ -166,12 +167,12 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Main topic | Confidence | Notes |
 |---|---|---|---|---|
-| <https://docs.gravityforms.com/form-themes-and-style-settings/> | official docs | Gravity Forms themes, Orbital, block style settings, global versus local style scope | High | Last modified September 25, 2024. Use for form theme and block style reviews; existing installations may not have Orbital applied globally. |
-| <https://docs.gravityforms.com/css-ready-classes/> | official docs | Legacy CSS Ready Classes, class usage, deprecation notes, mobile caveats | High | Last modified August 14, 2025. Use for identifying legacy layout classes and migration risk. |
-| <https://docs.gravityforms.com/migrating-your-forms-from-ready-classes/> | official docs | Ready Class migration, Gravity Forms 4.0 legacy-markup removal warning, modern alternatives | High | Last reviewed 2026-07-03. Use for staged migration plans, not casual bulk class deletion. |
-| <https://docs.gravityforms.com/working-with-columns/> | official docs | Creating columns in the Form Editor | High | Last reviewed 2026-07-03. Prefer for new multi-column layout plans when available. |
-| <https://docs.gravityforms.com/category/user-guides/design-and-layout/css-selectors/> | official docs | Official CSS selector categories by field/component type | High | Last reviewed 2026-07-03. Use before recommending selectors; inspect rendered markup for site-specific CSS. |
-| <https://docs.gravityforms.com/changes-to-markup-in-gravity-forms-2-5/> | official docs | Gravity Forms 2.5 markup changes, fieldset/legend changes, legacy markup caveat | High | Last modified April 23, 2026. Use for markup/selector compatibility and regression planning. |
+| https://docs.gravityforms.com/form-themes-and-style-settings/ | official docs | Gravity Forms themes, Orbital, block style settings, global versus local style scope | High | Last modified September 25, 2024. Use for form theme and block style reviews; existing installations may not have Orbital applied globally. |
+| https://docs.gravityforms.com/css-ready-classes/ | official docs | Legacy CSS Ready Classes, class usage, deprecation notes, mobile caveats | High | Last modified August 14, 2025. Use for identifying legacy layout classes and migration risk. |
+| https://docs.gravityforms.com/migrating-your-forms-from-ready-classes/ | official docs | Ready Class migration, Gravity Forms 4.0 legacy-markup removal warning, modern alternatives | High | Last reviewed 2026-07-03. Use for staged migration plans, not casual bulk class deletion. |
+| https://docs.gravityforms.com/working-with-columns/ | official docs | Creating columns in the Form Editor | High | Last reviewed 2026-07-03. Prefer for new multi-column layout plans when available. |
+| https://docs.gravityforms.com/category/user-guides/design-and-layout/css-selectors/ | official docs | Official CSS selector categories by field/component type | High | Last reviewed 2026-07-03. Use before recommending selectors; inspect rendered markup for site-specific CSS. |
+| https://docs.gravityforms.com/changes-to-markup-in-gravity-forms-2-5/ | official docs | Gravity Forms 2.5 markup changes, fieldset/legend changes, legacy markup caveat | High | Last modified April 23, 2026. Use for markup/selector compatibility and regression planning. |
 
 ## Frontend layout and styling source notes
 
@@ -185,24 +186,24 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Last reviewed date | Main topic | Confidence | Notes |
 |---|---|---:|---|---|---|
-| <https://docs.gravityforms.com/category/add-ons-gravity-forms/advanced-post-creation-add-on/> | official docs | 2026-07-03 | Advanced Post Creation documentation index | High | Stable category page; confirms APC docs and related add-ons. |
-| <https://docs.gravityforms.com/setting-up-the-advanced-post-creation-add-on/> | official docs | 2026-07-03 | APC setup, prerequisites, limitations | High | Notes APC requires Gravity Forms 2.3+ and does not create/register CPTs, fields, or taxonomies. |
-| <https://docs.gravityforms.com/advanced-post-creation-vs-post-fields/> | official docs | 2026-07-03 | Post Fields vs APC | High | Confirms the two post-creation approaches differ and APC uses feeds rather than Post Fields. |
-| <https://docs.gravityforms.com/creating-a-feed-for-the-advanced-post-creation-add-on/> | official docs | 2026-07-03 | APC feed settings, taxonomies, media, post editing | High | Version/current article modified in 2026; source for post status, content, media, taxonomy, post editing, and payment-feed caveats. |
-| <https://docs.gravityforms.com/advanced-post-creation-add-on-using-third-party-post-types/> | official docs | 2026-07-03 | APC with WooCommerce, The Events Calendar, ACF/media mapping | Medium | Useful for examples but implementation-dependent; custom hooks route away from this configuration skill unless approved elsewhere. |
+| https://docs.gravityforms.com/category/add-ons-gravity-forms/advanced-post-creation-add-on/ | official docs | 2026-07-03 | Advanced Post Creation documentation index | High | Stable category page; confirms APC docs and related add-ons. |
+| https://docs.gravityforms.com/setting-up-the-advanced-post-creation-add-on/ | official docs | 2026-07-03 | APC setup, prerequisites, limitations | High | Notes APC requires Gravity Forms 2.3+ and does not create/register CPTs, fields, or taxonomies. |
+| https://docs.gravityforms.com/advanced-post-creation-vs-post-fields/ | official docs | 2026-07-03 | Post Fields vs APC | High | Confirms the two post-creation approaches differ and APC uses feeds rather than Post Fields. |
+| https://docs.gravityforms.com/creating-a-feed-for-the-advanced-post-creation-add-on/ | official docs | 2026-07-03 | APC feed settings, taxonomies, media, post editing | High | Version/current article modified in 2026; source for post status, content, media, taxonomy, post editing, and payment-feed caveats. |
+| https://docs.gravityforms.com/advanced-post-creation-add-on-using-third-party-post-types/ | official docs | 2026-07-03 | APC with WooCommerce, The Events Calendar, ACF/media mapping | Medium | Useful for examples but implementation-dependent; custom hooks route away from this configuration skill unless approved elsewhere. |
 
 ## 2026-07-03 analytics, conversion tracking, and attribution improvement pass
 
 | Source URL | Source type | Last reviewed date | Main topic | Confidence | Notes |
 |---|---|---:|---|---|---|
-| <https://docs.gravityforms.com/google-analytics-add-on-setup/> | official docs | 2026-07-03 | Gravity Forms Google Analytics Add-On setup, connection types, scripts, form feeds, pagination events | High | Article modified March 4, 2026. Use for add-on availability, script duplication cautions, GA4/GTM/Measurement Protocol/manual paths, and form-specific feeds. |
-| <https://docs.gravityforms.com/setting-up-a-feed-and-form-for-the-google-analytics-add-on/> | official docs | 2026-07-03 | Google Analytics Add-On form feeds and pagination/form settings | High | Use for submission/pagination tracking settings when the add-on is detected. |
-| <https://docs.gravityforms.com/using-dynamic-population/> | official docs | 2026-07-03 | Dynamic population through query string, shortcode, block Field Values, and hooks | High | Use for UTM/hidden attribution capture and cache/reserved parameter cautions. |
-| <https://docs.gravityforms.com/configuring-confirmations/> | official docs | 2026-07-03 | Text, page, and redirect confirmations | High | Use for thank-you page tracking, redirect safety, and REST API page-list caveats. |
-| <https://docs.gravityforms.com/why-tracking-services-record-submissions-that-dont-appear-in-gravity-forms/> | official docs | 2026-07-03 | Browser-side tracking mismatch versus Gravity Forms saved entries | High | Use for mismatch investigations where tracking tools show submissions that Gravity Forms did not save. |
-| <https://support.google.com/analytics/answer/9267735> | official Google docs | 2026-07-03 | GA4 recommended events including generate_lead and lead funnel events | High | Use for event naming defaults only; broader GA4 architecture routes away. |
-| <https://support.google.com/tagmanager/answer/6107056> | official Google docs | 2026-07-03 | GTM preview/debug mode and Tag Assistant verification | High | Use for GTM QA checklists and handoff notes. |
-| <https://developers.google.com/tag-platform/security/guides/consent> | official Google docs | 2026-07-03 | Google tag consent mode implementation concepts | Medium | Use only for form-level consent dependency notes; legal/cookie-banner implementation routes away. |
+| https://docs.gravityforms.com/google-analytics-add-on-setup/ | official docs | 2026-07-03 | Gravity Forms Google Analytics Add-On setup, connection types, scripts, form feeds, pagination events | High | Article modified March 4, 2026. Use for add-on availability, script duplication cautions, GA4/GTM/Measurement Protocol/manual paths, and form-specific feeds. |
+| https://docs.gravityforms.com/setting-up-a-feed-and-form-for-the-google-analytics-add-on/ | official docs | 2026-07-03 | Google Analytics Add-On form feeds and pagination/form settings | High | Use for submission/pagination tracking settings when the add-on is detected. |
+| https://docs.gravityforms.com/using-dynamic-population/ | official docs | 2026-07-03 | Dynamic population through query string, shortcode, block Field Values, and hooks | High | Use for UTM/hidden attribution capture and cache/reserved parameter cautions. |
+| https://docs.gravityforms.com/configuring-confirmations/ | official docs | 2026-07-03 | Text, page, and redirect confirmations | High | Use for thank-you page tracking, redirect safety, and REST API page-list caveats. |
+| https://docs.gravityforms.com/why-tracking-services-record-submissions-that-dont-appear-in-gravity-forms/ | official docs | 2026-07-03 | Browser-side tracking mismatch versus Gravity Forms saved entries | High | Use for mismatch investigations where tracking tools show submissions that Gravity Forms did not save. |
+| https://support.google.com/analytics/answer/9267735 | official Google docs | 2026-07-03 | GA4 recommended events including generate_lead and lead funnel events | High | Use for event naming defaults only; broader GA4 architecture routes away. |
+| https://support.google.com/tagmanager/answer/6107056 | official Google docs | 2026-07-03 | GTM preview/debug mode and Tag Assistant verification | High | Use for GTM QA checklists and handoff notes. |
+| https://developers.google.com/tag-platform/security/guides/consent | official Google docs | 2026-07-03 | Google tag consent mode implementation concepts | Medium | Use only for form-level consent dependency notes; legal/cookie-banner implementation routes away. |
 
 ## Analytics and attribution source notes
 
@@ -213,19 +214,20 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 - Google recommends `generate_lead` for form/request-information submissions and provides Realtime/DebugView validation paths; the skill uses this only as an event-naming default.
 - GTM Preview/Tag Assistant can inspect which tags fired and what data is processed, so tracking QA should include GTM Preview where GTM is in scope.
 
+
 ## 2026-07-03 survey, poll, quiz, and assessment improvement pass
 
 | Source URL | Source type | Last reviewed date | Main topic | Confidence | Notes |
 |---|---|---:|---|---|---|
-| <https://docs.gravityforms.com/category/add-ons-gravity-forms/survey-add-on/> | official docs | 2026-07-03 | Survey Add-On documentation index | High | Use for detecting supported survey docs and source stability. |
-| <https://docs.gravityforms.com/using-the-survey-add-on/> | official docs | 2026-07-03 | Survey field types, results access, survey merge tags | High | Confirms Likert, Rank, Rating and other survey field types and result access. |
-| <https://docs.gravityforms.com/viewing-survey-results/> | official docs | 2026-07-03 | Survey results, filters, dynamic results, export limitations | High | Confirms survey results cannot currently be displayed on front end/confirmation/notification and summary results cannot be exported directly. |
-| <https://docs.gravityforms.com/category/add-ons-gravity-forms/polls-add-on/> | official docs | 2026-07-03 | Polls Add-On documentation index and prerequisites | High | Use for add-on detection and poll display/result options. |
-| <https://docs.gravityforms.com/using-the-polls-add-on/> | official docs | 2026-07-03 | Poll setup, poll block/widget/shortcode, result display options | High | Use when planning public/internal poll display and block preference. |
-| <https://docs.gravityforms.com/category/add-ons-gravity-forms/quiz-add-on/> | official docs | 2026-07-03 | Quiz Add-On docs, scoring, merge tags, results | High | Use for quiz add-on availability and feature routing. |
-| <https://docs.gravityforms.com/quiz-scoring/> | official docs | 2026-07-03 | Normal and weighted quiz scoring, hidden question scoring, dynamic recalculation | High | Use for scoring risk and branch test requirements. |
-| <https://docs.gravityforms.com/configure-quiz-settings/> | official docs | 2026-07-03 | Quiz settings, pass/fail, letter grades, instant feedback caveat | High | Use for grading and instant-feedback safety. |
-| <https://docs.gravityforms.com/viewing-quiz-results/> | official docs | 2026-07-03 | Quiz results dashboard, filters, dynamic scoring caveat | High | Use for result-review outputs and historical scoring cautions. |
+| https://docs.gravityforms.com/category/add-ons-gravity-forms/survey-add-on/ | official docs | 2026-07-03 | Survey Add-On documentation index | High | Use for detecting supported survey docs and source stability. |
+| https://docs.gravityforms.com/using-the-survey-add-on/ | official docs | 2026-07-03 | Survey field types, results access, survey merge tags | High | Confirms Likert, Rank, Rating and other survey field types and result access. |
+| https://docs.gravityforms.com/viewing-survey-results/ | official docs | 2026-07-03 | Survey results, filters, dynamic results, export limitations | High | Confirms survey results cannot currently be displayed on front end/confirmation/notification and summary results cannot be exported directly. |
+| https://docs.gravityforms.com/category/add-ons-gravity-forms/polls-add-on/ | official docs | 2026-07-03 | Polls Add-On documentation index and prerequisites | High | Use for add-on detection and poll display/result options. |
+| https://docs.gravityforms.com/using-the-polls-add-on/ | official docs | 2026-07-03 | Poll setup, poll block/widget/shortcode, result display options | High | Use when planning public/internal poll display and block preference. |
+| https://docs.gravityforms.com/category/add-ons-gravity-forms/quiz-add-on/ | official docs | 2026-07-03 | Quiz Add-On docs, scoring, merge tags, results | High | Use for quiz add-on availability and feature routing. |
+| https://docs.gravityforms.com/quiz-scoring/ | official docs | 2026-07-03 | Normal and weighted quiz scoring, hidden question scoring, dynamic recalculation | High | Use for scoring risk and branch test requirements. |
+| https://docs.gravityforms.com/configure-quiz-settings/ | official docs | 2026-07-03 | Quiz settings, pass/fail, letter grades, instant feedback caveat | High | Use for grading and instant-feedback safety. |
+| https://docs.gravityforms.com/viewing-quiz-results/ | official docs | 2026-07-03 | Quiz results dashboard, filters, dynamic scoring caveat | High | Use for result-review outputs and historical scoring cautions. |
 
 ## Survey, poll, quiz, and assessment source notes
 
@@ -240,10 +242,10 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 
 | Source URL | Source type | Last reviewed | Main topic | Confidence | Notes |
 |---|---|---:|---|---|---|
-| <https://docs.gravityforms.com/stripe-add-on/> | official docs | 2026-07-03 | Stripe Add-On prerequisites, one-time payments, recurring subscriptions, feeds, sales results and cancellation notes | High | Version-specific; requires installed add-on, SSL, connected Stripe account and test/live mode awareness. |
-| <https://docs.gravityforms.com/gravity-forms-pricing-fields-guide/> | official docs | 2026-07-03 | Pricing fields, Product/Option/Quantity/Shipping/Total interactions, donation and event registration use cases | High | Stable concept guidance; payment gateway behaviour remains add-on-specific. |
-| <https://docs.gravityforms.com/working-with-multiple-feeds/> | official docs | 2026-07-03 | Multiple feed handling and payment-feed single-feed-per-submission caution | High | Critical for conditional payment feed safety. |
-| <https://docs.gravityforms.com/category/user-guides/add-on-feeds/> | official docs | 2026-07-03 | Feed setup/debugging concepts | High | Implementation depends on active add-ons and connector capabilities. |
+| https://docs.gravityforms.com/stripe-add-on/ | official docs | 2026-07-03 | Stripe Add-On prerequisites, one-time payments, recurring subscriptions, feeds, sales results and cancellation notes | High | Version-specific; requires installed add-on, SSL, connected Stripe account and test/live mode awareness. |
+| https://docs.gravityforms.com/gravity-forms-pricing-fields-guide/ | official docs | 2026-07-03 | Pricing fields, Product/Option/Quantity/Shipping/Total interactions, donation and event registration use cases | High | Stable concept guidance; payment gateway behaviour remains add-on-specific. |
+| https://docs.gravityforms.com/working-with-multiple-feeds/ | official docs | 2026-07-03 | Multiple feed handling and payment-feed single-feed-per-submission caution | High | Critical for conditional payment feed safety. |
+| https://docs.gravityforms.com/category/user-guides/add-on-feeds/ | official docs | 2026-07-03 | Feed setup/debugging concepts | High | Implementation depends on active add-ons and connector capabilities. |
 
 ## woocommerce-gravity-forms-auditor boundary update prompt
 

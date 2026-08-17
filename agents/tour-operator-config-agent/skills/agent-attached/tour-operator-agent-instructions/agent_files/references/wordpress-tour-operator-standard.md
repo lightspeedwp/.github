@@ -3,7 +3,6 @@
 Use this reference for the default recommended structure of a **tour operator website built on WordPress**.
 
 ## Core defaults
-
 - Static homepage with a clear value proposition and enquiry path
 - Structured content for tours, destinations, accommodations, and trust-building content
 - Search-friendly landing pages for high-intent travel themes and locations
@@ -11,7 +10,6 @@ Use this reference for the default recommended structure of a **tour operator we
 - Mobile-first launch QA
 
 ## Recommended focus areas
-
 - LightSpeedWP Tour Operator core plugin configuration before general plugin polish
 - LightSpeedWP Tour Operator extension plugin readiness and consistency
 - Strong enquiry flows that help qualify leads
@@ -32,7 +30,6 @@ For LightSpeed tour operator websites, first check and prefer the first-party pl
 Use first-party extensions only when they match the commercial model: expert-led/team-led positioning, specials-led offers, review-led trust signals, or Wetu-integrated tour content.
 
 ## Expected content structure
-
 - Use `tour-operator-content-model-standard.md` as the detailed source for core CPTs, fields, taxonomies, and relationships
 - Core built-in post types are `Tours`, `Destinations`, and `Accommodation`
 - `Tours` are the primary commercial travel products
@@ -43,7 +40,6 @@ Use first-party extensions only when they match the commercial model: expert-led
 - Relationship fields should be preferred over manual duplicate links between tours, destinations, accommodation, and editorial posts
 
 ## Plugin-stack priorities
-
 - Identify the active LightSpeedWP Tour Operator core plugin first
 - Identify active first-party extension plugins next
 - Confirm the plugin stack supports the required content model, enquiry flow, SEO, and handoff requirements
@@ -51,7 +47,6 @@ Use first-party extensions only when they match the commercial model: expert-led
 - Do not recommend alternative tour operator plugins unless the project explicitly uses another stack or the first-party stack cannot meet a confirmed requirement
 
 ## Configuration priorities
-
 - Homepage and reading settings should support a static front page and a clear blog or news section when needed
 - Navigation should prioritise tour discovery, destination discovery, trust signals, and enquiry conversion
 - Forms should support rapid enquiry handling and clear user expectations

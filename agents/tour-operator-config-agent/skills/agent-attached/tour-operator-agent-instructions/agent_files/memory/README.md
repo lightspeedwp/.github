@@ -39,6 +39,7 @@ Use this folder for durable project state, repeated preferences, QA continuity, 
 - unconfirmed assumptions
 - credentials, secrets, tokens, or sensitive auth details
 
+
 ## Content-model memory rule
 
 Do not save the full Tour Operator content model in Memory. Keep the full model in `references/tour-operator-content-model-standard.md`. Save only concise durable decisions such as the approved use of core CPTs, confirmed extension usage, unusual project-specific content-model deviations, unresolved content-model blockers, or the source/date of a major model decision.

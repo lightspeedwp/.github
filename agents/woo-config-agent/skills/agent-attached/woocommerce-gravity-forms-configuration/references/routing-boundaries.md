@@ -16,6 +16,7 @@ The request concerns general site settings, plugins outside Gravity Forms, roles
 
 The request concerns checkout, cart, product data architecture, order creation, fulfilment, inventory, tax, subscriptions, payment gateway strategy, customer account architecture, commercial policies, or post-purchase email flows outside Gravity Forms.
 
+
 ## Unsafe or incomplete prompts
 
 - "Delete the old form and make a new one." Inspect first, duplicate or back up if possible, and require explicit approval.

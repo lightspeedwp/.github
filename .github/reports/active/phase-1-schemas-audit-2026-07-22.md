@@ -766,7 +766,7 @@ Update `.github/.schemas/schema-registry.json`:
 
 ## Next Steps (Task 4)
 
-Proceed to **AI Config Folder Audit** to review AI configurations and propose updates for multi-provider support
+Proceed to **AI Config Folder Audit** to review AI configurations and propose updates for multi-provider support.
 ---
 
 ---

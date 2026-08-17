@@ -205,16 +205,18 @@ A WordPress plugin release agent needs to handle:
 **Recommendation:**
 
 - Store **generic template** in `agents/release-management.agent.md`  
-
+    
   - Works for most projects  
   - Documented with examples for plugin/theme customization  
   - Includes placeholders for custom versioning schemes
 
-- Store **`.github`\-specific variant** in `.github/agents/release-agent.github.md`  
 
+- Store **`.github`\-specific variant** in `.github/agents/release-agent.github.md`  
+    
   - Tightly tuned for this repo's changelog recovery  
   - Integrates with Linear and GitHub  
   - Documents the specific steps for `.github` releases
+
 
 - Future: Create `agents/wordpress-plugin-release.agent.md` and `agents/wordpress-theme-release.agent.md` as needed
 
@@ -270,19 +272,21 @@ A WordPress plugin release agent needs to handle:
 **Your Team:**
 
 - **Core Team (2-3 people)**: Ash Shaw \+ 1-2 others  
-
+    
   - Install & configure all plugins  
   - Contribute new agents/skills  
   - Maintain the `.github` repo
 
-- **Contributors (4-5 people)**:  
 
+- **Contributors (4-5 people)**:  
+    
   - Use Claude Code \+ GitHub Copilot  
   - Consume agents/skills passively  
   - May add features to existing agents/skills
 
-- **Consumers (8-9 WordPress projects)**:  
 
+- **Consumers (8-9 WordPress projects)**:  
+    
   - Use GitHub Copilot (minimum)  
   - Can optionally use Claude Code  
   - Read-only access to agents/skills  
@@ -378,25 +382,31 @@ When a WordPress project developer is in their project workspace:
 **Why Multi-Root Works for LightSpeed:**
 
 1. **Constant Agent Reference**  
-
+     
    - Developer is coding WordPress block → needs to reference agent in `.github/agents/`  
    - With multi-root: Click in left sidebar, instant access  
    - With separate windows: Alt-tab, navigate, remember what you saw
 
-2. **Search Across Repos**  
+   
 
+2. **Search Across Repos**  
+     
    - Developer wants to find which agent handles "changelog"  
    - Multi-root: Cmd+Shift+F searches both `.github` \+ WordPress project  
    - Separate windows: Search separately in each window
 
-3. **VSCode Settings Consistency**  
+   
 
+3. **VSCode Settings Consistency**  
+     
    - ESLint, Prettier, formatting rules should be consistent  
    - Multi-root: Workspace file defines shared settings \+ per-folder overrides  
    - Separate windows: Risk of config drift between windows
 
-4. **Discoverability**  
+   
 
+4. **Discoverability**  
+     
    - New developer opens workspace  
    - Left sidebar shows: `.github` folder \+ WordPress project folder  
    - Immediately discovers agents/skills exist  
@@ -481,13 +491,14 @@ docs/
 New pages needed on github.lightspeedwp.agency:
 
 - `/documentation/` → Renders all docs from `docs/` folder  
-
+    
   - Filter by audience tags  
   - Search across all docs  
   - Direct link from resources mega-menu
 
-- Update existing pages:  
 
+- Update existing pages:  
+    
   - `/onboarding/` → Route to workspace setup guide  
   - `/getting-started/` → Link to branching strategy, PR process  
   - `/references/` → Link to agents, skills, hooks, workflows, plugins, instructions, prompts, cookbook, tools  
@@ -527,14 +538,16 @@ New pages needed on github.lightspeedwp.agency:
 **How Plugins Work:**
 
 1. **Claude Code Plugins** (Anthropic's plugin framework)  
-
+     
    - User-level installation (tied to your Anthropic account)  
    - Once installed, available in Claude Code across all projects  
    - Configuration lives in Claude Code settings (API keys, preferences)  
    - Not workspace-scoped
 
-2. **GitHub Copilot** (GitHub's VSCode extension)  
+   
 
+2. **GitHub Copilot** (GitHub's VSCode extension)  
+     
    - VSCode extension (not workspace-scoped, but per-VSCode-installation)  
    - Once installed, available in all workspaces  
    - Authentication tied to your GitHub account
@@ -1271,7 +1284,7 @@ migration_guide: "See ./migration-v2.md"
 ---
 ```
 
-1. **Create migration file** (`agents/migration-v2.md`):
+2. **Create migration file** (`agents/migration-v2.md`):
 
 ```
 # Migrating from code-review v1 to v2
@@ -1285,9 +1298,9 @@ migration_guide: "See ./migration-v2.md"
 2. ...
 ```
 
-1. **Announce in changelog and docs**  
-
-2. **Give consumers time**: No immediate cutoff; consumers decide when to upgrade
+3. **Announce in changelog and docs**  
+     
+4. **Give consumers time**: No immediate cutoff; consumers decide when to upgrade
 
 **Documentation:**
 
@@ -1813,32 +1826,42 @@ After consolidation:
 Based on your `npm run` output, these scripts reference schemas:
 
 1. **`scripts/validation/validate-json.js`** (now `.github/scripts/validation/validate-json.js`)  
-
+     
    - Likely references `schema/**/*.json`  
    - Will need to update to `schemas/**/*.json`
 
-2. **`scripts/validation/validate-frontmatter.js`** (now `.github/scripts/validation/validate-frontmatter.js`)  
+   
 
+2. **`scripts/validation/validate-frontmatter.js`** (now `.github/scripts/validation/validate-frontmatter.js`)  
+     
    - References `../../schema/frontmatter.schema.json`  
    - Will need to update to `../../../schemas/frontmatter.schema.json`
 
-3. **`package.json` npm scripts**  
+   
 
+3. **`package.json` npm scripts**  
+     
    - Uses glob patterns like `schema/**/*.json`  
    - Will update to `schemas/**/*.json`
 
-4. **`.github/workflows/*.yml`** (any workflows)  
+   
 
+4. **`.github/workflows/*.yml`** (any workflows)  
+     
    - May reference schema paths in validation steps  
    - Will audit and update
 
-5. **`docs/**/*.md`** (documentation files)  
+   
 
+5. **`docs/**/*.md`** (documentation files)  
+     
    - May link to schema files  
    - Will update all links to point to `schemas/`
 
-6. **`agents/**/*.md` and `skills/**/*.md`** (if they reference schemas)  
+   
 
+6. **`agents/**/*.md` and `skills/**/*.md`** (if they reference schemas)  
+     
    - Will check and update
 
 **Audit Process (I'll Do):**
@@ -1885,19 +1908,23 @@ For each file found:
 **How AI Tools Actually Use Schemas:**
 
 1. **Validation Scripts** (Internal)  
-
+     
    - `.github/scripts/validation/*.js` read JSON schemas  
    - Check file compliance against schemas  
    - Report validation errors
 
-2. **Documentation Reference** (For Humans)  
+   
 
+2. **Documentation Reference** (For Humans)  
+     
    - Instructions in `.github/custom-instructions.md` reference schemas  
    - Links to schema files help developers understand expected format  
    - AI reads these links but doesn't directly consume the schema JSON
 
-3. **AI Tools DON'T**  
+   
 
+3. **AI Tools DON'T**  
+     
    - Directly parse JSON Schema  
    - Auto-validate based on schema  
    - Infer structure from schema definitions
@@ -2059,8 +2086,8 @@ tests/                             → .github/__tests__/ or __tests__/ per-fold
 
 **Rationale:**
 
-- **Root** \= what WordPress projects consume (agents, skills, hooks, instructions, config, docs).  
-- **`.github/`** \= what's internal to this repo (workflows, scripts, reports, temporary files).
+* **Root** \= what WordPress projects consume (agents, skills, hooks, instructions, config, docs).  
+* **`.github/`** \= what's internal to this repo (workflows, scripts, reports, temporary files).
 
 ---
 
@@ -2076,11 +2103,11 @@ tests/                             → .github/__tests__/ or __tests__/ per-fold
 mv reports/ .github/reports/mv projects/ .github/projects/
 ```
 
-1. **I'll update**:  
-   - `.github/reports/README.md` (if it exists, or create one)  
-   - `.github/projects/README.md` (catalog of active projects)  
-   - Root `README.md` (remove links to `reports/` and `projects/`, link to `.github/` versions instead)  
-   - Any scripts/workflows that reference the old paths
+2. **I'll update**:  
+   * `.github/reports/README.md` (if it exists, or create one)  
+   * `.github/projects/README.md` (catalog of active projects)  
+   * Root `README.md` (remove links to `reports/` and `projects/`, link to `.github/` versions instead)  
+   * Any scripts/workflows that reference the old paths
 
 ---
 
@@ -2090,9 +2117,9 @@ mv reports/ .github/reports/mv projects/ .github/projects/
 
 **Reasoning:**
 
-- Scripts in this repo are *tooling for the `.github` repo* (validation, formatting, automation).  
-- WordPress projects don't run these scripts (they have their own).  
-- Hiding them under `.github/` reduces clutter in root, makes intent clearer.
+* Scripts in this repo are *tooling for the `.github` repo* (validation, formatting, automation).  
+* WordPress projects don't run these scripts (they have their own).  
+* Hiding them under `.github/` reduces clutter in root, makes intent clearer.
 
 **Recommendation:**
 
@@ -2102,11 +2129,11 @@ mv reports/ .github/reports/mv projects/ .github/projects/
 mv scripts/ .github/scripts/
 ```
 
-1. **I'll update**:  
-   - `package.json` scripts (paths like `npm run validate:frontmatter` → `.github/scripts/validation/validate-frontmatter.js`)  
-   - `.github/workflows/` (path references to scripts)  
-   - `docs/` files that reference script locations  
-   - Root `README.md` (link to `.github/scripts/README.md` for technical maintainers)
+2. **I'll update**:  
+   * `package.json` scripts (paths like `npm run validate:frontmatter` → `.github/scripts/validation/validate-frontmatter.js`)  
+   * `.github/workflows/` (path references to scripts)  
+   * `docs/` files that reference script locations  
+   * Root `README.md` (link to `.github/scripts/README.md` for technical maintainers)
 
 ---
 
@@ -2114,13 +2141,13 @@ mv scripts/ .github/scripts/
 
 **My answer:** **Split it:**
 
-- **Portable configs** (ESLint, Prettier, TypeScript) → root `config/`  
-- **GitHub-native configs** (labels, issue types) → `.github/config/`
+* **Portable configs** (ESLint, Prettier, TypeScript) → root `config/`  
+* **GitHub-native configs** (labels, issue types) → `.github/config/`
 
 **Reasoning:**
 
-- WordPress projects benefit from shared ESLint/Prettier configs.  
-- GitHub labels and issue types are `.github`\-specific (other repos have different labels).
+* WordPress projects benefit from shared ESLint/Prettier configs.  
+* GitHub labels and issue types are `.github`\-specific (other repos have different labels).
 
 **Recommendation:**
 
@@ -2145,9 +2172,9 @@ config/                           # Portable configs
 
 **Reasoning:**
 
-- The website documents *this repo* (not shared across projects).  
-- It's built by `.github` workflows (likely GitHub Pages or Netlify).  
-- Hiding it under `.github/` clarifies scope.
+* The website documents *this repo* (not shared across projects).  
+* It's built by `.github` workflows (likely GitHub Pages or Netlify).  
+* Hiding it under `.github/` clarifies scope.
 
 **Recommendation:**
 
@@ -2157,10 +2184,10 @@ config/                           # Portable configs
 mv website/ .github/website/
 ```
 
-1. **I'll update**:  
-   - `.github/workflows/` (paths to website source files, build output)  
-   - Root `README.md` (remove link to `website/`, add "See the [documentation site](https://claude.ai/epitaxy/link)")  
-   - `.github/website/README.md` (if it exists) or create one explaining the website architecture
+2. **I'll update**:  
+   * `.github/workflows/` (paths to website source files, build output)  
+   * Root `README.md` (remove link to `website/`, add "See the [documentation site](https://claude.ai/epitaxy/link)")  
+   * `.github/website/README.md` (if it exists) or create one explaining the website architecture
 
 ---
 
@@ -2170,32 +2197,32 @@ mv website/ .github/website/
 
 **Reasoning:**
 
-- Hooks are *reusable across all projects* (pre-commit, commit-msg, post-checkout).  
-- WordPress projects will reference `.github/hooks/` via the workspace setup.  
-- Hiding under `.github/` would make them harder to discover.
+* Hooks are *reusable across all projects* (pre-commit, commit-msg, post-checkout).  
+* WordPress projects will reference `.github/hooks/` via the workspace setup.  
+* Hiding under `.github/` would make them harder to discover.
 
 **Recommendation:**
 
-- Keep `hooks/` at root.  
-- Document in `hooks/README.md`:
+* Keep `hooks/` at root.  
+* Document in `hooks/README.md`:
 
    These hooks are portable and can be used by any LightSpeedWP project. See [VSCode Workspace Setup](https://claude.ai/docs/vscode-workspace-setup.md) for installation instructions.
 
 ---
 
-### **Q28: Tests folder — `tests/` or `__tests__/`? Root or `.github/`?** {#q28:-tests-folder-—-tests/-or-**tests**/?-root-or-.github/?}
+### **Q28: Tests folder — `tests/` or `__tests__/`? Root or `.github/`?** {#q28:-tests-folder-—-tests/-or-__tests__/?-root-or-.github/?}
 
 **My answer:** **Dual structure:**
 
-- **Root `__tests__/`** for repo-wide unit tests (validation scripts, shared utilities).  
-- **`.github/__tests__/`** for `.github`\-specific integration tests (workflow behavior, agent output validation).  
-- **Jest standard**: Use `__tests__/` for unit tests near source; keep `tests/` for integration/e2e (if separate).
+* **Root `__tests__/`** for repo-wide unit tests (validation scripts, shared utilities).  
+* **`.github/__tests__/`** for `.github`\-specific integration tests (workflow behavior, agent output validation).  
+* **Jest standard**: Use `__tests__/` for unit tests near source; keep `tests/` for integration/e2e (if separate).
 
 **Reasoning:**
 
-- Jest convention is `__tests__/` (discoverable by IDE, clear intent).  
-- Splitting by scope (root vs. `.github/`) mirrors folder organization.  
-- Bash tests can be in `__tests__/` or `tests/e2e/` (jest-cli doesn't run bash by default, but you can add a script).
+* Jest convention is `__tests__/` (discoverable by IDE, clear intent).  
+* Splitting by scope (root vs. `.github/`) mirrors folder organization.  
+* Bash tests can be in `__tests__/` or `tests/e2e/` (jest-cli doesn't run bash by default, but you can add a script).
 
 **Recommendation:**
 
@@ -2226,9 +2253,9 @@ scripts/bash-tests/ (or .github/tests/bash/) # Bash tests (run separately)
 
 **Reasoning:**
 
-- `memory/` and `tmp/` are *session-specific*, *user-specific*, and *not sharable*.  
-- They pollute git history if not ignored.  
-- Moving to `.github/` clarifies they're internal to this repo.
+* `memory/` and `tmp/` are *session-specific*, *user-specific*, and *not sharable*.  
+* They pollute git history if not ignored.  
+* Moving to `.github/` clarifies they're internal to this repo.
 
 **Recommendation:**
 
@@ -2238,19 +2265,19 @@ scripts/bash-tests/ (or .github/tests/bash/) # Bash tests (run separately)
 mkdir -p .github/mv memory/ .github/memory/mv tmp/ .github/tmp/
 ```
 
-1. **`.gitignore` updates**:
+2. **`.gitignore` updates**:
 
 ```
 .github/memory/.github/tmp/
 ```
 
-1. **Create templates** (so the folders exist in git):
+3. **Create templates** (so the folders exist in git):
 
 ```
 .github/memory/.gitkeep.github/tmp/.gitkeep
 ```
 
-1. **Update docs** to reference `.github/memory/` and `.github/tmp/` instead of root.
+4. **Update docs** to reference `.github/memory/` and `.github/tmp/` instead of root.
 
 ---
 
@@ -2266,13 +2293,13 @@ mkdir -p .github/mv memory/ .github/memory/mv tmp/ .github/tmp/
 
 **Reasoning:**
 
-- Docs in `docs/` are easily discoverable.  
-- Sample `.code-workspace` in `.github/` clarifies it's repo-specific.  
-- Setup script automates repetitive steps (install extensions, clone repos, configure git).
+* Docs in `docs/` are easily discoverable.  
+* Sample `.code-workspace` in `.github/` clarifies it's repo-specific.  
+* Setup script automates repetitive steps (install extensions, clone repos, configure git).
 
 **Recommendation:**
 
-- Create `docs/vscode-workspace-setup.md` with:
+* Create `docs/vscode-workspace-setup.md` with:
 
 ````
 # VSCode Workspace Setup Guide
@@ -2283,7 +2310,7 @@ cd .github
 ./scripts/setup-vscode-workspace.sh
 ````
 
--
+*   
   **Manual Setup**
 
   1. Clone this repo and your WordPress project(s)  
@@ -2304,18 +2331,18 @@ cd .github
 
 **Shared settings** (checked in, apply to all developers on this repo):
 
-- ESLint formatting rules  
-- Prettier config  
-- File association (e.g., `*.md` → Markdown, `*.agent.md` → YAML with custom syntax)  
-- Search exclude patterns (ignore `node_modules`, `.git`, `tmp/`)  
-- Tab size, line endings (LF), charset (UTF-8)
+* ESLint formatting rules  
+* Prettier config  
+* File association (e.g., `*.md` → Markdown, `*.agent.md` → YAML with custom syntax)  
+* Search exclude patterns (ignore `node_modules`, `.git`, `tmp/`)  
+* Tab size, line endings (LF), charset (UTF-8)
 
 **Personal settings** (`.gitignore`d, per-developer):
 
-- Theme (light/dark)  
-- Font size, font family  
-- Cursor style  
-- Extension settings (Claude Code, GitHub Copilot API keys, etc.)
+* Theme (light/dark)  
+* Font size, font family  
+* Cursor style  
+* Extension settings (Claude Code, GitHub Copilot API keys, etc.)
 
 **Recommendation:**
 
@@ -2345,9 +2372,9 @@ Create `.github/.vscode/settings.local.json` in `.gitignore` for personal overri
 
 **Reasoning:**
 
-- VSCode doesn't auto-install extensions (privacy/security).  
-- But `extensions.json` shows a banner suggesting recommended extensions.  
-- Install scripts make onboarding faster.
+* VSCode doesn't auto-install extensions (privacy/security).  
+* But `extensions.json` shows a banner suggesting recommended extensions.  
+* Install scripts make onboarding faster.
 
 **Recommendation:**
 
@@ -2365,7 +2392,7 @@ Create `.github/.vscode/settings.local.json` in `.gitignore` for personal overri
 }
 ```
 
-1.
+2.   
    **`.github/scripts/install-extensions.sh`**:
 
 ```shell
@@ -2384,7 +2411,7 @@ for ext in "${EXTENSIONS[@]}"; do
 done
 ```
 
-1.
+3.   
    **`.github/scripts/setup-vscode-workspace.sh`** calls this script as part of setup.
 
 ---
@@ -2395,8 +2422,8 @@ done
 
 **Reasoning:**
 
-- Scripts reduce human error (typos, missed steps).  
-- Checklists help developers understand *what's happening* and *why*.
+* Scripts reduce human error (typos, missed steps).  
+* Checklists help developers understand *what's happening* and *why*.
 
 **Recommendation:**
 
@@ -2462,13 +2489,13 @@ echo "✅ Setup complete! Open lightspeed-dev.code-workspace in VSCode."
 
 **My answer:** **Split:**
 
-- **Plugin specs** (definitions, metadata) → `plugins/` root (portable across projects)  
-- **Plugin configs** (Claude Code API keys, settings) → `.github/config/plugins/` (`.github`\-specific, can be templated)
+* **Plugin specs** (definitions, metadata) → `plugins/` root (portable across projects)  
+* **Plugin configs** (Claude Code API keys, settings) → `.github/config/plugins/` (`.github`\-specific, can be templated)
 
 **Reasoning:**
 
-- A plugin spec is *reusable* (e.g., "here's how to set up the linting plugin").  
-- A plugin config is *instance-specific* (e.g., "here's the Claude Code API key for this repo's setup").
+* A plugin spec is *reusable* (e.g., "here's how to set up the linting plugin").  
+* A plugin config is *instance-specific* (e.g., "here's the Claude Code API key for this repo's setup").
 
 **Recommendation:**
 
@@ -2492,19 +2519,19 @@ plugins/                           # Plugin specs (portable)
 
 **Reasoning:**
 
-- Template in git helps new developers get started (copy and customize).  
-- Not auto-generated (too complex, dependency on local filesystem paths).  
-- Each developer customizes for their own projects.
+* Template in git helps new developers get started (copy and customize).  
+* Not auto-generated (too complex, dependency on local filesystem paths).  
+* Each developer customizes for their own projects.
 
 **Recommendation:**
 
-- **`.github/lightspeed-dev.code-workspace`** (committed):
+* **`.github/lightspeed-dev.code-workspace`** (committed):
 
 ```json
 {  "folders": [    {      "path": ".",      "name": ".github (LightSpeed Control Plane)"    },    {      "path": "../wordpress-plugin-example",      "name": "WordPress Plugin Example"    }  ],  "settings": {    "search.exclude": { "**/node_modules": true },    "files.exclude": { "**/.git": true }  }}
 ```
 
-- Developers copy this to their local workspace directory (e.g., `~/dev/lightspeed-workspace.code-workspace`) and customize folder paths.
+* Developers copy this to their local workspace directory (e.g., `~/dev/lightspeed-workspace.code-workspace`) and customize folder paths.
 
 ---
 
@@ -2566,9 +2593,9 @@ GITHUB_TOKEN=ghp_xxx...
 
 Manual steps (documented but not automated):
 
-- Open `.code-workspace` in VSCode  
-- Configure GitHub Copilot (if desired)  
-- Clone required submodules (if any)
+* Open `.code-workspace` in VSCode  
+* Configure GitHub Copilot (if desired)  
+* Clone required submodules (if any)
 
 ---
 
@@ -2580,26 +2607,26 @@ Manual steps (documented but not automated):
 
 **Phase 1 (Aug 2026\)**: Early adopters (core maintainers)
 
-- You \+ 1-2 core maintainers install plugins manually.  
-- Provide setup docs and troubleshooting guide.  
-- Gather feedback on plugin UX, missing features.
+* You \+ 1-2 core maintainers install plugins manually.  
+* Provide setup docs and troubleshooting guide.  
+* Gather feedback on plugin UX, missing features.
 
 **Phase 2 (Sept 2026\)**: Contributor tier
 
-- Provide automated setup script (`.github/scripts/setup-plugins.sh`).  
-- Publish blog post or Slack announcement explaining benefits.  
-- Host optional "plugin setup office hours" to help contributors install.
+* Provide automated setup script (`.github/scripts/setup-plugins.sh`).  
+* Publish blog post or Slack announcement explaining benefits.  
+* Host optional "plugin setup office hours" to help contributors install.
 
 **Phase 3 (Oct 2026\)**: Full rollout
 
-- Plugins are default recommendation in `docs/vscode-workspace-setup.md`.  
-- New developers see plugin setup as part of onboarding.
+* Plugins are default recommendation in `docs/vscode-workspace-setup.md`.  
+* New developers see plugin setup as part of onboarding.
 
 **Reasoning:**
 
-- Early feedback prevents bad defaults.  
-- Contributors get time to adapt before full rollout.  
-- Documentation improves as you discover pain points.
+* Early feedback prevents bad defaults.  
+* Contributors get time to adapt before full rollout.  
+* Documentation improves as you discover pain points.
 
 ---
 
@@ -2609,24 +2636,24 @@ Manual steps (documented but not automated):
 
 **Tier 1 (Recommended)**: Claude Code \+ GitHub Copilot
 
-- Most powerful, best for LightSpeed's custom agents and skills.  
-- Documented as the default.
+* Most powerful, best for LightSpeed's custom agents and skills.  
+* Documented as the default.
 
 **Tier 2 (Optional)**: Codex (OpenAI's plugin framework)
 
-- Useful for teams already in OpenAI ecosystem.  
-- Less documentation initially (can add later).
+* Useful for teams already in OpenAI ecosystem.  
+* Less documentation initially (can add later).
 
 **Tier 3 (Emerging)**: Gemini
 
-- Google's AI platform (less mature for plugins).  
-- Monitor for future adoption.
+* Google's AI platform (less mature for plugins).  
+* Monitor for future adoption.
 
 **Recommendation:**
 
-- Document Tier 1 fully in `docs/vscode-workspace-setup.md`.  
-- Create reference docs for Tier 2 and 3 in `docs/plugin-setup-advanced.md`.  
-- Link to official docs for each tool (avoid duplicating maintenance burden).
+* Document Tier 1 fully in `docs/vscode-workspace-setup.md`.  
+* Create reference docs for Tier 2 and 3 in `docs/plugin-setup-advanced.md`.  
+* Link to official docs for each tool (avoid duplicating maintenance burden).
 
 ---
 
@@ -2683,24 +2710,24 @@ Manual steps (documented but not automated):
 
 **Reasoning:**
 
-- Pinning major versions prevents breaking changes (e.g., v1.x.x to v2.x.x).  
-- Auto-updating patches and minors keeps security fixes.
+* Pinning major versions prevents breaking changes (e.g., v1.x.x to v2.x.x).  
+* Auto-updating patches and minors keeps security fixes.
 
 **Recommendation:**
 
-- In `plugins/*.yml`:
+* In `plugins/*.yml`:
 
 ```
 name: Linting Pluginversion: "^1.5.0"  # Auto-update within v1.x, but not to v2.x
 ```
 
-- In `.github/config/plugins/plugin-versions.json`:
+* In `.github/config/plugins/plugin-versions.json`:
 
 ```json
 {  "claude-code-linting-plugin": "^1.5.0",  "github-copilot": "latest"}
 ```
 
-- Quarterly: Review new versions, decide on upgrades.
+* Quarterly: Review new versions, decide on upgrades.
 
 ---
 
@@ -2710,19 +2737,19 @@ name: Linting Pluginversion: "^1.5.0"  # Auto-update within v1.x, but not to v2.
 
 **Reasoning:**
 
-- Each plugin should work standalone (a developer might only install Claude Code, not Copilot).  
-- But plugins can reference each other (e.g., "Linting Plugin integrates with Code Quality Agent").
+* Each plugin should work standalone (a developer might only install Claude Code, not Copilot).  
+* But plugins can reference each other (e.g., "Linting Plugin integrates with Code Quality Agent").
 
 **Recommendation:**
 
-- In `plugins/*.yml`, document:
+* In `plugins/*.yml`, document:
 
 ```
 name: Linting Pluginintegrations:  - agent: agents/code-quality.agent.md  - hook: hooks/pre-commit-lint.sh
 ```
 
-- This helps developers understand which agent/hook a plugin uses.  
-- No hard dependencies (pluginsdon't fail if related agent is missing).
+* This helps developers understand which agent/hook a plugin uses.  
+* No hard dependencies (pluginsdon't fail if related agent is missing).
 
 ---
 
@@ -2796,8 +2823,8 @@ jobs:
 
 **Remove** (if unused):
 
-- Any package you don't actively use  
-- Runtime dependencies (this repo doesn't have any executable code)
+* Any package you don't actively use  
+* Runtime dependencies (this repo doesn't have any executable code)
 
 ---
 
@@ -2813,8 +2840,8 @@ And paste the output. Then I'll audit which are used vs. dead code.
 
 **Preliminary guess** (based on repo structure):
 
-- ✅ `test`, `validate:*`, `lint:*`, `format` — used  
-- ❓ Any scripts related to old tooling or deprecated workflows — unused
+* ✅ `test`, `validate:*`, `lint:*`, `format` — used  
+* ❓ Any scripts related to old tooling or deprecated workflows — unused
 
 **Recommendation**: Once you run `npm run`, I'll create a spreadsheet showing:
 
@@ -2839,13 +2866,13 @@ npx depcheck
 
 This shows:
 
-- Direct dependencies (you might be able to remove unused ones).  
-- Unused dependencies (depcheck flags packages not imported anywhere).
+* Direct dependencies (you might be able to remove unused ones).  
+* Unused dependencies (depcheck flags packages not imported anywhere).
 
 Then I'll recommend:
 
-- Remove truly unused packages (save install time, reduce attack surface).  
-- Keep utilities that are imported by scripts or tests.
+* Remove truly unused packages (save install time, reduce attack surface).  
+* Keep utilities that are imported by scripts or tests.
 
 ---
 
@@ -2889,14 +2916,14 @@ legacy-peer-deps=false
 
 **Reasoning:**
 
-- Committed `package-lock.json` ensures all developers install the same versions.  
-- Regenerating per developer causes inconsistencies.
+* Committed `package-lock.json` ensures all developers install the same versions.  
+* Regenerating per developer causes inconsistencies.
 
 **Recommendation**:
 
-- Keep `package-lock.json` in git.  
-- In CI/CD, use `npm ci` (installs exact versions from lock file), not `npm install` (updates lock file).  
-- If you upgrade a dependency, the lock file updates automatically.
+* Keep `package-lock.json` in git.  
+* In CI/CD, use `npm ci` (installs exact versions from lock file), not `npm install` (updates lock file).  
+* If you upgrade a dependency, the lock file updates automatically.
 
 ---
 
@@ -2954,8 +2981,8 @@ See [REPOSITORY_STRUCTURE.md](docs/repository-structure.md) for detailed folder 
 
 **Reasoning:**
 
-- Developers search by topic (e.g., "branching strategy", "agent development", "plugin setup").  
-- Audience tags (frontmatter) help people find docs relevant to their role.
+* Developers search by topic (e.g., "branching strategy", "agent development", "plugin setup").  
+* Audience tags (frontmatter) help people find docs relevant to their role.
 
 **Recommendation:**
 
@@ -3042,23 +3069,23 @@ mv website/ .github/website/
 mv .schemas/ schemas/ (or keep as-is if you decide)
 ```
 
-1.
+2.   
    **I do** (systematic updates):
 
-   - Grep all references to old paths in:  
-     - `package.json` scripts  
-     - `.github/workflows/*.yml`  
-     - `docs/` files  
-     - `scripts/` (now `.github/scripts/`) references  
-     - Any hardcoded paths in agents, skills, etc.  
-   - Update systematically  
-   - Test validation scripts  
-2. **You validate**:
+   * Grep all references to old paths in:  
+     * `package.json` scripts  
+     * `.github/workflows/*.yml`  
+     * `docs/` files  
+     * `scripts/` (now `.github/scripts/`) references  
+     * Any hardcoded paths in agents, skills, etc.  
+   * Update systematically  
+   * Test validation scripts  
+3. **You validate**:
 
-   - Run `npm run validate:*` to confirm everything works  
-   - Test a workflow (if possible)  
-   - Check that file paths in documentation make sense  
-3. **Create PR** with all changes, reviewable in one go.
+   * Run `npm run validate:*` to confirm everything works  
+   * Test a workflow (if possible)  
+   * Check that file paths in documentation make sense  
+4. **Create PR** with all changes, reviewable in one go.
 
 ---
 
@@ -3070,19 +3097,19 @@ mv .schemas/ schemas/ (or keep as-is if you decide)
 
 **Week 1**: Merge restructuring PR to `develop`
 
-- Announce in Slack: "Major repo restructuring—docs moved, please re-read setup guide"  
-- Both old paths and new paths work (symlinks, or warnings in old-path files)
+* Announce in Slack: "Major repo restructuring—docs moved, please re-read setup guide"  
+* Both old paths and new paths work (symlinks, or warnings in old-path files)
 
 **Weeks 2–3**: Grace period
 
-- Old paths still work (with deprecation warnings)  
-- New developers get setup guide with new paths  
-- Existing developers can continue with old paths
+* Old paths still work (with deprecation warnings)  
+* New developers get setup guide with new paths  
+* Existing developers can continue with old paths
 
 **Week 4**: Hard cutover
 
-- Remove old paths  
-- Anyone who didn't migrate gets a build failure (forces update)
+* Remove old paths  
+* Anyone who didn't migrate gets a build failure (forces update)
 
 **Git message**:
 
@@ -3112,44 +3139,44 @@ These are from your longer prompt, that I'll briefly address:
 
 **My recommendation: Move to visible `schemas/` (answer in Q16, but repeated for clarity).**
 
-- Makes it discoverable.  
-- Consistent with other folders.  
-- Team can reference schema definitions easily.
+* Makes it discoverable.  
+* Consistent with other folders.  
+* Team can reference schema definitions easily.
 
 ### **Should `config/` be split?** {#should-config/-be-split?}
 
 **My recommendation: Yes (answer in Q25).**
 
-- Portable configs (`eslintrc.json`, `prettier.json`) → root `config/`  
-- GitHub-specific (`labels.yml`, `issue-types.yml`) → `.github/config/`
+* Portable configs (`eslintrc.json`, `prettier.json`) → root `config/`  
+* GitHub-specific (`labels.yml`, `issue-types.yml`) → `.github/config/`
 
 ### **Where should `*.agent.md` files live?** {#where-should-*.agent.md-files-live?}
 
 **My recommendation: Split ownership (answer in Q10).**
 
-- Generic agents → `agents/` root  
-- `.github`\-specific agents → `.github/agents/`
+* Generic agents → `agents/` root  
+* `.github`\-specific agents → `.github/agents/`
 
 ### **Should we create a VSCode setup agent?** {#should-we-create-a-vscode-setup-agent?}
 
 **My recommendation: Yes, eventually (Phase 2–3).**
 
-- Create `.github/agents/vscode-workspace-setup.agent.md` that:  
-  - Reads the developer's system (OS, installed tools, repos)  
-  - Suggests folder structure for workspace  
-  - Generates a customized `.code-workspace` file  
-  - Installs recommended extensions  
-- This is an advanced agent (depends on CLI tools, file system access), so start with the script first, then agent second.
+* Create `.github/agents/vscode-workspace-setup.agent.md` that:  
+  * Reads the developer's system (OS, installed tools, repos)  
+  * Suggests folder structure for workspace  
+  * Generates a customized `.code-workspace` file  
+  * Installs recommended extensions  
+* This is an advanced agent (depends on CLI tools, file system access), so start with the script first, then agent second.
 
 ### **Cookbooks for WordPress projects?** {#cookbooks-for-wordpress-projects?}
 
 **My recommendation: Add these to `cookbook/`:**
 
-- `wordpress-plugin-testing.md` (how to set up Jest for plugin tests)  
-- `wordpress-theme-release.md` (release process for themes)  
-- `wordpress-block-development.md` (developing custom blocks)  
-- `wordpress-ci-cd-pipelines.md` (GitHub Actions for WordPress)  
-- `database-migration-patterns.md` (safe schema updates)
+* `wordpress-plugin-testing.md` (how to set up Jest for plugin tests)  
+* `wordpress-theme-release.md` (release process for themes)  
+* `wordpress-block-development.md` (developing custom blocks)  
+* `wordpress-ci-cd-pipelines.md` (GitHub Actions for WordPress)  
+* `database-migration-patterns.md` (safe schema updates)
 
 ### **Plugins adoption — How do we get there?** {#plugins-adoption-—-how-do-we-get-there?}
 
@@ -3185,21 +3212,22 @@ Here's what I need you to clarify/confirm:
 
 1. **Review my answers** above. For each, tell me:
 
-   - ✅ "I agree"  
-   - ❌ "I disagree, here's why..."  
-   - ❓ "I'm unsure, can you clarify..."  
+   * ✅ "I agree"  
+   * ❌ "I disagree, here's why..."  
+   * ❓ "I'm unsure, can you clarify..."  
 2. **Provide missing info**:
 
-   - Run `npm run` and share output (for Q44–48)  
-   - Run `ls -la schema/` and share what's in that folder (for Q19)  
-   - Confirm team size and roles (for Q4)  
+   * Run `npm run` and share output (for Q44–48)  
+   * Run `ls -la schema/` and share what's in that folder (for Q19)  
+   * Confirm team size and roles (for Q4)  
 3. **Once I have clarifications**, I'll create:
 
-   - **Active project plan** (with detailed steps)  
-   - **Migration checklist** (what you do vs. what I do)  
-   - **Updated documentation** (ROOT README, index files, etc.)  
-   - **Script updates** (path references)
+   * **Active project plan** (with detailed steps)  
+   * **Migration checklist** (what you do vs. what I do)  
+   * **Updated documentation** (ROOT README, index files, etc.)  
+   * **Script updates** (path references)
 
 ---
 
 Ready to review and refine?
+

@@ -76,7 +76,6 @@ When receiving a `tour-operator-gravity-forms-auditor` handoff, load `references
 Treat the handoff as evidence input, not permission to change the site.
 
 Before planning writes:
-
 1. Validate required handoff fields against `schemas/auditor-configuration-handoff.schema.json` when structured data is available.
 2. Preserve original finding IDs in the intake response, change plan, validation report, and final handoff note.
 3. Verify current site state through MCP, export, screenshots, pasted settings, or manual evidence before proposing changes.

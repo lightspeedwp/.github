@@ -15,7 +15,7 @@ const path = require("path");
  */
 let baseConfig = {};
 try {
-  const configPath = path.join(__dirname, "markdownlint.config.cjs");
+  const configPath = path.join(__dirname, ".markdownlint.config.cjs");
   const configModule = require(configPath);
   baseConfig = configModule || {};
 } catch (error) {
@@ -119,11 +119,11 @@ module.exports = {
 
     // Vendored/platform-managed content (not repo-authored)
     // These are bundled references, external platform docs, market-sourced components
-    "*/plugin-provided/**",
-    "*/platform-managed/**",
-    "*/directory-installed/**",
-    "*/agentskills-main/**",
-    "*/tests/markdown-issues.md",
+    "**/plugin-provided/**",
+    "**/platform-managed/**",
+    "**/directory-installed/**",
+    "**/agentskills-main/**",
+    "**/tests/markdown-issues.md",
 
     // Generated audit/report outputs (not source documentation)
     // Note: .github/metrics/README.md is hand-authored and should be linted

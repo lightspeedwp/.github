@@ -20,9 +20,11 @@ Boundary rule: confirmed core post types are `tour`, `destination` and `accommod
 
 Use `../workflows/content-model-maintenance.md` when new source files are supplied and the bundled model needs to be updated. Run `../validation/anti-drift-tests.md` before repackaging.
 
+
 ## Updating from new source evidence
 
 When new repository files, plugin branches, pull requests or uploaded source files are provided, use `references/workflows/repository-evidence-review.md` before editing these model files. Promote only registration evidence to ownership claims. Treat relationship, display and planning evidence as narrower evidence classes unless registration code confirms ownership.
+
 
 ## Consistency validation
 

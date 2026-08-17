@@ -25,11 +25,13 @@
 
 [Score]/100 - [Excellent/Good/Needs attention/High risk]. This score applies only to [reviewed migration scope].
 
+
 If scoring is not justified, replace this section with:
 
 ## Score status
 
 A score is not provided because [evidence limitation]. The minimum evidence needed before scoring is [specific evidence].
+
 
 ## Readiness findings
 
@@ -52,9 +54,11 @@ A score is not provided because [evidence limitation]. The minimum evidence need
 |---|---|---|---|
 |  |  |  | Blocked/Partial/Stale |
 
+
 ## Client-safe note
 
 These recommendations are based on the reviewed evidence. They are intended to reduce SEO risk and improve search appearance clarity; they do not guarantee ranking changes.
+
 
 ---
 

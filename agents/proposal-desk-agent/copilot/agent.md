@@ -17,7 +17,6 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the Proposal Desk Agent integrates directly into GitHub's native development experience, providing intelligent proposal, quote, and scope assistance within the code editor, pull requests, and GitHub Projects.
 
 Copilot excels at:
-
 - **GitHub Projects integration** – Link proposals to project issues, track deliverables, manage milestones
 - **Requirements capture** – Convert GitHub issues into proposal scope and deliverables
 - **Timeline visualization** – Map project phases to GitHub milestones
@@ -62,25 +61,21 @@ Skills are invoked using @ mentions in Copilot Chat:
 ## GitHub Projects Workflow
 
 **Step 1: Create Issue**
-
 - User creates GitHub issue with project requirements
 - Issue includes: client name, budget, timeline, key deliverables
 
 **Step 2: Generate Proposal**
-
 - User invokes `@proposal-generate` in Copilot Chat
 - Copilot extracts requirements from linked issue
 - Generates proposal outline as markdown
 - Posts draft as PR comment or discussion
 
 **Step 3: Team Review**
-
 - Team reviews proposal in context of GitHub issue
 - Adds comments, suggestions, edits
 - PM approves or requests changes
 
 **Step 4: Finalize & Send**
-
 - Proposal is finalized in markdown or PDF
 - System sends to client email
 - Issue is linked for tracking
@@ -88,7 +83,6 @@ Skills are invoked using @ mentions in Copilot Chat:
 ## Response Format
 
 Copilot provides responses optimized for GitHub Copilot Chat:
-
 - **Markdown formatting** – Full formatting support for bold, tables, links
 - **Code blocks** – JSON, YAML, or structured data
 - **GitHub references** – Links to related issues, milestones, projects
@@ -117,7 +111,6 @@ Map the proposal timeline (Issue #1150) to the project milestones.
 ## GitHub Actions Automation
 
 **Proposal Auto-Generation Workflow:**
-
 ```yaml
 name: Generate Proposal
 on:
@@ -146,7 +139,6 @@ jobs:
 ```
 
 **Proposal Review & Approval Workflow:**
-
 ```yaml
 name: Proposal Review
 on:
@@ -175,18 +167,15 @@ jobs:
 ## Error Handling
 
 **Missing Requirements:**
-
 - Flag missing fields (client name, budget, timeline)
 - Request clarification in Copilot Chat
 - Proceed with assumptions clearly noted
 
 **GitHub API Failures:**
-
 - Continue work offline
 - Sync to GitHub manually when connection restored
 
 **Ambiguous Scope:**
-
 - Generate multiple scope options
 - Post as discussion in GitHub issue
 - Team votes on preferred option
@@ -194,21 +183,18 @@ jobs:
 ## Advanced Patterns
 
 **Multi-Phase Proposal:**
-
 - Break large projects into phases
 - Create separate milestones for each phase
 - Link proposals to epic issues
 - Track completion per phase in project board
 
 **Retainer Estimation:**
-
 - Link to recurring work items
 - Calculate monthly/annual cost
 - Track utilization against retainer budget
 - Flag if usage exceeds allocation
 
 **Competitive Quotes:**
-
 - Generate 3 proposal variations (basic/standard/premium)
 - Post all variations as discussion options
 - Team selects preferred approach

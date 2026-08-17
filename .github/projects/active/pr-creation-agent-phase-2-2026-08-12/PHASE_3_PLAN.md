@@ -18,7 +18,6 @@ Build the complete PR Creation Agent based on Phase 2 specifications. Implement 
 ### Week 1: Agent Core & Foundation (Days 1-7)
 
 #### Days 1-2: Agent Core Implementation (30 hours)
-
 ```
 Priority: CRITICAL (blocks all skills)
 
@@ -48,7 +47,6 @@ Priority: CRITICAL (blocks all skills)
 #### Days 3-7: Skill Implementation Part 1 (Skills 1-3)
 
 **Skill 1: validate-branch-name** (8 hours)
-
 - Format validation: `{type}/{scope}-{short-title}`
 - Type checking against allowed_types config
 - Custom validation hook support
@@ -56,7 +54,6 @@ Priority: CRITICAL (blocks all skills)
 - Unit tests: 15+ cases
 
 **Skill 2: route-pr-template** (8 hours)
-
 - Load from `.github/PULL_REQUEST_TEMPLATE/config.yml`
 - Route by branch type mapping
 - Custom routing support
@@ -64,7 +61,6 @@ Priority: CRITICAL (blocks all skills)
 - Unit tests: 12+ cases
 
 **Skill 3: validate-and-apply-labels** (10 hours)
-
 - Load canonical labels from `.github/labels.yml`
 - User label validation
 - File pattern-based inference
@@ -77,7 +73,6 @@ Priority: CRITICAL (blocks all skills)
 #### Days 8-10: Skill Implementation Part 2 (Skills 4-6)
 
 **Skill 4: enforce-issue-linking** (10 hours)
-
 - Parse issue references
 - GitHub API validation
 - Issue status checking
@@ -86,7 +81,6 @@ Priority: CRITICAL (blocks all skills)
 - Unit tests: 12+ cases
 
 **Skill 5: draft-pr-description** (12 hours)
-
 - Template population
 - Description scope adaptation (single/multi/complex)
 - Include linked issues in body
@@ -95,7 +89,6 @@ Priority: CRITICAL (blocks all skills)
 - Unit tests: 15+ cases
 
 **Skill 6: create-pr** (12 hours)
-
 - PR data structure preparation
 - GitHub API integration (`POST /repos/.../pulls`)
 - Label application
@@ -106,7 +99,6 @@ Priority: CRITICAL (blocks all skills)
 #### Days 11-12: Integration Layer (20 hours)
 
 **GitHub API Client** (8 hours)
-
 - API wrapper class
 - Error handling & retries
 - Rate limit management
@@ -114,7 +106,6 @@ Priority: CRITICAL (blocks all skills)
 - Authentication handling
 
 **Integration Tests** (12 hours)
-
 - Mock GitHub API server
 - 30+ integration scenarios
 - Skill integration testing
@@ -124,21 +115,18 @@ Priority: CRITICAL (blocks all skills)
 #### Days 13-14: Testing & Validation (20 hours)
 
 **E2E Tests** (5 hours)
-
 - 5+ real GitHub E2E tests
 - Test branches: control plane, plugin, theme
 - Real PR creation validation
 - Real label application
 
 **Documentation** (10 hours)
-
 - API reference finalization
 - Implementation guide
 - Troubleshooting guide
 - Examples & recipes
 
 **CI/CD Setup** (5 hours)
-
 - GitHub Actions workflow
 - Test execution pipeline
 - Coverage reporting
@@ -148,7 +136,6 @@ Priority: CRITICAL (blocks all skills)
 ## Implementation Strategy
 
 ### Code Organization
-
 ```
 agents/pr-creation-agent/
 ├── pr-orchestrator.js          (300+ LOC)
@@ -174,7 +161,6 @@ agents/pr-creation-agent/
 ```
 
 ### Test Strategy
-
 - **Unit Tests:** 100+ (10-15 per skill)
 - **Integration Tests:** 30+ (mock GitHub API)
 - **E2E Tests:** 5+ (real repositories)
@@ -182,7 +168,6 @@ agents/pr-creation-agent/
 - **Coverage Breakdown:** Core 100%, Skills 95%+, Integration 90%+
 
 ### Skill Dependencies
-
 ```
 Orchestrator
   ↓
@@ -208,7 +193,6 @@ Integration Tests + E2E Tests
 ## Success Criteria
 
 ### Implementation Complete
-
 - ✅ Agent core fully implemented
 - ✅ All 6 skills implemented
 - ✅ GitHub API client working
@@ -217,7 +201,6 @@ Integration Tests + E2E Tests
 - ✅ Mock GitHub API functional
 
 ### Integration Verified
-
 - ✅ Orchestrator → Skills pipeline works
 - ✅ State machine transitions correct
 - ✅ Configuration loading & merging works
@@ -225,7 +208,6 @@ Integration Tests + E2E Tests
 - ✅ Custom hooks supported
 
 ### E2E Validated
-
 - ✅ Real PR creation on control plane repo
 - ✅ Real PR creation on WordPress plugin repo
 - ✅ Real PR creation on WordPress theme repo
@@ -233,7 +215,6 @@ Integration Tests + E2E Tests
 - ✅ Issue linking verified
 
 ### Documentation Complete
-
 - ✅ API reference (800+ lines)
 - ✅ Installation guide (400+ lines)
 - ✅ Troubleshooting guide (300+ lines)
@@ -244,22 +225,18 @@ Integration Tests + E2E Tests
 ## Risk Mitigation
 
 **Risk: Complex state machine**
-
 - Mitigation: Comprehensive unit tests for all transitions
 - Backup: Simplified state model if needed
 
 **Risk: GitHub API rate limiting during tests**
-
 - Mitigation: Mock API for integration tests
 - Backup: Increase test interval timing
 
 **Risk: Complex label inference logic**
-
 - Mitigation: File pattern tests, WordPress-specific tests
 - Backup: Simplify inference rules
 
 **Risk: WordPress compatibility issues**
-
 - Mitigation: Separate test files for each repo type
 - Backup: Config-driven feature flags
 
@@ -268,7 +245,6 @@ Integration Tests + E2E Tests
 ## Phase 4 Handoff
 
 ### Deliverables Ready for Rollout
-
 1. Fully tested agent code
 2. Deployment checklist (6 waves)
 3. Complete documentation (5,200+ lines)
@@ -276,7 +252,6 @@ Integration Tests + E2E Tests
 5. Monitoring setup
 
 ### Timeline to GA
-
 - Phase 3 Complete: 2026-09-02
 - Phase 4 (Rollout): 2026-09-02 → 2026-09-09
 - GA (Production Ready): 2026-09-09
@@ -286,13 +261,11 @@ Integration Tests + E2E Tests
 ## Daily Work Pattern
 
 **Day Structure:**
-
 1. **Morning** — Code implementation (4 hours)
 2. **Afternoon** — Testing & debugging (3 hours)
 3. **Late Afternoon** — Documentation & review (1 hour)
 
 **Checkpoint Frequency:**
-
 - Daily: Code review & test execution
 - Every 2 days: Sprint check-in
 - End of week: Phase progress review
@@ -333,7 +306,6 @@ Total                 145 hours
 ## Phase 4 Gate Criteria
 
 **Must Have:**
-
 - ✅ All 135+ tests passing
 - ✅ 95%+ code coverage
 - ✅ E2E tests on 3 repo types
@@ -341,7 +313,6 @@ Total                 145 hours
 - ✅ No critical bugs
 
 **Nice to Have:**
-
 - ✅ Performance benchmarks
 - ✅ Load testing results
 - ✅ Training materials reviewed
@@ -352,21 +323,18 @@ Total                 145 hours
 ## Success Metrics
 
 **Code Quality:**
-
 - 95%+ test coverage
 - 0 critical bugs
 - All linting passing
 - Type safety enforced
 
 **Integration:**
-
 - GitHub API integration working
 - Mock API fully functional
 - Real E2E tests passing
 - Error handling tested
 
 **Performance:**
-
 - Agent initialization <500ms
 - Skill execution <2s each
 - PR creation <5s total

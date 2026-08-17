@@ -20,7 +20,6 @@ relates_to: ["issue #1438 (Phase 1 restructuring)"]
 ### Current State (Post-Phase 1 Restructuring)
 
 Scripts were moved to `.github/scripts/`:
-
 - `.github/scripts/workflows/release/trigger-telemetry.cjs`
 - `.github/scripts/validation/validate-changelog.cjs`
 - `.github/scripts/agents/release.agent.js`
@@ -83,7 +82,7 @@ Scripts were moved to `.github/scripts/`:
 
 2. **Current Scripts:** Which are `.github`-specific vs. reusable?
    - `.github/scripts/workflows/release/trigger-telemetry.cjs` — Release workflow-specific
-   - `.github/scripts/validation/validate-changelog.cjs` — Reusable?
+   - `.github/scripts/validation/validate-changelog.cjs` — Reusable? 
    - `.github/scripts/agents/` — Reusable?
 
 3. **Phase 1 Rationale:** Was moving scripts to `.github/scripts/` a permanent design decision or interim consolidation?
@@ -98,7 +97,6 @@ Scripts were moved to `.github/scripts/`:
 **Decision:** `.github/scripts/` is the permanent location
 
 **Actions Needed:**
-
 1. ✓ Update CLAUDE.md to explain rationale
 2. ✓ Add note: "Scripts are control-plane-specific, not reusable"
 3. ✓ Document which scripts are `.github`-only
@@ -113,10 +111,8 @@ Scripts were moved to `.github/scripts/`:
 **Decision:** Create `scripts/` folder for portable scripts
 
 **Actions Needed:**
-
 1. ✓ Audit scripts in `.github/scripts/` → classify as portable vs. control-plane-specific
 2. ✓ Create `scripts/` folder structure:
-
    ```
    scripts/
    ├── validation/          (reusable: changelog, frontmatter, etc.)
@@ -124,7 +120,6 @@ Scripts were moved to `.github/scripts/`:
    ├── agents/              (reusable: agent utilities)
    └── README.md            (purpose and usage guide)
    ```
-
 3. ✓ Move portable scripts to root `scripts/`
 4. ✓ Keep `.github/`-specific scripts (e.g., GitHub Actions runners) in `.github/scripts/`
 5. ✓ Add `scripts/` to CLAUDE.md portable assets list
@@ -140,7 +135,6 @@ Scripts were moved to `.github/scripts/`:
 **Decision:** Keep scripts in `.github/` but clearly separate portable vs. specific
 
 **Structure:**
-
 ```
 .github/scripts/
 ├── portable/              (reusable across repos)
@@ -160,13 +154,11 @@ Scripts were moved to `.github/scripts/`:
 ## Recommendation
 
 **Option B (Move Reusable Scripts to Root)** aligns with:
-
 - ✓ CLAUDE.md design principles (line 42)
 - ✓ Organization-wide reusability goals
 - ✓ Portable assets structure
 
 **But requires:**
-
 - Detailed audit of which scripts are truly reusable
 - Phase 2 migration plan (don't redo Phase 1 hastily)
 - Relative path updates across codebase
