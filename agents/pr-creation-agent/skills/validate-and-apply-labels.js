@@ -16,8 +16,8 @@ export async function validateAndApplyLabels(input) {
     branchType,
     templateFile,
     templateMetadata,
-    prContext = {},
-    config = {},
+    _prContext = {},
+    _config = {},
   } = input;
 
   if (!branchType || typeof branchType !== "string") {
@@ -149,7 +149,7 @@ function getDefaultBranchTypeLabels() {
 /**
  * Extract context-based labels from template metadata
  */
-function extractContextLabels(templateMetadata, config) {
+function extractContextLabels(templateMetadata, _config) {
   const labels = [];
 
   if (!templateMetadata) {
