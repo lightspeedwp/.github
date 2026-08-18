@@ -17,7 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { execSync } = require('child_process');
-const ReleaseGates = require('../release-gates.js');
+const ReleaseGates = require('../release-gates.cjs');
 
 // Test fixtures and utilities
 const TMP_DIR = path.join(os.tmpdir(), 'release-gates-test');

@@ -119,6 +119,7 @@ class ReleaseGates {
       if (branch !== 'develop') {
         details.push(`❌ Not on develop branch (current: ${branch})`);
         this.results.gate1_preflight.passed = false;
+        this.results.gate1_preflight.details = details;
         return;
       }
       details.push('✓ On develop branch');
@@ -127,6 +128,7 @@ class ReleaseGates {
       if (status) {
         details.push(`❌ Uncommitted changes detected`);
         this.results.gate1_preflight.passed = false;
+        this.results.gate1_preflight.details = details;
         return;
       }
       details.push('✓ No uncommitted changes');
@@ -134,6 +136,7 @@ class ReleaseGates {
       if (!fs.existsSync('CHANGELOG.md')) {
         details.push('❌ CHANGELOG.md not found');
         this.results.gate1_preflight.passed = false;
+        this.results.gate1_preflight.details = details;
         return;
       }
       details.push('✓ CHANGELOG.md exists');
@@ -141,6 +144,7 @@ class ReleaseGates {
       if (!fs.existsSync('VERSION')) {
         details.push('❌ VERSION file not found');
         this.results.gate1_preflight.passed = false;
+        this.results.gate1_preflight.details = details;
         return;
       }
       const version = fs.readFileSync('VERSION', 'utf-8').trim();
