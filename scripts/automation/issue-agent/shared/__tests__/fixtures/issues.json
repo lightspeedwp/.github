@@ -1,0 +1,110 @@
+{
+  "valid_issues": [
+    {
+      "number": 1234,
+      "html_url": "https://github.com/lightspeedwp/.github/issues/1234",
+      "title": "feat: Add GitHub Client implementation",
+      "body": "Implement core GitHub API client with retry logic and caching",
+      "state": "open",
+      "labels": [
+        {
+          "name": "type:feature",
+          "color": "a2eeef",
+          "description": "New feature or capability"
+        },
+        {
+          "name": "priority:high",
+          "color": "ff6b6b",
+          "description": "High priority task"
+        },
+        {
+          "name": "area:infrastructure",
+          "color": "0366d6",
+          "description": "Infrastructure and tooling"
+        }
+      ],
+      "milestone": {
+        "title": "Phase 2 Implementation",
+        "number": 1,
+        "state": "open",
+        "description": "Issue Management Agent Phase 2"
+      },
+      "assignees": [
+        {
+          "login": "ashleyshaw",
+          "type": "User"
+        }
+      ],
+      "created_at": "2026-08-12T10:30:00Z",
+      "updated_at": "2026-08-18T14:52:00Z"
+    },
+    {
+      "number": 1235,
+      "html_url": "https://github.com/lightspeedwp/.github/issues/1235",
+      "title": "fix: Resolve label validation edge cases",
+      "body": "Handle deprecated labels and family prefixes correctly",
+      "state": "open",
+      "labels": [
+        {
+          "name": "type:bug",
+          "color": "d73a49",
+          "description": "Bug or defect"
+        },
+        {
+          "name": "priority:normal",
+          "color": "fbca04",
+          "description": "Normal priority task"
+        }
+      ],
+      "milestone": null,
+      "assignees": [],
+      "created_at": "2026-08-14T09:15:00Z",
+      "updated_at": "2026-08-18T12:00:00Z"
+    },
+    {
+      "number": 1236,
+      "html_url": "https://github.com/lightspeedwp/.github/issues/1236",
+      "title": "docs: Update Issue Management Agent documentation",
+      "body": "Add usage examples and API reference",
+      "state": "closed",
+      "labels": [
+        {
+          "name": "type:documentation",
+          "color": "0075ca",
+          "description": "Documentation"
+        },
+        {
+          "name": "status:done",
+          "color": "6f42c1",
+          "description": "Completed task"
+        }
+      ],
+      "milestone": null,
+      "assignees": [
+        {
+          "login": "contributor1",
+          "type": "User"
+        }
+      ],
+      "created_at": "2026-08-10T14:20:00Z",
+      "updated_at": "2026-08-17T16:30:00Z"
+    }
+  ],
+  "minimal_issue": {
+    "title": "Minimal test issue",
+    "body": "Body text",
+    "labels": []
+  },
+  "issue_with_special_chars": {
+    "title": "Issue with @mentions and #refs to #1234",
+    "body": "Test with special chars: **bold**, *italic*, `code`, [links](http://example.com), @user1 @user2",
+    "labels": ["type:feature"]
+  },
+  "issue_with_all_fields": {
+    "title": "Complete issue with all fields",
+    "body": "Full issue with milestone, assignees, and labels",
+    "labels": ["type:task", "priority:critical", "status:in-progress", "area:ci"],
+    "milestone": 5,
+    "assignees": ["user1", "user2", "user3"]
+  }
+}
