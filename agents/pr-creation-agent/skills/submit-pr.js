@@ -159,7 +159,7 @@ function validatePrForSubmission(pr) {
   }
 
   // Check for invalid label format
-  const invalidLabels = pr.labels?.filter((label) => {
+  const _invalidLabels = pr.labels?.filter((label) => {
     if (typeof label !== "string") return true;
     // Check if label follows prefix:name format or is a bare label
     if (!label.includes(":") && label.length > 0) {
