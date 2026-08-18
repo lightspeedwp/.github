@@ -1,5 +1,7 @@
 # Built-In Template Support
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Built-in templates separate reusable authoring guidance from large,
 blob-managed static assets.
 
@@ -32,3 +34,7 @@ template and should not be reused verbatim for a different source deck.
 ---
 
 *🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

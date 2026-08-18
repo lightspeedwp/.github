@@ -279,20 +279,6 @@ git commit -m "docs: Monthly label audit (2026-08)"
 
 *Last updated: 2026-08-11 | Part of Issue Maintenance Scripts Phase 1-4 delivery*
 
-## Repository Flow
+## Contributing
 
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

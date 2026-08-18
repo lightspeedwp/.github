@@ -1,5 +1,7 @@
 # [Project Name] - Project Memory Bank
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
 ![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
@@ -98,4 +100,8 @@ This memory bank summarises the current project context, decisions, technical di
 
 ---
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

@@ -51,6 +51,7 @@ Instructions can address:
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Instruction development lifecycle
     accDescr: Process flow from drafting instructions through adding sections and examples to publishing and maintaining active instruction files.
     A["Draft<br/>instructions.md"] --> B["Add<br/>Frontmatter"]
@@ -84,6 +85,7 @@ Where `{scope}` describes the instruction's domain (kebab-case).
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Instruction scope selection
     accDescr: Decision tree for determining the appropriate scope of instruction files based on audience reach, from organisational to team-specific to repository-specific.
     A{"Who needs<br/>these rules?"} -->|All teams<br/>everywhere| B["organisation"]
