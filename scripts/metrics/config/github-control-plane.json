@@ -1,0 +1,63 @@
+{
+  "context": "github-control-plane",
+  "repositories": [
+    {
+      "owner": "lightspeedwp",
+      "name": ".github"
+    }
+  ],
+  "metrics": {
+    "issues": [
+      "total",
+      "closed",
+      "ttf",
+      "active",
+      "stale",
+      "reopened",
+      "labels"
+    ],
+    "pull_requests": [
+      "total",
+      "merged",
+      "ttm",
+      "review_time",
+      "participation",
+      "size",
+      "ci_pass_rate"
+    ],
+    "contributors": [
+      "active",
+      "breakdown",
+      "top",
+      "retention",
+      "new_vs_returning"
+    ],
+    "health": [
+      "milestone_progress",
+      "epic_status",
+      "backlog",
+      "label_distribution",
+      "velocity"
+    ]
+  },
+  "collection_period": 7,
+  "auth": {
+    "type": "oauth",
+    "scopes": ["repo:read", "read:user"],
+    "token_source": "GITHUB_TOKEN"
+  },
+  "caching": {
+    "enabled": true,
+    "ttl": 3600,
+    "auto_cleanup": true
+  },
+  "rate_limiting": {
+    "enabled": true,
+    "max_retries": 3,
+    "backoff_strategy": "exponential",
+    "max_wait_seconds": 60,
+    "log_warnings": true
+  },
+  "cache_ttl": 3600,
+  "output_dir": ".github/reports/metrics"
+}
