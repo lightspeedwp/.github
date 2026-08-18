@@ -8,15 +8,27 @@
  */
 
 const { execFileSync } = require('child_process');
+const fs = require('fs');
 const dorDodTemplates = require('./dor-dod-templates');
 
 const OWNER = 'lightspeedwp';
 const REPO = '.github';
 const DRY_RUN = process.argv.includes('--dry-run');
 const VERBOSE = process.argv.includes('--verbose');
-const MAX_ISSUES = process.argv.includes('--limit')
-  ? parseInt(process.argv[process.argv.indexOf('--limit') + 1], 10)
-  : 300;
+
+// Parse --limit with validation
+let MAX_ISSUES = 300;
+if (process.argv.includes('--limit')) {
+  const limitIndex = process.argv.indexOf('--limit');
+  const limitValue = process.argv[limitIndex + 1];
+  const parsed = parseInt(limitValue, 10);
+  if (!Number.isNaN(parsed) && parsed > 0 && parsed <= 300) {
+    MAX_ISSUES = parsed;
+  } else {
+    console.error(`❌ Invalid --limit value: ${limitValue} (must be integer 1-300)`);
+    process.exit(1);
+  }
+}
 
 const stats = {
   issuesProcessed: 0,
@@ -24,6 +36,7 @@ const stats = {
   issuesMissingDoD: 0,
   issuesMissingBoth: 0,
   issuesInjected: 0,
+  issuesWouldInject: 0,
   issuesSkipped: 0,
   issuesWithoutType: 0,
   errors: [],
@@ -49,7 +62,7 @@ function exec(args, silent = false) {
       stdio: silent ? 'pipe' : 'inherit',
       maxBuffer: 10 * 1024 * 1024,
     });
-    return result.trim();
+    return silent ? result.trim() : null;
   } catch (error) {
     if (!silent) log(`Command failed: gh ${args.join(' ')}`, 'error');
     stats.errors.push(`gh ${args.join(' ')}`);
@@ -132,7 +145,8 @@ function injectDoRDoD(issue, validation) {
 function updateIssue(number, newBody) {
   if (DRY_RUN) {
     log(`[DRY RUN] Would update issue #${number}`, 'debug');
-    return true;
+    stats.issuesWouldInject++;
+    return false;
   }
 
   try {
@@ -205,16 +219,17 @@ function printSummary() {
   console.log('\n' + '='.repeat(60));
   console.log('📊 DoR/DoD Validation & Injection Summary');
   console.log('='.repeat(60));
+  const injectionCount = DRY_RUN ? stats.issuesWouldInject : stats.issuesInjected;
   console.log(`
 Issues Processed:           ${stats.issuesProcessed}
 Issues Missing DoR:         ${stats.issuesMissingDoR}
 Issues Missing DoD:         ${stats.issuesMissingDoD}
 Issues Missing Both:        ${stats.issuesMissingBoth}
-Issues Injected:            ${stats.issuesInjected}
+Issues Injected:            ${injectionCount}
 Issues Without Type Label:  ${stats.issuesWithoutType}
 Issues Skipped:             ${stats.issuesSkipped}
 
-${DRY_RUN ? '[DRY RUN MODE] No changes were applied' : ''}
+${DRY_RUN ? '[DRY RUN MODE] Changes shown above would be applied' : '[LIVE MODE] Changes have been applied'}
   `);
 
   if (stats.errors.length > 0) {
@@ -225,6 +240,22 @@ ${DRY_RUN ? '[DRY RUN MODE] No changes were applied' : ''}
   console.log('='.repeat(60) + '\n');
 
   return stats.errors.length === 0;
+}
+
+function writeReport() {
+  const timestamp = new Date().toISOString().split('T')[0];
+  const reportFile = `dor-dod-validation-${timestamp}.json`;
+  const report = {
+    timestamp: new Date().toISOString(),
+    dryRun: DRY_RUN,
+    stats,
+  };
+  try {
+    fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
+    log(`Report written to ${reportFile}`, 'success');
+  } catch (error) {
+    log(`Failed to write report: ${error.message}`, 'error');
+  }
 }
 
 // Main execution
@@ -243,6 +274,7 @@ async function main() {
 
   processIssues(issues);
   const success = printSummary();
+  writeReport();
 
   process.exit(success ? 0 : 1);
 }
