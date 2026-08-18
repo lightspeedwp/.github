@@ -477,7 +477,7 @@ describe('Security', () => {
 
   test('Should not expose tokens', () => {
     const gates = new ReleaseGates();
-    const text = 'GITHUB_TOKEN=ghp_1234567890abcdef';
+    const text = 'GITHUB_TOKEN=FAKE_TOKEN_1234567890abcdef';
     const redacted = gates.redactSecrets(text);
     expect(redacted).toMatch(/\[REDACTED\]/);
   });
