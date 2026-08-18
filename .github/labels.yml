@@ -331,6 +331,32 @@
   color: 57606A
   description: "Marked as stale for review"
 
+# --- OpenSpec Status ---
+
+- name: openspec:specification-pending
+  color: C5DEF5
+  description: "OpenSpec specification needed"
+
+- name: openspec:specification-in-progress
+  color: F2D06D
+  description: "OpenSpec specification being written"
+
+- name: openspec:specification-complete
+  color: 1A7F37
+  description: "OpenSpec specification complete"
+
+- name: openspec:implementation-pending
+  color: C5DEF5
+  description: "Implementation pending (spec complete)"
+
+- name: openspec:implementation-in-progress
+  color: F2D06D
+  description: "Implementation in progress"
+
+- name: openspec:implementation-complete
+  color: 1A7F37
+  description: "Implementation complete and tested"
+
 # --- Release scope ---
 
 - name: release:patch

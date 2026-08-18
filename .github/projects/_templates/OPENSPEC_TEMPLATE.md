@@ -3,8 +3,8 @@ file_type: openspec
 title: "PROJECT_TITLE — OpenSpec Specification"
 description: "Detailed technical specification with phases, architecture, components, testing requirements, and implementation details"
 version: 1.0.0
-created_date: YYYY-MM-DD
-last_updated: YYYY-MM-DD
+created_date: 2026-01-01
+last_updated: 2026-01-01
 authors:
   - Author Name
 owner: Owner Name/Team
@@ -14,8 +14,8 @@ tags:
   - specification
   - architecture
   - technical
-domain: "domain-name"
-status: "draft|review|approved|implemented"
+domain: governance
+status: draft
 related_planning: "./PLANNING.md"
 ---
 
@@ -408,9 +408,11 @@ describe('Component A', () => {
 **Request Example:**
 
 ```bash
+# gitleaks:allow
 curl -X GET \
   https://api.example.com/api/v1/resource/550e8400-e29b-41d4-a716-446655440000 \
   -H 'Authorization: Bearer token123'
+# gitleaks:allowlist
 ```
 
 **Success Response (200 OK):**

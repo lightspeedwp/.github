@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v2.0"
-last_updated: "2026-08-09"
+version: "v2.1"
+last_updated: "2026-08-18"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
