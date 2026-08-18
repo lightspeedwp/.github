@@ -15,7 +15,7 @@ const path = require("path");
  */
 let baseConfig = {};
 try {
-  const configPath = path.join(__dirname, "markdownlint.config.cjs");
+  const configPath = path.join(__dirname, ".markdownlint.config.cjs");
   const configModule = require(configPath);
   baseConfig = configModule || {};
 } catch (error) {
@@ -93,10 +93,9 @@ module.exports = {
    */
   customRules: [],
 
-  /**
-   * Files to process (glob patterns)
-   */
-  globs: ["**/*.md"],
+  // No `globs` key: markdownlint-cli2 appends config globs to any files given
+  // on the command line, which would defeat linting a specific file list.
+  // Callers supply the globs — see the lint:md and lint:md:changed scripts.
 
   /**
    * Files to ignore (glob patterns)
@@ -119,11 +118,11 @@ module.exports = {
 
     // Vendored/platform-managed content (not repo-authored)
     // These are bundled references, external platform docs, market-sourced components
-    "*/plugin-provided/**",
-    "*/platform-managed/**",
-    "*/directory-installed/**",
-    "*/agentskills-main/**",
-    "*/tests/markdown-issues.md",
+    "**/plugin-provided/**",
+    "**/platform-managed/**",
+    "**/directory-installed/**",
+    "**/agentskills-main/**",
+    "**/tests/markdown-issues.md",
 
     // Generated audit/report outputs (not source documentation)
     // Note: .github/metrics/README.md is hand-authored and should be linted

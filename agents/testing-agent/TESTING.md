@@ -5,7 +5,7 @@ description: >-
   How to validate the Playwright Testing Agent's packaging and exercise its
   behaviour across Claude, GitHub Copilot, and OpenAI, including the execution
   model and a worked end-to-end example.
-last_updated: '2026-07-30'
+last_updated: '2026-08-17'
 domain: generic
 tags:
   - playwright
@@ -61,8 +61,10 @@ node hooks/agent-security-auditor/index.js agents/playwright-testing-agent
 # Plugin manifests + referenced files resolve
 node hooks/plugin-integrity-checker/index.js plugins/lightspeed-playwright-testing
 
-# Everything at once (this is what CI runs)
-npm run validate:agent-hooks
+# Everything at once
+# Note: not currently wired into CI — see scripts/validation/validate-agent-hooks.cjs
+# and https://github.com/lightspeedwp/.github/issues/1962
+node scripts/validation/validate-agent-hooks.cjs
 
 # Schemas + tool definitions are valid JSON Schema
 npm run validate:json:schemas
@@ -95,7 +97,8 @@ rule` became a first-class type.
 [`consistency.json`](./consistency.json) declares those invariants, and
 `multi-provider-consistency-checker` enforces them — whitespace is normalised, so
 line-wrapping may differ between files. The check runs as part of
-`npm run validate:agent-hooks`, and its own tests live in
+`node scripts/validation/validate-agent-hooks.cjs` (not currently wired into
+CI — see above), and its own tests live in
 `hooks/multi-provider-consistency-checker/__tests__/`.
 
 Confirm it actually fails on drift rather than trusting a green run:
