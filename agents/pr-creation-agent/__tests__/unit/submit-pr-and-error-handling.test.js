@@ -1,4 +1,3 @@
-import { jest } from "@jest/globals";
 import { submitPr } from "../../skills/submit-pr.js";
 import { handlePrErrors } from "../../skills/handle-pr-errors.js";
 

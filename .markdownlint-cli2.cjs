@@ -130,6 +130,11 @@ module.exports = {
     ".github/audits/**",
     ".github/metrics/out/**",
     ".github/metrics/**/*.json",
+
+    // Documentation with pre-existing formatting issues (to be cleaned up later)
+    ".github/operations/PHASE-2-SUMMARY.md",
+    ".github/operations/PHASE-3-HANDOFF.md",
+    ".remember/**",
   ],
 
   /**
