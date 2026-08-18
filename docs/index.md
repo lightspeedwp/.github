@@ -77,6 +77,9 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | Document | Purpose |
 |----------|---------|
 | **[LABELING.md](./LABELING.md)** | Complete label taxonomy covering issues, PRs, and discussions; label families; automation rules; and one-hot enforcement |
+| **[LABEL_STRATEGY.md](./LABEL_STRATEGY.md)** | Comprehensive label strategy, governance, and taxonomy including 164 canonical labels across 8 families |
+| **[LABEL_INVENTORY.md](./LABEL_INVENTORY.md)** | Complete reference inventory of all 164 canonical labels organized by semantic family |
+| **[OPENSPEC_STATUS_LABELS.md](./OPENSPEC_STATUS_LABELS.md)** | Specification and implementation lifecycle tracking with 6 OpenSpec status labels; usage guide and integration patterns |
 | **[LABEL_COLOR_STRATEGY.md](./LABEL_COLOR_STRATEGY.md)** | Visual colour coding strategy for labels and their semantic meaning |
 | **[ISSUE_TYPES.md](./ISSUE_TYPES.md)** | Issue type definitions, required fields, and automation templates |
 | **[ISSUE_FIELDS.md](./ISSUE_FIELDS.md)** | Issue field specification and custom field definitions |
@@ -190,10 +193,13 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | [ISSUE_FIELDS.md](./ISSUE_FIELDS.md) | Reference | Issue field definitions |
 | [ISSUE_TYPES.md](./ISSUE_TYPES.md) | Reference | Issue type definitions |
 | [LABEL_COLOR_STRATEGY.md](./LABEL_COLOR_STRATEGY.md) | Strategy | Label colour coding |
+| [LABEL_INVENTORY.md](./LABEL_INVENTORY.md) | Reference | Complete inventory of all 164 canonical labels |
+| [LABEL_STRATEGY.md](./LABEL_STRATEGY.md) | Strategy | Label strategy, governance, and taxonomy |
 | [LABELING.md](./LABELING.md) | Guide | Label taxonomy and automation |
 | [LINTING.md](./LINTING.md) | Guide | Linting rules and configuration |
 | [METRICS.md](./METRICS.md) | Reference | Metrics and reporting |
 | [MIGRATION.md](./MIGRATION.md) | Guide | File migration and consolidation patterns |
+| [OPENSPEC_STATUS_LABELS.md](./OPENSPEC_STATUS_LABELS.md) | Guide | OpenSpec specification/implementation lifecycle tracking |
 | [ORGANIZATION.md](./ORGANIZATION.md) | Reference | Repository organisation and structure |
 | [PLUGIN_INSTALLATION_GUIDE.md](./PLUGIN_INSTALLATION_GUIDE.md) | Guide | Plugin installation and setup |
 | [PLUGIN_PACK_ROADMAP.md](./PLUGIN_PACK_ROADMAP.md) | Roadmap | Plugin development roadmap |
