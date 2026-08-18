@@ -1,20 +1,18 @@
-import { describe, it, expect, vi } from "vitest";
-
 /**
  * Tests for update-pr-changelog-review.js
  */
 
 // Mock Octokit
-vi.mock("octokit", () => {
-  const Octokit = vi.fn().mockImplementation(() => ({
+jest.mock("octokit", () => {
+  const Octokit = jest.fn().mockImplementation(() => ({
     rest: {
       pulls: {
-        list: vi.fn(),
-        listReviews: vi.fn(),
+        list: jest.fn(),
+        listReviews: jest.fn(),
       },
       issues: {
-        removeLabel: vi.fn(),
-        addLabels: vi.fn(),
+        removeLabel: jest.fn(),
+        addLabels: jest.fn(),
       },
     },
   }));
