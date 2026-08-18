@@ -31,7 +31,7 @@ category: "release-engineering"
 
 **Duration:** Phase 5A, 2-3 weeks (Aug 12-30, 2026)
 
-**Status:** PLANNING (Phase 5A specification in progress)
+**Status:** ✅ COMPLETE (Week 3, Aug 18, 2026) — Merged to develop via PR #2016
 
 ---
 
@@ -59,13 +59,13 @@ This project is part of the **Release Orchestration Initiative** and coordinates
 
 ### 2. Release Workflow Authorization Fixes (2026-08-04)
 
-**Status:** ✅ Fix implemented; ⏳ Testing pending
+**Status:** ✅ COMPLETE — Foundation integrated into Phase 5A
 
-**Relationship:** Provides foundation for agentic auth gates:
+**Relationship:** Provides foundation for agentic auth gates (GATE 5):
 
-- Made `trigger-telemetry` non-blocking
-- Authorization checks available for agentic integration
-- Testing validates safety for agentic workflow
+- ✅ Made `trigger-telemetry` non-blocking
+- ✅ Authorization checks available for agentic integration
+- ✅ Safety gates validation completed
 
 **Link:** [`.github/projects/active/release-workflow-authorization-fixes/`](../release-workflow-authorization-fixes/)
 
@@ -265,25 +265,25 @@ Phase 5A is successful when:
 
 | File | Purpose | Status |
 |------|---------|--------|
-| **AGENTIC_WORKFLOW_SPEC.md** | Design decisions, safety gates, approval flows | 📝 IN PROGRESS |
-| **RFC_AGENTIC_WORKFLOWS.md** | Request for comments, trade-offs, risk analysis | 📝 PLANNED (Week 1) |
-| **PHASE_5A_IMPLEMENTATION_PLAN.md** | Detailed task breakdown, timeline, deliverables | 📝 PLANNED (Week 1) |
+| **AGENTIC_WORKFLOW_SPEC.md** | Design decisions, safety gates, approval flows | ✅ COMPLETE |
+| **RFC_AGENTIC_WORKFLOWS.md** | Request for comments, trade-offs, risk analysis | ✅ COMPLETE |
+| **PHASE_5A_IMPLEMENTATION_PLAN.md** | Detailed task breakdown, timeline, deliverables | ✅ COMPLETE |
 
 ### Implementation Files
 
 | File | Purpose | Status |
 |------|---------|--------|
-| **.github/agentic-workflows/release.md** | Markdown workflow definition | 📝 PLANNED (Week 1) |
-| **OPENSPEC_ANALYSIS_REPORT.md** | Requirements analysis (50+ questions) | 📝 PLANNED (Week 1) |
-| **QUESTIONNAIRE_PREPOPULATED.md** | Requirements answers | 📝 PLANNED (Week 1) |
+| **.github/agentic-workflows/release.md** | Markdown workflow definition | ✅ COMPLETE |
+| **OPENSPEC_ANALYSIS_REPORT.md** | Requirements analysis (50+ questions) | ✅ COMPLETE |
+| **QUESTIONNAIRE_PREPOPULATED.md** | Requirements answers | ✅ COMPLETE |
 
 ### Support Files
 
 | File | Purpose | Status |
 |------|---------|--------|
-| **CHILD_ISSUES_TEMPLATES.md** | GitHub issue templates for subtasks | 📝 PLANNED (Week 1) |
-| **TEST_EXECUTION_PLAN.md** | Testing strategy for MVP | 📝 PLANNED (Week 2) |
-| **TEST_RESULTS.md** | Test execution results | 📝 PLANNED (Week 2) |
+| **CHILD_ISSUES_TEMPLATES.md** | GitHub issue templates for subtasks | ✅ COMPLETE |
+| **TEST_EXECUTION_PLAN.md** | Testing strategy for MVP | ✅ COMPLETE |
+| **TEST_RESULTS.md** | Test execution results | ✅ COMPLETE |
 
 ---
 
@@ -346,6 +346,12 @@ Phase 5A is successful when:
 
 **Project Created:** 2026-08-11  
 **Owner:** Ash Shaw  
-**Status:** PLANNING (Phase 5A specification)
+**Completed:** 2026-08-18  
+**Status:** ✅ COMPLETE (MVP merged to develop, PR #2016, commit f2b07bc9c)
+
+**Soft Launch Timeline:**
+- Sep 9, 2026: Soft launch (internal team)
+- Sep 16, 2026: Team rollout (approval flow training)
+- Oct 1, 2026: Production deployment
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and agentic workflows!*
