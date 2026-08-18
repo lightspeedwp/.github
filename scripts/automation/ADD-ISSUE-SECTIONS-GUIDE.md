@@ -319,7 +319,7 @@ Get a token: <https://github.com/settings/tokens/new
 After each run, GitHub will auto-remove the `status:needs-more-info` label from fixed issues. You can track progress by checking:
 
 - Open issues with `status:needs-more-info`: Should decrease with each run
-- Check: <https://github.com/lightspeedwp/.github/issues?q=is:open+label%3Astatus%3Aneeds-more-info
+- Check: <https://github.com/lightspeedwp/.github/issues?q=is:open+label:status%3Aneeds-more-info
 
 ---
 
