@@ -111,8 +111,6 @@
     "metrics:collect:control-plane": "node scripts/workflows/metrics/collect-metrics.js --context github-control-plane",
     "metrics:collect:plugin": "node scripts/workflows/metrics/collect-metrics.js --context wordpress-plugin",
     "metrics:collect:theme": "node scripts/workflows/metrics/collect-metrics.js --context wordpress-theme",
-    "metrics:report": "node scripts/workflows/metrics/generate-metrics-report.js",
-    "metrics:issues": "node scripts/workflows/metrics/create-metrics-issues.js",
     "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles",
     "test": "npm run test:js",
     "test:unit": "vitest run --reporter=verbose",
