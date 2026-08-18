@@ -24,10 +24,10 @@ stability: stable
 
 # Label Inventory — Complete Reference
 
-**Version**: v1.2.0
+**Version**: v1.1.2
 **Created**: 2026-05-31
-**Last Updated**: 2026-08-18
-**Total Labels**: 164
+**Last Updated**: 2026-06-18
+**Total Labels**: 158
 
 This document provides a complete inventory of all canonical labels organized by semantic family. Use this as a reference when:
 
@@ -147,25 +147,6 @@ Labels categorising release impact.
 | `release:minor` | 0F448A | Minor release | New features, backwards-compatible |
 | `release:major` | 810E18 | Major release | Breaking changes |
 | `release:hotfix` | 7E6007 | Urgent hotfix outside normal cadence | Emergency/production fix |
-
----
-
-## OpenSpec Status Labels (6)
-
-Labels tracking specification and implementation lifecycle phases. An issue can have one specification label AND one implementation label.
-
-| Label | Color | Phase | Description | Usage |
-| --- | --- | --- | --- | --- |
-| `openspec:specification-pending` | C5DEF5 | Specification | OpenSpec specification needed | Specification not yet started |
-| `openspec:specification-in-progress` | F2D06D | Specification | OpenSpec specification being written | Active specification work |
-| `openspec:specification-complete` | 1A7F37 | Specification | OpenSpec specification complete | Spec approved; ready for implementation |
-| `openspec:implementation-pending` | C5DEF5 | Implementation | Implementation pending (spec complete) | Spec done; implementation not yet started |
-| `openspec:implementation-in-progress` | F2D06D | Implementation | Implementation in progress | Active development/engineering work |
-| `openspec:implementation-complete` | 1A7F37 | Implementation | Implementation complete and tested | Feature built, tested, production-ready |
-
-**Progression**: 🔵 Pending → 🟡 In-Progress → 🟢 Complete
-
-**Usage Guidance**: See [OPENSPEC_STATUS_LABELS.md](./OPENSPEC_STATUS_LABELS.md) for comprehensive documentation.
 
 ---
 
@@ -340,7 +321,7 @@ Labels for GitHub Discussions categorisation (not for issues/PRs).
 
 ## Summary Statistics
 
-**Total Labels**: 164
+**Total Labels**: 158
 
 | Family | Count |
 | --- | --- |
@@ -349,7 +330,6 @@ Labels for GitHub Discussions categorisation (not for issues/PRs).
 | Type | 32 |
 | Meta/Housekeeping | 8 |
 | Release Scope | 4 |
-| OpenSpec Status | 6 |
 | Area | 33 |
 | Component | 20 |
 | Language | 7 |
@@ -359,7 +339,7 @@ Labels for GitHub Discussions categorisation (not for issues/PRs).
 | AI Ops | 7 |
 | Contributor | 3 |
 | Discussion | 7 |
-| **TOTAL** | **164** |
+| **TOTAL** | **158** |
 
 ---
 

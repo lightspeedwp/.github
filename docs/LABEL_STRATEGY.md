@@ -24,9 +24,8 @@ stability: stable
 
 # Label Strategy & Governance
 
-**Version**: v1.1.0
+**Version**: v1.0.2
 **Created**: 2026-05-31
-**Last Updated**: 2026-08-18
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/labels.yml`, `.github/labeler.yml`
 
@@ -48,22 +47,21 @@ This document establishes the comprehensive label strategy for the LightSpeed `.
 
 ## 1. Label Taxonomy
 
-### 1.1 Primary Categories (8 Core Families, 164 Labels)
+### 1.1 Primary Categories (7 Core Families, 158 Labels)
 
-The canonical labels are organized into eight core families, with supporting cross-cutting families documented in the inventory:
+The canonical labels are organized into seven core families, with supporting cross-cutting families documented in the inventory:
 
 | Family | Count | Purpose | Key Labels |
 | --- | --- | --- | --- |
 | **Status** | 20 | Workflow state and blockers | needs-planning, ready, in-progress, needs-review, blocked |
 | **Priority** | 4 | Urgency and impact | critical, important, normal, minor |
 | **Type** | 32 | Work category/classification | bug, feature, documentation, task, design, chore, and 26 more |
-| **OpenSpec Status** | 6 | Specification/implementation lifecycle | specification-pending, specification-complete, implementation-in-progress, and 3 more |
 | **Area** | 20+ | Component or domain | block-editor, theme, ci, labels, security, tests |
 | **Language** | 7 | Programming/markup language | js, php, css, json, yaml, html, md |
 | **Discussion** | 7 | Discussion/meta categories | announcement, showcase, community, feedback, support |
 | **Meta** | 16 | Automation & process markers | has-pr, needs-changelog, blocked-by, duplicate |
 
-**Total**: 164 labels across 8 core families
+**Total**: 158 labels across 7 core families
 
 ---
 
@@ -138,40 +136,7 @@ The canonical labels are organized into eight core families, with supporting cro
 - Type labels drive project field automation (see `docs/ISSUE_FIELDS.md`)
 - See `docs/ISSUE_TYPES.md` for detailed type decision tree
 
-### 2.4 OpenSpec Status Labels (6 Labels)
-
-**Purpose**: Track specification and implementation lifecycle phases for transparent project maturity
-
-**The Two Phases**:
-
-- **Specification Phase** — What needs to be built
-  - `openspec:specification-pending` — Spec needed (not started)
-  - `openspec:specification-in-progress` — Spec being written
-  - `openspec:specification-complete` — Spec approved; ready for implementation
-
-- **Implementation Phase** — Building what was specified
-  - `openspec:implementation-pending` — Implementation not yet started
-  - `openspec:implementation-in-progress` — Active development/engineering
-  - `openspec:implementation-complete` — Feature complete, tested, production-ready
-
-**Color Progression**: 🔵 Pending → 🟡 In-Progress → 🟢 Complete
-
-**Assignment Rules**:
-
-- An issue can have ONE specification label AND ONE implementation label (not multiple of same phase)
-- Follow natural progression: spec → implementation (spec should precede impl)
-- Remove labels if work direction changes (e.g., cancelled → remove all OpenSpec labels)
-- OpenSpec labels complement Type/Status labels; don't replace them
-
-**Usage Examples**:
-
-- Feature moving from design to development: `openspec:specification-complete` + `openspec:implementation-pending`
-- Bug with quick fix (no formal spec): Skip OpenSpec labels; use `type:bug` instead
-- Architecture decision document: `openspec:specification-complete` (no implementation phase)
-
-**For Detailed Guidance**: See `docs/OPENSPEC_STATUS_LABELS.md`
-
-### 2.5 Area Labels (20+ Labels)
+### 2.4 Area Labels (20+ Labels)
 
 **Purpose**: Identify component, module, or domain
 

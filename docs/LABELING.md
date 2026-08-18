@@ -111,26 +111,6 @@ Classify the nature of the work:
 
 **Rule:** Each issue and PR has exactly one `type:*` label. For PRs, it's automatically assigned from the branch prefix; for issues, it's assigned from issue templates or manually. See `.github/labels.yml` for the full list of canonical type values.
 
-### OpenSpec Status Labels (`openspec:*`)
-
-Track the lifecycle of specification and implementation phases to provide visibility into project maturity and readiness:
-
-**Specification Phase:**
-- `openspec:specification-pending` — Specification needed (work not started)
-- `openspec:specification-in-progress` — Specification being written
-- `openspec:specification-complete` — Specification approved; ready for implementation
-
-**Implementation Phase:**
-- `openspec:implementation-pending` — Implementation not yet started (spec is done)
-- `openspec:implementation-in-progress` — Active development or engineering work
-- `openspec:implementation-complete` — Feature complete, tested, and production-ready
-
-**Progression:** 🔵 Pending → 🟡 In-Progress → 🟢 Complete
-
-**Rule:** An issue can have up to ONE specification label AND ONE implementation label (not multiple of the same phase). Do not use OpenSpec labels on quick fixes or bug reports that don't require formal specification. 
-
-**For Detailed Guidance:** See [`docs/OPENSPEC_STATUS_LABELS.md`](./OPENSPEC_STATUS_LABELS.md).
-
 ### Area & Component Labels
 
 **Area labels (`area:*`):** Indicate the high-level system or domain:
