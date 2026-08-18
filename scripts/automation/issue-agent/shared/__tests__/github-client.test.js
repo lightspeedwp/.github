@@ -67,12 +67,9 @@ describe("GitHub Client", () => {
     });
 
     test("should cache milestone results for 5 minutes", async () => {
-      const cacheStatsBefore = githubClient.getCacheStats();
-
       // First call would populate cache
       // Second call should return from cache
 
-      const cacheStatsAfter = githubClient.getCacheStats();
       expect(typeof githubClient.fetchMilestones).toBe("function");
     });
 
@@ -99,7 +96,6 @@ describe("GitHub Client", () => {
     });
 
     test("should add multiple labels to issue", async () => {
-      const labels = ["type:bug", "priority:critical", "status:in-progress"];
       expect(typeof githubClient.addLabelsToIssue).toBe("function");
     });
 
@@ -113,19 +109,16 @@ describe("GitHub Client", () => {
     });
 
     test("should deduplicate labels if same label provided twice", async () => {
-      const labels = ["type:bug", "type:bug", "priority:normal"];
       expect(typeof githubClient.addLabelsToIssue).toBe("function");
     });
   });
 
   describe("createComment", () => {
     test("should create a comment on an issue", async () => {
-      const body = "This is a test comment\n\nWith multiple lines";
       expect(typeof githubClient.createComment).toBe("function");
     });
 
     test("should support markdown formatting in comments", async () => {
-      const body = "**Bold** and *italic* and [links](http://example.com)";
       expect(typeof githubClient.createComment).toBe("function");
     });
 
@@ -139,7 +132,6 @@ describe("GitHub Client", () => {
     });
 
     test("should handle special characters in comment", async () => {
-      const body = "Test with special chars: @user #123 :emoji: etc";
       expect(typeof githubClient.createComment).toBe("function");
     });
   });
