@@ -1,9 +1,11 @@
 ---
-name: Prompt Engineer Agent
+file_type: agent-index
+title: "Prompt Engineer Agent"
 description: Portable prompt engineering and validation agent for LightSpeed organization
 version: "1.0.0"
-created: "2026-08-12"
-status: "phase-2-active"
+last_updated: "2026-08-18"
+owners: ["lightspeedwp"]
+tags: ["agent", "prompt-engineering", "portable"]
 ---
 
 # Prompt Engineer Agent
