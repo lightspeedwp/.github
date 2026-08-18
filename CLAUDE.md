@@ -357,7 +357,7 @@ Templates located in `.github/ISSUE_TEMPLATE/`:
 - **System Summary:** [docs/AI_FEEDBACK_SYSTEM_SUMMARY.md](./docs/AI_FEEDBACK_SYSTEM_SUMMARY.md) — Complete system overview
 - **Full Guide:** [docs/ai-feedback-response-tracking.md](./docs/ai-feedback-response-tracking.md) — Comprehensive guide with examples
 - **Workflow Details:** [docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md](./docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md) — Technical configuration and automation
-- **Template:** [PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md](./PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md) — Template to copy
+- **Template:** [.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md](./.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md) — Template to copy
 - **Examples:** [examples/FEEDBACK_RESPONSE_example-simple.md](./examples/FEEDBACK_RESPONSE_example-simple.md) and [examples/FEEDBACK_RESPONSE_example-complex.md](./examples/FEEDBACK_RESPONSE_example-complex.md)
 
 **What This Enables:**
