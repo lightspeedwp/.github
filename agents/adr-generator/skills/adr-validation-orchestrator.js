@@ -41,8 +41,7 @@ class ValidationOrchestrator {
       {
         name: "enforce-status-transitions",
         enabled: this.config.enforceStatusTransitions,
-        validator: () =>
-          validators.enforceStatusTransitions(this.adrDirectory),
+        validator: () => validators.enforceStatusTransitions(this.adrDirectory),
       },
       {
         name: "enforce-format",
@@ -119,9 +118,7 @@ class ValidationOrchestrator {
 
   report(format = "json") {
     if (!this.results) {
-      throw new Error(
-        "No validation results. Run validation first with run()",
-      );
+      throw new Error("No validation results. Run validation first with run()");
     }
 
     switch (format) {
@@ -140,16 +137,14 @@ class ValidationOrchestrator {
   }
 
   reportText() {
-    const { summary, details } = this.results;
+    const { summary } = this.results;
     let output = [];
 
     output.push("=".repeat(60));
     output.push("ADR Validation Report");
     output.push("=".repeat(60));
 
-    output.push(
-      `\nOverall Status: ${summary.valid ? "✅ PASS" : "❌ FAIL"}`,
-    );
+    output.push(`\nOverall Status: ${summary.valid ? "✅ PASS" : "❌ FAIL"}`);
     output.push(`Total Errors: ${summary.totalErrors}`);
     output.push(`\nRules Checked: ${summary.rules.length}`);
 
