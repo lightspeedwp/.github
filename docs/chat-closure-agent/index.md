@@ -1,8 +1,8 @@
 ---
 title: Chat Closure Agent Documentation
 description: Complete documentation for the Chat Closure Agent v1.0.0
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-18'
 author: Claude Code
 ---
 
@@ -303,4 +303,4 @@ When you're done learning, you should be able to:
 
 ---
 
-*Built with ❤️ by the Claude Code team for the LightSpeedWP organization*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -1,7 +1,8 @@
 ---
-name: "lightspeed-wordpress-governance-checks"
-description: "Run governance checks for WordPress repositories covering standards, labeling, and release hygiene."
+name: lightspeed-wordpress-governance-checks
+description: Run governance checks for WordPress repositories covering standards, labeling, and release hygiene.
 ---
+
 
 ---
 

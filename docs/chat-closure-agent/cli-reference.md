@@ -1,10 +1,14 @@
 ---
 title: Chat Closure Agent — CLI Reference
 description: Command-line interface and options for the Chat Closure Agent
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-18'
 author: Claude Code
-tags: ["cli", "reference", "commands", "options"]
+tags:
+  - cli
+  - reference
+  - commands
+  - options
 ---
 
 # Chat Closure Agent — CLI Reference
@@ -570,9 +574,4 @@ npm run close-session:preview
 
 ---
 
-## Related Documentation
-
-- [Quick Start](./quick-start.md) — 5-minute setup
-- [Integration Guide](./integration-guide.md) — Multi-project setup
-- [Troubleshooting FAQ](./troubleshooting-faq.md) — Common issues
-- [Full API Reference](../agents/chat-closure-agent/docs/USAGE_GUIDE.md) — Complete reference
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

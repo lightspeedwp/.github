@@ -1,10 +1,14 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
-supersedes: 
-superseded-by: 
+title:
+  TITLE: null
+date:
+  DATE: null
+status:
+  STATUS: null
+authors:
+  AUTHORS: null
+supersedes: null
+superseded-by: null
 tags: []
 ---
 
@@ -51,3 +55,7 @@ Briefly describe other options that were considered and why they were not chosen
 ## References
 
 List any external documentation, related issues, or resources that informed this decision.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

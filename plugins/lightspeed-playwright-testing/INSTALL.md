@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed Playwright Testing Plugin — Installation
 description: Per-provider installation guide for the lightspeed-playwright-testing plugin.
-version: v2.0.0
-last_updated: '2026-07-22'
+version: v2.0.1
+last_updated: '2026-08-18'
 domain: generic
 tags:
   - playwright
@@ -65,3 +65,7 @@ npx playwright install
 
 **Plugin not recognised** — verify the install path, validate the manifest JSON,
 and restart the IDE/tool.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

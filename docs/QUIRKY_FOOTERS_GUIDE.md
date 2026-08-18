@@ -1,8 +1,8 @@
 ---
-file_type: "documentation"
-title: "Quirky Footers Guide"
-description: "Adding personality to documentation with category-specific footers"
-category: "documentation"
+file_type: documentation
+title: Quirky Footers Guide
+description: Adding personality to documentation with category-specific footers
+category: documentation
 ---
 
 # Quirky Footers Guide
@@ -366,4 +366,4 @@ Here's how to use the API...
 
 ---
 
-*📖 Our documentation is where creativity meets clarity*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

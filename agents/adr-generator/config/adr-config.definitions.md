@@ -2,8 +2,8 @@
 title: ADR Configuration Reference
 description: Complete field reference for .adr-config.json
 file_type: documentation
-created_date: 2026-08-12
-last_updated: 2026-08-12
+created_date: 2026-08-12T00:00:00.000Z
+last_updated: '2026-08-18'
 owners:
   - LightSpeed Team
 tags:
@@ -126,3 +126,7 @@ Validation rules.
   }
 }
 ```
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

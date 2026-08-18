@@ -1,7 +1,8 @@
 ---
-title: "reviewer.agent"
-description: "Packaged governance reviewer agent for plugin pilot."
+title: reviewer.agent
+description: Packaged governance reviewer agent for plugin pilot.
 ---
+
 
 ---
 

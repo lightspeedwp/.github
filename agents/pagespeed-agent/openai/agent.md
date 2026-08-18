@@ -1,16 +1,16 @@
 ---
-provider: 'openai'
-agent_slug: 'pagespeed'
-agent_name: 'PageSpeed Agent (OpenAI)'
-status: 'production'
-version: '1.0.1'
+provider: openai
+agent_slug: pagespeed
+agent_name: PageSpeed Agent (OpenAI)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-18'
 model_compatibility:
   - gpt-4
   - gpt-4-turbo
   - gpt-3.5-turbo
-api_version: 'v1'
+api_version: v1
 temperature: 0.7
 top_p: 0.9
 ---
@@ -239,4 +239,4 @@ def choose_model(analysis_type):
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

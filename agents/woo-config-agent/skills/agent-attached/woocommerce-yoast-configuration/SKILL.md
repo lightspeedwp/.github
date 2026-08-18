@@ -275,3 +275,7 @@ When asked to refine or package this skill:
 ## Output formats
 
 Use the templates in `templates/` unless the user asks for a different format. Keep outputs practical, evidence-led, UK English, and agency-ready.
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

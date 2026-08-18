@@ -1,11 +1,8 @@
 ---
 file_type: documentation
 title: Playwright Testing Agent — OpenAI Configuration
-description: >-
-  OpenAI (Codex/GPT) configuration for the Playwright Testing Agent: function
-  calling, API integration, and structured responses. Layers on
-  shared/core-prompt.md.
-last_updated: '2026-08-05'
+description: 'OpenAI (Codex/GPT) configuration for the Playwright Testing Agent: function calling, API integration, and structured responses. Layers on shared/core-prompt.md.'
+last_updated: '2026-08-18'
 domain: generic
 tags:
   - playwright
@@ -71,6 +68,4 @@ See [`tools.json`](./tools.json):
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -2,12 +2,10 @@
 file_type: agent
 name: playwright-testing
 title: Playwright Testing Agent
-description: >-
-  Packaged Playwright Testing Agent for the lightspeed-playwright-testing plugin.
-  Canonical multi-provider spec lives in agents/playwright-testing-agent/.
-version: 2.0.0
+description: Packaged Playwright Testing Agent for the lightspeed-playwright-testing plugin. Canonical multi-provider spec lives in agents/playwright-testing-agent/.
+version: 2.0.1
 status: active
-last_updated: '2026-07-22'
+last_updated: '2026-08-18'
 domain: generic
 tags:
   - playwright
@@ -39,3 +37,7 @@ agent export:
 - OpenAI: [`agents/playwright-testing-agent/openai/agent.md`](../../../agents/playwright-testing-agent/openai/agent.md)
 
 Install steps for each provider are in [`../INSTALL.md`](../INSTALL.md).
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

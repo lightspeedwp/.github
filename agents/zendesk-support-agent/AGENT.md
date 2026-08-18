@@ -1,22 +1,21 @@
 ---
-name: 'Zendesk Support Agent'
-description: 'Customer support agent for ticket management, customer communication, and knowledge base integration'
-agent_id: 'agent-14'
-agent_slug: 'zendesk-support'
-agent_name: 'Zendesk Support Agent'
-domain: 'support'
-focus: 'zendesk-integration'
-version: '1.0.0'
+name: Zendesk Support Agent
+description: Customer support agent for ticket management, customer communication, and knowledge base integration
+agent_id: agent-14
+agent_slug: zendesk-support
+agent_name: Zendesk Support Agent
+domain: support
+focus: zendesk-integration
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - ticket-management
   - customer-communication
@@ -24,7 +23,6 @@ capabilities:
   - ticket-analysis
   - sentiment-analysis
   - escalation-routing
-
 tags:
   - support
   - zendesk
@@ -369,4 +367,4 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

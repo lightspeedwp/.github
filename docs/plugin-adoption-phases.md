@@ -1,8 +1,8 @@
 ---
 title: Plugin Adoption Roadmap
 description: Phased rollout strategy for AI code assistant plugins across the LightSpeedWP team
-created: 2026-07-26
-updated: 2026-07-26
+created: 2026-07-26T00:00:00.000Z
+updated: 2026-07-26T00:00:00.000Z
 type: guide
 ---
 
@@ -468,4 +468,4 @@ During grace period:
 
 ---
 
-*Created as part of Phase 4: Plugin Adoption Strategy*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

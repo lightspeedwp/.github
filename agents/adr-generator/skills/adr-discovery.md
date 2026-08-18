@@ -7,8 +7,8 @@ tags:
   - numbering
   - filename-generation
 file_type: skill
-created_date: 2026-08-18
-last_updated: 2026-08-18
+created_date: 2026-08-18T00:00:00.000Z
+last_updated: '2026-08-18'
 owners:
   - LightSpeed Team
 status: active
@@ -232,3 +232,7 @@ Target coverage: >90%
 - [ADR Generator Skill](./SKILL.md)
 - [Configuration Reference](../config/adr-config.definitions.md)
 - [Test Suite](../tests/discovery.test.js)
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

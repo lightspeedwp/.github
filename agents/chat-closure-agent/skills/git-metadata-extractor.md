@@ -1,13 +1,18 @@
 ---
 name: git-metadata-extractor
 description: Extract git metadata (commits, branch, issues) for handoff context
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
+version: 1.0.1
+created_date: 2026-08-12T00:00:00.000Z
+last_updated: '2026-08-18'
 file_type: documentation
-authors: ["Ash Shaw"]
-maintainer: "Ash Shaw"
-tags: [git, metadata, extraction, handoff]
+authors:
+  - Ash Shaw
+maintainer: Ash Shaw
+tags:
+  - git
+  - metadata
+  - extraction
+  - handoff
 ---
 
 # Git Metadata Extractor Skill
@@ -244,3 +249,7 @@ Test fixtures are available in `tests/fixtures/`:
 - Support for control-plane, WordPress plugins, WordPress themes
 - Branch parsing, repo detection, commit history extraction
 - Memory system integration
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

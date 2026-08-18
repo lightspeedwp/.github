@@ -90,4 +90,4 @@ See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 
 ---
 
-*Instructions version: 1.0 | Updated: 2025-10-23 | Owner: LightSpeedWP Maintainers*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

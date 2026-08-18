@@ -2,8 +2,8 @@
 file_type: documentation
 title: Hooks Standards
 description: Standards for creating event-driven hooks for agents and automation
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-18'
 ---
 
 # Hooks Standards
@@ -492,5 +492,4 @@ See all hooks: [`hooks/`](../../hooks/)
 
 ---
 
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

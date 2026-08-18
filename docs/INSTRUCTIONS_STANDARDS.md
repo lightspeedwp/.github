@@ -2,8 +2,8 @@
 file_type: documentation
 title: Instructions Standards
 description: Standards for creating portable instruction files for agents and tools
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-18'
 ---
 
 # Instructions Standards
@@ -446,5 +446,4 @@ for all user-facing content.
 
 ---
 
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

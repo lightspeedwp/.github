@@ -1,14 +1,15 @@
 ---
-file_type: "instructions"
-title: "Workflow: Reviewer"
-description: "Automate PR review summaries, CI status, and reviewer guidance."
-version: "v1.0"
-apply_to: ".github/workflows/reviewer.yml, ai-pr-reviewer.yml, reviewer agent"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
+file_type: instructions
+title: 'Workflow: Reviewer'
+description: Automate PR review summaries, CI status, and reviewer guidance.
+version: v1.0
+apply_to: .github/workflows/reviewer.yml, ai-pr-reviewer.yml, reviewer agent
+last_updated: '2026-08-18'
+owners:
+  - LightSpeed Engineering
 references:
-  - "./workflows.instructions.md"
-  - "../agents/reviewer.agent.js"
+  - ./workflows.instructions.md
+  - ../agents/reviewer.agent.js
 ---
 
 # Mission
@@ -79,4 +80,4 @@ Automate Pull Request (PR) review summaries to standardize feedback, reduce revi
 
 ---
 
-*Instructions version: v1.0 | Updated: 2025-10-22 | Owner: LightSpeed Engineering*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

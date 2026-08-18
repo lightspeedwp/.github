@@ -1,13 +1,13 @@
 ---
-provider: 'copilot'
-agent_slug: 'website-content-strategist'
-agent_name: 'Website Content Strategist (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+provider: copilot
+agent_slug: website-content-strategist
+agent_name: Website Content Strategist (GitHub Copilot)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-18'
+platform: github
+integration: copilot-chat
 model_compatibility:
   - gpt-4
   - gpt-4-turbo
@@ -223,4 +223,4 @@ Automatic workflows triggered by content strategy changes:
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

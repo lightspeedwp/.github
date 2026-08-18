@@ -1,10 +1,14 @@
 ---
 title: Chat Closure Agent — Team Onboarding Guide
 description: Training material and setup guide for teams
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-18'
 author: Claude Code
-tags: ["onboarding", "training", "team", "setup"]
+tags:
+  - onboarding
+  - training
+  - team
+  - setup
 ---
 
 # Chat Closure Agent — Team Onboarding Guide
@@ -567,10 +571,4 @@ grep "author:" .remember/*.md | sort -u | wc -l
 
 ---
 
-**Ready to train your team?** Print the quick reference, run the meeting, and watch your handoff time drop to 2 minutes! 🚀
-
-For more details, see:
-- [Quick Start](./quick-start.md) — Individual setup
-- [CLI Reference](./cli-reference.md) — Command options
-- [Integration Guide](./integration-guide.md) — Organization setup
-- [Troubleshooting](./troubleshooting-faq.md) — Common issues
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

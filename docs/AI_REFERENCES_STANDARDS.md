@@ -2,8 +2,8 @@
 file_type: documentation
 title: AI References Standards
 description: Standards for maintaining canonical AI model and runner references
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-18'
 ---
 
 # AI References Standards
@@ -506,5 +506,4 @@ See all references: [`ai/`](../../ai/)
 
 ---
 
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

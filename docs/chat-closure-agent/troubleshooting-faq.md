@@ -1,10 +1,14 @@
 ---
 title: Chat Closure Agent — Troubleshooting FAQ
 description: Common issues, solutions, and debugging tips
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-18'
 author: Claude Code
-tags: ["troubleshooting", "faq", "debugging", "support"]
+tags:
+  - troubleshooting
+  - faq
+  - debugging
+  - support
 ---
 
 # Chat Closure Agent — Troubleshooting FAQ
@@ -681,9 +685,4 @@ git log --oneline -5
 
 ---
 
-**Still stuck?** Create an issue or reach out to the team. We're here to help!
-
-For more details, see:
-- [Quick Start](./quick-start.md) — Get started
-- [CLI Reference](./cli-reference.md) — Command reference
-- [Full Documentation](../agents/chat-closure-agent/docs/) — Complete guides
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

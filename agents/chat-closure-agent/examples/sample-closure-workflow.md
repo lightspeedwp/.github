@@ -1,5 +1,75 @@
 # Chat Closure Agent — Sample Closure Workflow
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](https://img.shields.io/badge/Labeling Governance-OK-success.svg)
+![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
+![Metadata Governance](https://img.shields.io/badge/Metadata Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](https://img.shields.io/badge/Template Enforcement-OK-success.svg)
+![Validate PR Template](https://img.shields.io/badge/Validate PR Template-OK-success.svg)
+![Badges: Documentation Update](https://img.shields.io/badge/Badges: Documentation Update-OK-success.svg)
+![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
+[![actions-minute-savings-watch](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml)
+[![allocate-pr-issue-to-milestone](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml)
+[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
+[![badges-documentation-update](https://github.com/lightspeedwp/.github/actions/workflows/badges-documentation-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/badges-documentation-update.yml)
+[![badges-health-check](https://github.com/lightspeedwp/.github/actions/workflows/badges-health-check.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/badges-health-check.yml)
+[![badges-readme-status](https://github.com/lightspeedwp/.github/actions/workflows/badges-readme-status.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/badges-readme-status.yml)
+[![badges-workflow-audit](https://github.com/lightspeedwp/.github/actions/workflows/badges-workflow-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/badges-workflow-audit.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
+[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
+[![cleanup-branches](https://github.com/lightspeedwp/.github/actions/workflows/cleanup-branches.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/cleanup-branches.yml)
+[![docs-maintenance](https://github.com/lightspeedwp/.github/actions/workflows/docs-maintenance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/docs-maintenance.yml)
+[![docs-validation](https://github.com/lightspeedwp/.github/actions/workflows/docs-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/docs-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
+[![gitleaks-reusable](https://github.com/lightspeedwp/.github/actions/workflows/gitleaks-reusable.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/gitleaks-reusable.yml)
+[![gitleaks-update](https://github.com/lightspeedwp/.github/actions/workflows/gitleaks-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/gitleaks-update.yml)
+[![gitleaks](https://github.com/lightspeedwp/.github/actions/workflows/gitleaks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/gitleaks.yml)
+[![issue-create-enhanced](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-enhanced.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-enhanced.yml)
+[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
+[![issue-fields-backfill](https://github.com/lightspeedwp/.github/actions/workflows/issue-fields-backfill.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-fields-backfill.yml)
+[![issue-health-audit](https://github.com/lightspeedwp/.github/actions/workflows/issue-health-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-health-audit.yml)
+[![issue-labeling-automation](https://github.com/lightspeedwp/.github/actions/workflows/issue-labeling-automation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-labeling-automation.yml)
+[![issue-project-field-sync](https://github.com/lightspeedwp/.github/actions/workflows/issue-project-field-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-project-field-sync.yml)
+[![issue-remediation-automation](https://github.com/lightspeedwp/.github/actions/workflows/issue-remediation-automation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-remediation-automation.yml)
+[![issue-remediation-bulk](https://github.com/lightspeedwp/.github/actions/workflows/issue-remediation-bulk.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-remediation-bulk.yml)
+[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
+[![label-audit-report](https://github.com/lightspeedwp/.github/actions/workflows/label-audit-report.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/label-audit-report.yml)
+[![labeling-governance](https://github.com/lightspeedwp/.github/actions/workflows/labeling-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling-governance.yml)
+[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
+[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
+[![manage-blocking-status-labels](https://github.com/lightspeedwp/.github/actions/workflows/manage-blocking-status-labels.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/manage-blocking-status-labels.yml)
+[![meta-labels-sync](https://github.com/lightspeedwp/.github/actions/workflows/meta-labels-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta-labels-sync.yml)
+[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
+[![metrics-pipeline](https://github.com/lightspeedwp/.github/actions/workflows/metrics-pipeline.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-pipeline.yml)
+[![metrics-reporting](https://github.com/lightspeedwp/.github/actions/workflows/metrics-reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-reporting.yml)
+[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
+[![project-maintenance-nightly](https://github.com/lightspeedwp/.github/actions/workflows/project-maintenance-nightly.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-maintenance-nightly.yml)
+[![project-maintenance-on-demand](https://github.com/lightspeedwp/.github/actions/workflows/project-maintenance-on-demand.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-maintenance-on-demand.yml)
+[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
+[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
+[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
+[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
+[![validate-blocking-issue-before-close](https://github.com/lightspeedwp/.github/actions/workflows/validate-blocking-issue-before-close.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-blocking-issue-before-close.yml)
+[![validate-blocking-status-before-close](https://github.com/lightspeedwp/.github/actions/workflows/validate-blocking-status-before-close.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-blocking-status-before-close.yml)
+[![validate-dor-dod-sections](https://github.com/lightspeedwp/.github/actions/workflows/validate-dor-dod-sections.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-dor-dod-sections.yml)
+[![validate-issue-dod-before-close](https://github.com/lightspeedwp/.github/actions/workflows/validate-issue-dod-before-close.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-issue-dod-before-close.yml)
+[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
+[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
+[![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
+<!-- BADGES-END -->
+
 **Real-world example: End-of-session closure with memory, handoff prompt, and cleanup.**
 
 ## Scenario
@@ -274,205 +344,4 @@ started Phase 4 documentation (architecture, usage guide, testing guide).
 
 ---
 
-**Session Closed:** 2026-08-12 at 16:30 CEST  
-**Memory Entry:** .remember/chat-closure-2026-08-12-context-limit.md  
-**Ready for next session:** YES ✅
-
-================================================================================
-```
-
-## Step 4: Save Continuation Prompt
-
-### Code
-
-```javascript
-const fs = require('fs');
-const path = require('path');
-
-// Save prompt to file for next session
-const promptFile = path.join('.', 'CONTINUATION_PROMPT.md');
-fs.writeFileSync(promptFile, prompt.markdown, 'utf-8');
-
-console.log(`💾 Continuation prompt saved`);
-console.log(`   File: ${promptFile}`);
-console.log(`   Size: ${(prompt.markdown.length / 1024).toFixed(2)} KB\n`);
-
-// Also save to memory directory as backup
-const memoryPromptFile = path.join(
-  '.remember',
-  `continuation-${memory.entry.name}.md`
-);
-fs.writeFileSync(memoryPromptFile, prompt.markdown, 'utf-8');
-
-console.log(`📦 Backup saved to memory`);
-console.log(`   File: ${memoryPromptFile}\n`);
-```
-
-### Output
-
-```
-💾 Continuation prompt saved
-   File: ./CONTINUATION_PROMPT.md
-   Size: 2.78 KB
-
-📦 Backup saved to memory
-   File: .remember/continuation-chat-closure-2026-08-12-context-limit.md
-```
-
-## Step 5: Validate Git State (Optional Cleanup)
-
-### Code
-
-```javascript
-const workspaceCleaner = require('./agents/chat-closure-agent/shared/workspace-cleaner');
-
-console.log('🔍 Validating workspace state...\n');
-
-const cleanupValidation = workspaceCleaner.validateCleanupSafety('.', '.');
-
-console.log('Git State Assessment:');
-console.log(`  • Status: ${cleanupValidation.gitState.isClean ? '✅ Clean' : '⚠️ Dirty'}`);
-console.log(`  • Commits ahead: ${cleanupValidation.commitsAhead}`);
-console.log(`  • Changed files: ${cleanupValidation.gitState.changedFiles.length}`);
-
-if (cleanupValidation.warnings.length > 0) {
-  console.log('\n⚠️ Warnings:');
-  cleanupValidation.warnings.forEach(w => {
-    console.log(`  • ${w}`);
-  });
-} else {
-  console.log('\n✅ No cleanup issues detected');
-}
-
-console.log('\n💡 Cleanup Status: No cleanup needed (working directory is clean)');
-```
-
-### Output
-
-```
-🔍 Validating workspace state...
-
-Git State Assessment:
-  • Status: ✅ Clean
-  • Commits ahead: 4
-  • Changed files: 0
-
-✅ No cleanup issues detected
-
-💡 Cleanup Status: No cleanup needed (working directory is clean)
-```
-
-## Complete Session Closure Summary
-
-### Final Report
-
-```
-╔═══════════════════════════════════════════════════════════════════════════╗
-║                     SESSION CLOSURE COMPLETE ✅                           ║
-╚═══════════════════════════════════════════════════════════════════════════╝
-
-📊 Repository Analysis
-   • Repository type: control-plane
-   • Current branch: feat/chat-closure-agent
-   • Commits ahead of develop: 4
-   • Working directory: ✅ Clean
-
-📝 Memory Management
-   • Entry created: chat-closure-2026-08-12-context-limit.md
-   • Location: .remember/chat-closure-2026-08-12-context-limit.md
-   • Indexed: Yes (updated .remember/MEMORY.md)
-
-📋 Handoff Documentation
-   • Continuation prompt: ✅ Generated (2,847 characters)
-   • Saved to: CONTINUATION_PROMPT.md
-   • Backup saved: .remember/continuation-chat-closure-2026-08-12-context-limit.md
-   • Valid: ✅ Yes (all validation checks passed)
-
-🔧 Workspace Status
-   • Git state: ✅ Clean
-   • Uncommitted changes: 0
-   • Cleanup required: No
-
-✨ Next Steps (Copy to Next Session)
-   1. Complete USAGE_GUIDE.md (API reference + examples)
-   2. Complete TESTING_GUIDE.md (test patterns + coverage)
-   3. Create sample-closure-workflow.md (this file)
-   4. Run full test suite (expect 95+ tests passing)
-   5. Audit coverage (target: ≥85% per module)
-   6. Submit PR to develop branch
-   7. Code review with team
-   8. Merge after approval
-
-📌 Key Documents
-   • Memory: .remember/chat-closure-2026-08-12-context-limit.md
-   • Continuation prompt: ./CONTINUATION_PROMPT.md
-   • Agent specification: ./agents/chat-closure-agent/AGENT.md
-   • Architecture guide: ./agents/chat-closure-agent/docs/ARCHITECTURE.md
-
-═══════════════════════════════════════════════════════════════════════════════
-
-Ready for next session! 🚀
-
-Copy this continuation prompt to your next session:
-  → CONTINUATION_PROMPT.md (2.78 KB)
-  → Or read from: .remember/continuation-chat-closure-2026-08-12-context-limit.md
-
-Session closed at: 2026-08-12 16:30:00 CEST
-```
-
-## Next Session: How to Resume
-
-### Step 1: Read Continuation Prompt
-
-When you start the next session:
-
-```bash
-# Option 1: Read from file
-cat CONTINUATION_PROMPT.md
-
-# Option 2: Read from memory
-cat .remember/continuation-chat-closure-2026-08-12-context-limit.md
-```
-
-### Step 2: Paste into Next Claude Session
-
-```
-<paste entire contents of CONTINUATION_PROMPT.md>
-```
-
-### Step 3: Continue from Where You Left Off
-
-The continuation prompt will provide:
-
-- ✅ Full context summary
-- ✅ Current branch and commits
-- ✅ All decisions made
-- ✅ Active blockers
-- ✅ Next steps prioritized
-- ✅ Reference links to documentation
-
-### Example Next Session Start
-
-```
-I'm continuing from a previous session on the Chat Closure Agent (Phase 4 Documentation).
-
-<paste CONTINUATION_PROMPT.md>
-
-I was working on completing the Phase 4 documentation. Let me continue with the next task.
-```
-
-## Key Takeaways
-
-1. **Automation:** The Chat Closure Agent fully automates session closure
-2. **Memory:** Structured 10-family YAML preserves all context
-3. **Handoff:** Generated continuation prompt enables seamless context transfer
-4. **Safety:** Non-destructive cleanup options prevent data loss
-5. **Simplicity:** 4-step workflow takes ~10 minutes to complete
-
-## Related Documentation
-
-- [ARCHITECTURE.md](../docs/ARCHITECTURE.md) — System design and components
-- [USAGE_GUIDE.md](../docs/USAGE_GUIDE.md) — API reference and invocation patterns
-- [TESTING_GUIDE.md](../docs/TESTING_GUIDE.md) — Test patterns and coverage
-- [AGENT.md](../AGENT.md) — Full agent specification
-- [claude/prompt.md](../claude/prompt.md) — Claude provider implementation
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

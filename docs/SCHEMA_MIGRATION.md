@@ -2,8 +2,8 @@
 file_type: documentation
 title: Schema Consolidation Migration Guide
 description: Path updates for the Phase 2 schema consolidation (2026-08-11)
-version: "1.0"
-last_updated: "2026-08-11"
+version: '1.0'
+last_updated: '2026-08-18'
 status: active
 owners:
   - LightSpeedWP Maintainers
@@ -166,4 +166,4 @@ See:
 
 ---
 
-*Generated during Phase 2: Schema Consolidation & Validation*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -1,8 +1,8 @@
 ---
 name: pytest-spec-generation
-title: "pytest Test Specification Generation Skill"
-description: "Generate comprehensive pytest test specifications for Python applications with fixtures, parametrization, async support, and best practices for modern Python projects"
-version: "1.0.0"
+title: pytest Test Specification Generation Skill
+description: Generate comprehensive pytest test specifications for Python applications with fixtures, parametrization, async support, and best practices for modern Python projects
+version: 1.0.1
 category: testing
 tags:
   - pytest
@@ -568,7 +568,4 @@ This skill integrates with the Testing Agent's multi-framework architecture:
 
 ---
 
-**Skill Version:** 1.0.0  
-**Last Updated:** 2026-08-17  
-**Status:** Production Ready  
-**Framework:** pytest 7.0+, Python 3.8+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

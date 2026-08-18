@@ -1,11 +1,18 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
-security_level: {SECURITY_LEVEL}
-threat_category: {THREAT_CATEGORY}
-tags: [security]
+title:
+  TITLE: null
+date:
+  DATE: null
+status:
+  STATUS: null
+authors:
+  AUTHORS: null
+security_level:
+  SECURITY_LEVEL: null
+threat_category:
+  THREAT_CATEGORY: null
+tags:
+  - security
 ---
 
 # {TITLE}
@@ -54,3 +61,7 @@ Describe the impact of this decision.
 - Related security issues
 - External references (CVEs, advisories)
 - Internal security documentation
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

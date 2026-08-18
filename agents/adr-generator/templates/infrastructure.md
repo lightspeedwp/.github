@@ -1,11 +1,19 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
-infrastructure_tier: {INFRASTRUCTURE_TIER}
-scalability_rating: {SCALABILITY_RATING}
-tags: [infrastructure, architecture]
+title:
+  TITLE: null
+date:
+  DATE: null
+status:
+  STATUS: null
+authors:
+  AUTHORS: null
+infrastructure_tier:
+  INFRASTRUCTURE_TIER: null
+scalability_rating:
+  SCALABILITY_RATING: null
+tags:
+  - infrastructure
+  - architecture
 ---
 
 # {TITLE}
@@ -66,3 +74,7 @@ If replacing existing infrastructure, document the phases.
 - Related architecture documentation
 - Capacity planning reports
 - Infrastructure provider documentation
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

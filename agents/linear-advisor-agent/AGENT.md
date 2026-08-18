@@ -1,22 +1,21 @@
 ---
-name: 'Linear Advisor Agent'
-description: 'Project management integration tool for Linear issue management, sprint planning, and team coordination'
-agent_id: 'agent-11'
-agent_slug: 'linear-advisor'
-agent_name: 'Linear Advisor Agent'
-domain: 'project-management'
-focus: 'linear-integration'
-version: '1.0.0'
+name: Linear Advisor Agent
+description: Project management integration tool for Linear issue management, sprint planning, and team coordination
+agent_id: agent-11
+agent_slug: linear-advisor
+agent_name: Linear Advisor Agent
+domain: project-management
+focus: linear-integration
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - linear-issue-management
   - project-planning
@@ -24,7 +23,6 @@ capabilities:
   - release-planning
   - sprint-management
   - team-coordination
-
 tags:
   - project-management
   - linear
@@ -258,4 +256,4 @@ The Linear Advisor Agent provides intelligent project management assistance thro
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -1,13 +1,11 @@
 ---
 file_type: instructions
 title: Plugin Architecture
-description: >-
-  Structure, naming, and validation for multi-agent LightSpeed plugins that
-  package multi-provider agents for Claude, GitHub Copilot, OpenAI, and Gemini.
+description: Structure, naming, and validation for multi-agent LightSpeed plugins that package multi-provider agents for Claude, GitHub Copilot, OpenAI, and Gemini.
 scope: organization-wide
-applyTo: 'plugins/**'
-version: v1.0.0
-last_updated: '2026-07-22'
+applyTo: plugins/**
+version: v1.0.1
+last_updated: '2026-08-18'
 owners:
   - lightspeedwp/maintainers
 tags:
@@ -95,6 +93,4 @@ Reference plugin:
 
 ---
 
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Maintained by the 🤖 LightSpeedWP Automation Team*

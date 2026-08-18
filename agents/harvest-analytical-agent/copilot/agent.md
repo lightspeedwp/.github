@@ -1,13 +1,13 @@
 ---
-provider: 'copilot'
-agent_slug: 'harvest-analytical'
-agent_name: 'Harvest Analytical Agent (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+provider: copilot
+agent_slug: harvest-analytical
+agent_name: Harvest Analytical Agent (GitHub Copilot)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-18'
+platform: github
+integration: copilot-chat
 ---
 
 # Harvest Analytical Agent — GitHub Copilot Implementation
@@ -214,4 +214,4 @@ Works with:
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

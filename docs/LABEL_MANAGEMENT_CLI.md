@@ -2,8 +2,8 @@
 title: Label Management CLI Reference
 description: Command-line interface reference for label-orchestrator.js and automation scripts
 file_type: documentation
-created_date: 2026-08-11
-last_updated: 2026-08-11
+created_date: 2026-08-11T00:00:00.000Z
+last_updated: '2026-08-18'
 authors:
   - LightSpeed Team
 tags:
@@ -441,4 +441,4 @@ export GITHUB_TOKEN=ghp_xxxx...
 
 ---
 
-*Last updated: 2026-08-11 | Part of Issue Maintenance Scripts Phase 1-4 delivery*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

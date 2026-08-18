@@ -1,11 +1,11 @@
 ---
-provider: 'claude'
-agent_slug: 'harvest-analytical'
-agent_name: 'Harvest Analytical Agent (Claude)'
-status: 'production'
-version: '1.0.1'
+provider: claude
+agent_slug: harvest-analytical
+agent_name: Harvest Analytical Agent (Claude)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-18'
 model_compatibility:
   - claude-opus-4
   - claude-sonnet-4
@@ -235,4 +235,4 @@ Claude optimizes for:
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

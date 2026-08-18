@@ -1,13 +1,13 @@
 ---
-provider: 'copilot'
-agent_slug: 'proposal-desk'
-agent_name: 'Proposal Desk Agent (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+provider: copilot
+agent_slug: proposal-desk
+agent_name: Proposal Desk Agent (GitHub Copilot)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-18'
+platform: github
+integration: copilot-chat
 ---
 
 # Proposal Desk Agent — GitHub Copilot Implementation
@@ -208,4 +208,4 @@ jobs:
 
 ---
 
-*Built by 🧱 LightSpeedWP and ☕ Claude Code.*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

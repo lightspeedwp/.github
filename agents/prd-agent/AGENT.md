@@ -2,14 +2,10 @@
 file_type: agent
 name: prd
 title: PRD Agent (Product Requirements)
-description: >-
-  Create and manage comprehensive product requirement documents, technical specifications,
-  user stories, and planning artifacts for product development. Combines PRD creation
-  with feature planning, sprint coordination, and roadmap generation into one unified
-  planning powerhouse.
-version: 2.0.0
+description: Create and manage comprehensive product requirement documents, technical specifications, user stories, and planning artifacts for product development. Combines PRD creation with feature planning, sprint coordination, and roadmap generation into one unified planning powerhouse.
+version: 2.0.1
 status: active
-last_updated: '2026-07-23'
+last_updated: '2026-08-18'
 category: planning
 maintainer: Ash Shaw
 owners:
@@ -153,4 +149,4 @@ This agent represents the consolidation of two focused agents into one comprehen
 
 ---
 
-*Merged from prd-agent + prd-factory-planner-agent into unified multi-provider architecture*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

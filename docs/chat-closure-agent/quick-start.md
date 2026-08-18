@@ -1,10 +1,14 @@
 ---
 title: Chat Closure Agent — Quick Start Guide
 description: Get started with the Chat Closure Agent in 5 minutes
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-18'
 author: Claude Code
-tags: ["agent", "quick-start", "setup", "tutorial"]
+tags:
+  - agent
+  - quick-start
+  - setup
+  - tutorial
 ---
 
 # Chat Closure Agent — Quick Start Guide
@@ -219,9 +223,4 @@ A: Run `npm test` to verify your installation. See `troubleshooting-faq.md` for 
 
 ---
 
-**Ready to close your first session?** Run `node close-session.js` now! 🚀
-
-For more details, see:
-- [Full Usage Guide](../agents/chat-closure-agent/docs/USAGE_GUIDE.md) — Detailed API reference
-- [Architecture](../agents/chat-closure-agent/docs/ARCHITECTURE.md) — How it works inside
-- [Integration Guide](./chat-closure-agent/integration-guide.md) — Using in other projects
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

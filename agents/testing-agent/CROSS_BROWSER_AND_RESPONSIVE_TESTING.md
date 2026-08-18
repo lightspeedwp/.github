@@ -1,11 +1,8 @@
 ---
 file_type: documentation
 title: Playwright Testing Agent — Cross-Browser & Responsive Testing
-description: >-
-  Comprehensive guide to testing across browsers and devices. Covers viewport
-  strategies, responsive breakpoints, touch vs. mouse interactions, and
-  browser-specific quirks for WordPress and WooCommerce sites.
-last_updated: '2026-07-30'
+description: Comprehensive guide to testing across browsers and devices. Covers viewport strategies, responsive breakpoints, touch vs. mouse interactions, and browser-specific quirks for WordPress and WooCommerce sites.
+last_updated: '2026-08-18'
 domain: generic
 tags:
   - playwright
@@ -372,8 +369,4 @@ test('interaction works on mobile', async ({ page, isMobile }) => {
 
 ---
 
-**Related documentation:**
-
-- [Playwright Testing Agent](./AGENT.md) — core agent specification
-- [Edge Cases & Error Handling](./EDGE_CASES_AND_ERROR_HANDLING.md) — handling failure modes
-- [Test Pack Builder](./skills/agent-attached/hermes/test-pack-builder/SKILL.md) — creating test packs
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

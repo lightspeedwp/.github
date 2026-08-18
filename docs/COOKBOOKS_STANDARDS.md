@@ -2,8 +2,8 @@
 file_type: documentation
 title: Cookbooks Standards
 description: Standards for creating implementation guides and recipes
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-18'
 ---
 
 # Cookbooks Standards
@@ -464,5 +464,4 @@ See all cookbooks: [`cookbook/README.md`](../../cookbook/README.md)
 
 ---
 
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

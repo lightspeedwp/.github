@@ -1,8 +1,8 @@
 ---
 name: playwright-spec-generation
-title: "Playwright E2E Test Specification Generation Skill"
-description: "Generate comprehensive Playwright end-to-end test specifications with cross-browser support, visual testing, and best practices for modern web applications"
-version: "1.0.0"
+title: Playwright E2E Test Specification Generation Skill
+description: Generate comprehensive Playwright end-to-end test specifications with cross-browser support, visual testing, and best practices for modern web applications
+version: 1.0.1
 category: testing
 tags:
   - playwright
@@ -558,7 +558,4 @@ This skill integrates with the Testing Agent's multi-framework architecture:
 
 ---
 
-**Skill Version:** 1.0.0  
-**Last Updated:** 2026-08-17  
-**Status:** Production Ready  
-**Framework:** Playwright 1.40+, Node.js 16+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

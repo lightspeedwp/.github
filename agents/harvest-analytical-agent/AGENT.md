@@ -1,22 +1,21 @@
 ---
-name: 'Harvest Analytical Agent'
-description: 'Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation'
-agent_id: 'agent-12'
-agent_slug: 'harvest-analytical'
-agent_name: 'Harvest Analytical Agent'
-domain: 'analytics'
-focus: 'time-tracking-analysis'
-version: '1.0.0'
+name: Harvest Analytical Agent
+description: Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation
+agent_id: agent-12
+agent_slug: harvest-analytical
+agent_name: Harvest Analytical Agent
+domain: analytics
+focus: time-tracking-analysis
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - time-tracking-analysis
   - project-profitability-analysis
@@ -24,7 +23,6 @@ capabilities:
   - budget-tracking
   - report-generation
   - billing-generation
-
 tags:
   - analytics
   - harvest
@@ -320,4 +318,4 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 
 ---
 
-*Built by LightSpeedWP with open-source spirit!*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

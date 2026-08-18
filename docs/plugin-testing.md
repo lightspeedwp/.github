@@ -1,8 +1,8 @@
 ---
 title: Plugin Testing Checklist
 description: Manual testing checklist for AI code assistant plugins (Claude Code and GitHub Copilot)
-created: 2026-07-26
-updated: 2026-07-26
+created: 2026-07-26T00:00:00.000Z
+updated: 2026-07-26T00:00:00.000Z
 type: guide
 ---
 
@@ -647,4 +647,4 @@ Use this template to document testing:
 
 ---
 
-*Created as part of Phase 4: Plugin Adoption Strategy*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
