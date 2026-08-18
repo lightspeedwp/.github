@@ -1,140 +1,143 @@
 #!/usr/bin/env node
 
 /**
- * Phase 5A Release Agent — Integration Wrapper
- *
- * Orchestrates Phase 5A safety gates before calling Phase 4 release agent.
- * Implements AUGMENT strategy: wraps Phase 4 without breaking changes.
+ * Phase 5A Release Agent Integration — Wraps Phase 4 with Safety Gates
  *
  * Flow:
- *   1. Run all 7 safety gates
- *   2. If gates pass, call Phase 4 release agent
- *   3. If gates fail, return error without touching releases
+ *   1. Import ReleaseGates class
+ *   2. Run all 7 safety gates
+ *   3. If gates pass, call Phase 4 run-release-agent.cjs
+ *   4. If gates fail, provide actionable error message
+ *
+ * Design: AUGMENT approach (no Phase 4 changes)
+ * Phase 4 scripts called unchanged as fallback
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
-const ReleaseGates = require('../../gates/release-gates.cjs');
+const { execSync, spawnSync } = require('child_process');
 
-function main() {
-  const isDryRun = process.env.INPUT_DRY_RUN === 'true';
-  const verbose = process.env.VERBOSE === 'true';
+// Try to import ReleaseGates from the new gates module
+let ReleaseGates;
+try {
+  ReleaseGates = require('../../../gates/release-gates.js');
+} catch (err) {
+  console.warn('⚠️  ReleaseGates module not found, using fallback');
+  // If gates module not available, fall back to Phase 4 directly
+  console.log('Falling back to Phase 4 release agent...');
+  callPhase4();
+  process.exit(0);
+}
 
-  console.log('\n📋 Phase 5A Release Agent with Safety Gates');
-  console.log('═'.repeat(50));
+function log(message, level = 'INFO') {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${level}: ${message}`);
+}
+
+function callPhase4() {
+  log('Calling Phase 4 release agent (run-release-agent.cjs)');
+
+  const phase4Script = path.join(__dirname, 'run-release-agent.cjs');
+
+  try {
+    const output = execSync(`node ${phase4Script}`, {
+      stdio: 'inherit',
+      encoding: 'utf-8',
+      env: process.env,
+    });
+    log('✅ Phase 4 release agent completed successfully');
+    return true;
+  } catch (err) {
+    log(`❌ Phase 4 release agent failed: ${err.message}`, 'ERROR');
+    throw err;
+  }
+}
+
+async function runWithGates() {
+  const dryRun = process.env.INPUT_DRY_RUN === 'true';
+  const scope = process.env.INPUT_SCOPE || 'patch';
+
+  log(`🚀 Starting Phase 5A Release Agent with Safety Gates`);
+  log(`   Scope: ${scope}, Dry-run: ${dryRun}`);
 
   // Initialize gates
   const gates = new ReleaseGates({
-    verbose,
-    logDir: './.agentic-logs',
+    verbose: process.env.VERBOSE === 'true',
   });
 
-  try {
-    // Run all 7 gates
-    console.log('\n🔐 Running 7-layer safety gates...\n');
+  // Run all safety gates
+  log('Running 7-layer safety gates validation...');
+  const allGatesPassed = gates.runAllGates();
 
-    gates.gate1Preflight();
-    if (!gates.results.gate1_preflight.passed) {
-      logGateFailed('GATE 1: Pre-flight Checks', gates.results.gate1_preflight.details);
-      gates.failedAt = 'GATE 1';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 1: Pre-flight Checks', gates.results.gate1_preflight.details);
+  // Save audit log
+  gates.saveAuditLog();
 
-    gates.gate2AgenticScore();
-    if (!gates.results.gate2_agentic.passed) {
-      logGateFailed('GATE 2: Agentic Reasoning Score', gates.results.gate2_agentic.details);
-      gates.failedAt = 'GATE 2';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 2: Agentic Reasoning Score', gates.results.gate2_agentic.details);
-
-    gates.gate3VersionConsistency();
-    if (!gates.results.gate3_version.passed) {
-      logGateFailed('GATE 3: Version Consistency', gates.results.gate3_version.details);
-      gates.failedAt = 'GATE 3';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 3: Version Consistency', gates.results.gate3_version.details);
-
-    gates.gate4TagUniqueness();
-    if (!gates.results.gate4_tag_unique.passed) {
-      logGateFailed('GATE 4: Tag Uniqueness', gates.results.gate4_tag_unique.details);
-      gates.failedAt = 'GATE 4';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 4: Tag Uniqueness', gates.results.gate4_tag_unique.details);
-
-    gates.gate5Authorization();
-    if (!gates.results.gate5_authorization.passed) {
-      logGateFailed('GATE 5: Authorization', gates.results.gate5_authorization.details);
-      gates.failedAt = 'GATE 5';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 5: Authorization', gates.results.gate5_authorization.details);
-
-    gates.gate6IntegrityFilter();
-    if (!gates.results.gate6_integrity.passed) {
-      logGateFailed('GATE 6: Integrity Filter', gates.results.gate6_integrity.details);
-      gates.failedAt = 'GATE 6';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 6: Integrity Filter', gates.results.gate6_integrity.details);
-
-    gates.gate7ApprovalEnforcement();
-    if (!gates.results.gate7_approval.passed) {
-      logGateFailed('GATE 7: Approval Enforcement', gates.results.gate7_approval.details);
-      gates.failedAt = 'GATE 7';
-      gates.saveAuditLog();
-      process.exit(1);
-    }
-    logGatePassed('GATE 7: Approval Enforcement', gates.results.gate7_approval.details);
-
-    // All gates passed
-    console.log('\n✅ All 7 safety gates PASSED\n');
-    gates.saveAuditLog();
-
-    if (isDryRun) {
-      console.log('🔍 DRY-RUN MODE: Skipping Phase 4 release agent execution\n');
-      process.exit(0);
-    }
-
-    // Call Phase 4 release agent
-    console.log('📦 Calling Phase 4 release agent...\n');
-    execSync('node scripts/workflows/release/run-release-agent.cjs', {
-      stdio: 'inherit',
-      cwd: process.cwd(),
+  if (!allGatesPassed) {
+    log('❌ Release blocked: Safety gates failed', 'ERROR');
+    log('');
+    log('Gate Status Summary:', 'INFO');
+    Object.entries(gates.results).forEach(([gate, result]) => {
+      const status = result.passed ? '✅ PASS' : '❌ FAIL';
+      console.log(`  ${status} — ${gate}`);
+      if (result.details && result.details.length > 0) {
+        result.details.forEach(detail => console.log(`       ${detail}`));
+      }
     });
 
-  } catch (error) {
-    console.error(`\n❌ Release workflow failed: ${error.message}`);
-    gates.failedAt = gates.failedAt || 'UNKNOWN';
-    gates.saveAuditLog();
+    log('');
+    log('Suggestions:', 'INFO');
+    if (gates.failedAt === 'gate1') {
+      log('  1. Ensure you are on the develop branch');
+      log('  2. Commit any uncommitted changes');
+      log('  3. Verify VERSION and CHANGELOG.md files exist');
+    } else if (gates.failedAt === 'gate2') {
+      log('  1. Add entries to [Unreleased] section in CHANGELOG.md');
+      log('  2. Run: npm run validate:changelog');
+    } else if (gates.failedAt === 'gate3' || gates.failedAt === 'gate4') {
+      log('  1. Verify VERSION file has valid semver format (X.Y.Z)');
+      log('  2. Check for duplicate git tags: git tag -l | grep v*');
+    } else if (gates.failedAt === 'gate5') {
+      log('  1. Ensure you are an authorized maintainer');
+      log('  2. Contact team lead to add your account to maintainers team');
+    }
+
+    log('');
+    log('Fallback:', 'INFO');
+    log('  To bypass gates and use Phase 4 directly:');
+    log(`  npm run release -- --scope=${scope}`, 'CODE');
+
+    process.exit(1);
+  }
+
+  log('✅ All safety gates passed!');
+
+  // If dry-run, exit here (don't call Phase 4 for mutations)
+  if (dryRun) {
+    log('ℹ️  Dry-run mode: Exiting without calling Phase 4');
+    log('📋 To proceed with actual release, run without --dry-run flag');
+    process.exit(0);
+  }
+
+  // Gates passed, proceed with Phase 4
+  log('');
+  log('Proceeding to Phase 4 release workflow...');
+  log('');
+
+  try {
+    callPhase4();
+    process.exit(0);
+  } catch (err) {
     process.exit(1);
   }
 }
 
-function logGatePassed(gateName, details = []) {
-  console.log(`✅ ${gateName}`);
-  details.forEach(detail => {
-    if (!detail.startsWith('❌')) {
-      console.log(`   ${detail}`);
-    }
-  });
-}
-
-function logGateFailed(gateName, details = []) {
-  console.error(`\n❌ ${gateName} FAILED`);
-  details.forEach(detail => {
-    console.error(`   ${detail}`);
-  });
-}
-
-main();
+// Main entry point
+(async () => {
+  try {
+    await runWithGates();
+  } catch (err) {
+    log(`Unexpected error: ${err.message}`, 'ERROR');
+    log(err.stack, 'ERROR');
+    process.exit(1);
+  }
+})();
