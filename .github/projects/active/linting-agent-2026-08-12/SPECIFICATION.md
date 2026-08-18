@@ -464,7 +464,7 @@ graph TD
 - [Specification-Driven Workflow](../../../instructions/spec-driven-workflow.instructions.md)
 - [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/)
 - [linting.agent.js Implementation](../../../scripts/agents/linting.agent.js)
-- [lint-fixer Agent](../../../.github/agents/lint-fixer.agent.md)
+- *(Future: lint-fixer Agent for automated fixes)*
 
 ---
 
