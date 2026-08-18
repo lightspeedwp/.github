@@ -9,7 +9,6 @@ on:
       - ".github/agents/**"
       - ".github/instructions/**"
       - "docs/**"
-      - ".github/scripts/**"
       - "scripts/**"
   schedule:
     - cron: "0 9 * * MON"

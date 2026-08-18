@@ -142,7 +142,6 @@ module.exports = [
       "scripts/**/*.js",
       ".github/agents/**/*.js",
       ".github/metrics/**/*.js",
-      ".github/scripts/**/*.js",
       "docs/ai/**/*.js",
     ],
     languageOptions: {
