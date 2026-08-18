@@ -1,0 +1,85 @@
+name: Project Maintenance — Nightly Audit
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      notify_slack:
+        type: boolean
+        default: true
+permissions:
+  contents: read
+  issues: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    outputs:
+      audit_results: ${{ steps.audit.outputs.results }}
+      has_gaps: ${{ steps.audit.outputs.has_gaps }}
+      gap_count: ${{ steps.audit.outputs.gap_count }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm ci
+      - id: audit
+        shell: bash
+        run: |
+          set +e
+          AUDIT_OUTPUT=$(bash ./scripts/automation/project-docs-update.sh DRY_RUN=true VERBOSE=true 2>&1)
+          AUDIT_EXIT=$?
+          TOTAL_PROJECTS=$(echo "$AUDIT_OUTPUT" | grep -oP 'Total projects processed: \K[0-9]+' || echo "0")
+          MISSING_PLANNING=$(echo "$AUDIT_OUTPUT" | grep -oP 'Missing PLANNING.md: \K[0-9]+' || echo "0")
+          MISSING_OPENSPEC=$(echo "$AUDIT_OUTPUT" | grep -oP 'Missing OPENSPEC.md: \K[0-9]+' || echo "0")
+          MISSING_README=$(echo "$AUDIT_OUTPUT" | grep -oP 'Missing README.md: \K[0-9]+' || echo "0")
+          TOTAL_GAPS=$((MISSING_PLANNING + MISSING_OPENSPEC + MISSING_README))
+          HAS_GAPS="false"
+          [ "$TOTAL_GAPS" -gt 0 ] && HAS_GAPS="true"
+          RESULTS_JSON=$(cat <<RESULTS
+          {
+            "timestamp": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')",
+            "exit_code": $AUDIT_EXIT,
+            "total_projects": $TOTAL_PROJECTS,
+            "missing_planning": $MISSING_PLANNING,
+            "missing_openspec": $MISSING_OPENSPEC,
+            "missing_readme": $MISSING_README,
+            "total_gaps": $TOTAL_GAPS,
+            "has_critical_gaps": $([ "$TOTAL_GAPS" -ge 5 ] && echo "true" || echo "false")
+          }
+          RESULTS
+          )
+          echo "results=$RESULTS_JSON" >> "$GITHUB_OUTPUT"
+          echo "has_gaps=$HAS_GAPS" >> "$GITHUB_OUTPUT"
+          echo "gap_count=$TOTAL_GAPS" >> "$GITHUB_OUTPUT"
+          exit $AUDIT_EXIT
+      - if: always()
+        shell: bash
+        run: |
+          echo "### Project Maintenance Audit — $(date -u +'%Y-%m-%d %H:%M:%SZ') UTC"
+          echo "${{ steps.audit.outputs.results }}" | jq '.'
+      - if: failure() && steps.audit.outputs.gap_count >= 5
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const results = JSON.parse('${{ steps.audit.outputs.results }}');
+            let body = `## Project Documentation Gaps\n\n**Audit Date:** ${results.timestamp}\n\n- Missing PLANNING.md: ${results.missing_planning}\n- Missing OPENSPEC.md: ${results.missing_openspec}\n- Missing README.md: ${results.missing_readme}\n- **Total: ${results.total_gaps}**`;
+            await github.rest.issues.create({owner: context.repo.owner, repo: context.repo.repo, title: `📋 Project Documentation Gaps (${results.total_gaps} items)`, body: body, labels: ['type:maintenance', 'area:docs', 'status:needs-triage']});
+      - if: inputs.notify_slack && steps.audit.outputs.has_gaps == 'true'
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {"blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "⚠️ *Project Maintenance — Documentation Gaps*\n${{ steps.audit.outputs.gap_count }} items"}}]}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.PROJECT_MAINTENANCE_SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      - if: inputs.notify_slack && steps.audit.outputs.has_gaps == 'false'
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {"blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "✅ *Project Maintenance — Audit Complete*\nAll projects documented"}}]}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.PROJECT_MAINTENANCE_SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
