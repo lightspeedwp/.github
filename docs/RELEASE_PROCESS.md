@@ -2,8 +2,8 @@
 title: "Release Process"
 description: "Authoritative release process for lightspeedwp/.github: develop-first stacked PR flow with authorization gating, changelog validation, and automated post-release sync."
 file_type: "documentation"
-version: 'v3.0.1'
-last_updated: '2026-08-08'
+version: 'v3.1'
+last_updated: '2026-08-18'
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp"]
@@ -130,6 +130,90 @@ flowchart TD
 ```
 
 See [ADR-002: Authorization Gating Strategy](./ADRs/ADR-002-authorization-gating.md) for detailed rationale.
+
+## Phase 5A: Safety Gates Layer (NEW)
+
+**Added in v3.1 (2026-08-18):** Phase 5A introduces a **7-layer safety gates system** that augments Phase 4 release automation with intelligent decision-making and structured approval flows.
+
+### Overview
+
+Before Phase 4 scripts are invoked, all 7 safety gates must pass. Gates run sequentially; if any gate fails, the release process stops immediately with no mutations.
+
+```mermaid
+flowchart TD
+    A["🚀 Release triggered<br/>User runs release.yml"] -->|scope: patch/minor/major| B["🔐 Phase 5A Safety Gates"]
+    B -->|GATE 1| C["Pre-flight Checks<br/>Branch, VERSION, CHANGELOG"]
+    C -->|GATE 2| D["Agentic Score<br/>AI confidence ≥0.80"]
+    D -->|GATE 3| E["Version Consistency<br/>Semver validation"]
+    E -->|GATE 4| F["Tag Uniqueness<br/>No duplicate tags"]
+    F -->|GATE 5| G["Authorization<br/>Maintainers team"]
+    G -->|GATE 6| H["Integrity Filter<br/>Gitleaks detection"]
+    H -->|GATE 7| I["Approval Enforcement<br/>Tiered by scope"]
+    I -->|All gates PASS| J["✅ Phase 4 Scripts<br/>Mutations approved"]
+    C -->|FAIL| Z1["❌ Release aborted<br/>No changes made"]
+    D -->|FAIL| Z2["❌ Release aborted<br/>Low confidence"]
+    E -->|FAIL| Z3["❌ Release aborted<br/>Invalid version"]
+    F -->|FAIL| Z4["❌ Release aborted<br/>Tag exists"]
+    G -->|FAIL| Z5["❌ Release aborted<br/>Unauthorized"]
+    H -->|FAIL| Z6["❌ Release aborted<br/>Secrets detected"]
+    I -->|FAIL| Z7["❌ Release aborted<br/>Approval pending"]
+    J -->|mutations| K["🏷️ GitHub Release<br/>Tags & release notes"]
+    
+    style A fill:#01579b,color:#fff
+    style B fill:#bf360c,color:#fff
+    style C fill:#1b5e20,color:#fff
+    style D fill:#4a148c,color:#fff
+    style E fill:#1b5e20,color:#fff
+    style F fill:#4a148c,color:#fff
+    style G fill:#bf360c,color:#fff
+    style H fill:#1b5e20,color:#fff
+    style I fill:#4a148c,color:#fff
+    style J fill:#2e7d32,color:#fff
+    style K fill:#f57f17,color:#000
+    style Z1 fill:#b71c1c,color:#fff
+    style Z2 fill:#b71c1c,color:#fff
+    style Z3 fill:#b71c1c,color:#fff
+    style Z4 fill:#b71c1c,color:#fff
+    style Z5 fill:#b71c1c,color:#fff
+    style Z6 fill:#b71c1c,color:#fff
+    style Z7 fill:#b71c1c,color:#fff
+```
+
+### The 7-Layer Gates
+
+| Gate | Purpose | Fails When |
+|------|---------|-----------|
+| **1: Pre-flight** | Validate environment | Not on develop, uncommitted changes, missing VERSION/CHANGELOG |
+| **2: Agentic Score** | AI confidence check | Score < 0.80 (low confidence release) |
+| **3: Version** | Semver validation | Invalid format, downgrade, or logic error |
+| **4: Tag** | Prevent duplicates | Tag vX.Y.Z already exists |
+| **5: Authorization** | Team membership | Actor not in maintainers team |
+| **6: Integrity** | Secret detection | Gitleaks finds secrets in staged changes |
+| **7: Approval** | Scope-based sign-off | Patch: auto-approve; Minor: need 1x review; Major: need 2x review |
+
+### Integration with Phase 4
+
+The gates wrapper (`scripts/workflows/release/run-release-with-gates.cjs`) orchestrates all gates, then calls Phase 4 scripts only if all gates pass:
+
+```
+User Input → Phase 5A Gates (NEW) → Phase 4 Scripts (UNCHANGED)
+                    ↓
+            Audit Logging (.agentic-logs/)
+```
+
+**Key principle:** Phase 4 is never invoked if any gate fails. Fallback is available if gates layer crashes.
+
+### Audit Logging & Dry-Run
+
+- **Audit Logging:** All release attempts logged to `.agentic-logs/` with JSON structure (timestamp, user, scope, gate results)
+- **Dry-Run Mode:** `--dry-run` flag tests all gates without mutations
+- **Secret Redaction:** Sensitive patterns masked in logs
+
+### References
+
+- **Implementation:** PR #2016 (merged to develop)
+- **Project:** [release-agentic-workflows-2026-08-11](./.github/projects/active/release-agentic-workflows-2026-08-11/)
+- **Specification:** [AGENTIC_WORKFLOW_SPEC.md](./.github/projects/active/release-agentic-workflows-2026-08-11/AGENTIC_WORKFLOW_SPEC.md)
 
 ## Automation & gates
 
