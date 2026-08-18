@@ -43,7 +43,7 @@ Defines operational standards for AI-driven work in LightSpeedWP repositories. C
 - **Boundary Respect:** Copilot must respect repository boundaries and avoid cross-repo changes unless explicitly authorised.
 - **Escalation:** When facing uncertainty, policy conflicts, or scope ambiguity, escalate to human judgment via AskUserQuestion rather than proceeding autonomously.
 - **File Placement:** AI-generated artefacts follow same placement rules as human-written code—no special "AI" directories unless explicitly documented.
-- **Process Logging:** All AI work must be auditable through commit messages linking to session IDs. Use format: `https://claude.ai/code/session_[SESSION_ID]`
+- **Process Logging:** All AI work must be auditable through commit messages linking to session IDs. Use format: `https://claude.ai/code/session_[SESSION_ID]
 - **No Destructive Defaults:** Never assume permission for force-push, branch deletion, or major refactors. Confirm intent first.
 
 ## Detailed Guidance

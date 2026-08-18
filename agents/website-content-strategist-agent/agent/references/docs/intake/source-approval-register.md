@@ -331,7 +331,7 @@ Mark **Memory-safe: no** when:
 ## Source: live homepage URL
 
 - Source type: url
-- Source locator: <https://example.com/>
+- Source locator: <https://example.com/
 - Scope covered: current public homepage messaging and visible proof blocks
 - Approval status: pending_review
 - Approved for:

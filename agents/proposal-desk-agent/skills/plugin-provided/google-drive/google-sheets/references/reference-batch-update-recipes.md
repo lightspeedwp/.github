@@ -326,12 +326,12 @@ Use `setDataValidation` for restricted inputs, including status dropdowns.
 
 ## Official References
 
-- Request catalog: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request>
-- Sheets API samples index: <https://developers.google.com/workspace/sheets/api/samples>
-- Basic writing samples: <https://developers.google.com/workspace/sheets/api/samples/writing>
-- Basic formatting samples: <https://developers.google.com/workspace/sheets/api/samples/formatting>
-- Row and column samples: <https://developers.google.com/workspace/sheets/api/samples/rowcolumn>
-- Sheet operations samples: <https://developers.google.com/workspace/sheets/api/samples/sheet>
+- Request catalog: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request
+- Sheets API samples index: <https://developers.google.com/workspace/sheets/api/samples
+- Basic writing samples: <https://developers.google.com/workspace/sheets/api/samples/writing
+- Basic formatting samples: <https://developers.google.com/workspace/sheets/api/samples/formatting
+- Row and column samples: <https://developers.google.com/workspace/sheets/api/samples/rowcolumn
+- Sheet operations samples: <https://developers.google.com/workspace/sheets/api/samples/sheet
 
 ---
 

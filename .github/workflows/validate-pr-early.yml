@@ -1,0 +1,43 @@
+name: "Validate PR Template Early"
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate-template:
+    name: Validate PR Template
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || '';
+            const hasRequiredSections = {
+              'Linked issues': body.includes('## Linked issues'),
+              'Changelog': body.includes('## Changelog'),
+              'Test plan': body.includes('## Test plan') || body.includes('## Test Plan'),
+              'Checklist': body.includes('###') && body.includes('- [x]')
+            };
+
+            const missing = Object.entries(hasRequiredSections)
+              .filter(([_, present]) => !present)
+              .map(([section]) => section);
+
+            if (missing.length > 0) {
+              core.setFailed(
+                `❌ Missing PR template sections:\n${missing.map(s => `• ${s}`).join('\n')}\n\n` +
+                `Use a proper template: https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE`
+              );
+            } else {
+              core.notice('✅ PR template looks complete');
+            }
+
+            // Comment on PR if missing sections
+            if (missing.length > 0 && !body.includes('💡 PR Template Validation')) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `💡 **PR Template Validation**\n\nMissing required sections:\n${missing.map(s => `• **${s}**`).join('\n')}\n\nPlease update your PR with the proper template to proceed.`
+              });
+            }

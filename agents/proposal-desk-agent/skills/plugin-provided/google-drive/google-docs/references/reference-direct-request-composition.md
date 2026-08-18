@@ -60,7 +60,7 @@ API basis:
 - A successful batch response includes `documentId`, `replies[]`, and `writeControl`.
 - `Location` supports `index`, optional `segmentId`, and `tabId`; include `tabId` whenever the document has tabs.
 - `insertText`, `insertDate`, and `insertRichLink` must insert inside an existing paragraph, not at a table start boundary.
-- See the Google Docs API reference for current request shapes: <https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate> and <https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/request>
+- See the Google Docs API reference for current request shapes: <https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate and <https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/request
 
 Use this process:
 

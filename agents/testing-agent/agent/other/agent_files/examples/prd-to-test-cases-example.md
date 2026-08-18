@@ -43,7 +43,7 @@ A LightSpeed team is preparing Playwright coverage for a WooCommerce site launch
 
 - PRD excerpt covering guest checkout and coupon acceptance rules
 - Approved checkout acceptance criteria
-- Staging environment at `https://example.test`
+- Staging environment at `https://example.test
 - Supporting Figma checkout frame references
 
 ## Output

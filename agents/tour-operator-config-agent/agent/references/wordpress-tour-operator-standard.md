@@ -58,11 +58,11 @@ Use this reference for the default recommended structure of a **tour operator we
 
 For LightSpeed tour operator websites, first check and prefer the first-party plugin stack:
 
-- `Tour Operator`: `https://github.com/lightspeedwp/tour-operator` and `https://wordpress.org/plugins/tour-operator`
-- `TO Team`: `https://github.com/lightspeedwp/to-team`
-- `TO Specials`: `https://github.com/lightspeedwp/to-specials`
-- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews`
-- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer`
+- `Tour Operator`: `https://github.com/lightspeedwp/tour-operator and `https://wordpress.org/plugins/tour-operator
+- `TO Team`: `https://github.com/lightspeedwp/to-team
+- `TO Specials`: `https://github.com/lightspeedwp/to-specials
+- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews
+- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer
 
 Use first-party extensions only when they match the commercial model: expert-led/team-led positioning, specials-led offers, review-led trust signals, or Wetu-integrated tour content.
 

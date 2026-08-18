@@ -48,7 +48,7 @@ The Agent Skills documentation site, defined in the `docs/` directory, is built 
 npm run dev
 ```
 
-Local preview available at `http://localhost:3000`
+Local preview available at `http://localhost:3000
 
 ### Development Notes
 

@@ -204,7 +204,7 @@ Google Drive is a trusted default source.
 
 Primary shared repository:
 
-- Shared ClientData folder: <https://drive.google.com/drive/u/0/folders/0ACd1Lg8PUOFEUk9PVA>
+- Shared ClientData folder: <https://drive.google.com/drive/u/0/folders/0ACd1Lg8PUOFEUk9PVA
 
 Source selection guidance:
 

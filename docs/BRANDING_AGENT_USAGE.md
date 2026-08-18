@@ -500,7 +500,7 @@ done
 ❌ Error: Failed to parse frontmatter: mapping values are not allowed here...
 ```
 
-**Solution**: Check YAML syntax. Use a YAML validator: <https://www.yamllint.com/>
+**Solution**: Check YAML syntax. Use a YAML validator: <https://www.yamllint.com/
 
 #### Invalid Category
 
@@ -706,7 +706,7 @@ For issues, questions, or feature requests:
 
 1. Check this documentation
 2. Review [BRANDING_CONFIG_SPEC.md](./BRANDING_CONFIG_SPEC.md)
-3. Open an issue on GitHub: <https://github.com/lightspeedwp/.github/issues>
+3. Open an issue on GitHub: <https://github.com/lightspeedwp/.github/issues
 
 ---
 

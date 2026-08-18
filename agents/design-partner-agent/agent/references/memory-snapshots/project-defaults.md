@@ -44,7 +44,7 @@ Keep this file organized by reusable default set, not by one-off task.
 ### Business and service context
 
 - Company name: LightSpeed
-- Website: <https://lightspeedwp.agency>
+- Website: <https://lightspeedwp.agency
 - Company type: WordPress website design and development company
 - Core service focus: websites for specific client types, with design-to-implementation continuity
 

@@ -224,7 +224,7 @@ The `project-meta-sync.yml` workflow syncs issue/PR metadata to the organisation
    - Create **repository secrets** (on the `.github` repo):
      - `LS_APP_PRIVATE_KEY`: PEM content from the GitHub App (Settings → Private keys → Generate)
    - Create **repository variables** (on the `.github` repo):
-     - `LS_PROJECT_URL`: e.g., `https://github.com/orgs/lightspeedwp/projects/33`
+     - `LS_PROJECT_URL`: e.g., `https://github.com/orgs/lightspeedwp/projects/33
      - `LS_APP_ID`: numeric app ID from the GitHub App settings
 
 4. **Verify**

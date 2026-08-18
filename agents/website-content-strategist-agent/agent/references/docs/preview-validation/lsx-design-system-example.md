@@ -42,11 +42,11 @@ Use this file as a repeatable grounded context reference for preview tests, inta
 ## Core references
 
 - Product name: LSX Design System
-- Live product site: <https://lsx.design/>
-- Demo site: <https://demo.lsx.design/>
-- GitHub repository: <https://github.com/lightspeedwp/lsx-design-2025>
-- Google Drive documentation folder: <https://drive.google.com/drive/folders/1UTTSaKxs8qc0mgrNyq2_Wt2c18pqSIA_?usp=drive_link>
-- LSX Figma design system: <https://www.figma.com/design/U3MB5DRLxHpQDoDs2Pi2jG/-Library--LSX-DS?m=auto&node-id=0-1&t=zNuowvH4BvNuGS3i-1>
+- Live product site: <https://lsx.design/
+- Demo site: <https://demo.lsx.design/
+- GitHub repository: <https://github.com/lightspeedwp/lsx-design-2025
+- Google Drive documentation folder: <https://drive.google.com/drive/folders/1UTTSaKxs8qc0mgrNyq2_Wt2c18pqSIA_?usp=drive_link
+- LSX Figma design system: <https://www.figma.com/design/U3MB5DRLxHpQDoDs2Pi2jG/-Library--LSX-DS?m=auto&node-id=0-1&t=zNuowvH4BvNuGS3i-1
 
 ## Project profile
 

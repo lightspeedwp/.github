@@ -102,7 +102,7 @@ Missing site name but URL is available:
 
 - Derive the site name from the canonical domain.
 - Strip protocol, paths, tracking parameters, and trailing slashes.
-- Example: `https://www.example.co.za/services/?utm_source=x` becomes `example.co.za`.
+- Example: `https://www.example.co.za/services/?utm_source=x becomes `example.co.za`.
 
 Missing both client and site name:
 

@@ -43,12 +43,12 @@ TourOperator.solutions
 
 ## Core references
 
-- Live product site: <https://touroperator.solutions/>
-- Demo site: <https://tourpress.pro/>
-- Dev site: <https://touroperator-solutions.lightspeedwp.dev/>
-- GitHub repository: <https://github.com/lightspeedwp/touroperator-solutions-2025>
-- Google Drive documentation folder: <https://drive.google.com/drive/folders/1rygt8TXj0-26u9yi3j_suf5PdsC37XPH?usp=drive_link>
-- Figma design system: <https://www.figma.com/design/1wiwltz5a0og0YIoKsuPmn/-Library--TO-DS?node-id=0-1&t=H5LKavfymr9XzKa8-1>
+- Live product site: <https://touroperator.solutions/
+- Demo site: <https://tourpress.pro/
+- Dev site: <https://touroperator-solutions.lightspeedwp.dev/
+- GitHub repository: <https://github.com/lightspeedwp/touroperator-solutions-2025
+- Google Drive documentation folder: <https://drive.google.com/drive/folders/1rygt8TXj0-26u9yi3j_suf5PdsC37XPH?usp=drive_link
+- Figma design system: <https://www.figma.com/design/1wiwltz5a0og0YIoKsuPmn/-Library--TO-DS?node-id=0-1&t=H5LKavfymr9XzKa8-1
 
 ## Suggested uses
 

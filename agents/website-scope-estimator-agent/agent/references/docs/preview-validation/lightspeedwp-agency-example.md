@@ -43,14 +43,14 @@ LightSpeedWP.Agency
 
 ## Core references
 
-- Live agency site: <https://lightspeedwp.agency>
-- Figma prototype site: <https://lightspeedwp.figma.site>
-- Dev site: <https://ls-agency.lightspeedwp.dev/>
-- GitHub theme repository: <https://github.com/lightspeedwp/ls-theme>
-- GitHub plugin repository: <https://github.com/lightspeedwp/ls-plugin>
-- Google Drive documentation folder: <https://drive.google.com/drive/folders/1GqKn_lys_AfPnwI-m3k00C5j0Um6TKAz?usp=drive_link>
-- Figma design system: <https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System?m=auto&t=CTYQGLlYaOao2LYR-6>
-- Figma Make prototype: <https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlYaOao2LYR-6>
+- Live agency site: <https://lightspeedwp.agency
+- Figma prototype site: <https://lightspeedwp.figma.site
+- Dev site: <https://ls-agency.lightspeedwp.dev/
+- GitHub theme repository: <https://github.com/lightspeedwp/ls-theme
+- GitHub plugin repository: <https://github.com/lightspeedwp/ls-plugin
+- Google Drive documentation folder: <https://drive.google.com/drive/folders/1GqKn_lys_AfPnwI-m3k00C5j0Um6TKAz?usp=drive_link
+- Figma design system: <https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System?m=auto&t=CTYQGLlYaOao2LYR-6
+- Figma Make prototype: <https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlYaOao2LYR-6
 
 ## Suggested uses
 

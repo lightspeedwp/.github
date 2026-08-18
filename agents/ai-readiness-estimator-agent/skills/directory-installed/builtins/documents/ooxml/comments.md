@@ -51,7 +51,7 @@ A comment requires three cooperating pieces:
    - `<w:commentRangeEnd w:id="..."/>`
    - a `<w:commentReference w:id="..."/>` in a run after the range
 3) Relationships + content-types:
-   - `word/_rels/document.xml.rels`: add a relationship of Type `http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments` targeting `comments.xml`
+   - `word/_rels/document.xml.rels`: add a relationship of Type `http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments targeting `comments.xml`
    - `[Content_Types].xml`: add an Override for `/word/comments.xml` with ContentType `application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml`
 
 ## Typical insertion strategy

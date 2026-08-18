@@ -37,7 +37,7 @@
 
 ## URLs analyzed
 
-- <https://example.com/>
+- <https://example.com/
 
 ## Supporting technical evidence consulted
 
@@ -60,7 +60,7 @@
 
 ### Homepage
 
-- URL: <https://example.com/>
+- URL: <https://example.com/
 - Verified observations:
   - Verified: The homepage uses a top-level narrative that moves from positioning to proof to conversion.
   - Verified: CTA sections appear after the hero and again after proof content.

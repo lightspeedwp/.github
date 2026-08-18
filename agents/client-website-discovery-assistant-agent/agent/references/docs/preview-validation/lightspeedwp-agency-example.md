@@ -30,35 +30,35 @@ LightSpeedWP.Agency
 
 ### Live agency site
 
-<https://lightspeedwp.agency>
+<https://lightspeedwp.agency
 
 ### Figma prototype site
 
-<https://lightspeedwp.figma.site>
+<https://lightspeedwp.figma.site
 
 ### Dev site
 
-<https://ls-agency.lightspeedwp.dev/>
+<https://ls-agency.lightspeedwp.dev/
 
 ### GitHub theme repo
 
-<https://github.com/lightspeedwp/ls-theme>
+<https://github.com/lightspeedwp/ls-theme
 
 ### GitHub plugin repo
 
-<https://github.com/lightspeedwp/ls-plugin>
+<https://github.com/lightspeedwp/ls-plugin
 
 ### Drive folder for specs, content, and project documentation
 
-<https://drive.google.com/drive/folders/1GqKn_lys_AfPnwI-m3k00C5j0Um6TKAz?usp=drive_link>
+<https://drive.google.com/drive/folders/1GqKn_lys_AfPnwI-m3k00C5j0Um6TKAz?usp=drive_link
 
 ### Figma design system
 
-<https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System?m=auto&t=CTYQGLlYaOao2LYR-6>
+<https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System?m=auto&t=CTYQGLlYaOao2LYR-6
 
 ### Figma Make prototype
 
-<https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlYaOao2LYR-6>
+<https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlYaOao2LYR-6
 
 ---
 

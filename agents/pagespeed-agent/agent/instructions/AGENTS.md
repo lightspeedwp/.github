@@ -204,7 +204,7 @@ Keep the current Google Doc workflow as the default completion path unless the u
 
 The preferred long-term storage location for report documents is this shared Google Drive folder:
 
-- `https://drive.google.com/drive/u/0/folders/0AB7zCJi1vSwTUk9PVA`
+- `https://drive.google.com/drive/u/0/folders/0AB7zCJi1vSwTUk9PVA
 
 For each audited site, create or reuse a subfolder inside that shared reports folder using the site’s primary hostname as the folder name.
 

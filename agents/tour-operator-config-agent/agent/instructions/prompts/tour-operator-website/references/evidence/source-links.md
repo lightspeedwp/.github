@@ -37,9 +37,9 @@
 
 ## Connected app quick reference
 
-- `ASC-Dev-Site` -> <https://africansafaris.lightspeedwp.dev/> -> Staging website
-- `SD-Dev-Site` -> <https://southerndestinations.lightspeedwp.dev/> -> Staging website
-- `SD-Live-Site` -> <https://southerndestinations.com/> -> Live website
+- `ASC-Dev-Site` -> <https://africansafaris.lightspeedwp.dev/ -> Staging website
+- `SD-Dev-Site` -> <https://southerndestinations.lightspeedwp.dev/ -> Staging website
+- `SD-Live-Site` -> <https://southerndestinations.com/ -> Live website
 
 These are WordPress websites running LightSpeed's Tour Operator plugin for WordPress together with tour operator extensions.
 

@@ -18,7 +18,7 @@
 - Keep durable memory updates short, factual, sourced, and separated from bulky reference material.
 
 ## Notes
-- User-provided context on 2026-07-01: LightSpeed owns the Tour Operator plugin at `https://github.com/lightspeedwp/tour-operator` and `https://wordpress.org/plugins/tour-operator`.
+- User-provided context on 2026-07-01: LightSpeed owns the Tour Operator plugin at `https://github.com/lightspeedwp/tour-operator and `https://wordpress.org/plugins/tour-operator`.
 - User-provided context on 2026-07-01: available first-party extensions are `https://github.com/lightspeedwp/to-team`, `https://github.com/lightspeedwp/to-specials`, `https://github.com/lightspeedwp/to-reviews`, and `https://github.com/lightspeedwp/wetu-importer`.
 - User-provided source on 2026-07-01: the `Tour Operator Content Model` Google Doc is the working source for core Tour Operator CPTs, fields, taxonomies, relationship fields, and content-model boundary rules. Keep the detailed model in `agent_files/references/tour-operator-content-model-standard.md`, not as bulky Memory content.
 

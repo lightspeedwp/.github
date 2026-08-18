@@ -105,7 +105,7 @@ Each commit should:
 - **Be atomic:** Each commit is a complete, working unit that passes tests independently
 - **Have a clear message:** First line summarises the change; body explains WHY if non-obvious
 - **Reference the task:** Include issue number or task ID in the commit message
-- **Include session link:** Add session ID line for traceability: `https://claude.ai/code/session_[ID]`
+- **Include session link:** Add session ID line for traceability: `https://claude.ai/code/session_[ID]
 - **Pass all checks:** Linting, testing, security scanning all pass before committing
 
 Commit message format:

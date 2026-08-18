@@ -56,9 +56,9 @@ The point is to refresh chart request shapes and a few non-obvious API constrain
 
 ## High-Value API Reminders
 
-- Official chart samples: <https://developers.google.com/workspace/sheets/api/samples/charts>
-- Official chart spec reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/charts>
-- Official request reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request>
+- Official chart samples: <https://developers.google.com/workspace/sheets/api/samples/charts
+- Official chart spec reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/charts
+- Official request reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request
 
 - Create charts with `addChart`.
 - Edit chart content with `updateChartSpec`.
@@ -471,10 +471,10 @@ Use `updateEmbeddedObjectPosition` separately from chart-spec edits.
 
 ## Official References
 
-- Chart samples: <https://developers.google.com/workspace/sheets/api/samples/charts>
-- Charts reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/charts>
-- Requests reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request>
-- Batch update guide: <https://developers.google.com/workspace/sheets/api/guides/batchupdate>
+- Chart samples: <https://developers.google.com/workspace/sheets/api/samples/charts
+- Charts reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/charts
+- Requests reference: <https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/request
+- Batch update guide: <https://developers.google.com/workspace/sheets/api/guides/batchupdate
 
 ---
 

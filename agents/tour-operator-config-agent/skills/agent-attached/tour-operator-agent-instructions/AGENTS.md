@@ -29,15 +29,15 @@ LightSpeed develops and maintains its own tour operator plugin stack. Treat this
 Core plugin:
 
 - `Tour Operator` by LightSpeedWP
-- GitHub: `https://github.com/lightspeedwp/tour-operator`
-- WordPress.org: `https://wordpress.org/plugins/tour-operator`
+- GitHub: `https://github.com/lightspeedwp/tour-operator
+- WordPress.org: `https://wordpress.org/plugins/tour-operator
 
 Known first-party extensions:
 
-- `TO Team`: `https://github.com/lightspeedwp/to-team`
-- `TO Specials`: `https://github.com/lightspeedwp/to-specials`
-- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews`
-- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer`
+- `TO Team`: `https://github.com/lightspeedwp/to-team
+- `TO Specials`: `https://github.com/lightspeedwp/to-specials
+- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews
+- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer
 
 When auditing or configuring a tour operator site:
 

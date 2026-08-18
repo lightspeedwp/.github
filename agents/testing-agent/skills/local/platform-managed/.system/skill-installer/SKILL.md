@@ -7,7 +7,7 @@ metadata:
 
 # Skill Installer
 
-Helps install skills. By default these are from <https://github.com/openai/skills/tree/main/skills/.curated>, but users can also provide other locations. Experimental skills live in <https://github.com/openai/skills/tree/main/skills/.experimental> and can be installed the same way.
+Helps install skills. By default these are from <https://github.com/openai/skills/tree/main/skills/.curated>, but users can also provide other locations. Experimental skills live in <https://github.com/openai/skills/tree/main/skills/.experimental and can be installed the same way.
 
 Use the helper scripts based on the task:
 
@@ -39,7 +39,7 @@ All of these scripts use network, so when running in the sandbox, request escala
 - `scripts/list-skills.py --format json`
 - Example (experimental list): `scripts/list-skills.py --path skills/.experimental`
 - `scripts/install-skill-from-github.py --repo <owner>/<repo> --path <path/to/skill> [<path/to/skill> ...]`
-- `scripts/install-skill-from-github.py --url https://github.com/<owner>/<repo>/tree/<ref>/<path>`
+- `scripts/install-skill-from-github.py --url https://github.com/<owner>/<repo>/tree/<ref>/<path>
 - Example (experimental skill): `scripts/install-skill-from-github.py --repo openai/skills --path skills/.experimental/<skill-name>`
 
 ## Behavior and Options
@@ -53,8 +53,8 @@ All of these scripts use network, so when running in the sandbox, request escala
 
 ## Notes
 
-- Curated listing is fetched from `https://github.com/openai/skills/tree/main/skills/.curated` via the GitHub API. If it is unavailable, explain the error and exit.
+- Curated listing is fetched from `https://github.com/openai/skills/tree/main/skills/.curated via the GitHub API. If it is unavailable, explain the error and exit.
 - Private GitHub repos can be accessed via existing git credentials or optional `GITHUB_TOKEN`/`GH_TOKEN` for download.
 - Git fallback tries HTTPS first, then SSH.
-- The skills at <https://github.com/openai/skills/tree/main/skills/.system> are preinstalled, so no need to help users install those. If they ask, just explain this. If they insist, you can download and overwrite.
+- The skills at <https://github.com/openai/skills/tree/main/skills/.system are preinstalled, so no need to help users install those. If they ask, just explain this. If they insist, you can download and overwrite.
 - Installed annotations come from `$CODEX_HOME/skills`.

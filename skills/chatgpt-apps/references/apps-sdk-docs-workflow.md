@@ -39,18 +39,18 @@ Use this reference to keep code generation aligned with current OpenAI Apps SDK 
 
 ## Always Fetch These Pages (Baseline)
 
-- `https://developers.openai.com/apps-sdk/build/mcp-server/`
-- `https://developers.openai.com/apps-sdk/build/chatgpt-ui/`
-- `https://developers.openai.com/apps-sdk/build/examples/`
-- `https://developers.openai.com/apps-sdk/plan/tools/`
-- `https://developers.openai.com/apps-sdk/reference/`
+- `https://developers.openai.com/apps-sdk/build/mcp-server/
+- `https://developers.openai.com/apps-sdk/build/chatgpt-ui/
+- `https://developers.openai.com/apps-sdk/build/examples/
+- `https://developers.openai.com/apps-sdk/plan/tools/
+- `https://developers.openai.com/apps-sdk/reference/
 
 ## Fetch Conditionally (Greenfield / First Pass)
 
-- `https://developers.openai.com/apps-sdk/quickstart/` for first implementation scaffolds and happy-path wiring
-- `https://developers.openai.com/apps-sdk/deploy/` when the task includes local ChatGPT testing via tunnel, hosting, or production deployment planning
-- `https://developers.openai.com/apps-sdk/deploy/submission/` when the task includes public launch, app review, or publishing steps
-- `https://developers.openai.com/apps-sdk/app-submission-guidelines/` when the task includes submission readiness, policy/reliability checks, or review-risk reduction
+- `https://developers.openai.com/apps-sdk/quickstart/ for first implementation scaffolds and happy-path wiring
+- `https://developers.openai.com/apps-sdk/deploy/ when the task includes local ChatGPT testing via tunnel, hosting, or production deployment planning
+- `https://developers.openai.com/apps-sdk/deploy/submission/ when the task includes public launch, app review, or publishing steps
+- `https://developers.openai.com/apps-sdk/app-submission-guidelines/ when the task includes submission readiness, policy/reliability checks, or review-risk reduction
 
 ## Suggested `openai-docs` / MCP Queries
 
@@ -114,7 +114,7 @@ Use focused searches before fetching:
 
 ### Developer Mode / Local Testing
 
-- Run the MCP server locally on `http://localhost:<port>/mcp`
+- Run the MCP server locally on `http://localhost:<port>/mcp
 - Expose it with a public HTTPS tunnel for ChatGPT access during development
 - Use the public URL + `/mcp` when adding the app in ChatGPT settings
 - Include ChatGPT Developer Mode setup and app creation steps in implementation handoff

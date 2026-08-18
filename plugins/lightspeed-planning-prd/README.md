@@ -209,7 +209,7 @@ A: OpenAI has rate limits per API key. Contact OpenAI support for higher limits.
 - **Installation:** See `INSTALL.md`
 - **Agent Details:** See `.github/agents/prd-agent/AGENT.md`
 - **Cookbook:** See `cookbook/project-planning-and-prd-playbook.md`
-- **Issues:** File issues at <https://github.com/lightspeedwp/.github>
+- **Issues:** File issues at <https://github.com/lightspeedwp/.github
 
 ## Merged Agents
 

@@ -124,7 +124,7 @@ Remains fixed-fee when:
 - access to the live website and relevant reference material
 - confirmation of GA4, Search Console, and Site Kit status where relevant
 - named client owner for content, approvals, and follow-up decisions
-- purchase of a valid Yoast SEO Premium licence by the client if Premium-specific configuration or workflows are expected: <https://yoast.com/product/yoast-seo-premium-wordpress/>
+- purchase of a valid Yoast SEO Premium licence by the client if Premium-specific configuration or workflows are expected: <https://yoast.com/product/yoast-seo-premium-wordpress/
 
 ## Estimated Effort Band
 

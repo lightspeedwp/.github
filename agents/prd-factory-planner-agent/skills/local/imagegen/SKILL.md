@@ -367,7 +367,7 @@ Portability note:
 
 If the key is missing, give the user these steps:
 
-1. Create an API key in the OpenAI platform UI: <https://platform.openai.com/api-keys>
+1. Create an API key in the OpenAI platform UI: <https://platform.openai.com/api-keys
 2. Set `OPENAI_API_KEY` as an environment variable in their system.
 3. Offer to guide them through setting the environment variable for their OS/shell if needed.
 

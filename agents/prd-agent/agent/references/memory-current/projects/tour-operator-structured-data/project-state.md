@@ -45,13 +45,13 @@
 
 ## Source Of Truth
 
-- Google Doc: <https://docs.google.com/document/d/1UVfrdgR1o2A-5YuyMbY6Bxevy3EXYfOkj-p6dwXFxMA/edit>
-- Tour Operator PR 1148: <https://github.com/lightspeedwp/tour-operator/pull/1148>
-- Tour Operator schema branch path: <https://github.com/lightspeedwp/tour-operator/tree/copilot/implement-schema-plan/includes/classes/schema>
-- Tour Operator legacy schema path: <https://github.com/lightspeedwp/tour-operator/tree/copilot/implement-schema-plan/includes/classes/legacy/schema>
-- TO Team schema: <https://github.com/lightspeedwp/to-team/blob/develop/classes/class-to-team-schema.php>
-- TO Reviews schema: <https://github.com/lightspeedwp/to-reviews/blob/develop/classes/class-to-review-schema.php>
-- TO Specials schema: <https://github.com/lightspeedwp/to-specials/blob/develop/classes/class-to-specials-schema.php>
+- Google Doc: <https://docs.google.com/document/d/1UVfrdgR1o2A-5YuyMbY6Bxevy3EXYfOkj-p6dwXFxMA/edit
+- Tour Operator PR 1148: <https://github.com/lightspeedwp/tour-operator/pull/1148
+- Tour Operator schema branch path: <https://github.com/lightspeedwp/tour-operator/tree/copilot/implement-schema-plan/includes/classes/schema
+- Tour Operator legacy schema path: <https://github.com/lightspeedwp/tour-operator/tree/copilot/implement-schema-plan/includes/classes/legacy/schema
+- TO Team schema: <https://github.com/lightspeedwp/to-team/blob/develop/classes/class-to-team-schema.php
+- TO Reviews schema: <https://github.com/lightspeedwp/to-reviews/blob/develop/classes/class-to-review-schema.php
+- TO Specials schema: <https://github.com/lightspeedwp/to-specials/blob/develop/classes/class-to-specials-schema.php
 
 ## Current Evidence Summary
 

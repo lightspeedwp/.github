@@ -53,7 +53,7 @@ Use this reference when writing Slack-ready text for these skills.
 | Inline code | `` `code` `` |
 | Code block | `` ```text``` `` |
 | Quote | `> text` |
-| Link | `[label](https://example.com)` |
+| Link | `[label](https://example.com) |
 | User mention | `<@U123456>` |
 | Channel mention | `<#C123456>` |
 | User group mention | `<!subteam^S123456>` |

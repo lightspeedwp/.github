@@ -38,7 +38,7 @@
 ## Project
 
 - Client: ATI Holidays
-- Website: <https://ati-holidays.com/>
+- Website: <https://ati-holidays.com/
 - Date captured: 13 May 2026
 - Current stage: Provisional add-on estimate for Impact page concept, copy, and build
 

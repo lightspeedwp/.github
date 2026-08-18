@@ -1,4 +1,4 @@
-name: "Badges: Health Check"
+name: "Badges: Health Check (Improved)"
 
 on:
   schedule:
@@ -134,6 +134,28 @@ jobs:
           echo "timeout_count=$timeout_count" >> $GITHUB_OUTPUT
           echo "working_count=$working_count" >> $GITHUB_OUTPUT
 
+      - name: "Find or create tracking issue"
+        id: issue
+        run: |
+          # Search for existing open badge health check issues
+          existing_issue=$(gh issue list \
+            --repo "${{ github.repository }}" \
+            --label "area:automation" \
+            --state open \
+            --search "🏥 Badge Health Check" \
+            --json number,title \
+            --jq '.[] | select(.title | startswith("🏥 Badge Health Check")) | .number' \
+            | head -1)
+
+          if [[ -n "$existing_issue" ]]; then
+            echo "issue_number=$existing_issue" >> $GITHUB_OUTPUT
+            echo "issue_action=update" >> $GITHUB_OUTPUT
+            echo "Found existing issue #$existing_issue - will update it"
+          else
+            echo "issue_action=create" >> $GITHUB_OUTPUT
+            echo "No existing issue found - will create new one"
+          fi
+
       - name: "Generate health report"
         id: report
         run: |
@@ -147,26 +169,30 @@ jobs:
           echo "|--------|-------|" >> /tmp/health_report.md
           echo "| Files Scanned | ${{ steps.find.outputs.files_count }} |" >> /tmp/health_report.md
           echo "| Badge URLs | ${{ steps.extract.outputs.badges_count }} |" >> /tmp/health_report.md
-          echo "| Working | ${{ steps.validate.outputs.working_count }} |" >> /tmp/health_report.md
-          echo "| Broken | ${{ steps.validate.outputs.broken_count }} |" >> /tmp/health_report.md
-          echo "| Timeouts | ${{ steps.validate.outputs.timeout_count }} |" >> /tmp/health_report.md
+          echo "| Working | ${{ steps.validate.outputs.working_count }} ✓ |" >> /tmp/health_report.md
+          echo "| Broken | ${{ steps.validate.outputs.broken_count }} ✗ |" >> /tmp/health_report.md
+          echo "| Timeouts | ${{ steps.validate.outputs.timeout_count }} ⚠ |" >> /tmp/health_report.md
 
           if [[ ${{ steps.validate.outputs.broken_count }} -gt 0 ]]; then
             echo "" >> /tmp/health_report.md
             echo "## Broken Links" >> /tmp/health_report.md
+            echo '```' >> /tmp/health_report.md
             cat /tmp/broken_links.txt >> /tmp/health_report.md
+            echo '```' >> /tmp/health_report.md
           fi
 
           if [[ ${{ steps.validate.outputs.timeout_count }} -gt 0 ]]; then
             echo "" >> /tmp/health_report.md
             echo "## Timeout Links" >> /tmp/health_report.md
+            echo '```' >> /tmp/health_report.md
             cat /tmp/timeout_links.txt >> /tmp/health_report.md
+            echo '```' >> /tmp/health_report.md
           fi
 
           cat /tmp/health_report.md
           echo "report_generated=true" >> $GITHUB_OUTPUT
 
-      - name: "Create health check issue"
+      - name: "Update or create issue"
         if: steps.validate.outputs.broken_count > 0 && !inputs.report_only
         continue-on-error: true
         run: |
@@ -188,13 +214,34 @@ jobs:
             echo "- [ ] Health check rerun confirms resolution"
           } > /tmp/issue_body.txt
 
-          gh issue create \
+          if [[ "${{ steps.issue.outputs.issue_action }}" == "update" ]]; then
+            # Update existing issue
+            gh issue edit "${{ steps.issue.outputs.issue_number }}" \
+              --repo "${{ github.repository }}" \
+              --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
+              --body-file /tmp/issue_body.txt || {
+                echo "::warning::Could not update issue #${{ steps.issue.outputs.issue_number }}"
+              }
+            echo "Updated issue #${{ steps.issue.outputs.issue_number }}"
+          else
+            # Create new issue
+            gh issue create \
+              --repo "${{ github.repository }}" \
+              --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
+              --body-file /tmp/issue_body.txt \
+              --label "type:task,area:automation,priority:important" || {
+                echo "::warning::Could not create issue"
+              }
+          fi
+
+      - name: "Close issue if resolved"
+        if: steps.validate.outputs.broken_count == 0 && steps.issue.outputs.issue_action == 'update'
+        continue-on-error: true
+        run: |
+          gh issue close "${{ steps.issue.outputs.issue_number }}" \
             --repo "${{ github.repository }}" \
-            --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
-            --body-file /tmp/issue_body.txt \
-            --label "type:task,area:automation,priority:important" || {
-              echo "::warning::Could not create issue"
-            }
+            --comment "✅ All badge links are now healthy! Closing this issue."
+          echo "Closed issue #${{ steps.issue.outputs.issue_number }} - all links are healthy"
 
       - name: "Post workflow summary"
         if: always()

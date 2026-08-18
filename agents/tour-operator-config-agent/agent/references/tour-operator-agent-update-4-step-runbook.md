@@ -114,13 +114,13 @@ Flag any issues you find. Do not silently fix a major contradiction without ment
 
 For source-of-truth content-model work, use these sources when available:
 
-- Google Doc: `https://docs.google.com/document/d/1A50dnI7RJzFhwM4L8sht1uE8QaR0W_cHYJY8nv41-6I/edit?tab=t.4t1r11fi23tr`
-- Core plugin GitHub: `https://github.com/lightspeedwp/tour-operator`
-- Core plugin WordPress.org: `https://wordpress.org/plugins/tour-operator`
-- `TO Team`: `https://github.com/lightspeedwp/to-team`
-- `TO Specials`: `https://github.com/lightspeedwp/to-specials`
-- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews`
-- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer`
+- Google Doc: `https://docs.google.com/document/d/1A50dnI7RJzFhwM4L8sht1uE8QaR0W_cHYJY8nv41-6I/edit?tab=t.4t1r11fi23tr
+- Core plugin GitHub: `https://github.com/lightspeedwp/tour-operator
+- Core plugin WordPress.org: `https://wordpress.org/plugins/tour-operator
+- `TO Team`: `https://github.com/lightspeedwp/to-team
+- `TO Specials`: `https://github.com/lightspeedwp/to-specials
+- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews
+- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer
 
 Do not infer field names, taxonomy slugs, relationship fields, extension ownership, or plugin behaviour without confirming them from the Google Doc, the existing reference files, repository evidence, or connected WordPress inspection.
 

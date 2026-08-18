@@ -42,7 +42,7 @@ Always convert `nodeId` hyphens to colons: `1234-5678` → `1234:5678`.
 
 **Worked example:**
 
-Given: `https://www.figma.com/design/QiEF6w564ggoW8ftcLvdcu/MyDesignSystem?node-id=4185-3778`
+Given: `https://www.figma.com/design/QiEF6w564ggoW8ftcLvdcu/MyDesignSystem?node-id=4185-3778
 
 - `fileKey` = `QiEF6w564ggoW8ftcLvdcu`
 - `nodeId` = `4185-3778` → `4185:3778`
@@ -464,7 +464,7 @@ export default {
 
 ## Complete Worked Example
 
-Given URL: `https://figma.com/design/abc123/MyFile?node-id=42-100`
+Given URL: `https://figma.com/design/abc123/MyFile?node-id=42-100
 
 **Step 1:** Parse the URL.
 

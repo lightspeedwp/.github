@@ -45,12 +45,12 @@
 
 ## Sources Reviewed
 
-- Live website homepage at <https://kinsta.com/>
-- Public pricing page at <https://kinsta.com/pricing/>
-- Public blog index at <https://kinsta.com/blog/>
-- Public docs index and docs listing at <https://kinsta.com/docs/> and <https://kinsta.com/?post_type=docs>
-- Public about and contact pages at <https://kinsta.com/about-us/> and <https://kinsta.com/contact-us/>
-- Public WordPress REST API endpoint at <https://kinsta.com/wp-json/>
+- Live website homepage at <https://kinsta.com/
+- Public pricing page at <https://kinsta.com/pricing/
+- Public blog index at <https://kinsta.com/blog/
+- Public docs index and docs listing at <https://kinsta.com/docs/ and <https://kinsta.com/?post_type=docs
+- Public about and contact pages at <https://kinsta.com/about-us/ and <https://kinsta.com/contact-us/
+- Public WordPress REST API endpoint at <https://kinsta.com/wp-json/
 - Public search snapshots for multilingual sections and client success stories
 
 ## Confirmed Findings

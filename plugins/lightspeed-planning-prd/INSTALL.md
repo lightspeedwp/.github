@@ -53,7 +53,7 @@
 
 ### Method 3: OpenAI API
 
-**Step 1:** Get your OpenAI API key from <https://platform.openai.com/api-keys>
+**Step 1:** Get your OpenAI API key from <https://platform.openai.com/api-keys
 
 **Step 2:** Create or update an assistant:
 
@@ -227,7 +227,7 @@ curl -X DELETE https://api.openai.com/v1/assistants/$ASSISTANT_ID \
 
 ### Rate limits (OpenAI)
 
-- Check usage: <https://platform.openai.com/account/usage/overview>
+- Check usage: <https://platform.openai.com/account/usage/overview
 - Implement exponential backoff for retries
 - Request higher limits from OpenAI if needed
 
@@ -264,8 +264,8 @@ curl -X DELETE https://api.openai.com/v1/assistants/$ASSISTANT_ID \
 
 ### Support Channels
 
-- **Issues:** <https://github.com/lightspeedwp/.github/issues>
-- **Discussions:** <https://github.com/lightspeedwp/.github/discussions>
+- **Issues:** <https://github.com/lightspeedwp/.github/issues
+- **Discussions:** <https://github.com/lightspeedwp/.github/discussions
 - **Email:** <contact@lightspeedwp.agency>
 
 ### Common Questions

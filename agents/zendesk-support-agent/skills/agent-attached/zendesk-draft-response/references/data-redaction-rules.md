@@ -64,7 +64,7 @@ Use stable placeholders that preserve the support meaning without leaking identi
 | real staff member | `Support Agent` |
 | real ticket ID | `ZD-000000` |
 | real domain | `example.com` |
-| real admin/staging URL | `https://example.com/admin-redacted` |
+| real admin/staging URL | `https://example.com/admin-redacted |
 | real invoice/order ID | `ORDER-000000` |
 | real API key/token | `[REDACTED_TOKEN]` |
 

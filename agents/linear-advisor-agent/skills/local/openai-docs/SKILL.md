@@ -23,7 +23,7 @@ Use this skill directly for docs-only questions, citations, model/API guidance, 
 - For non-Codex OpenAI docs questions, fetch the relevant page with `mcp__openaiDeveloperDocs__fetch_openai_doc` before answering. If search is noisy, run a narrower Docs MCP search; when any plausible official OpenAI docs URL is known or found, try fetching that URL through Docs MCP before relying on web-search content.
 - For API reference, schema, parameter, or required-field questions, use `mcp__openaiDeveloperDocs__get_openapi_spec` when available to verify the API shape alongside the relevant guide or reference page.
 - Use `mcp__openaiDeveloperDocs__list_openai_docs` only when you need to browse or discover non-Codex pages without a clear query.
-- For model-selection, "latest model", or default-model questions, fetch `https://developers.openai.com/api/docs/guides/latest-model.md` first. If that is unavailable, load `references/latest-model.md`.
+- For model-selection, "latest model", or default-model questions, fetch `https://developers.openai.com/api/docs/guides/latest-model.md first. If that is unavailable, load `references/latest-model.md`.
 - For model upgrades or prompt upgrades, run `node .github/scripts/resolve-latest-model-info.js` only when the target is latest/current/default or otherwise unspecified; otherwise preserve the explicitly requested target.
 - Preserve explicit target requests: if the user names a target model like "migrate to GPT-5.4", keep that requested target even if `latest-model.md` names a newer model. Mention newer guidance only as optional.
 - If current remote guidance is needed, fetch both the returned migration and prompting guide URLs directly. If direct fetch fails, use MCP/search fallback; if that also fails, use bundled fallback references and disclose the fallback.
@@ -113,7 +113,7 @@ Use this quick product map when needed: CLI is terminal-first local repo work; I
 
 If MCP tools fail or no OpenAI docs resources are available:
 
-1. Run the install command yourself: `codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp`
+1. Run the install command yourself: `codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp
 2. If it fails due to permissions/sandboxing, immediately retry the same command with escalated permissions and include a 1-sentence justification for approval.
 3. Ask the user to run the install command only if the escalated attempt fails.
 4. Ask the user to restart Codex.
@@ -141,9 +141,9 @@ If MCP tools fail or no OpenAI docs resources are available:
 
 Read only what you need:
 
-- `https://developers.openai.com/api/docs/guides/latest-model.md` -> current model-selection and "best/latest/current model" questions.
+- `https://developers.openai.com/api/docs/guides/latest-model.md -> current model-selection and "best/latest/current model" questions.
 - `scripts/fetch-codex-manual.mjs` -> current Codex manual fetch, verification, local temp cache, and outline generation.
-- `https://developers.openai.com/codex/codex-manual.md` -> current Codex self-knowledge synthesis, including setup, customization, skills, plugins, MCP, hooks, `AGENTS.md`, automations, and surface behavior; normally access it through the helper path and targeted file reads when temp caching is available.
+- `https://developers.openai.com/codex/codex-manual.md -> current Codex self-knowledge synthesis, including setup, customization, skills, plugins, MCP, hooks, `AGENTS.md`, automations, and surface behavior; normally access it through the helper path and targeted file reads when temp caching is available.
 - `references/latest-model.md` -> bundled fallback for model-selection and "best/latest/current model" questions.
 - `references/upgrade-guide.md` -> bundled fallback for model upgrade and upgrade-planning requests.
 - `references/prompting-guide.md` -> bundled fallback for prompt rewrites and prompt-behavior upgrades.

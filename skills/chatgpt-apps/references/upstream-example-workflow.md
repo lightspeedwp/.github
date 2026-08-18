@@ -60,9 +60,9 @@ Prefer these when:
 
 Typical sources:
 
-- `https://developers.openai.com/apps-sdk/build/examples/`
-- `https://github.com/openai/openai-apps-sdk-examples`
-- `https://developers.openai.com/apps-sdk/quickstart/` for the smallest vanilla baseline
+- `https://developers.openai.com/apps-sdk/build/examples/
+- `https://github.com/openai/openai-apps-sdk-examples
+- `https://developers.openai.com/apps-sdk/quickstart/ for the smallest vanilla baseline
 
 ### 2. `@modelcontextprotocol/ext-apps` examples
 

@@ -17,7 +17,7 @@ Queenspark has asked LightSpeed to submit the final proposal on 2026-07-01 after
 
 ## Confirmed Sources
 
-- Live site: <https://queenspark.com/>
+- Live site: <https://queenspark.com/
 - RFP: `Queenspark_RFP_E-Commerce_June 2026.pdf`
 - Theme repo: `lightspeedwp/QueensparkTheme`
 - Product/navigation sync repo: `lightspeedwp/QueensPark-Nav-Sync`

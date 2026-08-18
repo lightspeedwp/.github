@@ -50,15 +50,15 @@ Use this reference for the expected plugin-layer audit and configuration order o
 Core plugin:
 
 - `Tour Operator`
-- GitHub: `https://github.com/lightspeedwp/tour-operator`
-- WordPress.org: `https://wordpress.org/plugins/tour-operator`
+- GitHub: `https://github.com/lightspeedwp/tour-operator
+- WordPress.org: `https://wordpress.org/plugins/tour-operator
 
 Known extensions:
 
-- `TO Team`: `https://github.com/lightspeedwp/to-team`
-- `TO Specials`: `https://github.com/lightspeedwp/to-specials`
-- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews`
-- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer`
+- `TO Team`: `https://github.com/lightspeedwp/to-team
+- `TO Specials`: `https://github.com/lightspeedwp/to-specials
+- `TO Reviews`: `https://github.com/lightspeedwp/to-reviews
+- `Wetu Importer`: `https://github.com/lightspeedwp/wetu-importer
 
 Treat this as the preferred first-party baseline for LightSpeed tour operator websites unless a specific project has approved a different stack.
 

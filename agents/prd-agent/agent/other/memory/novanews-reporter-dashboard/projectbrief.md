@@ -14,7 +14,7 @@ NovaNews / Novus Media requested a quote for article-level tracking across its W
 
 ## Confirmed Inputs
 
-- Main domain: <https://novanews.co.za/>
+- Main domain: <https://novanews.co.za/
 - User supplied that 20 sites fall under the main domain.
 - Client email dated 2026-06-17 requests a quote for custom data layer work, GTM updates, GA4 custom dimensions and event tracking.
 - Public NovaNews publications page describes the network as 20 local newspapers.

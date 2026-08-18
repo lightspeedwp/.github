@@ -41,12 +41,12 @@ Use this reference when Gravity Forms work affects visual presentation, block-ed
 
 Primary sources:
 
-- Gravity Forms: Form Themes and Style Settings — <https://docs.gravityforms.com/form-themes-and-style-settings/>
-- Gravity Forms: Modifying Field Layout with CSS Ready Classes — <https://docs.gravityforms.com/css-ready-classes/>
-- Gravity Forms: Migrating Your Forms from Ready Classes — <https://docs.gravityforms.com/migrating-your-forms-from-ready-classes/>
-- Gravity Forms: Creating Columns in the Form Editor — <https://docs.gravityforms.com/working-with-columns/>
-- Gravity Forms: CSS Selectors category — <https://docs.gravityforms.com/category/user-guides/design-and-layout/css-selectors/>
-- Gravity Forms: Changes to markup in Gravity Forms 2.5 — <https://docs.gravityforms.com/changes-to-markup-in-gravity-forms-2-5/>
+- Gravity Forms: Form Themes and Style Settings — <https://docs.gravityforms.com/form-themes-and-style-settings/
+- Gravity Forms: Modifying Field Layout with CSS Ready Classes — <https://docs.gravityforms.com/css-ready-classes/
+- Gravity Forms: Migrating Your Forms from Ready Classes — <https://docs.gravityforms.com/migrating-your-forms-from-ready-classes/
+- Gravity Forms: Creating Columns in the Form Editor — <https://docs.gravityforms.com/working-with-columns/
+- Gravity Forms: CSS Selectors category — <https://docs.gravityforms.com/category/user-guides/design-and-layout/css-selectors/
+- Gravity Forms: Changes to markup in Gravity Forms 2.5 — <https://docs.gravityforms.com/changes-to-markup-in-gravity-forms-2-5/
 
 ## When to load this reference
 

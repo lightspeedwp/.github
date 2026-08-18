@@ -217,7 +217,7 @@ Use this skill directly when no specialist route is needed.
 ### Linear MCP setup fallback
 
 1. Add the Linear MCP:
-   - `codex mcp add linear --url https://mcp.linear.app/mcp`
+   - `codex mcp add linear --url https://mcp.linear.app/mcp
 2. Enable remote MCP client:
    - Set `[features] rmcp_client = true` in `config.toml` or run `codex --enable rmcp_client`.
 3. Log in with OAuth:

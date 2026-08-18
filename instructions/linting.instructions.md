@@ -49,7 +49,7 @@ Applies to linting across all supported file types. Covers linting library usage
 - Check instruction precedence when multiple linting guides apply.
 
 ![Linting Badge](https://img.shields.io/badge/linting-standards-brightgreen?style=flat-square)
-![Quality Badge](https://img.shields.io/badge/code%20quality-enforced-blue?style=flat-square)
+![Quality Badge](https://img.shields.io/badge/code quality-enforced-blue?style=flat-square)
 
 This directory contains comprehensive linting instructions for maintaining code quality across all LightSpeed WordPress projects. **Version: v2.0** | **Last Updated: 2025-11-27**
 

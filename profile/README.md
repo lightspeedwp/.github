@@ -19,7 +19,7 @@ owners:
 # 🚀 LightSpeed WordPress Development Agency
 
 [![WordPress](https://img.shields.io/badge/WordPress-Experts-21759B?logo=wordpress)](https://lightspeedwp.agency)
-[![Open Source](https://img.shields.io/badge/Open%20Source-❤️-red)](https://github.com/lightspeedwp)
+[![Open Source](https://img.shields.io/badge/Open Source-❤️-red)](https://github.com/lightspeedwp)
 [![Since 2003](https://img.shields.io/badge/Since-2003-blue)](https://lightspeedwp.agency/about)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Community](https://img.shields.io/badge/Community-Driven-success)](https://github.com/orgs/lightspeedwp/discussions)

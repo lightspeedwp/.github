@@ -44,7 +44,7 @@ These files are the most common reason a "patched" DOCX opens but features don't
 
 ## Relationships: `word/_rels/document.xml.rels`
 
-- Namespace: `http://schemas.openxmlformats.org/package/2006/relationships`
+- Namespace: `http://schemas.openxmlformats.org/package/2006/relationships
 - Each `Relationship` has:
   - `Id` (e.g., `rIdComments1`)
   - `Type` (e.g., comments, hyperlinks, footer)
@@ -60,7 +60,7 @@ Example relationship for comments:
 
 ## Content types: `[Content_Types].xml`
 
-- Namespace: `http://schemas.openxmlformats.org/package/2006/content-types`
+- Namespace: `http://schemas.openxmlformats.org/package/2006/content-types
 - For new parts (like `comments.xml`), add an `Override`:
 
 ```xml

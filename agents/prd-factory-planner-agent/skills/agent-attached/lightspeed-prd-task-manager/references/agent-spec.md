@@ -109,13 +109,13 @@ It should not:
 
 Use LightSpeedWP.Agency as the first validation project:
 
-- Blocks plugin repo: <https://github.com/lightspeedwp/ls-plugin>
-- Theme repo: <https://github.com/lightspeedwp/ls-theme>
-- Figma design system: <https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System>
-- Figma Make prototype: <https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency>
-- Dev site: <https://ls-agency.lightspeedwp.dev/>
-- Published Figma prototype: <https://lightspeedwp.figma.site/>
-- Current live site: <https://lightspeedwp.agency/>
+- Blocks plugin repo: <https://github.com/lightspeedwp/ls-plugin
+- Theme repo: <https://github.com/lightspeedwp/ls-theme
+- Figma design system: <https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System
+- Figma Make prototype: <https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency
+- Dev site: <https://ls-agency.lightspeedwp.dev/
+- Published Figma prototype: <https://lightspeedwp.figma.site/
+- Current live site: <https://lightspeedwp.agency/
 
 ---
 

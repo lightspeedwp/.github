@@ -47,7 +47,7 @@
 
 - Installed example context: `agent_files/docs/preview-validation/lightspeedwp-agency-example.md`
 - Installed routing controls and package/commercial rules
-- Live website homepage at `https://lightspeedwp.agency`
+- Live website homepage at `https://lightspeedwp.agency
 - Public GitHub repositories: `lightspeedwp/ls-theme` and `lightspeedwp/ls-plugin`
 
 ## Confirmed Findings

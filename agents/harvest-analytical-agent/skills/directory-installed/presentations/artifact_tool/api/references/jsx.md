@@ -248,7 +248,7 @@ axis, or label structure in the JSX tree.
 | --- | --- |
 | `blob={bytes}` | Export must embed the actual image bytes. |
 | `dataUrl="data:image/..."` | Bytes are already encoded inline. |
-| `uri="https://..."` | Host or adapter will hydrate the image reference. |
+| `uri="https://..." | Host or adapter will hydrate the image reference. |
 | `prompt="..."` | The slide should contain an image-generation placeholder. |
 
 Use `fit="contain"` when the full image must remain visible. Use `fit="cover"`

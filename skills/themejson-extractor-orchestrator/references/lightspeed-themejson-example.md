@@ -42,7 +42,7 @@ Source:
 - Repository: `lightspeedwp/ls-theme`
 - Branch: `develop`
 - File: `theme.json`
-- URL: `https://github.com/lightspeedwp/ls-theme/blob/develop/theme.json`
+- URL: `https://github.com/lightspeedwp/ls-theme/blob/develop/theme.json
 
 ## Observed Palette Structure
 

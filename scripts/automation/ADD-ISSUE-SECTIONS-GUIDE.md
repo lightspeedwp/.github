@@ -270,14 +270,14 @@ node scripts/automation/add-issue-template-sections.js \
 export GITHUB_TOKEN=ghp_your_token_here
 ```
 
-Get a token: <https://github.com/settings/tokens/new>
+Get a token: <https://github.com/settings/tokens/new
 
 - Scopes needed: `repo` (all)
 
 ### "GitHub API error 401: Bad credentials"
 
 - Token expired or invalid
-- Generate new token: <https://github.com/settings/tokens/new>
+- Generate new token: <https://github.com/settings/tokens/new
 - Re-export environment variable
 
 ### "GitHub API error 403: API rate limit exceeded"
@@ -319,7 +319,7 @@ Get a token: <https://github.com/settings/tokens/new>
 After each run, GitHub will auto-remove the `status:needs-more-info` label from fixed issues. You can track progress by checking:
 
 - Open issues with `status:needs-more-info`: Should decrease with each run
-- Check: <https://github.com/lightspeedwp/.github/issues?q=is%3Aopen+label%3Astatus%3Aneeds-more-info>
+- Check: <https://github.com/lightspeedwp/.github/issues?q=is:open+label%3Astatus%3Aneeds-more-info
 
 ---
 

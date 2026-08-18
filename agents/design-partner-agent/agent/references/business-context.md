@@ -40,7 +40,7 @@ Use this file to capture the standing product, audience, brand, research, and de
 ## Company or product name
 
 - LightSpeed
-- Company website: <https://lightspeedwp.agency>
+- Company website: <https://lightspeedwp.agency
 - Company type: WordPress website design and development company
 - Service focus: designing and developing websites for specific client types
 
@@ -76,7 +76,7 @@ Use this file to capture the standing product, audience, brand, research, and de
 ## Brand and voice sources
 
 - LightSpeed voice and tone guidelines document
-- Reference website: <https://lightspeedwp.agency>
+- Reference website: <https://lightspeedwp.agency
 
 ### Core voice traits
 

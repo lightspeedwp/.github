@@ -98,8 +98,8 @@ When `search` and `fetch` are relevant, verify:
 
 This standard is described in:
 
-- `https://developers.openai.com/apps-sdk/build/mcp-server/#company-knowledge-compatibility`
-- `https://platform.openai.com/docs/mcp`
+- `https://developers.openai.com/apps-sdk/build/mcp-server/#company-knowledge-compatibility
+- `https://platform.openai.com/docs/mcp
 
 ---
 

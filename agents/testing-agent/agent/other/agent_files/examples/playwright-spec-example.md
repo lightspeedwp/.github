@@ -44,7 +44,7 @@ Approved test cases exist for a WordPress contact form with required-field valid
 - Approved test case set for the contact form flow
 - Repo evidence showing `tests/e2e/contact.spec.ts`
 - Existing `data-pw` IDs for form fields and submit button
-- Staging base URL `https://example.test`
+- Staging base URL `https://example.test
 
 ## Output
 

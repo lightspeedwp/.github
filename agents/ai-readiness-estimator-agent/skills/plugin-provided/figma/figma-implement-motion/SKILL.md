@@ -26,7 +26,7 @@ Figma exposes motion through two tools:
 ## Prerequisites
 
 - Figma MCP server connected and accessible.
-- Node ID parsed from the Figma URL the user provides. URL format: `https://figma.com/design/:fileKey/:fileName?node-id=1-2` — extract `fileKey` (the segment after `/design/`) and `nodeId` (the value of the `node-id` query parameter, e.g. `42-15`).
+- Node ID parsed from the Figma URL the user provides. URL format: `https://figma.com/design/:fileKey/:fileName?node-id=1-2 — extract `fileKey` (the segment after `/design/`) and `nodeId` (the value of the `node-id` query parameter, e.g. `42-15`).
 - Target codebase. Motion output format adapts to stack (see [Framework Recommendations](#framework-recommendations)).
 
 ## Tool Choice

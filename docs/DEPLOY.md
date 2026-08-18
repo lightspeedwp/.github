@@ -19,8 +19,8 @@ Static site with an Astro build step. GitHub Pages serves the built static files
 - Repository: `lightspeedwp/.github`
 - Default branch: `develop`
 - Work branch for this conversion: `feat/github-pages-static`
-- Live URL (custom domain from CNAME): `https://github.lightspeedwp.agency/`
-- Live URL (GitHub Pages default): `https://lightspeedwp.github.io/`
+- Live URL (custom domain from CNAME): `https://github.lightspeedwp.agency/
+- Live URL (GitHub Pages default): `https://lightspeedwp.github.io/
 
 ## 2. GitHub Pages settings (configured by existing workflow)
 
@@ -89,7 +89,7 @@ After merging to `develop`:
 1. The GitHub Pages workflow (`.github/workflows/awesome-github-site.yml`) automatically runs
 2. It builds `website/dist/` and uploads the artefact
 3. Pages deploys the artefact to the configured domain
-4. Verify live at `https://github.lightspeedwp.agency/` (or configured custom domain)
+4. Verify live at `https://github.lightspeedwp.agency/ (or configured custom domain)
 
 Re-run the §5 checks live:
 

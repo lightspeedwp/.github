@@ -41,8 +41,8 @@ Gmail web URLs are browser navigation links, not a documented Gmail API identifi
 
 Only attempt resolution for HTTPS URLs on the exact host `mail.google.com` with one of these shapes:
 
-- `https://mail.google.com/mail/u/<account-index>/#<mailbox-view>/<token>`
-- `https://mail.google.com/mail/#<mailbox-view>/<token>`
+- `https://mail.google.com/mail/u/<account-index>/#<mailbox-view>/<token>
+- `https://mail.google.com/mail/#<mailbox-view>/<token>
 
 `<account-index>` must be decimal digits. `<mailbox-view>` must be one of `all`, `inbox`, `sent`, `starred`, `snoozed`, `drafts`, `trash`, `spam`, or `important`. The fragment must contain exactly the mailbox view and one non-empty token. Ignore a query suffix attached to the token, such as `?attachment_id=...`, but do not interpret it as part of the Gmail ID.
 
