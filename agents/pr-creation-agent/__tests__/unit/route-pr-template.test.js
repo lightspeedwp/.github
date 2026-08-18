@@ -41,7 +41,10 @@ describe("routePrTemplate", () => {
     test("should route feat branch to pr_feature.md", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -53,7 +56,10 @@ describe("routePrTemplate", () => {
     test("should route fix branch to pr_bug.md", async () => {
       const result = await routePrTemplate({
         branchType: "fix",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -64,7 +70,10 @@ describe("routePrTemplate", () => {
     test("should route docs branch to pr_docs.md", async () => {
       const result = await routePrTemplate({
         branchType: "docs",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -75,7 +84,10 @@ describe("routePrTemplate", () => {
     test("should use default template for unknown branch type", async () => {
       const result = await routePrTemplate({
         branchType: "unknown-type",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -86,7 +98,10 @@ describe("routePrTemplate", () => {
     test("should route hotfix branch to pr_hotfix.md", async () => {
       const result = await routePrTemplate({
         branchType: "hotfix",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -97,7 +112,10 @@ describe("routePrTemplate", () => {
     test("should route security branch to pr_bug.md", async () => {
       const result = await routePrTemplate({
         branchType: "security",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -110,7 +128,10 @@ describe("routePrTemplate", () => {
     test("should read and return template content", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -123,7 +144,10 @@ describe("routePrTemplate", () => {
     test("should include template body after frontmatter", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -136,7 +160,10 @@ describe("routePrTemplate", () => {
     test("should extract metadata from template", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -156,20 +183,28 @@ describe("routePrTemplate", () => {
     test("should identify required sections in template", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
       expect(result.valid).toBe(true);
       expect(result.metadata.requiredSections).toContain("Linked issues");
       expect(result.metadata.requiredSections).toContain("Changelog");
-      expect(result.metadata.requiredSections).toContain("Checklist (Global DoD / PR)");
+      expect(result.metadata.requiredSections).toContain(
+        "Checklist (Global DoD / PR)",
+      );
     });
 
     test("should report metadata statistics", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -183,7 +218,10 @@ describe("routePrTemplate", () => {
     test("should return expected properties on success", async () => {
       const result = await routePrTemplate({
         branchType: "feat",
-        configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+        configPath: path.join(
+          repoRoot,
+          ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        ),
         templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
       });
 
@@ -235,7 +273,10 @@ describe("routePrTemplate", () => {
       test(`should route ${branchType} to correct template`, async () => {
         const result = await routePrTemplate({
           branchType,
-          configPath: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE/config.yml"),
+          configPath: path.join(
+            repoRoot,
+            ".github/PULL_REQUEST_TEMPLATE/config.yml",
+          ),
           templateDir: path.join(repoRoot, ".github/PULL_REQUEST_TEMPLATE"),
         });
 
