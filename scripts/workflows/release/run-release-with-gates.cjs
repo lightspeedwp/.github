@@ -13,9 +13,8 @@
  * Phase 4 scripts called unchanged as fallback
  */
 
-const fs = require('fs');
 const path = require('path');
-const { execSync, spawnSync } = require('child_process');
+const { execSync } = require('child_process');
 
 // Try to import ReleaseGates from the new gates module
 let ReleaseGates;
@@ -40,7 +39,7 @@ function callPhase4() {
   const phase4Script = path.join(__dirname, 'run-release-agent.cjs');
 
   try {
-    const output = execSync(`node ${phase4Script}`, {
+    execSync(`node ${phase4Script}`, {
       stdio: 'inherit',
       encoding: 'utf-8',
       env: process.env,
