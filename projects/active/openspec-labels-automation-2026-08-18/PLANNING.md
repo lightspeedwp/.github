@@ -118,9 +118,8 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| TBD | epic | Phase 2–3 coordination | 🟡 Planning |
-| TBD | task | Phase 3 orchestrator implementation | 📋 Scheduled |
-| TBD | task | CI/CD integration | 📋 Scheduled |
+| [#2048](../../../issues/2048) | epic | OpenSpec Labels Automation — Phase 2–3 Epic | 🟡 In Progress |
+| [#2049](../../../issues/2049) | task | Phase 3: Workflow Orchestration | 📋 Planned |
 
 ## Quick Links
 

@@ -84,9 +84,8 @@ This project is coordinated with GitHub issues for tracking work items and progr
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| TBD | epic | Phase 2–3 Epic | 📋 Create |
-| TBD | task | Phase 3 Implementation | 📋 Create |
-| TBD | task | CI/CD Integration | 📋 Create |
+| [#2048](../../../issues/2048) | epic | OpenSpec Labels Automation — Phase 2–3 Epic | 🟡 In Progress |
+| [#2049](../../../issues/2049) | task | Phase 3: Workflow Orchestration | 📋 Planned |
 
 *To link issues, see [LINKING_STANDARD.md](../reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)*
 
