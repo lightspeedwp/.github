@@ -98,7 +98,7 @@ describe("update-pr-changelog-review", () => {
 
     it("should handle missing reviews gracefully", () => {
       const reviews = null;
-      expect(reviews === null || reviews === undefined || reviews.length === 0).toBe(true);
+      expect(reviews).toBeNull();
     });
   });
 
