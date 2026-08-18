@@ -14,6 +14,8 @@ export default [
       '**/directory-installed/**',
       '**/agentskills-main/**',
       '.jest-skip/**',
+      '.claude/worktrees/**',
+      '.remember/**',
     ],
   },
   js.configs.recommended,
