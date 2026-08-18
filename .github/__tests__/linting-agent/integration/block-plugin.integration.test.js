@@ -3,7 +3,7 @@
  * Tests Linting Agent in WordPress block plugin context
  */
 
-const { detectRepositoryType } = require('../../../scripts/agents/linting.agent');
+const { detectRepositoryType } = require('../../../../scripts/agents/linting.agent');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');

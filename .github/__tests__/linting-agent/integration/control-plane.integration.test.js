@@ -3,7 +3,7 @@
  * Tests Linting Agent in .github control-plane context
  */
 
-const { detectRepositoryType } = require('../../../scripts/agents/linting.agent');
+const { detectRepositoryType } = require('../../../../scripts/agents/linting.agent');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -28,12 +28,12 @@ describe('Control-Plane Repository Integration', () => {
   describe('Repository Detection', () => {
     test('correctly identifies control-plane repository', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
 
     test('detects with .github/workflows directory', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
 
     test('detects with .github/actions directory', () => {
@@ -41,7 +41,7 @@ describe('Control-Plane Repository Integration', () => {
       fs.rmSync(path.join(testRepoPath, '.github', 'workflows'));
       fs.mkdirSync(actionPath, { recursive: true });
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
   });
 
@@ -53,7 +53,7 @@ describe('Control-Plane Repository Integration', () => {
       fs.writeFileSync(jsFile, 'const x = 1;');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       // Verify file exists for linting
       expect(fs.existsSync(jsFile)).toBe(true);
     });
@@ -63,7 +63,7 @@ describe('Control-Plane Repository Integration', () => {
       fs.writeFileSync(mdFile, '# Test\n\nThis is a test.');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       expect(fs.existsSync(mdFile)).toBe(true);
     });
 
@@ -77,7 +77,7 @@ describe('Control-Plane Repository Integration', () => {
       fs.writeFileSync(workflowFile, 'name: Test\non: push:');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       expect(fs.existsSync(workflowFile)).toBe(true);
     });
 
@@ -103,7 +103,7 @@ describe('Control-Plane Repository Integration', () => {
 
       // PHP files should not be linted in control-plane context
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       // Verify file exists but wouldn't be linted
       expect(fs.existsSync(phpFile)).toBe(true);
     });
@@ -112,14 +112,14 @@ describe('Control-Plane Repository Integration', () => {
   describe('Config Generation', () => {
     test('generates appropriate linting configuration', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       // Config generation would be validated here
     });
 
     test('config includes all required tools', () => {
       // ESLint, Markdownlint, YAML validation, JSON validation, ShellCheck
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
 
     test('config excludes vendor/node_modules patterns', () => {
@@ -128,7 +128,7 @@ describe('Control-Plane Repository Integration', () => {
       fs.writeFileSync(nodeModules, 'console.log("test");');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       // node_modules should be excluded from linting
     });
   });
@@ -151,7 +151,7 @@ jobs:
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
 
     test('handles GitHub action.yml files', () => {
@@ -167,7 +167,7 @@ runs:
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
 
     test('handles script files', () => {
@@ -177,7 +177,7 @@ runs:
       fs.writeFileSync(path.join(scriptDir, 'deploy.sh'), '#!/bin/bash\necho deploy');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
   });
 
@@ -202,7 +202,7 @@ runs:
       fs.writeFileSync(workflow, '{invalid yaml: [}');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
       // Detection should still work even with invalid files
     });
 
@@ -217,7 +217,7 @@ runs:
       fs.writeFileSync(workflow, largeContent);
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('CONTROL_PLANE');
+      expect(result).toBe('control-plane');
     });
   });
 });
