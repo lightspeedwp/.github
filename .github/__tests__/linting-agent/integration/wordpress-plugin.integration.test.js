@@ -3,7 +3,7 @@
  * Tests Linting Agent in WordPress plugin context
  */
 
-const { detectRepositoryType } = require('../../../scripts/agents/linting.agent');
+const { detectRepositoryType } = require('../../../../scripts/agents/linting.agent');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -15,7 +15,7 @@ describe('WordPress Plugin Repository Integration', () => {
     testRepoPath = fs.mkdtempSync(path.join(os.tmpdir(), 'wp-plugin-'));
     // Create plugin.php to mark as WordPress plugin
     fs.writeFileSync(
-      path.join(testRepoPath, 'my-plugin.php'),
+      path.join(testRepoPath, 'plugin.php'),
       `<?php
 /**
  * Plugin Name: My Plugin
@@ -33,12 +33,12 @@ describe('WordPress Plugin Repository Integration', () => {
   describe('Repository Detection', () => {
     test('correctly identifies WordPress plugin repository', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
 
     test('detects with plugin.php file', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
   });
 
@@ -57,13 +57,13 @@ class Handler {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       expect(fs.existsSync(phpFile)).toBe(true);
     });
 
     test('generates correct PHPCS configuration', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // PHPCS config should include WordPress standards
     });
 
@@ -73,7 +73,7 @@ class Handler {
       fs.writeFileSync(vendorFile, '<?php // vendor code');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // vendor/ should be excluded
     });
 
@@ -83,7 +83,7 @@ class Handler {
       fs.writeFileSync(nodeFile, 'console.log("npm");');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // node_modules/ should be excluded
     });
   });
@@ -95,7 +95,7 @@ class Handler {
       fs.writeFileSync(jsFile, 'jQuery(document).ready(function() { console.log("admin"); });');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       expect(fs.existsSync(jsFile)).toBe(true);
     });
 
@@ -109,7 +109,7 @@ class Handler {
       fs.writeFileSync(frontendJs, 'console.log("frontend");');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
   });
 
@@ -120,7 +120,7 @@ class Handler {
       fs.writeFileSync(cssFile, '.plugin-class { color: #000; }');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       expect(fs.existsSync(cssFile)).toBe(true);
     });
 
@@ -130,7 +130,7 @@ class Handler {
       fs.writeFileSync(scssFile, '$color: #000;\n.class { color: $color; }');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       expect(fs.existsSync(scssFile)).toBe(true);
     });
   });
@@ -138,19 +138,19 @@ class Handler {
   describe('Configuration Files', () => {
     test('generates phpcs.xml for WordPress plugin', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // Should generate or expect phpcs.xml
     });
 
     test('supports custom ruleset inheritance', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // Should support custom ruleset in config
     });
 
     test('includes WordPress-specific rules', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // Config should include WordPress standards
     });
   });
@@ -163,7 +163,7 @@ class Handler {
       });
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
 
     test('handles plugin with vendor dependencies', () => {
@@ -174,7 +174,7 @@ class Handler {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // vendor should be excluded from linting
     });
 
@@ -183,7 +183,7 @@ class Handler {
       fs.mkdirSync(path.join(testRepoPath, 'node_modules'), { recursive: true });
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // node_modules should be excluded
     });
   });
@@ -191,13 +191,13 @@ class Handler {
   describe('Exclude Patterns', () => {
     test('excludes vendor from linting', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // Config should exclude vendor/
     });
 
     test('excludes node_modules from linting', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // Config should exclude node_modules/
     });
 
@@ -206,7 +206,7 @@ class Handler {
       fs.mkdirSync(path.join(testRepoPath, 'build'), { recursive: true });
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // dist/ and build/ should be excluded
     });
 
@@ -215,7 +215,7 @@ class Handler {
       fs.mkdirSync(path.join(testRepoPath, '__tests__'), { recursive: true });
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
   });
 
@@ -225,7 +225,7 @@ class Handler {
       fs.writeFileSync(badPhp, '<?php if ($x = 1) { // missing closing brace');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
       // Detection should still work
     });
 
@@ -234,7 +234,7 @@ class Handler {
       fs.writeFileSync(path.join(testRepoPath, 'plugin.php'), '<?php // no headers');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
 
     test('handles very large plugin', () => {
@@ -246,7 +246,7 @@ class Handler {
       }
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_PLUGIN');
+      expect(result).toBe('wordpress-plugin');
     });
   });
 });
