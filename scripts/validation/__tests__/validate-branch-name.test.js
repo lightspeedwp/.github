@@ -60,10 +60,16 @@ describe("validate-branch-name", () => {
       });
     });
 
-    it("accepts slugs with dots, underscores and hyphens", () => {
-      expect(isAllowed("feat/my_feature")).toBe(true);
-      expect(isAllowed("fix/v2.1.0-patch")).toBe(true);
-      expect(isAllowed("chore/update_deps-2025")).toBe(true);
+    it("accepts slugs with hyphens (kebab-case)", () => {
+      expect(isAllowed("feat/my-feature")).toBe(true);
+      expect(isAllowed("fix/v2-1-0-patch")).toBe(true);
+      expect(isAllowed("chore/update-deps-2025")).toBe(true);
+    });
+
+    it("rejects slugs with dots and underscores", () => {
+      expect(isAllowed("feat/my_feature")).toBe(false);
+      expect(isAllowed("fix/v2.1.0-patch")).toBe(false);
+      expect(isAllowed("chore/update_deps-2025")).toBe(false);
     });
 
     it("rejects the forbidden claude/ prefix", () => {
