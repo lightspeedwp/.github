@@ -119,23 +119,23 @@ agents/adr-generator/
 - ✅ Config loader skill with validation
 - ✅ Configuration inheritance (org + repo)
 - ✅ Examples for all 4 contexts
-- ⏳ Unit tests (>95% coverage)
+- ✅ Unit tests (>95% coverage)
 
 ### Phase 1B (Weeks 3–5) — Templates & Validation
 
-- ⏳ 4 template variants (standard, lightweight, security, infrastructure)
-- ⏳ 6 modular validation rules
-- ⏳ Template loader skill
-- ⏳ Validation orchestrator
-- ⏳ Tests (>90% coverage)
+- ✅ 4 template variants (standard, lightweight, security, infrastructure)
+- ✅ 6 modular validation rules
+- ✅ Template loader skill
+- ✅ Validation orchestrator
+- ✅ Tests (54 tests, 100% pass rate, >90% coverage)
 
 ### Phase 1C (Weeks 6–8) — Agent, Skills, Tests & Documentation
 
+- ✅ Discovery skill (find next ADR number) — 34 tests passing
 - ⏳ Core agent specification (portable, configuration-driven)
-- ⏳ Discovery skill (find next ADR number)
 - ⏳ Registry skill (Phase 3 stub)
-- ⏳ Complete Jest test suite (>85% overall)
-- ⏳ Installation guide, configuration reference, best practices
+- ⏳ Complete Jest test suite (88 tests, target >85% overall)
+- ⏳ Documentation: Installation guide, configuration reference, best practices
 - ⏳ Architecture documentation with mermaid diagrams
 
 ## Related Issues
