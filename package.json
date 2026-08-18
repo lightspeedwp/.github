@@ -108,6 +108,10 @@
     "metrics:ci": "node metrics/frontmatter-metrics.js",
     "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles",
     "test": "npm run test:js",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
+    "test:issue-agent": "vitest scripts/automation/issue-agent",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check"
@@ -164,6 +168,7 @@
     "ts-jest": "29.4.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.47.0",
+    "vitest": "^1.2.0",
     "yaml": "2.8.1"
   },
   "lint-staged": {
