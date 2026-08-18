@@ -95,7 +95,7 @@
     "validate:agents": "node scripts/validation/validate-agent-frontmatter.js",
     "validate:branch-name": "node scripts/validation/validate-branch-name.js",
     "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
-    "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter-freshness.js",
+    "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter-changed.js",
     "validate:issue-fields": "node scripts/validation/validate-issue-fields.cjs",
     "validate:retired-doc-links": "node scripts/validation/validate-retired-doc-links.cjs",
     "validate:workflows": "node scripts/validation/validate-workflows.js",
