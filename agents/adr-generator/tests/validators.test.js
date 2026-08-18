@@ -175,7 +175,7 @@ describe("ADR Validators", () => {
       createADR("0001-first.md", "---\ntitle: First\n---\n# First");
 
       const result = validators.enforceFilenameFormat(tempDir);
-      expect(result.pattern).toBe("NNNN-slug.md");
+      expect(result.pattern).toBe("NNNN-slug.md or YYYY-MM-DD[-N]-slug.md");
     });
   });
 
