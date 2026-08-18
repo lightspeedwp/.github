@@ -317,13 +317,23 @@ Phase 5A is successful when:
 
 ## Related Issues & PRs
 
-| Reference | Type | Purpose | Status |
-|-----------|------|---------|--------|
-| PR #2016 | feature | Phase 5A MVP — Safety Gates Foundation | ✅ MERGED (f2b07bc9c) |
-| PR #1995 | docs | Phase 5A agentic release team training guide | ✅ MERGED |
-| PR #1936 | docs | Phase 5A Week 3 — Testing & Documentation Framework | ✅ MERGED |
+### Phase 5A Issues
+| Issue | Title | Status | Link |
+|-------|-------|--------|------|
+| #2016 | Phase 5A Release Agent MVP — Safety Gates Foundation | ✅ MERGED | [PR #2016](https://github.com/lightspeedwp/.github/pull/2016) |
+| #1995 | Phase 5A agentic release team training guide | ✅ MERGED | [PR #1995](https://github.com/lightspeedwp/.github/pull/1995) |
+| #1936 | Phase 5A Week 3 — Testing & Documentation Framework | ✅ MERGED | [PR #1936](https://github.com/lightspeedwp/.github/pull/1936) |
 
-**Issue Tracking:** Phase 5A subtasks are documented in commit history; future phases may use GitHub Issues for team coordination.
+### Related Release Process Issues
+| Issue | Title | Status | Link |
+|-------|-------|--------|------|
+| #1780 | Phase 5.1 Integration Testing | ✅ COMPLETE | [PR #1780](https://github.com/lightspeedwp/.github/pull/1780) |
+| #1664 | CHILD-023/024: Release & Changelog Agents | ✅ COMPLETE | [PR #1696](https://github.com/lightspeedwp/.github/pull/1696) |
+| #1640 | Phase 4 Implementation Plan | ✅ COMPLETE | [PR #1656](https://github.com/lightspeedwp/.github/pull/1656) |
+| #1560 | Two-PR Stacked Flow (Develop-First) | ✅ COMPLETE | [PR #1658](https://github.com/lightspeedwp/.github/pull/1658) |
+| #1549 | Authorization Gating for Release | ✅ COMPLETE | [PR #1609](https://github.com/lightspeedwp/.github/pull/1609) |
+
+**Issue Organization:** Phase 5A work is tracked via milestone in GitHub Issues; all work items linked to PR #2016 (parent) via commit history.
 
 ---
 
