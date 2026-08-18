@@ -44,7 +44,9 @@ class ADRDiscovery {
 
     const files = fs.readdirSync(this.adrDirectory);
     const adrFiles = files.filter(
-      (f) => f.match(/^\d+/) || f.match(/^\d{4}-\d{2}-\d{2}/),
+      (f) =>
+        ((f.match(/^\d+/) || f.match(/^\d{4}-\d{2}-\d{2}/)) &&
+          f.endsWith(".md")),
     );
 
     return adrFiles.sort();
@@ -128,7 +130,8 @@ class ADRDiscovery {
    */
   generateFilename(nextNumber, title) {
     const slug = this.titleToSlug(title);
-    return `${nextNumber}-${slug}.md`;
+    const finalSlug = slug || "untitled";
+    return `${nextNumber}-${finalSlug}.md`;
   }
 
   /**

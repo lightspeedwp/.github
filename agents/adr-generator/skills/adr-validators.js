@@ -72,11 +72,18 @@ function enforceValidReferences(adrDirectory) {
   const adrNumbers = new Set();
 
   for (const file of files) {
-    const match = file.match(/^(\d+)-/);
-    if (match) {
-      const number = match[1];
+    // Extract numeric IDs (e.g., "0001-slug.md")
+    const numMatch = file.match(/^(\d+)-/);
+    if (numMatch) {
+      const number = numMatch[1];
       adrNumbers.add(number);
       adrNumbers.add(parseInt(number, 10).toString());
+    }
+
+    // Extract date-based IDs (e.g., "2026-08-18-slug.md")
+    const dateMatch = file.match(/^(\d{4}-\d{2}-\d{2})/);
+    if (dateMatch) {
+      adrNumbers.add(dateMatch[1]);
     }
   }
 
@@ -85,9 +92,9 @@ function enforceValidReferences(adrDirectory) {
   for (const file of files) {
     const content = fs.readFileSync(path.join(adrDirectory, file), "utf-8");
     const references = [
-      ...content.matchAll(/supersedes:\s*(\d+)/g),
-      ...content.matchAll(/superseded-by:\s*(\d+)/g),
-      ...content.matchAll(/ADR\s*#?(\d+)/g),
+      ...content.matchAll(/supersedes:\s*(\d+|\d{4}-\d{2}-\d{2})/gi),
+      ...content.matchAll(/superseded[\s-]by:\s*(\d+|\d{4}-\d{2}-\d{2})/gi),
+      ...content.matchAll(/ADR\s*#?(\d+|\d{4}-\d{2}-\d{2})/g),
     ];
 
     for (const match of references) {
