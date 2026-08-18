@@ -54,7 +54,7 @@ Each phase includes:
 
 ## Phase 1: [Phase Name] — Architecture & Design
 
-**Related Planning:** [PLANNING.md — Phase 1](./PLANNING.md#phase-1-phase-name-weeks-xy)
+**Related Planning:** See Phase 1 section in PLANNING.md (created from PLANNING_TEMPLATE.md)
 
 ### 1.1 Architecture Overview
 
@@ -333,7 +333,7 @@ describe('Component A', () => {
 
 ## Phase 2: [Phase Name] — Implementation & Testing
 
-**Related Planning:** [PLANNING.md — Phase 2](./PLANNING.md#phase-2-phase-name-weeks-xy)
+**Related Planning:** See Phase 2 section in PLANNING.md (created from PLANNING_TEMPLATE.md)
 
 [Continue with same pattern for Phase 2]
 
@@ -558,9 +558,9 @@ curl -X GET \
 
 ## References & Related Documents
 
-- [PLANNING.md](./PLANNING.md) — Project planning and timeline
-- [GitHub Issues — Master Epic](../../../issues/XXXX) — Issue tracking
-- [Related Architecture Doc](../../../docs/ARCHITECTURE.md) — System architecture
+- PLANNING.md (created from PLANNING_TEMPLATE.md) — Project planning and timeline
+- GitHub Issues — Master Epic (link issue number to your project's master epic issue)
+- Related Architecture Doc — Reference any relevant architecture documentation in your repository
 
 ---
 
