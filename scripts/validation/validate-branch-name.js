@@ -50,7 +50,7 @@ const BOT_PREFIXES = /^(dependabot|renovate)\//;
 const AUDIT_BRANCH_PATTERN = /^pr-\d+-audit$/;
 const PROTECTED_BRANCHES = new Set(["main", "develop"]);
 const BRANCH_PATTERN = new RegExp(
-  `^(${ALLOWED_PREFIXES.join("|")})/[a-zA-Z0-9._-]+$`,
+  `^(${ALLOWED_PREFIXES.join("|")})/[a-z0-9-]+$`,
 );
 
 function getArgValue(flag) {
