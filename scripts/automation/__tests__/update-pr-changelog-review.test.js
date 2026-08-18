@@ -2,7 +2,7 @@
  * Unit tests for update-pr-changelog-review.js
  */
 
-import { describe, it, expect, jest } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 
 /**
  * Tests for update-pr-changelog-review.js

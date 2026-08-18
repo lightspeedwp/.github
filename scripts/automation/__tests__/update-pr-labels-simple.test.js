@@ -2,7 +2,7 @@
  * Unit tests for update-pr-labels-simple.js
  */
 
-import { describe, it, expect, jest } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 
 describe("update-pr-labels-simple", () => {
   describe("determineStatus", () => {
