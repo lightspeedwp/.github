@@ -132,11 +132,10 @@ agents/adr-generator/
 ### Phase 1C (Weeks 6–8) — Agent, Skills, Tests & Documentation
 
 - ✅ Discovery skill (find next ADR number) — 34 tests passing
-- ⏳ Core agent specification (portable, configuration-driven)
-- ⏳ Registry skill (Phase 3 stub)
-- ⏳ Complete Jest test suite (88 tests, target >85% overall)
-- ⏳ Documentation: Installation guide, configuration reference, best practices
-- ⏳ Architecture documentation with mermaid diagrams
+- ✅ Core agent specification (portable, configuration-driven)
+- ✅ Complete Jest test suite (88 tests, >85% overall coverage)
+- ✅ Documentation: Installation guide, configuration reference, best practices, architecture
+- ⏳ Registry skill (Phase 3 stub — planned for Phase 2)
 
 ## Related Issues
 
