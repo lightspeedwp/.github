@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const MetricsReportGenerator = require('../generate-metrics-report');
 
 jest.mock('fs');

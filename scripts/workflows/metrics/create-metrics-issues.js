@@ -12,6 +12,7 @@
  */
 
 const fs = require('fs');
+const path = require('path');
 
 class MetricsIssuesCreator {
   constructor(options = {}) {
