@@ -155,7 +155,7 @@ const TIER_2_RULES = {
     const hasEntry = issues.filter(i =>
       i.labels.some(l => l === 'meta:has-changelog-entry')
     );
-    const coverage = (hasEntry.length / issues.length) * 100;
+    const coverage = issues.length > 0 ? (hasEntry.length / issues.length) * 100 : 100;
     return {
       passed: coverage >= 80,
       coverage: Math.round(coverage),

@@ -4,6 +4,7 @@
   "description": "Shared npm package for metadata agent — label utilities, GitHub API integration, validation, and confidence scoring",
   "type": "module",
   "main": "./src/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": "./src/index.js",
     "./label-utils": "./src/label-utils.js",
@@ -53,8 +54,6 @@
   },
   "dependencies": {
     "@octokit/rest": "^19.0.0",
-    "dotenv": "^16.0.0",
-    "lodash": "^4.17.0",
     "pino": "^8.0.0"
   },
   "devDependencies": {

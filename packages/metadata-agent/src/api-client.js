@@ -160,7 +160,9 @@ class GitHubAPIClient {
         labels: issue.labels.map(l => l.name),
         url: issue.html_url,
         created_at: issue.created_at,
-        updated_at: issue.updated_at
+        updated_at: issue.updated_at,
+        milestone: issue.milestone ? issue.milestone.title : null,
+        isPR: !!issue.pull_request
       }));
     } catch (error) {
       logger.error({ error: error.message, owner, repo }, 'Failed to fetch issues');

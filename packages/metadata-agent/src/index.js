@@ -77,6 +77,7 @@ export {
  * @type {string}
  */
 export const VERSION = '1.0.0-rc.1';
+export const version = VERSION;
 
 /**
  * Complete API namespace for easier importing

@@ -53,7 +53,7 @@ const score = labelUtils.score('type:bug', {
 import { createClient, authenticateClient } from '@lightspeedwp/metadata-agent';
 
 // Create and authenticate a client
-const client = new createClient({
+const client = createClient({
   token: process.env.GITHUB_TOKEN
 });
 
@@ -73,7 +73,7 @@ await client.applyLabels({
   owner: 'lightspeedwp',
   repo: '.github',
   issue_number: 123,
-  labels: ['type:bug', 'priority:high']
+  labels: ['type:bug', 'priority:critical']
 });
 
 // Handle rate limits
