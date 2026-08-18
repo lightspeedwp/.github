@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 title: "Portable Prompt Engineer Agent — OpenSpec Specification"
 description: "OpenSpec specification and implementation planning for portable prompt engineering agent"
 project_type: "openspec-implementation"
-status: "phase-2-complete"
+status: active
 created: "2026-08-12"
 last_updated: "2026-08-12"
 ---
