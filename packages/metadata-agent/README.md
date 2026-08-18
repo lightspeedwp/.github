@@ -179,12 +179,14 @@ try {
 
 Label parsing, validation, suggestion, and scoring.
 
+
 #### `parse(label)`
 Parse a label string into family and name components.
 
 ```javascript
 parse('type:bug') // → { family: 'type', name: 'bug', full: 'type:bug' }
 ```
+
 
 #### `validate(label)`
 Validate a label against the canonical set.
@@ -194,12 +196,14 @@ validate('type:bug') // → { valid: true, ... }
 validate('type:buge') // → { valid: false, suggestion: 'type:bug', ... }
 ```
 
+
 #### `suggest(label, maxSuggestions)`
 Find similar canonical labels.
 
 ```javascript
 suggest('type:bugg', 3) // → ['type:bug']
 ```
+
 
 #### `score(label, context)`
 Score label relevance (0-100).
@@ -208,6 +212,7 @@ Score label relevance (0-100).
 score('type:bug', { issueType: 'bug', existingLabels: [] }) // → 95
 ```
 
+
 #### `getFamilies()`
 Get all label families.
 
@@ -215,12 +220,14 @@ Get all label families.
 getFamilies() // → ['type', 'status', 'area', 'meta', 'priority', ...]
 ```
 
+
 #### `getLabelsByFamily(family)`
 Get canonical labels in a family.
 
 ```javascript
 getLabelsByFamily('type') // → ['type:bug', 'type:feature', ...]
 ```
+
 
 #### `getAllCanonical()`
 Get all canonical labels.
@@ -232,6 +239,7 @@ getAllCanonical() // → ['type:bug', 'type:feature', 'status:open', ...]
 ### apiClient
 
 GitHub API client with authentication, retry logic, and rate limit handling.
+
 
 #### `createClient(options)`
 Create an API client instance.
@@ -245,6 +253,7 @@ const client = createClient({
 });
 ```
 
+
 #### `authenticateClient(options)`
 Create and authenticate in one step.
 
@@ -254,6 +263,7 @@ const client = await authenticateClient({
 });
 ```
 
+
 #### `client.authenticate()`
 Verify token and get user info.
 
@@ -261,6 +271,7 @@ Verify token and get user info.
 const user = await client.authenticate();
 // → { login: 'octocat', name: '...', email: '...', type: 'User' }
 ```
+
 
 #### `client.getIssues(options)`
 Fetch issues from a repository.
@@ -276,6 +287,7 @@ const issues = await client.getIssues({
 });
 ```
 
+
 #### `client.applyLabels(options)`
 Apply labels to an issue.
 
@@ -287,6 +299,7 @@ await client.applyLabels({
   labels: ['type:bug', 'priority:high']
 });
 ```
+
 
 #### `client.removeLabels(options)`
 Remove labels from an issue.
@@ -300,6 +313,7 @@ await client.removeLabels({
 });
 ```
 
+
 #### `client.getRateLimit()`
 Get current rate limit status.
 
@@ -308,12 +322,14 @@ const limits = await client.getRateLimit();
 // → { remaining: 58, limit: 60, reset: 1628765400, resetTime: Date(...) }
 ```
 
+
 #### `client.handleRateLimit()`
 Wait for rate limit to reset.
 
 ```javascript
 await client.handleRateLimit();
 ```
+
 
 #### `client.retry(fn, options)`
 Retry a function with exponential backoff.
@@ -329,6 +345,7 @@ const issues = await client.retry(
 
 Three-tier validation system for metadata consistency.
 
+
 #### `validateTier1(issues)`
 Check blockers (must pass for any release).
 
@@ -339,6 +356,7 @@ Tier 1 checks:
 - No conflicting labels
 - All PRs have status label
 - Milestone is populated
+
 
 #### `validateTier2(issues)`
 Check warnings (should pass for minor/major releases).
@@ -351,6 +369,7 @@ Tier 2 checks:
 - Consistent area labels
 - Changelog tracking
 
+
 #### `validateTier3(issues)`
 Get informational insights (always passes).
 
@@ -359,6 +378,7 @@ Returns: `{ passed: true, info, count, total, details }`
 Tier 3 checks:
 - Average labels per issue
 - Label family distribution
+
 
 #### `getRecommendation(releaseType, tier1, tier2)`
 Get action recommendation based on validation.
@@ -371,6 +391,7 @@ const recommendation = getRecommendation('minor', tier1Result, tier2Result);
 ### confidenceScorer
 
 Confidence scoring for automated label actions.
+
 
 #### `createScorer(options)`
 Create a confidence scorer instance.
@@ -387,6 +408,7 @@ const scorer = createScorer({
 });
 ```
 
+
 #### `scorer.calculate(label, context)`
 Calculate confidence score (0-100).
 
@@ -399,6 +421,7 @@ const score = scorer.calculate('type:bug', {
 // → 92
 ```
 
+
 #### `scorer.getThreshold()`
 Get current confidence threshold.
 
@@ -406,12 +429,14 @@ Get current confidence threshold.
 const threshold = scorer.getThreshold(); // → 70
 ```
 
+
 #### `scorer.setThreshold(threshold)`
 Set new confidence threshold.
 
 ```javascript
 scorer.setThreshold(80);
 ```
+
 
 #### `scorer.isConfident(score)`
 Check if score meets threshold.
@@ -421,6 +446,7 @@ if (scorer.isConfident(score)) {
   // Safe to auto-apply
 }
 ```
+
 
 #### `scorer.assess(score, reason)`
 Get detailed confidence assessment.
@@ -433,6 +459,7 @@ const assessment = scorer.assess(92);
 ### errorHandler
 
 Error classification, recovery strategies, and suggestions.
+
 
 #### `errorHandler.catch(error)`
 Classify an error and get recovery suggestions.
@@ -449,6 +476,7 @@ Error types:
 - `network` — Network/connectivity error
 - `unknown` — Unclassified error
 
+
 #### `errorHandler.retry(fn, options)`
 Retry a function with exponential backoff.
 
@@ -464,10 +492,12 @@ const result = await errorHandler.retry(
 );
 ```
 
+
 #### `errorHandler.suggest(error)`
 Get actionable suggestions for recovering from an error.
 
 Returns: `{ type, immediate, checks, escalation }`
+
 
 #### `errorHandler.format(error, includeStack)`
 Format an error for display.

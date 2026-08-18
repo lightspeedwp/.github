@@ -429,6 +429,7 @@ npm install @lightspeedwp/metadata-agent
 ### 1. Three-Tier Validation
 
 **Why:** Different release types have different validation requirements.
+
 - **Patch:** Tier 1 only (critical blockers)
 - **Minor:** Tier 1 + Tier 2 (warnings should be addressed)
 - **Major:** Tier 1 + Tier 2 + full audit
@@ -438,10 +439,12 @@ npm install @lightspeedwp/metadata-agent
 ### 2. Confidence Scoring (0-100 Scale)
 
 **Why:** Automated label application needs confidence threshold.
+
 - Score >= 70 → Safe to auto-apply
 - Score < 70 → Request human review
 
 **Factors:**
+
 - Canonicality (30%) — Is label approved?
 - Context match (25%) — Does it fit the issue?
 - No conflict (25%) — Won't conflict with existing?
@@ -452,6 +455,7 @@ npm install @lightspeedwp/metadata-agent
 ### 3. Error Classification + Recovery
 
 **Why:** Different errors need different recovery strategies.
+
 - **Retriable:** Rate limit, timeout, 5xx → Auto-retry
 - **Non-retriable:** Auth, validation, 4xx → Fail fast
 - **Unknown:** Log and suggest action
@@ -480,6 +484,7 @@ api.labelUtils.validate('type:bug');
 ## Files Delivered
 
 ### Source Code (6 modules)
+
 1. ✅ `/packages/metadata-agent/src/index.js` — Main entry point (115 lines)
 2. ✅ `/packages/metadata-agent/src/label-utils.js` — Label operations (397 lines)
 3. ✅ `/packages/metadata-agent/src/api-client.js` — GitHub API (543 lines)
@@ -488,24 +493,28 @@ api.labelUtils.validate('type:bug');
 6. ✅ `/packages/metadata-agent/src/error-handler.js` — Error handling (419 lines)
 
 ### TypeScript Definitions
-7. ✅ `/packages/metadata-agent/types/index.d.ts` — Main types (293 lines)
-8. ✅ `/packages/metadata-agent/types/api.d.ts` — API types (110 lines)
-9. ✅ `/packages/metadata-agent/types/validation.d.ts` — Validation types (134 lines)
+
+1. ✅ `/packages/metadata-agent/types/index.d.ts` — Main types (293 lines)
+2. ✅ `/packages/metadata-agent/types/api.d.ts` — API types (110 lines)
+3. ✅ `/packages/metadata-agent/types/validation.d.ts` — Validation types (134 lines)
 
 ### Documentation
-10. ✅ `/packages/metadata-agent/README.md` — Usage guide (548 lines)
-11. ✅ `/packages/metadata-agent/CHANGELOG.md` — Version history (188 lines)
+
+1. ✅ `/packages/metadata-agent/README.md` — Usage guide (548 lines)
+2. ✅ `/packages/metadata-agent/CHANGELOG.md` — Version history (188 lines)
 
 ### Configuration
-12. ✅ `/packages/metadata-agent/package.json` — npm configuration
-13. ✅ `/packages/metadata-agent/LICENSE` — MIT license
-14. ✅ `/packages/metadata-agent/.gitignore` — Git ignore rules
+
+1. ✅ `/packages/metadata-agent/package.json` — npm configuration
+2. ✅ `/packages/metadata-agent/LICENSE` — MIT license
+3. ✅ `/packages/metadata-agent/.gitignore` — Git ignore rules
 
 ### Test Infrastructure
-15. ✅ `/packages/metadata-agent/tests/fixtures/sample-issues.js` — Test data (240+ lines)
-16. ✅ `/packages/metadata-agent/src/__tests__/` — Unit test directory
-17. ✅ `/packages/metadata-agent/tests/integration/` — Integration test directory
-18. ✅ `/packages/metadata-agent/tests/e2e/` — E2E test directory
+
+1. ✅ `/packages/metadata-agent/tests/fixtures/sample-issues.js` — Test data (240+ lines)
+2. ✅ `/packages/metadata-agent/src/__tests__/` — Unit test directory
+3. ✅ `/packages/metadata-agent/tests/integration/` — Integration test directory
+4. ✅ `/packages/metadata-agent/tests/e2e/` — E2E test directory
 
 ---
 
