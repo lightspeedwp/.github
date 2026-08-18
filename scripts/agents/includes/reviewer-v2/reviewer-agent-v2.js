@@ -1,7 +1,7 @@
 const { FeedbackProcessor } = require('./feedback-processor');
 const { DecisionEngine } = require('./decision-engine');
 const { CommentGenerator } = require('./comment-generator');
-const { ConfigurationSystem, REPO_TYPES } = require('./configuration-system');
+const { ConfigurationSystem } = require('./configuration-system');
 
 class ReviewerAgentV2 {
   constructor(options = {}) {

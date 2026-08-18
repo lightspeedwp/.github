@@ -1,4 +1,4 @@
-const { FeedbackProcessor, TOOL_TYPES, SEVERITY_MAP } = require('../feedback-processor');
+const { FeedbackProcessor, TOOL_TYPES } = require('../feedback-processor');
 
 describe('FeedbackProcessor', () => {
   let processor;
