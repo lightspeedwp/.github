@@ -14,11 +14,11 @@ tags:
 status: active
 ---
 
-# Issue Management Agent — Planning & Implementation
+# Issue Management Agent — Planning & Strategy
 
 **Project ID**: `issue-management-agent-planning-2026-08-12`  
-**Status**: 🚀 Phase 2 Infrastructure Complete (Aug 18, 2026) | Skill Implementation Pending (Aug 20–Sep 2)  
-**Branch**: `feat/issue-mgmt-planning` | Infrastructure: `claude/issue-agent-phase-2-infra-28d5a8`  
+**Status**: 📋 Planning Phase (Aug 12-19, 2026)  
+**Branch**: `feat/issue-mgmt-planning`  
 **Parent Epic**: [#1771 — Issue Maintenance Scripts Phase 4](https://github.com/lightspeedwp/.github/issues/1771)
 
 ---
@@ -31,48 +31,6 @@ This project **bridges Phase 1 (Specification) and Phase 2 (Implementation)** by
 - ✅ **Answering best practice questions** — Recommendations based on industry standards
 - ✅ **Fleshing out implementation details** — Concrete plans, timelines, and deliverables
 - ✅ **Preparing team alignment** — Clear direction for developers in Phase 2
-
----
-
-## Phase 2 Infrastructure Delivery (Aug 18 — Complete ✅)
-
-**Status**: Infrastructure ready for skill implementation
-
-### Core Modules Delivered
-
-| Module | Size | Tests | Status |
-|--------|------|-------|--------|
-| **github-client.js** | 4.2 KB | 50+ | ✅ Complete |
-| **utils.js** | 6.2 KB | 65+ | ✅ Complete |
-| **Test Fixtures** | 20.1 KB | N/A | ✅ Complete |
-| **Test Mocks** | 5.6 KB | N/A | ✅ Complete |
-| **Jest Configuration** | 1.2 KB | N/A | ✅ Complete |
-| **Vitest Configuration** | 1.5 KB | N/A | ✅ Complete |
-
-**Total**: 30.5 KB infrastructure | 115+ unit tests | 90%+ coverage target
-
-### Location
-
-```
-scripts/automation/issue-agent/
-├── config/                  Jest & Vitest configuration
-├── shared/                  Shared modules for all skills
-│   ├── github-client.js    GitHub API wrapper
-│   ├── utils.js            Template/label utilities
-│   └── tests/              Fixtures & mocks
-└── README.md               Project documentation
-```
-
-### Ready for Implementation
-
-All 7 skills can now be implemented using shared modules:
-- ✅ Shared authentication (github-client.js)
-- ✅ Template/label loading utilities (utils.js)
-- ✅ Test fixtures with 15+ realistic issues
-- ✅ Jest & Vitest test configuration
-- ✅ npm scripts for test execution
-
-**Next Milestone**: Aug 20 Skill Implementation Kickoff
 
 ---
 
@@ -403,26 +361,3 @@ Have questions? Comment on the epic issue or reach out to the team.
 ---
 
 *Planning Project v1.0 | Created 2026-08-12 | Issue Management Agent*
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

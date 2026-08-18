@@ -65,7 +65,7 @@ function getCurrentBranch(repoPath) {
       encoding: "utf8",
     }).trim();
     return branch;
-  } catch (_error) {
+  } catch (error) {
     return null;
   }
 }
@@ -88,7 +88,7 @@ function getCommitsAhead(repoPath, baseBranch = "develop") {
       .filter((line) => line.length > 0).length;
 
     return commits || 0;
-  } catch (_error) {
+  } catch (error) {
     return 0;
   }
 }

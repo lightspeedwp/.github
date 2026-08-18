@@ -12,15 +12,15 @@
  * @module validation
  */
 
-import pino from "pino";
+import pino from 'pino';
 
 /**
  * Logger instance for validation operations
  * @type {pino.Logger}
  */
 const logger = pino({
-  name: "metadata-agent:validation",
-  level: process.env.LOG_LEVEL || "info",
+  name: 'metadata-agent:validation',
+  level: process.env.LOG_LEVEL || 'info'
 });
 
 /**
@@ -32,28 +32,28 @@ const logger = pino({
  * @type {Object}
  */
 const TIER_1_RULES = {
-  "All issues have type label": (issues) => {
-    const missing = issues.filter(
-      (issue) => !issue.labels.some((label) => label.startsWith("type:")),
+  'All issues have type label': (issues) => {
+    const missing = issues.filter(issue =>
+      !issue.labels.some(label => label.startsWith('type:'))
     );
     return {
       passed: missing.length === 0,
       failCount: missing.length,
-      message: `${missing.length} issues missing type: label`,
+      message: `${missing.length} issues missing type: label`
     };
   },
 
-  "No conflicting labels": (issues) => {
+  'No conflicting labels': (issues) => {
     const conflicts = [];
     for (const issue of issues) {
       const families = {};
       for (const label of issue.labels) {
-        const family = label.split(":")[0];
+        const family = label.split(':')[0];
         if (families[family]) {
           conflicts.push({
             issue: issue.number,
             family,
-            labels: issue.labels.filter((l) => l.startsWith(family + ":")),
+            labels: issue.labels.filter(l => l.startsWith(family + ':'))
           });
         }
         families[family] = true;
@@ -63,34 +63,34 @@ const TIER_1_RULES = {
       passed: conflicts.length === 0,
       failCount: conflicts.length,
       message: `${conflicts.length} issues have conflicting labels`,
-      details: conflicts.slice(0, 5), // Show first 5 conflicts
+      details: conflicts.slice(0, 5) // Show first 5 conflicts
     };
   },
 
-  "All PRs have status label": (issues) => {
-    const prs = issues.filter((i) => i.isPR === true);
-    const missing = prs.filter(
-      (pr) => !pr.labels.some((label) => label.startsWith("status:")),
+  'All PRs have status label': (issues) => {
+    const prs = issues.filter(i => i.isPR === true);
+    const missing = prs.filter(pr =>
+      !pr.labels.some(label => label.startsWith('status:'))
     );
     return {
       passed: missing.length === 0,
       failCount: missing.length,
       message: `${missing.length} PRs missing status: label`,
       prTotal: prs.length,
-      prMissing: missing.length,
+      prMissing: missing.length
     };
   },
 
-  "Milestone is populated": (issues) => {
-    const missing = issues.filter((i) => !i.milestone);
+  'Milestone is populated': (issues) => {
+    const missing = issues.filter(i => !i.milestone);
     return {
       passed: missing.length === 0,
       failCount: missing.length,
       message: `${missing.length} issues not in a milestone`,
       total: issues.length,
-      assigned: issues.length - missing.length,
+      assigned: issues.length - missing.length
     };
-  },
+  }
 };
 
 /**
@@ -102,72 +102,68 @@ const TIER_1_RULES = {
  * @type {Object}
  */
 const TIER_2_RULES = {
-  "High label coverage (95%+)": (issues) => {
-    const labeled = issues.filter((i) => i.labels && i.labels.length > 0);
-    const coverage =
-      issues.length > 0
-        ? Math.round((labeled.length / issues.length) * 100)
-        : 100;
+  'High label coverage (95%+)': (issues) => {
+    const labeled = issues.filter(i => i.labels && i.labels.length > 0);
+    const coverage = issues.length > 0
+      ? Math.round((labeled.length / issues.length) * 100)
+      : 100;
     return {
       passed: coverage >= 95,
       coverage,
       failCount: issues.length - labeled.length,
       message: `${coverage}% of issues are labeled (need 95%+)`,
-      threshold: 95,
+      threshold: 95
     };
   },
 
-  "All issues have priority label": (issues) => {
-    const missing = issues.filter(
-      (issue) => !issue.labels.some((label) => label.startsWith("priority:")),
+  'All issues have priority label': (issues) => {
+    const missing = issues.filter(issue =>
+      !issue.labels.some(label => label.startsWith('priority:'))
     );
-    const coverage =
-      issues.length > 0
-        ? Math.round(((issues.length - missing.length) / issues.length) * 100)
-        : 100;
+    const coverage = issues.length > 0
+      ? Math.round(((issues.length - missing.length) / issues.length) * 100)
+      : 100;
     return {
       passed: coverage >= 90,
       coverage,
       failCount: missing.length,
       message: `${coverage}% of issues have priority: label (need 90%+)`,
-      threshold: 90,
+      threshold: 90
     };
   },
 
-  "Consistent area labels": (issues) => {
-    const withArea = issues.filter((i) =>
-      i.labels.some((l) => l.startsWith("area:")),
+  'Consistent area labels': (issues) => {
+    const withArea = issues.filter(i =>
+      i.labels.some(l => l.startsWith('area:'))
     );
-    const coverage =
-      issues.length > 0
-        ? Math.round((withArea.length / issues.length) * 100)
-        : 100;
+    const coverage = issues.length > 0
+      ? Math.round((withArea.length / issues.length) * 100)
+      : 100;
     return {
       passed: coverage >= 80,
       coverage,
       failCount: issues.length - withArea.length,
       message: `${coverage}% of issues have area: label (need 80%+)`,
-      threshold: 80,
+      threshold: 80
     };
   },
 
-  "Changelog tracking": (issues) => {
-    const needsEntry = issues.filter((i) =>
-      i.labels.some((l) => l === "meta:needs-changelog"),
+  'Changelog tracking': (issues) => {
+    const needsEntry = issues.filter(i =>
+      i.labels.some(l => l === 'meta:needs-changelog')
     );
-    const hasEntry = issues.filter((i) =>
-      i.labels.some((l) => l === "meta:has-changelog-entry"),
+    const hasEntry = issues.filter(i =>
+      i.labels.some(l => l === 'meta:has-changelog-entry')
     );
-    const coverage =
-      issues.length > 0 ? (hasEntry.length / issues.length) * 100 : 100;
+    const coverage = issues.length > 0 ? (hasEntry.length / issues.length) * 100 : 100;
     return {
       passed: coverage >= 80,
       coverage: Math.round(coverage),
       needsEntry: needsEntry.length,
       hasEntry: hasEntry.length,
-      message: `${Math.round(coverage)}% have changelog entries (need 80%+)`,
+      message: `${Math.round(coverage)}% have changelog entries (need 80%+)`
     };
-  },
+  }
 };
 
 /**
@@ -178,34 +174,31 @@ const TIER_2_RULES = {
  * @type {Object}
  */
 const TIER_3_RULES = {
-  "Average labels per issue": (issues) => {
-    const total = issues.reduce(
-      (sum, i) => sum + (i.labels ? i.labels.length : 0),
-      0,
-    );
+  'Average labels per issue': (issues) => {
+    const total = issues.reduce((sum, i) => sum + (i.labels ? i.labels.length : 0), 0);
     const average = issues.length > 0 ? (total / issues.length).toFixed(2) : 0;
     return {
       passed: true, // Info only, never fails
       average,
       total,
-      message: `Average ${average} labels per issue`,
+      message: `Average ${average} labels per issue`
     };
   },
 
-  "Label family distribution": (issues) => {
+  'Label family distribution': (issues) => {
     const families = {};
     for (const issue of issues) {
       for (const label of issue.labels || []) {
-        const family = label.split(":")[0];
+        const family = label.split(':')[0];
         families[family] = (families[family] || 0) + 1;
       }
     }
     return {
       passed: true,
       families,
-      message: `Label distribution: ${JSON.stringify(families)}`,
+      message: `Label distribution: ${JSON.stringify(families)}`
     };
-  },
+  }
 };
 
 /**
@@ -230,7 +223,7 @@ export function validateTier1(issues) {
       passed: false,
       blockers: [],
       count: 0,
-      details: { error: "Issues must be an array" },
+      details: { error: 'Issues must be an array' }
     };
   }
 
@@ -243,18 +236,15 @@ export function validateTier1(issues) {
         blockers.push({
           rule: ruleName,
           message: result.message,
-          ...result,
+          ...result
         });
       }
     } catch (error) {
-      logger.error(
-        { rule: ruleName, error: error.message },
-        "Tier 1 rule error",
-      );
+      logger.error({ rule: ruleName, error: error.message }, 'Tier 1 rule error');
       blockers.push({
         rule: ruleName,
         message: `Error evaluating rule: ${error.message}`,
-        error: true,
+        error: true
       });
     }
   }
@@ -263,7 +253,7 @@ export function validateTier1(issues) {
 
   logger.info(
     { passed, blockerCount: blockers.length, issueCount: issues.length },
-    "Tier 1 validation complete",
+    'Tier 1 validation complete'
   );
 
   return {
@@ -271,7 +261,7 @@ export function validateTier1(issues) {
     blockers,
     count: blockers.length,
     total: Object.keys(TIER_1_RULES).length,
-    details: { issuesChecked: issues.length },
+    details: { issuesChecked: issues.length }
   };
 }
 
@@ -297,7 +287,7 @@ export function validateTier2(issues) {
       passed: false,
       warnings: [],
       count: 0,
-      details: { error: "Issues must be an array" },
+      details: { error: 'Issues must be an array' }
     };
   }
 
@@ -310,18 +300,15 @@ export function validateTier2(issues) {
         warnings.push({
           rule: ruleName,
           message: result.message,
-          ...result,
+          ...result
         });
       }
     } catch (error) {
-      logger.error(
-        { rule: ruleName, error: error.message },
-        "Tier 2 rule error",
-      );
+      logger.error({ rule: ruleName, error: error.message }, 'Tier 2 rule error');
       warnings.push({
         rule: ruleName,
         message: `Error evaluating rule: ${error.message}`,
-        error: true,
+        error: true
       });
     }
   }
@@ -330,7 +317,7 @@ export function validateTier2(issues) {
 
   logger.info(
     { passed, warningCount: warnings.length, issueCount: issues.length },
-    "Tier 2 validation complete",
+    'Tier 2 validation complete'
   );
 
   return {
@@ -338,7 +325,7 @@ export function validateTier2(issues) {
     warnings,
     count: warnings.length,
     total: Object.keys(TIER_2_RULES).length,
-    details: { issuesChecked: issues.length },
+    details: { issuesChecked: issues.length }
   };
 }
 
@@ -361,7 +348,7 @@ export function validateTier3(issues) {
       passed: true,
       info: [],
       count: 0,
-      details: { error: "Issues must be an array" },
+      details: { error: 'Issues must be an array' }
     };
   }
 
@@ -373,24 +360,21 @@ export function validateTier3(issues) {
       info.push({
         rule: ruleName,
         message: result.message,
-        ...result,
+        ...result
       });
     } catch (error) {
-      logger.error(
-        { rule: ruleName, error: error.message },
-        "Tier 3 rule error",
-      );
+      logger.error({ rule: ruleName, error: error.message }, 'Tier 3 rule error');
       info.push({
         rule: ruleName,
         message: `Error evaluating rule: ${error.message}`,
-        error: true,
+        error: true
       });
     }
   }
 
   logger.info(
     { infoCount: info.length, issueCount: issues.length },
-    "Tier 3 validation complete",
+    'Tier 3 validation complete'
   );
 
   return {
@@ -398,7 +382,7 @@ export function validateTier3(issues) {
     info,
     count: info.length,
     total: Object.keys(TIER_3_RULES).length,
-    details: { issuesChecked: issues.length },
+    details: { issuesChecked: issues.length }
   };
 }
 
@@ -425,62 +409,62 @@ export function validateTier3(issues) {
 export function getRecommendation(releaseType, tier1Result, tier2Result) {
   if (!tier1Result || !tier2Result) {
     return {
-      action: "check",
-      reason: "Validation results incomplete",
-      details: { tier1: !!tier1Result, tier2: !!tier2Result },
+      action: 'check',
+      reason: 'Validation results incomplete',
+      details: { tier1: !!tier1Result, tier2: !!tier2Result }
     };
   }
 
   // Tier 1 failures always block
   if (!tier1Result.passed) {
     return {
-      action: "block",
+      action: 'block',
       reason: `Tier 1 blockers found (${tier1Result.count} issues)`,
       details: {
         releaseType,
         blockerCount: tier1Result.count,
-        blockers: tier1Result.blockers.map((b) => b.rule),
-      },
+        blockers: tier1Result.blockers.map(b => b.rule)
+      }
     };
   }
 
   // Tier 2 handling depends on release type
   if (!tier2Result.passed) {
-    if (releaseType === "patch") {
+    if (releaseType === 'patch') {
       return {
-        action: "proceed",
-        reason: "Tier 2 warnings OK for patch release",
+        action: 'proceed',
+        reason: 'Tier 2 warnings OK for patch release',
         details: {
           releaseType,
           warningCount: tier2Result.count,
-          warnings: tier2Result.warnings.map((w) => w.rule),
-          note: "Consider addressing warnings before next release",
-        },
+          warnings: tier2Result.warnings.map(w => w.rule),
+          note: 'Consider addressing warnings before next release'
+        }
       };
     }
 
-    if (releaseType === "minor" || releaseType === "major") {
+    if (releaseType === 'minor' || releaseType === 'major') {
       return {
-        action: "check",
+        action: 'check',
         reason: `${releaseType} release should address Tier 2 warnings`,
         details: {
           releaseType,
           warningCount: tier2Result.count,
-          warnings: tier2Result.warnings.map((w) => w.rule),
-        },
+          warnings: tier2Result.warnings.map(w => w.rule)
+        }
       };
     }
   }
 
   // All checks passed
   return {
-    action: "proceed",
+    action: 'proceed',
     reason: `All validations passed for ${releaseType} release`,
     details: {
       releaseType,
       tier1Passed: tier1Result.passed,
-      tier2Passed: tier2Result.passed,
-    },
+      tier2Passed: tier2Result.passed
+    }
   };
 }
 
@@ -495,7 +479,7 @@ export const validation = {
   validateTier1,
   validateTier2,
   validateTier3,
-  getRecommendation,
+  getRecommendation
 };
 
 export default validation;

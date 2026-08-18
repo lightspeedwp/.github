@@ -25,7 +25,7 @@ stability: "stable"
 - Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `docs/MIGRATION.md`).
 - **Instruction reference policy (Phase 1A):** Use `.github/instructions/` for repo-local guidance only; use `instructions/` (root) for portable standards shared across LightSpeedWP projects. See [file-organisation.instructions.md](instructions/file-organisation.instructions.md) for placement rules.
 - **Agent tier structure (Phase 1C):** Portable agents (multi-file implementations) live in `agents/` (root); spec-based agents (simple YAML/JSON definitions) live in `.github/agents/` (GitHub-native, control-plane only). See [Agent Directory](#agent-directory) for specs and examples.
-- **Schemas location (Phase 1B):** JSON validation schemas live in `schemas/` (hidden folder at repo root, following awesome-copilot pattern). Reference validation is performed against `schemas/{type}.schema.json` files. See [Issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
+- **Schemas location (Phase 1B):** JSON validation schemas live in `.schemas/` (hidden folder at repo root, following awesome-copilot pattern). Reference validation is performed against `.schemas/{type}.schema.json` files. See [Issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for consolidation details.
 
 ## Agent Directory
 
@@ -114,11 +114,11 @@ The following canonical paths document the Phase 1 restructuring (2026-08-02). A
 
 | Asset Type | Phase 1 Path | Purpose | Reference |
 | --- | --- | --- | --- |
-| **Validation Schemas** | `schemas/{type}.schema.json` | JSON schema definitions (hidden folder) | All validation |
-| **Frontmatter Schema** | `schemas/frontmatter.schema.json` | Metadata validation for all structured files | YAML frontmatter |
-| **Issue Types Schema** | `schemas/issue-types.schema.json` | Issue type definitions | GitHub automation |
+| **Validation Schemas** | `.schemas/{type}.schema.json` | JSON schema definitions (hidden folder) | All validation |
+| **Frontmatter Schema** | `.schemas/frontmatter.schema.json` | Metadata validation for all structured files | YAML frontmatter |
+| **Issue Types Schema** | `.schemas/issue-types.schema.json` | Issue type definitions | GitHub automation |
 
-**Note:** `schemas/` is a hidden folder at repo root following the awesome-copilot pattern. All JSON schema validation references this location.
+**Note:** `.schemas/` is a hidden folder at repo root following the awesome-copilot pattern. All JSON schema validation references this location.
 
 ### Agents
 
@@ -464,11 +464,11 @@ Each standard document includes:
 
 All standards include:
 
-- **Frontmatter schema validation** — All YAML frontmatter validated against `schemas/frontmatter.schema.json` (Phase 1B canonical location)
+- **Frontmatter schema validation** — All YAML frontmatter validated against `.schemas/frontmatter.schema.json` (Phase 1B canonical location)
 - **Linting enforcement** — Markdown and content validation via `npm run lint:md`
 - **Schema type checking** — Schema compliance via `npm run validate:frontmatter` and type-specific validators
 - **CI enforcement** — Automated validation via `.github/workflows/` (prevents non-compliant files from merging)
-- **Schema reference** — All validation schemas consolidated to `schemas/{type}.schema.json` (hidden root folder)
+- **Schema reference** — All validation schemas consolidated to `.schemas/{type}.schema.json` (hidden root folder)
 
 ---
 
@@ -509,7 +509,7 @@ Use [.github/PULL_REQUEST_TEMPLATE/config.yml](.github/PULL_REQUEST_TEMPLATE/con
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `schemas/` | `pr_feature.md` |
+| `.schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |
@@ -582,7 +582,7 @@ Start here for all key standards:
 | **Prompts Index** | [.github/prompts/prompts.md](.github/prompts/prompts.md) | Legacy | Legacy prompt index (pending migration to skills/cookbook) |
 | **Instruction Migration** | [docs/MIGRATION.md](docs/MIGRATION.md) | Phase 1A | Mapping from legacy files to 5 consolidated instruction guides |
 | **Repository Restructuring** | [Issue #1438](https://github.com/lightspeedwp/.github/issues/1438) | Phase 1 | Epic tracking Phase 1A (instructions), 1B (schemas), 1C (agents) implementation |
-| **Schema Consolidation** | [Issue #1292](https://github.com/lightspeedwp/.github/issues/1292) | Phase 1B | Schema migration from `schema/` → `schemas/` (hidden root folder) |
+| **Schema Consolidation** | [Issue #1292](https://github.com/lightspeedwp/.github/issues/1292) | Phase 1B | Schema migration from `schema/` → `.schemas/` (hidden root folder) |
 | **Agent Two-Tier Structure** | [Issue #1293](https://github.com/lightspeedwp/.github/issues/1293) | Phase 1C | Agent architecture migration: portable (`agents/`) + spec-based (`.github/agents/`) |
 
 ---
@@ -598,14 +598,14 @@ Start here for all key standards:
 **Phase 1 Structure (2026-08-02):**
 
 - [Phase 1A: Instruction Consolidation](docs/MIGRATION.md) — Portable instructions consolidated to root `instructions/`
-- [Phase 1B: Schema Consolidation](https://github.com/lightspeedwp/.github/issues/1292) — Schemas moved to `schemas/` (hidden root folder)
+- [Phase 1B: Schema Consolidation](https://github.com/lightspeedwp/.github/issues/1292) — Schemas moved to `.schemas/` (hidden root folder)
 - [Phase 1C: Agent Two-Tier Structure](https://github.com/lightspeedwp/.github/issues/1293) — Portable agents in `agents/` + spec-based in `.github/agents/`
 
 **Schema Files (Phase 1B Canonical Locations):**
 
-- [Frontmatter Schema](schemas/frontmatter.schema.json) — Metadata validation for all YAML frontmatter
-- [Agent Schema](schemas/agent.schema.json) — Agent definition validation
-- [Issue Types Schema](schemas/issue-types.schema.json) — GitHub issue type definitions
+- [Frontmatter Schema](.schemas/frontmatter.schema.json) — Metadata validation for all YAML frontmatter
+- [Agent Schema](.schemas/agent.schema.json) — Agent definition validation
+- [Issue Types Schema](.schemas/issue-types.schema.json) — GitHub issue type definitions
 
 *This file is the canonical reference for all AI agent rules, coding standards, and repository structure in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards and use the Phase 1 canonical paths.*

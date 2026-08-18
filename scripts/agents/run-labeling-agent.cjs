@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global console, process */
 
 async function main() {
   const { runLabelingAgent } = await import("./labeling.agent.js");

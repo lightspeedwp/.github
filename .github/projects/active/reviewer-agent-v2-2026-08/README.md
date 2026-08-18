@@ -1,10 +1,13 @@
 ---
-file_type: documentation
+name: reviewer-agent-v2-orchestrator
 title: "Reviewer Agent v2 Implementation"
 description: "Multi-Tool Orchestration & Feedback Processing — Transform reviewer agent into intelligent orchestrator for CodeRabbit, GitHub Code Quality, and GitHub Copilot"
-status: active
+category: automation
+status: planning-in-progress
 start_date: 2026-08-12
 target_date: 2026-08-26
+phase: 1-planning
+related_issues: []
 ---
 
 # Reviewer Agent v2 Implementation — Multi-Tool Orchestration & Feedback Processing
@@ -13,7 +16,8 @@ target_date: 2026-08-26
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1798](../../../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
+| [#1798](../../../issues/1798) | epic | Reviewer Agent v2 — Planning Phase & Implementation Roadmap | 🟢 Open |
+| [#1855](../../../issues/1855) | task | Reviewer Agent v2 — Comprehensive Planning & Specification Phase Complete | 🟢 Open |
 
 ## Project Overview
 
@@ -151,24 +155,24 @@ This project is tracked through GitHub issues for each phase and task breakdown.
 - 📋 [DECISIONS.md](./decisions/DECISIONS.md) — Formal decision log
 - 📋 [ANSWERS.md](./ANSWERS.md) — Best-practice answers to clarifying questions
 
-### Specifications (Phase 2)
+### Specifications
 
-- 📋 AGENT_SPECIFICATION.md — Agent definition & behavior [TBD]
-- 📋 API_INTEGRATION_SPEC.md — Tool API integration details [TBD]
-- 📋 STATE_SCHEMA.md — Feedback tracking data model [TBD]
-- 📋 TEST_SPECIFICATION.md — Test plan & coverage targets [TBD]
+- 📋 [AGENT_SPECIFICATION.md](./specifications/AGENT_SPECIFICATION.md) — Agent definition & behavior
+- 📋 [API_INTEGRATION_SPEC.md](./specifications/API_INTEGRATION_SPEC.md) — Tool API integration details
+- 📋 [STATE_SCHEMA.md](./specifications/STATE_SCHEMA.md) — Feedback tracking data model
+- 📋 [TEST_SPECIFICATION.md](./specifications/TEST_SPECIFICATION.md) — Test plan & coverage targets
 
-### Configuration Examples (Phase 2)
+### Configuration Examples
 
-- 📋 config.github.yml — `.github` control-plane config [TBD]
-- 📋 config.wordpress-plugin.yml — WordPress plugin config [TBD]
-- 📋 config.wordpress-theme.yml — WordPress theme config [TBD]
+- 📋 [config.github.yml](./configuration-examples/config.github.yml) — `.github` control-plane config
+- 📋 [config.wordpress-plugin.yml](./configuration-examples/config.wordpress-plugin.yml) — WordPress plugin config
+- 📋 [config.wordpress-theme.yml](./configuration-examples/config.wordpress-theme.yml) — WordPress theme config
 
-### Documentation (Phase 2)
+### Documentation
 
-- 📋 ARCHITECTURE.md — System design with diagrams [TBD]
-- 📋 SETUP_GUIDE.md — Implementation & deployment steps [TBD]
-- 📋 USER_GUIDE.md — How to use the agent in a PR workflow [TBD]
+- 📋 [ARCHITECTURE.md](./ARCHITECTURE.md) — System design with diagrams
+- 📋 [SETUP_GUIDE.md](./SETUP_GUIDE.md) — Implementation & deployment steps
+- 📋 [USER_GUIDE.md](./USER_GUIDE.md) — How to use the agent in a PR workflow
 
 ## File Structure
 
@@ -214,26 +218,3 @@ This project is tracked through GitHub issues for each phase and task breakdown.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and multi-tool orchestration!*
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

@@ -66,7 +66,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || inputs.dry_run || 'false' }}
-          LABEL_SYNC_REPORT_PATH: .github//.github/reports/labeling/label-sync-${{ github.run_id }}.md
+          LABEL_SYNC_REPORT_PATH: .github/reports/labeling/label-sync-${{ github.run_id }}.md
         run: node scripts/agents/includes/label-sync.js
         continue-on-error: false
 
@@ -85,16 +85,16 @@ jobs:
       - name: Generate report
         id: report
         run: |
-          mkdir -p .github//.github/reports/labeling
-          node scripts/agents/includes/report-writer.js > .github//.github/reports/labeling/${{ github.run_id }}.md
+          mkdir -p .github/reports/labeling
+          node scripts/agents/includes/report-writer.js > .github/reports/labeling/${{ github.run_id }}.md
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
           name: labeling-report-${{ github.run_id }}
           path: |
-            .github//.github/reports/labeling/${{ github.run_id }}.md
-            .github//.github/reports/labeling/label-sync-${{ github.run_id }}.md
+            .github/reports/labeling/${{ github.run_id }}.md
+            .github/reports/labeling/label-sync-${{ github.run_id }}.md
 
       - name: Optionally commit report
         if: ${{ inputs.report_commit == 'true' }}
@@ -103,6 +103,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github//.github/reports/labeling/${{ github.run_id }}.md
+          git add .github/reports/labeling/${{ github.run_id }}.md
           git commit -m "chore(labeling): add report for run ${{ github.run_id }}"
           git push origin HEAD:develop

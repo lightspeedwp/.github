@@ -22,6 +22,7 @@ Product enquiry form embedded on single product pages; audit product context cap
 
 Prepare a configuration handoff for dynamic product context validation and optional routing rules. Do not replace WooCommerce checkout.
 
+
 ## Additional WooCommerce checks
 
 Also verify product context capture, stock or availability wording where relevant, B2B/wholesale segmentation, order-related data minimisation, and quote/payment boundary wording.

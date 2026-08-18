@@ -4,7 +4,7 @@ title: 'Proposal Desk Agent'
 description: 'Multi-provider AI proposal and quote generation assistant for professional sales documents'
 version: '1.0.0'
 created_date: '2026-07-22'
-last_updated: "2026-08-19"
+last_updated: '2026-07-22'
 maintainer: 'LightSpeed Team'
 stability: 'stable'
 domain: 'proposals'
@@ -49,19 +49,16 @@ The Proposal Desk Agent automates proposal and quote generation, project scoping
 ## Installation & Setup
 
 ### Claude
-
 ```bash
 claude code --agent proposal-desk
 ```
 
 ### GitHub Copilot
-
 ```bash
 @proposal-desk generate proposal for [client]
 ```
 
 ### OpenAI API
-
 ```bash
 curl -X POST https://api.openai.com/v1/assistants \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -71,7 +68,6 @@ curl -X POST https://api.openai.com/v1/assistants \
 ## Usage Examples
 
 ### Generate Proposal
-
 ```
 User: Generate a proposal for website redesign
       Client: Acme Corp
@@ -87,7 +83,6 @@ Agent:
 ```
 
 ### Create Quote
-
 ```
 User: Create a quote for:
       - Graphic design (60 hours @ $125/hr)
@@ -102,7 +97,6 @@ Agent:
 ```
 
 ### Define Project Scope
-
 ```
 User: Define scope for e-commerce optimization
       Current state: Basic WooCommerce
@@ -144,21 +138,3 @@ Agent:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-## Repository Flow
-
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```

@@ -12,7 +12,8 @@ import * as fs from "fs/promises";
 import path from "path";
 import yaml from "js-yaml";
 
-const DEFAULT_CONFIG_PATH = ".github/PULL_REQUEST_TEMPLATE/config.yml";
+const DEFAULT_CONFIG_PATH =
+  ".github/PULL_REQUEST_TEMPLATE/config.yml";
 
 export async function routePrTemplate(input) {
   const { branchType, config: customConfig } = input;
@@ -45,7 +46,10 @@ export async function routePrTemplate(input) {
     }
 
     // Find matching template file
-    const templateFile = findTemplateForBranchType(branchType, config);
+    const templateFile = findTemplateForBranchType(
+      branchType,
+      config
+    );
 
     if (!templateFile) {
       return {
@@ -62,7 +66,7 @@ export async function routePrTemplate(input) {
     // Read template file
     const templatePath = path.join(
       ".github/PULL_REQUEST_TEMPLATE",
-      templateFile,
+      templateFile
     );
     const content = await readTemplateFile(templatePath);
 
@@ -139,10 +143,7 @@ async function readTemplateFile(templatePath) {
   try {
     return await fs.readFile(templatePath, "utf8");
   } catch (error) {
-    console.error(
-      `Failed to read template file ${templatePath}:`,
-      error.message,
-    );
+    console.error(`Failed to read template file ${templatePath}:`, error.message);
     return null;
   }
 }
@@ -199,7 +200,7 @@ function extractTemplateMetadata(content, templateFile) {
 
   // Determine which required sections are missing
   const missingSections = requiredSections.filter(
-    (s) => !foundSections.includes(s),
+    (s) => !foundSections.includes(s)
   );
 
   return {

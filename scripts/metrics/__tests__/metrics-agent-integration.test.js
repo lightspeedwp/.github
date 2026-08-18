@@ -4,7 +4,10 @@
  * Skip if GITHUB_TOKEN not available
  */
 
-const { ConfigurationLoader, GitHubAPIClient } = require("../metrics-agent");
+const {
+  ConfigurationLoader,
+  GitHubAPIClient,
+} = require("../metrics-agent");
 
 describe("GitHubAPIClient Integration Tests", () => {
   let client;
@@ -118,19 +121,12 @@ describe("GitHubAPIClient Integration Tests", () => {
         if (attemptCount < 3) {
           return Promise.reject(new Error("Network error"));
         }
-        return originalFetch(
-          "https://api.github.com/repos/lightspeedwp/.github",
-        );
+        return originalFetch("https://api.github.com/repos/lightspeedwp/.github");
       });
 
       const testClient = new GitHubAPIClient("test-token");
       try {
-        await testClient.getIssues(
-          "lightspeedwp",
-          ".github",
-          new Date(),
-          new Date(),
-        );
+        await testClient.getIssues("lightspeedwp", ".github", new Date(), new Date());
       } catch (error) {
         expect(attemptCount).toBeGreaterThan(1);
       }

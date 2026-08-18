@@ -1,63 +1,21 @@
 ---
-name: Metrics Agent Phase 2 Progress
-description: Implementation progress tracking for Phase 2 (Aug 12-26)
+name: Metrics Agent Phase 1 Progress
+description: Implementation progress tracking for Phase 1 (Aug 12-26)
 type: progress-tracking
 version: '1.0'
-phase: Phase 2 Implementation
+phase: Phase 1 Implementation
 status: In Progress
 ---
 
-# Metrics Agent — Phase 2 Implementation Progress
+# Metrics Agent — Phase 1 Implementation Progress
 
-**Timeline:** Aug 18-Sept 15, 2026 (4 weeks)
-**Target:** GitHub Actions workflow, Reporting Agent integration, quality & testing
-**Status:** 🟡 In Progress (Task 2.3 COMPLETE)
-
----
-
-## Phase 2 Status
-
-### 2.1 GitHub API Integration ✅ COMPLETE
-
-- Real GitHub API client with pagination
-- Rate limiting and exponential backoff
-- Comprehensive error handling
-- 86+ tests passing
-
-### 2.2 Historical Data & Trends ✅ COMPLETE
-
-- Metrics storage module
-- Trend analysis (period-over-period)
-- Anomaly detection (3-sigma rule)
-- 80%+ coverage
-
-### 2.3 GitHub Actions Workflow ✅ COMPLETE
-
-**File:** `.github/workflows/metrics-collection.yml`
-**Orchestrator:** `scripts/workflows/metrics/collect-metrics.js`
-
-- [x] Scheduled workflow (Mondays 6 AM UTC)
-- [x] Manual trigger with context selection
-- [x] Multi-context support (3 contexts)
-- [x] Dry-run mode for preview
-- [x] GitHub Actions output integration
-- [x] Auto-commit to develop branch
-- [x] Artifact uploads for 30 days
-
-**Tests:** 25 passing (79.11% coverage)
-
-**npm Scripts Added:**
-
-```bash
-npm run metrics:collect:all           # All contexts
-npm run metrics:collect:control-plane # GitHub control plane
-npm run metrics:collect:plugin        # WordPress plugin
-npm run metrics:collect:theme         # WordPress theme
-```
+**Timeline:** Aug 12-26, 2026 (2 weeks)  
+**Target:** Core implementation with comprehensive testing  
+**Status:** 🟡 In Progress
 
 ---
 
-## Phase 1 Deliverables Status (Archived)
+## Deliverables Status
 
 ### 1.1 Core Implementation ✅ COMPLETE
 
@@ -118,7 +76,7 @@ npm run metrics:collect:theme         # WordPress theme
 
 ### 1.3 Test Suite ✅ COMPLETE
 
-**File:** `scripts/metrics/__tests__/metrics-agent.test.js`
+**File:** `scripts/metrics/test/metrics-agent.test.js`
 
 **Coverage:** 75+ tests, target >80% coverage
 
@@ -207,13 +165,13 @@ npm run metrics:collect:theme         # WordPress theme
 
 ```bash
 # Run all tests
-npm test -- scripts/metrics/__tests__/metrics-agent.test.js
+npm test -- scripts/metrics/test/metrics-agent.test.js
 
 # Run with coverage
-npm test -- --coverage scripts/metrics/__tests__/metrics-agent.test.js
+npm test -- --coverage scripts/metrics/test/metrics-agent.test.js
 
 # Watch mode
-npm test -- --watch scripts/metrics/__tests__/metrics-agent.test.js
+npm test -- --watch scripts/metrics/test/metrics-agent.test.js
 ```
 
 ### Coverage Report
@@ -334,42 +292,31 @@ Expected coverage breakdown:
 
 ---
 
-## Next Steps (Phase 2 Remaining)
+## Next Steps (Phase 2)
 
-### Task 2.4: Reporting Agent Integration (3-4 days)
+1. **Real API Integration**
+   - Replace mock GitHub API client with actual Octokit calls
+   - Add detailed check-run and review data collection
 
-1. **Report Generator**
-   - Create Markdown report from collected metrics
-   - Summary statistics and trends
-   - Recommendation engine integration
+2. **Historical Data**
+   - Store previous metrics snapshots
+   - Implement time-series trending
+   - Track metrics over 4+ week periods
 
-2. **GitHub Issues Creator**
-   - Create issues with actionable insights
-   - Template-based issue generation
-   - Link to metrics reports
+3. **Reporting Agent Integration**
+   - Hand off structured metrics to Reporting Agent
+   - Create Markdown reports with visualizations
+   - Store reports in `.github/reports/metrics/`
 
-3. **Report Templates**
-   - Weekly summary template
-   - Context-specific templates
-   - Insights and recommendations format
+4. **GitHub Actions Workflow**
+   - Scheduled daily collection
+   - Automatic report generation
+   - Integration with milestone allocation and reviewer agents
 
-### Task 2.5: Quality & Testing (2-3 days)
-
-1. **Coverage Expansion**
-   - Target 95%+ coverage overall
-   - Integration testing with real GitHub API (staging)
-   - End-to-end workflow testing
-
-2. **Performance Benchmarks**
-   - Single context: <30s target
-   - All contexts (3): <2m target
-   - Report generation: <5s target
-
-3. **Security Validation**
-   - API token handling
-   - Sensitive data filtering
-   - Rate limit compliance
-   - GitHub Actions secrets management
+5. **Quality Improvements**
+   - Expand test coverage to 95%+
+   - Add performance benchmarks
+   - Load testing with 50+ repositories
 
 ---
 

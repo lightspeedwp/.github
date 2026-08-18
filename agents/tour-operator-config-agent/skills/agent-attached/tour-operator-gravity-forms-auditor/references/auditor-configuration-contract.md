@@ -15,7 +15,6 @@ This contract keeps the LightSpeed workflow clean: audit evidence to contract ha
 ### Auditor responsibility
 
 The auditor must:
-
 - Inspect read-only evidence only.
 - Classify findings by severity, confidence, priority, effort, owner, and handoff need.
 - Produce a configuration handoff for actionable fixes.
@@ -24,7 +23,6 @@ The auditor must:
 - Label recommendations as `Platform requirement`, `LightSpeed recommendation`, `Client decision`, or `Missing evidence`.
 
 The auditor must not:
-
 - Perform configuration changes.
 - Treat MCP write access as permission.
 - Infer missing operational, legal, payment, privacy, security, sales, or client approval decisions.
@@ -33,7 +31,6 @@ The auditor must not:
 ### Configuration responsibility
 
 The configuration skill must:
-
 - Treat the auditor handoff as intake evidence, not approval.
 - Verify current site state before planning changes.
 - Preserve the original finding IDs in plans, changes, validation, and handoff notes.
@@ -44,7 +41,6 @@ The configuration skill must:
 - Validate after change and report results against the source finding IDs.
 
 The configuration skill must not:
-
 - Re-run a full audit.
 - Produce formal audit reports, readiness scorecards, findings registers, or client-safe audit summaries.
 - Apply changes when evidence or approval is missing.

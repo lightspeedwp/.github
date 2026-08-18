@@ -2,9 +2,9 @@
 file_type: documentation
 title: "GitHub Agentic Workflows Release Agent"
 description: "Phase 5A: Implement GitHub Agentic Workflows for release orchestration, augmenting shell-based approach with LLM-driven reasoning and improved UX"
-status: complete
+status: planning
 version: "1.0"
-last_updated: "2026-08-18"
+last_updated: "2026-08-11"
 owners: ["Ash Shaw"]
 tags: ["release", "agentic-workflows", "github-copilot", "automation", "phase-5a"]
 category: "release-engineering"
@@ -31,7 +31,7 @@ category: "release-engineering"
 
 **Duration:** Phase 5A, 2-3 weeks (Aug 12-30, 2026)
 
-**Status:** ✅ COMPLETE (Week 3, Aug 18, 2026) — Merged to develop via PR #2016
+**Status:** PLANNING (Phase 5A specification in progress)
 
 ---
 
@@ -59,42 +59,29 @@ This project is part of the **Release Orchestration Initiative** and coordinates
 
 ### 2. Release Workflow Authorization Fixes (2026-08-04)
 
-**Status:** ✅ COMPLETE — Foundation integrated into Phase 5A
+**Status:** ✅ Fix implemented; ⏳ Testing pending
 
-**Relationship:** Provides foundation for agentic auth gates (GATE 5):
+**Relationship:** Provides foundation for agentic auth gates:
 
-- ✅ Made `trigger-telemetry` non-blocking
-- ✅ Authorization checks available for agentic integration
-- ✅ Safety gates validation completed
+- Made `trigger-telemetry` non-blocking
+- Authorization checks available for agentic integration
+- Testing validates safety for agentic workflow
 
 **Link:** [`.github/projects/active/release-workflow-authorization-fixes/`](../release-workflow-authorization-fixes/)
 
 ---
 
-## Related Issues
-
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#2006](../../../issues/2006) | epic | Release Orchestration Initiative | 🟢 Open |
-| [#1290](../../../issues/1290) | epic | Repository Restructuring & Asset Consolidation | 🟢 Open |
-
----
-
 ## Project Status
 
-### ✅ COMPLETE (Week 3, Aug 18)
+### Current Phase: PLANNING (Week 0, Aug 11)
 
-**Phase 5A MVP Implementation Complete:**
+**Deliverables This Week:**
 
-- [x] AGENTIC_WORKFLOW_SPEC.md (design decisions, safety gates)
-- [x] RFC_AGENTIC_WORKFLOWS.md (request for comments)
-- [x] PHASE_5A_IMPLEMENTATION_PLAN.md (detailed tasks)
-- [x] 7-layer safety gates implementation (445 LOC)
-- [x] GitHub Actions workflow integration (release.yml updated)
-- [x] Comprehensive test suite (41/41 tests passing, 82% coverage)
-- [x] Phase 4 wrapper (run-release-with-gates.cjs, ~150 LOC)
-- [x] Dry-run validation & audit logging
-- [x] PR #2016 ready for merge to develop
+- [ ] AGENTIC_WORKFLOW_SPEC.md (design decisions, safety gates)
+- [ ] RFC_AGENTIC_WORKFLOWS.md (request for comments)
+- [ ] PHASE_5A_IMPLEMENTATION_PLAN.md (detailed tasks)
+- [ ] `.github/agentic-workflows/release.md` (Markdown workflow skeleton)
+- [ ] GitHub issues (CHILD-050 onwards, subtasks for Phase 5A)
 
 ---
 
@@ -274,26 +261,25 @@ Phase 5A is successful when:
 
 | File | Purpose | Status |
 |------|---------|--------|
-| **AGENTIC_WORKFLOW_SPEC.md** | Design decisions, safety gates, approval flows | ✅ COMPLETE |
-| **RFC_AGENTIC_WORKFLOWS.md** | Request for comments, trade-offs, risk analysis | ✅ COMPLETE |
-| **PHASE_5A_IMPLEMENTATION_PLAN.md** | Detailed task breakdown, timeline, deliverables | ✅ COMPLETE |
+| **AGENTIC_WORKFLOW_SPEC.md** | Design decisions, safety gates, approval flows | 📝 IN PROGRESS |
+| **RFC_AGENTIC_WORKFLOWS.md** | Request for comments, trade-offs, risk analysis | 📝 PLANNED (Week 1) |
+| **PHASE_5A_IMPLEMENTATION_PLAN.md** | Detailed task breakdown, timeline, deliverables | 📝 PLANNED (Week 1) |
 
-### Implementation Files (In Develop Branch)
+### Implementation Files
 
-| File | Purpose | LOC | Status |
-|------|---------|-----|--------|
-| **agents/release/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
-| **agents/release/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
-| **agents/release/run-release-with-gates.cjs** | Phase 4 integration wrapper | 140 | ✅ MERGED |
-| **.github/workflows/release.yml** | Updated GitHub Actions workflow | - | ✅ MERGED |
+| File | Purpose | Status |
+|------|---------|--------|
+| **.github/agentic-workflows/release.md** | Markdown workflow definition | 📝 PLANNED (Week 1) |
+| **OPENSPEC_ANALYSIS_REPORT.md** | Requirements analysis (50+ questions) | 📝 PLANNED (Week 1) |
+| **QUESTIONNAIRE_PREPOPULATED.md** | Requirements answers | 📝 PLANNED (Week 1) |
 
 ### Support Files
 
 | File | Purpose | Status |
 |------|---------|--------|
-| **CHILD_ISSUES_TEMPLATES.md** | GitHub issue templates for subtasks | ✅ COMPLETE |
-| **TEST_EXECUTION_PLAN.md** | Testing strategy for MVP | ✅ COMPLETE |
-| **TEST_RESULTS.md** | Test execution results | ✅ COMPLETE |
+| **CHILD_ISSUES_TEMPLATES.md** | GitHub issue templates for subtasks | 📝 PLANNED (Week 1) |
+| **TEST_EXECUTION_PLAN.md** | Testing strategy for MVP | 📝 PLANNED (Week 2) |
+| **TEST_RESULTS.md** | Test execution results | 📝 PLANNED (Week 2) |
 
 ---
 
@@ -324,25 +310,11 @@ Phase 5A is successful when:
 
 ---
 
-## Related Issues & PRs
+## Related Issues
 
-### Phase 5A Issues
-| Issue | Title | Status | Link |
-|-------|-------|--------|------|
-| #2016 | Phase 5A Release Agent MVP — Safety Gates Foundation | ✅ MERGED | [PR #2016](https://github.com/lightspeedwp/.github/pull/2016) |
-| #1995 | Phase 5A agentic release team training guide | ✅ MERGED | [PR #1995](https://github.com/lightspeedwp/.github/pull/1995) |
-| #1936 | Phase 5A Week 3 — Testing & Documentation Framework | ✅ MERGED | [PR #1936](https://github.com/lightspeedwp/.github/pull/1936) |
-
-### Related Release Process Issues
-| Issue | Title | Status | Link |
-|-------|-------|--------|------|
-| #1780 | Phase 5.1 Integration Testing | ✅ COMPLETE | [PR #1780](https://github.com/lightspeedwp/.github/pull/1780) |
-| #1664 | CHILD-023/024: Release & Changelog Agents | ✅ COMPLETE | [PR #1696](https://github.com/lightspeedwp/.github/pull/1696) |
-| #1640 | Phase 4 Implementation Plan | ✅ COMPLETE | [PR #1656](https://github.com/lightspeedwp/.github/pull/1656) |
-| #1560 | Two-PR Stacked Flow (Develop-First) | ✅ COMPLETE | [PR #1658](https://github.com/lightspeedwp/.github/pull/1658) |
-| #1549 | Authorization Gating for Release | ✅ COMPLETE | [PR #1609](https://github.com/lightspeedwp/.github/pull/1609) |
-
-**Issue Organization:** Phase 5A work is tracked via milestone in GitHub Issues; all work items linked to PR #2016 (parent) via commit history.
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| CHILD-050+ | task | Phase 5A subtasks (created during planning) | 🔄 Pending creation |
 
 ---
 
@@ -366,70 +338,10 @@ Phase 5A is successful when:
 
 ---
 
-## Phase 5A Completion Summary
-
-**All MVP Deliverables Complete (2026-08-18 to 2026-08-19):**
-
-✅ **Phase 5A (MVP):** Merged to develop (PR #2016, commit f2b07bc9c)
-- 7-layer safety gates: 445 LOC
-- Phase 4 wrapper: 140 LOC  
-- Test suite: 41/41 passing, 82% coverage
-- Ready for Sep 9 soft launch
-
-✅ **Phase 6 (WordPress Utilities):** Merged to develop (PR #2115)
-- 3 utilities: pluginHeader, themeCss, readmeTxt
-- 2,189 LOC, 75+ tests, >85% coverage
-- Integration complete
-
-✅ **Phase 7 (Documentation):** Merged to develop (PR #2116)
-- RELEASE_PROCESS.md v4.0 (600+ lines)
-- BRANCHING_STRATEGY.md enhancements  
-- RELEASE_WORDPRESS.md (new)
-- 4 Mermaid diagrams, 17+ FAQ items
-
-**Post-Merge Verification (2026-08-19):**
-- All 3 phases successfully synced to origin/develop
-- All code merged and tested
-- Zero blockers for soft launch
-
----
-
 ## Author & Ownership
 
 **Project Created:** 2026-08-11  
 **Owner:** Ash Shaw  
-**Completed:** 2026-08-19 (all phases merged)
-**Status:** ✅ PRODUCTION-READY
-
-**Soft Launch Timeline:**
-- ✅ **Code Complete:** 2026-08-19
-- **Verification & Launch Prep:** 2026-08-19 to 2026-09-08 (12-16 hours)
-- 🚀 **Sep 9, 2026:** Soft launch (internal team)
-- 📚 **Sep 16, 2026:** Team rollout (approval flow training)
-- 🎯 **Oct 1, 2026:** Production deployment
+**Status:** PLANNING (Phase 5A specification)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and agentic workflows!*
-
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

@@ -6,13 +6,13 @@
  * - Syncs related labels
  */
 
-const { execFileSync } = require("child_process");
-const phaseStateMachine = require("../includes/phase-state-machine");
-const labelValidator = require("../includes/label-validator");
-const auditLogger = require("../includes/audit-logger");
+const { execFileSync } = require('child_process');
+const phaseStateMachine = require('../includes/phase-state-machine');
+const labelValidator = require('../includes/label-validator');
+const auditLogger = require('../includes/audit-logger');
 
-const OWNER = "lightspeedwp";
-const REPO = ".github";
+const OWNER = 'lightspeedwp';
+const REPO = '.github';
 
 /**
  * Handle issue labeled event
@@ -32,24 +32,19 @@ function handleIssueLabled(issue, addedLabel) {
 
   try {
     // Get current labels
-    const currentLabels = issue.labels.map((l) => l.name);
+    const currentLabels = issue.labels.map(l => l.name);
 
     // Validate the new label combination
-    const validation = labelValidator.validateLabels([
-      ...currentLabels,
-      addedLabel,
-    ]);
+    const validation = labelValidator.validateLabels([...currentLabels, addedLabel]);
     if (!validation.valid) {
       result.warnings.push(...validation.conflicts);
     }
 
     // Check if this is an OpenSpec label
-    const isOpenSpecLabel = addedLabel.startsWith("openspec:");
+    const isOpenSpecLabel = addedLabel.startsWith('openspec:');
 
     if (isOpenSpecLabel) {
-      result.changes.push(
-        handleOpenSpecLabelAdded(issue, addedLabel, currentLabels),
-      );
+      result.changes.push(handleOpenSpecLabelAdded(issue, addedLabel, currentLabels));
     }
 
     // Check for suggested label syncing
@@ -90,7 +85,7 @@ function handleOpenSpecLabelAdded(issue, label, currentLabels) {
   ];
 
   const existingOpenSpecLabels = currentLabels.filter(
-    (l) => l.startsWith("openspec:") && l !== label,
+    l => l.startsWith('openspec:') && l !== label
   );
 
   if (existingOpenSpecLabels.length > 0) {
@@ -107,9 +102,9 @@ function handleOpenSpecLabelAdded(issue, label, currentLabels) {
   const step = phaseStateMachine.getStep(label);
 
   const statusSuggestions = {
-    pending: "status:needs-planning",
-    "in-progress": "status:in-progress",
-    complete: "status:ready",
+    pending: 'status:needs-planning',
+    'in-progress': 'status:in-progress',
+    complete: 'status:ready',
   };
 
   const suggestedStatus = statusSuggestions[step];
@@ -133,7 +128,7 @@ function handleOpenSpecLabelAdded(issue, label, currentLabels) {
  * @returns {object|null} Trigger result or null
  */
 function checkProgressionTrigger(issue, label) {
-  const currentLabels = issue.labels.map((l) => l.name);
+  const currentLabels = issue.labels.map(l => l.name);
   const currentOpenSpec = labelValidator.getOpenSpecLabel(currentLabels);
 
   if (!currentOpenSpec) return null;
@@ -160,61 +155,44 @@ function checkProgressionTrigger(issue, label) {
  * @param {boolean} dryRun - Whether to perform dry run
  * @returns {boolean} Success
  */
-function applyLabelChanges(
-  issueNumber,
-  labelsToAdd,
-  labelsToRemove,
-  dryRun = false,
-) {
+function applyLabelChanges(issueNumber, labelsToAdd, labelsToRemove, dryRun = false) {
   if (dryRun) {
     console.log(`[DRY RUN] Would update labels for issue #${issueNumber}`);
-    if (labelsToAdd.length > 0) console.log(`  Add: ${labelsToAdd.join(", ")}`);
-    if (labelsToRemove.length > 0)
-      console.log(`  Remove: ${labelsToRemove.join(", ")}`);
+    if (labelsToAdd.length > 0) console.log(`  Add: ${labelsToAdd.join(', ')}`);
+    if (labelsToRemove.length > 0) console.log(`  Remove: ${labelsToRemove.join(', ')}`);
     return true;
   }
 
   try {
     // Add labels
     for (const label of labelsToAdd) {
-      execFileSync(
-        "gh",
-        [
-          "issue",
-          "edit",
-          String(issueNumber),
-          "--repo",
-          `${OWNER}/${REPO}`,
-          "--add-label",
-          label,
-        ],
-        { encoding: "utf-8" },
-      );
+      execFileSync('gh', [
+        'issue',
+        'edit',
+        String(issueNumber),
+        '--repo',
+        `${OWNER}/${REPO}`,
+        '--add-label',
+        label,
+      ], { encoding: 'utf-8' });
     }
 
     // Remove labels
     for (const label of labelsToRemove) {
-      execFileSync(
-        "gh",
-        [
-          "issue",
-          "edit",
-          String(issueNumber),
-          "--repo",
-          `${OWNER}/${REPO}`,
-          "--remove-label",
-          label,
-        ],
-        { encoding: "utf-8" },
-      );
+      execFileSync('gh', [
+        'issue',
+        'edit',
+        String(issueNumber),
+        '--repo',
+        `${OWNER}/${REPO}`,
+        '--remove-label',
+        label,
+      ], { encoding: 'utf-8' });
     }
 
     return true;
   } catch (error) {
-    console.error(
-      `Failed to update labels for issue #${issueNumber}:`,
-      error.message,
-    );
+    console.error(`Failed to update labels for issue #${issueNumber}:`, error.message);
     return false;
   }
 }

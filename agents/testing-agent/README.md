@@ -3,7 +3,7 @@ file_type: documentation
 title: Playwright Testing Agent Export
 description: Portable export of the Playwright Testing Agent — provider-agnostic multi-provider agent for automated accessibility, SEO, and console-error gating. Performance requirements are extracted and routed to the pagespeed-agent.
 version: v2.0.0
-last_updated: "2026-08-19"
+last_updated: "2026-07-29"
 owners:
   - lightspeedwp/maintainers
 domain: governance
@@ -86,21 +86,3 @@ See `manifests/skills.md` and `manifests/skills.csv` for the complete skill inve
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-## Repository Flow
-
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```

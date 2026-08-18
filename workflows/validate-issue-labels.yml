@@ -57,7 +57,7 @@ jobs:
         id: validate
         continue-on-error: true
         run: |
-          node scripts/validation/validate-labels-before-creation.cjs \
+          node .github/scripts/validation/validate-labels-before-creation.cjs \
             --labels "${{ steps.labels.outputs.labels }}" \
             --canonical-file .github/labels.yml > validation-output.txt 2>&1
 

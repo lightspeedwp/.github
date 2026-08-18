@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global console, process */
 /* eslint-disable no-console */
 
 const fs = require("fs");
@@ -17,7 +16,9 @@ const COMMENT_MARKER = "<!-- milestone-capacity-check -->";
 function getItemFromEvent(event) {
   return {
     kind: event.pull_request ? "pull_request" : "issue",
-    number: event.pull_request ? event.pull_request.number : event.issue.number,
+    number: event.pull_request
+      ? event.pull_request.number
+      : event.issue.number,
   };
 }
 

@@ -46,7 +46,7 @@ jobs:
           fi
 
           # Exempt dependabot and renovate PRs from branch name validation
-          if [[ "$PR_AUTHOR" =~ ^(dependabot\[bot\]|app/dependabot|renovate\[bot\]|app/renovate)$ ]] || [[ "$BRANCH_NAME" =~ ^(dependabot|renovate)/ ]]; then
+          if [[ "$PR_AUTHOR" == "dependabot[bot]" ]] || [[ "$PR_AUTHOR" == "renovate[bot]" ]] || [[ "$BRANCH_NAME" =~ ^(dependabot|renovate)/ ]]; then
             echo "valid=true" >> $GITHUB_OUTPUT
             echo "message=Branch is exempt (automated bot)"
             exit 0

@@ -1,70 +1,149 @@
 ---
-file_type: documentation
-title: Portable Agents
-description: Index for portable multi-file agent implementations used across LightSpeedWP repositories.
-version: "1.0"
-last_updated: "2026-08-19"
-owners:
+file_type: 'documentation'
+title: 'Portable AI Agents'
+description: 'Ownership index and specifications for reusable LightSpeed AI agent implementations across platforms.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
+last_updated: '2026-05-29'
+maintainer: 'LightSpeed Team'
+authors:
   - LightSpeed Team
-status: active
-stability: stable
-domain: governance
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags:
+  - agents
+  - ai-ops
+  - automation
+  - specifications
+name: 'Portable Agents'
 ---
 
-# Portable Agents
+# Portable AI Agents
 
-This directory contains portable, multi-file agent implementations that can be reused across LightSpeedWP repositories.
+This folder contains specifications and implementations for reusable AI agents that can be deployed across LightSpeed projects and various platforms (Claude Code, GitHub, Slack, etc.).
 
-## Current Model
+## Overview
 
-- `agents/` contains portable agents with provider-specific implementations.
-- `.github/agents/` contains spec-based, GitHub-native control-plane agents.
-- Agent standards are defined in `docs/AGENT_STANDARDS.md`.
+Portable agents are self-contained specifications that define:
 
-## What Lives Here
+- **Role & Responsibilities** – What the agent does and when to use it
+- **Instructions** – Step-by-step guidance for the agent's behaviour
+- **Tools & Permissions** – Which APIs and tools the agent can access
+- **Integration Points** – How the agent integrates with platforms and workflows
+- **Testing Strategy** – How to validate the agent's performance
 
-Each agent directory can include:
+## Agent Categories
 
-- `AGENT.md` for metadata and capabilities.
-- Provider folders such as `claude/`, `copilot/`, and `openai/` when applicable.
-- Supporting `skills/`, `manifests/`, and docs.
+### Core Agents
 
-## Current Agent Families
+These agents handle fundamental governance and automation tasks:
 
-Examples in this directory include:
+- **ADR Agent** (`adr.agent.md`) – Architecture Decision Record generation and management
+- **Issues Agent** (`issues.agent.md`) – Issue creation, triage, and labeling
+- **Labeling Agent** (`labeling.agent.md`) – Automated labeling of issues and PRs
+- **Linting Agent** (`linting.agent.md`) – Code quality and linting automation
+- **Metrics Agent** (`metrics.agent.md`) – Metrics collection and reporting
+- **Release Agent** (`release.agent.md`) – Release planning and automation
+- **Testing Agent** (`testing.agent.md`) – Test planning and execution
+- **Reviewing Agent** (`reviewer.agent.md`) – Code review automation
 
-- `prd-agent/`
-- `release/`
-- `testing-agent/`
-- `linear-advisor-agent/`
-- `website-scope-estimator-agent/`
+### Mode Agents
 
-For full inventory and governance context, see:
+These agents enable specialized work modes:
 
-- `ai/agents.md`
-- `AGENTS.md`
-- `CLAUDE.md`
+- **Document Reviewer Mode** – Review and provide feedback on documentation
+- **PRD Mode** – Generate and refine Product Requirements Documents
+- **Thinking Mode** – Extended reasoning and analysis
+- **Demonstrate Understanding Mode** – Verify comprehension before execution
 
-## Visual Workflow
+### Specialized Agents
 
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
+Task-specific agents for targeted workflows:
 
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
+- **Task Planner** – Break down complex tasks into actionable steps
+- **Task Researcher** – Research and gather context for decisions
+- **Prompt Engineer** – Design and optimise prompts
+- **Project Meta Sync** – Synchronise project metadata across platforms
+- **Reporting Agent** – Generate comprehensive reports and summaries
 
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
+## Using Agents
+
+### In Claude Code
+
+Deploy agents via Claude Code with `--agent` flag or in project settings:
+
+```bash
+claude code --agent labeling-agent --task "label issues in PR #123"
 ```
+
+### In GitHub Actions
+
+Use agents in workflows:
+
+```yaml
+- name: Run labeling agent
+  uses: lightspeedwp/.gith../.github/agents/labeling.agent@main
+  with:
+    repository: my-org/my-repo
+    issues: 'state:open'
+```
+
+### In Projects
+
+Configure agents in `.claude/settings.json`:
+
+```json
+{
+  "agents": {
+    "enabled": true,
+    "default_agent": "task-planner",
+    "permissions": {
+      "github": ["read:issues", "write:issues", "read:repos"]
+    }
+  }
+}
+```
+
+## Agent Specifications
+
+Each agent includes:
+
+- **Overview** – What the agent does
+- **When to Use** – Conditions and triggers
+- **Instructions** – Core agent logic
+- **Tools & Permissions** – Required APIs and access
+- **Error Handling** – How the agent handles failures
+- **Examples** – Real-world usage scenarios
+- **Testing** – Validation approach
+
+See individual `.agent.md` files for complete specifications.
+
+## Contributing Agents
+
+To create a new agent:
+
+1. Copy `template.agent.md` as your starting point
+2. Define the agent's role, instructions, and tools
+3. Include at least one real-world example
+4. Write tests to validate behaviour
+5. Add agent metadata to `SKILL_REGISTRY.json`
+6. Submit a PR for review
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+
+## Agent Stability
+
+- **stable** – Production-ready; breaking changes in major versions
+- **experimental** – Under active development; changes expected
+- **deprecated** – Superseded by newer agents; plan migration
+
+## Related Documentation
+
+- [AGENTS.md](../AGENTS.md) – Global AI rules and agent policy
+- [ai/agents.md](../ai/agents.md) – Canonical AI source map
+- [agents/agent.md](./agent.md) – Agent implementations index
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

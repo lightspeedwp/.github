@@ -2,9 +2,9 @@
 file_type: documentation
 title: "Release Process Redesign Project"
 description: "Complete audit, redesign, and implementation of release workflow, documentation, and governance"
-status: complete
-version: "2.0"
-last_updated: "2026-08-19"
+status: active
+version: "1.1"
+last_updated: "2026-08-09"
 owners: ["Ash Shaw"]
 tags: ["release", "automation", "documentation", "project"]
 category: "release-engineering"
@@ -81,67 +81,58 @@ category: "release-engineering"
 **Merged PRs:** #1656 (docs), #1658 (implementation)  
 **Status:** Phase 4 SHIPPED to develop (2026-08-09)
 
-### Phase 5A: Agentic Workflows ✅ COMPLETE
+### Phase 5: Portable Agent Architecture 🔄 PLANNING
 
-**Completed:** 2026-08-18 (Week 3)
+**Planned:** 2026-08-09 onwards (estimated 3-4 days)
 
-**Implementation:**
+**Implementation Tasks (Days 1-4):**
 
-- ✅ 7-layer safety gates (445 LOC)
-- ✅ Phase 4 wrapper integration (140 LOC)
-- ✅ 41/41 tests passing (82% coverage)
-- ✅ GitHub Actions workflow updated
-- ✅ Dry-run validation & audit logging
+- [ ] CHILD-023: Build `agents/release/` (portable multi-repo release agent)
+- [ ] CHILD-024: Build `agents/changelog/` (changelog management agent)
+- [ ] Multi-repo version detection (control plane, plugin, theme)
+- [ ] Utility modules: versionManager.cjs, gitOps.cjs, githubOps.cjs
 
-**Merged:** PR #2016 to develop (commit f2b07bc9c)
+**Status:** Phase 5 planning READY (detailed plan in PHASE_5_IMPLEMENTATION_PLAN.md)
 
-**Status:** Production-ready, soft launch Sep 9, 2026
+**NOTE:** Phase 5A (Agentic Workflows) runs **in parallel** with Phase 5. See [Release Agentic Workflows project](#related-projects) for details.
 
-**See:** [Release Agentic Workflows project](../release-agentic-workflows-2026-08-11/) for full details
+### Phase 5A: Agentic Workflows (NEW) 🆕 PLANNING
 
-### Phase 5: Portable Agent Architecture ⏸️ DEFERRED
+**Parallel initiative (Aug 12-30, 2026):** GitHub Agentic Workflows for release orchestration
 
-**Reason:** Phase 5A agentic workflows provide primary interface; portable agents (Phase 5) remain optional for future multi-repo integration (Phase 8+)
+**Key points:**
 
-**Decision:** Focus on soft launch (Sep 9); portable agents planned for Phase 8
+- Augments Phase 4 (wraps shell scripts, no breaking changes)
+- Runs in parallel with Phase 5 (portable agents)
+- Uses Phase 5 portable agents as optional integration
+- Separate project: [Release Agentic Workflows (2026-08-11)](#related-projects)
 
-### Phase 6: WordPress Support ✅ COMPLETE
+**Status:** See related project for planning details
 
-**Completed:** 2026-08-19
+### Phase 6: WordPress Support 🔄 PLANNING
 
-**Implementation:**
+**Planned:** 2026-08-13 onwards (estimated 1-2 days)
 
-- ✅ pluginHeader.js (WordPress plugin header parsing)
-- ✅ themeCss.js (WordPress theme style.css parsing)
-- ✅ readmeTxt.js (WordPress readme.txt parsing)
-- ✅ 2,189 LOC, 75+ tests, >85% coverage
-- ✅ Full integration with release workflow
+**Implementation Tasks:**
 
-**Merged:** PR #2115 to develop
+- [ ] CHILD-025/026: WordPress utilities (plugin headers, theme CSS, readme.txt)
+- [ ] Version file detection for WordPress plugins and themes
+- [ ] Integration with portable agents
 
-**Status:** Production-ready, integrated with Phase 5A
+**Status:** Phase 6 planning READY (detailed plan in PHASE_6_IMPLEMENTATION_PLAN.md)
 
-### Phase 7: Documentation & Training ✅ COMPLETE
+### Phase 7: Documentation & Training 🔄 PLANNING
 
-**Completed:** 2026-08-19
+**Planned:** 2026-08-15 onwards (estimated 2-3 days)
 
-**Documentation Delivered:**
+**Implementation Tasks:**
 
-- ✅ RELEASE_PROCESS.md v4.0 (600+ lines, comprehensive flow)
-- ✅ BRANCHING_STRATEGY.md enhancements (agentic workflows integration)
-- ✅ RELEASE_WORDPRESS.md (new guide for WordPress releases)
-- ✅ 4 Mermaid diagrams (workflow flows, gate architecture)
-- ✅ 17+ FAQ items addressing common scenarios
+- [ ] CHILD-027: Rewrite RELEASE_PROCESS.md with flow diagrams
+- [ ] CHILD-028: Update BRANCHING_STRATEGY.md for develop-first flow
+- [ ] CHILD-029: Create RELEASE_WORDPRESS.md guide
+- [ ] Team training documentation and guides
 
-**Training Materials:**
-
-- ✅ Team training guide (internal)
-- ✅ Approval flow documentation
-- ✅ Dry-run procedure documentation
-
-**Merged:** PR #2116 to develop
-
-**Status:** Production-ready documentation, team training ready
+**Status:** Phase 7 planning READY (detailed plan in PHASE_7_IMPLEMENTATION_PLAN.md)
 
 ---
 
@@ -189,81 +180,66 @@ category: "release-engineering"
 
 **What This Enables:** Develop-first release flow now live in production (develop branch)
 
-### Phase 5A: Agentic Workflows ✅ COMPLETE
+### Phase 5: Portable Agent Architecture 🔄 PLANNED (3-4 days, Days 1-4)
 
-**Completed:** 2026-08-18 (concurrent with Phase 5 planning)
+**Scope:**
 
-**Deliverables:**
+- [ ] CHILD-023: Build `agents/release/` (portable multi-repo agent)
+  - Create agent structure with includes/
+  - Implement versionManager.cjs (repo-type detection, version file handling)
+  - Implement gitOps.cjs (git operations)
+  - Implement githubOps.cjs (GitHub API operations)
+  - Multi-repo support (control plane, plugins, themes)
 
-- ✅ 7-layer safety gates (445 LOC)
-- ✅ Phase 4 integration wrapper (140 LOC)
-- ✅ 41/41 tests passing (82% coverage)
-- ✅ GitHub Actions workflow integration
-- ✅ Dry-run validation & audit logging
+- [ ] CHILD-024: Build `agents/changelog/` (changelog agent)
+  - Implement changelog validation (two-gate: PR + release)
+  - Implement changelog formatting
+  - Implement changelog processing ([Unreleased] → [X.Y.Z])
 
-**Merged:** PR #2016 (commit f2b07bc9c)
+**Deliverables:** Portable agents ready for multi-repo use
 
-**Status:** Ready for soft launch Sep 9, 2026
+**Detailed Plan:** See [PHASE_5_IMPLEMENTATION_PLAN.md](./PHASE_5_IMPLEMENTATION_PLAN.md)
 
-### Phase 5: Portable Agent Architecture ⏸️ DEFERRED
+### Phase 6: WordPress Support 🔄 PLANNED (1-2 days, Days 5-6)
 
-**Planned Implementation (Days 1-4)** → **Deferred to Phase 8**
+**Scope:**
 
-**Rationale:** Phase 5A agentic workflows provide primary interface. Portable agents (Phase 5) remain optional for future multi-repo expansion. Soft launch Sep 9 prioritizes agentic workflows.
+- [ ] CHILD-025/026: Create WordPress utilities
+  - Implement wordpressUtils.cjs
+  - Handle plugin header versioning (Version: X.Y.Z)
+  - Handle theme CSS versioning (Version: X.Y.Z)
+  - Handle readme.txt versioning (Stable tag: X.Y.Z)
+  - Integration with portable agents
 
-### Phase 6: WordPress Support ✅ COMPLETE
+**Deliverables:** Full WordPress plugin and theme support
 
-**Completed:** 2026-08-19
+**Detailed Plan:** See [PHASE_6_IMPLEMENTATION_PLAN.md](./PHASE_6_IMPLEMENTATION_PLAN.md)
 
-**Deliverables:**
+### Phase 7: Documentation & Training 🔄 PLANNED (2-3 days, Days 7-9)
 
-- ✅ pluginHeader.js (plugin header parsing)
-- ✅ themeCss.js (theme CSS version parsing)
-- ✅ readmeTxt.js (readme.txt version parsing)
-- ✅ 2,189 LOC, 75+ unit tests, 15+ integration tests
-- ✅ >85% code coverage
-- ✅ Full integration with release workflow
+**Scope:**
 
-**Merged:** PR #2115 (commit 4e1a3dd2e)
-
-**Status:** Production-ready, integrated with Phase 5A
-
-### Phase 7: Documentation & Training ✅ COMPLETE
-
-**Completed:** 2026-08-19
-
-**Deliverables:**
-
-**Documentation:**
-
-- ✅ RELEASE_PROCESS.md v4.0 (600+ lines)
+- [ ] CHILD-027: Rewrite RELEASE_PROCESS.md
   - Complete flow diagrams (Mermaid)
   - Step-by-step guide
   - Troubleshooting section
-  - 17+ FAQ items
+  - FAQ
 
-- ✅ BRANCHING_STRATEGY.md enhancements
-  - Develop-first release flow explanation
-  - Stacked PR explanation
-  - Agentic workflows integration
+- [ ] CHILD-028: Update BRANCHING_STRATEGY.md
+  - Add develop-first release flow explanation
+  - Add stacked PR explanation
+  - Add release branch naming
 
-- ✅ RELEASE_WORDPRESS.md (new)
+- [ ] CHILD-029: Create RELEASE_WORDPRESS.md
   - WordPress plugin release process
   - WordPress theme release process
   - Examples with before/after
 
-- ✅ 4 Mermaid diagrams (workflow flows, gate architecture)
+- [ ] Training documentation (Team guides, video walkthroughs, Q&A)
 
-**Training Materials:**
+**Deliverables:** Complete documentation and team training materials
 
-- ✅ Team training guide (internal)
-- ✅ Approval flow documentation
-- ✅ Dry-run procedure documentation
-- ✅ Troubleshooting guide
-
-**Merged:** PR #2116 (commit b4fcdaa1c)
-
-**Status:** Production-ready documentation, team training ready
+**Detailed Plan:** See [PHASE_7_IMPLEMENTATION_PLAN.md](./PHASE_7_IMPLEMENTATION_PLAN.md)
 
 ---
 
@@ -277,13 +253,11 @@ category: "release-engineering"
 
 **Implementation:** Stacked PRs (develop PR + main PR)
 
-### ADR-002: Multi-Repo Support (Portable Agents) ⏸️ DEFERRED
+### ADR-002: Multi-Repo Support (Portable Agents) ✅
 
-**Decision:** Portable agents architecture planned for Phase 5 (deferred to Phase 8 for multi-repo expansion)
+**Decision:** Create portable release agents in `agents/release/`
 
-**Current Status:** Phase 5A agentic workflows provide primary interface; Phase 5 portable agents remain optional for future multi-repo support
-
-**Rationale:** Agentic workflows (Phase 5A) deliver full release orchestration; portable agents planned as optional library for Phase 8+ multi-repo scenarios
+**Rationale:** Single agent for all repo types; consistent process; reusable
 
 ### ADR-003: Authorization (Single Decision-Maker) ✅
 
@@ -413,30 +387,6 @@ This project coordinates with:
 
 ---
 
-## Project Completion Summary
-
-**All Phases Complete & Merged (2026-08-19):**
-
-✅ **Phases 1-4 (Aug 8-9):** Develop-first flow + authorization gating
-✅ **Phase 5A (Aug 18):** Agentic workflows MVP (PR #2016)
-✅ **Phase 6 (Aug 19):** WordPress utilities (PR #2115)
-✅ **Phase 7 (Aug 19):** Documentation v4.0 (PR #2116)
-
-**Total Deliverables:**
-
-- 5 merged PRs (#1656, #1658, #2016, #2115, #2116)
-- 4,400+ LOC of implementation code
-- 200+ automated tests (85%+ coverage)
-- 4 Mermaid diagrams
-- 600+ lines of new documentation
-- 17+ FAQ items
-
-**Release Status:**
-
-🚀 **PRODUCTION-READY** — Soft launch Sep 9, 2026
-
----
-
 ## Related Issues
 
 This project is coordinated with:
@@ -444,26 +394,3 @@ This project is coordinated with:
 - [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
 
 See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

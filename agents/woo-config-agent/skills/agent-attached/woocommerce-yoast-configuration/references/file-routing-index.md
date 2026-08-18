@@ -58,6 +58,7 @@ When a request matches multiple routes:
 - Keep file paths exact so `scripts/validate_skill_structure.py` can check references reliably.
 - Do not duplicate deep reference content here; this file is a routing map only.
 
+
 ## Comparison and regression routing notes
 
 - For settings-only comparisons, load `references/settings-export-review-playbook.md` and mark live-output checks as required.
@@ -65,6 +66,7 @@ When a request matches multiple routes:
 - For plugin-update checks, load `references/plugin-update-regression-playbook.md` before writing a release recommendation.
 - For acceptance gates, use `templates/yoast-acceptance-criteria.md` and keep each criterion evidence-led and pass/fail.
 - If a risky regression is accepted, route to `references/decision-register-model.md` and `templates/yoast-decision-log.md`.
+
 
 ## Access-aware remediation backlog
 
@@ -114,6 +116,7 @@ Do not treat AI-generated metadata as approved source evidence. Keep proposed co
 | Plan a metadata import or high-volume admin update | `references/bulk-metadata-governance.md`, `references/access-level-workflow.md` | `references/state-comparison-playbook.md`, `references/remediation-backlog-model.md`, `references/rendered-output-qa-playbook.md` | `templates/metadata-bulk-edit-plan.md`, `templates/yoast-remediation-backlog.md` | `tests/bulk-metadata-governance-scenario-tests.md` |
 
 Use this route when the risk comes from scale, approval state, claim support or implementation method. Do not approve or implement bulk metadata rows solely from a spreadsheet, pasted table, AI draft or settings export.
+
 
 ## Content structure and taxonomy decisions
 

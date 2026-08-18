@@ -4,12 +4,12 @@
  */
 
 const STATES = {
-  SPECIFICATION_PENDING: "openspec:specification-pending",
-  SPECIFICATION_IN_PROGRESS: "openspec:specification-in-progress",
-  SPECIFICATION_COMPLETE: "openspec:specification-complete",
-  IMPLEMENTATION_PENDING: "openspec:implementation-pending",
-  IMPLEMENTATION_IN_PROGRESS: "openspec:implementation-in-progress",
-  IMPLEMENTATION_COMPLETE: "openspec:implementation-complete",
+  SPECIFICATION_PENDING: 'openspec:specification-pending',
+  SPECIFICATION_IN_PROGRESS: 'openspec:specification-in-progress',
+  SPECIFICATION_COMPLETE: 'openspec:specification-complete',
+  IMPLEMENTATION_PENDING: 'openspec:implementation-pending',
+  IMPLEMENTATION_IN_PROGRESS: 'openspec:implementation-in-progress',
+  IMPLEMENTATION_COMPLETE: 'openspec:implementation-complete',
 };
 
 /**
@@ -51,29 +51,22 @@ const TRANSITIONS = {
 const PHASE_TRIGGERS = {
   // Specification phase triggers
   [STATES.SPECIFICATION_PENDING]: {
-    "PR opened": STATES.SPECIFICATION_IN_PROGRESS,
-    "status:in-progress added": STATES.SPECIFICATION_IN_PROGRESS,
+    'PR opened': STATES.SPECIFICATION_IN_PROGRESS,
+    'status:in-progress added': STATES.SPECIFICATION_IN_PROGRESS,
   },
   [STATES.SPECIFICATION_IN_PROGRESS]: {
-    "PR merged": STATES.SPECIFICATION_COMPLETE,
-    "status:done added": STATES.SPECIFICATION_COMPLETE,
-  },
-  [STATES.SPECIFICATION_COMPLETE]: {
-    "PR opened": STATES.IMPLEMENTATION_PENDING,
-    "ready-for-implementation": STATES.IMPLEMENTATION_PENDING,
+    'PR merged': STATES.SPECIFICATION_COMPLETE,
+    'status:done added': STATES.SPECIFICATION_COMPLETE,
   },
 
   // Implementation phase triggers
   [STATES.IMPLEMENTATION_PENDING]: {
-    "PR opened": STATES.IMPLEMENTATION_IN_PROGRESS,
-    "status:in-progress added": STATES.IMPLEMENTATION_IN_PROGRESS,
+    'PR opened': STATES.IMPLEMENTATION_IN_PROGRESS,
+    'status:in-progress added': STATES.IMPLEMENTATION_IN_PROGRESS,
   },
   [STATES.IMPLEMENTATION_IN_PROGRESS]: {
-    "PR merged": STATES.IMPLEMENTATION_COMPLETE,
-    "status:done added": STATES.IMPLEMENTATION_COMPLETE,
-  },
-  [STATES.IMPLEMENTATION_COMPLETE]: {
-    // No automatic triggers for complete state; manual review needed
+    'PR merged': STATES.IMPLEMENTATION_COMPLETE,
+    'status:done added': STATES.IMPLEMENTATION_COMPLETE,
   },
 };
 
@@ -158,11 +151,11 @@ function isRollback(currentState, nextState) {
  * @returns {string} Phase name (specification or implementation)
  */
 function getPhase(state) {
-  if (state && state.startsWith("openspec:specification")) {
-    return "specification";
+  if (state && state.startsWith('openspec:specification')) {
+    return 'specification';
   }
-  if (state && state.startsWith("openspec:implementation")) {
-    return "implementation";
+  if (state && state.startsWith('openspec:implementation')) {
+    return 'implementation';
   }
   return null;
 }
@@ -173,14 +166,14 @@ function getPhase(state) {
  * @returns {string} Step (pending, in-progress, or complete)
  */
 function getStep(state) {
-  if (state && state.includes("pending")) {
-    return "pending";
+  if (state && state.includes('pending')) {
+    return 'pending';
   }
-  if (state && state.includes("in-progress")) {
-    return "in-progress";
+  if (state && state.includes('in-progress')) {
+    return 'in-progress';
   }
-  if (state && state.includes("complete")) {
-    return "complete";
+  if (state && state.includes('complete')) {
+    return 'complete';
   }
   return null;
 }

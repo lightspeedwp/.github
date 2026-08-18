@@ -14,7 +14,6 @@ tags: ["agent", "quick-start", "setup", "tutorial"]
 ## Installation
 
 ### Prerequisites
-
 - Node.js 18+
 - Access to the Chat Closure Agent (agents/chat-closure-agent/)
 - Git repository with commits
@@ -80,7 +79,6 @@ node close-session.js
 ```
 
 **Output:**
-
 ```
 ✅ Session closed!
 
@@ -104,7 +102,6 @@ You'll see a structured memory entry with your decisions, blockers, and next ste
 ### Step 4: Share continuation prompt (2 min)
 
 The generated prompt is ready to paste into your next Claude session. It contains:
-
 - What you were working on
 - What you decided (and why)
 - What's blocking you
@@ -170,32 +167,27 @@ Memory will document your testing approach and readiness.
 Each session closure captures:
 
 ✅ **Repository State**
-
 - Current branch
 - Commits ahead of base
 - Staged/uncommitted changes
 - Recent git history
 
 ✅ **Your Decisions**
-
 - What you decided
 - Why you decided it
 - Trade-offs considered
 
 ✅ **Blockers**
-
 - What's stopping you
 - What you're waiting for
 - Dependencies
 
 ✅ **Next Steps**
-
 - Ordered action items
 - Estimated effort
 - Dependencies
 
 ✅ **Continuation Prompt**
-
 - Ready to paste into next session
 - Includes all context
 - Formatted for Claude
@@ -230,7 +222,6 @@ A: Run `npm test` to verify your installation. See `troubleshooting-faq.md` for 
 **Ready to close your first session?** Run `node close-session.js` now! 🚀
 
 For more details, see:
-
 - [Full Usage Guide](../agents/chat-closure-agent/docs/USAGE_GUIDE.md) — Detailed API reference
 - [Architecture](../agents/chat-closure-agent/docs/ARCHITECTURE.md) — How it works inside
 - [Integration Guide](./chat-closure-agent/integration-guide.md) — Using in other projects

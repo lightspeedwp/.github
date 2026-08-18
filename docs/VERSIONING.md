@@ -1,14 +1,3 @@
----
-title: "Versioning Guidelines"
-description: "Semantic versioning standards for LightSpeedWP projects: SemVer format, VERSION file as canonical source, Phase 5A version validation gates"
-file_type: "documentation"
-version: "1.0"
-last_updated: "2026-08-18"
-author: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["versioning", "semver", "release", "phase-5a"]
----
-
 # Versioning Guidelines
 
 LightSpeedWP projects follow [Semantic Versioning](https://semver.org/) (SemVer) principles.
@@ -174,79 +163,6 @@ git push origin main --tags
 
 ---
 
-## Phase 5A: Version Validation Gate (GATE 3)
-
-**Added in v1.0 (2026-08-18):** Phase 5A introduces automated version validation as part of the 7-layer safety gates.
-
-### Version Validation Flow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-accTitle: Flowchart
-    A["Release triggered<br/>with scope: patch/minor/major"] -->|"VERSION = 1.2.3<br/>Scope = minor"| B["Parse current version"]
-    B --> C["Calculate next version"]
-    C -->|"1.2.3 + minor<br/>= 1.3.0"| D["Validate semver format"]
-    D -->|"X.Y.Z format?"|E{Valid?}
-    E -->|"Yes"| F["Check logical bump"]
-    E -->|"No"| Z1["❌ GATE 3 FAIL<br/>Invalid semver format"]
-    F -->|"Is it an upgrade?"| G{Upgrade?}
-    G -->|"Downgrade detected"| Z2["❌ GATE 3 FAIL<br/>Downgrade not allowed"]
-    G -->|"Valid upgrade"| H["Compare with VERSION file"]
-    H -->|"Match?"| I{Match?}
-    I -->|"No"| Z3["❌ GATE 3 FAIL<br/>Version mismatch"]
-    I -->|"Yes"| J["✅ GATE 3 PASS<br/>Version valid"]
-
-    style A fill:#01579b,color:#fff
-    style J fill:#2e7d32,color:#fff
-    style Z1 fill:#b71c1c,color:#fff
-    style Z2 fill:#b71c1c,color:#fff
-    style Z3 fill:#b71c1c,color:#fff
-accDescr: Visual diagram showing structure, relationships, and flow
-```
-
-### What GATE 3 Validates
-
-| Check | Purpose | Fails When |
-|-------|---------|-----------|
-| **Semver Format** | Ensures X.Y.Z compliance | Non-numeric components, missing parts |
-| **Logical Bump** | Prevents downgrades | New version < current version |
-| **File Consistency** | Matches VERSION file | Calculated version ≠ VERSION |
-| **Pre-release Handling** | Allows alpha/beta/rc | Invalid pre-release suffixes |
-
-### Example Scenarios
-
-**✓ PASS: Valid patch bump**
-
-- Current: `1.2.3`
-- Scope: `patch`
-- Calculated: `1.2.4` → GATE 3 passes
-
-**✓ PASS: Valid minor bump**
-
-- Current: `2.0.5`
-- Scope: `minor`
-- Calculated: `2.1.0` → GATE 3 passes
-
-**✗ FAIL: Downgrade attempt**
-
-- Current: `3.0.0`
-- Scope: `major`
-- Calculated: `2.0.0` (downgrade) → GATE 3 fails
-
-**✗ FAIL: Invalid version format**
-
-- Calculated: `1.2` (missing PATCH) → GATE 3 fails
-- Calculated: `1.2.3.4` (too many parts) → GATE 3 fails
-
-### Related Documentation
-
-- **Release Process:** [RELEASE_PROCESS.md](./RELEASE_PROCESS.md#phase-5a-safety-gates-layer-new)
-- **Changelog Management:** [CHANGELOG_AUTOMATION.md](./CHANGELOG_AUTOMATION.md)
-
----
-
 ## Best Practices
 
 1. **Always test** before releasing
@@ -369,19 +285,19 @@ Add a CI check to ensure file versions don't exceed repository version:
 
 ### Available Scripts
 
-#### `scripts/versioning/bump-file-version.cjs`
+#### `.github/scripts/versioning/bump-file-version.cjs`
 
 Bump individual or bulk file versions with guardrails:
 
 ```bash
 # Single file
-node scripts/versioning/bump-file-version.cjs <file> [patch|minor]
+node .github/scripts/versioning/bump-file-version.cjs <file> [patch|minor]
 
 # Bulk update
-node scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
+node .github/scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
 
 # Help
-node scripts/versioning/bump-file-version.cjs --help
+node .github/scripts/versioning/bump-file-version.cjs --help
 ```
 
 #### `.github/scripts/maintenance/fix-references.cjs`

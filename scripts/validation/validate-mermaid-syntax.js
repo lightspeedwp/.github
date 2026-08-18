@@ -25,7 +25,6 @@ const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
     "**/platform-managed/**",
     "**/directory-installed/**",
     "**/agentskills-main/**",
-    "**/tests/fixtures/**",
   ],
 }).sort();
 

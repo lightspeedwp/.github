@@ -6,8 +6,8 @@ status: "complete"
 
 # Changelog Automation Hardening — Implementation Report
 
-**Date:** 2026-07-24
-**Initiative:** Changelog Automation Hardening (Epic #1271)
+**Date:** 2026-07-24  
+**Initiative:** Changelog Automation Hardening (Epic #1271)  
 **Status:** Phase 2 Critical Gaps Addressed ✅
 
 ---
@@ -72,7 +72,7 @@ This report documents critical fixes applied to the changelog automation hardeni
    - Provides detailed error/warning reporting
    - Callable via: `npm run validate:changelog`
 
-2. **`scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs`** (156 lines)
+2. **`scripts/workflows/changelog/merge-entries.integration.test.cjs`** (156 lines)
    - Integration test for Phase 1 fix (section header preservation)
    - Tests:
      1. Section headers preserved during merge
@@ -98,7 +98,7 @@ This report documents critical fixes applied to the changelog automation hardeni
 
 2. **`package.json`** (2 scripts added)
    - `"validate:changelog": "node scripts/validation/changelog-rules.cjs"`
-   - `"test:integration": "node scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs"`
+   - `"test:integration": "node scripts/workflows/changelog/merge-entries.integration.test.cjs"`
 
 **Impact:**
 
@@ -319,7 +319,7 @@ $ npm run test:integration
 ### Created Files (3)
 
 - `scripts/validation/changelog-rules.cjs` — format validation
-- `scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs` — Phase 1 verification
+- `scripts/workflows/changelog/merge-entries.integration.test.cjs` — Phase 1 verification
 - `.github/CHANGELOG_CONTRIBUTOR_CHECKLIST.md` — contributor guidance
 
 ---
@@ -354,7 +354,7 @@ The next critical path item is completing the full recovery of all 76 PRs (curre
 
 ---
 
-**Report Prepared By:** Claude (Haiku 4.5)
-**Date:** 2026-07-24
-**Status:** Ready for Review
+**Report Prepared By:** Claude (Haiku 4.5)  
+**Date:** 2026-07-24  
+**Status:** Ready for Review  
 **Recommendation:** Proceed to Phase 2 completion and HIGH-priority gap resolution

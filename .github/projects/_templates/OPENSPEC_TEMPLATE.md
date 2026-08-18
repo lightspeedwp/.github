@@ -54,7 +54,7 @@ Each phase includes:
 
 ## Phase 1: [Phase Name] — Architecture & Design
 
-**Related Planning:** See Phase 1 section in PLANNING.md (created from PLANNING_TEMPLATE.md)
+**Related Planning:** [PLANNING.md — Phase 1](./PLANNING.md#phase-1-phase-name-weeks-xy)
 
 ### 1.1 Architecture Overview
 
@@ -333,7 +333,7 @@ describe('Component A', () => {
 
 ## Phase 2: [Phase Name] — Implementation & Testing
 
-**Related Planning:** See Phase 2 section in PLANNING.md (created from PLANNING_TEMPLATE.md)
+**Related Planning:** [PLANNING.md — Phase 2](./PLANNING.md#phase-2-phase-name-weeks-xy)
 
 [Continue with same pattern for Phase 2]
 
@@ -408,11 +408,9 @@ describe('Component A', () => {
 **Request Example:**
 
 ```bash
-# gitleaks:allow
 curl -X GET \
   https://api.example.com/api/v1/resource/550e8400-e29b-41d4-a716-446655440000 \
   -H 'Authorization: Bearer token123'
-# gitleaks:allowlist
 ```
 
 **Success Response (200 OK):**
@@ -558,9 +556,9 @@ curl -X GET \
 
 ## References & Related Documents
 
-- PLANNING.md (created from PLANNING_TEMPLATE.md) — Project planning and timeline
-- GitHub Issues — Master Epic (link issue number to your project's master epic issue)
-- Related Architecture Doc — Reference any relevant architecture documentation in your repository
+- [PLANNING.md](./PLANNING.md) — Project planning and timeline
+- [GitHub Issues — Master Epic](../../../issues/XXXX) — Issue tracking
+- [Related Architecture Doc](../../../docs/ARCHITECTURE.md) — System architecture
 
 ---
 

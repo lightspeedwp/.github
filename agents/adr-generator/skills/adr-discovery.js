@@ -128,8 +128,7 @@ class ADRDiscovery {
    */
   generateFilename(nextNumber, title) {
     const slug = this.titleToSlug(title);
-    const finalSlug = slug || "untitled";
-    return `${nextNumber}-${finalSlug}.md`;
+    return `${nextNumber}-${slug}.md`;
   }
 
   /**

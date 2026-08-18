@@ -1,7 +1,6 @@
 # Gravity Forms Tracking QA Report
 
 ## Test context
-
 - Site:
 - Environment:
 - Form:
@@ -10,12 +9,10 @@
 - Tester:
 
 ## Scenario matrix
-
 | Scenario | Expected Gravity Forms result | Expected tracking result | Actual result | Status |
 |---|---|---|---|---|
 
 ## Entry validation
-
 - Entry created:
 - Entry ID recorded internally:
 - Spam/trash checked:
@@ -23,7 +20,6 @@
 - Notification status:
 
 ## Analytics validation
-
 - GA4 Realtime:
 - GA4 DebugView:
 - GTM Preview/Tag Assistant:
@@ -32,20 +28,17 @@
 - Duplicate events:
 
 ## Consent validation
-
 - Consent accepted result:
 - Consent refused result:
 - Unknown/limited consent result:
 
 ## Findings
-
 - Passed:
 - Failed:
 - Skipped:
 - Evidence gaps:
 
 ## Follow-up
-
 - Required fixes:
 - Retest owner:
 - Handoff notes:

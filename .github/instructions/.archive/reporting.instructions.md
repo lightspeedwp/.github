@@ -46,7 +46,7 @@ This document defines the standards for creating, organising, and maintaining re
 
 ❌ **NEVER** store reports in:
 
-- Root ./.github/reports/` folder
+- Root `/reports/` folder
 - `docs/` folder
 - `tmp/` folder (temporary processing only)
 - Any other location

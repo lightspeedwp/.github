@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 
-const repoRoot = path.resolve(__dirname, "../../..");
+const repoRoot = process.cwd();
 const runtimeScript = path.join(
   repoRoot,
   "scripts/workflows/release/trigger-telemetry.cjs",

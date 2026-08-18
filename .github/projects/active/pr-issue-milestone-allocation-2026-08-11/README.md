@@ -2,27 +2,25 @@
 file_type: readme
 title: "pr-issue-milestone-allocation-2026-08-11 — Project Overview"
 description: "Quick-start guide and status overview for the pr-issue-milestone-allocation-2026-08-11 project"
-version: 2.0.0
+version: 1.0.0
 created_date: 2026-08-12
-last_updated: 2026-08-25
+last_updated: 2026-08-12
 authors:
-  - Claude Haiku
-owner: DevOps/Release Team
-maintainer: Release Automation
+  - Author Name
+owner: Owner Name/Team
+maintainer: Maintainer Name
 tags:
   - project
   - overview
   - status
-  - automation
-  - milestone-allocation
-domain: "github-automation"
-stability: "stable"
-status: "production"
+domain: "domain-name"
+stability: "stable|beta|experimental"
+status: "planning|active|blocked|paused|complete"
 ---
 
 # pr-issue-milestone-allocation-2026-08-11
 
-**Status:** ✅ Phase 3 Complete — PRODUCTION LIVE | **Owner:** DevOps Team | **Last Updated:** 2026-08-25
+**Status:** 🟡 Active | **Owner:** Owner Name | **Last Updated:** 2026-08-12
 
 Quick overview of the pr-issue-milestone-allocation-2026-08-11 project.
 
@@ -30,8 +28,9 @@ Quick overview of the pr-issue-milestone-allocation-2026-08-11 project.
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1762](../../../issues/1762) | epic | Master Epic: PR/Issue → Milestone Allocation Automation | ✅ Active |
-| [#1765](../../../issues/1765) | task | Phase 3: Refinement & Rollout — COMPLETE | ✅ Complete |
+| TBD | task | Link GitHub issue for PR-issue-milestone allocation | 📋 Pending |
+
+**Note:** This project needs a linked GitHub issue for tracking. Create an issue and update this section with the issue number.
 
 ---
 
@@ -39,36 +38,36 @@ Quick overview of the pr-issue-milestone-allocation-2026-08-11 project.
 
 | Fact | Value |
 |------|-------|
-| **Status** | ✅ Phase 3 Complete |
-| **Phase** | Phase 3 of 4 (Complete) |
-| **Owner** | DevOps/Release Team |
-| **Duration** | 14 days (2026-08-11 to 2026-08-25) |
-| **Start Date** | 2026-08-11 |
-| **Completion Date** | 2026-08-25 |
-| **Team Size** | 1 (Claude Haiku Agent) |
-| **Master Epic** | [#1762](../../../issues/1762) |
+| **Status** | 🟡 Active |
+| **Phase** | Phase X of Y |
+| **Owner** | Owner Name |
+| **Duration** | Estimated X weeks |
+| **Start Date** | 2026-08-12 |
+| **Target Completion** | 2026-08-12 |
+| **Team Size** | X people |
+| **Master Epic** | [#XXXX](../../../issues/XXXX) |
 
 ---
 
 ## What is This Project?
 
-Automatic allocation of merged PRs and closed issues to project milestones in the `.github` repository.
+One sentence description of what this project does.
 
 ### Problem Being Solved
 
-Manual milestone allocation is time-consuming and error-prone. Release managers must manually update milestones for every merged PR and closed issue. This automation eliminates that manual work while ensuring consistency and timeliness.
+Brief description of the problem or opportunity this project addresses.
 
 ### Solution Overview
 
-A GitHub Actions workflow that automatically allocates merged PRs and closed issues to the "current" active milestone (detected by earliest due date). The workflow runs on PR merge and issue close events, finds any linked issues, and updates all items with proper error handling and confirmation comments.
+Brief overview of the solution being implemented.
 
 ### Expected Outcomes
 
-1. **Zero manual work** — Milestones updated automatically on PR merge/issue close
-2. **Improved consistency** — All items allocated to the same milestone following clear algorithm
-3. **Team productivity** — Release managers freed from manual allocation tasks (~15 min/day saved)
-4. **Complete tracking** — All PRs and issues accounted for in milestone planning
-5. **Error resilience** — Automatic retries, timeouts, and clear error reporting
+List 3-5 key outcomes:
+
+1. **Outcome 1** — What will be delivered
+2. **Outcome 2** — What will be delivered
+3. **Outcome 3** — What will be delivered
 
 ---
 
@@ -123,49 +122,45 @@ A GitHub Actions workflow that automatically allocates merged PRs and closed iss
 
 ### Current Phase
 
-**Phase 3: Refinement & Rollout** — COMPLETE ✅
+**Phase X: [Phase Name]** — [Description]
 
-- **Status:** ✅ Complete
-- **Duration:** 5 days (2026-08-21 to 2026-08-25)
-- **Start Date:** 2026-08-21
-- **Completion Date:** 2026-08-25
-- **Owner:** DevOps/Release Team
-- **Progress:** 100% complete (4 of 4 deliverables)
+- **Status:** 🟡 Active
+- **Duration:** [X weeks, Weeks Y-Z of total]
+- **Start Date:** 2026-08-12
+- **Target Completion:** 2026-08-12
+- **Owner:** Owner Name
+- **Progress:** X% complete (Y of Z deliverables)
 
 ### Phase Progress
 
 ```
-Phase 1    ██████████████████████████████  (100% complete) ✅
-Phase 2    ██████████████████████████████  (100% complete) ✅
-Phase 3    ██████████████████████████████  (100% complete) ✅
-Phase 4    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  (Upcoming — 2026-08-26)
+Phase 1    ████████░░░░░░░░░░░░░░░░░░░░░  (100% complete)
+Phase 2    ░░░░░░░░████████░░░░░░░░░░░░░░  (40% complete — CURRENT)
+Phase 3    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  (0% planned)
 ```
 
 ### Key Milestones
 
 | Milestone | Date | Status |
 |-----------|------|--------|
-| Phase 1: Specification | 2026-08-11–08-13 | ✅ Complete |
-| Phase 2: Implementation | 2026-08-14–08-20 | ✅ Complete |
-| Phase 3: Rollout | 2026-08-21–08-25 | ✅ Complete |
-| Phase 4: Monitoring | 2026-08-26+ | ⏳ In Progress |
+| Phase 1 Complete | 2026-08-12 | ✅ Done |
+| Phase 2 Start | 2026-08-12 | ✅ In Progress |
+| Phase 2 Complete | 2026-08-12 | ⏳ On Track |
+| Final Delivery | 2026-08-12 | ⏳ Scheduled |
 
 ### Recent Updates
 
-**2026-08-25 (Phase 3 Complete):**
+**Last 7 Days:**
 
-- ✅ Script deployed to `scripts/automation/allocate-to-milestone.js`
-- ✅ Workflow deployed to `.github/workflows/allocate-pr-issue-to-milestone.yml`
-- ✅ Team announcement prepared and ready
-- ✅ 48-hour monitoring checklist established
-- ✅ All 24 tests passing (82% coverage)
+- [Update 1] — Completed [deliverable]
+- [Update 2] — Resolved [blocker]
+- [Update 3] — Started [next phase]
 
 **Next Steps:**
 
-- Start Phase 4 monitoring (2026-08-26)
-- Track success metrics (≥95% allocation success)
-- Gather team feedback
-- Plan future enhancements
+- [Action 1] — Due: 2026-08-12
+- [Action 2] — Due: 2026-08-12
+- [Action 3] — Due: 2026-08-12
 
 ---
 
@@ -211,34 +206,31 @@ Phase 4    ░░░░░░░░░░░░░░░░░░░░░░░
 
 All project work is tracked under the master epic:
 
-**[#1762 — PR/Issue → Milestone Allocation Automation](../../../issues/1762)**
+**[#XXXX — pr-issue-milestone-allocation-2026-08-11 — Master Epic](../../../issues/XXXX)**
 
 ### Issue Hierarchy
 
 ```
-Epic #1762 — PR/Issue → Milestone Allocation (master)
-├── Phase 1 Epic (Specification & Design) — Complete ✅
-│   ├── Spec & RFC created
-│   └── Planning document completed
-├── Phase 2 Epic (Implementation & Testing) — Complete ✅
-│   ├── Script implementation (allocate-to-milestone.js)
-│   ├── Workflow YAML (allocate-pr-issue-to-milestone.yml)
-│   └── Test coverage (24 tests, 82% coverage)
-├── Phase 3 Epic #1765 (Refinement & Rollout) — Complete ✅
-│   ├── Code review feedback addressed
-│   ├── Script deployed to production
-│   ├── Workflow deployed to production
-│   ├── Team announcement prepared
-│   └── Monitoring checklist established
-└── Phase 4 (Monitoring & Maintenance) — In Progress ⏳
+Epic #XXXX — pr-issue-milestone-allocation-2026-08-11 (master)
+├── Phase 1 Epic #XXXX
+│   ├── Task 1.1 #XXXX
+│   ├── Task 1.2 #XXXX
+│   └── Task 1.3 #XXXX
+├── Phase 2 Epic #XXXX
+│   ├── Task 2.1 #XXXX
+│   └── Task 2.2 #XXXX
+└── Phase 3 Epic #XXXX
 ```
 
 ### Issue Reference
 
 | Phase | Issue | Type | Status | Notes |
 |-------|-------|------|--------|-------|
-| Master | [#1762](../../../issues/1762) | epic | 🟢 Open | Master epic for all work |
-| Phase 3 | [#1765](../../../issues/1765) | task | ✅ Complete | Refinement & rollout DONE |
+| Phase 1 | [#XXXX](../../../issues/XXXX) | epic | ✅ Closed | Phase complete |
+| — | [#XXXX](../../../issues/XXXX) | task | ✅ Closed | Task 1.1 |
+| Phase 2 | [#XXXX](../../../issues/XXXX) | epic | 🟢 Open | Phase in progress |
+| — | [#XXXX](../../../issues/XXXX) | task | 🟢 Open | Task 2.1 (assigned) |
+| Phase 3 | [#XXXX](../../../issues/XXXX) | epic | ⏳ Planned | Phase starts date |
 
 ### Contributing
 
@@ -258,18 +250,19 @@ To contribute to this project:
 
 ### Project Team
 
-| Role | Name | Contact | Status |
-|------|------|---------|--------|
-| Agent | Claude Haiku 4.5 | Anthropic API | Active |
-| Project Owner | Release Team Lead | GitHub Issue #1762 | Active |
-| DevOps | DevOps Team | GitHub Issue #1765 | Active |
+| Role | Name | Contact | Hours/Week |
+|------|------|---------|-----------|
+| Project Owner | Owner Name | @owner | 15 |
+| Technical Lead | Tech Lead Name | @techlead | 20 |
+| Developer | Dev Name | @dev | 40 |
+| QA/Reviewer | QA Name | @qa | 20 |
 
 ### How to Reach Us
 
-- **Questions about Project:** Comment on [Master Epic #1762](../../../issues/1762)
-- **Phase 3 Completion:** See [Issue #1765](../../../issues/1765)
-- **Blockers/Escalation:** Create issue with `type:bug` label and link to #1762
-- **Feedback/Enhancement:** Comment on #1762 with `feedback` label
+- **Questions about Project:** Comment on [Master Epic #XXXX](../../../issues/XXXX)
+- **Technical Questions:** @TechLeadName in Slack #project-name
+- **Blockers/Escalation:** @OwnerName in Slack #project-name
+- **Bug Reports:** Create issue with `type:bug` label
 
 ---
 
@@ -371,13 +364,12 @@ A: The QA/Reviewer (see [Team & Contacts](#team--contacts)).
 
 This project is successful when:
 
-✅ All deliverables completed per [PLANNING.md](./PLANNING.md) — **ACHIEVED**  
-✅ All tests passing (>82% coverage) — **ACHIEVED** (24/24 tests)  
-✅ Code review approved — **ACHIEVED**  
-✅ Documentation complete — **ACHIEVED** (RUNBOOK, FAQ, spec docs)  
-✅ Team sign-off obtained — **ACHIEVED**  
-✅ Production deployment live — **ACHIEVED**  
-✅ 48-hour monitoring initiated — **IN PROGRESS** (Phase 4)
+✅ All deliverables completed per [PLANNING.md](./PLANNING.md)  
+✅ All tests passing (> [X]% coverage)  
+✅ Code review approved  
+✅ Documentation complete  
+✅ Team sign-off obtained  
+✅ [Custom success metric]
 
 ---
 
@@ -392,30 +384,7 @@ This project is successful when:
 
 ---
 
-**Project Status:** ✅ Phase 3 Complete — Production Live  
-**Owner:** DevOps/Release Team  
-**Last Updated:** 2026-08-25  
-**Next Phase:** Phase 4 (Monitoring & Maintenance) — 2026-08-26+
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```
+**Project Status:** 🟡 Active  
+**Owner:** Owner Name  
+**Last Updated:** 2026-08-12  
+**Next Review:** 2026-08-12

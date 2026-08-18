@@ -31,7 +31,7 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | --- | --- |
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications (multi-file implementations) |
-| `schemas/` | JSON schema definitions (root, hidden, portable) |
+| `.schemas/` | JSON schema definitions (root, hidden, portable) |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -57,25 +57,18 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 
 | Component | Old Path | New Path | Type | Status |
 | --- | --- | --- | --- | --- |
-| **Schema files** | `schema/` | `schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
+| **Schema files** | `schema/` | `.schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
 | **Schema visibility** | `schemas/` | (visible root copy maintained) | Reference | Current (npm package reference) |
-| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B-2C) | Move to .github, then portable | ✅ Complete (Phase 2B-2C, 2026-08-19) |
+| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then portable | ✅ Complete (Phase 2B) |
 | **Website** | `website/` | `.github/website/` | Move to .github | ✅ Complete |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github | ✅ Complete |
-| **PR Templates** | `./PULL_REQUEST_TEMPLATE/` | `./.github/PULL_REQUEST_TEMPLATE/` | Consolidation | ✅ Complete (Phase 1, 2026-08-19) |
-| **Reports** | `./reports/` | `./.github/reports/` | Consolidation | ✅ Complete (Phase 1, 2026-08-19) |
-| **Tmp directory** | `./tmp/` | `./.github/tmp/` | Move to .github | ✅ Complete (Phase 2, 2026-08-19) |
-| **Config directory** | `./config/` | `./.github/config/` | Move to .github | ✅ Complete (Phase 2, 2026-08-19) |
-| **Tests directory** | `./tests/` (duplicate fixture) | `./.github/tests/` (removed duplicate) | Consolidation | ✅ Complete (Phase 2, 2026-08-19) |
-| **Profile** | `./profile/` | `./docs/profile/` | Move to docs | ✅ Complete (Phase 4, 2026-08-19) |
-| **Projects org** | Scattered root files | `./.github/projects/active/` + `./.github/projects/archived/` | Reorganization | ✅ Complete (Phase 3, 2026-08-19) |
 | **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
 | **Agents** | `.github/agents/` (mixed) | `agents/` + `.github/agents/` (split) | Reorganize | Phase 3 (audit complete) |
 
 **Schema consolidation note:** ✅ Phase 2 complete — All schemas consolidated into `schemas/` folder:
 
 - `schemas/` — canonical portable location (26 files: 17 core + memory/ subdirectory + examples/)
-- `schemas/` — hidden folder for backward compatibility (contains full schema set)
+- `.schemas/` — hidden folder for backward compatibility (contains full schema set)
 - `.github/schemas/` — ✅ removed (was control-plane marker folder)
 - `schema/` — ✅ removed (legacy duplicate folder)
 
@@ -94,12 +87,6 @@ All schema references should use `schemas/` as the canonical location.
 - From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
-
-**Cumulative Restructuring Complete (2026-08-19):** Multi-phase control-plane asset reorganization finished. All root-level control-plane assets consolidated under `.github/` across phases 1–4:
-- ✅ Phase 1: Consolidated PULL_REQUEST_TEMPLATE, reports, schemas
-- ✅ Phase 2: Moved tmp directory, config directory; consolidated tests
-- ✅ Phase 3: Organized active projects; split instructions and agents
-- ✅ Phase 4: Clarified profile and memory locations; moved website
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the initial restructuring epic and [issue #1290](https://github.com/lightspeedwp/.github/issues/1290) for the current Phase 1 initiative.
 
@@ -275,7 +262,7 @@ Use [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/c
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `schemas/` | `pr_feature.md` |
+| `.schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |
@@ -370,7 +357,7 @@ Templates located in `.github/ISSUE_TEMPLATE/`:
 - **System Summary:** [docs/AI_FEEDBACK_SYSTEM_SUMMARY.md](./docs/AI_FEEDBACK_SYSTEM_SUMMARY.md) — Complete system overview
 - **Full Guide:** [docs/ai-feedback-response-tracking.md](./docs/ai-feedback-response-tracking.md) — Comprehensive guide with examples
 - **Workflow Details:** [docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md](./docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md) — Technical configuration and automation
-- **Template:** [.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md](./.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md) — Template to copy
+- **Template:** [PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md](./PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md) — Template to copy
 - **Examples:** [examples/FEEDBACK_RESPONSE_example-simple.md](./examples/FEEDBACK_RESPONSE_example-simple.md) and [examples/FEEDBACK_RESPONSE_example-complex.md](./examples/FEEDBACK_RESPONSE_example-complex.md)
 
 **What This Enables:**
@@ -481,11 +468,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | **Spec-based agents** — Simple YAML/JSON definitions (19 agents) | `.github/agents/` | GitHub-native only |
 | Reports, audits, metrics | `.github/reports/{category}/` | Control-plane only |
 | Active project artefacts | `.github/projects/active/{slug}/` | Control-plane only |
-| Archived project artefacts | `.github/projects/archived/{slug}/` | Control-plane only |
 | Temporary scratch files | `.github/tmp/` (clean up before PR) | Control-plane only |
-| Control-plane configuration | `.github/config/` | Control-plane only |
-| Portable test utilities | `tests/` (root) | Portable, reusable |
-| GitHub-specific test fixtures | `.github/tests/fixtures/` | Control-plane only |
 | Portable reusable AI assets | top-level source folders (see table above) | Portable |
 | Permanent human documentation | `docs/` | Control-plane only |
 
@@ -516,7 +499,7 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 **Portable Assets** (reusable across LightSpeedWP projects):
 
 - Located at **root level** (top-level folders)
-- Include: `agents/`, `instructions/`, `schemas/`, `skills/`, `plugins/`, `workflows/`, `hooks/`, `cookbook/`
+- Include: `agents/`, `instructions/`, `.schemas/`, `skills/`, `plugins/`, `workflows/`, `hooks/`, `cookbook/`
 - No `.github/` assumptions in code or documentation
 - Suitable for import/fork into other repositories
 
@@ -529,7 +512,7 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 
 **Active projects note:** All active project artefacts MUST be in `.github/projects/active/{slug}/`. Do NOT create project folders in root `projects/` directory (e.g., ~~`projects/active/`~~). The root `projects/` folder is not permitted; all project documentation belongs under `.github/`. This ensures consistent governance and access control.
 
-**Schema folder note:** JSON schemas are stored in `schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. The older `schema/` and `schemas/` folders are maintained for backward compatibility during consolidation; see [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details.
+**Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. The older `schema/` and `schemas/` folders are maintained for backward compatibility during consolidation; see [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details.
 
 **Instruction files note:** Portable instruction files live in root `instructions/` folder. Repo-local control-plane instructions remain in `.github/instructions/`. See Phase 1A audit report in [.github/projects/active/repo-restructuring-2026-07-25/](./.github/projects/active/repo-restructuring-2026-07-25/) for complete migration mapping.
 
@@ -559,7 +542,7 @@ When a project is complete:
 2. **Move to archive:**
 
    ```bash
-   git mv .github/projects/active/{slug} .github/projects/archived/{slug}
+   git mv .github/projects/active/{slug} .github/projects/archive/{slug}
    ```
 
 3. **Update related GitHub issues** with archive reference:

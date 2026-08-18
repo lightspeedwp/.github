@@ -1,5 +1,5 @@
 ---
-file_type: documentation
+file_type: audit-report
 title: Instruction Files Comprehensive Audit Report
 description: Complete inventory and analysis of all .instructions.md files across portable and control-plane locations
 version: v1.0
@@ -11,9 +11,9 @@ tags:
   - instructions
   - phase-1-restructuring
   - governance
-status: active
+status: complete
 stability: stable
-domain: governance
+domain: documentation
 ---
 
 # Instruction Files Comprehensive Audit Report

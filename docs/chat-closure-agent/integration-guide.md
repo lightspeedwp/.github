@@ -18,13 +18,11 @@ The Chat Closure Agent automatically adapts to three repository types:
 ### 1. Control-Plane Repository (.github)
 
 **Characteristics:**
-
 - `.github/` directory present
 - Contains labels, workflows, etc.
 - Organization-wide governance
 
 **Auto-Detection:**
-
 ```javascript
 const analysis = coreAnalysis.analyzeRepository('.');
 console.log(analysis.repoType); // "control-plane"
@@ -33,7 +31,6 @@ console.log(analysis.repoType); // "control-plane"
 **Memory Location:** `.remember/` at root
 
 **Example Closure:**
-
 ```javascript
 const memory = memoryUpdater.updateMemoryForSessionClosure('.', analysis, {
   sessionId: 'workflow-improvements',
@@ -51,13 +48,11 @@ const memory = memoryUpdater.updateMemoryForSessionClosure('.', analysis, {
 ### 2. WordPress Plugin Repository
 
 **Characteristics:**
-
 - `plugin.php` file at root
 - `composer.json` for dependencies
 - Plugin-specific structure
 
 **Auto-Detection:**
-
 ```javascript
 const analysis = coreAnalysis.analyzeRepository('.');
 console.log(analysis.repoType); // "wordpress-plugin"
@@ -66,7 +61,6 @@ console.log(analysis.repoType); // "wordpress-plugin"
 **Memory Location:** `.remember/` at plugin root
 
 **Example Closure:**
-
 ```javascript
 const memory = memoryUpdater.updateMemoryForSessionClosure('.', analysis, {
   sessionId: 'block-development',
@@ -84,13 +78,11 @@ const memory = memoryUpdater.updateMemoryForSessionClosure('.', analysis, {
 ### 3. WordPress Theme Repository
 
 **Characteristics:**
-
 - `theme.json` file present
 - `style.css` with theme headers
 - Template-based structure
 
 **Auto-Detection:**
-
 ```javascript
 const analysis = coreAnalysis.analyzeRepository('.');
 console.log(analysis.repoType); // "wordpress-theme"
@@ -99,7 +91,6 @@ console.log(analysis.repoType); // "wordpress-theme"
 **Memory Location:** `.remember/` at theme root
 
 **Example Closure:**
-
 ```javascript
 const memory = memoryUpdater.updateMemoryForSessionClosure('.', analysis, {
   sessionId: 'theme-customization',
@@ -176,7 +167,6 @@ module.exports = { closeSession };
 ```
 
 **Usage:**
-
 ```bash
 npm run close-session
 npm run close-session:feature
@@ -187,7 +177,6 @@ npm run close-session:feature
 **For organizations with many projects:**
 
 1. **Publish to npm registry:**
-
    ```bash
    cd agents/chat-closure-agent
    npm version 1.0.0
@@ -195,13 +184,11 @@ npm run close-session:feature
    ```
 
 2. **Install in each project:**
-
    ```bash
    npm install @lightspeedwp/chat-closure-agent
    ```
 
 3. **Use in scripts:**
-
    ```javascript
    const { coreAnalysis, memoryUpdater } = require('@lightspeedwp/chat-closure-agent');
    
@@ -422,7 +409,6 @@ echo "✅ Session closure prepared for .remember/"
 ## Best Practices for Multi-Project Teams
 
 1. **Consistent naming:** Use `{project}-{type}-{date}.md` format
-
    ```
    control-plane-governance-2026-08-13.md
    plugin-blocks-feature-2026-08-13.md
@@ -430,7 +416,6 @@ echo "✅ Session closure prepared for .remember/"
    ```
 
 2. **Cross-reference decisions:** Link decisions between projects
-
    ```markdown
    ## Decisions
    
@@ -442,7 +427,6 @@ echo "✅ Session closure prepared for .remember/"
    ```
 
 3. **Shared blockers:** Maintain a central blockers list
-
    ```bash
    .remember/blockers/
    ├── design-approval.md
@@ -451,7 +435,6 @@ echo "✅ Session closure prepared for .remember/"
    ```
 
 4. **Team communication:** Share relevant memory entries with team
-
    ```bash
    # Share decision documentation
    cat .remember/projects/MULTI_PROJECT_INDEX.md | \
@@ -545,7 +528,6 @@ memoryUpdater.updateMemoryForSessionClosure('.', pluginAnalysis, {
 **Ready to integrate across your projects?** Start with the Quick Start guide, then scale to multi-project workflows!
 
 For more details, see:
-
 - [Quick Start](./quick-start.md) — Get started in 5 minutes
 - [CLI Reference](./cli-reference.md) — Command-line options
 - [Full Usage Guide](../agents/chat-closure-agent/docs/USAGE_GUIDE.md) — Complete API

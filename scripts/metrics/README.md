@@ -9,8 +9,8 @@ version: '1.0'
 
 A universal metrics collection and analysis agent supporting GitHub control plane and WordPress repositories. Collects, aggregates, analyzes, and reports on repository health metrics.
 
-**Status:** Phase 1 Implementation (Aug 12-26)
-**Coverage:** 75+ tests, >80% code coverage
+**Status:** Phase 1 Implementation (Aug 12-26)  
+**Coverage:** 75+ tests, >80% code coverage  
 **Maturity:** Beta (ready for integration testing)
 
 ---
@@ -256,19 +256,19 @@ const result = await MetricsReporter.handoffToReporting(report, config);
 ### Run All Tests
 
 ```bash
-npm test -- scripts/metrics/__tests__/metrics-agent.test.js
+npm test -- scripts/metrics/test/metrics-agent.test.js
 ```
 
 ### Run with Coverage
 
 ```bash
-npm test -- --coverage scripts/metrics/__tests__/metrics-agent.test.js
+npm test -- --coverage scripts/metrics/test/metrics-agent.test.js
 ```
 
 ### Watch Mode
 
 ```bash
-npm test -- --watch scripts/metrics/__tests__/metrics-agent.test.js
+npm test -- --watch scripts/metrics/test/metrics-agent.test.js
 ```
 
 ### Test Coverage
@@ -482,7 +482,7 @@ See [CLAUDE.md](../../CLAUDE.md) for contribution guidelines and coding standard
 1. Update metrics-agent.js
 2. Add corresponding tests in metrics-agent.test.js
 3. Update PROGRESS.md
-4. Run tests: `npm test -- scripts/metrics/__tests__/metrics-agent.test.js`
+4. Run tests: `npm test -- scripts/metrics/test/metrics-agent.test.js`
 5. Ensure >80% coverage
 
 ---
@@ -494,21 +494,3 @@ This agent is part of the LightSpeedWP `.github` control plane. See LICENSE for 
 ---
 
 Last updated: 2026-08-12
-
-## Repository Flow
-
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```

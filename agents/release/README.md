@@ -3,7 +3,7 @@ file_type: readme
 title: Release Agent
 description: Portable agent for multi-repository version management and release automation
 version: "1.0.0"
-last_updated: "2026-08-20"
+last_updated: "2026-08-09"
 owners:
   - Ash Shaw
 tags:

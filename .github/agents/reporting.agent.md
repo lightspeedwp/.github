@@ -265,7 +265,7 @@ All progress files go in `.github/reports/progress/` with kebab-case filenames (
 
 ❌ **NEVER** store reports in:
 
-- Root ./.github/reports/` folder
+- Root `/reports/` folder
 - `docs/` folder
 - Repository root
 - `tmp/` folder (except for processing)
@@ -362,7 +362,7 @@ using the weekly template:
 ## Related Resources
 
 - [Reporting Instructions](../instructions/reporting.instructions.md)
-- [Reports Directory](../.github/reports/README.md)
+- [Reports Directory](../reports/README.md)
 - [Reporting Agent](../agents/reporting.agent.md)
 - [Reporting Prompt](../prompts/reporting.prompt.md)
 - [File Management Guidelines](../instructions/file-management-guidelines.instructions.md)

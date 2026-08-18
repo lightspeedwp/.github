@@ -12,12 +12,11 @@ status: in-progress
 
 **Project Goal:** Build a portable, intelligent agent for maintaining project documentation and state across the `.github/projects/active` directory.
 
-**Scope:** 4 phases across 5 weeks
+**Scope:** 3 phases across 4 weeks
 
-- **Phase 1 (1 week):** ✅ COMPLETE (2026-08-12) — Fix automation scripts, add security patches
-- **Phase 3 (1 week):** ✅ COMPLETE (2026-08-18) — GitHub Actions workflows, team integration
-- **Phase 2 (2 weeks):** 🔄 READY TO START — Design & implement portable agent with 3 provider versions
-- **Phase 4 (1 week):** 📋 PLANNED — Team training, documentation, runbooks
+- **Phase 1 (1 week):** ✅ COMPLETE — Fix automation scripts, add security patches
+- **Phase 2 (2 weeks):** 🔄 NEXT — Design & implement portable agent with 3 provider versions
+- **Phase 3 (1 week):** 📋 PLANNED — GitHub Actions workflows, team integration
 
 **Success Metric:** Agent can autonomously maintain project documentation for 50+ active projects with >95% accuracy.
 
@@ -444,58 +443,73 @@ module.exports = {
 
 ---
 
-## Phase 3: GitHub Actions & Team Integration ✅ COMPLETE
+## Phase 3: GitHub Actions & Team Integration
 
-**Duration:** 1 week (2026-08-12 → 2026-08-18)  
-**PR:** [#2005](https://github.com/lightspeedwp/.github/pull/2005)  
-**Status:** Merged to `develop` (2026-08-18)
+**Duration:** 1 week (2026-08-27 → 2026-09-02)  
+**Status:** Planned (starts after Phase 2)
 
-### 3.1: GitHub Actions Workflows ✅ IMPLEMENTED
+### 3.1: GitHub Actions Workflows
 
-**Workflow 1: project-maintenance-nightly.yml** ✅
+**Workflow 1: project-maintenance-nightly.yml**
 
 ```yaml
 name: Project Maintenance — Nightly Audit
+
 on:
   schedule:
     - cron: '0 2 * * *'  # 2 AM UTC daily
   workflow_dispatch:
-status: ACTIVE (merged in PR #2005)
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check project documentation
+        run: |
+          # Call Maintenance Agent with dry-run
+          ./scripts/automation/project-docs-update.sh \
+            DRY_RUN=true VERBOSE=true
+      - name: Post report to Slack
+        if: always()
+        # Report gaps to team
 ```
 
-**Features:**
-- Daily audit at 2 AM UTC (timezone: UTC)
-- Dry-run mode: no files created, visibility only
-- Slack notification of gaps found
-- Verbose output for debugging
-- Can be manually triggered via workflow_dispatch
-
----
-
-**Workflow 2: project-maintenance-on-demand.yml** ✅
+**Workflow 2: project-maintenance-on-demand.yml**
 
 ```yaml
 name: Project Maintenance — On-Demand
+
 on:
   workflow_dispatch:
     inputs:
-      operation: [audit, create-docs, validate, archive]
-      projects: (comma-separated project slugs)
-      dry_run: (true/false, default true)
-status: ACTIVE (merged in PR #2005)
+      operation:
+        description: 'Operation to perform'
+        required: true
+        type: choice
+        options:
+          - audit
+          - create-docs
+          - validate
+          - archive-project
+      projects:
+        description: 'Project slugs (comma-separated)'
+        required: true
+      dry_run:
+        description: 'Preview only'
+        type: boolean
+        default: true
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute operation
+        run: |
+          # Call Maintenance Agent with user inputs
+          echo "Executing ${{ inputs.operation }}"
 ```
-
-**Supported Operations:**
-- `audit` — Check documentation completeness across projects
-- `create-docs` — Generate missing PLANNING.md, OPENSPEC.md, README.md
-- `validate` — Validate project structure and metadata
-- `archive` — Move completed projects to archive folder
-
-**Safety Features:**
-- Dry-run mode by default (preview only)
-- Clear output of what will be changed
-- Error reporting with next steps
-- Can be executed manually from GitHub Actions tab
 
 ### 3.2: Team Integration Points
 
@@ -543,57 +557,14 @@ status: ACTIVE (merged in PR #2005)
 
 ---
 
-## Phase 4: Team Integration & Runbooks (PLANNED)
-
-**Duration:** 1 week (after Phase 2)  
-**Status:** Planning ready  
-**Effort:** ~15 hours
-
-### 4.1: Team Training Documentation
-
-**Deliverables:**
-- [ ] Team training guide (30-min walkthrough)
-- [ ] FAQ with common scenarios
-- [ ] Troubleshooting guide
-- [ ] Example workflows (5+ real-world scenarios)
-
-**Topics:**
-1. What the Project Maintenance Agent does
-2. Running nightly audits (demo)
-3. Manual on-demand operations (demo)
-4. Reading audit reports
-5. Creating documentation from recommendations
-6. Archiving completed projects
-7. Integration with other workflows
-
-### 4.2: Runbooks & Incident Response
-
-**Runbooks:**
-- [ ] "Project missing documentation" — how to fix
-- [ ] "Audit found 10+ gaps" — escalation procedure
-- [ ] "Workflow failed" — recovery steps
-- [ ] "Custom templates needed" — approval process
-
-### 4.3: Operations Handbook
-
-**Chapters:**
-- [ ] Monitoring & alerting
-- [ ] Performance optimization
-- [ ] Scaling to more projects
-- [ ] Integration with CI/CD
-- [ ] Troubleshooting guide
-
----
-
 ## Risk Analysis
 
 | Risk | Probability | Impact | Mitigation |
 |------|-------------|--------|-----------|
 | Scope creep (too many features) | Medium | High | Keep to 3 operations, defer advanced features |
-| Provider inconsistency (Phase 2) | Low | Medium | Shared test suite, validate all three pass |
+| Provider inconsistency | Low | Medium | Shared test suite, validate all three pass |
 | Performance issues on large projects | Low | Medium | Batch processing, monitor execution time |
 | Documentation maintenance burden | Medium | Medium | Use agent to keep docs up-to-date automatically |
-| Team adoption (Phase 4) | Medium | Medium | Early training, clear documentation, support |
 
 ---
 
@@ -630,44 +601,23 @@ status: ACTIVE (merged in PR #2005)
 ## Timeline Summary
 
 ```
-Week 1 (Aug 12-18):    Phase 1 Scripts ✅ COMPLETE
-Week 1 (Aug 12-18):    Phase 3 Workflows ✅ COMPLETE
-Week 2-3 (Aug 19-Sep2): Phase 2 Agent Spec & Development (READY TO START)
-Week 4 (Sep 3-9):      Phase 4 Team Integration & Training
+Week 1 (Aug 12-18):  Phase 1 Scripts ✅ COMPLETE
+Week 2 (Aug 19-25):  Phase 2.1-2.3 Agent Spec & Providers
+Week 3 (Aug 26-Sep2): Phase 2.4-2.5 Config & Testing
+Week 4 (Sep 3-9):    Phase 3 Workflows & Integration
 ```
 
-**Expected Go-Live:** Week of September 9, 2026 (after Phase 2 + Phase 4)
+**Go-Live:** Week of September 9, 2026
 
 ---
 
 ## Related Documents
 
 - [README.md](./README.md) — Project overview
-- [PHASE_3_IMPLEMENTATION.md](./PHASE_3_IMPLEMENTATION.md) — Phase 3 technical summary
-- [OPENSPEC.md](./OPENSPEC.md) — Technical specification (if exists)
-- [SLACK_WEBHOOK_SETUP.md](./SLACK_WEBHOOK_SETUP.md) — Webhook configuration guide
-- Phase 1 PR: [#1867](https://github.com/lightspeedwp/.github/pull/1867) ✅ MERGED
-- Phase 3 PR: [#2005](https://github.com/lightspeedwp/.github/pull/2005) ✅ MERGED
+- [OPENSPEC.md](./OPENSPEC.md) — Technical specification
+- Phase 1 PR: [#1867](https://github.com/lightspeedwp/.github/pull/1867)
 - Epic Issue: [#1862](https://github.com/lightspeedwp/.github/issues/1862)
 
 ---
 
-## Phase 2 Quick Start Checklist
-
-When ready to begin Phase 2 (Portable Agent Development):
-
-- [ ] Review Phase 1 & 3 PRs to understand script integration
-- [ ] Read PHASE_3_IMPLEMENTATION.md for workflow architecture
-- [ ] Create new issue for Phase 2 tracking (link to epic #1862)
-- [ ] Plan with team: which provider to start with (Claude recommended)?
-- [ ] Create branch: `feat/project-maintenance-agent-phase-2`
-- [ ] Start with AGENT.md specification
-- [ ] Follow Section 2.1-2.5 of this document for implementation order
-
-**Estimated Start:** Next scheduled session  
-**Estimated Duration:** 2 weeks (50 hours)
-
----
-
-*Last updated: 2026-08-18 by ash (Phase 3 completion)*
-
+*Last updated: 2026-08-12 by ash*

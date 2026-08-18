@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global console, process */
 /* eslint-disable no-console */
 /**
  * sync-issue-fields.cjs

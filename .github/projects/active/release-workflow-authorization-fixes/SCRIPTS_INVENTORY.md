@@ -11,9 +11,9 @@ test_files_excluded: 53
 
 # Phase 2A: Complete Scripts Inventory & Classification
 
-**Audit Completed:** 2026-08-04
-**Classification Methodology:** Based on portability, GitHub-specificity, reusability
-**Owner:** Ash Shaw (DevOps)
+**Audit Completed:** 2026-08-04  
+**Classification Methodology:** Based on portability, GitHub-specificity, reusability  
+**Owner:** Ash Shaw (DevOps)  
 **Phase 2A Status:** ✅ COMPLETE
 
 ---
@@ -114,7 +114,7 @@ test_files_excluded: 53
 
  1. `.github/scripts/workflows/changelog/extract-pr-entries.cjs` — Extract PR changelog entries ⭐
  2. `.github/scripts/workflows/changelog/merge-entries.cjs` — Merge changelog entries ⭐
- 3. `scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs` — Integration test
+ 3. `.github/scripts/workflows/changelog/merge-entries.integration.test.cjs` — Integration test
 
 **Subtotal:** 3 changelog utilities
 
@@ -322,17 +322,17 @@ Agents and their supporting utilities that are specific to this `.github` reposi
 ### Core Utilities (7)
 
 - `.github/scripts/collect-validation-results.js` — GitHub Actions step aggregation
-- `scripts/audit/branding-patterns.js`
-- `scripts/audit/frontmatter.js`
-- `scripts/versioning/bump-file-version.cjs`
+- `.github/scripts/audit-branding-patterns.js`
+- `.github/scripts/audit-frontmatter.js`
+- `.github/scripts/bump-file-version.cjs`
 - `.github/scripts/canonical-to-json.js`
 - `.github/scripts/cleanup-branches.js`
 - `.github/scripts/collect-link-targets.js`
 
 ### Design & Configuration (10+)
 
-- `agents/design-partner-agent/agent/scripts/design-md-agent/ciDesignMdCheck.js`
-- `agents/design-partner-agent/agent/scripts/design-md-agent/validateDesignMd.js`
+- `.github/scripts/design-md-agent/ciDesignMdCheck.js`
+- `.github/scripts/design-md-agent/validateDesignMd.js`
 - `.github/scripts/skill-utils/packageSkillZip.js`
 - `.github/scripts/skill-utils/validateSkillStructure.js`
 - `.github/scripts/npm-package-json-lint-helpers.js`
@@ -378,8 +378,8 @@ Agents and their supporting utilities that are specific to this `.github` reposi
 
 ### Revised Scope
 
-**Original Estimate:** 5 PORTABLE scripts
-**Actual Scope:** 58 PORTABLE scripts
+**Original Estimate:** 5 PORTABLE scripts  
+**Actual Scope:** 58 PORTABLE scripts  
 **Effort Increase:** 11x
 
 ### Phase 2B Task Breakdown
@@ -544,7 +544,7 @@ The 58 genuinely reusable scripts represent significant business value for other
 
 ---
 
-**Created by:** Ash Shaw (DevOps)
-**Date:** 2026-08-04 12:15 CEST
-**Status:** Phase 2A COMPLETE
+**Created by:** Ash Shaw (DevOps)  
+**Date:** 2026-08-04 12:15 CEST  
+**Status:** Phase 2A COMPLETE  
 **Next Phase:** Phase 2B — Script Migration & Path Updates

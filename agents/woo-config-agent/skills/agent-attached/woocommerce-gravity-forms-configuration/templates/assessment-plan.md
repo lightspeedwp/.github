@@ -16,7 +16,7 @@
 
 ## Assumptions
 
--
+- 
 
 ## Recommended approach
 

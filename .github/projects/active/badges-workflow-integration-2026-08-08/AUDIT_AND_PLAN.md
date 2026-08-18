@@ -12,10 +12,10 @@ tags: ["badges", "workflow-integration", "documentation", "automation"]
 
 # Badges Workflow Integration — Comprehensive Audit & Plan
 
-**Project:** Badges Workflow Integration
-**Owner:** Ash Shaw
-**Status:** Planning Phase (Audit Complete)
-**Created:** 2026-08-08
+**Project:** Badges Workflow Integration  
+**Owner:** Ash Shaw  
+**Status:** Planning Phase (Audit Complete)  
+**Created:** 2026-08-08  
 **Target Completion:** 2026-08-22 (15 days)
 
 ---
@@ -221,7 +221,7 @@ From CHANGELOG.md:
 #### Audit Pattern
 
 From CHANGELOG.md:
-> `scripts/audit/branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+> `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
 
 **Finding:** 1.5% badge coverage (88 files with badges out of ~5,800 total)
 
@@ -587,7 +587,7 @@ Document:
 
 ### Risk 1: Broken Badge URLs
 
-**Probability:** Medium
+**Probability:** Medium  
 **Impact:** High (404s on documentation)
 
 **Mitigation:**
@@ -599,7 +599,7 @@ Document:
 
 ### Risk 2: Schema Out of Sync with Workflows
 
-**Probability:** Medium
+**Probability:** Medium  
 **Impact:** Medium (new workflows don't get badged)
 
 **Mitigation:**
@@ -611,7 +611,7 @@ Document:
 
 ### Risk 3: Performance Impact on Workflows
 
-**Probability:** Low
+**Probability:** Low  
 **Impact:** Medium (workflow delays)
 
 **Mitigation:**
@@ -623,7 +623,7 @@ Document:
 
 ### Risk 4: Inconsistent Badge Formatting
 
-**Probability:** Medium
+**Probability:** Medium  
 **Impact:** Low (aesthetic only)
 
 **Mitigation:**
@@ -635,7 +635,7 @@ Document:
 
 ### Risk 5: Git Conflicts from Auto-Updates
 
-**Probability:** Medium
+**Probability:** Medium  
 **Impact:** Medium (developer friction)
 
 **Mitigation:**

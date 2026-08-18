@@ -33,6 +33,13 @@ pull_request_rules:
         type: APPROVE
       queue:
         name: dependabot-develop
+        merge_conditions:
+          - author~=^(dependabot\[bot\]|app/dependabot)$
+          - base=develop
+          - label=area:dependencies
+          - check-success=All Checks Passed
+          - -draft
+          - -conflict
 
   # Keep imgbot image optimizations up-to-date by rebasing if develop has moved ahead
   - name: Keep imgbot image optimizations current on develop

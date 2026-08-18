@@ -1,13 +1,3 @@
----
-file_type: documentation
-title: "Tour Operator Config Agent"
-description: "README for agents/tour-operator-config-agent/README.md."
-status: active
-stability: stable
-domain: governance
-last_updated: "2026-08-19"
----
-
 # Tour Operator Config Agent
 
 Multi-provider configuration agent for WordPress and WooCommerce tour operator sites. Guides architecture, booking setup, payment integration, and operational optimisation.
@@ -50,21 +40,3 @@ The Tour Operator Config Agent helps establish and optimise tour operator websit
 ---
 
 *Multi-provider tour operator configuration specialist for WordPress and WooCommerce*
-
-## Repository Flow
-
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```

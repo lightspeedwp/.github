@@ -11,11 +11,11 @@
 
 ## Confirmed facts
 
--
+- 
 
 ## Assumptions
 
--
+- 
 
 ## First-pass classification
 
@@ -52,7 +52,7 @@ Choose one primary path:
 
 ## Resolution or current best hypothesis
 
--
+- 
 
 ## Handoff notes
 

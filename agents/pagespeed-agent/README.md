@@ -1,13 +1,3 @@
----
-file_type: documentation
-title: "PageSpeed Agent — Performance Optimization Specialist"
-description: "README for agents/pagespeed-agent/README.md."
-status: active
-stability: stable
-domain: governance
-last_updated: "2026-08-19"
----
-
 # PageSpeed Agent — Performance Optimization Specialist
 
 The PageSpeed Agent is an intelligent performance optimization assistant that analyzes website performance, identifies bottlenecks, and provides data-driven recommendations for improving Core Web Vitals, load times, and user experience.
@@ -17,14 +7,12 @@ The PageSpeed Agent is an intelligent performance optimization assistant that an
 ### Analyze Website Performance
 
 **Claude:**
-
 ```
 You: Analyze the performance of example.com
 Agent: Provides detailed performance analysis with Core Web Vitals, bottlenecks, and recommendations
 ```
 
 **OpenAI API:**
-
 ```python
 import openai
 
@@ -37,7 +25,6 @@ response = openai.ChatCompletion.create(
 ```
 
 **GitHub Copilot:**
-
 ```
 @pagespeed-analyze
 Analyze performance for example.com
@@ -54,7 +41,6 @@ Configure continuous performance monitoring with alerts for regressions and auto
 ## Features
 
 ### Performance Analysis
-
 - **Core Web Vitals Assessment** – LCP, INP, CLS measurement and analysis
 - **Load Time Auditing** – TTFB, FCP, Speed Index tracking
 - **Bottleneck Detection** – Identify performance bottlenecks by type
@@ -62,7 +48,6 @@ Configure continuous performance monitoring with alerts for regressions and auto
 - **Device-Specific Analysis** – Mobile vs. desktop performance differences
 
 ### Optimization Recommendations
-
 - **Prioritized Actions** – Organized by impact/effort ratio
 - **Implementation Guides** – Step-by-step optimization instructions
 - **Impact Estimates** – Expected performance improvements
@@ -70,14 +55,12 @@ Configure continuous performance monitoring with alerts for regressions and auto
 - **Risk Mitigation** – Potential side effects and mitigation strategies
 
 ### Caching & Delivery Optimization
-
 - **Caching Strategy Development** – Browser, server, CDN caching plans
 - **CDN Configuration** – Optimization recommendations for edge delivery
 - **Service Worker Implementation** – Offline support and prefetching
 - **Cache Invalidation** – Smart cache busting strategies
 
 ### Performance Monitoring
-
 - **Continuous Monitoring** – Real-time performance tracking
 - **Alert Configuration** – Automatic alerts for regressions
 - **Dashboard Setup** – Visibility into performance metrics
@@ -86,33 +69,25 @@ Configure continuous performance monitoring with alerts for regressions and auto
 ## Usage Scenarios
 
 ### Scenario 1: Performance Audit
-
 Client wants to understand current performance and improvement opportunities.
-
 ```
 Agent analyzes → Identifies bottlenecks → Provides recommendations → Creates roadmap
 ```
 
 ### Scenario 2: Optimization Implementation
-
 Team wants to improve Core Web Vitals for SEO and user experience.
-
 ```
 Agent prioritizes → Provides step-by-step guides → Monitors progress → Validates improvements
 ```
 
 ### Scenario 3: Caching Strategy
-
 Organization needs better caching strategy for global users.
-
 ```
 Agent analyzes delivery → Recommends CDN strategy → Plans cache configuration → Monitors effectiveness
 ```
 
 ### Scenario 4: Third-Party Optimization
-
 Website has too many third-party scripts impacting performance.
-
 ```
 Agent audits scripts → Identifies impact → Recommends alternatives → Tracks improvements
 ```
@@ -120,21 +95,18 @@ Agent audits scripts → Identifies impact → Recommends alternatives → Track
 ## Integration with LightSpeed Tools
 
 ### Linear (Project Management)
-
 - Create optimization tasks from recommendations
 - Link performance issues to project milestones
 - Track implementation progress
 - Validate improvements against targets
 
 ### Harvest (Time Tracking)
-
 - Estimate effort for optimization tasks
 - Track actual time spent on improvements
 - Correlate performance gains with resource investment
 - Measure ROI of optimization efforts
 
 ### GitHub
-
 - File performance issues as GitHub issues
 - Automate performance checks in CI/CD
 - Track progress in GitHub Projects
@@ -151,7 +123,6 @@ Agent audits scripts → Identifies impact → Recommends alternatives → Track
 ## Optimization Priority Framework
 
 ### 1. Quick Wins (1-2 weeks)
-
 - Image optimization and compression
 - Minify CSS and JavaScript
 - Enable GZIP compression
@@ -159,7 +130,6 @@ Agent audits scripts → Identifies impact → Recommends alternatives → Track
 - **Expected Impact:** 30-50% improvement
 
 ### 2. Medium Priority (2-8 weeks)
-
 - Code splitting and lazy loading
 - Caching strategy implementation
 - Font optimization
@@ -167,7 +137,6 @@ Agent audits scripts → Identifies impact → Recommends alternatives → Track
 - **Expected Impact:** 50-70% improvement
 
 ### 3. Long-Term (8+ weeks)
-
 - Architecture refactoring
 - Full JavaScript rewrite
 - Service Worker implementation
@@ -185,27 +154,21 @@ Agent audits scripts → Identifies impact → Recommends alternatives → Track
 ## Provider Implementations
 
 ### Claude Implementation
-
 Best for: Strategic analysis, comprehensive recommendations, detailed guidance
-
 - Deep reasoning about performance trade-offs
 - Detailed optimization strategies
 - Long-form implementation guides
 - Complex bottleneck analysis
 
 ### OpenAI Implementation
-
 Best for: API integration, batch processing, automation
-
 - Function calling for structured analysis
 - Batch API for bulk site analysis
 - Cost-effective for high volume
 - Webhook integration
 
 ### GitHub Copilot Implementation
-
 Best for: Developer workflow, integrated optimization
-
 - Performance checks in IDE
 - Pull request performance impact analysis
 - GitHub Actions automation
@@ -222,7 +185,6 @@ Best for: Developer workflow, integrated optimization
 ## Support & Documentation
 
 For detailed information on:
-
 - **Performance metrics** – See AGENT.md
 - **Implementation guides** – See claude/agent.md
 - **API integration** – See openai/agent.md
@@ -232,21 +194,3 @@ For detailed information on:
 ---
 
 **Built by LightSpeedWP with open-source spirit!**
-
-## Repository Flow
-
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```

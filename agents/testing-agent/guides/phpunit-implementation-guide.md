@@ -103,7 +103,6 @@ project/
 ### Test Bootstrap File
 
 **tests/bootstrap.php**
-
 ```php
 <?php
 // Load Composer autoloader
@@ -302,7 +301,6 @@ class EmailValidationTest extends TestCase
 ### Fixture Files
 
 **tests/fixtures/users.json**
-
 ```json
 {
   "users": [
@@ -323,7 +321,6 @@ class EmailValidationTest extends TestCase
 ```
 
 **Loading Fixtures**
-
 ```php
 <?php
 
@@ -663,7 +660,6 @@ class PerformanceTest extends TestCase
 ### GitHub Actions Configuration
 
 **.github/workflows/phpunit.yml**
-
 ```yaml
 name: PHPUnit Tests
 

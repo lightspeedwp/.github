@@ -13,7 +13,7 @@ const fs = require("fs");
 const path = require("path");
 
 const REQUIRED_PORTABLE_FOLDERS = [
-  "schemas",
+  "schema",
   "agents",
   "cookbook",
   "hooks",

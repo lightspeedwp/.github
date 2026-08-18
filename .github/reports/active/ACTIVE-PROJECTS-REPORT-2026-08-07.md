@@ -140,14 +140,14 @@ This audit systematically reviewed all 26 active projects to:
 
 **Issues Found:** 3 incorrect path references
 
-- `../../.github/reports/analysis/test-coverage-expansion-plan.md` (missing `.github/` prefix)
+- `../../reports/analysis/test-coverage-expansion-plan.md` (missing `.github/` prefix)
 - `launch-agents-checklist.md` (file doesn't exist in project)
 - `../../../docs/TESTING.md` (relative path issue)
 
 **Resolution:** Fixed paths and substituted with existing files where needed
 
 ```diff
-- [Test Coverage Expansion Plan](../../.github/reports/analysis/test-coverage-expansion-plan.md)
+- [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
 + [Test Coverage Expansion Plan](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/analysis/test-coverage-expansion-plan.md)
 
 - [Release Readiness Tasks](launch-agents-checklist.md)

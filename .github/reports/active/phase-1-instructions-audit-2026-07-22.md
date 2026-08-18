@@ -297,7 +297,10 @@ scope: phase-1-agent-standardization
 ## Next Steps (Task 2)
 
 Proceed to **Hooks Folder Audit** to review existing hooks and propose 4 new hooks for agent validation.
+---
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

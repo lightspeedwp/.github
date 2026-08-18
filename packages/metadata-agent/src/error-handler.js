@@ -8,15 +8,15 @@
  * @module error-handler
  */
 
-import pino from "pino";
+import pino from 'pino';
 
 /**
  * Logger instance for error handling operations
  * @type {pino.Logger}
  */
 const logger = pino({
-  name: "metadata-agent:error-handler",
-  level: process.env.LOG_LEVEL || "info",
+  name: 'metadata-agent:error-handler',
+  level: process.env.LOG_LEVEL || 'info'
 });
 
 /**
@@ -24,14 +24,14 @@ const logger = pino({
  * @type {Object}
  */
 const ERROR_TYPES = {
-  AUTHENTICATION: "authentication",
-  AUTHORIZATION: "authorization",
-  RATE_LIMIT: "rate_limit",
-  NOT_FOUND: "not_found",
-  VALIDATION: "validation",
-  CONFLICT: "conflict",
-  NETWORK: "network",
-  UNKNOWN: "unknown",
+  AUTHENTICATION: 'authentication',
+  AUTHORIZATION: 'authorization',
+  RATE_LIMIT: 'rate_limit',
+  NOT_FOUND: 'not_found',
+  VALIDATION: 'validation',
+  CONFLICT: 'conflict',
+  NETWORK: 'network',
+  UNKNOWN: 'unknown'
 };
 
 /**
@@ -59,17 +59,17 @@ export function catchError(error) {
   if (!error) {
     return {
       type: ERROR_TYPES.UNKNOWN,
-      message: "Unknown error occurred",
-      recovery: "Check logs for details",
+      message: 'Unknown error occurred',
+      recovery: 'Check logs for details',
       retriable: false,
-      code: null,
+      code: null
     };
   }
 
   // Determine error type
   let errorType = ERROR_TYPES.UNKNOWN;
   let retriable = false;
-  let recovery = "Try again";
+  let recovery = 'Try again';
 
   // Check error status code first (for HTTP errors)
   if (error.status || error.statusCode) {
@@ -77,29 +77,29 @@ export function catchError(error) {
 
     if (status === 401) {
       errorType = ERROR_TYPES.AUTHENTICATION;
-      recovery = "Check GITHUB_TOKEN environment variable";
+      recovery = 'Check GITHUB_TOKEN environment variable';
     } else if (status === 403) {
       // Could be auth or rate limit
-      if (error.message && error.message.includes("API rate limit")) {
+      if (error.message && error.message.includes('API rate limit')) {
         errorType = ERROR_TYPES.RATE_LIMIT;
-        recovery = "Wait a few minutes before retrying";
+        recovery = 'Wait a few minutes before retrying';
         retriable = true;
       } else {
         errorType = ERROR_TYPES.AUTHORIZATION;
-        recovery = "Check token has necessary scopes (repo, read:org)";
+        recovery = 'Check token has necessary scopes (repo, read:org)';
       }
     } else if (status === 404) {
       errorType = ERROR_TYPES.NOT_FOUND;
-      recovery = "Verify repository and issue numbers are correct";
+      recovery = 'Verify repository and issue numbers are correct';
     } else if (status === 422) {
       errorType = ERROR_TYPES.VALIDATION;
-      recovery = "Check label names are valid and issue exists";
+      recovery = 'Check label names are valid and issue exists';
     } else if (status === 409) {
       errorType = ERROR_TYPES.CONFLICT;
-      recovery = "Issue state changed, refresh and try again";
+      recovery = 'Issue state changed, refresh and try again';
       retriable = true;
     } else if (status >= 500) {
-      recovery = "GitHub API is experiencing issues, try again later";
+      recovery = 'GitHub API is experiencing issues, try again later';
       retriable = true;
     }
   }
@@ -107,40 +107,40 @@ export function catchError(error) {
   // Check error message patterns
   const message = error.message || String(error);
 
-  if (message.includes("ETIMEDOUT") || message.includes("ECONNRESET")) {
+  if (message.includes('ETIMEDOUT') || message.includes('ECONNRESET')) {
     errorType = ERROR_TYPES.NETWORK;
-    recovery = "Check internet connection, try again";
+    recovery = 'Check internet connection, try again';
     retriable = true;
-  } else if (message.includes("rate limit")) {
+  } else if (message.includes('rate limit')) {
     errorType = ERROR_TYPES.RATE_LIMIT;
-    recovery = "Wait before retrying";
+    recovery = 'Wait before retrying';
     retriable = true;
-  } else if (message.includes("unauthorized") || message.includes("401")) {
+  } else if (message.includes('unauthorized') || message.includes('401')) {
     errorType = ERROR_TYPES.AUTHENTICATION;
-    recovery = "Check GITHUB_TOKEN environment variable";
-  } else if (message.includes("forbidden") || message.includes("403")) {
+    recovery = 'Check GITHUB_TOKEN environment variable';
+  } else if (message.includes('forbidden') || message.includes('403')) {
     errorType = ERROR_TYPES.AUTHORIZATION;
-    recovery = "Check token scopes (repo, read:org)";
-  } else if (message.includes("not found") || message.includes("404")) {
+    recovery = 'Check token scopes (repo, read:org)';
+  } else if (message.includes('not found') || message.includes('404')) {
     errorType = ERROR_TYPES.NOT_FOUND;
-    recovery = "Verify resource exists";
-  } else if (message.includes("validation") || message.includes("invalid")) {
+    recovery = 'Verify resource exists';
+  } else if (message.includes('validation') || message.includes('invalid')) {
     errorType = ERROR_TYPES.VALIDATION;
-    recovery = "Check input parameters are valid";
+    recovery = 'Check input parameters are valid';
   }
 
   logger.warn(
     { type: errorType, code: error.status || error.code, message },
-    "Error caught and classified",
+    'Error caught and classified'
   );
 
   return {
     type: errorType,
-    message: message || "An unexpected error occurred",
+    message: message || 'An unexpected error occurred',
     recovery,
     retriable,
     code: error.status || error.code || null,
-    original: error,
+    original: error
   };
 }
 
@@ -171,7 +171,7 @@ export async function retry(fn, options = {}) {
     maxAttempts = 3,
     backoffMs = 1000,
     maxBackoffMs = 60000,
-    onRetry = null,
+    onRetry = null
   } = options;
 
   let lastError;
@@ -188,7 +188,7 @@ export async function retry(fn, options = {}) {
       if (!lastHandled.retriable) {
         logger.error(
           { type: lastHandled.type, attempt, message: lastHandled.message },
-          "Non-retriable error, not retrying",
+          'Non-retriable error, not retrying'
         );
         throw error;
       }
@@ -201,12 +201,12 @@ export async function retry(fn, options = {}) {
       // Calculate backoff with exponential growth
       const waitMs = Math.min(
         backoffMs * Math.pow(2, attempt - 1),
-        maxBackoffMs,
+        maxBackoffMs
       );
 
       logger.warn(
         { attempt, maxAttempts, waitMs, type: lastHandled.type },
-        "Retriable error, retrying",
+        'Retriable error, retrying'
       );
 
       // Call retry callback if provided
@@ -215,23 +215,23 @@ export async function retry(fn, options = {}) {
           attempt,
           maxAttempts,
           waitMs,
-          error: lastHandled,
+          error: lastHandled
         });
       }
 
       // Wait before retry
-      await new Promise((resolve) => setTimeout(resolve, waitMs));
+      await new Promise(resolve => setTimeout(resolve, waitMs));
     }
   }
 
   // All retries exhausted
   logger.error(
     { maxAttempts, type: lastHandled?.type },
-    "All retry attempts exhausted",
+    'All retry attempts exhausted'
   );
 
   throw new Error(
-    `Failed after ${maxAttempts} attempts: ${lastHandled?.message || lastError.message}`,
+    `Failed after ${maxAttempts} attempts: ${lastHandled?.message || lastError.message}`
   );
 }
 
@@ -258,113 +258,112 @@ export function suggest(error) {
     type: handled.type,
     immediate: [],
     checks: [],
-    escalation: null,
+    escalation: null
   };
 
   switch (handled.type) {
     case ERROR_TYPES.AUTHENTICATION:
       suggestions.immediate = [
-        "Check GITHUB_TOKEN is set: echo $GITHUB_TOKEN",
-        "Verify token is not empty or expired",
-        "Regenerate token if needed at github.com/settings/tokens",
+        'Check GITHUB_TOKEN is set: echo $GITHUB_TOKEN',
+        'Verify token is not empty or expired',
+        'Regenerate token if needed at github.com/settings/tokens'
       ];
       suggestions.checks = [
         'Token has "repo" scope',
         'Token has "read:org" scope',
-        "Token is not restricted to specific repos",
+        'Token is not restricted to specific repos'
       ];
-      suggestions.escalation = "Contact GitHub Support if token issues persist";
+      suggestions.escalation = 'Contact GitHub Support if token issues persist';
       break;
 
     case ERROR_TYPES.AUTHORIZATION:
       suggestions.immediate = [
-        "Check token scopes: repo, read:org, write:discussion",
-        "Verify account has access to the repository",
-        "Check if organization requires SAML/SSO",
+        'Check token scopes: repo, read:org, write:discussion',
+        'Verify account has access to the repository',
+        'Check if organization requires SAML/SSO'
       ];
       suggestions.checks = [
-        "GitHub user has collaborator/owner access",
-        "Organization SAML is not blocking the token",
-        "Repository is not archived or restricted",
+        'GitHub user has collaborator/owner access',
+        'Organization SAML is not blocking the token',
+        'Repository is not archived or restricted'
       ];
-      suggestions.escalation = "Contact repository admin or GitHub Support";
+      suggestions.escalation = 'Contact repository admin or GitHub Support';
       break;
 
     case ERROR_TYPES.RATE_LIMIT:
       suggestions.immediate = [
-        "Wait a few minutes before retrying",
-        "Check rate limit: gh api rate_limit",
-        "Use --delay flag to slow down batch operations",
+        'Wait a few minutes before retrying',
+        'Check rate limit: gh api rate_limit',
+        'Use --delay flag to slow down batch operations'
       ];
       suggestions.checks = [
-        "Verify not running multiple concurrent agents",
-        "Check for webhook loops (issues triggering workflows)",
-        "Consider using GraphQL for batch queries",
+        'Verify not running multiple concurrent agents',
+        'Check for webhook loops (issues triggering workflows)',
+        'Consider using GraphQL for batch queries'
       ];
-      suggestions.escalation = "Request higher rate limit from GitHub";
+      suggestions.escalation = 'Request higher rate limit from GitHub';
       break;
 
     case ERROR_TYPES.VALIDATION:
       suggestions.immediate = [
-        "Check label names in error message",
-        "Verify label exists: gh label list",
-        "Ensure issue number is correct",
+        'Check label names in error message',
+        'Verify label exists: gh label list',
+        'Ensure issue number is correct'
       ];
       suggestions.checks = [
-        "Label family is correct (e.g., type:, status:)",
-        "Label is spelled correctly",
-        "Issue or PR exists and is not deleted",
+        'Label family is correct (e.g., type:, status:)',
+        'Label is spelled correctly',
+        'Issue or PR exists and is not deleted'
       ];
-      suggestions.escalation = "Create missing labels if needed";
+      suggestions.escalation = 'Create missing labels if needed';
       break;
 
     case ERROR_TYPES.NOT_FOUND:
       suggestions.immediate = [
-        "Verify owner and repo: gh repo view <owner>/<repo>",
-        "Check issue exists: gh issue view <number>",
-        "Confirm you have access to view the repository",
+        'Verify owner and repo: gh repo view <owner>/<repo>',
+        'Check issue exists: gh issue view <number>',
+        'Confirm you have access to view the repository'
       ];
       suggestions.checks = [
-        "Repository name is correct",
-        "Repository is not private (or you have access)",
-        "Issue number is correct and not deleted",
+        'Repository name is correct',
+        'Repository is not private (or you have access)',
+        'Issue number is correct and not deleted'
       ];
-      suggestions.escalation =
-        "Check with team if repo was transferred/deleted";
+      suggestions.escalation = 'Check with team if repo was transferred/deleted';
       break;
 
     case ERROR_TYPES.NETWORK:
       suggestions.immediate = [
-        "Check internet connection",
-        "Try again in a few moments",
-        "Check GitHub status: status.github.com",
+        'Check internet connection',
+        'Try again in a few moments',
+        'Check GitHub status: status.github.com'
       ];
       suggestions.checks = [
-        "Network connectivity is stable",
-        "No firewall/proxy blocking GitHub.com",
-        "DNS resolution is working",
+        'Network connectivity is stable',
+        'No firewall/proxy blocking GitHub.com',
+        'DNS resolution is working'
       ];
-      suggestions.escalation = "Contact network admin if persistent";
+      suggestions.escalation = 'Contact network admin if persistent';
       break;
 
     default:
       suggestions.immediate = [
-        "Check logs for detailed error message",
-        "Try the operation again",
-        "Check GitHub status page",
+        'Check logs for detailed error message',
+        'Try the operation again',
+        'Check GitHub status page'
       ];
       suggestions.checks = [
-        "All required parameters are provided",
-        "Input data is valid and complete",
-        "GitHub API is operational",
+        'All required parameters are provided',
+        'Input data is valid and complete',
+        'GitHub API is operational'
       ];
-      suggestions.escalation = "Review error logs and GitHub API documentation";
+      suggestions.escalation = 'Review error logs and GitHub API documentation';
       break;
   }
 
   logger.info(
     { type: handled.type, actionCount: suggestions.immediate.length },
-    "Suggestions generated",
+    'Suggestions generated'
   );
 
   return suggestions;
@@ -389,7 +388,7 @@ export function suggest(error) {
  */
 export function format(error, includeStack = false) {
   const handled = catchError(error);
-  const typeLabel = handled.type.toUpperCase().replace(/_/g, " ");
+  const typeLabel = handled.type.toUpperCase().replace(/_/g, ' ');
 
   let output = `[${typeLabel} ERROR]\n`;
   output += `${handled.message}\n\n`;
@@ -414,7 +413,7 @@ export const errorHandler = {
   retry,
   suggest,
   format,
-  ERROR_TYPES,
+  ERROR_TYPES
 };
 
 export default errorHandler;

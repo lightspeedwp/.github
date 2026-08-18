@@ -249,7 +249,8 @@ If you need to modify or add validation scripts:
 
 ## References
 
-- [VSCode Plugin Troubleshooting](../../docs/vscode-plugin-troubleshooting.md) — Plugin setup and troubleshooting
+- [VSCode Workspace Setup](../../docs/vscode-workspace-setup.md) — Setup guide
+- [Validation Standards](../../docs/validation-standards.md) — How validators work
 
 ---
 

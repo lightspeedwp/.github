@@ -1,12 +1,12 @@
 ---
-file_type: documentation
+file_type: project-status
 title: Phase 3A Instructions Migration — Status Report
 description: Execution status, completed work, and roadmap for Phase 3A instructions file reorganization
 created_date: '2026-08-05'
 last_updated: '2026-08-05'
 owners:
   - AI Operations Team
-status: active
+status: in-progress
 version: v1.0
 ---
 

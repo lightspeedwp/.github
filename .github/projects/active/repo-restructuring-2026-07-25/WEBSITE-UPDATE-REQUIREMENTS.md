@@ -1,10 +1,9 @@
 ---
-file_type: documentation
 title: Website Update Requirements (Phase 4)
 description: Documentation of website changes needed to support plugin adoption strategy and tiered onboarding
 created: 2026-07-26
 updated: 2026-07-26
-status: active
+status: handoff-ready
 owner: Web Team (github.lightspeedwp.agency)
 ---
 

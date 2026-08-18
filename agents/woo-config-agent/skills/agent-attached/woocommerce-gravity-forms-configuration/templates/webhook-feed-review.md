@@ -1,7 +1,6 @@
 # Webhook and Automation Feed Review
 
 ## Scope
-
 - Site:
 - Form name/ID:
 - Feed/add-on:
@@ -9,7 +8,6 @@
 - Environment: production/staging/test/unknown
 
 ## Capability evidence
-
 - Add-on installed/active:
 - Feed read access:
 - Feed write access:
@@ -17,7 +15,6 @@
 - External-system verification available:
 
 ## Feed configuration
-
 | Setting | Current/proposed value | Risk | Notes |
 |---|---|---|---|
 | Feed name |  |  |  |
@@ -30,7 +27,6 @@
 | Error handling |  |  |  |
 
 ## Data minimisation
-
 - Fields sent:
 - Fields excluded:
 - Uploaded files sent: yes/no
@@ -39,19 +35,16 @@
 - Secrets redacted: yes/no
 
 ## Risk review
-
 - Risk level:
 - Approval required:
 - Rollback plan:
 
 ## Test plan
-
 1.
 2.
 3.
 
 ## Result
-
 - Submission result:
 - Feed result:
 - External-system result:
@@ -59,7 +52,6 @@
 - Remaining risks:
 
 ## Handoff
-
 - Next owner:
 - External-system verification needed:
 - Client/team notes:

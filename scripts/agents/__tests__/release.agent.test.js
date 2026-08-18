@@ -15,7 +15,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-const repoRoot = path.resolve(__dirname, "../../..");
+const repoRoot = process.cwd();
 
 function runNodeEsm(code) {
   const raw = execFileSync(

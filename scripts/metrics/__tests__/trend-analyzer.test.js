@@ -78,30 +78,10 @@ describe("TrendAnalyzer", () => {
       const now = Date.now();
       const dayMs = 24 * 60 * 60 * 1000;
 
-      storage.saveMetrics(
-        "growth/repo",
-        {
-          issues: { total: 100 },
-          pull_requests: { total: 50 },
-          contributors: { active: 10 },
-        },
-        now - 30 * dayMs,
-      );
-      storage.saveMetrics(
-        "growth/repo",
-        {
-          issues: { total: 120 },
-          pull_requests: { total: 50 },
-          contributors: { active: 10 },
-        },
-        now,
-      );
+      storage.saveMetrics("growth/repo", { issues: { total: 100 }, pull_requests: { total: 50 }, contributors: { active: 10 } }, now - 30 * dayMs);
+      storage.saveMetrics("growth/repo", { issues: { total: 120 }, pull_requests: { total: 50 }, contributors: { active: 10 } }, now);
 
-      const growthRate = analyzer.getGrowthRate(
-        "growth/repo",
-        "metrics.issues.total",
-        30,
-      );
+      const growthRate = analyzer.getGrowthRate("growth/repo", "metrics.issues.total", 30);
       expect(growthRate).toBeGreaterThan(0);
     });
   });
@@ -120,20 +100,13 @@ describe("TrendAnalyzer", () => {
         storage.saveMetrics("predict/repo", metrics, now - (10 - i) * dayMs);
       }
 
-      const predicted = analyzer.predictNextValue(
-        "predict/repo",
-        "metrics.issues.total",
-        10,
-      );
+      const predicted = analyzer.predictNextValue("predict/repo", "metrics.issues.total", 10);
       expect(predicted).not.toBeNull();
       expect(typeof predicted).toBe("number");
     });
 
     test("returns null with insufficient data", () => {
-      const predicted = analyzer.predictNextValue(
-        "insufficient/repo",
-        "metrics.issues.total",
-      );
+      const predicted = analyzer.predictNextValue("insufficient/repo", "metrics.issues.total");
       expect(predicted).toBeNull();
     });
   });
@@ -141,27 +114,9 @@ describe("TrendAnalyzer", () => {
   describe("averageMetrics", () => {
     test("calculates average across multiple entries", () => {
       const entries = [
-        {
-          metrics: {
-            issues: { total: 100 },
-            pull_requests: { total: 50 },
-            contributors: { active: 10 },
-          },
-        },
-        {
-          metrics: {
-            issues: { total: 120 },
-            pull_requests: { total: 60 },
-            contributors: { active: 12 },
-          },
-        },
-        {
-          metrics: {
-            issues: { total: 110 },
-            pull_requests: { total: 55 },
-            contributors: { active: 11 },
-          },
-        },
+        { metrics: { issues: { total: 100 }, pull_requests: { total: 50 }, contributors: { active: 10 } } },
+        { metrics: { issues: { total: 120 }, pull_requests: { total: 60 }, contributors: { active: 12 } } },
+        { metrics: { issues: { total: 110 }, pull_requests: { total: 55 }, contributors: { active: 11 } } },
       ];
 
       const avg = analyzer.averageMetrics(entries);

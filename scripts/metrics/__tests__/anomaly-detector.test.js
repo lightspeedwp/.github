@@ -91,11 +91,7 @@ describe("AnomalyDetector", () => {
           pull_requests: { total: 50, merged: 45 },
           contributors: { active: 10 },
         };
-        storage.saveMetrics(
-          "trend-test/repo",
-          metrics,
-          now - (5 - i - 5) * dayMs,
-        );
+        storage.saveMetrics("trend-test/repo", metrics, now - (5 - i - 5) * dayMs);
       }
 
       const result = detector.detectTrendBreak("trend-test/repo", 30);

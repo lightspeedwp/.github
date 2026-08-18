@@ -61,6 +61,7 @@ Use `docs/reference-refresh-protocol.md` when the user asks to update reference 
 
 Use `references/audit-triage-model.md` when a finding needs severity, priority, confidence, owner direction, or the smallest safe next action. Use `templates/yoast-troubleshooting-note.md` for concise internal issue notes when a full audit report would be too heavy. Use `docs/current-verification-playbook.md` before making firm claims about current Yoast packaging, UI paths, developer APIs, Google rich-result eligibility, WooCommerce behaviour, or rendered live-site output.
 
+
 ## Client-safe summaries and decision logs
 
 Use `templates/client-safe-summary.md` when turning internal Yoast findings into client-facing language. Use `templates/yoast-decision-log.md` when a recommendation changes indexation, canonicals, schema, WooCommerce archive strategy, redirects, product mix, AI-assisted metadata approval, or developer customisation. Use `references/conflict-resolution-playbook.md` when sources, settings, rendered output, Google guidance, client preference, or developer behaviour disagree.
@@ -68,6 +69,7 @@ Use `templates/client-safe-summary.md` when turning internal Yoast findings into
 ## Artefact review routes
 
 Use `references/settings-export-review-playbook.md` when the input is a Yoast settings export, copied admin setting, option snippet, screenshot or partial configuration dump. Use `references/rendered-output-qa-playbook.md` when the input is rendered HTML, page source, HTTP headers, robots.txt, llms.txt, XML sitemap output, schema JSON-LD or crawl output. Settings artefacts show intended configuration; rendered output shows what crawlers can observe. Do not collapse those evidence types into one conclusion.
+
 
 ## Comparison, regression and acceptance workflows
 
@@ -78,12 +80,12 @@ Use the comparison/regression layer when the user provides a baseline and curren
 - Plugin updates: use `references/plugin-update-regression-playbook.md` and produce `templates/yoast-regression-test-report.md`.
 - Sign-off gates: use `templates/yoast-acceptance-criteria.md` and keep criteria evidence-led, pass/fail and owner-aware.
 
+
 ## Access-aware remediation
 
 When the user asks for action items, implementation plans, backlog entries, or owner routing, load `references/access-level-workflow.md` and `references/remediation-backlog-model.md`. Use `templates/yoast-remediation-backlog.md` for multi-item action lists and `templates/wordpress-admin-change-plan.md` when the work must be limited to WordPress or Yoast admin.
 
 Do not turn an unverified suspicion into an implementation task. If the current evidence is incomplete, create a `verify_first` item with the smallest evidence request and a clear QA path.
-
 ## Portfolio and defaults-drift reviews
 
 Use the portfolio workflow when reviewing multiple client sites, retainer sites, or agency-wide Yoast consistency. Load `references/portfolio-audit-playbook.md` first, then group sites by site type before comparing settings or output. Use `templates/yoast-portfolio-audit-summary.md` for the deliverable.
@@ -131,6 +133,7 @@ Expected output:
 
 Do not use this workflow to bypass client approval or to recommend direct production changes from unverified spreadsheet data.
 
+
 ## Content structure and taxonomy decisions
 
 Use the content-structure route when a user asks whether categories, tags, author archives, date archives, media archives, product tags, product categories, attributes or filtered URL groups should be indexed, noindexed, consolidated or improved.
@@ -138,6 +141,7 @@ Use the content-structure route when a user asks whether categories, tags, autho
 Load `references/content-structure-taxonomy-playbook.md` first, then `references/taxonomy-indexation-decision-model.md` when a clear decision is needed. Use `templates/taxonomy-indexation-decision-pack.md` for approval-ready outputs and `templates/content-structure-remediation-plan.md` when the right next step is cleanup rather than a Yoast setting change.
 
 Do not treat screenshots, settings exports or taxonomy inventories as proof of live output. Rendered archive output, sitemap state and canonical state must be verified before implementation.
+
 
 ## Multilingual and translated metadata requests
 
@@ -150,6 +154,7 @@ Safe default: a settings export does not prove hreflang or translated metadata o
 When the user provides a redirect map, migration spreadsheet, Yoast Premium redirect export, server/CDN rule summary, or launch checklist, route to `references/redirect-migration-governance.md` before producing a recommendation. Keep proposed mapping, approval state, implementation route, live status-code evidence, canonical/sitemap state, rollback plan and post-launch monitoring separate.
 
 Use `templates/redirect-map-review.md` for old-to-new URL decisions and `templates/migration-launch-seo-control-plan.md` when the user needs launch readiness or a migration control plan. If Yoast Premium redirect manager is the proposed route, verify product entitlement or mark it as an explicit verification task before recommending import.
+
 
 ## Related skill routing
 

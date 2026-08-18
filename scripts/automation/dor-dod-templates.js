@@ -4,8 +4,8 @@
  */
 
 const TEMPLATES = {
-  "type:task": {
-    name: "Task",
+  'type:task': {
+    name: 'Task',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Task described and scoped
@@ -17,8 +17,8 @@ const TEMPLATES = {
 - [ ] Changelog entry prepared for PR
 - [ ] PR uses correct branch prefix`,
   },
-  "type:bug": {
-    name: "Bug",
+  'type:bug': {
+    name: 'Bug',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Bug is reproducible and clearly described
@@ -39,8 +39,8 @@ const TEMPLATES = {
 - [ ] Accessibility: no WCAG 2.2 AA regressions
 - [ ] Security: no OWASP Top 10 vulnerabilities introduced`,
   },
-  "type:feature": {
-    name: "Feature",
+  'type:feature': {
+    name: 'Feature',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Problem statement and outcome defined
@@ -61,8 +61,8 @@ const TEMPLATES = {
 - [ ] Feature toggles/rollout considered
 - [ ] QA verified/UAT approved (if applicable)`,
   },
-  "type:design": {
-    name: "Design",
+  'type:design': {
+    name: 'Design',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Design goal/scope defined
@@ -76,8 +76,8 @@ const TEMPLATES = {
 - [ ] Design reviewed and approved
 - [ ] PR uses correct branch prefix (design/)`,
   },
-  "type:epic": {
-    name: "Epic",
+  'type:epic': {
+    name: 'Epic',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Epic goal and scope defined
@@ -93,8 +93,8 @@ const TEMPLATES = {
 - [ ] QA and testing complete
 - [ ] Milestone closed and release notes prepared`,
   },
-  "type:story": {
-    name: "Story",
+  'type:story': {
+    name: 'Story',
     dor: `## Definition of Ready (DoR)
 
 - [ ] User need/outcome defined
@@ -110,8 +110,8 @@ const TEMPLATES = {
 - [ ] PR uses correct branch prefix
 - [ ] QA verified/UAT approved (if applicable)`,
   },
-  "type:improvement": {
-    name: "Improvement",
+  'type:improvement': {
+    name: 'Improvement',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Problem/opportunity defined
@@ -127,8 +127,8 @@ const TEMPLATES = {
 - [ ] Correct labels/types applied
 - [ ] PR uses correct branch prefix`,
   },
-  "type:chore": {
-    name: "Chore",
+  'type:chore': {
+    name: 'Chore',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Task/goal described and scoped
@@ -141,8 +141,8 @@ const TEMPLATES = {
 - [ ] PR uses correct branch prefix (chore/)
 - [ ] Approved by at least one maintainer`,
   },
-  "type:refactor": {
-    name: "Code Refactor",
+  'type:refactor': {
+    name: 'Code Refactor',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Refactoring goals and scope defined
@@ -156,8 +156,8 @@ const TEMPLATES = {
 - [ ] Changelog entry prepared for PR
 - [ ] Tests passing with no regressions`,
   },
-  "type:build-ci": {
-    name: "Build/CI",
+  'type:build-ci': {
+    name: 'Build/CI',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Build/CI goal and scope defined
@@ -169,8 +169,8 @@ const TEMPLATES = {
 - [ ] Documentation/changelog updated
 - [ ] Approved by maintainer`,
   },
-  "type:test": {
-    name: "Testing",
+  'type:test': {
+    name: 'Testing',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Purpose, scope, and audience defined
@@ -186,8 +186,8 @@ const TEMPLATES = {
 - [ ] PR uses correct branch prefix (test/)
 - [ ] Approved by at least one maintainer`,
   },
-  "type:performance": {
-    name: "Performance",
+  'type:performance': {
+    name: 'Performance',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Performance issue and reproduction steps clear
@@ -201,8 +201,8 @@ const TEMPLATES = {
 - [ ] Changelog entry prepared for PR
 - [ ] Performance improvement measured and documented`,
   },
-  "type:a11y": {
-    name: "Accessibility",
+  'type:a11y': {
+    name: 'Accessibility',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Issue/goal described
@@ -217,8 +217,8 @@ const TEMPLATES = {
 - [ ] PR uses correct branch prefix (a11y/)
 - [ ] Stakeholder/maintainer reviewed`,
   },
-  "type:security": {
-    name: "Security",
+  'type:security': {
+    name: 'Security',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Security issue/context described
@@ -232,8 +232,8 @@ const TEMPLATES = {
 - [ ] PR uses correct branch prefix (security/)
 - [ ] Approved by at least one maintainer`,
   },
-  "type:documentation": {
-    name: "Documentation",
+  'type:documentation': {
+    name: 'Documentation',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Documentation need is clear and well-defined
@@ -247,8 +247,8 @@ const TEMPLATES = {
 - [ ] Changelog entry prepared for PR
 - [ ] Documentation is complete and accessible`,
   },
-  "type:research": {
-    name: "Research",
+  'type:research': {
+    name: 'Research',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Research goal/objective defined
@@ -261,8 +261,8 @@ const TEMPLATES = {
 - [ ] Recommendations/next steps proposed
 - [ ] Documentation updated (if applicable)`,
   },
-  "type:audit": {
-    name: "Audit",
+  'type:audit': {
+    name: 'Audit',
     dor: `## Definition of Ready (DoR)
 
 - [ ] Audit scope, checklist, and goals defined
@@ -301,9 +301,7 @@ function getAllTemplates() {
  */
 function hasDoR(body) {
   if (!body) return false;
-  return /## definition of ready|## dor\b|### definition of ready|### dor\b/i.test(
-    body,
-  );
+  return /## definition of ready|## dor\b|### definition of ready|### dor\b/i.test(body);
 }
 
 /**
@@ -313,9 +311,7 @@ function hasDoR(body) {
  */
 function hasDoD(body) {
   if (!body) return false;
-  return /## definition of done|## dod\b|### definition of done|### dod\b/i.test(
-    body,
-  );
+  return /## definition of done|## dod\b|### definition of done|### dod\b/i.test(body);
 }
 
 /**
@@ -325,7 +321,7 @@ function hasDoD(body) {
  */
 function detectTypeFromLabels(labels) {
   if (!Array.isArray(labels)) return null;
-  const typeLabel = labels.find((l) => l.name && l.name.startsWith("type:"));
+  const typeLabel = labels.find(l => l.name && l.name.startsWith('type:'));
   return typeLabel ? typeLabel.name : null;
 }
 

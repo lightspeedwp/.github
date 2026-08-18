@@ -22,7 +22,6 @@ top_p: 0.9
 The OpenAI implementation of the Linear Advisor Agent uses OpenAI's GPT models with function calling for linear-integration tasks.
 
 OpenAI excels at:
-
 - **Function calling** – Structured API integration
 - **Batch processing** – Handle large data sets
 - **Cost-effective** – Pay per request with standard pricing
@@ -140,7 +139,6 @@ while True:
 OpenAI returns responses in standard format:
 
 ### Function Call Response
-
 ```json
 {
   "choices": [
@@ -159,7 +157,6 @@ OpenAI returns responses in standard format:
 ```
 
 ### Text Response
-
 ```json
 {
   "choices": [
@@ -205,7 +202,6 @@ def validate_function_arguments(function_name, arguments):
 ## Integration Examples
 
 ### Create Issue Example
-
 ```python
 def create_issue_from_conversation(user_input):
     response = client.chat.completions.create(
@@ -220,7 +216,6 @@ def create_issue_from_conversation(user_input):
 ```
 
 ### Sprint Planning Example
-
 ```python
 def plan_sprint_from_input(team_size, backlog, timeline):
     messages = [
@@ -242,19 +237,16 @@ def plan_sprint_from_input(team_size, backlog, timeline):
 ## Configuration
 
 ### Model Selection
-
 - **gpt-4** – Advanced reasoning, complex workflows (recommended)
 - **gpt-4-turbo** – Faster processing, cost-effective
 - **gpt-3.5-turbo** – Budget-friendly option
 
 ### Temperature Settings
-
 - `temperature: 0.7` – Balanced responses (default)
 - `temperature: 0.5` – More structured outputs (planning)
 - `temperature: 1.0` – Creative planning (brainstorming)
 
 ### System Prompt Template
-
 ```
 You are the Linear Advisor Agent, an expert project manager specializing in:
 - Linear issue tracking and management
@@ -274,30 +266,24 @@ Always provide:
 ## Best Practices for OpenAI Integration
 
 ### Batch Processing
-
 Use function calling for batch operations:
-
 - Create multiple issues at once
 - Update sprint with bulk assignments
 - Sync team capacity in batch
 
 ### Streaming Responses
-
 For long-running operations:
-
 - Stream status updates
 - Progressive result delivery
 - Real-time feedback
 
 ### Error Recovery
-
 - Validate function parameters
 - Handle API errors gracefully
 - Retry with backoff strategy
 - Log all operations for audit
 
 ### Cost Optimization
-
 - Use gpt-3.5-turbo for simple queries
 - Batch similar requests together
 - Cache system prompt in longer sessions

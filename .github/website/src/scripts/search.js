@@ -1,4 +1,4 @@
-/* global window, document, requestAnimationFrame */
+/* eslint-env browser */
 /* search.js — Search palette controller */
 
 import { rankSearchItems, getSearchTokens } from "./search-utils.js";

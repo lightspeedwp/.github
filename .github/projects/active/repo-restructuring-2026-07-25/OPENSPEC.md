@@ -1,10 +1,10 @@
 ---
-file_type: documentation
+file_type: openspec
 title: "repo-restructuring-2026-07-25 — OpenSpec Specification"
 description: "Technical specification for repo-restructuring-2026-07-25"
 version: 1.0.0
-created_date: "2026-08-12"
-last_updated: "2026-08-12"
+created_date: 2026-08-12
+last_updated: 2026-08-12
 status: draft
 ---
 

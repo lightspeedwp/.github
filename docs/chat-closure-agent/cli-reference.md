@@ -31,7 +31,6 @@ node close-session.js [options]
 ## Global Options
 
 ### `--help`
-
 Display help information.
 
 ```bash
@@ -39,7 +38,6 @@ node close-session.js --help
 ```
 
 **Output:**
-
 ```
 Usage: close-session [options]
 
@@ -58,7 +56,6 @@ Options:
 ```
 
 ### `--version`
-
 Display version information.
 
 ```bash
@@ -66,7 +63,6 @@ node close-session.js --version
 ```
 
 **Output:**
-
 ```
 Chat Closure Agent v1.0.0
 ```
@@ -84,7 +80,6 @@ node close-session.js --session "feature-implementation-2026-08-13"
 ```
 
 **Format guidelines:**
-
 - Use kebab-case (hyphens, no spaces)
 - Include context: `{project}-{type}-{date}`
 - Examples:
@@ -103,7 +98,6 @@ node close-session.js --session "my-session" --path "/path/to/repo"
 **Default:** Current directory (`.`)
 
 **Examples:**
-
 ```bash
 # Current directory (default)
 node close-session.js --session "local-session"
@@ -126,7 +120,6 @@ node close-session.js --session "my-session" --output "/custom/memory/path"
 **Default:** `.remember` directory at repository root
 
 **Examples:**
-
 ```bash
 # Custom location
 node close-session.js --session "archived" --output ".github/archived-sessions"
@@ -157,7 +150,6 @@ node close-session.js --session "my-session" --decisions '{
 ```
 
 **JSON Structure:**
-
 ```json
 {
   "decision-key": {
@@ -168,7 +160,6 @@ node close-session.js --session "my-session" --decisions '{
 ```
 
 **Common decision keys:**
-
 - `architecture` — System design approach
 - `testing` — Testing strategy
 - `deployment` — Deployment method
@@ -190,7 +181,6 @@ node close-session.js --session "my-session" --blockers '[
 ```
 
 **Format:**
-
 ```json
 [
   "Blocker description 1",
@@ -200,7 +190,6 @@ node close-session.js --session "my-session" --blockers '[
 ```
 
 **Leave empty if no blockers:**
-
 ```bash
 node close-session.js --session "my-session" --blockers '[]'
 ```
@@ -220,7 +209,6 @@ node close-session.js --session "my-session" --next-steps '[
 ```
 
 **Format:**
-
 ```json
 [
   "Action 1",
@@ -242,7 +230,6 @@ node close-session.js --session "analysis-only" --no-memory
 ```
 
 Useful for:
-
 - Quick analysis without persistence
 - Testing decision capture format
 - CI/CD dry runs
@@ -256,7 +243,6 @@ node close-session.js --session "memory-only" --no-prompt
 ```
 
 Useful for:
-
 - Archiving session memories
 - Recording decisions without resumption context
 - Lightweight closures
@@ -270,7 +256,6 @@ node close-session.js --session "preview" --dry-run
 ```
 
 Output shows:
-
 - Detected repository type
 - Analyzed commits
 - Proposed memory file path
@@ -287,7 +272,6 @@ node close-session.js --session "debug" --verbose
 ```
 
 Shows:
-
 - Step-by-step analysis
 - Git command outputs
 - File operations
@@ -306,7 +290,6 @@ node close-session.js --session "auto-decisions" --auto-detect-decisions
 ```
 
 Analyzes commit messages for decision patterns:
-
 - "Architecture: ..."
 - "Decision: ..."
 - "Chosen: ..."
@@ -322,14 +305,12 @@ node close-session.js --session "my-session" --format markdown
 ```
 
 **Options:**
-
 - `markdown` (default) — Formatted for Claude
 - `json` — Structured data format
 - `text` — Plain text
 - `html` — For web documentation
 
 **Examples:**
-
 ```bash
 # For Claude sessions
 --format markdown
@@ -350,7 +331,6 @@ node close-session.js --session "my-session" --tag "feature" --tag "urgent"
 ```
 
 **Common tags:**
-
 - `feature` — New feature development
 - `bugfix` — Bug fixing
 - `refactor` — Code refactoring
@@ -558,7 +538,6 @@ Use: node close-session.js --session <id> [options]
 ```
 
 **Solution:** Validate JSON syntax:
-
 ```bash
 # Test JSON before passing
 node -e "console.log(JSON.parse('{...}'))"
@@ -583,7 +562,6 @@ node -e "console.log(JSON.parse('{...}'))"
 ```
 
 **Usage:**
-
 ```bash
 npm run close-session
 npm run close-session:feature

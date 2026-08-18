@@ -1,14 +1,12 @@
 # Logic Map Review
 
 ## Form
-
 - Site:
 - Form name/ID:
 - Environment:
 - Review mode:
 
 ## Logic inventory
-
 | Area | Current logic | Risk | Notes |
 |---|---|---|---|
 | Fields |  |  |  |
@@ -20,31 +18,26 @@
 | Calculations/pricing |  |  |  |
 
 ## Dependency map
-
 | Driver field/value | Dependent fields/actions | Risk if changed | Test scenario |
 |---|---|---|---|
 |  |  |  |  |
 
 ## Findings
-
 - Confirmed facts:
 - Assumptions:
 - Missing evidence:
 - Blockers:
 
 ## Recommended changes
-
 1.
 2.
 3.
 
 ## Approval required
-
 - Required: yes/no
 - Reason:
 
 ## Validation plan
-
 - Branch tests:
 - Calculation tests:
 - Dynamic population tests:
@@ -53,7 +46,6 @@
 - Feed/payment checks:
 
 ## Handoff notes
-
 - Fields whose IDs/choices must not change without review:
 - Owner:
 - Next action:

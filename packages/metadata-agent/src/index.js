@@ -26,34 +26,11 @@
  */
 
 // Import all modules for the api object
-import { labelUtils } from "./label-utils.js";
-import {
-  apiClient,
-  createClient,
-  authenticateClient,
-  GitHubAPIClient,
-} from "./api-client.js";
-import {
-  validation,
-  validateTier1,
-  validateTier2,
-  validateTier3,
-  getRecommendation,
-} from "./validation.js";
-import {
-  confidenceScorer,
-  createScorer,
-  ConfidenceScorer,
-  DEFAULT_THRESHOLD,
-} from "./confidence-scorer.js";
-import {
-  errorHandler,
-  catchError,
-  retry,
-  suggest,
-  format,
-  ERROR_TYPES,
-} from "./error-handler.js";
+import { labelUtils } from './label-utils.js';
+import { apiClient, createClient, authenticateClient, GitHubAPIClient } from './api-client.js';
+import { validation, validateTier1, validateTier2, validateTier3, getRecommendation } from './validation.js';
+import { confidenceScorer, createScorer, ConfidenceScorer, DEFAULT_THRESHOLD } from './confidence-scorer.js';
+import { errorHandler, catchError, retry, suggest, format, ERROR_TYPES } from './error-handler.js';
 
 // Export label utilities
 export {
@@ -64,16 +41,16 @@ export {
   getFamilies as getLabelFamilies,
   getLabelsByFamily,
   getAllCanonical,
-  labelUtils,
-} from "./label-utils.js";
+  labelUtils
+} from './label-utils.js';
 
 // Export API client
 export {
   createClient,
   authenticateClient,
   GitHubAPIClient,
-  apiClient,
-} from "./api-client.js";
+  apiClient
+} from './api-client.js';
 
 // Export validation
 export {
@@ -81,16 +58,16 @@ export {
   validateTier2,
   validateTier3,
   getRecommendation,
-  validation,
-} from "./validation.js";
+  validation
+} from './validation.js';
 
 // Export confidence scorer
 export {
   createScorer,
   ConfidenceScorer,
   confidenceScorer,
-  DEFAULT_THRESHOLD,
-} from "./confidence-scorer.js";
+  DEFAULT_THRESHOLD
+} from './confidence-scorer.js';
 
 // Export error handler
 export {
@@ -99,14 +76,14 @@ export {
   suggest,
   format,
   errorHandler,
-  ERROR_TYPES,
-} from "./error-handler.js";
+  ERROR_TYPES
+} from './error-handler.js';
 
 /**
  * Package version
  * @type {string}
  */
-export const VERSION = "1.0.0-rc.1";
+export const VERSION = '1.0.0-rc.1';
 export const version = VERSION;
 
 /**
@@ -140,7 +117,7 @@ export const api = {
   catchError,
   retry,
   suggest,
-  format,
+  format
 };
 
 export default api;

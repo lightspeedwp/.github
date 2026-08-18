@@ -203,7 +203,7 @@ jobs:
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
           echo "✓ Changelog validation passed (schema + unreleased content verified)"
-      - name: Run Release Agent with Safety Gates (Phase 5A)
+      - name: Run Release Agent (Phase 1 - develop-first flow)
         id: agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -212,9 +212,8 @@ jobs:
           INPUT_VERSION: ${{ inputs.version || github.event.inputs.version || '' }}
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
-          VERBOSE: ${{ runner.debug }}
         run: |
-          node scripts/workflows/release/run-release-with-gates.cjs | tee release-agent.log
+          node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
       - name: Export release version and branch to GITHUB_OUTPUT
         id: release-metadata
         if: inputs.dry_run == false

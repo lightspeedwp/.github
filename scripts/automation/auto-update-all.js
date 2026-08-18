@@ -115,12 +115,13 @@ function getOpenPRs() {
 function detectIssueType(title) {
   title = title.toLowerCase();
   if (/bug|fix|issue|error|fail|break/i.test(title)) return "type:bug";
-  if (/doc|guide|readme|help|tutorial/i.test(title))
-    return "type:documentation";
-  if (/feature|new|implement|create|build/i.test(title)) return "type:feature";
+  if (/feature|add|new|implement|create|build/i.test(title))
+    return "type:feature";
   if (/epic|phase|initiative|release/i.test(title)) return "type:epic";
   if (/design|ui|ux|mockup|wireframe/i.test(title)) return "type:design";
   if (/refactor|cleanup|simplify|improve/i.test(title)) return "type:refactor";
+  if (/doc|guide|readme|help|tutorial/i.test(title))
+    return "type:documentation";
   if (/test|coverage|qa|assert/i.test(title)) return "type:test";
   if (/perf|speed|optim|memory|cache/i.test(title)) return "type:performance";
   if (/security|vuln|auth|encrypt|protect/i.test(title)) return "type:security";

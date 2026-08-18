@@ -14,7 +14,7 @@ function sectionBody(body, headingRegex) {
 
   const start = match.index + match[0].length;
   const remainder = text.slice(start);
-  const nextHeading = remainder.match(/^#+\s+.+$/m);
+  const nextHeading = remainder.match(/^##\s+.+$/m);
   const end = nextHeading ? start + nextHeading.index : text.length;
   return text.slice(start, end).trim();
 }

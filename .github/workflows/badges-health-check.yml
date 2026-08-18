@@ -1,4 +1,4 @@
-name: "Badges: Health Check (Improved)"
+name: "Badges: Health Check"
 
 on:
   schedule:
@@ -47,9 +47,9 @@ jobs:
             ! -path "*/node_modules/*" \
             ! -path "*/.git/*" \
             ! -path "*/.github/*" \
-            -exec grep -l "<!-- BADGES-START -->" {} \; >./.github/tmp/files_with_badges.txt
+            -exec grep -l "<!-- BADGES-START -->" {} \; > /tmp/files_with_badges.txt
 
-          count=$(grep -c ../.github/tmp/files_with_badges.txt || echo 0)
+          count=$(grep -c . /tmp/files_with_badges.txt || echo 0)
           echo "files_count=$count" >> $GITHUB_OUTPUT
 
           echo "Found $count files with badges"
@@ -60,9 +60,9 @@ jobs:
           echo "Extracting badge URLs from markdown files..."
 
           total_badges=0
-          total_files=$(grep -c ../.github/tmp/files_with_badges.txt || echo 0)
+          total_files=$(grep -c . /tmp/files_with_badges.txt || echo 0)
 
-          >./.github/tmp/all_badges.txt
+          > /tmp/all_badges.txt
 
           while IFS= read -r file; do
             [[ -z "$file" ]] && continue
@@ -70,15 +70,15 @@ jobs:
             echo "Processing: $file"
 
             # Extract badge URLs only (img.shields.io and github.com/...badge.svg)
-            grep -oP '(?:https?://img\.shields\.io/|https?://github\.com/)[^)]+' "$file" | sort -u >>./.github/tmp/all_badges.txt
+            grep -oP '(?:https?://img\.shields\.io/|https?://github\.com/)[^)]+' "$file" | sort -u >> /tmp/all_badges.txt
 
-          done <./.github/tmp/files_with_badges.txt
+          done < /tmp/files_with_badges.txt
 
           # Remove duplicates
-          sort -u./.github/tmp/all_badges.txt >./.github/tmp/unique_badges.txt
-          mv./.github/tmp/unique_badges.txt./.github/tmp/all_badges.txt
+          sort -u /tmp/all_badges.txt > /tmp/unique_badges.txt
+          mv /tmp/unique_badges.txt /tmp/all_badges.txt
 
-          total_badges=$(grep -c ../.github/tmp/all_badges.txt || echo 0)
+          total_badges=$(grep -c . /tmp/all_badges.txt || echo 0)
           echo "badges_count=$total_badges" >> $GITHUB_OUTPUT
 
           echo "Found $total_badges unique badge URLs"
@@ -92,8 +92,8 @@ jobs:
           timeout_count=0
           working_count=0
 
-          >./.github/tmp/broken_links.txt
-          >./.github/tmp/timeout_links.txt
+          > /tmp/broken_links.txt
+          > /tmp/timeout_links.txt
 
           while IFS= read -r url; do
             [[ -z "$url" ]] && continue
@@ -110,17 +110,17 @@ jobs:
                 ;;
               404)
                 echo "✗ BROKEN (404)"
-                echo "$url" >>./.github/tmp/broken_links.txt
+                echo "$url" >> /tmp/broken_links.txt
                 ((++broken_count))
                 ;;
               403|410)
                 echo "✗ BROKEN ($response)"
-                echo "$url" >>./.github/tmp/broken_links.txt
+                echo "$url" >> /tmp/broken_links.txt
                 ((++broken_count))
                 ;;
               timeout)
                 echo "⚠ TIMEOUT"
-                echo "$url" >>./.github/tmp/timeout_links.txt
+                echo "$url" >> /tmp/timeout_links.txt
                 ((++timeout_count))
                 ;;
               *)
@@ -128,7 +128,7 @@ jobs:
                 ((++working_count))
                 ;;
             esac
-          done <./.github/tmp/all_badges.txt
+          done < /tmp/all_badges.txt
 
           echo "broken_count=$broken_count" >> $GITHUB_OUTPUT
           echo "timeout_count=$timeout_count" >> $GITHUB_OUTPUT
@@ -137,57 +137,36 @@ jobs:
       - name: "Generate health report"
         id: report
         run: |
-          echo "# Badge Health Check Report" >./.github/tmp/health_report.md
-          echo "" >>./.github/tmp/health_report.md
-          echo "**Scan Date:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >>./.github/tmp/health_report.md
-          echo "" >>./.github/tmp/health_report.md
-          echo "## Summary" >>./.github/tmp/health_report.md
-          echo "" >>./.github/tmp/health_report.md
-          echo "| Metric | Count |" >>./.github/tmp/health_report.md
-          echo "|--------|-------|" >>./.github/tmp/health_report.md
-          echo "| Files Scanned | ${{ steps.find.outputs.files_count }} |" >>./.github/tmp/health_report.md
-          echo "| Badge URLs | ${{ steps.extract.outputs.badges_count }} |" >>./.github/tmp/health_report.md
-          echo "| Working | ${{ steps.validate.outputs.working_count }} |" >>./.github/tmp/health_report.md
-          echo "| Broken | ${{ steps.validate.outputs.broken_count }} |" >>./.github/tmp/health_report.md
-          echo "| Timeouts | ${{ steps.validate.outputs.timeout_count }} |" >>./.github/tmp/health_report.md
+          echo "# Badge Health Check Report" > /tmp/health_report.md
+          echo "" >> /tmp/health_report.md
+          echo "**Scan Date:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> /tmp/health_report.md
+          echo "" >> /tmp/health_report.md
+          echo "## Summary" >> /tmp/health_report.md
+          echo "" >> /tmp/health_report.md
+          echo "| Metric | Count |" >> /tmp/health_report.md
+          echo "|--------|-------|" >> /tmp/health_report.md
+          echo "| Files Scanned | ${{ steps.find.outputs.files_count }} |" >> /tmp/health_report.md
+          echo "| Badge URLs | ${{ steps.extract.outputs.badges_count }} |" >> /tmp/health_report.md
+          echo "| Working | ${{ steps.validate.outputs.working_count }} |" >> /tmp/health_report.md
+          echo "| Broken | ${{ steps.validate.outputs.broken_count }} |" >> /tmp/health_report.md
+          echo "| Timeouts | ${{ steps.validate.outputs.timeout_count }} |" >> /tmp/health_report.md
 
           if [[ ${{ steps.validate.outputs.broken_count }} -gt 0 ]]; then
-            echo "" >>./.github/tmp/health_report.md
-            echo "## Broken Links" >>./.github/tmp/health_report.md
-            cat./.github/tmp/broken_links.txt >>./.github/tmp/health_report.md
+            echo "" >> /tmp/health_report.md
+            echo "## Broken Links" >> /tmp/health_report.md
+            cat /tmp/broken_links.txt >> /tmp/health_report.md
           fi
 
           if [[ ${{ steps.validate.outputs.timeout_count }} -gt 0 ]]; then
-            echo "" >>./.github/tmp/health_report.md
-            echo "## Timeout Links" >>./.github/tmp/health_report.md
-            cat./.github/tmp/timeout_links.txt >>./.github/tmp/health_report.md
+            echo "" >> /tmp/health_report.md
+            echo "## Timeout Links" >> /tmp/health_report.md
+            cat /tmp/timeout_links.txt >> /tmp/health_report.md
           fi
 
-          cat./.github/tmp/health_report.md
+          cat /tmp/health_report.md
           echo "report_generated=true" >> $GITHUB_OUTPUT
 
-      - name: "Find or create tracking issue"
-        id: issue
-        run: |
-          # Search for existing open badge health check issues
-          existing_issue=$(gh issue list \
-            --repo "${{ github.repository }}" \
-            --label "area:automation" \
-            --state open \
-            --json number,title \
-            -q '.[] | select(.title | startswith("🏥 Badge Health Check")) | .number' \
-            | head -1)
-
-          if [[ -n "$existing_issue" ]]; then
-            echo "issue_number=$existing_issue" >> $GITHUB_OUTPUT
-            echo "issue_action=update" >> $GITHUB_OUTPUT
-            echo "Found existing issue #$existing_issue - will update it"
-          else
-            echo "issue_action=create" >> $GITHUB_OUTPUT
-            echo "No existing issue found - will create new one"
-          fi
-
-      - name: "Update or create issue"
+      - name: "Create health check issue"
         if: steps.validate.outputs.broken_count > 0 && !inputs.report_only
         continue-on-error: true
         run: |
@@ -199,7 +178,7 @@ jobs:
             echo "- [x] Broken links identified"
             echo "- [x] Health report generated"
             echo ""
-            cat./.github/tmp/health_report.md
+            cat /tmp/health_report.md
             echo ""
             echo "## Definition of Done (DoD)"
             echo ""
@@ -207,36 +186,15 @@ jobs:
             echo "- [ ] Schema corrected or links validated"
             echo "- [ ] Documentation updated if needed"
             echo "- [ ] Health check rerun confirms resolution"
-          } >./.github/tmp/issue_body.txt
+          } > /tmp/issue_body.txt
 
-          if [[ "${{ steps.issue.outputs.issue_action }}" == "update" ]]; then
-            # Update existing issue
-            gh issue edit "${{ steps.issue.outputs.issue_number }}" \
-              --repo "${{ github.repository }}" \
-              --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
-              --body-file./.github/tmp/issue_body.txt || {
-                echo "::warning::Could not update issue #${{ steps.issue.outputs.issue_number }}"
-              }
-            echo "Updated issue #${{ steps.issue.outputs.issue_number }}"
-          else
-            # Create new issue
-            gh issue create \
-              --repo "${{ github.repository }}" \
-              --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
-              --body-file./.github/tmp/issue_body.txt \
-              --label "type:task,area:automation,priority:important" || {
-                echo "::warning::Could not create issue"
-              }
-          fi
-
-      - name: "Close issue if resolved"
-        if: steps.validate.outputs.broken_count == 0 && steps.issue.outputs.issue_action == 'update'
-        continue-on-error: true
-        run: |
-          gh issue close "${{ steps.issue.outputs.issue_number }}" \
+          gh issue create \
             --repo "${{ github.repository }}" \
-            --comment "✅ All badge links are now healthy! Closing this issue."
-          echo "Closed issue #${{ steps.issue.outputs.issue_number }} - all links are healthy"
+            --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
+            --body-file /tmp/issue_body.txt \
+            --label "type:task,area:automation,priority:important" || {
+              echo "::warning::Could not create issue"
+            }
 
       - name: "Post workflow summary"
         if: always()
@@ -263,7 +221,7 @@ jobs:
           echo "Health check failed with errors."
           echo ""
           echo "Broken links:"
-          cat./.github/tmp/broken_links.txt || echo "None"
+          cat /tmp/broken_links.txt || echo "None"
           echo ""
           echo "Timeout links:"
-          cat./.github/tmp/timeout_links.txt || echo "None"
+          cat /tmp/timeout_links.txt || echo "None"

@@ -1,15 +1,14 @@
 ---
-file_type: documentation
+file_type: planning
 title: "repo-restructuring-2026-07-25 — Planning & Specification"
 description: "Project planning document with objectives, phases, deliverables, and GitHub issue references"
 version: 1.0.0
-created_date: "2026-08-12"
-last_updated: "2026-08-12"
+created_date: 2026-08-12
+last_updated: 2026-08-12
 authors:
   - Author Name
 owner: Owner Name/Team
 maintainer: Maintainer Name
-status: draft
 tags:
   - planning
   - specification

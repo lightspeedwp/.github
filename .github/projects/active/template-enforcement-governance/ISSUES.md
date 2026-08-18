@@ -482,7 +482,7 @@ Keep the PR template fixture pack in sync with the workflow and agent validation
 
 **Details:**
 
-- File: `scripts/validation/__fixtures__/pr-templates/`
+- File: `.github/tests/fixtures/pr-templates/`
 - Sample PR bodies for each template type (valid and invalid)
 - Test cases for workflow validation
 - Examples of agent output and corrections

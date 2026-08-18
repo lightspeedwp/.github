@@ -1,4 +1,3 @@
-/* global window, document, localStorage, CustomEvent */
 /* theme-toggle.js
    Handles all .theme-toggle-btn buttons on the page.
    Moon = currently light mode (click to go dark)
@@ -38,9 +37,7 @@ function toggleTheme() {
   document.documentElement.style.colorScheme = next;
   try {
     localStorage.setItem("ag-theme", next);
-  } catch (_e) {
-    // Ignore storage failures in private/locked contexts.
-  }
+  } catch (e) {}
   updateAllIcons();
   document.dispatchEvent(new CustomEvent("theme-changed"));
 }

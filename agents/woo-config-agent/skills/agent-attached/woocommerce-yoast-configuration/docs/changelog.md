@@ -22,6 +22,7 @@
 - Updated `scripts/validate_source_register.py` to accept either a direct `references/source-register.md` path, the `references/` directory, or the skill root directory.
 - Added targeted validation coverage for default, skill-root, references-directory and direct-file invocation styles.
 
+
 ## 2026-07-03 - Related skill routing layer
 
 - Added `references/related-skills-routing.md` to define the boundary between `woocommerce-yoast-configuration` and `woocommerce-yoast-auditor`.
@@ -40,6 +41,7 @@
 - Added multilingual hreflang playbook, locale metadata governance, multilingual QA report template, translated metadata approval template, multilingual page-set .schemas/fixture, validator, and scenario tests.
 - Updated SKILL routing, file routing, multilingual profile, usage guide, maintenance guide, architecture notes, and package validators.
 - Preserved evidence boundary: Yoast settings do not prove rendered hreflang, language relationships, translated metadata, or multilingual sitemap behaviour.
+
 
 ## Unreleased - artefact review batch
 
@@ -86,6 +88,7 @@ Validation required before release: source register, reference data, skill struc
 - Added `scripts/validate_evidence_states.py` and `tests/audit-triage-scenario-tests.md`.
 - Updated `SKILL.md`, `references/file-routing-index.md`, maintenance, usage and evidence docs to route the new files progressively.
 
+
 ## 2026-07-03 - Batch 4 decision, conflict and client-safe outputs
 
 - Added `references/decision-register-model.md` for approval-ready Yoast decision records.
@@ -96,6 +99,7 @@ Validation required before release: source register, reference data, skill struc
 - Added `tests/decision-conflict-scenario-tests.md`.
 - Updated `SKILL.md`, `references/file-routing-index.md`, and `references/future-skill-architecture.md` to route the new decision and conflict workflows progressively.
 
+
 ## Batch 6 - comparison, regression and acceptance workflows
 
 - Added Yoast state comparison and plugin-update regression playbooks.
@@ -104,6 +108,7 @@ Validation required before release: source register, reference data, skill struc
 - Added comparison/regression scenario tests.
 - Updated routing, usage, maintenance and architecture guidance.
 
+
 ## Unreleased - access-aware remediation workflow
 
 - Added `references/access-level-workflow.md` to clarify what each evidence/access level proves.
@@ -111,7 +116,6 @@ Validation required before release: source register, reference data, skill struc
 - Added `templates/yoast-remediation-backlog.md` and `templates/wordpress-admin-change-plan.md`.
 - Added `schemas/remediation-item.schema.json`, `fixtures/sample-remediation-item.json`, `scripts/validate_remediation_pack.py`, and `tests/access-remediation-scenario-tests.md`.
 - Updated `SKILL.md`, routing index, usage guide, maintenance guide and future architecture reference.
-
 ## Unreleased - portfolio and defaults-drift workflows
 
 - Added `references/portfolio-audit-playbook.md` for multi-site and retainer Yoast reviews.
@@ -143,6 +147,7 @@ Validation required before release: source register, reference data, skill struc
 - Added `schemas/bulk-metadata-change.schema.json` and `fixtures/sample-bulk-metadata-change.json`.
 - Added `scripts/validate_bulk_metadata_pack.py` and `tests/bulk-metadata-governance-scenario-tests.md`.
 - Updated `SKILL.md`, file routing, usage and maintenance guidance to keep candidate rows, approval, implementation and rendered verification separate.
+
 
 ## Batch 12 - Content structure and taxonomy decision support
 

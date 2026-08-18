@@ -44,7 +44,6 @@ npm install --save-dev ts-jest typescript
 ### Jest Configuration Evolution
 
 **Minimal (`.js` projects)**
-
 ```javascript
 module.exports = {
   testEnvironment: 'node',
@@ -52,7 +51,6 @@ module.exports = {
 ```
 
 **Intermediate (TypeScript)**
-
 ```javascript
 module.exports = {
   preset: 'ts-jest',
@@ -64,7 +62,6 @@ module.exports = {
 ```
 
 **Production (`React` + `TypeScript`)**
-
 ```javascript
 module.exports = {
   preset: 'ts-jest',
@@ -93,7 +90,6 @@ module.exports = {
 ### Setup File for React
 
 **jest.setup.js**
-
 ```javascript
 import '@testing-library/jest-dom';
 

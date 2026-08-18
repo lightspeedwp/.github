@@ -327,38 +327,11 @@ function groupFindingsByFile(findings = []) {
 function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
   const resolvedRoot = path.resolve(rootDir);
 
-  // Check for block plugin first (block.json takes precedence)
-  const blockJsonPath = path.join(resolvedRoot, "block.json");
-  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
-  if (fsImpl.existsSync(blockJsonPath) || fsImpl.existsSync(blockPluginPath)) {
-    return "BLOCK_PLUGIN";
-  }
-
-  // Check for control-plane markers (.github/CLAUDE.md, .github/workflows, or .github/actions)
+  // Check for control-plane markers (.github/.claude/CLAUDE.md)
   const claudeMdPath = path.join(resolvedRoot, ".github", "CLAUDE.md");
-  const workflowsPath = path.join(resolvedRoot, ".github", "workflows");
-  const actionsPath = path.join(resolvedRoot, ".github", "actions");
-  if (
-    fsImpl.existsSync(claudeMdPath) ||
-    fsImpl.existsSync(workflowsPath) ||
-    fsImpl.existsSync(actionsPath)
-  ) {
+  const agentsPath = path.join(resolvedRoot, ".github", "agents");
+  if (fsImpl.existsSync(claudeMdPath) && fsImpl.existsSync(agentsPath)) {
     return "control-plane";
-  }
-
-  // Check for WordPress theme markers (theme.json or style.css with "Theme Name:" header)
-  const themeJsonPath = path.join(resolvedRoot, "theme.json");
-  const styleCssPath = path.join(resolvedRoot, "style.css");
-
-  if (fsImpl.existsSync(themeJsonPath)) {
-    return "wordpress-theme";
-  }
-
-  if (fsImpl.existsSync(styleCssPath)) {
-    const styleContent = fsImpl.readFileSync(styleCssPath, "utf8");
-    if (styleContent.includes("Theme Name:")) {
-      return "wordpress-theme";
-    }
   }
 
   // Check for WordPress plugin markers (plugin.php with Plugin Header)
@@ -370,71 +343,104 @@ function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
     }
   }
 
-  return "UNKNOWN";
+  // Check for WordPress theme markers (style.css with Theme Header)
+  const styleCssPath = path.join(resolvedRoot, "style.css");
+  if (fsImpl.existsSync(styleCssPath)) {
+    const styleContent = fsImpl.readFileSync(styleCssPath, "utf8");
+    if (styleContent.includes("Theme Name:")) {
+      return "wordpress-theme";
+    }
+  }
+
+  // Check for block plugin (src/plugin.php or block.json)
+  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
+  const blockJsonPath = path.join(resolvedRoot, "block.json");
+  if (fsImpl.existsSync(blockPluginPath) || fsImpl.existsSync(blockJsonPath)) {
+    return "wordpress-block-plugin";
+  }
+
+  return "generic";
 }
 
-function getWordPressPhpcsConfig(options = {}) {
-  const { type = "plugin", ruleset = "WordPress" } = options;
-
+function getWordPressPhpcsConfig(repositoryType = "wordpress-plugin") {
   const baseConfig = {
-    standards: [ruleset],
+    standard: "WordPress",
     extensions: ["php"],
-    exclude: ["vendor/", "node_modules/", "tests/"],
+    exclude: ["vendor", "node_modules", "tests"],
     severity: 5,
   };
 
-  if (type === "plugin") {
+  if (repositoryType === "wordpress-plugin") {
     return {
       ...baseConfig,
-      standards: [ruleset || "WordPress-Core", "WordPress-Docs"],
+      standard: "WordPress-Core,WordPress-Docs",
+      sniffs: {
+        "WordPress.Security.EscapeOutput": { severity: 5 },
+        "WordPress.DB.PreparedSQL": { severity: 5 },
+        "WordPress.Security.NonceVerification": { severity: 4 },
+      },
     };
   }
 
-  if (type === "theme") {
+  if (repositoryType === "wordpress-theme") {
     return {
       ...baseConfig,
-      standards: [ruleset || "WordPress"],
+      standard: "WordPress",
+      sniffs: {
+        "WordPress.Theme.NoScriptTags": { severity: 5 },
+        "WordPress.Security.EscapeOutput": { severity: 5 },
+      },
+    };
+  }
+
+  if (repositoryType === "wordpress-block-plugin") {
+    return {
+      ...baseConfig,
+      standard: ["WordPress-Core", "WordPress-Docs"],
+      sniffs: {
+        "WordPress.Security.EscapeOutput": { severity: 5 },
+        "WordPress.DB.PreparedSQL": { severity: 5 },
+      },
     };
   }
 
   return baseConfig;
 }
 
-function getBlockPluginConfig(options = {}) {
-  const { typescript = false, rules = {} } = options;
-
-  const config = {
-    extends: ["plugin:react/recommended"],
-    rules: {
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off",
-      "no-console": "error",
-      ...rules,
+function getBlockPluginConfig(projectRoot = process.cwd()) {
+  return {
+    eslintConfig: {
+      extends: ["plugin:@wordpress/eslint-plugin/recommended"],
+      rules: {
+        "no-unused-vars": "error",
+        "no-console": ["warn", { allow: ["warn", "error"] }],
+      },
     },
+    stylelintConfig: {
+      extends: ["stylelint-config-standard"],
+      rules: {
+        "no-missing-end-of-source-newline": null,
+      },
+    },
+    phpcsConfig: getWordPressPhpcsConfig("wordpress-block-plugin"),
   };
-
-  if (typescript) {
-    config.parser = "@typescript-eslint/parser";
-    config.parserOptions = { ecmaVersion: 2021, sourceType: "module" };
-    config.extends.push("plugin:@typescript-eslint/recommended");
-  }
-
-  return config;
 }
 
-function getBlockThemeConfig(options = {}) {
-  const { includeVariations = false } = options;
-
+function getBlockThemeConfig(projectRoot = process.cwd()) {
   return {
-    extends: "stylelint-config-wordpress",
-    rules: {
-      "color-no-invalid-hex": true,
-      "font-family-no-missing-generic-family-keyword": true,
-      "property-no-unknown": true,
-      "selector-pseudo-element-no-unknown": true,
-      "unit-no-unknown": true,
+    eslintConfig: {
+      extends: ["eslint:recommended"],
+      rules: {
+        "no-unused-vars": "error",
+      },
     },
-    ignoreFiles: ["vendor/**", "node_modules/**", "dist/**"],
+    stylelintConfig: {
+      extends: ["stylelint-config-standard"],
+      rules: {
+        "unit-allowed-list": ["em", "rem", "px", "%"],
+      },
+    },
+    phpcsConfig: getWordPressPhpcsConfig("wordpress-theme"),
   };
 }
 

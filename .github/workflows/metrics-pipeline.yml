@@ -2,8 +2,9 @@ name: Metrics Pipeline
 
 on:
   schedule:
-    # Daily at 2:00 AM UTC for production metrics collection
-    - cron: "0 2 * * *"
+    # Collect metrics at 6 AM, aggregate at 9 AM
+    - cron: "0 6 * * 1" # Metrics collection
+    - cron: "0 9 * * 1" # Metrics aggregation and reporting
 
   workflow_dispatch:
     inputs:

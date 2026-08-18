@@ -1,7 +1,6 @@
 # Embed validation
 
 ## Page target
-
 - Site:
 - Environment:
 - Page/post URL:
@@ -11,7 +10,6 @@
 - Embed method:
 
 ## Existing evidence
-
 - Existing placements:
 - Duplicate same-form placements:
 - Shortcode/block settings:
@@ -20,7 +18,6 @@
 - Known related forms/pages:
 
 ## Proposed or reviewed embed
-
 - Action:
 - Insertion point:
 - Title/description display:
@@ -30,7 +27,6 @@
 - Approval required:
 
 ## Validation checks
-
 | Check | Result | Evidence/notes |
 |---|---|---|
 | Page renders correctly | Not run |  |
@@ -46,13 +42,11 @@
 | Feeds processed | Not run |  |
 
 ## Rollback
-
 - Previous embed state:
 - Rollback action:
 - Owner:
 
 ## Handoff
-
 - Summary:
 - Remaining risks:
 - Next owner:

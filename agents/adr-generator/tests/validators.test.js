@@ -149,8 +149,14 @@ describe("ADR Validators", () => {
 
   describe("enforceFilenameFormat", () => {
     test("should pass for correctly named files", () => {
-      createADR("0001-first-decision.md", "---\ntitle: First\n---\n# First");
-      createADR("0002-second-decision.md", "---\ntitle: Second\n---\n# Second");
+      createADR(
+        "0001-first-decision.md",
+        "---\ntitle: First\n---\n# First",
+      );
+      createADR(
+        "0002-second-decision.md",
+        "---\ntitle: Second\n---\n# Second",
+      );
 
       const result = validators.enforceFilenameFormat(tempDir);
       expect(result.valid).toBe(true);

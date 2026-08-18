@@ -2,9 +2,8 @@
 file_type: project
 title: Release Workflow Authorization Fixes
 description: Fix release.yml workflow authorization checks and GitHub permissions
-status: complete
+status: active
 created_date: 2026-08-04
-completed_date: 2026-08-19
 owner: DevOps
 related_issues:
   - 1453
@@ -38,18 +37,12 @@ Made the `trigger-telemetry` job non-blocking with `continue-on-error: true` so 
 
 ## Status
 
-✅ **COMPLETE (2026-08-19)**
-
 - [x] Root cause identified and documented  
 - [x] Fix implemented (non-blocking telemetry)
 - [x] Project created and documented
 - [x] Merged to develop (PR #1462, commit 5e0400377)
-- [x] Tested via workflow execution (dry-run + integration tests)
-- [x] Script migration completed (Phase 2B-2C, PR #2107)
-- [x] All 347 portable scripts verified
-- [x] Issue #1453 resolved
-
-**Merged PRs:** #1462 (initial fix), #2107 (script migration)
+- [ ] Tested via workflow execution (Phase 1: Dry-run pending)
+- [ ] Issue #1453 closed (pending test validation)
 
 ## Testing & Validation
 
@@ -123,26 +116,3 @@ This project is coordinated with:
 - [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
 
 See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

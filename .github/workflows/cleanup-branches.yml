@@ -73,6 +73,6 @@ jobs:
         with:
           name: cleanup-report-${{ github.run_number }}
           path: |
-            .github//.github/reports/branch-cleanup-*.md
-            .github//.github/reports/branch-cleanup-*.json
+            .github/reports/branch-cleanup-*.md
+            .github/reports/branch-cleanup-*.json
           if-no-files-found: warn

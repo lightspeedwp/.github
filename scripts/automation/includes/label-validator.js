@@ -3,7 +3,7 @@
  * Validates label combinations and detects conflicts
  */
 
-const phaseStateMachine = require("./phase-state-machine");
+const phaseStateMachine = require('./phase-state-machine');
 
 /**
  * Mutually exclusive label groups
@@ -11,23 +11,23 @@ const phaseStateMachine = require("./phase-state-machine");
  */
 const MUTEX_GROUPS = {
   specification_phase: [
-    "openspec:specification-pending",
-    "openspec:specification-in-progress",
-    "openspec:specification-complete",
+    'openspec:specification-pending',
+    'openspec:specification-in-progress',
+    'openspec:specification-complete',
   ],
   implementation_phase: [
-    "openspec:implementation-pending",
-    "openspec:implementation-in-progress",
-    "openspec:implementation-complete",
+    'openspec:implementation-pending',
+    'openspec:implementation-in-progress',
+    'openspec:implementation-complete',
   ],
   status: [
-    "status:needs-planning",
-    "status:needs-triage",
-    "status:ready",
-    "status:in-progress",
-    "status:on-hold",
-    "status:blocked",
-    "status:done",
+    'status:needs-planning',
+    'status:needs-triage',
+    'status:ready',
+    'status:in-progress',
+    'status:on-hold',
+    'status:blocked',
+    'status:done',
   ],
 };
 
@@ -36,41 +36,39 @@ const MUTEX_GROUPS = {
  * If a label is present, these other labels should also be present
  */
 const LABEL_REQUIREMENTS = {
-  "openspec:specification-in-progress": [
-    "type:task",
-    "type:feature",
-    "type:epic",
-  ],
-  "openspec:specification-complete": ["type:task", "type:feature", "type:epic"],
-  "openspec:implementation-pending": ["type:task", "type:feature", "type:epic"],
-  "openspec:implementation-in-progress": [
-    "type:task",
-    "type:feature",
-    "type:epic",
-  ],
-  "openspec:implementation-complete": [
-    "type:task",
-    "type:feature",
-    "type:epic",
-  ],
+  'openspec:specification-in-progress': ['type:task', 'type:feature', 'type:epic'],
+  'openspec:specification-complete': ['type:task', 'type:feature', 'type:epic'],
+  'openspec:implementation-pending': ['type:task', 'type:feature', 'type:epic'],
+  'openspec:implementation-in-progress': ['type:task', 'type:feature', 'type:epic'],
+  'openspec:implementation-complete': ['type:task', 'type:feature', 'type:epic'],
 };
 
 /**
  * Recommended label combinations
  */
 const RECOMMENDED_COMBINATIONS = {
-  "openspec:specification-pending": [
-    "status:needs-planning",
-    "priority:important",
+  'openspec:specification-pending': [
+    'status:needs-planning',
+    'priority:important',
   ],
-  "openspec:specification-in-progress": ["status:in-progress", "meta:has-pr"],
-  "openspec:specification-complete": ["status:ready"],
-  "openspec:implementation-pending": [
-    "status:needs-planning",
-    "priority:important",
+  'openspec:specification-in-progress': [
+    'status:in-progress',
+    'meta:has-pr',
   ],
-  "openspec:implementation-in-progress": ["status:in-progress", "meta:has-pr"],
-  "openspec:implementation-complete": ["status:done"],
+  'openspec:specification-complete': [
+    'status:ready',
+  ],
+  'openspec:implementation-pending': [
+    'status:needs-planning',
+    'priority:important',
+  ],
+  'openspec:implementation-in-progress': [
+    'status:in-progress',
+    'meta:has-pr',
+  ],
+  'openspec:implementation-complete': [
+    'status:done',
+  ],
 };
 
 /**
@@ -89,62 +87,57 @@ function validateLabels(labels) {
 
   if (!Array.isArray(labels)) {
     result.valid = false;
-    result.conflicts.push("Labels must be an array");
+    result.conflicts.push('Labels must be an array');
     return result;
   }
 
   // Check for mutex violations
   Object.entries(MUTEX_GROUPS).forEach(([groupName, groupLabels]) => {
-    const presentLabels = labels.filter((l) => groupLabels.includes(l));
+    const presentLabels = labels.filter(l => groupLabels.includes(l));
     if (presentLabels.length > 1) {
       result.valid = false;
       result.conflicts.push(
-        `Multiple labels from ${groupName}: ${presentLabels.join(", ")}`,
+        `Multiple labels from ${groupName}: ${presentLabels.join(', ')}`
       );
     }
   });
 
   // Check for missing requirements
-  labels.forEach((label) => {
+  labels.forEach(label => {
     const requirements = LABEL_REQUIREMENTS[label];
     if (requirements) {
-      const hasMissing =
-        requirements.length > 0 &&
-        !requirements.some((req) => labels.includes(req));
+      const hasMissing = requirements.length > 0 &&
+        !requirements.some(req => labels.includes(req));
 
       if (hasMissing) {
         result.warnings.push(
-          `Label "${label}" requires one of: ${requirements.join(", ")}`,
+          `Label "${label}" requires one of: ${requirements.join(', ')}`
         );
       }
     }
   });
 
   // Suggest additional labels
-  labels.forEach((label) => {
+  labels.forEach(label => {
     const recommended = RECOMMENDED_COMBINATIONS[label];
     if (recommended) {
-      const missing = recommended.filter((l) => !labels.includes(l));
+      const missing = recommended.filter(l => !labels.includes(l));
       if (missing.length > 0) {
         result.suggestions.push(
-          `For "${label}", consider adding: ${missing.join(", ")}`,
+          `For "${label}", consider adding: ${missing.join(', ')}`
         );
       }
     }
   });
 
   // Additional check: cannot have both specification and implementation labels
-  const hasSpecification = labels.some(
-    (l) => l && l.startsWith("openspec:specification"),
-  );
-  const hasImplementation = labels.some(
-    (l) => l && l.startsWith("openspec:implementation"),
-  );
+  const hasSpecification = labels.some(l => l && l.startsWith('openspec:specification'));
+  const hasImplementation = labels.some(l => l && l.startsWith('openspec:implementation'));
 
   if (hasSpecification && hasImplementation) {
     result.valid = false;
     result.conflicts.push(
-      "Cannot have both specification and implementation OpenSpec labels simultaneously",
+      'Cannot have both specification and implementation OpenSpec labels simultaneously'
     );
   }
 
@@ -160,12 +153,12 @@ function getMutexViolations(labels) {
   const violations = [];
 
   Object.entries(MUTEX_GROUPS).forEach(([groupName, groupLabels]) => {
-    const presentLabels = labels.filter((l) => groupLabels.includes(l));
+    const presentLabels = labels.filter(l => groupLabels.includes(l));
     if (presentLabels.length > 1) {
       violations.push({
         group: groupName,
         labels: presentLabels,
-        message: `Cannot have multiple labels from ${groupName}: ${presentLabels.join(", ")}`,
+        message: `Cannot have multiple labels from ${groupName}: ${presentLabels.join(', ')}`,
       });
     }
   });
@@ -184,7 +177,7 @@ function getOpenSpecLabel(labels) {
     ...MUTEX_GROUPS.implementation_phase,
   ];
 
-  return labels.find((l) => specLabels.includes(l)) || null;
+  return labels.find(l => specLabels.includes(l)) || null;
 }
 
 /**
@@ -193,7 +186,7 @@ function getOpenSpecLabel(labels) {
  * @returns {string|null} Type label or null
  */
 function getTypeLabel(labels) {
-  return labels.find((l) => l && l.startsWith("type:")) || null;
+  return labels.find(l => l && l.startsWith('type:')) || null;
 }
 
 /**
@@ -202,7 +195,7 @@ function getTypeLabel(labels) {
  * @returns {array} Status labels
  */
 function getStatusLabels(labels) {
-  return labels.filter((l) => l && l.startsWith("status:"));
+  return labels.filter(l => l && l.startsWith('status:'));
 }
 
 /**
@@ -211,7 +204,7 @@ function getStatusLabels(labels) {
  * @returns {array} Priority labels
  */
 function getPriorityLabels(labels) {
-  return labels.filter((l) => l && l.startsWith("priority:"));
+  return labels.filter(l => l && l.startsWith('priority:'));
 }
 
 /**
@@ -220,7 +213,7 @@ function getPriorityLabels(labels) {
  * @returns {array} Area labels
  */
 function getAreaLabels(labels) {
-  return labels.filter((l) => l && l.startsWith("area:"));
+  return labels.filter(l => l && l.startsWith('area:'));
 }
 
 /**
@@ -239,8 +232,8 @@ function validateTransition(currentLabels, newLabels) {
   };
 
   // Find added and removed labels
-  result.added = newLabels.filter((l) => !currentLabels.includes(l));
-  result.removed = currentLabels.filter((l) => !newLabels.includes(l));
+  result.added = newLabels.filter(l => !currentLabels.includes(l));
+  result.removed = currentLabels.filter(l => !newLabels.includes(l));
 
   // Validate new label set
   const validation = validateLabels(newLabels);
@@ -256,7 +249,7 @@ function validateTransition(currentLabels, newLabels) {
     if (!phaseStateMachine.isValidTransition(currentOpenSpec, newOpenSpec)) {
       result.valid = false;
       result.conflicts.push(
-        `Invalid OpenSpec transition: ${currentOpenSpec} → ${newOpenSpec}`,
+        `Invalid OpenSpec transition: ${currentOpenSpec} → ${newOpenSpec}`
       );
     }
   }

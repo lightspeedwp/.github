@@ -1,10 +1,9 @@
 ---
-file_type: documentation
 title: Project Maintenance Agent — Phase 1 & 2 Planning
 description: Portable agent for maintaining active projects, updating documentation, and managing project state
 status: active
-created_date: "2026-08-12"
-last_updated: "2026-08-12"
+created_date: 2026-08-12
+last_updated: 2026-08-12
 owners:
   - Ash Shaw
 tags:
@@ -16,9 +15,9 @@ tags:
 
 # Project Maintenance Agent — Phase 1 & 2 Planning
 
-**Project Duration:** Phase 1 (1 week), Phase 2 (2 weeks), Phase 3 (1 week)  
+**Project Duration:** Phase 1 (1 week), Phase 2 (2 weeks)  
 **Start Date:** 2026-08-12  
-**Status:** Phase 1 ✅ COMPLETE, Phase 3 ✅ COMPLETE (PR #2005 merged), Phase 2 & 4 Ready  
+**Status:** Planning Complete, Phase 1 (Scripts) Merged, Phase 2 (Agent) Ready  
 **GitHub Base Issue:** [#1862](https://github.com/lightspeedwp/.github/issues/1862)
 
 ---
@@ -80,8 +79,7 @@ CHANGELOG.md                                       # Phase 1 entry
 
 **Estimated Duration:** 2 weeks  
 **Effort:** ~50 hours  
-**Start Date:** Next scheduled session  
-**Status:** Planning complete, team coordination required for Phase 2 alignment
+**Start Date:** After Phase 1 merge (2026-08-13)
 
 ### Phase 2 Deliverables
 
@@ -187,30 +185,26 @@ agents/project-maintenance-agent/
 
 ---
 
-## Phase 3: Integration & Workflow ✅ COMPLETE
+## Phase 3: Integration & Workflow (PLANNED)
 
-**Duration:** 1 week (2026-08-12 → 2026-08-18)  
-**Effort:** ~20 hours  
-**PR:** [#2005](https://github.com/lightspeedwp/.github/pull/2005)  
-**Status:** Merged to `develop` (2026-08-18)  
-**Completion Date:** 2026-08-18
+**Estimated Duration:** 1 week  
+**Effort:** ~20 hours
 
-### Phase 3 Deliverables
+### Deliverables
 
-1. ✅ **GitHub Actions Workflows**
-   - `project-maintenance-nightly.yml` (scheduled daily 2 AM UTC audit with dry-run)
-   - `project-maintenance-on-demand.yml` (manual operations: audit, create-docs, validate, archive)
-   - Both workflows fully implemented and production-ready
+1. **GitHub Actions Workflow**
+   - `project-maintenance-nightly.yml` (scheduled dry-run, report to team)
+   - `project-maintenance-on-demand.yml` (manual dispatch with approval)
 
-2. ✅ **Slack Integration Setup**
-   - `SLACK_WEBHOOK_SETUP.md` (webhook configuration guide)
-   - Supports team notifications for audit results
-   - One-time setup required (add `PROJECT_MAINTENANCE_SLACK_WEBHOOK` to GitHub Secrets)
+2. **Integration with Task Agents**
+   - Task Planner → calls Maintenance Agent for bulk operations
+   - Task Research → analyzes project state
+   - Maintenance Agent → executes operations
 
-3. ✅ **Workflow Documentation**
-   - Both workflows tested and validated
-   - Dry-run mode prevents unintended file modifications
-   - Error handling with clear feedback
+3. **Runbook & Incident Response**
+   - Documentation for common scenarios
+   - Error recovery procedures
+   - Escalation paths
 
 ---
 
@@ -350,26 +344,3 @@ Reports results to team
 ---
 
 *Built with 🚀 LightSpeed automation and open-source spirit!*
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

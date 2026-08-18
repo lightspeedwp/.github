@@ -1,14 +1,12 @@
 # Payment Flow Review
 
 ## Goal
-
 - Flow type: [donation / paid event / deposit / simple order / membership / recurring payment]
 - Target form:
 - Environment:
 - Gateway/add-on:
 
 ## Confirmed facts
-
 - Gravity Forms version:
 - WordPress/PHP compatibility:
 - SSL status:
@@ -17,7 +15,6 @@
 - Existing payment feeds:
 
 ## Proposed payment model
-
 - Pricing fields:
 - Amount source:
 - Quantity/options/coupons:
@@ -25,7 +22,6 @@
 - Conditional payment branches:
 
 ## Notifications and confirmations
-
 - User receipt:
 - Admin/finance alert:
 - Payment-pending handling:
@@ -33,7 +29,6 @@
 - Unsupported promises removed:
 
 ## Risk review
-
 - Gateway/configuration risk:
 - Pricing/calculation risk:
 - Personal-data risk:
@@ -41,7 +36,6 @@
 - Tracking/analytics risk:
 
 ## Required approvals
-
 - Payment feed changes:
 - Live gateway mode:
 - Receipt wording:
@@ -49,7 +43,6 @@
 - Production embed:
 
 ## Validation plan
-
 - Pricing tests:
 - Successful payment test:
 - Failed/declined/pending test:
@@ -58,7 +51,6 @@
 - Rollback:
 
 ## Outcome
-
 - Readiness: [not ready / partially ready / ready after approval]
 - Next owner:
 - Next action:

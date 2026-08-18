@@ -1,7 +1,6 @@
 # Consent and microcopy review
 
 ## Form context
-
 - Site:
 - Environment:
 - Form ID/name:
@@ -11,13 +10,11 @@
 - Workflow type:
 
 ## Consent inventory
-
 | Field | Required | Purpose | Current wording | Risk | Notes |
 |---|---:|---|---|---|---|
 |  |  |  |  |  |  |
 
 ## Microcopy review
-
 | Area | Current wording | Recommendation | Reason | Approval needed |
 |---|---|---|---|---|
 | Field label |  |  |  |  |
@@ -27,7 +24,6 @@
 | User notification |  |  |  |  |
 
 ## Localisation notes
-
 - Translation model:
 - Language owner/reviewer:
 - Consent translation status:
@@ -35,14 +31,12 @@
 - Test variants needed:
 
 ## Data and compliance notes
-
 - Personal data collected:
 - Marketing opt-in status:
 - Retention/export/erase impact:
 - Legal/privacy review needed:
 
 ## Recommendation
-
 - Safe changes now:
 - Changes requiring approval:
 - Do not change:

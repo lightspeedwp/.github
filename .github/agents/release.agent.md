@@ -3,18 +3,16 @@ title: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
 target: "github-copilot"
 handoffs:
-
   - label: "Publish Release"
     agent: "deployment"
     prompt: "Publish the validated and prepared release to production."
     send: false
-
   - label: "Prepare Next Release"
     agent: "release"
     prompt: "Prepare the repository for the next release version."
     send: false
-version: "v2.6"
-last_updated: "2026-08-18"
+version: 'v2.5'
+last_updated: '2026-07-23'
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"
@@ -30,9 +28,6 @@ tags:
     "semantic-versioning",
     "release-prep",
     "health-scan",
-    "phase-5a",
-    "safety-gates",
-    "agentic-workflows",
   ]
 owners: ["lightspeedwp/maintainers"]
 tools:
@@ -70,7 +65,6 @@ tools:
     "edit",
   ]
 permissions:
-
   - "read"
   - "write"
   - "filesystem"
@@ -149,80 +143,6 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 - **Branch strategy**: develop → `release/vX.Y.Z` → main; tags pushed after PR creation.
 - **Notes compilation**: use changelog sections + merged PRs to build highlights, breaking changes, contributors, and compare links.
 - **Label hygiene**: prefer single `release:*` label per PR to align human intent with scope selection.
-
-## Phase 5A Safety Gates (NEW — Agentic Release Orchestration)
-
-**Status:** ✅ COMPLETE (Week 3, 2026-08-18)
-**PR:** [#2016](https://github.com/lightspeedwp/.github/pull/2016) — Merged to develop
-**Approach:** AUGMENT (wraps Phase 4 shell scripts without breaking changes)
-
-### Overview
-
-Phase 5A introduces a **7-layer safety gates system** that validates release safety before calling Phase 4 scripts. The gates wrapper orchestrates all validation, then delegates mutations to existing Phase 4 automation.
-
-**Key Benefits:**
-
-- ✅ AI-driven reasoning with confidence scoring
-- ✅ Tiered approval gates (patch auto, minor 1x, major 2x)
-- ✅ Comprehensive audit logging with secret redaction
-- ✅ Deterministic fail-fast architecture
-- ✅ Fallback to shell scripts if agentic layer fails
-
-**Architecture:**
-
-```
-
-User Input (scope, version, dry-run)
-    ↓
-[Phase 5A Safety Gates (NEW)]
-  ├─ GATE 1: Pre-flight checks
-  ├─ GATE 2: Agentic reasoning score
-  ├─ GATE 3: Version consistency
-  ├─ GATE 4: Tag uniqueness
-  ├─ GATE 5: Authorization
-  ├─ GATE 6: Integrity filter (secret detection)
-  └─ GATE 7: Approval enforcement
-    ↓
-[Phase 4 Scripts (UNCHANGED)] ← Only called if gates pass
-  ├─ run-release-agent.cjs
-  ├─ create-main-release-pr.cjs
-  ├─ create-github-release.cjs
-  └─ post-release-sync.cjs
-```
-
-### The 7-Layer Gates
-
-**GATE 1: Pre-flight Checks** — Branch, commits, VERSION, CHANGELOG validation
-**GATE 2: Agentic Reasoning Score** — AI safety evaluation (≥0.80 threshold)
-**GATE 3: Version Consistency** — Semver format, logical bump validation
-**GATE 4: Tag Uniqueness** — Prevent duplicate release tags
-**GATE 5: Authorization** — Maintainers team membership check
-**GATE 6: Integrity Filter** — Gitleaks secret detection
-**GATE 7: Approval Enforcement** — Tiered by scope (patch auto, minor 1x, major 2x)
-
-### Integration with release.yml
-
-**Workflow:** `.github/workflows/release.yml`
-**Gates Wrapper:** `scripts/workflows/release/run-release-with-gates.cjs` (~150 LOC)
-**Test Suite:** `agents/release/gates/__tests__/release-gates.test.js` (41/41 passing, 82% coverage)
-
-The gates wrapper orchestrates all 7 gates sequentially. If any gate fails, process exits with error code 1. If all gates pass, Phase 4 agent is invoked for mutations.
-
-### Audit Logging & Dry-Run
-
-All releases logged to `.agentic-logs/` with JSON structure (timestamp, user, scope, gate results). Dry-run mode tests gates without mutations.
-
-### Soft Launch Timeline
-
-- **Sep 6, 2026:** Team training (60 min: 30 demo + 30 Q&A)
-- **Sep 9, 2026:** Soft launch (dry-run validation)
-- **Sep 16, 2026:** Full rollout to all maintainers
-
-### References
-
-- **Project:** [.github/projects/active/release-agentic-workflows-2026-08-11/](../../projects/active/release-agentic-workflows-2026-08-11/)
-- **Specification:** [AGENTIC_WORKFLOW_SPEC.md](../../projects/active/release-agentic-workflows-2026-08-11/AGENTIC_WORKFLOW_SPEC.md)
-- **Agentic Workflows:** [.github/agentic-workflows/release.md](../agentic-workflows/release.md)
 
 ## Workflow Orchestration Contract
 
@@ -307,7 +227,6 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
 ### Orchestration Algorithm
 
 ```
-
 Release Agent Orchestration:
 
 1. Pre-Flight Check
@@ -348,13 +267,13 @@ Release Agent Orchestration:
 
 ### Error Recovery
 
-| Failure Point               | Recovery Action                                      |
-| --------------------------- | ---------------------------------------------------- |
-| Linting fails               | Abort; report lint errors; suggest fixes             |
-| Tests fail                  | Abort; report test failures; suggest fixes           |
+| Failure Point               | Recovery Action                                    |
+| --------------------------- | -------------------------------------------------- |
+| Linting fails               | Abort; report lint errors; suggest fixes           |
+| Tests fail                  | Abort; report test failures; suggest fixes         |
 | Changelog invalid           | Abort; report .schemas/content errors; suggest fixes |
-| Release workflow fails      | Rollback tag creation; abort; notify maintainers     |
-| Post-release workflow fails | Continue; warn user; log issue for manual review     |
+| Release workflow fails      | Rollback tag creation; abort; notify maintainers   |
+| Post-release workflow fails | Continue; warn user; log issue for manual review   |
 
 ### Workflow Communication Protocol
 
@@ -371,7 +290,6 @@ All workflows communicate status via:
 Use `--dry-run` mode to test the orchestration without making changes:
 
 ```bash
-
 npm run agent:release -- --scope=patch --dry-run
 ```
 

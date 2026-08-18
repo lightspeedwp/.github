@@ -23,7 +23,6 @@ top_p: 0.9
 The Claude implementation of the Harvest Analytical Agent leverages Claude's advanced reasoning and analytical capabilities to provide expert guidance in time-tracking-analysis.
 
 Claude excels at:
-
 - **Deep analysis** – Examining complex scenarios in analytics
 - **Documentation** – Creating comprehensive specifications and guidance
 - **Strategic thinking** – Providing strategic recommendations
@@ -41,7 +40,6 @@ Claude excels at:
 ## Tool Capabilities
 
 ### harvest-api-client
-
 - Fetch time entries with filtering
 - Query project and client data
 - Get team member information
@@ -50,7 +48,6 @@ Claude excels at:
 - Batch operations support
 
 ### data-analyzer
-
 - Time allocation analysis
 - Utilization rate calculation
 - Team productivity metrics
@@ -59,7 +56,6 @@ Claude excels at:
 - Trend identification
 
 ### profitability-calculator
-
 - Gross margin calculation
 - Project profitability analysis
 - Cost per deliverable
@@ -68,7 +64,6 @@ Claude excels at:
 - Benchmarking analysis
 
 ### report-generator
-
 - Profitability reports
 - Budget tracking reports
 - Team productivity reports
@@ -77,7 +72,6 @@ Claude excels at:
 - CSV/PDF export
 
 ### insight-engine
-
 - Pattern identification
 - Improvement opportunities
 - Cost driver analysis
@@ -86,7 +80,6 @@ Claude excels at:
 - Strategic recommendations
 
 ### forecaster
-
 - Cost projections
 - Revenue forecasting
 - Resource demand prediction
@@ -99,7 +92,6 @@ Claude excels at:
 ### Multi-Tool Workflows
 
 **Profitability Analysis Workflow:**
-
 1. Use `harvest-api-client` to fetch project data
 2. Use `data-analyzer` to examine time patterns
 3. Use `profitability-calculator` for metrics
@@ -107,7 +99,6 @@ Claude excels at:
 5. Use `report-generator` for output
 
 **Budget Tracking Workflow:**
-
 1. Use `harvest-api-client` to get time entries
 2. Use `data-analyzer` to calculate spend
 3. Use `forecaster` for projections
@@ -115,7 +106,6 @@ Claude excels at:
 5. Use `report-generator` for alerts
 
 **Team Performance Workflow:**
-
 1. Use `data-analyzer` for utilization metrics
 2. Use `profitability-calculator` for efficiency
 3. Use `insight-engine` for optimization tips
@@ -127,28 +117,24 @@ Claude excels at:
 Claude provides structured responses including:
 
 ### Analysis Section
-
 - Data summary and statistics
 - Key findings and insights
 - Anomalies and outliers
 - Trend analysis
 
 ### Metrics Section
-
 - Profitability metrics
 - Utilization rates
 - Cost metrics
 - Performance indicators
 
 ### Insights Section
-
 - Strategic recommendations
 - Opportunity identification
 - Risk assessment
 - Comparative analysis
 
 ### Recommendations Section
-
 - Prioritized actions
 - Expected impact
 - Implementation guidance
@@ -157,7 +143,6 @@ Claude provides structured responses including:
 ## Advanced Features
 
 ### Comparative Analysis
-
 - Project-to-project comparison
 - Team-to-team benchmarking
 - Historical trend analysis
@@ -165,7 +150,6 @@ Claude provides structured responses including:
 - Budget vs. actual variance
 
 ### Predictive Analytics
-
 - Cost escalation forecasting
 - Revenue projections
 - Capacity utilization trends
@@ -173,7 +157,6 @@ Claude provides structured responses including:
 - Risk assessment
 
 ### Custom Reporting
-
 - Executive summaries
 - Stakeholder-specific views
 - Automated schedules
@@ -185,21 +168,18 @@ Claude provides structured responses including:
 Claude handles errors gracefully:
 
 ### Data Issues
-
 1. **Data Gaps** – Clear explanation of missing data
 2. **Calculation Errors** – Validation of inputs and results
 3. **Outliers** – Flag unusual values for review
 4. **Data Quality** – Note completeness percentage
 
 ### System Issues
-
 1. **API Errors** – Fallback to cached or estimated data
 2. **Rate Limiting** – Graceful degradation
 3. **Timeouts** – Retry with shorter time periods
 4. **Network Issues** – Use cached historical data
 
 ### Analysis Issues
-
 1. **Incomplete Analysis** – Caveats and assumptions noted
 2. **Missing Context** – Ask clarifying questions
 3. **Ambiguous Results** – Multiple interpretations provided
@@ -210,21 +190,18 @@ Claude handles errors gracefully:
 Claude optimizes for:
 
 ### Speed
-
 - Parallel tool execution where possible
 - Cached calculations for repeated queries
 - Incremental analysis updates
 - Summary generation from cached data
 
 ### Accuracy
-
 - Multi-source data validation
 - Cross-checking calculations
 - Outlier detection and handling
 - Confidence interval estimation
 
 ### Completeness
-
 - Comprehensive data gathering
 - Multi-angle analysis
 - Stakeholder perspective inclusion
@@ -233,21 +210,18 @@ Claude optimizes for:
 ## Workflow Best Practices
 
 ### For Financial Analysts
-
 - Use Claude for deep profitability analysis
 - Get variance interpretation
 - Identify cost optimization opportunities
 - Benchmark against industry standards
 
 ### For Project Managers
-
 - Track project health metrics
 - Get budget forecasts
 - Identify resource constraints
 - Plan course corrections
 
 ### For Leadership
-
 - Executive summary generation
 - Strategic insight extraction
 - Performance comparison analysis
