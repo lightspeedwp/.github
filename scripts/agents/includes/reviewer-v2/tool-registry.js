@@ -72,9 +72,6 @@ function _loadTool(toolName) {
  * @returns {Object|null} - Tool module or null if unavailable
  */
 function getTool(toolName) {
-  if (!toolName || typeof toolName !== "string") {
-    throw new Error("Invalid toolName: must be a non-empty string");
-  }
   return _loadTool(toolName);
 }
 
@@ -176,24 +173,9 @@ async function callTool(toolName, method, args = [], maxRetries = 3) {
   throw lastError;
 }
 
-/**
- * Set GitHub client for tools that need it (e.g., code-quality)
- * @param {Object} client - Octokit GitHub client instance
- */
-function setGitHubClient(client) {
-  if (!client) {
-    throw new Error("GitHub client is required");
-  }
-  const codeQualityTool = _loadTool("code-quality");
-  if (codeQualityTool && codeQualityTool.setGitHubClient) {
-    codeQualityTool.setGitHubClient(client);
-  }
-}
-
 module.exports = {
   getTool,
   getAvailableTools,
   callTool,
-  setGitHubClient,
   _resolveTokens, // Export for testing
 };

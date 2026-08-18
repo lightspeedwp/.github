@@ -19,22 +19,6 @@ class Orchestrator {
     this.defaultPollingIntervals = [10000, 20000, 40000]; // ms
     this.maxPollingInterval = 60000; // ms
     this.reviewTimeout = 30 * 60 * 1000; // 30 minutes
-    this.githubClient = null;
-  }
-
-  /**
-   * Initialize GitHub client for tools that need it (e.g., code-quality)
-   * Called by main agent before orchestration begins
-   *
-   * @param {Object} client - Octokit GitHub client instance
-   */
-  setGitHubClient(client) {
-    if (!client) {
-      throw new Error("GitHub client is required");
-    }
-    this.githubClient = client;
-    // Use registry's method to set client on tools
-    toolRegistry.setGitHubClient(client);
   }
 
   /**
@@ -81,7 +65,7 @@ class Orchestrator {
     // WordPress-specific: PHP linters for WordPress repos
     if (
       repoType.includes("wordpress") &&
-      config.tools?.wordpress_quality?.enabled !== false &&
+      config.wordpress_categories?.enabled !== false &&
       files.some((f) => f.filename.endsWith(".php"))
     ) {
       selectedTools.push("wordpress-quality");
@@ -143,16 +127,10 @@ class Orchestrator {
    * @private
    * @param {string} toolName - Tool to poll
    * @param {string} requestId - Request identifier from trigger()
-   * @param {Object} prContext - GitHub PR context (passed to tool.poll if needed)
    * @param {number} maxWaitMs - Maximum wait time
    * @returns {Promise<Object|null>} - Results or null on timeout
    */
-  async _pollTool(
-    toolName,
-    requestId,
-    prContext,
-    maxWaitMs = this.reviewTimeout,
-  ) {
+  async _pollTool(toolName, requestId, maxWaitMs = this.reviewTimeout) {
     const tool = toolRegistry.getTool(toolName);
     if (!tool) return null;
 
@@ -161,7 +139,7 @@ class Orchestrator {
 
     while (Date.now() - startTime < maxWaitMs) {
       try {
-        const result = await tool.poll(requestId, prContext);
+        const result = await tool.poll(requestId);
 
         if (result && result.status === "completed") {
           return result;
@@ -200,16 +178,15 @@ class Orchestrator {
    * Uses graceful degradation: continues even if some tools fail
    *
    * @param {Object} requests - {toolName: requestId} mapping
-   * @param {Object} prContext - GitHub PR context
    * @returns {Promise<Object>} - {toolName: results} with null for failures
    */
-  async collectResults(requests, prContext) {
+  async collectResults(requests) {
     const results = {};
 
     const promises = Object.entries(requests).map(
       async ([toolName, requestId]) => {
         try {
-          const result = await this._pollTool(toolName, requestId, prContext);
+          const result = await this._pollTool(toolName, requestId);
           results[toolName] = result;
         } catch (error) {
           console.error(
@@ -263,7 +240,7 @@ class Orchestrator {
     }
 
     // 3. Collect results from all tools
-    const results = await this.collectResults(requests, prContext);
+    const results = await this.collectResults(requests);
 
     // 4. Aggregate and return
     return {
