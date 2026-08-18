@@ -52,7 +52,7 @@ describe("routePrTemplate", () => {
       );
       mockFs.readFile.mockResolvedValueOnce("template content");
 
-      const result = await routePrTemplate({ branchType: "feat" });
+      await routePrTemplate({ branchType: "feat" });
 
       expect(mockFs.readFile).toHaveBeenCalledWith(
         ".github/PULL_REQUEST_TEMPLATE/config.yml",
