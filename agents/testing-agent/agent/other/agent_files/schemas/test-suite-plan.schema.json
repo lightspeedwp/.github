@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Test Suite Plan",
+  "type": "object",
+  "required": [
+    "suite_objective",
+    "covered_pages",
+    "covered_flows",
+    "out_of_scope",
+    "required_fixtures",
+    "required_test_accounts",
+    "environment_assumptions",
+    "ci_notes",
+    "risk_areas",
+    "review_gate"
+  ],
+  "properties": {
+    "suite_objective": { "type": "string", "minLength": 1 },
+    "covered_pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "covered_flows": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "out_of_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_fixtures": { "type": "array", "items": { "type": "string" } },
+    "required_test_accounts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "environment_assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "ci_notes": { "type": "array", "items": { "type": "string" } },
+    "risk_areas": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "review_gate": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

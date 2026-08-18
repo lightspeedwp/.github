@@ -1,0 +1,5 @@
+{
+  "name": "test/plugin",
+  "description": "Test plugin",
+  "type": "wordpress-plugin"
+}

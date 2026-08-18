@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
           cache: "npm"
 
       - name: Install dependencies
@@ -36,11 +36,19 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.head_ref }}
           TARGET_BRANCH: ${{ github.base_ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
           # Check exemptions: release/* and hotfix/* are allowed on main
           if [[ "$TARGET_BRANCH" == "main" ]] && [[ "$BRANCH_NAME" =~ ^(release|hotfix)/ ]]; then
             echo "valid=true" >> $GITHUB_OUTPUT
             echo "message=Branch is exempt (release or hotfix on main)"
+            exit 0
+          fi
+
+          # Exempt dependabot and renovate PRs from branch name validation
+          if [[ "$PR_AUTHOR" == "dependabot[bot]" ]] || [[ "$PR_AUTHOR" == "renovate[bot]" ]] || [[ "$BRANCH_NAME" =~ ^(dependabot|renovate)/ ]]; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+            echo "message=Branch is exempt (automated bot)"
             exit 0
           fi
 

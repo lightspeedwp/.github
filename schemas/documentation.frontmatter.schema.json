@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lightspeedwp/.github/schemas/documentation.frontmatter.schema.json",
+  "title": "Generic Documentation Frontmatter Schema",
+  "description": "Validates frontmatter metadata for general documentation files across LightSpeedWP projects.",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Document title",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of document content and purpose",
+      "minLength": 10,
+      "maxLength": 300
+    },
+    "author": {
+      "type": "string",
+      "description": "Full name of author (no @ handles)",
+      "minLength": 2
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Document creation/update date in YYYY-MM-DD format"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Last update date in YYYY-MM-DD format"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "active", "archived"],
+      "description": "Document status"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["en"],
+      "description": "Language code (UK English only)"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "documentation",
+        "guide",
+        "tutorial",
+        "reference",
+        "troubleshooting",
+        "faq",
+        "standards",
+        "process",
+        "examples",
+        "best-practices"
+      ],
+      "description": "Document category"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for organisation and discoverability",
+      "items": {
+        "type": "string",
+        "minLength": 2
+      },
+      "maxItems": 15
+    },
+    "file_type": {
+      "type": "string",
+      "enum": [
+        "documentation",
+        "guide",
+        "reference",
+        "tutorial",
+        "faq",
+        "standards"
+      ],
+      "description": "Type of documentation file"
+    },
+    "audience": {
+      "type": "array",
+      "description": "Intended audience",
+      "items": {
+        "type": "string",
+        "enum": [
+          "developers",
+          "contributors",
+          "maintainers",
+          "users",
+          "designers",
+          "product",
+          "all"
+        ]
+      }
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced"],
+      "description": "Difficulty level for tutorials/guides"
+    },
+    "estimated_read_time": {
+      "type": "integer",
+      "description": "Estimated reading time in minutes",
+      "minimum": 1,
+      "maximum": 120
+    },
+    "prerequisites": {
+      "type": "array",
+      "description": "Prerequisites for following this document",
+      "items": {
+        "type": "string"
+      }
+    },
+    "references": {
+      "type": "object",
+      "description": "Links to related resources",
+      "additionalProperties": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "table_of_contents": {
+      "type": "boolean",
+      "description": "Whether this document needs a table of contents"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Document version number"
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last content review in YYYY-MM-DD format"
+    },
+    "next_review_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Scheduled next review date in YYYY-MM-DD format"
+    }
+  },
+  "required": ["title", "description", "status", "language"],
+  "additionalProperties": false
+}

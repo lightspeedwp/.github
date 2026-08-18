@@ -3,8 +3,8 @@ file_type: openspec
 title: "PROJECT_TITLE — OpenSpec Specification"
 description: "Detailed technical specification with phases, architecture, components, testing requirements, and implementation details"
 version: 1.0.0
-created_date: YYYY-MM-DD
-last_updated: YYYY-MM-DD
+created_date: 2026-01-01
+last_updated: 2026-01-01
 authors:
   - Author Name
 owner: Owner Name/Team
@@ -14,8 +14,8 @@ tags:
   - specification
   - architecture
   - technical
-domain: "domain-name"
-status: "draft|review|approved|implemented"
+domain: governance
+status: draft
 related_planning: "./PLANNING.md"
 ---
 
@@ -54,7 +54,7 @@ Each phase includes:
 
 ## Phase 1: [Phase Name] — Architecture & Design
 
-**Related Planning:** [PLANNING.md — Phase 1](./PLANNING.md#phase-1-phase-name-weeks-xy)
+**Related Planning:** See Phase 1 section in PLANNING.md (created from PLANNING_TEMPLATE.md)
 
 ### 1.1 Architecture Overview
 
@@ -333,7 +333,7 @@ describe('Component A', () => {
 
 ## Phase 2: [Phase Name] — Implementation & Testing
 
-**Related Planning:** [PLANNING.md — Phase 2](./PLANNING.md#phase-2-phase-name-weeks-xy)
+**Related Planning:** See Phase 2 section in PLANNING.md (created from PLANNING_TEMPLATE.md)
 
 [Continue with same pattern for Phase 2]
 
@@ -407,13 +407,13 @@ describe('Component A', () => {
 
 **Request Example:**
 
-<!-- gitleaks:allow -->
 ```bash
+# gitleaks:allow
 curl -X GET \
   https://api.example.com/api/v1/resource/550e8400-e29b-41d4-a716-446655440000 \
   -H 'Authorization: Bearer token123'
+# gitleaks:allowlist
 ```
-<!-- gitleaks:allow -->
 
 **Success Response (200 OK):**
 
@@ -558,9 +558,9 @@ curl -X GET \
 
 ## References & Related Documents
 
-- [PLANNING.md](./PLANNING.md) — Project planning and timeline
-- [GitHub Issues — Master Epic](../../../issues/XXXX) — Issue tracking
-- [Related Architecture Doc](../../../docs/ARCHITECTURE.md) — System architecture
+- PLANNING.md (created from PLANNING_TEMPLATE.md) — Project planning and timeline
+- GitHub Issues — Master Epic (link issue number to your project's master epic issue)
+- Related Architecture Doc — Reference any relevant architecture documentation in your repository
 
 ---
 
