@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Release Handoff Generator
-  short_description: Create release notes, client handoff packs, support transition notes and post-launch monitoring plans for LightSpeed WordPress projects.
-  icon: assets/icon.svg
-  accent_color: '#00A3FF'

@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS Estimation Planner"
-  short_description: "Estimate LightSpeed project effort with confidence, risks, and phasing."
-  default_prompt: "Use $lightspeed-estimation-planner to produce a grounded LightSpeed estimate with assumptions, confidence, and risk buffer."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "WordPress Inspection Preflight"
-  short_description: "Run safe WordPress preflight and evidence-led inspection"
-  default_prompt: "Use $wordpress-inspection-preflight to run WordPress preflight, pick the right environment, inspect safely, and structure confirmed findings before recommendations."

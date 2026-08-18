@@ -1,6 +1,0 @@
-interface:
-  display_name: "Research Synthesis"
-  short_description: "Turn mixed evidence into design-ready insights"
-  default_prompt: "Use $research-synthesis to synthesize interviews, support themes, feedback, or mixed notes into design-ready insights, tensions, and implications."
-policy:
-  allow_implicit_invocation: true

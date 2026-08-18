@@ -1,4 +1,0 @@
-interface:
-  display_name: "Validation Support"
-  short_description: "Checks planning packs, files, and validation coverage"
-  default_prompt: "Use $validation-support to validate planning files, structure, and workflow coverage."

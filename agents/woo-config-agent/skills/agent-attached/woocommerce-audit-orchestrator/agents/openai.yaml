@@ -1,4 +1,0 @@
-interface:
-  display_name: "Woo Audit Orchestrator"
-  short_description: "Turn site evidence into guardrailed WooCommerce audits"
-  default_prompt: "Use $woocommerce-audit-orchestrator to turn connected site evidence into a consistent, delivery-ready WooCommerce audit."

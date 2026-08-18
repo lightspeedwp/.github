@@ -1,4 +1,0 @@
-interface:
-  display_name: "Evidence Locking"
-  short_description: "Separates facts, assumptions, conflicts, and evidence quality"
-  default_prompt: "Use $evidence-locking to extract confirmed facts, assumptions, conflicts, and evidence gaps."

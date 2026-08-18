@@ -1,4 +1,0 @@
-interface:
-  display_name: "Figma ThemeJSON Radius"
-  short_description: "Extract border radius tokens for theme.json from Figma"
-  default_prompt: "Use $figma-themejson-radius to extract WordPress theme.json border radius tokens from a Figma variables table."

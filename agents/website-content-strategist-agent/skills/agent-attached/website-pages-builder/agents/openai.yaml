@@ -1,5 +1,0 @@
-interface:
-  display_name: website-pages-builder
-  short_description: Handle standard website page types with templates
-  default_prompt: Use $website-pages-builder to plan or draft a website page using
-    the matching page-type template and the approved source context.

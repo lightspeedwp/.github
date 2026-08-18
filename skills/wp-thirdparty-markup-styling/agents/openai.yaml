@@ -1,4 +1,0 @@
-interface:
-  display_name: "WP Third-Party Markup Styling"
-  short_description: "Style plugin/WooCommerce markup you don't control — body portals, stripped classes, style bleed."
-  default_prompt: "Use $wp-thirdparty-markup-styling to style third-party WordPress/WooCommerce markup from a block theme."

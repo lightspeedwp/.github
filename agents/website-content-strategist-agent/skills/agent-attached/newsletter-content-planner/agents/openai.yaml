@@ -1,5 +1,0 @@
-interface:
-  display_name: newsletter-content-planner
-  short_description: Draft newsletters and email campaign content
-  default_prompt: Use $newsletter-content-planner to draft newsletter content, subject
-    lines, preview text, and section plans.

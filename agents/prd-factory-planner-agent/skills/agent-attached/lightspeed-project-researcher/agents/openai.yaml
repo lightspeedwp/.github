@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Project Researcher
-  short_description: Research briefs, Figma, repos and sites before PRD/task planning.
-  icon: ../assets/icon.svg
-  accent_color: '#1E40AF'

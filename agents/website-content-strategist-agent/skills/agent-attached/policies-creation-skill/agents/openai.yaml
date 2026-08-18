@@ -1,4 +1,0 @@
-interface:
-  display_name: "Policies Creation Skill"
-  short_description: "Create policy and legal page outputs from templates"
-  default_prompt: "Use $policies-creation-skill to plan or draft a policy or legal page using the matching template and approved authority inputs."

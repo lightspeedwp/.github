@@ -1,4 +1,0 @@
-interface:
-  display_name: "Asset Validation Maintainer"
-  short_description: "Audit the agent’s own files, prompts, schemas, and QA coverage"
-  default_prompt: "Use $agent-asset-validation-maintainer to audit this agent’s files, prompts, schemas, routing, and validation coverage."

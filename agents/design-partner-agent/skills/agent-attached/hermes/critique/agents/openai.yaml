@@ -1,6 +1,0 @@
-interface:
-  display_name: "Critique"
-  short_description: "Review a specific screen, component, or flow step"
-  default_prompt: "Use $critique to review a specific screen, component, modal, or bounded flow step and produce prioritized design feedback with rationale and recommendations."
-policy:
-  allow_implicit_invocation: true

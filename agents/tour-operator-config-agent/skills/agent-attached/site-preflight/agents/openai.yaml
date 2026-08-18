@@ -1,4 +1,0 @@
-interface:
-  display_name: "Site Preflight"
-  short_description: "Inspect a connected WordPress site before deeper work"
-  default_prompt: "Use $site-preflight to inspect the connected WordPress site, capture baseline evidence, separate confirmed facts from assumptions, and route to the right specialist skill."

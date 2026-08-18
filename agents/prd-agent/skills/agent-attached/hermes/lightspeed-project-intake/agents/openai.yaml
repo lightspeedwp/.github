@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS Project Intake"
-  short_description: "Turn messy project inputs into a structured LightSpeed intake."
-  default_prompt: "Use $lightspeed-project-intake to normalise scattered project evidence into a usable intake record."

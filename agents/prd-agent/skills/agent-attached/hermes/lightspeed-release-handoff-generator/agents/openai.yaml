@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS Release Handoff"
-  short_description: "Create LightSpeed release notes, handoff packs, and support transition docs."
-  default_prompt: "Use $lightspeed-release-handoff-generator to create a grounded LightSpeed release handoff with known issues, support notes, and post-launch actions."

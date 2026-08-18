@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Requirements Traceability Mapper
-  short_description: Map PRD requirements to tasks, issues, acceptance criteria and QA coverage.
-  icon: assets/icon.svg
-  accent_color: '#2563eb'

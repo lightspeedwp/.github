@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed PRD Task Pack Exporter
-  short_description: Package PRD, technical brief, task, issue, QA and memory outputs into a clean project archive.
-  icon: ../assets/icon.svg
-  accent_color: '#0057ff'

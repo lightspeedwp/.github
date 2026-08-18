@@ -1,4 +1,0 @@
-interface:
-  display_name: "WordPress Launch Readiness"
-  short_description: "Run disciplined WordPress go-live reviews and handoffs"
-  default_prompt: "Use $wordpress-launch-readiness to run a WordPress launch-readiness review and return a structured go-live summary."

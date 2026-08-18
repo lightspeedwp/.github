@@ -1,5 +1,0 @@
-interface:
-  display_name: website-intake-workflow
-  short_description: Guide project intake for website rebuild estimates.
-  default_prompt: Use $website-intake-workflow to collect project details, review
-    available materials, and structure a website rebuild estimate.

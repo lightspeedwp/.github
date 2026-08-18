@@ -1,4 +1,0 @@
-interface:
-  display_name: "Markdown Content Validator"
-  short_description: "Validate markdown files and YAML frontmatter"
-  default_prompt: "Use $markdown-content-validator to validate markdown files, frontmatter schemas, and SemVer versioning before content is shipped or handed off."

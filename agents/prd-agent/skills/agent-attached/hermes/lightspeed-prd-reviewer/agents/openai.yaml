@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS PRD Reviewer"
-  short_description: "Review planning artefacts for evidence gaps, readiness, and drift."
-  default_prompt: "Use $lightspeed-prd-reviewer to review a LightSpeed planning artefact for readiness, evidence quality, and missing detail."

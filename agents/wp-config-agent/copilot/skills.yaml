@@ -1,7 +1,0 @@
-version: "1.0"
-skills:
-  - id: site-analysis
-  - id: setup-optimization
-  - id: performance-tuning
-  - id: security-hardening
-  - id: plugin-management

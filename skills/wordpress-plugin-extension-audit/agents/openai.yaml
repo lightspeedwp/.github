@@ -1,4 +1,0 @@
-interface:
-  display_name: "WordPress Plugin Extension Audit"
-  short_description: "Audit plugin styling against a shared design system."
-  default_prompt: "Use $wordpress-plugin-extension-audit to inspect a WordPress plugin as a design-system extension and report drift, token issues, and recommended fixes."

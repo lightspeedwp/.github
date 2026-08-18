@@ -1,4 +1,0 @@
-interface:
-  display_name: "Agency Scope & Change Control"
-  short_description: "Hold scope on a fixed-bid build; route out-of-scope work to a Change-Control Register."
-  default_prompt: "Use $agency-scope-change-control to enforce scope discipline on a fixed-bid client build."

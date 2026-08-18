@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS Approval Gates"
-  short_description: "Manage LightSpeed approval checkpoints, go-no-go criteria, and decision logs."
-  default_prompt: "Use $lightspeed-approval-gate-manager to assess LightSpeed approval readiness, blockers, conditions, and next actions."
