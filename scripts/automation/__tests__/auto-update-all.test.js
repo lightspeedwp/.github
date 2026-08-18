@@ -299,11 +299,11 @@ describe("auto-update-all.js", () => {
 function detectIssueType(title) {
   title = title.toLowerCase();
   if (/bug|fix|issue|error|fail|break/i.test(title)) return "type:bug";
-  if (/feature|add|new|implement|create|build/i.test(title))
-    return "type:feature";
-  if (/epic|phase|initiative|release/i.test(title)) return "type:epic";
   if (/doc|guide|readme|help|tutorial/i.test(title))
     return "type:documentation";
+  if (/feature|new|implement|create|build/i.test(title))
+    return "type:feature";
+  if (/epic|phase|initiative|release/i.test(title)) return "type:epic";
   if (/refactor|cleanup|simplify|improve/i.test(title)) return "type:refactor";
   if (/test|coverage|qa|assert/i.test(title)) return "type:test";
   if (/perf|speed|optim|memory|cache/i.test(title)) return "type:performance";
