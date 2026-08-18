@@ -49,7 +49,7 @@ This training equips the maintainers team with hands-on experience for the **age
 - [ ] **Branch state:** Clone fresh `develop` branch (no uncommitted changes)
 - [ ] **GitHub CLI:** Verify `gh` is installed and authenticated (`gh auth status`)
 - [ ] **Terminal:** Open `.github` directory in clean terminal (no active CI runs)
-- [ ] **Docs open:** Have https://github.com/lightspeedwp/.github open in browser for real-time PR tracking
+- [ ] **Docs open:** Have [repository](https://github.com/lightspeedwp/.github) open in browser for real-time PR tracking
 - [ ] **Test PR visible:** Create a test PR on develop (e.g., `docs/test-release-demo`) **prior to session start** — use this for the live demo to avoid blocking real PRs
 - [ ] **Slack channel:** Have #releases open for live notifications during demos
 - [ ] **Time sync:** Confirm training start time with participants (timezone-aware)
@@ -61,6 +61,7 @@ This training equips the maintainers team with hands-on experience for the **age
 **Purpose:** Show the 7-layer validation gates without making actual mutations.
 
 ### Setup
+
 1. In terminal, navigate to `.github` repo root
 2. Ensure on `develop` branch: `git checkout develop && git pull origin develop`
 3. Verify current version: `cat package.json | jq .version`
@@ -76,7 +77,8 @@ gh workflow run release.yml \
 > "We're triggering a dry-run for a patch release. This will simulate all 7 safety gates — changelog validation, version update checks, authorization, approval rules, and more — WITHOUT actually modifying any files or creating a release."
 
 ### Watch the Workflow
-1. GitHub Actions tab: https://github.com/lightspeedwp/.github/actions/workflows/release.yml
+
+1. GitHub Actions tab: [Release workflow](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
 2. **Gate 1: Changelog validation** — Checks CHANGELOG.md has entries for the new version
 3. **Gate 2: Version match** — Confirms package.json matches the next SemVer bump
 4. **Gate 3: Authorization** — Validates user is in `maintainers` team
