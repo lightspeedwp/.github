@@ -25,6 +25,13 @@
  * } from '@lightspeedwp/metadata-agent';
  */
 
+// Import all modules for the api object
+import { labelUtils } from './label-utils.js';
+import { apiClient, createClient, authenticateClient, GitHubAPIClient } from './api-client.js';
+import { validation, validateTier1, validateTier2, validateTier3, getRecommendation } from './validation.js';
+import { confidenceScorer, createScorer, ConfidenceScorer, DEFAULT_THRESHOLD } from './confidence-scorer.js';
+import { errorHandler, catchError, retry, suggest, format, ERROR_TYPES } from './error-handler.js';
+
 // Export label utilities
 export {
   parse as parseLa,
