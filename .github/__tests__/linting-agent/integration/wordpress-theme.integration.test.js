@@ -3,7 +3,7 @@
  * Tests Linting Agent in WordPress theme context
  */
 
-const { detectRepositoryType } = require('../../../scripts/agents/linting.agent.js');
+const { detectRepositoryType } = require('../../../../scripts/agents/linting.agent');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -33,18 +33,18 @@ describe('WordPress Theme Repository Integration', () => {
   describe('Repository Detection', () => {
     test('correctly identifies WordPress theme repository', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('detects with theme.json file', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('detects with style.css file', () => {
       fs.rmSync(path.join(testRepoPath, 'theme.json'));
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('detects with functions.php file', () => {
@@ -52,14 +52,14 @@ describe('WordPress Theme Repository Integration', () => {
       fs.rmSync(path.join(testRepoPath, 'style.css'));
       fs.writeFileSync(path.join(testRepoPath, 'functions.php'), '<?php // theme');
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
   describe('CSS/SCSS Linting', () => {
     test('applies Stylelint to theme styles', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
       expect(fs.existsSync(path.join(testRepoPath, 'style.css'))).toBe(true);
     });
 
@@ -73,7 +73,7 @@ describe('WordPress Theme Repository Integration', () => {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('lints all CSS files in theme', () => {
@@ -83,7 +83,7 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(path.join(cssDir, 'responsive.css'), '.responsive {}');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
@@ -94,7 +94,7 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(jsDir + '/script.js', 'console.log("theme");');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('handles interactive theme scripts', () => {
@@ -106,7 +106,7 @@ describe('WordPress Theme Repository Integration', () => {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
@@ -120,7 +120,7 @@ describe('WordPress Theme Repository Integration', () => {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('validates theme.php files', () => {
@@ -129,14 +129,14 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(path.join(templates, 'singular.html'), '<!-- HTML -->');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
   describe('Block Theme Detection', () => {
     test('detects block theme with theme.json', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
       // theme.json present = block theme
     });
 
@@ -149,7 +149,7 @@ describe('WordPress Theme Repository Integration', () => {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('handles block patterns', () => {
@@ -161,7 +161,7 @@ describe('WordPress Theme Repository Integration', () => {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
@@ -179,7 +179,7 @@ describe('WordPress Theme Repository Integration', () => {
       );
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('validates multiple style variations', () => {
@@ -194,21 +194,21 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(path.join(variationsDir, 'highcontrast.json'), '{}');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
   describe('Configuration', () => {
     test('generates theme.json validation', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
       const themeJsonPath = path.join(testRepoPath, 'theme.json');
       expect(fs.existsSync(themeJsonPath)).toBe(true);
     });
 
     test('validates theme structure', () => {
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('includes typography rules', () => {
@@ -219,7 +219,7 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(path.join(testRepoPath, 'theme.json'), themeJson);
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
 
     test('includes color palette validation', () => {
@@ -230,7 +230,7 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(path.join(testRepoPath, 'theme.json'), themeJson);
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 
@@ -239,7 +239,7 @@ describe('WordPress Theme Repository Integration', () => {
       fs.writeFileSync(path.join(testRepoPath, 'theme.json'), '{invalid json}');
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
       // Should still detect as theme
     });
 
@@ -247,7 +247,7 @@ describe('WordPress Theme Repository Integration', () => {
       fs.rmSync(path.join(testRepoPath, 'style.css'));
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
       // theme.json alone is enough
     });
 
@@ -259,7 +259,7 @@ describe('WordPress Theme Repository Integration', () => {
       }
 
       const result = detectRepositoryType(testRepoPath);
-      expect(result).toBe('WORDPRESS_THEME');
+      expect(result).toBe('wordpress-theme');
     });
   });
 });

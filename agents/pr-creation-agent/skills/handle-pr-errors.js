@@ -121,7 +121,7 @@ function categorizeError(error) {
 /**
  * Determine error severity
  */
-function determineSeverity(category, error) {
+function determineSeverity(category, _error) {
   const severities = {
     INPUT_VALIDATION: "LOW",
     TEMPLATE_ERROR: "LOW",
@@ -329,7 +329,7 @@ function getRecoveryOptions(category, error, context, history) {
 /**
  * Determine if error is retryable
  */
-function isRetryable(category) {
+function _isRetryable(category) {
   const nonRetryableErrors = ["AUTHENTICATION_ERROR", "CONFLICT"];
   return !nonRetryableErrors.includes(category);
 }
@@ -337,7 +337,7 @@ function isRetryable(category) {
 /**
  * Build retry context
  */
-function buildRetryContext(error, context, history) {
+function _buildRetryContext(error, _context, history) {
   return {
     previousAttempts: history.length,
     lastError: error.message,

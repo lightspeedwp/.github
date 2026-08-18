@@ -1,0 +1,32 @@
+name: "Validate PR Template"
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate-template:
+    name: Check PR Template
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || '';
+
+            const hasLinkedIssues = body.includes('## Linked issues');
+            const hasChangelog = body.includes('## Changelog');
+            const hasTestPlan = body.includes('## Test') && (body.includes('plan') || body.includes('Plan'));
+            const hasChecklist = body.includes('- [x]') || body.includes('- [ ]');
+
+            const missing = [];
+            if (!hasLinkedIssues) missing.push('Linked issues');
+            if (!hasChangelog) missing.push('Changelog');
+            if (!hasTestPlan) missing.push('Test plan');
+            if (!hasChecklist) missing.push('Checklist');
+
+            if (missing.length > 0) {
+              core.setFailed(`Missing required sections: ${missing.join(', ')}`);
+            } else {
+              core.notice('✅ PR template is complete');
+            }

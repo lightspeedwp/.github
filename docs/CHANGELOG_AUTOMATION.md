@@ -3,8 +3,8 @@ title: "Changelog Automation & Integration"
 description: "Complete guide to changelog management, automation workflows, and integration with release processes"
 file_type: "documentation"
 created_date: "2026-07-24"
-last_updated: "2026-07-30"
-version: "1.0.1"
+last_updated: "2026-08-18"
+version: "1.1"
 owners: ["LightSpeed Team"]
 tags: ["changelog", "automation", "release", "versioning"]
 ---
@@ -59,6 +59,45 @@ The changelog automation system:
 - `.github/scripts/agents/changelog.agent.js` — Changelog validation and management
 
 These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
+
+### Phase 5A Integration (NEW)
+
+**Added in v1.1 (2026-08-18):** Phase 5A introduces changelog validation as the first safety gate in the release orchestration pipeline.
+
+**GATE 1: Changelog Validation** validates:
+- ✅ CHANGELOG.md schema compliance (Keep a Changelog 1.1.0)
+- ✅ [Unreleased] section exists
+- ✅ Unreleased section has entries
+- ✅ Entries follow format standards
+
+```mermaid
+flowchart TD
+    A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
+    B -->|"GATE 1"| C["Changelog Validation"]
+    C --> D{["CHANGELOG.md<br/>exists?"]}
+    D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
+    D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
+    E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
+    E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
+    F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
+    F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
+    G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
+    G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
+    H --> I["Continue to GATE 2"]
+    
+    style C fill:#1b5e20,color:#fff
+    style H fill:#2e7d32,color:#fff
+    style Z1 fill:#b71c1c,color:#fff
+    style Z2 fill:#b71c1c,color:#fff
+    style Z3 fill:#b71c1c,color:#fff
+    style Z4 fill:#b71c1c,color:#fff
+```
+
+**Why GATE 1 matters:**
+- Prevents incomplete releases (missing notes, entries)
+- Ensures changelog quality before release
+- Blocks accidentally releasing without documentation
+- Catches schema violations early
 
 ---
 

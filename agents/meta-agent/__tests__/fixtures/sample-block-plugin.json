@@ -1,0 +1,24 @@
+{
+  "name": "lightspeed/sample-block",
+  "title": "Sample Custom Block",
+  "description": "A sample custom block for demonstration",
+  "category": "widgets",
+  "icon": "smiley",
+  "attributes": {
+    "message": {
+      "type": "string",
+      "default": "Hello World"
+    }
+  },
+  "supports": {
+    "align": ["left", "center", "right"],
+    "anchor": true,
+    "customClassName": true
+  },
+  "textdomain": "lightspeed-sample-block",
+  "domainPath": "/languages",
+  "version": "1.0.0",
+  "requires": "5.9",
+  "requires_php": "7.4",
+  "license": "GPL-2.0-or-later"
+}
