@@ -85,3 +85,7 @@ To add or improve prompts:
 ---
 
 *🎼 Orchestrated automation — where intelligence meets operations*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

@@ -494,3 +494,7 @@ This agent is part of the LightSpeedWP `.github` control plane. See LICENSE for 
 ---
 
 Last updated: 2026-08-12
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

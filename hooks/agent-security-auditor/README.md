@@ -42,3 +42,7 @@ Returns `{ valid: boolean, errors: string[], warnings: string[] }`. Exit code is
 🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
 
 [📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

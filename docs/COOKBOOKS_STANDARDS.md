@@ -18,6 +18,7 @@ Cookbooks are step-by-step guides that teach a specific workflow or technique. U
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Cookbook development lifecycle
     accDescr: Step-by-step progression from identifying a common pattern through recipe creation, code examples, testing, and monitoring usage.
     A["Identify<br/>Common Pattern"] --> B["Create Recipe<br/>Structure"]
@@ -63,6 +64,7 @@ A cookbook is a practical guide that:
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Cookbook vs other documentation decision tree
     accDescr: Flowchart for determining when to create a cookbook versus using other documentation types based on guide format, workflow steps, and team requirements.
     A{"Is it a<br/>step-by-step guide?"} -->|No| B["Use Reference Docs<br/>or API Spec"]
@@ -258,6 +260,7 @@ Cookbooks benefit from visual explanations. Use Mermaid for:
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
   accTitle: Agent and Skill Architecture
   accDescr: Diagram showing how agents interact with skills and hooks to produce outputs
   A[Agent 1] --> B[Skill]
@@ -270,6 +273,7 @@ graph LR
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
   accTitle: Decision tree for cookbook examples
   accDescr: Flowchart showing how to make a decision between actions in a process.
   Start{Condition?}
@@ -283,6 +287,7 @@ graph TD
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
   accTitle: Process flow diagram
   accDescr: Shows how input flows through multiple processes with branching decisions leading to output.
   A[Input] --> B[Process 1]

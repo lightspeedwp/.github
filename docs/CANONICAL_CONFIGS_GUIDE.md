@@ -51,6 +51,7 @@ catch up when labels are added after creation.
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Canonical config interdependency map
     accDescr: Flowchart showing the four canonical config files and how labeling workflows and project metadata sync consume them. labels.yml is shared vocabulary, issue-types.yml defines type mapping, labeler.yml applies rules, and issue-fields.yml maps labels to project fields.
     A[labels.yml\nCanonical label vocabulary] --> E[Labeling agent and workflows]
@@ -66,6 +67,7 @@ flowchart LR
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Issue and PR automation data flow
     accDescr: Sequence diagram showing how issue templates and pull request branches trigger labeling automation, which reads canonical config files and then updates labels and project fields.
     participant U as Contributor

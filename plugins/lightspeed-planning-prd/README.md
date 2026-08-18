@@ -1,5 +1,7 @@
 # LightSpeed Planning PRD Plugin
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Comprehensive product planning plugin combining PRD creation, feature planning, and roadmap generation into a unified multi-provider agent.
 
 **Version:** 2.0.0  
@@ -236,3 +238,7 @@ See `.github/agents/prd-agent/README.md` for migration notes.
 ---
 
 **Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!**
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

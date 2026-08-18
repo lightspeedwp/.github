@@ -258,3 +258,7 @@ When implementing a new skill:
 **Last Updated:** Aug 18, 2026  
 **Maintainer:** Issue Management Agent Team  
 **Status:** Phase 2 Infrastructure Complete, Skills Implementation Pending
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

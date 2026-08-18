@@ -1,5 +1,7 @@
 # Tour Operator content model references
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Use these files before giving Tour Operator content-model advice.
 
 - `core/post-types.json` contains source-backed core post type definitions from uploaded JSON files.
@@ -29,3 +31,7 @@ When new repository files, plugin branches, pull requests or uploaded source fil
 ## Consistency validation
 
 After changing any content-model JSON file, run `scripts/validate_content_model.py` from the skill root. This catches the common drift risks: adding extension-facing entities as core post types, changing string pricing fields into structured data without source evidence, or treating schema planning as implementation.
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

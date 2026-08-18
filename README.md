@@ -126,6 +126,7 @@ The diagram below highlights how the key .github directories (community health, 
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Repository architecture overview
 accDescr: High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
     A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
@@ -167,17 +168,17 @@ accDescr: High-level view of the .github repository structure, showing community
     G --> Q[E2E Tests]
     G --> R[Coverage Reports]
 
-    classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-    classDef docs fill:#d1fae5,stroke:#0f172a,color:#0f172a
-    classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-    classDef automation-sub fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-    classDef label fill:#fee2e2,stroke:#0f172a,color:#0f172a
-    classDef label-sub fill:#ffe4e6,stroke:#0f172a,color:#0f172a
-    classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
-    classDef ai-sub fill:#fef3c7,stroke:#0f172a,color:#0f172a
-    classDef docs-sub fill:#e0f2fe,stroke:#0f172a,color:#0f172a
-    classDef testing fill:#ecfccb,stroke:#0f172a,color:#0f172a
-    classDef testing-sub fill:#bae6fd,stroke:#0f172a,color:#0f172a
+    classDef core fill:#f1f5f9,stroke:#334155,color:#0f172a
+    classDef docs fill:#dcfce7,stroke:#14532d,color:#14532d
+    classDef automation fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef automation-sub fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef label fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
+    classDef label-sub fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
+    classDef ai fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+    classDef ai-sub fill:#fef3c7,stroke:#b45309,color:#4a2c00
+    classDef docs-sub fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef testing fill:#dcfce7,stroke:#14532d,color:#14532d
+    classDef testing-sub fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
 
     class A core
     class B core
@@ -214,8 +215,7 @@ accDescr: High-level view of the .github repository structure, showing community
     class R testing-sub
 
     linkStyle default stroke:#0f172a,stroke-width:1.4px
-
-  ```
+```
 
 ## 🔄 Comprehensive Workflow Overview
 
@@ -225,6 +225,7 @@ The next diagram tracks how repository inheritance feeds automation and AI integ
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Inheritance and automation flow
 accDescr: Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
   subgraph "Repository Inheritance"
@@ -247,11 +248,11 @@ accDescr: Shows how canonical community health files propagate through automatio
     M --> N[Quality Assurance]
   end
 
-  classDef repo fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-  classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-  classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
-  classDef development fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-  classDef review fill:#fef3c7,stroke:#0f172a,color:#0f172a
+  classDef repo fill:#f1f5f9,stroke:#334155,color:#0f172a
+  classDef automation fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+  classDef ai fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+  classDef development fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+  classDef review fill:#fef3c7,stroke:#b45309,color:#4a2c00
 
   class A repo
   class B repo
@@ -277,6 +278,7 @@ This flowchart walks through the development workflow (lint, test, coverage, dep
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Development workflow process
 accDescr: The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
     A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
@@ -293,11 +295,11 @@ accDescr: The diagram shows code changes entering pre-commit hooks, passing lint
     J --> K[🚀 CI/CD Pipeline]
     K --> L[🌐 Deploy/Merge]
 
-    classDef change fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-    classDef hook fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-    classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
-    classDef check fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-    classDef deployment fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+    classDef change fill:#f1f5f9,stroke:#334155,color:#0f172a
+    classDef hook fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef test fill:#dcfce7,stroke:#14532d,color:#14532d
+    classDef check fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef deployment fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
 
     class A change
     class B hook
@@ -321,6 +323,7 @@ The sequence diagram below traces how a developer push triggers AI agents, workf
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: AI and automation integration pipeline
 accDescr: Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
     participant Dev as 👨‍💻 Developer
@@ -348,6 +351,7 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 
 ```mermaid
 flowchart TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: "Repository ecosystem overview"
 accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
     subgraph "📁 Core Repository Structure"
@@ -418,6 +422,7 @@ accDescr: "Comprehensive view of the .github repository ecosystem, showing core 
 
 ```mermaid
 stateDiagram-v2
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: "Repository maintenance and update state machine"
 accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
     [*] --> ContentUpdate
@@ -466,6 +471,7 @@ All code quality, formatting, and automation standards are documented and enforc
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: "Testing architecture and quality gates"
 accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
     subgraph "🧪 Test Types"

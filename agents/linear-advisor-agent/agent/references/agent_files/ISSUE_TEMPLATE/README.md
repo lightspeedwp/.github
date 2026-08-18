@@ -47,6 +47,7 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Issue template workflow
 accDescr: Flowchart showing a user selecting an issue template, fields auto-populating, and automation agents handling labeling, issue-type assignment, project board assignment, and notification routing.
     A[User Creates Issue] --> B{Select Template}
@@ -121,3 +122,7 @@ These templates integrate with:
 ---
 
 ---
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

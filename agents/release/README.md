@@ -498,3 +498,7 @@ Run `gh auth login` to authenticate with GitHub CLI.
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

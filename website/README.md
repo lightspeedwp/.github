@@ -45,3 +45,7 @@ npm run dev
 cd website
 npm run build
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

@@ -345,3 +345,7 @@ For questions or issues, refer to the related GitHub issues:
 - Issue #1872: Phase 2B Skills Implementation
 - Issue #1873: Phase 2C Integration & Testing
 - Issue #1731: Meta Agent v2.0 Master Epic
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

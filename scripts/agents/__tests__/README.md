@@ -366,3 +366,7 @@ View CI status in GitHub Actions: `.github/workflows/jest-test-audit.yml`
 ---
 
 ---
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

@@ -1,5 +1,7 @@
 # PageSpeed Agent — Performance Optimization Specialist
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 The PageSpeed Agent is an intelligent performance optimization assistant that analyzes website performance, identifies bottlenecks, and provides data-driven recommendations for improving Core Web Vitals, load times, and user experience.
 
 ## Quick Start
@@ -194,3 +196,7 @@ For detailed information on:
 ---
 
 **Built by LightSpeedWP with open-source spirit!**
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

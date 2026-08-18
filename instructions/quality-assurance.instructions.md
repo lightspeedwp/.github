@@ -78,6 +78,7 @@ When you show the pyramid in Mermaid, use the approved Mermaid palette from `ins
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Testing pyramid diagram
 accDescr: Shows the testing pyramid from end-to-end tests through integration and unit tests to static analysis.
     A[E2E Tests<br/>User Workflows] --> B[Integration Tests<br/>Component Interaction]
@@ -375,6 +376,7 @@ describe("Issue Lifecycle E2E", () => {
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Test execution flow
 accDescr: Shows how a developer runs tests locally, pushes changes, and then CI executes linting, tests, coverage, and quality gate checks.
     participant Dev as Developer

@@ -1,5 +1,7 @@
 # Memory
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Use this folder for durable project state, repeated preferences, QA continuity, and handoff notes for **tour operator website WordPress delivery**.
 
 ## Included files
@@ -57,3 +59,7 @@ This helps keep durable preferences, active work, history, and handoff state cle
 ---
 
 *📐 The blueprint for getting things right, every time*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

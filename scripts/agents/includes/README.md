@@ -116,3 +116,7 @@ includes/
 ---
 
 *🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

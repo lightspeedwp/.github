@@ -1,5 +1,7 @@
 # Zendesk Support Agent — Quick Reference
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 **Version:** 1.0.0 | **Status:** Production | **Created:** 2026-07-22
 
 ## Overview
@@ -362,3 +364,7 @@ Track these metrics:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

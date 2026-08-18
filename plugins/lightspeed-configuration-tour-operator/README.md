@@ -1,5 +1,7 @@
 # LightSpeed Configuration Tour Operator Plugin
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Multi-provider plugin bundle for the Tour Operator Configuration Agent, providing tour operator site configuration, auditing, and optimisation capabilities across Claude, GitHub Copilot, OpenAI, and native platforms.
 
 ## Overview
@@ -209,3 +211,7 @@ Report issues, request features, or submit feedback:
 ---
 
 *Built by LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

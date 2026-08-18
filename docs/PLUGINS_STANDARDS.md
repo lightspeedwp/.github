@@ -18,6 +18,7 @@ Plugins are standalone extensions for Claude Code (VS Code, JetBrains, CLI) that
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Plugin development lifecycle
     accDescr: Step-by-step workflow showing the progression from planning a plugin through implementation, testing, and publishing to the registry.
     A["Plan Plugin<br/>Capabilities"] --> B["Create Directory<br/>Structure"]
@@ -67,6 +68,7 @@ Plugins can target:
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Plugin type decision tree
     accDescr: Flowchart for choosing the appropriate plugin type based on functionality requirements, from commands to hooks to MCP server integration.
     A{"What should<br/>the plugin do?"} -->|Execute<br/>code action| B["Command Plugin"]

@@ -278,3 +278,7 @@ git commit -m "docs: Monthly label audit (2026-08)"
 ---
 
 *Last updated: 2026-08-11 | Part of Issue Maintenance Scripts Phase 1-4 delivery*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

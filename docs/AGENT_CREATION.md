@@ -111,6 +111,7 @@ agents/{agent-name}.agent.md
 
 ```mermaid
 graph TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent specification architecture
     accDescr {
       Three-layer architecture showing Agent Specification (YAML frontmatter, purpose, responsibilities, process flow, guardrails, integration, references), Implementation (agent code, utilities, tests), and Automation (workflows, triggers, validation) with their interconnections.
@@ -153,6 +154,7 @@ graph TB
     style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
     style H fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style K fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ---
@@ -187,6 +189,7 @@ Create a new agent when:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Decision flow for creating a new agent
     accDescr {
       Decision tree that checks whether a workflow is deterministic, whether an existing agent covers the scope, whether guardrails can prevent harm, and whether a maintainer will own the lifecycle. Each no branch stops agent creation; all yes branches proceed to a spec draft.
@@ -200,6 +203,7 @@ flowchart TD
     D -->|Yes| E{Is a maintainer willing<br/>to own the lifecycle?}
     E -->|No| N4[Do NOT create agent]
     E -->|Yes| F([Proceed with Spec Draft])
+accDescr: Detailed diagram showing structure and relationships
 ````
 
 ---
@@ -222,6 +226,7 @@ Before drafting a spec:
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Pre-creation review checklist path
     accDescr: Left-to-right pipeline from Start through Define Problem, Assess Overlap, Define Tools and Permissions, Define Guardrails, Assign Owner, then a decision — either Stop to Revise Concept or proceed to Write Spec File.
     Start([Start]) --> Check1[Define Problem]
@@ -312,6 +317,7 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent approval workflow
     accDescr: Top-down flow from Spec Drafted through Frontmatter Validation, Add to Agent Index, Maintainer Review, Governance Review, to an Approved decision — yes leads to Merge and Begin Implementation, no returns the spec to the author.
     A([Spec Drafted]) --> B[Frontmatter Validation]
@@ -357,6 +363,7 @@ Frontmatter is **machine-validated**. Errors break CI.
 
 ```mermaid
 mindmap
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent frontmatter fields scope map
     accDescr {
       Mind map centred on Frontmatter with four branches: Required fields (file_type, name, description, version, last_updated, owners), Recommended fields (category, status, visibility, tools), Agent-Specific fields (handoffs, references, metadata.guardrails), and Validation rules (semantic versioning, ISO date, unique naming).
@@ -382,6 +389,7 @@ mindmap
       semantic versioning
       ISO date
       unique naming
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ---
@@ -411,6 +419,7 @@ mindmap
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent publishing pipeline sequence
     accDescr {
       Sequence diagram showing interactions between Human Author, CI Validation, GitHub Repo, and Governance Reviewer — from drafting the spec through validation, commit, PR, governance review, implementation, CI validation, to merge readiness.
@@ -428,6 +437,7 @@ sequenceDiagram
     H->>Git: Commit Implementation + Tests
     CI->>Git: Validate + Test
     Git->>H: Ready to Merge
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ---
@@ -486,6 +496,7 @@ To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent lifecycle maturity stages
     accDescr: Linear left-to-right progression through five lifecycle stages — Draft, Prototype, Active, Mature, and Deprecated.
     Draft --> Prototype --> Active --> Mature --> Deprecated
@@ -536,6 +547,7 @@ Example patterns:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent handoff example
     accDescr: Top-down flow showing the Labeling Agent reaching a Conditions Met decision — yes routes to the Reviewer Agent, no results in No Handoff.
     A[Labeling Agent] --> B{Conditions Met?}

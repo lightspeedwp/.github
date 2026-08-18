@@ -86,3 +86,7 @@ See `manifests/skills.md` and `manifests/skills.csv` for the complete skill inve
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

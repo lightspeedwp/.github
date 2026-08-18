@@ -314,3 +314,7 @@ For issues, feature requests, or agent improvements:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

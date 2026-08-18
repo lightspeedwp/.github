@@ -389,3 +389,7 @@ See [`.github/agents/meta.agent.md`](../.github/agents/meta.agent.md) for full M
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

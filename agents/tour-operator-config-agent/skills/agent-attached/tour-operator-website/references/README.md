@@ -1,5 +1,7 @@
 # Tour Operator Website reference index
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Load only the smallest file set needed for the task.
 
 ## Source-backed model
@@ -40,3 +42,7 @@ Load only the smallest file set needed for the task.
 - `../scripts/validate_payload.py` — local payload structure and JSON validator when file access is available.
 - `../scripts/validate_content_model.py` — local content-model boundary validator for core, extensions, relationship sources and schema assumptions.
 - `../scripts/validate_output_contracts.py` — local markdown/template validator for output contracts and delivery templates.
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

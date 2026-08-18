@@ -1,5 +1,7 @@
 # Metadata Agent
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 Portable AI agent for syncing GitHub issue labels, PRs, and project fields with confidence scoring and validation tiers.
 
 **Status:** Active | **Version:** 2.0.0 | **Type:** Portable Agent
@@ -488,3 +490,7 @@ To extend or customize:
 ---
 
 Built with ☕ by LightSpeedWP — [GitHub](https://github.com/lightspeedwp/.github) | [Discussions](https://github.com/lightspeedwp/.github/discussions)
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

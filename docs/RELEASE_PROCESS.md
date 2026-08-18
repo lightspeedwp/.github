@@ -48,6 +48,7 @@ post-release-sync (chore: main → develop)
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Release workflow full flow
     accDescr: Developer triggers release, authorization checks, CI gates, version bump, stacked PRs to develop and main, tag and release, post-release sync
     A["👤 Developer (on develop)<br/>Trigger release workflow"] -->|"gh workflow run release.yml"| B["🔐 Trigger Telemetry<br/>Validate authorization"]
@@ -102,6 +103,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Authorization validation flow
     accDescr: Event type validation, actor team membership check, authorization decision with audit logging
     A["Workflow triggered<br/>workflow_dispatch or<br/>other event"] -->|Check event| B{Valid event type?}
@@ -140,6 +142,8 @@ See [ADR-002: Authorization Gating Strategy](./ADRs/ADR-002-authorization-gating
 Before Phase 4 scripts are invoked, all 7 safety gates must pass. Gates run sequentially; if any gate fails, the release process stops immediately with no mutations.
 
 ```mermaid
+accTitle: Flowchart
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 flowchart TD
     A["🚀 Release triggered<br/>User runs release.yml"] -->|scope: patch/minor/major| B["🔐 Phase 5A Safety Gates"]
     B -->|GATE 1| C["Pre-flight Checks<br/>Branch, VERSION, CHANGELOG"]
@@ -177,6 +181,7 @@ flowchart TD
     style Z5 fill:#b71c1c,color:#fff
     style Z6 fill:#b71c1c,color:#fff
     style Z7 fill:#b71c1c,color:#fff
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ### The 7-Layer Gates
@@ -372,6 +377,7 @@ After PR #2 merges:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Post-release sync flow
     accDescr: Automatic merge of main into develop after release, handling conflicts with manual PR if needed
     A["PR #2 merges to main<br/>Release tagged & published"] -->|Trigger sync job| B["🔄 post-release-sync<br/>Create branch from main"]
@@ -385,11 +391,11 @@ flowchart TD
     
     style A fill:#fff9c4,color:#000,stroke:#000,stroke-width:2px
     style B fill:#e0f2f1,color:#000,stroke:#000,stroke-width:2px
-    style C fill:#fff3e0,color:#000,stroke:#000,stroke-width:2px
-    style D fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
+    style C fill:#fef3c7,color:#4a2c00,stroke:#b45309,stroke-width:2px
+    style D fill:#dcfce7,color:#14532d,stroke:#14532d,stroke-width:2px
     style E fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
-    style F fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
-    style G fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
+    style F fill:#dcfce7,color:#14532d,stroke:#14532d,stroke-width:2px
+    style G fill:#dcfce7,color:#14532d,stroke:#14532d,stroke-width:2px
     style H fill:#ffccbc,color:#000,stroke:#000,stroke-width:2px
 ```
 
@@ -446,6 +452,7 @@ node .github/scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=m
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Rollback decision tree
     accDescr: Diagnose release failure timing and decide rollback scope (metadata only, main only, or full)
     A["🚨 Release problem detected<br/>When did it occur?"] -->|Before merge| B{PR #1 or PR #2<br/>merged yet?}
@@ -464,16 +471,16 @@ flowchart TD
     I -->|Execute| L
     
     style A fill:#ffccbc,color:#000,stroke:#000,stroke-width:2px
-    style B fill:#fff3e0,color:#000,stroke:#000,stroke-width:2px
+    style B fill:#fef3c7,color:#4a2c00,stroke:#b45309,stroke-width:2px
     style C fill:#ffccbc,color:#000,stroke:#000,stroke-width:2px
-    style D fill:#c8e6c9,color:#000,stroke:#000,stroke-width:2px
-    style E fill:#fff3e0,color:#000,stroke:#000,stroke-width:2px
+    style D fill:#dcfce7,color:#14532d,stroke:#14532d,stroke-width:2px
+    style E fill:#fef3c7,color:#4a2c00,stroke:#b45309,stroke-width:2px
     style F fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
     style G fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
-    style H fill:#ffcdd2,color:#000,stroke:#000,stroke-width:2px
+    style H fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:2px
     style I fill:#ffe0b2,color:#000,stroke:#000,stroke-width:2px
-    style J fill:#ffcdd2,color:#000,stroke:#000,stroke-width:2px
-    style K fill:#ffcdd2,color:#000,stroke:#000,stroke-width:2px
+    style J fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:2px
+    style K fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c,stroke-width:2px
     style L fill:#e0e0e0,color:#000,stroke:#000,stroke-width:2px
 ```
 

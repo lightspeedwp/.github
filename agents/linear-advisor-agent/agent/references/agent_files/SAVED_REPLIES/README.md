@@ -124,3 +124,7 @@ Saved replies integrate with:
 ---
 
 ---
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

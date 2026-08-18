@@ -16,3 +16,7 @@ stability: "experimental"
 # Plugin Hooks
 
 Optional plugin-local hooks live here.
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

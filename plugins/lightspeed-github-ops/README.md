@@ -29,3 +29,7 @@ Pilot plugin for reusable governance operations in LightSpeed repositories.
 ## Scope
 
 This pilot excludes block theme and block plugin guidance.
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
