@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
-
 /**
- * Tests for update-pr-labels-simple.js
+ * Unit tests for update-pr-labels-simple.js
  */
+
+import { describe, it, expect, jest } from "@jest/globals";
 
 describe("update-pr-labels-simple", () => {
   describe("determineStatus", () => {

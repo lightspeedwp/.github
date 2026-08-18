@@ -1,4 +1,8 @@
-import { describe, it, expect } from "vitest";
+/**
+ * Unit tests for update-pr-changelog-review.js
+ */
+
+import { describe, it, expect, jest } from "@jest/globals";
 
 /**
  * Tests for update-pr-changelog-review.js
@@ -98,7 +102,7 @@ describe("update-pr-changelog-review", () => {
 
     it("should handle missing reviews gracefully", () => {
       const reviews = null;
-      expect(reviews === null || reviews === undefined || reviews.length === 0).toBe(true);
+      expect(reviews).toBeNull();
     });
   });
 
