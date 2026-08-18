@@ -1,4 +1,4 @@
-# 🎉 NEW FEATURE: Automatic Milestone Allocation Now Live!
+# 🎉 NEW FEATURE: Automatic Milestone Allocation Now Live  
 
 **Announcement Date:** 2026-08-24  
 **Related Issue:** [#1765](https://github.com/lightspeedwp/.github/issues/1765)  
@@ -28,6 +28,7 @@ We've deployed **automatic allocation of merged PRs and closed issues** to proje
 ### Example
 
 You merge a PR with this in the description:
+
 ```
 This PR fixes the critical auth bug.
 
@@ -36,6 +37,7 @@ Resolves #1886
 ```
 
 **Result:**
+
 - PR automatically allocated to v1.5.0 milestone
 - Issue #1885 automatically allocated to v1.5.0 milestone
 - Issue #1886 automatically allocated to v1.5.0 milestone
@@ -48,6 +50,7 @@ Resolves #1886
 We've created comprehensive documentation to help you:
 
 ### [RUNBOOK.md](../../.github/projects/active/pr-issue-milestone-allocation-2026-08-11/RUNBOOK.md)
+
 **Step-by-step operations guide** — How to use the script manually
 
 - Quick Start (automatic operation explained)
@@ -59,6 +62,7 @@ We've created comprehensive documentation to help you:
 - Best Practices
 
 ### [FAQ.md](../../.github/projects/active/pr-issue-milestone-allocation-2026-08-11/FAQ.md)
+
 **52 Q&A pairs covering everything**
 
 - General Questions (11)
@@ -72,6 +76,7 @@ We've created comprehensive documentation to help you:
 - Integration & APIs (2)
 
 ### [QUICK-REFERENCE.md](../../.github/projects/active/pr-issue-milestone-allocation-2026-08-11/QUICK-REFERENCE.md)
+
 **Quick command reference** — One-page cheat sheet
 
 ---
@@ -120,7 +125,7 @@ See [RUNBOOK.md](../../.github/projects/active/pr-issue-milestone-allocation-202
 
 ## 🎯 What You Need to Know
 
-### For Most Users: Nothing!
+### For Most Users: Nothing
 
 ✅ **The feature works automatically** — no setup needed  
 ✅ **No action required** — just merge PRs normally  
@@ -147,6 +152,7 @@ See [RUNBOOK.md](../../.github/projects/active/pr-issue-milestone-allocation-202
 **Nothing to do!** The feature is live and working.
 
 Next time you:
+
 1. **Merge a PR** → Workflow runs automatically, milestone allocated
 2. **Close an issue** → Workflow runs automatically, milestone allocated
 3. **Link issues** in PR description (Closes #123) → All items allocated together
@@ -158,6 +164,7 @@ That's it. You're done.
 ## 📊 Expected Behavior
 
 ### Automatic Workflow Run
+
 ```
 Your PR merged
     ↓
@@ -173,6 +180,7 @@ Confirmation comment posted
 ```
 
 ### Example Comment
+
 ```
 ✅ Allocated to milestone #42 "v1.5.0"
 
@@ -191,12 +199,14 @@ Learn more: https://github.com/lightspeedwp/.github/issues/1765
 ### Where to Check
 
 **GitHub Actions:**
+
 1. Go to [Actions](https://github.com/lightspeedwp/.github/actions)
 2. Find "Allocate PR/Issue to Current Milestone"
 3. Watch for recent runs
 4. Check logs if any failures occur
 
 **PR/Issue Comments:**
+
 1. Merge a PR
 2. Look for confirmation comment (usually within 2 minutes)
 3. Verify milestone assigned correctly
@@ -216,6 +226,7 @@ Learn more: https://github.com/lightspeedwp/.github/issues/1765
 **Have feedback?** Please comment on [#1765](https://github.com/lightspeedwp/.github/issues/1765)
 
 We're tracking:
+
 - What's working well
 - Edge cases you encounter
 - Suggestions for improvements
@@ -230,6 +241,7 @@ Your feedback helps us improve Phase 4 (Monitoring & Maintenance).
 **Want to learn more?** (Optional)
 
 We're offering a 30-minute training session covering:
+
 - How the feature works under the hood
 - Dry-run mode and testing
 - Troubleshooting common issues
@@ -249,11 +261,12 @@ DM me if interested!
 
 ---
 
-## 🎉 Thank You!
+## Thank You
 
 This feature is the result of weeks of planning, implementation, testing, and documentation.
 
 **Special thanks to:**
+
 - DevOps team for feedback and testing
 - QA team for comprehensive test coverage
 - Release managers for feature requirements
