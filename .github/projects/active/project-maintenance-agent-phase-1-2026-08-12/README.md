@@ -1,9 +1,10 @@
 ---
+file_type: documentation
 title: Project Maintenance Agent — Phase 1 & 2 Planning
 description: Portable agent for maintaining active projects, updating documentation, and managing project state
 status: active
-created_date: 2026-08-12
-last_updated: 2026-08-12
+created_date: "2026-08-12"
+last_updated: "2026-08-12"
 owners:
   - Ash Shaw
 tags:
