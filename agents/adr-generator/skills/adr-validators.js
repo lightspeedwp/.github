@@ -85,8 +85,8 @@ function enforceValidReferences(adrDirectory) {
   for (const file of files) {
     const content = fs.readFileSync(path.join(adrDirectory, file), "utf-8");
     const references = [
-      ...content.matchAll(/supersedes:\s*(\d+)/g),
-      ...content.matchAll(/superseded-by:\s*(\d+)/g),
+      ...content.matchAll(/supersedes:\s*(\d+)/gi),
+      ...content.matchAll(/superseded[\s-]by:\s*(\d+)/gi),
       ...content.matchAll(/ADR\s*#?(\d+)/g),
     ];
 
@@ -229,15 +229,19 @@ function enforceFilenameFormat(adrDirectory) {
     .readdirSync(adrDirectory)
     .filter((f) => f.endsWith(".md"));
   const errors = [];
-  const FILENAME_PATTERN = /^(\d+)-(.+)\.md$/;
+  const SEQUENTIAL_PATTERN = /^(\d+)-(.+)\.md$/;
+  const DATE_PATTERN = /^(\d{4}-\d{2}-\d{2})(?:-\d+)?-(.+)\.md$/;
 
   for (const file of files) {
-    if (!FILENAME_PATTERN.test(file)) {
+    const isSequential = SEQUENTIAL_PATTERN.test(file);
+    const isDateBased = DATE_PATTERN.test(file);
+
+    if (!isSequential && !isDateBased) {
       errors.push({
         rule: "enforce-filename-format",
-        message: `Invalid filename format: ${file}. Should match pattern: NNNN-slug.md`,
+        message: `Invalid filename format: ${file}. Should match pattern: NNNN-slug.md or YYYY-MM-DD[-N]-slug.md`,
         file,
-        pattern: "NNNN-slug.md",
+        pattern: "NNNN-slug.md or YYYY-MM-DD[-N]-slug.md",
       });
     }
   }
@@ -245,7 +249,7 @@ function enforceFilenameFormat(adrDirectory) {
   return {
     valid: errors.length === 0,
     errors,
-    pattern: "NNNN-slug.md",
+    pattern: "NNNN-slug.md or YYYY-MM-DD[-N]-slug.md",
   };
 }
 

@@ -44,7 +44,7 @@ class ADRDiscovery {
 
     const files = fs.readdirSync(this.adrDirectory);
     const adrFiles = files.filter(
-      (f) => f.match(/^\d+/) || f.match(/^\d{4}-\d{2}-\d{2}/),
+      (f) => ((f.match(/^\d+/) || f.match(/^\d{4}-\d{2}-\d{2}/)) && f.endsWith(".md")),
     );
 
     return adrFiles.sort();

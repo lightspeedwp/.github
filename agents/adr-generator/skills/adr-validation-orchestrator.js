@@ -138,7 +138,7 @@ class ValidationOrchestrator {
 
   reportText() {
     const { summary } = this.results;
-    let output = [];
+    const output = [];
 
     output.push("=".repeat(60));
     output.push("ADR Validation Report");

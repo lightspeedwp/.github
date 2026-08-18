@@ -26,7 +26,7 @@ const PLACEHOLDER_PATTERN = /\{([A-Z_0-9]+)\}/g;
 
 const DEFAULT_PLACEHOLDERS = {
   TITLE: "Untitled Decision",
-  DATE: new Date().toISOString().split("T")[0],
+  DATE: null,
   STATUS: "PROPOSED",
   AUTHORS: "Unknown",
   SUPERSEDES: "",
@@ -82,7 +82,7 @@ function loadTemplate(templateType) {
 }
 
 function extractFrontmatter(content) {
-  const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+  const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
 
   if (!match) {
@@ -116,6 +116,10 @@ function substitutePlaceholders(content, placeholders = {}) {
     ...DEFAULT_PLACEHOLDERS,
     ...placeholders,
   };
+
+  if (mergedPlaceholders.DATE === null) {
+    mergedPlaceholders.DATE = new Date().toISOString().split("T")[0];
+  }
 
   return content.replace(PLACEHOLDER_PATTERN, (match, placeholder) => {
     if (placeholder in mergedPlaceholders) {
