@@ -492,4 +492,12 @@ For issues or questions:
 
 ---
 
+<<<<<<< HEAD
 **Metrics Agent Phase 2** | Complete | Production Ready | 2026-08-21
+=======
+Last updated: 2026-08-12
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+>>>>>>> 70770362e (test(accessibility): README.md update script testing + Mermaid accessibility enhancement)
