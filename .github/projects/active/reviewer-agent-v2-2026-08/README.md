@@ -151,24 +151,24 @@ This project is tracked through GitHub issues for each phase and task breakdown.
 - 📋 [DECISIONS.md](./decisions/DECISIONS.md) — Formal decision log
 - 📋 [ANSWERS.md](./ANSWERS.md) — Best-practice answers to clarifying questions
 
-### Specifications
+### Specifications (Phase 2)
 
-- 📋 [AGENT_SPECIFICATION.md](./specifications/AGENT_SPECIFICATION.md) — Agent definition & behavior
-- 📋 [API_INTEGRATION_SPEC.md](./specifications/API_INTEGRATION_SPEC.md) — Tool API integration details
-- 📋 [STATE_SCHEMA.md](./specifications/STATE_SCHEMA.md) — Feedback tracking data model
-- 📋 [TEST_SPECIFICATION.md](./specifications/TEST_SPECIFICATION.md) — Test plan & coverage targets
+- 📋 AGENT_SPECIFICATION.md — Agent definition & behavior [TBD]
+- 📋 API_INTEGRATION_SPEC.md — Tool API integration details [TBD]
+- 📋 STATE_SCHEMA.md — Feedback tracking data model [TBD]
+- 📋 TEST_SPECIFICATION.md — Test plan & coverage targets [TBD]
 
-### Configuration Examples
+### Configuration Examples (Phase 2)
 
-- 📋 [config.github.yml](./configuration-examples/config.github.yml) — `.github` control-plane config
-- 📋 [config.wordpress-plugin.yml](./configuration-examples/config.wordpress-plugin.yml) — WordPress plugin config
-- 📋 [config.wordpress-theme.yml](./configuration-examples/config.wordpress-theme.yml) — WordPress theme config
+- 📋 config.github.yml — `.github` control-plane config [TBD]
+- 📋 config.wordpress-plugin.yml — WordPress plugin config [TBD]
+- 📋 config.wordpress-theme.yml — WordPress theme config [TBD]
 
-### Documentation
+### Documentation (Phase 2)
 
-- 📋 [ARCHITECTURE.md](./ARCHITECTURE.md) — System design with diagrams
-- 📋 [SETUP_GUIDE.md](./SETUP_GUIDE.md) — Implementation & deployment steps
-- 📋 [USER_GUIDE.md](./USER_GUIDE.md) — How to use the agent in a PR workflow
+- 📋 ARCHITECTURE.md — System design with diagrams [TBD]
+- 📋 SETUP_GUIDE.md — Implementation & deployment steps [TBD]
+- 📋 USER_GUIDE.md — How to use the agent in a PR workflow [TBD]
 
 ## File Structure
 
