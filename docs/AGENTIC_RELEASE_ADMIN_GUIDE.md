@@ -4,8 +4,10 @@ title: Administering the Agentic Release Workflow
 description: Admin guide for Phase 5A agentic release workflow — architecture, authorization, gates, audit logging, security, troubleshooting
 author: Ash Shaw
 status: stable
-updated_date: 2026-08-12
+updated_date: 2026-08-18
+version: 1.1
 type: documentation
+tags: [phase-5a, agentic-workflows, release, architecture, admin-guide, authorization]
 ---
 
 # Administering the Agentic Release Workflow
@@ -119,33 +121,25 @@ gh api /orgs/{org}/teams/maintainers/members/{username}
 
 ### Authorization Workflow
 
-```
-User runs: npm version patch && release.agent.js --scope=patch
-                               |
-                    ┌──────────▼──────────┐
-                    │  Gate 5: AuthCheck  │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │ GitHub Teams API    │
-                    │ Is user in          │
-                    │ maintainers?        │
-                    └──────────┬──────────┘
-                               │
-                  ┌────────────┴────────────┐
-                  │                        │
-               YES                        NO
-                  │                        │
-                  ▼                        ▼
-            ✅ Proceed          ❌ DENY RELEASE
-               to gates           (auth failure)
-                  │
-                  ▼
-        ┌─────────────────────┐
-        │ Trigger-Telemetry   │
-        │ (log who, when)     │
-        │ [non-blocking]      │
-        └─────────────────────┘
+```mermaid
+flowchart TD
+    accTitle: Gate 5 authorization workflow
+    accDescr: Checks maintainer status via GitHub Teams API, logs telemetry
+    A["👤 User Runs<br/>release.agent.js"]
+    B["🔐 Gate 5: Check Auth"]
+    C["🔗 GitHub Teams API<br/>Query maintainers"]
+    D{Maintainer<br/>?}
+    E["✅ Proceed"]
+    F["❌ DENY"]
+    G["📊 Log"]
+    
+    A --> B --> C --> D
+    D -->|YES| E --> G
+    D -->|NO| F
+    
+    style B fill:#bf360c,color:#fff,stroke:#000,stroke-width:2px
+    style E fill:#4CAF50,color:#fff,stroke:#000,stroke-width:2px
+    style F fill:#F44336,color:#fff,stroke:#000,stroke-width:2px
 ```
 
 ### User Roles & Permissions
