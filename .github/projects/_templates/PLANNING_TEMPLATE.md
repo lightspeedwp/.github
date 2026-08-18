@@ -3,8 +3,8 @@ file_type: planning
 title: "PROJECT_TITLE — Planning & Specification"
 description: "Project planning document with objectives, phases, deliverables, and GitHub issue references"
 version: 1.0.0
-created_date: YYYY-MM-DD
-last_updated: YYYY-MM-DD
+created_date: 2026-01-01
+last_updated: 2026-01-01
 authors:
   - Author Name
 owner: Owner Name/Team
@@ -13,8 +13,8 @@ tags:
   - planning
   - specification
   - project
-domain: "domain-name"
-status: "planning|active|blocked|paused|complete"
+domain: governance
+status: draft
 related_issues:
   - "#ISSUE_NUMBER — Issue Title"
   - "#ISSUE_NUMBER — Issue Title"

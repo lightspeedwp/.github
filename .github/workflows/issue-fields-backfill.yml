@@ -75,13 +75,22 @@ jobs:
 
       - name: Create GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3
         with:
-          client-id: ${{ vars.LS_APP_CLIENT_ID != '' && vars.LS_APP_CLIENT_ID || vars.LS_APP_ID }}
+          # LS_APP_CLIENT_ID is preferred; LS_APP_ID is the legacy numeric App ID
+          # and must be passed as app-id, not as a client-id fallback.
+          client-id: ${{ vars.LS_APP_CLIENT_ID }}
+          app-id: ${{ vars.LS_APP_CLIENT_ID == '' && vars.LS_APP_ID || '' }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           repositories: ${{ github.repository }}
-          permissions-contents: write
-          permissions-issues: write
+          # Least privilege, each justified against what this job actually does:
+          #   issues                : set native issue types on open issues
+          #   organization-projects : add items to the org Projects v2 board and
+          #                           set Status / Priority / Type field values
+          # The repository checkout uses the default GITHUB_TOKEN, so this token
+          # needs no contents access.
+          permission-issues: write
+          permission-organization-projects: write
 
       - name: Run bulk backfill
         uses: actions/github-script@v9

@@ -41,23 +41,6 @@
     ]
   },
   "collection_period": 7,
-  "auth": {
-    "type": "oauth",
-    "scopes": ["repo:read", "read:user"],
-    "token_source": "GITHUB_TOKEN"
-  },
-  "caching": {
-    "enabled": true,
-    "ttl": 3600,
-    "auto_cleanup": true
-  },
-  "rate_limiting": {
-    "enabled": true,
-    "max_retries": 3,
-    "backoff_strategy": "exponential",
-    "max_wait_seconds": 60,
-    "log_warnings": true
-  },
   "cache_ttl": 3600,
   "output_dir": ".github/reports/metrics"
 }
