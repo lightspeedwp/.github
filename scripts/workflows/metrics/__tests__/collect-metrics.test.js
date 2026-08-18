@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const { execSync } = require('child_process');
 const MetricsCollectionOrchestrator = require('../collect-metrics');
 
@@ -7,9 +6,6 @@ jest.mock('child_process');
 jest.mock('fs');
 
 describe('MetricsCollectionOrchestrator', () => {
-  const mockOutputDir = '/tmp/metrics-test';
-  const mockConfigDir = '/config';
-  const mockMetricsAgent = '/metrics-agent.js';
 
   beforeEach(() => {
     jest.clearAllMocks();
