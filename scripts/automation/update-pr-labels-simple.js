@@ -96,7 +96,6 @@ async function processPRs() {
     for (const pr of prs) {
       const nextStatus = determineStatus(pr);
       const labels = (pr.labels || []).map((l) => l.name);
-      const hasStatusLabel = labels.some((l) => l.startsWith("status:"));
 
       if (verbose) {
         console.log(`#${pr.number}: ${pr.title.substring(0, 50)}`);
