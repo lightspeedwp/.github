@@ -46,10 +46,7 @@ export async function validateAndApplyLabels(input) {
     const typeLabels = getBranchTypeLabels(branchType, config);
 
     // Determine additional context labels
-    const contextLabels = extractContextLabels(
-      templateMetadata,
-      config
-    );
+    const contextLabels = extractContextLabels(templateMetadata, config);
 
     // Combine all labels
     const allLabels = [...new Set([...typeLabels, ...contextLabels])];
@@ -157,7 +154,10 @@ function extractContextLabels(templateMetadata, _config) {
   }
 
   // Add label if template is incomplete (missing required sections)
-  if (templateMetadata.missingSections && templateMetadata.missingSections.length > 0) {
+  if (
+    templateMetadata.missingSections &&
+    templateMetadata.missingSections.length > 0
+  ) {
     labels.push("meta:needs-more-info");
   }
 
@@ -187,7 +187,7 @@ function validateLabels(labels, config) {
     } else {
       invalidLabels.push(label);
       errors.push(
-        `Label "${label}" not found in canonical label set. Available labels: ${canonicalLabels.join(", ")}`
+        `Label "${label}" not found in canonical label set. Available labels: ${canonicalLabels.join(", ")}`,
       );
     }
   }
@@ -196,7 +196,7 @@ function validateLabels(labels, config) {
   for (const label of invalidLabels) {
     if (label.match(/^(bug|feature|urgent|help|critical)$/)) {
       warnings.push(
-        `Label "${label}" looks like a bare type label. Use prefixed format: type:${label}`
+        `Label "${label}" looks like a bare type label. Use prefixed format: type:${label}`,
       );
     }
   }
