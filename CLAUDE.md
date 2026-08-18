@@ -59,7 +59,7 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 | --- | --- | --- | --- | --- |
 | **Schema files** | `schema/` | `.schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
 | **Schema visibility** | `schemas/` | (visible root copy maintained) | Reference | Current (npm package reference) |
-| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then portable | ✅ Complete (Phase 2B) |
+| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B-2C) | Move to .github, then portable | ✅ Complete (Phase 2B-2C, 2026-08-19) |
 | **Website** | `website/` | `.github/website/` | Move to .github | ✅ Complete |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github | ✅ Complete |
 | **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
