@@ -8,6 +8,7 @@
 
 ```mermaid
 graph LR
+accTitle: Graph Diagram
     A["Session Input<br/>(repoPath, options)"] -->|Analyze| B["Core Analysis<br/>(git metadata)"]
     B -->|Extract| C["Git Metadata<br/>(branch, commits, issues)"]
     C -->|Create| D["Memory Updater<br/>(10-family YAML)"]
@@ -23,12 +24,14 @@ graph LR
     style H fill:#f3e5f5
     style G fill:#c8e6c9
     style I fill:#c8e6c9
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ### Component Stack
 
 ```mermaid
 graph TB
+accTitle: Graph Diagram
     subgraph "Agent Layer"
         A["claude/prompt.md<br/>(orchestration)"]
     end
@@ -64,6 +67,7 @@ graph TB
     style F fill:#b3e5fc
     style G fill:#b3e5fc
     style H fill:#b3e5fc
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ## Module Interactions
@@ -74,6 +78,7 @@ graph TB
 
 ```mermaid
 sequenceDiagram
+accTitle: Sequence Diagram
     Agent ->> CoreAnalysis: analyzeRepository(repoPath)
     CoreAnalysis ->> CoreAnalysis: detectRepoType()
     CoreAnalysis ->> CoreAnalysis: getCurrentBranch()
@@ -82,6 +87,7 @@ sequenceDiagram
     CoreAnalysis ->> CoreAnalysis: extractIssueNumbers()
     CoreAnalysis ->> CoreAnalysis: getGitState()
     CoreAnalysis -->> Agent: {branch, repoType, commits, issues, gitState}
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Key Responsibilities:**
@@ -98,6 +104,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
+accTitle: Sequence Diagram
     Agent ->> MemoryUpdater: updateMemoryForSessionClosure(repoPath, analysis, options)
     MemoryUpdater ->> MemoryUpdater: createMemoryEntry(metadata)
     MemoryUpdater ->> MemoryUpdater: formatMemoryAsMarkdown(entry)
@@ -105,6 +112,7 @@ sequenceDiagram
     MemoryUpdater ->> MemoryUpdater: updateMemoryIndex()
     MemoryUpdater -->> Agent: {written, entry, markdown, indexed}
     Note over Agent,MemoryUpdater: Memory persisted in .remember/MEMORY.md
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Key Responsibilities:**
@@ -120,6 +128,7 @@ sequenceDiagram
 
 ```mermaid
 graph LR
+accTitle: Graph Diagram
     subgraph "Input Data"
         A["Core Analysis<br/>(branch, commits)"]
         B["Memory Entry<br/>(decisions, blockers)"]
@@ -157,6 +166,7 @@ graph LR
     style B fill:#e3f2fd
     style C fill:#e3f2fd
     style J fill:#c8e6c9
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Key Responsibilities:**
@@ -172,6 +182,7 @@ graph LR
 
 ```mermaid
 graph TB
+accTitle: Graph Diagram
     A["cleanupWorktree()"]
     
     A -->|Step 1| B["validateCleanupSafety()"]
@@ -197,6 +208,7 @@ graph TB
     style D fill:#ffccbc
     style E fill:#c8e6c9
     style F fill:#c8e6c9
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Key Responsibilities:**
@@ -213,6 +225,7 @@ graph TB
 
 ```mermaid
 graph TD
+accTitle: Graph Diagram
     A["detectRepoType(repoPath)"] -->|Check| B{".github/projects/active<br/>AND<br/>.github/labels.yml?"}
     B -->|YES| C["control-plane"]
     B -->|NO| D{".plugin.php<br/>AND<br/>composer.json?"}
@@ -225,6 +238,7 @@ graph TD
     style E fill:#c8e6c9
     style G fill:#c8e6c9
     style H fill:#ffcdd2
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ### Supported Repository Types
@@ -241,6 +255,7 @@ graph TD
 
 ```mermaid
 graph LR
+accTitle: Graph Diagram
     subgraph "10-Family Memory"
         A["metadata<br/>(session, branch, repo)"]
         B["user_defaults<br/>(preferences)"]
@@ -263,6 +278,7 @@ graph LR
     
     style G fill:#fff9c4
     style H fill:#c8e6c9
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Each family contains:**
@@ -297,6 +313,7 @@ metadata:        # Agent tracking: session_id, branch, timestamp
 
 ```mermaid
 graph TB
+accTitle: Graph Diagram
     A["Session Closure Request"]
     
     A -->|Gate 1| B["Repository Type<br/>Validation"]
@@ -324,6 +341,7 @@ graph TB
     style F1 fill:#fff9c4
     style H fill:#c8e6c9
     style I fill:#ffcdd2
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ## Design Patterns

@@ -141,6 +141,7 @@ Before Phase 4 scripts are invoked, all 7 safety gates must pass. Gates run sequ
 
 ```mermaid
 flowchart TD
+accTitle: Flowchart
     A["🚀 Release triggered<br/>User runs release.yml"] -->|scope: patch/minor/major| B["🔐 Phase 5A Safety Gates"]
     B -->|GATE 1| C["Pre-flight Checks<br/>Branch, VERSION, CHANGELOG"]
     C -->|GATE 2| D["Agentic Score<br/>AI confidence ≥0.80"]
@@ -177,6 +178,7 @@ flowchart TD
     style Z5 fill:#b71c1c,color:#fff
     style Z6 fill:#b71c1c,color:#fff
     style Z7 fill:#b71c1c,color:#fff
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ### The 7-Layer Gates
