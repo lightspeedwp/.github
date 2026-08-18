@@ -3,12 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: "Operation"
+        description: 'Operation'
         required: true
         type: choice
         options: [audit, create-docs, validate, archive-project]
       projects:
-        description: "Project slugs (comma-separated or all)"
+        description: 'Project slugs (comma-separated or all)'
         required: true
         type: string
       dry_run:
@@ -29,7 +29,7 @@ jobs:
       files: ${{ steps.validate.outputs.files }}
     steps:
       - id: validate
-        name: Validate operation input
+        shell: bash
         run: |
           OP="${{ github.event.inputs.operation }}"
           case "$OP" in
@@ -51,10 +51,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: '18'
+          cache: 'npm'
       - run: npm ci
-      - name: Run audit mode
+      - shell: bash
         run: bash ./scripts/automation/project-docs-update.sh DRY_RUN=true VERBOSE=true
   execute-create-docs:
     needs: validate-inputs
@@ -64,10 +64,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: '18'
+          cache: 'npm'
       - run: npm ci
-      - name: Run create-docs mode
+      - shell: bash
         env:
           PROJECTS: ${{ needs.validate-inputs.outputs.projects }}
           DRY_RUN: ${{ needs.validate-inputs.outputs.dry_run }}
@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run validate mode
+      - shell: bash
         env:
           PROJECTS: ${{ needs.validate-inputs.outputs.projects }}
         run: |
@@ -115,7 +115,7 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Generate workflow summary
+      - shell: bash
         run: |
           echo "# Project Maintenance — On-Demand"
           echo "- **Operation:** ${{ needs.validate-inputs.outputs.operation }}"
