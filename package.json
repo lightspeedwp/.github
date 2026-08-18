@@ -108,6 +108,10 @@
     "metrics:ci": "node metrics/frontmatter-metrics.js",
     "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles",
     "test": "npm run test:js",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
+    "test:issue-agent": "vitest scripts/automation/issue-agent",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check"
@@ -124,11 +128,11 @@
     "@babel/preset-react": "7.29.7",
     "@babel/preset-typescript": "7.29.7",
     "@babel/runtime": "^7.29.7",
-    "@github/markdownlint-github": "^0.8.0",
+    "@github/markdownlint-github": "^0.8.3",
     "@jest/pattern": "30.0.1",
     "@mermaid-js/mermaid-cli": "11.4.0",
     "@stoplight/spectral-cli": "^6.16.0",
-    "@stoplight/spectral-core": "^1.23.0",
+    "@stoplight/spectral-core": "^1.23.1",
     "@stoplight/spectral-functions": "^1.10.2",
     "@types/jest": "29.5.14",
     "@types/node": "^26.2.0",
@@ -164,6 +168,7 @@
     "ts-jest": "29.4.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.47.0",
+    "vitest": "^1.2.0",
     "yaml": "2.8.1"
   },
   "lint-staged": {
