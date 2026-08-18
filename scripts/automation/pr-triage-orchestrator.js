@@ -173,7 +173,7 @@ async function createLinkedIssue(pr) {
 /**
  * Update PR with missing metadata
  */
-async function updatePRMetadata(pr, linkedIssueNumber = null) {
+async function updatePRMetadata(pr, _linkedIssueNumber = null) {
   const updates = [];
 
   try {

@@ -286,7 +286,7 @@ async function validateReportGeneration(options = {}) {
  * Task: Data Integrity & Consistency
  * Check for orphaned, conflicting, or duplicate labels
  */
-async function validateDataIntegrity(options = {}) {
+async function validateDataIntegrity(_options = {}) {
   console.log("\n🔒 Task 5.2.8: Data Integrity & Consistency");
   console.log("───────────────────────────────────────────");
 
