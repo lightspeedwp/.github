@@ -13,8 +13,9 @@ owner: Repository Governance
 # 🚀 Branch Naming Enforcement — Phase 6 Team Rollout
 
 **Announcement Date:** August 12, 2026  
-**Enforcement Go-Live:** August 19, 2026  
-**Grace Period:** August 12-19, 2026 (7 days)
+**Enforcement Go-Live:** August 19, 2026 (00:00 UTC)  
+**Grace Period:** August 12-18, 2026 (warnings only)  
+**Blocking Start:** August 19, 2026 (00:00 UTC, PR merges blocked)
 
 ## Team Announcement (Copy-Paste Ready)
 
@@ -35,25 +36,39 @@ owner: Repository Governance
 >
 > ## Setup Required (by August 19)
 >
-> **Grace period:** August 12-19 (validation warns, doesn't block)  
-> **After August 19:** Invalid branches will be **blocked**
+> **Grace period:** August 12-18 (validation warns, doesn't block)  
+> **After August 19 (00:00 UTC):** Invalid branches will **block PR merges** on GitHub
 >
-> 1. Install pre-commit hook:
+> ### Local Setup (Recommended)
+>
+> 1. **Install optional pre-commit hook** (catches branch naming early):
 >    ```bash
 >    npm run setup:hooks
 >    ```
+>    *Note: This is recommended but not required. The hook runs before commits to warn about invalid branch names.*
 >
-> 2. Test it works:
+> 2. **Test the hook** (creates temp branch and commits):
 >    ```bash
 >    git checkout -b invalid-name
+>    git commit --allow-empty -m "test: branch validation"
+>    # During grace period (Aug 12-18): warning appears
+>    # After Aug 19: hook will reject the commit
+>    git checkout -
+>    git branch -D invalid-name
 >    ```
 >
-> 3. Rename existing branches to valid names
->
-> 4. Verify valid names work:
+> 3. **Verify valid branch names work:**
 >    ```bash
 >    git checkout -b feat/test-branch
 >    ```
+>
+> ### GitHub Enforcement (Mandatory)
+>
+> Starting **August 19, 2026 (00:00 UTC)**, GitHub Actions will **block PR merges** for any branch that doesn't follow the naming format. This applies even if you skip the local hook.
+>
+> ### Existing Branches
+>
+> Rename any existing branches that don't follow `{type}/{scope}-{short-title}` format before August 19.
 >
 > **Questions?** Reply in this thread or DM @governance-team
 
