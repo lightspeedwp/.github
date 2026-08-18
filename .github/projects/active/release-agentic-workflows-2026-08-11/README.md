@@ -269,13 +269,14 @@ Phase 5A is successful when:
 | **RFC_AGENTIC_WORKFLOWS.md** | Request for comments, trade-offs, risk analysis | ✅ COMPLETE |
 | **PHASE_5A_IMPLEMENTATION_PLAN.md** | Detailed task breakdown, timeline, deliverables | ✅ COMPLETE |
 
-### Implementation Files
+### Implementation Files (In Develop Branch)
 
-| File | Purpose | Status |
-|------|---------|--------|
-| **.github/agentic-workflows/release.md** | Markdown workflow definition | ✅ COMPLETE |
-| **OPENSPEC_ANALYSIS_REPORT.md** | Requirements analysis (50+ questions) | ✅ COMPLETE |
-| **QUESTIONNAIRE_PREPOPULATED.md** | Requirements answers | ✅ COMPLETE |
+| File | Purpose | LOC | Status |
+|------|---------|-----|--------|
+| **scripts/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
+| **scripts/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
+| **scripts/workflows/release/run-release-with-gates.cjs** | Phase 4 integration wrapper | 140 | ✅ MERGED |
+| **.github/workflows/release.yml** | Updated GitHub Actions workflow | - | ✅ MERGED |
 
 ### Support Files
 
@@ -314,11 +315,15 @@ Phase 5A is successful when:
 
 ---
 
-## Related Issues
+## Related Issues & PRs
 
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| CHILD-050+ | task | Phase 5A subtasks (created during planning) | 🔄 Pending creation |
+| Reference | Type | Purpose | Status |
+|-----------|------|---------|--------|
+| PR #2016 | feature | Phase 5A MVP — Safety Gates Foundation | ✅ MERGED (f2b07bc9c) |
+| PR #1995 | docs | Phase 5A agentic release team training guide | ✅ MERGED |
+| PR #1936 | docs | Phase 5A Week 3 — Testing & Documentation Framework | ✅ MERGED |
+
+**Issue Tracking:** Phase 5A subtasks are documented in commit history; future phases may use GitHub Issues for team coordination.
 
 ---
 
