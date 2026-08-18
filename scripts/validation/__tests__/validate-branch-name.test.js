@@ -280,4 +280,50 @@ describe("validate-branch-name", () => {
       expect(BOT_PREFIXES.test("dependabotx/fake")).toBe(false);
     });
   });
+
+  describe("PR Author Bot Exemption Regex (from workflow)", () => {
+    // Regression test for the PR author regex from branch-name-validation.yml line 49
+    // Pattern: ^(dependabot\[bot\]|app/dependabot|renovate\[bot\]|app/renovate)$
+    const botAuthorPattern = /^(dependabot\[bot\]|app\/dependabot|renovate\[bot\]|app\/renovate)$/;
+
+    it("matches exact dependabot[bot] identifier", () => {
+      expect(botAuthorPattern.test("dependabot[bot]")).toBe(true);
+    });
+
+    it("matches exact app/dependabot identifier", () => {
+      expect(botAuthorPattern.test("app/dependabot")).toBe(true);
+    });
+
+    it("matches exact renovate[bot] identifier", () => {
+      expect(botAuthorPattern.test("renovate[bot]")).toBe(true);
+    });
+
+    it("matches exact app/renovate identifier", () => {
+      expect(botAuthorPattern.test("app/renovate")).toBe(true);
+    });
+
+    it("rejects near-miss app/renovate-extra", () => {
+      expect(botAuthorPattern.test("app/renovate-extra")).toBe(false);
+    });
+
+    it("rejects near-miss app/dependabot-extra", () => {
+      expect(botAuthorPattern.test("app/dependabot-extra")).toBe(false);
+    });
+
+    it("rejects case variations", () => {
+      expect(botAuthorPattern.test("Dependabot[bot]")).toBe(false);
+      expect(botAuthorPattern.test("App/dependabot")).toBe(false);
+    });
+
+    it("rejects partial matches", () => {
+      expect(botAuthorPattern.test("dependabot")).toBe(false);
+      expect(botAuthorPattern.test("[bot]")).toBe(false);
+      expect(botAuthorPattern.test("app/")).toBe(false);
+    });
+
+    it("rejects with leading/trailing whitespace", () => {
+      expect(botAuthorPattern.test(" dependabot[bot]")).toBe(false);
+      expect(botAuthorPattern.test("dependabot[bot] ")).toBe(false);
+    });
+  });
 });

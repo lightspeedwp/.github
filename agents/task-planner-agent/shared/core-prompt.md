@@ -229,7 +229,15 @@ Your task plan is a comprehensive **Task Plan Report** structured as:
   "next_steps": [
     "immediate action 1 (e.g., team kickoff)",
     "immediate action 2 (e.g., design spike)"
-  ]
+  ],
+  
+  "handoff_notes": {
+    "assumptions": ["key assumptions made during planning"],
+    "unknowns": ["items requiring clarification or validation"],
+    "execution_guidance": "guidance for the execution team",
+    "escalation_triggers": ["conditions that require replanning"],
+    "handoff_checklist": ["items to verify before execution"]
+  }
 }
 ```
 

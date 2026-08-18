@@ -40,6 +40,8 @@ describe("Task Planner Agent — Core Prompt Structure", () => {
       "Task Breakdown",
       "Dependency Mapping",
       "Milestone Estimation",
+      "Risk Mitigation",
+      "Scope Validation",
     ];
 
     responsibilities.forEach((resp) => {
@@ -53,9 +55,12 @@ describe("Task Planner Agent — Core Prompt Structure", () => {
     expect(content).toContain("```json");
     expect(content).toContain("plan_timestamp");
     expect(content).toContain("approach");
+    expect(content).toContain("scope");
     expect(content).toContain("task_breakdown");
     expect(content).toContain("dependencies");
+    expect(content).toContain("risk_mitigation");
     expect(content).toContain("timeline");
+    expect(content).toContain("handoff_notes");
   });
 
   it("should define success criteria", () => {
