@@ -62,6 +62,13 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 | **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B-2C) | Move to .github, then portable | ✅ Complete (Phase 2B-2C, 2026-08-19) |
 | **Website** | `website/` | `.github/website/` | Move to .github | ✅ Complete |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github | ✅ Complete |
+| **PR Templates** | `./PULL_REQUEST_TEMPLATE/` | `./.github/PULL_REQUEST_TEMPLATE/` | Consolidation | ✅ Complete (Phase 1, 2026-08-19) |
+| **Reports** | `./reports/` | `./.github/reports/` | Consolidation | ✅ Complete (Phase 1, 2026-08-19) |
+| **Tmp directory** | `./tmp/` | `./.github/tmp/` | Move to .github | ✅ Complete (Phase 2, 2026-08-19) |
+| **Config directory** | `./config/` | `./.github/config/` | Move to .github | ✅ Complete (Phase 2, 2026-08-19) |
+| **Tests directory** | `./tests/` (duplicate fixture) | `./.github/tests/` (removed duplicate) | Consolidation | ✅ Complete (Phase 2, 2026-08-19) |
+| **Profile** | `./profile/` | `./docs/profile/` | Move to docs | ✅ Complete (Phase 4, 2026-08-19) |
+| **Projects org** | Scattered root files | `./.github/projects/active/` + `./.github/projects/archived/` | Reorganization | ✅ Complete (Phase 3, 2026-08-19) |
 | **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
 | **Agents** | `.github/agents/` (mixed) | `agents/` + `.github/agents/` (split) | Reorganize | Phase 3 (audit complete) |
 
@@ -87,6 +94,12 @@ All schema references should use `schemas/` as the canonical location.
 - From `.github/scripts/validation/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
+
+**Cumulative Restructuring Complete (2026-08-19):** Multi-phase control-plane asset reorganization finished. All root-level control-plane assets consolidated under `.github/` across phases 1–4:
+- ✅ Phase 1: Consolidated PULL_REQUEST_TEMPLATE, reports, schemas
+- ✅ Phase 2: Moved tmp directory, config directory; consolidated tests
+- ✅ Phase 3: Organized active projects; split instructions and agents
+- ✅ Phase 4: Clarified profile and memory locations; moved website
 
 **All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the initial restructuring epic and [issue #1290](https://github.com/lightspeedwp/.github/issues/1290) for the current Phase 1 initiative.
 
@@ -468,7 +481,11 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | **Spec-based agents** — Simple YAML/JSON definitions (19 agents) | `.github/agents/` | GitHub-native only |
 | Reports, audits, metrics | `.github/reports/{category}/` | Control-plane only |
 | Active project artefacts | `.github/projects/active/{slug}/` | Control-plane only |
+| Archived project artefacts | `.github/projects/archived/{slug}/` | Control-plane only |
 | Temporary scratch files | `.github/tmp/` (clean up before PR) | Control-plane only |
+| Control-plane configuration | `.github/config/` | Control-plane only |
+| Portable test utilities | `tests/` (root) | Portable, reusable |
+| GitHub-specific test fixtures | `.github/tests/fixtures/` | Control-plane only |
 | Portable reusable AI assets | top-level source folders (see table above) | Portable |
 | Permanent human documentation | `docs/` | Control-plane only |
 
@@ -542,7 +559,7 @@ When a project is complete:
 2. **Move to archive:**
 
    ```bash
-   git mv .github/projects/active/{slug} .github/projects/archive/{slug}
+   git mv .github/projects/active/{slug} .github/projects/archived/{slug}
    ```
 
 3. **Update related GitHub issues** with archive reference:
