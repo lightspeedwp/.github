@@ -72,6 +72,7 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 
 ```mermaid
 flowchart TD
+accTitle: Flowchart
     A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
     B -->|"GATE 1"| C["Changelog Validation"]
     C --> D{["CHANGELOG.md<br/>exists?"]}
@@ -91,6 +92,7 @@ flowchart TD
     style Z2 fill:#b71c1c,color:#fff
     style Z3 fill:#b71c1c,color:#fff
     style Z4 fill:#b71c1c,color:#fff
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Why GATE 1 matters:**
