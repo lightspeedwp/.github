@@ -562,7 +562,7 @@ When a project is complete:
 2. **Move to archive:**
 
    ```bash
-   git mv .github/projects/active/{slug} .github/projects/archive/{slug}
+   git mv .github/projects/active/{slug} .github/projects/archived/{slug}
    ```
 
 3. **Update related GitHub issues** with archive reference:
