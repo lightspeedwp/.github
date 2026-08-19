@@ -43,7 +43,7 @@ jobs:
       - name: Allocate PR to milestone
         if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         run: |
-          node .github/scripts/allocate-to-milestone.js \
+          node scripts/automation/allocate-to-milestone.js \
             --days 1 \
             ${{ github.event_name == 'workflow_dispatch' && format('--dry-run={0} --days={1}', inputs.dry_run, inputs.days) || '' }}
         env:
@@ -54,7 +54,7 @@ jobs:
       - name: Allocate issue to milestone
         if: github.event_name == 'issues' && github.event.issue.state == 'closed'
         run: |
-          node .github/scripts/allocate-to-milestone.js \
+          node scripts/automation/allocate-to-milestone.js \
             --days 1 \
             ${{ github.event_name == 'workflow_dispatch' && format('--dry-run={0} --days={1}', inputs.dry_run, inputs.days) || '' }}
         env:
@@ -65,7 +65,7 @@ jobs:
       - name: Manual allocation (workflow_dispatch)
         if: github.event_name == 'workflow_dispatch'
         run: |
-          node .github/scripts/allocate-to-milestone.js \
+          node scripts/automation/allocate-to-milestone.js \
             --days ${{ inputs.days }} \
             ${{ inputs.dry_run == 'true' && '--dry-run' || '' }}
         env:

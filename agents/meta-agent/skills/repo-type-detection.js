@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Detects the repository type based on filesystem markers.
@@ -8,40 +8,46 @@ const path = require('path');
  */
 function detectRepoType(repoRoot) {
   // Block Plugin: block.json or {plugin-name}.php with Block Name header
-  if (fs.existsSync(path.join(repoRoot, 'block.json'))) {
-    return 'block-plugin';
+  if (fs.existsSync(path.join(repoRoot, "block.json"))) {
+    return "block-plugin";
   }
 
-  const phpFiles = fs.readdirSync(repoRoot, { withFileTypes: true })
-    .filter(f => f.isFile() && f.name.endsWith('.php'));
+  const phpFiles = fs
+    .readdirSync(repoRoot, { withFileTypes: true })
+    .filter((f) => f.isFile() && f.name.endsWith(".php"));
 
   for (const file of phpFiles) {
-    const content = fs.readFileSync(path.join(repoRoot, file.name), 'utf8');
-    if (content.includes('Block Name:') || content.includes('block_name')) {
-      return 'block-plugin';
+    const content = fs.readFileSync(path.join(repoRoot, file.name), "utf8");
+    if (content.includes("Block Name:") || content.includes("block_name")) {
+      return "block-plugin";
     }
   }
 
   // Block Theme: theme.json + style.css with Text Domain header
-  if (fs.existsSync(path.join(repoRoot, 'theme.json')) &&
-      fs.existsSync(path.join(repoRoot, 'style.css'))) {
-    const styleContent = fs.readFileSync(path.join(repoRoot, 'style.css'), 'utf8');
-    if (styleContent.includes('Text Domain:')) {
-      return 'block-theme';
+  if (
+    fs.existsSync(path.join(repoRoot, "theme.json")) &&
+    fs.existsSync(path.join(repoRoot, "style.css"))
+  ) {
+    const styleContent = fs.readFileSync(
+      path.join(repoRoot, "style.css"),
+      "utf8",
+    );
+    if (styleContent.includes("Text Domain:")) {
+      return "block-theme";
     }
   }
 
   // Control-Plane: .github directory with agents structure
-  if (fs.existsSync(path.join(repoRoot, '.github', 'agents'))) {
-    return 'control-plane';
+  if (fs.existsSync(path.join(repoRoot, ".github", "agents"))) {
+    return "control-plane";
   }
 
   // Documentation Repo: docs/ directory or extensive markdown
-  if (fs.existsSync(path.join(repoRoot, 'docs'))) {
-    return 'documentation';
+  if (fs.existsSync(path.join(repoRoot, "docs"))) {
+    return "documentation";
   }
 
-  return 'generic';
+  return "generic";
 }
 
 /**
