@@ -724,8 +724,8 @@ const SCRIPTS_ITEMS: CatalogueItem[] = [
     "Increments the version field on a file's frontmatter following SemVer.",
     {
       type: "script",
-      path: "scripts/bump-file-version.cjs",
-      run: "node scripts/bump-file-version.cjs <file>",
+      path: "scripts/versioning/bump-file-version.cjs",
+      run: "node scripts/versioning/bump-file-version.cjs <file>",
       validates: "version",
       tags: ["versioning"],
     },

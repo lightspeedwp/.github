@@ -363,19 +363,19 @@ Add a CI check to ensure file versions don't exceed repository version:
 
 ### Available Scripts
 
-#### `.github/scripts/versioning/bump-file-version.cjs`
+#### `scripts/versioning/bump-file-version.cjs`
 
 Bump individual or bulk file versions with guardrails:
 
 ```bash
 # Single file
-node .github/scripts/versioning/bump-file-version.cjs <file> [patch|minor]
+node scripts/versioning/bump-file-version.cjs <file> [patch|minor]
 
 # Bulk update
-node .github/scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
+node scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
 
 # Help
-node .github/scripts/versioning/bump-file-version.cjs --help
+node scripts/versioning/bump-file-version.cjs --help
 ```
 
 #### `.github/scripts/maintenance/fix-references.cjs`

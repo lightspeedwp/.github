@@ -324,7 +324,7 @@ Agents and their supporting utilities that are specific to this `.github` reposi
 - `.github/scripts/collect-validation-results.js` — GitHub Actions step aggregation
 - `.github/scripts/audit-branding-patterns.js`
 - `.github/scripts/audit-frontmatter.js`
-- `.github/scripts/bump-file-version.cjs`
+- `scripts/versioning/bump-file-version.cjs`
 - `.github/scripts/canonical-to-json.js`
 - `.github/scripts/cleanup-branches.js`
 - `.github/scripts/collect-link-targets.js`
