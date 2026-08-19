@@ -198,6 +198,7 @@ jobs:
     needs: [collect, aggregate]
     if: failure()
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - name: Send Slack notification
         uses: slackapi/slack-github-action@v1
