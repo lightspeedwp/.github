@@ -5,23 +5,23 @@
  * functionality for active projects status updates.
  */
 
-const { exec } = require('child_process');
-const { promisify } = require('util');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const { exec } = require("child_process");
+const { promisify } = require("util");
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
 
 const execAsync = promisify(exec);
 
 // Test fixtures
-const FIXTURES_DIR = path.join(__dirname, 'fixtures', 'update-projects-status');
+const FIXTURES_DIR = path.join(__dirname, "fixtures", "update-projects-status");
 
 /**
  * Helper to create temporary project structure for testing
  */
 function createTempProjectStructure() {
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'projects-test-'));
-  const projectsDir = path.join(tempDir, '.github', 'projects', 'active');
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "projects-test-"));
+  const projectsDir = path.join(tempDir, ".github", "projects", "active");
   fs.mkdirSync(projectsDir, { recursive: true });
   return { tempDir, projectsDir };
 }
@@ -41,20 +41,20 @@ function createSampleProject(projectsDir, name, options = {}) {
     hasEffort = true,
     hasRelatedIssues = true,
     hasPlanningFile = true,
-    status = 'active',
-    priority = 'high',
-    type = 'feature',
-    effort = '24h',
+    status = "active",
+    priority = "high",
+    type = "feature",
+    effort = "24h",
   } = options;
 
-  let frontmatter = '';
+  let frontmatter = "";
   if (hasFrontmatter) {
-    const fields = ['file_type: project', `title: "${name}"`];
+    const fields = ["file_type: project", `title: "${name}"`];
     if (hasStatus) fields.push(`status: ${status}`);
     if (hasPriority) fields.push(`priority: ${priority}`);
     if (hasType) fields.push(`type: ${type}`);
     if (hasEffort) fields.push(`effort: "${effort}"`);
-    frontmatter = `---\n${fields.join('\n')}\n---\n\n`;
+    frontmatter = `---\n${fields.join("\n")}\n---\n\n`;
   }
 
   let content = frontmatter + `# ${name}\n\nProject description.\n`;
@@ -66,10 +66,13 @@ function createSampleProject(projectsDir, name, options = {}) {
     content += `| [#1234](https://github.com/lightspeedwp/.github/issues/1234) | Issue | Open |\n`;
   }
 
-  fs.writeFileSync(path.join(projectDir, 'README.md'), content);
+  fs.writeFileSync(path.join(projectDir, "README.md"), content);
 
   if (hasPlanningFile) {
-    fs.writeFileSync(path.join(projectDir, 'PLANNING.md'), `# ${name} Planning\n\nPlanning details.`);
+    fs.writeFileSync(
+      path.join(projectDir, "PLANNING.md"),
+      `# ${name} Planning\n\nPlanning details.`,
+    );
   }
 
   return projectDir;
@@ -84,7 +87,7 @@ function cleanup(dirPath) {
   }
 }
 
-describe('update-projects-status.cjs', () => {
+describe("update-projects-status.cjs", () => {
   let tempSetup;
 
   beforeEach(() => {
@@ -97,34 +100,46 @@ describe('update-projects-status.cjs', () => {
     }
   });
 
-  describe('Script availability', () => {
-    test('script file exists', () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+  describe("Script availability", () => {
+    test("script file exists", () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
       expect(fs.existsSync(scriptPath)).toBe(true);
     });
 
-    test('script is executable', () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+    test("script is executable", () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
       const stats = fs.statSync(scriptPath);
       expect(stats.mode & 0o111).not.toBe(0);
     });
 
-    test('script can be executed', async () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+    test("script can be executed", async () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
       const { stdout, stderr } = await execAsync(`node "${scriptPath}" help`);
-      expect(stdout).toContain('Usage');
-      expect(stdout).toContain('audit');
-      expect(stdout).toContain('template');
-      expect(stdout).toContain('link');
+      expect(stdout).toContain("Usage");
+      expect(stdout).toContain("audit");
+      expect(stdout).toContain("template");
+      expect(stdout).toContain("link");
     });
   });
 
-  describe('Audit functionality', () => {
-    test('detects projects with all required fields', async () => {
+  describe("Audit functionality", () => {
+    test("detects projects with all required fields", async () => {
       const { projectsDir } = tempSetup;
 
       // Create complete project
-      createSampleProject(projectsDir, 'complete-project', {
+      createSampleProject(projectsDir, "complete-project", {
         hasStatus: true,
         hasPriority: true,
         hasType: true,
@@ -134,21 +149,21 @@ describe('update-projects-status.cjs', () => {
 
       // Project should be complete
       const readmeContent = fs.readFileSync(
-        path.join(projectsDir, 'complete-project', 'README.md'),
-        'utf8'
+        path.join(projectsDir, "complete-project", "README.md"),
+        "utf8",
       );
 
-      expect(readmeContent).toContain('status: active');
-      expect(readmeContent).toContain('priority: high');
-      expect(readmeContent).toContain('type: feature');
+      expect(readmeContent).toContain("status: active");
+      expect(readmeContent).toContain("priority: high");
+      expect(readmeContent).toContain("type: feature");
       expect(readmeContent).toContain('effort: "24h"');
-      expect(readmeContent).toContain('## Related Issues');
+      expect(readmeContent).toContain("## Related Issues");
     });
 
-    test('detects projects missing status field', () => {
+    test("detects projects missing status field", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'no-status', {
+      createSampleProject(projectsDir, "no-status", {
         hasFrontmatter: true,
         hasStatus: false,
         hasPriority: true,
@@ -157,18 +172,18 @@ describe('update-projects-status.cjs', () => {
       });
 
       const readmeContent = fs.readFileSync(
-        path.join(projectsDir, 'no-status', 'README.md'),
-        'utf8'
+        path.join(projectsDir, "no-status", "README.md"),
+        "utf8",
       );
 
-      expect(readmeContent).not.toContain('status:');
-      expect(readmeContent).toContain('priority:');
+      expect(readmeContent).not.toContain("status:");
+      expect(readmeContent).toContain("priority:");
     });
 
-    test('detects projects missing priority field', () => {
+    test("detects projects missing priority field", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'no-priority', {
+      createSampleProject(projectsDir, "no-priority", {
         hasFrontmatter: true,
         hasStatus: true,
         hasPriority: false,
@@ -177,18 +192,18 @@ describe('update-projects-status.cjs', () => {
       });
 
       const readmeContent = fs.readFileSync(
-        path.join(projectsDir, 'no-priority', 'README.md'),
-        'utf8'
+        path.join(projectsDir, "no-priority", "README.md"),
+        "utf8",
       );
 
-      expect(readmeContent).toContain('status:');
-      expect(readmeContent).not.toContain('priority:');
+      expect(readmeContent).toContain("status:");
+      expect(readmeContent).not.toContain("priority:");
     });
 
-    test('detects projects missing type field', () => {
+    test("detects projects missing type field", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'no-type', {
+      createSampleProject(projectsDir, "no-type", {
         hasFrontmatter: true,
         hasStatus: true,
         hasPriority: true,
@@ -197,23 +212,23 @@ describe('update-projects-status.cjs', () => {
       });
 
       const readmeContent = fs.readFileSync(
-        path.join(projectsDir, 'no-type', 'README.md'),
-        'utf8'
+        path.join(projectsDir, "no-type", "README.md"),
+        "utf8",
       );
 
       // Extract just the frontmatter to check for the type field (not file_type)
       const frontmatterMatch = readmeContent.match(/^---\n([\s\S]*?)\n---/);
-      const frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
+      const frontmatter = frontmatterMatch ? frontmatterMatch[1] : "";
 
       // Check for "type:" on its own line (not as part of file_type)
       expect(frontmatter).not.toMatch(/^type:/m);
-      expect(frontmatter).toContain('priority:');
+      expect(frontmatter).toContain("priority:");
     });
 
-    test('detects projects missing effort field', () => {
+    test("detects projects missing effort field", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'no-effort', {
+      createSampleProject(projectsDir, "no-effort", {
         hasFrontmatter: true,
         hasStatus: true,
         hasPriority: true,
@@ -222,18 +237,18 @@ describe('update-projects-status.cjs', () => {
       });
 
       const readmeContent = fs.readFileSync(
-        path.join(projectsDir, 'no-effort', 'README.md'),
-        'utf8'
+        path.join(projectsDir, "no-effort", "README.md"),
+        "utf8",
       );
 
-      expect(readmeContent).not.toContain('effort:');
-      expect(readmeContent).toContain('type:');
+      expect(readmeContent).not.toContain("effort:");
+      expect(readmeContent).toContain("type:");
     });
 
-    test('detects projects missing Related Issues section', () => {
+    test("detects projects missing Related Issues section", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'no-issues-section', {
+      createSampleProject(projectsDir, "no-issues-section", {
         hasStatus: true,
         hasPriority: true,
         hasType: true,
@@ -242,95 +257,110 @@ describe('update-projects-status.cjs', () => {
       });
 
       const readmeContent = fs.readFileSync(
-        path.join(projectsDir, 'no-issues-section', 'README.md'),
-        'utf8'
+        path.join(projectsDir, "no-issues-section", "README.md"),
+        "utf8",
       );
 
-      expect(readmeContent).not.toContain('## Related Issues');
+      expect(readmeContent).not.toContain("## Related Issues");
     });
 
-    test('detects projects with no README.md', () => {
+    test("detects projects with no README.md", () => {
       const { projectsDir } = tempSetup;
-      const projectDir = path.join(projectsDir, 'no-readme');
+      const projectDir = path.join(projectsDir, "no-readme");
       fs.mkdirSync(projectDir, { recursive: true });
 
       // Project exists but has no README
-      expect(fs.existsSync(path.join(projectDir, 'README.md'))).toBe(false);
+      expect(fs.existsSync(path.join(projectDir, "README.md"))).toBe(false);
     });
   });
 
-  describe('Field validation', () => {
-    test('validates status field values', () => {
+  describe("Field validation", () => {
+    test("validates status field values", () => {
       const { projectsDir } = tempSetup;
 
-      const validStatuses = ['active', 'pending', 'review', 'blocked', 'at_risk'];
-      validStatuses.forEach(statusValue => {
+      const validStatuses = [
+        "active",
+        "pending",
+        "review",
+        "blocked",
+        "at_risk",
+      ];
+      validStatuses.forEach((statusValue) => {
         createSampleProject(projectsDir, `project-status-${statusValue}`, {
           hasStatus: true,
           status: statusValue,
         });
 
         const readmeContent = fs.readFileSync(
-          path.join(projectsDir, `project-status-${statusValue}`, 'README.md'),
-          'utf8'
+          path.join(projectsDir, `project-status-${statusValue}`, "README.md"),
+          "utf8",
         );
 
         expect(readmeContent).toContain(`status: ${statusValue}`);
       });
     });
 
-    test('validates priority field values', () => {
+    test("validates priority field values", () => {
       const { projectsDir } = tempSetup;
 
-      const validPriorities = ['critical', 'high', 'medium', 'low'];
-      validPriorities.forEach(priorityValue => {
+      const validPriorities = ["critical", "high", "medium", "low"];
+      validPriorities.forEach((priorityValue) => {
         createSampleProject(projectsDir, `project-priority-${priorityValue}`, {
           hasPriority: true,
           priority: priorityValue,
         });
 
         const readmeContent = fs.readFileSync(
-          path.join(projectsDir, `project-priority-${priorityValue}`, 'README.md'),
-          'utf8'
+          path.join(
+            projectsDir,
+            `project-priority-${priorityValue}`,
+            "README.md",
+          ),
+          "utf8",
         );
 
         expect(readmeContent).toContain(`priority: ${priorityValue}`);
       });
     });
 
-    test('validates type field values', () => {
+    test("validates type field values", () => {
       const { projectsDir } = tempSetup;
 
-      const validTypes = ['feature', 'infrastructure', 'maintenance', 'documentation'];
-      validTypes.forEach(typeValue => {
+      const validTypes = [
+        "feature",
+        "infrastructure",
+        "maintenance",
+        "documentation",
+      ];
+      validTypes.forEach((typeValue) => {
         createSampleProject(projectsDir, `project-type-${typeValue}`, {
           hasType: true,
           type: typeValue,
         });
 
         const readmeContent = fs.readFileSync(
-          path.join(projectsDir, `project-type-${typeValue}`, 'README.md'),
-          'utf8'
+          path.join(projectsDir, `project-type-${typeValue}`, "README.md"),
+          "utf8",
         );
 
         expect(readmeContent).toContain(`type: ${typeValue}`);
       });
     });
 
-    test('validates effort format', () => {
+    test("validates effort format", () => {
       const { projectsDir } = tempSetup;
 
-      const efforts = ['8h', '16h', '24h', '40h', '5d'];
-      efforts.forEach(effortValue => {
-        const projectName = `project-effort-${effortValue.replace(/[^a-z0-9]/gi, '')}`;
+      const efforts = ["8h", "16h", "24h", "40h", "5d"];
+      efforts.forEach((effortValue) => {
+        const projectName = `project-effort-${effortValue.replace(/[^a-z0-9]/gi, "")}`;
         createSampleProject(projectsDir, projectName, {
           hasEffort: true,
           effort: effortValue,
         });
 
         const readmeContent = fs.readFileSync(
-          path.join(projectsDir, projectName, 'README.md'),
-          'utf8'
+          path.join(projectsDir, projectName, "README.md"),
+          "utf8",
         );
 
         expect(readmeContent).toContain(`effort: "${effortValue}"`);
@@ -338,11 +368,11 @@ describe('update-projects-status.cjs', () => {
     });
   });
 
-  describe('Frontmatter parsing', () => {
-    test('parses YAML frontmatter correctly', () => {
+  describe("Frontmatter parsing", () => {
+    test("parses YAML frontmatter correctly", () => {
       const { projectsDir } = tempSetup;
 
-      const projectDir = path.join(projectsDir, 'parse-test');
+      const projectDir = path.join(projectsDir, "parse-test");
       fs.mkdirSync(projectDir, { recursive: true });
 
       const content = `---
@@ -367,37 +397,40 @@ Description here.
 | [#1234](https://github.com/lightspeedwp/.github/issues/1234) | Issue | Open |
 `;
 
-      fs.writeFileSync(path.join(projectDir, 'README.md'), content);
+      fs.writeFileSync(path.join(projectDir, "README.md"), content);
 
-      const readmeContent = fs.readFileSync(path.join(projectDir, 'README.md'), 'utf8');
+      const readmeContent = fs.readFileSync(
+        path.join(projectDir, "README.md"),
+        "utf8",
+      );
 
       // Verify all fields are present
-      expect(readmeContent).toContain('status: active');
-      expect(readmeContent).toContain('priority: high');
-      expect(readmeContent).toContain('type: feature');
+      expect(readmeContent).toContain("status: active");
+      expect(readmeContent).toContain("priority: high");
+      expect(readmeContent).toContain("type: feature");
       expect(readmeContent).toContain('effort: "24h"');
-      expect(readmeContent).toContain('## Related Issues');
+      expect(readmeContent).toContain("## Related Issues");
     });
 
-    test('handles special characters in project names', () => {
+    test("handles special characters in project names", () => {
       const { projectsDir } = tempSetup;
 
-      const projectName = 'project-with-dashes-and-numbers-2026-08-18';
+      const projectName = "project-with-dashes-and-numbers-2026-08-18";
       createSampleProject(projectsDir, projectName, {
         hasStatus: true,
       });
 
       const projectDir = path.join(projectsDir, projectName);
       expect(fs.existsSync(projectDir)).toBe(true);
-      expect(fs.existsSync(path.join(projectDir, 'README.md'))).toBe(true);
+      expect(fs.existsSync(path.join(projectDir, "README.md"))).toBe(true);
     });
   });
 
-  describe('Related Issues detection', () => {
-    test('detects issue numbers in Related Issues section', () => {
+  describe("Related Issues detection", () => {
+    test("detects issue numbers in Related Issues section", () => {
       const { projectsDir } = tempSetup;
 
-      const projectDir = path.join(projectsDir, 'issues-test');
+      const projectDir = path.join(projectsDir, "issues-test");
       fs.mkdirSync(projectDir, { recursive: true });
 
       const content = `---
@@ -417,21 +450,24 @@ status: active
 | [PR #9012](https://github.com/lightspeedwp/.github/pull/9012) | PR | Merged |
 `;
 
-      fs.writeFileSync(path.join(projectDir, 'README.md'), content);
+      fs.writeFileSync(path.join(projectDir, "README.md"), content);
 
-      const readmeContent = fs.readFileSync(path.join(projectDir, 'README.md'), 'utf8');
+      const readmeContent = fs.readFileSync(
+        path.join(projectDir, "README.md"),
+        "utf8",
+      );
       const issueMatches = readmeContent.match(/#(\d+)/g);
 
       expect(issueMatches).not.toBeNull();
-      expect(issueMatches).toContain('#1234');
-      expect(issueMatches).toContain('#5678');
-      expect(issueMatches).toContain('#9012');
+      expect(issueMatches).toContain("#1234");
+      expect(issueMatches).toContain("#5678");
+      expect(issueMatches).toContain("#9012");
     });
 
-    test('handles projects with no issue links', () => {
+    test("handles projects with no issue links", () => {
       const { projectsDir } = tempSetup;
 
-      const projectDir = path.join(projectsDir, 'no-issue-links');
+      const projectDir = path.join(projectsDir, "no-issue-links");
       fs.mkdirSync(projectDir, { recursive: true });
 
       const content = `---
@@ -447,105 +483,108 @@ status: active
 _No issues linked yet._
 `;
 
-      fs.writeFileSync(path.join(projectDir, 'README.md'), content);
+      fs.writeFileSync(path.join(projectDir, "README.md"), content);
 
-      const readmeContent = fs.readFileSync(path.join(projectDir, 'README.md'), 'utf8');
+      const readmeContent = fs.readFileSync(
+        path.join(projectDir, "README.md"),
+        "utf8",
+      );
       const issueMatches = readmeContent.match(/#(\d+)/g);
 
       expect(issueMatches).toBeNull();
     });
   });
 
-  describe('Project structure validation', () => {
-    test('validates project has required files', () => {
+  describe("Project structure validation", () => {
+    test("validates project has required files", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'complete-project', {
+      createSampleProject(projectsDir, "complete-project", {
         hasPlanningFile: true,
       });
 
-      const projectDir = path.join(projectsDir, 'complete-project');
-      expect(fs.existsSync(path.join(projectDir, 'README.md'))).toBe(true);
-      expect(fs.existsSync(path.join(projectDir, 'PLANNING.md'))).toBe(true);
+      const projectDir = path.join(projectsDir, "complete-project");
+      expect(fs.existsSync(path.join(projectDir, "README.md"))).toBe(true);
+      expect(fs.existsSync(path.join(projectDir, "PLANNING.md"))).toBe(true);
     });
 
-    test('handles projects missing PLANNING.md', () => {
+    test("handles projects missing PLANNING.md", () => {
       const { projectsDir } = tempSetup;
 
-      createSampleProject(projectsDir, 'no-planning', {
+      createSampleProject(projectsDir, "no-planning", {
         hasPlanningFile: false,
       });
 
-      const projectDir = path.join(projectsDir, 'no-planning');
-      expect(fs.existsSync(path.join(projectDir, 'README.md'))).toBe(true);
-      expect(fs.existsSync(path.join(projectDir, 'PLANNING.md'))).toBe(false);
+      const projectDir = path.join(projectsDir, "no-planning");
+      expect(fs.existsSync(path.join(projectDir, "README.md"))).toBe(true);
+      expect(fs.existsSync(path.join(projectDir, "PLANNING.md"))).toBe(false);
     });
   });
 
-  describe('Multiple projects handling', () => {
-    test('processes multiple projects correctly', () => {
+  describe("Multiple projects handling", () => {
+    test("processes multiple projects correctly", () => {
       const { projectsDir } = tempSetup;
 
       // Create multiple projects with different states
-      createSampleProject(projectsDir, 'project-1', {
+      createSampleProject(projectsDir, "project-1", {
         hasStatus: true,
         hasPriority: true,
         hasType: true,
         hasEffort: true,
       });
 
-      createSampleProject(projectsDir, 'project-2', {
+      createSampleProject(projectsDir, "project-2", {
         hasStatus: false,
         hasPriority: true,
         hasType: true,
         hasEffort: true,
       });
 
-      createSampleProject(projectsDir, 'project-3', {
+      createSampleProject(projectsDir, "project-3", {
         hasStatus: true,
         hasPriority: false,
         hasType: false,
         hasEffort: false,
       });
 
-      const allProjects = fs.readdirSync(projectsDir)
-        .filter(name => {
-          const stat = fs.statSync(path.join(projectsDir, name));
-          return stat.isDirectory();
-        });
+      const allProjects = fs.readdirSync(projectsDir).filter((name) => {
+        const stat = fs.statSync(path.join(projectsDir, name));
+        return stat.isDirectory();
+      });
 
       expect(allProjects).toHaveLength(3);
-      expect(allProjects).toContain('project-1');
-      expect(allProjects).toContain('project-2');
-      expect(allProjects).toContain('project-3');
+      expect(allProjects).toContain("project-1");
+      expect(allProjects).toContain("project-2");
+      expect(allProjects).toContain("project-3");
     });
 
-    test('sorts projects alphabetically', () => {
+    test("sorts projects alphabetically", () => {
       const { projectsDir } = tempSetup;
 
       // Create projects in non-alphabetical order
-      createSampleProject(projectsDir, 'zebra-project');
-      createSampleProject(projectsDir, 'alpha-project');
-      createSampleProject(projectsDir, 'beta-project');
+      createSampleProject(projectsDir, "zebra-project");
+      createSampleProject(projectsDir, "alpha-project");
+      createSampleProject(projectsDir, "beta-project");
 
-      const allProjects = fs.readdirSync(projectsDir)
-        .filter(name => {
+      const allProjects = fs
+        .readdirSync(projectsDir)
+        .filter((name) => {
           const stat = fs.statSync(path.join(projectsDir, name));
           return stat.isDirectory();
         })
         .sort();
 
-      expect(allProjects[0]).toBe('alpha-project');
-      expect(allProjects[1]).toBe('beta-project');
-      expect(allProjects[2]).toBe('zebra-project');
+      expect(allProjects[0]).toBe("alpha-project");
+      expect(allProjects[1]).toBe("beta-project");
+      expect(allProjects[2]).toBe("zebra-project");
     });
   });
 
-  describe('Two-way linking structure', () => {
-    test('validates project-to-issue links format', () => {
+  describe("Two-way linking structure", () => {
+    test("validates project-to-issue links format", () => {
       const { projectsDir } = tempSetup;
 
-      const projectDir = path.join(projectsDir, 'linking-test');
+      const projectDir = path.join(projectsDir, "linking-test");
       fs.mkdirSync(projectDir, { recursive: true });
 
       const content = `---
@@ -564,32 +603,41 @@ status: active
 | [PR #5678](https://github.com/lightspeedwp/.github/pull/5678) | PR | Merged | Implementation |
 `;
 
-      fs.writeFileSync(path.join(projectDir, 'README.md'), content);
+      fs.writeFileSync(path.join(projectDir, "README.md"), content);
 
-      const readmeContent = fs.readFileSync(path.join(projectDir, 'README.md'), 'utf8');
+      const readmeContent = fs.readFileSync(
+        path.join(projectDir, "README.md"),
+        "utf8",
+      );
 
       // Verify link format
-      expect(readmeContent).toContain('[#1234](https://github.com/lightspeedwp/.github/issues/1234)');
-      expect(readmeContent).toContain('[PR #5678](https://github.com/lightspeedwp/.github/pull/5678)');
+      expect(readmeContent).toContain(
+        "[#1234](https://github.com/lightspeedwp/.github/issues/1234)",
+      );
+      expect(readmeContent).toContain(
+        "[PR #5678](https://github.com/lightspeedwp/.github/pull/5678)",
+      );
     });
 
-    test('validates issue-to-project backlink structure', () => {
+    test("validates issue-to-project backlink structure", () => {
       // This would be in an issue, not a project
       const issueLinkStructure = `## 📋 Project Reference
 **Related Project:** [Project Name](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/project-slug/README.md)
 See [Project PLANNING](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/project-slug/PLANNING.md)`;
 
-      expect(issueLinkStructure).toContain('📋 Project Reference');
-      expect(issueLinkStructure).toContain('Related Project:');
-      expect(issueLinkStructure).toContain('blob/develop/.github/projects/active/');
+      expect(issueLinkStructure).toContain("📋 Project Reference");
+      expect(issueLinkStructure).toContain("Related Project:");
+      expect(issueLinkStructure).toContain(
+        "blob/develop/.github/projects/active/",
+      );
     });
   });
 
-  describe('Edge cases', () => {
-    test('handles projects with no frontmatter', () => {
+  describe("Edge cases", () => {
+    test("handles projects with no frontmatter", () => {
       const { projectsDir } = tempSetup;
 
-      const projectDir = path.join(projectsDir, 'no-frontmatter');
+      const projectDir = path.join(projectsDir, "no-frontmatter");
       fs.mkdirSync(projectDir, { recursive: true });
 
       const content = `# No Frontmatter Project
@@ -597,82 +645,102 @@ See [Project PLANNING](https://github.com/lightspeedwp/.github/blob/develop/.git
 This project has no frontmatter section.
 `;
 
-      fs.writeFileSync(path.join(projectDir, 'README.md'), content);
+      fs.writeFileSync(path.join(projectDir, "README.md"), content);
 
-      const readmeContent = fs.readFileSync(path.join(projectDir, 'README.md'), 'utf8');
-      expect(readmeContent).not.toContain('---');
-      expect(readmeContent).toContain('# No Frontmatter Project');
+      const readmeContent = fs.readFileSync(
+        path.join(projectDir, "README.md"),
+        "utf8",
+      );
+      expect(readmeContent).not.toContain("---");
+      expect(readmeContent).toContain("# No Frontmatter Project");
     });
 
-    test('handles empty project directory', () => {
+    test("handles empty project directory", () => {
       const { projectsDir } = tempSetup;
 
-      const projectDir = path.join(projectsDir, 'empty-project');
+      const projectDir = path.join(projectsDir, "empty-project");
       fs.mkdirSync(projectDir, { recursive: true });
 
       expect(fs.existsSync(projectDir)).toBe(true);
       expect(fs.readdirSync(projectDir)).toHaveLength(0);
     });
 
-    test('handles projects with special characters in names', () => {
+    test("handles projects with special characters in names", () => {
       const { projectsDir } = tempSetup;
 
       const specialNames = [
-        'project-with-2026-date',
-        'project-v2.1-release',
-        'project_with_underscores',
+        "project-with-2026-date",
+        "project-v2.1-release",
+        "project_with_underscores",
       ];
 
-      specialNames.forEach(name => {
+      specialNames.forEach((name) => {
         createSampleProject(projectsDir, name);
         expect(fs.existsSync(path.join(projectsDir, name))).toBe(true);
       });
     });
 
-    test('handles very long project names', () => {
+    test("handles very long project names", () => {
       const { projectsDir } = tempSetup;
 
-      const longName = 'this-is-a-very-long-project-name-with-many-words-that-describes-something-complex';
+      const longName =
+        "this-is-a-very-long-project-name-with-many-words-that-describes-something-complex";
       createSampleProject(projectsDir, longName);
 
       expect(fs.existsSync(path.join(projectsDir, longName))).toBe(true);
     });
   });
 
-  describe('Command-line interface', () => {
-    test('shows help with --help flag', async () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+  describe("Command-line interface", () => {
+    test("shows help with --help flag", async () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
       const { stdout } = await execAsync(`node "${scriptPath}" --help`);
 
-      expect(stdout).toContain('Usage');
-      expect(stdout).toContain('audit');
-      expect(stdout).toContain('template');
-      expect(stdout).toContain('link');
+      expect(stdout).toContain("Usage");
+      expect(stdout).toContain("audit");
+      expect(stdout).toContain("template");
+      expect(stdout).toContain("link");
     });
 
-    test('shows help with -h flag', async () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+    test("shows help with -h flag", async () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
       const { stdout } = await execAsync(`node "${scriptPath}" -h`);
 
-      expect(stdout).toContain('Usage');
+      expect(stdout).toContain("Usage");
     });
 
-    test('shows help with help command', async () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+    test("shows help with help command", async () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
       const { stdout } = await execAsync(`node "${scriptPath}" help`);
 
-      expect(stdout).toContain('Usage');
-      expect(stdout).toContain('Commands:');
+      expect(stdout).toContain("Usage");
+      expect(stdout).toContain("Commands:");
     });
 
-    test('handles unknown command gracefully', async () => {
-      const scriptPath = path.join(__dirname, '..', 'update-projects-status.cjs');
+    test("handles unknown command gracefully", async () => {
+      const scriptPath = path.join(
+        __dirname,
+        "..",
+        "update-projects-status.cjs",
+      );
 
       try {
         await execAsync(`node "${scriptPath}" unknown-command`);
-        fail('Should have thrown error for unknown command');
+        throw new Error("Should have thrown error for unknown command");
       } catch (error) {
-        expect(error.stdout).toContain('Unknown command');
+        expect(error.stdout).toContain("Unknown command");
       }
     });
   });

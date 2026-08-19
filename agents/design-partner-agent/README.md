@@ -4,7 +4,7 @@ title: 'Design Partner Agent'
 description: 'Multi-provider AI design consultant for design systems, accessibility assessment, and UI/UX review'
 version: '1.0.1'
 created_date: '2026-07-22'
-last_updated: '2026-07-24'
+last_updated: "2026-08-19"
 maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team
@@ -314,3 +314,19 @@ For issues, feature requests, or agent improvements:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

@@ -20,7 +20,12 @@ class TemplateParseError extends TemplateError {
   }
 }
 
-const VALID_TEMPLATES = ["standard", "lightweight", "security", "infrastructure"];
+const VALID_TEMPLATES = [
+  "standard",
+  "lightweight",
+  "security",
+  "infrastructure",
+];
 
 const PLACEHOLDER_PATTERN = /\{([A-Z_0-9]+)\}/g;
 

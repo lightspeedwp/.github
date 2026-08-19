@@ -118,7 +118,7 @@ function generateBadges(repoRoot, repoType) {
  * @returns {string} Markdown formatted badge block
  */
 function formatBadgesAsMarkdown(badges, repoType) {
-  let markdown = "";
+  let markdown;
 
   if (repoType === "control-plane") {
     // For control-plane, badges go at the top

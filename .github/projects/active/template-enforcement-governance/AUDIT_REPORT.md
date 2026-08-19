@@ -65,7 +65,7 @@ status: completed
 | 9 | Workflow `.github/workflows/validate-pr-template.yml` | File now exists as the dedicated PR validation workflow | Complete |
 | 10 | Agent spec `.github/agents/pr-template-enforcement.md` | File missing | Not started |
 | 11 | Branch protection requires `validate-pr-template` | Cannot verify repository settings locally; workflow name mismatch risk | Blocked (remote settings) |
-| 12 | Fixtures `.github/tests/fixtures/pr-templates/` | Fixture pack exists; keep it aligned with current templates | Partial |
+| 12 | Fixtures `scripts/validation/__fixtures__/pr-templates/` | Fixture pack exists; keep it aligned with current templates | Partial |
 | 13 | BRANCHING_STRATEGY includes PR template mapping table | Template mapping table added and aligned with the route map | Complete |
 
 ## Critical Findings

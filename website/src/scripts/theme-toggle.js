@@ -37,7 +37,9 @@ function toggleTheme() {
   document.documentElement.style.colorScheme = next;
   try {
     localStorage.setItem("ag-theme", next);
-  } catch (e) {}
+  } catch (_e) {
+    // Ignore storage failures in private/locked contexts.
+  }
   updateAllIcons();
   document.dispatchEvent(new CustomEvent("theme-changed"));
 }

@@ -3,21 +3,25 @@
  */
 
 // Mock Octokit
-jest.mock("octokit", () => {
-  const Octokit = jest.fn().mockImplementation(() => ({
-    rest: {
-      pulls: {
-        list: jest.fn(),
-        listReviews: jest.fn(),
+jest.mock(
+  "octokit",
+  () => {
+    const Octokit = jest.fn().mockImplementation(() => ({
+      rest: {
+        pulls: {
+          list: jest.fn(),
+          listReviews: jest.fn(),
+        },
+        issues: {
+          removeLabel: jest.fn(),
+          addLabels: jest.fn(),
+        },
       },
-      issues: {
-        removeLabel: jest.fn(),
-        addLabels: jest.fn(),
-      },
-    },
-  }));
-  return { Octokit };
-});
+    }));
+    return { Octokit };
+  },
+  { virtual: true },
+);
 
 describe("update-pr-changelog-review", () => {
   describe("determinePRStatus", () => {
@@ -39,7 +43,7 @@ describe("update-pr-changelog-review", () => {
       const { determinePRStatus } = require("../update-pr-changelog-review.js");
       const pr = { merged_at: null, draft: false };
       const reviews = [
-        { state: "CHANGES_REQUESTED", user: { login: "reviewer1" } }
+        { state: "CHANGES_REQUESTED", user: { login: "reviewer1" } },
       ];
       expect(determinePRStatus(pr, reviews)).toBe("changes-requested");
     });
@@ -47,9 +51,7 @@ describe("update-pr-changelog-review", () => {
     it("should return 'approved' when PR has approvals", () => {
       const { determinePRStatus } = require("../update-pr-changelog-review.js");
       const pr = { merged_at: null, draft: false };
-      const reviews = [
-        { state: "APPROVED", user: { login: "reviewer1" } }
-      ];
+      const reviews = [{ state: "APPROVED", user: { login: "reviewer1" } }];
       expect(determinePRStatus(pr, reviews)).toBe("approved");
     });
 
@@ -63,46 +65,60 @@ describe("update-pr-changelog-review", () => {
     it("should return 'reviewing' when reviews exist but no approval", () => {
       const { determinePRStatus } = require("../update-pr-changelog-review.js");
       const pr = { merged_at: null, draft: false };
-      const reviews = [
-        { state: "COMMENTED", user: { login: "reviewer1" } }
-      ];
+      const reviews = [{ state: "COMMENTED", user: { login: "reviewer1" } }];
       expect(determinePRStatus(pr, reviews)).toBe("reviewing");
     });
   });
 
   describe("getNextStatusLabel", () => {
     it("should map 'merged' to 'status:ready-for-changelog'", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
       expect(getNextStatusLabel("merged")).toBe("status:ready-for-changelog");
     });
 
     it("should map 'draft' to 'status:in-progress'", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
       expect(getNextStatusLabel("draft")).toBe("status:in-progress");
     });
 
     it("should map 'changes-requested' to 'status:needs-update'", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
-      expect(getNextStatusLabel("changes-requested")).toBe("status:needs-update");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
+      expect(getNextStatusLabel("changes-requested")).toBe(
+        "status:needs-update",
+      );
     });
 
     it("should map 'approved' to 'status:ready-to-merge'", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
       expect(getNextStatusLabel("approved")).toBe("status:ready-to-merge");
     });
 
     it("should map 'awaiting-review' to 'status:needs-review'", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
       expect(getNextStatusLabel("awaiting-review")).toBe("status:needs-review");
     });
 
     it("should map 'reviewing' to 'status:under-review'", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
       expect(getNextStatusLabel("reviewing")).toBe("status:under-review");
     });
 
     it("should default to 'status:needs-review' for unknown status", () => {
-      const { getNextStatusLabel } = require("../update-pr-changelog-review.js");
+      const {
+        getNextStatusLabel,
+      } = require("../update-pr-changelog-review.js");
       expect(getNextStatusLabel("unknown")).toBe("status:needs-review");
     });
   });

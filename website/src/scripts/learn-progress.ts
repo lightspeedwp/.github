@@ -16,9 +16,10 @@ export const UNREAD_TICK = `
 
 export function loadReadIds(): Set<string> {
   try {
+    const storage = globalThis.localStorage;
     const sources = [
-      localStorage.getItem(STORAGE_KEY),
-      ...LEGACY_KEYS.map((key) => localStorage.getItem(key)),
+      storage.getItem(STORAGE_KEY),
+      ...LEGACY_KEYS.map((key) => storage.getItem(key)),
     ];
     const ids = new Set<string>();
 
@@ -51,7 +52,7 @@ export function loadReadIds(): Set<string> {
 
 export function persistReadIds(ids: Set<string>): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
+    globalThis.localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
   } catch {
     // localStorage unavailable
   }

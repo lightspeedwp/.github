@@ -1,3 +1,13 @@
+---
+file_type: documentation
+title: "Metadata Agent"
+description: "README for agents/metadata-agent/README.md."
+status: active
+stability: stable
+domain: governance
+last_updated: "2026-08-19"
+---
+
 # Metadata Agent
 
 Portable AI agent for syncing GitHub issue labels, PRs, and project fields with confidence scoring and validation tiers.
@@ -488,3 +498,19 @@ To extend or customize:
 ---
 
 Built with ☕ by LightSpeedWP — [GitHub](https://github.com/lightspeedwp/.github) | [Discussions](https://github.com/lightspeedwp/.github/discussions)
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

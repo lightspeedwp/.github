@@ -1,13 +1,13 @@
 {
-  "name": "pr-creation-agent",
+  "name": "@lightspeedwp/pr-creation-agent",
   "version": "1.0.0",
   "description": "Portable PR creation agent with configuration-driven workflows",
   "type": "module",
   "main": "pr-orchestrator.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --verbose",
-    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/unit --coverage",
-    "test:validate-branch-name": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/unit/validate-branch-name.test.js --verbose",
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__ --coverage",
+    "test:validate-branch-name": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/validate-branch-name.test.js --verbose",
     "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/integration",
     "test:e2e": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/e2e --runInBand",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
@@ -23,7 +23,12 @@
     "automation"
   ],
   "author": "LightSpeedWP",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "agents/pr-creation-agent"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.23.0",
     "@jest/globals": "^30.4.1",

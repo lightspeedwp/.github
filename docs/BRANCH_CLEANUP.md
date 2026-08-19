@@ -202,7 +202,7 @@ node .github/scripts/cleanup-branches.js --dryRun=true --reportFormat=json
 **Steps:**
 
 1. Generate report: `npm run cleanup:report`
-2. Review report in `.githu./.github/reports/stale-branches-{date}.md`
+2. Review report in `.github/reports/stale-branches-{date}.md`
 3. Verify no critical branches are marked for deletion
 4. Execute cleanup: `node .github/scripts/cleanup-branches.js --dryRun=false`
 5. Sync local repo: `git fetch origin --prune`
@@ -236,7 +236,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: cleanup-reports
-          path: .githu./.github/reports/stale-branches-*.{md,json}
+          path: .github/reports/stale-branches-*.{md,json}
 ```
 
 ---

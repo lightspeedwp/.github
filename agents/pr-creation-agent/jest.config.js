@@ -13,7 +13,7 @@ export default {
       statements: 85,
     },
   },
-  testMatch: ["**/__tests__/unit/route-pr-template.test.js"],
+  testMatch: ["**/__tests__/route-pr-template.test.js"],
   moduleFileExtensions: ["js"],
   transform: {},
 };

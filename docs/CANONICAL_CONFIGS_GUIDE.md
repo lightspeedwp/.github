@@ -114,7 +114,7 @@ sequenceDiagram
 - [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
 - [docs/LABELING.md](./LABELING.md)
 - [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
-- `.githu./.github/reports/audits/2026-06-03-issue-fields-config-vs-github-api-audit-660.md`
+- `.github/reports/audits/2026-06-03-issue-fields-config-vs-github-api-audit-660.md`
 
 ---
 

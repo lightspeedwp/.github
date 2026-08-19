@@ -11,8 +11,8 @@ handoffs:
     agent: "release"
     prompt: "Prepare the repository for the next release version."
     send: false
-version: 'v2.6'
-last_updated: '2026-08-18'
+version: "v2.6"
+last_updated: "2026-08-18"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"
@@ -149,8 +149,8 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 
 ## Phase 5A Safety Gates (NEW — Agentic Release Orchestration)
 
-**Status:** ✅ COMPLETE (Week 3, 2026-08-18)  
-**PR:** [#2016](https://github.com/lightspeedwp/.github/pull/2016) — Merged to develop  
+**Status:** ✅ COMPLETE (Week 3, 2026-08-18)
+**PR:** [#2016](https://github.com/lightspeedwp/.github/pull/2016) — Merged to develop
 **Approach:** AUGMENT (wraps Phase 4 shell scripts without breaking changes)
 
 ### Overview
@@ -158,6 +158,7 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 Phase 5A introduces a **7-layer safety gates system** that validates release safety before calling Phase 4 scripts. The gates wrapper orchestrates all validation, then delegates mutations to existing Phase 4 automation.
 
 **Key Benefits:**
+
 - ✅ AI-driven reasoning with confidence scoring
 - ✅ Tiered approval gates (patch auto, minor 1x, major 2x)
 - ✅ Comprehensive audit logging with secret redaction
@@ -165,6 +166,7 @@ Phase 5A introduces a **7-layer safety gates system** that validates release saf
 - ✅ Fallback to shell scripts if agentic layer fails
 
 **Architecture:**
+
 ```
 User Input (scope, version, dry-run)
     ↓
@@ -186,19 +188,19 @@ User Input (scope, version, dry-run)
 
 ### The 7-Layer Gates
 
-**GATE 1: Pre-flight Checks** — Branch, commits, VERSION, CHANGELOG validation  
-**GATE 2: Agentic Reasoning Score** — AI safety evaluation (≥0.80 threshold)  
-**GATE 3: Version Consistency** — Semver format, logical bump validation  
-**GATE 4: Tag Uniqueness** — Prevent duplicate release tags  
-**GATE 5: Authorization** — Maintainers team membership check  
-**GATE 6: Integrity Filter** — Gitleaks secret detection  
+**GATE 1: Pre-flight Checks** — Branch, commits, VERSION, CHANGELOG validation
+**GATE 2: Agentic Reasoning Score** — AI safety evaluation (≥0.80 threshold)
+**GATE 3: Version Consistency** — Semver format, logical bump validation
+**GATE 4: Tag Uniqueness** — Prevent duplicate release tags
+**GATE 5: Authorization** — Maintainers team membership check
+**GATE 6: Integrity Filter** — Gitleaks secret detection
 **GATE 7: Approval Enforcement** — Tiered by scope (patch auto, minor 1x, major 2x)
 
 ### Integration with release.yml
 
-**Workflow:** `.github/workflows/release.yml`  
-**Gates Wrapper:** `scripts/workflows/release/run-release-with-gates.cjs` (~150 LOC)  
-**Test Suite:** `scripts/gates/__tests__/release-gates.test.js` (41/41 passing, 82% coverage)
+**Workflow:** `.github/workflows/release.yml`
+**Gates Wrapper:** `scripts/workflows/release/run-release-with-gates.cjs` (~150 LOC)
+**Test Suite:** `agents/release/gates/__tests__/release-gates.test.js` (41/41 passing, 82% coverage)
 
 The gates wrapper orchestrates all 7 gates sequentially. If any gate fails, process exits with error code 1. If all gates pass, Phase 4 agent is invoked for mutations.
 
@@ -341,13 +343,13 @@ Release Agent Orchestration:
 
 ### Error Recovery
 
-| Failure Point               | Recovery Action                                    |
-| --------------------------- | -------------------------------------------------- |
-| Linting fails               | Abort; report lint errors; suggest fixes           |
-| Tests fail                  | Abort; report test failures; suggest fixes         |
+| Failure Point               | Recovery Action                                      |
+| --------------------------- | ---------------------------------------------------- |
+| Linting fails               | Abort; report lint errors; suggest fixes             |
+| Tests fail                  | Abort; report test failures; suggest fixes           |
 | Changelog invalid           | Abort; report .schemas/content errors; suggest fixes |
-| Release workflow fails      | Rollback tag creation; abort; notify maintainers   |
-| Post-release workflow fails | Continue; warn user; log issue for manual review   |
+| Release workflow fails      | Rollback tag creation; abort; notify maintainers     |
+| Post-release workflow fails | Continue; warn user; log issue for manual review     |
 
 ### Workflow Communication Protocol
 
@@ -488,4 +490,4 @@ On every new conversation:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_

@@ -10,8 +10,8 @@ version: "1.0.0"
 
 # ESLint Fix Specification — Issue #1486
 
-**Date**: 2026-08-04  
-**Status**: DOCUMENTED (ready for implementation)  
+**Date**: 2026-08-04
+**Status**: DOCUMENTED (ready for implementation)
 **Total Warnings**: 68 (0 errors)
 
 ## Warning Breakdown
@@ -32,8 +32,8 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `.github/scripts/agents/issue-type.agent.js:24` - e
 - `.github/scripts/agents/meta.agent.js:104` - e
 - `.github/scripts/audit-branding-patterns.js:51,152` - e (2x)
-- `.github/scripts/design-md-agent/__tests__/ciDesignMdCheck.test.js` - execSync
-- `.github/scripts/design-md-agent/validateDesignMd.js:5` - searchRoots
+- `agents/design-partner-agent/agent/scripts/design-md-agent/__tests__/ciDesignMdCheck.test.js` - execSync
+- `agents/design-partner-agent/agent/scripts/design-md-agent/validateDesignMd.js:5` - searchRoots
 - `.github/scripts/identify-changed-markdown.js:45` - err
 - `.github/scripts/remediation-wave-4f.js:110` - config
 - `.github/scripts/validate-footers.js:58,220` - err (2x)
@@ -53,8 +53,8 @@ Change: `catch (e)` → `catch (_e)` | `catch (err)` → `catch (_err)` | `catch
 - `scripts/agents/labeling.agent.js:26,42,47` - fetchCanonicalLabels, formatErrors, ISSUE_TYPES_CONFIG
 - `scripts/agents/meta.agent.js:104` - e
 - `scripts/audit-branding-patterns.js:51,152` - e (2x)
-- `scripts/design-md-agent/__tests__/ciDesignMdCheck.test.js:4` - execSync
-- `scripts/design-md-agent/validateDesignMd.js:5` - searchRoots
+- `agents/design-partner-agent/agent/scripts/design-md-agent/__tests__/ciDesignMdCheck.test.js:4` - execSync
+- `agents/design-partner-agent/agent/scripts/design-md-agent/validateDesignMd.js:5` - searchRoots
 - `scripts/identify-changed-markdown.js:45` - err
 - `scripts/inject-footers.js:127,161,174` - shouldExclude, e, getFooterBlock
 - `scripts/remediation-wave-4f.js:110` - config

@@ -35,9 +35,8 @@ describe("update-readme.js", () => {
       }).not.toThrow();
     });
 
-    it("should delegate to .github/scripts/update-readme.js", () => {
-      const expectedPath = ".github/scripts/update-readme.js";
-      expect(expectedPath).toContain(".github");
+    it("should delegate to scripts/update-readme.js", () => {
+      const expectedPath = "scripts/update-readme.js";
       expect(expectedPath).toContain("scripts");
       expect(expectedPath).toContain("update-readme.js");
     });

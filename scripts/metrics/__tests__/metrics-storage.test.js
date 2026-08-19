@@ -83,7 +83,11 @@ describe("MetricsStorage", () => {
   describe("getMetricsSince", () => {
     test("filters metrics by time range", () => {
       const now = Date.now();
-      storage.saveMetrics(testRepo, testMetrics, now - 10 * 24 * 60 * 60 * 1000);
+      storage.saveMetrics(
+        testRepo,
+        testMetrics,
+        now - 10 * 24 * 60 * 60 * 1000,
+      );
       storage.saveMetrics(testRepo, testMetrics, now - 2 * 24 * 60 * 60 * 1000);
 
       const recentMetrics = storage.getMetricsSince(testRepo, 7);

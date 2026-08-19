@@ -29,3 +29,24 @@ When new repository files, plugin branches, pull requests or uploaded source fil
 ## Consistency validation
 
 After changing any content-model JSON file, run `scripts/validate_content_model.py` from the skill root. This catches the common drift risks: adding extension-facing entities as core post types, changing string pricing fields into structured data without source evidence, or treating schema planning as implementation.
+## Visual Workflow
+
+```mermaid
+flowchart TD
+  A[Start Here] --> B[Read Scope and Prerequisites]
+  B --> C[Run the Documented Workflow]
+  C --> D[Validate with Repo Tooling]
+  D --> E[Open PR or Hand-off]
+
+  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
+  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
+  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
+  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
+  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
+
+  class A start;
+  class B prep;
+  class C run;
+  class D gate;
+  class E done;
+```

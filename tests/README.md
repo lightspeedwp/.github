@@ -3,7 +3,7 @@ title: "LightSpeedWP Testing Framework"
 description: "Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates."
 file_type: documentation
 version: 2.4.0
-last_updated: "2026-06-18"
+last_updated: "2026-08-19"
 created_date: "2025-10-25"
 owners:
   - Ash Shaw
@@ -54,7 +54,7 @@ stability: stable
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`scripts/README.md`](../scripts/README.md), [`.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/testing.yml) |
+| Key References | [`scripts/README.md`](../scripts/README.md), [`schemas/README.md`](../schemas/README.md), [`tests workflow`](../.github/workflows/testing.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -302,7 +302,7 @@ See repository commit history for granular diffs.
 | Bash             | >= 5.x           | macOS ships with compatible version     |
 | Bats Core        | latest stable    | Install via Homebrew                    |
 | Jest             | ^29.x            | Provides coverage instrumentation       |
-| Pytest           | ^8.x             | For .schemas/doc validation tests         |
+| Pytest           | ^8.x             | For schema and documentation validation tests |
 | ShellCheck       | latest           | Static analysis for shell scripts       |
 | markdownlint-cli | latest           | Documentation linting                   |
 | ESLint           | project config   | JS style and static analysis            |
@@ -349,9 +349,9 @@ npm ci
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
-- [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
+- [Schema Validation](../schemas/README.md) — JSON schema validation and configuration
 - [CodeRabbit Configuration](../.coderabbit.yml) — AI code review configuration
-- [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
+- [Schema Validation](../schemas/README.md) — JSON schema validation and configuration
 
 #### 🎯 AI & Automation
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global console, process */
 /**
  * Active Projects Status Update Helper
  *
@@ -14,30 +15,30 @@
  *   - link: Generate issue linking suggestions
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const PROJECTS_DIR = '.github/projects/active';
-const REQUIRED_FIELDS = ['status', 'priority', 'type', 'effort'];
-const REQUIRED_SECTIONS = ['Related Issues'];
+const PROJECTS_DIR = ".github/projects/active";
+const REQUIRED_FIELDS = ["status", "priority", "type", "effort"];
+const REQUIRED_SECTIONS = ["Related Issues"];
 
 // ANSI colors
 const colors = {
-  reset: '\x1b[0m',
-  green: '\x1b[32m',
-  red: '\x1b[31m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
+  reset: "\x1b[0m",
+  green: "\x1b[32m",
+  red: "\x1b[31m",
+  yellow: "\x1b[33m",
+  blue: "\x1b[34m",
+  cyan: "\x1b[36m",
 };
 
-function log(msg, color = 'reset') {
+function log(msg, color = "reset") {
   console.log(`${colors[color]}${msg}${colors.reset}`);
 }
 
 function readFile(filepath) {
   try {
-    return fs.readFileSync(filepath, 'utf8');
+    return fs.readFileSync(filepath, "utf8");
   } catch {
     return null;
   }
@@ -49,10 +50,10 @@ function parseYAMLFrontmatter(content) {
 
   const yaml = match[1];
   const obj = {};
-  yaml.split('\n').forEach(line => {
-    const [key, ...valueParts] = line.split(':');
+  yaml.split("\n").forEach((line) => {
+    const [key, ...valueParts] = line.split(":");
     if (key && valueParts.length > 0) {
-      obj[key.trim()] = valueParts.join(':').trim();
+      obj[key.trim()] = valueParts.join(":").trim();
     }
   });
   return obj;
@@ -64,25 +65,26 @@ function hasFrontmatterField(content, field) {
 }
 
 function hasSection(content, section) {
-  return new RegExp(`^## ${section}`, 'm').test(content);
+  return new RegExp(`^## ${section}`, "m").test(content);
 }
 
 function getProjects() {
   if (!fs.existsSync(PROJECTS_DIR)) {
-    log(`Projects directory not found: ${PROJECTS_DIR}`, 'red');
+    log(`Projects directory not found: ${PROJECTS_DIR}`, "red");
     process.exit(1);
   }
 
-  return fs.readdirSync(PROJECTS_DIR)
-    .filter(name => {
+  return fs
+    .readdirSync(PROJECTS_DIR)
+    .filter((name) => {
       const stat = fs.statSync(path.join(PROJECTS_DIR, name));
-      return stat.isDirectory() && !name.startsWith('_');
+      return stat.isDirectory() && !name.startsWith("_");
     })
     .sort();
 }
 
 function auditCommand() {
-  log('\n=== PROJECT AUDIT ===\n', 'cyan');
+  log("\n=== PROJECT AUDIT ===\n", "cyan");
 
   const projects = getProjects();
   const results = {
@@ -92,50 +94,56 @@ function auditCommand() {
     complete: [],
   };
 
-  projects.forEach(project => {
-    const readmePath = path.join(PROJECTS_DIR, project, 'README.md');
+  projects.forEach((project) => {
+    const readmePath = path.join(PROJECTS_DIR, project, "README.md");
     const content = readFile(readmePath);
 
     if (!content) {
-      log(`✗ ${project}: No README.md`, 'red');
+      log(`✗ ${project}: No README.md`, "red");
       return;
     }
 
     const missing = {
-      fields: REQUIRED_FIELDS.filter(f => !hasFrontmatterField(content, f)),
-      sections: REQUIRED_SECTIONS.filter(s => !hasSection(content, s)),
+      fields: REQUIRED_FIELDS.filter((f) => !hasFrontmatterField(content, f)),
+      sections: REQUIRED_SECTIONS.filter((s) => !hasSection(content, s)),
     };
 
     if (missing.fields.length === 0 && missing.sections.length === 0) {
-      log(`✓ ${project}`, 'green');
+      log(`✓ ${project}`, "green");
       results.complete.push(project);
     } else {
       if (missing.fields.length > 0) {
-        log(`⚠ ${project}: Missing fields: ${missing.fields.join(', ')}`, 'yellow');
+        log(
+          `⚠ ${project}: Missing fields: ${missing.fields.join(", ")}`,
+          "yellow",
+        );
         results.missingFields.push({ project, fields: missing.fields });
       }
       if (missing.sections.length > 0) {
-        log(`⚠ ${project}: Missing sections: ${missing.sections.join(', ')}`, 'yellow');
+        log(
+          `⚠ ${project}: Missing sections: ${missing.sections.join(", ")}`,
+          "yellow",
+        );
         results.missingSections.push({ project, sections: missing.sections });
       }
     }
   });
 
-  log('\n=== SUMMARY ===\n', 'cyan');
-  log(`Total projects: ${results.total}`, 'blue');
-  log(`Complete: ${results.complete.length}`, 'green');
-  log(`Missing fields: ${results.missingFields.length}`, 'yellow');
-  log(`Missing sections: ${results.missingSections.length}`, 'yellow');
+  log("\n=== SUMMARY ===\n", "cyan");
+  log(`Total projects: ${results.total}`, "blue");
+  log(`Complete: ${results.complete.length}`, "green");
+  log(`Missing fields: ${results.missingFields.length}`, "yellow");
+  log(`Missing sections: ${results.missingSections.length}`, "yellow");
 
   if (results.missingFields.length > 0) {
-    log('\nProjects needing frontmatter updates:', 'yellow');
+    log("\nProjects needing frontmatter updates:", "yellow");
     results.missingFields.forEach(({ project, fields }) => {
-      log(`  - ${project}: ${fields.join(', ')}`);
+      log(`  - ${project}: ${fields.join(", ")}`);
     });
   }
 
   if (results.missingSections.length > 0) {
-    log('\nProjects needing Related Issues section:', 'yellow');
+    log("\nProjects needing Related Issues section:", "yellow");
     results.missingSections.forEach(({ project }) => {
       log(`  - ${project}`);
     });
@@ -143,59 +151,63 @@ function auditCommand() {
 }
 
 function templateCommand() {
-  log('\n=== TEMPLATE GENERATOR ===\n', 'cyan');
+  log("\n=== TEMPLATE GENERATOR ===\n", "cyan");
 
   const projects = getProjects();
 
-  projects.forEach(project => {
-    const readmePath = path.join(PROJECTS_DIR, project, 'README.md');
+  projects.forEach((project) => {
+    const readmePath = path.join(PROJECTS_DIR, project, "README.md");
     const content = readFile(readmePath);
 
     if (!content) {
-      log(`\n📄 ${project}/README.md: [NEEDS CREATION]`, 'yellow');
+      log(`\n📄 ${project}/README.md: [NEEDS CREATION]`, "yellow");
       return;
     }
 
     const missing = {
-      fields: REQUIRED_FIELDS.filter(f => !hasFrontmatterField(content, f)),
-      sections: REQUIRED_SECTIONS.filter(s => !hasSection(content, s)),
+      fields: REQUIRED_FIELDS.filter((f) => !hasFrontmatterField(content, f)),
+      sections: REQUIRED_SECTIONS.filter((s) => !hasSection(content, s)),
     };
 
     if (missing.fields.length === 0 && missing.sections.length === 0) {
       return;
     }
 
-    log(`\n📄 ${project}/README.md:\n`, 'blue');
+    log(`\n📄 ${project}/README.md:\n`, "blue");
 
     if (missing.fields.length > 0) {
-      log('Add to frontmatter (after first ---):', 'yellow');
+      log("Add to frontmatter (after first ---):", "yellow");
       log(`status: active|pending|review|blocked|at_risk`);
       log(`priority: critical|high|medium|low`);
       log(`type: feature|infrastructure|maintenance|documentation`);
       log(`effort: "24h"`);
-      log(`last_updated: ${new Date().toISOString().split('T')[0]}\n`);
+      log(`last_updated: ${new Date().toISOString().split("T")[0]}\n`);
     }
 
     if (missing.sections.length > 0) {
-      log('Add new section:', 'yellow');
+      log("Add new section:", "yellow");
       log(`\n## Related Issues & PRs\n`);
       log(`| Issue/PR | Type | Status | Purpose |`);
       log(`|----------|------|--------|---------|`);
-      log(`| [#XXXX](https://github.com/lightspeedwp/.github/issues/XXXX) | Issue | Open | Description |`);
-      log(`\nSee [Full Project Definition](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/${project}/PLANNING.md)\n`);
+      log(
+        `| [#XXXX](https://github.com/lightspeedwp/.github/issues/XXXX) | Issue | Open | Description |`,
+      );
+      log(
+        `\nSee [Full Project Definition](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/${project}/PLANNING.md)\n`,
+      );
     }
   });
 }
 
 function linkCommand() {
-  log('\n=== LINKING SUGGESTIONS ===\n', 'cyan');
+  log("\n=== LINKING SUGGESTIONS ===\n", "cyan");
 
   const projects = getProjects();
 
-  log('To create two-way links:\n', 'blue');
+  log("To create two-way links:\n", "blue");
 
-  projects.forEach(project => {
-    const readmePath = path.join(PROJECTS_DIR, project, 'README.md');
+  projects.forEach((project) => {
+    const readmePath = path.join(PROJECTS_DIR, project, "README.md");
     const content = readFile(readmePath);
 
     if (!content) return;
@@ -203,28 +215,34 @@ function linkCommand() {
     // Extract issue numbers from related issues section
     const issuesMatch = content.match(/## Related Issues[\s\S]*?(?=##|$)/);
     if (!issuesMatch) {
-      log(`\n${project}: Add tracking issues`, 'yellow');
-      log(`  No Related Issues section found. Create one with relevant issue numbers.\n`);
+      log(`\n${project}: Add tracking issues`, "yellow");
+      log(
+        `  No Related Issues section found. Create one with relevant issue numbers.\n`,
+      );
       return;
     }
 
     const issueNumbers = (issuesMatch[0].match(/#(\d+)/g) || [])
-      .map(m => m.slice(1))
+      .map((m) => m.slice(1))
       .filter(Boolean);
 
     if (issueNumbers.length === 0) {
-      log(`\n${project}: Add issue links`, 'yellow');
+      log(`\n${project}: Add issue links`, "yellow");
       log(`  Related Issues section exists but has no issue numbers.\n`);
       return;
     }
 
-    log(`\n${project}: Link back from issues:`, 'green');
-    issueNumbers.forEach(issueNum => {
+    log(`\n${project}: Link back from issues:`, "green");
+    issueNumbers.forEach((issueNum) => {
       log(`  Issue #${issueNum}:`);
       log(`    Add to issue body:`);
       log(`    ## 📋 Project Reference`);
-      log(`    **Related Project:** [${project}](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/${project}/README.md)`);
-      log(`    See [Project PLANNING](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/${project}/PLANNING.md)\n`);
+      log(
+        `    **Related Project:** [${project}](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/${project}/README.md)`,
+      );
+      log(
+        `    See [Project PLANNING](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/${project}/PLANNING.md)\n`,
+      );
     });
   });
 }
@@ -258,27 +276,27 @@ Required sections:
 }
 
 // Main
-const command = process.argv[2] || 'audit';
+const command = process.argv[2] || "audit";
 
 switch (command) {
-  case 'audit':
+  case "audit":
     auditCommand();
     break;
-  case 'template':
+  case "template":
     templateCommand();
     break;
-  case 'link':
+  case "link":
     linkCommand();
     break;
-  case 'help':
-  case '--help':
-  case '-h':
+  case "help":
+  case "--help":
+  case "-h":
     showHelp();
     break;
   default:
-    log(`Unknown command: ${command}\n`, 'red');
+    log(`Unknown command: ${command}\n`, "red");
     showHelp();
     process.exit(1);
 }
 
-log('\n');
+log("\n");

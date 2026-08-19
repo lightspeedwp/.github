@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-function-type, no-undef */
 /**
  * TypeScript Type Definitions
  *
@@ -51,7 +52,7 @@ export interface AuthenticateOptions {
 export interface GetIssuesOptions {
   owner: string;
   repo: string;
-  state?: 'open' | 'closed' | 'all';
+  state?: "open" | "closed" | "all";
   labels?: string[];
   per_page?: number;
   page?: number;
@@ -60,7 +61,7 @@ export interface GetIssuesOptions {
 export interface Issue {
   number: number;
   title: string;
-  state: 'open' | 'closed';
+  state: "open" | "closed";
   labels: string[];
   url: string;
   created_at: string;
@@ -89,7 +90,12 @@ export interface RateLimit {
 }
 
 export interface GitHubAPIClient {
-  authenticate(): Promise<{ login: string; name: string; email: string; type: string }>;
+  authenticate(): Promise<{
+    login: string;
+    name: string;
+    email: string;
+    type: string;
+  }>;
   getIssues(options: GetIssuesOptions): Promise<Issue[]>;
   applyLabels(options: ApplyLabelsOptions): Promise<ApplyLabelsResult>;
   removeLabels(options: ApplyLabelsOptions): Promise<ApplyLabelsResult>;
@@ -136,10 +142,10 @@ export interface Tier3Result {
   details: Record<string, any>;
 }
 
-export type ReleaseType = 'patch' | 'minor' | 'major';
+export type ReleaseType = "patch" | "minor" | "major";
 
 export interface Recommendation {
-  action: 'proceed' | 'check' | 'block';
+  action: "proceed" | "check" | "block";
   reason: string;
   details: Record<string, any>;
 }
@@ -148,7 +154,11 @@ export interface Validation {
   validateTier1(issues: any[]): Tier1Result;
   validateTier2(issues: any[]): Tier2Result;
   validateTier3(issues: any[]): Tier3Result;
-  getRecommendation(releaseType: ReleaseType, tier1: Tier1Result, tier2: Tier2Result): Recommendation;
+  getRecommendation(
+    releaseType: ReleaseType,
+    tier1: Tier1Result,
+    tier2: Tier2Result,
+  ): Recommendation;
 }
 
 // Confidence scorer types
@@ -175,7 +185,7 @@ export interface Assessment {
   score: number;
   threshold: number;
   confident: boolean;
-  action: 'auto-apply' | 'review';
+  action: "auto-apply" | "review";
   gap: number;
   reason: string;
 }
@@ -196,14 +206,14 @@ export interface ConfidenceScorerModule {
 
 // Error handler types
 export type ErrorType =
-  | 'authentication'
-  | 'authorization'
-  | 'rate_limit'
-  | 'not_found'
-  | 'validation'
-  | 'conflict'
-  | 'network'
-  | 'unknown';
+  | "authentication"
+  | "authorization"
+  | "rate_limit"
+  | "not_found"
+  | "validation"
+  | "conflict"
+  | "network"
+  | "unknown";
 
 export interface ErrorClassification {
   type: ErrorType;
@@ -256,30 +266,30 @@ export {
   getLabelFamilies,
   getLabelsByFamily,
   getAllCanonical,
-  labelUtils
-} from './label-utils';
+  labelUtils,
+} from "./label-utils";
 
 export {
   createClient,
   authenticateClient,
   GitHubAPIClient,
-  apiClient
-} from './api-client';
+  apiClient,
+} from "./api-client";
 
 export {
   validateTier1,
   validateTier2,
   validateTier3,
   getRecommendation,
-  validation
-} from './validation';
+  validation,
+} from "./validation";
 
 export {
   createScorer,
   ConfidenceScorer,
   confidenceScorer,
-  DEFAULT_THRESHOLD
-} from './confidence-scorer';
+  DEFAULT_THRESHOLD,
+} from "./confidence-scorer";
 
 export {
   catchError,
@@ -287,7 +297,7 @@ export {
   suggest,
   format,
   errorHandler,
-  ERROR_TYPES
-} from './error-handler';
+  ERROR_TYPES,
+} from "./error-handler";
 
 export default api;

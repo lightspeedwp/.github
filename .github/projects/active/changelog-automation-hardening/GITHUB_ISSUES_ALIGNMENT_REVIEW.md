@@ -6,8 +6,8 @@ status: "review-pending"
 
 # GitHub Issues Alignment Review
 
-**Date:** 2026-07-24  
-**Initiative:** Changelog Automation Hardening (Epic #1271)  
+**Date:** 2026-07-24
+**Initiative:** Changelog Automation Hardening (Epic #1271)
 **Purpose:** Verify all related issues are aligned with updated project plan
 
 ---
@@ -307,7 +307,7 @@ Rebuild CHANGELOG.md [Unreleased] section with all 76 merged PRs (May 24 — Jul
 
 ### New/Fixed Files
 - scripts/validation/changelog-rules.cjs: Format validation
-- scripts/workflows/changelog/merge-entries.integration.test.cjs: Phase 1 test
+- scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs: Phase 1 test
 - .github/CHANGELOG_CONTRIBUTOR_CHECKLIST.md: Contributor guide
 - .github/workflows/changelog-validate.yml: Enhanced validation
 
@@ -375,7 +375,7 @@ Only lint the files changed in this PR:
 - CHANGELOG.md
 - .github project files
 - scripts/validation/changelog-rules.cjs
-- scripts/workflows/changelog/merge-entries.integration.test.cjs
+- scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs
 - package.json
 ```
 
@@ -484,6 +484,6 @@ Once Phase 2 is complete (all 76 PRs recovered):
 
 ---
 
-**Review Status:** ⏳ PENDING  
-**Last Updated:** 2026-07-24  
+**Review Status:** ⏳ PENDING
+**Last Updated:** 2026-07-24
 **Action Required:** Update issues per recommendations above

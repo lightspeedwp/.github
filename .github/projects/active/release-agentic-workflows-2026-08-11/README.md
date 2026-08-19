@@ -122,11 +122,11 @@ Agentic Workflow (Markdown)
 
 ### Safety Gates (All scope types)
 
-✅ **Changelog validation** (must exist + schema-valid)  
-✅ **Agentic safety score** (integrity filter + threat detection)  
-✅ **Version consistency** (no jumps; no duplicates)  
-✅ **Tag uniqueness** (no existing vX.Y.Z)  
-✅ **Fallback available** (shell scripts still work)  
+✅ **Changelog validation** (must exist + schema-valid)
+✅ **Agentic safety score** (integrity filter + threat detection)
+✅ **Version consistency** (no jumps; no duplicates)
+✅ **Tag uniqueness** (no existing vX.Y.Z)
+✅ **Fallback available** (shell scripts still work)
 ✅ **Audit trail** (log all agentic decisions)
 
 ### Approval Gates (Tiered by scope)
@@ -273,8 +273,8 @@ Phase 5A is successful when:
 
 | File | Purpose | LOC | Status |
 |------|---------|-----|--------|
-| **scripts/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
-| **scripts/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
+| **agents/release/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
+| **agents/release/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
 | **scripts/workflows/release/run-release-with-gates.cjs** | Phase 4 integration wrapper | 140 | ✅ MERGED |
 | **.github/workflows/release.yml** | Updated GitHub Actions workflow | - | ✅ MERGED |
 
@@ -359,9 +359,9 @@ Phase 5A is successful when:
 
 ## Author & Ownership
 
-**Project Created:** 2026-08-11  
-**Owner:** Ash Shaw  
-**Completed:** 2026-08-18  
+**Project Created:** 2026-08-11
+**Owner:** Ash Shaw
+**Completed:** 2026-08-18
 **Status:** ✅ COMPLETE (MVP merged to develop, PR #2016, commit f2b07bc9c)
 
 **Soft Launch Timeline:**
@@ -370,3 +370,24 @@ Phase 5A is successful when:
 - Oct 1, 2026: Production deployment
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and agentic workflows!*
+## Visual Workflow
+
+```mermaid
+flowchart TD
+  A[Start Here] --> B[Read Scope and Prerequisites]
+  B --> C[Run the Documented Workflow]
+  C --> D[Validate with Repo Tooling]
+  D --> E[Open PR or Hand-off]
+
+  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
+  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
+  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
+  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
+  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
+
+  class A start;
+  class B prep;
+  class C run;
+  class D gate;
+  class E done;
+```

@@ -363,7 +363,7 @@ Logs are stored in:
 
 - **GitHub Actions workflow logs** (`.github/workflows/release.yml`)
 - **GitHub Release notes** (structured in release body)
-- **Audit trail file** (`.githu./.github/reports/releases/`)
+- **Audit trail file** (`.github/reports/releases/`)
 
 **Query example:**
 
@@ -383,7 +383,7 @@ gh api repos/{owner}/{repo}/actions/workflows/release.yml/runs \
 
 - **GitHub Actions logs:** 90 days (GitHub default)
 - **Release notes:** Indefinite (GitHub releases)
-- **Audit trail:** Archive in `.githu./.github/reports/releases/`
+- **Audit trail:** Archive in `.github/reports/releases/`
 
 ---
 

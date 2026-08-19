@@ -7,25 +7,27 @@
  * type-specific templates for issues that are missing them
  */
 
-const { execFileSync } = require('child_process');
-const fs = require('fs');
-const dorDodTemplates = require('./dor-dod-templates');
+const { execFileSync } = require("child_process");
+const fs = require("fs");
+const dorDodTemplates = require("./dor-dod-templates");
 
-const OWNER = 'lightspeedwp';
-const REPO = '.github';
-const DRY_RUN = process.argv.includes('--dry-run');
-const VERBOSE = process.argv.includes('--verbose');
+const OWNER = "lightspeedwp";
+const REPO = ".github";
+const DRY_RUN = process.argv.includes("--dry-run");
+const VERBOSE = process.argv.includes("--verbose");
 
 // Parse --limit with validation
 let MAX_ISSUES = 300;
-if (process.argv.includes('--limit')) {
-  const limitIndex = process.argv.indexOf('--limit');
+if (process.argv.includes("--limit")) {
+  const limitIndex = process.argv.indexOf("--limit");
   const limitValue = process.argv[limitIndex + 1];
   const parsed = parseInt(limitValue, 10);
   if (!Number.isNaN(parsed) && parsed > 0 && parsed <= 300) {
     MAX_ISSUES = parsed;
   } else {
-    console.error(`❌ Invalid --limit value: ${limitValue} (must be integer 1-300)`);
+    console.error(
+      `❌ Invalid --limit value: ${limitValue} (must be integer 1-300)`,
+    );
     process.exit(1);
   }
 }
@@ -42,55 +44,56 @@ const stats = {
   errors: [],
 };
 
-function log(msg, type = 'info') {
-  if (VERBOSE || type !== 'debug') {
-    const prefix = {
-      info: '📋',
-      success: '✅',
-      warning: '⚠️',
-      error: '❌',
-      debug: '🔍',
-    }[type] || '•';
+function log(msg, type = "info") {
+  if (VERBOSE || type !== "debug") {
+    const prefix =
+      {
+        info: "📋",
+        success: "✅",
+        warning: "⚠️",
+        error: "❌",
+        debug: "🔍",
+      }[type] || "•";
     console.log(`${prefix} ${msg}`);
   }
 }
 
 function exec(args, silent = false) {
   try {
-    const result = execFileSync('gh', args, {
-      encoding: 'utf-8',
-      stdio: silent ? 'pipe' : 'inherit',
+    const result = execFileSync("gh", args, {
+      encoding: "utf-8",
+      stdio: silent ? "pipe" : "inherit",
       maxBuffer: 10 * 1024 * 1024,
     });
     return silent ? result.trim() : null;
   } catch (error) {
-    if (!silent) log(`Command failed: gh ${args.join(' ')}`, 'error');
-    stats.errors.push(`gh ${args.join(' ')}`);
+    if (!silent) log(`Command failed: gh ${args.join(" ")}`, "error");
+    stats.errors.push(`gh ${args.join(" ")}`);
     throw error;
   }
 }
 
 function getOpenIssues() {
-  log(`Fetching open issues (limit: ${MAX_ISSUES})...`, 'info');
+  log(`Fetching open issues (limit: ${MAX_ISSUES})...`, "info");
   try {
     const result = exec(
       [
-        'issue',
-        'list',
-        '--repo',
+        "issue",
+        "list",
+        "--repo",
         `${OWNER}/${REPO}`,
-        '--state',
-        'open',
-        '--limit',
+        "--state",
+        "open",
+        "--limit",
         String(MAX_ISSUES),
-        '--json',
-        'number,title,labels,body',
+        "--json",
+        "number,title,labels,body",
       ],
-      true
+      true,
     );
-    return JSON.parse(result || '[]');
+    return JSON.parse(result || "[]");
   } catch (error) {
-    log('Failed to fetch issues', 'error');
+    log("Failed to fetch issues", "error");
     return [];
   }
 }
@@ -113,13 +116,13 @@ function validateIssue(issue) {
 }
 
 function injectDoRDoD(issue, validation) {
-  let newBody = issue.body || '';
+  let newBody = issue.body || "";
   const template = dorDodTemplates.getTemplate(validation.typeLabel);
 
   if (!template) {
     log(
       `⚠️  Issue #${validation.number} has no type label, skipping injection`,
-      'warning'
+      "warning",
     );
     stats.issuesWithoutType++;
     return null;
@@ -144,7 +147,7 @@ function injectDoRDoD(issue, validation) {
 
 function updateIssue(number, newBody) {
   if (DRY_RUN) {
-    log(`[DRY RUN] Would update issue #${number}`, 'debug');
+    log(`[DRY RUN] Would update issue #${number}`, "debug");
     stats.issuesWouldInject++;
     return false;
   }
@@ -152,26 +155,26 @@ function updateIssue(number, newBody) {
   try {
     exec(
       [
-        'issue',
-        'edit',
+        "issue",
+        "edit",
         String(number),
-        '--repo',
+        "--repo",
         `${OWNER}/${REPO}`,
-        '--body',
+        "--body",
         newBody,
       ],
-      true
+      true,
     );
-    log(`Updated issue #${number} with DoR/DoD sections`, 'success');
+    log(`Updated issue #${number} with DoR/DoD sections`, "success");
     return true;
   } catch (error) {
-    log(`Failed to update issue #${number}`, 'error');
+    log(`Failed to update issue #${number}`, "error");
     return false;
   }
 }
 
 function processIssues(issues) {
-  log(`Processing ${issues.length} issues...`, 'info');
+  log(`Processing ${issues.length} issues...`, "info");
 
   for (const issue of issues) {
     stats.issuesProcessed++;
@@ -184,20 +187,14 @@ function processIssues(issues) {
 
     // Check if injection is needed
     if (!validation.needsInjection) {
-      log(
-        `Issue #${validation.number} ✓ has both DoR & DoD`,
-        'debug'
-      );
+      log(`Issue #${validation.number} ✓ has both DoR & DoD`, "debug");
       continue;
     }
 
     // Validate type label exists
     if (!validation.typeLabel) {
       stats.issuesSkipped++;
-      log(
-        `Issue #${validation.number} skipped (no type label)`,
-        'warning'
-      );
+      log(`Issue #${validation.number} skipped (no type label)`, "warning");
       continue;
     }
 
@@ -216,10 +213,12 @@ function processIssues(issues) {
 }
 
 function printSummary() {
-  console.log('\n' + '='.repeat(60));
-  console.log('📊 DoR/DoD Validation & Injection Summary');
-  console.log('='.repeat(60));
-  const injectionCount = DRY_RUN ? stats.issuesWouldInject : stats.issuesInjected;
+  console.log("\n" + "=".repeat(60));
+  console.log("📊 DoR/DoD Validation & Injection Summary");
+  console.log("=".repeat(60));
+  const injectionCount = DRY_RUN
+    ? stats.issuesWouldInject
+    : stats.issuesInjected;
   console.log(`
 Issues Processed:           ${stats.issuesProcessed}
 Issues Missing DoR:         ${stats.issuesMissingDoR}
@@ -229,21 +228,21 @@ Issues Injected:            ${injectionCount}
 Issues Without Type Label:  ${stats.issuesWithoutType}
 Issues Skipped:             ${stats.issuesSkipped}
 
-${DRY_RUN ? '[DRY RUN MODE] Changes shown above would be applied' : '[LIVE MODE] Changes have been applied'}
+${DRY_RUN ? "[DRY RUN MODE] Changes shown above would be applied" : "[LIVE MODE] Changes have been applied"}
   `);
 
   if (stats.errors.length > 0) {
-    console.log('❌ Errors:');
-    stats.errors.forEach(err => console.log(`  - ${err}`));
+    console.log("❌ Errors:");
+    stats.errors.forEach((err) => console.log(`  - ${err}`));
   }
 
-  console.log('='.repeat(60) + '\n');
+  console.log("=".repeat(60) + "\n");
 
   return stats.errors.length === 0;
 }
 
 function writeReport() {
-  const timestamp = new Date().toISOString().split('T')[0];
+  const timestamp = new Date().toISOString().split("T")[0];
   const reportFile = `dor-dod-validation-${timestamp}.json`;
   const report = {
     timestamp: new Date().toISOString(),
@@ -252,23 +251,23 @@ function writeReport() {
   };
   try {
     fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
-    log(`Report written to ${reportFile}`, 'success');
+    log(`Report written to ${reportFile}`, "success");
   } catch (error) {
-    log(`Failed to write report: ${error.message}`, 'error');
+    log(`Failed to write report: ${error.message}`, "error");
   }
 }
 
 // Main execution
 async function main() {
-  log('Starting DoR/DoD Validation & Injection...', 'info');
+  log("Starting DoR/DoD Validation & Injection...", "info");
 
   if (DRY_RUN) {
-    log('[DRY RUN MODE] No changes will be applied', 'warning');
+    log("[DRY RUN MODE] No changes will be applied", "warning");
   }
 
   const issues = getOpenIssues();
   if (issues.length === 0) {
-    log('No open issues found', 'warning');
+    log("No open issues found", "warning");
     return;
   }
 

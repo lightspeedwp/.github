@@ -149,7 +149,7 @@ MetricsCollectionOrchestrator
 │   ├── Check metrics-agent.js exists
 │   └── Check config directory exists
 ├── ensureOutputDir()
-│   └── Create .githu./.github/reports/metrics/
+│   └── Create .github/reports/metrics/
 ├── collect() [Main]
 │   ├── getContexts()
 │   ├── For each context: collectMetrics()
@@ -170,7 +170,7 @@ MetricsCollectionOrchestrator
 - `scripts/metrics/config/wordpress-theme.json`
 
 **Output Locations:**
-- `.githu./.github/reports/metrics/collection-YYYY-MM-DD.json` — Orchestration results
+- `.github/reports/metrics/collection-YYYY-MM-DD.json` — Orchestration results
 - Individual context reports from metrics-agent.js
 
 ---
@@ -291,8 +291,8 @@ npm test -- scripts/workflows/metrics/__tests__/collect-metrics.test.js --covera
 
 3. **Check Output:**
    ```bash
-   ls -la .githu./.github/reports/metrics/
-   cat .githu./.github/reports/metrics/collection-*.json | jq .
+   ls -la .github/reports/metrics/
+   cat .github/reports/metrics/collection-*.json | jq .
    ```
 
 ---

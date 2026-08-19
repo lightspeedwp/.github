@@ -33,7 +33,7 @@ const args = process.argv.slice(2);
 const mode = args.includes("--auto") ? "auto" : "dry-run";
 const verbose = args.includes("--verbose");
 const limitArg = parseInt(
-  args.find((a) => a.startsWith("--limit="))?.split("=")[1] || "999999"
+  args.find((a) => a.startsWith("--limit="))?.split("=")[1] || "999999",
 );
 
 /**
@@ -41,7 +41,8 @@ const limitArg = parseInt(
  */
 function determineStatus(pr) {
   if (pr.draft) return "status:in-progress";
-  if (pr.state === "closed") return pr.merged_at ? "status:ready-for-changelog" : "status:closed";
+  if (pr.state === "closed")
+    return pr.merged_at ? "status:ready-for-changelog" : "status:closed";
 
   const labels = (pr.labels || []).map((l) => l.name);
 
@@ -99,7 +100,9 @@ async function processPRs() {
 
       if (verbose) {
         console.log(`#${pr.number}: ${pr.title.substring(0, 50)}`);
-        console.log(`  Current: ${labels.filter((l) => l.startsWith("status:")).join(", ") || "(none)"}`);
+        console.log(
+          `  Current: ${labels.filter((l) => l.startsWith("status:")).join(", ") || "(none)"}`,
+        );
         console.log(`  Next: ${nextStatus}\n`);
       }
 
@@ -157,7 +160,7 @@ async function processPRs() {
       console.log(`\nRun with --auto to apply`);
     }
 
-    console.log("=" .repeat(60) + "\n");
+    console.log("=".repeat(60) + "\n");
   } catch (error) {
     console.error("❌ Error:", error.message);
     process.exit(1);
