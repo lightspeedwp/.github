@@ -419,7 +419,6 @@ describe("sync-pr-labels", () => {
     });
 
     it("respects dry-run mode in config", () => {
-      const issue = { number: 100, body: "#200", labels: [] };
       const config = buildSyncConfig({ dryRun: true });
       expect(config.dryRun).toBe(true);
     });
