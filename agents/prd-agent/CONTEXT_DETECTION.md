@@ -15,15 +15,15 @@ graph TD
     A["Repository Scan"] --> B["Check for plugin.php"]
     B -->|Yes| C["Check blocks/ folder"]
     B -->|No| D["Check theme.json"]
-    C -->|Yes| E["✅ PLUGIN DETECTED"]
-    C -->|No| F["Check for both plugin.php<br/>AND theme.json"]
-    D -->|Yes| G["Check templates/ or<br/>patterns/ folders"]
-    D -->|No| H["Ask for clarification"]
-    G -->|Yes| I["✅ THEME DETECTED"]
+    C -->|Yes| E["PLUGIN DETECTED"]
+    C -->|No| F["Check for hybrid"]
+    D -->|Yes| G["Check templates/patterns"]
+    D -->|No| H["Ask user"]
+    G -->|Yes| I["THEME DETECTED"]
     G -->|No| F
-    F -->|Yes| J["✅ HYBRID DETECTED"]
-    F -->|No| H["Ask for clarification"]
-    H -->|Clarified| K["✅ CUSTOM"]
+    F -->|Yes| J["HYBRID DETECTED"]
+    F -->|No| H
+    H --> K["CUSTOM"]
 ```
 
 **Text-based flowchart:**
