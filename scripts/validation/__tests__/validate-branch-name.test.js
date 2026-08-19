@@ -66,10 +66,14 @@ describe("validate-branch-name", () => {
       expect(isAllowed("chore/update-deps-2025")).toBe(true);
     });
 
-    it("rejects slugs with dots and underscores", () => {
+    it("rejects slugs with underscores", () => {
       expect(isAllowed("feat/my_feature")).toBe(false);
-      expect(isAllowed("fix/v2.1.0-patch")).toBe(false);
       expect(isAllowed("chore/update_deps-2025")).toBe(false);
+    });
+
+    it("accepts version-style slugs with dots", () => {
+      expect(isAllowed("fix/v2.1.0-patch")).toBe(true);
+      expect(isAllowed("release/v1.6.0")).toBe(true);
     });
 
     it("rejects the forbidden claude/ prefix", () => {
