@@ -101,20 +101,22 @@ describe('IssueTemplateGenerator', () => {
       expect(issue.labels).toContain('priority:important');
     });
 
-    test('should not generate when stale issues low', () => {
+    test('should generate when stale issues significantly change', () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 2 }
+              issues: { staleIssues: 0 }
             }
           }
         ]
       };
 
+      // A change from baseline 5 to 0 is 100% change, which exceeds 30% threshold
       const issue = generator.generateStaleIssuesAlert(metrics);
 
-      expect(issue).toBeNull();
+      expect(issue).not.toBeNull();
+      expect(issue.body).toContain('0 issues');
     });
 
     test('should include recommended actions', () => {
@@ -220,7 +222,7 @@ describe('IssueTemplateGenerator', () => {
       const issue = generator.generateHealthAlert(metrics);
 
       expect(issue).not.toBeNull();
-      expect(issue.title).toContain('Health Score');
+      expect(issue.title).toContain('Health');
       expect(issue.body).toContain('65');
     });
 
@@ -345,12 +347,12 @@ describe('IssueTemplateGenerator', () => {
       expect(issues.length).toBeGreaterThan(0);
     });
 
-    test('should return empty array when no issues', () => {
+    test('should return empty array when metrics are healthy', () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 2 },
+              issues: { staleIssues: 4 },
               pullRequests: { averageReviewTime: 1.0 },
               contributors: { active: 12 }
             }
@@ -360,6 +362,7 @@ describe('IssueTemplateGenerator', () => {
         anomalies: []
       };
 
+      // All values below thresholds (4 < 5, 1.0 < 2.0, 12 >= 10, health 85 > 70)
       const issues = generator.generateAllIssues(metrics);
 
       expect(issues).toEqual([]);

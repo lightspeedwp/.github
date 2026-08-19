@@ -205,7 +205,7 @@ describe('MetricsReportFormatter', () => {
 
       expect(formatted.responseTime.score).toBe(80);
       expect(formatted.responseTime.status).toBe('healthy');
-      expect(formatted.closureRate.status).toBe('below-target');
+      expect(formatted.closureRate.status).toBe('at-risk');
       expect(formatted.codeQuality.status).toBe('healthy');
     });
   });

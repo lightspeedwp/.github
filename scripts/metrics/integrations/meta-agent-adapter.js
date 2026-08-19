@@ -115,7 +115,11 @@ class MetricsContextProvider {
    * @returns {Object} Trend summary object
    */
   getTrendSummary(metrics) {
-    const summary = {};
+    const summary = {
+      issues: 'unknown',
+      pullRequests: 'unknown',
+      contributors: 'unknown'
+    };
 
     if (metrics.repositories && metrics.repositories[0]) {
       const repo = metrics.repositories[0];
@@ -167,7 +171,29 @@ class MetricsContextProvider {
    * @returns {Object} Key context metrics
    */
   extractContextMetrics(rawMetrics) {
-    const metrics = {};
+    const metrics = {
+      issueMetrics: {
+        total: 0,
+        open: 0,
+        closureRate: 0,
+        averageClosureTime: 0
+      },
+      prMetrics: {
+        total: 0,
+        merged: 0,
+        mergeRate: 0,
+        averageReviewTime: 0
+      },
+      teamMetrics: {
+        activeContributors: 0,
+        capacity: 0
+      },
+      qualityMetrics: {
+        lintPass: 0,
+        testCoverage: 0,
+        ciPassRate: 0
+      }
+    };
 
     if (rawMetrics.repositories && rawMetrics.repositories[0]) {
       const repo = rawMetrics.repositories[0];

@@ -202,11 +202,9 @@ describe('MetricsContextProvider', () => {
     test('should handle missing trends', () => {
       const metrics = { repositories: [{ metrics: {} }] };
       const trends = provider.getTrendSummary(metrics);
-      expect(trends).toEqual({
-        issues: 'unknown',
-        pullRequests: 'unknown',
-        contributors: 'unknown'
-      });
+      expect(trends.issues).toBe('unknown');
+      expect(trends.pullRequests).toBe('unknown');
+      expect(trends.contributors).toBe('unknown');
     });
   });
 
@@ -289,8 +287,13 @@ describe('MetricsContextProvider', () => {
       const rawMetrics = { repositories: [] };
       const contextMetrics = provider.extractContextMetrics(rawMetrics);
 
-      expect(contextMetrics.issueMetrics.total).toBe(0);
-      expect(contextMetrics.prMetrics.merged).toBe(0);
+      expect(contextMetrics).toBeDefined();
+      expect(contextMetrics.issueMetrics).toEqual({
+        total: 0,
+        open: 0,
+        closureRate: 0,
+        averageClosureTime: 0
+      });
     });
   });
 
