@@ -3,9 +3,7 @@
  * Tests Linting Agent in .github control-plane context
  */
 
-const {
-  detectRepositoryType,
-} = require("../../linting.agent");
+const { detectRepositoryType } = require("../../../linting.agent");
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
@@ -40,7 +38,10 @@ describe("Control-Plane Repository Integration", () => {
 
     test("detects with .github/actions directory", () => {
       const actionPath = path.join(testRepoPath, ".github", "actions");
-      fs.rmSync(path.join(testRepoPath, ".github", "workflows"));
+      fs.rmSync(path.join(testRepoPath, ".github", "workflows"), {
+        recursive: true,
+        force: true,
+      });
       fs.mkdirSync(actionPath, { recursive: true });
       const result = detectRepositoryType(testRepoPath);
       expect(result).toBe("control-plane");
