@@ -6,8 +6,8 @@
   "main": "pr-orchestrator.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --verbose",
-    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/unit --coverage",
-    "test:validate-branch-name": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/unit/validate-branch-name.test.js --verbose",
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__ --coverage",
+    "test:validate-branch-name": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/validate-branch-name.test.js --verbose",
     "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/integration",
     "test:e2e": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/e2e --runInBand",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",

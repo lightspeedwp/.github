@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels.js";
+import { validateAndApplyLabels } from "../skills/validate-and-apply-labels.js";
 
 describe("validateAndApplyLabels", () => {
   beforeEach(() => {

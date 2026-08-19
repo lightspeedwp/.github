@@ -1,5 +1,5 @@
-import { submitPr } from "../../skills/submit-pr.js";
-import { handlePrErrors } from "../../skills/handle-pr-errors.js";
+import { submitPr } from "../skills/submit-pr.js";
+import { handlePrErrors } from "../skills/handle-pr-errors.js";
 
 describe("submitPr (Skill 5)", () => {
   const validPr = {

@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation.js";
+import { orchestratePrCreation } from "../skills/orchestrate-pr-creation.js";
 
 describe("orchestratePrCreation", () => {
   beforeEach(() => {

@@ -12,7 +12,7 @@ let routePrTemplate;
 
 // Import the skill before describing tests
 beforeAll(async () => {
-  const module = await import("../../skills/route-pr-template.js");
+  const module = await import("../skills/route-pr-template.js");
   routePrTemplate = module.routePrTemplate;
 });
 

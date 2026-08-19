@@ -1,4 +1,4 @@
-import { validateBranchName } from "../../skills/validate-branch-name.js";
+import { validateBranchName } from "../skills/validate-branch-name.js";
 
 describe("Skill: validate-branch-name", () => {
   // ===== VALID BRANCH NAMES =====
