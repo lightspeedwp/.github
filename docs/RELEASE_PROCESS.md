@@ -1,13 +1,20 @@
 ---
-title: "Release Process v4.0"
-description: "Authoritative multi-repo release process: develop-first stacked PR flow with portable agents (Phase 1), agentic safety gates (Phase 2), and full WordPress support."
-file_type: "documentation"
-version: 'v4.0'
+file_type: documentation
+title: Release Process v4.0
+description: Authoritative multi-repo release process - develop-first stacked PR flow with portable agents (Phase 1) and agentic safety gates (Phase 2)
+version: v4.0
 last_updated: '2026-08-19'
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["release", "process", "automation", "agents", "wordpress"]
+status: active
+stability: stable
+domain: governance
+owners:
+  - LightSpeed Team
+tags:
+  - release
+  - process
+  - automation
+  - agents
+  - wordpress
 ---
 
 # Release Process v4.0: Two-Phase Agentic Release

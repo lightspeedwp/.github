@@ -1,13 +1,20 @@
 ---
-title: "WordPress Release Guide"
-description: "Step-by-step release process for WordPress plugins and themes: version management, changelog, and multi-repo coordination."
-file_type: "documentation"
-version: 'v1.0'
+file_type: documentation
+title: WordPress Release Guide
+description: Step-by-step release process for WordPress plugins and themes with version management and changelog automation
+version: v1.0
 last_updated: '2026-08-19'
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["wordpress", "release", "plugin", "theme", "process"]
+status: active
+stability: stable
+domain: governance
+owners:
+  - LightSpeed Team
+tags:
+  - wordpress
+  - release
+  - plugin
+  - theme
+  - process
 ---
 
 # WordPress Release Guide v1.0
