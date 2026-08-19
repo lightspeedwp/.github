@@ -217,9 +217,12 @@ class MetricsContextProvider {
       };
 
       metrics.teamMetrics = {
-        activeContributors: repoMetrics.contributors?.active || 0,
-        capacity: repoMetrics.contributors?.active ? 0.7 : 0 // Simple capacity estimate
+        activeContributors: repoMetrics.contributors?.active || 0
       };
+
+      if (typeof rawMetrics.healthScore?.components?.teamCapacity === 'number') {
+        metrics.teamMetrics.capacity = rawMetrics.healthScore.components.teamCapacity;
+      }
 
       metrics.qualityMetrics = {
         lintPass: repoMetrics.codeQuality?.lintingPass || 0,

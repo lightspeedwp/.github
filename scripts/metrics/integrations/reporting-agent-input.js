@@ -149,11 +149,13 @@ class MetricsReportFormatter {
       },
       contributors: {
         active: metrics.contributors?.active || 0,
-        topContributors: (metrics.contributors?.topContributors || []).map((c) => ({
-          name: c.name,
-          commits: c.commits,
-          percentage: this.formatPercent(c.commits / 121) // Rough estimate
-        }))
+        topContributors: (metrics.contributors?.topContributors || []).map((c) => {
+          const contributor = { name: c.name, commits: c.commits };
+          if (metrics.contributors?.totalCommits && metrics.contributors.totalCommits > 0) {
+            contributor.percentage = this.formatPercent(c.commits / metrics.contributors.totalCommits);
+          }
+          return contributor;
+        })
       },
       codeQuality: {
         lintingPass: this.formatPercent(metrics.codeQuality?.lintingPass),
