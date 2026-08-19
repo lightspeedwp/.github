@@ -135,17 +135,12 @@ function readMetadata(filePath) {
     };
 
     const headerLines = [];
-    let inHeader = true;
 
     for (const line of lines) {
       if (line.startsWith('===')) {
-        if (inHeader) {
-          inHeader = false;
-          break;
-        }
-      } else if (inHeader) {
-        headerLines.push(line.trim());
+        break;
       }
+      headerLines.push(line.trim());
     }
 
     const headerText = headerLines.join('\n');

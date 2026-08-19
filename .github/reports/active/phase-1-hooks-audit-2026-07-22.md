@@ -35,7 +35,7 @@ scope: phase-1-agent-standardization
 - **Status:** active
 - **Version:** v0.1.1
 
-**Current Registry:** `hooks/hook-registry.json`
+**Current Registry:** `.github/hooks/hook-registry.json`
 
 ---
 
@@ -47,7 +47,7 @@ Current hooks cover:
 - ✅ Session logging
 - ✅ Tool permission guarding
 
-Missing for multi-provider agent standardization:
+Missing for multi-provider agent standardisation:
 
 - ❌ Agent specification validation (YAML frontmatter, schema compliance)
 - ❌ Multi-provider consistency checking (provider config alignment)
@@ -496,7 +496,7 @@ module.exports = {
 
 ## Hook Registration Update
 
-Add to `hooks/hook-registry.json`:
+Add to `.github/hooks/hook-registry.json`:
 
 ```json
 {
@@ -559,10 +559,10 @@ Add to `hooks/hook-registry.json`:
 
 ### Hook Folder Creation
 
-- [ ] Create `hooks/agent-spec-validator/` directory
-- [ ] Create `hooks/multi-provider-consistency-checker/` directory
-- [ ] Create `hooks/plugin-integrity-checker/` directory
-- [ ] Create `hooks/agent-security-auditor/` directory
+- [ ] Create `.github/hooks/agent-spec-validator/` directory
+- [ ] Create `.github/hooks/multi-provider-consistency-checker/` directory
+- [ ] Create `.github/hooks/plugin-integrity-checker/` directory
+- [ ] Create `.github/hooks/agent-security-auditor/` directory
 
 ### Hook Implementation
 
@@ -572,8 +572,8 @@ Add to `hooks/hook-registry.json`:
 
 ### Registration
 
-- [ ] Update `hooks/hook-registry.json` with new hooks
-- [ ] Update `hooks/README.md` to include new hooks in table
+- [ ] Update `.github/hooks/hook-registry.json` with new hooks
+- [ ] Update `.github/hooks/README.md` to include new hooks in table
 
 ### Integration
 
@@ -603,10 +603,7 @@ Add to `hooks/hook-registry.json`:
 ## Next Steps (Task 3)
 
 Proceed to **Schemas Folder Audit** to review existing schemas and propose 4 new schemas for multi-provider agent validation.
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

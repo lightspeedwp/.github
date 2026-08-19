@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { describe, it, expect, beforeEach, afterEach } = require('@jest/globals');
+const { describe, it, expect, afterEach } = require('@jest/globals');
 const {
   findPluginFile,
   readVersion,

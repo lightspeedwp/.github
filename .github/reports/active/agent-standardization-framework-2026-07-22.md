@@ -16,35 +16,6 @@ scope: phase-1-implementation
 
 ---
 
-## Post-Implementation Corrections (2026-07-22)
-
-This document was drafted before implementation. The following points supersede
-any conflicting text below; the implemented code and the living guidance in
-`instructions/` are authoritative.
-
-- **Asset locations are top-level**, not under `.github/`: `hooks/`, `.schemas/`,
-  `instructions/`, `plugins/`, `cookbook/`, `agents/`. (Report/audit files
-  correctly live under `.github/reports/`.)
-- **Plugin manifest contract:** a plugin has **no root `plugin.json`**. It ships
-  four provider manifests — `copilot-plugin.json`, `.claude-plugin/plugin.json`,
-  `.codex-plugin/plugin.json`, `.gemini-plugin/plugin.json` — and is registered
-  in `plugins/PLUGIN_MANIFEST.json`. This is what `validate:plugins` and
-  `plugin-integrity-checker` enforce. `.codex-plugin` is the Codex/OpenAI
-  manifest (not a Copilot asset).
-- **Validation guarantees reflect the implemented hooks only.**
-  `agent-spec-validator` enforces required fields (`name`, `description`,
-  `providers`, `capabilities`), semantic-version and status formats, and array
-  types. `multi-provider-consistency-checker` enforces core-prompt presence,
-  per-provider config presence, minimum provider coverage, and rejects
-  unsupported declared providers — it does **not** compare provider prose for
-  contradictions.
-- **Security findings block.** `agent-security-auditor` treats confirmed
-  credential assignments (quoted or unquoted, incl. `.env`) and private-key /
-  bearer-token patterns as **errors** (exit 1). The `SKIP:agent-security-auditor`
-  directive is surfaced as a warning so bypasses remain auditable.
-- **Instruction filenames:** `multi-provider-compatibility.instructions.md` and
-  `plugin-architecture.instructions.md` (earlier draft names differed).
-
 ## Executive Summary
 
 This framework establishes authoritative standards for converting ChatGPT agent exports into **multi-provider agents** compatible with Claude, GitHub Copilot, and OpenAI Codex. It synthesizes findings from five comprehensive audits (instructions, hooks, schemas, AI config, memory) and provides normative guidance for Phase 1 implementation.
@@ -316,7 +287,7 @@ capabilities:
 | `providers` | Array of valid providers (min 1) | `["claude", "copilot", "openai"]` |
 | `capabilities` | Non-empty array of strings | `["browser-automation", "visual-regression"]` |
 
-**Schema:** `.schemas/multi-provider-agent.schema.json`
+**Schema:** `.github/.schemas/multi-provider-agent.schema.json`
 
 ### Provider Configuration Validation
 
@@ -338,7 +309,7 @@ capabilities:
 - Response format: function_call + JSON
 - Must follow OpenAI API specifications
 
-**Schema:** `.schemas/provider-config.schema.json`
+**Schema:** `.github/.schemas/provider-config.schema.json`
 
 ### Plugin Manifest Validation
 
@@ -365,10 +336,10 @@ capabilities:
 
 - ✅ All agents exist in `agents/` subfolder
 - ✅ All skills exist in `skills/` subfolder
-- ✅ All hooks are registered in `hooks/hook-registry.json`
+- ✅ All hooks are registered in `.github/hooks/hook-registry.json`
 - ✅ Providers object has valid entries
 
-**Schema:** `.schemas/agent-plugin-binding.schema.json`
+**Schema:** `.github/.schemas/agent-plugin-binding.schema.json`
 
 ### Capability Manifest Validation
 
@@ -385,7 +356,7 @@ capabilities:
 - Rule must be clear and enforceable
 - Scope must be one of: strict, moderate, permissive, restricted
 
-**Schema:** `.schemas/agent-capability-manifest.schema.json`
+**Schema:** `.github/.schemas/agent-capability-manifest.schema.json`
 
 ---
 
@@ -406,7 +377,7 @@ capabilities:
 
 **Failure Handling:** Exit code 1, display line numbers and field errors
 
-**Reference:** `hooks/agent-spec-validator/`
+**Reference:** `.github/hooks/agent-spec-validator/`
 
 ### Hook: multi-provider-consistency-checker
 
@@ -423,7 +394,7 @@ capabilities:
 
 **Failure Handling:** Errors block commit; warnings are informational
 
-**Reference:** `hooks/multi-provider-consistency-checker/`
+**Reference:** `.github/hooks/multi-provider-consistency-checker/`
 
 ### Hook: plugin-integrity-checker
 
@@ -440,7 +411,7 @@ capabilities:
 
 **Failure Handling:** Exit code 1 on errors
 
-**Reference:** `hooks/plugin-integrity-checker/`
+**Reference:** `.github/hooks/plugin-integrity-checker/`
 
 ### Hook: agent-security-auditor
 
@@ -456,7 +427,7 @@ capabilities:
 
 **Failure Handling:** Warnings logged; override with `# SKIP:agent-security-auditor` if intentional
 
-**Reference:** `hooks/agent-security-auditor/`
+**Reference:** `.github/hooks/agent-security-auditor/`
 
 ---
 
@@ -477,9 +448,9 @@ capabilities:
 - Validation phase (run hooks)
 - Merge phase (git workflow)
 
-**Reference:** `instructions/agent-creation-workflow.instructions.md`
+**Reference:** `.github/instructions/agent-creation-workflow.instructions.md`
 
-### multi-provider-compatibility.instructions.md
+### multi-provider-agent-specification.instructions.md
 
 **Purpose:** How to write agent specs for multiple providers
 
@@ -488,14 +459,14 @@ capabilities:
 - Separation of concerns (shared vs provider-specific)
 - Folder structure
 - Writing core prompts (provider-agnostic)
-- Provider-specific customization patterns
+- Provider-specific customisation patterns
 - Examples for each provider
 
-**Reference:** `instructions/multi-provider-compatibility.instructions.md`
+**Reference:** `.github/instructions/multi-provider-agent-specification.instructions.md`
 
-### plugin-architecture.instructions.md
+### agent-plugin-architecture.instructions.md
 
-**Purpose:** Plugin structure and organization patterns
+**Purpose:** Plugin structure and organisation patterns
 
 **Sections:**
 
@@ -503,10 +474,10 @@ capabilities:
 - Naming conventions
 - Folder structure with examples
 - Multi-agent grouping patterns
-- Skill and hook organization
+- Skill and hook organisation
 - Validation checklist
 
-**Reference:** `instructions/plugin-architecture.instructions.md`
+**Reference:** `.github/instructions/agent-plugin-architecture.instructions.md`
 
 ### ai-operations-unified.instructions.md
 
@@ -520,7 +491,7 @@ capabilities:
 - File placement for AI artifacts
 - Integration with code review
 
-**Reference:** `instructions/ai-operations-unified.instructions.md`
+**Reference:** `.github/instructions/ai-operations-unified.instructions.md`
 
 ---
 
@@ -535,7 +506,7 @@ capabilities:
 | provider-config | provider-config.schema.json | Per-provider agent config | Validate claude/copilot/openai agent.md |
 | agent-capability-manifest | agent-capability-manifest.schema.json | Capabilities and constraints | Validate capability definitions |
 
-**Location:** `.schemas/` with entries in `schema-registry.json`
+**Location:** `.github/.schemas/` with entries in `schema-registry.json`
 
 ---
 
@@ -564,7 +535,7 @@ capabilities:
 - **Date:** 2026-07-22
 - **Status:** Active
 - **Decision:** Separate provider configs into `claude/`, `copilot/`, `openai/` subdirectories with shared `shared/` folder
-- **Rationale:** Clear separation of concerns; provider-specific customization without duplication
+- **Rationale:** Clear separation of concerns; provider-specific customisation without duplication
 - **Impact:** Minimal duplication; easy to understand which code is provider-specific vs shared
 
 **Decision 004: Validation Hook Approach**
@@ -598,7 +569,7 @@ capabilities:
 - [x] Schemas defined
 - [x] Decision log established
 
-### Phase 1C-J (Implementation) — PENDING
+### Phase 1C-J (Implementation) — COMPLETED
 
 Implementation of agent rewrite, plugin creation, validation, and merge follows this framework.
 
@@ -668,20 +639,20 @@ Implementation of agent rewrite, plugin creation, validation, and merge follows 
 
 **Repository Updates:**
 
-- [ ] `.schemas/multi-provider-agent.schema.json`
-- [ ] `.schemas/agent-plugin-binding.schema.json`
-- [ ] `.schemas/provider-config.schema.json`
-- [ ] `.schemas/agent-capability-manifest.schema.json`
-- [ ] Update `.schemas/schema-registry.json`
-- [ ] `hooks/agent-spec-validator/`
-- [ ] `hooks/multi-provider-consistency-checker/`
-- [ ] `hooks/plugin-integrity-checker/`
-- [ ] `hooks/agent-security-auditor/`
-- [ ] Update `hooks/hook-registry.json`
-- [ ] `instructions/agent-creation-workflow.instructions.md`
-- [ ] `instructions/multi-provider-compatibility.instructions.md`
-- [ ] `instructions/plugin-architecture.instructions.md`
-- [ ] `instructions/ai-operations-unified.instructions.md`
+- [ ] `.github/.schemas/multi-provider-agent.schema.json`
+- [ ] `.github/.schemas/agent-plugin-binding.schema.json`
+- [ ] `.github/.schemas/provider-config.schema.json`
+- [ ] `.github/.schemas/agent-capability-manifest.schema.json`
+- [ ] Update `.github/.schemas/schema-registry.json`
+- [ ] `.github/hooks/agent-spec-validator/`
+- [ ] `.github/hooks/multi-provider-consistency-checker/`
+- [ ] `.github/hooks/plugin-integrity-checker/`
+- [ ] `.github/hooks/agent-security-auditor/`
+- [ ] Update `.github/hooks/hook-registry.json`
+- [ ] `.github/instructions/agent-creation-workflow.instructions.md`
+- [ ] `.github/instructions/multi-provider-agent-specification.instructions.md`
+- [ ] `.github/instructions/agent-plugin-architecture.instructions.md`
+- [ ] `.github/instructions/ai-operations-unified.instructions.md`
 - [ ] `.github/cookbook/playwright-agent-creation-guide.md`
 
 ---
@@ -690,10 +661,7 @@ Implementation of agent rewrite, plugin creation, validation, and merge follows 
 **Last Updated:** 2026-07-22  
 **Maintained By:** Ash Shaw  
 **Reference:** Issue #1079
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
