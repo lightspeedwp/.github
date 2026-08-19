@@ -2,8 +2,8 @@ name: Metrics • Collection & Reporting
 
 on:
   schedule:
-    # Monday 6:00 AM UTC - triggers both jobs sequentially
-    - cron: "0 6 * * 1"
+    # Daily at 2:00 AM UTC for production metrics collection
+    - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
       stage:
@@ -192,6 +192,37 @@ jobs:
           node -e "const fs=require('fs');const p='${{ env.REPORTS_DIR }}/weekly-summary-latest.md';if(fs.existsSync(p)){console.log('## Weekly Metrics Summary');console.log(fs.readFileSync(p,'utf8').split('\n').slice(0,30).join('\n'));console.log('');console.log('Full report: '+p);}"
 
   # Post results to discussions
+
+  notify-failure:
+    name: Notify Slack on workflow failure
+    needs: [collect, aggregate]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_METRICS_WEBHOOK }}
+          payload: |
+            {
+              "text": "❌ Metrics Pipeline Failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Metrics Pipeline Failure*\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref }}\nRun: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details>"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Failed job(s): collect, aggregate\nCommit: <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                  }
+                }
+              ]
+            }
 
   post-to-discussions:
     name: Post report to discussions
