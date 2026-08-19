@@ -5,9 +5,6 @@
  */
 
 import { describe, it, expect, beforeEach } from "@jest/globals";
-import { spawn } from "child_process";
-import { fileURLToPath } from "url";
-import path from "path";
 
 // Mock spawn to avoid actual child process execution
 jest.mock("child_process");

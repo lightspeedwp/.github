@@ -8,6 +8,15 @@
 
 Phase 2 successfully enhanced test coverage for automation scripts, exceeding the initial 80+ target. Replaced placeholder tests with comprehensive functional tests and verified existing test suites.
 
+## Related Issues
+
+This project is part of the test coverage expansion initiative. Related tracking issues:
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1731](../../../issues/1731) | epic | Master Test Coverage Initiative | 🟢 Open |
+| [#1733](../../../issues/1733) | task | Phase 2: Automation Script Tests | 🟢 Open |
+
 ## Enhanced Test Suites (Created/Improved)
 
 ### ✅ Newly Implemented/Significantly Enhanced

@@ -3,7 +3,7 @@
  * Tests reviewer suggestion logic and issue processing
  */
 
-import { describe, it, expect, beforeEach } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 
 // Define test functions directly to avoid module import issues
 const reviewTypePatterns = {
