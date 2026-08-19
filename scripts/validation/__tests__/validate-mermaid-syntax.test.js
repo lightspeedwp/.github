@@ -3,10 +3,10 @@
  * Validates Mermaid diagram syntax in markdown files
  */
 
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs");
+const path = require("path");
 
-const FIXTURE_DIR = path.join(__dirname, '../../..', 'tests/fixtures/mermaid')
+const FIXTURE_DIR = path.join(__dirname, "../../..", "tests/fixtures/mermaid");
 
 // Import or define the validation functions
 // For now, we'll test the patterns directly
@@ -19,279 +19,289 @@ const DIAGRAM_TYPES = {
   gantt: /^\s*gantt\b/m,
   pie: /^\s*pie\b/m,
   mindmap: /^\s*mindmap\b/m,
-}
+};
 
 function extractMermaidDiagrams(content) {
-  const diagrams = []
-  const regex = /```mermaid\r?\n([\s\S]*?)```/g
-  let match
+  const diagrams = [];
+  const regex = /```mermaid\r?\n([\s\S]*?)```/g;
+  let match;
 
   while ((match = regex.exec(content)) !== null) {
-    const diagramContent = match[1].trim()
-    diagrams.push(diagramContent)
+    const diagramContent = match[1].trim();
+    diagrams.push(diagramContent);
   }
 
-  return diagrams
+  return diagrams;
 }
 
 function validateDiagramType(diagram) {
   for (const [type, regex] of Object.entries(DIAGRAM_TYPES)) {
     if (regex.test(diagram)) {
-      return { valid: true, type }
+      return { valid: true, type };
     }
   }
-  return { valid: false, type: null }
+  return { valid: false, type: null };
 }
 
-describe('validate-mermaid-syntax', () => {
-  describe('extractMermaidDiagrams', () => {
-    it('should extract single mermaid diagram from markdown', () => {
+describe("validate-mermaid-syntax", () => {
+  describe("extractMermaidDiagrams", () => {
+    it("should extract single mermaid diagram from markdown", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'valid/graph.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "valid/graph.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams).toHaveLength(1)
-      expect(diagrams[0]).toContain('graph TD')
-    })
+      expect(diagrams).toHaveLength(1);
+      expect(diagrams[0]).toContain("graph TD");
+    });
 
-    it('should extract multiple diagrams from markdown', () => {
+    it("should extract multiple diagrams from markdown", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'valid/multiple-diagrams.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "valid/multiple-diagrams.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams).toHaveLength(2)
-      expect(diagrams[0]).toContain('graph TD')
-      expect(diagrams[1]).toContain('flowchart LR')
-    })
+      expect(diagrams).toHaveLength(2);
+      expect(diagrams[0]).toContain("graph TD");
+      expect(diagrams[1]).toContain("flowchart LR");
+    });
 
-    it('should preserve diagram content exactly', () => {
-      const content = '```mermaid\ngraph TD\n    A[Start] --> B[End]\n```'
-      const diagrams = extractMermaidDiagrams(content)
+    it("should preserve diagram content exactly", () => {
+      const content = "```mermaid\ngraph TD\n    A[Start] --> B[End]\n```";
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams[0]).toContain('A[Start]')
-      expect(diagrams[0]).toContain('-->')
-      expect(diagrams[0]).toContain('B[End]')
-    })
+      expect(diagrams[0]).toContain("A[Start]");
+      expect(diagrams[0]).toContain("-->");
+      expect(diagrams[0]).toContain("B[End]");
+    });
 
-    it('should handle whitespace properly', () => {
-      const content = '```mermaid\n  graph TD\n    A --> B\n```'
-      const diagrams = extractMermaidDiagrams(content)
+    it("should handle whitespace properly", () => {
+      const content = "```mermaid\n  graph TD\n    A --> B\n```";
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams[0].trim()).toMatch(/^graph TD/)
-    })
+      expect(diagrams[0].trim()).toMatch(/^graph TD/);
+    });
 
-    it('should ignore non-mermaid code blocks', () => {
-      const content = '```javascript\nvar x = 1\n```\n```mermaid\ngraph TD\nA-->B\n```'
-      const diagrams = extractMermaidDiagrams(content)
+    it("should ignore non-mermaid code blocks", () => {
+      const content =
+        "```javascript\nvar x = 1\n```\n```mermaid\ngraph TD\nA-->B\n```";
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams).toHaveLength(1)
-      expect(diagrams[0]).toContain('graph TD')
-    })
+      expect(diagrams).toHaveLength(1);
+      expect(diagrams[0]).toContain("graph TD");
+    });
 
-    it('should return empty array when no diagrams present', () => {
-      const content = '# Just markdown\n\nNo diagrams here.'
-      const diagrams = extractMermaidDiagrams(content)
+    it("should return empty array when no diagrams present", () => {
+      const content = "# Just markdown\n\nNo diagrams here.";
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams).toHaveLength(0)
-    })
+      expect(diagrams).toHaveLength(0);
+    });
 
-    it('should handle empty diagrams', () => {
-      const content = '```mermaid\n\n```'
-      const diagrams = extractMermaidDiagrams(content)
+    it("should handle empty diagrams", () => {
+      const content = "```mermaid\n\n```";
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams).toHaveLength(1)
-      expect(diagrams[0]).toBe('')
-    })
-  })
+      expect(diagrams).toHaveLength(1);
+      expect(diagrams[0]).toBe("");
+    });
+  });
 
-  describe('validateDiagramType', () => {
-    it('should identify graph diagrams', () => {
-      const diagram = 'graph TD\n    A --> B'
-      const result = validateDiagramType(diagram)
+  describe("validateDiagramType", () => {
+    it("should identify graph diagrams", () => {
+      const diagram = "graph TD\n    A --> B";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('graph')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("graph");
+    });
 
-    it('should identify flowchart diagrams', () => {
-      const diagram = 'flowchart LR\n    A --> B'
-      const result = validateDiagramType(diagram)
+    it("should identify flowchart diagrams", () => {
+      const diagram = "flowchart LR\n    A --> B";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('flowchart')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("flowchart");
+    });
 
-    it('should identify sequenceDiagram', () => {
-      const diagram = 'sequenceDiagram\n    A->>B: message'
-      const result = validateDiagramType(diagram)
+    it("should identify sequenceDiagram", () => {
+      const diagram = "sequenceDiagram\n    A->>B: message";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('sequenceDiagram')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("sequenceDiagram");
+    });
 
-    it('should identify stateDiagram', () => {
-      const diagram = 'stateDiagram-v2\n    [*] --> S1'
-      const result = validateDiagramType(diagram)
+    it("should identify stateDiagram", () => {
+      const diagram = "stateDiagram-v2\n    [*] --> S1";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('stateDiagram')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("stateDiagram");
+    });
 
-    it('should identify erDiagram', () => {
-      const diagram = 'erDiagram\n    ENTITY1'
-      const result = validateDiagramType(diagram)
+    it("should identify erDiagram", () => {
+      const diagram = "erDiagram\n    ENTITY1";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('erDiagram')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("erDiagram");
+    });
 
-    it('should identify gantt diagrams', () => {
-      const diagram = 'gantt\n    title Test'
-      const result = validateDiagramType(diagram)
+    it("should identify gantt diagrams", () => {
+      const diagram = "gantt\n    title Test";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('gantt')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("gantt");
+    });
 
-    it('should identify pie diagrams', () => {
-      const diagram = 'pie title Test\n    "A" : 10'
-      const result = validateDiagramType(diagram)
+    it("should identify pie diagrams", () => {
+      const diagram = 'pie title Test\n    "A" : 10';
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('pie')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("pie");
+    });
 
-    it('should identify mindmap diagrams', () => {
-      const diagram = 'mindmap\n    root'
-      const result = validateDiagramType(diagram)
+    it("should identify mindmap diagrams", () => {
+      const diagram = "mindmap\n    root";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('mindmap')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("mindmap");
+    });
 
-    it('should reject invalid diagram type', () => {
-      const diagram = 'invalidtype\n    A --> B'
-      const result = validateDiagramType(diagram)
+    it("should reject invalid diagram type", () => {
+      const diagram = "invalidtype\n    A --> B";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(false)
-      expect(result.type).toBeNull()
-    })
+      expect(result.valid).toBe(false);
+      expect(result.type).toBeNull();
+    });
 
-    it('should handle leading whitespace', () => {
-      const diagram = '  graph TD\n    A --> B'
-      const result = validateDiagramType(diagram)
+    it("should handle leading whitespace", () => {
+      const diagram = "  graph TD\n    A --> B";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('graph')
-    })
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("graph");
+    });
 
-    it('should reject empty diagram', () => {
-      const diagram = ''
-      const result = validateDiagramType(diagram)
+    it("should reject empty diagram", () => {
+      const diagram = "";
+      const result = validateDiagramType(diagram);
 
-      expect(result.valid).toBe(false)
-    })
-  })
+      expect(result.valid).toBe(false);
+    });
+  });
 
-  describe('fixture validation', () => {
-    it('should validate valid graph fixture', () => {
+  describe("fixture validation", () => {
+    it("should validate valid graph fixture", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'valid/graph.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "valid/graph.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams.length).toBeGreaterThan(0)
-      const result = validateDiagramType(diagrams[0])
-      expect(result.valid).toBe(true)
-    })
+      expect(diagrams.length).toBeGreaterThan(0);
+      const result = validateDiagramType(diagrams[0]);
+      expect(result.valid).toBe(true);
+    });
 
-    it('should validate valid flowchart fixture', () => {
+    it("should validate valid flowchart fixture", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'valid/flowchart.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "valid/flowchart.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams.length).toBeGreaterThan(0)
-      const result = validateDiagramType(diagrams[0])
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('flowchart')
-    })
+      expect(diagrams.length).toBeGreaterThan(0);
+      const result = validateDiagramType(diagrams[0]);
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("flowchart");
+    });
 
-    it('should detect invalid syntax in fixture', () => {
+    it("should detect invalid syntax in fixture", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'invalid/missing-keyword.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "invalid/missing-keyword.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams.length).toBeGreaterThan(0)
-      const result = validateDiagramType(diagrams[0])
-      expect(result.valid).toBe(false)
-    })
+      expect(diagrams.length).toBeGreaterThan(0);
+      const result = validateDiagramType(diagrams[0]);
+      expect(result.valid).toBe(false);
+    });
 
-    it('should handle valid sequence diagram fixture', () => {
+    it("should handle valid sequence diagram fixture", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'valid/sequencediagram.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "valid/sequencediagram.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams.length).toBeGreaterThan(0)
-      const result = validateDiagramType(diagrams[0])
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('sequenceDiagram')
-    })
+      expect(diagrams.length).toBeGreaterThan(0);
+      const result = validateDiagramType(diagrams[0]);
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("sequenceDiagram");
+    });
 
-    it('should handle valid state diagram fixture', () => {
+    it("should handle valid state diagram fixture", () => {
       const content = fs.readFileSync(
-        path.join(FIXTURE_DIR, 'valid/statediagram.md'),
-        'utf8'
-      )
-      const diagrams = extractMermaidDiagrams(content)
+        path.join(FIXTURE_DIR, "valid/statediagram.md"),
+        "utf8",
+      );
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams.length).toBeGreaterThan(0)
-      const result = validateDiagramType(diagrams[0])
-      expect(result.valid).toBe(true)
-      expect(result.type).toBe('stateDiagram')
-    })
-  })
+      expect(diagrams.length).toBeGreaterThan(0);
+      const result = validateDiagramType(diagrams[0]);
+      expect(result.valid).toBe(true);
+      expect(result.type).toBe("stateDiagram");
+    });
+  });
 
-  describe('edge cases', () => {
-    it('should handle diagrams with special characters', () => {
-      const diagram = 'graph TD\n    A["Node with →"]'
-      const diagrams = extractMermaidDiagrams(`\`\`\`mermaid\n${diagram}\n\`\`\``)
+  describe("edge cases", () => {
+    it("should handle diagrams with special characters", () => {
+      const diagram = 'graph TD\n    A["Node with →"]';
+      const diagrams = extractMermaidDiagrams(
+        `\`\`\`mermaid\n${diagram}\n\`\`\``,
+      );
 
-      expect(diagrams).toHaveLength(1)
-      expect(diagrams[0]).toContain('→')
-    })
+      expect(diagrams).toHaveLength(1);
+      expect(diagrams[0]).toContain("→");
+    });
 
-    it('should handle nested brackets', () => {
-      const diagram = 'graph TD\n    A["[Start]"] --> B["[End]"]'
-      const diagrams = extractMermaidDiagrams(`\`\`\`mermaid\n${diagram}\n\`\`\``)
+    it("should handle nested brackets", () => {
+      const diagram = 'graph TD\n    A["[Start]"] --> B["[End]"]';
+      const diagrams = extractMermaidDiagrams(
+        `\`\`\`mermaid\n${diagram}\n\`\`\``,
+      );
 
-      expect(diagrams).toHaveLength(1)
-      expect(diagrams[0]).toContain('[Start]')
-    })
+      expect(diagrams).toHaveLength(1);
+      expect(diagrams[0]).toContain("[Start]");
+    });
 
-    it('should handle long diagram content', () => {
-      const nodes = Array.from({ length: 50 }, (_, i) => `N${i}[Node ${i}]`).join('\n    ')
-      const diagram = `graph TD\n    ${nodes}`
-      const diagrams = extractMermaidDiagrams(`\`\`\`mermaid\n${diagram}\n\`\`\``)
+    it("should handle long diagram content", () => {
+      const nodes = Array.from(
+        { length: 50 },
+        (_, i) => `N${i}[Node ${i}]`,
+      ).join("\n    ");
+      const diagram = `graph TD\n    ${nodes}`;
+      const diagrams = extractMermaidDiagrams(
+        `\`\`\`mermaid\n${diagram}\n\`\`\``,
+      );
 
-      expect(diagrams[0]).toContain('N49')
-    })
+      expect(diagrams[0]).toContain("N49");
+    });
 
-    it('should handle Windows line endings', () => {
-      const content = '```mermaid\r\ngraph TD\r\n    A --> B\r\n```'
-      const diagrams = extractMermaidDiagrams(content)
+    it("should handle Windows line endings", () => {
+      const content = "```mermaid\r\ngraph TD\r\n    A --> B\r\n```";
+      const diagrams = extractMermaidDiagrams(content);
 
-      expect(diagrams).toHaveLength(1)
-    })
-  })
-})
+      expect(diagrams).toHaveLength(1);
+    });
+  });
+});
