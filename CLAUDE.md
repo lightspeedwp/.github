@@ -68,7 +68,7 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 | **Config directory** | `./config/` | `./.github/config/` | Move to .github | ✅ Complete (Phase 2, 2026-08-19) |
 | **Tests directory** | `./tests/` (duplicate fixture) | `./.github/tests/` (removed duplicate) | Consolidation | ✅ Complete (Phase 2, 2026-08-19) |
 | **Profile** | `./profile/` | `./docs/profile/` | Move to docs | ✅ Complete (Phase 4, 2026-08-19) |
-| **Projects org** | Scattered root files | `./.github/projects/active/` + `archived/` | Reorganization | ✅ Complete (Phase 3, 2026-08-19) |
+| **Projects org** | Scattered root files | `./.github/projects/active/` + `./.github/projects/archived/` | Reorganization | ✅ Complete (Phase 3, 2026-08-19) |
 | **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
 | **Agents** | `.github/agents/` (mixed) | `agents/` + `.github/agents/` (split) | Reorganize | Phase 3 (audit complete) |
 
@@ -95,16 +95,13 @@ All schema references should use `schemas/` as the canonical location.
 - From `.github/scripts/agents/`: go **two levels up** (`../../schemas/`) to reach `schemas/` at repo root
 - From `.github/scripts/workflows/`: go **three levels up** (`../../../schemas/`) to reach `schemas/` at repo root
 
-**Phase 2 Consolidation Complete (2026-08-19):** Control-plane asset reorganization finished. All root-level control-plane assets consolidated under `.github/`:
-- ✅ Consolidated PULL_REQUEST_TEMPLATE (Phase 1, Step 1.1)
-- ✅ Consolidated reports (Phase 1, Step 1.2)
-- ✅ Moved tmp directory (Phase 2, Step 2.1)
-- ✅ Moved config directory (Phase 2, Step 2.2)
-- ✅ Consolidated tests (Phase 2, Step 2.3)
-- ✅ Organized projects (Phase 3 + Phase 4)
-- ✅ Clarified profile and memory locations (Phase 4)
+**Cumulative Restructuring Complete (2026-08-19):** Multi-phase control-plane asset reorganization finished. All root-level control-plane assets consolidated under `.github/` across phases 1–4:
+- ✅ Phase 1: Consolidated PULL_REQUEST_TEMPLATE, reports, schemas
+- ✅ Phase 2: Moved tmp directory, config directory; consolidated tests
+- ✅ Phase 3: Organized active projects; split instructions and agents
+- ✅ Phase 4: Clarified profile and memory locations; moved website
 
-**All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the initial restructuring epic and [issue #1290](https://github.com/lightspeedwp/.github/issues/1290) for the current initiative.
+**All original files preserved in Git history.** See [issue #1438](https://github.com/lightspeedwp/.github/issues/1438) for the initial restructuring epic and [issue #1290](https://github.com/lightspeedwp/.github/issues/1290) for the current Phase 1 initiative.
 
 ## Git & Branching Strategy
 
