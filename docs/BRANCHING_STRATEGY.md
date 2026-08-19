@@ -409,9 +409,101 @@ post-release-sync (chore: main → develop, automatic)
 - Unauthorized attempts logged in `trigger-telemetry.json`; workflow fails immediately.
 - See [Release Process](./RELEASE_PROCESS.md#authorization-gating) for full details.
 
-### 7.2 Hotfix Flow
+### 7.2 Mergify Sequential Queue
 
-Hotfixes are urgent production fixes merged directly to `main`:
+Mergify manages the merge queue **sequentially** to prevent conflicts and ensure safety:
+
+**How Sequential Processing Works:**
+
+1. **First PR enters queue** → CI checks run (all checks in place)
+2. **While first PR testing** → other PRs wait in queue
+3. **First PR finishes CI** → if all pass, auto-rebase + merge
+4. **Base branch updated** → second PR auto-rebases
+5. **Second PR CI runs** → cycle repeats
+
+**Why Sequential?**
+
+GitHub's branch protection requires branches to be "up to date" before merge. Sequential processing ensures:
+
+- ✅ Branches stay up-to-date (auto-rebase)
+- ✅ No conflicts when merging
+- ✅ Explicit CI re-validation after rebase
+- ✅ Safety: merge only if all checks still pass
+
+**Configuration** (in `.github/mergify.yml`):
+
+```yaml
+merge_queue:
+  max_parallel_checks: 1  # One PR in CI at a time
+  merge_method: squash    # Use squash commits
+  batch_size: 1           # Process one at a time
+```
+
+**Monitoring Mergify:**
+
+```bash
+# Check queue status
+gh pr list --search "is:open" --json title,number
+
+# Check PR comments for Mergify diagnostics
+gh pr comments <number> | grep -i mergify
+```
+
+**Important:** Do not manually rebase or push while your PR is in the queue — Mergify handles rebasing automatically. If conflicts arise, Mergify will notify you in comments.
+
+See [RELEASE_PROCESS.md#mergify-sequential-queue](./RELEASE_PROCESS.md#mergify-sequential-queue) for full details.
+
+### 7.3 Stacked PR Workflow
+
+Release PRs use a **stacked workflow**: PR #1 merges first, then PR #2 automatically creates and stacks on top:
+
+**Timeline:**
+
+```
+Time T:     Feature work integrated to develop
+Time T+5:   Developer triggers release.yml workflow
+Time T+10:  Release agent creates release/vX.Y.Z branch
+Time T+15:  PR #1 created (release/vX.Y.Z → develop)
+Time T+20:  Developer reviews & merges PR #1 to develop
+Time T+25:  [AUTOMATIC] PR #2 created (release/vX.Y.Z → main)
+Time T+30:  Developer reviews & merges PR #2 to main
+Time T+35:  GitHub Release published
+Time T+40:  [AUTOMATIC] Post-sync PR created (main → develop)
+Time T+45:  Developer merges post-sync PR
+```
+
+**PR #1: Version Bump to develop**
+
+- Branch: `release/vX.Y.Z`
+- Target: `develop`
+- Contents: Version bump + CHANGELOG.md update
+- Review: Verify versions and changelog entries
+- Approval: 1 maintainer
+- Merge: Squash merge
+
+**PR #2: Release to main** (stacked on PR #1)
+
+- Branch: `release/vX.Y.Z`
+- Target: `main`
+- Contents: Same as PR #1 (already merged to develop)
+- Review: Verify release notes compilation
+- Approval: Depends on scope (patch: auto, minor: 1, major: 2)
+- Merge: Squash merge
+- Post-merge: GitHub Release published, tag created
+
+**Post-sync: Keep Branches In Sync**
+
+- Branch: `chore/post-release-sync-main-to-develop`
+- Target: `develop`
+- Contents: Merge main → develop to prevent divergence
+- Approval: 1 maintainer (optional review)
+- Merge: Merge commit (preserves history)
+
+See [RELEASE_PROCESS.md#phase-1-portable-release-agent](./RELEASE_PROCESS.md#phase-1-portable-release-agent) for step-by-step Phase 1 execution.
+
+### 7.4 Hotfix Flow
+
+Hotfixes are urgent production fixes merged directly to `main` (bypass develop):
 
 1. **Create hotfix branch from `main`:**
 
@@ -443,6 +535,51 @@ Hotfixes are urgent production fixes merged directly to `main`:
 
 - Always update release notes and changelog for each release/hotfix, even when changes seem minor.
 - Use `release/` prefix for normal version bumps; use `hotfix/` for urgent production fixes only.
+
+### 7.5 Release Branch Naming & Lifecycle
+
+**Naming Convention:**
+
+Use semantic versioning with optional prerelease suffix:
+
+- ✅ `release/v1.0.0` — Major release
+- ✅ `release/v1.1.0` — Minor release
+- ✅ `release/v1.0.1` — Patch release
+- ✅ `release/v1.0.0-beta` — Pre-release
+- ❌ `release/1.0.0` — Missing 'v' prefix
+- ❌ `release/version-1.0` — Non-semver
+
+**Branch Lifecycle:**
+
+```
+1. Agent creates release/vX.Y.Z from develop
+   ↓
+2. PR #1 (release → develop) created & merged
+   ↓
+3. PR #2 (release → main) created & merged
+   ↓
+4. Tag vX.Y.Z created on main
+   ↓
+5. GitHub Release published
+   ↓
+6. Branch release/vX.Y.Z deleted (post-merge)
+   ↓
+7. Post-sync PR (main → develop) merged
+```
+
+**Cleanup:**
+
+Release branches are **deleted automatically** after PR merge (per branch protection settings). Manual cleanup rarely needed:
+
+```bash
+# Delete local branch
+git branch -d release/v1.0.0
+
+# Delete remote branch (if needed)
+git push origin --delete release/v1.0.0
+```
+
+**Important:** Never delete a release branch manually while PRs are still open — wait for both PR #1 and PR #2 to merge first.
 
 ---
 
