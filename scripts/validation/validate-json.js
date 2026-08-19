@@ -159,7 +159,7 @@ function findJsonFiles() {
     ignore: [
       "**/node_modules/**",
       "**/package-lock.json",
-      "**/reports/**",
+      "*./.github/reports/**",
       "**/.git/**",
     ],
   });

@@ -153,7 +153,7 @@ DRY_RUN=true node scripts/agents/meta.agent.js
 node scripts/agents/includes/label-sync.js --dry-run
 
 # Generate report
-node scripts/agents/includes/report-writer.js > .github/reports/labeling/dryrun-$(date +%s).md
+node scripts/agents/includes/report-writer.js > .githu./.github/reports/labeling/dryrun-$(date +%s).md
 ```
 
 **Tasks**:
@@ -410,9 +410,9 @@ Once all criteria are met:
 See also:
 
 - [RELEASE_PROCESS.md](../../../docs/RELEASE_PROCESS.md): Authoritative develop→main release flow
-- [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
-- [Technical Debt Report](../../reports/tech-debt/v1.0.0-pre-launch-debt.md)
-- [Pre-Release Audit](../../reports/analysis/pre-release-audit-v1.0.0.md)
+- [Test Coverage Expansion Plan](../../.github/reports/analysis/test-coverage-expansion-plan.md)
+- [Technical Debt Report](../../.github/reports/tech-debt/v1.0.0-pre-launch-debt.md)
+- [Pre-Release Audit](../../.github/reports/analysis/pre-release-audit-v1.0.0.md)
 
 ---
 

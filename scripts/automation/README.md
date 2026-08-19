@@ -169,7 +169,7 @@ Scripts are integrated into GitHub Actions workflows:
 
 - Runs: review-meta-labels.js + review-status-labels.js
 - Triggered: Scheduled + manual dispatch
-- Output: Saved to `.github/reports/audits/`
+- Output: Saved to `.githu./.github/reports/audits/`
 
 ## Performance
 
@@ -231,7 +231,7 @@ node label-orchestrator.js audit --all --verbose
 Check logs in:
 
 ```
-.github/reports/     # Audit reports
+.githu./.github/reports/     # Audit reports
 .github/logs/        # Workflow logs (GitHub Actions)
 ```
 

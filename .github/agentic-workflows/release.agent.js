@@ -20,7 +20,7 @@ import { execSync } from "child_process";
 
 const VERSION_FILE = "VERSION";
 const CHANGELOG_FILE = "CHANGELOG.md";
-const REPORTS_DIR = ".github/reports/agentic-releases";
+const REPORTS_DIR = ".githu./.github/reports/agentic-releases";
 
 const APPROVAL_GATES = {
   patch: { autoapprove: true, minScore: 0.8 },

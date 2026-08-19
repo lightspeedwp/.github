@@ -22,7 +22,7 @@ Identify missing files, unreplaced placeholders, escaping issues, accessibility 
 | Input         | Description                                                                     |
 | ------------- | ------------------------------------------------------------------------------- |
 | `theme_root`  | The root directory of the WordPress block theme                                 |
-| `report_path` | Where to save the report (default: `.github/reports/YYYY-MM-DD-theme-audit.md`) |
+| `report_path` | Where to save the report (default: `.githu./.github/reports/YYYY-MM-DD-theme-audit.md`) |
 
 ---
 

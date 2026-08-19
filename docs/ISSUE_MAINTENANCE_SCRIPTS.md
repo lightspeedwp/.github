@@ -109,7 +109,7 @@ Generates comprehensive monthly label audit reports.
   - Blocker analysis
 
 **Output Formats**: Markdown, JSON, CSV (configurable)  
-**Artifacts**: Saved to `.github/reports/audits/` (30-day retention)  
+**Artifacts**: Saved to `.githu./.github/reports/audits/` (30-day retention)  
 **Permissions**: `contents:read`, `issues:read`, `pull-requests:read`
 
 **Example - Manual Dispatch**:
@@ -360,7 +360,7 @@ All scripts support dry-run mode. No labels are deleted, only added/removed as n
 
 1. Generate meta label coverage report
 2. Generate status label distribution report
-3. Save to `.github/reports/audits/` with timestamp
+3. Save to `.githu./.github/reports/audits/` with timestamp
 
 **Outcome**: Archive of label health metrics for trend analysis
 

@@ -45,7 +45,7 @@ jobs:
         run: npm ci
 
       - name: Create reports directory
-        run: mkdir -p .github/reports/audits
+        run: mkdir -p .githu./.githu./.github/reports/audits
 
       - name: Generate meta label audit (scheduled)
         if: github.event_name == 'schedule'
@@ -53,7 +53,7 @@ jobs:
           node scripts/automation/review-meta-labels.js \
             --verbose \
             --format markdown \
-            -o .github/reports/audits/meta-labels-audit-$(date +%Y-%m-%d).md
+            -o .githu./.githu./.github/reports/audits/meta-labels-audit-$(date +%Y-%m-%d).md
 
       - name: Generate status label audit (scheduled)
         if: github.event_name == 'schedule'
@@ -61,7 +61,7 @@ jobs:
           node scripts/automation/review-status-labels.js \
             --verbose \
             --format markdown \
-            -o .github/reports/audits/status-labels-audit-$(date +%Y-%m-%d).md
+            -o .githu./.githu./.github/reports/audits/status-labels-audit-$(date +%Y-%m-%d).md
 
       - name: Generate meta label audit (manual)
         if: github.event_name == 'workflow_dispatch'
@@ -74,7 +74,7 @@ jobs:
           node scripts/automation/review-meta-labels.js \
             $VERBOSE_FLAG \
             --format $FORMAT \
-            -o .github/reports/audits/meta-labels-audit-manual.${FORMAT}
+            -o .githu./.githu./.github/reports/audits/meta-labels-audit-manual.${FORMAT}
 
       - name: Generate status label audit (manual)
         if: github.event_name == 'workflow_dispatch'
@@ -87,14 +87,14 @@ jobs:
           node scripts/automation/review-status-labels.js \
             $VERBOSE_FLAG \
             --format $FORMAT \
-            -o .github/reports/audits/status-labels-audit-manual.${FORMAT}
+            -o .githu./.githu./.github/reports/audits/status-labels-audit-manual.${FORMAT}
 
       - name: Upload audit report artifacts
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: label-audit-reports-${{ github.run_number }}
-          path: .github/reports/audits/
+          path: .githu./.githu./.github/reports/audits/
           retention-days: 30
           if-no-files-found: warn
 
@@ -102,7 +102,7 @@ jobs:
         if: success()
         run: |
           echo "✅ Label audit completed successfully"
-          echo "Reports generated in .github/reports/audits/"
+          echo "Reports generated in .githu./.githu./.github/reports/audits/"
 
       - name: Report audit failure
         if: failure()

@@ -70,7 +70,7 @@ Requirements, Assumptions and Gaps, Human-Readable Test Cases, Traceability Matr
 Review Gate / Next Step), or the condensed form (Scope, Environment & Test-Data
 Contract, merged Requirements + Cases, Traceability, Review Gate) when the pack is
 right-sized to a small/single-flow scope. State which form you used. Then **persist** the pack to
-`.github/reports/test-packs/<flow>-<date>.md` when `.github/` is available, or the
+`.githu./.github/reports/test-packs/<flow>-<date>.md` when `.github/` is available, or the
 project-configured path when set, or a repository-local equivalent otherwise. Report
 the actual written path in the Review Gate section.
 
@@ -81,7 +81,7 @@ approved pack path, the generated specs, and the fixtures/env starter kit:
 {
   "run_type": "spec-generation",
   "status": "generated|blocked",
-  "pack_path": ".github/reports/test-packs/checkout-2026-07-24.md",
+  "pack_path": ".githu./.github/reports/test-packs/checkout-2026-07-24.md",
   "specs": [
     { "path": "tests/checkout.spec.ts", "requirement_ids": ["R1", "R2"], "test_case_ids": ["TC1", "TC2"] }
   ],

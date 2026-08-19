@@ -50,7 +50,7 @@ node scripts/validation/validate-agent-frontmatter.js
 | reviewer.agent.md              | ✅ Valid |
 | template.agent.md              | ✅ Valid |
 
-See [Validation Report](../../reports/AGENT-FRONTMATTER-VALIDATION-COMPLETE.md) for full details.
+See [Validation Report](../../.github/reports/AGENT-FRONTMATTER-VALIDATION-COMPLETE.md) for full details.
 
 ---
 

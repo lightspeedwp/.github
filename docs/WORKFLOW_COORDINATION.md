@@ -170,7 +170,7 @@ Wave 3C (Workflow & Agent Coordination Setup) introduces new agent-triggered wor
 **Output**:
 
 - Updated README files (if not dry-run)
-- Report: `.github/reports/mermaid-audit/update-report.md`
+- Report: `.githu./.github/reports/mermaid-audit/update-report.md`
 - Artifact: `readme-update-report` (always)
 
 **Integration Points**:

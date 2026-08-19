@@ -46,7 +46,7 @@ status: "active"
 - (Future) — Implementation based on team decision
 
 **Files Changed:**
-- `.github/reports/workflow-testing/SCRIPT-ORGANIZATION-CONCERN.md`
+- `.githu./.github/reports/workflow-testing/SCRIPT-ORGANIZATION-CONCERN.md`
 
 ---
 
@@ -96,12 +96,12 @@ Relates to #1461
 - Found during release workflow testing
 - Requires team decision on Option A/B/C
 - Implementation planned for Phase 2
-- See `.github/reports/workflow-testing/SCRIPT-ORGANIZATION-CONCERN.md`
+- See `.githu./.github/reports/workflow-testing/SCRIPT-ORGANIZATION-CONCERN.md`
 
 ## Files Changed
 
 - `.github/workflows/release.yml` — Core fix + action version updates
-- `.github/reports/workflow-testing/` — Test reports and concern documentation
+- `.githu./.github/reports/workflow-testing/` — Test reports and concern documentation
 ```
 
 ---
@@ -132,7 +132,7 @@ Relates to #1461
 
 ## Documentation Location
 
-**Test Reports:** `.github/reports/workflow-testing/`
+**Test Reports:** `.githu./.github/reports/workflow-testing/`
 - `2026-08-04-release-workflow-fix-summary.md` — Executive summary
 - `2026-08-04-release-workflow-fix-verification.md` — Detailed test methodology
 - `SCRIPT-ORGANIZATION-CONCERN.md` — Architectural issue analysis

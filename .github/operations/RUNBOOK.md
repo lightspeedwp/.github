@@ -32,7 +32,7 @@ tags:
 | **Manual Audit** | 5 min | `node scripts/automation/label-orchestrator.js audit` |
 | **Run Label Sync (dry-run)** | 5 min | `node scripts/automation/label-orchestrator.js sync --dry-run` |
 | **Check Dashboard** | 2 min | Open [dashboard](./) (link TBD) |
-| **View Audit Trail** | 2 min | `cat .github/reports/audit-trail-latest.json \| jq` |
+| **View Audit Trail** | 2 min | `cat .githu./.github/reports/audit-trail-latest.json \| jq` |
 | **Disable Workflows** | 2 min | [See Shutdown](#shutdown-procedure) |
 | **Critical Issue Response** | 5-10 min | [See Incident Response](#incident-response) |
 
@@ -89,8 +89,8 @@ fi
 
 # 5. Verify audit trail accessible
 echo "5️⃣  Checking audit trail..."
-if [ -f ".github/reports/audit-trail-latest.json" ]; then
-  COUNT=$(jq '.auditTrail | length' .github/reports/audit-trail-latest.json 2>/dev/null || echo "0")
+if [ -f ".githu./.github/reports/audit-trail-latest.json" ]; then
+  COUNT=$(jq '.auditTrail | length' .githu./.github/reports/audit-trail-latest.json 2>/dev/null || echo "0")
   echo "   ✅ Audit trail found ($COUNT entries)"
 else
   echo "   ⚠️  Audit trail not found (first run?)"
@@ -154,7 +154,7 @@ node scripts/automation/label-orchestrator.js sync --dry-run --verbose
 node scripts/automation/label-orchestrator.js sync
 
 # Verify in audit trail
-tail -20 .github/reports/audit-trail-latest.json | jq '.auditTrail[-5:]'
+tail -20 .githu./.github/reports/audit-trail-latest.json | jq '.auditTrail[-5:]'
 ```
 
 ### View System Metrics
@@ -163,7 +163,7 @@ Check recent performance and error rates:
 
 ```bash
 # Get latest metrics summary
-cat .github/reports/metrics-latest.json | jq '{
+cat .githu./.github/reports/metrics-latest.json | jq '{
   "last_run": .lastRun,
   "success_rate": .successRate,
   "error_rate": .errorRate,
@@ -212,9 +212,9 @@ echo "   ✅ Notification posted"
 
 # 3. Archive latest metrics
 echo "3️⃣  Archiving current state..."
-mkdir -p .github/reports/archive
-cp .github/reports/audit-trail-latest.json .github/reports/archive/audit-trail-$(date +%Y%m%d-%H%M%S).json
-cp .github/reports/metrics-latest.json .github/reports/archive/metrics-$(date +%Y%m%d-%H%M%S).json
+mkdir -p .githu./.github/reports/archive
+cp .githu./.github/reports/audit-trail-latest.json .githu./.github/reports/archive/audit-trail-$(date +%Y%m%d-%H%M%S).json
+cp .githu./.github/reports/metrics-latest.json .githu./.github/reports/archive/metrics-$(date +%Y%m%d-%H%M%S).json
 echo "   ✅ State archived"
 
 echo ""
@@ -345,7 +345,7 @@ gh label create "meta:stale" \
 node scripts/automation/label-orchestrator.js sync --dry-run --verbose
 
 # 3. Check error messages in audit output
-cat .github/reports/audit-trail-latest.json | jq '.auditTrail[] | select(.status == "error")'
+cat .githu./.github/reports/audit-trail-latest.json | jq '.auditTrail[] | select(.status == "error")'
 
 # 4. Verify label name matches exactly (case-sensitive)
 # Expected format: type:bug, status:done, meta:stale (lowercase, kebab-case)
@@ -364,7 +364,7 @@ node scripts/automation/label-orchestrator.js sync
 
 ```bash
 # 1. Get detailed error information
-cat .github/reports/audit-trail-latest.json | jq '.auditTrail[] | select(.error != null) | {issue, error, status}'
+cat .githu./.github/reports/audit-trail-latest.json | jq '.auditTrail[] | select(.error != null) | {issue, error, status}'
 
 # 2. Identify error pattern
 # Common errors:
@@ -394,7 +394,7 @@ node scripts/automation/label-orchestrator.js sync --verbose
 
 ```bash
 # 1. Check if metrics file exists
-ls -la .github/reports/metrics-*.json | tail -5
+ls -la .githu./.github/reports/metrics-*.json | tail -5
 
 # 2. If missing, check if workflow ran
 gh workflow run monitoring-alerts.yml --repo lightspeedwp/.github
@@ -412,7 +412,7 @@ echo '{
   "avgDuration": 45,
   "apiCallsUsed": 250,
   "apiCallsRemaining": 4750
-}' > .github/reports/metrics-latest.json
+}' > .githu./.github/reports/metrics-latest.json
 
 # 5. Refresh dashboard
 ```

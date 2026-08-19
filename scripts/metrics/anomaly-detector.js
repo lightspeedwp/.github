@@ -6,7 +6,7 @@
 const { MetricsStorage } = require("./metrics-storage");
 
 class AnomalyDetector {
-  constructor(storageDir = ".github/reports/metrics", deviationThreshold = 0.5) {
+  constructor(storageDir = ".githu./.github/reports/metrics", deviationThreshold = 0.5) {
     this.storage = new MetricsStorage(storageDir);
     this.deviationThreshold = deviationThreshold; // 0.5 = 50%
   }

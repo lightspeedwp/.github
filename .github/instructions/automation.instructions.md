@@ -122,7 +122,7 @@ accDescr: Shows how GitHub events trigger workflows, which invoke agents and pro
 | **Workflows**    | GitHub Actions triggers       | `.github/workflows/*.yml`                |
 | **Instructions** | Agent behavior documentation  | `.github/instructions/*.instructions.md` |
 | **Prompts**      | Legacy/repo-local automation templates during migration | `.github/prompts/*.prompt.md` |
-| **Reports**      | Automation outputs            | `.github/reports/**/*`                   |
+| **Reports**      | Automation outputs            | `.githu./.github/reports/**/*`                   |
 
 Portable agent specs, skills, hooks, instructions, and agentic workflows belong
 in the matching top-level source folders described in
@@ -528,7 +528,7 @@ created_date: "2025-12-07"
 
 ### Report Storage
 
-- **Location**: `.github/reports/{category}/`
+- **Location**: `.githu./.github/reports/{category}/`
 - **Naming**: `{subject}-{type}-{date}.{md|json}`
 - **Spec files**: Every JSON report needs a `.spec.md` file
 

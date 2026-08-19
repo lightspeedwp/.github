@@ -35,7 +35,7 @@ async function main() {
     const agent = new MilestoneAssignmentAgent(octokit, owner, repo);
     const results = await agent.bulkAssignMilestones(issues, {
       dryRun,
-      reportPath: `.github/reports/remediation/milestone-assignment-${runId}.md`,
+      reportPath: `.githu./.github/reports/remediation/milestone-assignment-${runId}.md`,
     });
 
     // Summary stats
