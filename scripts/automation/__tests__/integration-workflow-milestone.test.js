@@ -643,7 +643,7 @@ describe('integration: milestone allocation workflow', () => {
       const findings = auditIssuesForMilestones(complexBatch, {});
       expect(findings.issuesByPriority.critical.length).toBe(20);
       expect(findings.issuesByPriority.high.length).toBe(30);
-      expect(findings.issuesByPriority.normal.length).toBe(50);
+      expect(findings.issuesByPriority.normal.length).toBe(60); // 50 explicit + 10 undefined converted to 'normal'
       expect(findings.issuesByPriority.low.length).toBe(40);
     });
   });

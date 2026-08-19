@@ -6,7 +6,7 @@ function triageAndExtractIssues(prs) {
 
   prs.forEach((pr) => {
     const issues = [];
-    const regex = /(?:Fixes|Closes|Resolves|Relates to|#)[\s#]+(\d+)/gi;
+    const regex = /#(\d+)/g;
     let match;
     while ((match = regex.exec(pr.body || '')) !== null) {
       issues.push(parseInt(match[1]));

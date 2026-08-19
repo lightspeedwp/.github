@@ -544,6 +544,7 @@ describe('integration: staging & production readiness workflow', () => {
         services: [{ name: 'api', status: 'healthy' }],
         compliance: {
           encrypted: true,
+          audited: true,
           gdpr_compliant: true,
           encryption: 'AES-256',
         },
@@ -593,7 +594,7 @@ describe('integration: staging & production readiness workflow', () => {
         name: 'staging',
         config: { database: null, secrets: null, api_keys: null },
         services: [{ name: 'api', status: 'healthy' }],
-        compliance: { encrypted: true, gdpr_compliant: true },
+        compliance: { encrypted: true, audited: true, gdpr_compliant: true },
         security: { rbac_enabled: true },
         data: { count: 5000, indexed: true, inconsistencies: [] },
       };
