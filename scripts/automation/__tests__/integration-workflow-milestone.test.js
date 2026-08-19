@@ -211,7 +211,7 @@ describe('integration: milestone allocation workflow', () => {
       };
 
       const findings = auditIssuesForMilestones(mockIssues, {});
-      const allocations = allocateToMilestones(mockIssues, findings, conflictRules);
+      allocateToMilestones(mockIssues, findings, conflictRules);
 
       // Issue 103 has existing milestone and should not be in unallocated
       const issue103InUnallocated = findings.issuesWithoutMilestone.some((i) => i.number === 103);
@@ -257,7 +257,7 @@ describe('integration: milestone allocation workflow', () => {
         defaultMilestone: 'Backlog',
       };
 
-      const allocations = allocateToMilestones(issues, findings, rules);
+      allocateToMilestones(issues, findings, rules);
       // Issue 201 already has milestone, so should not be in issuesWithoutMilestone
       expect(findings.issuesWithoutMilestone.length).toBe(0);
     });
@@ -300,7 +300,7 @@ describe('integration: milestone allocation workflow', () => {
         defaultMilestone: 'Backlog',
       };
 
-      const allocations = allocateToMilestones(issues, findings, rules);
+      allocateToMilestones(issues, findings, rules);
       // Issue has milestone, so not in unallocated findings
       expect(findings.issuesWithoutMilestone.length).toBe(0);
     });
@@ -612,7 +612,7 @@ describe('integration: milestone allocation workflow', () => {
       const allocTime = Date.now() - allocStart;
 
       const cascadeStart = Date.now();
-      const cascadeUpdates = cascadeLabelUpdates(largeBatch, allocations);
+      cascadeLabelUpdates(largeBatch, allocations);
       const cascadeTime = Date.now() - cascadeStart;
 
       expect(findings.totalIssues).toBe(250);

@@ -197,7 +197,6 @@ describe('integration: metadata workflow', () => {
     });
 
     it('respects dry-run mode during workflow', () => {
-      const findings = auditIssueMetadata(mockIssues, auditRules);
       const updates = {
         labelsToAdd: ['status:needs-triage'],
         labelsToRemove: [],
