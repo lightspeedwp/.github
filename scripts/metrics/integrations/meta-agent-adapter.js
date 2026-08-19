@@ -76,7 +76,10 @@ class MetricsContextProvider {
       throw new Error('Repositories must be an array');
     }
 
-    if (typeof metrics.healthScore !== 'object' || !metrics.healthScore.overall) {
+    if (
+      typeof metrics.healthScore !== 'object' ||
+      !Number.isFinite(metrics.healthScore.overall)
+    ) {
       throw new Error('Invalid healthScore structure');
     }
   }

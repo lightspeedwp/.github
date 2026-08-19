@@ -105,11 +105,8 @@ We have ${staleCount} issues that haven't been reviewed in over 30 days. This in
    - [ ] Plan hiring or process improvements
 
 ### Related Report
-[Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)
-
-/cc @team-leads #metrics-alerts #attention-needed`,
-      labels: ['type:task', 'priority:important', 'metrics-alert', 'team-leads'],
-      assignees: ['team-leads']
+[Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)`,
+      labels: ['type:task', 'priority:important', 'area:analytics']
     };
   }
 
@@ -176,11 +173,8 @@ Pull request review time has increased by ${metric.percentChange.toFixed(0)}%. T
    - [ ] Plan knowledge transfer
 
 ### Related Report
-[Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)
-
-/cc @engineering-lead #metrics-alerts #process-improvement`,
-      labels: ['type:task', 'priority:important', 'metrics-alert', 'engineering'],
-      assignees: ['engineering-lead']
+[Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)`,
+      labels: ['type:task', 'priority:important', 'area:analytics']
     };
   }
 
@@ -190,7 +184,7 @@ Pull request review time has increased by ${metric.percentChange.toFixed(0)}%. T
    * @returns {Object|null} Issue object or null if shouldn't create
    */
   generateHealthAlert(metrics) {
-    const healthScore = metrics.healthScore?.overall || 100;
+    const healthScore = metrics.healthScore?.overall ?? 100;
 
     if (healthScore > 70) return null; // Only alert if below 70
 
@@ -235,9 +229,8 @@ ${this.formatHealthBreakdown(metrics.healthScore?.components || {})}
 ### Related Report
 [Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)
 
-/cc @team-leads #metrics-alerts #critical`,
-      labels: ['type:task', 'priority:critical', 'metrics-alert', 'health-check'],
-      assignees: ['team-leads']
+`,
+      labels: ['type:task', 'priority:critical', 'area:analytics']
     };
   }
 
@@ -293,9 +286,8 @@ Active contributor count is lower than optimal. This may indicate capacity const
 ### Related Report
 [Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)
 
-/cc @team-leads #metrics-alerts #capacity-planning`,
-      labels: ['type:task', 'priority:important', 'metrics-alert', 'team-planning'],
-      assignees: ['team-leads']
+`,
+      labels: ['type:task', 'priority:important', 'area:analytics']
     };
   }
 
