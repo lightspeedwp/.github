@@ -152,8 +152,8 @@ describe("bulk-issue-metadata-updater", () => {
 
     it("should process all issues in dry-run mode", () => {
       const issues = [
-        { number: 1, title: "Issue 1", confidence: 0.9 },
-        { number: 2, title: "Issue 2", confidence: 0.8 },
+        { number: 1, title: "Issue 1", confidence: 0.95 },
+        { number: 2, title: "Issue 2", confidence: 0.90 },
       ];
 
       const results = processBatch(issues, "dry-run");
