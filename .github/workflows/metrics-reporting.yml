@@ -24,7 +24,7 @@ permissions:
 
 env:
   METRICS_DIR: .github/metrics
-  REPORTS_DIR: .githu./.githu./.github/reports/metrics
+  REPORTS_DIR: .github/reports/metrics
 
 jobs:
   # Stage 1: Collect metrics (from metrics.yml)

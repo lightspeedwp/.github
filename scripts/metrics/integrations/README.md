@@ -269,22 +269,28 @@ function generateReport() {
 
 ```javascript
 const IssueTemplateGenerator = require('./issue-templates');
+const fs = require('fs');
 
-function createMetricsIssues() {
-  const generator = new IssueTemplateGenerator();
+async function createMetricsIssues(githubClient) {
+  const generator = new IssueTemplateGenerator({
+    org: 'lightspeedwp',
+    repo: '.github'
+  });
   const rawMetrics = JSON.parse(fs.readFileSync('.github/reports/metrics/latest-metrics.json'));
   
   const issues = generator.generateAllIssues(rawMetrics);
   
   // Create each issue in GitHub
-  issues.forEach(issue => {
-    gh('issue create', {
+  for (const issue of issues) {
+    await githubClient.rest.issues.create({
+      owner: 'lightspeedwp',
+      repo: '.github',
       title: issue.title,
       body: issue.body,
       labels: issue.labels,
       assignees: issue.assignees
     });
-  });
+  }
 }
 ```
 
