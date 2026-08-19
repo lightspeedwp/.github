@@ -48,7 +48,7 @@ describe("routePrTemplate", () => {
   describe("Config Loading", () => {
     test("should load config from default path", async () => {
       mockFs.readFile.mockResolvedValueOnce(
-        `default_template: pr_feature.md\nroutes:\n  feat/: pr_feature.md\n  fix/: pr_bug.md`
+        `default_template: pr_feature.md\nroutes:\n  feat/: pr_feature.md\n  fix/: pr_bug.md`,
       );
       mockFs.readFile.mockResolvedValueOnce("template content");
 
@@ -56,7 +56,7 @@ describe("routePrTemplate", () => {
 
       expect(mockFs.readFile).toHaveBeenCalledWith(
         ".github/PULL_REQUEST_TEMPLATE/config.yml",
-        "utf8"
+        "utf8",
       );
     });
 
@@ -137,7 +137,7 @@ Closes #
       expect(result.branchType).toBe("feat");
       expect(result.templateFile).toBe("pr_feature.md");
       expect(result.templatePath).toBe(
-        ".github/PULL_REQUEST_TEMPLATE/pr_feature.md"
+        ".github/PULL_REQUEST_TEMPLATE/pr_feature.md",
       );
     });
 
@@ -252,7 +252,6 @@ Closes #
 - [ ] All AC met and demonstrated
 `;
 
-
     test("should report missing required sections", async () => {
       const incompleteTemplate = `---
 title: "Incomplete Template"
@@ -271,7 +270,7 @@ Closes #
       expect(result.metadata.foundSections).toEqual(["Linked issues"]);
       expect(result.metadata.missingSections).toContain("Changelog");
       expect(result.metadata.missingSections).toContain(
-        "Checklist (Global DoD / PR)"
+        "Checklist (Global DoD / PR)",
       );
       expect(result.metadata.complete).toBe(false);
     });
@@ -298,7 +297,6 @@ Closes #
       expect(result.metadata.lineCount).toBeGreaterThan(0);
       expect(result.metadata.templateFile).toBe("pr_feature.md");
     });
-
   });
 
   describe("Config Override", () => {
@@ -314,10 +312,7 @@ Closes #
         config: { configPath: "custom/config.yml" },
       });
 
-      expect(mockFs.readFile).toHaveBeenCalledWith(
-        "custom/config.yml",
-        "utf8"
-      );
+      expect(mockFs.readFile).toHaveBeenCalledWith("custom/config.yml", "utf8");
     });
   });
 
@@ -396,9 +391,10 @@ Content`;
 
       expect(result.valid).toBe(true);
       expect(result.metadata.sections).toContain("Linked issues & PRs");
-      expect(result.metadata.sections).toContain("Changelog (Keep a Changelog)");
+      expect(result.metadata.sections).toContain(
+        "Changelog (Keep a Changelog)",
+      );
     });
-
   });
 
   describe("Integration", () => {
@@ -462,7 +458,8 @@ routes:
   ops/: pr_chore.md
 `;
 
-      const mockTemplate = "## Linked issues\n## Changelog\n## Checklist (Global DoD / PR)";
+      const mockTemplate =
+        "## Linked issues\n## Changelog\n## Checklist (Global DoD / PR)";
 
       const branchTypes = [
         "feat",

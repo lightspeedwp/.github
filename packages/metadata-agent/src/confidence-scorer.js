@@ -10,15 +10,15 @@
  * @module confidence-scorer
  */
 
-import pino from 'pino';
+import pino from "pino";
 
 /**
  * Logger instance for confidence scoring operations
  * @type {pino.Logger}
  */
 const logger = pino({
-  name: 'metadata-agent:confidence-scorer',
-  level: process.env.LOG_LEVEL || 'info'
+  name: "metadata-agent:confidence-scorer",
+  level: process.env.LOG_LEVEL || "info",
 });
 
 /**
@@ -49,17 +49,14 @@ class ConfidenceScorer {
    * @param {Object} [options.weights] - Weighting for different factors
    */
   constructor(options = {}) {
-    const {
-      threshold = DEFAULT_THRESHOLD,
-      weights = {}
-    } = options;
+    const { threshold = DEFAULT_THRESHOLD, weights = {} } = options;
 
     this.threshold = Math.max(0, Math.min(100, threshold));
     this.weights = {
-      canonicality: weights.canonicality ?? 0.30,
+      canonicality: weights.canonicality ?? 0.3,
       contextMatch: weights.contextMatch ?? 0.25,
       noConflict: weights.noConflict ?? 0.25,
-      frequency: weights.frequency ?? 0.20
+      frequency: weights.frequency ?? 0.2,
     };
 
     // Verify weights sum to approximately 1.0
@@ -67,13 +64,13 @@ class ConfidenceScorer {
     if (Math.abs(weightSum - 1.0) > 0.01) {
       logger.warn(
         { weights: this.weights, sum: weightSum },
-        'Weights do not sum to 1.0, results may be skewed'
+        "Weights do not sum to 1.0, results may be skewed",
       );
     }
 
     logger.info(
       { threshold: this.threshold, weights: this.weights },
-      'Confidence scorer initialized'
+      "Confidence scorer initialized",
     );
   }
 
@@ -106,18 +103,18 @@ class ConfidenceScorer {
    * // → 92
    */
   calculate(label, context = {}) {
-    if (!label || typeof label !== 'string') {
-      logger.warn({ label }, 'Invalid label for scoring');
+    if (!label || typeof label !== "string") {
+      logger.warn({ label }, "Invalid label for scoring");
       return 0;
     }
 
     const {
       issueNumber = null,
-      issueTitle = '',
-      issueBody = '',
+      issueTitle = "",
+      issueBody = "",
       existingLabels = [],
       issueType = null,
-      stats = {}
+      stats = {},
     } = context;
 
     // Calculate component scores (0-100 each)
@@ -125,7 +122,7 @@ class ConfidenceScorer {
     const contextScore = this._scoreContext(label, {
       issueTitle,
       issueBody,
-      issueType
+      issueType,
     });
     const conflictScore = this._scoreNoConflict(label, existingLabels);
     const frequencyScore = this._scoreFrequency(stats);
@@ -145,11 +142,11 @@ class ConfidenceScorer {
           canonical: canonicalityScore,
           context: contextScore,
           conflict: conflictScore,
-          frequency: frequencyScore
+          frequency: frequencyScore,
         },
-        total: Math.round(totalScore)
+        total: Math.round(totalScore),
       },
-      'Confidence score calculated'
+      "Confidence score calculated",
     );
 
     return Math.round(totalScore);
@@ -180,11 +177,11 @@ class ConfidenceScorer {
    * scorer.setThreshold(80); // Stricter threshold
    */
   setThreshold(threshold) {
-    if (typeof threshold !== 'number' || threshold < 0 || threshold > 100) {
-      throw new Error('Threshold must be a number between 0 and 100');
+    if (typeof threshold !== "number" || threshold < 0 || threshold > 100) {
+      throw new Error("Threshold must be a number between 0 and 100");
     }
     this.threshold = threshold;
-    logger.info({ threshold }, 'Confidence threshold updated');
+    logger.info({ threshold }, "Confidence threshold updated");
   }
 
   /**
@@ -203,7 +200,7 @@ class ConfidenceScorer {
    * }
    */
   isConfident(score) {
-    if (typeof score !== 'number') {
+    if (typeof score !== "number") {
       return false;
     }
     return score >= this.threshold;
@@ -229,7 +226,7 @@ class ConfidenceScorer {
    * //   reason: 'Below threshold, manual review recommended'
    * // }
    */
-  assess(score, reason = '') {
+  assess(score, reason = "") {
     const confident = this.isConfident(score);
     const gap = this.threshold - score;
 
@@ -237,12 +234,13 @@ class ConfidenceScorer {
       score: Math.round(score),
       threshold: this.threshold,
       confident,
-      action: confident ? 'auto-apply' : 'review',
+      action: confident ? "auto-apply" : "review",
       gap: confident ? 0 : Math.round(gap),
-      reason: reason || (confident
-        ? `Score ${Math.round(score)} meets threshold of ${this.threshold}`
-        : `Score ${Math.round(score)} below threshold of ${this.threshold} by ${Math.round(gap)} points`
-      )
+      reason:
+        reason ||
+        (confident
+          ? `Score ${Math.round(score)} meets threshold of ${this.threshold}`
+          : `Score ${Math.round(score)} below threshold of ${this.threshold} by ${Math.round(gap)} points`),
     };
   }
 
@@ -256,7 +254,7 @@ class ConfidenceScorer {
   _scoreCanonical(label) {
     // In real implementation, check against canonical label set
     // For now, return high score if label contains a colon (has family)
-    if (label.includes(':')) {
+    if (label.includes(":")) {
       return 85; // Prefixed labels are more likely to be canonical
     }
     return 45; // Unprefixed labels are less likely to be canonical
@@ -271,8 +269,8 @@ class ConfidenceScorer {
    * @returns {number} Score 0-100
    */
   _scoreContext(label, context) {
-    const { issueTitle = '', issueBody = '', issueType = null } = context;
-    const text = (issueTitle + ' ' + issueBody).toLowerCase();
+    const { issueTitle = "", issueBody = "", issueType = null } = context;
+    const text = (issueTitle + " " + issueBody).toLowerCase();
     let score = 50; // Neutral base
 
     // Check if label family matches issue type
@@ -282,7 +280,7 @@ class ConfidenceScorer {
 
     // Check for keywords in issue text that suggest the label
     const keywords = this._getKeywordsForLabel(label);
-    const keywordMatches = keywords.filter(kw => text.includes(kw)).length;
+    const keywordMatches = keywords.filter((kw) => text.includes(kw)).length;
     if (keywords.length > 0) {
       score += (keywordMatches / keywords.length) * 20;
     }
@@ -299,11 +297,11 @@ class ConfidenceScorer {
    * @returns {number} Score 0-100
    */
   _scoreNoConflict(label, existingLabels = []) {
-    const labelFamily = label.split(':')[0];
+    const labelFamily = label.split(":")[0];
 
     // Check for same-family conflicts
-    const hasConflict = existingLabels.some(existing => {
-      const existingFamily = existing.split(':')[0];
+    const hasConflict = existingLabels.some((existing) => {
+      const existingFamily = existing.split(":")[0];
       return existingFamily === labelFamily && existing !== label;
     });
 
@@ -337,13 +335,13 @@ class ConfidenceScorer {
    */
   _getKeywordsForLabel(label) {
     const keywordMap = {
-      'type:bug': ['bug', 'broken', 'error', 'issue', 'crash', 'failed'],
-      'type:feature': ['feature', 'request', 'new', 'add', 'implement'],
-      'type:documentation': ['docs', 'documentation', 'readme', 'guide'],
-      'priority:critical': ['critical', 'urgent', 'blocking', 'severe'],
-      'area:security': ['security', 'vulnerability', 'exploit', 'vulnerable'],
-      'area:performance': ['slow', 'performance', 'speed', 'optimize'],
-      'status:blocked': ['blocked', 'waiting', 'dependency', 'stuck']
+      "type:bug": ["bug", "broken", "error", "issue", "crash", "failed"],
+      "type:feature": ["feature", "request", "new", "add", "implement"],
+      "type:documentation": ["docs", "documentation", "readme", "guide"],
+      "priority:critical": ["critical", "urgent", "blocking", "severe"],
+      "area:security": ["security", "vulnerability", "exploit", "vulnerable"],
+      "area:performance": ["slow", "performance", "speed", "optimize"],
+      "status:blocked": ["blocked", "waiting", "dependency", "stuck"],
     };
 
     return keywordMap[label] || [];
@@ -374,7 +372,7 @@ export function createScorer(options = {}) {
 export const confidenceScorer = {
   createScorer,
   ConfidenceScorer,
-  DEFAULT_THRESHOLD
+  DEFAULT_THRESHOLD,
 };
 
 export default confidenceScorer;

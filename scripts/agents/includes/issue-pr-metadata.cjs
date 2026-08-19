@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global console, process */
 /* eslint-disable no-console */
 
 const fs = require("fs");
@@ -152,8 +153,7 @@ function parseRelationshipHints(body) {
     blocksRefs: [...blocksRefs],
     blockedByRefs: [...blockedByRefs],
     securityRefs: [...securityRefs],
-    hasBidirectionalBlocking:
-      blocksRefs.size > 0 || blockedByRefs.size > 0,
+    hasBidirectionalBlocking: blocksRefs.size > 0 || blockedByRefs.size > 0,
   };
 }
 

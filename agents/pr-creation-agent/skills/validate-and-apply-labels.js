@@ -17,7 +17,7 @@ export async function validateAndApplyLabels(input) {
     templateFile,
     templateMetadata,
     _prContext = {},
-    _config = {},
+    config = {},
   } = input;
 
   if (!branchType || typeof branchType !== "string") {

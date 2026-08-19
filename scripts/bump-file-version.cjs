@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global console, process */
 
 /**
  * Bump File Version Script
@@ -11,9 +12,9 @@
  * @version 1.0.0
  */
 
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+const fs = require("fs");
+const path = require("path");
+const yaml = require("js-yaml");
 
 /**
  * Parse a semantic version string into components
@@ -21,14 +22,16 @@ const yaml = require('js-yaml');
  * @returns {{major: number, minor: number, patch: number, raw: string}}
  */
 function parseVersion(version) {
-  const cleaned = version.replace(/^v/, '');
-  const parts = cleaned.split('.');
+  const cleaned = version.replace(/^v/, "");
+  const parts = cleaned.split(".");
 
   if (parts.length !== 3) {
-    throw new Error(`Invalid version format: ${version}. Expected format: x.y.z`);
+    throw new Error(
+      `Invalid version format: ${version}. Expected format: x.y.z`,
+    );
   }
 
-  const [major, minor, patch] = parts.map(p => {
+  const [major, minor, patch] = parts.map((p) => {
     const num = parseInt(p, 10);
     if (isNaN(num)) {
       throw new Error(`Invalid version component in ${version}: ${p}`);
@@ -58,7 +61,7 @@ function extractFrontmatter(content) {
   const match = content.match(yamlFrontmatterRegex);
 
   if (!match) {
-    return { frontmatter: null, content, raw: '' };
+    return { frontmatter: null, content, raw: "" };
   }
 
   try {
@@ -66,10 +69,12 @@ function extractFrontmatter(content) {
     return {
       frontmatter,
       content: match[2],
-      raw: match[1]
+      raw: match[1],
     };
   } catch (error) {
-    throw new Error(`Failed to parse YAML frontmatter: ${error.message}`);
+    throw new Error(`Failed to parse YAML frontmatter: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -79,7 +84,7 @@ function extractFrontmatter(content) {
  * @param {string} newVersion - New version string
  */
 function updateFileVersion(filePath, newVersion) {
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = fs.readFileSync(filePath, "utf8");
   const { frontmatter, content: bodyContent } = extractFrontmatter(content);
 
   if (!frontmatter) {
@@ -90,18 +95,18 @@ function updateFileVersion(filePath, newVersion) {
   frontmatter.version = newVersion;
 
   // Update last_updated to today's date
-  frontmatter.last_updated = new Date().toISOString().split('T')[0];
+  frontmatter.last_updated = new Date().toISOString().split("T")[0];
 
   // Reconstruct file
   const newFrontmatter = yaml.dump(frontmatter, {
     lineWidth: -1,
     noRefs: true,
     quotingType: '"',
-    forceQuotes: false
+    forceQuotes: false,
   });
 
   const newContent = `---\n${newFrontmatter}---\n${bodyContent}`;
-  fs.writeFileSync(filePath, newContent, 'utf8');
+  fs.writeFileSync(filePath, newContent, "utf8");
 }
 
 /**
@@ -121,7 +126,7 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
   const repoMinor = `${repoVer.major}.${repoVer.minor}`;
 
   // Read current file version
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = fs.readFileSync(filePath, "utf8");
   const { frontmatter } = extractFrontmatter(content);
 
   if (!frontmatter) {
@@ -134,25 +139,27 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
 
   // Calculate new version
   let newVer;
-  if (bumpType === 'patch') {
+  if (bumpType === "patch") {
     newVer = {
       major: currentVer.major,
       minor: currentVer.minor,
-      patch: currentVer.patch + 1
+      patch: currentVer.patch + 1,
     };
-  } else if (bumpType === 'minor') {
+  } else if (bumpType === "minor") {
     newVer = {
       major: currentVer.major,
       minor: currentVer.minor + 1,
-      patch: 0
+      patch: 0,
     };
   } else {
-    throw new Error(`Invalid bump type: ${bumpType}. Expected 'patch' or 'minor'`);
+    throw new Error(
+      `Invalid bump type: ${bumpType}. Expected 'patch' or 'minor'`,
+    );
   }
 
   // Guardrail: file minor must not exceed repo minor
   const newMinor = { major: newVer.major, minor: newVer.minor };
-  const [repoMajorStr, repoMinorStr] = repoMinor.split('.');
+  const [repoMajorStr, repoMinorStr] = repoMinor.split(".");
   const repoMajor = parseInt(repoMajorStr, 10);
   const repoMinorNum = parseInt(repoMinorStr, 10);
   if (
@@ -161,8 +168,8 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
   ) {
     throw new Error(
       `Refusing to bump ${filePath} to ${formatVersion(newVer)}; ` +
-      `file minor (${newMinor.major}.${newMinor.minor}) would exceed repository minor (${repoMinor}). ` +
-      `Please update the repository version first.`
+        `file minor (${newMinor.major}.${newMinor.minor}) would exceed repository minor (${repoMinor}). ` +
+        `Please update the repository version first.`,
     );
   }
 
@@ -170,12 +177,14 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
   const newVersionString = formatVersion(newVer);
   updateFileVersion(filePath, newVersionString);
 
-  console.log(`✓ ${path.relative(process.cwd(), filePath)}: ${currentVersion} → ${newVersionString}`);
+  console.log(
+    `✓ ${path.relative(process.cwd(), filePath)}: ${currentVersion} → ${newVersionString}`,
+  );
 
   return {
     filePath,
     oldVersion: currentVersion,
-    newVersion: newVersionString
+    newVersion: newVersionString,
   };
 }
 
@@ -184,20 +193,20 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
  * @returns {string}
  */
 function loadRepoVersion() {
-  const versionFile = path.join(process.cwd(), 'VERSION');
+  const versionFile = path.join(process.cwd(), "VERSION");
 
   if (!fs.existsSync(versionFile)) {
-    throw new Error('VERSION file not found in repository root');
+    throw new Error("VERSION file not found in repository root");
   }
 
-  return fs.readFileSync(versionFile, 'utf8').trim();
+  return fs.readFileSync(versionFile, "utf8").trim();
 }
 
 // CLI Interface
 if (require.main === module) {
   const args = process.argv.slice(2);
 
-  if (args.includes('--help') || args.includes('-h') || args.length === 0) {
+  if (args.includes("--help") || args.includes("-h") || args.length === 0) {
     console.log(`
 Bump File Version Script
 
@@ -237,13 +246,13 @@ Guardrails:
     console.log(`Repository version: ${repoVersion}\n`);
 
     // Check for bulk mode
-    if (args[0] === '--bulk') {
-      const glob = require('glob');
+    if (args[0] === "--bulk") {
+      const glob = require("glob");
       const pattern = args[1];
-      const bumpType = args[2] || 'patch';
+      const bumpType = args[2] || "patch";
 
       if (!pattern) {
-        throw new Error('--bulk requires a glob pattern');
+        throw new Error("--bulk requires a glob pattern");
       }
 
       const files = glob.sync(pattern, { nodir: true });
@@ -258,7 +267,7 @@ Guardrails:
       let succeeded = 0;
       let failed = 0;
 
-      files.forEach(file => {
+      files.forEach((file) => {
         try {
           bumpFileVersion(file, bumpType, repoVersion);
           succeeded++;
@@ -270,16 +279,14 @@ Guardrails:
 
       console.log(`\nCompleted: ${succeeded} succeeded, ${failed} failed`);
       process.exit(failed > 0 ? 1 : 0);
-
     } else {
       // Single file mode
       const filePath = args[0];
-      const bumpType = args[1] || 'patch';
+      const bumpType = args[1] || "patch";
 
       bumpFileVersion(filePath, bumpType, repoVersion);
       process.exit(0);
     }
-
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
@@ -292,5 +299,5 @@ module.exports = {
   formatVersion,
   extractFrontmatter,
   updateFileVersion,
-  loadRepoVersion
+  loadRepoVersion,
 };

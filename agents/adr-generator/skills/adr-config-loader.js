@@ -164,7 +164,7 @@ function loadConfig(searchPath = process.cwd(), options = {}) {
   const { orgConfigPath = null, strict = false, debug = false } = options;
 
   let orgConfig = null;
-  let repoConfig = null;
+  let repoConfig;
 
   if (orgConfigPath && fs.existsSync(orgConfigPath)) {
     try {

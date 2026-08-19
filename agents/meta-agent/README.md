@@ -16,9 +16,11 @@ This directory contains the implementation of Meta Agent v2.0 Phase 2B: five cor
 ## Skills Overview
 
 ### Skill 1: Repo Type Detection ✓
+
 **File:** `skills/repo-type-detection.js`
 
 Automatically detects the repository type based on filesystem markers:
+
 - **block-plugin:** `block.json` or PHP files with `Block Name` header
 - **block-theme:** `theme.json` + `style.css` with `Text Domain` header
 - **control-plane:** `.github/agents` directory structure
@@ -31,9 +33,11 @@ node index.js repo-type-detection
 ```
 
 ### Skill 2: Frontmatter Validation ✓
+
 **File:** `skills/frontmatter-validation.js`
 
 Validates markdown frontmatter against JSON schemas and detects issues:
+
 - Required field validation
 - YAML parsing and error reporting
 - Frontmatter extraction for further processing
@@ -44,9 +48,11 @@ node index.js frontmatter-validation --filePath README.md --schemaPath schemas/b
 ```
 
 ### Skill 3: Metadata Extraction ✓
+
 **File:** `skills/metadata-extraction.js`
 
 Extracts and catalogues metadata from repository files:
+
 - Parses `block.json`, `theme.json`, `package.json`, `composer.json`
 - Identifies available metadata markers
 - Returns structured metadata for downstream processing
@@ -57,9 +63,11 @@ node index.js metadata-extraction --repoType block-plugin
 ```
 
 ### Skill 4: Apply Standards ✓✓
+
 **File:** `skills/apply-standards.js`
 
 Applies LightSpeedWP standards to markdown files:
+
 - **UK English corrections** (optimise, organisation, behaviour, colour, etc.)
 - **Frontmatter enrichment** (status, last_updated, language, author)
 - **Footer block generation** (repo-type-specific metadata footer)
@@ -67,7 +75,9 @@ Applies LightSpeedWP standards to markdown files:
 - **Dry-run mode** for preview before applying changes
 
 #### UK English Corrections
+
 Maps common US spellings to UK equivalents with case preservation:
+
 - `optimized` → `optimised`
 - `organize` → `organise`
 - `color` → `colour`
@@ -75,16 +85,20 @@ Maps common US spellings to UK equivalents with case preservation:
 - `normalize` → `normalise`
 
 #### Frontmatter Enhancement
+
 Adds missing required fields:
+
 - `status` (default: `active`)
 - `last_updated` (current date)
 - `language` (default: `en`)
 - Preserves intentional blank fields
 
 #### Footer Blocks
+
 Generates repo-type-specific footer sections:
 
 **Block Plugin:**
+
 ```
 ---
 **Status:** active
@@ -94,6 +108,7 @@ Generates repo-type-specific footer sections:
 ```
 
 **Control-Plane:**
+
 ```
 ---
 **Maintainer:** LightSpeed Team
@@ -102,6 +117,7 @@ Generates repo-type-specific footer sections:
 ```
 
 #### Usage
+
 ```bash
 # Dry-run preview
 node index.js apply-standards --filePath README.md --repoType block-plugin --dryRun
@@ -114,6 +130,7 @@ node index.js apply-standards --filePath README.md --json
 ```
 
 #### CLI Output
+
 ```
 ✓ Applied standards to README.md
   - Applied UK English corrections
@@ -125,6 +142,7 @@ node index.js apply-standards --filePath README.md --json
 ```
 
 ### Skill 5: Generate Badges ✓✓
+
 **File:** `skills/generate-badges.js`
 
 Creates repository-specific badge blocks with metadata from package.json and composer.json:
@@ -132,23 +150,27 @@ Creates repository-specific badge blocks with metadata from package.json and com
 #### Badges by Repo Type
 
 **Block Plugin:**
+
 - CI Status badge
 - License badge (from package.json or composer.json)
 - Version badge
 - Links to GitHub Actions workflow
 
 **Block Theme:**
+
 - CI Status badge
 - License badge
 - Version badge
 - Theme-specific metadata
 
 **Control-Plane:**
+
 - Governance status badge
 - Maintainer badge
 - Active status indicator
 
 #### Features
+
 - Auto-detects metadata from `package.json` and `composer.json`
 - Generates markdown-formatted badge blocks
 - Injects badges at configurable positions (top, after-frontmatter)
@@ -156,6 +178,7 @@ Creates repository-specific badge blocks with metadata from package.json and com
 - Preserves existing content
 
 #### Usage
+
 ```bash
 # Generate badges
 node index.js generate-badges --repoType block-plugin
@@ -168,6 +191,7 @@ node index.js generate-badges --repoType block-theme --json
 ```
 
 #### Output Format
+
 ```markdown
 ## Badges
 
@@ -181,6 +205,7 @@ CI Status: ![CI](https://github.com/lightspeedwp/.github/workflows/ci.yml/badge.
 ## Test Coverage
 
 ### Unit Tests (70+ tests, >85% coverage)
+
 - `__tests__/unit/repo-type-detection.test.js` — 10+ tests
 - `__tests__/unit/frontmatter-validation.test.js` — 12+ tests
 - `__tests__/unit/metadata-extraction.test.js` — 14+ tests
@@ -188,6 +213,7 @@ CI Status: ![CI](https://github.com/lightspeedwp/.github/workflows/ci.yml/badge.
 - `__tests__/unit/generate-badges.test.js` — 20+ tests
 
 ### Integration Tests (8+ tests)
+
 - `__tests__/integration/full-workflow.test.js`
   - Block Plugin Workflow (4 tests)
   - Control-Plane Workflow (3 tests)
@@ -196,6 +222,7 @@ CI Status: ![CI](https://github.com/lightspeedwp/.github/workflows/ci.yml/badge.
   - Error Handling & Edge Cases (3 tests)
 
 ### Running Tests
+
 ```bash
 # All tests
 npm test -- agents/meta-agent
@@ -241,12 +268,14 @@ agents/meta-agent/
 ## Usage Example: Complete Workflow
 
 ### 1. Detect Repo Type
+
 ```bash
 $ node index.js repo-type-detection
 Detected repo type: block-plugin
 ```
 
 ### 2. Extract Metadata
+
 ```bash
 $ node index.js metadata-extraction --repoType block-plugin
 {
@@ -260,12 +289,14 @@ $ node index.js metadata-extraction --repoType block-plugin
 ```
 
 ### 3. Validate Files
+
 ```bash
 $ node index.js frontmatter-validation --filePath README.md --schemaPath schemas/block-plugin.frontmatter.schema.json
 ✓ Valid frontmatter: README.md
 ```
 
 ### 4. Apply Standards (Dry-Run)
+
 ```bash
 $ node index.js apply-standards --filePath README.md --repoType block-plugin --dryRun
 ✓ Applied standards to README.md
@@ -278,6 +309,7 @@ $ node index.js apply-standards --filePath README.md --repoType block-plugin --d
 ```
 
 ### 5. Generate Badges
+
 ```bash
 $ node index.js generate-badges --repoType block-plugin --filePath README.md --injectTo after-frontmatter
 ✓ Injected badges into README.md
@@ -286,6 +318,7 @@ $ node index.js generate-badges --repoType block-plugin --filePath README.md --i
 ## Implementation Quality
 
 ✅ **Code Quality**
+
 - ESLint passing (follows LightSpeedWP standards)
 - UK English throughout
 - Comprehensive error handling
@@ -293,18 +326,21 @@ $ node index.js generate-badges --repoType block-plugin --filePath README.md --i
 - No external dependencies (fs, path, js-yaml only)
 
 ✅ **Testing**
+
 - 70+ unit tests with >85% code coverage
 - 8+ integration tests covering real workflows
 - Edge cases and error scenarios covered
 - Fixtures for reproducible testing
 
 ✅ **Documentation**
+
 - This README with full API documentation
 - CLI help system (`--help` flag)
 - JSDoc comments on all public functions
 - Usage examples for each skill
 
 ✅ **Performance**
+
 - Efficient file I/O with minimal re-reads
 - Streaming-capable for large repositories
 - No blocking operations
@@ -342,6 +378,7 @@ $ node index.js generate-badges --repoType block-plugin --filePath README.md --i
 ---
 
 For questions or issues, refer to the related GitHub issues:
+
 - Issue #1872: Phase 2B Skills Implementation
 - Issue #1873: Phase 2C Integration & Testing
 - Issue #1731: Meta Agent v2.0 Master Epic

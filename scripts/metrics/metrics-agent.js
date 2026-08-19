@@ -180,12 +180,12 @@ class GitHubAPIClient {
     }
 
     try {
-      const url = new URL(`${this.baseUrl}${endpoint}`);
+      const url = new globalThis.URL(`${this.baseUrl}${endpoint}`);
       Object.keys(params).forEach((key) => {
         url.searchParams.append(key, params[key]);
       });
 
-      const response = await fetch(url.toString(), {
+      const response = await globalThis.fetch(url.toString(), {
         method: "GET",
         headers: this.headers,
       });
@@ -221,7 +221,9 @@ class GitHubAPIClient {
 
       return data;
     } catch (error) {
-      throw new Error(`Failed to query GitHub API: ${error.message}`);
+      throw new Error(`Failed to query GitHub API: ${error.message}`, {
+        cause: error,
+      });
     }
   }
 

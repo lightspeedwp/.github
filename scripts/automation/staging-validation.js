@@ -65,12 +65,16 @@ async function validateAuditAccuracy(options = {}) {
     // TODO: Call label-orchestrator audit with --output flag
     // For now, log what would happen
     console.log(`   ✓ Audit running on ${count} staging issues`);
-    console.log(`   → Output: ./.github/reports/staging-audit-${Date.now()}.json`);
+    console.log(
+      `   → Output: ./.github/reports/staging-audit-${Date.now()}.json`,
+    );
 
     console.log(`\n2️⃣  Sampling ${sampleSize} issues for manual validation...`);
     // TODO: Extract sample and prepare for manual review
     console.log(`   ✓ Sample prepared: 30 representative issues selected`);
-    console.log(`   → Sample file: ./.github/reports/audit-sample-${Date.now()}.json`);
+    console.log(
+      `   → Sample file: ./.github/reports/audit-sample-${Date.now()}.json`,
+    );
 
     console.log(`\n3️⃣  Calculating accuracy metrics...`);
     // TODO: Compare manual validation against automated results

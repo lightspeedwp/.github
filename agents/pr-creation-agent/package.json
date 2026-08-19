@@ -1,5 +1,5 @@
 {
-  "name": "pr-creation-agent",
+  "name": "@lightspeedwp/pr-creation-agent",
   "version": "1.0.0",
   "description": "Portable PR creation agent with configuration-driven workflows",
   "type": "module",
@@ -23,7 +23,12 @@
     "automation"
   ],
   "author": "LightSpeedWP",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "agents/pr-creation-agent"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.23.0",
     "@jest/globals": "^30.4.1",

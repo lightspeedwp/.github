@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedBranch = (() => {
     try {
       return localStorage.getItem(BRANCH_KEY) || "main";
-    } catch (e) {
+    } catch (_e) {
       return "main";
     }
   })();
@@ -133,7 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       try {
         localStorage.setItem(BRANCH_KEY, b);
-      } catch (e) {}
+      } catch (_e) {
+        // Ignore storage failures in private/locked contexts.
+      }
       branchBtns.forEach((x) =>
         x.setAttribute(
           "aria-pressed",

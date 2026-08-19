@@ -40,7 +40,7 @@ const mode = args.includes("--auto")
     : "dry-run";
 
 const limitArg = parseInt(
-  args.find((arg) => arg.startsWith("--limit="))?.split("=")[1] || "999999"
+  args.find((arg) => arg.startsWith("--limit="))?.split("=")[1] || "999999",
 );
 const verbose = args.includes("--verbose");
 
@@ -58,7 +58,7 @@ function determinePRStatus(pr, reviews) {
 
   const approvalCount = reviews.filter((r) => r.state === "APPROVED").length;
   const changeRequestCount = reviews.filter(
-    (r) => r.state === "CHANGES_REQUESTED"
+    (r) => r.state === "CHANGES_REQUESTED",
   ).length;
 
   if (changeRequestCount > 0) {
@@ -140,7 +140,7 @@ async function processPR(pr, index, total) {
 
   // Determine what to remove and add
   const labelsToRemove = labels.filter(
-    (l) => l.startsWith("status:") && l !== nextStatusLabel
+    (l) => l.startsWith("status:") && l !== nextStatusLabel,
   );
   const labelsToAdd = !labels.includes(nextStatusLabel)
     ? [nextStatusLabel]
@@ -290,9 +290,14 @@ async function main() {
 
         if (mode === "dry-run") {
           summary.preview.push(update);
-          console.log(`${progress} PREVIEW: #${update.number} → ${update.nextStatusLabel}`);
+          console.log(
+            `${progress} PREVIEW: #${update.number} → ${update.nextStatusLabel}`,
+          );
         } else if (mode === "auto") {
-          if (update.labelsToAdd.length > 0 || update.labelsToRemove.length > 0) {
+          if (
+            update.labelsToAdd.length > 0 ||
+            update.labelsToRemove.length > 0
+          ) {
             const result = await applyPRUpdate(pr, update);
             if (result.status === "updated") {
               summary.updated++;
@@ -321,7 +326,9 @@ async function main() {
     console.log(`   Total errors:     ${summary.errors}`);
 
     if (mode === "dry-run" && summary.preview.length > 0) {
-      console.log(`\n🔍 Preview Mode: ${summary.preview.length} PRs ready for update`);
+      console.log(
+        `\n🔍 Preview Mode: ${summary.preview.length} PRs ready for update`,
+      );
       console.log(`\nRun with --auto to apply changes`);
     }
 

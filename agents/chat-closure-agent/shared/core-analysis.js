@@ -85,7 +85,12 @@ function getRecentCommits(repoPath = ".", count = 20) {
 
     return commits;
   } catch (error) {
-    throw new Error(`Failed to get commits from ${repoPath}: ${error.message}`);
+    throw new Error(
+      `Failed to get commits from ${repoPath}: ${error.message}`,
+      {
+        cause: error,
+      },
+    );
   }
 }
 
@@ -173,7 +178,9 @@ function analyzeGitState(repoPath = ".") {
       hasChanges: lines.length > 0,
     };
   } catch (error) {
-    throw new Error(`Failed to analyze git state: ${error.message}`);
+    throw new Error(`Failed to analyze git state: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -186,7 +193,9 @@ function getCurrentBranch(repoPath = ".") {
       encoding: "utf8",
     }).trim();
   } catch (error) {
-    throw new Error(`Failed to get current branch: ${error.message}`);
+    throw new Error(`Failed to get current branch: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 

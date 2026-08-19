@@ -1,5 +1,5 @@
 {
-  "name": "@agents/wordpress",
+  "name": "@lightspeedwp/wordpress",
   "version": "1.0.0",
   "description": "WordPress plugin and theme versioning utilities for multi-repo release automation",
   "main": "wordpress.agent.js",
@@ -24,7 +24,7 @@
     "automation"
   ],
   "author": "LightSpeed Organistion",
-  "license": "GPL-2.0+",
+  "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "https://github.com/lightspeedwp/.github.git",

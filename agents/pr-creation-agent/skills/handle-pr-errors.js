@@ -145,9 +145,9 @@ function determineSeverity(category, _error) {
  */
 function getRecoveryOptions(category, error, context, history) {
   const options = [];
-  let recommended = null;
-  let nextSteps = [];
-  let retryable = false;
+  let recommended;
+  let nextSteps;
+  let retryable;
 
   switch (category) {
     case "INPUT_VALIDATION":
