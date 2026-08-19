@@ -296,7 +296,7 @@ if (!context.branchValidation.valid) {
 agents/pr-creation-agent/
 ├── skills/
 │   └── validate-branch-name.js            ✅ Created (104 LOC)
-├── __tests__/
+├── __tests__/unit/
 │   └── validate-branch-name.test.js       ✅ Created (446 LOC, 39 tests)
 ├── package.json                           ✅ Created
 └── jest.config.js                         ✅ Created
@@ -309,7 +309,7 @@ agents/pr-creation-agent/
 ```bash
 $ npm run test:validate-branch-name
 
-PASS __tests__/validate-branch-name.test.js
+PASS __tests__/unit/validate-branch-name.test.js
   Skill: validate-branch-name
     Valid branch names (8 passing)
     Invalid format (8 passing)

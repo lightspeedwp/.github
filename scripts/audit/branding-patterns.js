@@ -13,7 +13,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const REPO_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(__dirname, "..", "..");
 const MD_FILES_PATTERN = "**/*.md";
 
 // Note: These constants are used for reference/documentation purposes.

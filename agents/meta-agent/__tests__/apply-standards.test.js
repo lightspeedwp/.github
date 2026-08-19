@@ -5,7 +5,7 @@ const {
   applyStandards,
   applyUkEnglish,
   generateFooter,
-} = require("../../skills/apply-standards");
+} = require("../skills/apply-standards");
 
 describe("apply-standards skill", () => {
   let tempDir;

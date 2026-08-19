@@ -5,7 +5,7 @@
  * Scans all .md files and analyzes frontmatter references
  * Detects circular references and generates recommendations
  *
- * Usage: node scripts/audit-frontmatter.js
+ * Usage: node scripts/audit/frontmatter.js
  * Output: .githu./.github/reports/audits/frontmatter/audit-frontmatter-report.csv
  *
  * @author LightSpeedWP
@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configuration
-const REPO_ROOT = path.resolve(__dirname, "..");
+const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const TARGET_DIRS = [
   path.join(REPO_ROOT, ".github"),
   path.join(REPO_ROOT, "docs"),

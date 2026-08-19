@@ -740,7 +740,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Wave 4C: Current-State Audit & Remediation Plan** — Completed comprehensive audit of 932 markdown files with detailed remediation strategy:
 
-  - `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+  - `scripts/audit/branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
 
   - Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
 
@@ -988,7 +988,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Mermaid diagrams with WCAG 2.2 AA accessibility attributes (`accTitle`, `accDescr`)
 - Removed prohibited `references` fields from README files per CLAUDE.md governance rules
 - Closes Issue [#19](https://github.com/lightspeedwp/.github/issues/19) ([#552](https://github.com/lightspeedwp/.github/pull/552))
-- `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+- `scripts/audit/branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
 - Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
 - `.githu./.github/reports/wave-4c-audit-report.md`: Current-state findings with category-specific breakdown and recommendations
 - `.githu./.github/reports/wave-4c-remediation-plan.md`: Phased remediation roadmap (Phase 1-3 over 9-12 hours, Waves 4D-4F)

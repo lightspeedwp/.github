@@ -206,11 +206,11 @@ CI Status: ![CI](https://github.com/lightspeedwp/.github/workflows/ci.yml/badge.
 
 ### Unit Tests (70+ tests, >85% coverage)
 
-- `__tests__/unit/repo-type-detection.test.js` — 10+ tests
-- `__tests__/unit/frontmatter-validation.test.js` — 12+ tests
-- `__tests__/unit/metadata-extraction.test.js` — 14+ tests
-- `__tests__/unit/apply-standards.test.js` — 18+ tests
-- `__tests__/unit/generate-badges.test.js` — 20+ tests
+- `__tests__/repo-type-detection.test.js` — 10+ tests
+- `__tests__/frontmatter-validation.test.js` — 12+ tests
+- `__tests__/metadata-extraction.test.js` — 14+ tests
+- `__tests__/apply-standards.test.js` — 18+ tests
+- `__tests__/generate-badges.test.js` — 20+ tests
 
 ### Integration Tests (8+ tests)
 
@@ -370,9 +370,9 @@ $ node index.js generate-badges --repoType block-plugin --filePath README.md --i
 
 ## Maintenance
 
-**Maintainer:** Ash Shaw (@ashshaw)  
-**Last Updated:** 2026-08-18  
-**Status:** Active  
+**Maintainer:** Ash Shaw (@ashshaw)
+**Last Updated:** 2026-08-18
+**Status:** Active
 **License:** GPL-2.0-or-later
 
 ---

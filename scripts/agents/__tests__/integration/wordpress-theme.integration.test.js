@@ -5,7 +5,7 @@
 
 const {
   detectRepositoryType,
-} = require("../../../../scripts/agents/linting.agent");
+} = require("../../linting.agent");
 const path = require("path");
 const fs = require("fs");
 const os = require("os");

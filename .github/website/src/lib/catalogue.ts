@@ -673,8 +673,8 @@ const SCRIPTS_ITEMS: CatalogueItem[] = [
     "Validates instruction, prompt, and agent frontmatter against the canonical schema.",
     {
       type: "script",
-      path: "scripts/audit-frontmatter.js",
-      run: "node scripts/audit-frontmatter.js",
+      path: "scripts/audit/frontmatter.js",
+      run: "node scripts/audit/frontmatter.js",
       validates: "frontmatter",
       tags: ["validation", "frontmatter"],
     },
@@ -711,8 +711,8 @@ const SCRIPTS_ITEMS: CatalogueItem[] = [
     "Audits assets and patterns for brand conformance and reports gaps.",
     {
       type: "script",
-      path: "scripts/audit-branding-patterns.js",
-      run: "node scripts/audit-branding-patterns.js",
+      path: "scripts/audit/branding-patterns.js",
+      run: "node scripts/audit/branding-patterns.js",
       validates: "branding",
       tags: ["audit", "branding"],
     },
