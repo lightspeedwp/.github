@@ -6,9 +6,6 @@
  * and formats metrics appropriately for each.
  */
 
-const fs = require('fs');
-const path = require('path');
-
 class MetricsReportFormatter {
   constructor(options = {}) {
     this.metricsDir = options.metricsDir || '.github/reports/metrics';
