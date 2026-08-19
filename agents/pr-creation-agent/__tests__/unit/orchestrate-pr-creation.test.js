@@ -330,9 +330,7 @@ describe("orchestratePrCreation", () => {
 
       expect(result.valid).toBe(true);
       expect(result.warnings).toBeDefined();
-      expect(
-        result.warnings.some((w) => w.includes("incomplete"))
-      ).toBe(true);
+      expect(result.warnings.some((w) => w.includes("incomplete"))).toBe(true);
     });
 
     test("should warn about missing labels", async () => {

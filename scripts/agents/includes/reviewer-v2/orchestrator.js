@@ -123,7 +123,9 @@ class Orchestrator {
     const promises = tools.map(async (toolName) => {
       try {
         // Use callTool to get retry logic for transient failures
-        const requestId = await toolRegistry.callTool(toolName, "trigger", [prContext]);
+        const requestId = await toolRegistry.callTool(toolName, "trigger", [
+          prContext,
+        ]);
         requests[toolName] = requestId;
       } catch (error) {
         console.error(`Failed to trigger tool ${toolName}:`, error.message);
@@ -145,7 +147,12 @@ class Orchestrator {
    * @param {number} maxWaitMs - Maximum wait time
    * @returns {Promise<Object|null>} - Results or null on timeout
    */
-  async _pollTool(toolName, requestId, prContext, maxWaitMs = this.reviewTimeout) {
+  async _pollTool(
+    toolName,
+    requestId,
+    prContext,
+    maxWaitMs = this.reviewTimeout,
+  ) {
     const tool = toolRegistry.getTool(toolName);
     if (!tool) return null;
 

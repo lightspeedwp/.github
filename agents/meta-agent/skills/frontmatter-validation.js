@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Validates frontmatter of a markdown file against a schema.
@@ -17,20 +17,20 @@ function validateFrontmatter(filePath, schema) {
     };
   }
 
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = fs.readFileSync(filePath, "utf8");
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
 
   if (!frontmatterMatch) {
     return {
       valid: false,
-      errors: ['No frontmatter found'],
+      errors: ["No frontmatter found"],
       warnings: [],
       frontmatter: null,
     };
   }
 
   try {
-    const yaml = require('js-yaml');
+    const yaml = require("js-yaml");
     const frontmatter = yaml.load(frontmatterMatch[1]) || {};
 
     const errors = [];
@@ -68,10 +68,12 @@ async function run(options = {}) {
   const { filePath, schemaPath } = options;
 
   if (!filePath) {
-    throw new Error('filePath is required');
+    throw new Error("filePath is required");
   }
 
-  const schema = schemaPath ? JSON.parse(fs.readFileSync(schemaPath, 'utf8')) : {};
+  const schema = schemaPath
+    ? JSON.parse(fs.readFileSync(schemaPath, "utf8"))
+    : {};
   const result = validateFrontmatter(filePath, schema);
 
   if (options.json) {
@@ -81,7 +83,7 @@ async function run(options = {}) {
       console.log(`✓ Valid frontmatter: ${filePath}`);
     } else {
       console.log(`✗ Invalid frontmatter: ${filePath}`);
-      result.errors.forEach(err => console.log(`  - ${err}`));
+      result.errors.forEach((err) => console.log(`  - ${err}`));
     }
   }
 

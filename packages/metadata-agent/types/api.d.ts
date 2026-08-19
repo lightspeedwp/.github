@@ -11,7 +11,7 @@ export interface UserInfo {
   login: string;
   name: string;
   email: string;
-  type: 'User' | 'Organization';
+  type: "User" | "Organization";
 }
 
 /**
@@ -30,7 +30,7 @@ export interface Repository {
 export interface IssueRef {
   number: number;
   title: string;
-  state: 'open' | 'closed';
+  state: "open" | "closed";
   labels: string[];
   url: string;
   isPR?: boolean;

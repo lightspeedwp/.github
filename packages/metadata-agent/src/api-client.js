@@ -10,16 +10,16 @@
  * @module api-client
  */
 
-import { Octokit } from '@octokit/rest';
-import pino from 'pino';
+import { Octokit } from "@octokit/rest";
+import pino from "pino";
 
 /**
  * Logger instance for API client operations
  * @type {pino.Logger}
  */
 const logger = pino({
-  name: 'metadata-agent:api-client',
-  level: process.env.LOG_LEVEL || 'info'
+  name: "metadata-agent:api-client",
+  level: process.env.LOG_LEVEL || "info",
 });
 
 /**
@@ -56,18 +56,20 @@ class GitHubAPIClient {
   constructor(options = {}) {
     const {
       token,
-      baseUrl = 'https://api.github.com',
+      baseUrl = "https://api.github.com",
       maxRetries = DEFAULT_MAX_RETRIES,
-      rateLimitWait = DEFAULT_RATE_LIMIT_WAIT
+      rateLimitWait = DEFAULT_RATE_LIMIT_WAIT,
     } = options;
 
     if (!token) {
-      throw new Error('GitHub API token is required. Set GITHUB_TOKEN env var or pass token option.');
+      throw new Error(
+        "GitHub API token is required. Set GITHUB_TOKEN env var or pass token option.",
+      );
     }
 
     this.octokit = new Octokit({
       auth: token,
-      baseUrl
+      baseUrl,
     });
 
     this.maxRetries = maxRetries;
@@ -75,7 +77,7 @@ class GitHubAPIClient {
     this.rateLimitRemaining = null;
     this.rateLimitReset = null;
 
-    logger.info({ baseUrl }, 'GitHub API client initialized');
+    logger.info({ baseUrl }, "GitHub API client initialized");
   }
 
   /**
@@ -93,15 +95,15 @@ class GitHubAPIClient {
   async authenticate() {
     try {
       const { data } = await this.octokit.users.getAuthenticated();
-      logger.info({ user: data.login }, 'Authentication successful');
+      logger.info({ user: data.login }, "Authentication successful");
       return {
         login: data.login,
         name: data.name,
         email: data.email,
-        type: data.type
+        type: data.type,
       };
     } catch (error) {
-      logger.error({ error: error.message }, 'Authentication failed');
+      logger.error({ error: error.message }, "Authentication failed");
       throw new Error(`GitHub authentication failed: ${error.message}`);
     }
   }
@@ -132,14 +134,14 @@ class GitHubAPIClient {
     const {
       owner,
       repo,
-      state = 'open',
+      state = "open",
       labels = [],
       per_page = 30,
-      page = 1
+      page = 1,
     } = options;
 
     if (!owner || !repo) {
-      throw new Error('owner and repo are required');
+      throw new Error("owner and repo are required");
     }
 
     try {
@@ -147,25 +149,28 @@ class GitHubAPIClient {
         owner,
         repo,
         state,
-        labels: labels.join(','),
+        labels: labels.join(","),
         per_page,
-        page
+        page,
       });
 
-      logger.info({ owner, repo, count: data.length }, 'Fetched issues');
-      return data.map(issue => ({
+      logger.info({ owner, repo, count: data.length }, "Fetched issues");
+      return data.map((issue) => ({
         number: issue.number,
         title: issue.title,
         state: issue.state,
-        labels: issue.labels.map(l => l.name),
+        labels: issue.labels.map((l) => l.name),
         url: issue.html_url,
         created_at: issue.created_at,
         updated_at: issue.updated_at,
         milestone: issue.milestone ? issue.milestone.title : null,
-        isPR: !!issue.pull_request
+        isPR: !!issue.pull_request,
       }));
     } catch (error) {
-      logger.error({ error: error.message, owner, repo }, 'Failed to fetch issues');
+      logger.error(
+        { error: error.message, owner, repo },
+        "Failed to fetch issues",
+      );
       throw new Error(`Failed to fetch issues: ${error.message}`);
     }
   }
@@ -194,7 +199,7 @@ class GitHubAPIClient {
     const { owner, repo, issue_number, labels } = options;
 
     if (!owner || !repo || !issue_number || !labels) {
-      throw new Error('owner, repo, issue_number, and labels are required');
+      throw new Error("owner, repo, issue_number, and labels are required");
     }
 
     try {
@@ -202,24 +207,24 @@ class GitHubAPIClient {
         owner,
         repo,
         issue_number,
-        labels
+        labels,
       });
 
       logger.info(
         { owner, repo, issue_number, count: labels.length },
-        'Applied labels'
+        "Applied labels",
       );
 
       return {
         success: true,
         issue_number,
-        labels: data.map(l => l.name),
-        count: labels.length
+        labels: data.map((l) => l.name),
+        count: labels.length,
       };
     } catch (error) {
       logger.error(
         { error: error.message, owner, repo, issue_number },
-        'Failed to apply labels'
+        "Failed to apply labels",
       );
       throw new Error(`Failed to apply labels: ${error.message}`);
     }
@@ -249,7 +254,7 @@ class GitHubAPIClient {
     const { owner, repo, issue_number, labels } = options;
 
     if (!owner || !repo || !issue_number || !labels) {
-      throw new Error('owner, repo, issue_number, and labels are required');
+      throw new Error("owner, repo, issue_number, and labels are required");
     }
 
     try {
@@ -258,25 +263,25 @@ class GitHubAPIClient {
           owner,
           repo,
           issue_number,
-          name: label
+          name: label,
         });
       }
 
       logger.info(
         { owner, repo, issue_number, count: labels.length },
-        'Removed labels'
+        "Removed labels",
       );
 
       return {
         success: true,
         issue_number,
         removed: labels,
-        count: labels.length
+        count: labels.length,
       };
     } catch (error) {
       logger.error(
         { error: error.message, owner, repo, issue_number },
-        'Failed to remove labels'
+        "Failed to remove labels",
       );
       throw new Error(`Failed to remove labels: ${error.message}`);
     }
@@ -306,12 +311,12 @@ class GitHubAPIClient {
     const { owner, repo, issue_number, fields } = options;
 
     if (!owner || !repo || !issue_number || !fields) {
-      throw new Error('owner, repo, issue_number, and fields are required');
+      throw new Error("owner, repo, issue_number, and fields are required");
     }
 
     logger.info(
       { owner, repo, issue_number, fieldCount: Object.keys(fields).length },
-      'Setting project fields (stub implementation)'
+      "Setting project fields (stub implementation)",
     );
 
     // Stub implementation: GitHub Projects v2 API requires project ID
@@ -322,7 +327,7 @@ class GitHubAPIClient {
       issue_number,
       fields: Object.keys(fields),
       count: Object.keys(fields).length,
-      note: 'Full implementation requires GitHub Projects v2 API setup'
+      note: "Full implementation requires GitHub Projects v2 API setup",
     };
   }
 
@@ -347,17 +352,17 @@ class GitHubAPIClient {
 
       logger.info(
         { remaining: core.remaining, limit: core.limit, reset: core.reset },
-        'Rate limit status'
+        "Rate limit status",
       );
 
       return {
         remaining: core.remaining,
         limit: core.limit,
         reset: core.reset,
-        resetTime: new Date(core.reset * 1000)
+        resetTime: new Date(core.reset * 1000),
       };
     } catch (error) {
-      logger.error({ error: error.message }, 'Failed to check rate limit');
+      logger.error({ error: error.message }, "Failed to check rate limit");
       throw new Error(`Failed to check rate limit: ${error.message}`);
     }
   }
@@ -390,14 +395,14 @@ class GitHubAPIClient {
 
       logger.warn(
         { waitMs, resetTime: limits.resetTime },
-        'Rate limit hit, waiting before retry'
+        "Rate limit hit, waiting before retry",
       );
 
-      await new Promise(resolve => setTimeout(resolve, waitMs));
+      await new Promise((resolve) => setTimeout(resolve, waitMs));
     } catch (error) {
       // Fallback wait if rate limit check itself fails
-      logger.warn({ waitMs: this.rateLimitWait }, 'Using fallback wait time');
-      await new Promise(resolve => setTimeout(resolve, this.rateLimitWait));
+      logger.warn({ waitMs: this.rateLimitWait }, "Using fallback wait time");
+      await new Promise((resolve) => setTimeout(resolve, this.rateLimitWait));
     }
   }
 
@@ -426,10 +431,7 @@ class GitHubAPIClient {
    * );
    */
   async retry(fn, options = {}) {
-    const {
-      maxAttempts = this.maxRetries,
-      backoffMs = 1000
-    } = options;
+    const { maxAttempts = this.maxRetries, backoffMs = 1000 } = options;
 
     let lastError;
 
@@ -456,15 +458,15 @@ class GitHubAPIClient {
           const waitTime = backoffMs * Math.pow(2, attempt - 1);
           logger.warn(
             { attempt, waitTime, error: error.message },
-            'Transient error, retrying'
+            "Transient error, retrying",
           );
-          await new Promise(resolve => setTimeout(resolve, waitTime));
+          await new Promise((resolve) => setTimeout(resolve, waitTime));
         }
       }
     }
 
     throw new Error(
-      `Failed after ${maxAttempts} attempts: ${lastError.message}`
+      `Failed after ${maxAttempts} attempts: ${lastError.message}`,
     );
   }
 
@@ -477,7 +479,7 @@ class GitHubAPIClient {
    */
   _isTransientError(error) {
     // Network timeouts
-    if (error.code === 'ETIMEDOUT' || error.code === 'ECONNRESET') {
+    if (error.code === "ETIMEDOUT" || error.code === "ECONNRESET") {
       return true;
     }
 
@@ -539,7 +541,7 @@ export async function authenticateClient(options = {}) {
 export const apiClient = {
   createClient,
   authenticateClient,
-  GitHubAPIClient
+  GitHubAPIClient,
 };
 
 export default apiClient;

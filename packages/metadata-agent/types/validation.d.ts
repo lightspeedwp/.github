@@ -11,7 +11,7 @@ export interface IssueForValidation {
   number: number;
   title: string;
   labels: string[];
-  state?: 'open' | 'closed';
+  state?: "open" | "closed";
   milestone?: string;
   isPR?: boolean;
   created_at?: string;
@@ -72,13 +72,13 @@ export interface Tier3ValidationResult {
 /**
  * Release types for recommendations
  */
-export type ReleaseType = 'patch' | 'minor' | 'major';
+export type ReleaseType = "patch" | "minor" | "major";
 
 /**
  * Validation recommendation
  */
 export interface ValidationRecommendation {
-  action: 'proceed' | 'check' | 'block';
+  action: "proceed" | "check" | "block";
   reason: string;
   details: {
     releaseType: ReleaseType;
@@ -96,39 +96,47 @@ export interface ValidationRecommendation {
  * Tier 1 validation rules
  */
 export const TIER_1_RULES: {
-  'All issues have type label': (issues: IssueForValidation[]) => RuleResult;
-  'No conflicting labels': (issues: IssueForValidation[]) => RuleResult;
-  'All PRs have status label': (issues: IssueForValidation[]) => RuleResult;
-  'Milestone is populated': (issues: IssueForValidation[]) => RuleResult;
+  "All issues have type label": (issues: IssueForValidation[]) => RuleResult;
+  "No conflicting labels": (issues: IssueForValidation[]) => RuleResult;
+  "All PRs have status label": (issues: IssueForValidation[]) => RuleResult;
+  "Milestone is populated": (issues: IssueForValidation[]) => RuleResult;
 };
 
 /**
  * Tier 2 validation rules
  */
 export const TIER_2_RULES: {
-  'High label coverage (95%+)': (issues: IssueForValidation[]) => RuleResult;
-  'All issues have priority label': (issues: IssueForValidation[]) => RuleResult;
-  'Consistent area labels': (issues: IssueForValidation[]) => RuleResult;
-  'Changelog tracking': (issues: IssueForValidation[]) => RuleResult;
+  "High label coverage (95%+)": (issues: IssueForValidation[]) => RuleResult;
+  "All issues have priority label": (
+    issues: IssueForValidation[],
+  ) => RuleResult;
+  "Consistent area labels": (issues: IssueForValidation[]) => RuleResult;
+  "Changelog tracking": (issues: IssueForValidation[]) => RuleResult;
 };
 
 /**
  * Tier 3 validation rules
  */
 export const TIER_3_RULES: {
-  'Average labels per issue': (issues: IssueForValidation[]) => RuleResult;
-  'Label family distribution': (issues: IssueForValidation[]) => RuleResult;
+  "Average labels per issue": (issues: IssueForValidation[]) => RuleResult;
+  "Label family distribution": (issues: IssueForValidation[]) => RuleResult;
 };
 
 /**
  * Validation function signatures
  */
-export function validateTier1(issues: IssueForValidation[]): Tier1ValidationResult;
-export function validateTier2(issues: IssueForValidation[]): Tier2ValidationResult;
-export function validateTier3(issues: IssueForValidation[]): Tier3ValidationResult;
+export function validateTier1(
+  issues: IssueForValidation[],
+): Tier1ValidationResult;
+export function validateTier2(
+  issues: IssueForValidation[],
+): Tier2ValidationResult;
+export function validateTier3(
+  issues: IssueForValidation[],
+): Tier3ValidationResult;
 
 export function getRecommendation(
   releaseType: ReleaseType,
   tier1: Tier1ValidationResult,
-  tier2: Tier2ValidationResult
+  tier2: Tier2ValidationResult,
 ): ValidationRecommendation;

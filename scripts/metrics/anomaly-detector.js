@@ -6,7 +6,10 @@
 const { MetricsStorage } = require("./metrics-storage");
 
 class AnomalyDetector {
-  constructor(storageDir = ".github/reports/metrics", deviationThreshold = 0.5) {
+  constructor(
+    storageDir = ".github/reports/metrics",
+    deviationThreshold = 0.5,
+  ) {
     this.storage = new MetricsStorage(storageDir);
     this.deviationThreshold = deviationThreshold; // 0.5 = 50%
   }
@@ -39,7 +42,8 @@ class AnomalyDetector {
           const latestValue = values[values.length - 1];
           const movingAvg = this.calculateMovingAverage(values, 7);
           const stdDev = this.calculateStdDev(values);
-          const deviation = Math.abs(latestValue - movingAvg) / (movingAvg || 1);
+          const deviation =
+            Math.abs(latestValue - movingAvg) / (movingAvg || 1);
 
           if (deviation > this.deviationThreshold) {
             anomalies.push({
@@ -57,7 +61,9 @@ class AnomalyDetector {
     }
 
     return {
-      anomalies: anomalies.sort((a, b) => parseFloat(b.deviation) - parseFloat(a.deviation)),
+      anomalies: anomalies.sort(
+        (a, b) => parseFloat(b.deviation) - parseFloat(a.deviation),
+      ),
       confidence: Math.min(history.length / 30, 1), // Max confidence at 30 data points
       timestamp: Date.now(),
     };
@@ -112,7 +118,9 @@ class AnomalyDetector {
     }
 
     return {
-      trends: trends.sort((a, b) => parseFloat(b.acceleration) - parseFloat(a.acceleration)),
+      trends: trends.sort(
+        (a, b) => parseFloat(b.acceleration) - parseFloat(a.acceleration),
+      ),
       confidence: Math.min(history.length / 30, 1),
       timestamp: Date.now(),
     };
@@ -130,7 +138,8 @@ class AnomalyDetector {
     if (values.length < 2) return 0;
 
     const mean = values.reduce((a, b) => a + b, 0) / values.length;
-    const variance = values.reduce((sum, val) => sum + (val - mean) ** 2, 0) / values.length;
+    const variance =
+      values.reduce((sum, val) => sum + (val - mean) ** 2, 0) / values.length;
     return Math.sqrt(variance);
   }
 

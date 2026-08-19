@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Extracts metadata from repository files based on repo type.
@@ -15,33 +15,49 @@ function extractMetadata(repoRoot, repoType) {
   };
 
   switch (repoType) {
-    case 'block-plugin':
-      metadata.foundMarkers.blockJson = fs.existsSync(path.join(repoRoot, 'block.json'));
-      metadata.foundMarkers.composerJson = fs.existsSync(path.join(repoRoot, 'composer.json'));
+    case "block-plugin":
+      metadata.foundMarkers.blockJson = fs.existsSync(
+        path.join(repoRoot, "block.json"),
+      );
+      metadata.foundMarkers.composerJson = fs.existsSync(
+        path.join(repoRoot, "composer.json"),
+      );
       if (metadata.foundMarkers.blockJson) {
         try {
-          metadata.blockMetadata = JSON.parse(fs.readFileSync(path.join(repoRoot, 'block.json'), 'utf8'));
+          metadata.blockMetadata = JSON.parse(
+            fs.readFileSync(path.join(repoRoot, "block.json"), "utf8"),
+          );
         } catch (err) {
           // Ignore malformed JSON
         }
       }
       break;
 
-    case 'block-theme':
-      metadata.foundMarkers.themeJson = fs.existsSync(path.join(repoRoot, 'theme.json'));
-      metadata.foundMarkers.styleCss = fs.existsSync(path.join(repoRoot, 'style.css'));
+    case "block-theme":
+      metadata.foundMarkers.themeJson = fs.existsSync(
+        path.join(repoRoot, "theme.json"),
+      );
+      metadata.foundMarkers.styleCss = fs.existsSync(
+        path.join(repoRoot, "style.css"),
+      );
       if (metadata.foundMarkers.themeJson) {
         try {
-          metadata.themeMetadata = JSON.parse(fs.readFileSync(path.join(repoRoot, 'theme.json'), 'utf8'));
+          metadata.themeMetadata = JSON.parse(
+            fs.readFileSync(path.join(repoRoot, "theme.json"), "utf8"),
+          );
         } catch (err) {
           // Ignore malformed JSON
         }
       }
       break;
 
-    case 'control-plane':
-      metadata.foundMarkers.agents = fs.existsSync(path.join(repoRoot, '.github', 'agents'));
-      metadata.foundMarkers.workflows = fs.existsSync(path.join(repoRoot, '.github', 'workflows'));
+    case "control-plane":
+      metadata.foundMarkers.agents = fs.existsSync(
+        path.join(repoRoot, ".github", "agents"),
+      );
+      metadata.foundMarkers.workflows = fs.existsSync(
+        path.join(repoRoot, ".github", "workflows"),
+      );
       break;
 
     default:
@@ -58,7 +74,7 @@ async function run(options = {}) {
   const { repoRoot = process.cwd(), repoType } = options;
 
   if (!repoType) {
-    throw new Error('repoType is required');
+    throw new Error("repoType is required");
   }
 
   const metadata = extractMetadata(repoRoot, repoType);

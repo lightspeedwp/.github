@@ -1,36 +1,36 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const UK_ENGLISH_MAP = {
-  optimization: 'optimisation',
-  optimized: 'optimised',
-  optimize: 'optimise',
-  organization: 'organisation',
-  organizational: 'organisational',
-  organized: 'organised',
-  organizes: 'organises',
-  organize: 'organise',
-  organizer: 'organiser',
-  behavior: 'behaviour',
-  behaviors: 'behaviours',
-  behavioral: 'behavioural',
-  color: 'colour',
-  colors: 'colours',
-  customization: 'customisation',
-  customized: 'customised',
-  customize: 'customise',
-  normalization: 'normalisation',
-  normalized: 'normalised',
-  normalize: 'normalise',
-  memorization: 'memorisation',
-  memorized: 'memorised',
-  memorize: 'memorise',
-  initialization: 'initialisation',
-  initialized: 'initialised',
-  initialize: 'initialise',
-  realization: 'realisation',
-  realized: 'realised',
-  realize: 'realise',
+  optimization: "optimisation",
+  optimized: "optimised",
+  optimize: "optimise",
+  organization: "organisation",
+  organizational: "organisational",
+  organized: "organised",
+  organizes: "organises",
+  organize: "organise",
+  organizer: "organiser",
+  behavior: "behaviour",
+  behaviors: "behaviours",
+  behavioral: "behavioural",
+  color: "colour",
+  colors: "colours",
+  customization: "customisation",
+  customized: "customised",
+  customize: "customise",
+  normalization: "normalisation",
+  normalized: "normalised",
+  normalize: "normalise",
+  memorization: "memorisation",
+  memorized: "memorised",
+  memorize: "memorise",
+  initialization: "initialisation",
+  initialized: "initialised",
+  initialize: "initialise",
+  realization: "realisation",
+  realized: "realised",
+  realize: "realise",
 };
 
 /**
@@ -41,7 +41,7 @@ const UK_ENGLISH_MAP = {
 function applyUkEnglish(text) {
   let corrected = text;
   for (const [us, uk] of Object.entries(UK_ENGLISH_MAP)) {
-    const regex = new RegExp(`\\b${us}\\b`, 'gi');
+    const regex = new RegExp(`\\b${us}\\b`, "gi");
     corrected = corrected.replace(regex, (match) => {
       if (match === us) {
         return uk; // All lowercase
@@ -65,14 +65,14 @@ function applyUkEnglish(text) {
  * @returns {string} Footer block markdown
  */
 function generateFooter(repoType, frontmatter) {
-  const now = new Date().toISOString().split('T')[0];
-  const status = frontmatter.status || 'active';
+  const now = new Date().toISOString().split("T")[0];
+  const status = frontmatter.status || "active";
   const lastUpdated = frontmatter.last_updated || now;
 
-  let footer = '\n---\n\n';
+  let footer = "\n---\n\n";
 
   switch (repoType) {
-    case 'block-plugin':
+    case "block-plugin":
       footer += `**Status:** ${status}\n`;
       footer += `**Last Updated:** ${lastUpdated}\n`;
       if (frontmatter.version) {
@@ -83,7 +83,7 @@ function generateFooter(repoType, frontmatter) {
       }
       break;
 
-    case 'block-theme':
+    case "block-theme":
       footer += `**Status:** ${status}\n`;
       footer += `**Last Updated:** ${lastUpdated}\n`;
       if (frontmatter.version) {
@@ -91,8 +91,8 @@ function generateFooter(repoType, frontmatter) {
       }
       break;
 
-    case 'control-plane':
-      footer += `**Maintainer:** ${frontmatter.maintainer || 'LightSpeed'}\n`;
+    case "control-plane":
+      footer += `**Maintainer:** ${frontmatter.maintainer || "LightSpeed"}\n`;
       footer += `**Status:** ${status}\n`;
       footer += `**Last Updated:** ${lastUpdated}\n`;
       break;
@@ -112,7 +112,7 @@ function generateFooter(repoType, frontmatter) {
  * @returns {object} Result with applied changes
  */
 function applyStandards(filePath, options = {}) {
-  const { repoType = 'generic', dryRun = false } = options;
+  const { repoType = "generic", dryRun = false } = options;
 
   if (!fs.existsSync(filePath)) {
     return {
@@ -122,14 +122,17 @@ function applyStandards(filePath, options = {}) {
     };
   }
 
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = fs.readFileSync(filePath, "utf8");
 
   // Check for opt-out marker
-  if (content.includes('<!-- meta:ignore -->') || content.includes('meta:ignore')) {
+  if (
+    content.includes("<!-- meta:ignore -->") ||
+    content.includes("meta:ignore")
+  ) {
     return {
       success: true,
       skipped: true,
-      reason: 'File marked with meta:ignore',
+      reason: "File marked with meta:ignore",
       changes: [],
     };
   }
@@ -144,7 +147,7 @@ function applyStandards(filePath, options = {}) {
 
   if (frontmatterMatch) {
     try {
-      const yaml = require('js-yaml');
+      const yaml = require("js-yaml");
       frontmatter = yaml.load(frontmatterMatch[1]) || {};
       body = frontmatterMatch[2];
     } catch (err) {
@@ -159,44 +162,44 @@ function applyStandards(filePath, options = {}) {
   // Apply UK English corrections
   const ukBody = applyUkEnglish(body);
   if (ukBody !== body) {
-    changes.push('Applied UK English corrections');
+    changes.push("Applied UK English corrections");
     updated = updated.replace(body, ukBody);
     body = ukBody;
   }
 
   // Ensure frontmatter has required fields
   if (!frontmatter.status) {
-    frontmatter.status = 'active';
-    changes.push('Added default status field');
+    frontmatter.status = "active";
+    changes.push("Added default status field");
   }
 
   if (!frontmatter.last_updated) {
-    frontmatter.last_updated = new Date().toISOString().split('T')[0];
-    changes.push('Added last_updated field');
+    frontmatter.last_updated = new Date().toISOString().split("T")[0];
+    changes.push("Added last_updated field");
   }
 
   if (!frontmatter.language) {
-    frontmatter.language = 'en';
-    changes.push('Added language field');
+    frontmatter.language = "en";
+    changes.push("Added language field");
   }
 
   // Add footer if not present
-  if (!body.includes('---') || !body.slice(-20).includes('---')) {
+  if (!body.includes("---") || !body.slice(-20).includes("---")) {
     const footer = generateFooter(repoType, frontmatter);
-    changes.push('Added footer block');
+    changes.push("Added footer block");
     body += footer;
   }
 
   // Rebuild content with updated frontmatter
   if (frontmatterMatch) {
-    const yaml = require('js-yaml');
+    const yaml = require("js-yaml");
     const frontmatterStr = yaml.dump(frontmatter, { lineWidth: -1 });
     updated = `---\n${frontmatterStr}---\n${body}`;
   }
 
   // Write if not dry-run
   if (!dryRun && changes.length > 0) {
-    fs.writeFileSync(filePath, updated, 'utf8');
+    fs.writeFileSync(filePath, updated, "utf8");
   }
 
   return {
@@ -212,10 +215,15 @@ function applyStandards(filePath, options = {}) {
  * CLI interface for apply-standards skill.
  */
 async function run(options = {}) {
-  const { filePath, repoType = 'generic', dryRun = false, json = false } = options;
+  const {
+    filePath,
+    repoType = "generic",
+    dryRun = false,
+    json = false,
+  } = options;
 
   if (!filePath) {
-    throw new Error('filePath is required');
+    throw new Error("filePath is required");
   }
 
   const result = applyStandards(filePath, { repoType, dryRun });
@@ -229,10 +237,10 @@ async function run(options = {}) {
       } else {
         console.log(`✓ Applied standards to ${filePath}`);
         if (result.changes.length > 0) {
-          result.changes.forEach(change => console.log(`  - ${change}`));
+          result.changes.forEach((change) => console.log(`  - ${change}`));
         }
         if (dryRun) {
-          console.log('  (dry-run: no changes written)');
+          console.log("  (dry-run: no changes written)");
         }
       }
     } else {

@@ -4,9 +4,9 @@
  * Used with jest.mock() to replace actual HTTP requests
  */
 
-const issuesFixture = require('../fixtures/issues.json');
-const labelsFixture = require('../fixtures/labels.json');
-const milestonesFixture = require('../fixtures/milestones.json');
+const issuesFixture = require("../fixtures/issues.json");
+const labelsFixture = require("../fixtures/labels.json");
+const milestonesFixture = require("../fixtures/milestones.json");
 
 /**
  * Mock GitHub API responses organized by endpoint
@@ -19,43 +19,43 @@ const mockResponses = {
   createIssue: {
     success: {
       number: 1234,
-      html_url: 'https://github.com/lightspeedwp/.github/issues/1234',
-      title: 'New Issue',
-      body: 'Issue body',
-      state: 'open',
+      html_url: "https://github.com/lightspeedwp/.github/issues/1234",
+      title: "New Issue",
+      body: "Issue body",
+      state: "open",
       labels: [
         {
-          name: 'type:feature',
-          color: 'a2eeef',
-          description: 'New feature',
+          name: "type:feature",
+          color: "a2eeef",
+          description: "New feature",
         },
       ],
       milestone: {
         number: 1,
-        title: 'Phase 2',
-        state: 'open',
+        title: "Phase 2",
+        state: "open",
       },
       user: {
-        login: 'ashleyshaw',
+        login: "ashleyshaw",
       },
-      created_at: '2026-08-18T14:52:00Z',
-      updated_at: '2026-08-18T14:52:00Z',
+      created_at: "2026-08-18T14:52:00Z",
+      updated_at: "2026-08-18T14:52:00Z",
     },
     missingTitle: {
-      message: 'Validation Failed',
+      message: "Validation Failed",
       errors: [
         {
-          message: 'Missing field: title',
-          field: 'title',
+          message: "Missing field: title",
+          field: "title",
         },
       ],
     },
     invalidMilestone: {
-      message: 'Validation Failed',
+      message: "Validation Failed",
       errors: [
         {
-          message: 'Milestone not found',
-          field: 'milestone',
+          message: "Milestone not found",
+          field: "milestone",
         },
       ],
     },
@@ -70,8 +70,8 @@ const mockResponses = {
     empty: [],
     withPagination: milestonesFixture.milestone_list_response,
     serverError: {
-      message: 'Internal Server Error',
-      documentation_url: 'https://docs.github.com/rest',
+      message: "Internal Server Error",
+      documentation_url: "https://docs.github.com/rest",
     },
   },
 
@@ -82,23 +82,23 @@ const mockResponses = {
   addLabels: {
     success: [
       {
-        name: 'type:bug',
-        color: 'd73a49',
-        description: 'Bug',
+        name: "type:bug",
+        color: "d73a49",
+        description: "Bug",
       },
       {
-        name: 'priority:high',
-        color: 'ff6b6b',
-        description: 'High priority',
+        name: "priority:high",
+        color: "ff6b6b",
+        description: "High priority",
       },
     ],
     empty: [],
     invalidLabel: {
-      message: 'Validation Failed',
+      message: "Validation Failed",
       errors: [
         {
-          message: 'Label not found',
-          field: 'labels',
+          message: "Label not found",
+          field: "labels",
         },
       ],
     },
@@ -111,22 +111,23 @@ const mockResponses = {
   createComment: {
     success: {
       id: 12345678,
-      url: 'https://api.github.com/repos/lightspeedwp/.github/issues/comments/12345678',
-      html_url: 'https://github.com/lightspeedwp/.github/issues/1234#issuecomment-12345678',
-      body: 'This is a comment',
+      url: "https://api.github.com/repos/lightspeedwp/.github/issues/comments/12345678",
+      html_url:
+        "https://github.com/lightspeedwp/.github/issues/1234#issuecomment-12345678",
+      body: "This is a comment",
       user: {
-        login: 'ashleyshaw',
-        type: 'User',
+        login: "ashleyshaw",
+        type: "User",
       },
-      created_at: '2026-08-18T14:52:00Z',
-      updated_at: '2026-08-18T14:52:00Z',
+      created_at: "2026-08-18T14:52:00Z",
+      updated_at: "2026-08-18T14:52:00Z",
     },
     emptyBody: {
-      message: 'Validation Failed',
+      message: "Validation Failed",
       errors: [
         {
-          message: 'Body cannot be empty',
-          field: 'body',
+          message: "Body cannot be empty",
+          field: "body",
         },
       ],
     },
@@ -136,32 +137,32 @@ const mockResponses = {
    * Rate limit errors
    */
   rateLimitExceeded: {
-    message: 'API rate limit exceeded for user ID 12345.',
-    documentation_url: 'https://docs.github.com/rest',
+    message: "API rate limit exceeded for user ID 12345.",
+    documentation_url: "https://docs.github.com/rest",
   },
 
   /**
    * Authentication errors
    */
   unauthorized: {
-    message: 'Bad credentials',
-    documentation_url: 'https://docs.github.com/rest',
+    message: "Bad credentials",
+    documentation_url: "https://docs.github.com/rest",
   },
 
   /**
    * Not found errors
    */
   notFound: {
-    message: 'Not Found',
-    documentation_url: 'https://docs.github.com/rest',
+    message: "Not Found",
+    documentation_url: "https://docs.github.com/rest",
   },
 
   /**
    * Server errors
    */
   serverError: {
-    message: 'Internal Server Error',
-    documentation_url: 'https://docs.github.com/rest',
+    message: "Internal Server Error",
+    documentation_url: "https://docs.github.com/rest",
   },
 };
 
@@ -172,7 +173,7 @@ const mockResponses = {
 function createMockRequest(statusCode = 200, responseBody = null) {
   return {
     on: (event, callback) => {
-      if (event === 'error') {
+      if (event === "error") {
         // Store error handler for later use
         this.errorHandler = callback;
       }
@@ -184,10 +185,10 @@ function createMockRequest(statusCode = 200, responseBody = null) {
         const mockResponse = {
           statusCode,
           on: (event, callback) => {
-            if (event === 'data') {
+            if (event === "data") {
               callback(JSON.stringify(responseBody || {}));
             }
-            if (event === 'end') {
+            if (event === "end") {
               callback();
             }
           },
@@ -231,8 +232,8 @@ function mockNetworkErrorRequest() {
   return jest.fn((options, callback) => {
     const mockReq = {
       on: (event, handler) => {
-        if (event === 'error') {
-          setImmediate(() => handler(new Error('ECONNREFUSED')));
+        if (event === "error") {
+          setImmediate(() => handler(new Error("ECONNREFUSED")));
         }
       },
       write: jest.fn(),
@@ -252,13 +253,13 @@ function mockRateLimitRequest() {
 /**
  * Get fixture data by type
  */
-function getFixture(type, variant = 'default') {
+function getFixture(type, variant = "default") {
   switch (type) {
-    case 'issues':
+    case "issues":
       return issuesFixture;
-    case 'labels':
+    case "labels":
       return labelsFixture;
-    case 'milestones':
+    case "milestones":
       return milestonesFixture;
     default:
       throw new Error(`Unknown fixture type: ${type}`);
@@ -268,7 +269,7 @@ function getFixture(type, variant = 'default') {
 /**
  * Get mock response for endpoint
  */
-function getMockResponse(endpoint, scenario = 'success') {
+function getMockResponse(endpoint, scenario = "success") {
   if (!mockResponses[endpoint]) {
     throw new Error(`Unknown endpoint: ${endpoint}`);
   }
@@ -311,10 +312,10 @@ module.exports = {
 
   // Common error messages
   ERRORS: {
-    RATE_LIMIT: 'API rate limit exceeded',
-    UNAUTHORIZED: 'Bad credentials',
-    NOT_FOUND: 'Not Found',
-    VALIDATION: 'Validation Failed',
-    SERVER_ERROR: 'Internal Server Error',
+    RATE_LIMIT: "API rate limit exceeded",
+    UNAUTHORIZED: "Bad credentials",
+    NOT_FOUND: "Not Found",
+    VALIDATION: "Validation Failed",
+    SERVER_ERROR: "Internal Server Error",
   },
 };
