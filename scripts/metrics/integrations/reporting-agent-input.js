@@ -174,26 +174,31 @@ class MetricsReportFormatter {
     const trends = {};
 
     if (rawMetrics.repositories && rawMetrics.repositories[0]) {
-      const trend = rawMetrics.repositories[0].metrics?.activityTrend || {};
+      const metrics = rawMetrics.repositories[0].metrics || {};
+      const trend = metrics.activityTrend || {};
+
       trends.issues = {
         trend: trend.issuesTrend || 'unknown',
-        change: 0,
-        detail: 'Issue volume stable from previous week'
+        change: typeof metrics.issuesChange !== 'undefined' ? metrics.issuesChange : 'unavailable',
+        detail: metrics.issuesDetail || 'Data unavailable'
       };
+
       trends.pullRequests = {
         trend: trend.prsTrend || 'unknown',
-        change: 15,
-        detail: '15% increase in PR activity'
+        change: typeof metrics.prsChange !== 'undefined' ? metrics.prsChange : 'unavailable',
+        detail: metrics.prsDetail || 'Data unavailable'
       };
+
       trends.reviewTime = {
-        trend: 'increasing',
-        change: 25,
-        detail: 'Review time increased by 25% (1.2 → 1.5 days)'
+        trend: trend.reviewTimeTrend || 'unknown',
+        change: typeof metrics.reviewTimeChange !== 'undefined' ? metrics.reviewTimeChange : 'unavailable',
+        detail: metrics.reviewTimeDetail || 'Data unavailable'
       };
+
       trends.contributors = {
         trend: trend.contributorsTrend || 'unknown',
-        change: 0,
-        detail: 'Same active contributors as previous week'
+        change: typeof metrics.contributorsChange !== 'undefined' ? metrics.contributorsChange : 'unavailable',
+        detail: metrics.contributorsDetail || 'Data unavailable'
       };
     }
 
@@ -274,7 +279,7 @@ class MetricsReportFormatter {
    */
   generateNextSteps(rawMetrics) {
     const steps = [];
-    const today = new Date();
+    const today = rawMetrics.timestamp ? new Date(rawMetrics.timestamp) : new Date();
     const daysUntilFriday = (5 - today.getDay() + 7) % 7;
     const friday = new Date(today);
     friday.setDate(friday.getDate() + daysUntilFriday);
