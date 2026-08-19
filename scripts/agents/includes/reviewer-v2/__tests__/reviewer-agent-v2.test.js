@@ -1,14 +1,14 @@
-const { ReviewerAgentV2 } = require('../reviewer-agent-v2');
-const path = require('path');
-const fs = require('fs');
-const os = require('os');
+const { ReviewerAgentV2 } = require("../reviewer-agent-v2");
+const path = require("path");
+const fs = require("fs");
+const os = require("os");
 
-describe('ReviewerAgentV2', () => {
+describe("ReviewerAgentV2", () => {
   let agent;
   let tempDir;
 
   beforeEach(() => {
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-test-'));
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "agent-test-"));
     agent = new ReviewerAgentV2({ baseDir: tempDir, verbose: false });
   });
 
@@ -19,29 +19,29 @@ describe('ReviewerAgentV2', () => {
     agent.reset();
   });
 
-  describe('initialization', () => {
-    test('should create agent with options', () => {
+  describe("initialization", () => {
+    test("should create agent with options", () => {
       expect(agent.options.baseDir).toBe(tempDir);
       expect(agent.feedbackProcessor).toBeDefined();
       expect(agent.commentGenerator).toBeDefined();
       expect(agent.configSystem).toBeDefined();
     });
 
-    test('should initialize without config', () => {
+    test("should initialize without config", () => {
       expect(agent.config).toBeNull();
       expect(agent.decisionEngine).toBeNull();
     });
   });
 
-  describe('process', () => {
-    test('should return success with valid tool results', async () => {
+  describe("process", () => {
+    test("should return success with valid tool results", async () => {
       const toolResults = {
         coderabbit: [
           {
-            file: 'src/app.js',
+            file: "src/app.js",
             line: 10,
-            title: 'Issue',
-            severity: 'warning',
+            title: "Issue",
+            severity: "warning",
           },
         ],
       };
@@ -55,14 +55,14 @@ describe('ReviewerAgentV2', () => {
       expect(result.metadata).toBeDefined();
     });
 
-    test('should return error for empty tool results', async () => {
+    test("should return error for empty tool results", async () => {
       const result = await agent.process({});
 
       expect(result.success).toBe(true);
       expect(result.decisions).toBeDefined();
     });
 
-    test('should detect repo type', async () => {
+    test("should detect repo type", async () => {
       const result = await agent.process({
         coderabbit: [],
       });
@@ -71,11 +71,11 @@ describe('ReviewerAgentV2', () => {
       expect(result.metadata.repoType).toMatch(/github|wordpress/);
     });
 
-    test('should count findings correctly', async () => {
+    test("should count findings correctly", async () => {
       const toolResults = {
         coderabbit: [
-          { file: 'a.js', line: 1, title: 'Issue 1', severity: 'error' },
-          { file: 'b.js', line: 2, title: 'Issue 2', severity: 'warning' },
+          { file: "a.js", line: 1, title: "Issue 1", severity: "error" },
+          { file: "b.js", line: 2, title: "Issue 2", severity: "warning" },
         ],
       };
 
@@ -84,9 +84,9 @@ describe('ReviewerAgentV2', () => {
       expect(result.metadata.totalFindings).toBeGreaterThanOrEqual(2);
     });
 
-    test('should handle processing errors gracefully', async () => {
+    test("should handle processing errors gracefully", async () => {
       const toolResults = {
-        coderabbit: 'invalid',
+        coderabbit: "invalid",
       };
 
       const result = await agent.process(toolResults);
@@ -94,7 +94,7 @@ describe('ReviewerAgentV2', () => {
       expect(result.success).toBe(true);
     });
 
-    test('should return errors for invalid results', async () => {
+    test("should return errors for invalid results", async () => {
       const result = await agent.process(null);
 
       expect(result.success).toBe(true);
@@ -102,8 +102,8 @@ describe('ReviewerAgentV2', () => {
     });
   });
 
-  describe('validateConfig', () => {
-    test('should validate configuration', () => {
+  describe("validateConfig", () => {
+    test("should validate configuration", () => {
       agent.config = {
         excludedFiles: [],
         excludedCategories: [],
@@ -116,34 +116,34 @@ describe('ReviewerAgentV2', () => {
       expect(() => agent.validateConfig()).not.toThrow();
     });
 
-    test('should throw for invalid configuration', () => {
+    test("should throw for invalid configuration", () => {
       agent.config = {
-        excludedFiles: 'not an array',
+        excludedFiles: "not an array",
       };
 
       expect(() => agent.validateConfig()).toThrow();
     });
   });
 
-  describe('postCommentToPR', () => {
-    test('should throw for missing context', async () => {
-      await expect(agent.postCommentToPR(null, 'comment')).rejects.toThrow(
-        'Invalid GitHub context'
+  describe("postCommentToPR", () => {
+    test("should throw for missing context", async () => {
+      await expect(agent.postCommentToPR(null, "comment")).rejects.toThrow(
+        "Invalid GitHub context",
       );
     });
 
-    test('should throw for missing PR number', async () => {
+    test("should throw for missing PR number", async () => {
       const context = {
         github: { rest: { issues: {} } },
         payload: { repository: {} },
       };
 
-      await expect(agent.postCommentToPR(context, 'comment')).rejects.toThrow(
-        'PR number'
+      await expect(agent.postCommentToPR(context, "comment")).rejects.toThrow(
+        "PR number",
       );
     });
 
-    test('should post comment successfully', async () => {
+    test("should post comment successfully", async () => {
       const mockGithub = {
         rest: {
           issues: {
@@ -159,32 +159,32 @@ describe('ReviewerAgentV2', () => {
         payload: {
           pull_request: { number: 42 },
           repository: {
-            owner: { login: 'user' },
-            name: 'repo',
+            owner: { login: "user" },
+            name: "repo",
           },
         },
       };
 
-      const result = await agent.postCommentToPR(context, 'Test comment');
+      const result = await agent.postCommentToPR(context, "Test comment");
 
       expect(mockGithub.rest.issues.createComment).toHaveBeenCalledWith(
         expect.objectContaining({
           issue_number: 42,
-          body: 'Test comment',
-        })
+          body: "Test comment",
+        }),
       );
       expect(result.id).toBe(123);
     });
   });
 
-  describe('postInlineComments', () => {
-    test('should throw for missing context', async () => {
+  describe("postInlineComments", () => {
+    test("should throw for missing context", async () => {
       await expect(agent.postInlineComments(null, [])).rejects.toThrow(
-        'Invalid GitHub context'
+        "Invalid GitHub context",
       );
     });
 
-    test('should throw for missing PR metadata', async () => {
+    test("should throw for missing PR metadata", async () => {
       const context = {
         github: { rest: { pulls: {} } },
         payload: { repository: {} },
@@ -193,7 +193,7 @@ describe('ReviewerAgentV2', () => {
       await expect(agent.postInlineComments(context, [])).rejects.toThrow();
     });
 
-    test('should post inline comments successfully', async () => {
+    test("should post inline comments successfully", async () => {
       const mockGithub = {
         rest: {
           pulls: {
@@ -209,20 +209,20 @@ describe('ReviewerAgentV2', () => {
         payload: {
           pull_request: {
             number: 42,
-            head: { sha: 'abc123' },
+            head: { sha: "abc123" },
           },
           repository: {
-            owner: { login: 'user' },
-            name: 'repo',
+            owner: { login: "user" },
+            name: "repo",
           },
         },
       };
 
       const inlineComments = [
         {
-          path: 'src/app.js',
+          path: "src/app.js",
           line: 10,
-          body: 'Issue found',
+          body: "Issue found",
         },
       ];
 
@@ -233,13 +233,13 @@ describe('ReviewerAgentV2', () => {
       expect(results[0].success).toBe(true);
     });
 
-    test('should handle comment posting failures', async () => {
+    test("should handle comment posting failures", async () => {
       const mockGithub = {
         rest: {
           pulls: {
-            createReviewComment: jest.fn().mockRejectedValue(
-              new Error('API error')
-            ),
+            createReviewComment: jest
+              .fn()
+              .mockRejectedValue(new Error("API error")),
           },
         },
       };
@@ -249,20 +249,20 @@ describe('ReviewerAgentV2', () => {
         payload: {
           pull_request: {
             number: 42,
-            head: { sha: 'abc123' },
+            head: { sha: "abc123" },
           },
           repository: {
-            owner: { login: 'user' },
-            name: 'repo',
+            owner: { login: "user" },
+            name: "repo",
           },
         },
       };
 
       const inlineComments = [
         {
-          path: 'src/app.js',
+          path: "src/app.js",
           line: 10,
-          body: 'Issue',
+          body: "Issue",
         },
       ];
 
@@ -272,8 +272,8 @@ describe('ReviewerAgentV2', () => {
     });
   });
 
-  describe('reset', () => {
-    test('should reset all components', async () => {
+  describe("reset", () => {
+    test("should reset all components", async () => {
       await agent.process({ coderabbit: [] });
 
       agent.reset();
@@ -283,26 +283,28 @@ describe('ReviewerAgentV2', () => {
     });
   });
 
-  describe('logging', () => {
-    test('should log only errors when not verbose', () => {
+  describe("logging", () => {
+    test("should log only errors when not verbose", () => {
       agent.options.verbose = false;
-      const logSpy = jest.spyOn(console, 'log').mockImplementation();
+      const logSpy = jest.spyOn(console, "log").mockImplementation();
 
-      agent.log('info message', 'info');
-      agent.log('error message', 'error');
+      agent.log("info message", "info");
+      agent.log("error message", "error");
 
       expect(logSpy).toHaveBeenCalledTimes(1);
-      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('error message'));
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining("error message"),
+      );
 
       logSpy.mockRestore();
     });
 
-    test('should log all messages when verbose', () => {
+    test("should log all messages when verbose", () => {
       agent.options.verbose = true;
-      const logSpy = jest.spyOn(console, 'log').mockImplementation();
+      const logSpy = jest.spyOn(console, "log").mockImplementation();
 
-      agent.log('info message', 'info');
-      agent.log('error message', 'error');
+      agent.log("info message", "info");
+      agent.log("error message", "error");
 
       expect(logSpy).toHaveBeenCalledTimes(2);
 
@@ -310,23 +312,23 @@ describe('ReviewerAgentV2', () => {
     });
   });
 
-  describe('integration', () => {
-    test('should process findings end-to-end', async () => {
+  describe("integration", () => {
+    test("should process findings end-to-end", async () => {
       const toolResults = {
         coderabbit: [
           {
-            file: 'src/security.js',
+            file: "src/security.js",
             line: 50,
-            title: 'SQL injection vulnerability',
-            severity: 'error',
+            title: "SQL injection vulnerability",
+            severity: "error",
           },
         ],
         codeQuality: [
           {
-            path: 'src/utils.js',
+            path: "src/utils.js",
             line: 20,
-            message: 'Unused variable',
-            severity: 'warning',
+            message: "Unused variable",
+            severity: "warning",
           },
         ],
       };
@@ -335,16 +337,16 @@ describe('ReviewerAgentV2', () => {
 
       expect(result.success).toBe(true);
       expect(result.decisions.requires_review.length).toBeGreaterThanOrEqual(1);
-      expect(result.comment).toContain('Code Review Summary');
+      expect(result.comment).toContain("Code Review Summary");
       expect(result.inlineComments.length).toBeGreaterThanOrEqual(1);
     });
 
-    test('should include stats in result', async () => {
+    test("should include stats in result", async () => {
       const toolResults = {
         coderabbit: [
-          { file: 'a.js', line: 1, title: 'Critical issue', severity: 'error' },
-          { file: 'b.js', line: 2, title: 'Major issue', severity: 'warning' },
-          { file: 'c.js', line: 3, title: 'Minor issue', severity: 'note' },
+          { file: "a.js", line: 1, title: "Critical issue", severity: "error" },
+          { file: "b.js", line: 2, title: "Major issue", severity: "warning" },
+          { file: "c.js", line: 3, title: "Minor issue", severity: "note" },
         ],
       };
 

@@ -24,13 +24,13 @@ class DecisionEngine {
       const decision = this.makeDecision(finding);
 
       switch (decision.status) {
-        case 'resolved':
+        case "resolved":
           autoResolved.push(decision);
           break;
-        case 'suppressed':
+        case "suppressed":
           suppressed.push(decision);
           break;
-        case 'requires_review':
+        case "requires_review":
         default:
           requiresReview.push(decision);
           break;
@@ -52,35 +52,37 @@ class DecisionEngine {
     };
 
     if (this.isExcludedFile(finding.file)) {
-      decision.status = 'suppressed';
-      decision.decision_reason.push('File is in excluded files list');
+      decision.status = "suppressed";
+      decision.decision_reason.push("File is in excluded files list");
       return decision;
     }
 
     if (this.isExcludedCategory(finding.category)) {
-      decision.status = 'suppressed';
-      decision.decision_reason.push('Category is excluded');
+      decision.status = "suppressed";
+      decision.decision_reason.push("Category is excluded");
       return decision;
     }
 
     if (this.isFalsePositive(finding)) {
-      decision.status = 'suppressed';
-      decision.decision_reason.push('Known false positive pattern');
+      decision.status = "suppressed";
+      decision.decision_reason.push("Known false positive pattern");
       return decision;
     }
 
     if (this.shouldAutoResolve(finding)) {
-      decision.status = 'resolved';
-      decision.decision_reason.push('Matches auto-resolve pattern');
+      decision.status = "resolved";
+      decision.decision_reason.push("Matches auto-resolve pattern");
       return decision;
     }
 
-    decision.status = 'requires_review';
-    decision.decision_reason.push('Requires manual review');
+    decision.status = "requires_review";
+    decision.decision_reason.push("Requires manual review");
 
     if (this.shouldEscalate(finding)) {
       decision.escalated = true;
-      decision.decision_reason.push('Critical severity - escalated for immediate review');
+      decision.decision_reason.push(
+        "Critical severity - escalated for immediate review",
+      );
     }
 
     return decision;
@@ -91,7 +93,9 @@ class DecisionEngine {
       return false;
     }
 
-    return this.rules.excludedFiles.some(pattern => this.matchPattern(filePath, pattern));
+    return this.rules.excludedFiles.some((pattern) =>
+      this.matchPattern(filePath, pattern),
+    );
   }
 
   isExcludedCategory(category) {
@@ -107,8 +111,8 @@ class DecisionEngine {
       return false;
     }
 
-    return this.rules.suppressFalsePositives.some(pattern =>
-      this.matchFalsePositivePattern(finding, pattern)
+    return this.rules.suppressFalsePositives.some((pattern) =>
+      this.matchFalsePositivePattern(finding, pattern),
     );
   }
 
@@ -141,21 +145,21 @@ class DecisionEngine {
       return false;
     }
 
-    return this.rules.autoResolvePatterns.some(pattern =>
-      this.matchPattern(finding.suggestion, pattern)
+    return this.rules.autoResolvePatterns.some((pattern) =>
+      this.matchPattern(finding.suggestion, pattern),
     );
   }
 
   shouldEscalate(finding) {
     if (!Array.isArray(this.rules.escalatePatterns)) {
-      return finding.severity === 'critical';
+      return finding.severity === "critical";
     }
 
-    if (finding.severity === 'critical') {
+    if (finding.severity === "critical") {
       return true;
     }
 
-    return this.rules.escalatePatterns.some(pattern => {
+    return this.rules.escalatePatterns.some((pattern) => {
       if (pattern.severity && finding.severity !== pattern.severity) {
         return false;
       }
@@ -181,9 +185,9 @@ class DecisionEngine {
       return pattern.test(text);
     }
 
-    if (typeof pattern === 'string') {
-      if (pattern.includes('*')) {
-        const regex = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`);
+    if (typeof pattern === "string") {
+      if (pattern.includes("*")) {
+        const regex = new RegExp(`^${pattern.replace(/\*/g, ".*")}$`);
         return regex.test(text);
       }
 
