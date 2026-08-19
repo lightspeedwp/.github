@@ -1,9 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
 import yaml from "js-yaml";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = process.cwd();
 
 let labelCache = null;
 let labelCacheTime = null;
@@ -14,7 +13,7 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
  * @returns {Promise<Object>} Map of template name -> template content
  */
 export async function loadTemplates() {
-  const templatesDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+  const templatesDir = path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE");
   const templates = {};
 
   try {
@@ -50,11 +49,11 @@ export async function loadCanonicalLabels() {
     return labelCache;
   }
 
-  const labelsPath = path.join(__dirname, "../../../.github/labels.yml");
+  const labelsPath = path.join(REPO_ROOT, ".github/labels.yml");
 
   try {
     const content = await fs.readFile(labelsPath, "utf-8");
-    const data = yaml.safeLoad(content);
+    const data = yaml.load(content);
     labelCache = Array.isArray(data) ? data : [];
     labelCacheTime = now;
     return labelCache;
@@ -139,7 +138,11 @@ export function validateIssueNumber(issueNumber) {
   if (issueNumber === null || issueNumber === undefined) {
     return false;
   }
-  const num = parseInt(issueNumber, 10);
+  const raw = String(issueNumber).trim();
+  if (!/^\d+$/.test(raw)) {
+    return false;
+  }
+  const num = Number.parseInt(raw, 10);
   return Number.isInteger(num) && num > 0;
 }
 
@@ -168,7 +171,10 @@ export function parseIssueNumber(input) {
 
   // Remove '#' prefix if present
   const cleaned = input.trim().replace(/^#/, "");
-  const num = parseInt(cleaned, 10);
+  if (!/^\d+$/.test(cleaned)) {
+    return null;
+  }
+  const num = Number.parseInt(cleaned, 10);
 
   // Validate the parsed number
   if (Number.isInteger(num) && num > 0) {
