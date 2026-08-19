@@ -250,7 +250,7 @@ For issues or questions:
 
 ---
 
-_Built by LightSpeedWP with open-source spirit!_
+*Built by LightSpeedWP with open-source spirit!*
 
 ## Repository Flow
 

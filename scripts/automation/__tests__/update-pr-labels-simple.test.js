@@ -3,20 +3,24 @@
  */
 
 // Mock Octokit
-jest.mock("octokit", () => {
-  const Octokit = jest.fn().mockImplementation(() => ({
-    rest: {
-      pulls: {
-        list: jest.fn(),
+jest.mock(
+  "octokit",
+  () => {
+    const Octokit = jest.fn().mockImplementation(() => ({
+      rest: {
+        pulls: {
+          list: jest.fn(),
+        },
+        issues: {
+          removeLabel: jest.fn(),
+          addLabels: jest.fn(),
+        },
       },
-      issues: {
-        removeLabel: jest.fn(),
-        addLabels: jest.fn(),
-      },
-    },
-  }));
-  return { Octokit };
-});
+    }));
+    return { Octokit };
+  },
+  { virtual: true },
+);
 
 describe("update-pr-labels-simple", () => {
   describe("determineStatus", () => {

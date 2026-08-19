@@ -195,7 +195,7 @@ accTitle: Flowchart
     H -->|"Match?"| I{Match?}
     I -->|"No"| Z3["❌ GATE 3 FAIL<br/>Version mismatch"]
     I -->|"Yes"| J["✅ GATE 3 PASS<br/>Version valid"]
-    
+
     style A fill:#01579b,color:#fff
     style J fill:#2e7d32,color:#fff
     style Z1 fill:#b71c1c,color:#fff
@@ -216,21 +216,25 @@ accDescr: Visual diagram showing structure, relationships, and flow
 ### Example Scenarios
 
 **✓ PASS: Valid patch bump**
+
 - Current: `1.2.3`
 - Scope: `patch`
 - Calculated: `1.2.4` → GATE 3 passes
 
 **✓ PASS: Valid minor bump**
+
 - Current: `2.0.5`
 - Scope: `minor`
 - Calculated: `2.1.0` → GATE 3 passes
 
 **✗ FAIL: Downgrade attempt**
+
 - Current: `3.0.0`
 - Scope: `major`
 - Calculated: `2.0.0` (downgrade) → GATE 3 fails
 
 **✗ FAIL: Invalid version format**
+
 - Calculated: `1.2` (missing PATCH) → GATE 3 fails
 - Calculated: `1.2.3.4` (too many parts) → GATE 3 fails
 

@@ -16,7 +16,7 @@ export async function validateAndApplyLabels(input) {
     branchType,
     templateFile,
     templateMetadata,
-    _prContext = {},
+    prContext = {},
     config = {},
   } = input;
 
@@ -80,6 +80,10 @@ export async function validateAndApplyLabels(input) {
         typeLabels,
         contextLabels,
         totalLabels: validationResult.validLabels.length,
+        hasPrContext: Boolean(
+          prContext &&
+          (prContext.owner || prContext.repo || prContext.prNumber),
+        ),
       },
     };
   } catch (error) {

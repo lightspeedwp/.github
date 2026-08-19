@@ -9,8 +9,8 @@ status: In Progress
 
 # Metrics Agent — Phase 2 Implementation Progress
 
-**Timeline:** Aug 18-Sept 15, 2026 (4 weeks)  
-**Target:** GitHub Actions workflow, Reporting Agent integration, quality & testing  
+**Timeline:** Aug 18-Sept 15, 2026 (4 weeks)
+**Target:** GitHub Actions workflow, Reporting Agent integration, quality & testing
 **Status:** 🟡 In Progress (Task 2.3 COMPLETE)
 
 ---
@@ -18,12 +18,14 @@ status: In Progress
 ## Phase 2 Status
 
 ### 2.1 GitHub API Integration ✅ COMPLETE
+
 - Real GitHub API client with pagination
 - Rate limiting and exponential backoff
 - Comprehensive error handling
 - 86+ tests passing
 
 ### 2.2 Historical Data & Trends ✅ COMPLETE
+
 - Metrics storage module
 - Trend analysis (period-over-period)
 - Anomaly detection (3-sigma rule)
@@ -31,7 +33,7 @@ status: In Progress
 
 ### 2.3 GitHub Actions Workflow ✅ COMPLETE
 
-**File:** `.github/workflows/metrics-collection.yml`  
+**File:** `.github/workflows/metrics-collection.yml`
 **Orchestrator:** `scripts/workflows/metrics/collect-metrics.js`
 
 - [x] Scheduled workflow (Mondays 6 AM UTC)
@@ -45,6 +47,7 @@ status: In Progress
 **Tests:** 25 passing (79.11% coverage)
 
 **npm Scripts Added:**
+
 ```bash
 npm run metrics:collect:all           # All contexts
 npm run metrics:collect:control-plane # GitHub control plane

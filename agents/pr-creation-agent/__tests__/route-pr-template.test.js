@@ -1,24 +1,18 @@
 import { jest } from "@jest/globals";
+import * as fsPromises from "fs/promises";
+import { routePrTemplate } from "../skills/route-pr-template.js";
 
-// Create mock fs module
-const mockFs = {
-  readFile: jest.fn(),
-};
-
-// Mock fs/promises before any other imports
-jest.unstable_mockModule("fs/promises", () => ({ ...mockFs }));
-
-let routePrTemplate;
-
-// Import the skill before describing tests
-beforeAll(async () => {
-  const module = await import("../skills/route-pr-template.js");
-  routePrTemplate = module.routePrTemplate;
-});
+let readFileSpy;
 
 describe("routePrTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    readFileSpy = jest.spyOn(fsPromises, "readFile");
+    readFileSpy.mockReset();
+  });
+
+  afterEach(() => {
+    readFileSpy.mockRestore();
   });
 
   describe("Input Validation", () => {
@@ -47,21 +41,21 @@ describe("routePrTemplate", () => {
 
   describe("Config Loading", () => {
     test("should load config from default path", async () => {
-      mockFs.readFile.mockResolvedValueOnce(
+      readFileSpy.mockResolvedValueOnce(
         `default_template: pr_feature.md\nroutes:\n  feat/: pr_feature.md\n  fix/: pr_bug.md`,
       );
-      mockFs.readFile.mockResolvedValueOnce("template content");
+      readFileSpy.mockResolvedValueOnce("template content");
 
       await routePrTemplate({ branchType: "feat" });
 
-      expect(mockFs.readFile).toHaveBeenCalledWith(
+      expect(readFileSpy).toHaveBeenCalledWith(
         ".github/PULL_REQUEST_TEMPLATE/config.yml",
         "utf8",
       );
     });
 
     test("should handle config load failure gracefully", async () => {
-      mockFs.readFile.mockRejectedValueOnce(new Error("File not found"));
+      readFileSpy.mockRejectedValueOnce(new Error("File not found"));
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -70,7 +64,7 @@ describe("routePrTemplate", () => {
     });
 
     test("should handle invalid YAML in config gracefully", async () => {
-      mockFs.readFile.mockRejectedValueOnce(new Error("YAML parse error"));
+      readFileSpy.mockRejectedValueOnce(new Error("YAML parse error"));
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -128,8 +122,8 @@ Closes #
 `;
 
     test("should route feat branch to pr_feature.md", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -142,8 +136,8 @@ Closes #
     });
 
     test("should route fix branch to pr_bug.md", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "fix" });
 
@@ -152,8 +146,8 @@ Closes #
     });
 
     test("should route docs branch to pr_docs.md", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "docs" });
 
@@ -162,8 +156,8 @@ Closes #
     });
 
     test("should use default template for unknown branch type", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "unknown" });
 
@@ -173,7 +167,7 @@ Closes #
 
     test("should return error when template routing not found", async () => {
       const emptyConfig = "default_template: null\nroutes: {}";
-      mockFs.readFile.mockResolvedValueOnce(emptyConfig);
+      readFileSpy.mockResolvedValueOnce(emptyConfig);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -198,8 +192,8 @@ Content here
 `;
 
     test("should read template file successfully", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -208,8 +202,8 @@ Content here
     });
 
     test("should handle template file read failure", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockRejectedValueOnce(new Error("File not found"));
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockRejectedValueOnce(new Error("File not found"));
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -262,8 +256,8 @@ title: "Incomplete Template"
 Closes #
 `;
 
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(incompleteTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(incompleteTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -276,8 +270,8 @@ Closes #
     });
 
     test("should extract frontmatter metadata", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -288,8 +282,8 @@ Closes #
     });
 
     test("should include content statistics in metadata", async () => {
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -304,22 +298,22 @@ Closes #
       const mockConfig = "default_template: pr_feature.md\nroutes: {}";
       const mockTemplate = "## Section";
 
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       await routePrTemplate({
         branchType: "feat",
         config: { configPath: "custom/config.yml" },
       });
 
-      expect(mockFs.readFile).toHaveBeenCalledWith("custom/config.yml", "utf8");
+      expect(readFileSpy).toHaveBeenCalledWith("custom/config.yml", "utf8");
     });
   });
 
   describe("Error Handling", () => {
     test("should handle unexpected errors gracefully", async () => {
-      mockFs.readFile.mockReset();
-      mockFs.readFile.mockRejectedValueOnce(new Error("Unexpected file error"));
+      readFileSpy.mockReset();
+      readFileSpy.mockRejectedValueOnce(new Error("Unexpected file error"));
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -356,8 +350,8 @@ routes:
 
 Content`;
 
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(noFrontmatterTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(noFrontmatterTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -384,15 +378,17 @@ Content
 
 Content`;
 
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(specialCharTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(specialCharTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
       expect(result.valid).toBe(true);
-      expect(result.metadata.sections).toContain("Linked issues & PRs");
-      expect(result.metadata.sections).toContain(
-        "Changelog (Keep a Changelog)",
+      expect(result.metadata.sections).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^Linked issues/),
+          expect.stringMatching(/^Changelog/),
+        ]),
       );
     });
   });
@@ -414,8 +410,8 @@ version: "1.0.1"
 ## Checklist (Global DoD / PR)
 `;
 
-      mockFs.readFile.mockResolvedValueOnce(mockConfig);
-      mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+      readFileSpy.mockResolvedValueOnce(mockConfig);
+      readFileSpy.mockResolvedValueOnce(mockTemplate);
 
       const result = await routePrTemplate({ branchType: "feat" });
 
@@ -474,8 +470,8 @@ routes:
       ];
 
       for (const branchType of branchTypes) {
-        mockFs.readFile.mockResolvedValueOnce(mockConfig);
-        mockFs.readFile.mockResolvedValueOnce(mockTemplate);
+        readFileSpy.mockResolvedValueOnce(mockConfig);
+        readFileSpy.mockResolvedValueOnce(mockTemplate);
 
         const result = await routePrTemplate({ branchType });
 

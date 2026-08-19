@@ -53,7 +53,7 @@ describe("ADR CLI Commands", () => {
 
       expect(result).toBe(0);
 
-      const updated = yaml.safeLoad(fs.readFileSync(filePath, "utf8"));
+      const updated = yaml.load(fs.readFileSync(filePath, "utf8"));
       expect(updated.status).toBe("Accepted");
       expect(updated.accepted_date).toBeTruthy();
       expect(/^\d{4}-\d{2}-\d{2}$/.test(updated.accepted_date)).toBe(true);
@@ -121,12 +121,12 @@ describe("ADR CLI Commands", () => {
 
       expect(result).toBe(0);
 
-      const updatedOld = yaml.safeLoad(fs.readFileSync(oldPath, "utf8"));
+      const updatedOld = yaml.load(fs.readFileSync(oldPath, "utf8"));
       expect(updatedOld.status).toBe("Superseded");
       expect(updatedOld.superseded_by).toBe("ADR-002");
       expect(updatedOld.superseded_date).toBeTruthy();
 
-      const updatedNew = yaml.safeLoad(fs.readFileSync(newPath, "utf8"));
+      const updatedNew = yaml.load(fs.readFileSync(newPath, "utf8"));
       expect(Array.isArray(updatedNew.supersedes)).toBe(true);
       expect(updatedNew.supersedes).toContain("ADR-001");
     });
@@ -226,7 +226,7 @@ describe("ADR CLI Commands", () => {
 
       await executeSupersede({ positional: [oldPath, newPath] }, {});
 
-      const updated = yaml.safeLoad(fs.readFileSync(newPath, "utf8"));
+      const updated = yaml.load(fs.readFileSync(newPath, "utf8"));
       expect(updated.supersedes).toContain("ADR-002");
       expect(updated.supersedes).toContain("ADR-001");
     });
@@ -251,7 +251,7 @@ describe("ADR CLI Commands", () => {
 
       expect(result).toBe(0);
 
-      const updated = yaml.safeLoad(fs.readFileSync(sourcePath, "utf8"));
+      const updated = yaml.load(fs.readFileSync(sourcePath, "utf8"));
       expect(Array.isArray(updated.relates_to)).toBe(true);
       expect(updated.relates_to).toContain("ADR-002");
     });
@@ -314,7 +314,7 @@ describe("ADR CLI Commands", () => {
 
       expect(result).toBe(0);
 
-      const updated = yaml.safeLoad(fs.readFileSync(sourcePath, "utf8"));
+      const updated = yaml.load(fs.readFileSync(sourcePath, "utf8"));
       const occurrences = updated.relates_to.filter(
         (ref) => ref === "ADR-002",
       ).length;
@@ -332,7 +332,7 @@ describe("ADR CLI Commands", () => {
 
       await executeLink({ positional: [sourcePath, targetPath] }, {});
 
-      const updated = yaml.safeLoad(fs.readFileSync(sourcePath, "utf8"));
+      const updated = yaml.load(fs.readFileSync(sourcePath, "utf8"));
       expect(updated.relates_to).toContain("ADR-002");
       expect(updated.relates_to).toContain("ADR-003");
     });

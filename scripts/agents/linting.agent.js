@@ -327,36 +327,59 @@ function groupFindingsByFile(findings = []) {
 function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
   const resolvedRoot = path.resolve(rootDir);
 
-  // Check for control-plane markers (.github/.claude/CLAUDE.md)
-  const claudeMdPath = path.join(resolvedRoot, ".github", "CLAUDE.md");
-  const agentsPath = path.join(resolvedRoot, ".github", "agents");
-  if (fsImpl.existsSync(claudeMdPath) && fsImpl.existsSync(agentsPath)) {
+  // Check for control-plane markers in .github repositories.
+  const githubDirPath = path.join(resolvedRoot, ".github");
+  const claudeMdPath = path.join(githubDirPath, "CLAUDE.md");
+  const agentsPath = path.join(githubDirPath, "agents");
+  const workflowsPath = path.join(githubDirPath, "workflows");
+  const actionsPath = path.join(githubDirPath, "actions");
+  const scriptsPath = path.join(githubDirPath, "scripts");
+
+  const hasGithubDir = fsImpl.existsSync(githubDirPath);
+  const hasControlPlaneSignals =
+    fsImpl.existsSync(claudeMdPath) ||
+    fsImpl.existsSync(agentsPath) ||
+    fsImpl.existsSync(workflowsPath) ||
+    fsImpl.existsSync(actionsPath) ||
+    fsImpl.existsSync(scriptsPath);
+
+  if (hasGithubDir && hasControlPlaneSignals) {
     return "control-plane";
   }
 
-  // Check for WordPress plugin markers (plugin.php with Plugin Header)
+  // Check for block plugin before classic plugin/theme markers.
+  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
+  const blockJsonPath = path.join(resolvedRoot, "block.json");
+  if (fsImpl.existsSync(blockPluginPath) || fsImpl.existsSync(blockJsonPath)) {
+    return "BLOCK_PLUGIN";
+  }
+
+  // Check for WordPress plugin markers.
   const pluginPhpPath = path.join(resolvedRoot, "plugin.php");
   if (fsImpl.existsSync(pluginPhpPath)) {
     const pluginContent = fsImpl.readFileSync(pluginPhpPath, "utf8");
     if (pluginContent.includes("Plugin Name:")) {
       return "wordpress-plugin";
     }
+
+    // Keep backward compatibility for fixtures that only provide plugin.php.
+    return "wordpress-plugin";
   }
 
-  // Check for WordPress theme markers (style.css with Theme Header)
+  // Check for WordPress theme markers.
+  const themeJsonPath = path.join(resolvedRoot, "theme.json");
+  const functionsPhpPath = path.join(resolvedRoot, "functions.php");
+  if (fsImpl.existsSync(themeJsonPath) || fsImpl.existsSync(functionsPhpPath)) {
+    return "wordpress-theme";
+  }
+
+  // Check style.css header markers for classic themes.
   const styleCssPath = path.join(resolvedRoot, "style.css");
   if (fsImpl.existsSync(styleCssPath)) {
     const styleContent = fsImpl.readFileSync(styleCssPath, "utf8");
     if (styleContent.includes("Theme Name:")) {
       return "wordpress-theme";
     }
-  }
-
-  // Check for block plugin (src/plugin.php or block.json)
-  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
-  const blockJsonPath = path.join(resolvedRoot, "block.json");
-  if (fsImpl.existsSync(blockPluginPath) || fsImpl.existsSync(blockJsonPath)) {
-    return "BLOCK_PLUGIN";
   }
 
   return "UNKNOWN";

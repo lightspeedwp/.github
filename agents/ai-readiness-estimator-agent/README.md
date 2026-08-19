@@ -213,7 +213,7 @@ Calculate business impact across three years:
 
 ---
 
-_Built by LightSpeedWP with open-source spirit!_
+*Built by LightSpeedWP with open-source spirit!*
 
 ## Repository Flow
 

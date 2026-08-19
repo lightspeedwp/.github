@@ -6,15 +6,15 @@ on:
       - develop
       - main
     paths:
-      - '.github/agents/meta-agent/**'
-      - '.github/workflows/meta-agent-validation.yml'
-      - 'agents/meta-agent/**'
-      - 'hooks/meta-agent-validate.sh'
+      - ".github/agents/meta-agent/**"
+      - ".github/workflows/meta-agent-validation.yml"
+      - "agents/meta-agent/**"
+      - "hooks/meta-agent-validate.sh"
   push:
     branches:
       - develop
     paths:
-      - 'agents/meta-agent/**'
+      - "agents/meta-agent/**"
 
 concurrency:
   group: meta-agent-validation-${{ github.ref }}
@@ -35,8 +35,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -45,7 +45,7 @@ jobs:
         run: npm test -- agents/meta-agent --testPathPattern="meta-agent" --coverage
         env:
           CI: true
-          NODE_OPTIONS: '--max-old-space-size=4096'
+          NODE_OPTIONS: "--max-old-space-size=4096"
 
       - name: Generate coverage report
         run: npm test -- agents/meta-agent --coverage --collectCoverageFrom="agents/meta-agent/skills/**/*.js" --coveragePathIgnorePatterns="test|spec"
@@ -73,8 +73,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci

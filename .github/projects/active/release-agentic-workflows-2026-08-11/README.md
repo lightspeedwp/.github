@@ -122,11 +122,11 @@ Agentic Workflow (Markdown)
 
 ### Safety Gates (All scope types)
 
-✅ **Changelog validation** (must exist + schema-valid)  
-✅ **Agentic safety score** (integrity filter + threat detection)  
-✅ **Version consistency** (no jumps; no duplicates)  
-✅ **Tag uniqueness** (no existing vX.Y.Z)  
-✅ **Fallback available** (shell scripts still work)  
+✅ **Changelog validation** (must exist + schema-valid)
+✅ **Agentic safety score** (integrity filter + threat detection)
+✅ **Version consistency** (no jumps; no duplicates)
+✅ **Tag uniqueness** (no existing vX.Y.Z)
+✅ **Fallback available** (shell scripts still work)
 ✅ **Audit trail** (log all agentic decisions)
 
 ### Approval Gates (Tiered by scope)
@@ -359,9 +359,9 @@ Phase 5A is successful when:
 
 ## Author & Ownership
 
-**Project Created:** 2026-08-11  
-**Owner:** Ash Shaw  
-**Completed:** 2026-08-18  
+**Project Created:** 2026-08-11
+**Owner:** Ash Shaw
+**Completed:** 2026-08-18
 **Status:** ✅ COMPLETE (MVP merged to develop, PR #2016, commit f2b07bc9c)
 
 **Soft Launch Timeline:**

@@ -235,7 +235,7 @@ class Handler {
     });
 
     test("handles missing WordPress headers in main plugin file", () => {
-      fs.rmSync(path.join(testRepoPath, "my-plugin.php"));
+      fs.rmSync(path.join(testRepoPath, "plugin.php"), { force: true });
       fs.writeFileSync(
         path.join(testRepoPath, "plugin.php"),
         "<?php // no headers",
