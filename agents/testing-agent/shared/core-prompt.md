@@ -202,7 +202,7 @@ The pack is a reviewable artefact, not ephemeral chat output. Once the pack is
 produced (before or at the review gate):
 
 - Write it to a conventional path. Prefer a project-configured location if one is
-  set; otherwise use `.github/reports/test-packs/<flow>-<YYYY-MM-DD>.md` when the
+  set; otherwise use `.githu./.github/reports/test-packs/<flow>-<YYYY-MM-DD>.md` when the
   repo has a `.github/` control plane, or `test-packs/<flow>-<YYYY-MM-DD>.md` (or
   the repo's existing tests/QA docs directory) when it does not — this agent is a
   portable asset and must not assume a `.github/` layout. Create the directory if

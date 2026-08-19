@@ -23,13 +23,13 @@ const __dirname = path.dirname(__filename);
  * Report categories and their paths
  */
 const CATEGORIES = {
-  agents: ".github/reports/agents",
-  linting: ".github/reports/linting",
-  labeling: ".github/reports/labeling",
-  frontmatter: ".github/reports/frontmatter",
-  coverage: ".github/reports/coverage",
-  meta: ".github/reports/meta",
-  "issue-metrics": ".github/reports/issue-metrics",
+  agents: ".githu./.github/reports/agents",
+  linting: ".githu./.github/reports/linting",
+  labeling: ".githu./.github/reports/labeling",
+  frontmatter: ".githu./.github/reports/frontmatter",
+  coverage: ".githu./.github/reports/coverage",
+  meta: ".githu./.github/reports/meta",
+  "issue-metrics": ".githu./.github/reports/issue-metrics",
 };
 
 /**

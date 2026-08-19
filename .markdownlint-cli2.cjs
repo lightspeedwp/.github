@@ -126,7 +126,7 @@ module.exports = {
 
     // Generated audit/report outputs (not source documentation)
     // Note: .github/metrics/README.md is hand-authored and should be linted
-    ".github/reports/**",
+    ".githu./.github/reports/**",
     ".github/audits/**",
     ".github/metrics/out/**",
     ".github/metrics/**/*.json",

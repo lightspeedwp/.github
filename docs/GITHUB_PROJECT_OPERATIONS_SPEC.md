@@ -137,7 +137,7 @@ Safe automation boundary:
 - Active write path covers the five core derived fields plus kickoff-aware date handling.
 - Additional direct issue-field writes are out of scope until a dedicated follow-up verification approves extension.
 
-Verification reference: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
+Verification reference: `.githu./.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 
 ## Minimum Validation Set
 

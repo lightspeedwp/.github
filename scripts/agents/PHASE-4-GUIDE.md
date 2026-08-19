@@ -147,7 +147,7 @@ Inputs:
 **Output Files:**
 
 - `.github/data/remediation-metrics.json` — Historical metrics (JSON)
-- `.github/reports/remediation-progress.md` — Human-readable report (Markdown)
+- `.githu./.github/reports/remediation-progress.md` — Human-readable report (Markdown)
 
 **Example Report:**
 
@@ -232,7 +232,7 @@ Before applying changes to production issues:
 
 Access progress over time:
 
-- **File:** `.github/reports/remediation-progress.md`
+- **File:** `.githu./.github/reports/remediation-progress.md`
 - **Updated:** After each workflow run
 - **Content:** Metrics, trends, recent history
 - **Retention:** Last 30 days of data
@@ -365,7 +365,7 @@ Extend workflow to create pull requests with metrics:
 **Metrics not updating:**
 
 - Verify `.github/data/` directory exists
-- Check permissions on `.github/reports/`
+- Check permissions on `.githu./.github/reports/`
 - Review aggregator script output
 
 ## Next Steps (Phase 5)

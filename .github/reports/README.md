@@ -27,7 +27,7 @@ This directory contains all generated reports, analysis outputs, audit files, an
 ## Directory Structure
 
 ```
-.github/reports/
+.githu./.github/reports/
 ├── analysis/        # Code analysis, technical audits, and investigation reports
 ├── audits/          # One-time audit outputs (compliance, schema validation, system audits)
 ├── implementation/  # Implementation tracking, completion summaries, and rollout reports

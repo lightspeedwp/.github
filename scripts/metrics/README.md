@@ -32,7 +32,7 @@ node scripts/metrics/metrics-agent.js scripts/metrics/config/wordpress-theme.jso
 
 ### Output
 
-Metrics are written to `.github/reports/metrics/metrics-YYYY-MM-DD.json`:
+Metrics are written to `.githu./.github/reports/metrics/metrics-YYYY-MM-DD.json`:
 
 ```json
 {
@@ -90,7 +90,7 @@ Metrics are written to `.github/reports/metrics/metrics-YYYY-MM-DD.json`:
   },
   "collection_period": 7,
   "cache_ttl": 3600,
-  "output_dir": ".github/reports/metrics"
+  "output_dir": ".githu./.github/reports/metrics"
 }
 ```
 
@@ -110,7 +110,7 @@ Metrics are written to `.github/reports/metrics/metrics-YYYY-MM-DD.json`:
 - **collection_period** (required): Number of days to collect metrics for (e.g., 7, 14, 30)
 - **cache_ttl** (optional): Cache time-to-live in seconds (default: 3600)
 - **github_token** (optional): GitHub API token. Falls back to `GITHUB_TOKEN` env var.
-- **output_dir** (optional): Where to write reports (default: `.github/reports/metrics`)
+- **output_dir** (optional): Where to write reports (default: `.githu./.github/reports/metrics`)
 
 ### Environment Variables
 
@@ -346,7 +346,7 @@ const report = await MetricsReporter.packageMetrics(analysis, config);
 // }
 
 await MetricsReporter.handoffToReporting(report, config);
-// Writes to: .github/reports/metrics/metrics-YYYY-MM-DD.json
+// Writes to: .githu./.github/reports/metrics/metrics-YYYY-MM-DD.json
 ```
 
 The Reporting Agent can then:

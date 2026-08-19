@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 
 class MetricsStorage {
-  constructor(storageDir = ".github/reports/metrics") {
+  constructor(storageDir = ".githu./.github/reports/metrics") {
     this.storageDir = storageDir;
     this.ensureStorageDir();
   }

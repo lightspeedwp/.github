@@ -51,7 +51,7 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 
 **Output**:
 
-- `.github/reports/mermaid-audit/scheduled-audit-{YYYY-MM-DD}.md`
+- `.githu./.github/reports/mermaid-audit/scheduled-audit-{YYYY-MM-DD}.md`
 - CSV inventory of findings for tracking
 - GitHub Issue (if critical issues found)
 
@@ -111,7 +111,7 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 
 **Output**:
 
-- `.github/reports/readme-health/quarterly-report-{YYYY}-Q{N}.md`
+- `.githu./.github/reports/readme-health/quarterly-report-{YYYY}-Q{N}.md`
 - GitHub Release with health summary
 - Dashboard update
 

@@ -16,7 +16,7 @@ const path = require('path');
 
 class MetricsReportGenerator {
   constructor(options = {}) {
-    this.outputDir = options.outputDir || path.join(__dirname, '../../../.github/reports/metrics');
+    this.outputDir = options.outputDir || path.join(__dirname, '../../../.githu./.github/reports/metrics');
     this.verbose = options.verbose || false;
   }
 
@@ -269,12 +269,12 @@ Arguments:
   metrics-file      Path to metrics JSON file (required)
 
 Options:
-  --output PATH     Output directory (default: .github/reports/metrics)
+  --output PATH     Output directory (default: .githu./.github/reports/metrics)
   --verbose         Verbose output
   --help            Show this help message
 
 Examples:
-  node scripts/workflows/metrics/generate-metrics-report.js .github/reports/metrics/collection-2026-08-18.json
+  node scripts/workflows/metrics/generate-metrics-report.js .githu./.github/reports/metrics/collection-2026-08-18.json
   node scripts/workflows/metrics/generate-metrics-report.js metrics.json --output /tmp/reports --verbose
     `);
     process.exit(args.includes('--help') ? 0 : 1);

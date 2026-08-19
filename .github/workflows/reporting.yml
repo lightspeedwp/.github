@@ -41,7 +41,7 @@ on:
   push:
     branches: [develop, main]
     paths:
-      - '.github/reports/**'
+      - '.githu./.githu./.github/reports/**'
       - '.github/agents/reporting.agent.*'
       - '.github/instructions/reporting.instructions.md'
 
@@ -81,20 +81,20 @@ jobs:
 
           # Check for reports in wrong locations
           if [ -d "reports" ]; then
-            echo "❌ Found reports in root /reports/ folder - should be in .github/reports/" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Found reports in root./.githu./.github/reports/ folder - should be in .githu./.githu./.github/reports/" >> $GITHUB_STEP_SUMMARY
             echo "reports_in_wrong_location=true" >> $GITHUB_OUTPUT
           else
-            echo "✅ No reports in root /reports/ folder" >> $GITHUB_STEP_SUMMARY
+            echo "✅ No reports in root./.githu./.github/reports/ folder" >> $GITHUB_STEP_SUMMARY
             echo "reports_in_wrong_location=false" >> $GITHUB_OUTPUT
           fi
 
           # Check for required subfolders
           REQUIRED_DIRS="agents linting labeling frontmatter coverage meta issue-metrics"
           for dir in $REQUIRED_DIRS; do
-            if [ -d ".github/reports/$dir" ]; then
-              echo "✅ Found .github/reports/$dir/" >> $GITHUB_STEP_SUMMARY
+            if [ -d ".githu./.githu./.github/reports/$dir" ]; then
+              echo "✅ Found .githu./.githu./.github/reports/$dir/" >> $GITHUB_STEP_SUMMARY
             else
-              echo "⚠️ Missing .github/reports/$dir/" >> $GITHUB_STEP_SUMMARY
+              echo "⚠️ Missing .githu./.githu./.github/reports/$dir/" >> $GITHUB_STEP_SUMMARY
             fi
           done
 
@@ -156,10 +156,10 @@ jobs:
       - name: Generate report counts
         id: counts
         run: |
-          echo "agents=$(find .github/reports/agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
-          echo "linting=$(find .github/reports/linting -name "*.md" -o -name "*.json" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
-          echo "labeling=$(find .github/reports/labeling -name "*.md" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
-          echo "frontmatter=$(find .github/reports/frontmatter -name "*.md" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
+          echo "agents=$(find .githu./.githu./.github/reports/agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
+          echo "linting=$(find .githu./.githu./.github/reports/linting -name "*.md" -o -name "*.json" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
+          echo "labeling=$(find .githu./.githu./.github/reports/labeling -name "*.md" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
+          echo "frontmatter=$(find .githu./.githu./.github/reports/frontmatter -name "*.md" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
           echo "total=$(find .github/reports -name "*.md" -o -name "*.json" 2>/dev/null | wc -l | tr -d ' ')" >> $GITHUB_OUTPUT
 
       - name: Generate weekly summary
@@ -168,7 +168,7 @@ jobs:
           DATE=$(date +%Y-%m-%d)
           WEEK=$(date +%V)
 
-          cat > .github/reports/weekly-summary-$DATE.md << EOF
+          cat > .githu./.githu./.github/reports/weekly-summary-$DATE.md << EOF
           ---
           file_type: "report"
           title: "Weekly Reports Summary - Week $WEEK"
@@ -200,28 +200,28 @@ jobs:
 
           Reports are organised in the following structure:
 
-          - \`.github/reports/agents/\` - Agent-related reports
-          - \`.github/reports/linting/\` - Code quality reports
-          - \`.github/reports/labeling/\` - Label automation reports
-          - \`.github/reports/frontmatter/\` - Schema validation reports
-          - \`.github/reports/coverage/\` - Test coverage reports
-          - \`.github/reports/meta/\` - Metadata application metrics
-          - \`.github/reports/issue-metrics/\` - GitHub analytics
+          - \`.githu./.githu./.github/reports/agents/\` - Agent-related reports
+          - \`.githu./.githu./.github/reports/linting/\` - Code quality reports
+          - \`.githu./.githu./.github/reports/labeling/\` - Label automation reports
+          - \`.githu./.githu./.github/reports/frontmatter/\` - Schema validation reports
+          - \`.githu./.githu./.github/reports/coverage/\` - Test coverage reports
+          - \`.githu./.githu./.github/reports/meta/\` - Metadata application metrics
+          - \`.githu./.githu./.github/reports/issue-metrics/\` - GitHub analytics
 
           ## References
 
-          - [Reports Directory](.github/reports/README.md)
+          - [Reports Directory](.githu./.githu./.github/reports/README.md)
           - [Reporting Instructions](.github/instructions/reporting.instructions.md)
           EOF
 
-          echo "Generated weekly summary: .github/reports/weekly-summary-$DATE.md"
+          echo "Generated weekly summary: .githu./.githu./.github/reports/weekly-summary-$DATE.md"
 
       - name: Commit changes
         if: github.event.inputs.dry_run != 'true' && github.event_name == 'schedule'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .github/reports/
+          git add .githu./.githu./.github/reports/
           git diff --staged --quiet || git commit -m "docs(reports): add weekly summary for $(date +%Y-%m-%d) [skip ci]"
           git push
 
@@ -269,7 +269,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .github/reports/
+          git add .githu./.githu./.github/reports/
           git diff --staged --quiet || git commit -m "chore(reports): archive ${{ steps.stale.outputs.stale_count }} stale reports [skip ci]"
           git push
 
@@ -285,11 +285,11 @@ jobs:
       - name: Update main README
         if: github.event.inputs.dry_run != 'true'
         run: |
-          echo "Updating .github/reports/README.md with current structure..."
+          echo "Updating .githu./.githu./.github/reports/README.md with current structure..."
 
           # This would regenerate the directory structure in README.md
           # For now, just validate it exists
-          if [ -f ".github/reports/README.md" ]; then
+          if [ -f ".githu./.githu./.github/reports/README.md" ]; then
             echo "✅ README.md exists" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ README.md missing" >> $GITHUB_STEP_SUMMARY
@@ -300,6 +300,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .github/reports/
+          git add .githu./.githu./.github/reports/
           git diff --staged --quiet || git commit -m "docs(reports): sync report indexes [skip ci]"
           git push

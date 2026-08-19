@@ -518,8 +518,8 @@ capabilities:
 
 - **Date:** 2026-07-22
 - **Status:** Active
-- **Decision:** Save audit reports to `.github/reports/audits/` (not `.github/tmp/`)
-- **Rationale:** CLAUDE.md specifies reports belong in `.github/reports/{category}/`; tmp is for temporary scratch
+- **Decision:** Save audit reports to `.githu./.github/reports/audits/` (not `.github/tmp/`)
+- **Rationale:** CLAUDE.md specifies reports belong in `.githu./.github/reports/{category}/`; tmp is for temporary scratch
 - **Impact:** Audit reports are persistent and discoverable
 
 **Decision 002: Naming Conventions**

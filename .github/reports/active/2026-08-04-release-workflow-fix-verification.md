@@ -266,7 +266,7 @@ Type: Infrastructure issue (unrelated to telemetry fix)
 
 ## Test Artifacts
 
-**Location:** `.github/reports/workflow-testing/`
+**Location:** `.githu./.github/reports/workflow-testing/`
 
 - `2026-08-04-release-workflow-fix-verification.md` (this file) — Detailed test methodology
 - `2026-08-04-release-workflow-fix-summary.md` — Executive summary with recommendations

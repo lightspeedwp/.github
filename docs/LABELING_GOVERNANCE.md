@@ -223,7 +223,7 @@ gh workflow run labeling-governance.yml \
 
 ### Execution Reports
 
-Each run generates a report in `.github/reports/labeling/YYYY-MM-DD-labeling-{run_id}.md` containing:
+Each run generates a report in `.githu./.github/reports/labeling/YYYY-MM-DD-labeling-{run_id}.md` containing:
 
 - Labels applied
 - Skipped items (and reasons)
@@ -344,7 +344,7 @@ Full execution logs available in **Actions** tab under **Labeling • Unified Go
 
 ### Regular Tasks
 
-- **Weekly:** Review execution reports in `.github/reports/labeling/` for anomalies
+- **Weekly:** Review execution reports in `.githu./.github/reports/labeling/` for anomalies
 - **Monthly:** Audit label usage and clean up unused labels
 - **Quarterly:** Review labeler rules for accuracy and coverage
 

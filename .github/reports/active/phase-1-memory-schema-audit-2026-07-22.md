@@ -190,7 +190,7 @@ target_completion: 2026-07-30
 
 ## Key Decisions Made
 - Branch naming: `feat/agent-standards-playwright-testing`
-- Report location: `.github/reports/audits/`
+- Report location: `.githu./.github/reports/audits/`
 - Initiative location: `.github/projects/active/agent-standards-initiative/`
 ```
 
@@ -281,17 +281,17 @@ category: process
 status: active
 ---
 
-# Decision: Save Audit Reports to .github/reports/audits
+# Decision: Save Audit Reports to .githu./.github/reports/audits
 
 ## Context
-Audit deliverables were initially saved to .github/tmp/ but CLAUDE.md specifies that reports belong in .github/reports/{category}/.
+Audit deliverables were initially saved to .github/tmp/ but CLAUDE.md specifies that reports belong in .githu./.github/reports/{category}/.
 
 ## Options Considered
 1. Keep in .github/tmp/ — easier during development, but violates conventions
-2. Move to .github/reports/audits/ — follows CLAUDE.md conventions, persistent
+2. Move to .githu./.github/reports/audits/ — follows CLAUDE.md conventions, persistent
 
 ## Decision
-Move all audit reports to `.github/reports/audits/` with naming convention `{phase}-{type}-audit-{date}.md`.
+Move all audit reports to `.githu./.github/reports/audits/` with naming convention `{phase}-{type}-audit-{date}.md`.
 
 ## Impact
 - Audit reports are now discoverable via CLAUDE.md convention
