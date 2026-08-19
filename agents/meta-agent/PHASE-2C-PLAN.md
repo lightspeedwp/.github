@@ -46,7 +46,7 @@ Phase 2C focuses on integrating Meta Agent v2.0 into development workflows throu
 
 ### 2. Pre-commit Hooks 🔧
 
-**Hook Script:** `scripts/hooks/meta-agent-validate.sh`
+**Hook Script:** `hooks/meta-agent-validate.sh`
 
 **Features:**
 - ✅ Validates staged Markdown files before commit
@@ -63,7 +63,7 @@ Phase 2C focuses on integrating Meta Agent v2.0 into development workflows throu
 
 **Installation:**
 ```bash
-cp scripts/hooks/meta-agent-validate.sh .husky/meta-agent-validate.sh
+cp hooks/meta-agent-validate.sh .husky/meta-agent-validate.sh
 chmod +x .husky/meta-agent-validate.sh
 # Automatically invoked before commits
 ```

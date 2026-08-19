@@ -273,8 +273,8 @@ Phase 5A is successful when:
 
 | File | Purpose | LOC | Status |
 |------|---------|-----|--------|
-| **scripts/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
-| **scripts/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
+| **agents/release/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
+| **agents/release/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
 | **scripts/workflows/release/run-release-with-gates.cjs** | Phase 4 integration wrapper | 140 | ✅ MERGED |
 | **.github/workflows/release.yml** | Updated GitHub Actions workflow | - | ✅ MERGED |
 

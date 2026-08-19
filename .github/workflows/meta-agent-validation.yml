@@ -9,7 +9,7 @@ on:
       - '.github/agents/meta-agent/**'
       - '.github/workflows/meta-agent-validation.yml'
       - 'agents/meta-agent/**'
-      - 'scripts/hooks/meta-agent-validate.sh'
+      - 'hooks/meta-agent-validate.sh'
   push:
     branches:
       - develop

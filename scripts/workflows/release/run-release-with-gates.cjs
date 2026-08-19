@@ -19,7 +19,7 @@ const { execSync } = require('child_process');
 // Try to import ReleaseGates from the new gates module
 let ReleaseGates;
 try {
-  ReleaseGates = require('../../../gates/release-gates.js');
+  ReleaseGates = require('../../../agents/release/gates/release-gates.cjs');
 } catch (err) {
   console.warn('⚠️  ReleaseGates module not found, using fallback');
   // If gates module not available, fall back to Phase 4 directly

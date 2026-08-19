@@ -198,7 +198,7 @@ User Input (scope, version, dry-run)
 
 **Workflow:** `.github/workflows/release.yml`  
 **Gates Wrapper:** `scripts/workflows/release/run-release-with-gates.cjs` (~150 LOC)  
-**Test Suite:** `scripts/gates/__tests__/release-gates.test.js` (41/41 passing, 82% coverage)
+**Test Suite:** `agents/release/gates/__tests__/release-gates.test.js` (41/41 passing, 82% coverage)
 
 The gates wrapper orchestrates all 7 gates sequentially. If any gate fails, process exits with error code 1. If all gates pass, Phase 4 agent is invoked for mutations.
 

@@ -43,7 +43,7 @@ This test matrix defines all validation points required to confirm Node.js 22 up
 
 #### Test Files to Monitor
 
-- `scripts/design-md-agent/__tests__/validateDesignMd.test.js`
+- `agents/design-partner-agent/agent/scripts/design-md-agent/__tests__/validateDesignMd.test.js`
 - `scripts/agents/__tests__/release.agent.test.js`
 - `scripts/validation/__tests__/validate-frontmatter.test.js`
 - `scripts/agents/__tests__/adr.agent.test.js`

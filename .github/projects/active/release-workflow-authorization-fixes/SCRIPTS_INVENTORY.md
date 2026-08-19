@@ -331,8 +331,8 @@ Agents and their supporting utilities that are specific to this `.github` reposi
 
 ### Design & Configuration (10+)
 
-- `.github/scripts/design-md-agent/ciDesignMdCheck.js`
-- `.github/scripts/design-md-agent/validateDesignMd.js`
+- `agents/design-partner-agent/agent/scripts/design-md-agent/ciDesignMdCheck.js`
+- `agents/design-partner-agent/agent/scripts/design-md-agent/validateDesignMd.js`
 - `.github/scripts/skill-utils/packageSkillZip.js`
 - `.github/scripts/skill-utils/validateSkillStructure.js`
 - `.github/scripts/npm-package-json-lint-helpers.js`
