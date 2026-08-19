@@ -1,3 +1,13 @@
+---
+file_type: documentation
+title: "Harvest Analytical Agent — Quick Reference"
+description: "README for agents/harvest-analytical-agent/README.md."
+status: active
+stability: stable
+domain: governance
+last_updated: "2026-08-19"
+---
+
 # Harvest Analytical Agent — Quick Reference
 
 **Version:** 1.0.0 | **Status:** Production | **Created:** 2026-07-22
@@ -252,3 +262,19 @@ For issues or questions:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

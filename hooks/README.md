@@ -4,7 +4,7 @@ title: Portable Hooks & Guardrails
 description: Ownership index for safe portable hooks, guardrails, and tool adapters for Claude Code, GitHub, and automation platforms.
 version: v0.3.1
 created_date: '2026-05-26'
-last_updated: '2026-05-29'
+last_updated: "2026-08-19"
 maintainer: LightSpeed Team
 authors:
   - LightSpeed Team

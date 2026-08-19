@@ -3,7 +3,7 @@ file_type: "prompt"
 title: "Standardised Prompts Directory"
 description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
 version: "1.1.1"
-last_updated: "2026-06-19"
+last_updated: "2026-08-19"
 owners: ["ashley@lightspeedwp.agency"]
 tags: ["prompts", "ai", "templates", "agents"]
 status: "active"

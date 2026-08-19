@@ -94,7 +94,7 @@ npm run metrics:collect:theme         # WordPress theme
 - [x] MetricsReporter module (~100 LOC)
   - Package complete dataset
   - Handoff to Reporting Agent
-  - Output to `.githu./.github/reports/metrics/`
+  - Output to `.github/reports/metrics/`
 
 ### 1.2 Configuration Files ✅ COMPLETE
 

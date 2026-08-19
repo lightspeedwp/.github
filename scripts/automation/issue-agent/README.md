@@ -258,3 +258,19 @@ When implementing a new skill:
 **Last Updated:** Aug 18, 2026  
 **Maintainer:** Issue Management Agent Team  
 **Status:** Phase 2 Infrastructure Complete, Skills Implementation Pending
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

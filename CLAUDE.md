@@ -31,7 +31,7 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | --- | --- |
 | `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications (multi-file implementations) |
-| `.schemas/` | JSON schema definitions (root, hidden, portable) |
+| `schemas/` | JSON schema definitions (root, hidden, portable) |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
 | `instructions/` | Portable instruction files (no `.github` assumptions) |
@@ -57,7 +57,7 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 
 | Component | Old Path | New Path | Type | Status |
 | --- | --- | --- | --- | --- |
-| **Schema files** | `schema/` | `.schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
+| **Schema files** | `schema/` | `schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
 | **Schema visibility** | `schemas/` | (visible root copy maintained) | Reference | Current (npm package reference) |
 | **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B-2C) | Move to .github, then portable | ✅ Complete (Phase 2B-2C, 2026-08-19) |
 | **Website** | `website/` | `.github/website/` | Move to .github | ✅ Complete |
@@ -68,7 +68,7 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 **Schema consolidation note:** ✅ Phase 2 complete — All schemas consolidated into `schemas/` folder:
 
 - `schemas/` — canonical portable location (26 files: 17 core + memory/ subdirectory + examples/)
-- `.schemas/` — hidden folder for backward compatibility (contains full schema set)
+- `schemas/` — hidden folder for backward compatibility (contains full schema set)
 - `.github/schemas/` — ✅ removed (was control-plane marker folder)
 - `schema/` — ✅ removed (legacy duplicate folder)
 
@@ -262,7 +262,7 @@ Use [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/c
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `.schemas/` | `pr_feature.md` |
+| `schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |
@@ -466,7 +466,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | **Portable JSON schemas** (validation for frontmatter, agents, plugins, skills) | `schemas/` (root) | Portable, reusable |
 | **Portable agent specifications** — Multi-file implementations (16 agents) | `agents/` (root) | Portable, installable |
 | **Spec-based agents** — Simple YAML/JSON definitions (19 agents) | `.github/agents/` | GitHub-native only |
-| Reports, audits, metrics | `.githu./.githu./.github/reports/{category}/` | Control-plane only |
+| Reports, audits, metrics | `.github/reports/{category}/` | Control-plane only |
 | Active project artefacts | `.github/projects/active/{slug}/` | Control-plane only |
 | Temporary scratch files | `.github/tmp/` (clean up before PR) | Control-plane only |
 | Portable reusable AI assets | top-level source folders (see table above) | Portable |
@@ -499,7 +499,7 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 **Portable Assets** (reusable across LightSpeedWP projects):
 
 - Located at **root level** (top-level folders)
-- Include: `agents/`, `instructions/`, `.schemas/`, `skills/`, `plugins/`, `workflows/`, `hooks/`, `cookbook/`
+- Include: `agents/`, `instructions/`, `schemas/`, `skills/`, `plugins/`, `workflows/`, `hooks/`, `cookbook/`
 - No `.github/` assumptions in code or documentation
 - Suitable for import/fork into other repositories
 
@@ -512,7 +512,7 @@ The repository implements a **two-tier agent architecture** separating GitHub-na
 
 **Active projects note:** All active project artefacts MUST be in `.github/projects/active/{slug}/`. Do NOT create project folders in root `projects/` directory (e.g., ~~`projects/active/`~~). The root `projects/` folder is not permitted; all project documentation belongs under `.github/`. This ensures consistent governance and access control.
 
-**Schema folder note:** JSON schemas are stored in `.schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. The older `schema/` and `schemas/` folders are maintained for backward compatibility during consolidation; see [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details.
+**Schema folder note:** JSON schemas are stored in `schemas/` (hidden folder at root) following the awesome-copilot pattern. This includes validation schemas for frontmatter, agents, plugins, skills, and other structured content. The older `schema/` and `schemas/` folders are maintained for backward compatibility during consolidation; see [issue #1292](https://github.com/lightspeedwp/.github/issues/1292) for migration details.
 
 **Instruction files note:** Portable instruction files live in root `instructions/` folder. Repo-local control-plane instructions remain in `.github/instructions/`. See Phase 1A audit report in [.github/projects/active/repo-restructuring-2026-07-25/](./.github/projects/active/repo-restructuring-2026-07-25/) for complete migration mapping.
 
@@ -627,7 +627,7 @@ gh api /orgs/lightspeedwp/teams/maintainers/members/$(git config user.name)
 
 ### Audit Logging
 
-All releases logged to `.githu./.githu./.github/reports/agentic-releases/` with JSON structure:
+All releases logged to `.github/reports/agentic-releases/` with JSON structure:
 
 ```json
 {
@@ -645,7 +645,7 @@ All releases logged to `.githu./.githu./.github/reports/agentic-releases/` with 
 }
 ```
 
-**Retention:** 90 days (GitHub Actions default) + archival in `.githu./.githu./.github/reports/`
+**Retention:** 90 days (GitHub Actions default) + archival in `.github/reports/`
 
 ### Fallback Procedures
 

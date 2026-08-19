@@ -97,7 +97,7 @@ Default rule:
 | --- | --- | --- |
 | GitHub control-plane workflows | `.github/workflows/` (except explicitly reusable caller files) | Keep local to control-plane unless workflow is explicitly designed for cross-repo use. |
 | Active project planning | `.github/projects/` | Control-plane planning artefacts only. |
-| Reports and audits | `.githu./.github/reports/` | Local evidence and governance history. |
+| Reports and audits | `.github/reports/` | Local evidence and governance history. |
 | Repo-local instructions and prompts | `.github/instructions/`, `.github/prompts/` | Maintain only in control-plane unless separately productised. |
 | Temporary and scratch output | `.github/tmp/` | Never copy. |
 

@@ -3,7 +3,7 @@ title: Automation Scripts
 description: Label management and issue maintenance automation scripts
 file_type: documentation
 created_date: 2026-08-11
-last_updated: 2026-08-11
+last_updated: "2026-08-19"
 authors:
   - LightSpeed Team
 tags:
@@ -169,7 +169,7 @@ Scripts are integrated into GitHub Actions workflows:
 
 - Runs: review-meta-labels.js + review-status-labels.js
 - Triggered: Scheduled + manual dispatch
-- Output: Saved to `.githu./.github/reports/audits/`
+- Output: Saved to `.github/reports/audits/`
 
 ## Performance
 
@@ -231,7 +231,7 @@ node label-orchestrator.js audit --all --verbose
 Check logs in:
 
 ```
-.githu./.github/reports/     # Audit reports
+.github/reports/     # Audit reports
 .github/logs/        # Workflow logs (GitHub Actions)
 ```
 
@@ -278,3 +278,19 @@ git commit -m "docs: Monthly label audit (2026-08)"
 ---
 
 *Last updated: 2026-08-11 | Part of Issue Maintenance Scripts Phase 1-4 delivery*
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

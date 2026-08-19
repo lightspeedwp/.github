@@ -4,7 +4,7 @@ title: 'Plugin Bundles & Integration Strategy'
 description: 'Ownership index for installable LightSpeed AI plugin bundles, plugin-family strategy, and integration guidelines.'
 version: 'v0.3.1'
 created_date: '2026-05-29'
-last_updated: '2026-05-29'
+last_updated: "2026-08-19"
 maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team

@@ -4,7 +4,7 @@ authors:
 description: Ownership index for portable agentic workflows, distinct from GitHub Actions, for AI-driven task orchestration.
 domain: governance
 file_type: documentation
-last_updated: '2026-06-01'
+last_updated: "2026-08-19"
 license: GPL-3.0
 maintainer: LightSpeed Team
 stability: stable

@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Portable Instructions & Standards"
 description: "Ownership index for portable instruction files covering standards, best practices, and governance across LightSpeed projects."
 version: "v0.3.2"
-last_updated: '2026-06-01'
+last_updated: "2026-08-19"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
 tags: ["instructions", "standards", "documentation", "governance"]

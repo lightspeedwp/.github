@@ -4,7 +4,7 @@ authors:
 description: Ownership index for self-contained LightSpeed AI skills with SKILL.md entrypoints and cross-platform support.
 domain: governance
 file_type: documentation
-last_updated: '2026-06-01'
+last_updated: "2026-08-19"
 license: GPL-3.0
 maintainer: LightSpeed Team
 stability: stable

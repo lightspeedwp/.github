@@ -97,7 +97,7 @@ agents/*/claude/agent.md          → agents
 docs/*.md                         → docs
 instructions/*.instructions.md    → instructions
 .schemas/*.md                       → schema
-.githu./.github/reports/*.md              → audit
+.github/reports/*.md              → audit
 README.md (in any directory)      → readme
 ```
 

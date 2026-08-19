@@ -345,3 +345,19 @@ For questions or issues, refer to the related GitHub issues:
 - Issue #1872: Phase 2B Skills Implementation
 - Issue #1873: Phase 2C Integration & Testing
 - Issue #1731: Meta Agent v2.0 Master Epic
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

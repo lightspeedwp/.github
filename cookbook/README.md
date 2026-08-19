@@ -4,7 +4,7 @@ title: 'AI Cookbook & Implementation Guides'
 description: 'Ownership index for reusable recipes, examples, playbooks, and implementation guides for common AI and automation tasks.'
 version: 'v0.3.1'
 created_date: '2026-05-29'
-last_updated: '2026-05-29'
+last_updated: "2026-08-19"
 maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team
