@@ -114,7 +114,7 @@ jobs:
           done
 
           # Save badges to file
-          echo "$BADGES" > /tmp/badges.txt
+          echo "$BADGES" >./.github/tmp/badges.txt
           echo "badge_count=$(echo "$BADGES" | grep -c "^\[" || echo 0)" >> $GITHUB_OUTPUT
 
       - name: "Update README.md"
@@ -134,7 +134,7 @@ jobs:
           fi
 
           # Read new badges
-          NEW_BADGES=$(cat /tmp/badges.txt)
+          NEW_BADGES=$(cat./.github/tmp/badges.txt)
 
           # Replace badges between markers
           TEMP_FILE="${README_FILE}.tmp"
@@ -143,7 +143,7 @@ jobs:
             /<!-- BADGES-START -->/ {
               print
               in_badges = 1
-              while ((getline < "/tmp/badges.txt") > 0) {
+              while ((getline < ./.github/tmp/badges.txt") > 0) {
                 print
               }
               next
@@ -211,7 +211,7 @@ jobs:
                 echo "  ? $url (HTTP $response)"
                 ;;
             esac
-          done < /tmp/badges.txt
+          done <./.github/tmp/badges.txt
 
           echo "broken_count=$broken_count" >> $GITHUB_OUTPUT
           echo "timeout_count=$timeout_count" >> $GITHUB_OUTPUT
@@ -246,12 +246,12 @@ jobs:
             echo "- [ ] Schema corrected"
             echo "- [ ] Validation rerun confirms links work"
             echo "- [ ] Issue resolved and closed"
-          } > /tmp/issue_body.txt
+          } >./.github/tmp/issue_body.txt
 
           gh issue create \
             --repo "${{ github.repository }}" \
             --title "Broken Badge Links Detected" \
-            --body-file /tmp/issue_body.txt \
+            --body-file./.github/tmp/issue_body.txt \
             --label "type:task,area:automation,priority:normal" || true
 
       - name: "Report summary"
