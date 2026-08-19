@@ -1,0 +1,80 @@
+{
+  "type": "metrics-context",
+  "timestamp": "2026-08-19T02:00:00Z",
+  "context": "control-plane",
+  "period": "weekly",
+  "healthScore": 75,
+  "healthComponents": {
+    "responseTime": 80,
+    "closureRate": 71,
+    "reviewTime": 75,
+    "codeQuality": 87,
+    "teamCapacity": 70
+  },
+  "healthTrend": "stable",
+  "topIssues": [
+    {
+      "title": "Stale issues need review",
+      "metric": "staleIssues",
+      "current": 8,
+      "previous": 5,
+      "percentChange": 60,
+      "severity": "high",
+      "actionRequired": true
+    },
+    {
+      "title": "PR review time degrading",
+      "metric": "averageReviewTime",
+      "current": 1.5,
+      "previous": 1.2,
+      "percentChange": 25,
+      "severity": "moderate",
+      "actionRequired": true
+    }
+  ],
+  "trendSummary": {
+    "issues": "stable",
+    "pullRequests": "increasing",
+    "contributors": "stable",
+    "codeQuality": "stable"
+  },
+  "recommendations": [
+    {
+      "action": "Prioritize stale issues",
+      "priority": "high",
+      "effort": "medium",
+      "owner": "team-leads",
+      "timeframe": "this week"
+    },
+    {
+      "action": "Schedule code review sync",
+      "priority": "high",
+      "effort": "low",
+      "owner": "engineering-lead",
+      "timeframe": "this week"
+    }
+  ],
+  "contextMetrics": {
+    "issueMetrics": {
+      "total": 145,
+      "open": 42,
+      "closureRate": 0.71,
+      "averageClosureTime": 2.3
+    },
+    "prMetrics": {
+      "total": 23,
+      "merged": 18,
+      "mergeRate": 0.78,
+      "averageReviewTime": 1.5
+    },
+    "teamMetrics": {
+      "activeContributors": 12,
+      "capacity": 0.70
+    },
+    "qualityMetrics": {
+      "lintPass": 0.95,
+      "testCoverage": 0.87,
+      "ciPassRate": 0.92
+    }
+  }
+}
