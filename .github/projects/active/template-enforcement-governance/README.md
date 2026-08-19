@@ -24,7 +24,7 @@ from this workspace, so they have been split into a smaller follow-up task.
 - `.github/pull_request_template.md` acts as the root PR router.
 - `instructions/pr-templates.instructions.md` and `instructions/issue-templates.instructions.md` provide portable guidance.
 - `.github/workflows/template-enforcement.yml` covers issue and PR template validation.
-- `.github/tests/fixtures/pr-templates/` provides validation fixtures.
+- `scripts/validation/__fixtures__/pr-templates/` provides validation fixtures.
 - `AGENTS.md`, `CLAUDE.md`, and `docs/BRANCHING_STRATEGY.md` include template-routing guidance.
 - The project audit and action documents now describe the implemented scope rather than the original planning-only backlog.
 
