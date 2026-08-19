@@ -115,7 +115,7 @@ npm run metrics:collect:theme         # WordPress theme
 
 ### 1.3 Test Suite ✅ COMPLETE
 
-**File:** `scripts/metrics/test/metrics-agent.test.js`
+**File:** `scripts/metrics/__tests__/metrics-agent.test.js`
 
 **Coverage:** 75+ tests, target >80% coverage
 
@@ -204,13 +204,13 @@ npm run metrics:collect:theme         # WordPress theme
 
 ```bash
 # Run all tests
-npm test -- scripts/metrics/test/metrics-agent.test.js
+npm test -- scripts/metrics/__tests__/metrics-agent.test.js
 
 # Run with coverage
-npm test -- --coverage scripts/metrics/test/metrics-agent.test.js
+npm test -- --coverage scripts/metrics/__tests__/metrics-agent.test.js
 
 # Watch mode
-npm test -- --watch scripts/metrics/test/metrics-agent.test.js
+npm test -- --watch scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Coverage Report

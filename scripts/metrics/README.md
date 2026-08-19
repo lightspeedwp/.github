@@ -256,19 +256,19 @@ const result = await MetricsReporter.handoffToReporting(report, config);
 ### Run All Tests
 
 ```bash
-npm test -- scripts/metrics/test/metrics-agent.test.js
+npm test -- scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Run with Coverage
 
 ```bash
-npm test -- --coverage scripts/metrics/test/metrics-agent.test.js
+npm test -- --coverage scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Watch Mode
 
 ```bash
-npm test -- --watch scripts/metrics/test/metrics-agent.test.js
+npm test -- --watch scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Test Coverage
@@ -482,7 +482,7 @@ See [CLAUDE.md](../../CLAUDE.md) for contribution guidelines and coding standard
 1. Update metrics-agent.js
 2. Add corresponding tests in metrics-agent.test.js
 3. Update PROGRESS.md
-4. Run tests: `npm test -- scripts/metrics/test/metrics-agent.test.js`
+4. Run tests: `npm test -- scripts/metrics/__tests__/metrics-agent.test.js`
 5. Ensure >80% coverage
 
 ---

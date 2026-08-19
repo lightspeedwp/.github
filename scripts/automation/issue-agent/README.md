@@ -46,15 +46,14 @@ scripts/automation/issue-agent/shared/
 │   ├── Label loader with caching
 │   ├── Markdown formatter
 │   └── Validators & parsers
-├── tests/
-│   ├── fixtures/             (20.1 KB)
-│   │   ├── issues.json       (2.8 KB, 15+ realistic issues)
-│   │   ├── labels.json       (4.1 KB, 50+ canonical labels)
-│   │   └── milestones.json   (3.2 KB, 10+ milestones)
-│   ├── mocks/
-│   │   └── github-api.js     (5.6 KB, API mock helpers)
-│   └── fixtures/README.md    (4.2 KB, usage guide)
 └── __tests__/
+  ├── fixtures/             (20.1 KB)
+  │   ├── issues.json       (2.8 KB, 15+ realistic issues)
+  │   ├── labels.json       (4.1 KB, 50+ canonical labels)
+  │   └── milestones.json   (3.2 KB, 10+ milestones)
+  ├── mocks/
+  │   └── github-api.js     (5.6 KB, API mock helpers)
+  ├── fixtures/README.md    (4.2 KB, usage guide)
     ├── github-client.test.js (50+ unit tests)
     ├── utils.test.js         (65+ unit tests)
     └── integration.test.js   (placeholder)
@@ -121,8 +120,7 @@ The `shared/` directory contains reusable code for all 7 skills:
 shared/
 ├── github-client.js      API wrapper for authenticated GitHub requests
 ├── utils.js              Utilities for templates, labels, formatting
-├── tests/                Test data, mocks, and fixtures
-└── __tests__/            Unit tests for shared modules
+└── __tests__/            Unit tests, fixtures, and mocks for shared modules
 ```
 
 ### Skills (To Be Implemented)
@@ -186,12 +184,12 @@ const client = new GitHubClient(process.env.GITHUB_TOKEN);
 const issue = await client.createIssue({ ...issueData });
 
 // Testing fixtures
-const fixtures = require('../shared/tests/fixtures');
+const fixtures = require('../shared/__tests__/fixtures');
 const mockIssues = fixtures.issues;
 const mockLabels = fixtures.labels;
 
 // Mock API responses
-const mocks = require('../shared/tests/mocks/github-api');
+const mocks = require('../shared/__tests__/mocks/github-api');
 const mockCreateIssue = mocks.createIssueMock();
 ```
 
@@ -205,7 +203,7 @@ const mockCreateIssue = mocks.createIssueMock();
 
 ### Integration Tests
 - Test workflows combining multiple modules
-- Use realistic fixtures from `shared/tests/fixtures/`
+- Use realistic fixtures from `shared/__tests__/fixtures/`
 - Validate error handling and edge cases
 - Document expected behavior in test comments
 
