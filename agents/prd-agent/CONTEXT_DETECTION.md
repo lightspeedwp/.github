@@ -12,6 +12,8 @@ The agent uses a decision tree to identify project type:
 
 ```mermaid
 graph TD
+    accTitle: Project Type Detection Algorithm
+    accDescr: Decision tree flowchart showing how the PRD Agent detects project types (plugin, theme, hybrid, or custom) by checking for specific files and folder markers.
     A["Repository Scan"] --> B["Check for plugin.php"]
     B -->|Yes| C["Check blocks/ folder"]
     B -->|No| D["Check theme.json"]
