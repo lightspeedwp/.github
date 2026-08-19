@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global console, process */
 /* eslint-disable no-console */
 
 const fs = require("fs");

@@ -34,9 +34,8 @@ describe("yaml-parser.js", () => {
       }).not.toThrow();
     });
 
-    it("should delegate to .github/scripts/yaml-parser.js", () => {
-      const expectedPath = ".github/scripts/yaml-parser.js";
-      expect(expectedPath).toContain(".github");
+    it("should delegate to scripts/yaml-parser.js", () => {
+      const expectedPath = "scripts/yaml-parser.js";
       expect(expectedPath).toContain("scripts");
       expect(expectedPath).toContain("yaml-parser.js");
     });

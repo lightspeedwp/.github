@@ -18,6 +18,8 @@
  * Load environment variables with fallback defaults
  */
 require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Configuration constants with environment variable overrides
@@ -25,6 +27,50 @@ require("dotenv").config();
 const lineLength = parseInt(process.env.MARKDOWNLINT_LINE_LENGTH) || 120;
 const strictMode = process.env.MARKDOWNLINT_STRICT === "true";
 const ignoreGenerated = process.env.MARKDOWNLINT_IGNORE_GENERATED !== "false";
+
+/**
+ * Shared allowed HTML elements across markdownlint engines
+ */
+const allowedElements = [
+  "br",
+  "sub",
+  "sup",
+  "kbd",
+  "mark",
+  "details",
+  "summary",
+  "img",
+  "a",
+  "div",
+  "span",
+  "table",
+  "thead",
+  "tbody",
+  "tr",
+  "th",
+  "td",
+  "hr",
+  "code",
+  "pre",
+];
+
+/**
+ * Load .markdownlintignore patterns to keep a single maintained ignore list.
+ */
+function loadIgnoreFile(fileName) {
+  try {
+    const filePath = path.join(__dirname, fileName);
+    const content = fs.readFileSync(filePath, "utf8");
+    return content
+      .split(/\r?\n/u)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#"));
+  } catch {
+    return [];
+  }
+}
+
+const repoIgnorePatterns = loadIgnoreFile(".markdownlintignore");
 
 /**
  * Markdownlint Configuration Object
@@ -47,6 +93,7 @@ module.exports = {
     "dist/**",
     "build/**",
     ".git/**",
+    ...repoIgnorePatterns,
     // Ignore auto-generated files if enabled
     ...(ignoreGenerated
       ? ["**/CHANGELOG.md", "**/ALL-CONTRIBUTORS.md", "docs/api/**/*.md"]
@@ -86,25 +133,7 @@ module.exports = {
      * Allow HTML in Markdown for enhanced formatting
      */
     MD033: {
-      allowed_elements: [
-        "br",
-        "sub",
-        "sup",
-        "kbd",
-        "mark",
-        "details",
-        "summary",
-        "img",
-        "a",
-        "div",
-        "span",
-        "table",
-        "thead",
-        "tbody",
-        "tr",
-        "th",
-        "td",
-      ],
+      allowed_elements: allowedElements,
     },
 
     /**

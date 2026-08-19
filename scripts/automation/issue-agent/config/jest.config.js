@@ -1,11 +1,11 @@
 module.exports = {
-  testEnvironment: 'node',
-  roots: ['<rootDir>'],
-  testMatch: ['**/__tests__/**/*.test.js', '**/?(*.)+(spec|test).js'],
+  testEnvironment: "node",
+  roots: ["<rootDir>"],
+  testMatch: ["**/__tests__/**/*.test.js", "**/?(*.)+(spec|test).js"],
   collectCoverageFrom: [
-    'scripts/automation/issue-agent/**/*.js',
-    '!scripts/automation/issue-agent/**/__tests__/**',
-    '!scripts/automation/issue-agent/config/**',
+    "scripts/automation/issue-agent/**/*.js",
+    "!scripts/automation/issue-agent/**/__tests__/**",
+    "!scripts/automation/issue-agent/config/**",
   ],
   coverageThreshold: {
     global: {
@@ -16,9 +16,11 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/scripts/automation/issue-agent/$1',
+    "^@/(.*)$": "<rootDir>/scripts/automation/issue-agent/$1",
   },
-  setupFilesAfterEnv: ['<rootDir>/scripts/automation/issue-agent/config/jest-setup.js'],
-  testPathIgnorePatterns: ['/node_modules/', '/.git/'],
+  setupFilesAfterEnv: [
+    "<rootDir>/scripts/automation/issue-agent/config/jest-setup.js",
+  ],
+  testPathIgnorePatterns: ["/node_modules/", "/.git/"],
   verbose: true,
 };

@@ -1,3 +1,13 @@
+---
+file_type: documentation
+title: "PRD Agent Export"
+description: "README for agents/prd-agent/README.md."
+status: active
+stability: stable
+domain: governance
+last_updated: "2026-08-19"
+---
+
 # PRD Agent Export
 
 <!-- BADGES-START -->
@@ -63,3 +73,19 @@ The export was validated by checking that copied files exist, comparing every re
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

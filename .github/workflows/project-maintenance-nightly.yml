@@ -1,7 +1,7 @@
 name: Project Maintenance — Nightly Audit
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
       notify_slack:
@@ -21,11 +21,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
       - run: npm ci
       - id: audit
-        shell: bash
+        name: Run unified project maintenance script
         run: |
           set +e
           AUDIT_OUTPUT=$(bash ./scripts/automation/project-docs-update.sh DRY_RUN=true VERBOSE=true 2>&1)
@@ -55,7 +55,7 @@ jobs:
           echo "gap_count=$TOTAL_GAPS" >> "$GITHUB_OUTPUT"
           exit $AUDIT_EXIT
       - if: always()
-        shell: bash
+        name: Publish audit summary
         run: |
           echo "### Project Maintenance Audit — $(date -u +'%Y-%m-%d %H:%M:%SZ') UTC"
           echo "${{ steps.audit.outputs.results }}" | jq '.'
@@ -83,4 +83,3 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.PROJECT_MAINTENANCE_SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-

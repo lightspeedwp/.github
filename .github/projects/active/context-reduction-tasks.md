@@ -325,7 +325,7 @@ last_updated: "2026-06-01"
 
 #### 4.1 Create Frontmatter Audit Script
 
-- [ ] Create `scripts/audit-frontmatter.js` to scan all `.md` files
+- [ ] Create `scripts/audit/frontmatter.js` to scan all `.md` files
 - [ ] Extract frontmatter blocks from each file
 - [ ] Build reference graph (A → B, B → C, etc.)
 - [ ] Detect circular references (A → B → C → A)

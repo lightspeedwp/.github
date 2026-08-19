@@ -488,7 +488,7 @@ Current workflow contract:
 
 3. Reference in `metadata-governance.yml` and enable the writer
 
-Verification record: `.githu./.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
+Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 
 **Note**: Org-level field writing is not yet implemented. The infrastructure (GraphQL mutations, field discovery) is pending development as part of issue #1145 (org issue-field writer infrastructure).
 

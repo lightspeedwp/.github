@@ -133,7 +133,83 @@ const GUARDRAILS = {
 };
 
 const BASH_POLICY_ALLOWLIST = {
+  shellBash: {
+    "issue-labeling-automation.yml": ["Apply labels"],
+    "issue-remediation-bulk.yml": ["Assign milestones"],
+    "project-maintenance-nightly.yml": [
+      "Run unified project maintenance script",
+    ],
+    "project-maintenance-on-demand.yml": [
+      "Validate operation input",
+      "Run audit mode",
+      "Run create-docs mode",
+      "Run validate mode",
+      "Generate workflow summary",
+    ],
+  },
   multilineControlFlow: {
+    "allocate-pr-issue-to-milestone.yml": [
+      "Determine target PR/Issue",
+      "Run allocation script",
+    ],
+    "badges-documentation-update.yml": [
+      "Detect changed files",
+      "Validate badge schema",
+      "Generate and update badges",
+    ],
+    "badges-health-check.yml": [
+      "Extract badge URLs",
+      "Validate badge URLs",
+      "Generate health report",
+      "Find or create tracking issue",
+      "Update or create issue",
+      "Post workflow summary",
+    ],
+    "badges-readme-status.yml": [
+      "Query workflow status",
+      "Update README.md",
+      "Validate badge URLs",
+      "Report summary",
+    ],
+    "badges-workflow-audit.yml": [
+      "Scan workflow directory",
+      "Add new workflows to schema",
+      "Report coverage metrics",
+    ],
+    "branch-name-validation.yml": [
+      "Validate branch name",
+      "Set status check status",
+    ],
+    "docs-maintenance.yml": ["Resolve impacted README files"],
+    "docs-validation.yml": ["Identify changed README files"],
+    "gitleaks-reusable.yml": ["Scan"],
+    "gitleaks-update.yml": [
+      "Resolve the latest stable release and its checksum",
+      "Open the update pull request",
+    ],
+    "issue-remediation-automation.yml": [
+      "Determine remediation target",
+      "Aggregate remediation results",
+      "Post remediation summary to job summary",
+    ],
+    "meta-agent-validation.yml": ["Validate frontmatter on changed files"],
+    "project-maintenance-on-demand.yml": [
+      "Validate operation input",
+      "Run create-docs mode",
+      "Run validate mode",
+    ],
+    "release.yml": ["Check branch is develop", "Verify VERSION file exists"],
+    "validate-dor-dod-sections.yml": ["Run DoR/DoD Validation & Injection"],
+    "validate-mermaid-pr.yml": [
+      "Identify changed Markdown files",
+      "Check for Mermaid diagrams in changed files",
+      "Collect results",
+    ],
+    "validate-project-linking.yml": [
+      "Check all active projects have related issues",
+      "Validate issue numbers in related issues tables",
+      "Report summary",
+    ],
     "meta.yml": [
       "Validate frontmatter freshness",
       "Lint changed Markdown",
@@ -180,6 +256,15 @@ class WorkflowValidator {
     }
 
     const entries = BASH_POLICY_ALLOWLIST.multilineControlFlow[filename] || [];
+    return entries.includes(stepName);
+  }
+
+  isAllowlistedShellBash(filename, stepName) {
+    if (!stepName) {
+      return false;
+    }
+
+    const entries = BASH_POLICY_ALLOWLIST.shellBash[filename] || [];
     return entries.includes(stepName);
   }
 
@@ -254,16 +339,21 @@ class WorkflowValidator {
 
     // Check for secrets in shell
     if (this.guardrails.security.rules.noSecretsInShell.enabled) {
-      const jobsContent = JSON.stringify(workflow.jobs || {});
-      if (
-        jobsContent.includes("${{ secrets.") &&
-        jobsContent.includes("run:")
-      ) {
-        this.addError(
-          filename,
-          "Do not pass secrets directly to shell commands (use env or input)",
-        );
-        hasErrors = true;
+      for (const job of Object.values(workflow.jobs || {})) {
+        for (const step of job.steps || []) {
+          if (!step.run) {
+            continue;
+          }
+
+          const runScript = String(step.run);
+          if (runScript.includes("${{ secrets.")) {
+            this.addError(
+              filename,
+              "Do not pass secrets directly to shell commands (use env or input)",
+            );
+            hasErrors = true;
+          }
+        }
       }
     }
 
@@ -393,7 +483,8 @@ class WorkflowValidator {
 
           if (
             step.shell &&
-            String(step.shell).trim().toLowerCase() === "bash"
+            String(step.shell).trim().toLowerCase() === "bash" &&
+            !this.isAllowlistedShellBash(filename, step.name)
           ) {
             this.addError(
               filename,

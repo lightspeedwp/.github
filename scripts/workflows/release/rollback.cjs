@@ -1,12 +1,9 @@
 #!/usr/bin/env node
-/* eslint-env node */
+const { process, AbortController, setTimeout, clearTimeout, fetch, console } =
+  globalThis;
 
-const { process } = globalThis;
-
-const fs = require("fs");
-const path = require("path");
 const { execSync, execFileSync } = require("child_process");
-const { readEnv, log, runMain } = require("../shared/runtime.cjs");
+const { readEnv, runMain } = require("../shared/runtime.cjs");
 
 function execGit(command, allowError = false) {
   try {
@@ -18,7 +15,9 @@ function execGit(command, allowError = false) {
     if (allowError) {
       return "";
     }
-    throw new Error(`Git command failed: ${command}\n${error.message}`);
+    throw new Error(`Git command failed: ${command}\n${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -84,7 +83,9 @@ async function githubApiRequest(path, options = {}) {
       }
       if (!response.ok) {
         const text = await response.text();
-        lastError = new Error(`GitHub API error: ${response.status} ${response.statusText} - ${text}`);
+        lastError = new Error(
+          `GitHub API error: ${response.status} ${response.statusText} - ${text}`,
+        );
 
         if (response.status >= 500 && attempt < retries) {
           await new Promise((resolve) => setTimeout(resolve, backoffMs));
@@ -123,7 +124,9 @@ async function rollbackRelease(options = {}) {
     force = false,
   } = options;
 
-  const targetVersion = String(version ?? "").trim().replace(/^v/i, "");
+  const targetVersion = String(version ?? "")
+    .trim()
+    .replace(/^v/i, "");
 
   if (!targetVersion && !dryRun) {
     throw new Error(
@@ -132,7 +135,10 @@ async function rollbackRelease(options = {}) {
   }
 
   // Validate version format: semver-like (e.g., 1.2.3, 1.2.3-alpha)
-  if (targetVersion && !/^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9.]+)?$/i.test(targetVersion)) {
+  if (
+    targetVersion &&
+    !/^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9.]+)?$/i.test(targetVersion)
+  ) {
     throw new Error(
       `Invalid version format: ${targetVersion}. Expected semver format (e.g., 1.2.3).`,
     );
@@ -152,7 +158,9 @@ async function rollbackRelease(options = {}) {
 
       const tagExists = execGit(`git rev-parse v${targetVersion}`, true);
       if (!tagExists) {
-        console.log(`Tag v${targetVersion} not found locally, checking remote...`);
+        console.log(
+          `Tag v${targetVersion} not found locally, checking remote...`,
+        );
         const remoteTagExists = execGit(
           `git ls-remote origin refs/tags/v${targetVersion}`,
           true,
@@ -167,20 +175,38 @@ async function rollbackRelease(options = {}) {
     }
 
     if (provider === "shell") {
-      console.log(`[${dryRun ? "DRY-RUN" : "SHELL"}] Deleting tag v${targetVersion}...`);
-      console.log(`  ${dryRun ? "[DRY-RUN]" : ""} git push origin :refs/tags/v${targetVersion}`);
-      console.log(`  ${dryRun ? "[DRY-RUN]" : ""} gh release delete v${targetVersion} --yes`);
-      console.log(`  ${dryRun ? "[DRY-RUN]" : ""} git push origin --delete release/v${targetVersion}`);
+      console.log(
+        `[${dryRun ? "DRY-RUN" : "SHELL"}] Deleting tag v${targetVersion}...`,
+      );
+      console.log(
+        `  ${dryRun ? "[DRY-RUN]" : ""} git push origin :refs/tags/v${targetVersion}`,
+      );
+      console.log(
+        `  ${dryRun ? "[DRY-RUN]" : ""} gh release delete v${targetVersion} --yes`,
+      );
+      console.log(
+        `  ${dryRun ? "[DRY-RUN]" : ""} git push origin --delete release/v${targetVersion}`,
+      );
     } else if (provider === "mcp") {
-      console.log(`[${dryRun ? "DRY-RUN" : "MCP"}] Deleting release via MCP...`);
-      console.log(`  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete remote tag v${targetVersion}`);
-      console.log(`  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete release v${targetVersion}`);
-      console.log(`  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete remote release branch release/v${targetVersion}`);
+      console.log(
+        `[${dryRun ? "DRY-RUN" : "MCP"}] Deleting release via MCP...`,
+      );
+      console.log(
+        `  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete remote tag v${targetVersion}`,
+      );
+      console.log(
+        `  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete release v${targetVersion}`,
+      );
+      console.log(
+        `  ${dryRun ? "[DRY-RUN] [MCP]" : "[MCP]"} Would delete remote release branch release/v${targetVersion}`,
+      );
     }
 
     if (!dryRun && !force) {
       console.log("");
-      console.log("No changes applied. Re-run with --force to apply the rollback.");
+      console.log(
+        "No changes applied. Re-run with --force to apply the rollback.",
+      );
     } else if (!dryRun && force) {
       console.log("Applying rollback...");
 
@@ -192,7 +218,9 @@ async function rollbackRelease(options = {}) {
 
       execGit(`git tag -d v${targetVersion}`, true);
       execGit(`git push origin :refs/tags/v${targetVersion}`);
-      execFileSync("gh", ["release", "delete", `v${targetVersion}`, "--yes"], { stdio: "inherit" });
+      execFileSync("gh", ["release", "delete", `v${targetVersion}`, "--yes"], {
+        stdio: "inherit",
+      });
       execGit(`git push origin --delete release/v${targetVersion}`, true);
     }
 
@@ -200,7 +228,9 @@ async function rollbackRelease(options = {}) {
     console.log(`✅ Rollback of v${targetVersion} complete`);
   } catch (error) {
     console.error(`❌ Rollback failed: ${error.message}`);
-    console.error("Manual recovery may be required. Check git status and verify main/develop branches.");
+    console.error(
+      "Manual recovery may be required. Check git status and verify main/develop branches.",
+    );
     throw error;
   }
 }
@@ -208,8 +238,7 @@ async function rollbackRelease(options = {}) {
 async function main() {
   const args = parseArgs(process.argv);
   const targetVersion = (
-    args.version ??
-    readEnv("ROLLBACK_TARGET_VERSION", { defaultValue: "" })
+    args.version ?? readEnv("ROLLBACK_TARGET_VERSION", { defaultValue: "" })
   ).trim();
 
   if (!targetVersion) {

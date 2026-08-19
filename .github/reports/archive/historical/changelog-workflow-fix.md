@@ -113,7 +113,7 @@ This prevents edge cases where the file could be corrupted by a rewrite even whe
 
 ## Testing
 
-A test file was created at `scripts/workflows/changelog/merge-entries.test.cjs` to verify:
+A test file was created at `scripts/workflows/changelog/__tests__/merge-entries.test.cjs` to verify:
 
 - ✅ Section headers are preserved during merge
 - ✅ Existing entries are not lost

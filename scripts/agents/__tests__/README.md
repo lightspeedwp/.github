@@ -4,7 +4,7 @@ title: 'Agent Test Suite'
 description: 'Comprehensive Jest tests for all LightSpeed agents'
 version: 'v1.1'
 created_date: '2026-05-29'
-last_updated: '2026-05-29'
+last_updated: "2026-08-19"
 maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team
@@ -366,3 +366,19 @@ View CI status in GitHub Actions: `.github/workflows/jest-test-audit.yml`
 ---
 
 ---
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

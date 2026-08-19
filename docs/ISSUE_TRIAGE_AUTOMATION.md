@@ -97,7 +97,7 @@ gh workflow run issue-remediation-bulk.yml \
   -f dry_run=true
 ```
 
-This generates reports WITHOUT making changes. Review `.githu./.github/reports/remediation/` artifacts.
+This generates reports WITHOUT making changes. Review `.github/reports/remediation/` artifacts.
 
 #### Example: Apply Fixes
 
@@ -225,7 +225,7 @@ gh workflow run issue-remediation-bulk.yml \
 
 Wait for workflow to complete. Review:
 
-- `.githu./.github/reports/remediation/milestone-assignment-*.md`
+- `.github/reports/remediation/milestone-assignment-*.md`
 - Artifacts tab in workflow run
 
 **Step 2: Apply Fixes**

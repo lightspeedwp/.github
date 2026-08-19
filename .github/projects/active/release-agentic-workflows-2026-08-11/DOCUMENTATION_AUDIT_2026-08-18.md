@@ -67,8 +67,8 @@ audited_by: "Claude Haiku 4.5"
 
 | File Path | Description | LOC | Status | Commit |
 |-----------|-------------|-----|--------|--------|
-| `scripts/gates/release-gates.cjs` | 7-layer safety gates | 449 | ✅ MERGED | f2b07bc9c |
-| `scripts/gates/__tests__/release-gates.test.js` | Test suite (60+ tests) | 517 | ✅ MERGED | f2b07bc9c |
+| `agents/release/gates/release-gates.cjs` | 7-layer safety gates | 449 | ✅ MERGED | f2b07bc9c |
+| `agents/release/gates/__tests__/release-gates.test.js` | Test suite (60+ tests) | 517 | ✅ MERGED | f2b07bc9c |
 | `scripts/workflows/release/run-release-with-gates.cjs` | Phase 4 wrapper | 140 | ✅ MERGED | f2b07bc9c |
 | `.github/workflows/release.yml` | GitHub Actions workflow | - | ✅ MERGED | f2b07bc9c |
 
@@ -167,7 +167,7 @@ audited_by: "Claude Haiku 4.5"
 
 ---
 
-**Audited:** 2026-08-18 19:32 CEST  
-**Audit Commit:** 4ba6c4481  
-**Status:** READY FOR TEAM COMMUNICATION  
+**Audited:** 2026-08-18 19:32 CEST
+**Audit Commit:** 4ba6c4481
+**Status:** READY FOR TEAM COMMUNICATION
 **Next Milestone:** Sep 6 team training, Sep 9 soft launch

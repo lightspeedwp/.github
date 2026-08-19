@@ -1,9 +1,9 @@
 # Phase 2 Implementation Kickoff — Issue Management Agent
 
-**Date:** 2026-08-12 | **Updated:** 2026-08-18  
-**Phase:** 2 (Implementation)  
-**Status:** ✅ Infrastructure Complete | 🚀 Skill Implementation Ready (Aug 20)  
-**Timeline:** Aug 20 - Sep 2, 2026 (3 weeks)  
+**Date:** 2026-08-12 | **Updated:** 2026-08-18
+**Phase:** 2 (Implementation)
+**Status:** ✅ Infrastructure Complete | 🚀 Skill Implementation Ready (Aug 20)
+**Timeline:** Aug 20 - Sep 2, 2026 (3 weeks)
 **Team Size:** 3-4 developers (parallel skill implementation)
 
 ---
@@ -54,7 +54,7 @@ Implement 7 core skills for the Issue Management Agent with >90% test coverage a
 - **Integration Tests** (~150 tests) — Skill + GitHub API interactions
 - **E2E Tests** (~50+ tests) — Complete workflow scenarios
 
-**Target Coverage:** >90% across all skills  
+**Target Coverage:** >90% across all skills
 **Infrastructure Coverage:** Already at 90%+ (30.5 KB, 115+ tests)
 
 ## Implementation Strategy
@@ -130,8 +130,8 @@ const client = new GitHubClient(process.env.GITHUB_TOKEN);
 import { loadTemplates, loadCanonicalLabels, validateLabelFormat } from '../shared/utils.js';
 
 // Testing
-import fixtures from '../shared/tests/fixtures/index.js';
-import mocks from '../shared/tests/mocks/github-api.js';
+import fixtures from '../shared/__tests__/fixtures/index.js';
+import mocks from '../shared/__tests__/mocks/github-api.js';
 ```
 
 ## Related Context
@@ -183,8 +183,8 @@ import mocks from '../shared/tests/mocks/github-api.js';
 All 7 skills should import from:
 - **API Client:** `scripts/automation/issue-agent/shared/github-client.js`
 - **Utilities:** `scripts/automation/issue-agent/shared/utils.js`
-- **Test Fixtures:** `scripts/automation/issue-agent/shared/tests/fixtures/`
-- **Mocks:** `scripts/automation/issue-agent/shared/tests/mocks/`
+- **Test Fixtures:** `scripts/automation/issue-agent/shared/__tests__/fixtures/`
+- **Mocks:** `scripts/automation/issue-agent/shared/__tests__/mocks/`
 
 ## Git Status
 

@@ -54,7 +54,7 @@ Identify and safely remove stale, merged branches that have been inactive for 30
 # 1. Generate report (no changes)
 npm run cleanup:report
 
-# 2. Review report at .githu./.github/reports/stale-branches-*.md
+# 2. Review report at .github/reports/stale-branches-*.md
 
 # 3. Execute cleanup (with confirmations)
 node .github/scripts/cleanup-branches.js --dryRun=false

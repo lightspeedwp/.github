@@ -39,7 +39,7 @@ async function makeRequest(method, path, data = null, options = {}) {
     throw new Error("GITHUB_TOKEN environment variable not set");
   }
 
-  const url = new URL(`https://${CONFIG.API_URL}${path}`);
+  const url = new globalThis.URL(`https://${CONFIG.API_URL}${path}`);
   const { retryCount = 0 } = options;
 
   const requestOptions = {

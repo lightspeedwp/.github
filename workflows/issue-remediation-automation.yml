@@ -79,7 +79,7 @@ jobs:
       - name: Remediate single issue
         if: steps.target.outputs.type == 'single'
         run: |
-          node .github/scripts/agents/issue-remediation-orchestrator.js \
+          node scripts/agents/issue-remediation-orchestrator.js \
             --issue=${{ steps.target.outputs.issue }} \
             --verbose \
             ${{ github.event.inputs.dry_run && '--dry-run' || '' }} \
@@ -94,7 +94,7 @@ jobs:
           # Process each label
           for label in $(echo $LABELS | tr ',' ' '); do
             echo "Processing label: $label"
-            node .github/scripts/agents/issue-remediation-orchestrator.js \
+            node scripts/agents/issue-remediation-orchestrator.js \
               --label="$label" \
               --batch=$BATCH_SIZE \
               --verbose \
@@ -106,7 +106,7 @@ jobs:
         id: results
         if: always()
         run: |
-          node .github/scripts/workflows/aggregate-remediation-results.cjs \
+          node scripts/workflows/aggregate-remediation-results.cjs \
             > reports/remediation-summary.json
 
           echo "Summary:"

@@ -1,3 +1,4 @@
+/* global localStorage */
 export const STORAGE_KEY = "ag-learn";
 export const LEGACY_KEYS = ["ag-learn-read", "ag_learn_progress"];
 

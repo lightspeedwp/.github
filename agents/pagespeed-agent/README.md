@@ -1,3 +1,13 @@
+---
+file_type: documentation
+title: "PageSpeed Agent — Performance Optimization Specialist"
+description: "README for agents/pagespeed-agent/README.md."
+status: active
+stability: stable
+domain: governance
+last_updated: "2026-08-19"
+---
+
 # PageSpeed Agent — Performance Optimization Specialist
 
 The PageSpeed Agent is an intelligent performance optimization assistant that analyzes website performance, identifies bottlenecks, and provides data-driven recommendations for improving Core Web Vitals, load times, and user experience.
@@ -194,3 +204,19 @@ For detailed information on:
 ---
 
 **Built by LightSpeedWP with open-source spirit!**
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

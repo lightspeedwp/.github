@@ -3,7 +3,7 @@ file_type: agent-index
 title: "Prompt Engineer Agent"
 description: Portable prompt engineering and validation agent for LightSpeed organization
 version: "1.0.0"
-last_updated: "2026-08-18"
+last_updated: "2026-08-19"
 owners: ["lightspeedwp"]
 tags: ["agent", "prompt-engineering", "portable"]
 ---
@@ -388,3 +388,19 @@ For detailed contribution guidelines, see `CONTRIBUTING.md` (Phase 4).
 ---
 
 **Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!**
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

@@ -3,18 +3,18 @@
  * Orchestrates plugin and theme versioning for multi-repo releases
  */
 
-import { createRequire } from 'module';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { createRequire } from "module";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import CommonJS utilities
-const pluginHeader = require('./includes/pluginHeader.cjs');
-const themeCss = require('./includes/themeCss.cjs');
-const readmeTxt = require('./includes/readmeTxt.cjs');
+const pluginHeader = require("./includes/pluginHeader.cjs");
+const themeCss = require("./includes/themeCss.cjs");
+const readmeTxt = require("./includes/readmeTxt.cjs");
 
 /**
  * Detect WordPress component type and location
@@ -82,7 +82,7 @@ export function validateVersionConsistency(repoRoot) {
     component.components.plugins.forEach((plugin) => {
       versions.push({
         file: plugin.file,
-        type: 'plugin',
+        type: "plugin",
         version: plugin.version,
       });
     });
@@ -92,7 +92,7 @@ export function validateVersionConsistency(repoRoot) {
     component.components.themes.forEach((theme) => {
       versions.push({
         file: theme.file,
-        type: 'theme',
+        type: "theme",
         version: theme.version,
       });
     });
@@ -102,7 +102,7 @@ export function validateVersionConsistency(repoRoot) {
     component.components.readmes.forEach((readme) => {
       versions.push({
         file: readme.file,
-        type: 'readme',
+        type: "readme",
         version: readme.version,
       });
     });
@@ -111,9 +111,9 @@ export function validateVersionConsistency(repoRoot) {
   if (versions.length === 0) {
     return {
       isConsistent: false,
-      message: 'No WordPress components detected',
+      message: "No WordPress components detected",
       versions: [],
-      mismatches: ['No version files found'],
+      mismatches: ["No version files found"],
     };
   }
 
@@ -129,9 +129,10 @@ export function validateVersionConsistency(repoRoot) {
     baseVersion,
     versions,
     mismatches,
-    message: mismatches.length === 0
-      ? 'All versions consistent'
-      : `Version mismatches found: ${mismatches.join('; ')}`,
+    message:
+      mismatches.length === 0
+        ? "All versions consistent"
+        : `Version mismatches found: ${mismatches.join("; ")}`,
   };
 }
 
@@ -146,13 +147,13 @@ export function updateAllVersions(repoRoot, newVersion) {
   const results = {
     updated: [],
     failed: [],
-    summary: '',
+    summary: "",
   };
 
   // Validate version format
   if (!pluginHeader.isValidVersion(newVersion)) {
     results.failed.push(`Invalid SemVer format: ${newVersion}`);
-    results.summary = 'Update failed: Invalid version format';
+    results.summary = "Update failed: Invalid version format";
     return results;
   }
 
@@ -210,13 +211,13 @@ export function updateAllVersions(repoRoot, newVersion) {
  * @param {string} scope - 'major', 'minor', or 'patch'
  * @returns {Object} Bump results
  */
-export function bumpAllVersions(repoRoot, scope = 'patch') {
+export function bumpAllVersions(repoRoot, scope = "patch") {
   const component = detectWordPressComponent(repoRoot);
 
   if (!component.primaryComponent) {
     return {
       success: false,
-      message: 'No WordPress components detected',
+      message: "No WordPress components detected",
       bumpedVersion: null,
     };
   }
@@ -225,7 +226,7 @@ export function bumpAllVersions(repoRoot, scope = 'patch') {
   if (!currentVersion) {
     return {
       success: false,
-      message: 'Could not determine current version',
+      message: "Could not determine current version",
       bumpedVersion: null,
     };
   }
@@ -265,19 +266,17 @@ export function getComponentMetadata(repoRoot) {
 
   if (component.components.plugins.length > 0) {
     metadata.plugin = pluginHeader.readMetadata(
-      component.components.plugins[0].file
+      component.components.plugins[0].file,
     );
   }
 
   if (component.components.themes.length > 0) {
-    metadata.theme = themeCss.readMetadata(
-      component.components.themes[0].file
-    );
+    metadata.theme = themeCss.readMetadata(component.components.themes[0].file);
   }
 
   if (component.components.readmes && component.components.readmes.length > 0) {
     metadata.readme = readmeTxt.readMetadata(
-      component.components.readmes[0].file
+      component.components.readmes[0].file,
     );
   }
 

@@ -1,3 +1,13 @@
+---
+file_type: documentation
+title: "Metrics Agent v2.0 — Phase 2 Documentation"
+description: "README for scripts/metrics/docs/README.md."
+status: active
+stability: stable
+domain: governance
+last_updated: "2026-08-19"
+---
+
 # Metrics Agent v2.0 — Phase 2 Documentation
 
 ## Overview
@@ -205,3 +215,19 @@ For questions or issues:
 **Last Updated:** 2026-08-19  
 **Owner:** Ash Shaw  
 **Status:** Phase 2 Complete, Phase 2.5 In Progress
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

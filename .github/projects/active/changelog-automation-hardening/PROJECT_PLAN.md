@@ -75,7 +75,7 @@ The automated changelog workflow has critical bugs that are destroying section s
 **Files Modified:**
 
 - `scripts/workflows/changelog/merge-entries.cjs` (fixed)
-- `scripts/workflows/changelog/merge-entries.test.cjs` (new)
+- `scripts/workflows/changelog/__tests__/merge-entries.test.cjs` (new)
 - `.github/reports/changelog-workflow-fix.md` (new)
 
 **Status:** ✅ Merged to branch `fix/changelog-section-headers-preserve`

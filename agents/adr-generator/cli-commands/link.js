@@ -37,7 +37,7 @@ async function execute(parsed, config) {
     const sourceContent = fs.readFileSync(sourcePath, "utf8");
     let sourceAdr;
     try {
-      sourceAdr = yaml.safeLoad(sourceContent);
+      sourceAdr = yaml.load(sourceContent);
     } catch (error) {
       console.error(`Error: Invalid YAML in source ADR: ${error.message}`);
       return 1;
@@ -47,7 +47,7 @@ async function execute(parsed, config) {
     const targetContent = fs.readFileSync(targetPath, "utf8");
     let targetAdr;
     try {
-      targetAdr = yaml.safeLoad(targetContent);
+      targetAdr = yaml.load(targetContent);
     } catch (error) {
       console.error(`Error: Invalid YAML in target ADR: ${error.message}`);
       return 1;

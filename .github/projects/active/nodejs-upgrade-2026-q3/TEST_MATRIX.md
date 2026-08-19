@@ -1,8 +1,8 @@
 # Node.js 22 Upgrade — Test Matrix
 
-**Date**: 2026-07-30  
-**Repository**: `.github` (LightSpeedWP)  
-**Phase**: Phase 1 — Audit & Documentation  
+**Date**: 2026-07-30
+**Repository**: `.github` (LightSpeedWP)
+**Phase**: Phase 1 — Audit & Documentation
 **Status**: Complete
 
 ---
@@ -21,9 +21,9 @@ This test matrix defines all validation points required to confirm Node.js 22 up
 
 ### 1. Unit Tests (Jest)
 
-**Command**: `npm test` (or `npm run test:js`)  
-**Success Criteria**: All tests pass with same count as baseline  
-**Estimated Duration**: ~2–3 minutes  
+**Command**: `npm test` (or `npm run test:js`)
+**Success Criteria**: All tests pass with same count as baseline
+**Estimated Duration**: ~2–3 minutes
 **Parallel Jobs**: Yes
 
 #### Pre-Upgrade Baseline (Node 20)
@@ -43,7 +43,7 @@ This test matrix defines all validation points required to confirm Node.js 22 up
 
 #### Test Files to Monitor
 
-- `scripts/design-md-agent/__tests__/validateDesignMd.test.js`
+- `agents/design-partner-agent/agent/scripts/design-md-agent/__tests__/validateDesignMd.test.js`
 - `scripts/agents/__tests__/release.agent.test.js`
 - `scripts/validation/__tests__/validate-frontmatter.test.js`
 - `scripts/agents/__tests__/adr.agent.test.js`
@@ -56,13 +56,13 @@ This test matrix defines all validation points required to confirm Node.js 22 up
 
 ### 2. Linting (ESLint, Prettier, Markdownlint, YAML)
 
-**Success Criteria**: Same number of errors/warnings or fewer  
-**Estimated Duration**: ~3–5 minutes  
+**Success Criteria**: Same number of errors/warnings or fewer
+**Estimated Duration**: ~3–5 minutes
 
 #### 2a. JavaScript Linting (ESLint)
 
-**Command**: `npm run lint:js`  
-**Baseline Errors**: 2,823 errors, 468 warnings  
+**Command**: `npm run lint:js`
+**Baseline Errors**: 2,823 errors, 468 warnings
 **Baseline Files Scanned**: ~3,291 total problems
 
 Pre-Upgrade:
@@ -79,7 +79,7 @@ Post-Upgrade:
 
 #### 2b. Markdown Linting (Markdownlint)
 
-**Command**: `npm run lint:md`  
+**Command**: `npm run lint:md`
 **Success Criteria**: No regression in markdown validation
 
 Pre-Upgrade:
@@ -93,7 +93,7 @@ Post-Upgrade:
 
 #### 2c. YAML Linting (Spectral)
 
-**Command**: `npm run lint:yaml`  
+**Command**: `npm run lint:yaml`
 **Success Criteria**: All workflows pass YAML validation
 
 Pre-Upgrade:
@@ -107,7 +107,7 @@ Post-Upgrade:
 
 #### 2d. JSON Linting
 
-**Command**: `npm run lint:json`  
+**Command**: `npm run lint:json`
 **Success Criteria**: All JSON files valid
 
 Pre-Upgrade:
@@ -120,7 +120,7 @@ Post-Upgrade:
 
 #### 2e. Comprehensive Lint
 
-**Command**: `npm run lint:all`  
+**Command**: `npm run lint:all`
 **Success Criteria**: Same or fewer total issues
 
 Pre-Upgrade:
@@ -137,12 +137,12 @@ Post-Upgrade:
 
 ### 3. Validation Scripts
 
-**Success Criteria**: All validation scripts pass  
-**Estimated Duration**: ~2–3 minutes  
+**Success Criteria**: All validation scripts pass
+**Estimated Duration**: ~2–3 minutes
 
 #### 3a. Frontmatter Validation
 
-**Command**: `npm run validate:frontmatter`  
+**Command**: `npm run validate:frontmatter`
 **Purpose**: Validate YAML frontmatter in instruction files and agents
 
 Pre-Upgrade:
@@ -156,7 +156,7 @@ Post-Upgrade:
 
 #### 3b. Workflow Validation
 
-**Command**: `npm run validate:workflows`  
+**Command**: `npm run validate:workflows`
 **Purpose**: Validate GitHub Actions workflow syntax
 
 Pre-Upgrade:
@@ -170,7 +170,7 @@ Post-Upgrade:
 
 #### 3c. Agent Validation
 
-**Command**: `npm run validate:agents`  
+**Command**: `npm run validate:agents`
 **Purpose**: Validate agent specifications and manifests
 
 Pre-Upgrade:
@@ -184,7 +184,7 @@ Post-Upgrade:
 
 #### 3d. Plugin Validation
 
-**Command**: `npm run validate:plugins`  
+**Command**: `npm run validate:plugins`
 **Purpose**: Validate plugin configurations
 
 Pre-Upgrade:
@@ -197,7 +197,7 @@ Post-Upgrade:
 
 #### 3e. Skills Validation
 
-**Command**: `npm run validate:skills` and `npm run validate:skill-manifests`  
+**Command**: `npm run validate:skills` and `npm run validate:skill-manifests`
 **Purpose**: Validate skill definitions and manifests
 
 Pre-Upgrade:
@@ -212,7 +212,7 @@ Post-Upgrade:
 
 #### 3f. JSON Validation
 
-**Command**: `npm run validate:json` and `npm run validate:json:all`  
+**Command**: `npm run validate:json` and `npm run validate:json:all`
 **Purpose**: Validate JSON schema conformance
 
 Pre-Upgrade:
@@ -227,7 +227,7 @@ Post-Upgrade:
 
 #### 3g. Structure Validation
 
-**Command**: `npm run validate:structure`  
+**Command**: `npm run validate:structure`
 **Purpose**: Validate repository structure and file organization
 
 Pre-Upgrade:
@@ -240,7 +240,7 @@ Post-Upgrade:
 
 #### 3h. Branch Name Validation
 
-**Command**: `npm run validate:branch-name`  
+**Command**: `npm run validate:branch-name`
 **Purpose**: Validate Git branch naming conventions
 
 Pre-Upgrade:
@@ -253,7 +253,7 @@ Post-Upgrade:
 
 #### 3i. Link Validation
 
-**Command**: `npm run validate:links`  
+**Command**: `npm run validate:links`
 **Purpose**: Validate all documentation links
 
 Pre-Upgrade:
@@ -266,7 +266,7 @@ Post-Upgrade:
 
 #### 3j. Frontmatter Freshness
 
-**Command**: `npm run validate:frontmatter:freshness`  
+**Command**: `npm run validate:frontmatter:freshness`
 **Purpose**: Check frontmatter last-updated timestamps
 
 Pre-Upgrade:
@@ -281,9 +281,9 @@ Post-Upgrade:
 
 ### 4. Security Audit (npm audit)
 
-**Command**: `npm audit`  
-**Success Criteria**: No new high-severity vulnerabilities introduced  
-**Estimated Duration**: ~1 minute  
+**Command**: `npm audit`
+**Success Criteria**: No new high-severity vulnerabilities introduced
+**Estimated Duration**: ~1 minute
 
 #### Pre-Upgrade Baseline (Node 20)
 
@@ -303,9 +303,9 @@ Post-Upgrade:
 
 ### 5. Clean Install & Dependency Verification
 
-**Command**: `npm ci`  
-**Success Criteria**: Clean install completes without errors  
-**Estimated Duration**: ~2–3 minutes  
+**Command**: `npm ci`
+**Success Criteria**: Clean install completes without errors
+**Estimated Duration**: ~2–3 minutes
 
 #### Pre-Upgrade Baseline
 
@@ -326,8 +326,8 @@ Post-Upgrade:
 
 ### 6. Node Version Verification
 
-**Purpose**: Confirm correct Node version is active  
-**Success Criteria**: Version matches expected  
+**Purpose**: Confirm correct Node version is active
+**Success Criteria**: Version matches expected
 
 #### Pre-Upgrade
 
@@ -345,9 +345,9 @@ Post-Upgrade:
 
 ### 7. Workflow Execution in CI
 
-**Purpose**: Validate all updated workflows execute correctly  
-**Success Criteria**: Workflows run without errors in GitHub Actions  
-**Estimated Duration**: Varies by workflow (5–30 minutes total)  
+**Purpose**: Validate all updated workflows execute correctly
+**Success Criteria**: Workflows run without errors in GitHub Actions
+**Estimated Duration**: Varies by workflow (5–30 minutes total)
 
 #### Pre-Upgrade CI Baseline
 
@@ -377,9 +377,9 @@ Plus all unchanged workflows (20 others).
 
 ### 8. Script Execution Tests
 
-**Purpose**: Verify all Node.js scripts run without errors  
-**Success Criteria**: Scripts complete with expected output  
-**Estimated Duration**: ~1–2 minutes  
+**Purpose**: Verify all Node.js scripts run without errors
+**Success Criteria**: Scripts complete with expected output
+**Estimated Duration**: ~1–2 minutes
 
 #### Key Scripts to Test
 
@@ -401,8 +401,8 @@ Plus all unchanged workflows (20 others).
 
 ### 9. Package.json Validation
 
-**Purpose**: Verify engines field is correctly updated  
-**Success Criteria**: npm enforce correct Node version  
+**Purpose**: Verify engines field is correctly updated
+**Success Criteria**: npm enforce correct Node version
 
 #### Pre-Upgrade
 
@@ -421,8 +421,8 @@ Plus all unchanged workflows (20 others).
 
 ### 10. Documentation Examples
 
-**Purpose**: Verify code examples in docs are correct  
-**Success Criteria**: All examples use Node 22 (where applicable)  
+**Purpose**: Verify code examples in docs are correct
+**Success Criteria**: All examples use Node 22 (where applicable)
 
 #### Files to Check
 
@@ -440,7 +440,7 @@ Plus all unchanged workflows (20 others).
 
 ### Phase: Pre-Upgrade Baseline (Node 20)
 
-**Duration**: ~10–15 minutes  
+**Duration**: ~10–15 minutes
 **When**: Before any changes to workflows or package.json
 
 1. Verify Node 20 is active: `node --version`
@@ -459,7 +459,7 @@ Plus all unchanged workflows (20 others).
 
 ### Phase: Post-Upgrade Validation (Node 22)
 
-**Duration**: ~10–15 minutes  
+**Duration**: ~10–15 minutes
 **When**: After updating .nvmrc, package.json, and workflows to Node 22
 
 1. Update `.nvmrc` to `22`
@@ -481,7 +481,7 @@ Plus all unchanged workflows (20 others).
 
 ### Phase: CI Integration Testing
 
-**Duration**: Varies (5–30 minutes per workflow)  
+**Duration**: Varies (5–30 minutes per workflow)
 **When**: After committing Node 22 changes to develop branch
 
 1. Create PR with all Node 22 updates

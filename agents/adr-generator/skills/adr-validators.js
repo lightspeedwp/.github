@@ -17,15 +17,12 @@ class ValidatorError extends ValidationError {
 
 function enforceUniqueTitles(adrDirectory) {
   if (!fs.existsSync(adrDirectory)) {
-    throw new ValidatorError(
-      `ADR directory does not exist: ${adrDirectory}`,
-      { directory: adrDirectory },
-    );
+    throw new ValidatorError(`ADR directory does not exist: ${adrDirectory}`, {
+      directory: adrDirectory,
+    });
   }
 
-  const files = fs
-    .readdirSync(adrDirectory)
-    .filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(adrDirectory).filter((f) => f.endsWith(".md"));
   const titles = {};
   const duplicates = [];
 
@@ -60,15 +57,12 @@ function enforceUniqueTitles(adrDirectory) {
 
 function enforceValidReferences(adrDirectory) {
   if (!fs.existsSync(adrDirectory)) {
-    throw new ValidatorError(
-      `ADR directory does not exist: ${adrDirectory}`,
-      { directory: adrDirectory },
-    );
+    throw new ValidatorError(`ADR directory does not exist: ${adrDirectory}`, {
+      directory: adrDirectory,
+    });
   }
 
-  const files = fs
-    .readdirSync(adrDirectory)
-    .filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(adrDirectory).filter((f) => f.endsWith(".md"));
   const adrNumbers = new Set();
 
   for (const file of files) {
@@ -92,7 +86,10 @@ function enforceValidReferences(adrDirectory) {
 
     for (const match of references) {
       const refNumber = match[1];
-      if (!adrNumbers.has(refNumber) && !adrNumbers.has(parseInt(refNumber, 10).toString())) {
+      if (
+        !adrNumbers.has(refNumber) &&
+        !adrNumbers.has(parseInt(refNumber, 10).toString())
+      ) {
         errors.push({
           rule: "enforce-valid-references",
           message: `Invalid reference to ADR #${refNumber} in file ${file}`,
@@ -112,10 +109,9 @@ function enforceValidReferences(adrDirectory) {
 
 function enforceStatusTransitions(adrDirectory) {
   if (!fs.existsSync(adrDirectory)) {
-    throw new ValidatorError(
-      `ADR directory does not exist: ${adrDirectory}`,
-      { directory: adrDirectory },
-    );
+    throw new ValidatorError(`ADR directory does not exist: ${adrDirectory}`, {
+      directory: adrDirectory,
+    });
   }
 
   const VALID_STATUSES = ["PROPOSED", "ACCEPTED", "SUPERSEDED", "REJECTED"];
@@ -126,9 +122,7 @@ function enforceStatusTransitions(adrDirectory) {
     REJECTED: [],
   };
 
-  const files = fs
-    .readdirSync(adrDirectory)
-    .filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(adrDirectory).filter((f) => f.endsWith(".md"));
   const errors = [];
 
   for (const file of files) {
@@ -160,15 +154,12 @@ function enforceStatusTransitions(adrDirectory) {
 
 function enforceFormat(adrDirectory) {
   if (!fs.existsSync(adrDirectory)) {
-    throw new ValidatorError(
-      `ADR directory does not exist: ${adrDirectory}`,
-      { directory: adrDirectory },
-    );
+    throw new ValidatorError(`ADR directory does not exist: ${adrDirectory}`, {
+      directory: adrDirectory,
+    });
   }
 
-  const files = fs
-    .readdirSync(adrDirectory)
-    .filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(adrDirectory).filter((f) => f.endsWith(".md"));
   const errors = [];
   const requiredFields = ["title", "date", "status", "authors"];
 
@@ -219,15 +210,12 @@ function enforceFormat(adrDirectory) {
 
 function enforceFilenameFormat(adrDirectory) {
   if (!fs.existsSync(adrDirectory)) {
-    throw new ValidatorError(
-      `ADR directory does not exist: ${adrDirectory}`,
-      { directory: adrDirectory },
-    );
+    throw new ValidatorError(`ADR directory does not exist: ${adrDirectory}`, {
+      directory: adrDirectory,
+    });
   }
 
-  const files = fs
-    .readdirSync(adrDirectory)
-    .filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(adrDirectory).filter((f) => f.endsWith(".md"));
   const errors = [];
   const FILENAME_PATTERN = /^(\d+)-(.+)\.md$/;
 
@@ -249,17 +237,17 @@ function enforceFilenameFormat(adrDirectory) {
   };
 }
 
-function enforceMetadata(adrDirectory, requiredFields = ["title", "date", "status", "authors"]) {
+function enforceMetadata(
+  adrDirectory,
+  requiredFields = ["title", "date", "status", "authors"],
+) {
   if (!fs.existsSync(adrDirectory)) {
-    throw new ValidatorError(
-      `ADR directory does not exist: ${adrDirectory}`,
-      { directory: adrDirectory },
-    );
+    throw new ValidatorError(`ADR directory does not exist: ${adrDirectory}`, {
+      directory: adrDirectory,
+    });
   }
 
-  const files = fs
-    .readdirSync(adrDirectory)
-    .filter((f) => f.endsWith(".md"));
+  const files = fs.readdirSync(adrDirectory).filter((f) => f.endsWith(".md"));
   const errors = [];
 
   for (const file of files) {

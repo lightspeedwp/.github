@@ -3,20 +3,24 @@
  */
 
 // Mock Octokit
-jest.mock("octokit", () => {
-  const Octokit = jest.fn().mockImplementation(() => ({
-    rest: {
-      pulls: {
-        list: jest.fn(),
+jest.mock(
+  "octokit",
+  () => {
+    const Octokit = jest.fn().mockImplementation(() => ({
+      rest: {
+        pulls: {
+          list: jest.fn(),
+        },
+        issues: {
+          removeLabel: jest.fn(),
+          addLabels: jest.fn(),
+        },
       },
-      issues: {
-        removeLabel: jest.fn(),
-        addLabels: jest.fn(),
-      },
-    },
-  }));
-  return { Octokit };
-});
+    }));
+    return { Octokit };
+  },
+  { virtual: true },
+);
 
 describe("update-pr-labels-simple", () => {
   describe("determineStatus", () => {
@@ -28,7 +32,12 @@ describe("update-pr-labels-simple", () => {
 
     it("should return status:ready-for-changelog for merged PRs", () => {
       const { determineStatus } = require("../update-pr-labels-simple.js");
-      const pr = { draft: false, state: "closed", merged_at: "2026-08-18T00:00:00Z", labels: [] };
+      const pr = {
+        draft: false,
+        state: "closed",
+        merged_at: "2026-08-18T00:00:00Z",
+        labels: [],
+      };
       expect(determineStatus(pr)).toBe("status:ready-for-changelog");
     });
 
@@ -43,7 +52,7 @@ describe("update-pr-labels-simple", () => {
       const pr = {
         draft: false,
         state: "open",
-        labels: [{ name: "status:under-review" }]
+        labels: [{ name: "status:under-review" }],
       };
       expect(determineStatus(pr)).toBe("status:under-review");
     });

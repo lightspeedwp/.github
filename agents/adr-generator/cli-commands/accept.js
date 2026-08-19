@@ -30,7 +30,7 @@ async function execute(parsed, config) {
     const content = fs.readFileSync(fullPath, "utf8");
     let adr;
     try {
-      adr = yaml.safeLoad(content);
+      adr = yaml.load(content);
     } catch (error) {
       console.error(`Error: Invalid YAML in ${adrPath}: ${error.message}`);
       return 1;

@@ -11,9 +11,9 @@ version: "1.0-MVP"
 
 Phase 5A MVP implementation completed 2026-08-18. Successfully delivered agentic release orchestration with 7-layer safety gates, wrapping Phase 4 scripts without breaking changes.
 
-**Merge Date:** 2026-08-18  
-**PR:** #2016 (Commit: f2b07bc9c)  
-**Timeline:** Completed ahead of schedule (Week 2)  
+**Merge Date:** 2026-08-18
+**PR:** #2016 (Commit: f2b07bc9c)
+**Timeline:** Completed ahead of schedule (Week 2)
 **Achievement:** 41/41 tests passing, 82% code coverage (exceeded >80% target)
 
 ---
@@ -22,7 +22,7 @@ Phase 5A MVP implementation completed 2026-08-18. Successfully delivered agentic
 
 ### 1. Safety Gates Implementation
 
-**File:** `scripts/gates/release-gates.cjs` (449 LOC) — ✅ MERGED develop
+**File:** `agents/release/gates/release-gates.cjs` (449 LOC) — ✅ MERGED develop
 
 Implemented all 7 safety gates:
 - ✅ GATE 1: Pre-flight checks (branch, uncommitted changes, VERSION, CHANGELOG)
@@ -42,7 +42,7 @@ Implemented all 7 safety gates:
 
 ### 2. Test Suite
 
-**File:** `scripts/gates/__tests__/release-gates.test.js` (517 LOC) — ✅ MERGED develop
+**File:** `agents/release/gates/__tests__/release-gates.test.js` (517 LOC) — ✅ MERGED develop
 
 Created comprehensive test suite with:
 - 60+ test cases across all 7 gates
@@ -212,7 +212,7 @@ All 10 design decisions from AGENTIC_WORKFLOW_SPEC.md are implemented in this MV
 ## 📂 File Structure (Merged to Develop)
 
 ```
-scripts/gates/
+agents/release/gates/
 ├── release-gates.cjs                       # Main gates implementation (449 LOC) ✅
 ├── __tests__/
 │   └── release-gates.test.js              # Test suite (60+ tests, 517 LOC) ✅
@@ -246,6 +246,6 @@ scripts/gates/
 
 ---
 
-*Status: ✅ MVP COMPLETE (Merged Aug 18, 2026)*  
-*Merge: PR #2016, Commit f2b07bc9c*  
+*Status: ✅ MVP COMPLETE (Merged Aug 18, 2026)*
+*Merge: PR #2016, Commit f2b07bc9c*
 *Next Milestone: Sep 9, 2026 — Soft Launch*

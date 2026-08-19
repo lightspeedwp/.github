@@ -9,8 +9,8 @@ version: '1.0'
 
 A universal metrics collection and analysis agent supporting GitHub control plane and WordPress repositories. Collects, aggregates, analyzes, and reports on repository health metrics.
 
-**Status:** Phase 1 Implementation (Aug 12-26)  
-**Coverage:** 75+ tests, >80% code coverage  
+**Status:** Phase 1 Implementation (Aug 12-26)
+**Coverage:** 75+ tests, >80% code coverage
 **Maturity:** Beta (ready for integration testing)
 
 ---
@@ -32,7 +32,7 @@ node scripts/metrics/metrics-agent.js scripts/metrics/config/wordpress-theme.jso
 
 ### Output
 
-Metrics are written to `.githu./.github/reports/metrics/metrics-YYYY-MM-DD.json`:
+Metrics are written to `.github/reports/metrics/metrics-YYYY-MM-DD.json`:
 
 ```json
 {
@@ -90,7 +90,7 @@ Metrics are written to `.githu./.github/reports/metrics/metrics-YYYY-MM-DD.json`
   },
   "collection_period": 7,
   "cache_ttl": 3600,
-  "output_dir": ".githu./.github/reports/metrics"
+  "output_dir": ".github/reports/metrics"
 }
 ```
 
@@ -110,7 +110,7 @@ Metrics are written to `.githu./.github/reports/metrics/metrics-YYYY-MM-DD.json`
 - **collection_period** (required): Number of days to collect metrics for (e.g., 7, 14, 30)
 - **cache_ttl** (optional): Cache time-to-live in seconds (default: 3600)
 - **github_token** (optional): GitHub API token. Falls back to `GITHUB_TOKEN` env var.
-- **output_dir** (optional): Where to write reports (default: `.githu./.github/reports/metrics`)
+- **output_dir** (optional): Where to write reports (default: `.github/reports/metrics`)
 
 ### Environment Variables
 
@@ -256,19 +256,19 @@ const result = await MetricsReporter.handoffToReporting(report, config);
 ### Run All Tests
 
 ```bash
-npm test -- scripts/metrics/test/metrics-agent.test.js
+npm test -- scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Run with Coverage
 
 ```bash
-npm test -- --coverage scripts/metrics/test/metrics-agent.test.js
+npm test -- --coverage scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Watch Mode
 
 ```bash
-npm test -- --watch scripts/metrics/test/metrics-agent.test.js
+npm test -- --watch scripts/metrics/__tests__/metrics-agent.test.js
 ```
 
 ### Test Coverage
@@ -346,7 +346,7 @@ const report = await MetricsReporter.packageMetrics(analysis, config);
 // }
 
 await MetricsReporter.handoffToReporting(report, config);
-// Writes to: .githu./.github/reports/metrics/metrics-YYYY-MM-DD.json
+// Writes to: .github/reports/metrics/metrics-YYYY-MM-DD.json
 ```
 
 The Reporting Agent can then:
@@ -482,7 +482,7 @@ See [CLAUDE.md](../../CLAUDE.md) for contribution guidelines and coding standard
 1. Update metrics-agent.js
 2. Add corresponding tests in metrics-agent.test.js
 3. Update PROGRESS.md
-4. Run tests: `npm test -- scripts/metrics/test/metrics-agent.test.js`
+4. Run tests: `npm test -- scripts/metrics/__tests__/metrics-agent.test.js`
 5. Ensure >80% coverage
 
 ---
@@ -494,3 +494,19 @@ This agent is part of the LightSpeedWP `.github` control plane. See LICENSE for 
 ---
 
 Last updated: 2026-08-12
+
+## Repository Flow
+
+```mermaid
+graph LR
+    A["Scope"] --> B["Inputs"]
+    B --> C["Process"]
+    C --> D["Validation"]
+    D --> E["Outputs"]
+
+    style A fill:#4a148c,color:#fff
+    style B fill:#1b5e20,color:#fff
+    style C fill:#bf360c,color:#fff
+    style D fill:#f57f17,color:#fff
+    style E fill:#00695c,color:#fff
+```

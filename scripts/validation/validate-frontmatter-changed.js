@@ -7,32 +7,32 @@
  * @module scripts/validation/validate-frontmatter-changed
  */
 
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
-const Ajv = require('ajv');
-const addFormats = require('ajv-formats');
+const fs = require("fs");
+const path = require("path");
+const yaml = require("js-yaml");
+const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
 
 const CONFIG = {
-  schemaPath: path.join(__dirname, '../../schemas/frontmatter.schema.json'),
-  rootDir: path.join(__dirname, '../..'),
+  schemaPath: path.join(__dirname, "../../schemas/frontmatter.schema.json"),
+  rootDir: path.join(__dirname, "../.."),
 };
 
 /**
  * Get changed files from git diff
  */
 function getChangedFiles(baseSha, headSha) {
-  const { execSync } = require('child_process');
+  const { execSync } = require("child_process");
   try {
     const output = execSync(`git diff --name-only ${baseSha} ${headSha}`, {
-      encoding: 'utf-8',
+      encoding: "utf-8",
     });
     return output
       .trim()
-      .split('\n')
+      .split("\n")
       .filter((f) => f && /\.(md|yml|yaml)$/.test(f));
   } catch (error) {
-    console.error('Failed to get changed files:', error.message);
+    console.error("Failed to get changed files:", error.message);
     return [];
   }
 }
@@ -53,7 +53,8 @@ function extractFrontmatter(content, filePath) {
     return { frontmatter, hasYamlBlock: true };
   } catch (error) {
     throw new Error(
-      `Invalid YAML frontmatter in ${filePath}: ${error.message}`
+      `Invalid YAML frontmatter in ${filePath}: ${error.message}`,
+      { cause: error },
     );
   }
 }
@@ -62,7 +63,7 @@ function extractFrontmatter(content, filePath) {
  * Validate frontmatter against schema
  */
 function validateFrontmatter(files) {
-  const schemaContent = fs.readFileSync(CONFIG.schemaPath, 'utf8');
+  const schemaContent = fs.readFileSync(CONFIG.schemaPath, "utf8");
   const schema = JSON.parse(schemaContent);
 
   const ajv = new Ajv({
@@ -82,11 +83,8 @@ function validateFrontmatter(files) {
     }
 
     try {
-      const content = fs.readFileSync(file, 'utf8');
-      const { frontmatter, hasYamlBlock } = extractFrontmatter(
-        content,
-        file
-      );
+      const content = fs.readFileSync(file, "utf8");
+      const { frontmatter, hasYamlBlock } = extractFrontmatter(content, file);
 
       if (!hasYamlBlock) {
         console.warn(`[WARN] No frontmatter in ${file}`);
@@ -111,13 +109,13 @@ function validateFrontmatter(files) {
 }
 
 // Main execution
-const baseSha = process.argv[2] || process.env.BASE_SHA || 'HEAD~1';
-const headSha = process.argv[3] || process.env.HEAD_SHA || 'HEAD';
+const baseSha = process.argv[2] || process.env.BASE_SHA || "HEAD~1";
+const headSha = process.argv[3] || process.env.HEAD_SHA || "HEAD";
 
 const changedFiles = getChangedFiles(baseSha, headSha);
 
 if (changedFiles.length === 0) {
-  console.log('No markdown or YAML files changed');
+  console.log("No markdown or YAML files changed");
   process.exit(0);
 }
 
