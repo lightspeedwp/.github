@@ -153,6 +153,7 @@ graph TB
     style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
     style H fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style K fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ---
@@ -200,6 +201,7 @@ flowchart TD
     D -->|Yes| E{Is a maintainer willing<br/>to own the lifecycle?}
     E -->|No| N4[Do NOT create agent]
     E -->|Yes| F([Proceed with Spec Draft])
+accDescr: Visual diagram showing structure, relationships, and flow
 ````
 
 ---
@@ -382,6 +384,7 @@ mindmap
       semantic versioning
       ISO date
       unique naming
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ---
@@ -428,6 +431,7 @@ sequenceDiagram
     H->>Git: Commit Implementation + Tests
     CI->>Git: Validate + Test
     Git->>H: Ready to Merge
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ---

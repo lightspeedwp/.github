@@ -182,6 +182,7 @@ git push origin main --tags
 
 ```mermaid
 flowchart TD
+accTitle: Flowchart
     A["Release triggered<br/>with scope: patch/minor/major"] -->|"VERSION = 1.2.3<br/>Scope = minor"| B["Parse current version"]
     B --> C["Calculate next version"]
     C -->|"1.2.3 + minor<br/>= 1.3.0"| D["Validate semver format"]
@@ -200,6 +201,7 @@ flowchart TD
     style Z1 fill:#b71c1c,color:#fff
     style Z2 fill:#b71c1c,color:#fff
     style Z3 fill:#b71c1c,color:#fff
+accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 ### What GATE 3 Validates
