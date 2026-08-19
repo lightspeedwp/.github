@@ -356,91 +356,74 @@ function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
   const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
   const blockJsonPath = path.join(resolvedRoot, "block.json");
   if (fsImpl.existsSync(blockPluginPath) || fsImpl.existsSync(blockJsonPath)) {
-    return "wordpress-block-plugin";
+    return "BLOCK_PLUGIN";
   }
 
-  return "generic";
+  return "UNKNOWN";
 }
 
-function getWordPressPhpcsConfig(repositoryType = "wordpress-plugin") {
+function getWordPressPhpcsConfig(options = {}) {
+  const { type = "plugin", ruleset = "WordPress" } = options;
+
   const baseConfig = {
-    standard: "WordPress",
+    standards: [ruleset],
     extensions: ["php"],
-    exclude: ["vendor", "node_modules", "tests"],
+    exclude: ["vendor/", "node_modules/", "tests/"],
     severity: 5,
   };
 
-  if (repositoryType === "wordpress-plugin") {
+  if (type === "plugin") {
     return {
       ...baseConfig,
-      standard: "WordPress-Core,WordPress-Docs",
-      sniffs: {
-        "WordPress.Security.EscapeOutput": { severity: 5 },
-        "WordPress.DB.PreparedSQL": { severity: 5 },
-        "WordPress.Security.NonceVerification": { severity: 4 },
-      },
+      standards: [ruleset || "WordPress-Core", "WordPress-Docs"],
     };
   }
 
-  if (repositoryType === "wordpress-theme") {
+  if (type === "theme") {
     return {
       ...baseConfig,
-      standard: "WordPress",
-      sniffs: {
-        "WordPress.Theme.NoScriptTags": { severity: 5 },
-        "WordPress.Security.EscapeOutput": { severity: 5 },
-      },
-    };
-  }
-
-  if (repositoryType === "wordpress-block-plugin") {
-    return {
-      ...baseConfig,
-      standard: ["WordPress-Core", "WordPress-Docs"],
-      sniffs: {
-        "WordPress.Security.EscapeOutput": { severity: 5 },
-        "WordPress.DB.PreparedSQL": { severity: 5 },
-      },
+      standards: [ruleset || "WordPress"],
     };
   }
 
   return baseConfig;
 }
 
-function getBlockPluginConfig(projectRoot = process.cwd()) {
-  return {
-    eslintConfig: {
-      extends: ["plugin:@wordpress/eslint-plugin/recommended"],
-      rules: {
-        "no-unused-vars": "error",
-        "no-console": ["warn", { allow: ["warn", "error"] }],
-      },
+function getBlockPluginConfig(options = {}) {
+  const { typescript = false, rules = {} } = options;
+
+  const config = {
+    extends: ["plugin:react/recommended"],
+    rules: {
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+      "no-console": "error",
+      ...rules,
     },
-    stylelintConfig: {
-      extends: ["stylelint-config-standard"],
-      rules: {
-        "no-missing-end-of-source-newline": null,
-      },
-    },
-    phpcsConfig: getWordPressPhpcsConfig("wordpress-block-plugin"),
   };
+
+  if (typescript) {
+    config.parser = "@typescript-eslint/parser";
+    config.parserOptions = { ecmaVersion: 2021, sourceType: "module" };
+    config.extends.push("plugin:@typescript-eslint/recommended");
+  }
+
+  return config;
 }
 
-function getBlockThemeConfig(projectRoot = process.cwd()) {
+function getBlockThemeConfig(options = {}) {
+  const { includeVariations = false } = options;
+
   return {
-    eslintConfig: {
-      extends: ["eslint:recommended"],
-      rules: {
-        "no-unused-vars": "error",
-      },
+    extends: "stylelint-config-wordpress",
+    rules: {
+      "color-no-invalid-hex": true,
+      "font-family-no-missing-generic-family-keyword": true,
+      "property-no-unknown": true,
+      "selector-pseudo-element-no-unknown": true,
+      "unit-no-unknown": true,
     },
-    stylelintConfig: {
-      extends: ["stylelint-config-standard"],
-      rules: {
-        "unit-allowed-list": ["em", "rem", "px", "%"],
-      },
-    },
-    phpcsConfig: getWordPressPhpcsConfig("wordpress-theme"),
+    ignoreFiles: ["vendor/**", "node_modules/**", "dist/**"],
   };
 }
 
