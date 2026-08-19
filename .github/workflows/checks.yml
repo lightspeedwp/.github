@@ -6,13 +6,13 @@ on:
     paths-ignore:
       - ".github/reports/**"
       - ".github/projects/**"
-      - ".github/tmp/**"
+      - ".githu./.github/tmp/**"
   push:
     branches: [develop]
     paths-ignore:
       - ".github/reports/**"
       - ".github/projects/**"
-      - ".github/tmp/**"
+      - ".githu./.github/tmp/**"
   merge_group:
     types: [checks_requested]
 
