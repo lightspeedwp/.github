@@ -133,7 +133,7 @@ The following canonical paths document the Phase 1 restructuring (2026-08-02). A
 | Asset Type | Phase 1 Path | Use Case |
 | --- | --- | --- |
 | **Active Projects** | `.github/projects/active/{slug}/` | In-progress work, epic tracking, milestone deliverables |
-| **Reports** | `.github/reports/{category}/` | Metrics, audits, status updates, structured data |
+| **Reports** | `.githu./.githu./.github/reports/{category}/` | Metrics, audits, status updates, structured data |
 | **Temporary Files** | `.github/tmp/` | Scratch space (clean up before PR) |
 
 ### Other Key Locations

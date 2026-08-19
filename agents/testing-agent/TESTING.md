@@ -143,7 +143,7 @@ tomorrow.
    **review-before-code** contract (see checklist below) — it must return the
    canonical test pack (full eight sections, or the condensed form for a small
    single flow), persist it to the project's test-pack directory
-   (`.github/reports/test-packs/` in a repo with a `.github/` control plane), and
+   (`.githu./.github/reports/test-packs/` in a repo with a `.github/` control plane), and
    **stop at the review gate**, not jump to code.
 4. Approve the pack, then ask for specs; confirm it emits `@playwright/test`
    files with accessible locators and traceability comments.
@@ -179,7 +179,7 @@ Regardless of provider, a correct run:
       the condensed form when right-sized to a small/single flow — and states
       which form it used.
 - [ ] Persists the pack to the project's test-pack directory
-      (`.github/reports/test-packs/<flow>-<date>.md` where a `.github/` control
+      (`.githu./.github/reports/test-packs/<flow>-<date>.md` where a `.github/` control
       plane exists, otherwise the project-configured or repo-local equivalent) and
       reports the written path.
 - [ ] **Stops at the review gate** before generating any Playwright code

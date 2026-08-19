@@ -429,8 +429,8 @@ node scripts/agents/includes/report-writer.js
 
 Already documented in:
 
-- [Technical Debt Report](.github/reports/tech-debt/v1.0.0-pre-launch-debt.md)
-- [Test Coverage Expansion Plan](.github/reports/analysis/test-coverage-expansion-plan.md)
+- [Technical Debt Report](.githu./.github/reports/tech-debt/v1.0.0-pre-launch-debt.md)
+- [Test Coverage Expansion Plan](.githu./.github/reports/analysis/test-coverage-expansion-plan.md)
 
 **Key Items**:
 
@@ -474,9 +474,9 @@ Before proceeding to v1.0.0 release, confirm:
 ### Related Documents
 
 - [Launch Agents Checklist](.github/projects/active/launch-agents-checklist.md)
-- [Technical Debt Report](.github/reports/tech-debt/v1.0.0-pre-launch-debt.md)
-- [Pre-Release Audit](.github/reports/analysis/pre-release-audit-v1.0.0.md)
-- [Test Coverage Expansion Plan](.github/reports/analysis/test-coverage-expansion-plan.md)
+- [Technical Debt Report](.githu./.github/reports/tech-debt/v1.0.0-pre-launch-debt.md)
+- [Pre-Release Audit](.githu./.github/reports/analysis/pre-release-audit-v1.0.0.md)
+- [Test Coverage Expansion Plan](.githu./.github/reports/analysis/test-coverage-expansion-plan.md)
 
 ### Agent Files
 

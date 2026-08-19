@@ -6,7 +6,7 @@
 const { MetricsStorage } = require("./metrics-storage");
 
 class TrendAnalyzer {
-  constructor(storageDir = ".github/reports/metrics") {
+  constructor(storageDir = ".githu./.github/reports/metrics") {
     this.storage = new MetricsStorage(storageDir);
   }
 

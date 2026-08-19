@@ -139,7 +139,7 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 
 #### Reports Folder (Permanent)
 
-**Location**: `.github/reports/`
+**Location**: `.githu./.github/reports/`
 
 **Purpose**: Long-term documentation and analysis
 
@@ -650,7 +650,7 @@ rm .github/tmp/draft-*.md
 rm .github/tmp/temp-*.json
 
 # Archive old files
-mv .github/tmp/analysis-*.json .github/reports/archived/
+mv .github/tmp/analysis-*.json .githu./.github/reports/archived/
 
 # Clear all tmp (CAUTION!)
 rm -rf .github/tmp/*

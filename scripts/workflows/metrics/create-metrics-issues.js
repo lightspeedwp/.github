@@ -216,7 +216,7 @@ Options:
   --help           Show this help message
 
 Examples:
-  node scripts/workflows/metrics/create-metrics-issues.js .github/reports/metrics/metrics-report-control-plane-latest.md
+  node scripts/workflows/metrics/create-metrics-issues.js .githu./.github/reports/metrics/metrics-report-control-plane-latest.md
   node scripts/workflows/metrics/create-metrics-issues.js report.md --dry-run --verbose
     `);
     process.exit(args.includes('--help') ? 0 : 1);

@@ -157,7 +157,7 @@ This audit discovered **57 README.md files** across the LightSpeed `.github` rep
 
 | File | Path | Status |
 | --- | --- | --- |
-| Reports | `.github/reports/README.md` | ✅ No diagrams |
+| Reports | `.githu./.github/reports/README.md` | ✅ No diagrams |
 | Prompts | `prompts/README.md` | ✅ No diagrams |
 | WCEU 2026 | `wceu-2026/README.md` | ✅ No diagrams |
 | WCEU 2026 Agent Slides | `wceu-2026/agent-slides/README.md` | ✅ No diagrams |

@@ -199,7 +199,7 @@ The following 26 README files were scanned and contain no Mermaid diagrams (no a
 - `./.github/projects/archived/label-governance-stabilisation-2026-05-27/issues/README.md`
 - `./.github/projects/archived/portable-ai-plugin-restructure/issues/README.md`
 - `./.github/prompts/README.md`
-- `./.github/reports/README.md`
+- `./.githu./.github/reports/README.md`
 - `./.github/schemas/README.md`
 - `./.github/workflows/README.md`
 - `./.schemas/README.md`

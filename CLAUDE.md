@@ -59,7 +59,7 @@ The repository restructuring initiative includes Phase 1 audits that map all por
 | --- | --- | --- | --- | --- |
 | **Schema files** | `schema/` | `.schemas/` (root, hidden) | Consolidation | Phase 3 (migration plan ready) |
 | **Schema visibility** | `schemas/` | (visible root copy maintained) | Reference | Current (npm package reference) |
-| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B) | Move to .github, then portable | ✅ Complete (Phase 2B) |
+| **Scripts** | `scripts/` | `.github/scripts/` (Phase 1) → `scripts/` (Phase 2B-2C) | Move to .github, then portable | ✅ Complete (Phase 2B-2C, 2026-08-19) |
 | **Website** | `website/` | `.github/website/` | Move to .github | ✅ Complete |
 | **Projects** | `projects/active/` | `.github/projects/active/` | Move to .github | ✅ Complete |
 | **Instructions** | `.github/instructions/` (mixed) | `instructions/` + `.github/instructions/` (split) | Reorganize | Phase 3 (audit complete) |
@@ -466,7 +466,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | **Portable JSON schemas** (validation for frontmatter, agents, plugins, skills) | `schemas/` (root) | Portable, reusable |
 | **Portable agent specifications** — Multi-file implementations (16 agents) | `agents/` (root) | Portable, installable |
 | **Spec-based agents** — Simple YAML/JSON definitions (19 agents) | `.github/agents/` | GitHub-native only |
-| Reports, audits, metrics | `.github/reports/{category}/` | Control-plane only |
+| Reports, audits, metrics | `.githu./.githu./.github/reports/{category}/` | Control-plane only |
 | Active project artefacts | `.github/projects/active/{slug}/` | Control-plane only |
 | Temporary scratch files | `.github/tmp/` (clean up before PR) | Control-plane only |
 | Portable reusable AI assets | top-level source folders (see table above) | Portable |
@@ -627,7 +627,7 @@ gh api /orgs/lightspeedwp/teams/maintainers/members/$(git config user.name)
 
 ### Audit Logging
 
-All releases logged to `.github/reports/agentic-releases/` with JSON structure:
+All releases logged to `.githu./.githu./.github/reports/agentic-releases/` with JSON structure:
 
 ```json
 {
@@ -645,7 +645,7 @@ All releases logged to `.github/reports/agentic-releases/` with JSON structure:
 }
 ```
 
-**Retention:** 90 days (GitHub Actions default) + archival in `.github/reports/`
+**Retention:** 90 days (GitHub Actions default) + archival in `.githu./.githu./.github/reports/`
 
 ### Fallback Procedures
 

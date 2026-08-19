@@ -6,7 +6,7 @@
  * Detects circular references and generates recommendations
  *
  * Usage: node scripts/audit-frontmatter.js
- * Output: .github/reports/audits/frontmatter/audit-frontmatter-report.csv
+ * Output: .githu./.github/reports/audits/frontmatter/audit-frontmatter-report.csv
  *
  * @author LightSpeedWP
  * @version 1.0.0

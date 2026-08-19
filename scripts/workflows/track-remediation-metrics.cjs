@@ -105,7 +105,7 @@ generateProgressReport(metrics);
  * Generate human-readable progress report
  */
 function generateProgressReport(metrics) {
-  const reportFile = '.github/reports/remediation-progress.md';
+  const reportFile = '.githu./.github/reports/remediation-progress.md';
   const reportDir = path.dirname(reportFile);
 
   if (!fs.existsSync(reportDir)) {

@@ -584,4 +584,4 @@ Create these GitHub issues to track remediation:
 
 **Report Generated**: 2025-12-10
 **Audit Tool**: Claude Code Agent SDK
-**Report Location**: `.github/reports/audits/agent-infrastructure-audit-2025-12-10.md`
+**Report Location**: `.githu./.github/reports/audits/agent-infrastructure-audit-2025-12-10.md`

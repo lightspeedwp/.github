@@ -195,7 +195,7 @@ async function trigger(prContext) {
  * @param {Object} prContext - GitHub PR context (optional, for fallback)
  * @returns {Promise<Object|null>} - Review result or null if pending
  */
-async function poll(requestId, prContext = null) {
+async function poll(requestId, _prContext = null) {
   const tokens = toolRegistry._resolveTokens();
   const token = tokens.copilot_token;
 

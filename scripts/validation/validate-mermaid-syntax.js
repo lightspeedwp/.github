@@ -309,11 +309,11 @@ ${
 `;
 
   fs.writeFileSync(
-    path.join(ROOT, ".github/reports/mermaid-validation-report.md"),
+    path.join(ROOT, ".githu./.github/reports/mermaid-validation-report.md"),
     reportContent,
   );
   console.log(
-    "\n✅ Validation report saved to .github/reports/mermaid-validation-report.md",
+    "\n✅ Validation report saved to .githu./.github/reports/mermaid-validation-report.md",
   );
 
   process.exit(report.errorDiagrams > 0 ? 1 : 0);

@@ -51,7 +51,7 @@ const CONFIG = {
   excludePatterns: [
     "**/node_modules/**",
     "**/.git/**",
-    "**/.github/reports/**",
+    "**/.githu./.github/reports/**",
     "**/.github/projects/**",
     "**/*tmp*/**",
     "**/dist/**",

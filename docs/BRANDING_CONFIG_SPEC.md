@@ -45,7 +45,7 @@ The system is **config-driven** and **automation-friendly**, allowing the unifie
 | `instructions` | Instructions & Standards | Developers, reviewers | `instructions/**/*.md`, `*.instructions.md` | Required | Required | `standards-footer` |
 | `prompts` | Prompts & Examples | Prompt engineers, AI users | `prompts/**/*.md`, `*.prompt.md`, `wceu-2026/**/*.md` | Optional | Optional | `ai-ops-standard` |
 | `schema` | Schema & Validation | Developers, API users | `.schemas/**/*.md`, `*.schema.md` | Required | Required | `schema-footer` |
-| `audit` | Audit & Reports | Auditors, decision makers | `audit/**/*.md`, `*audit*.md`, `.github/reports/**/*.md` | Required | Required | `audit-footer` |
+| `audit` | Audit & Reports | Auditors, decision makers | `audit/**/*.md`, `*audit*.md`, `.githu./.github/reports/**/*.md` | Required | Required | `audit-footer` |
 | `research` | Research & Analysis | Researchers, stakeholders | `research/**/*.md`, `*research*.md` | Required | Required | `research-footer` |
 | `workflow` | Workflows & Automation | DevOps, automation engineers | `.github/workflows/**/*.md`, `docs/**/*workflow*.md` | Required | Required | `ai-ops-standard` |
 | `issue-template` | Issue Templates | Contributors | `.github/ISSUE_TEMPLATE/*.md` | Optional | Optional | `issue-footer` |
@@ -181,7 +181,7 @@ Patterns are evaluated in this order; first match wins:
 | 6 | `prompts/**/*.md` or `*.prompt.md` or `wceu-2026/**/*.md` | `prompts` |
 | 7 | `.github/workflows/**/*.md` | `workflow` |
 | 8 | `.schemas/**/*.md` or `*.schema.md` | `schema` |
-| 9 | `.github/reports/**/*.md` or `*audit*.md` | `audit` |
+| 9 | `.githu./.github/reports/**/*.md` or `*audit*.md` | `audit` |
 | 10 | `*research*.md` or `research/**/*.md` | `research` |
 | 11 | `test/**/*.md` or `*test*.md` | `test` |
 | 12 | `.github/scripts/**/*.md` or `utils/**/*.md` or `*.utility.md` | `utility` |
