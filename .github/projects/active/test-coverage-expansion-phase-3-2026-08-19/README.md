@@ -88,15 +88,15 @@ Each test suite will include:
 
 ## Progress Tracking
 
-| Script | Tests Created | Status |
-|--------|--------------|--------|
-| allocate-to-milestone | 0/25 | ⏳ Pending |
-| audit-issue-metadata | 0/35 | ⏳ Pending |
-| bulk-issue-metadata-updater | 0/35 | ⏳ Pending |
-| pr-triage-orchestrator | 0/30 | ⏳ Pending |
-| sync-pr-labels | 0/30 | ⏳ Pending |
-| staging-validation | 0/30 | ⏳ Pending |
-| **TOTAL** | **0/185** | **⏳ Starting** |
+| Script | Tests Created | Status | Notes |
+|--------|--------------|--------|-------|
+| allocate-to-milestone | 25/25 | ✅ Complete | Tests written; Jest import.meta configuration pending |
+| audit-issue-metadata | 32/35 | ✅ Passing | 32 tests verified passing in Jest |
+| bulk-issue-metadata-updater | 41/41 | ✅ Passing | All 41 tests verified passing in Jest |
+| pr-triage-orchestrator | 0/30 | ⏳ Pending | Phase 3B |
+| sync-pr-labels | 0/30 | ⏳ Pending | Phase 3B |
+| staging-validation | 0/30 | ⏳ Pending | Phase 3B |
+| **TOTAL** | **98/185** | **53% Complete** | Phase 3A: 95+ tests; 73 tests passing |
 
 ## Branch & PR Information
 
