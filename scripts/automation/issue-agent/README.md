@@ -9,9 +9,9 @@ The Issue Management Agent is a comprehensive automation system for orchestratin
 
 ## Project Overview
 
-**Current Phase:** Phase 2 — Infrastructure & Skill Implementation  
-**Status:** 🚀 In Progress (Aug 20 Kickoff)  
-**Timeline:** Aug 13–Sep 2, 2026 (3 weeks)  
+**Current Phase:** Phase 2 — Infrastructure & Skill Implementation
+**Status:** 🚀 In Progress (Aug 20 Kickoff)
+**Timeline:** Aug 13–Sep 2, 2026 (3 weeks)
 **Related:** [GitHub Project](../../../.github/projects/active/issue-management-agent-planning-2026-08-12/), [GitHub Issues](#github-issues)
 
 ## Phase 2 Deliverables (7 Skills)
@@ -47,13 +47,13 @@ scripts/automation/issue-agent/shared/
 │   ├── Markdown formatter
 │   └── Validators & parsers
 └── __tests__/
-  ├── fixtures/             (20.1 KB)
-  │   ├── issues.json       (2.8 KB, 15+ realistic issues)
-  │   ├── labels.json       (4.1 KB, 50+ canonical labels)
-  │   └── milestones.json   (3.2 KB, 10+ milestones)
-  ├── mocks/
-  │   └── github-api.js     (5.6 KB, API mock helpers)
-  ├── fixtures/README.md    (4.2 KB, usage guide)
+    ├── fixtures/             (20.1 KB)
+    │   ├── issues.json       (2.8 KB, 15+ realistic issues)
+    │   ├── labels.json       (4.1 KB, 50+ canonical labels)
+    │   └── milestones.json   (3.2 KB, 10+ milestones)
+    ├── mocks/
+    │   └── github-api.js     (5.6 KB, API mock helpers)
+    ├── fixtures/README.md    (4.2 KB, usage guide)
     ├── github-client.test.js (50+ unit tests)
     ├── utils.test.js         (65+ unit tests)
     └── integration.test.js   (placeholder)
@@ -154,16 +154,19 @@ skill-name/
 ## Implementation Roadmap
 
 ### Week 1 (Aug 20–26): Core Skills
+
 - **Days 1–2:** Skills 1 & 2 (issue creation & validation)
 - **Days 3–4:** Skills 3 & 4 (labeling & milestone mapping)
 - **Day 5:** Week 1 Integration testing
 
 ### Week 2 (Aug 27–Sep 2): Routing & Orchestration
+
 - **Days 1–2:** Skills 5 & 6 (assignee routing & status tracking)
 - **Days 3–4:** Skill 7 (integration orchestrator)
 - **Day 5:** Phase 2 completion testing, documentation, PR submission
 
 ### Coverage Target
+
 - **Unit Tests:** 90%+ coverage on all shared modules and skills
 - **Integration Tests:** End-to-end workflow validation
 - **Documentation:** Inline comments + skill READMEs + usage guides
@@ -196,18 +199,21 @@ const mockCreateIssue = mocks.createIssueMock();
 ## Testing Best Practices
 
 ### Unit Tests
+
 - Test each function in isolation
 - Mock external dependencies (GitHub API, file system)
 - Aim for 90%+ line coverage
 - Use `describe()` blocks to organize related tests
 
 ### Integration Tests
+
 - Test workflows combining multiple modules
 - Use realistic fixtures from `shared/__tests__/fixtures/`
 - Validate error handling and edge cases
 - Document expected behavior in test comments
 
 ### Coverage Targets
+
 ```
 Branches:  ≥90%
 Functions: ≥90%
@@ -218,6 +224,7 @@ Statements: ≥90%
 ## CI/CD Integration
 
 Tests are automatically run on:
+
 - **Pull Requests:** All tests must pass before merge
 - **Develop Merge:** Full coverage validation
 - **Scheduled:** Daily runs to detect regressions
@@ -253,8 +260,8 @@ When implementing a new skill:
 
 ---
 
-**Last Updated:** Aug 18, 2026  
-**Maintainer:** Issue Management Agent Team  
+**Last Updated:** Aug 18, 2026
+**Maintainer:** Issue Management Agent Team
 **Status:** Phase 2 Infrastructure Complete, Skills Implementation Pending
 
 ## Repository Flow

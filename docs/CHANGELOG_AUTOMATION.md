@@ -65,6 +65,7 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 **Added in v1.1 (2026-08-18):** Phase 5A introduces changelog validation as the first safety gate in the release orchestration pipeline.
 
 **GATE 1: Changelog Validation** validates:
+
 - ✅ CHANGELOG.md schema compliance (Keep a Changelog 1.1.0)
 - ✅ [Unreleased] section exists
 - ✅ Unreleased section has entries
@@ -85,7 +86,7 @@ accTitle: Flowchart
     G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
     G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
     H --> I["Continue to GATE 2"]
-    
+
     style C fill:#1b5e20,color:#fff
     style H fill:#2e7d32,color:#fff
     style Z1 fill:#b71c1c,color:#fff
@@ -96,6 +97,7 @@ accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
 **Why GATE 1 matters:**
+
 - Prevents incomplete releases (missing notes, entries)
 - Ensures changelog quality before release
 - Blocks accidentally releasing without documentation
@@ -307,7 +309,7 @@ PR created (changelog-validate.yml triggered)
 │     ↓ (PASS/FAIL)
 │
 ├─ Validation Step 2: Integration Tests
-│  └─ scripts/workflows/changelog/merge-entries.integration.test.cjs
+│  └─ scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs
 │     • Section headers preserved
 │     • No duplicate entries
 │     • Entry format consistency
@@ -708,7 +710,7 @@ npm run validate:changelog
 
 - `scripts/validation/changelog-rules.cjs` — Format validation (7 rules)
 - `scripts/workflows/changelog/merge-entries.cjs` — Merge & deduplicate entries
-- `scripts/workflows/changelog/merge-entries.integration.test.cjs` — Merge validation tests
+- `scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs` — Merge validation tests
 - `scripts/validation/validate-changelog.cjs` — Schema compliance
 - `.github/scripts/agents/release.agent.js` — Release automation
 
@@ -773,9 +775,9 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 ---
 
-**Last Updated:** 2026-07-24  
-**Maintained By:** Changelog & Release Engineering Team  
-**Status:** Active  
+**Last Updated:** 2026-07-24
+**Maintained By:** Changelog & Release Engineering Team
+**Status:** Active
 **Stability:** Stable
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
