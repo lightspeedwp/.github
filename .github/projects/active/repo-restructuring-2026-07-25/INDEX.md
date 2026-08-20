@@ -113,11 +113,6 @@
 - [SCHEMA_AUDIT_REPORT.md](./SCHEMA_AUDIT_REPORT.md) — Phase 1 schema audit (25 core schemas)
 - [PHASE-3A-STATUS.md](./PHASE-3A-STATUS.md) — Phase 3A status and progress
 - [WEBSITE-UPDATE-REQUIREMENTS.md](./WEBSITE-UPDATE-REQUIREMENTS.md) — Phase 4 handoff doc
-- [SUPPORT-TRACKER.md](./SUPPORT-TRACKER.md) — Phase 5 adoption tracking
-
-### Templates & Announcements
-
-- [ANNOUNCEMENT-TEMPLATES.md](./ANNOUNCEMENT-TEMPLATES.md) — Created in Phase 5
 
 ---
 
@@ -208,8 +203,7 @@ Phase 5: Rollout (Weeks 4–8+)
 1. [README.md](./README.md) — Quick overview
 2. [PHASE-1A-MANUAL-MOVES.md](./PHASE-1A-MANUAL-MOVES.md) — Understand what's happening
 3. [MIGRATION.md](../../docs/MIGRATION.md) — Path updates for your workflow
-4. [VSCode Workspace Setup](../../docs/vscode-workspace-setup.md) — New developer setup
-5. [Plugin Setup Guides](../../docs/plugin-setup-*.md) — Plugin adoption
+4. [Plugin Setup Guides](../../docs/plugin-setup-*.md) — Plugin adoption
 
 ---
 

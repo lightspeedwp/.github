@@ -13,7 +13,10 @@ function validateStagingEnvironment(environment) {
   // Validator 1: Configuration Integrity
   validation.validators.configIntegrity = {
     name: "Configuration Integrity",
-    status: environment.config && environment.config.database ? "PASS" : "FAIL",
+    status: environment.config &&
+            environment.config.database &&
+            environment.config.secrets &&
+            environment.config.api_keys ? "PASS" : "FAIL",
     checks: {
       database: !!environment.config?.database,
       secrets: !!environment.config?.secrets,
@@ -27,18 +30,18 @@ function validateStagingEnvironment(environment) {
   }
 
   // Validator 2: Service Health
+  const apiHealthy = environment.services?.some(
+    (s) => s.name === "api" && s.status === "healthy",
+  );
+  const dbHealthy = environment.services?.some(
+    (s) => s.name === "db" && s.status === "healthy",
+  );
   validation.validators.serviceHealth = {
     name: "Service Health",
-    status: environment.services?.every((s) => s.status === "healthy")
-      ? "PASS"
-      : "FAIL",
+    status: apiHealthy && dbHealthy ? "PASS" : "FAIL",
     checks: {
-      api_service: environment.services?.some(
-        (s) => s.name === "api" && s.status === "healthy",
-      ),
-      database_service: environment.services?.some(
-        (s) => s.name === "db" && s.status === "healthy",
-      ),
+      api_service: apiHealthy,
+      database_service: dbHealthy,
     },
   };
 
@@ -62,7 +65,9 @@ function validateStagingEnvironment(environment) {
   };
 
   if (validation.validators.dataCompliance.status === "FAIL") {
-    validation.overallStatus = "WARN";
+    if (validation.overallStatus !== "FAIL") {
+      validation.overallStatus = "WARN";
+    }
   }
 
   return validation;
@@ -255,7 +260,7 @@ function generateStagingReport(
       total: complianceResults.summary.total,
       issues: complianceResults.summary.failed,
     },
-    ready: canPromoteToProduction(envValidation, complianceResults),
+    ready: canPromoteToProduction(envValidation, dataIntegrity, complianceResults),
   };
 }
 
@@ -276,10 +281,12 @@ function calculateReadinessScore(
   return Math.max(0, score);
 }
 
-function canPromoteToProduction(envValidation, complianceResults) {
+function canPromoteToProduction(envValidation, dataIntegrity, complianceResults) {
   return (
     envValidation.validators.configIntegrity.status === "PASS" &&
     envValidation.validators.serviceHealth.status === "PASS" &&
+    envValidation.validators.dataCompliance.status === "PASS" &&
+    dataIntegrity.consistency.status === "PASS" &&
     complianceResults.summary.failed === 0
   );
 }
@@ -389,16 +396,24 @@ describe("integration: staging & production readiness workflow", () => {
     });
 
     it("identifies slow operations exceeding thresholds", () => {
-      // Scenarios with strict thresholds should reveal slow operations
-      const scenarios = [
-        { name: "Strict Threshold", operations: 50, threshold: 60 },
-      ];
-      const mockEnv = { name: "staging" };
-      const perfResults = runPerformanceBench(mockEnv, scenarios);
+      // Mock Math.random to return a fixed value that produces latency > 60ms
+      const originalRandom = Math.random;
+      Math.random = jest.fn(() => 0.6); // 0.6 * 200 + 50 = 170ms
 
-      expect(perfResults.summary.totalTests).toBeGreaterThan(0);
-      // Most operations will exceed 60ms threshold
-      expect(perfResults.scenarios[0].avgLatency).toBeGreaterThan(60);
+      try {
+        // Scenarios with strict thresholds should reveal slow operations
+        const scenarios = [
+          { name: "Strict Threshold", operations: 50, threshold: 60 },
+        ];
+        const mockEnv = { name: "staging" };
+        const perfResults = runPerformanceBench(mockEnv, scenarios);
+
+        expect(perfResults.summary.totalTests).toBeGreaterThan(0);
+        // All operations will exceed 60ms threshold with fixed mock
+        expect(perfResults.scenarios[0].avgLatency).toBeGreaterThan(60);
+      } finally {
+        Math.random = originalRandom;
+      }
     });
 
     it("tracks performance duration for benchmarking", () => {

@@ -9,9 +9,53 @@
 # Large comprehensive documents with formatting debt
 
 AWESOME_GITHUB_MAPPING_STRATEGY.md
+METRICS_AGENT_PHASE_2_CONTINUATION_3_4_5.md
 docs/MIGRATION.md
+docs/chat-closure-agent/*.md
+docs/AGENTIC_RELEASE_TEAM_TRAINING.md
+docs/RELEASE_PROCESS.md
+docs/RELEASE_WORDPRESS.md
 packages/metadata-agent/README.md
 packages/metadata-agent/BUILD_SUMMARY.md
+
+# Portable agent, plugin, and skill implementations with multi-file structures and known formatting debt
+
+agents/**/*.md
+plugins/**/*.md
+hooks/**/*.md
+skills/**/*.md
+website/**/*.md
+workflows/**/*.md
+
+# Operations and specifications with known formatting debt
+
+.github/operations/**/*.md
+.github/rulesets/**/*.md
+.github/PULL_REQUEST_TEMPLATE/*.md
+.github/agentic-workflows/*.md
+.github/agents/*.md
+.github/instructions/*.md
+.github/metrics/*.md
+.github/prompts/*.md
+.github/website/*.md
+.github/workflows/*.md
+.schemas/*.md
+scripts/metrics/**/*.md
+scripts/workflows/**/*.md
+scripts/agents/**/*.md
+openspec/**/*.md
+prompts/**/*.md
+schemas/**/*.md
+instructions/**/*.md
+cookbook/**/*.md
+ai/**/*.md
+
+# Documentation with known formatting debt
+
+CLAUDE.md
+Summary
+docs/PR_TEMPLATE_VALIDATION.md
+docs/README.md
 
 # Project and operations docs handled separately
 

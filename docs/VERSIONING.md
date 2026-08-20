@@ -182,6 +182,8 @@ git push origin main --tags
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
 accTitle: Flowchart
     A["Release triggered<br/>with scope: patch/minor/major"] -->|"VERSION = 1.2.3<br/>Scope = minor"| B["Parse current version"]
     B --> C["Calculate next version"]

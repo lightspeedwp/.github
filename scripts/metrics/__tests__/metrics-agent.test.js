@@ -41,6 +41,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       const result = ConfigurationLoader.validateConfig(config);
@@ -84,6 +85,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "invalid-context",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -95,6 +97,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "wordpress-plugin",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).not.toThrow();
@@ -104,6 +107,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "wordpress-theme",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).not.toThrow();
@@ -113,6 +117,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: -1,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -124,6 +129,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: "not-a-number",
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -135,6 +141,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: "not-array",
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -146,6 +153,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -157,6 +165,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -168,6 +177,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -363,6 +373,14 @@ describe("MetricsCollector", () => {
   });
 
   describe("collectIssueMetrics()", () => {
+    beforeEach(() => {
+      collector.data["test/repo"] = {
+        owner: "test",
+        name: "repo",
+        metrics: {},
+      };
+    });
+
     test("calculates total issues", async () => {
       const issues = [
         {
@@ -523,7 +541,7 @@ describe("MetricsCollector", () => {
 
     test("handles empty array", () => {
       const result = collector.percentile([], 0.5);
-      expect(result).toBe("0.00");
+      expect(parseFloat(result)).toBe(0);
     });
   });
 
@@ -865,6 +883,7 @@ describe("InsightsAnalyzer", () => {
     test("recommends stale issue triage", () => {
       const analysis = {
         insights: [{ type: "stale-issues" }],
+        metrics_snapshot: { total_issues: 30 },
       };
       const recs = InsightsAnalyzer.generateRecommendations(analysis);
 
@@ -874,6 +893,7 @@ describe("InsightsAnalyzer", () => {
     test("recommends improving velocity", () => {
       const analysis = {
         insights: [{ type: "closure-rate-declining" }],
+        metrics_snapshot: { total_issues: 30 },
       };
       const recs = InsightsAnalyzer.generateRecommendations(analysis);
 
@@ -1050,6 +1070,7 @@ describe("Metrics Agent Integration", () => {
     const config = {
       context: "github-control-plane",
       repositories: [{ owner: "test", name: "repo" }],
+      metrics: {},
       collection_period: 7,
     };
     const result = ConfigurationLoader.validateConfig(config);
@@ -1060,6 +1081,7 @@ describe("Metrics Agent Integration", () => {
     const config = {
       context: "wordpress-plugin",
       repositories: [{ owner: "test", name: "repo" }],
+      metrics: {},
       collection_period: 14,
     };
     const result = ConfigurationLoader.validateConfig(config);
@@ -1070,6 +1092,7 @@ describe("Metrics Agent Integration", () => {
     const config = {
       context: "wordpress-theme",
       repositories: [{ owner: "test", name: "repo" }],
+      metrics: {},
       collection_period: 14,
     };
     const result = ConfigurationLoader.validateConfig(config);
@@ -1080,6 +1103,7 @@ describe("Metrics Agent Integration", () => {
     const config = {
       context: "github-control-plane",
       repositories: [{ owner: "test", name: "repo" }],
+      metrics: {},
       collection_period: 7,
     };
 

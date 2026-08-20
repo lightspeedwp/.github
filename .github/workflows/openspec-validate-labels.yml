@@ -1,0 +1,72 @@
+name: OpenSpec Validate Labels
+on:
+  issues:
+    types:
+      - opened
+      - labeled
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to validate"
+        required: false
+      verbose:
+        description: "Verbose output"
+        required: false
+        default: "false"
+
+permissions:
+  issues: read
+  contents: read
+
+jobs:
+  validate-labels:
+    runs-on: ubuntu-latest
+    name: Validate Label Combinations
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Handle issue created
+        if: github.event.action == 'opened' && github.event_name == 'issues'
+        run: |
+          node scripts/automation/handlers/handle-issue-created.js \
+            --issue=${{ github.event.issue.number }} \
+            --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate issue labels
+        if: github.event.action == 'labeled'
+        run: |
+          node scripts/automation/handlers/handle-issue-labeled.js \
+            --issue=${{ github.event.issue.number }} \
+            --label=${{ github.event.label.name }} \
+            --validate-only \
+            --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Manual validation
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          node scripts/automation/handlers/handle-issue-labeled.js \
+            --issue=${{ github.event.inputs.issue_number }} \
+            --validate-only \
+            --verbose=${{ github.event.inputs.verbose }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report validation results
+        if: always()
+        run: |
+          echo "Label validation completed"
+          echo "Issue: ${{ github.event.issue.number || github.event.inputs.issue_number }}"

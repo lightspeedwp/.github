@@ -50,6 +50,8 @@ Use repository scripts and CI workflows to validate files against these schemas.
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

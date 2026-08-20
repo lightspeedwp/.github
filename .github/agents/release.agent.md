@@ -496,4 +496,4 @@ On every new conversation:
 
 ---
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

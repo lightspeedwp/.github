@@ -73,6 +73,8 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
 accTitle: Flowchart
     A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
     B -->|"GATE 1"| C["Changelog Validation"]

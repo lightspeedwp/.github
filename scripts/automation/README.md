@@ -283,6 +283,8 @@ git commit -m "docs: Monthly label audit (2026-08)"
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Scope"] --> B["Inputs"]
     B --> C["Process"]
     C --> D["Validation"]

@@ -22,7 +22,7 @@
  *   --verbose              Show detailed output
  */
 
-import { Octokit } from "octokit";
+const { Octokit } = require("octokit");
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -120,7 +120,7 @@ function sleep(ms) {
 /**
  * Process single PR
  */
-async function processPR(pr, index, total) {
+async function processPR(pr, index, _total) {
   const prNumber = pr.number;
   const labels = (pr.labels || []).map((l) => l.name || l);
 
@@ -341,7 +341,18 @@ async function main() {
   }
 }
 
-// Only run main if this file is being executed directly, not imported as a module
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Only run main if this is executed directly
+if (require.main === module) {
   main();
 }
+
+// Export functions for testing
+module.exports = {
+  determinePRStatus,
+  getNextStatusLabel,
+  fetchPRReviews,
+  processPR,
+  applyPRUpdate,
+  fetchPRsWithLabels,
+  main,
+};

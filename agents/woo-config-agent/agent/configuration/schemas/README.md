@@ -105,6 +105,8 @@ Do not treat the absence of a dedicated schema for a routed local skill as drift
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

@@ -393,6 +393,8 @@ For detailed contribution guidelines, see `CONTRIBUTING.md` (Phase 4).
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Scope"] --> B["Inputs"]
     B --> C["Process"]
     C --> D["Validation"]

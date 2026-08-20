@@ -531,7 +531,6 @@ Blocking issues: ____________________________________________________
 
 - [SPECIFICATION.md](./SPECIFICATION.md) — Project specification and architecture
 - [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Branch naming and protection rules
-- [DETAILED-RESTRUCTURING-PLAN-FINAL.md](./DETAILED-RESTRUCTURING-PLAN-FINAL.md) — Full implementation plan
 
 ---
 

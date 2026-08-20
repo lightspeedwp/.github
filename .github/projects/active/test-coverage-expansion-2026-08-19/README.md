@@ -203,10 +203,6 @@ tests/fixtures/
 
 ## Resources
 
-### Documentation
-- [TEST_COVERAGE_ANALYSIS.md](../../../docs/TEST_COVERAGE_ANALYSIS.md) — Detailed analysis of each script
-- [TESTING_STRATEGY.md](./TESTING_STRATEGY.md) — Implementation guide (TBD)
-
 ### Existing Tests
 - `scripts/validation/__tests__/validate-frontmatter.test.js` — Good pattern
 - `scripts/automation/__tests__/handle-needs-triage.test.js` — Good pattern
@@ -264,7 +260,7 @@ Week 7 (Sep 30-Oct 4): Phase 5 - Integration
 
 - [CLAUDE.md](../../../CLAUDE.md) — Repository guidelines
 - [docs/BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md) — Branch naming rules
-- [docs/TESTING_STANDARDS.md](../../../docs/TESTING_STANDARDS.md) — Testing conventions (TBD)
+- [docs/TESTING.md](../../../docs/TESTING.md) — Testing guidelines and standards
 
 ---
 
