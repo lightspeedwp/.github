@@ -2,9 +2,19 @@
 
 **Status:** 🟢 Active  
 **Started:** 2026-08-19  
-**Phases:** 4 (Sequential)  
-**Total Effort:** 3-4 weeks  
+**Phases:** 5 (Sequential)  
+**Total Effort:** 4-5 weeks  
 **Target Coverage:** 80%+ overall (75%+ per script)
+
+**Completed Phases:**
+- ✅ [Phase 3B & 4A](../test-coverage-expansion-phase-3b-4a-2026-08-19/) — 227 tests for automation scripts
+
+---
+
+## Related Projects
+
+**Active Coverage Work:**
+- [test-coverage-expansion-phase-3b-4a-2026-08-19](../test-coverage-expansion-phase-3b-4a-2026-08-19/) — ✅ **COMPLETE** — 227 tests for pr-triage-orchestrator, sync-pr-labels, staging-validation (Phase 3B unit) + 4 integration workflows (Phase 4A)
 
 ---
 
@@ -12,7 +22,7 @@
 
 Systematic expansion of test coverage across validation, automation, workflow, and utility scripts in the `.github` control plane. Currently **66+ scripts are untested**, creating risk for silent failures in CI/CD pipelines.
 
-This project establishes comprehensive test coverage for all critical systems through a prioritized 4-phase approach.
+This project establishes comprehensive test coverage for all critical systems through a prioritized 5-phase approach (Phase 3B & 4A completed).
 
 ---
 
