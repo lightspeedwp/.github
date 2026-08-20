@@ -11,7 +11,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -113,7 +112,6 @@ function extractBrokenLinks(content) {
 function fixFile(filePath) {
   console.log(`\n📄 Processing: ${filePath}`);
   let content = fs.readFileSync(filePath, 'utf-8');
-  const originalContent = content;
   let fixed = false;
 
   for (const pattern of PATTERNS) {
