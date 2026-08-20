@@ -22,7 +22,7 @@
  *   --verbose              Show detailed output
  */
 
-import { Octokit } from "octokit";
+const { Octokit } = require("octokit");
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -120,7 +120,7 @@ function sleep(ms) {
 /**
  * Process single PR
  */
-async function processPR(pr, index, total) {
+async function processPR(pr, index, _total) {
   const prNumber = pr.number;
   const labels = (pr.labels || []).map((l) => l.name || l);
 
@@ -341,18 +341,18 @@ async function main() {
   }
 }
 
-// Only run main() when this module is the direct entry point
-// ESM-safe check: compare module's own URL to process.argv[1]
-import { pathToFileURL } from 'node:url';
-import { realpathSync } from 'node:fs';
-
-const isMainModule = import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href;
-
-if (isMainModule) {
-  // Validate GITHUB_TOKEN before running
-  if (!process.env.GITHUB_TOKEN) {
-    console.error('❌ Error: GITHUB_TOKEN environment variable is required');
-    process.exit(1);
-  }
+// Only run main if this is executed directly
+if (require.main === module) {
   main();
 }
+
+// Export functions for testing
+module.exports = {
+  determinePRStatus,
+  getNextStatusLabel,
+  fetchPRReviews,
+  processPR,
+  applyPRUpdate,
+  fetchPRsWithLabels,
+  main,
+};
