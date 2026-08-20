@@ -4,7 +4,7 @@
  * @module scripts/automation/__tests__/allocate-to-milestone.test.js
  */
 
-const { describe, it, expect, beforeAll, beforeEach, jest } = require("@jest/globals");
+const { describe, it, expect, beforeEach, jest } = require("@jest/globals");
 
 // Mock Octokit before importing the allocate-to-milestone module
 jest.mock("octokit", () => ({
