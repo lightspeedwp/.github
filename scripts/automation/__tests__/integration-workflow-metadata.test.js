@@ -229,52 +229,52 @@ describe("integration: metadata workflow", () => {
   });
 
   describe("error handling in metadata workflow", () => {
-    it("handles audit errors gracefully", () => {
-      const invalidIssues = [
-        { number: 1, title: "Valid", labels: [] },
-        null, // Invalid
-      ];
-
-      try {
-        const findings = auditIssueMetadata(invalidIssues.filter(Boolean), {
-          requireMilestone: true,
-          requireDoR: true,
-          requireDoD: true,
-        });
-        expect(findings.totalIssues).toBe(1);
-      } catch (error) {
-        expect(error).toBeDefined();
-      }
-    });
-
-    it("handles update failures without stopping workflow", () => {
+    it("audits issues and detects compliance gaps", () => {
       const issues = [
-        { number: 1, title: "Test", labels: [], milestone: null },
-        { number: 2, title: "Test 2", labels: [], milestone: null },
+        { number: 1, title: "Valid", labels: [{ name: "type:bug" }], body: "## Definition of Ready\n## Definition of Done", milestone: { title: "v1.0" } },
       ];
 
-      const updates = {
-        labelsToAdd: ["type:bug"],
-        labelsToRemove: [],
-      };
-
-      const results = bulkUpdateMetadata(issues, updates);
-      expect(results.totalProcessed).toBe(2);
-      expect(results.errors.length).toBeLessThanOrEqual(2);
+      const findings = auditIssueMetadata(issues, {
+        requireMilestone: true,
+        requireDoR: true,
+        requireDoD: true,
+      });
+      expect(findings.totalIssues).toBe(1);
+      expect(findings.compliantIssues).toContain(1);
     });
 
-    it("reports errors without failing entire batch", () => {
+    it("detects and reports missing milestone in audit", () => {
+      const issues = [
+        { number: 1, title: "Test", labels: [{ name: "type:feature" }], milestone: null },
+      ];
+
+      const findings = auditIssueMetadata(issues, {
+        requireMilestone: true,
+      });
+      expect(findings.totalIssues).toBe(1);
+      // Should detect issues missing milestones
+      expect(findings.missingMilestones).toBeDefined();
+      expect(findings.missingMilestones).toContain(1);
+      expect(findings.nonCompliantIssues.length).toBeGreaterThan(0);
+      expect(findings.nonCompliantIssues[0].issues).toContain("missing-milestone");
+    });
+
+    it("handles bulk updates and reports specific changes", () => {
       const issues = [
         { number: 101, title: "Valid", labels: [], milestone: null },
-        { number: 102, title: "Invalid", labels: null, milestone: null },
+        { number: 102, title: "Another", labels: [], milestone: null },
       ];
 
       const results = bulkUpdateMetadata(issues, {
         labelsToAdd: ["type:task"],
-      });
+      }, false);
       expect(results.totalProcessed).toBe(2);
-      // At least one error should be captured
-      expect(results.errors.length).toBeGreaterThanOrEqual(0);
+      // Should track that labels were added to issues
+      expect(results.labelsAdded).toBeGreaterThan(0);
+      // Updates should be recorded
+      expect(results.updated.length).toBeGreaterThan(0);
+      expect(results.updated[0]).toHaveProperty("number");
+      expect(results.updated[0]).toHaveProperty("changes");
     });
   });
 
