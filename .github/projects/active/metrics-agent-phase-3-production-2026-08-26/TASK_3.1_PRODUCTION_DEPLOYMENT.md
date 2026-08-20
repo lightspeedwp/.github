@@ -72,7 +72,7 @@ Add the following secrets to the repository settings:
 ```yaml
 env:
   METRICS_DIR: .github/metrics
-  REPORTS_DIR: .githu./.githu./.github/reports/metrics
+  REPORTS_DIR: .github/reports/metrics
 ```
 
 **What They Do:**
@@ -185,7 +185,7 @@ Before considering this task complete:
   - [#2126 - Task 3.1: Production Deployment](https://github.com/lightspeedwp/.github/issues/2126)
 
 - **Documentation:**
-  - [Phase 3 Project README](./ README.md)
+  - [Phase 3 Project README](./README.md)
   - [Metrics Agent Integration Guide](../../scripts/metrics/docs/INTEGRATION_GUIDE.md)
   - [Slack Webhook Setup Guide](./SLACK_SETUP_GUIDE.md) *(to be created)*
 
