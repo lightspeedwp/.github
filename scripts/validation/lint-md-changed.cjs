@@ -9,8 +9,8 @@
 
 const { spawnSync } = require("child_process");
 const path = require("path");
+const fs = require("fs");
 const { changedFiles } = require("./lib/changed-files.cjs");
-const { minimatch } = require("minimatch");
 
 const files = changedFiles((f) => /\.mdx?$/.test(f));
 
@@ -34,7 +34,6 @@ if (files.length === 0) {
 }
 
 // Load ignore patterns from .markdownlintignore
-const fs = require("fs");
 const ignorePatterns = [];
 try {
   const ignorePath = path.join(__dirname, "../../.markdownlintignore");
@@ -48,10 +47,22 @@ try {
   console.warn("Warning: Could not load .markdownlintignore", err.message);
 }
 
+// Simple glob pattern matching (supports **, *, ?)
+function matchesPattern(filePath, pattern) {
+  // Escape special regex chars except * and ?
+  let regexPattern = pattern
+    .replace(/[.+^${}()|[\]\\]/g, "\\$&")
+    .replace(/\*\*/g, ".*")
+    .replace(/\*/g, "[^/]*")
+    .replace(/\?/g, "[^/]");
+  const regex = new RegExp(`^${regexPattern}(/.*)?$`);
+  return regex.test(filePath);
+}
+
 // Filter out files matching ignore patterns
 const filesToLint = files.filter((file) => {
   for (const pattern of ignorePatterns) {
-    if (minimatch(file, pattern)) {
+    if (matchesPattern(file, pattern)) {
       console.log(`⏭️  Skipped (ignored): ${file}`);
       return false;
     }
