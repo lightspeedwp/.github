@@ -327,58 +327,51 @@ function groupFindingsByFile(findings = []) {
 function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
   const resolvedRoot = path.resolve(rootDir);
 
-  // Check for control-plane markers in .github repositories.
-  const githubDirPath = path.join(resolvedRoot, ".github");
-  const claudeMdPath = path.join(githubDirPath, "CLAUDE.md");
-  const agentsPath = path.join(githubDirPath, "agents");
-  const workflowsPath = path.join(githubDirPath, "workflows");
-  const actionsPath = path.join(githubDirPath, "actions");
-  const scriptsPath = path.join(githubDirPath, "scripts");
-
-  const hasGithubDir = fsImpl.existsSync(githubDirPath);
-  const hasControlPlaneSignals =
-    fsImpl.existsSync(claudeMdPath) ||
-    fsImpl.existsSync(agentsPath) ||
-    fsImpl.existsSync(workflowsPath) ||
-    fsImpl.existsSync(actionsPath) ||
-    fsImpl.existsSync(scriptsPath);
-
-  if (hasGithubDir && hasControlPlaneSignals) {
-    return "control-plane";
-  }
-
-  // Check for block plugin before classic plugin/theme markers.
-  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
+  // Check for block plugin first (block.json takes precedence)
   const blockJsonPath = path.join(resolvedRoot, "block.json");
-  if (fsImpl.existsSync(blockPluginPath) || fsImpl.existsSync(blockJsonPath)) {
+  const blockPluginPath = path.join(resolvedRoot, "src", "plugin.php");
+  if (fsImpl.existsSync(blockJsonPath) || fsImpl.existsSync(blockPluginPath)) {
     return "BLOCK_PLUGIN";
   }
 
-  // Check for WordPress plugin markers.
+  // Check for control-plane markers (.github/CLAUDE.md or .github/workflows)
+  const claudeMdPath = path.join(resolvedRoot, ".github", "CLAUDE.md");
+  const workflowsPath = path.join(resolvedRoot, ".github", "workflows");
+  const actionsPath = path.join(resolvedRoot, ".github", "actions");
+  if (
+    fsImpl.existsSync(claudeMdPath) ||
+    fsImpl.existsSync(workflowsPath) ||
+    fsImpl.existsSync(actionsPath)
+  ) {
+    return "control-plane";
+  }
+
+  // Check for WordPress theme markers (theme.json, style.css, or functions.php)
+  const themeJsonPath = path.join(resolvedRoot, "theme.json");
+  const styleCssPath = path.join(resolvedRoot, "style.css");
+  const functionsPhpPath = path.join(resolvedRoot, "functions.php");
+
+  if (fsImpl.existsSync(themeJsonPath)) {
+    return "wordpress-theme";
+  }
+
+  if (fsImpl.existsSync(styleCssPath)) {
+    const styleContent = fsImpl.readFileSync(styleCssPath, "utf8");
+    if (styleContent.includes("Theme Name:")) {
+      return "wordpress-theme";
+    }
+  }
+
+  if (fsImpl.existsSync(functionsPhpPath)) {
+    return "wordpress-theme";
+  }
+
+  // Check for WordPress plugin markers (plugin.php with Plugin Header)
   const pluginPhpPath = path.join(resolvedRoot, "plugin.php");
   if (fsImpl.existsSync(pluginPhpPath)) {
     const pluginContent = fsImpl.readFileSync(pluginPhpPath, "utf8");
     if (pluginContent.includes("Plugin Name:")) {
       return "wordpress-plugin";
-    }
-
-    // Keep backward compatibility for fixtures that only provide plugin.php.
-    return "wordpress-plugin";
-  }
-
-  // Check for WordPress theme markers.
-  const themeJsonPath = path.join(resolvedRoot, "theme.json");
-  const functionsPhpPath = path.join(resolvedRoot, "functions.php");
-  if (fsImpl.existsSync(themeJsonPath) || fsImpl.existsSync(functionsPhpPath)) {
-    return "wordpress-theme";
-  }
-
-  // Check style.css header markers for classic themes.
-  const styleCssPath = path.join(resolvedRoot, "style.css");
-  if (fsImpl.existsSync(styleCssPath)) {
-    const styleContent = fsImpl.readFileSync(styleCssPath, "utf8");
-    if (styleContent.includes("Theme Name:")) {
-      return "wordpress-theme";
     }
   }
 

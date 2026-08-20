@@ -34,9 +34,6 @@ function extractMermaidDiagrams(content) {
   return diagrams;
 }
 
-  mindmap: /^\s*mindmap\b/m,
-};
-
 function validateDiagramType(diagram) {
   for (const [type, regex] of Object.entries(DIAGRAM_TYPES)) {
     if (regex.test(diagram)) {
