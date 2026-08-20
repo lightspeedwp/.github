@@ -192,60 +192,65 @@ Check detection order: Block Plugin → Control-Plane → Theme → Plugin → U
 
 ### Diagram 1: Detection Flow
 
-```
-Repository Root
-    ↓
-Check for block.json or src/plugin.php
-    ├─ Found → BLOCK_PLUGIN ✓
-    └─ Not found
-        ↓
-    Check for .github/workflows, .github/actions, or .github/CLAUDE.md
-        ├─ Found → control-plane ✓
-        └─ Not found
-            ↓
-        Check for theme.json, style.css (with "Theme Name:"), or functions.php
-            ├─ Found → wordpress-theme ✓
-            └─ Not found
-                ↓
-            Check for plugin.php with "Plugin Name:" header
-                ├─ Found → wordpress-plugin ✓
-                └─ Not found → UNKNOWN
+```mermaid
+flowchart TD
+    A["Repository Root"] --> B{"block.json or<br/>src/plugin.php?"}
+    B -->|Yes| C["✓ BLOCK_PLUGIN"]
+    B -->|No| D{"Control-plane markers?<br/>(.github/CLAUDE.md,<br/>.github/workflows,<br/>.github/actions)"}
+    D -->|Yes| E["✓ control-plane"]
+    D -->|No| F{"theme.json, style.css<br/>(with Theme Name:),<br/>or functions.php?"}
+    F -->|Yes| G["✓ wordpress-theme"]
+    F -->|No| H{"plugin.php with<br/>Plugin Name: header?"}
+    H -->|Yes| I["✓ wordpress-plugin"]
+    H -->|No| J["⚠ UNKNOWN"]
 ```
 
 **Location:** USER_GUIDE.md or ARCHITECTURE.md  
-**Format:** Mermaid flowchart
+**Format:** Mermaid flowchart  
+**Alt Text:** Repository type detection decision tree checking for block plugins, control-plane markers, WordPress themes, and WordPress plugins in order of precedence.
 
 ### Diagram 2: Test Coverage Matrix
 
-```
-Repository Type │ Basic │ Extended │ Large │ Error Handling │ Pass Rate
-─────────────────┼───────┼──────────┼───────┼────────────────┼──────────
-Block Plugin    │ ✅    │ ✅       │ ✅    │ ✅             │ 100%
-WordPress Plugin│ ✅    │ ✅       │ ✅    │ ✅             │ 100%
-WordPress Theme │ ✅    │ ✅       │ ✅    │ ✅             │ 100%
-Control-Plane   │ ✅    │ ✅       │ ✅    │ ✅             │ 100%
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '12px'}}}%%
+graph LR
+    subgraph tests ["Test Coverage (90/90 passing)"]
+        direction LR
+        B["Block Plugin: ✅<br/>Basic, Extended,<br/>Large, Error"]
+        W["WP Plugin: ✅<br/>Basic, Extended,<br/>Large, Error"]
+        T["WP Theme: ✅<br/>Basic, Extended,<br/>Large, Error"]
+        C["Control-Plane: ✅<br/>Basic, Extended,<br/>Large, Error"]
+    end
+    tests --> P["100% Pass Rate"]
 ```
 
 **Location:** SETUP_GUIDE.md  
-**Format:** Mermaid table or graph
+**Format:** Mermaid graph  
+**Alt Text:** Test coverage matrix showing 100% pass rate across all repository types with basic, extended, large, and error handling test suites.
 
 ### Diagram 3: Repository Type Compatibility
 
-```
-             Block Plugin    WP Plugin    WP Theme    Control-Plane
-Node.js         ✅            ✅           ✅           ✅
-PHP 7.4+        ❌            ✅           ✅           ❌
-Python          ❌            ❌           ❌           ⚠️ (scripts only)
-Composer        ❌            ✅           ✅           ❌
-
-ESLint          ✅            ✅           ✅           ✅
-Stylelint       ✅            ✅           ✅           ✅
-PHPCS           ❌            ✅           ✅           ❌
-Markdownlint    ❌            ❌           ❌           ✅
+```mermaid
+%%{init: {'theme': 'base'}}%%
+graph TB
+    subgraph runtimes ["Runtime Support"]
+        direction LR
+        NJ["Node.js: ✅ All"]
+        PHP["PHP 7.4+: ✅ WP Plugin,<br/>✅ WP Theme"]
+        Python["Python: ⚠️ Scripts only"]
+    end
+    subgraph linters ["Linter Availability"]
+        direction LR
+        ESL["ESLint: ✅ All"]
+        SL["Stylelint: ✅ All"]
+        PHPCS["PHPCS: ✅ WP Plugin,<br/>✅ WP Theme"]
+        MD["Markdownlint: ✅ Control-Plane"]
+    end
 ```
 
 **Location:** SETUP_GUIDE.md  
-**Format:** Mermaid table or matrix
+**Format:** Mermaid graph  
+**Alt Text:** Repository type compatibility matrix showing runtime requirements (Node.js, PHP, Python) and available linters (ESLint, Stylelint, PHPCS, Markdownlint) for each repository type.
 
 ---
 

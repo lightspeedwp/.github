@@ -334,7 +334,7 @@ function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
     return "BLOCK_PLUGIN";
   }
 
-  // Check for control-plane markers (.github/CLAUDE.md or .github/workflows)
+  // Check for control-plane markers (.github/CLAUDE.md, .github/workflows, or .github/actions)
   const claudeMdPath = path.join(resolvedRoot, ".github", "CLAUDE.md");
   const workflowsPath = path.join(resolvedRoot, ".github", "workflows");
   const actionsPath = path.join(resolvedRoot, ".github", "actions");
@@ -360,10 +360,6 @@ function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
     if (styleContent.includes("Theme Name:")) {
       return "wordpress-theme";
     }
-  }
-
-  if (fsImpl.existsSync(functionsPhpPath)) {
-    return "wordpress-theme";
   }
 
   // Check for WordPress plugin markers (plugin.php with Plugin Header)
