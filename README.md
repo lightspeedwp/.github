@@ -297,8 +297,8 @@ graph LR
 
     style A fill:#065f46,color:#ffffff,stroke:#022c1d,stroke-width:2px
     style B fill:#047857,color:#ffffff,stroke:#022c1d,stroke-width:2px
-    style C fill:#0d9488,color:#ffffff,stroke:#022c1d,stroke-width:2px
-    style D fill:#0891b2,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style C fill:#0c5a66,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style D fill:#065974,color:#ffffff,stroke:#022c1d,stroke-width:2px
     style E fill:#0a7e4f,color:#ffffff,stroke:#022c1d,stroke-width:2px
     style F fill:#0f766e,color:#ffffff,stroke:#022c1d,stroke-width:2px
 
