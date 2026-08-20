@@ -25,11 +25,7 @@ class ConfigurationLoader {
   }
 
   static validateConfig(config) {
-    const required = [
-      "context",
-      "repositories",
-      "collection_period",
-    ];
+    const required = ["context", "repositories", "collection_period"];
     const missing = required.filter((field) => !config[field]);
 
     if (missing.length > 0) {
@@ -677,7 +673,10 @@ class InsightsAnalyzer {
       });
     }
 
-    if (analysis.metrics_snapshot && analysis.metrics_snapshot.total_issues > 50) {
+    if (
+      analysis.metrics_snapshot &&
+      analysis.metrics_snapshot.total_issues > 50
+    ) {
       recommendations.push({
         action: "backlog-management",
         priority: "medium",
