@@ -341,6 +341,17 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Only run main() if this script is executed directly (not imported during tests)
+const isMainScript = () => {
+  // Check if we're being run as a CLI tool vs imported as a module
+  // Jest sets NODE_ENV=test and process.argv[1] contains 'jest' or similar
+  if (process.env.NODE_ENV === 'test') return false;
+  if (process.argv[1]?.includes('jest')) return false;
+  if (process.argv[1]?.includes('test')) return false;
+  // Default to running if none of the test indicators are present
+  return true;
+};
+
+if (isMainScript()) {
   main();
 }
