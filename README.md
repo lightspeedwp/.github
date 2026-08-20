@@ -244,8 +244,8 @@ graph LR
     style B fill:#1e40af,color:#ffffff,stroke:#0f172a,stroke-width:2px
     style C fill:#1d4ed8,color:#ffffff,stroke:#0f172a,stroke-width:2px
     style D fill:#2563eb,color:#ffffff,stroke:#0f172a,stroke-width:2px
-    style E fill:#3b82f6,color:#ffffff,stroke:#0f172a,stroke-width:2px
-    style F fill:#0ea5e9,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style E fill:#1e40af,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style F fill:#0369a1,color:#ffffff,stroke:#0f172a,stroke-width:2px
 ```
 
 ### Issue Lifecycle: Creation → Triage → Resolution → Tracking
@@ -271,9 +271,9 @@ graph TD
     style B fill:#92400e,color:#ffffff,stroke:#3f1707,stroke-width:2px
     style C fill:#a16207,color:#ffffff,stroke:#3f1707,stroke-width:2px
     style D fill:#b45309,color:#ffffff,stroke:#3f1707,stroke-width:2px
-    style E fill:#ca8a04,color:#ffffff,stroke:#3f1707,stroke-width:2px
-    style F fill:#d97706,color:#ffffff,stroke:#3f1707,stroke-width:2px
-    style G fill:#ea580c,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style E fill:#a16207,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style F fill:#b45309,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style G fill:#9a3412,color:#ffffff,stroke:#3f1707,stroke-width:2px
 
     linkStyle 0,1,2,3,4,5,6 stroke:#7c2d12,stroke-width:2px
 ```
@@ -297,10 +297,10 @@ graph LR
 
     style A fill:#065f46,color:#ffffff,stroke:#022c1d,stroke-width:2px
     style B fill:#047857,color:#ffffff,stroke:#022c1d,stroke-width:2px
-    style C fill:#059669,color:#ffffff,stroke:#022c1d,stroke-width:2px
-    style D fill:#10b981,color:#ffffff,stroke:#022c1d,stroke-width:2px
-    style E fill:#34d399,color:#ffffff,stroke:#022c1d,stroke-width:2px
-    style F fill:#6ee7b7,color:#000000,stroke:#022c1d,stroke-width:2px
+    style C fill:#0d9488,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style D fill:#0891b2,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style E fill:#0a7e4f,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style F fill:#0f766e,color:#ffffff,stroke:#022c1d,stroke-width:2px
 
     linkStyle 0,1,2,3,4,5 stroke:#065f46,stroke-width:2px
 ```
