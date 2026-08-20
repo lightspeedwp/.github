@@ -298,7 +298,7 @@ README inventory: 44 files identified across the repo structure
 - Verify syntax validity (no parse errors)
 - Check WCAG AA contrast and accessibility compliance (`accTitle`, `accDescr` attributes)
 - Validate diagram relevance and update outdated flows
-- Document findings in `.githu./.github/reports/mermaid-audit/`
+- Document findings in `.github/reports/mermaid-audit/`
 
 **Completed & Proposed Sub-Waves**:
 
@@ -650,7 +650,7 @@ Use this sequence for all active implementation work:
 - [x] Wave 2B merged (target: 7 issues) — completed 2026-05-28 via PRs [#515](https://github.com/lightspeedwp/.github/issues/515)–[#521](https://github.com/lightspeedwp/.github/issues/521)
 - [ ] Wave 2C merged (target: 2 issues)
 - [x] Wave 2D audit documents released (target: 2 audit reports) — completed 2026-05-28 via PRs [#522](https://github.com/lightspeedwp/.github/issues/522)–[#523](https://github.com/lightspeedwp/.github/issues/523)
-- [ ] Wave 3A audit report published (target: `.githu./.github/reports/mermaid-audit/`)
+- [ ] Wave 3A audit report published (target: `.github/reports/mermaid-audit/`)
 - [ ] Wave 3B fixes merged (target: 0 failing Mermaid diagrams)
 - [ ] Wave 3C workflows active (target: `readme-audit` + `release` coordination)
 - [ ] All 44 READMEs passing Mermaid + WCAG AA validation

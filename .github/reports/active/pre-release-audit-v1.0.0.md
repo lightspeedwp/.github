@@ -849,7 +849,7 @@ With completion of the test coverage implementation plan (8-12 hours), this repo
 
 ### Appendix A: Test Coverage Summary
 
-See: `.githu./.github/reports/analysis/test-coverage-expansion-plan.md`
+See: `.github/reports/analysis/test-coverage-expansion-plan.md`
 
 ### Appendix B: Implementation Tasks
 
@@ -857,8 +857,8 @@ See: `.github/projects/active/test-coverage-implementation.md`
 
 ### Appendix C: Coverage Reports
 
-**Baseline**: TBD - `.githu./.github/reports/coverage/baseline-v1.0.0.md`
-**Final**: TBD - `.githu./.github/reports/coverage/final-v1.0.0.md`
+**Baseline**: TBD - `.github/reports/coverage/baseline-v1.0.0.md`
+**Final**: TBD - `.github/reports/coverage/final-v1.0.0.md`
 
 ### Appendix D: Audit Checklist
 

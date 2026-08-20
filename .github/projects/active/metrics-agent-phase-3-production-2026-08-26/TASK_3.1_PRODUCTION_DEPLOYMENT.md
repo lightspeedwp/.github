@@ -72,7 +72,7 @@ Add the following secrets to the repository settings:
 ```yaml
 env:
   METRICS_DIR: .github/metrics
-  REPORTS_DIR: .githu./.githu./.github/reports/metrics
+  REPORTS_DIR: .github//.github/reports/metrics
 ```
 
 **What They Do:**

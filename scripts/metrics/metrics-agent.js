@@ -79,7 +79,7 @@ class ConfigurationLoader {
       collection_period: config.collection_period,
       github_token: config.github_token || process.env.GITHUB_TOKEN,
       cache_ttl: config.cache_ttl || 3600,
-      output_dir: config.output_dir || ".githu./.github/reports/metrics",
+      output_dir: config.output_dir || ".github/reports/metrics",
       ...config,
     };
   }

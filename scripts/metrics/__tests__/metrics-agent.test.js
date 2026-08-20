@@ -45,7 +45,7 @@ describe("ConfigurationLoader", () => {
       };
       const result = ConfigurationLoader.validateConfig(config);
       expect(result.cache_ttl).toBe(3600);
-      expect(result.output_dir).toBe(".githu./.github/reports/metrics");
+      expect(result.output_dir).toBe(".github/reports/metrics");
     });
   });
 

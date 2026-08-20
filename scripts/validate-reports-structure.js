@@ -7,7 +7,7 @@
 import fs from "fs";
 import path from "path";
 
-const reportsDir = ".githu./.github/reports/metrics";
+const reportsDir = ".github/reports/metrics";
 
 console.log("Validating report structure...");
 

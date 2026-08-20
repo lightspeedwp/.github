@@ -311,7 +311,7 @@ Each of the 22 projects has a detailed RFC covering:
 ## 📁 RFC Documentation Structure
 
 ```
-.githu./.github/reports/openspec-rfc/
+.github/reports/openspec-rfc/
 ├── INDEX.md (this file)
 ├── EXECUTIVE_SUMMARY.md (high-level strategic overview)
 ├── projects/

@@ -34,7 +34,7 @@ try {
     .split("\n")
     .filter((f) => f.trim())
     .filter((f) => !f.startsWith(".github/instructions/.archive/"))
-    .filter((f) => !f.startsWith(".githu./.github/reports/"));
+    .filter((f) => !f.startsWith(".github/reports/"));
 } catch (error) {
   console.error("Failed to get changed files:", error.message);
   process.exit(1);

@@ -4,15 +4,15 @@ on:
   pull_request:
     branches: [develop]
     paths-ignore:
-      - ".githu./.githu./.github/reports/**"
+      - ".github//.github/reports/**"
       - ".github/projects/**"
-      - ".githu./.github/tmp/**"
+      - ".github/tmp/**"
   push:
     branches: [develop]
     paths-ignore:
-      - ".githu./.githu./.github/reports/**"
+      - ".github//.github/reports/**"
       - ".github/projects/**"
-      - ".githu./.github/tmp/**"
+      - ".github/tmp/**"
   merge_group:
     types: [checks_requested]
 

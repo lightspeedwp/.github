@@ -19,7 +19,7 @@ Reorganized repository file structure to prevent Copilot/agent file organization
 ### 2. Created New Directories
 
 ```bash
-.githu./.github/reports/     # All reports, analysis, audits
+.github/reports/     # All reports, analysis, audits
 .github/projects/    # All task tracking, planning
 ```
 
@@ -55,7 +55,7 @@ Each with README.md documenting purpose, structure, and guidelines.
 
 ### 5. Created README Files
 
-**`.githu./.github/reports/README.md`:**
+**`.github/reports/README.md`:**
 
 - Purpose and guidelines for report files
 - Directory structure (audits/, optimization/, labeling/, metrics/, validation/)
@@ -73,8 +73,8 @@ Each with README.md documenting purpose, structure, and guidelines.
 
 | File Type               | Location                  | Example                                  |
 | ----------------------- | ------------------------- | ---------------------------------------- |
-| Reports & Analysis      | `.githu./.github/reports/`        | `optimisation-priority1-2025-12-09.txt`  |
-| Audits                  | `.githu./.github/reports/audits/` | `frontmatter-audit-2025-12-09.csv`       |
+| Reports & Analysis      | `.github/reports/`        | `optimisation-priority1-2025-12-09.txt`  |
+| Audits                  | `.github/reports/audits/` | `frontmatter-audit-2025-12-09.csv`       |
 | Task Tracking           | `.github/projects/`       | `context-reduction-tasks.md`             |
 | Project Planning        | `.github/projects/`       | `phase6-planning-suite-consolidation.md` |
 | Permanent Documentation | `docs/`                   | `ARCHITECTURE.md`, `LABEL_STRATEGY.md`   |
@@ -99,7 +99,7 @@ ls *.txt 2>/dev/null && echo "❌ Report files in root" || echo "✅ No report f
 ls *-tasks.md 2>/dev/null && echo "❌ Task files in root" || echo "✅ No task files in root"
 
 # Check correct locations
-ls .githu./.github/reports/*.txt .githu./.github/reports/*/*.md 2>/dev/null | wc -l
+ls .github/reports/*.txt .github/reports/*/*.md 2>/dev/null | wc -l
 ls .github/projects/*.md 2>/dev/null | wc -l
 ```
 
@@ -116,7 +116,7 @@ ls .github/projects/*.md 2>/dev/null | wc -l
 ## Files Modified
 
 - Created: `.github/instructions/file-output-organization.instructions.md`
-- Created: `.githu./.github/reports/README.md`
+- Created: `.github/reports/README.md`
 - Created: `.github/projects/README.md`
 - Moved: `docs/CONTEXT_REDUCTION_TASKS.md` → `.github/projects/context-reduction-tasks.md`
 - Moved: `docs/INSTRUCTION_CONSOLIDATION_GUIDE.md` → `.github/projects/instruction-consolidation-guide.md`

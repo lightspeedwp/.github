@@ -93,7 +93,7 @@ Support long-running work with daily updates and weekly summaries:
 
 - Collect key metrics (tests added, coverage deltas, blockers)
 - Apply standard daily/weekly templates
-- Store under `.githu./.github/reports/progress/`
+- Store under `.github/reports/progress/`
 - Link to related project trackers
 
 ### 3. Generate Specifications
@@ -109,7 +109,7 @@ Create `.spec.md` files for JSON data:
 
 Check existing reports for compliance:
 
-- Verify location (`.githu./.github/reports/`)
+- Verify location (`.github/reports/`)
 - Check frontmatter fields
 - Validate filename conventions
 - Ensure JSON files have specs
@@ -180,7 +180,7 @@ Perfect! Now I need a few more details:
 ```
 Here's your report structure:
 
-📄 File: .githu./.github/reports/{category}/{filename}.md
+📄 File: .github/reports/{category}/{filename}.md
 📋 Frontmatter: Complete with all required fields
 📊 Structure: Summary, Key Metrics, Details, Recommendations
 
@@ -237,27 +237,27 @@ Weekly template:
 - Continue with Task X.Y+1
 ```
 
-All progress files go in `.githu./.github/reports/progress/` with kebab-case filenames (e.g., `weekly-summary-2025-w50.md`).
+All progress files go in `.github/reports/progress/` with kebab-case filenames (e.g., `weekly-summary-2025-w50.md`).
 
 ## Report Categories Reference
 
 | Category         | Path                              | Examples                                      |
 | ---------------- | --------------------------------- | --------------------------------------------- |
-| `analysis`       | `.githu./.github/reports/analysis/`       | Code analysis, technical audits               |
-| `audits`         | `.githu./.github/reports/audits/`         | Compliance audits, system-wide checks         |
-| `implementation` | `.githu./.github/reports/implementation/` | Implementation tracking, completion summaries |
-| `migration`      | `.githu./.github/reports/migration/`      | Migration reports, data transfers             |
-| `validation`     | `.githu./.github/reports/validation/`     | Schema/config validation, compliance          |
-| `agents`         | `.githu./.github/reports/agents/`         | Agent execution reports, performance logs     |
-| `coverage`       | `.githu./.github/reports/coverage/`       | Test coverage reports, quality metrics        |
-| `frontmatter`    | `.githu./.github/reports/frontmatter/`    | Frontmatter validation, compliance            |
-| `issue-metrics`  | `.githu./.github/reports/issue-metrics/`  | GitHub issue analytics, trends                |
-| `labeling`       | `.githu./.github/reports/labeling/`       | Label automation, sync logs                   |
-| `linting`        | `.githu./.github/reports/linting/`        | ESLint baselines, code quality reports        |
-| `meta`           | `.githu./.github/reports/meta/`           | Documentation metadata, badges, footers       |
-| `metrics`        | `.githu./.github/reports/metrics/`        | General metrics, weekly summaries             |
-| `optimisation`   | `.githu./.github/reports/optimisation/`   | Performance optimisation, token reduction     |
-| `progress`       | `.githu./.github/reports/progress/`       | Daily updates, weekly summaries               |
+| `analysis`       | `.github/reports/analysis/`       | Code analysis, technical audits               |
+| `audits`         | `.github/reports/audits/`         | Compliance audits, system-wide checks         |
+| `implementation` | `.github/reports/implementation/` | Implementation tracking, completion summaries |
+| `migration`      | `.github/reports/migration/`      | Migration reports, data transfers             |
+| `validation`     | `.github/reports/validation/`     | Schema/config validation, compliance          |
+| `agents`         | `.github/reports/agents/`         | Agent execution reports, performance logs     |
+| `coverage`       | `.github/reports/coverage/`       | Test coverage reports, quality metrics        |
+| `frontmatter`    | `.github/reports/frontmatter/`    | Frontmatter validation, compliance            |
+| `issue-metrics`  | `.github/reports/issue-metrics/`  | GitHub issue analytics, trends                |
+| `labeling`       | `.github/reports/labeling/`       | Label automation, sync logs                   |
+| `linting`        | `.github/reports/linting/`        | ESLint baselines, code quality reports        |
+| `meta`           | `.github/reports/meta/`           | Documentation metadata, badges, footers       |
+| `metrics`        | `.github/reports/metrics/`        | General metrics, weekly summaries             |
+| `optimisation`   | `.github/reports/optimisation/`   | Performance optimisation, token reduction     |
+| `progress`       | `.github/reports/progress/`       | Daily updates, weekly summaries               |
 
 ## Guardrails
 
@@ -272,8 +272,8 @@ All progress files go in `.githu./.github/reports/progress/` with kebab-case fil
 
 ✅ **ALWAYS** use:
 
-- `.githu./.github/reports/{category}/`
-- `.githu./.github/reports/progress/` for project updates
+- `.github/reports/{category}/`
+- `.github/reports/progress/` for project updates
 
 ### Naming Rules
 
@@ -338,7 +338,7 @@ I'll generate a .spec.md with:
 Let me check! What's the current path to your report?
 
 I'll verify:
-✅ It's in .githu./.github/reports/
+✅ It's in .github/reports/
 ✅ It's in the correct category folder
 ✅ Filename is lowercase with hyphens
 ✅ Frontmatter is complete
@@ -348,7 +348,7 @@ I'll verify:
 ### User: "Log a weekly summary for the refactor project"
 
 ```
-Great—I'll create `.githu./.github/reports/progress/weekly-summary-2025-w50.md`
+Great—I'll create `.github/reports/progress/weekly-summary-2025-w50.md`
 using the weekly template:
 
 ## Week of 2025-12-08

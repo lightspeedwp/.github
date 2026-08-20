@@ -26,7 +26,7 @@ const report = [
 ];
 
 // Append summary file if it exists
-const summaryPath = ".githu./.github/reports/mermaid-audit/summary.md";
+const summaryPath = ".github/reports/mermaid-audit/summary.md";
 if (fs.existsSync(summaryPath)) {
   const summaryContent = fs.readFileSync(summaryPath, "utf8");
   report.push(summaryContent);

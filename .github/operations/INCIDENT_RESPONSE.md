@@ -166,7 +166,7 @@ echo "CRITICAL incident at $(date -u): Workflows disabled — investigating" >> 
 
 ```bash
 # 1. Check recent errors
-cat .githu./.github/reports/audit-trail-latest.json | jq '.auditTrail[-20:] | .[] | {issue, error, status}'
+cat .github/reports/audit-trail-latest.json | jq '.auditTrail[-20:] | .[] | {issue, error, status}'
 
 # 2. Identify error pattern
 # Look for:
@@ -182,7 +182,7 @@ curl -s https://www.githubstatus.com/api/v2/status.json | jq '.status.descriptio
 gh run list -w meta-labels-sync.yml -L 1 --json startedAt,conclusion,updatedAt | jq
 
 # 5. Sample error messages
-echo "Sample error: $(cat .githu./.github/reports/audit-trail-latest.json | jq '.auditTrail[-1].error')"
+echo "Sample error: $(cat .github/reports/audit-trail-latest.json | jq '.auditTrail[-1].error')"
 
 # Based on investigation:
 # A) Clear fix identifiable → Fix + verify + redeploy (5-10 min)
@@ -257,7 +257,7 @@ gh workflow enable meta-labels-sync.yml --repo lightspeedwp/.github
 gh run list -w meta-labels-sync.yml -L 1 --json conclusion,updatedAt
 
 # 7. Check error rate drops
-cat .githu./.github/reports/metrics-latest.json | jq '.errorRate'
+cat .github/reports/metrics-latest.json | jq '.errorRate'
 # Expected: < 0.5%
 
 # 8. Post resolution notice
@@ -295,9 +295,9 @@ gh pr create \
 gh pr merge --squash --delete-branch
 
 # 6. Restore previous audit state
-ls -lt .githu./.github/reports/archive/audit-trail-*.json | head -1
-LATEST_BACKUP=$(ls -t .githu./.github/reports/archive/audit-trail-*.json | head -1)
-cp $LATEST_BACKUP .githu./.github/reports/audit-trail-latest.json
+ls -lt .github/reports/archive/audit-trail-*.json | head -1
+LATEST_BACKUP=$(ls -t .github/reports/archive/audit-trail-*.json | head -1)
+cp $LATEST_BACKUP .github/reports/audit-trail-latest.json
 
 # 7. Re-enable workflows with rollback version
 gh workflow enable meta-labels-sync.yml --repo lightspeedwp/.github

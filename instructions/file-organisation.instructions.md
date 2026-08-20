@@ -1,7 +1,7 @@
 ---
 file_type: instructions
 title: File Organisation
-description: File placement rules and directory structure conventions for organizing code, documentation, tests, and automation across LightSpeedWP repositories. Updated with Phase 1 restructuring including portable vs. repo-local instructions, two-tier agents (spec-based and multi-file), .schemas/ folder, and .githu./.github/reports/ structure.
+description: File placement rules and directory structure conventions for organizing code, documentation, tests, and automation across LightSpeedWP repositories. Updated with Phase 1 restructuring including portable vs. repo-local instructions, two-tier agents (spec-based and multi-file), .schemas/ folder, and .github/reports/ structure.
 scope: organization-wide
 applyTo: '**'
 version: v1.2
@@ -341,33 +341,33 @@ This repository uses `.schemas/` (a hidden folder at root, following the awesome
 
 ### Reports: Audit, Analysis, and Metrics
 
-This repository maintains structured reports in `.githu./.github/reports/` to track audits, analysis, and metrics.
+This repository maintains structured reports in `.github/reports/` to track audits, analysis, and metrics.
 
-**Location:** `.githu./.github/reports/{category}/`
+**Location:** `.github/reports/{category}/`
 
 **Report Categories:**
 
-**Audits (.githu./.github/reports/audits/)**
+**Audits (.github/reports/audits/)**
 
 - Purpose: Audit findings, compliance checks, standards reviews
 - Naming: `YYYY-MM-DD-{descriptor}.md`
 - Frequency: Ad-hoc, as needed for investigation
 - Example: `2026-07-22-phase-1-instructions-audit.md`
 
-**Analysis (.githu./.github/reports/analysis/)**
+**Analysis (.github/reports/analysis/)**
 
 - Purpose: Data analysis, trend reports, exploratory findings
 - Naming: `{topic}.md` or `YYYY-MM-DD-{descriptor}.md`
 - Frequency: Regular intervals or as needed
 - Example: `issue-creation-docs-audit-report.md`
 
-**Agent Reports (.githu./.github/reports/agents/)**
+**Agent Reports (.github/reports/agents/)**
 
 - Purpose: Agent-specific analysis and test results
 - Structure: One folder per agent
-- Example: `.githu./.github/reports/agents/linear-advisor-agent/` containing test results, metrics, status
+- Example: `.github/reports/agents/linear-advisor-agent/` containing test results, metrics, status
 
-**Archived (.githu./.github/reports/archived/)**
+**Archived (.github/reports/archived/)**
 
 - Purpose: Old reports moved out of active use
 - Note: Keep for reference and historical tracking
@@ -398,7 +398,7 @@ Reports must include:
    - Scope/category (phase, area, issue number)
    - Status (draft, active, completed, archived)
 
-**Cleanup:** Regularly move completed or superseded reports to `.githu./.github/reports/archived/`.
+**Cleanup:** Regularly move completed or superseded reports to `.github/reports/archived/`.
 
 ### Standard Repository Structure
 
@@ -459,9 +459,9 @@ project-root/
 | **Repo-local instructions** | `.github/instructions/` | `{topic}.instructions.md` (control-plane-specific) |
 | **Portable instructions** | `instructions/` | `{topic}.instructions.md` |
 | **JSON schemas** | `.schemas/` (root, hidden) | `{type}.schema.json` (follows awesome-copilot pattern) |
-| **Audit reports** | `.githu./.github/reports/audits/` | `YYYY-MM-DD-{descriptor}.md` |
-| **Analysis reports** | `.githu./.github/reports/analysis/` | `{topic}.md` or `YYYY-MM-DD-{descriptor}.md` |
-| **Agent reports** | `.githu./.github/reports/agents/` | `{agent-name}/` with analysis files |
+| **Audit reports** | `.github/reports/audits/` | `YYYY-MM-DD-{descriptor}.md` |
+| **Analysis reports** | `.github/reports/analysis/` | `{topic}.md` or `YYYY-MM-DD-{descriptor}.md` |
+| **Agent reports** | `.github/reports/agents/` | `{agent-name}/` with analysis files |
 | Portable workflows | `workflows/` | `{name}.md` |
 | Recipes/playbooks | `cookbook/` | `{topic}.md` |
 | Plugins | `plugins/` | One folder per plugin |
@@ -554,22 +554,22 @@ agents/linear-advisor-agent/
 **Good — Audit report naming:**
 
 ```
-.githu./.github/reports/audits/2026-07-22-phase-1-instructions-audit.md
-.githu./.github/reports/audits/2026-07-29-changelog-keepachangelog-audit.md
-.githu./.github/reports/audits/2026-08-01-schema-migration-audit.md
+.github/reports/audits/2026-07-22-phase-1-instructions-audit.md
+.github/reports/audits/2026-07-29-changelog-keepachangelog-audit.md
+.github/reports/audits/2026-08-01-schema-migration-audit.md
 ```
 
 **Good — Analysis report:**
 
 ```
-.githu./.github/reports/analysis/issue-creation-docs-audit-report.md
-.githu./.github/reports/analysis/readme-audit-extended-2026-05-31.md
+.github/reports/analysis/issue-creation-docs-audit-report.md
+.github/reports/analysis/readme-audit-extended-2026-05-31.md
 ```
 
 **Good — Agent report structure:**
 
 ```
-.githu./.github/reports/agents/linear-advisor-agent/
+.github/reports/agents/linear-advisor-agent/
 ├── test-results-2026-07-15.md
 ├── provider-compatibility-matrix.md
 └── performance-metrics.md
@@ -577,7 +577,7 @@ agents/linear-advisor-agent/
 
 **Avoid:**
 
-- Placing reports in root without `.githu./.github/reports/` structure
+- Placing reports in root without `.github/reports/` structure
 - Using unclear naming like `audit1.md` or `report-final-v2.md`
 - Mixing active and archived reports in same folder
 - Using inconsistent date formats (use ISO: YYYY-MM-DD)
@@ -640,11 +640,11 @@ instructions/documentation-formats.instructions.md
 
 **Report-Specific Checks:**
 
-- ✅ Audit reports in `.githu./.github/reports/audits/` with `YYYY-MM-DD-{descriptor}.md` naming
-- ✅ Analysis reports in `.githu./.github/reports/analysis/`
-- ✅ Agent reports in `.githu./.github/reports/agents/{agent-name}/`
+- ✅ Audit reports in `.github/reports/audits/` with `YYYY-MM-DD-{descriptor}.md` naming
+- ✅ Analysis reports in `.github/reports/analysis/`
+- ✅ Agent reports in `.github/reports/agents/{agent-name}/`
 - ✅ All reports include frontmatter with `file_type`, `category`, `created_date`
-- ✅ Archived reports moved to `.githu./.github/reports/archived/` with timestamp
+- ✅ Archived reports moved to `.github/reports/archived/` with timestamp
 
 ## Cross-References
 
@@ -657,10 +657,10 @@ instructions/documentation-formats.instructions.md
 
 **Phase 1 Restructuring Audits:**
 
-- [Phase 1A: Instructions Audit](../.githu./.github/reports/audits/phase-1-instructions-audit-2026-07-22.md) — Portable vs. repo-local instructions review
-- [Phase 1B: Schemas Audit](../.githu./.github/reports/audits/phase-1-schemas-audit-2026-07-22.md) — JSON schema consolidation and new schema definitions
-- [Phase 1C: AI Config Audit](../.githu./.github/reports/audits/phase-1-ai-config-audit-2026-07-22.md) — Multi-provider agent configuration
-- [File Organisation Migration Plan](../.githu./.github/reports/audits/2026-06-03-file-organisation-migration-plan-673.md) — Phase 1 migration timeline and validation
+- [Phase 1A: Instructions Audit](../.github/reports/audits/phase-1-instructions-audit-2026-07-22.md) — Portable vs. repo-local instructions review
+- [Phase 1B: Schemas Audit](../.github/reports/audits/phase-1-schemas-audit-2026-07-22.md) — JSON schema consolidation and new schema definitions
+- [Phase 1C: AI Config Audit](../.github/reports/audits/phase-1-ai-config-audit-2026-07-22.md) — Multi-provider agent configuration
+- [File Organisation Migration Plan](../.github/reports/audits/2026-06-03-file-organisation-migration-plan-673.md) — Phase 1 migration timeline and validation
 - [Issue #1501](https://github.com/lightspeedwp/.github/issues/1501) — Phase 2C: Update file-organisation instructions
 
 ---

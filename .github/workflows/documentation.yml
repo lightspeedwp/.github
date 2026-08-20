@@ -86,7 +86,7 @@ jobs:
         run: npm ci
 
       - name: Create audit directory
-        run: mkdir -p .githu./.githu./.github/reports/mermaid-audit
+        run: mkdir -p .github//.github/reports/mermaid-audit
 
       - name: Run README audit
         id: audit
@@ -95,7 +95,7 @@ jobs:
           npm run audit:readme -- \
             --scope=${{ env.AUDIT_SCOPE }} \
             --format=markdown \
-            --output=.githu./.githu./.github/reports/mermaid-audit/
+            --output=.github//.github/reports/mermaid-audit/
         continue-on-error: true
 
       - name: Validate Mermaid syntax
@@ -145,7 +145,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: documentation-audit-report-${{ github.run_number }}
-          path: .githu./.githu./.github/reports/mermaid-audit/
+          path: .github//.github/reports/mermaid-audit/
           retention-days: 30
 
       - name: Create issue for critical findings
@@ -229,7 +229,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: documentation-regeneration-${{ github.run_number }}
-          path: .githu./.githu./.github/reports/
+          path: .github//.github/reports/
           if-no-files-found: ignore
           retention-days: 14
 
@@ -257,7 +257,7 @@ jobs:
         run: npm ci
 
       - name: Create audit directory
-        run: mkdir -p .githu./.githu./.github/reports/mermaid-audit
+        run: mkdir -p .github//.github/reports/mermaid-audit
 
       - name: Run Mermaid diagram fixes
         id: mermaid
@@ -288,7 +288,7 @@ jobs:
           DRY_RUN="${{ env.DRY_RUN }}"
           DRY_RUN_LABEL=$([ "$DRY_RUN" = "true" ] && echo "Yes (preview only)" || echo "No (changes applied)")
 
-          cat > .githu./.githu./.github/reports/mermaid-audit/maintenance-report.md <<EOF
+          cat > .github//.github/reports/mermaid-audit/maintenance-report.md <<EOF
           # Documentation Maintenance Report
 
           **Date**: ${REPORT_DATE}
@@ -321,7 +321,7 @@ jobs:
           3. Have maintainers review and merge
 
           EOF
-          cat .githu./.githu./.github/reports/mermaid-audit/maintenance-report.md
+          cat .github//.github/reports/mermaid-audit/maintenance-report.md
 
       - name: Check for changes
         id: changes
@@ -350,7 +350,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: documentation-maintenance-report-${{ github.run_number }}
-          path: .githu./.githu./.github/reports/mermaid-audit/
+          path: .github//.github/reports/mermaid-audit/
 
       - name: Maintenance summary
         if: always()

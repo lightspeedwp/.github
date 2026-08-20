@@ -244,7 +244,7 @@ node scripts/validation/validate-branch-name.js
 ### Test Artifacts
 
 - Full test output: Available via `npm test`
-- Validation reports: Generated in `.githu./.github/reports/`
+- Validation reports: Generated in `.github/reports/`
 - Coverage metrics: Available via `npm test -- --coverage`
 
 ---

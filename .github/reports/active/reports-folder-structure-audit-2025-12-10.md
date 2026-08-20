@@ -6,12 +6,12 @@
 
 ## Executive Summary
 
-Audited the `.githu./.github/reports/` folder structure and found **significant inconsistencies** between the actual folder structure and documentation across multiple instruction files and agent specifications.
+Audited the `.github/reports/` folder structure and found **significant inconsistencies** between the actual folder structure and documentation across multiple instruction files and agent specifications.
 
 ## Current Actual Structure
 
 ```
-.githu./.github/reports/
+.github/reports/
 ├── analysis/
 ├── audits/
 ├── implementation/
@@ -72,7 +72,7 @@ These folders exist but were **not mentioned** in any documentation:
 Combined all use cases from different sources into a comprehensive structure:
 
 ```
-.githu./.github/reports/
+.github/reports/
 ├── analysis/        # Code analysis, technical audits, investigation reports
 ├── audits/          # Formal compliance audits, system-wide checks (plural)
 ├── implementation/  # Implementation tracking, completion summaries
@@ -127,7 +127,7 @@ Combined all use cases from different sources into a comprehensive structure:
 
 ## Next Steps
 
-1. ✅ **COMPLETED:** Updated [.githu./.github/reports/README.md](.githu./.github/reports/README.md) - Documented complete unified structure with UK English
+1. ✅ **COMPLETED:** Updated [.github/reports/README.md](.github/reports/README.md) - Documented complete unified structure with UK English
 2. ✅ **COMPLETED:** Updated [.github/instructions/file-output-organization.instructions.md](.github/instructions/file-output-organization.instructions.md) - Fixed all subdirectory references
 3. ✅ **COMPLETED:** Updated [.github/agents/reporting.agent.md](.github/agents/reporting.agent.md) - Added all 14 categories
 4. ✅ **COMPLETED:** Created all missing folders (agents/, coverage/, frontmatter/, issue-metrics/, labeling/, linting/, meta/, metrics/, optimisation/)

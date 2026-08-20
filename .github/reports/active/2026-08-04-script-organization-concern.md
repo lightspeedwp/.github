@@ -61,7 +61,7 @@ Scripts were moved to `.github/scripts/`:
 ### CLAUDE.md: Repository Boundaries (Line 311)
 
 ```
-| Reports, audits, metrics | `.githu./.github/reports/{category}/` |
+| Reports, audits, metrics | `.github/reports/{category}/` |
 ```
 
 ### Phase 1 Restructuring (Lines 50-54)

@@ -65,7 +65,7 @@ Comprehensive Wave 5 audit of all 57 README.md files and 24 Mermaid diagrams acr
 
 ### Validation Results
 
-**Report**: `.githu./.github/reports/mermaid-validation-report.md`
+**Report**: `.github/reports/mermaid-validation-report.md`
 
 ```
 Total diagrams:    24
@@ -114,7 +114,7 @@ All 24 Mermaid diagrams now include:
 
 #### Compliance Results
 
-**Report**: `.githu./.github/reports/mermaid-accessibility-report.md`
+**Report**: `.github/reports/mermaid-accessibility-report.md`
 
 ```
 Total diagrams:         24

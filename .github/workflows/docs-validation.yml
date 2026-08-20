@@ -169,9 +169,9 @@ jobs:
         with:
           name: mermaid-validation-reports-${{ github.run_number }}
           path: |
-            .githu./.githu./.github/reports/mermaid-validation-report.md
-            .githu./.githu./.github/reports/mermaid-accessibility-report.md
-            .githu./.githu./.github/reports/mermaid/colour-contrast-report-*.md
+            .github//.github/reports/mermaid-validation-report.md
+            .github//.github/reports/mermaid-accessibility-report.md
+            .github//.github/reports/mermaid/colour-contrast-report-*.md
           if-no-files-found: ignore
           retention-days: 14
 
