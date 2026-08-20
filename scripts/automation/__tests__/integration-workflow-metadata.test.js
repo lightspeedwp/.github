@@ -17,33 +17,33 @@ function auditIssueMetadata(issues, auditRules) {
     const issues_list = [];
 
     // Check for required labels
-    const hasTypeLabel = issue.labels?.some((l) => l.name.startsWith('type:'));
+    const hasTypeLabel = issue.labels?.some((l) => l.name.startsWith("type:"));
     if (!hasTypeLabel) {
       compliant = false;
-      issues_list.push('missing-type-label');
+      issues_list.push("missing-type-label");
       findings.missingLabels.push(issue.number);
     }
 
     // Check for milestone
     if (!issue.milestone && auditRules.requireMilestone) {
       compliant = false;
-      issues_list.push('missing-milestone');
+      issues_list.push("missing-milestone");
       findings.missingMilestones.push(issue.number);
     }
 
     // Check for DoR section
-    const hasDoR = (issue.body || '').includes('## Definition of Ready');
+    const hasDoR = (issue.body || "").includes("## Definition of Ready");
     if (!hasDoR && auditRules.requireDoR) {
       compliant = false;
-      issues_list.push('missing-dor');
+      issues_list.push("missing-dor");
       findings.missingDoR.push(issue.number);
     }
 
     // Check for DoD section
-    const hasDoD = (issue.body || '').includes('## Definition of Done');
+    const hasDoD = (issue.body || "").includes("## Definition of Done");
     if (!hasDoD && auditRules.requireDoD) {
       compliant = false;
-      issues_list.push('missing-dod');
+      issues_list.push("missing-dod");
       findings.missingDoD.push(issue.number);
     }
 
@@ -84,7 +84,7 @@ function bulkUpdateMetadata(issues, updates, dryRun = true) {
         );
         if (toAdd.length > 0) {
           results.labelsAdded += toAdd.length;
-          changes.changes.push(`add-labels: ${toAdd.join(', ')}`);
+          changes.changes.push(`add-labels: ${toAdd.join(", ")}`);
         }
       }
 
@@ -94,7 +94,7 @@ function bulkUpdateMetadata(issues, updates, dryRun = true) {
         );
         if (toRemove.length > 0) {
           results.labelsRemoved += toRemove.length;
-          changes.changes.push(`remove-labels: ${toRemove.join(', ')}`);
+          changes.changes.push(`remove-labels: ${toRemove.join(", ")}`);
         }
       }
 
@@ -132,29 +132,29 @@ function createAuditReport(findings, metadata) {
   };
 }
 
-describe('integration: metadata workflow', () => {
-  describe('audit to bulk update workflow', () => {
+describe("integration: metadata workflow", () => {
+  describe("audit to bulk update workflow", () => {
     const mockIssues = [
       {
         number: 101,
-        title: 'Missing type label',
-        body: '## Definition of Ready\n- [ ] item\n## Definition of Done\n- [ ] item',
+        title: "Missing type label",
+        body: "## Definition of Ready\n- [ ] item\n## Definition of Done\n- [ ] item",
         labels: [],
         milestone: null,
       },
       {
         number: 102,
-        title: 'Missing milestone',
-        body: '## Definition of Ready\n- [ ] item\n## Definition of Done\n- [ ] item',
-        labels: [{ name: 'type:bug' }],
+        title: "Missing milestone",
+        body: "## Definition of Ready\n- [ ] item\n## Definition of Done\n- [ ] item",
+        labels: [{ name: "type:bug" }],
         milestone: null,
       },
       {
         number: 103,
-        title: 'Compliant issue',
-        body: '## Definition of Ready\n- [ ] item\n## Definition of Done\n- [ ] item',
-        labels: [{ name: 'type:feature' }],
-        milestone: { title: 'v1.0' },
+        title: "Compliant issue",
+        body: "## Definition of Ready\n- [ ] item\n## Definition of Done\n- [ ] item",
+        labels: [{ name: "type:feature" }],
+        milestone: { title: "v1.0" },
       },
     ];
 
@@ -164,41 +164,41 @@ describe('integration: metadata workflow', () => {
       requireDoD: true,
     };
 
-    it('audits issues and identifies compliance gaps', () => {
+    it("audits issues and identifies compliance gaps", () => {
       const findings = auditIssueMetadata(mockIssues, auditRules);
       expect(findings.compliantIssues).toContain(103);
       expect(findings.nonCompliantIssues.length).toBe(2);
     });
 
-    it('identifies missing type labels', () => {
+    it("identifies missing type labels", () => {
       const findings = auditIssueMetadata(mockIssues, auditRules);
       expect(findings.missingLabels).toContain(101);
     });
 
-    it('identifies missing milestones', () => {
+    it("identifies missing milestones", () => {
       const findings = auditIssueMetadata(mockIssues, auditRules);
       expect(findings.missingMilestones.length).toBeGreaterThan(0);
     });
 
-    it('flows audit results to bulk update', () => {
+    it("flows audit results to bulk update", () => {
       const findings = auditIssueMetadata(mockIssues, auditRules);
       const issuesToUpdate = mockIssues.filter((i) =>
         findings.nonCompliantIssues.some((nc) => nc.number === i.number),
       );
 
       const updates = {
-        labelsToAdd: ['type:task'],
+        labelsToAdd: ["type:task"],
         labelsToRemove: [],
-        milestone: 'Backlog',
+        milestone: "Backlog",
       };
 
       const results = bulkUpdateMetadata(issuesToUpdate, updates, true);
       expect(results.totalProcessed).toBe(findings.nonCompliantIssues.length);
     });
 
-    it('respects dry-run mode during workflow', () => {
+    it("respects dry-run mode during workflow", () => {
       const updates = {
-        labelsToAdd: ['status:needs-triage'],
+        labelsToAdd: ["status:needs-triage"],
         labelsToRemove: [],
       };
 
@@ -211,7 +211,7 @@ describe('integration: metadata workflow', () => {
       expect(dryRunResults.labelsAdded).toBe(liveResults.labelsAdded);
     });
 
-    it('handles concurrent audit and update batches', () => {
+    it("handles concurrent audit and update batches", () => {
       const batch1 = mockIssues.slice(0, 2);
       const batch2 = mockIssues.slice(1);
 
@@ -228,32 +228,33 @@ describe('integration: metadata workflow', () => {
     });
   });
 
-  describe('error handling in metadata workflow', () => {
-    it('handles audit errors gracefully', () => {
+  describe("error handling in metadata workflow", () => {
+    it("handles audit errors gracefully", () => {
       const invalidIssues = [
-        { number: 1, title: 'Valid', labels: [] },
+        { number: 1, title: "Valid", labels: [] },
         null, // Invalid
       ];
 
       try {
-        const findings = auditIssueMetadata(
-          invalidIssues.filter(Boolean),
-          { requireMilestone: true, requireDoR: true, requireDoD: true },
-        );
+        const findings = auditIssueMetadata(invalidIssues.filter(Boolean), {
+          requireMilestone: true,
+          requireDoR: true,
+          requireDoD: true,
+        });
         expect(findings.totalIssues).toBe(1);
       } catch (error) {
         expect(error).toBeDefined();
       }
     });
 
-    it('handles update failures without stopping workflow', () => {
+    it("handles update failures without stopping workflow", () => {
       const issues = [
-        { number: 1, title: 'Test', labels: [], milestone: null },
-        { number: 2, title: 'Test 2', labels: [], milestone: null },
+        { number: 1, title: "Test", labels: [], milestone: null },
+        { number: 2, title: "Test 2", labels: [], milestone: null },
       ];
 
       const updates = {
-        labelsToAdd: ['type:bug'],
+        labelsToAdd: ["type:bug"],
         labelsToRemove: [],
       };
 
@@ -262,35 +263,37 @@ describe('integration: metadata workflow', () => {
       expect(results.errors.length).toBeLessThanOrEqual(2);
     });
 
-    it('reports errors without failing entire batch', () => {
+    it("reports errors without failing entire batch", () => {
       const issues = [
-        { number: 101, title: 'Valid', labels: [], milestone: null },
-        { number: 102, title: 'Invalid', labels: null, milestone: null },
+        { number: 101, title: "Valid", labels: [], milestone: null },
+        { number: 102, title: "Invalid", labels: null, milestone: null },
       ];
 
-      const results = bulkUpdateMetadata(issues, { labelsToAdd: ['type:task'] });
+      const results = bulkUpdateMetadata(issues, {
+        labelsToAdd: ["type:task"],
+      });
       expect(results.totalProcessed).toBe(2);
       // At least one error should be captured
       expect(results.errors.length).toBeGreaterThanOrEqual(0);
     });
   });
 
-  describe('multi-step metadata workflow', () => {
-    it('completes full audit → remediation → verification cycle', () => {
+  describe("multi-step metadata workflow", () => {
+    it("completes full audit → remediation → verification cycle", () => {
       const issues = [
         {
           number: 201,
-          title: 'Issue needing fixes',
-          body: '## Definition of Ready\n## Definition of Done',
+          title: "Issue needing fixes",
+          body: "## Definition of Ready\n## Definition of Done",
           labels: [],
           milestone: null,
         },
         {
           number: 202,
-          title: 'Already compliant',
-          body: '## Definition of Ready\n## Definition of Done',
-          labels: [{ name: 'type:feature' }],
-          milestone: { title: 'v1.0' },
+          title: "Already compliant",
+          body: "## Definition of Ready\n## Definition of Done",
+          labels: [{ name: "type:feature" }],
+          milestone: { title: "v1.0" },
         },
       ];
 
@@ -308,9 +311,9 @@ describe('integration: metadata workflow', () => {
         findings.nonCompliantIssues.some((nc) => nc.number === i.number),
       );
       const updates = {
-        labelsToAdd: ['type:task'],
+        labelsToAdd: ["type:task"],
         labelsToRemove: [],
-        milestone: 'v1.0',
+        milestone: "v1.0",
       };
 
       // Step 3: Apply updates
@@ -320,8 +323,13 @@ describe('integration: metadata workflow', () => {
       // Step 4: Verify remediation (simulated)
       const remediatedIssues = nonCompliant.map((issue) => ({
         ...issue,
-        labels: [...(issue.labels || []), ...updates.labelsToAdd.map((l) => ({ name: l }))],
-        milestone: updates.milestone ? { title: updates.milestone } : issue.milestone,
+        labels: [
+          ...(issue.labels || []),
+          ...updates.labelsToAdd.map((l) => ({ name: l })),
+        ],
+        milestone: updates.milestone
+          ? { title: updates.milestone }
+          : issue.milestone,
       }));
 
       const verifyFindings = auditIssueMetadata(remediatedIssues, auditRules);
@@ -331,14 +339,14 @@ describe('integration: metadata workflow', () => {
       );
     });
 
-    it('generates audit report for workflow tracking', () => {
+    it("generates audit report for workflow tracking", () => {
       const issues = [
         {
           number: 301,
-          title: 'Test',
-          body: 'DoR and DoD',
-          labels: [{ name: 'type:bug' }],
-          milestone: { title: 'v1.0' },
+          title: "Test",
+          body: "DoR and DoD",
+          labels: [{ name: "type:bug" }],
+          milestone: { title: "v1.0" },
         },
       ];
 
@@ -349,7 +357,7 @@ describe('integration: metadata workflow', () => {
       });
       const report = createAuditReport(findings, {
         executedAt: new Date().toISOString(),
-        executor: 'integration-test',
+        executor: "integration-test",
       });
 
       expect(report.summary.totalIssues).toBe(1);
@@ -358,14 +366,14 @@ describe('integration: metadata workflow', () => {
     });
   });
 
-  describe('performance: bulk metadata operations', () => {
-    it('handles large batches efficiently', () => {
+  describe("performance: bulk metadata operations", () => {
+    it("handles large batches efficiently", () => {
       const largeIssueSet = Array.from({ length: 500 }, (_, i) => ({
         number: 1000 + i,
         title: `Issue ${i}`,
-        body: '## Definition of Ready\n## Definition of Done',
-        labels: i % 2 === 0 ? [{ name: 'type:task' }] : [],
-        milestone: i % 3 === 0 ? { title: 'v1.0' } : null,
+        body: "## Definition of Ready\n## Definition of Done",
+        labels: i % 2 === 0 ? [{ name: "type:task" }] : [],
+        milestone: i % 3 === 0 ? { title: "v1.0" } : null,
       }));
 
       const auditRules = {
@@ -383,7 +391,7 @@ describe('integration: metadata workflow', () => {
 
       // Test bulk update performance
       const updates = {
-        labelsToAdd: ['status:needs-review'],
+        labelsToAdd: ["status:needs-review"],
         labelsToRemove: [],
       };
 
@@ -395,13 +403,14 @@ describe('integration: metadata workflow', () => {
       expect(updateTime).toBeLessThan(1000); // Should complete in <1s
     });
 
-    it('maintains accuracy with large datasets', () => {
+    it("maintains accuracy with large datasets", () => {
       const issueSet = Array.from({ length: 200 }, (_, i) => ({
         number: i,
         title: `Issue ${i}`,
-        body: i % 2 === 0 ? '## Definition of Ready\n## Definition of Done' : '',
-        labels: i % 3 === 0 ? [{ name: 'type:feature' }] : [],
-        milestone: i % 4 === 0 ? { title: 'Release' } : null,
+        body:
+          i % 2 === 0 ? "## Definition of Ready\n## Definition of Done" : "",
+        labels: i % 3 === 0 ? [{ name: "type:feature" }] : [],
+        milestone: i % 4 === 0 ? { title: "Release" } : null,
       }));
 
       const findings = auditIssueMetadata(issueSet, {
@@ -412,7 +421,9 @@ describe('integration: metadata workflow', () => {
 
       // Verify accuracy
       expect(findings.totalIssues).toBe(200);
-      expect(findings.compliantIssues.length + findings.nonCompliantIssues.length).toBe(200);
+      expect(
+        findings.compliantIssues.length + findings.nonCompliantIssues.length,
+      ).toBe(200);
 
       // Verify all audit categories are accounted for
       const totalGaps =
@@ -424,13 +435,13 @@ describe('integration: metadata workflow', () => {
     });
   });
 
-  describe('state consistency in metadata workflow', () => {
-    it('maintains consistency across audit and update cycles', () => {
+  describe("state consistency in metadata workflow", () => {
+    it("maintains consistency across audit and update cycles", () => {
       const issues = [
         {
           number: 401,
-          title: 'Test',
-          body: 'DoR and DoD',
+          title: "Test",
+          body: "DoR and DoD",
           labels: [],
           milestone: null,
         },
@@ -448,9 +459,9 @@ describe('integration: metadata workflow', () => {
 
       // Apply updates
       const updates = {
-        labelsToAdd: ['type:task'],
+        labelsToAdd: ["type:task"],
         labelsToRemove: [],
-        milestone: 'v1.0',
+        milestone: "v1.0",
       };
 
       bulkUpdateMetadata(issues, updates);
@@ -459,8 +470,8 @@ describe('integration: metadata workflow', () => {
       const updatedIssues = [
         {
           ...issues[0],
-          labels: [{ name: 'type:task' }],
-          milestone: { title: 'v1.0' },
+          labels: [{ name: "type:task" }],
+          milestone: { title: "v1.0" },
         },
       ];
 

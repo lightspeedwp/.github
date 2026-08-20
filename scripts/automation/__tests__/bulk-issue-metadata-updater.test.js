@@ -153,7 +153,7 @@ describe("bulk-issue-metadata-updater", () => {
     it("should process all issues in dry-run mode", () => {
       const issues = [
         { number: 1, title: "Issue 1", confidence: 0.95 },
-        { number: 2, title: "Issue 2", confidence: 0.90 },
+        { number: 2, title: "Issue 2", confidence: 0.9 },
       ];
 
       const results = processBatch(issues, "dry-run");
@@ -185,7 +185,9 @@ describe("bulk-issue-metadata-updater", () => {
     });
 
     it("should apply changes in auto mode with high confidence", () => {
-      const issues = [{ number: 123, title: "High conf issue", confidence: 0.95 }];
+      const issues = [
+        { number: 123, title: "High conf issue", confidence: 0.95 },
+      ];
 
       const results = processBatch(issues, "auto", 0.85);
       expect(results[0].status).toBe("applied");
@@ -282,7 +284,10 @@ describe("bulk-issue-metadata-updater", () => {
         errors.push("Confidence must be between 0 and 1");
       }
 
-      if (config.mode && !["dry-run", "interactive", "auto"].includes(config.mode)) {
+      if (
+        config.mode &&
+        !["dry-run", "interactive", "auto"].includes(config.mode)
+      ) {
         errors.push("Invalid mode");
       }
 

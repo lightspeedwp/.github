@@ -388,9 +388,8 @@ graph TB
 ### For AI Operations
 
 1. **Read global governance** — [AGENTS.md](./AGENTS.md)
-2. **Check instruction standards** — [docs/DOCUMENTATION_STANDARDS.md](./docs/DOCUMENTATION_STANDARDS.md)
-3. **Review AI feedback system** — [docs/AI_FEEDBACK_SYSTEM_SUMMARY.md](./docs/AI_FEEDBACK_SYSTEM_SUMMARY.md)
-4. **Create new agents** — [docs/AGENT_CREATION.md](./docs/AGENT_CREATION.md)
+2. **Review AI feedback system** — [docs/AI_FEEDBACK_SYSTEM_SUMMARY.md](./docs/AI_FEEDBACK_SYSTEM_SUMMARY.md)
+3. **Create new agents** — [docs/AGENT_CREATION.md](./docs/AGENT_CREATION.md)
 
 ---
 
@@ -427,12 +426,14 @@ npm run validate:branch-name -- --branch $(git branch --show-current)
 **Valid prefixes:** `feat/`, `fix/`, `hotfix/`, `docs/`, `chore/`, `ci/`, `test/`, `refactor/`, `security/`, `design/`, `a11y/`, `ux/`, `perf/`, `deps/`, `build/`, `release/`
 
 **Examples:**
+
 - ✅ `feat/readme-rewrite-diagrams`
 - ✅ `fix/branch-validation-regex`
 - ✅ `docs/update-contributing-guide`
 - ✅ `release/v1.2.0`
 
 **Invalid:**
+
 - ❌ `claude/readme-rewrite` (claude/ prefix forbidden)
 - ❌ `fix-branch-validation` (missing type prefix)
 - ❌ `hotfix/URGENT-FIX` (not kebab-case)
@@ -488,7 +489,6 @@ npm run validate:branch-name -- --branch $(git branch --show-current)
 
 - [docs/AGENT_CREATION.md](./docs/AGENT_CREATION.md) — Creating new agents
 - [docs/AGENT_STANDARDS.md](./docs/AGENT_STANDARDS.md) — Agent specification standards
-- [docs/DOCUMENTATION_STANDARDS.md](./docs/DOCUMENTATION_STANDARDS.md) — Writing docs, instructions, skills
 - [docs/AI_FEEDBACK_SYSTEM_SUMMARY.md](./docs/AI_FEEDBACK_SYSTEM_SUMMARY.md) — AI feedback tracking
 - [ai/Claude.md](./ai/Claude.md) — Claude usage standards
 
@@ -560,6 +560,7 @@ Completed initiatives at [`.github/projects/archived/`](./.github/projects/archi
 ## Contributing
 
 1. **Clone and set up:**
+
    ```bash
    git clone https://github.com/lightspeedwp/.github.git
    cd .github
@@ -567,11 +568,13 @@ Completed initiatives at [`.github/projects/archived/`](./.github/projects/archi
    ```
 
 2. **Create a branch** following the naming convention:
+
    ```bash
    git checkout -b {type}/{scope}-{short-title}
    ```
 
 3. **Make changes** and run validation:
+
    ```bash
    npm run lint:md
    npm run lint:js
@@ -579,11 +582,13 @@ Completed initiatives at [`.github/projects/archived/`](./.github/projects/archi
    ```
 
 4. **Commit with clear messages:**
+
    ```bash
    git commit -m "type(scope): Short description of change"
    ```
 
 5. **Push and create PR:**
+
    ```bash
    git push -u origin {branch-name}
    ```
