@@ -48,15 +48,29 @@ try {
 }
 
 // Simple glob pattern matching (supports **, *, ?)
+// Note: This is a simplified implementation that handles common patterns
 function matchesPattern(filePath, pattern) {
-  // Escape special regex chars except * and ?
-  let regexPattern = pattern
-    .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-    .replace(/\*\*/g, ".*")
-    .replace(/\*/g, "[^/]*")
-    .replace(/\?/g, "[^/]");
-  const regex = new RegExp(`^${regexPattern}(/.*)?$`);
-  return regex.test(filePath);
+  // Use placeholders for **, *, ? to avoid conflicts during escaping
+  let regex = pattern
+    .replace(/\*\*\//g, "\x00")  // **/ placeholder (keep the slash for now)
+    .replace(/\*\*/g, "\x01")    // ** placeholder
+    .replace(/\*/g, "\x02")      // * placeholder
+    .replace(/\?/g, "\x03");     // ? placeholder
+
+  // Now escape regex special characters
+  regex = regex.replace(/[.+^${}()|[\]\\]/g, "\\$&");
+
+  // Replace placeholders with regex patterns
+  // **/ matches any path including nested dirs, or nothing (making it optional)
+  regex = regex.replace(/\x00/g, "(?:.*/)?");
+  // ** matches any characters including /
+  regex = regex.replace(/\x01/g, ".*");
+  // * matches anything except /
+  regex = regex.replace(/\x02/g, "[^/]*");
+  // ? matches any single character except /
+  regex = regex.replace(/\x03/g, "[^/]");
+
+  return new RegExp(`^${regex}$`).test(filePath);
 }
 
 // Filter out files matching ignore patterns
