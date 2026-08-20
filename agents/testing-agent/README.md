@@ -91,6 +91,8 @@ See `manifests/skills.md` and `manifests/skills.csv` for the complete skill inve
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Scope"] --> B["Inputs"]
     B --> C["Process"]
     C --> D["Validation"]

@@ -193,6 +193,8 @@ Enhance the existing [Reviewer Agent](./.github/agents/reviewer.agent.md) from a
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

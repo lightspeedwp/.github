@@ -166,6 +166,7 @@ function updateIssue(number, newBody) {
       true,
     );
     log(`Updated issue #${number} with DoR/DoD sections`, "success");
+    stats.issuesInjected++;
     return true;
   } catch (error) {
     log(`Failed to update issue #${number}`, "error");
@@ -205,10 +206,7 @@ function processIssues(issues) {
       continue;
     }
 
-    const updated = updateIssue(validation.number, newBody);
-    if (updated) {
-      stats.issuesInjected++;
-    }
+    updateIssue(validation.number, newBody);
   }
 }
 
