@@ -7,7 +7,6 @@ const { describe, it, expect, beforeEach } = require("@jest/globals");
 const {
   syncLabelsOnEvent,
   batchSyncLabels,
-  syncOpenSpecLabels,
   getRecommendedLabelsForOpenSpec,
   isStatusOpenSpecCompatible,
 } = require("../handlers/sync-labels-on-event");
