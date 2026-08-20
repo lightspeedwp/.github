@@ -346,10 +346,9 @@ function detectRepositoryType(rootDir = process.cwd(), fsImpl = fs) {
     return "control-plane";
   }
 
-  // Check for WordPress theme markers (theme.json, style.css, or functions.php)
+  // Check for WordPress theme markers (theme.json or style.css with "Theme Name:" header)
   const themeJsonPath = path.join(resolvedRoot, "theme.json");
   const styleCssPath = path.join(resolvedRoot, "style.css");
-  const functionsPhpPath = path.join(resolvedRoot, "functions.php");
 
   if (fsImpl.existsSync(themeJsonPath)) {
     return "wordpress-theme";
