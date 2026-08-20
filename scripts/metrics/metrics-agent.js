@@ -28,7 +28,6 @@ class ConfigurationLoader {
     const required = [
       "context",
       "repositories",
-      "metrics",
       "collection_period",
     ];
     const missing = required.filter((field) => !config[field]);
@@ -44,9 +43,7 @@ class ConfigurationLoader {
       "wordpress-theme",
     ];
     if (!validContexts.includes(config.context)) {
-      throw new Error(
-        `Invalid context: ${config.context}. Must be one of: ${validContexts.join(", ")}`,
-      );
+      throw new Error("Invalid context");
     }
 
     // Validate collection period
@@ -54,7 +51,7 @@ class ConfigurationLoader {
       typeof config.collection_period !== "number" ||
       config.collection_period < 1
     ) {
-      throw new Error("collection_period must be a positive number (days)");
+      throw new Error("collection_period must be a positive number");
     }
 
     // Validate repositories
@@ -67,7 +64,7 @@ class ConfigurationLoader {
 
     config.repositories.forEach((repo, idx) => {
       if (!repo.owner || !repo.name) {
-        throw new Error(`Repository ${idx}: missing owner or name`);
+        throw new Error("missing owner or name");
       }
     });
 
@@ -79,7 +76,7 @@ class ConfigurationLoader {
       collection_period: config.collection_period,
       github_token: config.github_token || process.env.GITHUB_TOKEN,
       cache_ttl: config.cache_ttl || 3600,
-      output_dir: config.output_dir || ".githu./.github/reports/metrics",
+      output_dir: config.output_dir || ".github/reports/metrics",
       ...config,
     };
   }
@@ -385,7 +382,7 @@ class MetricsCollector {
   }
 
   percentile(sorted, p) {
-    if (sorted.length === 0) return 0;
+    if (sorted.length === 0) return "0.00";
     const index = Math.ceil(sorted.length * p) - 1;
     return sorted[Math.max(0, index)].toFixed(2);
   }
@@ -448,7 +445,16 @@ class MetricsAggregator {
   static calculateSummary(data) {
     const repoMetrics = Object.values(data).filter((d) => d.metrics);
 
-    if (repoMetrics.length === 0) return {};
+    if (repoMetrics.length === 0) {
+      return {
+        total_repositories: 0,
+        total_issues: 0,
+        total_prs: 0,
+        avg_issue_closure_rate: "N/A",
+        avg_pr_merge_rate: "N/A",
+        total_contributors: 0,
+      };
+    }
 
     return {
       total_repositories: repoMetrics.length,
@@ -515,8 +521,8 @@ class MetricsAggregator {
   static calculateTrend(current, previous) {
     if (previous === 0) return current > 0 ? "increased" : "stable";
     const change = ((current - previous) / previous) * 100;
-    if (change > 10) return "increased";
-    if (change < -10) return "decreased";
+    if (change >= 10) return "increased";
+    if (change <= -10) return "decreased";
     return "stable";
   }
 
@@ -671,7 +677,7 @@ class InsightsAnalyzer {
       });
     }
 
-    if (analysis.metrics_snapshot.total_issues > 50) {
+    if (analysis.metrics_snapshot && analysis.metrics_snapshot.total_issues > 50) {
       recommendations.push({
         action: "backlog-management",
         priority: "medium",

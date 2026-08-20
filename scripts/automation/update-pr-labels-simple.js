@@ -167,4 +167,24 @@ async function processPRs() {
   }
 }
 
-processPRs();
+// Only run processPRs() if this is not a test environment
+// Check for Jest/test environment indicators that are reliable across platforms
+const isTestEnvironment = () => {
+  // Jest test runner indicator
+  if (typeof global.test === 'function' || typeof global.describe === 'function') {
+    return true;
+  }
+  // Jest globals
+  if (global.jest || global.__JEST_WORKER_ID__ !== undefined) {
+    return true;
+  }
+  // Process argument check for Jest
+  if (process.argv.join(' ').includes('jest')) {
+    return true;
+  }
+  return false;
+};
+
+if (!isTestEnvironment()) {
+  processPRs();
+}

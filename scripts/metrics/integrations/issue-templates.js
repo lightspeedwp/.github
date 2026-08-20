@@ -8,8 +8,8 @@
 
 class IssueTemplateGenerator {
   constructor(options = {}) {
-    this.org = options.org || 'lightspeedwp';
-    this.repo = options.repo || '.github';
+    this.org = options.org || "lightspeedwp";
+    this.repo = options.repo || ".github";
     this.thresholds = options.thresholds || this.getDefaultThresholds();
   }
 
@@ -21,9 +21,9 @@ class IssueTemplateGenerator {
     return {
       staleIssues: { absolute: 5, percentChange: 30 },
       reviewTime: { absolute: 2.0, percentChange: 20 },
-      ciPassRate: { absolute: 0.90, percentChange: 5 },
-      testCoverage: { absolute: 0.80, percentChange: 5 },
-      healthScore: { absolute: 70, percentChange: 10 }
+      ciPassRate: { absolute: 0.9, percentChange: 5 },
+      testCoverage: { absolute: 0.8, percentChange: 5 },
+      healthScore: { absolute: 70, percentChange: 10 },
     };
   }
 
@@ -37,7 +37,8 @@ class IssueTemplateGenerator {
     if (!thresholdConfig) return false;
 
     const meetsAbsoluteThreshold = metric.current >= thresholdConfig.absolute;
-    const meetsPercentChange = Math.abs(metric.percentChange) >= thresholdConfig.percentChange;
+    const meetsPercentChange =
+      Math.abs(metric.percentChange) >= thresholdConfig.percentChange;
 
     return meetsAbsoluteThreshold || meetsPercentChange;
   }
@@ -55,15 +56,15 @@ class IssueTemplateGenerator {
     const staleCount = issueMetrics.staleIssues || 0;
 
     const metric = {
-      name: 'staleIssues',
+      name: "staleIssues",
       current: staleCount,
-      percentChange: ((staleCount - 5) / 5) * 100 // Assuming 5 was baseline
+      percentChange: ((staleCount - 5) / 5) * 100, // Assuming 5 was baseline
     };
 
     if (!this.shouldCreateIssue(metric)) return null;
 
     return {
-      title: '🚨 Metrics Alert: Stale Issues Accumulating',
+      title: "🚨 Metrics Alert: Stale Issues Accumulating",
       body: `## Metric Alert: Stale Issue Accumulation
 
 **Metric:** Stale Issues (>30 days)
@@ -106,7 +107,7 @@ We have ${staleCount} issues that haven't been reviewed in over 30 days. This in
 
 ### Related Report
 [Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)`,
-      labels: ['type:task', 'priority:important', 'area:analytics']
+      labels: ["type:task", "priority:important", "area:analytics"],
     };
   }
 
@@ -123,15 +124,15 @@ We have ${staleCount} issues that haven't been reviewed in over 30 days. This in
     const reviewTime = prMetrics.averageReviewTime || 0;
 
     const metric = {
-      name: 'reviewTime',
+      name: "reviewTime",
       current: reviewTime,
-      percentChange: ((reviewTime - 1.2) / 1.2) * 100 // Assuming 1.2 was baseline
+      percentChange: ((reviewTime - 1.2) / 1.2) * 100, // Assuming 1.2 was baseline
     };
 
     if (!this.shouldCreateIssue(metric)) return null;
 
     return {
-      title: '⏱️ Metrics Alert: PR Review Time Increasing',
+      title: "⏱️ Metrics Alert: PR Review Time Increasing",
       body: `## Metric Alert: PR Review Time Degradation
 
 **Metric:** Average PR Review Time
@@ -174,7 +175,7 @@ Pull request review time has increased by ${metric.percentChange.toFixed(0)}%. T
 
 ### Related Report
 [Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)`,
-      labels: ['type:task', 'priority:important', 'area:analytics']
+      labels: ["type:task", "priority:important", "area:analytics"],
     };
   }
 
@@ -189,14 +190,14 @@ Pull request review time has increased by ${metric.percentChange.toFixed(0)}%. T
     if (healthScore > 70) return null; // Only alert if below 70
 
     return {
-      title: '⚠️ Metrics Alert: Repository Health Below Target',
+      title: "⚠️ Metrics Alert: Repository Health Below Target",
       body: `## Metric Alert: Repository Health Score Low
 
 **Metric:** Overall Health Score
 **Current:** ${healthScore}
 **Target:** 80
-**Gap:** -${(80 - healthScore)} points
-**Severity:** ${healthScore < 60 ? 'CRITICAL' : 'HIGH'}
+**Gap:** -${80 - healthScore} points
+**Severity:** ${healthScore < 60 ? "CRITICAL" : "HIGH"}
 
 ### Issue
 Repository health score has dropped to ${healthScore}. This indicates systemic issues across multiple metrics.
@@ -230,7 +231,7 @@ ${this.formatHealthBreakdown(metrics.healthScore?.components || {})}
 [Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)
 
 `,
-      labels: ['type:task', 'priority:critical', 'area:analytics']
+      labels: ["type:task", "priority:critical", "area:analytics"],
     };
   }
 
@@ -249,13 +250,13 @@ ${this.formatHealthBreakdown(metrics.healthScore?.components || {})}
     if (contributors >= 10) return null;
 
     return {
-      title: '👥 Metrics Alert: Team Capacity Low',
+      title: "👥 Metrics Alert: Team Capacity Low",
       body: `## Metric Alert: Team Capacity Below Target
 
 **Metric:** Active Contributors
 **Current:** ${contributors} engineers
 **Target:** 12+ engineers
-**Gap:** -${(12 - contributors)} engineers
+**Gap:** -${12 - contributors} engineers
 **Severity:** MODERATE
 
 ### Issue
@@ -287,7 +288,7 @@ Active contributor count is lower than optimal. This may indicate capacity const
 [Weekly Metrics Summary](https://github.com/${this.org}/${this.repo}/blob/develop/.github/reports/metrics/weekly-summary-latest.md)
 
 `,
-      labels: ['type:task', 'priority:important', 'area:analytics']
+      labels: ["type:task", "priority:important", "area:analytics"],
     };
   }
 
@@ -303,7 +304,7 @@ Active contributor count is lower than optimal. This may indicate capacity const
       this.generateStaleIssuesAlert.bind(this),
       this.generatePRReviewDegradation.bind(this),
       this.generateHealthAlert.bind(this),
-      this.generateTeamCapacityAlert.bind(this)
+      this.generateTeamCapacityAlert.bind(this),
     ];
 
     generators.forEach((generator) => {
@@ -322,10 +323,16 @@ Active contributor count is lower than optimal. This may indicate capacity const
    * @returns {string} Markdown table
    */
   formatHealthBreakdown(components) {
-    let table = '| Component | Score | Status |\n|-----------|-------|--------|\n';
+    let table =
+      "| Component | Score | Status |\n|-----------|-------|--------|\n";
 
     Object.entries(components).forEach(([key, score]) => {
-      const status = score >= 80 ? '✅ Healthy' : score >= 70 ? '⚠️ At Risk' : '❌ Below Target';
+      const status =
+        score >= 80
+          ? "✅ Healthy"
+          : score >= 70
+            ? "⚠️ At Risk"
+            : "❌ Below Target";
       table += `| ${key} | ${score} | ${status} |\n`;
     });
 

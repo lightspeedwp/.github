@@ -211,7 +211,7 @@ class MilestoneAllocator {
       if (!response.data || response.data.length === 0) {
         throw new AllocationError(
           "NO_ACTIVE_MILESTONE",
-          "No open milestones found in repository",
+          "NO_ACTIVE_MILESTONE: No open milestones found in repository",
         );
       }
 
@@ -254,7 +254,7 @@ class MilestoneAllocator {
       // Wrap other errors in AllocationError
       throw new AllocationError(
         "MILESTONE_FETCH_FAILED",
-        `Failed to fetch milestones: ${err.message}`,
+        `MILESTONE_FETCH_FAILED: Failed to fetch milestones: ${err.message}`,
       );
     }
   }
@@ -590,10 +590,15 @@ class MilestoneAllocator {
       // Error handling: log and return failure status
       if (err instanceof AllocationError) {
         this.log("error", "main", `${err.code}: ${err.message}`);
+        return {
+          success: false,
+          error: `${err.code}: ${err.message}`,
+          stats: this.stats,
+        };
       } else {
         this.log("error", "main", `Unexpected error: ${err.message}`);
+        return { success: false, error: err.message, stats: this.stats };
       }
-      return { success: false, error: err.message, stats: this.stats };
     }
   }
 
@@ -693,10 +698,14 @@ async function main() {
 export { MilestoneAllocator, AllocationError };
 
 // CLI entry point: only run main() if this file is executed directly (not imported)
-// This check allows the file to be imported as a module for testing without auto-running
-if (
-  typeof import.meta !== "undefined" &&
-  import.meta.url === `file://${process.argv[1]}`
-) {
-  main();
+// Wrap import.meta check to prevent parsing errors in non-ESM contexts
+if (typeof eval !== "undefined") {
+  try {
+    const meta = eval("typeof import.meta !== 'undefined' && import.meta");
+    if (meta && meta.url === `file://${process.argv[1]}`) {
+      main();
+    }
+  } catch {
+    // In CommonJS context or when import.meta is not available, don't auto-run
+  }
 }
