@@ -341,17 +341,8 @@ async function main() {
   }
 }
 
-// Only run main() if this script is executed directly (not imported during tests)
-const isMainScript = () => {
-  // Check if we're being run as a CLI tool vs imported as a module
-  // Jest sets NODE_ENV=test and process.argv[1] contains 'jest' or similar
-  if (process.env.NODE_ENV === 'test') return false;
-  if (process.argv[1]?.includes('jest')) return false;
-  if (process.argv[1]?.includes('test')) return false;
-  // Default to running if none of the test indicators are present
-  return true;
-};
-
-if (isMainScript()) {
+// Only run main() if GITHUB_TOKEN is set (script is not being imported during tests)
+// During tests, GITHUB_TOKEN is not available, so we skip execution
+if (process.env.GITHUB_TOKEN) {
   main();
 }
