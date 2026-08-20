@@ -41,11 +41,12 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       const result = ConfigurationLoader.validateConfig(config);
       expect(result.cache_ttl).toBe(3600);
-      expect(result.output_dir).toBe(".githu./.github/reports/metrics");
+      expect(result.output_dir).toBe(".github/reports/metrics");
     });
   });
 
@@ -84,6 +85,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "invalid-context",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -95,6 +97,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "wordpress-plugin",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).not.toThrow();
@@ -104,6 +107,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "wordpress-theme",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).not.toThrow();
@@ -113,6 +117,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: -1,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -124,6 +129,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test", name: "repo" }],
+        metrics: {},
         collection_period: "not-a-number",
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -135,6 +141,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: "not-array",
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -146,6 +153,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -157,6 +165,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ name: "repo" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -168,6 +177,7 @@ describe("ConfigurationLoader", () => {
       const config = {
         context: "github-control-plane",
         repositories: [{ owner: "test" }],
+        metrics: {},
         collection_period: 7,
       };
       expect(() => ConfigurationLoader.validateConfig(config)).toThrow(
@@ -363,6 +373,14 @@ describe("MetricsCollector", () => {
   });
 
   describe("collectIssueMetrics()", () => {
+    beforeEach(() => {
+      collector.data["test/repo"] = {
+        owner: "test",
+        name: "repo",
+        metrics: {},
+      };
+    });
+
     test("calculates total issues", async () => {
       const issues = [
         {
