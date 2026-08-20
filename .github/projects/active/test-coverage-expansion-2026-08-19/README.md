@@ -264,7 +264,7 @@ Week 7 (Sep 30-Oct 4): Phase 5 - Integration
 
 - [CLAUDE.md](../../../CLAUDE.md) — Repository guidelines
 - [docs/BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md) — Branch naming rules
-- [docs/TESTING_STANDARDS.md](../../../docs/TESTING_STANDARDS.md) — Testing conventions (TBD)
+- [docs/TESTING.md](../../../docs/TESTING.md) — Testing guidelines and standards
 
 ---
 
