@@ -1,8 +1,8 @@
 # Phase 3 Implementation: Workflow Orchestration & Automated Phase Progression
 
-**Status:** ✅ COMPLETE  
-**Completion Date:** 2026-08-20  
-**Branch:** `claude/test-coverage-analysis-jppjrb`  
+**Status:** ✅ COMPLETE
+**Completion Date:** 2026-08-20
+**Branch:** `claude/test-coverage-analysis-jppjrb`
 **Test Coverage:** 126 tests (100% passing)
 
 ---
@@ -20,6 +20,7 @@ Phase 3 implements complete event-driven label syncing and automated phase progr
 ### Core Components
 
 #### 1. Event-Driven Label Syncing (`sync-labels-on-event.js`)
+
 - **Purpose:** Validates and synchronizes label combinations on issue events
 - **Functionality:**
   - Listens to: issue created, labeled, reopened, closed
@@ -34,6 +35,7 @@ Phase 3 implements complete event-driven label syncing and automated phase progr
   - `batchSyncLabels()` - Process multiple issues
 
 #### 2. Automated Phase Progression (`orchestrate-phase-progression.js`)
+
 - **Purpose:** Auto-advances issues through specification/implementation lifecycle
 - **Functionality:**
   - Detects PR links (Resolves, Closes, Fixes, Related)
@@ -51,6 +53,7 @@ Phase 3 implements complete event-driven label syncing and automated phase progr
   - `batchOrchestrate()` - Process multiple issues
 
 #### 3. GitHub Actions Workflow (`orchestrate-phase-progression.yml`)
+
 - **Purpose:** Triggers handlers on GitHub events
 - **Listeners:**
   - Issue events: created, labeled, reopened, closed
@@ -62,6 +65,7 @@ Phase 3 implements complete event-driven label syncing and automated phase progr
   - Comments on issues with progression updates
 
 #### 4. State Machine Enhancement (`phase-state-machine.js`)
+
 - **Updates:** Added triggers for specification-complete state
   - `specification-complete` → `implementation-pending` on PR opened
   - Support for "ready-for-implementation" manual trigger
@@ -74,6 +78,7 @@ Phase 3 implements complete event-driven label syncing and automated phase progr
 ### Specification Phase Workflow
 
 ```
+
 Step 1: Issue Created
   → Issue #100 created with "openspec:specification-pending" and "type:feature"
   → Workflow validates labels
@@ -102,11 +107,13 @@ Step 4: Transition to Implementation
   → Trigger: "PR opened" (from specification-complete)
   → Phase progression: specification-complete → implementation-pending
   → Result: Issue transitions to implementation phase
+
 ```
 
 ### Validation & Conflict Detection
 
 ```
+
 Invalid Scenario: User adds incompatible labels
   → Issue #100: "openspec:specification-pending" + "status:done"
   → Workflow validates combination
@@ -119,6 +126,7 @@ Valid Scenario: Gradual status progression
   → Label changed to: "status:in-progress" ✅ Valid
   → Label changed to: "status:done" ✅ Valid (triggers spec-complete)
   → Result: Clean progression with all validations passing
+
 ```
 
 ---
@@ -126,6 +134,7 @@ Valid Scenario: Gradual status progression
 ## File Structure & Locations
 
 ```
+
 .github/
 ├── workflows/
 │   └── orchestrate-phase-progression.yml         (GitHub Actions trigger)
@@ -148,6 +157,7 @@ Valid Scenario: Gradual status progression
     ├── PHASE-2-TEMPLATE-VALIDATION.md            (Phase 2 overview)
     ├── PHASE-3-HANDOFF.md                        (Phase 3 requirements)
     └── PHASE-3-IMPLEMENTATION.md                 (This file)
+
 ```
 
 ---
@@ -155,6 +165,7 @@ Valid Scenario: Gradual status progression
 ## Test Coverage & Validation
 
 ### Test Metrics
+
 - **Total Tests:** 126 (100% passing ✅)
 - **Execution Time:** ~2.5 seconds
 - **Coverage:**
@@ -177,14 +188,19 @@ Valid Scenario: Gradual status progression
 ### Running Tests
 
 ```bash
+
 # Run all Phase 3 tests
+
 npm test -- scripts/automation/__tests__/{sync-labels-on-event,orchestrate-phase-progression,phase-3-integration}.test.js
 
 # Run specific test file
+
 npm test -- scripts/automation/__tests__/phase-3-integration.test.js
 
 # Run with coverage
+
 npm test -- --coverage scripts/automation/__tests__/sync-labels-on-event.test.js
+
 ```
 
 ---
@@ -234,13 +250,17 @@ npm test -- --coverage scripts/automation/__tests__/sync-labels-on-event.test.js
 Check issue labels to see current phase:
 
 ```bash
+
 # View all open spec issues
+
 gh issue list --repo lightspeedwp/.github \
   --label "type:feature" \
   --label "openspec:specification-pending"
 
 # Check progression timeline
+
 gh issue view <number> --repo lightspeedwp/.github --json labels
+
 ```
 
 #### Responding to Conflicts
@@ -276,6 +296,7 @@ If workflow reports label conflicts:
 ### Phase Progression Triggers
 
 ```
+
 Specification Pending
   ├─ "PR opened" → Specification In-Progress
   └─ "status:in-progress added" → Specification In-Progress
@@ -298,6 +319,7 @@ Implementation In-Progress
 
 Implementation Complete
   └─ (No automatic triggers; manual review required for rollback)
+
 ```
 
 ---
@@ -307,61 +329,81 @@ Implementation Complete
 ### ✅ Recommended: Spec Issues with Implementation PRs
 
 ```
+
 1. Create issue #100: "Build user dashboard"
+
    Labels: type:feature, openspec:specification-pending
 
 2. Create PR #10: "Specification: user dashboard"
+
    Description: "Resolves #100"
    → Phase auto-advances to specification-in-progress
 
 3. Merge PR #10
+
    → Phase auto-advances to specification-complete
 
 4. Create PR #11: "Implementation: user dashboard"
+
    Description: "Resolves #100"
    → Phase auto-advances to implementation-pending
 
 5. Merge PR #11
+
    → Phase auto-advances to implementation-complete
+
 ```
 
 ### ✅ Recommended: Manual Status Progression
 
 ```
+
 1. Create issue #101: "Review user feedback"
+
    Labels: type:task, openspec:specification-pending
 
 2. Add label: "status:in-progress" when starting work
+
    → Triggers automatic phase advance to in-progress
 
 3. Add label: "status:done" when complete
+
    → Triggers automatic phase advance to complete
+
 ```
 
 ### ❌ Anti-Pattern: Mixing Multiple Issues in PR
 
 ```
+
 ❌ BAD: PR #20 with "Resolves #100, #101, #102"
+
    - Hard to track which issue is in which phase
    - Confusing progression timeline
 
 ✅ GOOD: Separate PRs
+
    - PR #20 resolves #100
    - PR #21 resolves #101
    - PR #22 resolves #102
    - Each has clear progression
+
 ```
 
 ### ❌ Anti-Pattern: Conflicting Label Combinations
 
 ```
+
 ❌ BAD: Adding incompatible labels
+
    - openspec:specification-pending + status:done
    - Implementation complete + status:needs-planning
 
 ✅ GOOD: Let workflow suggest compatible labels
+
    - Check issue comments for suggestions
    - Add recommended labels
+
 ```
 
 ---
@@ -373,6 +415,7 @@ Implementation Complete
 **Symptom:** Added new label, but suggested labels not appearing
 
 **Solution:**
+
 1. Check issue comments for validation warnings
 2. Verify label exists in `.github/labels.yml`
 3. Ensure label has correct family prefix (e.g., `status:`)
@@ -383,6 +426,7 @@ Implementation Complete
 **Symptom:** PR merged, but issue phase didn't advance
 
 **Solution:**
+
 1. Verify PR body includes issue link: "Resolves #XXX"
 2. Check PR was actually merged (not closed without merge)
 3. Verify issue has openspec label
@@ -394,6 +438,7 @@ Implementation Complete
 **Symptom:** Getting repeated conflict warnings
 
 **Solution:**
+
 1. Review conflict message in issue comment
 2. Identify incompatible label pair
 3. Remove conflicting label that doesn't match phase
@@ -404,6 +449,7 @@ Implementation Complete
 **Symptom:** Old progression history not showing
 
 **Note:** Current implementation tracks progression forward. Historical changes are preserved in:
+
 1. GitHub issue event history (view issue timeline)
 2. Git commit history (via PR merges)
 3. Audit logs (when implemented in future)
@@ -413,16 +459,19 @@ Implementation Complete
 ## Performance & Reliability
 
 ### Workflow Performance
+
 - **Execution time:** < 5 seconds per issue event
 - **PR event processing:** < 10 seconds (includes API calls)
 - **Batch processing:** ~100ms per issue
 
 ### Rate Limiting
+
 - GitHub API: 5,000 requests/hour (per authenticated session)
 - Current load: ~10 API calls per issue event
 - **Capacity:** Can handle 500+ issue events/hour safely
 
 ### Reliability & Recovery
+
 - All operations idempotent (safe to re-run)
 - Dry-run mode available for testing
 - Fallback: Manual label updates always work
@@ -433,6 +482,7 @@ Implementation Complete
 ## Future Enhancements (Phase 4+)
 
 ### Planned Features
+
 1. **Automatic completion detection** - auto-complete when all PRs merged
 2. **Rollback detection** - warn when rolling back without explanation
 3. **SLA tracking** - measure time in each phase
@@ -441,6 +491,7 @@ Implementation Complete
 6. **Custom workflows** - support team-specific progression rules
 
 ### Potential Improvements
+
 - Multi-issue coordination (handle PRs with multiple issues better)
 - Parallel phase support (spec and impl happening simultaneously)
 - Integration with Linear/Jira for external issue tracking
@@ -458,25 +509,29 @@ Implementation Complete
 
 Hi team! 👋
 
-We've launched **Phase 3 of OpenSpec**: Automatic Phase Progression. 
+We've launched **Phase 3 of OpenSpec**: Automatic Phase Progression.
 
 #### What's New?
+
 - Issues now automatically advance through specification → implementation phases
 - Phase advances trigger when PRs are linked and merged
 - Label conflicts are automatically detected and reported
 - All changes logged in issue comments for transparency
 
 #### How to Use It
+
 1. Create issues with `openspec:specification-pending` label
 2. Open PRs with `Resolves #123` in description
 3. Watch issues auto-advance through phases! 📈
 
 #### No Action Needed
+
 - Existing issues continue to work normally
 - Backwards compatible with current workflows
 - Manual label updates still work anytime
 
 #### Questions?
+
 See: [Phase 3 Implementation Guide](./PHASE-3-IMPLEMENTATION.md)
 
 ---
@@ -484,17 +539,20 @@ See: [Phase 3 Implementation Guide](./PHASE-3-IMPLEMENTATION.md)
 ## Monitoring & Feedback
 
 ### How to Report Issues
+
 1. **Workflow bugs:** Comment on issue with `@claude workflow debug`
 2. **Label conflicts:** Review suggested labels in issue comments
 3. **Unexpected progression:** File issue with current labels and triggers
 
 ### Metrics to Watch
+
 - [ ] All new spec issues advance to in-progress within 7 days
 - [ ] Phase transitions complete within 10 seconds
 - [ ] No false conflicts reported (> 95% accuracy)
 - [ ] Team satisfaction with automatic progression
 
 ### Feedback Channels
+
 - **Slack:** #github-automation
 - **GitHub Discussions:** [OpenSpec Phase 3](discussions/xxx)
 - **Weekly Standup:** Brief status updates
@@ -519,16 +577,19 @@ Phase 3 is successful when:
 ## Reference Documentation
 
 ### Related Files
+
 - [Phase 2: Template Validation](./PHASE-2-TEMPLATE-VALIDATION.md)
 - [Phase 3 Handoff Requirements](./PHASE-3-HANDOFF.md)
 - [Label Strategy](../../docs/LABELING.md)
 - [GitHub Issues Guide](../../docs/ISSUE_MAINTENANCE_SCRIPTS.md)
 
 ### Handler Documentation
+
 - `sync-labels-on-event.js` - Line 371 (in-code documentation)
 - `orchestrate-phase-progression.js` - Line 440 (in-code documentation)
 
 ### External References
+
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [GitHub Issue Events](https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads)
 - [Conventional Commits](https://www.conventionalcommits.org/)
@@ -538,25 +599,30 @@ Phase 3 is successful when:
 ## Maintenance & Support
 
 ### For Administrators
+
 - Check workflow execution: `.github/workflows/orchestrate-phase-progression.yml`
 - Review logs: GitHub Actions → Runs
 - Debug scripts: `.github/scripts/automation/handlers/`
 
 ### Updating Phase Triggers
+
 Edit `scripts/automation/includes/phase-state-machine.js` to:
+
 1. Add new trigger types
 2. Change progression rules
 3. Support new phase states
 
 ### Adding New Validations
+
 Edit `.github/scripts/automation/includes/label-validator.js` to:
+
 1. Define new label families
 2. Add compatibility rules
 3. Create label requirement checks
 
 ---
 
-**Status:** ✅ Complete and Live  
-**Launch Date:** 2026-08-20  
-**Last Updated:** 2026-08-20  
+**Status:** ✅ Complete and Live
+**Launch Date:** 2026-08-20
+**Last Updated:** 2026-08-20
 **Next Review:** 2026-09-03 (2 weeks)
