@@ -17,7 +17,7 @@ class GitHubAPIClient {
 
   async getPR(owner, repo, prNumber) {
     this.recordRequest('GET', `/repos/${owner}/${repo}/pulls/${prNumber}`);
-    return { status: 200, data: fixtures.prs.prWithLinkedIssues };
+    return { status: 200, data: { ...fixtures.prs.prWithLinkedIssues, number: prNumber } };
   }
 
   async createPR(owner, repo, title, body, head, base, draft = false) {
@@ -62,16 +62,16 @@ class GitHubAPIClient {
   }
 
   async getPRLinkedIssues(owner, repo, prNumber) {
-    this.recordRequest('GET', `/repos/${owner}/${repo}/pulls/${prNumber}/requested_reviewers`);
+    this.recordRequest('GET', `/repos/${owner}/${repo}/pulls/${prNumber}`);
     // Extract issue numbers from PR body
     const pr = fixtures.prs.prWithLinkedIssues;
     const issueRegex = /#(\d+)/g;
-    const linkedIssues = [];
+    const linkedIssues = new Set();
     let match;
     while ((match = issueRegex.exec(pr.body)) !== null) {
-      linkedIssues.push(parseInt(match[1]));
+      linkedIssues.add(parseInt(match[1], 10));
     }
-    return { status: 200, data: linkedIssues };
+    return { status: 200, data: [...linkedIssues] };
   }
 
   async listPRs(owner, repo, state = 'open') {

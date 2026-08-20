@@ -139,9 +139,9 @@ class GitHubAPIClient {
         Array.from({ length: pageSize }, (_, j) => ({ number: 1000 + (page - 1) * pageSize + j }));
       allItems.push(...items);
       hasMore = items.length === pageSize; // More pages available if we got full page
-      page += 1;
 
       this.recordRequest('GET', `/search/issues?page=${page}`, Date.now() - startTime);
+      page += 1;
     }
 
     const duration = Date.now() - startTime;
@@ -455,7 +455,9 @@ describe('GitHub API: Batch Operations & Performance', () => {
 
       // Small batch that fits within limit
       const issues = [{ title: 'Issue 1', body: 'Body' }];
-      expect(() => limitedClient.createIssuesBatch(owner, repo, issues)).not.toThrow();
+      await expect(limitedClient.createIssuesBatch(owner, repo, issues)).resolves.toMatchObject({
+        status: 201,
+      });
     });
   });
 
@@ -600,7 +602,8 @@ describe('GitHub API: Batch Operations & Performance', () => {
       const searchResponse = await client.searchWithPagination(owner, repo, 'state:open');
 
       // Assign results to milestone
-      const issueNumbers = searchResponse.data.items.slice(0, 10).map((_, i) => 1000 + i);
+      const issueNumbers = searchResponse.data.items.slice(0, 10).map((item) => item.number);
+      expect(issueNumbers.every((n) => typeof n === 'number')).toBe(true);
       await client.bulkAssignToMilestone(owner, repo, issueNumbers, 1);
 
       const metrics = client.getPerformanceMetrics();

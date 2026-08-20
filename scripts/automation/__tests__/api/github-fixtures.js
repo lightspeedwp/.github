@@ -1,6 +1,12 @@
 // Realistic GitHub API fixtures for integration testing
 // Provides mock responses matching actual GitHub API structure and error scenarios
 
+const fixtureTimestamp = (i, minutes = '00') => {
+  const day = String((i % 28) + 1).padStart(2, '0');
+  const hour = String(i % 24).padStart(2, '0');
+  return `2026-01-${day}T${hour}:${minutes}:00Z`;
+};
+
 const fixtures = {
   // ==================== ISSUE FIXTURES ====================
   issues: {
@@ -428,9 +434,9 @@ const fixtures = {
         labels: [
           { id: 100 + i, name: i % 2 === 0 ? 'type:bug' : 'type:feature' },
         ],
-        created_at: `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:00:00Z`,
-        updated_at: `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:30:00Z`,
-        closed_at: i % 2 === 0 ? null : `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:00:00Z`,
+        created_at: fixtureTimestamp(i),
+        updated_at: fixtureTimestamp(i, '30'),
+        closed_at: i % 2 === 0 ? null : fixtureTimestamp(i),
       });
     }
     return issues;
@@ -453,10 +459,10 @@ const fixtures = {
         ],
         head: { ref: `feat/branch-${i}`, sha: `sha${i}` },
         base: { ref: 'develop', sha: 'mainsha' },
-        created_at: `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:00:00Z`,
-        updated_at: `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:30:00Z`,
-        closed_at: i % 3 === 0 ? `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:00:00Z` : null,
-        merged_at: i % 3 === 0 ? `2026-01-${(i % 28) + 1}T${(i % 24).toString().padStart(2, '0')}:00:00Z` : null,
+        created_at: fixtureTimestamp(i),
+        updated_at: fixtureTimestamp(i, '30'),
+        closed_at: i % 3 === 0 ? fixtureTimestamp(i) : null,
+        merged_at: i % 3 === 0 ? fixtureTimestamp(i) : null,
         merge_commit_sha: i % 3 === 0 ? `merge${i}` : null,
       });
     }

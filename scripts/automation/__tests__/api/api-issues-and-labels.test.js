@@ -212,6 +212,7 @@ describe('GitHub API: Issues & Labels', () => {
           assignee: 'alice',
         });
         expect(response.status).toBe(200);
+        expect(response.data.assignee.login).toBe('alice');
       });
 
       it('updates multiple fields', async () => {
@@ -325,11 +326,13 @@ describe('GitHub API: Issues & Labels', () => {
       it('updates label name', async () => {
         const response = await client.updateLabel(owner, repo, 'type:bug', { name: 'type:defect' });
         expect(response.status).toBe(200);
+        expect(response.data.name).toBe('type:defect');
       });
 
       it('updates label color', async () => {
         const response = await client.updateLabel(owner, repo, 'type:bug', { color: 'ff0000' });
         expect(response.status).toBe(200);
+        expect(response.data.color).toBe('ff0000');
       });
 
       it('updates label description', async () => {
@@ -337,6 +340,7 @@ describe('GitHub API: Issues & Labels', () => {
           description: 'Bug or defect report',
         });
         expect(response.status).toBe(200);
+        expect(response.data.description).toBe('Bug or defect report');
       });
     });
 
