@@ -277,11 +277,13 @@ category: "release-engineering"
 
 **Implementation:** Stacked PRs (develop PR + main PR)
 
-### ADR-002: Multi-Repo Support (Portable Agents) ✅
+### ADR-002: Multi-Repo Support (Portable Agents) ⏸️ DEFERRED
 
-**Decision:** Create portable release agents in `agents/release/`
+**Decision:** Portable agents architecture planned for Phase 5 (deferred to Phase 8 for multi-repo expansion)
 
-**Rationale:** Single agent for all repo types; consistent process; reusable
+**Current Status:** Phase 5A agentic workflows provide primary interface; Phase 5 portable agents remain optional for future multi-repo support
+
+**Rationale:** Agentic workflows (Phase 5A) deliver full release orchestration; portable agents planned as optional library for Phase 8+ multi-repo scenarios
 
 ### ADR-003: Authorization (Single Decision-Maker) ✅
 
@@ -422,7 +424,7 @@ This project coordinates with:
 
 **Total Deliverables:**
 
-- 3 merged PRs (#1656, #1658, #2016, #2115, #2116)
+- 5 merged PRs (#1656, #1658, #2016, #2115, #2116)
 - 4,400+ LOC of implementation code
 - 200+ automated tests (85%+ coverage)
 - 4 Mermaid diagrams
