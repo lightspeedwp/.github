@@ -48,6 +48,8 @@ This document covers both phases, common workflows, troubleshooting, and WordPre
 
 ```mermaid
 graph LR
+  accTitle: Two-Phase Release Process
+  accDescr: Phase 1 creates PR on develop with changelog and version, Phase 2 creates PR on main for release
     A["Phase 1<br/>Portable Agents"] -->|creates PR #1| B["develop<br/>(changelog + version)"]
     B -->|merges| C["Phase 2<br/>Agentic Gates"]
     C -->|creates PR #2| D["main<br/>(release)"]
@@ -66,6 +68,8 @@ graph LR
 
 ```mermaid
 sequenceDiagram
+  accTitle: Phase 1 Portable Agent Workflow
+  accDescr: Developer triggers release workflow, agent bumps version and updates changelog, creates PR on develop branch
     actor Dev as Developer
     participant GH as GitHub
     participant Agent as Release Agent
@@ -89,6 +93,8 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
+  accTitle: Phase 2 Agentic Gates Workflow
+  accDescr: Safety gates verify authorization, run 7-layer validation, create PR on main branch, publish GitHub release
     actor Dev as Developer
     participant GH as GitHub
     participant Gates as Safety Gates
