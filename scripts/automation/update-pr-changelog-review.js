@@ -244,7 +244,7 @@ async function fetchPRsWithLabels() {
 
     return prs;
   } catch (error) {
-    console.error("❌ Error fetching PRs:", error.message);
+    console.error("❌ Error fetching PRs:", error?.message || String(error));
     process.exit(1);
   }
 }
