@@ -547,9 +547,9 @@ Active initiative tracking and deliverables at [`.github/projects/active/`](./.g
 
 | Project | Purpose | Status |
 |---------|---------|--------|
-| [repo-restructuring-2026-07-25](.//.github/projects/active/repo-restructuring-2026-07-25/) | Phase 1 audit & consolidation | ✅ Complete (Phase 1) |
-| [issue-maintenance-scripts-2026-08-10](.//.github/projects/active/issue-maintenance-scripts-2026-08-10/) | Automation and triage workflows | 🔄 Phase 5 (integration) |
-| [label-prefix-enforcement-2026-08-05](.//.github/projects/active/label-prefix-enforcement-2026-08-05/) | Family-prefix governance | ✅ Complete |
+| [repo-restructuring-2026-07-25](./.github/projects/active/repo-restructuring-2026-07-25/) | Phase 1 audit & consolidation | ✅ Complete (Phase 1) |
+| [issue-maintenance-scripts-2026-08-10](./.github/projects/active/issue-maintenance-scripts-2026-08-10/) | Automation and triage workflows | 🔄 Phase 5 (integration) |
+| [label-prefix-enforcement-2026-08-05](./.github/projects/active/label-prefix-enforcement-2026-08-05/) | Family-prefix governance | ✅ Complete |
 
 ### Archived Projects
 
