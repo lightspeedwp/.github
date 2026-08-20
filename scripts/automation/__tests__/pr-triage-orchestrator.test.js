@@ -1,4 +1,9 @@
-// Inline implementations for testing (avoiding import complexity)
+/**
+ * Pure function implementations for pr-triage-orchestrator testing
+ * These functions are isolated from the production module to avoid ES module complexity
+ * with Jest, but test against the same logic patterns used in production.
+ */
+
 function parseConfig(args) {
   const config = {
     dryRun: args.includes("--dry-run"),
