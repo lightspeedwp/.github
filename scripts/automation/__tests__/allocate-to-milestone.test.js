@@ -4,10 +4,10 @@
  * @module scripts/automation/__tests__/allocate-to-milestone.test.js
  */
 
-import { describe, it, expect, beforeAll, beforeEach, jest } from "@jest/globals";
+const { describe, it, expect, beforeAll, beforeEach, jest } = require("@jest/globals");
 
 // Mock Octokit before importing the allocate-to-milestone module
-jest.unstable_mockModule("octokit", () => ({
+jest.mock("octokit", () => ({
   Octokit: jest.fn(() => ({
     rest: {
       issues: {
@@ -23,7 +23,7 @@ jest.unstable_mockModule("octokit", () => ({
   })),
 }));
 
-let MilestoneAllocator, AllocationError;
+const { MilestoneAllocator, AllocationError } = require("../allocate-to-milestone.js");
 
 describe("allocate-to-milestone", () => {
   const mockOctokit = {
@@ -40,10 +40,9 @@ describe("allocate-to-milestone", () => {
     },
   };
 
-  beforeAll(async () => {
-    const module = await import("../allocate-to-milestone.js");
-    MilestoneAllocator = module.MilestoneAllocator;
-    AllocationError = module.AllocationError;
+  beforeEach(() => {
+    jest.clearAllMocks();
+    process.env.GITHUB_TOKEN = "mock-token";
   });
 
   beforeEach(() => {
