@@ -452,7 +452,7 @@ async function main() {
   }
 
   // Write report
-  const reportDir = path.join(ROOT, ".githu./.github/reports/mermaid");
+  const reportDir = path.join(ROOT, ".github/reports/mermaid");
   fs.mkdirSync(reportDir, { recursive: true });
   const today = new Date().toISOString().slice(0, 10);
   const reportPath = path.join(reportDir, `colour-contrast-report-${today}.md`);
