@@ -192,60 +192,67 @@ Check detection order: Block Plugin → Control-Plane → Theme → Plugin → U
 
 ### Diagram 1: Detection Flow
 
-```
-Repository Root
-    ↓
-Check for block.json or src/plugin.php
-    ├─ Found → BLOCK_PLUGIN ✓
-    └─ Not found
-        ↓
-    Check for .github/workflows, .github/actions, or .github/CLAUDE.md
-        ├─ Found → control-plane ✓
-        └─ Not found
-            ↓
-        Check for theme.json, style.css (with "Theme Name:"), or functions.php
-            ├─ Found → wordpress-theme ✓
-            └─ Not found
-                ↓
-            Check for plugin.php with "Plugin Name:" header
-                ├─ Found → wordpress-plugin ✓
-                └─ Not found → UNKNOWN
+```mermaid
+flowchart TD
+    accTitle: Repository Type Detection Flow
+    accDescr: Decision tree for detecting repository type. Checks block.json/src/plugin.php first, then control-plane markers, then theme.json/style.css, then plugin.php, finally unknown if no match.
+    A["Repository Root"] --> B{"block.json or src/plugin.php?"}
+    B -->|Yes| C["BLOCK_PLUGIN"]
+    B -->|No| D{"Control-plane markers present?"}
+    D -->|Yes| E["control-plane"]
+    D -->|No| F{"theme.json or style.css with Theme Name?"}
+    F -->|Yes| G["wordpress-theme"]
+    F -->|No| H{"plugin.php with Plugin Name header?"}
+    H -->|Yes| I["wordpress-plugin"]
+    H -->|No| J["UNKNOWN"]
 ```
 
 **Location:** USER_GUIDE.md or ARCHITECTURE.md  
-**Format:** Mermaid flowchart
+**Format:** Mermaid flowchart  
+**Alt Text:** Repository type detection decision tree. Checks for block.json or src/plugin.php first (Block Plugin), then control-plane markers (control-plane), then theme.json/style.css (WordPress Theme), then plugin.php with Plugin Name header (WordPress Plugin), finally UNKNOWN if none match.
 
 ### Diagram 2: Test Coverage Matrix
 
-```
-Repository Type │ Basic │ Extended │ Large │ Error Handling │ Pass Rate
-─────────────────┼───────┼──────────┼───────┼────────────────┼──────────
-Block Plugin    │ ✅    │ ✅       │ ✅    │ ✅             │ 100%
-WordPress Plugin│ ✅    │ ✅       │ ✅    │ ✅             │ 100%
-WordPress Theme │ ✅    │ ✅       │ ✅    │ ✅             │ 100%
-Control-Plane   │ ✅    │ ✅       │ ✅    │ ✅             │ 100%
+```mermaid
+%%{init: {'theme': 'base'}}%%
+graph LR
+    accTitle: Test Coverage Matrix
+    accDescr: Test coverage summary showing all repository types with test counts. Block Plugin, WordPress Plugin, WordPress Theme, and Control-Plane types all have passing tests.
+    subgraph tests ["Test Coverage: 90/90 Pass"]
+        B["Block Plugin Tests"]
+        W["WP Plugin Tests"]
+        T["WP Theme Tests"]
+        C["Control-Plane Tests"]
+    end
 ```
 
 **Location:** SETUP_GUIDE.md  
-**Format:** Mermaid table or graph
+**Format:** Mermaid graph  
+**Alt Text:** Test coverage summary. Block Plugin, WordPress Plugin, WordPress Theme, and Control-Plane each have four test levels (basic, extended, large, error handling). All 90 tests pass with 100% pass rate.
 
 ### Diagram 3: Repository Type Compatibility
 
-```
-             Block Plugin    WP Plugin    WP Theme    Control-Plane
-Node.js         ✅            ✅           ✅           ✅
-PHP 7.4+        ❌            ✅           ✅           ❌
-Python          ❌            ❌           ❌           ⚠️ (scripts only)
-Composer        ❌            ✅           ✅           ❌
-
-ESLint          ✅            ✅           ✅           ✅
-Stylelint       ✅            ✅           ✅           ✅
-PHPCS           ❌            ✅           ✅           ❌
-Markdownlint    ❌            ❌           ❌           ✅
+```mermaid
+%%{init: {'theme': 'base'}}%%
+graph TB
+    accTitle: Repository Type Compatibility Matrix
+    accDescr: Shows runtime and linter support across repository types. Node.js and ESLint/Stylelint available for all types. PHP, PHPCS for Plugin/Theme. Python for scripts. Markdownlint for Control-Plane.
+    subgraph runtimes ["Runtime Support"]
+        NJ["Node.js - All"]
+        PHP["PHP 7.4+ - Plugin/Theme"]
+        PY["Python - Scripts"]
+    end
+    subgraph linters ["Linter Support"]
+        ESL["ESLint - All"]
+        SL["Stylelint - All"]
+        PHPCS["PHPCS - Plugin/Theme"]
+        MD["Markdownlint - Control-Plane"]
+    end
 ```
 
 **Location:** SETUP_GUIDE.md  
-**Format:** Mermaid table or matrix
+**Format:** Mermaid graph  
+**Alt Text:** Repository type compatibility. Runtime support: Node.js all types, PHP 7.4+ for WordPress Plugin and Theme, Python for scripts only. Linter support: ESLint and Stylelint for all types, PHPCS for Plugin and Theme, Markdownlint for Control-Plane.
 
 ---
 
