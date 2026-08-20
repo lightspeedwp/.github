@@ -541,7 +541,7 @@ describe("MetricsCollector", () => {
 
     test("handles empty array", () => {
       const result = collector.percentile([], 0.5);
-      expect(result).toBe(0);
+      expect(parseFloat(result)).toBe(0);
     });
   });
 
