@@ -145,9 +145,7 @@ describe("pr-triage-orchestrator", () => {
     });
 
     it("handles HTML comments in body", () => {
-      const issues = extractIssuesFromBody(
-        "<!-- #999 -->\nFixes #123",
-      );
+      const issues = extractIssuesFromBody("<!-- #999 -->\nFixes #123");
       expect(issues).toContain(123);
       expect(issues).not.toContain(999); // HTML comments should be stripped
     });

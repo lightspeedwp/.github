@@ -427,12 +427,14 @@ npm run validate:branch-name -- --branch $(git branch --show-current)
 **Valid prefixes:** `feat/`, `fix/`, `hotfix/`, `docs/`, `chore/`, `ci/`, `test/`, `refactor/`, `security/`, `design/`, `a11y/`, `ux/`, `perf/`, `deps/`, `build/`, `release/`
 
 **Examples:**
+
 - ✅ `feat/readme-rewrite-diagrams`
 - ✅ `fix/branch-validation-regex`
 - ✅ `docs/update-contributing-guide`
 - ✅ `release/v1.2.0`
 
 **Invalid:**
+
 - ❌ `claude/readme-rewrite` (claude/ prefix forbidden)
 - ❌ `fix-branch-validation` (missing type prefix)
 - ❌ `hotfix/URGENT-FIX` (not kebab-case)
@@ -560,6 +562,7 @@ Completed initiatives at [`.github/projects/archived/`](./.github/projects/archi
 ## Contributing
 
 1. **Clone and set up:**
+
    ```bash
    git clone https://github.com/lightspeedwp/.github.git
    cd .github
@@ -567,11 +570,13 @@ Completed initiatives at [`.github/projects/archived/`](./.github/projects/archi
    ```
 
 2. **Create a branch** following the naming convention:
+
    ```bash
    git checkout -b {type}/{scope}-{short-title}
    ```
 
 3. **Make changes** and run validation:
+
    ```bash
    npm run lint:md
    npm run lint:js
@@ -579,11 +584,13 @@ Completed initiatives at [`.github/projects/archived/`](./.github/projects/archi
    ```
 
 4. **Commit with clear messages:**
+
    ```bash
    git commit -m "type(scope): Short description of change"
    ```
 
 5. **Push and create PR:**
+
    ```bash
    git push -u origin {branch-name}
    ```

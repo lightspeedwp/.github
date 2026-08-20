@@ -7,12 +7,12 @@
  * priority actions.
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 class MetricsContextProvider {
   constructor(options = {}) {
-    this.metricsDir = options.metricsDir || '.github/reports/metrics';
+    this.metricsDir = options.metricsDir || ".github/reports/metrics";
     this.validateSchema = options.validateSchema !== false;
     this.cache = new Map();
     this.cacheExpiry = options.cacheExpiry || 3600000; // 1 hour
@@ -23,7 +23,7 @@ class MetricsContextProvider {
    * @param {string} context - Context type (control-plane, plugin, theme)
    * @returns {Promise<Object>} Parsed metrics JSON
    */
-  async loadLatestMetrics(context = 'control-plane') {
+  async loadLatestMetrics(context = "control-plane") {
     const cacheKey = `metrics-${context}`;
 
     // Check cache
@@ -35,13 +35,13 @@ class MetricsContextProvider {
     }
 
     // Load from file
-    const metricsPath = path.join(this.metricsDir, 'latest-metrics.json');
+    const metricsPath = path.join(this.metricsDir, "latest-metrics.json");
 
     if (!fs.existsSync(metricsPath)) {
       throw new Error(`Metrics file not found: ${metricsPath}`);
     }
 
-    const rawMetrics = JSON.parse(fs.readFileSync(metricsPath, 'utf8'));
+    const rawMetrics = JSON.parse(fs.readFileSync(metricsPath, "utf8"));
 
     // Validate schema
     if (this.validateSchema) {
@@ -60,7 +60,14 @@ class MetricsContextProvider {
    * @throws {Error} If schema validation fails
    */
   validateMetricsSchema(metrics) {
-    const required = ['type', 'timestamp', 'context', 'repositories', 'healthScore', 'insights'];
+    const required = [
+      "type",
+      "timestamp",
+      "context",
+      "repositories",
+      "healthScore",
+      "insights",
+    ];
 
     for (const field of required) {
       if (!metrics[field]) {
@@ -68,19 +75,19 @@ class MetricsContextProvider {
       }
     }
 
-    if (metrics.type !== 'metrics-collection') {
+    if (metrics.type !== "metrics-collection") {
       throw new Error(`Invalid metrics type: ${metrics.type}`);
     }
 
     if (!Array.isArray(metrics.repositories)) {
-      throw new Error('Repositories must be an array');
+      throw new Error("Repositories must be an array");
     }
 
     if (
-      typeof metrics.healthScore !== 'object' ||
+      typeof metrics.healthScore !== "object" ||
       !Number.isFinite(metrics.healthScore.overall)
     ) {
-      throw new Error('Invalid healthScore structure');
+      throw new Error("Invalid healthScore structure");
     }
   }
 
@@ -95,7 +102,7 @@ class MetricsContextProvider {
     // Add anomalies as issues
     if (metrics.anomalies && Array.isArray(metrics.anomalies)) {
       metrics.anomalies.forEach((anomaly) => {
-        if (anomaly.severity === 'high' || anomaly.severity === 'moderate') {
+        if (anomaly.severity === "high" || anomaly.severity === "moderate") {
           issues.push({
             title: `${anomaly.metric} changed by ${anomaly.percentChange}%`,
             metric: anomaly.metric,
@@ -103,7 +110,7 @@ class MetricsContextProvider {
             previous: anomaly.from,
             percentChange: anomaly.percentChange,
             severity: anomaly.severity,
-            actionRequired: anomaly.severity === 'high'
+            actionRequired: anomaly.severity === "high",
           });
         }
       });
@@ -119,17 +126,18 @@ class MetricsContextProvider {
    */
   getTrendSummary(metrics) {
     const summary = {
-      issues: 'unknown',
-      pullRequests: 'unknown',
-      contributors: 'unknown'
+      issues: "unknown",
+      pullRequests: "unknown",
+      contributors: "unknown",
     };
 
     if (metrics.repositories && metrics.repositories[0]) {
       const repo = metrics.repositories[0];
       if (repo.metrics && repo.metrics.activityTrend) {
-        summary.issues = repo.metrics.activityTrend.issuesTrend || 'unknown';
-        summary.pullRequests = repo.metrics.activityTrend.prsTrend || 'unknown';
-        summary.contributors = repo.metrics.activityTrend.contributorsTrend || 'unknown';
+        summary.issues = repo.metrics.activityTrend.issuesTrend || "unknown";
+        summary.pullRequests = repo.metrics.activityTrend.prsTrend || "unknown";
+        summary.contributors =
+          repo.metrics.activityTrend.contributorsTrend || "unknown";
       }
     }
 
@@ -148,13 +156,13 @@ class MetricsContextProvider {
     const recommendations = (rawMetrics.recommendations || []).slice(0, 3); // Top 3
 
     return {
-      type: 'metrics-context',
+      type: "metrics-context",
       timestamp: rawMetrics.timestamp,
       context: rawMetrics.context,
-      period: rawMetrics.period || 'weekly',
+      period: rawMetrics.period || "weekly",
       healthScore: healthScore.overall || 0,
       healthComponents: healthScore.components || {},
-      healthTrend: healthScore.trend || 'unknown',
+      healthTrend: healthScore.trend || "unknown",
       topIssues,
       trendSummary: trends,
       recommendations: recommendations.map((rec) => ({
@@ -162,9 +170,9 @@ class MetricsContextProvider {
         priority: rec.priority,
         effort: rec.effort,
         owner: rec.owner,
-        timeframe: rec.timeframe
+        timeframe: rec.timeframe,
       })),
-      contextMetrics: this.extractContextMetrics(rawMetrics)
+      contextMetrics: this.extractContextMetrics(rawMetrics),
     };
   }
 
@@ -179,23 +187,23 @@ class MetricsContextProvider {
         total: 0,
         open: 0,
         closureRate: 0,
-        averageClosureTime: 0
+        averageClosureTime: 0,
       },
       prMetrics: {
         total: 0,
         merged: 0,
         mergeRate: 0,
-        averageReviewTime: 0
+        averageReviewTime: 0,
       },
       teamMetrics: {
         activeContributors: 0,
-        capacity: 0
+        capacity: 0,
       },
       qualityMetrics: {
         lintPass: 0,
         testCoverage: 0,
-        ciPassRate: 0
-      }
+        ciPassRate: 0,
+      },
     };
 
     if (rawMetrics.repositories && rawMetrics.repositories[0]) {
@@ -206,28 +214,31 @@ class MetricsContextProvider {
         total: repoMetrics.issues?.total || 0,
         open: repoMetrics.issues?.open || 0,
         closureRate: repoMetrics.issues?.closureRate || 0,
-        averageClosureTime: repoMetrics.issues?.averageClosureTime || 0
+        averageClosureTime: repoMetrics.issues?.averageClosureTime || 0,
       };
 
       metrics.prMetrics = {
         total: repoMetrics.pullRequests?.total || 0,
         merged: repoMetrics.pullRequests?.merged || 0,
         mergeRate: repoMetrics.pullRequests?.mergeRate || 0,
-        averageReviewTime: repoMetrics.pullRequests?.averageReviewTime || 0
+        averageReviewTime: repoMetrics.pullRequests?.averageReviewTime || 0,
       };
 
       metrics.teamMetrics = {
-        activeContributors: repoMetrics.contributors?.active || 0
+        activeContributors: repoMetrics.contributors?.active || 0,
       };
 
-      if (typeof rawMetrics.healthScore?.components?.teamCapacity === 'number') {
-        metrics.teamMetrics.capacity = rawMetrics.healthScore.components.teamCapacity;
+      if (
+        typeof rawMetrics.healthScore?.components?.teamCapacity === "number"
+      ) {
+        metrics.teamMetrics.capacity =
+          rawMetrics.healthScore.components.teamCapacity;
       }
 
       metrics.qualityMetrics = {
         lintPass: repoMetrics.codeQuality?.lintingPass || 0,
         testCoverage: repoMetrics.codeQuality?.testCoverage || 0,
-        ciPassRate: repoMetrics.codeQuality?.ciPassRate || 0
+        ciPassRate: repoMetrics.codeQuality?.ciPassRate || 0,
       };
     }
 
@@ -239,7 +250,7 @@ class MetricsContextProvider {
    * @param {string} context - Context type
    * @returns {Promise<Object>} Full Meta Agent context
    */
-  async getMetricsContext(context = 'control-plane') {
+  async getMetricsContext(context = "control-plane") {
     const rawMetrics = await this.loadLatestMetrics(context);
     return this.formatForMetaAgent(rawMetrics);
   }
