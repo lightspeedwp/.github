@@ -1,4 +1,9 @@
-// Inline implementations for testing
+/**
+ * Pure function implementations for sync-pr-labels testing
+ * Extracted from production module to avoid ES module complexity with Jest.
+ * These test the core label synchronization logic against production behavior.
+ */
+
 function extractPRs(text) {
   const prs = [];
   const regex = /#(\d+)/g;

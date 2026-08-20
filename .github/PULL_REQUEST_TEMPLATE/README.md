@@ -56,7 +56,7 @@ These templates integrate with:
 
 ## 📚 Related Documentation
 
-- [**Agents Directory**](../../.github/agents/agent.md) - PR automation agents
+- [**Agents Directory**](../../AGENTS.md) - PR automation agents
 - [**Workflows**](../workflows/README.md) - GitHub Actions for PRs
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - PR response templates
 - [**Instructions**](../../instructions/pull-requests.instructions.md) - PR handling instructions
@@ -84,6 +84,8 @@ Closes: {closes_issues}
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

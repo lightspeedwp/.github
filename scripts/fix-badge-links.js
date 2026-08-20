@@ -114,7 +114,6 @@ function extractBrokenLinks(content) {
 function fixFile(filePath) {
   console.log(`\n📄 Processing: ${filePath}`);
   let content = fs.readFileSync(filePath, "utf-8");
-  const originalContent = content;
   let fixed = false;
 
   for (const pattern of PATTERNS) {
