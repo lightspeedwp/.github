@@ -227,12 +227,12 @@ See **[RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md)** for complete details.
 
 ```mermaid
 graph LR
-    A["GitHub Event<br/>(issue, PR, push)"]
-    B["GitHub Actions<br/>Workflow"]
-    C["Validation Layer<br/>(lint, test, security)"]
-    D["Policy Enforcement<br/>(labels, branch checks)"]
-    E["Automated Actions<br/>(comments, status, sync)"]
-    F["Organization-wide<br/>Consistency"]
+    A["🔔 GitHub Event<br/>(issue, PR, push)"]
+    B["⚙️ GitHub Actions<br/>Workflow"]
+    C["✓ Validation Layer<br/>(lint, test, security)"]
+    D["🔒 Policy Enforcement<br/>(labels, branch checks)"]
+    E["📋 Automated Actions<br/>(comments, status, sync)"]
+    F["✅ Organization-wide<br/>Consistency"]
 
     A -->|triggers| B
     B -->|executes| C
@@ -240,25 +240,25 @@ graph LR
     D -->|executes| E
     E -->|maintains| F
 
-    style A fill:#1e3a8a,color:#fff
-    style B fill:#1e40af,color:#fff
-    style C fill:#2563eb,color:#fff
-    style D fill:#3b82f6,color:#fff
-    style E fill:#60a5fa,color:#fff
-    style F fill:#93c5fd,color:#fff
+    style A fill:#1e3a8a,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style B fill:#1e40af,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style C fill:#1d4ed8,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style D fill:#2563eb,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style E fill:#3b82f6,color:#ffffff,stroke:#0f172a,stroke-width:2px
+    style F fill:#0ea5e9,color:#ffffff,stroke:#0f172a,stroke-width:2px
 ```
 
 ### Issue Lifecycle: Creation → Triage → Resolution → Tracking
 
 ```mermaid
 graph TD
-    A["Issue Created"]
-    B["Template Validation"]
-    C["Auto-Labeling"]
-    D["Team Routing"]
-    E["Status Tracking"]
-    F["Resolution & Docs"]
-    G["Changelog Entry"]
+    A["📝 Issue Created"]
+    B["✓ Template Validation"]
+    C["🏷️ Auto-Labeling"]
+    D["📤 Team Routing"]
+    E["📊 Status Tracking"]
+    F["✅ Resolution & Docs"]
+    G["📋 Changelog Entry"]
 
     A -->|template check| B
     B -->|DoR/DoD validated| C
@@ -267,27 +267,27 @@ graph TD
     E -->|status:in-progress| F
     F -->|completed| G
 
-    style A fill:#7c2d12,color:#fff
-    style B fill:#92400e,color:#fff
-    style C fill:#b45309,color:#fff
-    style D fill:#d97706,color:#fff
-    style E fill:#f59e0b,color:#fff
-    style F fill:#fbbf24,color:#fff
-    style G fill:#fcd34d,color:#333
+    style A fill:#7c2d12,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style B fill:#92400e,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style C fill:#a16207,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style D fill:#b45309,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style E fill:#ca8a04,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style F fill:#d97706,color:#ffffff,stroke:#3f1707,stroke-width:2px
+    style G fill:#ea580c,color:#ffffff,stroke:#3f1707,stroke-width:2px
 
-    linkStyle 0,1,2,3,4,5,6 stroke:#ea580c,stroke-width:2px
+    linkStyle 0,1,2,3,4,5,6 stroke:#7c2d12,stroke-width:2px
 ```
 
 ### Release Workflow: Develop-First Stacked PR Model
 
 ```mermaid
 graph LR
-    A["develop<br/>Feature Branch<br/>Merged"]
-    B["Trigger<br/>Release Workflow"]
-    C["PR #1<br/>release/vX.Y.Z<br/>→ develop"]
-    D["PR #2<br/>release/vX.Y.Z<br/>→ main"]
-    E["main<br/>Tagged & Released"]
-    F["Post-Release Sync<br/>main → develop"]
+    A["🌿 develop<br/>Feature Branch<br/>Merged"]
+    B["🚀 Trigger<br/>Release Workflow"]
+    C["📌 PR #1<br/>release/vX.Y.Z<br/>→ develop"]
+    D["📌 PR #2<br/>release/vX.Y.Z<br/>→ main"]
+    E["✅ main<br/>Tagged & Released"]
+    F["🔄 Post-Release Sync<br/>main → develop"]
 
     A -->|manual trigger| B
     B -->|version bump| C
@@ -295,21 +295,21 @@ graph LR
     D -->|merge tag| E
     E -->|sync complete| F
 
-    style A fill:#065f46,color:#fff
-    style B fill:#047857,color:#fff
-    style C fill:#059669,color:#fff
-    style D fill:#10b981,color:#fff
-    style E fill:#34d399,color:#fff
-    style F fill:#6ee7b7,color:#fff
+    style A fill:#065f46,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style B fill:#047857,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style C fill:#059669,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style D fill:#10b981,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style E fill:#34d399,color:#ffffff,stroke:#022c1d,stroke-width:2px
+    style F fill:#6ee7b7,color:#000000,stroke:#022c1d,stroke-width:2px
 
-    linkStyle 0,1,2,3,4,5 stroke:#10b981,stroke-width:2px
+    linkStyle 0,1,2,3,4,5 stroke:#065f46,stroke-width:2px
 ```
 
 ### Repository Boundaries: Control-Plane vs Portable Assets
 
 ```mermaid
 graph TB
-    subgraph cp[".github Control-Plane<br/>(GitHub-native, org-specific)"]
+    subgraph cp["🔒 .github Control-Plane<br/>(GitHub-native, org-specific)"]
         A["workflows/"]
         B["ISSUE_TEMPLATE/"]
         C["PULL_REQUEST_TEMPLATE/"]
@@ -320,7 +320,7 @@ graph TB
         H["scripts/ (CI/CD automation)"]
     end
 
-    subgraph pa["Portable Assets<br/>(Reusable, no .github assumptions)"]
+    subgraph pa["🚀 Portable Assets<br/>(Reusable, no .github assumptions)"]
         I["ai/ (Claude, Gemini refs)"]
         J["agents/ (multi-file)"]
         K["instructions/ (org-wide)"]
@@ -331,14 +331,14 @@ graph TB
         P["hooks/ (guardrails)"]
     end
 
-    R["LightSpeedWP<br/>Other Repos"]
+    R["🌍 LightSpeedWP<br/>Other Repos"]
 
     cp -->|governance| R
     pa -->|import/reuse| R
 
-    style cp fill:#0c4a6e,color:#fff
-    style pa fill:#1e3a8a,color:#fff
-    style R fill:#1f2937,color:#fff
+    style cp fill:#0c4a6e,color:#ffffff,stroke:#082f4e,stroke-width:2px
+    style pa fill:#1e3a8a,color:#ffffff,stroke:#0c1d40,stroke-width:2px
+    style R fill:#1f2937,color:#ffffff,stroke:#111827,stroke-width:2px
 ```
 
 ---
