@@ -402,11 +402,9 @@ The `.github` repository is undergoing a comprehensive restructuring to optimize
 
 ## References
 
-- [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) — Branch naming and protection rules
-- [PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md) — PR workflow and templates
-- [AGENTS.md](./AGENTS.md) — Global AI governance rules
-- [ANSWERS-TO-50-QUESTIONS-FINAL.md](./projects/active/repo-restructuring-2026-07-25/ANSWERS-TO-50-QUESTIONS-FINAL.md) — Detailed decision rationale
-- [DETAILED-RESTRUCTURING-PLAN-FINAL.md](./projects/active/repo-restructuring-2026-07-25/DETAILED-RESTRUCTURING-PLAN-FINAL.md) — Full implementation plan with phase prompts
+- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Branch naming and protection rules
+- [PR_CREATION_PROCESS.md](../../docs/PR_CREATION_PROCESS.md) — PR workflow and templates
+- [AGENTS.md](../../AGENTS.md) — Global AI governance rules
 
 ---
 
