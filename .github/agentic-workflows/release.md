@@ -389,7 +389,7 @@ npm run release -- --scope=patch
 All agentic decisions logged to:
 
 ```
-.githu./.github/reports/agentic-releases/
+.github/reports/agentic-releases/
 ├── 2026-08-11_release-v1.2.3_patch.json (structured log)
 ├── 2026-08-11_agentic-score.txt (confidence: 0.92)
 └── 2026-08-11_decisions.md (human-readable summary)

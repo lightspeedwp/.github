@@ -186,9 +186,9 @@ All Mermaid diagrams should comply with:
 
 ## Files & Outputs
 
-- **CSV Inventory:** `.githu./.github/reports/mermaid-audit/findings.csv`
-- **Audit Log:** `.githu./.github/reports/mermaid-audit/audit-log.md` (detailed per-file breakdown)
-- **This Report:** `.githu./.github/reports/mermaid-audit/audit-report-2026-05-28.md`
+- **CSV Inventory:** `.github/reports/mermaid-audit/findings.csv`
+- **Audit Log:** `.github/reports/mermaid-audit/audit-log.md` (detailed per-file breakdown)
+- **This Report:** `.github/reports/mermaid-audit/audit-report-2026-05-28.md`
 
 ---
 

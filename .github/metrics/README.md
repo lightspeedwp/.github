@@ -27,6 +27,7 @@ This directory contains metrics collection scripts, configuration files, and aut
 ## Directory Structure
 
 ```text
+
 .github/metrics/
 ├── README.md                      # This file
 ├── metrics.config.json            # Master configuration for all metrics
@@ -104,6 +105,7 @@ This directory contains metrics collection scripts, configuration files, and aut
 ### Master Config: `metrics.config.json`
 
 ```json
+
 {
   "includeGlobs": ["**/*.md", ".github/ISSUE_TEMPLATE/*.yml"],
   "excludeGlobs": ["**/node_modules/**", "**/.git/**", "**/CHANGELOG.md"],
@@ -150,21 +152,29 @@ This directory contains metrics collection scripts, configuration files, and aut
 **Frontmatter Metrics**:
 
 ```bash
+
 # Run from repository root
+
 node .github/metrics/frontmatter-metrics.js
 
 # Outputs:
+
 # - metrics/out/frontmatter-metrics.json
+
 # - metrics/out/frontmatter-metrics.md
+
 ```
 
 **Branding Metrics**:
 
 ```bash
+
 # Triggered via workflow
+
 gh workflow run branding.yml --ref develop
 
 # Or manually dispatch in GitHub Actions UI
+
 ```
 
 ### Automated Collection
@@ -182,6 +192,7 @@ See `.github/workflows/branding.yml` for automation details.
 **From JSON Artifacts**:
 
 ```javascript
+
 const fs = require("fs");
 const metrics = JSON.parse(
   fs.readFileSync(".github/metrics/out/frontmatter-metrics.json", "utf8"),
@@ -219,18 +230,23 @@ Enable build failures with `thresholds.failOnError: true`.
 Metrics scripts integrate with GitHub Actions workflows:
 
 ```yaml
+
 # Example: .github/workflows/branding.yml
+
 jobs:
   metrics-update:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
       - name: Run frontmatter metrics
         run: node .github/metrics/frontmatter-metrics.js
+
       - name: Move reports to reporting directory
         run: |
           mkdir -p .github/reporting/frontmatter
           mv metrics/out/frontmatter-metrics.* .github/reporting/frontmatter/
+
       - name: Commit metrics
         run: |
           git add .github/reporting
@@ -250,7 +266,10 @@ Metrics can feed external dashboards:
 Configure alerts based on threshold violations:
 
 ```yaml
+
 # Example: Slack notification on threshold failure
+
+
 - name: Notify on failure
   if: failure()
   uses: slackapi/slack-github-action@v1
@@ -275,27 +294,35 @@ Configure alerts based on threshold violations:
 ### Testing Metrics
 
 ```bash
+
 # Test frontmatter metrics locally
+
 node .github/metrics/frontmatter-metrics.js
 
 # Validate output schema
+
 npx ajv validate -s schemas/metrics-output.schema.json \
   -d metrics/out/frontmatter-metrics.json
 
 # Run with test fixtures
+
 TEST_MODE=true node .github/metrics/frontmatter-metrics.js
 ```
 
 ### Debugging
 
 ```bash
+
 # Enable verbose logging
+
 DEBUG=metrics:* node .github/metrics/frontmatter-metrics.js
 
 # Dry run (no file writes)
+
 DRY_RUN=true node .github/metrics/frontmatter-metrics.js
 
 # Test specific file patterns
+
 node .github/metrics/frontmatter-metrics.js --include="docs/**/*.md"
 ```
 
@@ -314,36 +341,49 @@ node .github/metrics/frontmatter-metrics.js --include="docs/**/*.md"
 **Script fails with "Cannot find module"**:
 
 ```bash
+
 # Install dependencies
+
 npm install
 ```
 
 **Threshold failures causing build issues**:
 
 ```bash
+
 # Review thresholds in metrics.config.json
+
 # Adjust or fix underlying issues
+
 # Set failOnError: false for warnings only
+
 ```
 
 **Output files not generated**:
 
 ```bash
+
 # Check output directory exists
+
 mkdir -p metrics/out
 
 # Verify script permissions
+
 chmod +x .github/metrics/frontmatter-metrics.js
 
 # Run with debug logging
+
 DEBUG=* node .github/metrics/frontmatter-metrics.js
 ```
 
 **Frontmatter validation errors**:
 
 ```bash
+
 # Review schema: schemas/frontmatter.schema.json
+
 # Validate individual file:
+
 npx ajv validate -s schemas/frontmatter.schema.json -d path/to/file.md
 ```
 
@@ -380,9 +420,11 @@ To contribute new metrics or improvements:
 ---
 
 Made with ❤️ by the LightSpeed team.
+
 ## Visual Workflow
 
 ```mermaid
+
 flowchart TD
   accTitle: flowchart diagram
   accDescr: flowchart flowchart

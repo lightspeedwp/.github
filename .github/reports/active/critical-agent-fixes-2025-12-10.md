@@ -45,7 +45,7 @@ jobs:
   planner:
     runs-on: ubuntu-latest
     # DISABLED: Waiting for scripts/agents/planner.agent.js implementation
-    # See: .githu./.github/reports/audits/agent-infrastructure-audit-2025-12-10.md
+    # See: .github/reports/audits/agent-infrastructure-audit-2025-12-10.md
     if: false
     steps:
       # ... rest of workflow

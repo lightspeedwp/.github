@@ -73,7 +73,7 @@ created_date: 2026-08-05
 3. **Documentation Created**
    - Main index: `instructions/README.md` (comprehensive guide)
    - Category guides: 6 subdirectory README files
-   - Migration report: `.githu./.github/reports/migration/PHASE_3A_INSTRUCTION_FILE_MIGRATION_2026-08-05.md`
+   - Migration report: `.github/reports/migration/PHASE_3A_INSTRUCTION_FILE_MIGRATION_2026-08-05.md`
    - Migration summary: This document
 
 4. **Files Kept in Control-Plane (17 files remain in `.github/instructions/`)**
@@ -324,7 +324,7 @@ Old portable files from `.github/instructions/` after reference updates complete
 
 **Migration Reports:**
 
-- `.githu./.github/reports/migration/PHASE_3A_INSTRUCTION_FILE_MIGRATION_2026-08-05.md` — Detailed migration plan
+- `.github/reports/migration/PHASE_3A_INSTRUCTION_FILE_MIGRATION_2026-08-05.md` — Detailed migration plan
 - `instructions/README.md` — Main instructions directory guide
 - `instructions/{category}/README.md` — Category-specific guides (6 files)
 

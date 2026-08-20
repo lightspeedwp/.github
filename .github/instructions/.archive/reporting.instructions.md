@@ -5,7 +5,7 @@ description: Standards for creating, organising, and maintaining reports in the 
   .github repository.
 version: v1.1
 last_updated: '2025-12-04'
-applyTo: .githu./.github/reports/**/*
+applyTo: .github/reports/**/*
 owners:
 - LightSpeedWP Team
 tags:
@@ -16,7 +16,7 @@ tags:
 domain: governance
 stability: stable
 references:
-- path: .githu./.github/reports/README.md
+- path: .github/reports/README.md
   description: Reports directory index and usage guide
 - path: .github/agents/reporting.agent.md
   description: Reporting agent specification
@@ -38,11 +38,11 @@ references:
 
 ## Overview
 
-This document defines the standards for creating, organising, and maintaining reports in the LightSpeedWP `.github` repository. All reports MUST be stored in `.githu./.github/reports/` and follow the conventions outlined below.
+This document defines the standards for creating, organising, and maintaining reports in the LightSpeedWP `.github` repository. All reports MUST be stored in `.github/reports/` and follow the conventions outlined below.
 
 ## Report Location
 
-**Canonical Location:** `.githu./.github/reports/`
+**Canonical Location:** `.github/reports/`
 
 ❌ **NEVER** store reports in:
 
@@ -56,7 +56,7 @@ This document defines the standards for creating, organising, and maintaining re
 Reports are organised by category in dedicated subfolders:
 
 ```text
-.githu./.github/reports/
+.github/reports/
 ├── README.md                    # Directory index and usage guide
 ├── agents/                      # Agent-related reports and summaries
 │   ├── frontmatter-audit.md

@@ -153,7 +153,7 @@ DRY_RUN=true node scripts/agents/meta.agent.js
 node scripts/agents/includes/label-sync.js --dry-run
 
 # Generate report
-node scripts/agents/includes/report-writer.js > .githu./.github/reports/labeling/dryrun-$(date +%s).md
+node scripts/agents/includes/report-writer.js > .github/reports/labeling/dryrun-$(date +%s).md
 ```
 
 **Tasks**:

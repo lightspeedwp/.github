@@ -127,7 +127,7 @@ This document provides clear guidelines for where and how to organize temporary 
 
 ### 📊 `reports/` Folder - Permanent Documentation
 
-**Location**: `/Users/ash/Studio/.githu./.github/reports/`
+**Location**: `/Users/ash/Studio/.github/reports/`
 
 **Purpose**: Store finalized, permanent documentation that should be version-controlled and referenced long-term.
 
@@ -412,7 +412,7 @@ rm .github/tmp/draft-*.md
 rm .github/tmp/temp-*.json
 
 # Archive old files
-mv .github/tmp/analysis-*.json .githu./.github/reports/archived/
+mv .github/tmp/analysis-*.json .github/reports/archived/
 
 # Clear all tmp (use with caution!)
 rm -rf .github/tmp/*

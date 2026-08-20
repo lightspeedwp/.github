@@ -48,7 +48,7 @@ id). The requirement is an auditable trail, not a specific URL format.
 
 - Prefer deterministic, greppable logs with timestamps and tool calls.
 - Never log secrets, credentials, or private client data.
-- Route agent reports to `.githu./.github/reports/{category}/`.
+- Route agent reports to `.github/reports/{category}/`.
 
 ### File placement
 
@@ -78,7 +78,7 @@ for these operational rules and only add provider mechanics.
 
 - [ ] Context loaded at session start
 - [ ] No secrets in logs or commits
-- [ ] Reports under `.githu./.github/reports/`
+- [ ] Reports under `.github/reports/`
 - [ ] External writes were approval-gated
 - [ ] Provenance recorded in commit/PR
 

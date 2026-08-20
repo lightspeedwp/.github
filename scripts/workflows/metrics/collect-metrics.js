@@ -24,7 +24,7 @@ const CONTEXTS = [
 const OUTPUT_DIR = path.join(
   __dirname,
   "../../..",
-  ".githu./.github/reports/metrics",
+  ".github/reports/metrics",
 );
 const CONFIG_DIR = path.join(__dirname, "../../metrics/config");
 const METRICS_AGENT = path.join(__dirname, "../../metrics/metrics-agent.js");
@@ -234,7 +234,7 @@ Usage: node scripts/workflows/metrics/collect-metrics.js [options]
 
 Options:
   --context CONTEXT       Metrics context: all, github-control-plane, wordpress-plugin, wordpress-theme
-  --output PATH          Output directory (default: .githu./.github/reports/metrics)
+  --output PATH          Output directory (default: .github/reports/metrics)
   --dry                  Dry run (don't execute, show what would happen)
   --verbose              Verbose output
   --help                 Show this help message

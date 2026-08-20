@@ -209,7 +209,7 @@ This plan outlines the strategy for expanding test coverage to meet the 80% thre
    - Critical gaps
 
 4. Create baseline report:
-   - Save to `.githu./.github/reports/coverage/baseline-v1.0.0.md`
+   - Save to `.github/reports/coverage/baseline-v1.0.0.md`
 
 **Acceptance Criteria**:
 
@@ -571,7 +571,7 @@ describe("label-sync - Error Handling", () => {
    - Follow-up tasks
 
 5. Create final coverage report:
-   - Save to `.githu./.github/reports/coverage/final-v1.0.0.md`
+   - Save to `.github/reports/coverage/final-v1.0.0.md`
 
 **Acceptance Criteria**:
 
@@ -797,8 +797,8 @@ npm test -- --findRelatedTests
    - Edge case tests for utilities
 
 2. **Coverage Reports**:
-   - `.githu./.github/reports/coverage/baseline-v1.0.0.md`
-   - `.githu./.github/reports/coverage/final-v1.0.0.md`
+   - `.github/reports/coverage/baseline-v1.0.0.md`
+   - `.github/reports/coverage/final-v1.0.0.md`
    - HTML coverage report (`coverage/lcov-report/`)
 
 3. **Documentation**:

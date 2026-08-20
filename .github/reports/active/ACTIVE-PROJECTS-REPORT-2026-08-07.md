@@ -11,7 +11,7 @@ status: complete
 
 **Date:** 2026-08-07  
 **Audit Scope:** 26 active projects in `.github/projects/active/`  
-**Reports Audited:** 102 files in `.githu./.github/reports/`  
+**Reports Audited:** 102 files in `.github/reports/`  
 **Status:** ✅ Phase 1 Complete
 
 ---
@@ -113,15 +113,15 @@ This audit systematically reviewed all 26 active projects to:
 
 **Issues Found:** 3 broken relative path references
 
-- `.githu./.github/reports/2026-08-04-status-needs-review-audit.md` (incorrect path prefix)
+- `.github/reports/2026-08-04-status-needs-review-audit.md` (incorrect path prefix)
 - `./CLAUDE.md` (local reference that should be repo-scoped)
 - `./docs/BRANCHING_STRATEGY.md` (local reference that should be repo-scoped)
 
 **Resolution:** Updated all to GitHub URLs for clarity and consistency
 
 ```diff
-- [Audit Report](.githu./.github/reports/2026-08-04-status-needs-review-audit.md)
-+ [Audit Report](https://github.com/lightspeedwp/.github/blob/develop/.githu./.github/reports/2026-08-04-status-needs-review-audit.md)
+- [Audit Report](.github/reports/2026-08-04-status-needs-review-audit.md)
++ [Audit Report](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/2026-08-04-status-needs-review-audit.md)
 
 - [CLAUDE.md](./CLAUDE.md)
 + [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md)
@@ -148,7 +148,7 @@ This audit systematically reviewed all 26 active projects to:
 
 ```diff
 - [Test Coverage Expansion Plan](../../.github/reports/analysis/test-coverage-expansion-plan.md)
-+ [Test Coverage Expansion Plan](https://github.com/lightspeedwp/.github/blob/develop/.githu./.github/reports/analysis/test-coverage-expansion-plan.md)
++ [Test Coverage Expansion Plan](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/analysis/test-coverage-expansion-plan.md)
 
 - [Release Readiness Tasks](launch-agents-checklist.md)
 + [Release Readiness Tasks](ISSUE_EXECUTION_PLAN.md)
@@ -221,7 +221,7 @@ This audit systematically reviewed all 26 active projects to:
 ### Recommended Actions for Phase 2
 
 1. **Review weekly summaries** — Determine if they should be archived or linked to historical project records
-2. **Archive old audits** — Move completed audit reports to `.githu./.github/reports/archived/`
+2. **Archive old audits** — Move completed audit reports to `.github/reports/archived/`
 3. **Link active reports** — Create cross-references from active projects to relevant analysis/framework docs
 4. **Consolidate duplicates** — Some reports may be superseded by newer versions
 5. **Remove obsolete reports** — Confirm with project owners before deletion
@@ -257,7 +257,7 @@ This audit systematically reviewed all 26 active projects to:
 3. `.github/projects/active/repo-restructuring-2026-07-25/README.md` — Fixed forward reference
 4. `.github/projects/active/status-needs-review-audit-2026-08-04/README.md` — Fixed 3 path references
 5. `.github/projects/active/test-coverage-implementation/README.md` — Fixed 3 path references
-6. `.githu./.github/reports/issue-management/audit-active-projects-2026-08-07.json` — Audit data
+6. `.github/reports/issue-management/audit-active-projects-2026-08-07.json` — Audit data
 
 ### New Files (2)
 
@@ -272,7 +272,7 @@ This audit systematically reviewed all 26 active projects to:
 
 - [ ] Review all 102 orphaned reports by category
 - [ ] Identify which should be archived vs. linked to active projects
-- [ ] Move obsolete reports to `.githu./.github/reports/archived/`
+- [ ] Move obsolete reports to `.github/reports/archived/`
 - [ ] Create cross-references from active projects to relevant analysis docs
 - [ ] Document removal rationale for any deleted reports
 
@@ -314,7 +314,7 @@ This audit systematically reviewed all 26 active projects to:
 
 - **Audit Data:** [audit-active-projects-2026-08-07.json](./audit-active-projects-2026-08-07.json)
 - **Original Project List:** `.github/projects/active/`
-- **Reports Index:** `.githu./.github/reports/`
+- **Reports Index:** `.github/reports/`
 - **CLAUDE.md Governance:** [CLAUDE.md Repository Boundaries](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md#repository-boundaries)
 
 ---

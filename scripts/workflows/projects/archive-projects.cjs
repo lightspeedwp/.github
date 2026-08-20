@@ -15,7 +15,7 @@ const ARCHIVED_DIR = process.env.ARCHIVED_PROJECTS_DIR || '.github/projects/arch
 const DRY_RUN = process.env.DRY_RUN === 'true';
 const PROJECTS_JSON = process.env.PROJECTS_JSON || '[]';
 
-const reportDir = '.githu./.github/reports/projects';
+const reportDir = '.github/reports/projects';
 
 try {
   // Ensure report directory exists

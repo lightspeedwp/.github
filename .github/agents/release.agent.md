@@ -3,10 +3,12 @@ title: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
 target: "github-copilot"
 handoffs:
+
   - label: "Publish Release"
     agent: "deployment"
     prompt: "Publish the validated and prepared release to production."
     send: false
+
   - label: "Prepare Next Release"
     agent: "release"
     prompt: "Prepare the repository for the next release version."
@@ -68,6 +70,7 @@ tools:
     "edit",
   ]
 permissions:
+
   - "read"
   - "write"
   - "filesystem"
@@ -168,6 +171,7 @@ Phase 5A introduces a **7-layer safety gates system** that validates release saf
 **Architecture:**
 
 ```
+
 User Input (scope, version, dry-run)
     ↓
 [Phase 5A Safety Gates (NEW)]
@@ -303,6 +307,7 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
 ### Orchestration Algorithm
 
 ```
+
 Release Agent Orchestration:
 
 1. Pre-Flight Check
@@ -366,6 +371,7 @@ All workflows communicate status via:
 Use `--dry-run` mode to test the orchestration without making changes:
 
 ```bash
+
 npm run agent:release -- --scope=patch --dry-run
 ```
 

@@ -28,7 +28,7 @@ permissions:
 
 env:
   METRICS_DIR: .github/metrics
-  REPORTS_DIR: .githu./.github/reports/metrics
+  REPORTS_DIR: .github/reports/metrics
 
 jobs:
   collect:

@@ -3,7 +3,7 @@
 # This file maps branch patterns and file changes to canonical labels as defined in labels.yml.
 
 # NOTE: Issue-based automation (template-driven labeling) is planned as Wave 5.1.2 work
-# (see .githu./.github/reports/issue-template-audit-2026-05-31.md for proposed rules).
+# (see .github/reports/issue-template-audit-2026-05-31.md for proposed rules).
 # The labeling agent must be updated to support issue-body pattern matching before these rules can be activated.
 # Branch status kick-off
 "status:needs-review":

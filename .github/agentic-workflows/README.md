@@ -25,10 +25,13 @@ Features:
 **Usage:**
 
 ```bash
+
 # Dry-run test
+
 node release.agent.js --scope=patch --dry-run --skip-branch-check
 
 # Live release
+
 node release.agent.js --scope=patch
 ```
 
@@ -57,9 +60,11 @@ Phase 5A MVP (Week 2, 2026-08-12)
 
 - [AGENTIC_WORKFLOW_SPEC.md](../../projects/active/release-agentic-workflows-2026-08-11/AGENTIC_WORKFLOW_SPEC.md) — Design decisions
 - [Phase 5A Project](../../projects/active/release-agentic-workflows-2026-08-11/) — Full project documentation
+
 ## Visual Workflow
 
 ```mermaid
+
 flowchart TD
   accTitle: flowchart diagram
   accDescr: flowchart flowchart

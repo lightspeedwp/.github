@@ -4,14 +4,14 @@
  * Generate weekly metrics summary report
  *
  * Creates markdown report from aggregated metrics and writes to:
- * - .githu./.github/reports/metrics/weekly-summary-latest.md (current week)
- * - .githu./.github/reports/metrics/weekly/weekly-summary-YYYY-WXX.md (archive)
+ * - .github/reports/metrics/weekly-summary-latest.md (current week)
+ * - .github/reports/metrics/weekly/weekly-summary-YYYY-WXX.md (archive)
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const REPORTS_DIR = process.env.REPORTS_DIR || '.githu./.github/reports/metrics';
+const REPORTS_DIR = process.env.REPORTS_DIR || '.github/reports/metrics';
 const REPORT_DATE = process.env.REPORT_DATE || new Date().toISOString().split('T')[0];
 const METRICS_JSON = process.env.METRICS_JSON || '{}';
 

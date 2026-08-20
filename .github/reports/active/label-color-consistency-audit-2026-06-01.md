@@ -467,7 +467,7 @@ See accompanying file: `label-color-audit-spreadsheet-2026-06-01.csv`
 
 ## Document Metadata
 
-**File**: `.githu./.github/reports/audits/label-color-consistency-audit-2026-06-01.md`
+**File**: `.github/reports/audits/label-color-consistency-audit-2026-06-01.md`
 **Related Files**:
 
 - `.github/labels.yml` (canonical label configuration)

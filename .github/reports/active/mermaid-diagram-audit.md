@@ -154,17 +154,17 @@ All 24 diagrams met all validation criteria.
    - Generates comprehensive markdown report
    - Supports all major diagram types
 
-2. ✅ **Validation Report**: `.githu./.github/reports/mermaid-validation-report.md`
+2. ✅ **Validation Report**: `.github/reports/mermaid-validation-report.md`
    - Markdown summary with validation statistics
    - File-by-file breakdown
    - Error tracking (if any found)
 
-3. ✅ **Audit Spreadsheet**: `.githu./.github/reports/mermaid-diagram-audit-spreadsheet.csv`
+3. ✅ **Audit Spreadsheet**: `.github/reports/mermaid-diagram-audit-spreadsheet.csv`
    - CSV format: README | Diagram Number | Type | Has Error | Error Description | Severity | Status
    - All 24 diagrams catalogued
    - Ready for import into planning tools
 
-4. ✅ **This Audit Report**: `.githu./.github/reports/mermaid-diagram-audit.md`
+4. ✅ **This Audit Report**: `.github/reports/mermaid-diagram-audit.md`
    - Comprehensive markdown audit with diagram inventory
    - Status by file and priority
    - Validation criteria reference
