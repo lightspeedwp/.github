@@ -71,6 +71,15 @@ This project is part of the **Release Orchestration Initiative** and coordinates
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2006](../../../issues/2006) | epic | Release Orchestration Initiative | 🟢 Open |
+| [#1290](../../../issues/1290) | epic | Repository Restructuring & Asset Consolidation | 🟢 Open |
+
+---
+
 ## Project Status
 
 ### ✅ COMPLETE (Week 3, Aug 18)

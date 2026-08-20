@@ -1,5 +1,5 @@
 ---
-file_type: project-index
+file_type: readme
 title: "Repository Restructuring Project"
 description: "Optimize folder organization, consolidate schemas, enable multi-project work, support plugin adoption"
 status: active

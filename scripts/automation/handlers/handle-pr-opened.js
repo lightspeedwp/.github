@@ -189,6 +189,50 @@ function applyPhaseProgression(
   }
 }
 
+// CLI entry point
+if (require.main === module) {
+  const args = require("minimist")(process.argv.slice(2));
+  const prNumber = parseInt(args.pr, 10);
+  const dryRun = args["dry-run"] === "true";
+  const prBody = process.env.PR_BODY || "";
+
+  try {
+    const linkedIssue = extractLinkedIssue(prBody);
+    const result = handlePROpened({ number: prNumber }, linkedIssue);
+
+    if (result.success && result.changes.length > 0) {
+      for (const change of result.changes) {
+        applyPhaseProgression(
+          change.issueNumber,
+          change.nextState,
+          change.currentState,
+          dryRun,
+        );
+      }
+    }
+
+    console.log(
+      JSON.stringify(
+        {
+          status: result.success ? "success" : "failed",
+          prNumber,
+          linkedIssue,
+          changes: result.changes,
+          warnings: result.warnings,
+          errors: result.errors,
+        },
+        null,
+        2,
+      ),
+    );
+
+    process.exit(result.success ? 0 : 1);
+  } catch (error) {
+    console.error("Error:", error.message);
+    process.exit(1);
+  }
+}
+
 module.exports = {
   handlePROpened,
   extractLinkedIssue,

@@ -1455,7 +1455,7 @@ AI tools reference schemas in instructions:
 **Why**: Better discoverability for projects using `.github` as shared resource  
 **Impact**: No functional change; all validation scripts updated to reference new location
 
-See [Migration Guide](http://../docs/MIGRATION.md) for details.
+See [Migration Guide](../../docs/MIGRATION.md) for details.
 
 ```
 
