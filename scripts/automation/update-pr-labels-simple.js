@@ -167,7 +167,7 @@ async function processPRs() {
   }
 }
 
-// Only run if this file is being executed directly, not imported as a module
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Only run if this file is being executed directly
+if (require.main === module) {
   processPRs();
 }

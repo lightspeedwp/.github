@@ -252,7 +252,7 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
 4. **`metrics.yml`** via `workflow_call` (optional)
    - **Purpose**: Generate release health snapshot (issue/PR metrics, coverage trends)
    - **Input**: `period: "last-7-days"` (or as configured)
-   - **Expected Output**: Metrics JSON in `.githu./.github/reports/metrics/`
+   - **Expected Output**: Metrics JSON in `.github/reports/metrics/`
    - **Failure Handling**: Warn but continue (metrics are informational)
    - **Used For**: Context: helps release agent understand repo health
 
@@ -282,7 +282,7 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
    - **Purpose**: Apply automated fixes to README files and Mermaid diagrams (accessibility, staleness)
    - **Condition**: Only if README files need updates (post-release audit)
    - **Input**: `scope: "all"` (applies Mermaid accessibility + staleness fixes)
-   - **Expected Output**: Updated README files with fixes committed; report in `.githu./.github/reports/mermaid-audit/update-report.md`
+   - **Expected Output**: Updated README files with fixes committed; report in `.github/reports/mermaid-audit/update-report.md`
    - **Failure Handling**: Warn but continue (not blocking release)
    - **Used For**: Maintenance: ensures READMEs stay current post-release
 
@@ -296,7 +296,7 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
 3. **`reporting.yml`** via `workflow_call` (optional)
    - **Purpose**: Generate post-release report (release summary, contributor list)
    - **Input**: `event_type: "release"`, `version: "X.Y.Z"`
-   - **Expected Output**: Release report in `.githu./.github/reports/releases/`
+   - **Expected Output**: Release report in `.github/reports/releases/`
    - **Failure Handling**: Warn but continue (informational only)
    - **Used For**: Documentation: comprehensive release audit trail
 
@@ -356,7 +356,7 @@ Release Agent Orchestration:
 All workflows communicate status via:
 
 - **Exit codes**: 0 = success, non-zero = failure
-- **Artifacts**: Output files (reports, logs) in `.githu./.github/reports/`
+- **Artifacts**: Output files (reports, logs) in `.github/reports/`
 
 - **Environment**: Shared via workflow outputs (`outputs:` section)
 - **Comments**: Release agent posts summary comment to PR/issue
@@ -490,4 +490,4 @@ On every new conversation:
 
 ---
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

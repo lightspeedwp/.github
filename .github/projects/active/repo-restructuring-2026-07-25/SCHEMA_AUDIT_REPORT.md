@@ -1,5 +1,5 @@
 ---
-file_type: audit-report
+file_type: documentation
 title: Schema Files Audit Report
 description: Comprehensive inventory and consolidation analysis for schema files across three locations
 version: v1.0
@@ -11,7 +11,7 @@ tags:
   - schemas
   - phase-1-restructuring
   - consolidation
-status: complete
+status: active
 stability: stable
 domain: infrastructure
 ---

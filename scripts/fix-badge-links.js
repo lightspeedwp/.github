@@ -29,7 +29,7 @@ const PATTERNS = [
   {
     name: "Incomplete workflow badge URLs (branch param)",
     regex:
-      /(https?:\/\/github\.com\/[^\/]+\/[^\/]+\/actions\/workflows\/[^\s?]+\.yml)\/badge\.svg\?branch=([^\s&)]+)$/gm,
+      /(https?:\/\/github\.com\/[^/]+\/[^/]+\/actions\/workflows\/[^\s?]+\.yml)\/badge\.svg\?branch=([^\s&)]+)$/gm,
     replacement: "$1/badge.svg?branch=$2",
   },
   {
@@ -97,7 +97,7 @@ function extractBrokenLinks(content) {
 
   // Find incomplete workflow URLs
   const incompleteWorkflow =
-    /https?:\/\/github\.com\/[^\/]+\/[^\/]+\/actions\/workflows\/[^\s?]+\.yml\/badge\.svg\?branch=[^\s&)]*$/gm;
+    /https?:\/\/github\.com\/[^/]+\/[^/]+\/actions\/workflows\/[^\s?]+\.yml\/badge\.svg\?branch=[^\s&)]*$/gm;
   while ((match = incompleteWorkflow.exec(content)) !== null) {
     if (!match[0].includes("develop") && !match[0].includes("main")) {
       brokenLinks.push({
@@ -114,7 +114,6 @@ function extractBrokenLinks(content) {
 function fixFile(filePath) {
   console.log(`\n📄 Processing: ${filePath}`);
   let content = fs.readFileSync(filePath, "utf-8");
-  const originalContent = content;
   let fixed = false;
 
   for (const pattern of PATTERNS) {

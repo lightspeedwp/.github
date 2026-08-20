@@ -422,7 +422,7 @@ Add row to the project summary section above.
 - `.github/CHANGELOG_CONTRIBUTOR_CHECKLIST.md` — Fixed relative paths
 - `.github/projects/README.md` — Updated project references
 - `eslint.config.cjs` — Fixed ignore patterns
-- `.githu./.github/reports/footer-audit-2026-08-04.json` — Fixed 21 paths
+- `.github/reports/footer-audit-2026-08-04.json` — Fixed 21 paths
 - `.remember/phase-3.2-continuation-prompt.md` — Fixed directory structure
 
 ---
@@ -457,6 +457,8 @@ Add row to the project summary section above.
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

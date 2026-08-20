@@ -6,18 +6,46 @@
  * Consolidates all broken links into the latest issue
  */
 
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 
 const REPO = process.env.GITHUB_REPOSITORY || "lightspeedwp/.github";
 
-function runGH(args) {
+function parseGHArgs(argsString) {
+  const args = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < argsString.length; i++) {
+    const char = argsString[i];
+
+    if (char === '"' && (i === 0 || argsString[i - 1] !== "\\")) {
+      inQuotes = !inQuotes;
+    } else if (char === " " && !inQuotes) {
+      if (current) {
+        args.push(current);
+        current = "";
+      }
+    } else {
+      current += char;
+    }
+  }
+
+  if (current) {
+    args.push(current);
+  }
+
+  return args.map((arg) => arg.replace(/^"(.*)"$/, "$1"));
+}
+
+function runGH(argsString) {
   try {
-    return execSync(`gh ${args}`, {
+    const args = parseGHArgs(argsString);
+    return execFileSync("gh", args, {
       encoding: "utf-8",
       stdio: ["pipe", "pipe", "pipe"],
     }).trim();
   } catch (err) {
-    console.error(`GH command failed: gh ${args}`);
+    console.error(`GH command failed: gh ${argsString}`);
     throw err;
   }
 }

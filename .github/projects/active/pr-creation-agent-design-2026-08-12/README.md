@@ -148,6 +148,8 @@ See [DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md) for 9 critical design questions
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

@@ -27,7 +27,7 @@ This directory contains all generated reports, analysis outputs, audit files, an
 ## Directory Structure
 
 ```
-.githu./.github/reports/
+.github/reports/
 ├── analysis/        # Code analysis, technical audits, and investigation reports
 ├── audits/          # One-time audit outputs (compliance, schema validation, system audits)
 ├── implementation/  # Implementation tracking, completion summaries, and rollout reports
@@ -251,6 +251,8 @@ progress/weekly-summary-2025-w50.md
 
 ```mermaid
 flowchart TD
+  accTitle: flowchart diagram
+  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

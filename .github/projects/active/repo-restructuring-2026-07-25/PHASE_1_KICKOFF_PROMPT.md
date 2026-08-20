@@ -192,7 +192,7 @@ During the 2026-08-02 repository restructuring, the following locations were mov
 
 For script maintainers: If you reference schemas or scripts, use paths relative to your script location. Example: a validation script at `.github/scripts/validation/validate-frontmatter.js` should reference `../../../schemas/` (three levels up).
 
-See [SPECIFICATION.md](./projects/active/repo-restructuring-2026-07-25/SPECIFICATION.md) for full migration details.
+See [SPECIFICATION.md](./SPECIFICATION.md) for full migration details.
 ```
 
 ---
