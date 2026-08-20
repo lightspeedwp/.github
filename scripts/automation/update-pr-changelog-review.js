@@ -120,7 +120,7 @@ function sleep(ms) {
 /**
  * Process single PR
  */
-async function processPR(pr, index, total) {
+async function processPR(pr, index, _total) {
   const prNumber = pr.number;
   const labels = (pr.labels || []).map((l) => l.name || l);
 
