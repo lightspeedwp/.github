@@ -108,9 +108,10 @@ function validateFrontmatter(files) {
   return !hasErrors;
 }
 
-// Main execution
-const baseSha = process.argv[2] || process.env.BASE_SHA || "HEAD~1";
-const headSha = process.argv[3] || process.env.HEAD_SHA || "HEAD";
+// Main execution - parse --base and --head flags
+const args = require("minimist")(process.argv.slice(2));
+const baseSha = args.base || process.env.BASE_SHA || "HEAD~1";
+const headSha = args.head || process.env.HEAD_SHA || "HEAD";
 
 const changedFiles = getChangedFiles(baseSha, headSha);
 
