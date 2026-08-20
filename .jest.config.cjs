@@ -73,5 +73,6 @@ module.exports = {
         '<rootDir>/.storybook/',
         '<rootDir>/.jest-skip/',
         '<rootDir>/docs/mustache-repo-templates/',
+        '<rootDir>/scripts/automation/(?!.*\\.test\\.)',
     ],
 };

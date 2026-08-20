@@ -252,7 +252,6 @@ describe("integration: metadata workflow", () => {
         requireMilestone: true,
       });
       expect(findings.totalIssues).toBe(1);
-      // Should detect issues missing milestones
       expect(findings.missingMilestones).toBeDefined();
       expect(findings.missingMilestones).toContain(1);
       expect(findings.nonCompliantIssues.length).toBeGreaterThan(0);
@@ -269,9 +268,7 @@ describe("integration: metadata workflow", () => {
         labelsToAdd: ["type:task"],
       }, false);
       expect(results.totalProcessed).toBe(2);
-      // Should track that labels were added to issues
       expect(results.labelsAdded).toBeGreaterThan(0);
-      // Updates should be recorded
       expect(results.updated.length).toBeGreaterThan(0);
       expect(results.updated[0]).toHaveProperty("number");
       expect(results.updated[0]).toHaveProperty("changes");

@@ -11,11 +11,11 @@
  * ============================================================================
  */
 
-import { findStandardLabel } from "./label-lookup.js";
-import fs from "fs";
-import path from "path";
-import * as yaml from "js-yaml";
-import github from "@actions/github";
+const { findStandardLabel } = require("./label-lookup");
+const fs = require("fs");
+const path = require("path");
+const yaml = require("js-yaml");
+const github = require("@actions/github");
 
 async function syncLabelsWithCanonical(
   octokit,
@@ -303,65 +303,56 @@ async function standardizeLabelsOnRepo(
     const nonStandardLabels = Object.keys(aliasMap);
 
     for (const nonStandardLabel of nonStandardLabels) {
-      try {
-        const { data: items } = await octokit.rest.search.issuesAndPullRequests(
-          {
-            q: `repo:${owner}/${repo} label:"${nonStandardLabel}"`,
-            per_page: 100,
-          },
+      const { data: items } = await octokit.rest.search.issuesAndPullRequests({
+        q: `repo:${owner}/${repo} label:"${nonStandardLabel}"`,
+        per_page: 100,
+      });
+
+      for (const item of items.items) {
+        const canonicalLabel = findStandardLabel(
+          nonStandardLabel,
+          aliasMap,
+          canonicalSet,
         );
+        if (!canonicalLabel) continue;
 
-        for (const item of items.items) {
-          const canonicalLabel = findStandardLabel(
-            nonStandardLabel,
-            aliasMap,
-            canonicalSet,
-          );
-          if (!canonicalLabel) continue;
+        const itemNumber = item.number;
+        const itemType = item.pull_request ? "PR" : "Issue";
 
-          const itemNumber = item.number;
-          const itemType = item.pull_request ? "PR" : "Issue";
-
-          try {
-            if (!dryRun) {
-              await octokit.rest.issues.removeLabel({
-                owner,
-                repo,
-                issue_number: itemNumber,
-                name: nonStandardLabel,
-              });
-
-              await octokit.rest.issues.addLabels({
-                owner,
-                repo,
-                issue_number: itemNumber,
-                labels: [canonicalLabel],
-              });
-            }
-
-            report.migrations.push({
-              item: `${itemType} #${itemNumber}`,
-              from: nonStandardLabel,
-              to: canonicalLabel,
+        try {
+          if (!dryRun) {
+            await octokit.rest.issues.removeLabel({
+              owner,
+              repo,
+              issue_number: itemNumber,
+              name: nonStandardLabel,
             });
-            report.labelsChanged++;
-          } catch (error) {
-            report.errors.push({
-              item: `${itemType} #${itemNumber}`,
-              from: nonStandardLabel,
-              to: canonicalLabel,
-              error: error.message,
+
+            await octokit.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: itemNumber,
+              labels: [canonicalLabel],
             });
           }
-        }
 
-        report.itemsProcessed += items.items.length;
-      } catch (error) {
-        report.errors.push({
-          label: nonStandardLabel,
-          error: `Failed to search for label: ${error.message}`,
-        });
+          report.migrations.push({
+            item: `${itemType} #${itemNumber}`,
+            from: nonStandardLabel,
+            to: canonicalLabel,
+          });
+          report.labelsChanged++;
+        } catch (error) {
+          report.errors.push({
+            item: `${itemType} #${itemNumber}`,
+            from: nonStandardLabel,
+            to: canonicalLabel,
+            error: error.message,
+          });
+        }
       }
+
+      report.itemsProcessed += items.items.length;
     }
 
     return report;
@@ -561,14 +552,14 @@ async function runCli() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
   runCli().catch((error) => {
     console.error(`[label-sync] ${error.message}`);
     process.exit(1);
   });
 }
 
-export {
+module.exports = {
   syncLabelsWithCanonical,
   validateRepoLabels,
   standardizeLabelsOnRepo,
