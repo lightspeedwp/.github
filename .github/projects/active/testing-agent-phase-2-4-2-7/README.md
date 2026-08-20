@@ -176,8 +176,8 @@ agents/testing-agent/
 - **Previous Work:** PR #1945 (Phase 2.1–2.3 merged to develop)
 - **Agent Location:** `agents/testing-agent/AGENT.md`
 - **Core Prompt:** `agents/testing-agent/shared/core-prompt.md`
-- **Standards:** [Documentation Standards](../../../../docs/documentation-standards.md)
-- **Skill Template:** [SKILL.md Format](../../../../skills/SKILL_TEMPLATE.md)
+- **Standards:** [Skills Standards](../../../../docs/SKILLS_STANDARDS.md)
+- **Skill Template:** [SKILL.md Format](../../../../skills/SKILLS_STANDARDS.md)
 
 ---
 
