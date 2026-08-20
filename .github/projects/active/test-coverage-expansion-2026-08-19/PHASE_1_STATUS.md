@@ -107,9 +107,7 @@ Time:        2.39s
 - ✅ Pilot plugin validation (4 test cases) — not exists, exists with README, file instead of dir, missing README
 - ✅ Edge cases (3 test cases) — nested plugins, mixed index types, case sensitivity
 
-
 ---
-
 ---
 
 ## Metrics
