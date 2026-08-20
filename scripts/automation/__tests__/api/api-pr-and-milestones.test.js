@@ -564,7 +564,7 @@ describe('GitHub API: PRs & Milestones', () => {
 
     it('extracts linked issues and assigns issue to same milestone', async () => {
       // Get PR
-      const prResponse = await client.getPR(owner, repo, 202);
+      await client.getPR(owner, repo, 202);
 
       // Extract linked issues
       const linkedResponse = await client.getPRLinkedIssues(owner, repo, 202);
