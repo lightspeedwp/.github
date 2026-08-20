@@ -58,6 +58,10 @@ const PHASE_TRIGGERS = {
     "PR merged": STATES.SPECIFICATION_COMPLETE,
     "status:done added": STATES.SPECIFICATION_COMPLETE,
   },
+  [STATES.SPECIFICATION_COMPLETE]: {
+    "PR opened": STATES.IMPLEMENTATION_PENDING,
+    "ready-for-implementation": STATES.IMPLEMENTATION_PENDING,
+  },
 
   // Implementation phase triggers
   [STATES.IMPLEMENTATION_PENDING]: {
@@ -67,6 +71,9 @@ const PHASE_TRIGGERS = {
   [STATES.IMPLEMENTATION_IN_PROGRESS]: {
     "PR merged": STATES.IMPLEMENTATION_COMPLETE,
     "status:done added": STATES.IMPLEMENTATION_COMPLETE,
+  },
+  [STATES.IMPLEMENTATION_COMPLETE]: {
+    // No automatic triggers for complete state; manual review needed
   },
 };
 
