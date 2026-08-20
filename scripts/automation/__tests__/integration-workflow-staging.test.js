@@ -99,7 +99,8 @@ function runPerformanceBench(environment, scenarios) {
 
   results.summary.passed = results.scenarios.filter((s) => s.status === 'PASS').length;
   results.summary.failed = results.scenarios.filter((s) => s.status === 'SLOW').length;
-  results.summary.avgLatency = latencies.reduce((a, b) => a + b, 0) / latencies.length;
+  results.summary.avgLatency =
+    latencies.length > 0 ? latencies.reduce((a, b) => a + b, 0) / latencies.length : 0;
   results.endTime = Date.now();
   results.duration = results.endTime - results.startTime;
 

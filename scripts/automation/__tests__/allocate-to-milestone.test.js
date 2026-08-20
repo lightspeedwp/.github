@@ -448,6 +448,9 @@ describe("allocate-to-milestone", () => {
       mockOctokit.rest.pulls.get.mockResolvedValueOnce({
         data: { number: 123, body: "Closes #456", milestone: null },
       });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "Closes #456", milestone: null },
+      });
       mockOctokit.rest.issues.get.mockResolvedValueOnce({
         data: { number: 456, milestone: null },
       });
@@ -465,6 +468,9 @@ describe("allocate-to-milestone", () => {
       });
       allocatorWithForced.octokit = mockOctokit;
 
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "", milestone: null },
+      });
       mockOctokit.rest.pulls.get.mockResolvedValueOnce({
         data: { number: 123, body: "", milestone: null },
       });
@@ -502,6 +508,9 @@ describe("allocate-to-milestone", () => {
     it("should allocate both PR and issue", async () => {
       mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
         data: [milestone],
+      });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "", milestone: null },
       });
       mockOctokit.rest.pulls.get.mockResolvedValueOnce({
         data: { number: 123, body: "", milestone: null },

@@ -123,8 +123,8 @@ function validateIntegrity(checks = {}) {
     orphanedLabels: checks.orphaned || 0,
     conflictingPairs: checks.conflicts || 0,
     duplicateLabels: checks.duplicates || 0,
-    metadataConsistency: checks.consistency || 100,
-    relationshipValidity: checks.validity || 100,
+    metadataConsistency: checks.consistency ?? 100,
+    relationshipValidity: checks.validity ?? 100,
   };
 
   // Check thresholds
@@ -137,11 +137,22 @@ function validateIntegrity(checks = {}) {
 }
 
 function parseArguments(args = []) {
+  const flagValue = (flag) => {
+    const index = args.indexOf(flag);
+    return index !== -1 && index + 1 < args.length ? args[index + 1] : null;
+  };
+  const numericFlag = (flag, fallback) => {
+    const raw = flagValue(flag);
+    if (raw === null) return fallback;
+    const parsed = parseInt(raw, 10);
+    return Number.isNaN(parsed) ? fallback : parsed;
+  };
+
   return {
     runAll: args.includes("--all"),
-    task: args[args.indexOf("--task") + 1] || null,
-    count: parseInt(args[args.indexOf("--count") + 1]) || 100,
-    runs: parseInt(args[args.indexOf("--runs") + 1]) || 3,
+    task: flagValue("--task"),
+    count: numericFlag("--count", 100),
+    runs: numericFlag("--runs", 3),
     verbose: args.includes("--verbose"),
   };
 }
