@@ -2,16 +2,16 @@ import fs from "node:fs";
 import path from "node:path";
 
 const filesToValidate = [
-  ".github/scripts/agents/includes/check-template-labels.js",
-  ".github/scripts/agents/includes/label-sync.js",
-  ".github/scripts/agents/includes/build-labeling-report.js",
-  ".github/scripts/agents/includes/fetch-canonical-labels.js",
-  ".github/scripts/agents/includes/label-utils.js",
-  ".github/scripts/agents/includes/type-lookup.js",
-  ".github/scripts/agents/includes/yaml-parser.js",
-  ".github/scripts/agents/includes/yaml-validator.js",
-  ".github/scripts/agents/labeling.agent.js",
-  ".github/scripts/agents/project-meta-sync.agent.js",
+  "scripts/agents/includes/check-template-labels.js",
+  "scripts/agents/includes/label-sync.js",
+  "scripts/agents/includes/build-labeling-report.js",
+  "scripts/agents/includes/fetch-canonical-labels.js",
+  "scripts/agents/includes/label-utils.js",
+  "scripts/agents/includes/type-lookup.js",
+  "scripts/agents/includes/yaml-parser.js",
+  "scripts/agents/includes/yaml-validator.js",
+  "scripts/agents/labeling.agent.js",
+  "scripts/agents/project-meta-sync.agent.js",
 ];
 
 const importRegex = /import\s+(?:[^'";]+\s+from\s+)?['"]([^'"]+)['"]/g;
