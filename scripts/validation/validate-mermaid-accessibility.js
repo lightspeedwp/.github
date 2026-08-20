@@ -256,7 +256,7 @@ async function main() {
 
   const reportPath = path.join(
     ROOT,
-    ".githu./.github/reports/mermaid-accessibility-report.md",
+    ".github/reports/mermaid-accessibility-report.md",
   );
   const existingReport = fs.existsSync(reportPath)
     ? fs.readFileSync(reportPath, "utf-8")
@@ -360,7 +360,7 @@ ${
 
   fs.writeFileSync(reportPath, reportContent);
   console.log(
-    "\n✅ Accessibility report saved to .githu./.github/reports/mermaid-accessibility-report.md",
+    "\n✅ Accessibility report saved to .github/reports/mermaid-accessibility-report.md",
   );
 
   // Create/update comprehensive audit spreadsheet
@@ -368,12 +368,12 @@ ${
   fs.writeFileSync(
     path.join(
       ROOT,
-      ".githu./.github/reports/mermaid-diagram-accessibility-spreadsheet.csv",
+      ".github/reports/mermaid-diagram-accessibility-spreadsheet.csv",
     ),
     spreadsheetContent,
   );
   console.log(
-    "✅ Accessibility spreadsheet saved to .githu./.github/reports/mermaid-diagram-accessibility-spreadsheet.csv",
+    "✅ Accessibility spreadsheet saved to .github/reports/mermaid-diagram-accessibility-spreadsheet.csv",
   );
 
   process.exit(report.inaccessibleDiagrams > 0 ? 1 : 0);

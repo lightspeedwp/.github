@@ -1,296 +1,529 @@
 /**
- * Tests for allocate-to-milestone.js
- *
- * This test suite documents the test cases for the allocation script.
- * Since the script uses ES modules (import/export), proper Jest testing requires
- * configuring Jest for ESM support or wrapping the script in a compatibility layer.
- *
- * TEST COVERAGE PLAN:
- *
- * 1. UNIT TESTS: Standalone functionality
- *    ✓ Milestone selection algorithm (earliest due date, tiebreaker by creation date)
- *    ✓ Linked issue parsing from PR body (regex matching, deduplication)
- *    ✓ Idempotency checks (already allocated items skipped)
- *    ✓ Dry-run mode (no API calls made)
- *
- * 2. INTEGRATION TESTS: GitHub API interaction
- *    ✓ Fetch active milestone from API
- *    ✓ Allocate PR to milestone (API call verification)
- *    ✓ Allocate issue to milestone (API call verification)
- *    ✓ Detect and allocate linked issues from PR body
- *
- * 3. ERROR HANDLING TESTS
- *    ✓ Missing GITHUB_TOKEN (should throw)
- *    ✓ No open milestones (should throw AllocationError)
- *    ✓ API 404 errors for deleted issues (handled gracefully)
- *    ✓ Other API errors (logged and accumulated)
- *    ✓ Error accumulation for final summary
- *
- * 4. EDGE CASES
- *    ✓ Milestones without due dates (sorted to end)
- *    ✓ Past-due milestones (still considered valid)
- *    ✓ Multiple milestones with same due date (use creation date as tiebreaker)
- *    ✓ PR body with various "Closes" syntax variations (case-insensitive)
- *    ✓ Linked issues that have been deleted (404 handling)
- *
- * MANUAL TESTING:
- * Since this script requires GitHub API access with real credentials, manual
- * testing is recommended:
- *
- * 1. Dry-run mode (no changes):
- *    export GITHUB_TOKEN="ghp_xxxxx"
- *    node scripts/automation/allocate-to-milestone.js --dry-run --verbose
- *
- * 2. Live mode with test repository:
- *    - Create test milestones in a test repo
- *    - Merge test PRs with linked issues
- *    - Run script in dry-run mode to verify allocation logic
- *    - Run script in live mode and verify results in GitHub UI
- *
- * 3. Workflow testing:
- *    - Trigger workflow_dispatch from GitHub Actions UI
- *    - Verify comment posted on PR/issue
- *    - Check milestone assignments updated
- *
- * INTEGRATION WITH CI/CD:
- * The GitHub Actions workflow (.github/workflows/allocate-pr-issue-to-milestone.yml)
- * provides automated testing by:
- * 1. Running on real PR merge events (pull_request.closed)
- * 2. Running on real issue close events (issues.closed)
- * 3. Supporting manual trigger via workflow_dispatch for ad-hoc testing
- * 4. Posting confirmation comments on allocated items
- * 5. Capturing and logging script output
+ * Unit tests for allocate-to-milestone.js
+ * Tests milestone allocation logic, argument parsing, and error handling
+ * @module scripts/automation/__tests__/allocate-to-milestone.test.js
  */
 
-describe("Allocate to Milestone - Test Suite Documentation", () => {
-  test("allocation script is present and properly structured", () => {
-    // This test documents that the allocate-to-milestone.js script exists
-    // and implements the required functionality per OPENSPEC.md
-    expect(true).toBe(true);
+const { describe, it, expect, beforeEach, jest } = require("@jest/globals");
+
+// Mock Octokit before importing the allocate-to-milestone module
+jest.mock("octokit", () => ({
+  Octokit: jest.fn(() => ({
+    rest: {
+      issues: {
+        listMilestones: jest.fn(),
+        get: jest.fn(),
+        update: jest.fn(),
+      },
+      pulls: {
+        get: jest.fn(),
+        update: jest.fn(),
+      },
+    },
+  })),
+}));
+
+const { MilestoneAllocator, AllocationError } = require("../allocate-to-milestone.js");
+
+describe("allocate-to-milestone", () => {
+  const mockOctokit = {
+    rest: {
+      issues: {
+        listMilestones: jest.fn(),
+        get: jest.fn(),
+        update: jest.fn(),
+      },
+      pulls: {
+        get: jest.fn(),
+        update: jest.fn(),
+      },
+    },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    process.env.GITHUB_TOKEN = "mock-token";
   });
 
-  describe("Feature Requirements Coverage", () => {
-    test("FR-1: Detect Current Active Milestone - IMPLEMENTED", () => {
-      // Algorithm: Select open milestone with earliest due_on date
-      // Tiebreaker: If same due date, select with latest created_at
-      // Implementation: fetchActiveMilestone() method
-      expect(true).toBe(true);
-    });
-
-    test("FR-2: Allocate Merged PR - IMPLEMENTED", () => {
-      // Trigger: pull_request.closed with merged=true
-      // Action: Update PR.milestone to current milestone
-      // Implementation: allocatePR() method
-      expect(true).toBe(true);
-    });
-
-    test("FR-3: Allocate Closed Issue - IMPLEMENTED", () => {
-      // Trigger: issues.closed
-      // Action: Update Issue.milestone to current milestone
-      // Implementation: allocateIssue() method
-      expect(true).toBe(true);
-    });
-
-    test("FR-4: Allocate Linked Issues - IMPLEMENTED", () => {
-      // Pattern: (?:Closes|Resolves|Fixes|Close|Resolve|Fix|and)\\s+#(\\d+)
-      // Action: Find all matching issues and allocate to same milestone
-      // Implementation: parseLinkedIssues() + allocateIssue() loop
-      expect(true).toBe(true);
-    });
-
-    test("FR-5: Dry-Run Mode - IMPLEMENTED", () => {
-      // Flag: --dry-run
-      // Behavior: Show what would change without making API calls
-      // Implementation: dryRun option checked before API updates
-      expect(true).toBe(true);
-    });
+  beforeEach(() => {
+    jest.clearAllMocks();
+    process.env.GITHUB_TOKEN = "mock-token";
   });
 
-  describe("Key Algorithms", () => {
-    test("Milestone sorting algorithm", () => {
-      // Sort 1: by due_on date ASC (earliest first)
-      // Sort 2: if tied, by created_at DESC (latest first)
-      // This ensures deterministic selection
-      expect(true).toBe(true);
+  describe("AllocationError", () => {
+    it("should create error with code and message", () => {
+      const error = new AllocationError("NO_TOKEN", "Token is missing");
+      expect(error.code).toBe("NO_TOKEN");
+      expect(error.message).toBe("Token is missing");
+      expect(error.name).toBe("AllocationError");
     });
 
-    test("Linked issue parsing", () => {
-      // Regex: case-insensitive, matches multiple times
-      // Examples:
-      //   "Fixes #123" → [123]
-      //   "Closes #100 and #200" → [100, 200]
-      //   "CLOSES #1000\nResolves #2000" → [1000, 2000]
-      // Deduplicates using Set
-      expect(true).toBe(true);
-    });
-
-    test("Idempotency check", () => {
-      // Before allocating, check: item.milestone.number === target.number
-      // If true, skip (log as skipped, don't make API call)
-      // Ensures safe to run multiple times
-      expect(true).toBe(true);
+    it("should be instanceof Error", () => {
+      const error = new AllocationError("TEST", "test message");
+      expect(error instanceof Error).toBe(true);
     });
   });
 
-  describe("Error Handling", () => {
-    test("Missing GITHUB_TOKEN throws AllocationError", () => {
-      // Error code: NO_TOKEN
-      // Message: "GITHUB_TOKEN environment variable is required"
-      expect(true).toBe(true);
+  describe("MilestoneAllocator constructor", () => {
+    it("should throw AllocationError if GITHUB_TOKEN not set", () => {
+      delete process.env.GITHUB_TOKEN;
+      expect(() => new MilestoneAllocator()).toThrow(AllocationError);
     });
 
-    test("No open milestones throws AllocationError", () => {
-      // Error code: NO_ACTIVE_MILESTONE
-      // Message: "No open milestones found in repository"
-      expect(true).toBe(true);
+    it("should initialize with default owner and repo", () => {
+      const allocator = new MilestoneAllocator();
+      expect(allocator.owner).toBe("lightspeedwp");
+      expect(allocator.repo).toBe(".github");
     });
 
-    test("API failure throws AllocationError", () => {
-      // Error code: MILESTONE_FETCH_FAILED
-      // Wraps underlying error message
-      expect(true).toBe(true);
+    it("should override owner from options", () => {
+      const allocator = new MilestoneAllocator({ owner: "custom-owner" });
+      expect(allocator.owner).toBe("custom-owner");
     });
 
-    test("404 errors for deleted issues handled gracefully", () => {
-      // When allocating linked issue, if 404 returned
-      // Log as warning: "Issue #N not found (deleted?)"
-      // Count as skipped (not error)
-      // Continue processing other items
-      expect(true).toBe(true);
+    it("should override repo from options", () => {
+      const allocator = new MilestoneAllocator({ repo: "custom-repo" });
+      expect(allocator.repo).toBe("custom-repo");
     });
 
-    test("Other API errors accumulated for summary", () => {
-      // Errors pushed to this.errors array
-      // Counted in stats.errors
-      // Don't stop processing (continue with next item)
-      // Logged in final summary report
-      expect(true).toBe(true);
-    });
-  });
-
-  describe("Statistics Tracking", () => {
-    test("Tracks allocated PRs", () => {
-      // stats.allocatedPRs incremented on successful PR allocation
-      expect(true).toBe(true);
+    it("should set dryRun flag", () => {
+      const allocator = new MilestoneAllocator({ dryRun: true });
+      expect(allocator.dryRun).toBe(true);
     });
 
-    test("Tracks allocated issues", () => {
-      // stats.allocatedIssues incremented on successful issue allocation
-      expect(true).toBe(true);
+    it("should set verbose flag", () => {
+      const allocator = new MilestoneAllocator({ verbose: true });
+      expect(allocator.verbose).toBe(true);
     });
 
-    test("Tracks skipped items", () => {
-      // stats.skipped incremented for:
-      // - Already allocated items (idempotency)
-      // - Deleted issues (404)
-      expect(true).toBe(true);
+    it("should initialize stats with zero counts", () => {
+      const allocator = new MilestoneAllocator();
+      expect(allocator.stats.allocatedPRs).toBe(0);
+      expect(allocator.stats.allocatedIssues).toBe(0);
+      expect(allocator.stats.skipped).toBe(0);
+      expect(allocator.stats.errors).toBe(0);
     });
 
-    test("Tracks errors", () => {
-      // stats.errors incremented for API failures
-      // Separate from skipped items
-      expect(true).toBe(true);
+    it("should set forced milestone", () => {
+      const allocator = new MilestoneAllocator({ milestone: 5 });
+      expect(allocator.forcedMilestone).toBe(5);
     });
   });
 
-  describe("Integration Points", () => {
-    test("Workflow trigger: pull_request.closed with merged=true", () => {
-      // Workflow: .github/workflows/allocate-pr-issue-to-milestone.yml
-      // Invokes: node scripts/automation/allocate-to-milestone.js --pr N
-      // Posts: Comment on PR after allocation
-      expect(true).toBe(true);
+  describe("parseLinkedIssues", () => {
+    let allocator;
+
+    beforeEach(() => {
+      allocator = new MilestoneAllocator();
     });
 
-    test("Workflow trigger: issues.closed", () => {
-      // Workflow: .github/workflows/allocate-pr-issue-to-milestone.yml
-      // Invokes: node scripts/automation/allocate-to-milestone.js --issue N
-      // Posts: Comment on issue after allocation
-      expect(true).toBe(true);
+    it("should parse 'Closes #123'", () => {
+      const issues = allocator.parseLinkedIssues("Closes #123");
+      expect(issues).toContain(123);
     });
 
-    test("Workflow trigger: workflow_dispatch (manual)", () => {
-      // Allows manual invocation with parameters:
-      // - dry_run: boolean
-      // - pr_number: string (optional)
-      // - issue_number: string (optional)
-      // Posts: Comment with allocation results
-      expect(true).toBe(true);
+    it("should parse 'Resolves #456'", () => {
+      const issues = allocator.parseLinkedIssues("Resolves #456");
+      expect(issues).toContain(456);
+    });
+
+    it("should parse 'Fixes #789'", () => {
+      const issues = allocator.parseLinkedIssues("Fixes #789");
+      expect(issues).toContain(789);
+    });
+
+    it("should parse multiple linked issues", () => {
+      const body = "Closes #100\nResolves #200\nFixes #300";
+      const issues = allocator.parseLinkedIssues(body);
+      expect(issues).toHaveLength(3);
+      expect(issues).toContain(100);
+      expect(issues).toContain(200);
+      expect(issues).toContain(300);
+    });
+
+    it("should be case-insensitive", () => {
+      const issues = allocator.parseLinkedIssues("CLOSES #111");
+      expect(issues).toContain(111);
+    });
+
+    it("should deduplicate issue numbers", () => {
+      const body = "Fixes #999 and Closes #999";
+      const issues = allocator.parseLinkedIssues(body);
+      expect(issues).toHaveLength(1);
+      expect(issues[0]).toBe(999);
+    });
+
+    it("should return empty array for null body", () => {
+      const issues = allocator.parseLinkedIssues(null);
+      expect(issues).toEqual([]);
+    });
+
+    it("should return empty array for undefined body", () => {
+      const issues = allocator.parseLinkedIssues(undefined);
+      expect(issues).toEqual([]);
+    });
+
+    it("should return empty array for body with no linked issues", () => {
+      const issues = allocator.parseLinkedIssues("This PR does something");
+      expect(issues).toEqual([]);
     });
   });
 
-  describe("Logging and Observability", () => {
-    test("Structured logging with timestamps", () => {
-      // Format: emoji [timestamp] [component] message
-      // Emojis: ✅ success, ⏭️  skip, ⚠️  warn, ❌ error
-      expect(true).toBe(true);
+  describe("isAlreadyAllocated", () => {
+    let allocator;
+    const targetMilestone = { number: 1 };
+
+    beforeEach(() => {
+      allocator = new MilestoneAllocator();
     });
 
-    test("Verbose mode for debugging", () => {
-      // --verbose flag enables detailed logging
-      // Shows decision-making process for troubleshooting
-      expect(true).toBe(true);
+    it("should return false if item has no milestone", () => {
+      const item = { title: "PR", milestone: null };
+      expect(allocator.isAlreadyAllocated(item, targetMilestone)).toBe(false);
     });
 
-    test("Summary report with statistics", () => {
-      // Printed at end of execution
-      // Shows: allocated, skipped, errors
-      // Useful for monitoring and auditing
-      expect(true).toBe(true);
+    it("should return true if milestone matches", () => {
+      const item = { title: "PR", milestone: { number: 1 } };
+      expect(allocator.isAlreadyAllocated(item, targetMilestone)).toBe(true);
+    });
+
+    it("should return false if milestone differs", () => {
+      const item = { title: "PR", milestone: { number: 2 } };
+      expect(allocator.isAlreadyAllocated(item, targetMilestone)).toBe(false);
+    });
+  });
+
+  describe("allocatePR", () => {
+    let allocator;
+    const milestone = { number: 1, title: "v1.0" };
+    const prResponse = { data: { number: 123, milestone: null, body: "" } };
+
+    beforeEach(() => {
+      allocator = new MilestoneAllocator();
+      allocator.octokit = mockOctokit;
+    });
+
+    it("should allocate PR successfully", async () => {
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce(prResponse);
+      mockOctokit.rest.pulls.update.mockResolvedValueOnce({});
+
+      const result = await allocator.allocatePR(123, milestone);
+      expect(result.status).toBe("allocated");
+      expect(allocator.stats.allocatedPRs).toBe(1);
+      expect(mockOctokit.rest.pulls.update).toHaveBeenCalledWith(
+        expect.objectContaining({ milestone: 1 }),
+      );
+    });
+
+    it("should skip already-allocated PR", async () => {
+      const prWithMilestone = {
+        data: { number: 123, milestone: { number: 1 }, body: "" },
+      };
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce(prWithMilestone);
+
+      const result = await allocator.allocatePR(123, milestone);
+      expect(result.status).toBe("skipped");
+      expect(result.reason).toBe("already-allocated");
+      expect(allocator.stats.skipped).toBe(1);
+      expect(mockOctokit.rest.pulls.update).not.toHaveBeenCalled();
+    });
+
+    it("should respect dry-run mode", async () => {
+      allocator.dryRun = true;
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce(prResponse);
+
+      const result = await allocator.allocatePR(123, milestone);
+      expect(result.status).toBe("dry-run");
+      expect(allocator.stats.allocatedPRs).toBe(1);
+      expect(mockOctokit.rest.pulls.update).not.toHaveBeenCalled();
+    });
+
+    it("should handle API errors", async () => {
+      mockOctokit.rest.pulls.get.mockRejectedValueOnce(
+        new Error("API Error"),
+      );
+
+      const result = await allocator.allocatePR(123, milestone);
+      expect(result.status).toBe("error");
+      expect(allocator.stats.errors).toBe(1);
+      expect(allocator.errors).toHaveLength(1);
+    });
+  });
+
+  describe("allocateIssue", () => {
+    let allocator;
+    const milestone = { number: 1 };
+    const issueResponse = { data: { number: 456, milestone: null } };
+
+    beforeEach(() => {
+      allocator = new MilestoneAllocator();
+      allocator.octokit = mockOctokit;
+    });
+
+    it("should allocate issue successfully", async () => {
+      mockOctokit.rest.issues.get.mockResolvedValueOnce(issueResponse);
+      mockOctokit.rest.issues.update.mockResolvedValueOnce({});
+
+      const result = await allocator.allocateIssue(456, milestone);
+      expect(result.status).toBe("allocated");
+      expect(allocator.stats.allocatedIssues).toBe(1);
+      expect(mockOctokit.rest.issues.update).toHaveBeenCalledWith(
+        expect.objectContaining({ milestone: 1 }),
+      );
+    });
+
+    it("should skip already-allocated issue", async () => {
+      const issueWithMilestone = {
+        data: { number: 456, milestone: { number: 1 } },
+      };
+      mockOctokit.rest.issues.get.mockResolvedValueOnce(issueWithMilestone);
+
+      const result = await allocator.allocateIssue(456, milestone);
+      expect(result.status).toBe("skipped");
+      expect(allocator.stats.skipped).toBe(1);
+      expect(mockOctokit.rest.issues.update).not.toHaveBeenCalled();
+    });
+
+    it("should respect dry-run mode", async () => {
+      allocator.dryRun = true;
+      mockOctokit.rest.issues.get.mockResolvedValueOnce(issueResponse);
+
+      const result = await allocator.allocateIssue(456, milestone);
+      expect(result.status).toBe("dry-run");
+      expect(allocator.stats.allocatedIssues).toBe(1);
+      expect(mockOctokit.rest.issues.update).not.toHaveBeenCalled();
+    });
+
+    it("should handle 404 as 'not-found' (deleted issue)", async () => {
+      const notFoundError = new Error("Not Found");
+      notFoundError.status = 404;
+      mockOctokit.rest.issues.get.mockRejectedValueOnce(notFoundError);
+
+      const result = await allocator.allocateIssue(456, milestone);
+      expect(result.status).toBe("not-found");
+      expect(allocator.stats.skipped).toBe(1);
+      expect(allocator.stats.errors).toBe(0);
+    });
+
+    it("should handle non-404 API errors", async () => {
+      mockOctokit.rest.issues.get.mockRejectedValueOnce(
+        new Error("Server Error"),
+      );
+
+      const result = await allocator.allocateIssue(456, milestone);
+      expect(result.status).toBe("error");
+      expect(allocator.stats.errors).toBe(1);
+    });
+  });
+
+  describe("fetchActiveMilestone", () => {
+    let allocator;
+
+    beforeEach(() => {
+      allocator = new MilestoneAllocator();
+      allocator.octokit = mockOctokit;
+    });
+
+    it("should fetch and return first milestone", async () => {
+      const milestones = [
+        {
+          number: 1,
+          title: "v1.0",
+          due_on: "2026-09-01",
+          created_at: "2026-08-01",
+        },
+      ];
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: milestones,
+      });
+
+      const result = await allocator.fetchActiveMilestone();
+      expect(result.number).toBe(1);
+    });
+
+    it("should sort by due_on date (earliest first)", async () => {
+      const milestones = [
+        {
+          number: 2,
+          title: "v2.0",
+          due_on: "2026-09-15",
+          created_at: "2026-08-01",
+        },
+        {
+          number: 1,
+          title: "v1.0",
+          due_on: "2026-09-01",
+          created_at: "2026-08-01",
+        },
+      ];
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: milestones,
+      });
+
+      const result = await allocator.fetchActiveMilestone();
+      expect(result.number).toBe(1);
+    });
+
+    it("should sort milestones with due dates before those without", async () => {
+      const milestones = [
+        { number: 2, title: "v2.0", due_on: null, created_at: "2026-08-01" },
+        {
+          number: 1,
+          title: "v1.0",
+          due_on: "2026-09-01",
+          created_at: "2026-08-01",
+        },
+      ];
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: milestones,
+      });
+
+      const result = await allocator.fetchActiveMilestone();
+      expect(result.number).toBe(1);
+    });
+
+    it("should use created_at as tiebreaker (latest first)", async () => {
+      const milestones = [
+        {
+          number: 1,
+          title: "v1.0",
+          due_on: "2026-09-01",
+          created_at: "2026-08-01",
+        },
+        {
+          number: 2,
+          title: "v1.1",
+          due_on: "2026-09-01",
+          created_at: "2026-08-15",
+        },
+      ];
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: milestones,
+      });
+
+      const result = await allocator.fetchActiveMilestone();
+      expect(result.number).toBe(2);
+    });
+
+    it("should throw error if no milestones found", async () => {
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: [],
+      });
+
+      await expect(allocator.fetchActiveMilestone()).rejects.toThrow(
+        AllocationError,
+      );
+    });
+
+    it("should wrap API errors in AllocationError", async () => {
+      mockOctokit.rest.issues.listMilestones.mockRejectedValueOnce(
+        new Error("API Error"),
+      );
+
+      await expect(allocator.fetchActiveMilestone()).rejects.toThrow(
+        "MILESTONE_FETCH_FAILED",
+      );
+    });
+  });
+
+  describe("allocate (main orchestration)", () => {
+    let allocator;
+    const milestone = {
+      number: 1,
+      title: "v1.0",
+      due_on: "2026-09-01",
+    };
+
+    beforeEach(() => {
+      allocator = new MilestoneAllocator();
+      allocator.octokit = mockOctokit;
+    });
+
+    it("should allocate PR with dry-run", async () => {
+      allocator.dryRun = true;
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: [milestone],
+      });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "Closes #456", milestone: null },
+      });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "Closes #456", milestone: null },
+      });
+      mockOctokit.rest.issues.get.mockResolvedValueOnce({
+        data: { number: 456, milestone: null },
+      });
+
+      const result = await allocator.allocate(123, null);
+      expect(result.success).toBe(true);
+      expect(result.stats.allocatedPRs).toBe(1);
+      expect(result.stats.allocatedIssues).toBe(1);
+    });
+
+    it("should handle forced milestone override", async () => {
+      const allocatorWithForced = new MilestoneAllocator({
+        milestone: 5,
+        dryRun: true,
+      });
+      allocatorWithForced.octokit = mockOctokit;
+
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "", milestone: null },
+      });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "", milestone: null },
+      });
+      mockOctokit.rest.pulls.update.mockResolvedValueOnce({});
+
+      const result = await allocatorWithForced.allocate(123, null);
+      expect(result.success).toBe(true);
+      expect(mockOctokit.rest.issues.listMilestones).not.toHaveBeenCalled();
+    });
+
+    it("should return failure on no active milestone", async () => {
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: [],
+      });
+
+      const result = await allocator.allocate(123, null);
+      expect(result.success).toBe(false);
+      expect(result.error).toContain("NO_ACTIVE_MILESTONE");
+    });
+
+    it("should allocate standalone issue", async () => {
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: [milestone],
+      });
+      mockOctokit.rest.issues.get.mockResolvedValueOnce({
+        data: { number: 789, milestone: null },
+      });
+      mockOctokit.rest.issues.update.mockResolvedValueOnce({});
+
+      const result = await allocator.allocate(null, 789);
+      expect(result.success).toBe(true);
+      expect(result.stats.allocatedIssues).toBe(1);
+    });
+
+    it("should allocate both PR and issue", async () => {
+      mockOctokit.rest.issues.listMilestones.mockResolvedValueOnce({
+        data: [milestone],
+      });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "", milestone: null },
+      });
+      mockOctokit.rest.pulls.get.mockResolvedValueOnce({
+        data: { number: 123, body: "", milestone: null },
+      });
+      mockOctokit.rest.pulls.update.mockResolvedValueOnce({});
+      mockOctokit.rest.issues.get.mockResolvedValueOnce({
+        data: { number: 456, milestone: null },
+      });
+      mockOctokit.rest.issues.update.mockResolvedValueOnce({});
+
+      const result = await allocator.allocate(123, 456);
+      expect(result.success).toBe(true);
+      expect(result.stats.allocatedPRs).toBe(1);
+      expect(result.stats.allocatedIssues).toBe(1);
     });
   });
 });
-
-/**
- * MANUAL TEST CASES
- *
- * To properly validate the implementation, perform these manual tests:
- *
- * TEST 1: Milestone Selection
- * Setup: Create 3 test milestones with different due dates
- * - v1.0 due 2026-08-15
- * - v1.1 due 2026-08-20
- * - v1.2 due 2026-08-25
- * Expected: Script selects v1.0 (earliest due date)
- * Run: node scripts/automation/allocate-to-milestone.js --dry-run
- * Verify: Log shows "Selected milestone #X "v1.0""
- *
- * TEST 2: PR Allocation
- * Setup: Merge a test PR without milestone
- * Expected: Script allocates PR to current active milestone
- * Run: node scripts/automation/allocate-to-milestone.js --dry-run
- * Verify: Log shows "[DRY-RUN] Would allocate PR #X to milestone #Y"
- * Run Live: node scripts/automation/allocate-to-milestone.js
- * Verify in GitHub: PR #X now shows milestone assignment
- *
- * TEST 3: Linked Issue Allocation
- * Setup: Merge PR with body "Fixes #100\nCloses #200"
- * Expected: PR and both linked issues allocated to same milestone
- * Run: node scripts/automation/allocate-to-milestone.js --dry-run
- * Verify: Log shows 3 allocations (1 PR + 2 issues)
- *
- * TEST 4: Deleted Issue Handling
- * Setup: PR references deleted issue: "Fixes #999"
- * Expected: Script logs warning but continues
- * Run: node scripts/automation/allocate-to-milestone.js
- * Verify: Log shows "Issue #999 not found (deleted?)"
- * Verify: stats.skipped incremented (not errors)
- *
- * TEST 5: Idempotency
- * Setup: Already-allocated PR
- * Run twice: node scripts/automation/allocate-to-milestone.js --dry-run
- * Expected: Second run shows PR as skipped
- * Verify: No duplicate allocations
- *
- * TEST 6: Workflow Trigger
- * Setup: Merge real PR to .github repository
- * Expected: Workflow automatically runs
- * Verify in GitHub: PR shows comment with allocation results
- * Verify in Milestones tab: PR assigned to current milestone
- *
- * TEST 7: Dry-Run Mode
- * Setup: Multiple unallocated PRs/issues
- * Run: node scripts/automation/allocate-to-milestone.js --dry-run
- * Expected: Script shows what would change
- * Verify: No actual changes made to GitHub
- * Compare: Run without --dry-run and confirm changes match preview
- */
