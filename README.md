@@ -227,12 +227,12 @@ See **[RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md)** for complete details.
 
 ```mermaid
 graph LR
-    A["🔔 GitHub Event<br/>(issue, PR, push)"]
-    B["⚙️ GitHub Actions<br/>Workflow"]
-    C["✓ Validation Layer<br/>(lint, test, security)"]
-    D["🔒 Policy Enforcement<br/>(labels, branch checks)"]
-    E["📋 Automated Actions<br/>(comments, status, sync)"]
-    F["✅ Organization-wide<br/>Consistency"]
+    A["GitHub Event<br/>(issue, PR, push)"]
+    B["GitHub Actions<br/>Workflow"]
+    C["Validation Layer<br/>(lint, test, security)"]
+    D["Policy Enforcement<br/>(labels, branch checks)"]
+    E["Automated Actions<br/>(comments, status, sync)"]
+    F["Organization-wide<br/>Consistency"]
 
     A -->|triggers| B
     B -->|executes| C
@@ -252,13 +252,13 @@ graph LR
 
 ```mermaid
 graph TD
-    A["📝 Issue Created"]
-    B["✓ Template Validation"]
-    C["🏷️ Auto-Labeling"]
-    D["📤 Team Routing"]
-    E["📊 Status Tracking"]
-    F["✅ Resolution & Docs"]
-    G["📋 Changelog Entry"]
+    A["Issue Created"]
+    B["Template Validation"]
+    C["Auto-Labeling"]
+    D["Team Routing"]
+    E["Status Tracking"]
+    F["Resolution & Docs"]
+    G["Changelog Entry"]
 
     A -->|template check| B
     B -->|DoR/DoD validated| C
@@ -282,12 +282,12 @@ graph TD
 
 ```mermaid
 graph LR
-    A["🌿 develop<br/>Feature Branch<br/>Merged"]
-    B["🚀 Trigger<br/>Release Workflow"]
-    C["📌 PR #1<br/>release/vX.Y.Z<br/>→ develop"]
-    D["📌 PR #2<br/>release/vX.Y.Z<br/>→ main"]
-    E["✅ main<br/>Tagged & Released"]
-    F["🔄 Post-Release Sync<br/>main → develop"]
+    A["develop<br/>Feature Branch<br/>Merged"]
+    B["Trigger<br/>Release Workflow"]
+    C["PR #1<br/>release/vX.Y.Z<br/>to develop"]
+    D["PR #2<br/>release/vX.Y.Z<br/>to main"]
+    E["main<br/>Tagged & Released"]
+    F["Post-Release Sync<br/>main to develop"]
 
     A -->|manual trigger| B
     B -->|version bump| C
@@ -309,7 +309,7 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph cp["🔒 .github Control-Plane<br/>(GitHub-native, org-specific)"]
+    subgraph cp[".github Control-Plane<br/>(GitHub-native, org-specific)"]
         A["workflows/"]
         B["ISSUE_TEMPLATE/"]
         C["PULL_REQUEST_TEMPLATE/"]
@@ -320,7 +320,7 @@ graph TB
         H["scripts/ (CI/CD automation)"]
     end
 
-    subgraph pa["🚀 Portable Assets<br/>(Reusable, no .github assumptions)"]
+    subgraph pa["Portable Assets<br/>(Reusable, no .github assumptions)"]
         I["ai/ (Claude, Gemini refs)"]
         J["agents/ (multi-file)"]
         K["instructions/ (org-wide)"]
@@ -331,7 +331,7 @@ graph TB
         P["hooks/ (guardrails)"]
     end
 
-    R["🌍 LightSpeedWP<br/>Other Repos"]
+    R["LightSpeedWP<br/>Other Repos"]
 
     cp -->|governance| R
     pa -->|import/reuse| R
