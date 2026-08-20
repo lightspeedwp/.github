@@ -100,6 +100,7 @@ This folder contains the validation and maintenance scripts for Design Partner.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

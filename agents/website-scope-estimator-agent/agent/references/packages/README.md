@@ -68,6 +68,7 @@ All packages begin with an audit of the live website and available references be
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

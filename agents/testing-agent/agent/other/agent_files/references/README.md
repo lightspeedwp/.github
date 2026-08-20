@@ -59,6 +59,7 @@ This folder contains durable maintainer guidance, workflow references, and tool-
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

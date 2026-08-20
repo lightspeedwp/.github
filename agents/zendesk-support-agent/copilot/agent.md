@@ -17,6 +17,7 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the Zendesk Support Agent integrates directly with GitHub's development environment, providing intelligent assistance within code editors and pull requests.
 
 Copilot excels at:
+
 - **GitHub Projects integration** – Manage issues and projects
 - **Code analysis** – Review and improve code
 - **Workflow automation** – Trigger GitHub Actions
@@ -36,9 +37,11 @@ Skills are triggered using @ mentions in Copilot Chat:
 ## Skill Implementation
 
 ### @zendesk-draft-response
+
 Drafts professional customer responses based on ticket context.
 
 **Usage:**
+
 ```
 @zendesk-draft-response Customer frustrated about payment issue
 - Tone: Empathetic and professional
@@ -47,9 +50,11 @@ Drafts professional customer responses based on ticket context.
 ```
 
 ### @zendesk-analyze-ticket
+
 Analyzes ticket sentiment, urgency, and complexity.
 
 **Usage:**
+
 ```
 @zendesk-analyze-ticket High-priority infrastructure issue
 - Show: Sentiment, emotion, urgency indicators
@@ -58,9 +63,11 @@ Analyzes ticket sentiment, urgency, and complexity.
 ```
 
 ### @zendesk-find-solution
+
 Searches knowledge base for relevant solutions.
 
 **Usage:**
+
 ```
 @zendesk-find-solution How do I reset my password?
 - Find: Related KB articles
@@ -69,9 +76,11 @@ Searches knowledge base for relevant solutions.
 ```
 
 ### @zendesk-route-escalation
+
 Recommends appropriate escalation routing.
 
 **Usage:**
+
 ```
 @zendesk-route-escalation Technical issue requiring engineering expertise
 - Assess: Team capabilities needed
@@ -80,9 +89,11 @@ Recommends appropriate escalation routing.
 ```
 
 ### @zendesk-quality-check
+
 Validates response quality before sending.
 
 **Usage:**
+
 ```
 @zendesk-quality-check Review this response for quality
 - Check: Tone, completeness, clarity
@@ -91,9 +102,11 @@ Validates response quality before sending.
 ```
 
 ### @zendesk-metrics
+
 Generates support team metrics and insights.
 
 **Usage:**
+
 ```
 @zendesk-metrics Q3 support performance report
 - Calculate: Response times, resolution rates
@@ -106,6 +119,7 @@ Generates support team metrics and insights.
 Copilot provides responses optimized for GitHub:
 
 ### Response Draft
+
 ```markdown
 ## Suggested Response
 
@@ -121,6 +135,7 @@ Copilot provides responses optimized for GitHub:
 ```
 
 ### Ticket Analysis
+
 ```markdown
 ## Ticket Assessment
 - Sentiment: Frustrated
@@ -132,6 +147,7 @@ Copilot provides responses optimized for GitHub:
 ## GitHub Integration
 
 Works with:
+
 - **GitHub Projects** – Track support issues and workload
 - **GitHub Discussions** – Share customer feedback and solutions
 - **Pull Requests** – Link code changes to support tickets
@@ -141,24 +157,28 @@ Works with:
 ## Workflow Integration
 
 ### GitHub Issues to Zendesk
+
 - Create GitHub issues from support tickets
 - Link issues to customer feedback
 - Track resolution status
 - Auto-close when resolved
 
 ### Support Metrics Dashboard
+
 - Real-time response metrics
 - Team productivity tracking
 - Resolution rate trends
 - Customer satisfaction scores
 
 ### Knowledge Base Sync
+
 - Sync KB articles to GitHub Wiki
 - Link issues to KB articles
 - Track article usage
 - Identify coverage gaps
 
 ### Team Communication
+
 - Share ticket summaries in discussions
 - Escalate via GitHub issues
 - Coordinate resolutions
@@ -167,6 +187,7 @@ Works with:
 ## Advanced Integration Patterns
 
 ### Automated Ticket Processing
+
 1. New support ticket arrives
 2. GitHub issue created automatically
 3. KB articles linked
@@ -175,6 +196,7 @@ Works with:
 6. Resolution tracked and documented
 
 ### Support Metrics Pipeline
+
 1. Collect response time data
 2. Calculate utilization rates
 3. Assess satisfaction metrics
@@ -183,6 +205,7 @@ Works with:
 6. Alert on issues
 
 ### Knowledge Base Maintenance
+
 1. Track KB article usage
 2. Identify gaps from ticket patterns
 3. Create articles for common issues
@@ -193,18 +216,21 @@ Works with:
 ## Performance Optimization
 
 ### Fast Response Time
+
 - Use templates for common issues
 - Pre-search KB articles
 - Quick escalation paths
 - Parallel processing
 
 ### Quality Assurance
+
 - Automatic response review
 - Tone and completeness checks
 - Solution validation
 - Follow-up verification
 
 ### Team Efficiency
+
 - Workload balancing
 - Skill-based routing
 - Escalation automation

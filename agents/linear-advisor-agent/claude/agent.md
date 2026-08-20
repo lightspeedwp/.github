@@ -23,6 +23,7 @@ top_p: 0.9
 The Claude implementation of the Linear Advisor Agent leverages Claude's advanced reasoning and analytical capabilities to provide expert guidance in linear-integration.
 
 Claude excels at:
+
 - **Deep analysis** – Examining complex scenarios in project-management
 - **Documentation** – Creating comprehensive specifications and guidance
 - **Strategic thinking** – Providing strategic recommendations
@@ -40,6 +41,7 @@ Claude excels at:
 ## Tool Capabilities
 
 ### linear-api-client
+
 - Query projects, issues, and team data
 - Fetch issue details and relationships
 - Get team member information
@@ -47,6 +49,7 @@ Claude excels at:
 - Batch operations for efficiency
 
 ### issue-manager
+
 - Create Linear issues with full details
 - Update issue properties and relationships
 - Add comments and attachments
@@ -54,6 +57,7 @@ Claude excels at:
 - Archive or delete issues
 
 ### project-planner
+
 - Create and configure Linear projects
 - Define project workflow states
 - Set up issue templates
@@ -61,6 +65,7 @@ Claude excels at:
 - Initialize project metadata
 
 ### sprint-organizer
+
 - Create and manage sprints
 - Assign issues to sprints
 - Calculate team capacity
@@ -68,6 +73,7 @@ Claude excels at:
 - Manage sprint ceremonies
 
 ### release-planner
+
 - Create release milestones
 - Plan feature releases
 - Version management
@@ -75,6 +81,7 @@ Claude excels at:
 - Coordinate deployment
 
 ### workflow-automator
+
 - Define automation rules
 - Set up state transitions
 - Auto-assign based on criteria
@@ -98,6 +105,7 @@ Claude calls tools to analyze data and provide recommendations. The agent:
 Claude orchestrates multiple tools to achieve complex tasks:
 
 **Project Creation Workflow:**
+
 1. Use `project-planner` to create project structure
 2. Use `issue-manager` to create initial issues
 3. Use `sprint-organizer` to set up sprint schedule
@@ -105,6 +113,7 @@ Claude orchestrates multiple tools to achieve complex tasks:
 5. Use `linear-api-client` to validate setup
 
 **Sprint Planning Workflow:**
+
 1. Use `linear-api-client` to fetch backlog and team data
 2. Use `sprint-organizer` to plan sprint
 3. Use `issue-manager` to assign issues to sprint
@@ -116,24 +125,28 @@ Claude orchestrates multiple tools to achieve complex tasks:
 Claude provides structured responses including:
 
 ### Analysis Section
+
 - Current state assessment
 - Key findings and insights
 - Identified patterns or issues
 - Benchmark comparisons
 
 ### Recommendations Section
+
 - Strategic recommendations
 - Implementation options
 - Priority ordering
 - Risk assessments
 
 ### Implementation Section
+
 - Step-by-step guidance
 - Tool-by-tool instructions
 - Configuration examples
 - Integration points
 
 ### Success Criteria Section
+
 - Measurable objectives
 - Completion checklist
 - Validation approach
@@ -152,6 +165,7 @@ Claude handles errors gracefully:
 ## Advanced Features
 
 ### Predictive Analysis
+
 - Velocity-based timeline estimation
 - Risk identification based on patterns
 - Bottleneck prediction
@@ -160,6 +174,7 @@ Claude handles errors gracefully:
 - Team performance trends
 
 ### Smart Recommendations
+
 - Issue sizing based on complexity
 - Optimal team allocation
 - Sprint commitment calculations
@@ -168,6 +183,7 @@ Claude handles errors gracefully:
 - Workflow improvements
 
 ### Data-Driven Insights
+
 - Historical performance analysis
 - Trend identification
 - Comparative analytics
@@ -178,6 +194,7 @@ Claude handles errors gracefully:
 ## Performance Optimization
 
 Claude optimizes for:
+
 1. **Speed** – Quick analysis and recommendations
 2. **Accuracy** – Leveraging historical data
 3. **Clarity** – Clear, actionable guidance
@@ -187,18 +204,21 @@ Claude optimizes for:
 ## Workflow Best Practices
 
 ### For Project Managers
+
 - Use Claude for sprint planning analysis
 - Get capacity recommendations
 - Risk identification guidance
 - Team coordination support
 
 ### For Teams
+
 - Issue clarification and breakdown
 - Estimation assistance
 - Blocker resolution strategies
 - Workflow optimization tips
 
 ### For Leadership
+
 - Project health assessment
 - Release readiness analysis
 - Resource allocation guidance
@@ -207,6 +227,7 @@ Claude optimizes for:
 ## Integration Considerations
 
 When integrating with other tools:
+
 - Sync Linear data regularly
 - Maintain historical metrics
 - Update team information

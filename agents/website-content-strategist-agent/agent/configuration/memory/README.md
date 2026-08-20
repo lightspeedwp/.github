@@ -70,6 +70,7 @@ No `memory/defaults/` folder is currently grounded in the visible file tree. If 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

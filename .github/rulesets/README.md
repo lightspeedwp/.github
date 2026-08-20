@@ -54,6 +54,7 @@ To apply or update rulesets:
 1. Navigating to the repository settings page on GitHub.
 2. Select **Rules** -> **Rulesets** from the sidebar.
 3. Import the ruleset definition using these JSON files, or configure them to match.
+
 ## Visual Workflow
 
 ```mermaid

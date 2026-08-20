@@ -159,6 +159,7 @@ gh workflow run release.yml -f scope=major -f dry_run=true
 ```
 
 **Parameters:**
+
 - `scope` — `patch` (default), `minor`, or `major`
 - `dry_run` — `true` to preview, `false` to execute
 
@@ -173,6 +174,7 @@ gh run list --workflow=release.yml --limit=1
 ```
 
 **Expected output:**
+
 ```
 Status: ✅ success
 Artifacts: release-agent-output.json (version bump details)
@@ -193,6 +195,7 @@ gh pr merge --squash --delete-branch
 ```
 
 **What to verify:**
+
 - ✅ Version bumped correctly in VERSION file
 - ✅ CHANGELOG.md updated with new entries
 - ✅ Branch protection rules pass
@@ -231,6 +234,7 @@ gh pr merge --squash --delete-branch
 | **Major** | Dual approval | 2 maintainers + ADR | 1–4 hours |
 
 **How to approve:**
+
 - Patch: Automatically approved if agentic confidence ≥ 0.8
 - Minor: Comment "approved" or "LGTM" on PR
 - Major: 2 maintainers approve + Architecture Decision Record (ADR) linked
@@ -251,6 +255,7 @@ gh pr view <pr-number> --json body | jq '.body'
 ```
 
 **Expected flow:**
+
 1. PR #2 created automatically (release/vX.Y.Z → main)
 2. All 7 gates run in parallel
 3. Agentic confidence score calculated
@@ -269,6 +274,7 @@ If any gate fails:
 4. **Retry:** Gates re-run on each commit
 
 **Common failures:**
+
 - Changelog format mismatch → fix CHANGELOG.md format
 - Test failures → fix failing tests
 - Linting errors → run prettier/eslint --fix
@@ -294,6 +300,7 @@ gh workflow run release.yml -f scope=minor -f dry_run=false
 ### WordPress Plugin
 
 **Version files:**
+
 - Main plugin file: `Version: X.Y.Z` header
 - readme.txt: `Stable tag: X.Y.Z`
 - (optional) `VERSION` file
@@ -310,6 +317,7 @@ gh workflow run release.yml -f scope=patch -f dry_run=false
 ```
 
 **What Phase 1 updates:**
+
 - ✅ Plugin header (Version: line)
 - ✅ readme.txt (Stable tag: line)
 - ✅ VERSION file (if exists)
@@ -329,6 +337,7 @@ gh workflow run release.yml -f scope=minor -f dry_run=false
 ```
 
 **What Phase 1 updates:**
+
 - ✅ style.css (Version: line in CSS header)
 - ✅ VERSION file (if exists)
 - ✅ CHANGELOG.md
@@ -448,6 +457,7 @@ gh workflow run release.yml -f scope=patch -f dry_run=false
 **Problem:** User not in maintainers team or invalid trigger event
 
 **Solution:**
+
 ```bash
 # Verify team membership
 gh api /user/memberships/orgs/lightspeedwp
@@ -461,6 +471,7 @@ gh api /user/memberships/orgs/lightspeedwp
 
 **Solution:**
 Create a VERSION file in repo root:
+
 ```bash
 echo "1.0.0" > VERSION
 git add VERSION
@@ -474,6 +485,7 @@ git push origin develop
 
 **Solution:**
 Check CHANGELOG.md header format:
+
 ```markdown
 # Changelog
 
@@ -501,6 +513,7 @@ All notable changes to this project are documented in this file.
 **Problem:** Linting or formatting issues detected
 
 **Solution:**
+
 ```bash
 npm run format  # Auto-fix formatting
 npm run lint:fix  # Auto-fix linting issues
@@ -514,6 +527,7 @@ git push  # Gates re-run automatically
 **Problem:** Automated tests failing
 
 **Solution:**
+
 ```bash
 # Run tests locally
 npm test
@@ -530,6 +544,7 @@ git push  # Gates re-run
 **Problem:** Branch has conflicts that auto-rebase cannot fix
 
 **Solution:**
+
 ```bash
 # Manually rebase
 git fetch origin
@@ -585,6 +600,7 @@ gh workflow run release.yml -f scope=major -f dry_run=false
 ### Q: What version format is supported?
 
 **Answer:** SemVer only (X.Y.Z format):
+
 - ✅ `1.0.0`
 - ✅ `1.2.3`
 - ✅ `2.0.0-beta` (pre-release)
@@ -614,6 +630,7 @@ git push
 ### Q: How often can I release?
 
 **Answer:** As often as needed. Recommendations:
+
 - **Patch fixes:** As needed (critical bugs)
 - **Minor releases:** Weekly or bi-weekly
 - **Major releases:** Quarterly or as planned
@@ -628,6 +645,7 @@ Release process: `develop` (v bump) → `main` (release) → `develop` (sync)
 ### Q: Can multiple people release simultaneously?
 
 **Answer:** No. Mergify sequential queue ensures one release at a time:
+
 - PR #1 merges → develop updated
 - PR #2 merges → main updated
 - Post-sync merges → branches in sync
@@ -644,6 +662,7 @@ Release process: `develop` (v bump) → `main` (release) → `develop` (sync)
 Located: `agents/release/`
 
 **Provides:**
+
 - Repository type detection
 - Version file management
 - CHANGELOG.md validation
@@ -657,6 +676,7 @@ See [Release Agent README](../agents/release/README.md) for details.
 Located: `agents/wordpress/`
 
 **Provides:**
+
 - Plugin header versioning
 - Theme CSS versioning
 - readme.txt management
@@ -669,6 +689,7 @@ See [WordPress Agent README](../agents/wordpress/README.md) for details.
 Located: `agents/changelog/`
 
 **Provides:**
+
 - CHANGELOG.md validation
 - Entry formatting
 - Two-gate validation logic
@@ -680,6 +701,7 @@ See [Changelog Agent README](../agents/changelog/README.md) for details.
 Located: `.github/workflows/release.yml`
 
 **Provides:**
+
 - 7-layer safety gates
 - Authorization validation
 - Approval workflow

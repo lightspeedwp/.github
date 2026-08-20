@@ -20,7 +20,6 @@ The Zendesk Support Agent manages customer support tickets, drafts professional 
 
 ### 1. Ticket Intake & Categorization
 
-
 ```
 
 Input: New customer ticket
@@ -30,7 +29,6 @@ Output: Categorized ticket, priority, context summary
 ```
 
 ### 2. Response Assistance
-
 
 ```
 
@@ -42,7 +40,6 @@ Output: Professional response draft, alternatives, quality assessment
 
 ### 3. Knowledge Base Integration
 
-
 ```
 
 Input: Customer issue
@@ -52,7 +49,6 @@ Output: Recommended articles, solution suggestions
 ```
 
 ### 4. Escalation Routing
-
 
 ```
 

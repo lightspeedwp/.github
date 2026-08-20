@@ -51,7 +51,7 @@ module.exports = {
   /**
    * Fix mode (auto-fix violations where possible)
    */
-  fix: false,
+  fix: true,
 
   /**
    * Output formatter

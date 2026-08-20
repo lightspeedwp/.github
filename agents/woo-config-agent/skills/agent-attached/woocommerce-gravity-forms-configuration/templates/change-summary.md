@@ -8,7 +8,7 @@
 
 ## Items not changed
 
-- 
+-
 
 ## Validation results
 
@@ -32,7 +32,7 @@
 
 ## Follow-up actions
 
-1. 
+1.
 2.
 
 ---

@@ -54,6 +54,7 @@ Store workflow tests, validation tests, and other repeatable checks for the agen
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -79,6 +79,7 @@ Load only the smallest file set needed for the task.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

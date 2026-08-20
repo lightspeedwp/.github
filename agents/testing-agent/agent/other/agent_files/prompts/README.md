@@ -98,6 +98,7 @@ For MCP work, run the LightSpeed Playwright MCP validation prompt first, then us
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

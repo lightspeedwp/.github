@@ -130,6 +130,7 @@ When a prompt is part of a paired workflow, the validation or audit prompt shoul
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -42,6 +42,7 @@ Do not treat names, ticket numbers, organisations, domains, timestamps, product 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

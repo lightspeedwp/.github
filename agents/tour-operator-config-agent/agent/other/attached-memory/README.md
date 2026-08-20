@@ -55,6 +55,7 @@ Use this folder for durable project state, repeated preferences, QA continuity, 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

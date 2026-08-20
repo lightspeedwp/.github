@@ -65,6 +65,7 @@ Store validation-pack test definitions and coverage notes for the scaffold’s v
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

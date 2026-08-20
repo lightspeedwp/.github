@@ -187,6 +187,7 @@ npm test -- hooks/ --coverage
 ---
 
 *🎼 Orchestrated automation — where intelligence meets operations*
+
 ## Visual Workflow
 
 ```mermaid

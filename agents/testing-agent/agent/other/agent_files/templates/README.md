@@ -64,6 +64,7 @@ This folder contains the canonical reusable output templates used by the Playwri
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -53,6 +53,7 @@ This folder stores human-readable validation expectations and regression checks 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

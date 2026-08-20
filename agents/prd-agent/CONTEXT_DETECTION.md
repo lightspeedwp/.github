@@ -43,6 +43,7 @@ graph TD
 
 **File:** Root `plugin.php`  
 **Pattern Match:**
+
 ```php
 <?php
 /**
@@ -62,12 +63,14 @@ graph TD
 **Primary Marker:** `blocks/` folder exists
 
 **Supporting Markers:**
+
 - `blocks/my-block/block.json` — Block registration file
 - `blocks/my-block/index.js` — Block JavaScript
 - `blocks/my-block/index.php` — Optional block rendering PHP
 - Multiple block folders in `blocks/` directory
 
 **Detection Logic:**
+
 ```
 If plugin.php exists AND (
     blocks/ folder exists OR
@@ -89,6 +92,7 @@ If plugin.php exists AND (
 
 **File:** Root `theme.json`  
 **Pattern Match:**
+
 ```json
 {
   "version": 2,
@@ -109,6 +113,7 @@ If plugin.php exists AND (
 **Primary Markers:** `templates/` or `patterns/` folder
 
 **Supporting Markers:**
+
 - `templates/index.html` — Main template file
 - `templates/single.html` — Single post template
 - `templates/archive.html` — Archive template
@@ -117,6 +122,7 @@ If plugin.php exists AND (
 - `style.css` — Theme stylesheet
 
 **Detection Logic:**
+
 ```
 If theme.json exists AND (
     templates/ folder exists OR
@@ -139,6 +145,7 @@ If theme.json exists AND (
 #### Step 5: Check for Hybrid Project
 
 **Detection Logic:**
+
 ```
 If (plugin.php exists AND blocks/ folder exists) AND
    (theme.json exists AND templates/ folder exists)
@@ -146,6 +153,7 @@ If (plugin.php exists AND blocks/ folder exists) AND
 ```
 
 **Characteristics:**
+
 - Both plugin infrastructure and theme infrastructure present
 - Likely: Plugin provides blocks, theme provides interface to use them
 - Likely: Tight coupling between plugin and theme components
@@ -162,6 +170,7 @@ If (plugin.php exists AND blocks/ folder exists) AND
 #### Step 6: Custom WordPress Projects
 
 **When Detection is Uncertain:**
+
 - Repository doesn't match standard plugin/theme patterns
 - Custom folder structure or naming conventions
 - Multi-component project not fitting standard categories

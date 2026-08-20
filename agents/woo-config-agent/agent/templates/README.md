@@ -55,6 +55,7 @@ For this agent, templates should stay WooCommerce-first and support audit, imple
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

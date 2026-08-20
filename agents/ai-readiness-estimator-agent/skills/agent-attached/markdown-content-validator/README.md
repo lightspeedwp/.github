@@ -46,6 +46,7 @@ python scripts/validate_markdown_content.py --target files --schema references/f
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

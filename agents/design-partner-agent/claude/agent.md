@@ -23,6 +23,7 @@ top_p: 0.9
 The Claude implementation of the Design Partner Agent leverages Claude's deep reasoning capabilities, extensive design knowledge, and support for large context windows to provide expert design consultation, comprehensive accessibility audits, and detailed design documentation.
 
 Claude excels at:
+
 - **In-depth analysis** – Examining complex design systems and providing detailed recommendations
 - **Documentation generation** – Creating comprehensive, well-structured design documentation
 - **Design token management** – Extracting, validating, and organizing design tokens

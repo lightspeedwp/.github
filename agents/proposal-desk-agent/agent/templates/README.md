@@ -80,6 +80,7 @@ Use before drafting when audience fit will materially affect framing, emphasis, 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

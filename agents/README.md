@@ -44,6 +44,7 @@ For full inventory and governance context, see:
 - `ai/agents.md`
 - `AGENTS.md`
 - `CLAUDE.md`
+
 ## Visual Workflow
 
 ```mermaid

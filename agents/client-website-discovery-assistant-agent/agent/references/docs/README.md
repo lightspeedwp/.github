@@ -56,6 +56,7 @@ This folder explains how the agent should use the attached control documents bef
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

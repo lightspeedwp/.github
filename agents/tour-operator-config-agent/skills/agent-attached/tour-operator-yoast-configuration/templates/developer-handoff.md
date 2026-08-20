@@ -2,11 +2,11 @@
 
 ## Goal
 
-- 
+-
 
 ## Evidence
 
-- 
+-
 
 ## Target layer
 
@@ -18,7 +18,7 @@
 
 ## Implementation notes
 
-- 
+-
 
 ## Tests
 
@@ -30,7 +30,7 @@
 
 ## Rollback notes
 
-- 
+-
 
 ---
 

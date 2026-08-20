@@ -61,6 +61,7 @@ This folder stores executable validators and helper runners for canonical agent 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

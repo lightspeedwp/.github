@@ -61,11 +61,13 @@ The Chat Closure Agent helps teams automate session closures and context handoff
 ## 📖 Document Details
 
 ### Quick Start Guide
+
 **[quick-start.md](./quick-start.md)**
 
 ✅ **Perfect for:** First-time users  
 ⏱️ **Duration:** 5 minutes  
 📝 **Contains:**
+
 - Installation steps
 - Your first session closure (step-by-step)
 - Common scenarios (uncommitted work, mid-feature, PR-ready)
@@ -76,11 +78,13 @@ The Chat Closure Agent helps teams automate session closures and context handoff
 ---
 
 ### Team Onboarding Guide
+
 **[team-onboarding.md](./team-onboarding.md)**
 
 ✅ **Perfect for:** Team leads and managers  
 ⏱️ **Duration:** 20 minutes (for team meeting)  
 📝 **Contains:**
+
 - Introduction to the agent (what & why)
 - Setup instructions for team
 - Usage training with examples
@@ -96,11 +100,13 @@ The Chat Closure Agent helps teams automate session closures and context handoff
 ---
 
 ### CLI Reference
+
 **[cli-reference.md](./cli-reference.md)**
 
 ✅ **Perfect for:** Developers writing scripts  
 ⏱️ **Duration:** Reference (read as needed)  
 📝 **Contains:**
+
 - Global options (`--help`, `--version`)
 - Core options (`--session`, `--path`, `--output`)
 - Decision options (`--decisions`, `--blockers`, `--next-steps`)
@@ -116,11 +122,13 @@ The Chat Closure Agent helps teams automate session closures and context handoff
 ---
 
 ### Integration Guide
+
 **[integration-guide.md](./integration-guide.md)**
 
 ✅ **Perfect for:** DevOps, architects, multi-project teams  
 ⏱️ **Duration:** 15 minutes  
 📝 **Contains:**
+
 - Supported repository types (control-plane, plugin, theme)
 - Integration patterns (per-project, npm scripts, shared library)
 - Repository-specific configuration
@@ -135,11 +143,13 @@ The Chat Closure Agent helps teams automate session closures and context handoff
 ---
 
 ### Troubleshooting FAQ
+
 **[troubleshooting-faq.md](./troubleshooting-faq.md)**
 
 ✅ **Perfect for:** Everyone  
 ⏱️ **Duration:** Reference (read as needed)  
 📝 **Contains:**
+
 - Installation & setup issues
 - Repository analysis issues
 - Memory & file operation issues
@@ -169,7 +179,7 @@ The Chat Closure Agent has comprehensive internal documentation:
 
 ## 🚀 Getting Started Right Now
 
-### In 2 minutes:
+### In 2 minutes
 
 ```bash
 # Create a simple script
@@ -254,16 +264,19 @@ When you're done learning, you should be able to:
 ## 🎓 Learning Resources
 
 ### Video Tutorials (planned)
+
 - Getting started in 5 minutes
 - Team setup walkthrough
 - Multi-project integration
 
 ### Blog Posts (planned)
+
 - "Why session closures matter"
 - "Reducing handoff time by 10x"
 - "Team coordination without meetings"
 
 ### Examples
+
 - [Real-world sample workflow](../agents/chat-closure-agent/examples/sample-closure-workflow.md)
 - [Multiple repository closure](./integration-guide.md#example-1-feature-across-plugin--theme)
 - [Sprint planning integration](./integration-guide.md#sprint-planning-integration)
@@ -293,7 +306,7 @@ When you're done learning, you should be able to:
 
 - **Issues:** [GitHub Issues](https://github.com/lightspeedwp/.github/issues)
 - **Slack:** #agents channel
-- **Email:** team@lightspeedwp.agency
+- **Email:** <team@lightspeedwp.agency>
 
 ---
 

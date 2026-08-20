@@ -97,6 +97,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines.
 ---
 
 *🎼 Orchestrated automation — where intelligence meets operations*
+
 ## Visual Workflow
 
 ```mermaid

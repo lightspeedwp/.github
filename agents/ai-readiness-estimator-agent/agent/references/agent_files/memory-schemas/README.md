@@ -68,6 +68,7 @@ This folder currently supports these Memory files:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

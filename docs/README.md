@@ -51,6 +51,7 @@ This folder is the canonical documentation index for governance, workflows, rele
 
 - Use uppercase file names exactly as present in this folder.
 - Prefer this index over legacy links in archived documents.
+
 ## Visual Workflow
 
 ```mermaid

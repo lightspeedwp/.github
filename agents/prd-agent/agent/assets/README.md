@@ -60,6 +60,7 @@ Assets are reusable support materials. Examples are worked planning outputs that
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

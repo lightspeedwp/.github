@@ -54,6 +54,7 @@ Read this README first, then open only the specific doc needed for the current t
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

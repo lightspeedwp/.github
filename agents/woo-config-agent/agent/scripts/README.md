@@ -112,6 +112,7 @@ This inventory covers the currently grounded files in the attached `scripts/` fo
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

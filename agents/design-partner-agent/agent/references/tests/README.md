@@ -46,6 +46,7 @@ Store test cases, prompt regressions, evaluation notes, and expected-output chec
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -103,6 +103,7 @@ Validation output should align with `schemas/validation-report.schema.json` and 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

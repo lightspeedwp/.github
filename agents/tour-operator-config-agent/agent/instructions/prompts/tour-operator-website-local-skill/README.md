@@ -94,6 +94,7 @@ The end state is a local `tour-operator-website` skill package that:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

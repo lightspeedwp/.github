@@ -75,6 +75,7 @@ When receiving a `woocommerce-gravity-forms-auditor` handoff, load `references/a
 Treat the handoff as evidence input, not permission to change the site.
 
 Before planning writes:
+
 1. Validate required handoff fields against `schemas/auditor-configuration-handoff.schema.json` when structured data is available.
 2. Preserve original finding IDs in the intake response, change plan, validation report, and final handoff note.
 3. Verify current site state through MCP, export, screenshots, pasted settings, or manual evidence before proposing changes.
@@ -159,7 +160,6 @@ Payments, subscriptions, tax, order creation, account creation, role assignment,
 ## WooCommerce scope gate and routing
 
 Before planning or applying any change, confirm WooCommerce core is active when live-site evidence is available. Keep Gravity Forms scoped to product enquiry, quote request, product option, deposit/payment, account/onboarding, support, or post-purchase flows that belong to a WooCommerce site. Do not treat Gravity Forms as a replacement for core WooCommerce checkout unless the project explicitly requires a custom lead/quote/payment flow and the relevant ecommerce/payment decisions are approved. Route broader checkout, subscription, cart, tax, shipping, fulfilment, order lifecycle, and product catalogue architecture back to the WooCommerce Configuration Agent. Use `profiles/woocommerce-configuration-agent.md` for defaults.
-
 
 ## Required output structure
 

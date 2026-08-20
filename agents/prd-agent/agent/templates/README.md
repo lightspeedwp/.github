@@ -66,6 +66,7 @@ Templates define the standard blank or scaffold output shape. Filled examples th
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

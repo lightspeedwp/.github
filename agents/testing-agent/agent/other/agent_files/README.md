@@ -81,6 +81,7 @@ Remove files only when they are exact duplicates. Similar names across `examples
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

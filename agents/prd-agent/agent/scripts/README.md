@@ -54,6 +54,7 @@ Store helper scripts that support validation, consistency checks, and agent-main
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

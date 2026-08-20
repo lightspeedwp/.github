@@ -50,6 +50,7 @@ This folder holds supporting reference material that informs delivery decisions 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -23,6 +23,7 @@ and best practices for production environments.
 ## Overview
 
 OpenAI is recommended for:
+
 - **Cost-conscious deployments** — GPT-4o mini offers excellent price/performance
 - **Server-side integration** — REST API works anywhere (no SDK dependency)
 - **Batch processing** — Large-volume test generation at 50% discount
@@ -36,18 +37,19 @@ production deployments.
 
 ### Prerequisites
 
-- OpenAI API key (from https://platform.openai.com/api-keys)
+- OpenAI API key (from <https://platform.openai.com/api-keys>)
 - Billing account with sufficient credits or payment method on file
 - Python 3.8+ OR Node.js 14+ (for SDK)
 
 ### Authentication
 
 1. **Obtain API Key**
-   - Visit https://platform.openai.com/api-keys
+   - Visit <https://platform.openai.com/api-keys>
    - Create new secret key
    - Copy and store securely (never commit to version control)
 
 2. **Environment Configuration**
+
    ```bash
    # .env.local (git-ignored)
    OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -55,6 +57,7 @@ production deployments.
    ```
 
 3. **Verify Setup**
+
    ```bash
    # Quick test
    curl https://api.openai.com/v1/models \
@@ -64,16 +67,19 @@ production deployments.
 ### SDK Installation
 
 **Python:**
+
 ```bash
 pip install openai
 ```
 
 **Node.js:**
+
 ```bash
 npm install openai
 ```
 
 **Go:**
+
 ```bash
 go get github.com/sashabaranov/go-openai
 ```
@@ -92,24 +98,28 @@ go get github.com/sashabaranov/go-openai
 ### Selection Guidance
 
 **Use gpt-4o-mini if:**
+
 - Budget is primary concern (80% cheaper than gpt-4o)
 - Test packs are simple or single-flow
 - Volume is high (>500 test packs/month)
 - Latency acceptable for batch jobs
 
 **Use gpt-4o if:**
+
 - Analyzing complex, multi-flow requirements
 - Multiple concurrent sources (PRD + API + design specs)
 - Latency critical (<3s required)
 - Budget allows (~$0.01–0.03 per test pack)
 
 **Use o1 / o1-mini if:**
+
 - Identifying deep edge cases or security-sensitive scenarios
 - Requirements are ambiguous or contradictory
 - Need verification of complex test logic
 - Willing to accept 10–30s latency for better results
 
 **Avoid:**
+
 - Older models (gpt-3.5-turbo, davinci, curie)—deprecating in Q1 2025
 - Base models (gpt-4-base)—require manual fine-tuning
 
@@ -118,6 +128,7 @@ go get github.com/sashabaranov/go-openai
 ### Per-Request Allocation
 
 Test pack runs typically use:
+
 - **Input**: 1–5K tokens
   - Prompt + configuration: 0.5–1K
   - Requirements sources: 0.5–2K
@@ -142,6 +153,7 @@ OpenAI enforces rate limits based on your plan:
 Implement exponential backoff:
 
 **Python:**
+
 ```python
 import time
 import openai
@@ -163,6 +175,7 @@ def call_with_retry(messages, max_retries=5):
 ```
 
 **Node.js:**
+
 ```javascript
 const OpenAI = require('openai');
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -195,10 +208,11 @@ async function callWithRetry(messages, maxRetries = 5) {
 Monitor your usage to avoid surprise overage:
 
 1. **OpenAI Dashboard**
-   - https://platform.openai.com/account/billing/overview
+   - <https://platform.openai.com/account/billing/overview>
    - Set spending limit: Settings → Billing → Usage limits
 
 2. **Programmatic Monitoring**
+
    ```python
    # Check remaining quota
    response = openai.models.list()
@@ -216,23 +230,27 @@ Monitor your usage to avoid surprise overage:
 ### When to Use Batch API
 
 Use batch API when:
+
 - Generating >20 test packs in one go
 - Latency is not critical (24–48 hour turnaround acceptable)
 - **Cost savings are important** (50% discount)
 
 Avoid batch API for:
+
 - Interactive workflows (user waiting for response)
 - Time-sensitive requirements
 
 ### Batch API Setup
 
 1. **Prepare batch file** (JSONL format)
+
    ```json
    {"custom_id": "test-pack-001", "params": {"model": "gpt-4o-mini", "messages": [{"role": "user", "content": "Generate test pack..."}]}}
    {"custom_id": "test-pack-002", "params": {"model": "gpt-4o-mini", "messages": [{"role": "user", "content": "Generate test pack..."}]}}
    ```
 
 2. **Submit batch**
+
    ```python
    with open("batch.jsonl") as f:
        batch = openai.Batch.create(
@@ -243,6 +261,7 @@ Avoid batch API for:
    ```
 
 3. **Monitor progress**
+
    ```python
    batch_status = openai.Batch.retrieve(batch.id)
    print(f"Status: {batch_status.status}")
@@ -250,6 +269,7 @@ Avoid batch API for:
    ```
 
 4. **Retrieve results**
+
    ```python
    # Results available in 24–48 hours
    output_file_id = batch_status.output_file_id
@@ -260,10 +280,12 @@ Avoid batch API for:
 ### Cost Savings Example
 
 **Standard API:**
+
 - 100 test packs × 3K input + 1K output = 400K tokens
 - Cost: (3M × $0.15 + 0.1M × $0.60) / 1M × 100 = $48
 
 **Batch API (50% discount):**
+
 - Same workload, 50% cheaper = $24
 
 ## Cost Tracking
@@ -271,6 +293,7 @@ Avoid batch API for:
 ### Monitoring Costs
 
 1. **Per-Request Logging**
+
    ```python
    import json
    from datetime import datetime
@@ -297,6 +320,7 @@ Avoid batch API for:
    ```
 
 2. **Monthly Reporting**
+
    ```python
    # Aggregate monthly costs
    import pandas as pd
@@ -494,6 +518,7 @@ If switching from Claude:
 5. **Validate output** — Test packs may differ; review quality
 
 Example cost comparison:
+
 ```
 Claude Opus:  $15/1M input  → ~$0.10 per test pack
 OpenAI 4o:   $5/1M input   → ~$0.03 per test pack  ← 70% cheaper
@@ -502,10 +527,10 @@ OpenAI mini: $0.15/1M input → ~$0.001 per test pack ← 99% cheaper
 
 ## Support & Limits
 
-- **Support**: https://help.openai.com or help@openai.com
-- **Status**: https://status.openai.com
+- **Support**: <https://help.openai.com> or <help@openai.com>
+- **Status**: <https://status.openai.com>
 - **Community**: OpenAI Forum (community.openai.com)
-- **Billing support**: https://platform.openai.com/account/billing/overview
+- **Billing support**: <https://platform.openai.com/account/billing/overview>
 
 ---
 

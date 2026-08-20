@@ -784,7 +784,7 @@ npm test -- --coverage
 
 - **GitHub Issues:** [lightspeedwp/.github/issues](https://github.com/lightspeedwp/.github/issues)
 - **Slack:** #agents channel
-- **Email:** team@lightspeedwp.agency
+- **Email:** <team@lightspeedwp.agency>
 
 ### Provide Debugging Information
 

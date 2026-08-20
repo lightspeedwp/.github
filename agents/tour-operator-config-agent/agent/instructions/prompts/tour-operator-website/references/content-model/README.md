@@ -66,6 +66,7 @@ After changing any content-model JSON file, run `scripts/validate_content_model.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -52,6 +52,7 @@ This folder stores canonical output blueprints for repeatable deliverables.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

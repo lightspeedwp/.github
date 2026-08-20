@@ -209,6 +209,7 @@ Report issues, request features, or submit feedback:
 ---
 
 *Built by LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

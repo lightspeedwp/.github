@@ -192,6 +192,7 @@ gh pr merge --squash --delete-branch
 ### Step 6: Phase 2 Automatic (Skip to Step 8)
 
 After PR #1 merges, **Phase 2 automatically begins**:
+
 - Safety gates run (7-layer validation)
 - PR #2 created (release → main)
 - Approval required based on scope
@@ -213,6 +214,7 @@ gh pr merge --squash --delete-branch
 ```
 
 **Post-merge:** GitHub Release published automatically with:
+
 - Release name: `Release v1.1.0`
 - Release notes: Compiled from CHANGELOG.md + PR details
 - Tag: `v1.1.0`
@@ -407,7 +409,7 @@ Version: 1.0.0
 */
 ```
 
-3. Check plugin file is in repo root (not subdirectory)
+1. Check plugin file is in repo root (not subdirectory)
 
 ### ❌ "Version mismatch in plugin files"
 
@@ -425,7 +427,7 @@ grep "Stable tag:" readme.txt | head -1
 cat VERSION
 ```
 
-2. Manually fix any mismatches:
+1. Manually fix any mismatches:
 
 ```bash
 # Update plugin header
@@ -438,7 +440,7 @@ sed -i '' 's/Stable tag: .*/Stable tag: 1.0.0/' readme.txt
 echo "1.0.0" > VERSION
 ```
 
-3. Commit and retry:
+1. Commit and retry:
 
 ```bash
 git add my-plugin.php readme.txt VERSION
@@ -543,6 +545,7 @@ If your repo contains multiple plugins or themes:
 **Recommended:** Split into separate repos, one plugin/theme per repo.
 
 Benefits:
+
 - Clear versioning per component
 - Independent release cycles
 - Simpler change tracking
@@ -627,6 +630,7 @@ gh pr create --title "test: Release 1.1.0-beta1"
 ### Release Agent (Phase 1)
 
 The portable Release Agent handles:
+
 - Repository type detection (plugin vs theme)
 - Version file discovery and updating
 - CHANGELOG.md validation and rolling
@@ -634,11 +638,13 @@ The portable Release Agent handles:
 - PR generation
 
 **For plugin-specific features:**
+
 - Reads/writes plugin headers
 - Reads/writes readme.txt stable tag
 - Validates WordPress-specific metadata
 
 **For theme-specific features:**
+
 - Reads/writes style.css headers
 - Validates theme metadata
 
@@ -682,6 +688,7 @@ See [WordPress Agent README](../agents/wordpress/README.md) for full API.
 ### Q: How often should I release WordPress plugins/themes?
 
 **Answer:** Depends on your release strategy:
+
 - **Patch releases:** As needed for critical bugs (weekly or more frequent)
 - **Minor releases:** Every 2-4 weeks for new features
 - **Major releases:** Quarterly or annually for breaking changes
@@ -738,6 +745,7 @@ gh workflow run release.yml -f scope=minor -f dry_run=true
 - **PATCH** (0.0.X) — Bug fixes, no new features
 
 Examples:
+
 - `1.0.0` → `2.0.0` — Major (breaking)
 - `1.0.0` → `1.1.0` — Minor (new features)
 - `1.0.0` → `1.0.1` — Patch (bug fix)

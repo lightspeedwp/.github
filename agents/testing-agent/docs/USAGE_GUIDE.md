@@ -54,7 +54,8 @@ Once approved, specify which framework:
 
 ## Framework Selection Guide
 
-### Use Jest When...
+### Use Jest When
+
 - Testing JavaScript/TypeScript frontend code
 - Writing unit tests for React components
 - Mocking external API calls
@@ -71,7 +72,8 @@ describe('CheckoutForm', () => {
 });
 ```
 
-### Use PHPUnit When...
+### Use PHPUnit When
+
 - Testing PHP backend logic
 - Testing WordPress plugins & themes
 - Writing integration tests with database
@@ -86,7 +88,8 @@ public function test_plugin_activation() {
 }
 ```
 
-### Use pytest When...
+### Use pytest When
+
 - Testing Python integration code
 - Running API contract tests
 - Testing data pipelines
@@ -101,7 +104,8 @@ async def test_payment_processing():
     pass
 ```
 
-### Use Playwright When...
+### Use Playwright When
+
 - Testing user-visible behavior end-to-end
 - Cross-browser compatibility testing (Chrome, Firefox, Safari)
 - Screenshot validation & visual regression
@@ -124,6 +128,7 @@ test('checkout works on Chrome, Firefox, and Safari', async () => {
 ### Example 1: From PRD to Test Pack
 
 **Your Input:**
+
 ```markdown
 # PRD: Search Filtering
 
@@ -137,6 +142,7 @@ Filters should persist in URL query params.
 ```
 
 **Agent Process:**
+
 1. Extract requirements → 5 confirmed requirement IDs (SEARCH-1 through SEARCH-5)
 2. Generate human-readable test cases (framework-agnostic)
 3. Create traceability matrix
@@ -147,6 +153,7 @@ Filters should persist in URL query params.
 
 **Agent Output:**
 Choose your framework:
+
 - Jest: Test filter logic in isolation
 - Playwright: Test full search UI with real product catalog
 - PHPUnit: Test filter backend API endpoints
@@ -182,6 +189,7 @@ pytest:    Payment processor API integration
 ```
 
 This layered approach ensures:
+
 - Fast unit tests (Jest: 100ms)
 - Integration validation (PHPUnit: 500ms)
 - Real browser testing (Playwright: 2-5s per test)
@@ -208,6 +216,7 @@ test('CHECKOUT-3: Order summary updates on quantity change', async () => {
 For WooCommerce sites, use WordPress-specific patterns:
 
 **PHPUnit with WordPress Hooks:**
+
 ```php
 class CustomCheckoutTest extends WP_UnitTestCase {
     public function test_custom_checkout_field() {
@@ -219,6 +228,7 @@ class CustomCheckoutTest extends WP_UnitTestCase {
 ```
 
 **Playwright with WooCommerce Admin:**
+
 ```javascript
 test('WooCommerce admin can create product', async ({ page }) => {
   await page.goto('http://staging.site/wp-admin/post-new.php?post_type=product');
@@ -271,6 +281,7 @@ Option: Export to BugHerd with full evidence
 **Requirement:** "Product grid should load and display items"
 
 **Jest Test** (Frontend component):
+
 ```javascript
 describe('ProductGrid', () => {
   test('displays products with correct attributes', () => {
@@ -285,6 +296,7 @@ describe('ProductGrid', () => {
 ```
 
 **PHPUnit Test** (WooCommerce API):
+
 ```php
 class ProductListingTest extends WP_UnitTestCase {
     public function test_products_query_returns_correct_data() {
@@ -296,6 +308,7 @@ class ProductListingTest extends WP_UnitTestCase {
 ```
 
 **Playwright Test** (End-to-end):
+
 ```javascript
 test('product listing page loads and displays items', async ({ page }) => {
   await page.goto('http://staging.site/shop');
@@ -340,6 +353,7 @@ Agent responds with:
 ### Issue: "My test pack got rejected"
 
 **Next step:**
+
 ```
 "Here's my feedback on the test pack: [specific concerns]"
 
@@ -352,6 +366,7 @@ Agent:
 ### Issue: "Test is failing but I don't understand why"
 
 **Solution:**
+
 ```
 Request: "Debug this Playwright failure: [error message]"
 
@@ -367,21 +382,25 @@ Agent provides:
 ## Performance Tips
 
 ### Jest Tests (Fastest)
+
 - Aim for <100ms per test
 - Use mocks to avoid external calls
 - Group related tests with `describe` blocks
 
 ### PHPUnit Tests (Medium)
+
 - Aim for <500ms per test
 - Use test databases to avoid data conflicts
 - Use `@dataProvider` for parametrized tests
 
 ### Playwright Tests (Slowest but Most Realistic)
+
 - Aim for <5s per test
 - Reuse browser context between tests
 - Use parallelization: `test.describe.parallel()`
 
 ### pytest Tests (Integration)
+
 - Aim for <2s per test with real APIs
 - Use async/await for concurrent requests
 - Cache fixtures to avoid repeated setup

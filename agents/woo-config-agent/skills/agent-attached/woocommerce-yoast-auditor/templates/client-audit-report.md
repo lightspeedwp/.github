@@ -24,13 +24,11 @@
 
 [Score]/100 - [Excellent/Good/Needs attention/High risk]. This score applies only to [reviewed scope].
 
-
 If scoring is not justified, replace this section with:
 
 ## Score status
 
 A score is not provided because [evidence limitation]. The minimum evidence needed before scoring is [specific evidence].
-
 
 ## Findings by priority
 
@@ -50,11 +48,9 @@ A score is not provided because [evidence limitation]. The minimum evidence need
 2. [Action, owner, route, expected evidence]
 3. [Action, owner, route, expected evidence]
 
-
 ## Client-safe note
 
 These recommendations are based on the reviewed evidence. They are intended to reduce SEO risk and improve search appearance clarity; they do not guarantee ranking changes.
-
 
 ---
 

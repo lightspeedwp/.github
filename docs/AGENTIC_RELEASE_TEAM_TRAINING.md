@@ -51,7 +51,7 @@ This training equips the maintainers team with hands-on experience for the **age
 - [ ] **Branch state:** Clone fresh `develop` branch (no uncommitted changes)
 - [ ] **GitHub CLI:** Verify `gh` is installed and authenticated (`gh auth status`)
 - [ ] **Terminal:** Open `.github` directory in clean terminal (no active CI runs)
-- [ ] **Docs open:** Have https://github.com/lightspeedwp/.github open in browser for real-time PR tracking
+- [ ] **Docs open:** Have <https://github.com/lightspeedwp/.github> open in browser for real-time PR tracking
 - [ ] **Test PR visible:** Create a test PR on develop (e.g., `docs/test-release-demo`) **prior to session start** — use this for the live demo to avoid blocking real PRs
 - [ ] **Slack channel:** Have #releases open for live notifications during demos
 - [ ] **Time sync:** Confirm training start time with participants (timezone-aware)
@@ -70,7 +70,6 @@ This training equips the maintainers team with hands-on experience for the **age
 
 ### Dry-Run Command
 
-
 ```bash
 
 gh workflow run release.yml \
@@ -84,7 +83,7 @@ gh workflow run release.yml \
 
 ### Watch the Workflow
 
-1. GitHub Actions tab: https://github.com/lightspeedwp/.github/actions/workflows/release.yml
+1. GitHub Actions tab: <https://github.com/lightspeedwp/.github/actions/workflows/release.yml>
 2. **Gate 1: Changelog validation** — Checks CHANGELOG.md has entries for the new version
 3. **Gate 2: Version match** — Confirms package.json matches the next SemVer bump
 4. **Gate 3: Authorization** — Validates user is in `maintainers` team
@@ -92,7 +91,6 @@ gh workflow run release.yml \
 6. **Gates 5–7:** Agentic scoring, telemetry, dry-run exit (no mutations)
 
 ### Expected Output
-
 
 ```
 
@@ -150,7 +148,6 @@ Ready for live release? Use: gh workflow run release.yml -f scope=patch -f dry_r
 
 ### Live Release Command
 
-
 ```bash
 
 gh workflow run release.yml \
@@ -172,7 +169,6 @@ gh workflow run release.yml \
 
 ### Expected Output (Live Release)
 
-
 ```
 
 ✅ Changelog: PASS
@@ -192,7 +188,6 @@ npm view @lightspeedwp/github-community-health@0.2.1
 ```
 
 ### Verify Release
-
 
 ```bash
 

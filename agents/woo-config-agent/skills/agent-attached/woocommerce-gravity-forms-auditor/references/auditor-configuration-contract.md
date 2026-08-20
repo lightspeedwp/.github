@@ -15,6 +15,7 @@ This contract keeps the LightSpeed workflow clean: read-only WooCommerce form au
 ### Auditor responsibility
 
 The auditor must:
+
 - Inspect read-only evidence only.
 - Confirm or mark missing WooCommerce core and relevant extension evidence.
 - Classify findings by severity, confidence, priority, effort, owner, and handoff need.
@@ -24,6 +25,7 @@ The auditor must:
 - Label recommendations as `Platform requirement`, `LightSpeed recommendation`, `Client decision`, or `Missing evidence`.
 
 The auditor must not:
+
 - Perform configuration changes.
 - Treat MCP write access as permission.
 - Infer missing operational, legal, payment, privacy, security, sales, support, fulfilment, stock, or client approval decisions.
@@ -32,6 +34,7 @@ The auditor must not:
 ### Configuration responsibility
 
 The configuration skill must:
+
 - Treat the auditor handoff as intake evidence, not approval.
 - Verify current WooCommerce and Gravity Forms state before planning changes.
 - Preserve the original finding IDs in plans, changes, validation, and handoff notes.
@@ -42,6 +45,7 @@ The configuration skill must:
 - Validate after change and report results against the source finding IDs.
 
 The configuration skill must not:
+
 - Re-run a full audit.
 - Produce formal audit reports, readiness scorecards, findings registers, or client-safe audit summaries.
 - Apply changes when evidence or approval is missing.

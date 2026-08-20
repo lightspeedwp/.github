@@ -91,6 +91,7 @@ Store reusable recurring prompts that help maintain, audit, verify, repair, or e
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

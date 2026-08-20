@@ -9,11 +9,11 @@
 
 ## Confirmed evidence
 
-- 
+-
 
 ## Assumptions
 
-- 
+-
 
 ## Admin build steps
 
@@ -44,15 +44,15 @@
 
 ## Spam, security, privacy
 
-- 
+-
 
 ## Accessibility
 
-- 
+-
 
 ## Test plan
 
-- 
+-
 
 ## Handoff
 

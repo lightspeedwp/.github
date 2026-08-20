@@ -63,6 +63,7 @@ This folder contains validation checklist material and test guidance for maintai
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

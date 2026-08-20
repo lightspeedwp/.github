@@ -128,9 +128,11 @@ const metadata = readmeTxt.readMetadata(readmeFile);
 Detects WordPress components in a repository.
 
 **Parameters:**
+
 - `repoRoot` (string) — Path to repository root
 
 **Returns:**
+
 ```javascript
 {
   hasPlugin: boolean,
@@ -150,9 +152,11 @@ Detects WordPress components in a repository.
 Checks all version files for consistency.
 
 **Parameters:**
+
 - `repoRoot` (string) — Path to repository root
 
 **Returns:**
+
 ```javascript
 {
   isConsistent: boolean,
@@ -168,10 +172,12 @@ Checks all version files for consistency.
 Updates version in all detected files.
 
 **Parameters:**
+
 - `repoRoot` (string) — Path to repository root
 - `newVersion` (string) — New version (SemVer format)
 
 **Returns:**
+
 ```javascript
 {
   updated: string[],
@@ -186,10 +192,12 @@ Updates version in all detected files.
 Bumps version across all components.
 
 **Parameters:**
+
 - `repoRoot` (string) — Path to repository root
 - `scope` (string) — `'major'`, `'minor'`, or `'patch'` (default: `'patch'`)
 
 **Returns:**
+
 ```javascript
 {
   currentVersion: string,
@@ -206,9 +214,11 @@ Bumps version across all components.
 Gets metadata for all detected WordPress components.
 
 **Parameters:**
+
 - `repoRoot` (string) — Path to repository root
 
 **Returns:**
+
 ```javascript
 {
   hasPlugin: boolean,
@@ -225,18 +235,23 @@ Gets metadata for all detected WordPress components.
 All utilities export these standard functions:
 
 #### `readVersion(filePath)`
+
 Reads current version from file.
 
 #### `writeVersion(filePath, newVersion)`
+
 Updates version in file.
 
 #### `isValidVersion(version)`
+
 Validates SemVer format.
 
 #### `bumpVersion(currentVersion, scope)`
+
 Calculates next version.
 
 #### `readMetadata(filePath)`
+
 Extracts all header metadata.
 
 ## Examples
@@ -311,6 +326,7 @@ npm run test:watch
 ```
 
 **Test Coverage:**
+
 - Plugin header: 25+ tests
 - Theme CSS: 20+ tests
 - Readme.txt: 20+ tests

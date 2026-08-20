@@ -46,6 +46,7 @@ The tests cover the bundled helper scripts and example fixtures. They are intent
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

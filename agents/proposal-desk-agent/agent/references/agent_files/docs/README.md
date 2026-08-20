@@ -56,6 +56,7 @@ Use this file when deciding which attached output template or reference guide be
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

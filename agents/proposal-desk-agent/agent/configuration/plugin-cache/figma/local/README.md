@@ -111,6 +111,7 @@ scaffolding alongside the app-backed plugin wiring
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

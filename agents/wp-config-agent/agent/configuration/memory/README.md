@@ -96,6 +96,7 @@ Keep names practical and explicit about the file’s purpose.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

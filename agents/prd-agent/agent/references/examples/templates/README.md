@@ -64,6 +64,7 @@ These files are filled examples, not source templates. If a structure change sho
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

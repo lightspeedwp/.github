@@ -60,6 +60,7 @@ Store realistic worked examples that show how the agent should process evidence,
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

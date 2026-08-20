@@ -32,6 +32,7 @@ Choose the smallest mode that satisfies the WooCommerce request.
 Use for quick checks, sales/preflight reviews, triage, single-form reviews, notification checks, spam checks, product enquiry reviews, quote-request checks, order-support form checks, product page embed reviews, stock/availability enquiry checks, B2B or wholesale form checks, or limited evidence.
 
 Minimum scope:
+
 1. Identify site/environment, WooCommerce core/plugin evidence, form name or ID, WooCommerce business journey, audience, and requested output.
 2. Inspect only available read-only evidence for form schema, product/order/customer/page context, embed/page context, notifications, confirmations, spam protection, privacy-sensitive fields, accessibility basics, and relevant active feeds.
 3. Produce the fast audit output structure.
@@ -43,6 +44,7 @@ Minimum scope:
 Use for WooCommerce Gravity Forms setup audits, launch readiness reviews, retainer health checks, multi-form reviews, privacy/data handling reviews, add-on/feed reviews, WooCommerce enquiry flow audits, client-safe audit packs, or full retest reports.
 
 Minimum sequence:
+
 1. Identify site URL, environment, audit purpose, WooCommerce scope, audience, requested output, and internal versus client-safe boundary.
 2. Discover available MCP actions/resources and map them to read-only capabilities; do not assume action names.
 3. Run read-only WooCommerce preflight: WordPress/PHP versions, Gravity Forms status/version, WooCommerce status/version, relevant WooCommerce extensions, licence visibility, REST/API availability, user capabilities, installed Gravity Forms add-ons, SMTP/email plugins, cache/optimisation plugins, security/spam plugins, theme, multisite, known blockers, and missing evidence.
@@ -98,6 +100,7 @@ Always separate confirmed facts from assumptions and state evidence gaps explici
 ### Finding fields
 
 Every finding must include:
+
 - Finding ID
 - Category
 - Affected form/page/add-on/feed/product/order/customer/account context

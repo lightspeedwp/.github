@@ -7,6 +7,7 @@ This workflow validates PR template completeness **before** Mergify processes th
 ## What It Does
 
 Automatically checks that every PR includes:
+
 - **Linked issues** section
 - **Changelog** section  
 - **Test plan** section

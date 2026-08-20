@@ -56,6 +56,7 @@ The plugin reads the token from the `GITHUB_PAT_TOKEN` environment variable
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

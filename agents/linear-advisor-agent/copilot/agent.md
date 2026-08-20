@@ -17,6 +17,7 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the Linear Advisor Agent integrates directly with GitHub's development environment, providing intelligent assistance within code editors and pull requests.
 
 Copilot excels at:
+
 - **GitHub Projects integration** – Manage issues and projects
 - **Code analysis** – Review and improve code
 - **Workflow automation** – Trigger GitHub Actions
@@ -36,9 +37,11 @@ Skills are triggered using @ mentions in Copilot Chat:
 ## Skill Implementation
 
 ### @linear-create-issue
+
 Creates Linear issues directly from conversation context. Understands issue requirements, estimates effort, and assigns to team members.
 
 **Usage:**
+
 ```
 @linear-create-issue Fix authentication bug in login flow
 - Priority: High
@@ -47,9 +50,11 @@ Creates Linear issues directly from conversation context. Understands issue requ
 ```
 
 ### @linear-plan-sprint
+
 Plans sprints by analyzing backlog, team capacity, and priorities.
 
 **Usage:**
+
 ```
 @linear-plan-sprint Spring 2024 Q3 Planning
 - Duration: 2 weeks
@@ -58,9 +63,11 @@ Plans sprints by analyzing backlog, team capacity, and priorities.
 ```
 
 ### @linear-manage-release
+
 Coordinates release planning, versioning, and deployment.
 
 **Usage:**
+
 ```
 @linear-manage-release v2.0.0 Release
 - Features: New dashboard, API improvements
@@ -69,9 +76,11 @@ Coordinates release planning, versioning, and deployment.
 ```
 
 ### @linear-analyze-project
+
 Provides project health status, metrics, and recommendations.
 
 **Usage:**
+
 ```
 @linear-analyze-project Website Redesign
 - Show: Burndown, velocity, blockers
@@ -79,9 +88,11 @@ Provides project health status, metrics, and recommendations.
 ```
 
 ### @linear-team-coordination
+
 Facilitates team communication and coordination.
 
 **Usage:**
+
 ```
 @linear-team-coordination Daily Standup
 - Team: Backend team
@@ -89,9 +100,11 @@ Facilitates team communication and coordination.
 ```
 
 ### @linear-automation-setup
+
 Configures workflow automation rules and triggers.
 
 **Usage:**
+
 ```
 @linear-automation-setup Auto-assign bugs
 - Trigger: Bug reported
@@ -104,6 +117,7 @@ Configures workflow automation rules and triggers.
 Copilot provides responses optimized for GitHub:
 
 ### Issue Creation Response
+
 ```markdown
 ## Issue Created: [ISSUE-123]
 - Title: [Issue title]
@@ -114,6 +128,7 @@ Copilot provides responses optimized for GitHub:
 ```
 
 ### Sprint Planning Response
+
 ```markdown
 ## Sprint [N] Plan
 - Duration: [Dates]
@@ -123,6 +138,7 @@ Copilot provides responses optimized for GitHub:
 ```
 
 ### Release Coordination Response
+
 ```markdown
 ## Release Plan: [Version]
 - Features: [Count]
@@ -134,6 +150,7 @@ Copilot provides responses optimized for GitHub:
 ## GitHub Integration
 
 Works with:
+
 - **GitHub Projects (beta)** – Sync Linear issues and milestones
 - **GitHub Discussions** – Link Linear issues to discussions
 - **Pull Requests** – Reference Linear issues in PR descriptions
@@ -143,6 +160,7 @@ Works with:
 ## Workflow Integration
 
 ### PR to Linear Issue Linking
+
 - Automatically link merged PRs to Linear issues
 - Update issue status based on PR merge
 - Generate release notes from closed issues
@@ -150,6 +168,7 @@ Works with:
 - Track deployment from PR description
 
 ### GitHub Actions Automation
+
 - Trigger Linear workflows from push events
 - Create issues from GitHub alerts
 - Update project status from CI results
@@ -158,6 +177,7 @@ Works with:
 - Link GitHub Actions to Linear milestones
 
 ### Team Collaboration
+
 - Mention Linear issues in discussions (#LIN-123)
 - Auto-assign based on GitHub team membership
 - Link pull requests to Linear issues
@@ -168,6 +188,7 @@ Works with:
 ## Advanced Integration Patterns
 
 ### Issue Lifecycle
+
 1. Issue created in Linear
 2. Developer mentions in PR description
 3. CI runs and reports status
@@ -177,6 +198,7 @@ Works with:
 7. Metrics updated in dashboard
 
 ### Release Coordination
+
 1. Release planned in Linear
 2. Features added as milestone issues
 3. PRs linked to issues
@@ -187,6 +209,7 @@ Works with:
 8. Deployment status tracked
 
 ### Sprint Automation
+
 1. Sprint created in Linear
 2. Issues committed to sprint
 3. Daily standup triggers status check
@@ -198,6 +221,7 @@ Works with:
 ## Performance Metrics Tracking
 
 Copilot helps track:
+
 - Sprint velocity and trends
 - Issue resolution rate
 - PR review time

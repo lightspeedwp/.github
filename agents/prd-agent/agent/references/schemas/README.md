@@ -54,6 +54,7 @@ Store structured schemas for planning artefacts, validation rules, and machine-r
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

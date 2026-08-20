@@ -63,6 +63,7 @@ These files are not the canonical memory layer. They exist to validate the durab
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid
