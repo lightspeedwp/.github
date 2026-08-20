@@ -306,12 +306,6 @@ describe("bulk-issue-metadata-updater", () => {
   });
 
   describe("Status label filtering", () => {
-    const getStatusLabels = () => [
-      "status:needs-template-fix",
-      "status:needs-triage",
-      "status:needs-more-info",
-    ];
-
     const filterIssuesByLabel = (issues, targetLabel) => {
       if (!targetLabel) return issues;
       return issues.filter((issue) =>

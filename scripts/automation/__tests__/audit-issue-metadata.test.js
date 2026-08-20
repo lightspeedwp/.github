@@ -12,8 +12,6 @@ jest.mock("path", () => ({
 }));
 
 describe("audit-issue-metadata", () => {
-  let auditModule;
-
   beforeEach(() => {
     jest.resetModules();
     // We'll test the pure functions directly
