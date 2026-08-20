@@ -686,7 +686,9 @@ describe("label-sync", () => {
           aliasMap,
           canonicalSet,
         ),
-      ).rejects.toThrow("Failed to standardize labels: Search service unavailable");
+      ).rejects.toThrow(
+        "Failed to standardize labels: Search service unavailable",
+      );
     });
 
     test("should handle multiple alias labels", async () => {

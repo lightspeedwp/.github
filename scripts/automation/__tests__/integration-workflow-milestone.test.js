@@ -14,11 +14,11 @@ function auditIssuesForMilestones(issues, auditRules) {
       findings.issuesWithoutMilestone.push({
         number: issue.number,
         title: issue.title,
-        priority: issue.priority || 'normal',
+        priority: issue.priority || "normal",
       });
     }
 
-    const priority = issue.priority || 'normal';
+    const priority = issue.priority || "normal";
     if (!findings.issuesByPriority[priority]) {
       findings.issuesByPriority[priority] = [];
     }
@@ -26,7 +26,7 @@ function auditIssuesForMilestones(issues, auditRules) {
 
     findings.readinessStatus.push({
       number: issue.number,
-      ready: issue.labels?.some((l) => l.name === 'status:ready') || false,
+      ready: issue.labels?.some((l) => l.name === "status:ready") || false,
       hasMilestone: !!issue.milestone,
     });
   });
@@ -96,19 +96,28 @@ function cascadeLabelUpdates(issues, allocationResults) {
     syncUpdates.issueCount++;
 
     // Add milestone-specific label if applicable
-    syncUpdates.labelsToAdd.push(`meta:milestone-${allocation.milestone.toLowerCase()}`);
+    syncUpdates.labelsToAdd.push(
+      `meta:milestone-${allocation.milestone.toLowerCase()}`,
+    );
 
     // Add ready label if conditions met
     const issue = issues.find((i) => i.number === allocation.number);
-    if (issue && issue.labels?.some((l) => l.name === 'status:review-approved')) {
-      syncUpdates.labelsToAdd.push('status:ready-merge');
+    if (
+      issue &&
+      issue.labels?.some((l) => l.name === "status:review-approved")
+    ) {
+      syncUpdates.labelsToAdd.push("status:ready-merge");
     }
   });
 
   return syncUpdates;
 }
 
-function generateMilestoneReport(auditFindings, allocationResults, cascadeResults) {
+function generateMilestoneReport(
+  auditFindings,
+  allocationResults,
+  cascadeResults,
+) {
   return {
     timestamp: new Date().toISOString(),
     summary: {
@@ -126,112 +135,140 @@ function generateMilestoneReport(auditFindings, allocationResults, cascadeResult
   };
 }
 
-describe('integration: milestone allocation workflow', () => {
-  describe('audit to allocation workflow', () => {
+describe("integration: milestone allocation workflow", () => {
+  describe("audit to allocation workflow", () => {
     const mockIssues = [
       {
         number: 101,
-        title: 'Critical bug',
-        priority: 'critical',
-        labels: [{ name: 'type:bug' }],
+        title: "Critical bug",
+        priority: "critical",
+        labels: [{ name: "type:bug" }],
         milestone: null,
       },
       {
         number: 102,
-        title: 'Normal feature',
-        priority: 'normal',
-        labels: [{ name: 'type:feature' }],
+        title: "Normal feature",
+        priority: "normal",
+        labels: [{ name: "type:feature" }],
         milestone: null,
       },
       {
         number: 103,
-        title: 'Already allocated',
-        priority: 'normal',
-        labels: [{ name: 'type:feature' }],
-        milestone: { title: 'v2.0' },
+        title: "Already allocated",
+        priority: "normal",
+        labels: [{ name: "type:feature" }],
+        milestone: { title: "v2.0" },
       },
       {
         number: 104,
-        title: 'Low priority task',
-        priority: 'low',
-        labels: [{ name: 'type:task' }],
+        title: "Low priority task",
+        priority: "low",
+        labels: [{ name: "type:task" }],
         milestone: null,
       },
     ];
 
     const allocationRules = {
       byPriority: {
-        critical: 'v1.5',
-        high: 'v1.5',
-        normal: 'v2.0',
-        low: 'Backlog',
+        critical: "v1.5",
+        high: "v1.5",
+        normal: "v2.0",
+        low: "Backlog",
       },
-      defaultMilestone: 'Backlog',
+      defaultMilestone: "Backlog",
     };
 
-    it('audits issues for milestone allocation readiness', () => {
+    it("audits issues for milestone allocation readiness", () => {
       const findings = auditIssuesForMilestones(mockIssues, {});
       expect(findings.totalIssues).toBe(4);
       expect(findings.issuesWithoutMilestone.length).toBe(3);
     });
 
-    it('categorizes issues by priority during audit', () => {
+    it("categorizes issues by priority during audit", () => {
       const findings = auditIssuesForMilestones(mockIssues, {});
       expect(findings.issuesByPriority.critical).toContain(101);
       expect(findings.issuesByPriority.normal).toContain(102);
       expect(findings.issuesByPriority.low).toContain(104);
     });
 
-    it('flows audit results to milestone allocation', () => {
+    it("flows audit results to milestone allocation", () => {
       const findings = auditIssuesForMilestones(mockIssues, {});
-      const allocations = allocateToMilestones(mockIssues, findings, allocationRules);
+      const allocations = allocateToMilestones(
+        mockIssues,
+        findings,
+        allocationRules,
+      );
 
       expect(allocations.allocated).toBeGreaterThan(0);
       expect(allocations.allocations.length).toBeGreaterThan(0);
     });
 
-    it('allocates milestones based on priority rules', () => {
+    it("allocates milestones based on priority rules", () => {
       const findings = auditIssuesForMilestones(mockIssues, {});
-      const allocations = allocateToMilestones(mockIssues, findings, allocationRules);
+      const allocations = allocateToMilestones(
+        mockIssues,
+        findings,
+        allocationRules,
+      );
 
-      const criticalAlloc = allocations.allocations.find((a) => a.priority === 'critical');
-      expect(criticalAlloc?.milestone).toBe('v1.5');
+      const criticalAlloc = allocations.allocations.find(
+        (a) => a.priority === "critical",
+      );
+      expect(criticalAlloc?.milestone).toBe("v1.5");
 
-      const normalAlloc = allocations.allocations.find((a) => a.priority === 'normal' && a.number === 102);
-      expect(normalAlloc?.milestone).toBe('v2.0');
+      const normalAlloc = allocations.allocations.find(
+        (a) => a.priority === "normal" && a.number === 102,
+      );
+      expect(normalAlloc?.milestone).toBe("v2.0");
 
-      const lowAlloc = allocations.allocations.find((a) => a.priority === 'low');
-      expect(lowAlloc?.milestone).toBe('Backlog');
+      const lowAlloc = allocations.allocations.find(
+        (a) => a.priority === "low",
+      );
+      expect(lowAlloc?.milestone).toBe("Backlog");
     });
 
-    it('detects allocation conflicts with existing milestones', () => {
+    it("detects allocation conflicts with existing milestones", () => {
       const conflictRules = {
-        byPriority: { normal: 'v1.5' }, // Conflict: issue 103 already has v2.0
-        defaultMilestone: 'Backlog',
+        byPriority: { normal: "v1.5" }, // Conflict: issue 103 already has v2.0
+        defaultMilestone: "Backlog",
       };
 
       const findings = auditIssuesForMilestones(mockIssues, {});
       allocateToMilestones(mockIssues, findings, conflictRules);
 
       // Issue 103 has existing milestone and should not be in unallocated
-      const issue103InUnallocated = findings.issuesWithoutMilestone.some((i) => i.number === 103);
+      const issue103InUnallocated = findings.issuesWithoutMilestone.some(
+        (i) => i.number === 103,
+      );
       expect(issue103InUnallocated).toBe(false);
     });
 
-    it('cascades label updates from milestone allocation', () => {
+    it("cascades label updates from milestone allocation", () => {
       const findings = auditIssuesForMilestones(mockIssues, {});
-      const allocations = allocateToMilestones(mockIssues, findings, allocationRules);
+      const allocations = allocateToMilestones(
+        mockIssues,
+        findings,
+        allocationRules,
+      );
       const cascadeUpdates = cascadeLabelUpdates(mockIssues, allocations);
 
       expect(cascadeUpdates.issueCount).toBe(allocations.allocated);
       expect(cascadeUpdates.labelsToAdd.length).toBeGreaterThan(0);
     });
 
-    it('generates milestone report from workflow', () => {
+    it("generates milestone report from workflow", () => {
       const findings = auditIssuesForMilestones(mockIssues, {});
-      const allocations = allocateToMilestones(mockIssues, findings, allocationRules);
+      const allocations = allocateToMilestones(
+        mockIssues,
+        findings,
+        allocationRules,
+      );
       const cascadeUpdates = cascadeLabelUpdates(mockIssues, allocations);
-      const report = generateMilestoneReport(findings, allocations, cascadeUpdates);
+      const report = generateMilestoneReport(
+        findings,
+        allocations,
+        cascadeUpdates,
+      );
 
       expect(report.summary.totalIssues).toBe(4);
       expect(report.summary.allocated).toBeGreaterThan(0);
@@ -239,22 +276,22 @@ describe('integration: milestone allocation workflow', () => {
     });
   });
 
-  describe('conflict resolution in milestone workflow', () => {
-    it('handles milestone conflicts gracefully', () => {
+  describe("conflict resolution in milestone workflow", () => {
+    it("handles milestone conflicts gracefully", () => {
       const issues = [
         {
           number: 201,
-          title: 'Conflict case',
-          priority: 'high',
+          title: "Conflict case",
+          priority: "high",
           labels: [],
-          milestone: { title: 'v1.0' },
+          milestone: { title: "v1.0" },
         },
       ];
 
       const findings = auditIssuesForMilestones(issues, {});
       const rules = {
-        byPriority: { high: 'v2.0' },
-        defaultMilestone: 'Backlog',
+        byPriority: { high: "v2.0" },
+        defaultMilestone: "Backlog",
       };
 
       allocateToMilestones(issues, findings, rules);
@@ -262,12 +299,12 @@ describe('integration: milestone allocation workflow', () => {
       expect(findings.issuesWithoutMilestone.length).toBe(0);
     });
 
-    it('skips issues when no appropriate milestone available', () => {
+    it("skips issues when no appropriate milestone available", () => {
       const issues = [
         {
           number: 202,
-          title: 'No rule match',
-          priority: 'urgent', // Not in rules
+          title: "No rule match",
+          priority: "urgent", // Not in rules
           labels: [],
           milestone: null,
         },
@@ -275,7 +312,7 @@ describe('integration: milestone allocation workflow', () => {
 
       const findings = auditIssuesForMilestones(issues, {});
       const rules = {
-        byPriority: { critical: 'v1.0' },
+        byPriority: { critical: "v1.0" },
         defaultMilestone: null,
       };
 
@@ -283,21 +320,21 @@ describe('integration: milestone allocation workflow', () => {
       expect(allocations.skipped).toBeGreaterThan(0);
     });
 
-    it('reports conflict details for manual resolution', () => {
+    it("reports conflict details for manual resolution", () => {
       const issues = [
         {
           number: 203,
-          title: 'Explicit conflict',
-          priority: 'normal',
+          title: "Explicit conflict",
+          priority: "normal",
           labels: [],
-          milestone: { title: 'OldRelease' },
+          milestone: { title: "OldRelease" },
         },
       ];
 
       const findings = auditIssuesForMilestones(issues, {});
       const rules = {
-        byPriority: { normal: 'NewRelease' },
-        defaultMilestone: 'Backlog',
+        byPriority: { normal: "NewRelease" },
+        defaultMilestone: "Backlog",
       };
 
       allocateToMilestones(issues, findings, rules);
@@ -306,23 +343,23 @@ describe('integration: milestone allocation workflow', () => {
     });
   });
 
-  describe('bulk milestone allocation workflow', () => {
-    it('processes large batches of issues efficiently', () => {
+  describe("bulk milestone allocation workflow", () => {
+    it("processes large batches of issues efficiently", () => {
       const largeIssueSet = Array.from({ length: 100 }, (_, i) => ({
         number: 1000 + i,
         title: `Issue ${i}`,
-        priority: i % 3 === 0 ? 'critical' : i % 2 === 0 ? 'normal' : 'low',
+        priority: i % 3 === 0 ? "critical" : i % 2 === 0 ? "normal" : "low",
         labels: [],
         milestone: null,
       }));
 
       const rules = {
         byPriority: {
-          critical: 'v1.5',
-          normal: 'v2.0',
-          low: 'Backlog',
+          critical: "v1.5",
+          normal: "v2.0",
+          low: "Backlog",
         },
-        defaultMilestone: 'Backlog',
+        defaultMilestone: "Backlog",
       };
 
       const auditStart = Date.now();
@@ -339,11 +376,11 @@ describe('integration: milestone allocation workflow', () => {
       expect(allocTime).toBeLessThan(200);
     });
 
-    it('handles concurrent milestone allocation without conflicts', () => {
+    it("handles concurrent milestone allocation without conflicts", () => {
       const batch1 = Array.from({ length: 20 }, (_, i) => ({
         number: 2000 + i,
         title: `Batch1-${i}`,
-        priority: 'normal',
+        priority: "normal",
         labels: [],
         milestone: null,
       }));
@@ -351,17 +388,17 @@ describe('integration: milestone allocation workflow', () => {
       const batch2 = Array.from({ length: 20 }, (_, i) => ({
         number: 2020 + i,
         title: `Batch2-${i}`,
-        priority: 'high',
+        priority: "high",
         labels: [],
         milestone: null,
       }));
 
       const rules = {
         byPriority: {
-          high: 'v1.5',
-          normal: 'v2.0',
+          high: "v1.5",
+          normal: "v2.0",
         },
-        defaultMilestone: 'Backlog',
+        defaultMilestone: "Backlog",
       };
 
       const findings1 = auditIssuesForMilestones(batch1, {});
@@ -376,88 +413,88 @@ describe('integration: milestone allocation workflow', () => {
     });
   });
 
-  describe('cascading label updates from milestone allocation', () => {
-    it('adds milestone-related labels after allocation', () => {
+  describe("cascading label updates from milestone allocation", () => {
+    it("adds milestone-related labels after allocation", () => {
       const issues = [
         {
           number: 301,
-          title: 'Test issue',
-          priority: 'high',
-          labels: [{ name: 'type:bug' }],
+          title: "Test issue",
+          priority: "high",
+          labels: [{ name: "type:bug" }],
           milestone: null,
         },
       ];
 
       const findings = auditIssuesForMilestones(issues, {});
       const rules = {
-        byPriority: { high: 'v1.5' },
-        defaultMilestone: 'Backlog',
+        byPriority: { high: "v1.5" },
+        defaultMilestone: "Backlog",
       };
 
       const allocations = allocateToMilestones(issues, findings, rules);
       const cascadeUpdates = cascadeLabelUpdates(issues, allocations);
 
-      expect(cascadeUpdates.labelsToAdd).toContain('meta:milestone-v1.5');
+      expect(cascadeUpdates.labelsToAdd).toContain("meta:milestone-v1.5");
     });
 
-    it('conditions label addition on issue metadata', () => {
+    it("conditions label addition on issue metadata", () => {
       const issues = [
         {
           number: 302,
-          title: 'Approved issue',
-          priority: 'normal',
-          labels: [{ name: 'status:review-approved' }],
+          title: "Approved issue",
+          priority: "normal",
+          labels: [{ name: "status:review-approved" }],
           milestone: null,
         },
       ];
 
       const findings = auditIssuesForMilestones(issues, {});
       const rules = {
-        byPriority: { normal: 'v2.0' },
-        defaultMilestone: 'Backlog',
+        byPriority: { normal: "v2.0" },
+        defaultMilestone: "Backlog",
       };
 
       const allocations = allocateToMilestones(issues, findings, rules);
       const cascadeUpdates = cascadeLabelUpdates(issues, allocations);
 
-      expect(cascadeUpdates.labelsToAdd).toContain('status:ready-merge');
+      expect(cascadeUpdates.labelsToAdd).toContain("status:ready-merge");
     });
   });
 
-  describe('multi-step milestone allocation cycle', () => {
-    it('completes full audit → allocate → cascade → report workflow', () => {
+  describe("multi-step milestone allocation cycle", () => {
+    it("completes full audit → allocate → cascade → report workflow", () => {
       const issues = [
         {
           number: 401,
-          title: 'Critical fix',
-          priority: 'critical',
-          labels: [{ name: 'type:bug' }],
+          title: "Critical fix",
+          priority: "critical",
+          labels: [{ name: "type:bug" }],
           milestone: null,
         },
         {
           number: 402,
-          title: 'Feature work',
-          priority: 'normal',
-          labels: [{ name: 'type:feature' }],
+          title: "Feature work",
+          priority: "normal",
+          labels: [{ name: "type:feature" }],
           milestone: null,
         },
         {
           number: 403,
-          title: 'Enhancement',
-          priority: 'low',
-          labels: [{ name: 'type:improvement' }],
+          title: "Enhancement",
+          priority: "low",
+          labels: [{ name: "type:improvement" }],
           milestone: null,
         },
       ];
 
       const rules = {
         byPriority: {
-          critical: 'v1.5',
-          high: 'v1.5',
-          normal: 'v2.0',
-          low: 'Backlog',
+          critical: "v1.5",
+          high: "v1.5",
+          normal: "v2.0",
+          low: "Backlog",
         },
-        defaultMilestone: 'Backlog',
+        defaultMilestone: "Backlog",
       };
 
       // Step 1: Audit
@@ -474,26 +511,30 @@ describe('integration: milestone allocation workflow', () => {
       expect(cascadeUpdates.issueCount).toBe(3);
 
       // Step 4: Report
-      const report = generateMilestoneReport(findings, allocations, cascadeUpdates);
+      const report = generateMilestoneReport(
+        findings,
+        allocations,
+        cascadeUpdates,
+      );
       expect(report.summary.totalIssues).toBe(3);
       expect(report.summary.allocated).toBe(3);
       expect(report.summary.labelsAdded).toBeGreaterThan(0);
     });
 
-    it('maintains state consistency across workflow cycles', () => {
+    it("maintains state consistency across workflow cycles", () => {
       const issues = [
         {
           number: 501,
-          title: 'Consistency test',
-          priority: 'normal',
+          title: "Consistency test",
+          priority: "normal",
           labels: [],
           milestone: null,
         },
       ];
 
       const rules = {
-        byPriority: { normal: 'v2.0' },
-        defaultMilestone: 'Backlog',
+        byPriority: { normal: "v2.0" },
+        defaultMilestone: "Backlog",
       };
 
       // First cycle
@@ -505,18 +546,22 @@ describe('integration: milestone allocation workflow', () => {
       const alloc2 = allocateToMilestones(issues, findings2, rules);
 
       // Results should be consistent
-      expect(findings1.issuesWithoutMilestone.length).toBe(findings2.issuesWithoutMilestone.length);
+      expect(findings1.issuesWithoutMilestone.length).toBe(
+        findings2.issuesWithoutMilestone.length,
+      );
       expect(alloc1.allocated).toBe(alloc2.allocated);
-      expect(alloc1.allocations[0].milestone).toBe(alloc2.allocations[0].milestone);
+      expect(alloc1.allocations[0].milestone).toBe(
+        alloc2.allocations[0].milestone,
+      );
     });
   });
 
-  describe('error handling in milestone workflow', () => {
-    it('handles issues with missing priority field', () => {
+  describe("error handling in milestone workflow", () => {
+    it("handles issues with missing priority field", () => {
       const issues = [
         {
           number: 601,
-          title: 'No priority',
+          title: "No priority",
           priority: undefined,
           labels: [],
           milestone: null,
@@ -527,44 +572,44 @@ describe('integration: milestone allocation workflow', () => {
       expect(findings.issuesWithoutMilestone.length).toBe(1);
 
       const rules = {
-        defaultMilestone: 'Backlog',
+        defaultMilestone: "Backlog",
       };
 
       const allocations = allocateToMilestones(issues, findings, rules);
       expect(allocations.allocated).toBe(1);
     });
 
-    it('handles empty milestone rules gracefully', () => {
+    it("handles empty milestone rules gracefully", () => {
       const issues = [
         {
           number: 602,
-          title: 'Test',
-          priority: 'normal',
+          title: "Test",
+          priority: "normal",
           labels: [],
           milestone: null,
         },
       ];
 
       const findings = auditIssuesForMilestones(issues, {});
-      const rules = { byPriority: {}, defaultMilestone: 'Fallback' };
+      const rules = { byPriority: {}, defaultMilestone: "Fallback" };
 
       const allocations = allocateToMilestones(issues, findings, rules);
       expect(allocations.allocated).toBe(1);
     });
 
-    it('continues processing when individual allocations fail', () => {
+    it("continues processing when individual allocations fail", () => {
       const issues = [
         {
           number: 603,
-          title: 'Valid',
-          priority: 'normal',
+          title: "Valid",
+          priority: "normal",
           labels: [],
           milestone: null,
         },
         {
           number: 604,
-          title: 'No matching rule',
-          priority: 'unknown',
+          title: "No matching rule",
+          priority: "unknown",
           labels: [],
           milestone: null,
         },
@@ -572,7 +617,7 @@ describe('integration: milestone allocation workflow', () => {
 
       const findings = auditIssuesForMilestones(issues, {});
       const rules = {
-        byPriority: { normal: 'v2.0' },
+        byPriority: { normal: "v2.0" },
         defaultMilestone: null,
       };
 
@@ -582,25 +627,31 @@ describe('integration: milestone allocation workflow', () => {
     });
   });
 
-  describe('performance: milestone allocation at scale', () => {
-    it('handles large allocation batches with mixed priorities', () => {
+  describe("performance: milestone allocation at scale", () => {
+    it("handles large allocation batches with mixed priorities", () => {
       const largeBatch = Array.from({ length: 250 }, (_, i) => ({
         number: 3000 + i,
         title: `Issue ${i}`,
         priority:
-          i % 5 === 0 ? 'critical' : i % 3 === 0 ? 'high' : i % 2 === 0 ? 'normal' : 'low',
-        labels: i % 4 === 0 ? [{ name: 'status:review-approved' }] : [],
+          i % 5 === 0
+            ? "critical"
+            : i % 3 === 0
+              ? "high"
+              : i % 2 === 0
+                ? "normal"
+                : "low",
+        labels: i % 4 === 0 ? [{ name: "status:review-approved" }] : [],
         milestone: null,
       }));
 
       const rules = {
         byPriority: {
-          critical: 'v1.0',
-          high: 'v1.5',
-          normal: 'v2.0',
-          low: 'Backlog',
+          critical: "v1.0",
+          high: "v1.5",
+          normal: "v2.0",
+          low: "Backlog",
         },
-        defaultMilestone: 'Backlog',
+        defaultMilestone: "Backlog",
       };
 
       const auditStart = Date.now();
@@ -622,19 +673,19 @@ describe('integration: milestone allocation workflow', () => {
       expect(cascadeTime).toBeLessThan(300);
     });
 
-    it('maintains accuracy with complex priority distributions', () => {
+    it("maintains accuracy with complex priority distributions", () => {
       const complexBatch = Array.from({ length: 150 }, (_, i) => ({
         number: 4000 + i,
         title: `Issue ${i}`,
         priority:
           i < 20
-            ? 'critical'
+            ? "critical"
             : i < 50
-              ? 'high'
+              ? "high"
               : i < 100
-                ? 'normal'
+                ? "normal"
                 : i < 140
-                  ? 'low'
+                  ? "low"
                   : undefined,
         labels: [],
         milestone: null,

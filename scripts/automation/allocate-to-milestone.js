@@ -590,7 +590,11 @@ class MilestoneAllocator {
       // Error handling: log and return failure status
       if (err instanceof AllocationError) {
         this.log("error", "main", `${err.code}: ${err.message}`);
-        return { success: false, error: `${err.code}: ${err.message}`, stats: this.stats };
+        return {
+          success: false,
+          error: `${err.code}: ${err.message}`,
+          stats: this.stats,
+        };
       } else {
         this.log("error", "main", `Unexpected error: ${err.message}`);
         return { success: false, error: err.message, stats: this.stats };

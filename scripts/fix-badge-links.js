@@ -9,31 +9,32 @@
  * - Invalid URL encoding
  */
 
-import fs from 'fs';
-import path from 'path';
-import { execSync } from 'child_process';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { execSync } from "child_process";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PATTERNS = [
   {
-    name: 'Trailing angle brackets',
+    name: "Trailing angle brackets",
     regex: /(https?:\/\/[^>\s`]+)>(?=[\s\n]|$)/g,
-    replacement: '$1',
+    replacement: "$1",
   },
   {
-    name: 'Trailing backticks',
+    name: "Trailing backticks",
     regex: /(https?:\/\/[^`\s]+)`(?=[\s\n]|$)/g,
-    replacement: '$1',
+    replacement: "$1",
   },
   {
-    name: 'Incomplete workflow badge URLs (branch param)',
-    regex: /(https?:\/\/github\.com\/[^\/]+\/[^\/]+\/actions\/workflows\/[^\s?]+\.yml)\/badge\.svg\?branch=([^\s&)]+)$/gm,
-    replacement: '$1/badge.svg?branch=$2',
+    name: "Incomplete workflow badge URLs (branch param)",
+    regex:
+      /(https?:\/\/github\.com\/[^\/]+\/[^\/]+\/actions\/workflows\/[^\s?]+\.yml)\/badge\.svg\?branch=([^\s&)]+)$/gm,
+    replacement: "$1/badge.svg?branch=$2",
   },
   {
-    name: 'HTML encoded characters in URLs',
+    name: "HTML encoded characters in URLs",
     regex: /(https?:\/\/[^\s%]+)%([0-9A-F]{2})/g,
     replacement: (match, url, hex) => {
       try {
@@ -47,16 +48,16 @@ const PATTERNS = [
 ];
 
 const EXCLUDE_PATHS = [
-  'node_modules',
-  '.git',
-  '.github/workflows', // Don't modify workflows
+  "node_modules",
+  ".git",
+  ".github/workflows", // Don't modify workflows
 ];
 
 function isExcluded(filePath) {
-  return EXCLUDE_PATHS.some(exclude => filePath.includes(exclude));
+  return EXCLUDE_PATHS.some((exclude) => filePath.includes(exclude));
 }
 
-function findMarkdownFiles(rootDir = '.') {
+function findMarkdownFiles(rootDir = ".") {
   const files = [];
 
   function walkDir(dir) {
@@ -68,7 +69,7 @@ function findMarkdownFiles(rootDir = '.') {
 
         if (entry.isDirectory()) {
           walkDir(fullPath);
-        } else if (entry.name.endsWith('.md')) {
+        } else if (entry.name.endsWith(".md")) {
           files.push(fullPath);
         }
       }
@@ -90,19 +91,20 @@ function extractBrokenLinks(content) {
   while ((match = trailingSpecialChars.exec(content)) !== null) {
     brokenLinks.push({
       url: match[0],
-      type: 'trailing-special-char',
-      pattern: 'URL with trailing special character',
+      type: "trailing-special-char",
+      pattern: "URL with trailing special character",
     });
   }
 
   // Find incomplete workflow URLs
-  const incompleteWorkflow = /https?:\/\/github\.com\/[^\/]+\/[^\/]+\/actions\/workflows\/[^\s?]+\.yml\/badge\.svg\?branch=[^\s&)]*$/gm;
+  const incompleteWorkflow =
+    /https?:\/\/github\.com\/[^\/]+\/[^\/]+\/actions\/workflows\/[^\s?]+\.yml\/badge\.svg\?branch=[^\s&)]*$/gm;
   while ((match = incompleteWorkflow.exec(content)) !== null) {
-    if (!match[0].includes('develop') && !match[0].includes('main')) {
+    if (!match[0].includes("develop") && !match[0].includes("main")) {
       brokenLinks.push({
         url: match[0],
-        type: 'incomplete-workflow',
-        pattern: 'Incomplete workflow badge URL',
+        type: "incomplete-workflow",
+        pattern: "Incomplete workflow badge URL",
       });
     }
   }
@@ -112,7 +114,7 @@ function extractBrokenLinks(content) {
 
 function fixFile(filePath) {
   console.log(`\n📄 Processing: ${filePath}`);
-  let content = fs.readFileSync(filePath, 'utf-8');
+  let content = fs.readFileSync(filePath, "utf-8");
   const originalContent = content;
   let fixed = false;
 
@@ -129,13 +131,13 @@ function fixFile(filePath) {
   const brokenLinks = extractBrokenLinks(content);
   if (brokenLinks.length > 0) {
     console.log(`  ⚠️  Still has broken links:`);
-    brokenLinks.forEach(link => {
+    brokenLinks.forEach((link) => {
       console.log(`    - ${link.type}: ${link.url}`);
     });
   }
 
   if (fixed) {
-    fs.writeFileSync(filePath, content, 'utf-8');
+    fs.writeFileSync(filePath, content, "utf-8");
     console.log(`  ✅ File updated`);
     return { file: filePath, fixed: true, brokenLinks };
   } else {
@@ -144,7 +146,7 @@ function fixFile(filePath) {
 }
 
 function main() {
-  console.log('🔍 Badge Link Fixer - Starting...\n');
+  console.log("🔍 Badge Link Fixer - Starting...\n");
 
   const markdownFiles = findMarkdownFiles();
   console.log(`Found ${markdownFiles.length} markdown files\n`);
@@ -168,20 +170,20 @@ function main() {
   }
 
   // Summary
-  console.log('\n\n📊 Summary');
-  console.log('=' .repeat(60));
+  console.log("\n\n📊 Summary");
+  console.log("=".repeat(60));
   console.log(`✅ Fixed: ${results.fixed.length} files`);
   console.log(`⚠️  Still broken: ${results.broken.length} files`);
   console.log(`✓ Unchanged: ${results.unchanged.length} files`);
 
   if (results.fixed.length > 0) {
-    console.log('\nFixed files:');
-    results.fixed.forEach(file => console.log(`  - ${file}`));
+    console.log("\nFixed files:");
+    results.fixed.forEach((file) => console.log(`  - ${file}`));
   }
 
   if (results.broken.length > 0) {
-    console.log('\nFiles with remaining broken links:');
-    results.broken.forEach(file => console.log(`  - ${file}`));
+    console.log("\nFiles with remaining broken links:");
+    results.broken.forEach((file) => console.log(`  - ${file}`));
   }
 
   // Exit with appropriate code

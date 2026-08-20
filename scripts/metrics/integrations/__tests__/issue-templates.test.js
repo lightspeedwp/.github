@@ -2,36 +2,36 @@
  * Issue Templates Generator Tests
  */
 
-const IssueTemplateGenerator = require('../issue-templates');
+const IssueTemplateGenerator = require("../issue-templates");
 
-describe('IssueTemplateGenerator', () => {
+describe("IssueTemplateGenerator", () => {
   let generator;
 
   beforeEach(() => {
     generator = new IssueTemplateGenerator({
-      org: 'lightspeedwp',
-      repo: '.github'
+      org: "lightspeedwp",
+      repo: ".github",
     });
   });
 
-  describe('Constructor', () => {
-    test('should initialize with defaults', () => {
+  describe("Constructor", () => {
+    test("should initialize with defaults", () => {
       const g = new IssueTemplateGenerator();
       expect(g).toBeInstanceOf(IssueTemplateGenerator);
-      expect(g.org).toBe('lightspeedwp');
-      expect(g.repo).toBe('.github');
+      expect(g.org).toBe("lightspeedwp");
+      expect(g.repo).toBe(".github");
     });
 
-    test('should initialize with custom options', () => {
+    test("should initialize with custom options", () => {
       const g = new IssueTemplateGenerator({
-        org: 'custom-org',
-        repo: 'custom-repo'
+        org: "custom-org",
+        repo: "custom-repo",
       });
-      expect(g.org).toBe('custom-org');
-      expect(g.repo).toBe('custom-repo');
+      expect(g.org).toBe("custom-org");
+      expect(g.repo).toBe("custom-repo");
     });
 
-    test('should have default thresholds', () => {
+    test("should have default thresholds", () => {
       const thresholds = generator.getDefaultThresholds();
       expect(thresholds.staleIssues).toBeDefined();
       expect(thresholds.reviewTime).toBeDefined();
@@ -39,149 +39,149 @@ describe('IssueTemplateGenerator', () => {
     });
   });
 
-  describe('Should Create Issue Logic', () => {
-    test('should create issue when absolute threshold exceeded', () => {
+  describe("Should Create Issue Logic", () => {
+    test("should create issue when absolute threshold exceeded", () => {
       const metric = {
-        name: 'staleIssues',
+        name: "staleIssues",
         current: 10,
-        percentChange: 5
+        percentChange: 5,
       };
 
       expect(generator.shouldCreateIssue(metric)).toBe(true);
     });
 
-    test('should create issue when percent change exceeded', () => {
+    test("should create issue when percent change exceeded", () => {
       const metric = {
-        name: 'staleIssues',
+        name: "staleIssues",
         current: 4,
-        percentChange: 50
+        percentChange: 50,
       };
 
       expect(generator.shouldCreateIssue(metric)).toBe(true);
     });
 
-    test('should not create issue below both thresholds', () => {
+    test("should not create issue below both thresholds", () => {
       const metric = {
-        name: 'staleIssues',
+        name: "staleIssues",
         current: 3,
-        percentChange: 10
+        percentChange: 10,
       };
 
       expect(generator.shouldCreateIssue(metric)).toBe(false);
     });
 
-    test('should not create for unknown metric', () => {
+    test("should not create for unknown metric", () => {
       const metric = {
-        name: 'unknownMetric',
+        name: "unknownMetric",
         current: 100,
-        percentChange: 100
+        percentChange: 100,
       };
 
       expect(generator.shouldCreateIssue(metric)).toBe(false);
     });
   });
 
-  describe('Generate Stale Issues Alert', () => {
-    test('should generate alert when stale issues high', () => {
+  describe("Generate Stale Issues Alert", () => {
+    test("should generate alert when stale issues high", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 10 }
-            }
-          }
-        ]
+              issues: { staleIssues: 10 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateStaleIssuesAlert(metrics);
 
       expect(issue).not.toBeNull();
-      expect(issue.title).toContain('Stale Issues');
-      expect(issue.body).toContain('10 issues');
-      expect(issue.labels).toContain('priority:important');
+      expect(issue.title).toContain("Stale Issues");
+      expect(issue.body).toContain("10 issues");
+      expect(issue.labels).toContain("priority:important");
     });
 
-    test('should generate when stale issues significantly change', () => {
+    test("should generate when stale issues significantly change", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 0 }
-            }
-          }
-        ]
+              issues: { staleIssues: 0 },
+            },
+          },
+        ],
       };
 
       // A change from baseline 5 to 0 is 100% change, which exceeds 30% threshold
       const issue = generator.generateStaleIssuesAlert(metrics);
 
       expect(issue).not.toBeNull();
-      expect(issue.body).toContain('0 issues');
+      expect(issue.body).toContain("0 issues");
     });
 
-    test('should include recommended actions', () => {
+    test("should include recommended actions", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 8 }
-            }
-          }
-        ]
+              issues: { staleIssues: 8 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateStaleIssuesAlert(metrics);
 
-      expect(issue.body).toContain('Recommended Actions');
-      expect(issue.body).toContain('Review Stale Issues');
+      expect(issue.body).toContain("Recommended Actions");
+      expect(issue.body).toContain("Review Stale Issues");
     });
 
-    test('should include correct labels', () => {
+    test("should include correct labels", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 8 }
-            }
-          }
-        ]
+              issues: { staleIssues: 8 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateStaleIssuesAlert(metrics);
 
-      expect(issue.labels).toContain('metrics-alert');
-      expect(issue.labels).toContain('team-leads');
+      expect(issue.labels).toContain("metrics-alert");
+      expect(issue.labels).toContain("team-leads");
     });
   });
 
-  describe('Generate PR Review Degradation', () => {
-    test('should generate alert when review time high', () => {
+  describe("Generate PR Review Degradation", () => {
+    test("should generate alert when review time high", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              pullRequests: { averageReviewTime: 2.5 }
-            }
-          }
-        ]
+              pullRequests: { averageReviewTime: 2.5 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generatePRReviewDegradation(metrics);
 
       expect(issue).not.toBeNull();
-      expect(issue.title).toContain('PR Review Time');
-      expect(issue.body).toContain('2.5 days');
+      expect(issue.title).toContain("PR Review Time");
+      expect(issue.body).toContain("2.5 days");
     });
 
-    test('should not generate when review time normal', () => {
+    test("should not generate when review time normal", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              pullRequests: { averageReviewTime: 1.0 }
-            }
-          }
-        ]
+              pullRequests: { averageReviewTime: 1.0 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generatePRReviewDegradation(metrics);
@@ -189,48 +189,48 @@ describe('IssueTemplateGenerator', () => {
       expect(issue).toBeNull();
     });
 
-    test('should include SLA recommendations', () => {
+    test("should include SLA recommendations", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              pullRequests: { averageReviewTime: 2.5 }
-            }
-          }
-        ]
+              pullRequests: { averageReviewTime: 2.5 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generatePRReviewDegradation(metrics);
 
-      expect(issue.body).toContain('24-hour');
-      expect(issue.body).toContain('Review SLA');
+      expect(issue.body).toContain("24-hour");
+      expect(issue.body).toContain("Review SLA");
     });
   });
 
-  describe('Generate Health Alert', () => {
-    test('should generate alert when health low', () => {
+  describe("Generate Health Alert", () => {
+    test("should generate alert when health low", () => {
       const metrics = {
         healthScore: {
           overall: 65,
           components: {
             responseTime: 60,
-            codeQuality: 75
-          }
-        }
+            codeQuality: 75,
+          },
+        },
       };
 
       const issue = generator.generateHealthAlert(metrics);
 
       expect(issue).not.toBeNull();
-      expect(issue.title).toContain('Health');
-      expect(issue.body).toContain('65');
+      expect(issue.title).toContain("Health");
+      expect(issue.body).toContain("65");
     });
 
-    test('should not generate when health acceptable', () => {
+    test("should not generate when health acceptable", () => {
       const metrics = {
         healthScore: {
-          overall: 75
-        }
+          overall: 75,
+        },
       };
 
       const issue = generator.generateHealthAlert(metrics);
@@ -238,66 +238,66 @@ describe('IssueTemplateGenerator', () => {
       expect(issue).toBeNull();
     });
 
-    test('should include health breakdown', () => {
+    test("should include health breakdown", () => {
       const metrics = {
         healthScore: {
           overall: 60,
           components: {
             responseTime: 60,
-            codeQuality: 75
-          }
-        }
+            codeQuality: 75,
+          },
+        },
       };
 
       const issue = generator.generateHealthAlert(metrics);
 
-      expect(issue.body).toContain('Health Breakdown');
-      expect(issue.body).toContain('responseTime');
-      expect(issue.body).toContain('codeQuality');
+      expect(issue.body).toContain("Health Breakdown");
+      expect(issue.body).toContain("responseTime");
+      expect(issue.body).toContain("codeQuality");
     });
 
-    test('should mark as critical when very low', () => {
+    test("should mark as critical when very low", () => {
       const metrics = {
         healthScore: {
           overall: 55,
-          components: {}
-        }
+          components: {},
+        },
       };
 
       const issue = generator.generateHealthAlert(metrics);
 
-      expect(issue.labels).toContain('priority:critical');
+      expect(issue.labels).toContain("priority:critical");
     });
   });
 
-  describe('Generate Team Capacity Alert', () => {
-    test('should generate alert when capacity low', () => {
+  describe("Generate Team Capacity Alert", () => {
+    test("should generate alert when capacity low", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              contributors: { active: 6 }
-            }
-          }
-        ]
+              contributors: { active: 6 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateTeamCapacityAlert(metrics);
 
       expect(issue).not.toBeNull();
-      expect(issue.title).toContain('Team Capacity');
-      expect(issue.body).toContain('6 engineers');
+      expect(issue.title).toContain("Team Capacity");
+      expect(issue.body).toContain("6 engineers");
     });
 
-    test('should not generate when capacity adequate', () => {
+    test("should not generate when capacity adequate", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              contributors: { active: 12 }
-            }
-          }
-        ]
+              contributors: { active: 12 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateTeamCapacityAlert(metrics);
@@ -305,41 +305,41 @@ describe('IssueTemplateGenerator', () => {
       expect(issue).toBeNull();
     });
 
-    test('should include capacity planning recommendations', () => {
+    test("should include capacity planning recommendations", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              contributors: { active: 8 }
-            }
-          }
-        ]
+              contributors: { active: 8 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateTeamCapacityAlert(metrics);
 
-      expect(issue.body).toContain('Capacity Planning');
-      expect(issue.body).toContain('hiring plans');
+      expect(issue.body).toContain("Capacity Planning");
+      expect(issue.body).toContain("hiring plans");
     });
   });
 
-  describe('Generate All Issues', () => {
-    test('should generate multiple issues when all conditions met', () => {
+  describe("Generate All Issues", () => {
+    test("should generate multiple issues when all conditions met", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
               issues: { staleIssues: 10 },
               pullRequests: { averageReviewTime: 2.5 },
-              contributors: { active: 6 }
-            }
-          }
+              contributors: { active: 6 },
+            },
+          },
         ],
         healthScore: {
           overall: 65,
-          components: {}
+          components: {},
         },
-        anomalies: []
+        anomalies: [],
       };
 
       const issues = generator.generateAllIssues(metrics);
@@ -347,19 +347,19 @@ describe('IssueTemplateGenerator', () => {
       expect(issues.length).toBeGreaterThan(0);
     });
 
-    test('should return empty array when metrics are healthy', () => {
+    test("should return empty array when metrics are healthy", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
               issues: { staleIssues: 4 },
               pullRequests: { averageReviewTime: 1.0 },
-              contributors: { active: 12 }
-            }
-          }
+              contributors: { active: 12 },
+            },
+          },
         ],
         healthScore: { overall: 85 },
-        anomalies: []
+        anomalies: [],
       };
 
       // All values below thresholds (4 < 5, 1.0 < 2.0, 12 >= 10, health 85 > 70)
@@ -369,69 +369,69 @@ describe('IssueTemplateGenerator', () => {
     });
   });
 
-  describe('Health Breakdown Formatting', () => {
-    test('should format health components as markdown table', () => {
+  describe("Health Breakdown Formatting", () => {
+    test("should format health components as markdown table", () => {
       const components = {
         responseTime: 80,
         codeQuality: 75,
-        teamCapacity: 60
+        teamCapacity: 60,
       };
 
       const table = generator.formatHealthBreakdown(components);
 
-      expect(table).toContain('Component');
-      expect(table).toContain('Score');
-      expect(table).toContain('Status');
-      expect(table).toContain('responseTime');
-      expect(table).toContain('✅');
-      expect(table).toContain('⚠️');
-      expect(table).toContain('❌');
+      expect(table).toContain("Component");
+      expect(table).toContain("Score");
+      expect(table).toContain("Status");
+      expect(table).toContain("responseTime");
+      expect(table).toContain("✅");
+      expect(table).toContain("⚠️");
+      expect(table).toContain("❌");
     });
 
-    test('should correctly show health status icons', () => {
+    test("should correctly show health status icons", () => {
       const components = {
         high: 85,
         medium: 75,
-        low: 55
+        low: 55,
       };
 
       const table = generator.formatHealthBreakdown(components);
 
-      expect(table).toContain('✅'); // Healthy
-      expect(table).toContain('⚠️'); // At Risk
-      expect(table).toContain('❌'); // Below Target
+      expect(table).toContain("✅"); // Healthy
+      expect(table).toContain("⚠️"); // At Risk
+      expect(table).toContain("❌"); // Below Target
     });
   });
 
-  describe('Issue Structure', () => {
-    test('issues should have required fields', () => {
+  describe("Issue Structure", () => {
+    test("issues should have required fields", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 10 }
-            }
-          }
-        ]
+              issues: { staleIssues: 10 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateStaleIssuesAlert(metrics);
 
-      expect(issue).toHaveProperty('title');
-      expect(issue).toHaveProperty('body');
-      expect(issue).toHaveProperty('labels');
-      expect(issue).toHaveProperty('assignees');
+      expect(issue).toHaveProperty("title");
+      expect(issue).toHaveProperty("body");
+      expect(issue).toHaveProperty("labels");
+      expect(issue).toHaveProperty("assignees");
     });
 
-    test('issue labels should be valid format', () => {
+    test("issue labels should be valid format", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 10 }
-            }
-          }
-        ]
+              issues: { staleIssues: 10 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateStaleIssuesAlert(metrics);
@@ -443,22 +443,22 @@ describe('IssueTemplateGenerator', () => {
     });
   });
 
-  describe('Links in Issues', () => {
-    test('should include links to metrics reports', () => {
+  describe("Links in Issues", () => {
+    test("should include links to metrics reports", () => {
       const metrics = {
         repositories: [
           {
             metrics: {
-              issues: { staleIssues: 10 }
-            }
-          }
-        ]
+              issues: { staleIssues: 10 },
+            },
+          },
+        ],
       };
 
       const issue = generator.generateStaleIssuesAlert(metrics);
 
-      expect(issue.body).toContain('github.com');
-      expect(issue.body).toContain('Weekly Metrics');
+      expect(issue.body).toContain("github.com");
+      expect(issue.body).toContain("Weekly Metrics");
     });
   });
 });

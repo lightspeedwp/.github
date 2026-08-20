@@ -9,7 +9,13 @@ import { describe, it, expect } from "@jest/globals";
 describe("audit-issue-metadata", () => {
   describe("categorizeLabels", () => {
     const categorizeLabels = (labels) => {
-      const result = { type: [], area: [], status: [], priority: [], other: [] };
+      const result = {
+        type: [],
+        area: [],
+        status: [],
+        priority: [],
+        other: [],
+      };
       for (const label of labels) {
         const name = label.name || label;
         if (name.startsWith("type:")) {
@@ -97,7 +103,13 @@ describe("audit-issue-metadata", () => {
 
   describe("analyzeIssue", () => {
     const categorizeLabels = (labels) => {
-      const result = { type: [], area: [], status: [], priority: [], other: [] };
+      const result = {
+        type: [],
+        area: [],
+        status: [],
+        priority: [],
+        other: [],
+      };
       for (const label of labels) {
         const name = label.name || label;
         if (name.startsWith("type:")) {
@@ -132,7 +144,8 @@ describe("audit-issue-metadata", () => {
         (issue.body.includes("Resolves #") || issue.body.includes("Closes #"));
       if (
         !hasPRLink &&
-        (labels.type.includes("type:feature") || labels.type.includes("type:bug"))
+        (labels.type.includes("type:feature") ||
+          labels.type.includes("type:bug"))
       ) {
         gaps.push("pr-link");
       }
@@ -348,7 +361,13 @@ describe("audit-issue-metadata", () => {
       };
 
       const result = analyzeIssue(issue);
-      expect(result.labels).toEqual({ type: [], area: [], status: [], priority: [], other: [] });
+      expect(result.labels).toEqual({
+        type: [],
+        area: [],
+        status: [],
+        priority: [],
+        other: [],
+      });
     });
 
     it("should handle null assignees", () => {

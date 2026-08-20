@@ -6,13 +6,16 @@
  * Consolidates all broken links into the latest issue
  */
 
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
 
-const REPO = process.env.GITHUB_REPOSITORY || 'lightspeedwp/.github';
+const REPO = process.env.GITHUB_REPOSITORY || "lightspeedwp/.github";
 
 function runGH(args) {
   try {
-    return execSync(`gh ${args}`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+    return execSync(`gh ${args}`, {
+      encoding: "utf-8",
+      stdio: ["pipe", "pipe", "pipe"],
+    }).trim();
   } catch (err) {
     console.error(`GH command failed: gh ${args}`);
     throw err;
@@ -20,38 +23,42 @@ function runGH(args) {
 }
 
 function findBadgeHealthCheckIssues() {
-  console.log('🔍 Finding Badge Health Check issues...\n');
+  console.log("🔍 Finding Badge Health Check issues...\n");
 
   const result = runGH(
     `issue list --repo "${REPO}" --label "area:automation" --state open --json number,title,createdAt -q '.[] | select(.title | startswith("🏥 Badge Health Check"))'`,
   );
 
   if (!result) {
-    console.log('No Badge Health Check issues found');
+    console.log("No Badge Health Check issues found");
     return [];
   }
 
   try {
-    const issues = JSON.parse(`[${result.split('\n').join(',')}]`);
+    const issues = JSON.parse(`[${result.split("\n").join(",")}]`);
     return issues.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   } catch (err) {
-    console.error('Failed to parse issue list:', err);
+    console.error("Failed to parse issue list:", err);
     return [];
   }
 }
 
 function getIssueBody(issueNumber) {
   try {
-    return runGH(`issue view "${issueNumber}" --repo "${REPO}" --json body -q '.body'`);
+    return runGH(
+      `issue view "${issueNumber}" --repo "${REPO}" --json body -q '.body'`,
+    );
   } catch {
-    return '';
+    return "";
   }
 }
 
 function closeIssue(issueNumber, reason) {
   try {
     console.log(`  Closing issue #${issueNumber}...`);
-    runGH(`issue close "${issueNumber}" --repo "${REPO}" --comment "${reason}"`);
+    runGH(
+      `issue close "${issueNumber}" --repo "${REPO}" --comment "${reason}"`,
+    );
     console.log(`  ✅ Issue #${issueNumber} closed`);
     return true;
   } catch (err) {
@@ -65,14 +72,16 @@ function extractBrokenLinks(body) {
   if (!brokenSection) return [];
 
   return brokenSection[1]
-    .split('\n')
-    .filter(line => line.trim().startsWith('http'))
-    .map(line => line.trim());
+    .split("\n")
+    .filter((line) => line.trim().startsWith("http"))
+    .map((line) => line.trim());
 }
 
 function consolidateIssues(issues) {
   if (issues.length <= 1) {
-    console.log('\n✅ Only one badge health check issue exists - no duplicates to close\n');
+    console.log(
+      "\n✅ Only one badge health check issue exists - no duplicates to close\n",
+    );
     return;
   }
 
@@ -82,7 +91,9 @@ function consolidateIssues(issues) {
   const oldestIssues = issues.slice(1);
 
   console.log(`Latest issue: #${latestIssue.number} (${latestIssue.title})`);
-  console.log(`Duplicates to close: ${oldestIssues.map(i => `#${i.number}`).join(', ')}\n`);
+  console.log(
+    `Duplicates to close: ${oldestIssues.map((i) => `#${i.number}`).join(", ")}\n`,
+  );
 
   // Collect all broken links from all issues
   const allBrokenLinks = new Set();
@@ -90,13 +101,15 @@ function consolidateIssues(issues) {
   for (const issue of issues) {
     const body = getIssueBody(issue.number);
     const links = extractBrokenLinks(body);
-    links.forEach(link => allBrokenLinks.add(link));
+    links.forEach((link) => allBrokenLinks.add(link));
   }
 
-  console.log(`📊 Total unique broken links across all issues: ${allBrokenLinks.size}\n`);
+  console.log(
+    `📊 Total unique broken links across all issues: ${allBrokenLinks.size}\n`,
+  );
 
   // Close duplicate issues
-  console.log('🗑️  Closing duplicate issues...\n');
+  console.log("🗑️  Closing duplicate issues...\n");
   let closedCount = 0;
 
   for (const issue of oldestIssues) {
@@ -115,14 +128,14 @@ function consolidateIssues(issues) {
 }
 
 function main() {
-  console.log('🏥 Badge Health Check Duplicate Closer\n');
+  console.log("🏥 Badge Health Check Duplicate Closer\n");
   console.log(`Repository: ${REPO}\n`);
-  console.log('=' .repeat(60));
+  console.log("=".repeat(60));
 
   const issues = findBadgeHealthCheckIssues();
 
   if (issues.length === 0) {
-    console.log('✅ No Badge Health Check issues found');
+    console.log("✅ No Badge Health Check issues found");
     process.exit(0);
   }
 

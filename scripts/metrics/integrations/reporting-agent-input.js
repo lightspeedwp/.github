@@ -8,8 +8,8 @@
 
 class MetricsReportFormatter {
   constructor(options = {}) {
-    this.metricsDir = options.metricsDir || '.github/reports/metrics';
-    this.reportDir = options.reportDir || '.github/reports/metrics';
+    this.metricsDir = options.metricsDir || ".github/reports/metrics";
+    this.reportDir = options.reportDir || ".github/reports/metrics";
   }
 
   /**
@@ -18,10 +18,10 @@ class MetricsReportFormatter {
    * @param {string} reportType - Type of report (weekly, monthly, quarterly, context)
    * @returns {Object} Formatted report input
    */
-  formatForReportingAgent(rawMetrics, reportType = 'weekly') {
+  formatForReportingAgent(rawMetrics, reportType = "weekly") {
     const reportMethod = `generate${reportType.charAt(0).toUpperCase()}${reportType.slice(1)}Report`;
 
-    if (typeof this[reportMethod] !== 'function') {
+    if (typeof this[reportMethod] !== "function") {
       throw new Error(`Unsupported report type: ${reportType}`);
     }
 
@@ -39,32 +39,36 @@ class MetricsReportFormatter {
     startDate.setDate(startDate.getDate() - 7);
 
     return {
-      type: 'metrics-report',
-      reportType: 'weekly',
+      type: "metrics-report",
+      reportType: "weekly",
       timestamp: rawMetrics.timestamp,
       period: {
         start: startDate.toISOString(),
         end: rawMetrics.timestamp,
-        label: `Week of ${this.formatDate(startDate)} - ${this.formatDate(new Date(rawMetrics.timestamp))}`
+        label: `Week of ${this.formatDate(startDate)} - ${this.formatDate(new Date(rawMetrics.timestamp))}`,
       },
       executive_summary: {
         healthScore: healthScore.overall || 0,
-        trend: healthScore.trend || 'unknown',
+        trend: healthScore.trend || "unknown",
         status: this.getHealthStatus(healthScore.overall),
-        topPriority: this.getTopPriority(rawMetrics)
+        topPriority: this.getTopPriority(rawMetrics),
       },
       metrics: this.formatMetricsSection(rawMetrics),
       trends: this.formatTrendsSection(rawMetrics),
       anomalies: this.formatAnomaliesSection(rawMetrics),
       insights: this.formatInsightsSection(rawMetrics),
       recommendations: this.formatRecommendationsSection(rawMetrics),
-      health_components: this.formatHealthComponentsSection(healthScore.components || {}),
+      health_components: this.formatHealthComponentsSection(
+        healthScore.components || {},
+      ),
       nextSteps: this.generateNextSteps(rawMetrics),
       reportLinks: {
-        fullReport: this.generateReportLink('weekly-summary-latest.md'),
-        previousWeek: this.generateReportLink('weekly/weekly-summary-2026-W33.md'),
-        metricsCollection: this.generateCollectionLink()
-      }
+        fullReport: this.generateReportLink("weekly-summary-latest.md"),
+        previousWeek: this.generateReportLink(
+          "weekly/weekly-summary-2026-W33.md",
+        ),
+        metricsCollection: this.generateCollectionLink(),
+      },
     };
   }
 
@@ -75,7 +79,7 @@ class MetricsReportFormatter {
    */
   generateMonthlyReport(rawMetrics) {
     const report = this.generateWeeklyReport(rawMetrics);
-    report.reportType = 'monthly';
+    report.reportType = "monthly";
     report.period.label = `Month of ${this.formatMonth(new Date(rawMetrics.timestamp))}`;
     return report;
   }
@@ -87,7 +91,7 @@ class MetricsReportFormatter {
    */
   generateQuarterlyReport(rawMetrics) {
     const report = this.generateWeeklyReport(rawMetrics);
-    report.reportType = 'quarterly';
+    report.reportType = "quarterly";
     const date = new Date(rawMetrics.timestamp);
     const quarter = Math.ceil((date.getMonth() + 1) / 3);
     report.period.label = `Q${quarter} ${date.getFullYear()}`;
@@ -100,7 +104,7 @@ class MetricsReportFormatter {
    * @param {string} context - Context type (control-plane, plugin, theme)
    * @returns {Object} Context-specific report
    */
-  generateContextReport(rawMetrics, context = 'control-plane') {
+  generateContextReport(rawMetrics, context = "control-plane") {
     const report = this.generateWeeklyReport(rawMetrics);
     report.context = context;
     report.reportType = `context-${context}`;
@@ -129,9 +133,9 @@ class MetricsReportFormatter {
         averageClosureTime: metrics.issues?.averageClosureTime || 0,
         staleIssues: metrics.issues?.staleIssues || 0,
         stalePercentage: this.formatPercent(
-          (metrics.issues?.staleIssues || 0) / (metrics.issues?.total || 1)
+          (metrics.issues?.staleIssues || 0) / (metrics.issues?.total || 1),
         ),
-        reopenedRate: this.formatPercent(metrics.issues?.reopenedRate)
+        reopenedRate: this.formatPercent(metrics.issues?.reopenedRate),
       },
       pullRequests: {
         total: metrics.pullRequests?.total || 0,
@@ -144,24 +148,32 @@ class MetricsReportFormatter {
         averageSize: metrics.pullRequests?.averageSize || 0,
         largeSize: metrics.pullRequests?.largeSize || 0,
         largePercentage: this.formatPercent(
-          (metrics.pullRequests?.largeSize || 0) / (metrics.pullRequests?.total || 1)
-        )
+          (metrics.pullRequests?.largeSize || 0) /
+            (metrics.pullRequests?.total || 1),
+        ),
       },
       contributors: {
         active: metrics.contributors?.active || 0,
-        topContributors: (metrics.contributors?.topContributors || []).map((c) => {
-          const contributor = { name: c.name, commits: c.commits };
-          if (metrics.contributors?.totalCommits && metrics.contributors.totalCommits > 0) {
-            contributor.percentage = this.formatPercent(c.commits / metrics.contributors.totalCommits);
-          }
-          return contributor;
-        })
+        topContributors: (metrics.contributors?.topContributors || []).map(
+          (c) => {
+            const contributor = { name: c.name, commits: c.commits };
+            if (
+              metrics.contributors?.totalCommits &&
+              metrics.contributors.totalCommits > 0
+            ) {
+              contributor.percentage = this.formatPercent(
+                c.commits / metrics.contributors.totalCommits,
+              );
+            }
+            return contributor;
+          },
+        ),
       },
       codeQuality: {
         lintingPass: this.formatPercent(metrics.codeQuality?.lintingPass),
         testCoverage: this.formatPercent(metrics.codeQuality?.testCoverage),
-        ciPassRate: this.formatPercent(metrics.codeQuality?.ciPassRate)
-      }
+        ciPassRate: this.formatPercent(metrics.codeQuality?.ciPassRate),
+      },
     };
   }
 
@@ -178,27 +190,39 @@ class MetricsReportFormatter {
       const trend = metrics.activityTrend || {};
 
       trends.issues = {
-        trend: trend.issuesTrend || 'unknown',
-        change: typeof metrics.issuesChange !== 'undefined' ? metrics.issuesChange : 'unavailable',
-        detail: metrics.issuesDetail || 'Data unavailable'
+        trend: trend.issuesTrend || "unknown",
+        change:
+          typeof metrics.issuesChange !== "undefined"
+            ? metrics.issuesChange
+            : "unavailable",
+        detail: metrics.issuesDetail || "Data unavailable",
       };
 
       trends.pullRequests = {
-        trend: trend.prsTrend || 'unknown',
-        change: typeof metrics.prsChange !== 'undefined' ? metrics.prsChange : 'unavailable',
-        detail: metrics.prsDetail || 'Data unavailable'
+        trend: trend.prsTrend || "unknown",
+        change:
+          typeof metrics.prsChange !== "undefined"
+            ? metrics.prsChange
+            : "unavailable",
+        detail: metrics.prsDetail || "Data unavailable",
       };
 
       trends.reviewTime = {
-        trend: trend.reviewTimeTrend || 'unknown',
-        change: typeof metrics.reviewTimeChange !== 'undefined' ? metrics.reviewTimeChange : 'unavailable',
-        detail: metrics.reviewTimeDetail || 'Data unavailable'
+        trend: trend.reviewTimeTrend || "unknown",
+        change:
+          typeof metrics.reviewTimeChange !== "undefined"
+            ? metrics.reviewTimeChange
+            : "unavailable",
+        detail: metrics.reviewTimeDetail || "Data unavailable",
       };
 
       trends.contributors = {
-        trend: trend.contributorsTrend || 'unknown',
-        change: typeof metrics.contributorsChange !== 'undefined' ? metrics.contributorsChange : 'unavailable',
-        detail: metrics.contributorsDetail || 'Data unavailable'
+        trend: trend.contributorsTrend || "unknown",
+        change:
+          typeof metrics.contributorsChange !== "undefined"
+            ? metrics.contributorsChange
+            : "unavailable",
+        detail: metrics.contributorsDetail || "Data unavailable",
       };
     }
 
@@ -216,7 +240,7 @@ class MetricsReportFormatter {
       metric: anomaly.metric,
       finding: `${anomaly.metric} changed from ${anomaly.from} to ${anomaly.to}`,
       percentChange: anomaly.percentChange,
-      recommendation: `Review ${anomaly.metric} trend`
+      recommendation: `Review ${anomaly.metric} trend`,
     }));
   }
 
@@ -231,7 +255,7 @@ class MetricsReportFormatter {
       title: insight.finding,
       finding: insight.finding,
       impact: insight.impact,
-      action: insight.recommendation
+      action: insight.recommendation,
     }));
   }
 
@@ -247,7 +271,7 @@ class MetricsReportFormatter {
       effort: rec.effort,
       owner: rec.owner,
       timeframe: rec.timeframe,
-      expectedOutcome: `Improve ${rec.action.toLowerCase()}`
+      expectedOutcome: `Improve ${rec.action.toLowerCase()}`,
     }));
   }
 
@@ -265,7 +289,8 @@ class MetricsReportFormatter {
         metric: `${key}Metric`,
         value: score,
         target: 80,
-        status: score >= 80 ? 'healthy' : score >= 70 ? 'at-risk' : 'below-target'
+        status:
+          score >= 80 ? "healthy" : score >= 70 ? "at-risk" : "below-target",
       };
     });
 
@@ -279,7 +304,9 @@ class MetricsReportFormatter {
    */
   generateNextSteps(rawMetrics) {
     const steps = [];
-    const today = rawMetrics.timestamp ? new Date(rawMetrics.timestamp) : new Date();
+    const today = rawMetrics.timestamp
+      ? new Date(rawMetrics.timestamp)
+      : new Date();
     const daysUntilFriday = (5 - today.getDay() + 7) % 7;
     const friday = new Date(today);
     friday.setDate(friday.getDate() + daysUntilFriday);
@@ -288,7 +315,9 @@ class MetricsReportFormatter {
       rawMetrics.recommendations.slice(0, 3).forEach((rec, index) => {
         const dueDate = new Date(friday);
         dueDate.setDate(dueDate.getDate() + index);
-        steps.push(`${rec.action} (due: ${dueDate.toISOString().split('T')[0]})`);
+        steps.push(
+          `${rec.action} (due: ${dueDate.toISOString().split("T")[0]})`,
+        );
       });
     }
 
@@ -299,21 +328,25 @@ class MetricsReportFormatter {
    * Helper: Format date
    */
   formatDate(date) {
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   }
 
   /**
    * Helper: Format month
    */
   formatMonth(date) {
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
   }
 
   /**
    * Helper: Format percentage
    */
   formatPercent(value) {
-    if (typeof value !== 'number') return '0%';
+    if (typeof value !== "number") return "0%";
     return `${Math.round(value * 100)}%`;
   }
 
@@ -321,10 +354,10 @@ class MetricsReportFormatter {
    * Helper: Get health status
    */
   getHealthStatus(score) {
-    if (score >= 80) return 'healthy';
-    if (score >= 70) return 'at-risk';
-    if (score >= 60) return 'critical';
-    return 'failing';
+    if (score >= 80) return "healthy";
+    if (score >= 70) return "at-risk";
+    if (score >= 60) return "critical";
+    return "failing";
   }
 
   /**
@@ -334,7 +367,7 @@ class MetricsReportFormatter {
     if (rawMetrics.recommendations && rawMetrics.recommendations[0]) {
       return rawMetrics.recommendations[0].action;
     }
-    return 'Review metrics';
+    return "Review metrics";
   }
 
   /**
@@ -348,7 +381,7 @@ class MetricsReportFormatter {
    * Helper: Generate collection link
    */
   generateCollectionLink() {
-    return 'https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/metrics-agent.js';
+    return "https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/metrics-agent.js";
   }
 }
 
