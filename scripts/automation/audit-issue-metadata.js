@@ -76,7 +76,7 @@ const statusLabelsToAudit = [
 ];
 
 // Utility: Make GitHub API request
-async function githubRequest(method, path, body = null) {
+async function githubRequest(method, path, body = null, token = process.env.GITHUB_TOKEN) {
   return new Promise((resolve, reject) => {
     const options = {
       hostname: "api.github.com",
@@ -185,22 +185,22 @@ function analyzeIssue(issue) {
 }
 
 // Fetch all open issues with pagination
-async function fetchAllIssues() {
+async function fetchAllIssues(fetchConfig = config, fetchToken = token) {
   const allIssues = [];
   let page = 1;
   let hasMore = true;
 
   console.log("📥 Fetching all open issues...");
 
-  while (hasMore && allIssues.length < config.limit) {
+  while (hasMore && allIssues.length < fetchConfig.limit) {
     // Build path using labels parameter if filter is specified
-    let path = `/repos/${config.owner}/${config.repo}/issues?state=open&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
-    if (config.filter) {
-      path += `&labels=${encodeURIComponent(config.filter)}`;
+    let path = `/repos/${fetchConfig.owner}/${fetchConfig.repo}/issues?state=open&per_page=${fetchConfig.perPage}&page=${page}&sort=created&order=asc`;
+    if (fetchConfig.filter) {
+      path += `&labels=${encodeURIComponent(fetchConfig.filter)}`;
     }
 
     try {
-      const response = await githubRequest("GET", path);
+      const response = await githubRequest("GET", path, null, fetchToken);
       const rawPage = response.data;
       const pageSize = rawPage?.length || 0;
 
@@ -211,14 +211,14 @@ async function fetchAllIssues() {
         const issues = rawPage.filter((item) => !item.pull_request);
         allIssues.push(...issues);
 
-        if (config.verbose) {
+        if (fetchConfig.verbose) {
           console.log(
             `  ✓ Fetched page ${page} (${issues.length} issues, total: ${allIssues.length})`,
           );
         }
 
         // Use raw page size to determine if more pages exist
-        if (pageSize < config.perPage) {
+        if (pageSize < fetchConfig.perPage) {
           hasMore = false;
         } else {
           page++;
@@ -337,16 +337,16 @@ function generateAuditReport(analyzedIssues) {
 }
 
 // Export as JSON
-function exportJSON(data) {
-  const filename = path.join(config.outputDir, "audit-results.json");
+function exportJSON(data, exportConfig = config) {
+  const filename = path.join(exportConfig.outputDir, "audit-results.json");
   fs.writeFileSync(filename, JSON.stringify(data, null, 2));
   console.log(`✅ JSON export: ${filename}`);
   return filename;
 }
 
 // Export as CSV
-function exportCSV(data) {
-  const filename = path.join(config.outputDir, "audit-results.csv");
+function exportCSV(data, exportConfig = config) {
+  const filename = path.join(exportConfig.outputDir, "audit-results.csv");
 
   const rows = [
     "Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Milestone,Gaps",
@@ -373,13 +373,13 @@ function exportCSV(data) {
 }
 
 // Generate markdown report
-function generateMarkdownReport(data) {
+function generateMarkdownReport(data, reportConfig = config) {
   const { stats, coverage } = data;
 
   let markdown = `# Issue Metadata Audit Report
 
 **Generated:** ${new Date().toISOString()}
-**Repository:** \`${config.owner}/${config.repo}\`
+**Repository:** \`${reportConfig.owner}/${reportConfig.repo}\`
 **Total Issues Analyzed:** ${stats.total}
 
 ## Executive Summary
@@ -547,8 +547,30 @@ async function main() {
   console.log(`\n✅ Audit complete. Reports saved to: ${config.outputDir}`);
 }
 
-// Error handling
-main().catch((error) => {
-  console.error(`\n❌ Fatal error: ${error.message}`);
-  process.exit(1);
-});
+// Export functions for testing
+export {
+  githubRequest,
+  categorizeLabels,
+  analyzeIssue,
+  fetchAllIssues,
+  generateAuditReport,
+  exportJSON,
+  exportCSV,
+  generateMarkdownReport,
+  main,
+};
+
+// Error handling (only for CLI execution)
+// Check if this module is being run directly as a script
+try {
+  const currentFileUrl = new URL(import.meta.url).pathname;
+  const argv1Path = process.argv[1];
+  if (currentFileUrl === argv1Path || currentFileUrl.endsWith(argv1Path)) {
+    main().catch((error) => {
+      console.error(`\n❌ Fatal error: ${error.message}`);
+      process.exit(1);
+    });
+  }
+} catch (e) {
+  // import.meta.url not available in CommonJS context, skip auto-execution
+}
