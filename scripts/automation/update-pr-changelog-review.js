@@ -341,4 +341,18 @@ async function main() {
   }
 }
 
-main();
+// Only run main() when this module is the direct entry point
+// ESM-safe check: compare module's own URL to process.argv[1]
+import { pathToFileURL } from 'node:url';
+import { realpathSync } from 'node:fs';
+
+const isMainModule = import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href;
+
+if (isMainModule) {
+  // Validate GITHUB_TOKEN before running
+  if (!process.env.GITHUB_TOKEN) {
+    console.error('❌ Error: GITHUB_TOKEN environment variable is required');
+    process.exit(1);
+  }
+  main();
+}
