@@ -152,8 +152,6 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 2. Prioritize critical issues
 3. Schedule team sync to discuss bottlenecks
 
-**Related Report:** [Weekly Summary](../../../reports/metrics/weekly-summary-latest.md)
-
 /cc @team-leads #metrics-alerts
 ```
 

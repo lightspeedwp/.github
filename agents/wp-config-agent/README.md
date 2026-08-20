@@ -67,6 +67,8 @@ See `manifests/` for the file inventory, skill inventory, inaccessible-resource 
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Scope"] --> B["Inputs"]
     B --> C["Process"]
     C --> D["Validation"]

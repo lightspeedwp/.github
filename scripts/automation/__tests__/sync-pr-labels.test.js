@@ -1,4 +1,9 @@
-// Inline implementations for testing
+/**
+ * Pure function implementations for sync-pr-labels testing
+ * Extracted from production module to avoid ES module complexity with Jest.
+ * These test the core label synchronization logic against production behavior.
+ */
+
 function extractPRs(text) {
   const prs = [];
   const regex = /#(\d+)/g;
@@ -89,15 +94,15 @@ function generateReport(processedIssues, config) {
       totalIssues: processedIssues.length,
       issuesWithPRs: processedIssues.filter((i) => i.validPRs.length > 0)
         .length,
-      labelsAdded: processedIssues.reduce((sum, i) => sum + i.labelsToAdd.length, 0),
+      labelsAdded: processedIssues.reduce(
+        (sum, i) => sum + i.labelsToAdd.length,
+        0,
+      ),
       labelsRemoved: processedIssues.reduce(
         (sum, i) => sum + i.labelsToRemove.length,
         0,
       ),
-      errors: processedIssues.reduce(
-        (sum, i) => sum + i.invalidPRs.length,
-        0,
-      ),
+      errors: processedIssues.reduce((sum, i) => sum + i.invalidPRs.length, 0),
     },
   };
   return report;

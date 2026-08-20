@@ -78,6 +78,8 @@ The export was validated by checking that copied files exist, comparing every re
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Scope"] --> B["Inputs"]
     B --> C["Process"]
     C --> D["Validation"]

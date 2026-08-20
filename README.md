@@ -71,6 +71,8 @@ workflows/                     # Portable workflow playbooks
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Community Health Files"] --> B["Labels and Templates"]
     B --> C["Automation Workflows"]
     C --> D["Quality Gates"]
@@ -87,6 +89,8 @@ graph LR
 
 ```mermaid
 graph LR
+  accTitle: graph diagram
+  accDescr: graph flowchart
     A["Phase 1\nPortable Release Agent"] --> B["release/vX.Y.Z\nVersion + Changelog"]
     B --> C["Phase 2\nAgentic Safety Gates"]
     C --> D["main\nTagged Release"]

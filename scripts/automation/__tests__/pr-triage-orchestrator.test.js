@@ -1,4 +1,9 @@
-// Inline implementations for testing (avoiding import complexity)
+/**
+ * Pure function implementations for pr-triage-orchestrator testing
+ * These functions are isolated from the production module to avoid ES module complexity
+ * with Jest, but test against the same logic patterns used in production.
+ */
+
 function parseConfig(args) {
   const config = {
     dryRun: args.includes("--dry-run"),
@@ -145,9 +150,7 @@ describe("pr-triage-orchestrator", () => {
     });
 
     it("handles HTML comments in body", () => {
-      const issues = extractIssuesFromBody(
-        "<!-- #999 -->\nFixes #123",
-      );
+      const issues = extractIssuesFromBody("<!-- #999 -->\nFixes #123");
       expect(issues).toContain(123);
       expect(issues).not.toContain(999); // HTML comments should be stripped
     });

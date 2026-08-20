@@ -1,0 +1,84 @@
+name: OpenSpec Progress Phase
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  pull_request_target:
+    types:
+      - closed
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to progress"
+        required: false
+      next_state:
+        description: "Next OpenSpec label state"
+        required: false
+      dry_run:
+        description: "Perform a dry run"
+        required: false
+        default: "true"
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  progress-phase:
+    runs-on: ubuntu-latest
+    name: Progress Phase on PR Event
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Handle PR opened
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        run: |
+          node scripts/automation/handlers/handle-pr-opened.js \
+            --pr=${{ github.event.pull_request.number }} \
+            --dry-run=${{ github.event.inputs.dry_run || 'false' }} \
+            --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+
+      - name: Handle PR merged
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        run: |
+          node scripts/automation/handlers/handle-pr-merged.js \
+            --pr=${{ github.event.pull_request.number }} \
+            --dry-run=${{ github.event.inputs.dry_run || 'false' }} \
+            --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+
+      - name: Handle manual progression
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          node scripts/automation/handlers/handle-issue-labeled.js \
+            --issue=${{ github.event.inputs.issue_number }} \
+            --label=${{ github.event.inputs.next_state }} \
+            --dry-run=${{ github.event.inputs.dry_run }} \
+            --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log progression results
+        if: always()
+        run: |
+          echo "Phase progression completed"
+          echo "PR: ${{ github.event.pull_request.number }}"
+          echo "Event: ${{ github.event.action }}"
