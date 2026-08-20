@@ -194,39 +194,39 @@ Check detection order: Block Plugin → Control-Plane → Theme → Plugin → U
 
 ```mermaid
 flowchart TD
-    A["Repository Root"] --> B{"block.json or<br/>src/plugin.php?"}
-    B -->|Yes| C["✓ BLOCK_PLUGIN"]
-    B -->|No| D{"Control-plane markers?<br/>(.github/CLAUDE.md,<br/>.github/workflows,<br/>.github/actions)"}
-    D -->|Yes| E["✓ control-plane"]
-    D -->|No| F{"theme.json, style.css<br/>(with Theme Name:),<br/>or functions.php?"}
-    F -->|Yes| G["✓ wordpress-theme"]
-    F -->|No| H{"plugin.php with<br/>Plugin Name: header?"}
-    H -->|Yes| I["✓ wordpress-plugin"]
-    H -->|No| J["⚠ UNKNOWN"]
+    A["Repository Root"] --> B{"block.json or src/plugin.php?"}
+    B -->|Yes| C["BLOCK_PLUGIN"]
+    B -->|No| D{"Control-plane markers present?"}
+    D -->|Yes| E["control-plane"]
+    D -->|No| F{"theme.json or style.css with Theme Name?"}
+    F -->|Yes| G["wordpress-theme"]
+    F -->|No| H{"plugin.php with Plugin Name header?"}
+    H -->|Yes| I["wordpress-plugin"]
+    H -->|No| J["UNKNOWN"]
 ```
 
 **Location:** USER_GUIDE.md or ARCHITECTURE.md  
 **Format:** Mermaid flowchart  
-**Alt Text:** Repository type detection decision tree checking for block plugins, control-plane markers, WordPress themes, and WordPress plugins in order of precedence.
+**Alt Text:** Repository type detection decision tree. Checks for block.json or src/plugin.php first (Block Plugin), then control-plane markers (control-plane), then theme.json/style.css (WordPress Theme), then plugin.php with Plugin Name header (WordPress Plugin), finally UNKNOWN if none match.
 
 ### Diagram 2: Test Coverage Matrix
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '12px'}}}%%
+%%{init: {'theme': 'base'}}%%
 graph LR
-    subgraph tests ["Test Coverage (90/90 passing)"]
-        direction LR
-        B["Block Plugin: ✅<br/>Basic, Extended,<br/>Large, Error"]
-        W["WP Plugin: ✅<br/>Basic, Extended,<br/>Large, Error"]
-        T["WP Theme: ✅<br/>Basic, Extended,<br/>Large, Error"]
-        C["Control-Plane: ✅<br/>Basic, Extended,<br/>Large, Error"]
+    subgraph tests ["Test Coverage 90/90"]
+        direction TB
+        B["Block Plugin<br/>4 test levels"]
+        W["WP Plugin<br/>4 test levels"]
+        T["WP Theme<br/>4 test levels"]
+        C["Control-Plane<br/>4 test levels"]
     end
-    tests --> P["100% Pass Rate"]
+    tests --> P["100% Pass"]
 ```
 
 **Location:** SETUP_GUIDE.md  
 **Format:** Mermaid graph  
-**Alt Text:** Test coverage matrix showing 100% pass rate across all repository types with basic, extended, large, and error handling test suites.
+**Alt Text:** Test coverage summary. Block Plugin, WordPress Plugin, WordPress Theme, and Control-Plane each have four test levels (basic, extended, large, error handling). All 90 tests pass with 100% pass rate.
 
 ### Diagram 3: Repository Type Compatibility
 
@@ -234,23 +234,21 @@ graph LR
 %%{init: {'theme': 'base'}}%%
 graph TB
     subgraph runtimes ["Runtime Support"]
-        direction LR
-        NJ["Node.js: ✅ All"]
-        PHP["PHP 7.4+: ✅ WP Plugin,<br/>✅ WP Theme"]
-        Python["Python: ⚠️ Scripts only"]
+        NJ["Node.js: All types"]
+        PHP["PHP 7.4+: Plugin, Theme"]
+        Python["Python: Scripts only"]
     end
-    subgraph linters ["Linter Availability"]
-        direction LR
-        ESL["ESLint: ✅ All"]
-        SL["Stylelint: ✅ All"]
-        PHPCS["PHPCS: ✅ WP Plugin,<br/>✅ WP Theme"]
-        MD["Markdownlint: ✅ Control-Plane"]
+    subgraph linters ["Linter Support"]
+        ESL["ESLint: All types"]
+        SL["Stylelint: All types"]
+        PHPCS["PHPCS: Plugin, Theme"]
+        MD["Markdownlint: Control-Plane"]
     end
 ```
 
 **Location:** SETUP_GUIDE.md  
 **Format:** Mermaid graph  
-**Alt Text:** Repository type compatibility matrix showing runtime requirements (Node.js, PHP, Python) and available linters (ESLint, Stylelint, PHPCS, Markdownlint) for each repository type.
+**Alt Text:** Repository type compatibility. Runtime support: Node.js all types, PHP 7.4+ for WordPress Plugin and Theme, Python for scripts only. Linter support: ESLint and Stylelint for all types, PHPCS for Plugin and Theme, Markdownlint for Control-Plane.
 
 ---
 
