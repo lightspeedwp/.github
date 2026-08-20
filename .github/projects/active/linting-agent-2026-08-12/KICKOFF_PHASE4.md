@@ -214,14 +214,12 @@ flowchart TD
 ```mermaid
 %%{init: {'theme': 'base'}}%%
 graph LR
-    subgraph tests ["Test Coverage 90/90"]
-        direction TB
-        B["Block Plugin<br/>4 test levels"]
-        W["WP Plugin<br/>4 test levels"]
-        T["WP Theme<br/>4 test levels"]
-        C["Control-Plane<br/>4 test levels"]
+    subgraph tests ["Test Coverage: 90/90 Pass"]
+        B["Block Plugin Tests"]
+        W["WP Plugin Tests"]
+        T["WP Theme Tests"]
+        C["Control-Plane Tests"]
     end
-    tests --> P["100% Pass"]
 ```
 
 **Location:** SETUP_GUIDE.md  
@@ -234,15 +232,15 @@ graph LR
 %%{init: {'theme': 'base'}}%%
 graph TB
     subgraph runtimes ["Runtime Support"]
-        NJ["Node.js: All types"]
-        PHP["PHP 7.4+: Plugin, Theme"]
-        Python["Python: Scripts only"]
+        NJ["Node.js - All"]
+        PHP["PHP 7.4+ - Plugin/Theme"]
+        PY["Python - Scripts"]
     end
     subgraph linters ["Linter Support"]
-        ESL["ESLint: All types"]
-        SL["Stylelint: All types"]
-        PHPCS["PHPCS: Plugin, Theme"]
-        MD["Markdownlint: Control-Plane"]
+        ESL["ESLint - All"]
+        SL["Stylelint - All"]
+        PHPCS["PHPCS - Plugin/Theme"]
+        MD["Markdownlint - Control-Plane"]
     end
 ```
 
