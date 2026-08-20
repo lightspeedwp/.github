@@ -1,5 +1,11 @@
-// Inline implementations for PR triage workflow integration testing
-// Testing: pr-triage-orchestrator.js → sync-pr-labels.js
+/**
+ * Integration tests for PR triage workflow
+ * Tests: pr-triage-orchestrator.js → sync-pr-labels.js
+ *
+ * These tests use embedded implementations to test the integrated workflow
+ * while avoiding ES module complexity with Jest. The test data patterns match
+ * what the production scripts process.
+ */
 
 function triageAndExtractIssues(prs) {
   const triaged = [];
