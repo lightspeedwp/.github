@@ -194,6 +194,8 @@ Check detection order: Block Plugin → Control-Plane → Theme → Plugin → U
 
 ```mermaid
 flowchart TD
+    accTitle: Repository Type Detection Flow
+    accDescr: Decision tree for detecting repository type. Checks block.json/src/plugin.php first, then control-plane markers, then theme.json/style.css, then plugin.php, finally unknown if no match.
     A["Repository Root"] --> B{"block.json or src/plugin.php?"}
     B -->|Yes| C["BLOCK_PLUGIN"]
     B -->|No| D{"Control-plane markers present?"}
@@ -214,6 +216,8 @@ flowchart TD
 ```mermaid
 %%{init: {'theme': 'base'}}%%
 graph LR
+    accTitle: Test Coverage Matrix
+    accDescr: Test coverage summary showing all repository types with test counts. Block Plugin, WordPress Plugin, WordPress Theme, and Control-Plane types all have passing tests.
     subgraph tests ["Test Coverage: 90/90 Pass"]
         B["Block Plugin Tests"]
         W["WP Plugin Tests"]
@@ -231,6 +235,8 @@ graph LR
 ```mermaid
 %%{init: {'theme': 'base'}}%%
 graph TB
+    accTitle: Repository Type Compatibility Matrix
+    accDescr: Shows runtime and linter support across repository types. Node.js and ESLint/Stylelint available for all types. PHP, PHPCS for Plugin/Theme. Python for scripts. Markdownlint for Control-Plane.
     subgraph runtimes ["Runtime Support"]
         NJ["Node.js - All"]
         PHP["PHP 7.4+ - Plugin/Theme"]
