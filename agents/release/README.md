@@ -3,7 +3,7 @@ file_type: readme
 title: Release Agent
 description: Portable agent for multi-repository version management and release automation
 version: "1.0.0"
-last_updated: "2026-08-19"
+last_updated: "2026-08-20"
 owners:
   - Ash Shaw
 tags:
@@ -498,19 +498,3 @@ Run `gh auth login` to authenticate with GitHub CLI.
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-## Repository Flow
-
-```mermaid
-graph LR
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#fff
-    style E fill:#00695c,color:#fff
-```
