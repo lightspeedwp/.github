@@ -30,7 +30,7 @@ wceu-2026/**/*.md
 
 # Reports and metrics outputs
 
-.githu./.github/reports/**
+.github/reports/**
 .github/audits/**
 .github/metrics/out/**
 
