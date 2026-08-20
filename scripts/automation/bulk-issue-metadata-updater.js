@@ -397,4 +397,25 @@ async function main() {
   }
 }
 
-main();
+// Export functions for testing
+export {
+  fetchIssuesWithStatusLabels,
+  createGithubRequest,
+  routeToHandler,
+  promptUser,
+  processBatch,
+  displaySummary,
+  saveSummary,
+  main,
+};
+
+// Only run main() if executed directly as a script
+try {
+  const currentFileUrl = new URL(import.meta.url).pathname;
+  const argv1Path = process.argv[1];
+  if (currentFileUrl === argv1Path || currentFileUrl.endsWith(argv1Path)) {
+    main();
+  }
+} catch (e) {
+  // import.meta.url not available in CommonJS context, skip auto-execution
+}
