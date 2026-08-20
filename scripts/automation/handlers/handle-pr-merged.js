@@ -311,6 +311,29 @@ module.exports = {
 };
 
 /**
+ * Extract linked issue number from PR body
+ * @param {string} prBody - PR body content
+ * @returns {number|null} Issue number or null
+ */
+function extractLinkedIssue(prBody) {
+  if (!prBody) return null;
+
+  const patterns = [
+    /(?:Resolves|Fixes|closes?|fix|resolve|related)\s+#(\d+)/i,
+    /#(\d+)/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = prBody.match(pattern);
+    if (match) {
+      return parseInt(match[1], 10);
+    }
+  }
+
+  return null;
+}
+
+/**
  * Generate completion report for issue
  * @param {number} issueNumber - Issue number
  * @returns {object} Completion report
