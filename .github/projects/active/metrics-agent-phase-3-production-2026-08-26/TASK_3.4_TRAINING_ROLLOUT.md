@@ -1,10 +1,9 @@
 ---
-name: Task 3.4 — Team Rollout & Training Implementation Plan
-description: Team training and adoption strategy for Metrics Agent v2.0
-type: implementation-plan
-phase: Phase 3 Production Rollout
-status: Planning
-version: 1.0.0
+title: "Task 3.4 — Team Rollout & Training Implementation Plan"
+description: "Team training and adoption strategy for Metrics Agent v2.0"
+status: "planning"
+created_date: "2026-08-21"
+version: "1.0.0"
 ---
 
 # Task 3.4: Team Rollout & Training — Implementation Plan
