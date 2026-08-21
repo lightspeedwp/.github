@@ -1,18 +1,23 @@
 import { jest } from "@jest/globals";
 import * as fsPromises from "fs/promises";
-import { routePrTemplate } from "../skills/route-pr-template.js";
+
+// Mock fs/promises before importing the implementation
+jest.unstable_mockModule("fs/promises", () => ({
+  readFile: jest.fn(),
+}));
+
+const { routePrTemplate } = await import("../skills/route-pr-template.js");
 
 let readFileSpy;
 
 describe("routePrTemplate", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    readFileSpy = jest.spyOn(fsPromises, "readFile");
-    readFileSpy.mockReset();
+    readFileSpy = fsPromises.readFile;
   });
 
   afterEach(() => {
-    readFileSpy.mockRestore();
+    jest.clearAllMocks();
   });
 
   describe("Input Validation", () => {
