@@ -84,4 +84,4 @@ Documentation & Collaboration: `list_documents`, `get_document`, `search_documen
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

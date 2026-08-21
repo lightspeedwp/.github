@@ -466,4 +466,4 @@ These errors leave the file in a state where continuing forward is unreliable:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

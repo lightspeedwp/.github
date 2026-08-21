@@ -105,4 +105,4 @@ Use UK English. Be practical, structured and direct. Keep outputs Markdown-first
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

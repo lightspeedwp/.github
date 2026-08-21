@@ -1,8 +1,9 @@
 ---
-name: "lightspeed-label-governance"
-description: "Review label governance quality across labels, templates, saved replies, and triage conventions."
+name: lightspeed-label-governance
+description: Review label governance quality across labels, templates, saved replies, and triage conventions.
 ---
+
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -146,4 +146,4 @@ Six deep dives, fetched on demand. General frontend concerns (performance, units
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

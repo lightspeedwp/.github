@@ -1,9 +1,9 @@
 ---
-version: "1.0.0"
-title: "NovaNews Reporter Dashboard Active Context"
-date: "2026-06-18"
-timezone: "Europe/Berlin"
-status: "active"
+version: 1.0.1
+title: NovaNews Reporter Dashboard Active Context
+date: '2026-06-18'
+timezone: Europe/Berlin
+status: active
 ---
 
 # NovaNews Reporter Dashboard Active Context
@@ -21,4 +21,4 @@ Prepare internal LightSpeed scoping questions and a quote outline before expandi
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

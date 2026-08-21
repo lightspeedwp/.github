@@ -1,13 +1,13 @@
 ---
-title: "License and Legal Inquiry Saved Reply"
-description: "Standard response to license-related or legal compliance questions."
-category: "Community"
+title: License and Legal Inquiry Saved Reply
+description: Standard response to license-related or legal compliance questions.
+category: Community
 labels:
   - area:legal
   - status:needs-triage
 references:
-  - "../../LICENSE"
-  - "../../CONTRIBUTING.md"
+  - ../../LICENSE
+  - ../../CONTRIBUTING.md
 ---
 
 # License and Legal Saved Reply
@@ -24,4 +24,4 @@ We appreciate your diligence in ensuring legal compliance!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

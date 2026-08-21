@@ -1,12 +1,17 @@
 ---
-file_type: "documentation"
-title: "Improvement Plan: Planner & Reviewer Agents"
-description: "Structured roadmap with prioritized issues, acceptance criteria, and implementation guidelines"
-version: "v1.0"
-last_updated: '2026-06-01'
-author: "Claude Code"
-owners: ["lightspeedwp/maintainers"]
-tags: ["improvement-plan", "agents", "roadmap", "implementation"]
+file_type: documentation
+title: 'Improvement Plan: Planner & Reviewer Agents'
+description: Structured roadmap with prioritized issues, acceptance criteria, and implementation guidelines
+version: v1.0
+last_updated: '2026-08-21'
+author: Claude Code
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - improvement-plan
+  - agents
+  - roadmap
+  - implementation
 ---
 
 # Improvement Plan: Planner & Reviewer Agents
@@ -582,4 +587,4 @@ To work through these issues autonomously:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

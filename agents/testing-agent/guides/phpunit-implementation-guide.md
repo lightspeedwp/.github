@@ -1,7 +1,7 @@
 ---
-title: "PHPUnit Implementation Guide"
-description: "Comprehensive guide for implementing PHPUnit testing in PHP projects with WordPress/WooCommerce examples, patterns, and best practices"
-version: "1.0.0"
+title: PHPUnit Implementation Guide
+description: Comprehensive guide for implementing PHPUnit testing in PHP projects with WordPress/WooCommerce examples, patterns, and best practices
+version: 1.0.1
 frameworks:
   - phpunit
   - php
@@ -820,3 +820,7 @@ class UserServiceTest extends TestCase
 **Guide Version:** 1.0.0  
 **Last Updated:** 2026-08-17  
 **Framework:** PHPUnit 9.5+, PHP 7.4+, WordPress 5.0+
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

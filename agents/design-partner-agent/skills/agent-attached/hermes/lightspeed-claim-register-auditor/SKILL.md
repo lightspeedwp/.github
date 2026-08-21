@@ -98,4 +98,4 @@ For legal, privacy, accessibility, compliance, data protection, regulated-sector
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

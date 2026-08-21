@@ -153,4 +153,4 @@ Extract typography tokens from a Figma variables table (fontSize, fontFamilies, 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

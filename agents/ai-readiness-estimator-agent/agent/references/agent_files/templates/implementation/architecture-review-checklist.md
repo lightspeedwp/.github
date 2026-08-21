@@ -1,6 +1,6 @@
 ---
 template_id: architecture-review-checklist
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -44,4 +44,4 @@ This checklist supports technical architecture reviews for tailored chatbot impl
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

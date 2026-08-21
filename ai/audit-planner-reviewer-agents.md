@@ -1,12 +1,17 @@
 ---
-file_type: "documentation"
-title: "Audit Prompt: Planner & Reviewer Agents"
-description: "Comprehensive audit framework for assessing completeness, correctness, and quality of planner and reviewer agents"
-version: "v1.0"
-last_updated: '2026-06-01'
-author: "Claude Code"
-owners: ["lightspeedwp/maintainers"]
-tags: ["audit", "agents", "quality", "diagnostic"]
+file_type: documentation
+title: 'Audit Prompt: Planner & Reviewer Agents'
+description: Comprehensive audit framework for assessing completeness, correctness, and quality of planner and reviewer agents
+version: v1.0
+last_updated: '2026-08-21'
+author: Claude Code
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - audit
+  - agents
+  - quality
+  - diagnostic
 ---
 
 # Audit Prompt: Planner & Reviewer Agents
@@ -380,4 +385,4 @@ This audit prompt should be used as:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

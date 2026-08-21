@@ -558,3 +558,7 @@ After conducting the review, validate:
 ---
 
 *Last updated: 2026-07-23*
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

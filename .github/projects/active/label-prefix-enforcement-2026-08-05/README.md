@@ -87,9 +87,10 @@ Phase 1      Phase 2       Phase 2       Phase 3       Phase 3       Phase 4
 
 ## Related Projects
 
-- **[workflows-consolidation-2026-q3]**: Consolidate 19 labeling/issue workflows (longer-term)
-- **[template-enforcement-governance]**: PR/issue template validation
-- **[issue-triage-automation-system]**: Issue automation framework
+- **[label-prefix-audit-2026-08-05](../label-prefix-audit-2026-08-05/)** — Audit & root cause analysis (Phase 1 of this initiative)
+- **[workflows-consolidation-2026-q3](../workflows-consolidation-2026-q3/)** — Consolidate 19 labeling/issue workflows (longer-term)
+- **[template-enforcement-governance](../template-enforcement-governance/)** — PR/issue template validation
+- **[issue-triage-automation-system](../issue-triage-automation-system/)** — Issue automation framework
 
 ---
 

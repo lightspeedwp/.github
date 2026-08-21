@@ -259,4 +259,4 @@ Load `references/context-templates.md` when creating or updating actual workspac
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

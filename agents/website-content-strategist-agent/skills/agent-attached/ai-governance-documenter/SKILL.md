@@ -1,7 +1,6 @@
 ---
 name: ai-governance-documenter
-description: Document AI governance requirements for a LightSpeed initiative, including
-  intended use, risks, controls, approvals, and accountable owners.
+description: Document AI governance requirements for a LightSpeed initiative, including intended use, risks, controls, approvals, and accountable owners.
 ---
 
 # AI Governance Documenter
@@ -52,4 +51,4 @@ A strong result gives stakeholders a clear record of how AI is used, what needs 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -34,4 +34,4 @@ Use this skill for direct inbox-triage requests. Build on the core Gmail skill a
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

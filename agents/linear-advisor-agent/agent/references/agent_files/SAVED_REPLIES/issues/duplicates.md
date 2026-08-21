@@ -1,12 +1,12 @@
 ---
-title: "Duplicate Issue Saved Replies"
-description: "Professional responses for duplicate issue management and consolidation. Follows LightSpeedWP triage and label conventions."
-category: "Issue Management"
+title: Duplicate Issue Saved Replies
+description: Professional responses for duplicate issue management and consolidation. Follows LightSpeedWP triage and label conventions.
+category: Issue Management
 labels:
   - status:duplicate
 references:
-  - "../ISSUE_LABELS.md"
-  - "../../CONTRIBUTING.md"
+  - ../ISSUE_LABELS.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Duplicate Issue Saved Replies
@@ -49,4 +49,4 @@ Thank you for helping us track and resolve the problem!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

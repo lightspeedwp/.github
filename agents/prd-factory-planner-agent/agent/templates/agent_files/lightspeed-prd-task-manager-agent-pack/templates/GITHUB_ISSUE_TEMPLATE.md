@@ -1,9 +1,9 @@
 ---
-version: "1.0.0"
-title: "[Issue Title]"
-date: "YYYY-MM-DD"
-timezone: "Africa/Johannesburg"
-status: "draft"
+version: 1.0.1
+title: '[Issue Title]'
+date: YYYY-MM-DD
+timezone: Africa/Johannesburg
+status: draft
 ---
 # [Issue Title]
 
@@ -59,4 +59,4 @@ status: "draft"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

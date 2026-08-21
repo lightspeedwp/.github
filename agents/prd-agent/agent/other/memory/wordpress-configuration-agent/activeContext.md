@@ -1,10 +1,10 @@
 ---
-version: "1.0.0"
-title: "WordPress configuration agent - active context"
-project_key: "wordpress-configuration-agent"
-status: "active"
-last_updated: "2026-06-25"
-current_stage: "prd_v0.1"
+version: 1.0.1
+title: WordPress configuration agent - active context
+project_key: wordpress-configuration-agent
+status: active
+last_updated: '2026-08-21'
+current_stage: prd_v0.1
 ---
 # Active Context
 
@@ -33,4 +33,4 @@ current_stage: "prd_v0.1"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

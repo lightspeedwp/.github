@@ -111,4 +111,4 @@ python3 scripts/download_google_fonts.py --family "Nunito Sans" --out assets/fon
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

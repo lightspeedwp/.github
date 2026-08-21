@@ -2,8 +2,8 @@
 file_type: documentation
 title: Plugins Standards
 description: Standards for creating Claude Code plugins
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Plugins Standards
@@ -508,3 +508,7 @@ See all plugins: [`plugins/`](../../plugins/)
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

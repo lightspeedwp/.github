@@ -1,12 +1,11 @@
 ---
 file_type: documentation
 title: Spec-Driven Workflow Example
-description: Example of moving from requirements to design, tasks, and validation
-  in a WordPress governance feature.
-version: v0.1.0
-last_updated: '2026-05-28'
+description: Example of moving from requirements to design, tasks, and validation in a WordPress governance feature.
+version: v0.1.1
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 ---
 
 # Spec-Driven Workflow Example
@@ -114,4 +113,4 @@ describe('PostCard', () => {
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -1,7 +1,7 @@
 ---
 name: agency-scope-change-control
-description: "Hold the line on scope in a fixed-bid agency build. Use at the start of and throughout any client project delivered against an approved estimate/SOW: treat the estimate as a ceiling, resolve conflicting sources by a defined precedence order, and route anything not covered (extra templates, components, interactions, animations, bespoke mobile/tablet layouts, business rules, integrations) to a Change-Control Register for separate estimation instead of building it. Not WordPress-specific."
-compatibility: "Process skill — no runtime dependency. Applies to any fixed-bid / fixed-scope client delivery (web, app, or otherwise). Assumes an approved estimate or SOW exists as the commercial source of truth."
+description: 'Hold the line on scope in a fixed-bid agency build. Use at the start of and throughout any client project delivered against an approved estimate/SOW: treat the estimate as a ceiling, resolve conflicting sources by a defined precedence order, and route anything not covered (extra templates, components, interactions, animations, bespoke mobile/tablet layouts, business rules, integrations) to a Change-Control Register for separate estimation instead of building it. Not WordPress-specific.'
+compatibility: Process skill — no runtime dependency. Applies to any fixed-bid / fixed-scope client delivery (web, app, or otherwise). Assumes an approved estimate or SOW exists as the commercial source of truth.
 ---
 
 # Agency Scope & Change Control
@@ -67,4 +67,4 @@ It's deliberately not tech-specific — it applies to any project delivered agai
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

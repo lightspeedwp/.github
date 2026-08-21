@@ -40,4 +40,4 @@ Formatting must always be consistent throughout the workbook.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

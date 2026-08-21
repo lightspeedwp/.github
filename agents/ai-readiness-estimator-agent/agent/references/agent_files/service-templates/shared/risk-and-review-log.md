@@ -1,6 +1,6 @@
 ---
 template_id: risk-and-review-log
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -56,4 +56,4 @@ List scenarios that automatically require escalation:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

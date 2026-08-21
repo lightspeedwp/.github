@@ -55,4 +55,4 @@ Run a source-backed PRD preparation pass only after confirming editorial workflo
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

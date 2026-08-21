@@ -1,9 +1,10 @@
 ---
-version: "v0.1.0"
-last_updated: "2026-05-29"
-owners: ["lightspeedwp"]
-file_type: "documentation"
-description: "Configuration reference for tools, standards, and automation"
+version: v0.1.1
+last_updated: '2026-08-21'
+owners:
+  - lightspeedwp
+file_type: documentation
+description: Configuration reference for tools, standards, and automation
 ---
 
 # Configuration Reference
@@ -191,4 +192,4 @@ Automated labels based on:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

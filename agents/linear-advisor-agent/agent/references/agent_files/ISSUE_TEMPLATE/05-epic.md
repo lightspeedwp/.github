@@ -1,8 +1,11 @@
 ---
-name: "📦 Epic"
-about: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
-title: "[Epic] <Brief summary>"
-labels: [status:needs-planning, priority:important, area:core]
+name: 📦 Epic
+about: Propose/manage a large, multi-part initiative or project grouping stories/features/tasks
+title: '[Epic] <Brief summary>'
+labels:
+  - status:needs-planning
+  - priority:important
+  - area:core
 ---
 
 <!--
@@ -74,4 +77,4 @@ Add any other context, references, diagrams, or docs.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

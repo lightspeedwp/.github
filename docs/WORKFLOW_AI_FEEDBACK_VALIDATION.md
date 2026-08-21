@@ -1,8 +1,8 @@
 ---
 title: AI Feedback Validation Workflow
 description: Automated GitHub Actions workflow for validating AI feedback tracking in pull requests
-version: 1.0.0
-created_date: 2026-08-04
+version: 1.0.1
+created_date: 2026-08-04T00:00:00.000Z
 ---
 
 # AI Feedback Validation Workflow
@@ -374,3 +374,7 @@ For questions or issues:
 ---
 
 *Built for the LightSpeedWP .github control plane — 2026-08-04*
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
