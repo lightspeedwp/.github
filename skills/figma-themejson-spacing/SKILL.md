@@ -60,4 +60,4 @@ Extract spacing tokens (name, min, max, slug) from a Figma spacing variables tab
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

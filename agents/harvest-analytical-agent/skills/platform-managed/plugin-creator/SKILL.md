@@ -244,4 +244,4 @@ python3 scripts/validate_plugin.py <plugin-path>
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

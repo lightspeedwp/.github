@@ -102,4 +102,4 @@ Do not make content sound more certain, more validated, or more complete than it
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -218,20 +218,11 @@ This violates the canonical labeling system defined in `.github/labels.yml` (158
 
 ### Active Projects
 
-- **[workflows-consolidation-2026-q3](../../../.github/projects/active/workflows-consolidation-2026-q3/)** — Main consolidation initiative; recommend adding labeling consolidation to scope
-- **[issue-triage-automation-system](../../../.github/projects/active/issue-triage-automation-system/)** — Related issue automation work
-- **[issue-type-workflow-automation](../../../.github/projects/active/issue-type-workflow-automation/)** — Related issue type automation
-- **[template-enforcement-governance](../../../.github/projects/active/template-enforcement-governance/)** — Template validation (related to label validation)
-
-### Create New Project
-
-Recommend creating:
-
-- **"Label Prefix Enforcement"** — Dedicated project for:
-  - Remediation of issues #1500–#1600
-  - Governance updates (CLAUDE.md, AGENTS.md)
-  - Workflow validation updates
-  - Testing and documentation
+- **[label-prefix-enforcement-2026-08-05](../label-prefix-enforcement-2026-08-05/)** — Remediation & enforcement project (Phase 2 of this audit)
+- **[workflows-consolidation-2026-q3](../workflows-consolidation-2026-q3/)** — Main consolidation initiative; recommend adding labeling consolidation to scope
+- **[issue-triage-automation-system](../issue-triage-automation-system/)** — Related issue automation work
+- **[issue-type-workflow-automation](../issue-type-workflow-automation/)** — Related issue type automation
+- **[template-enforcement-governance](../template-enforcement-governance/)** — Template validation (related to label validation)
 
 ---
 

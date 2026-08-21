@@ -1,8 +1,11 @@
 ---
-name: "📚 Documentation"
-about: "Request new documentation or propose updates/clarifications to existing docs."
-title: "[Documentation] <Brief summary>"
-labels: [status:needs-triage, priority:normal, area:documentation]
+name: 📚 Documentation
+about: Request new documentation or propose updates/clarifications to existing docs.
+title: '[Documentation] <Brief summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:documentation
 ---
 
 <!--
@@ -74,4 +77,4 @@ Checklist items to ensure the documentation update is complete and actionable.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

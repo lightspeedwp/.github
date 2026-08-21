@@ -1,9 +1,6 @@
 ---
 name: website-package-routing
-description: Use when the current phase is routing and the agent has enough website
-  evidence or intake detail to choose the best-fit base package, evaluate only the
-  applicable add-ons, check commercial thresholds and custom-scope triggers, and produce
-  a concise routing handoff with the shared phase language.
+description: Use when the current phase is routing and the agent has enough website evidence or intake detail to choose the best-fit base package, evaluate only the applicable add-ons, check commercial thresholds and custom-scope triggers, and produce a concise routing handoff with the shared phase language.
 ---
 
 # Website Package Routing
@@ -236,4 +233,4 @@ Next Handoff
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

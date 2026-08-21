@@ -1,6 +1,6 @@
 ---
 template_id: commercial-assumptions-sheet
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -63,4 +63,4 @@ These conditions may require a higher tier or separate scope:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

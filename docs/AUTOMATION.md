@@ -1,13 +1,18 @@
 ---
-file_type: "documentation"
-title: "Automation & Workflows"
-description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.9"
-last_updated: "2026-08-08"
-owners: ["LightSpeedWP Team"]
-tags: ["automation", "workflows", "governance", "agents"]
-status: "active"
-stability: "stable"
+file_type: documentation
+title: Automation & Workflows
+description: Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories.
+version: v1.0.10
+last_updated: '2026-08-21'
+owners:
+  - LightSpeedWP Team
+tags:
+  - automation
+  - workflows
+  - governance
+  - agents
+status: active
+stability: stable
 domain: governance
 ---
 
@@ -352,4 +357,4 @@ All configuration files are validated:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -130,4 +130,4 @@ A good implementation plan should let the team start work without re-reading eve
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

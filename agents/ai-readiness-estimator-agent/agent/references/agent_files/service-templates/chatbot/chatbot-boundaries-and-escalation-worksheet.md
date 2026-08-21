@@ -1,6 +1,6 @@
 ---
 template_id: chatbot-boundaries-and-escalation-worksheet
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -51,4 +51,4 @@ This worksheet documents allowed topics, restricted topics, escalation triggers,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

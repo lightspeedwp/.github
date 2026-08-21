@@ -2,8 +2,8 @@
 file_type: documentation
 title: Prompts Standards
 description: Standards for creating reusable prompt templates and patterns
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Prompts Standards
@@ -526,3 +526,7 @@ See: [`prompts/README.md`](../../prompts/README.md)
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

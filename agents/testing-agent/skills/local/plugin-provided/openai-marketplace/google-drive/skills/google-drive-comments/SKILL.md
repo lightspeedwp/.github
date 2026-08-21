@@ -53,4 +53,4 @@ Use this skill for comment workflows in the unified Google Drive plugin. Drive c
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

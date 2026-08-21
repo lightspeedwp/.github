@@ -8,8 +8,8 @@ tags:
   - inheritance
   - schema
 file_type: skill
-created_date: 2026-08-12
-last_updated: 2026-08-12
+created_date: 2026-08-12T00:00:00.000Z
+last_updated: '2026-08-21'
 owners:
   - LightSpeed Team
 status: active
@@ -99,3 +99,7 @@ The config loader includes comprehensive unit tests covering:
 - **Defaults:** `config/defaults.json`
 - **Tests:** `tests/config-loader.test.js`
 - **Examples:** `examples/*.json`
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,6 +1,6 @@
 ---
 template_id: post-workshop-action-plan
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -39,4 +39,4 @@ Describe how the outcomes and decisions from the workshop will be communicated t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

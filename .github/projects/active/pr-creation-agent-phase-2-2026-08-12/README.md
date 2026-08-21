@@ -12,9 +12,17 @@
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1813](../../../issues/1813) | task | PR Creation Agent — Phase 2: Specification & Planning | 🟡 Pending |
-| [#1812](../../../issues/1812) | epic | PR Creation Agent — Phase 1: Design | ✅ Complete |
-| [#1722](../../../issues/1722) | epic | Repository Restructuring Initiative | 🟢 Open |
+| [#1813](https://github.com/lightspeedwp/.github/issues/1813) | task | PR Creation Agent — Phase 2: Specification & Planning | 🟡 Pending |
+| [#1812](https://github.com/lightspeedwp/.github/issues/1812) | epic | PR Creation Agent — Phase 1: Design | ✅ Complete |
+| [#1722](https://github.com/lightspeedwp/.github/issues/1722) | epic | Repository Restructuring Initiative | 🟢 Open |
+
+---
+
+## Related Projects
+
+This project is part of:
+
+- **Phase 1:** [pr-creation-agent-design-2026-08-12](../pr-creation-agent-design-2026-08-12/) — Design & specification complete
 
 ---
 

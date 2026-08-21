@@ -1,17 +1,23 @@
 ---
-title: "Issue Types Reference Guide"
-description: "Canonical guide for org-wide issue type definitions, assignment, and automation. Covers all type categories, labels, and how the labeling agent assigns types."
-file_type: "documentation"
-version: "v2.0"
-created_date: "2025-10-20"
-last_updated: "2025-12-07"
-author: "LightSpeed Team"
-maintainer: "Ash Shaw"
-owners: ["lightspeedwp/maintainers"]
-tags: ["github", "labeling", "issue-types", "automation", "triage"]
-category: "governance"
-status: "active"
-stability: "stable"
+title: Issue Types Reference Guide
+description: Canonical guide for org-wide issue type definitions, assignment, and automation. Covers all type categories, labels, and how the labeling agent assigns types.
+file_type: documentation
+version: v2.0
+created_date: '2025-10-20'
+last_updated: '2026-08-21'
+author: LightSpeed Team
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - github
+  - labeling
+  - issue-types
+  - automation
+  - triage
+category: governance
+status: active
+stability: stable
 ---
 
 # Issue Types Reference Guide
@@ -163,4 +169,4 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

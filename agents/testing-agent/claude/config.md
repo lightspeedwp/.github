@@ -1,11 +1,8 @@
 ---
 file_type: configuration
 title: Testing Agent — Claude Provider Configuration
-description: >-
-  Claude provider configuration for the Testing Agent: model selection, token
-  limits, temperature settings, caching strategy, cost optimization, and best
-  practices for Playwright test generation and validation.
-last_updated: '2026-08-18'
+description: 'Claude provider configuration for the Testing Agent: model selection, token limits, temperature settings, caching strategy, cost optimization, and best practices for Playwright test generation and validation.'
+last_updated: '2026-08-21'
 domain: testing
 tags:
   - claude
@@ -315,4 +312,4 @@ test-generation:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

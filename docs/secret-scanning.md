@@ -1,7 +1,7 @@
 ---
-title: "Secret scanning with gitleaks"
-description: "How the organisation-wide gitleaks workflow is pinned, verified, consumed and recovered"
-file_type: "documentation"
+title: Secret scanning with gitleaks
+description: How the organisation-wide gitleaks workflow is pinned, verified, consumed and recovered
+file_type: documentation
 owners:
   - LightSpeed Team
 tags:
@@ -72,3 +72,7 @@ request. It never merges.
 | The pinned release is withdrawn upstream | Set `GITLEAKS_VERSION` and `GITLEAKS_SHA256` back to the previous known-good pair; both live on adjacent lines in the reusable workflow. |
 | The updater opens a bad pull request | Close it. The pinned values on `develop` are unchanged until that PR merges. |
 | A checksum mismatch appears with no version change | Treat as a supply-chain signal, not a flake. Do not bypass. Verify the published checksum manually against the release page before changing anything. |
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

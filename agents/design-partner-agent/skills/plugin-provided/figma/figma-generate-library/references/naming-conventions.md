@@ -410,4 +410,4 @@ If the codebase uses `button-primary` but Figma has a component named `Button`, 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

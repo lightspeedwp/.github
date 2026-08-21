@@ -3,7 +3,7 @@ file_type: documentation
 title: LightSpeed .github Documentation Index
 description: Comprehensive index and quick-access guide for all documentation, configuration, and governance resources in the LightSpeed .github repository
 version: '1.2'
-last_updated: '2026-06-01'
+last_updated: '2026-08-21'
 owners:
   - LightSpeed Team
 tags:
@@ -287,4 +287,4 @@ For recent governance changes and file relocations, see [GOVERNANCE_REVISION_LOG
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

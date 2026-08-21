@@ -113,4 +113,4 @@ Keep the intake handoff compact. Do not start drafting full proposal answers unl
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

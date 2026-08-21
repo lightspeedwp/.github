@@ -16,3 +16,7 @@ Closes #201
 
 - [x] Linked issue provided
 - [x] Validation notes reviewed
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -1,8 +1,8 @@
 ---
 title: VSCode Plugin Troubleshooting Guide
 description: Comprehensive troubleshooting for Claude Code and GitHub Copilot issues in VS Code
-created: 2026-07-26
-updated: 2026-07-26
+created: 2026-07-26T00:00:00.000Z
+updated: 2026-07-26T00:00:00.000Z
 type: guide
 ---
 
@@ -668,3 +668,7 @@ curl -I https://api.anthropic.com
 ---
 
 *Created as part of Phase 4: Plugin Adoption Strategy*
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

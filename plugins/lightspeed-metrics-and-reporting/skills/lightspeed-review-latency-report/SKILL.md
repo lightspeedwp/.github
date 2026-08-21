@@ -1,9 +1,10 @@
 ---
-name: "lightspeed-review-latency-report"
-description: "generate pull request review-latency reporting with trend interpretation and action cues."
-version: "0.1.0"
+name: lightspeed-review-latency-report
+description: generate pull request review-latency reporting with trend interpretation and action cues.
+version: 0.1.1
 ---
+
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

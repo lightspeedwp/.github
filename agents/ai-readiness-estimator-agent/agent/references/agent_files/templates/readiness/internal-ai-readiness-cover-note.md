@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Internal AI Readiness Cover Note"
-audience: "internal"
-document_type: "cover-note"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Internal AI Readiness Cover Note
+audience: internal
+document_type: cover-note
+status: template
+language: en-GB
 ---
 
 # Internal AI Readiness Cover Note
@@ -93,4 +93,4 @@ The next internal action should be:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

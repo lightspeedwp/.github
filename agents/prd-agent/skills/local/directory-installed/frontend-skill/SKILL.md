@@ -1,7 +1,12 @@
 ---
 name: frontend-skill
 description: Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.
-tags: [frontend, design, ui, landing-pages, motion]
+tags:
+  - frontend
+  - design
+  - ui
+  - landing-pages
+  - motion
 ---
 
 # Frontend Skill
@@ -186,4 +191,4 @@ Motion rules:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
