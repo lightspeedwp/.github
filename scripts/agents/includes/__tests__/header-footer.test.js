@@ -24,7 +24,9 @@ describe("header-footer", () => {
       ].join("\n"),
     );
 
-    expect(ensureFooter(filePath, { category: "docs", seed: "branching" })).toBe(true);
+    expect(
+      ensureFooter(filePath, { category: "docs", seed: "branching" }),
+    ).toBe(true);
 
     const output = fs.readFileSync(filePath, "utf8");
     expect(output).toContain(
@@ -54,7 +56,9 @@ describe("header-footer", () => {
       ].join("\n"),
     );
 
-    expect(ensureFooter(filePath, { category: "docs", seed: "branding" })).toBe(true);
+    expect(ensureFooter(filePath, { category: "docs", seed: "branding" })).toBe(
+      true,
+    );
 
     const output = fs.readFileSync(filePath, "utf8");
     const footerMatches =

@@ -69,7 +69,11 @@ function syncLabelsOnEvent(issue, eventType, options = {}) {
     // Apply suggested changes
     if (result.labelsToAdd.length > 0 || result.labelsToRemove.length > 0) {
       if (!options.dryRun) {
-        applyLabelChanges(issue.number, result.labelsToAdd, result.labelsToRemove);
+        applyLabelChanges(
+          issue.number,
+          result.labelsToAdd,
+          result.labelsToRemove,
+        );
       }
     }
 
@@ -93,7 +97,7 @@ function handleIssueCreated(issue, result) {
   const hasTypeLabel = currentLabels.some((l) => l.startsWith("type:"));
   if (!hasTypeLabel) {
     result.warnings.push(
-      "No type label found. Recommend adding type:task, type:feature, or type:epic"
+      "No type label found. Recommend adding type:task, type:feature, or type:epic",
     );
   }
 
@@ -138,16 +142,14 @@ function handleIssueReopened(issue, result) {
   const hasDoneLabel = currentLabels.includes("status:done");
   if (hasDoneLabel) {
     result.warnings.push(
-      'Issue reopened but has "status:done" label. Consider removing it.'
+      'Issue reopened but has "status:done" label. Consider removing it.',
     );
   }
 
-  const hasCompleteLabel = currentLabels.some((l) =>
-    l.includes("complete")
-  );
+  const hasCompleteLabel = currentLabels.some((l) => l.includes("complete"));
   if (hasCompleteLabel) {
     result.warnings.push(
-      "Issue reopened but has completion label. May need to reset phase."
+      "Issue reopened but has completion label. May need to reset phase.",
     );
   }
 }
@@ -161,13 +163,13 @@ function handleIssueClosed(issue, result) {
   const currentLabels = result.currentLabels;
 
   // Check if issue has proper completion status
-  const hasCompletionLabel = currentLabels.some((l) =>
-    l.includes("complete") || l === "status:done"
+  const hasCompletionLabel = currentLabels.some(
+    (l) => l.includes("complete") || l === "status:done",
   );
 
   if (!hasCompletionLabel) {
     result.warnings.push(
-      "Issue closed without completion status. Add status:done or implementation:complete"
+      "Issue closed without completion status. Add status:done or implementation:complete",
     );
   }
 }
@@ -190,7 +192,7 @@ function syncOpenSpecLabels(issue, result) {
   recommendations.forEach((rec) => {
     const labelFamily = rec.split(":")[0];
     const hasLabelInFamily = currentLabels.some((l) =>
-      l.startsWith(labelFamily + ":")
+      l.startsWith(labelFamily + ":"),
     );
 
     if (!hasLabelInFamily && rec !== openspecLabel) {
@@ -224,7 +226,7 @@ function syncStatusLabels(issue, result) {
   const isCompatible = isStatusOpenSpecCompatible(statusLabel, openspecLabel);
   if (!isCompatible) {
     result.conflicts.push(
-      `Status label "${statusLabel}" is not compatible with "${openspecLabel}"`
+      `Status label "${statusLabel}" is not compatible with "${openspecLabel}"`,
     );
   }
 }
@@ -235,11 +237,20 @@ function syncStatusLabels(issue, result) {
  */
 function getRecommendedLabelsForOpenSpec(openspecLabel) {
   const recommendations = {
-    "openspec:specification-pending": ["status:needs-planning", "priority:important"],
+    "openspec:specification-pending": [
+      "status:needs-planning",
+      "priority:important",
+    ],
     "openspec:specification-in-progress": ["status:in-progress", "meta:has-pr"],
     "openspec:specification-complete": ["status:ready"],
-    "openspec:implementation-pending": ["status:needs-planning", "priority:important"],
-    "openspec:implementation-in-progress": ["status:in-progress", "meta:has-pr"],
+    "openspec:implementation-pending": [
+      "status:needs-planning",
+      "priority:important",
+    ],
+    "openspec:implementation-in-progress": [
+      "status:in-progress",
+      "meta:has-pr",
+    ],
     "openspec:implementation-complete": ["status:done"],
   };
 

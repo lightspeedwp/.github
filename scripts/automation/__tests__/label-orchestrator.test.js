@@ -233,7 +233,12 @@ describe("label-orchestrator.js", () => {
     });
 
     it("should handle relative paths", () => {
-      const config = parseArgs(["node", "script.js", "-o", "./output/report.md"]);
+      const config = parseArgs([
+        "node",
+        "script.js",
+        "-o",
+        "./output/report.md",
+      ]);
       expect(config.output).toBe("./output/report.md");
     });
 

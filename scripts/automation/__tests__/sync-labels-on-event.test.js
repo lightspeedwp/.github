@@ -26,7 +26,7 @@ describe("sync-labels-on-event", () => {
   describe("getRecommendedLabelsForOpenSpec", () => {
     it("should return recommended labels for specification-pending", () => {
       const labels = getRecommendedLabelsForOpenSpec(
-        "openspec:specification-pending"
+        "openspec:specification-pending",
       );
       expect(labels).toContain("status:needs-planning");
       expect(labels).toContain("priority:important");
@@ -34,7 +34,7 @@ describe("sync-labels-on-event", () => {
 
     it("should return recommended labels for specification-in-progress", () => {
       const labels = getRecommendedLabelsForOpenSpec(
-        "openspec:specification-in-progress"
+        "openspec:specification-in-progress",
       );
       expect(labels).toContain("status:in-progress");
       expect(labels).toContain("meta:has-pr");
@@ -42,14 +42,14 @@ describe("sync-labels-on-event", () => {
 
     it("should return recommended labels for specification-complete", () => {
       const labels = getRecommendedLabelsForOpenSpec(
-        "openspec:specification-complete"
+        "openspec:specification-complete",
       );
       expect(labels).toContain("status:ready");
     });
 
     it("should return recommended labels for implementation-pending", () => {
       const labels = getRecommendedLabelsForOpenSpec(
-        "openspec:implementation-pending"
+        "openspec:implementation-pending",
       );
       expect(labels).toContain("status:needs-planning");
       expect(labels).toContain("priority:important");
@@ -57,7 +57,7 @@ describe("sync-labels-on-event", () => {
 
     it("should return recommended labels for implementation-in-progress", () => {
       const labels = getRecommendedLabelsForOpenSpec(
-        "openspec:implementation-in-progress"
+        "openspec:implementation-in-progress",
       );
       expect(labels).toContain("status:in-progress");
       expect(labels).toContain("meta:has-pr");
@@ -65,7 +65,7 @@ describe("sync-labels-on-event", () => {
 
     it("should return recommended labels for implementation-complete", () => {
       const labels = getRecommendedLabelsForOpenSpec(
-        "openspec:implementation-complete"
+        "openspec:implementation-complete",
       );
       expect(labels).toContain("status:done");
     });
@@ -80,7 +80,7 @@ describe("sync-labels-on-event", () => {
     it("should allow needs-planning with specification-pending", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:needs-planning",
-        "openspec:specification-pending"
+        "openspec:specification-pending",
       );
       expect(compatible).toBe(true);
     });
@@ -88,7 +88,7 @@ describe("sync-labels-on-event", () => {
     it("should allow in-progress with specification-in-progress", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:in-progress",
-        "openspec:specification-in-progress"
+        "openspec:specification-in-progress",
       );
       expect(compatible).toBe(true);
     });
@@ -96,7 +96,7 @@ describe("sync-labels-on-event", () => {
     it("should allow ready with specification-complete", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:ready",
-        "openspec:specification-complete"
+        "openspec:specification-complete",
       );
       expect(compatible).toBe(true);
     });
@@ -104,7 +104,7 @@ describe("sync-labels-on-event", () => {
     it("should allow done with implementation-complete", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:done",
-        "openspec:implementation-complete"
+        "openspec:implementation-complete",
       );
       expect(compatible).toBe(true);
     });
@@ -112,7 +112,7 @@ describe("sync-labels-on-event", () => {
     it("should reject incompatible status with openspec", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:done",
-        "openspec:specification-pending"
+        "openspec:specification-pending",
       );
       expect(compatible).toBe(false);
     });
@@ -120,7 +120,7 @@ describe("sync-labels-on-event", () => {
     it("should reject ready with implementation-pending", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:ready",
-        "openspec:implementation-pending"
+        "openspec:implementation-pending",
       );
       expect(compatible).toBe(false);
     });
@@ -128,7 +128,7 @@ describe("sync-labels-on-event", () => {
     it("should allow blocked with specification-in-progress", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:blocked",
-        "openspec:specification-in-progress"
+        "openspec:specification-in-progress",
       );
       expect(compatible).toBe(true);
     });
@@ -136,7 +136,7 @@ describe("sync-labels-on-event", () => {
     it("should allow on-hold with implementation-pending", () => {
       const compatible = isStatusOpenSpecCompatible(
         "status:on-hold",
-        "openspec:implementation-pending"
+        "openspec:implementation-pending",
       );
       expect(compatible).toBe(true);
     });
@@ -165,7 +165,9 @@ describe("sync-labels-on-event", () => {
       const result = syncLabelsOnEvent(mockIssue, "created", { dryRun: true });
 
       expect(result.suggestedChanges.length).toBeGreaterThan(0);
-      expect(result.labelsToAdd.some((l) => l.startsWith("status:"))).toBe(true);
+      expect(result.labelsToAdd.some((l) => l.startsWith("status:"))).toBe(
+        true,
+      );
     });
 
     it("should return success true for valid issue", () => {
@@ -257,21 +259,14 @@ describe("sync-labels-on-event", () => {
       mockIssue.labels = [{ name: "type:task" }];
       const result = syncLabelsOnEvent(mockIssue, "closed", { dryRun: true });
 
-      expect(
-        result.warnings.some((w) => w.includes("completion"))
-      ).toBe(true);
+      expect(result.warnings.some((w) => w.includes("completion"))).toBe(true);
     });
 
     it("should not warn if status:done when closed", () => {
-      mockIssue.labels = [
-        { name: "status:done" },
-        { name: "type:task" },
-      ];
+      mockIssue.labels = [{ name: "status:done" }, { name: "type:task" }];
       const result = syncLabelsOnEvent(mockIssue, "closed", { dryRun: true });
 
-      expect(
-        result.warnings.some((w) => w.includes("completion"))
-      ).toBe(false);
+      expect(result.warnings.some((w) => w.includes("completion"))).toBe(false);
     });
 
     it("should not warn if implementation:complete when closed", () => {
@@ -281,18 +276,13 @@ describe("sync-labels-on-event", () => {
       ];
       const result = syncLabelsOnEvent(mockIssue, "closed", { dryRun: true });
 
-      expect(
-        result.warnings.some((w) => w.includes("completion"))
-      ).toBe(false);
+      expect(result.warnings.some((w) => w.includes("completion"))).toBe(false);
     });
   });
 
   describe("syncLabelsOnEvent - label syncing", () => {
     it("should include currentLabels in result", () => {
-      mockIssue.labels = [
-        { name: "type:feature" },
-        { name: "priority:high" },
-      ];
+      mockIssue.labels = [{ name: "type:feature" }, { name: "priority:high" }];
       const result = syncLabelsOnEvent(mockIssue, "created", { dryRun: true });
 
       expect(result.currentLabels).toContain("type:feature");
@@ -367,7 +357,11 @@ describe("sync-labels-on-event", () => {
 
     it("should count warnings in stats", () => {
       const issues = [
-        { number: 1, title: "Issue 1", labels: [{ name: "openspec:specification-pending" }] },
+        {
+          number: 1,
+          title: "Issue 1",
+          labels: [{ name: "openspec:specification-pending" }],
+        },
       ];
 
       const result = batchSyncLabels(issues, "created", { dryRun: true });
@@ -466,7 +460,7 @@ describe("sync-labels-on-event", () => {
 
       // Step 3: Specification in progress
       mockIssue.labels = mockIssue.labels.filter(
-        (l) => l.name !== "openspec:specification-pending"
+        (l) => l.name !== "openspec:specification-pending",
       );
       mockIssue.labels.push({ name: "openspec:specification-in-progress" });
       mockIssue.labels.push({ name: "status:in-progress" });
@@ -484,9 +478,11 @@ describe("sync-labels-on-event", () => {
       const result = syncLabelsOnEvent(mockIssue, "labeled", { dryRun: true });
 
       // Should suggest moving to implementation-pending
-      expect(result.suggestedChanges.some((c) =>
-        c.label.includes("implementation")
-      ) || result.warnings.length >= 0).toBe(true);
+      expect(
+        result.suggestedChanges.some((c) =>
+          c.label.includes("implementation"),
+        ) || result.warnings.length >= 0,
+      ).toBe(true);
     });
 
     it("should handle issue reopening workflow", () => {

@@ -231,7 +231,13 @@ describe("integration: metadata workflow", () => {
   describe("error handling in metadata workflow", () => {
     it("audits issues and detects compliance gaps", () => {
       const issues = [
-        { number: 1, title: "Valid", labels: [{ name: "type:bug" }], body: "## Definition of Ready\n## Definition of Done", milestone: { title: "v1.0" } },
+        {
+          number: 1,
+          title: "Valid",
+          labels: [{ name: "type:bug" }],
+          body: "## Definition of Ready\n## Definition of Done",
+          milestone: { title: "v1.0" },
+        },
       ];
 
       const findings = auditIssueMetadata(issues, {
@@ -245,7 +251,12 @@ describe("integration: metadata workflow", () => {
 
     it("detects and reports missing milestone in audit", () => {
       const issues = [
-        { number: 1, title: "Test", labels: [{ name: "type:feature" }], milestone: null },
+        {
+          number: 1,
+          title: "Test",
+          labels: [{ name: "type:feature" }],
+          milestone: null,
+        },
       ];
 
       const findings = auditIssueMetadata(issues, {
@@ -255,7 +266,9 @@ describe("integration: metadata workflow", () => {
       expect(findings.missingMilestones).toBeDefined();
       expect(findings.missingMilestones).toContain(1);
       expect(findings.nonCompliantIssues.length).toBeGreaterThan(0);
-      expect(findings.nonCompliantIssues[0].issues).toContain("missing-milestone");
+      expect(findings.nonCompliantIssues[0].issues).toContain(
+        "missing-milestone",
+      );
     });
 
     it("handles bulk updates and reports specific changes", () => {
@@ -264,9 +277,13 @@ describe("integration: metadata workflow", () => {
         { number: 102, title: "Another", labels: [], milestone: null },
       ];
 
-      const results = bulkUpdateMetadata(issues, {
-        labelsToAdd: ["type:task"],
-      }, false);
+      const results = bulkUpdateMetadata(
+        issues,
+        {
+          labelsToAdd: ["type:task"],
+        },
+        false,
+      );
       expect(results.totalProcessed).toBe(2);
       expect(results.labelsAdded).toBeGreaterThan(0);
       expect(results.updated.length).toBeGreaterThan(0);
