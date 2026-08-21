@@ -112,4 +112,4 @@ If this skill is used inside an intake-style review, source-review, planning-rev
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

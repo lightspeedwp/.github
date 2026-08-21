@@ -19,3 +19,7 @@ Fixes #108
 - [x] Linked issue provided
 - [x] Changelog entry provided
 - [x] Validation notes reviewed
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

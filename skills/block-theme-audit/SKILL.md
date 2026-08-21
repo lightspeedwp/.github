@@ -112,4 +112,4 @@ And a follow-up task list saved to `.github/tasks/YYYY-MM-DD-audit-followup.md` 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

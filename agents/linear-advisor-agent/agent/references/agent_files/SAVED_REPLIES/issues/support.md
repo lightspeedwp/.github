@@ -1,7 +1,7 @@
 ---
-title: "Support Question Saved Replies"
-description: "Linear-first reply templates for acknowledging reports, requesting missing context, and sharing the clearest next step."
-category: "Issue Management"
+title: Support Question Saved Replies
+description: Linear-first reply templates for acknowledging reports, requesting missing context, and sharing the clearest next step.
+category: Issue Management
 labels:
   - status:needs-triage
 ---
@@ -53,4 +53,4 @@ If that does not fully resolve it, reply with the remaining gap and we can conti
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

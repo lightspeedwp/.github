@@ -2,9 +2,9 @@
 title: Label Inventory — Complete Reference
 description: Complete inventory of all 158 canonical labels organized by semantic family, with color codes, descriptions, and usage guidance
 file_type: documentation
-version: v1.1.2
+version: v1.1.3
 created_date: '2026-05-31'
-last_updated: '2026-06-18'
+last_updated: '2026-08-21'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -371,4 +371,4 @@ Labels with minimal usage should be periodically reviewed for retirement:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

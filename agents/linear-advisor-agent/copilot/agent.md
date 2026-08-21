@@ -1,13 +1,13 @@
 ---
-provider: 'copilot'
-agent_slug: 'linear-advisor'
-agent_name: 'Linear Advisor Agent (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+provider: copilot
+agent_slug: linear-advisor
+agent_name: Linear Advisor Agent (GitHub Copilot)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-21'
+platform: github
+integration: copilot-chat
 ---
 
 # Linear Advisor Agent — GitHub Copilot Implementation
@@ -238,3 +238,7 @@ Copilot helps track:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

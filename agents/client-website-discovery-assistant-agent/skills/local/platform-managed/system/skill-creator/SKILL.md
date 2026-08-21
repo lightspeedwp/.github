@@ -419,4 +419,4 @@ forward-testing setup before trusting the result.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

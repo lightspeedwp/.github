@@ -61,4 +61,4 @@ Include this disclaimer whenever legal, privacy, compliance, regulated sectors, 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

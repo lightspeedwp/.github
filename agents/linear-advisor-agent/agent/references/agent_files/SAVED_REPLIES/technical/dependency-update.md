@@ -1,13 +1,13 @@
 ---
-title: "Dependency Update Automation Saved Reply"
-description: "Guidance for troubleshooting automated dependency update failures or merge conflicts (Renovate, Dependabot, etc)."
-category: "Technical Support"
+title: Dependency Update Automation Saved Reply
+description: Guidance for troubleshooting automated dependency update failures or merge conflicts (Renovate, Dependabot, etc).
+category: Technical Support
 labels:
   - area:dependencies
   - status:needs-triage
 references:
-  - "../../instructions/dependencies.md"
-  - "../../instructions/automation.md"
+  - ../../instructions/dependencies.md
+  - ../../instructions/automation.md
 ---
 
 # Dependency Update Automation Saved Reply
@@ -41,4 +41,4 @@ If you encounter persistent issues, please comment here with the error details a
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

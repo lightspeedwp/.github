@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Tester Brief"
-audience: "internal"
-document_type: "uat-brief"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Tester Brief
+audience: internal
+document_type: uat-brief
+status: template
+language: en-GB
 ---
 
 # Tester Brief
@@ -97,4 +97,4 @@ Before closing your testing pass, make sure you have:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

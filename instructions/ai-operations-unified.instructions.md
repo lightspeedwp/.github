@@ -1,14 +1,11 @@
 ---
 file_type: instructions
 title: Unified AI Operations
-description: >-
-  Provider-neutral AI operations for multi-provider agents: session integrity,
-  logging and audit trails, escalation, file placement, and code-review
-  integration across Claude, Copilot, and OpenAI.
+description: 'Provider-neutral AI operations for multi-provider agents: session integrity, logging and audit trails, escalation, file placement, and code-review integration across Claude, Copilot, and OpenAI.'
 scope: organization-wide
 applyTo: '**'
-version: v1.0.0
-last_updated: '2026-07-22'
+version: v1.0.1
+last_updated: '2026-08-21'
 owners:
   - lightspeedwp/maintainers
 tags:
@@ -92,3 +89,7 @@ for these operational rules and only add provider mechanics.
 📐 *Schema validated by LightSpeedWP — always compliant.*
 
 [📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

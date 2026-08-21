@@ -1,6 +1,6 @@
 ---
 template_id: test-plan-and-qa-matrix
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -53,4 +53,4 @@ Include references to tooling (e.g. Jira, Trello) if applicable.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

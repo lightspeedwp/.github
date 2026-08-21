@@ -91,3 +91,7 @@ See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 ---
 
 *Instructions version: 1.0 | Updated: 2025-10-23 | Owner: LightSpeedWP Maintainers*
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

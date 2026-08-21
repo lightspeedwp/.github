@@ -284,4 +284,4 @@ Do not cite internal previews, contact sheets, layout JSON, source notes, scratc
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

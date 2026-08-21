@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Markdown Output Format Spec"
-audience: "internal"
-document_type: "format-spec"
-status: "active"
-language: "en-GB"
+version: 1.0.1
+title: Markdown Output Format Spec
+audience: internal
+document_type: format-spec
+status: active
+language: en-GB
 ---
 
 # Markdown Output Format Spec
@@ -124,4 +124,4 @@ Before returning a polished Markdown-source output, confirm that:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

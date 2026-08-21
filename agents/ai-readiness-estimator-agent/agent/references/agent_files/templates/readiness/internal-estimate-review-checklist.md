@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Internal Estimate Review Checklist"
-audience: "internal"
-document_type: "review-checklist"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Internal Estimate Review Checklist
+audience: internal
+document_type: review-checklist
+status: template
+language: en-GB
 ---
 
 # Internal Estimate Review Checklist
@@ -72,4 +72,4 @@ Use this checklist before an internal AI-readiness estimate is reused, approved,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

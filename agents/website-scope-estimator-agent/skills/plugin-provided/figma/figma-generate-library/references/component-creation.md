@@ -772,4 +772,4 @@ This gives you positions (grid working?), dimensions (size differentiation?), an
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

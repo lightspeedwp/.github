@@ -204,4 +204,4 @@ When onboarding does not run, do not mention it. Continue the user's original re
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

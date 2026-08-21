@@ -1,12 +1,17 @@
 ---
-title: "Changelog Automation & Integration"
-description: "Complete guide to changelog management, automation workflows, and integration with release processes"
-file_type: "documentation"
-created_date: "2026-07-24"
-last_updated: "2026-08-18"
-version: "1.1"
-owners: ["LightSpeed Team"]
-tags: ["changelog", "automation", "release", "versioning"]
+title: Changelog Automation & Integration
+description: Complete guide to changelog management, automation workflows, and integration with release processes
+file_type: documentation
+created_date: '2026-07-24'
+last_updated: '2026-08-21'
+version: '1.1'
+owners:
+  - LightSpeed Team
+tags:
+  - changelog
+  - automation
+  - release
+  - versioning
 ---
 
 # Changelog Automation & Integration Guide
@@ -777,9 +782,4 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 ---
 
-**Last Updated:** 2026-07-24
-**Maintained By:** Changelog & Release Engineering Team
-**Status:** Active
-**Stability:** Stable
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

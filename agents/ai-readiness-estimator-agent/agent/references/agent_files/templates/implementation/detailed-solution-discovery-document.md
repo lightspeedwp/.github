@@ -1,6 +1,6 @@
 ---
 template_id: detailed-solution-discovery-document
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -64,4 +64,4 @@ Summarise the discovery findings and outline recommended next steps for scoping,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

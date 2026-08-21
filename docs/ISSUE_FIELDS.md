@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.9
+version: v1.0.10
 created_date: '2026-05-31'
-last_updated: '2026-07-23'
+last_updated: '2026-08-21'
 authors:
   - LightSpeed Team
 maintainer: LightSpeed Team
@@ -519,4 +519,4 @@ Default priority: priority:normal
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

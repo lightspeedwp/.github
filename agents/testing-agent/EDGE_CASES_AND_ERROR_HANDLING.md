@@ -1,11 +1,8 @@
 ---
 file_type: documentation
 title: Playwright Testing Agent — Edge Cases & Error Handling Patterns
-description: >-
-  Comprehensive guide to identifying, testing, and handling edge cases and error
-  states in Playwright test packs. Covers network failures, async boundaries,
-  state leakage, and WooCommerce-specific error scenarios.
-last_updated: '2026-07-30'
+description: Comprehensive guide to identifying, testing, and handling edge cases and error states in Playwright test packs. Covers network failures, async boundaries, state leakage, and WooCommerce-specific error scenarios.
+last_updated: '2026-08-21'
 domain: generic
 tags:
   - playwright
@@ -259,3 +256,7 @@ When an edge case test fails in CI:
 - [Playwright Testing Agent](./AGENT.md) — core agent specification
 - [How to Test the Playwright Testing Agent](./TESTING.md) — packaging and provider validation
 - [Test Pack Builder](./skills/agent-attached/hermes/test-pack-builder/SKILL.md) — creating review-ready test packs
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

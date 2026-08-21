@@ -1,12 +1,12 @@
 ---
-title: "Epic Tracking Saved Replies"
-description: "Standard responses for issues identified as epics, providing guidance on linking child issues and tracking progress. Aligns with LightSpeedWP Issue Type and Project field standards."
-category: "Issue Management"
+title: Epic Tracking Saved Replies
+description: Standard responses for issues identified as epics, providing guidance on linking child issues and tracking progress. Aligns with LightSpeedWP Issue Type and Project field standards.
+category: Issue Management
 labels:
   - status:in-progress
 references:
-  - "../ISSUE_TYPES.md"
-  - "../../CONTRIBUTING.md"
+  - ../ISSUE_TYPES.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Epic Tracking Saved Replies
@@ -42,4 +42,4 @@ This helps us track progress, dependencies, and focus the team on key deliverabl
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

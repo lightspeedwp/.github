@@ -2,7 +2,7 @@
 title: Valid Example
 status: approved
 type: guide
-version: "1.0.0"
+version: 1.0.1
 description: A valid example file.
 tags:
   - docs
@@ -16,4 +16,4 @@ This file should pass validation.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

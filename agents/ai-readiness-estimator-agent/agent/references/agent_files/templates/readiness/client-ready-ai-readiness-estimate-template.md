@@ -1,11 +1,11 @@
 ---
-version: 1.0.0
-title: "AI Readiness Estimate"
-audience: "client"
-document_type: "estimate"
-status: "template"
-language: "en-GB"
-recommended_base_package: "AI Readiness Foundation"
+version: 1.0.1
+title: AI Readiness Estimate
+audience: client
+document_type: estimate
+status: template
+language: en-GB
+recommended_base_package: AI Readiness Foundation
 ---
 
 # AI Readiness Estimate
@@ -123,4 +123,4 @@ The immediate next step is to confirm the missing inputs and complete the baseli
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

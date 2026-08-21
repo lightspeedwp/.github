@@ -5,14 +5,14 @@ description: Unified Copilot operating guide for AI-driven development, includin
 scope: organization-wide
 applyTo: '**'
 version: v1.0
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- ai-operations
-- copilot
-- governance
-- automation
+  - ai-operations
+  - copilot
+  - governance
+  - automation
 status: active
 ---
 
@@ -117,4 +117,4 @@ This creates an audit trail linking code changes to specific Copilot sessions an
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

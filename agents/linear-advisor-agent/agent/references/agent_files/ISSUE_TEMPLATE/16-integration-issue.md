@@ -1,8 +1,11 @@
 ---
-name: "🔗 Integration"
-about: "Report or propose integration with external plugins, services, or APIs."
-title: "[Integration] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:integration]
+name: 🔗 Integration
+about: Report or propose integration with external plugins, services, or APIs.
+title: '[Integration] <Short summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:integration
 ---
 
 <!--
@@ -100,4 +103,4 @@ Checklist items to ensure the integration fix/update is complete.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

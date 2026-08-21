@@ -203,4 +203,4 @@ Do not execute creation or content edits until the required references are read 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

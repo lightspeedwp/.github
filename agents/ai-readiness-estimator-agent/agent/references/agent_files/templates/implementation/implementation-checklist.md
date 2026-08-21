@@ -1,6 +1,6 @@
 ---
 template_id: implementation-checklist
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -89,4 +89,4 @@ Select the sections relevant to your project and mark each item as complete.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,6 +1,6 @@
 ---
 template_id: findings-and-recommendations-template
-version: 1.1.0
+version: 1.1.1
 status: draft
 document_type: readiness_report
 audience: internal_or_client
@@ -62,4 +62,4 @@ Summarise agreed next actions and confirm ownership and timing.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

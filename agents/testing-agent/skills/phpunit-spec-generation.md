@@ -1,8 +1,8 @@
 ---
 name: phpunit-spec-generation
-title: "PHPUnit Test Specification Generation Skill"
-description: "Generate comprehensive PHPUnit test specifications for PHP applications with fixtures, mocking strategies, and testing best practices for modern PHP/WordPress projects"
-version: "1.0.0"
+title: PHPUnit Test Specification Generation Skill
+description: Generate comprehensive PHPUnit test specifications for PHP applications with fixtures, mocking strategies, and testing best practices for modern PHP/WordPress projects
+version: 1.0.1
 category: testing
 tags:
   - phpunit
@@ -673,3 +673,7 @@ This skill integrates with the Testing Agent's multi-framework architecture:
 **Last Updated:** 2026-08-17  
 **Status:** Production Ready  
 **Framework:** PHPUnit 9.5+, WordPress 5.0+
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

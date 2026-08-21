@@ -1,12 +1,11 @@
 ---
 file_type: documentation
 title: WordPress Project Onboarding Workflow
-description: Portable workflow to onboard a WordPress project with governance, planning,
-  and quality baselines.
-version: v0.1.0
-last_updated: '2026-05-28'
+description: Portable workflow to onboard a WordPress project with governance, planning, and quality baselines.
+version: v0.1.1
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 ---
 
 # WordPress Project Onboarding Workflow
@@ -181,4 +180,4 @@ This workflow establishes governance, planning, and quality standards when onboa
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

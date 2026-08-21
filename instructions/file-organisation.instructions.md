@@ -5,14 +5,14 @@ description: File placement rules and directory structure conventions for organi
 scope: organization-wide
 applyTo: '**'
 version: v1.2
-last_updated: '2026-08-04'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- file-organisation
-- repository-structure
-- governance
-- phase-1-restructuring
+  - file-organisation
+  - repository-structure
+  - governance
+  - phase-1-restructuring
 status: active
 ---
 
@@ -665,4 +665,4 @@ instructions/documentation-formats.instructions.md
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

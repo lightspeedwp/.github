@@ -1,9 +1,9 @@
 ---
-version: v0.1.0
-last_updated: '2026-05-29'
+version: v0.1.1
+last_updated: '2026-08-21'
 title: Cross-Platform Skill YAML Spec
 owners:
-- lightspeedwp
+  - lightspeedwp
 file_type: documentation
 description: YAML specification for cross-platform skill manifests
 ---
@@ -164,4 +164,4 @@ examples:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -166,4 +166,4 @@ These are real, reusable failure modes — check the project's own notes too, bu
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

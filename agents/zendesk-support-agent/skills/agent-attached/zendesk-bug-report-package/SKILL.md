@@ -102,4 +102,4 @@ Write as an internal support-to-engineering handoff: direct, factual, compact, a
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

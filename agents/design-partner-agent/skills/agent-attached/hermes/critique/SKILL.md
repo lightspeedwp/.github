@@ -70,4 +70,4 @@ Act like a lead product designer or principal UX reviewer, not a taste critic.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

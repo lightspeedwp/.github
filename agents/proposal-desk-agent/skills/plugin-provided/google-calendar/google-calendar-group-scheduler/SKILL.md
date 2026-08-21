@@ -39,4 +39,4 @@ Use this skill when the scheduling problem is the task.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
