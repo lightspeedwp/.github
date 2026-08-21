@@ -2,8 +2,8 @@
 title: "Active Projects Index"
 description: "Comprehensive index of all active projects, initiatives, and work in progress for the LightSpeed .github control plane"
 file_type: readme
-version: v2.1
-last_updated: "2026-08-10"
+version: v2.5
+last_updated: "2026-08-21"
 created_date: "2025-12-08"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -15,10 +15,10 @@ stability: "stable"
 
 # Active Projects Index
 
-**Index Version:** 2.4  
-**Last Updated:** 2026-08-10 (19:00 UTC)  
-**Status:** PR #1703 Phase 5 Finalising — Workspace Path Fixes Complete, Security Hardening In Review  
-**Total Active Projects:** 30
+**Index Version:** 2.5  
+**Last Updated:** 2026-08-21 (18:00 UTC)  
+**Total Active Projects:** 67  
+**Status Update Cycle:** Batch Review Completed (All 67 Projects Analyzed)
 
 ---
 
@@ -30,360 +30,425 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ---
 
-## 📋 Active Projects (29 Total)
-
-### Core Infrastructure & Standards
-
-#### 1. Repository Restructuring Phase 1 (2026-07-25)
-
-**Directory:** [`repo-restructuring-2026-07-25/`](./repo-restructuring-2026-07-25/)  
-**Status:** 🟡 Phase 1 → Phase 3D Complete  
-**Owner:** Ash Shaw  
-**Key Deliverables:**
-
-- Phase 1A Audit: Instruction files (58 files, 502+ references)
-- Phase 1B Audit: Schema consolidation (25 schemas, 3 locations)
-- Phase 1C Audit: Agent specifications (35 agents, 788+ references)
-
-#### 2. Repository Maintenance Infrastructure
-
-**Directory:** [`repository-maintenance-infrastructure/`](./repository-maintenance-infrastructure/)  
-**Status:** 🟢 Complete  
-**Owner:** LightSpeed Team  
-**Key Deliverables:**
-
-- Schema consolidation migration plan
-- Repository maintenance procedures
-
-#### 3. Workflows Consolidation 2026-Q3
-
-**Directory:** [`workflows-consolidation-2026-q3/`](./workflows-consolidation-2026-q3/)  
-**Status:** 🟡 Phase 3.2 In Progress  
-**Owner:** LightSpeed Team  
-**Scope:** 31 GitHub workflows → consolidate to 25 workflows, 15-20% Actions minute reduction
-
-### Agent & Skill Standards
-
-#### 4. Agent Skills Standards Comprehensive
-
-**Directory:** [`agent-skills-standards-comprehensive/`](./agent-skills-standards-comprehensive/)  
-**Status:** 🟡 Active  
-**Focus:** Comprehensive standards for agent skills across all platforms
-
-#### 5. Agent Standards Initiative
-
-**Directory:** [`agent-standards-initiative/`](./agent-standards-initiative/)  
-**Status:** 🟡 Active  
-**Focus:** Unified standards for agent creation, documentation, and validation
-
-#### 6. Phase 2B Skills Audit
-
-**Directory:** [`phase-2b-skills-audit/`](./phase-2b-skills-audit/)  
-**Status:** 🟡 Phase C → Complete  
-**Key Deliverables:**
-
-- Comprehensive skills inventory
-- Phase-specific task breakdowns
-
-### Documentation & Governance
-
-#### 7. Template Enforcement Governance
-
-**Directory:** [`template-enforcement-governance/`](./template-enforcement-governance/)  
-**Status:** 🟡 Active  
-**Focus:** Issue and PR template compliance, validation workflows
-
-#### 8. Label Prefix Audit (2026-08-05)
-
-**Directory:** [`label-prefix-audit-2026-08-05/`](./label-prefix-audit-2026-08-05/)  
-**Status:** 🔴 Audit Complete | 🟡 Remediation In Progress  
-**Owner:** LightSpeed Team  
-**Severity:** CRITICAL  
-**Key Deliverables:**
-
-- Root cause analysis: 100+ violations of label prefix standards
-- 5-phase remediation plan
-- Workflow consolidation analysis (19 workflows)
-
-**Related Project:** See also [`label-prefix-enforcement-2026-08-05/`](./label-prefix-enforcement-2026-08-05/) for enforcement implementation
-
-#### 9. Label Prefix Enforcement (2026-08-05)
-
-**Directory:** [`label-prefix-enforcement-2026-08-05/`](./label-prefix-enforcement-2026-08-05/)  
-**Status:** 🟡 Phase 3 In Progress  
-**Owner:** LightSpeed Team  
-**Focus:** Implementing validation and enforcement of label prefix standards
-
-#### 11. Wave 5 Documentation Audit
-
-**Directory:** [`wave-5-documentation-audit/`](./wave-5-documentation-audit/)  
-**Status:** 🟡 Active (Batch 1 → Execution)  
-**Scope:** Comprehensive documentation audit across repository
-**Key Directories:**
-
-- `batch-1-execution/` — Batch 1 execution tracking
-- `findings/` — Audit findings and reports
-- `execution/` — Overall execution tracking
-
-#### 12. Changelog Automation Hardening
-
-**Directory:** [`changelog-automation-hardening/`](./changelog-automation-hardening/)  
-**Status:** 🟡 Active  
-**Focus:** Changelog entry validation, standards enforcement, automation
-
-#### 13. Markdown Audit CI Optimization
-
-**Directory:** [`markdown-audit-ci-optimization/`](./markdown-audit-ci-optimization/)  
-**Status:** 🟡 Active  
-**Focus:** Markdown linting optimization, CI performance improvements
-
-### Testing & Quality Assurance
-
-#### 14. Test Coverage Implementation
-
-**Directory:** [`test-coverage-implementation/`](./test-coverage-implementation/)  
-**Status:** 🟡 Active  
-**Key Directories:**
-
-- `children/` — Child issues and dependencies
-- `openspec-strict/` — OpenSpec strict validation
-- `parents/` — Parent issue tracking
-**Focus:** Comprehensive test coverage across codebase
-
-#### 15. Issue Triage Automation System
-
-**Directory:** [`issue-triage-automation-system/`](./issue-triage-automation-system/)  
-**Status:** 🟡 Active  
-**Key Directories:**
-
-- `reports/` — Triage analysis and reports
-**Focus:** Automated issue triage, categorization, and routing
-
-#### 16. Status Needs Review Audit 2026-08-04
-
-**Directory:** [`status-needs-review-audit-2026-08-04/`](./status-needs-review-audit-2026-08-04/)  
-**Status:** 🟡 Active  
-**Focus:** Issue status review and validation audit
-
-### Issue & Workflow Systems
-
-#### 17. Issue Type Workflow Automation
-
-**Directory:** [`issue-type-workflow-automation/`](./issue-type-workflow-automation/)  
-**Status:** 🟡 Active  
-**Key Directories:**
-
-- `issues/` — Workflow-related issues
-**Focus:** Automated issue type detection and workflow routing
-
-#### 18. GitHub Projects Creation System
-
-**Directory:** [`github-projects-creation-system/`](./github-projects-creation-system/)  
-**Status:** 🟡 Active  
-**Focus:** Automated GitHub project creation and management
-
-### Release & Deployment
-
-#### 19. Release Workflow Authorization Fixes
-
-**Directory:** [`release-workflow-authorization-fixes/`](./release-workflow-authorization-fixes/)  
-**Status:** 🟡 Active  
-**Focus:** Release workflow permissions, authorization, and hardening
-
-#### 20. Node.js Upgrade 2026-Q3
-
-**Directory:** [`nodejs-upgrade-2026-q3/`](./nodejs-upgrade-2026-q3/)  
-**Status:** 🟢 Complete  
-**Focus:** Node.js version upgrade planning and execution
-
-#### 21. Node.js Upgrade 2026-Q3 Post-Merge Monitoring
-
-**Directory:** [`nodejs-upgrade-2026-q3-post-merge-monitoring/`](./nodejs-upgrade-2026-q3-post-merge-monitoring/)  
-**Status:** 🟡 Active  
-**Focus:** Post-upgrade monitoring and verification
-
-### Planning & Strategy
-
-#### 22. Milestone Planning v1
-
-**Directory:** [`milestone-planning-v1/`](./milestone-planning-v1/)  
-**Status:** 🟡 Active  
-**Focus:** Long-term milestone planning and roadmap
-
-#### 23. Repository Restructuring Phase 1
-
-**Directory:** [`repository-restructuring-phase-1/`](./repository-restructuring-phase-1/)  
-**Status:** 🟡 Active  
-**Focus:** Legacy phase 1 documentation and planning
-
-#### 24. PR Review Project Planning 2026-08-04
-
-**Directory:** [`pr-review-project-planning-2026-08-04/`](./pr-review-project-planning-2026-08-04/)  
-**Status:** 🟡 Active  
-**Focus:** PR review workflow planning and optimization
-
-### Recent Work (2026-08-09 to Present)
-
-#### 25. GitHub Actions v7 Upgrade Initiative
-
-**Directory:** [`github-actions-v7-upgrade-2026-08-09/`](./github-actions-v7-upgrade-2026-08-09/)  
-**Status:** 🟡 Phase 5 Finalising (PR #1703)  
-**Owner:** claude  
-**Key Deliverables:**
-
-- Phase 1-4: Complete (11/45 workflows upgraded to v7, 24% coverage)
-- Phase 5: Workspace path fixes, security hardening, portable agents
-- Critical security fixes: Shell injection vulnerabilities, GitHub App token scoping
-- Known issues documented for follow-up PRs (Priority 1-3)
-
-#### 26. Badges Workflow Integration (2026-08-08)
-
-**Directory:** [`badges-workflow-integration-2026-08-08/`](./badges-workflow-integration-2026-08-08/)  
-**Status:** 🟡 In Progress  
-**Focus:** Badge workflow automation, integration testing, badge status updates
-
-#### 27. Issue Metadata Triage Expansion
-
-**Directory:** [`issue-metadata-triage-expansion/`](./issue-metadata-triage-expansion/)  
-**Status:** 🟡 Phase 1-2 Complete (PR #1692 merged)  
-**Focus:** Automated issue triage, metadata expansion, bulk processing
-
-### Issue & Script Management
-
-#### 28. Issue Maintenance Scripts (2026-08-10)
-
-**Directory:** [`issue-maintenance-scripts-2026-08-10/`](./issue-maintenance-scripts-2026-08-10/)  
-**Status:** 🟡 Planning (Phase 1 Development Ready)  
-**Owner:** Ash Shaw  
-**Focus:** CLI scripts for automated meta: label management
-**Key Deliverables:**
-
-- 5 label management scripts (review, sync, manage, audit, orchestrate)
-- Comprehensive testing (50+ unit tests, 10+ integration tests)
-- Documentation and workflow integration
-
-### Agents & Implementation
-
-#### 29. PRD Combined Agent
-
-**Directory:** [`prd-combined-agent/`](./prd-combined-agent/)  
-**Status:** 🟢 Complete  
-**Focus:** Combined PRD agent implementation and documentation
-
-#### 30. OpenSpec
-
-**Directory:** [`openspec/`](./openspec/)  
-**Status:** 🟡 Active  
-**Key Directories:**
-
-- `changes/` — Specification changes and updates
-**Focus:** OpenSpec validation and strict compliance
+## 📊 Status Summary (2026-08-21)
+
+| Status | Count | Percentage | Projects |
+|--------|-------|-----------|----------|
+| ✅ **Complete** | 10 | 15% | Delivered, production-ready |
+| 🟢 **Active Ready** | 12 | 18% | In progress, well-scoped |
+| 🟡 **In Progress** | 35 | 52% | Active development, phased |
+| 🔴 **Critical** | 1 | 2% | Blocked or high-risk |
+| 🟠 **Blocked** | 3 | 4% | Waiting for dependencies |
+| 🔵 **Planning** | 4 | 6% | Early stage, planning phase |
+| 🔄 **Transitioning** | 2 | 3% | Between phases |
+| **TOTAL** | **67** | **100%** | All active initiatives |
 
 ---
 
-## 📊 Project Status Summary
+## 🎯 Complete Projects (10) ✅
 
-| Status | Count | Projects |
-|--------|-------|----------|
-| 🟡 Active | 26 | Most projects (ongoing work) |
-| 🔴 Critical | 1 | Label Prefix Audit (remediation in progress) |
-| 🟢 Complete | 3 | Node.js upgrade, Repository restructuring, PRD agent |
-| 🟠 Blocked | 0 | None currently |
-| ⚪ Archived | Many | See `../archived/` |
+**Production-ready and delivered. Consider archival.**
 
----
+1. **agent-skills-standards-comprehensive** (67% → 🟢 Phase 1-2 Complete | Phase 3 Pending)
+   - 9 documentation standards created, 3,800+ lines, 18+ diagrams
+   - 2 PRs merged (#1251, #1312), 11 issues closed
 
-## 🗂️ Directory Structure Rules
+2. **github-actions-v7-upgrade** (✅ COMPLETE)
+   - All 15 workflows upgraded to v7, 31+ action references updated
+   - 100% test pass rate, ready for merge to develop
 
-**Active Project Placement:**
+3. **issue-metadata-triage-expansion** (✅ COMPLETE | 100%)
+   - All phases merged, production live
+   - Automated issue triage, metadata expansion, bulk processing
 
-```
-.github/projects/active/
-├── project-1-slug/
-│   ├── README.md                  # Project overview
-│   ├── SPECIFICATION.md           # Full specification
-│   ├── reports/                   # Generated reports
-│   ├── issues/                    # Related issues
-│   └── [documentation]/
-├── project-2-slug/
-└── [29 total projects]
-```
+4. **nodejs-upgrade-2026-q3-post-merge-monitoring** (✅ COMPLETE | 100%)
+   - Post-merge monitoring complete (Days 1-3)
+   - All stability metrics verified
 
-**Key Rules:**
+5. **openspec-labels-automation** (✅ Phase 3 Complete | 75%)
+   - Phase 3 complete, Phase 4 planning ready
+   - 75% of automation framework built
 
-- ✅ All active projects in `.github/projects/active/{slug}/`
-- ✅ Each project self-contained with clear documentation
-- ✅ Subdirectories allowed (reports, issues, etc.)
-- ❌ No projects in root `projects/` directory
-- ❌ No project files in `docs/` or repository root
-- ❌ Each project has clear ownership and status
+6. **pr-issue-milestone-allocation-2026-08-11** (✅ Phase 3 Complete | 75%)
+   - Phase 3 complete, production deployed
+   - Milestone allocation system live
 
----
+7. **prd-combined-agent** (✅ COMPLETED | 100%)
+   - Combined PRD agent implementation and documentation
+   - Phase 2 Batch 2 complete
 
-## 🚀 How to Access a Project
+8. **release-agentic-workflows-2026-08-11** (✅ Phase 5A Complete | 100%)
+   - MVP complete and merged
+   - Agentic release workflows operational
 
-### Quick Navigation
+9. **release-process-redesign-2026-08-05** (✅ COMPLETE | 100%)
+   - All 7 phases complete and deployed to production
+   - Release workflow fully operational
 
-**Example: Repository Restructuring**
+10. **release-workflow-authorization-fixes** (✅ COMPLETE | 100%)
+    - Authorization fix implemented, tested, and merged (PR #1462, #2107)
+    - Security hardening deployed
 
-1. Open: [`.github/projects/active/repo-restructuring-2026-07-25/`](./repo-restructuring-2026-07-25/)
-2. Start with: [`README.md`](./repo-restructuring-2026-07-25/README.md)
-3. Full specification: [`SPECIFICATION.md`](./repo-restructuring-2026-07-25/SPECIFICATION.md)
+11. **repository-maintenance-infrastructure** (✅ COMPLETE | 100%)
+    - All deliverables complete
+    - Repository maintenance procedures operational
 
-### By Role
-
-**Project Owner:**
-
-1. Read project `README.md` for overview
-2. Review `SPECIFICATION.md` for full context
-3. Execute from phase-specific documents
-
-**Claude Code Agent:**
-
-1. Find phase-specific documentation
-2. Copy execution prompt
-3. Execute and commit results
-
-**Team Members:**
-
-1. Check project `README.md` for status
-2. Ask questions in linked GitHub issues
-3. Contact project owner for blockers
+12. **repository-restructuring-phase-1** (✅ COMPLETE | 96%)
+    - Phase 1 complete and finalized
+    - Restructuring foundations in place
 
 ---
 
-## 📝 Creating New Projects
+## 🟢 Active Ready Projects (12) — In Progress, Well-Scoped
 
-### Step 1: Create Directory
+**Clear scope, active execution, regular updates.**
 
-```bash
-mkdir -p .github/projects/active/{project-slug}-{YYYY-MM-DD}/
+1. **agent-standards-initiative** (🔜 Ready for Phase 1 | 20%)
+   - Complete documentation package ready for Phase 1 execution
+   - 16 ChatGPT agents identified for conversion
+
+2. **badges-workflow-integration-2026-08-08** (🔄 Phase 1-3 IN PROGRESS | 60%)
+   - Comprehensive audit complete, 4-phase implementation plan
+   - Epic #1641 with 13 child issues, awaiting approval on 4 questions
+
+3. **branch-governance-hardening** (🔄 Phase 2 Complete | 40%)
+   - Main branch guard implemented and live
+   - Phase 3-4 pending: rulesets & workflow automation
+
+4. **branch-naming-enforcement-2026-08-11** (🚀 Launching | 15%)
+   - Just launched, all 7 GitHub issues marked 'Ready'
+   - Phase 1 complete by 2026-08-11, Phase 2-4 through 2026-08-14
+
+5. **branch-naming-enforcement-phases-6-7** (🟡 In Progress | 50%)
+   - Phases 2-5 complete as of 2026-08-18
+   - Phase 6 (Team Rollout) and Phase 7 (Metrics) active
+
+6. **changelog-automation-hardening** (🔄 Phase 4 Active | 75%)
+   - Phases 1-3 complete, Phase 4 (4A-4D) active
+   - Epic #1271 on track for completion by 2026-08-14
+
+7. **issue-type-workflow-automation** (🟢 Ready for Execution | 0%)
+   - 5 weeks, 37.5 hours effort, 3-phase initiative
+   - Phase 1 pending critical fixes
+
+8. **label-prefix-enforcement-2026-08-05** (🟢 ACTIVE | 5%)
+   - Phase 1 of 5 (Stop new violations) — priority TODAY
+   - Critical governance work pending approval
+
+9. **linting-agent-2026-08-12** (🟢 Phase 1 Complete | 25%)
+   - Phase 1 specification complete
+   - Phase 2 implementation ready to start
+
+10. **openspec** (🟢 ACTIVE | 50%)
+    - Active specifications in proposal/planning phase
+    - 50% of framework defined
+
+11. **reporting-agent-v2-multirepository-2026-08-12** (🟢 Phase 1 Production-Ready | 40%)
+    - Phase 1 complete with 127 tests, 82%+ coverage
+    - Phase 2 planning underway
+
+12. **template-enforcement-governance** (✅ Complete | 100%)
+    - Issue and PR template compliance validated
+    - Awaiting minor remote admin checks
+
+---
+
+## 🟡 In Progress Projects (35) — Active Development, Phased Initiatives
+
+**Most of our active work. Regular status updates needed.**
+
+### Infrastructure & Automation (8)
+
+1. **chat-closure-agent-2026-08-12** (🟡 Phase 1 | 25%)
+   - Core components phase (Git analysis & metadata extraction)
+   - 5 tracking issues, targets ≥85% test coverage
+
+2. **develop-branch-stability-2026-08-10** (🟡 Phase 1-2 | 35%)
+   - Phase 1 linting fixes complete
+   - Phase 2A frontmatter audit in progress (587 errors)
+
+3. **github-projects-creation-system** (🟡 Planning | N/A%)
+   - Automated system for creating GitHub projects
+   - Linked to issue #1733, next steps TBD
+
+4. **issue-maintenance-phase-5-planning-2026-08-11** (🟢 Ready | 0%)
+   - Phase 5 (Integration Testing & Production Rollout) ready
+   - Awaiting execution authorization
+
+5. **issue-maintenance-scripts-2026-08-10** (🟢 Implementation Complete | 80%)
+   - Phases 1-4 complete, Phase 5 integration testing active
+   - 5 label management scripts with 50+ unit tests
+
+6. **markdown-audit-ci-optimization** (🟡 Phase 1-2 | 30%)
+   - Audit findings and implementation planning in progress
+   - 2-phase initiative targeting CI performance
+
+7. **pr-review-project-planning-2026-08-04** (✅ Phase 1 Substantially Complete | 63%)
+   - Phase 1 governance mostly achieved
+   - Phase 2 pending
+
+8. **status-needs-review-audit-2026-08-04** (✅ Complete | 100%)
+   - PR #1506 ready for merge
+   - Issue status review and validation complete
+
+### Agent Development (9)
+
+1. **adr-agent-portability-org** (🔵 Planning Phase | 5%)
+   - Project started 2026-08-12, planning stage
+   - 3 phases planned, no GitHub issues yet
+
+2. **issue-management-agent-planning-2026-08-12** (🚀 Phase 2 Infrastructure Complete | 40%)
+   - Phase 2 implementation planning in progress
+   - Infrastructure foundation built
+
+3. **linting-agent-2026-08-12** (🟢 Phase 1 Complete | 25%)
+   - Specification complete, Phase 2 implementation ready
+
+4. **meta-agent-v2-2026-08-12** (🟡 Phase 1 Complete | 20%)
+   - Phase 1 complete, awaiting merge
+   - 5-phase initiative in review
+
+5. **metrics-agent-phase-3-production-2026-08-26** (🟡 Phase 3 | 40%)
+   - Tasks 3.1-3.2 complete, monitoring & training pending
+   - Production rollout phase active
+
+6. **metrics-agent-specification-2026-08-12** (🟡 Phase 1 | 25%)
+   - Specification phase in progress
+   - Implementation pending
+
+7. **project-maintenance-agent-phase-1-2026-08-12** (🟢 Phase 1 & 3 Complete | 60%)
+   - Phase 1 & 3 complete, Phase 2 ready to start
+   - Integration & workflow complete
+
+8. **project-meta-sync-agent-v2-2026-08-12** (🟠 Implementation In Progress | 25%)
+   - Analysis & design complete
+   - Agent spec & prompt in development
+
+9. **testing-agent-architecture-2026-08-12** (🟡 Phase 1 Planning | 35%)
+   - Planning & design in progress
+   - Architectural decisions documented
+
+10. **testing-agent-multi-framework-2026-08-12** (🟡 Phase 1 Planning | 25%)
+    - Planning & design in progress
+    - Multiple decision questions open
+
+11. **testing-agent-phase-2-4-2-7** (🚀 Ready to Start | 0%)
+    - Framework skills & guides phase
+    - Awaiting Phase 2.1-2.3 completion
+
+### Testing & Quality (6)
+
+1. **issue-triage-automation-system** (🟡 Phase 2 | 50%)
+   - Phase 2 execution & validation in progress
+   - Automated issue triage system
+
+2. **test-coverage-expansion-2026-08-19** (🟡 Phase 2-4 | ~25%)
+   - Phase 1 complete (125 tests)
+   - Phases 2-4 pending
+
+3. **test-coverage-expansion-phase-2-2026-08-19** (✅ Complete | 100%)
+   - 468+ tests across 20 test files
+   - Phase 2 automation scripts complete
+
+4. **test-coverage-expansion-phase-3-2026-08-19** (✅ Complete | 100%)
+   - 244 tests across 6 new test files
+   - Phase 3 automation scripts complete
+
+5. **test-coverage-expansion-phase-4-2026-08-19** (🟡 Phase 4A Complete | 41%)
+   - Phase 4A (81 integration tests) complete
+   - Phase 4B API tests pending (~200 target)
+
+6. **test-coverage-implementation** (🔴 Critical | 24%)
+   - Only Phase 2 complete, phases 3-6 pending
+   - Blocks release, requires priority attention
+
+### Documentation & Planning (6)
+
+1. **issue-maintenance-phase-5-2-staging-2026-08-12** (🟡 Phase 5.2 | 0%)
+   - 8 validation tasks pending
+   - Production readiness decision pending
+
+2. **issue-maintenance-phase-5-3-production-readiness-2026-08-12** (🟡 Phase 5.3 | 0%)
+   - 4 focus areas all incomplete
+   - Production readiness determination pending
+
+3. **milestone-planning-v1** (🟡 Planning | 30%)
+   - Roadmap development in progress
+   - Long-term milestone planning active
+
+4. **portable-prompt-engineer-agent-spec-2026-08-12** (🟡 Planning | 43%)
+   - Strategic planning active
+   - 3 of 7 deliverables documented
+
+5. **portable-task-planning-agents-2026-08-12** (✅ Phase 1 Specification Complete | 33%)
+   - Phase 1 complete, Phase 2 ready to start
+   - 17 Phase 2 issues created
+
+6. **reports-projects-restructuring-2026-08-11** (🟢 Phase 1 Complete | 25%)
+   - Phase 1 audit complete (106 reports, 31 projects inventoried)
+   - Phase 2-4 planned (folder restructuring, migration, validation)
+
+### PR & Review Workflows (4)
+
+1. **pr-creation-agent-design-2026-08-12** (🟢 Phase 1 Complete | 25%)
+   - Phase 1 design complete, Phase 2-4 planned
+   - 4-phase initiative underway
+
+2. **pr-creation-agent-phase-2-2026-08-12** (🟢 Phase 2 | 38%)
+   - Specification in progress
+   - Phase 2 active
+
+3. **prd-agent-prompt-improvements-2026-08** (🟡 Phase 2 | 50%)
+   - Phase 1 complete, Phase 2 testing in progress
+   - Prompt improvements underway
+
+4. **reviewer-agent-v2-2026-08** (🟡 Phase 1 Planning | 30%)
+   - Planning & specification in progress
+   - Multi-phase initiative active
+
+5. **reviewer-agent-v2-implementation-2026-08** (✅ Phase 1 Complete | 100%)
+   - Planning phase complete
+   - Ready for Phase 2
+
+6. **reviewer-agent-v2-phase-2c-integration** (🟡 Phase 2C | 40%)
+   - Integration testing & validation in progress
+   - Phase 2C active
+
+### Documentation & Audits (2)
+
+1. **repo-restructuring-2026-07-25** (🟡 Phase 0 Complete | 5%)
+   - Phase 0 pre-flight validation complete
+   - Phase 1 ready (manual folder moves pending)
+
+2. **wave-5-documentation-audit** (🟡 Phase 3 | 60%)
+   - Phase 1-2 complete, Phase 3 execution in progress
+   - GitHub issues rewrite implementation active
+
+---
+
+## 🔴 Critical Projects (1) — Blocked or High-Risk
+
+**Requires immediate attention.**
+
+1. **test-coverage-implementation** (🔴 Critical | 24%)
+   - **Issue:** Blocks release, only 15/62 tasks complete
+   - **Status:** Phase 2 done, phases 3-6 pending
+   - **Action Required:** Assign owner, prioritize remaining phases
+   - **Impact:** Release cannot proceed until completion
+
+---
+
+## 🟠 Blocked Projects (3) — Waiting for Dependencies
+
+**Cannot proceed until external dependencies clear.**
+
+1. **github-actions-v7-upgrade-2026-08-09** (🟡 Initial Setup)
+   - System automation in development
+   - No linked GitHub issue yet (TBD)
+   - Needs implementation & rollout planning
+
+2. **nodejs-upgrade-2026-q3** (🟡 Ready for Approval | 15%)
+   - Planning & documentation complete, pre-execution
+   - Awaiting team approval
+
+3. **phase-2b-skills-audit** (🟡 Phase B | 50%)
+   - Phase A audit complete, Phase B planning active
+   - Awaiting phase gates
+
+---
+
+## 🔵 Planning Phase Projects (4) — Early Stage
+
+**Initiating or planning, not yet in execution.**
+
+1. **adr-agent-portability-org** (🔵 Planning Phase | 5%)
+   - Architecture overview documented
+   - Needs GitHub issues creation
+
+2. **agent-skills-standards-comprehensive** (See Complete section — now moved to Ready for Phase 3)
+
+3. **label-prefix-audit-2026-08-05** (✅ / 🔴 Audit Complete | 20%)
+   - Audit findings complete, remediation phase 2 in progress
+   - 100+ label prefix violations identified
+
+---
+
+## 🔄 Transitioning Projects (2) — Between Phases
+
+**Moving from one phase to another, coordination needed.**
+
+1. **branch-governance-hardening** (Phase 2 → 3)
+   - Main branch guard live, workflow automation pending
+
+2. **workflows-consolidation-2026-q3** (🟢 Phase 3 → 4 Ready | 80%)
+   - Phases 1-3 complete (19% workflow reduction achieved)
+   - Phase 4 ready for execution
+
+---
+
+## 📈 Project Distribution by Category
+
+```
+Infrastructure & Automation:  8 projects
+Agent Development:           11 projects  
+Testing & Quality:            6 projects
+Documentation & Planning:      6 projects
+PR & Review Workflows:         6 projects
+GitHub/Actions/Workflows:      5 projects
+Release & Deployment:          5 projects
+Other Initiatives:            14 projects
+─────────────────────────────
+TOTAL:                        67 projects
 ```
 
-Example: `feature-x-planning-2026-08-15/`
+---
 
-### Step 2: Create Core Documents
+## 🚨 Priority Action Items
 
-- **README.md** — Project overview, status, quick start
-- **SPECIFICATION.md** — Goals, scope, architecture
-- **PREFLIGHT_CHECKLIST.md** — Pre-work validation (if applicable)
-- **PHASE-*.md** — Phase-specific documentation
+### TODAY (2026-08-21)
 
-### Step 3: Add to This Index
+- **CRITICAL:** test-coverage-implementation (phase 3-6 pending, blocks release)
+- **HIGH:** label-prefix-enforcement-2026-08-05 (Phase 1 pending approval)
+- **HIGH:** github-actions-v7-upgrade-2026-08-09 (needs implementation plan)
 
-Update `.github/projects/active/README.md`:
+### THIS WEEK (By 2026-08-28)
 
-```markdown
-#### N. Project Name (YYYY-MM-DD)
-**Directory:** [`project-slug-date/`](./project-slug-date/)  
-**Status:** 🟡 Phase X  
-**Owner:** Person Name  
-**Focus:** 1-2 sentence description
-```
+- Complete Phase 5.2 validation (issue-maintenance-phase-5-2-staging)
+- Finalize Phase 5.3 production readiness (issue-maintenance-phase-5-3-production-readiness)
+- Phase 1 of branch-naming-enforcement (targeted 2026-08-12, verify completion)
+- Phase 4 completion for changelog-automation-hardening
 
-### Step 4: Update Status Table
+### UPCOMING (2026-08-28 to 2026-09-30)
 
-Add row to the project summary section above.
+- Launch phase 2 for 8+ projects awaiting start
+- Complete remaining testing agent planning phases
+- Execute repo-restructuring Phase 1 (folder moves)
+- Production deployment of issue-maintenance-scripts Phase 5
+
+---
+
+## 📋 Project Maintenance Checklist
+
+**Weekly (Every Monday):**
+
+- [ ] Update 5-10 active project README.md files with current status
+- [ ] Check for completed phases requiring archival
+- [ ] Review critical/blocked projects for progress
+- [ ] Create master summary status table
+
+**Monthly (First Friday):**
+
+- [ ] Review all 67 projects for completion readiness
+- [ ] Identify projects ready for archival to `completed/`
+- [ ] Generate completion summary reports
+- [ ] Update main projects/README.md with new date
+
+**Quarterly:**
+
+- [ ] Full audit of all active projects
+- [ ] Architecture review of multi-phase initiatives
+- [ ] Risk assessment and dependency mapping
+- [ ] Roadmap alignment check
 
 ---
 
@@ -391,88 +456,58 @@ Add row to the project summary section above.
 
 ### Repository Governance
 
-- [CLAUDE.md](../../CLAUDE.md) — Repository organization and boundaries
-- [AGENTS.md](../../AGENTS.md) — Global AI operations governance
-- [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — Git workflow and branch rules
+- [CLAUDE.md](../CLAUDE.md) — Repository organization and rules
+- [AGENTS.md](../AGENTS.md) — AI operations and agent standards
+- [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) — Git workflow
 
-### Project Infrastructure
+### Project Management
 
-- [.github/projects/README.md](../README.md) — Projects directory overview
-- [../archived/README.md](../archived/README.md) — Completed projects
-- [File Organisation Instructions](../../instructions/file-organisation.instructions.md) — Asset placement rules
+- [README.md](./README.md) — Main projects directory guide
+- [_templates/TEMPLATE_GUIDE.md](./_templates/TEMPLATE_GUIDE.md) — Creating new projects
+- [completed/README.md](./completed/README.md) — Index of completed projects
+- [archived/README.md](./archived/README.md) — Index of archived projects
 
----
+### Instructions
 
-## 🎯 Phase 3D: Reports Placement Enforcement
-
-**Current Phase:** Phase 3D — Reports Consolidation (2026-08-05)
-
-**Scope:**
-
-- ✅ Verified all active projects in `.github/projects/active/`
-- ✅ Confirmed no projects in root `projects/` directory
-- ✅ Updated 50+ references across codebase
-- ⏳ Creating comprehensive project index
-- ⏳ Documenting project creation process
-- ⏳ Finalizing governance enforcement
-
-**Key Files Updated:**
-
-- `.github/custom-instructions.md` — Fixed 3 project reference paths
-- `.github/CHANGELOG_CONTRIBUTOR_CHECKLIST.md` — Fixed relative paths
-- `.github/projects/README.md` — Updated project references
-- `eslint.config.cjs` — Fixed ignore patterns
-- `.github/reports/footer-audit-2026-08-04.json` — Fixed 21 paths
-- `.remember/phase-3.2-continuation-prompt.md` — Fixed directory structure
+- [instructions/file-organisation.md](../instructions/file-organisation.instructions.md) — Where files go
+- [instructions/documentation-formats.md](../instructions/documentation-formats.instructions.md) — Markdown standards
 
 ---
 
-## 📞 Support & Questions
+## 📊 Recent Activity Log
 
-### For Project Owners
+**2026-08-21** — Full status review completed for all 67 active projects. Status indicators updated, completion percentages refined, priority actions identified.
 
-- Review project README.md
-- Check SPECIFICATION.md for decisions
-- Reference phase documents for execution
+**2026-08-19** — Test coverage expansion phases 2-4 milestones updated. Phase 4A complete with 81 integration tests.
 
-### For Team Members
+**2026-08-12** — 5 new projects launched: chat-closure-agent, metrics-agent-specification, pr-creation-agent-design, prd-agent-prompt-improvements, testing-agent-architecture.
 
-- Check project status in this index
-- Review project README.md for overview
-- Ask in GitHub issues
-
-### For Future Maintainers
-
-- This index covers active projects only
-- See `../archived/` for completed projects
-- Projects are self-contained and portable
+**2026-08-10** — Issue maintenance scripts phases 1-4 complete (80%), Phase 5 integration testing active.
 
 ---
 
-**Index Version:** 2.0  
-**Last Updated:** 2026-08-05  
-**Maintained By:** LightSpeed Team  
-**Next Review:** After Phase 3D completion
-## Visual Workflow
+## FAQ
 
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
+**Q: How do I find a specific project?**
 
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
+A: Use Ctrl+F to search this document, or navigate by category above. All projects link to their folder.
 
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```
+**Q: What does 🟡 mean?**
+
+A: Active development in progress. These projects have clear scope and regular updates.
+
+**Q: How are projects moved to complete?**
+
+A: When all phases finish and deliverables ship, move to `completed/` folder with `.archive-status.md` summary.
+
+**Q: Which projects need attention most?**
+
+A: See "Priority Action Items" section at top of active projects section.
+
+---
+
+**Active Projects Index**  
+**Version:** 2.5  
+**Last Updated:** 2026-08-21 18:00 UTC  
+**Total Projects:** 67  
+**Maintained By:** LightSpeed Team
