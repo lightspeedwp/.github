@@ -1,13 +1,18 @@
 ---
-title: "Label Validation FAQ"
-description: "Frequently asked questions about GitHub label validation, canonical labels, and troubleshooting."
-file_type: "documentation"
-version: 'v1.0.0'
-last_updated: '2026-08-06'
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["labels", "validation", "faq", "troubleshooting"]
+title: Label Validation FAQ
+description: Frequently asked questions about GitHub label validation, canonical labels, and troubleshooting.
+file_type: documentation
+version: v1.0.1
+last_updated: '2026-08-21'
+author: LightSpeed Team
+maintainer: LightSpeed Team
+owners:
+  - lightspeedwp
+tags:
+  - labels
+  - validation
+  - faq
+  - troubleshooting
 ---
 
 # Label Validation FAQ
@@ -314,4 +319,4 @@ You can read these to understand exactly what validation checks.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

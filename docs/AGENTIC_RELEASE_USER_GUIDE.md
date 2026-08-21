@@ -4,7 +4,7 @@ title: Using the Agentic Release Workflow
 description: User guide for the Phase 5A agentic release workflow — when, how, and why to use agentic releases
 author: Ash Shaw
 status: stable
-updated_date: 2026-08-12
+updated_date: 2026-08-12T00:00:00.000Z
 type: documentation
 ---
 
@@ -573,4 +573,4 @@ bash .github/scripts/release/release.sh patch
 
 ---
 
-**Built by 🧱 LightSpeedWP | Phase 5A Agentic Workflows**
+*Maintained by the 🤖 LightSpeedWP Automation Team*

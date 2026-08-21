@@ -1,10 +1,10 @@
 ---
 file_type: automation-script-readme
 title: manage-stale-issues.js - Stale Issue Management
-description: "Automatically apply meta:stale label and handle inactive issue archiving"
-version: 1.0.0
-created_date: 2026-08-10
-last_updated: 2026-08-10
+description: Automatically apply meta:stale label and handle inactive issue archiving
+version: 1.0.1
+created_date: 2026-08-10T00:00:00.000Z
+last_updated: '2026-08-21'
 status: draft
 authors:
   - lightspeedwp/maintainers
@@ -376,3 +376,7 @@ node scripts/automation/manage-stale-issues.js --dry-run --days 45 --verbose
 **Status:** Phase 1.3 Implementation (In Progress)  
 **Last Updated:** 2026-08-10  
 **Owner:** LightSpeedWP Maintainers
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

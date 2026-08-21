@@ -1,12 +1,12 @@
 ---
-title: "Research Issue Completion Saved Replies"
-description: "Standard response for research, spike, or audit issues, guiding on documenting findings and next steps."
-category: "Issue Management"
+title: Research Issue Completion Saved Replies
+description: Standard response for research, spike, or audit issues, guiding on documenting findings and next steps.
+category: Issue Management
 labels:
   - status:done
 references:
-  - "../ISSUE_TYPES.md"
-  - "../../CONTRIBUTING.md"
+  - ../ISSUE_TYPES.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Research Issue Completion Saved Replies
@@ -36,4 +36,4 @@ This documentation is valuable for future contributors and helps inform decision
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

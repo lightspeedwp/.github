@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Pilot Assignment Sheet"
-audience: "internal"
-document_type: "uat-assignment-sheet"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Pilot Assignment Sheet
+audience: internal
+document_type: uat-assignment-sheet
+status: template
+language: en-GB
 ---
 
 # Pilot Assignment Sheet
@@ -91,4 +91,4 @@ Thanks — once results are in, we’ll review the failures, tighten the setup, 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

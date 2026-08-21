@@ -1,7 +1,7 @@
 ---
 name: wp-pattern-runtime-pitfalls
-description: "Avoid the runtime traps of WordPress block patterns (patterns/*.php) that look like static markup but aren't. Use when a pattern renders nothing, shows stale/fallback data, or behaves differently on the live page than in a WP-CLI test: nested wp:pattern references silently dropping on front-end render, raw pattern PHP running once at registration (init) instead of per-request, injecting queried-object data via block bindings, keeping hover-reveal panels editable in the editor, and the pattern/OPcache resets needed to see edits. Complements pattern-extractor (which generates patterns) with the behaviour to design around."
-compatibility: "Targets WordPress 6.9+ block themes with file-based patterns in patterns/*.php. Some techniques use register_block_bindings_source() (WP 6.5+) and wp_enqueue_block_style. Runtime behaviour verified empirically — re-test after core upgrades."
+description: 'Avoid the runtime traps of WordPress block patterns (patterns/*.php) that look like static markup but aren''t. Use when a pattern renders nothing, shows stale/fallback data, or behaves differently on the live page than in a WP-CLI test: nested wp:pattern references silently dropping on front-end render, raw pattern PHP running once at registration (init) instead of per-request, injecting queried-object data via block bindings, keeping hover-reveal panels editable in the editor, and the pattern/OPcache resets needed to see edits. Complements pattern-extractor (which generates patterns) with the behaviour to design around.'
+compatibility: Targets WordPress 6.9+ block themes with file-based patterns in patterns/*.php. Some techniques use register_block_bindings_source() (WP 6.5+) and wp_enqueue_block_style. Runtime behaviour verified empirically — re-test after core upgrades.
 ---
 
 # WP Pattern Runtime Pitfalls
@@ -60,4 +60,4 @@ A file in `patterns/*.php` looks like static block markup, but it has a runtime 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

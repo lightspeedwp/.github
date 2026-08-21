@@ -1,15 +1,15 @@
 ---
-title: "Contribution Guidelines Saved Reply"
-description: "Directing contributors to proper procedures and standards."
-category: "Community"
+title: Contribution Guidelines Saved Reply
+description: Directing contributors to proper procedures and standards.
+category: Community
 labels:
   - area:contributing
   - status:needs-triage
 references:
-  - "../../CONTRIBUTING.md"
-  - "../../custom-instructions.md"
-  - "../../CODE_OF_CONDUCT.md"
-  - "../../instructions/coding-standards.instructions.md"
+  - ../../CONTRIBUTING.md
+  - ../../custom-instructions.md
+  - ../../CODE_OF_CONDUCT.md
+  - ../../instructions/coding-standards.instructions.md
 ---
 
 # Contribution Guidelines Saved Reply
@@ -29,4 +29,4 @@ Following these steps ensures a smooth review process and helps us keep the proj
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

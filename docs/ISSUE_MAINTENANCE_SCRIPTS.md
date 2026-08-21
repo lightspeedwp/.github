@@ -2,8 +2,8 @@
 title: Issue Maintenance Scripts & Workflows
 description: Comprehensive guide to automated label management, stale detection, and audit workflows
 file_type: documentation
-created_date: 2026-08-11
-last_updated: 2026-08-11
+created_date: 2026-08-11T00:00:00.000Z
+last_updated: '2026-08-21'
 authors:
   - LightSpeed Team
 tags:
@@ -394,3 +394,7 @@ node scripts/automation/manage-stale-issues.js --days 14 --verbose
 ---
 
 *Last updated: 2026-08-11 | Part of Issue Maintenance Scripts Phase 1-4 delivery*
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

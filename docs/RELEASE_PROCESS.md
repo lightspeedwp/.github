@@ -3,7 +3,7 @@ file_type: documentation
 title: Release Process v4.0
 description: Authoritative multi-repo release process - develop-first stacked PR flow with portable agents (Phase 1) and agentic safety gates (Phase 2)
 version: v4.0
-last_updated: '2026-08-19'
+last_updated: '2026-08-21'
 status: active
 stability: stable
 domain: governance
@@ -731,3 +731,7 @@ See [Agentic Workflows Guide](./AGENTIC_RELEASE_ADMIN_GUIDE.md) for details.
 **Version:** 4.0 (rewritten for two-phase process)
 
 Questions? See [FAQ](#faq) or contact the maintainers team.
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

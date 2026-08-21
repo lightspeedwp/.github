@@ -61,4 +61,4 @@ All of these scripts use network, so when running in the sandbox, request escala
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

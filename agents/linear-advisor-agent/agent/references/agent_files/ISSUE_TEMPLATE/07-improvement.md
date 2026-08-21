@@ -1,11 +1,14 @@
 ---
-name: "🔧 Improvement"
-about: "Propose enhancements, polish, or usability improvements."
-title: "[Improvement] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+name: 🔧 Improvement
+about: Propose enhancements, polish, or usability improvements.
+title: '[Improvement] <Short summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
 assignees: []
 projects: []
-milestone: ""
+milestone: ''
 file_type: improve
 references:
   - ../../CONTRIBUTING.md
@@ -95,4 +98,4 @@ Use correct branch prefix (feat/ or enhancement/) for PRs.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

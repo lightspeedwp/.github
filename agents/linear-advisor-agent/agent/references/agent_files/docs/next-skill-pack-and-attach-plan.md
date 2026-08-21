@@ -186,4 +186,4 @@ That is the healthier roadmap for the current Linear Workflow Skill Factory.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

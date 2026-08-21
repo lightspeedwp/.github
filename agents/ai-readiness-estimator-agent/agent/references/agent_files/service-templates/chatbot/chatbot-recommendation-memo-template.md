@@ -1,6 +1,6 @@
 ---
 template_id: chatbot-recommendation-memo-template
-version: 1.1.0
+version: 1.1.1
 status: draft
 document_type: recommendation_memo
 audience: internal_or_client
@@ -83,4 +83,4 @@ Capture the approval state for the recommendation.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

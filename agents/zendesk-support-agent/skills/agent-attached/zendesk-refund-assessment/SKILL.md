@@ -132,4 +132,4 @@ Use `schemas/refund-assessment.schema.json` when a structured record is useful f
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

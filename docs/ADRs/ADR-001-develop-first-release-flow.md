@@ -1,11 +1,12 @@
 ---
-title: "ADR-001: Develop-First Release Flow"
-description: "Decision to use a stacked PR model with develop as primary, then release PR to main"
+title: 'ADR-001: Develop-First Release Flow'
+description: Decision to use a stacked PR model with develop as primary, then release PR to main
 file_type: documentation
-date: 2026-08-08
+date: 2026-08-08T00:00:00.000Z
 adr_status: accepted
 status: active
-authors: ["LightSpeed Team"]
+authors:
+  - LightSpeed Team
 ---
 
 # ADR-001: Develop-First Release Flow
@@ -126,3 +127,7 @@ jobs:
 - [RELEASE_PROCESS.md](../RELEASE_PROCESS.md) — Implementation details
 - [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) — Branch naming & protection rules
 - Issue #1290 — Initial repository structure alignment epic
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

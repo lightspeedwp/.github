@@ -2,7 +2,7 @@
 title: Preview Validation Example Contexts Index
 document_type: preview_validation_index
 version: v0.5
-last_updated: 2026-05-18
+last_updated: '2026-08-21'
 status: reusable_test_reference
 ---
 
@@ -154,4 +154,4 @@ Use one of the example context files in `docs/preview-validation/` as the starti
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

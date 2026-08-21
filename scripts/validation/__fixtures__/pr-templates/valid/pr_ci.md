@@ -19,3 +19,7 @@ Closes #107
 - [x] Linked issue provided
 - [x] Changelog entry provided
 - [x] Validation notes reviewed
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

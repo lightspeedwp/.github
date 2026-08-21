@@ -2,9 +2,9 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.8"
-created_date: "2026-05-31"
-last_updated: "2026-06-19"
+version: 1.0.9
+created_date: '2026-05-31'
+last_updated: '2026-08-21'
 author: Claude Code
 maintainer: Ash Shaw
 owners:
@@ -231,4 +231,4 @@ When creating an issue:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

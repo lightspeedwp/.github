@@ -135,4 +135,4 @@ Outputs should be practical, launch-focused and easy to hand to a developer, ana
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

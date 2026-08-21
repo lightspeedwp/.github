@@ -252,4 +252,4 @@ If the user asks for a reviewed-and-improved version instead of only critique:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

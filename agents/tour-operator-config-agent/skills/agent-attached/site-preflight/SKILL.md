@@ -149,4 +149,4 @@ List the smallest useful next checks or actions, prioritised from most important
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

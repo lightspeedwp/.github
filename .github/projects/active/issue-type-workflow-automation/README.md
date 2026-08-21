@@ -217,6 +217,15 @@ Related documentation:
 **Created:** 2026-07-23  
 **Status:** ✅ Ready for Execution
 
+### Related Active Projects
+
+- **[issue-triage-automation-system](../issue-triage-automation-system/)** — Related issue triage automation (complementary scope)
+- **[issue-metadata-triage-expansion](../issue-metadata-triage-expansion/)** — Expanded metadata triage system
+- **[issue-management-agent-planning-2026-08-12](../issue-management-agent-planning-2026-08-12/)** — Universal issue management agent
+- **[template-enforcement-governance](../template-enforcement-governance/)** — Template validation
+
+---
+
 ## Related Issues
 
 This project is coordinated with:

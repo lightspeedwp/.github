@@ -15,4 +15,4 @@ I have the screenshots in the thread now and will use those as the basis for the
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

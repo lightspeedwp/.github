@@ -2,7 +2,7 @@
 title: Preview Run Comparison Guide
 document_type: preview_validation_comparison_guide
 version: v0.3
-last_updated: 2026-05-18
+last_updated: '2026-08-21'
 status: reusable_test_reference
 ---
 
@@ -224,4 +224,4 @@ Use this guide together with:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

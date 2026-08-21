@@ -1,8 +1,8 @@
 ---
 title: Claude Code Setup Guide
 description: Step-by-step installation and configuration of Claude Code for development
-created: 2026-07-26
-updated: 2026-07-26
+created: 2026-07-26T00:00:00.000Z
+updated: 2026-07-26T00:00:00.000Z
 type: guide
 ---
 
@@ -378,3 +378,7 @@ Claude proposes terminal commands for your approval before execution:
 ---
 
 *Created as part of Phase 4: Plugin Adoption Strategy*
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

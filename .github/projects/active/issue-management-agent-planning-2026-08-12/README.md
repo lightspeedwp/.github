@@ -370,7 +370,7 @@ Deliverables:
 
 ### Phase 2: Implementation (Planning)
 
-**Project**: [issue-management-agent-planning-2026-08-12](./README.md) ← You are here
+**Project**: [issue-management-agent-planning-2026-08-12](../issue-management-agent-planning-2026-08-12/) ← You are here
 
 Deliverables (in progress):
 

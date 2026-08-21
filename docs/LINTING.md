@@ -1,20 +1,19 @@
 ---
 title: Linting Strategy & Implementation Guide
-description: Comprehensive guide to linting setup, configuration, and automation across
-  LightSpeed WordPress projects
+description: Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects
 file_type: documentation
 version: '1.1'
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeed Team
+  - LightSpeed Team
 tags:
-- linting
-- quality
-- automation
-- eslint
-- stylelint
-- prettier
-- markdownlint
+  - linting
+  - quality
+  - automation
+  - eslint
+  - stylelint
+  - prettier
+  - markdownlint
 ---
 
 # Linting Strategy & Implementation Guide
@@ -504,4 +503,4 @@ npx eslint --debug
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

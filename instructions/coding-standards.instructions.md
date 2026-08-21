@@ -1,21 +1,20 @@
 ---
 file_type: instructions
 title: Coding Standards
-description: 'Unified coding standards for all LightSpeedWP projects: applies to all
-  code, documentation, automation, and AI contributions.'
+description: 'Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions.'
 scope: organization-wide
 applyTo: '**'
 version: v2.2
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- coding-standards
-- governance
-- automation
-- docs
-- lint
-- ai
+  - coding-standards
+  - governance
+  - automation
+  - docs
+  - lint
+  - ai
 status: active
 ---
 
@@ -124,4 +123,4 @@ All documentation links to files within the same repository should use `/blob/HE
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

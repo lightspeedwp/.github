@@ -15,4 +15,4 @@ The safest workaround is to adjust the invoice manually after the booking has be
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

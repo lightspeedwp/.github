@@ -40,4 +40,4 @@ Use this skill when the goal is to create time, not just inspect time.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

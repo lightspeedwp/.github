@@ -1,6 +1,6 @@
 ---
 template_id: integration-requirements-template
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -42,4 +42,4 @@ Use this template to capture requirements for integrations with external or inte
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
