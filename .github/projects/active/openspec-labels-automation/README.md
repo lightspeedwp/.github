@@ -60,7 +60,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 |-------|-------|--------|-------|-------|
 | **Phase 2** | Template Validation & Injection | ✅ Complete | 2026-08-18 | 43/43 |
 | **Phase 3** | Workflow Orchestration & Phase Progression | ✅ Complete | 2026-08-19–2026-08-20 | 126/126 |
-| **Phase 4** | External Tool Integration (Jira/Linear) | 📋 Planned | TBD | — |
+| **Phase 4** | External Tool Integration (Jira/Linear) & Metrics | 📋 Planning | 2026-08-25–2026-09-25 | 50+ planned |
 
 ## Deliverables
 
@@ -83,23 +83,36 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 - ✅ 126 tests (43 Phase 2 + 83 Phase 3), 100% passing
 - ✅ Complete documentation and team rollout guide
 
-### Phase 4 📋
-- [ ] Jira integration
-- [ ] Linear integration
-- [ ] Multi-platform sync
-- [ ] Unified reporting
-- [ ] Metrics dashboard
+### Phase 4 📋 (Planning)
+- [ ] Jira integration module (sync, webhooks, field mappings)
+- [ ] Linear integration module (sync, webhooks, field mappings)
+- [ ] Sync orchestrator (multi-platform coordination, conflict resolution)
+- [ ] Metrics system (phase tracking, SLA calculation, capacity planning)
+- [ ] Unified dashboard (HTML/JSON/CSV reporting)
+- [ ] Audit logging system (immutable event trail)
+- [ ] Rate limiting and retry logic
+- [ ] Comprehensive documentation and team training
+- [ ] 50+ integration tests (85%+ coverage target)
+- [ ] Production deployment and rollout
 
 ## Related Issues
 
-This project is coordinated with GitHub issues for tracking work items and progress. All phases are now complete.
+This project is coordinated with GitHub issues for tracking work items and progress. Phase 2–3 complete; Phase 4 planning in progress.
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
 | [#2048](../../../issues/2048) | epic | OpenSpec Labels Automation — Phase 2–3 Epic | ✅ Complete |
 | [#2049](../../../issues/2049) | task | Phase 3: Workflow Orchestration | ✅ Complete |
+| [#2232](../../../issues/2232) | epic | Phase 4: External Tool Integration & Metrics | 📋 Planning |
+| [#2233](../../../issues/2233) | task | Phase 4.1: Jira Integration Module | 📋 Planning |
+| [#2234](../../../issues/2234) | task | Phase 4.2: Linear Integration Module | 📋 Planning |
+| [#2235](../../../issues/2235) | task | Phase 4.3: Metrics System & SLA Tracking | 📋 Planning |
+| [#2236](../../../issues/2236) | task | Phase 4.4: Unified Dashboard | 📋 Planning |
+| [#2237](../../../issues/2237) | task | Phase 4.5: Multi-Platform Orchestration | 📋 Planning |
 
 **Phase 2 Deliverable:** PR #2087 (feat/openspec-labels-phase3 → develop) — All Phase 3 code, tests, and documentation merged.
+
+**Phase 4 Planning:** See [PHASE-4-ARCHITECTURE.md](./PHASE-4-ARCHITECTURE.md) and [PHASE-4-IMPLEMENTATION-PLAN.md](./PHASE-4-IMPLEMENTATION-PLAN.md) for full Phase 4 design and implementation strategy.
 
 *To link issues, see [LINKING_STANDARD.md](../reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md)*
 
@@ -170,8 +183,8 @@ See [../openspec/PHASE-3-IMPLEMENTATION.md](../openspec/PHASE-3-IMPLEMENTATION.m
 
 ```mermaid
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
+  accTitle "Phase 4 Planning Workflow"
+  accDescr "Project planning and implementation workflow"
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

@@ -49,7 +49,8 @@ describe("workflow and agent JS import/include smoke validation", () => {
   test.each(filesToValidate)(
     "validates local imports/includes in %s",
     (filePath) => {
-      const absolutePath = path.resolve(process.cwd(), filePath);
+      const repoRoot = path.resolve(__dirname, "../..");
+      const absolutePath = path.resolve(repoRoot, filePath);
       const source = fs.readFileSync(absolutePath, "utf8");
       const baseDir = path.dirname(absolutePath);
 
