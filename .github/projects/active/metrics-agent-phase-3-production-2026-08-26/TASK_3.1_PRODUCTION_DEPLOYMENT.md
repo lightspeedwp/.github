@@ -12,7 +12,8 @@ version: 1.0.0
 **Issue:** [#2126](https://github.com/lightspeedwp/.github/issues/2126)  
 **Estimated:** 3-5 hours  
 **Owner:** Phase 3 Lead  
-**Status:** 🔧 IN PROGRESS
+**Status:** ✅ COMPLETE (2026-08-20)  
+**Merged PR:** [#2131](https://github.com/lightspeedwp/.github/pull/2131)
 
 ## Objective
 
