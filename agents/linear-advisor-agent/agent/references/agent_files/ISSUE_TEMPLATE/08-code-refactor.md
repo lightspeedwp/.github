@@ -1,8 +1,11 @@
 ---
-name: "♻️ Code Refactor"
-about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
-title: "[Refactor] <Short summary>"
-labels: [status:needs-review, priority:normal, area:core]
+name: ♻️ Code Refactor
+about: Request or propose a code refactoring or review to improve code quality, maintainability, and consistency.
+title: '[Refactor] <Short summary>'
+labels:
+  - status:needs-review
+  - priority:normal
+  - area:core
 ---
 
 <!--
@@ -127,4 +130,4 @@ Checklist items to ensure the refactoring/review is complete.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

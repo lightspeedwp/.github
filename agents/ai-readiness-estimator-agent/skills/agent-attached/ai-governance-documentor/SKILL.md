@@ -66,4 +66,4 @@ Turn discovery inputs into practical AI governance outputs for client website, c
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

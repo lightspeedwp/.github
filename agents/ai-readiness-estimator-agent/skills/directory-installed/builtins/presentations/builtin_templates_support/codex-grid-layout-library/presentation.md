@@ -2,4 +2,4 @@ Create a presentation using the built-in Codex Grid template. Read `../../assets
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

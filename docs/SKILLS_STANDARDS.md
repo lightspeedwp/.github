@@ -2,8 +2,8 @@
 file_type: documentation
 title: Skills Standards
 description: Comprehensive standards for creating shared and dedicated skills
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Skills Standards
@@ -454,3 +454,7 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

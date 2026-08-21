@@ -195,4 +195,4 @@ Review this live website and the attached project notes, then tell me what we al
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

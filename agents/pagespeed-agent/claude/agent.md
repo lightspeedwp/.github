@@ -1,11 +1,11 @@
 ---
-provider: 'claude'
-agent_slug: 'pagespeed'
-agent_name: 'PageSpeed Agent (Claude)'
-status: 'production'
-version: '1.0.1'
+provider: claude
+agent_slug: pagespeed
+agent_name: PageSpeed Agent (Claude)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-21'
 model_compatibility:
   - claude-opus-4
   - claude-sonnet-4
@@ -259,3 +259,7 @@ When encountering limitations:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

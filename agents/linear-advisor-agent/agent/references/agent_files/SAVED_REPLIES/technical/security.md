@@ -1,9 +1,8 @@
 ---
-title: "Security Saved Reply"
-description: "Response for security concerns, vulnerabilities, or sensitive data."
-category: "Technical"
-labels:
-  # Note: Issue Type (Security) is specified via the Issue Type field, not a label
+title: Security Saved Reply
+description: Response for security concerns, vulnerabilities, or sensitive data.
+category: Technical
+labels: null
 ---
 
 # Security Saved Reply
@@ -25,4 +24,4 @@ We take all reports seriously and will coordinate with you privately. Thank you 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

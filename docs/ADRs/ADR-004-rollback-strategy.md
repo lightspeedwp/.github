@@ -1,11 +1,12 @@
 ---
-title: "ADR-004: Rollback & Error Handling Strategy"
-description: "Decision to provide automated rollback automation with manual final control"
+title: 'ADR-004: Rollback & Error Handling Strategy'
+description: Decision to provide automated rollback automation with manual final control
 file_type: documentation
-date: 2026-08-08
+date: 2026-08-08T00:00:00.000Z
 adr_status: accepted
 status: active
-authors: ["LightSpeed Team"]
+authors:
+  - LightSpeed Team
 ---
 
 # ADR-004: Rollback & Error Handling Strategy
@@ -182,3 +183,7 @@ on:
 - [scripts/agents/release/rollback.cjs](../../scripts/workflows/release/rollback.cjs) — Rollback automation
 - [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#error-handling--rollback) — Error handling details
 - [Emergency Response Runbook](../RUNBOOKS/EMERGENCY_RESPONSE.md) — When to use rollback
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

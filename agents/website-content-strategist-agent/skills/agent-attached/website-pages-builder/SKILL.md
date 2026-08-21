@@ -94,4 +94,4 @@ Return a clean page structure or draft using the matched template shape, plus th
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

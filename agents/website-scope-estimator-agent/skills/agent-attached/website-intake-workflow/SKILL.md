@@ -1,10 +1,6 @@
 ---
 name: website-intake-workflow
-description: Use when the current phase is project-specific intake and the agent still
-  needs the missing facts that materially affect package routing, pricing, thresholds,
-  approvals, or estimate confidence. This skill reviews supplied materials, captures
-  confirmed intake inputs, asks only the smallest blocking questions, and hands off
-  cleanly into routing.
+description: Use when the current phase is project-specific intake and the agent still needs the missing facts that materially affect package routing, pricing, thresholds, approvals, or estimate confidence. This skill reviews supplied materials, captures confirmed intake inputs, asks only the smallest blocking questions, and hands off cleanly into routing.
 ---
 
 # Website Intake Workflow
@@ -125,4 +121,4 @@ Do not send the workflow backward to audit unless new evidence actually requires
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

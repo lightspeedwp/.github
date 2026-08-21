@@ -15,4 +15,4 @@ To help us check the right records, could you send us the approximate time of th
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

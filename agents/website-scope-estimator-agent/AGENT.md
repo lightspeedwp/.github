@@ -1,22 +1,21 @@
 ---
-name: 'Website Scope Estimator'
-description: 'Project estimation tool for feature scoping, effort estimation, and budget planning'
-agent_id: 'agent-8'
-agent_slug: 'website-scope-estimator'
-agent_name: 'Website Scope Estimator'
-domain: 'estimation'
-focus: 'project-scoping'
-version: '1.0.0'
+name: Website Scope Estimator
+description: Project estimation tool for feature scoping, effort estimation, and budget planning
+agent_id: agent-8
+agent_slug: website-scope-estimator
+agent_name: Website Scope Estimator
+domain: estimation
+focus: project-scoping
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - feature-scope-analysis
   - effort-estimation
@@ -24,7 +23,6 @@ capabilities:
   - resource-planning
   - budget-estimation
   - risk-assessment
-
 tags:
   - estimation
   - project-scoping
@@ -311,4 +309,4 @@ The Website Scope Estimator analyzes project requirements and provides accurate 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

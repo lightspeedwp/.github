@@ -81,4 +81,4 @@ If thread or inbox data is missing, say that Gmail access may be unavailable or 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

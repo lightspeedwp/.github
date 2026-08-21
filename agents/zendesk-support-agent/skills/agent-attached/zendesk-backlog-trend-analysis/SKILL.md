@@ -256,4 +256,4 @@ Use optional scripts only for local QA of the packaged skill assets. They are no
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

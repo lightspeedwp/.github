@@ -1,6 +1,6 @@
 ---
 name: figma-use-figjam
-description: "This skill helps agents use Figma's use_figma MCP tool in the FigJam context. Can be used alongside figma-use which has foundational context for using the use_figma tool."
+description: This skill helps agents use Figma's use_figma MCP tool in the FigJam context. Can be used alongside figma-use which has foundational context for using the use_figma tool.
 disable-model-invocation: false
 ---
 
@@ -65,4 +65,4 @@ For the full request/response shape, see [figma-use → api-reference.md → Ima
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

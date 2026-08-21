@@ -1,11 +1,11 @@
 ---
-title: "Label Clarification Saved Replies"
-description: "Explains why specific labels were applied, changed, or removed, and how to use labels for efficient triage. Follows LightSpeedWP label policy."
-category: "Issue Management"
+title: Label Clarification Saved Replies
+description: Explains why specific labels were applied, changed, or removed, and how to use labels for efficient triage. Follows LightSpeedWP label policy.
+category: Issue Management
 labels:
   - status:needs-triage
 references:
-  - "../ISSUE_LABELS.md"
+  - ../ISSUE_LABELS.md
 ---
 
 # Label Clarification Saved Replies
@@ -32,4 +32,4 @@ If you have questions about how labels are used, see our [Issue Labels Guide](..
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

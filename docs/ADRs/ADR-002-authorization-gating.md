@@ -1,11 +1,12 @@
 ---
-title: "ADR-002: Authorisation Gating Strategy"
-description: "Decision to gate release workflow triggers to maintainers team with audit logging"
+title: 'ADR-002: Authorisation Gating Strategy'
+description: Decision to gate release workflow triggers to maintainers team with audit logging
 file_type: documentation
-date: 2026-08-08
+date: 2026-08-08T00:00:00.000Z
 adr_status: accepted
 status: active
-authors: ["LightSpeed Team"]
+authors:
+  - LightSpeed Team
 ---
 
 # ADR-002: Authorisation Gating Strategy
@@ -161,3 +162,7 @@ jobs:
 - [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#authorisation-gating) — Authorisation implementation
 - [.github/workflows/release.yml](../../.github/workflows/release.yml) — Trigger validation job
 - [GitHub Teams API](https://docs.github.com/en/rest/teams) — Team membership lookup
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -1,12 +1,11 @@
 ---
 file_type: documentation
 title: Release Readiness Validation Workflow
-description: Portable workflow for validating release readiness across governance,
-  quality, and documentation gates.
-version: v0.1.0
-last_updated: '2026-05-28'
+description: Portable workflow for validating release readiness across governance, quality, and documentation gates.
+version: v0.1.1
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 ---
 
 # Release Readiness Validation Workflow
@@ -136,4 +135,4 @@ After release:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,12 +1,12 @@
 ---
-title: "Documentation Request Saved Replies"
-description: "Responses for documentation improvements, clarifications, and updates. Follows LightSpeedWP doc standards and automation."
-category: "Issue Management"
+title: Documentation Request Saved Replies
+description: Responses for documentation improvements, clarifications, and updates. Follows LightSpeedWP doc standards and automation.
+category: Issue Management
 labels:
   - status:needs-triage
 references:
-  - "../ISSUE_LABELS.md"
-  - "../../CONTRIBUTING.md"
+  - ../ISSUE_LABELS.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Documentation Request Saved Replies
@@ -66,4 +66,4 @@ Thank you for your feedback—keep it coming!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

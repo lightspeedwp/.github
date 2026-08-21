@@ -1,12 +1,12 @@
 ---
-title: "Stale or Abandoned Issue Saved Replies"
-description: "Standard nudge for issues with no recent activity or response. Follows LightSpeedWP meta:stale label automation."
-category: "Issue Management"
+title: Stale or Abandoned Issue Saved Replies
+description: Standard nudge for issues with no recent activity or response. Follows LightSpeedWP meta:stale label automation.
+category: Issue Management
 labels:
   - meta:stale
   - status:on-hold
 references:
-  - "../ISSUE_LABELS.md"
+  - ../ISSUE_LABELS.md
 ---
 
 # Stale or Abandoned Issue Saved Replies
@@ -32,4 +32,4 @@ Thank you for helping us keep the project focused and up to date!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

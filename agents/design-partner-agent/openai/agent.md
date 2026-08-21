@@ -1,9 +1,9 @@
 ---
-provider: 'openai'
-agent_slug: 'design-partner'
-agent_name: 'Design Partner Agent (OpenAI)'
-status: 'production'
-version: '1.0.1'
+provider: openai
+agent_slug: design-partner
+agent_name: Design Partner Agent (OpenAI)
+status: production
+version: 1.0.2
 model_compatibility:
   - gpt-4-turbo
   - gpt-4
@@ -533,4 +533,4 @@ try {
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

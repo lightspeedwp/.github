@@ -94,4 +94,4 @@ Use UK English. Keep outputs practical, structured and evidence-led. Always sepa
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

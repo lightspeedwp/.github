@@ -200,4 +200,4 @@ Copy to your working directory before starting Phase 1.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

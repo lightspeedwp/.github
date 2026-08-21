@@ -1,10 +1,10 @@
 ---
-title: "Footer Remediation Guide"
-description: "How to identify, fix, and prevent duplicate footers in Markdown files"
-version: "v1.0.2"
-created_date: "2026-05-28"
-type: "guide"
-category: "governance"
+title: Footer Remediation Guide
+description: How to identify, fix, and prevent duplicate footers in Markdown files
+version: v1.0.3
+created_date: '2026-05-28'
+type: guide
+category: governance
 ---
 
 # Footer Remediation Guide
@@ -459,4 +459,4 @@ Action: Replace and note in commit
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

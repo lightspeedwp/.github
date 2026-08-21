@@ -1,8 +1,9 @@
 ---
-title: "reviewer.agent"
-description: "Packaged governance reviewer agent for plugin pilot."
+title: reviewer.agent
+description: Packaged governance reviewer agent for plugin pilot.
 ---
+
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

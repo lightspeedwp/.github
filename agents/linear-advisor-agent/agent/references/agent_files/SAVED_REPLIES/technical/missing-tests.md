@@ -1,9 +1,8 @@
 ---
-title: "Missing Tests Saved Reply"
-description: "Prompt to add required tests to a PR or issue."
-category: "Technical"
-labels:
-  # Note: Issue Type (Test Coverage) is specified via the Issue Type field, not a label
+title: Missing Tests Saved Reply
+description: Prompt to add required tests to a PR or issue.
+category: Technical
+labels: null
 ---
 
 # Missing Tests Saved Reply
@@ -26,4 +25,4 @@ See our [testing guidelines](../../instructions/bats-tests-and-runner-scripts.md
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

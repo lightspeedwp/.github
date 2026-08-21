@@ -103,4 +103,4 @@ Use UK English. Keep feedback direct, practical and implementation-focused. Sepa
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

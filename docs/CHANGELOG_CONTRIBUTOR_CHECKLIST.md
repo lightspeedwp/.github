@@ -1,6 +1,6 @@
 ---
-title: "Changelog Contributor Checklist"
-description: "Pre-submission checklist for changelog entries"
+title: Changelog Contributor Checklist
+description: Pre-submission checklist for changelog entries
 ---
 
 # Changelog Entry Checklist
@@ -83,3 +83,7 @@ Use this checklist when your PR includes changes worth documenting in CHANGELOG.
 
 **Last Updated:** 2026-07-24
 **Maintained By:** Changelog & Release Engineering Team
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

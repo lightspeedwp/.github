@@ -79,4 +79,4 @@ A practical playbook with duplicate signals, canonical-issue rules, context-pres
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

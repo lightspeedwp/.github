@@ -1,10 +1,10 @@
 ---
-file_type: "documentation"
-name: "Issue Triage & Template Application Guide"
-about: "Procedures for manually applying issue templates and bulk template application runbooks"
-version: "1.0.0"
-last_updated: "2026-07-24"
-category: "operations"
+file_type: documentation
+name: Issue Triage & Template Application Guide
+about: Procedures for manually applying issue templates and bulk template application runbooks
+version: 1.0.1
+last_updated: '2026-08-21'
+category: operations
 ---
 
 # Issue Triage & Template Application Guide
@@ -481,3 +481,7 @@ The template-enforcement workflow will:
 **Last Updated:** 2026-07-24  
 **Author:** LightSpeedWP Team  
 **Version:** 1.0.0
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

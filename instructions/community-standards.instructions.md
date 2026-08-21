@@ -1,22 +1,21 @@
 ---
 file_type: instructions
 title: Community Standards
-description: 'Community health standards: naming conventions, README expectations,
-  saved replies, and shared assets. File placement lives in file-organisation.instructions.md.'
+description: 'Community health standards: naming conventions, README expectations, saved replies, and shared assets. File placement lives in file-organisation.instructions.md.'
 scope: organization-wide
 version: v1.1
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- GitHub Community Health Team
+  - GitHub Community Health Team
 tags:
-- community
-- standards
-- file-management
-- naming
-- readme
-- best-practices
+  - community
+  - standards
+  - file-management
+  - naming
+  - readme
+  - best-practices
 applyTo:
-- '**/*'
+  - '**/*'
 status: active
 stability: stable
 domain: generic
@@ -688,4 +687,4 @@ coverage/
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

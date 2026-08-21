@@ -126,4 +126,4 @@ Use UK English. Keep outputs practical, structured and ready to paste into Googl
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

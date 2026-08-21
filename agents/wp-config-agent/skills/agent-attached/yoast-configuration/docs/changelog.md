@@ -148,4 +148,4 @@ Validation required before release: source register, reference data, skill struc
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

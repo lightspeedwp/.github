@@ -1,9 +1,6 @@
 ---
 name: woocommerce-implementation-planner
-description: Use when the user wants to turn WooCommerce audit findings, site-discovery
-  outputs, launch-readiness notes, or advisory recommendations into a scoped implementation
-  plan, validation checklist, risk notes, phased delivery steps, or a client- and
-  developer-ready handoff summary, once the relevant project context is known.
+description: Use when the user wants to turn WooCommerce audit findings, site-discovery outputs, launch-readiness notes, or advisory recommendations into a scoped implementation plan, validation checklist, risk notes, phased delivery steps, or a client- and developer-ready handoff summary, once the relevant project context is known.
 ---
 
 # WooCommerce Implementation Planner
@@ -167,4 +164,4 @@ Do not let stored settings read like live validation.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

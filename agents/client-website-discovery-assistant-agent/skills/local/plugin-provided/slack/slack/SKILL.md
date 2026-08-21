@@ -82,4 +82,4 @@ If Slack messages are missing, say that Slack access may be unavailable, the wor
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

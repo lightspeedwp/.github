@@ -3,16 +3,16 @@ file_type: instructions
 title: Multi-Platform Skill Manifests
 description: Rules for authoring and maintaining per-skill platform metadata and agent YAML manifests for cross-platform reusability.
 scope: organization-wide
-applyTo: 'skills/**'
+applyTo: skills/**
 version: v1.0
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- skills
-- manifest
-- multi-platform
-- governance
+  - skills
+  - manifest
+  - multi-platform
+  - governance
 status: active
 ---
 
@@ -143,4 +143,4 @@ Every manifest must declare which platforms are supported:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

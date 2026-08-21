@@ -3,7 +3,7 @@ file_type: documentation
 title: WordPress Release Guide
 description: Step-by-step release process for WordPress plugins and themes with version management and changelog automation
 version: v1.0
-last_updated: '2026-08-19'
+last_updated: '2026-08-21'
 status: active
 stability: stable
 domain: governance
@@ -757,3 +757,7 @@ Examples:
 **Version:** 1.0
 
 Questions? See the [FAQ](#faq) or check [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for complete workflow details.
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

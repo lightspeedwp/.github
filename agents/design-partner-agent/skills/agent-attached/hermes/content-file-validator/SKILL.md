@@ -156,4 +156,4 @@ Do not modify files automatically unless the user explicitly requests auto-fix b
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
