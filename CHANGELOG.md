@@ -195,7 +195,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Add Mermaid accessibility attributes repository-wide** — Added ARIA labels and accessibility attributes to all Mermaid diagrams across codebase improving accessibility compliance. ([PR #1530](https://github.com/lightspeedwp/.github/pull/1530))
 
-- **Release Process V2 specification and OpenSpec analysis** — Defined Release Process V2 specification with comprehensive OpenSpec analysis for standardized release workflows and automation. ([PR #1545](https://github.com/lightspeedwp/.github/pull/1545))
+- **Release Process V2 specification and OpenSpec analysis** — Defined Release Process V2 specification with comprehensive OpenSpec analysis for standardised release workflows and automation. ([PR #1545](https://github.com/lightspeedwp/.github/pull/1545))
 
 - **Gitleaks secret scanning** — Added `gitleaks-reusable.yml`, an organisation-wide reusable workflow other repositories call via `workflow_call`, plus a `gitleaks.yml` caller running on pull requests into `develop`/`main`. Runs the open-source Gitleaks CLI directly (the `gitleaks-action` wrapper requires a paid licence for organisation repositories). Per-PR runs scan the working tree; `workflow_dispatch` accepts a `full-history` input for on-demand full-history rescans. A baseline full-history scan of this repository returned 50 hits, all verified as placeholder values in documentation and tests, allowlisted in `.gitleaks.toml`. ([PR #1444](https://github.com/lightspeedwp/.github/pull/1444))
 
