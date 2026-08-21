@@ -169,8 +169,3 @@ async function processPRs() {
 
 // Export functions for testing
 export { determineStatus, processPRs };
-
-// Only run if this file is being executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  processPRs();
-}
