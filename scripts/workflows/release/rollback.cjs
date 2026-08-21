@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { process, AbortController, setTimeout, clearTimeout, fetch, console } =
+const { process, AbortController, setTimeout, clearTimeout, console } =
   globalThis;
 
 const { execSync, execFileSync } = require("child_process");
@@ -70,7 +70,7 @@ async function githubApiRequest(path, options = {}) {
 
       let response;
       try {
-        response = await fetch(`https://api.github.com${path}`, {
+        response = await globalThis.fetch(`https://api.github.com${path}`, {
           method: "DELETE",
           headers: {
             Authorization: `token ${token}`,
