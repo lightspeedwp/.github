@@ -2,8 +2,8 @@
 title: "Projects Directory — Active, Archived & Completed"
 description: "Central hub for all LightSpeed project planning, documentation, and tracking. Includes active projects, completed archives, and reusable templates."
 file_type: documentation
-version: 2.0.0
-last_updated: "2026-08-12"
+version: 2.1.0
+last_updated: "2026-08-21"
 created_date: "2025-12-08"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
