@@ -198,8 +198,8 @@ See [PHASE-4-ARCHITECTURE.md](./PHASE-4-ARCHITECTURE.md) and [PHASE-4-IMPLEMENTA
 
 ```mermaid
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
+  accTitle "Phase 4 Planning Workflow"
+  accDescr "Project planning and implementation workflow"
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]
