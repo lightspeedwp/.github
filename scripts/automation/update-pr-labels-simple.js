@@ -167,7 +167,5 @@ async function processPRs() {
   }
 }
 
-// Only run if this file is being executed directly
-if (require.main === module) {
-  processPRs();
-}
+// Export functions for testing
+export { determineStatus, processPRs };

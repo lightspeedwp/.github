@@ -63,9 +63,7 @@ describe("orchestrate-phase-progression", () => {
       });
 
       expect(result.success).toBe(true);
-      expect(result.nextPhaseLabel).toBe(
-        "openspec:implementation-pending"
-      );
+      expect(result.nextPhaseLabel).toBe("openspec:implementation-pending");
     });
 
     it("should progress from implementation-in-progress to complete on PR merged", () => {
@@ -91,7 +89,7 @@ describe("orchestrate-phase-progression", () => {
         "status:in-progress added",
         {
           dryRun: true,
-        }
+        },
       );
 
       expect(result.success).toBe(true);
@@ -103,9 +101,13 @@ describe("orchestrate-phase-progression", () => {
         { name: "openspec:specification-in-progress" },
         { name: "type:feature" },
       ];
-      const result = orchestratePhaseProgression(mockIssue, "status:done added", {
-        dryRun: true,
-      });
+      const result = orchestratePhaseProgression(
+        mockIssue,
+        "status:done added",
+        {
+          dryRun: true,
+        },
+      );
 
       expect(result.success).toBe(true);
       expect(result.nextPhaseLabel).toBe("openspec:specification-complete");
@@ -130,7 +132,9 @@ describe("orchestrate-phase-progression", () => {
         dryRun: true,
       });
 
-      expect(result.warnings.some((w) => w.includes("No openspec label"))).toBe(true);
+      expect(result.warnings.some((w) => w.includes("No openspec label"))).toBe(
+        true,
+      );
       expect(result.currentPhaseLabel).toBeNull();
     });
 
@@ -145,7 +149,9 @@ describe("orchestrate-phase-progression", () => {
 
       expect(result.progression.length).toBeGreaterThan(0);
       expect(result.progression[0].from).toBe("openspec:specification-pending");
-      expect(result.progression[0].to).toBe("openspec:specification-in-progress");
+      expect(result.progression[0].to).toBe(
+        "openspec:specification-in-progress",
+      );
       expect(result.progression[0].trigger).toBe("PR opened");
     });
 
@@ -171,7 +177,7 @@ describe("orchestrate-phase-progression", () => {
         "rollback-to-pending",
         {
           dryRun: true,
-        }
+        },
       );
 
       // Rollback might not have a trigger, so we check the warning
@@ -239,7 +245,7 @@ describe("orchestrate-phase-progression", () => {
 
     it("should extract multiple references", () => {
       const issues = extractLinkedIssues(
-        "Resolves #100\nCloses #200\nRelated #300"
+        "Resolves #100\nCloses #200\nRelated #300",
       );
       expect(issues).toContain(100);
       expect(issues).toContain(200);
@@ -342,10 +348,7 @@ describe("orchestrate-phase-progression", () => {
 
   describe("getProgressionTimeline", () => {
     it("should return current phase from labels", () => {
-      const labels = [
-        "openspec:specification-in-progress",
-        "type:feature",
-      ];
+      const labels = ["openspec:specification-in-progress", "type:feature"];
       const timeline = getProgressionTimeline(labels);
 
       expect(timeline.current).toBe("openspec:specification-in-progress");
@@ -358,7 +361,7 @@ describe("orchestrate-phase-progression", () => {
       const timeline = getProgressionTimeline(labels);
 
       expect(timeline.validNextStates).toContain(
-        "openspec:specification-in-progress"
+        "openspec:specification-in-progress",
       );
     });
 

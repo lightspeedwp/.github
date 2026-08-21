@@ -13,10 +13,13 @@ function validateStagingEnvironment(environment) {
   // Validator 1: Configuration Integrity
   validation.validators.configIntegrity = {
     name: "Configuration Integrity",
-    status: environment.config &&
-            environment.config.database &&
-            environment.config.secrets &&
-            environment.config.api_keys ? "PASS" : "FAIL",
+    status:
+      environment.config &&
+      environment.config.database &&
+      environment.config.secrets &&
+      environment.config.api_keys
+        ? "PASS"
+        : "FAIL",
     checks: {
       database: !!environment.config?.database,
       secrets: !!environment.config?.secrets,
@@ -260,7 +263,11 @@ function generateStagingReport(
       total: complianceResults.summary.total,
       issues: complianceResults.summary.failed,
     },
-    ready: canPromoteToProduction(envValidation, dataIntegrity, complianceResults),
+    ready: canPromoteToProduction(
+      envValidation,
+      dataIntegrity,
+      complianceResults,
+    ),
   };
 }
 
@@ -281,7 +288,11 @@ function calculateReadinessScore(
   return Math.max(0, score);
 }
 
-function canPromoteToProduction(envValidation, dataIntegrity, complianceResults) {
+function canPromoteToProduction(
+  envValidation,
+  dataIntegrity,
+  complianceResults,
+) {
   return (
     envValidation.validators.configIntegrity.status === "PASS" &&
     envValidation.validators.serviceHealth.status === "PASS" &&

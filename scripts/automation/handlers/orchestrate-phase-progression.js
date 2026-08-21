@@ -42,7 +42,7 @@ function orchestratePhaseProgression(issue, trigger, options = {}) {
   try {
     // Get current phase label
     const phaseLabel = result.currentLabels.find((l) =>
-      l.startsWith("openspec:")
+      l.startsWith("openspec:"),
     );
 
     if (!phaseLabel) {
@@ -58,7 +58,7 @@ function orchestratePhaseProgression(issue, trigger, options = {}) {
 
     if (!nextPhase) {
       result.warnings.push(
-        `Trigger "${trigger}" does not advance from ${phaseLabel}`
+        `Trigger "${trigger}" does not advance from ${phaseLabel}`,
       );
       return result;
     }
@@ -66,13 +66,10 @@ function orchestratePhaseProgression(issue, trigger, options = {}) {
     result.nextPhaseLabel = nextPhase;
 
     // Validate transition
-    const isValid = phaseStateMachine.isValidTransition(
-      phaseLabel,
-      nextPhase
-    );
+    const isValid = phaseStateMachine.isValidTransition(phaseLabel, nextPhase);
     if (!isValid) {
       result.errors.push(
-        `Invalid transition from ${phaseLabel} to ${nextPhase}`
+        `Invalid transition from ${phaseLabel} to ${nextPhase}`,
       );
       result.success = false;
       return result;
@@ -83,7 +80,7 @@ function orchestratePhaseProgression(issue, trigger, options = {}) {
     // Check if this is a progression (forward) or rollback
     const isProgressingForward = phaseStateMachine.isProgression(
       phaseLabel,
-      nextPhase
+      nextPhase,
     );
     const isRollingBack = phaseStateMachine.isRollback(phaseLabel, nextPhase);
 
@@ -107,13 +104,13 @@ function orchestratePhaseProgression(issue, trigger, options = {}) {
 
     // Validate label combination after transition
     const newLabels = result.currentLabels.map((l) =>
-      l === phaseLabel ? nextPhase : l
+      l === phaseLabel ? nextPhase : l,
     );
     const validation = labelValidator.validateLabels(newLabels);
 
     if (!validation.valid) {
       result.errors.push(
-        `Transition would create invalid label combination: ${validation.conflicts.join(", ")}`
+        `Transition would create invalid label combination: ${validation.conflicts.join(", ")}`,
       );
       result.success = false;
       return result;
@@ -241,12 +238,9 @@ function getProgressionTimeline(labels) {
     current: currentPhaseLabel,
     phase: phaseStateMachine.getPhase(currentPhaseLabel),
     step: phaseStateMachine.getStep(currentPhaseLabel),
-    validNextStates: phaseStateMachine.getValidNextStates(
-      currentPhaseLabel
-    ),
-    availableTriggers: phaseStateMachine.getProgressionTriggers(
-      currentPhaseLabel
-    ),
+    validNextStates: phaseStateMachine.getValidNextStates(currentPhaseLabel),
+    availableTriggers:
+      phaseStateMachine.getProgressionTriggers(currentPhaseLabel),
   };
 }
 

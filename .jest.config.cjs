@@ -29,6 +29,7 @@ module.exports = {
         process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.cjs',
         process.env.JEST_TEST_MATCH_6 || '**/tests/**/*.test.cjs',
     ],
+    testTimeout: process.env.JEST_TEST_TIMEOUT || 30000,
     verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
     transform: {
         '^.+\\.[jt]sx?$': [

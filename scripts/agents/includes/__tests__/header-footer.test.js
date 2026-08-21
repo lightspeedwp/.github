@@ -24,11 +24,13 @@ describe("header-footer", () => {
       ].join("\n"),
     );
 
-    expect(ensureFooter(filePath, { category: "docs", seed: "branching" })).toBe(true);
+    expect(
+      ensureFooter(filePath, { category: "docs", seed: "branching" }),
+    ).toBe(true);
 
     const output = fs.readFileSync(filePath, "utf8");
     expect(output).toContain(
-      "*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*",
+      "*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*",
     );
     expect(output).not.toContain("https://lightspeedwp.agency/contact");
   });
@@ -49,17 +51,19 @@ describe("header-footer", () => {
         "file_type: documentation",
         "---",
         "",
-        "This note mentions Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit! in the body.",
+        "This note mentions Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP in the body.",
         "",
       ].join("\n"),
     );
 
-    expect(ensureFooter(filePath, { category: "docs", seed: "branding" })).toBe(true);
+    expect(ensureFooter(filePath, { category: "docs", seed: "branding" })).toBe(
+      true,
+    );
 
     const output = fs.readFileSync(filePath, "utf8");
     const footerMatches =
       output.match(
-        /Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!/g,
+        /Have questions\? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP/g,
       ) || [];
     expect(footerMatches).toHaveLength(2);
   });
