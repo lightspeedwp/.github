@@ -77,6 +77,8 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 - ✅ Entries follow format standards
 
 ```mermaid
+accTitle: Flowchart
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 flowchart TD
   accTitle: flowchart diagram
   accDescr: flowchart flowchart
@@ -100,7 +102,7 @@ accTitle: Flowchart
     style Z2 fill:#b71c1c,color:#fff
     style Z3 fill:#b71c1c,color:#fff
     style Z4 fill:#b71c1c,color:#fff
-accDescr: Visual diagram showing structure, relationships, and flow
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Why GATE 1 matters:**

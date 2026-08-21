@@ -54,9 +54,17 @@ flowchart TD
   classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
   classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
 
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```
+- **[CLAUDE.md](../CLAUDE.md)** (repo root) — Primary reference for AI instructions and repository boundaries
+- **[AGENTS.md](../AGENTS.md)** (repo root) — Full organization-wide AI rules and guidelines
+- **[.github/custom-instructions.md](../.github/custom-instructions.md)** — Repo-local Copilot instructions
+- **[agents/](../agents/)** — Portable agent specifications
+
+---
+
+**Directory Status:** Active
+**Last Updated:** 2026-05-31
+**Curator:** LightSpeedWP Platform Team
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

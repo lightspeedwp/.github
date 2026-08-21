@@ -70,13 +70,16 @@ workflows/                     # Portable workflow playbooks
 ## Governance Flow
 
 ```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Community Health Files"] --> B["Labels and Templates"]
-    B --> C["Automation Workflows"]
-    C --> D["Quality Gates"]
-    D --> E["Organisation-wide Consistency"]
+graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: Repository architecture overview
+accDescr: High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
+    A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
+    A --> C[🤖 Automation & Workflows]
+    A --> D[🏷️ Labels & Issue Types]
+    A --> E[🧠 AI & Copilot Resources]
+    A --> F[📚 Documentation]
+    A --> G[🧪 Testing & Quality]
 
     style A fill:#4a148c,color:#fff
     style B fill:#1b5e20,color:#fff
@@ -85,22 +88,134 @@ graph LR
     style E fill:#00695c,color:#fff
 ```
 
-## Release Lifecycle
+    C --> C1[GitHub Actions]
+    C --> C2[Labeler Configuration]
+    C --> C3[Project Automation]
+    C --> C4[Quality Gates]
+
+    D --> D1[labels.yml]
+    D --> D2[issue-types.yml]
+    D --> D3[Label Documentation]
+
+    E --> E1[Custom Instructions]
+    E --> E2[Agent Specifications]
+    E --> E3[Prompt Library]
+
+    F --> H[LINTING.md]
+    F --> I[HUSKY_PRECOMMITS.md]
+    F --> J[docs/config/]
+    F --> K[AUTOMATION.md]
+    F --> L[LABEL_STRATEGY.md]
+    F --> M[LABELING.md]
+    F --> N[README Sections]
+
+    G --> O[Unit Tests]
+    G --> P[Integration Tests]
+    G --> Q[E2E Tests]
+    G --> R[Coverage Reports]
+
+    classDef core fill:#f1f5f9,stroke:#334155,color:#0f172a
+    classDef docs fill:#dcfce7,stroke:#14532d,color:#14532d
+    classDef automation fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef automation-sub fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef label fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
+    classDef label-sub fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
+    classDef ai fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+    classDef ai-sub fill:#fef3c7,stroke:#b45309,color:#4a2c00
+    classDef docs-sub fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef testing fill:#dcfce7,stroke:#14532d,color:#14532d
+    classDef testing-sub fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+
+    class A core
+    class B core
+    class B1 docs-sub
+    class B2 docs-sub
+    class B3 docs-sub
+    class B4 docs-sub
+    class B5 docs-sub
+    class C automation
+    class C1 automation-sub
+    class C2 automation-sub
+    class C3 automation-sub
+    class C4 automation-sub
+    class D label
+    class D1 label-sub
+    class D2 label-sub
+    class D3 label-sub
+    class E ai
+    class E1 ai-sub
+    class E2 ai-sub
+    class E3 ai-sub
+    class F docs
+    class H docs-sub
+    class I docs-sub
+    class J docs-sub
+    class K docs-sub
+    class L docs-sub
+    class M docs-sub
+    class N docs-sub
+    class G testing
+    class O testing-sub
+    class P testing-sub
+    class Q testing-sub
+    class R testing-sub
+
+    linkStyle default stroke:#0f172a,stroke-width:1.4px
+```
+
+## 🔄 Comprehensive Workflow Overview
+
+### Repository Inheritance & Automation Flow
+
+The next diagram tracks how repository inheritance feeds automation and AI integration phases to uphold consistent governance across LightSpeed repositories.
 
 ```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Phase 1\nPortable Release Agent"] --> B["release/vX.Y.Z\nVersion + Changelog"]
-    B --> C["Phase 2\nAgentic Safety Gates"]
-    C --> D["main\nTagged Release"]
-    D --> E["Post-release Sync\nmain -> develop"]
+flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: Inheritance and automation flow
+accDescr: Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
+  subgraph "Repository Inheritance"
+    A[LightSpeed Repo] --> B[Inherits Health Files]
+    B --> C[Applies Labels & Types]
+    C --> D[Uses Workflows]
+    D --> E[Follows Standards]
+  end
 
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
+  subgraph "Automation Flow"
+    F[Issue/PR Created] --> G[Auto-Label Applied]
+    G --> H[Project Sync]
+    H --> I[Quality Checks]
+    I --> J[Governance Review]
+  end
+
+  subgraph "AI Integration"
+    K[Copilot Instructions] --> L[Agent Processing]
+    L --> M[Automated Tasks]
+    M --> N[Quality Assurance]
+  end
+
+  classDef repo fill:#f1f5f9,stroke:#334155,color:#0f172a
+  classDef automation fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+  classDef ai fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+  classDef development fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+  classDef review fill:#fef3c7,stroke:#b45309,color:#4a2c00
+
+  class A repo
+  class B repo
+  class C repo
+  class D repo
+  class E repo
+  class F automation
+  class G automation
+  class H development
+  class I development
+  class J review
+  class K ai
+  class L ai
+  class M development
+  class N review
+
+  linkStyle default stroke:#0f172a,stroke-width:1.4px
 ```
 
 ## Quick Start
@@ -110,11 +225,30 @@ graph LR
 3. Use `npm run lint-all` and `npm test` before opening a PR.
 4. Follow `docs/RELEASE_PROCESS.md` for releases.
 
-### 🔒 Branch Protection
+```mermaid
+flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: Development workflow process
+accDescr: The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
+    A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
+    B --> C{🎯 Linting Pass?}
+    C -->|❌ No| D[🛠️ Fix Issues]
+    D --> B
+    C -->|✅ Yes| E[🧪 Run Tests]
+    E --> F{✅ Tests Pass?}
+    F -->|❌ No| G[🐛 Debug & Fix]
+    G --> E
+    F -->|✅ Yes| H[📊 Generate Coverage]
+    H --> I[📋 Update Reports]
+    I --> J[💾 Commit & Push]
+    J --> K[🚀 CI/CD Pipeline]
+    K --> L[🌐 Deploy/Merge]
 
-- **`develop`** — Integration branch; all features merge here first
-- **`main`** — Production-only; merges from `release/*` and `hotfix/*` branches only
-- **Feature/fix branches** — Temporary; deleted after merge (strict cleanup protocol)
+    classDef change fill:#f1f5f9,stroke:#334155,color:#0f172a
+    classDef hook fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef test fill:#dcfce7,stroke:#14532d,color:#14532d
+    classDef check fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef deployment fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
 
 ### 🏷️ Label Rules
 
@@ -126,7 +260,216 @@ graph LR
 - ✅ `area:ci`, `area:docs`, `area:security`
 - ✅ `meta:needs-changelog`, `meta:has-pr`
 
-- ❌ `bug`, `feature`, `urgent` (bare labels forbidden)
+The sequence diagram below traces how a developer push triggers AI agents, workflows, and validation gates that close the loop with repository feedback.
+
+```mermaid
+sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: AI and automation integration pipeline
+accDescr: Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
+    participant Dev as 👨‍💻 Developer
+    participant Repo as 📁 Repository
+    participant AI as 🤖 AI Agent
+    participant Workflow as ⚙️ Workflow
+    participant QA as ✅ Quality Gate
+
+    Dev->>Repo: Push changes
+    Repo->>AI: Trigger automation
+    AI->>AI: Process instructions
+    AI->>Workflow: Execute tasks
+    Workflow->>QA: Run checks
+    QA-->>Workflow: Validation results
+    Workflow-->>AI: Report status
+    AI-->>Repo: Update labels/status
+    Repo-->>Dev: Notify completion
+```
+
+## 🎯 Repository Overview
+
+This comprehensive workflow diagram illustrates the complete ecosystem of the LightSpeed .github repository, showing how community health files, automation systems, AI integration, and quality gates work together to maintain consistent standards across all organization repositories.
+
+### Complete Repository Ecosystem Flow
+
+```mermaid
+flowchart TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: "Repository ecosystem overview"
+accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
+    subgraph "📁 Core Repository Structure"
+        A[🏠 .github Repository]
+        B[📋 Community Health Files]
+        C[🤖 Automation & Workflows]
+        D[🏷️ Labels & Issue Types]
+        E[🧠 AI & Copilot Resources]
+        F[📚 Documentation]
+        G[🧪 Testing & Quality]
+    end
+
+    subgraph "🔄 Automation Pipeline"
+        H[Issue/PR Created]
+        I[Auto-Label Applied]
+        J[Quality Checks Run]
+        K[AI Processing]
+        L[Governance Review]
+        M[Project Sync]
+    end
+
+    subgraph "🎯 Quality Gates"
+        N[Linting]
+        O[Testing]
+        P[Coverage]
+        Q[Security]
+        R[Accessibility]
+    end
+
+    subgraph "🌐 Organization Impact"
+        S[Member Repositories]
+        T[Consistent Standards]
+        U[Automated Workflows]
+        V[Quality Assurance]
+    end
+
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+    A --> F
+    A --> G
+
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+    L --> M
+
+    C --> N
+    C --> O
+    C --> P
+    C --> Q
+    C --> R
+
+    B --> S
+    C --> T
+    D --> U
+    G --> V
+
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style C fill:#dcfce7,color:#14532d,stroke:#14532d
+    style E fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    style S fill:#fef3c7,color:#4a2c00,stroke:#b45309
+```
+
+### Repository Maintenance & Update Cycle
+
+```mermaid
+stateDiagram-v2
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: "Repository maintenance and update state machine"
+accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
+    [*] --> ContentUpdate
+    ContentUpdate --> ValidationPending
+    ValidationPending --> TestsRunning
+    TestsRunning --> QualityCheck
+    QualityCheck --> ReviewRequired
+    ReviewRequired --> Approved
+    ReviewRequired --> ChangesRequested
+    ChangesRequested --> ContentUpdate
+    Approved --> DeploymentReady
+    DeploymentReady --> OrgWideSync
+    OrgWideSync --> [*]
+
+    ContentUpdate : 📝 Content Updated
+    ValidationPending : ⏳ Validation Pending
+    TestsRunning : 🧪 Tests Running
+    QualityCheck : ✅ Quality Check
+    ReviewRequired : 👀 Review Required
+    ChangesRequested : 🔄 Changes Requested
+    Approved : ✅ Approved
+    DeploymentReady : 🚀 Deployment Ready
+    OrgWideSync : 🌐 Org-wide Sync
+```
+
+## 🔧 Linting, Formatting, and Testing Workflow
+
+All code quality, formatting, and automation standards are documented and enforced across the repository. See:
+
+- [LINTING.md](./docs/LINTING.md) — Main linting strategy, tool configuration, and automation
+- [HUSKY_PRECOMMITS.md](./docs/HUSKY_PRECOMMITS.md) — Pre-commit hook and automation details
+- [docs/CONFIGS.md](./docs/CONFIGS.md) — Configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
+
+### Local Linting & Formatting
+
+- `npm run lint` — Run all core linters (JS, CSS, YAML, package.json)
+- `npm run lint:all` — Run all linters, including workflows and markdown
+- `npm run lint:js` — Lint JavaScript/TypeScript
+- `npm run lint:css` — Lint CSS/SCSS
+- `npm run lint:yaml` — Lint YAML files
+- `npm run lint:md` — Lint Markdown files
+- `npm run lint:pkg-json` — Lint package.json
+- `npm run format` — Format all supported files (Prettier, Stylelint, etc.)
+
+### Testing Architecture & Flow
+
+```mermaid
+flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+accTitle: "Testing architecture and quality gates"
+accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
+    subgraph "🧪 Test Types"
+        A[Unit Tests]
+        B[Integration Tests]
+        C[E2E Tests]
+        D[Coverage Reports]
+    end
+
+    subgraph "🔧 Test Tools"
+        E[Jest]
+        F[Playwright]
+        G[Bats]
+        H[Coverage Tools]
+    end
+
+    subgraph "📊 Quality Gates"
+        I[Code Coverage]
+        J[Performance]
+        K[Accessibility]
+        L[Security]
+    end
+
+    A --> E
+    B --> E
+    C --> F
+    D --> H
+
+    E --> I
+    F --> J
+    F --> K
+    G --> L
+
+    style A fill:#dcfce7,color:#14532d,stroke:#14532d
+    style C fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style I fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+```
+
+**Test Commands:**
+
+- `npm test` — Run all JavaScript/TypeScript tests (Jest)
+- `npm run test:js` — Run JS/TS tests with coverage
+- `npm run test:e2e` — Run Playwright E2E tests
+
+### VS Code Integration
+
+- See `.vscode/settings.json`, `.vscode/tasks.json`, `.vscode/launch.json`, and `.vscode/extensions.json` for editor integration, tasks, debugging, and recommended extensions.
+- All major linting, formatting, and test commands are available as VS Code tasks.
+
+### Automation & Pre-commit
+
+- Husky and lint-staged enforce linting and formatting before every commit. See [HUSKY_PRECOMMITS.md](./docs/HUSKY_PRECOMMITS.md).
+
+### Troubleshooting & Updates
+
+- For troubleshooting, see [docs/LINTING.md](./docs/LINTING.md) and [docs/CONFIGS.md](./docs/CONFIGS.md).
+- To update rules, edit the relevant configuration file and update npm scripts as needed.
 
 ---
 

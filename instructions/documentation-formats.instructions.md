@@ -403,6 +403,7 @@ Mermaid diagrams enhance documentation by visualizing complex relationships, pro
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Flowchart diagram example
 accDescr: Shows a simple decision flowchart with yes and no branches ending in separate actions.
     A[Start] --> B{Decision?}
@@ -418,6 +419,7 @@ accDescr: Shows a simple decision flowchart with yes and no branches ending in s
 
 ```mermaid
 graph TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Graph diagram example
 accDescr: Shows a relationship graph connecting issues, pull requests, discussions, and releases.
     A[Issues] --> B[Pull Requests]
@@ -432,6 +434,7 @@ accDescr: Shows a relationship graph connecting issues, pull requests, discussio
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Architecture diagram example
 accDescr: Shows a repository architecture split into internal repository components and external integration points.
     subgraph "Repository"
@@ -454,6 +457,7 @@ accDescr: Shows a repository architecture split into internal repository compone
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Sequence diagram example
 accDescr: Shows a simple request flow from user through GitHub and CI to deployment and back to the user.
     participant User
@@ -475,6 +479,7 @@ accDescr: Shows a simple request flow from user through GitHub and CI to deploym
 
 ```mermaid
 stateDiagram-v2
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: State diagram example
 accDescr: Shows a linear issue lifecycle from draft to review, approval, and merge.
     [*] --> Draft
@@ -504,6 +509,7 @@ Use the approved Mermaid palette for any `style` or `classDef` declaration. Keep
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Mermaid colour coding example
 accDescr: Shows the approved Mermaid palette with explicit fill, text, and stroke values applied to success and error classes.
     A[Input] --> B[Process]
@@ -546,6 +552,7 @@ The following diagram shows the issue lifecycle:
 
 ```mermaid
 stateDiagram-v2
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Issue lifecycle example
 accDescr: Shows the issue lifecycle from open through in-progress, review, and closed states.
     [*] --> Open

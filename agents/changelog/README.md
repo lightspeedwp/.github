@@ -509,3 +509,7 @@ entry: {
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

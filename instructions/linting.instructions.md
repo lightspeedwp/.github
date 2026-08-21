@@ -102,6 +102,7 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Linting process flow
 accDescr: Shows the linting workflow from code change through pre-commit hooks, local linting, CI/CD pipeline checks, and merge approval.
     A[Code Change] --> B[Pre-commit Hooks]
@@ -138,6 +139,7 @@ accDescr: Shows the linting workflow from code change through pre-commit hooks, 
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Linting toolchain overview
 accDescr: Shows how source code feeds into ESLint, PHPCS, Prettier, Stylelint, and Markdownlint before reaching the CI/CD pipeline.
     A[Source Code] --> B[ESLint]

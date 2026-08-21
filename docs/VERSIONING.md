@@ -186,6 +186,8 @@ git push origin main --tags
 ### Version Validation Flow
 
 ```mermaid
+accTitle: Flowchart
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 flowchart TD
   accTitle: flowchart diagram
   accDescr: flowchart flowchart
@@ -208,7 +210,7 @@ accTitle: Flowchart
     style Z1 fill:#b71c1c,color:#fff
     style Z2 fill:#b71c1c,color:#fff
     style Z3 fill:#b71c1c,color:#fff
-accDescr: Visual diagram showing structure, relationships, and flow
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ### What GATE 3 Validates

@@ -37,6 +37,7 @@ For details, see the full guidelines below and the [Documentation Index](./docs/
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Contribution workflow
 accDescr: Shows the end-to-end contribution path from issue discussion through branch creation, implementation, validation, pull request review, and merge.
   A[Open Issue or Feature Request] --> B[Discuss & Plan]

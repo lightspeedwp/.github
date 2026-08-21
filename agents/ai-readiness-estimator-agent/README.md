@@ -10,6 +10,8 @@ last_updated: "2026-08-19"
 
 # AI Readiness Estimator — Quick Reference
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 **Version:** 1.0.0 | **Status:** Production | **Created:** 2026-07-22
 
 ## Overview
@@ -215,20 +217,6 @@ Calculate business impact across three years:
 
 *Built by LightSpeedWP with open-source spirit!*
 
-## Repository Flow
+## Contributing
 
-```mermaid
-graph LR
-  accTitle: graph diagram
-  accDescr: graph flowchart
-    A["Scope"] --> B["Inputs"]
-    B --> C["Process"]
-    C --> D["Validation"]
-    D --> E["Outputs"]
-
-    style A fill:#4a148c,color:#fff
-    style B fill:#1b5e20,color:#fff
-    style C fill:#bf360c,color:#fff
-    style D fill:#f57f17,color:#000
-    style E fill:#00695c,color:#fff
-```
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

@@ -1,5 +1,7 @@
 # Agent Skills
 
+[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 [Agent Skills](https://agentskills.io) are a simple, open format for giving agents new capabilities and expertise.
 
 Skills are folders of instructions, scripts, and resources that agents can discover and use to perform better at specific tasks. Write once, use everywhere.
@@ -20,3 +22,7 @@ Agent Skills is an open format maintained by [Anthropic](https://anthropic.com) 
 ## License
 
 Code in this repository is licensed under [Apache 2.0](LICENSE). Documentation is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/). See individual directories for details.
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

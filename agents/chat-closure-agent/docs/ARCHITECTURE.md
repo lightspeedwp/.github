@@ -83,6 +83,8 @@
 ### High-Level Data Flow
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
     A["Session Input<br/>(repoPath, options)"] -->|Analyze| B["Core Analysis<br/>(git metadata)"]
@@ -94,18 +96,20 @@ accTitle: Graph Diagram
     C -->|Validate| H["Workspace Cleaner<br/>(git state)"]
     H -->|Cleanup| I["Clean Worktree<br/>(optional)"]
     style A fill:#e1f5ff
-    style B fill:#f3e5f5
-    style D fill:#f3e5f5
-    style F fill:#f3e5f5
-    style H fill:#f3e5f5
-    style G fill:#c8e6c9
-    style I fill:#c8e6c9
-accDescr: Visual diagram showing structure, relationships, and flow
+    style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style F fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style H fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style G fill:#dcfce7,color:#14532d,stroke:#14532d
+    style I fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ### Component Stack
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
     subgraph "Agent Layer"
@@ -143,7 +147,7 @@ accTitle: Graph Diagram
     style F fill:#b3e5fc
     style G fill:#b3e5fc
     style H fill:#b3e5fc
-accDescr: Visual diagram showing structure, relationships, and flow
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ## Module Interactions
@@ -153,6 +157,8 @@ accDescr: Visual diagram showing structure, relationships, and flow
 **Purpose:** Extract git metadata and repository context
 
 ```mermaid
+accTitle: Sequence Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
     Agent ->> CoreAnalysis: analyzeRepository(repoPath)
@@ -163,7 +169,7 @@ accTitle: Sequence Diagram
     CoreAnalysis ->> CoreAnalysis: extractIssueNumbers()
     CoreAnalysis ->> CoreAnalysis: getGitState()
     CoreAnalysis -->> Agent: {branch, repoType, commits, issues, gitState}
-accDescr: Visual diagram showing structure, relationships, and flow
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Key Responsibilities:**
@@ -179,6 +185,8 @@ accDescr: Visual diagram showing structure, relationships, and flow
 **Purpose:** Create and persist session memory in 10-family YAML format
 
 ```mermaid
+accTitle: Sequence Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
     Agent ->> MemoryUpdater: updateMemoryForSessionClosure(repoPath, analysis, options)
@@ -188,7 +196,7 @@ accTitle: Sequence Diagram
     MemoryUpdater ->> MemoryUpdater: updateMemoryIndex()
     MemoryUpdater -->> Agent: {written, entry, markdown, indexed}
     Note over Agent,MemoryUpdater: Memory persisted in .remember/MEMORY.md
-accDescr: Visual diagram showing structure, relationships, and flow
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Key Responsibilities:**
@@ -203,6 +211,8 @@ accDescr: Visual diagram showing structure, relationships, and flow
 **Purpose:** Generate professional handoff prompts with full context
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
     subgraph "Input Data"
@@ -241,8 +251,8 @@ accTitle: Graph Diagram
     style A fill:#e3f2fd
     style B fill:#e3f2fd
     style C fill:#e3f2fd
-    style J fill:#c8e6c9
-accDescr: Visual diagram showing structure, relationships, and flow
+    style J fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Key Responsibilities:**
@@ -257,6 +267,8 @@ accDescr: Visual diagram showing structure, relationships, and flow
 **Purpose:** Safe cleanup with validation and confirmation
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
     A["cleanupWorktree()"]
@@ -278,13 +290,13 @@ accTitle: Graph Diagram
     
     A -->|Return| F["Cleanup report<br/>(success/errors)"]
     
-    style A fill:#fff3e0
+    style A fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style B fill:#ffe0b2
     style C fill:#ffe0b2
     style D fill:#ffccbc
-    style E fill:#c8e6c9
-    style F fill:#c8e6c9
-accDescr: Visual diagram showing structure, relationships, and flow
+    style E fill:#dcfce7,color:#14532d,stroke:#14532d
+    style F fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Key Responsibilities:**
@@ -300,6 +312,8 @@ accDescr: Visual diagram showing structure, relationships, and flow
 ### Detection Logic
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TD
 accTitle: Graph Diagram
     A["detectRepoType(repoPath)"] -->|Check| B{".github/projects/active<br/>AND<br/>.github/labels.yml?"}
@@ -310,11 +324,11 @@ accTitle: Graph Diagram
     F -->|YES| G["wordpress-theme"]
     F -->|NO| H["Unknown type<br/>(throw error)"]
     
-    style C fill:#c8e6c9
-    style E fill:#c8e6c9
-    style G fill:#c8e6c9
-    style H fill:#ffcdd2
-accDescr: Visual diagram showing structure, relationships, and flow
+    style C fill:#dcfce7,color:#14532d,stroke:#14532d
+    style E fill:#dcfce7,color:#14532d,stroke:#14532d
+    style G fill:#dcfce7,color:#14532d,stroke:#14532d
+    style H fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ### Supported Repository Types
@@ -330,6 +344,8 @@ accDescr: Visual diagram showing structure, relationships, and flow
 ### 10-Family YAML Structure
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
     subgraph "10-Family Memory"
@@ -353,8 +369,8 @@ accTitle: Graph Diagram
     G --> H
     
     style G fill:#fff9c4
-    style H fill:#c8e6c9
-accDescr: Visual diagram showing structure, relationships, and flow
+    style H fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Each family contains:**
@@ -388,6 +404,8 @@ metadata:        # Agent tracking: session_id, branch, timestamp
 ### Validation & Safety Gates
 
 ```mermaid
+accTitle: Graph Diagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
     A["Session Closure Request"]
@@ -410,14 +428,14 @@ accTitle: Graph Diagram
     G -->|Error| I["Generate Report<br/>(❌ Error + recovery)"]
     
     style A fill:#e3f2fd
-    style B1 fill:#ffcdd2
-    style D1 fill:#c8e6c9
-    style D2 fill:#c8e6c9
+    style B1 fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    style D1 fill:#dcfce7,color:#14532d,stroke:#14532d
+    style D2 fill:#dcfce7,color:#14532d,stroke:#14532d
     style D3 fill:#fff9c4
     style F1 fill:#fff9c4
-    style H fill:#c8e6c9
-    style I fill:#ffcdd2
-accDescr: Visual diagram showing structure, relationships, and flow
+    style H fill:#dcfce7,color:#14532d,stroke:#14532d
+    style I fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ## Design Patterns

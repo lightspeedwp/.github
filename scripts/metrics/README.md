@@ -395,6 +395,17 @@ Action: Ensure Git tracks the directory
 git add .github/reports/metrics/.gitkeep
 ```
 
+---
+
+## Related Documentation
+
+- **Specification:** `.github/projects/active/metrics-agent-specification-2026-08-12/SPECIFICATION.md`
+- **Architecture:** `.github/projects/active/metrics-agent-specification-2026-08-12/ARCHITECTURE.md`
+- **Test Plan:** `.github/projects/active/metrics-agent-specification-2026-08-12/TEST_PLAN.md`
+- **Progress Tracking:** `scripts/metrics/PROGRESS.md`
+
+---
+
 **Issue: Reports not creating GitHub issues**
 ```
 Solution: Verify GITHUB_TOKEN secret
@@ -458,6 +469,18 @@ Action: Increase timeout in workflow config
 - Monitor GitHub API usage
 - Track storage growth
 - Validate report accuracy
+
+## Contributing
+
+See [CLAUDE.md](../../CLAUDE.md) for contribution guidelines and coding standards.
+
+### Making Changes
+
+1. Update metrics-agent.js
+2. Add corresponding tests in metrics-agent.test.js
+3. Update PROGRESS.md
+4. Run tests: `npm test -- scripts/metrics/__tests__/metrics-agent.test.js`
+5. Ensure >80% coverage
 
 ## Support
 
