@@ -1,16 +1,15 @@
 ---
-description: Development roadmap and phased delivery plan for the LightSpeedWP .github
-  community health repository
+description: Development roadmap and phased delivery plan for the LightSpeedWP .github community health repository
 file_type: documentation
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeed Team
+  - LightSpeed Team
 tags:
-- roadmap
-- planning
-- phases
-- timeline
-- deliverables
+  - roadmap
+  - planning
+  - phases
+  - timeline
+  - deliverables
 title: Development Roadmap
 version: '1.1'
 ---
@@ -235,4 +234,4 @@ To contribute to the roadmap:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

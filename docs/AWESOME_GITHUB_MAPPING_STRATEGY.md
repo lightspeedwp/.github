@@ -1,10 +1,10 @@
 ---
-title: "Awesome GitHub Design-to-Content Mapping Strategy"
-version: "1.0"
-created: "2026-06-04"
-purpose: "Comprehensive mapping of design handoff to Astro website implementation using existing repository content"
-status: "active"
-maintainer: "LightSpeed AI Operations"
+title: Awesome GitHub Design-to-Content Mapping Strategy
+version: '1.0'
+created: '2026-06-04'
+purpose: Comprehensive mapping of design handoff to Astro website implementation using existing repository content
+status: active
+maintainer: LightSpeed AI Operations
 ---
 
 # Awesome GitHub Design-to-Content Mapping Strategy
@@ -1067,4 +1067,4 @@ actions: ["copy", "download", "github", "vscode"]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

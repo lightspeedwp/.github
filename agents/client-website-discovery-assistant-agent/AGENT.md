@@ -1,18 +1,17 @@
 ---
-name: 'Client Website Discovery Assistant'
-description: 'Comprehensive website assessment and analysis for competitive discovery and UX evaluation'
-agent_id: 'agent-7'
-agent_slug: 'client-website-discovery-assistant'
-agent_name: 'Client Website Discovery Assistant'
-domain: 'discovery'
-focus: 'website-assessment'
-version: '1.0.0'
+name: Client Website Discovery Assistant
+description: Comprehensive website assessment and analysis for competitive discovery and UX evaluation
+agent_id: agent-7
+agent_slug: client-website-discovery-assistant
+agent_name: Client Website Discovery Assistant
+domain: discovery
+focus: website-assessment
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
-
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 capabilities:
   - website-audit
   - competitor-analysis
@@ -20,23 +19,20 @@ capabilities:
   - ux-assessment
   - performance-analysis
   - recommendation-generation
-
 providers:
   - claude
   - copilot
   - openai
-
 provider_config:
   claude:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
   copilot:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
   openai:
-    status: 'active'
-    tier: 'full'
-
+    status: active
+    tier: full
 tags:
   - discovery
   - website-audit
@@ -309,4 +305,4 @@ Goal: Improve SEO and audience engagement
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

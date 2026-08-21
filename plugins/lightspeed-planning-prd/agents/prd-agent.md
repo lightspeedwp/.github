@@ -2,8 +2,8 @@
 file_type: agent
 name: prd
 title: PRD Agent (Product Requirements)
-location: "../../agents/prd-agent/"
-version: 2.0.0
+location: ../../agents/prd-agent/
+version: 2.0.1
 status: active
 category: planning
 ---
@@ -67,3 +67,7 @@ This agent represents the consolidation of two specialized agents:
 ---
 
 For the actual agent implementation and tools, see `.github/agents/prd-agent/`
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

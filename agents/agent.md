@@ -1,12 +1,18 @@
 ---
-title: "Main Agent Index"
-version: 'v2.1.1'
-last_updated: '2026-06-18'
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Directory index referencing all agents, instructions, PR templates, and cross-references."
-tags: ["lightspeed", "templates", "copilot", "agents", "prompts", "models"]
-file_type: "agent-index"
+title: Main Agent Index
+version: v2.1.2
+last_updated: '2026-08-21'
+author: LightSpeed
+maintainer: Ash Shaw
+description: Directory index referencing all agents, instructions, PR templates, and cross-references.
+tags:
+  - lightspeed
+  - templates
+  - copilot
+  - agents
+  - prompts
+  - models
+file_type: agent-index
 ---
 
 # LightSpeed Agent Index
@@ -75,4 +81,4 @@ The following instruction files provide detailed standards for agent development
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

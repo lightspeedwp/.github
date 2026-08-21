@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Retest Checklist"
-audience: "internal"
-document_type: "uat-retest-checklist"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Retest Checklist
+audience: internal
+document_type: uat-retest-checklist
+status: template
+language: en-GB
 ---
 
 # Retest Checklist
@@ -45,4 +45,4 @@ Use this checklist after fixing a pilot-testing issue for the LightSpeed AI Read
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

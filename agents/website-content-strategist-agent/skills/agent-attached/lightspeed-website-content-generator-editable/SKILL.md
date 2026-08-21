@@ -132,4 +132,4 @@ Outputs should be practical, structured, aligned to site objectives, and ready f
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

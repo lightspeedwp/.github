@@ -5,14 +5,14 @@ description: Standards for breaking down tasks, implementing changes, committing
 scope: organization-wide
 applyTo: '**'
 version: v1.0
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- workflow
-- implementation
-- standards
-- governance
+  - workflow
+  - implementation
+  - standards
+  - governance
 status: active
 ---
 
@@ -185,4 +185,4 @@ Result: Task becomes three-week project; original feature delivery delayed
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

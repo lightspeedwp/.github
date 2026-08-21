@@ -1,9 +1,9 @@
 ---
-version: v0.1.0
-last_updated: '2026-05-29'
+version: v0.1.1
+last_updated: '2026-08-21'
 title: Plugin Installation Guide
 owners:
-- lightspeedwp
+  - lightspeedwp
 file_type: documentation
 description: Guide for installing and configuring LightSpeed plugins
 ---
@@ -114,4 +114,4 @@ Review changelog for breaking changes.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,13 +1,13 @@
 ---
-provider: 'copilot'
-agent_slug: 'website-scope-estimator'
-agent_name: 'Website Scope Estimator (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+provider: copilot
+agent_slug: website-scope-estimator
+agent_name: Website Scope Estimator (GitHub Copilot)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-21'
+platform: github
+integration: copilot-chat
 ---
 
 # Website Scope Estimator — GitHub Copilot Implementation
@@ -273,3 +273,7 @@ Team experience: Medium
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

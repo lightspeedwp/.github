@@ -1,8 +1,12 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
+title:
+  TITLE: null
+date:
+  DATE: null
+status:
+  STATUS: null
+authors:
+  AUTHORS: null
 ---
 
 # {TITLE}
@@ -20,3 +24,7 @@ authors: {AUTHORS}
 ## Consequences
 
 {CONSEQUENCES}
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,8 +1,8 @@
 ---
 title: AI Plugin Comparison Guide
 description: Feature comparison of Claude Code, GitHub Copilot, Codex, and Gemini for development workflows
-created: 2026-07-26
-updated: 2026-07-26
+created: 2026-07-26T00:00:00.000Z
+updated: 2026-07-26T00:00:00.000Z
 type: guide
 ---
 
@@ -449,3 +449,7 @@ A comprehensive comparison of AI-powered development tools available for VS Code
 ---
 
 *Created as part of Phase 4: Plugin Adoption Strategy*
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

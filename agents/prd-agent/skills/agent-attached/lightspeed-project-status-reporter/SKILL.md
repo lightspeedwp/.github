@@ -104,4 +104,4 @@ Keep reports brief enough to be read, but specific enough to drive action. Prefe
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -1,7 +1,7 @@
 ---
 name: wp-agency-project-bootstrap
-description: "Bootstrap a new WordPress agency build so AI agents don't start from zero. Use at the start of a new client WordPress project to set up the operating scaffold that makes agent work reliable: a layered AGENTS.md orchestration guide plus DESIGN.md / CONTRIBUTING.md companions, a source-of-truth precedence order, a repo-map posture table, the .agents/ skills+personas layout, OpenSpec (or equivalent) change-workflow wiring, and the working agreements (scope discipline, tokens-over-hardcoding, security/a11y, small diffs, model-escalation). Assembles the other skills in this set into a coherent project."
-compatibility: "Process/scaffold skill. Targets WordPress block-theme + WooCommerce agency projects but the doc structure generalises. No runtime dependency; assumes a repo and an approved estimate/SOW exist."
+description: 'Bootstrap a new WordPress agency build so AI agents don''t start from zero. Use at the start of a new client WordPress project to set up the operating scaffold that makes agent work reliable: a layered AGENTS.md orchestration guide plus DESIGN.md / CONTRIBUTING.md companions, a source-of-truth precedence order, a repo-map posture table, the .agents/ skills+personas layout, OpenSpec (or equivalent) change-workflow wiring, and the working agreements (scope discipline, tokens-over-hardcoding, security/a11y, small diffs, model-escalation). Assembles the other skills in this set into a coherent project.'
+compatibility: Process/scaffold skill. Targets WordPress block-theme + WooCommerce agency projects but the doc structure generalises. No runtime dependency; assumes a repo and an approved estimate/SOW exist.
 ---
 
 # WP Agency Project Bootstrap
@@ -70,4 +70,4 @@ It's the assembly step: it wires in the other skills in this set (scope control,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -94,4 +94,4 @@ Use UK English. Be practical, specific and non-alarmist. Avoid vague “successf
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

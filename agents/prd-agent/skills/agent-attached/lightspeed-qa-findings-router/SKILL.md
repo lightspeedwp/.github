@@ -82,4 +82,4 @@ Outputs must be practical, concise and suitable for GitHub, Asana or launch stan
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

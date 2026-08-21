@@ -1,11 +1,8 @@
 ---
 file_type: configuration
 title: Testing Agent — OpenAI Provider Configuration
-description: >-
-  OpenAI provider configuration for the Testing Agent: API setup, model selection,
-  rate limiting, cost tracking, batch processing, and best practices for
-  server-side test generation and integration with CI/CD pipelines.
-last_updated: '2026-08-18'
+description: 'OpenAI provider configuration for the Testing Agent: API setup, model selection, rate limiting, cost tracking, batch processing, and best practices for server-side test generation and integration with CI/CD pipelines.'
+last_updated: '2026-08-21'
 domain: testing
 tags:
   - openai
@@ -534,4 +531,4 @@ OpenAI mini: $0.15/1M input → ~$0.001 per test pack ← 99% cheaper
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

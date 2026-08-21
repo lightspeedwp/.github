@@ -370,3 +370,7 @@ Project Maintenance Agent
 ## Questions?
 
 For issues or feature requests, open a GitHub issue in the `.github` repository.
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

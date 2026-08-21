@@ -1,6 +1,6 @@
 ---
 template_id: policy-draft-outline
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -60,4 +60,4 @@ Explain how the policy will be updated, who approves changes, and how changes wi
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

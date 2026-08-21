@@ -334,4 +334,4 @@ Identify missing reproduction steps, affected Safari/iOS versions, checkout URL,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,11 +1,8 @@
 ---
 file_type: configuration
 title: Testing Agent — GitHub Copilot Provider Configuration
-description: >-
-  GitHub Copilot provider configuration for the Testing Agent: VS Code setup,
-  keybindings, chat context, inline suggestions, accessibility settings, and
-  best practices for repository-aware test generation and code review.
-last_updated: '2026-08-18'
+description: 'GitHub Copilot provider configuration for the Testing Agent: VS Code setup, keybindings, chat context, inline suggestions, accessibility settings, and best practices for repository-aware test generation and code review.'
+last_updated: '2026-08-21'
 domain: testing
 tags:
   - copilot
@@ -419,4 +416,4 @@ Example suggestion:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

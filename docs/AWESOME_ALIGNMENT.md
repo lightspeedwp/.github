@@ -1,9 +1,10 @@
 ---
-version: "v0.1.0"
-last_updated: "2026-05-29"
-owners: ["lightspeedwp"]
-file_type: "documentation"
-description: "Alignment model for organization values and technical excellence"
+version: v0.1.1
+last_updated: '2026-08-21'
+owners:
+  - lightspeedwp
+file_type: documentation
+description: Alignment model for organization values and technical excellence
 ---
 
 # Awesome Alignment
@@ -113,4 +114,4 @@ description: "Alignment model for organization values and technical excellence"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

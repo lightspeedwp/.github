@@ -156,3 +156,7 @@ Validation required before release: source register, reference data, skill struc
 ---
 
 *🧭 Your compass through the documentation landscape*
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

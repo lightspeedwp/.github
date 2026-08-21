@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Missing Values Intake Checklist"
-audience: "internal"
-document_type: "intake-checklist"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Missing Values Intake Checklist
+audience: internal
+document_type: intake-checklist
+status: template
+language: en-GB
 ---
 
 # Missing Values Intake Checklist
@@ -109,4 +109,4 @@ Example:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

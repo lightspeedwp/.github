@@ -1,6 +1,6 @@
 ---
 name: tour-operator-gravity-forms-auditor
-description: 'audit gravity forms setups on wordpress websites running the tour operator plugin and relevant extension plugins, including tour, destination, booking enquiry, quote request, itinerary, accommodation, brochure, agent, trade, newsletter, contact, and travel lead-generation forms through read-only wordpress mcp evidence or supplied exports. use for health checks, fast audits, full preflight audits, form quality reviews, accessibility checks, spam and security reviews, privacy/data retention checks, notification and deliverability audits, add-on/feed reviews, tour enquiry audits, findings registers, readiness scorecards, client-safe summaries, retest reports, and configuration handoffs. do not use for non-tour-operator-plugin sites, generic travel sites without tour operator plugin evidence, applying configuration changes, or write operations.'
+description: audit gravity forms setups on wordpress websites running the tour operator plugin and relevant extension plugins, including tour, destination, booking enquiry, quote request, itinerary, accommodation, brochure, agent, trade, newsletter, contact, and travel lead-generation forms through read-only wordpress mcp evidence or supplied exports. use for health checks, fast audits, full preflight audits, form quality reviews, accessibility checks, spam and security reviews, privacy/data retention checks, notification and deliverability audits, add-on/feed reviews, tour enquiry audits, findings registers, readiness scorecards, client-safe summaries, retest reports, and configuration handoffs. do not use for non-tour-operator-plugin sites, generic travel sites without tour operator plugin evidence, applying configuration changes, or write operations.
 ---
 
 # Tour Operator Gravity Forms Auditor
@@ -207,3 +207,7 @@ Client-safe outputs must exclude secrets, licence keys, API keys, private logs, 
 ## Route away
 
 Route to the `tour-operator-gravity-forms-configuration` skill for approved configuration changes, new form creation, remediation implementation, test submissions, post-change validation that requires writes, or manual implementation plans. Route non-Tour-Operator-plugin form audits, generic travel sites without Tour Operator plugin evidence, broader legal, security incident, whole-site accessibility, whole-site performance, custom plugin development, copywriting, launch QA, or SEO work to the relevant specialist skill.
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -46,4 +46,4 @@ Return a clean policy-page structure or draft using the matched policy template.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,6 +1,6 @@
 ---
 template_id: chatbot-use-case-worksheet
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -45,4 +45,4 @@ This worksheet helps define and assess the suitability of a chatbot use case. Us
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

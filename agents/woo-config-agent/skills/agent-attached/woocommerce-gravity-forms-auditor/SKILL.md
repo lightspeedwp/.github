@@ -1,6 +1,6 @@
 ---
 name: woocommerce-gravity-forms-auditor
-description: 'audit gravity forms setups on wordpress websites running the woocommerce core plugin and relevant woocommerce extension plugins through read-only wordpress mcp evidence or supplied exports. use for woocommerce product enquiry forms, quote requests, stock or availability enquiries, b2b and wholesale forms, product option or deposit flows, customer onboarding, customer account support, order-related support forms, payment and user-registration feed risks, product page embeds, notification and deliverability reviews, confirmations, conditional logic, spam/security/privacy checks, accessibility checks, add-on/feed reviews, findings registers, readiness scorecards, retest reports, and contract handoffs to the woocommerce-gravity-forms-configuration skill. do not use for applying configuration changes or write operations.'
+description: audit gravity forms setups on wordpress websites running the woocommerce core plugin and relevant woocommerce extension plugins through read-only wordpress mcp evidence or supplied exports. use for woocommerce product enquiry forms, quote requests, stock or availability enquiries, b2b and wholesale forms, product option or deposit flows, customer onboarding, customer account support, order-related support forms, payment and user-registration feed risks, product page embeds, notification and deliverability reviews, confirmations, conditional logic, spam/security/privacy checks, accessibility checks, add-on/feed reviews, findings registers, readiness scorecards, retest reports, and contract handoffs to the woocommerce-gravity-forms-configuration skill. do not use for applying configuration changes or write operations.
 ---
 
 # WooCommerce Gravity Forms Auditor
@@ -209,3 +209,7 @@ Client-safe outputs must exclude secrets, licence keys, API keys, private logs, 
 ## Route away
 
 Route to `woocommerce-gravity-forms-configuration` for approved WooCommerce Gravity Forms configuration changes, new WooCommerce-scoped form creation, remediation implementation, approved test submissions, post-change validation that requires writes, or manual implementation plans. Route broader legal, security incident, WooCommerce checkout architecture, order/tax/subscription/stock/shipping/refund/fulfilment architecture, whole-site accessibility, whole-site performance, custom plugin development, copywriting, launch QA, or SEO work to the relevant specialist skill.
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

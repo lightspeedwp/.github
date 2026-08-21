@@ -1,9 +1,9 @@
 ---
-version: "1.0.0"
-title: "[Project Name] - Product Requirements Document"
-date: "YYYY-MM-DD"
-timezone: "Africa/Johannesburg"
-status: "draft"
+version: 1.0.1
+title: '[Project Name] - Product Requirements Document'
+date: YYYY-MM-DD
+timezone: Africa/Johannesburg
+status: draft
 ---
 # [Project Name] - Product Requirements Document
 
@@ -107,4 +107,4 @@ status: "draft"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

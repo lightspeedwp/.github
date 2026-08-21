@@ -1,11 +1,11 @@
 ---
-title: "eCommerce Briefing Form"
-source_title: "Questionnaire: eCommerce Briefing Form"
-source_url: "https://docs.google.com/document/d/19nDxjHlZ-r9y7Ze9xjTJPvWz36u7asEDMqy9p3VijUk/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire"
-tab_handling: "single-page output from the provided source link"
+title: eCommerce Briefing Form
+source_title: 'Questionnaire: eCommerce Briefing Form'
+source_url: https://docs.google.com/document/d/19nDxjHlZ-r9y7Ze9xjTJPvWz36u7asEDMqy9p3VijUk/edit?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire
+tab_handling: single-page output from the provided source link
 ---
 
 # eCommerce Briefing Form
@@ -147,4 +147,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

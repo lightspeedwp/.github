@@ -68,4 +68,4 @@ Use this skill to summarize activity from one Slack channel, using a requested t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

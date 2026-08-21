@@ -1,6 +1,6 @@
 ---
 template_id: claim-register
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -48,4 +48,4 @@ Each claim must be backed by evidence, reviewed, and approved before inclusion i
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

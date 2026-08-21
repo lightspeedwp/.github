@@ -1,13 +1,18 @@
 ---
 name: project-linker
 description: Find active projects and issues for a repository
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
+version: 1.0.1
+created_date: 2026-08-12T00:00:00.000Z
+last_updated: '2026-08-21'
 file_type: documentation
-authors: ["Ash Shaw"]
-maintainer: "Ash Shaw"
-tags: [project, linking, discovery, issues]
+authors:
+  - Ash Shaw
+maintainer: Ash Shaw
+tags:
+  - project
+  - linking
+  - discovery
+  - issues
 ---
 
 # Project Linker Skill
@@ -293,3 +298,7 @@ Test fixtures include:
 - Project discovery from file system and metadata
 - Issue enrichment via GitHub API (optional)
 - Integration with memory and handoff systems
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

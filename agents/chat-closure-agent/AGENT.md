@@ -2,7 +2,7 @@
 name: chat-closure-agent
 title: Chat Closure Agent
 description: Automate session handoff workflows across control-plane and WordPress repositories
-version: 1.0.0
+version: 1.0.1
 type: agent
 tier: 1
 status: production
@@ -10,8 +10,8 @@ providers:
   - claude
   - copilot
   - openai
-created_date: 2026-08-12
-last_updated: 2026-08-12
+created_date: 2026-08-12T00:00:00.000Z
+last_updated: '2026-08-21'
 authors:
   - Ash Shaw
 maintainer: Ash Shaw
@@ -389,3 +389,7 @@ For issues, questions, or contributions:
 **Last Updated:** 2026-08-12  
 **Maintainer:** Ash Shaw  
 **Status:** Production Ready (Core Modules)
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

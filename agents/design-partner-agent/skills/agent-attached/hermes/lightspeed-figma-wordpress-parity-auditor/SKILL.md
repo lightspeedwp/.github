@@ -119,4 +119,4 @@ Use asset templates when the user asks for tables, reports or downloadable outpu
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

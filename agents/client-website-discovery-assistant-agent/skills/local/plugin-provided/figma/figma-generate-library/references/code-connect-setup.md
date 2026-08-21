@@ -260,4 +260,4 @@ The response should include `componentName`, `source`, `label`, and a non-empty 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

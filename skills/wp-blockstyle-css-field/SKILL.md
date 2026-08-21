@@ -1,7 +1,7 @@
 ---
 name: wp-blockstyle-css-field
-description: "Author WordPress block style variations (styles/**/*.json) correctly given the css field's sanitisation and zero-specificity limits. Use when writing or debugging a block-style/section-style JSON partial: deciding what belongs in structured styles vs the css field vs an enqueued .css file, why a rule silently vanished or lost the cascade (:where() zero specificity, stripped :hover/:first-child, mangled content:\"\", dropped comma selectors), and how to beat core block resets. Complements wp-block-style-audit (which migrates CSS-soup into JSON) with the authoring doctrine and specificity rules."
-compatibility: "Targets WordPress 6.9+ block themes (theme.json v3, recursively auto-discovered styles/**/*.json variations). Requires the theme's theme.json for preset token names. Behaviour of the css field is verified empirically per WP version — re-test after core upgrades."
+description: 'Author WordPress block style variations (styles/**/*.json) correctly given the css field''s sanitisation and zero-specificity limits. Use when writing or debugging a block-style/section-style JSON partial: deciding what belongs in structured styles vs the css field vs an enqueued .css file, why a rule silently vanished or lost the cascade (:where() zero specificity, stripped :hover/:first-child, mangled content:"", dropped comma selectors), and how to beat core block resets. Complements wp-block-style-audit (which migrates CSS-soup into JSON) with the authoring doctrine and specificity rules.'
+compatibility: Targets WordPress 6.9+ block themes (theme.json v3, recursively auto-discovered styles/**/*.json variations). Requires the theme's theme.json for preset token names. Behaviour of the css field is verified empirically per WP version — re-test after core upgrades.
 ---
 
 # WP Block-Style css Field
@@ -63,4 +63,4 @@ Route each rule to the lowest-risk home that can express it:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

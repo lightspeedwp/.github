@@ -1,6 +1,6 @@
 ---
 template_id: change-request-log
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -50,4 +50,4 @@ Mark all impact areas that apply to each request:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,15 +1,22 @@
 ---
-title: "LightSpeed Global AI Rules"
-description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: 'v2.0'
-last_updated: '2026-08-05'
-file_type: "agents-index"
-maintainer: "LightSpeed Team"
-authors: ["LightSpeed Team"]
-license: "GPL-3.0"
-tags: ["agents", "ai", "coding-standards", "governance", "wordpress", "phase-1-restructuring"]
-domain: "governance"
-stability: "stable"
+title: LightSpeed Global AI Rules
+description: Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects.
+version: v2.0
+last_updated: '2026-08-21'
+file_type: agents-index
+maintainer: LightSpeed Team
+authors:
+  - LightSpeed Team
+license: GPL-3.0
+tags:
+  - agents
+  - ai
+  - coding-standards
+  - governance
+  - wordpress
+  - phase-1-restructuring
+domain: governance
+stability: stable
 ---
 
 # LightSpeed – Global AI Rules (AGENTS.md)
@@ -612,4 +619,4 @@ All contributors, agents, and AI assistants must comply with these standards and
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
