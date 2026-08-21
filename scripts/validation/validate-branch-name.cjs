@@ -298,8 +298,22 @@ function main() {
   const positionalArgs = getPositionalArgs();
   const positionalBranch = positionalArgs.length > 0 ? positionalArgs[0] : '';
 
+  // Debug logging
+  if (process.env.DEBUG_VALIDATION) {
+    console.error('[DEBUG] process.argv:', process.argv);
+    console.error('[DEBUG] positionalArgs:', positionalArgs);
+    console.error('[DEBUG] explicitBranch:', explicitBranch);
+    console.error('[DEBUG] positionalBranch:', positionalBranch);
+  }
+
   // Resolve branch name (positional arg takes precedence, then --branch flag, then git)
   const branchName = getCurrentBranchName(explicitBranch || positionalBranch);
+
+  if (process.env.DEBUG_VALIDATION) {
+    console.error('[DEBUG] branchName:', branchName);
+    console.error('[DEBUG] BRANCH_PATTERN:', BRANCH_PATTERN);
+    console.error('[DEBUG] Pattern matches:', BRANCH_PATTERN.test(branchName));
+  }
 
   if (!branchName) {
     console.error('❌ No branch detected. Provide one with --branch <name> or ensure you are in a Git repository.');
