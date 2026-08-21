@@ -47,7 +47,7 @@ const verbose = args.includes("--verbose");
 /**
  * Determine PR status based on review state
  */
-function determinePRStatus(pr, reviews) {
+export function determinePRStatus(pr, reviews) {
   if (pr.merged_at) {
     return "merged";
   }
@@ -79,7 +79,7 @@ function determinePRStatus(pr, reviews) {
 /**
  * Get next status label based on PR status
  */
-function getNextStatusLabel(status) {
+export function getNextStatusLabel(status) {
   const statusMap = {
     merged: "status:ready-for-changelog",
     draft: "status:in-progress",
@@ -341,4 +341,7 @@ async function main() {
   }
 }
 
-main();
+// Only run main if this file is executed directly, not when imported
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}

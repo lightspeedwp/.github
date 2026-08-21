@@ -23,7 +23,10 @@ jest.mock("octokit", () => ({
   })),
 }));
 
-const { MilestoneAllocator, AllocationError } = require("../allocate-to-milestone.js");
+const {
+  MilestoneAllocator,
+  AllocationError,
+} = require("../allocate-to-milestone.js");
 
 describe("allocate-to-milestone", () => {
   const mockOctokit = {
@@ -239,9 +242,7 @@ describe("allocate-to-milestone", () => {
     });
 
     it("should handle API errors", async () => {
-      mockOctokit.rest.pulls.get.mockRejectedValueOnce(
-        new Error("API Error"),
-      );
+      mockOctokit.rest.pulls.get.mockRejectedValueOnce(new Error("API Error"));
 
       const result = await allocator.allocatePR(123, milestone);
       expect(result.status).toBe("error");

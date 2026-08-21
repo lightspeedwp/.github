@@ -443,12 +443,7 @@ describe("staging-validation", () => {
     });
 
     it("parses multiple arguments", () => {
-      const parsed = parseArguments([
-        "--all",
-        "--count",
-        "200",
-        "--verbose",
-      ]);
+      const parsed = parseArguments(["--all", "--count", "200", "--verbose"]);
       expect(parsed.runAll).toBe(true);
       expect(parsed.count).toBe(200);
       expect(parsed.verbose).toBe(true);
