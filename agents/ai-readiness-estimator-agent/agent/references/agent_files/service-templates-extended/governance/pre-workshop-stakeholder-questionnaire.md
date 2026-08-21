@@ -1,6 +1,6 @@
 ---
 template_id: pre-workshop-stakeholder-questionnaire
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -39,4 +39,4 @@ Please provide any other information, concerns, or topics you would like the wor
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

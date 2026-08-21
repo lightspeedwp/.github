@@ -1,18 +1,18 @@
 ---
-provider: 'copilot'
-agent_slug: 'ai-readiness-estimator'
-agent_name: 'AI Readiness Estimator (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+provider: copilot
+agent_slug: ai-readiness-estimator
+agent_name: AI Readiness Estimator (GitHub Copilot)
+status: production
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-21'
+platform: github
+integration: copilot-chat
 context_awareness:
-  - 'github-issues'
-  - 'github-discussions'
-  - 'pull-requests'
-  - 'repository-files'
+  - github-issues
+  - github-discussions
+  - pull-requests
+  - repository-files
 ---
 
 # AI Readiness Estimator — GitHub Copilot Implementation
@@ -348,4 +348,4 @@ jobs:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

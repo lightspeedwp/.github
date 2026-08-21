@@ -16,4 +16,4 @@ Use the Google Drive plugin's Google Sheets skill for edits to existing Google S
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

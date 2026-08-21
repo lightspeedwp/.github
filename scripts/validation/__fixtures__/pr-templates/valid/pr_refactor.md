@@ -19,3 +19,7 @@ Relates to #104
 - [x] Linked issue provided
 - [x] Changelog entry provided
 - [x] Validation notes reviewed
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

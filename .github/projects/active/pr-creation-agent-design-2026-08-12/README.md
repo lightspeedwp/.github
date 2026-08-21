@@ -96,6 +96,7 @@ See [DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md) for 9 critical design questions
 | Item | Type | Purpose | Status |
 |------|------|---------|--------|
 | [#1812](https://github.com/lightspeedwp/.github/issues/1812) | design | PR Creation Agent Design Initiative | 🟢 Tracking |
+| [#1813](https://github.com/lightspeedwp/.github/issues/1813) | task | Phase 2: Specification & Planning | 🟡 Pending |
 | [#1796](https://github.com/lightspeedwp/.github/pull/1796) | pr | Design phase delivery PR | 📋 In Review |
 | [#1722](https://github.com/lightspeedwp/.github/issues/1722) | epic | Repository restructuring & agent standardisation | 🟢 Open |
 | [OPENSPEC.md](./OPENSPEC.md) | spec | Formal specification document | ✅ Complete |

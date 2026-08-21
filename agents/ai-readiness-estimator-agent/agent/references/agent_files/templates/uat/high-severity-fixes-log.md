@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "High-Severity Fixes Log"
-audience: "internal"
-document_type: "uat-fixes-log"
-status: "active"
-language: "en-GB"
+version: 1.0.1
+title: High-Severity Fixes Log
+audience: internal
+document_type: uat-fixes-log
+status: active
+language: en-GB
 ---
 
 # High-Severity Fixes Log
@@ -62,4 +62,4 @@ When retesting a fix, record:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

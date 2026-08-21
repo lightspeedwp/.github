@@ -334,4 +334,4 @@ Present only as provisional after removing the internal note, then collect the t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

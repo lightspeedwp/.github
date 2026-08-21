@@ -19,3 +19,7 @@ Fixes #102
 - [x] Linked issue provided
 - [x] Changelog entry provided
 - [x] Validation notes reviewed
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

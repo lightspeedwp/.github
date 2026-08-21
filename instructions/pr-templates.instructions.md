@@ -5,7 +5,7 @@ description: Portable guidance for selecting and completing pull request templat
 scope: organization-wide
 applyTo: '**'
 version: v1.0
-last_updated: '2026-06-08'
+last_updated: '2026-08-21'
 owners:
   - LightSpeedWP Team
 tags:
@@ -104,4 +104,4 @@ At minimum, include:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

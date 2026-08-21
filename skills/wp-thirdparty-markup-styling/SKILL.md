@@ -1,7 +1,7 @@
 ---
 name: wp-thirdparty-markup-styling
-description: "Style WordPress/WooCommerce markup you don't control — plugin blocks, body-level portals, and render callbacks that drop your classes — from a block theme. Use when a plugin's UI (mini-cart drawer, search-results dropdown, BNPL widget, etc.) won't take your CSS: it renders as a body-level portal outside the block wrapper, strips the is-style-* class you set, ships !important-heavy stylesheets, or its styles bleed into (or leak out of) nested core blocks. Covers portal scoping, safe class re-injection, surgical specificity overrides, and defensive selector scoping."
-compatibility: "Targets WordPress 6.9+ block themes, typically with WooCommerce and third-party plugins. Uses render_block filters + WP_HTML_Tag_Processor and wp_enqueue_block_style/wp_enqueue_scripts. Plugin internals (class names, markup) are version-specific — re-inspect the live DOM per plugin/version."
+description: 'Style WordPress/WooCommerce markup you don''t control — plugin blocks, body-level portals, and render callbacks that drop your classes — from a block theme. Use when a plugin''s UI (mini-cart drawer, search-results dropdown, BNPL widget, etc.) won''t take your CSS: it renders as a body-level portal outside the block wrapper, strips the is-style-* class you set, ships !important-heavy stylesheets, or its styles bleed into (or leak out of) nested core blocks. Covers portal scoping, safe class re-injection, surgical specificity overrides, and defensive selector scoping.'
+compatibility: Targets WordPress 6.9+ block themes, typically with WooCommerce and third-party plugins. Uses render_block filters + WP_HTML_Tag_Processor and wp_enqueue_block_style/wp_enqueue_scripts. Plugin internals (class names, markup) are version-specific — re-inspect the live DOM per plugin/version.
 ---
 
 # WP Third-Party Markup Styling
@@ -58,4 +58,4 @@ Styling your own blocks is easy; styling markup a **plugin** emits is where a th
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

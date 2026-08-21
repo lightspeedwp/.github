@@ -1,12 +1,17 @@
 ---
-title: "Versioning Guidelines"
-description: "Semantic versioning standards for LightSpeedWP projects: SemVer format, VERSION file as canonical source, Phase 5A version validation gates"
-file_type: "documentation"
-version: "1.0"
-last_updated: "2026-08-18"
-author: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["versioning", "semver", "release", "phase-5a"]
+title: Versioning Guidelines
+description: 'Semantic versioning standards for LightSpeedWP projects: SemVer format, VERSION file as canonical source, Phase 5A version validation gates'
+file_type: documentation
+version: '1.0'
+last_updated: '2026-08-21'
+author: LightSpeed Team
+owners:
+  - lightspeedwp
+tags:
+  - versioning
+  - semver
+  - release
+  - phase-5a
 ---
 
 # Versioning Guidelines
@@ -411,4 +416,4 @@ Consider adding these scripts to GitHub Actions workflows for:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

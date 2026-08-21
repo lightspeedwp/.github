@@ -74,6 +74,13 @@ Implement automated issue triage system with:
 - `IMPLEMENTATION_PLAN.md` — Timeline, execution plan, success criteria
 - `docs/ISSUE_TRIAGE_AUTOMATION.md` — Complete system documentation
 
+### Related Active Projects
+
+- **[issue-type-workflow-automation](../issue-type-workflow-automation/)** — Related issue type automation (complementary scope)
+- **[issue-metadata-triage-expansion](../issue-metadata-triage-expansion/)** — Expanded metadata triage system (Phase 2)
+- **[issue-management-agent-planning-2026-08-12](../issue-management-agent-planning-2026-08-12/)** — Universal issue management agent (Phase 3+)
+- **[template-enforcement-governance](../template-enforcement-governance/)** — Template validation (related system)
+
 ---
 
 ### 🏗️ **For Technical Leads** (30 min read)

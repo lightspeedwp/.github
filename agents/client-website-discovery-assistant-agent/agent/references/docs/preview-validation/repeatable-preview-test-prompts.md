@@ -2,7 +2,7 @@
 title: Repeatable Preview Test Prompts
 document_type: preview_validation_prompt_library
 version: v0.3
-last_updated: 2026-05-18
+last_updated: '2026-08-21'
 status: reusable_test_reference
 ---
 
@@ -176,4 +176,4 @@ Use `docs/preview-validation/lsx-design-system-example.md` as the starting conte
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

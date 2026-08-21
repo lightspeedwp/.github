@@ -74,4 +74,4 @@ The current WordPress publishing site is difficult for editors to manage efficie
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

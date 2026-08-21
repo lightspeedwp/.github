@@ -1,6 +1,6 @@
 ---
 template_id: implementation-intake-form
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -62,4 +62,4 @@ List known risks, constraints, or assumptions that could impact the implementati
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

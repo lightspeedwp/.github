@@ -1,13 +1,13 @@
 ---
-title: "Environment Setup Saved Reply"
-description: "Development environment setup guidance and troubleshooting."
-category: "Technical Support"
+title: Environment Setup Saved Reply
+description: Development environment setup guidance and troubleshooting.
+category: Technical Support
 labels:
   - area:environment
   - status:needs-triage
 references:
-  - "../../instructions/environment.md"
-  - "../../CONTRIBUTING.md"
+  - ../../instructions/environment.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Environment Setup Saved Reply
@@ -32,4 +32,4 @@ We're here to help you get up and running quickly!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

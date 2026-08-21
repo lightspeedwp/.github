@@ -1,21 +1,20 @@
 ---
 file_type: documentation
 title: Frontmatter Schema Documentation
-version: 'v2.3.1'
-last_updated: '2026-06-19'
+version: v2.3.2
+last_updated: '2026-08-21'
 author: LightSpeedWP
 maintainer: Ash Shaw
-description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter
-  schema, including GitHub templates, AI configurations, and validation guidelines.
+description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter schema, including GitHub templates, AI configurations, and validation guidelines.
 tags:
-- lightspeed
-- schema
-- frontmatter
-- governance
-- github
-- copilot
-- claude
-- gemini
+  - lightspeed
+  - schema
+  - frontmatter
+  - governance
+  - github
+  - copilot
+  - claude
+  - gemini
 stability: stable
 domain: governance
 ---
@@ -837,4 +836,4 @@ npm run validate:frontmatter
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

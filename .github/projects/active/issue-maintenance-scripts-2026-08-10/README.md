@@ -316,6 +316,12 @@ scripts/automation/
 - `.github/labels.yml` — Canonical label definitions
 - `docs/ISSUE_TRIAGE_AUTOMATION.md` — Related triage system
 
+**Phase 5 Subprojects:**
+
+- [issue-maintenance-phase-5-planning-2026-08-11](./.github/projects/active/issue-maintenance-phase-5-planning-2026-08-11/) — Phase 5.1: Integration Testing Planning
+- [issue-maintenance-phase-5-2-staging-2026-08-12](./.github/projects/active/issue-maintenance-phase-5-2-staging-2026-08-12/) — Phase 5.2: Staging Validation & Performance Testing
+- [issue-maintenance-phase-5-3-production-readiness-2026-08-12](./.github/projects/active/issue-maintenance-phase-5-3-production-readiness-2026-08-12/) — Phase 5.3: Production Readiness Checklist
+
 ---
 
 ## Completed Work

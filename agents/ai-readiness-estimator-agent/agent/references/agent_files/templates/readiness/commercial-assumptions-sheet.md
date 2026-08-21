@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
-title: "Commercial Assumptions Sheet"
-audience: "internal"
-document_type: "commercial-assumptions"
-status: "template"
-language: "en-GB"
+version: 1.0.1
+title: Commercial Assumptions Sheet
+audience: internal
+document_type: commercial-assumptions
+status: template
+language: en-GB
 ---
 
 # Commercial Assumptions Sheet
@@ -117,4 +117,4 @@ Use this section to flag anything that needs special commercial review before re
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

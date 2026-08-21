@@ -1,12 +1,6 @@
 ---
 name: technical-seo-audit
-description: audit technical SEO readiness for lightspeed website projects using website
-  urls, crawl exports, sitemap lists, redirect maps, metadata samples, launch checklists,
-  staging or live observations, and developer notes. use when the user asks for a
-  technical SEO audit, crawlability or indexation review, canonicals review, metadata
-  QA, migration SEO risk review, internal linking risk review, sitemap and robots
-  checks, structured-data validation notes, or a prioritised technical SEO fix list
-  before or after launch.
+description: audit technical SEO readiness for lightspeed website projects using website urls, crawl exports, sitemap lists, redirect maps, metadata samples, launch checklists, staging or live observations, and developer notes. use when the user asks for a technical SEO audit, crawlability or indexation review, canonicals review, metadata QA, migration SEO risk review, internal linking risk review, sitemap and robots checks, structured-data validation notes, or a prioritised technical SEO fix list before or after launch.
 ---
 
 # LightSpeed Technical SEO Auditor
@@ -259,4 +253,4 @@ Weak example:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

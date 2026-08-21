@@ -111,4 +111,4 @@ Outputs should be practical, evidence-led and ready to paste into a project pack
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

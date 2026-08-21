@@ -1,11 +1,11 @@
 ---
-title: "Needs Reproduction Saved Reply"
-description: "Linear-first request for the minimum reproducible evidence needed to investigate an issue."
-category: "Issue Management"
+title: Needs Reproduction Saved Reply
+description: Linear-first request for the minimum reproducible evidence needed to investigate an issue.
+category: Issue Management
 labels:
   - status:needs-reproduction
 references:
-  - "../../canonical/ISSUE_CREATION_GUIDE.md"
+  - ../../canonical/ISSUE_CREATION_GUIDE.md
 ---
 
 # Needs Reproduction Saved Reply
@@ -31,4 +31,4 @@ Once we can reproduce the behavior, we can continue investigation and route the 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

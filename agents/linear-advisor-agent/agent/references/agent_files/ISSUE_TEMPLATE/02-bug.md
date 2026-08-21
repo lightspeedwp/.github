@@ -1,8 +1,11 @@
 ---
-name: "🐛 Bug report"
+name: 🐛 Bug report
 about: Report a bug to help us improve this WordPress project
-title: "[Bug] <Short description>"
-labels: [status:needs-triage, priority:normal, area:core]
+title: '[Bug] <Short description>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
 ---
 
 <!--
@@ -103,4 +106,4 @@ Use correct branch prefix (fix/) for any related PR.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*
