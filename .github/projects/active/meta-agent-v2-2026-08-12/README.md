@@ -49,7 +49,7 @@ Currently:
 
 **Duration:** 2026-08-12 (1 day)  
 **Owner:** Ash Shaw  
-**PR:** [#1893](https://github.com/lightspeedwp/.github/pull/1893)
+**PR:** [#1893](https://github.com/lightspeedwp/.github/pull/1893) ✅ MERGED
 
 **Deliverables:**
 
@@ -74,122 +74,160 @@ Currently:
 - UK English enforcement
 - File-level opt-out markers
 
-**Status:** ✅ Phase 1 complete, awaiting merge (PR #1893 under review)
+**Status:** ✅ Phase 1 complete & merged to develop
 
-### Phase 2: Validation & Testing
+### Phase 2A: Skills Implementation ✅ COMPLETE
 
-**Duration:** 2026-08-13–2026-08-15 (est. 3 days)  
-**Owner:** TBD  
-**Status:** ⏳ Planned
-
-**Deliverables:**
-
-- [ ] Schema validation test suite
-  - Unit tests for each schema
-  - Sample frontmatter test cases
-  - Error message validation
-- [ ] Integration tests
-  - Block plugin repo samples
-  - Block theme repo samples
-  - Control-plane file samples
-- [ ] CI/CD validation workflow
-  - GitHub Action for frontmatter validation
-  - Schema validation in pre-commit hooks
-
-**Acceptance Criteria:**
-
-- All four schemas have ≥5 test cases each
-- Test coverage ≥90% for validation logic
-- Integration tests cover all three repo types
-- CI/CD validation runs on PR changes
-
-### Phase 3: Deployment & Distribution
-
-**Duration:** 2026-08-16–2026-08-20 (est. 5 days)  
-**Owner:** TBD  
-**Status:** ⏳ Planned
+**Duration:** 2026-08-13–2026-08-15 (3 days)  
+**Owner:** Ash Shaw  
+**PR:** [#2005](https://github.com/lightspeedwp/.github/pull/2005) ✅ MERGED
 
 **Deliverables:**
 
-- [ ] Deployment guide (`DEPLOYMENT.md`)
-  - Three distribution models (single source, federated, auto-sync)
-  - Step-by-step setup for each model
-  - Troubleshooting guide
-- [ ] GitHub Action for auto-sync (optional)
-  - Syncs meta.agent.md to target repos on update
-  - Handles merge conflicts
-  - Reports sync status
-- [ ] Organisation-wide announcement
-  - Slack notification
-  - Documentation link
-  - Getting started guide
+- [x] Core meta-agent skills
+  - `apply-standards.js` — Apply standards to files
+  - `frontmatter-validation.js` — Validate frontmatter
+  - `repo-type-detection.js` — Detect repository type
+- [x] 96/96 unit tests passing (100% coverage)
+- [x] Integration test suite
+- [x] Comprehensive documentation
+
+**Status:** ✅ Phase 2A complete & merged to develop
+
+### Phase 2B: Skills Enhancement ✅ COMPLETE
+
+**Duration:** 2026-08-16–2026-08-18 (3 days)  
+**Owner:** Ash Shaw  
+**PR:** [#2046](https://github.com/lightspeedwp/.github/pull/2046), [#2048](https://github.com/lightspeedwp/.github/pull/2048) ✅ MERGED
+
+**Deliverables:**
+
+- [x] Extended skills implementation (Skills 4-5)
+- [x] 96/96 tests passing with 100% coverage
+- [x] Performance optimizations
+- [x] Error handling improvements
+
+**Status:** ✅ Phase 2B complete & merged to develop
+
+### Phase 2C: CI/CD Integration & Testing ✅ COMPLETE
+
+**Duration:** 2026-08-17–2026-08-21 (5 days)  
+**Owner:** Ash Shaw  
+**PR:** [#2104](https://github.com/lightspeedwp/.github/pull/2104) ✅ MERGED
+
+**Deliverables:**
+
+- [x] GitHub Actions validation workflow (`.github/workflows/meta-agent-validation.yml`)
+  - Triggers on PR changes to meta-agent code
+  - Full test suite (116 tests)
+  - Frontmatter validation for changed markdown files
+  - Codecov integration
+- [x] Pre-commit hook (`scripts/hooks/meta-agent-validate.sh`)
+  - Local validation before commits
+  - Frontmatter schema validation
+  - <1s performance per file
+- [x] Extended integration tests (20+ new tests)
+  - Multi-file updates, badge injection, conflict handling
+  - Large file handling, unicode/special characters
+  - Concurrent operations, error recovery, performance benchmarks
+- [x] 116/116 tests passing
+- [x] Implementation plan & handoff docs
+
+**Status:** ✅ Phase 2C complete & merged to develop (2026-08-21)
+
+### Phase 2D: Release & Documentation 📋 PLANNED
+
+**Duration:** 2026-08-22–2026-08-28 (est. 7 days)  
+**Owner:** TBD  
+**Status:** 📋 Planned
+
+**Deliverables:**
+
+- [ ] v1.0.0 release preparation
+  - Version bump and CHANGELOG
+  - Release notes with all phases
+  - Binary/package distribution (if applicable)
+- [ ] Implementation guide
+  - IMPLEMENTATION_GUIDE.md — Step-by-step setup
+  - Hook configuration guide
+  - Workflow integration instructions
+- [ ] Troubleshooting & FAQ
+  - TROUBLESHOOTING.md — Common issues & fixes
+  - FAQ.md — Frequently asked questions
+  - Support runbook
+- [ ] Team training materials
+  - Usage guide with examples
+  - Video walkthrough (optional)
+  - Slack/documentation links
 
 **Acceptance Criteria:**
 
-- Deployment guide covers all three models
-- Clear step-by-step instructions
-- Auto-sync workflow tested and working
-- Team aware and trained on usage
+- v1.0.0 release tag created
+- Implementation guides complete and tested
+- Team training materials delivered
+- Zero critical issues from Phase 2C
 
-### Phase 4: Real-World Testing & Refinement
+### Phase 3: Pilot Testing & Real-World Validation 📋 PLANNED
 
-**Duration:** 2026-08-21–2026-08-30 (est. 10 days)  
+**Duration:** 2026-08-29–2026-09-06 (est. 9 days)  
 **Owner:** TBD  
-**Status:** ⏳ Planned
+**Status:** 📋 Planned
 
 **Deliverables:**
 
 - [ ] Pilot repo selection (2–3 repos)
-  - Block plugin repo
-  - Block theme repo
-  - Control-plane repo
-- [ ] Pilot testing results
-  - Docs applied with Meta agent
-  - Schema validation feedback
-  - Bug reports and fixes
-- [ ] Schema refinements
-  - Add missing fields based on feedback
-  - Improve validation rules
-  - Update documentation
-- [ ] Integration with existing workflows
-  - Update CLAUDE.md references
-  - Link from agent registry
-  - Add to automation docs
+  - Block plugin repo (e.g., ls-plugin)
+  - Block theme repo (e.g., ls-theme)
+  - Control-plane repo (.github)
+- [ ] Real-world validation testing
+  - Apply Meta agent to pilot repos
+  - Run frontmatter validation
+  - Collect schema feedback
+  - Document issues & fixes
+- [ ] Schema refinements (if needed)
+  - Add missing fields based on real-world usage
+  - Improve validation error messages
+  - Update documentation with examples
+- [ ] Integration testing
+  - Verify hooks work in team workflows
+  - Test with CI/CD pipelines
+  - Validate performance under load
 
 **Acceptance Criteria:**
 
 - Pilot testing completed on 3 repos
-- Zero critical bugs in Phase 2/3 deliverables
-- Schema updated with real-world feedback
-- Team feedback incorporated
+- Zero critical bugs in Phase 2 deliverables
+- Schema validated with real-world data
+- Team feedback documented & incorporated
+- Ready for organisation-wide rollout
 
-### Phase 5: Organisation-Wide Rollout
+### Phase 4: Organisation-Wide Rollout 🔵 FUTURE
 
-**Duration:** 2026-09-01 onwards (ongoing)  
+**Duration:** 2026-09-07 onwards (ongoing)  
 **Owner:** TBD  
-**Status:** ⏳ Future
+**Status:** 🔵 Future
 
 **Deliverables:**
 
 - [ ] Organisation-wide adoption
-  - Meta agent copied to all WordPress repos
-  - Schemas documented in each repo
-  - Team training completed
+  - Meta agent distributed to all WordPress repos
+  - Frontmatter validation enabled in CI/CD
+  - Team trained on usage
 - [ ] Metrics & monitoring
-  - Track schema validation adoption
-  - Monitor error reports
-  - Gather team feedback
+  - Track validation adoption across repos
+  - Monitor error reports & issues
+  - Gather team feedback & satisfaction
 - [ ] Continuous improvement
-  - Regular schema updates
-  - Community feedback incorporation
+  - Regular schema updates based on feedback
   - Documentation improvements
+  - Performance optimizations
 
 **Acceptance Criteria:**
 
-- All WordPress repos have Meta agent installed
-- Frontmatter validation running in CI/CD
-- Team reports positive feedback
-- Zero critical issues in production
+- ≥80% of WordPress repos using Meta agent
+- 100% of new PRs pass frontmatter validation
+- Team satisfaction ≥8/10 in post-launch survey
+- ≤1 critical issue per month in production
 
 ## Repo Type Specifications
 
@@ -318,15 +356,18 @@ Meta agent detects repo type (in order):
 
 ## Related Issues
 
-This project is tracked across multiple GitHub issues. Phase 1 is delivered in PR #1893; subsequent phase epics will be created once Phase 1 is merged.
+This project is tracked across multiple GitHub pull requests and issues. All Phase 2 work (2A–2C) has been merged to develop.
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1893](https://github.com/lightspeedwp/.github/pull/1893) | PR | Meta Agent v2.0 implementation & schemas | 🟡 Review |
-| Phase 2 Epic | epic | Validation & Testing (Aug 13–15, 3 days) | 🔵 Planned |
-| Phase 3 Epic | epic | Deployment & Distribution (Aug 16–20, 5 days) | 🔵 Planned |
-| Phase 4 Epic | epic | Real-World Testing & Refinement (Aug 21–30, 10 days) | 🔵 Planned |
-| Phase 5 Epic | epic | Organisation-Wide Rollout (Sep 1+, ongoing) | 🔵 Future |
+| [#1893](https://github.com/lightspeedwp/.github/pull/1893) | PR | Phase 1: Meta Agent v2.0 implementation & schemas | ✅ MERGED |
+| [#2005](https://github.com/lightspeedwp/.github/pull/2005) | PR | Phase 2A: Core skills implementation (96 tests) | ✅ MERGED |
+| [#2046](https://github.com/lightspeedwp/.github/pull/2046) | PR | Phase 2B: Extended skills (Skills 4-5, Part 1) | ✅ MERGED |
+| [#2048](https://github.com/lightspeedwp/.github/pull/2048) | PR | Phase 2B: Extended skills (Skills 4-5, Part 2) | ✅ MERGED |
+| [#2104](https://github.com/lightspeedwp/.github/pull/2104) | PR | Phase 2C: CI/CD integration & testing (116 tests) | ✅ MERGED |
+| #2173 (TBD) | issue | Phase 2D: Release & Documentation Planning | 📋 Planned |
+| #2174 (TBD) | issue | Phase 3: Pilot Testing & Real-World Validation | 📋 Planned |
+| #2175 (TBD) | issue | Phase 4: Organisation-Wide Rollout | 🔵 Future |
 
 **See:** [PLANNING.md](./PLANNING.md) for detailed phase breakdown and task list.
 
@@ -336,8 +377,10 @@ This project is tracked across multiple GitHub issues. Phase 1 is delivered in P
 |------|-------|-------|
 | **Project Lead** | Ash Shaw | <ashley@lightspeedwp.agency> |
 | **Phase 1 Owner** | Ash Shaw | <ashley@lightspeedwp.agency> |
-| **Phase 2 Owner** | TBD | TBD |
+| **Phase 2A–2C Owner** | Ash Shaw | <ashley@lightspeedwp.agency> |
+| **Phase 2D Owner** | TBD | TBD |
 | **Phase 3 Owner** | TBD | TBD |
+| **Phase 4 Owner** | TBD | TBD |
 | **Maintainer** | lightspeedwp/maintainers | — |
 
 ## Dependencies
@@ -373,19 +416,22 @@ This project is tracked across multiple GitHub issues. Phase 1 is delivered in P
 ## Project Timeline
 
 ```
-Phase 1: Design & Schemas      |████| ✅ 2026-08-12
-Phase 2: Validation & Testing  |    | ⏳ 2026-08-13–08-15
-Phase 3: Deployment            |    | ⏳ 2026-08-16–08-20
-Phase 4: Real-World Testing    |    | ⏳ 2026-08-21–08-30
-Phase 5: Organisation Rollout  |    | 🔵 2026-09-01+
+Phase 1: Design & Schemas         |████| ✅ 2026-08-12
+Phase 2A: Core Skills             |████| ✅ 2026-08-13–08-15
+Phase 2B: Extended Skills         |████| ✅ 2026-08-16–08-18
+Phase 2C: CI/CD Integration       |████| ✅ 2026-08-17–08-21
+Phase 2D: Release & Docs          |    | ⏳ 2026-08-22–08-28
+Phase 3: Pilot Testing            |    | ⏳ 2026-08-29–09-06
+Phase 4: Organisation-Wide Rollout |    | 🔵 2026-09-07+
 ```
 
 ## How to Contribute
 
-1. **Phase 2 (Validation):** Test schemas, write test cases, build CI validation
-2. **Phase 3 (Deployment):** Create deployment guide, auto-sync workflow
-3. **Phase 4 (Testing):** Pilot in 2–3 repos, gather feedback
-4. **Phase 5 (Rollout):** Deploy to all WordPress repos, monitor adoption
+1. **Phase 2D (Release & Docs):** Create implementation guide, troubleshooting docs, team training materials
+2. **Phase 3 (Pilot Testing):** Test in 2–3 repos, gather feedback, refine schemas
+3. **Phase 4 (Rollout):** Deploy to all WordPress repos, monitor adoption, support team
+
+**Next Phase:** Phase 2D (Release & Documentation) begins 2026-08-22. See [PLANNING.md](./PLANNING.md) for detailed task breakdown.
 
 See [AGENTS.md](./AGENTS.md) for contribution guidelines.
 
