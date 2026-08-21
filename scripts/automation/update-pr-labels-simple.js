@@ -167,7 +167,10 @@ async function processPRs() {
   }
 }
 
+// Export functions for testing
+export { determineStatus, processPRs };
+
 // Only run if this file is being executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   processPRs();
 }
