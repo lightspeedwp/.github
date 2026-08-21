@@ -342,6 +342,9 @@ async function main() {
 }
 
 // Only run main if not in a test environment
-if (!process.env.NODE_ENV?.includes('test') && process.argv[1]?.endsWith('update-pr-changelog-review.js')) {
+if (
+  !process.env.NODE_ENV?.includes("test") &&
+  process.argv[1]?.endsWith("update-pr-changelog-review.js")
+) {
   main();
 }

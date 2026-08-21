@@ -2,7 +2,10 @@
  * Tests for update-pr-changelog-review.js
  */
 
-import { determinePRStatus, getNextStatusLabel } from "../update-pr-changelog-review.js";
+import {
+  determinePRStatus,
+  getNextStatusLabel,
+} from "../update-pr-changelog-review.js";
 
 // Mock Octokit
 jest.mock("octokit", () => {
