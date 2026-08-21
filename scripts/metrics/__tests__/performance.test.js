@@ -35,8 +35,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
 
       // Simulate parallel collection
       repos.forEach(() => {
-        // Mock collection
-        const data = { issues: { total: Math.random() * 100 } };
+        // Mock collection (data not used in simple performance test)
       });
 
       const elapsed = Date.now() - startTime;
@@ -48,13 +47,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
     test('metrics enrichment should be <100ms per repository', () => {
       const startTime = Date.now();
 
-      // Simulate enrichment with context/timestamp
-      const metrics = {
-        issues: { total: 42, closed: 35 },
-        timestamp: new Date().toISOString(),
-        context: 'github-control-plane',
-        collectionTime: 2500,
-      };
+      // Simulate enrichment with context/timestamp (metrics not used in simple perf test)
 
       const elapsed = Date.now() - startTime;
 
@@ -76,8 +69,8 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
           })),
       };
 
-      // Simulate write
-      const serialized = JSON.stringify(storage);
+      // Simulate write (serialized not used in simple performance test)
+      JSON.stringify(storage);
 
       const elapsed = Date.now() - startTime;
 
@@ -95,7 +88,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
           metrics: { issues: { total: 40 + i }, pullRequests: { total: 25 + i } },
         }));
 
-      const filtered = history.filter((h) => h.week > 0);
+      history.filter((h) => h.week > 0);
 
       const elapsed = Date.now() - startTime;
 
@@ -114,12 +107,9 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
           issues: { total: 40 + Math.sin(i / 10) * 10 },
         }));
 
-      // Calculate trends
-      const trends = {
-        issuesTrend:
-          history[history.length - 1].issues.total - history[history.length - 2].issues.total,
-        velocity: history.slice(-4).reduce((sum, h) => sum + h.issues.total, 0) / 4,
-      };
+      // Calculate trends (not used in simple performance test)
+      history[history.length - 1].issues.total - history[history.length - 2].issues.total;
+      history.slice(-4).reduce((sum, h) => sum + h.issues.total, 0) / 4;
 
       const elapsed = Date.now() - startTime;
 
@@ -152,8 +142,8 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
     test('report generation should be <2 seconds per repository', () => {
       const startTime = Date.now();
 
-      // Simulate report generation
-      const report = `# Report
+      // Simulate report generation (report not used in simple performance test)
+      `# Report
 ## Section 1
 Content about metrics
 ## Section 2

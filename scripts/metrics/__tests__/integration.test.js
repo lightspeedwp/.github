@@ -326,8 +326,8 @@ describe('Metrics Agent Phase 2 - Integration Tests', () => {
     test('report generation should be fast', async () => {
       const startTime = Date.now();
 
-      // Simulate report generation
-      const report = `# Report\n## Section 1\nContent`;
+      // Simulate report generation (report not used in simple performance test)
+      `# Report\n## Section 1\nContent`;
 
       const elapsed = Date.now() - startTime;
 

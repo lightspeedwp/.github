@@ -221,7 +221,7 @@ async function main() {
   console.log(`🧪 Dry run: ${dryRun}`);
 
   const orchestrator = new MetricsCollectionOrchestrator(configPath);
-  const summary = await orchestrator.run();
+  await orchestrator.run();
 
   // In dry-run mode, report but don't commit
   if (dryRun) {

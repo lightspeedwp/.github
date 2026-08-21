@@ -148,7 +148,7 @@ async function main() {
   console.log(`📦 Include Archive: ${includeArchive}`);
 
   const orchestrator = new MetricsReportingOrchestrator();
-  const summary = await orchestrator.run(reportType);
+  await orchestrator.run(reportType);
 
   process.exit(0);
 }

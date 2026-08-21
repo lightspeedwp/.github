@@ -188,7 +188,7 @@ describe('MetricsCollectionOrchestrator', () => {
       },
     ];
 
-    const summary = orchestrator.generateSummary();
+    orchestrator.generateSummary();
 
     // Verify summary file exists
     const expectedPath = path.join(
