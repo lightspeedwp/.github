@@ -40,6 +40,7 @@ Load only the smallest file set needed for the task.
 - `../scripts/validate_payload.py` — local payload structure and JSON validator when file access is available.
 - `../scripts/validate_content_model.py` — local content-model boundary validator for core, extensions, relationship sources and schema assumptions.
 - `../scripts/validate_output_contracts.py` — local markdown/template validator for output contracts and delivery templates.
+
 ## Visual Workflow
 
 ```mermaid

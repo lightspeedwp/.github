@@ -62,6 +62,7 @@ Store durable reference material that explains how this agent is rebuilt, verifi
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

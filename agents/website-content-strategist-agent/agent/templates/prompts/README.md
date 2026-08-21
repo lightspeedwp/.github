@@ -99,6 +99,7 @@ This outline reflects only the prompt files currently grounded in the visible fi
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

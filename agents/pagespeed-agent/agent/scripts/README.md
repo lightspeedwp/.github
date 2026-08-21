@@ -50,6 +50,7 @@ They do not fully validate the final Google Doc after creation. For Google Docs,
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

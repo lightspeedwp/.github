@@ -63,6 +63,7 @@ This folder contains worked examples that show the expected shape, level of deta
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

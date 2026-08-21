@@ -76,6 +76,7 @@ Keep this outline aligned to the files actually attached in the current draft. I
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

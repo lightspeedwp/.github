@@ -58,6 +58,7 @@ Use `/docs/output-template-library.md` when deciding which installed template st
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

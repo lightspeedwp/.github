@@ -62,6 +62,7 @@ If `references/README.md` is the only file in this folder, treat the folder as r
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

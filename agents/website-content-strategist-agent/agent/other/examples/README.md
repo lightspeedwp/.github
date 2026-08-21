@@ -52,6 +52,7 @@ This folder stores structural examples that demonstrate what compliant outputs s
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

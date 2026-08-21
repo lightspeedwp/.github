@@ -71,6 +71,7 @@ This folder stores reusable output templates and document scaffolds for Design P
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

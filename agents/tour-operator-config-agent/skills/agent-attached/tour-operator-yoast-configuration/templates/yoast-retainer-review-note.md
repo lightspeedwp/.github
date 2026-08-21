@@ -2,19 +2,19 @@
 
 ## Month or period
 
-- 
+-
 
 ## What changed
 
-- 
+-
 
 ## Risks
 
-- 
+-
 
 ## Recommended next actions
 
-- 
+-
 
 ---
 

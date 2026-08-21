@@ -49,6 +49,7 @@ python scripts/validate_markdown_content.py \
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

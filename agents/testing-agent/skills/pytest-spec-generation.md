@@ -23,6 +23,7 @@ The pytest Specification Generation skill enables the Testing Agent to create co
 ### When to Use This Skill
 
 **Use pytest when:**
+
 - Building Python applications or packages
 - Need powerful fixture management
 - Require parametrized testing capabilities
@@ -32,6 +33,7 @@ The pytest Specification Generation skill enables the Testing Agent to create co
 - Testing data science and ML pipelines
 
 **pytest is particularly strong for:**
+
 - Complex fixture hierarchies and setup/teardown
 - Parametrized tests with multiple data sets
 - Async/await and asyncio testing
@@ -63,6 +65,7 @@ pip install pytest-cov coverage
 ### Configuration Files
 
 **pytest.ini** (Basic)
+
 ```ini
 [pytest]
 minversion = 7.0
@@ -79,6 +82,7 @@ markers =
 ```
 
 **conftest.py** (Project-level fixtures)
+
 ```python
 import pytest
 from datetime import datetime
@@ -107,6 +111,7 @@ def temp_database(tmp_path):
 ```
 
 **setup.cfg** (Alternative configuration)
+
 ```ini
 [tool:pytest]
 minversion = 7.0
@@ -121,6 +126,7 @@ python_files = test_*.py *_test.py
 ```
 
 **pyproject.toml** (Modern approach)
+
 ```toml
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -162,6 +168,7 @@ pytest -n auto
 ### Example 1: Basic Unit Test
 
 **File:** `src/calculator.py`
+
 ```python
 def add(a, b):
     """Add two numbers"""
@@ -175,6 +182,7 @@ def divide(a, b):
 ```
 
 **Test:** `tests/test_calculator.py`
+
 ```python
 import pytest
 from src.calculator import add, divide
@@ -200,6 +208,7 @@ class TestCalculator:
 ### Example 2: Testing with Fixtures and Parametrization
 
 **File:** `src/user_validator.py`
+
 ```python
 class UserValidator:
     def is_valid_email(self, email):
@@ -210,6 +219,7 @@ class UserValidator:
 ```
 
 **Test:** `tests/test_user_validator.py`
+
 ```python
 import pytest
 from src.user_validator import UserValidator
@@ -244,6 +254,7 @@ class TestUserValidator:
 ### Example 3: Testing Async Code
 
 **File:** `src/async_api.py`
+
 ```python
 import asyncio
 
@@ -260,6 +271,7 @@ async def fetch_multiple_users(user_ids):
 ```
 
 **Test:** `tests/test_async_api.py`
+
 ```python
 import pytest
 from src.async_api import fetch_user, fetch_multiple_users
@@ -286,6 +298,7 @@ async def test_fetch_multiple_users_concurrent():
 ### Example 4: Database Testing with Fixtures
 
 **File:** `src/database.py`
+
 ```python
 class Database:
     def __init__(self, connection):
@@ -309,6 +322,7 @@ class Database:
 ```
 
 **Test:** `tests/test_database.py`
+
 ```python
 import pytest
 import sqlite3
@@ -361,6 +375,7 @@ class TestDatabase:
 ### Example 5: Mocking External API Calls
 
 **File:** `src/weather_service.py`
+
 ```python
 import requests
 
@@ -380,6 +395,7 @@ class WeatherService:
 ```
 
 **Test:** `tests/test_weather_service.py`
+
 ```python
 import pytest
 from unittest.mock import patch, MagicMock
@@ -421,6 +437,7 @@ class TestWeatherService:
 ## Best Practices
 
 1. **Use Fixtures Over Setup/Teardown** — DRY principle for test data
+
    ```python
    # ✅ Good: Use fixtures
    @pytest.fixture
@@ -433,6 +450,7 @@ class TestWeatherService:
    ```
 
 2. **Parametrize Tests** — Test multiple scenarios with one test
+
    ```python
    # ✅ Good: Parametrize
    @pytest.mark.parametrize('input,expected', [(2, 4), (3, 6)])
@@ -441,6 +459,7 @@ class TestWeatherService:
    ```
 
 3. **Descriptive Test Names** — Names should explain what is tested
+
    ```python
    # ✅ Good
    def test_user_validation_fails_with_invalid_email():
@@ -452,6 +471,7 @@ class TestWeatherService:
    ```
 
 4. **Use Markers** — Organize tests by category
+
    ```python
    @pytest.mark.unit
    def test_add(): pass
@@ -463,6 +483,7 @@ class TestWeatherService:
    ```
 
 5. **Keep Fixtures Focused** — One responsibility per fixture
+
    ```python
    # ✅ Good: Single responsibility
    @pytest.fixture
@@ -476,6 +497,7 @@ class TestWeatherService:
    ```
 
 6. **Use context() for Setup/Teardown** — More flexible than fixtures
+
    ```python
    def test_with_cleanup():
        resource = create_resource()
@@ -486,6 +508,7 @@ class TestWeatherService:
    ```
 
 7. **Test Edge Cases** — Include boundary conditions and errors
+
    ```python
    @pytest.mark.parametrize('value', [0, -1, float('inf'), None])
    def test_edge_cases(value):
@@ -494,6 +517,7 @@ class TestWeatherService:
    ```
 
 8. **Use pytest-mock** — Better than unittest.mock for pytest
+
    ```python
    # ✅ Good: Use mocker fixture
    def test_with_mock(mocker):
@@ -502,6 +526,7 @@ class TestWeatherService:
    ```
 
 9. **Async Tests with pytest-asyncio** — Proper async testing
+
    ```python
    @pytest.mark.asyncio
    async def test_async_operation():
@@ -510,6 +535,7 @@ class TestWeatherService:
    ```
 
 10. **Run Tests Frequently** — Integrate into development workflow
+
     ```bash
     # Watch mode during development
     ptw
@@ -551,17 +577,20 @@ This skill integrates with the Testing Agent's multi-framework architecture:
 ## References
 
 ### Official Documentation
+
 - [pytest Documentation](https://docs.pytest.org/)
 - [pytest Fixtures](https://docs.pytest.org/en/stable/fixture.html)
 - [pytest Parametrize](https://docs.pytest.org/en/stable/how-to-parametrize.html)
 - [pytest-asyncio](https://pytest-asyncio.readthedocs.io/)
 
 ### Testing Patterns
+
 - [Python Testing Best Practices](https://realpython.com/pytest-python-testing/)
 - [Pytest with Django](https://pytest-django.readthedocs.io/)
 - [Async Testing Guide](https://docs.pytest.org/en/stable/how-to-parametrize.html#pytest-mark-asyncio)
 
 ### Related Skills
+
 - [[jest-spec-generation]] — JavaScript testing with Jest
 - [[phpunit-spec-generation]] — PHP testing with PHPUnit
 - [[playwright-spec-generation]] — E2E testing with Playwright

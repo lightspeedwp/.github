@@ -71,6 +71,7 @@ This folder stores structured definitions for repeatable Design Partner outputs.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -7,6 +7,7 @@ Store concise, source-backed facts. Do not store credentials, secrets, raw dumps
 ---
 
 *🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
+
 ## Visual Workflow
 
 ```mermaid

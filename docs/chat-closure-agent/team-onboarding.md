@@ -27,6 +27,7 @@ The Chat Closure Agent automates session handoffs for AI-powered development wor
 ### Why Use It?
 
 **Before:** Manual context gathering
+
 ```
 1. What branch was I on? 
 2. What commits did I make?
@@ -37,6 +38,7 @@ The Chat Closure Agent automates session handoffs for AI-powered development wor
 ```
 
 **After:** Automated context capture
+
 ```
 node close-session.js --session "my-session"
 → 30 seconds, complete context preserved
@@ -68,17 +70,20 @@ git config user.email
 ```
 
 **If anything is missing:**
+
 - [Install Node.js](https://nodejs.org/): Download 18 LTS or newer
 - [Configure git](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
 
 ### Step 2: Get the Agent
 
 **Option A: From npm registry (if published)**
+
 ```bash
 npm install @lightspeedwp/chat-closure-agent
 ```
 
 **Option B: From source**
+
 ```bash
 # In your repo
 cp -r /path/to/agents/chat-closure-agent ./tools/
@@ -459,18 +464,21 @@ A: See [Integration Guide](./integration-guide.md)
 ## Part 8: Team Adoption Checklist
 
 ### Preparation (1 day)
+
 - [ ] Install Chat Closure Agent
 - [ ] Create team scripts directory
 - [ ] Set up team memory location
 - [ ] Document naming conventions
 
 ### Training (1 week)
+
 - [ ] Share this onboarding guide
 - [ ] Demonstrate on team call
 - [ ] Have team members create first session
 - [ ] Review each other's sessions
 
 ### Rollout (ongoing)
+
 - [ ] Use in all projects
 - [ ] Share best practices
 - [ ] Refine team standards
@@ -481,10 +489,12 @@ A: See [Integration Guide](./integration-guide.md)
 ## Part 9: Team Meeting Script (20 minutes)
 
 **Slide 1: Introduction (2 min)**
+
 - Show the problem: lost context, slow handoffs
 - Introduce the solution: Chat Closure Agent
 
 **Slide 2: Demo (8 min)**
+
 ```bash
 # Live demo
 cd /sample/project
@@ -494,11 +504,13 @@ cat .remember/demo-session.md
 ```
 
 **Slide 3: Q&A (5 min)**
+
 - When should we use it?
 - How detailed should decisions be?
 - Can we see each other's sessions?
 
 **Slide 4: Next Steps (5 min)**
+
 - Everyone creates their first session today
 - We'll review them tomorrow
 - Starting tomorrow, close all sessions before logging off
@@ -570,6 +582,7 @@ grep "author:" .remember/*.md | sort -u | wc -l
 **Ready to train your team?** Print the quick reference, run the meeting, and watch your handoff time drop to 2 minutes! 🚀
 
 For more details, see:
+
 - [Quick Start](./quick-start.md) — Individual setup
 - [CLI Reference](./cli-reference.md) — Command options
 - [Integration Guide](./integration-guide.md) — Organization setup

@@ -55,6 +55,7 @@ Keep this folder focused on reusable, WordPress-backed tour operator website out
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

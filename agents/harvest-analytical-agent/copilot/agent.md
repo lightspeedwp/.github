@@ -17,6 +17,7 @@ integration: 'copilot-chat'
 The GitHub Copilot implementation of the Harvest Analytical Agent integrates directly with GitHub's development environment, providing intelligent assistance within code editors and pull requests.
 
 Copilot excels at:
+
 - **GitHub Projects integration** – Manage issues and projects
 - **Code analysis** – Review and improve code
 - **Workflow automation** – Trigger GitHub Actions
@@ -36,9 +37,11 @@ Skills are triggered using @ mentions in Copilot Chat:
 ## Skill Implementation
 
 ### @harvest-profitability
+
 Analyzes project profitability including margins, ROI, and cost drivers.
 
 **Usage:**
+
 ```
 @harvest-profitability Analyze Q3 profitability for Website Redesign project
 - Show: Gross margin, cost breakdown, revenue comparison
@@ -47,9 +50,11 @@ Analyzes project profitability including margins, ROI, and cost drivers.
 ```
 
 ### @harvest-productivity
+
 Calculates team productivity metrics and identifies efficiency patterns.
 
 **Usage:**
+
 ```
 @harvest-productivity Team productivity report for backend team
 - Period: Last quarter
@@ -58,9 +63,11 @@ Calculates team productivity metrics and identifies efficiency patterns.
 ```
 
 ### @harvest-budget
+
 Tracks project budget performance and forecasts final costs.
 
 **Usage:**
+
 ```
 @harvest-budget Mobile App project budget status
 - Current spend vs. budget
@@ -70,9 +77,11 @@ Tracks project budget performance and forecasts final costs.
 ```
 
 ### @harvest-report
+
 Generates comprehensive analytics reports in multiple formats.
 
 **Usage:**
+
 ```
 @harvest-report Executive summary report for Q3
 - Include: Key metrics, profitability, team performance
@@ -81,9 +90,11 @@ Generates comprehensive analytics reports in multiple formats.
 ```
 
 ### @harvest-insights
+
 Extracts strategic business insights from data analysis.
 
 **Usage:**
+
 ```
 @harvest-insights What are our biggest cost drivers?
 - Analyze: Last 6 months data
@@ -92,9 +103,11 @@ Extracts strategic business insights from data analysis.
 ```
 
 ### @harvest-forecast
+
 Projects future performance based on historical trends.
 
 **Usage:**
+
 ```
 @harvest-forecast Q4 revenue and profitability forecast
 - Based on: Historical trends, pipeline
@@ -107,6 +120,7 @@ Projects future performance based on historical trends.
 Copilot provides responses optimized for GitHub:
 
 ### Profitability Analysis Response
+
 ```markdown
 ## Project Profitability: Website Redesign
 
@@ -127,6 +141,7 @@ Copilot provides responses optimized for GitHub:
 ```
 
 ### Budget Report Response
+
 ```markdown
 ## Budget Status: Mobile App
 
@@ -143,6 +158,7 @@ Copilot provides responses optimized for GitHub:
 ```
 
 ### Team Productivity Response
+
 ```markdown
 ## Team Performance: Q3
 
@@ -160,6 +176,7 @@ Copilot provides responses optimized for GitHub:
 ## GitHub Integration
 
 Works with:
+
 - **GitHub Projects** – Track tasks and budget
 - **GitHub Discussions** – Share reports and insights
 - **Pull Requests** – Link code to cost/profitability
@@ -169,18 +186,21 @@ Works with:
 ## Workflow Integration
 
 ### PR to Financial Tracking
+
 - Link PRs to project budgets
 - Auto-estimate cost impact
 - Track billable vs. non-billable
 - Update budget status
 
 ### GitHub Actions Automation
+
 - Schedule automated reports
 - Email summary reports
 - Update project dashboards
 - Trigger alerts on overruns
 
 ### Financial Dashboard
+
 - Real-time expense tracking
 - Project profitability dashboard
 - Team productivity metrics
@@ -189,18 +209,21 @@ Works with:
 ## Advanced Integration Patterns
 
 ### Automated Financial Reports
+
 1. Schedule weekly profitability reports
 2. Auto-send to leadership via GitHub
 3. Include variance analysis
 4. Highlight risks and opportunities
 
 ### Project Cost Tracking
+
 1. Estimate effort in PR/issues
 2. Link to Harvest projects
 3. Track cost in real-time
 4. Alert on budget risks
 
 ### Team Performance Tracking
+
 1. Calculate utilization metrics
 2. Track productivity trends
 3. Benchmark against industry

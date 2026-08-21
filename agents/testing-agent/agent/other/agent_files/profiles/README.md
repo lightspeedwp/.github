@@ -62,6 +62,7 @@ This folder contains reusable testing profiles that capture recurring QA posture
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

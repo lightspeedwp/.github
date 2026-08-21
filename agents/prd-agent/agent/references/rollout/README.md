@@ -59,6 +59,7 @@ Store rollout, handoff, rebuild-readiness, and go-live checklists that help anot
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

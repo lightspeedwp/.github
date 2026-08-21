@@ -86,6 +86,7 @@ This folder stores reusable maintenance and cleanup prompts for Design Partner.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

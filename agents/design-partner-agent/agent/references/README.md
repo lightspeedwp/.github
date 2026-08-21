@@ -42,6 +42,7 @@ Use these references when a request depends on workflow standards, handoff conve
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

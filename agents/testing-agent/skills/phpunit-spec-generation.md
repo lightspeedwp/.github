@@ -23,6 +23,7 @@ The PHPUnit Specification Generation skill enables the Testing Agent to create c
 ### When to Use This Skill
 
 **Use PHPUnit when:**
+
 - Building PHP applications or plugins
 - Testing WordPress plugins and themes
 - Building WooCommerce extensions
@@ -32,6 +33,7 @@ The PHPUnit Specification Generation skill enables the Testing Agent to create c
 - Need comprehensive mocking capabilities
 
 **PHPUnit is particularly strong for:**
+
 - WordPress plugin development
 - WooCommerce product/cart/order testing
 - Database query testing with transactions
@@ -59,6 +61,7 @@ composer require --dev mockery/mockery
 ### Configuration Files
 
 **phpunit.xml** (Basic)
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -97,6 +100,7 @@ composer require --dev mockery/mockery
 ```
 
 **phpunit.xml** (WordPress)
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
@@ -125,6 +129,7 @@ composer require --dev mockery/mockery
 ```
 
 **tests/bootstrap.php**
+
 ```php
 <?php
 // Define test environment
@@ -164,6 +169,7 @@ require_once WP_TESTS_DIR . '/includes/bootstrap.php';
 ### Example 1: Basic Unit Test
 
 **File:** `src/Calculator.php`
+
 ```php
 <?php
 
@@ -182,6 +188,7 @@ class Calculator {
 ```
 
 **Test:** `tests/Unit/CalculatorTest.php`
+
 ```php
 <?php
 
@@ -221,6 +228,7 @@ class CalculatorTest extends TestCase {
 ### Example 2: Testing with Mocks
 
 **File:** `src/UserService.php`
+
 ```php
 <?php
 
@@ -252,6 +260,7 @@ class UserService {
 ```
 
 **Test:** `tests/Unit/UserServiceTest.php`
+
 ```php
 <?php
 
@@ -322,6 +331,7 @@ class UserServiceTest extends TestCase {
 ### Example 3: WordPress Plugin Testing
 
 **File:** `plugin/class-product-manager.php`
+
 ```php
 <?php
 
@@ -345,6 +355,7 @@ class Product_Manager {
 ```
 
 **Test:** `tests/class-product-manager-test.php`
+
 ```php
 <?php
 
@@ -384,6 +395,7 @@ class Product_Manager_Test extends WP_UnitTestCase {
 ### Example 4: Testing Database Interactions
 
 **File:** `src/OrderRepository.php`
+
 ```php
 <?php
 
@@ -406,6 +418,7 @@ class OrderRepository {
 ```
 
 **Test:** `tests/Integration/OrderRepositoryTest.php`
+
 ```php
 <?php
 
@@ -453,6 +466,7 @@ class OrderRepositoryTest extends TestCase {
 ### Example 5: Testing with Fixtures and Data Providers
 
 **Test:** `tests/Unit/ValidationTest.php`
+
 ```php
 <?php
 
@@ -495,6 +509,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
 ## Best Practices
 
 1. **Test Naming Convention** — Use `test<FunctionName><Scenario>` or `<functionName>_<scenario>` (BDD style)
+
    ```php
    // ✅ Good
    public function testUpdateProductStockDecrementsQuantity(): void {}
@@ -504,6 +519,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 2. **Setup and Teardown** — Use `setUp()` and `tearDown()` for DRY tests
+
    ```php
    protected function setUp(): void {
        $this->service = new UserService();
@@ -515,6 +531,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 3. **Arrange-Act-Assert** — Organize tests for clarity
+
    ```php
    public function testCalculateDiscount(): void {
        // Arrange
@@ -530,6 +547,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 4. **Mock External Dependencies** — Only mock what's outside your control
+
    ```php
    // ✅ Good: Mock external API
    $apiMock = $this->createMock(PaymentGateway::class);
@@ -539,6 +557,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 5. **Test Edge Cases and Errors** — Include boundary conditions
+
    ```php
    public function testProcessOrderWithEmptyCart(): void {
        $this->expectException(InvalidOrderException::class);
@@ -547,6 +566,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 6. **Use Data Providers** — Test multiple scenarios with one test
+
    ```php
    /**
     * @dataProvider cartTotalProvider
@@ -557,6 +577,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 7. **Database Transactions for Tests** — Use transactions to rollback changes
+
    ```php
    protected function setUp(): void {
        parent::setUp();
@@ -570,6 +591,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 8. **Test Behavior, Not Implementation** — Focus on public interface
+
    ```php
    // ✅ Good: Test public API
    $this->assertEquals('shipped', $order->getStatus());
@@ -579,6 +601,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 9. **Keep Tests Independent** — No test should depend on another
+
    ```php
    // Each test should work in any order
    public function testCreateUser(): void { /* ... */ }
@@ -586,6 +609,7 @@ class ValidationTest extends PHPUnit\Framework\TestCase {
    ```
 
 10. **Use Assertions Effectively** — Choose the right assertion for clarity
+
     ```php
     // ✅ Specific assertions
     $this->assertInstanceOf(User::class, $user);
@@ -626,16 +650,19 @@ This skill integrates with the Testing Agent's multi-framework architecture:
 ## References
 
 ### Official Documentation
+
 - [PHPUnit Documentation](https://phpunit.de/)
 - [PHPUnit Best Practices](https://phpunit.de/manual/current/en/)
 - [WordPress Plugin Testing](https://developer.wordpress.org/plugins/testing/)
 
 ### WordPress/WooCommerce Testing
+
 - [WP-CLI Testing](https://wp-cli.org/)
 - [WooCommerce Testing Guide](https://github.com/woocommerce/woocommerce/wiki/Testing-an-Extension)
 - [WordPress Core Testing](https://develop.wordpress.org/handbook/coding-standards/php/)
 
 ### Related Skills
+
 - [[jest-spec-generation]] — JavaScript testing with Jest
 - [[pytest-spec-generation]] — Python testing with pytest
 - [[playwright-spec-generation]] — E2E testing with Playwright

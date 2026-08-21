@@ -13,7 +13,7 @@
 
 ## Decisions affected
 
-- 
+-
 
 ---
 

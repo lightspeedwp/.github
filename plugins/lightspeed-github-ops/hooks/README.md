@@ -16,6 +16,7 @@ stability: "experimental"
 # Plugin Hooks
 
 Optional plugin-local hooks live here.
+
 ## Visual Workflow
 
 ```mermaid

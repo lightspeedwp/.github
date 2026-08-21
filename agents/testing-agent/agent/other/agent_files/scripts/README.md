@@ -73,6 +73,7 @@ This folder contains validation and maintenance scripts for the Playwright Testi
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -41,7 +41,7 @@
 
 ## Missing evidence
 
-- 
+-
 
 ## Retest checklist
 

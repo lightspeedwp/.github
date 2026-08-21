@@ -51,6 +51,7 @@ Keep these prompts aligned with the current attached file tree. When a prompt re
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

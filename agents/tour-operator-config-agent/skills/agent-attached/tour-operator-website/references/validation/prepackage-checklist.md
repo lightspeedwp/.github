@@ -41,7 +41,6 @@ Use this checklist before returning an updated `skill.zip`.
 
 Return the complete updated package as `skill.zip`, not a partial patch.
 
-
 ## Additional model-boundary check
 
 Before packaging, run:

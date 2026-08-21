@@ -67,6 +67,7 @@ Start with the overall presentation and slide APIs, then drill into content type
 - [`inspect.spec.md](./inspect.spec.md) - load an existing presentation, understand its content and make edits.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
 ## Visual Workflow
 
 ```mermaid

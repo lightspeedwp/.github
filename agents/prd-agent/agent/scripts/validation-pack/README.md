@@ -57,6 +57,7 @@ This folder currently documents the validation layer but does not yet contain th
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

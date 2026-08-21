@@ -63,6 +63,7 @@ This folder is the canonical starter layer for durable planning continuity. Thes
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

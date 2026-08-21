@@ -60,6 +60,7 @@ The agent should create Markdown drafts and downloadable packs by default. It sh
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

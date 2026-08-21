@@ -70,6 +70,7 @@ Do not treat any price or scope as final until the relevant commercial rule file
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

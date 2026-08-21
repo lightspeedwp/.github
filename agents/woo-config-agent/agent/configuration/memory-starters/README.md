@@ -65,6 +65,7 @@ Memory files in this folder should be checked with `schemas/memory-file-validati
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

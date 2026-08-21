@@ -188,6 +188,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines. Key 
 ---
 
 *🎼 Orchestrated automation — where intelligence meets operations*
+
 ## Visual Workflow
 
 ```mermaid

@@ -12,15 +12,15 @@ We reviewed the supplied Yoast SEO evidence for the site and found a small set o
 
 ## Risks in plain English
 
-- 
+-
 
 ## What we need approved
 
-- 
+-
 
 ## QA after changes
 
-- 
+-
 
 ---
 

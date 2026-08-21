@@ -54,6 +54,7 @@ Treat files in `/references` as supporting context unless a file explicitly says
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

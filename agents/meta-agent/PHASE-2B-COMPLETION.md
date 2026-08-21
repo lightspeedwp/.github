@@ -17,11 +17,13 @@ Phase 2B (Skills 4-5) of Meta Agent v2.0 has been successfully implemented with 
 ### ✅ Skills Implemented
 
 #### Skill 4: Apply Standards (200 LOC)
+
 **File:** `skills/apply-standards.js`
 
 Applies comprehensive standards to markdown files:
 
 **Features:**
+
 - ✅ UK English corrections (30+ word forms with proper case handling)
 - ✅ Frontmatter enrichment (status, last_updated, language)
 - ✅ Footer block generation (repo-type-specific)
@@ -31,6 +33,7 @@ Applies comprehensive standards to markdown files:
 
 **UK English Corrections:**
 Converts 30+ US English words to UK English equivalents:
+
 - optimization → optimisation
 - organize → organise
 - behavior → behaviour
@@ -40,6 +43,7 @@ Converts 30+ US English words to UK English equivalents:
 
 **Frontmatter Enrichment:**
 Adds missing fields with sensible defaults:
+
 - `status` → 'active'
 - `last_updated` → ISO date
 - `language` → 'en'
@@ -47,11 +51,13 @@ Adds missing fields with sensible defaults:
 **Test Coverage:** 16 unit tests + 6 integration tests
 
 #### Skill 5: Generate Badges (210 LOC)
+
 **File:** `skills/generate-badges.js`
 
 Creates repository-specific badge blocks:
 
 **Features:**
+
 - ✅ Auto-detects metadata from package.json & composer.json
 - ✅ Generates badges for 3 repo types (block-plugin, block-theme, control-plane)
 - ✅ Injects badges at configurable positions
@@ -60,6 +66,7 @@ Creates repository-specific badge blocks:
 - ✅ Markdown and JSON output formats
 
 **Badge Types:**
+
 - CI Status (GitHub Actions link)
 - License (from package.json/composer.json)
 - Version (with semantic version support)
@@ -80,6 +87,7 @@ All stubs include error handling and support dry-run/JSON output modes.
 ### ✅ Orchestration
 
 **index.js** (100 LOC) — CLI orchestrator with:
+
 - Help system (`--help` flag)
 - JSON output support (`--json` flag)
 - Error handling and validation
@@ -90,6 +98,7 @@ All stubs include error handling and support dry-run/JSON output modes.
 **Total: 96 tests, 100% passing** ✅
 
 #### Unit Tests (70 tests)
+
 - `repo-type-detection.test.js` — 12 tests
 - `frontmatter-validation.test.js` — 11 tests
 - `metadata-extraction.test.js` — 12 tests
@@ -97,6 +106,7 @@ All stubs include error handling and support dry-run/JSON output modes.
 - `generate-badges.test.js` — 20 tests
 
 #### Integration Tests (16 tests)
+
 - `full-workflow.test.js` — Real-world scenarios:
   - Block Plugin Workflow (6 tests)
   - Control-Plane Workflow (3 tests)
@@ -105,6 +115,7 @@ All stubs include error handling and support dry-run/JSON output modes.
   - Error Handling & Edge Cases (3 tests)
 
 #### Test Fixtures
+
 - `sample-block-plugin.json` — Sample block metadata
 - `sample-readme.md` — Sample markdown file with frontmatter
 
@@ -145,6 +156,7 @@ Time:        3.4 seconds
 ## Code Quality
 
 ✅ **All Code Standards Met:**
+
 - ESLint passing (no errors or warnings)
 - UK English throughout (no US spellings)
 - Comprehensive error handling
@@ -154,6 +166,7 @@ Time:        3.4 seconds
 - Clear, descriptive function names and parameters
 
 ✅ **API Consistency:**
+
 - All skills follow same CLI interface pattern
 - Consistent error response format
 - Dry-run mode support across implementations
@@ -162,6 +175,7 @@ Time:        3.4 seconds
 ## Files Created
 
 ### Core Implementation
+
 ```
 agents/meta-agent/
 ├── skills/
@@ -196,12 +210,14 @@ agents/meta-agent/
 ## Key Implementation Highlights
 
 ### 1. Robust UK English Conversion
+
 - 30+ word form mappings (including past tense, plurals, adjectives)
 - Preserves capitalization (Optimise, OPTIMISE, optimise)
 - Word boundary matching to avoid false matches
 - Tested against multiple edge cases
 
 ### 2. Safe File Operations
+
 - Dry-run mode for previewing changes
 - Preserves file structure and content outside metadata blocks
 - Respects opt-out markers
@@ -209,6 +225,7 @@ agents/meta-agent/
 - Error recovery (catches and reports issues without corruption)
 
 ### 3. Flexible Badge Generation
+
 - Auto-detects repo metadata from standard files
 - Generates badges for 3 distinct repo types
 - Prevents duplicate blocks
@@ -216,6 +233,7 @@ agents/meta-agent/
 - Context-aware badge formatting
 
 ### 4. Comprehensive Testing Strategy
+
 - Unit tests for each function in isolation
 - Integration tests for real-world workflows
 - Edge case coverage (malformed files, missing metadata, etc.)
@@ -225,6 +243,7 @@ agents/meta-agent/
 ## Usage Examples
 
 ### Apply UK English & Standards
+
 ```bash
 cd agents/meta-agent
 node index.js apply-standards --filePath README.md --repoType block-plugin --dryRun
@@ -232,12 +251,14 @@ node index.js apply-standards --filePath README.md --repoType block-plugin --dry
 ```
 
 ### Generate and Inject Badges
+
 ```bash
 node index.js generate-badges --repoType block-plugin --filePath README.md --injectTo after-frontmatter
 # Output: Injected badges into README.md
 ```
 
 ### Detect Repo Type
+
 ```bash
 node index.js repo-type-detection
 # Output: Detected repo type: block-plugin
@@ -259,17 +280,20 @@ node index.js repo-type-detection
 ## Next Steps (Phase 2C)
 
 ### Immediate
+
 1. Run full test suite with coverage reporting
 2. Verify on block-plugin and block-theme sample repos
 3. Test dry-run workflow against real repositories
 
 ### Phase 2C Planning (Integration & Testing)
+
 1. **CI/CD Workflow** — GitHub Actions for frontmatter validation
 2. **Pre-commit Hooks** — Local validation before commits
 3. **Automated Remediation** — Suggest fixes for validation errors
 4. **Extended Testing** — Performance benchmarks, compliance validation
 
 ### Phase 2D (Release & Rollout)
+
 1. Version 1.0.0 release with changelog
 2. Team training materials
 3. Organisation-wide adoption rollout
@@ -278,10 +302,12 @@ node index.js repo-type-detection
 ## Dependencies
 
 ### Runtime
+
 - Node.js built-ins: `fs`, `path`
 - `js-yaml` (already in project dependencies)
 
 ### Development
+
 - Jest (configured in project)
 - ESLint (configured in project)
 

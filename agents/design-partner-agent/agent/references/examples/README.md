@@ -76,6 +76,7 @@ Examples are precedent, not automatic truth. They should be updated when the pac
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

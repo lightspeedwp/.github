@@ -214,6 +214,7 @@ For maintenance work, use this structure in order:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

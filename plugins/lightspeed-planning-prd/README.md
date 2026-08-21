@@ -236,6 +236,7 @@ See `.github/agents/prd-agent/README.md` for migration notes.
 ---
 
 **Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!**
+
 ## Visual Workflow
 
 ```mermaid

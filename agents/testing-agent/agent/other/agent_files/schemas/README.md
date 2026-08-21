@@ -65,6 +65,7 @@ This folder contains validation contracts for structured outputs and agent-file 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

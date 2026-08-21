@@ -23,6 +23,7 @@ The Jest Specification Generation skill enables the Testing Agent to create comp
 ### When to Use This Skill
 
 **Use Jest when:**
+
 - Building JavaScript/TypeScript applications
 - Need fast, parallel test execution
 - Require built-in mocking and snapshot testing
@@ -31,6 +32,7 @@ The Jest Specification Generation skill enables the Testing Agent to create comp
 - Want Jest's user-friendly, zero-config experience (for most projects)
 
 **Jest is particularly strong for:**
+
 - Unit testing pure functions and logic
 - Testing React components and hooks
 - Mocking external dependencies and APIs
@@ -59,6 +61,7 @@ npm install --save-dev @babel/preset-react
 ### Configuration Files
 
 **jest.config.js** (Basic)
+
 ```javascript
 module.exports = {
   testEnvironment: 'node',
@@ -80,6 +83,7 @@ module.exports = {
 ```
 
 **jest.config.js** (React/TypeScript)
+
 ```javascript
 module.exports = {
   preset: 'ts-jest',
@@ -98,6 +102,7 @@ module.exports = {
 ```
 
 **jest.setup.js**
+
 ```javascript
 import '@testing-library/jest-dom';
 
@@ -127,6 +132,7 @@ jest.setTimeout(10000);
 ### Example 1: Basic Unit Test
 
 **File:** `src/math.js`
+
 ```javascript
 export function add(a, b) {
   return a + b;
@@ -138,6 +144,7 @@ export function multiply(a, b) {
 ```
 
 **Test:** `src/math.test.js`
+
 ```javascript
 import { add, multiply } from './math';
 
@@ -175,6 +182,7 @@ describe('Math utilities', () => {
 ### Example 2: Testing with Mocks
 
 **File:** `src/api.js`
+
 ```javascript
 export async function fetchUser(userId) {
   const response = await fetch(`/api/users/${userId}`);
@@ -184,6 +192,7 @@ export async function fetchUser(userId) {
 ```
 
 **Test:** `src/api.test.js`
+
 ```javascript
 import { fetchUser } from './api';
 
@@ -229,6 +238,7 @@ describe('API utilities', () => {
 ### Example 3: Testing React Components
 
 **File:** `src/components/Button.jsx`
+
 ```javascript
 import React from 'react';
 
@@ -242,6 +252,7 @@ export function Button({ onClick, children, disabled = false }) {
 ```
 
 **Test:** `src/components/Button.test.jsx`
+
 ```javascript
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -281,6 +292,7 @@ describe('Button component', () => {
 ### Example 4: Testing Async Functions with Fixtures
 
 **File:** `src/database.js`
+
 ```javascript
 export class UserDatabase {
   constructor(client) {
@@ -298,6 +310,7 @@ export class UserDatabase {
 ```
 
 **Test:** `src/database.test.js`
+
 ```javascript
 import { UserDatabase } from './database';
 
@@ -354,6 +367,7 @@ describe('UserDatabase', () => {
 ### Example 5: Snapshot Testing
 
 **File:** `src/components/Card.jsx`
+
 ```javascript
 import React from 'react';
 
@@ -369,6 +383,7 @@ export function Card({ title, description, image }) {
 ```
 
 **Test:** `src/components/Card.test.jsx`
+
 ```javascript
 import React from 'react';
 import { render } from '@testing-library/react';
@@ -405,6 +420,7 @@ describe('Card component', () => {
 ## Best Practices
 
 1. **Descriptive Test Names** — Use clear, specific names that describe what is being tested
+
    ```javascript
    // ✅ Good
    it('should return error when email is invalid', () => {});
@@ -414,6 +430,7 @@ describe('Card component', () => {
    ```
 
 2. **Arrange-Act-Assert Pattern** — Organize tests for clarity
+
    ```javascript
    it('should validate email format', () => {
      // Arrange
@@ -428,6 +445,7 @@ describe('Card component', () => {
    ```
 
 3. **Test One Thing Per Test** — Keep tests focused and independent
+
    ```javascript
    // ✅ Good: Single responsibility
    it('should validate email format', () => {
@@ -440,6 +458,7 @@ describe('Card component', () => {
    ```
 
 4. **Use Mocks Sparingly** — Only mock external dependencies
+
    ```javascript
    // ✅ Good: Mock external API
    jest.mock('./api');
@@ -449,6 +468,7 @@ describe('Card component', () => {
    ```
 
 5. **Test Edge Cases** — Include boundary conditions and error scenarios
+
    ```javascript
    it('should handle edge cases', () => {
      expect(divide(10, 0)).toThrow('Cannot divide by zero');
@@ -458,6 +478,7 @@ describe('Card component', () => {
    ```
 
 6. **Use beforeEach and afterEach** — DRY principle for setup/teardown
+
    ```javascript
    beforeEach(() => {
      jest.clearAllMocks();
@@ -469,6 +490,7 @@ describe('Card component', () => {
    ```
 
 7. **Avoid Sleep/Timeouts** — Use Jest utilities for async testing
+
    ```javascript
    // ✅ Good: Use waitFor
    await waitFor(() => {
@@ -480,6 +502,7 @@ describe('Card component', () => {
    ```
 
 8. **Test Behavior, Not Implementation** — Focus on what, not how
+
    ```javascript
    // ✅ Good: Test behavior
    expect(component.textContent).toContain('Success');
@@ -489,6 +512,7 @@ describe('Card component', () => {
    ```
 
 9. **Keep Fixtures Lightweight** — Use minimal, realistic data
+
    ```javascript
    // ✅ Good: Minimal fixture
    const user = { id: 1, name: 'John' };
@@ -498,6 +522,7 @@ describe('Card component', () => {
    ```
 
 10. **Run Tests Frequently** — Integrate into development workflow
+
     ```bash
     # Watch mode during development
     npm run test:watch
@@ -574,16 +599,19 @@ jobs:
 ## References
 
 ### Official Documentation
+
 - [Jest Official Docs](https://jestjs.io/)
 - [Testing Library for React](https://testing-library.com/react)
 - [Jest Configuration Reference](https://jestjs.io/docs/configuration)
 
 ### Testing Patterns
+
 - [Common Testing Mistakes](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
 - [Testing Best Practices](https://testingjavascript.com/)
 - [Snapshot Testing Guide](https://jestjs.io/docs/snapshot-testing)
 
 ### Related Skills
+
 - [[pytest-spec-generation]] — Python testing with pytest
 - [[phpunit-spec-generation]] — PHP testing with PHPUnit
 - [[playwright-spec-generation]] — E2E testing with Playwright

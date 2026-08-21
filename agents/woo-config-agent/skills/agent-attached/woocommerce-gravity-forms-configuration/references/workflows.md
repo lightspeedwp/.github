@@ -184,9 +184,6 @@ Each workflow should be adapted to site evidence, active add-ons, consent/privac
 - **Test submission checklist**: Test valid payment, failed payment, abandoned payment where observable, notification/receipt, entry/payment metadata, feed result, spam status, and page embed.
 - **Handoff notes**: Record form ID/title, page URL, gateway mode, payment feed, notifications, risks, owner, rollback path, and next validation owner.
 
-
-
-
 ## Content submission/UGC
 
 - **Purpose**: Reader/community submission.

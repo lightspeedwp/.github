@@ -16,21 +16,27 @@
 ## Audit variants
 
 ### Fast triage
+
 Use when the user needs a direction quickly. Return request type, likely route, evidence available, main risk, and one next action.
 
 ### Plugin-stack review
+
 Confirm core plugin, first-party extensions, Wetu, Gravity Forms, Yoast and theme/block-theme support. Do not recommend alternatives before checking the LightSpeed stack.
 
 ### Content-model audit
+
 Check post types, fields, taxonomies, relationship/facet sources, archives, sample content and data gaps. Treat relationship/facet sources as evidence, not ownership proof.
 
 ### Wetu readiness audit
+
 Confirm dependency on Tour Operator core, active Wetu Importer state, target mappings, source IDs, sync metadata, import logs, manual override behaviour and rollback needs.
 
 ### Yoast/schema-readiness audit
+
 Check active Yoast state, existing graph output, candidate mappings, field quality, duplicate graph risk, Google eligibility boundaries and validation steps.
 
 ### Launch-readiness audit
+
 Check broken content, archive/single templates, query loops, enquiry forms, tracking, schema readiness, responsive layout, accessibility risks, SEO basics and owner sign-off.
 
 ## Evidence labels

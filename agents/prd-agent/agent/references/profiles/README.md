@@ -54,6 +54,7 @@ Store reusable planning profiles, stakeholder profiles, or project-type profiles
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

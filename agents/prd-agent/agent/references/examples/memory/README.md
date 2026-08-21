@@ -54,6 +54,7 @@ Store realistic example memory files that show how durable planning memory shoul
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

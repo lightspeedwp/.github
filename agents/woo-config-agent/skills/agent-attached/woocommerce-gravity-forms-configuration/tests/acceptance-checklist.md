@@ -123,7 +123,6 @@ The skill is complete only when:
 - [ ] Survey/poll/quiz results workflows document result visibility, export/reset limits, and approval gates.
 - [ ] Quiz scoring changes, hidden questions, pass/fail thresholds, and historical result recalculation are guarded.
 
-
 ## Payment batch acceptance
 
 - Payment work requires add-on, SSL, gateway mode and explicit approval evidence.
@@ -131,7 +130,6 @@ The skill is complete only when:
 - Paid event workflows distinguish saved entries from successful payments.
 - Refunds, cancellations and disputes route to payment operations unless a supported safe action is confirmed.
 - Payment tests include success, failed/declined, branch, receipt and entry/payment status checks.
-
 
 ## Auditor/configuration boundary acceptance
 
@@ -152,7 +150,6 @@ The skill is complete only when:
 - [x] Canonical `woocommerce-gravity-forms-auditor` v0.2.1+ handoff fields are accepted by `schemas/auditor-handoff.schema.json`.
 - [x] Legacy normalised auditor handoff fields remain accepted for backwards compatibility.
 - [x] Missing canonical handoff fields are treated as readiness gaps, not permission to infer or execute changes.
-
 
 ---
 

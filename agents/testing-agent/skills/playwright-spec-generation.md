@@ -23,6 +23,7 @@ The Playwright Specification Generation skill enables the Testing Agent to creat
 ### When to Use This Skill
 
 **Use Playwright when:**
+
 - Testing complete user workflows (E2E testing)
 - Need cross-browser compatibility testing
 - Require visual/screenshot regression testing
@@ -32,6 +33,7 @@ The Playwright Specification Generation skill enables the Testing Agent to creat
 - Require performance testing and metrics
 
 **Playwright is particularly strong for:**
+
 - End-to-end user journey testing
 - Multi-browser testing (Chrome, Firefox, Safari, Edge)
 - Visual regression testing with screenshots
@@ -57,6 +59,7 @@ npm install --save-dev @types/node typescript
 ### Configuration Files
 
 **playwright.config.ts** (Basic)
+
 ```typescript
 import { defineConfig, devices } from '@playwright/test';
 
@@ -102,6 +105,7 @@ export default defineConfig({
 ```
 
 **playwright.config.js** (JavaScript)
+
 ```javascript
 const config = {
   testDir: './tests/e2e',
@@ -144,6 +148,7 @@ module.exports = config;
 ### Example 1: Basic Navigation and Interaction
 
 **File:** `tests/e2e/login.spec.ts`
+
 ```typescript
 import { test, expect } from '@playwright/test';
 
@@ -187,6 +192,7 @@ test.describe('Login Page', () => {
 ### Example 2: Testing Single Page Application
 
 **File:** `tests/e2e/shopping-cart.spec.ts`
+
 ```typescript
 import { test, expect } from '@playwright/test';
 
@@ -247,6 +253,7 @@ test.describe('Shopping Cart', () => {
 ### Example 3: Responsive Testing Across Devices
 
 **File:** `tests/e2e/responsive.spec.ts`
+
 ```typescript
 import { test, expect, devices } from '@playwright/test';
 
@@ -307,6 +314,7 @@ test.describe('Tablet Layout', () => {
 ### Example 4: Visual Regression Testing
 
 **File:** `tests/e2e/visual.spec.ts`
+
 ```typescript
 import { test, expect } from '@playwright/test';
 
@@ -348,6 +356,7 @@ test.describe('Visual Regression', () => {
 ### Example 5: Accessibility Testing
 
 **File:** `tests/e2e/accessibility.spec.ts`
+
 ```typescript
 import { test, expect } from '@playwright/test';
 import { injectAxe, checkA11y } from 'axe-playwright';
@@ -421,6 +430,7 @@ test.describe('Accessibility', () => {
 ## Best Practices
 
 1. **Use Data Test IDs** — Make selectors stable and maintainable
+
    ```typescript
    // ✅ Good: Use data-testid
    await page.click('[data-testid="submit-button"]');
@@ -430,6 +440,7 @@ test.describe('Accessibility', () => {
    ```
 
 2. **Wait for Elements Properly** — Don't use arbitrary sleeps
+
    ```typescript
    // ✅ Good: Wait for element
    await page.waitForSelector('[data-testid="result"]');
@@ -439,6 +450,7 @@ test.describe('Accessibility', () => {
    ```
 
 3. **Use Page Objects/Fixtures** — Encapsulate page interactions
+
    ```typescript
    class LoginPage {
      constructor(page) { this.page = page; }
@@ -452,6 +464,7 @@ test.describe('Accessibility', () => {
    ```
 
 4. **Test User Workflows** — E2E tests should represent real usage
+
    ```typescript
    // ✅ Good: Complete user journey
    // Search → Add to cart → Checkout → Confirmation
@@ -461,6 +474,7 @@ test.describe('Accessibility', () => {
    ```
 
 5. **Handle Waits Correctly** — Use explicit waits for async operations
+
    ```typescript
    // ✅ Good: Wait for network to settle
    await page.waitForLoadState('networkidle');
@@ -470,12 +484,14 @@ test.describe('Accessibility', () => {
    ```
 
 6. **Test Cross-Browser** — Use multiple browser projects
+
    ```typescript
    // Config includes chromium, firefox, webkit
    // Run: npx playwright test --project=firefox
    ```
 
 7. **Isolate Tests** — Each test should be independent
+
    ```typescript
    // ✅ Good: Fresh state each test
    test.beforeEach(async ({ page }) => {
@@ -484,6 +500,7 @@ test.describe('Accessibility', () => {
    ```
 
 8. **Use Meaningful Assertions** — Clear failure messages
+
    ```typescript
    // ✅ Good: Specific expectation
    await expect(page.locator('[role="alert"]')).toContainText('Error');
@@ -493,6 +510,7 @@ test.describe('Accessibility', () => {
    ```
 
 9. **Capture Evidence** — Screenshots and traces for debugging
+
    ```typescript
    // Configured to capture on failure
    // Use: trace: 'on-first-retry'
@@ -500,6 +518,7 @@ test.describe('Accessibility', () => {
    ```
 
 10. **Run Tests Frequently** — Integrate into CI/CD
+
     ```bash
     # Local development
     npm run test:e2e:headed
@@ -540,18 +559,21 @@ This skill integrates with the Testing Agent's multi-framework architecture:
 ## References
 
 ### Official Documentation
+
 - [Playwright Documentation](https://playwright.dev/)
 - [Playwright Test](https://playwright.dev/docs/test-intro)
 - [Locators Guide](https://playwright.dev/docs/locators)
 - [Best Practices](https://playwright.dev/docs/best-practices)
 
 ### Advanced Topics
+
 - [Visual Comparisons](https://playwright.dev/docs/test-snapshots)
 - [Accessibility Testing](https://playwright.dev/docs/accessibility-testing)
 - [Performance Testing](https://playwright.dev/docs/performance)
 - [Debugging Tests](https://playwright.dev/docs/debug)
 
 ### Related Skills
+
 - [[jest-spec-generation]] — JavaScript testing with Jest
 - [[phpunit-spec-generation]] — PHP testing with PHPUnit
 - [[pytest-spec-generation]] — Python testing with pytest

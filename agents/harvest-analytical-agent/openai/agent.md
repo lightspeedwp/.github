@@ -22,6 +22,7 @@ top_p: 0.9
 The OpenAI implementation of the Harvest Analytical Agent uses OpenAI's GPT models with function calling for time-tracking-analysis tasks.
 
 OpenAI excels at:
+
 - **Function calling** – Structured API integration
 - **Batch processing** – Handle large data sets
 - **Cost-effective** – Pay per request with standard pricing
@@ -147,6 +148,7 @@ while True:
 OpenAI returns responses in standard format:
 
 ### Profitability Analysis Response
+
 ```json
 {
   "choices": [
@@ -164,6 +166,7 @@ OpenAI returns responses in standard format:
 ```
 
 ### Financial Report Response
+
 ```json
 {
   "choices": [
@@ -268,16 +271,19 @@ def track_all_budgets(projects, period):
 ## Configuration
 
 ### Model Selection
+
 - **gpt-4** – Complex financial analysis, large datasets
 - **gpt-4-turbo** – Faster processing, multiple analyses
 - **gpt-3.5-turbo** – Budget-friendly option
 
 ### Temperature Settings
+
 - `temperature: 0.5` – Structured financial data (default)
 - `temperature: 0.3` – Precise calculations
 - `temperature: 0.7` – Insight generation
 
 ### Rate Limiting
+
 - Use exponential backoff for API errors
 - Batch similar requests
 - Cache results for repeated queries
@@ -285,18 +291,21 @@ def track_all_budgets(projects, period):
 ## Best Practices
 
 ### Financial Data Handling
+
 - Always validate numeric inputs
 - Use consistent currency
 - Document rate assumptions
 - Maintain audit trail
 
 ### Report Generation
+
 - Include confidence intervals
 - Document assumptions
 - Provide variance analysis
 - Support drill-down analysis
 
 ### Performance Optimization
+
 - Batch process large datasets
 - Cache historical calculations
 - Parallelize independent analyses

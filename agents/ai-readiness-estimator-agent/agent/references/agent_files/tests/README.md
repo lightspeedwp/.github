@@ -58,6 +58,7 @@ Use these files for self-checking, regression testing, or reviewing whether a pr
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

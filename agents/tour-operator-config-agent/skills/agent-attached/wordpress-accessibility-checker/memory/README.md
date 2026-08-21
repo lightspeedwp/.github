@@ -49,6 +49,7 @@ Before saving memory, separate reusable defaults from one-off audit evidence
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -3,6 +3,7 @@
 Use this reference for the expected plugin-layer audit and configuration order on a **tour operator WordPress website**.
 
 ## Priority order
+
 1. LightSpeedWP Tour Operator core plugin
 2. LightSpeedWP Tour Operator extension plugins
 3. Gravity Forms
@@ -41,6 +42,7 @@ Do not treat `Reviews`, `Team`, `Specials`, `Vehicles`, or Wetu-synced objects a
 Before recommending new content types, field frameworks, or custom taxonomies, check whether the existing core model already provides the needed CPT, field, taxonomy, or relationship.
 
 ## Core plugin checks
+
 - Confirm whether the LightSpeedWP Tour Operator core plugin is installed, active, and versioned
 - Confirm the plugin is active and structurally healthy
 - Confirm the built-in CPTs are available as expected: `accommodation`, `destination`, and `tour`
@@ -50,6 +52,7 @@ Before recommending new content types, field frameworks, or custom taxonomies, c
 - Confirm its settings align with the site’s content model and enquiry flow
 
 ## Extension plugin checks
+
 - Identify installed LightSpeedWP Tour Operator extension plugins
 - Confirm extension purpose and whether each extension is still needed
 - Check whether extension settings are consistent with the core plugin workflow
@@ -57,7 +60,9 @@ Before recommending new content types, field frameworks, or custom taxonomies, c
 - Treat absent extensions as open configuration decisions unless the site’s commercial model requires them
 
 ## Reporting requirements
+
 Always separate:
+
 - core plugin findings
 - extension plugin findings
 - Gravity Forms findings
@@ -65,6 +70,7 @@ Always separate:
 - general WordPress findings
 
 ## Configuration expectations
+
 - Core and extension plugin settings should be reviewed before general plugin polish
 - Plugin configuration changes should be verified after edits where tools allow verification
 - Reports should clearly flag blockers, misconfiguration, risks, and next actions

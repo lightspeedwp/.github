@@ -111,6 +111,7 @@ Use the template that is closest to the user’s requested outcome. If the task 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -52,6 +52,7 @@ The files are standardised for practical use in LightSpeed workflows. They are n
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

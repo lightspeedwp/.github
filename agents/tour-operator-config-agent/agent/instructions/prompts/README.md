@@ -63,6 +63,7 @@ Use these prompts as repeatable maintenance tasks. Keep them aligned with the cu
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

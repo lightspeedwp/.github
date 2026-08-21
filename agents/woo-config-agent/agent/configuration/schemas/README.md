@@ -101,6 +101,7 @@ Do not treat the absence of a dedicated schema for a routed local skill as drift
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid
