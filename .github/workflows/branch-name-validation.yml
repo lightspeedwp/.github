@@ -37,7 +37,12 @@ jobs:
           BRANCH_NAME: ${{ github.head_ref }}
           TARGET_BRANCH: ${{ github.base_ref }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          DEBUG_VALIDATION: '1'
         run: |
+          echo "DEBUG: Branch name = '$BRANCH_NAME'"
+          echo "DEBUG: Target branch = '$TARGET_BRANCH'"
+          echo "DEBUG: PR Author = '$PR_AUTHOR'"
+
           # Check exemptions: release/* and hotfix/* are allowed on main
           if [[ "$TARGET_BRANCH" == "main" ]] && [[ "$BRANCH_NAME" =~ ^(release|hotfix)/ ]]; then
             echo "valid=true" >> $GITHUB_OUTPUT
