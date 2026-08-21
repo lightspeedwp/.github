@@ -68,7 +68,7 @@ jobs:
             let body = `## Project Documentation Gaps\n\n**Audit Date:** ${results.timestamp}\n\n- Missing PLANNING.md: ${results.missing_planning}\n- Missing OPENSPEC.md: ${results.missing_openspec}\n- Missing README.md: ${results.missing_readme}\n- **Total: ${results.total_gaps}**`;
             await github.rest.issues.create({owner: context.repo.owner, repo: context.repo.repo, title: `📋 Project Documentation Gaps (${results.total_gaps} items)`, body: body, labels: ['type:maintenance', 'area:docs', 'status:needs-triage']});
       - if: inputs.notify_slack && steps.audit.outputs.has_gaps == 'true'
-        uses: slackapi/slack-github-action@v1.24.0
+        uses: slackapi/slack-github-action@v4
         with:
           payload: |
             {"blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "⚠️ *Project Maintenance — Documentation Gaps*\n${{ steps.audit.outputs.gap_count }} items"}}]}
@@ -76,7 +76,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.PROJECT_MAINTENANCE_SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - if: inputs.notify_slack && steps.audit.outputs.has_gaps == 'false'
-        uses: slackapi/slack-github-action@v1.24.0
+        uses: slackapi/slack-github-action@v4
         with:
           payload: |
             {"blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "✅ *Project Maintenance — Audit Complete*\nAll projects documented"}}]}
