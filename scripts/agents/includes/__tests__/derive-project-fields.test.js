@@ -109,6 +109,7 @@ describe("derive-project-fields.cjs", () => {
     };
 
     try {
+      process.env.ISSUE_FIELDS_CONFIG = issueFieldsConfigPath;
       process.env.EVENT_NAME = "pull_request";
       process.env.EVENT_ACTION = "opened";
       process.env.LABELS = "";
