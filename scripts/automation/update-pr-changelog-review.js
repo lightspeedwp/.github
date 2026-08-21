@@ -341,7 +341,7 @@ async function main() {
   }
 }
 
-// Only run main if this file is executed directly, not when imported
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Only run main if not in a test environment
+if (!process.env.NODE_ENV?.includes('test') && process.argv[1]?.endsWith('update-pr-changelog-review.js')) {
   main();
 }
