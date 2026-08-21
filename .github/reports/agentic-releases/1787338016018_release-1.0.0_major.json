@@ -1,0 +1,44 @@
+{
+  "workflow_id": "1787338015948_n6ux71zs4",
+  "timestamp": "2026-08-21T18:46:56.018Z",
+  "scope": "major",
+  "current_version": "0.6.0",
+  "next_version": "1.0.0",
+  "agentic_score": 0.92,
+  "dry_run": true,
+  "decisions": {
+    "step1_initialize": "PASS",
+    "step2_agentic": "APPROVE",
+    "gates": "PASS"
+  },
+  "log": [
+    {
+      "timestamp": "2026-08-21T18:46:55.949Z",
+      "message": "Step 1 started"
+    },
+    {
+      "timestamp": "2026-08-21T18:46:56.017Z",
+      "message": "Step 1 complete: All pre-flight checks passed"
+    },
+    {
+      "timestamp": "2026-08-21T18:46:56.017Z",
+      "message": "Step 2 started: Invoking agentic reasoning"
+    },
+    {
+      "timestamp": "2026-08-21T18:46:56.017Z",
+      "message": "Step 2 complete: Agentic reasoning complete (score: 0.92)"
+    },
+    {
+      "timestamp": "2026-08-21T18:46:56.017Z",
+      "message": "Safety gates started"
+    },
+    {
+      "timestamp": "2026-08-21T18:46:56.018Z",
+      "message": "Safety gates complete: ALL PASS"
+    },
+    {
+      "timestamp": "2026-08-21T18:46:56.018Z",
+      "message": "Report generation started"
+    }
+  ]
+}
