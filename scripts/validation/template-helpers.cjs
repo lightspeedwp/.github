@@ -12,9 +12,14 @@ function sectionBody(body, headingRegex) {
     return '';
   }
 
+  // Extract heading level from the matched heading (count # symbols)
+  const headingLevel = match[0].match(/^#+/)[0].length;
+
   const start = match.index + match[0].length;
   const remainder = text.slice(start);
-  const nextHeading = remainder.match(/^#+\s+.+$/m);
+  // Only look for headings at same or higher level (fewer or equal # symbols)
+  const nextHeadingRegex = new RegExp(`^#{1,${headingLevel}}\\s+.+$`, 'm');
+  const nextHeading = remainder.match(nextHeadingRegex);
   const end = nextHeading ? start + nextHeading.index : text.length;
   return text.slice(start, end).trim();
 }
