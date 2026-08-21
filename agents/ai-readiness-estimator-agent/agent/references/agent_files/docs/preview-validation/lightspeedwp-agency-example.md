@@ -39,4 +39,4 @@ Use the LightSpeedWP.Agency example context to assess AI-readiness, compare the 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

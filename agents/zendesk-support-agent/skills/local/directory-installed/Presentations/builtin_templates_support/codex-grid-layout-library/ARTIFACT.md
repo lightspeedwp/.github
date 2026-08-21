@@ -49,4 +49,4 @@ All 26 exact JavaScript modules must parse and render through artifact-tool. The
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

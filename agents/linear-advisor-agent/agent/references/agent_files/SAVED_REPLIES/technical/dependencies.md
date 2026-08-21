@@ -1,13 +1,13 @@
 ---
-title: "Dependency Problem Saved Reply"
-description: "Package, library, and dependency-related issue responses."
-category: "Technical Support"
+title: Dependency Problem Saved Reply
+description: Package, library, and dependency-related issue responses.
+category: Technical Support
 labels:
   - area:dependencies
   - status:needs-triage
 references:
-  - "../../instructions/dependencies.md"
-  - "../../CONTRIBUTING.md"
+  - ../../instructions/dependencies.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Dependency Problems Saved Reply
@@ -31,4 +31,4 @@ We’ll help debug and resolve your dependency challenges!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

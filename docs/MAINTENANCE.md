@@ -1,9 +1,9 @@
 ---
-title: "Repository Maintenance"
-description: "Procedures and guidelines for maintaining the .github control plane repository"
-file_type: "documentation"
-created_date: "2026-07-24"
-last_updated: "2026-07-24"
+title: Repository Maintenance
+description: Procedures and guidelines for maintaining the .github control plane repository
+file_type: documentation
+created_date: '2026-07-24'
+last_updated: '2026-08-21'
 owners:
   - LightSpeed Team
 tags:
@@ -339,4 +339,4 @@ npm run validate:mermaid-contrast
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

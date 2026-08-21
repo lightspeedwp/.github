@@ -1,8 +1,8 @@
 ---
 name: jest-spec-generation
-title: "Jest Test Specification Generation Skill"
-description: "Generate comprehensive Jest unit and integration test specifications with mocking strategies, fixtures, and best practices for modern JavaScript/TypeScript applications"
-version: "1.0.0"
+title: Jest Test Specification Generation Skill
+description: Generate comprehensive Jest unit and integration test specifications with mocking strategies, fixtures, and best practices for modern JavaScript/TypeScript applications
+version: 1.0.1
 category: testing
 tags:
   - jest
@@ -622,3 +622,7 @@ jobs:
 **Last Updated:** 2026-08-17  
 **Status:** Production Ready  
 **Framework:** Jest v29+
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

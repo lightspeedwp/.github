@@ -5,6 +5,7 @@ metadata:
   short-description: Manage Linear issues in Codex
 ---
 
+
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

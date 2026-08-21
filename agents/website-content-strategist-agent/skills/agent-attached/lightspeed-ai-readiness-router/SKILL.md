@@ -143,4 +143,4 @@ For detailed stage routing, use `references/workflow-router.md`.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

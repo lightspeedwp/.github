@@ -14,3 +14,7 @@
 
 - [x] Changelog entry provided
 - [x] Validation notes reviewed
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

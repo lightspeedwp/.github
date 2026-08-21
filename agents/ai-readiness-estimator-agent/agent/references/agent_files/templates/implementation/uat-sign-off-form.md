@@ -1,6 +1,6 @@
 ---
 template_id: uat-sign-off-form
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -46,4 +46,4 @@ By signing below, the approver confirms that the UAT has been completed to satis
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

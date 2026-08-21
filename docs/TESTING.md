@@ -1,7 +1,7 @@
 ---
-file_type: "documentation"
-title: "Testing Guide"
-description: "Testing standards, practices, and conventions for the LightSpeed organization."
+file_type: documentation
+title: Testing Guide
+description: Testing standards, practices, and conventions for the LightSpeed organization.
 ---
 
 *Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
@@ -227,4 +227,4 @@ See `.github/workflows/` for workflow definitions.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

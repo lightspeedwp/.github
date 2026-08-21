@@ -1,12 +1,21 @@
 ---
-file_type: "instructions"
-title: "Issue Creation Instructions"
-description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
-scope: "organization-wide"
-version: '1.4.3'
-last_updated: '2026-07-22'
-owners: ["lightspeedwp/maintainers"]
-tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
+file_type: instructions
+title: Issue Creation Instructions
+description: Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy.
+scope: organization-wide
+version: 1.4.4
+last_updated: '2026-08-21'
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - issues
+  - templates
+  - frontmatter
+  - automation
+  - labels
+  - issue types
+  - triage
+  - branching
 ---
 
 # LightSpeedWP Issue Creation & Management Instructions
@@ -168,4 +177,4 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

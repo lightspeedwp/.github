@@ -1,6 +1,6 @@
 ---
 template_id: ai-readiness-audit-checklist
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -52,4 +52,4 @@ Use this checklist to assess whether the foundational elements needed for AI ado
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

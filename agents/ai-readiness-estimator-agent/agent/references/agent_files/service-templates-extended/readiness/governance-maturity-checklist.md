@@ -1,6 +1,6 @@
 ---
 template_id: governance-maturity-checklist
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -59,4 +59,4 @@ Summarise actions to improve governance maturity and assign owners.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

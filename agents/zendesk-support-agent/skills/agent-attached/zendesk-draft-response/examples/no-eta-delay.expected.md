@@ -15,4 +15,4 @@ I do not want to give you an ETA before it has been confirmed, as that would ris
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

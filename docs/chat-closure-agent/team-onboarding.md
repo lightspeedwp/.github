@@ -1,10 +1,14 @@
 ---
 title: Chat Closure Agent — Team Onboarding Guide
 description: Training material and setup guide for teams
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-21'
 author: Claude Code
-tags: ["onboarding", "training", "team", "setup"]
+tags:
+  - onboarding
+  - training
+  - team
+  - setup
 ---
 
 # Chat Closure Agent — Team Onboarding Guide
@@ -587,3 +591,7 @@ For more details, see:
 - [CLI Reference](./cli-reference.md) — Command options
 - [Integration Guide](./integration-guide.md) — Organization setup
 - [Troubleshooting](./troubleshooting-faq.md) — Common issues
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

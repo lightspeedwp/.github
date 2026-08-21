@@ -1,13 +1,13 @@
 ---
-title: "API Integration Support Saved Reply"
-description: "Standard response for API usage, authentication, and integration support issues."
-category: "Technical Support"
+title: API Integration Support Saved Reply
+description: Standard response for API usage, authentication, and integration support issues.
+category: Technical Support
 labels:
   - area:api
   - status:needs-triage
 references:
-  - "../../instructions/api-integration.md"
-  - "../../CONTRIBUTING.md"
+  - ../../instructions/api-integration.md
+  - ../../CONTRIBUTING.md
 ---
 
 # API Integration Support Saved Reply
@@ -32,4 +32,4 @@ We’ll help you troubleshoot your API integration!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

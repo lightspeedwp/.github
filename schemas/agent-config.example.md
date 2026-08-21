@@ -1,18 +1,18 @@
 ---
 file_type: documentation
 title: Agent Configuration Example - Unified Branding
-description: Example frontmatter and configuration patterns for the unified branding
-  agent
+description: Example frontmatter and configuration patterns for the unified branding agent
 category: documentation
-version: "1.0.1"
+version: 1.0.2
 created_date: '2026-05-29'
-last_updated: "2026-06-01"
-owners: ["LightSpeedWP Team"]
+last_updated: '2026-08-21'
+owners:
+  - LightSpeedWP Team
 tags:
-- schema
-- configuration
-- example
-- branding
+  - schema
+  - configuration
+  - example
+  - branding
 stability: stable
 ---
 
@@ -295,4 +295,4 @@ v1.0    ❌ Invalid (no 'v' prefix)
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

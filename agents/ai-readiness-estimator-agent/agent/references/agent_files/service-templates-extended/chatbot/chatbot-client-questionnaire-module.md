@@ -1,6 +1,6 @@
 ---
 template_id: chatbot-client-questionnaire-module
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -45,4 +45,4 @@ Use this module as part of the broader client questionnaire when the client is e
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

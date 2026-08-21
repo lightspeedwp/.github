@@ -1,6 +1,6 @@
 ---
 template_id: client-questionnaire
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -47,4 +47,4 @@ Include any other context, constraints, or considerations that might influence h
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

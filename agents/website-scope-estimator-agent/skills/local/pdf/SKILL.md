@@ -1,6 +1,6 @@
 ---
-name: "pdf"
-description: "Read, create, inspect, render, and verify PDF files where visual layout matters. Use Poppler rendering plus Python tools such as reportlab, pdfplumber, and pypdf for generation and extraction."
+name: pdf
+description: Read, create, inspect, render, and verify PDF files where visual layout matters. Use Poppler rendering plus Python tools such as reportlab, pdfplumber, and pypdf for generation and extraction.
 ---
 
 # PDF Skill
@@ -85,4 +85,4 @@ pdftoppm -png "$INPUT_PDF" "$OUTPUT_PREFIX"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

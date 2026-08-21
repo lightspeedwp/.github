@@ -115,4 +115,4 @@ Outputs should be implementation-ready for a WordPress launch team, but must rem
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

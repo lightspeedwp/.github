@@ -1,6 +1,6 @@
 ---
 template_id: source-content-approval-checklist
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -37,4 +37,4 @@ Use this checklist to confirm that all content and data sources used in an AI im
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

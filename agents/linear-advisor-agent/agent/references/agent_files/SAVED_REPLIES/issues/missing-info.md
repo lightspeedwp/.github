@@ -1,7 +1,7 @@
 ---
-title: "Missing Information Saved Reply"
-description: "Prompt for missing reproduction steps, environment details, or screenshots."
-category: "Issue"
+title: Missing Information Saved Reply
+description: Prompt for missing reproduction steps, environment details, or screenshots.
+category: Issue
 labels:
   - status:needs-more-info
 ---
@@ -26,4 +26,4 @@ With this info, we'll be able to help much faster. Thanks!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

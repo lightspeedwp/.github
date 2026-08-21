@@ -1,26 +1,26 @@
 ---
 file_type: instructions
 title: PR Planning & Checklist Instructions
-description: Standards for automated PR checklist generation, merge readiness validation,
-  and planning automation
+description: Standards for automated PR checklist generation, merge readiness validation, and planning automation
 version: v1.1
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeed Engineering
+  - LightSpeed Engineering
 tags:
-- planning
-- pull-requests
-- automation
-- checklist
-- validation
+  - planning
+  - pull-requests
+  - automation
+  - checklist
+  - validation
 stability: experimental
 domain: governance
 apply_to:
-- agents/task-planner.agent.md
-- scripts/agents/planner.agent.js
-- .github/workflows/planner.yml
+  - agents/task-planner.agent.md
+  - scripts/agents/planner.agent.js
+  - .github/workflows/planner.yml
 ---
+
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

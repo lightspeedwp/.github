@@ -1,9 +1,9 @@
 ---
-title: "Project Archive Workflow Guide"
-description: "Manual archive process for moving completed projects to archive folder"
-type: "operational-guide"
-created_date: "2026-08-11"
-status: "active"
+title: Project Archive Workflow Guide
+description: Manual archive process for moving completed projects to archive folder
+type: operational-guide
+created_date: '2026-08-11'
+status: active
 ---
 
 # Project Archive Workflow Guide
@@ -371,3 +371,7 @@ Reason: [Provide reason]
 **Guide Status:** Active  
 **Last Updated:** 2026-08-11  
 **Owner:** Ash Shaw (<ashley@lightspeedwp.agency>)
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

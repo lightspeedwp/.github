@@ -506,4 +506,4 @@ If you later want slash-style routing, these templates can map to tags such as:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

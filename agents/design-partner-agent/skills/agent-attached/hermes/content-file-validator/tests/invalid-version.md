@@ -1,8 +1,8 @@
 ---
-title: "Invalid version example"
+title: Invalid version example
 type: guide
 status: draft
-version: "1.0"
+version: '1.0'
 ---
 
 # Invalid version example
@@ -13,4 +13,4 @@ This file has an invalid version format.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

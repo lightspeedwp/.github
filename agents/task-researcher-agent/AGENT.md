@@ -2,13 +2,10 @@
 file_type: agent
 name: task-researcher
 title: Task Researcher Agent
-description: >-
-  Analyze requirements, extract constraints, map context, and synthesize research
-  findings for complex project planning tasks. Part of the portable Task Planning
-  orchestrator system that hands off to Task Planner Agent.
-version: 1.0.0
+description: Analyze requirements, extract constraints, map context, and synthesize research findings for complex project planning tasks. Part of the portable Task Planning orchestrator system that hands off to Task Planner Agent.
+version: 1.0.1
 status: in-development
-last_updated: '2026-08-12'
+last_updated: '2026-08-21'
 category: planning
 maintainer: Ash Shaw
 owners:
@@ -84,3 +81,7 @@ Each provider has an identical interface but implementation-specific optimizatio
 - `openai/agent.md` — OpenAI-specific instructions and tools
 
 Provider-agnostic core prompt in `shared/core-prompt.md`.
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

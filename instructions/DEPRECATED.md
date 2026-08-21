@@ -1,13 +1,17 @@
 ---
-file_type: "documentation"
-title: "Instructions Deprecation Index"
-description: "Tracks deprecated documentation files and consolidated replacements."
-version: "v1.0.1"
-last_updated: "2026-06-01"
-owners: ["LightSpeedWP Team"]
-tags: ["deprecation", "migration", "documentation"]
-status: "active"
-stability: "stable"
+file_type: documentation
+title: Instructions Deprecation Index
+description: Tracks deprecated documentation files and consolidated replacements.
+version: v1.0.2
+last_updated: '2026-08-21'
+owners:
+  - LightSpeedWP Team
+tags:
+  - deprecation
+  - migration
+  - documentation
+status: active
+stability: stable
 domain: governance
 ---
 
@@ -89,4 +93,4 @@ Documentation consolidation improves:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

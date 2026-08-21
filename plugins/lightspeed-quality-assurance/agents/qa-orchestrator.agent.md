@@ -1,10 +1,11 @@
 ---
-title: "QA Orchestrator"
-description: "Coordinates validation plans, quality gates, and regression checks across delivery phases."
-version: "v0.1.0"
-last_updated: "2026-05-28"
+title: QA Orchestrator
+description: Coordinates validation plans, quality gates, and regression checks across delivery phases.
+version: v0.1.1
+last_updated: '2026-08-21'
 ---
+
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

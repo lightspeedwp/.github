@@ -2,7 +2,11 @@
 name: adr-generator
 description: Generate architectural decision records with configuration-driven templates and validation
 category: infrastructure
-tags: [architecture, decisions, documentation, configuration]
+tags:
+  - architecture
+  - decisions
+  - documentation
+  - configuration
 ---
 
 # ADR Generator
@@ -151,3 +155,7 @@ agents/adr-generator/
 - **Decisions:** `.github/projects/active/adr-agent-portability-org/ARCHITECTURE_DECISIONS.md`
 - **Specifications:** `.github/projects/active/adr-agent-portability-org/OPENSPEC.md`
 - **Schema:** `agents/adr-generator/config/adr-config.schema.json`
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
