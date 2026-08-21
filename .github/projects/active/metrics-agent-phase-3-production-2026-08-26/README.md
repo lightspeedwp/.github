@@ -187,10 +187,10 @@ Before starting, clarify:
 ## Visual Workflow
 
 ```mermaid
----
-title: Phase 3 Workflow
----
 flowchart TD
+  accTitle: Phase 3 Workflow
+  accDescr: Phase 3 workflow showing the path from project start through planning, implementation, validation, and completion
+  
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]
