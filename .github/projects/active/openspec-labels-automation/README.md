@@ -103,12 +103,12 @@ This project is coordinated with GitHub issues for tracking work items and progr
 |-------|------|---------|--------|
 | [#2048](../../../issues/2048) | epic | OpenSpec Labels Automation — Phase 2–3 Epic | ✅ Complete |
 | [#2049](../../../issues/2049) | task | Phase 3: Workflow Orchestration | ✅ Complete |
-| [#2XXX](../../../issues/2XXX) | epic | Phase 4: External Tool Integration & Metrics | 📋 Planned |
-| [#2XXX](../../../issues/2XXX) | task | Phase 4.1: Jira Integration Module | 📋 Planned |
-| [#2XXX](../../../issues/2XXX) | task | Phase 4.2: Linear Integration Module | 📋 Planned |
-| [#2XXX](../../../issues/2XXX) | task | Phase 4.3: Metrics System & SLA Tracking | 📋 Planned |
-| [#2XXX](../../../issues/2XXX) | task | Phase 4.4: Unified Dashboard | 📋 Planned |
-| [#2XXX](../../../issues/2XXX) | task | Phase 4.5: Multi-Platform Orchestration | 📋 Planned |
+| [#2232](../../../issues/2232) | epic | Phase 4: External Tool Integration & Metrics | 📋 Planning |
+| [#2233](../../../issues/2233) | task | Phase 4.1: Jira Integration Module | 📋 Planning |
+| [#2234](../../../issues/2234) | task | Phase 4.2: Linear Integration Module | 📋 Planning |
+| [#2235](../../../issues/2235) | task | Phase 4.3: Metrics System & SLA Tracking | 📋 Planning |
+| [#2236](../../../issues/2236) | task | Phase 4.4: Unified Dashboard | 📋 Planning |
+| [#2237](../../../issues/2237) | task | Phase 4.5: Multi-Platform Orchestration | 📋 Planning |
 
 **Phase 2 Deliverable:** PR #2087 (feat/openspec-labels-phase3 → develop) — All Phase 3 code, tests, and documentation merged.
 
