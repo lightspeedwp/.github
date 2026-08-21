@@ -288,7 +288,7 @@ describe("validateAndApplyLabels", () => {
 
       expect(result.valid).toBe(true);
       const featureCount = result.appliedLabels.filter(
-        (l) => l === "type:feature",
+        (l) => l === "type:feature"
       ).length;
       expect(featureCount).toBe(1);
     });

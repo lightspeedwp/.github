@@ -66,7 +66,7 @@ export async function orchestratePrCreation(input) {
       templateContent,
       templateMetadata,
       branchType,
-      appliedLabels,
+      appliedLabels
     );
 
     // Validate PR readiness
@@ -74,7 +74,7 @@ export async function orchestratePrCreation(input) {
       title,
       body,
       templateMetadata,
-      appliedLabels,
+      appliedLabels
     );
 
     if (!readinessValidation.valid) {
@@ -114,7 +114,7 @@ export async function orchestratePrCreation(input) {
         title,
         body,
         templateMetadata,
-        appliedLabels,
+        appliedLabels
       ),
       warnings: readinessValidation.warnings,
     };
@@ -264,7 +264,7 @@ function validatePrReadiness(title, body, templateMetadata, labels) {
   if (templateMetadata) {
     if (!templateMetadata.complete) {
       warnings.push(
-        `Template incomplete: missing ${templateMetadata.missingSections?.length || 0} sections`,
+        `Template incomplete: missing ${templateMetadata.missingSections?.length || 0} sections`
       );
     }
   }
