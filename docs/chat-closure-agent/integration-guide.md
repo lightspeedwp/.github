@@ -1,10 +1,14 @@
 ---
 title: Chat Closure Agent — Integration Guide
 description: How to integrate the Chat Closure Agent into other LightSpeedWP projects
-created_date: 2026-08-13
-last_updated: 2026-08-13
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-21'
 author: Claude Code
-tags: ["integration", "deployment", "multi-project", "wordpress"]
+tags:
+  - integration
+  - deployment
+  - multi-project
+  - wordpress
 ---
 
 # Chat Closure Agent — Integration Guide
@@ -549,3 +553,7 @@ For more details, see:
 - [Quick Start](./quick-start.md) — Get started in 5 minutes
 - [CLI Reference](./cli-reference.md) — Command-line options
 - [Full Usage Guide](../agents/chat-closure-agent/docs/USAGE_GUIDE.md) — Complete API
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

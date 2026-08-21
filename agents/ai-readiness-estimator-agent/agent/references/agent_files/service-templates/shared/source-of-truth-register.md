@@ -1,6 +1,6 @@
 ---
 template_id: source-of-truth-register
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -48,4 +48,4 @@ Document any risks associated with sources, such as accuracy, ownership, or sens
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -1,13 +1,13 @@
 ---
-title: "Bug Report Saved Replies"
-description: "Standard responses for bug report processing, triage, and resolution. Follows LightSpeedWP issue templates, triage, and automation standards."
-category: "Issue Management"
+title: Bug Report Saved Replies
+description: Standard responses for bug report processing, triage, and resolution. Follows LightSpeedWP issue templates, triage, and automation standards.
+category: Issue Management
 labels:
   - status:needs-triage
 references:
-  - "../ISSUE_LABELS.md"
-  - "../ISSUE_TYPES.md"
-  - "../../CONTRIBUTING.md"
+  - ../ISSUE_LABELS.md
+  - ../ISSUE_TYPES.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Bug Report Saved Replies
@@ -212,4 +212,4 @@ Thank you for helping keep our project secure.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

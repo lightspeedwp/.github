@@ -1,8 +1,8 @@
 ---
 name: Prompt Engineer API
 description: API reference for the Prompt Engineer Agent
-version: "1.0.0"
-created: "2026-08-12"
+version: 1.0.1
+created: '2026-08-12'
 ---
 
 # Prompt Engineer Agent — API Reference
@@ -703,3 +703,7 @@ Target coverage: 80%+ (Phase 2), 95%+ (Phase 3+)
 **API Version:** 1.0.0 (Phase 2 Implementation)  
 **Last Updated:** 2026-08-12  
 **Status:** Active — In Production
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

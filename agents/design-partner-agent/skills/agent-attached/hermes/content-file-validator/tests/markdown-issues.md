@@ -1,8 +1,8 @@
 ---
-title: "Markdown Issues"
+title: Markdown Issues
 type: guide
 status: draft
-version: "1.0.0"
+version: 1.0.1
 ---
 
 # Markdown Issues
@@ -17,4 +17,4 @@ See [Broken link](./does-not-exist.md)
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

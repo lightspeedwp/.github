@@ -2,8 +2,8 @@
 file_type: documentation
 title: Agent Standards
 description: Comprehensive standards for creating agents (single-file & folder-based)
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Agent Standards
@@ -460,3 +460,7 @@ See `agents/playwright-agent/` for a real-world example of a complex, folder-bas
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

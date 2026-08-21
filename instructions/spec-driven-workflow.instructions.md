@@ -5,14 +5,14 @@ description: Guidelines for defining specifications before implementation, using
 scope: organization-wide
 applyTo: '**'
 version: v1.1
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- workflow
-- specification
-- design
-- governance
+  - workflow
+  - specification
+  - design
+  - governance
 status: active
 ---
 
@@ -166,4 +166,4 @@ As requirements evolve:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

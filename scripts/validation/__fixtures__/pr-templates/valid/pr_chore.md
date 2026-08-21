@@ -19,3 +19,7 @@ Closes #105
 - [x] Linked issue provided
 - [x] Changelog entry provided
 - [x] Validation notes reviewed
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

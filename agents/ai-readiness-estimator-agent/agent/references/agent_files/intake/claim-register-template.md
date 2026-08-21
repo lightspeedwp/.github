@@ -1,6 +1,6 @@
 ---
 template_id: claim-register-template
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -20,4 +20,4 @@ High-risk or unsupported claims must not be used in final public-facing output u
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

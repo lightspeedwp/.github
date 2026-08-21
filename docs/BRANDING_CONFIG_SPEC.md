@@ -1,12 +1,13 @@
 ---
-title: "Branding Configuration Specification"
-description: "Complete specification for category-aware branding, frontmatter validation, and header/footer management"
-file_type: "documentation"
-version: "1.0.1"
-created_date: "2026-05-29"
-last_updated: "2026-06-19"
-category: "governance"
-owners: ["LightSpeedWP Automation Team"]
+title: Branding Configuration Specification
+description: Complete specification for category-aware branding, frontmatter validation, and header/footer management
+file_type: documentation
+version: 1.0.2
+created_date: '2026-05-29'
+last_updated: '2026-08-21'
+category: governance
+owners:
+  - LightSpeedWP Automation Team
 ---
 
 # Branding Configuration Specification
@@ -533,4 +534,4 @@ governance-footer:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

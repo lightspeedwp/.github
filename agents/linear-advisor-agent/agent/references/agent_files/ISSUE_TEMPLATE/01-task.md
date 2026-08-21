@@ -1,11 +1,14 @@
 ---
-name: "📝 Task"
-about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
-title: "[Task] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+name: 📝 Task
+about: 'Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc.'
+title: '[Task] <Short summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
 assignees: []
 projects: []
-milestone: ""
+milestone: ''
 file_type: task
 ---
 
@@ -48,4 +51,4 @@ file_type: task
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

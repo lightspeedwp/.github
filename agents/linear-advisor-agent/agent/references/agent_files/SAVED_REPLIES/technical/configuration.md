@@ -1,13 +1,13 @@
 ---
-title: "Configuration Issue Saved Reply"
-description: "Common configuration problems and solutions."
-category: "Technical Support"
+title: Configuration Issue Saved Reply
+description: Common configuration problems and solutions.
+category: Technical Support
 labels:
   - area:configuration
   - status:needs-triage
 references:
-  - "../../instructions/configuration.md"
-  - "../../CONTRIBUTING.md"
+  - ../../instructions/configuration.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Configuration Issues Saved Reply
@@ -32,4 +32,4 @@ We’re here to help resolve your configuration challenges!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

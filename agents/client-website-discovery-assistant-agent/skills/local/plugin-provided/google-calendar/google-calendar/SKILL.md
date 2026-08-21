@@ -67,4 +67,4 @@ Use this skill to turn raw calendar data into clear scheduling decisions, remind
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

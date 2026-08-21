@@ -320,4 +320,4 @@ Return to `zendesk-router-skill` instead of selecting a specialist when the user
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

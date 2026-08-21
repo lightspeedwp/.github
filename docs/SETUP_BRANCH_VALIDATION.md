@@ -2,10 +2,10 @@
 file_type: documentation
 title: Branch Validation Setup Guide
 description: Installation and configuration guide for the LightSpeed branch naming validation system
-last_updated: '2026-08-11'
+last_updated: '2026-08-21'
 owners:
   - LightSpeed Team
-version: v1.0.0
+version: v1.0.1
 status: active
 stability: stable
 domain: governance
@@ -435,4 +435,4 @@ For issues or questions:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

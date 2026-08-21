@@ -112,4 +112,4 @@ Use UK English. Keep outputs practical, structured and suitable for Google Docs,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

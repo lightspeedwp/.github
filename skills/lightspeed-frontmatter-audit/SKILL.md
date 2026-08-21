@@ -1,8 +1,9 @@
 ---
-name: "lightspeed-frontmatter-audit"
-description: "Audit frontmatter, schema drift, stale links, and missing folder indexes in LightSpeed governance repositories."
+name: lightspeed-frontmatter-audit
+description: Audit frontmatter, schema drift, stale links, and missing folder indexes in LightSpeed governance repositories.
 ---
+
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

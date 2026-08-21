@@ -1,7 +1,7 @@
 ---
-title: "Inactive Issue Saved Reply"
-description: "Message for closing an issue due to inactivity."
-category: "Issue"
+title: Inactive Issue Saved Reply
+description: Message for closing an issue due to inactivity.
+category: Issue
 labels:
   - status:closed
 ---
@@ -23,4 +23,4 @@ Thank you for your contribution!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

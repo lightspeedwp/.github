@@ -1,23 +1,22 @@
 ---
-name: 'Design Partner Agent'
-description: 'AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment'
-agent_id: 'agent-5'
-agent_slug: 'design-partner'
-agent_name: 'Design Partner Agent'
-agent_type: 'specialized'
-domain: 'design'
-focus: 'partner-collaboration'
-version: '1.0.0'
+name: Design Partner Agent
+description: AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment
+agent_id: agent-5
+agent_slug: design-partner
+agent_name: Design Partner Agent
+agent_type: specialized
+domain: design
+focus: partner-collaboration
+version: 1.0.1
 created_date: '2026-07-22'
-last_updated: '2026-07-22'
-maintainer: 'LightSpeed Team'
+last_updated: '2026-08-21'
+maintainer: LightSpeed Team
 authors:
   - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
-tier: 'premium'
-
+license: GPL-3.0
+stability: stable
+status: active
+tier: premium
 capabilities:
   - design-consultation
   - design-system-management
@@ -25,36 +24,33 @@ capabilities:
   - accessibility-assessment
   - design-documentation
   - figma-integration
-
 providers:
   - claude
   - copilot
   - openai
-
 provider_config:
   claude:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
     tools: 8
     integrations:
       - figma-api
       - design-system-validator
       - accessibility-checker
   copilot:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
     skills: 6
     integrations:
       - github-projects
       - figma-sync
   openai:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
     functions: 8
     integrations:
       - figma-api
       - third-party-design-tools
-
 tags:
   - design
   - collaboration
@@ -236,4 +232,4 @@ Include all states, sizes, variants, and usage guidelines.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

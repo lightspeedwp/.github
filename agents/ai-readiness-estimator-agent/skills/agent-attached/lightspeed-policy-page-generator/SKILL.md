@@ -109,4 +109,4 @@ Include this disclaimer whenever privacy, cookies, accessibility, AI logging, ch
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

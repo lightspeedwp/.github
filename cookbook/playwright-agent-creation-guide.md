@@ -1,11 +1,9 @@
 ---
 file_type: documentation
 title: Playwright Agent Creation Guide
-description: >-
-  Worked playbook for converting the Playwright Testing Agent export into a
-  standardised multi-provider agent and plugin — the Phase 1 pilot reference.
-version: v1.0.0
-last_updated: '2026-07-22'
+description: Worked playbook for converting the Playwright Testing Agent export into a standardised multi-provider agent and plugin — the Phase 1 pilot reference.
+version: v1.0.1
+last_updated: '2026-08-21'
 owners:
   - lightspeedwp/maintainers
 tags:
@@ -107,3 +105,7 @@ checklist, then merge after review.
 Reuse this playbook (and
 [agent-creation-workflow.instructions.md](../instructions/agent-creation-workflow.instructions.md))
 for the remaining 15 agents in Phase 2.
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

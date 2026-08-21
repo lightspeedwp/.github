@@ -1,8 +1,11 @@
 ---
-name: "❓ Help / Support"
-about: "Submit your WordPress-related questions or support requests."
-title: "[Help] <Short summary>"
-labels: [question, support, status:needs-triage]
+name: ❓ Help / Support
+about: Submit your WordPress-related questions or support requests.
+title: '[Help] <Short summary>'
+labels:
+  - question
+  - support
+  - status:needs-triage
 ---
 
 <!--
@@ -46,4 +49,4 @@ Link to related docs, issues, or saved replies if applicable.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

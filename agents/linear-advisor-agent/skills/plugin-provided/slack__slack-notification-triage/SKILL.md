@@ -68,4 +68,4 @@ Use this skill to produce a priority queue or task list for the user from recent
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

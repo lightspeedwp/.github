@@ -1,8 +1,10 @@
 ---
-name: "🧠 AI Ops"
-about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
-title: "[AI Ops] <Brief summary>"
-labels: [status:needs-triage, area:ai]
+name: 🧠 AI Ops
+about: Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation.
+title: '[AI Ops] <Brief summary>'
+labels:
+  - status:needs-triage
+  - area:ai
 ---
 
 ## AI Ops Summary
@@ -48,4 +50,4 @@ labels: [status:needs-triage, area:ai]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -18,3 +18,7 @@ Closes #202
 
 - [x] Linked issue provided
 - [ ] Validation notes reviewed
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

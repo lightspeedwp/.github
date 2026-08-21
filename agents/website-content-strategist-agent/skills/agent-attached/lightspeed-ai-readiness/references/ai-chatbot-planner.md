@@ -67,4 +67,4 @@ Stay platform-neutral by default. Include AI Engine / Meow Apps notes when the u
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -29,4 +29,4 @@ Use this skill when the user wants a prep brief, not just the event details.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

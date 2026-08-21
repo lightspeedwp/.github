@@ -1,25 +1,24 @@
 ---
 file_type: instructions
 title: Programming Languages Standards
-description: Unified linting, formatting, and documentation standards for JavaScript,
-  TypeScript, JSON, and YAML across all GitHub repositories
+description: Unified linting, formatting, and documentation standards for JavaScript, TypeScript, JSON, and YAML across all GitHub repositories
 scope: organization-wide
 version: v1.1
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- GitHub Community Health Team
+  - GitHub Community Health Team
 tags:
-- javascript
-- typescript
-- json
-- yaml
-- linting
-- formatting
-- jsdoc
+  - javascript
+  - typescript
+  - json
+  - yaml
+  - linting
+  - formatting
+  - jsdoc
 applyTo:
-- '**/*.{js,jsx,ts,tsx,mjs,cjs}'
-- '**/*.json'
-- '**/*.{yml,yaml}'
+  - '**/*.{js,jsx,ts,tsx,mjs,cjs}'
+  - '**/*.json'
+  - '**/*.{yml,yaml}'
 status: active
 stability: stable
 domain: generic
@@ -445,4 +444,4 @@ jobs:
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

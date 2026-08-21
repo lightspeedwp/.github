@@ -1,6 +1,6 @@
 ---
 template_id: chatbot-escalation-and-fallback-design-template
-version: 1.0.0
+version: 1.0.1
 status: draft
 ---
 
@@ -48,4 +48,4 @@ Include who is responsible for monitoring these logs and how often.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

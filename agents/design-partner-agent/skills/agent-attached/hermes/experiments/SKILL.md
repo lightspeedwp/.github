@@ -51,4 +51,4 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing audience,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

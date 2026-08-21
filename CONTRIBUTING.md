@@ -1,11 +1,17 @@
 ---
-file_type: "documentation"
-title: "Contributing Guidelines"
-description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
+file_type: documentation
+title: Contributing Guidelines
+description: Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow
 version: '1.6'
-last_updated: '2026-06-19'
-owners: ["LightSpeed Team"]
-tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
+last_updated: '2026-08-21'
+owners:
+  - LightSpeed Team
+tags:
+  - contributing
+  - guidelines
+  - workflow
+  - standards
+  - pull-requests
 ---
 
 # Contributing
@@ -157,4 +163,4 @@ Thank you for helping us make LightSpeed better!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -68,4 +68,4 @@ Do not cite the local `.docx` path in the final answer after a successful native
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

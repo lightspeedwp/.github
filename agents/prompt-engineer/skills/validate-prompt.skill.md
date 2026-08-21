@@ -3,8 +3,8 @@ name: validate-prompt
 title: Validate Prompt Format
 description: Validate prompt format, structure, and standards compliance
 skill_type: validation
-version: "1.0.0"
-created: "2026-08-12"
+version: 1.0.1
+created: '2026-08-12'
 ---
 
 # Validate Prompt Format & Standards
@@ -442,3 +442,7 @@ Test validation with:
 - [WordPress Plugin Development](https://developer.wordpress.org/plugins/)
 - [WordPress Theme Development](https://developer.wordpress.org/themes/)
 - [Theme.json Specification](https://developer.wordpress.org/themes/global-settings-and-styles/settings/)
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

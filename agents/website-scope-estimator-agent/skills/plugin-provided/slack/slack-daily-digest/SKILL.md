@@ -67,4 +67,4 @@ Use this skill to produce a daily digest of today's important Slack activity fro
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

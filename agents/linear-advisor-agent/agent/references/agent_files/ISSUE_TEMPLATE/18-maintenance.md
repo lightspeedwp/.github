@@ -1,8 +1,10 @@
 ---
-name: "🧹 Maintenance"
-about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
-title: "[Maintenance] <Brief summary of the maintenance or chore>"
-labels: [status:needs-triage, area:maintenance]
+name: 🧹 Maintenance
+about: Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks
+title: '[Maintenance] <Brief summary of the maintenance or chore>'
+labels:
+  - status:needs-triage
+  - area:maintenance
 ---
 
 ## Maintenance / Chore Summary
@@ -47,4 +49,4 @@ labels: [status:needs-triage, area:maintenance]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

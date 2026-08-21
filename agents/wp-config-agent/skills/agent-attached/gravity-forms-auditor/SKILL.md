@@ -1,6 +1,6 @@
 ---
 name: gravity-forms-auditor
-description: 'audit gravity forms setups on wordpress sites through a read-only wordpress mcp app or companion connector. use for gravity forms health checks, fast audits, full preflight audits, form quality reviews, accessibility checks, spam and security reviews, privacy/data retention checks, notification and deliverability audits, add-on/feed/integration reviews, woocommerce enquiry form audits, tour operator enquiry audits, enforced findings registers, readiness scorecards, client-safe summaries, retest reports, and contract handoffs to the gravity-forms-configuration skill. do not use for applying configuration changes or write operations.'
+description: audit gravity forms setups on wordpress sites through a read-only wordpress mcp app or companion connector. use for gravity forms health checks, fast audits, full preflight audits, form quality reviews, accessibility checks, spam and security reviews, privacy/data retention checks, notification and deliverability audits, add-on/feed/integration reviews, woocommerce enquiry form audits, tour operator enquiry audits, enforced findings registers, readiness scorecards, client-safe summaries, retest reports, and contract handoffs to the gravity-forms-configuration skill. do not use for applying configuration changes or write operations.
 ---
 
 # Gravity Forms Auditor
@@ -194,4 +194,4 @@ Route to `gravity-forms-configuration` for approved configuration changes, new f
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

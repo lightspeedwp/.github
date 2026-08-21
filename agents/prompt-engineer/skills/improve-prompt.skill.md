@@ -3,8 +3,8 @@ name: improve-prompt
 title: Generate Prompt Improvements
 description: Generate actionable improvement suggestions for prompts with trade-off analysis
 skill_type: generation
-version: "1.0.0"
-created: "2026-08-12"
+version: 1.0.1
+created: '2026-08-12'
 ---
 
 # Generate Prompt Improvements
@@ -379,3 +379,7 @@ Test with:
 - [Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
 - [CLAUDE.md](../../../CLAUDE.md) - Project standards
 - [BRANCHING_STRATEGY.md](../../../.github/docs/BRANCHING_STRATEGY.md) - GitHub governance
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

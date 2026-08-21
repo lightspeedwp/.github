@@ -1,9 +1,9 @@
 ---
-version: 1.0.0
-title: "Safari lodge WordPress rebuild active context"
+version: 1.0.1
+title: Safari lodge WordPress rebuild active context
 project_key: safari-lodge-wordpress-rebuild
 status: active
-last_updated: 2026-05-15
+last_updated: '2026-08-21'
 current_stage: intake_summary
 ---
 # Active Context
@@ -36,4 +36,4 @@ current_stage: intake_summary
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -245,4 +245,4 @@ Role: [1-2 sentences defining the model's function, context, and job]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
