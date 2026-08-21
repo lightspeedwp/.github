@@ -1,7 +1,11 @@
 ---
+file_type: report
 title: "Mermaid Accessibility Audit & Enhancement Report"
+description: "Comprehensive audit and enhancement report for Mermaid diagram accessibility across the repository"
 date: 2026-08-19
 status: complete
+category: accessibility
+last_updated: 2026-08-19
 ---
 
 # Mermaid Accessibility Audit & Enhancement Report
