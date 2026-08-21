@@ -167,7 +167,7 @@
     "mermaid": "^10.9.0",
     "micromatch": "^4.0.7",
     "node-fetch": "^3.3.2",
-    "npm-package-json-lint": "^7.0.0",
+    "npm-package-json-lint": "^11.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.0.0",
     "puppeteer": "^25.8.0",
