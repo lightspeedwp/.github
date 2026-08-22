@@ -135,11 +135,12 @@ Currently:
 
 **Status:** ✅ Phase 2C complete & merged to develop (2026-08-21)
 
-### Phase 2D: Release & Documentation ✅ COMPLETE
+### Phase 2D: Release & Documentation ✅ MERGED
 
-**Duration:** 2026-08-21 (1 day, accelerated)  
+**Duration:** 2026-08-21–2026-08-22 (2 days, completed & merged)  
 **Owner:** Ash Shaw  
-**Status:** ✅ COMPLETE (4 commits, 8 files, 5,000+ LOC)
+**PR:** [#2293](https://github.com/lightspeedwp/.github/pull/2293) ✅ MERGED  
+**Status:** ✅ MERGED TO DEVELOP (Commit: `b431f2542`)
 
 **Deliverables:**
 
@@ -161,12 +162,13 @@ Currently:
 
 **Acceptance Criteria:**
 
-- ✅ v1.0.0 release tag created (ready to push)
+- ✅ v1.0.0 release tag ready to create
 - ✅ All implementation & training guides complete and tested
 - ✅ 8 comprehensive documentation files (5,000+ lines)
 - ✅ Zero critical issues from Phase 2C
 - ✅ All 4 repository types covered with examples
 - ✅ 116 tests passing, v1.0.0 ready for release
+- ✅ **PR #2293 merged to develop** (2026-08-22 11:47 UTC)
 
 ### Phase 3: Pilot Testing & Real-World Validation 📋 PLANNED
 
@@ -357,7 +359,7 @@ Meta agent detects repo type (in order):
 
 ## Related Issues
 
-This project is tracked across multiple GitHub pull requests and issues. All Phase 2 work (2A–2C) has been merged to develop.
+This project is tracked across multiple GitHub pull requests and issues. **All Phase 2 work (2A–2D) has been merged to develop.**
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
@@ -366,7 +368,7 @@ This project is tracked across multiple GitHub pull requests and issues. All Pha
 | [#2046](https://github.com/lightspeedwp/.github/pull/2046) | PR | Phase 2B: Extended skills (Skills 4-5, Part 1) | ✅ MERGED |
 | [#2048](https://github.com/lightspeedwp/.github/pull/2048) | PR | Phase 2B: Extended skills (Skills 4-5, Part 2) | ✅ MERGED |
 | [#2104](https://github.com/lightspeedwp/.github/pull/2104) | PR | Phase 2C: CI/CD integration & testing (116 tests) | ✅ MERGED |
-| [#2292](https://github.com/lightspeedwp/.github/pull/2292) | PR | Phase 2D: Complete documentation & v1.0.0 release package | 📋 READY FOR MERGE |
+| [#2293](https://github.com/lightspeedwp/.github/pull/2293) | PR | Phase 2D: Complete documentation & v1.0.0 release package | ✅ MERGED |
 | #2173 (TBD) | epic | Phase 3: Pilot Testing & Real-World Validation (Aug 29–Sep 06) | 📋 PLANNED |
 | #2174 (TBD) | epic | Phase 4: Organisation-Wide Rollout (Sep 07+) | 🔵 FUTURE |
 
