@@ -3,10 +3,7 @@ title: Meta Agent v2.0 — Changelog
 description: Version history and release notes for Meta Agent v2.0
 file_type: changelog
 category: documentation
-version: 1.0
 status: active
-author: Ash Shaw
-date: '2026-08-21'
 language: en
 owners:
   - lightspeedwp/maintainers

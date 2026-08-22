@@ -5,10 +5,7 @@ description: >
   hook configuration, GitHub Actions integration, and real-world examples.
 file_type: guide
 category: documentation
-version: 1.0
 status: active
-author: Ash Shaw
-date: '2026-08-21'
 language: en
 owners:
   - lightspeedwp/maintainers

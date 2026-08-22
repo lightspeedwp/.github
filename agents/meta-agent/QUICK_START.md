@@ -5,10 +5,7 @@ description: >
   Get up and running in less than 5 minutes.
 file_type: guide
 category: training
-version: 1.0
 status: active
-author: Ash Shaw
-date: '2026-08-21'
 language: en
 owners:
   - lightspeedwp/maintainers

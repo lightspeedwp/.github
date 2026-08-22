@@ -3,12 +3,9 @@ title: Meta Agent v2.0 — Frequently Asked Questions
 description: >
   50+ questions and answers about Meta Agent v2.0, covering setup,
   usage, configuration, troubleshooting, and advanced topics.
-file_type: faq
+file_type: documentation
 category: documentation
-version: 1.0
 status: active
-author: Ash Shaw
-date: '2026-08-21'
 language: en
 owners:
   - lightspeedwp/maintainers

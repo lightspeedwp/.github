@@ -5,10 +5,7 @@ description: >
   managing issues, and maintaining Meta Agent v2.0.
 file_type: guide
 category: operations
-version: 1.0
 status: active
-author: Ash Shaw
-date: '2026-08-21'
 language: en
 owners:
   - lightspeedwp/maintainers

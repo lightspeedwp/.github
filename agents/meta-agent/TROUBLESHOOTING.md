@@ -5,10 +5,7 @@ description: >
   Includes debugging tips, performance tuning, and edge cases.
 file_type: guide
 category: troubleshooting
-version: 1.0
 status: active
-author: Ash Shaw
-date: '2026-08-21'
 language: en
 owners:
   - lightspeedwp/maintainers
