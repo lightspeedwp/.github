@@ -3,13 +3,13 @@
  * Establishes and validates performance metrics for the review pipeline
  */
 
-const { FeedbackProcessor } = require('../../feedback-processor');
-const { DecisionEngine } = require('../../decision-engine');
-const { CommentGenerator } = require('../../comment-generator');
-const { ConfigurationSystem } = require('../../configuration-system');
-const mixedFeedback = require('../fixtures/mixed-feedback-batch.json');
+const { FeedbackProcessor } = require("../../feedback-processor");
+const { DecisionEngine } = require("../../decision-engine");
+const { CommentGenerator } = require("../../comment-generator");
+const { ConfigurationSystem } = require("../../configuration-system");
+const mixedFeedback = require("../fixtures/mixed-feedback-batch.json");
 
-describe('Reviewer Agent v2 - Performance Baselines', () => {
+describe("Reviewer Agent v2 - Performance Baselines", () => {
   let processor;
   let engine;
   let generator;
@@ -24,7 +24,7 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     config = new ConfigurationSystem();
   });
 
-  const processWorkflow = (feedback, repoType = 'github') => {
+  const processWorkflow = (feedback, repoType = "github") => {
     const normalized = processor.process(feedback);
     const decisions = engine.process(normalized.findings || []);
     const comment = generator.generate(decisions);
@@ -38,26 +38,26 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     };
   };
 
-  test('should process small feedback batch within timeout', () => {
+  test("should process small feedback batch within timeout", () => {
     const start = Date.now();
-    const result = processWorkflow(mixedFeedback, 'github');
+    const result = processWorkflow(mixedFeedback, "github");
     const duration = Date.now() - start;
 
     expect(result).toBeDefined();
     expect(duration).toBeLessThan(PERF_TIMEOUT);
   });
 
-  test('should process medium feedback batch (50 findings) within timeout', () => {
+  test("should process medium feedback batch (50 findings) within timeout", () => {
     const mediumFeedback = {
       coderabbit: Array.from({ length: 25 }, (_, i) => ({
-        severity: ['critical', 'error'][i % 2],
+        severity: ["critical", "error"][i % 2],
         title: `Issue ${i}`,
         file: `file${i}.js`,
         line: i * 10,
         description: `Description ${i}`,
       })),
       codeQuality: Array.from({ length: 25 }, (_, i) => ({
-        severity: ['warning', 'note'][i % 2],
+        severity: ["warning", "note"][i % 2],
         title: `Quality Issue ${i}`,
         file: `quality${i}.js`,
         line: i * 5,
@@ -66,31 +66,31 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     };
 
     const start = Date.now();
-    const result = processWorkflow(mediumFeedback, 'github');
+    const result = processWorkflow(mediumFeedback, "github");
     const duration = Date.now() - start;
 
     expect(result.findings.length).toBeGreaterThanOrEqual(50);
     expect(duration).toBeLessThan(PERF_TIMEOUT);
   });
 
-  test('should process large feedback batch (100+ findings) within timeout', () => {
+  test("should process large feedback batch (100+ findings) within timeout", () => {
     const largeFeedback = {
       coderabbit: Array.from({ length: 50 }, (_, i) => ({
-        severity: ['critical', 'error'][i % 2],
+        severity: ["critical", "error"][i % 2],
         title: `Issue ${i}`,
         file: `file${i}.js`,
         line: i * 10,
         description: `Description ${i}`,
       })),
       codeQuality: Array.from({ length: 30 }, (_, i) => ({
-        severity: ['warning', 'note'][i % 2],
+        severity: ["warning", "note"][i % 2],
         title: `Quality Issue ${i}`,
         file: `quality${i}.js`,
         line: i * 5,
         description: `Quality Description ${i}`,
       })),
       copilot: Array.from({ length: 20 }, (_, i) => ({
-        severity: ['info', 'note'][i % 2],
+        severity: ["info", "note"][i % 2],
         title: `Suggestion ${i}`,
         file: `suggest${i}.js`,
         line: i * 3,
@@ -99,18 +99,18 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     };
 
     const start = Date.now();
-    const result = processWorkflow(largeFeedback, 'github');
+    const result = processWorkflow(largeFeedback, "github");
     const duration = Date.now() - start;
 
     expect(result.findings.length).toBeGreaterThanOrEqual(100);
     expect(duration).toBeLessThan(PERF_TIMEOUT);
   });
 
-  test('should process feedback with consistent performance', () => {
+  test("should process feedback with consistent performance", () => {
     const iterations = 3;
 
     for (let i = 0; i < iterations; i++) {
-      const result = processWorkflow(mixedFeedback, 'github');
+      const result = processWorkflow(mixedFeedback, "github");
       expect(result).toBeDefined();
       expect(result.findings).toBeDefined();
     }
@@ -118,12 +118,12 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     // Just verify we can process multiple times without errors
   });
 
-  test('should not accumulate memory with repeated processing', () => {
+  test("should not accumulate memory with repeated processing", () => {
     const iterations = 10;
     const initialMemory = process.memoryUsage().heapUsed;
 
     for (let i = 0; i < iterations; i++) {
-      processWorkflow(mixedFeedback, 'github');
+      processWorkflow(mixedFeedback, "github");
     }
 
     const finalMemory = process.memoryUsage().heapUsed;
@@ -133,30 +133,30 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     expect(memoryGrowth).toBeLessThan(MEMORY_THRESHOLD);
   });
 
-  test('should have consistent response time for different repo types', () => {
-    const repoTypes = ['github', 'wordpress-plugin', 'wordpress-theme'];
+  test("should have consistent response time for different repo types", () => {
+    const repoTypes = ["github", "wordpress-plugin", "wordpress-theme"];
     const durations = {};
 
-    repoTypes.forEach(repoType => {
+    repoTypes.forEach((repoType) => {
       const start = Date.now();
       processWorkflow(mixedFeedback, repoType);
       durations[repoType] = Date.now() - start;
     });
 
     // All repo types should complete within timeout
-    Object.values(durations).forEach(duration => {
+    Object.values(durations).forEach((duration) => {
       expect(duration).toBeLessThan(PERF_TIMEOUT);
     });
   });
 
-  test('should scale performance linearly with feedback count', () => {
+  test("should scale performance linearly with feedback count", () => {
     const sizes = [10, 25, 50];
     const durations = [];
 
-    sizes.forEach(size => {
+    sizes.forEach((size) => {
       const feedback = {
         coderabbit: Array.from({ length: size }, (_, i) => ({
-          severity: 'critical',
+          severity: "critical",
           title: `Issue ${i}`,
           file: `file${i}.js`,
           line: i * 10,
@@ -165,7 +165,7 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
       };
 
       const start = Date.now();
-      processWorkflow(feedback, 'github');
+      processWorkflow(feedback, "github");
       durations.push(Date.now() - start);
     });
 
@@ -174,26 +174,26 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     expect(durations[durations.length - 1]).toBeLessThan(PERF_TIMEOUT);
   });
 
-  test('should maintain performance with duplicate findings', () => {
+  test("should maintain performance with duplicate findings", () => {
     const duplicateFeedback = {
       coderabbit: Array.from({ length: 50 }, (_, i) => ({
-        severity: 'critical',
-        title: 'Same Issue',
-        file: 'same.js',
+        severity: "critical",
+        title: "Same Issue",
+        file: "same.js",
         line: 42,
-        description: 'Same description',
+        description: "Same description",
       })),
     };
 
     const start = Date.now();
-    const result = processWorkflow(duplicateFeedback, 'github');
+    const result = processWorkflow(duplicateFeedback, "github");
     const duration = Date.now() - start;
 
     expect(duration).toBeLessThan(PERF_TIMEOUT);
     expect(result.findings.length).toBeLessThan(50); // Deduped
   });
 
-  test('should generate comments efficiently', () => {
+  test("should generate comments efficiently", () => {
     const processor = new FeedbackProcessor();
     const engine = new DecisionEngine();
     const generator = new CommentGenerator();
@@ -209,14 +209,14 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     expect(duration).toBeLessThan(100); // Comment generation should be fast
   });
 
-  test('should handle comment generation for large datasets', () => {
+  test("should handle comment generation for large datasets", () => {
     const processor = new FeedbackProcessor();
     const engine = new DecisionEngine();
     const generator = new CommentGenerator();
 
     const largeFeedback = {
       coderabbit: Array.from({ length: 100 }, (_, i) => ({
-        severity: ['critical', 'error'][i % 2],
+        severity: ["critical", "error"][i % 2],
         title: `Issue ${i}`,
         file: `file${i}.js`,
         line: i * 10,
@@ -235,12 +235,14 @@ describe('Reviewer Agent v2 - Performance Baselines', () => {
     expect(duration).toBeLessThan(200);
   });
 
-  test('performance baseline: small batch', () => {
+  test("performance baseline: small batch", () => {
     const start = Date.now();
-    const result = processWorkflow(mixedFeedback, 'github');
+    const result = processWorkflow(mixedFeedback, "github");
     const duration = Date.now() - start;
 
-    console.log(`Small batch (${result.findings.length} findings): ${duration}ms`);
+    console.log(
+      `Small batch (${result.findings.length} findings): ${duration}ms`,
+    );
     expect(duration).toBeLessThan(PERF_TIMEOUT);
   });
 });

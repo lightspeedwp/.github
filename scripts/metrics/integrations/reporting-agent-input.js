@@ -208,7 +208,7 @@ class MetricsReportFormatter {
       };
 
       const reviewTimeAnomaly = rawMetrics.anomalies?.find(
-        (a) => a.metric === "averageReviewTime"
+        (a) => a.metric === "averageReviewTime",
       );
 
       trends.reviewTime = {
@@ -216,7 +216,7 @@ class MetricsReportFormatter {
         change:
           typeof metrics.reviewTimeChange !== "undefined"
             ? metrics.reviewTimeChange
-            : reviewTimeAnomaly?.percentChange ?? "unavailable",
+            : (reviewTimeAnomaly?.percentChange ?? "unavailable"),
         detail: metrics.reviewTimeDetail || "Data unavailable",
       };
 

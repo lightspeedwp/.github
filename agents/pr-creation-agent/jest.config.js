@@ -13,10 +13,7 @@ export default {
       statements: 90,
     },
   },
-  testMatch: [
-    "**/__tests__/**/*.test.js",
-    "**/__integration__/**/*.test.js",
-  ],
+  testMatch: ["**/__tests__/**/*.test.js", "**/__integration__/**/*.test.js"],
   moduleFileExtensions: ["js"],
   transform: {},
   testTimeout: 10000,

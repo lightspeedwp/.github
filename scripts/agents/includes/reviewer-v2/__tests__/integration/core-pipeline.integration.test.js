@@ -3,13 +3,13 @@
  * Tests the full feedback → decision → comment flow with realistic data
  */
 
-const { FeedbackProcessor } = require('../../feedback-processor');
-const { DecisionEngine } = require('../../decision-engine');
-const { CommentGenerator } = require('../../comment-generator');
-const { ConfigurationSystem } = require('../../configuration-system');
-const Orchestrator = require('../../orchestrator');
+const { FeedbackProcessor } = require("../../feedback-processor");
+const { DecisionEngine } = require("../../decision-engine");
+const { CommentGenerator } = require("../../comment-generator");
+const { ConfigurationSystem } = require("../../configuration-system");
+const Orchestrator = require("../../orchestrator");
 
-describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
+describe("Reviewer Agent v2 - Core Pipeline Integration", () => {
   let processor;
   let engine;
   let generator;
@@ -29,7 +29,7 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     });
   });
 
-  test('should initialize all components', () => {
+  test("should initialize all components", () => {
     expect(processor).toBeDefined();
     expect(engine).toBeDefined();
     expect(generator).toBeDefined();
@@ -37,15 +37,15 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     expect(orchestrator).toBeDefined();
   });
 
-  test('should process feedback through full pipeline', () => {
+  test("should process feedback through full pipeline", () => {
     const feedback = {
       coderabbit: [
         {
-          severity: 'critical',
-          title: 'SQL injection vulnerability',
-          file: 'db.js',
+          severity: "critical",
+          title: "SQL injection vulnerability",
+          file: "db.js",
           line: 42,
-          description: 'User input not properly sanitized',
+          description: "User input not properly sanitized",
         },
       ],
     };
@@ -56,24 +56,24 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     expect(normalized.findings.length).toBeGreaterThan(0);
   });
 
-  test('should handle multiple tools in batch', () => {
+  test("should handle multiple tools in batch", () => {
     const feedback = {
       coderabbit: [
         {
-          severity: 'critical',
-          title: 'Hardcoded password',
-          file: 'config.js',
+          severity: "critical",
+          title: "Hardcoded password",
+          file: "config.js",
           line: 10,
-          description: 'API key hardcoded',
+          description: "API key hardcoded",
         },
       ],
       codeQuality: [
         {
-          severity: 'high',
-          title: 'Function too complex',
-          file: 'utils.js',
+          severity: "high",
+          title: "Function too complex",
+          file: "utils.js",
           line: 50,
-          description: 'Cyclomatic complexity > 10',
+          description: "Cyclomatic complexity > 10",
         },
       ],
     };
@@ -83,15 +83,15 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     expect(normalized.findings.length).toBeGreaterThan(0);
   });
 
-  test('should generate comment output', () => {
+  test("should generate comment output", () => {
     const feedback = {
       coderabbit: [
         {
-          severity: 'critical',
-          title: 'Vulnerability found',
-          file: 'lib.js',
+          severity: "critical",
+          title: "Vulnerability found",
+          file: "lib.js",
           line: 25,
-          description: 'SQL injection risk',
+          description: "SQL injection risk",
         },
       ],
     };
@@ -101,21 +101,21 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     const comment = generator.generate(decisions);
 
     expect(comment).toBeDefined();
-    expect(typeof comment).toBe('string');
+    expect(typeof comment).toBe("string");
     expect(comment.length).toBeGreaterThan(0);
   });
 
-  test('should handle configuration loading', () => {
-    const cfg = config.loadConfiguration('wordpress-plugin');
+  test("should handle configuration loading", () => {
+    const cfg = config.loadConfiguration("wordpress-plugin");
 
     expect(cfg).toBeDefined();
     expect(cfg.excludedFiles).toBeDefined();
   });
 
-  test('should process large feedback batch', () => {
+  test("should process large feedback batch", () => {
     const largeFeedback = {
       coderabbit: Array.from({ length: 50 }, (_, i) => ({
-        severity: ['critical', 'error', 'warning', 'note'][i % 4],
+        severity: ["critical", "error", "warning", "note"][i % 4],
         title: `Issue ${i}`,
         file: `file${i}.js`,
         line: i * 10,
@@ -130,7 +130,7 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     expect(comment).toBeDefined();
   });
 
-  test('should handle empty findings gracefully', () => {
+  test("should handle empty findings gracefully", () => {
     const feedback = {
       coderabbit: [],
     };
@@ -142,14 +142,14 @@ describe('Reviewer Agent v2 - Core Pipeline Integration', () => {
     expect(comment).toBeDefined();
   });
 
-  test('should respect configuration priorities', () => {
-    const cfg = config.loadConfiguration('wordpress-plugin');
+  test("should respect configuration priorities", () => {
+    const cfg = config.loadConfiguration("wordpress-plugin");
 
     expect(cfg).toBeDefined();
     expect(cfg.excludedFiles).toBeDefined();
   });
 
-  test('should handle malformed feedback', () => {
+  test("should handle malformed feedback", () => {
     const malformed = {
       invalid: null,
     };

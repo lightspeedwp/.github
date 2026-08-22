@@ -11,11 +11,17 @@ class GitHubIssueCreator {
   /**
    * Create or update metrics report issue
    */
-  async createMetricsIssue(owner, repo, report, period = 'weekly', options = {}) {
+  async createMetricsIssue(
+    owner,
+    repo,
+    report,
+    period = "weekly",
+    options = {},
+  ) {
     const { labels = [], assignees = [], autoClose = true } = options;
 
     try {
-      const reportDate = new Date().toISOString().split('T')[0];
+      const reportDate = new Date().toISOString().split("T")[0];
       const title = `[Metrics] ${period.charAt(0).toUpperCase() + period.slice(1)} Report: ${reportDate}`;
 
       // Create issue
@@ -24,14 +30,14 @@ class GitHubIssueCreator {
         repo,
         title,
         body: report,
-        labels: ['type:metrics', 'area:monitoring', ...labels],
+        labels: ["type:metrics", "area:monitoring", ...labels],
         assignees: assignees.length > 0 ? assignees : undefined,
       });
 
       console.log(`✅ Created metrics issue #${issue.data.number}`);
       return issue.data;
     } catch (error) {
-      console.error('Error creating metrics issue:', error.message);
+      console.error("Error creating metrics issue:", error.message);
       throw error;
     }
   }
@@ -45,8 +51,8 @@ class GitHubIssueCreator {
       const issues = await this.octokit.rest.issues.listForRepo({
         owner,
         repo,
-        labels: 'type:metrics',
-        state: 'open',
+        labels: "type:metrics",
+        state: "open",
         per_page: 100,
       });
 
@@ -61,8 +67,8 @@ class GitHubIssueCreator {
             owner,
             repo,
             issue_number: issue.number,
-            state: 'closed',
-            state_reason: 'not_planned',
+            state: "closed",
+            state_reason: "not_planned",
           });
 
           console.log(`✅ Closed old metrics issue #${issue.number}`);
@@ -72,7 +78,7 @@ class GitHubIssueCreator {
 
       return { closedCount, totalChecked: issues.data.length };
     } catch (error) {
-      console.error('Error closing old reports:', error.message);
+      console.error("Error closing old reports:", error.message);
       throw error;
     }
   }
@@ -80,19 +86,19 @@ class GitHubIssueCreator {
   /**
    * Get existing metrics issues
    */
-  async getMetricsIssues(owner, repo, state = 'all') {
+  async getMetricsIssues(owner, repo, state = "all") {
     try {
       const issues = await this.octokit.rest.issues.listForRepo({
         owner,
         repo,
-        labels: 'type:metrics',
+        labels: "type:metrics",
         state,
         per_page: 100,
       });
 
       return issues.data;
     } catch (error) {
-      console.error('Error fetching metrics issues:', error.message);
+      console.error("Error fetching metrics issues:", error.message);
       throw error;
     }
   }
@@ -112,7 +118,7 @@ class GitHubIssueCreator {
       console.log(`✅ Added comment to issue #${issueNumber}`);
       return response.data;
     } catch (error) {
-      console.error('Error adding comment:', error.message);
+      console.error("Error adding comment:", error.message);
       throw error;
     }
   }
@@ -121,9 +127,9 @@ class GitHubIssueCreator {
    * Create weekly metrics report issue
    */
   async createWeeklyMetricsIssue(owner, repo, report, options = {}) {
-    return this.createMetricsIssue(owner, repo, report, 'weekly', {
+    return this.createMetricsIssue(owner, repo, report, "weekly", {
       ...options,
-      labels: ['period:weekly', ...(options.labels || [])],
+      labels: ["period:weekly", ...(options.labels || [])],
     });
   }
 
@@ -131,9 +137,9 @@ class GitHubIssueCreator {
    * Create monthly metrics report issue
    */
   async createMonthlyMetricsIssue(owner, repo, report, options = {}) {
-    return this.createMetricsIssue(owner, repo, report, 'monthly', {
+    return this.createMetricsIssue(owner, repo, report, "monthly", {
       ...options,
-      labels: ['period:monthly', ...(options.labels || [])],
+      labels: ["period:monthly", ...(options.labels || [])],
     });
   }
 
@@ -142,18 +148,18 @@ class GitHubIssueCreator {
    */
   async reportExistsForDate(owner, repo, date) {
     try {
-      const dateString = date.toISOString().split('T')[0];
+      const dateString = date.toISOString().split("T")[0];
       const issues = await this.octokit.rest.issues.listForRepo({
         owner,
         repo,
-        labels: 'type:metrics',
-        state: 'all',
+        labels: "type:metrics",
+        state: "all",
         per_page: 100,
       });
 
       return issues.data.some((issue) => issue.title.includes(dateString));
     } catch (error) {
-      console.error('Error checking for existing report:', error.message);
+      console.error("Error checking for existing report:", error.message);
       return false;
     }
   }
@@ -163,31 +169,44 @@ class GitHubIssueCreator {
    */
   generateIssueTemplate(reportData) {
     return [
-      '# Metrics Report',
-      '',
+      "# Metrics Report",
+      "",
       `Generated: ${new Date().toISOString()}`,
-      '',
+      "",
       reportData,
-      '',
-      '---',
-      '',
-      '**Metadata:**',
+      "",
+      "---",
+      "",
+      "**Metadata:**",
       `- Auto-generated by metrics collection system`,
       `- Review the full report above for detailed analysis`,
       `- Reply in this thread with questions or concerns`,
-    ].join('\n');
+    ].join("\n");
   }
 
   /**
    * Create issue with retry logic
    */
-  async createMetricsIssueWithRetry(owner, repo, report, period = 'weekly', maxRetries = 3) {
+  async createMetricsIssueWithRetry(
+    owner,
+    repo,
+    report,
+    period = "weekly",
+    maxRetries = 3,
+  ) {
     let lastError;
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        console.log(`Creating metrics issue (attempt ${attempt}/${maxRetries})...`);
-        const issue = await this.createMetricsIssue(owner, repo, report, period);
+        console.log(
+          `Creating metrics issue (attempt ${attempt}/${maxRetries})...`,
+        );
+        const issue = await this.createMetricsIssue(
+          owner,
+          repo,
+          report,
+          period,
+        );
         return issue;
       } catch (error) {
         lastError = error;
@@ -201,7 +220,9 @@ class GitHubIssueCreator {
       }
     }
 
-    throw new Error(`Failed to create metrics issue after ${maxRetries} attempts: ${lastError.message}`);
+    throw new Error(
+      `Failed to create metrics issue after ${maxRetries} attempts: ${lastError.message}`,
+    );
   }
 }
 

@@ -8,12 +8,41 @@
  * @returns {Object} Validation result with valid flag and errors
  */
 
-const FORBIDDEN_PREFIXES = ['claude', 'bot', 'automated'];
+const FORBIDDEN_PREFIXES = ["claude", "bot", "automated"];
 const ALLOWED_TYPES = [
-  'feat', 'fix', 'hotfix', 'release', 'refactor', 'chore', 'docs', 'test',
-  'perf', 'ci', 'build', 'deps', 'security', 'revert', 'research', 'design',
-  'a11y', 'ux', 'i18n', 'ops', 'proto', 'ds', 'api', 'schema', 'telemetry',
-  'content', 'seo', 'config', 'migrate', 'qa', 'uat', 'audit', 'codex',
+  "feat",
+  "fix",
+  "hotfix",
+  "release",
+  "refactor",
+  "chore",
+  "docs",
+  "test",
+  "perf",
+  "ci",
+  "build",
+  "deps",
+  "security",
+  "revert",
+  "research",
+  "design",
+  "a11y",
+  "ux",
+  "i18n",
+  "ops",
+  "proto",
+  "ds",
+  "api",
+  "schema",
+  "telemetry",
+  "content",
+  "seo",
+  "config",
+  "migrate",
+  "qa",
+  "uat",
+  "audit",
+  "codex",
 ];
 
 export async function validateBranchName(input) {
@@ -22,7 +51,7 @@ export async function validateBranchName(input) {
   if (!branchName || typeof branchName !== "string") {
     return {
       valid: false,
-      errors: ['branch-name-required'],
+      errors: ["branch-name-required"],
       type: null,
     };
   }
@@ -31,8 +60,8 @@ export async function validateBranchName(input) {
 
   // Check for forbidden prefixes
   for (const forbidden of FORBIDDEN_PREFIXES) {
-    if (branchName.startsWith(forbidden + '/')) {
-      errors.push('branch-prefix-forbidden');
+    if (branchName.startsWith(forbidden + "/")) {
+      errors.push("branch-prefix-forbidden");
       return {
         valid: false,
         errors,
@@ -46,7 +75,7 @@ export async function validateBranchName(input) {
   const match = branchName.match(/^([a-z0-9]+)\/(.+)$/);
 
   if (!match) {
-    errors.push('branch-prefix-missing');
+    errors.push("branch-prefix-missing");
     return {
       valid: false,
       errors,
@@ -58,7 +87,7 @@ export async function validateBranchName(input) {
 
   // Check if type is allowed
   if (!ALLOWED_TYPES.includes(type)) {
-    errors.push('branch-type-invalid');
+    errors.push("branch-type-invalid");
     return {
       valid: false,
       errors,
@@ -67,8 +96,8 @@ export async function validateBranchName(input) {
   }
 
   // Check slug format (must have at least one hyphen)
-  if (!slug.includes('-') || !slug.match(/^[a-z0-9-]+$/)) {
-    errors.push('branch-slug-invalid');
+  if (!slug.includes("-") || !slug.match(/^[a-z0-9-]+$/)) {
+    errors.push("branch-slug-invalid");
     return {
       valid: false,
       errors,

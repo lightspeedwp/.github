@@ -5,23 +5,27 @@
  * Generates metrics reports and manages GitHub issues
  */
 
-const fs = require('fs');
-const path = require('path');
-const { MetricsStorage } = require('../../scripts/metrics/metrics-storage');
-const { MetricsReporter } = require('../../scripts/metrics/metrics-reporter');
-const { TrendAnalyzer } = require('../../scripts/metrics/trend-analyzer');
-const { AnomalyDetector } = require('../../scripts/metrics/anomaly-detector');
+const fs = require("fs");
+const path = require("path");
+const { MetricsStorage } = require("../../scripts/metrics/metrics-storage");
+const { MetricsReporter } = require("../../scripts/metrics/metrics-reporter");
+const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer");
+const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector");
 
 class MetricsReportingOrchestrator {
   constructor() {
-    this.storage = new MetricsStorage('.github/reports/metrics');
+    this.storage = new MetricsStorage(".github/reports/metrics");
     this.trendAnalyzer = new TrendAnalyzer();
     this.anomalyDetector = new AnomalyDetector();
-    this.reporter = new MetricsReporter(this.storage, this.trendAnalyzer, this.anomalyDetector);
+    this.reporter = new MetricsReporter(
+      this.storage,
+      this.trendAnalyzer,
+      this.anomalyDetector,
+    );
     this.reports = [];
   }
 
-  async generateReports(repositories, period = 'weekly') {
+  async generateReports(repositories, period = "weekly") {
     console.log(`\n📊 Generating ${period} metrics reports...`);
     console.log(`📦 Repositories to report on: ${repositories.length}`);
 
@@ -46,7 +50,7 @@ class MetricsReportingOrchestrator {
 
         this.reports.push({
           repository: reportKey,
-          status: 'success',
+          status: "success",
           reportPath,
           period,
           timestamp: new Date().toISOString(),
@@ -54,11 +58,14 @@ class MetricsReportingOrchestrator {
 
         console.log(`✅ Report saved to: ${reportPath}`);
       } catch (error) {
-        console.error(`❌ Error generating report for ${repo.owner}/${repo.repo}:`, error.message);
+        console.error(
+          `❌ Error generating report for ${repo.owner}/${repo.repo}:`,
+          error.message,
+        );
 
         this.reports.push({
           repository: `${repo.owner}/${repo.repo}`,
-          status: 'error',
+          status: "error",
           error: error.message,
           timestamp: new Date().toISOString(),
         });
@@ -69,11 +76,11 @@ class MetricsReportingOrchestrator {
   }
 
   saveReport(repository, report, period) {
-    const reportDir = path.join('.github/reports/metrics');
+    const reportDir = path.join(".github/reports/metrics");
     fs.mkdirSync(reportDir, { recursive: true });
 
-    const dateString = new Date().toISOString().split('T')[0];
-    const reportFileName = `report-${repository.replace('/', '-')}-${period}-${dateString}.md`;
+    const dateString = new Date().toISOString().split("T")[0];
+    const reportFileName = `report-${repository.replace("/", "-")}-${period}-${dateString}.md`;
     const reportPath = path.join(reportDir, reportFileName);
 
     fs.writeFileSync(reportPath, report);
@@ -81,8 +88,10 @@ class MetricsReportingOrchestrator {
   }
 
   generateSummary() {
-    const successCount = this.reports.filter((r) => r.status === 'success').length;
-    const errorCount = this.reports.filter((r) => r.status === 'error').length;
+    const successCount = this.reports.filter(
+      (r) => r.status === "success",
+    ).length;
+    const errorCount = this.reports.filter((r) => r.status === "error").length;
     const totalCount = this.reports.length;
 
     const summary = {
@@ -97,14 +106,14 @@ class MetricsReportingOrchestrator {
       reports: this.reports,
     };
 
-    console.log('\n📈 Reporting Summary');
+    console.log("\n📈 Reporting Summary");
     console.log(`✅ Successful: ${successCount}/${totalCount}`);
     console.log(`❌ Failed: ${errorCount}/${totalCount}`);
 
     // Save summary
     const summaryPath = path.join(
-      '.github/reports/metrics',
-      `reporting-summary-${new Date().toISOString().split('T')[0]}.json`
+      ".github/reports/metrics",
+      `reporting-summary-${new Date().toISOString().split("T")[0]}.json`,
     );
     fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
     console.log(`💾 Summary saved to: ${summaryPath}`);
@@ -112,12 +121,16 @@ class MetricsReportingOrchestrator {
     return summary;
   }
 
-  async run(period = 'weekly') {
+  async run(period = "weekly") {
     try {
       // Get list of repositories from config
-      const configPath = path.join('.github/scripts/workflows/metrics-config.json');
-      const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-      const repositories = config.repositories.filter((r) => r.enabled !== false);
+      const configPath = path.join(
+        ".github/scripts/workflows/metrics-config.json",
+      );
+      const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+      const repositories = config.repositories.filter(
+        (r) => r.enabled !== false,
+      );
 
       // Generate reports
       await this.generateReports(repositories, period);
@@ -125,10 +138,10 @@ class MetricsReportingOrchestrator {
       // Generate summary
       const summary = this.generateSummary();
 
-      console.log('\n✨ Reporting completed successfully');
+      console.log("\n✨ Reporting completed successfully");
       return summary;
     } catch (error) {
-      console.error('\n💥 Fatal error during reporting:', error.message);
+      console.error("\n💥 Fatal error during reporting:", error.message);
       process.exit(1);
     }
   }
@@ -137,11 +150,11 @@ class MetricsReportingOrchestrator {
 // Main execution
 async function main() {
   const args = process.argv.slice(2);
-  const reportType = args.includes('--reportType')
-    ? args[args.indexOf('--reportType') + 1]
-    : 'weekly';
-  const includeArchive = args.includes('--includeArchive')
-    ? args[args.indexOf('--includeArchive') + 1] === 'true'
+  const reportType = args.includes("--reportType")
+    ? args[args.indexOf("--reportType") + 1]
+    : "weekly";
+  const includeArchive = args.includes("--includeArchive")
+    ? args[args.indexOf("--includeArchive") + 1] === "true"
     : false;
 
   console.log(`🔧 Report Type: ${reportType}`);
@@ -154,7 +167,7 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error('Fatal error:', error);
+  console.error("Fatal error:", error);
   process.exit(1);
 });
 
