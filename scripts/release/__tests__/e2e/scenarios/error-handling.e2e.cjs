@@ -8,7 +8,7 @@
  * - Scenario 6: Unauthorized User
  */
 
-const { TestHarness } = require("../test-harness");
+const { TestHarness } = require("../test-harness.cjs");
 const fs = require("fs");
 const path = require("path");
 

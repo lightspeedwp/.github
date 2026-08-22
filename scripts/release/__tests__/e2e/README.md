@@ -57,12 +57,12 @@ npm test -- release-e2e-tests
 
 ### Run Specific Scenario
 ```bash
-node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.js
-node scripts/release/__tests__/e2e/scenarios/minor-release.e2e.js
-node scripts/release/__tests__/e2e/scenarios/major-release.e2e.js
-node scripts/release/__tests__/e2e/scenarios/error-handling.e2e.js
-node scripts/release/__tests__/e2e/scenarios/rollback.e2e.js
-node scripts/release/__tests__/e2e/scenarios/sequential-releases.e2e.js
+node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.cjs
+node scripts/release/__tests__/e2e/scenarios/minor-release.e2e.cjs
+node scripts/release/__tests__/e2e/scenarios/major-release.e2e.cjs
+node scripts/release/__tests__/e2e/scenarios/error-handling.e2e.cjs
+node scripts/release/__tests__/e2e/scenarios/rollback.e2e.cjs
+node scripts/release/__tests__/e2e/scenarios/sequential-releases.e2e.cjs
 ```
 
 ### Run in CI
@@ -134,7 +134,7 @@ Each scenario:
 
 ## Implementation Details
 
-### Test Harness (`test-harness.js`)
+### Test Harness (`test-harness.cjs`)
 Provides utilities for:
 - Creating ephemeral Git repositories
 - Simulating version bumps and changelog updates
@@ -142,7 +142,7 @@ Provides utilities for:
 - Creating Git tags and validating repository state
 - Saving test results
 
-### Scenario Files (`scenarios/*.e2e.js`)
+### Scenario Files (`scenarios/*.e2e.cjs`)
 Each scenario:
 1. Inherits from TestHarness
 2. Creates test repository
@@ -150,7 +150,7 @@ Each scenario:
 4. Validates state at checkpoints
 5. Reports results
 
-### Result Consolidation (`consolidate-results.js`)
+### Result Consolidation (`consolidate-results.cjs`)
 - Aggregates all scenario results
 - Calculates coverage percentage
 - Generates summary JSON
@@ -160,7 +160,7 @@ Each scenario:
 
 Enable verbose logging:
 ```bash
-VERBOSE=true node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.js
+VERBOSE=true node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.cjs
 ```
 
 View test results:

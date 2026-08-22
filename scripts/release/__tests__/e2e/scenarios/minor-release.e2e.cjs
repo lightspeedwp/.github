@@ -5,7 +5,7 @@
  * Validates minor release with manual approval requirement
  */
 
-const { TestHarness } = require("../test-harness");
+const { TestHarness } = require("../test-harness.cjs");
 
 async function runMinorReleaseScenario() {
   const harness = new TestHarness("minor-release");
@@ -26,7 +26,7 @@ async function runMinorReleaseScenario() {
       branch: releaseBranch,
       fileContent: {
         VERSION: "1.1.0",
-        CHANGELOG: content => content.includes("[1.1.0]"),
+        CHANGELOG.md: content => content.includes("[1.1.0]"),
       },
     });
 

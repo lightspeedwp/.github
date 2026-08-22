@@ -78,7 +78,7 @@ jobs:
 
       - name: Run Patch Release E2E Test
         run: |
-          node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.js
+          node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.cjs
         env:
           SCENARIO: patch
           VERBOSE: ${{ inputs.verbose }}
@@ -107,7 +107,7 @@ jobs:
 
       - name: Run Minor Release E2E Test
         run: |
-          node scripts/release/__tests__/e2e/scenarios/minor-release.e2e.js
+          node scripts/release/__tests__/e2e/scenarios/minor-release.e2e.cjs
         env:
           SCENARIO: minor
           VERBOSE: ${{ inputs.verbose }}
@@ -136,7 +136,7 @@ jobs:
 
       - name: Run Major Release E2E Test
         run: |
-          node scripts/release/__tests__/e2e/scenarios/major-release.e2e.js
+          node scripts/release/__tests__/e2e/scenarios/major-release.e2e.cjs
         env:
           SCENARIO: major
           VERBOSE: ${{ inputs.verbose }}
@@ -165,7 +165,7 @@ jobs:
 
       - name: Run Error Handling E2E Tests
         run: |
-          node scripts/release/__tests__/e2e/scenarios/error-handling.e2e.js
+          node scripts/release/__tests__/e2e/scenarios/error-handling.e2e.cjs
         env:
           SCENARIO: error-handling
           VERBOSE: ${{ inputs.verbose }}
@@ -194,7 +194,7 @@ jobs:
 
       - name: Run Rollback E2E Test
         run: |
-          node scripts/release/__tests__/e2e/scenarios/rollback.e2e.js
+          node scripts/release/__tests__/e2e/scenarios/rollback.e2e.cjs
         env:
           SCENARIO: rollback
           VERBOSE: ${{ inputs.verbose }}
@@ -223,7 +223,7 @@ jobs:
 
       - name: Run Sequential Releases E2E Test
         run: |
-          node scripts/release/__tests__/e2e/scenarios/sequential-releases.e2e.js
+          node scripts/release/__tests__/e2e/scenarios/sequential-releases.e2e.cjs
         env:
           SCENARIO: sequential
           VERBOSE: ${{ inputs.verbose }}
@@ -264,7 +264,7 @@ jobs:
 
       - name: Consolidate and summarize test results
         run: |
-          node scripts/release/__tests__/e2e/consolidate-results.js
+          node scripts/release/__tests__/e2e/consolidate-results.cjs
         env:
           TEST_RESULTS_DIR: ${{ env.TEST_RESULTS_DIR }}
 

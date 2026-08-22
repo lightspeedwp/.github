@@ -5,7 +5,7 @@
  * Validates basic patch release workflow end-to-end
  */
 
-const { TestHarness } = require("../test-harness");
+const { TestHarness } = require("../test-harness.cjs");
 
 async function runPatchReleaseScenario() {
   const harness = new TestHarness("patch-release");
@@ -31,7 +31,7 @@ async function runPatchReleaseScenario() {
       branch: releaseBranch,
       fileContent: {
         VERSION: "1.0.1",
-        CHANGELOG: content => content.includes("[1.0.1]"),
+        "CHANGELOG.md": content => content.includes("[1.0.1]"),
       },
     });
 
@@ -43,7 +43,7 @@ async function runPatchReleaseScenario() {
       branch: "develop",
       fileContent: {
         VERSION: "1.0.1",
-        CHANGELOG: content => content.includes("[1.0.1]"),
+        "CHANGELOG.md": content => content.includes("[1.0.1]"),
       },
     });
 

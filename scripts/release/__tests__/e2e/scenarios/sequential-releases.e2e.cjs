@@ -5,7 +5,7 @@
  * Validates multiple releases in sequence don't conflict
  */
 
-const { TestHarness } = require("../test-harness");
+const { TestHarness } = require("../test-harness.cjs");
 
 async function runSequentialReleasesScenario() {
   const harness = new TestHarness("sequential-releases");

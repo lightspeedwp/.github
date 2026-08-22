@@ -5,7 +5,7 @@
  * Validates ability to rollback a release if issues arise
  */
 
-const { TestHarness } = require("../test-harness");
+const { TestHarness } = require("../test-harness.cjs");
 
 async function runRollbackScenario() {
   const harness = new TestHarness("rollback");

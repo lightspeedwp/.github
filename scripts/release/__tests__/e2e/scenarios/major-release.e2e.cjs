@@ -5,7 +5,7 @@
  * Validates major release with dual approval and ADR linking
  */
 
-const { TestHarness } = require("../test-harness");
+const { TestHarness } = require("../test-harness.cjs");
 
 async function runMajorReleaseScenario() {
   const harness = new TestHarness("major-release");
@@ -26,7 +26,7 @@ async function runMajorReleaseScenario() {
       branch: releaseBranch,
       fileContent: {
         VERSION: "2.0.0",
-        CHANGELOG: content => content.includes("[2.0.0]"),
+        CHANGELOG.md: content => content.includes("[2.0.0]"),
       },
     });
 
