@@ -63,8 +63,7 @@ export async function routePrTemplate(input) {
   // Extract branch type from full branch name
   let branchType = providedType;
   if (!branchType && branchName) {
-    const normalisedBranch = branchName.toLowerCase();
-    const match = normalisedBranch.match(/^([a-z0-9]+)\/(.+)$/);
+    const match = branchName.match(/^([a-z]+)\/(.+)$/);
     if (match) {
       branchType = match[1];
     }

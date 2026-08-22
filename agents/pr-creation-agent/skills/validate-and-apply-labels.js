@@ -46,9 +46,7 @@ const EXCLUSIVE_FAMILIES = {
 };
 
 export async function validateAndApplyLabels(input) {
-  const {
-    labels = [],
-  } = input;
+  const { labels = [] } = input;
 
   // If no labels provided, that's valid (no labels required)
   if (!labels || labels.length === 0) {

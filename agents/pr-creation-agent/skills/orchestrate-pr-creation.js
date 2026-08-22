@@ -4,6 +4,8 @@
  *
  * @param {Object} input - Input object
  * @param {Object} input.pr - PR data (title, body, head, base, labels)
+ * @param {Object} input.mockGitHub - Mock GitHub API (optional)
+ * @param {Object} input.config - Configuration (optional)
  * @param {Object} input.aiFeedback - AI feedback array (optional)
  * @param {boolean} input.triggerWorkflow - Whether to trigger workflow (optional)
  * @param {boolean} input.createFeedbackResponse - Whether to create feedback response (optional)
@@ -11,9 +13,11 @@
  * @returns {Object} Result with success flag and PR data
  */
 
-export async function orchestratePrCreation(input = {}) {
+export async function orchestratePrCreation(input) {
   const {
     pr = {},
+    mockGitHub = null,
+    config = {},
     aiFeedback = [],
     triggerWorkflow = false,
     createFeedbackResponse = false,
@@ -52,7 +56,7 @@ export async function orchestratePrCreation(input = {}) {
 
     // Parse frontmatter if requested
     let frontmatter = null;
-    if (parseFrontmatter) {
+    if (parseFrontmatter && body) {
       frontmatter = parseFrontmatterFromBody(body);
     }
 
@@ -70,8 +74,8 @@ export async function orchestratePrCreation(input = {}) {
       success: true,
       pr: prObject,
       frontmatter,
-      feedbackResponseRequested: Boolean(createFeedbackResponse && feedbackResponse),
-      workflowRequested: Boolean(triggerWorkflow),
+      feedbackResponseCreated: createFeedbackResponse && feedbackResponse ? true : false,
+      workflowTriggered: triggerWorkflow ? true : false,
     };
   } catch (error) {
     return {

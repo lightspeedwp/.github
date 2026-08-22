@@ -28,11 +28,10 @@ export async function validateBranchName(input) {
   }
 
   const errors = [];
-  const normalisedBranch = branchName.toLowerCase();
 
   // Check for forbidden prefixes
   for (const forbidden of FORBIDDEN_PREFIXES) {
-    if (normalisedBranch.startsWith(forbidden + '/')) {
+    if (branchName.startsWith(forbidden + '/')) {
       errors.push('branch-prefix-forbidden');
       return {
         valid: false,
@@ -44,7 +43,7 @@ export async function validateBranchName(input) {
 
   // Validate format: {type}/{scope}-{short-title}
   // Must have: type/slug where slug contains hyphens
-  const match = normalisedBranch.match(/^([a-z0-9]+)\/(.+)$/);
+  const match = branchName.match(/^([a-z0-9]+)\/(.+)$/);
 
   if (!match) {
     errors.push('branch-prefix-missing');
