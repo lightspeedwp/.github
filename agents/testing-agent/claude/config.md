@@ -1,8 +1,11 @@
 ---
 file_type: configuration
 title: Testing Agent — Claude Provider Configuration
-description: 'Claude provider configuration for the Testing Agent: model selection, token limits, temperature settings, caching strategy, cost optimization, and best practices for Playwright test generation and validation.'
-last_updated: '2026-08-21'
+description: >-
+  Claude provider configuration for the Testing Agent: model selection, token
+  limits, temperature settings, caching strategy, cost optimization, and best
+  practices for Playwright test generation and validation.
+last_updated: '2026-08-18'
 domain: testing
 tags:
   - claude
@@ -20,7 +23,6 @@ production use.
 ## Overview
 
 Claude is recommended for the Testing Agent due to:
-
 - Strong multi-modal understanding (Figma design context, code screenshots)
 - Extended thinking capability for complex requirement analysis
 - Structured output support (test packs, requirement matrices)
@@ -39,21 +41,18 @@ Claude is recommended for the Testing Agent due to:
 ### Selection Guidance
 
 **Use Opus 5 if:**
-
 - Analyzing multi-page design specs or large requirements documents
 - Performing extended-thinking requirement extraction (complex multi-step logic)
 - Working with multiple concurrent sources (PRD + Figma + API docs)
 - Budget allows (~$0.01–0.03 per test pack run)
 
 **Use Sonnet 5 if:**
-
 - Running simple, single-flow test packs
 - Speed is critical (sub-2s latency required)
 - Volume is high (>50 packs/day) and budget is constrained
 - Cost per run is primary concern
 
 **Never use:**
-
 - Older Claude 3 models (claude-3-opus, -sonnet, -haiku)—discontinuing in Q2 2025
 - Claude Instant—does not support structured output or extended thinking
 
@@ -62,7 +61,6 @@ Claude is recommended for the Testing Agent due to:
 ### Per-Request Allocation
 
 Test pack runs typically use:
-
 - **Input**: 2–8K tokens
   - Prompt + core configuration: 1–2K
   - Requirements sources (PRD, wireframes, API docs): 1–4K
@@ -72,7 +70,6 @@ Test pack runs typically use:
   - Traceability matrix: 0.3–1K
 
 **Recommended limits:**
-
 - Per request: 200K input, 4K output (Opus) / 3K output (Sonnet)
 - Per day (high volume): 50–100M input tokens (monitor costs)
 
@@ -93,19 +90,16 @@ Input Cache Layer 2 (Framework Config):
 ```
 
 **Cache hit probability:**
-
 - Same framework, similar scope: >85% (typical)
 - Same test type, similar context: ~70%
 - Across different projects: ~30%
 
 **Cache cost per run (with caching enabled):**
-
 - Cache write (first run): ~$0.003 per 1K input
 - Cache read (subsequent runs): ~$0.0003 per 1K input
 - Break-even: ~10 identical requests
 
 Enable caching via API:
-
 ```python
 # Claude API
 client.messages.create(
@@ -175,7 +169,6 @@ Estimated monthly: $41.40 (optimized) — $138 (baseline)
 ### When to Enable
 
 Extended thinking is recommended for:
-
 - **Requirement extraction from ambiguous sources** — conflicting specs, contradictory
   requirements
 - **Edge-case identification** — brainstorming negative paths, boundary conditions
@@ -237,7 +230,6 @@ def generate_test_pack(requirement_sources):
 ### Claude Code (Interactive)
 
 Use Claude Code desktop/web app:
-
 1. Paste requirements and design context
 2. Claude generates test pack interactively
 3. Refine via conversation ("Add edge case for X", "Clarify this requirement")
@@ -312,4 +304,4 @@ test-generation:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
