@@ -1,7 +1,7 @@
 # Portable Prompt Engineer Agent — Specification & Planning
 
 **Project Start Date:** 2026-08-12  
-**Status:** 🟡 Planning Phase  
+**Status:** 🟢 Phase 3.2 Complete — Framework Validation Rules  
 **Owner:** Ash Shaw  
 **Repository:** lightspeedwp/.github
 
@@ -35,11 +35,29 @@ See [QUESTIONS.md](./QUESTIONS.md) for the full question set.
 - [ ] **TEST_STRATEGY.md** — Testing approach with coverage targets
 - [ ] **DOCUMENTATION_PLAN.md** — Documentation requirements and structure
 
+## Phase 3.2 Completion — Framework-Specific Validation Rules
+
+**Status:** ✅ COMPLETE (2026-08-22)
+
+**Deliverable:** Framework-Specific Validation Rules for Prompt Engineer  
+**PR:** [#2324](https://github.com/lightspeedwp/.github/pull/2324) (merged)  
+**Commit:** `67fa12ec908584b443b42127e74851cf6a10b587`
+
+**Implementation Summary:**
+- 154 framework-specific validation rules (exceeds 150+ target)
+- 2,096 LOC across 4 files
+- 52 GitHub control-plane rules (workflows, labels, governance)
+- 50 WordPress plugin rules (hooks, blocks, metadata)
+- 52 WordPress theme rules (theme.json, templates, accessibility)
+- Master validation engine with context auto-detection and severity sorting
+- Located in portable `agents/prompt-engineer/rules/` directory
+
 ## Related Issues
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| (To be created) | epic | Master Initiative Epic | 🟡 To Create |
+| [#1845](https://github.com/lightspeedwp/.github/issues/1845) | epic | Portable Prompt Engineer Phase 3 — Context Detection & Validation | ✅ Complete |
+| [#2324](https://github.com/lightspeedwp/.github/pull/2324) | PR | Task 3.2: Framework-Specific Validation Rules | ✅ Merged |
 
 ## Related Files
 

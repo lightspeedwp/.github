@@ -397,7 +397,7 @@ post-release-sync (chore: main → develop, automatic)
 
 7. **Post-release sync (automatic):**
    - `post-release-sync` workflow runs after PR #2 merges.
-   - Creates `chore/post-release-sync-main-to-develop` branch.
+   - Creates `ops/post-release-sync-main-to-develop` branch.
    - Merges `main` → `develop` to keep branches synchronized.
    - Developer merges the sync PR.
 
@@ -492,7 +492,7 @@ Time T+45:  Developer merges post-sync PR
 
 **Post-sync: Keep Branches In Sync**
 
-- Branch: `chore/post-release-sync-main-to-develop`
+- Branch: `ops/post-release-sync-main-to-develop`
 - Target: `develop`
 - Contents: Merge main → develop to prevent divergence
 - Approval: 1 maintainer (optional review)

@@ -29,7 +29,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Validate branch name
         id: validate
@@ -57,8 +57,8 @@ jobs:
             exit 0
           fi
 
-          # Run validation script
-          if node scripts/validation/validate-branch-name.js "$BRANCH_NAME" 2>&1 | tee validation-output.txt; then
+          # Run validation script (using strict .cjs validator)
+          if node scripts/validation/validate-branch-name.cjs "$BRANCH_NAME" 2>&1 | tee validation-output.txt; then
             echo "valid=true" >> $GITHUB_OUTPUT
           else
             echo "valid=false" >> $GITHUB_OUTPUT

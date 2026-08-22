@@ -160,15 +160,76 @@ The following canonical paths document the Phase 1 restructuring (2026-08-02). A
 
 ## Branch Governance
 
-All AI agents **must** follow these branching rules before editing files:
+All AI agents **must** follow these branching rules before editing files. Reference the [quick-reference guide](./docs/QUICK_REFERENCE_BRANCH_NAMING.md) for examples and the [full branching strategy](./docs/BRANCHING_STRATEGY.md) for complete details.
 
-1. **Validate the branch name** — run `npm run validate:branch-name -- --branch <name>` before the first edit. The branch must match `{type}/{scope}-{short-title}` format.
-2. **Check for branch reuse** — the validation script automatically detects branches that have already been merged. If flagged, create a new branch with a distinct name.
-3. **Verify the merge target** — feature/fix/chore branches target `develop`. Only `release/*` and `hotfix/*` may target `main`.
-4. **Never use `claude/` as a branch prefix** — this prefix is explicitly forbidden.
-5. **Delete branches after merge** — remote and local branches must be cleaned up immediately after a successful squash merge.
+### Pattern & Validation
 
-See [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md) and [CLAUDE.md](CLAUDE.md) for the full policy.
+**Branch Pattern:** `{type}/{scope}-{short-title}` (lowercase, kebab-case, no dots/underscores/spaces)
+
+**31 Allowed Prefixes:**
+
+**Core (20):** `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`
+
+**Product (5):** `proto`, `ds`, `api`, `schema`, `telemetry`
+
+**Content (6):** `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
+
+**Valid Examples:**
+- `feat/user-authentication` — New feature
+- `fix/button-styling` — Bug fix
+- `hotfix/critical-security-patch` — Urgent production fix
+- `release/v2-1-0` — Release (hyphens, not dots)
+- `docs/api-reference` — Documentation
+- `a11y/keyboard-navigation` — Accessibility
+- `ops/post-release-sync-main-to-develop` — Operations
+
+**Invalid Examples (and fixes):**
+- `feat/MyFeature` ❌ → Use lowercase: `feat/my-feature` ✅
+- `feat/my_feature` ❌ → Use hyphens: `feat/my-feature` ✅
+- `release/v2.1.0` ❌ → Use hyphens: `release/v2-1-0` ✅
+- `claude/my-feature` ❌ → Forbidden prefix (use allowed type)
+- `feature/my-feature` ❌ → Invalid type (use `feat/`)
+
+### Validation & Setup
+
+1. **Validate before first edit** — run `npm run validate:branch-name -- --branch <name>`
+   - Must return exit code 0 (valid) or 1 (invalid)
+   - See [SETUP_BRANCH_VALIDATION.md](./docs/SETUP_BRANCH_VALIDATION.md) for setup instructions
+   
+2. **Check for branch reuse** — the validation script automatically detects merged branches
+   - If flagged as reused, create a new branch with distinct name (e.g., append `-v2`)
+   - Merged branches cannot be reused for new work
+   
+3. **Verify merge target** — Feature/fix/chore branches must target `develop`
+   - Only `release/*` and `hotfix/*` branches may target `main`
+   - The main-branch-guard workflow enforces this automatically
+
+### Pre-Push Checklist
+
+- [ ] Branch name matches pattern: `{type}/{scope}-{short-title}`
+- [ ] Type is one of 31 allowed prefixes
+- [ ] All lowercase (no UPPERCASE)
+- [ ] Hyphens only (no underscores, dots, spaces)
+- [ ] No forbidden prefixes (`claude/`, `copilot/`, `openai/`)
+- [ ] Ran `npm run validate:branch-name` and got exit code 0
+- [ ] Never reusing a previously merged branch name
+- [ ] Merge target is correct (develop or main only if release/hotfix)
+- [ ] Ready to push: `git push -u origin <branch-name>`
+
+### Post-Merge Cleanup
+
+After successful squash merge:
+- Remote branch deleted via `git push origin --delete <branch-name>`
+- Local branch deleted via `git branch -d <branch-name>`
+- Branch name permanently retired (cannot be reused)
+
+### Key Documentation
+
+- **Quick Reference:** [docs/QUICK_REFERENCE_BRANCH_NAMING.md](./docs/QUICK_REFERENCE_BRANCH_NAMING.md) — One-page summary
+- **Full Strategy:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) — Complete branching discipline
+- **Setup Guide:** [docs/SETUP_BRANCH_VALIDATION.md](./docs/SETUP_BRANCH_VALIDATION.md) — Validation setup and troubleshooting
+- **Portable Instructions:** [instructions/branch-naming.instructions.md](./instructions/branch-naming.instructions.md) — Reusable guide
+- **Before Every Push:** [CLAUDE.md](./CLAUDE.md#before-every-push--branch-naming-checklist) — Pre-push checklist with examples
 
 ---
 
