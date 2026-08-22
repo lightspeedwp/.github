@@ -8,7 +8,6 @@
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
-const crypto = require("crypto");
 
 const TEST_REPO_BASE = process.env.TEST_REPO_BASE || "/tmp/release-e2e-test-repo";
 const TEST_RESULTS_DIR =
