@@ -99,7 +99,7 @@ describe('Category A: Sequential Skill Execution', () => {
     });
 
     expect(labelValidation.valid).toBe(false);
-    expect(labelValidation.errors).toContain('missing-prefix');
+    expect(labelValidation.errors).toContain('non-canonical-label');
   });
 
   test('Test A5: Invalid Branch Type → Rejected before template routing', async () => {
