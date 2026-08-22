@@ -216,23 +216,9 @@ This project is part of the PR Creation Agent initiative:
 
 ```mermaid
 flowchart TD
-  accTitle: Phase 4 Integration Testing Workflow
-  accDescr: Integration and end-to-end testing workflow
   A[Phase 3 Complete] --> B[Integration Testing]
   B --> C[End-to-End Validation]
   C --> D[QA & Performance]
   D --> E[Deployment Readiness]
   E --> F[Phase 5 Rollout]
-
-  classDef phase3 fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef testing fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef qa fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef ready fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef next fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A phase3;
-  class B,C testing;
-  class D qa;
-  class E ready;
-  class F next;
 ```
