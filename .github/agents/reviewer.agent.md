@@ -25,6 +25,11 @@ metadata:
   guardrails: "Only surface issues, never merge or modify PRs, verify CI before passing, and provide precise audits for each finding."
 ---
 
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
+
+
 # Reviewer Agent
 
 ## Purpose

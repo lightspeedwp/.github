@@ -285,7 +285,7 @@ After PR #1 merges, agent automatically:
 After PR #2 merges:
 
 1. `post-release-sync` workflow runs.
-2. Creates `chore/post-release-sync-main-to-develop` branch from `main`.
+2. Creates `ops/post-release-sync-main-to-develop` branch from `main`.
 3. Merges `main` into `develop` to keep branches in sync.
 4. Creates PR: `main` → `develop` for developer review.
 5. Developer merges to keep branches synchronized.

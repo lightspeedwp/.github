@@ -140,9 +140,9 @@ jobs:
       # 6. Artifact: post-release-sync-result.json
 ```
 
-**Branch naming:** `chore/post-release-sync-main-to-develop`
+**Branch naming:** `ops/post-release-sync-main-to-develop`
 
-**PR naming:** `chore: post-release sync main → develop`
+**PR naming:** `ops: post-release sync main → develop`
 
 **Execution timing:**
 
