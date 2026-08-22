@@ -1,0 +1,52 @@
+{
+  "coderabbit": [
+    {
+      "severity": "critical",
+      "title": "SQL Injection Vulnerability",
+      "file": "src/db/query.js",
+      "line": 42,
+      "description": "User input directly concatenated into SQL query without sanitization"
+    },
+    {
+      "severity": "major",
+      "title": "Missing CSRF Token",
+      "file": "src/forms/submit.js",
+      "line": 15,
+      "description": "Form submission not protected with CSRF token"
+    }
+  ],
+  "codeQuality": [
+    {
+      "severity": "high",
+      "title": "High Cyclomatic Complexity",
+      "file": "src/processors/main.js",
+      "line": 50,
+      "description": "Function has cyclomatic complexity of 18"
+    },
+    {
+      "severity": "warning",
+      "title": "Missing Error Handling",
+      "file": "src/api/client.js",
+      "line": 25,
+      "description": "Promise chain without catch handler"
+    }
+  ],
+  "copilot": [
+    {
+      "severity": "major",
+      "title": "Potential Logic Error",
+      "file": "src/business/orders.js",
+      "line": 65,
+      "description": "Condition logic appears incorrect"
+    }
+  ],
+  "wordPressQuality": [
+    {
+      "severity": "critical",
+      "title": "Missing Data Sanitization",
+      "file": "includes/post-types.php",
+      "line": 42,
+      "description": "User input from $_GET not sanitized"
+    }
+  ]
+}
