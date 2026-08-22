@@ -366,7 +366,7 @@ This project is tracked across multiple GitHub pull requests and issues. All Pha
 | [#2046](https://github.com/lightspeedwp/.github/pull/2046) | PR | Phase 2B: Extended skills (Skills 4-5, Part 1) | ✅ MERGED |
 | [#2048](https://github.com/lightspeedwp/.github/pull/2048) | PR | Phase 2B: Extended skills (Skills 4-5, Part 2) | ✅ MERGED |
 | [#2104](https://github.com/lightspeedwp/.github/pull/2104) | PR | Phase 2C: CI/CD integration & testing (116 tests) | ✅ MERGED |
-| `feat/meta-agent-v2-phase2d-release` | PR | Phase 2D: Complete documentation & v1.0.0 release package | 📋 READY FOR MERGE |
+| [#2292](https://github.com/lightspeedwp/.github/pull/2292) | PR | Phase 2D: Complete documentation & v1.0.0 release package | 📋 READY FOR MERGE |
 | #2173 (TBD) | epic | Phase 3: Pilot Testing & Real-World Validation (Aug 29–Sep 06) | 📋 PLANNED |
 | #2174 (TBD) | epic | Phase 4: Organisation-Wide Rollout (Sep 07+) | 🔵 FUTURE |
 
