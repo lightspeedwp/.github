@@ -6,7 +6,7 @@ import { validateBranchName } from '../../skills/validate-branch-name.js';
 import { routePrTemplate } from '../../skills/route-pr-template.js';
 import { validateAndApplyLabels } from '../../skills/validate-and-apply-labels.js';
 import { orchestratePrCreation } from '../../skills/orchestrate-pr-creation.js';
-import { MockGitHub, createMockConfig } from './setup.js';
+import { MockGitHub, createMockConfig, testFixtures } from './setup.js';
 
 describe('Category A: Sequential Skill Execution', () => {
   let mockGitHub;
@@ -99,7 +99,7 @@ describe('Category A: Sequential Skill Execution', () => {
     });
 
     expect(labelValidation.valid).toBe(false);
-    expect(labelValidation.errors).toContain('non-canonical-label');
+    expect(labelValidation.errors).toContain('missing-prefix');
   });
 
   test('Test A5: Invalid Branch Type → Rejected before template routing', async () => {
