@@ -11,9 +11,9 @@
  * @phase 3.2
  */
 
-import { githubRules, validateGitHub } from './.github-rules.js';
-import { pluginRules, validatePlugin } from './plugin-rules.js';
-import { themeRules, validateTheme } from './theme-rules.js';
+import { githubRules, validateGitHub } from "./.github-rules.js";
+import { pluginRules, validatePlugin } from "./plugin-rules.js";
+import { themeRules, validateTheme } from "./theme-rules.js";
 
 /**
  * Master validation engine
@@ -30,15 +30,15 @@ export function validate(text, context, options = {}) {
   let validationFn;
 
   switch (detectedContext) {
-    case 'github':
+    case "github":
       findings = validateGitHub(text, options);
       validationFn = validateGitHub;
       break;
-    case 'plugin':
+    case "plugin":
       findings = validatePlugin(text, options);
       validationFn = validatePlugin;
       break;
-    case 'theme':
+    case "theme":
       findings = validateTheme(text, options);
       validationFn = validateTheme;
       break;
@@ -47,9 +47,9 @@ export function validate(text, context, options = {}) {
       findings = [
         ...validateGitHub(text, { ...options, strict: false }),
         ...validatePlugin(text, { ...options, strict: false }),
-        ...validateTheme(text, { ...options, strict: false })
+        ...validateTheme(text, { ...options, strict: false }),
       ];
-      detectedContext = 'multi';
+      detectedContext = "multi";
   }
 
   return {
@@ -60,10 +60,10 @@ export function validate(text, context, options = {}) {
     }),
     stats: {
       total: findings.length,
-      errors: findings.filter(f => f.severity === 'error').length,
-      warnings: findings.filter(f => f.severity === 'warning').length,
-      info: findings.filter(f => f.severity === 'info').length
-    }
+      errors: findings.filter((f) => f.severity === "error").length,
+      warnings: findings.filter((f) => f.severity === "warning").length,
+      info: findings.filter((f) => f.severity === "info").length,
+    },
   };
 }
 
@@ -86,7 +86,7 @@ export function detectContext(text) {
     /branch protect/i,
     /labeling.*github/i,
     /permission.*scope/i,
-    /runs-on:/
+    /runs-on:/,
   ];
 
   // WordPress plugin indicators
@@ -97,7 +97,7 @@ export function detectContext(text) {
     /block\.json/,
     /register_rest_route/,
     /register_activation_hook/,
-    /wp-block\.json/
+    /wp-block\.json/,
   ];
 
   // WordPress theme indicators
@@ -108,23 +108,27 @@ export function detectContext(text) {
     /templates?\//,
     /parts\//,
     /add_theme_support/,
-    /style\.css.*theme/i
+    /style\.css.*theme/i,
   ];
 
-  const githubScore = githubIndicators.filter(r => r.test(text)).length;
-  const pluginScore = pluginIndicators.filter(r => r.test(text)).length;
-  const themeScore = themeIndicators.filter(r => r.test(text)).length;
+  const githubScore = githubIndicators.filter((r) => r.test(text)).length;
+  const pluginScore = pluginIndicators.filter((r) => r.test(text)).length;
+  const themeScore = themeIndicators.filter((r) => r.test(text)).length;
 
-  if (githubScore > 0 && githubScore >= pluginScore && githubScore >= themeScore) {
-    return 'github';
+  if (
+    githubScore > 0 &&
+    githubScore >= pluginScore &&
+    githubScore >= themeScore
+  ) {
+    return "github";
   }
   if (pluginScore > 0 && pluginScore >= themeScore) {
-    return 'plugin';
+    return "plugin";
   }
   if (themeScore > 0) {
-    return 'theme';
+    return "theme";
   }
-  return 'unknown';
+  return "unknown";
 }
 
 /**
@@ -134,11 +138,11 @@ export function detectContext(text) {
  */
 export function getRules(context) {
   switch (context) {
-    case 'github':
+    case "github":
       return githubRules;
-    case 'plugin':
+    case "plugin":
       return pluginRules;
-    case 'theme':
+    case "theme":
       return themeRules;
     default:
       return { github: githubRules, plugin: pluginRules, theme: themeRules };
@@ -153,13 +157,14 @@ export function getSummary() {
   const allRules = {
     github: Object.keys(githubRules).length,
     plugin: Object.keys(pluginRules).length,
-    theme: Object.keys(themeRules).length
+    theme: Object.keys(themeRules).length,
   };
 
   return {
     total: Object.values(allRules).reduce((a, b) => a + b, 0),
     byContext: allRules,
-    description: 'Framework-specific validation rules for prompt engineering across three contexts'
+    description:
+      "Framework-specific validation rules for prompt engineering across three contexts",
   };
 }
 
@@ -179,16 +184,16 @@ export function generateReport(validationResult) {
     report += `✅ No issues found!\n`;
   } else {
     const byServer = {};
-    findings.forEach(f => {
+    findings.forEach((f) => {
       const severity = f.severity.toUpperCase();
       if (!byServer[severity]) byServer[severity] = [];
       byServer[severity].push(f);
     });
 
-    ['ERROR', 'WARNING', 'INFO'].forEach(severity => {
+    ["ERROR", "WARNING", "INFO"].forEach((severity) => {
       if (byServer[severity]) {
         report += `\n${severity}S:\n`;
-        byServer[severity].forEach(f => {
+        byServer[severity].forEach((f) => {
           report += `  • ${f.rule}\n`;
           report += `    ${f.message}\n`;
           if (f.suggestion) report += `    💡 ${f.suggestion}\n`;
@@ -201,9 +206,9 @@ export function generateReport(validationResult) {
 }
 
 // Export all rules and validators
-export { githubRules, validateGitHub } from './.github-rules.js';
-export { pluginRules, validatePlugin } from './plugin-rules.js';
-export { themeRules, validateTheme } from './theme-rules.js';
+export { githubRules, validateGitHub } from "./.github-rules.js";
+export { pluginRules, validatePlugin } from "./plugin-rules.js";
+export { themeRules, validateTheme } from "./theme-rules.js";
 
 export default {
   validate,
@@ -216,5 +221,5 @@ export default {
   themeRules,
   validateGitHub,
   validatePlugin,
-  validateTheme
+  validateTheme,
 };

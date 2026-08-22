@@ -21,9 +21,11 @@ export const githubRules = {
       name: "Workflow Must Specify on: Trigger",
       severity: "error",
       pattern: /^(name:|jobs:)/m,
-      description: "All workflows must explicitly define 'on:' section with trigger events",
-      example: "on:\n  pull_request:\n    paths:\n      - '.github/workflows/**'",
-      fix: "Add 'on:' section with appropriate GitHub event(s)"
+      description:
+        "All workflows must explicitly define 'on:' section with trigger events",
+      example:
+        "on:\n  pull_request:\n    paths:\n      - '.github/workflows/**'",
+      fix: "Add 'on:' section with appropriate GitHub event(s)",
     };
   },
 
@@ -32,9 +34,10 @@ export const githubRules = {
       name: "Workflow Name Format",
       severity: "warning",
       pattern: /^name:\s*[A-Z][a-zA-Z\s\-0-9]*$/m,
-      description: "Workflow names should be clear, descriptive, and human-readable",
+      description:
+        "Workflow names should be clear, descriptive, and human-readable",
       example: "name: Feature Branch Labeling",
-      fix: "Use title case with hyphens (no underscores)"
+      fix: "Use title case with hyphens (no underscores)",
     };
   },
 
@@ -43,9 +46,10 @@ export const githubRules = {
       name: "Jobs Must Specify runs-on",
       severity: "error",
       pattern: /^jobs:[\s\S]*?runs-on:/m,
-      description: "All job definitions must include 'runs-on:' runner specification",
+      description:
+        "All job definitions must include 'runs-on:' runner specification",
       example: "runs-on: ubuntu-latest",
-      fix: "Add 'runs-on:' with ubuntu-latest, macos-latest, or custom runner"
+      fix: "Add 'runs-on:' with ubuntu-latest, macos-latest, or custom runner",
     };
   },
 
@@ -56,7 +60,7 @@ export const githubRules = {
       pattern: /^(\s+)-\s(name:|uses:|run:)/m,
       description: "Steps should include 'name:' for clarity in logs",
       example: "- name: Check out repository",
-      fix: "Add descriptive 'name:' field to each step"
+      fix: "Add descriptive 'name:' field to each step",
     };
   },
 
@@ -65,9 +69,11 @@ export const githubRules = {
       name: "GitHub Actions Must Use Pinned Versions",
       severity: "error",
       pattern: /uses:\s*[\w-]+\/[\w-]+@(v?\d+\.?\d*\.?\d*|[a-f0-9]{7,40})/,
-      description: "All 'uses:' actions must pin to specific version or commit SHA",
-      example: "uses: actions/checkout@v4\nuses: actions/setup-node@a1b9a2480000000000000000",
-      fix: "Replace @main/@master with @v4, @v3.x, or full commit SHA"
+      description:
+        "All 'uses:' actions must pin to specific version or commit SHA",
+      example:
+        "uses: actions/checkout@v4\nuses: actions/setup-node@a1b9a2480000000000000000",
+      fix: "Replace @main/@master with @v4, @v3.x, or full commit SHA",
     };
   },
 
@@ -76,9 +82,10 @@ export const githubRules = {
       name: "Workflow Permissions Must Be Explicit",
       severity: "warning",
       pattern: /^permissions:/m,
-      description: "Define explicit 'permissions:' to follow least-privilege principle",
+      description:
+        "Define explicit 'permissions:' to follow least-privilege principle",
       example: "permissions:\n  contents: read\n  pull-requests: write",
-      fix: "Add 'permissions:' section with minimum required scopes"
+      fix: "Add 'permissions:' section with minimum required scopes",
     };
   },
 
@@ -87,9 +94,11 @@ export const githubRules = {
       name: "High-Frequency Workflows Should Use Concurrency",
       severity: "info",
       pattern: /on:[\s\S]*(push|pull_request):/m,
-      description: "Workflows triggered on push/PR should define 'concurrency:' to prevent duplicates",
-      example: "concurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}",
-      fix: "Add 'concurrency:' group to avoid simultaneous runs"
+      description:
+        "Workflows triggered on push/PR should define 'concurrency:' to prevent duplicates",
+      example:
+        "concurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}",
+      fix: "Add 'concurrency:' group to avoid simultaneous runs",
     };
   },
 
@@ -98,9 +107,10 @@ export const githubRules = {
       name: "Long-Running Jobs Should Have Timeouts",
       severity: "warning",
       pattern: /^jobs:[\s\S]*?timeout-minutes:/m,
-      description: "Jobs with potentially long execution should define 'timeout-minutes:'",
+      description:
+        "Jobs with potentially long execution should define 'timeout-minutes:'",
       example: "timeout-minutes: 30",
-      fix: "Add 'timeout-minutes:' with realistic max duration"
+      fix: "Add 'timeout-minutes:' with realistic max duration",
     };
   },
 
@@ -111,9 +121,10 @@ export const githubRules = {
       name: "Workflow Files Use Kebab-Case Naming",
       severity: "warning",
       pattern: /^[a-z0-9]+(-[a-z0-9]+)*\.ya?ml$/,
-      description: "Workflow filenames should be lowercase kebab-case (no underscores/spaces)",
+      description:
+        "Workflow filenames should be lowercase kebab-case (no underscores/spaces)",
       example: "feature-labeling.yml, dependency-validation.yml",
-      fix: "Rename to lowercase kebab-case: feature_labeling.yml → feature-labeling.yml"
+      fix: "Rename to lowercase kebab-case: feature_labeling.yml → feature-labeling.yml",
     };
   },
 
@@ -124,7 +135,7 @@ export const githubRules = {
       pattern: /^jobs:[\s\S]*?\n\s+[a-z-]+:\s*$/m,
       description: "Job identifiers should clearly indicate their purpose",
       example: "validate-labels:\n  runs-on: ubuntu-latest",
-      fix: "Use descriptive kebab-case names: job1 → validate-labels"
+      fix: "Use descriptive kebab-case names: job1 → validate-labels",
     };
   },
 
@@ -133,9 +144,10 @@ export const githubRules = {
       name: "Step Names Should Be Action-Oriented",
       severity: "info",
       pattern: /- name: [A-Z][^:\n]*(:|$)/m,
-      description: "Step names should start with verbs (Check, Validate, Install, Deploy, etc.)",
+      description:
+        "Step names should start with verbs (Check, Validate, Install, Deploy, etc.)",
       example: "- name: Validate workflow syntax",
-      fix: "Rephrase step names with action verbs"
+      fix: "Rephrase step names with action verbs",
     };
   },
 
@@ -146,7 +158,7 @@ export const githubRules = {
       pattern: /^(feat|fix|hotfix|release|docs|chore|test|ci)\/[a-z0-9\-]+$/,
       description: "When creating branches, use {type}/{scope}-{title} format",
       example: "feat/labeling-governance, fix/branch-validation",
-      fix: "Align with BRANCHING_STRATEGY.md conventions"
+      fix: "Align with BRANCHING_STRATEGY.md conventions",
     };
   },
 
@@ -154,10 +166,11 @@ export const githubRules = {
     return {
       name: "Environment Names Are Lowercase",
       severity: "warning",
-      pattern: /^(environment:\s|environments:[\s\S]*?environment:)\s*[a-z][a-z0-9\-]*$/m,
+      pattern:
+        /^(environment:\s|environments:[\s\S]*?environment:)\s*[a-z][a-z0-9\-]*$/m,
       description: "Environment identifiers must be lowercase with hyphens",
       example: "environment: production-us-east",
-      fix: "Convert to lowercase: PROD-EAST → prod-east"
+      fix: "Convert to lowercase: PROD-EAST → prod-east",
     };
   },
 
@@ -166,9 +179,10 @@ export const githubRules = {
       name: "Secret References Use UPPERCASE_SNAKE_CASE",
       severity: "error",
       pattern: /\$\{\{\s*secrets\.[A-Z_]+\s*\}\}/,
-      description: "GitHub Secrets should be referenced in UPPERCASE_SNAKE_CASE",
+      description:
+        "GitHub Secrets should be referenced in UPPERCASE_SNAKE_CASE",
       example: "echo ${{ secrets.GITHUB_TOKEN }}",
-      fix: "Use uppercase: secrets.github_token → secrets.GITHUB_TOKEN"
+      fix: "Use uppercase: secrets.github_token → secrets.GITHUB_TOKEN",
     };
   },
 
@@ -179,7 +193,7 @@ export const githubRules = {
       pattern: /\$\{\{\s*vars\.[a-zA-Z_]+\s*\}\}/,
       description: "Custom variables should use consistent case and style",
       example: "vars.REGISTRY_URL, vars.deployment_timeout",
-      fix: "Choose style and apply consistently"
+      fix: "Choose style and apply consistently",
     };
   },
 
@@ -190,9 +204,10 @@ export const githubRules = {
       name: "Do Not Use Default Permissions",
       severity: "error",
       pattern: /permissions:\s*(read-all|write-all)/,
-      description: "'read-all' and 'write-all' violate least-privilege; use specific scopes",
+      description:
+        "'read-all' and 'write-all' violate least-privilege; use specific scopes",
       example: "permissions:\n  contents: read\n  pull-requests: write",
-      fix: "Replace with minimal required permissions"
+      fix: "Replace with minimal required permissions",
     };
   },
 
@@ -203,7 +218,7 @@ export const githubRules = {
       pattern: /permissions:/m,
       description: "Only request permissions your workflow actually needs",
       example: "permissions: { contents: read }",
-      fix: "Audit actual usage and remove unnecessary permissions"
+      fix: "Audit actual usage and remove unnecessary permissions",
     };
   },
 
@@ -212,9 +227,11 @@ export const githubRules = {
       name: "Secrets Must Not Be Echoed or Logged",
       severity: "error",
       pattern: /run:\s*echo\s*\$\{\{\s*secrets\./,
-      description: "Never output secrets to logs; GitHub masks most patterns but don't risk it",
-      example: "❌ run: echo ${{ secrets.GITHUB_TOKEN }}\n✅ run: some-action-using-token",
-      fix: "Remove echo/logging of secrets, pass as environment variable to action instead"
+      description:
+        "Never output secrets to logs; GitHub masks most patterns but don't risk it",
+      example:
+        "❌ run: echo ${{ secrets.GITHUB_TOKEN }}\n✅ run: some-action-using-token",
+      fix: "Remove echo/logging of secrets, pass as environment variable to action instead",
     };
   },
 
@@ -223,9 +240,10 @@ export const githubRules = {
       name: "Checkout Step Should Be First or Early",
       severity: "info",
       pattern: /- uses:\s*actions\/checkout@/,
-      description: "The checkout action typically runs first to set up repository context",
+      description:
+        "The checkout action typically runs first to set up repository context",
       example: "steps:\n  - uses: actions/checkout@v4\n  - name: ...",
-      fix: "Move checkout to first step unless a setup step precedes it"
+      fix: "Move checkout to first step unless a setup step precedes it",
     };
   },
 
@@ -234,9 +252,11 @@ export const githubRules = {
       name: "No Hardcoded Credentials in Workflow Files",
       severity: "error",
       pattern: /(password|token|api[_-]?key|secret):\s*[^$].*\S/i,
-      description: "All credentials must come from GitHub Secrets or Variables, never hardcoded",
-      example: "❌ password: my-secret\n✅ password: ${{ secrets.DATABASE_PASSWORD }}",
-      fix: "Replace hardcoded values with ${{ secrets.VAR_NAME }}"
+      description:
+        "All credentials must come from GitHub Secrets or Variables, never hardcoded",
+      example:
+        "❌ password: my-secret\n✅ password: ${{ secrets.DATABASE_PASSWORD }}",
+      fix: "Replace hardcoded values with ${{ secrets.VAR_NAME }}",
     };
   },
 
@@ -245,9 +265,10 @@ export const githubRules = {
       name: "Critical Workflows Require Branch Protection",
       severity: "warning",
       pattern: /workflow_dispatch:|schedule:/m,
-      description: "Workflows with manual dispatch or scheduled triggers should require approval on critical branches",
+      description:
+        "Workflows with manual dispatch or scheduled triggers should require approval on critical branches",
       example: "Require PR approval before merge to main",
-      fix: "Configure branch protection rules in GitHub settings"
+      fix: "Configure branch protection rules in GitHub settings",
     };
   },
 
@@ -256,9 +277,11 @@ export const githubRules = {
       name: "Prefer OIDC Token Over Personal Access Token",
       severity: "info",
       pattern: /\$\{\{\s*secrets\.(GITHUB_TOKEN|PAT|PERSONAL_ACCESS_TOKEN)/,
-      description: "For cloud access, use GitHub's OIDC token instead of PAT when possible",
-      example: "with:\n  aws-role-to-assume: arn:aws:iam::ACCOUNT:role/GitHubActionsRole",
-      fix: "Configure OIDC in cloud provider and use aws-actions/configure-aws-credentials@v4"
+      description:
+        "For cloud access, use GitHub's OIDC token instead of PAT when possible",
+      example:
+        "with:\n  aws-role-to-assume: arn:aws:iam::ACCOUNT:role/GitHubActionsRole",
+      fix: "Configure OIDC in cloud provider and use aws-actions/configure-aws-credentials@v4",
     };
   },
 
@@ -267,9 +290,10 @@ export const githubRules = {
       name: "Verify Secrets Will Be Masked in Logs",
       severity: "warning",
       pattern: /\$\{\{\s*secrets\./,
-      description: "GitHub automatically masks known secret names, but verify no patterns slip through",
+      description:
+        "GitHub automatically masks known secret names, but verify no patterns slip through",
       example: "Ensure sensitive output is suppressed or masked",
-      fix: "Test workflow logs to confirm secrets are masked (not visible)"
+      fix: "Test workflow logs to confirm secrets are masked (not visible)",
     };
   },
 
@@ -278,9 +302,10 @@ export const githubRules = {
       name: "Limit pull_request_target Write Permissions",
       severity: "warning",
       pattern: /pull_request_target:/m,
-      description: "'pull_request_target' has write access from fork; use 'pull_request' for safety",
+      description:
+        "'pull_request_target' has write access from fork; use 'pull_request' for safety",
       example: "on:\n  pull_request:  # Use this for most cases",
-      fix: "Switch to 'pull_request' trigger unless you have explicit reason for 'pull_request_target'"
+      fix: "Switch to 'pull_request' trigger unless you have explicit reason for 'pull_request_target'",
     };
   },
 
@@ -289,9 +314,10 @@ export const githubRules = {
       name: "Environment-Specific Secrets Are Documented",
       severity: "info",
       pattern: /environment:/m,
-      description: "If using environments with specific secrets, document the mapping",
+      description:
+        "If using environments with specific secrets, document the mapping",
       example: "environment: production\n# Uses: PROD_API_KEY",
-      fix: "Add comments explaining which secrets/variables apply to each environment"
+      fix: "Add comments explaining which secrets/variables apply to each environment",
     };
   },
 
@@ -302,9 +328,10 @@ export const githubRules = {
       name: "Label Names Include Family Prefix",
       severity: "error",
       pattern: /^(type|status|priority|area|meta):[a-z0-9\-]+$/,
-      description: "All labels must use canonical family:name format (type:, status:, priority:, area:, meta:)",
+      description:
+        "All labels must use canonical family:name format (type:, status:, priority:, area:, meta:)",
       example: "type:bug, status:in-progress, priority:critical, area:ci",
-      fix: "Use .github/labels.yml as source of truth; all labels must have family prefix"
+      fix: "Use .github/labels.yml as source of truth; all labels must have family prefix",
     };
   },
 
@@ -313,9 +340,10 @@ export const githubRules = {
       name: "No Bare Label Names (Must Have Family Prefix)",
       severity: "error",
       pattern: /^(bug|feature|urgent|ci|docs|help)$/m,
-      description: "Bare labels without family prefix are not allowed (e.g., ❌ 'bug', use ✅ 'type:bug')",
+      description:
+        "Bare labels without family prefix are not allowed (e.g., ❌ 'bug', use ✅ 'type:bug')",
       example: "✅ labels: [type:bug, status:needs-triage]",
-      fix: "Prefix all labels: bug → type:bug, feature → type:feature, etc."
+      fix: "Prefix all labels: bug → type:bug, feature → type:feature, etc.",
     };
   },
 
@@ -324,9 +352,10 @@ export const githubRules = {
       name: "Label Names Use Lowercase with Hyphens",
       severity: "warning",
       pattern: /labels:[\s\S]*?[A-Z]/,
-      description: "All label values must be lowercase with hyphens (no spaces, no underscores)",
+      description:
+        "All label values must be lowercase with hyphens (no spaces, no underscores)",
       example: "✅ type:feature, ✅ status:in-progress, ❌ Type:Feature",
-      fix: "Convert to lowercase: Type:Feature → type:feature"
+      fix: "Convert to lowercase: Type:Feature → type:feature",
     };
   },
 
@@ -335,9 +364,11 @@ export const githubRules = {
       name: "Labels Must Come From .github/labels.yml",
       severity: "error",
       pattern: /labels:/m,
-      description: "All labels used must be defined in .github/labels.yml (158 canonical labels)",
-      example: "labels: [type:feature, status:in-progress]  # Both in labels.yml",
-      fix: "Reference .github/labels.yml and only use labels defined there"
+      description:
+        "All labels used must be defined in .github/labels.yml (158 canonical labels)",
+      example:
+        "labels: [type:feature, status:in-progress]  # Both in labels.yml",
+      fix: "Reference .github/labels.yml and only use labels defined there",
     };
   },
 
@@ -346,9 +377,10 @@ export const githubRules = {
       name: "Dependabot PRs Get Type and Meta Labels",
       severity: "warning",
       pattern: /dependabot/i,
-      description: "Dependabot PRs should get appropriate type: label + meta:dependabot label",
+      description:
+        "Dependabot PRs should get appropriate type: label + meta:dependabot label",
       example: "labels: [type:deps, meta:dependabot-security]",
-      fix: "Apply specific labels based on PR type (deps, dependabot-security, etc.)"
+      fix: "Apply specific labels based on PR type (deps, dependabot-security, etc.)",
     };
   },
 
@@ -357,9 +389,11 @@ export const githubRules = {
       name: "Issues Should Be Auto-Labeled on Creation",
       severity: "info",
       pattern: /issues:/m,
-      description: "Workflow should assign appropriate labels to new issues (type:, status:needs-triage, etc.)",
-      example: "Issue templates trigger labeling.yml which assigns type: and initial status:",
-      fix: "Configure issue templates with frontmatter labels or add workflow automation"
+      description:
+        "Workflow should assign appropriate labels to new issues (type:, status:needs-triage, etc.)",
+      example:
+        "Issue templates trigger labeling.yml which assigns type: and initial status:",
+      fix: "Configure issue templates with frontmatter labels or add workflow automation",
     };
   },
 
@@ -368,9 +402,11 @@ export const githubRules = {
       name: "Label Descriptions Must Be Clear",
       severity: "info",
       pattern: /description:/m,
-      description: "In labels.yml, each label should have a clear, actionable description",
-      example: "- name: type:feature\n  description: 'New capability or user-visible enhancement'",
-      fix: "Add or improve label descriptions in .github/labels.yml"
+      description:
+        "In labels.yml, each label should have a clear, actionable description",
+      example:
+        "- name: type:feature\n  description: 'New capability or user-visible enhancement'",
+      fix: "Add or improve label descriptions in .github/labels.yml",
     };
   },
 
@@ -379,9 +415,11 @@ export const githubRules = {
       name: "Status Labels Should Be Mutually Exclusive",
       severity: "warning",
       pattern: /status:/m,
-      description: "Only one status: label per issue (status:needs-triage, status:in-progress, etc.)",
-      example: "❌ [status:needs-triage, status:in-progress]\n✅ [status:in-progress]",
-      fix: "Remove conflicting status labels; maintain one active status per issue"
+      description:
+        "Only one status: label per issue (status:needs-triage, status:in-progress, etc.)",
+      example:
+        "❌ [status:needs-triage, status:in-progress]\n✅ [status:in-progress]",
+      fix: "Remove conflicting status labels; maintain one active status per issue",
     };
   },
 
@@ -390,9 +428,11 @@ export const githubRules = {
       name: "Priority Labels Follow Hierarchy",
       severity: "info",
       pattern: /priority:/m,
-      description: "Priority labels should follow consistent hierarchy (critical, important, normal, low)",
-      example: "priority:critical, priority:important, priority:normal, priority:low",
-      fix: "Use canonical priority levels from labels.yml"
+      description:
+        "Priority labels should follow consistent hierarchy (critical, important, normal, low)",
+      example:
+        "priority:critical, priority:important, priority:normal, priority:low",
+      fix: "Use canonical priority levels from labels.yml",
     };
   },
 
@@ -401,9 +441,10 @@ export const githubRules = {
       name: "Area Labels Describe Affected System",
       severity: "info",
       pattern: /area:/m,
-      description: "Area labels clearly identify which part of system is affected",
+      description:
+        "Area labels clearly identify which part of system is affected",
       example: "area:ci, area:docs, area:labels, area:security, area:workflows",
-      fix: "Assign area: labels matching affected system components"
+      fix: "Assign area: labels matching affected system components",
     };
   },
 
@@ -414,9 +455,11 @@ export const githubRules = {
       name: "PR Template Includes DoR and DoD",
       severity: "warning",
       pattern: /## Definition of (Ready|Done)/,
-      description: "PR templates should include Definition of Ready and Definition of Done sections",
-      example: "## Definition of Ready\n- [ ] Code reviewed\n## Definition of Done\n- [ ] Tests passing",
-      fix: "Add DoR and DoD sections to PR template files"
+      description:
+        "PR templates should include Definition of Ready and Definition of Done sections",
+      example:
+        "## Definition of Ready\n- [ ] Code reviewed\n## Definition of Done\n- [ ] Tests passing",
+      fix: "Add DoR and DoD sections to PR template files",
     };
   },
 
@@ -425,9 +468,11 @@ export const githubRules = {
       name: "Issue Templates Are Comprehensive",
       severity: "info",
       pattern: /^\---[\s\S]*?title:/m,
-      description: "Issue templates should have frontmatter with type, name, description, labels",
-      example: "---\nname: Feature Request\ndescription: ...\nlabels: [type:feature, status:needs-triage]",
-      fix: "Add or update issue template frontmatter"
+      description:
+        "Issue templates should have frontmatter with type, name, description, labels",
+      example:
+        "---\nname: Feature Request\ndescription: ...\nlabels: [type:feature, status:needs-triage]",
+      fix: "Add or update issue template frontmatter",
     };
   },
 
@@ -438,7 +483,7 @@ export const githubRules = {
       pattern: /PULL_REQUEST_TEMPLATE.*config\.yml/,
       description: "PR/issue routing config must map branch types to templates",
       example: ".github/PULL_REQUEST_TEMPLATE/config.yml",
-      fix: "Update routing config when adding new templates"
+      fix: "Update routing config when adding new templates",
     };
   },
 
@@ -447,9 +492,11 @@ export const githubRules = {
       name: "Template Sections Match Issue Type",
       severity: "info",
       pattern: /## /m,
-      description: "Different issue types should have different template sections",
-      example: "Bug: [Reproduction, Expected, Actual]\nFeature: [Problem, Solution, Impact]",
-      fix: "Review template sections and ensure they match issue type"
+      description:
+        "Different issue types should have different template sections",
+      example:
+        "Bug: [Reproduction, Expected, Actual]\nFeature: [Problem, Solution, Impact]",
+      fix: "Review template sections and ensure they match issue type",
     };
   },
 
@@ -460,7 +507,7 @@ export const githubRules = {
       pattern: /template-enforcement\.yml/,
       description: "Workflow should validate all issues/PRs against templates",
       example: ".github/workflows/template-enforcement.yml",
-      fix: "Ensure template-enforcement workflow is configured and active"
+      fix: "Ensure template-enforcement workflow is configured and active",
     };
   },
 
@@ -469,9 +516,10 @@ export const githubRules = {
       name: "Template Placeholders Removed Before Merge",
       severity: "warning",
       pattern: /\[TODO\]|\[PLACEHOLDER\]|\[EDIT.*?\]/i,
-      description: "PR/issue should not contain template placeholders like [TODO], [PLACEHOLDER]",
+      description:
+        "PR/issue should not contain template placeholders like [TODO], [PLACEHOLDER]",
       example: "✅ Clear, specific content\n❌ [TODO: Add description]",
-      fix: "Remove all template placeholders before submitting"
+      fix: "Remove all template placeholders before submitting",
     };
   },
 
@@ -480,9 +528,10 @@ export const githubRules = {
       name: "PR Links to Related Issues",
       severity: "info",
       pattern: /(Resolves|Fixes|Closes|Relates to)?\s*#\d+/m,
-      description: "PRs should link to related issues using Resolves, Fixes, Closes, or Relates to",
+      description:
+        "PRs should link to related issues using Resolves, Fixes, Closes, or Relates to",
       example: "Resolves #1234\nRelates to #5678",
-      fix: "Add issue links using markdown: Resolves #issue-number"
+      fix: "Add issue links using markdown: Resolves #issue-number",
     };
   },
 
@@ -493,9 +542,10 @@ export const githubRules = {
       name: "Bash Scripts Have Correct Shebang",
       severity: "error",
       pattern: /^#!/,
-      description: "Shell scripts should start with shebang (#!/bin/bash or #!/usr/env node)",
+      description:
+        "Shell scripts should start with shebang (#!/bin/bash or #!/usr/env node)",
       example: "#!/bin/bash\n#!/usr/env node",
-      fix: "Add appropriate shebang as first line"
+      fix: "Add appropriate shebang as first line",
     };
   },
 
@@ -504,9 +554,10 @@ export const githubRules = {
       name: "Executable Scripts Have +x Permission",
       severity: "warning",
       pattern: /\.sh$|\.js$/,
-      description: "Bash and Node scripts invoked directly should have executable permissions (chmod +x)",
+      description:
+        "Bash and Node scripts invoked directly should have executable permissions (chmod +x)",
       example: "chmod +x .github/scripts/validation/validate.sh",
-      fix: "Grant executable permission: git update-index --chmod=+x script.sh"
+      fix: "Grant executable permission: git update-index --chmod=+x script.sh",
     };
   },
 
@@ -515,9 +566,11 @@ export const githubRules = {
       name: "Validation Scripts Have Corresponding Tests",
       severity: "info",
       pattern: /scripts\/.*validation/,
-      description: "Each validation script should have unit tests in .github/scripts/__tests__/",
-      example: ".github/scripts/validation/validate.sh → .github/scripts/__tests__/validate.test.js",
-      fix: "Create test file for each validation script"
+      description:
+        "Each validation script should have unit tests in .github/scripts/__tests__/",
+      example:
+        ".github/scripts/validation/validate.sh → .github/scripts/__tests__/validate.test.js",
+      fix: "Create test file for each validation script",
     };
   },
 
@@ -526,9 +579,10 @@ export const githubRules = {
       name: "Automation Scripts Are Idempotent",
       severity: "warning",
       pattern: /^\s*#.*automation/im,
-      description: "Scripts that run on every push should be idempotent (safe to run multiple times)",
+      description:
+        "Scripts that run on every push should be idempotent (safe to run multiple times)",
       example: "Check before creating; update instead of recreate",
-      fix: "Add guard clauses to prevent duplicate operations"
+      fix: "Add guard clauses to prevent duplicate operations",
     };
   },
 
@@ -537,9 +591,10 @@ export const githubRules = {
       name: "Scripts Include Error Handling",
       severity: "warning",
       pattern: /^#!/,
-      description: "Scripts should include error handling (set -e, exit codes, error messages)",
+      description:
+        "Scripts should include error handling (set -e, exit codes, error messages)",
       example: "#!/bin/bash\nset -e\ntrap 'echo \"Error on line $LINENO\"' ERR",
-      fix: "Add set -e and error trapping for robustness"
+      fix: "Add set -e and error trapping for robustness",
     };
   },
 
@@ -549,8 +604,9 @@ export const githubRules = {
       severity: "info",
       pattern: /workflow_call:|inputs:/m,
       description: "Reusable workflows should document all input parameters",
-      example: "on:\n  workflow_call:\n    inputs:\n      branch: { description: 'Target branch' }",
-      fix: "Add descriptions for all workflow_call inputs"
+      example:
+        "on:\n  workflow_call:\n    inputs:\n      branch: { description: 'Target branch' }",
+      fix: "Add descriptions for all workflow_call inputs",
     };
   },
 
@@ -559,9 +615,11 @@ export const githubRules = {
       name: "Workflow Call Outputs Are Documented",
       severity: "info",
       pattern: /workflow_call:/m,
-      description: "Reusable workflows should document any outputs they provide",
-      example: "on:\n  workflow_call:\n    outputs:\n      result: { value: ${{ jobs.X.outputs.Y }} }",
-      fix: "Add documented outputs section to reusable workflow"
+      description:
+        "Reusable workflows should document any outputs they provide",
+      example:
+        "on:\n  workflow_call:\n    outputs:\n      result: { value: ${{ jobs.X.outputs.Y }} }",
+      fix: "Add documented outputs section to reusable workflow",
     };
   },
 
@@ -570,9 +628,11 @@ export const githubRules = {
       name: "README Has Correct CI Status Badge",
       severity: "info",
       pattern: /badge.*workflow.*status/i,
-      description: "README.md should include CI status badge pointing to correct workflow",
-      example: "[![CI](https://github.com/org/repo/actions/workflows/ci.yml/badge.svg)](...)",
-      fix: "Update badge URLs if workflow name/path changes"
+      description:
+        "README.md should include CI status badge pointing to correct workflow",
+      example:
+        "[![CI](https://github.com/org/repo/actions/workflows/ci.yml/badge.svg)](...)",
+      fix: "Update badge URLs if workflow name/path changes",
     };
   },
 
@@ -583,9 +643,11 @@ export const githubRules = {
       name: "Workflow File Has Descriptive Comment Block",
       severity: "info",
       pattern: /^#.*\n#.*GitHub Workflow/im,
-      description: "Complex workflows should have a comment block explaining purpose and triggers",
-      example: "# Validates branch naming conventions\n# Triggered on: push to develop, PR to main",
-      fix: "Add comment block at top of workflow file"
+      description:
+        "Complex workflows should have a comment block explaining purpose and triggers",
+      example:
+        "# Validates branch naming conventions\n# Triggered on: push to develop, PR to main",
+      fix: "Add comment block at top of workflow file",
     };
   },
 
@@ -594,11 +656,12 @@ export const githubRules = {
       name: "Complex Jobs Include Step Comments",
       severity: "info",
       pattern: /^\s+-\s*(name|run):/m,
-      description: "Unclear steps should have comments explaining their purpose",
+      description:
+        "Unclear steps should have comments explaining their purpose",
       example: "# Check branch naming convention\n- name: Validate branch",
-      fix: "Add explanatory comments for non-obvious steps"
+      fix: "Add explanatory comments for non-obvious steps",
     };
-  }
+  },
 };
 
 /**
@@ -623,7 +686,7 @@ export function validateGitHub(text, options = {}) {
         severity: rule.severity,
         message: rule.description,
         suggestion: rule.fix,
-        key
+        key,
       });
     }
   });
