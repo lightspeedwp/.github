@@ -232,4 +232,12 @@ Include all states, sizes, variants, and usage guidelines.
 
 ---
 
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+
+
 *Maintained by the 🤖 LightSpeedWP Automation Team*
