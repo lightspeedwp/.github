@@ -6,7 +6,7 @@ import { validateBranchName } from '../../skills/validate-branch-name.js';
 import { routePrTemplate } from '../../skills/route-pr-template.js';
 import { validateAndApplyLabels } from '../../skills/validate-and-apply-labels.js';
 import { orchestratePrCreation } from '../../skills/orchestrate-pr-creation.js';
-import { MockGitHub, createMockConfig, testFixtures } from './setup.js';
+import { MockGitHub, createMockConfig } from './setup.js';
 
 describe('Category A: Sequential Skill Execution', () => {
   let mockGitHub;

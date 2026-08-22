@@ -97,7 +97,6 @@ describe('Category E: Real GitHub Workflows', () => {
 
   test('Test E4: Chore/Dependency Update → chore/ → chore template → meta labels', async () => {
     const branchName = 'chore/update-dependencies';
-    const labels = ['type:chore', 'meta:no-changelog'];
 
     const branchValidation = await validateBranchName({ branchName, config });
     expect(branchValidation.valid).toBe(true);
@@ -108,7 +107,6 @@ describe('Category E: Real GitHub Workflows', () => {
 
   test('Test E5: Security Patch → security/ → bug template → security labels', async () => {
     const branchName = 'security/fix-xss-vulnerability';
-    const labels = ['type:bug', 'security:vulnerability'];
 
     const branchValidation = await validateBranchName({ branchName, config });
     expect(branchValidation.valid).toBe(true);
@@ -215,7 +213,7 @@ Test PR
       labels: ['type:feature'],
     };
 
-    const aiiFeedback = [
+    const aiFeedback = [
       { suggestion: 'Add more tests', status: 'addressed' },
       { suggestion: 'Improve documentation', status: 'deferred' },
     ];
