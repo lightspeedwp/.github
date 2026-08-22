@@ -70,7 +70,7 @@ export async function validateAndApplyLabels(input) {
 
     // Check if label is canonical or has valid prefix format
     let isValid = false;
-    if (CANONICAL_LABELS[label]) {
+    if (Object.hasOwn(CANONICAL_LABELS, label)) {
       isValid = true;
     } else if (label.match(/^[a-z]+:[a-z0-9-]+$/)) {
       isValid = true;
@@ -86,28 +86,37 @@ export async function validateAndApplyLabels(input) {
     seenLabels.add(label);
   }
 
-  // Check for conflicting labels
+  // Sort labels by priority (lower priority number = higher priority)
+  validLabels.sort((a, b) => {
+    const priorityA = Object.hasOwn(CANONICAL_LABELS, a) ? CANONICAL_LABELS[a] : 99;
+    const priorityB = Object.hasOwn(CANONICAL_LABELS, b) ? CANONICAL_LABELS[b] : 99;
+    return priorityA - priorityB;
+  });
+
+  // Check for conflicting labels and keep only highest-priority per family
+  const resolvedLabels = [...validLabels];
   for (const [family, familyLabels] of Object.entries(EXCLUSIVE_FAMILIES)) {
-    const appliedInFamily = validLabels.filter(l => familyLabels.includes(l));
+    const appliedInFamily = resolvedLabels.filter(l => familyLabels.includes(l));
     if (appliedInFamily.length > 1) {
       conflicts.push({
         family,
         labels: appliedInFamily,
       });
+      // Keep only the first (highest priority) label, remove the rest
+      const toRemove = appliedInFamily.slice(1);
+      for (const label of toRemove) {
+        const idx = resolvedLabels.indexOf(label);
+        if (idx !== -1) {
+          resolvedLabels.splice(idx, 1);
+        }
+      }
     }
   }
 
-  // Sort labels by priority (lower priority number = higher priority)
-  validLabels.sort((a, b) => {
-    const priorityA = CANONICAL_LABELS[a] || 99;
-    const priorityB = CANONICAL_LABELS[b] || 99;
-    return priorityA - priorityB;
-  });
-
   const result = {
     valid: errors.length === 0 && conflicts.length === 0,
-    appliedLabels: validLabels,
-    errors: errors.length > 0 ? errors : undefined,
+    appliedLabels: resolvedLabels,
+    errors,
     deduplicatedCount,
   };
 

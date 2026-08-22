@@ -11,7 +11,7 @@
  * @returns {Object} Result with success flag and PR data
  */
 
-export async function orchestratePrCreation(input) {
+export async function orchestratePrCreation(input = {}) {
   const {
     pr = {},
     aiFeedback = [],
@@ -70,8 +70,8 @@ export async function orchestratePrCreation(input) {
       success: true,
       pr: prObject,
       frontmatter,
-      feedbackResponseCreated: createFeedbackResponse && feedbackResponse ? true : false,
-      workflowTriggered: triggerWorkflow ? true : false,
+      feedbackResponseRequested: Boolean(createFeedbackResponse && feedbackResponse),
+      workflowRequested: Boolean(triggerWorkflow),
     };
   } catch (error) {
     return {
