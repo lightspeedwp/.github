@@ -80,4 +80,12 @@ Expert configuration assistant for WooCommerce stores. Specializes in setup opti
 
 ---
 
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+
+
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

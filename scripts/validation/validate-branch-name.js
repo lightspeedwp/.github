@@ -50,7 +50,7 @@ const BOT_PREFIXES = /^(dependabot|renovate)\//;
 const AUDIT_BRANCH_PATTERN = /^pr-\d+-audit$/;
 const PROTECTED_BRANCHES = new Set(["main", "develop"]);
 const BRANCH_PATTERN = new RegExp(
-  `^(${ALLOWED_PREFIXES.join("|")})/[a-z0-9.-]+$`,
+  `^(${ALLOWED_PREFIXES.join("|")})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`,
 );
 
 function getArgValue(flag) {
@@ -189,7 +189,7 @@ function checkBranchReuse(branchName) {
 function printFailure(branchName) {
   console.error(`Branch '${branchName}' does not follow the required format.`);
   console.error(
-    "Expected: {prefix}/{branch-slug} (see docs/BRANCHING_STRATEGY.md)",
+    "Expected: {type}/{scope}-{short-title} (see docs/BRANCHING_STRATEGY.md)",
   );
   console.error(`Allowed prefixes: ${ALLOWED_PREFIXES.join(", ")}`);
   console.error("Audit replay branches: pr-<number>-audit");
