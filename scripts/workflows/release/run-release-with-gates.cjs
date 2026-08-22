@@ -12,8 +12,6 @@
  * Design: AUGMENT approach (no Phase 4 changes)
  */
 
-const fs = require('fs');
-const path = require('path');
 const { execSync } = require('child_process');
 
 let ReleaseGates;
