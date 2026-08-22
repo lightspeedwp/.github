@@ -38,10 +38,6 @@
     "ajv": "^8.12.0",
     "gray-matter": "^4.0.3"
   },
-  "devDependencies": {
-    "jest": "^29.5.0"
-  },
-  "optionalDependencies": {},
   "files": [
     "index.js",
     "skills/",
