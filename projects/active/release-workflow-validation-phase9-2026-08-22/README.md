@@ -135,7 +135,7 @@ Phase 9 continues from Phase 8's comprehensive release infrastructure documentat
 
 ## Notes & Decisions
 
-- **Branch:** All Phase 9 work should target feature branches (e.g., `feat/release-e2e-tests`) or `docs/release-validation`
+- **Branch:** All Phase 9 work should target feature branches following the pattern `{type}/{scope}-{description}` (e.g., `feat/release-validation-testing`) or documentation branches
 - **Release Frequency:** Phase 9 executes as a single continuous initiative (not stacked)
 - **Testing Approach:** Unit tests for gates logic (existing), E2E tests for workflow orchestration
 - **Pilot Scope:** Full release cycle (patch) using agentic workflow on this repository
