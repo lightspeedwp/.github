@@ -4,9 +4,6 @@
  *
  * @param {Object} input - Input object
  * @param {Array<string>} input.labels - Labels to validate (e.g., ["type:feature", "area:agents"])
- * @param {string} input.branchType - Branch type for conditional labels (optional)
- * @param {Object} input.config - Configuration object (optional)
- * @param {Object} input.mockGitHub - Mock GitHub API for testing (optional)
  * @returns {Object} Validation result with valid flag and applied labels
  */
 
@@ -38,7 +35,7 @@ const EXCLUSIVE_FAMILIES = {
 };
 
 export async function validateAndApplyLabels(input) {
-  const { labels = [], branchType = null, config = {}, mockGitHub = null } = input;
+  const { labels = [] } = input;
 
   // If no labels provided, that's valid (no labels required)
   if (!labels || labels.length === 0) {

@@ -4,8 +4,6 @@
  *
  * @param {Object} input - Input object
  * @param {Object} input.pr - PR data (title, body, head, base, labels)
- * @param {Object} input.mockGitHub - Mock GitHub API (optional)
- * @param {Object} input.config - Configuration (optional)
  * @param {Object} input.aiFeedback - AI feedback array (optional)
  * @param {boolean} input.triggerWorkflow - Whether to trigger workflow (optional)
  * @param {boolean} input.createFeedbackResponse - Whether to create feedback response (optional)
@@ -16,8 +14,6 @@
 export async function orchestratePrCreation(input) {
   const {
     pr = {},
-    mockGitHub = null,
-    config = {},
     aiFeedback = [],
     triggerWorkflow = false,
     createFeedbackResponse = false,
@@ -56,7 +52,7 @@ export async function orchestratePrCreation(input) {
 
     // Parse frontmatter if requested
     let frontmatter = null;
-    if (parseFrontmatter && body) {
+    if (parseFrontmatter) {
       frontmatter = parseFrontmatterFromBody(body);
     }
 
