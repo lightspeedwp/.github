@@ -107,16 +107,39 @@ All schema references should use `schemas/` as the canonical location.
 
 > **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
 
+### ⚠️ BRANCH NAMING RULES — STRICT ENFORCEMENT
+
+**These rules apply without exception to all branches.**
+
+#### NO "claude/" Prefix — FORBIDDEN
+
+- **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
+- **FORBIDDEN:** Do NOT use `copilot/` or `openai/` prefixes either.
+
+#### Required Format: `{type}/{scope}-{short-title}`
+
+All branches must follow this exact format (lowercase, kebab-case only):
+
+- **type:** One of the allowed prefixes (see list below)
+- **scope:** lowercase, hyphens only (no underscores, dots, or uppercase)
+- **title:** lowercase, hyphens only (no underscores, dots, or uppercase)
+
+**Example:** `feat/branch-naming-enforcement`, `fix/validation-script-bug`, `chore/update-dependencies`
+
+#### Allowed Branch Types (31 prefixes)
+
+`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
+
+#### Validation & Governance
+
+- All branch names are validated by `.github/scripts/validation/validate-branch-name.cjs`
+- CI will block branches that don't follow the pattern
+- The validation script runs on every PR
+- **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
+
 ### AI Governance & Branch Protection — NO EXCEPTIONS
 
 **Follow these rules without exception.**
-
-#### Branch Naming — NO "claude/" Prefix
-
-- **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
-- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case) where `{type}` is one of the core prefixes listed below.
-- **CORE PREFIXES:** `feat/`, `fix/`, `hotfix/`, `release/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`.
-- **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
 
 #### Explicit User Instructions — EXECUTE IMMEDIATELY
 
