@@ -1,0 +1,303 @@
+name: Release E2E Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: "Test scenario to run (all|patch|minor|major|error-handling|rollback|sequential)"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - all
+          - patch
+          - minor
+          - major
+          - error-handling
+          - rollback
+          - sequential
+      verbose:
+        description: "Enable verbose logging"
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    # Run daily on develop branch to validate release workflow
+    - cron: "0 2 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+  checks: read
+
+env:
+  NODE_VERSION: "lts/*"
+  TEST_REPO_BASE: /tmp/release-e2e-test-repo
+  TEST_RESULTS_DIR: ${{ github.workspace }}/.github/reports/release-validation
+
+jobs:
+  setup-test-environment:
+    name: Setup Test Environment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create test results directory
+        run: mkdir -p "${{ env.TEST_RESULTS_DIR }}"
+
+      - name: Setup Git config for test repos
+        run: |
+          git config --global user.email "release-e2e-tests@lightspeedwp.agency"
+          git config --global user.name "Release E2E Test Bot"
+
+  scenario-patch-release:
+    name: "Scenario 1: Patch Release (v1.0.0 → v1.0.1)"
+    needs: [setup-test-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Patch Release E2E Test
+        run: |
+          node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.js
+        env:
+          SCENARIO: patch
+          VERBOSE: ${{ inputs.verbose }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: patch-release-results
+          path: ${{ env.TEST_RESULTS_DIR }}/patch-release-*.json
+
+  scenario-minor-release:
+    name: "Scenario 2: Minor Release (v1.0.0 → v1.1.0)"
+    needs: [setup-test-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Minor Release E2E Test
+        run: |
+          node scripts/release/__tests__/e2e/scenarios/minor-release.e2e.js
+        env:
+          SCENARIO: minor
+          VERBOSE: ${{ inputs.verbose }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: minor-release-results
+          path: ${{ env.TEST_RESULTS_DIR }}/minor-release-*.json
+
+  scenario-major-release:
+    name: "Scenario 3: Major Release (v1.0.0 → v2.0.0)"
+    needs: [setup-test-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Major Release E2E Test
+        run: |
+          node scripts/release/__tests__/e2e/scenarios/major-release.e2e.js
+        env:
+          SCENARIO: major
+          VERBOSE: ${{ inputs.verbose }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: major-release-results
+          path: ${{ env.TEST_RESULTS_DIR }}/major-release-*.json
+
+  scenario-error-handling:
+    name: "Scenarios 4-6: Error Handling Cases"
+    needs: [setup-test-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Error Handling E2E Tests
+        run: |
+          node scripts/release/__tests__/e2e/scenarios/error-handling.e2e.js
+        env:
+          SCENARIO: error-handling
+          VERBOSE: ${{ inputs.verbose }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: error-handling-results
+          path: ${{ env.TEST_RESULTS_DIR }}/error-handling-*.json
+
+  scenario-rollback:
+    name: "Scenario 7: Rollback Procedure"
+    needs: [setup-test-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Rollback E2E Test
+        run: |
+          node scripts/release/__tests__/e2e/scenarios/rollback.e2e.js
+        env:
+          SCENARIO: rollback
+          VERBOSE: ${{ inputs.verbose }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rollback-results
+          path: ${{ env.TEST_RESULTS_DIR }}/rollback-*.json
+
+  scenario-sequential-releases:
+    name: "Scenario 8: Sequential Releases"
+    needs: [setup-test-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Sequential Releases E2E Test
+        run: |
+          node scripts/release/__tests__/e2e/scenarios/sequential-releases.e2e.js
+        env:
+          SCENARIO: sequential
+          VERBOSE: ${{ inputs.verbose }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sequential-releases-results
+          path: ${{ env.TEST_RESULTS_DIR }}/sequential-releases-*.json
+
+  consolidate-results:
+    name: Consolidate Test Results
+    if: always()
+    needs:
+      - scenario-patch-release
+      - scenario-minor-release
+      - scenario-major-release
+      - scenario-error-handling
+      - scenario-rollback
+      - scenario-sequential-releases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Create test results directory
+        run: mkdir -p "${{ env.TEST_RESULTS_DIR }}"
+
+      - name: Download all test result artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ env.TEST_RESULTS_DIR }}/artifacts
+
+      - name: Consolidate and summarize test results
+        run: |
+          node scripts/release/__tests__/e2e/consolidate-results.js
+        env:
+          TEST_RESULTS_DIR: ${{ env.TEST_RESULTS_DIR }}
+
+      - name: Upload consolidated test summary
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-e2e-test-summary
+          path: ${{ env.TEST_RESULTS_DIR }}/summary.json
+
+      - name: Comment PR with test results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = JSON.parse(fs.readFileSync('${{ env.TEST_RESULTS_DIR }}/summary.json', 'utf8'));
+            const comment = `
+            ## Release E2E Test Summary
+
+            **Total Scenarios:** ${summary.totalScenarios}
+            **Passed:** ✅ ${summary.passedScenarios}
+            **Failed:** ❌ ${summary.failedScenarios}
+            **Coverage:** ${summary.codeCoverage}%
+
+            **Test Results:**
+            ${summary.scenarios.map(s => `- ${s.name}: ${s.passed ? '✅ PASS' : '❌ FAIL'}`).join('\n')}
+
+            [View detailed results](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
