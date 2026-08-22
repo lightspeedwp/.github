@@ -71,7 +71,7 @@ flowchart TD
     style F fill:#2e7d32,color:#fff
 ```
 
-### Phase 1: Portable Agent Workflow
+### Phase 1: Authorization Validation
 
 ```mermaid
 flowchart TD
@@ -83,19 +83,6 @@ flowchart TD
     B -->|Yes| D{Actor in<br/>maintainers team?}
     D -->|No| E["❌ FAIL<br/>Unauthorized actor<br/>Log: Actor not in team"]
     D -->|Yes| F["✅ PASS<br/>Release authorized<br/>Log: Success"]
-    
-    Dev->>GH: Trigger release.yml workflow
-    GH->>Agent: Run on develop branch
-    Agent->>Git: Detect repo type & structure
-    Agent->>Agent: Bump version (scope: major/minor/patch)
-    Agent->>Agent: Update CHANGELOG.md (two-gate format)
-    Agent->>Git: Create release/vX.Y.Z branch
-    Agent->>GH: Create PR #1 (release/vX.Y.Z → develop)
-    Dev->>GH: Review & merge PR #1
-    GH->>Git: develop branch updated
-    GH->>Agent: Trigger Phase 2 (auto)
-    
-    Note over Dev,GH: Phase 1 Complete<br/>Ready for Phase 2
 ```
 
 ### Phase 2: Agentic Gates Workflow
@@ -138,9 +125,10 @@ sequenceDiagram
 **Phase 1** uses portable agents to handle version management and changelog generation. The process:
 
 ```mermaid
-accTitle: Flowchart
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 flowchart TD
+    accTitle: Release safety gates flow
+    accDescr: Seven-layer validation gates before mutations approved
     A["🚀 Release triggered<br/>User runs release.yml"] -->|scope: patch/minor/major| B["🔐 Phase 5A Safety Gates"]
     B -->|GATE 1| C["Pre-flight Checks<br/>Branch, VERSION, CHANGELOG"]
     C -->|GATE 2| D["Agentic Score<br/>AI confidence ≥0.80"]
@@ -177,7 +165,6 @@ flowchart TD
     style Z5 fill:#b71c1c,color:#fff
     style Z6 fill:#b71c1c,color:#fff
     style Z7 fill:#b71c1c,color:#fff
-accDescr: Detailed diagram showing structure and relationships
 ```
 
 ### Prerequisites
