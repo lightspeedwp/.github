@@ -64,6 +64,10 @@ metadata:
     warning. Validate all content. Log all actions. Preserve user data integrity.
 ---
 
+## Branch Naming
+
+This agent does not create or validate branches. It manages issues only. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
+
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
