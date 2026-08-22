@@ -25,22 +25,18 @@ import { themeRules, validateTheme } from "./theme-rules.js";
  * @returns {Object} {context, findings, stats}
  */
 export function validate(text, context, options = {}) {
-  const detectedContext = context || detectContext(text);
+  let detectedContext = context || detectContext(text);
   let findings = [];
-  let validationFn;
 
   switch (detectedContext) {
     case "github":
       findings = validateGitHub(text, options);
-      validationFn = validateGitHub;
       break;
     case "plugin":
       findings = validatePlugin(text, options);
-      validationFn = validatePlugin;
       break;
     case "theme":
       findings = validateTheme(text, options);
-      validationFn = validateTheme;
       break;
     default:
       // Run all validators
@@ -75,8 +71,6 @@ export function validate(text, context, options = {}) {
  * @returns {string} Context: 'github', 'plugin', 'theme', or 'unknown'
  */
 export function detectContext(text) {
-  const lowerText = text.toLowerCase();
-
   // GitHub control-plane indicators
   const githubIndicators = [
     /\.github\/workflows/,
