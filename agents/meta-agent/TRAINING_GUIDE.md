@@ -38,6 +38,7 @@ After this training, you will be able to:
 ### The Problem We're Solving
 
 **Before Meta Agent v2.0:**
+
 - 🚫 Different repos had different documentation standards
 - 🚫 Manual metadata configuration per repository
 - 🚫 Hard to maintain consistency at scale
@@ -45,6 +46,7 @@ After this training, you will be able to:
 - 🚫 No validation framework
 
 **After Meta Agent v2.0:**
+
 - ✅ Automatic repo type detection (no config)
 - ✅ Consistent metadata standards
 - ✅ Early error detection (pre-commit)
@@ -107,6 +109,7 @@ Meta Agent checks for these markers in order:
 **How to detect:** Has `block.json` file
 
 **Required frontmatter:**
+
 ```yaml
 ---
 title: User Input Block
@@ -128,6 +131,7 @@ requires_php: 7.4
 **How to detect:** Has `theme.json` + `style.css` files
 
 **Required frontmatter:**
+
 ```yaml
 ---
 title: Lightspeed Theme
@@ -145,6 +149,7 @@ block_pattern_name: lightspeed/hero-section
 **How to detect:** Has `.github/agents/` folder
 
 **Required frontmatter:**
+
 ```yaml
 ---
 title: Contributing Guide
@@ -163,6 +168,7 @@ owners:
 **How to detect:** Any other Markdown file
 
 **Required frontmatter:**
+
 ```yaml
 ---
 title: Setup Instructions
@@ -197,6 +203,7 @@ npm install
 ```
 
 Expected output:
+
 ```
 added 45 packages in 3s
 ```
@@ -208,6 +215,7 @@ npm test
 ```
 
 Expected output:
+
 ```
 Test Suites: 4 passed, 4 total
 Tests:       116 passed, 116 total
@@ -310,6 +318,7 @@ description: |
 ### Common Mistakes & How to Fix Them
 
 **❌ WRONG: Tabs instead of spaces**
+
 ```yaml
 ---
 title: Test
@@ -318,6 +327,7 @@ title: Test
 ```
 
 **✅ CORRECT: Use spaces for indentation**
+
 ```yaml
 ---
 title: Test
@@ -328,6 +338,7 @@ description: This uses spaces (VALID)
 ---
 
 **❌ WRONG: Missing frontmatter delimiters**
+
 ```markdown
 title: My Doc
 description: A test
@@ -335,6 +346,7 @@ description: A test
 ```
 
 **✅ CORRECT: Frontmatter in between ---**
+
 ```markdown
 ---
 title: My Doc
@@ -345,12 +357,14 @@ description: A test
 ---
 
 **❌ WRONG: Unquoted multi-line values**
+
 ```yaml
 description: This is a very long description
 that spans multiple lines without quotes
 ```
 
 **✅ CORRECT: Use > or | for multi-line**
+
 ```yaml
 description: >
   This is a very long description
@@ -371,6 +385,7 @@ npm run validate -- README.md
 ```
 
 **Output:**
+
 ```
 ✅ README.md
   ├─ Repo type: documentation
@@ -422,6 +437,7 @@ git commit -m "docs: Add feature documentation"
 ```
 
 **Pre-commit hook runs automatically:**
+
 - ✅ If valid → Commit succeeds
 - ❌ If invalid → Commit blocked, shows errors
 
@@ -434,6 +450,7 @@ git push origin my-branch
 ### Workflow Step 4: Create PR
 
 GitHub Actions runs validation on your PR:
+
 - ✅ Check passes → Can merge
 - ❌ Check fails → Fix errors, re-push
 
@@ -464,6 +481,7 @@ language: en  # ADD THIS
 ### Issue: Hook doesn't run
 
 **Solution:**
+
 ```bash
 chmod +x .git/hooks/pre-commit
 .git/hooks/pre-commit  # Test it
@@ -477,7 +495,7 @@ git commit --no-verify -m "Skip validation for this commit"
 
 ### Issue: "Front matter is not valid YAML"
 
-**Solution:** Check YAML syntax at https://www.yamllint.com
+**Solution:** Check YAML syntax at <https://www.yamllint.com>
 
 ---
 
@@ -520,11 +538,13 @@ git commit --no-verify -m "message"
 ## Getting Help
 
 **Questions?**
+
 - 📖 See [FAQ.md](./FAQ.md)
 - 🔧 See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
 - 📚 See [IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md)
 
 **Issues?**
+
 - Report bugs: GitHub issues
 - Ask questions: Team Slack
 
@@ -533,6 +553,7 @@ git commit --no-verify -m "message"
 ## Summary
 
 ✅ You now know:
+
 - What Meta Agent v2.0 does and why it matters
 - How to set it up in your repo
 - How to write valid frontmatter
@@ -545,4 +566,3 @@ git commit --no-verify -m "message"
 ---
 
 *Meta Agent v2.0 — Making documentation metadata simple for everyone* 🚀
-

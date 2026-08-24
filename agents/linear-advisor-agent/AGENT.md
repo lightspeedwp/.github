@@ -266,6 +266,4 @@ This agent does not create or validate branches. All branches must follow the pa
 
 ---
 
-
-
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -23,17 +23,20 @@ status: active
 ## Allowed Types (31 Total)
 
 ### Core (20)
+
 ```
 feat  fix  hotfix  release  refactor  chore  docs  test  perf  ci
 build  deps  security  revert  research  design  a11y  ux  i18n  ops
 ```
 
 ### Product (5)
+
 ```
 proto  ds  api  schema  telemetry
 ```
 
 ### Content (6)
+
 ```
 content  seo  config  migrate  qa  uat  audit  codex
 ```
@@ -101,6 +104,7 @@ Returns `exit 0` (valid) or `exit 1` (invalid).
 5. Replace dots with hyphens (especially in version numbers)
 
 **Example Fix:**
+
 ```bash
 # Current branch name (invalid)
 release/v2.1.0
@@ -118,6 +122,7 @@ git push -u origin release/v2-1-0
 ## Special Cases
 
 ### Release Branches
+
 ```
 release/v{major}-{minor}-{patch}
 release/v2-1-0                    ✓ Production release
@@ -126,12 +131,14 @@ release/v1-0-0-alpha              ✓ Alpha release
 ```
 
 ### Hotfix Branches
+
 ```
 hotfix/critical-security-patch    ✓ Target main directly
 hotfix/database-connection-issue  ✓ Urgent production fix
 ```
 
 ### Post-Release Sync
+
 ```
 ops/post-release-sync-main-to-develop  ✓ Auto-sync main → develop
 ```
@@ -146,6 +153,7 @@ ops/post-release-sync-main-to-develop  ✓ Auto-sync main → develop
 **Template:** `{type}/{area}-{change}`
 
 Example:
+
 ```
 feat/user-authentication       (feat = type, user = scope, authentication = title)
 fix/button-styling             (fix = type, button = scope, styling = title)

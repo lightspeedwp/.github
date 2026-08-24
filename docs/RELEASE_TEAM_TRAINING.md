@@ -190,6 +190,7 @@ Safe to run many times   →   Commit to repository
 **Patch Release Criteria:**
 
 Use patch when:
+
 - ✅ Releasing bug fixes only (no new features)
 - ✅ Releasing security patches
 - ✅ Releasing performance improvements
@@ -321,6 +322,7 @@ gh release view v1.0.1 --web  # Opens browser
 **Minor Release Criteria:**
 
 Use minor when:
+
 - ✅ Adding new features (backwards-compatible)
 - ✅ Adding new configuration options
 - ✅ Adding new API endpoints
@@ -413,6 +415,7 @@ gh workflow run release.yml \
 **Approver Notified → Begins Review**
 
 After Phase 1 completes:
+
 - PR #1 auto-merges to develop ✅
 - PR #2 appears for approver review ⏳
 - Workflow waits for approval on PR #2
@@ -434,6 +437,7 @@ After Phase 1 completes:
 **Workflow Continues After Approval**
 
 Once approval detected:
+
 - PR #2 merges to main ✅
 - Git tag v1.1.0 created and signed ✅
 - GitHub Release published ✅
@@ -442,6 +446,7 @@ Once approval detected:
 ### 3.4 Minor Release Verification (5 minutes)
 
 Same as patch (see Module 2.3), but confirm:
+
 - Version: v1.1.0 (not v1.0.1)
 - Changelog has features listed
 - Approver's approval visible in PR history
@@ -455,6 +460,7 @@ Same as patch (see Module 2.3), but confirm:
 **Major Release Criteria:**
 
 Use major when:
+
 - ✅ Making breaking changes to APIs
 - ✅ Removing deprecated features
 - ✅ Changing required configuration

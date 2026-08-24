@@ -111,6 +111,7 @@ npm install
 ```
 
 This installs:
+
 - `gray-matter` — Frontmatter parsing
 - `ajv` — JSON Schema validation
 - `jest` — Testing framework
@@ -123,6 +124,7 @@ npm test
 ```
 
 **Expected output:**
+
 ```
 PASS  __tests__/unit/repo-type-detection.test.js
 PASS  __tests__/unit/frontmatter-validation.test.js
@@ -283,11 +285,13 @@ npm run validate -- path/to/file.md
 ```
 
 **Options:**
+
 - `--colors` — Colorized output
 - `--json` — JSON format output
 - `--summary` — Summary only (no details)
 
 **Example output:**
+
 ```
 ✅ README.md
   ├─ Repo type: control-plane
@@ -323,6 +327,7 @@ npm run validate -- file.md --json
 ```
 
 Returns structured JSON:
+
 ```json
 {
   "file": "file.md",
@@ -392,6 +397,7 @@ A WordPress block for capturing user input...
 ```
 
 **Setup:**
+
 ```bash
 cd block-plugin-repo/.github/agents
 cp -r meta-agent ./
@@ -401,6 +407,7 @@ npm run validate -- ../../README.md
 ```
 
 **Expected output:**
+
 ```
 ✅ README.md
   ├─ Repo type: block-plugin
@@ -435,6 +442,7 @@ A block theme for WordPress...
 ```
 
 **Setup:**
+
 ```bash
 cd block-theme-repo/.github/agents
 cp -r meta-agent ./
@@ -474,6 +482,7 @@ Thank you for contributing...
 ```
 
 **Setup:**
+
 ```bash
 cd .github/agents
 cp -r meta-agent ./
@@ -509,6 +518,7 @@ This guide walks you through...
 ```
 
 **Setup:**
+
 ```bash
 cd docs/../.github/agents
 cp -r meta-agent ./
@@ -526,6 +536,7 @@ npm run validate -- ../../docs/SETUP_GUIDE.md
 #### Issue: "Module not found: ajv"
 
 **Solution:**
+
 ```bash
 cd .github/agents/meta-agent
 npm install
@@ -534,6 +545,7 @@ npm install
 #### Issue: Hook not running on commit
 
 **Solution:**
+
 ```bash
 # Check hook exists
 ls -la .git/hooks/pre-commit
@@ -548,6 +560,7 @@ chmod +x .git/hooks/pre-commit
 #### Issue: "File validation failed" but frontmatter looks correct
 
 **Solution:**
+
 1. Check YAML syntax: Each line must be valid YAML
 2. Verify required fields are present (varies by repo type)
 3. Check field values match expected enums
@@ -592,4 +605,3 @@ After setup, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for common issues an
 ---
 
 *Meta Agent v2.0 — Making frontmatter validation simple & reliable* 🚀
-

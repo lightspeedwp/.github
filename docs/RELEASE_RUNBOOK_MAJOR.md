@@ -57,6 +57,7 @@ Before triggering a major release, verify:
    - Status: Must be "Accepted" (not "Proposed" or "Superseded")
 
 2. **CHANGELOG Formatting**
+
    ```markdown
    ## [Unreleased]
 
@@ -232,6 +233,7 @@ Navigate to GitHub Actions:
 ### Step 3: Review Dry-Run Report
 
 The workflow will:
+
 - ✅ Calculate new version (1.0.0 → 2.0.0)
 - ✅ Preview changelog roll
 - ✅ Show all safety gates
@@ -273,6 +275,7 @@ Approval Required: YES (2 maintainers + ADR verification)
 ### Step 4: Verify Dry-Run Passed
 
 If all gates show ✅ or ⏳:
+
 - Proceed to **Step 5: Execute Live Release**
 - If any gate shows ❌: Stop and consult troubleshooting
 
@@ -312,9 +315,10 @@ After ~3–5 minutes:
    - Migration path documented ✅
 3. Check commit message for ADR reference:
    - Should include: "Refs: ADR-NNN" or "See: docs/adr/..."
-   - If not present, request changes: _"Please add ADR reference to commit"_
+   - If not present, request changes: *"Please add ADR reference to commit"*
 4. Approve the PR using GitHub "Approve" button
 5. Leave comment:
+
    ```
    ✅ Approved (Maintainer 1/2)
    
@@ -337,6 +341,7 @@ After ~3–5 minutes:
    - Is rollback plan documented?
 4. Approve the PR using GitHub "Approve" button
 5. Leave comment:
+
    ```
    ✅ Approved (Maintainer 2/2)
    
@@ -350,6 +355,7 @@ After ~3–5 minutes:
    ```
 
 **Timeline:**
+
 - First review: 15–30 minutes
 - Second review: 15–30 minutes (can happen in parallel)
 - Workflow detection: 1–5 minutes
@@ -366,6 +372,7 @@ Workflow automatically:
 5. ✅ GATE 7 updates: ADR verified
 
 **If ADR not found:**
+
 - Workflow halts at GATE 7
 - Check ADR file location and naming
 - Commit message must reference ADR correctly
@@ -401,6 +408,7 @@ Watch the workflow:
    - ✅ GitHub Release published
 
 **Typical timeline (total):**
+
 - Phase 1: 3–5 minutes
 - PR #1 merge: 1–2 minutes
 - Dual review: 30–60 minutes (varies)
@@ -458,6 +466,7 @@ Automatic sync of main → develop:
 4. Merges PR
 
 **Verification:**
+
 - Wait 2–3 minutes for sync
 - Verify develop branch in sync
 - No merge conflicts
@@ -568,11 +577,13 @@ Workflow Detects Dual Approval (1-5 min)
 The release commit should include ADR reference:
 
 **Option 1: ADR in title**
+
 ```
 chore: Release v2.0.0 (ADR-42: Breaking Change)
 ```
 
 **Option 2: ADR in body**
+
 ```
 chore: Release v2.0.0
 
@@ -581,6 +592,7 @@ See: docs/adr/0042-breaking-change-title.md
 ```
 
 **Option 3: GitHub PR description**
+
 ```
 ## ADR Reference
 
@@ -591,6 +603,7 @@ See [ADR-42](docs/adr/0042-...) for decision details.
 ### Verification
 
 Workflow checks:
+
 1. Finds ADR reference in commit message
 2. Locates ADR file (docs/adr/NNNN-*.md)
 3. Verifies "Status: Accepted" line
@@ -650,9 +663,11 @@ If production issues occur immediately:
 
 2. **Delete GitHub Release**
 3. **Delete git tag**
+
    ```bash
    git push origin --delete v2.0.0
    ```
+
 4. **Revert PR #2 on main**
 5. **Notify users of rollback**
 6. **Post-mortem on root cause**
@@ -663,20 +678,24 @@ If production issues occur immediately:
 ## Common Issues & Solutions
 
 **Issue: ADR not found (GATE 7 fails)**
+
 - Solution: Commit message must reference ADR
 - Format: "Refs: ADR-NNN" or "See: docs/adr/..."
 - See: RELEASE_TROUBLESHOOTING.md
 
 **Issue: One maintainer unavailable**
+
 - Solution: Get second approval from another maintainer
 - They review same PR and approve
 
 **Issue: Approval takes > 90 minutes**
+
 - Solution: Check if approvers are still engaged
 - Reach out directly if needed
 - Consider rescheduling if timing issue
 
 **Issue: ADR status is "Proposed" not "Accepted"**
+
 - Solution: ADR must be accepted by architecture team first
 - Update ADR status to "Accepted"
 - Re-trigger release
@@ -701,27 +720,32 @@ Major release is successful when:
 ## Tips & Best Practices
 
 **Tip 1: Plan major release early**
+
 - ADR needs time for architecture review
 - Users need notice of breaking changes
 - Coordinate across teams
 
 **Tip 2: Make ADR comprehensive**
+
 - Explain why breaking change is necessary
 - Document migration path
 - Include code examples
 - Address user concerns
 
 **Tip 3: Keep breaking changes minimal**
+
 - Group related breaking changes together
 - Don't break multiple unrelated things
 - Provide clear migration path
 
 **Tip 4: Provide migration tools**
+
 - CLI tool or script to help migrate
 - Configuration conversion tools
 - API client library updates
 
 **Tip 5: Extend support timeline**
+
 - Don't force immediate upgrades
 - Provide 6–12 month support window
 - Communicate deadline clearly
@@ -731,21 +755,25 @@ Major release is successful when:
 ## Support & Escalation
 
 **For questions:**
+
 - See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md)
 - Review other runbooks for comparison
 - Consult [RELEASE_TROUBLESHOOTING.md](./RELEASE_TROUBLESHOOTING.md)
 
 **For ADR guidance:**
+
 - Check organization's ADR template
 - Review accepted ADRs in docs/adr/
 - Consult architecture team
 
 **For issues:**
+
 - Create GitHub issue with `type:bug` label
 - Tag Release Engineering team
 - Reference this runbook
 
 **For escalation:**
+
 - Contact Release Engineering Lead
 - If approval blocked, escalate to Engineering Director
 

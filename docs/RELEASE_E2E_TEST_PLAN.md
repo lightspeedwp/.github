@@ -23,6 +23,7 @@ tags:
 ## Overview
 
 This test plan covers all aspects of the two-phase release workflow:
+
 - **Phase 1:** Portable agent version bumping and changelog generation
 - **Phase 2:** Agentic safety gates and release publishing
 
@@ -38,6 +39,7 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate basic patch release workflow end-to-end
 
 **Prerequisites:**
+
 - Test repository initialized with v1.0.0 tag
 - CHANGELOG.md with [Unreleased] section populated
 - VERSION file set to 1.0.0
@@ -86,6 +88,7 @@ This test plan covers all aspects of the two-phase release workflow:
    - Develops branch in sync with main
 
 **Expected Outcome:**
+
 - ✅ v1.0.1 tag exists and signed
 - ✅ GitHub Release published with version and changelog
 - ✅ develop and main branches in sync
@@ -98,10 +101,12 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate minor release with manual approval requirement
 
 **Prerequisites:**
+
 - Same as Scenario 1, but with multiple unreleased entries
 - Multiple contributors in changelog
 
 **Steps:**
+
 1. Trigger with scope: `minor`
 2. Phase 1 executes (version → v1.1.0, changelog rolled)
 3. PR #1 created and merged
@@ -112,6 +117,7 @@ This test plan covers all aspects of the two-phase release workflow:
 8. Post-release sync completes
 
 **Expected Outcome:**
+
 - ✅ Manual approval required and respected
 - ✅ Release timeline includes approval step
 - ✅ All metadata correct (version, contributors, dates)
@@ -123,10 +129,12 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate major release with dual approval and ADR linking
 
 **Prerequisites:**
+
 - Same as Scenario 1, with breaking changes documented
 - ADR (Architecture Decision Record) created
 
 **Steps:**
+
 1. Trigger with scope: `major`
 2. Phase 1 executes (version → v2.0.0)
 3. PR #1 includes breaking change notice
@@ -137,6 +145,7 @@ This test plan covers all aspects of the two-phase release workflow:
 8. Release published as v2.0.0
 
 **Expected Outcome:**
+
 - ✅ Dual approval enforced
 - ✅ ADR reference required in commit
 - ✅ Breaking changes clearly documented
@@ -149,16 +158,19 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate graceful failure when CHANGELOG is invalid
 
 **Prerequisites:**
+
 - CHANGELOG.md exists but missing [Unreleased] section
 - No entries to roll
 
 **Steps:**
+
 1. Trigger release workflow
 2. Phase 1 validation detects missing [Unreleased]
 3. Workflow fails with clear error message
 4. No branches created, no mutations
 
 **Expected Outcome:**
+
 - ✅ GATE 1: Pre-flight Checks fail
 - ✅ Clear error in workflow logs
 - ✅ No partial changes
@@ -171,9 +183,11 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate prevention of duplicate releases
 
 **Prerequisites:**
+
 - v1.0.1 tag already exists in repo
 
 **Steps:**
+
 1. Trigger release workflow with scope: patch (would create v1.0.1)
 2. Phase 1 executes, PR #1 created
 3. PR #1 merged to develop
@@ -182,6 +196,7 @@ This test plan covers all aspects of the two-phase release workflow:
 6. Workflow aborted before any main branch mutations
 
 **Expected Outcome:**
+
 - ✅ GATE 4 prevents duplicate tag
 - ✅ No tag created
 - ✅ No GitHub Release published
@@ -194,10 +209,12 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate authorization check blocks non-maintainers
 
 **Prerequisites:**
+
 - Workflow triggered by user NOT in maintainers team
 - All other prerequisites met
 
 **Steps:**
+
 1. Non-maintainer triggers release workflow
 2. Trigger telemetry job runs
 3. Authorization check fails (actor not in maintainers)
@@ -205,6 +222,7 @@ This test plan covers all aspects of the two-phase release workflow:
 5. Attempt logged for audit
 
 **Expected Outcome:**
+
 - ✅ GATE 5: Authorization fails
 - ✅ Workflow stops before any work
 - ✅ Clear error message
@@ -217,11 +235,13 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate ability to rollback a release if issues arise
 
 **Prerequisites:**
+
 - Release v1.0.1 published
 - Post-release sync completed
 - Issue discovered that requires rollback
 
 **Steps:**
+
 1. Delete v1.0.1 tag locally and remotely
 2. Delete GitHub Release
 3. Revert PR #2 commit on main
@@ -229,6 +249,7 @@ This test plan covers all aspects of the two-phase release workflow:
 5. Manually bump version back down to v1.0.0 if needed
 
 **Expected Outcome:**
+
 - ✅ v1.0.1 tag deleted
 - ✅ GitHub Release removed
 - ✅ Workflow can handle re-release with same version
@@ -241,11 +262,13 @@ This test plan covers all aspects of the two-phase release workflow:
 **Objective:** Validate multiple releases in sequence don't conflict
 
 **Prerequisites:**
+
 - Develop branch with v1.0.0
 - Successfully released v1.0.1
 - Ready to release v1.0.2
 
 **Steps:**
+
 1. Release v1.0.2 (patch)
 2. All phases complete successfully
 3. Post-release sync merges main → develop
@@ -253,6 +276,7 @@ This test plan covers all aspects of the two-phase release workflow:
 5. All phases execute correctly
 
 **Expected Outcome:**
+
 - ✅ v1.0.2 released without conflicts
 - ✅ v1.1.0 released after sync
 - ✅ No branch conflicts or merge issues
@@ -312,17 +336,20 @@ All notable changes to this project will be documented in this file.
 ## Test Execution Environment
 
 **Environment:** Ephemeral test repository per scenario
+
 - Created fresh before each test
 - Deleted after test completion
 - No state persisted between scenarios
 
 **CI Integration:**
+
 - Manual trigger for development
 - Automated on PR to main
 - Scheduled daily on develop
 - Matrix: patch, minor, major scopes
 
 **Logs & Artifacts:**
+
 - Workflow logs: `.github/reports/release-validation/`
 - Test results: JSON summary per scenario
 - Failure logs: Full output for debugging
@@ -366,6 +393,7 @@ All notable changes to this project will be documented in this file.
 ## Approval & Sign-Off
 
 Test plan approval chain:
+
 - [ ] QA Lead review
 - [ ] Release Engineer review
 - [ ] Development Team lead review

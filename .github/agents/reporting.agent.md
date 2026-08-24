@@ -61,7 +61,6 @@ permissions:
 
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
 
-
 # Reporting Chatmode
 
 Interactive assistant for creating and managing reports in the LightSpeed repository.

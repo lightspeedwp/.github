@@ -43,6 +43,7 @@ Before triggering a minor release, verify:
 - [ ] **Identify a maintainer for approval** (communicate beforehand)
 
 **Feature vs. Bug Fix distinction:**
+
 - **Feature (minor):** New capability, new API endpoint, new config option
 - **Bug fix (patch):** Fix for existing feature, security patch, performance improvement
 
@@ -108,6 +109,7 @@ Navigate to GitHub Actions and trigger the release workflow:
 ### Step 2: Review Dry-Run Report
 
 The workflow will:
+
 - ✅ Detect repository type
 - ✅ Calculate new version (1.0.0 → 1.1.0)
 - ✅ Preview changelog roll
@@ -152,6 +154,7 @@ Approver: @maintainer-name
 ### Step 3: Verify Dry-Run Passed
 
 If all gates show ✅ or ⏳:
+
 - Proceed to **Step 4: Execute Live Release**
 - If any gate shows ❌ (except GATE 7): Stop and check troubleshooting section
 
@@ -252,6 +255,7 @@ Watch the workflow run:
    - ✅ GitHub Release published
 
 **Typical timeline (total):**
+
 - Phase 1: 3–5 minutes
 - PR #1 merge: 1–2 minutes
 - Manual review: 5–20 minutes (varies)
@@ -281,6 +285,7 @@ The workflow automatically triggers post-release sync:
 3. Verifies sync completed without conflicts
 
 **Verification:**
+
 - Wait 1–2 minutes for sync
 - Verify develop branch has latest tag
 - No merge conflicts
@@ -408,9 +413,11 @@ If critical issues arise:
 
 1. **Delete the GitHub Release**
 2. **Delete the git tag**
+
    ```bash
    git push origin --delete v1.1.0
    ```
+
 3. **Revert PR #2 commit on main**
 4. **Identify root cause**
 5. **Create fix in separate branch**
@@ -421,21 +428,25 @@ If critical issues arise:
 ## Common Issues & Solutions
 
 **Issue: Approval not detected (GATE 7 stuck)**
+
 - Ensure approver used one of the approval methods
 - Check PR #2 for "Approved" status
 - Solution: See RELEASE_TROUBLESHOOTING.md
 
 **Issue: Approver unavailable**
+
 - Contact another maintainer
 - They can approve PR #2 to unblock
 - Release continues automatically
 
 **Issue: Approval requested changes instead of approving**
+
 - Requested changes block release
 - Fix issues mentioned in review
 - Re-approve after fixes committed
 
 **Issue: Multiple maintainers approving**
+
 - First approval counts
 - Release proceeds automatically
 - Subsequent approvals are logged
@@ -461,26 +472,31 @@ Minor release is successful when:
 ## Tips & Best Practices
 
 **Tip 1: Communicate with approver beforehand**
+
 - Send them a heads-up 5 minutes before triggering
 - List key features being released
 - They can be ready to review immediately
 
 **Tip 2: Keep features organized in CHANGELOG**
+
 - Use "### Added" for all new features
 - Use "### Changed" for improvements
 - Helps approver verify completeness
 
 **Tip 3: Monitor approval timing**
+
 - Watch PR #2 after Phase 1 completes
 - If approval takes > 15 min, check if approver is available
 - Reach out if needed
 
 **Tip 4: Use GitHub "Approve" button**
+
 - More reliable than comments
 - Officially marks PR as approved
 - Workflow detects it immediately
 
 **Tip 5: Keep release window open**
+
 - Don't close browser or leave desk during approval
 - Be available to answer clarifying questions
 - Ready to address review feedback
@@ -490,16 +506,19 @@ Minor release is successful when:
 ## Support & Escalation
 
 **For questions:**
+
 - Check [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for workflow details
 - Review [RELEASE_RUNBOOK_PATCH.md](./RELEASE_RUNBOOK_PATCH.md) for patch process (similar)
 - Consult [RELEASE_TROUBLESHOOTING.md](./RELEASE_TROUBLESHOOTING.md) for issues
 
 **For issues:**
+
 - Create GitHub issue with `type:bug` label
 - Tag Release Engineering team
 - Reference this runbook and exact step
 
 **For escalation:**
+
 - If approval not received within 60 minutes, use Phase 4 fallback
 - Contact Release Engineering Lead
 

@@ -169,7 +169,8 @@ All practice releases must be completed successfully on test repository.
 
 **Release Version:** v __________ (test repo)
 
-**Approvers (if available):** 
+**Approvers (if available):**
+
 - ____________________________________
 - ____________________________________
 
@@ -260,27 +261,32 @@ If trainee does not yet have authorization for all release types, note restricti
 Team member must answer the following questions correctly (≥80% correct required):
 
 **Q1: You want to release bug fixes. What release type?**
+
 - [ ] Patch (1.0.0 → 1.0.1) ✅ CORRECT
 - [ ] Minor (1.0.0 → 1.1.0)
 - [ ] Major (1.0.0 → 2.0.0)
 
 **Q2: A minor release requires approval from:**
+
 - [ ] No one (auto-approved)
 - [ ] 1 maintainer ✅ CORRECT
 - [ ] 2 maintainers
 
 **Q3: An ADR is required for which release type?**
+
 - [ ] Patch
 - [ ] Minor
 - [ ] Major ✅ CORRECT
 
 **Q4: What's the best way to approve a release?**
+
 - [ ] Comment "LGTM" on PR
 - [ ] Click "Approve" button in review ✅ CORRECT
 - [ ] Add "approved" label
 - [ ] Mention @user in comment
 
 **Q5: If a dry-run fails, what should you do?**
+
 - [ ] Skip to live release anyway
 - [ ] Fix the issue and retry dry-run ✅ CORRECT
 - [ ] Contact Release Lead immediately
@@ -327,7 +333,7 @@ By signing below, trainee confirms:
 
 **Release Lead GitHub Username:** ____________________________________
 
-**Certification Status:** 
+**Certification Status:**
 
 - [ ] **APPROVED** — Team member certified and authorized
   - Authorized effective date: ____________________________________
@@ -352,6 +358,7 @@ By signing below, trainee confirms:
 This certification remains valid for **12 months** from sign-off date.
 
 Annual refresher requirements:
+
 - [ ] Review all three runbooks (annually)
 - [ ] Execute at least one release per quarter
 - [ ] Watch updated training video (if released)

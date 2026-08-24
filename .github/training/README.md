@@ -18,6 +18,7 @@ status: active
 This folder contains Phase 9B deliverables: **Team Training & Runbooks** for the Release Process Redesign Initiative.
 
 **Training covers:**
+
 - ✅ Two-phase agentic workflow architecture
 - ✅ Patch release execution (5–10 min, auto-approved)
 - ✅ Minor release execution (10–30 min, 1 maintainer approval)
@@ -69,6 +70,7 @@ Comprehensive training manual with 5 modules:
 **[RELEASE_QUICK_REFERENCE.md](./RELEASE_QUICK_REFERENCE.md)** (1-page cheat sheet)
 
 Print and laminate this quick reference card:
+
 - Decision tree for release type selection
 - Pre-release checklist
 - Step-by-step commands for each release type
@@ -154,6 +156,7 @@ Located in `/docs/`:
 8. **Review** → Watch video again if needed (optional)
 
 **Hands-on Practice:**
+
 - Use test repository: `https://github.com/lightspeedwp/test-releases.git`
 - Execute releases in safe environment
 - Get comfortable with commands before production releases
@@ -303,6 +306,7 @@ This training is part of **Phase 9: Release Workflow Validation & E2E Testing**
 Project details: [.github/projects/active/release-workflow-validation-phase9-2026-08-22/](../../.github/projects/active/release-workflow-validation-phase9-2026-08-22/)
 
 Related phases:
+
 - Phase 9A: E2E Test Implementation (✅ COMPLETE)
 - Phase 9B: Team Training Materials (🟢 ACTIVE — this folder)
 - Phase 9C: Pilot Release Execution (📋 Planned)
@@ -312,6 +316,7 @@ Related phases:
 ## Quick Start
 
 **For new team member:**
+
 ```bash
 # Step 1: Read training
 open RELEASE_TEAM_TRAINING.md
@@ -328,6 +333,7 @@ gh workflow run release.yml -f scope=patch -f dry_run=true
 ```
 
 **For experienced team member:**
+
 ```bash
 # Step 1: Quick refresh
 open RELEASE_QUICK_REFERENCE.md

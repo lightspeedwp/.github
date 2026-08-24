@@ -377,6 +377,4 @@ This agent does not create or validate branches. All branches must follow the pa
 
 ---
 
-
-
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

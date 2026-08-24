@@ -238,6 +238,4 @@ This agent does not create or validate branches. All branches must follow the pa
 
 ---
 
-
-
 *Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -38,6 +38,7 @@ This guide covers common issues you might encounter with Meta Agent v2.0, their 
 **Root cause:** Dependencies not installed
 
 **Solution:**
+
 ```bash
 cd .github/agents/meta-agent
 npm install
@@ -59,12 +60,14 @@ npm install
 **Root cause:** Node.js version is too old
 
 **Check version:**
+
 ```bash
 node --version
 # Expected: v16.0.0 or higher (v18+ recommended)
 ```
 
 **Solution:**
+
 ```bash
 # Update Node.js using nvm (recommended)
 nvm install 18
@@ -84,6 +87,7 @@ nvm use 18
 **Root cause:** File/folder permissions too restrictive
 
 **Solution:**
+
 ```bash
 # Fix folder permissions
 chmod -R 755 .github/agents/meta-agent
@@ -105,6 +109,7 @@ chmod -R 644 .github/agents/meta-agent/package.json
 **Root cause:** YAML syntax error in frontmatter
 
 **Example of invalid YAML:**
+
 ```markdown
 ---
 title: My Document
@@ -115,11 +120,13 @@ status: active
 ```
 
 **Solution:**
+
 1. Check YAML indentation (spaces, not tabs)
-2. Use a YAML validator: https://www.yamllint.com
+2. Use a YAML validator: <https://www.yamllint.com>
 3. Wrap multi-line strings in quotes
 
 **Valid example:**
+
 ```markdown
 ---
 title: My Document
@@ -140,6 +147,7 @@ language: en
 **Root cause:** Missing required field in frontmatter
 
 **Solution:**
+
 1. Identify required fields for your repo type:
    - **All repos:** `title`, `description`, `status`, `language`
    - **Control-plane:** Add `file_type`, `category`, `owners`
@@ -148,6 +156,7 @@ language: en
 2. Add the missing field to frontmatter
 
 **Example fix:**
+
 ```markdown
 ---
 title: My Document           # ✅ Required
@@ -170,6 +179,7 @@ owners:                     # ✅ Required (control-plane)
 **Root cause:** Field value doesn't match expected format/enum
 
 **Solution:**
+
 1. Check what values are allowed for the field
 2. Update the field to use valid value
 
@@ -182,6 +192,7 @@ owners:                     # ✅ Required (control-plane)
 | `difficulty` | beginner, intermediate, advanced | `difficulty: easy` ❌ |
 
 **Fix:**
+
 ```yaml
 # WRONG
 status: published
@@ -219,10 +230,12 @@ language: en
 ### Issue: Hook doesn't run on commit
 
 **Symptoms:**
+
 - File commits without validation
 - No error message
 
 **Solution:**
+
 ```bash
 # Check if hook exists
 ls -la .git/hooks/pre-commit
@@ -242,6 +255,7 @@ chmod +x .git/hooks/pre-commit
 ### Issue: Hook runs but causes slow commits
 
 **Symptoms:**
+
 - Commits take >5 seconds
 - Validation is the bottleneck
 
@@ -269,10 +283,12 @@ exit 0
 ### Issue: Hook conflicts after merge
 
 **Symptoms:**
+
 - Can't commit after merging branches
 - Git complains about hook file
 
 **Solution:**
+
 ```bash
 # Manually resolve the merge
 rm .git/hooks/pre-commit
@@ -295,10 +311,13 @@ git commit -m "Resolve hook merge conflict"
 **Root cause:** Workflow file path is incorrect
 
 **Solution:**
+
 1. Verify workflow file exists:
+
    ```bash
    ls .github/workflows/meta-agent-validation.yml
    ```
+
 2. Check file is properly formatted (valid YAML)
 3. Commit and push the workflow file
 4. Trigger a new PR to test
@@ -308,18 +327,21 @@ git commit -m "Resolve hook merge conflict"
 ### Issue: "Workflow times out (>10 minutes)"
 
 **Symptoms:**
+
 - Workflow job times out
 - Validation of large repo takes too long
 
 **Root cause:** Validating too many files
 
 **Solution 1: Validate only changed files**
+
 ```yaml
 # In workflow, use:
 npm run validate:changed  # Instead of npm run validate
 ```
 
 **Solution 2: Parallelize validation**
+
 ```yaml
 # Run validation in parallel jobs
 jobs:
@@ -335,6 +357,7 @@ jobs:
 ```
 
 **Solution 3: Exclude large files**
+
 ```bash
 # Skip validation for specific folders
 npm run validate -- --exclude "node_modules/**" --exclude ".git/**"
@@ -349,6 +372,7 @@ npm run validate -- --exclude "node_modules/**" --exclude ".git/**"
 **Root cause:** Coverage report not found or format wrong
 
 **Solution:**
+
 ```yaml
 # Ensure coverage is generated
 - name: Run tests with coverage
@@ -371,12 +395,14 @@ npm run validate -- --exclude "node_modules/**" --exclude ".git/**"
 ### Issue: Validation is slow
 
 **Symptoms:**
+
 - Validation takes >2 seconds per file
 - Whole repo validation takes >5 minutes
 
 **Root cause:** Large files, inefficient schema validation
 
 **Solution 1: Profile validation**
+
 ```bash
 cd .github/agents/meta-agent
 npm run validate:changed -- --debug
@@ -386,11 +412,13 @@ npm run validate:changed -- --debug
 
 **Solution 2: Split large files**
 If a single Markdown file is very large:
+
 - Split into multiple smaller files
 - Link between files for navigation
 
 **Solution 3: Cache schemas**
 Meta Agent caches compiled schemas. To clear cache:
+
 ```bash
 rm -rf .github/agents/meta-agent/coverage
 npm test -- --clearCache
@@ -401,12 +429,14 @@ npm test -- --clearCache
 ### Issue: High memory usage
 
 **Symptoms:**
+
 - Validation crashes with "out of memory"
 - Machine becomes unresponsive
 
 **Root cause:** Processing huge file list in single pass
 
 **Solution:**
+
 ```bash
 # Validate in batches
 npm run validate -- docs/part1/**/*.md
@@ -423,6 +453,7 @@ NODE_OPTIONS="--max-old-space-size=4096" npm run validate -- "**/*.md"
 ### Issue: "Repo type not detected correctly"
 
 **Symptoms:**
+
 - File validated with wrong schema
 - Wrong validation rules applied
 
@@ -430,12 +461,14 @@ NODE_OPTIONS="--max-old-space-size=4096" npm run validate -- "**/*.md"
 
 **Solution:**
 Meta Agent detects repo type in this order:
+
 1. **Block Plugin:** `block.json` or `{name}.php` with "Block Name"
 2. **Block Theme:** `theme.json` + `style.css`
 3. **Control-Plane:** `.github/agents/`, `.github/workflows/`, or `AGENTS.md`
 4. **Generic:** Default
 
 **Fix:** Create the detection marker file
+
 ```bash
 # For block plugin
 touch block.json
@@ -454,6 +487,7 @@ mkdir -p .github/agents  # Already exists
 
 **Solution:**
 Create `.github/agents/` folder (if it doesn't exist):
+
 ```bash
 mkdir -p .github/agents
 touch .github/agents/.gitkeep
@@ -468,10 +502,12 @@ This marker tells Meta Agent the repo is a control-plane repository.
 ### Issue: "Multiple validation errors in one file"
 
 **Symptoms:**
+
 - Several fields fail validation
 
 **Solution:**
 Use JSON output to see all errors at once:
+
 ```bash
 npm run validate -- file.md --json | jq '.errors'
 ```
@@ -483,15 +519,18 @@ Fix errors one by one, re-run to verify each fix.
 ### Issue: "Field validation is too strict"
 
 **Symptoms:**
+
 - Valid content rejected (false positive)
 - Field requires specific format
 
 **Solution:**
+
 1. Review schema requirements: See [README.md](./README.md#schemas)
 2. Adjust frontmatter to match required format
 3. Or, open an issue to discuss schema adjustment
 
 **Common strict patterns:**
+
 - Dates must be ISO 8601: `YYYY-MM-DD`
 - Versions must be semantic: `X.Y.Z` or `vX.Y`
 - Titles must be 3–120 characters
@@ -504,11 +543,13 @@ Fix errors one by one, re-run to verify each fix.
 ### Issue: Pre-commit hook conflicts with other tools
 
 **Symptoms:**
+
 - Multiple hooks interfere
 - Validation runs twice
 
 **Solution:**
 Coordinate hooks in `.husky/` or `.git/hooks/`:
+
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit
@@ -528,11 +569,13 @@ exit 0
 ### Issue: Validation conflicts with linter
 
 **Symptoms:**
+
 - Linter reformats frontmatter
 - Validation fails after linting
 
 **Solution:**
 Configure linter to ignore frontmatter:
+
 ```json
 {
   "ignorePatterns": ["node_modules", "**/*.json"],
@@ -640,6 +683,7 @@ When reporting a bug:
 5. **Expected vs actual:** What should happen vs what happens
 
 **Example issue report:**
+
 ```
 Title: Validation fails with YAML parse error
 
@@ -658,4 +702,3 @@ Error output:
 ---
 
 *Meta Agent v2.0 — Troubleshooting & Support Guide* 🆘
-

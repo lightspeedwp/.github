@@ -56,16 +56,19 @@ Procedures for maintaining and operating Meta Agent v2.0.
 ### When to Update Schemas
 
 **Add a new field:**
+
 - New repo type requirement
 - Team feedback from real-world usage
 - Alignment with other metadata standards
 
 **Fix validation issues:**
+
 - False positives (valid content rejected)
 - False negatives (invalid content accepted)
 - Unclear error messages
 
 **Update constraints:**
+
 - Change required vs optional
 - Adjust pattern matching
 - Modify length constraints
@@ -75,6 +78,7 @@ Procedures for maintaining and operating Meta Agent v2.0.
 #### Step 1: Plan the Change
 
 Document the change request:
+
 - What field/schema?
 - Why change?
 - What impact on existing repos?
@@ -130,11 +134,13 @@ npm test -- --testNamePattern="new-field"
 ### Rolling Out Schema Changes
 
 **Breaking change?** (makes previously valid files invalid)
+
 - Deprecation period (2 weeks notice)
 - Update migration guide
 - Announce to team
 
 **Non-breaking change?** (new optional field)
+
 - Deploy immediately
 - Document in release notes
 
@@ -248,6 +254,7 @@ git push origin v1.1.0
 #### 6. Announce to Team
 
 **Slack:**
+
 ```
 🚀 Meta Agent v1.1.0 released!
 
@@ -268,11 +275,13 @@ git push origin v1.1.0
 Track these metrics to identify issues:
 
 1. **Test pass rate** — Should be 100%
+
    ```bash
    npm test
    ```
 
 2. **Coverage** — Should be ≥85%
+
    ```bash
    npm test -- --coverage
    ```
@@ -309,9 +318,10 @@ Track these metrics to identify issues:
 
 **Use case:** Supporting a new type of repo (e.g., WordPress plugin)
 
-#### Steps:
+#### Steps
 
 1. **Create new schema file:**
+
    ```bash
    cp schemas/block-plugin.frontmatter.schema.json \
       schemas/wordpress-plugin.frontmatter.schema.json
@@ -324,6 +334,7 @@ Track these metrics to identify issues:
 4. **Add examples** in IMPLEMENTATION_GUIDE.md
 
 5. **Test thoroughly:**
+
    ```bash
    npm test
    npm run validate -- test-file.md
@@ -335,9 +346,10 @@ Track these metrics to identify issues:
 
 **Use case:** User reports valid content being rejected
 
-#### Steps:
+#### Steps
 
 1. **Reproduce** the issue
+
    ```bash
    npm run validate -- user-file.md
    ```
@@ -349,6 +361,7 @@ Track these metrics to identify issues:
 4. **Fix** the schema or validation logic
 
 5. **Test** — Ensure fix works and doesn't break other tests
+
    ```bash
    npm test
    ```
@@ -359,7 +372,7 @@ Track these metrics to identify issues:
 
 **Use case:** Docs need updating (new feature, clarification, etc.)
 
-#### Steps:
+#### Steps
 
 1. **Identify** which docs need updating:
    - TRAINING_GUIDE.md?
@@ -373,6 +386,7 @@ Track these metrics to identify issues:
 3. **Review** for accuracy and clarity
 
 4. **Test** — Make sure examples work:
+
    ```bash
    npm run validate -- example.md
    ```
@@ -385,20 +399,20 @@ Track these metrics to identify issues:
 
 **Use case:** Regular performance monitoring
 
-#### Command:
+#### Command
 
 ```bash
 time npm test
 time npm run validate -- "**/*.md"
 ```
 
-#### Expected times:
+#### Expected times
 
 - Single file: <100ms ✅
 - 100 files: 2–5s ✅
 - Full test suite: 2–3s ✅
 
-#### If slow:
+#### If slow
 
 - Check for missing optimizations
 - Profile: `npm run validate:changed -- --debug`
@@ -408,7 +422,7 @@ time npm run validate -- "**/*.md"
 
 **Use case:** Team requests new field in schema
 
-#### Timeline:
+#### Timeline
 
 | When | What |
 |------|------|
@@ -418,7 +432,7 @@ time npm run validate -- "**/*.md"
 | **Within 1 week** | Implement & test if approved |
 | **Within 2 weeks** | Merge & release |
 
-#### Discussion questions:
+#### Discussion questions
 
 - Why is this field needed?
 - Which schema(s)? (plugin, theme, control-plane, all?)
@@ -431,17 +445,20 @@ time npm run validate -- "**/*.md"
 ## Maintenance Checklist
 
 **Weekly:**
+
 - [ ] Check GitHub issues (any new bugs?)
 - [ ] Review test results
 - [ ] Check performance metrics
 
 **Monthly:**
+
 - [ ] Review issue backlog
 - [ ] Check documentation accuracy
 - [ ] Run security audit: `npm audit`
 - [ ] Update dependencies (if needed)
 
 **Quarterly:**
+
 - [ ] Plan next version/features
 - [ ] Review team feedback
 - [ ] Assess adoption metrics
@@ -470,4 +487,3 @@ time npm run validate -- "**/*.md"
 ---
 
 *Meta Agent v2.0 — Operations Guide* 🛠️
-
