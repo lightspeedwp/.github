@@ -46,7 +46,7 @@ describe("Reviewer Agent v2 - GitHub API Integration", () => {
     const comment = generator.generate(decisions);
 
     // Should contain markdown formatting
-    expect(comment).toMatch(/[\*#\-`]/);
+    expect(comment).toMatch(/[*#-`]/);
   });
 
   test("should handle empty decisions gracefully", () => {

@@ -155,7 +155,7 @@ export const githubRules = {
     return {
       name: "Branch Names Follow Governance Rules",
       severity: "warning",
-      pattern: /^(feat|fix|hotfix|release|docs|chore|test|ci)\/[a-z0-9\-]+$/,
+      pattern: /^(feat|fix|hotfix|release|docs|chore|test|ci)\/[a-z0-9-]+$/,
       description: "When creating branches, use {type}/{scope}-{title} format",
       example: "feat/labeling-governance, fix/branch-validation",
       fix: "Align with BRANCHING_STRATEGY.md conventions",
@@ -167,7 +167,7 @@ export const githubRules = {
       name: "Environment Names Are Lowercase",
       severity: "warning",
       pattern:
-        /^(environment:\s|environments:[\s\S]*?environment:)\s*[a-z][a-z0-9\-]*$/m,
+        /^(environment:\s|environments:[\s\S]*?environment:)\s*[a-z][a-z0-9-]*$/m,
       description: "Environment identifiers must be lowercase with hyphens",
       example: "environment: production-us-east",
       fix: "Convert to lowercase: PROD-EAST → prod-east",
@@ -327,7 +327,7 @@ export const githubRules = {
     return {
       name: "Label Names Include Family Prefix",
       severity: "error",
-      pattern: /^(type|status|priority|area|meta):[a-z0-9\-]+$/,
+      pattern: /^(type|status|priority|area|meta):[a-z0-9-]+$/,
       description:
         "All labels must use canonical family:name format (type:, status:, priority:, area:, meta:)",
       example: "type:bug, status:in-progress, priority:critical, area:ci",
@@ -467,7 +467,7 @@ export const githubRules = {
     return {
       name: "Issue Templates Are Comprehensive",
       severity: "info",
-      pattern: /^\---[\s\S]*?title:/m,
+      pattern: /^---[\s\S]*?title:/m,
       description:
         "Issue templates should have frontmatter with type, name, description, labels",
       example:
