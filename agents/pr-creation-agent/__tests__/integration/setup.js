@@ -33,7 +33,7 @@ export class MockGitHub {
       };
     },
 
-    getProtectedBranch: async ({ owner, repo, branch }) => {
+    getProtectedBranch: async ({ _owner, _repo, branch }) => {
       return {
         name: branch,
         protection: { enabled: false },
@@ -77,7 +77,7 @@ export class MockGitHub {
       };
     },
 
-    listLabels: async ({ owner, repo }) => {
+    listLabels: async ({ _owner, _repo }) => {
       return [
         { name: "type:feature", color: "0366d6" },
         { name: "type:bug", color: "fc2929" },
@@ -88,7 +88,7 @@ export class MockGitHub {
       ];
     },
 
-    getLabel: async ({ owner, repo, name }) => {
+    getLabel: async ({ _owner, _repo, name }) => {
       return { name, color: "0366d6" };
     },
   };
@@ -112,7 +112,7 @@ export class MockGitHub {
       };
     },
 
-    get: async ({ owner, repo, pull_number }) => {
+    get: async ({ _owner, _repo, pull_number }) => {
       return {
         number: pull_number,
         title: "Test PR",

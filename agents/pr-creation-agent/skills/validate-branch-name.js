@@ -46,7 +46,7 @@ const ALLOWED_TYPES = [
 ];
 
 export async function validateBranchName(input) {
-  const { branchName, config = {} } = input;
+  const { branchName } = input;
 
   if (!branchName || typeof branchName !== "string") {
     return {

@@ -159,15 +159,12 @@ function validatePrForSubmission(pr) {
   }
 
   // Check for invalid label format
-  const _invalidLabels = pr.labels?.filter((label) => {
-    if (typeof label !== "string") return true;
-    // Check if label follows prefix:name format or is a bare label
-    if (!label.includes(":") && label.length > 0) {
+  pr.labels?.forEach((label) => {
+    if (typeof label === "string" && !label.includes(":") && label.length > 0) {
       warnings.push(
         `Bare label detected: "${label}" (should use prefix:name format)`,
       );
     }
-    return false;
   });
 
   return {

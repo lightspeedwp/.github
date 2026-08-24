@@ -1,18 +1,9 @@
 // Category D: Error Recovery Workflows (8 tests)
 // Test graceful error handling and recovery
 
-import { describe, test, beforeEach } from "@jest/globals";
-import { MockGitHub, createMockConfig } from "./setup.js";
+import { describe, test } from "@jest/globals";
 
 describe("Category D: Error Recovery Workflows", () => {
-  let mockGitHub;
-  let config;
-
-  beforeEach(() => {
-    mockGitHub = new MockGitHub();
-    config = createMockConfig();
-  });
-
   test.todo(
     "Test D1: Branch Validation Timeout → Fallback, continue (requires timeout support in skills)",
   );

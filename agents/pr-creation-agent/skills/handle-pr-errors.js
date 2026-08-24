@@ -326,31 +326,4 @@ function getRecoveryOptions(category, error, context, history) {
   };
 }
 
-/**
- * Determine if error is retryable
- */
-function _isRetryable(category) {
-  const nonRetryableErrors = ["AUTHENTICATION_ERROR", "CONFLICT"];
-  return !nonRetryableErrors.includes(category);
-}
-
-/**
- * Build retry context
- */
-function _buildRetryContext(error, _context, history) {
-  return {
-    previousAttempts: history.length,
-    lastError: error.message,
-    attemptTimestamps: history.map((h) => h.timestamp),
-    backoffDelay: calculateBackoffDelay(history.length),
-  };
-}
-
-/**
- * Calculate exponential backoff delay in milliseconds
- */
-function calculateBackoffDelay(attemptCount) {
-  return Math.min(10000, 1000 * Math.pow(2, attemptCount));
-}
-
 export default handlePrErrors;

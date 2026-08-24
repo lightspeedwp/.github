@@ -3,14 +3,12 @@
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
 import { routePrTemplate } from "../../skills/route-pr-template.js";
-import { MockGitHub, createMockConfig } from "./setup.js";
+import { createMockConfig } from "./setup.js";
 
 describe("Category C: Template Routing Scenarios", () => {
-  let mockGitHub;
   let config;
 
   beforeEach(() => {
-    mockGitHub = new MockGitHub();
     config = createMockConfig();
   });
 
