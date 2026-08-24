@@ -20,7 +20,7 @@
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
-const { validateBranchName } = require("../../scripts/validation/validate-branch-name.cjs");
+const { validateBranchName } = require("../../../scripts/validation/validate-branch-name.cjs");
 
 class ReleaseGates {
   constructor(options = {}) {
