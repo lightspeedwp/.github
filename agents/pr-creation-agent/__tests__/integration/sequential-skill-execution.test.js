@@ -117,7 +117,7 @@ describe("Category A: Sequential Skill Execution", () => {
   });
 
   test("Test A6: Mixed Label Scenarios → Multiple labels applied correctly", async () => {
-    const labels = ["type:feature", "area:agents"];
+    const labels = ["type:feature", "area:ai"];
 
     const result = await validateAndApplyLabels({
       labels,

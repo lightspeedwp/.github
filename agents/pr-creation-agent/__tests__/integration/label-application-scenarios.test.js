@@ -29,7 +29,7 @@ describe("Category B: Label Application Scenarios", () => {
   });
 
   test("Test B2: Multiple Labels → type:feature + area:agents", async () => {
-    const labels = ["type:feature", "area:agents"];
+    const labels = ["type:feature", "area:ai"];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -100,7 +100,7 @@ describe("Category B: Label Application Scenarios", () => {
   });
 
   test("Test B7: Label Priority → Higher priority labels applied first", async () => {
-    const labels = ["area:agents", "type:feature", "priority:critical"];
+    const labels = ["area:ai", "type:feature", "priority:critical"];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -114,7 +114,7 @@ describe("Category B: Label Application Scenarios", () => {
   });
 
   test("Test B8: Label Deduplication → Duplicate labels removed", async () => {
-    const labels = ["type:feature", "type:feature", "area:agents"];
+    const labels = ["type:feature", "type:feature", "area:ai"];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -123,7 +123,7 @@ describe("Category B: Label Application Scenarios", () => {
     });
 
     expect(result.valid).toBe(true);
-    expect(result.appliedLabels).toEqual(["type:feature", "area:agents"]);
+    expect(result.appliedLabels).toEqual(["type:feature", "area:ai"]);
     expect(result.appliedLabels.length).toBe(2);
     expect(result.deduplicatedCount).toBe(1);
   });

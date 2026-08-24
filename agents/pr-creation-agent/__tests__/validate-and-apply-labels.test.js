@@ -301,12 +301,12 @@ describe("validateAndApplyLabels", () => {
         templateFile: "pr_feature.md",
         config: {
           branchTypeLabels: {
-            feat: ["type:feature", "area:docs"],
+            feat: ["type:feature", "area:documentation"],
           },
           canonicalLabels: [
             "type:feature",
             "type:bug",
-            "area:docs",
+            "area:documentation",
             "meta:ready-for-review",
           ],
         },
@@ -314,7 +314,7 @@ describe("validateAndApplyLabels", () => {
 
       expect(result.valid).toBe(true);
       expect(result.appliedLabels).toContain("type:feature");
-      expect(result.appliedLabels).toContain("area:docs");
+      expect(result.appliedLabels).toContain("area:documentation");
     });
 
     test("should use custom canonical labels when provided", async () => {

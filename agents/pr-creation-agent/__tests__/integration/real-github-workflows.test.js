@@ -78,7 +78,7 @@ describe("Category E: Real GitHub Workflows", () => {
 
   test("Test E3: Documentation Update → docs/ → docs template → minimal labels", async () => {
     const branchName = "docs/branching-guide";
-    const labels = ["type:docs"];
+    const labels = ["type:documentation"];
 
     const branchValidation = await validateBranchName({ branchName, config });
     expect(branchValidation.valid).toBe(true);

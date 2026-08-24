@@ -10,24 +10,25 @@
  * @returns {Object} Validation result with valid flag and applied labels
  */
 
+// Canonical labels from .github/labels.yml (source of truth)
 const CANONICAL_LABELS = {
   "type:feature": 2,
   "type:bug": 2,
   "type:task": 2,
-  "type:docs": 2,
+  "type:documentation": 2,
   "type:chore": 2,
   "type:refactor": 2,
   "type:test": 2,
   "status:needs-triage": 3,
   "status:in-progress": 3,
-  "status:done": 3,
+  "status:ready": 3,
   "priority:critical": 1,
   "priority:important": 1,
   "priority:normal": 1,
-  "area:agents": 2,
   "area:ci": 2,
-  "area:docs": 2,
+  "area:documentation": 2,
   "area:security": 2,
+  "area:ai": 2,
 };
 
 // Mutually exclusive label families
@@ -36,12 +37,12 @@ const EXCLUSIVE_FAMILIES = {
     "type:feature",
     "type:bug",
     "type:task",
-    "type:docs",
+    "type:documentation",
     "type:chore",
     "type:refactor",
     "type:test",
   ],
-  status: ["status:needs-triage", "status:in-progress", "status:done"],
+  status: ["status:needs-triage", "status:in-progress", "status:ready"],
   priority: ["priority:critical", "priority:important", "priority:normal"],
 };
 
@@ -79,11 +80,9 @@ export async function validateAndApplyLabels(input) {
       continue;
     }
 
-    // Check if label is canonical or has valid prefix format
+    // Check if label is in canonical set (using own property check to prevent prototype pollution)
     let isValid = false;
-    if (CANONICAL_LABELS[label]) {
-      isValid = true;
-    } else if (label.match(/^[a-z]+:[a-z0-9-]+$/)) {
+    if (Object.prototype.hasOwnProperty.call(CANONICAL_LABELS, label)) {
       isValid = true;
     }
 

@@ -61,7 +61,7 @@ describe("Category F: Performance & Edge Cases", () => {
   test("Test F3: High Label Count → 10+ labels applied", async () => {
     const labels = [
       "type:feature",
-      "area:agents",
+      "area:ai",
       "priority:critical",
       "meta:needs-changelog",
       "type:enhancement",

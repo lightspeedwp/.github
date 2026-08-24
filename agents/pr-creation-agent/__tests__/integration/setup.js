@@ -81,8 +81,8 @@ export class MockGitHub {
       return [
         { name: "type:feature", color: "0366d6" },
         { name: "type:bug", color: "fc2929" },
-        { name: "type:docs", color: "0075ca" },
-        { name: "area:agents", color: "d4c5f9" },
+        { name: "type:documentation", color: "0075ca" },
+        { name: "area:ai", color: "d4c5f9" },
         { name: "priority:critical", color: "ee0701" },
         { name: "meta:no-changelog", color: "cccccc" },
       ];
@@ -165,8 +165,8 @@ export const createMockConfig = (overrides = {}) => {
     canonical_labels: [
       "type:feature",
       "type:bug",
-      "type:docs",
-      "area:agents",
+      "type:documentation",
+      "area:ai",
       "priority:critical",
     ],
     ...overrides,
@@ -192,7 +192,7 @@ export const testFixtures = {
   validLabels: [
     ["type:feature"],
     ["type:bug"],
-    ["type:feature", "area:agents"],
+    ["type:feature", "area:ai"],
     ["type:bug", "priority:critical"],
   ],
 
