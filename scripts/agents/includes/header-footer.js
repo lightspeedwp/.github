@@ -265,26 +265,26 @@ function ensureFooter(file, options = {}) {
   // always join with an explicit blank line instead.
   const footerBlockBody = footerBlock.replace(/^\n+/, "");
 
-  if (hasKnownFooter(content)) {
-    const frontmatterStripped = stripFrontmatter(content);
-    const lastSeparatorIndex = frontmatterStripped.lastIndexOf("\n---\n");
+  // Preserve frontmatter and body; only update/append the footer
+  const frontmatterMatch = content.match(/^---\n[\s\S]*?\n---\n?/);
+  const frontmatterAndBreak = frontmatterMatch ? frontmatterMatch[0] : "";
+  const bodyAndCurrentFooter = content.slice(frontmatterAndBreak.length);
 
-    if (lastSeparatorIndex !== -1) {
-      const prefix = content.slice(
-        0,
-        content.length - frontmatterStripped.length,
-      );
-      const bodyWithoutFooter = frontmatterStripped.slice(
-        0,
-        lastSeparatorIndex,
-      );
-      content = `${prefix}${bodyWithoutFooter.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
-    } else {
-      content = `${content.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
-    }
+  // Look for an existing footer separator (marked by ---) in the body
+  const lastSeparatorIndex = bodyAndCurrentFooter.lastIndexOf("\n---\n");
+  let bodyWithoutFooter;
+
+  if (lastSeparatorIndex !== -1) {
+    // There's a footer separator; remove everything after it
+    bodyWithoutFooter = bodyAndCurrentFooter.slice(0, lastSeparatorIndex);
   } else {
-    content = `${content.replace(/\s+$/, "")}\n\n${footerBlockBody}`;
+    // No footer separator; use the entire body section
+    bodyWithoutFooter = bodyAndCurrentFooter;
   }
+
+  // Construct the new content: preserve frontmatter + body, append new footer
+  const trimmedBody = bodyWithoutFooter.replace(/\s+$/, "");
+  content = `${frontmatterAndBreak}${trimmedBody}\n\n${footerBlockBody}`;
 
   fs.writeFileSync(file, content);
   return true;
