@@ -49,8 +49,11 @@ const ALLOWED_PREFIXES = [
 const BOT_PREFIXES = /^(dependabot|renovate)\//;
 const AUDIT_BRANCH_PATTERN = /^pr-\d+-audit$/;
 const PROTECTED_BRANCHES = new Set(["main", "develop"]);
-const BRANCH_PATTERN = new RegExp(
-  `^(${ALLOWED_PREFIXES.join("|")})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`,
+// release branches allow EITHER semantic versioning (v1.0.0) or standard format (release/scope-title)
+const BRANCH_PATTERN_RELEASE_SEMVER = /^release\/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$/;
+const BRANCH_PATTERN_RELEASE_STANDARD = /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+const BRANCH_PATTERN_STANDARD = new RegExp(
+  `^(${ALLOWED_PREFIXES.filter(p => p !== "release").join("|")})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`,
 );
 
 function getArgValue(flag) {
@@ -107,7 +110,9 @@ function isAllowed(branchName) {
     PROTECTED_BRANCHES.has(branchName) ||
     BOT_PREFIXES.test(branchName) ||
     AUDIT_BRANCH_PATTERN.test(branchName) ||
-    BRANCH_PATTERN.test(branchName)
+    BRANCH_PATTERN_RELEASE_SEMVER.test(branchName) ||
+    BRANCH_PATTERN_RELEASE_STANDARD.test(branchName) ||
+    BRANCH_PATTERN_STANDARD.test(branchName)
   );
 }
 
