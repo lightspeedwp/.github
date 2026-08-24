@@ -95,9 +95,21 @@ export async function validateBranchName(input) {
     };
   }
 
-  // Check slug format (must have at least one hyphen)
-  if (!slug.includes("-") || !slug.match(/^[a-z0-9-]+$/)) {
+  // Check slug format: must be kebab-case with non-empty components
+  // Pattern: lowercase/digits, then hyphen-separated words, all lowercase/digits
+  // Rejects: -slug, slug-, --slug, etc.
+  if (!slug.match(/^[a-z0-9]+(?:-[a-z0-9]+)+$/)) {
     errors.push("branch-slug-invalid");
+    return {
+      valid: false,
+      errors,
+      type,
+    };
+  }
+
+  // Check total branch name length (reasonable limit for Git/CI systems)
+  if (branchName.length > 150) {
+    errors.push("name-too-long");
     return {
       valid: false,
       errors,

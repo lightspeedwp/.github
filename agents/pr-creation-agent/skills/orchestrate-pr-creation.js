@@ -4,8 +4,6 @@
  *
  * @param {Object} input - Input object
  * @param {Object} input.pr - PR data (title, body, head, base, labels)
- * @param {Object} input.mockGitHub - Mock GitHub API (optional)
- * @param {Object} input.config - Configuration (optional)
  * @param {Object} input.aiFeedback - AI feedback array (optional)
  * @param {boolean} input.triggerWorkflow - Whether to trigger workflow (optional)
  * @param {boolean} input.createFeedbackResponse - Whether to create feedback response (optional)
@@ -75,7 +73,7 @@ export async function orchestratePrCreation(input = {}) {
       frontmatter,
       feedbackResponseCreated:
         createFeedbackResponse && feedbackResponse ? true : false,
-      workflowTriggered: triggerWorkflow ? true : false,
+      workflowRequested: triggerWorkflow,
     };
   } catch (error) {
     return {
