@@ -3,19 +3,21 @@
  * Validates performance characteristics and scalability
  */
 
-describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
-  describe('Collection Performance', () => {
-    test('single repository collection should complete in <30 seconds', () => {
+describe("Metrics Agent Phase 2 - Performance Benchmarks", () => {
+  describe("Collection Performance", () => {
+    test("single repository collection should complete in <30 seconds", () => {
       const startTime = Date.now();
 
       // Simulate metrics collection for single repo
       // In real scenario: GitHub API calls, processing, storage write
       const mockCollection = () => {
         const data = {
-          repository: 'lightspeedwp/.github',
+          repository: "lightspeedwp/.github",
           issues: { total: 42, closed: 35, open: 7 },
           pullRequests: { total: 28, merged: 26, open: 2 },
-          contributors: Array(12).fill({}).map((_, i) => ({ id: i })),
+          contributors: Array(12)
+            .fill({})
+            .map((_, i) => ({ id: i })),
         };
         return data;
       };
@@ -27,7 +29,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
       expect(elapsed).toBeLessThan(30000);
     });
 
-    test('10 repository collection should complete in <5 minutes', () => {
+    test("10 repository collection should complete in <5 minutes", () => {
       const startTime = Date.now();
       const repos = Array(10)
         .fill()
@@ -44,7 +46,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
       expect(elapsed).toBeLessThan(300000);
     });
 
-    test('metrics enrichment should be <100ms per repository', () => {
+    test("metrics enrichment should be <100ms per repository", () => {
       const startTime = Date.now();
 
       // Simulate enrichment with context/timestamp (metrics not used in simple perf test)
@@ -55,16 +57,16 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
     });
   });
 
-  describe('Storage Performance', () => {
-    test('time-series storage write should be <1 second', () => {
+  describe("Storage Performance", () => {
+    test("time-series storage write should be <1 second", () => {
       const startTime = Date.now();
 
       // Simulate storage write (JSON serialization + disk I/O)
       const storage = {
-        'lightspeedwp/.github': Array(365)
+        "lightspeedwp/.github": Array(365)
           .fill()
           .map((_, i) => ({
-            date: `2025-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+            date: `2025-${String((i % 12) + 1).padStart(2, "0")}-${String((i % 28) + 1).padStart(2, "0")}`,
             metrics: { issues: { total: Math.random() * 100 } },
           })),
       };
@@ -77,7 +79,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
       expect(elapsed).toBeLessThan(1000);
     });
 
-    test('time-series retrieval should be <500ms', () => {
+    test("time-series retrieval should be <500ms", () => {
       const startTime = Date.now();
 
       // Simulate retrieval of historical data
@@ -85,7 +87,10 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
         .fill()
         .map((_, i) => ({
           week: i,
-          metrics: { issues: { total: 40 + i }, pullRequests: { total: 25 + i } },
+          metrics: {
+            issues: { total: 40 + i },
+            pullRequests: { total: 25 + i },
+          },
         }));
 
       history.filter((h) => h.week > 0);
@@ -96,8 +101,8 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
     });
   });
 
-  describe('Analysis Performance', () => {
-    test('trend calculation should be <100ms per repository', () => {
+  describe("Analysis Performance", () => {
+    test("trend calculation should be <100ms per repository", () => {
       const startTime = Date.now();
 
       // Simulate trend analysis
@@ -108,7 +113,8 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
         }));
 
       // Calculate trends (not used in simple performance test)
-      history[history.length - 1].issues.total - history[history.length - 2].issues.total;
+      history[history.length - 1].issues.total -
+        history[history.length - 2].issues.total;
       history.slice(-4).reduce((sum, h) => sum + h.issues.total, 0) / 4;
 
       const elapsed = Date.now() - startTime;
@@ -116,7 +122,7 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
       expect(elapsed).toBeLessThan(100);
     });
 
-    test('anomaly detection should be <50ms per repository', () => {
+    test("anomaly detection should be <50ms per repository", () => {
       const startTime = Date.now();
 
       // Simulate anomaly detection with baseline comparison
@@ -125,10 +131,10 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
 
       const anomalies = [];
       if (current.closureRate < baseline.closureRate * 0.85) {
-        anomalies.push({ type: 'closure_rate_drop', severity: 'high' });
+        anomalies.push({ type: "closure_rate_drop", severity: "high" });
       }
       if (current.reviewTime > baseline.reviewTime * 1.25) {
-        anomalies.push({ type: 'review_time_increase', severity: 'medium' });
+        anomalies.push({ type: "review_time_increase", severity: "medium" });
       }
 
       const elapsed = Date.now() - startTime;
@@ -138,8 +144,8 @@ describe('Metrics Agent Phase 2 - Performance Benchmarks', () => {
     });
   });
 
-  describe('Reporting Performance', () => {
-    test('report generation should be <2 seconds per repository', () => {
+  describe("Reporting Performance", () => {
+    test("report generation should be <2 seconds per repository", () => {
       const startTime = Date.now();
 
       // Simulate report generation (report not used in simple performance test)
@@ -158,7 +164,7 @@ Anomalies detected`;
       expect(elapsed).toBeLessThan(2000);
     });
 
-    test('GitHub issue creation should be <5 seconds including API call', () => {
+    test("GitHub issue creation should be <5 seconds including API call", () => {
       const startTime = Date.now();
 
       // Simulate issue creation (includes API latency)
@@ -171,7 +177,7 @@ Anomalies detected`;
       // But we measure the expected time with real API calls
     });
 
-    test('old report closure should complete in <10 seconds for 100 issues', () => {
+    test("old report closure should complete in <10 seconds for 100 issues", () => {
       const startTime = Date.now();
 
       // Simulate searching and closing old reports
@@ -189,8 +195,8 @@ Anomalies detected`;
     });
   });
 
-  describe('Workflow Performance', () => {
-    test('complete metrics collection workflow should finish in <5 minutes', () => {
+  describe("Workflow Performance", () => {
+    test("complete metrics collection workflow should finish in <5 minutes", () => {
       // Benchmark breakdown:
       // - Checkout & setup: ~30s
       // - Install dependencies: ~20s
@@ -217,8 +223,8 @@ Anomalies detected`;
     });
   });
 
-  describe('Scalability', () => {
-    test('should scale linearly with repository count', () => {
+  describe("Scalability", () => {
+    test("should scale linearly with repository count", () => {
       const benchmarkByRepoCount = {
         1: 1750, // ~1.75 minutes (seconds × 1000)
         5: 8750, // ~8.75 minutes
@@ -233,7 +239,7 @@ Anomalies detected`;
       expect(ratio10to1).toBeCloseTo(10, 1);
     });
 
-    test('parallel execution should improve multi-repo performance', () => {
+    test("parallel execution should improve multi-repo performance", () => {
       // Sequential: 10 repos × 1.75 min = 17.5 min
       // Parallel (4 jobs): ~5 minutes
 
@@ -246,8 +252,8 @@ Anomalies detected`;
     });
   });
 
-  describe('Memory Efficiency', () => {
-    test('storage should not exceed reasonable memory limits', () => {
+  describe("Memory Efficiency", () => {
+    test("storage should not exceed reasonable memory limits", () => {
       // Approximate memory usage:
       // - Single metric object: ~500 bytes
       // - 1 year of weekly reports: ~500 × 52 = 26KB per repo

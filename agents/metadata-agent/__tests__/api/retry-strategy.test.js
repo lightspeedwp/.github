@@ -209,7 +209,9 @@ describe("RetryStrategy", () => {
 
       const fn = jest.fn().mockRejectedValue(error);
 
-      await expect(fastStrategy.execute(fn)).rejects.toThrow("Persistent error");
+      await expect(fastStrategy.execute(fn)).rejects.toThrow(
+        "Persistent error",
+      );
       expect(fn).toHaveBeenCalledTimes(3); // 2 retries + 1 initial = 3 total calls
     }, 5000);
 

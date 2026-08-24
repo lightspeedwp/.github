@@ -1298,7 +1298,7 @@ async function run() {
     if (!branchValidation.valid) {
       throw new Error(
         `Invalid release branch name "${releaseBranch}": ${branchValidation.message}. ` +
-        `Check docs/BRANCHING_STRATEGY.md for valid branch naming patterns.`,
+          `Check docs/BRANCHING_STRATEGY.md for valid branch naming patterns.`,
       );
     }
 

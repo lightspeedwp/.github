@@ -21,10 +21,10 @@ export async function orchestratePrCreation(input = {}) {
   } = input;
 
   // Validate required PR fields
-  if (!pr || typeof pr !== 'object') {
+  if (!pr || typeof pr !== "object") {
     return {
       success: false,
-      error: 'PR data is required and must be an object',
+      error: "PR data is required and must be an object",
     };
   }
 
@@ -34,7 +34,8 @@ export async function orchestratePrCreation(input = {}) {
   if (!owner || !repo || !title || !body || !head || !base) {
     return {
       success: false,
-      error: 'PR data missing required fields (owner, repo, title, body, head, base)',
+      error:
+        "PR data missing required fields (owner, repo, title, body, head, base)",
     };
   }
 
@@ -70,8 +71,9 @@ export async function orchestratePrCreation(input = {}) {
       success: true,
       pr: prObject,
       frontmatter,
-      feedbackResponseRequested: Boolean(createFeedbackResponse && feedbackResponse),
-      workflowRequested: Boolean(triggerWorkflow),
+      feedbackResponseCreated:
+        createFeedbackResponse && feedbackResponse ? true : false,
+      workflowRequested: triggerWorkflow,
     };
   } catch (error) {
     return {
@@ -82,7 +84,7 @@ export async function orchestratePrCreation(input = {}) {
 }
 
 function parseFrontmatterFromBody(body) {
-  const lines = body.split('\n');
+  const lines = body.split("\n");
   const frontmatter = {};
 
   let inFrontmatter = false;
@@ -91,12 +93,12 @@ function parseFrontmatterFromBody(body) {
   for (; i < lines.length; i++) {
     const line = lines[i];
 
-    if (i === 0 && line.trim() === '---') {
+    if (i === 0 && line.trim() === "---") {
       inFrontmatter = true;
       continue;
     }
 
-    if (inFrontmatter && line.trim() === '---') {
+    if (inFrontmatter && line.trim() === "---") {
       break;
     }
 

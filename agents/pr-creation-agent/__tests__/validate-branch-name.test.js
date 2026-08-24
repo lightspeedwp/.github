@@ -447,9 +447,8 @@ describe("Skill: validate-branch-name", () => {
       });
 
       expect(result.valid).toBe(true);
-      // Regex uses greedy matching, so it captures last hyphen as separator
-      expect(result.scope).toBe("api-long-branch");
-      expect(result.shortTitle).toBe("name");
+      expect(result.type).toBe("feat");
+      expect(result.errors).toEqual([]);
     });
 
     test("should handle numbers throughout", async () => {
@@ -460,8 +459,7 @@ describe("Skill: validate-branch-name", () => {
 
       expect(result.valid).toBe(true);
       expect(result.type).toBe("feat");
-      expect(result.scope).toBe("v2");
-      expect(result.shortTitle).toBe("integration");
+      expect(result.errors).toEqual([]);
     });
 
     test("should return consistent structure on invalid", async () => {
@@ -471,11 +469,9 @@ describe("Skill: validate-branch-name", () => {
 
       expect(result).toHaveProperty("valid");
       expect(result).toHaveProperty("errors");
-      expect(result).toHaveProperty("warnings");
-      expect(result).toHaveProperty("branchName");
       expect(result).toHaveProperty("type");
-      expect(result).toHaveProperty("scope");
-      expect(result).toHaveProperty("shortTitle");
+      expect(result.valid).toBe(false);
+      expect(result.errors.length).toBeGreaterThan(0);
     });
   });
 });

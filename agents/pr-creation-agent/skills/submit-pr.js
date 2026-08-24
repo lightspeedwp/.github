@@ -156,19 +156,23 @@ function validatePrForSubmission(pr) {
     errors.push("Labels must be an array");
   } else if (pr.labels.length === 0) {
     warnings.push("No labels assigned to PR");
-  }
+  } else {
+    // Validate each label format: prefix:name (lowercase, single colon, both parts non-empty)
+    for (const label of pr.labels) {
+      // Type check
+      if (typeof label !== "string") {
+        errors.push(`Invalid label type: ${typeof label} (must be string)`);
+        continue;
+      }
 
-  // Check for invalid label format
-  const _invalidLabels = pr.labels?.filter((label) => {
-    if (typeof label !== "string") return true;
-    // Check if label follows prefix:name format or is a bare label
-    if (!label.includes(":") && label.length > 0) {
-      warnings.push(
-        `Bare label detected: "${label}" (should use prefix:name format)`,
-      );
+      // Format check: must match prefix:name pattern
+      if (!label.match(/^[a-z0-9]+:[a-z0-9-]+$/)) {
+        errors.push(
+          `Invalid label format: "${label}" (must be lowercase prefix:name)`,
+        );
+      }
     }
-    return false;
-  });
+  }
 
   return {
     valid: errors.length === 0,
