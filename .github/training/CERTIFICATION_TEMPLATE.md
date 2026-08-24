@@ -171,8 +171,8 @@ All practice releases must be completed successfully on test repository.
 
 **Approvers (if available):**
 
-- ____________________________________
-- ____________________________________
+- [Approver name/email]
+- [Approver name/email]
 
 ---
 

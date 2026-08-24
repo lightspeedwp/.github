@@ -18,13 +18,13 @@ This guide walks you through installing, configuring, and using Meta Agent v2.0 
 ## Table of Contents
 
 1. [Quick Start (5 minutes)](#quick-start)
-2. [Prerequisites & Requirements](#prerequisites)
-3. [Installation & Setup (15 minutes)](#installation)
+2. [Prerequisites & Requirements](#prerequisites--requirements)
+3. [Installation & Setup (15 minutes)](#installation--setup)
 4. [Hook Configuration](#hook-configuration)
-5. [GitHub Actions Integration](#github-actions)
+5. [GitHub Actions Integration](#github-actions-integration)
 6. [Running the Agent](#running-the-agent)
-7. [Repository-Type Examples](#examples)
-8. [Troubleshooting & Support](#troubleshooting)
+7. [Repository-Type Examples](#repository-type-examples)
+8. [Troubleshooting & Support](#troubleshooting--support)
 
 ---
 

@@ -86,7 +86,6 @@ accDescr: High-level view of the .github repository structure, showing community
     style C fill:#bf360c,color:#fff
     style D fill:#f57f17,color:#000
     style E fill:#00695c,color:#fff
-```
 
     C --> C1[GitHub Actions]
     C --> C2[Labeler Configuration]
@@ -161,7 +160,6 @@ accDescr: High-level view of the .github repository structure, showing community
     class R testing-sub
 
     linkStyle default stroke:#0f172a,stroke-width:1.4px
-
 ```
 
 ## 🔄 Comprehensive Workflow Overview
