@@ -13,7 +13,7 @@
  * @returns {Object} Result with success flag and PR data
  */
 
-export async function orchestratePrCreation(input) {
+export async function orchestratePrCreation(input = {}) {
   const {
     pr = {},
     aiFeedback = [],

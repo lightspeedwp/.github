@@ -176,7 +176,7 @@ export const createMockConfig = (overrides = {}) => {
 // Test data fixtures
 export const testFixtures = {
   validBranches: [
-    { name: "feat/pr-creation-agent", type: "feature" },
+    { name: "feat/pr-creation-agent", type: "feat" },
     { name: "fix/invalid-branch-validation", type: "fix" },
     { name: "docs/branching-strategy", type: "docs" },
     { name: "hotfix/critical-security", type: "hotfix" },
@@ -185,7 +185,7 @@ export const testFixtures = {
 
   invalidBranches: [
     { name: "claude/invalid-prefix", error: "branch-prefix-forbidden" },
-    { name: "feature/hyphen-issue", error: "branch-prefix-invalid" },
+    { name: "feature/hyphen-issue", error: "branch-type-invalid" },
     { name: "my-branch", error: "branch-prefix-missing" },
   ],
 
