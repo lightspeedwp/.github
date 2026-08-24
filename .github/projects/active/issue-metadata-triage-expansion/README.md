@@ -1,5 +1,6 @@
 ---
-file_type: readme
+file_type: documentation
+mode: reference
 name: Issue Metadata Triage Expansion
 title: Comprehensive Issue Metadata Validation & Automation
 description: Expand issue triage system to validate and automate metadata across 9 status:needs-* label categories

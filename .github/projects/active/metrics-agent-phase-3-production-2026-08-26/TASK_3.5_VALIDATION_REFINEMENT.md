@@ -1,4 +1,6 @@
 ---
+file_type: documentation
+mode: instruction
 title: "Task 3.5 — Validation & Refinement Implementation Plan"
 description: "Metrics validation, performance testing, and lessons learned documentation"
 status: "planning"

@@ -1,4 +1,6 @@
 ---
+file_type: documentation
+mode: instruction
 title: "Task 3.3 — Monitoring & Alerting Implementation Plan"
 description: "Production monitoring setup and runbooks for Metrics Agent"
 status: "planning"

@@ -1,4 +1,6 @@
 ---
+file_type: documentation
+mode: instruction
 title: "Task 3.4 — Team Rollout & Training Implementation Plan"
 description: "Team training and adoption strategy for Metrics Agent v2.0"
 status: "planning"

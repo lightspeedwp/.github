@@ -1,10 +1,11 @@
 ---
+file_type: documentation
+mode: reference
 title: Meta Agent v2.0 — Organisation-Wide Schemas
 description: >
   Implement organisation-wide Meta agent with automatic repo-type detection
   and context-specific metadata standards for WordPress block plugins, themes,
   and control-plane repos.
-file_type: project-readme
 category: organisation
 version: 1.0
 author: Ash Shaw
