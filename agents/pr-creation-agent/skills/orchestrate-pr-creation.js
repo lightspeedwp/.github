@@ -16,8 +16,6 @@
 export async function orchestratePrCreation(input) {
   const {
     pr = {},
-    mockGitHub = null,
-    config = {},
     aiFeedback = [],
     triggerWorkflow = false,
     createFeedbackResponse = false,
@@ -57,7 +55,7 @@ export async function orchestratePrCreation(input) {
 
     // Parse frontmatter if requested
     let frontmatter = null;
-    if (parseFrontmatter && body) {
+    if (parseFrontmatter) {
       frontmatter = parseFrontmatterFromBody(body);
     }
 
