@@ -16,7 +16,7 @@ author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent
 category: code-quality
-status: phase-2-implementation
+status: active
 visibility: public
 tags:
 - linting
@@ -27,7 +27,6 @@ tags:
 - yamllint
 - prettier
 - automation
-- wordpress
 language: en
 owners:
 - lightspeedwp/maintainers

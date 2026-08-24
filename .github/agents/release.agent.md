@@ -19,7 +19,6 @@ version: "v2.6"
 last_updated: "2026-08-18"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-file_type: "agent"
 category: "release-management"
 status: "active"
 visibility: "public"
@@ -32,9 +31,7 @@ tags:
     "semantic-versioning",
     "release-prep",
     "health-scan",
-    "phase-5a",
     "safety-gates",
-    "agentic-workflows",
   ]
 owners: ["lightspeedwp/maintainers"]
 tools:

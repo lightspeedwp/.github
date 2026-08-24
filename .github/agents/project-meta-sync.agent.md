@@ -37,7 +37,7 @@ permissions:
 - write
 - github:repo
 - github:issues
-- github:projects
+- github:pulls
 handoffs:
 - label: Label Strategy & Taxonomy Design
   agent: label-strategy-agent
