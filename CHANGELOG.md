@@ -28,31 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Agentic Release Framework** — 7-layer safety gates validation with dry-run support, validation reports, and comprehensive testing
-- **Release Agent** — Multi-phase orchestration (dry-run, validation, version bump, CHANGELOG update, PR creation, approval workflow, merge, publishing)
-- **Release Test Suite** — 41 comprehensive unit tests with 100% code coverage validating all 7 safety gates
-- **Release Documentation** — Complete runbooks, quick reference guides, troubleshooting, and team training materials
-- **Release Training Program** — 5-module team training materials (70+ minutes) covering all release workflows and approval processes
-- **Tiered Approval Workflow** — Scope-based approval process (patch auto-approve, minor/major manual) with 2-maintainer dual approval for MAJOR releases
-- **Version Synchronization** — Automated version consistency across VERSION, package.json, and CHANGELOG.md files
-- **Keep a Changelog 1.1.0 Format** — CHANGELOG now follows Keep a Changelog standard with proper semantic versioning
-
-### Changed
-
-- **Release Workflow** — Transitioned from manual shell scripts to agentic layer with 7-layer safety gates
-- **Approval Model** — Implemented tiered approval by release scope instead of single uniform approval
-- **Version Handling** — Centralized version management with consistency validation across all version files
-
-### Fixed
-
-- Version consistency validation for proper semver enforcement
-- Release Agent test coverage achieving 100% (41/41 tests)
-- CHANGELOG format compliance with Keep a Changelog 1.1.0 standard
-
-## [Unreleased]
-
-### Added
-
 - **PR Creation Agent — Phase 4 Integration Testing & Deployment Readiness** — Complete Phase 4 implementation delivering 52 comprehensive integration tests, mock GitHub API, and CI/CD pipeline for skill orchestration. Phase 4 deliverables include: (1) 52 Integration Tests across 6 categories (sequential execution, label application, template routing, error recovery, real workflows, performance edge cases) with 41/52 passing (79%) and all core functionality at 100% (34/34 tests); (2) Mock GitHub API (`setup.js`, 300+ LOC) implementing complete GitHub endpoint simulation with configurable error scenarios for testing failure modes; (3) Jest Configuration with 90%+ coverage threshold supporting integration test execution; (4) GitHub Actions Workflow (`workflows/pr-creation-agent-integration-tests.yml`) for automated CI/CD pipeline with test execution and performance benchmarking; (5) Phase 5 Configuration Templates for production rollout planning. Test Results: Category A (Sequential Execution) 8/8 ✓, Category B (Label Application) 8/8 ✓, Category C (Template Routing) 8/8 ✓, Category E (Real GitHub Workflows) 10/10 ✓, Core Functionality 34/34 = 100% ✓. ([PR #2335](https://github.com/lightspeedwp/.github/pull/2335), [#2304](https://github.com/lightspeedwp/.github/issues/2304), [#2303](https://github.com/lightspeedwp/.github/issues/2303))
 
 ### Changed
@@ -222,6 +197,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Add status:needs-review audit report** — Generated comprehensive audit report identifying all issues requiring review using new status labeling system. ([PR #1506](https://github.com/lightspeedwp/.github/pull/1506))
 
 - **Add pre-commit validation hook for PR template compliance** — Added pre-commit hook to enforce PR template compliance before commits preventing non-compliant PRs. ([PR #1508](https://github.com/lightspeedwp/.github/pull/1508))
+
+## [Unreleased]
+
+### Added
+
+- (Upcoming features and improvements will be documented here)
+
+### Changed
+
+- (Upcoming changes will be documented here)
+
+### Fixed
+
+- (Upcoming fixes will be documented here)
+
+### Removed
+
+- (Upcoming removals will be documented here)
+
+### Deprecated
+
+- (Upcoming deprecations will be documented here)
 
 - **Add AI feedback PR review validation workflow** — Implemented automated workflow to validate AI feedback in PRs with issue linking and decision tracking (addressed/deferred/rejected). ([PR #1526](https://github.com/lightspeedwp/.github/pull/1526))
 
