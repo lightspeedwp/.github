@@ -1,6 +1,6 @@
 {
   "name": "@lightspeedwp/github-community-health",
-  "version": "1.0.0",
+  "version": "0.6.0",
   "description": "The GitHub Community Health file for LightspeedWP. Community health files, agent scripts, and automation for the LightSpeed WordPress organization.",
   "license": "GPL-3.0-or-later",
   "author": {
