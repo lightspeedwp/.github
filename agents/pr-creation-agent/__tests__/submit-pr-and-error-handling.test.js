@@ -148,7 +148,9 @@ describe("submitPr (Skill 5)", () => {
 
       expect(result.valid).toBe(false);
       expect(result.validationErrors).toBeDefined();
-      expect(result.validationErrors.some((e) => e.includes("Invalid label format"))).toBe(true);
+      expect(
+        result.validationErrors.some((e) => e.includes("Invalid label format")),
+      ).toBe(true);
     });
   });
 

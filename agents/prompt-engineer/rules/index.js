@@ -26,7 +26,7 @@ import { themeRules, validateTheme } from "./theme-rules.js";
  */
 export function validate(text, context, options = {}) {
   let detectedContext = context || detectContext(text);
-  let findings = [];
+  let findings;
 
   switch (detectedContext) {
     case "github":
