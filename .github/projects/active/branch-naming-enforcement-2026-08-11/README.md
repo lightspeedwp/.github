@@ -1,8 +1,10 @@
 # Branch Naming Enforcement Initiative
 
 **Project Slug:** `branch-naming-enforcement-2026-08-11`  
-**Status:** 🚀 Launching  
+**Status:** ✅ Phase 1-3 Complete (P1: Unified Validators, P2: Agent Guidance, P3: Discoverability)  
 **Objective:** Implement automated workflow to enforce strict branch naming conventions and eliminate manual validation drift
+
+**Latest Update:** 2026-08-22 — Phases 1-3 completed; PR #2302 ready for merge with auto-merge enabled
 
 ## Overview
 
@@ -58,14 +60,42 @@ This initiative addresses recurring violations of the branch naming convention `
 - [ ] Setup documentation with hook installation guide
 - [ ] Project completion report
 
-## Timeline
+## Timeline & Completion Status
 
-| Phase | Scope | ETA |
-| --- | --- | --- |
-| **Phase 1** | Spec, RFC, planning, GitHub issues | 2026-08-11 |
-| **Phase 2** | Pre-commit hook implementation & testing | 2026-08-12 |
-| **Phase 3** | PR validation workflow & documentation | 2026-08-13 |
-| **Phase 4** | Team rollout & enforcement | 2026-08-14 |
+| Phase | Scope | ETA | Status | Completion Date |
+| --- | --- | --- | --- | --- |
+| **Phase 1** | Spec, RFC, planning, GitHub issues | 2026-08-11 | ✅ Complete | 2026-08-11 |
+| **Phase 1.1** | Unified branch validators | — | ✅ Complete | 2026-08-22 |
+| **Phase 1.2** | Fixed post-release sync naming | — | ✅ Complete | 2026-08-22 |
+| **Phase 2** | Agent guidance & pre-creation validation | 2026-08-12 | ✅ Complete | 2026-08-22 |
+| **Phase 3** | Improved discoverability (quick ref, docs, agent updates) | 2026-08-13 | ✅ Complete | 2026-08-22 |
+| **Phase 4** | Team rollout & enforcement | 2026-08-14 | 🚀 Pending | — |
+
+## Completed Work Summary (2026-08-22)
+
+### Phase 1: Validators & Post-Release Sync (P1.1, P1.2)
+- **P1.1:** Unified `.cjs` and `.js` validators to strict `{type}/{scope}-{short-title}` pattern
+  - Fixed divergence: `.js` was permissive, `.cjs` was strict
+  - Updated workflow to use unified `.cjs` validator
+  - All tests passing (38/38)
+- **P1.2:** Fixed post-release sync from `chore/` (forbidden) to `ops/` prefix
+  - Updated in 3 documentation files (ADR-003, BRANCHING_STRATEGY.md, RELEASE_PROCESS.md)
+
+### Phase 2: Agent Guidance & Pre-Creation Validation (P2.1-P2.5)
+- **P2.1:** Added branch naming guidance to 19 spec-based agents
+- **P2.2:** Created portable instruction file: `instructions/branch-naming.instructions.md`
+- **P2.3:** Added pre-creation validation to release agent
+- **P2.4:** Enhanced 7-layer safety gates with branch name validation (Gate 1)
+- **P2.5:** Updated agent spec template with three branch naming options
+
+### Phase 3: Improved Discoverability (P3.1-P3.5)
+- **P3.1:** Created quick reference guide: `docs/QUICK_REFERENCE_BRANCH_NAMING.md`
+- **P3.2:** Expanded CLAUDE.md with 7-step validation checklist
+- **P3.3:** Significantly expanded AGENTS.md Branch Governance section (100+ lines)
+- **P3.4:** Updated all 19 portable agent AGENT.md files with branch naming sections
+- **P3.5:** Added validation setup links throughout key documentation
+
+**Total Coverage:** Branch naming guidance now in 40+ files across the repository
 
 ## Progress Tracking
 
@@ -81,11 +111,45 @@ This initiative addresses recurring violations of the branch naming convention `
 | #1761 | Documentation (setup guide) | Ready | — |
 | #1762 | Team rollout & monitoring | Ready | — |
 
-## Related Issues & Epics
+## Related Issues & Pull Requests
 
+### Primary PR
+- **PR #2302** — [refactor(validation): P1-P2 - Unified validators and agent branch guidance](https://github.com/lightspeedwp/.github/pull/2302)
+  - Status: Open, auto-merge enabled
+  - Contains: All Phase 1-3 work (validators, agent guidance, discoverability improvements)
+  - Updated: 2026-08-22 with Phase 3 commits (50 files, 893 additions)
+
+### Related Issues & Epics
 - **Epic:** [#1755 - Branch Naming Enforcement Workflow](https://github.com/lightspeedwp/.github/issues/1755) (parent epic)
-- **Related:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
-- **Related:** [.github/workflows/main-branch-guard.yml](../../../../.github/workflows/main-branch-guard.yml)
+- **Related Issue:** [#1967 - CI Validation Issues: Branch Naming & Gitleaks Discrepancies](https://github.com/lightspeedwp/.github/issues/1967)
+- **Related Documentation:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
+- **Related Workflow:** [.github/workflows/main-branch-guard.yml](../../../../.github/workflows/main-branch-guard.yml)
+
+## Key Documentation Updates
+
+New and updated files from Phase 1-3:
+- ✅ `docs/QUICK_REFERENCE_BRANCH_NAMING.md` — Quick one-page reference guide
+- ✅ `instructions/branch-naming.instructions.md` — Comprehensive portable guide
+- ✅ `CLAUDE.md` — Expanded "Before Every Push" validation checklist
+- ✅ `AGENTS.md` — Expanded "Branch Governance" section with 31 prefixes, examples, validation procedures
+- ✅ 19 `.agent.md` spec-based agents — Added branch naming sections
+- ✅ 19 portable agent `AGENT.md` files — Added branch naming sections
+
+## Files Modified in Phase 1-3
+
+**Total:** 50 files changed, 893 additions, 28 deletions
+
+**By Category:**
+- Agent specifications: 19 files (`.agent.md`)
+- Portable agents: 19 files (`agents/*/AGENT.md`)
+- Core documentation: 2 files (CLAUDE.md, AGENTS.md)
+- Quick reference: 1 file (`docs/QUICK_REFERENCE_BRANCH_NAMING.md`)
+- Portable instructions: 1 file (`instructions/branch-naming.instructions.md`)
+- Validators: 3 files (`.js`, `.cjs`, tests)
+- Release gates: 1 file (`release-gates.cjs`)
+- Release agent: 1 file (`release.agent.js`)
+- Documentation: 3 files (ADR-003, BRANCHING_STRATEGY.md, RELEASE_PROCESS.md)
+- Template: 1 file (agent template)
 
 ---
 

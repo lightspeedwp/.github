@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "severity": "major",
+      "title": "Potential Logic Error",
+      "file": "src/business/orders.js",
+      "line": 65,
+      "description": "Condition 'if (price > 0)' should probably be 'if (price >= 0)'",
+      "suggestion": "Review condition logic for correctness"
+    },
+    {
+      "severity": "major",
+      "title": "Off-by-One Error",
+      "file": "src/utils/pagination.js",
+      "line": 30,
+      "description": "Loop condition 'i < array.length' might skip last element due to 0-based indexing",
+      "suggestion": "Verify loop boundary conditions"
+    },
+    {
+      "severity": "warning",
+      "title": "Potential Type Coercion Issue",
+      "file": "src/handlers/api.js",
+      "line": 45,
+      "description": "Comparing string with number using == (loose equality)",
+      "suggestion": "Use === (strict equality) for safer comparison"
+    },
+    {
+      "severity": "note",
+      "title": "Performance Suggestion",
+      "file": "src/database/query.js",
+      "line": 88,
+      "description": "Consider using .map() instead of manual loop for better readability",
+      "suggestion": "Refactor loop to functional style"
+    },
+    {
+      "severity": "info",
+      "title": "Documentation Gap",
+      "file": "src/services/auth.js",
+      "line": 12,
+      "description": "Function does not have JSDoc documentation",
+      "suggestion": "Add comprehensive JSDoc comments"
+    }
+  ]
+}

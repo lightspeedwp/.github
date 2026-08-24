@@ -1,8 +1,11 @@
 ---
 file_type: configuration
 title: Testing Agent — GitHub Copilot Provider Configuration
-description: 'GitHub Copilot provider configuration for the Testing Agent: VS Code setup, keybindings, chat context, inline suggestions, accessibility settings, and best practices for repository-aware test generation and code review.'
-last_updated: '2026-08-21'
+description: >-
+  GitHub Copilot provider configuration for the Testing Agent: VS Code setup,
+  keybindings, chat context, inline suggestions, accessibility settings, and
+  best practices for repository-aware test generation and code review.
+last_updated: '2026-08-18'
 domain: testing
 tags:
   - copilot
@@ -20,7 +23,6 @@ accessibility.
 ## Overview
 
 GitHub Copilot is optimized for:
-
 - **Repository-aware context** — automatic access to codebase, package.json, PR files
 - **VS Code integration** — inline suggestions, chat, code review workflows
 - **Real-time feedback** — test suggestions while editing test files
@@ -41,7 +43,6 @@ collaboration within GitHub.
 ### VS Code Setup
 
 1. **Install Extension**
-
    ```
    Copilot: GitHub Copilot
    Copilot Chat: GitHub Copilot Chat
@@ -140,7 +141,6 @@ When asking Copilot for test suggestions, attach relevant files:
      - `package.json` (dependencies, scripts)
      - Last 5 edited files
    - Optionally exclude via `.copilotignore` (in repo root):
-
      ```
      node_modules/
      dist/
@@ -150,7 +150,6 @@ When asking Copilot for test suggestions, attach relevant files:
      ```
 
 3. **Use @-mentions for Skills**
-
    ```
    @test-pack-builder Generate a test pack for the checkout flow
 
@@ -184,7 +183,6 @@ Inline suggestions are most useful for test files. Control per language:
 ### Example: Inline Test Generation
 
 1. Start typing a test case:
-
    ```typescript
    describe('checkout', () => {
      test('guest user can complete checkout', async ({ page }) => {
@@ -197,13 +195,11 @@ Inline suggestions are most useful for test files. Control per language:
 ### Inline Best Practices
 
 ✅ **Use inline for:**
-
 - Test boilerplate (describe, test, assertions)
 - Common locators and navigation patterns
 - Setup/teardown fixtures
 
 ❌ **Avoid inline for:**
-
 - Complex test logic (use Chat instead)
 - Security-sensitive code (auth, API keys)
 - Multi-step workflows (Chat provides better context)
@@ -243,7 +239,6 @@ When Copilot reviews test changes, it checks:
 ### Automatic Context
 
 Copilot automatically understands:
-
 - **Codebase structure** — your folder layout, imports
 - **Test frameworks** — Jest, Playwright, Mocha, etc. (detected from package.json)
 - **Design tokens** — color, spacing from design system docs
@@ -291,7 +286,6 @@ Create `.github/copilot-workspace.md` to provide additional context:
 ### Keyboard Navigation
 
 Copilot is fully keyboard-driven:
-
 - `Cmd+Shift+I` — Open chat
 - `Tab` / `Shift+Tab` — Navigate chat options
 - `Enter` — Submit message
@@ -300,14 +294,12 @@ Copilot is fully keyboard-driven:
 ### High Contrast
 
 Enable in VS Code:
-
 - Settings → `Color Theme` → Select high-contrast theme
 - Copilot UI respects your theme automatically
 
 ### Text Size
 
 Copilot Chat respects VS Code's editor font size:
-
 - Settings → `Editor: Font Size`
 - Default: 14px; recommended for accessibility: 16–18px
 
@@ -316,7 +308,6 @@ Copilot Chat respects VS Code's editor font size:
 ### When to Use Copilot Chat
 
 ✅ **Use Chat for:**
-
 - Generating test packs from requirements
 - Asking for edge-case ideas
 - Refining test logic iteratively
@@ -324,7 +315,6 @@ Copilot Chat respects VS Code's editor font size:
 - Debugging test failures
 
 Example:
-
 ```
 @test-pack-builder Generate a test pack for "user can add items to cart".
 Use the Figma spec here: [attach cart.fig]
@@ -333,7 +323,6 @@ Use the Figma spec here: [attach cart.fig]
 ### When to Use Inline Suggestions
 
 ✅ **Use Inline for:**
-
 - Quick boilerplate (test structure, describe blocks)
 - Common patterns you've already reviewed
 - Filling in known locators
@@ -341,7 +330,6 @@ Use the Figma spec here: [attach cart.fig]
 ### When to Ask Copilot
 
 ❌ **Avoid asking Copilot:**
-
 - "Write all my tests for me" — Use Chat + manual review instead
 - "Find security vulnerabilities" — Use separate security scanning
 - "Optimize performance" — Use profiling tools; Copilot is not authoritative
@@ -349,7 +337,6 @@ Use the Figma spec here: [attach cart.fig]
 ### Conversation Hygiene
 
 Keep chat sessions focused:
-
 - **New question?** Start a new conversation (easier to track)
 - **Refining a test pack?** Continue in same conversation
 - **Switching topics?** Clear history (`Cmd+K` in chat)
@@ -359,14 +346,12 @@ Keep chat sessions focused:
 ### Suggesting GitHub Actions Steps
 
 When editing `.github/workflows/test.yml`, Copilot suggests:
-
 - Test execution command (`npx playwright test`)
 - Artifact upload for reports
 - Failure notifications
 - Environment variable setup
 
 Example suggestion:
-
 ```yaml
 - name: Run tests
   run: npx playwright test
@@ -410,10 +395,10 @@ Example suggestion:
 
 ## Support & Learning
 
-- **Copilot Docs**: <https://docs.github.com/en/copilot>
+- **Copilot Docs**: https://docs.github.com/en/copilot
 - **Community**: GitHub Discussions, Stack Overflow (#github-copilot)
 - **Report Issues**: GitHub (github.com) → Settings → Copilot → Send feedback
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

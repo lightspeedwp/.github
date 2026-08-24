@@ -107,16 +107,39 @@ All schema references should use `schemas/` as the canonical location.
 
 > **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
 
+### ⚠️ BRANCH NAMING RULES — STRICT ENFORCEMENT
+
+**These rules apply without exception to all branches.**
+
+#### NO "claude/" Prefix — FORBIDDEN
+
+- **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
+- **FORBIDDEN:** Do NOT use `copilot/` or `openai/` prefixes either.
+
+#### Required Format: `{type}/{scope}-{short-title}`
+
+All branches must follow this exact format (lowercase, kebab-case only):
+
+- **type:** One of the allowed prefixes (see list below)
+- **scope:** lowercase, hyphens only (no underscores, dots, or uppercase)
+- **title:** lowercase, hyphens only (no underscores, dots, or uppercase)
+
+**Example:** `feat/branch-naming-enforcement`, `fix/validation-script-bug`, `chore/update-dependencies`
+
+#### Allowed Branch Types (31 prefixes)
+
+`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
+
+#### Validation & Governance
+
+- All branch names are validated by `.github/scripts/validation/validate-branch-name.cjs`
+- CI will block branches that don't follow the pattern
+- The validation script runs on every PR
+- **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
+
 ### AI Governance & Branch Protection — NO EXCEPTIONS
 
 **Follow these rules without exception.**
-
-#### Branch Naming — NO "claude/" Prefix
-
-- **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
-- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case) where `{type}` is one of the core prefixes listed below.
-- **CORE PREFIXES:** `feat/`, `fix/`, `hotfix/`, `release/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`.
-- **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
 
 #### Explicit User Instructions — EXECUTE IMMEDIATELY
 
@@ -403,13 +426,34 @@ Comprehensive documentation for issue automation, triage workflows, and label ma
 
 - [issue-maintenance-scripts-2026-08-10](./.github/projects/active/issue-maintenance-scripts-2026-08-10/) — Phase 3-4 completed; Phase 5 integration testing in progress
 
-### Before Every Push
+### Before Every Push — Branch Naming Checklist
 
-1. Verify the current branch: `git branch -v`
-2. Confirm it is NOT `main` or `develop` (unless in a release cycle)
-3. Ensure the branch name follows the `{type}/{scope}-{short-title}` pattern
-4. Run the local validation check: `npm run validate:branch-name -- --branch $(git branch --show-current)`
-5. Use: `git push -u origin <branch-name>`
+**Verify Branch Name:** Run through this checklist before every push:
+
+1. ✅ **Current branch** — `git branch -v` (confirm you're not on `main` or `develop`)
+2. ✅ **Pattern match** — Branch name follows `{type}/{scope}-{short-title}` format (lowercase, hyphens only)
+3. ✅ **Type prefix** — Prefix is one of 31 allowed: `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
+4. ✅ **No forbidden prefixes** — Branch does NOT start with `claude/`, `copilot/`, or `openai/`
+5. ✅ **Character rules** — All lowercase, hyphens only (no underscores, dots, spaces, or leading/trailing hyphens)
+6. ✅ **Validate locally** — `npm run validate:branch-name -- --branch $(git branch --show-current)` (must return exit code 0)
+7. ✅ **Ready to push** — `git push -u origin <branch-name>`
+
+**Quick References:**
+
+- **One-Page Quick Reference:** [docs/QUICK_REFERENCE_BRANCH_NAMING.md](./docs/QUICK_REFERENCE_BRANCH_NAMING.md) — Pattern, prefixes, valid/invalid examples
+- **Comprehensive Guide:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) — Full branching discipline and merge strategy
+- **Portable Instructions:** [instructions/branch-naming.instructions.md](./instructions/branch-naming.instructions.md) — Reusable guide with validation setup
+- **Setup & Validation:** [docs/SETUP_BRANCH_VALIDATION.md](./docs/SETUP_BRANCH_VALIDATION.md) — How to set up validation, run checks, troubleshoot
+
+**Examples:**
+
+| Valid | Invalid | Why |
+|-------|---------|-----|
+| `feat/user-authentication` | `feat/MyFeature` | Lowercase required |
+| `fix/button-styling` | `fix/button_styling` | Hyphens, not underscores |
+| `release/v2-1-0` | `release/v2.1.0` | Hyphens, not dots (no dots in versions) |
+| `docs/api-reference` | `claude/api-docs` | Forbidden prefix |
+| `a11y/keyboard-navigation` | `feature/my-thing` | Invalid type (use `feat/`) |
 
 ## Development Commands
 
