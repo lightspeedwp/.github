@@ -224,8 +224,8 @@ jobs:
         with:
           name: remediation-reports-${{ github.run_id }}
           path: |
-            .github//.github/reports/remediation/
-            .github//.github/reports/labeling/
+            .github/reports/remediation/
+            .github/reports/labeling/
           retention-days: 30
 
       - name: Summary
@@ -239,6 +239,6 @@ jobs:
             core.summary
               .addHeading(`${mode} - Bulk Issue Remediation Complete`)
               .addRaw(`\n**Reports available in artifacts**\n`)
-              .addRaw(`- Milestone assignment: .github//.github/reports/remediation/milestone-assignment-${{ github.run_id }}.md\n`)
+              .addRaw(`- Milestone assignment: .github/reports/remediation/milestone-assignment-${{ github.run_id }}.md\n`)
               .addRaw(`- Labeling workflow initiated\n`)
               .write();

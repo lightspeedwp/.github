@@ -134,7 +134,7 @@ jobs:
         run: npm ci
 
       - name: Create audit directory
-        run: mkdir -p .github//.github/reports/mermaid-audit
+        run: mkdir -p .github/reports/mermaid-audit
 
       - name: Run Mermaid diagram fixes
         if: |
@@ -160,7 +160,7 @@ jobs:
       - name: Generate update report
         if: success()
         run: |
-          cat > .github//.github/reports/mermaid-audit/update-report.md <<'EOF'
+          cat > .github/reports/mermaid-audit/update-report.md <<'EOF'
           # Documentation Update Report
 
           **Date**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -178,7 +178,7 @@ jobs:
           3. Have maintainers review and merge
 
           EOF
-          cat .github//.github/reports/mermaid-audit/update-report.md
+          cat .github/reports/mermaid-audit/update-report.md
 
       - name: Check for changes
         id: changes
@@ -208,7 +208,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: docs-update-report
-          path: .github//.github/reports/mermaid-audit/update-report.md
+          path: .github/reports/mermaid-audit/update-report.md
 
   audit-docs:
     name: Audit Documentation
@@ -242,19 +242,19 @@ jobs:
           npm run audit:readme -- \
             --scope=$AUDIT_SCOPE \
             --format=$OUTPUT_FORMAT \
-            --output=.github//.github/reports/mermaid-audit/ || true
+            --output=.github/reports/mermaid-audit/ || true
 
       - name: Generate summary
         if: always()
         run: >-
-          node -e "const fs=require('fs');const sum=process.env.GITHUB_STEP_SUMMARY;const p='.github//.github/reports/mermaid-audit/summary.md';let out='## 📋 Documentation Audit Report\n\n';if(fs.existsSync(p)){out+=fs.readFileSync(p,'utf8');}fs.appendFileSync(sum,out);"
+          node -e "const fs=require('fs');const sum=process.env.GITHUB_STEP_SUMMARY;const p='.github/reports/mermaid-audit/summary.md';let out='## 📋 Documentation Audit Report\n\n';if(fs.existsSync(p)){out+=fs.readFileSync(p,'utf8');}fs.appendFileSync(sum,out);"
 
       - name: Upload audit artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: docs-audit-report-${{ github.run_number }}
-          path: .github//.github/reports/mermaid-audit/
+          path: .github/reports/mermaid-audit/
           retention-days: 30
 
       - name: Create issue for critical findings
