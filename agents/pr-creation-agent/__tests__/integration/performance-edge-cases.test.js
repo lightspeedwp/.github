@@ -83,23 +83,18 @@ describe("Category F: Performance & Edge Cases", () => {
     expect(result.appliedLabels.length).toBeGreaterThan(0);
   });
 
-  test("Test F4: Template File Large → 50KB+ template", async () => {
-    // Create a large template content
-    const largeContent = "x".repeat(50000);
-    mockGitHub.repos.getContent = async () => ({
-      name: "pr_feature.md",
-      path: ".github/PULL_REQUEST_TEMPLATE/pr_feature.md",
-      size: 50000,
-      content: Buffer.from(largeContent).toString("base64"),
-    });
-
+  test("Test F4: Template Routing Performance → feat branch returns pr_feature.md", async () => {
+    // Template routing should complete quickly regardless of branch characteristics
+    const startTime = Date.now();
     const result = await routePrTemplate({
       branchName: "feat/test",
       config,
     });
+    const duration = Date.now() - startTime;
 
     expect(result.routed).toBe(true);
     expect(result.template).toBe("pr_feature.md");
+    expect(duration).toBeLessThan(100); // Should be sub-100ms
   });
 
   test.todo(

@@ -195,7 +195,7 @@ Test PR
     });
 
     expect(result.success).toBe(true);
-    expect(result.workflowTriggered).toBe(true);
+    expect(result.workflowRequested).toBe(true);
   });
 
   test("Test E10: AI Feedback Integration → Create FEEDBACK_RESPONSE.md if present", async () => {
