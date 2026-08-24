@@ -1,13 +1,3 @@
----
-file_type: documentation
-mode: instruction
-title: "Task 3.5 — Validation & Refinement Implementation Plan"
-description: "Metrics validation, performance testing, and lessons learned documentation"
-status: "planning"
-created_date: "2026-08-21"
-version: "1.0.0"
----
-
 # Task 3.5: Validation & Refinement — Implementation Plan
 
 **Issue:** [#2130](https://github.com/lightspeedwp/.github/issues/2130)  
