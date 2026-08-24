@@ -1,11 +1,7 @@
 // Category D: Error Recovery Workflows (8 tests)
 // Test graceful error handling and recovery
 
-import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateBranchName } from "../../skills/validate-branch-name.js";
-import { routePrTemplate } from "../../skills/route-pr-template.js";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels.js";
-import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation.js";
+import { describe, test, beforeEach } from "@jest/globals";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category D: Error Recovery Workflows", () => {
