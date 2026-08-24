@@ -51,9 +51,10 @@ const AUDIT_BRANCH_PATTERN = /^pr-\d+-audit$/;
 const PROTECTED_BRANCHES = new Set(["main", "develop"]);
 // release branches allow EITHER semantic versioning (v1.0.0) or standard format (release/scope-title)
 const BRANCH_PATTERN_RELEASE_SEMVER = /^release\/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$/;
-const BRANCH_PATTERN_RELEASE_STANDARD = /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+const BRANCH_PATTERN_RELEASE_STANDARD =
+  /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$/;
 const BRANCH_PATTERN_STANDARD = new RegExp(
-  `^(${ALLOWED_PREFIXES.filter(p => p !== "release").join("|")})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`,
+  `^(${ALLOWED_PREFIXES.filter((p) => p !== "release").join("|")})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`,
 );
 
 function getArgValue(flag) {
