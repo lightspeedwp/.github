@@ -1,0 +1,12 @@
+# Gitleaks ignore file for false positives
+# These findings are documentation examples and test data, not actual secrets
+
+# Runbook documentation: example curl commands with placeholder auth headers
+.github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/RUNBOOK_MISSING_DATA.md:curl-auth-header:78
+.github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/RUNBOOK_MISSING_DATA.md:curl-auth-header:130
+.github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/RUNBOOK_API_FAILURES.md:curl-auth-header:142
+.github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/RUNBOOK_API_FAILURES.md:curl-auth-header:190
+.github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/RUNBOOK_SECRET_EXPIRATION.md:curl-auth-header:275
+
+# Unit test for security handling: intentional test data
+scripts/metrics/__tests__/security.test.js:generic-api-key:165
