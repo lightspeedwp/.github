@@ -158,7 +158,9 @@ class OctokitClientFactory {
       const response = await this.client.rateLimit.get();
       return response.data.rate_limit;
     } catch (error) {
-      throw new Error(`Failed to get rate limit: ${error.message}`);
+      throw new Error(`Failed to get rate limit: ${error.message}`, {
+        cause: error,
+      });
     }
   }
 
