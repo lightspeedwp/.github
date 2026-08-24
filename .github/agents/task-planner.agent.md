@@ -1,4 +1,5 @@
 ---
+name: Planner Agent
 title: "Planner"
 description: "Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work."
 file_type: "agent"

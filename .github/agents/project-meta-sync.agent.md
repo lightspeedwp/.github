@@ -1,4 +1,5 @@
 ---
+name: Project Meta Sync Agent
 title: Project Meta Sync Agent v2
 description: Active metadata governance orchestrator. Guides issue/PR labeling, GitHub
   Project field synchronization, and release metadata validation across workflows,

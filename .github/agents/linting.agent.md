@@ -1,4 +1,5 @@
 ---
+name: Linting Agent
 title: Linting Agent
 description: Enforces code quality and linting standards across all supported languages
   and file types. Validates JavaScript/TypeScript, CSS/SCSS, HTML, JSON, Markdown,

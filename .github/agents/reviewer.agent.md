@@ -1,4 +1,5 @@
 ---
+name: Reviewer Agent
 title: "Reviewer"
 description: "Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests."
 file_type: "agent"

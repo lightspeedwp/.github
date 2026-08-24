@@ -1,4 +1,5 @@
 ---
+name: Meta Agent
 title: Meta
 description: >
   Organisation-wide agent for applying documentation metadata, standards, and
