@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: LightSpeedWP.Agency Repeatable Test Context
 project_name: LightSpeedWP.Agency
 document_type: preview_validation_example

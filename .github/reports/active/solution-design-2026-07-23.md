@@ -1,9 +1,9 @@
 ---
-title: GitHub Issue Type & Metadata Automation Solution Design
-subtitle: Architecture for fixing issue creation, DoD enforcement, and PR-to-issue linking
-date: 2026-07-23
-scope: Workflow design, labeling automation, custom field population, DoD validation
-status: DRAFT - Ready for Review
+file_type: documentation
+title: "GitHub Issue Type & Metadata Automation Solution Design"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: draft
 ---
 
 # Solution Design: Issue Type & Metadata Automation

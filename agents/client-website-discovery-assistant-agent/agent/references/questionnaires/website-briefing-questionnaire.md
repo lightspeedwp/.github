@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Website Briefing Questionnaire
 source_title: Questionnaire - Website Briefing
 source_url: https://docs.google.com/document/d/1USjjZ0KB_ThKik1uJAifEC-bwQzH_mjLEIsq6aZZuGg/edit?usp=drive_link

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: LSX Design System Repeatable Test Context
 project_name: LSX Design System
 document_type: preview_validation_example

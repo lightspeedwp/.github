@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Chat Closure Agent — Quick Start Guide
 description: Get started with the Chat Closure Agent in 5 minutes
 created_date: 2026-08-13T00:00:00.000Z

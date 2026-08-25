@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 👀 Code Review
 about: Request or conduct code review, peer validation, or QA.
 title: '[Review] <Brief summary>'

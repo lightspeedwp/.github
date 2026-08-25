@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: PageSpeed Agent
 description: Web performance optimization tool for load-time analysis, resource optimization, and caching strategies
 agent_id: agent-10

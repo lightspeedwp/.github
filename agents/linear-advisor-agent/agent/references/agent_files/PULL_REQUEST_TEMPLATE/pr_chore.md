@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Chore PR
 about: 'Repo hygiene: configs, scripts, formatting — no behaviour change'
 title: 'chore: {scope}'

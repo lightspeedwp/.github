@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🤖 Automation
 about: Propose, fix, or improve automation (actions, scripts, bots).
 title: '[Automation] <Short summary>'

@@ -1,12 +1,10 @@
 ---
-title: "Phase 3 Status Report — Standard Workflow Upgrades"
-description: "GitHub Actions v7 upgrade for 7 standard workflows (site, automation, release/core)"
 file_type: documentation
-status: in-review
+title: ""Phase 3 Status Report — Standard Workflow Upgrades""
+description: ""GitHub Actions v7 upgrade for 7 standard workflows (site, automation, release/core)""
 created_date: 2026-08-09
-last_updated: 2026-08-09T19:45:00Z
-version: v1.0.0
-authors: ["Ash Shaw"]
+last_updated: "2026-08-25"
+status: active
 tags: ["github-actions", "phase-3", "workflow-upgrades", "v7-migration"]
 ---
 

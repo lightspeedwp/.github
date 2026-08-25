@@ -1,9 +1,9 @@
 ---
-title: "Phase 3 Implementation: Workflow Orchestration & Automated Phase Progression"
-description: "Comprehensive implementation guide for OpenSpec Labels Automation Phase 3, covering event-driven syncing and automated phase progression"
-category: "implementation-guide"
-date: "2026-08-20"
-status: "complete"
+file_type: documentation
+title: ""Phase 3 Implementation: Workflow Orchestration & Automated Phase Progression""
+description: ""Comprehensive implementation guide for OpenSpec Labels Automation Phase 3, covering event-driven syncing and automated phase progression""
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Phase 3 Implementation: Workflow Orchestration & Automated Phase Progression

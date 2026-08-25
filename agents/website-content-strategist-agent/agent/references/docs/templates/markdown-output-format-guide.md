@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Markdown Output Format Guide
 scope: default-formatting
 status: active

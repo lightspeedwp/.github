@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Release PR
 about: Release new features or enhancements
 title: 'release: {short summary}'

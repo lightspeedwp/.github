@@ -1,12 +1,10 @@
 ---
-title: Node.js 22 Upgrade — Post-Merge Monitoring
-description: 3-day post-merge monitoring for Node.js 22 upgrade (PR #1420)
-version: 1.0.0
 file_type: readme
-status: complete
+title: "Node.js 22 Upgrade — Post-Merge Monitoring"
+description: "3-day post-merge monitoring for Node.js 22 upgrade (PR #1420)"
 created_date: 2026-07-30
-last_updated: 2026-08-07
-completed_date: 2026-08-04
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Node.js 22 Upgrade — Post-Merge Monitoring

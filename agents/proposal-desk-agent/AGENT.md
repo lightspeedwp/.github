@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Proposal Desk Agent
 description: Proposal and quote generation tool for scope definition, client communication, and billing management
 agent_id: agent-6

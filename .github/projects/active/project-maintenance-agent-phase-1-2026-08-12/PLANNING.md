@@ -1,9 +1,10 @@
 ---
-title: Project Maintenance Agent — Detailed Planning & Specification
-description: Phase 1 & 2 planning with detailed requirements, timelines, and deliverables
+file_type: documentation
+title: "Project Maintenance Agent — Detailed Planning & Specification"
+description: "Phase 1 & 2 planning with detailed requirements, timelines, and deliverables"
 created_date: 2026-08-12
-last_updated: 2026-08-12
-status: in-progress
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Maintenance Agent — Planning & Specification

@@ -1,10 +1,10 @@
 ---
-file_type: project-index
-title: Release Workflow Authorization Fixes — Complete Project Index
-description: Navigation guide and status overview for all project documentation
+file_type: documentation
+title: ""Release Workflow Authorization Fixes — Complete Project Index""
+description: ""Navigation guide and status overview for all project documentation""
 created_date: 2026-08-04
-last_updated: 2026-08-04
-status: phase-2-ready
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Index: Release Workflow Authorization Fixes

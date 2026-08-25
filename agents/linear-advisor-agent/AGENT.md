@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Linear Advisor Agent
 description: Project management integration tool for Linear issue management, sprint planning, and team coordination
 agent_id: agent-11

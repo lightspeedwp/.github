@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Zendesk Support Agent
 description: Customer support agent for ticket management, customer communication, and knowledge base integration
 agent_id: agent-14

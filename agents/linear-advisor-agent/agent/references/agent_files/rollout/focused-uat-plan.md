@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Focused UAT Plan
 document_type: uat-plan
 purpose: Run a small, structured UAT pilot for the LightSpeed Linear Advisor

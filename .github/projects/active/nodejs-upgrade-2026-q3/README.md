@@ -1,11 +1,10 @@
 ---
-file_type: project-index
-title: Node.js 22 Upgrade Project
-description: Upgrade LightSpeed .github from Node.js 20 to Node.js 22 — comprehensive project documentation
-version: 1.0.0
-status: active
+file_type: readme
+title: ""Node.js 22 Upgrade Project""
+description: ""Upgrade LightSpeed .github from Node.js 20 to Node.js 22 — comprehensive project documentation""
 created_date: 2026-07-30
-last_updated: 2026-08-07
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Node.js 22 Upgrade Project

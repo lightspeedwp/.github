@@ -1,9 +1,9 @@
 ---
-title: Branch Naming Enforcement Initiative — Phases 6 & 7
-description: Team rollout, adoption planning, and metrics collection for branch naming enforcement
-start_date: 2026-08-12
-target_completion: 2026-09-12
-status: In Progress
+file_type: documentation
+title: "Branch Naming Enforcement Initiative — Phases 6 & 7"
+description: "Team rollout, adoption planning, and metrics collection for branch naming enforcement"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Branch Naming Enforcement Initiative — Phases 6 & 7

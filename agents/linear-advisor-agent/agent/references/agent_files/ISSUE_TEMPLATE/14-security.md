@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🔐 Security
 about: Report vulnerabilities, security improvements, or compliance requirements.
 title: '[Security] <Brief summary>'

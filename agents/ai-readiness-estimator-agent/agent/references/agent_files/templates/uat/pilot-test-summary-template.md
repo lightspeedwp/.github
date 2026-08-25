@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Pilot Test Summary
-audience: internal
-document_type: uat-summary
-status: template
-language: en-GB
+file_type: documentation
+title: "Pilot Test Summary"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Pilot Test Summary

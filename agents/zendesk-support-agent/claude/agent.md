@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 provider: claude
 agent_slug: zendesk-support
 agent_name: Zendesk Support Agent (Claude)
-status: production
+status: active
 version: 1.0.2
 created_date: '2026-07-22'
 last_updated: '2026-08-21'

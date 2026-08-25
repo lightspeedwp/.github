@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.0.1
 title: Safari lodge WordPress rebuild project brief
 project_key: safari-lodge-wordpress-rebuild

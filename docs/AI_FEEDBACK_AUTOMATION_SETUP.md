@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: AI Feedback Validation — Automation Setup
 description: Technical setup and automation enforcement for AI feedback PR review system
 version: 1.0.1

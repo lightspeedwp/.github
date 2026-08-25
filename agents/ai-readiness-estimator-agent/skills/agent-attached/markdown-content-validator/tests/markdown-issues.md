@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Markdown Issues Example
 status: review
 type: checklist

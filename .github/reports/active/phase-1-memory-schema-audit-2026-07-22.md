@@ -1,8 +1,10 @@
 ---
-file_type: audit
-category: memory-and-organization
+file_type: documentation
+title: ""Phase 1 Memory Schema Audit 2026 07 22""
+description: ""Project documentation""
 created_date: 2026-07-22
-scope: phase-1-agent-standardization
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Memory & Schema Structure Audit — Phase 1

@@ -1,6 +1,8 @@
 ---
-template_id: risk-and-review-log
-version: 1.0.1
+file_type: documentation
+title: "Risk And Review Log"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

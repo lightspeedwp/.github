@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: "Docs-only PR"
 about: "Documentation updates: READMEs, guides, contributor docs"
 title: "docs: {short summary}"

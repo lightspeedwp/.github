@@ -1,11 +1,10 @@
 ---
-title: "Portable Prompt Engineer Agent — Implementation Tasks"
-description: "Detailed task breakdown for Phase 2-4 implementation"
 file_type: "openspec-tasks"
+title: ""Portable Prompt Engineer Agent — Implementation Tasks""
+description: ""Detailed task breakdown for Phase 2-4 implementation""
 created_date: "2026-08-12"
-last_updated: "2026-08-12"
-status: "active"
-domain: "agent"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Portable Prompt Engineer Agent — Implementation Tasks

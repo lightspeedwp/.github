@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Missing Values Intake Checklist
-audience: internal
-document_type: intake-checklist
-status: template
-language: en-GB
+file_type: documentation
+title: "Missing Values Intake Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Missing Values Intake Checklist

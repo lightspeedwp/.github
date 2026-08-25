@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "agent-skills-standards-comprehensive — OpenSpec Specification"
-description: "Technical specification for agent-skills-standards-comprehensive"
-version: 1.0.0
+title: ""agent-skills-standards-comprehensive — OpenSpec Specification""
+description: ""Technical specification for agent-skills-standards-comprehensive""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

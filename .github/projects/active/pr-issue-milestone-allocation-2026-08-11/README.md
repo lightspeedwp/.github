@@ -1,23 +1,15 @@
 ---
 file_type: readme
-title: "pr-issue-milestone-allocation-2026-08-11 — Project Overview"
-description: "Quick-start guide and status overview for the pr-issue-milestone-allocation-2026-08-11 project"
-version: 2.0.0
+title: ""pr-issue-milestone-allocation-2026-08-11 — Project Overview""
+description: ""Quick-start guide and status overview for the pr-issue-milestone-allocation-2026-08-11 project""
 created_date: 2026-08-12
-last_updated: 2026-08-25
-authors:
-  - Claude Haiku
-owner: DevOps/Release Team
-maintainer: Release Automation
-tags:
-  - project
+last_updated: "2026-08-25"
+status: active
+tags:- project
   - overview
   - status
   - automation
   - milestone-allocation
-domain: "github-automation"
-stability: "stable"
-status: "production"
 ---
 
 # pr-issue-milestone-allocation-2026-08-11

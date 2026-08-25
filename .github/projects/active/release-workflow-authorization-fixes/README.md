@@ -1,14 +1,10 @@
 ---
-file_type: project
-title: Release Workflow Authorization Fixes
-description: Fix release.yml workflow authorization checks and GitHub permissions
-status: complete
+file_type: readme
+title: ""Release Workflow Authorization Fixes""
+description: ""Fix release.yml workflow authorization checks and GitHub permissions""
 created_date: 2026-08-04
-completed_date: 2026-08-19
-owner: DevOps
-related_issues:
-  - 1453
-parent_initiative: CI/CD Infrastructure Hardening
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Release Workflow Authorization Fixes

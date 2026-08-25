@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: <evidence library title>
 document_type: evidence_library
 status: <draft|provisional|complete>

@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "linting-agent-2026-08-12 — OpenSpec Specification"
-description: "Technical specification for linting-agent-2026-08-12"
-version: 1.0.0
+title: ""linting-agent-2026-08-12 — OpenSpec Specification""
+description: ""Technical specification for linting-agent-2026-08-12""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

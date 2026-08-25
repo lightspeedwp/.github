@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: "1.0.0"
 title: "WordPress configuration agent todos"
 project_key: "wordpress-configuration-agent"

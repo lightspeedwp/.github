@@ -1,12 +1,11 @@
 ---
 file_type: markdown
-title: "Release Process Redesign Questionnaire"
-description: "50 questions to guide comprehensive release workflow and documentation redesign"
+title: ""Release Process Redesign Questionnaire""
+description: ""50 questions to guide comprehensive release workflow and documentation redesign""
+last_updated: "2026-08-25"
 status: active
-version: "1.0"
-last_updated: "2026-08-05"
-owners: ["Ash Shaw"]
 tags: ["questionnaire", "release", "design"]
+owners: ["Ash Shaw"]
 ---
 
 # Release Process Redesign Questionnaire

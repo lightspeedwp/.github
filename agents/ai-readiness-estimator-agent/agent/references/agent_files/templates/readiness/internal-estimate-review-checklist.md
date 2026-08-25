@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Internal Estimate Review Checklist
-audience: internal
-document_type: review-checklist
-status: template
-language: en-GB
+file_type: documentation
+title: "Internal Estimate Review Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Internal Estimate Review Checklist

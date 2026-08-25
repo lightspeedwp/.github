@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Master Preview QA Checklist
 document_type: preview_validation_master_checklist
 version: v0.1

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 📦 Epic
 about: Propose/manage a large, multi-part initiative or project grouping stories/features/tasks
 title: '[Epic] <Brief summary>'

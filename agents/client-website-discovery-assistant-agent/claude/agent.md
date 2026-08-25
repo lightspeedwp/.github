@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 provider: claude
 agent_slug: client-website-discovery-assistant
 agent_name: Client Website Discovery Assistant (Claude)
-status: production
+status: active
 version: 1.0.2
 created_date: '2026-07-22'
 last_updated: '2026-08-21'

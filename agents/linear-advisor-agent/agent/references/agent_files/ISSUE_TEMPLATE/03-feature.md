@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: "🚀 Feature"
 about: "Propose a net-new capability, enhancement, or workflow improvement."
 title: "[Feature] <Short summary>"

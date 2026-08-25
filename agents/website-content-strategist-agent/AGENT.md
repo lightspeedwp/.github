@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Website Content Strategist
 description: Content strategy and planning tool for audits, SEO optimization, and content calendar generation
 agent_id: agent-9

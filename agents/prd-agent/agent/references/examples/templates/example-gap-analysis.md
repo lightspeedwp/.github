@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: gap-analysis
 quality: strong
 ---

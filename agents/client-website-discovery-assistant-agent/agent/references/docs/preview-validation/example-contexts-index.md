@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Preview Validation Example Contexts Index
 document_type: preview_validation_index
 version: v0.5

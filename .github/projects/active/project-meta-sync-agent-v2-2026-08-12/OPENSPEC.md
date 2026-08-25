@@ -1,9 +1,9 @@
 ---
 file_type: openspec
-title: Project Meta Sync Agent v2 — OpenSpec Specification
-description: "Formal specification for modernizing the project-meta-sync agent to reflect current metadata governance workflows and integrate with Phase 3-4 and Phase 5A initiatives"
-version: 1.0.0
+title: "Project Meta Sync Agent v2 — OpenSpec Specification"
+description: ""Formal specification for modernizing the project-meta-sync agent to reflect current metadata governance workflows and integrate with Phase 3-4 and Phase 5A initiatives""
 created_date: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

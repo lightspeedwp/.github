@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: analyze-prompt unit tests
 description: Unit tests for the analyze-prompt skill
 version: 1.0.1

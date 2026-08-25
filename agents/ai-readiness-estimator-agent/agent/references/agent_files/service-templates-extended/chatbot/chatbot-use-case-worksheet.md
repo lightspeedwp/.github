@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-use-case-worksheet
-version: 1.0.1
+file_type: documentation
+title: "Chatbot Use Case Worksheet"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "label-prefix-enforcement-2026-08-05 — OpenSpec Specification"
-description: "Technical specification for label-prefix-enforcement-2026-08-05"
-version: 1.0.0
+title: ""label-prefix-enforcement-2026-08-05 — OpenSpec Specification""
+description: ""Technical specification for label-prefix-enforcement-2026-08-05""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

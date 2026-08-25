@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: TourOperator.solutions Repeatable Test Context
 project_name: TourOperator.solutions
 document_type: preview_validation_example

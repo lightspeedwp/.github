@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Pilot Assignment Sheet
-audience: internal
-document_type: uat-assignment-sheet
-status: template
-language: en-GB
+file_type: documentation
+title: "Pilot Assignment Sheet"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Pilot Assignment Sheet

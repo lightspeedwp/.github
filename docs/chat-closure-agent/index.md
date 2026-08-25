@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Chat Closure Agent Documentation
 description: Complete documentation for the Chat Closure Agent v1.0.0
 created_date: 2026-08-13T00:00:00.000Z

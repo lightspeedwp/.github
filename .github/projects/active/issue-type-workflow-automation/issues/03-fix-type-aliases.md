@@ -1,12 +1,9 @@
 ---
-issue_type: task
-title: "Fix 1.2: Add Missing Type Label Aliases"
-priority: high
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 1
-parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+file_type: documentation
+title: ""Fix 1.2: Add Missing Type Label Aliases""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Fix 1.2: Add Missing Type Label Aliases

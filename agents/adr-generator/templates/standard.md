@@ -1,14 +1,9 @@
 ---
-title:
-  TITLE: null
-date:
-  DATE: null
-status:
-  STATUS: null
-authors:
-  AUTHORS: null
-supersedes: null
-superseded-by: null
+file_type: documentation
+title: "TITLE: null"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 tags: []
 ---
 

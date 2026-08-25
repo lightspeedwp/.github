@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Build/CI PR
 about: Pipelines, linting, packaging, or release automation
 title: 'build(ci): {short summary}'

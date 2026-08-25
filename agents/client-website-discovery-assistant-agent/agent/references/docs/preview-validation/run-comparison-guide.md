@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Preview Run Comparison Guide
 document_type: preview_validation_comparison_guide
 version: v0.3

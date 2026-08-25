@@ -1,30 +1,11 @@
 ---
-name: AI Readiness Estimator
-description: Comprehensive AI capability assessment and readiness evaluation tool
-agent_id: agent-13
-agent_slug: ai-readiness-estimator
-agent_name: AI Readiness Estimator
-domain: ai-assessment
-focus: readiness-evaluation
-version: 1.0.1
+file_type: documentation
+title: "AGENT"
+description: "Comprehensive AI capability assessment and readiness evaluation tool"
 created_date: '2026-07-22'
-maintainer: LightSpeed Team
-license: GPL-3.0
-stability: stable
+last_updated: "2026-08-25"
 status: active
-providers:
-  - claude
-  - copilot
-  - openai
-capabilities:
-  - ai-capability-assessment
-  - workflow-analysis
-  - data-quality-analysis
-  - infrastructure-evaluation
-  - team-readiness-assessment
-  - implementation-roadmap
-tags:
-  - ai-assessment
+tags:- ai-assessment
   - ai-readiness
   - capability-assessment
   - infrastructure

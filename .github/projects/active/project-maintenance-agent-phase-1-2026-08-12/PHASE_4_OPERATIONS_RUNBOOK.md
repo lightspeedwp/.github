@@ -1,10 +1,10 @@
 ---
-title: Project Maintenance Agent — Operations Runbook
-description: Step-by-step procedures for common maintenance tasks and incident response
+file_type: documentation
+title: ""Project Maintenance Agent — Operations Runbook""
+description: ""Step-by-step procedures for common maintenance tasks and incident response""
 created_date: 2026-08-18
-last_updated: 2026-08-18
-status: operations
-phase: 4
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Maintenance Agent — Operations Runbook

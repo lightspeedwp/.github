@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🛡️ Audit
 about: Propose, conduct, or document a security, accessibility, code, or process audit.
 title: '[Audit] <Brief summary>'

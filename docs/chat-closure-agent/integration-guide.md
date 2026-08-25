@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Chat Closure Agent — Integration Guide
 description: How to integrate the Chat Closure Agent into other LightSpeedWP projects
 created_date: 2026-08-13T00:00:00.000Z

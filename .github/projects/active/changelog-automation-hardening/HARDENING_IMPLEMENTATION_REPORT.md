@@ -1,7 +1,9 @@
 ---
-title: "Changelog Automation Hardening — Implementation Report"
-date: "2026-07-24"
-status: "complete"
+file_type: documentation
+title: ""Changelog Automation Hardening — Implementation Report""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Changelog Automation Hardening — Implementation Report

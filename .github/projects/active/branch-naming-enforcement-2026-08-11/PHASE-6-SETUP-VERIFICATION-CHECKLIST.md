@@ -1,13 +1,10 @@
 ---
 file_type: checklist
-title: "Phase 6 Setup Verification Checklist — Branch Naming Enforcement"
-description: "Team member setup verification checklist for Phase 6 branch naming enforcement"
-version: 1.0.0
+title: ""Phase 6 Setup Verification Checklist — Branch Naming Enforcement""
+description: ""Team member setup verification checklist for Phase 6 branch naming enforcement""
 created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - Governance Team
-owner: Repository Governance
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Phase 6 Setup Verification Checklist

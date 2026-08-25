@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: quality-review
 quality: strong
 ---

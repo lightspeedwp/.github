@@ -1,14 +1,11 @@
 ---
 file_type: plan
-title: "Active Projects Documentation Update Plan 2026-08-12"
-description: "Comprehensive plan to add missing PLANNING.md and OPENSPEC.md documentation to all active projects"
-version: 1.0.0
+title: ""Active Projects Documentation Update Plan 2026-08-12""
+description: ""Comprehensive plan to add missing PLANNING.md and OPENSPEC.md documentation to all active projects""
 created_date: 2026-08-12
-last_updated: 2026-08-12
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
+last_updated: "2026-08-25"
+status: active
 tags: ["documentation", "projects", "action-plan", "critical"]
-domain: "governance"
 ---
 
 # Active Projects Documentation Update Plan

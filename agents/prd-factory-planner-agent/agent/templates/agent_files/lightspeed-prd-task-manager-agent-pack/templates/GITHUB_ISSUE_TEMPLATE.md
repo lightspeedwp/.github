@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.0.1
 title: '[Issue Title]'
 date: YYYY-MM-DD

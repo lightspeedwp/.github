@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🔗 Integration
 about: Report or propose integration with external plugins, services, or APIs.
 title: '[Integration] <Short summary>'

@@ -1,10 +1,10 @@
 ---
 file_type: "documentation"
-title: GitHub Issues Templates for Phase 4
-description: Issue templates for Phase 4 sub-phases (#1406-#1411) ready for creation
-status: "ready"
+title: "GitHub Issues Templates for Phase 4"
+description: "Issue templates for Phase 4 sub-phases (#1406-#1411) ready for creation"
 created_date: "2026-08-07"
-last_updated: "2026-08-07"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Phase 4 GitHub Issue Templates

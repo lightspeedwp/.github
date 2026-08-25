@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "repository-restructuring-phase-1 — OpenSpec Specification"
-description: "Technical specification for repository-restructuring-phase-1"
-version: 1.0.0
+title: ""repository-restructuring-phase-1 — OpenSpec Specification""
+description: ""Technical specification for repository-restructuring-phase-1""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

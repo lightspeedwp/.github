@@ -1,10 +1,9 @@
 ---
-title: Reporting Agent v2 Phase 2 Week 1 — API Integration & Rate Limiting
-phase: Phase 2, Week 1
-status: in-progress
-start_date: 2026-08-19
-end_date: 2026-08-30
-assignee: ashleyshaw
+file_type: documentation
+title: "Reporting Agent v2 Phase 2 Week 1 — API Integration & Rate Limiting"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Reporting Agent v2 Phase 2 — Week 1 Implementation Plan

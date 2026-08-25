@@ -1,6 +1,8 @@
 ---
-template_id: detailed-solution-discovery-document
-version: 1.0.1
+file_type: documentation
+title: "Detailed Solution Discovery Document"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

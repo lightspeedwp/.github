@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 provider: copilot
 agent_slug: harvest-analytical
 agent_name: Harvest Analytical Agent (GitHub Copilot)
-status: production
+status: active
 version: 1.0.2
 created_date: '2026-07-22'
 last_updated: '2026-08-21'

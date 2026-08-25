@@ -1,8 +1,10 @@
 ---
-file_type: audit
-category: instructions
+file_type: instructions
+title: ""Phase 1 Instructions Audit 2026 07 22""
+description: ""Project documentation""
 created_date: 2026-07-22
-scope: phase-1-agent-standardization
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Instruction Files Audit — Phase 1

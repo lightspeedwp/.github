@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: planning-brief
 purpose: Create a structured planning brief before a full PRD.
 ---

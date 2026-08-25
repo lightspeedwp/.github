@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 provider: openai
 agent_slug: design-partner
 agent_name: Design Partner Agent (OpenAI)
-status: production
+status: active
 version: 1.0.2
 model_compatibility:
   - gpt-4-turbo

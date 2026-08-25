@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Capability Roadmap and Attached Skills Reference
 document_type: capability_roadmap
 purpose: Current-state roadmap for attached-skill usage, gaps, and future capability additions

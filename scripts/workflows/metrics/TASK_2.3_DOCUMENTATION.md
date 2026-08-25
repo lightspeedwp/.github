@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Metrics Agent Phase 2 — Task 2.3 GitHub Actions Workflow
 description: Documentation for GitHub Actions workflow integration and metrics collection orchestration
 type: documentation

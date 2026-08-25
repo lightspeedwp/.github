@@ -1,8 +1,11 @@
 ---
+file_type: agent
+title: "AI Readiness Estimator (OpenAI)"
+description: "AI Readiness Estimator (OpenAI)"
 provider: openai
 agent_slug: ai-readiness-estimator
 agent_name: AI Readiness Estimator (OpenAI)
-status: production
+status: active
 version: 1.0.2
 created_date: '2026-07-22'
 last_updated: '2026-08-21'

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Dependencies/Maintenance PR
 about: 'Routine upkeep: dependency bumps, lint/format, low-risk hygiene'
 title: 'chore(deps): {packages}'

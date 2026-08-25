@@ -1,10 +1,9 @@
 ---
-version: 1.0.0
-title: "Project Evidence Review Log"
-audience: "internal"
-document_type: "evidence-log"
-status: "template"
-language: "en-GB"
+file_type: documentation
+title: ""Project Evidence Review Log""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Evidence Review Log

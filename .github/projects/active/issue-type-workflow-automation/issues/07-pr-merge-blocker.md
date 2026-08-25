@@ -1,12 +1,9 @@
 ---
-issue_type: feature
-title: "Feature 2.1: Implement PR Merge Blocker (DoD Check)"
-priority: high
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 3.5
-parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+file_type: documentation
+title: ""Feature 2.1: Implement PR Merge Blocker (DoD Check)""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Feature 2.1: Implement PR Merge Blocker (DoD Check)

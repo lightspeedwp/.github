@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Missing Tests Saved Reply
 description: Prompt to add required tests to a PR or issue.
 category: Technical

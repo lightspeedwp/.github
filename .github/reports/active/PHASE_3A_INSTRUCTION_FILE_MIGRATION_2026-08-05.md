@@ -1,9 +1,10 @@
 ---
-file_type: migration-report
-title: Phase 3A Instruction File Migration Report
+file_type: instructions
+title: ""Phase 3A Instruction File Migration Report""
+description: ""Project documentation""
 created_date: 2026-08-05
-version: v1.0
-status: in-progress
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Phase 3A: Instruction File Migration Report

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: <estimate title>
 document_type: website_estimate
 status: <provisional|estimate_ready|custom_scope>

@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Commercial Assumptions Sheet
-audience: internal
-document_type: commercial-assumptions
-status: template
-language: en-GB
+file_type: documentation
+title: "Commercial Assumptions Sheet"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Commercial Assumptions Sheet

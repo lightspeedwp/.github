@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🐛 Bug report
 about: Report a bug to help us improve this WordPress project
 title: '[Bug] <Short description>'

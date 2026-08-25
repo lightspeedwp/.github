@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Website Scope Estimator
 description: Project estimation tool for feature scoping, effort estimation, and budget planning
 agent_id: agent-8

@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-source-suitability-checklist
-version: 1.0.0
+file_type: documentation
+title: "Chatbot Source Suitability Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

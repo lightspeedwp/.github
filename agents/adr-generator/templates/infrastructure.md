@@ -1,18 +1,10 @@
 ---
-title:
-  TITLE: null
-date:
-  DATE: null
-status:
-  STATUS: null
-authors:
-  AUTHORS: null
-infrastructure_tier:
-  INFRASTRUCTURE_TIER: null
-scalability_rating:
-  SCALABILITY_RATING: null
-tags:
-  - infrastructure
+file_type: documentation
+title: "TITLE: null"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
+tags:- infrastructure
   - architecture
 ---
 

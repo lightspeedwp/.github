@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Package Routing Decision Tree
-audience: internal
-document_type: routing-guide
-status: template
-language: en-GB
+file_type: documentation
+title: "Package Routing Decision Tree"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Package Routing Decision Tree

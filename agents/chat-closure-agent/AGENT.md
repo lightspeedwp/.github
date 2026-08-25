@@ -1,11 +1,12 @@
 ---
+file_type: documentation
 name: chat-closure-agent
 title: Chat Closure Agent
 description: Automate session handoff workflows across control-plane and WordPress repositories
 version: 1.0.1
 type: agent
 tier: 1
-status: production
+status: active
 providers:
   - claude
   - copilot

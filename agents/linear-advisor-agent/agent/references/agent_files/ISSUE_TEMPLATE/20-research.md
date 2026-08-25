@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: "🔍 Research"
 about: "Propose or document technical research, investigation, or exploratory work."
 title: "[Research] <Brief summary>"

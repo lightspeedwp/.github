@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Internal AI Readiness Cover Note
-audience: internal
-document_type: cover-note
-status: template
-language: en-GB
+file_type: documentation
+title: "Internal AI Readiness Cover Note"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Internal AI Readiness Cover Note

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 📚 Documentation
 about: Request new documentation or propose updates/clarifications to existing docs.
 title: '[Documentation] <Brief summary>'

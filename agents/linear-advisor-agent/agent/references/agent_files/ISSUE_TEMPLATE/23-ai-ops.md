@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🧠 AI Ops
 about: Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation.
 title: '[AI Ops] <Brief summary>'

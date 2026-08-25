@@ -1,9 +1,10 @@
 ---
 file_type: design-document
-title: Project Meta Sync Agent v2 — Design Decisions & Rationale
-description: "Architecture decisions, trade-offs, and rationale for agent v2 modernization"
-version: 1.0.0
+title: "Project Meta Sync Agent v2 — Design Decisions & Rationale"
+description: ""Architecture decisions, trade-offs, and rationale for agent v2 modernization""
 created_date: 2026-08-12
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Design Decisions & Rationale

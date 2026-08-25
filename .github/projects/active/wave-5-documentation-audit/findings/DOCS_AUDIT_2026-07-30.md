@@ -1,7 +1,9 @@
 ---
-title: "Documentation Audit Findings — 2026-07-30"
-date: "2026-07-30"
-type: "audit"
+file_type: documentation
+title: ""Documentation Audit Findings — 2026-07-30""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Documentation Audit Report

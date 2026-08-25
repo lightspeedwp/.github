@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Repeatable Preview Test Prompts
 document_type: preview_validation_prompt_library
 version: v0.3

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Code Style Saved Reply
 description: Feedback on code style or formatting in PRs or issues.
 category: Technical

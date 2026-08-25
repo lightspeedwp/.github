@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: "🧪 Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
 title: "[Test Coverage] <Short summary>"

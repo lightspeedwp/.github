@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🧩 Compatibility
 about: Track browser/device/WordPress/plugin compatibility issues.
 title: '[Compatibility] <Brief summary>'

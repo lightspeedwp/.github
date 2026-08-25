@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: ⚡ Performance
 about: Report performance-related issues (speed, efficiency, resource usage) or propose optimizations.
 title: '[Performance] <Short summary>'

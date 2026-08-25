@@ -1,18 +1,10 @@
 ---
-provider: copilot
-agent_slug: ai-readiness-estimator
-agent_name: AI Readiness Estimator (GitHub Copilot)
-status: production
-version: 1.0.2
+file_type: documentation
+title: "Agent"
+description: "Project documentation"
 created_date: '2026-07-22'
-last_updated: '2026-08-21'
-platform: github
-integration: copilot-chat
-context_awareness:
-  - github-issues
-  - github-discussions
-  - pull-requests
-  - repository-files
+last_updated: "2026-08-25"
+status: active
 ---
 
 # AI Readiness Estimator — GitHub Copilot Implementation

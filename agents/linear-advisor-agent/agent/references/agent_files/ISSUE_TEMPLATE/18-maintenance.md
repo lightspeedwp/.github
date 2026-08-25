@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: 🧹 Maintenance
 about: Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks
 title: '[Maintenance] <Brief summary of the maintenance or chore>'

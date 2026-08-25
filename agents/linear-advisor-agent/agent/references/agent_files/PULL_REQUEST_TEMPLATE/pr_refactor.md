@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Refactor PR
 about: Internal code improvement; no external behaviour change
 title: 'refactor: {scope}'

@@ -1,10 +1,10 @@
 ---
-file_type: handoff
-title: ADR Agent Phase 2 Continuation Prompt
-description: Complete copy-paste prompt for continuing Phase 2 implementation + merge status
-version: 2.0.0
+file_type: prompt
+title: ""ADR Agent Phase 2 Continuation Prompt""
+description: ""Complete copy-paste prompt for continuing Phase 2 implementation + merge status""
 created_date: 2026-08-18
-last_updated: 2026-08-18
+last_updated: "2026-08-25"
+status: active
 ---
 
 # ADR Agent Phase 2 Continuation — Complete Context

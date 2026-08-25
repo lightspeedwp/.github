@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "issue-type-workflow-automation — OpenSpec Specification"
-description: "Technical specification for issue-type-workflow-automation"
-version: 1.0.0
+title: ""issue-type-workflow-automation — OpenSpec Specification""
+description: ""Technical specification for issue-type-workflow-automation""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

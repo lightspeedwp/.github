@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: project-status-update
 purpose: Create a concise and decision-useful project status update.
 ---

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.0.1
 title: Bicycling Beyond the Bike - Assumptions and Risks
 date: '2026-07-01'

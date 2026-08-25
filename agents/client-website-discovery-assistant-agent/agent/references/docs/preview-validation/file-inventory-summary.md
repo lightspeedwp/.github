@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Preview Validation File Inventory Summary
 document_type: preview_validation_inventory
 version: v0.2

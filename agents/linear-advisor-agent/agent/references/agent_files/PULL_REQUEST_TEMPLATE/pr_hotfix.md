@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Hotfix PR
 about: Critical fixes for production issues
 title: 'fix: {short summary}'

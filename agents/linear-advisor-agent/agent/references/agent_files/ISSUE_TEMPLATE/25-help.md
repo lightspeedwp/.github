@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: ❓ Help / Support
 about: Submit your WordPress-related questions or support requests.
 title: '[Help] <Short summary>'

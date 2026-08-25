@@ -1,13 +1,11 @@
 ---
 file_type: documentation
-title: "Release Process Redesign Project"
-description: "Complete audit, redesign, and implementation of release workflow, documentation, and governance"
-status: complete
-version: "2.0"
-last_updated: "2026-08-22"
-owners: ["Ash Shaw"]
+title: ""Release Process Redesign Project""
+description: ""Complete audit, redesign, and implementation of release workflow, documentation, and governance""
+last_updated: "2026-08-25"
+status: active
 tags: ["release", "automation", "documentation", "project"]
-category: "release-engineering"
+owners: ["Ash Shaw"]
 ---
 
 # Release Process Redesign Project

@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 provider: openai
 agent_slug: proposal-desk
 agent_name: Proposal Desk Agent (OpenAI)
-status: production
+status: active
 version: 1.0.2
 created_date: '2026-07-22'
 last_updated: '2026-08-21'
