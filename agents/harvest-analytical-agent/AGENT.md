@@ -1,37 +1,3 @@
----
-name: Harvest Analytical Agent
-description: Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation
-agent_id: agent-12
-agent_slug: harvest-analytical
-agent_name: Harvest Analytical Agent
-domain: analytics
-focus: time-tracking-analysis
-version: 1.0.1
-created_date: '2026-07-22'
-maintainer: LightSpeed Team
-license: GPL-3.0
-stability: stable
-status: active
-providers:
-  - claude
-  - copilot
-  - openai
-capabilities:
-  - time-tracking-analysis
-  - project-profitability-analysis
-  - team-productivity-metrics
-  - budget-tracking
-  - report-generation
-  - billing-generation
-tags:
-  - analytics
-  - harvest
-  - time-tracking
-  - profitability
-  - budgeting
-  - billing
----
-
 # Harvest Analytical Agent
 
 ## Overview

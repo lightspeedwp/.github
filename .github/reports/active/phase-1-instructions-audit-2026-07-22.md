@@ -1,10 +1,3 @@
----
-file_type: audit
-category: instructions
-created_date: 2026-07-22
-scope: phase-1-agent-standardization
----
-
 # Instruction Files Audit — Phase 1
 
 **Objective:** Review existing instruction files to identify conflicts with multi-provider agent standards.

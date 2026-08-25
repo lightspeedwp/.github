@@ -1,12 +1,3 @@
----
-name: 🧠 AI Ops
-about: Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation.
-title: '[AI Ops] <Brief summary>'
-labels:
-  - status:needs-triage
-  - area:ai
----
-
 ## AI Ops Summary
 
 <!-- Describe the AI workflow, agent, or dataset involved. -->

@@ -1,12 +1,3 @@
----
-file_type: documentation
-name: Issue Triage & Template Application Guide
-about: Procedures for manually applying issue templates and bulk template application runbooks
-version: 1.0.1
-last_updated: '2026-08-21'
-category: operations
----
-
 # Issue Triage & Template Application Guide
 
 **Role:** Team members and automation systems responsible for issue triage, template enforcement, and bulk issue template application.

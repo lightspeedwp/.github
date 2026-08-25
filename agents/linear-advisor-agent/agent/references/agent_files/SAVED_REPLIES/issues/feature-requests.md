@@ -4,10 +4,6 @@ description: Replies for feature requests, enhancements, and new functionality. 
 category: Issue Management
 labels:
   - status:needs-triage
-references:
-  - ../ISSUE_LABELS.md
-  - ../ISSUE_TYPES.md
-  - ../../CONTRIBUTING.md
 ---
 
 # Feature Request Saved Replies

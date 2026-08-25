@@ -1,10 +1,3 @@
----
-title: Code Style Saved Reply
-description: Feedback on code style or formatting in PRs or issues.
-category: Technical
-labels: null
----
-
 # Code Style Saved Reply
 
 ## Code Style/Formatting Feedback

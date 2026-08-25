@@ -1,21 +1,3 @@
----
-title: ADR Configuration Reference
-description: Complete field reference for .adr-config.json
-file_type: documentation
-created_date: 2026-08-12T00:00:00.000Z
-last_updated: '2026-08-21'
-owners:
-  - LightSpeed Team
-tags:
-  - adr
-  - configuration
-  - reference
-status: active
-stability: stable
-domain: infrastructure
-language: en
----
-
 # ADR Configuration Reference
 
 Complete field-by-field documentation for `.adr-config.json` configuration.

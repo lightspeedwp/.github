@@ -1,20 +1,3 @@
----
-file_type: training-guide
-title: Phase 5A Agentic Release Workflow — Team Training
-name: agentic-release-team-training
-description: 60-minute team training session for the Phase 5A agentic release workflow MVP. Covers dry-run demonstrations, live patch releases, approval procedures, and team Q&A.
-author: Claude Code
-date_created: 2026-08-18T00:00:00.000Z
-status: active
-type: training-guide
-category: releases
-tags:
-  - agentic-release
-  - phase-5a
-  - team-training
-  - workflow-demos
----
-
 # Phase 5A Agentic Release Workflow — Team Training
 
 **Duration:** 60 minutes

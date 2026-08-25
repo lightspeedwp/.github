@@ -1,9 +1,3 @@
----
-template_id: claim-register-template
-version: 1.0.1
-status: draft
----
-
 # Claim Register
 
 Use this register when intake introduces claims, sensitive assertions, or publication-risk statements.

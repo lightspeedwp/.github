@@ -1,12 +1,3 @@
----
-version: 1.0.1
-title: Pilot Assignment Sheet
-audience: internal
-document_type: uat-assignment-sheet
-status: template
-language: en-GB
----
-
 # Pilot Assignment Sheet
 
 Use this as a copy-ready message to assign pilot testing of the LightSpeed AI Readiness Estimator to internal team members.

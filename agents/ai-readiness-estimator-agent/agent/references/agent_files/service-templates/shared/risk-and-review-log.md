@@ -1,9 +1,3 @@
----
-template_id: risk-and-review-log
-version: 1.0.1
-status: draft
----
-
 # Risk and Review Log
 
 Track project risks across commercial, legal, privacy, security, technical, content, governance, QA, and support domains.

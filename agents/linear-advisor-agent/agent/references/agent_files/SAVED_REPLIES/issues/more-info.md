@@ -4,10 +4,6 @@ description: "Linear-first replies for requesting the missing context needed to 
 category: "Issue Management"
 labels:
   - status:needs-more-info
-references:
-  - "../../canonical/ISSUE_CREATION_GUIDE.md"
-  - "../../canonical/ISSUE_TYPES.md"
-  - "../../canonical/ISSUE_LABELS.md"
 ---
 
 # Needs More Information Saved Replies

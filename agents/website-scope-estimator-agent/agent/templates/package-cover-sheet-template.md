@@ -1,11 +1,3 @@
----
-title: <package cover sheet title>
-document_type: package_cover_sheet
-status: <draft|confirmed>
-date: <YYYY-MM-DD>
-package: <package name>
----
-
 # Package Cover Sheet
 
 ## Package Snapshot

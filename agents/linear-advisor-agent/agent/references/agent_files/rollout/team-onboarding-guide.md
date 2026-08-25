@@ -1,11 +1,3 @@
----
-title: Team Onboarding Guide
-document_type: onboarding_guide
-purpose: Help LightSpeed teammates start using the current Linear-first advisor quickly and consistently.
-audience: Internal LightSpeed team members
-status: Ready for pilot
----
-
 # Team Onboarding Guide
 
 ---

@@ -1,11 +1,3 @@
----
-version: 1.0.1
-title: NovaNews Reporter Dashboard Active Context
-date: '2026-06-18'
-timezone: Europe/Berlin
-status: active
----
-
 # NovaNews Reporter Dashboard Active Context
 
 ## Current Focus

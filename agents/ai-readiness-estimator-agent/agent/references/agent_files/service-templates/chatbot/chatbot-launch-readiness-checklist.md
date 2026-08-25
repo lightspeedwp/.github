@@ -1,9 +1,3 @@
----
-template_id: chatbot-launch-readiness-checklist
-version: 1.0.1
-status: draft
----
-
 # Chatbot Launch Readiness Checklist
 
 ## Client

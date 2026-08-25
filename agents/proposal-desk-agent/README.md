@@ -1,22 +1,3 @@
----
-file_type: 'documentation'
-title: 'Proposal Desk Agent'
-description: 'Multi-provider AI proposal and quote generation assistant for professional sales documents'
-version: '1.0.0'
-created_date: '2026-07-22'
-last_updated: "2026-08-19"
-maintainer: 'LightSpeed Team'
-stability: 'stable'
-domain: 'proposals'
-focus: 'proposal-generation'
-tags:
-  - proposals
-  - quotes
-  - project-scoping
-  - billing
-  - templates
----
-
 # Proposal Desk Agent
 
 **Multi-provider AI assistant for generating professional proposals, quotes, and project scopes.**

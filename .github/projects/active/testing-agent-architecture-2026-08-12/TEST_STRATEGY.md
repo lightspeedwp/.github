@@ -1,10 +1,3 @@
----
-title: "Test Strategy — Testing Agent Architecture"
-description: "Unit, integration, and E2E testing plan with coverage targets"
-status: planning
-created_date: "2026-08-12"
----
-
 # Test Strategy — Testing Agent Architecture
 
 ## Overview

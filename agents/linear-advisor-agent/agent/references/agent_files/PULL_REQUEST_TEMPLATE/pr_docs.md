@@ -1,10 +1,3 @@
----
-name: "Docs-only PR"
-about: "Documentation updates: READMEs, guides, contributor docs"
-title: "docs: {short summary}"
-labels: ["status:needs-review", "lang:md", "area:documentation"]
----
-
 # Documentation Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

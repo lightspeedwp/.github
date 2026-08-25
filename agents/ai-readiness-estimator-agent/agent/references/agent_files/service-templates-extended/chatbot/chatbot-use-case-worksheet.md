@@ -1,9 +1,3 @@
----
-template_id: chatbot-use-case-worksheet
-version: 1.0.1
-status: draft
----
-
 # Chatbot Use‑Case Worksheet
 
 ## Client

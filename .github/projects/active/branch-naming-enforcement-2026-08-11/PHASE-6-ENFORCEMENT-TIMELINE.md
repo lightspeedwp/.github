@@ -1,15 +1,3 @@
----
-file_type: timeline
-title: "Phase 6 Enforcement Timeline — Branch Naming Rollout Schedule"
-description: "Day-by-day timeline for Phase 6 branch naming enforcement rollout and go-live"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - Governance Team
-owner: Repository Governance
----
-
 # Phase 6 Enforcement Timeline
 
 **Start Date:** August 12, 2026 (Grace Period Opens)  

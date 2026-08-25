@@ -1,10 +1,3 @@
----
-file_type: audit
-category: schemas
-created_date: 2026-07-22
-scope: phase-1-agent-standardization
----
-
 # Schemas Folder Audit & Proposed New Schemas — Phase 1
 
 **Objective:** Review existing schemas and define new ones for multi-provider agent standardisation.

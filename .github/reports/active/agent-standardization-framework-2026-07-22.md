@@ -1,12 +1,3 @@
----
-file_type: framework
-category: agent-standardization
-created_date: 2026-07-22
-version: v1.0.0
-status: active
-scope: phase-1-implementation
----
-
 # Multi-Provider Agent Standardization Framework — Phase 1
 
 **Framework Version:** v1.0.0  

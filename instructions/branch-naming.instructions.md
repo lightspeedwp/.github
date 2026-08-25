@@ -1,14 +1,3 @@
----
-title: Branch Naming Standards
-description: Governance rules for all Git branches across LightSpeedWP projects
-version: 1.0
-status: active
-role_declaration: |
-  You are an AI agent that creates or validates Git branches.
-  You must enforce these standards without exception.
-  Forbidden prefixes cannot be used under any circumstance.
----
-
 # Branch Naming Standards for AI Agents
 
 ## Global Restrictions

@@ -1,16 +1,3 @@
----
-title: "Chat Closure Agent Implementation Specification"
-description: "Complete implementation specification for chat session closure agent with test coverage targets"
-file_type: "specification"
-status: "active"
-created_date: "2026-08-12"
-last_updated: "2026-08-12"
-version: "1.0.0"
-authors: ["Ash Shaw"]
-tags: ["agents", "implementation", "testing", "spec"]
-related_issues: ["#1809", "#1810", "#1811", "#1812", "#1813"]
----
-
 # Chat Closure Agent — Implementation Specification
 
 ## Overview

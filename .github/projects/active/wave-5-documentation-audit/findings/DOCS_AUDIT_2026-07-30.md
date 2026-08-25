@@ -1,9 +1,3 @@
----
-title: "Documentation Audit Findings — 2026-07-30"
-date: "2026-07-30"
-type: "audit"
----
-
 # Documentation Audit Report
 
 **Audit Date:** 2026-07-30  

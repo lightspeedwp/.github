@@ -1,9 +1,3 @@
----
-template_id: content-workflow-audit-checklist
-version: 1.0.0
-status: draft
----
-
 # Content and Workflow Audit Checklist
 
 Use this checklist to evaluate the current state of content assets and workflows as part of an AI readiness assessment.

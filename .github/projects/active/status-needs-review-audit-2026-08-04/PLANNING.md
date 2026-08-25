@@ -1,25 +1,3 @@
----
-file_type: planning
-title: "status-needs-review-audit-2026-08-04 — Planning & Specification"
-description: "Project planning document with objectives, phases, deliverables, and GitHub issue references"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - Author Name
-owner: Owner Name/Team
-maintainer: Maintainer Name
-tags:
-  - planning
-  - specification
-  - project
-domain: "domain-name"
-status: "planning|active|blocked|paused|complete"
-related_issues:
-  - "#ISSUE_NUMBER — Issue Title"
-  - "#ISSUE_NUMBER — Issue Title"
----
-
 # status-needs-review-audit-2026-08-04 — Planning & Specification
 
 **Status:** 🟡 Active | **Owner:** Owner Name | **Last Updated:** 2026-08-12

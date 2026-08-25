@@ -1,8 +1,3 @@
----
-example_for: quality-review
-quality: strong
----
-
 # Quality review
 
 ## Overall assessment

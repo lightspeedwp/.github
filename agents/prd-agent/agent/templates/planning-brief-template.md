@@ -1,8 +1,3 @@
----
-template: planning-brief
-purpose: Create a structured planning brief before a full PRD.
----
-
 # Planning brief
 
 ## Context

@@ -1,13 +1,3 @@
----
-file_type: openspec
-title: "phase-2b-skills-audit — OpenSpec Specification"
-description: "Technical specification for phase-2b-skills-audit"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-status: draft
----
-
 # phase-2b-skills-audit — OpenSpec Specification
 
 See [PLANNING.md](./PLANNING.md) for project specifications.

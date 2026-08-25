@@ -1,9 +1,3 @@
----
-template_id: integration-requirements-template
-version: 1.0.1
-status: draft
----
-
 # Integration Requirements Template
 
 ## Client

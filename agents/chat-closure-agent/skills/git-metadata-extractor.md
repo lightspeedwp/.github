@@ -1,20 +1,3 @@
----
-name: git-metadata-extractor
-description: Extract git metadata (commits, branch, issues) for handoff context
-version: 1.0.1
-created_date: 2026-08-12T00:00:00.000Z
-last_updated: '2026-08-21'
-file_type: documentation
-authors:
-  - Ash Shaw
-maintainer: Ash Shaw
-tags:
-  - git
-  - metadata
-  - extraction
-  - handoff
----
-
 # Git Metadata Extractor Skill
 
 ## Overview

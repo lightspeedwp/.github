@@ -4,8 +4,6 @@ description: "Linear-first escalation guidance for confidential or sensitive sec
 category: "Issue Management"
 labels:
   - status:needs-triage
-references:
-  - "../../canonical/ISSUE_CREATION_GUIDE.md"
 ---
 
 # Security Issue Acknowledgement Saved Replies

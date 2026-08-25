@@ -1,12 +1,3 @@
----
-title: Linting Agent Implementation Plan
-description: Phase 2 detailed implementation specification for the portable linting agent
-version: v1.0
-status: specification
-created: 2026-08-12
-phase: 2-implementation
----
-
 # Linting Agent Implementation Plan — Phase 2 (OpenSpec)
 
 **Project:** Portable Linting Agent for LightSpeedWP  

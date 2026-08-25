@@ -1,11 +1,3 @@
----
-file_type: migration-report
-title: Phase 3A Instruction File Migration Report
-created_date: 2026-08-05
-version: v1.0
-status: in-progress
----
-
 # Phase 3A: Instruction File Migration Report
 
 **Initiative:** Repository Restructuring #1299  

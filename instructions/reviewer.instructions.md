@@ -7,9 +7,6 @@ apply_to: .github/workflows/reviewer.yml, ai-pr-reviewer.yml, reviewer agent
 last_updated: '2026-08-21'
 owners:
   - LightSpeed Engineering
-references:
-  - ./workflows.instructions.md
-  - ../agents/reviewer.agent.js
 ---
 
 # Mission

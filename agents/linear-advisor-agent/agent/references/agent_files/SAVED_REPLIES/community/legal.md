@@ -5,9 +5,6 @@ category: Community
 labels:
   - area:legal
   - status:needs-triage
-references:
-  - ../../LICENSE
-  - ../../CONTRIBUTING.md
 ---
 
 # License and Legal Saved Reply

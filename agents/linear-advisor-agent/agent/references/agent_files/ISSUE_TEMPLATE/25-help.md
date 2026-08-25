@@ -1,13 +1,3 @@
----
-name: ❓ Help / Support
-about: Submit your WordPress-related questions or support requests.
-title: '[Help] <Short summary>'
-labels:
-  - question
-  - support
-  - status:needs-triage
----
-
 <!--
 Thank you for reaching out! This form is for general questions or support requests related to WordPress usage, configuration, or integration with this project.
 If your issue is a bug report or a feature/enhancement request, please use the appropriate template instead.

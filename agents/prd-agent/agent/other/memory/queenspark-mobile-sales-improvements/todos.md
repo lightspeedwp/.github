@@ -1,10 +1,3 @@
----
-version: 1.1.1
-title: Queenspark Ecommerce Rebuild Todos
-date: '2026-07-01'
-timezone: Europe/Berlin
-status: draft
----
 # Queenspark Ecommerce Rebuild Todos
 
 ## Next Actions

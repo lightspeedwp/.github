@@ -1,8 +1,3 @@
----
-template: project-intake-summary
-purpose: Turn mixed planning inputs into a grounded intake summary.
----
-
 # Project intake summary
 
 ## Request summary

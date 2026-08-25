@@ -5,9 +5,6 @@ category: Technical Support
 labels:
   - area:api
   - status:needs-triage
-references:
-  - ../../instructions/api-integration.md
-  - ../../CONTRIBUTING.md
 ---
 
 # API Integration Support Saved Reply

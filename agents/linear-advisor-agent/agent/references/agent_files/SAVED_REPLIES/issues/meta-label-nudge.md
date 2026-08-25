@@ -5,9 +5,6 @@ category: "Issue Management"
 labels:
   - meta:needs-changelog
   - meta:triage
-references:
-  - "../ISSUE_LABELS.md"
-  - "../../CONTRIBUTING.md"
 ---
 
 # Meta/Automation Label Nudge Saved Replies

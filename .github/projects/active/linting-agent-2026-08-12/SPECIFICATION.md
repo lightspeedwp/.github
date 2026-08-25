@@ -1,15 +1,3 @@
----
-title: Linting Agent Specification
-description: Portable, organisation-wide linting agent for enforcing code quality standards across multiple file types and languages
-version: v1.0-draft
-status: active-specification
-created: 2026-08-12
-last_updated: 2026-08-12
-owners:
-  - LightSpeedWP/maintainers
-maintainer: Ash Shaw
----
-
 # Linting Agent Specification — OpenSpec Phase
 
 **Project Scope:** Design and implement a portable, organisation-wide linting agent that enforces code quality standards across the GitHub organisation (control plane, WordPress plugins, WordPress themes, and other repositories).

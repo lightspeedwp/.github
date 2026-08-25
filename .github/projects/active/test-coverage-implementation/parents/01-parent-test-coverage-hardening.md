@@ -1,17 +1,3 @@
----
-file_type: documentation
-title: "[EPIC] Test Coverage Implementation Programme"
-description: "Parent epic for expanding repository test coverage to 80%+ before release."
-version: "1.0.0"
-last_updated: "2026-06-08"
-owners: ["Ash"]
-tags: ["testing", "coverage", "opsx", "epic"]
-issue_number: 932
-status: active
-stability: stable
-domain: quality
----
-
 # [EPIC] Test Coverage Implementation Programme
 
 ## OPSX Parent Spec

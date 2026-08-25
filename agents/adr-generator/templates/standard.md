@@ -1,17 +1,3 @@
----
-title:
-  TITLE: null
-date:
-  DATE: null
-status:
-  STATUS: null
-authors:
-  AUTHORS: null
-supersedes: null
-superseded-by: null
-tags: []
----
-
 # {TITLE}
 
 **Date:** {DATE}  

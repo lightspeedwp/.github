@@ -1,13 +1,3 @@
----
-file_type: openspec
-title: "wave-5-documentation-audit — OpenSpec Specification"
-description: "Technical specification for wave-5-documentation-audit"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-status: draft
----
-
 # wave-5-documentation-audit — OpenSpec Specification
 
 See [PLANNING.md](./PLANNING.md) for project specifications.

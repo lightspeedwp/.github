@@ -1,9 +1,3 @@
----
-template_id: release-and-rollback-checklist
-version: 1.0.1
-status: draft
----
-
 # Release and Rollback Checklist
 
 ## Client

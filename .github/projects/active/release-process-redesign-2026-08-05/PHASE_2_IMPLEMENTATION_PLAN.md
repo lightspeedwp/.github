@@ -1,13 +1,3 @@
----
-file_type: markdown
-title: Phase 2 Implementation Plan — Major Issues
-status: active
-version: "1.0"
-last_updated: "2026-08-06"
-owners: ["Ash Shaw"]
-tags: ["release", "phase-2", "major", "implementation"]
----
-
 # Phase 2 Implementation Plan — Major Issues
 
 **Objective:** Fix seven major release process issues that improve automation, validation, and user safety.

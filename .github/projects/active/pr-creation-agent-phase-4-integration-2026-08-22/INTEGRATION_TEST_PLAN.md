@@ -1,12 +1,3 @@
----
-file_type: project-documentation
-title: Phase 4 Integration Test Plan
-description: Comprehensive integration test strategy for PR Creation Agent Phase 3 skills
-version: "1.0"
-last_updated: "2026-08-22"
-category: pr-creation-agent
----
-
 # Phase 4: Integration Test Plan
 
 **Issue:** #2304  

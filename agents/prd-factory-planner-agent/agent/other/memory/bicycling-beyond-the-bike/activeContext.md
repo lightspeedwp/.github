@@ -1,10 +1,3 @@
----
-version: "1.0.0"
-title: "Bicycling Beyond the Bike - Active Context"
-date: "2026-07-01"
-timezone: "Europe/Berlin"
-status: "active"
----
 # Bicycling Beyond the Bike - Active Context
 
 ## Current Focus

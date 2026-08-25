@@ -1,12 +1,3 @@
----
-version: 1.0.1
-title: Package Routing Decision Tree
-audience: internal
-document_type: routing-guide
-status: template
-language: en-GB
----
-
 # Package Routing Decision Tree
 
 Use this guide to choose the most appropriate LightSpeed base package before evaluating any add-ons.

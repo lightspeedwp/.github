@@ -1,9 +1,3 @@
----
-template_id: claim-register
-version: 1.0.1
-status: draft
----
-
 # Claim Register
 
 Track all statements about service capabilities, AI outcomes, compliance, pricing, timelines, and other claims made during the project.

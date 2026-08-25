@@ -4,8 +4,6 @@ description: Explains why specific labels were applied, changed, or removed, and
 category: Issue Management
 labels:
   - status:needs-triage
-references:
-  - ../ISSUE_LABELS.md
 ---
 
 # Label Clarification Saved Replies

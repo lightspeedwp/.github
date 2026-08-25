@@ -1,8 +1,3 @@
----
-template: estimate-pack
-purpose: Produce a reliable estimate only when planning is estimate-ready.
----
-
 # Estimate pack
 
 ## Estimate basis

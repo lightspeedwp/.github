@@ -1,9 +1,3 @@
----
-template_id: post-workshop-action-plan
-version: 1.0.1
-status: draft
----
-
 # Post‑Workshop Action Plan
 
 Use this template to document the actions agreed upon at the conclusion of a governance workshop.  

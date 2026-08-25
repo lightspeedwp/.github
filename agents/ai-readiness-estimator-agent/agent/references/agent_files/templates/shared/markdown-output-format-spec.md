@@ -1,12 +1,3 @@
----
-version: 1.0.1
-title: Markdown Output Format Spec
-audience: internal
-document_type: format-spec
-status: active
-language: en-GB
----
-
 # Markdown Output Format Spec
 
 Use this specification when producing reusable Markdown-source outputs for the LightSpeed AI Readiness Estimator.

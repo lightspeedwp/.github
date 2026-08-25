@@ -1,15 +1,3 @@
----
-file_type: markdown
-title: "Prepopulated Questionnaire — Release Process Redesign"
-description: "Complete questionnaire with recommended best-practice answers (single-decision-maker model, develop-first flow, multi-repo support)"
-status: active
-version: "1.0"
-last_updated: "2026-08-05"
-owners: ["Ash Shaw"]
-tags: ["questionnaire", "release", "design", "answers"]
-notes: "Prepopulated for organization-wide release process covering .github control plane + WordPress plugin/theme repos with portable agents"
----
-
 # Release Process Redesign Questionnaire
 
 **PREPOPULATED VERSION WITH RECOMMENDED ANSWERS**

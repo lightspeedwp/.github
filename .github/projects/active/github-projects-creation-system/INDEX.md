@@ -1,23 +1,3 @@
----
-title: "GitHub Projects Creation System"
-description: "Bulk project creation from CSV fixtures with template-driven field initialization for Client Delivery and Product Development project types."
-file_type: "project-tracking"
-status: "planning"
-version: "v1.0"
-created_date: "2026-07-23"
-last_updated: "2026-07-23"
-authors: ["LightSpeed Team"]
-maintainer: "Ash Shaw"
-owner: "AI Ops Team"
-milestone: "v1.0"
-epic_issue: "#[TBD]"
-child_issues:
-  - story_a: "#[TBD] Initialize Client Delivery Project Template"
-  - story_b: "#[TBD] Initialize Product Development Project Template"
-tags: ["projects", "automation", "github-api", "workflow", "templates"]
-domain: "governance"
----
-
 # GitHub Projects Creation System — Planning Index
 
 **Project Phase**: Planning → Ready for Implementation  

@@ -1,22 +1,3 @@
----
-name: adr-discovery
-description: Find the next available ADR number based on configured numbering format
-category: utilities
-tags:
-  - discovery
-  - numbering
-  - filename-generation
-file_type: skill
-created_date: 2026-08-18T00:00:00.000Z
-last_updated: '2026-08-21'
-owners:
-  - LightSpeed Team
-status: active
-stability: beta
-domain: infrastructure
-language: en
----
-
 # ADR Discovery Skill
 
 Locates the next available ADR number and generates filenames for new architectural decision records.

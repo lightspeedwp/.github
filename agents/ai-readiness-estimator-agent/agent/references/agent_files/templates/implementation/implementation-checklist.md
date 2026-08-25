@@ -1,9 +1,3 @@
----
-template_id: implementation-checklist
-version: 1.0.1
-status: draft
----
-
 # Master Implementation Checklist
 
 This checklist provides a modular framework for implementing AI solutions across governance, readiness, search, chatbot, and integration modules.  

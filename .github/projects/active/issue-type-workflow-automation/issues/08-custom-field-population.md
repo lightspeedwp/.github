@@ -1,14 +1,3 @@
----
-issue_type: feature
-title: "Feature 2.2: Auto-Populate Custom Fields"
-priority: high
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 4.5
-parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
----
-
 # Feature 2.2: Auto-Populate Custom Fields
 
 ## Problem

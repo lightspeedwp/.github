@@ -1,13 +1,3 @@
----
-version: 1.1.1
-title: 'Team Testing Guide: LightSpeed AI Readiness Estimator'
-audience: internal
-document_type: team-testing-guide
-status: active
-language: en-GB
-agent_name: LightSpeed AI Readiness Estimator
----
-
 # Team Testing Guide: LightSpeed AI Readiness Estimator
 
 Use this guide to run a focused pilot of the LightSpeed AI Readiness Estimator with internal testers from strategy, delivery, content, technical SEO, and project leadership roles.

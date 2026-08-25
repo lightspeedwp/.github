@@ -1,12 +1,3 @@
----
-name: Feature PR
-about: New features or enhancements
-title: 'feat: {short summary}'
-labels:
-  - status:needs-review
-  - area:feature
----
-
 # Feature Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

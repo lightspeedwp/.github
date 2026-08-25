@@ -1,11 +1,3 @@
----
-title: Linting Agent — Test Plan
-description: Comprehensive test strategy, test cases, and coverage requirements
-phase: Phase 3 (Testing)
-status: planning
-created: 2026-08-12
----
-
 # Linting Agent Test Plan
 
 **Target Coverage:** ≥ 95%  

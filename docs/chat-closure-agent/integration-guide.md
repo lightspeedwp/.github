@@ -1,16 +1,3 @@
----
-title: Chat Closure Agent — Integration Guide
-description: How to integrate the Chat Closure Agent into other LightSpeedWP projects
-created_date: 2026-08-13T00:00:00.000Z
-last_updated: '2026-08-21'
-author: Claude Code
-tags:
-  - integration
-  - deployment
-  - multi-project
-  - wordpress
----
-
 # Chat Closure Agent — Integration Guide
 
 **Integrate the Chat Closure Agent into control-plane, WordPress plugins, and WordPress themes.**

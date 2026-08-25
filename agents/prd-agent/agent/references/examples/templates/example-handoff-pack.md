@@ -1,8 +1,3 @@
----
-example_for: handoff-pack
-quality: strong
----
-
 # Handoff pack
 
 ## Delivery context

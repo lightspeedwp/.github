@@ -1,12 +1,3 @@
----
-file_type: report
-title: "Phase 3: OpenSpec RFC Index for 22 Incomplete Projects (2026-08-07)"
-description: "Executive summary and strategic overview of OpenSpec RFCs for all incomplete active projects"
-created_date: "2026-08-07"
-last_updated: "2026-08-07"
-status: complete
----
-
 # Phase 3: OpenSpec RFC Generation Complete
 
 **Status:** ✅ Phase 3 Complete  

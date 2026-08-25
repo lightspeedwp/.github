@@ -1,13 +1,3 @@
----
-title: "Tour Operator Website Planning and Checklists"
-source_title: "Tour Operator Websites - Planning & Checklists"
-source_url: "https://docs.google.com/document/d/16duPGCxtAEgljsEO5bnnmGv0AGMtGyGq57m297RQEWo/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_checklist"
-tab_handling: "single-page output from the provided source link"
----
-
 # Tour Operator Website Planning and Checklists
 
 > **How to use this file:** Complete the answer fields directly in Markdown. Tick any relevant checkbox with `[x]`. Defaults are suggested starting points only; replace them where the project needs something more specific.

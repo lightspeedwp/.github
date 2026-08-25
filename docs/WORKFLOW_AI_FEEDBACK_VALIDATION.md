@@ -1,10 +1,3 @@
----
-title: AI Feedback Validation Workflow
-description: Automated GitHub Actions workflow for validating AI feedback tracking in pull requests
-version: 1.0.1
-created_date: 2026-08-04T00:00:00.000Z
----
-
 # AI Feedback Validation Workflow
 
 Automated validation to ensure AI feedback is reviewed, considered, and tracked in pull requests before merge.

@@ -1,14 +1,3 @@
----
-file_type: scripts-inventory
-title: Phase 2A Complete Scripts Inventory & Classification
-created_date: 2026-08-04
-audit_date: 2026-08-04
-status: complete
-total_scripts_audited: 217
-total_scripts_classified: 164
-test_files_excluded: 53
----
-
 # Phase 2A: Complete Scripts Inventory & Classification
 
 **Audit Completed:** 2026-08-04

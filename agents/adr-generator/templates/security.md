@@ -1,20 +1,3 @@
----
-title:
-  TITLE: null
-date:
-  DATE: null
-status:
-  STATUS: null
-authors:
-  AUTHORS: null
-security_level:
-  SECURITY_LEVEL: null
-threat_category:
-  THREAT_CATEGORY: null
-tags:
-  - security
----
-
 # {TITLE}
 
 **Date:** {DATE}  

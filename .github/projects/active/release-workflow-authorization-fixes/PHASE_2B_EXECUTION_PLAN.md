@@ -1,14 +1,3 @@
----
-file_type: implementation-plan
-title: Phase 2B Execution Plan — Script Migration & Path Updates
-created_date: 2026-08-04
-phase_2a_reference: SCRIPTS_INVENTORY.md
-status: ready-to-execute
-owner: Ash Shaw (DevOps)
-timeline: v1.0 Weeks 1-2
-effort_hours: 16-20
----
-
 # Phase 2B: Script Migration & Path Updates
 
 **Status:** READY TO EXECUTE  

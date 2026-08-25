@@ -1,9 +1,3 @@
----
-template_id: detailed-solution-discovery-document
-version: 1.0.1
-status: draft
----
-
 # Detailed Solution Discovery Document
 
 This document is used to capture deep discovery information for complex or tailored AI implementations.  

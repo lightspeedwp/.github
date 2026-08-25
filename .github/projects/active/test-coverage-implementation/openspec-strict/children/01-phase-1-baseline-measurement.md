@@ -1,9 +1,3 @@
----
-name: "Phase 1 - Baseline Measurement"
-about: "Measure current coverage, open the HTML report, document gaps, and create the implementation checklist."
-labels: ["status:needs-review", "priority:critical", "type:audit", "area:quality", "area:testing"]
----
-
 ## Summary
 
 Establish the initial coverage baseline and turn the current coverage gap into a documented implementation checklist.

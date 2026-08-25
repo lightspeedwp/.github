@@ -1,9 +1,3 @@
----
-template_id: chatbot-source-suitability-checklist
-version: 1.0.0
-status: draft
----
-
 # Chatbot Source Suitability Checklist
 
 ## Client

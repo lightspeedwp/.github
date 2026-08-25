@@ -1,10 +1,3 @@
----
-title: "Phase 2: Rebuild Lost History — Merged PRs (May 24 — July 24, 2026)"
-description: "Reconstruction plan for changelog entries from 40+ merged PRs"
-created_date: "2026-07-24"
-file_type: "implementation-guide"
----
-
 # Phase 2: Rebuild Lost History
 
 ## Overview

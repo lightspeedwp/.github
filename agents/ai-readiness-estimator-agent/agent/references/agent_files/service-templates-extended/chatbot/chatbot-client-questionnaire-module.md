@@ -1,9 +1,3 @@
----
-template_id: chatbot-client-questionnaire-module
-version: 1.0.1
-status: draft
----
-
 # Chatbot Client Questionnaire Module
 
 ## Client

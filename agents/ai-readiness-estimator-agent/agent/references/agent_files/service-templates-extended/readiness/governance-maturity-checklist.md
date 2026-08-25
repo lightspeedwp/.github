@@ -1,9 +1,3 @@
----
-template_id: governance-maturity-checklist
-version: 1.0.1
-status: draft
----
-
 # Governance Maturity Checklist
 
 Use this checklist to evaluate how mature the organisation’s governance structures are with respect to AI adoption and digital operations.

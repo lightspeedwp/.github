@@ -1,15 +1,3 @@
----
-file_type: announcement
-title: "Phase 6 Team Announcement — Branch Naming Enforcement Rollout"
-description: "Ready-to-send team announcement for Phase 6 branch naming enforcement with setup instructions"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - Governance Team
-owner: Repository Governance
----
-
 # 🚀 Branch Naming Enforcement — Phase 6 Team Rollout
 
 **Announcement Date:** August 12, 2026  

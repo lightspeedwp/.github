@@ -1,21 +1,3 @@
----
-file_type: documentation
-title: Release Workflow Team Training Guide
-description: Comprehensive training materials for release engineering team on agentic release workflow
-version: v1.0
-last_updated: '2026-08-22'
-status: active
-stability: stable
-domain: training
-owners:
-  - Release Engineering Team
-tags:
-  - training
-  - release
-  - runbook
-  - team
----
-
 # Release Workflow Team Training Guide v1.0
 
 > Comprehensive training materials for Release Engineering team covering all three release types (patch, minor, major) using the two-phase agentic workflow.

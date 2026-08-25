@@ -1,14 +1,3 @@
----
-issue_type: task
-title: "Fix 1.4: Fix Template-Enforcement Silent Reopening"
-priority: high
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 2.5
-parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
----
-
 # Fix 1.4: Fix Template-Enforcement Silent Reopening
 
 ## Problem

@@ -1,18 +1,3 @@
----
-provider: copilot
-agent_slug: website-content-strategist
-agent_name: Website Content Strategist (GitHub Copilot)
-status: production
-version: 1.0.2
-created_date: '2026-07-22'
-last_updated: '2026-08-21'
-platform: github
-integration: copilot-chat
-model_compatibility:
-  - gpt-4
-  - gpt-4-turbo
----
-
 # Website Content Strategist — GitHub Copilot Implementation
 
 ## Overview

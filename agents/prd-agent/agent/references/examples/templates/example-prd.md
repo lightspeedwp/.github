@@ -1,8 +1,3 @@
----
-example_for: prd
-quality: strong
----
-
 # Product requirements document
 
 ## Context

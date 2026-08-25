@@ -1,11 +1,3 @@
----
-title: Preview Validation Example Contexts Index
-document_type: preview_validation_index
-version: v0.5
-last_updated: '2026-08-21'
-status: reusable_test_reference
----
-
 # Preview Validation Example Contexts Index
 
 ---

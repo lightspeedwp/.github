@@ -1,9 +1,3 @@
----
-title: Phase 5 Handoff Notes — GitHub Actions v7 Upgrade
-date: "2026-08-09"
-status: "Complete"
----
-
 # Phase 5: Handoff Notes — What's Ready for the Next Team
 
 ## Quick Status

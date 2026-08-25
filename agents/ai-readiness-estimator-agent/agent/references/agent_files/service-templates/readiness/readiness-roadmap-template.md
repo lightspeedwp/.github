@@ -1,9 +1,3 @@
----
-template_id: readiness-roadmap-template
-version: 1.0.1
-status: draft
----
-
 # AI Readiness Roadmap
 
 ## Client

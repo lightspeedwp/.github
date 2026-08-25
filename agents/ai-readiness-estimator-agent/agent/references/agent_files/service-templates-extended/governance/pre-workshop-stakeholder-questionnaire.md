@@ -1,9 +1,3 @@
----
-template_id: pre-workshop-stakeholder-questionnaire
-version: 1.0.1
-status: draft
----
-
 # Pre‑Workshop Stakeholder Questionnaire
 
 Use this questionnaire to gather input from workshop participants ahead of a Responsible AI governance workshop.  

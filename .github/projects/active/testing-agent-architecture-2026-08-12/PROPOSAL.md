@@ -1,11 +1,3 @@
----
-title: "Proposal: Testing Agent Multi-Framework Architecture"
-description: "Consolidate LightSpeed testing frameworks into a unified, multi-framework agent"
-status: "proposal"
-created_date: "2026-08-12"
-version: "1.0.0"
----
-
 # Proposal: Testing Agent Multi-Framework Architecture
 
 ## Problem Statement

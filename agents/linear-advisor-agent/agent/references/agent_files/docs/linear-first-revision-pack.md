@@ -1,10 +1,3 @@
----
-title: Linear-First Operating Reference
-document_type: operating_reference
-purpose: Current Linear-first operating reference for the Linear Workflow Skill Factory
-status: active
----
-
 # Linear-First Operating Reference
 
 ---

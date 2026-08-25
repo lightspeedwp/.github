@@ -4,9 +4,6 @@ description: Standard response for research, spike, or audit issues, guiding on 
 category: Issue Management
 labels:
   - status:done
-references:
-  - ../ISSUE_TYPES.md
-  - ../../CONTRIBUTING.md
 ---
 
 # Research Issue Completion Saved Replies

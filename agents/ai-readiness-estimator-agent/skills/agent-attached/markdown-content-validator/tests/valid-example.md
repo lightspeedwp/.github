@@ -1,13 +1,3 @@
----
-title: Valid Example
-status: approved
-type: guide
-version: 1.0.1
-description: A valid example file.
-tags:
-  - docs
----
-
 # Valid Example
 
 ## Overview

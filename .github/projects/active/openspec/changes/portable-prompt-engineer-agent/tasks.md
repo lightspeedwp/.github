@@ -1,13 +1,3 @@
----
-title: "Portable Prompt Engineer Agent — Implementation Tasks"
-description: "Detailed task breakdown for Phase 2-4 implementation"
-file_type: "openspec-tasks"
-created_date: "2026-08-12"
-last_updated: "2026-08-12"
-status: "active"
-domain: "agent"
----
-
 # Portable Prompt Engineer Agent — Implementation Tasks
 
 ## Phase 2: Core Implementation (3–4 weeks)

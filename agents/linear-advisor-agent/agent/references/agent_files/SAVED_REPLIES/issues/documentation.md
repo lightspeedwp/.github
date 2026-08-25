@@ -4,9 +4,6 @@ description: Responses for documentation improvements, clarifications, and updat
 category: Issue Management
 labels:
   - status:needs-triage
-references:
-  - ../ISSUE_LABELS.md
-  - ../../CONTRIBUTING.md
 ---
 
 # Documentation Request Saved Replies

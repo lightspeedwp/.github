@@ -5,9 +5,6 @@ category: Technical Support
 labels:
   - area:configuration
   - status:needs-triage
-references:
-  - ../../instructions/configuration.md
-  - ../../CONTRIBUTING.md
 ---
 
 # Configuration Issues Saved Reply

@@ -1,20 +1,3 @@
----
-name: project-linker
-description: Find active projects and issues for a repository
-version: 1.0.1
-created_date: 2026-08-12T00:00:00.000Z
-last_updated: '2026-08-21'
-file_type: documentation
-authors:
-  - Ash Shaw
-maintainer: Ash Shaw
-tags:
-  - project
-  - linking
-  - discovery
-  - issues
----
-
 # Project Linker Skill
 
 ## Overview

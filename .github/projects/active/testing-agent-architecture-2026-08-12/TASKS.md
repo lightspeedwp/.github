@@ -1,11 +1,3 @@
----
-title: "Tasks: Testing Agent Multi-Framework Architecture"
-description: "Implementation task breakdown for phases 2-4"
-status: "tasks"
-created_date: "2026-08-12"
-version: "1.0.0"
----
-
 # Tasks: Testing Agent Multi-Framework Architecture
 
 ## Phase 2: Portable Agent Expansion (27-35 hours)

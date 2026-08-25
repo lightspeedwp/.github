@@ -1,11 +1,3 @@
----
-title: AI Feedback PR Review Implementation Guide
-description: Team guide for implementing AI feedback review and validation system
-version: 1.0.1
-created_date: 2026-08-04T00:00:00.000Z
-audience: LightSpeedWP Engineering Team
----
-
 # AI Feedback PR Review Implementation Guide
 
 This guide helps your team implement and use the AI feedback review validation system for consistent, transparent feedback tracking across all pull requests.

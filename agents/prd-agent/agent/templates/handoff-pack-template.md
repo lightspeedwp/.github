@@ -1,8 +1,3 @@
----
-template: handoff-pack
-purpose: Prepare delivery-ready handoff materials from validated planning work.
----
-
 # Handoff pack
 
 ## Delivery context

@@ -1,14 +1,3 @@
----
-title: Node.js Upgrade Plan (v20 → v22)
-description: Comprehensive strategy for upgrading the .github repo from Node.js 20 to latest stable (22.x)
-version: 1.0.0
-status: planning
-created: 2026-07-30
-updated: 2026-07-30
-author: Ash Shaw
-tags: [infrastructure, nodejs, dependencies, ci-cd]
----
-
 # Node.js Upgrade Plan — v20 → v22
 
 ## Executive Summary

@@ -1,14 +1,3 @@
----
-title: Reporting Agent v2 — Multi-Repository Support
-status: active
-phase: Phase 1
-start_date: 2026-08-12
-expected_completion: 2026-08-31
-owner: Claude Code
-repository: lightspeedwp/.github
-related_epic: "#1831"
----
-
 # Reporting Agent v2 — Multi-Repository Support
 
 ## Project Overview

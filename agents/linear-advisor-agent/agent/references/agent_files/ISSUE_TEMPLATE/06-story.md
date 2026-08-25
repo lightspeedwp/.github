@@ -1,10 +1,3 @@
----
-name: "📑 Story"
-about: "Propose a user-centric story as part of an Epic or milestone."
-title: "[Story] <Brief summary>"
-labels: [status:needs-triage, priority:normal, area:core]
----
-
 <!--
 Thank you for proposing a Story!
 Complete all sections below for clarity and automation.

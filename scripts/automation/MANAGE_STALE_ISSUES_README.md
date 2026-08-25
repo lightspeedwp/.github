@@ -1,15 +1,3 @@
----
-file_type: automation-script-readme
-title: manage-stale-issues.js - Stale Issue Management
-description: Automatically apply meta:stale label and handle inactive issue archiving
-version: 1.0.1
-created_date: 2026-08-10T00:00:00.000Z
-last_updated: '2026-08-21'
-status: draft
-authors:
-  - lightspeedwp/maintainers
----
-
 # manage-stale-issues.js — Stale Issue Management
 
 Automatically manages inactive issues by applying `meta:stale` labels, posting warning comments, and optionally closing and archiving stale issues.

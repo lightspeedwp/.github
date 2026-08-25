@@ -1,8 +1,3 @@
----
-template: technical-brief
-purpose: Map validated planning work into implementation-relevant technical guidance.
----
-
 # Technical brief
 
 ## Technical context

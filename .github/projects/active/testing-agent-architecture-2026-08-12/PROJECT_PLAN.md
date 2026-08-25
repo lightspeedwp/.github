@@ -1,10 +1,3 @@
----
-title: "Project Plan — Testing Agent Architecture"
-description: "Detailed implementation plan with phases, timeline, and task breakdown"
-status: planning
-created_date: "2026-08-12"
----
-
 # Project Plan — Testing Agent Architecture
 
 ## Overview

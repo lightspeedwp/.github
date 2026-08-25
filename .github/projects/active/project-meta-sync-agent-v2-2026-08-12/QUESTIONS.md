@@ -1,11 +1,3 @@
----
-file_type: design-questions
-title: Project Meta Sync Agent v2 — Key Design Questions & Best Practices
-description: "Critical design decisions, integration patterns, and validation strategies for agent v2 modernization"
-version: 1.0.0
-created_date: 2026-08-12
----
-
 # Key Design Questions & Best Practices
 
 ## Q1: Agent Scope — What Should the Agent Do vs. Delegate?

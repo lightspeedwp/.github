@@ -1,15 +1,3 @@
----
-file_type: automation-script-readme
-title: sync-pr-labels.js - PR Label Synchronisation
-description: Automatically manage meta:has-pr label based on linked PRs in issue descriptions
-version: 1.0.1
-created_date: 2026-08-10T00:00:00.000Z
-last_updated: '2026-08-21'
-status: draft
-authors:
-  - lightspeedwp/maintainers
----
-
 # sync-pr-labels.js — PR Label Synchronisation
 
 Automatically manages the `meta:has-pr` label by scanning issue descriptions for linked PRs and syncing label state based on PR status.

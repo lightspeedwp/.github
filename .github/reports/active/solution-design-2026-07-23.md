@@ -1,11 +1,3 @@
----
-title: GitHub Issue Type & Metadata Automation Solution Design
-subtitle: Architecture for fixing issue creation, DoD enforcement, and PR-to-issue linking
-date: 2026-07-23
-scope: Workflow design, labeling automation, custom field population, DoD validation
-status: DRAFT - Ready for Review
----
-
 # Solution Design: Issue Type & Metadata Automation
 
 **Purpose:** Design a comprehensive solution to automatically populate issue metadata (type, labels, assignee, project, custom fields, status) at creation, enforce Definition of Done across both issues and PRs, and prevent silent issue reopening.

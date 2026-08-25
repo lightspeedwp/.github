@@ -1,9 +1,3 @@
----
-template_id: tailored-implementation-plan
-version: 1.0.1
-status: draft
----
-
 # Tailored Implementation Plan
 
 Use this plan to document scope, tasks, milestones, and responsibilities for a tailored chatbot or AI implementation.  

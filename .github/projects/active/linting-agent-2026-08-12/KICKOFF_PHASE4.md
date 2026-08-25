@@ -1,10 +1,3 @@
----
-title: Linting Agent Phase 4 — Documentation Kickoff
-date: 2026-08-19
-phase: 4
-status: READY
----
-
 # Linting Agent Phase 4 — Documentation Kickoff
 
 **Phase:** 4 — Documentation & User Guides  

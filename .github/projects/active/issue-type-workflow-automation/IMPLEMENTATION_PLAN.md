@@ -1,10 +1,3 @@
----
-title: Implementation Plan — Issue Type & Metadata Automation
-description: Detailed roadmap, architecture, effort breakdown, and success criteria
-date: 2026-07-23
-status: READY FOR EXECUTION
----
-
 # Implementation Plan: Issue Type & Metadata Automation Initiative
 
 **Objective:** Automatically populate issue metadata (type, labels, assignee, project, custom fields) at creation, enforce Definition of Done across issues and PRs, and fix the silent issue reopening problem.

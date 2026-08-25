@@ -1,12 +1,3 @@
----
-version: 1.0.1
-title: Internal Estimate Review Checklist
-audience: internal
-document_type: review-checklist
-status: template
-language: en-GB
----
-
 # Internal Estimate Review Checklist
 
 Use this checklist before an internal AI-readiness estimate is reused, approved, adapted for a client, or used to support package or scope decisions.

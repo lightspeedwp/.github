@@ -1,11 +1,3 @@
----
-version: 1.0.1
-title: WordPress configuration agent - active context
-project_key: wordpress-configuration-agent
-status: active
-last_updated: '2026-08-21'
-current_stage: prd_v0.1
----
 # Active Context
 
 ## Current focus

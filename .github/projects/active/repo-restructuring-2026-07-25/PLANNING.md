@@ -14,8 +14,7 @@ tags:
   - planning
   - specification
   - project
-domain: "domain-name"
-status: "planning|active|blocked|paused|complete"
+domain: "governance"
 related_issues:
   - "#ISSUE_NUMBER — Issue Title"
   - "#ISSUE_NUMBER — Issue Title"

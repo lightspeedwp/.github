@@ -1,21 +1,3 @@
----
-title:
-  TITLE: null
-date:
-  DATE: null
-status:
-  STATUS: null
-authors:
-  AUTHORS: null
-infrastructure_tier:
-  INFRASTRUCTURE_TIER: null
-scalability_rating:
-  SCALABILITY_RATING: null
-tags:
-  - infrastructure
-  - architecture
----
-
 # {TITLE}
 
 **Date:** {DATE}  

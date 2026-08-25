@@ -1,9 +1,3 @@
----
-template_id: source-of-truth-register
-version: 1.0.1
-status: draft
----
-
 # Source-of-Truth Register
 
 Keep a record of all approved sources, excluded sources, and stakeholder inputs used for an AI project.

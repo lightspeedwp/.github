@@ -1,9 +1,3 @@
----
-template_id: ai-readiness-audit-checklist
-version: 1.0.1
-status: draft
----
-
 # AI Readiness Audit Checklist
 
 ## Client

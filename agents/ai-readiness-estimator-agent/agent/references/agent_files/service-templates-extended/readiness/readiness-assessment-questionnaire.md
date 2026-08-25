@@ -1,9 +1,3 @@
----
-template_id: readiness-assessment-questionnaire
-version: 1.0.0
-status: draft
----
-
 # Readiness Assessment Questionnaire
 
 Use this questionnaire to gather information across content, technical, governance, and organisational areas before conducting a readiness assessment.

@@ -1,19 +1,3 @@
----
-title: Issue Maintenance Scripts & Workflows
-description: Comprehensive guide to automated label management, stale detection, and audit workflows
-file_type: documentation
-created_date: 2026-08-11T00:00:00.000Z
-last_updated: '2026-08-21'
-authors:
-  - LightSpeed Team
-tags:
-  - automation
-  - label-management
-  - github-workflows
-  - issue-maintenance
-status: active
----
-
 # Issue Maintenance Scripts & Workflows
 
 Automated label management system for consistent issue and PR labeling, stale issue detection, and monthly audit reporting.

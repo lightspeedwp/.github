@@ -16,17 +16,6 @@ tags:
   - standards
   - automation
   - specifications
-references:
-  - path: "../.gith../.github/agents/README.md"
-    description: "Agents directory overview"
-  - path: "../.gith../.github/agents/agent.md"
-    description: "Main agent index"
-  - path: "../.gith../.github/agents/template.agent.md"
-    description: "Agent specification template"
-  - path: "../.github/schemas/frontmatter.schema.json"
-    description: "Frontmatter validation schema"
-  - path: "../.github/instructions/automation.instructions.md"
-    description: "Agent development instructions"
 ---
 
 # 📝 Agent Specification Authoring Guide

@@ -1,12 +1,3 @@
----
-name: Bugfix PR
-about: Fix a defect/regression with clear repro, fix, and verification
-title: 'fix: {short summary}'
-labels:
-  - status:needs-review
-  - priority:normal
----
-
 # Bugfix Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

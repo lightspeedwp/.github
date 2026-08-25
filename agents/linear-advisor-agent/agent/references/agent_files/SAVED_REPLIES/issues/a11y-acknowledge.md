@@ -4,9 +4,6 @@ description: Standard response for accessibility-related issues, confirming rout
 category: Issue Management
 labels:
   - status:needs-design
-references:
-  - ../ISSUE_LABELS.md
-  - ../ISSUE_TYPES.md
 ---
 
 # Accessibility (A11y) Issue Acknowledgement Saved Replies

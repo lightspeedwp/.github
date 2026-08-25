@@ -1,13 +1,3 @@
----
-name: 🔗 Integration
-about: Report or propose integration with external plugins, services, or APIs.
-title: '[Integration] <Short summary>'
-labels:
-  - status:needs-triage
-  - priority:normal
-  - area:integration
----
-
 <!--
 Thank you for reporting an integration issue!
 Please fill in as much of the template below as you can.

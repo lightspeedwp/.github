@@ -1,10 +1,3 @@
----
-version: 1.0.1
-title: '[Project Name] - Product Requirements Document'
-date: YYYY-MM-DD
-timezone: Africa/Johannesburg
-status: draft
----
 # [Project Name] - Product Requirements Document
 
 ## Client-facing summary

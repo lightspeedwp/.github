@@ -1,14 +1,3 @@
----
-name: Hotfix PR
-about: Critical fixes for production issues
-title: 'fix: {short summary}'
-labels:
-  - status:needs-review
-  - area:hotfix
-  - priority:critical
-  - release:hotfix
----
-
 # Hotfix Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

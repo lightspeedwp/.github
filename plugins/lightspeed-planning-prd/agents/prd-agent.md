@@ -1,13 +1,3 @@
----
-file_type: agent
-name: prd
-title: PRD Agent (Product Requirements)
-location: ../../agents/prd-agent/
-version: 2.0.1
-status: active
-category: planning
----
-
 # PRD Agent (Product Requirements)
 
 This is the plugin export entry for the PRD Agent. The actual agent code and configurations are located in `.github/agents/prd-agent/`.

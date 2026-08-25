@@ -6,12 +6,6 @@ labels:
   - area:community
   - contrib:good-first-issue
   - status:ready
-references:
-  - ../../CONTRIBUTING.md
-  - ../../CODE_OF_CONDUCT.md
-  - ../../custom-instructions.md
-  - ../../instructions/coding-standards.instructions.md
-  - ../../instructions/block-theme/pattern-development.instructions.md
 ---
 
 # Welcome to LightSpeedWP

@@ -1,21 +1,3 @@
----
-provider: openai
-agent_slug: website-content-strategist
-agent_name: Website Content Strategist (OpenAI)
-status: production
-version: 1.0.2
-created_date: '2026-07-22'
-last_updated: '2026-08-21'
-model_compatibility:
-  - gpt-4
-  - gpt-4-turbo
-  - gpt-3.5-turbo
-api_version: v1
-temperature: 0.7
-top_p: 0.9
-max_tokens: 4000
----
-
 # Website Content Strategist — OpenAI Implementation
 
 ## Overview

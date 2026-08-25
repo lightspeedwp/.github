@@ -1,13 +1,3 @@
----
-file_type: project
-title: "Changelog Automation Hardening — Comprehensive Audit & Improvement Initiative"
-description: "Multi-phase plan to fix changelog automation bugs, rebuild lost history, define rules, and establish lasting solution"
-created_date: "2026-07-24"
-status: "active"
-owner: "Changelog & Release Engineering"
-epic: "#1271"
----
-
 # Changelog Automation Hardening
 
 ## Executive Summary

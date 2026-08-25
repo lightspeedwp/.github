@@ -1,18 +1,3 @@
----
-provider: openai
-agent_slug: design-partner
-agent_name: Design Partner Agent (OpenAI)
-status: production
-version: 1.0.2
-model_compatibility:
-  - gpt-4-turbo
-  - gpt-4
-  - gpt-4o
-max_tokens: 128000
-temperature: 0.7
-top_p: 0.9
----
-
 # Design Partner Agent — OpenAI Implementation
 
 ## Overview

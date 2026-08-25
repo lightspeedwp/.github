@@ -1,10 +1,3 @@
----
-title: Markdown Issues
-status: draft
-type: guide
-version: 1.0.1
----
-
 # Markdown Issues
 
 #### Jumped heading

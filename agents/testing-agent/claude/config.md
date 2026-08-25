@@ -1,19 +1,3 @@
----
-file_type: configuration
-title: Testing Agent — Claude Provider Configuration
-description: >-
-  Claude provider configuration for the Testing Agent: model selection, token
-  limits, temperature settings, caching strategy, cost optimization, and best
-  practices for Playwright test generation and validation.
-last_updated: '2026-08-18'
-domain: testing
-tags:
-  - claude
-  - configuration
-  - testing-agent
-  - multi-provider
----
-
 # Testing Agent — Claude Provider Configuration
 
 Configuration guide for deploying the Testing Agent with Claude as the LLM provider.

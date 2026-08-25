@@ -1,10 +1,3 @@
----
-name: "🧪 Test Coverage"
-about: "Propose, add, or expand tests (unit, integration, E2E)."
-title: "[Test Coverage] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:testing]
----
-
 <!--
 Thank you for proposing or updating automated tests!
 Please complete all sections for review and automation.

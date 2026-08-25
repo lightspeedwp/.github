@@ -1,18 +1,3 @@
----
-file_type: planning-document
-title: Issue Management Agent — Integration with Existing Agents
-description: How the new Issue Management Agent integrates with existing agents (Issues Agent, Metadata Triage, etc.)
-created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - LightSpeed Team
-tags:
-  - planning
-  - agent-integration
-  - coordination
-status: active
----
-
 # Issue Management Agent — Integration with Existing Agents
 
 **Purpose**: Ensure the new Issue Management Agent complements existing agents without conflicts or duplication.

@@ -1,11 +1,3 @@
----
-title: Preview Validation File Inventory Summary
-document_type: preview_validation_inventory
-version: v0.2
-last_updated: '2026-08-21'
-status: reusable_test_reference
----
-
 # Preview Validation File Inventory Summary
 
 ---

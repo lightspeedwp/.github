@@ -1,9 +1,3 @@
----
-template_id: support-model-operating-model-handover
-version: 1.0.1
-status: draft
----
-
 # Support Model / Operating Model Handover
 
 Use this document to define how a delivered AI solution will be supported and operated post‑launch.  

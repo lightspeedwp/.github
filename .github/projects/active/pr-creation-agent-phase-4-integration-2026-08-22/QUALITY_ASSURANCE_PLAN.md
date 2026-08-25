@@ -1,12 +1,3 @@
----
-file_type: project-documentation
-title: Phase 4 Quality Assurance Plan
-description: QA procedures, manual checklists, regression testing, and performance validation
-version: "1.0"
-last_updated: "2026-08-22"
-category: pr-creation-agent
----
-
 # Phase 4: Quality Assurance Plan
 
 **Issue:** #2306  

@@ -1,13 +1,3 @@
----
-file_type: openspec
-title: "workflows-consolidation-2026-q3 — OpenSpec Specification"
-description: "Technical specification for workflows-consolidation-2026-q3"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-status: draft
----
-
 # workflows-consolidation-2026-q3 — OpenSpec Specification
 
 See [PLANNING.md](./PLANNING.md) for project specifications.

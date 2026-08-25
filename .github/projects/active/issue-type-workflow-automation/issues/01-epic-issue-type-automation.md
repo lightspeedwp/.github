@@ -1,13 +1,3 @@
----
-issue_type: epic
-title: "Epic: Issue Type & Metadata Automation Initiative"
-priority: high
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 37.5
----
-
 # Epic: Issue Type & Metadata Automation Initiative
 
 ## Overview

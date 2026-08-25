@@ -1,17 +1,3 @@
----
-file_type: project
-name: GitHub Actions v7 Upgrade Initiative
-description: Comprehensive upgrade of GitHub Actions workflows to v7 with compliance validation and testing
-status: in-progress
-start_date: 2026-08-09
-target_completion: 2026-08-23
-owner: claude
-epic: "#[TBD - Epic to be created]"
-related_issues:
-  - "#1641 (Badges Workflow Integration — Phase 4 dependency)"
-  - "#1290 (Repository Restructuring Initiative)"
----
-
 # GitHub Actions v7 Upgrade Initiative
 
 ## Overview

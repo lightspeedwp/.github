@@ -1,16 +1,3 @@
----
-title: Meta Agent v2.0 — Quick Start (5 Minutes)
-description: >
-  5-minute quick start guide for Meta Agent v2.0.
-  Get up and running in less than 5 minutes.
-file_type: guide
-category: training
-status: active
-language: en
-owners:
-  - lightspeedwp/maintainers
----
-
 # Quick Start — Meta Agent v2.0
 
 Get Meta Agent v2.0 running in 5 minutes.

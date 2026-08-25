@@ -4,8 +4,6 @@ description: Use when an issue is blocked by another issue, external dependency,
 category: Issue Management
 labels:
   - status:blocked
-references:
-  - ../ISSUE_LABELS.md
 ---
 
 # Blocked Issue Saved Replies

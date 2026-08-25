@@ -1,12 +1,3 @@
----
-file_type: project-plan
-title: Phase 2 — Portable Task Planning Agents Implementation
-description: Detailed implementation roadmap for agents, skills, scripts, and comprehensive documentation
-version: 1.0.0
-status: planning
-last_updated: 2026-08-12
----
-
 # Phase 2: Implementation Plan
 
 **Phase 1 Status:** ✅ Complete (Specification PR #1803 ready for merge)  

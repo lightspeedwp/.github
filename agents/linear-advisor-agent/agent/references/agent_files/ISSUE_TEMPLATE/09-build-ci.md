@@ -1,10 +1,3 @@
----
-name: "⚙️ Build & CI"
-about: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-title: "[Build/CI] <Short summary>"
-labels: [status:needs-triage, area:ci]
----
-
 ## Build/CI Summary
 
 <!-- Briefly describe the build/CI/CD change, problem, or improvement. -->

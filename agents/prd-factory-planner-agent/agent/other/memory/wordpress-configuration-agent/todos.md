@@ -1,9 +1,3 @@
----
-version: 1.0.1
-title: WordPress configuration agent todos
-project_key: wordpress-configuration-agent
-last_updated: '2026-08-21'
----
 # Todos
 
 ## Open tasks

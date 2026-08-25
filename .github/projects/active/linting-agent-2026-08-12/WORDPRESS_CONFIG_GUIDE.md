@@ -1,12 +1,3 @@
----
-title: WordPress Configuration Guide — Linting Agent Phase 2
-description: Complete setup guide for linting WordPress plugins, themes, and block projects with the Linting Agent
-author: LightSpeed
-last_updated: 2026-08-12
-version: 1.0.0
-status: Phase 2 Task 3
----
-
 # WordPress Configuration Guide — Linting Agent
 
 Comprehensive guide to configuring and using the Linting Agent with WordPress plugins, themes, and block-based projects.

@@ -1,18 +1,3 @@
----
-title: Meta Agent v2.0 — OpenSpec Validation Report
-description: >
-  OpenSpec conformance validation ensuring clear project specification,
-  planning, and deliverables for Meta Agent v2.0 project.
-file_type: report
-category: project-planning
-status: active
-author: Ash Shaw
-date: '2026-08-12'
-language: en
-owners:
-  - lightspeedwp/maintainers
----
-
 # OpenSpec Validation Report — Meta Agent v2.0
 
 **Project:** Meta Agent v2.0 — Organisation-Wide Schemas  

@@ -1,16 +1,3 @@
----
-title: "OpenSpec RFC: Label Prefix Enforcement & Governance System"
-description: "Specification for canonical label system, validation, and governance enforcement"
-file_type: "rfc"
-version: "2.0.0"
-created_date: "2026-08-05"
-updated_date: "2026-08-05"
-author: "Claude Code + Audit Team"
-maintainer: "LightSpeed Governance"
-domain: "governance"
-status: "draft"
----
-
 # OpenSpec RFC: Label Prefix Enforcement & Governance System
 
 **Version**: 2.0 (Refined from audit findings)  

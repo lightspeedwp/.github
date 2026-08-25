@@ -1,9 +1,3 @@
----
-template_id: ai-readiness-scoring-sheet
-version: 1.0.0
-status: draft
----
-
 # AI Readiness Scoring Sheet
 
 ## Client

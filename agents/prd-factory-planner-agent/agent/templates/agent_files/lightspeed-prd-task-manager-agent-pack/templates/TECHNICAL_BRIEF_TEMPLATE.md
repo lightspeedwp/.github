@@ -1,10 +1,3 @@
----
-version: "1.0.0"
-title: "[Project Name] - Figma to WordPress Technical Brief"
-date: "YYYY-MM-DD"
-timezone: "Africa/Johannesburg"
-status: "draft"
----
 # [Project Name] - Figma to WordPress Technical Brief
 
 ## Client-facing summary

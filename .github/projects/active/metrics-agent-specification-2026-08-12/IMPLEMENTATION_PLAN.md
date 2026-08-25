@@ -1,11 +1,3 @@
----
-name: Implementation Plan
-description: Detailed phase-by-phase implementation roadmap with deliverables and dependencies
-type: implementation-plan
-version: '1.0'
-status: specification-complete
----
-
 # Metrics Agent — Implementation Plan
 
 ## Overview

@@ -1,11 +1,3 @@
----
-file_type: project-status
-title: Release Workflow Authorization Fixes - Status
-created_date: 2026-08-04
-last_updated: 2026-08-04
-status: complete-awaiting-phase2
----
-
 # Project Status: Release Workflow Authorization Fixes
 
 ## Current Status: PHASE 1 COMPLETE | PHASE 2B BATCH 1 COMPLETE

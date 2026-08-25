@@ -1,11 +1,3 @@
----
-title: "OpenSpec Labels Automation"
-type: "project"
-status: "active"
-created: "2026-08-18"
-updated: "2026-08-21"
----
-
 # OpenSpec Labels Automation
 
 **Project Status:** ✅ **Phase 3 Complete**  

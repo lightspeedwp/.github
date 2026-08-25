@@ -1,10 +1,3 @@
----
-title: "Changelog Guidelines & Rules"
-description: "Definitive guide for what belongs in CHANGELOG.md and how to format entries"
-created_date: "2026-07-24"
-file_type: "guidelines"
----
-
 # Changelog Guidelines & Rules
 
 ## Quick Reference

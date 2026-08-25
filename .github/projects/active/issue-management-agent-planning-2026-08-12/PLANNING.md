@@ -1,25 +1,3 @@
----
-file_type: planning
-title: "Issue Management Agent — Planning & Specification"
-description: "Project planning for automated issue management agent development"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - LightSpeed Team
-owner: LightSpeed Team
-maintainer: LightSpeed Team
-tags:
-  - planning
-  - agent
-  - issue-management
-  - automation
-domain: "agents"
-status: active
-related_issues:
-  - "See GitHub issues for tracking"
----
-
 # Issue Management Agent — Planning & Specification
 
 **Status:** 🟡 Active | **Owner:** LightSpeed Team | **Last Updated:** 2026-08-12

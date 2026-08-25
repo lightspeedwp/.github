@@ -1,12 +1,3 @@
----
-version: 1.0.0
-title: "Project Evidence Review Log"
-audience: "internal"
-document_type: "evidence-log"
-status: "template"
-language: "en-GB"
----
-
 # Project Evidence Review Log
 
 Use this log to track the evidence reviewed for an AI-readiness estimate, what each source supports, and what still remains unverified.

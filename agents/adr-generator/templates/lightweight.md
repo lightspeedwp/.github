@@ -1,14 +1,3 @@
----
-title:
-  TITLE: null
-date:
-  DATE: null
-status:
-  STATUS: null
-authors:
-  AUTHORS: null
----
-
 # {TITLE}
 
 **Date:** {DATE} | **Status:** {STATUS} | **Authors:** {AUTHORS}

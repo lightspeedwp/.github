@@ -1,10 +1,3 @@
----
-title: Agent Audit and Edit Pack
-document_type: audit_pack
-purpose: Current-state audit and cleanup summary for the Linear Workflow Skill Factory
-status: active
----
-
 # Agent Audit and Edit Pack
 
 ---

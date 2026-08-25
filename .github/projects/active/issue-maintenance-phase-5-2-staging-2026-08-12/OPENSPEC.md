@@ -1,13 +1,3 @@
----
-file_type: openspec
-title: "issue-maintenance-phase-5-2-staging-2026-08-12 — OpenSpec Specification"
-description: "Technical specification for issue-maintenance-phase-5-2-staging-2026-08-12"
-version: 1.0.0
-created_date: 2026-08-12
-last_updated: 2026-08-12
-status: draft
----
-
 # issue-maintenance-phase-5-2-staging-2026-08-12 — OpenSpec Specification
 
 See [PLANNING.md](./PLANNING.md) for project specifications.

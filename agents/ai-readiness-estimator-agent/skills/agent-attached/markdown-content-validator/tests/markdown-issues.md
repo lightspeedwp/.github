@@ -1,10 +1,3 @@
----
-title: Markdown Issues Example
-status: review
-type: checklist
-version: 1.2.1
----
-
 # Markdown Issues Example
 
 #### Skipped heading level
