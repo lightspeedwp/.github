@@ -152,9 +152,10 @@ describe("Metrics Agent Phase 2 - Security Validation", () => {
       const isInternalInfo = (text) => {
         const internalPatterns = [
           /database password/i,
-          /api_key/i,
-          /private_key/i,
+          /api[_\s]key/i,
+          /private[_\s]key/i,
           /secret/i,
+          /ghp_[a-zA-Z0-9_]{36,}/,
           /\/home\/.*\/\./,
         ];
 
