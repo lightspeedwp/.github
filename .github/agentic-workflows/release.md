@@ -459,6 +459,24 @@ gh agentic release --scope=patch
 
 ---
 
+## Related Files & Integration
+
+This release agent integrates with the LightSpeed changelog ecosystem:
+
+- **Changelog Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Primary GitHub-native specification for changelog management
+- **Changelog Portable Agent:** [`agents/changelog/README.md`](../../agents/changelog/README.md) — Multi-file implementation with Keep a Changelog 1.1.0 support
+- **Changelog Schema:** [`schemas/changelog.schema.json`](../../schemas/changelog.schema.json) — JSON schema validation for Keep a Changelog 1.1.0 compliance
+- **Changelog Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
+- **Changelog Documentation:** [`docs/CHANGELOG_AUTOMATION.md`](../../docs/CHANGELOG_AUTOMATION.md) — Complete guide to changelog automation and contributor workflow
+
+The release agent uses these components to:
+- Validate changelog structure before release
+- Convert [Unreleased] section to release version
+- Ensure changelog entries meet Keep a Changelog 1.1.0 standard
+- Apply two-gate validation (PR validation + release validation)
+
+---
+
 ## References
 
 - [AGENTIC_WORKFLOW_SPEC.md](../.github/projects/active/release-agentic-workflows-2026-08-11/AGENTIC_WORKFLOW_SPEC.md) — Design decisions
