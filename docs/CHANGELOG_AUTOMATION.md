@@ -61,7 +61,7 @@ The changelog automation system:
 **Update (2026-07-30):** The changelog automation workflows were refactored in Phase 4 to use helper scripts instead of multiline shell logic. The changelog-management.yml workflow now uses:
 
 - `report-changelog-action.sh` — Safely report changelog merge action status
-- `.github/scripts/agents/changelog.agent.js` — Changelog validation and management
+- `agents/changelog/changelog.agent.js` — Changelog validation and management
 
 These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
