@@ -1,62 +1,49 @@
 ---
-title: "Changelog Manager"
-description: "Comprehensive changelog management: validates entry format and compliance, manages Keep a Changelog 1.1.0 structure, enforces semantic versioning integration, generates release notes, and ensures audit trails for all user-facing changes."
-target: "github-copilot"
-handoffs:
-  - label: "Prepare Release"
-    agent: "release"
-    prompt: "Use the validated changelog to prepare and execute a release."
-    send: false
-  - label: "Review Changes"
-    agent: "release"
-    prompt: "Review the changelog entries and validate against release scope."
-    send: false
-version: "v1.0"
-last_updated: "2026-08-25"
-author: "LightSpeed"
-maintainer: "Claude Code"
-file_type: "agent"
-category: "changelog-management"
-status: "active"
-visibility: "public"
+name: Changelog Manager
+title: Changelog Manager
+description: Comprehensive changelog management - validates entry format and compliance, manages Keep a Changelog 1.1.0 structure, enforces semantic versioning integration, generates release notes, and ensures audit trails for all user-facing changes.
+file_type: agent
+target: github-copilot
+version: v1.0
+created_date: '2026-08-25'
+last_updated: '2026-08-25'
+author: LightSpeed Team
+maintainer: Claude Code
+category: changelog-management
+status: active
+visibility: public
 tags:
-  [
-    "lightspeed",
-    "changelog",
-    "agents",
-    "github",
-    "release-management",
-    "keep-a-changelog",
-    "semantic-versioning",
-    "validation",
-    "automation",
-    "phase-4-refactored",
-    "phase-5a-integrated",
-  ]
-owners: ["lightspeedwp/maintainers"]
+  - changelog
+  - automation
+  - github
+  - release-management
+  - keep-a-changelog
+  - semantic-versioning
+  - validation
+  - active
+owners:
+  - lightspeedwp/maintainers
 tools:
-  [
-    "file_system",
-    "markdown_parser",
-    "markdown_generator",
-    "input_collector",
-    "quality_checker",
-    "template_filler",
-    "context_analyzer",
-    "implementation_planner",
-    "reference_manager",
-    "yaml_front_matter_generator",
-    "markdown_saver",
-    "language_enforcer",
-    "structure_enforcer",
-    "completeness_verifier",
-    "clarity_checker",
-    "consistency_checker",
-    "github/*",
-    "read",
-    "search",
-    "edit",
-  ]
+  - file_system
+  - markdown_parser
+  - markdown_generator
+  - input_collector
+  - quality_checker
+  - template_filler
+  - context_analyzer
+  - implementation_planner
+  - reference_manager
+  - yaml_front_matter_generator
+  - markdown_saver
+  - language_enforcer
+  - structure_enforcer
+  - completeness_verifier
+  - clarity_checker
+  - consistency_checker
+  - github/*
+  - read
+  - search
+  - edit
 permissions:
   - "read"
   - "write"
@@ -184,7 +171,7 @@ All changelog entries must follow this **exact format**:
 | Field | Requirement | Example | Why |
 |-------|-------------|---------|-----|
 | **Bullet** | Must be `-` | `-` | Consistent markdown list |
-| **Title** | Bold, <60 chars | `**Changelog Manager** ` | Scannable, concise |
+| **Title** | Bold, <60 chars | `**Changelog Manager**` | Scannable, concise |
 | **Separator** | Em-dash (—) with spaces | ` — ` | Distinct from hyphen-dash |
 | **Description** | <150 chars, 1-2 sentences | "Validates entries and enforces Keep a Changelog 1.1.0." | Clear, actionable |
 | **PR Link** | Required, full GitHub URL | `([PR #1234](https://github.com/lightspeedwp/.github/pull/1234))` | Traceability |
@@ -406,11 +393,13 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 ## Example 3: Fixed Automatically ✅
 
 **Before (invalid):**
+
 ```markdown
 - Added test file for changelog validation
 ```
 
 **After (auto-formatted):**
+
 ```markdown
 - **Changelog validation tests** — Comprehensive test coverage for entry format and structure validation. ([PR #2340](https://github.com/lightspeedwp/.github/pull/2340))
 ```
@@ -441,6 +430,7 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 **Cause:** Entry title not wrapped in `**...**`
 
 **Fix:**
+
 ```markdown
 - **Title** — Description
 ```
@@ -450,6 +440,7 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 **Cause:** Using hyphen `-` or en-dash `–` instead of em-dash `—`
 
 **Fix:**
+
 ```markdown
 - **Title** — Description  # Use em-dash (—), not hyphen or en-dash
 ```
@@ -459,6 +450,7 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 **Cause:** Entry missing `([PR #1234](...))`
 
 **Fix:**
+
 ```markdown
 - **Title** — Description. ([PR #1234](https://github.com/lightspeedwp/.github/pull/1234))
 ```
@@ -468,6 +460,7 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 **Cause:** Title >60 characters
 
 **Fix:** Shorten title, move details to description
+
 ```markdown
 # Before (77 chars): "New Changelog Manager Agent with Validation and Release Integration"
 # After (24 chars): "Changelog Manager agent"
@@ -478,6 +471,7 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 **Cause:** Description >150 characters
 
 **Fix:** Shorten to 1-2 sentences, focus on "why" not "how"
+
 ```markdown
 # Before: "Implements comprehensive validation of changelog entries including format checking, em-dash enforcement, PR link verification, and integration with semantic versioning and release workflows"
 # After: "Comprehensive validation with entry formatting and release integration."
@@ -488,6 +482,7 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 **Cause:** Script looking in wrong directory
 
 **Fix:** Run from repository root
+
 ```bash
 cd /path/to/lightspeedwp/.github
 npm run validate:changelog
@@ -501,9 +496,9 @@ npm run validate:changelog
 
 # References
 
-- **Keep a Changelog 1.1.0:** https://keepachangelog.com/en/1.1.0/
-- **Semantic Versioning 2.0.0:** https://semver.org/
-- **GitHub Repository:** https://github.com/lightspeedwp/.github
+- **Keep a Changelog 1.1.0:** <https://keepachangelog.com/en/1.1.0/>
+- **Semantic Versioning 2.0.0:** <https://semver.org/>
+- **GitHub Repository:** <https://github.com/lightspeedwp/.github>
 - **Related Issues:** [changelog-automation-hardening project](./.github/projects/active/changelog-automation-hardening/)
 - **Release Process:** [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md)
 - **Agentic Release:** [docs/AGENTIC_RELEASE_USER_GUIDE.md](../docs/AGENTIC_RELEASE_USER_GUIDE.md)
