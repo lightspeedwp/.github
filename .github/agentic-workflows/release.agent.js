@@ -8,6 +8,15 @@
  *
  * Approach: AUGMENT (wrap existing scripts, no breaking changes)
  * Version: 1.0 MVP (Phase 5A)
+ *
+ * RELATED FILES & INTEGRATION:
+ * - Changelog Spec Agent: .github/agents/changelog.agent.md
+ * - Changelog Portable Agent: agents/changelog/changelog.agent.js
+ * - Changelog Schema: schemas/changelog.schema.json
+ * - Changelog Workflow: .github/workflows/changelog-management.yml
+ * - Changelog Documentation: docs/CHANGELOG_AUTOMATION.md
+ * - Badge Verification: .github/workflows/badges-verification.yml
+ * - Release Documentation: docs/RELEASE_PROCESS.md
  */
 
 import fs from "fs";
@@ -20,7 +29,23 @@ import { execSync } from "child_process";
 
 const VERSION_FILE = "VERSION";
 const CHANGELOG_FILE = "CHANGELOG.md";
+const CHANGELOG_SCHEMA = "schemas/changelog.schema.json";
 const REPORTS_DIR = ".github/reports/agentic-releases";
+
+// Changelog validation rules per Keep a Changelog 1.1.0
+const CHANGELOG_VALIDATION = {
+  hasUnreleasedSection: true,
+  requiresVersionFormat: /^\[(\d+\.\d+\.\d+)\] - (\d{4}-\d{2}-\d{2})$/,
+  requiresPRLinks: true,
+  allowedCategories: [
+    "Added",
+    "Changed",
+    "Deprecated",
+    "Fixed",
+    "Removed",
+    "Security",
+  ],
+};
 
 const APPROVAL_GATES = {
   patch: { autoapprove: true, minScore: 0.8 },
@@ -258,14 +283,47 @@ Respond with JSON:
 
   gateChangelogValidation() {
     try {
-      // TODO: Call scripts/validation/validate-changelog.cjs
-      // For MVP: Assume changelog is valid if it has [Unreleased] section
-      const hasUnreleased = this.changelogEntries.includes("[Unreleased]");
+      // Validate changelog against Keep a Changelog 1.1.0 spec
+      // Reference: schemas/changelog.schema.json
+      const changelogContent = this.changelogEntries;
+
+      // Check 1: [Unreleased] section exists
+      const hasUnreleased = changelogContent.includes("[Unreleased]");
+      if (!hasUnreleased) {
+        return {
+          pass: false,
+          message: "Changelog missing [Unreleased] section (required by Keep a Changelog 1.1.0)",
+        };
+      }
+
+      // Check 2: Verify changelog file exists
+      if (!fs.existsSync(CHANGELOG_FILE)) {
+        return {
+          pass: false,
+          message: `Changelog file not found: ${CHANGELOG_FILE}`,
+        };
+      }
+
+      // Check 3: Verify valid version sections (pattern: [X.Y.Z] - YYYY-MM-DD)
+      const versionPattern = CHANGELOG_VALIDATION.requiresVersionFormat;
+      const hasVersionSections = versionPattern.test(changelogContent);
+
+      // Check 4: Verify [Unreleased] has entries (is not empty)
+      const unreleasedRegex = /## \[Unreleased\]\n\n([\s\S]*?)\n## \[/;
+      const unreleasedMatch = changelogContent.match(unreleasedRegex);
+      const hasUnreleasedEntries = unreleasedMatch && unreleasedMatch[1].trim().length > 0;
+
+      if (!hasUnreleasedEntries) {
+        return {
+          pass: false,
+          message: "Changelog [Unreleased] section is empty (no entries to release)",
+        };
+      }
+
+      // All checks passed
       return {
-        pass: hasUnreleased,
-        message: hasUnreleased
-          ? "Changelog schema valid and populated"
-          : "Changelog missing [Unreleased] section",
+        pass: true,
+        message: "Changelog schema valid (Keep a Changelog 1.1.0 compliant)",
       };
     } catch (e) {
       return {
