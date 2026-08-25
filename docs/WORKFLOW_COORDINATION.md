@@ -43,7 +43,7 @@ Always-run workflows trigger automatically on push/PR events without agent invol
 | Workflow | Trigger Event(s) | Purpose | Blocks Merge? |
 | --- | --- | --- | --- |
 | `checks.yml` | push/PR on develop | Unified linting + testing + validation | ✅ Yes |
-| `changelog-validate.yml` | PR to develop | Validate CHANGELOG.md entries | ✅ Yes |
+| `changelog-management.yml` | PR to develop | Validate CHANGELOG.md entries | ✅ Yes |
 | `labeling.yml` | issue/PR/discussion events | Auto-apply canonical labels | ❌ No (metadata only) |
 | `issues.yml` | issue opened/edited | Validate issue templates | ❌ No (validation only) |
 | `meta.yml` | PR opened/issues | Apply frontmatter validation | ❌ No (metadata only) |
