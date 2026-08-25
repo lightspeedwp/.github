@@ -103,8 +103,7 @@ describe(".github/agents/*.agent.md frontmatter (PR changes)", () => {
   });
 
   describe("blank line cleanup before body content", () => {
-    const BRANCH_NOTICE =
-      "This agent does not create or validate branches.";
+    const BRANCH_NOTICE = "This agent does not create or validate branches.";
 
     it.each(BRANCH_NOTICE_FILES)(
       "%s has exactly one blank line after the branch-naming boilerplate",

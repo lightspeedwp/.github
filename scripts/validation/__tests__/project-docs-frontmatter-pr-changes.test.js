@@ -63,9 +63,7 @@ describe(".github/projects/active frontmatter changes (PR)", () => {
   describe("issue-management-agent-planning-2026-08-12/README.md", () => {
     it("uses file_type readme instead of project-readme", () => {
       const frontmatter = extractFrontmatter(
-        readProjectFile(
-          "issue-management-agent-planning-2026-08-12/README.md",
-        ),
+        readProjectFile("issue-management-agent-planning-2026-08-12/README.md"),
       );
       expect(frontmatter).not.toBeNull();
       expect(frontmatter.file_type).toBe("readme");

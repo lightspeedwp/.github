@@ -129,15 +129,18 @@ export async function validateAndApplyLabels(input) {
     }
 
     // Map branch type to labels
-    const customBranchLabels =
-      config.branchTypeLabels || BRANCH_TYPE_LABELS;
+    const customBranchLabels = config.branchTypeLabels || BRANCH_TYPE_LABELS;
     let mappedLabels = customBranchLabels[branchType] || [];
 
     // Make a copy to avoid mutation
     mappedLabels = [...mappedLabels];
 
     // Add template metadata labels
-    if (templateMetadata && templateMetadata.missingSections && templateMetadata.missingSections.length > 0) {
+    if (
+      templateMetadata &&
+      templateMetadata.missingSections &&
+      templateMetadata.missingSections.length > 0
+    ) {
       mappedLabels.push("meta:needs-more-info");
     } else if (templateMetadata && templateMetadata.complete === true) {
       mappedLabels.push("meta:ready-for-review");
@@ -161,17 +164,26 @@ export async function validateAndApplyLabels(input) {
     for (const label of deduplicatedLabels) {
       // Check for bare labels (missing prefix)
       if (!label.includes(":")) {
-        warnings.push(`Label "${label}" looks like a bare type label and should have a prefix (e.g., "type:${label}")`);
+        warnings.push(
+          `Label "${label}" looks like a bare type label and should have a prefix (e.g., "type:${label}")`,
+        );
       }
 
       // Validate against custom or default canonical set
       if (customCanonicalLabels) {
         if (!customCanonicalLabels.includes(label)) {
-          validationErrors.push(`Label "${label}" not found in canonical label set`);
+          validationErrors.push(
+            `Label "${label}" not found in canonical label set`,
+          );
         }
       } else {
-        if (!CANONICAL_LABELS[label] && !label.match(/^(type|status|priority|area|meta|wp):[a-z0-9-]+$/)) {
-          validationErrors.push(`Label "${label}" not found in canonical label set`);
+        if (
+          !CANONICAL_LABELS[label] &&
+          !label.match(/^(type|status|priority|area|meta|wp):[a-z0-9-]+$/)
+        ) {
+          validationErrors.push(
+            `Label "${label}" not found in canonical label set`,
+          );
         }
       }
     }
@@ -180,7 +192,9 @@ export async function validateAndApplyLabels(input) {
 
     // Separate context labels from type labels
     const typeLabels = deduplicatedLabels.filter((l) => l.startsWith("type:"));
-    const contextLabels = deduplicatedLabels.filter((l) => !l.startsWith("type:"));
+    const contextLabels = deduplicatedLabels.filter(
+      (l) => !l.startsWith("type:"),
+    );
 
     return {
       valid: isValid,
