@@ -13,8 +13,8 @@
  *
  * Configuration:
  *   - config/footers.config.yaml — Category definitions and footer templates
- *   - .schemas/branding-schema.json — Branding schema validation
- *   - .schemas/frontmatter.schema.json — Frontmatter field validation
+ *   - schemas/branding-schema.json — Branding schema validation
+ *   - schemas/frontmatter.schema.json — Frontmatter field validation
  */
 
 import fs from "fs";
@@ -62,7 +62,7 @@ function loadBrandingConfig() {
  */
 function _loadFrontmatterSchema() {
   const projectRoot = getProjectRoot();
-  const schemaPath = path.join(projectRoot, ".schemas/frontmatter.schema.json");
+  const schemaPath = path.join(projectRoot, "schemas/frontmatter.schema.json");
   if (!fs.existsSync(schemaPath)) {
     console.warn(`Frontmatter schema not found: ${schemaPath}`);
     return null;
@@ -612,7 +612,7 @@ Examples:
 
 Configuration:
   config/footers.config.yaml — Category definitions and footers
-  .schemas/branding-schema.json — Branding schema
+  schemas/branding-schema.json — Branding schema
 `);
     process.exit(0);
   }
