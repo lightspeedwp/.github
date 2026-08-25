@@ -388,7 +388,7 @@ In addition to linting, we **validate WordPress JSON schemas** to catch config e
 - **Theme JSON:** We validate the repository’s `theme.json` against WordPress’s official schema (pinned to the version our projects use). Run `npm run test:schema:theme` to check the theme configuration.
 - **Block JSON:** Similarly, `block.json` files are validated with the official Block API schema (`npm run test:schema:block`).
 
-These schema tests use [AJV](https://ajv.js.org) under the hood. The schemas are stored in our repo under `../.schemas/wp/` and are **pinned to a specific WP version** (e.g. 6.6) for consistency. By pinning, our tests won’t suddenly break on a new WP release – we’ll update the schema files quarterly or as new WP versions come out.
+These schema tests use [AJV](https://ajv.js.org) under the hood. The schemas are stored in our repo under `../schemas/wp/` and are **pinned to a specific WP version** (e.g. 6.6) for consistency. By pinning, our tests won’t suddenly break on a new WP release – we’ll update the schema files quarterly or as new WP versions come out.
 
 These schema validations run as part of `npm run check` (and thus in CI). Locally, you can run the specific scripts above to debug schema errors. A failure means the `theme.json` or `block.json` doesn’t conform to expected structure, which could lead to runtime errors in WordPress.
 

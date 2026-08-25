@@ -220,7 +220,7 @@ This audit examined 5 PR-related documentation files in scope. The analysis reve
   ### 3.1 Required Core Prefixes: feat/, fix/, hotfix/, release/, refactor/,
           chore/, docs/, test/, perf/, ci/, build/, deps/, security/,
           revert/, research/, design/, a11y/, ux/, i18n/, ops/
-  ### 3.2 Optional Product Profile Prefixes: proto/, ds/, api/, .schemas/, telemetry/
+  ### 3.2 Optional Product Profile Prefixes: proto/, ds/, api/, schemas/, telemetry/
   ### 3.3 Optional Client Profile Prefixes: content/, seo/, config/, migrate/, qa/, uat/
   ### 3.4 Examples (13 example branch names)
   ### 4. Branch Name Enforcement via CI (regex + workflow example)
