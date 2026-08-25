@@ -292,7 +292,8 @@ Respond with JSON:
       if (!hasUnreleased) {
         return {
           pass: false,
-          message: "Changelog missing [Unreleased] section (required by Keep a Changelog 1.1.0)",
+          message:
+            "Changelog missing [Unreleased] section (required by Keep a Changelog 1.1.0)",
         };
       }
 
@@ -311,12 +312,14 @@ Respond with JSON:
       // Check 4: Verify [Unreleased] has entries (is not empty)
       const unreleasedRegex = /## \[Unreleased\]\n\n([\s\S]*?)\n## \[/;
       const unreleasedMatch = changelogContent.match(unreleasedRegex);
-      const hasUnreleasedEntries = unreleasedMatch && unreleasedMatch[1].trim().length > 0;
+      const hasUnreleasedEntries =
+        unreleasedMatch && unreleasedMatch[1].trim().length > 0;
 
       if (!hasUnreleasedEntries) {
         return {
           pass: false,
-          message: "Changelog [Unreleased] section is empty (no entries to release)",
+          message:
+            "Changelog [Unreleased] section is empty (no entries to release)",
         };
       }
 
