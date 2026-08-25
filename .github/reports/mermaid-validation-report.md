@@ -2,8 +2,8 @@
 title: Mermaid Diagram Syntax Validation Report
 description: Mermaid diagram syntax validation results for repository README files
 version: "1.0.0"
-created_date: "2026-08-25"
-last_updated: "2026-08-25"
+created_date: "2026-08-20"
+last_updated: "2026-08-20"
 file_type: documentation
 tags: ["mermaid", "validation", "diagrams"]
 domain: generic
@@ -13,12 +13,12 @@ stability: stable
 
 # Mermaid Diagram Syntax Validation Report
 
-**Generated**: 2026-08-25T07:29:36.980Z
+**Generated**: 2026-08-20T03:44:40.500Z
 
 ## Summary
 
-- **Total diagrams**: 98
-- **Valid diagrams**: 98
+- **Total diagrams**: 276
+- **Valid diagrams**: 276
 - **Error diagrams**: 0
 - **Success rate**: 100.0%
 ## Files Analyzed
@@ -1105,16 +1105,9 @@ stability: stable
 - agents/linear-advisor-agent/skills/local/skill-creator/references/openai_yaml.md
 - agents/linear-advisor-agent/skills/local/skill-installer/SKILL.md
 - agents/linting-agent/README.md
-- agents/meta-agent/CHANGELOG.md
-- agents/meta-agent/FAQ.md
-- agents/meta-agent/IMPLEMENTATION_GUIDE.md
 - agents/meta-agent/PHASE-2B-COMPLETION.md
 - agents/meta-agent/PHASE-2C-PLAN.md
-- agents/meta-agent/QUICK_START.md
 - agents/meta-agent/README.md
-- agents/meta-agent/TEAM_OPERATIONS_GUIDE.md
-- agents/meta-agent/TRAINING_GUIDE.md
-- agents/meta-agent/TROUBLESHOOTING.md
 - agents/meta-agent/__tests__/fixtures/sample-readme.md
 - agents/metadata-agent/README.md
 - agents/pagespeed-agent/AGENT.md
@@ -2686,7 +2679,6 @@ stability: stable
 - agents/proposal-desk-agent/skills/local/system/skill-creator/references/openai_yaml.md
 - agents/proposal-desk-agent/skills/local/system/skill-installer/SKILL.md
 - agents/release/README.md
-- agents/release/gates/README.md
 - agents/task-planner-agent/AGENT.md
 - agents/task-planner-agent/claude/agent.md
 - agents/task-planner-agent/copilot/agent.md
@@ -2768,9 +2760,7 @@ stability: stable
 - agents/testing-agent/agent/other/agent_files/tests/README.md
 - agents/testing-agent/agent/other/agent_files/tests/schema-validation-tests.md
 - agents/testing-agent/claude/agent.md
-- agents/testing-agent/claude/config.md
 - agents/testing-agent/copilot/agent.md
-- agents/testing-agent/copilot/config.md
 - agents/testing-agent/docs/USAGE_GUIDE.md
 - agents/testing-agent/guides/jest-implementation-guide.md
 - agents/testing-agent/guides/phpunit-implementation-guide.md
@@ -2779,7 +2769,6 @@ stability: stable
 - agents/testing-agent/manifests/redactions.md
 - agents/testing-agent/manifests/skills.md
 - agents/testing-agent/openai/agent.md
-- agents/testing-agent/openai/config.md
 - agents/testing-agent/shared/core-prompt.md
 - agents/testing-agent/skills/agent-attached/frontend-skill/SKILL.md
 - agents/testing-agent/skills/agent-attached/hermes/test-pack-builder/SKILL.md
@@ -5039,16 +5028,9 @@ stability: stable
 - docs/PR_CREATION_PROCESS.md
 - docs/PR_TEMPLATE_VALIDATION.md
 - docs/QUICK_REFERENCE_AI_FEEDBACK.md
-- docs/QUICK_REFERENCE_BRANCH_NAMING.md
 - docs/QUIRKY_FOOTERS_GUIDE.md
 - docs/README.md
-- docs/RELEASE_E2E_TEST_PLAN.md
 - docs/RELEASE_PROCESS.md
-- docs/RELEASE_RUNBOOK_MAJOR.md
-- docs/RELEASE_RUNBOOK_MINOR.md
-- docs/RELEASE_RUNBOOK_PATCH.md
-- docs/RELEASE_TEAM_TRAINING.md
-- docs/RELEASE_TROUBLESHOOTING.md
 - docs/RELEASE_WORDPRESS.md
 - docs/ROADMAP.md
 - docs/SCHEMA_MIGRATION.md
@@ -5095,7 +5077,6 @@ stability: stable
 - instructions/a11y.instructions.md
 - instructions/agent-creation-workflow.instructions.md
 - instructions/ai-operations-unified.instructions.md
-- instructions/branch-naming.instructions.md
 - instructions/coding-standards.instructions.md
 - instructions/community-standards.instructions.md
 - instructions/copilot-operations.instructions.md
@@ -5182,8 +5163,6 @@ stability: stable
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-milestone-planner/SKILL.md
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-spec-planning/SKILL.md
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-sprint-roadmap/SKILL.md
-- projects/active/openspec/PHASE-3-IMPLEMENTATION.md
-- projects/active/release-workflow-validation-phase9-2026-08-22/README.md
 - prompts/README.md
 - schemas/README.md
 - schemas/agent-config.example.md
@@ -5200,18 +5179,14 @@ stability: stable
 - scripts/automation/SYNC_PR_LABELS_README.md
 - scripts/automation/issue-agent/README.md
 - scripts/automation/issue-agent/shared/__tests__/fixtures/README.md
-- scripts/metrics/PHASE_2_COMPLETION_SUMMARY.md
 - scripts/metrics/PROGRESS.md
 - scripts/metrics/README.md
-- scripts/metrics/TASK_2_4_IMPLEMENTATION.md
-- scripts/metrics/TASK_2_5_IMPLEMENTATION.md
 - scripts/metrics/docs/HANDOFF.md
 - scripts/metrics/docs/INTEGRATION_GUIDE.md
 - scripts/metrics/docs/README.md
 - scripts/metrics/docs/TRAINING_GUIDE.md
 - scripts/metrics/docs/USAGE_GUIDE.md
 - scripts/metrics/integrations/README.md
-- scripts/release/__tests__/e2e/README.md
 - scripts/validation/README.md
 - scripts/validation/__fixtures__/pr-templates/README.md
 - scripts/validation/__fixtures__/pr-templates/invalid/missing-changelog-entry.md
@@ -5227,7 +5202,6 @@ stability: stable
 - scripts/validation/__fixtures__/pr-templates/valid/pr_refactor.md
 - scripts/validation/__fixtures__/pr-templates/valid/pr_release.md
 - scripts/workflows/metrics/TASK_2.3_DOCUMENTATION.md
-- scripts/workflows/release/README.md
 - skills/README.md
 - skills/agency-scope-change-control/SKILL.md
 - skills/agency-scope-change-control/references/change-control-register.md

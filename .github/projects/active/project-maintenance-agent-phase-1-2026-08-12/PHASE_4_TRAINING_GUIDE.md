@@ -5,7 +5,6 @@ created_date: 2026-08-18
 last_updated: 2026-08-18
 status: training
 phase: 4
-file_type: documentation
 ---
 
 # Project Maintenance Agent — Team Training Guide
