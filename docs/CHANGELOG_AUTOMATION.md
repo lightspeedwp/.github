@@ -3,7 +3,7 @@ title: Changelog Automation & Integration
 description: Complete guide to changelog management, automation workflows, and integration with release processes
 file_type: documentation
 created_date: '2026-07-24'
-last_updated: '2026-08-21'
+last_updated: '2026-08-25'
 version: '1.1'
 owners:
   - LightSpeed Team
@@ -780,6 +780,22 @@ node .github/scripts/agents/release.agent.js --scope=major
 # Dry run (preview only, no commits/tags)
 node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 ```
+
+## Related Files & Integration
+
+### Specification & Control Plane
+
+- **Spec Agent:** [`.github/agents/changelog.agent.md`](../.github/agents/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Portable Agent:** [`agents/changelog/README.md`](../agents/changelog/README.md) — Implementation guide with usage examples
+- **Workflow:** [`.github/workflows/changelog-management.yml`](../.github/workflows/changelog-management.yml) — GitHub Actions workflow for validation
+- **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
+
+### Schema & Reference
+
+- **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON Schema for validation
+- **Changelog:** [`CHANGELOG.md`](../CHANGELOG.md) — Production changelog using Keep a Changelog format
+- **Keep a Changelog Spec:** https://keepachangelog.com/en/1.1.0/
+- **Semantic Versioning:** https://semver.org/
 
 ---
 
