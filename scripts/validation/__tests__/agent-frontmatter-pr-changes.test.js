@@ -13,9 +13,9 @@
  *    `release.agent.md` and relocates `file_type`/adds `name`.
  *  - Fixes an invalid `permissions` entry in `project-meta-sync.agent.md`:
  *    `github:projects` is not part of the canonical permissions enum in
- *    `.schemas/frontmatter.schema.json`, so it is replaced with `github:pulls`.
+ *    `schemas/frontmatter.schema.json`, so it is replaced with `github:pulls`.
  *
- * @see .schemas/frontmatter.schema.json
+ * @see schemas/frontmatter.schema.json
  * @see scripts/validation/validate-agent-frontmatter.js
  */
 
@@ -26,7 +26,7 @@ const yaml = require("js-yaml");
 const AGENTS_DIR = path.join(__dirname, "../../../.github/agents");
 
 // Canonical permission scopes allowed by the agent frontmatter schema
-// (.schemas/frontmatter.schema.json, "Agent Specification" branch).
+// (schemas/frontmatter.schema.json, "Agent Specification" branch).
 const ALLOWED_PERMISSIONS = [
   "read",
   "write",
