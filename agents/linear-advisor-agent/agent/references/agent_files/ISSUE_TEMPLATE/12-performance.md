@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[Performance] <Short summary>"
+description: "[Performance] <Short summary>"
 name: ⚡ Performance
 about: Report performance-related issues (speed, efficiency, resource usage) or propose optimizations.
-title: '[Performance] <Short summary>'
 labels:
   - status:needs-triage
   - priority:normal

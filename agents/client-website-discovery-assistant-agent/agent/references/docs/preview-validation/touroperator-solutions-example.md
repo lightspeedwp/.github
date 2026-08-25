@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: TourOperator.solutions Repeatable Test Context
+title: "TourOperator.solutions Repeatable Test Context"
+description: "TourOperator.solutions Repeatable Test Context"
 project_name: TourOperator.solutions
 document_type: preview_validation_example
 version: v0.2

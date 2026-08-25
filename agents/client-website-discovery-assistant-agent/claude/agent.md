@@ -1,5 +1,6 @@
 ---
-file_type: documentation
+title: "Agent"
+description: "Agent"
 provider: claude
 agent_slug: client-website-discovery-assistant
 agent_name: Client Website Discovery Assistant (Claude)

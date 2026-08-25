@@ -1,7 +1,7 @@
 ---
-file_type: documentation
+title: "AGENT"
+description: "Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation"
 name: Harvest Analytical Agent
-description: Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation
 agent_id: agent-12
 agent_slug: harvest-analytical
 agent_name: Harvest Analytical Agent

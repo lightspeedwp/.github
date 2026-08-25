@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[Bug] <Short description>"
+description: "[Bug] <Short description>"
 name: 🐛 Bug report
 about: Report a bug to help us improve this WordPress project
-title: '[Bug] <Short description>'
 labels:
   - status:needs-triage
   - priority:normal

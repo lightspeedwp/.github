@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: Repeatable Preview Test Prompts
+title: "Repeatable Preview Test Prompts"
+description: "Repeatable Preview Test Prompts"
 document_type: preview_validation_prompt_library
 version: v0.3
 last_updated: '2026-08-21'

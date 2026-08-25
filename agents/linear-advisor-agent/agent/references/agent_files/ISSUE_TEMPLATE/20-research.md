@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[Research] <Brief summary>"
+description: "[Research] <Brief summary>"
 name: "🔍 Research"
 about: "Propose or document technical research, investigation, or exploratory work."
-title: "[Research] <Brief summary>"
 labels: [status:needs-review, priority:minor, area:core]
 ---
 

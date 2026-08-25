@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "build(ci): {short summary}"
+description: "build(ci): {short summary}"
 name: Build/CI PR
 about: Pipelines, linting, packaging, or release automation
-title: 'build(ci): {short summary}'
 labels:
   - status:needs-review
   - area:ci

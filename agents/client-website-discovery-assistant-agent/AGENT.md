@@ -1,7 +1,7 @@
 ---
-file_type: documentation
+title: "AGENT"
+description: "Comprehensive website assessment and analysis for competitive discovery and UX evaluation"
 name: Client Website Discovery Assistant
-description: Comprehensive website assessment and analysis for competitive discovery and UX evaluation
 agent_id: agent-7
 agent_slug: client-website-discovery-assistant
 agent_name: Client Website Discovery Assistant

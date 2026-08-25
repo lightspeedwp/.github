@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "chore: {scope}"
+description: "chore: {scope}"
 name: Chore PR
 about: 'Repo hygiene: configs, scripts, formatting — no behaviour change'
-title: 'chore: {scope}'
 labels:
   - status:needs-review
   - priority:normal

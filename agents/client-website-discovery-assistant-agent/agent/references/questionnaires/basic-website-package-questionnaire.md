@@ -1,6 +1,6 @@
 ---
-file_type: documentation
 title: "Basic Website Package Questionnaire"
+description: "Basic Website Package Questionnaire"
 source_title: "Questionnaire: Basic Website Package"
 source_url: "https://docs.google.com/document/d/1OhK6_9-mKqguGN1RwglYiy37vPq4fKFFQ4WvA8J8URI/edit?usp=drive_link"
 converted_by: "ChatGPT"

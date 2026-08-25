@@ -1,7 +1,8 @@
 ---
+title: "[Task] <Short summary>"
+description: "[Task] <Short summary>"
 name: 📝 Task
 about: 'Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc.'
-title: '[Task] <Short summary>'
 labels:
   - status:needs-triage
   - priority:normal
@@ -9,7 +10,6 @@ labels:
 assignees: []
 projects: []
 milestone: ''
-file_type: task
 ---
 
 ## Task Summary

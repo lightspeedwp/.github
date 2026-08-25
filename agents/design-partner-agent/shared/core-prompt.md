@@ -1,5 +1,6 @@
 ---
-file_type: 'core-prompt'
+title: "Core Prompt"
+description: "Provider-agnostic core methodology and instructions for the Design Partner Agent"
 agent_slug: 'design-partner'
 agent_name: 'Design Partner Agent'
 version: '1.0.0'
@@ -8,7 +9,6 @@ last_updated: '2026-07-22'
 maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team
-description: 'Provider-agnostic core methodology and instructions for the Design Partner Agent'
 ---
 
 # Design Partner Agent — Core Methodology

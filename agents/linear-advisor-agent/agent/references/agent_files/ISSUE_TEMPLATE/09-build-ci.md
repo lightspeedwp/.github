@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[Build/CI] <Short summary>"
+description: "[Build/CI] <Short summary>"
 name: "⚙️ Build & CI"
 about: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-title: "[Build/CI] <Short summary>"
 labels: [status:needs-triage, area:ci]
 ---
 

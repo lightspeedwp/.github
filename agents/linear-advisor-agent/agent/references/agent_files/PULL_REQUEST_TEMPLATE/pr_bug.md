@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "fix: {short summary}"
+description: "fix: {short summary}"
 name: Bugfix PR
 about: Fix a defect/regression with clear repro, fix, and verification
-title: 'fix: {short summary}'
 labels:
   - status:needs-review
   - priority:normal

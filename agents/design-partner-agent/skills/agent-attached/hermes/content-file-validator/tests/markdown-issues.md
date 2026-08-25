@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: Markdown Issues
+title: "Markdown Issues"
+description: "Markdown Issues"
 type: guide
 status: draft
 version: 1.0.1

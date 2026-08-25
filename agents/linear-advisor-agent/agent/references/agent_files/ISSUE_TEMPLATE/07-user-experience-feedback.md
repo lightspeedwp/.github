@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[UX] <Short summary>"
+description: "[UX] <Short summary>"
 name: 💡 User Experience Feedback
 about: Share feedback on the usability and interface design of this WordPress project
-title: '[UX] <Short summary>'
 labels:
   - status:needs-triage
   - priority:normal

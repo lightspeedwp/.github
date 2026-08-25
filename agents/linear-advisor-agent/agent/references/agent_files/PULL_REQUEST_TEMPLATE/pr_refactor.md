@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "refactor: {scope}"
+description: "refactor: {scope}"
 name: Refactor PR
 about: Internal code improvement; no external behaviour change
-title: 'refactor: {scope}'
 labels:
   - status:needs-review
 ---

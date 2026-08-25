@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: Markdown Issues Example
+title: "Markdown Issues Example"
+description: "Markdown Issues Example"
 status: review
 type: checklist
 version: 1.2.1

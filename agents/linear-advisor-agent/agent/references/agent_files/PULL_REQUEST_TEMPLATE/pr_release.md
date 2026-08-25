@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "release: {short summary}"
+description: "release: {short summary}"
 name: Release PR
 about: Release new features or enhancements
-title: 'release: {short summary}'
 labels:
   - status:needs-review
   - area:release

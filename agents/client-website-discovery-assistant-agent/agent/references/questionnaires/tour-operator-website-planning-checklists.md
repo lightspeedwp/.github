@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: Tour Operator Website Planning and Checklists
+title: "Tour Operator Website Planning and Checklists"
+description: "Tour Operator Website Planning and Checklists"
 source_title: Tour Operator Websites - Planning & Checklists
 source_url: https://docs.google.com/document/d/16duPGCxtAEgljsEO5bnnmGv0AGMtGyGq57m297RQEWo/edit?usp=drive_link
 converted_by: ChatGPT

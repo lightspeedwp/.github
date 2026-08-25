@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: Master Preview QA Checklist
+title: "Master Preview QA Checklist"
+description: "Master Preview QA Checklist"
 document_type: preview_validation_master_checklist
 version: v0.1
 last_updated: '2026-08-21'

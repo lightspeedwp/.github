@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[Content Modelling] <Brief summary>"
+description: "[Content Modelling] <Brief summary>"
 name: 📖 Content Modelling
 about: Propose, update, or discuss content structure, CPTs, or taxonomy.
-title: '[Content Modelling] <Brief summary>'
 labels:
   - status:needs-triage
   - area:content

@@ -1,5 +1,6 @@
 ---
-file_type: documentation
+title: "Agent"
+description: "Agent"
 provider: claude
 agent_slug: harvest-analytical
 agent_name: Harvest Analytical Agent (Claude)

@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: eCommerce Briefing Form
+title: "eCommerce Briefing Form"
+description: "eCommerce Briefing Form"
 source_title: 'Questionnaire: eCommerce Briefing Form'
 source_url: https://docs.google.com/document/d/19nDxjHlZ-r9y7Ze9xjTJPvWz36u7asEDMqy9p3VijUk/edit?usp=drive_link
 converted_by: ChatGPT

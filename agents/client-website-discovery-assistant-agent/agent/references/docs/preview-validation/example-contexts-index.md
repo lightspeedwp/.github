@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-title: Preview Validation Example Contexts Index
+title: "Preview Validation Example Contexts Index"
+description: "Preview Validation Example Contexts Index"
 document_type: preview_validation_index
 version: v0.5
 last_updated: '2026-08-21'

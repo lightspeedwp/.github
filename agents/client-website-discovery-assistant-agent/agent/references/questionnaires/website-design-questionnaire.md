@@ -1,6 +1,6 @@
 ---
-file_type: documentation
 title: "Website Design Questionnaire"
+description: "Website Design Questionnaire"
 source_title: "Content Collection - Website Design Questionnaire"
 source_url: "https://docs.google.com/document/d/1YMn3Qzq-HbRVFsNKIpbN5o9Wv3gohwYgEvwwcD6vWaA/edit?usp=drive_link"
 converted_by: "ChatGPT"

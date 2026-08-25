@@ -1,8 +1,8 @@
 ---
-file_type: documentation
+title: "[Compatibility] <Brief summary>"
+description: "[Compatibility] <Brief summary>"
 name: 🧩 Compatibility
 about: Track browser/device/WordPress/plugin compatibility issues.
-title: '[Compatibility] <Brief summary>'
 labels:
   - status:needs-testing
   - area:compatibility

@@ -1,7 +1,7 @@
 ---
-file_type: documentation
+title: "AGENT"
+description: "AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment"
 name: Design Partner Agent
-description: AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment
 agent_id: agent-5
 agent_slug: design-partner
 agent_name: Design Partner Agent

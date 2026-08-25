@@ -1,5 +1,6 @@
 ---
-file_type: documentation
+title: "Agent"
+description: "Agent"
 provider: copilot
 agent_slug: client-website-discovery-assistant
 agent_name: Client Website Discovery Assistant (GitHub Copilot)

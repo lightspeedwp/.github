@@ -1,5 +1,5 @@
 ---
-file_type: agent
+file_type: documentation
 title: "AI Readiness Estimator (OpenAI)"
 description: "AI Readiness Estimator (OpenAI)"
 provider: openai

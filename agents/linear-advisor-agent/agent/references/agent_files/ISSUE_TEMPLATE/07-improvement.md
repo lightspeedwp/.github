@@ -1,7 +1,8 @@
 ---
+title: "[Improvement] <Short summary>"
+description: "[Improvement] <Short summary>"
 name: 🔧 Improvement
 about: Propose enhancements, polish, or usability improvements.
-title: '[Improvement] <Short summary>'
 labels:
   - status:needs-triage
   - priority:normal
@@ -9,7 +10,6 @@ labels:
 assignees: []
 projects: []
 milestone: ''
-file_type: improve
 references:
   - ../../CONTRIBUTING.md
   - .github/labeler.yml
