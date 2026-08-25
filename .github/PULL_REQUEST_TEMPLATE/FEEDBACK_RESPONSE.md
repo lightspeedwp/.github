@@ -1,14 +1,4 @@
----
-title: "Feedback Response — Reports & Projects Restructuring PR"
-description: "AI feedback tracking and completion status for PR #1730 planning documentation"
-type: "feedback-response"
-created_date: "2026-08-11"
-pr_number: 1730
-status: "complete"
-author: "Ash Shaw"
----
-
-# Feedback Response — PR #1730
+# Feedback Response — AI Feedback Tracking Template
 
 ## Summary
 
