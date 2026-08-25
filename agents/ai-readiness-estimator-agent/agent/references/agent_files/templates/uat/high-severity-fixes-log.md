@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: High-Severity Fixes Log
+audience: internal
+document_type: uat-fixes-log
+status: active
+language: en-GB
+---
+
 # High-Severity Fixes Log
 
 Use this log to track high-severity issues found during pilot testing of the LightSpeed AI Readiness Estimator, along with the fix status, owner, and retest outcome.

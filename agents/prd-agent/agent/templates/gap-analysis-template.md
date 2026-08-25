@@ -1,3 +1,8 @@
+---
+template: gap-analysis
+purpose: Identify what is missing before planning can be trusted.
+---
+
 # Gap analysis
 
 ## Current evidence state

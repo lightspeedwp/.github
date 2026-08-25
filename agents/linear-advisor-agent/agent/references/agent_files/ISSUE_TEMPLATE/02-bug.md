@@ -1,3 +1,13 @@
+---
+name: 🐛 Bug report
+about: Report a bug to help us improve this WordPress project
+title: '[Bug] <Short description>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
+---
+
 <!--
 Thank you for reporting a bug!
 Please fill in as much of the template below as you can.

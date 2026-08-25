@@ -1,3 +1,46 @@
+---
+file_type: agent
+name: task-researcher
+title: Task Researcher Agent
+description: Analyze requirements, extract constraints, map context, and synthesize research findings for complex project planning tasks. Part of the portable Task Planning orchestrator system that hands off to Task Planner Agent.
+version: 1.0.1
+status: in-development
+last_updated: '2026-08-21'
+category: planning
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+visibility: public
+domain: planning
+tags:
+  - task-planning
+  - requirement-analysis
+  - research
+  - constraint-extraction
+  - context-mapping
+  - multi-provider
+tools:
+  - requirement_discovery
+  - constraint_extractor
+  - context_mapper
+  - research_synthesizer
+permissions:
+  - read
+  - write
+providers:
+  - claude
+  - copilot
+  - openai
+capabilities:
+  - requirement-discovery
+  - constraint-extraction
+  - context-mapping
+  - research-synthesis
+  - dependency-identification
+  - risk-assessment
+  - stakeholder-analysis
+---
+
 # Task Researcher Agent
 
 ## Overview

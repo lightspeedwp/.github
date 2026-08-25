@@ -5,6 +5,8 @@ category: "Issue Management"
 labels:
   - contrib:good-first-issue
   - status:ready
+references:
+  - "../../CONTRIBUTING.md"
 ---
 
 # Good First Issue Saved Replies

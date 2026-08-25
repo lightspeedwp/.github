@@ -1,3 +1,10 @@
+---
+title: Valid Example
+status: draft
+type: guide
+version: 1.0.1
+---
+
 # Valid Example
 
 ## Overview

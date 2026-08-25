@@ -6,6 +6,9 @@ labels:
   - area:environment
   - area:configuration
   - status:needs-triage
+references:
+  - "../../instructions/environment.md"
+  - "../../instructions/deployment-checklist.md"
 ---
 
 # Environment Configuration Issues Saved Reply

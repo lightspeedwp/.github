@@ -1,3 +1,14 @@
+---
+issue_type: task
+title: "Fix 1.1: Remove Non-existent Label Reference from Governance"
+priority: high
+area: ci
+domain: dotgithub
+team: Engineering
+effort: 0.5
+parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+---
+
 # Fix 1.1: Remove Non-existent Label Reference from Governance
 
 ## Problem

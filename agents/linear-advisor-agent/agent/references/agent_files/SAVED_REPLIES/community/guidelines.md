@@ -5,6 +5,11 @@ category: Community
 labels:
   - area:contributing
   - status:needs-triage
+references:
+  - ../../CONTRIBUTING.md
+  - ../../custom-instructions.md
+  - ../../CODE_OF_CONDUCT.md
+  - ../../instructions/coding-standards.instructions.md
 ---
 
 # Contribution Guidelines Saved Reply

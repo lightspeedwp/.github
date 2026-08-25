@@ -1,3 +1,16 @@
+---
+title: Chat Closure Agent — CLI Reference
+description: Command-line interface and options for the Chat Closure Agent
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-21'
+author: Claude Code
+tags:
+  - cli
+  - reference
+  - commands
+  - options
+---
+
 # Chat Closure Agent — CLI Reference
 
 **Complete command-line reference for the Chat Closure Agent.**

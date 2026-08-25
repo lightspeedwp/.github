@@ -1,3 +1,10 @@
+---
+artifact: proposal
+change: phase-2-task-planning-agents-implementation
+schema: spec-driven
+status: draft
+---
+
 # Phase 2: Portable Task Planning Agents — Implementation Proposal
 
 ## Why

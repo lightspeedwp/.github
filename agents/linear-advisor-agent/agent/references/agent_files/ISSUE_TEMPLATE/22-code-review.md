@@ -1,3 +1,12 @@
+---
+name: 👀 Code Review
+about: Request or conduct code review, peer validation, or QA.
+title: '[Review] <Brief summary>'
+labels:
+  - status:needs-review
+  - area:core
+---
+
 ## Review Summary
 
 <!-- Describe the code/PR needing review, goals, and checklist. -->

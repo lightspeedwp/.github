@@ -1,3 +1,9 @@
+---
+version: 1.0.1
+title: Safari lodge WordPress rebuild todos
+project_key: safari-lodge-wordpress-rebuild
+last_updated: '2026-08-21'
+---
 # Todos
 
 ## Open tasks

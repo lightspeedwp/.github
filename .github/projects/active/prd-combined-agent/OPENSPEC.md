@@ -1,3 +1,13 @@
+---
+file_type: openspec
+title: "prd-combined-agent — OpenSpec Specification"
+description: "Technical specification for prd-combined-agent"
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+status: draft
+---
+
 # prd-combined-agent — OpenSpec Specification
 
 See [PLANNING.md](./PLANNING.md) for project specifications.

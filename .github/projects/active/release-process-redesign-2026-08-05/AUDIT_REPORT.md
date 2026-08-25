@@ -1,3 +1,14 @@
+---
+file_type: markdown
+title: "Release Process Audit Report"
+description: "Critical audit of release workflows, documentation, and process discrepancies"
+status: active
+version: "1.0"
+last_updated: "2026-08-05"
+owners: ["Ash Shaw"]
+tags: ["audit", "release", "critical-findings"]
+---
+
 # Release Process Audit Report
 
 ## Executive Summary

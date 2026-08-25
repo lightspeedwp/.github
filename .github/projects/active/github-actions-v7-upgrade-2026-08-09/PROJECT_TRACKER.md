@@ -1,3 +1,10 @@
+---
+name: GitHub Actions v7 Upgrade — Project Tracker
+type: tracker
+version: 1.0
+status: active
+---
+
 # GitHub Actions v7 Upgrade — Project Tracker
 
 ## Epic Overview

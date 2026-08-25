@@ -1,3 +1,18 @@
+---
+file_type: planning-document
+title: Agent Ecosystem Architecture — Integration Map
+description: How Issue Management Agent, Issues Agent, and Labeling Agent work together
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors:
+  - LightSpeed Team
+tags:
+  - planning
+  - agent-architecture
+  - integration
+status: active
+---
+
 # Agent Ecosystem Architecture — Integration Map
 
 **Purpose**: Establish how three complementary agents collaborate without conflict: Issues Agent (content quality), Labeling Agent (dynamic label application), and Issue Management Agent (operational label management).

@@ -1,3 +1,10 @@
+---
+title: Claim Register Template
+output_type: claim_register
+status: active
+compliance: required
+---
+
 # Claim register
 
 Use this template for claim-review handoffs, proof-validation outputs, evidence reviews, and claim-register updates.

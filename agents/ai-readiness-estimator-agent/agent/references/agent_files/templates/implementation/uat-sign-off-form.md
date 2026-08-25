@@ -1,3 +1,9 @@
+---
+template_id: uat-sign-off-form
+version: 1.0.1
+status: draft
+---
+
 # UAT Sign‑Off Form
 
 Use this form to capture formal approval from the client after user acceptance testing (UAT) is complete and before the solution is launched.

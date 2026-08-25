@@ -1,3 +1,13 @@
+---
+name: 📚 Documentation
+about: Request new documentation or propose updates/clarifications to existing docs.
+title: '[Documentation] <Brief summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:documentation
+---
+
 <!--
 Thank you for helping improve our documentation!
 Please fill in as much of the template below as you can.

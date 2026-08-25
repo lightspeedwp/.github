@@ -1,3 +1,14 @@
+---
+title: Meta Agent v2.0 — Changelog
+description: Version history and release notes for Meta Agent v2.0
+file_type: changelog
+category: documentation
+status: active
+language: en
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Changelog — Meta Agent v2.0
 
 All notable changes to the Meta Agent v2.0 project are documented here.

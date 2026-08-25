@@ -1,3 +1,8 @@
+---
+template: prd
+purpose: Draft an evidence-led PRD suitable for implementation and estimation.
+---
+
 # Product requirements document
 
 ## Context

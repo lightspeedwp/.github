@@ -1,3 +1,12 @@
+---
+title: Valid Example
+status: draft
+type: guide
+version: "1.0.0"
+audience:
+  - internal
+owner: Docs Team
+---
 # Valid Example
 
 ## Overview

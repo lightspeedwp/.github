@@ -1,3 +1,12 @@
+---
+title: Project Maintenance Agent — Operations Runbook
+description: Step-by-step procedures for common maintenance tasks and incident response
+created_date: 2026-08-18
+last_updated: 2026-08-18
+status: operations
+phase: 4
+---
+
 # Project Maintenance Agent — Operations Runbook
 
 **Audience:** Operations team, technical leads, on-call engineers  

@@ -1,3 +1,12 @@
+---
+title: TourOperator.solutions Repeatable Test Context
+project_name: TourOperator.solutions
+document_type: preview_validation_example
+version: v0.2
+last_updated: '2026-08-21'
+status: reusable_test_reference
+---
+
 # TourOperator.solutions Repeatable Test Context
 
 ---

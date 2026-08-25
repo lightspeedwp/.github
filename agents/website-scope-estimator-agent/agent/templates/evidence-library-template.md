@@ -1,3 +1,12 @@
+---
+title: <evidence library title>
+document_type: evidence_library
+status: <draft|provisional|complete>
+date: <YYYY-MM-DD>
+client: <client name>
+project: <project name>
+---
+
 # Evidence Library
 
 ## Source List

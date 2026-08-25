@@ -1,3 +1,9 @@
+---
+template_id: chatbot-escalation-and-fallback-design-template
+version: 1.0.1
+status: draft
+---
+
 # Chatbot Escalation and Fallback Design Template
 
 Use this template to design escalation and fallback behaviour for a chatbot.  

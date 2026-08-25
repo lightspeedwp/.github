@@ -1,3 +1,10 @@
+---
+name: "🚀 Feature"
+about: "Propose a net-new capability, enhancement, or workflow improvement."
+title: "[Feature] <Short summary>"
+labels: [status:needs-triage, priority:normal, area:core]
+---
+
 <!--
 Thank you for suggesting a feature!
 Please fill in as much of the template below as you can.

@@ -1,3 +1,13 @@
+---
+file_type: openspec
+title: "test-coverage-implementation — OpenSpec Specification"
+description: "Technical specification for test-coverage-implementation"
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+status: draft
+---
+
 # test-coverage-implementation — OpenSpec Specification
 
 See [PLANNING.md](./PLANNING.md) for project specifications.

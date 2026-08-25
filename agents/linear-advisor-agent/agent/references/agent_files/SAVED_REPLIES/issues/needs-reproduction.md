@@ -4,6 +4,8 @@ description: Linear-first request for the minimum reproducible evidence needed t
 category: Issue Management
 labels:
   - status:needs-reproduction
+references:
+  - ../../canonical/ISSUE_CREATION_GUIDE.md
 ---
 
 # Needs Reproduction Saved Reply

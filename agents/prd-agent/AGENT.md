@@ -1,3 +1,58 @@
+---
+file_type: agent
+name: prd
+title: PRD Agent (Product Requirements)
+description: Create and manage comprehensive product requirement documents, technical specifications, user stories, and planning artifacts for product development. Combines PRD creation with feature planning, sprint coordination, and roadmap generation into one unified planning powerhouse.
+version: 2.0.1
+status: active
+last_updated: '2026-08-21'
+category: planning
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+visibility: public
+domain: planning
+tags:
+  - prd
+  - planning
+  - product-requirements
+  - feature-planning
+  - roadmap
+  - user-stories
+  - multi-provider
+tools:
+  - prd_create
+  - prd_validate
+  - feature_prioritizer
+  - user_story_generator
+  - timeline_planner
+  - roadmap_generator
+  - risk_assessor
+  - sprint_planner
+permissions:
+  - read
+  - write
+providers:
+  - claude
+  - copilot
+  - openai
+capabilities:
+  - prd-creation
+  - specification-writing
+  - requirement-analysis
+  - feature-definition
+  - user-story-generation
+  - acceptance-criteria-definition
+  - technical-specification
+  - planning-artifact-generation
+  - feature-prioritization
+  - timeline-planning
+  - roadmap-generation
+  - sprint-coordination
+  - risk-assessment
+  - stakeholder-alignment
+---
+
 ## Branch Naming
 
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).

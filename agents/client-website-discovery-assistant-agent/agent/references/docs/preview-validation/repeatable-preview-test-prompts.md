@@ -1,3 +1,11 @@
+---
+title: Repeatable Preview Test Prompts
+document_type: preview_validation_prompt_library
+version: v0.3
+last_updated: '2026-08-21'
+status: reusable_test_reference
+---
+
 # Repeatable Preview Test Prompts
 
 ---

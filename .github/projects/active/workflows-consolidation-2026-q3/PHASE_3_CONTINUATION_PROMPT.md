@@ -1,3 +1,18 @@
+---
+name: Phase 3 Continuation Prompt
+title: GitHub Workflows Consolidation — Phase 3 Execution (Labeling Workflows)
+description: Continuation prompt for Phase 3 execution. Use this to resume work in a new chat session.
+created: 2026-07-24
+status: in-progress
+related_issues:
+  - epic: '#1227'
+  - child_issues: '#1322, #1323, #1324, #1325'
+related_docs:
+  - PHASE_3_ISSUES.md
+  - PHASE_3_READINESS.md
+  - PROJECT_INDEX.md
+---
+
 # Phase 3 Continuation Prompt: GitHub Workflows Consolidation
 
 ## Context

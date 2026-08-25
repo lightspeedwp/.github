@@ -1,3 +1,11 @@
+---
+name: analyze-prompt unit tests
+description: Unit tests for the analyze-prompt skill
+version: 1.0.1
+created: '2026-08-12'
+status: placeholder
+---
+
 # analyze-prompt Unit Tests
 
 Unit tests for clarity analysis framework (Phase 3 deliverable).

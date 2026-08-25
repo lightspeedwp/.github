@@ -1,3 +1,12 @@
+---
+name: 🤖 Automation
+about: Propose, fix, or improve automation (actions, scripts, bots).
+title: '[Automation] <Short summary>'
+labels:
+  - status:needs-triage
+  - area:automation
+---
+
 ## Automation Summary
 
 <!-- Describe the automation, script, or bot (purpose, scope, outcome). -->

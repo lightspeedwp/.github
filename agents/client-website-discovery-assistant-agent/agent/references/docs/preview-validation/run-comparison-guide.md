@@ -1,3 +1,11 @@
+---
+title: Preview Run Comparison Guide
+document_type: preview_validation_comparison_guide
+version: v0.3
+last_updated: '2026-08-21'
+status: reusable_test_reference
+---
+
 # Preview Run Comparison Guide
 
 ---

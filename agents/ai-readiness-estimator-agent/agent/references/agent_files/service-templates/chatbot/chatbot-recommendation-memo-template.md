@@ -1,3 +1,13 @@
+---
+template_id: chatbot-recommendation-memo-template
+version: 1.1.1
+status: draft
+document_type: recommendation_memo
+audience: internal_or_client
+prepared_by: '{{owner.name}}'
+date: '{{metadata.document_date}}'
+---
+
 # Chatbot Recommendation Memo
 
 Use this memo to summarise findings from a chatbot planning workshop and provide a clear recommendation on whether and how to proceed with implementation.

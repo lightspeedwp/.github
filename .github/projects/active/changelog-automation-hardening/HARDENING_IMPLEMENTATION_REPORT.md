@@ -1,3 +1,9 @@
+---
+title: "Changelog Automation Hardening — Implementation Report"
+date: "2026-07-24"
+status: "complete"
+---
+
 # Changelog Automation Hardening — Implementation Report
 
 **Date:** 2026-07-24

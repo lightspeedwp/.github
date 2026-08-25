@@ -1,3 +1,8 @@
+---
+example_for: technical-brief
+quality: strong
+---
+
 # Technical brief
 
 ## Technical context

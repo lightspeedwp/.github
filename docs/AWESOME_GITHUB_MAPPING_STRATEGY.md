@@ -1,3 +1,12 @@
+---
+title: Awesome GitHub Design-to-Content Mapping Strategy
+version: '1.0'
+created: '2026-06-04'
+purpose: Comprehensive mapping of design handoff to Astro website implementation using existing repository content
+status: active
+maintainer: LightSpeed AI Operations
+---
+
 # Awesome GitHub Design-to-Content Mapping Strategy
 
 ## Executive Summary

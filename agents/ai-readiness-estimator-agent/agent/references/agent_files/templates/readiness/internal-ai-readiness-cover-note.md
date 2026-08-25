@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: Internal AI Readiness Cover Note
+audience: internal
+document_type: cover-note
+status: template
+language: en-GB
+---
+
 # Internal AI Readiness Cover Note
 
 Use this note to accompany an internal AI-readiness estimate, findings pack, or routing recommendation before it is reviewed, approved, or adapted for client-facing use.

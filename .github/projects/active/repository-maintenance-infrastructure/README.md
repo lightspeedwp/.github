@@ -1,3 +1,20 @@
+---
+name: Repository Maintenance Infrastructure
+title: Repository Maintenance & Branch Cleanup Automation
+description: Comprehensive maintenance procedures, automated cleanup tooling, and team documentation for .github repository operations
+status: completed
+last_updated: 2026-07-24
+version: 1.0.1
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - maintenance
+  - automation
+  - branch-cleanup
+  - repository-operations
+  - team-procedures
+---
+
 # Repository Maintenance Infrastructure
 
 Establishes permanent documentation, automated cleanup tooling, and team procedures for sustainable .github repository operations.

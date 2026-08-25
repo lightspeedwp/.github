@@ -1,3 +1,9 @@
+---
+template_id: qa-approval-form
+version: 1.0.0
+status: draft
+---
+
 # QA Approval Form
 
 Use this form to document quality assurance checks and formal sign‑off before deliverables are released to the client or go live.

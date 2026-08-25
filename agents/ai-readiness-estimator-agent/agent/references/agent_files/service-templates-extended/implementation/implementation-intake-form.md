@@ -1,3 +1,9 @@
+---
+template_id: implementation-intake-form
+version: 1.0.1
+status: draft
+---
+
 # Implementation Intake Form
 
 Use this form to capture key details before beginning an AI implementation project.  

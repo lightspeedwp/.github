@@ -1,3 +1,14 @@
+---
+file_type: documentation
+title: Phase 2B Phase B - Skills Consolidation Planning & Architecture
+description: Strategic planning, architectural decisions, and implementation roadmap for Phase C skill consolidation
+created: 2026-07-24
+last_updated: 2026-07-29
+status: in-progress
+related_issues: '#1316'
+related_pr: '#1370'
+---
+
 # Phase 2B Phase B — Skills Consolidation Planning & Architecture
 
 ## Executive Summary

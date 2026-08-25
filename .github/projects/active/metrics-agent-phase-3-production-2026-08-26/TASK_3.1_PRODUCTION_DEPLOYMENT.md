@@ -1,3 +1,12 @@
+---
+name: Task 3.1 — Production Deployment Implementation
+description: Production deployment of metrics collection workflow
+type: implementation
+phase: Phase 3 Production Rollout
+status: In Progress
+version: 1.0.0
+---
+
 # Task 3.1: Production Deployment — Metrics Workflow
 
 **Issue:** [#2126](https://github.com/lightspeedwp/.github/issues/2126)  

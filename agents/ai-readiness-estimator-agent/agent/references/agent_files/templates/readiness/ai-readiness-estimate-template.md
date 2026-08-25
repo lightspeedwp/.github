@@ -1,3 +1,13 @@
+---
+version: 1.0.1
+title: AI Readiness Estimate
+audience: internal
+document_type: estimate
+status: template
+language: en-GB
+recommended_base_package: AI Readiness Foundation
+---
+
 # AI Readiness Estimate
 
 Use this template for internal LightSpeed AI-readiness estimates where the recommendation is still evidence-led, commercially careful, and audit-first until the routing inputs are confirmed.

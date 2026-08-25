@@ -1,3 +1,9 @@
+---
+title: "Mermaid Accessibility Audit & Enhancement Report"
+date: 2026-08-19
+status: complete
+---
+
 # Mermaid Accessibility Audit & Enhancement Report
 
 **Date:** 2026-08-19  

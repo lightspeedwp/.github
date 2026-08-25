@@ -1,3 +1,11 @@
+---
+version: 1.0.0
+title: "Safari lodge WordPress rebuild active context"
+project_key: safari-lodge-wordpress-rebuild
+status: active
+last_updated: 2026-05-15
+current_stage: intake_summary
+---
 # Active Context
 
 ## Current focus

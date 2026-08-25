@@ -1,3 +1,22 @@
+---
+name: 🔧 Improvement
+about: Propose enhancements, polish, or usability improvements.
+title: '[Improvement] <Short summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
+assignees: []
+projects: []
+milestone: ''
+file_type: improve
+references:
+  - ../../CONTRIBUTING.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
+---
+
 <!--
 Thank you for suggesting an enhancement!
 Please fill in as much of the template below as you can.

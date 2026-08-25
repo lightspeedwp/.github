@@ -1,3 +1,10 @@
+---
+title: "Documentation Plan — Testing Agent Architecture"
+description: "Framework guides, skills, provider configs, and architecture documentation"
+status: planning
+created_date: "2026-08-12"
+---
+
 # Documentation Plan — Testing Agent Architecture
 
 ## Overview

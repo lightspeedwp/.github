@@ -1,3 +1,11 @@
+---
+title: AI Feedback Validation — Automation Setup
+description: Technical setup and automation enforcement for AI feedback PR review system
+version: 1.0.1
+created_date: 2026-08-04T00:00:00.000Z
+audience: DevOps, Engineering Leads
+---
+
 # AI Feedback Validation — Automation Setup
 
 This document covers the technical setup, configuration, and enforcement automation for the AI feedback validation system.

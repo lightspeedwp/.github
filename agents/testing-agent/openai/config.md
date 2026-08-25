@@ -1,3 +1,19 @@
+---
+file_type: configuration
+title: Testing Agent — OpenAI Provider Configuration
+description: >-
+  OpenAI provider configuration for the Testing Agent: API setup, model selection,
+  rate limiting, cost tracking, batch processing, and best practices for
+  server-side test generation and integration with CI/CD pipelines.
+last_updated: '2026-08-18'
+domain: testing
+tags:
+  - openai
+  - configuration
+  - testing-agent
+  - multi-provider
+---
+
 # Testing Agent — OpenAI Provider Configuration
 
 Configuration guide for deploying the Testing Agent with OpenAI as the LLM provider.

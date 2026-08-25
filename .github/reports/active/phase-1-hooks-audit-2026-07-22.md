@@ -1,3 +1,10 @@
+---
+file_type: audit
+category: hooks
+created_date: 2026-07-22
+scope: phase-1-agent-standardization
+---
+
 # Hooks Folder Audit & Proposed New Hooks — Phase 1
 
 **Objective:** Review existing hooks and propose new hooks for agent validation and multi-provider consistency.

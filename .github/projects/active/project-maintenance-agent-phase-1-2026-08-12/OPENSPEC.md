@@ -1,3 +1,13 @@
+---
+file_type: openspec
+title: Project Maintenance Agent — OpenSpec Technical Specification
+description: Formal technical specification for the portable Project Maintenance Agent
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+status: draft
+---
+
 # Project Maintenance Agent — OpenSpec Technical Specification
 
 ## 1. Executive Summary

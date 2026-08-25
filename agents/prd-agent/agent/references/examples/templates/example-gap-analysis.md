@@ -1,3 +1,8 @@
+---
+example_for: gap-analysis
+quality: strong
+---
+
 # Gap analysis
 
 ## Current evidence state

@@ -1,3 +1,13 @@
+---
+file_type: project
+name: Develop Branch Stability Initiative
+description: Establish clean, stable baseline on develop branch with zero linting errors and documented workflow issues
+version: "1.0"
+date_created: "2026-08-10"
+last_updated: "2026-08-10"
+status: active
+---
+
 # Develop Branch Stability Initiative
 
 **Objective:** Establish a clean, stable baseline on `develop` so all future PRs branch from a known-good state with no blocking errors.

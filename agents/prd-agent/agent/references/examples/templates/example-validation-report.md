@@ -1,3 +1,8 @@
+---
+example_for: validation-report
+quality: strong
+---
+
 # Validation report
 
 ## Validation scope

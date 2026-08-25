@@ -1,3 +1,10 @@
+---
+title: LightSpeedWP.Agency Example Context
+context_key: lightspeedwp-agency
+context_type: preview_test_example
+status: reusable
+---
+
 # LightSpeedWP.Agency Example Context
 
 Reusable reference context for future preview tests.

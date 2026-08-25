@@ -1,3 +1,11 @@
+---
+title: "OpenSpec Labels Automation — Phase 4 Architecture"
+type: "project-architecture"
+category: "planning"
+date: "2026-08-21"
+status: "draft"
+---
+
 # Phase 4 Architecture: External Tool Integration & Metrics System
 
 **Document Version:** 1.0  

@@ -1,3 +1,10 @@
+---
+title: Markdown Output Format Guide
+scope: default-formatting
+status: active
+compliance: required
+---
+
 # Markdown output format guide
 
 Use this guide as the default packaging standard for substantial outputs unless a stricter specialist workflow or template overrides it.

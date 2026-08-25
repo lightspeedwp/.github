@@ -1,3 +1,14 @@
+---
+issue_type: feature
+title: "Fix 1.5: Add Issue DoD Validation Before Close"
+priority: high
+area: ci
+domain: dotgithub
+team: Engineering
+effort: 2.5
+parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+---
+
 # Fix 1.5: Add Issue DoD Validation Before Close
 
 ## Problem

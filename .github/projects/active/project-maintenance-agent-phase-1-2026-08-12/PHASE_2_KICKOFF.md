@@ -1,3 +1,12 @@
+---
+title: Project Maintenance Agent — Phase 2 Kickoff & Planning
+description: Portable agent development for multi-provider support (Claude, Copilot, OpenAI)
+created_date: 2026-08-18
+last_updated: 2026-08-18
+status: planning
+phase: 2
+---
+
 # Project Maintenance Agent — Phase 2 Kickoff Guide
 
 **Phase Duration:** Estimated 2 weeks (50 hours)  

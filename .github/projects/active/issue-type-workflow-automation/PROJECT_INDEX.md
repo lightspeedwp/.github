@@ -1,3 +1,15 @@
+---
+file_type: project
+title: Issue Type & Metadata Automation Initiative
+description: Fix issue creation automation to ensure all metadata is assigned at creation
+status: active
+start_date: 2026-07-23
+target_completion: 2026-08-27
+owner: Ash Shaw
+priority: high
+epic_issue: "#1167"
+---
+
 # Issue Type & Metadata Automation Initiative — Project Index
 
 **Objective:** Fix critical gaps in GitHub issue creation automation so that issue types, labels, assignees, projects, and custom fields are automatically populated when issues are created, preventing manual cleanup and enabling AI agents to create issues correctly.

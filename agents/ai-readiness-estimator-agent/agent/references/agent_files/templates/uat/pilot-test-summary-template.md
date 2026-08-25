@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: Pilot Test Summary
+audience: internal
+document_type: uat-summary
+status: template
+language: en-GB
+---
+
 # Pilot Test Summary
 
 Use this template to summarise pilot testing for the LightSpeed AI Readiness Estimator after testers have completed scenarios and recorded results.

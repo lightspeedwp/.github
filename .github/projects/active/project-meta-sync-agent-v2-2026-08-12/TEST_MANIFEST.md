@@ -1,3 +1,11 @@
+---
+file_type: test-manifest
+title: Project Meta Sync Agent v2 — Testing Roadmap & Manifest
+description: "Complete testing strategy tied to OPENSPEC acceptance criteria"
+version: 1.0.0
+created_date: 2026-08-12
+---
+
 # Testing Roadmap & Manifest
 
 This document ties the complete testing strategy to OPENSPEC acceptance criteria and provides a unified roadmap for validation.

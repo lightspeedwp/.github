@@ -1,3 +1,12 @@
+---
+title: Project Maintenance Agent — Team Training Guide
+description: 30-minute team walkthrough covering nightly audits and on-demand operations
+created_date: 2026-08-18
+last_updated: 2026-08-18
+status: training
+phase: 4
+---
+
 # Project Maintenance Agent — Team Training Guide
 
 **Duration:** 30 minutes (dry-run demo) + 30 minutes (Q&A)  

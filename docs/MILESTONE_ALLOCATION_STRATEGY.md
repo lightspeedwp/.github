@@ -1,3 +1,8 @@
+---
+title: Milestone Allocation Strategy
+category: Workflow
+---
+
 # Milestone Allocation Strategy
 
 This document explains how issues and pull requests are automatically allocated to version milestones in the LightSpeed `.github` repository.

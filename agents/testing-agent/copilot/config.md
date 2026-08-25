@@ -1,3 +1,19 @@
+---
+file_type: configuration
+title: Testing Agent — GitHub Copilot Provider Configuration
+description: >-
+  GitHub Copilot provider configuration for the Testing Agent: VS Code setup,
+  keybindings, chat context, inline suggestions, accessibility settings, and
+  best practices for repository-aware test generation and code review.
+last_updated: '2026-08-18'
+domain: testing
+tags:
+  - copilot
+  - configuration
+  - testing-agent
+  - multi-provider
+---
+
 # Testing Agent — GitHub Copilot Provider Configuration
 
 Configuration guide for the Testing Agent on GitHub Copilot (VS Code, Copilot Chat,

@@ -1,3 +1,18 @@
+---
+title: Label Management CLI Reference
+description: Command-line interface reference for label-orchestrator.js and automation scripts
+file_type: documentation
+created_date: 2026-08-11T00:00:00.000Z
+last_updated: '2026-08-21'
+authors:
+  - LightSpeed Team
+tags:
+  - cli-reference
+  - label-management
+  - automation
+status: active
+---
+
 # Label Management CLI Reference
 
 Complete reference for the `label-orchestrator.js` unified CLI and individual automation scripts.

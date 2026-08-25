@@ -1,3 +1,9 @@
+---
+template_id: policy-draft-outline
+version: 1.0.1
+status: draft
+---
+
 # Responsible AI Policy Draft Outline
 
 This outline provides a starting structure for drafting a Responsible AI policy.  

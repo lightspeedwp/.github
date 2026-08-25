@@ -1,3 +1,11 @@
+---
+name: Expanded Implementation Details
+description: Concrete implementation specifications, code examples, configurations, and operational procedures
+type: expanded-implementation
+version: '1.0'
+status: in-progress
+---
+
 # Metrics Agent — Expanded Implementation Details
 
 ## 1. Detailed Module Implementation

@@ -1,3 +1,13 @@
+---
+name: Release PR
+about: Release new features or enhancements
+title: 'release: {short summary}'
+labels:
+  - status:needs-review
+  - area:release
+  - release:patch
+---
+
 # Release Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

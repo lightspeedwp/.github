@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: Missing Values Intake Checklist
+audience: internal
+document_type: intake-checklist
+status: template
+language: en-GB
+---
+
 # Missing Values Intake Checklist
 
 Use this checklist when an AI-readiness estimate is still blocked by missing information that materially affects package routing, scope confidence, or commercial confidence.

@@ -1,3 +1,11 @@
+---
+title: Master Preview QA Checklist
+document_type: preview_validation_master_checklist
+version: v0.1
+last_updated: '2026-08-21'
+status: reusable_test_reference
+---
+
 # Master Preview QA Checklist
 
 ---

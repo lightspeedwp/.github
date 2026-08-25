@@ -1,3 +1,12 @@
+---
+title: LightSpeedWP.Agency Repeatable Test Context
+project_name: LightSpeedWP.Agency
+document_type: preview_validation_example
+version: v0.2
+last_updated: 2026-05-18
+status: reusable_test_reference
+---
+
 # LightSpeedWP.Agency Repeatable Test Context
 
 ---

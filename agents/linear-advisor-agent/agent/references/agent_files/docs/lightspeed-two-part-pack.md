@@ -1,3 +1,10 @@
+---
+title: LightSpeed Personalisation Agent Pack
+document_type: agent_pack
+purpose: Recommended builder instructions and reusable template library
+status: active
+---
+
 # LightSpeed Personalisation Agent Pack
 
 ---

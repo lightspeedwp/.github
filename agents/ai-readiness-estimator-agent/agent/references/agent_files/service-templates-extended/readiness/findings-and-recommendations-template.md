@@ -1,3 +1,13 @@
+---
+template_id: findings-and-recommendations-template
+version: 1.1.1
+status: draft
+document_type: readiness_report
+audience: internal_or_client
+prepared_by: '{{owner.name}}'
+date: '{{metadata.document_date}}'
+---
+
 # Findings and Recommendations
 
 Use this document to summarise the key findings from a readiness assessment and provide clear, prioritised recommendations for next steps.

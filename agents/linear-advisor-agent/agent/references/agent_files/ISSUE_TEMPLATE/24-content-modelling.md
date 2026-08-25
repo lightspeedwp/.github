@@ -1,3 +1,12 @@
+---
+name: 📖 Content Modelling
+about: Propose, update, or discuss content structure, CPTs, or taxonomy.
+title: '[Content Modelling] <Brief summary>'
+labels:
+  - status:needs-triage
+  - area:content
+---
+
 ## Content Modelling Summary
 
 <!-- Describe the content model, CPT, taxonomy, or structural change. -->

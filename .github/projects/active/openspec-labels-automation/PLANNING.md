@@ -1,3 +1,10 @@
+---
+title: "OpenSpec Labels Automation — Project Planning"
+type: "project-planning"
+status: "active"
+created: "2026-08-18"
+---
+
 # OpenSpec Labels Automation — Project Planning & Roadmap
 
 **Project Slug:** `openspec-labels-automation-2026-08-18`  

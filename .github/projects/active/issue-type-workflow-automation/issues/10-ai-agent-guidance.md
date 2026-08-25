@@ -1,3 +1,14 @@
+---
+issue_type: task
+title: "Task 3.1: Create AI Agent Issue Creation Guide"
+priority: medium
+area: docs
+domain: dotgithub
+team: Engineering
+effort: 2
+parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+---
+
 # Task 3.1: Create AI Agent Issue Creation Guide
 
 ## Deliverable

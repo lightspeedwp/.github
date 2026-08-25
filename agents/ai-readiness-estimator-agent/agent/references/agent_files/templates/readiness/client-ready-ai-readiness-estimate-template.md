@@ -1,3 +1,13 @@
+---
+version: 1.0.1
+title: AI Readiness Estimate
+audience: client
+document_type: estimate
+status: template
+language: en-GB
+recommended_base_package: AI Readiness Foundation
+---
+
 # AI Readiness Estimate
 
 Use this template for client-ready AI-readiness estimates where the recommendation should be clear, commercially careful, and grounded in the evidence currently available.

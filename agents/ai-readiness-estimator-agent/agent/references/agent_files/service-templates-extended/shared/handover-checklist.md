@@ -1,3 +1,9 @@
+---
+template_id: handover-checklist
+version: 1.0.1
+status: draft
+---
+
 # Handover Checklist
 
 Ensure all deliverables, notes, and outstanding items are properly transferred when handing a project over to a client or internal support team.

@@ -1,3 +1,12 @@
+---
+file_type: handoff
+title: ADR Agent Phase 2 Continuation Prompt
+description: Complete copy-paste prompt for continuing Phase 2 implementation + merge status
+version: 2.0.0
+created_date: 2026-08-18
+last_updated: 2026-08-18
+---
+
 # ADR Agent Phase 2 Continuation — Complete Context
 
 **Use this entire prompt in a new Claude Code chat to resume ADR Agent work.**

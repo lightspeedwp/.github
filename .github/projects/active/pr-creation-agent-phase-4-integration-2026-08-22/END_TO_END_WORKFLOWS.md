@@ -1,3 +1,12 @@
+---
+file_type: project-documentation
+title: Phase 4 End-to-End Workflows
+description: Real GitHub workflow scenarios and PR creation pipelines for Phase 4 validation
+version: "1.0"
+last_updated: "2026-08-22"
+category: pr-creation-agent
+---
+
 # Phase 4: End-to-End Workflows
 
 **Issue:** #2305  

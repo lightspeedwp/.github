@@ -1,3 +1,9 @@
+---
+template_id: client-questionnaire
+version: 1.0.1
+status: draft
+---
+
 # Client Questionnaire
 
 Use this questionnaire to capture the key information needed before starting any AI service engagement.  

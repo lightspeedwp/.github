@@ -1,3 +1,12 @@
+---
+title: "Release Workflow Fix — Executive Summary"
+description: "Quick reference for release.yml telemetry non-blocking fix (issue #1453)"
+date: "2026-08-04"
+category: "workflow-testing"
+status: "complete"
+related_issues: ["#1453"]
+---
+
 # Release Workflow Fix — Executive Summary
 
 **Status:** ✅ **FIX READY FOR MERGE**

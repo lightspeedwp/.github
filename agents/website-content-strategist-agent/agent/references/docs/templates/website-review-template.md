@@ -1,3 +1,10 @@
+---
+title: Website Review Template
+output_type: review
+status: active
+compliance: required
+---
+
 # Website review
 
 Use this template for source reviews, project-stage reviews, and "what should happen next" assessments.

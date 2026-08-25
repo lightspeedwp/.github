@@ -1,3 +1,11 @@
+---
+file_type: design-document
+title: Project Meta Sync Agent v2 — Design Decisions & Rationale
+description: "Architecture decisions, trade-offs, and rationale for agent v2 modernization"
+version: 1.0.0
+created_date: 2026-08-12
+---
+
 # Design Decisions & Rationale
 
 ## Decision 1: Agent as Orchestrator vs. Direct Executor

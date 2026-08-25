@@ -1,3 +1,11 @@
+---
+title: Phase 2C Implementation Plan
+description: CI/CD integration, pre-commit hooks, extended testing for Meta Agent v2.0
+file_type: documentation
+status: in-progress
+date: 2026-08-19T00:00:00.000Z
+---
+
 # Meta Agent v2.0 — Phase 2C Implementation Plan
 
 ## Overview

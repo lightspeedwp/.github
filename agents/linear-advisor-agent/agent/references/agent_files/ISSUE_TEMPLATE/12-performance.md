@@ -1,3 +1,13 @@
+---
+name: ⚡ Performance
+about: Report performance-related issues (speed, efficiency, resource usage) or propose optimizations.
+title: '[Performance] <Short summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:performance
+---
+
 <!--
 Thank you for reporting a performance issue!
 Please fill in as much of the template below as you can.

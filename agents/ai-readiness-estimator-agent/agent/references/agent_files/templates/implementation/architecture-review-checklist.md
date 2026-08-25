@@ -1,3 +1,9 @@
+---
+template_id: architecture-review-checklist
+version: 1.0.1
+status: draft
+---
+
 # Architecture Review Checklist
 
 ## Client

@@ -1,3 +1,12 @@
+---
+version: 1.0.0
+title: "Client Evidence Request Template"
+audience: "internal"
+document_type: "request-template"
+status: "template"
+language: "en-GB"
+---
+
 # Client Evidence Request Template
 
 Use this template when LightSpeed needs to request the minimum evidence required to produce or firm up an AI-readiness estimate.

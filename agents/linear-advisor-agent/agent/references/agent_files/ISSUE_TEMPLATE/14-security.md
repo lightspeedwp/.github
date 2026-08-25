@@ -1,3 +1,13 @@
+---
+name: 🔐 Security
+about: Report vulnerabilities, security improvements, or compliance requirements.
+title: '[Security] <Brief summary>'
+labels:
+  - status:needs-triage
+  - priority:critical
+  - area:security
+---
+
 <!--
 Thank you for reporting a security issue or proposing a security enhancement!
 Please complete all sections for review, automation, and compliance.

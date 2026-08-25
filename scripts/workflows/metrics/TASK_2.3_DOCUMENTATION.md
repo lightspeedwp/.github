@@ -1,3 +1,13 @@
+---
+name: Metrics Agent Phase 2 — Task 2.3 GitHub Actions Workflow
+description: Documentation for GitHub Actions workflow integration and metrics collection orchestration
+type: documentation
+version: '1.0'
+phase: Phase 2
+task: Task 2.3
+status: Complete
+---
+
 # Task 2.3: GitHub Actions Workflow — Documentation
 
 **Status:** ✅ COMPLETE  

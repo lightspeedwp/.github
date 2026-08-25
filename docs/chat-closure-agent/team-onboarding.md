@@ -1,3 +1,16 @@
+---
+title: Chat Closure Agent — Team Onboarding Guide
+description: Training material and setup guide for teams
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-21'
+author: Claude Code
+tags:
+  - onboarding
+  - training
+  - team
+  - setup
+---
+
 # Chat Closure Agent — Team Onboarding Guide
 
 **Train your team to use the Chat Closure Agent effectively.**

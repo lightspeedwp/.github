@@ -1,3 +1,12 @@
+---
+name: Task 3.2 — Integration with Control Plane Implementation Plan
+description: Wiring metrics into Meta Agent, Reporting Agent, and Issue templates
+type: implementation-plan
+phase: Phase 3 Production Rollout
+status: Planning
+version: 1.0.0
+---
+
 # Task 3.2: Integration with Control Plane — Implementation Plan
 
 **Issue:** [#2127](https://github.com/lightspeedwp/.github/issues/2127)  

@@ -5,6 +5,9 @@ category: Technical Support
 labels:
   - area:dependencies
   - status:needs-triage
+references:
+  - ../../instructions/dependencies.md
+  - ../../instructions/automation.md
 ---
 
 # Dependency Update Automation Saved Reply

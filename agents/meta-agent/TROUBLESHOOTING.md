@@ -1,3 +1,16 @@
+---
+title: Meta Agent v2.0 — Troubleshooting Guide
+description: >
+  Common issues, error messages, and solutions for Meta Agent v2.0.
+  Includes debugging tips, performance tuning, and edge cases.
+file_type: guide
+category: troubleshooting
+status: active
+language: en
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Meta Agent v2.0 — Troubleshooting Guide
 
 This guide covers common issues you might encounter with Meta Agent v2.0, their causes, and solutions.

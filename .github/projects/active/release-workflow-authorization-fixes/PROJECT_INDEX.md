@@ -1,3 +1,12 @@
+---
+file_type: project-index
+title: Release Workflow Authorization Fixes — Complete Project Index
+description: Navigation guide and status overview for all project documentation
+created_date: 2026-08-04
+last_updated: 2026-08-04
+status: phase-2-ready
+---
+
 # Project Index: Release Workflow Authorization Fixes
 
 **Project Location:** `.github/projects/active/release-workflow-authorization-fixes/`

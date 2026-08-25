@@ -1,3 +1,13 @@
+---
+file_type: project-index
+title: "Agent & Skills Standards Comprehensive Documentation"
+description: "Comprehensive documentation standards for agents, skills, instructions, workflows, cookbooks, plugins, hooks, and prompts"
+status: active
+created_date: "2026-07-24"
+last_updated: "2026-08-07"
+version: "2.0"
+---
+
 # Agent & Skills Standards Comprehensive Documentation
 
 **Status:** ✅ Phase 1-2 Complete | 🔜 Phase 3 Upcoming  

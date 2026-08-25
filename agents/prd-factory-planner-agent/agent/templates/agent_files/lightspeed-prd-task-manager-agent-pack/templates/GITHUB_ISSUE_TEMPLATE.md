@@ -1,3 +1,10 @@
+---
+version: 1.0.1
+title: '[Issue Title]'
+date: YYYY-MM-DD
+timezone: Africa/Johannesburg
+status: draft
+---
 # [Issue Title]
 
 ## Summary

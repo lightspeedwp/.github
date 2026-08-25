@@ -1,3 +1,19 @@
+---
+file_type: documentation
+title: "Phase 3 - Linting Agent Coverage"
+description: "Add test coverage for the linting agent, including parsing, rule application, reporting, and failure modes."
+version: "1.0.0"
+last_updated: "2026-06-08"
+owners: ["Ash"]
+tags: ["testing", "coverage", "linting-agent", "opsx"]
+status: active
+stability: stable
+domain: quality
+name: "Phase 3 - Linting Agent Coverage"
+about: "Add comprehensive tests for the linting agent, including parsing, rule application, reporting, and failure modes."
+labels: ["status:needs-review", "priority:critical", "type:test", "area:quality", "area:testing"]
+---
+
 # Phase 3 - Linting Agent Coverage
 
 ## Summary

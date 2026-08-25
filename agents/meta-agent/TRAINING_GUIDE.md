@@ -1,3 +1,16 @@
+---
+title: Meta Agent v2.0 — Team Training Guide
+description: >
+  30-minute team training guide for Meta Agent v2.0. Complete walkthrough
+  for developers, project leads, and maintainers.
+file_type: guide
+category: training
+status: active
+language: en
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Meta Agent v2.0 — Team Training Guide
 
 Complete 30-minute training guide for using Meta Agent v2.0 in your workflow.

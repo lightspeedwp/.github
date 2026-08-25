@@ -1,3 +1,13 @@
+---
+name: 🛡️ Audit
+about: Propose, conduct, or document a security, accessibility, code, or process audit.
+title: '[Audit] <Brief summary>'
+labels:
+  - status:needs-audit
+  - priority:normal
+  - area:security
+---
+
 <!--
 Thank you for proposing an Audit!
 Complete all sections below for clarity, compliance, and tracking.

@@ -1,3 +1,9 @@
+---
+title: Node.js 22 Upgrade — Completion Report
+date: 2026-07-30
+status: Complete
+---
+
 # Node.js 22 Upgrade — Completion Report
 
 ## Status

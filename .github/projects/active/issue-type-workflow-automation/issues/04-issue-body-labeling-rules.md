@@ -1,3 +1,14 @@
+---
+issue_type: feature
+title: "Fix 1.3: Implement Issue-Body Labeling Rules"
+priority: high
+area: ci
+domain: dotgithub
+team: Engineering
+effort: 3.5
+parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+---
+
 # Fix 1.3: Implement Issue-Body Labeling Rules (40+ Patterns)
 
 ## Problem

@@ -1,3 +1,12 @@
+---
+file_type: openspec-validation
+title: Project Meta Sync Agent v2 — OpenSpec Implementation Validation & Fleshing Out
+description: "Comprehensive validation of OPENSPEC.md against IMPLEMENTATION_PLAN.md with detailed acceptance criteria, test specifications, and deployment checklist"
+version: 1.0.0
+created_date: 2026-08-12
+status: active
+---
+
 # OpenSpec Implementation Validation
 
 **Purpose:** Validate that IMPLEMENTATION_PLAN.md fully delivers on all acceptance criteria defined in OPENSPEC.md  

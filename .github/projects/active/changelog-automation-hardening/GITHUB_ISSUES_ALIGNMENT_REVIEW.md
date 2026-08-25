@@ -1,3 +1,9 @@
+---
+title: "GitHub Issues Alignment Review"
+date: "2026-07-24"
+status: "review-pending"
+---
+
 # GitHub Issues Alignment Review
 
 **Date:** 2026-07-24

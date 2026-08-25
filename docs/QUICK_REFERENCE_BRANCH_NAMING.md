@@ -1,3 +1,11 @@
+---
+title: Branch Naming Quick Reference
+description: One-page summary of branch naming rules, patterns, and validation
+file_type: documentation
+version: 1.0
+status: active
+---
+
 # Branch Naming Quick Reference
 
 **One-page guide** for creating valid branch names. Full details: [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)

@@ -1,3 +1,9 @@
+---
+template_id: chatbot-discovery-questionnaire
+version: 1.0.1
+status: draft
+---
+
 # Chatbot Discovery Questionnaire
 
 Use this questionnaire during the planning phase to capture detailed requirements, expectations, and constraints for a proposed chatbot.

@@ -1,3 +1,18 @@
+---
+name: PRD Combined Agent Project
+title: PRD Combined Agent – Phase 2 Batch 2
+description: Phase 2 Batch 2 - Unified product requirements and planning agent implementation
+status: completed
+last_updated: 2026-07-24
+version: 1.0.1
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - agent-standards
+  - phase-2
+  - prd
+---
+
 # PRD Combined Agent – Phase 2 Batch 2
 
 Unifies two complementary product planning agents into a single multi-provider planning tool.

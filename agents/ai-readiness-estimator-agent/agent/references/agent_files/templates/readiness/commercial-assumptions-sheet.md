@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: Commercial Assumptions Sheet
+audience: internal
+document_type: commercial-assumptions
+status: template
+language: en-GB
+---
+
 # Commercial Assumptions Sheet
 
 Use this sheet to capture the commercial assumptions behind an AI-readiness estimate before fixed-fee confidence, exclusions, add-ons, or custom-scope handling are treated as settled.

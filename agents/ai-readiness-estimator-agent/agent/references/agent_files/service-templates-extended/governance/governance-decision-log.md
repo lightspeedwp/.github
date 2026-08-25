@@ -1,3 +1,9 @@
+---
+template_id: governance-decision-log
+version: 1.0.0
+status: draft
+---
+
 # Governance Decision Log
 
 Use this log to capture decisions made during governance workshops or subsequent policy discussions.  

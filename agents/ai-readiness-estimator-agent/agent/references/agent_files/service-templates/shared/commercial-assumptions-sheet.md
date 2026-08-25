@@ -1,3 +1,9 @@
+---
+template_id: commercial-assumptions-sheet
+version: 1.0.1
+status: draft
+---
+
 # Commercial Assumptions Sheet
 
 ## Project

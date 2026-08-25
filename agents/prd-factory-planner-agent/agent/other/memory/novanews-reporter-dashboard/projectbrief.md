@@ -1,3 +1,11 @@
+---
+version: 1.0.1
+title: NovaNews Reporter Dashboard Project Brief
+date: '2026-06-18'
+timezone: Europe/Berlin
+status: draft
+---
+
 # NovaNews Reporter Dashboard Project Brief
 
 ## Current Summary

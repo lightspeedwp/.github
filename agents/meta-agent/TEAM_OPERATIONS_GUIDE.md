@@ -1,3 +1,16 @@
+---
+title: Meta Agent v2.0 — Team Operations Guide
+description: >
+  Operations guide for maintainers. Procedures for updating schemas,
+  managing issues, and maintaining Meta Agent v2.0.
+file_type: guide
+category: operations
+status: active
+language: en
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Team Operations Guide — Meta Agent v2.0
 
 Procedures for maintaining and operating Meta Agent v2.0.

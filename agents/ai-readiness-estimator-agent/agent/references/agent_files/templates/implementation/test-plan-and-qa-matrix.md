@@ -1,3 +1,9 @@
+---
+template_id: test-plan-and-qa-matrix
+version: 1.0.1
+status: draft
+---
+
 # Test Plan and QA Matrix
 
 Use this document to define testing activities and capture detailed QA scenarios for a tailored AI implementation.  

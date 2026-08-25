@@ -1,3 +1,9 @@
+---
+template_id: security-and-privacy-review-checklist
+version: 1.0.1
+status: draft
+---
+
 # Security and Privacy Review Checklist
 
 Use this checklist to review an AI solution for potential security vulnerabilities and privacy concerns.  

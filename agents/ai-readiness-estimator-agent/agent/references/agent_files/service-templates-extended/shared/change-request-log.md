@@ -1,3 +1,9 @@
+---
+template_id: change-request-log
+version: 1.0.1
+status: draft
+---
+
 # Change Request / Out‑of‑Scope Log
 
 Use this log to capture all change requests or out‑of‑scope asks during a project.  

@@ -1,3 +1,8 @@
+---
+template: project-status-update
+purpose: Create a concise and decision-useful project status update.
+---
+
 # Project status update
 
 ## Current status

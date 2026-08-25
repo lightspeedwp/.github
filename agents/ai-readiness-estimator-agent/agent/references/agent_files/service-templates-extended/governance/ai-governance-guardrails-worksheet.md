@@ -1,3 +1,9 @@
+---
+template_id: ai-governance-guardrails-worksheet
+version: 1.0.0
+status: draft
+---
+
 # AI Governance Guardrails Worksheet
 
 ## Client

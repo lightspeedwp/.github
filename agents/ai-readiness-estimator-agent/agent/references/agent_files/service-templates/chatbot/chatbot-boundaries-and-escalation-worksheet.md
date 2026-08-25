@@ -1,3 +1,9 @@
+---
+template_id: chatbot-boundaries-and-escalation-worksheet
+version: 1.0.1
+status: draft
+---
+
 # Chatbot Boundaries and Escalation Worksheet
 
 ## Client

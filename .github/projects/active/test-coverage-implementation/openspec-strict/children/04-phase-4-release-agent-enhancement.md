@@ -1,3 +1,19 @@
+---
+file_type: documentation
+title: "Phase 4 - Release Agent Coverage Hardening"
+description: "Improve the release agent so it participates in the coverage programme and enforces the expected release-time checks."
+version: "1.0.0"
+last_updated: "2026-06-08"
+owners: ["Ash"]
+tags: ["automation", "coverage", "release-agent", "opsx"]
+status: active
+stability: stable
+domain: quality
+name: "Phase 4 - Release Agent Coverage Hardening"
+about: "Harden the release agent with coverage-aware checks, guardrails, and reporting support."
+labels: ["status:needs-review", "priority:important", "type:automation", "area:automation", "area:quality"]
+---
+
 # Phase 4 - Release Agent Coverage Hardening
 
 ## Summary

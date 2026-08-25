@@ -1,3 +1,10 @@
+---
+title: "Changelog Workflow Bug Fix Report"
+description: "Critical fix for changelog automation destroying section structure"
+created_date: "2026-07-24"
+status: "completed"
+---
+
 # Changelog Workflow Bug Fix
 
 ## Problem

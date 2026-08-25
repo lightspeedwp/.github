@@ -1,3 +1,43 @@
+---
+file_type: agent
+name: prd-factory-planner
+title: PRD Factory & Planner Agent
+description: Automated PRD generation and project planning assistant. Transforms product concepts and requirements into comprehensive Product Requirements Documents, structured roadmaps, and detailed implementation timelines with stakeholder alignment and resource estimation.
+version: 2.0.1
+status: active
+last_updated: '2026-08-21'
+category: agents
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+visibility: public
+domain: product-management
+tags:
+  - product-management
+  - prd-generation
+  - project-planning
+  - automation
+  - multi-provider
+tools:
+  - prd_generator
+  - timeline_estimator
+  - stakeholder_coordinator
+  - requirement_validator
+providers:
+  - claude
+  - copilot
+  - openai
+capabilities:
+  - prd-generation
+  - project-planning
+  - timeline-estimation
+  - milestone-creation
+  - resource-allocation
+  - stakeholder-coordination
+  - requirement-validation
+  - scope-definition
+---
+
 # PRD Factory & Planner Agent
 
 ## Overview

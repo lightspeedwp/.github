@@ -1,3 +1,11 @@
+---
+file_type: integration-guide
+title: Project Meta Sync Agent v2 — Integration Guide
+description: "How the modernized agent integrates with Phase 3-4 (Issue Maintenance Scripts) and Phase 5A (Release Agentic Workflows)"
+version: 1.0.0
+created_date: 2026-08-12
+---
+
 # Integration Guide: Phase 3-4 & Phase 5A
 
 ## Part 1: Phase 3-4 Integration (Issue Maintenance Scripts)

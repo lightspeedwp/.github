@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: Retest Checklist
+audience: internal
+document_type: uat-retest-checklist
+status: template
+language: en-GB
+---
+
 # Retest Checklist
 
 Use this checklist after fixing a pilot-testing issue for the LightSpeed AI Readiness Estimator.

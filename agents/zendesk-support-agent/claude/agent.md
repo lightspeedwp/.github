@@ -1,3 +1,21 @@
+---
+provider: claude
+agent_slug: zendesk-support
+agent_name: Zendesk Support Agent (Claude)
+status: production
+version: 1.0.2
+created_date: '2026-07-22'
+last_updated: '2026-08-21'
+model_compatibility:
+  - claude-opus-4
+  - claude-sonnet-4
+  - claude-haiku-4
+context_window: '200000'
+token_limit: '200000'
+temperature: 0.7
+top_p: 0.9
+---
+
 # Zendesk Support Agent — Claude Implementation
 
 ## Overview

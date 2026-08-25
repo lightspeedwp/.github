@@ -1,3 +1,12 @@
+---
+title: <estimate title>
+document_type: website_estimate
+status: <provisional|estimate_ready|custom_scope>
+date: <YYYY-MM-DD>
+client: <client name>
+project: <project name>
+---
+
 # Website Estimate
 
 ## Assessment Summary

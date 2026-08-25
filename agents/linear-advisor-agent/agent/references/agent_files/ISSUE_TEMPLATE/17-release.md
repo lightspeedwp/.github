@@ -1,3 +1,12 @@
+---
+name: 🚀 Release
+about: Propose or track release management, versioning, or deployment tasks.
+title: '[Release] <Brief summary>'
+labels:
+  - status:needs-triage
+  - area:release
+---
+
 ## Release Summary
 
 <!-- Briefly describe the release, deployment, or versioning event. -->

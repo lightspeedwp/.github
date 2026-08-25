@@ -4,6 +4,9 @@ description: Standard responses for issues identified as epics, providing guidan
 category: Issue Management
 labels:
   - status:in-progress
+references:
+  - ../ISSUE_TYPES.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Epic Tracking Saved Replies

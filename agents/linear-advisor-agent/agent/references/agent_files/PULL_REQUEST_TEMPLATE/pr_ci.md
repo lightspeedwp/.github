@@ -1,3 +1,12 @@
+---
+name: Build/CI PR
+about: Pipelines, linting, packaging, or release automation
+title: 'build(ci): {short summary}'
+labels:
+  - status:needs-review
+  - area:ci
+---
+
 # Build/CI Pull Request
 
 This PR updates the build or CI configuration for Pipelines, linting, packaging, or release automation.  

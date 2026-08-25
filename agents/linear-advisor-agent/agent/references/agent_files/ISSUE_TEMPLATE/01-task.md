@@ -1,3 +1,17 @@
+---
+name: 📝 Task
+about: 'Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc.'
+title: '[Task] <Short summary>'
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
+assignees: []
+projects: []
+milestone: ''
+file_type: task
+---
+
 ## Task Summary
 
 <!-- Briefly describe the task or checklist item. What is the goal or outcome? -->

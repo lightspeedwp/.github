@@ -1,3 +1,9 @@
+---
+template_id: data-and-source-mapping-sheet
+version: 1.0.0
+status: draft
+---
+
 # Data and Source Mapping Sheet
 
 Use this sheet to map data fields between source systems and the AI solution.  

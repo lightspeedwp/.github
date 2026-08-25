@@ -1,3 +1,16 @@
+---
+title: Meta Agent v2.0 — Implementation Guide
+description: >
+  Step-by-step setup and usage guide for Meta Agent v2.0. Covers installation,
+  hook configuration, GitHub Actions integration, and real-world examples.
+file_type: guide
+category: documentation
+status: active
+language: en
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Meta Agent v2.0 — Implementation Guide
 
 This guide walks you through installing, configuring, and using Meta Agent v2.0 in your repository.

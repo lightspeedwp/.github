@@ -1,3 +1,11 @@
+---
+title: "OpenSpec Labels Automation — Phase 4 Implementation Plan"
+type: "project-plan"
+category: "planning"
+date: "2026-08-21"
+status: "draft"
+---
+
 # Phase 4 Implementation Plan: External Tool Integration & Metrics
 
 **Document Version:** 1.0  

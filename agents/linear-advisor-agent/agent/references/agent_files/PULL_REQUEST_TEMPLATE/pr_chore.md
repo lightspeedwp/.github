@@ -1,3 +1,12 @@
+---
+name: Chore PR
+about: 'Repo hygiene: configs, scripts, formatting — no behaviour change'
+title: 'chore: {scope}'
+labels:
+  - status:needs-review
+  - priority:normal
+---
+
 # Chore Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

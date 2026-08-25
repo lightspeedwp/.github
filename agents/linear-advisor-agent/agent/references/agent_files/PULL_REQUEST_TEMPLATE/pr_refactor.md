@@ -1,3 +1,11 @@
+---
+name: Refactor PR
+about: Internal code improvement; no external behaviour change
+title: 'refactor: {scope}'
+labels:
+  - status:needs-review
+---
+
 # Refactor Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  

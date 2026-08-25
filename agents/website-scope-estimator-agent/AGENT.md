@@ -1,3 +1,37 @@
+---
+name: Website Scope Estimator
+description: Project estimation tool for feature scoping, effort estimation, and budget planning
+agent_id: agent-8
+agent_slug: website-scope-estimator
+agent_name: Website Scope Estimator
+domain: estimation
+focus: project-scoping
+version: 1.0.1
+created_date: '2026-07-22'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
+providers:
+  - claude
+  - copilot
+  - openai
+capabilities:
+  - feature-scope-analysis
+  - effort-estimation
+  - timeline-generation
+  - resource-planning
+  - budget-estimation
+  - risk-assessment
+tags:
+  - estimation
+  - project-scoping
+  - effort-estimation
+  - timeline-planning
+  - resource-planning
+  - budget-estimation
+---
+
 # Website Scope Estimator
 
 ## Overview

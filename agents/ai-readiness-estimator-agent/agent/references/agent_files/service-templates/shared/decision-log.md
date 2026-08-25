@@ -1,3 +1,9 @@
+---
+template_id: decision-log
+version: 1.0.1
+status: draft
+---
+
 # Decision Log
 
 Record important decisions, options considered, and trade-offs throughout the project lifecycle.

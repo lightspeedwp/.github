@@ -1,3 +1,13 @@
+---
+file_type: project-index
+title: "Agent & Plugin Standardization Initiative"
+description: "Complete documentation package for multi-provider agent standardization (Claude, GitHub Copilot, OpenAI Codex)"
+status: active
+created_date: "2026-07-22"
+last_updated: "2026-08-07"
+version: "1.0"
+---
+
 # Agent & Plugin Standardization Initiative — Complete Documentation Package
 
 **Created:** 2026-07-22  

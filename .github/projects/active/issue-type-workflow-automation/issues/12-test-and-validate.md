@@ -1,3 +1,14 @@
+---
+issue_type: task
+title: "Task 3.3: End-to-End Testing & Validation"
+priority: high
+area: qa
+domain: dotgithub
+team: Engineering
+effort: 4
+parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+---
+
 # Task 3.3: End-to-End Testing & Validation
 
 ## Deliverable

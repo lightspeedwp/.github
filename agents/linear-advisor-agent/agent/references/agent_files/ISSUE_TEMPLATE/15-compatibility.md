@@ -1,3 +1,12 @@
+---
+name: 🧩 Compatibility
+about: Track browser/device/WordPress/plugin compatibility issues.
+title: '[Compatibility] <Brief summary>'
+labels:
+  - status:needs-testing
+  - area:compatibility
+---
+
 <!--
 Thank you for reporting a compatibility issue!
 Please complete all sections for clarity and automation.

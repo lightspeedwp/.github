@@ -1,3 +1,15 @@
+---
+title: "Badges Workflow Integration — Project Overview"
+description: "Active project to audit, plan, and integrate badges workflow automation into GitHub Actions"
+file_type: "documentation"
+status: "active"
+created_date: "2026-08-08"
+last_updated: "2026-08-09T14:08:00Z"
+version: "v1.2.0"
+authors: ["Ash Shaw"]
+tags: ["badges", "workflow-integration", "automation", "documentation"]
+---
+
 # Badges Workflow Integration — Project Overview
 
 **Status:** 🟠 Phase 4: Integration Testing (In Progress)  

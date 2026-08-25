@@ -1,3 +1,26 @@
+---
+file_type: 'documentation'
+title: 'Design Partner Agent'
+description: 'Multi-provider AI design consultant for design systems, accessibility assessment, and UI/UX review'
+version: '1.0.1'
+created_date: '2026-07-22'
+last_updated: "2026-08-19"
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+status: 'production'
+domain: 'design'
+focus: 'partner-collaboration'
+tags:
+  - design
+  - accessibility
+  - figma
+  - design-systems
+  - ui-ux
+---
+
 # Design Partner Agent
 
 **Multi-provider AI design consultant for design systems, accessibility assessment, and collaborative design work.**

@@ -1,3 +1,8 @@
+---
+example_for: project-intake-summary
+quality: strong
+---
+
 # Project intake summary
 
 ## Request summary

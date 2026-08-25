@@ -1,3 +1,14 @@
+---
+title: "Script Organization Architectural Issue"
+description: "Identify and resolve conflict between current script placement (.github/scripts/) and portability requirements"
+date: "2026-08-04"
+category: "workflow-testing"
+status: "open"
+type: "architecture"
+priority: "medium"
+relates_to: ["issue #1438 (Phase 1 restructuring)"]
+---
+
 # Script Organization Architectural Issue
 
 **Status:** Open | **Priority:** Medium | **Scope:** Architectural Review

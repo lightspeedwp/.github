@@ -1,3 +1,12 @@
+---
+title: <proposal title>
+document_type: website_proposal
+status: <draft|provisional|ready>
+date: <YYYY-MM-DD>
+client: <client name>
+project: <project name>
+---
+
 # Website Proposal
 
 ## Summary Recommendation

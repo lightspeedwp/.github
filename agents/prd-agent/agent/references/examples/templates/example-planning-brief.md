@@ -1,3 +1,8 @@
+---
+example_for: planning-brief
+quality: strong
+---
+
 # Planning brief
 
 ## Context

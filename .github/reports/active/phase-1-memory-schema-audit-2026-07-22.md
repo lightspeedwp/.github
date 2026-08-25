@@ -1,3 +1,10 @@
+---
+file_type: audit
+category: memory-and-organization
+created_date: 2026-07-22
+scope: phase-1-agent-standardization
+---
+
 # Memory & Schema Structure Audit — Phase 1
 
 **Objective:** Review memory persistence and work-focus folder organization for agent standardisation tracking.

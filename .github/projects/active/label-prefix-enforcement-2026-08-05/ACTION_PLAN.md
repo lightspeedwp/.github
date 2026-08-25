@@ -1,3 +1,21 @@
+---
+title: "Label Prefix Enforcement — Comprehensive Action Plan"
+description: "5-phase remediation and governance implementation plan"
+file_type: "project-document"
+version: "1.0.0"
+created_date: "2026-08-05"
+updated_date: "2026-08-05"
+author: "Claude Code Audit"
+maintainer: "LightSpeed Team"
+domain: "governance"
+status: "active"
+tags:
+  - label-governance
+  - remediation
+  - enforcement
+  - phase-plan
+---
+
 # Label Prefix Enforcement Action Plan
 
 **Project Status**: 🟢 Active  

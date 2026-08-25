@@ -1,3 +1,10 @@
+---
+title: Linear-Ready Template Pack
+document_type: template_pack
+purpose: Internal and client-shareable templates for turning rough planning into Linear-ready work
+status: active
+---
+
 # Linear-Ready Template Pack
 
 ---

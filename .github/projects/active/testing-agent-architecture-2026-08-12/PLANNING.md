@@ -1,3 +1,15 @@
+---
+file_type: planning
+title: "Testing Agent Multi-Framework Architecture — Planning"
+description: "Planning for comprehensive testing agent supporting multiple frameworks"
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors: ["LightSpeed Team"]
+owner: LightSpeed Team
+status: active
+---
+
 # Testing Agent Multi-Framework Architecture — Planning
 
 **Status:** 🟡 Active | **Owner:** LightSpeed Team | **Last Updated:** 2026-08-12

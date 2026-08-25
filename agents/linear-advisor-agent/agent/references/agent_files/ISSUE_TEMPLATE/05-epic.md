@@ -1,3 +1,13 @@
+---
+name: 📦 Epic
+about: Propose/manage a large, multi-part initiative or project grouping stories/features/tasks
+title: '[Epic] <Brief summary>'
+labels:
+  - status:needs-planning
+  - priority:important
+  - area:core
+---
+
 <!--
 Thank you for proposing an Epic!
 Please complete all sections below for clarity, planning, and automation.

@@ -1,3 +1,12 @@
+---
+title: "GitHub Issue Templates — Ready to Create"
+description: "Copy-paste ready Epic and Story issue templates for GitHub Projects creation system."
+file_type: "reference"
+status: "ready"
+version: "v1.0"
+created_date: "2026-07-23"
+---
+
 # GitHub Issue Templates — Ready to Create
 
 **Instructions**: Copy each section below into GitHub when creating issues. All formatting and links are preserved.

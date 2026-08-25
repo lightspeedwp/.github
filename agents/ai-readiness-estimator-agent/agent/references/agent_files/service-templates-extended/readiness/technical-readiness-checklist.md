@@ -1,3 +1,9 @@
+---
+template_id: technical-readiness-checklist
+version: 1.0.1
+status: draft
+---
+
 # Technical Readiness Checklist
 
 Use this checklist to evaluate whether the technical environment can support AI features and integrations.  

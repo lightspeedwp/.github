@@ -1,3 +1,12 @@
+---
+version: 1.0.1
+title: Tester Brief
+audience: internal
+document_type: uat-brief
+status: template
+language: en-GB
+---
+
 # Tester Brief
 
 Use this brief when assigning pilot testing of the LightSpeed AI Readiness Estimator to an internal tester.

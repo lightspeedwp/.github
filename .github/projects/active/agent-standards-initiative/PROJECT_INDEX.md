@@ -1,3 +1,14 @@
+---
+file_type: project
+title: Agent Standards Initiative
+description: Multi-provider agent standardization project (Claude, Copilot, OpenAI)
+status: active
+start_date: 2026-07-22
+target_completion: 2026-10-22
+owner: Ash Shaw
+priority: high
+---
+
 # Agent Standards Initiative — Project Index
 
 **Objective:** Convert 16 ChatGPT agent exports into unified, multi-provider agents compatible with Claude, GitHub Copilot, and OpenAI Codex.

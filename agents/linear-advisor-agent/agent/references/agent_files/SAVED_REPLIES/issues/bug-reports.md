@@ -4,6 +4,10 @@ description: Standard responses for bug report processing, triage, and resolutio
 category: Issue Management
 labels:
   - status:needs-triage
+references:
+  - ../ISSUE_LABELS.md
+  - ../ISSUE_TYPES.md
+  - ../../CONTRIBUTING.md
 ---
 
 # Bug Report Saved Replies

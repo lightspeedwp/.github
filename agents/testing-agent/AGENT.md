@@ -1,3 +1,60 @@
+---
+file_type: agent
+name: testing
+title: Multi-Framework Testing Agent
+description: Multi-provider, multi-framework testing agent for WordPress and WooCommerce. Turns PRDs, acceptance criteria, and design/repository evidence into review-ready human-readable test cases first, then maintainable test specs for Jest (JavaScript unit/integration), PHPUnit (PHP unit/integration), pytest (Python), and Playwright (end-to-end) — with requirement traceability and a review-before-code gate.
+version: 2.2.1
+status: active
+last_updated: '2026-08-21'
+category: testing
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+visibility: public
+domain: generic
+tags:
+  - playwright
+  - jest
+  - phpunit
+  - pytest
+  - testing
+  - e2e
+  - unit
+  - integration
+  - wordpress
+  - woocommerce
+  - multi-provider
+  - multi-framework
+tools:
+  - test_pack_builder
+  - requirement_extraction
+  - jest_spec_generation
+  - phpunit_spec_generation
+  - pytest_spec_generation
+  - playwright_spec_generation
+  - repository_analysis
+  - figma_context_extraction
+permissions:
+  - read
+  - github:repo
+providers:
+  - claude
+  - copilot
+  - openai
+capabilities:
+  - requirement-extraction
+  - human-readable-test-cases
+  - requirements-traceability
+  - jest-spec-generation
+  - phpunit-spec-generation
+  - pytest-spec-generation
+  - playwright-spec-generation
+  - cross-browser-testing
+  - accessibility-checks
+  - woocommerce-stateful-testing
+  - failure-triage
+---
+
 # Multi-Framework Testing Agent
 
 > Multi-provider agent spec. Provider-specific configuration lives in

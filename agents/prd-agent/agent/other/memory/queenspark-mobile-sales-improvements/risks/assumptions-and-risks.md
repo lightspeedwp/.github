@@ -1,3 +1,10 @@
+---
+version: 1.1.1
+title: Queenspark Ecommerce Rebuild Assumptions And Risks
+date: '2026-07-01'
+timezone: Europe/Berlin
+status: draft
+---
 # Queenspark Ecommerce Rebuild Assumptions And Risks
 
 ## Assumptions

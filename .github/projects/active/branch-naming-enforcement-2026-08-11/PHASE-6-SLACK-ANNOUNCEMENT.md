@@ -1,3 +1,15 @@
+---
+file_type: slack-announcement
+title: "Phase 6 Slack Announcement — Branch Naming Enforcement"
+description: "Ready-to-send Slack messages for Phase 6 branch naming enforcement rollout"
+version: 1.0.0
+created_date: 2026-08-12
+last_updated: 2026-08-12
+authors:
+  - Governance Team
+owner: Repository Governance
+---
+
 # Phase 6 Slack Announcements
 
 Copy-paste ready Slack messages for Phase 6 branch naming enforcement rollout.

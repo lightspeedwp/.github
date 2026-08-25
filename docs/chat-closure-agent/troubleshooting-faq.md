@@ -1,3 +1,16 @@
+---
+title: Chat Closure Agent — Troubleshooting FAQ
+description: Common issues, solutions, and debugging tips
+created_date: 2026-08-13T00:00:00.000Z
+last_updated: '2026-08-21'
+author: Claude Code
+tags:
+  - troubleshooting
+  - faq
+  - debugging
+  - support
+---
+
 # Chat Closure Agent — Troubleshooting FAQ
 
 **Solutions for common problems and debugging tips.**

@@ -1,3 +1,10 @@
+---
+file_type: audit
+category: ai-configuration
+created_date: 2026-07-22
+scope: phase-1-agent-standardization
+---
+
 # AI Configuration Audit — Phase 1
 
 **Objective:** Review AI configurations and propose updates for multi-provider support.

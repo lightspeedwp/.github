@@ -1,3 +1,13 @@
+---
+file_type: report
+title: "ESLint Fix Specification — Issue #1486"
+description: "Specification for fixing 68 ESLint no-unused-vars violations"
+date: "2026-08-04"
+status: "documented"
+category: "linting"
+version: "1.0.0"
+---
+
 # ESLint Fix Specification — Issue #1486
 
 **Date**: 2026-08-04

@@ -1,3 +1,11 @@
+---
+file_type: test-plan
+title: Project Meta Sync Agent v2 — Validation Scenarios & Test Cases
+description: "Acceptance criteria and test cases for agent v2 validation"
+version: 1.0.0
+created_date: 2026-08-12
+---
+
 # Validation Scenarios & Acceptance Criteria
 
 ## Core Scenario 1: Label Inconsistency Audit

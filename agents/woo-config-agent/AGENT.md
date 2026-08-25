@@ -1,3 +1,44 @@
+---
+file_type: agent
+name: woo-config
+title: WooCommerce Config Agent
+description: Specialized configuration assistant for WooCommerce stores. Provides expert guidance on setup, optimisation, payment integration, product management, and e-commerce best practices.
+version: 2.0.1
+status: active
+last_updated: '2026-08-21'
+category: ecommerce
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+visibility: public
+domain: ecommerce
+tags:
+  - woocommerce
+  - ecommerce
+  - configuration
+  - optimisation
+  - multi-provider
+tools:
+  - store_analyzer
+  - setup_optimizer
+  - product_configurator
+  - payment_gateway_setup
+  - performance_optimizer
+providers:
+  - claude
+  - copilot
+  - openai
+capabilities:
+  - store-analysis
+  - setup-optimisation
+  - product-configuration
+  - payment-integration
+  - performance-optimisation
+  - inventory-management
+  - customer-management
+  - analytics-setup
+---
+
 # WooCommerce Config Agent
 
 ## Overview
