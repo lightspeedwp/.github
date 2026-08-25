@@ -3,7 +3,7 @@ file_type: readme
 title: Changelog Agent
 description: Portable changelog management agent with Keep a Changelog 1.1.0 support
 version: "1.0.0"
-last_updated: "2026-08-20"
+last_updated: "2026-08-25"
 owners:
   - Ash Shaw
 tags:
@@ -367,6 +367,29 @@ Parse and manipulate Keep a Changelog format.
 - `appendEntry(content, entry)` — Add entry to [Unreleased]
 - `writeChangelog(path, content)` — Write file
 
+## Related Files & Integration
+
+### Specification & Control Plane
+
+- **Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for PR validation and release processing
+- **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
+
+### Schema & Documentation
+
+- **Schema:** [`schemas/changelog.schema.json`](../../schemas/changelog.schema.json) — JSON Schema for validation
+- **Documentation:** [`docs/CHANGELOG_AUTOMATION.md`](../../docs/CHANGELOG_AUTOMATION.md) — Complete automation guide and reference
+- **Changelog:** [`CHANGELOG.md`](../../CHANGELOG.md) — Production changelog using Keep a Changelog format
+
+### Architecture Notes
+
+The Changelog Agent is split into two tiers:
+
+1. **Portable Agent (this folder)** — `agents/changelog/changelog.agent.js` — ESM implementation with complete functionality
+2. **Spec Agent** — `.github/agents/changelog.agent.md` — Specification and integration guide
+
+All three pieces (spec, portable agent, workflow) reference each other to ensure consistency and traceability.
+
 ## Testing
 
 ### Run All Tests
@@ -499,10 +522,13 @@ entry: {
 }
 ```
 
-## Related Files
+## See Also
 
-- [Release Agent README](../release/README.md) — Version management
-- [PHASE_5_IMPLEMENTATION_PLAN.md](../../.github/projects/active/release-process-redesign-2026-08-05/PHASE_5_IMPLEMENTATION_PLAN.md) — Phase 5 spec
+- **Changelog Spec Agent** — [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md)
+- **Release Agent README** — `agents/release/README.md`
+- **Release Process Guide** — `docs/RELEASE_PROCESS.md`
+- **Keep a Changelog Standard** — https://keepachangelog.com/en/1.1.0/
+- **Semantic Versioning** — https://semver.org/
 
 ---
 
