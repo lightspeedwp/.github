@@ -1,3 +1,20 @@
+---
+file_type: documentation
+title: Release Agent — GitHub Agentic Workflow
+description: GitHub Agentic Workflows definition for the LightSpeed release agent, orchestrating release automation with LLM-driven reasoning and safety gates.
+version: "1.0"
+created_date: "2026-08-11"
+last_updated: "2026-08-25"
+status: active
+tags:
+  - agentic-workflows
+  - release
+  - automation
+  - governance
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Release Agent — GitHub Agentic Workflow
 
 **Version:** 1.0 (Phase 5A, MVP)  
@@ -470,6 +487,7 @@ This release agent integrates with the LightSpeed changelog ecosystem:
 - **Changelog Documentation:** [`docs/CHANGELOG_AUTOMATION.md`](../../docs/CHANGELOG_AUTOMATION.md) — Complete guide to changelog automation and contributor workflow
 
 The release agent uses these components to:
+
 - Validate changelog structure before release
 - Convert [Unreleased] section to release version
 - Ensure changelog entries meet Keep a Changelog 1.1.0 standard
