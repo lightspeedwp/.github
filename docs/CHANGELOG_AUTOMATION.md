@@ -784,4 +784,29 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 ---
 
+## Related Files & Integration
+
+### Agent & Workflow Ecosystem
+
+The changelog system integrates with LightSpeed's automation framework:
+
+- **Spec Agent:** [`.github/agents/changelog.agent.md`](.github/agents/changelog.agent.md) — Primary GitHub-native agent specification for changelog management
+- **Portable Agent:** [`agents/changelog/`](../agents/changelog/) — Portable multi-file agent implementation for cross-project reuse
+- **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON schema for Keep a Changelog 1.1.0 validation
+- **Workflow:** [`.github/workflows/changelog-management.yml`](.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
+- **Release Agent:** `.github/agentic-workflows/release.agent.md` — Integrates changelog validation as GATE 1 of release orchestration
+
+### Contributor Resources
+
+- **[CHANGELOG_CONTRIBUTOR_CHECKLIST.md](./CHANGELOG_CONTRIBUTOR_CHECKLIST.md)** — Pre-submission validation checklist for changelog entries
+- **[.github/projects/active/changelog-automation-hardening/](../.github/projects/active/changelog-automation-hardening/)** — Project tracking changelog automation enhancements
+- **[.github/SAVED_REPLIES/pull-requests/](../.github/SAVED_REPLIES/pull-requests/)** — Saved replies for changelog requirement enforcement
+
+### External Standards
+
+- **[Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)** — Official changelog format specification
+- **[Semantic Versioning 2.0.0](https://semver.org/)** — Version numbering standard
+
+---
+
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
