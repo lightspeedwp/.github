@@ -321,7 +321,7 @@ See [ADR-003: Post-Release Sync Automation](./ADRs/ADR-003-post-release-sync.md)
 ## Changelog governance
 
 - Format: Keep a Changelog.
-- Schema: `../.schemas/changelog.schema.json` enforced by:
+- Schema: `schemas/changelog.schema.json` enforced by:
   - `scripts/validation/validate-changelog.cjs`
   - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:

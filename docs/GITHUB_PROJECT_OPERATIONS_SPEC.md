@@ -120,7 +120,7 @@ Both profiles share one field model and one automation contract. Profile differe
 
 ### Optional Profile Prefixes
 
-- Product-oriented optional: `proto/`, `ds/`, `api/`, `.schemas/`, `telemetry/`
+- Product-oriented optional: `proto/`, `ds/`, `api/`, `schemas/`, `telemetry/`
 - Client-oriented optional: `content/`, `seo/`, `config/`, `migrate/`, `qa/`, `uat/`
 
 Rule: branch guidance must remain aligned to actual prefix handling in `.github/labeler.yml`.

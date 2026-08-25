@@ -3,7 +3,7 @@ title: Changelog Automation & Integration
 description: Complete guide to changelog management, automation workflows, and integration with release processes
 file_type: documentation
 created_date: '2026-07-24'
-last_updated: '2026-08-21'
+last_updated: '2026-08-25'
 version: '1.1'
 owners:
   - LightSpeed Team
@@ -61,7 +61,7 @@ The changelog automation system:
 **Update (2026-07-30):** The changelog automation workflows were refactored in Phase 4 to use helper scripts instead of multiline shell logic. The changelog-management.yml workflow now uses:
 
 - `report-changelog-action.sh` — Safely report changelog merge action status
-- `.github/scripts/agents/changelog.agent.js` — Changelog validation and management
+- `agents/changelog/changelog.agent.js` — Changelog validation and management
 
 These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
@@ -305,7 +305,7 @@ Submit your PR with:
 ```
 Developer commits CHANGELOG.md update
          ↓
-PR created (changelog-validate.yml triggered)
+PR created (changelog-management.yml triggered)
          ↓
 ┌─ Validation Step 1: Format Check
 │  └─ scripts/validation/changelog-rules.cjs
@@ -341,7 +341,7 @@ All 4 steps PASS → CI GREEN → PR can merge
 Any step FAILS → CI RED → Fix issues and push again
 ```
 
-### CI Workflow: changelog-validate.yml
+### CI Workflow: changelog-management.yml
 
 **Triggers:**
 
@@ -384,7 +384,7 @@ on:
 4. Merges new entries into appropriate sections
 5. Validates result before write
 
-**Workflow:** `.github/workflows/changelog-merge.yml` (internal, automated on develop merge)
+**Workflow:** `.github/workflows/changelog-management.yml` (internal, automated on develop merge)
 
 ---
 
@@ -540,7 +540,7 @@ Error: Changelog validation failed
 **Symptom:**
 
 ```
-CI Red: changelog-validate.yml failed
+CI Red: changelog-management.yml failed
 Error: Missing PR link. Required format: ([PR #1234](url))
 ```
 
@@ -725,8 +725,7 @@ npm run validate:changelog
 
 ### Workflow Files
 
-- `.github/workflows/changelog-validate.yml` — CI validation on PRs & develop
-- `.github/workflows/changelog-merge.yml` — Auto-dedup on develop merge
+- `.github/workflows/changelog-management.yml` — CI validation and merge on PRs & develop
 - `.github/workflows/release.yml` — Release workflow (manual/scheduled)
 
 ---
@@ -781,6 +780,22 @@ node .github/scripts/agents/release.agent.js --scope=major
 # Dry run (preview only, no commits/tags)
 node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 ```
+
+## Related Files & Integration
+
+### Specification & Control Plane
+
+- **Spec Agent:** [`.github/agents/changelog.agent.md`](../.github/agents/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Portable Agent:** [`agents/changelog/README.md`](../agents/changelog/README.md) — Implementation guide with usage examples
+- **Workflow:** [`.github/workflows/changelog-management.yml`](../.github/workflows/changelog-management.yml) — GitHub Actions workflow for validation
+- **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
+
+### Schema & Reference
+
+- **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON Schema for validation
+- **Changelog:** [`CHANGELOG.md`](../CHANGELOG.md) — Production changelog using Keep a Changelog format
+- **Keep a Changelog Spec:** https://keepachangelog.com/en/1.1.0/
+- **Semantic Versioning:** https://semver.org/
 
 ---
 

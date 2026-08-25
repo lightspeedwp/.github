@@ -91,7 +91,7 @@ For all repos (client, product, infra, etc.), use:
 - `proto/` — prototypes/experiments
 - `ds/` — design system
 - `api/` — API surface
-- `.schemas/` — DB/schema changes
+- `schemas/` — DB/schema changes
 - `telemetry/` — analytics/metrics
 
 ### 3.3 Optional Client Profile Prefixes
@@ -110,7 +110,7 @@ For all repos (client, product, infra, etc.), use:
 feat/product-grid-quick-add
 refactor/split-frontend-bundle
 api/orders-bulk-cancel
-.schemas/add-index-orders-created
+schemas/add-index-orders-created
 telemetry/add-checkout-step-events
 release/v1.6.0
 hotfix/cart-csrf-check
@@ -255,7 +255,7 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
         "^proto/.*",
         "^ds/.*",
         "^api/.*",
-        "^.schemas/.*",
+        "^schemas/.*",
         "^telemetry/.*",
         "^content/.*",
         "^seo/.*",
@@ -281,7 +281,7 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 - `chore/`, `ci/`, `build/`, `deps/`, `security/` → Chore
 - `design/`, `a11y/`, `ux/` → Design/Task
 - `content/`, `seo/`, `config/`, `migrate/`, `qa/`, `uat/` → Task/Operations
-- `proto/`, `api/`, `.schemas/`, `telemetry/`, `ds/` → Feature/Task
+- `proto/`, `api/`, `schemas/`, `telemetry/`, `ds/` → Feature/Task
 - `release/` → Release PR
 
 **Principle:**
@@ -320,7 +320,7 @@ reused so automation stays predictable.
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `.schemas/` | `pr_feature.md` |
+| `schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |

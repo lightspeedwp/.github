@@ -30,7 +30,7 @@ The repository has consolidated all JSON schemas into a single location:
 
 | Old Location | New Location | Status |
 |---|---|---|
-| `.schemas/` | `schemas/` | ✅ Consolidated |
+| `schemas/` | `schemas/` | ✅ Consolidated |
 | `schema/` | `schemas/` | ✅ Consolidated |
 | `.github/schemas/` | (removed) | ✅ Removed |
 
@@ -55,9 +55,9 @@ If your scripts reference schemas, update the paths:
 **OLD PATTERN:**
 
 ```javascript
-path.join(__dirname, '../../.schemas/')
+path.join(__dirname, '../../schemas/')
 path.join(__dirname, '../../schema/')
-require('../../.schemas/frontmatter.schema.json')
+require('../../schemas/frontmatter.schema.json')
 import schema from '../../schema/agent-config.schema.json'
 ```
 
@@ -88,7 +88,7 @@ import schema from '../../../schemas/agent-config.schema.json'
 
 ```javascript
 // OLD
-const schema = require('../../.schemas/frontmatter.schema.json');
+const schema = require('../../schemas/frontmatter.schema.json');
 const agentSchema = require('../../schema/agent-config.schema.json');
 
 // NEW
@@ -134,13 +134,13 @@ All validation scripts have been updated and tested:
 **Phase 2 Status:** ✅ Complete  
 **Next Phase:** Phase 3 — VSCode Workspace Setup
 
-The `schema/` legacy directory has been removed. The `.schemas/` directory still exists in the repository for backward compatibility, but `schemas/` is the canonical portable location going forward.
+The `schema/` legacy directory has been removed. The `schemas/` directory still exists in the repository for backward compatibility, but `schemas/` is the canonical portable location going forward.
 
 ---
 
 ## If You Have Old References
 
-If you see references to `.schemas/` or `schema/` in your code:
+If you see references to `schemas/` or `schema/` in your code:
 
 1. **Check file location** — Determine the directory depth
 2. **Count levels up** — Use the path depth table above
@@ -150,7 +150,7 @@ If you see references to `.schemas/` or `schema/` in your code:
 Example for `.github/scripts/validation/validate-frontmatter.js`:
 
 ```javascript
-// OLD: path.join(__dirname, '../../.schemas/')
+// OLD: path.join(__dirname, '../../schemas/')
 // NEW: path.join(__dirname, '../../../schemas/')
 ```
 

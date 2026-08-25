@@ -96,7 +96,7 @@ The footer validation script infers document categories from file paths:
 agents/*/claude/agent.md          → agents
 docs/*.md                         → docs
 instructions/*.instructions.md    → instructions
-.schemas/*.md                       → schema
+schemas/*.md                       → schema
 .github/reports/*.md              → audit
 README.md (in any directory)      → readme
 ```
@@ -134,7 +134,7 @@ Available footer IDs are listed in `config/quirky-footers.yaml`.
 ### File Locations
 
 - **Quirky Footer Definitions**: `config/quirky-footers.yaml`
-- **Schema Validation**: `.schemas/quirky-footers.schema.json`
+- **Schema Validation**: `schemas/quirky-footers.schema.json`
 - **Validation Script**: `scripts/validate-footers.js`
 
 ### Configuration Structure
@@ -256,7 +256,7 @@ To add a new quirky footer:
 3. **Validate against schema**:
 
    ```bash
-   npx ajv validate -s .schemas/quirky-footers.schema.json -d config/quirky-footers.yaml
+   npx ajv validate -s schemas/quirky-footers.schema.json -d config/quirky-footers.yaml
    ```
 
 4. **Test the validation**:
@@ -354,14 +354,14 @@ Here's how to use the API...
 **Solution**:
 
 - Validate YAML syntax: `npx yamllint config/quirky-footers.yaml`
-- Validate against schema: `npx ajv validate -s .schemas/quirky-footers.schema.json -d config/quirky-footers.yaml`
+- Validate against schema: `npx ajv validate -s schemas/quirky-footers.schema.json -d config/quirky-footers.yaml`
 - Check for typos in footer IDs and category names
 
 ## Related Documentation
 
 - [Footer Configuration](../config/footers.config.yaml) — Standard footers
 - [Quirky Footers Configuration](../config/quirky-footers.yaml) — Category-specific footers
-- [Footer Validation Schema](../.schemas/quirky-footers.schema.json) — Configuration validation
+- [Footer Validation Schema](../schemas/quirky-footers.schema.json) — Configuration validation
 - [Validation Script](../scripts/validate-footers.js) — Automation
 
 ---

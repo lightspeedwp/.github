@@ -249,7 +249,7 @@ PR branch names automatically assign `type:*` labels:
 
 **Optional prefixes** (as needed for your projects):
 
-- `proto/`, `ds/`, `api/`, `.schemas/` — Product/design system
+- `proto/`, `ds/`, `api/`, `schemas/` — Product/design system
 - `content/`, `seo/`, `config/`, `migrate/` — Client/project specific
 
 ### Changelog Policy
