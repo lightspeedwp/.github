@@ -15,8 +15,8 @@ handoffs:
     agent: "release"
     prompt: "Prepare the repository for the next release version."
     send: false
-version: "v2.6"
-last_updated: "2026-08-18"
+version: "v2.7"
+last_updated: "2026-08-25"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 category: "release-management"
