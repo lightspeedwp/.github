@@ -1,3 +1,17 @@
+---
+file_type: pr-template
+title: Feedback Response — AI Feedback Tracking
+description: Track and document AI feedback responses for pull requests with status markers (addressed, deferred, rejected)
+created_date: '2026-08-11'
+status: active
+tags:
+  - ai-feedback
+  - pr-validation
+  - tracking
+owners:
+  - lightspeedwp/maintainers
+---
+
 # Feedback Response — AI Feedback Tracking Template
 
 ## Summary

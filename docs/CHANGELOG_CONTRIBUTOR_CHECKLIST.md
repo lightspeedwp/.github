@@ -1,6 +1,16 @@
 ---
+file_type: documentation
 title: Changelog Contributor Checklist
-description: Pre-submission checklist for changelog entries
+description: Pre-submission checklist for changelog entries with format validation and compliance requirements
+created_date: '2026-08-20'
+last_updated: '2026-08-21'
+status: active
+tags:
+  - changelog
+  - contributor-guide
+  - validation
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Changelog Entry Checklist
