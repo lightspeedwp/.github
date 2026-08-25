@@ -91,7 +91,7 @@ branching policy stay aligned.
 | `proto/` | Prototypes / experiments | proto | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
 | `ds/` | Design system work | design system | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
 | `api/` | API surface changes | api | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
-| `.schemas/` | Schema or database changes | schema | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `schemas/` | Schema or database changes | schema | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
 | `telemetry/` | Analytics / metrics work | telemetry | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
 | `content/` | Content / IA changes | content | `.github/PULL_REQUEST_TEMPLATE/pr_docs.md` |
 | `seo/` | SEO / metadata changes | seo | `.github/PULL_REQUEST_TEMPLATE/pr_docs.md` |

@@ -34,7 +34,7 @@ const CONFIG = {
   quirkyFootersPath: path.join(__dirname, "../config/quirky-footers.yaml"),
   quirkyFootersSchemaPath: path.join(
     __dirname,
-    "../.schemas/quirky-footers.schema.json",
+    "../../schemas/quirky-footers.schema.json",
   ),
   injectionReportPath: path.join(__dirname, "../.github/reports"),
   backupDir: path.join(__dirname, "../.github/tmp/footer-backups"),

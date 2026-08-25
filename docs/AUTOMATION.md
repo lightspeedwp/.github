@@ -77,7 +77,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | Workflow | Branch | Purpose | Agent |
 | --- | --- | --- | --- |
 | **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
-| **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
+| **changelog-management.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **metadata-governance.yml** | issues / pull_request_target | Apply assignee and relationship metadata; inherit milestones only when explicitly linked | issue-pr-metadata.cjs |
 | **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `scripts/validate-footers.js` |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |

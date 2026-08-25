@@ -61,7 +61,7 @@ The changelog automation system:
 **Update (2026-07-30):** The changelog automation workflows were refactored in Phase 4 to use helper scripts instead of multiline shell logic. The changelog-management.yml workflow now uses:
 
 - `report-changelog-action.sh` — Safely report changelog merge action status
-- `.github/scripts/agents/changelog.agent.js` — Changelog validation and management
+- `agents/changelog/changelog.agent.js` — Changelog validation and management
 
 These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
@@ -305,7 +305,7 @@ Submit your PR with:
 ```
 Developer commits CHANGELOG.md update
          ↓
-PR created (changelog-validate.yml triggered)
+PR created (changelog-management.yml triggered)
          ↓
 ┌─ Validation Step 1: Format Check
 │  └─ scripts/validation/changelog-rules.cjs
@@ -341,7 +341,7 @@ All 4 steps PASS → CI GREEN → PR can merge
 Any step FAILS → CI RED → Fix issues and push again
 ```
 
-### CI Workflow: changelog-validate.yml
+### CI Workflow: changelog-management.yml
 
 **Triggers:**
 
@@ -384,7 +384,7 @@ on:
 4. Merges new entries into appropriate sections
 5. Validates result before write
 
-**Workflow:** `.github/workflows/changelog-merge.yml` (internal, automated on develop merge)
+**Workflow:** `.github/workflows/changelog-management.yml` (internal, automated on develop merge)
 
 ---
 
@@ -540,7 +540,7 @@ Error: Changelog validation failed
 **Symptom:**
 
 ```
-CI Red: changelog-validate.yml failed
+CI Red: changelog-management.yml failed
 Error: Missing PR link. Required format: ([PR #1234](url))
 ```
 
@@ -725,8 +725,7 @@ npm run validate:changelog
 
 ### Workflow Files
 
-- `.github/workflows/changelog-validate.yml` — CI validation on PRs & develop
-- `.github/workflows/changelog-merge.yml` — Auto-dedup on develop merge
+- `.github/workflows/changelog-management.yml` — CI validation and merge on PRs & develop
 - `.github/workflows/release.yml` — Release workflow (manual/scheduled)
 
 ---
