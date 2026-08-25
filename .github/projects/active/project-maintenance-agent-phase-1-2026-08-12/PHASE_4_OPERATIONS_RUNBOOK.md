@@ -5,6 +5,7 @@ created_date: 2026-08-18
 last_updated: 2026-08-18
 status: operations
 phase: 4
+file_type: documentation
 ---
 
 # Project Maintenance Agent — Operations Runbook
