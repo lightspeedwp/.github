@@ -1,9 +1,10 @@
 ---
 file_type: planning-alignment
-title: Project Meta Sync Agent v2 — OpenSpec Alignment & Cross-Reference
-description: "Master index showing how all planning documents align with OPENSPEC authority"
-version: 1.0.0
+title: "Project Meta Sync Agent v2 — OpenSpec Alignment & Cross-Reference"
+description: ""Master index showing how all planning documents align with OPENSPEC authority""
 created_date: 2026-08-12
+last_updated: "2026-08-25"
+status: active
 ---
 
 # OpenSpec Alignment & Cross-Reference Guide

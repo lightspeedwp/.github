@@ -1,8 +1,9 @@
 ---
-title: "OpenSpec Labels Automation — Project Planning"
-type: "project-planning"
-status: "active"
-created: "2026-08-18"
+file_type: documentation
+title: ""OpenSpec Labels Automation — Project Planning""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # OpenSpec Labels Automation — Project Planning & Roadmap

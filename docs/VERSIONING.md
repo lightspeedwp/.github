@@ -1,12 +1,17 @@
 ---
-title: "Versioning Guidelines"
-description: "Semantic versioning standards for LightSpeedWP projects: SemVer format, VERSION file as canonical source, Phase 5A version validation gates"
-file_type: "documentation"
-version: "1.0"
-last_updated: "2026-08-18"
-author: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["versioning", "semver", "release", "phase-5a"]
+title: Versioning Guidelines
+description: 'Semantic versioning standards for LightSpeedWP projects: SemVer format, VERSION file as canonical source, Phase 5A version validation gates'
+file_type: documentation
+version: '1.0'
+last_updated: '2026-08-21'
+author: LightSpeed Team
+owners:
+  - lightspeedwp
+tags:
+  - versioning
+  - semver
+  - release
+  - phase-5a
 ---
 
 # Versioning Guidelines
@@ -181,6 +186,8 @@ git push origin main --tags
 ### Version Validation Flow
 
 ```mermaid
+accTitle: Flowchart
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 flowchart TD
   accTitle: flowchart diagram
   accDescr: flowchart flowchart
@@ -203,7 +210,7 @@ accTitle: Flowchart
     style Z1 fill:#b71c1c,color:#fff
     style Z2 fill:#b71c1c,color:#fff
     style Z3 fill:#b71c1c,color:#fff
-accDescr: Visual diagram showing structure, relationships, and flow
+accDescr: Detailed diagram showing structure and relationships
 ```
 
 ### What GATE 3 Validates
@@ -411,4 +418,4 @@ Consider adding these scripts to GitHub Actions workflows for:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

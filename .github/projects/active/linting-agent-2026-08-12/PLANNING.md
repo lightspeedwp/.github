@@ -1,12 +1,9 @@
 ---
 file_type: planning
-title: "Linting Agent — Planning"
-description: "Automated code quality and linting agent for multi-language support"
-version: 1.0.0
+title: ""Linting Agent — Planning""
+description: ""Automated code quality and linting agent for multi-language support""
 created_date: 2026-08-12
-last_updated: 2026-08-12
-authors: ["LightSpeed Team"]
-owner: LightSpeed Team
+last_updated: "2026-08-25"
 status: active
 ---
 

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Preview Validation Checklist
 document_type: validation_checklist
 purpose: Evaluate preview runs against the current Linear Workflow Skill Factory instructions
@@ -321,4 +322,4 @@ If any starter-prompt run fails, if total passes are below **10 / 12**, or if an
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

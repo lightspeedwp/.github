@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-launch-readiness-checklist
-version: 1.0.0
+file_type: documentation
+title: "Chatbot Launch Readiness Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -53,4 +55,4 @@ Use this checklist to confirm that all critical elements are ready before a chat
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

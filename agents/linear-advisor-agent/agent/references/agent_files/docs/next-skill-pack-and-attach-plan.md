@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Capability Roadmap and Attached Skills Reference
 document_type: capability_roadmap
 purpose: Current-state roadmap for attached-skill usage, gaps, and future capability additions
@@ -186,4 +187,4 @@ That is the healthier roadmap for the current Linear Workflow Skill Factory.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

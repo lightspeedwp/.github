@@ -1,11 +1,10 @@
 ---
-title: "OpenSpec Status Labels — Phase 2: Template Validation & Auto-Injection"
-description: "Phase 2 implementation: DoR/DoD section validation and automatic template injection"
 file_type: "project-documentation"
+title: ""OpenSpec Status Labels — Phase 2: Template Validation & Auto-Injection""
+description: ""Phase 2 implementation: DoR/DoD section validation and automatic template injection""
 created_date: "2026-08-18"
-last_updated: "2026-08-18"
-status: "in-progress"
-version: "1.0.0"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # OpenSpec Status Labels — Phase 2: Template Validation & Auto-Injection

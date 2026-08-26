@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.0.0
 title: "Safari lodge WordPress rebuild active context"
 project_key: safari-lodge-wordpress-rebuild

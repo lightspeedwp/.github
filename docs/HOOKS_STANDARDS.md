@@ -2,8 +2,8 @@
 file_type: documentation
 title: Hooks Standards
 description: Standards for creating event-driven hooks for agents and automation
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Hooks Standards
@@ -18,6 +18,7 @@ Hooks are JavaScript/TypeScript functions that execute in response to specific e
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Hook execution lifecycle
     accDescr: Illustrates the event-driven lifecycle of hooks from trigger through loading, execution, result handling, and continuation or blocking of operations.
     A["Event<br/>Triggered"] --> B["Load Hook<br/>Handler"]
@@ -73,6 +74,7 @@ Hooks differ from middleware:
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Hook type selection tree
     accDescr: Decision tree for selecting the appropriate hook type based on the required functionality, from validation to policy enforcement.
     A{"What should<br/>happen?"} -->|Check<br/>conditions| B["Validation Hook"]
@@ -494,3 +496,7 @@ See all hooks: [`hooks/`](../../hooks/)
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

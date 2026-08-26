@@ -1,22 +1,14 @@
 ---
 file_type: readme
-title: "Label Management System — Project Overview"
-description: "Quick-start guide and status overview for the automated label management system project"
-version: 1.0.0
+title: ""Label Management System — Project Overview""
+description: ""Quick-start guide and status overview for the automated label management system project""
 created_date: 2026-08-10
-last_updated: 2026-08-12
-authors:
-  - LightSpeed Team
-owner: Ash Shaw
-maintainer: LightSpeed Team
-tags:
-  - project
+last_updated: "2026-08-25"
+status: active
+tags:- project
   - overview
   - automation
   - labels
-domain: "issue-management"
-stability: "stable"
-status: "active"
 ---
 
 # Label Management System

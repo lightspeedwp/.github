@@ -1,4 +1,5 @@
 ---
+name: Meta Agent
 title: Meta
 description: >
   Organisation-wide agent for applying documentation metadata, standards, and
@@ -45,6 +46,10 @@ metadata:
     repo-type schemas before applying. Respect file-specific opt-out markers.
     Auto-detect repo type from package.json, block.json, theme.json, or .github markers.
 ---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
 
 # Meta Agent — Organisation-Wide Documentation & Metadata
 

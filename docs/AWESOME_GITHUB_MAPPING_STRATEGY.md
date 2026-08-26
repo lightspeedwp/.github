@@ -1,10 +1,11 @@
 ---
-title: "Awesome GitHub Design-to-Content Mapping Strategy"
-version: "1.0"
-created: "2026-06-04"
-purpose: "Comprehensive mapping of design handoff to Astro website implementation using existing repository content"
-status: "active"
-maintainer: "LightSpeed AI Operations"
+file_type: documentation
+title: Awesome GitHub Design-to-Content Mapping Strategy
+version: '1.0'
+created: '2026-06-04'
+purpose: Comprehensive mapping of design handoff to Astro website implementation using existing repository content
+status: active
+maintainer: LightSpeed AI Operations
 ---
 
 # Awesome GitHub Design-to-Content Mapping Strategy
@@ -36,7 +37,7 @@ This document provides a **complete, actionable mapping** between:
 | **`skills/`** | Skill definitions with `SKILL.md` entrypoints | Self-contained reusable skills | Skills catalogue |
 | **`workflows/`** | Workflow definitions | Portable agentic workflows | Workflows catalogue |
 | **`prompts/`** | Prompt library files | Reusable prompts & templates | Prompts catalogue |
-| **`.schemas/`** | Data structure definitions | Configuration schemas | Reference section |
+| **`schemas/`** | Data structure definitions | Configuration schemas | Reference section |
 | **`.github/scripts/`** | Script documentation | Utility scripts | Tools section |
 | **`profile/`** | Profile configurations | Profile definitions | Tools section |
 | **`.github/instructions/`** | Repo-local Copilot instructions | Control-plane-specific guidance | Reference section |
@@ -1067,4 +1068,4 @@ actions: ["copy", "download", "github", "vscode"]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

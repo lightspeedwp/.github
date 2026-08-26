@@ -813,4 +813,4 @@ async function createComponentDocFrame(page, componentName, description, usageNo
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

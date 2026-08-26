@@ -1,12 +1,15 @@
 ---
-name: "🔧 Improvement"
-about: "Propose enhancements, polish, or usability improvements."
 title: "[Improvement] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+description: "[Improvement] <Short summary>"
+name: 🔧 Improvement
+about: Propose enhancements, polish, or usability improvements.
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
 assignees: []
 projects: []
-milestone: ""
-file_type: improve
+milestone: ''
 references:
   - ../../CONTRIBUTING.md
   - .github/labeler.yml
@@ -95,4 +98,4 @@ Use correct branch prefix (feat/ or enhancement/) for PRs.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -2,14 +2,10 @@
 file_type: agent
 name: prd-factory-planner
 title: PRD Factory & Planner Agent
-description: >-
-  Automated PRD generation and project planning assistant. Transforms product
-  concepts and requirements into comprehensive Product Requirements Documents,
-  structured roadmaps, and detailed implementation timelines with stakeholder
-  alignment and resource estimation.
-version: 2.0.0
+description: Automated PRD generation and project planning assistant. Transforms product concepts and requirements into comprehensive Product Requirements Documents, structured roadmaps, and detailed implementation timelines with stakeholder alignment and resource estimation.
+version: 2.0.1
 status: active
-last_updated: '2026-07-23'
+last_updated: '2026-08-21'
 category: agents
 maintainer: Ash Shaw
 owners:
@@ -142,3 +138,13 @@ See [agent/instructions/AGENTS.md](agent/instructions/AGENTS.md) for detailed ag
 ---
 
 *🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
+
+---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

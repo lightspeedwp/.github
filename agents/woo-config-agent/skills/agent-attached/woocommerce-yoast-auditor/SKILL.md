@@ -297,3 +297,7 @@ Core models are embedded above. Load only what is needed for deeper detail:
 ## Minimum report standard
 
 Every report must include scope, evidence status, limitations, findings, priority, confidence, recommendation, owner or next route, retest/validation step and client-safe wording where relevant.
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -2,8 +2,8 @@
 file_type: documentation
 title: Skills Standards
 description: Comprehensive standards for creating shared and dedicated skills
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Skills Standards
@@ -18,6 +18,7 @@ Skills are discrete, reusable capabilities designed to be shared across multiple
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Skill development lifecycle
     accDescr: Process flow from creating a skill specification through implementation, testing, publishing, and maintenance with agent usage.
     A["Create<br/>SKILL.md"] --> B["Implement<br/>Functionality"]
@@ -65,6 +66,7 @@ A skill is a focused, reusable capability that:
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Shared vs dedicated skill decision
     accDescr: Decision tree for determining whether to create a shared skill or dedicated skill based on reusability and domain specificity.
     A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"} 
@@ -454,3 +456,7 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

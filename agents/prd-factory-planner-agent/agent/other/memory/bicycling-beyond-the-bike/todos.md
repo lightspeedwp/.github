@@ -1,9 +1,10 @@
 ---
-version: "1.0.0"
-title: "Bicycling Beyond the Bike - Todos"
-date: "2026-07-01"
-timezone: "Europe/Berlin"
-status: "active"
+file_type: documentation
+version: 1.0.1
+title: Bicycling Beyond the Bike - Todos
+date: '2026-07-01'
+timezone: Europe/Berlin
+status: active
 ---
 # Bicycling Beyond the Bike - Todos
 
@@ -19,4 +20,4 @@ status: "active"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,13 +1,13 @@
 ---
-file_type: "documentation"
-title: "Wave 5.3 Phase 3: PR Documentation Audit Report"
-description: "Consolidation audit of PR-related documentation files identifying overlaps, gaps, and consolidation strategy"
-issue: "#663"
-wave: "5.3"
-phase: "3"
-created_date: "2026-06-01"
-last_updated: "2026-06-01"
-status: "active"
+file_type: documentation
+title: 'Wave 5.3 Phase 3: PR Documentation Audit Report'
+description: Consolidation audit of PR-related documentation files identifying overlaps, gaps, and consolidation strategy
+issue: '#663'
+wave: '5.3'
+phase: '3'
+created_date: '2026-06-01'
+last_updated: '2026-08-21'
+status: active
 ---
 
 # PR Documentation Audit Report (Issue #663)
@@ -220,7 +220,7 @@ This audit examined 5 PR-related documentation files in scope. The analysis reve
   ### 3.1 Required Core Prefixes: feat/, fix/, hotfix/, release/, refactor/,
           chore/, docs/, test/, perf/, ci/, build/, deps/, security/,
           revert/, research/, design/, a11y/, ux/, i18n/, ops/
-  ### 3.2 Optional Product Profile Prefixes: proto/, ds/, api/, .schemas/, telemetry/
+  ### 3.2 Optional Product Profile Prefixes: proto/, ds/, api/, schemas/, telemetry/
   ### 3.3 Optional Client Profile Prefixes: content/, seo/, config/, migrate/, qa/, uat/
   ### 3.4 Examples (13 example branch names)
   ### 4. Branch Name Enforcement via CI (regex + workflow example)
@@ -541,4 +541,4 @@ instructions/ (portable, canonical standards)
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

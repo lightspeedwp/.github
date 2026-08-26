@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: gap-analysis
 quality: strong
 ---
@@ -43,4 +44,4 @@ Create a planning brief only after the missing workflow, baseline, design, and t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

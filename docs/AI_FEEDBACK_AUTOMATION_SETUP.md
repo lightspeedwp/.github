@@ -1,8 +1,9 @@
 ---
+file_type: documentation
 title: AI Feedback Validation — Automation Setup
 description: Technical setup and automation enforcement for AI feedback PR review system
-version: 1.0.0
-created_date: 2026-08-04
+version: 1.0.1
+created_date: 2026-08-04T00:00:00.000Z
 audience: DevOps, Engineering Leads
 ---
 
@@ -560,3 +561,7 @@ git commit -m "fix: restore ai-feedback-helpers.cjs from HEAD~N"
 ---
 
 *Built for the LightSpeedWP .github control plane — 2026-08-04*
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

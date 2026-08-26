@@ -1,19 +1,14 @@
 ---
 file_type: documentation
-title: Schema Files Audit Report
-description: Comprehensive inventory and consolidation analysis for schema files across three locations
-version: v1.0
-last_updated: '2026-08-05'
-owners:
-  - AI Operations Team
-tags:
-  - audit
+title: "Schema Files Audit Report"
+description: "Comprehensive inventory and consolidation analysis for schema files across three locations"
+last_updated: "2026-08-25"
+status: active
+tags:- audit
   - schemas
   - phase-1-restructuring
   - consolidation
-status: active
-stability: stable
-domain: infrastructure
+owners:- AI Operations Team
 ---
 
 # Schema Files Audit Report — Repository Restructuring Initiative #1300

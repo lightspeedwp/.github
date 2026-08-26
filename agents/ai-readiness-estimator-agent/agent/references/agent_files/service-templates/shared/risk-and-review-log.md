@@ -1,6 +1,8 @@
 ---
-template_id: risk-and-review-log
-version: 1.0.0
+file_type: documentation
+title: "Risk And Review Log"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -56,4 +58,4 @@ List scenarios that automatically require escalation:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

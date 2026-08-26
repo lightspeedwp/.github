@@ -2,13 +2,10 @@
 file_type: agent
 name: tour-operator
 title: Tour Operator Config Agent
-description: >-
-  Expert configuration assistant for tour operator websites built with WordPress
-  and WooCommerce. Provides architectural guidance, setup recommendations, and
-  optimization strategies for tour booking platforms.
-version: 2.0.0
+description: Expert configuration assistant for tour operator websites built with WordPress and WooCommerce. Provides architectural guidance, setup recommendations, and optimization strategies for tour booking platforms.
+version: 2.0.1
 status: active
-last_updated: '2026-07-23'
+last_updated: '2026-08-21'
 category: configuration
 maintainer: Ash Shaw
 owners:
@@ -122,3 +119,13 @@ Expert configuration assistant specializing in tour operator website architectur
 ---
 
 *Multi-provider tour operator configuration assistant for WordPress and WooCommerce*
+
+---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

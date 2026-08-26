@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: validation-report
 purpose: Report validation coverage, failures, and recommended fixes.
 ---
@@ -17,4 +18,4 @@ purpose: Report validation coverage, failures, and recommended fixes.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

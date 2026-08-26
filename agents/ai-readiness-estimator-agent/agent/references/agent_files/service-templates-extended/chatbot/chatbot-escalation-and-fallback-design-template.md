@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-escalation-and-fallback-design-template
-version: 1.0.0
+file_type: documentation
+title: "Chatbot Escalation And Fallback Design Template"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -48,4 +50,4 @@ Include who is responsible for monitoring these logs and how often.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

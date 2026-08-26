@@ -1,10 +1,9 @@
 ---
-version: 1.0.0
+file_type: documentation
 title: "Internal AI Readiness Cover Note"
-audience: "internal"
-document_type: "cover-note"
-status: "template"
-language: "en-GB"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Internal AI Readiness Cover Note
@@ -93,4 +92,4 @@ The next internal action should be:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

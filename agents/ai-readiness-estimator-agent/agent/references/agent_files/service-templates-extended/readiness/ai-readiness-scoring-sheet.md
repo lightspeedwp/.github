@@ -1,6 +1,8 @@
 ---
-template_id: ai-readiness-scoring-sheet
-version: 1.0.0
+file_type: documentation
+title: "Ai Readiness Scoring Sheet"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

@@ -1,23 +1,22 @@
 ---
 file_type: instructions
 title: Quality Assurance Standards
-description: Comprehensive testing, validation, and quality assurance standards for
-  all GitHub repository code and automation
+description: Comprehensive testing, validation, and quality assurance standards for all GitHub repository code and automation
 scope: organization-wide
-version: v1.1.2
-last_updated: '2026-06-19'
+version: v1.1.3
+last_updated: '2026-08-21'
 owners:
-- GitHub Community Health Team
+  - GitHub Community Health Team
 tags:
-- testing
-- quality
-- jest
-- playwright
-- coverage
-- ci-cd
+  - testing
+  - quality
+  - jest
+  - playwright
+  - coverage
+  - ci-cd
 applyTo:
-- '**/*.{test,spec}.{js,ts,jsx,tsx}'
-- '**/__tests__/**/*'
+  - '**/*.{test,spec}.{js,ts,jsx,tsx}'
+  - '**/__tests__/**/*'
 status: active
 stability: stable
 domain: generic
@@ -78,6 +77,7 @@ When you show the pyramid in Mermaid, use the approved Mermaid palette from `ins
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Testing pyramid diagram
 accDescr: Shows the testing pyramid from end-to-end tests through integration and unit tests to static analysis.
     A[E2E Tests<br/>User Workflows] --> B[Integration Tests<br/>Component Interaction]
@@ -375,6 +375,7 @@ describe("Issue Lifecycle E2E", () => {
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Test execution flow
 accDescr: Shows how a developer runs tests locally, pushes changes, and then CI executes linting, tests, coverage, and quality gate checks.
     participant Dev as Developer
@@ -569,4 +570,4 @@ tests/
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

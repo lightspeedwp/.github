@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "branch-naming-enforcement-phases-6-7 — OpenSpec Specification"
-description: "Technical specification for branch-naming-enforcement-phases-6-7"
-version: 1.0.0
+title: ""branch-naming-enforcement-phases-6-7 — OpenSpec Specification""
+description: ""Technical specification for branch-naming-enforcement-phases-6-7""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

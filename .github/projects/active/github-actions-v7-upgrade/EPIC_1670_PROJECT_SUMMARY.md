@@ -1,9 +1,9 @@
 ---
-title: Epic #1670 Project Completion Summary
-epic: "#1670"
-status: "Complete"
-date: "2026-08-09"
-version: "1.0.0"
+file_type: documentation
+title: "Epic #1670 Project Completion Summary"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Epic #1670: GitHub Actions v7 Upgrade Initiative — Project Summary

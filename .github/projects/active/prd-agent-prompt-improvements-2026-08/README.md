@@ -1,16 +1,14 @@
 ---
-title: PRD Agent v2.1 — Organization-Wide Improvements
-description: Enhanced PRD Agent with context auto-detection and organization-wide reusability for WordPress projects
-status: in-progress
-last_updated: 2026-08-12
-version: 1.0.0
-owners:
-  - lightspeedwp/maintainers
-tags:
-  - prd
+file_type: documentation
+title: "PRD Agent v2.1 — Organization-Wide Improvements"
+description: "Enhanced PRD Agent with context auto-detection and organization-wide reusability for WordPress projects"
+last_updated: "2026-08-25"
+status: active
+tags:- prd
   - product-planning
   - agent
   - wordpress
+owners:- lightspeedwp/maintainers
 ---
 
 # PRD Agent v2.1 — Organization-Wide Improvements

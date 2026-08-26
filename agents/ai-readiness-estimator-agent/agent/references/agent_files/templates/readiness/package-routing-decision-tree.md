@@ -1,10 +1,9 @@
 ---
-version: 1.0.0
+file_type: documentation
 title: "Package Routing Decision Tree"
-audience: "internal"
-document_type: "routing-guide"
-status: "template"
-language: "en-GB"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Package Routing Decision Tree
@@ -174,4 +173,4 @@ Every recommendation should state:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

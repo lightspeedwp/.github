@@ -1,11 +1,11 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
-infrastructure_tier: {INFRASTRUCTURE_TIER}
-scalability_rating: {SCALABILITY_RATING}
-tags: [infrastructure, architecture]
+file_type: documentation
+title: "TITLE: null"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
+tags:- infrastructure
+  - architecture
 ---
 
 # {TITLE}
@@ -66,3 +66,7 @@ If replacing existing infrastructure, document the phases.
 - Related architecture documentation
 - Capacity planning reports
 - Infrastructure provider documentation
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

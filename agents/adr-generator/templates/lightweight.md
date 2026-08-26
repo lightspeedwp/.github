@@ -1,8 +1,9 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
+file_type: documentation
+title: "TITLE: null"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # {TITLE}
@@ -20,3 +21,7 @@ authors: {AUTHORS}
 ## Consequences
 
 {CONSEQUENCES}
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

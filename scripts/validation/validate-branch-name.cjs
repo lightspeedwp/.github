@@ -64,13 +64,14 @@ const ALLOWED_TYPES = [
 ];
 
 // Regex pattern enforcing: {type}/{scope}-{title} (strict kebab-case)
-// - type: must be one of ALLOWED_TYPES
-// - scope: lowercase, hyphens only (no underscores, dots, or uppercase)
-//   pattern: [a-z0-9]+(?:-[a-z0-9]+)* (no leading/trailing/consecutive hyphens)
-// - title: lowercase, hyphens only (no underscores, dots, or uppercase)
-//   pattern: [a-z0-9]+(?:-[a-z0-9]+)* (no leading/trailing/consecutive hyphens)
-const BRANCH_PATTERN = new RegExp(
-  `^(${ALLOWED_TYPES.join('|')})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`
+// Special case: release branches allow semantic versioning format (e.g., release/v1.0.0)
+// Release branches accept EITHER:
+// 1. Semantic version: release/v1.2.3 or release/1.2.3
+// 2. Standard format: release/{scope}-{title}
+const BRANCH_PATTERN_RELEASE_SEMVER = /^release\/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$/;
+const BRANCH_PATTERN_RELEASE_STANDARD = /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+const BRANCH_PATTERN_STANDARD = new RegExp(
+  `^(${ALLOWED_TYPES.filter(t => t !== 'release').join('|')})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`
 );
 
 // Branches exempt from validation (protected branches, bot branches, etc.)
@@ -96,8 +97,12 @@ function validateBranchName(branchName, options = {}) {
     return { valid: true };
   }
 
-  // Check against pattern
-  if (!BRANCH_PATTERN.test(branchName)) {
+  // Check against pattern (release branches have special rules for semantic versioning)
+  const isReleaseSemver = BRANCH_PATTERN_RELEASE_SEMVER.test(branchName);
+  const isReleaseStandard = BRANCH_PATTERN_RELEASE_STANDARD.test(branchName);
+  const isStandardPattern = BRANCH_PATTERN_STANDARD.test(branchName);
+
+  if (!isReleaseSemver && !isReleaseStandard && !isStandardPattern) {
     const message = formatValidationError(branchName);
     return { valid: false, message };
   }
@@ -298,8 +303,22 @@ function main() {
   const positionalArgs = getPositionalArgs();
   const positionalBranch = positionalArgs.length > 0 ? positionalArgs[0] : '';
 
+  // Debug logging
+  if (process.env.DEBUG_VALIDATION) {
+    console.error('[DEBUG] process.argv:', process.argv);
+    console.error('[DEBUG] positionalArgs:', positionalArgs);
+    console.error('[DEBUG] explicitBranch:', explicitBranch);
+    console.error('[DEBUG] positionalBranch:', positionalBranch);
+  }
+
   // Resolve branch name (positional arg takes precedence, then --branch flag, then git)
   const branchName = getCurrentBranchName(explicitBranch || positionalBranch);
+
+  if (process.env.DEBUG_VALIDATION) {
+    console.error('[DEBUG] branchName:', branchName);
+    console.error('[DEBUG] BRANCH_PATTERN:', BRANCH_PATTERN);
+    console.error('[DEBUG] Pattern matches:', BRANCH_PATTERN.test(branchName));
+  }
 
   if (!branchName) {
     console.error('❌ No branch detected. Provide one with --branch <name> or ensure you are in a Git repository.');
@@ -326,7 +345,9 @@ if (require.main === module) {
 module.exports = {
   validateBranchName,
   ALLOWED_TYPES,
-  BRANCH_PATTERN,
+  BRANCH_PATTERN_RELEASE_SEMVER,
+  BRANCH_PATTERN_RELEASE_STANDARD,
+  BRANCH_PATTERN_STANDARD,
   PROTECTED_BRANCHES,
   BOT_PREFIXES,
   getCurrentBranchName,

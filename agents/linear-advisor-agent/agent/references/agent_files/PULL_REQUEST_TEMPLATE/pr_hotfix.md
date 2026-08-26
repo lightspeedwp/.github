@@ -1,9 +1,13 @@
 ---
-name: "Hotfix PR"
-about: "Critical fixes for production issues"
 title: "fix: {short summary}"
+description: "fix: {short summary}"
+name: Hotfix PR
+about: Critical fixes for production issues
 labels:
-  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
+  - status:needs-review
+  - area:hotfix
+  - priority:critical
+  - release:hotfix
 ---
 
 # Hotfix Pull Request
@@ -79,4 +83,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

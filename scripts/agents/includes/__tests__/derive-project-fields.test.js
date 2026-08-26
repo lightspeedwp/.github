@@ -7,11 +7,13 @@ const {
   run,
 } = require("../derive-project-fields.cjs");
 
+const issueFieldsConfigPath = path.resolve(
+  __dirname,
+  "../../../../.github/issue-fields.yml",
+);
+
 const issueFieldsConfig = yaml.load(
-  fs.readFileSync(
-    path.join(__dirname, "../../../../.github/issue-fields.yml"),
-    "utf8",
-  ),
+  fs.readFileSync(issueFieldsConfigPath, "utf8"),
 );
 
 describe("derive-project-fields.cjs", () => {
@@ -107,6 +109,7 @@ describe("derive-project-fields.cjs", () => {
     };
 
     try {
+      process.env.ISSUE_FIELDS_CONFIG = issueFieldsConfigPath;
       process.env.EVENT_NAME = "pull_request";
       process.env.EVENT_ACTION = "opened";
       process.env.LABELS = "";

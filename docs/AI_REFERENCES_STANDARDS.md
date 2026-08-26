@@ -2,8 +2,8 @@
 file_type: documentation
 title: AI References Standards
 description: Standards for maintaining canonical AI model and runner references
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # AI References Standards
@@ -25,6 +25,7 @@ These references inform agent and workflow design across the organisation.
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: AI reference maintenance lifecycle
     accDescr: Process flow for monitoring AI industry changes, evaluating new models, creating or updating references, and reviewing deprecations.
     A["Monitor<br/>Industry"] --> B["New Model<br/>Released?"]
@@ -86,6 +87,7 @@ ai/
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: AI reference type selection
     accDescr: Decision tree for choosing the appropriate reference type to document, from model references to runner references to decision logs.
     A{"What should be<br/>documented?"} -->|Model capabilities<br/>& versions| B["Model Reference<br/>e.g., Claude.md"]
@@ -508,3 +510,7 @@ See all references: [`ai/`](../../ai/)
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

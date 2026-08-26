@@ -139,15 +139,18 @@ describe("submitPr (Skill 5)", () => {
       expect(result.warnings.some((w) => w.includes("No labels"))).toBe(true);
     });
 
-    test("should warn about bare labels without prefix", async () => {
+    test("should reject bare labels without prefix", async () => {
       const prBareLabels = { ...validPr, labels: ["feature", "bug"] };
       const result = await submitPr({
         pr: prBareLabels,
         dryRun: true,
       });
 
-      expect(result.valid).toBe(true);
-      expect(result.warnings.length).toBeGreaterThan(0);
+      expect(result.valid).toBe(false);
+      expect(result.validationErrors).toBeDefined();
+      expect(
+        result.validationErrors.some((e) => e.includes("Invalid label format")),
+      ).toBe(true);
     });
   });
 

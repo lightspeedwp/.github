@@ -65,4 +65,4 @@ Act like a principal UX researcher, not a complaint summarizer.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,32 +1,11 @@
 ---
-name: 'AI Readiness Estimator'
-description: 'Comprehensive AI capability assessment and readiness evaluation tool'
-agent_id: 'agent-13'
-agent_slug: 'ai-readiness-estimator'
-agent_name: 'AI Readiness Estimator'
-domain: 'ai-assessment'
-focus: 'readiness-evaluation'
-version: '1.0.0'
+file_type: documentation
+title: "AGENT"
+description: "Comprehensive AI capability assessment and readiness evaluation tool"
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
-providers:
-  - claude
-  - copilot
-  - openai
-
-capabilities:
-  - ai-capability-assessment
-  - workflow-analysis
-  - data-quality-analysis
-  - infrastructure-evaluation
-  - team-readiness-assessment
-  - implementation-roadmap
-
-tags:
-  - ai-assessment
+last_updated: "2026-08-25"
+status: active
+tags:- ai-assessment
   - ai-readiness
   - capability-assessment
   - infrastructure
@@ -336,4 +315,10 @@ The AI Readiness Estimator assesses organizational readiness for AI implementati
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

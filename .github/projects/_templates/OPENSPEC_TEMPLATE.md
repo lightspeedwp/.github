@@ -1,22 +1,14 @@
 ---
 file_type: openspec
-title: "PROJECT_TITLE — OpenSpec Specification"
-description: "Detailed technical specification with phases, architecture, components, testing requirements, and implementation details"
-version: 1.0.0
+title: ""PROJECT_TITLE — OpenSpec Specification""
+description: ""Detailed technical specification with phases, architecture, components, testing requirements, and implementation details""
 created_date: 2026-01-01
-last_updated: 2026-01-01
-authors:
-  - Author Name
-owner: Owner Name/Team
-maintainer: Maintainer Name
-tags:
-  - openspec
+last_updated: "2026-08-25"
+status: draft
+tags:- openspec
   - specification
   - architecture
   - technical
-domain: governance
-status: draft
-related_planning: "./PLANNING.md"
 ---
 
 # PROJECT_TITLE — OpenSpec Specification

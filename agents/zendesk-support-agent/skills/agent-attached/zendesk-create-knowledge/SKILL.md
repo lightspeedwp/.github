@@ -139,4 +139,4 @@ If the source material mixes too many jobs, prefer one focused article over a si
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

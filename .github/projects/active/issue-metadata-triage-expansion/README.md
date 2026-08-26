@@ -1,27 +1,10 @@
----
-file_type: readme
-name: Issue Metadata Triage Expansion
-title: Comprehensive Issue Metadata Validation & Automation
-description: Expand issue triage system to validate and automate metadata across 9 status:needs-* label categories
-status: complete
-created_date: 2026-08-09
-last_updated: 2026-08-09
-authors:
-  - lightspeedwp/maintainers
-tags:
-  - automation
-  - issue-triage
-  - metadata
-  - governance
----
-
 # Issue Metadata Triage Expansion
 
 **Status:** ✅ COMPLETE (All Phases Merged) | **Created:** August 9, 2026 | **Completed:** August 9, 2026 (19:30 UTC)
 
 Expand the existing issue triage system (PR #1377, PR #1669) to comprehensively validate and automate GitHub issue metadata across **9 distinct `status:needs-*` label categories**, plus enhanced type detection, assignment, project association, and relationship mapping.
 
-**Parent Epic:** [#1679 — Comprehensive Issue Metadata Expansion & Automated Triage System](https://github.com/lightspeedwp/.github/issues/1679)
+**Parent Epic:** [#1680 — Issue Metadata Triage Expansion](https://github.com/lightspeedwp/.github/issues/1680) | [#1679 — Comprehensive Issue Metadata Expansion & Automated Triage System](https://github.com/lightspeedwp/.github/issues/1679)
 
 ## Quick Links
 

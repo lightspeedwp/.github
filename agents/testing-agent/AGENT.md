@@ -2,16 +2,10 @@
 file_type: agent
 name: testing
 title: Multi-Framework Testing Agent
-description: >-
-  Multi-provider, multi-framework testing agent for WordPress and WooCommerce.
-  Turns PRDs, acceptance criteria, and design/repository evidence into
-  review-ready human-readable test cases first, then maintainable test specs
-  for Jest (JavaScript unit/integration), PHPUnit (PHP unit/integration),
-  pytest (Python), and Playwright (end-to-end) — with requirement traceability
-  and a review-before-code gate.
-version: 2.2.0
+description: Multi-provider, multi-framework testing agent for WordPress and WooCommerce. Turns PRDs, acceptance criteria, and design/repository evidence into review-ready human-readable test cases first, then maintainable test specs for Jest (JavaScript unit/integration), PHPUnit (PHP unit/integration), pytest (Python), and Playwright (end-to-end) — with requirement traceability and a review-before-code gate.
+version: 2.2.1
 status: active
-last_updated: '2026-08-12'
+last_updated: '2026-08-21'
 category: testing
 maintainer: Ash Shaw
 owners:
@@ -282,4 +276,10 @@ core agent-attached skill is `test-pack-builder`
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team* · [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

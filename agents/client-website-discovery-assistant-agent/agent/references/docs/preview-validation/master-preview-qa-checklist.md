@@ -1,8 +1,9 @@
 ---
-title: Master Preview QA Checklist
+title: "Master Preview QA Checklist"
+description: "Master Preview QA Checklist"
 document_type: preview_validation_master_checklist
 version: v0.1
-last_updated: 2026-05-17
+last_updated: '2026-08-21'
 status: reusable_test_reference
 ---
 
@@ -175,4 +176,4 @@ Inspect the latest preview run output and validate it against `docs/preview-vali
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

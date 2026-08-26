@@ -1,11 +1,9 @@
 ---
-version: 1.0.0
+file_type: documentation
 title: "AI Readiness Estimate"
-audience: "internal"
-document_type: "estimate"
-status: "template"
-language: "en-GB"
-recommended_base_package: "AI Readiness Foundation"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # AI Readiness Estimate
@@ -159,4 +157,4 @@ The immediate next step is to gather the missing routing inputs and complete the
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -1,8 +1,11 @@
 ---
-name: "🤖 Automation"
-about: "Propose, fix, or improve automation (actions, scripts, bots)."
 title: "[Automation] <Short summary>"
-labels: [status:needs-triage, area:automation]
+description: "[Automation] <Short summary>"
+name: 🤖 Automation
+about: Propose, fix, or improve automation (actions, scripts, bots).
+labels:
+  - status:needs-triage
+  - area:automation
 ---
 
 ## Automation Summary
@@ -47,4 +50,4 @@ labels: [status:needs-triage, area:automation]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

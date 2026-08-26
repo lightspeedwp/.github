@@ -1,13 +1,20 @@
 ---
-title: "Labeling Strategy & Governance"
-description: "Label taxonomy, automation rules, and governance for LightSpeed repositories."
-file_type: "documentation"
-version: 'v1.1.0'
-last_updated: '2026-08-06'
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-owners: ["lightspeedwp"]
-tags: ["labels", "automation", "governance", "colours", "accessibility", "validation"]
+title: Labeling Strategy & Governance
+description: Label taxonomy, automation rules, and governance for LightSpeed repositories.
+file_type: documentation
+version: v1.1.1
+last_updated: '2026-08-21'
+author: LightSpeed Team
+maintainer: LightSpeed Team
+owners:
+  - lightspeedwp
+tags:
+  - labels
+  - automation
+  - governance
+  - colours
+  - accessibility
+  - validation
 ---
 
 # GitHub Labelling & Automation
@@ -242,7 +249,7 @@ PR branch names automatically assign `type:*` labels:
 
 **Optional prefixes** (as needed for your projects):
 
-- `proto/`, `ds/`, `api/`, `.schemas/` — Product/design system
+- `proto/`, `ds/`, `api/`, `schemas/` — Product/design system
 - `content/`, `seo/`, `config/`, `migrate/` — Client/project specific
 
 ### Changelog Policy
@@ -509,4 +516,4 @@ If you receive a validation error:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

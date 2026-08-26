@@ -1,24 +1,24 @@
 ---
-name: 'Proposal Desk Agent'
-description: 'Proposal and quote generation tool for scope definition, client communication, and billing management'
-agent_id: 'agent-6'
-agent_slug: 'proposal-desk'
-agent_name: 'Proposal Desk Agent'
-agent_type: 'specialized'
-domain: 'proposals'
-focus: 'proposal-generation'
-version: '1.0.0'
+file_type: documentation
+name: Proposal Desk Agent
+description: Proposal and quote generation tool for scope definition, client communication, and billing management
+agent_id: agent-6
+agent_slug: proposal-desk
+agent_name: Proposal Desk Agent
+agent_type: specialized
+domain: proposals
+focus: proposal-generation
+version: 1.0.1
 created_date: '2026-07-22'
-last_updated: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+last_updated: '2026-08-21'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - proposal-template-generation
   - quote-creation
@@ -26,21 +26,19 @@ capabilities:
   - client-communication
   - proposal-tracking
   - invoice-generation
-
 provider_config:
   claude:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
     tools: 8
   copilot:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
     skills: 6
   openai:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
     functions: 8
-
 tags:
   - proposals
   - quotes
@@ -203,4 +201,10 @@ Focus: Performance, conversions, mobile
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

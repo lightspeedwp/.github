@@ -1,9 +1,10 @@
 ---
-version: "1.0.0"
-title: "Bicycling Beyond the Bike - Active Context"
-date: "2026-07-01"
-timezone: "Europe/Berlin"
-status: "active"
+file_type: documentation
+version: 1.0.1
+title: Bicycling Beyond the Bike - Active Context
+date: '2026-07-01'
+timezone: Europe/Berlin
+status: active
 ---
 # Bicycling Beyond the Bike - Active Context
 
@@ -34,4 +35,4 @@ Linear issue `LS-1187` covers launch fixes for the Bicycling Beyond the Bike spo
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

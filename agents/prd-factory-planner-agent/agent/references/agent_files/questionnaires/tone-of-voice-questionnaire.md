@@ -1,11 +1,12 @@
 ---
-title: "Tone of Voice Questionnaire"
-source_title: "Questionnaire - Tone of Voice"
-source_url: "https://docs.google.com/document/d/1DBzo_91i0LANhgLO3EC0UhIjLh2B7WJsxK9D8RURxJU/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire"
-tab_handling: "single-page output from the provided source link"
+file_type: documentation
+title: Tone of Voice Questionnaire
+source_title: Questionnaire - Tone of Voice
+source_url: https://docs.google.com/document/d/1DBzo_91i0LANhgLO3EC0UhIjLh2B7WJsxK9D8RURxJU/edit?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire
+tab_handling: single-page output from the provided source link
 ---
 
 # Tone of Voice Questionnaire
@@ -123,4 +124,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

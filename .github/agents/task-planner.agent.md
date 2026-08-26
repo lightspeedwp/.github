@@ -1,4 +1,5 @@
 ---
+name: Planner Agent
 title: "Planner"
 description: "Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work."
 file_type: "agent"
@@ -62,6 +63,10 @@ metadata:
     validation. Generate plans before implementation. Always clarify requirements
     before planning.
 ---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
 
 ---
 

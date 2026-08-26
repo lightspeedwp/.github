@@ -101,4 +101,4 @@ Use UK English. Keep recommendations practical, direct and implementation-aware.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

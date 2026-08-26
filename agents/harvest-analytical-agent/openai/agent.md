@@ -1,16 +1,18 @@
 ---
-provider: 'openai'
-agent_slug: 'harvest-analytical'
-agent_name: 'Harvest Analytical Agent (OpenAI)'
-status: 'production'
-version: '1.0.1'
+title: "Agent"
+description: "Agent"
+provider: openai
+agent_slug: harvest-analytical
+agent_name: Harvest Analytical Agent (OpenAI)
+status: active
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-21'
 model_compatibility:
   - gpt-4
   - gpt-4-turbo
   - gpt-3.5-turbo
-api_version: 'v1'
+api_version: v1
 temperature: 0.7
 top_p: 0.9
 ---
@@ -320,3 +322,7 @@ def track_all_budgets(projects, period):
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

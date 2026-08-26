@@ -1,9 +1,9 @@
 ---
-title: "Code Style Saved Reply"
-description: "Feedback on code style or formatting in PRs or issues."
-category: "Technical"
-labels:
-  # Note: Issue Type is specified via the Issue Type field, not a label
+file_type: documentation
+title: Code Style Saved Reply
+description: Feedback on code style or formatting in PRs or issues.
+category: Technical
+labels: null
 ---
 
 # Code Style Saved Reply
@@ -28,4 +28,4 @@ Run `npm run lint` or see our guidelines for more info. Once fixed, let us know 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

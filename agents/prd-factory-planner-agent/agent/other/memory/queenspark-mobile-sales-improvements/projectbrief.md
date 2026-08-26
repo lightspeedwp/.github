@@ -1,9 +1,10 @@
 ---
-version: "1.1.0"
-title: "Queenspark Ecommerce Rebuild And Mobile Sales Improvements Project Brief"
-date: "2026-07-01"
-timezone: "Europe/Berlin"
-status: "draft"
+file_type: documentation
+version: 1.1.1
+title: Queenspark Ecommerce Rebuild And Mobile Sales Improvements Project Brief
+date: '2026-07-01'
+timezone: Europe/Berlin
+status: draft
 ---
 # Queenspark Ecommerce Rebuild And Mobile Sales Improvements Project Brief
 
@@ -44,4 +45,4 @@ The proposal should be positioned as a phased ecommerce rebuild rather than an i
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

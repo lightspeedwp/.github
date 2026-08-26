@@ -1,10 +1,10 @@
 ---
-title: "Footer Remediation Guide"
-description: "How to identify, fix, and prevent duplicate footers in Markdown files"
-version: "v1.0.2"
-created_date: "2026-05-28"
-type: "guide"
-category: "governance"
+title: Footer Remediation Guide
+description: How to identify, fix, and prevent duplicate footers in Markdown files
+version: v1.0.3
+created_date: '2026-05-28'
+type: guide
+category: governance
 ---
 
 # Footer Remediation Guide
@@ -52,7 +52,7 @@ Currently, footers are:
 
 ### New Files Created
 
-1. **`.schemas/footer-config.schema.json`** — JSON Schema defining valid footer structure
+1. **`schemas/footer-config.schema.json`** — JSON Schema defining valid footer structure
 2. **`config/footers.config.yaml`** — Predefined footer library with 13 category-specific templates
 3. **`scripts/validate-footers.js`** — Validation script to detect, fix, and backfill violations
 
@@ -370,7 +370,7 @@ The schema enforces:
 3. **Category required** — All docs must declare a category
 4. **Valid footer IDs** — Footer must exist in predefined library
 
-See `.schemas/footer-config.schema.json` for full validation rules.
+See `schemas/footer-config.schema.json` for full validation rules.
 
 ---
 
@@ -437,7 +437,7 @@ Action: Replace and note in commit
 
 ## Related Documentation
 
-- **Schema definition**: `.schemas/footer-config.schema.json`
+- **Schema definition**: `schemas/footer-config.schema.json`
 - **Footer library**: `config/footers.config.yaml`
 - **Validation script**: `scripts/validate-footers.js`
 - **Branding meta agent**: Issue #33 (automation to follow)
@@ -459,4 +459,4 @@ Action: Replace and note in commit
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

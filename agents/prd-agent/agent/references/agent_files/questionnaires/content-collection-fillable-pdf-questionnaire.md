@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: "Content Collection Fillable PDF Questionnaire"
 source_title: "Questionnaire - Content Collection - fillable PDF.pdf"
 source_url: "https://drive.google.com/file/d/1Jagkk6IXkjZPK8PnpDgL0JZKDhi8XHdX/view?usp=drive_link"

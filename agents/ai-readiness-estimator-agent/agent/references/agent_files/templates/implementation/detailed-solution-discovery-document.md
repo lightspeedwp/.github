@@ -1,6 +1,8 @@
 ---
-template_id: detailed-solution-discovery-document
-version: 1.0.0
+file_type: documentation
+title: "Detailed Solution Discovery Document"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -64,4 +66,4 @@ Summarise the discovery findings and outline recommended next steps for scoping,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

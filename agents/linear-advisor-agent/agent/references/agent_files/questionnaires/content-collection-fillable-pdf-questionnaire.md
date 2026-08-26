@@ -1,11 +1,12 @@
 ---
-title: "Content Collection Fillable PDF Questionnaire"
-source_title: "Questionnaire - Content Collection - fillable PDF.pdf"
-source_url: "https://drive.google.com/file/d/1Jagkk6IXkjZPK8PnpDgL0JZKDhi8XHdX/view?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire_pdf_conversion"
-tab_handling: "single-page output from the provided source link"
+file_type: documentation
+title: Content Collection Fillable PDF Questionnaire
+source_title: Questionnaire - Content Collection - fillable PDF.pdf
+source_url: https://drive.google.com/file/d/1Jagkk6IXkjZPK8PnpDgL0JZKDhi8XHdX/view?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire_pdf_conversion
+tab_handling: single-page output from the provided source link
 ---
 
 # Content Collection Fillable PDF Questionnaire
@@ -173,4 +174,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

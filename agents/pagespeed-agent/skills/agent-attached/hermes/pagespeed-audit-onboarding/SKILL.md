@@ -50,4 +50,4 @@ When resuming the original task, use the saved defaults to shape the audit depth
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

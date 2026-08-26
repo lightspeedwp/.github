@@ -1,11 +1,10 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
-security_level: {SECURITY_LEVEL}
-threat_category: {THREAT_CATEGORY}
-tags: [security]
+file_type: documentation
+title: "TITLE: null"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
+tags:- security
 ---
 
 # {TITLE}
@@ -54,3 +53,7 @@ Describe the impact of this decision.
 - Related security issues
 - External references (CVEs, advisories)
 - Internal security documentation
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

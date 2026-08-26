@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "severity": "critical",
+      "title": "Missing Data Sanitization",
+      "file": "includes/post-types.php",
+      "line": 42,
+      "description": "User input from $_GET not sanitized before use in query",
+      "suggestion": "Use sanitize_text_field() or sanitize_sql_request()"
+    },
+    {
+      "severity": "critical",
+      "title": "Missing Nonce Verification",
+      "file": "admin/settings-page.php",
+      "line": 15,
+      "description": "Form submission not verified with wp_nonce_field/wp_verify_nonce",
+      "suggestion": "Add nonce verification to form handler"
+    },
+    {
+      "severity": "major",
+      "title": "Improper Output Escaping",
+      "file": "templates/frontend.php",
+      "line": 80,
+      "description": "Dynamic content echoed without proper escaping",
+      "suggestion": "Use esc_html(), esc_attr(), or wp_kses_post()"
+    },
+    {
+      "severity": "major",
+      "title": "Missing WordPress.org Prefix",
+      "file": "admin/custom-post-type.php",
+      "line": 5,
+      "description": "Function name does not include plugin prefix",
+      "suggestion": "Rename function to 'myplugin_function_name()'"
+    },
+    {
+      "severity": "warning",
+      "title": "Deprecated WordPress Function",
+      "file": "helpers/utils.php",
+      "line": 30,
+      "description": "Using deprecated function get_page(), use get_post() instead",
+      "suggestion": "Replace with recommended WordPress function"
+    }
+  ]
+}

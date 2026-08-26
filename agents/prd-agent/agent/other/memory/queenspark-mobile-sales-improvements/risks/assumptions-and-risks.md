@@ -1,9 +1,10 @@
 ---
-version: "1.1.0"
-title: "Queenspark Ecommerce Rebuild Assumptions And Risks"
-date: "2026-07-01"
-timezone: "Europe/Berlin"
-status: "draft"
+file_type: documentation
+version: 1.1.1
+title: Queenspark Ecommerce Rebuild Assumptions And Risks
+date: '2026-07-01'
+timezone: Europe/Berlin
+status: draft
 ---
 # Queenspark Ecommerce Rebuild Assumptions And Risks
 
@@ -29,4 +30,4 @@ status: "draft"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

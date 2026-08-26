@@ -1,9 +1,10 @@
 ---
-file_type: project-status
-title: Release Workflow Authorization Fixes - Status
+file_type: documentation
+title: ""Release Workflow Authorization Fixes - Status""
+description: ""Project documentation""
 created_date: 2026-08-04
-last_updated: 2026-08-04
-status: complete-awaiting-phase2
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Status: Release Workflow Authorization Fixes

@@ -1,7 +1,9 @@
 ---
-name: "Phase 1 - Baseline Measurement"
-about: "Measure current coverage, open the HTML report, document gaps, and create the implementation checklist."
-labels: ["status:needs-review", "priority:critical", "type:audit", "area:quality", "area:testing"]
+file_type: documentation
+title: "01 Phase 1 Baseline Measurement"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 ## Summary

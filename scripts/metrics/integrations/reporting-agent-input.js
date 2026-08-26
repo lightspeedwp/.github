@@ -207,12 +207,16 @@ class MetricsReportFormatter {
         detail: metrics.prsDetail || "Data unavailable",
       };
 
+      const reviewTimeAnomaly = rawMetrics.anomalies?.find(
+        (a) => a.metric === "averageReviewTime",
+      );
+
       trends.reviewTime = {
         trend: trend.reviewTimeTrend || "unknown",
         change:
           typeof metrics.reviewTimeChange !== "undefined"
             ? metrics.reviewTimeChange
-            : "unavailable",
+            : (reviewTimeAnomaly?.percentChange ?? "unavailable"),
         detail: metrics.reviewTimeDetail || "Data unavailable",
       };
 

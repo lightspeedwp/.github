@@ -1,6 +1,8 @@
 ---
-template_id: uat-sign-off-form
-version: 1.0.0
+file_type: documentation
+title: "Uat Sign Off Form"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -46,4 +48,4 @@ By signing below, the approver confirms that the UAT has been completed to satis
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

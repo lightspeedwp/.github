@@ -1,6 +1,8 @@
 ---
-template_id: readiness-roadmap-template
-version: 1.0.0
+file_type: documentation
+title: "Readiness Roadmap Template"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -49,4 +51,4 @@ This roadmap provides a phased plan for improving AI readiness across governance
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

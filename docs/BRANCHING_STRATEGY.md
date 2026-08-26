@@ -2,8 +2,8 @@
 file_type: documentation
 title: Org-wide Git Branching Strategy
 description: Canonical branch naming, protection, merge discipline, and automation rules for LightSpeedWP repositories.
-version: v1.5.1
-last_updated: '2026-08-19'
+version: v1.5.2
+last_updated: '2026-08-21'
 status: active
 stability: stable
 domain: governance
@@ -91,7 +91,7 @@ For all repos (client, product, infra, etc.), use:
 - `proto/` — prototypes/experiments
 - `ds/` — design system
 - `api/` — API surface
-- `.schemas/` — DB/schema changes
+- `schemas/` — DB/schema changes
 - `telemetry/` — analytics/metrics
 
 ### 3.3 Optional Client Profile Prefixes
@@ -110,7 +110,7 @@ For all repos (client, product, infra, etc.), use:
 feat/product-grid-quick-add
 refactor/split-frontend-bundle
 api/orders-bulk-cancel
-.schemas/add-index-orders-created
+schemas/add-index-orders-created
 telemetry/add-checkout-step-events
 release/v1.6.0
 hotfix/cart-csrf-check
@@ -255,7 +255,7 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
         "^proto/.*",
         "^ds/.*",
         "^api/.*",
-        "^.schemas/.*",
+        "^schemas/.*",
         "^telemetry/.*",
         "^content/.*",
         "^seo/.*",
@@ -281,7 +281,7 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 - `chore/`, `ci/`, `build/`, `deps/`, `security/` → Chore
 - `design/`, `a11y/`, `ux/` → Design/Task
 - `content/`, `seo/`, `config/`, `migrate/`, `qa/`, `uat/` → Task/Operations
-- `proto/`, `api/`, `.schemas/`, `telemetry/`, `ds/` → Feature/Task
+- `proto/`, `api/`, `schemas/`, `telemetry/`, `ds/` → Feature/Task
 - `release/` → Release PR
 
 **Principle:**
@@ -320,7 +320,7 @@ reused so automation stays predictable.
 | `proto/` | `pr_feature.md` |
 | `ds/` | `pr_feature.md` |
 | `api/` | `pr_feature.md` |
-| `.schemas/` | `pr_feature.md` |
+| `schemas/` | `pr_feature.md` |
 | `telemetry/` | `pr_feature.md` |
 | `content/` | `pr_docs.md` |
 | `seo/` | `pr_docs.md` |
@@ -397,7 +397,7 @@ post-release-sync (chore: main → develop, automatic)
 
 7. **Post-release sync (automatic):**
    - `post-release-sync` workflow runs after PR #2 merges.
-   - Creates `chore/post-release-sync-main-to-develop` branch.
+   - Creates `ops/post-release-sync-main-to-develop` branch.
    - Merges `main` → `develop` to keep branches synchronized.
    - Developer merges the sync PR.
 
@@ -492,7 +492,7 @@ Time T+45:  Developer merges post-sync PR
 
 **Post-sync: Keep Branches In Sync**
 
-- Branch: `chore/post-release-sync-main-to-develop`
+- Branch: `ops/post-release-sync-main-to-develop`
 - Target: `develop`
 - Contents: Merge main → develop to prevent divergence
 - Approval: 1 maintainer (optional review)
@@ -664,4 +664,4 @@ git push origin --delete release/v1.0.0
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

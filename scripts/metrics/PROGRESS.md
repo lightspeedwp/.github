@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Metrics Agent Phase 2 Progress
 description: Implementation progress tracking for Phase 2 (Aug 12-26)
 type: progress-tracking
@@ -391,3 +392,7 @@ Expected coverage breakdown:
 - Built-in error handling and logging for production use
 
 Last updated: 2026-08-12
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

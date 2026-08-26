@@ -1,9 +1,9 @@
 ---
-title: "Performance Technical Saved Reply"
-description: "Notice and suggestions for PRs/issues with performance impact."
-category: "Technical"
-labels:
-  # Note: Issue Type is set via the Issue Type field, not a label
+file_type: documentation
+title: Performance Technical Saved Reply
+description: Notice and suggestions for PRs/issues with performance impact.
+category: Technical
+labels: null
 ---
 
 # Performance Technical Saved Reply
@@ -27,4 +27,4 @@ If you need help running benchmarks or profiling, let us know!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

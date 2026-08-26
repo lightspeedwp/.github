@@ -1,8 +1,9 @@
 ---
-title: Markdown Issues Example
+title: "Markdown Issues Example"
+description: "Markdown Issues Example"
 status: review
 type: checklist
-version: "1.2.0"
+version: 1.2.1
 ---
 
 # Markdown Issues Example
@@ -22,4 +23,4 @@ Trailing whitespace here.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

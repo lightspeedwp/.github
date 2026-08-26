@@ -1,6 +1,8 @@
 ---
-template_id: release-and-rollback-checklist
-version: 1.0.0
+file_type: documentation
+title: "Release And Rollback Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -53,4 +55,4 @@ This checklist guides the final release process for AI implementations and defin
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

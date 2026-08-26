@@ -1,6 +1,8 @@
 ---
-template_id: claim-register
-version: 1.0.0
+file_type: documentation
+title: "Claim Register"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -48,4 +50,4 @@ Each claim must be backed by evidence, reviewed, and approved before inclusion i
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

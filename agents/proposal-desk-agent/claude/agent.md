@@ -1,11 +1,12 @@
 ---
-provider: 'claude'
-agent_slug: 'proposal-desk'
-agent_name: 'Proposal Desk Agent (Claude)'
-status: 'production'
-version: '1.0.1'
+file_type: documentation
+provider: claude
+agent_slug: proposal-desk
+agent_name: Proposal Desk Agent (Claude)
+status: active
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-21'
 model_compatibility:
   - claude-opus-4.8
   - claude-sonnet-5
@@ -14,7 +15,7 @@ context_window: '200000'
 token_limit: '200000'
 temperature: 0.7
 top_p: 0.9
-reasoning_budget: 'medium'
+reasoning_budget: medium
 ---
 
 # Proposal Desk Agent — Claude Implementation
@@ -280,4 +281,4 @@ You will:
 
 ---
 
-*Built by 🧱 LightSpeedWP and ☕ Claude Code.*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,8 +1,12 @@
 ---
-name: "⚡ Performance"
-about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimizations."
 title: "[Performance] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:performance]
+description: "[Performance] <Short summary>"
+name: ⚡ Performance
+about: Report performance-related issues (speed, efficiency, resource usage) or propose optimizations.
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:performance
 ---
 
 <!--
@@ -105,4 +109,4 @@ Checklist items to ensure the fix/update is complete and actionable.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

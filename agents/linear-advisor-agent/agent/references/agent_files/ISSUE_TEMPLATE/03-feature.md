@@ -1,7 +1,8 @@
 ---
+title: "[Feature] <Short summary>"
+description: "[Feature] <Short summary>"
 name: "🚀 Feature"
 about: "Propose a net-new capability, enhancement, or workflow improvement."
-title: "[Feature] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:core]
 ---
 

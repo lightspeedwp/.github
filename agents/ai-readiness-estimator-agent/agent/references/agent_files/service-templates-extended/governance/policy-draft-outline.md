@@ -1,6 +1,8 @@
 ---
-template_id: policy-draft-outline
-version: 1.0.0
+file_type: documentation
+title: "Policy Draft Outline"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -60,4 +62,4 @@ Explain how the policy will be updated, who approves changes, and how changes wi
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

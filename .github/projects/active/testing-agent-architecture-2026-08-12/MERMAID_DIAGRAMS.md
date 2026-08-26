@@ -1,8 +1,10 @@
 ---
-title: "Mermaid Diagrams — Testing Agent Architecture"
-description: "Visual diagrams showing 2-tier architecture, delegation, test pipelines, and framework flows"
-status: planning
+file_type: documentation
+title: ""Mermaid Diagrams — Testing Agent Architecture""
+description: ""Visual diagrams showing 2-tier architecture, delegation, test pipelines, and framework flows""
 created_date: "2026-08-12"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Mermaid Diagrams — Testing Agent Architecture

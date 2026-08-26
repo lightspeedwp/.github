@@ -1,7 +1,8 @@
 ---
-artifact: design
-change: phase-2-task-planning-agents-implementation
-schema: spec-driven
+file_type: documentation
+title: "Design"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

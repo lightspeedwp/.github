@@ -1,11 +1,12 @@
 ---
-title: "ADR-003: Post-Release Sync Automation"
-description: "Decision to automate main→develop sync after releases to keep branches aligned"
+title: 'ADR-003: Post-Release Sync Automation'
+description: Decision to automate main→develop sync after releases to keep branches aligned
 file_type: documentation
-date: 2026-08-08
+date: 2026-08-08T00:00:00.000Z
 adr_status: accepted
 status: active
-authors: ["LightSpeed Team"]
+authors:
+  - LightSpeed Team
 ---
 
 # ADR-003: Post-Release Sync Automation
@@ -139,9 +140,9 @@ jobs:
       # 6. Artifact: post-release-sync-result.json
 ```
 
-**Branch naming:** `chore/post-release-sync-main-to-develop`
+**Branch naming:** `ops/post-release-sync-main-to-develop`
 
-**PR naming:** `chore: post-release sync main → develop`
+**PR naming:** `ops: post-release sync main → develop`
 
 **Execution timing:**
 
@@ -178,3 +179,7 @@ jobs:
 
 - [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md#post-release-sync) — Implementation details
 - [.github/workflows/release.yml](../../.github/workflows/release.yml) — post-release-sync job
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

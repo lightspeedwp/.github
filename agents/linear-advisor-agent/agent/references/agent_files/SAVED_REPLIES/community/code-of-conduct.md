@@ -1,12 +1,12 @@
 ---
-title: "Code of Conduct Saved Reply"
-description: "Professional response to conduct-related issues."
-category: "Community"
+title: Code of Conduct Saved Reply
+description: Professional response to conduct-related issues.
+category: Community
 labels:
   - area:community
   - status:needs-triage
 references:
-  - "../../CODE_OF_CONDUCT.md"
+  - ../../CODE_OF_CONDUCT.md
 ---
 
 # Code of Conduct Saved Reply
@@ -23,4 +23,4 @@ We are committed to a safe, respectful, and inclusive community.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

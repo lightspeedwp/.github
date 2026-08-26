@@ -1,8 +1,11 @@
 ---
-name: "Chore PR"
-about: "Repo hygiene: configs, scripts, formatting — no behaviour change"
 title: "chore: {scope}"
-labels: ["status:needs-review", "priority:normal"]
+description: "chore: {scope}"
+name: Chore PR
+about: 'Repo hygiene: configs, scripts, formatting — no behaviour change'
+labels:
+  - status:needs-review
+  - priority:normal
 ---
 
 # Chore Pull Request
@@ -94,4 +97,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

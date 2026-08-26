@@ -2,13 +2,10 @@
 file_type: agent
 name: task-planner
 title: Task Planner Agent
-description: >-
-  Consume research findings and synthesize comprehensive task plans with approaches,
-  task breakdown, dependency mapping, and milestone estimation. Second stage of the
-  portable Task Planning orchestrator system.
-version: 1.0.0
+description: Consume research findings and synthesize comprehensive task plans with approaches, task breakdown, dependency mapping, and milestone estimation. Second stage of the portable Task Planning orchestrator system.
+version: 1.0.1
 status: in-development
-last_updated: '2026-08-12'
+last_updated: '2026-08-21'
 category: planning
 maintainer: Ash Shaw
 owners:
@@ -110,3 +107,13 @@ This agent is designed to receive output from Task Researcher Agent and produce 
 - Project board setup
 - Team communication and alignment
 - Implementation kickoff
+
+---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

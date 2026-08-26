@@ -1,11 +1,12 @@
 ---
-title: "Content Collection Questionnaire"
-source_title: "Questionnaire - Content Collection"
-source_url: "https://docs.google.com/document/d/1eugdxPrO0S3FsfROtrUnzbfrR3kGveAamDVgygyLzq8/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire"
-tab_handling: "single-page output from the provided source link"
+file_type: documentation
+title: Content Collection Questionnaire
+source_title: Questionnaire - Content Collection
+source_url: https://docs.google.com/document/d/1eugdxPrO0S3FsfROtrUnzbfrR3kGveAamDVgygyLzq8/edit?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire
+tab_handling: single-page output from the provided source link
 ---
 
 # Content Collection Questionnaire
@@ -171,4 +172,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

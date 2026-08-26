@@ -1,10 +1,9 @@
 ---
-version: 1.0.0
+file_type: documentation
 title: "Commercial Assumptions Sheet"
-audience: "internal"
-document_type: "commercial-assumptions"
-status: "template"
-language: "en-GB"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Commercial Assumptions Sheet
@@ -117,4 +116,4 @@ Use this section to flag anything that needs special commercial review before re
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

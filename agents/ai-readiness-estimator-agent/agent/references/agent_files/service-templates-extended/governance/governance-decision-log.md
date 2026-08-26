@@ -1,6 +1,8 @@
 ---
-template_id: governance-decision-log
-version: 1.0.0
+file_type: documentation
+title: "Governance Decision Log"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

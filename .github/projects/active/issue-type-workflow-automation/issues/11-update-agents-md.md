@@ -1,12 +1,9 @@
 ---
-issue_type: task
-title: "Task 3.2: Update AGENTS.md with Issue Creation Practices"
-priority: medium
-area: docs
-domain: dotgithub
-team: Engineering
-effort: 2
-parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+file_type: documentation
+title: ""Task 3.2: Update AGENTS.md with Issue Creation Practices""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Task 3.2: Update AGENTS.md with Issue Creation Practices

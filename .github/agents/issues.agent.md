@@ -1,4 +1,5 @@
 ---
+name: Issues Manager
 title: Issues
 description: 'Comprehensive agent for issue management: type assignment, triage, refinement,
   and enrichment with acceptance criteria and technical details.'
@@ -63,6 +64,10 @@ metadata:
   guardrails: Only apply types/labels from canonical configs. Never overwrite without
     warning. Validate all content. Log all actions. Preserve user data integrity.
 ---
+
+## Branch Naming
+
+This agent does not create or validate branches. It manages issues only. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
 
 ---
 

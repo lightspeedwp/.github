@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: project-status-update
 purpose: Create a concise and decision-useful project status update.
 ---
@@ -17,4 +18,4 @@ purpose: Create a concise and decision-useful project status update.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

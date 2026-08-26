@@ -1,11 +1,12 @@
 ---
-provider: 'claude'
-agent_slug: 'website-content-strategist'
-agent_name: 'Website Content Strategist (Claude)'
-status: 'production'
-version: '1.0.1'
+file_type: documentation
+provider: claude
+agent_slug: website-content-strategist
+agent_name: Website Content Strategist (Claude)
+status: active
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-21'
 model_compatibility:
   - claude-opus-4
   - claude-sonnet-4
@@ -185,3 +186,7 @@ Claude integrates smoothly with:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

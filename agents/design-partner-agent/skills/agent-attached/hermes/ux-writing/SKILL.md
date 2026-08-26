@@ -51,4 +51,4 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing voice, te
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

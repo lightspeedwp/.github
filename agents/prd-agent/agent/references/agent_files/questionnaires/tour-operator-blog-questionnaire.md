@@ -1,11 +1,12 @@
 ---
-title: "Tour Operator Blog Questionnaire"
-source_title: "Blog: Tour Operator Questionnaire"
-source_url: "https://docs.google.com/document/d/1T7NLfje9B80Vfo1MZNVGoQmmHliHc7zPtAAzsSsYiSk/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire"
-tab_handling: "single-page output from the provided source link"
+file_type: documentation
+title: Tour Operator Blog Questionnaire
+source_title: 'Blog: Tour Operator Questionnaire'
+source_url: https://docs.google.com/document/d/1T7NLfje9B80Vfo1MZNVGoQmmHliHc7zPtAAzsSsYiSk/edit?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire
+tab_handling: single-page output from the provided source link
 ---
 
 # Tour Operator Blog Questionnaire
@@ -118,4 +119,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

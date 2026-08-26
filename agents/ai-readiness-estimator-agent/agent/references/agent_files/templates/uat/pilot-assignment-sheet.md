@@ -1,10 +1,9 @@
 ---
-version: 1.0.0
+file_type: documentation
 title: "Pilot Assignment Sheet"
-audience: "internal"
-document_type: "uat-assignment-sheet"
-status: "template"
-language: "en-GB"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Pilot Assignment Sheet
@@ -91,4 +90,4 @@ Thanks — once results are in, we’ll review the failures, tighten the setup, 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

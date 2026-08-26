@@ -1,4 +1,5 @@
 ---
+name: Metrics Agent
 title: Metrics
 description: Automates collection, aggregation, and reporting of repository health
   metrics including issue/PR activity, response times, and project health indicators.
@@ -67,6 +68,10 @@ metadata:
   guardrails: Do not expose sensitive data or credentials in metrics. Log all collection
     runs. Support multi-repository aggregation. Validate data before reporting.
 ---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
 
 ---
 

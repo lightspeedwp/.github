@@ -1,6 +1,16 @@
 ---
-title: "Changelog Contributor Checklist"
-description: "Pre-submission checklist for changelog entries"
+file_type: documentation
+title: Changelog Contributor Checklist
+description: Pre-submission checklist for changelog entries with format validation and compliance requirements
+created_date: '2026-08-20'
+last_updated: '2026-08-21'
+status: active
+tags:
+  - changelog
+  - contributor-guide
+  - validation
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Changelog Entry Checklist
@@ -83,3 +93,7 @@ Use this checklist when your PR includes changes worth documenting in CHANGELOG.
 
 **Last Updated:** 2026-07-24
 **Maintained By:** Changelog & Release Engineering Team
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

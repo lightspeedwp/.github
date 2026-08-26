@@ -1,6 +1,8 @@
 ---
-template_id: handover-checklist
-version: 1.0.0
+file_type: documentation
+title: "Handover Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -49,4 +51,4 @@ Ensure all deliverables, notes, and outstanding items are properly transferred w
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

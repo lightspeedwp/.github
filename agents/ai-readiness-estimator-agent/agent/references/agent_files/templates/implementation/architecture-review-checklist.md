@@ -1,6 +1,8 @@
 ---
-template_id: architecture-review-checklist
-version: 1.0.0
+file_type: documentation
+title: "Architecture Review Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -44,4 +46,4 @@ This checklist supports technical architecture reviews for tailored chatbot impl
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

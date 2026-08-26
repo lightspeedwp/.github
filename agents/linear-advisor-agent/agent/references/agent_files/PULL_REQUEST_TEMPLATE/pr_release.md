@@ -1,8 +1,12 @@
 ---
-name: "Release PR"
-about: "Release new features or enhancements"
 title: "release: {short summary}"
-labels: ["status:needs-review", "area:release", "release:patch"]
+description: "release: {short summary}"
+name: Release PR
+about: Release new features or enhancements
+labels:
+  - status:needs-review
+  - area:release
+  - release:patch
 ---
 
 # Release Pull Request
@@ -74,4 +78,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

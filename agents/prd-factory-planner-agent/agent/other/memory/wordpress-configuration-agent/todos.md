@@ -1,8 +1,9 @@
 ---
-version: "1.0.0"
-title: "WordPress configuration agent todos"
-project_key: "wordpress-configuration-agent"
-last_updated: "2026-06-25"
+file_type: documentation
+version: 1.0.1
+title: WordPress configuration agent todos
+project_key: wordpress-configuration-agent
+last_updated: '2026-08-21'
 ---
 # Todos
 
@@ -21,4 +22,4 @@ last_updated: "2026-06-25"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

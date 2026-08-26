@@ -1,6 +1,8 @@
 ---
 title: "Release Manager"
+name: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
+file_type: "agent"
 target: "github-copilot"
 handoffs:
 
@@ -17,7 +19,6 @@ version: "v2.6"
 last_updated: "2026-08-18"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-file_type: "agent"
 category: "release-management"
 status: "active"
 visibility: "public"
@@ -30,9 +31,7 @@ tags:
     "semantic-versioning",
     "release-prep",
     "health-scan",
-    "phase-5a",
     "safety-gates",
-    "agentic-workflows",
   ]
 owners: ["lightspeedwp/maintainers"]
 tools:
@@ -98,6 +97,29 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 
 - **Preparation Phase**: Analyze repository health, validate specs/scripts/workflows, ensure changelog readiness, and generate pre-release deliverables.
 - **Automation Phase**: Validate gates, bump version, update changelog, open release PR (develop → main), tag, and publish GitHub Releases with compiled notes.
+
+# Branch Naming Guidance
+
+This agent **creates branches** for release automation.
+
+**Release Branch Pattern**: `release/vX-Y-Z`
+
+- **Format**: `release/{version}` where version is semantic (e.g., `release/v2-6-0`, NOT `release/v2.6.0`)
+- **Restrictions**: Cannot use `claude/`, `copilot/`, or `openai/` prefixes — these are forbidden
+- **Examples**:
+  - ✅ `release/v1-0-0` (major release)
+  - ✅ `release/v2-1-3` (patch release)
+  - ✅ `release/v3-0-0-rc1` (release candidate)
+  - ❌ `release/v2.1.3` (dots not allowed; use hyphens)
+  - ❌ `claude/release` (forbidden prefix)
+
+**Post-Release Sync Branch Pattern**: `ops/post-release-sync-main-to-develop`
+
+- **Created after**: Successful release (main branch is updated)
+- **Purpose**: Automatically sync main → develop to keep branches aligned after hotfixes
+- **Validation**: All branch names validated by `.github/scripts/validation/validate-branch-name.cjs` before creation
+
+**See Also**: [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) for complete branch naming standards and validation details.
 
 # Process (full, aligned to docs/RELEASE_PROCESS.md)
 

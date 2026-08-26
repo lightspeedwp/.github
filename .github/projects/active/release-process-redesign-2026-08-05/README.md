@@ -1,13 +1,11 @@
 ---
 file_type: documentation
-title: "Release Process Redesign Project"
-description: "Complete audit, redesign, and implementation of release workflow, documentation, and governance"
-status: complete
-version: "2.0"
-last_updated: "2026-08-19"
-owners: ["Ash Shaw"]
+title: ""Release Process Redesign Project""
+description: ""Complete audit, redesign, and implementation of release workflow, documentation, and governance""
+last_updated: "2026-08-25"
+status: active
 tags: ["release", "automation", "documentation", "project"]
-category: "release-engineering"
+owners: ["Ash Shaw"]
 ---
 
 # Release Process Redesign Project
@@ -264,6 +262,38 @@ category: "release-engineering"
 **Merged:** PR #2116 (commit b4fcdaa1c)
 
 **Status:** Production-ready documentation, team training ready
+
+### Phase 8: Comprehensive Release Infrastructure Documentation 🚀 IN PROGRESS
+
+**Started:** 2026-08-22
+
+**Deliverables:**
+
+- 🔄 **RELEASE_PROCESS.md** (v4.0 enhanced with 9 Mermaid diagrams)
+  - Complete release workflow documentation
+  - Multi-phase release procedures
+  - Safety gates integration
+  - Agentic workflow orchestration
+
+- 🔄 **RELEASE_WORDPRESS.md** (WordPress-specific release guide)
+  - WordPress plugin release procedures
+  - WordPress theme release considerations
+  - Integration with core release process
+
+- 🔄 **scripts/workflows/release/README.md** (Release automation documentation)
+  - Release workflow automation guide
+  - Process automation implementation
+  - CI/CD integration patterns
+
+- 🔄 **agents/release/gates/README.md** (Safety gates reference)
+  - 7-layer safety gates architecture
+  - Validation and approval procedures
+  - Error handling and recovery
+
+**PR:** #2272 (branch: docs/infrastructure-release) — Queued for auto-merge  
+**Status:** Pending CI validation, auto-merge enabled
+
+**Related Issue:** #1567 [CHILD-027] Rewrite RELEASE_PROCESS.md
 
 ---
 

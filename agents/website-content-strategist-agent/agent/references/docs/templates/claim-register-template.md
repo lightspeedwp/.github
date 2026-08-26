@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Claim Register Template
 output_type: claim_register
 status: active
@@ -85,4 +86,4 @@ This template's wrapper is mandatory: frontmatter must open and close correctly,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -37,11 +37,16 @@ const validateVersionPath = path.join(
   __dirname,
   "../validation/validate-version.cjs",
 );
+const validateBranchNamePath = path.join(
+  __dirname,
+  "../validation/validate-branch-name.cjs",
+);
 
 const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
   changelogUtilsPath,
 );
 const { validateVersion, parseVersion } = require(validateVersionPath);
+const { validateBranchName } = require(validateBranchNamePath);
 const VALID_PROVIDERS = new Set(["shell", "mcp"]);
 
 /**
@@ -1288,7 +1293,16 @@ async function run() {
     // Step 2b: Preflight remote collision checks
     await provider.preflight(nextVersion, { dryRun });
 
-    // Step 2c: Create release branch
+    // Step 2c: Validate release branch name before creation
+    const branchValidation = validateBranchName(releaseBranch);
+    if (!branchValidation.valid) {
+      throw new Error(
+        `Invalid release branch name "${releaseBranch}": ${branchValidation.message}. ` +
+          `Check docs/BRANCHING_STRATEGY.md for valid branch naming patterns.`,
+      );
+    }
+
+    // Step 2d: Create release branch
     if (!dryRun) {
       exec(`git checkout -b ${releaseBranch}`);
     } else {

@@ -1,13 +1,18 @@
 ---
-file_type: "documentation"
-title: "Automation & Workflows"
-description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.9"
-last_updated: "2026-08-08"
-owners: ["LightSpeedWP Team"]
-tags: ["automation", "workflows", "governance", "agents"]
-status: "active"
-stability: "stable"
+file_type: documentation
+title: Automation & Workflows
+description: Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories.
+version: v1.0.10
+last_updated: '2026-08-21'
+owners:
+  - LightSpeedWP Team
+tags:
+  - automation
+  - workflows
+  - governance
+  - agents
+status: active
+stability: stable
 domain: governance
 ---
 
@@ -72,7 +77,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | Workflow | Branch | Purpose | Agent |
 | --- | --- | --- | --- |
 | **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
-| **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
+| **changelog-management.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **metadata-governance.yml** | issues / pull_request_target | Apply assignee and relationship metadata; inherit milestones only when explicitly linked | issue-pr-metadata.cjs |
 | **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `scripts/validate-footers.js` |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
@@ -352,4 +357,4 @@ All configuration files are validated:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

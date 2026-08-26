@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Invalid Version
 status: draft
 type: guide

@@ -1,6 +1,8 @@
 ---
-template_id: client-questionnaire
-version: 1.0.0
+file_type: documentation
+title: "Client Questionnaire"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -47,4 +49,4 @@ Include any other context, constraints, or considerations that might influence h
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

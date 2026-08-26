@@ -1,8 +1,12 @@
 ---
-name: "🛡️ Audit"
-about: "Propose, conduct, or document a security, accessibility, code, or process audit."
 title: "[Audit] <Brief summary>"
-labels: [status:needs-audit, priority:normal, area:security]
+description: "[Audit] <Brief summary>"
+name: 🛡️ Audit
+about: Propose, conduct, or document a security, accessibility, code, or process audit.
+labels:
+  - status:needs-audit
+  - priority:normal
+  - area:security
 ---
 
 <!--
@@ -72,4 +76,4 @@ Add links, standards, references, or related issues.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

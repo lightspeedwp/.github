@@ -1,10 +1,9 @@
 ---
-name: Task 3.1 — Production Deployment Implementation
-description: Production deployment of metrics collection workflow
-type: implementation
-phase: Phase 3 Production Rollout
-status: In Progress
-version: 1.0.0
+file_type: documentation
+title: "TASK 3.1 PRODUCTION DEPLOYMENT"
+description: "Production deployment of metrics collection workflow"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Task 3.1: Production Deployment — Metrics Workflow

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: prd
 purpose: Draft an evidence-led PRD suitable for implementation and estimation.
 ---

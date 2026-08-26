@@ -1,8 +1,11 @@
 ---
-name: "🚀 Release"
-about: "Propose or track release management, versioning, or deployment tasks."
 title: "[Release] <Brief summary>"
-labels: [status:needs-triage, area:release]
+description: "[Release] <Brief summary>"
+name: 🚀 Release
+about: Propose or track release management, versioning, or deployment tasks.
+labels:
+  - status:needs-triage
+  - area:release
 ---
 
 ## Release Summary
@@ -47,4 +50,4 @@ labels: [status:needs-triage, area:release]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

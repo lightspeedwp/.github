@@ -1,8 +1,11 @@
 ---
-name: "👀 Code Review"
-about: "Request or conduct code review, peer validation, or QA."
 title: "[Review] <Brief summary>"
-labels: [status:needs-review, area:core]
+description: "[Review] <Brief summary>"
+name: 👀 Code Review
+about: Request or conduct code review, peer validation, or QA.
+labels:
+  - status:needs-review
+  - area:core
 ---
 
 ## Review Summary
@@ -49,4 +52,4 @@ labels: [status:needs-review, area:core]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

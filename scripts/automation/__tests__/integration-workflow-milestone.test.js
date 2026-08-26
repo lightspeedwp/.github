@@ -234,7 +234,11 @@ describe("integration: milestone allocation workflow", () => {
       };
 
       const findings = auditIssuesForMilestones(mockIssues, {});
-      const allocations = allocateToMilestones(mockIssues, findings, conflictRules);
+      const allocations = allocateToMilestones(
+        mockIssues,
+        findings,
+        conflictRules,
+      );
 
       // Check if conflicts were detected in allocation results
       expect(allocations).toBeDefined();

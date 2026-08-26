@@ -1,8 +1,11 @@
 ---
-name: "Dependencies/Maintenance PR"
-about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
 title: "chore(deps): {packages}"
-labels: ["status:needs-review", "area:dependencies"]
+description: "chore(deps): {packages}"
+name: Dependencies/Maintenance PR
+about: 'Routine upkeep: dependency bumps, lint/format, low-risk hygiene'
+labels:
+  - status:needs-review
+  - area:dependencies
 ---
 
 # Dependencies / Maintenance Pull Request
@@ -91,4 +94,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

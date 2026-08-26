@@ -1,11 +1,12 @@
 ---
-title: "Website Briefing Questionnaire"
-source_title: "Questionnaire - Website Briefing"
-source_url: "https://docs.google.com/document/d/1USjjZ0KB_ThKik1uJAifEC-bwQzH_mjLEIsq6aZZuGg/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire"
-tab_handling: "single-page output from the provided source link"
+file_type: documentation
+title: Website Briefing Questionnaire
+source_title: Questionnaire - Website Briefing
+source_url: https://docs.google.com/document/d/1USjjZ0KB_ThKik1uJAifEC-bwQzH_mjLEIsq6aZZuGg/edit?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire
+tab_handling: single-page output from the provided source link
 ---
 
 # Website Briefing Questionnaire
@@ -142,4 +143,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

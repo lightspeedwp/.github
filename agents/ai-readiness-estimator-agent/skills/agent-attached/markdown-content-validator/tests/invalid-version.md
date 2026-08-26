@@ -1,8 +1,9 @@
 ---
-title: Invalid Version Example
+title: "Invalid Version Example"
+description: "Invalid Version Example"
 status: draft
 type: guide
-version: "1.0"
+version: '1.0'
 ---
 
 # Invalid Version Example
@@ -13,4 +14,4 @@ This file should fail because the version is not valid SemVer.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,11 +1,9 @@
 ---
-version: 1.1.0
-title: "Team Testing Guide: LightSpeed AI Readiness Estimator"
-audience: "internal"
-document_type: "team-testing-guide"
-status: "active"
-language: "en-GB"
-agent_name: "LightSpeed AI Readiness Estimator"
+file_type: documentation
+title: "'Team Testing Guide: LightSpeed AI Readiness Estimator'"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Team Testing Guide: LightSpeed AI Readiness Estimator
@@ -117,4 +115,4 @@ Move from owner testing to broader team pilot only when:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -2,8 +2,8 @@
 file_type: documentation
 title: Instructions Standards
 description: Standards for creating portable instruction files for agents and tools
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Instructions Standards
@@ -51,6 +51,7 @@ Instructions can address:
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Instruction development lifecycle
     accDescr: Process flow from drafting instructions through adding sections and examples to publishing and maintaining active instruction files.
     A["Draft<br/>instructions.md"] --> B["Add<br/>Frontmatter"]
@@ -84,6 +85,7 @@ Where `{scope}` describes the instruction's domain (kebab-case).
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Instruction scope selection
     accDescr: Decision tree for determining the appropriate scope of instruction files based on audience reach, from organisational to team-specific to repository-specific.
     A{"Who needs<br/>these rules?"} -->|All teams<br/>everywhere| B["organisation"]
@@ -448,3 +450,7 @@ for all user-facing content.
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

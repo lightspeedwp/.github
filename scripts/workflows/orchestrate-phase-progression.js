@@ -29,7 +29,9 @@ const prNumber = parseInt(getArg("pr") || "0", 10);
 const prBody = getArg("pr-body") || "";
 
 if (!eventType || !issueNumber) {
-  console.error("Usage: node orchestrate-phase-progression.js --event <type> --issue <number>");
+  console.error(
+    "Usage: node orchestrate-phase-progression.js --event <type> --issue <number>",
+  );
   console.error("Optional: --pr <number> --pr-body <text>");
   process.exit(1);
 }
@@ -62,16 +64,16 @@ async function main() {
 
       console.log("\nLabel Sync Result:");
       console.log(`  Success: ${result.success}`);
-      console.log(`  Current Labels: ${result.currentLabels.join(", ") || "none"}`);
+      console.log(
+        `  Current Labels: ${result.currentLabels.join(", ") || "none"}`,
+      );
       if (result.suggestedChanges.length > 0) {
         console.log(
-          `  Suggested Changes: ${result.suggestedChanges.map((c) => c.label).join(", ")}`
+          `  Suggested Changes: ${result.suggestedChanges.map((c) => c.label).join(", ")}`,
         );
       }
       if (result.conflicts.length > 0) {
-        console.log(
-          `  Conflicts: ${result.conflicts.join(", ")}`
-        );
+        console.log(`  Conflicts: ${result.conflicts.join(", ")}`);
       }
 
       if (!result.success) {
@@ -112,17 +114,19 @@ async function main() {
           labels: [],
         };
 
-        const result = orchestratePhaseProgression(
-          mockLinkedIssue,
-          trigger,
-          { dryRun: false }
-        );
+        const result = orchestratePhaseProgression(mockLinkedIssue, trigger, {
+          dryRun: false,
+        });
 
         console.log(`   Current Phase: ${result.currentPhaseLabel || "none"}`);
-        console.log(`   Next Phase: ${result.nextPhaseLabel || "no progression"}`);
+        console.log(
+          `   Next Phase: ${result.nextPhaseLabel || "no progression"}`,
+        );
 
         if (result.progression.length > 0) {
-          console.log(`   ✅ Progression: ${result.progression[0].from} → ${result.progression[0].to}`);
+          console.log(
+            `   ✅ Progression: ${result.progression[0].from} → ${result.progression[0].to}`,
+          );
         }
 
         if (result.errors.length > 0) {

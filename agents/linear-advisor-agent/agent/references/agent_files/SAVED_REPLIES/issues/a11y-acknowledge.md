@@ -1,12 +1,12 @@
 ---
-title: "Accessibility (A11y) Issue Acknowledgement Saved Replies"
-description: "Standard response for accessibility-related issues, confirming routing to the a11y review process."
-category: "Issue Management"
+title: Accessibility (A11y) Issue Acknowledgement Saved Replies
+description: Standard response for accessibility-related issues, confirming routing to the a11y review process.
+category: Issue Management
 labels:
   - status:needs-design
 references:
-  - "../ISSUE_LABELS.md"
-  - "../ISSUE_TYPES.md"
+  - ../ISSUE_LABELS.md
+  - ../ISSUE_TYPES.md
 ---
 
 # Accessibility (A11y) Issue Acknowledgement Saved Replies
@@ -36,4 +36,4 @@ We appreciate your help in making our project more accessible!
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

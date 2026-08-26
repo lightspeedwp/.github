@@ -87,4 +87,4 @@ Pull border radius tokens from a Figma variables table and write them into a the
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

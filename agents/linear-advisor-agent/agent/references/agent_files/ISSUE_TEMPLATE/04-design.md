@@ -1,12 +1,15 @@
 ---
-name: "🎨 Design"
-about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 title: "[Design] <Brief summary>"
-labels: [status:needs-design-review, priority:normal, area:design-system]
+description: "[Design] <Brief summary>"
+name: 🎨 Design
+about: Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications
+labels:
+  - status:needs-design-review
+  - priority:normal
+  - area:design-system
 assignees: []
 projects: []
-milestone: ""
-file_type: design
+milestone: ''
 ---
 
 <!--
@@ -82,4 +85,4 @@ Add links, screenshots, references, or other design docs.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

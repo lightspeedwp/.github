@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: <package cover sheet title>
 document_type: package_cover_sheet
 status: <draft|confirmed>
@@ -46,4 +47,4 @@ package: <package name>
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

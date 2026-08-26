@@ -1,8 +1,9 @@
 ---
-title: Implementation Plan — Issue Type & Metadata Automation
-description: Detailed roadmap, architecture, effort breakdown, and success criteria
-date: 2026-07-23
-status: READY FOR EXECUTION
+file_type: documentation
+title: "Implementation Plan — Issue Type & Metadata Automation"
+description: "Detailed roadmap, architecture, effort breakdown, and success criteria"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Implementation Plan: Issue Type & Metadata Automation Initiative

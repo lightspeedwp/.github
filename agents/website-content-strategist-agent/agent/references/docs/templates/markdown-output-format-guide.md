@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Markdown Output Format Guide
 scope: default-formatting
 status: active
@@ -93,4 +94,4 @@ For review, readiness, planning, and claim-review outputs, use the matching temp
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

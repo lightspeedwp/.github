@@ -61,7 +61,7 @@ export async function loadCanonicalLabels() {
     if (error.code === "ENOENT") {
       labelCache = [];
       labelCacheTime = now;
-      return [];
+      return labelCache;
     }
     throw new Error(`Failed to load canonical labels: ${error.message}`, {
       cause: error,

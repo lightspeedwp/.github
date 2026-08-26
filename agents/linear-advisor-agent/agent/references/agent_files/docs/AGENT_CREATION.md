@@ -119,6 +119,7 @@ All agent specifications must be stored in:
 
 ```mermaid
 graph TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Agent specification architecture
 accDescr: Diagram of an agent specification's structure, showing YAML frontmatter, purpose and overview, responsibilities, process flow, and guardrails as components of the spec.
     subgraph "📝 Agent Specification"
@@ -193,6 +194,7 @@ Create a new agent when:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Decision flow for creating a new agent
 accDescr: Flowchart walking through whether a proposed workflow is deterministic and repeatable enough to justify creating a new agent, or whether it should remain manual.
     A([New Workflow Identified]) --> B{Is it deterministic?}
@@ -226,6 +228,7 @@ Before drafting a spec:
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Pre-creation review path
 accDescr: Flowchart showing the steps for reviewing a proposed agent before creation, from defining the problem through assessing overlap with existing agents.
     Start([Start]) --> Check1[Define Problem]
@@ -316,6 +319,7 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Agent approval workflow
 accDescr: Flowchart showing the steps from a drafted agent spec through frontmatter validation and addition to the agent index.
     A([Spec Drafted]) --> B[Frontmatter Validation]
@@ -361,6 +365,7 @@ Frontmatter is **machine-validated**. Errors break CI.
 
 ```mermaid
 mindmap
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Frontmatter scope map
 accDescr: Mindmap of the required and optional frontmatter fields for an agent specification.
   root((Frontmatter))
@@ -413,6 +418,7 @@ accDescr: Mindmap of the required and optional frontmatter fields for an agent s
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Full agent publishing pipeline
 accDescr: Sequence diagram showing the interaction between the human author and CI validation when publishing a new agent.
     participant H as Human Author
@@ -486,6 +492,7 @@ To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Agent lifecycle maturity model
 accDescr: Flowchart showing an agent's lifecycle stages from draft through prototype, active, mature, and deprecated.
     Draft --> Prototype --> Active --> Mature --> Deprecated
@@ -536,6 +543,7 @@ Example patterns:
 
 ```mermaid
 flowchart TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Agent handoff example
 accDescr: Flowchart showing a labeling agent handing off to a reviewer agent once its conditions are met.
     A[Labeling Agent] --> B{Conditions Met?}

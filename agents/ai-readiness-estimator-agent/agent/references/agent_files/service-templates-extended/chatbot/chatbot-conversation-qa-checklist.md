@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-conversation-qa-checklist
-version: 1.0.0
+file_type: documentation
+title: "Chatbot Conversation Qa Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -50,4 +52,4 @@ Use this checklist to test chatbot conversation behaviour against expected outco
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

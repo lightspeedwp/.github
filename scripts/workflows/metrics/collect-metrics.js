@@ -21,11 +21,7 @@ const CONTEXTS = [
   "wordpress-plugin",
   "wordpress-theme",
 ];
-const OUTPUT_DIR = path.join(
-  __dirname,
-  "../../..",
-  ".github/reports/metrics",
-);
+const OUTPUT_DIR = path.join(__dirname, "../../..", ".github/reports/metrics");
 const CONFIG_DIR = path.join(__dirname, "../../metrics/config");
 const METRICS_AGENT = path.join(__dirname, "../../metrics/metrics-agent.js");
 

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: LightSpeed Personalisation Agent Pack
 document_type: agent_pack
 purpose: Recommended builder instructions and reusable template library
@@ -506,4 +507,4 @@ If you later want slash-style routing, these templates can map to tags such as:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

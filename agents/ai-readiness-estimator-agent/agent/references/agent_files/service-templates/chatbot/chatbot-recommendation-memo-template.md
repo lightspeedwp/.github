@@ -1,11 +1,9 @@
 ---
-template_id: chatbot-recommendation-memo-template
-version: 1.1.0
+file_type: documentation
+title: "Chatbot Recommendation Memo Template"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
-document_type: recommendation_memo
-audience: internal_or_client
-prepared_by: '{{owner.name}}'
-date: '{{metadata.document_date}}'
 ---
 
 # Chatbot Recommendation Memo
@@ -83,4 +81,4 @@ Capture the approval state for the recommendation.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

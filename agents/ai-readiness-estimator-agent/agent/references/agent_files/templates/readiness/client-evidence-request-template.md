@@ -1,10 +1,9 @@
 ---
-version: 1.0.0
-title: "Client Evidence Request Template"
-audience: "internal"
-document_type: "request-template"
-status: "template"
-language: "en-GB"
+file_type: documentation
+title: ""Client Evidence Request Template""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Client Evidence Request Template

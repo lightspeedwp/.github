@@ -1,11 +1,9 @@
 ---
 file_type: implementation-plan
-title: "Phase 5A Implementation Plan"
-description: "GitHub Agentic Workflows Release Agent — Detailed task breakdown, timeline, and deliverables"
+title: ""Phase 5A Implementation Plan""
+description: ""GitHub Agentic Workflows Release Agent — Detailed task breakdown, timeline, and deliverables""
+last_updated: "2026-08-25"
 status: draft
-version: "1.0"
-date: "2026-08-11"
-author: "Ash Shaw"
 ---
 
 # Phase 5A Implementation Plan — GitHub Agentic Workflows

@@ -1,12 +1,11 @@
 ---
 file_type: markdown
-title: "Release Process Audit Report"
-description: "Critical audit of release workflows, documentation, and process discrepancies"
+title: ""Release Process Audit Report""
+description: ""Critical audit of release workflows, documentation, and process discrepancies""
+last_updated: "2026-08-25"
 status: active
-version: "1.0"
-last_updated: "2026-08-05"
-owners: ["Ash Shaw"]
 tags: ["audit", "release", "critical-findings"]
+owners: ["Ash Shaw"]
 ---
 
 # Release Process Audit Report

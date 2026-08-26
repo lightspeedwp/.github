@@ -2,13 +2,10 @@
 file_type: agent
 name: woo-config
 title: WooCommerce Config Agent
-description: >-
-  Specialized configuration assistant for WooCommerce stores. Provides expert
-  guidance on setup, optimisation, payment integration, product management,
-  and e-commerce best practices.
-version: 2.0.0
+description: Specialized configuration assistant for WooCommerce stores. Provides expert guidance on setup, optimisation, payment integration, product management, and e-commerce best practices.
+version: 2.0.1
 status: active
-last_updated: '2026-07-22'
+last_updated: '2026-08-21'
 category: ecommerce
 maintainer: Ash Shaw
 owners:
@@ -83,4 +80,10 @@ Expert configuration assistant for WooCommerce stores. Specializes in setup opti
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

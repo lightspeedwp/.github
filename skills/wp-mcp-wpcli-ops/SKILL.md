@@ -1,7 +1,7 @@
 ---
 name: wp-mcp-wpcli-ops
-description: "Operate a live or local WordPress site through a WordPress MCP server plus WP-CLI safely. Use when creating/updating content, deploying theme or plugin files, running data migrations, or debugging \"the write didn't take\" over an MCP server that runs inside WordPress. Covers the MCP-vs-WP-CLI division of labour, multi-file plugin deploy ordering (fatal-lockout avoidance), MCP write-response quirks, persistent-object-cache eviction, and verification discipline."
-compatibility: "Targets WordPress 6.9+ (PHP 7.2.24+). Requires a WordPress MCP server and/or WP-CLI access to the target site. Some guidance assumes a persistent object cache (Redis/Memcached) and/or a page cache (e.g. WP Rocket); re-probe per site."
+description: Operate a live or local WordPress site through a WordPress MCP server plus WP-CLI safely. Use when creating/updating content, deploying theme or plugin files, running data migrations, or debugging "the write didn't take" over an MCP server that runs inside WordPress. Covers the MCP-vs-WP-CLI division of labour, multi-file plugin deploy ordering (fatal-lockout avoidance), MCP write-response quirks, persistent-object-cache eviction, and verification discipline.
+compatibility: Targets WordPress 6.9+ (PHP 7.2.24+). Requires a WordPress MCP server and/or WP-CLI access to the target site. Some guidance assumes a persistent object cache (Redis/Memcached) and/or a page cache (e.g. WP Rocket); re-probe per site.
 ---
 
 # WP MCP + WP-CLI Ops
@@ -78,4 +78,4 @@ Written to be portable across WordPress projects. Concrete project details appea
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

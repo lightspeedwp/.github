@@ -1,21 +1,20 @@
 ---
 file_type: documentation
 title: Frontmatter Schema Documentation
-version: 'v2.3.1'
-last_updated: '2026-06-19'
+version: v2.3.2
+last_updated: '2026-08-21'
 author: LightSpeedWP
 maintainer: Ash Shaw
-description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter
-  schema, including GitHub templates, AI configurations, and validation guidelines.
+description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter schema, including GitHub templates, AI configurations, and validation guidelines.
 tags:
-- lightspeed
-- schema
-- frontmatter
-- governance
-- github
-- copilot
-- claude
-- gemini
+  - lightspeed
+  - schema
+  - frontmatter
+  - governance
+  - github
+  - copilot
+  - claude
+  - gemini
 stability: stable
 domain: governance
 ---
@@ -32,7 +31,7 @@ This document describes the structure, fields, and validation rules for the Ligh
 
 ## Location
 
-- **Schema file:** `../.schemas/frontmatter.schema.json`
+- **Schema file:** `../schemas/frontmatter.schema.json`
 - **This documentation:** `docs/FRONTMATTER_SCHEMA.md`
 
 ## Referencing the Schema
@@ -41,13 +40,13 @@ This document describes the structure, fields, and validation rules for the Ligh
 
 ```markdown
 **JSON Schema:**
-See [`../.schemas/frontmatter.schema.json`](../.schemas/frontmatter.schema.json)
+See [`../schemas/frontmatter.schema.json`](../schemas/frontmatter.schema.json)
 ```
 
 **How to reference in frontmatter files (YAML):**
 
 ```yaml
-$schema: "../.schemas/frontmatter.schema.json"
+$schema: "../schemas/frontmatter.schema.json"
 ---
 title: "..."
 ```
@@ -59,7 +58,7 @@ The LightSpeedWP frontmatter schema uses **Ajv JSON Schema validator** (Draft 07
 ### Validation Process
 
 1. **Parse YAML Frontmatter**: Extract frontmatter block from Markdown files
-2. **Load Schema**: Read `../.schemas/frontmatter.schema.json`
+2. **Load Schema**: Read `../schemas/frontmatter.schema.json`
 3. **Discriminator Routing**: Use `file_type` field to route to appropriate schema variant
 4. **Validate Fields**: Check all required and optional fields against schema rules
 5. **Report Errors**: Provide detailed error messages with field paths and validation failures
@@ -124,7 +123,7 @@ The LightSpeedWP frontmatter schema implements a **dual reference system** to se
 ## Example Frontmatter Implementation
 
 ```yaml
-$schema: "../.schemas/frontmatter.schema.json"
+$schema: "../schemas/frontmatter.schema.json"
 ---
 title: "Labeling Agent Spec"
 description: "Automated labeling system for issues and pull requests"
@@ -625,7 +624,7 @@ Configure VS Code to validate frontmatter in real-time:
 ```json
 {
   "yaml.schemas": {
-    "../.schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
+    "../schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
   },
   "yaml.validate": true,
   "yaml.format.enable": true
@@ -652,7 +651,7 @@ on:
   pull_request:
     paths:
       - "**.md"
-      - "../.schemas/frontmatter.schema.json"
+      - "../schemas/frontmatter.schema.json"
 
 jobs:
   validate:
@@ -676,7 +675,7 @@ const glob = require("glob");
 
 const ajv = new Ajv({ discriminator: true, allErrors: true });
 const schema = JSON.parse(
-  fs.readFileSync("../.schemas/frontmatter.schema.json", "utf8"),
+  fs.readFileSync("../schemas/frontmatter.schema.json", "utf8"),
 );
 const validate = ajv.compile(schema);
 
@@ -837,4 +836,4 @@ npm run validate:frontmatter
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

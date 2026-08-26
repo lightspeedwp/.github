@@ -1,9 +1,10 @@
 ---
-version: "1.0.0"
-title: "NovaNews Reporter Dashboard Assumptions and Risks"
-date: "2026-06-18"
-timezone: "Europe/Berlin"
-status: "active"
+file_type: documentation
+version: 1.0.1
+title: NovaNews Reporter Dashboard Assumptions and Risks
+date: '2026-06-18'
+timezone: Europe/Berlin
+status: active
 ---
 
 # NovaNews Reporter Dashboard Assumptions and Risks
@@ -23,4 +24,4 @@ status: "active"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

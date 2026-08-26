@@ -1,8 +1,12 @@
 ---
-name: "💡 User Experience Feedback"
-about: Share feedback on the usability and interface design of this WordPress project
 title: "[UX] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+description: "[UX] <Short summary>"
+name: 💡 User Experience Feedback
+about: Share feedback on the usability and interface design of this WordPress project
+labels:
+  - status:needs-triage
+  - priority:normal
+  - area:core
 ---
 
 ## Describe your experience
@@ -44,4 +48,4 @@ Add any other relevant information or examples.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

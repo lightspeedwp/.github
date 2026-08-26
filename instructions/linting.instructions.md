@@ -1,20 +1,19 @@
 ---
 file_type: instructions
 title: Linting Instructions
-description: Master index for all linting instructions in the LightSpeed organisation.
-  Lists and cross-references all linting instructions, config, and coding standards.
+description: Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards.
 scope: organization-wide
 applyTo: '**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}'
 version: v2.4
-last_updated: '2026-07-22'
+last_updated: '2026-08-21'
 owners:
-- LightSpeedWP Team
+  - LightSpeedWP Team
 tags:
-- linting
-- standards
-- eslint
-- prettier
-- automation
+  - linting
+  - standards
+  - eslint
+  - prettier
+  - automation
 ---
 
 # 🔍 LightSpeed Linting Instructions Library
@@ -103,6 +102,7 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Linting process flow
 accDescr: Shows the linting workflow from code change through pre-commit hooks, local linting, CI/CD pipeline checks, and merge approval.
     A[Code Change] --> B[Pre-commit Hooks]
@@ -139,6 +139,7 @@ accDescr: Shows the linting workflow from code change through pre-commit hooks, 
 
 ```mermaid
 graph LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 accTitle: Linting toolchain overview
 accDescr: Shows how source code feeds into ESLint, PHPCS, Prettier, Stylelint, and Markdownlint before reaching the CI/CD pipeline.
     A[Source Code] --> B[ESLint]
@@ -207,4 +208,4 @@ Linting instructions should evolve with our standards and requirements. When upd
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

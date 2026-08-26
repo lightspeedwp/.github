@@ -1,4 +1,5 @@
 ---
+name: Project Meta Sync Agent
 title: Project Meta Sync Agent v2
 description: Active metadata governance orchestrator. Guides issue/PR labeling, GitHub
   Project field synchronization, and release metadata validation across workflows,
@@ -36,7 +37,7 @@ permissions:
 - write
 - github:repo
 - github:issues
-- github:projects
+- github:pulls
 handoffs:
 - label: Label Strategy & Taxonomy Design
   agent: label-strategy-agent
@@ -48,6 +49,10 @@ handoffs:
   prompt: Validate project metadata before release and recommend go/no-go status.
   send: false
 ---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
 
 # Project Meta Sync Agent v2 — Metadata Governance Orchestrator
 

@@ -1,6 +1,8 @@
 ---
-template_id: integration-requirements-template
-version: 1.0.0
+file_type: documentation
+title: "Integration Requirements Template"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -42,4 +44,4 @@ Use this template to capture requirements for integrations with external or inte
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

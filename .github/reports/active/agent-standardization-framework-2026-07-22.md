@@ -1,10 +1,10 @@
 ---
-file_type: framework
-category: agent-standardization
+file_type: documentation
+title: ""Agent Standardization Framework 2026 07 22""
+description: ""Project documentation""
 created_date: 2026-07-22
-version: v1.0.0
+last_updated: "2026-08-25"
 status: active
-scope: phase-1-implementation
 ---
 
 # Multi-Provider Agent Standardization Framework — Phase 1

@@ -1,11 +1,9 @@
 ---
-issue_type: epic
-title: "Epic: Issue Type & Metadata Automation Initiative"
-priority: high
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 37.5
+file_type: documentation
+title: ""Epic: Issue Type & Metadata Automation Initiative""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Epic: Issue Type & Metadata Automation Initiative

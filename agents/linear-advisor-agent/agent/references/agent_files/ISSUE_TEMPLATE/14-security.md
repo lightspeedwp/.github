@@ -1,8 +1,12 @@
 ---
-name: "🔐 Security"
-about: "Report vulnerabilities, security improvements, or compliance requirements."
 title: "[Security] <Brief summary>"
-labels: [status:needs-triage, priority:critical, area:security]
+description: "[Security] <Brief summary>"
+name: 🔐 Security
+about: Report vulnerabilities, security improvements, or compliance requirements.
+labels:
+  - status:needs-triage
+  - priority:critical
+  - area:security
 ---
 
 <!--
@@ -74,4 +78,4 @@ Add any other context, related issues, compliance docs, or references.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

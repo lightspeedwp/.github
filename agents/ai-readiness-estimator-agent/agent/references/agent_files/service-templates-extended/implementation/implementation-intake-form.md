@@ -1,6 +1,8 @@
 ---
-template_id: implementation-intake-form
-version: 1.0.0
+file_type: documentation
+title: "Implementation Intake Form"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -62,4 +64,4 @@ List known risks, constraints, or assumptions that could impact the implementati
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

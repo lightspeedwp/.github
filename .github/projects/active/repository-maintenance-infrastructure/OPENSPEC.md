@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "repository-maintenance-infrastructure — OpenSpec Specification"
-description: "Technical specification for repository-maintenance-infrastructure"
-version: 1.0.0
+title: ""repository-maintenance-infrastructure — OpenSpec Specification""
+description: ""Technical specification for repository-maintenance-infrastructure""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

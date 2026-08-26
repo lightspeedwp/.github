@@ -2,9 +2,9 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.4
-created_date: "2026-06-03"
-last_updated: "2026-06-19"
+version: v1.0.5
+created_date: '2026-06-03'
+last_updated: '2026-08-21'
 authors:
   - GitHub Copilot
 owners:
@@ -51,6 +51,7 @@ catch up when labels are added after creation.
 
 ```mermaid
 flowchart LR
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Canonical config interdependency map
     accDescr: Flowchart showing the four canonical config files and how labeling workflows and project metadata sync consume them. labels.yml is shared vocabulary, issue-types.yml defines type mapping, labeler.yml applies rules, and issue-fields.yml maps labels to project fields.
     A[labels.yml\nCanonical label vocabulary] --> E[Labeling agent and workflows]
@@ -66,6 +67,7 @@ flowchart LR
 
 ```mermaid
 sequenceDiagram
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Issue and PR automation data flow
     accDescr: Sequence diagram showing how issue templates and pull request branches trigger labeling automation, which reads canonical config files and then updates labels and project fields.
     participant U as Contributor
@@ -118,4 +120,4 @@ sequenceDiagram
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

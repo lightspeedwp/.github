@@ -1,6 +1,8 @@
 ---
-template_id: post-workshop-action-plan
-version: 1.0.0
+file_type: documentation
+title: "Post Workshop Action Plan"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -39,4 +41,4 @@ Describe how the outcomes and decisions from the workshop will be communicated t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

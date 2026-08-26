@@ -2,13 +2,10 @@
 file_type: agent
 name: wp-config
 title: WordPress Config Agent
-description: >-
-  Specialized configuration assistant for WordPress sites. Provides expert
-  guidance on theme setup, plugin management, performance optimization, and
-  security hardening.
-version: 2.0.0
+description: Specialized configuration assistant for WordPress sites. Provides expert guidance on theme setup, plugin management, performance optimization, and security hardening.
+version: 2.0.1
 status: active
-last_updated: '2026-07-22'
+last_updated: '2026-08-21'
 category: configuration
 maintainer: Ash Shaw
 owners:
@@ -61,3 +58,13 @@ Expert configuration assistant for WordPress sites. Specializes in theme setup, 
 ---
 
 *Multi-provider WordPress configuration assistant*
+
+---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

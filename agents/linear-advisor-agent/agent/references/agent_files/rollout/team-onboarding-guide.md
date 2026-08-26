@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Team Onboarding Guide
 document_type: onboarding_guide
 purpose: Help LightSpeed teammates start using the current Linear-first advisor quickly and consistently.
@@ -116,4 +117,4 @@ The pilot is working if teammates can use the agent to get faster, clearer, more
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

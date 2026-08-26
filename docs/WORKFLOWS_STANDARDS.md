@@ -2,8 +2,8 @@
 file_type: documentation
 title: Workflows Standards
 description: Standards for creating reusable agentic workflows
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Workflows Standards
@@ -20,6 +20,7 @@ Workflows are JavaScript/TypeScript scripts that coordinate multiple agents, man
 
 ```mermaid
 graph TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Workflow execution patterns
     accDescr: Shows different execution patterns for agentic workflows including sequential, parallel, fan-out, and iterative patterns that combine into aggregated results.
     A["Task Input"] --> B{Execution Type}
@@ -154,6 +155,7 @@ export const meta = {
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Execution pattern selection
     accDescr: Decision tree for choosing the appropriate execution pattern based on task dependencies and workload characteristics.
     A{"Do tasks<br/>depend on<br/>each other?"} -->|YES| B["Sequential"]
@@ -403,3 +405,7 @@ return report
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

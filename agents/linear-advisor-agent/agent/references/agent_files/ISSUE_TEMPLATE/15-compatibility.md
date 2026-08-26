@@ -1,8 +1,11 @@
 ---
-name: "🧩 Compatibility"
-about: "Track browser/device/WordPress/plugin compatibility issues."
 title: "[Compatibility] <Brief summary>"
-labels: [status:needs-testing, area:compatibility]
+description: "[Compatibility] <Brief summary>"
+name: 🧩 Compatibility
+about: Track browser/device/WordPress/plugin compatibility issues.
+labels:
+  - status:needs-testing
+  - area:compatibility
 ---
 
 <!--
@@ -73,4 +76,4 @@ Add any other context, related issues, references, or docs.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

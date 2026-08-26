@@ -1,22 +1,15 @@
 ---
 name: gravity-forms-configuration
-description: 'configure, validate, troubleshoot, and document gravity forms setups on
-
+description: |-
+  configure, validate, troubleshoot, and document gravity forms setups on
   wordpress sites through a wordpress mcp app or companion connector. use for
-
   gravity forms preflight/readiness checks, form planning, field schemas,
-
   notifications, confirmations, conditional logic, spam protection,
-
   accessibility, security, add-ons, payments, user registration, woocommerce
-
   enquiry flows, tour operator enquiry flows, approved implementation changes,
-
   post-change validation, troubleshooting, and handoff notes. for full
-
   read-only gravity forms audit reports, findings registers, scorecards, and
-
-  client-safe audit summaries, route to gravity-forms-auditor.'
+  client-safe audit summaries, route to gravity-forms-auditor.
 ---
 
 # Gravity Forms Configuration
@@ -363,4 +356,4 @@ Route away when the primary job is a full Gravity Forms audit report, formal fin
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

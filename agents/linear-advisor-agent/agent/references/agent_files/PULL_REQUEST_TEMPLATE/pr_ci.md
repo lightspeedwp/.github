@@ -1,8 +1,11 @@
 ---
-name: "Build/CI PR"
-about: "Pipelines, linting, packaging, or release automation"
 title: "build(ci): {short summary}"
-labels: ["status:needs-review", "area:ci"]
+description: "build(ci): {short summary}"
+name: Build/CI PR
+about: Pipelines, linting, packaging, or release automation
+labels:
+  - status:needs-review
+  - area:ci
 ---
 
 # Build/CI Pull Request
@@ -101,4 +104,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

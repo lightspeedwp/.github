@@ -102,4 +102,4 @@ If multiple routes seem possible, choose the smallest next step that resolves th
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

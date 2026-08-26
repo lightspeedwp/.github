@@ -1,10 +1,9 @@
 ---
-name: Task 3.2 — Integration with Control Plane Implementation Plan
-description: Wiring metrics into Meta Agent, Reporting Agent, and Issue templates
-type: implementation-plan
-phase: Phase 3 Production Rollout
-status: Planning
-version: 1.0.0
+file_type: documentation
+title: "TASK 3.2 INTEGRATION PLAN"
+description: "Wiring metrics into Meta Agent, Reporting Agent, and Issue templates"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Task 3.2: Integration with Control Plane — Implementation Plan

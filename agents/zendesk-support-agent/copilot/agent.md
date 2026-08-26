@@ -1,13 +1,14 @@
 ---
-provider: 'copilot'
-agent_slug: 'zendesk-support'
-agent_name: 'Zendesk Support Agent (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+file_type: documentation
+provider: copilot
+agent_slug: zendesk-support
+agent_name: Zendesk Support Agent (GitHub Copilot)
+status: active
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-21'
+platform: github
+integration: copilot-chat
 ---
 
 # Zendesk Support Agent — GitHub Copilot Implementation
@@ -245,3 +246,7 @@ Works with:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

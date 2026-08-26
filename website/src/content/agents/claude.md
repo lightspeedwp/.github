@@ -1,13 +1,21 @@
 ---
-title: "Claude Agent"
-description: "LightSpeedWP's primary AI agent for code review, documentation, and automation tasks"
-version: "1.0"
-last_updated: 2026-05-15
-category: "AI Agent"
-type: "claude"
-difficulty: "Intermediate"
-tags: ["ai", "claude", "automation", "code-review"]
-actions: ["copy", "download", "github", "vscode"]
+title: Claude Agent
+description: LightSpeedWP's primary AI agent for code review, documentation, and automation tasks
+version: '1.0'
+last_updated: '2026-08-21'
+category: AI Agent
+type: claude
+difficulty: Intermediate
+tags:
+  - ai
+  - claude
+  - automation
+  - code-review
+actions:
+  - copy
+  - download
+  - github
+  - vscode
 ---
 
 # Claude Agent
@@ -35,4 +43,4 @@ The agent responds to specific commands and can be invoked in several ways:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

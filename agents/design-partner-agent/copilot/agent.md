@@ -1,11 +1,13 @@
 ---
-provider: 'copilot'
-agent_slug: 'design-partner'
-agent_name: 'Design Partner Agent (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
-platform: 'github'
-integration_type: 'copilot-skills'
+title: "Agent"
+description: "Agent"
+provider: copilot
+agent_slug: design-partner
+agent_name: Design Partner Agent (GitHub Copilot)
+status: active
+version: 1.0.2
+platform: github
+integration_type: copilot-skills
 ---
 
 # Design Partner Agent — GitHub Copilot Implementation
@@ -432,4 +434,4 @@ Next steps:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

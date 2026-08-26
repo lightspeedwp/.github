@@ -1,22 +1,22 @@
 ---
-name: 'Zendesk Support Agent'
-description: 'Customer support agent for ticket management, customer communication, and knowledge base integration'
-agent_id: 'agent-14'
-agent_slug: 'zendesk-support'
-agent_name: 'Zendesk Support Agent'
-domain: 'support'
-focus: 'zendesk-integration'
-version: '1.0.0'
+file_type: documentation
+name: Zendesk Support Agent
+description: Customer support agent for ticket management, customer communication, and knowledge base integration
+agent_id: agent-14
+agent_slug: zendesk-support
+agent_name: Zendesk Support Agent
+domain: support
+focus: zendesk-integration
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - ticket-management
   - customer-communication
@@ -24,7 +24,6 @@ capabilities:
   - ticket-analysis
   - sentiment-analysis
   - escalation-routing
-
 tags:
   - support
   - zendesk
@@ -370,3 +369,13 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

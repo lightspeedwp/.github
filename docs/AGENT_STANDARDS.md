@@ -2,8 +2,8 @@
 file_type: documentation
 title: Agent Standards
 description: Comprehensive standards for creating agents (single-file & folder-based)
-version: 1.0.0
-last_updated: '2026-07-24'
+version: 1.0.1
+last_updated: '2026-08-21'
 ---
 
 # Agent Standards
@@ -21,6 +21,7 @@ Agents are autonomous AI entities designed to accomplish specific tasks by lever
 
 ```mermaid
 graph TB
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Agent architecture and components
     accDescr: Diagram showing the structure of an agent with connections to core prompts, provider-specific configurations, shared skills, tools, and validation hooks.
     A["Agent (AGENT.md)"] --> B["Core Prompt<br/>(shared/core-prompt.md)"]
@@ -336,6 +337,7 @@ Manual validation required. Ensure:
 
 ```mermaid
 graph TD
+%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Single-file vs folder-based agent decision
     accDescr: Decision tree to determine whether to use a single-file agent or folder-based agent based on complexity and skill requirements.
     A{"Agent Complexity?"} -->|Simple task<br/>1-2 skills| B["Single-File Agent<br/>agents/name.agent.md"]
@@ -460,3 +462,7 @@ See `agents/playwright-agent/` for a real-world example of a complex, folder-bas
 
 **Last Updated:** 2026-07-24  
 **Version:** 1.0.0
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

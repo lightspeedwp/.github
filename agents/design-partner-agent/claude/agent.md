@@ -1,11 +1,13 @@
 ---
-provider: 'claude'
-agent_slug: 'design-partner'
-agent_name: 'Design Partner Agent (Claude)'
-status: 'production'
-version: '1.0.1'
+title: "Agent"
+description: "Agent"
+provider: claude
+agent_slug: design-partner
+agent_name: Design Partner Agent (Claude)
+status: active
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
+last_updated: '2026-08-21'
 model_compatibility:
   - claude-opus-4
   - claude-sonnet-4
@@ -341,4 +343,4 @@ claude agent run design-partner --task "extract and validate tokens"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

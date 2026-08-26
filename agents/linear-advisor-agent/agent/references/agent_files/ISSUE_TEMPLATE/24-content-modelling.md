@@ -1,8 +1,11 @@
 ---
-name: "📖 Content Modelling"
-about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 title: "[Content Modelling] <Brief summary>"
-labels: [status:needs-triage, area:content]
+description: "[Content Modelling] <Brief summary>"
+name: 📖 Content Modelling
+about: Propose, update, or discuss content structure, CPTs, or taxonomy.
+labels:
+  - status:needs-triage
+  - area:content
 ---
 
 ## Content Modelling Summary
@@ -45,4 +48,4 @@ labels: [status:needs-triage, area:content]
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

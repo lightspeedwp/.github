@@ -1,6 +1,8 @@
 ---
-template_id: tailored-implementation-plan
-version: 1.0.0
+file_type: documentation
+title: "Tailored Implementation Plan"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -73,4 +75,4 @@ Describe how progress will be communicated to stakeholders (frequency, channels,
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

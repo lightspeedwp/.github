@@ -171,4 +171,4 @@ Do not overwrite files unless the user explicitly asks for rewrite or auto-fix b
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

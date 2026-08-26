@@ -1,20 +1,14 @@
 ---
-name: adr-discovery
-description: Find the next available ADR number based on configured numbering format
-category: utilities
-tags:
-  - discovery
+file_type: documentation
+title: "Adr Discovery"
+description: "Find the next available ADR number based on configured numbering format"
+created_date: 2026-08-18T00:00:00.000Z
+last_updated: "2026-08-25"
+status: active
+tags:- discovery
   - numbering
   - filename-generation
-file_type: skill
-created_date: 2026-08-18
-last_updated: 2026-08-18
-owners:
-  - LightSpeed Team
-status: active
-stability: beta
-domain: infrastructure
-language: en
+owners:- LightSpeed Team
 ---
 
 # ADR Discovery Skill
@@ -232,3 +226,7 @@ Target coverage: >90%
 - [ADR Generator Skill](./SKILL.md)
 - [Configuration Reference](../config/adr-config.definitions.md)
 - [Test Suite](../tests/discovery.test.js)
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

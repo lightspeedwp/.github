@@ -1,23 +1,13 @@
 ---
 file_type: planning
-title: "nodejs-upgrade-2026-q3-post-merge-monitoring — Planning & Specification"
-description: "Project planning document with objectives, phases, deliverables, and GitHub issue references"
-version: 1.0.0
+title: ""nodejs-upgrade-2026-q3-post-merge-monitoring — Planning & Specification""
+description: ""Project planning document with objectives, phases, deliverables, and GitHub issue references""
 created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - Author Name
-owner: Owner Name/Team
-maintainer: Maintainer Name
-tags:
-  - planning
+last_updated: "2026-08-25"
+status: active
+tags:- planning
   - specification
   - project
-domain: "domain-name"
-status: "planning|active|blocked|paused|complete"
-related_issues:
-  - "#ISSUE_NUMBER — Issue Title"
-  - "#ISSUE_NUMBER — Issue Title"
 ---
 
 # nodejs-upgrade-2026-q3-post-merge-monitoring — Planning & Specification

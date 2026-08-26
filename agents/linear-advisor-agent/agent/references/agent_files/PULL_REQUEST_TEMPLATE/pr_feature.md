@@ -1,8 +1,11 @@
 ---
-name: "Feature PR"
-about: "New features or enhancements"
 title: "feat: {short summary}"
-labels: ["status:needs-review", "area:feature"]
+description: "feat: {short summary}"
+name: Feature PR
+about: New features or enhancements
+labels:
+  - status:needs-review
+  - area:feature
 ---
 
 # Feature Pull Request
@@ -72,4 +75,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,17 +1,11 @@
 ---
 file_type: documentation
-title: "Phase 6 - Validation and Reporting Closeout"
-description: "Validate the end state of the coverage programme and document the final results clearly."
-version: "1.0.0"
-last_updated: "2026-06-08"
-owners: ["Ash"]
-tags: ["testing", "coverage", "validation", "opsx"]
+title: ""Phase 6 - Validation and Reporting Closeout""
+description: ""Validate the end state of the coverage programme and document the final results clearly.""
+last_updated: "2026-08-25"
 status: active
-stability: stable
-domain: quality
-name: "Phase 6 - Validation and Reporting Closeout"
-about: "Validate the finished programme, capture the final report, and close the loop on issue and PR checklists."
-labels: ["status:needs-review", "priority:critical", "type:documentation", "area:quality", "area:testing"]
+tags: ["testing", "coverage", "validation", "opsx"]
+owners: ["Ash"]
 ---
 
 # Phase 6 - Validation and Reporting Closeout

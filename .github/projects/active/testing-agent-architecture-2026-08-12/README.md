@@ -1,11 +1,10 @@
 ---
-title: "Testing Agent Architecture — Multi-Framework Consolidation"
-description: "Consolidate testing frameworks into unified agent supporting Jest, PHPUnit, pytest, and Playwright"
-status: planning
+file_type: documentation
+title: ""Testing Agent Architecture — Multi-Framework Consolidation""
+description: ""Consolidate testing frameworks into unified agent supporting Jest, PHPUnit, pytest, and Playwright""
 created_date: "2026-08-12"
-last_updated: "2026-08-12"
-version: "2.0.0"
-authors: ["Ash Shaw"]
+last_updated: "2026-08-25"
+status: active
 tags: ["testing", "agents", "jest", "phpunit", "pytest", "playwright", "wordpress"]
 ---
 

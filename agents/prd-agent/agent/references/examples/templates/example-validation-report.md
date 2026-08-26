@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: validation-report
 quality: strong
 ---
@@ -39,4 +40,4 @@ This validation pass reviewed the current planning pack for structural completen
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -1,12 +1,3 @@
----
-title: Project Maintenance Agent — FAQ
-description: Frequently asked questions and quick answers
-created_date: 2026-08-18
-last_updated: 2026-08-18
-status: faq
-phase: 4
----
-
 # Project Maintenance Agent — FAQ
 
 **Quick answers to common questions**

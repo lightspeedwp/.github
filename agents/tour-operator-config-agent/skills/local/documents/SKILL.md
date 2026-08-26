@@ -454,4 +454,4 @@ Then inspect the generated `page-<N>.png` files.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

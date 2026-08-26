@@ -20,6 +20,7 @@
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
+const { validateBranchName } = require("../../../scripts/validation/validate-branch-name.cjs");
 
 class ReleaseGates {
   constructor(options = {}) {
@@ -152,6 +153,18 @@ class ReleaseGates {
       }
       const version = fs.readFileSync("VERSION", "utf-8").trim();
       details.push(`✓ VERSION file found: ${version}`);
+
+      const releaseBranch = `release/v${version.replace(/\./g, "-")}`;
+      const branchValidation = validateBranchName(releaseBranch);
+      if (!branchValidation.valid) {
+        details.push(
+          `❌ Release branch name "${releaseBranch}" is invalid: ${branchValidation.message}`,
+        );
+        this.results.gate1_preflight.passed = false;
+        this.results.gate1_preflight.details = details;
+        return;
+      }
+      details.push(`✓ Release branch name valid: ${releaseBranch}`);
 
       this.results.gate1_preflight.passed = true;
       this.results.gate1_preflight.details = details;

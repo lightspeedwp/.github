@@ -1,10 +1,9 @@
 ---
-title: {TITLE}
-date: {DATE}
-status: {STATUS}
-authors: {AUTHORS}
-supersedes: 
-superseded-by: 
+file_type: documentation
+title: "TITLE: null"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 tags: []
 ---
 
@@ -51,3 +50,7 @@ Briefly describe other options that were considered and why they were not chosen
 ## References
 
 List any external documentation, related issues, or resources that informed this decision.
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

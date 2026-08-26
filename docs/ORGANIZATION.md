@@ -1,17 +1,16 @@
 ---
 file_type: documentation
 title: Documentation Organization
-description: Document types, folder structure, and navigation guide for LightSpeedWP
-  repository
+description: Document types, folder structure, and navigation guide for LightSpeedWP repository
 version: '1.1'
-last_updated: '2026-05-29'
+last_updated: '2026-08-21'
 owners:
-- LightSpeed Team
+  - LightSpeed Team
 tags:
-- documentation
-- organization
-- structure
-- navigation
+  - documentation
+  - organization
+  - structure
+  - navigation
 ---
 
 # Documentation Organization
@@ -68,4 +67,4 @@ README.md
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

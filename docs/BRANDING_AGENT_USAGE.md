@@ -1,12 +1,13 @@
 ---
-title: "Unified Branding Agent — Usage Guide"
-description: "Complete guide for using the unified branding agent to apply category-aware branding to documents"
-file_type: "documentation"
-version: "1.0.1"
-created_date: "2026-05-29"
-last_updated: "2026-06-19"
-category: "docs"
-owners: ["LightSpeedWP Automation Team"]
+title: Unified Branding Agent — Usage Guide
+description: Complete guide for using the unified branding agent to apply category-aware branding to documents
+file_type: documentation
+version: 1.0.2
+created_date: '2026-05-29'
+last_updated: '2026-08-21'
+category: docs
+owners:
+  - LightSpeedWP Automation Team
 ---
 
 # Unified Branding Agent — Usage Guide
@@ -21,7 +22,7 @@ owners: ["LightSpeedWP Automation Team"]
 
 The **Unified Branding Agent** automates the application of category-aware branding (headers, footers, and badges) to Markdown documents across the repository.
 
-It reads from the canonical branding configuration (`config/footers.config.yaml` and `.schemas/branding-schema.json`) with a legacy fallback for older automation paths, and applies consistent branding rules based on:
+It reads from the canonical branding configuration (`config/footers.config.yaml` and `schemas/branding-schema.json`) with a legacy fallback for older automation paths, and applies consistent branding rules based on:
 
 - **Document category** (explicitly in frontmatter or inferred from file path)
 - **Predefined footer templates** per category
@@ -46,7 +47,7 @@ ls -la .github/scripts/agents/branding-unified.agent.js
 
 # Check configuration files exist
 ls -la config/footers.config.yaml
-ls -la .schemas/branding-schema.json
+ls -la schemas/branding-schema.json
 ```
 
 ---
@@ -294,11 +295,11 @@ Run the validator after bulk edits or agent changes to make sure changed docs ar
 npm run validate:footers
 ```
 
-### `.schemas/branding-schema.json`
+### `schemas/branding-schema.json`
 
 Comprehensive JSON Schema for validation and IDE autocomplete.
 
-### `.schemas/frontmatter.schema.json`
+### `schemas/frontmatter.schema.json`
 
 Defines frontmatter field types and constraints.
 
@@ -315,7 +316,7 @@ Defines frontmatter field types and constraints.
 | `instructions` | `instructions/**/*.md` | Yes | Yes | `standards-footer` |
 | `ai-ops` | `docs/**/*governance*.md` | Yes | Yes | `ai-ops-standard` |
 | `prompts` | `prompts/**/*.md` | Optional | Optional | `ai-ops-standard` |
-| `schema` | `.schemas/**/*.md` | Yes | Yes | `schema-footer` |
+| `schema` | `schemas/**/*.md` | Yes | Yes | `schema-footer` |
 | `audit` | `.github/reports/**/*.md` | Yes | Yes | `audit-footer` |
 | `research` | `research/**/*.md` | Yes | Yes | `research-footer` |
 | `workflow` | `.github/workflows/**/*.md` | Yes | Yes | `ai-ops-standard` |
@@ -712,4 +713,4 @@ For issues, questions, or feature requests:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

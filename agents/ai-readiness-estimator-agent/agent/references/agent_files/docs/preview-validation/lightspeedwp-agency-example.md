@@ -1,8 +1,9 @@
 ---
-title: LightSpeedWP.Agency Example Context
-context_key: lightspeedwp-agency
-context_type: preview_test_example
-status: reusable
+file_type: documentation
+title: "LightSpeedWP.Agency Example Context"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # LightSpeedWP.Agency Example Context
@@ -39,4 +40,4 @@ Use the LightSpeedWP.Agency example context to assess AI-readiness, compare the 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

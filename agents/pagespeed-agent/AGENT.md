@@ -1,22 +1,22 @@
 ---
-name: 'PageSpeed Agent'
-description: 'Web performance optimization tool for load-time analysis, resource optimization, and caching strategies'
-agent_id: 'agent-10'
-agent_slug: 'pagespeed'
-agent_name: 'PageSpeed Agent'
-domain: 'performance'
-focus: 'performance-optimization'
-version: '1.0.0'
+file_type: documentation
+name: PageSpeed Agent
+description: Web performance optimization tool for load-time analysis, resource optimization, and caching strategies
+agent_id: agent-10
+agent_slug: pagespeed
+agent_name: PageSpeed Agent
+domain: performance
+focus: performance-optimization
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 providers:
   - claude
   - copilot
   - openai
-
 capabilities:
   - performance-analysis
   - load-time-optimization
@@ -24,7 +24,6 @@ capabilities:
   - caching-strategy
   - cdn-optimization
   - image-optimization
-
 tags:
   - performance
   - pagespeed
@@ -239,4 +238,10 @@ Current: No CDN, browser cache not optimized
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

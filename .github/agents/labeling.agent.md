@@ -1,4 +1,5 @@
 ---
+name: Labeling Agent
 title: Labeling
 description: Unified agent for dynamic, canonical, and automated labeling of issues
   and PRs. Handles status, type, priority, and project-field enforcement, label standardization,
@@ -66,6 +67,12 @@ owners:
 metadata:
   guardrails: Only apply types/labels from canonical configs, never overwrite without
     warning, validate content before labeling, and log every action.
+---
+
+## Branch Naming
+
+This agent does not create or validate branches. It manages labels only. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
+
 ---
 
 # LightSpeed Unified Labeling Agent

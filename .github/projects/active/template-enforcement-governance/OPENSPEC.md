@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "template-enforcement-governance — OpenSpec Specification"
-description: "Technical specification for template-enforcement-governance"
-version: 1.0.0
+title: ""template-enforcement-governance — OpenSpec Specification""
+description: ""Technical specification for template-enforcement-governance""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

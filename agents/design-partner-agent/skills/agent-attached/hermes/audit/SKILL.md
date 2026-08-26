@@ -68,4 +68,4 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing accessibi
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

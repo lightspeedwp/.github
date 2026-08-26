@@ -91,4 +91,4 @@ Even though you created a local `.xlsx`, do not cite the local path in the final
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

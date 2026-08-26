@@ -2,9 +2,9 @@
 file_type: documentation
 title: Labelling Governance
 description: Unified labelling and metadata governance system for issues, PRs, and discussions
-version: 1.0.0
-created_date: 2026-08-04
-last_updated: 2026-08-04
+version: 1.0.1
+created_date: 2026-08-04T00:00:00.000Z
+last_updated: '2026-08-21'
 author: LightSpeed Team
 maintainer: LightSpeed Team
 domain: governance
@@ -358,3 +358,7 @@ Full execution logs available in **Actions** tab under **Labeling • Unified Go
 ---
 
 *Maintained by LightSpeedWP · Built with ☕, 🚀, and open-source spirit!*
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

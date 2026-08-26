@@ -1,11 +1,12 @@
 ---
-version: 1.0.0
-title: "Safari lodge WordPress rebuild project brief"
+file_type: documentation
+version: 1.0.1
+title: Safari lodge WordPress rebuild project brief
 project_key: safari-lodge-wordpress-rebuild
 project_type: business website
 status: planning
-last_updated: 2026-05-15
-client: "Boutique safari lodge"
+last_updated: '2026-08-21'
+client: Boutique safari lodge
 ---
 # Project Brief
 
@@ -53,4 +54,4 @@ client: "Boutique safari lodge"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

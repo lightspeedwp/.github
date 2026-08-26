@@ -1,8 +1,9 @@
 ---
-version: 1.0.0
-title: "Safari lodge WordPress rebuild todos"
+file_type: documentation
+version: 1.0.1
+title: Safari lodge WordPress rebuild todos
 project_key: safari-lodge-wordpress-rebuild
-last_updated: 2026-05-15
+last_updated: '2026-08-21'
 ---
 # Todos
 
@@ -18,4 +19,4 @@ last_updated: 2026-05-15
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

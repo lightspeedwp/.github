@@ -1,8 +1,11 @@
 ---
-name: "Bugfix PR"
-about: "Fix a defect/regression with clear repro, fix, and verification"
 title: "fix: {short summary}"
-labels: ["status:needs-review", "priority:normal"]
+description: "fix: {short summary}"
+name: Bugfix PR
+about: Fix a defect/regression with clear repro, fix, and verification
+labels:
+  - status:needs-review
+  - priority:normal
 ---
 
 # Bugfix Pull Request
@@ -101,4 +104,4 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

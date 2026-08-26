@@ -152,4 +152,4 @@ Use Markdown. For project packs, create numbered files and an index. Keep issue 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

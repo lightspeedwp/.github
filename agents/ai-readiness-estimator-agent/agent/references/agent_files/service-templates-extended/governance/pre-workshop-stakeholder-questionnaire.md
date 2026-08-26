@@ -1,6 +1,8 @@
 ---
-template_id: pre-workshop-stakeholder-questionnaire
-version: 1.0.0
+file_type: documentation
+title: "Pre Workshop Stakeholder Questionnaire"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -39,4 +41,4 @@ Please provide any other information, concerns, or topics you would like the wor
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

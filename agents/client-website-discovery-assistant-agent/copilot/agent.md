@@ -1,13 +1,15 @@
 ---
-provider: 'copilot'
-agent_slug: 'client-website-discovery-assistant'
-agent_name: 'Client Website Discovery Assistant (GitHub Copilot)'
-status: 'production'
-version: '1.0.1'
+title: "Agent"
+description: "Agent"
+provider: copilot
+agent_slug: client-website-discovery-assistant
+agent_name: Client Website Discovery Assistant (GitHub Copilot)
+status: active
+version: 1.0.2
 created_date: '2026-07-22'
-last_updated: '2026-08-05'
-platform: 'github'
-integration: 'copilot-chat'
+last_updated: '2026-08-21'
+platform: github
+integration: copilot-chat
 ---
 
 # Client Website Discovery Assistant — GitHub Copilot Implementation
@@ -280,3 +282,7 @@ Copilot provides GitHub-optimized responses:
 ---
 
 *Built by LightSpeedWP with open-source spirit!*
+
+---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

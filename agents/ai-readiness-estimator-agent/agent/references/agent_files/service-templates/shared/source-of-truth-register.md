@@ -1,6 +1,8 @@
 ---
-template_id: source-of-truth-register
-version: 1.0.0
+file_type: documentation
+title: "Source Of Truth Register"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -48,4 +50,4 @@ Document any risks associated with sources, such as accuracy, ownership, or sens
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

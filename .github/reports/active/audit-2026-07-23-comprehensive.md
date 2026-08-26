@@ -1,9 +1,9 @@
 ---
-title: GitHub Issue Type & Workflow Management Audit
-subtitle: Configuration, Labeling, and Automation Comprehensive Review
-date: 2026-07-23
-scope: Issue creation, type assignment, labeling, PR-to-issue linking, Definition of Done enforcement
-status: COMPLETE
+file_type: documentation
+title: "GitHub Issue Type & Workflow Management Audit"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # GitHub Issue Type & Workflow Management Audit

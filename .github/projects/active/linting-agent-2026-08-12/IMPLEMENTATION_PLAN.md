@@ -1,10 +1,9 @@
 ---
-title: Linting Agent Implementation Plan
-description: Phase 2 detailed implementation specification for the portable linting agent
-version: v1.0
-status: specification
-created: 2026-08-12
-phase: 2-implementation
+file_type: documentation
+title: "Linting Agent Implementation Plan"
+description: "Phase 2 detailed implementation specification for the portable linting agent"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Linting Agent Implementation Plan — Phase 2 (OpenSpec)

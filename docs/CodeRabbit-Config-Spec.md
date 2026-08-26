@@ -1,15 +1,20 @@
 ---
-title: "CodeRabbit Configuration Specification"
-description: "Validated CodeRabbit v2 schema configuration for lightspeedwp/.github governance repository"
-version: "1.0"
-last_updated: "2026-06-03"
-file_type: "documentation"
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-status: "active"
-domain: "governance"
-stability: "stable"
-tags: ["coderabbit", "ci", "automation", "schema-v2"]
+title: CodeRabbit Configuration Specification
+description: Validated CodeRabbit v2 schema configuration for lightspeedwp/.github governance repository
+version: '1.0'
+last_updated: '2026-08-21'
+file_type: documentation
+authors:
+  - LightSpeed Team
+maintainer: LightSpeed Team
+status: active
+domain: governance
+stability: stable
+tags:
+  - coderabbit
+  - ci
+  - automation
+  - schema-v2
 ---
 
 # CodeRabbit Configuration Specification
@@ -38,7 +43,7 @@ The following unrecognized properties were reported and have been **identified a
 
 **Root Cause**: These properties were defined in:
 
-1. `/.schemas/coderabbit-overrides.v2.json` - invalid schema override requiring non-existent property
+1. `/schemas/coderabbit-overrides.v2.json` - invalid schema override requiring non-existent property
 2. `/scripts/validation/__fixtures__/valid-coderabbit.yml` - test fixture using invalid property
 
 **Resolution Applied**:
@@ -102,7 +107,7 @@ path_filters:
   - "!assets/css/*.map"   # Source maps
   - "!logs/**"            # Runtime logs
   - "!docs/drafts/**"     # Draft documentation
-  - "!.schemas/**"        # Schema definitions
+  - "!schemas/**"        # Schema definitions
   - "!coverage/**"        # Test coverage reports
   - "!.jest-skip/**"      # Skipped test artifacts
 ```
@@ -302,3 +307,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Last Validated**: 2026-06-03
 **Next Validation**: 2026-12-03 (6-month cadence recommended)
 **Maintainer**: LightSpeed Team
+
+---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*

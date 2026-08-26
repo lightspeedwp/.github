@@ -1,18 +1,18 @@
 ---
-name: 'Client Website Discovery Assistant'
-description: 'Comprehensive website assessment and analysis for competitive discovery and UX evaluation'
-agent_id: 'agent-7'
-agent_slug: 'client-website-discovery-assistant'
-agent_name: 'Client Website Discovery Assistant'
-domain: 'discovery'
-focus: 'website-assessment'
-version: '1.0.0'
+title: "AGENT"
+description: "Comprehensive website assessment and analysis for competitive discovery and UX evaluation"
+name: Client Website Discovery Assistant
+agent_id: agent-7
+agent_slug: client-website-discovery-assistant
+agent_name: Client Website Discovery Assistant
+domain: discovery
+focus: website-assessment
+version: 1.0.1
 created_date: '2026-07-22'
-maintainer: 'LightSpeed Team'
-license: 'GPL-3.0'
-stability: 'stable'
-status: 'active'
-
+maintainer: LightSpeed Team
+license: GPL-3.0
+stability: stable
+status: active
 capabilities:
   - website-audit
   - competitor-analysis
@@ -20,23 +20,20 @@ capabilities:
   - ux-assessment
   - performance-analysis
   - recommendation-generation
-
 providers:
   - claude
   - copilot
   - openai
-
 provider_config:
   claude:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
   copilot:
-    status: 'active'
-    tier: 'full'
+    status: active
+    tier: full
   openai:
-    status: 'active'
-    tier: 'full'
-
+    status: active
+    tier: full
 tags:
   - discovery
   - website-audit
@@ -309,4 +306,10 @@ Goal: Improve SEO and audience engagement
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## Branch Naming
+
+This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
+
+---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

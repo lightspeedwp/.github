@@ -1,9 +1,10 @@
 ---
-title: TourOperator.solutions Repeatable Test Context
+title: "TourOperator.solutions Repeatable Test Context"
+description: "TourOperator.solutions Repeatable Test Context"
 project_name: TourOperator.solutions
 document_type: preview_validation_example
 version: v0.2
-last_updated: 2026-05-18
+last_updated: '2026-08-21'
 status: reusable_test_reference
 ---
 
@@ -119,4 +120,4 @@ Use `docs/preview-validation/touroperator-solutions-example.md` as the starting 
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

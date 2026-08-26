@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-discovery-questionnaire
-version: 1.0.0
+file_type: documentation
+title: "Chatbot Discovery Questionnaire"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -62,4 +64,4 @@ Provide any other context or requirements that may affect the planning and imple
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

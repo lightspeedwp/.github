@@ -1,7 +1,7 @@
 ---
 name: wp-db-override-reconciliation
-description: "Diagnose and reconcile WordPress block-theme pages that render from Site Editor customizations stored in the database (wp_template posts, static front-page overrides) instead of theme files. Use when editing a template/pattern file has no effect on the front end, when deciding whether to fix via CSS / edit the DB / reset the override, when importing DB customizations back into theme files (faithful vs portable), or when planning the deploy cleanup so theme files become the source of truth."
-compatibility: "Targets WordPress 6.9+ block themes (Site Editor / FSE, theme.json v3). Requires DB read access (WP-CLI or an MCP db query tool) and, to reconcile, write access to the theme files. Some steps assume WP-CLI; a page cache/OPcache may need busting to see changes."
+description: Diagnose and reconcile WordPress block-theme pages that render from Site Editor customizations stored in the database (wp_template posts, static front-page overrides) instead of theme files. Use when editing a template/pattern file has no effect on the front end, when deciding whether to fix via CSS / edit the DB / reset the override, when importing DB customizations back into theme files (faithful vs portable), or when planning the deploy cleanup so theme files become the source of truth.
+compatibility: Targets WordPress 6.9+ block themes (Site Editor / FSE, theme.json v3). Requires DB read access (WP-CLI or an MCP db query tool) and, to reconcile, write access to the theme files. Some steps assume WP-CLI; a page cache/OPcache may need busting to see changes.
 ---
 
 # WP DB-Override Reconciliation
@@ -65,4 +65,4 @@ Portable across projects; project specifics appear as **labelled examples**. Pos
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

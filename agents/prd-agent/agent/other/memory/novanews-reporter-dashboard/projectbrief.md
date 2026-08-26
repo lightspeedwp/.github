@@ -1,9 +1,10 @@
 ---
-version: "1.0.0"
-title: "NovaNews Reporter Dashboard Project Brief"
-date: "2026-06-18"
-timezone: "Europe/Berlin"
-status: "draft"
+file_type: documentation
+version: 1.0.1
+title: NovaNews Reporter Dashboard Project Brief
+date: '2026-06-18'
+timezone: Europe/Berlin
+status: draft
 ---
 
 # NovaNews Reporter Dashboard Project Brief
@@ -27,4 +28,4 @@ The next useful artefact is a technical quote-scope brief for GA4/GTM/Looker Stu
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

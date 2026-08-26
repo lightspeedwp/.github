@@ -1,11 +1,12 @@
 ---
-title: "Basic Website Package Questionnaire"
-source_title: "Questionnaire: Basic Website Package"
-source_url: "https://docs.google.com/document/d/1OhK6_9-mKqguGN1RwglYiy37vPq4fKFFQ4WvA8J8URI/edit?usp=drive_link"
-converted_by: "ChatGPT"
-converted_date: "2026-05-16"
-output_type: "improved_markdown_questionnaire"
-tab_handling: "single-page output from the provided source link"
+file_type: documentation
+title: Basic Website Package Questionnaire
+source_title: 'Questionnaire: Basic Website Package'
+source_url: https://docs.google.com/document/d/1OhK6_9-mKqguGN1RwglYiy37vPq4fKFFQ4WvA8J8URI/edit?usp=drive_link
+converted_by: ChatGPT
+converted_date: '2026-05-16'
+output_type: improved_markdown_questionnaire
+tab_handling: single-page output from the provided source link
 ---
 
 # Basic Website Package Questionnaire
@@ -131,4 +132,4 @@ tab_handling: "single-page output from the provided source link"
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

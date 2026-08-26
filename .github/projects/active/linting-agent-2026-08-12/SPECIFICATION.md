@@ -1,13 +1,10 @@
 ---
-title: Linting Agent Specification
-description: Portable, organisation-wide linting agent for enforcing code quality standards across multiple file types and languages
-version: v1.0-draft
-status: active-specification
-created: 2026-08-12
-last_updated: 2026-08-12
-owners:
-  - LightSpeedWP/maintainers
-maintainer: Ash Shaw
+file_type: documentation
+title: "Linting Agent Specification"
+description: "Portable, organisation-wide linting agent for enforcing code quality standards across multiple file types and languages"
+last_updated: "2026-08-25"
+status: active
+owners:- LightSpeedWP/maintainers
 ---
 
 # Linting Agent Specification — OpenSpec Phase

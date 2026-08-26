@@ -1,6 +1,8 @@
 ---
-template_id: change-request-log
-version: 1.0.0
+file_type: documentation
+title: "Change Request Log"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 
@@ -50,4 +52,4 @@ Mark all impact areas that apply to each request:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

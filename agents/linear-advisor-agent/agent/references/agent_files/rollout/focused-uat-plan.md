@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Focused UAT Plan
 document_type: uat-plan
 purpose: Run a small, structured UAT pilot for the LightSpeed Linear Advisor
@@ -143,4 +144,4 @@ The focused UAT pass is successful when:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Maintained by the 🤖 LightSpeedWP Automation Team*

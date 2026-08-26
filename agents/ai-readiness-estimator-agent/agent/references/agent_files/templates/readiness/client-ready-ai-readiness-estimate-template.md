@@ -1,11 +1,9 @@
 ---
-version: 1.0.0
+file_type: documentation
 title: "AI Readiness Estimate"
-audience: "client"
-document_type: "estimate"
-status: "template"
-language: "en-GB"
-recommended_base_package: "AI Readiness Foundation"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # AI Readiness Estimate
@@ -123,4 +121,4 @@ The immediate next step is to confirm the missing inputs and complete the baseli
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

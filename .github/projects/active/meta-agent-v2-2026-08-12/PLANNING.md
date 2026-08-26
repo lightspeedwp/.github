@@ -1,17 +1,12 @@
 ---
-title: Meta Agent v2.0 — Detailed Planning & Implementation Roadmap
-description: >
-  Step-by-step implementation plan for Meta Agent v2.0 with clear tasks,
-  dependencies, and delivery timeline.
 file_type: planning
-category: project-planning
-version: 1.0
+title: "Meta Agent v2.0 — Detailed Planning & Implementation Roadmap"
+description: ">
+  Step-by-step implementation plan for Meta Agent v2.0 with clear tasks,
+  dependencies, and delivery timeline."
+last_updated: "2026-08-25"
 status: active
-author: Ash Shaw
-date: '2026-08-12'
-language: en
-owners:
-  - lightspeedwp/maintainers
+owners:- lightspeedwp/maintainers
 ---
 
 # Meta Agent v2.0 — Detailed Planning & Implementation Roadmap

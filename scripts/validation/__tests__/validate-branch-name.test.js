@@ -24,7 +24,7 @@ describe("validate-branch-name", () => {
         "feat/add-login-page",
         "fix/header-alignment",
         "hotfix/critical-security-patch",
-        "release/v1.2.0",
+        "release/v1-2-0",
         "refactor/extract-utils",
         "chore/update-deps",
         "docs/readme-overhaul",
@@ -71,8 +71,14 @@ describe("validate-branch-name", () => {
       expect(isAllowed("chore/update_deps-2025")).toBe(false);
     });
 
-    it("accepts version-style slugs with dots", () => {
-      expect(isAllowed("fix/v2.1.0-patch")).toBe(true);
+    it("accepts version-style slugs with hyphens (kebab-case)", () => {
+      expect(isAllowed("fix/v2-1-0-patch")).toBe(true);
+      expect(isAllowed("release/v1-6-0")).toBe(true);
+    });
+
+    it("rejects version-style slugs with dots (not allowed for non-release branches)", () => {
+      expect(isAllowed("fix/v2.1.0-patch")).toBe(false);
+      // Release branches ARE allowed to use semantic versioning with dots
       expect(isAllowed("release/v1.6.0")).toBe(true);
     });
 
@@ -113,7 +119,7 @@ describe("validate-branch-name", () => {
     });
 
     it("allows release/* branches to target main", () => {
-      const result = checkBaseBranch("release/v1.5.0", "main");
+      const result = checkBaseBranch("release/v1-5-0", "main");
 
       expect(result.valid).toBe(true);
     });
