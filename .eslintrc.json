@@ -1,0 +1,36 @@
+{
+  "env": {
+    "node": true,
+    "es2024": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2024,
+    "sourceType": "module"
+  },
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+  },
+  "overrides": [
+    {
+      "files": ["website/src/scripts/**/*.js"],
+      "env": {
+        "browser": true,
+        "es2024": true
+      },
+      "parserOptions": {
+        "ecmaVersion": 2024,
+        "sourceType": "module"
+      },
+      "globals": {
+        "document": "readonly",
+        "window": "readonly",
+        "localStorage": "readonly",
+        "CustomEvent": "readonly",
+        "IntersectionObserver": "readonly",
+        "requestAnimationFrame": "readonly",
+        "navigator": "readonly"
+      }
+    }
+  ]
+}
