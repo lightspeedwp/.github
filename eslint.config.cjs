@@ -219,4 +219,31 @@ module.exports = [
       "no-console": "off",
     },
   },
+  // Browser-based JavaScript files (website scripts)
+  {
+    files: ["website/src/scripts/**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Browser globals
+        document: "readonly",
+        window: "readonly",
+        localStorage: "readonly",
+        CustomEvent: "readonly",
+        IntersectionObserver: "readonly",
+        requestAnimationFrame: "readonly",
+        navigator: "readonly",
+        // Console is available in browser
+        console: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern": "^_" }],
+    },
+  },
 ];
