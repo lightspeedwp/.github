@@ -1,3 +1,9 @@
+# Related Files & Integration:
+# - Spec Agent: .github/agents/changelog.agent.md
+# - Portable Agent: agents/changelog/changelog.agent.js
+# - Schema: schemas/changelog.schema.json
+# - Documentation: docs/CHANGELOG_AUTOMATION.md
+
 name: Changelog • Management
 
 on:
