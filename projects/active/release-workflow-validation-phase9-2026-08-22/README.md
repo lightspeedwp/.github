@@ -113,12 +113,14 @@ Phase 9 continues from Phase 8's comprehensive release infrastructure documentat
 ## Files & Resources
 
 **Documentation:**
+
 - [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md) — v4.0 comprehensive workflow
 - [RELEASE_WORDPRESS.md](../../docs/RELEASE_WORDPRESS.md) — WordPress-specific procedures
 - [AGENTIC_RELEASE_USER_GUIDE.md](../../docs/AGENTIC_RELEASE_USER_GUIDE.md) — End-user guide
 - [AGENTIC_RELEASE_ADMIN_GUIDE.md](../../docs/AGENTIC_RELEASE_ADMIN_GUIDE.md) — Admin procedures
 
 **Code:**
+
 - [agents/release/](../../agents/release/) — Portable release agents
 - [.github/scripts/workflows/release/](../../.github/scripts/workflows/release/) — Release automation scripts
 - [.github/agents/release/gates/](../../.github/agents/release/gates/) — Safety gates implementation
@@ -145,6 +147,7 @@ Phase 9 continues from Phase 8's comprehensive release infrastructure documentat
 ## Archival
 
 Phase 9 will be archived when:
+
 - ✅ All deliverables complete and merged to develop
 - ✅ Pilot release successfully published
 - ✅ Lessons learned documented

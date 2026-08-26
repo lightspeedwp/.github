@@ -1,11 +1,12 @@
 ---
+file_type: documentation
 name: chat-closure-agent
 title: Chat Closure Agent
 description: Automate session handoff workflows across control-plane and WordPress repositories
 version: 1.0.1
 type: agent
 tier: 1
-status: production
+status: active
 providers:
   - claude
   - copilot
@@ -397,7 +398,5 @@ For issues, questions, or contributions:
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 ---
-
-
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

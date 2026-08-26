@@ -1,6 +1,8 @@
 ---
-template_id: tailored-implementation-plan
-version: 1.0.1
+file_type: documentation
+title: "Tailored Implementation Plan"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

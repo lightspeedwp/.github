@@ -1,10 +1,9 @@
 ---
-file_type: project-documentation
-title: Phase 5 Configuration Templates
-description: Deployment configuration templates for Phase 5 rollout and general availability
-version: "1.0"
-last_updated: "2026-08-22"
-category: pr-creation-agent
+file_type: documentation
+title: ""Phase 5 Configuration Templates""
+description: ""Deployment configuration templates for Phase 5 rollout and general availability""
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Phase 5: Configuration Templates

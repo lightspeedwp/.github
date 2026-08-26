@@ -1,7 +1,8 @@
 ---
+title: "[Review] <Brief summary>"
+description: "[Review] <Brief summary>"
 name: 👀 Code Review
 about: Request or conduct code review, peer validation, or QA.
-title: '[Review] <Brief summary>'
 labels:
   - status:needs-review
   - area:core

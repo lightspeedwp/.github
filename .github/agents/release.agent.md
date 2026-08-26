@@ -1,6 +1,8 @@
 ---
 title: "Release Manager"
+name: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
+file_type: "agent"
 target: "github-copilot"
 handoffs:
 
@@ -17,7 +19,6 @@ version: "v2.6"
 last_updated: "2026-08-18"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-file_type: "agent"
 category: "release-management"
 status: "active"
 visibility: "public"
@@ -30,9 +31,7 @@ tags:
     "semantic-versioning",
     "release-prep",
     "health-scan",
-    "phase-5a",
     "safety-gates",
-    "agentic-workflows",
   ]
 owners: ["lightspeedwp/maintainers"]
 tools:

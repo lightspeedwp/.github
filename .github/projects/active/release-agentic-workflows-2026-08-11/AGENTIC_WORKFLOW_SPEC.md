@@ -1,11 +1,9 @@
 ---
 file_type: specification
-title: "GitHub Agentic Workflows Release Agent Specification"
-description: "Design decisions, architecture, safety gates, and approval flows for agentic release orchestration"
+title: ""GitHub Agentic Workflows Release Agent Specification""
+description: ""Design decisions, architecture, safety gates, and approval flows for agentic release orchestration""
+last_updated: "2026-08-25"
 status: draft
-version: "1.0"
-last_updated: "2026-08-11"
-author: "Ash Shaw"
 ---
 
 # GitHub Agentic Workflows Release Agent — Specification

@@ -1,9 +1,10 @@
 ---
 file_type: test-plan
-title: Project Meta Sync Agent v2 — Validation Scenarios & Test Cases
-description: "Acceptance criteria and test cases for agent v2 validation"
-version: 1.0.0
+title: "Project Meta Sync Agent v2 — Validation Scenarios & Test Cases"
+description: ""Acceptance criteria and test cases for agent v2 validation""
 created_date: 2026-08-12
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Validation Scenarios & Acceptance Criteria

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: "Tour Operator Blog Questionnaire"
 source_title: "Blog: Tour Operator Questionnaire"
 source_url: "https://docs.google.com/document/d/1T7NLfje9B80Vfo1MZNVGoQmmHliHc7zPtAAzsSsYiSk/edit?usp=drive_link"

@@ -1,11 +1,3 @@
----
-title: "Task 3.4 — Team Rollout & Training Implementation Plan"
-description: "Team training and adoption strategy for Metrics Agent v2.0"
-status: "planning"
-created_date: "2026-08-21"
-version: "1.0.0"
----
-
 # Task 3.4: Team Rollout & Training — Implementation Plan
 
 **Issue:** [#2129](https://github.com/lightspeedwp/.github/issues/2129)  

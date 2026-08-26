@@ -24,12 +24,14 @@ Meta Agent v2.0 is an intelligent documentation metadata validator for LightSpee
 ### Why do I need Meta Agent v2.0?
 
 **Problems it solves:**
+
 - Inconsistent frontmatter across repos
 - Manual metadata configuration per repository
 - Difficult to maintain documentation standards at scale
 - Hard to catch metadata errors before merge
 
 **Benefits:**
+
 - ✅ Automatic repo type detection (no config needed)
 - ✅ Consistent metadata standards across all repos
 - ✅ Early error detection (pre-commit hooks)
@@ -62,6 +64,7 @@ Yes! Meta Agent v2.0 is backward compatible. It validates frontmatter but doesn'
 ### Is there a v1.0 to v2.0 migration path?
 
 Yes. If you're using v1.0:
+
 1. Backup your current configuration
 2. Install v2.0 alongside v1.0
 3. Test with `npm run validate -- file.md`
@@ -71,6 +74,7 @@ Yes. If you're using v1.0:
 ### Can I customize the schemas?
 
 Yes. You can:
+
 - Fork the schemas and modify them
 - Add optional fields for your use case
 - Create organization-specific variants
@@ -163,6 +167,7 @@ npm run validate -- "README*.md"
 ### Can I see validation results in JSON format?
 
 Yes:
+
 ```bash
 npm run validate -- file.md --json
 ```
@@ -176,6 +181,7 @@ npm run validate -- file.md --json
 ### Can I validate only files I changed?
 
 Yes:
+
 ```bash
 npm run validate:changed
 ```
@@ -198,6 +204,7 @@ cp scripts/hooks/meta-agent-validate.sh .git/hooks/pre-commit
 ```
 
 Then test it:
+
 ```bash
 git add file.md
 git commit -m "test"  # Hook runs and validates file
@@ -206,6 +213,7 @@ git commit -m "test"  # Hook runs and validates file
 ### Can I disable the hook temporarily?
 
 Yes, use `--no-verify`:
+
 ```bash
 git commit --no-verify -m "Skip validation"
 ```
@@ -256,6 +264,7 @@ jobs:
 ### Can I require validation to pass before merge?
 
 Yes. In repository settings:
+
 1. Go to **Settings** → **Branches** → **Branch protection rules**
 2. Check "Require status checks to pass before merging"
 3. Select "Meta Agent Validation" workflow
@@ -360,6 +369,7 @@ description: |
 ### What's the difference between the schemas?
 
 Each schema is tailored to a repository type:
+
 - **Block Plugin:** Includes plugin-specific fields
 - **Block Theme:** Includes theme-specific fields
 - **Control-Plane:** Includes governance fields
@@ -419,6 +429,7 @@ _schema_override: block-plugin  # Force block-plugin schema
 ### I get "Field is required" but I added the field
 
 Check:
+
 1. Field name spelling (case-sensitive)
 2. YAML indentation (use spaces, not tabs)
 3. Field is at top level (not nested inside another field)
@@ -426,11 +437,13 @@ Check:
 ### Validation passes locally but fails in CI
 
 Possible causes:
+
 - Different Node.js version in CI (use `actions/setup-node@v3` to set v18)
 - Uncommitted changes not synced
 - CI uses different file encoding
 
 **Solution:**
+
 ```bash
 # Run same validation as CI locally
 npm run validate:changed
@@ -484,6 +497,7 @@ if (result.valid) {
 ### Can I contribute improvements?
 
 Yes! Open an issue or PR in the repository. We welcome:
+
 - Schema improvements
 - New repo types
 - Performance optimizations
@@ -492,6 +506,7 @@ Yes! Open an issue or PR in the repository. We welcome:
 ### How is this maintained?
 
 Meta Agent v2.0 is maintained by the LightSpeed team. We:
+
 - Release updates monthly
 - Accept community contributions
 - Provide support via GitHub issues
@@ -506,6 +521,7 @@ Meta Agent v2.0 is maintained by the LightSpeed team. We:
 ### Is there a roadmap?
 
 Yes! Planned features for v2.1:
+
 - Visual frontmatter editor (web UI)
 - Auto-formatting tool
 - Bulk validation dashboard
@@ -526,6 +542,7 @@ npm run migrate:from-old-format < old-metadata.json > new-frontmatter.yml
 ### How do I convince my team to adopt it?
 
 Key selling points:
+
 - **Saves time:** Automatic validation catches errors before review
 - **Consistent:** One standard across all repos
 - **Clear:** Easy-to-understand error messages
@@ -535,6 +552,7 @@ Key selling points:
 ### What if team members resist?
 
 Common concerns & responses:
+
 - "Too strict" → Schemas are based on real needs, can be customized
 - "Too complex" → Takes 5 minutes to set up, then transparent
 - "Another tool?" → Integrates with existing tools, not a replacement
@@ -546,6 +564,7 @@ Common concerns & responses:
 ### How do I report a bug?
 
 Create a GitHub issue with:
+
 - Steps to reproduce
 - Expected vs actual behavior
 - System info (Node, OS, npm versions)
@@ -554,6 +573,7 @@ Create a GitHub issue with:
 ### How do I request a feature?
 
 Open a GitHub issue with "Feature request:" in the title. Include:
+
 - What you want to do
 - Why you need it
 - How it would help your workflow
@@ -585,4 +605,3 @@ Open a GitHub issue with "Feature request:" in the title. Include:
 ---
 
 *Meta Agent v2.0 — Questions? We've got answers!* 🚀
-

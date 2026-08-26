@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: estimate-pack
 quality: strong
 estimate_readiness: ready

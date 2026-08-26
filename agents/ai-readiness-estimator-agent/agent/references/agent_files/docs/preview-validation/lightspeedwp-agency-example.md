@@ -1,8 +1,9 @@
 ---
-title: LightSpeedWP.Agency Example Context
-context_key: lightspeedwp-agency
-context_type: preview_test_example
-status: reusable
+file_type: documentation
+title: "LightSpeedWP.Agency Example Context"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # LightSpeedWP.Agency Example Context

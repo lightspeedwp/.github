@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: AI Feedback PR Review Implementation Guide
 description: Team guide for implementing AI feedback review and validation system
 version: 1.0.1

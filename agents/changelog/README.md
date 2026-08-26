@@ -31,6 +31,16 @@ The Changelog Agent provides:
 
 Validates against Keep a Changelog 1.1.0 specification for consistency and professionalism.
 
+## Related Files & Integration
+
+This portable agent integrates with LightSpeed's changelog ecosystem:
+
+- **Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Primary GitHub-native specification and integration point
+- **Schema:** [`schemas/changelog.schema.json`](../../schemas/changelog.schema.json) — Validation schema for Keep a Changelog 1.1.0 compliance
+- **Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
+- **Documentation:** [`docs/CHANGELOG_AUTOMATION.md`](../../docs/CHANGELOG_AUTOMATION.md) — Complete guide to changelog automation and contributor workflow
+- **Contributor Checklist:** [`docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md`](../../docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md) — Pre-submission validation checklist
+
 ## Architecture
 
 ```

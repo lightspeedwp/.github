@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: validation-report
 quality: strong
 ---

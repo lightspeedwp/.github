@@ -1,7 +1,8 @@
 ---
+title: "feat: {short summary}"
+description: "feat: {short summary}"
 name: Feature PR
 about: New features or enhancements
-title: 'feat: {short summary}'
 labels:
   - status:needs-review
   - area:feature

@@ -39,12 +39,14 @@ tags:
 ### Issue: CHANGELOG.md Missing [Unreleased] Section
 
 **Symptom:**
+
 ```
 ❌ GATE 1: Pre-flight Checks FAILED
 Error: CHANGELOG.md missing [Unreleased] section
 ```
 
 **Cause:**
+
 - CHANGELOG.md doesn't have [Unreleased] section
 - Changelog entries not in expected format
 - File may have been manually edited
@@ -52,16 +54,19 @@ Error: CHANGELOG.md missing [Unreleased] section
 **Solution:**
 
 1. Check current CHANGELOG structure:
+
    ```bash
    head -20 CHANGELOG.md
    ```
 
 2. Verify [Unreleased] section exists:
+
    ```bash
    grep -n "## \[Unreleased\]" CHANGELOG.md
    ```
 
 3. If missing, add template to CHANGELOG.md (after title):
+
    ```markdown
    # Changelog
 
@@ -83,6 +88,7 @@ Error: CHANGELOG.md missing [Unreleased] section
    ```
 
 4. Add entries for your release:
+
    ```bash
    git add CHANGELOG.md
    git commit -m "docs: Add CHANGELOG entries for unreleased features"
@@ -96,12 +102,14 @@ Error: CHANGELOG.md missing [Unreleased] section
 ### Issue: VERSION File Missing or Malformed
 
 **Symptom:**
+
 ```
 ❌ GATE 1: Pre-flight Checks FAILED
 Error: VERSION file not found or not readable
 ```
 
 **Cause:**
+
 - VERSION file deleted or moved
 - File path incorrect
 - File permissions issue
@@ -109,17 +117,20 @@ Error: VERSION file not found or not readable
 **Solution:**
 
 1. Check if VERSION file exists:
+
    ```bash
    ls -la VERSION
    ```
 
 2. Check VERSION file content:
+
    ```bash
    cat VERSION
    # Should show: 1.0.0 (single line, no extra text)
    ```
 
 3. If file missing, create it:
+
    ```bash
    echo "1.0.0" > VERSION
    git add VERSION
@@ -128,6 +139,7 @@ Error: VERSION file not found or not readable
    ```
 
 4. If format wrong (multiple lines or extra text):
+
    ```bash
    # Fix: echo only version on one line
    echo "1.0.0" > VERSION
@@ -143,12 +155,14 @@ Error: VERSION file not found or not readable
 ### Issue: Uncommitted Changes in Repository
 
 **Symptom:**
+
 ```
 ⚠️ WARNING: Repository has uncommitted changes
 Workflow may fail or create incomplete release
 ```
 
 **Cause:**
+
 - Modified files not committed
 - New files not added to git
 - Stashed changes not applied
@@ -156,11 +170,13 @@ Workflow may fail or create incomplete release
 **Solution:**
 
 1. Check current git status:
+
    ```bash
    git status
    ```
 
 2. Commit or discard changes:
+
    ```bash
    # Option A: Commit changes
    git add .
@@ -172,6 +188,7 @@ Workflow may fail or create incomplete release
    ```
 
 3. If there are untracked files to keep:
+
    ```bash
    git add <specific-files>
    git commit -m "chore: Add files"
@@ -187,12 +204,14 @@ Workflow may fail or create incomplete release
 ### Issue: Branch Creation Failed
 
 **Symptom:**
+
 ```
 ❌ GATE 1: Pre-flight Checks FAILED
 Error: Failed to create release/vX.Y.Z branch
 ```
 
 **Cause:**
+
 - Branch already exists from previous failed release
 - Branch name conflict
 - Git permissions issue
@@ -200,11 +219,13 @@ Error: Failed to create release/vX.Y.Z branch
 **Solution:**
 
 1. Check if release branch exists:
+
    ```bash
    git branch -a | grep release/v
    ```
 
 2. If branch exists from failed release, delete it:
+
    ```bash
    git fetch origin
    git branch -D release/v1.0.1  # Delete local
@@ -212,6 +233,7 @@ Error: Failed to create release/vX.Y.Z branch
    ```
 
 3. Verify branch deleted:
+
    ```bash
    git branch -a | grep release/v1.0.1
    # Should return nothing
@@ -224,6 +246,7 @@ Error: Failed to create release/vX.Y.Z branch
 ### Issue: Version Calculation Wrong (Off by One)
 
 **Symptom:**
+
 ```
 ⚠️ Version calculated incorrectly
 Expected: 1.0.1 (patch)
@@ -231,6 +254,7 @@ Got: 1.1.0 (minor)
 ```
 
 **Cause:**
+
 - VERSION file format issue
 - Parsing error in version calculation
 - Incorrect scope specified
@@ -238,12 +262,14 @@ Got: 1.1.0 (minor)
 **Solution:**
 
 1. Verify VERSION file format:
+
    ```bash
    cat VERSION
    # Output should be exactly: X.Y.Z (no extra whitespace or newlines)
    ```
 
 2. Remove trailing whitespace if present:
+
    ```bash
    VERSION_CLEAN=$(cat VERSION | xargs)
    echo "$VERSION_CLEAN" > VERSION
@@ -253,6 +279,7 @@ Got: 1.1.0 (minor)
    ```
 
 3. Verify scope parameter:
+
    ```bash
    # Check what scope you're using:
    # patch → X.Y.Z to X.Y.(Z+1)
@@ -267,6 +294,7 @@ Got: 1.1.0 (minor)
 ### Issue: CHANGELOG Roll Failed (Format Error)
 
 **Symptom:**
+
 ```
 ❌ GATE 1: Pre-flight Checks FAILED
 Error: Failed to roll CHANGELOG entries
@@ -274,6 +302,7 @@ Error: Failed to roll CHANGELOG entries
 ```
 
 **Cause:**
+
 - CHANGELOG format not matching expected pattern
 - Markdown syntax error in [Unreleased] section
 - Nested headers or lists with wrong indentation
@@ -281,12 +310,14 @@ Error: Failed to roll CHANGELOG entries
 **Solution:**
 
 1. Validate CHANGELOG format:
+
    ```bash
    # Check [Unreleased] section structure:
    grep -A 15 "## \[Unreleased\]" CHANGELOG.md
    ```
 
 2. Verify format matches pattern:
+
    ```markdown
    ## [Unreleased]
    
@@ -317,6 +348,7 @@ Error: Failed to roll CHANGELOG entries
    - No extra indentation on list items
 
 4. After fixing:
+
    ```bash
    git add CHANGELOG.md
    git commit -m "docs: Fix CHANGELOG formatting"
@@ -332,12 +364,14 @@ Error: Failed to roll CHANGELOG entries
 ### Issue: GATE 4 — Tag Already Exists
 
 **Symptom:**
+
 ```
 ❌ GATE 4: Tag Uniqueness FAILED
 Error: Tag v1.0.1 already exists
 ```
 
 **Cause:**
+
 - Tag created from previous release attempt
 - Manual tag created with same version
 - Orphaned tag from failed cleanup
@@ -345,12 +379,14 @@ Error: Tag v1.0.1 already exists
 **Solution:**
 
 1. Check if tag exists locally and remotely:
+
    ```bash
    git tag | grep v1.0.1
    git ls-remote --tags origin | grep v1.0.1
    ```
 
 2. If tag exists, check its commit:
+
    ```bash
    git show v1.0.1
    # Look at the commit SHA
@@ -359,6 +395,7 @@ Error: Tag v1.0.1 already exists
 3. Decide: Keep existing tag or create new version?
 
    **Option A: Reuse existing tag** (if tag is on correct commit)
+
    ```bash
    # Check if tag points to correct version
    git log v1.0.1..HEAD --oneline | wc -l
@@ -367,6 +404,7 @@ Error: Tag v1.0.1 already exists
    ```
 
    **Option B: Use different version** (if tag on wrong commit)
+
    ```bash
    # Delete the old tag and use next version
    git push origin --delete v1.0.1
@@ -388,12 +426,14 @@ Error: Tag v1.0.1 already exists
 ### Issue: GATE 5 — Authorization Denied
 
 **Symptom:**
+
 ```
 ❌ GATE 5: Authorization FAILED
 Error: User not in maintainers team
 ```
 
 **Cause:**
+
 - User triggering release not in maintainers GitHub team
 - Team membership not synced
 - User account not in organization
@@ -401,6 +441,7 @@ Error: User not in maintainers team
 **Solution:**
 
 1. Verify user is in maintainers team:
+
    ```bash
    # Check your GitHub username
    gh auth status  # or git config user.name
@@ -416,6 +457,7 @@ Error: User not in maintainers team
    - Wait for team addition (1–5 minutes)
 
 3. Clear any cached credentials:
+
    ```bash
    gh auth logout
    gh auth login
@@ -428,6 +470,7 @@ Error: User not in maintainers team
 ### Issue: GATE 6 — Secrets Found (gitleaks)
 
 **Symptom:**
+
 ```
 ❌ GATE 6: Integrity Filter FAILED
 Error: Secrets detected in repository
@@ -435,6 +478,7 @@ Found: AWS_ACCESS_KEY_ID, API_KEY
 ```
 
 **Cause:**
+
 - Accidentally committed secrets (passwords, API keys)
 - Configuration file with sensitive data
 - Credentials in code comments
@@ -444,18 +488,21 @@ Found: AWS_ACCESS_KEY_ID, API_KEY
 1. **DO NOT push again with secrets!** Instead:
 
    Identify the commit with secrets:
+
    ```bash
    # Check recent commits
    git log --oneline -20
    ```
 
 2. Find and remove the secret:
+
    ```bash
    # Search for common secret patterns
    grep -r "password\|secret\|key\|token" . --include="*.js" --include="*.md" --include="*.json"
    ```
 
 3. If secret is in recent unpushed commit:
+
    ```bash
    git reset HEAD~1  # Undo last commit
    # Edit file to remove secret
@@ -465,6 +512,7 @@ Found: AWS_ACCESS_KEY_ID, API_KEY
    ```
 
 4. If secret already pushed:
+
    ```bash
    # Use git-filter-branch or BFG to remove from history
    # This is complex - contact Release Engineering for help
@@ -482,12 +530,14 @@ Found: AWS_ACCESS_KEY_ID, API_KEY
 ### Issue: GATE 7 — Approval Not Detected (Minor/Major)
 
 **Symptom:**
+
 ```
 ⏳ GATE 7: Approval Enforcement
 Waiting for approval... (5 minutes passed, still waiting)
 ```
 
 **Cause:**
+
 - Approver hasn't reviewed PR yet
 - Approval method not recognized (comment vs. button)
 - Workflow hasn't detected approval yet
@@ -495,6 +545,7 @@ Waiting for approval... (5 minutes passed, still waiting)
 **Solution:**
 
 1. **For Minor Release** (1 maintainer approval):
+
    ```bash
    # Check PR approval status
    gh pr view <PR_NUMBER> --json reviews
@@ -502,6 +553,7 @@ Waiting for approval... (5 minutes passed, still waiting)
    ```
 
 2. **For Major Release** (2 maintainers approval):
+
    ```bash
    # Check both approvals
    gh pr view <PR_NUMBER> --json reviews
@@ -510,7 +562,7 @@ Waiting for approval... (5 minutes passed, still waiting)
 
 3. If not approved:
    - Check if approver is available
-   - Send them a message: _"PR #N awaiting your review"_
+   - Send them a message: *"PR #N awaiting your review"*
    - Verify they know they need to click "Approve" button
 
 4. Common approval mistakes to check:
@@ -530,6 +582,7 @@ Waiting for approval... (5 minutes passed, still waiting)
 ### Issue: GATE 7 — ADR Not Found (Major Release)
 
 **Symptom:**
+
 ```
 ❌ GATE 7: Approval Enforcement FAILED
 Error: ADR referenced but not found
@@ -538,6 +591,7 @@ Got: File not found
 ```
 
 **Cause:**
+
 - ADR file doesn't exist at expected path
 - ADR filename doesn't match reference
 - ADR status not "Accepted"
@@ -545,6 +599,7 @@ Got: File not found
 **Solution:**
 
 1. Verify ADR file exists:
+
    ```bash
    # Check docs/adr directory
    ls -la docs/adr/
@@ -554,12 +609,14 @@ Got: File not found
    ```
 
 2. Check commit message for ADR reference:
+
    ```bash
    git log --oneline -1
    # Should include: "Refs: ADR-NNN" or "See: docs/adr/..."
    ```
 
 3. If ADR file missing:
+
    ```bash
    # Check if ADR was committed
    git log --all --oneline | grep -i adr
@@ -569,6 +626,7 @@ Got: File not found
    ```
 
 4. If ADR status wrong:
+
    ```bash
    # Check ADR status line
    grep "Status:" docs/adr/0042-*.md
@@ -582,6 +640,7 @@ Got: File not found
    - Commit and push
 
 6. Ensure commit message references ADR:
+
    ```bash
    # Add ADR reference if missing
    git commit --amend -m "chore: Release v2.0.0
@@ -601,6 +660,7 @@ Got: File not found
 ### Issue: Approval Timeout (Workflow Expired)
 
 **Symptom:**
+
 ```
 ⏳ GATE 7: Waiting for approval (45 minutes)
 ... 
@@ -609,6 +669,7 @@ Got: File not found
 ```
 
 **Cause:**
+
 - Approval took too long
 - Approver not available within timeout
 - Workflow engine timeout reached
@@ -616,6 +677,7 @@ Got: File not found
 **Solution:**
 
 1. Check how long approval took:
+
    ```bash
    # Review workflow logs for timestamps
    gh run view <RUN_ID> --log
@@ -643,12 +705,14 @@ Got: File not found
 ### Issue: User Approval Conflicts
 
 **Symptom:**
+
 ```
 ❌ GATE 7: Approval Enforcement FAILED
 Error: Reviewer submitted "Request Changes" instead of approval
 ```
 
 **Cause:**
+
 - Approver clicked "Request Changes" instead of "Approve"
 - They want modifications before release
 - Release blocked until changes addressed
@@ -656,12 +720,14 @@ Error: Reviewer submitted "Request Changes" instead of approval
 **Solution:**
 
 1. Check the review:
+
    ```bash
    gh pr review <PR_NUMBER>
    # Look for "Request changes" status
    ```
 
 2. Read the requested changes:
+
    ```bash
    gh pr view <PR_NUMBER> --json reviews
    # Review the review.comments for details
@@ -673,6 +739,7 @@ Error: Reviewer submitted "Request Changes" instead of approval
    - Request re-review from same approver
 
 4. Request new approval:
+
    ```bash
    # Add comment on PR
    gh pr comment <PR_NUMBER> -b "Changes addressed, please review again"
@@ -689,6 +756,7 @@ Error: Reviewer submitted "Request Changes" instead of approval
 ### Issue: Post-Release Sync Failed (Merge Conflict)
 
 **Symptom:**
+
 ```
 🚫 Post-Release Sync Failed
 Error: Merge conflict when merging main → develop
@@ -696,6 +764,7 @@ Branches: main (v1.0.1) ↔ develop (v1.0.0)
 ```
 
 **Cause:**
+
 - develop diverged significantly from main after release branch created
 - Same files modified on both branches
 - Incompatible changes merged during release
@@ -703,12 +772,14 @@ Branches: main (v1.0.1) ↔ develop (v1.0.0)
 **Solution:**
 
 1. Check sync branch status:
+
    ```bash
    git fetch origin
    git branch -a | grep post-release-sync
    ```
 
 2. Check what files have conflicts:
+
    ```bash
    git checkout origin/chore/post-release-sync-main-to-develop
    git merge-base HEAD origin/main
@@ -716,6 +787,7 @@ Branches: main (v1.0.1) ↔ develop (v1.0.0)
    ```
 
 3. Manual sync (if automated sync blocked):
+
    ```bash
    # Create new sync branch
    git checkout develop
@@ -736,6 +808,7 @@ Branches: main (v1.0.1) ↔ develop (v1.0.0)
    - CHANGELOG should have new release section
 
 5. Create PR and merge manually if needed:
+
    ```bash
    gh pr create -B develop -H chore/manual-sync-main-to-develop \
      -t "chore: Post-release sync main → develop" \
@@ -747,6 +820,7 @@ Branches: main (v1.0.1) ↔ develop (v1.0.0)
 ### Issue: GitHub Release Not Published
 
 **Symptom:**
+
 ```
 ✅ Tag created: v1.0.1
 ❌ GitHub Release creation FAILED
@@ -754,6 +828,7 @@ Repository releases page shows nothing
 ```
 
 **Cause:**
+
 - GitHub API failure
 - Release notes too long
 - Special characters in release notes
@@ -762,6 +837,7 @@ Repository releases page shows nothing
 **Solution:**
 
 1. Check if release was created:
+
    ```bash
    # List releases
    gh release list
@@ -769,6 +845,7 @@ Repository releases page shows nothing
    ```
 
 2. If release missing but tag exists:
+
    ```bash
    # Create release manually
    gh release create v1.0.1 \
@@ -793,6 +870,7 @@ Repository releases page shows nothing
    - May need to re-authenticate
 
 5. Verify release published:
+
    ```bash
    # Check releases page
    gh release view v1.0.1
@@ -813,17 +891,20 @@ If critical issues found immediately after release:
    - Alert users not to upgrade
 
 2. **Delete GitHub Release**
+
    ```bash
    gh release delete v1.0.1
    ```
 
 3. **Delete git tag**
+
    ```bash
    git push origin --delete v1.0.1
    git tag -d v1.0.1
    ```
 
 4. **Revert merge commit on main**
+
    ```bash
    git fetch origin
    git checkout main
@@ -838,6 +919,7 @@ If critical issues found immediately after release:
    ```
 
 5. **Optional: Revert develop changes**
+
    ```bash
    # Only if version bump was wrong
    git checkout develop
@@ -847,6 +929,7 @@ If critical issues found immediately after release:
    ```
 
 6. **Notify team immediately**
+
    ```
    🚨 RELEASE ROLLBACK: v1.0.1
 
@@ -868,18 +951,21 @@ If critical issues found immediately after release:
 If workflow appears frozen for > 15 minutes:
 
 1. **Check workflow status**
+
    ```bash
    gh run view <RUN_ID>
    # Look for "queued", "in_progress", or "completed"
    ```
 
 2. **Check logs**
+
    ```bash
    gh run view <RUN_ID> --log
    # Look for last log entry and timestamp
    ```
 
 3. **If truly stuck:**
+
    ```bash
    # Cancel the workflow
    gh run cancel <RUN_ID>
@@ -892,6 +978,7 @@ If workflow appears frozen for > 15 minutes:
    ```
 
 4. **Cleanup before retry**
+
    ```bash
    # Delete any partial release branch
    git push origin --delete release/v1.0.1  # if exists
@@ -977,11 +1064,13 @@ If stuck:
    - Reproduction steps
 
 2. Tag Release Engineering team:
+
    ```
    @lightspeedwp/maintainers please help debug
    ```
 
 3. Share logs:
+
    ```bash
    gh run view <RUN_ID> --log > release-logs.txt
    ```
@@ -1008,21 +1097,25 @@ To avoid common issues:
 ## Support & Escalation
 
 **For individual step failures:**
+
 - Check corresponding section above
 - Follow resolution steps
 - Retry workflow
 
 **For complex issues:**
+
 - Review workflow code in `.github/workflows/release.yml`
 - Check git history for related changes
 - Consult Release Engineering team
 
 **For feature requests or improvements:**
+
 - Create GitHub issue
 - Tag @lightspeedwp/maintainers
 - Include: use case, impact, proposed solution
 
 **For critical production issues:**
+
 - Contact Release Engineering Lead immediately
 - Have: detailed error description, time, impact assessment
 - Be ready to execute rollback if needed

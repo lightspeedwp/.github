@@ -1,10 +1,9 @@
 ---
-name: GitHub Actions v7 Upgrade — Execution Plan
-type: plan
-version: 1.0
+file_type: documentation
+title: "UPGRADE PLAN"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
-author: claude
-date: 2026-08-09
 ---
 
 # GitHub Actions v7 Upgrade — Detailed Execution Plan

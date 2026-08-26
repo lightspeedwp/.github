@@ -1,10 +1,10 @@
 ---
 file_type: report
-title: "Active Projects Audit & Report Reconciliation — 2026-08-07"
-description: "Comprehensive audit of 26 active projects, their documentation, and referenced reports"
+title: ""Active Projects Audit & Report Reconciliation — 2026-08-07""
+description: ""Comprehensive audit of 26 active projects, their documentation, and referenced reports""
 created_date: "2026-08-07"
-last_updated: "2026-08-07"
-status: complete
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Active Projects Audit & Report Reconciliation

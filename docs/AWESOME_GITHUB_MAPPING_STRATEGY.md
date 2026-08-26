@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Awesome GitHub Design-to-Content Mapping Strategy
 version: '1.0'
 created: '2026-06-04'

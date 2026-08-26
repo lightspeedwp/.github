@@ -21,6 +21,7 @@ tags:
 ## Overview
 
 The safety gates system ensures that every release:
+
 - ✅ Has valid changelog documentation
 - ✅ Has consistent version numbers
 - ✅ Is authorized by team maintainers
@@ -37,6 +38,7 @@ The safety gates system ensures that every release:
 **Purpose:** Validate basic repository state before release
 
 **Checks:**
+
 - ✅ On correct branch (develop for patch/minor, main for release)
 - ✅ No uncommitted changes in working tree
 - ✅ VERSION file exists and is readable
@@ -46,6 +48,7 @@ The safety gates system ensures that every release:
 **Failure Impact:** ❌ HARD FAIL — Release blocked immediately
 
 **Example Error:**
+
 ```
 ❌ GATE 1 FAILED: Uncommitted changes detected
    Files: src/index.js, CHANGELOG.md
@@ -59,6 +62,7 @@ The safety gates system ensures that every release:
 **Purpose:** AI-powered safety evaluation of release readiness
 
 **Evaluates:**
+
 - ✅ Release scope makes sense (patch/minor/major logic correct)
 - ✅ Changelog entries justify the version bump
 - ✅ Version numbers follow semantic versioning
@@ -68,11 +72,13 @@ The safety gates system ensures that every release:
 **Threshold:** Score ≥ 0.80 (80% confidence required)
 
 **Behavior:**
+
 - Score ≥ 0.80: Auto-approve for patch releases
 - Score 0.60–0.80: Escalate to human review (minor/major)
 - Score < 0.60: Reject with detailed reasoning
 
 **Example Feedback:**
+
 ```
 ⚠️ GATE 2 SCORE: 0.72 (ESCALATION REQUIRED)
    Issues:
@@ -89,6 +95,7 @@ The safety gates system ensures that every release:
 **Purpose:** Ensure all version files are synchronized
 
 **Validates:**
+
 - ✅ VERSION file contains valid semver (X.Y.Z)
 - ✅ package.json version matches VERSION file
 - ✅ Plugin header version matches (if applicable)
@@ -97,6 +104,7 @@ The safety gates system ensures that every release:
 - ✅ Version bump is logical (patch/minor/major)
 
 **Version Files Checked:**
+
 - `VERSION` (root)
 - `package.json` (if exists)
 - `{plugin-name}.php` header (for plugins)
@@ -106,6 +114,7 @@ The safety gates system ensures that every release:
 **Failure Impact:** ❌ HARD FAIL — Version mismatch prevents release
 
 **Example Error:**
+
 ```
 ❌ GATE 3 FAILED: Version mismatch detected
    VERSION: 1.2.3
@@ -121,6 +130,7 @@ The safety gates system ensures that every release:
 **Purpose:** Prevent duplicate release tags
 
 **Validates:**
+
 - ✅ No existing git tag for new version (e.g., v1.2.4)
 - ✅ No remote branch with same version name
 - ✅ Version not already released
@@ -130,6 +140,7 @@ The safety gates system ensures that every release:
 **Failure Impact:** ❌ HARD FAIL — Duplicate tag prevents release
 
 **Example Error:**
+
 ```
 ❌ GATE 4 FAILED: Tag v1.2.4 already exists
    Git tag: v1.2.4 (2026-07-15)
@@ -145,12 +156,14 @@ The safety gates system ensures that every release:
 **Purpose:** Enforce team-based release approval
 
 **Validates:**
+
 - ✅ Release actor is in `maintainers` GitHub team
 - ✅ Actor has not exceeded release frequency limits
 - ✅ Actor credentials are valid
 - ✅ Release is not being triggered by automation (CI/CD)
 
 **Configuration:**
+
 ```yaml
 maintainers: ["ash", "lightspeed-bot", "release-bot"]
 ```
@@ -158,6 +171,7 @@ maintainers: ["ash", "lightspeed-bot", "release-bot"]
 **Failure Impact:** ❌ HARD FAIL — Unauthorized users blocked
 
 **Example Error:**
+
 ```
 ❌ GATE 5 FAILED: User not authorized for releases
    Actor: random-contributor
@@ -173,6 +187,7 @@ maintainers: ["ash", "lightspeed-bot", "release-bot"]
 **Purpose:** Detect and prevent secret/credential leakage
 
 **Validates:**
+
 - ✅ No API keys or tokens in commit history
 - ✅ No private keys or certificates
 - ✅ No AWS/GCP credentials
@@ -180,6 +195,7 @@ maintainers: ["ash", "lightspeed-bot", "release-bot"]
 - ✅ No GitHub tokens (except intentional test fixtures)
 
 **Tools Used:**
+
 - Gitleaks (secret scanning)
 - TruffleHog (credential detection)
 - Custom regex patterns
@@ -187,6 +203,7 @@ maintainers: ["ash", "lightspeed-bot", "release-bot"]
 **Failure Impact:** ❌ HARD FAIL — Secrets block release
 
 **Example Error:**
+
 ```
 ❌ GATE 6 FAILED: Potential secrets detected
    File: .env.example (line 42)
@@ -211,6 +228,7 @@ maintainers: ["ash", "lightspeed-bot", "release-bot"]
 | **Major** | No | 2 maintainers + ADR | 1–4 hours |
 
 **Approval Methods:**
+
 - PR comment: "approved" or "LGTM"
 - PR review: Approve change
 - Workflow input: `--approve` flag
@@ -218,6 +236,7 @@ maintainers: ["ash", "lightspeed-bot", "release-bot"]
 **Failure Impact:** ⚠️ SOFT FAIL — Blocks auto-merge, awaits approval
 
 **Example Workflow:**
+
 ```
 🔄 GATE 7 IN PROGRESS: Awaiting approval for minor release
 
@@ -311,6 +330,7 @@ class ReleaseGates {
 **File:** `scripts/workflows/release/run-release-with-gates.cjs` (140 LOC)
 
 Wraps Phase 4 release agent with safety gates:
+
 1. Initialize gates
 2. Run all gates
 3. Save audit log
@@ -423,6 +443,7 @@ git stash
 ### "GATE 2 Score too low"
 
 Add more changelog entries or clarify release scope. Score considers:
+
 - Changelog entry count vs. version bump
 - Semantic versioning logic
 - Change type consistency

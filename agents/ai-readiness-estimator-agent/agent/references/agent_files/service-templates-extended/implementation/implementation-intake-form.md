@@ -1,6 +1,8 @@
 ---
-template_id: implementation-intake-form
-version: 1.0.1
+file_type: documentation
+title: "Implementation Intake Form"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

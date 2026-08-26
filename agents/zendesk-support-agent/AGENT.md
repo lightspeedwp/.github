@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Zendesk Support Agent
 description: Customer support agent for ticket management, customer communication, and knowledge base integration
 agent_id: agent-14
@@ -376,7 +377,5 @@ The Zendesk Support Agent manages customer support tickets, drafts responses, in
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 ---
-
-
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

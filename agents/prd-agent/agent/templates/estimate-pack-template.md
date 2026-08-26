@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: estimate-pack
 purpose: Produce a reliable estimate only when planning is estimate-ready.
 ---

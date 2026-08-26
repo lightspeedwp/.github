@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Retest Checklist
-audience: internal
-document_type: uat-retest-checklist
-status: template
-language: en-GB
+file_type: documentation
+title: "Retest Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Retest Checklist

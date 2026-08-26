@@ -1,5 +1,6 @@
 ---
-title: Design Briefing Questionnaire
+title: "Design Briefing Questionnaire"
+description: "Design Briefing Questionnaire"
 source_title: Questionnaire - Design Briefing
 source_url: https://docs.google.com/document/d/1Ikph935rmkGUGF3H7vBmSRcqndqctOgvp6Sp5M6d7HI/edit?usp=drive_link
 converted_by: ChatGPT

@@ -1,9 +1,9 @@
 ---
-title: "OpenSpec Labels Automation"
-type: "project"
-status: "active"
-created: "2026-08-18"
-updated: "2026-08-21"
+file_type: documentation
+title: ""OpenSpec Labels Automation""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # OpenSpec Labels Automation

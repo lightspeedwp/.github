@@ -1,6 +1,8 @@
 ---
-template_id: claim-register-template
-version: 1.0.1
+file_type: documentation
+title: "Claim Register Template"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

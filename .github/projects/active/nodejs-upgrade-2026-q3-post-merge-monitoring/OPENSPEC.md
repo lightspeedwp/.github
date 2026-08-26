@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "nodejs-upgrade-2026-q3-post-merge-monitoring — OpenSpec Specification"
-description: "Technical specification for nodejs-upgrade-2026-q3-post-merge-monitoring"
-version: 1.0.0
+title: ""nodejs-upgrade-2026-q3-post-merge-monitoring — OpenSpec Specification""
+description: ""Technical specification for nodejs-upgrade-2026-q3-post-merge-monitoring""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

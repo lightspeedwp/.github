@@ -1,5 +1,6 @@
 ---
-title: Standard Website Package Questionnaire
+title: "Standard Website Package Questionnaire"
+description: "Standard Website Package Questionnaire"
 source_title: 'Questionnaire: Standard Website Package'
 source_url: https://docs.google.com/document/d/19CiFc3lReFR5M3KteXwv-cIG8moGGXnSXWJMWJFJNgQ/edit?usp=drive_link
 converted_by: ChatGPT

@@ -1,8 +1,9 @@
 ---
-title: Breaking Changes Audit — Node.js 22 Upgrade Phase 3C
-description: Complete audit of transitive dependency major version updates for Node.js 22 compatibility
-status: complete
-date: 2026-07-30
+file_type: documentation
+title: "Breaking Changes Audit — Node.js 22 Upgrade Phase 3C"
+description: "Complete audit of transitive dependency major version updates for Node.js 22 compatibility"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Breaking Changes Audit — Node.js 22 Upgrade

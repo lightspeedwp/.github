@@ -1,6 +1,8 @@
 ---
-template_id: data-and-source-mapping-sheet
-version: 1.0.0
+file_type: documentation
+title: "Data And Source Mapping Sheet"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

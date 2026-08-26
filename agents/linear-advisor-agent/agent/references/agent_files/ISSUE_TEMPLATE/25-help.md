@@ -1,7 +1,8 @@
 ---
+title: "[Help] <Short summary>"
+description: "[Help] <Short summary>"
 name: ❓ Help / Support
 about: Submit your WordPress-related questions or support requests.
-title: '[Help] <Short summary>'
 labels:
   - question
   - support

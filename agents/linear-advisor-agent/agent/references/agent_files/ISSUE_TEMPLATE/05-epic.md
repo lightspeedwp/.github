@@ -1,7 +1,8 @@
 ---
+title: "[Epic] <Brief summary>"
+description: "[Epic] <Brief summary>"
 name: 📦 Epic
 about: Propose/manage a large, multi-part initiative or project grouping stories/features/tasks
-title: '[Epic] <Brief summary>'
 labels:
   - status:needs-planning
   - priority:important

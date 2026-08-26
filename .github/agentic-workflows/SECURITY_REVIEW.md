@@ -1,11 +1,17 @@
 ---
-name: phase-5a-security-review
-title: Phase 5A Security Review
-description: Comprehensive security analysis of agentic release workflow
-author: Ash Shaw
-date_completed: 2026-08-12
-status: stable
-type: documentation
+file_type: documentation
+title: Security Review — Phase 5A Agentic Release Workflow
+description: Comprehensive security review of agentic release workflow including threat model, code review findings, and security checklist
+created_date: '2026-08-26'
+last_updated: '2026-08-27'
+status: active
+tags:
+  - security
+  - agentic-workflows
+  - release
+  - phase-5a
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Security Review — Phase 5A Agentic Release Workflow

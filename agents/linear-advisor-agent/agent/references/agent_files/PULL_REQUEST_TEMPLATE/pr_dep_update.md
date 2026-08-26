@@ -1,7 +1,8 @@
 ---
+title: "chore(deps): {packages}"
+description: "chore(deps): {packages}"
 name: Dependencies/Maintenance PR
 about: 'Routine upkeep: dependency bumps, lint/format, low-risk hygiene'
-title: 'chore(deps): {packages}'
 labels:
   - status:needs-review
   - area:dependencies

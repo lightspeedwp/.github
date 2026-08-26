@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Valid Example
 status: approved
 type: guide

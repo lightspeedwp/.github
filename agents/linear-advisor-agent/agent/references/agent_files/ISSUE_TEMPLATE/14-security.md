@@ -1,7 +1,8 @@
 ---
+title: "[Security] <Brief summary>"
+description: "[Security] <Brief summary>"
 name: 🔐 Security
 about: Report vulnerabilities, security improvements, or compliance requirements.
-title: '[Security] <Brief summary>'
 labels:
   - status:needs-triage
   - priority:critical

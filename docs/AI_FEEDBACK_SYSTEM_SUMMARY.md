@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: AI Feedback PR Review System — Project Summary
 description: Complete summary of the AI feedback validation system implementation
 version: 1.0.1

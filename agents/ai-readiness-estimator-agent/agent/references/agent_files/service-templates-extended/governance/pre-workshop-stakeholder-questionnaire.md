@@ -1,6 +1,8 @@
 ---
-template_id: pre-workshop-stakeholder-questionnaire
-version: 1.0.1
+file_type: documentation
+title: "Pre Workshop Stakeholder Questionnaire"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

@@ -106,23 +106,27 @@ git commit -m "docs: Add documentation"
 
 ## Required Fields Checklist
 
-### All Files Need:
+### All Files Need
+
 - [ ] `title` (3-120 characters)
 - [ ] `description` (10-300 characters)
 - [ ] `status` (active, draft, review, archived)
 - [ ] `language` (en only)
 
-### Control-Plane (.github) Also Needs:
+### Control-Plane (.github) Also Needs
+
 - [ ] `file_type` (guide, instruction, template, etc.)
 - [ ] `category` (community, technical, governance, etc.)
 - [ ] `owners` (list of GitHub teams/users)
 
-### Block Plugin Also Needs:
+### Block Plugin Also Needs
+
 - [ ] `block_name` (e.g., lightspeed/user-input)
 - [ ] `block_supports` (array of features)
 - [ ] `plugin_name` and version info
 
-### Block Theme Also Needs:
+### Block Theme Also Needs
+
 - [ ] `theme_name` and `theme_slug`
 - [ ] `block_pattern_name` (if applicable)
 
@@ -171,4 +175,3 @@ npm run validate -- file.md --json
 ---
 
 *Meta Agent v2.0 — Get started in 5 minutes* ⚡
-

@@ -1,7 +1,8 @@
 ---
+title: "[Automation] <Short summary>"
+description: "[Automation] <Short summary>"
 name: 🤖 Automation
 about: Propose, fix, or improve automation (actions, scripts, bots).
-title: '[Automation] <Short summary>'
 labels:
   - status:needs-triage
   - area:automation

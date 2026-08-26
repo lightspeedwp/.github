@@ -1,4 +1,5 @@
 ---
+name: Reporting Agent
 title: Reporting
 description: Interactive agent for creating, organising, and maintaining reports and
   progress updates following LightSpeed standards. Guides users through report creation
@@ -60,7 +61,6 @@ permissions:
 ## Branch Naming
 
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
-
 
 # Reporting Chatmode
 

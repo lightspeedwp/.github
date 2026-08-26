@@ -1,17 +1,11 @@
 ---
-issue_number: 936
-parent_issue: 932
 file_type: documentation
-title: "[PHASE 4] Release Agent Coverage Hardening"
-description: "OPSX child spec for release-agent coverage hardening"
-version: "1.0.0"
-last_updated: "2026-06-08"
-owners: ["Ash"]
-tags: ["automation", "coverage", "release-agent", "opsx"]
-spec_type: child
+title: ""[PHASE 4] Release Agent Coverage Hardening""
+description: ""OPSX child spec for release-agent coverage hardening""
+last_updated: "2026-08-25"
 status: active
-stability: stable
-domain: quality
+tags: ["automation", "coverage", "release-agent", "opsx"]
+owners: ["Ash"]
 ---
 
 # [PHASE 4] Release Agent Coverage Hardening

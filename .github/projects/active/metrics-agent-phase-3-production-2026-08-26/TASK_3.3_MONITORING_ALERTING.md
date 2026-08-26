@@ -1,11 +1,3 @@
----
-title: "Task 3.3 — Monitoring & Alerting Implementation Plan"
-description: "Production monitoring setup and runbooks for Metrics Agent"
-status: "planning"
-created_date: "2026-08-21"
-version: "1.0.0"
----
-
 # Task 3.3: Monitoring & Alerting — Implementation Plan
 
 **Issue:** [#2128](https://github.com/lightspeedwp/.github/issues/2128)  

@@ -175,6 +175,7 @@ All AI agents **must** follow these branching rules before editing files. Refere
 **Content (6):** `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
 
 **Valid Examples:**
+
 - `feat/user-authentication` — New feature
 - `fix/button-styling` — Bug fix
 - `hotfix/critical-security-patch` — Urgent production fix
@@ -184,6 +185,7 @@ All AI agents **must** follow these branching rules before editing files. Refere
 - `ops/post-release-sync-main-to-develop` — Operations
 
 **Invalid Examples (and fixes):**
+
 - `feat/MyFeature` ❌ → Use lowercase: `feat/my-feature` ✅
 - `feat/my_feature` ❌ → Use hyphens: `feat/my-feature` ✅
 - `release/v2.1.0` ❌ → Use hyphens: `release/v2-1-0` ✅
@@ -195,11 +197,11 @@ All AI agents **must** follow these branching rules before editing files. Refere
 1. **Validate before first edit** — run `npm run validate:branch-name -- --branch <name>`
    - Must return exit code 0 (valid) or 1 (invalid)
    - See [SETUP_BRANCH_VALIDATION.md](./docs/SETUP_BRANCH_VALIDATION.md) for setup instructions
-   
+
 2. **Check for branch reuse** — the validation script automatically detects merged branches
    - If flagged as reused, create a new branch with distinct name (e.g., append `-v2`)
    - Merged branches cannot be reused for new work
-   
+
 3. **Verify merge target** — Feature/fix/chore branches must target `develop`
    - Only `release/*` and `hotfix/*` branches may target `main`
    - The main-branch-guard workflow enforces this automatically
@@ -219,6 +221,7 @@ All AI agents **must** follow these branching rules before editing files. Refere
 ### Post-Merge Cleanup
 
 After successful squash merge:
+
 - Remote branch deleted via `git push origin --delete <branch-name>`
 - Local branch deleted via `git branch -d <branch-name>`
 - Branch name permanently retired (cannot be reused)

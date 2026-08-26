@@ -1,10 +1,10 @@
 ---
-title: Post-Merge Monitoring — Quick Reference
-description: 3-day checklist for Node.js 22 upgrade monitoring
-version: 1.0.0
-file_type: checklist
-status: active
+file_type: documentation
+title: ""Post-Merge Monitoring — Quick Reference""
+description: ""3-day checklist for Node.js 22 upgrade monitoring""
 created_date: 2026-07-30
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Post-Merge Monitoring — Quick Reference

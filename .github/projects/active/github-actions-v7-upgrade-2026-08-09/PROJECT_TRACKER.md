@@ -1,7 +1,8 @@
 ---
-name: GitHub Actions v7 Upgrade — Project Tracker
-type: tracker
-version: 1.0
+file_type: documentation
+title: "PROJECT TRACKER"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: active
 ---
 

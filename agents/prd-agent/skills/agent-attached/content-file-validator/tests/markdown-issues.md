@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Markdown Issues
 status: draft
 type: guide

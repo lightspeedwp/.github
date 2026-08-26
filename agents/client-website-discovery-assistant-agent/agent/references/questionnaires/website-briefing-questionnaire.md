@@ -1,5 +1,6 @@
 ---
-title: Website Briefing Questionnaire
+title: "Website Briefing Questionnaire"
+description: "Website Briefing Questionnaire"
 source_title: Questionnaire - Website Briefing
 source_url: https://docs.google.com/document/d/1USjjZ0KB_ThKik1uJAifEC-bwQzH_mjLEIsq6aZZuGg/edit?usp=drive_link
 converted_by: ChatGPT

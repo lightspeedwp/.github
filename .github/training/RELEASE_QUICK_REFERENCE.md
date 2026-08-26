@@ -83,6 +83,7 @@ git status  # Should show "working tree clean"
 **Approval:** 1 maintainer (review PR #2)
 
 **Approver Message Template:**
+
 ```
 Hi @maintainer,
 
@@ -115,6 +116,7 @@ Approve if changelog and version look correct.
 **Approval:** 2 maintainers + ADR verification (review PR #2)
 
 **Approver Message Template:**
+
 ```
 Hi @maintainer1 and @maintainer2,
 

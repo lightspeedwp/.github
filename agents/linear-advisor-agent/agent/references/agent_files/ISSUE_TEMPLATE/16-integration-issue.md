@@ -1,7 +1,8 @@
 ---
+title: "[Integration] <Short summary>"
+description: "[Integration] <Short summary>"
 name: 🔗 Integration
 about: Report or propose integration with external plugins, services, or APIs.
-title: '[Integration] <Short summary>'
 labels:
   - status:needs-triage
   - priority:normal

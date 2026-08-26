@@ -1,16 +1,13 @@
 ---
 file_type: planning-document
-title: Issue Management Agent — Clarifying Questions & Best Practice Answers
-description: Strategic decisions for agent scope, testing, documentation, and implementation
+title: "Issue Management Agent — Clarifying Questions & Best Practice Answers"
+description: "Strategic decisions for agent scope, testing, documentation, and implementation"
 created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - LightSpeed Team
-tags:
-  - planning
+last_updated: "2026-08-25"
+status: active
+tags:- planning
   - agent-design
   - architecture-decisions
-status: active
 ---
 
 # Issue Management Agent — Clarifying Questions & Best Practice Answers

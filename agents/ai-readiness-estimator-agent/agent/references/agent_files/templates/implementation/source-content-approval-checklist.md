@@ -1,6 +1,8 @@
 ---
-template_id: source-content-approval-checklist
-version: 1.0.1
+file_type: documentation
+title: "Source Content Approval Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

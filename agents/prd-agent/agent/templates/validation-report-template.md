@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: validation-report
 purpose: Report validation coverage, failures, and recommended fixes.
 ---

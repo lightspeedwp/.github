@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: project-intake-summary
 purpose: Turn mixed planning inputs into a grounded intake summary.
 ---

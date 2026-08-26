@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: <package cover sheet title>
 document_type: package_cover_sheet
 status: <draft|confirmed>

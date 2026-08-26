@@ -1,8 +1,10 @@
 ---
+title: "Agent"
+description: "Agent"
 provider: claude
 agent_slug: design-partner
 agent_name: Design Partner Agent (Claude)
-status: production
+status: active
 version: 1.0.2
 created_date: '2026-07-22'
 last_updated: '2026-08-21'

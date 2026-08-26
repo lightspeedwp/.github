@@ -1,17 +1,15 @@
 ---
-title: PRD Agent v2.1 — Detailed Planning & Execution Guide
-description: Comprehensive execution plan with testing checklists, success criteria, and phased rollout strategy
-status: in-progress
-last_updated: 2026-08-12
-version: 1.0.0
-owners:
-  - lightspeedwp/maintainers
-tags:
-  - prd
+file_type: documentation
+title: "PRD Agent v2.1 — Detailed Planning & Execution Guide"
+description: "Comprehensive execution plan with testing checklists, success criteria, and phased rollout strategy"
+last_updated: "2026-08-25"
+status: active
+tags:- prd
   - product-planning
   - agent
   - wordpress
   - planning
+owners:- lightspeedwp/maintainers
 ---
 
 # PRD Agent v2.1 — Detailed Planning & Execution Guide

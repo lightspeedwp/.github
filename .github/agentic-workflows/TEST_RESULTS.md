@@ -1,11 +1,18 @@
 ---
-name: phase-5a-test-results
-title: Phase 5A Week 3 — Integration & Security Test Results
-description: Complete test matrix and security review findings for agentic release workflow
-author: Ash Shaw
-date_completed: 2026-08-12
-status: stable
-type: documentation
+file_type: documentation
+title: Integration & Security Testing Results — Phase 5A Week 3
+description: Test results and security findings for Phase 5A agentic release workflow integration tests
+created_date: '2026-08-26'
+last_updated: '2026-08-27'
+status: active
+tags:
+  - testing
+  - security
+  - agentic-workflows
+  - phase-5a
+  - integration-tests
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Integration & Security Testing — Phase 5A Week 3

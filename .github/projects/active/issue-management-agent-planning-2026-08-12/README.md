@@ -1,7 +1,7 @@
 ---
 title: Issue Management Agent — Planning & Strategy
 description: Strategic planning, clarifying questions, and implementation roadmap for universal issue management agent
-file_type: project-readme
+file_type: readme
 created_date: 2026-08-12
 last_updated: 2026-08-12
 authors:

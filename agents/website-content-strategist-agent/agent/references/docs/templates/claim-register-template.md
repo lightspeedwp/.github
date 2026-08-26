@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Claim Register Template
 output_type: claim_register
 status: active

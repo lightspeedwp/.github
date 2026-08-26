@@ -1,19 +1,3 @@
----
-title: Meta Agent v2.0 — Phase 2D Kickoff & Release Planning
-description: >
-  Phase 2D planning & release preparation for Meta Agent v2.0 (Aug 22–28, 2026).
-  Includes implementation guide, troubleshooting, team training, and v1.0.0 release.
-file_type: project-planning
-category: project-planning
-version: 1.0
-status: active
-author: Ash Shaw
-date: '2026-08-21'
-language: en
-owners:
-  - lightspeedwp/maintainers
----
-
 # Meta Agent v2.0 — Phase 2D Kickoff & Release Planning
 
 ## Overview

@@ -1,6 +1,8 @@
 ---
-template_id: security-and-privacy-review-checklist
-version: 1.0.1
+file_type: documentation
+title: "Security And Privacy Review Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: Tour Operator Blog Questionnaire
+title: "Tour Operator Blog Questionnaire"
+description: "Tour Operator Blog Questionnaire"
 source_title: 'Blog: Tour Operator Questionnaire'
 source_url: https://docs.google.com/document/d/1T7NLfje9B80Vfo1MZNVGoQmmHliHc7zPtAAzsSsYiSk/edit?usp=drive_link
 converted_by: ChatGPT

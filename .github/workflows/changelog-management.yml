@@ -1,8 +1,14 @@
+# Changelog Management Workflow
+#
 # Related Files & Integration:
 # - Spec Agent: .github/agents/changelog.agent.md
 # - Portable Agent: agents/changelog/changelog.agent.js
 # - Schema: schemas/changelog.schema.json
 # - Documentation: docs/CHANGELOG_AUTOMATION.md
+# - Release Agent Integration: .github/agentic-workflows/release.agent.md (GATE 1 validation)
+#
+# Purpose: Validate and process changelog entries on every PR, ensuring Keep a Changelog 1.1.0 compliance
+# Triggers: PR creation, synchronization, and reopen events on develop branch
 
 name: Changelog • Management
 

@@ -1,6 +1,7 @@
 ---
+title: "AGENT"
+description: "AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment"
 name: Design Partner Agent
-description: AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment
 agent_id: agent-5
 agent_slug: design-partner
 agent_name: Design Partner Agent
@@ -237,7 +238,5 @@ Include all states, sizes, variants, and usage guidelines.
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 ---
-
-
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*

@@ -1,11 +1,9 @@
 ---
-version: 1.1.1
-title: 'Team Testing Guide: LightSpeed AI Readiness Estimator'
-audience: internal
-document_type: team-testing-guide
+file_type: documentation
+title: "'Team Testing Guide: LightSpeed AI Readiness Estimator'"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: active
-language: en-GB
-agent_name: LightSpeed AI Readiness Estimator
 ---
 
 # Team Testing Guide: LightSpeed AI Readiness Estimator

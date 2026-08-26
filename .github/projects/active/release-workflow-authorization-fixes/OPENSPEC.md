@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "release-workflow-authorization-fixes — OpenSpec Specification"
-description: "Technical specification for release-workflow-authorization-fixes"
-version: 1.0.0
+title: ""release-workflow-authorization-fixes — OpenSpec Specification""
+description: ""Technical specification for release-workflow-authorization-fixes""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

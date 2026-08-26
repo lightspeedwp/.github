@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: gap-analysis
 purpose: Identify what is missing before planning can be trusted.
 ---

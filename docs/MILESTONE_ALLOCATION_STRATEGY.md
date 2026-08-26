@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Milestone Allocation Strategy
 category: Workflow
 ---

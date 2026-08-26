@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Agent Audit and Edit Pack
 document_type: audit_pack
 purpose: Current-state audit and cleanup summary for the Linear Workflow Skill Factory

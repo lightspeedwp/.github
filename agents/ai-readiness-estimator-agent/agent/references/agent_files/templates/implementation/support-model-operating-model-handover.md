@@ -1,6 +1,8 @@
 ---
-template_id: support-model-operating-model-handover
-version: 1.0.1
+file_type: documentation
+title: "Support Model Operating Model Handover"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: Preview Validation File Inventory Summary
+title: "Preview Validation File Inventory Summary"
+description: "Preview Validation File Inventory Summary"
 document_type: preview_validation_inventory
 version: v0.2
 last_updated: '2026-08-21'

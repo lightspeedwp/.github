@@ -76,9 +76,10 @@ describe("validate-branch-name", () => {
       expect(isAllowed("release/v1-6-0")).toBe(true);
     });
 
-    it("rejects version-style slugs with dots (not allowed)", () => {
+    it("rejects version-style slugs with dots (not allowed for non-release branches)", () => {
       expect(isAllowed("fix/v2.1.0-patch")).toBe(false);
-      expect(isAllowed("release/v1.6.0")).toBe(false);
+      // Release branches ARE allowed to use semantic versioning with dots
+      expect(isAllowed("release/v1.6.0")).toBe(true);
     });
 
     it("rejects the forbidden claude/ prefix", () => {

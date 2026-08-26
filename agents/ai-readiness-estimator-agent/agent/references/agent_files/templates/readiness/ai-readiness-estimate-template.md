@@ -1,11 +1,9 @@
 ---
-version: 1.0.1
-title: AI Readiness Estimate
-audience: internal
-document_type: estimate
-status: template
-language: en-GB
-recommended_base_package: AI Readiness Foundation
+file_type: documentation
+title: "AI Readiness Estimate"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # AI Readiness Estimate

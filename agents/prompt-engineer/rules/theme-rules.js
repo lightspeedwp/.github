@@ -403,7 +403,7 @@ export const themeRules = {
     return {
       name: "Custom Logo Support Enabled",
       severity: "info",
-      pattern: /add_theme_support\(\s*['\"]custom-logo/,
+      pattern: /add_theme_support\(\s*['"]custom-logo/,
       description: "Modern themes should support custom logo upload",
       example: "add_theme_support('custom-logo');",
       fix: "Add custom logo support",
@@ -414,7 +414,7 @@ export const themeRules = {
     return {
       name: "Custom Colors Support Enabled",
       severity: "info",
-      pattern: /add_theme_support\(\s*['\"]custom-colors/,
+      pattern: /add_theme_support\(\s*['"]custom-colors/,
       description: "Theme should allow custom color selection in block editor",
       example: "add_theme_support('custom-colors');",
       fix: "Add custom colors support",
@@ -511,7 +511,7 @@ export const themeRules = {
     return {
       name: "Critical CSS Is Inlined or Preloaded",
       severity: "info",
-      pattern: /rel=[\"']preload[\"']/,
+      pattern: /rel=["']preload["']/,
       description:
         "Critical CSS should be inlined in head or preloaded for performance",
       example: '<link rel="preload" href="critical.css" as="style">',
@@ -563,7 +563,7 @@ export const themeRules = {
       severity: "warning",
       pattern: /(<!-- wp:image|<img)/,
       description: "Images in templates should have meaningful alt text",
-      example: '<!-- wp:image {\"alt\":\"Hero image description\"} /-->',
+      example: '<!-- wp:image {"alt":"Hero image description"} /-->',
       fix: "Add alt text to all images",
     };
   },
@@ -585,7 +585,7 @@ export const themeRules = {
     return {
       name: "Lazy Loading Enabled on Images",
       severity: "info",
-      pattern: /loading=[\"']lazy[\"']|decoding=[\"']async[\"']/,
+      pattern: /loading=["']lazy["']|decoding=["']async["']/,
       description: "Images should use native lazy loading for performance",
       example: '<img src="..." loading="lazy">',
       fix: 'Add loading="lazy" to img tags',
@@ -596,7 +596,7 @@ export const themeRules = {
     return {
       name: "No Render-Blocking CSS",
       severity: "warning",
-      pattern: /rel=[\"']stylesheet[\"']/,
+      pattern: /rel=["']stylesheet["']/,
       description:
         "CSS should not block rendering; split critical/non-critical",
       example: "Inline critical CSS, defer non-critical with media queries",
@@ -612,7 +612,7 @@ export const themeRules = {
       description:
         "Images should use modern formats (WebP, AVIF) with fallbacks",
       example:
-        '<picture><source srcset=\"image.webp\" type=\"image/webp\"><img src=\"image.jpg\"></picture>',
+        '<picture><source srcset="image.webp" type="image/webp"><img src="image.jpg"></picture>',
       fix: "Convert images to WebP/AVIF with fallbacks",
     };
   },
@@ -621,7 +621,7 @@ export const themeRules = {
     return {
       name: "Preconnect to External Hosts",
       severity: "info",
-      pattern: /rel=[\"']preconnect[\"']/,
+      pattern: /rel=["']preconnect["']/,
       description: "External fonts/APIs should have preconnect links",
       example: '<link rel="preconnect" href="https://fonts.googleapis.com">',
       fix: "Add preconnect links to external resources",

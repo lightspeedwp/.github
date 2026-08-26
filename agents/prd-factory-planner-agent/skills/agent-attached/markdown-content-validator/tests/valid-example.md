@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Valid Example
 status: draft
 type: guide

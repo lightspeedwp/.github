@@ -1,13 +1,9 @@
 ---
-file_type: project
-title: Issue Type & Metadata Automation Initiative
-description: Fix issue creation automation to ensure all metadata is assigned at creation
+file_type: documentation
+title: ""Issue Type & Metadata Automation Initiative""
+description: ""Fix issue creation automation to ensure all metadata is assigned at creation""
+last_updated: "2026-08-25"
 status: active
-start_date: 2026-07-23
-target_completion: 2026-08-27
-owner: Ash Shaw
-priority: high
-epic_issue: "#1167"
 ---
 
 # Issue Type & Metadata Automation Initiative — Project Index

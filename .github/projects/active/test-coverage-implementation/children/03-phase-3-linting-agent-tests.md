@@ -1,17 +1,11 @@
 ---
-issue_number: 935
-parent_issue: 932
 file_type: documentation
-title: "[PHASE 3] Linting Agent Coverage"
-description: "OPSX child spec for linting-agent test coverage"
-version: "1.0.0"
-last_updated: "2026-06-08"
-owners: ["Ash"]
-tags: ["testing", "coverage", "linting-agent", "opsx"]
-spec_type: child
+title: ""[PHASE 3] Linting Agent Coverage""
+description: ""OPSX child spec for linting-agent test coverage""
+last_updated: "2026-08-25"
 status: active
-stability: stable
-domain: quality
+tags: ["testing", "coverage", "linting-agent", "opsx"]
+owners: ["Ash"]
 ---
 
 # [PHASE 3] Linting Agent Coverage

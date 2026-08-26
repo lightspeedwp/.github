@@ -330,37 +330,3 @@ testing:
     schema_validation: true
     runbook_links_valid: true
     slack_webhook_available: true
-
----
-# Notes on Alert Configuration
-
-## Design Principles
-
-1. **Severity-Based Response**: Alert severity determines escalation timing and notification channels
-2. **Runbook-Driven Recovery**: Every alert links to a runbook with diagnostic and recovery steps
-3. **Low Noise, High Signal**: Aggregation rules reduce notification fatigue while maintaining visibility
-4. **Actionable Alerts**: Each alert includes context, severity, and next steps
-
-## Integration Points
-
-- **Slack Webhook**: Sends notifications to configured channels (secret: SLACK_METRICS_WEBHOOK)
-- **GitHub Issues**: Creates issues for medium+ severity alerts requiring investigation
-- **Runbooks**: Links alerts to recovery documentation in .github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/
-- **Metrics Collection**: Triggers on metrics-reporting.yml workflow completion
-
-## Customization
-
-To adjust alert thresholds:
-1. Update threshold values in this file
-2. Test with test_alert_workflow
-3. Update MONITORING_STRATEGY.md documentation
-4. Monitor alert frequency for 1 week
-5. Refine based on false positive rate
-
-## Status Tracking
-
-- [x] Phase 1: Slack Integration (notify-metrics-alert.cjs)
-- [x] Phase 3: Production Runbooks (6 runbooks)
-- [x] Phase 2: Alert Rules & Thresholds (this file)
-- [ ] Phase 4: Optional Dashboard
-- [ ] Phase 5: Monitoring Strategy Documentation

@@ -1,9 +1,9 @@
 ---
-name: Slack Integration Setup Guide
-description: Step-by-step guide to configure Slack webhooks for metrics notifications
-type: guide
-status: Ready
-version: 1.0.0
+file_type: documentation
+title: "SLACK SETUP GUIDE"
+description: "Step-by-step guide to configure Slack webhooks for metrics notifications"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Slack Integration Setup Guide

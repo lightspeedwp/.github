@@ -1,23 +1,13 @@
 ---
 file_type: planning
-title: "PROJECT_TITLE — Planning & Specification"
-description: "Project planning document with objectives, phases, deliverables, and GitHub issue references"
-version: 1.0.0
+title: ""PROJECT_TITLE — Planning & Specification""
+description: ""Project planning document with objectives, phases, deliverables, and GitHub issue references""
 created_date: 2026-01-01
-last_updated: 2026-01-01
-authors:
-  - Author Name
-owner: Owner Name/Team
-maintainer: Maintainer Name
-tags:
-  - planning
+last_updated: "2026-08-25"
+status: draft
+tags:- planning
   - specification
   - project
-domain: governance
-status: draft
-related_issues:
-  - "#ISSUE_NUMBER — Issue Title"
-  - "#ISSUE_NUMBER — Issue Title"
 ---
 
 # PROJECT_TITLE — Planning & Specification

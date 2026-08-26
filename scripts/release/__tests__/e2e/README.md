@@ -5,13 +5,16 @@ Comprehensive end-to-end testing for the two-phase agentic release workflow.
 ## Overview
 
 This test suite validates all aspects of the release workflow:
+
 - **Phase 1:** Portable agent version bumping and changelog generation
 - **Phase 2:** Agentic safety gates and release publishing
 
 ## Test Coverage
 
 ### Scenario 1: Patch Release (v1.0.0 → v1.0.1)
+
 Basic patch release workflow end-to-end validation
+
 - Phase 1 agent execution with version bump
 - PR merge to develop
 - Phase 2 safety gates validation
@@ -19,30 +22,39 @@ Basic patch release workflow end-to-end validation
 - Post-release sync
 
 ### Scenario 2: Minor Release (v1.0.0 → v1.1.0)
+
 Minor release with manual approval requirement
+
 - Validates manual approval gate
 - Phase 1 and Phase 2 execution
 - Release publishing
 
 ### Scenario 3: Major Release (v1.0.0 → v2.0.0)
+
 Major release with dual approval and ADR linking
+
 - Dual approval enforcement
 - ADR reference requirement
 - Breaking change documentation
 
 ### Scenarios 4-6: Error Handling
+
 - **Scenario 4:** Missing CHANGELOG [Unreleased] section
 - **Scenario 5:** Tag already exists (duplicate version)
 - **Scenario 6:** Unauthorized user attempting release
 
 ### Scenario 7: Rollback Procedure
+
 Validates ability to rollback a release if issues arise
+
 - Tag deletion
 - Commit revert on main
 - Re-release capability after rollback
 
 ### Scenario 8: Sequential Releases
+
 Multiple releases in sequence without conflicts
+
 - v1.0.1 patch release
 - v1.0.2 patch release
 - v1.1.0 minor release
@@ -51,11 +63,13 @@ Multiple releases in sequence without conflicts
 ## Running Tests
 
 ### Run All Scenarios
+
 ```bash
 npm test -- release-e2e-tests
 ```
 
 ### Run Specific Scenario
+
 ```bash
 node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.cjs
 node scripts/release/__tests__/e2e/scenarios/minor-release.e2e.cjs
@@ -66,6 +80,7 @@ node scripts/release/__tests__/e2e/scenarios/sequential-releases.e2e.cjs
 ```
 
 ### Run in CI
+
 ```bash
 # Via GitHub Actions workflow
 gh workflow run release-e2e-tests.yml --ref develop
@@ -80,10 +95,12 @@ gh workflow run release-e2e-tests.yml \
 ## Test Results
 
 Results are saved to `.github/reports/release-validation/`:
+
 - Individual scenario results: `{scenario}-{timestamp}.json`
 - Consolidated summary: `summary.json`
 
 ### Result Format
+
 ```json
 {
   "scenario": "patch-release",
@@ -104,12 +121,14 @@ Results are saved to `.github/reports/release-validation/`:
 ## Test Environment
 
 Each scenario:
+
 - Creates ephemeral test repository with fixtures
 - Simulates Git operations and branch creation
 - Validates repository state at key checkpoints
 - Cleans up test repository after completion
 
 ### Fixtures Provided
+
 - `VERSION` file (v1.0.0 → target version)
 - `CHANGELOG.md` with [Unreleased] section
 - `README.md` and `.gitignore`
@@ -135,7 +154,9 @@ Each scenario:
 ## Implementation Details
 
 ### Test Harness (`test-harness.cjs`)
+
 Provides utilities for:
+
 - Creating ephemeral Git repositories
 - Simulating version bumps and changelog updates
 - Creating and merging release branches
@@ -143,7 +164,9 @@ Provides utilities for:
 - Saving test results
 
 ### Scenario Files (`scenarios/*.e2e.cjs`)
+
 Each scenario:
+
 1. Inherits from TestHarness
 2. Creates test repository
 3. Executes workflow steps
@@ -151,6 +174,7 @@ Each scenario:
 5. Reports results
 
 ### Result Consolidation (`consolidate-results.cjs`)
+
 - Aggregates all scenario results
 - Calculates coverage percentage
 - Generates summary JSON
@@ -159,11 +183,13 @@ Each scenario:
 ## Debugging
 
 Enable verbose logging:
+
 ```bash
 VERBOSE=true node scripts/release/__tests__/e2e/scenarios/patch-release.e2e.cjs
 ```
 
 View test results:
+
 ```bash
 cat .github/reports/release-validation/patch-release-*.json | jq .
 cat .github/reports/release-validation/summary.json | jq .

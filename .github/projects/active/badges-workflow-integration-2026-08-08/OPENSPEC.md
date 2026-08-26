@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "badges-workflow-integration-2026-08-08 — OpenSpec Specification"
-description: "Technical specification for badges-workflow-integration-2026-08-08"
-version: 1.0.0
+title: ""badges-workflow-integration-2026-08-08 — OpenSpec Specification""
+description: ""Technical specification for badges-workflow-integration-2026-08-08""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

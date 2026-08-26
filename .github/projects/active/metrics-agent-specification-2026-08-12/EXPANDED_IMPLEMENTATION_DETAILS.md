@@ -1,9 +1,9 @@
 ---
-name: Expanded Implementation Details
-description: Concrete implementation specifications, code examples, configurations, and operational procedures
-type: expanded-implementation
-version: '1.0'
-status: in-progress
+file_type: documentation
+title: "EXPANDED IMPLEMENTATION DETAILS"
+description: "Concrete implementation specifications, code examples, configurations, and operational procedures"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Metrics Agent — Expanded Implementation Details

@@ -8,10 +8,12 @@
 
 const fs = require("fs");
 const path = require("path");
-const { GitHubAPIClient } = require("../../scripts/metrics/metrics-agent");
-const { MetricsStorage } = require("../../scripts/metrics/metrics-storage");
-const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer");
-const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector");
+const { GitHubAPIClient } = require("../../../scripts/metrics/metrics-agent");
+const { MetricsStorage } = require("../../../scripts/metrics/metrics-storage");
+const { TrendAnalyzer } = require("../../../scripts/metrics/trend-analyzer");
+const {
+  AnomalyDetector,
+} = require("../../../scripts/metrics/anomaly-detector");
 
 class MetricsCollectionOrchestrator {
   constructor(configPath) {

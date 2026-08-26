@@ -1,15 +1,9 @@
 ---
-file_type: project
-title: Issue Triage Automation System
-description: Fix 250-issue compliance gap with automated issue triage
-status: complete
-start_date: 2026-07-26
-completion_date: 2026-08-04
-target_completion: 2026-07-28
-owner: Ash Shaw
-priority: high
-epic_issue: "#1376"
-pr: "#1488"
+file_type: documentation
+title: ""Issue Triage Automation System""
+description: ""Fix 250-issue compliance gap with automated issue triage""
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Issue Triage Automation System — Project Index

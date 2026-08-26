@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: PageSpeed Agent
 description: Web performance optimization tool for load-time analysis, resource optimization, and caching strategies
 agent_id: agent-10
@@ -242,7 +243,5 @@ Current: No CDN, browser cache not optimized
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 ---
-
-
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

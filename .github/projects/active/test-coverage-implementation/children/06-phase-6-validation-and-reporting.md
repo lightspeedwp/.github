@@ -1,17 +1,11 @@
 ---
-issue_number: 938
-parent_issue: 932
 file_type: documentation
-title: "[PHASE 6] Validation and Reporting Closeout"
-description: "OPSX child spec for final validation, reporting, and closeout"
-version: "1.0.0"
-last_updated: "2026-06-08"
-owners: ["Ash"]
-tags: ["testing", "coverage", "validation", "opsx"]
-spec_type: child
+title: ""[PHASE 6] Validation and Reporting Closeout""
+description: ""OPSX child spec for final validation, reporting, and closeout""
+last_updated: "2026-08-25"
 status: active
-stability: stable
-domain: quality
+tags: ["testing", "coverage", "validation", "opsx"]
+owners: ["Ash"]
 ---
 
 # [PHASE 6] Validation and Reporting Closeout

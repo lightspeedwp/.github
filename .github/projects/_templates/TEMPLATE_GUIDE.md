@@ -1,19 +1,14 @@
 ---
 file_type: guide
-title: "Project Template Guide — Creating New Active Projects"
-description: "Step-by-step guide for creating new active projects with proper documentation structure, OpenSpec integration, and GitHub issue tracking"
-version: 1.0.0
+title: ""Project Template Guide — Creating New Active Projects""
+description: ""Step-by-step guide for creating new active projects with proper documentation structure, OpenSpec integration, and GitHub issue tracking""
 created_date: 2026-08-12
-last_updated: 2026-08-12
-authors:
-  - LightSpeed Team
-maintainer: LightSpeed Team
-tags:
-  - templates
+last_updated: "2026-08-25"
+status: active
+tags:- templates
   - guide
   - project-creation
   - documentation
-domain: "governance"
 ---
 
 # Project Template Guide — Creating New Active Projects

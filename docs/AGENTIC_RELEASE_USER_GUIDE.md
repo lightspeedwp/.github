@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: agentic-release-user-guide
 title: Using the Agentic Release Workflow
 description: User guide for the Phase 5A agentic release workflow — when, how, and why to use agentic releases

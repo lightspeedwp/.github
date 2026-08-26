@@ -1,4 +1,5 @@
 ---
+name: Reviewer Agent
 title: "Reviewer"
 description: "Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests."
 file_type: "agent"
@@ -28,7 +29,6 @@ metadata:
 ## Branch Naming
 
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
-
 
 # Reviewer Agent
 

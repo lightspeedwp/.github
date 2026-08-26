@@ -1,9 +1,10 @@
 ---
-title: "Design: Testing Agent Multi-Framework Architecture"
-description: "Detailed design specifications for 2-tier testing agent"
-status: "design"
+file_type: documentation
+title: ""Design: Testing Agent Multi-Framework Architecture""
+description: ""Detailed design specifications for 2-tier testing agent""
 created_date: "2026-08-12"
-version: "1.0.0"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Design: Testing Agent Multi-Framework Architecture

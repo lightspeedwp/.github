@@ -1,12 +1,9 @@
 ---
-issue_type: task
-title: "Feature 2.3: Template-Aware Type Detection"
-priority: medium
-area: ci
-domain: dotgithub
-team: Engineering
-effort: 1.5
-parent_epic: "Epic: Issue Type & Metadata Automation Initiative"
+file_type: documentation
+title: ""Feature 2.3: Template-Aware Type Detection""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Feature 2.3: Template-Aware Type Detection

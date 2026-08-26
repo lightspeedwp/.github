@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Chat Closure Agent — Troubleshooting FAQ
 description: Common issues, solutions, and debugging tips
 created_date: 2026-08-13T00:00:00.000Z

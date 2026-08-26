@@ -1,6 +1,7 @@
 ---
+title: "AGENT"
+description: "Comprehensive website assessment and analysis for competitive discovery and UX evaluation"
 name: Client Website Discovery Assistant
-description: Comprehensive website assessment and analysis for competitive discovery and UX evaluation
 agent_id: agent-7
 agent_slug: client-website-discovery-assistant
 agent_name: Client Website Discovery Assistant
@@ -310,7 +311,5 @@ Goal: Improve SEO and audience engagement
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 ---
-
-
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

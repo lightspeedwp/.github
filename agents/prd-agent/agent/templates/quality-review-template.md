@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: quality-review
 purpose: Review an existing planning artefact for evidence strength, gaps, and readiness.
 ---

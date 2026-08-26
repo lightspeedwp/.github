@@ -415,7 +415,7 @@ Artifacts: release-agent-output.json (version bump details)
 PR: #XXXX created (release/vX.Y.Z → develop)
 ```
 
-#### Step 4: Review & Merge PR #1
+### Step 4: Review & Merge PR #1
 
 ```bash
 # View PR created by Phase 1

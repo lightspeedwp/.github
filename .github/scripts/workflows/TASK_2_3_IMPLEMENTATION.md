@@ -13,6 +13,7 @@ Task 2.3 implements automated metrics collection via GitHub Actions, enabling da
 ### 1. GitHub Actions Workflow (`.github/workflows/metrics-collection.yml`)
 
 **Features:**
+
 - ✅ Scheduled daily execution at 2 AM UTC (configurable via cron)
 - ✅ Manual trigger with context and dry-run options
 - ✅ Concurrency control (one collection at a time to prevent conflicts)
@@ -22,6 +23,7 @@ Task 2.3 implements automated metrics collection via GitHub Actions, enabling da
 - ✅ GitHub Step Summary reporting
 
 **Workflow Jobs:**
+
 1. **collect-metrics** — Orchestrates metrics collection
    - Validates configuration
    - Calls orchestrator script
@@ -34,6 +36,7 @@ Task 2.3 implements automated metrics collection via GitHub Actions, enabling da
    - Reports on collected metrics
 
 **Configuration Options:**
+
 ```yaml
 Schedule:  0 2 * * *  (Daily at 2 AM UTC)
 Context:   github-control-plane | wordpress-plugin | wordpress-theme
@@ -43,6 +46,7 @@ Dry Run:   true | false (default: false)
 ### 2. Metrics Collection Orchestrator (`.github/scripts/workflows/metrics-collection-orchestrator.js`)
 
 **Features:**
+
 - ✅ Loads workflow configuration from JSON
 - ✅ Initializes GitHub API client, storage, trend analyzer, and anomaly detector
 - ✅ Processes repositories sequentially or in parallel (configurable)
@@ -53,12 +57,14 @@ Dry Run:   true | false (default: false)
 - ✅ Saves results to `.github/reports/metrics/`
 
 **Key Methods:**
+
 - `loadConfig()` — Loads and validates configuration
 - `collectMetricsForRepository(repo)` — Collects metrics for single repo
 - `orchestrateCollection()` — Manages collection workflow
 - `generateSummary()` — Creates execution report
 
 **Integration Points:**
+
 - GitHubAPIClient: Fetches metrics from GitHub API
 - MetricsStorage: Persists metrics to time-series database
 - TrendAnalyzer: Calculates trends from historical data
@@ -67,6 +73,7 @@ Dry Run:   true | false (default: false)
 ### 3. Workflow Configuration (`.github/scripts/workflows/metrics-config.json`)
 
 **Structure:**
+
 ```json
 {
   "schedule": { "cron": "0 2 * * *", "timezone": "UTC" },
@@ -81,6 +88,7 @@ Dry Run:   true | false (default: false)
 ```
 
 **Extensibility:**
+
 - Add repositories to array to expand collection
 - Adjust `parallelJobs` for concurrent processing
 - Configure retention and storage paths
@@ -89,6 +97,7 @@ Dry Run:   true | false (default: false)
 ### 4. Orchestrator Tests (`.github/scripts/workflows/__tests__/metrics-collection-orchestrator.test.js`)
 
 **Test Coverage:**
+
 - ✅ Configuration loading and validation
 - ✅ Error handling for missing/invalid config
 - ✅ Repository filtering (enabled/disabled)
@@ -130,6 +139,7 @@ Dry Run:   true | false (default: false)
 **Result Location:** `.github/reports/metrics/`
 
 **Files Generated:**
+
 ```
 .github/reports/metrics/
 ├── lightspeedwp-github/
@@ -141,6 +151,7 @@ Dry Run:   true | false (default: false)
 ```
 
 **Metrics Structure:**
+
 ```json
 {
   "repository": "lightspeedwp/.github",
@@ -157,7 +168,8 @@ Dry Run:   true | false (default: false)
 
 ## Integration with Phase 2
 
-### Dependency Chain:
+### Dependency Chain
+
 ```
 Task 2.3 (Workflow) ← Task 2.1 (API Client)
                     ← Task 2.2 (Storage + Analysis)
@@ -167,6 +179,7 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 ```
 
 **Task 2.3 enables:**
+
 - Automated daily metrics collection ✅
 - Time-series persistence ✅
 - Trend analysis infrastructure ✅
@@ -176,6 +189,7 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 ## Error Handling & Recovery
 
 **Implemented:**
+
 - ✅ Missing configuration file detection
 - ✅ Empty repositories array validation
 - ✅ GitHub API failure handling
@@ -186,6 +200,7 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 - ✅ Comprehensive error logging
 
 **Exit Codes:**
+
 - `0` — All repositories successful or partial success
 - `1` — All repositories failed (workflow failure)
 
@@ -194,6 +209,7 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 **Purpose:** Test workflow without committing results  
 **Usage:** Trigger workflow manually with `dryRun: true`  
 **Behavior:**
+
 - Collects metrics normally
 - Analyzes and detects anomalies
 - Skips git commit/push
@@ -205,12 +221,14 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 **Prerequisite:** Task 2.3 ✅ Complete
 
 **Task 2.4 will build on:**
+
 - Metrics data in `.github/reports/metrics/`
 - Time-series storage for trend analysis
 - Anomaly detection results
 - Structured metrics format
 
 **Deliverables:**
+
 - MetricsReporter (markdown report generation)
 - GitHubIssueCreator (GitHub issue management)
 - Reporting workflow (`.github/workflows/metrics-reporting.yml`)
@@ -229,6 +247,7 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 ## Performance Characteristics
 
 **Benchmarks (expected):**
+
 - Single repo collection: < 30 seconds
 - Configuration validation: < 1 second
 - Summary generation: < 1 second
@@ -246,12 +265,14 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 ## Files Modified/Created
 
 **Created:**
+
 - `.github/workflows/metrics-collection.yml` (141 lines)
 - `.github/scripts/workflows/metrics-collection-orchestrator.js` (250 lines)
 - `.github/scripts/workflows/metrics-config.json` (44 lines)
 - `.github/scripts/workflows/__tests__/metrics-collection-orchestrator.test.js` (250 lines)
 
 **Related (from Phase 2.1-2.2):**
+
 - `scripts/metrics/metrics-agent.js` (GitHub API client)
 - `scripts/metrics/metrics-storage.js` (Time-series storage)
 - `scripts/metrics/trend-analyzer.js` (Trend analysis)
@@ -259,6 +280,6 @@ Task 2.5 (Testing)   ← Task 2.3 (Integration Tests)
 
 ## References
 
-- GitHub Actions documentation: https://docs.github.com/en/actions
-- Workflow scheduling: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+- GitHub Actions documentation: <https://docs.github.com/en/actions>
+- Workflow scheduling: <https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule>
 - Phase 2 specification: See continuation prompt

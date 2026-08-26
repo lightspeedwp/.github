@@ -1,6 +1,8 @@
 ---
-template_id: ai-readiness-audit-checklist
-version: 1.0.1
+file_type: documentation
+title: "Ai Readiness Audit Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

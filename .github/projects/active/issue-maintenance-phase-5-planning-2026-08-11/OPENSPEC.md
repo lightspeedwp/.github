@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "issue-maintenance-phase-5-planning-2026-08-11 — OpenSpec Specification"
-description: "Technical specification for issue-maintenance-phase-5-planning-2026-08-11"
-version: 1.0.0
+title: ""issue-maintenance-phase-5-planning-2026-08-11 — OpenSpec Specification""
+description: ""Technical specification for issue-maintenance-phase-5-planning-2026-08-11""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

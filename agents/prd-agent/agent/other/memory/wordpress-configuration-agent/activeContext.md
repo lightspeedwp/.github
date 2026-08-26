@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.0.1
 title: WordPress configuration agent - active context
 project_key: wordpress-configuration-agent

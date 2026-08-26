@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: High-Severity Fixes Log
-audience: internal
-document_type: uat-fixes-log
+file_type: documentation
+title: "High-Severity Fixes Log"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: active
-language: en-GB
 ---
 
 # High-Severity Fixes Log

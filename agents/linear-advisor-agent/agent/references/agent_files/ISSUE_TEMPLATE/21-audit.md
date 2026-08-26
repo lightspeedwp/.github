@@ -1,7 +1,8 @@
 ---
+title: "[Audit] <Brief summary>"
+description: "[Audit] <Brief summary>"
 name: 🛡️ Audit
 about: Propose, conduct, or document a security, accessibility, code, or process audit.
-title: '[Audit] <Brief summary>'
 labels:
   - status:needs-audit
   - priority:normal

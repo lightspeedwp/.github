@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Preview Validation Checklist
 document_type: validation_checklist
 purpose: Evaluate preview runs against the current Linear Workflow Skill Factory instructions

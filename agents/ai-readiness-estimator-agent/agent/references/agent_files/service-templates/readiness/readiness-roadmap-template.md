@@ -1,6 +1,8 @@
 ---
-template_id: readiness-roadmap-template
-version: 1.0.1
+file_type: documentation
+title: "Readiness Roadmap Template"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

@@ -1,7 +1,8 @@
 ---
+title: "[Design] <Brief summary>"
+description: "[Design] <Brief summary>"
 name: 🎨 Design
 about: Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications
-title: '[Design] <Brief summary>'
 labels:
   - status:needs-design-review
   - priority:normal
@@ -9,7 +10,6 @@ labels:
 assignees: []
 projects: []
 milestone: ''
-file_type: design
 ---
 
 <!--

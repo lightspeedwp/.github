@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-conversation-qa-checklist
-version: 1.0.1
+file_type: documentation
+title: "Chatbot Conversation Qa Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

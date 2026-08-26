@@ -1,9 +1,10 @@
 ---
-file_type: test-plan
-title: Release Workflow Authorization Fixes - Test Execution Plan
-description: Comprehensive testing strategy to validate the release.yml telemetry non-blocking fix
+file_type: documentation
+title: ""Release Workflow Authorization Fixes - Test Execution Plan""
+description: ""Comprehensive testing strategy to validate the release.yml telemetry non-blocking fix""
 created_date: 2026-08-04
-status: ready-for-execution
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Test Execution Plan: Release Workflow Authorization Fixes

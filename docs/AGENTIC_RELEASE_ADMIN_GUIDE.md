@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: agentic-release-admin-guide
 title: Administering the Agentic Release Workflow
 description: Admin guide for Phase 5A agentic release workflow — architecture, authorization, gates, audit logging, security, troubleshooting

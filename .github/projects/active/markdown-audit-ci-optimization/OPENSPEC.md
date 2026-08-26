@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "markdown-audit-ci-optimization — OpenSpec Specification"
-description: "Technical specification for markdown-audit-ci-optimization"
-version: 1.0.0
+title: ""markdown-audit-ci-optimization — OpenSpec Specification""
+description: ""Technical specification for markdown-audit-ci-optimization""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

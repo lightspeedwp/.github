@@ -1,7 +1,9 @@
 ---
-title: Node.js 22 Upgrade — Completion Report
-date: 2026-07-30
-status: Complete
+file_type: documentation
+title: "Node.js 22 Upgrade — Completion Report"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Node.js 22 Upgrade — Completion Report

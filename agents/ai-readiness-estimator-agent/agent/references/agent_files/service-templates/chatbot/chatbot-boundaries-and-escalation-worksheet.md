@@ -1,6 +1,8 @@
 ---
-template_id: chatbot-boundaries-and-escalation-worksheet
-version: 1.0.1
+file_type: documentation
+title: "Chatbot Boundaries And Escalation Worksheet"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

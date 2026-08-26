@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Markdown Output Format Spec
-audience: internal
-document_type: format-spec
+file_type: documentation
+title: "Markdown Output Format Spec"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: active
-language: en-GB
 ---
 
 # Markdown Output Format Spec

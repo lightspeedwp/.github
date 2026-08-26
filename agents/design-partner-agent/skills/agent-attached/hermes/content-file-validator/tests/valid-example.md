@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Validator Example
 description: A valid content file example
 type: guide

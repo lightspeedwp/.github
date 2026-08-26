@@ -1,6 +1,8 @@
 ---
-template_id: post-workshop-action-plan
-version: 1.0.1
+file_type: documentation
+title: "Post Workshop Action Plan"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

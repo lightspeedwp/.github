@@ -44,23 +44,23 @@ Badge issue?
 
 - [ ] Document has `<!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
 ![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
 ![Release](https://img.shields.io/badge/Release-OK-success.svg)
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
 ![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](https://img.shields.io/badge/Labeling Governance-OK-success.svg)
-![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
-![Metadata Governance](https://img.shields.io/badge/Metadata Governance-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
 ![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](https://img.shields.io/badge/Template Enforcement-OK-success.svg)
-![Validate PR Template](https://img.shields.io/badge/Validate PR Template-OK-success.svg)
-![Badges: Documentation Update](https://img.shields.io/badge/Badges: Documentation Update-OK-success.svg)
-![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![actions-minute-savings-watch](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml)
 [![allocate-pr-issue-to-milestone](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml)
 [![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
@@ -121,7 +121,9 @@ Badge issue?
 [![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
 [![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
+
 <!-- BADGES-END -->` marker?
+
 - [ ] Markers are on separate lines?
 - [ ] Document has frontmatter section with `---`?
 - [ ] File is in a documented directory (docs/, agents/, etc.)?

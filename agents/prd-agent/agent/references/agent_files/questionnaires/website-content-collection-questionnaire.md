@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Website Content Collection Questionnaire
 source_title: Content Collection - Website Content Collection Questionnaire
 source_url: https://docs.google.com/document/d/1gI4H2YH81Af1Bt9z5KLV8yNRzU8kIj5KhQ9TKO_NeNo/edit?usp=drive_link

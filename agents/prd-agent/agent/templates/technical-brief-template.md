@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 template: technical-brief
 purpose: Map validated planning work into implementation-relevant technical guidance.
 ---

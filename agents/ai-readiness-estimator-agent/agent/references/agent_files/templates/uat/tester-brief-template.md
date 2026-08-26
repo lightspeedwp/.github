@@ -1,10 +1,9 @@
 ---
-version: 1.0.1
-title: Tester Brief
-audience: internal
-document_type: uat-brief
-status: template
-language: en-GB
+file_type: documentation
+title: "Tester Brief"
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Tester Brief

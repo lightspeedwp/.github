@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.0.1
 title: NovaNews Reporter Dashboard Assumptions and Risks
 date: '2026-06-18'

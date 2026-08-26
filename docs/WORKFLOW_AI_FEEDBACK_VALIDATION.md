@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: AI Feedback Validation Workflow
 description: Automated GitHub Actions workflow for validating AI feedback tracking in pull requests
 version: 1.0.1

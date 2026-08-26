@@ -1,5 +1,6 @@
 ---
-title: LSX Design System Repeatable Test Context
+title: "LSX Design System Repeatable Test Context"
+description: "LSX Design System Repeatable Test Context"
 project_name: LSX Design System
 document_type: preview_validation_example
 version: v0.2

@@ -1,12 +1,9 @@
 ---
-file_type: project
-title: Agent Standards Initiative
-description: Multi-provider agent standardization project (Claude, Copilot, OpenAI)
+file_type: documentation
+title: ""Agent Standards Initiative""
+description: ""Multi-provider agent standardization project (Claude, Copilot, OpenAI)""
+last_updated: "2026-08-25"
 status: active
-start_date: 2026-07-22
-target_completion: 2026-10-22
-owner: Ash Shaw
-priority: high
 ---
 
 # Agent Standards Initiative — Project Index

@@ -582,7 +582,7 @@ export const pluginRules = {
     return {
       name: "Text Domain Is Consistent",
       severity: "warning",
-      pattern: /(__\(|_e\(|esc_html__\().+['\"]([a-z0-9-]+)['\"]\)/,
+      pattern: /(__\(|_e\(|esc_html__\().+['"]([a-z0-9-]+)['"]\)/,
       description: "All i18n functions should use the same text domain",
       example: "__('text', 'my-plugin')",
       fix: "Use consistent text domain matching plugin slug",

@@ -1,13 +1,10 @@
 ---
-title: "GitHub Projects Creation System — Full Implementation Plan"
-description: "Complete architectural blueprint for CSV-fixture-driven project creation with template-based field initialization."
 file_type: "planning"
-status: "ready-for-implementation"
-version: "v1.0"
+title: ""GitHub Projects Creation System — Full Implementation Plan""
+description: ""Complete architectural blueprint for CSV-fixture-driven project creation with template-based field initialization.""
 created_date: "2026-07-23"
-last_updated: "2026-07-23"
-authors: ["LightSpeed Team"]
-maintainer: "Ash Shaw"
+last_updated: "2026-08-25"
+status: active
 tags: ["projects", "architecture", "github-api", "workflow", "automation"]
 ---
 

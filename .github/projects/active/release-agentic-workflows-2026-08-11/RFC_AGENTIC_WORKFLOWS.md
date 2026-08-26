@@ -1,11 +1,9 @@
 ---
 file_type: rfc
-title: "RFC: GitHub Agentic Workflows for Release Agent"
-description: "Request for Comments on augmenting release automation with agentic orchestration"
+title: ""RFC: GitHub Agentic Workflows for Release Agent""
+description: ""Request for Comments on augmenting release automation with agentic orchestration""
+last_updated: "2026-08-25"
 status: draft
-version: "1.0"
-date: "2026-08-11"
-author: "Ash Shaw"
 ---
 
 # RFC: GitHub Agentic Workflows for Release Agent

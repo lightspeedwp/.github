@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Chat Closure Agent — Team Onboarding Guide
 description: Training material and setup guide for teams
 created_date: 2026-08-13T00:00:00.000Z

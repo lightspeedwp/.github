@@ -1,11 +1,11 @@
 ---
-file_type: markdown
-title: Phase 2 Implementation Plan — Major Issues
+file_type: documentation
+title: ""Phase 2 Implementation Plan — Major Issues""
+description: ""Project documentation""
+last_updated: "2026-08-25"
 status: active
-version: "1.0"
-last_updated: "2026-08-06"
-owners: ["Ash Shaw"]
 tags: ["release", "phase-2", "major", "implementation"]
+owners: ["Ash Shaw"]
 ---
 
 # Phase 2 Implementation Plan — Major Issues

@@ -76,6 +76,7 @@ Navigate to GitHub Actions and trigger the release workflow:
 ### Step 2: Review Dry-Run Report
 
 The workflow will:
+
 - ✅ Detect repository type
 - ✅ Calculate new version (1.0.0 → 1.0.1)
 - ✅ Preview changelog roll
@@ -119,6 +120,7 @@ Approval Required: NO (auto-approved)
 ### Step 3: Verify Dry-Run Passed
 
 If all gates show ✅:
+
 - Proceed to **Step 4: Execute Live Release**
 - If any gate shows ❌: Stop and check troubleshooting section
 
@@ -183,6 +185,7 @@ Watch the workflow run:
    - ✅ GitHub Release published
 
 **Typical timeline:**
+
 - Phase 1 (version bump): 1–2 minutes
 - PR #1 merge: 2–3 minutes
 - Phase 2 (safety gates): 2–3 minutes
@@ -216,6 +219,7 @@ The workflow automatically triggers post-release sync:
 4. Merges PR automatically
 
 **Verification:**
+
 - Wait 1–2 minutes for sync to complete
 - Verify develop branch is in sync with main
 - Both branches point to same version commit
@@ -286,16 +290,20 @@ If critical issues are discovered immediately after release:
    - Click v1.0.1 release
    - Click "Delete" button
 3. **Delete the git tag**
+
    ```bash
    git push origin --delete v1.0.1
    ```
+
 4. **Revert PR #2 commit on main**
+
    ```bash
    git checkout main
    git pull origin main
    git revert -m 1 <merge-commit-sha>
    git push origin main
    ```
+
 5. **Optional: Bump version down on develop** if needed for next release
 
 ### Analysis & Prevention
@@ -310,21 +318,25 @@ If critical issues are discovered immediately after release:
 ## Common Issues & Solutions
 
 **Issue: Workflow stuck on "Waiting for approval"**
+
 - This should NOT happen for patch releases (auto-approved)
 - Check: GATE 7 configuration and user authorization
 - Solution: See RELEASE_TROUBLESHOOTING.md, "Approval gates failing"
 
 **Issue: Version conflict (tag already exists)**
+
 - Another release for v1.0.1 may have started
 - Check: GATE 4 would have caught this (should prevent)
 - Solution: Verify no other release in progress; use v1.0.2 for retry
 
 **Issue: Changelog validation failed**
+
 - CHANGELOG.md missing [Unreleased] section or malformed
 - Check: Pre-release checklist (Step 1)
 - Solution: Fix CHANGELOG.md manually, commit to develop, retry
 
 **Issue: Authorization denied**
+
 - User not in maintainers team
 - Solution: Contact Release Engineering team to add user to team
 
@@ -349,23 +361,28 @@ Patch release is successful when:
 ## Tips & Best Practices
 
 **Tip 1: Always do dry-run first**
+
 - Preview all gates before live release
 - Catches issues before mutations
 
 **Tip 2: Monitor the workflow log**
+
 - Each phase logs detailed steps
 - Easier to diagnose if something fails
 
 **Tip 3: Verify CHANGELOG before triggering**
+
 - Check [Unreleased] section has entries
 - Prevents "missing changelog" failures
 
 **Tip 4: Communicate timing to team**
+
 - Release takes 5–10 minutes
 - Avoid other deployments during release
 - Notify stakeholders when live
 
 **Tip 5: Keep post-release sync quick**
+
 - Sync automatically merges main → develop
 - Usually completes within 2 minutes
 - Verify completion before moving on
@@ -375,16 +392,19 @@ Patch release is successful when:
 ## Support & Escalation
 
 **For questions:**
+
 - Check [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for workflow details
 - Review [RELEASE_E2E_TEST_PLAN.md](../RELEASE_E2E_TEST_PLAN.md) for test scenarios
 - Consult [RELEASE_TROUBLESHOOTING.md](./RELEASE_TROUBLESHOOTING.md) for common issues
 
 **For issues:**
+
 - Create GitHub issue in `.github` repo with `type:bug` label
 - Tag Release Engineering team (@lightspeedwp/maintainers)
 - Reference this runbook and exact step where issue occurred
 
 **For escalation:**
+
 - If release blocked for >15 minutes, use Phase 4 fallback
 - Contact Release Engineering Lead for authorization override
 

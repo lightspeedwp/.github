@@ -1,11 +1,9 @@
 ---
-title: "Release Workflow Fix Verification Report"
-description: "Manual test report for release.yml telemetry non-blocking fix (issue #1453)"
-date: "2026-08-04"
-category: "workflow-testing"
-status: "complete"
-related_issues: ["#1453"]
-related_commits: ["71551c7e7", "15639bc3a", "8f12fa32e"]
+file_type: documentation
+title: ""Release Workflow Fix Verification Report""
+description: ""Manual test report for release.yml telemetry non-blocking fix (issue #1453)""
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Release Workflow Fix Verification Report

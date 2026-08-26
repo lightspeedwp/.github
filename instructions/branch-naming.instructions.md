@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Branch Naming Standards
 description: Governance rules for all Git branches across LightSpeedWP projects
 version: 1.0

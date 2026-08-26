@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Issue Triage Labeling Automation
 description: Phase 3 of the Issue Triage Automation System — intelligent label assignment for GitHub issues
 version: '1.0'

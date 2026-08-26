@@ -1,5 +1,6 @@
 ---
-title: Invalid version example
+title: "Invalid version example"
+description: "Invalid version example"
 type: guide
 status: draft
 version: '1.0'

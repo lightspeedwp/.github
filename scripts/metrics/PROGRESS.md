@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 name: Metrics Agent Phase 2 Progress
 description: Implementation progress tracking for Phase 2 (Aug 12-26)
 type: progress-tracking

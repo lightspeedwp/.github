@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: Website Review Template
 output_type: review
 status: active

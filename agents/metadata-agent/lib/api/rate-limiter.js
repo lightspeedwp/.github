@@ -63,7 +63,9 @@ class RateLimiter {
       this.lastUpdate = new Date();
       return this.limits;
     } catch (error) {
-      throw new Error(`Failed to update rate limits: ${error.message}`);
+      throw new Error(`Failed to update rate limits: ${error.message}`, {
+        cause: error,
+      });
     }
   }
 

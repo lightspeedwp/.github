@@ -1,10 +1,10 @@
 ---
-title: Project Maintenance Agent — Troubleshooting Guide
-description: Detailed error diagnosis and solutions for common issues
+file_type: documentation
+title: ""Project Maintenance Agent — Troubleshooting Guide""
+description: ""Detailed error diagnosis and solutions for common issues""
 created_date: 2026-08-18
-last_updated: 2026-08-18
-status: troubleshooting
-phase: 4
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Maintenance Agent — Troubleshooting Guide

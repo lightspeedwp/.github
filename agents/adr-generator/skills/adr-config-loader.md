@@ -1,21 +1,15 @@
 ---
-name: adr-config-loader
-description: Load, validate, and merge ADR configuration from files with inheritance support
-category: infrastructure
-tags:
-  - configuration
+file_type: documentation
+title: "Adr Config Loader"
+description: "Load, validate, and merge ADR configuration from files with inheritance support"
+created_date: 2026-08-12T00:00:00.000Z
+last_updated: "2026-08-25"
+status: active
+tags:- configuration
   - validation
   - inheritance
   - schema
-file_type: skill
-created_date: 2026-08-12T00:00:00.000Z
-last_updated: '2026-08-21'
-owners:
-  - LightSpeed Team
-status: active
-stability: beta
-domain: infrastructure
-language: en
+owners:- LightSpeed Team
 ---
 
 # ADR Config Loader Skill

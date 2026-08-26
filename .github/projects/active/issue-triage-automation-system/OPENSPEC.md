@@ -1,10 +1,9 @@
 ---
 file_type: openspec
-title: "issue-triage-automation-system — OpenSpec Specification"
-description: "Technical specification for issue-triage-automation-system"
-version: 1.0.0
+title: ""issue-triage-automation-system — OpenSpec Specification""
+description: ""Technical specification for issue-triage-automation-system""
 created_date: 2026-08-12
-last_updated: 2026-08-12
+last_updated: "2026-08-25"
 status: draft
 ---
 

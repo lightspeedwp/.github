@@ -1,6 +1,8 @@
 ---
-template_id: content-workflow-audit-checklist
-version: 1.0.0
+file_type: documentation
+title: "Content Workflow Audit Checklist"
+description: "Project documentation"
+last_updated: "2026-08-25"
 status: draft
 ---
 

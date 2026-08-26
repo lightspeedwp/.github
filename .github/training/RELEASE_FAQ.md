@@ -23,6 +23,7 @@ stability: stable
 - **Major (v1.0.0 → v2.0.0):** Breaking changes, API removals. Requires 2 maintainers + ADR. 30–120 min.
 
 Use the **Scope Determination Flowchart**:
+
 ```
 Any breaking changes?
 ├─ YES → Major (v2.0.0)
@@ -46,6 +47,7 @@ grep -A 30 "## \[Unreleased\]" CHANGELOG.md
 ```
 
 **Decision logic:**
+
 - Count "Added" entries → new features exist → Minor (or Major if breaking)
 - Count "Fixed" entries only → Patch
 - Anything marked "BREAKING" or ⚠️ → Major
@@ -95,10 +97,12 @@ Add time if approvers are unavailable.
 **For Patch:** Should NOT happen (auto-approved). If stuck, escalate.
 
 **For Minor/Major:** Expected behavior.
+
 - Minor: 1 maintainer should review PR #2 and click "Approve"
 - Major: 2 maintainers should approve PR #2
 
 **To unblock:**
+
 1. Check PR #2 status
 2. If approvers haven't reviewed, send reminder
 3. Ensure they clicked official "Approve" button (not just a comment)
@@ -111,12 +115,14 @@ See [RELEASE_TROUBLESHOOTING.md](../docs/RELEASE_TROUBLESHOOTING.md) for diagnos
 ### Q6: Why do I need a dry-run before the live release?
 
 **A:** Dry-run shows:
+
 - All safety gates will pass ✅
 - Correct version will be released
 - Changelog looks right
 - No unexpected failures
 
 Risks from skipping dry-run:
+
 - ❌ Live release fails partway through
 - ❌ Wrong version released
 - ❌ Manual cleanup needed
@@ -150,6 +156,7 @@ Each gate failure message tells you exactly what to fix.
 ### Q8: Can I release from a feature branch?
 
 **A:** No. Releases must come from:
+
 - `develop` branch for patch/minor
 - `main` branch for hotfixes
 
@@ -166,6 +173,7 @@ You don't commit directly to release branches; the workflow creates them.
 **Patch releases:** No approval needed, can release anytime (5–10 min).
 
 **Minor releases:** Schedule ~30 minutes before your approver goes offline:
+
 ```
 Today 2:00 PM (Patch Release)
 → Trigger workflow
@@ -186,6 +194,7 @@ Today 2:00 PM (Patch Release)
 **Phase 1 (version bump):** Hard to cancel; easier to fix issues and retry.
 
 **Phase 2 (safety gates):** Can usually stop before it reaches main:
+
 1. Go to Actions tab
 2. Click running workflow
 3. Click "Cancel workflow" (if available)
@@ -311,6 +320,7 @@ This ensures both branches stay in sync and future releases can build on release
 **A:** Very rare (should not happen with clean releases).
 
 If conflicts occur:
+
 1. Workflow will fail and create a PR
 2. Someone needs to manually resolve conflicts
 3. Merge the PR to complete sync
@@ -343,6 +353,7 @@ If any step fails, the release had issues. Check workflow logs.
 **A:** No. If the workflow fails to publish, something is wrong.
 
 Never manually publish; instead:
+
 1. Stop the failed workflow
 2. Diagnose the issue (check logs)
 3. Fix the root cause
@@ -389,6 +400,7 @@ See [RELEASE_TROUBLESHOOTING.md](../docs/RELEASE_TROUBLESHOOTING.md) for full pr
 3. **Release as new patch** (don't re-release same version)
 
 Example:
+
 - v1.0.1 released (bad)
 - Rolled back within 1 hour ✅
 - Fix applied to develop
@@ -403,11 +415,13 @@ Never try to re-release v1.0.1; git tags are immutable.
 **A:** Unlikely, but possible in rare cases.
 
 **Safety mechanisms:**
+
 - Safety gates check everything before mutations
 - If gates pass, remaining steps almost never fail
 - Post-release sync has retry logic
 
 **If workflow fails midway:**
+
 1. Check workflow logs for error message
 2. Diagnose using [RELEASE_TROUBLESHOOTING.md](../docs/RELEASE_TROUBLESHOOTING.md)
 3. Escalate to Release Lead if unable to fix
@@ -434,6 +448,7 @@ No rate limits; workflow can run multiple times per day if needed.
 **A:** Avoid it. Recommendation: One release at a time.
 
 Running parallel releases risks:
+
 - Version conflicts (both trying to bump to same version)
 - Tag collisions
 - Merge conflicts on main/develop
@@ -446,11 +461,13 @@ Running parallel releases risks:
 
 **A:** Depends on when the push happens:
 
-**Before PR #2 merges to main:** 
+**Before PR #2 merges to main:**
+
 - The pushed changes won't be in the release
 - They'll be released in the next version
 
 **After PR #2 merges to main:**
+
 - Changes are now on main
 - They're part of the release (but not tagged)
 - Next release should pick them up

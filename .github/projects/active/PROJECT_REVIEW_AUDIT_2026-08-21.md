@@ -1,10 +1,10 @@
 ---
-file_type: audit-report
+file_type: documentation
 title: "Active Projects Review & Documentation Audit — 2026-08-21"
 description: "Comprehensive review of 14 active projects with bidirectional linking validation and GitHub issue mapping"
-status: complete
+status: active
 created_date: 2026-08-21
-updated_date: 2026-08-21
+last_updated: "2026-08-21"
 authors:
   - Claude Code
 tags:

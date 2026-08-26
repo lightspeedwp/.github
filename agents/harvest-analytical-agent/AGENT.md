@@ -1,6 +1,7 @@
 ---
+title: "AGENT"
+description: "Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation"
 name: Harvest Analytical Agent
-description: Time tracking and project analytics tool for profitability analysis, team productivity metrics, and billing generation
 agent_id: agent-12
 agent_slug: harvest-analytical
 agent_name: Harvest Analytical Agent
@@ -327,7 +328,5 @@ The Harvest Analytical Agent analyzes time tracking data, project profitability,
 This agent does not create or validate branches. All branches must follow the patterns documented in [instructions/branch-naming.instructions.md](../../../instructions/branch-naming.instructions.md) and [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 ---
-
-
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 example_for: handoff-pack
 quality: strong
 ---

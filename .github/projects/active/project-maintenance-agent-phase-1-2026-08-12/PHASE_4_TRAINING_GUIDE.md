@@ -1,10 +1,10 @@
 ---
-title: Project Maintenance Agent — Team Training Guide
-description: 30-minute team walkthrough covering nightly audits and on-demand operations
+file_type: documentation
+title: ""Project Maintenance Agent — Team Training Guide""
+description: ""30-minute team walkthrough covering nightly audits and on-demand operations""
 created_date: 2026-08-18
-last_updated: 2026-08-18
-status: training
-phase: 4
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Project Maintenance Agent — Team Training Guide

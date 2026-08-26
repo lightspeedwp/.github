@@ -100,8 +100,8 @@ jobs:
         with:
           name: project-archival-report-${{ github.run_id }}
           path: |
-            .github//.github/reports/projects/archival-report-*.md
+            .github/reports/projects/archival-report-*.md
 
       - name: Report summary
         if: always()
-        run: test -f ".github//.github/reports/projects/archival-summary.txt" && cat ".github//.github/reports/projects/archival-summary.txt" || true
+        run: test -f ".github/reports/projects/archival-summary.txt" && cat ".github/reports/projects/archival-summary.txt" || true

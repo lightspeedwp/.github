@@ -1,7 +1,9 @@
 ---
-title: "Mermaid Accessibility Audit & Enhancement Report"
-date: 2026-08-19
-status: complete
+file_type: documentation
+title: ""Mermaid Accessibility Audit & Enhancement Report""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # Mermaid Accessibility Audit & Enhancement Report

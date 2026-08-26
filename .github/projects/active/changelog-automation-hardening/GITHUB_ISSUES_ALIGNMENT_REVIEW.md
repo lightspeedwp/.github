@@ -1,7 +1,9 @@
 ---
-title: "GitHub Issues Alignment Review"
-date: "2026-07-24"
-status: "review-pending"
+file_type: documentation
+title: ""GitHub Issues Alignment Review""
+description: "Project documentation"
+last_updated: "2026-08-25"
+status: active
 ---
 
 # GitHub Issues Alignment Review

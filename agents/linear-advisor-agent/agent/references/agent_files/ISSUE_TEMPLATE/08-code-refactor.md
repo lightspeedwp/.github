@@ -1,7 +1,8 @@
 ---
+title: "[Refactor] <Short summary>"
+description: "[Refactor] <Short summary>"
 name: ♻️ Code Refactor
 about: Request or propose a code refactoring or review to improve code quality, maintainability, and consistency.
-title: '[Refactor] <Short summary>'
 labels:
   - status:needs-review
   - priority:normal

@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 version: 1.1.1
 title: Queenspark Ecommerce Rebuild Assumptions And Risks
 date: '2026-07-01'
