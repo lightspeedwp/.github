@@ -4,8 +4,6 @@ on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened, edited, ready_for_review]
-  merge_group:
-    types: [checks_requested]
 
 permissions:
   contents: read
@@ -20,95 +18,11 @@ jobs:
     name: validate-release-branch
     runs-on: ubuntu-latest
     steps:
-      - name: Validate release and hotfix PR shape
-        uses: actions/github-script@v7
+      - uses: actions/checkout@v4
         with:
-          script: |
-            const pr = context.payload.pull_request || {};
-            const headRef = String(pr.head?.ref || '').trim();
-            const baseRef = String(pr.base?.ref || '').trim();
-
-            const releasePattern = /^release\/v(?<version>\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)$/;
-            const hotfixPattern = /^hotfix\/[a-z0-9._-]+$/i;
-
-            const releaseSections = [
-              { name: 'Linked issues & merged PRs', regex: /^##\s+Linked issues\s*&\s*merged PRs$/im },
-              { name: 'Changelog', regex: /^##\s+Changelog$/im },
-              { name: 'Checklist (Global DoD / PR)', regex: /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)$/im }
-            ];
-            const hotfixSections = [
-              { name: 'Linked issues', regex: /^##\s+Linked issues$/im },
-              { name: 'Incident / Root Cause', regex: /^##\s+Incident\s*\/\s*Root Cause$/im },
-              { name: 'Changelog', regex: /^##\s+Changelog$/im },
-              { name: 'Checklist (Global DoD / PR)', regex: /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)$/im }
-            ];
-
-            const fail = (message) => core.setFailed(message);
-            const missingSections = (body, sections) =>
-              sections.filter((entry) => !entry.regex.test(String(body || ''))).map((entry) => entry.name);
-
-            if (context.eventName === 'merge_group') {
-              core.info('Branch shape already validated at PR open/edit time. Passing in merge queue context.');
-              return;
-            }
-
-            if (!['pull_request', 'pull_request_target'].includes(context.eventName)) {
-              fail(`This guard only runs on pull_request or pull_request_target events (received '${context.eventName}').`);
-              return;
-            }
-
-            if (baseRef && baseRef !== 'main') {
-              fail(`This guard only protects PRs targeting main, not '${baseRef}'.`);
-              return;
-            }
-
-            if (!headRef) {
-              fail('Missing pull request head branch name.');
-              return;
-            }
-
-            if (!(headRef.startsWith('release/') || headRef.startsWith('hotfix/'))) {
-              fail(`Only release/* or hotfix/* branches may merge into main. Received '${headRef}'.`);
-              return;
-            }
-
-            if (pr.draft) {
-              fail('PR must be marked ready for review before merging to main.');
-              return;
-            }
-
-            const releaseMatch = releasePattern.exec(headRef);
-            const hotfixMatch = hotfixPattern.test(headRef);
-
-            if (headRef.startsWith('release/') && !releaseMatch) {
-              fail(`Release branches must use the form release/vX.Y.Z. Received '${headRef}'.`);
-              return;
-            }
-
-            if (headRef.startsWith('hotfix/') && !hotfixMatch) {
-              fail(`Hotfix branches must use the form hotfix/<slug>. Received '${headRef}'.`);
-              return;
-            }
-
-            if (releaseMatch) {
-              const version = releaseMatch.groups.version;
-              const expectedTitle = `chore(release): v${version}`;
-              if (pr.title !== expectedTitle) {
-                fail(`Release PR title must be '${expectedTitle}'. Received '${pr.title || '<missing>'}'.`);
-                return;
-              }
-
-              const missing = missingSections(pr.body, releaseSections);
-              if (missing.length > 0) {
-                fail(`Release PR body is missing required section(s): ${missing.join(', ')}.`);
-                return;
-              }
-            } else if (hotfixMatch) {
-              const missing = missingSections(pr.body, hotfixSections);
-              if (missing.length > 0) {
-                fail(`Hotfix PR body is missing required section(s): ${missing.join(', ')}.`);
-                return;
-              }
-            }
-
-            core.info(`Branch guard passed for '${headRef}'.`);
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: Validate release branch name
+        run: node scripts/workflows/branch-policy/validate-main-branch-pr.cjs

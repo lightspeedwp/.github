@@ -9,7 +9,7 @@ tools: ["codebase", "search", "editFiles"]
 
 ## 0. Goal
 
-You are working on the `lightspeedwp/.github` repository, branch **`recover/readmes`**.
+You are working on the `lightspeedwp/.github` repository, branch **`recover/readmes`**.  
 Your job is to:
 
 1. **Align configuration** (`labels.yml`, `labeler.yml`, `issue-types.yml`) with the agreed label & issue-type strategy.

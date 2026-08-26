@@ -1,29 +1,20 @@
 /**
  * issues.agent.js
  *
- * Applies default triage labels (status, priority, type) to newly opened issues
- * when those label categories are not already present. Runs in advisory mode by
- * default; pass --apply to write labels to GitHub.
- *
+ * Advisory implementation for the Issues agent. Provides lightweight
+ * recommendations without mutating GitHub state. Extend with API calls when
+ * ready to automate labelling and enrichment.
  * @module scripts/agents/issues.agent.js
- * @see ../../../.github/agents/issues.agent.md
+ * @see ../../agents/issues.agent.md
  */
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const fs = require("fs");
+const path = require("path");
+const __filename = __filename || process.argv[1];
+const __dirname = __dirname || path.dirname(__filename);
 
-const BOT_LOGINS = new Set([
-  "dependabot[bot]",
-  "app/dependabot",
-  "github-actions[bot]",
-  "imgbot[bot]",
-  "app/imgbot",
-]);
-
+const DEFAULT_LABELS = ["status:needs-triage", "priority:normal"];
 const KEYWORD_TYPE_MAP = {
   bug: "type:bug",
   fix: "type:bug",
@@ -62,71 +53,33 @@ function loadIssuePayload() {
 function detectTypeLabel(title = "", body = "") {
   const content = `${title} ${body}`.toLowerCase();
   for (const keyword of Object.keys(KEYWORD_TYPE_MAP)) {
-    if (new RegExp(`\\b${keyword}\\b`).test(content)) {
+    if (content.includes(keyword)) {
       return KEYWORD_TYPE_MAP[keyword];
     }
   }
   return null;
 }
 
-function buildLabelsToApply(payload) {
-  const existingLabels = (payload?.issue?.labels || [])
-    .map((l) => (typeof l === "string" ? l : l?.name))
-    .filter((name) => typeof name === "string");
-  const hasStatus = existingLabels.some((l) => l.startsWith("status:"));
-  const hasPriority = existingLabels.some((l) => l.startsWith("priority:"));
-  const hasType = existingLabels.some((l) => l.startsWith("type:"));
+function buildRecommendations(payload) {
+  const labels = new Set(DEFAULT_LABELS);
+  const title = payload?.issue?.title || "";
+  const body = payload?.issue?.body || "";
+  const detectedType = detectTypeLabel(title, body);
 
-  const toAdd = [];
-
-  if (!hasStatus) toAdd.push("status:needs-triage");
-  if (!hasPriority) toAdd.push("priority:normal");
-
-  if (!hasType) {
-    const detected = detectTypeLabel(
-      payload?.issue?.title || "",
-      payload?.issue?.body || "",
-    );
-    if (detected) toAdd.push(detected);
+  if (detectedType) {
+    labels.add(detectedType);
   }
 
-  return toAdd;
-}
-
-async function applyLabels(payload, labelsToAdd) {
-  const token = process.env.GITHUB_TOKEN;
-  if (!token) {
-    log("GITHUB_TOKEN not set; cannot apply labels.");
-    return;
-  }
-
-  const repo = process.env.GITHUB_REPOSITORY || "";
-  if (!repo.includes("/")) {
-    log("GITHUB_REPOSITORY not set; cannot apply labels.");
-    return;
-  }
-
-  const { getOctokit } = await import("@actions/github");
-  const octokit = getOctokit(token);
-  const [owner, repoName] = repo.split("/");
-  const issueNumber = payload.issue.number;
-
-  try {
-    await octokit.rest.issues.addLabels({
-      owner,
-      repo: repoName,
-      issue_number: issueNumber,
-      labels: labelsToAdd,
-    });
-    log(`Applied labels to issue #${issueNumber}: ${labelsToAdd.join(", ")}`);
-  } catch (error) {
-    log(`Failed to apply labels to issue #${issueNumber}: ${error.message}`);
-  }
+  return {
+    labels: Array.from(labels),
+    detectedType,
+  };
 }
 
 async function runIssuesAgent(options = {}) {
   const dryRun = options.dryRun ?? true;
   const payload = loadIssuePayload();
+  const repoRoot = path.resolve(__dirname, "..", "..");
 
   log(
     `Running issues agent in ${dryRun ? "advisory" : "apply"} mode for ${
@@ -135,46 +88,33 @@ async function runIssuesAgent(options = {}) {
   );
 
   if (!payload?.issue) {
-    log("No issue payload available; skipping.");
+    log("No issue payload available; exiting after advisory run.");
     return;
   }
 
-  const author = payload.issue.user?.login || "";
-  const isBot = payload.issue.user?.type === "Bot" || BOT_LOGINS.has(author);
-
-  if (isBot) {
-    log(`Skipping bot-authored issue #${payload.issue.number} (${author}).`);
-    return;
-  }
-
-  const labelsToAdd = buildLabelsToApply(payload);
-
-  if (labelsToAdd.length === 0) {
-    log(
-      `Issue #${payload.issue.number} already has status, priority, and type labels; nothing to apply.`,
-    );
-    return;
-  }
+  const recommendations = buildRecommendations(payload);
 
   log(
-    `Issue #${payload.issue.number}: "${payload.issue.title}" — labels to apply: ${labelsToAdd.join(", ")}`,
+    `Issue #${payload.issue.number}: "${payload.issue.title}" — recommended labels: ${recommendations.labels.join(
+      ", ",
+    )}`,
   );
 
   if (!dryRun) {
-    await applyLabels(payload, labelsToAdd);
-  } else {
-    log("Advisory mode: no labels written.");
+    // TODO: Implement apply mode automation (labels/comments) once the full agent workflow is ready.
+    log("Apply mode requested but automation is not implemented yet.");
   }
 
-  log("Issues agent finished.");
+  log(`Working directory: ${repoRoot}`);
+  log("Issues agent finished without errors.");
 }
 
-export { runIssuesAgent };
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
+module.exports = {
+  runIssuesAgent,
+};
+
+if (require.main === module) {
   const dryRun = !process.argv.includes("--apply");
   runIssuesAgent({ dryRun }).catch((error) => {
     console.error("[issues-agent] fatal error", error);

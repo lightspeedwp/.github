@@ -10,9 +10,9 @@ require('dotenv').config();
 module.exports = {
     // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
     testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
-    // Provide setup files for global polyfills (TextDecoder, localStorage)
+    // Provide a setup file that polyfills localStorage (defensive if environment overridden).
     setupFilesAfterEnv: [
-        '<rootDir>/tests/jest.setup.globals.js',
+        '<rootDir>/.github/tests/jest.setup.localstorage.js',
     ],
     globals: {
         'babel-jest': {
@@ -26,10 +26,7 @@ module.exports = {
         process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',
         process.env.JEST_TEST_MATCH_3 || '**/__tests__/**/*.test.js',
         process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.ts',
-        process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.cjs',
-        process.env.JEST_TEST_MATCH_6 || '**/tests/**/*.test.cjs',
     ],
-    testTimeout: process.env.JEST_TEST_TIMEOUT || 30000,
     verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
     transform: {
         '^.+\\.[jt]sx?$': [
@@ -43,12 +40,10 @@ module.exports = {
         '<rootDir>/scripts/agents/includes/sync-version.js',
     ],
     moduleNameMapper: {
-        // Only strip the explicit ".js" extension from relative ESM imports.
-        '^(\\.{1,2}/.*)\\.js$': '$1',
+        '^(\.{1,2}/.*)\.js$': '$1',
     },
     moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
-    coverageProvider: 'v8',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
     collectCoverageFrom: [
         process.env.JEST_COVERAGE_FROM_1 || 'scripts/**/*.js',
@@ -67,13 +62,10 @@ module.exports = {
         '<rootDir>/logs/',
         '<rootDir>/tmp/',
         '<rootDir>/.cache/',
-        '<rootDir>/.claude/',
         '<rootDir>/.husky/',
         '<rootDir>/.vercel/',
         '<rootDir>/.netlify/',
         '<rootDir>/.storybook/',
-        '<rootDir>/.jest-skip/',
         '<rootDir>/docs/mustache-repo-templates/',
-        '<rootDir>/scripts/automation/(?!.*\\.test\\.)',
     ],
 };

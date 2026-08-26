@@ -4,7 +4,7 @@
  * TODO: Expand with assertions validating semantic version sync behavior.
  */
 const fs = require("fs");
-const _path = require("path");
+const path = require("path");
 
 describe("sync-version (canonical includes)", () => {
   it("loads without error", () => {

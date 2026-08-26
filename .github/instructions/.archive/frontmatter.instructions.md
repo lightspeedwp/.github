@@ -1,8 +1,8 @@
 ---
 file_type: "instructions"
 title: "Frontmatter Instructions"
-version: "v1.2"
-last_updated: "2026-06-19"
+version: "v1.1"
+last_updated: "2025-12-04"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Instructions for creating and validating YAML frontmatter for all LightSpeedWP documentation and code files."
@@ -84,8 +84,6 @@ references:
 
 ```mermaid
 graph TD
-accTitle: Frontmatter validation flow
-accDescr: Shows how a file with frontmatter moves through schema validation and either passes or returns for correction before automation uses it.
     A[File with Frontmatter] --> B[Schema Validation]
     B -->|Valid| C[Accepted]
     B -->|Invalid| D[Error: Fix Required]
@@ -254,7 +252,7 @@ description: "Generate performance remediation checklist for a WordPress site"
 mode: ask
 model: gpt-4o
 domain: perf
-stability: "stable"
+stability: stable
 tags: ["audit", "wp-core", "optimization"]
 tools: ["terminal", "browser"]
 ---
@@ -358,8 +356,13 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 
 ---
 
----
+## References
 
-📐 *Schema validated by LightSpeedWP — always compliant.*
+- **Schema**: [frontmatter.schema.json](../../schemas/frontmatter.schema.json)
+- **Documentation**: [FRONTMATTER-SCHEMA.md](../../docs/FRONTMATTER-SCHEMA.md)
+- **Instructions**: [frontmatter.instructions.md](frontmatter.instructions.md)
+- **YAML Guides**: [YAML.md](../../docs/YAML.md), [YAML-Frontmatter.md](../../docs/YAML-Frontmatter.md)
+- **Validation**: [validate-frontmatter.js](../../scripts/json-validation/validate-frontmatter.js)
+- **Awesome-Copilot**: Original conventions preserved and extended
 
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Produced with accessibility and inclusivity in mind. This document follows LightSpeed governance v2.0 and awesome-copilot integration standards.*

@@ -1,5 +1,4 @@
 ---
-file_type: saved-reply
 title: "Workflow Failure Saved Reply"
 description: "Explanation and next steps when CI or automation workflows fail."
 category: "Workflow"

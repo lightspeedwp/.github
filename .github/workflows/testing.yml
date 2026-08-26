@@ -1,0 +1,25 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [develop]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - run: node --version && npm --version
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run lint:yaml
+      - run: npm run lint:pkg-json
+      - run: npm run lint:workflows
+      - run: npm run lint:md
+      - run: npm run lint:json
+      - run: npm run test

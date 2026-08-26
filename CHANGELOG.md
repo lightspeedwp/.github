@@ -1,65 +1,152 @@
----
-title: "Changelog"
-description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
-file_type: "documentation"
-created_date: "2025-09-20"
-last_updated: "2026-08-25"
-consolidation_phase: "Phase 1 (merged sections)"
-owners:
-  - LightSpeed Team
-tags:
-  - changelog
-  - release
-  - documentation
-status: active
-stability: stable
-domain: governance
-language: en
----
-
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-12-18
+
+### Maintenance
+
+- Repository maintenance: metrics snapshot updates, documentation and script syncs, and archive moves ([#64c3662](https://github.com/lightspeedwp/.github/commit/64c3662927b55996ad3c1966b9d65fe0d5253e16), [#aa66dc6](https://github.com/lightspeedwp/.github/commit/aa66dc6fe959113f24080d35749524d1f6784338), [#dd5b55f](https://github.com/lightspeedwp/.github/commit/dd5b55f14c4a2b697ca4f370f50830e099f197aa)).
+
+## [0.2.0] - 2025-12-18
+
 ### Added
 
-### Fixed
+- Comprehensive meta agent (`meta.agent.js`) for unified front matter, badge, human reference, and footer automation (renamed from branding agent)
+- Unified labeling agent (`labeling.agent.js`) replacing split status/type/standardization agents
+- Extended README management with support for dynamic header/footer insertion and frontmatter validation
+- Footer schema configuration (`footer.schema.json`) and header schema for consistent presentation
+- Enhanced frontmatter validation across all `.md` files in repository
+- Support for multiple footer variants with deterministic selection via seeding
+- Emoji support in README headings for improved visual hierarchy
+- Mermaid diagram preservation in all README updates
+- Batch processing capabilities for efficient multi-file updates
 
 ### Changed
 
-### Removed
+- Updated all README files with emoji-enhanced headings for better visual hierarchy
+- Migrated frontmatter across core documentation to unified `frontmatter.schema.json` standard
+- Reorganized `.github/agents/` structure with shared utilities in `includes/` subdirectory
+- Consolidated badge management under meta agent (deprecated `badges.agent.js`)
+- Unified header/footer handling under meta agent (deprecated `header-footer.agent.js`)
+- Standardized YAML frontmatter metadata across all documentation files
+- Enhanced README file templates with proper frontmatter structure
+- Updated version numbers for all core README files to reflect latest changes
 
 ### Deprecated
 
-### Security
+- `badges.agent.js` - Use `meta.agent.js` instead for unified badge/header/footer management
+- `header-footer.agent.js` - Use `meta.agent.js` instead for unified automation
 
-## [1.0.0] - 2026-08-25
+### Documentation
 
-### Added
-
-- **Changelog Manager Agent** — Comprehensive changelog management with validation, entry formatting, and release integration. ([PR #2342](https://github.com/lightspeedwp/.github/pull/2342))
-- **Agentic Release Training Program — Phase 9B Documentation Complete** — Comprehensive training and reference materials for the two-phase agentic release workflow including runbooks for patch, minor, and major releases. ([PR #2328](https://github.com/lightspeedwp/.github/pull/2328))
-- **Release Workflow E2E Test Suite — Phase 9A** — Comprehensive end-to-end testing for two-phase agentic release workflow with 8 test scenarios covering all 7 safety gates. ([PR #2318](https://github.com/lightspeedwp/.github/pull/2318))
-- **PR Creation Agent — Phase 4 Integration Testing** — 52 comprehensive integration tests, mock GitHub API, and CI/CD pipeline for skill orchestration with 79% passing rate. ([PR #2335](https://github.com/lightspeedwp/.github/pull/2335))
+- Added comprehensive meta agent specification in `.github/agents/meta.agent.md`
+- Updated unified labeling agent documentation with latest configuration options
+- Created detailed README templates for nested project directories
+- Enhanced footer-content.json with multiple funky footer variants
+- Documented footer schema validation and implementation
+- Added examples for frontmatter validation across file types
+- Created inline documentation for all agent helper functions
 
 ### Fixed
 
-- **Workflow Test Fixes — Label Validation & Security Tests** — Fixed core workflow test failures including label validation (33/33 passing), security test patterns (18/18 passing), and module path validation. ([PR #2342](https://github.com/lightspeedwp/.github/pull/2342))
-- **Test Suite Failures Resolution** — Fixed 11 pre-existing test suite failures including module export issues, CommonJS/ES6 compatibility, and test expectation corrections. ([PR #2264](https://github.com/lightspeedwp/.github/pull/2264))
-- **GitHub Actions v7 Upgrade** — Standardized GitHub Actions versions across all workflows from v4/v5 to v7 stable. ([PR #1688](https://github.com/lightspeedwp/.github/pull/1688))
+- Corrected frontmatter schema validation errors in documentation files
+- Fixed missing `created_date` fields in core README files
+- Resolved inconsistent emoji usage across headings
+- Fixed footer text alignment and markdown formatting
+- Corrected references paths in frontmatter to use relative paths consistently
+- Fixed mermaid diagram formatting in README files
+
+### Performance
+
+- Optimized README file updates with batch multi-replace operations
+- Improved footer selection performance with deterministic seeding
+- Enhanced memory efficiency in meta agent for large file batches
+
+## [0.1.0] - 2025-09-25
+
+### Added
+
+- Initial release of LightSpeed WordPress organization community health files
+- GitHub Copilot custom instructions and organization-wide guidelines
+- Comprehensive instruction files for WordPress development:
+  - `coding-standards.instructions.md` - WordPress coding standards for PHP, JS, CSS
+  - `html-template.instructions.md` - Block template and template part guidelines
+  - `pattern-development.instructions.md` - Block pattern creation and advanced usage
+  - `php-block.instructions.md` - PHP block development and theme setup
+  - `playwright-tests.instructions.md` - Browser automation and accessibility testing
+  - `theme-json.instructions.md` - Theme.json configuration and design tokens
+- AI prompt templates for:
+  - `accessibility-review.prompt.md` - Accessibility compliance review
+  - `dev-code-review.prompt.md` - Code review and standards verification
+  - `pattern-generation.prompt.md` - Block pattern generation assistance
+  - `refactor-theme-types.prompt.md` - WordPress theme refactoring guidance
+- Issue templates for comprehensive project management:
+  - Bug reports, feature requests, documentation requests
+  - Performance issues, UX feedback, integration issues
+  - Code refactoring, task management, custom instructions proposals
+- Pull request templates with WordPress-specific checklists
+- VS Code configuration optimized for WordPress development:
+  - MCP (Model Context Protocol) auto-start configuration
+  - WordPress-specific extensions and settings
+  - GitHub Copilot integration with custom instructions
+  - Proper file associations for instruction and prompt files
+- Example WordPress block structure following best practices
+- Comprehensive documentation and README files
+- GitHub Actions workflows for issue metrics and labeling
+- Saved replies for common support scenarios
+- Organization profile README showcasing LightSpeed projects
+
+### Deprecated
+
+- [placeholder]
+
+### Fixed
+
+- Standardized YAML frontmatter across all instruction files
+- Corrected indentation and formatting inconsistencies
+- Aligned VS Code settings with repository structure
+- Removed non-standard configuration keys for better compatibility
 
 ### Changed
 
-- **Frontmatter Validation Improvements** — Systematically fixed 155+ pre-existing frontmatter validation issues across 342+ files with proper file_type and status values. ([PR #2342](https://github.com/lightspeedwp/.github/pull/2342))
-- **Schema Folder Consolidation** — Consolidated schema references from deprecated .schemas/ to canonical schemas/ location across all scripts and documentation. ([PR #2342](https://github.com/lightspeedwp/.github/pull/2342))
+- Updated author attribution to "LightSpeedWP Team" for consistency
+- Standardized related_links format as simple URL lists
+- Enhanced MCP configuration for WordPress development context
+- Improved file associations and discovery paths for AI tools
 
----
+### Documentation
 
-**Release Date:** 2026-08-25  
-**Status:** Stable  
-**Version:** 1.0.0
+- Added comprehensive README files for instructions and prompts
+- Created implementation guide for WordPress block development
+- Established clear contribution guidelines and coding standards
+- Documented VS Code configuration and MCP setup procedures
+
+### Performance
+
+- [placeholder]
+
+### Removed
+
+- [placeholder]
+
+### Security
+
+- Implemented proper input sanitization and output escaping in examples
+- Added security guidelines in coding standards
+- Established secure development practices in instruction files
+
+## Reference
+
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
+- [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
+- [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
+- [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [Org-wide Issue Labels](.github/ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](.github/PR_LABELS.md): PR classification and automation standards.
+- [Issue Types Guide](.github/ISSUE_TYPES.md): Classification and usage of issue types.

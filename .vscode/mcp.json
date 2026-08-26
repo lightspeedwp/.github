@@ -1,16 +1,11 @@
 {
-  "servers": {
-    "io.github.wonderwhy-er/desktop-commander": {
-      "type": "stdio",
+  "mcpServers": {
+    "github": {
       "command": "npx",
-      "args": [
-        "--registry",
-        "https://registry.npmjs.org",
-        "@wonderwhy-er/desktop-commander@0.2.42"
-      ],
-      "gallery": "https://api.mcp.github.com",
-      "version": "0.2.42"
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_AUTH_TYPE": "oauth"
+      }
     }
-  },
-  "inputs": []
+  }
 }

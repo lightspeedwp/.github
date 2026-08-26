@@ -1,16 +1,14 @@
 ---
-file_type: "pr-template"
-title: "PR Template - DOCS"
-description: "Pull request template for DOCS changes"
-version: "1.0.1"
-last_updated: "2026-06-03"
-category: "github-templates"
+name: "Docs-only PR"
+about: "Documentation updates: READMEs, guides, contributor docs"
+title: "docs: {short summary}"
+labels: ["status:needs-review", "lang:md", "area:documentation"]
 ---
 
 # Documentation Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for required rules.
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
 
@@ -43,7 +41,7 @@ Relates to #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -74,7 +72,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
 
 ---

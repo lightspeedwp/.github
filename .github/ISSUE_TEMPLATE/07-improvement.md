@@ -1,10 +1,17 @@
 ---
-file_type: "issue-template"
 name: "🔧 Improvement"
 about: "Propose enhancements, polish, or usability improvements."
-version: "1.0.2"
-last_updated: "2026-06-19"
-category: "github-templates"
+title: "[Improvement] <Short summary>"
+labels: [status:needs-triage, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: improve
+references:
+  - ../../CONTRIBUTING.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 <!--
@@ -87,7 +94,3 @@ Use correct branch prefix (feat/ or enhancement/) for PRs.
 - [ ] PR uses correct branch prefix
 
 ---
-
----
-
-Related issues: {related_issues}

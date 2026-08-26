@@ -62,10 +62,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
           cache: 'npm'
@@ -81,10 +81,10 @@ jobs:
 
           # Check for reports in wrong locations
           if [ -d "reports" ]; then
-            echo "❌ Found reports in root./.github/reports/ folder - should be in .github/reports/" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Found reports in root /reports/ folder - should be in .github/reports/" >> $GITHUB_STEP_SUMMARY
             echo "reports_in_wrong_location=true" >> $GITHUB_OUTPUT
           else
-            echo "✅ No reports in root./.github/reports/ folder" >> $GITHUB_STEP_SUMMARY
+            echo "✅ No reports in root /reports/ folder" >> $GITHUB_STEP_SUMMARY
             echo "reports_in_wrong_location=false" >> $GITHUB_OUTPUT
           fi
 
@@ -142,10 +142,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
           cache: 'npm'
@@ -232,7 +232,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Find stale reports
         id: stale
@@ -280,7 +280,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Update main README
         if: github.event.inputs.dry_run != 'true'

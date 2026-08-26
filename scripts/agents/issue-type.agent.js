@@ -21,7 +21,7 @@ let detectIssueTypeFromContent;
 try {
   const labelingAgent = require("./labeling.agent.js");
   detectIssueTypeFromContent = labelingAgent.detectIssueTypeFromContent;
-} catch (_e) {
+} catch (e) {
   // Fallback for ES module import
   // This will be handled at runtime when called as an agent
 }
@@ -55,6 +55,7 @@ async function run(context = {}) {
     message: "This agent has been merged into labeling.agent.js",
   };
 }
+
 
 module.exports = {
   run,

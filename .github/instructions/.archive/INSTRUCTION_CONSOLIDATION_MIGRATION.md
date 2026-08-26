@@ -1,15 +1,13 @@
 ---
-title: Instruction Consolidation Migration Guide
-description: Maps legacy instruction files to their new consolidated locations in
-  the LightSpeed organization.
-version: v1.0
-created_date: '2025-12-07'
-last_updated: '2025-12-07'
-file_type: migration-guide
-authors:
-- LightSpeed Team
-domain: governance
-stability: stable
+title: "Instruction Consolidation Migration Guide"
+description: "Maps legacy instruction files to their new consolidated locations in the LightSpeed organization."
+version: "v1.0"
+created_date: "2025-12-07"
+last_updated: "2025-12-07"
+file_type: "migration-guide"
+authors: ["LightSpeed Team"]
+domain: "governance"
+stability: "stable"
 ---
 
 # Instruction Consolidation Migration Guide

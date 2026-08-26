@@ -1,251 +1,205 @@
 ---
 file_type: "documentation"
-title: "Validation Scripts"
-description: "Comprehensive validation scripts for LightSpeedWP .github repository ensuring schema compliance, frontmatter standards, and code quality"
-version: '1.1'
-last_updated: '2026-08-20'
+name: "Frontmatter Validation"
+description: "Comprehensive frontmatter validation scripts for LightSpeedWP .github repository ensuring schema compliance and consistency"
+version: "1.0.0"
+last_updated: "2025-12-04"
 owners:
-  - LightSpeedWP Team
+  - "LightSpeedWP Team"
 tags:
-  - validation
-  - automation
-  - quality-assurance
-  - testing
-  - frontmatter
+  - "validation"
+  - "frontmatter"
+  - "schema"
+  - "testing"
+  - "automation"
+apply_to:
+  - "repository maintenance"
+  - "documentation standards"
+  - "quality assurance"
 ---
 
-# Validation Scripts Directory
 
-This directory contains **validation scripts** used across the LightSpeedWP `.github` repository to ensure consistency, compliance, and quality standards.
+# JSON, YAML & Frontmatter Validation
 
-## Purpose
+This directory contains all validation scripts and tests for JSON, YAML, and Markdown frontmatter used throughout the LightSpeedWP .github repository. All validation logic has been consolidated here from previous locations (including `scripts/coderabbit-validation/`).
 
-- **Frontmatter Validation** — Ensure all documentation has complete, valid frontmatter
-- **Changelog Validation** — Keep a Changelog 1.1.0 compliance checking
-- **Schema Validation** — JSON/YAML schema compliance across config files
-- **Link Validation** — Broken link detection and fixing
-- **Branching Rules** — Enforce branch naming conventions
-- **Workflow Validation** — GitHub Actions workflow integrity checks
+## Overview
 
-## Key Scripts
+The validation system provides automated checking of:
 
-### Changelog Validation
+- YAML frontmatter in Markdown files (schema and field validation)
+- JSON files (linting, formatting, schema validation)
+- YAML configuration files (including `.coderabbit.yml`)
 
-- **`validate-changelog.cjs`** — Validate CHANGELOG.md schema and format
-- **`changelog-rules.cjs`** — Define changelog format rules (em-dashes, length, capitalization)
-- **`fix-changelog-format.cjs`** — Auto-fix changelog formatting issues
-- **Related tests:** `__tests__/validate-changelog.test.js`, `__tests__/changelogBuilder.test.js`
+All schema files are stored in `../../.schemas/`.
 
-### Frontmatter Validation
+```mermaid
+graph TD
+    A[File Discovery] --> B[Frontmatter Extraction]
+    B --> C[Schema Validation]
+    C --> D[LightSpeed Rules Check]
+    D --> E[Reference Validation]
+    E --> F[Report Generation]
+    F --> G[Log Output]
 
-- **`validate-frontmatter.js`** — Comprehensive frontmatter schema validation
-- **`validate-frontmatter-changed.js`** — Validate only changed files
-- **`validate-frontmatter-freshness.js`** — Check last_updated dates are recent
-- **`validate-agent-frontmatter.js`** — Agent-specific frontmatter validation
+    H[Configuration] --> A
+    I[Schema File] --> C
+    J[File Patterns] --> A
 
-### Structure & Schema Validation
-
-- **`validate-json.js`** — JSON file validation
-- **`validate-coderabbit-yml.cjs`** — CodeRabbit config validation
-- **`validate-labeling-configs.cjs`** — Label configuration validation
-- **`validate-workflows.js`** — GitHub Actions workflow validation
-- **`validate-agents.js`** — Agent specification validation
-- **`validate-plugins.js`** — Plugin structure validation
-- **`validate-skills.js`** — Skill structure validation
-
-### Code Quality
-
-- **`lint-md-changed.cjs`** — Markdown linting for changed files
-- **`validate-links.js`** — Detect broken links in documentation
-- **`validate-readme-links.js`** — Validate README cross-references
-
-### Branch & Commit Validation
-
-- **`validate-branch-name.js`** — Enforce branch naming conventions
-- **`validate-conventional-commits.js`** — Conventional commit format checking
-
-### Accessibility & Mermaid
-
-- **`validate-mermaid-syntax.js`** — Mermaid diagram syntax validation
-- **`validate-mermaid-accessibility.js`** — Accessibility checks (labels, descriptions)
-- **`validate-mermaid-colour-contrast.js`** — Color contrast validation for color-blind accessibility
-
-### Specialized Validation
-
-- **`validate-version.cjs`** — Version file consistency checking
-- **`validate-issue-fields.cjs`** — GitHub issue field validation
-- **`validate-memory.js`** — User memory file validation (MEMORY.md structure)
-- **`validate-retired-doc-links.js`** — Check for links to archived/removed docs
-- **`validate-workflow-npm-scripts.cjs`** — Verify npm script references in workflows
-
-## Testing
-
-All validation scripts have corresponding test files in `__tests__/`:
-
-```bash
-# Run all validation tests
-npm test
-
-# Run specific validation test
-jest __tests__/validate-changelog.test.js
-jest __tests__/validate-frontmatter.test.js
+    style A fill:#e1f5fe
+    style F fill:#f3e5f5
+    style G fill:#e8f5e8
 ```
 
-**Test Coverage:** 100+ test files across validation suite
+## Main Scripts
+
+- **`validate-frontmatter.js`** — Validates Markdown frontmatter for all .md files in the repo against the canonical schema
+- **`validate-json.js`** — Comprehensive JSON linting and validation tool (Prettier, JSONLint, Ajv schema validation)
+- **`validate-coderabbit-yml.cjs`** — Validates `.coderabbit.yml` for YAML syntax and required fields, using the latest CodeRabbit schema
+- **`update-coderabbit-schema.cjs`** — Downloads and updates the latest CodeRabbit schema for offline validation
+
+## Test Files
+
+- **`__tests__/validate-frontmatter.test.js`** — Test suite for frontmatter validation
+- **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
+
+## Features
+
+### ✅ Schema Validation
+
+- Validates frontmatter against `frontmatter.schema.json`
+- Validates JSON files against schemas (Ajv)
+- Validates `.coderabbit.yml` against the latest CodeRabbit schema
+
+### 🔍 File Type Detection
+
+- Detects file types and applies type-specific validation rules
+
+### 📋 Required Fields Validation
+
+- Enforces required fields for frontmatter and config files
+
+### 💡 Recommended Fields Checking
+
+- Suggests optional but recommended fields for consistency
+
+### 🔗 Reference Policy
+
+- Verifies that the deprecated `references` frontmatter field is not present and that any needed links live inline in the document body
+
+### 📊 Comprehensive Reporting
+
+- Color-coded console output, detailed logs, and summary statistics
 
 ## Usage Examples
 
-### Validate CHANGELOG.md
+### Frontmatter Validation
 
 ```bash
-node scripts/validation/validate-changelog.cjs ./CHANGELOG.md
+# Run validation with default settings
+node validate-frontmatter.js
 ```
 
-### Validate Frontmatter
+### Structure Validation
 
 ```bash
-node scripts/validation/validate-frontmatter.js ./docs/my-guide.md
+# Validate required portable source folders without modifying files
+npm run validate:structure
 ```
 
-### Fix Changelog Formatting
+### JSON Validation & Linting
 
 ```bash
-node scripts/validation/fix-changelog-format.cjs ./CHANGELOG.md
+# Check whether JSON files would be formatted
+node validate-json.js --format-only --read-only
+
+# Validate syntax only (strict, read-only mode)
+node validate-json.js --validate-only --strict --read-only
+
+# Format all JSON files
+npm run format:json
+
+# Format active schema files
+npm run format:json:schemas
+
+# Validate against a schema
+node validate-json.js --glob "data/**/*.json" --schema "schema/my-doc.schema.json" --spec draft2020 --validate-only --read-only
 ```
 
-### Validate Branch Name
+### Validate CodeRabbit Configuration
 
 ```bash
-node scripts/validation/validate-branch-name.js --branch feat/new-feature
+# Validate the main .coderabbit.yml file
+node validate-coderabbit-yml.cjs
 ```
 
-### Lint Changed Markdown
+### Update CodeRabbit Schema
 
 ```bash
-git diff --name-only | node scripts/validation/lint-md-changed.cjs
-```
-
-## Integration with Workflows
-
-These scripts are called from GitHub Actions workflows:
-
-- **Pull Request Validation:** `.github/workflows/pr-validation.yml`
-- **Changelog Management:** `.github/workflows/changelog-management.yml`
-- **Release Process:** `.github/workflows/release.yml`
-- **Labeling Workflows:** `.github/workflows/labeling.yml`
-
-## Return Codes
-
-Most validation scripts follow this convention:
-
-```
-0 = Success (validation passed)
-1 = Failure (validation failed)
-2 = Warning (non-blocking issues)
+node update-coderabbit-schema.cjs
 ```
 
 ## Configuration
 
-Many validation scripts read configuration from:
+All schema files are stored in `../../.schemas/`.
+Default configuration for frontmatter validation is in `validate-frontmatter.js`.
 
-- **`.github/labels.yml`** — Label definitions
-- **`.schemas/`** — JSON schema definitions
-- **`schemas/`** — Portable schema copies
-- **`.coderabbit.yaml`** — CodeRabbit configuration
-- **`.github/custom-instructions.md`** — Custom instructions
+## Validation Rules
 
-## Common Patterns
+See the schema files in `../../.schemas/` for required and recommended fields for each file type.
 
-### Error Messages
+## Output Examples
 
-All validation scripts provide clear, actionable error messages:
+See script output and logs for validation results, errors, and warnings.
 
-```
-❌ Validation Failed: CHANGELOG.md
-   Error: Missing [Unreleased] section
-   Fix: Add ## [Unreleased] section to CHANGELOG.md
-```
+## Integration
 
-### Logging
+- Automated testing: All validation scripts are run as part of CI/CD pipeline
+- Pre-commit hooks: Validate configs and docs before commit
+- Logging: Results are logged to `../../logs/validation/`
 
-Scripts support verbose logging:
+## Development
+
+### Running Tests
 
 ```bash
-DEBUG=true node scripts/validation/validate-frontmatter.js ./docs/file.md
-VERBOSE=true node scripts/validation/validate-changelog.cjs
+# Install dependencies
+npm install
+# Run all tests
+npm test
+# Run tests with coverage
+npm run test:coverage
+# Watch mode for development
+npm run test:watch
 ```
 
-### Dry-Run Mode
+### Adding New Validation Rules
 
-Some scripts support dry-run to preview changes:
+1. Update or add schema in `../../.schemas/`
+2. Add or update validation script in this folder
+3. Add or update test cases
+4. Update this README
 
-```bash
-node scripts/validation/fix-changelog-format.cjs --dry-run
-```
+## Error Handling
 
-## Adding New Validation Scripts
+All validation scripts provide robust error handling and log errors to the console and log files.
 
-When creating a new validation script:
+## Dependencies
 
-1. **Name it descriptively** without `.agent.js` suffix (e.g., `validate-xyz.js`)
-2. **Use clear return codes** (0 = pass, 1 = fail)
-3. **Provide helpful error messages** with actionable fixes
-4. **Add comprehensive tests** in `__tests__/[name].test.js`
-5. **Document usage** in this README
-6. **Export functions** for reuse in workflows
+- **ajv**: JSON Schema validation
+- **ajv-formats**: Additional format validators
+- **js-yaml**: YAML parsing and processing
+- **glob**: File pattern matching
+- **jest**: Testing framework (dev dependency)
 
-## Performance Notes
+## Related Documentation
 
-- **Bulk validation:** Scripts process multiple files efficiently
-- **Concurrency:** Some scripts use parallel processing
-- **Large repos:** Optimized for repositories with 1000+ files
-
-## Troubleshooting
-
-### "Script not found"
-
-Ensure you're running from the repository root:
-
-```bash
-cd /path/to/.github
-node scripts/validation/validate-changelog.cjs
-```
-
-### "Module not found"
-
-Install dependencies:
-
-```bash
-npm ci
-```
-
-### Permission denied
-
-Make scripts executable:
-
-```bash
-chmod +x scripts/validation/validate-*.js
-```
-
-## References
-
-- [Frontmatter Standards](../../instructions/documentation-formats.instructions.md)
-- [Coding Standards](../../instructions/coding-standards.instructions.md)
-- [Labeling Guide](../../docs/LABELING.md)
-- [CHANGELOG Automation](../../docs/CHANGELOG_AUTOMATION.md)
-- [Mermaid Accessibility](../../docs/VALIDATION_MERMAID_ACCESSIBILITY.md)
-
----
+- [Frontmatter Schema](../../.schemas/frontmatter.schema.json)
+- [CodeRabbit Schema](../../.schemas/coderabbit-overrides.v2.json)
+- [Tagging Conventions](../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)
+- [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
+- [YAML Documentation](../../docs/YAML.md)
+- [Test Coverage Reports](../../coverage/README.md)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.

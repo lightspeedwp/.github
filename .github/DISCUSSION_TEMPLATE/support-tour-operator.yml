@@ -1,3 +1,5 @@
+name: "Product Support: Tour Operator"
+description: "Get help, ask questions, or share issues about the Tour Operator plugin or extensions."
 labels:
   - discussion:support
 template: |

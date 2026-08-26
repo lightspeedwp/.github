@@ -1,10 +1,6 @@
 ---
-file_type: "documentation"
-title: "GitHub Discussions Guide"
-description: "Guide for using, organizing, and labeling GitHub Discussions for the LightSpeed organization."
----
-
 *Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
+---
 
 # GitHub Discussions Guide
 
@@ -127,4 +123,7 @@ These labels help you:
 
 ---
 
+*Want to propose a new label or discussion category? Start a [community discussion](https://github.com/orgs/lightspeedwp/discussions) or tag a maintainer!*
+
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

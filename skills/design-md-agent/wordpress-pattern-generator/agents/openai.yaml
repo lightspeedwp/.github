@@ -1,0 +1,14 @@
+interface:
+  display_name: WP Pattern Generator
+  short_description:
+    Generate WordPress block theme pattern files with correct headers
+    and usage metadata.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true
