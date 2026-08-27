@@ -1,8 +1,8 @@
 ---
 title: "VS Code Workspace Configuration"
 description: "Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment"
-version: "v1.4"
-last_updated: '2026-06-19'
+version: "v1.0"
+last_updated: "2025-12-04"
 maintainer: "LightSpeed Engineering"
 tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
 file_type: "configuration"
@@ -22,8 +22,6 @@ It ensures a consistent, automated, and standards-driven development experience 
 
 ```mermaid
 flowchart TD
-    accTitle: VS Code Workspace Configuration Architecture
-    accDescr: Flowchart showing the VS Code workspace hierarchy with three main branches (Extensions, Tasks, Settings) that lead to development tools including AI Agents, Linting tools (ESLint, Stylelint, Markdownlint), Testing (Jest), Build automation, EditorConfig, and Keybindings configuration
     A[VS Code Workspace] --> B[Extensions]
     A --> C[Tasks]
     A --> D[Settings]
@@ -50,13 +48,14 @@ flowchart TD
     O --> Z[CSS]
     P --> AA[Markdown]
     Q --> AB[Coverage]
+    R --> AC[Reports]
     S --> AD[Summary]
     T --> AE[Results]
 
-    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
-    style C fill:#dcfce7,color:#14532d,stroke:#14532d
-    style D fill:#fef3c7,color:#4a2c00,stroke:#b45309
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
 ```
 
 ---
@@ -109,25 +108,22 @@ flowchart TD
 
 ### 📚 Development Standards
 
-- [Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
-- [Linting Instructions](../instructions/linting.instructions.md) - Code quality standards
+- [Coding Standards](../.github/instructions/coding-standards.instructions.md) - Unified development guidelines
+- [Linting Instructions](../.github/instructions/linting.instructions.md) - Code quality standards
 - [Contributing Guidelines](../CONTRIBUTING.md) - How to contribute to LightSpeed projects
 
 ### 🤖 AI & Automation
 
 - [Custom Instructions](../.github/custom-instructions.md) - Organization-wide Copilot settings
-- [Agents Documentation](../agents/agent.md) - Automation agents and workflows
+- [Agents Documentation](../.github/agents/agent.md) - Automation agents and workflows
 - [Scripts Directory](../scripts/README.md) - Utility scripts and automation tools
 
 ### 🧪 Testing & Quality
 
 - [Testing Framework](../tests/README.md) - Test suites and coverage documentation
-- [JSON Schemas](../.schemas/README.md) - Schema validation and IDE integration
+- [JSON Schemas](../schemas/README.md) - Schema validation and IDE integration
 - [Main Repository](../README.md) - LightSpeed community health repository
 
 ---
 
 *Maintained by the LightSpeedWP team for a seamless contributor experience.*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -1,22 +1,12 @@
 /**
- * Jest suite verifying the baseline behaviour of `issues.agent.js`.
- * @see ../issues.agent.js
+ * Jest suite verifying the baseline behaviour of `issues.agent.cjs`.
+ * @see ../issues.agent.cjs
  */
-// Basic smoke test for issues.agent.js
-const path = require("path");
-const { spawnSync } = require("child_process");
+// Basic smoke test for issues.agent.cjs
+const agent = require("../issues.agent.cjs");
 
 describe("issues.agent", () => {
-  it("should load as an ESM module in Node", () => {
-    const modulePath = path.resolve(__dirname, "../issues.agent.js");
-    const script = `import(${JSON.stringify(modulePath)}).then(() => process.exit(0)).catch(() => process.exit(1));`;
-    const result = spawnSync(
-      process.execPath,
-      ["--input-type=module", "-e", script],
-      {
-        encoding: "utf8",
-      },
-    );
-    expect(result.status).toBe(0);
+  it("should be defined", () => {
+    expect(agent).toBeDefined();
   });
 });

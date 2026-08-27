@@ -86,8 +86,6 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 
 ```mermaid
 graph TD
-accTitle: Testing pyramid overview
-accDescr: Shows how end-to-end, integration, unit, and static analysis layers stack within the testing strategy.
     A[E2E Tests<br/>Playwright] --> B[Integration Tests<br/>Jest + PHPUnit]
     B --> C[Unit Tests<br/>Jest + PHPUnit + pytest]
     C --> D[Static Analysis<br/>ESLint + PHPCS + mypy]
@@ -97,8 +95,6 @@ accDescr: Shows how end-to-end, integration, unit, and static analysis layers st
 
 ```mermaid
 sequenceDiagram
-accTitle: Test execution flow
-accDescr: Shows how a developer runs local tests, receives coverage feedback, and then CI repeats the test stages and quality gate checks.
     participant Dev as Developer
     participant Local as Local Tests
     participant CI as CI Pipeline
@@ -178,8 +174,6 @@ accDescr: Shows how a developer runs local tests, receives coverage feedback, an
 
 ```mermaid
 graph LR
-accTitle: Test coverage matrix
-accDescr: Shows how code changes branch into unit, integration, and end-to-end tests before reaching the quality gate.
     A[Code Changes] --> B{Test Type}
     B --> C[Unit Tests<br/>Fast & Isolated]
     B --> D[Integration Tests<br/>Component Interaction]
@@ -240,10 +234,5 @@ accDescr: Shows how code changes branch into unit, integration, and end-to-end t
 ---
 
 <!-- RANDOM FOOTER: 🧪 Thorough testing, reliable software! -->
----
 
 ---
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

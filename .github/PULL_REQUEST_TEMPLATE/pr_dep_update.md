@@ -1,19 +1,17 @@
 ---
-file_type: "pr-template"
-title: "PR Template - DEP_UPDATE"
-description: "Pull request template for DEP_UPDATE changes"
-version: "1.0.2"
-last_updated: "2026-06-18"
-category: "github-templates"
+name: "Dependencies/Maintenance PR"
+about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
+title: "chore(deps): {packages}"
+labels: ["status:needs-review", "area:dependencies"]
 ---
 
 # Dependencies / Maintenance Pull Request
 
-This PR updates dependencies or performs routine maintenance (lint, formatting, hygiene).
+This PR updates dependencies or performs routine maintenance (lint, formatting, hygiene).  
 Please review the summary, impact, and changelog below.
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for required rules.
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
 
@@ -45,7 +43,7 @@ Relates to #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -76,7 +74,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
 
 ---
@@ -89,7 +87,7 @@ If no user-facing changelog entry is needed, apply the `meta:no-changelog` label
   - [ ] Semantic HTML and heading order verified
   - [ ] Keyboard navigation and visible focus states verified
   - [ ] ARIA used only where needed
-  - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA or higher)
+  - [ ] Contrast and non-colour cues reviewed (WCAG 2.1 AA or higher)
 - [ ] Docs/readme/changelog updated (if user-facing)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised

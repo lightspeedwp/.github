@@ -1,19 +1,20 @@
 ---
-title: Linting Strategy & Implementation Guide
-description: Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects
-file_type: documentation
-version: '1.1'
-last_updated: '2026-08-21'
-owners:
-  - LightSpeed Team
+title: "Linting Strategy & Implementation Guide"
+description: "Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects"
+file_type: "documentation"
+version: "1.0"
+last_updated: "2025-10-26"
+owners: ["LightSpeed Team"]
 tags:
-  - linting
-  - quality
-  - automation
-  - eslint
-  - stylelint
-  - prettier
-  - markdownlint
+  [
+    "linting",
+    "quality",
+    "automation",
+    "eslint",
+    "stylelint",
+    "prettier",
+    "markdownlint",
+  ]
 ---
 
 # Linting Strategy & Implementation Guide
@@ -388,7 +389,7 @@ In addition to linting, we **validate WordPress JSON schemas** to catch config e
 - **Theme JSON:** We validate the repository’s `theme.json` against WordPress’s official schema (pinned to the version our projects use). Run `npm run test:schema:theme` to check the theme configuration.
 - **Block JSON:** Similarly, `block.json` files are validated with the official Block API schema (`npm run test:schema:block`).
 
-These schema tests use [AJV](https://ajv.js.org) under the hood. The schemas are stored in our repo under `../schemas/wp/` and are **pinned to a specific WP version** (e.g. 6.6) for consistency. By pinning, our tests won’t suddenly break on a new WP release – we’ll update the schema files quarterly or as new WP versions come out.
+These schema tests use [AJV](https://ajv.js.org) under the hood. The schemas are stored in our repo under `../.schemas/wp/` and are **pinned to a specific WP version** (e.g. 6.6) for consistency. By pinning, our tests won’t suddenly break on a new WP release – we’ll update the schema files quarterly or as new WP versions come out.
 
 These schema validations run as part of `npm run check` (and thus in CI). Locally, you can run the specific scripts above to debug schema errors. A failure means the `theme.json` or `block.json` doesn’t conform to expected structure, which could lead to runtime errors in WordPress.
 
@@ -503,4 +504,9 @@ npx eslint --debug
 
 ---
 
+## Husky Pre-Commit Integration
+
+For details on how linting is enforced before commits, see [HUSKY_PRECOMMITS.md](./HUSKY_PRECOMMITS.md). This document explains how Husky is configured to run linting and other checks automatically, and how to manage or bypass hooks if needed.
+
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

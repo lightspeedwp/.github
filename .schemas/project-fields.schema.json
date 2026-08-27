@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Schema for project-fields.yml defining project field archetypes",
+  "type": "object",
+  "required": ["schema", "types"],
+  "properties": {
+    "schema": {
+      "type": "integer",
+      "const": 1
+    },
+    "types": {
+      "type": "object",
+      "patternProperties": {
+        "^[A-Za-z0-9_]+$": {
+          "description": "Project field archetype keyed by values such as product_dev or client_services.",
+          "type": "object",
+          "required": ["project_name", "fields"],
+          "properties": {
+            "project_name": { "type": "string" },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["key", "slug", "type"],
+                "properties": {
+                  "key": { "type": "string" },
+                  "slug": { "type": "string" },
+                  "type": { "type": "string", "enum": ["single_select", "text", "number", "date", "iteration"] },
+                  "description": { "type": "string" },
+                  "options": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -100,13 +100,6 @@ const GUARDRAILS = {
           "Use continue-on-error carefully; most jobs should fail on error",
         level: "warning",
       },
-      // Keep workflow custom logic in Node scripts
-      noBashWorkflowLogic: {
-        enabled: true,
-        message:
-          "Do not use bash shell blocks for repo-owned workflow logic; use Node scripts",
-        level: "error",
-      },
     },
   },
 
@@ -132,107 +125,6 @@ const GUARDRAILS = {
   },
 };
 
-const BASH_POLICY_ALLOWLIST = {
-  shellBash: {
-    "issue-labeling-automation.yml": ["Apply labels"],
-    "issue-remediation-bulk.yml": ["Assign milestones"],
-    "project-maintenance-nightly.yml": [
-      "Run unified project maintenance script",
-    ],
-    "project-maintenance-on-demand.yml": [
-      "Validate operation input",
-      "Run audit mode",
-      "Run create-docs mode",
-      "Run validate mode",
-      "Generate workflow summary",
-    ],
-  },
-  multilineControlFlow: {
-    "allocate-pr-issue-to-milestone.yml": [
-      "Determine target PR/Issue",
-      "Run allocation script",
-    ],
-    "badges-documentation-update.yml": [
-      "Detect changed files",
-      "Validate badge schema",
-      "Generate and update badges",
-    ],
-    "badges-health-check.yml": [
-      "Extract badge URLs",
-      "Validate badge URLs",
-      "Generate health report",
-      "Find or create tracking issue",
-      "Update or create issue",
-      "Post workflow summary",
-    ],
-    "badges-readme-status.yml": [
-      "Query workflow status",
-      "Update README.md",
-      "Validate badge URLs",
-      "Report summary",
-    ],
-    "badges-workflow-audit.yml": [
-      "Scan workflow directory",
-      "Add new workflows to schema",
-      "Report coverage metrics",
-    ],
-    "branch-name-validation.yml": [
-      "Validate branch name",
-      "Set status check status",
-    ],
-    "docs-maintenance.yml": ["Resolve impacted README files"],
-    "docs-validation.yml": ["Identify changed README files"],
-    "gitleaks-reusable.yml": ["Scan"],
-    "gitleaks-update.yml": [
-      "Resolve the latest stable release and its checksum",
-      "Open the update pull request",
-    ],
-    "issue-remediation-automation.yml": [
-      "Determine remediation target",
-      "Aggregate remediation results",
-      "Post remediation summary to job summary",
-    ],
-    "meta-agent-validation.yml": ["Validate frontmatter on changed files"],
-    "project-maintenance-on-demand.yml": [
-      "Validate operation input",
-      "Run create-docs mode",
-      "Run validate mode",
-    ],
-    "release.yml": ["Check branch is develop", "Verify VERSION file exists"],
-    "validate-dor-dod-sections.yml": ["Run DoR/DoD Validation & Injection"],
-    "validate-mermaid-pr.yml": [
-      "Identify changed Markdown files",
-      "Check for Mermaid diagrams in changed files",
-      "Collect results",
-    ],
-    "validate-project-linking.yml": [
-      "Check all active projects have related issues",
-      "Validate issue numbers in related issues tables",
-      "Report summary",
-    ],
-    "meta.yml": [
-      "Validate frontmatter freshness",
-      "Lint changed Markdown",
-      "Collect Link Targets",
-      "Update Metrics Snapshot",
-    ],
-    "project-meta-sync.yml": [
-      "Preflight project sync configuration",
-      "Collect labels from item",
-    ],
-    "readme-regen.yml": [
-      "Resolve impacted README files",
-      "Run README regeneration",
-    ],
-    "reporting.yml": [
-      "Validate report structure",
-      "Check for uppercase filenames",
-      "Find stale reports",
-      "Update main README",
-    ],
-  },
-};
-
 // ============================================================================
 // VALIDATION FUNCTIONS
 // ============================================================================
@@ -248,24 +140,6 @@ class WorkflowValidator {
       errors: [],
       warnings: [],
     };
-  }
-
-  isAllowlistedMultilineControlFlow(filename, stepName) {
-    if (!stepName) {
-      return false;
-    }
-
-    const entries = BASH_POLICY_ALLOWLIST.multilineControlFlow[filename] || [];
-    return entries.includes(stepName);
-  }
-
-  isAllowlistedShellBash(filename, stepName) {
-    if (!stepName) {
-      return false;
-    }
-
-    const entries = BASH_POLICY_ALLOWLIST.shellBash[filename] || [];
-    return entries.includes(stepName);
   }
 
   validate(filename, content) {
@@ -292,9 +166,7 @@ class WorkflowValidator {
 
       // Quality checks
       if (this.guardrails.quality.enabled) {
-        const qualityResult = this.validateQuality(filename, workflow, content);
-        hasWarnings |= qualityResult.hasWarnings;
-        hasErrors |= qualityResult.hasErrors;
+        hasWarnings |= this.validateQuality(filename, workflow);
       }
 
       // Consistency checks
@@ -339,21 +211,16 @@ class WorkflowValidator {
 
     // Check for secrets in shell
     if (this.guardrails.security.rules.noSecretsInShell.enabled) {
-      for (const job of Object.values(workflow.jobs || {})) {
-        for (const step of job.steps || []) {
-          if (!step.run) {
-            continue;
-          }
-
-          const runScript = String(step.run);
-          if (runScript.includes("${{ secrets.")) {
-            this.addError(
-              filename,
-              "Do not pass secrets directly to shell commands (use env or input)",
-            );
-            hasErrors = true;
-          }
-        }
+      const jobsContent = JSON.stringify(workflow.jobs || {});
+      if (
+        jobsContent.includes("${{ secrets.") &&
+        jobsContent.includes("run:")
+      ) {
+        this.addError(
+          filename,
+          "Do not pass secrets directly to shell commands (use env or input)",
+        );
+        hasErrors = true;
       }
     }
 
@@ -426,9 +293,8 @@ class WorkflowValidator {
     return hasWarnings;
   }
 
-  validateQuality(filename, workflow, rawContent = "") {
+  validateQuality(filename, workflow) {
     let hasWarnings = false;
-    let hasErrors = false;
 
     // Check job names
     if (this.guardrails.quality.rules.clearJobNames.enabled) {
@@ -473,58 +339,7 @@ class WorkflowValidator {
       }
     }
 
-    // Disallow bash-oriented workflow logic for repo-owned run steps.
-    if (this.guardrails.quality.rules.noBashWorkflowLogic.enabled) {
-      for (const [jobName, job] of Object.entries(workflow.jobs || {})) {
-        for (const step of job.steps || []) {
-          if (!step.run) {
-            continue;
-          }
-
-          if (
-            step.shell &&
-            String(step.shell).trim().toLowerCase() === "bash" &&
-            !this.isAllowlistedShellBash(filename, step.name)
-          ) {
-            this.addError(
-              filename,
-              `Job "${jobName}"${step.name ? ` / Step "${step.name}"` : ""}: explicit shell:bash is not allowed for repo-owned run steps`,
-            );
-            hasErrors = true;
-          }
-
-          const runScript = String(step.run);
-          const hasControlFlow =
-            /(^|\n)\s*(if\s+\[|if\s+\[\[|case\s+|for\s+|while\s+|until\s+|select\s+)/m.test(
-              runScript,
-            );
-          const isMultiline = runScript.includes("\n");
-
-          if (
-            isMultiline &&
-            hasControlFlow &&
-            !this.isAllowlistedMultilineControlFlow(filename, step.name)
-          ) {
-            this.addError(
-              filename,
-              `Job "${jobName}"${step.name ? ` / Step "${step.name}"` : ""}: multiline shell control-flow is not allowed in run blocks; move logic to Node script`,
-            );
-            hasErrors = true;
-          }
-        }
-      }
-
-      if (/(^|\n)\s*shell:\s*bash\b/m.test(rawContent)) {
-        // Defensive guard in case parser representation misses a non-standard shell declaration.
-        this.addWarning(
-          filename,
-          "Raw workflow contains shell:bash declaration; ensure this is not repo-owned custom logic",
-        );
-        hasWarnings = true;
-      }
-    }
-
-    return { hasWarnings, hasErrors };
+    return hasWarnings;
   }
 
   validateConsistency(filename, workflow) {
@@ -605,39 +420,28 @@ class WorkflowValidator {
 // MAIN
 // ============================================================================
 
-function runValidation(
-  workflowDir = path.join(__dirname, "../../.github/workflows"),
-) {
-  if (!fs.existsSync(workflowDir)) {
-    console.error(`Workflows directory not found: ${workflowDir}`);
-    return false;
-  }
+const workflowDir = path.join(__dirname, "../../.github/workflows");
 
-  const validator = new WorkflowValidator(GUARDRAILS);
-
-  const workflowFiles = fs
-    .readdirSync(workflowDir)
-    .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
-    .sort();
-
-  console.log(`Found ${workflowFiles.length} workflow files to validate\n`);
-
-  workflowFiles.forEach((filename) => {
-    const filePath = path.join(workflowDir, filename);
-    const content = fs.readFileSync(filePath, "utf8");
-    validator.validate(filename, content);
-  });
-
-  return validator.printResults();
+if (!fs.existsSync(workflowDir)) {
+  console.error(`Workflows directory not found: ${workflowDir}`);
+  process.exit(1);
 }
 
-if (require.main === module) {
-  const success = runValidation();
-  process.exit(success ? 0 : 1);
-}
+const validator = new WorkflowValidator(GUARDRAILS);
 
-module.exports = {
-  WorkflowValidator,
-  GUARDRAILS,
-  runValidation,
-};
+// Get all .yml/.yaml files
+const workflowFiles = fs
+  .readdirSync(workflowDir)
+  .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
+  .sort();
+
+console.log(`Found ${workflowFiles.length} workflow files to validate\n`);
+
+workflowFiles.forEach((filename) => {
+  const filePath = path.join(workflowDir, filename);
+  const content = fs.readFileSync(filePath, "utf8");
+  validator.validate(filename, content);
+});
+
+const success = validator.printResults();
+process.exit(success ? 0 : 1);

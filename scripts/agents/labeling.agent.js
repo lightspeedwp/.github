@@ -5,24 +5,18 @@
  * Uses canonical config from .github/labels.yml, .github/labeler.yml, .github/issue-types.yml.
  * Replaces all prior split agents.
  *
- * Wave 2A kickoff (#466):
- * - canonical spec path confirmed: agents/labeling.agent.md
- * - runtime path confirmed: scripts/agents/labeling.agent.js
- * - implementation status: active and production-wired
- * - next concrete action: extend targeted tests for one-hot enforcement and
- *   alias migration edge cases
- *
  * @module scripts/agents/labeling.agent.js
- * @see ../../../.github/agents/labeling.agent.md
+ * @see ../../agents/labeling.agent.md
  * @version 2.0.0
  * @author LightSpeedWP
  */
 
 import fs from "fs";
-import * as yaml from "js-yaml";
-import * as core from "@actions/core";
-import * as github from "@actions/github";
+import yaml from "js-yaml";
+import core from "@actions/core";
+import github from "@actions/github";
 import {
+  fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
 } from "./includes/label-lookup.js";
@@ -36,10 +30,15 @@ import {
   fetchLabelerRules,
   applyLabelerRules,
 } from "./includes/labeler-utils.js";
-import { buildLabelingReport } from "./includes/label-reporting.js";
+import {
+  buildLabelingReport,
+  formatErrors,
+} from "./includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
+const ISSUE_TYPES_CONFIG =
+  process.env.ISSUE_TYPES_CONFIG || ".github/issue-types.yml";
 const LABELER_RULES = process.env.LABELER_RULES || ".github/labeler.yml";
 
 // Enhanced content-based type detection heuristics
@@ -78,15 +77,15 @@ const KEYWORD_TYPE_MAP = {
   chore: "type:chore",
   maintenance: "type:chore",
   cleanup: "type:chore",
-  dependencies: "type:dependency",
-  dependency: "type:dependency",
-  "bump version": "type:dependency",
+  dependencies: "type:dependencies",
+  dependency: "type:dependencies",
+  "bump version": "type:dependencies",
   ci: "type:ci",
   "continuous integration": "type:ci",
   workflow: "type:ci",
-  a11y: "type:a11y",
-  accessibility: "type:a11y",
-  wcag: "type:a11y",
+  a11y: "type:accessibility",
+  accessibility: "type:accessibility",
+  wcag: "type:accessibility",
 };
 
 // Branch prefix to type mapping for PRs
@@ -104,10 +103,9 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "refactor/": "type:refactor",
   "chore/": "type:chore",
   "ci/": "type:ci",
-  "deps/": "type:dependency",
-  "build/": "type:build",
+  "deps/": "type:dependencies",
   "security/": "type:security",
-  "a11y/": "type:a11y",
+  "a11y/": "type:accessibility",
 };
 
 function readYamlArrayFile(path, purpose) {
@@ -378,11 +376,7 @@ async function runLabelingAgent(opts = {}) {
       try {
         const branchName = context.payload.pull_request.head.ref;
         const branchType = detectTypeFromBranch(branchName);
-        if (
-          branchType &&
-          canonicalSet.has(branchType) &&
-          !currentLabels.includes(branchType)
-        ) {
+        if (branchType && !currentLabels.includes(branchType)) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -393,10 +387,6 @@ async function runLabelingAgent(opts = {}) {
           }
           report.added.push(branchType);
           report.rulesApplied.push(`Branch prefix detection: ${branchType}`);
-        } else if (branchType && !canonicalSet.has(branchType)) {
-          core.warning(
-            `[labeling.agent] Branch-derived type is non-canonical and will be skipped: ${branchType}`,
-          );
         }
       } catch (error) {
         core.warning(
@@ -478,7 +468,7 @@ async function runLabelingAgent(opts = {}) {
           : context.payload.pull_request.body;
         const detectedType = detectIssueTypeFromContent(title, body);
 
-        if (detectedType && canonicalSet.has(detectedType)) {
+        if (detectedType) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -490,10 +480,6 @@ async function runLabelingAgent(opts = {}) {
           report.added.push(detectedType);
           report.rulesApplied.push(
             `Content-based type detection: ${detectedType}`,
-          );
-        } else if (detectedType && !canonicalSet.has(detectedType)) {
-          core.warning(
-            `[labeling.agent] Content-derived type is non-canonical and will be skipped: ${detectedType}`,
           );
         }
       } catch (error) {
@@ -587,6 +573,16 @@ async function runLabelingAgent(opts = {}) {
     core.setFailed(error.message);
     return report;
   }
+}
+
+// Check if this module is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runLabelingAgent().catch((error) => {
+    core.error(`[labeling.agent] Unhandled error: ${error.message}`);
+    core.error(error.stack);
+    core.setFailed(error.message);
+    process.exit(1);
+  });
 }
 
 export {

@@ -1,5 +1,4 @@
 ---
-file_type: saved-reply
 title: "Needs Rebase Saved Reply"
 description: "Request to rebase a branch to resolve merge conflicts."
 category: "Workflow"

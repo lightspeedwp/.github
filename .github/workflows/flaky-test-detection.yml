@@ -5,6 +5,9 @@ on:
     - cron: "0 */12 * * 1-5" # Every 12 hours, Monday-Friday
   workflow_dispatch: # Allow manual trigger for testing
 
+permissions:
+  contents: read
+
 jobs:
   flaky-detection-unit:
     name: Unit Tests - Flaky Detection (Run ${{ matrix.run_number }})

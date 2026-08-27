@@ -1,21 +1,11 @@
 ---
-file_type: instructions
-title: Coding Standards
-description: 'Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions.'
-scope: organization-wide
-applyTo: '**'
-version: v2.2
-last_updated: '2026-08-21'
-owners:
-  - LightSpeedWP Team
-tags:
-  - coding-standards
-  - governance
-  - automation
-  - docs
-  - lint
-  - ai
-status: active
+file_type: "instructions"
+description: "Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions."
+applyTo: "**"
+version: "v2.1"
+last_updated: "2025-12-04"
+owners: ["LightSpeedWP Team"]
+tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
 ---
 
 # LightSpeedWP Coding Standards — Canonical Reference
@@ -61,6 +51,7 @@ This document is the single source of truth for all coding standards in LightSpe
 - [Formatting & Automation](#formatting--automation)
 - [Documentation Standards](#documentation-standards)
 - [AI & Copilot Instructions](#ai--copilot-instructions)
+- [References](#references)
 
 ---
 
@@ -115,12 +106,15 @@ All documentation links to files within the same repository should use `/blob/HE
 
 ---
 
-## Related Files
+## References
 
-- **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting rules and configurations
-- **[languages.instructions.md](./languages.instructions.md)** — Language-specific coding standards and formatting
-- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and QA standards
-
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+- [linting.instructions.md](linting.instructions.md)
+- [documentation-formats.instructions.md](documentation-formats.instructions.md)
+- [languages.instructions.md](languages.instructions.md)
+- [a11y.instructions.md](a11y.instructions.md)
+- [workflows.instructions.md](workflows.instructions.md)
+- [instructions.instructions.md](instructions.instructions.md)
+- [LightSpeed Custom Instructions](../.github/custom-instructions.md)
+- [LightSpeed Copilot Prompts Index](../.github/prompts/prompts.md)
+- [LightSpeed Agents Index](../agents/agent.md)
+- [LightSpeed GitHub Workflow Governance](../docs/WORKFLOWS.md)

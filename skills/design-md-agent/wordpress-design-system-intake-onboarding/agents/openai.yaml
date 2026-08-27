@@ -1,0 +1,4 @@
+interface:
+  display_name: "WordPress Intake Onboarding"
+  short_description: "Collect project defaults before WordPress design audits."
+  default_prompt: "Use $wordpress-design-system-intake-onboarding to collect missing project defaults for WordPress design-system audits, save them in Memory, and resume the user request."

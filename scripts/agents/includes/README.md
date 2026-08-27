@@ -1,9 +1,9 @@
 ---
-title: Agent Includes Directory
-description: Shared utility modules for LightSpeedWP automation agents
-version: '1.3'
-last_updated: "2026-08-19"
-file_type: documentation
+title: "Agent Includes Directory"
+description: "Shared utility modules for LightSpeedWP automation agents"
+version: "1.0"
+last_updated: "2025-11-20"
+file_type: "documentation"
 ---
 
 # Agent Includes Directory
@@ -106,17 +106,14 @@ includes/
 
 ## References
 
-- [Agent Directory](../../../agents/agent.md) - Main agent index
-- [Coding Standards](../../../instructions/coding-standards.instructions.md)
-- [Quality Assurance](../../../instructions/quality-assurance.instructions.md)
-- [Automation & Workflows](../../../docs/AUTOMATION.md)
+- [Agent Directory](../agent.md) - Main agent index
+- [Coding Standards](../../instructions/coding-standards.instructions.md)
+- [Quality Assurance](../../instructions/quality-assurance.instructions.md)
+- [Automation Governance](../../automation/AUTOMATION_GOVERNANCE.md)
 
 ---
 
----
+*Shared utilities for the LightSpeedWP automation ecosystem*
 
-*🤖 This agent is orchestrated with precision and care — carefully choreographed automation*
-
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

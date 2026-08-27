@@ -63,10 +63,11 @@ jobs:
       - name: Check for Mermaid diagrams in changed files
         id: has_diagrams
         if: steps.changed.outputs.has_changes == 'true'
-        env:
-          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          result=$(bash scripts/check-mermaid-diagrams.sh "$CHANGED_FILES")
+          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
+          ${{ steps.changed.outputs.files }}
+          CHANGED_FILES_EOF
+          result=$(bash scripts/check-mermaid-diagrams.sh < "$RUNNER_TEMP/changed-md-files.txt")
           echo "result=$result" >> "$GITHUB_OUTPUT"
 
       - name: Skip if no Mermaid diagrams found

@@ -34,7 +34,7 @@ references:
     description: "Automation governance policies"
   - path: "../.github/issue-types.yml"
     description: "Canonical issue type definitions"
-  - path: "../.github/agents/labeling.agent.md"
+  - path: "../agents/labeling.agent.md"
     description: "Labeling agent specification"
   - path: "../.github/workflows/labeling.yml"
     description: "Labeling workflow implementation"
@@ -44,7 +44,7 @@ references:
 
 # Issue Types Reference Guide
 
-> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
+> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
 
 ---
 
@@ -65,11 +65,11 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Story** — User-centred vertical slice within an Epic. *Label:* \`type:story\`
 - **Improvement** — Enhance existing behaviour or UX. *Label:* \`type:improve\`
 - **Refactor** — Internal restructure for maintainability, no behaviour change. *Label:* \`type:refactor\`
-- **Build** — Tooling, pipelines, packaging, releases, deploys. *Label:* \`type:build\`
+- **Build & CI** — Tooling, pipelines, packaging, releases, deploys. *Label:* \`type:build\`
 - **Automation** — Bots/actions/scripts that reduce toil. *Label:* \`type:automation\`
-- **Testing** — Add or expand tests (unit, integration, E2E). *Label:* \`type:test\`
+- **Test Coverage** — Add or expand tests (unit, integration, E2E). *Label:* \`type:test\`
 - **Performance** — Improve speed/efficiency. *Label:* \`type:performance\`
-- **Accessibility** — Accessibility to WCAG 2.1 AA. *Label:* \`type:a11y\`
+- **A11y** — Accessibility to WCAG 2.1 AA. *Label:* \`type:a11y\`
 - **Security** — Security issues or improvements. *Label:* \`type:security\`
 - **Compatibility** — Browser/device/plugin compatibility. *Label:* \`type:compatibility\`
 - **Integration** — Integration with external systems/services. *Label:* \`type:integration\`
@@ -79,7 +79,7 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Research** — Discovery, investigation, or technical spikes. *Label:* \`type:research\`
 - **Chore** — Small hygiene change (typo, config, rename). *Label:* \`type:chore\`
 - **Audit** — Security, code, or process audits. *Label:* \`type:audit\`
-- **Review** — Peer review, QA, or validation. *Label:* \`type:review\`
+- **Code Review** — Peer review, QA, or validation. *Label:* \`type:review\`
 - **AI Ops** — AI/automation operations, agents, or datasets. *Label:* \`type:ai-ops\`
 - **Content Modelling** — Content structure, CPTs, or taxonomy. *Label:* \`type:content-modelling\`
 
@@ -99,11 +99,11 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 | 📖 **Story** | \`type:story\` | Blue \`#4393f8\` | User-centred vertical slice | normal/important | \`comp:*\`, \`env:staging\`, \`meta:has-pr\` |
 | 🔧 **Improvement** | \`type:improve\` | Grey \`#9198a1\` | Enhance existing behaviour | normal/minor | \`comp:*\`, \`area:*\`, \`meta:has-pr\` |
 | ♻️ **Refactor** | \`type:refactor\` | Grey \`#9198a1\` | Internal restructure (no UX change) | normal/minor | \`lang:*\`, \`meta:no-changelog\` |
-| ⚙️ **Build** | \`type:build\` | Blue \`#4393f8\` | Tooling/pipelines/releases | normal/important | \`area:ci\`, \`lang:js|yaml\`, \`env:*\` |
+| ⚙️ **Build & CI** | \`type:build\` | Blue \`#4393f8\` | Tooling/pipelines/releases | normal/important | \`area:ci\`, \`lang:js|yaml\`, \`env:*\` |
 | 🤖 **Automation** | \`type:automation\` | Blue \`#4393f8\` | Bots/actions/scripts | normal | \`area:ci\`, \`meta:has-pr\` |
-| 🧪 **Testing** | \`type:test\` | Yellow \`#d29922\` | Add/expand tests | normal/important | \`area:tests\`, \`lang:*\`, \`env:staging\` |
+| 🧪 **Test Coverage** | \`type:test\` | Yellow \`#d29922\` | Add/expand tests | normal/important | \`area:tests\`, \`lang:*\`, \`env:staging\` |
 | ⚡ **Performance** | \`type:performance\` | Yellow \`#d29922\` | Improve speed/efficiency | important/critical | \`comp:*\`, \`env:*\`, \`meta:has-pr\` |
-| ♿ **Accessibility** | \`type:a11y\` | Pink \`#db61a2\` | Accessibility (WCAG 2.1 AA) | critical/important | \`comp:*\`, \`env:*\`, \`meta:has-pr\` |
+| ♿ **A11y** | \`type:a11y\` | Pink \`#db61a2\` | Accessibility (WCAG 2.1 AA) | critical/important | \`comp:*\`, \`env:*\`, \`meta:has-pr\` |
 | 🔒 **Security** | \`type:security\` | Red \`#9f3734\` | Security issues/improvements | critical | \`priority:critical\`, \`env:*\`, \`compat:*\` |
 | 🔌 **Compatibility** | \`type:compatibility\` | Orange \`#8d4821\` | Browser/device/plugin compat | important/critical | \`compat:*\`, \`env:*\`, \`meta:has-pr\` |
 | 🔄 **Integration** | \`type:integration\` | Orange \`#8d4821\` | External systems/services | important/normal | \`area:integration\`, \`lang:*\`, \`env:*\` |
@@ -113,7 +113,7 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 | 🔬 **Research** | \`type:research\` | Grey \`#9198a1\` | Discovery/investigation/spikes | normal/important | \`area:*\`, \`env:prototype\` |
 | 🧹 **Chore** | \`type:chore\` | Grey \`#9198a1\` | Small hygiene change | minor | \`priority:minor\`, \`meta:no-changelog\` |
 | 🧪 **Audit** | \`type:audit\` | Grey \`#9198a1\` | Security/code/process audits | important/normal | \`type:security|a11y|performance\` |
-| ✅ **Review** | \`type:review\` | Blue \`#4393f8\` | Peer review/QA/validation | normal | \`status:needs-review\`, \`meta:has-pr\` |
+| ✅ **Code Review** | \`type:review\` | Blue \`#4393f8\` | Peer review/QA/validation | normal | \`status:needs-review\`, \`meta:has-pr\` |
 | 🤖 **AI Ops** | \`type:ai-ops\` | Blue \`#4393f8\` | AI agents/prompts/datasets | normal | \`ai-ops:*\`, \`lang:md|json|yaml\` |
 | 🗂️ **Content Modelling** | \`type:content-modelling\` | Purple \`#ab7df8\` | CPT/taxonomies/field mapping | important | \`cpt:*\`, \`comp:*\`, \`env:staging\` |
 
@@ -154,7 +154,7 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 
 - The unified labeling agent automatically assigns and enforces type labels
 - Type assignment uses config, heuristics, branch patterns, and content analysis
-- See [labeling agent spec](../.github/agents/labeling.agent.md) for details
+- See [labeling agent spec](../agents/labeling.agent.md) for details
 
 ### Color Palette
 
@@ -201,7 +201,7 @@ Keep a default \`pull_request_template.md\` and optional specialised templates (
 - [PR Labels Guide](./PR_LABELS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
+- [Agent Spec for Labeling](../agents/labeling.agent.md)
 - [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 ---

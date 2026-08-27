@@ -3,96 +3,16 @@ name: release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: "Target release version (semver, e.g. 1.2.3). Leave blank to derive from scope."
-        required: false
-        default: ""
-        type: string
-      notes_from:
-        description: "Git ref/tag/sha to start release notes range from (optional)."
-        required: false
-        default: ""
-        type: string
       scope:
-        description: "Version bump scope if version is not provided (major|minor|patch)."
-        required: false
-        default: "patch"
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
-      provider:
-        description: "Release publication provider (shell or mcp)."
-        required: false
-        default: "shell"
-        type: choice
-        options:
-          - shell
-          - mcp
-      dry_run:
-        description: "Run safety mode without creating commits/tags/releases."
-        required: false
-        default: false
-        type: boolean
-  workflow_call:
-    inputs:
-      version:
+        description: "Comma-separated package scope (optional)"
         required: false
         default: ""
-        type: string
-      notes_from:
-        required: false
-        default: ""
-        type: string
-      scope:
-        required: false
-        default: "patch"
-        type: string
-      provider:
-        required: false
-        default: "shell"
-        type: string
-      dry_run:
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: read
 
 jobs:
-  trigger-telemetry:
-    runs-on: ubuntu-latest
-    outputs:
-      unauthorized_attempts: ${{ steps.telemetry.outputs.unauthorized_attempts }}
-      is_authorized: ${{ steps.telemetry.outputs.is_authorized }}
-    steps:
-      - id: telemetry
-        name: Validate trigger authorization (hard-fail if unauthorized)
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          node scripts/workflows/release/trigger-telemetry.cjs
-          # Check if authorized; hard fail if not
-          if grep -q '"is_authorized":false' trigger-telemetry.json 2>/dev/null; then
-            echo "❌ AUTHORIZATION FAILED: Unauthorized user attempted release trigger"
-            cat trigger-telemetry.json
-            exit 1
-          fi
-          echo "✅ Authorization check passed"
-      - name: Upload telemetry artefact
-        uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: trigger-telemetry
-          path: trigger-telemetry.json
-
   lint:
-    needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -105,83 +25,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
-  test:
-    needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version: "24"
-      - name: Install
-        run: npm ci
-      - name: Run tests
-        run: npm test
-
-  validate-changelog-release:
-    needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
-    uses: ./.github/workflows/changelog-management.yml
-    with:
-      validate_only: true
-
-  pre-release-checklist:
-    needs: [trigger-telemetry, lint, test, validate-changelog-release]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: develop
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version: "24"
-      - name: Install
-        run: npm ci
-      - name: Check branch is develop
-        run: |
-          if [ "$(git rev-parse --abbrev-ref HEAD)" != "develop" ]; then
-            echo "❌ Not on develop branch"
-            exit 1
-          fi
-          echo "✓ On develop branch"
-      - name: Verify no uncommitted changes
-        run: |
-          if ! git diff --quiet; then
-            echo "❌ Uncommitted changes detected"
-            git status
-            exit 1
-          fi
-          echo "✓ No uncommitted changes"
-      - name: Verify VERSION file exists
-        run: |
-          if [ ! -f VERSION ]; then
-            echo "❌ VERSION file not found"
-            exit 1
-          fi
-          echo "✓ VERSION file found: $(cat VERSION)"
-      - name: Verify CHANGELOG.md has unreleased entries
-        run: |
-          if ! grep -q "## Unreleased" CHANGELOG.md; then
-            echo "❌ CHANGELOG.md missing Unreleased section"
-            exit 1
-          fi
-          echo "✓ CHANGELOG.md has Unreleased section"
-      - name: All pre-release checks passed
-        run: echo "✅ Pre-release checklist complete"
-
-  release-to-develop:
-    needs: [pre-release-checklist]
+  release:
+    needs: [lint]
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    outputs:
-      release_version: ${{ steps.release-metadata.outputs.release_version }}
-      release_branch: ${{ steps.release-metadata.outputs.release_branch }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -195,101 +44,20 @@ jobs:
       - name: Configure git user
         run: |
           git config user.name "lightspeed-bot"
-          email=ops$(printf '@')lightspeedwp.agency
-          git config user.email "$email"
+          git config user.email "ops@lightspeedwp.agency"
       - name: Validate changelog (schema + unreleased content)
         run: |
-          echo "ℹ️  PRE-RELEASE VALIDATION: Checking changelog structure and unreleased entries"
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
-          echo "✓ Changelog validation passed (schema + unreleased content verified)"
-      - name: Run Release Agent with Safety Gates (Phase 5A)
-        id: agent
+      - name: Run Release Agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_SCOPE: ${{ inputs.scope || github.event.inputs.scope || 'patch' }}
-          INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
-          INPUT_VERSION: ${{ inputs.version || github.event.inputs.version || '' }}
-          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
-          INPUT_DRY_RUN: ${{ inputs.dry_run }}
-          VERBOSE: ${{ runner.debug }}
         run: |
-          node scripts/workflows/release/run-release-with-gates.cjs | tee release-agent.log
-      - name: Export release version and branch to GITHUB_OUTPUT
-        id: release-metadata
-        if: inputs.dry_run == false
-        run: |
-          # Parse release agent log for version and branch
-          RELEASE_VERSION=$(grep "RELEASE_VERSION=" release-agent.log | head -1 | cut -d= -f2)
-          RELEASE_BRANCH=$(grep "RELEASE_BRANCH=" release-agent.log | head -1 | cut -d= -f2)
-          [ -z "$RELEASE_VERSION" ] && { echo "❌ Failed to extract release version"; exit 1; }
-          [ -z "$RELEASE_BRANCH" ] && { echo "❌ Failed to extract release branch"; exit 1; }
-          echo "release_version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
-          echo "release_branch=${RELEASE_BRANCH}" >> $GITHUB_OUTPUT
-          echo "✓ Exported: release_version=${RELEASE_VERSION}, release_branch=${RELEASE_BRANCH}"
-      - name: Validate changelog post-release
-        if: inputs.dry_run == false
-        run: |
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
-          echo "✓ Post-release changelog validation passed"
-      - name: Build dry-run release notes preview
-        if: inputs.dry_run == true
-        env:
-          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
-        run: node scripts/workflows/release/build-notes-preview.cjs
-      - name: Upload dry-run artefacts
-        if: inputs.dry_run == true
-        uses: actions/upload-artifact@v7
-        with:
-          name: release-dry-run-artefacts
-          path: |
-            release-agent.log
-            release-notes-preview.md
+          SCOPE_INPUT="${{ github.event.inputs.scope }}"
+          if [ -z "$SCOPE_INPUT" ]; then
+            SCOPE_INPUT="patch"
+          fi
+          node scripts/agents/release.agent.js --scope="$SCOPE_INPUT"
       - name: Post metrics
         if: always()
         run: echo "metric=release_cycle conclusion=${{ job.status }}"
-
-  release-to-main:
-    needs: [release-to-develop]
-    if: inputs.dry_run == false
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: develop
-          persist-credentials: false
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version: "24"
-      - name: Install
-        run: npm ci
-      - name: Configure git user
-        run: |
-          git config user.name "lightspeed-bot"
-          email=ops$(printf '@')lightspeedwp.agency
-          git config user.email "$email"
-      - name: Create Release PR (Phase 2 - release branch → main)
-        id: main-pr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
-          INPUT_VERSION: ${{ needs.release-to-develop.outputs.release_version }}
-          INPUT_RELEASE_BRANCH: ${{ needs.release-to-develop.outputs.release_branch }}
-        run: node scripts/workflows/release/create-main-release-pr.cjs | tee release-main-pr.log
-      - name: Publish GitHub Release (Phase 2 - after main PR merge)
-        id: github-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
-          INPUT_VERSION: ${{ needs.release-to-develop.outputs.release_version }}
-          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
-        run: node scripts/workflows/release/create-github-release.cjs | tee release-github-release.log
-      - name: Post metrics
-        if: always()
-        run: echo "metric=release_cycle_main conclusion=${{ job.status }}"

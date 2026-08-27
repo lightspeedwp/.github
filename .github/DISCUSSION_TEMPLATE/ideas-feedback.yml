@@ -1,3 +1,5 @@
+name: "Feature Ideas & Feedback"
+description: "Suggest new features, improvements, or provide feedback for any LightSpeed product."
 labels:
   - discussion:feedback
 template: |

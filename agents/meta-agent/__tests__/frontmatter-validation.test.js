@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { validateFrontmatter } = require("../skills/frontmatter-validation.cjs");
+const { validateFrontmatter } = require("../skills/frontmatter-validation");
 
 describe("frontmatter-validation skill", () => {
   let tempDir;

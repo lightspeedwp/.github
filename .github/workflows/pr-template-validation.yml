@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, edited, synchronize]
 
+# No repo checkout and no GitHub API writes — the job only reads
+# context.payload.pull_request.body, so it needs no token scopes at all.
+permissions: {}
+
 jobs:
   validate-template:
     name: Check PR Template

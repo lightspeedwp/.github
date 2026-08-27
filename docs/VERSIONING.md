@@ -1,20 +1,21 @@
----
-title: Versioning Guidelines
-description: 'Semantic versioning standards for LightSpeedWP projects: SemVer format, VERSION file as canonical source, Phase 5A version validation gates'
-file_type: documentation
-version: '1.0'
-last_updated: '2026-08-21'
-author: LightSpeed Team
-owners:
-  - lightspeedwp
-tags:
-  - versioning
-  - semver
-  - release
-  - phase-5a
----
-
 # Versioning Guidelines
+
+<!-- BADGES-START -->
+
+[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
+[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
+[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
+[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
+[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
+[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
+[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
+[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
+[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
+
+<!-- BADGES-END -->
 
 LightSpeedWP projects follow [Semantic Versioning](https://semver.org/) (SemVer) principles.
 
@@ -89,21 +90,12 @@ May include identifiers:
 
 ## Release Process
 
-LightSpeedWP uses a **develop-first stacked PR model** for releases:
-
-1. **Feature Development**: Work in `feature/*` branches, merge to `develop`
-2. **Release Trigger**: Run `release.yml` workflow manually (`workflow_dispatch`)
-3. **Authorization**: Only members of `maintainers` team can trigger releases
-4. **Version Bump**: Release agent bumps `VERSION` file and rolls `CHANGELOG.md`
-5. **PR #1**: Create stacked PR: `release/vX.Y.Z` → `develop` (changelog + version)
-6. **Review & Merge PR #1**: Developer reviews and merges to `develop`
-7. **PR #2**: Create stacked PR: `release/vX.Y.Z` → `main` (for release)
-8. **Review & Merge PR #2**: Developer reviews and merges to `main`
-9. **Release & Tag**: Git tag created, GitHub Release published
-10. **Post-Release Sync**: Automatic sync job merges `main` → `develop` if needed
-11. **Hotfixes**: Apply via `hotfix/*` branches targeting `main`, then sync back to `develop`
-
-**See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for complete details** including authorization gating, dry-run mode, and rollback procedures.
+1. **Feature Development**: Work in `feature/*` branches
+2. **Integration**: Merge features into `develop`
+3. **Release Preparation**: Create `release/*` branch from `develop`
+4. **Testing**: Test the release branch
+5. **Release**: Merge to `main` and tag the version
+6. **Hotfixes**: Apply fixes via `hotfix/*` branches
 
 ---
 
@@ -143,30 +135,10 @@ Consider tools for version management:
 1.2.3
 ```
 
-## Example: Release via Workflow (Automated)
-
-**Recommended approach:** Use the automated release workflow:
+## Example: Plugin Version Bump
 
 ```bash
-# Trigger release workflow (via GitHub UI or CLI)
-gh workflow run release.yml --ref develop -f scope=patch -f dry_run=false
-
-# Workflow automatically:
-# 1. Validates authorization (you must be in maintainers team)
-# 2. Bumps VERSION (patch/minor/major per scope)
-# 3. Updates CHANGELOG.md with [Unreleased] → [X.Y.Z]
-# 4. Creates PR #1: release/vX.Y.Z → develop
-# 5. Waits for PR #1 merge
-# 6. Creates PR #2: release/vX.Y.Z → main
-# 7. Waits for PR #2 merge
-# 8. Creates git tag and publishes GitHub Release
-# 9. Auto-syncs main → develop via post-release-sync
-```
-
-**Manual release (not recommended):**
-
-```bash
-# Update version in files (not needed—workflow handles this)
+# Update version in files
 npm version patch  # Updates package.json
 # Update plugin header, readme.txt, and frontmatter versions manually
 
@@ -176,81 +148,6 @@ git commit -m "Bump version to 1.2.3"
 git tag -a v1.2.3 -m "Release version 1.2.3"
 git push origin main --tags
 ```
-
----
-
-## Phase 5A: Version Validation Gate (GATE 3)
-
-**Added in v1.0 (2026-08-18):** Phase 5A introduces automated version validation as part of the 7-layer safety gates.
-
-### Version Validation Flow
-
-```mermaid
-accTitle: Flowchart
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-accTitle: Flowchart
-    A["Release triggered<br/>with scope: patch/minor/major"] -->|"VERSION = 1.2.3<br/>Scope = minor"| B["Parse current version"]
-    B --> C["Calculate next version"]
-    C -->|"1.2.3 + minor<br/>= 1.3.0"| D["Validate semver format"]
-    D -->|"X.Y.Z format?"|E{Valid?}
-    E -->|"Yes"| F["Check logical bump"]
-    E -->|"No"| Z1["❌ GATE 3 FAIL<br/>Invalid semver format"]
-    F -->|"Is it an upgrade?"| G{Upgrade?}
-    G -->|"Downgrade detected"| Z2["❌ GATE 3 FAIL<br/>Downgrade not allowed"]
-    G -->|"Valid upgrade"| H["Compare with VERSION file"]
-    H -->|"Match?"| I{Match?}
-    I -->|"No"| Z3["❌ GATE 3 FAIL<br/>Version mismatch"]
-    I -->|"Yes"| J["✅ GATE 3 PASS<br/>Version valid"]
-
-    style A fill:#01579b,color:#fff
-    style J fill:#2e7d32,color:#fff
-    style Z1 fill:#b71c1c,color:#fff
-    style Z2 fill:#b71c1c,color:#fff
-    style Z3 fill:#b71c1c,color:#fff
-accDescr: Detailed diagram showing structure and relationships
-```
-
-### What GATE 3 Validates
-
-| Check | Purpose | Fails When |
-|-------|---------|-----------|
-| **Semver Format** | Ensures X.Y.Z compliance | Non-numeric components, missing parts |
-| **Logical Bump** | Prevents downgrades | New version < current version |
-| **File Consistency** | Matches VERSION file | Calculated version ≠ VERSION |
-| **Pre-release Handling** | Allows alpha/beta/rc | Invalid pre-release suffixes |
-
-### Example Scenarios
-
-**✓ PASS: Valid patch bump**
-
-- Current: `1.2.3`
-- Scope: `patch`
-- Calculated: `1.2.4` → GATE 3 passes
-
-**✓ PASS: Valid minor bump**
-
-- Current: `2.0.5`
-- Scope: `minor`
-- Calculated: `2.1.0` → GATE 3 passes
-
-**✗ FAIL: Downgrade attempt**
-
-- Current: `3.0.0`
-- Scope: `major`
-- Calculated: `2.0.0` (downgrade) → GATE 3 fails
-
-**✗ FAIL: Invalid version format**
-
-- Calculated: `1.2` (missing PATCH) → GATE 3 fails
-- Calculated: `1.2.3.4` (too many parts) → GATE 3 fails
-
-### Related Documentation
-
-- **Release Process:** [RELEASE_PROCESS.md](./RELEASE_PROCESS.md#phase-5a-safety-gates-layer-new)
-- **Changelog Management:** [CHANGELOG_AUTOMATION.md](./CHANGELOG_AUTOMATION.md)
 
 ---
 
@@ -325,17 +222,17 @@ A file **must not** have a minor version exceeding the repository minor version:
 
 ### Automation
 
-Use `.github/scripts/versioning/bump-file-version.js` for single or bulk version bumps:
+Use `scripts/versioning/bump-file-version.js` for single or bulk version bumps:
 
 ```bash
 # Bump patch version of a single file
-node .github/scripts/versioning/bump-file-version.js ../instructions/coding-standards.instructions.md patch
+node scripts/versioning/bump-file-version.js ../instructions/coding-standards.instructions.md patch
 
 # Bump minor version (with guardrail check)
-node .github/scripts/versioning/bump-file-version.js .github/prompts/review.prompt.md minor
+node scripts/versioning/bump-file-version.js .github/prompts/review.prompt.md minor
 
 # Bulk bump patch versions
-node .github/scripts/versioning/bump-file-version.js --bulk ".github/instructions/**/*.md" patch
+node scripts/versioning/bump-file-version.js --bulk ".github/instructions/**/*.md" patch
 ```
 
 The script will:
@@ -353,7 +250,7 @@ Add a CI check to ensure file versions don't exceed repository version:
 - name: Validate file versions
   run: |
     REPO_VERSION=$(cat VERSION)
-    node .github/scripts/versioning/validate-versions.js --repo-version $REPO_VERSION
+    node scripts/versioning/validate-versions.js --repo-version $REPO_VERSION
 ```
 
 ### When to Use
@@ -391,19 +288,19 @@ node scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
 node scripts/versioning/bump-file-version.cjs --help
 ```
 
-#### `.github/scripts/maintenance/fix-references.cjs`
+#### `scripts/maintenance/fix-references.cjs`
 
 Validate and fix broken reference links in frontmatter:
 
 ```bash
 # Scan and fix all references
-node .github/scripts/maintenance/fix-references.cjs
+node scripts/maintenance/fix-references.cjs
 
 # Show current fix map
-node .github/scripts/maintenance/fix-references.cjs --fix-map
+node scripts/maintenance/fix-references.cjs --fix-map
 
 # Help
-node .github/scripts/maintenance/fix-references.cjs --help
+node scripts/maintenance/fix-references.cjs --help
 ```
 
 ### Integration with CI/CD
@@ -416,6 +313,5 @@ Consider adding these scripts to GitHub Actions workflows for:
 
 ---
 
----
-
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

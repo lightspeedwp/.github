@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { detectRepoType } = require("../skills/repo-type-detection.cjs");
+const { detectRepoType } = require("../skills/repo-type-detection");
 
 describe("repo-type-detection skill", () => {
   let tempDir;

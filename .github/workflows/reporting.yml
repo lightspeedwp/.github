@@ -81,10 +81,10 @@ jobs:
 
           # Check for reports in wrong locations
           if [ -d "reports" ]; then
-            echo "❌ Found reports in root./.github/reports/ folder - should be in .github/reports/" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Found reports in root /reports/ folder - should be in .github/reports/" >> $GITHUB_STEP_SUMMARY
             echo "reports_in_wrong_location=true" >> $GITHUB_OUTPUT
           else
-            echo "✅ No reports in root./.github/reports/ folder" >> $GITHUB_STEP_SUMMARY
+            echo "✅ No reports in root /reports/ folder" >> $GITHUB_STEP_SUMMARY
             echo "reports_in_wrong_location=false" >> $GITHUB_OUTPUT
           fi
 

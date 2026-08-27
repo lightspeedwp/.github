@@ -81,11 +81,11 @@ merge_protections_settings:
   # Every pull_request_rule above deliberately scopes auto-merge to specific
   # bot authors (dependabot/imgbot/lightspeed-bot) on `develop` only, gated
   # by `check-success=All Checks Passed` — but this blanket setting bypassed
-  # all of that scoping. develop's branch protection only requires the
-  # `validate-pr-template` check, so this merged any PR, from any author,
-  # the instant that one check passed — ignoring tests, linting, and
-  # security scans entirely. Restricting the condition list to the same
-  # three bot identities used above restores the intended scope: only they
-  # get unconditional auto-merge, everyone else must merge manually.
+  # all of that scoping. Combined with release/v1.0.0 having no branch
+  # protection at all, it auto-merged human/agent-authored PRs against the
+  # release branch within seconds of opening, before CI had even finished.
+  # Restricting the condition list to the same three bot identities used
+  # above restores the intended scope: only they get unconditional
+  # auto-merge, everyone else must merge manually.
   auto_merge_conditions:
     - author~=^(dependabot\[bot\]|app/dependabot|imgbot\[bot\]|app/imgbot|lightspeed-bot)$

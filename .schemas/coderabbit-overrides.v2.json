@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CodeRabbit Overrides v2",
+  "type": "object",
+  "properties": {
+    "reviews": {
+      "type": "object",
+      "properties": {
+        "path_filters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "auto_review": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path_filters",
+        "auto_review"
+      ]
+    }
+  },
+  "required": [
+    "reviews"
+  ]
+}

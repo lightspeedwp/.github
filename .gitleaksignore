@@ -10,3 +10,4 @@
 
 # Unit test for security handling: intentional test data
 scripts/metrics/__tests__/security.test.js:generic-api-key:165
+scripts/metrics/__tests__/security.test.js:generic-api-key:166

@@ -276,7 +276,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.cjs');
+            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
 
             const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
             const generator = new RemediationChecklistGenerator(github, context.repo.owner, context.repo.repo);

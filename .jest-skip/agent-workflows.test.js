@@ -13,6 +13,7 @@
  *   - Update test data to match real GitHub events
  */
 
+const _fs = require("fs");
 const path = require("path");
 const { setTestEnv, resetTestEnv } = require("../../../tests/test-helpers");
 const {
@@ -22,6 +23,8 @@ const {
 } = require("../../../tests/test-helpers");
 
 describe("Agent E2E Workflows", () => {
+  const _agentsDir = path.join(__dirname, "..");
+
   beforeAll(() => {
     setTestEnv({
       GITHUB_TOKEN: "test-token",
@@ -322,7 +325,7 @@ describe("Agent E2E Workflows", () => {
       const mockPayload = mockPrPayload();
 
       const resilientAgent = {
-        run: jest.fn().mockImplementation(async (_ctx) => {
+        run: jest.fn().mockImplementation(async (ctx) => {
           try {
             // Simulate API call that might fail
             const shouldFail = Math.random() < 0.3; // 30% chance of failure

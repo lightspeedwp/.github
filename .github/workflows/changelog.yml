@@ -1,0 +1,30 @@
+name: changelog-validate
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches: [develop]
+    paths:
+      - 'CHANGELOG.md'
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Validate changelog schema
+        run: |
+          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md

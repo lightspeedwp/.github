@@ -18,7 +18,7 @@ const schemaUrl =
   "https://coderabbit.ai/integrations/coderabbit-overrides.v2.json";
 const localSchemaPath = path.resolve(
   __dirname,
-  "../../schemas/coderabbit-overrides.v2.json",
+  "../../.schemas/coderabbit-overrides.v2.json",
 );
 const logsDir = path.resolve(__dirname, "../../logs");
 const logFile = path.join(logsDir, "validate-coderabbit-yml.log");

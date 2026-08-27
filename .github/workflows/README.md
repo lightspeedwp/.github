@@ -1,132 +1,73 @@
 ---
 file_type: "documentation"
 title: ".github Workflows Directory"
-description: "GitHub Actions workflows for CI, automation, labeling, metrics, and community health across the LightSpeed organisation"
-version: "v2.1.0"
-last_updated: "2026-07-24"
+description: "Reusable GitHub Actions workflows and automation for the LightSpeed .github control plane"
+version: "v1.0"
+last_updated: '2026-06-01'
 maintainer: "LightSpeed Team"
-owners:
-  - LightSpeed Team
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---
 
 # .github Workflows Directory
 
-This directory contains the GitHub Actions workflows that power CI/CD, automation, labeling, metrics collection, and community health for the LightSpeed organisation.
+This directory contains reusable GitHub Actions workflows used for automation, CI/CD, labeling, metrics collection, and community health across the LightSpeed organization.
 
-## Workflow Inventory
+## Workflow Categories
 
-### CI & Quality
+### Validation & Quality Checks
 
-| Workflow | File | Trigger |
-|---|---|---|
-| Unified Checks (Lint, Test, Validate) | `checks.yml` | PR → develop, push → develop |
-| Linting | `linting.yml` | PR → develop, push → develop |
-| Testing | `testing.yml` | PR → develop, push → develop |
-| Changelog Validation | `changelog-validate.yml` | PR → develop |
-| Main Branch Guard | `main-branch-guard.yml` | PR → main |
+- **checks.yml** - Unified linting, testing, and validation workflow
+- **validate.yml** - Frontmatter, JSON schema, and configuration validation
+- **lint-and-links.yml** - Markdown linting and link validation
+- **main-branch-guard.yml** - PR branch-name guard for `main`
 
-### Template & PR Governance
+### Automation & Labeling
 
-| Workflow | File | Trigger |
-|---|---|---|
-| Validate PR Template | `validate-pr-template.yml` | pull_request_target (all) |
-| Template Enforcement | `template-enforcement.yml` | push → develop, issues |
-
-### Labeling & Triage
-
-| Workflow | File | Trigger |
-|---|---|---|
-| Labeling Governance (Consolidated) | `labeling-governance.yml` | issues, pull_request (opened/edited/closed), discussion, push → develop, workflow_dispatch |
-| Checklist Finalisation | `checklist-finalisation.yml` | issues, pull_request (closed/merged) |
-
-### Automation & Agents
-
-| Workflow | File | Trigger |
-|---|---|---|
-| Meta Agent (Frontmatter, Badges, Metrics) | `meta.yml` | PR/push → develop (md/yml paths), schedule (Mon 03:00) |
-| Metadata Governance | `metadata-governance.yml` | issues, pull_request_target |
-| Planner Agent | `planner.yml` | issues (opened), workflow_dispatch |
-| Reviewer Agent | `reviewer.yml` | pull_request |
-| Project Meta Sync | `project-meta-sync.yml` | issues, pull_request |
-| Issue Create From Template | `issue-create-from-template.yml` | workflow_call, workflow_dispatch |
-| Issues Workflow | `issues.yml` | issues |
+- **labeling.yml** - Automatic issue and PR labeling based on paths and content
+- **branding.yml** - Branding, frontmatter, and metadata automation
 
 ### Metrics & Reporting
 
-| Workflow | File | Trigger |
-|---|---|---|
-| Frontmatter Metrics | `metrics.yml` | schedule (Mon 06:00), workflow_dispatch |
-| Weekly Metrics Summary | `metrics-summary.yml` | schedule (Mon 09:00), workflow_dispatch |
-| Reporting | `reporting.yml` | schedule (weekly), workflow_dispatch |
+- **metrics.yml** - Frontmatter coverage and quality metrics collection
+- **reporting.yml** - Generate audit and status reports
 
-### README & Documentation
+### Release Management
 
-| Workflow | File | Trigger |
-|---|---|---|
-| README Regeneration | `readme-regen.yml` | push → develop (md paths), pull_request |
-| README Update | `readme-update.yml` | push → develop |
-| README Audit | `readme-audit.yml` | schedule (weekly), workflow_dispatch |
-| Awesome GitHub Site | `awesome-github-site.yml` | push → main, workflow_dispatch |
+- **release.yml** - Automated release orchestration and changelog generation
+- **publish.yml** - Artifact publishing and distribution
 
-### Release & Lifecycle
+## Usage
 
-| Workflow | File | Trigger |
-|---|---|---|
-| Release | `release.yml` | push → main (tags), workflow_dispatch |
-| Changelog Auto Update | `changelog-auto-update.yml` | pull_request (merged) |
-| Project Archival | `project-archival.yml` | schedule (weekly), workflow_dispatch |
+Workflows are triggered by:
 
-## Trigger Summary
+1. **Pull Request Events** - Code quality checks on PR creation/update
+2. **Push Events** - Validation and automation on push to branches
+3. **Schedule** - Periodic metrics and reporting collection
+4. **Manual Dispatch** - On-demand workflow execution via GitHub UI
 
-| Trigger type | Workflows |
-|---|---|
-| `pull_request` / `pull_request_target` | checks, linting, testing, validate-pr-template, labeling-governance, reviewer, readme-regen, changelog-validate, metadata-governance |
-| `push → develop` | checks, linting, testing, meta, labeling-governance, readme-regen, readme-update, template-enforcement |
-| `push → main` | main-branch-guard, release, awesome-github-site |
-| `issues` | labeling-governance, planner, issues, template-enforcement, project-meta-sync, metadata-governance, checklist-finalisation |
-| `schedule` | meta (Mon 03:00), metrics (Mon 06:00), metrics-summary (Mon 09:00), reporting, readme-audit, project-archival |
-| `workflow_dispatch` | most workflows (manual trigger) |
+## Configuration
 
-## Configuration Files
+Workflow behavior is configured via:
 
-Workflow behaviour is driven by:
+- **`.github/labeler.yml`** - Label matching rules
+- **`.github/metrics/metrics.config.json`** - Metrics collection configuration
+- **`.github/schemas/`** - JSON schemas for validation
 
-- **`.github/labeler.yml`** — label matching rules for PR path-based labeling
-- **`.github/labels.yml`** — canonical label definitions (160+ labels)
-- **`.github/issue-types.yml`** — org-wide canonical issue type registry
-- **`.github/metrics/metrics.config.json`** — frontmatter metrics thresholds and config
-- **`.github/schemas/`** — JSON schemas for frontmatter and config validation
-- **`.github/PULL_REQUEST_TEMPLATE/config.yml`** — branch-prefix → PR template routing
+## Best Practices
+
+- Keep workflow files in source control
+- Use workflow permissions minimally (read-only by default)
+- Leverage reusable workflow blocks to reduce duplication
+- Test workflows locally with `act` before committing
+- Document non-obvious workflow logic inline
 
 ## Related Documentation
 
-- [Automation Governance](../../docs/AUTOMATION.md)
-- [Labeling System](../labels.yml)
-- [Metrics Directory](../metrics/README.md)
-- [AGENTS.md](../../AGENTS.md) — AI agent governance
+- [Automation Governance](../automation/AUTOMATION_GOVERNANCE.md) - Workflow standards and oversight
+- [Labeling System](./labels.yml) - Label definitions and rules
+- [Metrics Directory](../metrics/README.md) - Metrics collection and reporting
 
 ---
-## Visual Workflow
 
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { extractMetadata } = require("../skills/metadata-extraction.cjs");
+const { extractMetadata } = require("../skills/metadata-extraction");
 
 describe("metadata-extraction skill", () => {
   let tempDir;

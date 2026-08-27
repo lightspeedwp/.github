@@ -1,101 +1,95 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "npm: lint-js",
-			"type": "npm",
-			"script": "lint:js",
-			"detail": "Lints JavaScript/TypeScript files using ESLint."
-		},
-		{
-			"label": "npm: lint-css",
-			"type": "npm",
-			"script": "lint:css",
-			"detail": "Lints CSS/SCSS files using Stylelint."
-		},
-		{
-			"label": "npm: lint-md",
-			"type": "npm",
-			"script": "lint:md",
-			"detail": "Lints Markdown files using markdownlint."
-		},
-		{
-			"label": "npm: lint-yaml",
-			"type": "npm",
-			"script": "lint:yaml",
-			"detail": "Lints YAML files using Spectral."
-		},
-		{
-			"label": "npm: format-js",
-			"type": "npm",
-			"script": "format:js",
-			"detail": "Formats JS/TS/JSON files using Prettier and ESLint."
-		},
-		{
-			"label": "npm: format-css",
-			"type": "npm",
-			"script": "format:css",
-			"detail": "Formats CSS/SCSS files using Prettier and Stylelint."
-		},
-		{
-			"label": "npm: format-md",
-			"type": "npm",
-			"script": "format:md",
-			"detail": "Formats Markdown files using Prettier and markdownlint."
-		},
-		{
-			"label": "npm: format",
-			"type": "npm",
-			"script": "format",
-			"detail": "Formats all supported files using Prettier, Stylelint, and markdownlint."
-		},
-		{
-			"label": "npm: lint",
-			"type": "npm",
-			"script": "lint",
-			"detail": "Runs all lint tasks (js, css, yaml, pkg-json)."
-		},
-		{
-			"label": "npm: lint-all",
-			"type": "npm",
-			"script": "lint:all",
-			"detail": "Runs all lint tasks and markdownlint."
-		},
-		{
-			"label": "npm: lint-workflows",
-			"type": "npm",
-			"script": "lint:workflows",
-			"detail": "Lints GitHub workflow YAML files using Spectral."
-		},
-		{
-			"label": "npm: lint-pkg-json",
-			"type": "npm",
-			"script": "lint:pkg-json",
-			"detail": "Lints package.json files using npmPkgJsonLint."
-		},
-		{
-			"label": "npm: test-js",
-			"type": "npm",
-			"script": "test:js",
-			"detail": "Runs Jest unit tests with coverage."
-		},
-		{
-			"label": "npm: test",
-			"type": "npm",
-			"script": "test",
-			"detail": "Runs all tests."
-		},
-		{
-			"label": "npm: test-coverage",
-			"type": "npm",
-			"script": "test:js",
-			"detail": "Runs Jest unit tests with coverage."
-		},
-		{
-			"label": "git-sync-feat-new-agents",
-			"type": "shell",
-			"command": "git push -u origin HEAD",
-			"group": "none"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm: lint-js",
+            "type": "npm",
+            "script": "lint:js",
+            "detail": "Lints JavaScript/TypeScript files using ESLint."
+        },
+        {
+            "label": "npm: lint-css",
+            "type": "npm",
+            "script": "lint:css",
+            "detail": "Lints CSS/SCSS files using Stylelint."
+        },
+        {
+            "label": "npm: lint-md",
+            "type": "npm",
+            "script": "lint:md",
+            "detail": "Lints Markdown files using markdownlint."
+        },
+        {
+            "label": "npm: lint-yaml",
+            "type": "npm",
+            "script": "lint:yaml",
+            "detail": "Lints YAML files using Spectral."
+        },
+        {
+            "label": "npm: format-js",
+            "type": "npm",
+            "script": "format:js",
+            "detail": "Formats JS/TS/JSON files using Prettier and ESLint."
+        },
+        {
+            "label": "npm: format-css",
+            "type": "npm",
+            "script": "format:css",
+            "detail": "Formats CSS/SCSS files using Prettier and Stylelint."
+        },
+        {
+            "label": "npm: format-md",
+            "type": "npm",
+            "script": "format:md",
+            "detail": "Formats Markdown files using Prettier and markdownlint."
+        },
+        {
+            "label": "npm: format",
+            "type": "npm",
+            "script": "format",
+            "detail": "Formats all supported files using Prettier, Stylelint, and markdownlint."
+        },
+        {
+            "label": "npm: lint",
+            "type": "npm",
+            "script": "lint",
+            "detail": "Runs all lint tasks (js, css, yaml, pkg-json)."
+        },
+        {
+            "label": "npm: lint-all",
+            "type": "npm",
+            "script": "lint:all",
+            "detail": "Runs all lint tasks and markdownlint."
+        },
+        {
+            "label": "npm: lint-workflows",
+            "type": "npm",
+            "script": "lint:workflows",
+            "detail": "Lints GitHub workflow YAML files using Spectral."
+        },
+        {
+            "label": "npm: lint-pkg-json",
+            "type": "npm",
+            "script": "lint:pkg-json",
+            "detail": "Lints package.json files using npmPkgJsonLint."
+        },
+        {
+            "label": "npm: test-js",
+            "type": "npm",
+            "script": "test:js",
+            "detail": "Runs Jest unit tests with coverage."
+        },
+        {
+            "label": "npm: test",
+            "type": "npm",
+            "script": "test",
+            "detail": "Runs all tests."
+        },
+        {
+            "label": "npm: test-coverage",
+            "type": "npm",
+            "script": "test:js",
+            "detail": "Runs Jest unit tests with coverage."
+        }
+    ]
 }

@@ -1,0 +1,16 @@
+interface:
+  display_name: LightSpeed GitHub Issue Drafter
+  short_description:
+    Draft GitHub-ready issues from PRDs, technical briefs, task plans
+    and QA findings.
+  icon: assets/icon.svg
+  accent_color: "#2563eb"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

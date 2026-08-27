@@ -3,7 +3,7 @@ const {
   validateRepoLabels,
   standardizeLabelsOnRepo,
   generateSyncReport,
-} = require("../label-sync.cjs");
+} = require("../label-sync");
 const { findStandardLabel } = require("../label-lookup");
 
 // Mock label-lookup module

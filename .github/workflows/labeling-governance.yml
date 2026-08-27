@@ -72,7 +72,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || inputs.dry_run || 'false' }}
           LABEL_SYNC_REPORT_PATH: .github/reports/labeling/label-sync-${{ github.run_id }}.md
-        run: node scripts/agents/includes/label-sync.cjs
+        run: node scripts/agents/includes/label-sync.js
         continue-on-error: false
 
       # Guardrail: Check for unknown labels in templates/types

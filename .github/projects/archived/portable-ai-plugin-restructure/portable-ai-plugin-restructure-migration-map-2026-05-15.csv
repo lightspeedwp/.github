@@ -1,0 +1,806 @@
+<<<<<<< Updated upstream
+source_path,asset_type,decision,target_path,hard_coded_github_path,follow_up_issue,rationale
+.github/agents/README.md,agent-spec,move,agents/README.md,yes,,Portable agent index should move to /agents; keep repo-only notes in .github if needed.
+.github/agents/adr.agent.md,agent-spec,move,agents/adr.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/agent.md,agent-spec,move,agents/agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/issues.agent.md,agent-spec,move,agents/issues.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/labeling.agent.md,agent-spec,move,agents/labeling.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/linting.agent.md,agent-spec,move,agents/linting.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/meta.agent.md,agent-spec,move,agents/meta.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/metrics.agent.md,agent-spec,move,agents/metrics.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/mode-demonstrate-understanding.agent.md,agent-spec,move,agents/mode-demonstrate-understanding.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/mode-document-reviewer.agent.md,agent-spec,move,agents/mode-document-reviewer.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/mode-prd.agent.md,agent-spec,move,agents/mode-prd.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/mode-thinking.agent.md,agent-spec,move,agents/mode-thinking.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/project-meta-sync.agent.md,agent-spec,move,agents/project-meta-sync.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/prompt-engineer.agent.md,agent-spec,move,agents/prompt-engineer.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/release.agent.md,agent-spec,move,agents/release.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/reporting.agent.md,agent-spec,move,agents/reporting.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/reviewer.agent.md,agent-spec,move,agents/reviewer.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/task-planner.agent.md,agent-spec,move,agents/task-planner.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/task-researcher.agent.md,agent-spec,move,agents/task-researcher.agent.md,no,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/template.agent.md,agent-spec,move,agents/template.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/agents/testing.agent.md,agent-spec,move,agents/testing.agent.md,yes,,Reusable agent spec candidate for /agents; confirm repo-only assumptions before moving.
+.github/instructions/.archive/CONSOLIDATION_MIGRATION_GUIDE.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/FRONTMATTER_SCHEMA.md.backup,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/INSTRUCTION_CONSOLIDATION_MIGRATION.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/ISSUE_TYPES.md.backup,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/README.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/WORKFLOWS.md.backup,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/agents.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/file-management.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/frontmatter.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/javascript.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/jest.instructions.md,instruction,archive,,no,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/jsdoc.instructions.md,instruction,archive,,no,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/json.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/markdown.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/naming-conventions.instructions.md,instruction,archive,,no,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/reporting.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/reviewer.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/saved-replies.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/testing.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/tests.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/yaml.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/README.md,instruction,move,instructions/README.md,no,,Portable instruction index candidate; keep a small .github repo-local index if needed.
+.github/instructions/a11y.instructions.md,instruction,move,instructions/a11y.instructions.md,no,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/agent-spec.instructions.md,instruction,move,instructions/agent-spec.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/automation.instructions.md,instruction,move,instructions/automation.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/coding-standards.instructions.md,instruction,move,instructions/coding-standards.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/community-standards.instructions.md,instruction,move,instructions/community-standards.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/copilot-operations.instructions.md,instruction,move,instructions/copilot-operations.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/docs.instructions.md,instruction,move,instructions/docs.instructions.md,no,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/documentation-formats.instructions.md,instruction,move,instructions/documentation-formats.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/file-organisation.instructions.md,instruction,convert,instructions/file-organisation.instructions.md + .github/instructions/file-organisation.instructions.md,yes,,Split portable placement rules from repo-local .github governance rules.
+.github/instructions/instructions.instructions.md,instruction,move,instructions/instructions.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/issues.instructions.md,instruction,move,instructions/issues.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/labeling.instructions.md,instruction,move,instructions/labeling.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/languages.instructions.md,instruction,move,instructions/languages.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/linting.instructions.md,instruction,move,instructions/linting.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/mermaid.instructions.md,instruction,move,instructions/mermaid.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/meta.instructions.md,instruction,move,instructions/meta.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/metrics.instructions.md,instruction,move,instructions/metrics.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/planner.instructions.md,instruction,move,instructions/planner.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/project-meta-sync.instructions.md,instruction,move,instructions/project-meta-sync.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/prompt.instructions.md,instruction,move,instructions/prompt.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/pull-requests.instructions.md,instruction,move,instructions/pull-requests.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/quality-assurance.instructions.md,instruction,move,instructions/quality-assurance.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/readme.instructions.md,instruction,move,instructions/readme.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/release.instructions.md,instruction,move,instructions/release.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/reporting.instructions.md,instruction,move,instructions/reporting.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/self-explanatory-code-commenting.instructions.md,instruction,move,instructions/self-explanatory-code-commenting.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/spec-driven-workflow.instructions.md,instruction,move,instructions/spec-driven-workflow.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/task-implementation.instructions.md,instruction,move,instructions/task-implementation.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/tasksync.instructions.md,instruction,move,instructions/tasksync.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/template.instructions.md,instruction,move,instructions/template.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/tools.instructions.md,instruction,move,instructions/tools.instructions.md,no,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/instructions/workflows.instructions.md,instruction,move,instructions/workflows.instructions.md,yes,,Portable instruction candidate; remove .github path assumptions during migration.
+.github/prompts/README.md,prompt,convert,cookbook/README.md,no,,Prompt indexes become cookbook/backlog material rather than first-class installable assets.
+.github/prompts/add-frontmatter.prompt.md,prompt,convert,skills/add-frontmatter/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/agent-task-markdown-linting.prompt.md,prompt,convert,skills/agent-task-markdown-linting/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/agents.prompt.md,prompt,convert,skills/agents/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/architecture-blueprint-generator.prompt.md,prompt,convert,cookbook/architecture-blueprint-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-epic-arch.prompt.md,prompt,convert,cookbook/breakdown-epic-arch.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-epic-pm.prompt.md,prompt,convert,cookbook/breakdown-epic-pm.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-feature-implementation.prompt.md,prompt,convert,skills/breakdown-feature-implementation/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/breakdown-feature-prd.prompt.md,prompt,convert,cookbook/breakdown-feature-prd.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-plan.prompt.md,prompt,convert,cookbook/breakdown-plan.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-test.prompt.md,prompt,convert,cookbook/breakdown-test.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/build-agent-and-tests.prompt.md,prompt,convert,skills/build-agent-and-tests/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/changelog-lines.prompt.md,prompt,convert,skills/changelog-lines/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/changelog.prompt.md,prompt,convert,skills/changelog/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/code-review.prompt.md,prompt,convert,skills/code-review/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/conventional-commit.prompt.md,prompt,convert,cookbook/conventional-commit.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/create-agentsmd.prompt.md,prompt,convert,skills/create-agentsmd/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-architectural-decision-record.prompt.md,prompt,convert,cookbook/create-architectural-decision-record.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/create-github-action-workflow-specification.prompt.md,prompt,convert,skills/create-github-action-workflow-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-issue-feature-from-specification.prompt.md,prompt,convert,skills/create-github-issue-feature-from-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-issues-feature-from-implementation-plan.prompt.md,prompt,convert,skills/create-github-issues-feature-from-implementation-plan/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-issues-for-unmet-specification-requirements.prompt.md,prompt,convert,skills/create-github-issues-for-unmet-specification-requirements/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-pull-request-from-specification.prompt.md,prompt,convert,skills/create-github-pull-request-from-specification/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-implementation-plan.prompt.md,prompt,convert,skills/create-implementation-plan/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-llms.prompt.md,prompt,convert,cookbook/create-llms.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/create-readme.prompt.md,prompt,convert,skills/create-readme/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-specification.prompt.md,prompt,convert,skills/create-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/dependency-audit-agent.prompt.md,prompt,convert,skills/dependency-audit-agent/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/docs-from-comments.prompt.md,prompt,convert,cookbook/docs-from-comments.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/docs-writeup.prompt.md,prompt,convert,cookbook/docs-writeup.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/documentation-writer.prompt.md,prompt,convert,cookbook/documentation-writer.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/editorconfig.prompt.md,prompt,convert,cookbook/editorconfig.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/finalize-agent-prompt.prompt.md,prompt,convert,skills/finalize-agent-prompt/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/folder-structure-blueprint-generator.prompt.md,prompt,convert,cookbook/folder-structure-blueprint-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/generate-changelog.prompt.md,prompt,convert,skills/generate-changelog/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/generate-custom-instructions-from-codebase.prompt.md,prompt,convert,cookbook/generate-custom-instructions-from-codebase.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/generate-gh-workflow.prompt.md,prompt,convert,skills/generate-gh-workflow/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/generate-pr-description.prompt.md,prompt,convert,cookbook/generate-pr-description.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/git-flow-branch-creator.prompt.md,prompt,convert,cookbook/git-flow-branch-creator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/github-copilot-starter.prompt.md,prompt,convert,cookbook/github-copilot-starter.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/inline-documentation.prompt.md,prompt,convert,cookbook/inline-documentation.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/labeling.prompt.md,prompt,convert,skills/labeling/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/model-recommendation.prompt.md,prompt,convert,cookbook/model-recommendation.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/multi-stage-dockerfile.prompt.md,prompt,convert,cookbook/multi-stage-dockerfile.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/my-issues.prompt.md,prompt,convert,cookbook/my-issues.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/my-pull-requests.prompt.md,prompt,convert,cookbook/my-pull-requests.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/normalize-docs-labels.prompt.md,prompt,convert,skills/normalize-docs-labels/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/pr-description.prompt.md,prompt,convert,cookbook/pr-description.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/pr-review.prompt.md,prompt,convert,skills/pr-review/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/project-workflow-analysis-blueprint-generator.prompt.md,prompt,convert,skills/project-workflow-analysis-blueprint-generator/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/prompt-builder.prompt.md,prompt,convert,cookbook/prompt-builder.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/prompts.md,prompt,convert,cookbook/prompts.md,no,,Prompt indexes become cookbook/backlog material rather than first-class installable assets.
+.github/prompts/python-mcp-server-generator.prompt.md,prompt,convert,cookbook/python-mcp-server-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/readme-blueprint-generator.prompt.md,prompt,convert,skills/readme-blueprint-generator/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/release.prompt.md,prompt,convert,skills/release/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/remember-interactive-programming.prompt.md,prompt,convert,cookbook/remember-interactive-programming.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/remember.prompt.md,prompt,convert,cookbook/remember.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/repo-story-time.prompt.md,prompt,convert,cookbook/repo-story-time.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/reporting.prompt.md,prompt,convert,cookbook/reporting.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/review-and-refactor.prompt.md,prompt,convert,skills/review-and-refactor/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/saved-replies.prompt.md,prompt,convert,cookbook/saved-replies.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/shuffle-json-data.prompt.md,prompt,convert,cookbook/shuffle-json-data.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/spec-driven-workflow-start.prompt.md,prompt,convert,skills/spec-driven-workflow-start/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/technology-stack-blueprint-generator.prompt.md,prompt,convert,cookbook/technology-stack-blueprint-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/testing.prompt.md,prompt,convert,skills/testing/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/update-implementation-plan.prompt.md,prompt,convert,skills/update-implementation-plan/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/update-llms.prompt.md,prompt,convert,cookbook/update-llms.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-markdown-file-index.prompt.md,prompt,convert,cookbook/update-markdown-file-index.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-mermaid-diagrams.prompt.md,prompt,convert,cookbook/update-mermaid-diagrams.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-oo-component-documentation.prompt.md,prompt,convert,cookbook/update-oo-component-documentation.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-readmes.prompt.md,prompt,convert,skills/update-readmes/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/update-specification.prompt.md,prompt,convert,skills/update-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/write-coding-standards-from-file.prompt.md,prompt,convert,cookbook/write-coding-standards-from-file.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/schemas/README.md,schema,move,.schemas/README.md,yes,,Portable schema index should move to the root schema collection after reset.
+.github/schemas/changelog.schema.json,schema,move,.schemas/changelog.schema.json,no,,Portable/validation schemas should move to /.schemas after simplification and non-mutating validators are ready.
+.github/schemas/coderabbit-overrides.v2.json,schema,move,.schemas/coderabbit-overrides.v2.json,no,,Portable/validation schemas should move to /.schemas after simplification and non-mutating validators are ready.
+.github/schemas/frontmatter.schema.json,schema,move,.schemas/frontmatter.schema.json,yes,,Portable/validation schemas should move to /.schemas after simplification and non-mutating validators are ready.
+.github/schemas/project-fields.schema.json,schema,move,.schemas/project-fields.schema.json,no,,Portable/validation schemas should move to /.schemas after simplification and non-mutating validators are ready.
+.github/schemas/version.schema.json,schema,move,.schemas/version.schema.json,no,,Portable/validation schemas should move to /.schemas after simplification and non-mutating validators are ready.
+.github/workflows/.gitignore,github-action-workflow,keep,.github/workflows/.gitignore,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/README.md,github-action-workflow,keep,.github/workflows/README.md,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/changelog.yml,github-action-workflow,keep,.github/workflows/changelog.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/issues.yml,github-action-workflow,keep,.github/workflows/issues.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/labeling.yml,github-action-workflow,keep,.github/workflows/labeling.yml,yes,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/linting.yml,github-action-workflow,keep,.github/workflows/linting.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/meta.yml,github-action-workflow,keep,.github/workflows/meta.yml,yes,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/metrics.yml,github-action-workflow,keep,.github/workflows/metrics.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/planner.yml,github-action-workflow,keep,.github/workflows/planner.yml,yes,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/project-meta-sync.yml,github-action-workflow,keep,.github/workflows/project-meta-sync.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/release.yml,github-action-workflow,keep,.github/workflows/release.yml,yes,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/reporting.yml,github-action-workflow,keep,.github/workflows/reporting.yml,yes,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/reviewer.yml,github-action-workflow,keep,.github/workflows/reviewer.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/testing.yml,github-action-workflow,keep,.github/workflows/testing.yml,no,,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+scripts/agents/__tests__/README.md,legacy-agent-runtime,defer,scripts/agents/__tests__/README.md,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/adr.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/adr.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/issue-type.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/issue-type.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/issues.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/issues.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/labeling.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/labeling.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/linting.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/linting.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/meta.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/meta.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/metrics.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/metrics.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-demonstrate-understanding.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-demonstrate-understanding.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-document-reviewer.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-document-reviewer.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-prd.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-prd.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-thinking.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-thinking.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/planner.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/planner.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/project-meta-sync.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/project-meta-sync.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/prompt-engineer.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/prompt-engineer.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/release.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/release.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/reporting.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/reporting.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/reviewer.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/reviewer.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/task-planner.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/task-planner.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/task-researcher.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/task-researcher.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/template.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/template.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/testing.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/testing.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/adr.agent.js,legacy-agent-runtime,defer,hooks/adr.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/includes/README.md,legacy-agent-runtime,defer,scripts/agents/includes/README.md,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/__tests__/README.md,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/README.md,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/badgeUtils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/badgeUtils.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/build-label-alias-map.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/build-label-alias-map.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/build-labeling-report.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/build-labeling-report.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/fetch-canonical-labels.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/fetch-canonical-labels.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/footerUtils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/footerUtils.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/label-utils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/label-utils.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/readmeUtils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/readmeUtils.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/sync-version.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/sync-version.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/update-readme.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/update-readme.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/yaml-parser.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/yaml-parser.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/badgeUtils.js,legacy-agent-runtime,defer,scripts/agents/includes/badgeUtils.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/badges.js,legacy-agent-runtime,defer,scripts/agents/includes/badges.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/build-label-alias-map.js,legacy-agent-runtime,defer,scripts/agents/includes/build-label-alias-map.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/build-labeling-report.js,legacy-agent-runtime,defer,scripts/agents/includes/build-labeling-report.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/changelogUtils.cjs,legacy-agent-runtime,defer,scripts/agents/includes/changelogUtils.cjs,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/check-template-labels.js,legacy-agent-runtime,defer,scripts/agents/includes/check-template-labels.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/en-gb-normalise.js,legacy-agent-runtime,defer,scripts/agents/includes/en-gb-normalise.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/fetch-canonical-labels.js,legacy-agent-runtime,defer,scripts/agents/includes/fetch-canonical-labels.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/footer-content.json,legacy-agent-runtime,defer,scripts/agents/includes/footer-content.json,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/footerUtils.js,legacy-agent-runtime,defer,scripts/agents/includes/footerUtils.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/header-content.json,legacy-agent-runtime,defer,scripts/agents/includes/header-content.json,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/header-footer.js,legacy-agent-runtime,defer,scripts/agents/includes/header-footer.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-heuristics.js,legacy-agent-runtime,defer,scripts/agents/includes/label-heuristics.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-lookup.js,legacy-agent-runtime,defer,scripts/agents/includes/label-lookup.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-reporting.js,legacy-agent-runtime,defer,scripts/agents/includes/label-reporting.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-sync.js,legacy-agent-runtime,defer,scripts/agents/includes/label-sync.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-utils.js,legacy-agent-runtime,defer,scripts/agents/includes/label-utils.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/labeler-utils.js,legacy-agent-runtime,defer,scripts/agents/includes/labeler-utils.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/readmeUtils.js,legacy-agent-runtime,defer,scripts/agents/includes/readmeUtils.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/report-writer.js,legacy-agent-runtime,defer,scripts/agents/includes/report-writer.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/retry-helper.js,legacy-agent-runtime,defer,scripts/agents/includes/retry-helper.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/status-enforcer.js,legacy-agent-runtime,defer,scripts/agents/includes/status-enforcer.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/sync-version.js,legacy-agent-runtime,defer,scripts/agents/includes/sync-version.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/type-lookup.js,legacy-agent-runtime,defer,scripts/agents/includes/type-lookup.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/update-readme.js,legacy-agent-runtime,defer,scripts/agents/includes/update-readme.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/yaml-parser.js,legacy-agent-runtime,defer,scripts/agents/includes/yaml-parser.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/yaml-validator.js,legacy-agent-runtime,defer,scripts/agents/includes/yaml-validator.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/issue-type.agent.js,legacy-agent-runtime,defer,hooks/issue-type.agent.js,no,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/issues.agent.js,legacy-agent-runtime,defer,hooks/issues.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/labeling.agent.js,legacy-agent-runtime,defer,hooks/labeling.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/linting.agent.js,legacy-agent-runtime,defer,hooks/linting.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/meta.agent.js,legacy-agent-runtime,defer,hooks/meta.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/metrics.agent.js,legacy-agent-runtime,defer,hooks/metrics.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-demonstrate-understanding.agent.js,legacy-agent-runtime,defer,hooks/mode-demonstrate-understanding.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-document-reviewer.agent.js,legacy-agent-runtime,defer,hooks/mode-document-reviewer.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-prd.agent.js,legacy-agent-runtime,defer,hooks/mode-prd.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-thinking.agent.js,legacy-agent-runtime,defer,hooks/mode-thinking.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/planner.agent.js,legacy-agent-runtime,defer,hooks/planner.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/project-meta-sync.agent.js,legacy-agent-runtime,defer,hooks/project-meta-sync.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/prompt-engineer.agent.js,legacy-agent-runtime,defer,hooks/prompt-engineer.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/release.agent.js,legacy-agent-runtime,defer,hooks/release.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/reporting.agent.js,legacy-agent-runtime,defer,hooks/reporting.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/reviewer.agent.js,legacy-agent-runtime,defer,hooks/reviewer.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/task-planner.agent.js,legacy-agent-runtime,defer,hooks/task-planner.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/task-researcher.agent.js,legacy-agent-runtime,defer,hooks/task-researcher.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/template.agent.js,legacy-agent-runtime,defer,hooks/template.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/testing.agent.js,legacy-agent-runtime,defer,hooks/testing.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/validation/README.md,legacy-validation-runtime,defer,workflows/validation/README.md,yes,,"Use as reference for the smaller validation reset, not as-is migration."
+scripts/validation/__fixtures__/invalid-coderabbit.yml,legacy-validation-runtime,defer,scripts/validation/__fixtures__/invalid-coderabbit.yml,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__fixtures__/valid-coderabbit.yml,legacy-validation-runtime,defer,scripts/validation/__fixtures__/valid-coderabbit.yml,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/run-agent-handoff-audit.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/run-agent-handoff-audit.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-agent-frontmatter.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-agent-frontmatter.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-agents.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-agents.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-changelog.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-changelog.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-coderabbit-yml.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-coderabbit-yml.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-frontmatter-alt.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-frontmatter-alt.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-frontmatter.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-frontmatter.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-json.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-json.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-version.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-version.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-workflows.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-workflows.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/package.json,legacy-validation-runtime,defer,workflows/validation/package.json,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/run-agent-handoff-audit.js,legacy-validation-runtime,defer,workflows/validation/run-agent-handoff-audit.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/update-coderabbit-schema.cjs,legacy-validation-runtime,defer,workflows/validation/update-coderabbit-schema.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-agent-frontmatter.js,legacy-validation-runtime,defer,workflows/validation/validate-agent-frontmatter.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-agents.js,legacy-validation-runtime,defer,workflows/validation/validate-agents.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-changelog.cjs,legacy-validation-runtime,defer,workflows/validation/validate-changelog.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-coderabbit-yml.cjs,legacy-validation-runtime,defer,workflows/validation/validate-coderabbit-yml.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-coderabbit-yml.test.js,legacy-validation-runtime,defer,scripts/validation/validate-coderabbit-yml.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/validate-frontmatter.js,legacy-validation-runtime,defer,workflows/validation/validate-frontmatter.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-json.js,legacy-validation-runtime,defer,workflows/validation/validate-json.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-version.cjs,legacy-validation-runtime,defer,workflows/validation/validate-version.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-workflows.js,legacy-validation-runtime,defer,workflows/validation/validate-workflows.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+.github/ISSUE_TEMPLATE/01-task.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/01-task.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/02-bug.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/02-bug.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/03-feature.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/03-feature.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/04-design.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/04-design.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/05-epic.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/05-epic.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/06-story.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/06-story.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/07-improvement.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/07-improvement.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/07-user-experience-feedback.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/07-user-experience-feedback.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/08-code-refactor.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/08-code-refactor.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/09-build-ci.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/09-build-ci.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/10-automation.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/10-automation.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/11-testing-coverage.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/11-testing-coverage.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/12-performance.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/12-performance.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/13-a11y.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/13-a11y.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/14-security.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/14-security.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/15-compatibility.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/15-compatibility.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/16-integration-issue.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/16-integration-issue.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/17-release.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/17-release.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/18-maintenance.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/18-maintenance.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/19-documentation.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/19-documentation.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/20-research.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/20-research.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/21-audit.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/21-audit.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/22-code-review.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/22-code-review.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/23-ai-ops.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/23-ai-ops.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/24-content-modelling.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/24-content-modelling.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/25-help.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/25-help.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+".github/ISSUE_TEMPLATE/Icon",github-issue-template,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/ISSUE_TEMPLATE/README.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/README.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/config.yml,github-issue-template,keep,.github/ISSUE_TEMPLATE/config.yml,no,,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/Icon",saved-reply,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/README.md,saved-reply,keep,.github/SAVED_REPLIES/README.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/community/Icon",saved-reply,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/community/code-of-conduct.md,saved-reply,keep,.github/SAVED_REPLIES/community/code-of-conduct.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/contribution-thanks.md,saved-reply,keep,.github/SAVED_REPLIES/community/contribution-thanks.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/guidelines.md,saved-reply,keep,.github/SAVED_REPLIES/community/guidelines.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/legal.md,saved-reply,keep,.github/SAVED_REPLIES/community/legal.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/welcome.md,saved-reply,keep,.github/SAVED_REPLIES/community/welcome.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/issues/Icon",saved-reply,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/issues/a11y-acknowledge.md,saved-reply,keep,.github/SAVED_REPLIES/issues/a11y-acknowledge.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/area-routing.md,saved-reply,keep,.github/SAVED_REPLIES/issues/area-routing.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/blockers.md,saved-reply,keep,.github/SAVED_REPLIES/issues/blockers.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/bug-reports.md,saved-reply,keep,.github/SAVED_REPLIES/issues/bug-reports.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/documentation.md,saved-reply,keep,.github/SAVED_REPLIES/issues/documentation.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/duplicate.md,saved-reply,keep,.github/SAVED_REPLIES/issues/duplicate.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/duplicates.md,saved-reply,keep,.github/SAVED_REPLIES/issues/duplicates.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/epic-tracking.md,saved-reply,keep,.github/SAVED_REPLIES/issues/epic-tracking.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/feature-requests.md,saved-reply,keep,.github/SAVED_REPLIES/issues/feature-requests.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/good-first-issue.md,saved-reply,keep,.github/SAVED_REPLIES/issues/good-first-issue.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/inactive-issue.md,saved-reply,keep,.github/SAVED_REPLIES/issues/inactive-issue.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/label-clarification.md,saved-reply,keep,.github/SAVED_REPLIES/issues/label-clarification.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/meta-label-nudge.md,saved-reply,keep,.github/SAVED_REPLIES/issues/meta-label-nudge.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/missing-info.md,saved-reply,keep,.github/SAVED_REPLIES/issues/missing-info.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/more-info.md,saved-reply,keep,.github/SAVED_REPLIES/issues/more-info.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/needs-reproduction.md,saved-reply,keep,.github/SAVED_REPLIES/issues/needs-reproduction.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/research-completion.md,saved-reply,keep,.github/SAVED_REPLIES/issues/research-completion.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/security-acknowledge.md,saved-reply,keep,.github/SAVED_REPLIES/issues/security-acknowledge.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/stale-abandoned.md,saved-reply,keep,.github/SAVED_REPLIES/issues/stale-abandoned.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/support.md,saved-reply,keep,.github/SAVED_REPLIES/issues/support.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/triage.md,saved-reply,keep,.github/SAVED_REPLIES/issues/triage.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/wontfix.md,saved-reply,keep,.github/SAVED_REPLIES/issues/wontfix.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/pull-requests/Icon",saved-reply,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/pull-requests/ai-assist.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/ai-assist.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/area-labeling.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/area-labeling.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/area-routing.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/area-routing.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/automated-dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/automated-dependency-update.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/awaiting-author.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/awaiting-author.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/branch-naming.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/branch-naming.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/changelog-required.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/changelog-required.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/closing-inactive.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/closing-inactive.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/code-review.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/code-review.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/conflicts.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/conflicts.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/dependency-update.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/documentation-pr.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/documentation-pr.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/draft-pr.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/draft-pr.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/merge-discipline.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/merge-discipline.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/missing-labels.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/missing-labels.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/needs-qa.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/needs-qa.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/performance.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/performance.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/ready-for-review.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/ready-for-review.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/release-label-guidance.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/release-label-guidance.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/security.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/security.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/testing.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/testing.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/technical/Icon",saved-reply,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/technical/api-integration.md,saved-reply,keep,.github/SAVED_REPLIES/technical/api-integration.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/code-style.md,saved-reply,keep,.github/SAVED_REPLIES/technical/code-style.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/configuration.md,saved-reply,keep,.github/SAVED_REPLIES/technical/configuration.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/dependencies.md,saved-reply,keep,.github/SAVED_REPLIES/technical/dependencies.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/technical/dependency-update.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/environment-config.md,saved-reply,keep,.github/SAVED_REPLIES/technical/environment-config.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/environment.md,saved-reply,keep,.github/SAVED_REPLIES/technical/environment.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/missing-tests.md,saved-reply,keep,.github/SAVED_REPLIES/technical/missing-tests.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/performance.md,saved-reply,keep,.github/SAVED_REPLIES/technical/performance.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/security.md,saved-reply,keep,.github/SAVED_REPLIES/technical/security.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/workflow/Icon",saved-reply,delete,,no,,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/workflow/automation.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/automation.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/branch-management.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/branch-management.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/branches.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/branches.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/changelog-versioning.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/changelog-versioning.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/cicd-failures.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/cicd-failures.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/dependency-update.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/deployment.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/deployment.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/draft-pr.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/draft-pr.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/environment-config.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/environment-config.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/labeling.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/labeling.md,yes,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/needs-rebase.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/needs-rebase.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/permissions-secrets.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/permissions-secrets.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/project-sync.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/project-sync.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/release-management.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/release-management.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/releases.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/releases.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/workflow-failure.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/workflow-failure.md,no,,GitHub-native/community-health content should remain in .github governance scope.
+=======
+source_path,asset_type,decision,target_path,hard_coded_github_path,follow_up_issue,rationale
+.github/agents/README.md,agent-spec,convert,agents/README.md + .github/agents/README.md,yes,#296,Portable agent ownership index lives at /agents; .github retains a repo-local boundary pointer.
+.github/agents/adr.agent.md,agent-spec,move,agents/adr.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/agent.md,agent-spec,move,agents/agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/issues.agent.md,agent-spec,move,agents/issues.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/labeling.agent.md,agent-spec,move,agents/labeling.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/linting.agent.md,agent-spec,move,agents/linting.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/meta.agent.md,agent-spec,move,agents/meta.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/metrics.agent.md,agent-spec,move,agents/metrics.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/mode-demonstrate-understanding.agent.md,agent-spec,move,agents/mode-demonstrate-understanding.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/mode-document-reviewer.agent.md,agent-spec,move,agents/mode-document-reviewer.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/mode-prd.agent.md,agent-spec,move,agents/mode-prd.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/mode-thinking.agent.md,agent-spec,move,agents/mode-thinking.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/project-meta-sync.agent.md,agent-spec,move,agents/project-meta-sync.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/prompt-engineer.agent.md,agent-spec,move,agents/prompt-engineer.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/release.agent.md,agent-spec,move,agents/release.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/reporting.agent.md,agent-spec,move,agents/reporting.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/reviewer.agent.md,agent-spec,move,agents/reviewer.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/task-planner.agent.md,agent-spec,move,agents/task-planner.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/task-researcher.agent.md,agent-spec,move,agents/task-researcher.agent.md,no,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/template.agent.md,agent-spec,move,agents/template.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/agents/testing.agent.md,agent-spec,move,agents/testing.agent.md,yes,#296,Moved portable agent spec to /agents and updated active links while leaving scripts/agents as legacy runtime.
+.github/instructions/.archive/CONSOLIDATION_MIGRATION_GUIDE.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/FRONTMATTER_SCHEMA.md.backup,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/INSTRUCTION_CONSOLIDATION_MIGRATION.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/ISSUE_TYPES.md.backup,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/README.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/WORKFLOWS.md.backup,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/agents.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/file-management.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/frontmatter.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/javascript.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/jest.instructions.md,instruction,archive,,no,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/jsdoc.instructions.md,instruction,archive,,no,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/json.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/markdown.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/naming-conventions.instructions.md,instruction,archive,,no,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/reporting.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/reviewer.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/saved-replies.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/testing.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/tests.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/.archive/yaml.instructions.md,instruction,archive,,yes,,Legacy archived instruction; do not migrate by default unless a later issue proves value.
+.github/instructions/README.md,instruction,convert,instructions/README.md + .github/instructions/README.md,no,#295,Portable instruction ownership index lives at /instructions; .github retains a repo-local boundary pointer.
+.github/instructions/a11y.instructions.md,instruction,move,instructions/a11y.instructions.md,no,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/agent-spec.instructions.md,instruction,move,instructions/agent-spec.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/automation.instructions.md,instruction,move,instructions/automation.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/coding-standards.instructions.md,instruction,move,instructions/coding-standards.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/community-standards.instructions.md,instruction,move,instructions/community-standards.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/copilot-operations.instructions.md,instruction,move,instructions/copilot-operations.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/docs.instructions.md,instruction,move,instructions/docs.instructions.md,no,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/documentation-formats.instructions.md,instruction,move,instructions/documentation-formats.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/file-organisation.instructions.md,instruction,convert,instructions/file-organisation.instructions.md + .github/instructions/file-organisation.instructions.md,yes,#295,Converted into a portable /instructions copy while retaining the repo-local .github boundary copy.
+.github/instructions/instructions.instructions.md,instruction,move,instructions/instructions.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/issues.instructions.md,instruction,move,instructions/issues.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/labeling.instructions.md,instruction,move,instructions/labeling.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/languages.instructions.md,instruction,move,instructions/languages.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/linting.instructions.md,instruction,move,instructions/linting.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/mermaid.instructions.md,instruction,move,instructions/mermaid.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/meta.instructions.md,instruction,move,instructions/meta.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/metrics.instructions.md,instruction,move,instructions/metrics.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/planner.instructions.md,instruction,move,instructions/planner.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/project-meta-sync.instructions.md,instruction,move,instructions/project-meta-sync.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/prompt.instructions.md,instruction,move,instructions/prompt.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/pull-requests.instructions.md,instruction,move,instructions/pull-requests.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/quality-assurance.instructions.md,instruction,move,instructions/quality-assurance.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/readme.instructions.md,instruction,move,instructions/readme.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/release.instructions.md,instruction,move,instructions/release.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/reporting.instructions.md,instruction,move,instructions/reporting.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/self-explanatory-code-commenting.instructions.md,instruction,move,instructions/self-explanatory-code-commenting.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/spec-driven-workflow.instructions.md,instruction,move,instructions/spec-driven-workflow.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/task-implementation.instructions.md,instruction,move,instructions/task-implementation.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/tasksync.instructions.md,instruction,move,instructions/tasksync.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/template.instructions.md,instruction,move,instructions/template.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/tools.instructions.md,instruction,move,instructions/tools.instructions.md,no,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/instructions/workflows.instructions.md,instruction,move,instructions/workflows.instructions.md,yes,#295,Moved portable instruction to /instructions and updated active links and indexes.
+.github/prompts/README.md,prompt,convert,cookbook/README.md,no,,Prompt indexes become cookbook/backlog material rather than first-class installable assets.
+.github/prompts/add-frontmatter.prompt.md,prompt,convert,skills/add-frontmatter/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/agent-task-markdown-linting.prompt.md,prompt,convert,skills/agent-task-markdown-linting/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/agents.prompt.md,prompt,convert,skills/agents/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/architecture-blueprint-generator.prompt.md,prompt,convert,cookbook/architecture-blueprint-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-epic-arch.prompt.md,prompt,convert,cookbook/breakdown-epic-arch.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-epic-pm.prompt.md,prompt,convert,cookbook/breakdown-epic-pm.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-feature-implementation.prompt.md,prompt,convert,skills/breakdown-feature-implementation/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/breakdown-feature-prd.prompt.md,prompt,convert,cookbook/breakdown-feature-prd.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-plan.prompt.md,prompt,convert,cookbook/breakdown-plan.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/breakdown-test.prompt.md,prompt,convert,cookbook/breakdown-test.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/build-agent-and-tests.prompt.md,prompt,convert,skills/build-agent-and-tests/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/changelog-lines.prompt.md,prompt,convert,skills/changelog-lines/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/changelog.prompt.md,prompt,convert,skills/changelog/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/code-review.prompt.md,prompt,convert,skills/code-review/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/conventional-commit.prompt.md,prompt,convert,cookbook/conventional-commit.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/create-agentsmd.prompt.md,prompt,convert,skills/create-agentsmd/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-architectural-decision-record.prompt.md,prompt,convert,cookbook/create-architectural-decision-record.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/create-github-action-workflow-specification.prompt.md,prompt,convert,skills/create-github-action-workflow-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-issue-feature-from-specification.prompt.md,prompt,convert,skills/create-github-issue-feature-from-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-issues-feature-from-implementation-plan.prompt.md,prompt,convert,skills/create-github-issues-feature-from-implementation-plan/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-issues-for-unmet-specification-requirements.prompt.md,prompt,convert,skills/create-github-issues-for-unmet-specification-requirements/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-github-pull-request-from-specification.prompt.md,prompt,convert,skills/create-github-pull-request-from-specification/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-implementation-plan.prompt.md,prompt,convert,skills/create-implementation-plan/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-llms.prompt.md,prompt,convert,cookbook/create-llms.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/create-readme.prompt.md,prompt,convert,skills/create-readme/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/create-specification.prompt.md,prompt,convert,skills/create-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/dependency-audit-agent.prompt.md,prompt,convert,skills/dependency-audit-agent/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/docs-from-comments.prompt.md,prompt,convert,cookbook/docs-from-comments.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/docs-writeup.prompt.md,prompt,convert,cookbook/docs-writeup.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/documentation-writer.prompt.md,prompt,convert,cookbook/documentation-writer.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/editorconfig.prompt.md,prompt,convert,cookbook/editorconfig.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/finalize-agent-prompt.prompt.md,prompt,convert,skills/finalize-agent-prompt/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/folder-structure-blueprint-generator.prompt.md,prompt,convert,cookbook/folder-structure-blueprint-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/generate-changelog.prompt.md,prompt,convert,skills/generate-changelog/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/generate-custom-instructions-from-codebase.prompt.md,prompt,convert,cookbook/generate-custom-instructions-from-codebase.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/generate-gh-workflow.prompt.md,prompt,convert,skills/generate-gh-workflow/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/generate-pr-description.prompt.md,prompt,convert,cookbook/generate-pr-description.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/git-flow-branch-creator.prompt.md,prompt,convert,cookbook/git-flow-branch-creator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/github-copilot-starter.prompt.md,prompt,convert,cookbook/github-copilot-starter.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/inline-documentation.prompt.md,prompt,convert,cookbook/inline-documentation.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/labeling.prompt.md,prompt,convert,skills/labeling/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/model-recommendation.prompt.md,prompt,convert,cookbook/model-recommendation.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/multi-stage-dockerfile.prompt.md,prompt,convert,cookbook/multi-stage-dockerfile.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/my-issues.prompt.md,prompt,convert,cookbook/my-issues.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/my-pull-requests.prompt.md,prompt,convert,cookbook/my-pull-requests.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/normalize-docs-labels.prompt.md,prompt,convert,skills/normalize-docs-labels/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/pr-description.prompt.md,prompt,convert,cookbook/pr-description.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/pr-review.prompt.md,prompt,convert,skills/pr-review/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/project-workflow-analysis-blueprint-generator.prompt.md,prompt,convert,skills/project-workflow-analysis-blueprint-generator/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/prompt-builder.prompt.md,prompt,convert,cookbook/prompt-builder.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/prompts.md,prompt,convert,cookbook/prompts.md,no,,Prompt indexes become cookbook/backlog material rather than first-class installable assets.
+.github/prompts/python-mcp-server-generator.prompt.md,prompt,convert,cookbook/python-mcp-server-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/readme-blueprint-generator.prompt.md,prompt,convert,skills/readme-blueprint-generator/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/release.prompt.md,prompt,convert,skills/release/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/remember-interactive-programming.prompt.md,prompt,convert,cookbook/remember-interactive-programming.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/remember.prompt.md,prompt,convert,cookbook/remember.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/repo-story-time.prompt.md,prompt,convert,cookbook/repo-story-time.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/reporting.prompt.md,prompt,convert,cookbook/reporting.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/review-and-refactor.prompt.md,prompt,convert,skills/review-and-refactor/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/saved-replies.prompt.md,prompt,convert,cookbook/saved-replies.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/shuffle-json-data.prompt.md,prompt,convert,cookbook/shuffle-json-data.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/spec-driven-workflow-start.prompt.md,prompt,convert,skills/spec-driven-workflow-start/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/technology-stack-blueprint-generator.prompt.md,prompt,convert,cookbook/technology-stack-blueprint-generator.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/testing.prompt.md,prompt,convert,skills/testing/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/update-implementation-plan.prompt.md,prompt,convert,skills/update-implementation-plan/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/update-llms.prompt.md,prompt,convert,cookbook/update-llms.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-markdown-file-index.prompt.md,prompt,convert,cookbook/update-markdown-file-index.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-mermaid-diagrams.prompt.md,prompt,convert,cookbook/update-mermaid-diagrams.prompt.md,yes,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-oo-component-documentation.prompt.md,prompt,convert,cookbook/update-oo-component-documentation.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/prompts/update-readmes.prompt.md,prompt,convert,skills/update-readmes/SKILL.md,yes,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/update-specification.prompt.md,prompt,convert,skills/update-specification/SKILL.md,no,,Durable workflow prompt should become a self-contained skill if still useful.
+.github/prompts/write-coding-standards-from-file.prompt.md,prompt,convert,cookbook/write-coding-standards-from-file.prompt.md,no,,Example or one-off prompt should become a cookbook recipe/backlog entry if retained.
+.github/schemas/README.md,schema,convert,.schemas/README.md + .github/schemas/README.md,yes,#297,Portable schema ownership index lives at /.schemas; .github retains a repo-local boundary pointer.
+.github/schemas/changelog.schema.json,schema,move,.schemas/changelog.schema.json,no,#297,Moved active portable schema to /.schemas and updated validators and active references.
+.github/schemas/coderabbit-overrides.v2.json,schema,move,.schemas/coderabbit-overrides.v2.json,no,#297,Moved active portable schema to /.schemas and updated validators and active references.
+.github/schemas/frontmatter.schema.json,schema,move,.schemas/frontmatter.schema.json,yes,#297,Moved active portable schema to /.schemas and updated validators and active references.
+.github/schemas/project-fields.schema.json,schema,move,.schemas/project-fields.schema.json,no,#297,Moved active portable schema to /.schemas and updated validators and active references.
+.github/schemas/version.schema.json,schema,move,.schemas/version.schema.json,no,#297,Moved active portable schema to /.schemas and updated validators and active references.
+.github/workflows/.gitignore,github-action-workflow,keep,.github/workflows/.gitignore,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/README.md,github-action-workflow,keep,.github/workflows/README.md,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/changelog.yml,github-action-workflow,keep,.github/workflows/changelog.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/issues.yml,github-action-workflow,keep,.github/workflows/issues.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/labeling.yml,github-action-workflow,keep,.github/workflows/labeling.yml,yes,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/linting.yml,github-action-workflow,keep,.github/workflows/linting.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/meta.yml,github-action-workflow,keep,.github/workflows/meta.yml,yes,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/metrics.yml,github-action-workflow,keep,.github/workflows/metrics.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/planner.yml,github-action-workflow,keep,.github/workflows/planner.yml,yes,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/project-meta-sync.yml,github-action-workflow,keep,.github/workflows/project-meta-sync.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/release.yml,github-action-workflow,keep,.github/workflows/release.yml,yes,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/reporting.yml,github-action-workflow,keep,.github/workflows/reporting.yml,yes,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/reviewer.yml,github-action-workflow,keep,.github/workflows/reviewer.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+.github/workflows/testing.yml,github-action-workflow,keep,.github/workflows/testing.yml,no,#293,GitHub Actions remain under .github/workflows; create separate portable runbooks later only when needed.
+scripts/agents/__tests__/README.md,legacy-agent-runtime,defer,scripts/agents/__tests__/README.md,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/adr.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/adr.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/issue-type.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/issue-type.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/issues.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/issues.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/labeling.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/labeling.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/linting.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/linting.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/meta.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/meta.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/metrics.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/metrics.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-demonstrate-understanding.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-demonstrate-understanding.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-document-reviewer.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-document-reviewer.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-prd.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-prd.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/mode-thinking.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/mode-thinking.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/planner.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/planner.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/project-meta-sync.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/project-meta-sync.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/prompt-engineer.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/prompt-engineer.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/release.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/release.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/reporting.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/reporting.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/reviewer.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/reviewer.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/task-planner.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/task-planner.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/task-researcher.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/task-researcher.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/template.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/template.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/__tests__/testing.agent.test.js,legacy-agent-runtime,defer,scripts/agents/__tests__/testing.agent.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/adr.agent.js,legacy-agent-runtime,defer,hooks/adr.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/includes/README.md,legacy-agent-runtime,defer,scripts/agents/includes/README.md,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/__tests__/README.md,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/README.md,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/badgeUtils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/badgeUtils.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/build-label-alias-map.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/build-label-alias-map.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/build-labeling-report.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/build-labeling-report.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/fetch-canonical-labels.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/fetch-canonical-labels.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/footerUtils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/footerUtils.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/label-utils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/label-utils.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/readmeUtils.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/readmeUtils.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/sync-version.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/sync-version.test.js,no,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/update-readme.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/update-readme.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/__tests__/yaml-parser.test.js,legacy-agent-runtime,defer,scripts/agents/includes/__tests__/yaml-parser.test.js,yes,,Keep legacy tests with the legacy runtime until replacement hooks/workflows are designed.
+scripts/agents/includes/badgeUtils.js,legacy-agent-runtime,defer,scripts/agents/includes/badgeUtils.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/badges.js,legacy-agent-runtime,defer,scripts/agents/includes/badges.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/build-label-alias-map.js,legacy-agent-runtime,defer,scripts/agents/includes/build-label-alias-map.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/build-labeling-report.js,legacy-agent-runtime,defer,scripts/agents/includes/build-labeling-report.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/changelogUtils.cjs,legacy-agent-runtime,defer,scripts/agents/includes/changelogUtils.cjs,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/check-template-labels.js,legacy-agent-runtime,defer,scripts/agents/includes/check-template-labels.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/en-gb-normalise.js,legacy-agent-runtime,defer,scripts/agents/includes/en-gb-normalise.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/fetch-canonical-labels.js,legacy-agent-runtime,defer,scripts/agents/includes/fetch-canonical-labels.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/footer-content.json,legacy-agent-runtime,defer,scripts/agents/includes/footer-content.json,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/footerUtils.js,legacy-agent-runtime,defer,scripts/agents/includes/footerUtils.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/header-content.json,legacy-agent-runtime,defer,scripts/agents/includes/header-content.json,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/header-footer.js,legacy-agent-runtime,defer,scripts/agents/includes/header-footer.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-heuristics.js,legacy-agent-runtime,defer,scripts/agents/includes/label-heuristics.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-lookup.js,legacy-agent-runtime,defer,scripts/agents/includes/label-lookup.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-reporting.js,legacy-agent-runtime,defer,scripts/agents/includes/label-reporting.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-sync.js,legacy-agent-runtime,defer,scripts/agents/includes/label-sync.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/label-utils.js,legacy-agent-runtime,defer,scripts/agents/includes/label-utils.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/labeler-utils.js,legacy-agent-runtime,defer,scripts/agents/includes/labeler-utils.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/readmeUtils.js,legacy-agent-runtime,defer,scripts/agents/includes/readmeUtils.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/report-writer.js,legacy-agent-runtime,defer,scripts/agents/includes/report-writer.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/retry-helper.js,legacy-agent-runtime,defer,scripts/agents/includes/retry-helper.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/status-enforcer.js,legacy-agent-runtime,defer,scripts/agents/includes/status-enforcer.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/sync-version.js,legacy-agent-runtime,defer,scripts/agents/includes/sync-version.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/type-lookup.js,legacy-agent-runtime,defer,scripts/agents/includes/type-lookup.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/update-readme.js,legacy-agent-runtime,defer,scripts/agents/includes/update-readme.js,no,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/yaml-parser.js,legacy-agent-runtime,defer,scripts/agents/includes/yaml-parser.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/includes/yaml-validator.js,legacy-agent-runtime,defer,scripts/agents/includes/yaml-validator.js,yes,,Shared legacy utility; rewrite only the parts needed by new hooks or validators.
+scripts/agents/issue-type.agent.js,legacy-agent-runtime,defer,hooks/issue-type.agent.js,no,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/issues.agent.js,legacy-agent-runtime,defer,hooks/issues.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/labeling.agent.js,legacy-agent-runtime,defer,hooks/labeling.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/linting.agent.js,legacy-agent-runtime,defer,hooks/linting.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/meta.agent.js,legacy-agent-runtime,defer,hooks/meta.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/metrics.agent.js,legacy-agent-runtime,defer,hooks/metrics.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-demonstrate-understanding.agent.js,legacy-agent-runtime,defer,hooks/mode-demonstrate-understanding.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-document-reviewer.agent.js,legacy-agent-runtime,defer,hooks/mode-document-reviewer.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-prd.agent.js,legacy-agent-runtime,defer,hooks/mode-prd.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/mode-thinking.agent.js,legacy-agent-runtime,defer,hooks/mode-thinking.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/planner.agent.js,legacy-agent-runtime,defer,hooks/planner.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/project-meta-sync.agent.js,legacy-agent-runtime,defer,hooks/project-meta-sync.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/prompt-engineer.agent.js,legacy-agent-runtime,defer,hooks/prompt-engineer.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/release.agent.js,legacy-agent-runtime,defer,hooks/release.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/reporting.agent.js,legacy-agent-runtime,defer,hooks/reporting.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/reviewer.agent.js,legacy-agent-runtime,defer,hooks/reviewer.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/task-planner.agent.js,legacy-agent-runtime,defer,hooks/task-planner.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/task-researcher.agent.js,legacy-agent-runtime,defer,hooks/task-researcher.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/template.agent.js,legacy-agent-runtime,defer,hooks/template.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/agents/testing.agent.js,legacy-agent-runtime,defer,hooks/testing.agent.js,yes,,Legacy runner; do not move blindly. Rewrite as a safe hook/workflow only when scoped.
+scripts/validation/README.md,legacy-validation-runtime,defer,workflows/validation/README.md,yes,,"Use as reference for the smaller validation reset, not as-is migration."
+scripts/validation/__fixtures__/invalid-coderabbit.yml,legacy-validation-runtime,defer,scripts/validation/__fixtures__/invalid-coderabbit.yml,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__fixtures__/valid-coderabbit.yml,legacy-validation-runtime,defer,scripts/validation/__fixtures__/valid-coderabbit.yml,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/run-agent-handoff-audit.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/run-agent-handoff-audit.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-agent-frontmatter.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-agent-frontmatter.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-agents.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-agents.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-changelog.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-changelog.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-coderabbit-yml.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-coderabbit-yml.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-frontmatter-alt.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-frontmatter-alt.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-frontmatter.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-frontmatter.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-json.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-json.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-version.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-version.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/__tests__/validate-workflows.test.js,legacy-validation-runtime,defer,scripts/validation/__tests__/validate-workflows.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/package.json,legacy-validation-runtime,defer,workflows/validation/package.json,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/run-agent-handoff-audit.js,legacy-validation-runtime,defer,workflows/validation/run-agent-handoff-audit.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/update-coderabbit-schema.cjs,legacy-validation-runtime,defer,workflows/validation/update-coderabbit-schema.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-agent-frontmatter.js,legacy-validation-runtime,defer,workflows/validation/validate-agent-frontmatter.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-agents.js,legacy-validation-runtime,defer,workflows/validation/validate-agents.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-changelog.cjs,legacy-validation-runtime,defer,workflows/validation/validate-changelog.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-coderabbit-yml.cjs,legacy-validation-runtime,defer,workflows/validation/validate-coderabbit-yml.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-coderabbit-yml.test.js,legacy-validation-runtime,defer,scripts/validation/validate-coderabbit-yml.test.js,no,,Keep validation tests/fixtures with legacy validation until the reset lands.
+scripts/validation/validate-frontmatter.js,legacy-validation-runtime,defer,workflows/validation/validate-frontmatter.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-json.js,legacy-validation-runtime,defer,workflows/validation/validate-json.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-version.cjs,legacy-validation-runtime,defer,workflows/validation/validate-version.cjs,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+scripts/validation/validate-workflows.js,legacy-validation-runtime,defer,workflows/validation/validate-workflows.js,yes,,Legacy validator; replace with smaller non-mutating validation before moving.
+.github/ISSUE_TEMPLATE/01-task.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/01-task.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/02-bug.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/02-bug.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/03-feature.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/03-feature.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/04-design.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/04-design.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/05-epic.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/05-epic.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/06-story.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/06-story.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/07-improvement.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/07-improvement.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/07-user-experience-feedback.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/07-user-experience-feedback.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/08-code-refactor.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/08-code-refactor.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/09-build-ci.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/09-build-ci.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/10-automation.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/10-automation.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/11-testing-coverage.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/11-testing-coverage.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/12-performance.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/12-performance.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/13-a11y.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/13-a11y.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/14-security.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/14-security.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/15-compatibility.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/15-compatibility.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/16-integration-issue.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/16-integration-issue.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/17-release.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/17-release.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/18-maintenance.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/18-maintenance.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/19-documentation.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/19-documentation.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/20-research.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/20-research.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/21-audit.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/21-audit.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/22-code-review.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/22-code-review.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/23-ai-ops.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/23-ai-ops.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/24-content-modelling.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/24-content-modelling.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/25-help.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/25-help.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/ISSUE_TEMPLATE/Icon",github-issue-template,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/ISSUE_TEMPLATE/README.md,github-issue-template,keep,.github/ISSUE_TEMPLATE/README.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/ISSUE_TEMPLATE/config.yml,github-issue-template,keep,.github/ISSUE_TEMPLATE/config.yml,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/Icon",saved-reply,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/README.md,saved-reply,keep,.github/SAVED_REPLIES/README.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/community/Icon",saved-reply,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/community/code-of-conduct.md,saved-reply,keep,.github/SAVED_REPLIES/community/code-of-conduct.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/contribution-thanks.md,saved-reply,keep,.github/SAVED_REPLIES/community/contribution-thanks.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/guidelines.md,saved-reply,keep,.github/SAVED_REPLIES/community/guidelines.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/legal.md,saved-reply,keep,.github/SAVED_REPLIES/community/legal.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/community/welcome.md,saved-reply,keep,.github/SAVED_REPLIES/community/welcome.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/issues/Icon",saved-reply,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/issues/a11y-acknowledge.md,saved-reply,keep,.github/SAVED_REPLIES/issues/a11y-acknowledge.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/area-routing.md,saved-reply,keep,.github/SAVED_REPLIES/issues/area-routing.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/blockers.md,saved-reply,keep,.github/SAVED_REPLIES/issues/blockers.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/bug-reports.md,saved-reply,keep,.github/SAVED_REPLIES/issues/bug-reports.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/documentation.md,saved-reply,keep,.github/SAVED_REPLIES/issues/documentation.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/duplicate.md,saved-reply,keep,.github/SAVED_REPLIES/issues/duplicate.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/duplicates.md,saved-reply,keep,.github/SAVED_REPLIES/issues/duplicates.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/epic-tracking.md,saved-reply,keep,.github/SAVED_REPLIES/issues/epic-tracking.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/feature-requests.md,saved-reply,keep,.github/SAVED_REPLIES/issues/feature-requests.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/good-first-issue.md,saved-reply,keep,.github/SAVED_REPLIES/issues/good-first-issue.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/inactive-issue.md,saved-reply,keep,.github/SAVED_REPLIES/issues/inactive-issue.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/label-clarification.md,saved-reply,keep,.github/SAVED_REPLIES/issues/label-clarification.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/meta-label-nudge.md,saved-reply,keep,.github/SAVED_REPLIES/issues/meta-label-nudge.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/missing-info.md,saved-reply,keep,.github/SAVED_REPLIES/issues/missing-info.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/more-info.md,saved-reply,keep,.github/SAVED_REPLIES/issues/more-info.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/needs-reproduction.md,saved-reply,keep,.github/SAVED_REPLIES/issues/needs-reproduction.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/research-completion.md,saved-reply,keep,.github/SAVED_REPLIES/issues/research-completion.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/security-acknowledge.md,saved-reply,keep,.github/SAVED_REPLIES/issues/security-acknowledge.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/stale-abandoned.md,saved-reply,keep,.github/SAVED_REPLIES/issues/stale-abandoned.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/support.md,saved-reply,keep,.github/SAVED_REPLIES/issues/support.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/triage.md,saved-reply,keep,.github/SAVED_REPLIES/issues/triage.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/issues/wontfix.md,saved-reply,keep,.github/SAVED_REPLIES/issues/wontfix.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/pull-requests/Icon",saved-reply,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/pull-requests/ai-assist.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/ai-assist.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/area-labeling.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/area-labeling.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/area-routing.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/area-routing.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/automated-dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/automated-dependency-update.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/awaiting-author.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/awaiting-author.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/branch-naming.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/branch-naming.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/changelog-required.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/changelog-required.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/closing-inactive.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/closing-inactive.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/code-review.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/code-review.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/conflicts.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/conflicts.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/dependency-update.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/documentation-pr.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/documentation-pr.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/draft-pr.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/draft-pr.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/merge-discipline.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/merge-discipline.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/missing-labels.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/missing-labels.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/needs-qa.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/needs-qa.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/performance.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/performance.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/ready-for-review.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/ready-for-review.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/release-label-guidance.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/release-label-guidance.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/security.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/security.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/pull-requests/testing.md,saved-reply,keep,.github/SAVED_REPLIES/pull-requests/testing.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/technical/Icon",saved-reply,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/technical/api-integration.md,saved-reply,keep,.github/SAVED_REPLIES/technical/api-integration.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/code-style.md,saved-reply,keep,.github/SAVED_REPLIES/technical/code-style.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/configuration.md,saved-reply,keep,.github/SAVED_REPLIES/technical/configuration.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/dependencies.md,saved-reply,keep,.github/SAVED_REPLIES/technical/dependencies.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/technical/dependency-update.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/environment-config.md,saved-reply,keep,.github/SAVED_REPLIES/technical/environment-config.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/environment.md,saved-reply,keep,.github/SAVED_REPLIES/technical/environment.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/missing-tests.md,saved-reply,keep,.github/SAVED_REPLIES/technical/missing-tests.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/performance.md,saved-reply,keep,.github/SAVED_REPLIES/technical/performance.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/technical/security.md,saved-reply,keep,.github/SAVED_REPLIES/technical/security.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+".github/SAVED_REPLIES/workflow/Icon",saved-reply,delete,,no,#294,Remove zero-byte macOS metadata after link audit; not a portable asset.
+.github/SAVED_REPLIES/workflow/automation.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/automation.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/branch-management.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/branch-management.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/branches.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/branches.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/changelog-versioning.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/changelog-versioning.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/cicd-failures.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/cicd-failures.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/dependency-update.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/dependency-update.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/deployment.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/deployment.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/draft-pr.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/draft-pr.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/environment-config.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/environment-config.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/labeling.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/labeling.md,yes,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/needs-rebase.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/needs-rebase.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/permissions-secrets.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/permissions-secrets.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/project-sync.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/project-sync.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/release-management.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/release-management.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/releases.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/releases.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/SAVED_REPLIES/workflow/workflow-failure.md,saved-reply,keep,.github/SAVED_REPLIES/workflow/workflow-failure.md,no,#293,GitHub-native/community-health content should remain in .github governance scope.
+.github/DISCUSSION_TEMPLATE/README.md,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/README.md,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/announcements.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/announcements.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/contribution-help.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/contribution-help.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/general.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/general.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/ideas-feedback.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/ideas-feedback.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/integrations.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/integrations.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/showcase.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/showcase.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/sponsorship.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/sponsorship.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/support-lsx-design.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/support-lsx-design.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/DISCUSSION_TEMPLATE/support-tour-operator.yml,github-discussion-template,keep,.github/DISCUSSION_TEMPLATE/support-tour-operator.yml,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+".github/PULL_REQUEST_TEMPLATE/Icon",github-pr-template,delete,,no,#294,macOS metadata file should not remain after cleanup confirmation.
+.github/PULL_REQUEST_TEMPLATE/README.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/README.md,no,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_bug.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_bug.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_chore.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_chore.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_ci.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_ci.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_dep_update.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_dep_update.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_docs.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_docs.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_feature.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_feature.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_hotfix.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_hotfix.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_refactor.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_refactor.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE/pr_release.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE/pr_release.md,yes,#293,GitHub-native template must remain in .github for repository and organisation defaults.
+.github/PULL_REQUEST_TEMPLATE.md,github-pr-template,keep,.github/PULL_REQUEST_TEMPLATE.md,yes,#293,Default pull request template must remain in .github.
+.github/pull_request_template.md,github-pr-template,defer,.github/pull_request_template.md,yes,#294,Duplicate lowercase pull request template should be reviewed before removal.
+.github/dependabot.yml,github-governance-config,keep,.github/dependabot.yml,no,#293,Dependabot configuration is GitHub-native repo governance.
+.github/FUNDING.yml,github-governance-config,keep,.github/FUNDING.yml,no,#293,Funding configuration is GitHub-native community health metadata.
+.github/funding.yml,github-governance-config,defer,.github/funding.yml,no,#294,Duplicate lowercase funding file should be reviewed before removal.
+.github/labels.yml,github-governance-config,keep,.github/labels.yml,no,#293,Canonical label definitions are repo governance files.
+.github/labeler.yml,github-governance-config,keep,.github/labeler.yml,yes,#293,Labeler configuration is GitHub-native automation governance.
+.github/issue-types.yml,github-governance-config,keep,.github/issue-types.yml,no,#293,Issue type definitions are repo governance files.
+.github/config.yml,github-governance-config,keep,.github/config.yml,no,#293,GitHub configuration remains in the control-plane folder.
+.github/custom-instructions.md,repo-local-copilot-instructions,keep,.github/custom-instructions.md,yes,#292,Repo-local Copilot instructions remain in .github with portable asset boundary rules.
+>>>>>>> Stashed changes

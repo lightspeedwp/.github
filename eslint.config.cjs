@@ -26,6 +26,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "node_modules/**", // Third-party dependencies
       "build/**", // Build output
       "dist/**", // Distribution files
+      "website/dist/**", // Website build output
       "coverage/**", // Test coverage reports
       "test-results/**", // Test artifacts
       "vendor/**", // Vendor libraries
@@ -37,18 +38,12 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       ".vercel/**", // Vercel deployment
       ".netlify/**", // Netlify deployment
       ".storybook/**", // Storybook build
+      ".astro/**", // Astro build cache and generated types
+      "website/**/.astro/**", // Website Astro generated files
       "docs/mustache-repo-templates/**", // Template files
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
       "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
-      "agents/**/figma-generate-library/**", // Bundled Figma plugin skill scripts (run inside the Figma plugin sandbox, not Node)
-      "agents/**/figma-use/**", // Bundled Figma plugin API references/typings
-      "agents/**/openai-docs/**", // Bundled platform-managed OpenAI docs helper scripts (vendored reference, not repo-authored)
-      "design_handoff_awesome_github/design_source/**", // Migrated from .eslintignore (no longer read by ESLint 10+)
-      "website/dist/**", // Migrated from .eslintignore
-      "website/node_modules/**", // Migrated from .eslintignore
-      ".github/projects/active/**", // Project documentation and deliverables (excluded from linting)
-      "hooks/**", // Shell scripts and portable hooks (not JavaScript)
     ];
 
 /**
@@ -113,10 +108,6 @@ module.exports = [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       "prettier/prettier": "warn",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { argsIgnorePattern: "^_" },
-      ],
     },
   },
   // CommonJS files (.cjs)
@@ -126,36 +117,6 @@ module.exports = [
       parserOptions: {
         ecmaVersion: 2024,
         sourceType: "commonjs",
-      },
-      globals: {
-        // Node.js globals
-        Buffer: "readonly",
-        __dirname: "readonly",
-        __filename: "readonly",
-        clearImmediate: "readonly",
-        clearInterval: "readonly",
-        clearTimeout: "readonly",
-        global: "readonly",
-        process: "readonly",
-        require: "readonly",
-        module: "readonly",
-        exports: "readonly",
-        setImmediate: "readonly",
-        setInterval: "readonly",
-        setTimeout: "readonly",
-        console: "readonly",
-        // Jest test environment globals
-        describe: "readonly",
-        it: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        jest: "readonly",
-        TextDecoder: "readonly",
-        TextEncoder: "readonly",
       },
     },
     plugins: { prettier },
@@ -172,6 +133,7 @@ module.exports = [
       "scripts/**/*.js",
       ".github/agents/**/*.js",
       ".github/metrics/**/*.js",
+      ".github/scripts/**/*.js",
       "docs/ai/**/*.js",
     ],
     languageOptions: {
@@ -260,7 +222,7 @@ module.exports = [
       "no-console": "off",
     },
   },
-  // Website browser scripts — run in the browser, not Node.js
+  // Browser-based JavaScript files (website scripts)
   {
     files: ["website/src/scripts/**/*.js"],
     languageOptions: {
@@ -272,15 +234,57 @@ module.exports = [
         // Browser globals
         document: "readonly",
         window: "readonly",
-        navigator: "readonly",
         localStorage: "readonly",
-        sessionStorage: "readonly",
         CustomEvent: "readonly",
-        Event: "readonly",
         IntersectionObserver: "readonly",
-        MutationObserver: "readonly",
         requestAnimationFrame: "readonly",
+        navigator: "readonly",
+        // Console is available in browser
+        console: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    },
+  },
+  // Skills - may use browser and special API globals
+  {
+    files: [
+      "skills/**/*.{js,ts,jsx,tsx}",
+      ".github/skills/**/*.{js,ts,jsx,tsx}",
+    ],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Browser globals that skills may use
+        document: "readonly",
+        window: "readonly",
+        fetch: "readonly",
+        URL: "readonly",
+        URLSearchParams: "readonly",
+        TextEncoder: "readonly",
+        TextDecoder: "readonly",
+        // Figma API (figma plugin skills)
+        figma: "readonly",
+        // Node.js globals
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        clearImmediate: "readonly",
+        clearInterval: "readonly",
         clearTimeout: "readonly",
+        global: "readonly",
+        process: "readonly",
+        require: "readonly",
+        module: "readonly",
+        exports: "readonly",
+        setImmediate: "readonly",
+        setInterval: "readonly",
         setTimeout: "readonly",
         console: "readonly",
       },
@@ -290,7 +294,35 @@ module.exports = [
       "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
-      "no-empty": ["error", { allowEmptyCatch: true }],
+    },
+  },
+  // Agent skill scripts - may use Figma and browser APIs
+  {
+    files: ["agents/*/skills/plugin-provided/figma/**/scripts/**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Figma API
+        figma: "readonly",
+        // Browser globals
+        fetch: "readonly",
+        URL: "readonly",
+        // Node.js
+        console: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        process: "readonly",
+        Buffer: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-console": "off",
     },
   },
 ];

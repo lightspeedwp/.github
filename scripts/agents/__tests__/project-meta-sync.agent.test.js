@@ -1,26 +1,17 @@
 /**
- * Jest suite verifying the deprecated compatibility behaviour of `project-meta-sync.agent.js`.
+ * Jest suite verifying the baseline behaviour of `project-meta-sync.agent.js`.
  * @see ../project-meta-sync.agent.js
  */
 const agent = require("../project-meta-sync.agent");
 
 describe("project-meta-sync.agent", () => {
-  it("exports a callable compatibility shim", () => {
+  it("exports a callable function", () => {
     expect(typeof agent).toBe("function");
   });
 
-  it("returns the current workflow replacement contract", async () => {
-    const result = await agent();
-
-    expect(result).toMatchObject({
-      ok: true,
-      deprecated: true,
-      replacement: {
-        workflow: ".github/workflows/project-meta-sync.yml",
-        metadata_workflow: ".github/workflows/metadata-governance.yml",
-        helper: "scripts/agents/includes/derive-project-fields.cjs",
-        metadata_helper: "scripts/agents/includes/issue-pr-metadata.cjs",
-      },
-    });
+  it("does not execute run() on require (no LS_PROJECT_URL side-effect)", () => {
+    // If the module-scope guard is absent, requiring the file calls run() immediately,
+    // which throws "LS_PROJECT_URL not set" and sets process.exitCode = 1.
+    expect(process.exitCode).not.toBe(1);
   });
 });

@@ -1,3 +1,5 @@
+name: "Show & Tell"
+description: "Showcase your site or project built with LightSpeed products."
 labels:
   - discussion:showcase
 template: |
