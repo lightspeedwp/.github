@@ -61,9 +61,9 @@ git commit -m "docs: Add changelog entry for PR #2394"
 
 ## Need Help?
 
-- **[Changelog Guidelines](./.github/projects/active/changelog-automation-hardening/CHANGELOG_GUIDELINES.md)** — Detailed format rules
+- **[Changelog Guidelines](./projects/active/changelog-automation-hardening/CHANGELOG_GUIDELINES.md)** — Detailed format rules
 - **[Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)** — Official specification
-- **[Changelog Safety Audit Docs](./docs/CHANGELOG_AUTOMATION.md)** — Complete automation documentation
+- **[Changelog Safety Audit Docs](../docs/CHANGELOG_AUTOMATION.md)** — Complete automation documentation
 
 ---
 
