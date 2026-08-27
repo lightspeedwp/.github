@@ -26,6 +26,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "node_modules/**", // Third-party dependencies
       "build/**", // Build output
       "dist/**", // Distribution files
+      "website/dist/**", // Website build output
       "coverage/**", // Test coverage reports
       "test-results/**", // Test artifacts
       "vendor/**", // Vendor libraries
@@ -37,6 +38,8 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       ".vercel/**", // Vercel deployment
       ".netlify/**", // Netlify deployment
       ".storybook/**", // Storybook build
+      ".astro/**", // Astro build cache and generated types
+      "website/**/.astro/**", // Website Astro generated files
       "docs/mustache-repo-templates/**", // Template files
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
@@ -244,6 +247,82 @@ module.exports = [
     rules: {
       "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    },
+  },
+  // Skills - may use browser and special API globals
+  {
+    files: [
+      "skills/**/*.{js,ts,jsx,tsx}",
+      ".github/skills/**/*.{js,ts,jsx,tsx}",
+    ],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Browser globals that skills may use
+        document: "readonly",
+        window: "readonly",
+        fetch: "readonly",
+        URL: "readonly",
+        URLSearchParams: "readonly",
+        TextEncoder: "readonly",
+        TextDecoder: "readonly",
+        // Figma API (figma plugin skills)
+        figma: "readonly",
+        // Node.js globals
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        clearImmediate: "readonly",
+        clearInterval: "readonly",
+        clearTimeout: "readonly",
+        global: "readonly",
+        process: "readonly",
+        require: "readonly",
+        module: "readonly",
+        exports: "readonly",
+        setImmediate: "readonly",
+        setInterval: "readonly",
+        setTimeout: "readonly",
+        console: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-console": "off",
+    },
+  },
+  // Agent skill scripts - may use Figma and browser APIs
+  {
+    files: ["agents/*/skills/plugin-provided/figma/**/scripts/**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Figma API
+        figma: "readonly",
+        // Browser globals
+        fetch: "readonly",
+        URL: "readonly",
+        // Node.js
+        console: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        process: "readonly",
+        Buffer: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-console": "off",
     },
   },
 ];

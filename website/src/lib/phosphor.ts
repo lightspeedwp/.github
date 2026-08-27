@@ -8,7 +8,12 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
 export type PhosphorWeight =
-  "regular" | "bold" | "fill" | "light" | "duotone" | "thin";
+  | "regular"
+  | "bold"
+  | "fill"
+  | "light"
+  | "duotone"
+  | "thin";
 
 const cache = new Map<string, string>();
 

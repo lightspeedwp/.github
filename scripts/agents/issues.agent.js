@@ -8,7 +8,6 @@
  * @see ../../agents/issues.agent.md
  */
 
-
 const fs = require("fs");
 const path = require("path");
 const __filename = __filename || process.argv[1];
@@ -108,7 +107,6 @@ async function runIssuesAgent(options = {}) {
   log(`Working directory: ${repoRoot}`);
   log("Issues agent finished without errors.");
 }
-
 
 module.exports = {
   runIssuesAgent,

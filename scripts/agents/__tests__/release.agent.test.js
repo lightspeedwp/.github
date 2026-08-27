@@ -79,7 +79,7 @@ describe("Release Agent", () => {
     });
 
     test("should reject invalid version formats", () => {
-    const invalidVersions = ["1.0", "1.0.0.0", "v1.0", "1.0.x", "abc"];
+      const invalidVersions = ["1.0", "1.0.0.0", "v1.0", "1.0.x", "abc"];
 
       invalidVersions.forEach((version) => {
         const parts = version.replace(/^v/, "").split(".");
