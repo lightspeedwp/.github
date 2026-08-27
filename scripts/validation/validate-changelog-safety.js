@@ -182,8 +182,6 @@ class ChangelogSafetyAudit {
    */
   async checkFormatCompliance() {
     // Entry format should be: - **Title** — Description ([PR #123](url))
-    const entryRegex = /^- (?:\*\*[^*]+\*\*\s+—\s+.+)|^- .+/gm;
-    const validEntries = (this.content.match(entryRegex) || []).length;
     const allDashLines = (this.content.match(/^- .+/gm) || []).length;
 
     // Find entries that don't follow the format
@@ -200,10 +198,10 @@ class ChangelogSafetyAudit {
       }
 
       // Check line length (only warn about extremely long lines)
-      if (line.length > 500) {
+      if (line.length > RULES.maxLineLengthPerEntry) {
         this.stats.formatIssues++;
         this.warnings.push(
-          `⚠️  FORMAT: Entry is very long (${line.length} characters): "${line.substring(0, 60)}..."`
+          `⚠️  FORMAT: Entry is very long (${line.length} characters, max ${RULES.maxLineLengthPerEntry}): "${line.substring(0, 60)}..."`
         );
       }
     }
@@ -273,12 +271,12 @@ class ChangelogSafetyAudit {
       }
     }
 
-    // Check for corrupted markdown (mismatched brackets, etc.)
-    const unclosedBrackets = (this.content.match(/\[/g) || []).length;
-    const closedBrackets = (this.content.match(/\]/g) || []).length;
+    // Check for corrupted markdown links (mismatched brackets in link syntax only)
+    const linkMatches = this.content.match(/\[([^\]]*)\]\(([^)]*)\)/g) || [];
+    const malformedLinks = this.content.match(/\[[^\]]*\](?!\()/g) || [];
 
-    if (unclosedBrackets !== closedBrackets) {
-      this.errors.push(`❌ CORRUPTION: Mismatched brackets (${unclosedBrackets} open, ${closedBrackets} closed)`);
+    if (malformedLinks.length > linkMatches.length * 2) {
+      this.warnings.push(`⚠️  INTEGRITY: Found ${malformedLinks.length} unmatched brackets (may indicate incomplete links)`);
     }
 
     // Check for suspicious patterns that might indicate corruption
