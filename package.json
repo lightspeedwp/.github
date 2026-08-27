@@ -117,7 +117,7 @@
     "@babel/preset-react": "7.29.7",
     "@babel/preset-typescript": "7.29.7",
     "@babel/runtime": "^7.29.7",
-    "@github/markdownlint-github": "^0.8.0",
+    "@github/markdownlint-github": "^0.8.3",
     "@jest/pattern": "30.0.1",
     "@mermaid-js/mermaid-cli": "11.16.0",
     "@stoplight/spectral-cli": "^6.16.0",
