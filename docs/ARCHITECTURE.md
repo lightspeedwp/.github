@@ -1,14 +1,16 @@
 ---
 document_type: "Architecture Guide"
+file_type: documentation
+version: "1.0"
+created_date: 2026-08-27
+last_updated: 2026-08-27
+authors: ["LightSpeed Team"]
+owners: ["lightspeedwp"]
 openspec_status: "production"
 openspec_labels:
   - "openspec:status/production"
   - "openspec:domain/documentation"
   - "openspec:priority/high"
-version: "1.0"
-created_date: 2026-08-27
-last_updated: 2026-08-27
-owners: ["lightspeedwp"]
 ---
 
 # Issue Management System Architecture
@@ -49,7 +51,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 | Trigger | When | Processing |
 |---------|------|-----------|
 | **Event-based** | issue.opened, issue.edited, issue.reopened | Immediate, single issue |
-| **Schedule-based** | 0 8 * * * (daily 08:00 UTC) | Batch, all needs-triage issues |
+| **Schedule-based** | 0 8 ** * (daily 08:00 UTC) | Batch, all needs-triage issues |
 | **Manual** | workflow_dispatch (user-initiated) | On-demand, optional parameters |
 
 ### Workflow File & Agents
@@ -68,6 +70,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 **Purpose**: Analyze issue content and detect type
 
 **Features**:
+
 - 8 type patterns (bug, feature, documentation, task, security, performance, a11y, design)
 - Confidence scoring (0-1 scale): how certain the type detection is
 - Keyword extraction: pulls tech keywords, platforms, urgency indicators
@@ -76,7 +79,8 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 **Time**: ~250ms per issue
 
 **Inputs**: Issue title, body, metadata  
-**Outputs**: 
+**Outputs**:
+
 ```json
 {
   "detected_type": "bug",
@@ -95,6 +99,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 **Purpose**: Apply consistent labels following governance rules
 
 **Features**:
+
 - Label governance rules (type, status, priority, area, platform)
 - Conflict detection: logs when user-applied labels conflict
 - Max labels enforcement: respects 15-label limit per issue
@@ -104,6 +109,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 
 **Inputs**: Detected type, keywords, confidence  
 **Outputs**:
+
 ```json
 {
   "applied_labels": ["type:bug", "status:needs-triage", "priority:high"],
@@ -121,6 +127,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 **Purpose**: Add type-specific structured content
 
 **Features**:
+
 - 8 type-specific templates (bug, feature, security, documentation, etc.)
 - Conditional execution: only runs if confidence >= 0.80
 - Section injection: adds acceptance criteria, testing notes, environment, etc.
@@ -130,6 +137,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 
 **Inputs**: Detected type, confidence score  
 **Outputs**:
+
 ```json
 {
   "sections_added": 5,
@@ -148,6 +156,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 **Purpose**: Verify issue quality and consistency
 
 **Features**:
+
 - 7 validation checks:
   1. Title quality (5-200 chars, starts capitalized)
   2. Body quality (20+ chars adequate detail)
@@ -163,6 +172,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 
 **Inputs**: Issue content, applied labels, detected type  
 **Outputs**:
+
 ```json
 {
   "overall_status": "pass",
@@ -186,6 +196,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 **Purpose**: Document execution and collect performance data
 
 **Features**:
+
 - Execution logging: timestamp, trigger type, duration, agent status
 - Metrics collection: labels applied, sections added, validation status
 - Report generation: saves JSON report to `.github/reports/issue-management/`
@@ -196,6 +207,7 @@ The Issue Management Orchestration system processes GitHub issues through a 7-st
 
 **Inputs**: All agent outputs, execution timeline  
 **Outputs**:
+
 ```json
 {
   "report_id": "report-20260827-xyz789",
@@ -277,6 +289,7 @@ OUTPUT: Updated Issue
 **User Action**: Create new GitHub issue
 
 **What Happens**:
+
 1. User fills in issue title and body
 2. GitHub fires `issue.opened` webhook
 3. Workflow automatically triggers
@@ -298,6 +311,7 @@ OUTPUT: Updated Issue
 **Trigger**: 08:00 UTC cron job
 
 **What Happens**:
+
 1. Cron trigger fires at 08:00 UTC
 2. Workflow starts in batch mode
 3. Query: finds all issues with `status:needs-triage`
@@ -351,10 +365,12 @@ gh workflow run issue-management-orchestration.yml \
 ### GitHub API Integration
 
 **Permissions Required**:
+
 - `issues:write` — apply labels, post comments
 - `contents:read` — read workflow files
 
 **API Operations**:
+
 - Get issue details (title, body, labels, metadata)
 - Apply/remove labels (batch operation)
 - Post/update comments
@@ -362,6 +378,7 @@ gh workflow run issue-management-orchestration.yml \
 - Rate limit: ~5,000 calls/hour
 
 **Rate Limit Handling**:
+
 - Batch operations to reduce calls
 - Caching where possible
 - Queue mechanism for overflow
@@ -372,12 +389,14 @@ gh workflow run issue-management-orchestration.yml \
 ### Related Automation Scripts
 
 **Available via Orchestrator** (`scripts/automation/orchestrator.js`):
+
 - 13 automation scripts for issue management
 - Commands: audit-metadata, update-bulk, manage-stale, allocate-milestones, etc.
 - Profiler: baseline performance metrics
 - Registry: complete documentation
 
 **Integration Pattern**:
+
 ```bash
 # Use orchestrator for unified access
 node scripts/automation/orchestrator.js audit-metadata --repo lightspeedwp/.github
@@ -391,6 +410,7 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 ### Related GitHub Workflows
 
 **Complementary Workflows**:
+
 - Label sync (PRs ↔ Issues)
 - PR triage automation
 - Release process automation
@@ -417,6 +437,7 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 | **TOTAL** | **1,250ms** | **100%** |
 
 **Notes**:
+
 - Times are averages; actual varies by content complexity
 - Enrichment: 350ms if runs, 0ms if conditional skip
 - Batch processing: parallelizes across issues (but sequential agents per issue)
@@ -446,11 +467,13 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Symptoms**: Created issue but no workflow ran, no labels applied
 
 **Diagnosis**:
+
 1. Check: GitHub Actions enabled in Settings
 2. Check: `.github/workflows/issue-management-orchestration.yml` exists
 3. Check: Workflow file has valid YAML syntax
 
 **Solutions**:
+
 - Enable GitHub Actions: Settings → Actions → General → Allow all actions
 - Verify workflow file committed to repository
 - Check GitHub Actions tab for syntax errors
@@ -462,11 +485,13 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Symptoms**: Workflow runs but labels don't appear
 
 **Diagnosis**:
+
 1. Check workflow logs: GitHub Actions → workflow run → logs
 2. Check: Label names exist in repository settings
 3. Check: GitHub token has `issues:write` permission
 
 **Solutions**:
+
 - Verify label names match `.github/labels.yml`
 - Ensure GitHub token has `issues:write` scope
 - Check for API rate limiting in logs
@@ -479,11 +504,13 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Symptoms**: Type detected but template sections not added
 
 **Diagnosis**:
+
 1. Check logs for confidence score
 2. Check: `ENABLE_ENRICHMENT=true` in workflow
 3. Check: Confidence >= `ENRICHMENT_THRESHOLD` (0.80)
 
 **Solutions**:
+
 - Confidence must be >= 0.80; check type detection accuracy
 - Verify environment variables in workflow YAML
 - Review type detection logic for false negatives
@@ -495,11 +522,13 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Symptoms**: Workflow taking 2-3 seconds instead of typical 1-1.5
 
 **Diagnosis**:
+
 1. Check workflow logs for bottleneck component
 2. Compare execution time against baseline metrics
 3. Check for API rate limiting
 
 **Solutions**:
+
 - Review Phase 2 optimization guide for improvements
 - Implement caching (see optimization roadmap)
 - Reduce batch size for scheduled runs
@@ -512,11 +541,13 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Symptoms**: Workflow succeeds but no comment on issue
 
 **Diagnosis**:
+
 1. Check reporting agent logs
 2. Check: GitHub token permissions
 3. Check: Comment template generation
 
 **Solutions**:
+
 - Verify `issues:write` permission in token
 - Check comment formatting in reporting agent
 - Review reporting agent logs for errors
@@ -530,6 +561,7 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Decision**: Agents run sequentially, not in parallel
 
 **Rationale**:
+
 - Labeling needs content analysis results
 - Enrichment needs labeling results
 - Sequential ensures consistency
@@ -542,6 +574,7 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Decision**: Enrichment only runs if confidence >= 0.80
 
 **Rationale**:
+
 - Low confidence means type uncertain
 - Adding template without certainty wastes space
 - Can't select correct template without certainty
@@ -554,6 +587,7 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Decision**: Concurrency control prevents parallel workflows
 
 **Rationale**:
+
 - Prevents race conditions on label application
 - Ensures consistent operation order
 - Avoids API conflicts
