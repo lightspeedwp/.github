@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (develop)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: develop
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "20"
 
@@ -31,21 +31,21 @@ jobs:
         run: npm run metrics:ci
 
       - name: Upload JSON artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: frontmatter-metrics-json
           path: metrics/out/frontmatter-metrics.json
           if-no-files-found: warn
 
       - name: Upload Markdown report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: frontmatter-metrics-md
           path: metrics/out/frontmatter-metrics.md
           if-no-files-found: error
 
       - name: Create or update tracking issue
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');

@@ -107,7 +107,7 @@ jobs:
 
       - name: Post PR comment with results
         if: github.event_name == 'pull_request' && steps.has_diagrams.outputs.result == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const syntaxOk    = '${{ steps.results.outputs.syntax_ok }}'   === 'true';
@@ -166,7 +166,7 @@ jobs:
 
       - name: Upload validation reports
         if: always() && steps.has_diagrams.outputs.result == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mermaid-validation-reports-${{ github.run_number }}
           path: |
@@ -253,7 +253,7 @@ jobs:
 
       - name: Post PR comment with README validation results
         if: github.event_name == 'pull_request' && steps.readme.outputs.has_changes == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const frontmatterOk = '${{ steps.frontmatter.outcome }}' === 'success';
