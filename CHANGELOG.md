@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-25"
+last_updated: "2026-08-27"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- **Changelog Safety Audit System v1.0.1 — Issue #2354** — Comprehensive 7-layer validation framework preventing changelog corruption and format violations. Delivers: (1) `scripts/validation/validate-changelog-safety.js` — Seven-layer audit engine: file integrity (empty/corrupted detection), format compliance (Keep a Changelog 1.1.0), structure compliance ([Unreleased], version headers), frontmatter validation (YAML metadata), data integrity (duplicate versions, invalid dates, UTF-8), cross-references (spec/portable agents, schema, docs), link validity (PR/issue references). (2) `.github/workflows/changelog-safety-audit.yml` — CI/CD integration: 4 parallel jobs (audit, format, cross-refs, reporting), triggers on CHANGELOG.md changes to main/develop, blocks merge on critical errors. (3) npm integration: `npm run validate:changelog` (local) + `validate:all` (full suite). Produces diagnostic output with statistics and severity-categorized findings. Production-ready with configurable thresholds (min 500 bytes, max staleness 60 days, max line 250 chars). See [Phase 1 Audit Report](.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md). ([#2354](https://github.com/lightspeedwp/.github/issues/2354), [#2379](https://github.com/lightspeedwp/.github/pull/2379))
 
 ### Changed
 
