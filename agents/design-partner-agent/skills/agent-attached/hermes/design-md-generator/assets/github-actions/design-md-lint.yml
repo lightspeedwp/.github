@@ -29,10 +29,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -102,14 +102,14 @@ jobs:
 
       - name: Upload PR comment body
         if: always() && hashFiles('design-md-pr-comment.md') != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: design-md-pr-comment
           path: design-md-pr-comment.md
 
       - name: Comment on pull request
         if: always() && github.event_name == 'pull_request' && hashFiles('design-md-pr-comment.md') != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -151,7 +151,7 @@ jobs:
 
       - name: Upload validation report
         if: always() && hashFiles('design-md-validation-report.md') != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: design-md-validation-report
           path: design-md-validation-report.md

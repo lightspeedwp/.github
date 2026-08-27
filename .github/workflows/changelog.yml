@@ -11,6 +11,10 @@ on:
     secrets:
       GITHUB_TOKEN:
         required: false
+
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
