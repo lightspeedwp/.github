@@ -1,12 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { applyStandards } = require("../../skills/apply-standards.cjs");
+const { applyStandards } = require("../../skills/apply-standards");
 const {
   generateBadges,
   injectBadges,
-} = require("../../skills/generate-badges.cjs");
-const { detectRepoType } = require("../../skills/repo-type-detection.cjs");
+} = require("../../skills/generate-badges");
+const { detectRepoType } = require("../../skills/repo-type-detection");
 
 describe("Meta Agent v2.0 - CI Workflow Integration Tests", () => {
   let tempDir;

@@ -3,7 +3,7 @@ const {
   validateRepoLabels,
   standardizeLabelsOnRepo,
   generateSyncReport,
-} = require("../label-sync.cjs");
+} = require("../label-sync");
 const { findStandardLabel } = require("../label-lookup");
 
 // Mock label-lookup module
@@ -992,7 +992,7 @@ describe("label-sync", () => {
         { name: "bug", color: "ff0000", description: "" },
       ];
 
-      await syncLabelsWithCanonical(
+      const _result = await syncLabelsWithCanonical(
         mockOctokit,
         "owner",
         "repo",
@@ -1017,7 +1017,7 @@ describe("label-sync", () => {
         { name: "bug", description: "Bug reports" }, // Missing color
       ];
 
-      await syncLabelsWithCanonical(
+      const _result = await syncLabelsWithCanonical(
         mockOctokit,
         "owner",
         "repo",
@@ -1046,7 +1046,7 @@ describe("label-sync", () => {
         },
       ];
 
-      await syncLabelsWithCanonical(
+      const _result = await syncLabelsWithCanonical(
         mockOctokit,
         "owner",
         "repo",

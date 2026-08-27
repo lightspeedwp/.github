@@ -1,21 +1,11 @@
 ---
-file_type: instructions
-title: Issue Creation Instructions
-description: Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy.
-scope: organization-wide
-version: 1.4.4
-last_updated: '2026-08-21'
-owners:
-  - lightspeedwp/maintainers
-tags:
-  - issues
-  - templates
-  - frontmatter
-  - automation
-  - labels
-  - issue types
-  - triage
-  - branching
+file_type: "instructions"
+title: "Issue Creation Instructions"
+description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
+version: "1.1"
+last_updated: "2025-12-04"
+owners: ["lightspeedwp/maintainers"]
+tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---
 
 # LightSpeedWP Issue Creation & Management Instructions
@@ -29,12 +19,9 @@ Applies to all issue templates and issue creation workflows. Covers frontmatter,
 ## General Rules
 
 - Use Markdown templates with YAML frontmatter; do not use YAML Issue Forms.
-- Include required template frontmatter fields and apply one-hot `status:*`, `priority:*`, `type:*` labels on created issues.
+- Include required frontmatter fields and one-hot `status:*`, `priority:*`, `type:*` labels.
 - Choose the correct template and complete all required sections/checklists.
 - Keep issues automation-friendly with links, acceptance criteria, and references.
-- Maximise metadata completeness on every issue update. Populate all applicable
-  metadata fields: labels, issue type, project fields, milestone, assignees,
-  projects, and parent-child or blocked-by relationships.
 
 ## Detailed Guidance
 
@@ -52,8 +39,8 @@ Applies to all issue templates and issue creation workflows. Covers frontmatter,
 - Verify labels meet one-hot rules and align with `labels.yml`/`labeler.yml`.
 - Confirm templates live under `.github/ISSUE_TEMPLATE/*.md`.
 
-This document defines how to create, label, and manage Issues in LightSpeedWP repositories.
-It covers templates, issue types, labels, frontmatter, and workflows, referencing all canonical guides, configs, and automation logic.
+This document defines how to create, label, and manage Issues in LightSpeedWP repositories.  
+It covers templates, issue types, labels, frontmatter, and workflows, referencing all canonical guides, configs, and automation logic.  
 **All contributors, maintainers, and bots must follow these instructions for consistency, automation, and project health.**
 
 ---
@@ -61,10 +48,10 @@ It covers templates, issue types, labels, frontmatter, and workflows, referencin
 ## 1. Use Markdown Issue Templates with YAML Frontmatter
 
 - All issue templates are Markdown (`.md`) files with a YAML frontmatter block.
-- Templates are located in:
+- Templates are located in:  
   `.github/ISSUE_TEMPLATE/*.md`
 - **Do NOT use YAML Issue Forms**. All automation, labeling, and triage depend on Markdown-based templates.
-- See: [Issue Creation Guide](../docs/ISSUE_CREATION_GUIDE.md)
+- See: [docs/frontmatter/issue-templates.md](../docs/frontmatter/issue-templates.md)
 
 ---
 
@@ -74,12 +61,10 @@ Every issue template **must** begin with a YAML frontmatter block, for example:
 
 ```yaml
 ---
-file_type: "issue-template"
-name: "🐛 Bug"
-about: "Report a reproducible defect"
-version: "1.0.0"
-last_updated: "YYYY-MM-DD"
-category: "github-templates"
+name: "🐛 Bug report"
+about: "Report a reproducible bug"
+title: "[Bug] <Short description>"
+labels: ["type:bug", "status:needs-triage", "priority:normal"]
 ---
 ```
 
@@ -87,13 +72,12 @@ category: "github-templates"
 
 - `name`: Visible in template selector
 - `about`: Description for the template chooser
-- `file_type`, `version`, `last_updated`, `category`: template governance metadata
-
-GitHub Markdown issue templates use `about` for the chooser metadata. Do not duplicate that summary into `description`.
+- `title`: Default issue title (use placeholders where appropriate)
+- `labels`: Array of default labels for new issues
 
 **Optional fields:**
 
-- `title`, `labels`, `assignees`, `projects`, `milestone`, `type`
+- `assignees`, `projects`, `milestone`, `type`, `references`
 
 See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](../.schemas/frontmatter.schema.json) for validation details.
 
@@ -101,7 +85,7 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 
 ## 3. Choosing the Right Issue Template
 
-- Use the [GitHub Issues page](https://github.com/lightspeedwp/.github/issues/new/choose) and select the template matching your intent:
+- Use the [GitHub Issues page](../../issues/new/choose) and select the template matching your intent:
   - Bug report, Feature request, Documentation, Task, Design, Epic, Story, Improvement, Maintenance, Security, Integration, Compatibility, Performance, Test Coverage, Automation, AI Ops, and more.
 - Each template is tailored for its use case and includes relevant fields, checklists, and references.
 - See all templates in [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/)
@@ -127,33 +111,16 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 - **One** `priority:*` (e.g., `priority:normal`) — urgency for scheduling and board mapping.
 - At least one `area:*` or `comp:*` if possible — for routing and discoverability.
 
-### Metadata Completeness Default
-
-- Treat metadata completeness as mandatory, not optional, during issue triage and updates.
-- Always set or verify issue type using canonical issue types and matching `type:*` label.
-- Always set or verify milestone when a release window, batch, or roadmap bucket is known.
-- Always set or verify project fields (for example `Status`, `Priority`, `Type`) when the issue is on a project board.
-- Always set or verify canonical issue fields from [docs/ISSUE_FIELDS.md](../docs/ISSUE_FIELDS.md):
-  - `Priority`: `Urgent`, `High`, `Medium`, `Low`
-  - `Start date`: date field (organization-only)
-  - `Target date`: date field (organization-only)
-  - `Effort`: `XS`, `S`, `M`, `L`, `XL`, `XXL`, `XXXL` (organization-only)
-- Always set or verify relationships where applicable:
-  - Parent issue or epic link
-  - Blocked-by or blocks dependencies
-  - Linked pull requests and related issues
-- If a metadata value cannot be inferred safely, leave it unchanged and record a short follow-up note describing what is missing.
-
 ### Label Families
 
-- See [docs/LABEL_STRATEGY.md](../docs/LABEL_STRATEGY.md), [docs/LABELING.md#issue-labelling](../docs/LABELING.md#issue-labelling), and canonical lists in [labels.yml](../.github/labels.yml).
+- See [docs/LABEL_STRATEGY.md](../docs/LABEL_STRATEGY.md), [ISSUE_LABELS.md](../docs/ISSUE_LABELS.md), and canonical lists in [labels.yml](../.github/labels.yml).
 - Label families include: `status:*`, `priority:*`, `type:*`, `area:*`, `comp:*`, `meta:*`, `contrib:*`, context labels (`env:*`, `phase:*`, etc.).
 - **Always keep exactly one** `status:*` and `priority:*` label per issue.
 
 ### Label Assignment
 
 - Labels are assigned via:
-  - Manual triage during issue creation/edit
+  - Template frontmatter (default set)
   - `.github/labeler.yml` (file paths, branch prefixes, automation)
   - Labeling workflows/agents ([labeling.agent.js](../scripts/agents/labeling.agent.js))
 - Manual label curation is allowed for triage and clarification.
@@ -170,11 +137,101 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 
 - Reference [ISSUE_TYPES.md](../docs/ISSUE_TYPES.md) and [issue-types.yml](../.github/issue-types.yml) for all allowed types.
 
-## Related Files
+# LightSpeedWP Issue Creation Instructions
 
-- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — Companion guide for PR creation and labeling; mirrors issue workflow patterns
-- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in issue templates
+These instructions define how to create and submit actionable, automation-friendly issues in LightSpeedWP projects.  
+They ensure all issues are discoverable, triage-ready, and compatible with our automated labeling and workflow agents.
 
 ---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+## 1. Use Markdown Templates (Not YAML Forms)
+
+- All issue templates **MUST** be Markdown (`.md`) files with YAML frontmatter, located in `.github/ISSUE_TEMPLATE/*.md`.
+- Do **not** use GitHub’s YAML Issue Forms. All automation and labeling relies on Markdown-based templates.
+
+---
+
+## 2. Required YAML Frontmatter for Issues
+
+Each issue template **must** start with a YAML frontmatter block, e.g.:
+
+```yaml
+---
+name: "Bug Report"
+about: "Report a reproducible bug"
+title: "bug: {short summary}"
+labels: ["type:bug", "status:needs-triage", "priority:normal"]
+---
+```
+
+**Required fields:**
+
+- `name`: Short label for the template selector.
+- `about`: Description for the template chooser.
+- `title`: Default issue title (can use placeholders).
+- `labels`: Array of default labels for new issues.
+
+**Optional fields:**
+
+- `assignees`: Array of default assignees.
+- `projects`: Array of projects to auto-add the issue to.
+
+See [docs/frontmatter/issue-templates.md](../docs/frontmatter/issue-templates.md) for details.
+
+---
+
+## 3. Filling Out Issue Templates
+
+- Always fully complete all required fields in the template.
+- Use the provided checklists and acceptance criteria.
+- Link related issues using `#issue-number`.
+- Provide context, steps to reproduce (for bugs), and measurable acceptance criteria.
+
+---
+
+## 4. Label and Status Automation
+
+- Labels are applied automatically by the template’s frontmatter, by `.github/labeler.yml` (file/branch/type), and by agent workflows.
+- **Required labels per issue** (see [docs/LABEL_STRATEGY.md](../docs/LABEL_STRATEGY.md)):
+  - One `status:*` (e.g., `status:needs-triage`)
+  - One `priority:*` (e.g., `priority:normal`)
+  - One `type:*` (e.g., `type:bug`, `type:feature`, etc.)
+  - At least one `area:*` or `comp:*` if possible
+- Project and milestone assignment is optional but encouraged.
+
+---
+
+## 5. Issue Lifecycle and Automation
+
+- Issues start as `status:needs-triage`, then move through `status:ready`, `status:in-progress`, `status:needs-review`, etc.
+- Automation ensures only one `status:*` and one `priority:*` label at any time.
+- The `labeling.yml` workflow, powered by `labeling.agent.js`, enforces label hygiene and triggers project meta sync.
+
+---
+
+## 6. Issue Types and Labeling
+
+- See [docs/ISSUE_TYPES.md](../docs/ISSUE_TYPES.md) and [issue-types.yml](../.github/issue-types.yml) for the canonical list of issue types and mapping to labels.
+- Use the correct template and title prefix (`bug:`, `feature:`, etc.) to ensure type detection and correct automation.
+
+---
+
+## 7. Frontmatter and Template Validation
+
+- All templates and issues must validate against the [frontmatter.schema.json](../.schemas/frontmatter.schema.json).
+- Use [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) for full schema details.
+
+**For questions or clarifications, see the project’s [CONTRIBUTING.md](../CONTRIBUTING.md) or open a GitHub Discussion.**
+
+## References
+
+- [instructions.instructions.md](instructions.instructions.md)
+- [file-organisation.instructions.md](file-organisation.instructions.md)
+- [labeling.instructions.md](labeling.instructions.md)
+- [pull-requests.instructions.md](pull-requests.instructions.md)
+- [Label Strategy](../docs/LABEL_STRATEGY.md)
+- [Canonical Labels](../.github/labels.yml)
+- [Labeler Rules](../.github/labeler.yml)
+- [Issue Types](../.github/issue-types.yml)
+- [Workflows](../docs/WORKFLOWS.md)
+- [Automated Labeling](../scripts/agents/labeling.agent.js)

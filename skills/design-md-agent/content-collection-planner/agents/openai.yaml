@@ -1,0 +1,14 @@
+interface:
+  display_name: Content Collection Planner
+  short_description: Creates tailored content collection checklists and gap reports.
+  icon: folder-open
+  brand_color: "#16A34A"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

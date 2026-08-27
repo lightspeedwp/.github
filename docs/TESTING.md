@@ -1,14 +1,11 @@
 ---
-file_type: documentation
-title: Testing Guide
-description: Testing standards, practices, and conventions for the LightSpeed organization.
 ---
 
-*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
+> **Note:** This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).
 
 # Testing Guide
 
-This guide describes how to run, write, and automate tests for LightSpeed projects. It covers our end-to-end testing process using Jest (JavaScript/TypeScript), Playwright (browser/E2E/accessibility), and targeted Bats checks, as well as linting, troubleshooting, and CI/CD integration.
+This guide describes how to run, write, and automate tests for LightSpeed projects. It covers our end-to-end testing process using Jest (JavaScript/TypeScript), Playwright (browser/E2E/accessibility), and Bats (Bash scripting), as well as linting, troubleshooting, and CI/CD integration.
 
 ---
 
@@ -99,20 +96,6 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
   bats tests/bash/deploy.bats
   ```
 
-### Workflow Runtime Scripts (Node CLI)
-
-- **Run workflow runtime smoke tests:**
-
-  ```bash
-  npm run test:workflow-scripts
-  ```
-
-- **Validate workflow guardrails (including no-new-bash policy):**
-
-  ```bash
-  npm run validate:workflows
-  ```
-
 ### Linting
 
 - **JavaScript/TypeScript (ESLint + Prettier):**
@@ -173,7 +156,7 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 
 All PRs and main branch pushes are tested via GitHub Actions:
 
-- **CI runs:** Linting, Jest, workflow validation/guardrails, targeted Bats checks, and coverage.
+- **CI runs:** Linting, Jest, Playwright, Bats, and coverage.
 - **Status checks:** All must pass before merging.
 - **Coverage:** Minimum thresholds enforced for core code.
 - **Artifacts:** Test results and coverage reports available in CI.
@@ -227,4 +210,7 @@ See `.github/workflows/` for workflow definitions.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*Keep this document up to date as our testing process evolves. PRs are welcome!*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

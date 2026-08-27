@@ -1,26 +1,11 @@
-# yaml-language-server: $schema=https://docs.coderabbit.ai/schema/schema.v2.json
-
-# CodeRabbit configuration for lightspeedwp/.github
-# This repository contains GitHub governance files, agent specs, workflow
-# automation, shared instructions, and community health files — not a typical
-# application repo. Reviews should prioritise correctness, security, clarity,
-# and maintainability over stylistic nitpicks.
-
-language: "en-GB"
-inheritance: true
-
-chat:
-  auto_reply: true
-
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json
 reviews:
-  # === Review Behaviour ===
-  profile: "chill" # Reduce noise; prefer high-signal comments only
-  request_changes_workflow: true
-  high_level_summary: true
-  review_status: true
-  review_details: true
-  collapse_walkthrough: true
-  poem: false
+  # === Review Workflow Settings ===
+  request_changes_workflow: true # Require workflow for requesting changes
+  high_level_summary: true # Provide high-level summary in reviews
+  poem: false # Disable poem output in reviews
+  review_status: true # Show review status in output
+  collapse_walkthrough: true # Collapse walkthroughs by default
 
   # === Path Filters (Exclude from Review) ===
   path_filters:
@@ -29,9 +14,17 @@ reviews:
     - "!assets/css/*.map"
     - "!logs/**"
     - "!docs/drafts/**"
-    - "!schema/**"
-    - "!coverage/**"
-    - "!.jest-skip/**"
+
+  # === Auto Review Settings ===
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+      - "develop"
+      - "feature/*"
+      - "fix/*"
+      - "update/*"
 
   # === Path-Specific Review Instructions ===
   path_instructions:
@@ -39,27 +32,24 @@ reviews:
     - path: ".github/prompts/**"
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
-
     - path: ".github/agents/**"
       instructions: |
-        Review agent spec and implementation files:
-          - Verify YAML frontmatter is complete (version, last_updated, owners, tags, file_type, status, domain, stability, permissions).
-          - Confirm the spec includes: Purpose, Operating Modes or Workflow, Dependencies, Implementation Status, and Changelog sections.
-          - Flag any `references:` frontmatter field — this is prohibited by CLAUDE.md.
-          - For implementation files (.agent.js, .agent.sh, .agent.py): ensure shebang, header, and test coverage exist.
+        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
 
     # 1. Copilot & AI Files
     - path: ".github/custom-instructions.md"
       instructions: |
         Review custom-instructions.md:
           - Ensure the file is easy to navigate and up to date with org standards.
+          - Ensure the file is a dynamic index of all major Copilot files and instructions.
           - Validate YAML frontmatter for completeness and accuracy.
-          - Confirm cross-references to prompts.md, agent.md, AGENTS.md, and instruction files.
+          - Confirm references to prompts.md, agent.md, AGENTS.md, and all **/.github/instructions/*.instructions.md files.
           - Check for up-to-date cross-references and clear documentation of Copilot usage.
 
     - path: "**/.github/prompts/prompts.md"
       instructions: |
         - Ensure the file documents prompt conventions and usage patterns.
+        - Review the prompts index file:
         - Ensure a dynamic index reference to all *.prompt.md files exists.
         - Validate YAML frontmatter and update date/version fields.
         - Confirm all prompt files are discoverable from this index.
@@ -68,172 +58,247 @@ reviews:
       instructions: |
         Review all prompt files:
           - Check for clear instructions, examples, and checklist sections.
-          - Ensure each file has correct YAML frontmatter.
+          - Ensure prompt files are concise and actionable.
+          - Review all prompt files (*.prompt.md):
+          - Ensure each file is a valid prompt with correct YAML frontmatter.
           - Confirm the file is referenced in the prompts index.
           - Validate structure, naming, and documentation.
-
-    # 2. Instruction files
-    - path: "instructions/**"
-      instructions: |
-        Review portable instruction files:
-          - Verify frontmatter follows the canonical pattern (file_type, version, last_updated, owners, tags, status, domain, stability).
-          - Flag any `references:` frontmatter field — prohibited by CLAUDE.md.
-          - Confirm the file has: Overview, General Rules, Detailed Guidance, Examples, Validation, and Cross-References sections.
-          - Check that language is UK English throughout.
 
     # 3. Project configuration and automation
     - path: "**/package.json"
       instructions: |
-        Review package.json:
+        Review package.json for WordPress block theme project:
+          - Ensure dependencies are focused on WordPress theme/plugin development.
           - Check for security vulnerabilities and outdated packages.
-          - Ensure scripts are documented with clear, descriptive names.
+          - Ensure scripts are documented and have clear, descriptive names.
+          - Check for presence of postinstall, prepublish, and prepare scripts if needed.
+          - Validate repository, bugs, and homepage fields for open source projects.
           - Validate semantic versioning and proper version pinning.
           - Confirm devDependencies vs dependencies separation.
-          - Ensure scripts follow org standards (lint, test, build, format).
+          - Check for unnecessary or duplicate dependencies.
+          - Ensure scripts follow org standards (lint, test, build, format, env, etc.).
+          - Confirm presence of npm scripts for linting, formatting, testing, and CI.
+          - Validate package metadata (name, version, description, author, license).
 
     - path: "**/composer.json"
       instructions: |
         Review composer.json for WordPress development:
-          - Ensure PHP dependencies are WordPress-compatible and up-to-date.
+          - Confirm scripts section is present and used for automation where appropriate.
+          - Ensure stability flags (minimum-stability, prefer-stable) are set as needed.
+          - Check for extra section for WordPress plugin/theme metadata if relevant.
+          - Ensure PHP dependencies are WordPress compatible and up-to-date.
           - Check for security best practices in package selection.
           - Verify autoloading configuration and PSR-4 compliance.
           - Ensure compatibility with WordPress coding standards tools (PHPCS, PHPStan).
+          - Check for appropriate development dependencies and version constraints.
+          - Validate package metadata (name, description, type, license, authors).
 
     # 4. Source code and scripts
     - path: "**/*.{js,ts}"
       instructions: |
-        Review JavaScript/TypeScript:
+        Review JavaScript/TypeScript for WordPress block theme:
           - Ensure code is linted and follows project style guides.
+          - Validate use of ES modules or CommonJS as appropriate.
           - Check for dead code, unused variables, and clear function naming.
-          - Validate accessibility and performance optimisations.
+          - Ensure minimal JavaScript usage, following block theme best practices.
+          - Verify scripts enhance, not replace, native WordPress functionality.
+          - Check for proper script enqueueing in functions.php or block.json.
+          - Validate accessibility and performance optimizations.
+          - Ensure compatibility with WordPress script loading patterns.
+          - Confirm event handling, DOM manipulation, and editor/frontend compatibility.
+          - Check for code comments, modularity, and maintainability.
           - Ensure tests are isolated and do not depend on external state.
           - Check for descriptive test names and clear test structure.
 
+    - path: "**/e2e/*.{ts,js}"
+      instructions: |
+        Review Jest tests for agents and blocks:
+          - Ensure tests cover accessibility and Full Site Editing (FSE) functionality.
+          - Check for reliable, non-flaky tests and clear assertions.
+          - Confirm test coverage for critical user flows and edge cases.
+          - Validate use of test fixtures, mocks, and snapshot testing where appropriate.
+
     - path: "**/scripts/**/*.sh"
       instructions: |
-        Review shell scripts:
+        Review shell scripts for automation:
           - Check for POSIX compliance and portability.
-          - Validate error handling, input validation, and exit codes.
-          - Confirm `set -euo pipefail` and shebang are present.
+          - Validate use of comments and usage/help output in scripts.
           - Ensure functions are modular, reusable, and well-documented.
-          - Check for shellcheck compliance and security best practices.
+          - Validate error handling, input validation, and exit codes.
+          - Confirm scripts are tested and used consistently across the project.
+          - Check for code style, maintainability, and security best practices.
+          - Ensure use of `set -euo pipefail` and shebang at the top.
 
     # 5. Workflow and automation files
     - path: "**/.github/workflows/*.yml"
       instructions: |
-        Review GitHub Actions workflows for this governance repo:
-          - Security: check for least-privilege permissions (use `permissions:` at job level, default to read-only).
-          - Secret handling: ensure secrets are passed via env vars, not interpolated directly into run: steps to prevent injection.
-          - Action pinning: prefer SHA-pinned actions over mutable tags (e.g. `actions/checkout@v4` is acceptable; SHA pins are better).
-          - No `pull_request_target` with untrusted code execution unless explicitly justified.
-          - Avoid storing sensitive outputs as unmasked step outputs.
-          - Check for reusable workflow patterns and matrix strategies where appropriate.
-          - Validate `on:` triggers: ensure branch/path filters are present to avoid unnecessary runs.
-          - Confirm workflows are documented, DRY, and maintainable.
-          - Ensure agent-triggered workflows use `workflow_dispatch` with defined inputs.
+        Review .github workflows for CI/CD:
+          - Check for use of reusable workflow templates and matrix strategies.
+          - Validate secrets and environment variables are handled securely.
+          - Ensure jobs have clear names and steps are well-commented.
+          - Ensure workflows enforce linting, testing, and release policies.
+          - Validate required status checks for merges.
+          - Check for proper branch and path filters.
+          - Confirm workflows are documented, maintainable, and DRY.
+          - Check for agent capabilities, tool integration, and test coverage.
+          - Ensure agent files reference org-wide standards and indexes.
+          - Ensure workflows run markdownlint, test jobs, and security checks as required.
 
     # 6. Agent and meta files
     - path: ".github/agents/AGENTS.md"
       instructions: |
         Review the main agents index file:
-          - Ensure this file lists all agent specs, implementations, and test files.
-          - Confirm each agent is listed with description and test coverage status.
+          - Ensure this file lists and describes all agent specs, implementations, and test files in .github/agents/.
+          - Confirm each agent is listed with language, description, and test coverage status.
           - Validate cross-references to related workflows, prompts, and documentation.
+          - Ensure the file is up to date and easy to navigate.
+
+    - path: ".github/agents/agent.md"
+      instructions: |
+        Review the agent architecture and integration file:
+          - Ensure this file documents agent architecture, capabilities, and integration points.
+          - Validate that all agent files (*.agent.js, *.agent.py, *.agent.sh) are referenced and described.
+          - Confirm agent lifecycle, error handling, and security practices are documented.
+          - Require a section on agent test strategy (unit, integration, workflow).
+          - Ensure YAML files are referenced in agent indexes or documentation.
+          - Validate header of *.sh, *.js, *.py files start with a shebang.
+          - Confirm agent documentation is clear and up-to-date.
 
     - path: ".github/agents/*.agent.md"
       instructions: |
         Review all agent specification files:
-          - Verify frontmatter completeness (version, last_updated, owners, tags, file_type, status, domain, stability, permissions).
-          - Flag any `references:` frontmatter field — this is prohibited.
-          - Each spec must include: Purpose, Workflow/Operating Modes, Dependencies, Implementation Status, Changelog.
-          - Implementation Status must include a gap-analysis table (spec vs. runtime).
-          - For paired workflow agents: confirm the matching .yml workflow file exists and is referenced.
+          - Each agent spec must include: purpose, inputs/outputs, dependencies, configuration, security, error handling, and logging practices.
+          - Reference to related implementation and test files.
+          - Example usage and troubleshooting tips.
+          - Ensure the spec is up to date and referenced from the agent index.
 
     - path: ".github/agents/*.agent.js"
       instructions: |
         Review all JavaScript agent files:
-          - Must start with a valid shebang and header (purpose, usage, author, date).
+          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
           - Require comprehensive JSDoc for all functions/classes.
-          - Must have a corresponding Jest test file with coverage for all capabilities and error paths.
+          - Must have a corresponding Jest test file with:
+            - Coverage for all agent capabilities and error paths.
+            - Mocks for external dependencies.
+            - Tests for edge cases and failure scenarios.
+            - Linting and type-checking enabled.
+          - Ensure agent is referenced in the agent index and spec.
 
     - path: ".github/agents/*.agent.sh"
       instructions: |
         Review all shell agent files:
-          - Must start with a valid shebang and header (purpose, usage, author, date).
+          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
           - Require inline comments for all functions/logic.
-          - Must have a corresponding Bats test file.
+          - Must have a corresponding Bats test file with:
+            - Tests for all script functions and error conditions.
+            - Checks for POSIX compliance and portability.
+            - Usage of shellcheck for linting.
           - Ensure agent is referenced in the agent index and spec.
 
     - path: ".github/agents/*.agent.py"
       instructions: |
         Review all Python agent files:
-          - Must start with a valid shebang and header.
+          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
           - Require docstrings for all classes/functions.
-          - Must have a corresponding pytest file with coverage.
-          - Type hints and linting (mypy, flake8) required.
+          - Must have a corresponding pytest file with:
+            - Coverage for all agent logic, including error handling.
+            - Use of fixtures/mocks for isolation.
+            - Tests for both success and failure cases.
+            - Type hints and linting (e.g., mypy, flake8).
+          - Ensure agent is referenced in the agent index and spec.
 
-    # 7. Tests
+    # 7. Tests folders
+
     - path: "**/tests/*.*"
       instructions: |
         Review all test files:
-          - All test files must have a header (purpose, author, date, related files).
-          - Use clear, descriptive test names and logical structure.
-          - Include both positive and negative test cases.
-          - Be discoverable from the main agent/test index.
-          - Pass all style checks and linting.
+          - Ensure valid syntax, logical structure, and clear instructions for users.
+          - All test files must:
+            - Start with a valid shebang (if applicable).
+            - Contain a detailed header (purpose, author, date, related files).
+            - Use clear, descriptive test names and logical structure.
+            - Include both positive and negative test cases.
+            - Reference the agent or feature under test.
+            - Be discoverable from the main agent/test index.
+            - Be linted and pass all style checks.
+          - Ensure all tests have comprehensive inline documentation.
 
-    # 8. Templates and saved replies
+    # 8. Templates, prompts, and saved replies
+
     - path: "**/.github/ISSUE_TEMPLATE/*.md"
       instructions: |
-        Review issue template files:
-          - Ensure valid markdown syntax, logical structure, and clear instructions.
-          - Validate YAML frontmatter for required fields (title, description, labels).
-          - Check for accessibility (clear headings, no ambiguous language).
-          - Confirm templates reference related documentation.
+        Review all issue template files:
+          - Ensure valid markdown syntax, logical structure, and clear, actionable instructions for users.
+          - Validate YAML frontmatter for required fields (title, description, labels, etc.) and template metadata.
+          - Check for usage examples, guidance for contributors, and context for when to use each template.
+          - Ensure templates are discoverable from documentation, indexes, or contributing guides.
+          - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
+          - Ensure accessibility (e.g., clear headings, no ambiguous language).
 
     - path: "**/.github/PULL_REQUEST_TEMPLATE/*.md"
       instructions: |
-        Review pull request template files:
-          - Ensure valid markdown syntax and clear contributor instructions.
-          - Validate YAML frontmatter and template metadata.
-          - Confirm templates are up to date with current process.
+        Review all pull request template files:
+          - Ensure valid markdown syntax, logical structure, and clear, actionable instructions for contributors.
+          - Validate YAML frontmatter for required fields and template metadata.
+          - Check for usage examples, guidance for contributors, and context for when to use each template.
+          - Ensure templates are discoverable from documentation, indexes, or contributing guides.
+          - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
+          - Ensure accessibility (e.g., clear headings, no ambiguous language).
 
     - path: "**/.github/DISCUSSION_TEMPLATE/*.yml"
       instructions: |
-        Review discussion template YAML files:
-          - Ensure valid YAML syntax and clear user instructions.
-          - Validate required frontmatter fields.
-          - Confirm accessibility (clear field names, no ambiguous language).
+        Review all discussion template YAML files:
+          - Ensure valid YAML syntax, logical structure, and clear, actionable instructions for users.
+          - Validate YAML frontmatter for required fields and template metadata.
+          - Check for clear instructions on how to use the discussion template and what information is required from the user.
+          - Ensure the file is referenced from documentation, indexes, or contributing guides.
+          - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
+          - Ensure accessibility (e.g., clear field names, no ambiguous language).
 
     - path: "**/.github/SAVED_REPLIES.md"
       instructions: |
         Review the saved replies index file:
-          - Ensure the file links to all saved replies.
-          - Validate YAML frontmatter and date/version fields.
-          - Check for clarity, brevity, and usefulness of reply summaries.
+          - Ensure the file links dynamically to all saved replies or lists all available saved reply files.
+          - Validate YAML frontmatter and update date/version fields.
+          - Check for clarity, brevity, and usefulness of reply summaries and instructions.
+          - Ensure the file provides guidance on how to use saved replies and when to use each one.
+          - Confirm that replies are referenced from the index and are up to date with current project processes.
 
     - path: "**/.github/SAVED_REPLIES/**/*.md"
       instructions: |
         Review all saved replies:
-          - Ensure replies are valid, actionable markdown.
-          - Validate YAML frontmatter and date/version fields.
-          - Check replies are referenced from the index.
+          - Ensure all saved replies are valid *.md files, make sense for the project, and are actionable.
+          - Validate YAML frontmatter and update date/version fields.
+          - Check for clarity, brevity, and usefulness of each reply.
+          - Ensure replies are referenced from the saved replies index and are up to date with current project processes.
 
-    # 9. Documentation
-    - path: "**/docs/**/*.md"
+    # 9. Documentation Folders
+    - path: "**/docs/*.*/*.md"
       instructions: |
-        Review documentation files:
-          - Ensure markdown is linted and formatted per project style guides.
+        Review all documentation files:
+          - Ensure markdown is linted and formatted according to project style guides.
           - Flag illogical folder structures, file naming, or misplaced content.
-          - Confirm documentation is up to date, accurate, and cross-referenced.
-          - Ensure accessibility (heading hierarchy, alt text for images, UK English).
+          - Flag inconsistent naming, unclear section headings, or missing frontmatter.
+          - Confirm that documentation is up to date, accurate, and references related files or processes.
+          - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
-    # 10. Changelog
-    - path: "CHANGELOG.md"
-      instructions: |
-        Review CHANGELOG.md:
-          - Confirm entries follow Keep a Changelog 1.1.0 format.
-          - Each entry under [Unreleased] must include a PR link and issue link.
-          - Verify entries use the correct section headings (Added, Changed, Fixed, Deprecated, Removed, Security, Documentation, Performance).
-          - Check UK English spelling throughout.
 early_access: true
+auto_labels:
+  enabled: true
+    - A canonical list of org wide default labels exists in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml" https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml
+    - A set of labeler rules exist in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml"
+auto_assign:
+  enabled: true
+  reviewers:
+    - "ashleyshaw"
+auto_review:
+  enabled: true
+  ignore_title_keywords:
+    - "WIP"
+    - "DO NOT MERGE"
+    - "DRAFT"
+  drafts: false
+  base_branches:
+    - "main"
+    - "develop"
+    - "feature/*"

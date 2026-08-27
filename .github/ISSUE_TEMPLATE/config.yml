@@ -1,21 +1,5 @@
-# Issue template governance configuration
-#
-# Canonical intent:
-# - prevent non-template issue creation by disabling blank issues
-# - direct support traffic to the official support endpoint
-# - document template governance notes for maintainers and automation operators
-#
-# Inventory notes:
-# - Repository currently ships 25 numbered issue templates in `.github/ISSUE_TEMPLATE/` (`01-task.md` through `25-content-modelling.md`), one per canonical org issue type
-# - Canonical issue type registry lives in `.github/issue-types.yml`
-# - Label/issue-type parity validation is enforced via repository validation scripts
-
 blank_issues_enabled: false
-
 contact_links:
-  - name: LightSpeedWP Support
+  - name: LightSpeed WP Support
     url: https://lightspeedwp.agency
-    about: For paid support enquiries, contact the LightSpeedWP team directly.
-  - name: Governance and Contribution Guidance
-    url: https://github.com/lightspeedwp/.github/blob/HEAD/AGENTS.md
-    about: Read governance and contribution standards before opening specialised issues.
+    about: For paid support inquiries, please contact us directly via our website.

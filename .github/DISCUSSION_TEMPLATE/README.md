@@ -1,17 +1,9 @@
 ---
-title: "Discussion Templates Directory"
-description: "Standardized discussion templates for community engagement in LightSpeedWP. Templates for ideas, Q&A, announcements, architecture, documentation, feedback, and community discussions."
-name: "Discussion Templates"
-file_type: documentation
-version: v1.3
-last_updated: "2026-06-18"
-created_date: "2025-10-24"
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-tags: ["templates", "discussions", "community", "engagement", "governance"]
-domain: "governance"
-stability: "stable"
+description: "Standardized discussion templates for community engagement in LightSpeedWP"
+version: "v1.0"
+last_updated: "2025-10-24"
+maintainer: "LightSpeed Engineering"
+tags: ["templates", "discussions", "community", "engagement"]
 ---
 
 # 💭 Discussion Templates Directory
@@ -25,27 +17,23 @@ This directory contains standardized discussion templates to facilitate organize
 
 Discussion templates help structure community conversations and ensure important topics are covered comprehensively.
 
-### 🗣️ Template Files
+### 🗣️ Template Categories
 
-| File | Purpose |
-|---|---|
-| `announcements.yml` | Project updates and important information |
-| `contribution-help.yml` | Help and guidance for contributors |
-| `general.yml` | General community discussions |
-| `ideas-feedback.yml` | New feature ideas and user feedback |
-| `integrations.yml` | Third-party integrations and compatibility discussions |
-| `showcase.yml` | Sharing projects, achievements, and use cases |
-| `sponsorship.yml` | Sponsorship enquiries and support discussions |
-| `support-lsx-design.yml` | Support for LSX Design Framework |
-| `support-tour-operator.yml` | Support for Tour Operator plugin |
+- **💡 Ideas & Brainstorming** - New feature ideas and creative discussions
+- **❓ Q&A** - Questions and community support
+- **📢 Announcements** - Project updates and important information
+- **🏗️ Architecture** - Technical architecture discussions
+- **📚 Documentation** - Documentation improvements and clarifications
+- **🎯 Feedback** - User feedback and experience sharing
+- **🤝 Community** - Community building and engagement discussions
 
 ## 🔗 Integration Points
 
 Discussion templates work with:
 
-- **[Discussion Labels](../../docs/DISCUSSIONS.md)** - Automated discussion categorization
+- **[Discussion Labels](../DISCUSSION_LABELS.md)** - Automated discussion categorization
 - **[Community Guidelines](../SAVED_REPLIES/community/guidelines.md)** - Community interaction standards
-- **[Automation Governance](../../docs/AUTOMATION.md)** - Discussion workflow automation
+- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Discussion workflow automation
 - **[Agents](../agents/README.md)** - AI-assisted discussion moderation and governance support
 
 ## 🤖 Automation Features
@@ -57,10 +45,10 @@ Discussion templates work with:
 
 ## 📚 Related Documentation
 
-- [**Discussion Labels**](../../docs/DISCUSSIONS.md) - Complete labeling system for discussions
+- [**Discussion Labels**](../DISCUSSION_LABELS.md) - Complete labeling system for discussions
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - Response templates for discussions
-- [**Community Guidelines**](../SAVED_REPLIES/README.md) - Community interaction standards
-- [**Automation Governance**](../../docs/AUTOMATION.md) - Discussion automation policies
+- [**Community Guidelines**](../SAVED_REPLIES/community/README.md) - Community interaction standards
+- [**Automation Governance**](../AUTOMATION_GOVERNANCE.md) - Discussion automation policies
 
 ## 💡 Usage Guidelines
 
@@ -92,26 +80,3 @@ Discussion templates work with:
 ---
 
 <!-- RANDOM FOOTER: 💭 Great discussions build great software! -->
-## Visual Workflow
-
-```mermaid
-flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-  A[Start Here] --> B[Read Scope and Prerequisites]
-  B --> C[Run the Documented Workflow]
-  C --> D[Validate with Repo Tooling]
-  D --> E[Open PR or Hand-off]
-
-  classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-  classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
-  classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
-
-  class A start;
-  class B prep;
-  class C run;
-  class D gate;
-  class E done;
-```

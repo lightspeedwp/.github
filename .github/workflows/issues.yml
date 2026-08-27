@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: read
-  issues: write
+  issues: read
 
 jobs:
   issues-agent:
@@ -19,12 +19,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version: "24"
 
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Run Issues Agent
-        run: node scripts/agents/issues.agent.js --apply
+      - name: Run Issues Agent (advisory)
+        run: node scripts/agents/issues.agent.cjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

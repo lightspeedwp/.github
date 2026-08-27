@@ -1,27 +1,16 @@
 ---
-file_type: instructions
-title: Programming Languages Standards
-description: Unified linting, formatting, and documentation standards for JavaScript, TypeScript, JSON, and YAML across all GitHub repositories
-scope: organization-wide
-version: v1.1
-last_updated: '2026-08-21'
-owners:
-  - GitHub Community Health Team
+file_type: "instructions"
+title: "Programming Languages Standards"
+description: "Unified linting, formatting, and documentation standards for JavaScript, TypeScript, JSON, and YAML across all GitHub repositories"
+version: "v1.0"
+last_updated: "2025-12-07"
+owners: ["GitHub Community Health Team"]
 tags:
-  - javascript
-  - typescript
-  - json
-  - yaml
-  - linting
-  - formatting
-  - jsdoc
-applyTo:
-  - '**/*.{js,jsx,ts,tsx,mjs,cjs}'
-  - '**/*.json'
-  - '**/*.{yml,yaml}'
-status: active
-stability: stable
-domain: generic
+  ["javascript", "typescript", "json", "yaml", "linting", "formatting", "jsdoc"]
+applyTo: ["**/*.{js,jsx,ts,tsx,mjs,cjs}", "**/*.json", "**/*.{yml,yaml}"]
+status: "active"
+stability: "stable"
+domain: "generic"
 ---
 
 # Programming Languages Standards
@@ -70,6 +59,7 @@ Applies to JS/TS, JSON, and YAML across automation, workflows, and configs. Cove
   - [Linting](#yaml-linting)
   - [GitHub Actions](#yaml-github-actions)
 - [CI/CD Integration](#cicd-integration)
+- [References](#references)
 
 ---
 
@@ -436,12 +426,21 @@ jobs:
 
 ---
 
-## Related Files
+## References
 
-- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards applicable across all languages
-- **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting configurations and rules
-- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and code quality standards
-
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+- [instructions.instructions.md](instructions.instructions.md)
+- [linting.instructions.md](linting.instructions.md)
+- [coding-standards.instructions.md](coding-standards.instructions.md)
+- [documentation-formats.instructions.md](documentation-formats.instructions.md)
+- [workflows.instructions.md](workflows.instructions.md)
+- [ESLint Documentation](https://eslint.org/)
+- [Prettier Documentation](https://prettier.io/)
+- [TypeScript Documentation](https://www.typescriptlang.org/)
+- [JSDoc Documentation](https://jsdoc.app/)
+- [JSON Schema Specification](https://json-schema.org/draft/2020-12/schema)
+- [AJV Documentation](https://ajv.js.org/)
+- [Prettier JSON Support](https://prettier.io/docs/en/options.html)
+- [YAML Specification](https://yaml.org/spec/)
+- [yamllint Documentation](https://yamllint.readthedocs.io/)
+- [Spectral Documentation](https://github.com/stoplightio/spectral)
+- [actionlint Documentation](https://github.com/rhysd/actionlint)

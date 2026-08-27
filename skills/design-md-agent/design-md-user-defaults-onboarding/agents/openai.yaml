@@ -1,0 +1,6 @@
+interface:
+  display_name: design-md-user-defaults-onboarding
+  short_description: Collect and remember repo, Figma, and project defaults
+  default_prompt:
+    Use $design-md-user-defaults-onboarding to collect and remember
+    repo, Figma, and project defaults for later DESIGN.md work.

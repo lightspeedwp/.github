@@ -4,7 +4,6 @@ on:
   push:
     branches: [develop]
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
     branches: [develop]
 
 permissions:
@@ -15,19 +14,18 @@ permissions:
 jobs:
   planner:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false || github.event_name == 'push'
+    # DISABLED: Waiting for scripts/agents/planner.agent.cjs implementation
+    # See: .github/reports/audits/agent-infrastructure-audit-2025-12-10.md
+    if: false
     steps:
       - uses: actions/checkout@v7
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-
-      - name: Install dependencies
-        run: npm ci
+          node-version: "24"
 
       - name: Planner
-        run: node scripts/agents/planner.agent.js
+        run: node scripts/agents/planner.agent.cjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

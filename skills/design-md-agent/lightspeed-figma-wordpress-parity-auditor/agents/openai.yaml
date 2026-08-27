@@ -1,0 +1,16 @@
+interface:
+  display_name: LightSpeed Figma WordPress Parity Auditor
+  short_description:
+    Compare Figma design-system intent with WordPress block-theme
+    implementation before launch.
+  icon: ../assets/icon.svg
+  color: "#2B6CB0"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

@@ -6,7 +6,7 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
-import * as yaml from "js-yaml";
+import yaml from "js-yaml";
 
 /**
  * Loads and parses canonical labels from a YAML file.

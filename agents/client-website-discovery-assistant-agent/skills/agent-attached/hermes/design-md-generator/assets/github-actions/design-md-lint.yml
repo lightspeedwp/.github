@@ -102,7 +102,7 @@ jobs:
 
       - name: Upload PR comment body
         if: always() && hashFiles('design-md-pr-comment.md') != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: design-md-pr-comment
           path: design-md-pr-comment.md
@@ -151,7 +151,7 @@ jobs:
 
       - name: Upload validation report
         if: always() && hashFiles('design-md-validation-report.md') != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: design-md-validation-report
           path: design-md-validation-report.md

@@ -1,16 +1,13 @@
 ---
 title: "Archive Directory"
-description: "Contains outdated or superseded documentation files preserved for historical reference. Archives deprecated instruction files, migration guides, and backup files."
-file_type: documentation
-version: v1.1
-last_updated: "2026-06-01"
+description: "Contains outdated or superseded documentation files preserved for historical reference"
+version: "1.0"
 created_date: "2025-12-08"
+last_updated: "2025-12-08"
 authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-tags: ["archive", "documentation", "historical"]
+file_type: "documentation"
 domain: "governance"
-stability: "incubating"
+status: "archived"
 ---
 
 # Archive Directory
@@ -23,14 +20,14 @@ This directory contains documentation files that are outdated, superseded, or no
 
 **INSTRUCTION_CONSOLIDATION_MIGRATION.md** (394 lines)
 
-- **Status:** Superseded by `/docs/MIGRATION.md`
+- **Status:** Superseded by `/MIGRATION_GUIDE.md`
 - **Purpose:** Documented the December 7, 2025 consolidation of 22 instruction files → 5
 - **Reason for archival:** Duplicate content; canonical version exists at repository root
 - **Estimated token savings:** ~1,970 tokens
 
 **CONSOLIDATION_MIGRATION_GUIDE.md** (387 lines)
 
-- **Status:** Superseded by `/docs/MIGRATION.md`
+- **Status:** Superseded by `/MIGRATION_GUIDE.md`
 - **Purpose:** Migration map for instruction file consolidation
 - **Reason for archival:** Duplicate content; canonical version exists at repository root
 - **Estimated token savings:** ~1,935 tokens
@@ -107,7 +104,7 @@ cat FILENAME.md
 
 For current documentation, always reference:
 
-- **Migration Guide:** `/docs/MIGRATION.md` (canonical version)
+- **Migration Guide:** `/MIGRATION_GUIDE.md` (canonical version)
 - **All Instructions:** `.github/instructions/*.instructions.md` (consolidated files)
 
 ---

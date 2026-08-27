@@ -20,6 +20,10 @@ concurrency:
   group: meta-agent-validation-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   test:
     name: Meta Agent Tests
@@ -94,12 +98,12 @@ jobs:
             if [ -f "$file" ] && [[ "$file" == *.md ]]; then
               echo "Checking: $file"
               node -e "
-                const { validateFrontmatter } = require('./agents/meta-agent/skills/frontmatter-validation.cjs');
+                const { validateFrontmatter } = require('./agents/meta-agent/skills/frontmatter-validation.js');
                 const fs = require('fs');
                 const path = require('path');
 
                 // Detect repo type
-                const { detectRepoType } = require('./agents/meta-agent/skills/repo-type-detection.cjs');
+                const { detectRepoType } = require('./agents/meta-agent/skills/repo-type-detection.js');
                 const repoType = detectRepoType('.');
 
                 // Get schema for repo type

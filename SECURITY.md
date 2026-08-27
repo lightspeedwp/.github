@@ -1,17 +1,11 @@
 ---
-file_type: documentation
-title: Security Policy
-description: Security vulnerability reporting and responsible disclosure policy for
-  LightSpeed projects
-version: '1.1'
-last_updated: '2026-05-29'
-owners:
-- LightSpeed Security Team
-tags:
-- security
-- vulnerability
-- disclosure
-- reporting
+file_type: "documentation"
+title: "Security Policy"
+description: "Security vulnerability reporting and responsible disclosure policy for LightSpeed projects"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Security Team"]
+tags: ["security", "vulnerability", "disclosure", "reporting"]
 ---
 
 # Security Policy
@@ -124,4 +118,9 @@ For questions about this security policy, contact:
 
 ---
 
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

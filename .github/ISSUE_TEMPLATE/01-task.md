@@ -1,10 +1,12 @@
 ---
-file_type: "issue-template"
 name: "📝 Task"
 about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
-version: "1.0.2"
-last_updated: "2026-06-19"
-category: "github-templates"
+title: "[Task] <Short summary>"
+labels: [status:needs-triage, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: task
 ---
 
 ## Task Summary
@@ -45,7 +47,3 @@ category: "github-templates"
 - [ ] PR uses correct branch prefix
 
 ---
-
----
-
-Related issues: {related_issues}

@@ -13,14 +13,9 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
-import * as yaml from "js-yaml";
-import * as core from "@actions/core";
-import minimatchPackage from "minimatch";
-
-const minimatch =
-  typeof minimatchPackage === "function"
-    ? minimatchPackage
-    : minimatchPackage.minimatch;
+import yaml from "js-yaml";
+import core from "@actions/core";
+import { minimatch } from "minimatch";
 
 /**
  * Loads labeler rules from YAML configuration file

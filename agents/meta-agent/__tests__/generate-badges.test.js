@@ -5,7 +5,7 @@ const {
   generateBadges,
   formatBadgesAsMarkdown,
   injectBadges,
-} = require("../skills/generate-badges.cjs");
+} = require("../skills/generate-badges");
 
 describe("generate-badges skill", () => {
   let tempDir;

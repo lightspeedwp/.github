@@ -174,7 +174,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.cjs');
+            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
             const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
             const dryRun = '${{ inputs.dry_run }}' === 'true';
 

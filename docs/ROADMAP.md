@@ -1,17 +1,18 @@
 ---
-description: Development roadmap and phased delivery plan for the LightSpeedWP .github community health repository
-file_type: documentation
-last_updated: '2026-08-21'
-owners:
-  - LightSpeed Team
-tags:
-  - roadmap
-  - planning
-  - phases
-  - timeline
-  - deliverables
-title: Development Roadmap
-version: '1.1'
+file_type: "documentation"
+title: "Development Roadmap"
+description: "Development roadmap and phased delivery plan for the LightSpeedWP .github community health repository"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Team"]
+tags: ["roadmap", "planning", "phases", "timeline", "deliverables"]
+references:
+  - path: "ARCHITECTURE.md"
+    description: "Architecture and system design"
+  - path: "DECISIONS.md"
+    description: "Architectural decisions driving roadmap"
+  - path: "../CONTRIBUTING.md"
+    description: "How to contribute to the roadmap"
 ---
 
 # Development Roadmap
@@ -233,5 +234,9 @@ To contribute to the roadmap:
 4. **Document**: Update this roadmap as phases complete
 
 ---
+
+**Last Updated**: 2025-12-04
+**Next Review**: 2026-01-04
+**Phase Progress**: Phase 2 - 75% Complete
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

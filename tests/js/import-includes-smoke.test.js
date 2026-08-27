@@ -3,7 +3,7 @@ import path from "node:path";
 
 const filesToValidate = [
   "scripts/agents/includes/check-template-labels.js",
-  "scripts/agents/includes/label-sync.cjs",
+  "scripts/agents/includes/label-sync.js",
   "scripts/agents/includes/build-labeling-report.js",
   "scripts/agents/includes/fetch-canonical-labels.js",
   "scripts/agents/includes/label-utils.js",

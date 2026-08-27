@@ -1,3 +1,5 @@
+name: "Code & Contribution Help"
+description: "Ask for help with contributing, PRs, or setting up development."
 labels:
   - discussion:contribution
 template: |

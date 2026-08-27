@@ -1,0 +1,78 @@
+name: Frontmatter Metrics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (develop)
+        uses: actions/checkout@v7
+        with:
+          ref: develop
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Install deps
+        run: npm ci || npm i
+
+      - name: Run metrics
+        run: npm run metrics:ci
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontmatter-metrics-json
+          path: metrics/out/frontmatter-metrics.json
+          if-no-files-found: warn
+
+      - name: Upload Markdown report
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontmatter-metrics-md
+          path: metrics/out/frontmatter-metrics.md
+          if-no-files-found: error
+
+      - name: Create or update tracking issue
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('metrics/out/frontmatter-metrics.md','utf8');
+            const title = 'Weekly Frontmatter Metrics';
+            // Find existing issue
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ''
+            });
+            const existing = issues.find(i => i.title === title);
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body
+              });
+              core.info(`Updated issue #${existing.number}`);
+            } else {
+              const res = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body
+              });
+              core.info(`Created issue #${res.data.number}`);
+            }

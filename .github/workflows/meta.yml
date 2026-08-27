@@ -7,17 +7,13 @@ on:
     branches: [develop]
     paths:
       - "**/*.md"
-      - ".github/labels.yml"
-      - ".github/labeler.yml"
-      - ".github/issue-types.yml"
+      - ".github/automation/**"
       - ".github/agents/**"
   push:
     branches: [develop]
     paths:
       - "**/*.md"
-      - ".github/labels.yml"
-      - ".github/labeler.yml"
-      - ".github/issue-types.yml"
+      - ".github/automation/**"
       - ".github/agents/**"
   schedule:
     - cron: "0 3 * * 1" # weekly metrics roll-up (Mon 03:00 UTC)
@@ -35,22 +31,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version: "24"
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Validate frontmatter freshness
+      - name: Validate Front Matter
         run: |
+          npm i -g ajv-cli
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            BASE_REF="${{ github.event.pull_request.base.sha }}"
-            HEAD_REF="${{ github.event.pull_request.head.sha }}"
+            BASE_REF="${{ github.base_ref }}"
+            HEAD_REF="${{ github.sha }}"
           elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
             BASE_REF="${{ github.event.before }}"
             HEAD_REF="${{ github.sha }}"
@@ -58,51 +50,51 @@ jobs:
             BASE_REF="HEAD~1"
             HEAD_REF="${{ github.sha }}"
           fi
-          npm run validate:frontmatter:changed -- --base "$BASE_REF" --head "$HEAD_REF"
+          npm install --prefix scripts js-yaml ajv
+          FILES=$(git diff --name-only ${{ github.sha }} ${{ github.base_ref || 'HEAD~1' }} | grep -E '\.md$' || true)
+          for f in $FILES; do
+            node scripts/validate-frontmatter.js "$f"
+          done
 
   lint-and-links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version: "24"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Lint changed Markdown
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD~1' }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: node scripts/validate-markdown-lint.js
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          else
+            echo "Skipping markdown lint for event ${GITHUB_EVENT_NAME}"
+            exit 0
+          fi
 
-      - name: Collect Link Targets
-        id: link_targets
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || 'HEAD~1' }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: node scripts/collect-link-targets.js >> "$GITHUB_OUTPUT"
+          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | tr '\n' ' ')
+          if [ -z "$FILES" ]; then
+            echo "No Markdown files changed."
+            exit 0
+          fi
+
+          npx markdownlint-cli2 $FILES
 
       - name: Check Links
-        if: steps.link_targets.outputs.files != ''
         uses: lycheeverse/lychee-action@v2
-        env:
-          # Unauthenticated requests to github.com hit GitHub's anonymous rate
-          # limit almost immediately once a Markdown file references more than
-          # a handful of issues/PRs, and lychee reports the resulting
-          # rate-limit response as a plain 404 rather than 429 — indistinguishable
-          # from a genuinely deleted issue without checking the API directly.
-          # Authenticating raises the limit enough for CHANGELOG.md's issue links.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --no-progress --verbose --config lychee.toml ${{ steps.link_targets.outputs.files }}
+          args: --no-progress --verbose --exclude-mail ${{ github.workspace }}/README.md
 
   apply-meta:
     if: ${{ github.event_name != 'pull_request' }}
@@ -110,22 +102,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-
-      - name: Install dependencies
-        run: npm ci
+          node-version: "24"
 
       - name: Run Meta Agent
-        env:
-          META_SKIP_README: "true"
         run: |
           node scripts/agents/meta.agent.js
+
+      - name: Commit changes (content-only)
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(meta): apply frontmatter/badges/references/footer [skip ci]"
+            git push
+          fi
+
+  metrics-update:
+    needs: [apply-meta]
+    if: ${{ (success() || failure()) && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Fetch latest changes
+        run: |
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
 
       - name: Update Metrics Snapshot
         run: |
@@ -150,12 +165,12 @@ jobs:
               fs.appendFileSync('.github/metrics/meta-log.md', logLine);
             "
           fi
-
-      # develop requires the "Validate PR Template" status check, which only
-      # runs for pull_request events — a direct `git push` to develop can
-      # never satisfy it (see lightspeedwp/.github#1070). Route the change
-      # through a PR instead, with auto-merge so this stays hands-off.
-      - name: Open or update automation PR
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: node scripts/handle-meta-agent-pr.js
+      - name: Commit metrics
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+          git add .github/metrics/meta.json .github/metrics/meta-log.md
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(meta): update metrics snapshot [skip ci]"
+            git push origin ${{ github.ref_name }}
+          fi

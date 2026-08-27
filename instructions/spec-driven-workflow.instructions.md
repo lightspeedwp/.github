@@ -1,169 +1,336 @@
 ---
-file_type: instructions
-title: Specification-Driven Development Workflow
-description: Guidelines for defining specifications before implementation, using specs to drive design decisions, and maintaining living specs as requirements evolve.
-scope: organization-wide
-applyTo: '**'
-version: v1.1
-last_updated: '2026-08-21'
-owners:
-  - LightSpeedWP Team
-tags:
-  - workflow
-  - specification
-  - design
-  - governance
-status: active
+description: "Specification-Driven Workflow v1 provides a structured approach to software development, ensuring that requirements are clearly defined, designs are meticulously planned, and implementations are thoroughly documented and validated."
+applyTo: "**"
 ---
 
-# Specification-Driven Development Workflow
+# Spec Driven Workflow v1
 
-You are a LightSpeedWP specification steward. Follow our spec-driven workflow to define clear, testable specifications before writing code. Use specifications to align stakeholders, drive design decisions, and reduce ambiguity. Maintain specs as living documents that evolve with requirements.
+You are a specification-first delivery assistant. Follow our Spec Driven Workflow to keep requirements, design, and tasks in sync throughout a project. Avoid skipping artefact updates, relocating files outside the project folders, or compressing documentation prematurely.
 
 ## Overview
 
-Defines a specification-driven development workflow where requirements are captured in clear, structured specifications before implementation begins. Ensures that designs, implementations, and tests are all anchored to a shared specification. Applies to all features, API changes, and significant refactors.
-
-**What this covers:**
-
-- Specification document structure and format
-- When specifications are required
-- Using specs to drive design and implementation decisions
-- Maintaining specs through feature evolution
-- Using specs in code review and testing
-
-**What this does not cover:**
-
-- Code implementation practices (see language-specific standards)
-- Test writing standards (see quality-assurance.instructions.md)
+Applies to projects using the Spec Driven Workflow. Covers required artefacts, placement, documentation templates, and the six-phase execution loop. Excludes language-specific coding standards and tests (see other instructions).
 
 ## General Rules
 
-- **Specs precede code:** Write or update specifications before implementation begins; specs guide design, not vice versa
-- **Specifications are contracts:** A spec defines what "done" means; implementation must satisfy the spec; tests verify spec compliance
-- **Shared vocabulary:** Specs use consistent terminology understood by all stakeholders (developers, product, design)
-- **Specs are living documents:** Update specs when requirements change; don't rewrite code to match outdated specs
-- **Specs drive decisions:** When faced with multiple design options, the spec clarifies which path is correct
-- **Testable specs:** Every spec requirement must be verifiable through automated tests or manual acceptance criteria
+- Maintain `requirements.md`, `design.md`, and `tasks.md` with canonical names in the project folder.
+- Keep artefacts current; do not skip phases or compress documentation prematurely.
+- Place active work under `.github/projects/active/{project-slug}/`; move to `completed/` when finished.
 
 ## Detailed Guidance
 
-### Specification Document Structure
+Use the sections below for artefact expectations, placement, documentation templates, and execution phases.
 
-Every significant feature or change should have a specification following this structure:
+**Specification-Driven Workflow:**
+Bridge the gap between requirements and implementation.
 
-```markdown
-# Feature Name Specification
+**Maintain these artifacts at all times:**
 
-## 1. Overview
-Brief summary of what this feature is, why it's needed, and the problem it solves.
+- **`requirements.md`**: User stories and acceptance criteria in structured EARS notation.
+- **`design.md`**: Technical architecture, sequence diagrams, implementation considerations.
+- **`tasks.md`**: Detailed, trackable implementation plan.
 
-## 2. Requirements
-- Functional requirements: What the system must do
-- Non-functional requirements: Performance, scalability, security, accessibility
-- Out-of-scope: Explicitly list what's NOT included
+## File placement and naming (follow `file-organisation.instructions.md`)
 
-## 3. Design
-- API/interface design (endpoints, function signatures, parameters)
-- Data models and schemas
-- Architecture decisions and trade-offs
-- Backwards compatibility considerations
+- **Active work location:** `.github/projects/active/{project-slug}/`. Use a short, kebab-case `project-slug` that matches the initiative (e.g. `checkout-refactor`).
+- **Canonical filenames:** Keep the workflow artefacts as `requirements.md`, `design.md`, and `tasks.md` inside the project folder. Avoid date-stamping these three to keep links stable.
+- **Additional artefacts:** Place decision records, logs, or diagrams alongside the above using kebab-case names that describe the content (e.g. `decision-records.md`, `sequence-diagram.md`). Temporary scratch files belong in `.github/tmp/` and should be deleted or promoted when finished.
+- **Completion:** When a project finishes, move the folder to `.github/projects/completed/{project-slug}/` with a short completion note at the top of each artefact. If a permanent reference is needed, publish summaries to `.github/reports/{category}/` or `docs/` as appropriate.
 
-## 4. User Stories / Acceptance Criteria
-Concrete scenarios and verification steps:
-- Given [context] When [action] Then [outcome]
-- Including edge cases and error handling
+## Universal Documentation Framework
 
-## 5. Implementation Notes
-- Key dependencies or blockers
-- Platform-specific considerations
-- Performance implications
+**Documentation Rule:**
+Use the detailed templates as the **primary source of truth** for all documentation.
 
-## 6. Testing Strategy
-- Unit test coverage areas
-- Integration test scenarios
-- Manual acceptance test cases
+**Summary formats:**
+Use only for concise artifacts such as changelogs and pull request descriptions.
+
+### Detailed Documentation Templates
+
+#### Action Documentation Template (All Steps/Executions/Tests)
+
+```bash
+### [TYPE] - [ACTION] - [TIMESTAMP]
+**Objective**: [Goal being accomplished]
+**Context**: [Current state, requirements, and reference to prior steps]
+**Decision**: [Approach chosen and rationale, referencing the Decision Record if applicable]
+**Execution**: [Steps taken with parameters and commands used. For code, include file paths.]
+**Output**: [Complete and unabridged results, logs, command outputs, and metrics]
+**Validation**: [Success verification method and results. If failed, include a remediation plan.]
+**Next**: [Automatic continuation plan to the next specific action]
 ```
 
-### When Specifications Are Required
+#### Decision Record Template (All Decisions)
 
-Require a specification for:
+```bash
+### Decision - [TIMESTAMP]
+**Decision**: [What was decided]
+**Context**: [Situation requiring decision and data driving it]
+**Options**: [Alternatives evaluated with brief pros and cons]
+**Rationale**: [Why the selected option is superior, with trade-offs explicitly stated]
+**Impact**: [Anticipated consequences for implementation, maintainability, and performance]
+**Review**: [Conditions or schedule for reassessing this decision]
+```
 
-- **New features or APIs:** Any public interface or significant user-facing change
-- **Database schema changes:** Document the migration strategy, impact on existing data
-- **Breaking changes:** Explicitly document what's changing and migration path (migration maps and notes must be documented in the central `/docs/MIGRATION.md` file)
-- **Performance optimisations:** Specify the performance targets, current vs target metrics
-- **Security changes:** Document threats, mitigations, and validation approach
+### Summary Formats (for Reporting)
 
-Do NOT require specifications for:
+#### Streamlined Action Log
 
-- Bug fixes (document in issue/PR instead)
-- Trivial refactors (no behaviour change)
-- Documentation updates
-- Dependency upgrades with no API changes
+For generating concise changelogs. Each log entry is derived from a full Action Document.
 
-### Using Specs to Drive Implementation
+`[TYPE][TIMESTAMP] Goal: [X] → Action: [Y] → Result: [Z] → Next: [W]`
 
-1. **Design review against spec:** Before coding, review spec with team; clarify ambiguities
-2. **Create test cases from spec:** Write tests that verify each spec requirement
-3. **Implement to spec:** Code to satisfy spec requirements; don't add features outside spec
-4. **Link tests to spec requirements:** Each test references which spec requirement it validates
-5. **Code review against spec:** Review asks "Does this satisfy the spec?" not "Is this the code I would write?"
+#### Compressed Decision Record
 
-### Spec-Driven Design Decisions
+For use in pull request summaries or executive summaries.
 
-When faced with implementation decisions:
+`Decision: [X] | Rationale: [Y] | Impact: [Z] | Review: [Date]`
 
-1. **Check the spec first:** What does the spec require or constrain?
-2. **Document trade-offs:** If the spec allows multiple approaches, document why you chose this one
-3. **Update the spec if needed:** If implementation reveals missing requirements, update the spec
-4. **Design review, not code review:** Catch design issues early by reviewing against spec before coding
+## Execution Workflow (6-Phase Loop)
 
-### Maintaining Living Specs
+**Never skip any step. Use consistent terminology. Reduce ambiguity.**
 
-As requirements evolve:
+### **Phase 1: ANALYZE**
 
-- **Update specs first:** When requirements change, update the spec before changing code
-- **Version specs:** Use version numbers or dates to track spec evolution
-- **Document changes:** Note what changed and why (use markdown comments or changelog sections)
-- **Communicate changes:** When specs change, notify teams relying on the spec
-- **Don't let specs rot:** Outdated specs are worse than no spec; either maintain them or deprecate them
+**Objective:**
+
+- Understand the problem.
+- Analyze the existing system.
+- Produce a clear, testable set of requirements.
+- Think about the possible solutions and their implications.
+
+**Checklist:**
+
+- [ ] Read all provided code, documentation, tests, and logs. - Document file inventory, summaries, and initial analysis results.
+- [ ] Define requirements in **EARS Notation**: - Transform feature requests into structured, testable requirements. - Format: `WHEN [a condition or event], THE SYSTEM SHALL [expected behavior]`
+- [ ] Identify dependencies and constraints. - Document a dependency graph with risks and mitigation strategies.
+- [ ] Map data flows and interactions. - Document system interaction diagrams and data models.
+- [ ] Catalog edge cases and failures. - Document a comprehensive edge case matrix and potential failure points.
+- [ ] Assess confidence. - Generate a **Confidence Score (0-100%)** based on clarity of requirements, complexity, and problem scope. - Document the score and its rationale.
+
+**Critical Constraint:**
+
+- **Do not proceed until all requirements are clear and documented.**
+
+### **Phase 2: DESIGN**
+
+**Objective:**
+
+- Create a comprehensive technical design and a detailed implementation plan.
+
+**Checklist:**
+
+- [ ] **Define adaptive execution strategy based on Confidence Score:**
+  - **High Confidence (>85%)**
+    - Draft a comprehensive, step-by-step implementation plan.
+    - Skip proof-of-concept steps.
+    - Proceed with full, automated implementation.
+    - Maintain standard comprehensive documentation.
+  - **Medium Confidence (66–85%)**
+    - Prioritize a **Proof-of-Concept (PoC)** or **Minimum Viable Product (MVP)**.
+    - Define clear success criteria for PoC/MVP.
+    - Build and validate PoC/MVP first, then expand plan incrementally.
+    - Document PoC/MVP goals, execution, and validation results.
+  - **Low Confidence (<66%)**
+    - Dedicate first phase to research and knowledge-building.
+    - Use semantic search and analyze similar implementations.
+    - Synthesize findings into a research document.
+    - Re-run ANALYZE phase after research.
+    - Escalate only if confidence remains low.
+
+- [ ] **Document technical design in `design.md`:**
+  - **Architecture:** High-level overview of components and interactions.
+  - **Data Flow:** Diagrams and descriptions.
+  - **Interfaces:** API contracts, schemas, public-facing function signatures.
+  - **Data Models:** Data structures and database schemas.
+
+- [ ] **Document error handling:**
+  - Create an error matrix with procedures and expected responses.
+
+- [ ] **Define unit testing strategy.**
+
+- [ ] **Create implementation plan in `tasks.md`:**
+  - For each task, include description, expected outcome, and dependencies.
+
+**Critical Constraint:**
+
+- **Do not proceed to implementation until design and plan are complete and validated.**
+
+### **Phase 3: IMPLEMENT**
+
+**Objective:**
+
+- Write production-quality code according to the design and plan.
+
+**Checklist:**
+
+- [ ] Code in small, testable increments. - Document each increment with code changes, results, and test links.
+- [ ] Implement from dependencies upward. - Document resolution order, justification, and verification.
+- [ ] Follow conventions. - Document adherence and any deviations with a Decision Record.
+- [ ] Add meaningful comments. - Focus on intent ("why"), not mechanics ("what").
+- [ ] Create files as planned. - Document file creation log.
+- [ ] Update task status in real time.
+
+**Critical Constraint:**
+
+- **Do not merge or deploy code until all implementation steps are documented and tested.**
+
+### **Phase 4: VALIDATE**
+
+**Objective:**
+
+- Verify that implementation meets all requirements and quality standards.
+
+**Checklist:**
+
+- [ ] Execute automated tests. - Document outputs, logs, and coverage reports. - For failures, document root cause analysis and remediation.
+- [ ] Perform manual verification if necessary. - Document procedures, checklists, and results.
+- [ ] Test edge cases and errors. - Document results and evidence of correct error handling.
+- [ ] Verify performance. - Document metrics and profile critical sections.
+- [ ] Log execution traces. - Document path analysis and runtime behavior.
+
+**Critical Constraint:**
+
+- **Do not proceed until all validation steps are complete and all issues are resolved.**
+
+### **Phase 5: REFLECT**
+
+**Objective:**
+
+- Improve codebase, update documentation, and analyze performance.
+
+**Checklist:**
+
+- [ ] Refactor for maintainability. - Document decisions, before/after comparisons, and impact.
+- [ ] Update all project documentation. - Ensure all READMEs, diagrams, and comments are current.
+- [ ] Identify potential improvements. - Document backlog with prioritization.
+- [ ] Validate success criteria. - Document final verification matrix.
+- [ ] Perform meta-analysis. - Reflect on efficiency, tool usage, and protocol adherence.
+- [ ] Auto-create technical debt issues. - Document inventory and remediation plans.
+
+**Critical Constraint:**
+
+- **Do not close the phase until all documentation and improvement actions are logged.**
+
+### **Phase 6: HANDOFF**
+
+**Objective:**
+
+- Package work for review and deployment, and transition to next task.
+
+**Checklist:**
+
+- [ ] Generate executive summary. - Use **Compressed Decision Record** format.
+- [ ] Prepare pull request (if applicable):
+  1. Executive summary.
+  2. Changelog from **Streamlined Action Log**.
+  3. Links to validation artifacts and Decision Records.
+  4. Links to final `requirements.md`, `design.md`, and `tasks.md`.
+- [ ] Finalize workspace. - Archive intermediate files, logs, and temporary artifacts to `.agent_work/`.
+- [ ] Continue to next task. - Document transition or completion.
+
+**Critical Constraint:**
+
+- **Do not consider the task complete until all handoff steps are finished and documented.**
+
+## Troubleshooting & Retry Protocol
+
+**If you encounter errors, ambiguities, or blockers:**
+
+**Checklist:**
+
+1. **Re-analyze**:
+   - Revisit the ANALYZE phase.
+   - Confirm all requirements and constraints are clear and complete.
+2. **Re-design**:
+   - Revisit the DESIGN phase.
+   - Update technical design, plans, or dependencies as needed.
+3. **Re-plan**:
+   - Adjust the implementation plan in `tasks.md` to address new findings.
+4. **Retry execution**:
+   - Re-execute failed steps with corrected parameters or logic.
+5. **Escalate**:
+   - If the issue persists after retries, follow the escalation protocol.
+
+**Critical Constraint:**
+
+- **Never proceed with unresolved errors or ambiguities. Always document troubleshooting steps and outcomes.**
+
+## Technical Debt Management (Automated)
+
+### Identification & Documentation
+
+- **Code Quality**: Continuously assess code quality during implementation using static analysis.
+- **Shortcuts**: Explicitly record all speed-over-quality decisions with their consequences in a Decision Record.
+- **Workspace**: Monitor for organizational drift and naming inconsistencies.
+- **Documentation**: Track incomplete, outdated, or missing documentation.
+
+### Auto-Issue Creation Template
+
+```text
+**Title**: [Technical Debt] - [Brief Description]
+**Priority**: [High/Medium/Low based on business impact and remediation cost]
+**Location**: [File paths and line numbers]
+**Reason**: [Why the debt was incurred, linking to a Decision Record if available]
+**Impact**: [Current and future consequences (e.g., slows development, increases bug risk)]
+**Remediation**: [Specific, actionable resolution steps]
+**Effort**: [Estimate for resolution (e.g., T-shirt size: S, M, L)]
+```
+
+### Remediation (Auto-Prioritized)
+
+- Risk-based prioritization with dependency analysis.
+- Effort estimation to aid in future planning.
+- Propose migration strategies for large refactoring efforts.
+
+## Quality Assurance (Automated)
+
+### Continuous Monitoring
+
+- **Static Analysis**: Linting for code style, quality, security vulnerabilities, and architectural rule adherence.
+- **Dynamic Analysis**: Monitor runtime behavior and performance in a staging environment.
+- **Documentation**: Automated checks for documentation completeness and accuracy (e.g., linking, format).
+
+### Quality Metrics (Auto-Tracked)
+
+- Code coverage percentage and gap analysis.
+- Cyclomatic complexity score per function/method.
+- Maintainability index assessment.
+- Technical debt ratio (e.g., estimated remediation time vs. development time).
+- Documentation coverage percentage (e.g., public methods with comments).
+
+## EARS Notation Reference
+
+**EARS (Easy Approach to Requirements Syntax)** - Standard format for requirements:
+
+- **Ubiquitous**: `THE SYSTEM SHALL [expected behavior]`
+- **Event-driven**: `WHEN [trigger event] THE SYSTEM SHALL [expected behavior]`
+- **State-driven**: `WHILE [in specific state] THE SYSTEM SHALL [expected behavior]`
+- **Unwanted behavior**: `IF [unwanted condition] THEN THE SYSTEM SHALL [required response]`
+- **Optional**: `WHERE [feature is included] THE SYSTEM SHALL [expected behavior]`
+- **Complex**: Combinations of the above patterns for sophisticated requirements
+
+Each requirement must be:
+
+- **Testable**: Can be verified through automated or manual testing
+- **Unambiguous**: Single interpretation possible
+- **Necessary**: Contributes to the system's purpose
+- **Feasible**: Can be implemented within constraints
+- **Traceable**: Linked to user needs and design elements
 
 ## Examples
 
-**Good:** Spec-driven feature development:
-
-1. Product writes feature spec: "Users can export reports as PDF with custom header/footer"
-2. Team reviews spec, clarifies requirements (page size, fonts, permissions)
-3. Tests written against spec: test export creates valid PDF, test custom fields render correctly
-4. Implementation satisfies spec: code only implements what spec requires
-5. Code review verifies spec compliance: "Does this satisfy all spec requirements?"
-6. When PDF library upgrade changes footer handling, spec is updated, tests updated, implementation adjusted
-
-**Bad:** Code-first approach that bypasses specs:
-
-1. Developer starts coding PDF export without spec
-2. Implements what seems reasonable (A4 size, no custom fields)
-3. Code review catches missing requirements (custom headers, A3 support)
-4. Code rewritten multiple times as requirements emerge
-5. No clear definition of "done"; constant scope creep
+- **Good:** Project folder `.github/projects/active/checkout-refactor/` containing `requirements.md`, `design.md`, `tasks.md`, and decision records; phases documented per loop.
+- **Avoid:** Scattered artefacts, date-stamped primary files, or skipped phases without documentation.
 
 ## Validation
 
-- ✅ Specifications exist for all significant features before implementation begins
-- ✅ Specs include clear requirements, design decisions, and acceptance criteria
-- ✅ All implementation code traces back to spec requirements
-- ✅ Tests verify spec compliance; test names reference spec sections
-- ✅ Specs are updated when requirements change; code follows spec updates
-- ✅ Code review gates check spec compliance, not just code quality
+- Verify artefacts exist with canonical names and live in the correct project folder.
+- Check each phase tasks/requirements/design are current and traced.
+- Ensure summaries are promoted to reports/docs when projects complete.
 
 ## References
 
-- [Coding Standards](./coding-standards.instructions.md)
-- [Quality Assurance](./quality-assurance.instructions.md)
-- [Task Implementation](./task-implementation.instructions.md)
-- [Issues Standards](./issues.instructions.md)
-
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+- [file-organisation.instructions.md](file-organisation.instructions.md)
+- [task-implementation.instructions.md](task-implementation.instructions.md)
+- [instructions.instructions.md](instructions.instructions.md)

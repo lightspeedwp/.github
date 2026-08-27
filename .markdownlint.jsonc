@@ -1,49 +1,84 @@
 {
-  // GENERATED FILE: synced from .markdownlint.config.cjs
-  // Run: npm run sync:markdownlint-config
+    // Markdownlint JSONC Configuration for LightSpeedWP
+    // This configuration is used by the quality-gates workflow and IDE integrations
+    // See markdownlint.config.js for the comprehensive configuration
 
-  "default": true,
-  "MD013": false,
-  "MD025": false,
-  "MD036": false,
-  "MD033": {
-    "allowed_elements": [
-      "br",
-      "sub",
-      "sup",
-      "kbd",
-      "mark",
-      "details",
-      "summary",
-      "img",
-      "a",
-      "div",
-      "span",
-      "table",
-      "thead",
-      "tbody",
-      "tr",
-      "th",
-      "td",
-      "hr",
-      "code",
-      "pre"
-    ]
-  },
-  "MD041": false,
-  "MD024": false,
-  "MD029": {
-    "style": "ordered"
-  },
-  "MD040": false,
-  "MD046": {
-    "style": "fenced"
-  },
-  "MD049": {
-    "style": "asterisk"
-  },
-  "MD050": {
-    "style": "asterisk"
-  },
-  "MD060": false
+    // Use default rules as base
+    "default": true,
+
+    // Rule customizations
+    // MD013 - Line length limit
+    // DISABLED: Documentation legitimately exceeds reasonable line length limits.
+    // Disabled to unblock commit of WordPress theme reorganization (81 files).
+    // Previous config: 120/140/160 chars for content/headings/code blocks.
+    "MD013": false,
+
+    // MD025 - Single title/single H1
+    // DISABLED: Technical documentation often needs multiple H1 headers for structure.
+    "MD025": false,
+
+    // MD036 - No emphasis as heading
+    // DISABLED: Some documentation uses emphasis for section markers.
+    "MD036": false,
+
+    // MD033 - Inline HTML (allowed for enhanced formatting)
+    "MD033": {
+        "allowed_elements": [
+            "br",
+            "sub",
+            "sup",
+            "kbd",
+            "mark",
+            "details",
+            "summary",
+            "img",
+            "a",
+            "div",
+            "span",
+            "table",
+            "thead",
+            "tbody",
+            "tr",
+            "th",
+            "td",
+            "hr",
+            "code",
+            "pre"
+        ]
+    },
+
+    // MD041 - First line in file should be a top-level heading
+    // Disabled to allow frontmatter
+    "MD041": false,
+
+    // MD024 - Multiple headings with the same content
+    // DISABLED: Technical docs often reuse heading names in different sections.
+    "MD024": false,
+
+    // MD029 - Ordered list item prefix
+    "MD029": {
+        "style": "ordered"
+    },
+
+    // MD040 - Fenced code blocks should have a language specified
+    "MD040": false,
+
+    // MD046 - Code block style (prefer fenced)
+    "MD046": {
+        "style": "fenced"
+    },
+
+    // MD049 - Emphasis style (use asterisks)
+    "MD049": {
+        "style": "asterisk"
+    },
+
+    // MD050 - Strong style (use asterisks)
+    "MD050": {
+        "style": "asterisk"
+    },
+
+    // MD060 - Table column style
+    // DISABLED: Flexible table formatting for readability.
+    "MD060": false
 }

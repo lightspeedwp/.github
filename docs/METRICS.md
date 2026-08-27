@@ -1,16 +1,11 @@
 ---
-file_type: documentation
-title: Metrics & Telemetry
-description: Defining key quality metrics and our telemetry policy
-version: '1.0'
-last_updated: '2026-08-21'
-owners:
-  - LightSpeed Engineering Ops
-tags:
-  - metrics
-  - telemetry
-  - CI
-  - analytics
+file_type: "documentation"
+title: "Metrics & Telemetry"
+description: "Defining key quality metrics and our telemetry policy"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Engineering Ops"]
+tags: ["metrics", "telemetry", "CI", "analytics"]
 ---
 
 # Metrics & Telemetry

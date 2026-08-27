@@ -1,179 +1,214 @@
 ---
-file_type: instructions
-title: Self-Explanatory Code & Commenting Standards
-description: Guidelines for writing self-documenting code and adding comments only when necessary to clarify non-obvious intent, constraints, or workarounds.
-scope: organization-wide
-applyTo: 'src/**'
-version: v1.0
-last_updated: '2026-05-29'
-owners:
-- LightSpeedWP Team
-tags:
-- code-quality
-- documentation
-- best-practices
-- readability
-status: active
+description: "Guidelines for GitHub Copilot to write comments to achieve self-explanatory code with less comments. Examples are in JavaScript but it should work on any language that has comments."
+applyTo: "**"
 ---
 
-# Self-Explanatory Code & Commenting Standards
+# Self-explanatory Code Commenting Instructions
 
-You are a LightSpeedWP code clarity champion. Follow our commenting standards to write code that explains itself through clear naming, structure, and intent. Add comments only to clarify the WHY, not the WHAT—well-named identifiers already do that. Avoid comment clutter that rots as code evolves.
+You are a self-documenting code mentor. Follow our commenting framework to prioritise clear code and sparing rationale-focused comments. Avoid obvious, redundant, or outdated remarks that simply restate the code.
 
 ## Overview
 
-Defines standards for writing self-documenting code and applying comments judiciously. Emphasises that good code structure, meaningful names, and clear logic reduce the need for comments. Comments exist to explain non-obvious decisions, hidden constraints, subtle invariants, and workarounds—not to restate what the code obviously does.
-
-**What this covers:**
-
-- Naming conventions for variables, functions, classes, modules
-- Code structure and readability practices
-- When comments are necessary (and when they're not)
-- Comment tone and style
-- Avoiding comment rot
-
-**What this does not cover:**
-
-- Code organisation or architectural patterns (language-specific instruction files)
-- API documentation (covered by language-specific doc standards)
+Applies to commenting practices across languages. Emphasises writing clear code first, then adding minimal comments that explain intent or non-obvious decisions. Excludes documentation standards for README/docs.
 
 ## General Rules
 
-- **Code is the primary documentation:** Well-named identifiers, clear logic flow, and consistent structure are your first line of clarity
-- **Comments explain WHY, not WHAT:** Don't comment obvious code; comment non-obvious decisions, constraints, or workarounds
-- **No comment clutter:** Remove comments that state what code obviously does; they rot and confuse as code evolves
-- **One-line comments only:** Use concise single-line comments; multi-paragraph docstrings are reserved for function/module APIs only
-- **Treat comments as technical debt:** If code needs a comment to be clear, first consider refactoring to make it self-explanatory
-- **No references to tasks/issues in comments:** Use PR descriptions and commit messages for context; comments should survive refactoring
+- Comment to explain WHY, not WHAT; avoid redundant or outdated remarks.
+- Prefer refactoring names/structure before adding comments.
+- Document constraints, external contracts, algorithms, and gotchas.
 
 ## Detailed Guidance
 
-### Naming Conventions
+- Follow the core principle and guidelines below for avoid/write comment types, decision framework, and special cases.
 
-Use full, descriptive names that express intent:
+## Core Principle
 
-- **Functions:** Use verbs that describe actions: `calculateTotalPrice`, `validateEmail`, `fetchUserProfile`
-- **Variables:** Use nouns that describe what's stored: `userCount`, `isActive`, `emailAddress` (not `u`, `a`, `e`)
-- **Boolean properties:** Use affirmative predicates: `isActive`, `hasPermission`, `canDelete` (not `isInactive`)
-- **Collections:** Use plural nouns: `users`, `items`, `entries` (clarity that it's a collection)
-- **Constants:** Use UPPER_SNAKE_CASE: `MAX_RETRIES`, `DEFAULT_TIMEOUT`
-- **Classes:** Use PascalCase nouns: `UserManager`, `PaymentProcessor`
+**Write code that speaks for itself. Comment only when necessary to explain WHY, not WHAT.**
+We do not need comments most of the time.
 
-### When Comments Are Necessary
+## Commenting Guidelines
 
-Add a comment ONLY when the WHY is non-obvious:
+### ❌ AVOID These Comment Types
 
-1. **Hidden constraints:** Business rules, API limitations, or performance requirements not obvious from code
-   - Example: "Retry up to 3 times because external API has transient failures"
+**Obvious Comments**
 
-2. **Subtle invariants:** Assumptions about state, ordering, or relationships that aren't enforced by type systems
-   - Example: "Array must be sorted before calling binarySearch"
+```javascript
+// Bad: States the obvious
+let counter = 0; // Initialize counter to zero
+counter++; // Increment counter by one
+```
 
-3. **Workarounds:** References to external bugs, known issues, or platform quirks that forced an unusual implementation
-   - Example: "iOS Safari doesn't support CSS custom properties in media queries (WebKit bug #XXX)"
+**Redundant Comments**
 
-4. **Non-obvious performance decisions:** Trade-offs or optimisations that aren't evident from the algorithm
-   - Example: "Using a HashSet instead of a List because lookup speed dominates over insertion order"
+```javascript
+// Bad: Comment repeats the code
+function getUserName() {
+  return user.name; // Return the user's name
+}
+```
 
-5. **Complex mathematical or domain logic:** If the logic encodes domain knowledge not obvious from variable names
-   - Example: "Leap year calculation: years divisible by 100 are not leap years unless also divisible by 400"
+**Outdated Comments**
 
-### Code Structure for Clarity
+```javascript
+// Bad: Comment doesn't match the code
+// Calculate tax at 5% rate
+const tax = price * 0.08; // Actually 8%
+```
 
-Structure code to be self-explanatory:
+### ✅ WRITE These Comment Types
 
-- **Extract methods:** Break complex logic into small, named functions; the name explains the step
-- **Use intermediate variables:** Instead of a single complex expression, use named variables for sub-expressions
-- **Guard clauses:** Return early from conditional branches; avoid deeply nested if/else
-- **Consistent patterns:** Repeat the same structure for similar tasks; consistency is clarity
-- **Semantic HTML:** Use appropriate elements (`<button>` not `<div onclick>`); markup structure tells the story
+**Complex Business Logic**
 
-### Comment Style
+```javascript
+// Good: Explains WHY this specific calculation
+// Apply progressive tax brackets: 10% up to 10k, 20% above
+const tax = calculateProgressiveTax(income, [0.1, 0.2], [10000]);
+```
 
-When you do add comments:
+**Non-obvious Algorithms**
 
-- Use lowercase unless starting a proper noun
-- Write concise, grammatically correct sentences
-- Avoid vague language ("fix bug", "handle edge case") in favour of specifics
-- Link to external references when relevant (bug trackers, RFC documents)
+```javascript
+// Good: Explains the algorithm choice
+// Using Floyd-Warshall for all-pairs shortest paths
+// because we need distances between all nodes
+for (let k = 0; k < vertices; k++) {
+  for (let i = 0; i < vertices; i++) {
+    for (let j = 0; j < vertices; j++) {
+      // ... implementation
+    }
+  }
+}
+```
 
-### What NOT to Comment
+**Regex Patterns**
 
-Remove comments that:
+```javascript
+// Good: Explains what the regex matches
+// Match email format: username@domain.extension
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+```
 
-- Restate what the code obviously does (`i++` doesn't need "increment i")
-- Reference the current task or issue ("Added for feature X", "Handles bug #123") — belongs in commit/PR
-- Are left behind from debugging ("TODO: remove this hack")
-- Parrot function signatures or obvious control flow
+**API Constraints or Gotchas**
+
+```javascript
+// Good: Explains external constraint
+// GitHub API rate limit: 5000 requests/hour for authenticated users
+await rateLimiter.wait();
+const response = await fetch(githubApiUrl);
+```
 
 ## Examples
 
-**Good:** Clear naming + minimal comment for non-obvious constraint:
-
-```javascript
-function calculateShippingCost(weightKg, isInternational) {
-  const baseRate = isInternational ? 15 : 5;
-  // Royal Mail charges per 500g step; ceil ensures partial kg is billed as full
-  const weightSteps = Math.ceil(weightKg / 0.5);
-  return baseRate + (weightSteps * 2);
-}
-```
-
-**Bad:** Obvious restatement of what code does:
-
-```javascript
-function calculateShippingCost(w, i) {
-  // Create base rate variable
-  const b = i ? 15 : 5;
-  // Loop through weight steps
-  const s = Math.ceil(w / 0.5);
-  // Add weight cost
-  return b + (s * 2);
-}
-```
-
-**Good:** Function structure explains intent; no comment needed:
-
-```php
-function processUserRegistration($email, $password) {
-  $this->validateEmailFormat($email);
-  $this->checkEmailUniqueness($email);
-  $this->enforcePasswordStrength($password);
-
-  return $this->createUser($email, $password);
-}
-```
-
-**Bad:** Obvious comment stating each step:
-
-```php
-function processUserRegistration($email, $password) {
-  // Validate the email format
-  $this->validateEmailFormat($email);
-  // Check if email already exists
-  $this->checkEmailUniqueness($email);
-  // Ensure password is strong
-  $this->enforcePasswordStrength($password);
-  // Create the new user
-  return $this->createUser($email, $password);
-}
-```
+- **Good:** Comments explaining algorithm choice, external API constraints, or business rules; JSDoc for public APIs.
+- **Avoid:** Comments restating code, outdated notes, or obvious descriptions.
 
 ## Validation
 
-- ✅ All identifiers (variables, functions, classes) are descriptive and express intent
-- ✅ Comments explain WHY decisions were made, not WHAT code does
-- ✅ No multi-paragraph comment blocks; one-line comments only (except API docs)
-- ✅ No comments referencing current task, issue, or feature
-- ✅ Code structure itself documents flow; guard clauses, extracted methods reduce comment need
-- ✅ Comments are kept current and removed if code is refactored to be self-explanatory
+- Review diffs to ensure comments add intent/clarity and remain current with code.
+- Prefer refactoring names/structure when comments feel redundant.
+
+## Decision Framework
+
+Before writing a comment, ask:
+
+1. **Is the code self-explanatory?** → No comment needed
+2. **Would a better variable/function name eliminate the need?** → Refactor instead
+3. **Does this explain WHY, not WHAT?** → Good comment
+4. **Will this help future maintainers?** → Good comment
+
+## Special Cases for Comments
+
+### Public APIs
+
+```javascript
+/**
+ * Calculate compound interest using the standard formula.
+ *
+ * @param {number} principal - Initial amount invested
+ * @param {number} rate - Annual interest rate (as decimal, e.g., 0.05 for 5%)
+ * @param {number} time - Time period in years
+ * @param {number} compoundFrequency - How many times per year interest compounds (default: 1)
+ * @returns {number} Final amount after compound interest
+ */
+function calculateCompoundInterest(
+  principal,
+  rate,
+  time,
+  compoundFrequency = 1,
+) {
+  // ... implementation
+}
+```
+
+### Configuration and Constants
+
+```javascript
+// Good: Explains the source or reasoning
+const MAX_RETRIES = 3; // Based on network reliability studies
+const API_TIMEOUT = 5000; // AWS Lambda timeout is 15s, leaving buffer
+```
+
+### Annotations
+
+```javascript
+// TODO: Replace with proper user authentication after security review
+// FIXME: Memory leak in production - investigate connection pooling
+// HACK: Workaround for bug in library v2.1.0 - remove after upgrade
+// NOTE: This implementation assumes UTC timezone for all calculations
+// WARNING: This function modifies the original array instead of creating a copy
+// PERF: Consider caching this result if called frequently in hot path
+// SECURITY: Validate input to prevent SQL injection before using in query
+// BUG: Edge case failure when array is empty - needs investigation
+// REFACTOR: Extract this logic into separate utility function for reusability
+// DEPRECATED: Use newApiFunction() instead - this will be removed in v3.0
+```
+
+## Anti-Patterns to Avoid
+
+### Dead Code Comments
+
+```javascript
+// Bad: Don't comment out code
+// const oldFunction = () => { ... };
+const newFunction = () => { ... };
+```
+
+### Changelog Comments
+
+```javascript
+// Bad: Don't maintain history in comments
+// Modified by John on 2023-01-15
+// Fixed bug reported by Sarah on 2023-02-03
+function processData() {
+  // ... implementation
+}
+```
+
+### Divider Comments
+
+```javascript
+// Bad: Don't use decorative comments
+//=====================================
+// UTILITY FUNCTIONS
+//=====================================
+```
+
+## Quality Checklist
+
+Before committing, ensure your comments:
+
+- [ ] Explain WHY, not WHAT
+- [ ] Are grammatically correct and clear
+- [ ] Will remain accurate as code evolves
+- [ ] Add genuine value to code understanding
+- [ ] Are placed appropriately (above the code they describe)
+- [ ] Use proper spelling and professional language
+
+## Summary
+
+Remember: **The best comment is the one you don't need to write because the code is self-documenting.**
 
 ## References
 
-- [Coding Standards](./coding-standards.instructions.md)
-- [Task Implementation](./task-implementation.instructions.md)
-- Clean Code: A Handbook of Agile Software Craftsmanship (Chapter 4: Comments)
-
----
-
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+- [coding-standards.instructions.md](coding-standards.instructions.md)
+- [instructions.instructions.md](instructions.instructions.md)

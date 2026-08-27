@@ -1,25 +1,15 @@
 ---
-file_type: instructions
-title: Quality Assurance Standards
-description: Comprehensive testing, validation, and quality assurance standards for all GitHub repository code and automation
-scope: organization-wide
-version: v1.1.3
-last_updated: '2026-08-21'
-owners:
-  - GitHub Community Health Team
-tags:
-  - testing
-  - quality
-  - jest
-  - playwright
-  - coverage
-  - ci-cd
-applyTo:
-  - '**/*.{test,spec}.{js,ts,jsx,tsx}'
-  - '**/__tests__/**/*'
-status: active
-stability: stable
-domain: generic
+file_type: "instructions"
+title: "Quality Assurance Standards"
+description: "Comprehensive testing, validation, and quality assurance standards for all GitHub repository code and automation"
+version: "v1.0"
+last_updated: "2025-12-07"
+owners: ["GitHub Community Health Team"]
+tags: ["testing", "quality", "jest", "playwright", "coverage", "ci-cd"]
+applyTo: ["**/*.{test,spec}.{js,ts,jsx,tsx}", "**/__tests__/**/*"]
+status: "active"
+stability: "stable"
+domain: "generic"
 ---
 
 # Quality Assurance Standards
@@ -66,6 +56,7 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 - [End-to-End Testing](#end-to-end-testing)
 - [CI/CD Integration](#cicd-integration)
 - [Quality Gates](#quality-gates)
+- [References](#references)
 
 ---
 
@@ -73,21 +64,16 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 
 ### Testing Pyramid
 
-When you show the pyramid in Mermaid, use the approved Mermaid palette from `instructions/mermaid.instructions.md` and set `fill`, `color`, and `stroke` together in every `classDef`.
-
 ```mermaid
 graph TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-accTitle: Testing pyramid diagram
-accDescr: Shows the testing pyramid from end-to-end tests through integration and unit tests to static analysis.
     A[E2E Tests<br/>User Workflows] --> B[Integration Tests<br/>Component Interaction]
     B --> C[Unit Tests<br/>Pure Functions & Logic]
     C --> D[Static Analysis<br/>Linting & Type Checking]
 
-    classDef e2e fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
-    classDef integration fill:#fef3c7,color:#4a2c00,stroke:#b45309
-    classDef unit fill:#dcfce7,color:#14532d,stroke:#14532d
-    classDef static fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef e2e fill:#ffebee
+    classDef integration fill:#fff3e0
+    classDef unit fill:#e8f5e8
+    classDef static fill:#e1f5fe
 
     class A e2e
     class B integration
@@ -121,7 +107,7 @@ accDescr: Shows the testing pyramid from end-to-end tests through integration an
 
 **Config Files:**
 
-- Main config: `jest.config.js` or `jest.config.cjs`
+- Main config: [`jest.config.js`](../jest.config.js) or [`jest.config.cjs`](../jest.config.cjs)
 - Setup: `jest.setup.js` for global test setup
 - Helpers: `tests/test-helpers.js` for shared utilities
 
@@ -375,9 +361,6 @@ describe("Issue Lifecycle E2E", () => {
 
 ```mermaid
 sequenceDiagram
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-accTitle: Test execution flow
-accDescr: Shows how a developer runs tests locally, pushes changes, and then CI executes linting, tests, coverage, and quality gate checks.
     participant Dev as Developer
     participant Local as Local Tests
     participant CI as CI Pipeline
@@ -570,4 +553,20 @@ tests/
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## References
+
+- [instructions.instructions.md](./instructions.instructions.md)
+- [instructions.instructions.md](instructions.instructions.md)
+- [instructions.instructions.md](instructions.instructions.md)
+- [coding-standards.instructions.md](coding-standards.instructions.md)
+- [linting.instructions.md](linting.instructions.md)
+- [workflows.instructions.md](workflows.instructions.md)
+- [languages.instructions.md](languages.instructions.md)
+- [test workflows](../.github/workflows/test*.yml)
+- [Jest Documentation](https://jestjs.io/)
+- [Jest Best Practices](https://jestjs.io/docs/best-practices)
+- [Testing Library](https://testing-library.com/)
+- [Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
+- [AAA Pattern](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
+- [Istanbul Coverage](https://istanbul.js.org/)
+- [Codecov](https://about.codecov.io/)

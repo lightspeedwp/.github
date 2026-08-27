@@ -1,33 +1,41 @@
 ---
-file_type: documentation
-title: Agent Specification Authoring Guide
-description: Comprehensive guide for creating, documenting, and maintaining agent
-  specification files following LightSpeed standards
-version: 'v1.6'
-created_date: '2025-01-15'
-last_updated: '2026-06-19'
-author: LightSpeed Team
-maintainer: LightSpeed Team
-license: GPL-3.0
-domain: governance
-stability: stable
+file_type: "documentation"
+title: "Agent Specification Authoring Guide"
+description: "Comprehensive guide for creating, documenting, and maintaining agent specification files following LightSpeed standards"
+version: "v1.0"
+created_date: "2025-01-15"
+last_updated: "2025-01-15"
+author: "LightSpeed Team"
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
 tags:
   - agents
   - documentation
   - standards
   - automation
   - specifications
+references:
+  - path: "../agents/README.md"
+    description: "Agents directory overview"
+  - path: "../agents/agent.md"
+    description: "Main agent index"
+  - path: "../agents/template.agent.md"
+    description: "Agent specification template"
+  - path: "../.schemas/frontmatter.schema.json"
+    description: "Frontmatter validation schema"
+  - path: "../instructions/automation.instructions.md"
+    description: "Agent development instructions"
 ---
 
 # 📝 Agent Specification Authoring Guide
 
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-blue)](../docs/)
 [![Standards](https://img.shields.io/badge/standards-enforced-success)](../.github/instructions/)
-[![Validation](https://img.shields.io/badge/validation-automated-informational)](../schemas/)
+[![Validation](https://img.shields.io/badge/validation-automated-informational)](../.schemas/)
 
 > **Complete guide** for authoring agent specification files that follow LightSpeed organizational standards, including frontmatter requirements, documentation structure, implementation patterns, and validation processes.
->
-> **NOTE (Phase 3A):** This guide is now supplemented by the comprehensive [AGENT_STANDARDS.md](./AGENT_STANDARDS.md) document, which provides end-to-end standards for agent design and architecture. For detailed agent structure, patterns, and quality gates, see [AGENT_STANDARDS.md](./AGENT_STANDARDS.md).
 
 ---
 
@@ -111,11 +119,6 @@ agents/{agent-name}.agent.md
 
 ```mermaid
 graph TB
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Agent specification architecture
-    accDescr {
-      Three-layer architecture showing Agent Specification (YAML frontmatter, purpose, responsibilities, process flow, guardrails, integration, references), Implementation (agent code, utilities, tests), and Automation (workflows, triggers, validation) with their interconnections.
-    }
     subgraph "📝 Agent Specification"
         A[YAML Frontmatter]
         B[Purpose & Overview]
@@ -151,10 +154,9 @@ graph TB
     H --> I
     I --> J
 
-    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    style H fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
-    style K fill:#dcfce7,color:#14532d,stroke:#14532d
-accDescr: Detailed diagram showing structure and relationships
+    style A fill:#e1f5fe
+    style H fill:#f3e5f5
+    style K fill:#e8f5e8
 ```
 
 ---
@@ -189,11 +191,6 @@ Create a new agent when:
 
 ```mermaid
 flowchart TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Decision flow for creating a new agent
-    accDescr {
-      Decision tree that checks whether a workflow is deterministic, whether an existing agent covers the scope, whether guardrails can prevent harm, and whether a maintainer will own the lifecycle. Each no branch stops agent creation; all yes branches proceed to a spec draft.
-    }
     A([New Workflow Identified]) --> B{Is it deterministic?}
     B -->|No| N1[Do NOT create agent]
     B -->|Yes| C{Is there an existing agent<br/>that covers this scope?}
@@ -203,7 +200,6 @@ flowchart TD
     D -->|Yes| E{Is a maintainer willing<br/>to own the lifecycle?}
     E -->|No| N4[Do NOT create agent]
     E -->|Yes| F([Proceed with Spec Draft])
-accDescr: Detailed diagram showing structure and relationships
 ````
 
 ---
@@ -226,9 +222,6 @@ Before drafting a spec:
 
 ```mermaid
 flowchart LR
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Pre-creation review checklist path
-    accDescr: Left-to-right pipeline from Start through Define Problem, Assess Overlap, Define Tools and Permissions, Define Guardrails, Assign Owner, then a decision — either Stop to Revise Concept or proceed to Write Spec File.
     Start([Start]) --> Check1[Define Problem]
     Check1 --> Check2[Assess Overlap]
     Check2 --> Check3[Define Tools + Permissions]
@@ -317,9 +310,6 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 
 ```mermaid
 flowchart TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Agent approval workflow
-    accDescr: Top-down flow from Spec Drafted through Frontmatter Validation, Add to Agent Index, Maintainer Review, Governance Review, to an Approved decision — yes leads to Merge and Begin Implementation, no returns the spec to the author.
     A([Spec Drafted]) --> B[Frontmatter Validation]
     B --> C[Add to Agent Index]
     C --> D[Maintainer Review]
@@ -363,11 +353,6 @@ Frontmatter is **machine-validated**. Errors break CI.
 
 ```mermaid
 mindmap
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Agent frontmatter fields scope map
-    accDescr {
-      Mind map centred on Frontmatter with four branches: Required fields (file_type, name, description, version, last_updated, owners), Recommended fields (category, status, visibility, tools), Agent-Specific fields (handoffs, references, metadata.guardrails), and Validation rules (semantic versioning, ISO date, unique naming).
-    }
   root((Frontmatter))
     Required
       file_type
@@ -389,7 +374,6 @@ mindmap
       semantic versioning
       ISO date
       unique naming
-accDescr: Detailed diagram showing structure and relationships
 ```
 
 ---
@@ -419,11 +403,6 @@ accDescr: Detailed diagram showing structure and relationships
 
 ```mermaid
 sequenceDiagram
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Agent publishing pipeline sequence
-    accDescr {
-      Sequence diagram showing interactions between Human Author, CI Validation, GitHub Repo, and Governance Reviewer — from drafting the spec through validation, commit, PR, governance review, implementation, CI validation, to merge readiness.
-    }
     participant H as Human Author
     participant CI as CI Validation
     participant Git as GitHub Repo
@@ -437,7 +416,6 @@ sequenceDiagram
     H->>Git: Commit Implementation + Tests
     CI->>Git: Validate + Test
     Git->>H: Ready to Merge
-accDescr: Detailed diagram showing structure and relationships
 ```
 
 ---
@@ -496,9 +474,6 @@ To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
 flowchart LR
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Agent lifecycle maturity stages
-    accDescr: Linear left-to-right progression through five lifecycle stages — Draft, Prototype, Active, Mature, and Deprecated.
     Draft --> Prototype --> Active --> Mature --> Deprecated
 ```
 
@@ -547,9 +522,6 @@ Example patterns:
 
 ```mermaid
 flowchart TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Agent handoff example
-    accDescr: Top-down flow showing the Labeling Agent reaching a Conditions Met decision — yes routes to the Reviewer Agent, no results in No Handoff.
     A[Labeling Agent] --> B{Conditions Met?}
     B -->|Yes| C[Reviewer Agent]
     B -->|No| D[No Handoff]
@@ -571,7 +543,7 @@ Then follow the governance checklist on this page.
 
 - Organisation-wide agent index (`../agents/agent.md`)
 - Agent Specification Authoring Guide
-- Frontmatter schema (`../schemas/frontmatter.schema.json`)
+- Frontmatter schema (`../.schemas/frontmatter.schema.json`)
 - Agent instructions (`agent-spec.instructions.md`)
 
 ---
@@ -580,4 +552,7 @@ Then follow the governance checklist on this page.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+<!-- RANDOM FOOTER: 📝 Clear specs, reliable agents! -->
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
