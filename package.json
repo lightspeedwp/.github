@@ -125,7 +125,7 @@
     "@types/jest": "29.5.14",
     "@types/node": "^26.2.0",
     "@typescript-eslint/eslint-plugin": "^8.60.0",
-    "@typescript-eslint/parser": "^8.60.0",
+    "@typescript-eslint/parser": "^8.67.0",
     "ajv": "^8.17.1",
     "ajv-cli": "5.0.0",
     "ajv-formats": "^3.0.1",
