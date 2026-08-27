@@ -245,7 +245,7 @@ Release: Audit trail ensures integrity
 
 **Detailed Phase 2 Report:**
 
-See [Phase 2 Implementation Report](./.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md) for complete implementation details, test coverage, and performance metrics.
+See [Phase 2 Implementation Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md) for complete implementation details, test coverage, and performance metrics.
 
 ---
 
