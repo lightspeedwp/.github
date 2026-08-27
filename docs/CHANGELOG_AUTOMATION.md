@@ -84,11 +84,11 @@ config:
   accessibility:
     diagramMarginX: 8
     diagramMarginY: 8
-accTitle: Changelog Validation Flowchart
-accDescr: Flowchart showing changelog validation gates for release process
 ---
 flowchart TD
-  A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
+  accTitle: Changelog Validation Flowchart
+  accDescr: Flowchart showing changelog validation gates for release process
+  A["Release triggered on develop branch"] --> B["Run Phase 5A Gates"]
   B -->|"GATE 1"| C["Changelog Validation"]
   C --> D{["CHANGELOG.md<br/>exists?"]}
   D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
