@@ -225,7 +225,7 @@ npm test -- --testPathPattern=changelog-safety
 
 **Integration Points:**
 
-```
+```text
 Phase 1 (Validation) + Phase 2 (Protection & Logging) → Phase 3+ (Future)
 
 Local commit-time: Pre-commit hook validation
