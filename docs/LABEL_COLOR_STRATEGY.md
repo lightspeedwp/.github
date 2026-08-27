@@ -1,16 +1,22 @@
 ---
+document_type: "Specification"
 title: Label Color Strategy Specification
 description: Comprehensive color strategy for the 150 canonical labels based on semantic meaning and workflow state
 file_type: documentation
-version: v1.1.3
+version: v1.1.4
 created_date: '2026-05-31'
-last_updated: '2026-08-21'
+last_updated: '2026-08-27'
 authors:
   - LightSpeed Team
 maintainer: LightSpeed Team
 owners:
   - lightspeedwp/maintainers
 license: GPL-3.0
+openspec_status: "production"
+openspec_labels:
+  - "openspec:status/production"
+  - "openspec:domain/governance"
+  - "openspec:priority/medium"
 tags:
   - labels
   - color-strategy
