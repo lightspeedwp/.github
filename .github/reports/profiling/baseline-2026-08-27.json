@@ -1,0 +1,280 @@
+{
+  "timestamp": "2026-08-27T18:07:15.264Z",
+  "scripts": [
+    {
+      "script": "add-issue-template-sections.js",
+      "size_bytes": 11200,
+      "size_kb": "10.94",
+      "lines_of_code": {
+        "total": 381,
+        "code": 300
+      },
+      "dependencies": {
+        "requires": 1,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 900,
+      "estimated_memory_mb": "0.81"
+    },
+    {
+      "script": "audit-issue-metadata.js",
+      "size_bytes": 17332,
+      "size_kb": "16.93",
+      "lines_of_code": {
+        "total": 555,
+        "code": 436
+      },
+      "dependencies": {
+        "requires": 3,
+        "apiCall": true,
+        "fileIO": true,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "refactor-for-readability",
+        "add-caching",
+        "optimize-file-io",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 1600,
+      "estimated_memory_mb": "0.95"
+    },
+    {
+      "script": "bulk-issue-metadata-updater.js",
+      "size_bytes": 11211,
+      "size_kb": "10.95",
+      "lines_of_code": {
+        "total": 401,
+        "code": 338
+      },
+      "dependencies": {
+        "requires": 5,
+        "apiCall": true,
+        "fileIO": true,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "refactor-for-readability",
+        "add-caching",
+        "optimize-file-io",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 1100,
+      "estimated_memory_mb": "0.85"
+    },
+    {
+      "script": "manage-stale-issues.js",
+      "size_bytes": 12339,
+      "size_kb": "12.05",
+      "lines_of_code": {
+        "total": 463,
+        "code": 381
+      },
+      "dependencies": {
+        "requires": 6,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "reduce-dependencies",
+        "refactor-for-readability",
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 900,
+      "estimated_memory_mb": "0.89"
+    },
+    {
+      "script": "allocate-to-milestone.js",
+      "size_bytes": 24432,
+      "size_kb": "23.86",
+      "lines_of_code": {
+        "total": 712,
+        "code": 616
+      },
+      "dependencies": {
+        "requires": 1,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "refactor-for-readability",
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 1400,
+      "estimated_memory_mb": "1.14"
+    },
+    {
+      "script": "review-meta-labels.js",
+      "size_bytes": 9062,
+      "size_kb": "8.85",
+      "lines_of_code": {
+        "total": 343,
+        "code": 278
+      },
+      "dependencies": {
+        "requires": 4,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 900,
+      "estimated_memory_mb": "0.79"
+    },
+    {
+      "script": "review-status-labels.js",
+      "size_bytes": 14055,
+      "size_kb": "13.73",
+      "lines_of_code": {
+        "total": 511,
+        "code": 417
+      },
+      "dependencies": {
+        "requires": 5,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "refactor-for-readability",
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 1400,
+      "estimated_memory_mb": "0.93"
+    },
+    {
+      "script": "sync-pr-labels.js",
+      "size_bytes": 9157,
+      "size_kb": "8.94",
+      "lines_of_code": {
+        "total": 350,
+        "code": 288
+      },
+      "dependencies": {
+        "requires": 5,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 900,
+      "estimated_memory_mb": "0.80"
+    },
+    {
+      "script": "staging-validation.js",
+      "size_bytes": 15457,
+      "size_kb": "15.09",
+      "lines_of_code": {
+        "total": 491,
+        "code": 406
+      },
+      "dependencies": {
+        "requires": 2,
+        "apiCall": true,
+        "fileIO": true,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "refactor-for-readability",
+        "add-caching",
+        "optimize-file-io",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 1600,
+      "estimated_memory_mb": "0.92"
+    },
+    {
+      "script": "handlers-orchestrator.js",
+      "size_bytes": 9490,
+      "size_kb": "9.27",
+      "lines_of_code": {
+        "total": 350,
+        "code": 264
+      },
+      "dependencies": {
+        "requires": 3,
+        "apiCall": true,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "add-caching",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 900,
+      "estimated_memory_mb": "0.77"
+    },
+    {
+      "script": "label-orchestrator.js",
+      "size_bytes": 3535,
+      "size_kb": "3.45",
+      "lines_of_code": {
+        "total": 132,
+        "code": 108
+      },
+      "dependencies": {
+        "requires": 3,
+        "apiCall": false,
+        "fileIO": false,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 100,
+      "estimated_memory_mb": "0.61"
+    },
+    {
+      "script": "pr-triage-orchestrator.js",
+      "size_bytes": 12049,
+      "size_kb": "11.77",
+      "lines_of_code": {
+        "total": 433,
+        "code": 363
+      },
+      "dependencies": {
+        "requires": 2,
+        "apiCall": true,
+        "fileIO": true,
+        "logging": true,
+        "errorHandling": true
+      },
+      "optimization_potential": [
+        "refactor-for-readability",
+        "add-caching",
+        "optimize-file-io",
+        "add-performance-logging"
+      ],
+      "estimated_execution_time_ms": 1100,
+      "estimated_memory_mb": "0.87"
+    }
+  ]
+}
