@@ -84,7 +84,7 @@ jobs:
           fi
           echo "✅ Authorization check passed"
       - name: Upload telemetry artefact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: trigger-telemetry
@@ -99,7 +99,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Lint
@@ -114,7 +114,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Run tests
@@ -138,7 +138,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Check branch is develop
@@ -189,7 +189,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Configure git user
@@ -241,7 +241,7 @@ jobs:
         run: node scripts/workflows/release/build-notes-preview.cjs
       - name: Upload dry-run artefacts
         if: inputs.dry_run == true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-dry-run-artefacts
           path: |
@@ -266,7 +266,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Configure git user

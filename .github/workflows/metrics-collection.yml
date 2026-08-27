@@ -33,14 +33,14 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
 
       - name: Install dependencies
@@ -61,7 +61,7 @@ jobs:
       - name: Collect metrics
         id: collect
         run: |
-          node .github/scripts/workflows/metrics-collection-orchestrator.js \
+          node .github/scripts/workflows/metrics-collection-orchestrator.cjs \
             --context "${{ inputs.context || 'github-control-plane' }}" \
             --dryRun "${{ inputs.dryRun || 'false' }}"
 
@@ -121,12 +121,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
 
       - name: Install dependencies

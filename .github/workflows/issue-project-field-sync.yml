@@ -61,7 +61,7 @@ jobs:
 
     steps:
       - name: Sync issues to project and fill fields
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           # Use a PAT with `project` scope if available; fall back to GITHUB_TOKEN.
           # GITHUB_TOKEN works for repo-linked projects when projects: write is set.

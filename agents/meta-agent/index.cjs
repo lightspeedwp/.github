@@ -4,11 +4,11 @@
  */
 
 const skills = {
-  "repo-type-detection": require("./skills/repo-type-detection"),
-  "frontmatter-validation": require("./skills/frontmatter-validation"),
-  "metadata-extraction": require("./skills/metadata-extraction"),
-  "apply-standards": require("./skills/apply-standards"),
-  "generate-badges": require("./skills/generate-badges"),
+  "repo-type-detection": require("./skills/repo-type-detection.cjs"),
+  "frontmatter-validation": require("./skills/frontmatter-validation.cjs"),
+  "metadata-extraction": require("./skills/metadata-extraction.cjs"),
+  "apply-standards": require("./skills/apply-standards.cjs"),
+  "generate-badges": require("./skills/generate-badges.cjs"),
 };
 
 /**

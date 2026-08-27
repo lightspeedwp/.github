@@ -5,7 +5,7 @@ const {
   MetricsAggregator,
   InsightsAnalyzer,
   MetricsReporter,
-} = require("../metrics-agent");
+} = require("../metrics-agent.cjs");
 
 // ============================================================================
 // CONFIGURATION MODULE TESTS

@@ -9,7 +9,7 @@
 
 const { execFileSync } = require("child_process");
 const fs = require("fs");
-const dorDodTemplates = require("./dor-dod-templates");
+const dorDodTemplates = require("./dor-dod-templates.cjs");
 
 const OWNER = "lightspeedwp";
 const REPO = ".github";

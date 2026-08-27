@@ -3,14 +3,14 @@
  * Comprehensive workflow scenarios for OpenSpec label automation
  */
 
-const handleIssueCreated = require("../handlers/handle-issue-created");
-const handleIssueLabled = require("../handlers/handle-issue-labeled");
-const handlePROpened = require("../handlers/handle-pr-opened");
-const handlePRMerged = require("../handlers/handle-pr-merged");
-const handleIssueClosed = require("../handlers/handle-issue-closed");
-const phaseStateMachine = require("../includes/phase-state-machine");
-const labelValidator = require("../includes/label-validator");
-const auditLogger = require("../includes/audit-logger");
+const handleIssueCreated = require("../handlers/handle-issue-created.cjs");
+const handleIssueLabled = require("../handlers/handle-issue-labeled.cjs");
+const handlePROpened = require("../handlers/handle-pr-opened.cjs");
+const handlePRMerged = require("../handlers/handle-pr-merged.cjs");
+const handleIssueClosed = require("../handlers/handle-issue-closed.cjs");
+const phaseStateMachine = require("../includes/phase-state-machine.cjs");
+const labelValidator = require("../includes/label-validator.cjs");
+const auditLogger = require("../includes/audit-logger.cjs");
 
 describe("Phase 3 Integration Tests", () => {
   describe("Scenario 1: New issue without type label", () => {

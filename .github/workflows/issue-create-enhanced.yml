@@ -92,7 +92,7 @@ jobs:
 
       - name: Create issue from template
         id: create
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -240,10 +240,10 @@ jobs:
       - name: Auto-assign milestone (if not provided)
         id: assign_milestone
         if: success() && !inputs.milestone
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
-            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
+            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.cjs');
 
             const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
             const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
@@ -273,10 +273,10 @@ jobs:
 
       - name: Post remediation checklist (if template gaps exist)
         if: success()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
-            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
+            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.cjs');
 
             const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
             const generator = new RemediationChecklistGenerator(github, context.repo.owner, context.repo.repo);

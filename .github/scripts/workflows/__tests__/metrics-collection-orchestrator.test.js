@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const {
   MetricsCollectionOrchestrator,
-} = require("../metrics-collection-orchestrator");
+} = require("../metrics-collection-orchestrator.cjs");
 
 describe("MetricsCollectionOrchestrator", () => {
   let orchestrator;

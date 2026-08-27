@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { execSync } = require("child_process");
-const MetricsCollectionOrchestrator = require("../collect-metrics");
+const MetricsCollectionOrchestrator = require("../collect-metrics.cjs");
 
 jest.mock("child_process");
 jest.mock("fs");

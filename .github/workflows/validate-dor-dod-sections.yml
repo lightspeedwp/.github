@@ -28,12 +28,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install dependencies
         run: npm ci --prefer-offline
@@ -52,11 +52,11 @@ jobs:
             LIMIT_FLAG="--limit ${{ github.event.inputs.limit }}"
           fi
 
-          node scripts/automation/validate-inject-dor-dod.js $DRY_RUN_FLAG $LIMIT_FLAG --verbose
+          node scripts/automation/validate-inject-dor-dod.cjs $DRY_RUN_FLAG $LIMIT_FLAG --verbose
 
       - name: Upload validation report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dor-dod-validation-report
           path: dor-dod-validation-*.json

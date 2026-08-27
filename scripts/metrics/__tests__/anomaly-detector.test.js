@@ -2,8 +2,8 @@
  * Tests for Anomaly Detector — Deviation detection
  */
 
-const { AnomalyDetector } = require("../anomaly-detector");
-const { MetricsStorage } = require("../metrics-storage");
+const { AnomalyDetector } = require("../anomaly-detector.cjs");
+const { MetricsStorage } = require("../metrics-storage.cjs");
 const fs = require("fs");
 
 describe("AnomalyDetector", () => {

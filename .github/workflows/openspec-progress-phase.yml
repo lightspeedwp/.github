@@ -35,9 +35,9 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
@@ -46,7 +46,7 @@ jobs:
       - name: Handle PR opened
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         run: |
-          node scripts/automation/handlers/handle-pr-opened.js \
+          node scripts/automation/handlers/handle-pr-opened.cjs \
             --pr=${{ github.event.pull_request.number }} \
             --dry-run=${{ github.event.inputs.dry_run || 'false' }} \
             --verbose
@@ -57,7 +57,7 @@ jobs:
       - name: Handle PR merged
         if: github.event.action == 'closed' && github.event.pull_request.merged == true
         run: |
-          node scripts/automation/handlers/handle-pr-merged.js \
+          node scripts/automation/handlers/handle-pr-merged.cjs \
             --pr=${{ github.event.pull_request.number }} \
             --dry-run=${{ github.event.inputs.dry_run || 'false' }} \
             --verbose
@@ -68,7 +68,7 @@ jobs:
       - name: Handle manual progression
         if: github.event_name == 'workflow_dispatch'
         run: |
-          node scripts/automation/handlers/handle-issue-labeled.js \
+          node scripts/automation/handlers/handle-issue-labeled.cjs \
             --issue=${{ github.event.inputs.issue_number }} \
             --label=${{ github.event.inputs.next_state }} \
             --dry-run=${{ github.event.inputs.dry_run }} \

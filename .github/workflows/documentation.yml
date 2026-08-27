@@ -142,7 +142,7 @@ jobs:
 
       - name: Upload audit artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: documentation-audit-report-${{ github.run_number }}
           path: .github/reports/mermaid-audit/
@@ -150,7 +150,7 @@ jobs:
 
       - name: Create issue for critical findings
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             github.rest.issues.create({
@@ -226,7 +226,7 @@ jobs:
 
       - name: Upload regeneration artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: documentation-regeneration-${{ github.run_number }}
           path: .github/reports/
@@ -262,7 +262,7 @@ jobs:
       - name: Run Mermaid diagram fixes
         id: mermaid
         if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'mermaid' }}
-        run: node scripts/fix-mermaid-diagrams.js
+        run: node scripts/fix-mermaid-diagrams.cjs
         continue-on-error: true
 
       - name: Validate Mermaid colour contrast
@@ -274,7 +274,7 @@ jobs:
       - name: Run staleness updates
         id: staleness
         if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'staleness' }}
-        run: node scripts/fix-staleness-dates.js
+        run: node scripts/fix-staleness-dates.cjs
         continue-on-error: true
 
       - name: Generate maintenance report
@@ -347,7 +347,7 @@ jobs:
 
       - name: Upload maintenance report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: documentation-maintenance-report-${{ github.run_number }}
           path: .github/reports/mermaid-audit/

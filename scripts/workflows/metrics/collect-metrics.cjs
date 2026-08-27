@@ -7,9 +7,9 @@
  * Runs metrics-agent with configured profiles and outputs structured results.
  *
  * Usage:
- *   node scripts/workflows/metrics/collect-metrics.js
- *   node scripts/workflows/metrics/collect-metrics.js --context github-control-plane
- *   node scripts/workflows/metrics/collect-metrics.js --context all --output /path/to/output
+ *   node scripts/workflows/metrics/collect-metrics.cjs
+ *   node scripts/workflows/metrics/collect-metrics.cjs --context github-control-plane
+ *   node scripts/workflows/metrics/collect-metrics.cjs --context all --output /path/to/output
  */
 
 const fs = require("fs");
@@ -226,7 +226,7 @@ async function main() {
         break;
       case "--help":
         console.log(`
-Usage: node scripts/workflows/metrics/collect-metrics.js [options]
+Usage: node scripts/workflows/metrics/collect-metrics.cjs [options]
 
 Options:
   --context CONTEXT       Metrics context: all, github-control-plane, wordpress-plugin, wordpress-theme
