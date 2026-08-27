@@ -90,6 +90,8 @@ This active project audits the current state of the issue management infrastruct
 
 ### Phase 2: Implementation (Planned)
 
+- [x] **06-OPENSPEC-LABELS-MAPPING.md** - Complete openspec labels reference
+- [x] **07-ISSUES-TO-CREATE.md** - 11 GitHub issues with labels
 - [ ] **Implementation Guide** - Step-by-step implementation instructions
 - [ ] **Openspec Validation Report** - Spec improvements and validation results
 - [ ] **Updated Agent Specifications** - issues.agent.md v2.1
@@ -310,7 +312,10 @@ For questions about this project:
 | 03 | OPENSPEC-STATUS-FRAMEWORK.md | Status tracking framework | ✅ Complete |
 | 04 | AGENTIC-WORKFLOW-DESIGN.md | Unified workflow architecture | ✅ Complete |
 | 05 | AUTOMATION-SCRIPTS-INVENTORY.md | Complete scripts catalog | ✅ Complete |
+| 06 | OPENSPEC-LABELS-MAPPING.md | Labels reference & matrix | ✅ Complete |
+| 07 | ISSUES-TO-CREATE.md | 11 GitHub issues to create | ✅ Complete |
 | — | README.md | This file | ✅ Complete |
+| — | INDEX.md | Quick navigation guide | ✅ Complete |
 
 ---
 
