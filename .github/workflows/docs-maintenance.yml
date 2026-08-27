@@ -140,7 +140,7 @@ jobs:
         if: |
           github.event.inputs.action == 'update-readme' ||
           github.event.inputs.action == 'update-mermaid'
-        run: node scripts/fix-mermaid-diagrams.js
+        run: node scripts/fix-mermaid-diagrams.cjs
         continue-on-error: true
 
       - name: Validate Mermaid colour contrast
@@ -154,7 +154,7 @@ jobs:
         if: |
           github.event.inputs.action == 'update-readme' ||
           github.event.inputs.action == 'update-staleness'
-        run: node scripts/fix-staleness-dates.js
+        run: node scripts/fix-staleness-dates.cjs
         continue-on-error: true
 
       - name: Generate update report

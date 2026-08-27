@@ -1,10 +1,10 @@
 /**
- * planner.agent.js
+ * planner.agent.cjs
  *
  * Lightweight placeholder implementation to keep the planner workflow healthy.
  * Currently runs in dry-run mode and logs context; extend with real automation
  * when the planner specification is implemented.
- * @module scripts/agents/planner.agent.js
+ * @module scripts/agents/planner.agent.cjs
  * @see agents/task-planner.agent.md
  */
 

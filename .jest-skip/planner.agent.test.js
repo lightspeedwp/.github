@@ -5,7 +5,7 @@ const {
   resetTestEnv,
   mockPrPayload,
 } = require("../../tests/test-helpers");
-const { run } = require("../planner.agent.js");
+const { run } = require("../planner.agent.cjs");
 
 describe("Planner Agent", () => {
   beforeAll(() => setTestEnv({ GITHUB_TOKEN: "test" }));

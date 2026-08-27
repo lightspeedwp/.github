@@ -19,9 +19,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Run Issues Agent (advisory)
-        run: node scripts/agents/issues.agent.js
+        run: node scripts/agents/issues.agent.cjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

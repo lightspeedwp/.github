@@ -68,7 +68,7 @@ jobs:
             ARGS="$ARGS --dry"
           fi
 
-          node scripts/workflows/metrics/collect-metrics.js $ARGS --verbose
+          node scripts/workflows/metrics/collect-metrics.cjs $ARGS --verbose
 
       - name: Upload metrics report
         if: always()

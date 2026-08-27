@@ -32,7 +32,7 @@ permissions:
   checks: read
 
 env:
-  NODE_VERSION: "lts/*"
+  NODE_VERSION: "24"
   TEST_REPO_BASE: /tmp/release-e2e-test-repo
   TEST_RESULTS_DIR: ${{ github.workspace }}/.github/reports/release-validation
 

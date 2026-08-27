@@ -1,9 +1,9 @@
 /**
- * Jest suite verifying the baseline behaviour of `issues.agent.js`.
- * @see ../issues.agent.js
+ * Jest suite verifying the baseline behaviour of `issues.agent.cjs`.
+ * @see ../issues.agent.cjs
  */
-// Basic smoke test for issues.agent.js
-const agent = require("../issues.agent.js");
+// Basic smoke test for issues.agent.cjs
+const agent = require("../issues.agent.cjs");
 
 describe("issues.agent", () => {
   it("should be defined", () => {

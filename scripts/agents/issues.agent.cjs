@@ -1,10 +1,10 @@
 /**
- * issues.agent.js
+ * issues.agent.cjs
  *
  * Advisory implementation for the Issues agent. Provides lightweight
  * recommendations without mutating GitHub state. Extend with API calls when
  * ready to automate labelling and enrichment.
- * @module scripts/agents/issues.agent.js
+ * @module scripts/agents/issues.agent.cjs
  * @see ../../agents/issues.agent.md
  */
 

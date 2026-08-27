@@ -1,9 +1,9 @@
 /**
- * Jest suite verifying the baseline behaviour of `planner.agent.js`.
- * @see ../planner.agent.js
+ * Jest suite verifying the baseline behaviour of `planner.agent.cjs`.
+ * @see ../planner.agent.cjs
  */
-// Basic smoke test for planner.agent.js
-const agent = require("../planner.agent.js");
+// Basic smoke test for planner.agent.cjs
+const agent = require("../planner.agent.cjs");
 
 describe("planner.agent", () => {
   it("should be defined", () => {
