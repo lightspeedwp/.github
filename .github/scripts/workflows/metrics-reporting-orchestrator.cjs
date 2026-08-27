@@ -7,10 +7,10 @@
 
 const fs = require("fs");
 const path = require("path");
-const { MetricsStorage } = require("../../scripts/metrics/metrics-storage");
+const { MetricsStorage } = require("../../scripts/metrics/metrics-storage.cjs");
 const { MetricsReporter } = require("../../scripts/metrics/metrics-reporter");
-const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer");
-const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector");
+const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer.cjs");
+const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector.cjs");
 
 class MetricsReportingOrchestrator {
   constructor() {

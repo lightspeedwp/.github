@@ -7,7 +7,7 @@
  */
 
 const auditLogger = require("../includes/audit-logger");
-const labelValidator = require("../includes/label-validator");
+const labelValidator = require("../includes/label-validator.cjs");
 
 const OWNER = "lightspeedwp";
 const REPO = ".github";

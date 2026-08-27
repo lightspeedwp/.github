@@ -243,7 +243,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.js');
+            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.cjs');
 
             const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
             const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
