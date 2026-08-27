@@ -2,7 +2,7 @@
  * Tests for Metrics Storage — Historical data persistence
  */
 
-const { MetricsStorage } = require("../metrics-storage");
+const { MetricsStorage } = require("../metrics-storage.cjs");
 const fs = require("fs");
 const path = require("path");
 

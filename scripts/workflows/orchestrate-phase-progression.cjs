@@ -10,11 +10,11 @@ const fs = require("fs");
 const path = require("path");
 const {
   syncLabelsOnEvent,
-} = require("../../scripts/automation/handlers/sync-labels-on-event");
+} = require("../../scripts/automation/handlers/sync-labels-on-event.cjs");
 const {
   orchestratePhaseProgression,
   extractLinkedIssues,
-} = require("../../scripts/automation/handlers/orchestrate-phase-progression");
+} = require("../../scripts/automation/handlers/orchestrate-phase-progression.cjs");
 
 // Parse command line arguments
 const args = process.argv.slice(2);
