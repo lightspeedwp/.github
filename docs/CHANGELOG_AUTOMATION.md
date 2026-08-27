@@ -225,7 +225,7 @@ npm test -- --testPathPattern=changelog-safety
 
 **Integration Points:**
 
-```text
+```
 Phase 1 (Validation) + Phase 2 (Protection & Logging) → Phase 3+ (Future)
 
 Local commit-time: Pre-commit hook validation
@@ -245,7 +245,7 @@ Release: Audit trail ensures integrity
 
 **Detailed Phase 2 Report:**
 
-See [Phase 2 Implementation Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md) for complete implementation details, test coverage, and performance metrics.
+See [Phase 2 Implementation Report](./.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md) for complete implementation details, test coverage, and performance metrics.
 
 ---
 
@@ -304,7 +304,7 @@ Every entry follows this exact format:
 
 #### Entry Length Limits
 
-```text
+```
 Title:        <60 characters
 Description:  <150 characters
 Full entry:   <250 characters (total)
@@ -315,7 +315,7 @@ Sentences:    1-2 maximum
 
 This project uses [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html):
 
-```text
+```
 MAJOR.MINOR.PATCH
 
 Example: 1.5.3
@@ -410,7 +410,7 @@ npm run validate:changelog
 
 Expected output:
 
-```text
+```
 📋 CHANGELOG Validation Report
 
 📊 Summary:
@@ -437,7 +437,7 @@ Submit your PR with:
 
 ### Validation Pipeline
 
-```text
+```
 Developer commits CHANGELOG.md update
          ↓
 PR created (changelog-management.yml triggered)
@@ -664,7 +664,7 @@ npm run lint:all
 Error: Changelog validation failed
   Reason: [Unreleased] section missing or empty
   Action: Add entries to [Unreleased] before release
-```text
+```
 
 ---
 
@@ -674,7 +674,7 @@ Error: Changelog validation failed
 
 **Symptom:**
 
-```text
+```
 CI Red: changelog-management.yml failed
 Error: Missing PR link. Required format: ([PR #1234](url))
 ```
@@ -699,7 +699,7 @@ Error: Missing PR link. Required format: ([PR #1234](url))
 
 **Symptom:**
 
-```text
+```
 develop merge completed, but CHANGELOG.md is missing "### Fixed" header
 Entries exist, but section organization is lost
 ```
@@ -731,7 +731,7 @@ PR #1100 entry appears twice in CHANGELOG.md after merge
 
 **Symptom:**
 
-```text
+```
 npm run validate:changelog reports error, but entry looks correct
 ```
 
