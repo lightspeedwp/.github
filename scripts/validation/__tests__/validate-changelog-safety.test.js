@@ -4,34 +4,76 @@
  * Tests all 7 validation layers with edge cases
  */
 
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+
 describe('Changelog Safety Audit — Regression Tests', () => {
+  let originalWorkingDir;
+  let testDir;
+  const VALIDATION_SCRIPT = path.join(process.cwd(), 'scripts/validation/validate-changelog-safety.js');
+
+  beforeAll(() => {
+    originalWorkingDir = process.cwd();
+  });
+
+  afterAll(() => {
+    process.chdir(originalWorkingDir);
+  });
 
   /**
    * Test Layer 1: File Integrity Audit
    */
   describe('Layer 1: File Integrity Audit', () => {
-    it('should validate file existence checks', () => {
-      // Layer 1 validates:
-      // - File exists and is readable
-      // - File is not empty (data loss detection)
-      // - File size >= 500 bytes (suspicious if smaller)
-      // - UTF-8 encoding is valid
-      expect(true).toBe(true);
+    it('should pass when CHANGELOG.md exists and has content', () => {
+      const changelogContent = `---
+title: Test Changelog
+description: Testing
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Test entry 1
+- Test entry 2
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial release
+`;
+
+      testChangelogValidation(changelogContent, true, 'should accept valid changelog');
     });
 
-    it('should detect empty CHANGELOG.md', () => {
-      // Validation rule: Empty files are rejected
-      expect(true).toBe(true);
+    it('should fail when CHANGELOG.md is empty', () => {
+      const changelogContent = '';
+      testChangelogValidation(changelogContent, false, 'should reject empty changelog');
     });
 
-    it('should warn on suspiciously small files', () => {
-      // Validation rule: Files < 500 bytes trigger warning
-      expect(true).toBe(true);
+    it('should warn when CHANGELOG.md is suspiciously small (< 500 bytes)', () => {
+      const changelogContent = `---
+title: Small
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+`;
+
+      testChangelogValidation(changelogContent, false, 'should warn about small file');
     });
 
-    it('should reject invalid UTF-8 characters', () => {
-      // Validation rule: Invalid UTF-8 sequences are rejected
-      expect(true).toBe(true);
+    it('should fail on invalid UTF-8 characters', () => {
+      const changelogContent = Buffer.from([
+        0x2d, 0x2d, 0x2d, 0x0a, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x3a, 0x20, 0x54, 0x65, 0x73, 0x74, 0x0a,
+        0x2d, 0x2d, 0x2d, 0x0a, 0xff, 0xfe, // Invalid UTF-8
+      ]);
+
+      testChangelogValidation(changelogContent.toString('latin1'), false, 'should reject invalid UTF-8');
     });
   });
 
@@ -39,24 +81,74 @@ describe('Changelog Safety Audit — Regression Tests', () => {
    * Test Layer 2: Format Compliance Audit
    */
   describe('Layer 2: Format Compliance Audit', () => {
-    it('should validate entry format (title, separator, description, link)', () => {
-      // Layer 2 validates:
-      // - Entry format: - **Title** — Description ([PR #N](url))
-      // - Title is bold and < 60 chars
-      // - Em-dash (—) separator with spaces
-      // - Description < 150 chars
-      // - PR links properly formatted
-      expect(true).toBe(true);
+    it('should pass with properly formatted entries', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — A new feature description ([PR #123](https://github.com/test/repo/pull/123))
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- **Initial Release** — First version ([PR #1](https://github.com/test/repo/pull/1))
+`;
+
+      testChangelogValidation(changelogContent, true, 'should accept formatted entries');
     });
 
     it('should warn on extremely long entries (> 250 chars)', () => {
-      // Validation rule: Entries > 250 chars trigger warning
-      expect(true).toBe(true);
+      const longEntry = 'x'.repeat(300);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — ${longEntry}
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- **Initial** — First version
+`;
+
+      testChangelogValidation(changelogContent, false, 'should warn about long entries');
     });
 
     it('should detect malformed markdown links', () => {
-      // Validation rule: Unmatched brackets/parentheses are errors
-      expect(true).toBe(true);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — Description [PR #123 missing closing bracket
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- **Initial** — First version
+`;
+
+      testChangelogValidation(changelogContent, false, 'should detect malformed links');
     });
   });
 
@@ -64,23 +156,81 @@ describe('Changelog Safety Audit — Regression Tests', () => {
    * Test Layer 3: Structure Compliance Audit
    */
   describe('Layer 3: Structure Compliance Audit', () => {
-    it('should validate Keep a Changelog 1.1.0 structure', () => {
-      // Layer 3 validates:
-      // - [Unreleased] section exists (required)
-      // - Version headers: ## [X.Y.Z] - YYYY-MM-DD
-      // - Section ordering: Added, Fixed, Changed, Removed, Deprecated, Security
-      // - No duplicate sections
-      expect(true).toBe(true);
+    it('should pass with proper Keep a Changelog structure', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- New feature
+
+### Fixed
+- Bug fix
+
+### Changed
+- Breaking change
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial release
+`;
+
+      testChangelogValidation(changelogContent, true, 'should accept proper structure');
     });
 
-    it('should require [Unreleased] section', () => {
-      // Validation rule: Missing [Unreleased] is a critical error
-      expect(true).toBe(true);
+    it('should fail without [Unreleased] section', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial release
+`;
+
+      testChangelogValidation(changelogContent, false, 'should require [Unreleased] section');
     });
 
-    it('should detect multiple version headers', () => {
-      // Validation rule: Counts and validates all version sections
-      expect(true).toBe(true);
+    it('should detect version headers with proper format', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Future feature
+
+## [1.2.3] - 2026-08-20
+### Added
+- Feature
+
+## [1.2.2] - 2026-08-15
+### Added
+- Another feature
+
+## [1.2.1] - 2026-08-10
+### Added
+- Previous feature
+`;
+
+      testChangelogValidation(changelogContent, true, 'should detect multiple versions');
     });
   });
 
@@ -88,23 +238,75 @@ describe('Changelog Safety Audit — Regression Tests', () => {
    * Test Layer 4: Frontmatter Validation Audit
    */
   describe('Layer 4: Frontmatter Validation Audit', () => {
-    it('should validate YAML frontmatter structure', () => {
-      // Layer 4 validates:
-      // - Frontmatter exists (--- ... ---)
-      // - Required fields: title, description, last_updated
-      // - Valid YAML syntax
-      // - Date format validation
-      expect(true).toBe(true);
+    it('should pass with valid frontmatter', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test changelog
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Feature
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial
+`;
+
+      testChangelogValidation(changelogContent, true, 'should accept valid frontmatter');
     });
 
-    it('should require title, description, last_updated fields', () => {
-      // Validation rule: Missing required fields trigger warnings
-      expect(true).toBe(true);
+    it('should warn when frontmatter is missing required fields', () => {
+      const changelogContent = `---
+title: Changelog
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Feature
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial
+`;
+
+      testChangelogValidation(changelogContent, false, 'should warn about missing fields');
     });
 
     it('should warn when changelog is stale (> 60 days)', () => {
-      // Validation rule: Changelogs not updated in 60+ days trigger warning
-      expect(true).toBe(true);
+      const oldDate = new Date();
+      oldDate.setDate(oldDate.getDate() - 70);
+      const dateString = oldDate.toISOString().split('T')[0];
+
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: ${dateString}
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Feature
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial
+`;
+
+      testChangelogValidation(changelogContent, false, 'should warn about staleness');
     });
   });
 
@@ -113,37 +315,102 @@ describe('Changelog Safety Audit — Regression Tests', () => {
    */
   describe('Layer 5: Data Integrity Audit', () => {
     it('should detect duplicate version tags', () => {
-      // Layer 5 validates:
-      // - No duplicate version tags ([1.0.0] appears only once)
-      // - Valid dates in version headers (YYYY-MM-DD)
-      // - No corrupted markdown (unmatched brackets/parentheses)
-      // - No truncated content
-      expect(true).toBe(true);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Feature
+
+## [1.0.0] - 2026-08-20
+### Added
+- First
+
+## [1.0.0] - 2026-08-15
+### Added
+- Duplicate
+`;
+
+      testChangelogValidation(changelogContent, false, 'should detect duplicates');
     });
 
     it('should detect invalid dates in version headers', () => {
-      // Validation rule: Invalid dates (e.g., 2026-13-45) are rejected
-      expect(true).toBe(true);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Feature
+
+## [1.0.0] - 2026-13-45
+### Added
+- Invalid date
+`;
+
+      testChangelogValidation(changelogContent, false, 'should detect invalid dates');
     });
 
     it('should warn on unmatched brackets/parentheses', () => {
-      // Validation rule: Unmatched brackets indicate corruption
-      expect(true).toBe(true);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — [Description without close bracket
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Normal entry
+`;
+
+      testChangelogValidation(changelogContent, false, 'should warn about unmatched brackets');
     });
   });
 
   /**
-   * Test Layer 6: Cross-Reference Verification
+   * Test Layer 6: Cross-Reference Check
    */
   describe('Layer 6: Cross-Reference Verification', () => {
-    it('should verify related files exist and reference changelog', () => {
-      // Layer 6 validates:
-      // - .github/agents/changelog.agent.md exists
-      // - agents/changelog/changelog.agent.js exists
-      // - schemas/changelog.schema.json exists
-      // - docs/CHANGELOG_AUTOMATION.md exists
-      // - Bidirectional references between files
-      expect(true).toBe(true);
+    it('should verify required files exist', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- Feature
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- Initial
+`;
+
+      testChangelogValidation(changelogContent, false, 'should check for related files');
     });
   });
 
@@ -151,23 +418,73 @@ describe('Changelog Safety Audit — Regression Tests', () => {
    * Test Layer 7: Links Validity Audit
    */
   describe('Layer 7: Links Validity Audit', () => {
-    it('should validate GitHub PR/issue links', () => {
-      // Layer 7 validates:
-      // - Link format: [PR #N](https://github.com/.../pull/N)
-      // - No PR #0 references
-      // - PR numbers are reasonable (not > 100000)
-      // - All URLs are to github.com
-      expect(true).toBe(true);
+    it('should accept valid GitHub PR links', () => {
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — Description ([PR #123](https://github.com/org/repo/pull/123))
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- **Initial** — Release ([PR #1](https://github.com/org/repo/pull/1))
+`;
+
+      testChangelogValidation(changelogContent, true, 'should accept PR links');
     });
 
     it('should detect malformed PR references', () => {
-      // Validation rule: PR #0 is invalid
-      expect(true).toBe(true);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — Description ([PR #0](https://github.com/org/repo/pull/0))
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- **Initial** — Release ([PR #1](https://github.com/org/repo/pull/1))
+`;
+
+      testChangelogValidation(changelogContent, false, 'should detect PR #0');
     });
 
     it('should warn on suspiciously high PR numbers', () => {
-      // Validation rule: PR #999999 is suspicious and warned about
-      expect(true).toBe(true);
+      const changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+- **Feature** — Description ([PR #999999](https://github.com/org/repo/pull/999999))
+
+## [1.0.0] - 2026-08-20
+
+### Added
+- **Initial** — Release
+`;
+
+      testChangelogValidation(changelogContent, false, 'should warn about high numbers');
     });
   });
 
@@ -175,10 +492,70 @@ describe('Changelog Safety Audit — Regression Tests', () => {
    * Performance Tests
    */
   describe('Performance Tests', () => {
-    it('should validate large changelog (500+ entries) in < 500ms', () => {
-      // Performance requirement: Validation of large changelogs
-      // must complete in less than 500ms to avoid user friction
-      expect(true).toBe(true);
+    it('should validate large changelog within 500ms', () => {
+      // Generate a large changelog with many entries
+      let changelogContent = `---
+title: Changelog
+description: Test
+last_updated: 2026-08-27
+---
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+`;
+
+      for (let i = 1; i <= 500; i++) {
+        changelogContent += `\n- **Feature ${i}** — Feature description ${i}`;
+      }
+
+      changelogContent += `\n\n## [1.0.0] - 2026-08-20\n\n### Added\n- Initial release`;
+
+      const start = Date.now();
+      testChangelogValidation(changelogContent, false, 'should handle large files');
+      const duration = Date.now() - start;
+
+      expect(duration).toBeLessThan(500);
     });
   });
 });
+
+/**
+ * Helper function to test changelog validation
+ * @param {string} content - Changelog content to test
+ * @param {boolean} shouldPass - Whether validation should pass
+ * @param {string} testName - Name of the test
+ */
+function testChangelogValidation(content, shouldPass, testName) {
+  // Create a temporary directory for the test
+  const testDir = fs.mkdtempSync(path.join(process.env.TMPDIR || '/tmp', 'changelog-test-'));
+  const originalCwd = process.cwd();
+
+  try {
+    process.chdir(testDir);
+
+    // Write changelog
+    fs.writeFileSync('CHANGELOG.md', content, 'utf8');
+
+    // Run validation
+    let result;
+    try {
+      execSync(`node ${VALIDATION_SCRIPT}`, { stdio: 'pipe' });
+      result = true;
+    } catch (error) {
+      result = false;
+    }
+
+    if (shouldPass) {
+      expect(result).toBe(true);
+    } else {
+      expect(result).toBe(false);
+    }
+  } finally {
+    process.chdir(originalCwd);
+    // Clean up temp directory
+    fs.rmSync(testDir, { recursive: true, force: true });
+  }
+}
