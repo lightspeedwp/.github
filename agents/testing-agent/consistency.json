@@ -1,0 +1,26 @@
+{
+  "$comment": "Content-parity invariants enforced by hooks/multi-provider-consistency-checker. Each entry's text must appear in every listed file. Whitespace is normalised, so line-wrapping may differ between files. Add an entry whenever the agent deliberately restates the same wording in more than one place.",
+  "sharedPhrases": [
+    {
+      "name": "requirement-type-taxonomy",
+      "why": "The approved requirement types are restated in three places. If they drift, an extractor can classify against a list one file does not recognise — which is how performance requirements were being dropped before they became a first-class type. All eight types are declared, so a change to any one of them breaks the check; this requires the three files to phrase the list identically (word forms, Oxford 'or'), which they now do.",
+      "text": "functional flow, content rule, visual rule, accessibility rule, performance rule, analytics or conversion rule, integration rule, or error or empty state",
+      "files": [
+        "shared/core-prompt.md",
+        "AGENT.md",
+        "skills/agent-attached/hermes/test-pack-builder/SKILL.md"
+      ]
+    },
+    {
+      "name": "pagespeed-agent-routing",
+      "why": "Performance routing is only safe if every surface names the same owner. A file that omits the hand-off invites an invented timing assertion.",
+      "text": "pagespeed-agent",
+      "files": [
+        "shared/core-prompt.md",
+        "AGENT.md",
+        "claude/agent.md",
+        "skills/agent-attached/hermes/test-pack-builder/SKILL.md"
+      ]
+    }
+  ]
+}

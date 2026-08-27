@@ -1,0 +1,39 @@
+schema_version: 1.0.0
+file: todos.md
+purpose: Visible cross-run action list for active planning work.
+content_type: markdown_with_yaml_frontmatter
+required_frontmatter:
+  - version
+  - title
+  - project_key
+  - last_updated
+body_requirements:
+  required_headings:
+    - Open tasks
+optional_headings:
+  - Waiting on
+  - Completed recently
+entry_rules:
+  open_task_format: "- [ ] <task>"
+  completed_task_format: "- [x] <task>"
+validation_rules:
+  - keep only active or recently completed items
+  - avoid duplicating full implementation plans
+  - tasks should be concrete, short, and actionable
+update_rules:
+  - update after substantial planning work when next actions changed
+example: |
+  ---
+  version: 1.0.0
+  title: "Safari Lodge redesign todos"
+  project_key: safari-lodge-redesign
+  last_updated: 2026-05-15
+  ---
+  # Todos
+
+  ## Open tasks
+  - [ ] Draft technical brief from approved PRD.
+  - [ ] Confirm booking integration choice.
+
+  ## Waiting on
+  - [ ] Client sign-off on custom block scope.

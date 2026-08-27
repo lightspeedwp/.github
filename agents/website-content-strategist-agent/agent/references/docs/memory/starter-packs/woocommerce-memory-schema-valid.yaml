@@ -1,0 +1,25 @@
+project_name: "Willow & Ash online store refresh"
+website_or_workstream: "WooCommerce ecommerce website"
+core_goal: "Increase qualified product discovery and conversion to purchase"
+current_stage: "planning"
+current_focus: "Define category and product-page conversion logic"
+best_next_step: "Run conversion-goal strategy"
+approved_sources:
+  - "product export"
+  - "stakeholder notes"
+authority_order:
+  - "product export"
+  - "stakeholder notes"
+preferred_default_structure: "strategy pack then page drafts"
+preferred_review_depth: "medium"
+tone_defaults: "Premium, design-aware, clear, low-hype"
+proof_or_evidence_standard: "No unsupported product, delivery, guarantee, or review claims"
+preferred_english_style: "UK English"
+in_progress:
+  - "Category and product-page strategy"
+next_actions:
+  - "Define conversion logic"
+missing_inputs:
+  - "approved reviews/testimonials"
+evidence_gaps:
+  - "no approved quantified proof"

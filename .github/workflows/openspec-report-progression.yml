@@ -1,0 +1,70 @@
+name: OpenSpec Report Progression
+on:
+  schedule:
+    - cron: "0 9 * * *"  # Daily at 9 AM UTC
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Report for last N days (default: 1)"
+        required: false
+        default: "1"
+      format:
+        description: "Report format"
+        required: false
+        default: "summary"
+
+permissions:
+  issues: read
+  contents: read
+
+jobs:
+  report-progression:
+    runs-on: ubuntu-latest
+    name: Generate Progression Report
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate progression report
+        run: |
+          node scripts/automation/includes/audit-logger.cjs \
+            --action=generate-report \
+            --format=${{ github.event.inputs.format || 'summary' }} \
+            --days=${{ github.event.inputs.days || '1' }} \
+            --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate completion reports
+        run: |
+          node scripts/automation/handlers/handle-pr-merged.cjs \
+            --action=generate-all-reports \
+            --days=${{ github.event.inputs.days || '1' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post report summary
+        if: always()
+        run: |
+          echo "OpenSpec Progression Report Generated"
+          echo "Report generated at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          echo "Period: Last ${{ github.event.inputs.days || '1' }} day(s)"
+
+      - name: Archive reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: openspec-progression-reports
+          path: |
+            reports/progression-*.json
+            reports/completion-*.json
+          retention-days: 30

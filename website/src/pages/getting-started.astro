@@ -1,0 +1,157 @@
+---
+import AwesomeGithubLayout from '../layouts/AwesomeGithubLayout.astro';
+import WapuuHero from '../components/WapuuHero.astro';
+import { cloneCmd } from '../lib/catalogue';
+
+const base = import.meta.env.BASE_URL;
+
+const steps = [
+  {
+    number: '01',
+    title: 'Clone the repository',
+    body: 'Get the control plane on your machine. The develop branch has the latest assets.',
+    code: cloneCmd('develop'),
+    codeLabel: 'Clone command',
+  },
+  {
+    number: '02',
+    title: 'Browse the catalogue',
+    body: 'Every resource is catalogued by type — agents, instructions, prompts, skills, hooks, workflows, plugins, and tools. Pick what you need.',
+    cta: { label: 'Browse catalogue', href: `${base}c/agents/` },
+  },
+  {
+    number: '03',
+    title: 'Install into VS Code',
+    body: 'Instructions and agents can be installed directly into GitHub Copilot with one click — no manual copying.',
+    note: 'Look for the "Install in VS Code" button on any single-file resource.',
+  },
+  {
+    number: '04',
+    title: 'Copy raw files',
+    body: 'Need the raw file? Every resource has a raw URL for curl or wget. Paste it straight into your repo.',
+    note: 'Switch between main (stable) and develop (latest) using the branch toggle.',
+  },
+  {
+    number: '05',
+    title: 'Learn the system',
+    body: 'The Learning Centre walks you through the architecture, governance model, and agent setup — four short tracks.',
+    cta: { label: 'Go to Learning Centre', href: `${base}learn/` },
+  },
+  {
+    number: '06',
+    title: 'Run the cookbook',
+    body: 'Need a walkthrough? The cookbook has step-by-step playbooks for common engineering scenarios.',
+    cta: { label: 'Browse recipes', href: `${base}cookbook/` },
+  },
+];
+---
+
+<AwesomeGithubLayout
+  title="Getting Started — Awesome GitHub"
+  description="Get up and running with the LightSpeed .github repository in five minutes."
+>
+  <section class="editorial-hero">
+      <div class="editorial-hero-inner">
+        <div class="editorial-hero-text">
+          <span class="eyebrow">Getting Started</span>
+          <h1 class="page-h1">Up and running in 5 minutes</h1>
+          <p class="page-lead">
+            Everything you need to connect your repos to the LightSpeed
+            <code>.github</code> governance repository and start using the resources.
+          </p>
+        </div>
+        <WapuuHero page="getting-started" />
+      </div>
+    </section>
+
+    <div class="prose-body">
+      <div class="ob-steps">
+        {steps.map((step) => (
+          <div class="ob-step">
+            <div class="ob-step-num">{step.number}</div>
+            <div class="ob-step-body">
+              <h2>{step.title}</h2>
+              <p>{step.body}</p>
+              {step.code && (
+                <div class="run-pill">
+                  <span class="run-label">{step.codeLabel}</span>
+                  <code>{step.code}</code>
+                </div>
+              )}
+              {step.note && (
+                <p class="step-note">{step.note}</p>
+              )}
+              {step.cta && (
+                <a class="btn-ghost btn-pill step-cta" href={step.cta.href}>{step.cta.label} →</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="gs-cta-block">
+        <p>Ready to explore further?</p>
+        <div class="cta-row">
+          <a class="btn-primary btn-pill" href={`${base}c/agents/`}>Browse the catalogue →</a>
+          <a class="btn-ghost btn-pill" href={`${base}learn/`}>Start learning</a>
+        </div>
+      </div>
+    </div>
+</AwesomeGithubLayout>
+
+<style>
+  .run-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--code-bg, #0d1117);
+    color: var(--code-fg, #d7e2f0);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .run-label {
+    font-size: 11px;
+    color: rgba(215, 226, 240, 0.5);
+    color: color-mix(in srgb, var(--code-fg, #d7e2f0) 50%, transparent);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .step-note {
+    font-size: 13px;
+    color: var(--fg-3);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .step-cta {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--accent);
+  }
+
+  .step-cta:hover { color: var(--accent); }
+
+  .gs-cta-block {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .gs-cta-block > p {
+    font-size: 16px;
+    color: var(--fg-2);
+    margin: 0 0 16px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+</style>

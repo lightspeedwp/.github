@@ -1,0 +1,70 @@
+wizard:
+  name: intake-wizard
+  purpose: Convert relevant questionnaire and source material into a concise wizard-driven intake flow without dumping a full questionnaire into chat.
+  target_fields: 10
+  minimum_fields_before_proceeding: 5
+  proceed_when_blockers_clear: true
+  field_status_values:
+    - confirmed
+    - inferred
+    - defaulted
+    - missing
+  render_order:
+    - project_type
+    - primary_goal
+    - audience
+    - workflow_context
+    - questionnaire_source
+    - reference_assets
+    - output_format
+    - scope_boundaries
+    - exclusions
+    - timeline_risk_approval
+  behaviour_rules:
+    - Detect the active workflow before selecting questionnaire material.
+    - Select the narrowest best-fit questionnaire source first.
+    - Treat questionnaire files as support material, not mandatory forms.
+    - Prefill from the user message, uploaded files, URLs, docs, screenshots, designs, repos, and prior confirmed context.
+    - Ask only for missing blocking information.
+    - If questionnaire intent is unclear, ask: What was this questionnaire intended to help capture for this workflow?
+    - Mark extracted values as inferred unless the user explicitly confirms them.
+    - Continue once the task is grounded enough to proceed.
+  recommended_fields:
+    project_type:
+      label: Project or task type
+      blocking: true
+    primary_goal:
+      label: Primary goal
+      blocking: true
+    audience:
+      label: Audience or user group
+      blocking: false
+    workflow_context:
+      label: Agent or workflow context
+      blocking: true
+    questionnaire_source:
+      label: Relevant questionnaire source
+      blocking: false
+    reference_assets:
+      label: Reference asset or source material
+      blocking: true
+    output_format:
+      label: Required output format
+      blocking: false
+    scope_boundaries:
+      label: Scope boundaries
+      blocking: true
+    exclusions:
+      label: Exclusions or must-not-do rules
+      blocking: false
+    timeline_risk_approval:
+      label: Timeline, urgency, risk, or approval requirements
+      blocking: false
+  outputs:
+    intake_review_table: docs/intake/intake-review-table.md
+    handoff_template: docs/intake/handoff-output-template.md
+    blockers_checklist: docs/intake/blocking-gaps-checklist.md
+    smart_defaults_register: docs/intake/smart-defaults-register.yaml
+    source_map: docs/intake/questionnaire-source-map.md
+    field_library: docs/intake/questionnaire-field-library.yaml
+    token_schema: docs/intake/url-evidence-token-schema.yaml

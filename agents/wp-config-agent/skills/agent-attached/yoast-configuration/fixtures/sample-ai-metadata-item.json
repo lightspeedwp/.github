@@ -1,0 +1,19 @@
+{
+  "page_or_object": "Example service page",
+  "wordpress_scope": "post",
+  "metadata_type": "meta_description",
+  "current_value": "",
+  "proposed_value": "Practical WordPress support for content, performance and maintainable site growth.",
+  "source_evidence": ["Supplied approved service page copy"],
+  "evidence_state": "approved_page_copy",
+  "risk_level": "low",
+  "review_state": "needs_client_approval",
+  "reasoning": "The draft is descriptive and does not include unsupported claims, but should be approved before admin entry.",
+  "required_approval": "Client or account owner approval",
+  "qa_checks": [
+    "Verify rendered meta description after applying",
+    "Check canonical and meta robots state",
+    "Check sitemap inclusion if page is indexable"
+  ],
+  "decision_record_needed": false
+}

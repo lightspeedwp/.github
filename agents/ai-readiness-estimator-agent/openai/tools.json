@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "functions": [
+    {
+      "type": "function",
+      "function": {
+        "name": "capability-assessor",
+        "description": "Capability Assessor",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "workflow-analyzer",
+        "description": "Workflow Analyzer",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "data-quality-checker",
+        "description": "Data Quality Checker",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "infrastructure-evaluator",
+        "description": "Infrastructure Evaluator",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "readiness-surveyor",
+        "description": "Readiness Surveyor",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "roadmap-generator",
+        "description": "Roadmap Generator",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Query or request"
+            },
+            "options": {
+              "type": "object",
+              "description": "Additional options"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    }
+  ],
+  "api_format": "openai"
+}

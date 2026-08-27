@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Test Failure Triage
+  short_description: classify and prioritise test failures for remediation planning and rerun strategy.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - copilot
+  allow_implicit_invocation: true
+  compatibility_mode: standard

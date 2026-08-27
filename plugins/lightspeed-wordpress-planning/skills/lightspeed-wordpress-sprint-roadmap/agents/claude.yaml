@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed WordPress Sprint Roadmap
+  short_description: build sprint-ready WordPress implementation roadmaps from approved planning inputs.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - claude
+  allow_implicit_invocation: true
+  compatibility_mode: standard

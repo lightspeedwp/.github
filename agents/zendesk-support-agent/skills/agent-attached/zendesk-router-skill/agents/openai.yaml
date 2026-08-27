@@ -1,0 +1,12 @@
+interface:
+  display_name: Zendesk Router
+  short_description: Route Zendesk-first support requests to the right support workflow.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

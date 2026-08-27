@@ -1,0 +1,13 @@
+interface:
+  display_name: Drive Report Organizer
+  short_description: Standardise Google Drive names and folders for PageSpeed audit
+    reports.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

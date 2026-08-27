@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms Layout Regression Check",
+  "type": "object",
+  "required": [
+    "changeUnderReview",
+    "checks",
+    "outcome",
+    "remainingRisks"
+  ],
+  "properties": {
+    "changeUnderReview": {
+      "type": "object",
+      "required": [
+        "formIds",
+        "pageUrls",
+        "changeType",
+        "environment"
+      ],
+      "properties": {
+        "formIds": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          }
+        },
+        "pageUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "changeType": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "approvalReference": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "scenario",
+          "desktop",
+          "tablet",
+          "mobile",
+          "result"
+        ],
+        "properties": {
+          "scenario": {
+            "type": "string"
+          },
+          "desktop": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_run",
+              "not_applicable"
+            ]
+          },
+          "tablet": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_run",
+              "not_applicable"
+            ]
+          },
+          "mobile": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_run",
+              "not_applicable"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "partial",
+              "fail",
+              "not_run"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "partial_pass",
+        "fail"
+      ]
+    },
+    "remainingRisks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requiredFixes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "handoffStatus": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

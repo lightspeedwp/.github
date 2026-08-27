@@ -1,0 +1,89 @@
+{
+  "form_name": "Webhook Lead Routing Form",
+  "purpose": "Route selected enquiry fields to an external system after submission.",
+  "audience": "Safari leads and internal sales team",
+  "source_template": "custom LightSpeed webhook routing pattern",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Full name",
+      "type": "name",
+      "required": true
+    },
+    {
+      "id": 2,
+      "label": "Email address",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": 3,
+      "label": "Phone number",
+      "type": "phone",
+      "required": false
+    },
+    {
+      "id": 4,
+      "label": "Enquiry type",
+      "type": "select",
+      "required": true
+    },
+    {
+      "id": 5,
+      "label": "Message",
+      "type": "textarea",
+      "required": true
+    },
+    {
+      "id": 6,
+      "label": "Source campaign",
+      "type": "hidden",
+      "required": false
+    },
+    {
+      "id": 7,
+      "label": "Consent to process enquiry",
+      "type": "consent",
+      "required": true
+    }
+  ],
+  "field_settings": {
+    "labels": "visible",
+    "dynamic_population": "Source campaign may be populated by approved block field values or query string parameter with non-sensitive values only."
+  },
+  "conditional_logic": [
+    "Webhook feed runs only when Enquiry type is supported by the external system.",
+    "Source campaign must not contain personal data."
+  ],
+  "confirmations": [
+    "Show a standard thank-you message regardless of webhook status unless a tested synchronous error flow is approved."
+  ],
+  "notifications": [
+    "Send admin notification as fallback even when webhook is configured."
+  ],
+  "feeds": [
+    "Webhooks Add-On feed using selected fields only; never All Fields by default."
+  ],
+  "spam_settings": {
+    "honeypot": true,
+    "recommended": "Spam protection must remain enabled before external feeds run."
+  },
+  "accessibility_settings": {
+    "labels": "Visible labels required for all user-facing fields.",
+    "errors": "Webhook failures should not create confusing frontend validation unless intentionally designed."
+  },
+  "embedding_target": "Enquiry page or campaign landing page after embed validation.",
+  "data_retention_notes": "Includes consent to process the enquiry. External-system retention must be recorded separately.",
+  "test_data": {
+    "normal_case": "Private guideed enquiry type with source campaign value.",
+    "skip_case": "Unsupported enquiry type should skip webhook condition."
+  },
+  "required_addons": [
+    "Gravity Forms Webhooks Add-On"
+  ],
+  "risks": [
+    "Webhook can disclose personal data externally.",
+    "Endpoint secrets must never be stored in the skill package or user-facing output."
+  ],
+  "approval_status": "draft"
+}

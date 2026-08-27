@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS QA Planner"
+  short_description: "Create LightSpeed QA plans, acceptance matrices, and launch checklists."
+  default_prompt: "Use $lightspeed-qa-planner to create a grounded LightSpeed QA plan with acceptance coverage and launch checks."

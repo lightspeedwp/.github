@@ -1,0 +1,14 @@
+{
+  "product_taxonomies": [
+    "product_cat",
+    "product_tag",
+    "pa_brand",
+    "pa_colour"
+  ],
+  "facets": [
+    {
+      "parameter": "filter_colour",
+      "indexation": "needs decision"
+    }
+  ]
+}

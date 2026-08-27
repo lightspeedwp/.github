@@ -1,0 +1,15 @@
+interface:
+  display_name: Accessibility Discovery Reviewer
+  short_description: Assess accessibility evidence, risks, and follow-up.
+  default_prompt:
+    Use $accessibility-discovery-reviewer to assess accessibility findings,
+    gaps, risks, and remediation priorities.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

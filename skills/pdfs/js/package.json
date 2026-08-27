@@ -1,0 +1,16 @@
+{
+  "name": "@lightspeedwp/pdf-tools",
+  "description": "Utility package for PDF tooling used by the design markdown agent.",
+  "license": "GPL-3.0-or-later",
+  "author": "LightSpeed Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git"
+  },
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.10.38"
+  }
+}

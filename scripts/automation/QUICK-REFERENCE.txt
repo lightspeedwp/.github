@@ -1,0 +1,95 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                  BULK ISSUE TEMPLATE SECTION FIXER                             ║
+║                         Quick Reference Card                                    ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+SETUP
+─────────────────────────────────────────────────────────────────────────────────
+export GITHUB_TOKEN=ghp_your_token_here
+cd /Users/ash/Studio/LightSpeedWP.Agency/.github
+
+
+COMMON COMMANDS
+─────────────────────────────────────────────────────────────────────────────────
+
+📋 Preview first 5 issues (no changes):
+   node scripts/automation/add-issue-template-sections.js --dry-run --limit=5
+
+✅ Fix first 10 issues:
+   node scripts/automation/add-issue-template-sections.js --limit=10
+
+🔍 Fix specific issue:
+   node scripts/automation/add-issue-template-sections.js --issue=1640
+
+📊 Process remaining issues (batch 2):
+   node scripts/automation/add-issue-template-sections.js --limit=25 --start-from=25
+
+📈 Larger batch (careful with API limits):
+   node scripts/automation/add-issue-template-sections.js --limit=50
+
+
+RECOMMENDED WORKFLOW
+─────────────────────────────────────────────────────────────────────────────────
+
+Step 1: Preview with --dry-run
+   $ node scripts/automation/add-issue-template-sections.js --dry-run --limit=10
+   → Review console output
+
+Step 2: Apply fixes
+   $ node scripts/automation/add-issue-template-sections.js --limit=10
+   → Check GitHub for ✅ status
+
+Step 3: Continue with next batch
+   $ node scripts/automation/add-issue-template-sections.js --limit=25 --start-from=10
+
+Step 4: Repeat until all 91 issues are fixed
+
+
+WHAT IT DOES
+─────────────────────────────────────────────────────────────────────────────────
+✓ Fetches open issues with status:needs-more-info label
+✓ Skips issues that already have DoR/DoD sections
+✓ Identifies issue type (feature, bug, epic, etc.)
+✓ Generates appropriate DoR/DoD sections
+✓ Updates issue body with sections
+✓ Removes status:needs-more-info label
+
+
+IMPORTANT NOTES
+─────────────────────────────────────────────────────────────────────────────────
+⚠️  Always use --dry-run FIRST
+⚠️  Set GITHUB_TOKEN before running
+⚠️  Keep API rate limit in mind (60/hour for auth)
+⚠️  Process in small batches (10-25 at a time)
+⚠️  Check GitHub UI to verify changes
+
+
+TRACKING PROGRESS
+─────────────────────────────────────────────────────────────────────────────────
+Current state:    91 issues with status:needs-more-info
+After this job:   0 issues (all fixed!)
+
+Track progress:
+   https://github.com/lightspeedwp/.github/issues?q=is%3Aopen+label%3Astatus%3Aneeds-more-info
+
+
+FILES
+─────────────────────────────────────────────────────────────────────────────────
+add-issue-template-sections.js  ← Main script (executable)
+ADD-ISSUE-SECTIONS-GUIDE.md     ← Full documentation
+QUICK-REFERENCE.txt             ← This file
+
+
+TROUBLESHOOTING
+─────────────────────────────────────────────────────────────────────────────────
+Token error?      → Check: export GITHUB_TOKEN=ghp_...
+Not found?        → Verify issue has the label
+Rate limited?     → Wait 1 hour or use smaller --limit
+No changes?       → Already fixed (check --dry-run output)
+
+
+═══════════════════════════════════════════════════════════════════════════════════
+Last Updated: 2026-08-09
+Status: Ready to use
+For full docs: see ADD-ISSUE-SECTIONS-GUIDE.md
+═══════════════════════════════════════════════════════════════════════════════════

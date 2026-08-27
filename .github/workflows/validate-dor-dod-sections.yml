@@ -1,0 +1,63 @@
+name: Validate & Inject DoR/DoD Sections
+
+on:
+  schedule:
+    # Run daily at 8 AM UTC
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no changes)'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      limit:
+        description: 'Max issues to process'
+        required: false
+        default: '100'
+
+jobs:
+  validate-dor-dod:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Run DoR/DoD Validation & Injection
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DRY_RUN_FLAG=""
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" || "${{ github.event_name }}" == "schedule" ]]; then
+            DRY_RUN_FLAG="--dry-run"
+          fi
+
+          LIMIT_FLAG=""
+          if [[ ! -z "${{ github.event.inputs.limit }}" ]]; then
+            LIMIT_FLAG="--limit ${{ github.event.inputs.limit }}"
+          fi
+
+          node scripts/automation/validate-inject-dor-dod.cjs $DRY_RUN_FLAG $LIMIT_FLAG --verbose
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: dor-dod-validation-report
+          path: dor-dod-validation-*.json
+          if-no-files-found: ignore

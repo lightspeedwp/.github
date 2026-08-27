@@ -1,0 +1,73 @@
+schema_version: 1.0.0
+file: project-assumptions-and-open-questions.yaml
+purpose: Store project assumptions, open questions, and unresolved risks that need to be revisited in later runs.
+root_type: mapping
+required_top_level_fields:
+  - schema_version
+  - file_type
+  - items
+field_types:
+  schema_version: string
+  file_type: string
+  items: sequence
+entry_rules:
+  root_sequence: items
+  min_entries: 0
+  max_entries: 500
+  unique_key: item_id
+  required_fields:
+    - item_id
+    - project_key
+    - item_type
+    - statement
+    - status
+    - blocking_level
+    - last_reviewed_at
+  optional_fields:
+    - linked_source
+    - next_action
+    - owner
+  field_types:
+    item_id: string
+    project_key: string
+    item_type: string
+    statement: string
+    status: string
+    blocking_level: string
+    linked_source: string
+    next_action: string
+    owner: string
+    last_reviewed_at: string
+  accepted_values:
+    item_type:
+      - assumption
+      - open_question
+      - risk
+    status:
+      - open
+      - resolved
+      - deferred
+    blocking_level:
+      - blocking
+      - material
+      - minor
+  validation_rules:
+    - Do not promote an assumption to a confirmed decision until evidence supports it.
+    - Use concise statements that can be checked later.
+update_rules:
+  - Resolve or remove stale items once evidence settles them.
+  - Keep only currently relevant unresolved items.
+example:
+  schema_version: 1.0.0
+  file_type: project-assumptions-and-open-questions
+  items:
+    - item_id: acme-analytics-access-001
+      project_key: acme-co-website
+      item_type: open_question
+      statement: GA4 property access has not yet been confirmed.
+      status: open
+      blocking_level: material
+      linked_source: Gmail discovery thread
+      next_action: Ask the client to confirm the analytics owner and property access.
+      owner: LightSpeed team
+      last_reviewed_at: 2026-05-15

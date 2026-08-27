@@ -1,0 +1,124 @@
+name: Project Maintenance — On-Demand
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Operation"
+        required: true
+        type: choice
+        options: [audit, create-docs, validate, archive-project]
+      projects:
+        description: "Project slugs (comma-separated or all)"
+        required: true
+        type: string
+      dry_run:
+        type: boolean
+        default: true
+      files:
+        type: string
+permissions:
+  contents: read
+  issues: write
+jobs:
+  validate-inputs:
+    runs-on: ubuntu-latest
+    outputs:
+      operation: ${{ steps.validate.outputs.operation }}
+      projects: ${{ steps.validate.outputs.projects }}
+      dry_run: ${{ steps.validate.outputs.dry_run }}
+      files: ${{ steps.validate.outputs.files }}
+    steps:
+      - id: validate
+        name: Validate operation input
+        run: |
+          OP="${{ github.event.inputs.operation }}"
+          case "$OP" in
+            audit|create-docs|validate|archive-project) echo "✅ Valid" ;;
+            *) echo "❌ Invalid"; exit 1 ;;
+          esac
+          PROJ="${{ github.event.inputs.projects }}"
+          [ -z "$PROJ" ] && echo "❌ Projects empty" && exit 1
+          [ "$OP" = "audit" ] && PROJ="all"
+          echo "operation=$OP" >> "$GITHUB_OUTPUT"
+          echo "projects=$PROJ" >> "$GITHUB_OUTPUT"
+          echo "dry_run=${{ github.event.inputs.dry_run }}" >> "$GITHUB_OUTPUT"
+          echo "files=${{ github.event.inputs.files }}" >> "$GITHUB_OUTPUT"
+  execute-audit:
+    needs: validate-inputs
+    if: needs.validate-inputs.outputs.operation == 'audit'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+      - run: npm ci
+      - name: Run audit mode
+        run: bash ./scripts/automation/project-docs-update.sh DRY_RUN=true VERBOSE=true
+  execute-create-docs:
+    needs: validate-inputs
+    if: needs.validate-inputs.outputs.operation == 'create-docs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+      - run: npm ci
+      - name: Run create-docs mode
+        env:
+          PROJECTS: ${{ needs.validate-inputs.outputs.projects }}
+          DRY_RUN: ${{ needs.validate-inputs.outputs.dry_run }}
+        run: |
+          IFS=',' read -ra PROJS <<< "$PROJECTS"
+          for proj in "${PROJS[@]}"; do
+            p=$(echo "$proj" | xargs)
+            [ ! -d ".github/projects/active/$p" ] && echo "❌ Not found: $p" && continue
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "🔍 DRY: $p"
+            else
+              bash ./scripts/automation/project-docs-update.sh PROJECT="$p" DRY_RUN=false VERBOSE=true
+            fi
+          done
+  execute-validate:
+    needs: validate-inputs
+    if: needs.validate-inputs.outputs.operation == 'validate'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run validate mode
+        env:
+          PROJECTS: ${{ needs.validate-inputs.outputs.projects }}
+        run: |
+          if [ "$PROJECTS" = "all" ]; then
+            PLIST=$(find .github/projects/active -maxdepth 1 -type d ! -name "_*" ! -name "active" | xargs -n1 basename | sort)
+          else
+            IFS=',' read -ra ARR <<< "$PROJECTS"
+            PLIST=$(printf '%s\n' "${ARR[@]}")
+          fi
+          VALID=0; INVALID=0
+          for p in $PLIST; do
+            PATH=".github/projects/active/$p"
+            if [ ! -d "$PATH" ]; then
+              echo "❌ $p: not found"
+              ((INVALID++))
+              continue
+            fi
+            [ -f "$PATH/README.md" ] && echo "✅ $p" && ((VALID++)) || echo "❌ $p: no README" && ((INVALID++))
+          done
+          echo "Valid: $VALID, Invalid: $INVALID"
+          [ $INVALID -gt 0 ] && exit 1
+  create-summary:
+    needs: validate-inputs
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate workflow summary
+        run: |
+          echo "# Project Maintenance — On-Demand"
+          echo "- **Operation:** ${{ needs.validate-inputs.outputs.operation }}"
+          echo "- **Projects:** ${{ needs.validate-inputs.outputs.projects }}"
+          echo "- **Dry Run:** ${{ needs.validate-inputs.outputs.dry_run }}"
+          >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,21 @@
+decisions:
+  - id: linear-first-source-choice
+    decision: Treat Linear as the planning hub and primary workflow source for future runs.
+    reasoning: The live workspace is centered on one active LightSpeed team and current workflow context is most reliable there.
+    scope: All future Linear-focused audits, triage advice, issue shaping, and project reviews.
+    recorded_at: 2026-05-19
+  - id: canonical-prefixed-taxonomy
+    decision: "Prefer prefixed label families such as status:, type:, priority:, area:, and meta: when recommending naming conventions."
+    reasoning: Attached canonical references match the stronger current workspace pattern better than the older plain or bracketed variants.
+    scope: Future naming, normalization, issue-shaping, and label recommendations.
+    recorded_at: 2026-05-19
+  - id: legacy-labels-are-secondary
+    decision: Treat older plain-text and bracketed labels as legacy unless the user explicitly wants them preserved.
+    reasoning: Live label inventory shows mixed historical residue alongside a clearer canonical taxonomy.
+    scope: Future recommendations about cleanup, naming, and label choice.
+    recorded_at: 2026-05-19
+  - id: guarded-write-posture
+    decision: Recommend Linear changes by default and wait for explicit approval before consequential write actions.
+    reasoning: Workspace-personalization runs should improve operating defaults without silently mutating the source system.
+    scope: All future Linear write-capable workflows.
+    recorded_at: 2026-05-19

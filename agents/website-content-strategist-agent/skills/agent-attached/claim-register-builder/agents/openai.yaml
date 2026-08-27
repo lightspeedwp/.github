@@ -1,0 +1,5 @@
+interface:
+  display_name: claim-register-builder
+  short_description: Build and maintain claim registers for content work
+  default_prompt: Use $claim-register-builder to create or update a claim register
+    for a website, a page, or a single content section.

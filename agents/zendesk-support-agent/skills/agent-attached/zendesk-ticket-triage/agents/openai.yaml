@@ -1,0 +1,13 @@
+interface:
+  display_name: Zendesk Ticket Triage Package
+  short_description: Prepare compact internal Zendesk triage packages when explicitly
+    requested.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

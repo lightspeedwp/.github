@@ -1,0 +1,5 @@
+interface:
+  display_name: website-package-routing
+  short_description: Route packages, add-ons, and estimate readiness
+  default_prompt: Use $website-package-routing to select the base package, review
+    relevant add-ons, check commercial triggers, and hand off an estimate-ready summary.

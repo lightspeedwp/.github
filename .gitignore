@@ -43,6 +43,9 @@ npm-debug.log*
 .eslintcache
 .phpcs-cache
 
+# Agentic release-agent run logs (ephemeral output, not source)
+.agentic-logs/
+
 # Testing and coverage
 /coverage
 /.nyc_output

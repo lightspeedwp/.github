@@ -1,0 +1,183 @@
+name: Metrics Collection Workflow
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      context:
+        description: Repository context (github-control-plane, wordpress-plugin, wordpress-theme)
+        required: false
+        default: github-control-plane
+      dryRun:
+        description: Run without committing results
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: metrics-collection
+  cancel-in-progress: false
+
+jobs:
+  collect-metrics:
+    name: Collect Metrics
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: read
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NODE_ENV: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate workflow configuration
+        run: |
+          node -e "
+            const config = require('./.github/scripts/workflows/metrics-config.json');
+            if (!config.schedule || !config.repositories) {
+              throw new Error('Invalid workflow configuration');
+            }
+            console.log('✓ Configuration validated');
+            console.log('  Repositories:', config.repositories.length);
+            console.log('  Schedule:', config.schedule.cron);
+          "
+
+      - name: Collect metrics
+        id: collect
+        run: |
+          node .github/scripts/workflows/metrics-collection-orchestrator.cjs \
+            --context "${{ inputs.context || 'github-control-plane' }}" \
+            --dryRun "${{ inputs.dryRun || 'false' }}"
+
+      - name: Generate summary report
+        if: always()
+        run: |
+          echo "## Metrics Collection Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Execution Time:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Context:** ${{ inputs.context || 'github-control-plane' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f .github/reports/metrics/collection-summary.json ]; then
+            echo "**Results saved to:** .github/reports/metrics/" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Commit metrics results
+        if: steps.collect.outcome == 'success' && !inputs.dryRun
+        run: |
+          git config --local user.name "metrics-bot"
+          git config --local user.email "metrics@lightspeedwp.agency"
+
+          if git diff --quiet .github/reports/metrics/; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git add .github/reports/metrics/
+          git commit -m "chore: Update metrics collection ($(date -u +'%Y-%m-%d'))" || true
+
+      - name: Push metrics results
+        if: steps.collect.outcome == 'success' && !inputs.dryRun
+        run: |
+          if git diff --quiet origin/develop...HEAD .github/reports/metrics/; then
+            echo "No changes to push"
+            exit 0
+          fi
+          git push origin HEAD:develop --force-with-lease || {
+            echo "Push failed, retrying..."
+            sleep 5
+            git push origin HEAD:develop --force-with-lease
+          }
+
+      - name: Create failure notification
+        if: failure()
+        run: |
+          echo "::error::Metrics collection failed"
+          echo "Check workflow logs for details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  validate-results:
+    name: Validate Metrics Results
+    runs-on: ubuntu-latest
+    needs: collect-metrics
+    if: always()
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate metrics data
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+
+            const metricsPath = '.github/reports/metrics';
+            if (!fs.existsSync(metricsPath)) {
+              console.warn('⚠️  No metrics directory found');
+              process.exit(0);
+            }
+
+            const files = fs.readdirSync(metricsPath).filter(f => f.endsWith('.json'));
+            console.log('✓ Found', files.length, 'metric files');
+
+            let validCount = 0;
+            files.forEach(file => {
+              try {
+                const data = JSON.parse(fs.readFileSync(path.join(metricsPath, file), 'utf8'));
+                if (data.timestamp && data.repository) {
+                  validCount++;
+                }
+              } catch (e) {
+                console.warn('⚠️  Invalid JSON in', file);
+              }
+            });
+
+            console.log('✓ Valid metrics:', validCount);
+            if (validCount === 0) {
+              process.exit(1);
+            }
+          "
+
+      - name: Check storage integrity
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+
+            const storageFile = 'scripts/metrics/data/time-series.json';
+            if (fs.existsSync(storageFile)) {
+              const data = JSON.parse(fs.readFileSync(storageFile, 'utf8'));
+              console.log('✓ Time-series storage valid');
+              console.log('  Repositories tracked:', Object.keys(data).length);
+              Object.entries(data).forEach(([repo, history]) => {
+                console.log('    -', repo + ':', history.length, 'entries');
+              });
+            }
+          "

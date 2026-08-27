@@ -1,0 +1,64 @@
+{
+  "version": "v0.1.0",
+  "generated": "2026-05-28",
+  "groups": [
+    {
+      "id": "core",
+      "path": "skills",
+      "skills": [
+        "lightspeed-frontmatter-audit",
+        "lightspeed-label-governance",
+        "lightspeed-pr-review"
+      ]
+    },
+    {
+      "id": "design-md-agent",
+      "path": "skills/design-md-agent",
+      "skills": "catalogued-in-index"
+    }
+  ],
+  "phase1PlatformYamlScope": [
+    "skills/lightspeed-frontmatter-audit",
+    "skills/lightspeed-label-governance",
+    "skills/lightspeed-pr-review",
+    "plugins/lightspeed-github-ops/skills/lightspeed-frontmatter-audit",
+    "plugins/lightspeed-github-ops/skills/lightspeed-label-governance",
+    "plugins/lightspeed-github-ops/skills/lightspeed-pr-review"
+  ],
+  "batch2PlatformYamlScope": [],
+  "batch3PlatformYamlScope": [
+    "plugins/lightspeed-release-ops/skills/lightspeed-release-readiness",
+    "plugins/lightspeed-release-ops/skills/lightspeed-changelog-compliance",
+    "plugins/lightspeed-release-ops/skills/lightspeed-release-notes-generator",
+    "plugins/lightspeed-quality-assurance/skills/lightspeed-quality-gate",
+    "plugins/lightspeed-quality-assurance/skills/lightspeed-regression-risk-assessment",
+    "plugins/lightspeed-quality-assurance/skills/lightspeed-test-matrix-planner",
+    "plugins/lightspeed-metrics-and-reporting/skills/lightspeed-metrics-reporting",
+    "plugins/lightspeed-metrics-and-reporting/skills/lightspeed-repository-health-summary",
+    "plugins/lightspeed-metrics-and-reporting/skills/lightspeed-labeling-metrics-report"
+  ],
+  "batch4PlatformYamlScope": [
+    "plugins/lightspeed-github-ops/skills/lightspeed-issue-triage-automation",
+    "plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-sprint-roadmap",
+    "plugins/lightspeed-wordpress-governance/skills/lightspeed-wordpress-release-hygiene-check",
+    "plugins/lightspeed-release-ops/skills/lightspeed-version-bump-planner",
+    "plugins/lightspeed-quality-assurance/skills/lightspeed-qa-signoff-summary",
+    "plugins/lightspeed-metrics-and-reporting/skills/lightspeed-pr-cycle-time-report"
+  ],
+  "batch5PlatformYamlScope": [
+    "plugins/lightspeed-github-ops/skills/lightspeed-pr-template-compliance",
+    "plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-milestone-planner",
+    "plugins/lightspeed-wordpress-governance/skills/lightspeed-wordpress-accessibility-governance",
+    "plugins/lightspeed-release-ops/skills/lightspeed-release-rollout-checklist",
+    "plugins/lightspeed-quality-assurance/skills/lightspeed-test-failure-triage",
+    "plugins/lightspeed-metrics-and-reporting/skills/lightspeed-issue-response-time-report"
+  ],
+  "batch6PlatformYamlScope": [
+    "plugins/lightspeed-github-ops/skills/lightspeed-issue-template-compliance",
+    "plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-capacity-planner",
+    "plugins/lightspeed-wordpress-governance/skills/lightspeed-wordpress-security-governance",
+    "plugins/lightspeed-release-ops/skills/lightspeed-release-risk-assessment",
+    "plugins/lightspeed-quality-assurance/skills/lightspeed-flaky-test-triage",
+    "plugins/lightspeed-metrics-and-reporting/skills/lightspeed-review-latency-report"
+  ]
+}

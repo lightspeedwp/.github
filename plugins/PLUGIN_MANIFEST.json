@@ -1,0 +1,42 @@
+{
+  "name": "lightspeed-plugin-registry",
+  "version": "0.1.0",
+  "description": "Registry of installable LightSpeedWP portable plugins.",
+  "plugins": [
+    {
+      "id": "lightspeed-github-ops",
+      "path": "plugins/lightspeed-github-ops",
+      "status": "active"
+    },
+    {
+      "id": "lightspeed-wordpress-planning",
+      "path": "plugins/lightspeed-wordpress-planning",
+      "status": "active"
+    },
+    {
+      "id": "lightspeed-wordpress-governance",
+      "path": "plugins/lightspeed-wordpress-governance",
+      "status": "active"
+    },
+    {
+      "id": "lightspeed-release-ops",
+      "path": "plugins/lightspeed-release-ops",
+      "status": "active"
+    },
+    {
+      "id": "lightspeed-quality-assurance",
+      "path": "plugins/lightspeed-quality-assurance",
+      "status": "active"
+    },
+    {
+      "id": "lightspeed-metrics-and-reporting",
+      "path": "plugins/lightspeed-metrics-and-reporting",
+      "status": "active"
+    },
+    {
+      "id": "lightspeed-playwright-testing",
+      "path": "plugins/lightspeed-playwright-testing",
+      "status": "active"
+    }
+  ]
+}

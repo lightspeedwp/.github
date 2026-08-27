@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User preferences memory schema",
+  "type": "object",
+  "required": ["required_headings", "forbidden_patterns"],
+  "properties": {
+    "required_headings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,45 @@
+version: 1
+name: questionnaire-field-library
+field_groups:
+  core:
+    - project_type
+    - primary_goal
+    - audience
+    - workflow_context
+    - output_format
+    - scope_boundaries
+    - exclusions
+    - timing_risk_approval
+  source_and_evidence:
+    - questionnaire_source
+    - source_assets
+    - approved_sources
+    - reference_urls
+    - repository_context
+    - figma_context
+  content_and_design:
+    - brand
+    - offer
+    - services_products
+    - content_types
+    - tone_of_voice
+    - design_direction
+  technical:
+    - technical_requirements
+    - integrations
+    - platform_constraints
+    - launch_handoff_requirements
+  governance:
+    - claims
+    - legal_privacy_requirements
+    - approval_owners
+    - risk_flags
+    - missing_blockers
+status_values:
+  - confirmed
+  - inferred
+  - defaulted
+  - missing
+notes:
+  - Promote only fields relevant to the active workflow
+  - Mark extracted questionnaire values as inferred until confirmed

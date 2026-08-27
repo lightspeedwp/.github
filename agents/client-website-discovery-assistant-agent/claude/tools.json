@@ -1,0 +1,254 @@
+{
+  "version": "1.0.0",
+  "provider": "claude",
+  "tools": [
+    {
+      "name": "website-analyzer",
+      "description": "Comprehensive website audit including architecture, technology stack, UX design, and compliance assessment",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Website URL to analyze"
+          },
+          "analysisScope": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["architecture", "technology", "ux-design", "content", "accessibility", "performance", "all"]
+            },
+            "description": "Dimensions to analyze"
+          },
+          "deviceTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["desktop", "mobile", "tablet"]
+            },
+            "description": "Device types to assess"
+          },
+          "includeScreenshots": {
+            "type": "boolean",
+            "description": "Include visual screenshots"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "seo-auditor",
+      "description": "SEO analysis including on-page optimization, technical SEO, and ranking factors",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Website URL to analyze"
+          },
+          "targetKeywords": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Target keywords to analyze"
+          },
+          "analysisType": {
+            "type": "string",
+            "enum": ["on-page", "technical", "backlinks", "keywords", "competitors", "comprehensive"],
+            "description": "Type of SEO analysis"
+          },
+          "competitorUrls": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Competitor URLs for comparison"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "performance-tester",
+      "description": "Performance and Core Web Vitals analysis for the website",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Website URL to test"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["mobile", "desktop", "both"],
+            "description": "Testing strategy"
+          },
+          "metrics": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Specific metrics to focus on"
+          },
+          "includeLoadTime": {
+            "type": "boolean",
+            "description": "Include detailed load time analysis"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "ux-assessor",
+      "description": "User experience and usability evaluation using heuristic assessment methods",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Website URL to assess"
+          },
+          "focusAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["navigation", "content-clarity", "visual-design", "interaction-patterns", "accessibility", "mobile-ux"]
+            },
+            "description": "Areas to focus UX assessment"
+          },
+          "userJourneys": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Key user journeys to evaluate"
+          },
+          "heuristicMethod": {
+            "type": "string",
+            "enum": ["neilsen-10", "wcag-compliance", "general", "custom"],
+            "description": "Usability heuristics to use"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "competitor-analyzer",
+      "description": "Analyze competitor websites and identify best practices and differentiation opportunities",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targetUrl": {
+            "type": "string",
+            "description": "Your website URL"
+          },
+          "competitorUrls": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Competitor website URLs (3-5 recommended)"
+          },
+          "comparisonDimensions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["features", "design", "content", "pricing", "performance", "ux"]
+            },
+            "description": "Dimensions to compare"
+          },
+          "includeFeatureMatrix": {
+            "type": "boolean",
+            "description": "Generate feature comparison matrix"
+          }
+        },
+        "required": ["targetUrl", "competitorUrls"]
+      }
+    },
+    {
+      "name": "accessibility-checker",
+      "description": "Assess website accessibility compliance with WCAG 2.2 standards",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Website URL to check"
+          },
+          "complianceLevel": {
+            "type": "string",
+            "enum": ["A", "AA", "AAA"],
+            "description": "WCAG compliance level to check against"
+          },
+          "checkAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["color-contrast", "keyboard-navigation", "screen-reader", "form-labels", "alt-text", "semantic-html"]
+            },
+            "description": "Specific areas to check"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "content-auditor",
+      "description": "Evaluate website content quality, structure, freshness, and effectiveness",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Website URL to audit"
+          },
+          "contentTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["homepage", "service-pages", "blog", "case-studies", "testimonials", "faq"]
+            },
+            "description": "Content types to audit"
+          },
+          "evaluationCriteria": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["clarity", "completeness", "accuracy", "freshness", "seo", "engagement"]
+            },
+            "description": "Evaluation criteria"
+          },
+          "targetAudience": {
+            "type": "string",
+            "description": "Primary target audience"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "recommendation-engine",
+      "description": "Generate prioritized recommendations based on analysis findings",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "analysisFindings": {
+            "type": "object",
+            "description": "Analysis findings from other tools"
+          },
+          "businessGoals": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Client business goals"
+          },
+          "constraints": {
+            "type": "object",
+            "properties": {
+              "budget": {"type": "number"},
+              "timeline": {"type": "string"},
+              "resources": {"type": "integer"}
+            },
+            "description": "Resource constraints"
+          },
+          "priorityStrategy": {
+            "type": "string",
+            "enum": ["impact", "effort", "quick-wins", "strategic", "balanced"],
+            "description": "Strategy for prioritization"
+          }
+        },
+        "required": ["analysisFindings", "businessGoals"]
+      }
+    }
+  ]
+}

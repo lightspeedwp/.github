@@ -1,0 +1,222 @@
+{
+  "timestamp": "2026-08-07T16:38:24.353Z",
+  "summary": {
+    "total_projects": 26,
+    "projects_with_readme": 24,
+    "projects_without_readme": 2,
+    "projects_with_reports": 10,
+    "valid_references": 63,
+    "broken_references": 15,
+    "orphaned_reports": 102
+  },
+  "projects_without_readme": [
+    "agent-skills-standards-comprehensive",
+    "repository-restructuring-phase-1"
+  ],
+  "projects_with_missing_reports": [
+    {
+      "project": "label-prefix-audit-2026-08-05",
+      "issues": [
+        {
+          "type": "missing",
+          "ref": "../../../docs/LABELING.md",
+          "text": "docs/LABELING.md"
+        },
+        {
+          "type": "missing",
+          "ref": "../../../docs/LABEL_STRATEGY.md",
+          "text": "docs/LABEL_STRATEGY.md"
+        },
+        {
+          "type": "missing",
+          "ref": "../../../docs/LABELING_GOVERNANCE.md",
+          "text": "docs/LABELING_GOVERNANCE.md"
+        },
+        {
+          "type": "missing",
+          "ref": "../../../docs/LABEL_COLOR_STRATEGY.md",
+          "text": "docs/LABEL_COLOR_STRATEGY.md"
+        },
+        {
+          "type": "missing",
+          "ref": "../../../CLAUDE.md",
+          "text": "CLAUDE.md"
+        },
+        {
+          "type": "missing",
+          "ref": "../../../AGENTS.md",
+          "text": "AGENTS.md"
+        }
+      ]
+    },
+    {
+      "project": "release-process-redesign-2026-08-05",
+      "issues": [
+        {
+          "type": "missing",
+          "ref": "../../../../../../private/tmp/.../RELEASE_PROCESS_AUDIT_REPORT.md",
+          "text": "RELEASE_PROCESS_AUDIT_REPORT.md"
+        },
+        {
+          "type": "missing",
+          "ref": "./IMPLEMENTATION_PLAN_TEMPLATE.md",
+          "text": "IMPLEMENTATION_PLAN_TEMPLATE.md"
+        }
+      ]
+    },
+    {
+      "project": "repo-restructuring-2026-07-25",
+      "issues": [
+        {
+          "type": "missing",
+          "ref": "../../docs/vscode-workspace-setup.md",
+          "text": "VSCode Setup"
+        }
+      ]
+    },
+    {
+      "project": "status-needs-review-audit-2026-08-04",
+      "issues": [
+        {
+          "type": "missing",
+          "ref": ".github/reports/2026-08-04-status-needs-review-audit.md",
+          "text": "Audit Report"
+        },
+        {
+          "type": "missing",
+          "ref": "./CLAUDE.md",
+          "text": "CLAUDE.md"
+        },
+        {
+          "type": "missing",
+          "ref": "./docs/BRANCHING_STRATEGY.md",
+          "text": "BRANCHING_STRATEGY.md"
+        }
+      ]
+    },
+    {
+      "project": "test-coverage-implementation",
+      "issues": [
+        {
+          "type": "missing",
+          "ref": "../../reports/analysis/test-coverage-expansion-plan.md",
+          "text": "Test Coverage Expansion Plan"
+        },
+        {
+          "type": "missing",
+          "ref": "launch-agents-checklist.md",
+          "text": "Release Readiness Tasks"
+        },
+        {
+          "type": "missing",
+          "ref": "../../../docs/TESTING.md",
+          "text": "Testing Standards"
+        }
+      ]
+    }
+  ],
+  "orphaned_reports": [
+    "2026-08-04-issue-1486-cleanup-progress.md",
+    "2026-08-04-status-needs-review-audit.md",
+    "FOOTER_INJECTION_WORKFLOW.md",
+    "README.md",
+    "agents/AGENT_SKILLS_INVENTORY.md",
+    "agents/SKILLS_AUDIT_2026-07-23.md",
+    "agents/agent-infrastructure-audit-2025-12-10.md",
+    "agents/agent-tools-permissions-mcp-audit-2026-06-02.md",
+    "agents/critical-agent-fixes-2025-12-10.md",
+    "analysis/pre-release-audit-v1.0.0.md",
+    "analysis/reports-folder-structure-audit-2025-12-10.md",
+    "analysis/test-coverage-expansion-plan.md",
+    "audits/2026-06-03-agent-script-migration-status-audit-672.md",
+    "audits/2026-06-03-docs-folder-structure-vs-claude-boundaries-audit-665.md",
+    "audits/2026-06-03-file-organisation-migration-plan-673.md",
+    "audits/2026-06-03-file-organisation-vs-claude-boundaries-audit-671.md",
+    "audits/2026-06-03-issue-fields-config-vs-github-api-audit-660.md",
+    "audits/2026-06-03-issue-labeling-rules-in-labeler-audit-656.md",
+    "audits/2026-06-03-issue-template-automation-trigger-mapping-audit-655.md",
+    "audits/2026-06-03-issue-template-inventory-standardization-audit-654.md",
+    "audits/2026-06-03-labeling-docs-consolidation-audit-664.md",
+    "audits/2026-06-07-private-project-issue-field-write-verification-879.md",
+    "audits/WORKFLOW_AUDIT_REPORT.md",
+    "audits/aging-sla-system-audit.md",
+    "audits/changelog-keepachangelog-audit-2026-07-29.md",
+    "audits/governance-change-management-audit-2026-05-19.md",
+    "audits/governance-change-management-audit-2026-05-27.md",
+    "audits/issue-32-closeout-comments-2026-05-26.md",
+    "audits/issue-95-orphan-labels-audit-2026-05-27.md",
+    "audits/issue-creation-docs-audit-report.md",
+    "audits/issue-pr-metadata-audit-300plus-2026-05-27.md",
+    "audits/issue-types-alignment-audit-2026-06-01.md",
+    "audits/label-color-consistency-audit-2026-06-01.md",
+    "audits/phase-1-ai-config-audit-2026-07-22.md",
+    "audits/phase-1-hooks-audit-2026-07-22.md",
+    "audits/phase-1-instructions-audit-2026-07-22.md",
+    "audits/phase-1-memory-schema-audit-2026-07-22.md",
+    "audits/phase-1-schemas-audit-2026-07-22.md",
+    "audits/readme-audit-2026-05-31.md",
+    "audits/readme-audit-extended-2026-05-31.md",
+    "audits/workflow-standards-audit-2026-05-31.md",
+    "branch-cleanup-2026-07-22T18-01-32.md",
+    "branch-cleanup-2026-07-23T16-44-03.md",
+    "branch-cleanup-2026-07-25T08-20-01.md",
+    "canonical-config-audit-2026-05-31.md",
+    "changelog-workflow-fix.md",
+    "frameworks/agent-standardization-framework-2026-07-22.md",
+    "issue-management/audit-2026-07-23-comprehensive.md",
+    "issue-management/index-2026-08-07.md",
+    "issue-management/solution-design-2026-07-23.md",
+    "issue-template-audit-2026-05-31.md",
+    "linting/2026-08-04-eslint-fix-specification.md",
+    "mermaid/colour-contrast-report-2026-06-18.md",
+    "mermaid/diagram-validation-2025-12-11.md",
+    "mermaid-accessibility-report.md",
+    "mermaid-audit/audit-log.md",
+    "mermaid-audit/audit-report-2026-05-28.md",
+    "mermaid-diagram-audit.md",
+    "mermaid-validation-report.md",
+    "metrics/weekly-summary-2025-12-08.md",
+    "migration/INSTRUCTIONS_MIGRATION_GUIDE.md",
+    "migration/file-organization-migration-2025-12-09.md",
+    "tech-debt/v1.0.0-pre-launch-debt.md",
+    "testing/2026-08-04-CRITICAL-AUDIT-SUMMARY.md",
+    "testing/2026-08-04-phase-2c-script-testing.md",
+    "testing/2026-08-04-phase-2c-x-remediation-progress.md",
+    "validation/pre-launch-validation-2025-12-10.md",
+    "validation/v1.0.0-launch-readiness-final-2025-12-10.md",
+    "wave-4c-audit-report.md",
+    "wave-4c-remediation-plan.md",
+    "wave-5-4-readme-discovery-audit.md",
+    "wave-5-completion-summary.md",
+    "weekly-summary-2025-12-15.md",
+    "weekly-summary-2025-12-22.md",
+    "weekly-summary-2025-12-29.md",
+    "weekly-summary-2026-01-05.md",
+    "weekly-summary-2026-01-12.md",
+    "weekly-summary-2026-01-19.md",
+    "weekly-summary-2026-01-26.md",
+    "weekly-summary-2026-02-02.md",
+    "weekly-summary-2026-02-09.md",
+    "weekly-summary-2026-02-16.md",
+    "weekly-summary-2026-02-23.md",
+    "weekly-summary-2026-03-02.md",
+    "weekly-summary-2026-03-09.md",
+    "weekly-summary-2026-03-16.md",
+    "weekly-summary-2026-03-23.md",
+    "weekly-summary-2026-03-30.md",
+    "weekly-summary-2026-04-06.md",
+    "weekly-summary-2026-04-13.md",
+    "weekly-summary-2026-04-20.md",
+    "weekly-summary-2026-04-27.md",
+    "weekly-summary-2026-05-04.md",
+    "weekly-summary-2026-05-11.md",
+    "weekly-summary-2026-05-18.md",
+    "weekly-summary-2026-05-25.md",
+    "weekly-summary-2026-06-01.md",
+    "workflow-testing/2026-08-04-issue-tracking.md",
+    "workflow-testing/2026-08-04-release-workflow-fix-summary.md",
+    "workflow-testing/2026-08-04-release-workflow-fix-verification.md",
+    "workflow-testing/2026-08-04-script-organization-concern.md",
+    "workflows/WORKFLOWS-CONSOLIDATION-AUDIT.md"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Backlog Audit Fixture Structure",
+  "type": "object",
+  "required": ["title", "window", "queue_focus", "expected_use"],
+  "properties": {
+    "title": {"type": "string", "const": "Backlog Audit Fixture"},
+    "window": {"type": "string", "minLength": 3},
+    "queue_focus": {"type": "string", "minLength": 3},
+    "expected_use": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,7 @@
+{
+  "name": "lightspeed-playwright-testing",
+  "version": "2.0.0",
+  "description": "Multi-provider Playwright testing agent for WordPress/WooCommerce — Codex/OpenAI configuration.",
+  "skills": [],
+  "agents": ["agents/playwright-testing.agent.md"]
+}

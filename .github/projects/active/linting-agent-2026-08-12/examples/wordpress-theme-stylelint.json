@@ -1,0 +1,37 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "no-missing-end-of-source-newline": null,
+    "at-rule-allowed-list": [
+      "media",
+      "supports",
+      "keyframes",
+      "font-face",
+      "import",
+      "mixin",
+      "include"
+    ],
+    "declaration-property-unit-allowed-list": {
+      "font-size": ["px", "rem", "em", "%", "vw", "vh"],
+      "line-height": ["", "px", "rem", "em", "unitless"],
+      "letter-spacing": ["px", "em", "rem"],
+      "margin": ["px", "rem", "em", "%", "auto"],
+      "padding": ["px", "rem", "em", "%"],
+      "width": ["px", "rem", "em", "%", "auto", "vw"],
+      "height": ["px", "rem", "em", "%", "auto", "vh"]
+    },
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["where", "deep"]
+      }
+    ],
+    "function-no-unknown": null,
+    "scss/function-no-unknown": true,
+    "scss/at-rule-no-unknown": true,
+    "comment-empty-line-before": null,
+    "value-keyword-case": ["lower", { "camelCaseSvgKeywords": true }],
+    "no-descending-specificity": null
+  }
+}

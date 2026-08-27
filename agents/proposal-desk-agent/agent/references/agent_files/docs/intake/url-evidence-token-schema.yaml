@@ -1,0 +1,38 @@
+tokens:
+  brand:
+    status: inferred
+  audience:
+    status: inferred
+  offer:
+    status: inferred
+  services_or_products:
+    status: inferred
+  content_types:
+    status: inferred
+  design_direction:
+    status: inferred
+  technical_requirements:
+    status: inferred
+  integrations:
+    status: inferred
+  source_assets:
+    status: inferred
+  exclusions:
+    status: inferred
+  legal_or_privacy_requirements:
+    status: inferred
+  claims:
+    status: inferred
+  approval_owners:
+    status: inferred
+  launch_or_handoff_requirements:
+    status: inferred
+  risks:
+    status: inferred
+  missing_blockers:
+    status: inferred
+rule: Mark extracted values as inferred unless the user explicitly confirms them.
+usage:
+  - Use token extraction to prefill the intake wizard, not to replace missing confirmation.
+  - Treat questionnaire defaults as smart defaults, not evidence.
+  - Escalate claims, legal/privacy requirements, and approvals into dedicated review tables when they materially affect the output.

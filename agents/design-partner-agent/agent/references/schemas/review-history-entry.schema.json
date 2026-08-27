@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review History Entry",
+  "type": "object",
+  "required": [
+    "date",
+    "work_type",
+    "surface_or_artifact",
+    "goal",
+    "key_findings",
+    "recommendations"
+  ],
+  "properties": {
+    "date": { "type": "string" },
+    "work_type": { "type": "string" },
+    "client_or_project": { "type": "string" },
+    "surface_or_artifact": { "type": "string" },
+    "goal": { "type": "string" },
+    "key_findings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approved_directions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "rejected_directions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "accessibility_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "follow_up_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

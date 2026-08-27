@@ -1,0 +1,388 @@
+name: Template Enforcement
+
+on:
+  issues:
+    types: [opened, edited, reopened, closed]
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  validate-issue-template:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate issue body against required template sections
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const marker = '<!-- template-enforcement -->';
+            // Re-fetch the issue instead of trusting context.payload.issue: this job's
+            // start can be queued well behind the webhook event, so the payload snapshot
+            // may be stale by the time the script actually runs.
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+            });
+            const body = (issue.body || '').trim();
+            const author = issue.user?.login || '';
+            const isGithubActions = author === 'github-actions[bot]';
+
+            const required = [
+              { name: 'Definition of Ready (DoR)', regex: /definition of ready \(dor\)/i },
+              { name: 'Definition of Done (DoD)', regex: /definition of done \(dod\)/i }
+            ];
+
+            const missing = required
+              .filter((entry) => !entry.regex.test(body))
+              .map((entry) => entry.name);
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              per_page: 100
+            });
+
+            const previous = comments.find((comment) =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            if (missing.length === 0) {
+              if (previous) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: previous.id,
+                  body: `${marker}\n✅ Template check passed after update. Thanks for fixing the issue body.`
+                });
+              }
+
+              if ((issue.labels || []).some((label) => label.name === 'status:needs-more-info')) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  name: 'status:needs-more-info',
+                }).catch((error) => {
+                  core.info(`Unable to remove status:needs-more-info from #${issue.number}: ${error.message}`);
+                });
+              }
+
+              return;
+            }
+
+            const message = isGithubActions
+              ? [
+                  marker,
+                  '⚠️ This issue was opened by automation without the required template sections.',
+                  '',
+                  `Missing required section(s): ${missing.join(', ')}`,
+                  '',
+                  'The issue will remain open and flagged until the body is corrected.',
+                  'Update the automation to render the canonical template before creating the issue.',
+                  '- Recommended workflow: `.github/workflows/issue-create-from-template.yml`',
+                ].join('\n')
+              : [
+                  marker,
+                  '⚠️ This issue does not follow a required issue template.',
+                  '',
+                  `Missing required section(s): ${missing.join(', ')}`,
+                  '',
+                  'The issue will remain open and flagged until the body is corrected.',
+                  'Please update the issue with one of the official templates:',
+                  '- https://github.com/lightspeedwp/.github/issues/new/choose',
+                  '',
+                  'If this was opened by automation, update the automation to preserve the template sections before creating the issue.',
+                ].join('\n');
+
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previous.id,
+                body: message
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: message
+              });
+            }
+
+            const labelsToRemove = (issue.labels || [])
+              .map((label) => label.name)
+              .filter((label) => label.startsWith('status:') && label !== 'status:needs-more-info');
+
+            if (labelsToRemove.length > 0) {
+              for (const labelName of labelsToRemove) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: labelName,
+                  });
+                } catch (error) {
+                  core.info(`Status label cleanup skipped for ${labelName}: ${error.message}`);
+                }
+              }
+            }
+
+            const labelsToAdd = ['status:needs-more-info'];
+            const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+            const missingLabels = labelsToAdd.filter((label) => !currentLabels.has(label));
+            if (missingLabels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: missingLabels,
+              });
+            }
+
+            if (isGithubActions) {
+              core.setFailed(
+                `Issue #${issue.number} was opened by github-actions[bot] and is missing required template sections: ${missing.join(', ')}`,
+              );
+              return;
+            }
+
+            core.setFailed(`Issue #${issue.number} is missing required template sections: ${missing.join(', ')}`);
+
+  enforce-close-guard:
+    if: github.event_name == 'issues' && github.event.action == 'closed' && github.event.issue.state_reason != 'not_planned'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guard against closing incomplete issues
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const marker = '<!-- template-enforcement -->';
+            // Re-fetch the issue instead of trusting context.payload.issue: this job's
+            // start can be queued well behind the webhook event (observed ~3 minute job
+            // scheduling delays), so by the time the script runs the body/labels/state in
+            // the payload snapshot may no longer match reality — e.g. the user already
+            // fixed the issue and re-closed it before this run got a chance to execute.
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+            });
+
+            if (issue.state !== 'closed') {
+              core.info(`Issue #${issue.number} is no longer closed (current state: ${issue.state}); skipping close guard.`);
+              return;
+            }
+
+            // Check for force-close override
+            const hasForceClose = (issue.labels || []).some(
+              (label) => label.name === 'meta:force-close'
+            );
+
+            if (hasForceClose) {
+              core.info(`Issue #${issue.number} has meta:force-close label; allowing close despite incomplete requirements.`);
+              return;
+            }
+
+            const author = issue.user?.login || '';
+            const isBot = issue.user?.type === 'Bot' ||
+              author === 'dependabot[bot]' ||
+              author === 'app/dependabot' ||
+              author === 'github-actions[bot]';
+
+            if (isBot) {
+              core.info(`Skipping close guard for bot-authored issue #${issue.number}.`);
+              return;
+            }
+
+            const body = (issue.body || '').trim();
+
+            const required = [
+              { name: 'Definition of Ready (DoR)', regex: /definition of ready \(dor\)/i },
+              { name: 'Definition of Done (DoD)', regex: /definition of done \(dod\)/i }
+            ];
+
+            const missingSections = required
+              .filter((entry) => !entry.regex.test(body))
+              .map((entry) => entry.name);
+
+            const hasNeedsMoreInfo = (issue.labels || []).some(
+              (label) => label.name === 'status:needs-more-info'
+            );
+
+            if (missingSections.length === 0 && !hasNeedsMoreInfo) {
+              core.info(`Issue #${issue.number} meets close requirements.`);
+
+              // Remove status:needs-template-fix label if present (issue is now compliant)
+              const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+              if (currentLabels.has('status:needs-template-fix')) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: 'status:needs-template-fix',
+                  });
+                } catch (error) {
+                  core.info(`Unable to remove status:needs-template-fix from #${issue.number}: ${error.message}`);
+                }
+              }
+              return;
+            }
+
+            // Issue has incomplete requirements. Post guidance comment and add label (don't reopen).
+            const reasons = [];
+            if (missingSections.length > 0) {
+              reasons.push(`Missing required section(s): ${missingSections.join(', ')}`);
+            }
+            if (hasNeedsMoreInfo) {
+              reasons.push('Issue is flagged `status:needs-more-info` — resolve outstanding feedback first');
+            }
+
+            const message = [
+              marker,
+              '⚠️ This issue was closed but does not meet our completion requirements.',
+              '',
+              '**Issues preventing closure:**',
+              ...reasons.map((r) => `- ${r}`),
+              '',
+              '**What you can do:**',
+              '1. **Fix the issue:** Edit this issue and update the body with the correct template sections (DoR and DoD sections)',
+              '2. **Reopen it:** Click the "Reopen issue" button on this page to reopen after fixing',
+              '3. **Force close:** Add the `meta:force-close` label to this issue if closure is necessary despite incomplete requirements',
+              '',
+              '**After fixing:** The issue will no longer show this warning and can be closed normally.',
+              '**Need help?** See the issue template guide: https://github.com/lightspeedwp/.github/issues/new/choose',
+            ].join('\n');
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              per_page: 100,
+            });
+
+            const existing = comments.find(
+              (comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: message,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: message,
+              });
+            }
+
+            // Add status:needs-template-fix label
+            const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+            if (!currentLabels.has('status:needs-template-fix')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['status:needs-template-fix'],
+              });
+            }
+
+            core.warning(`Issue #${issue.number} was closed but does not meet requirements (${reasons.join('; ')}). Added guidance comment and status:needs-template-fix label.`);
+
+  validate-push-guardrail:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validate merged PR body on push to develop
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { validatePullRequestBody } = require('./scripts/validation/template-helpers.cjs');
+
+            const marker = '<!-- template-enforcement -->';
+            const commitSha = context.payload.after;
+            const prs = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: commitSha,
+              per_page: 100
+            });
+
+            const mergedPr = prs.find((pr) => pr.merged_at && pr.base?.ref === 'develop');
+            if (!mergedPr) {
+              core.info(`No merged pull request associated with ${commitSha}; nothing to validate.`);
+              return;
+            }
+
+            const validation = validatePullRequestBody(
+              mergedPr.body || '',
+              mergedPr.labels || [],
+              mergedPr.head?.ref || ''
+            );
+            const author = mergedPr.user?.login || '';
+            const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
+
+            if (isDependabot) {
+              core.info(`Skipping template enforcement for Dependabot merged PR #${mergedPr.number}.`);
+              return;
+            }
+
+            if (validation.missing.length === 0) {
+              core.info(`Merged PR #${mergedPr.number} satisfies template enforcement.`);
+              return;
+            }
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: mergedPr.number,
+              per_page: 100
+            });
+
+            const previous = comments.find((comment) =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            const message = [
+              marker,
+              '⚠️ A merged PR reached develop without passing the template content guardrail.',
+              '',
+              `Missing required section(s): ${validation.missing.join(', ')}`,
+              '',
+              'This is a post-merge backstop for admin bypasses. Please review branch protection for develop.'
+            ].join('\n');
+
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previous.id,
+                body: message
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: mergedPr.number,
+                body: message
+              });
+            }
+
+            core.setFailed(
+              `Merged PR #${mergedPr.number} on develop is missing required template content: ${validation.missing.join(', ')}`
+            );

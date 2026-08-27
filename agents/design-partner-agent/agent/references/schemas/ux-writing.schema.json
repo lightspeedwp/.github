@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UX Writing Output",
+  "type": "object",
+  "required": [
+    "surface_or_moment",
+    "user_goal",
+    "current_copy",
+    "recommended_copy_options"
+  ],
+  "properties": {
+    "surface_or_moment": { "type": "string" },
+    "user_goal": { "type": "string" },
+    "current_copy": { "type": "string" },
+    "problems_with_current_copy": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_copy_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["copy", "why_it_works"],
+        "properties": {
+          "copy": { "type": "string" },
+          "why_it_works": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "tone_and_brand_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "accessibility_and_clarity_checks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "implementation_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

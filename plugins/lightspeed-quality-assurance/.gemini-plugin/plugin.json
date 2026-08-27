@@ -1,0 +1,15 @@
+{
+  "name": "lightspeed-quality-assurance",
+  "version": "0.1.0",
+  "description": "Quality assurance plugin for Gemini.",
+  "manifest_version": 1,
+  "agents": ["agents/qa-orchestrator.agent.md"],
+  "skills": [
+    "skills/lightspeed-quality-gate/SKILL.md",
+    "skills/lightspeed-regression-risk-assessment/SKILL.md",
+    "skills/lightspeed-test-matrix-planner/SKILL.md",
+    "skills/lightspeed-qa-signoff-summary/SKILL.md",
+    "skills/lightspeed-test-failure-triage/SKILL.md",
+    "skills/lightspeed-flaky-test-triage/SKILL.md"
+  ]
+}

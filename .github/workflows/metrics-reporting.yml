@@ -1,0 +1,167 @@
+name: Metrics Reporting
+
+on:
+  schedule:
+    - cron: '30 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      reportType:
+        description: Report type (weekly or monthly)
+        required: false
+        default: weekly
+      includeArchive:
+        description: Include archived metrics
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  generate-report:
+    name: Generate Metrics Report
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NODE_ENV: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate metrics report
+        id: report
+        run: |
+          node .github/scripts/workflows/metrics-reporting-orchestrator.cjs \
+            --reportType "${{ inputs.reportType || 'weekly' }}" \
+            --includeArchive "${{ inputs.includeArchive || 'false' }}"
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: metrics-report
+          path: .github/reports/metrics/report-*.md
+          retention-days: 30
+
+      - name: Create metrics report issue
+        if: steps.report.outcome == 'success'
+        run: |
+          node -e "
+            const { GitHubIssueCreator } = require('./scripts/metrics/github-issue-creator');
+            const { Octokit } = require('@octokit/rest');
+            const fs = require('fs');
+            const path = require('path');
+
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const creator = new GitHubIssueCreator(octokit);
+
+            // Find generated report file
+            const reportDir = '.github/reports/metrics';
+            const reportFiles = fs.readdirSync(reportDir).filter(f => f.startsWith('report-'));
+            
+            if (reportFiles.length === 0) {
+              console.log('No report file found');
+              process.exit(0);
+            }
+
+            const reportFile = path.join(reportDir, reportFiles[0]);
+            const report = fs.readFileSync(reportFile, 'utf8');
+
+            creator.createWeeklyMetricsIssue('${{ github.repository_owner }}', '${{ github.event.repository.name }}', report)
+              .then(issue => {
+                console.log('Created issue #' + issue.number);
+              })
+              .catch(error => {
+                console.error('Error creating issue:', error);
+                process.exit(1);
+              });
+          "
+
+      - name: Close old reports
+        if: always()
+        run: |
+          node -e "
+            const { GitHubIssueCreator } = require('./scripts/metrics/github-issue-creator');
+            const { Octokit } = require('@octokit/rest');
+
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const creator = new GitHubIssueCreator(octokit);
+
+            creator.closeOldReports('${{ github.repository_owner }}', '${{ github.event.repository.name }}', 90)
+              .then(result => {
+                console.log('Closed ' + result.closedCount + ' old reports');
+              })
+              .catch(error => {
+                console.warn('Error closing old reports:', error);
+              });
+          "
+
+      - name: Generate summary
+        if: always()
+        run: |
+          echo "## Metrics Reporting Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Report Type:** ${{ inputs.reportType || 'weekly' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.report.outcome }}" == "success" ]; then
+            echo "✅ Report generated successfully" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Report generation failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  validate-issues:
+    name: Validate Metrics Issues
+    runs-on: ubuntu-latest
+    needs: generate-report
+    if: always()
+    permissions:
+      issues: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify metrics issues
+        run: |
+          node -e "
+            const { GitHubIssueCreator } = require('./scripts/metrics/github-issue-creator');
+            const { Octokit } = require('@octokit/rest');
+
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const creator = new GitHubIssueCreator(octokit);
+
+            creator.getMetricsIssues('${{ github.repository_owner }}', '${{ github.event.repository.name }}', 'open')
+              .then(issues => {
+                console.log('Found ' + issues.length + ' open metrics issues');
+                issues.slice(0, 5).forEach(issue => {
+                  console.log('  - #' + issue.number + ': ' + issue.title);
+                });
+              })
+              .catch(error => {
+                console.warn('Error fetching metrics issues:', error);
+              });
+          "

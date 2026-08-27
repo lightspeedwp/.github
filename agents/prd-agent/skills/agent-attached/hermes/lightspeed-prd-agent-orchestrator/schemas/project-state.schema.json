@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LightSpeed project state",
+  "type": "object",
+  "required": ["project_stage", "facts", "assumptions", "open_loops"],
+  "properties": {
+    "project_stage": { "type": "string" },
+    "facts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "open_loops": { "type": "array", "items": { "type": "string" } },
+    "latest_recommendation": { "type": "string" }
+  },
+  "additionalProperties": true
+}

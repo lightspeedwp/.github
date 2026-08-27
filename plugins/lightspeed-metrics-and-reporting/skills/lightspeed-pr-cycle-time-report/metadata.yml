@@ -1,0 +1,22 @@
+name: lightspeed-pr-cycle-time-report
+version: v0.1.0
+description: generate pull request cycle-time reporting with trend and bottleneck summaries.
+owners:
+  - LightSpeedWP Team
+platforms:
+  claude:
+    supported: true
+    mode: first-class
+    config: agents/claude.yaml
+  copilot:
+    supported: true
+    mode: first-class
+    config: agents/copilot.yaml
+  gemini:
+    supported: true
+    mode: experimental
+    config: agents/gemini.yaml
+  codex:
+    supported: true
+    mode: legacy-compatible
+    config: agents/codex.yaml

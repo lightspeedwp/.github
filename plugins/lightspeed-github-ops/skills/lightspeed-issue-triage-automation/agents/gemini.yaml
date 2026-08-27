@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Issue Triage Automation
+  short_description: triage issues into canonical labels and governance-ready handling steps.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental

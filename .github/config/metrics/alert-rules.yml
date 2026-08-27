@@ -1,0 +1,332 @@
+---
+# Alert Rules & Thresholds Configuration
+# Phase 2: Monitoring & Alerting System
+# Purpose: Define alert conditions, severity levels, and notification rules
+# Version: 1.0
+# Created: 2026-08-21
+
+metadata:
+  version: "1.0"
+  last_updated: "2026-08-21"
+  purpose: "Configure alert rules for metrics collection monitoring"
+  maintainer: "Phase 3 Monitoring Team"
+
+# Health Score Thresholds
+# These define the alert levels based on repository health score
+health_score_thresholds:
+  healthy:
+    min: 80
+    max: 100
+    severity: "SUCCESS"
+    emoji: "✅"
+    color: "#36a64f"
+    alert: false
+    description: "Repository health is good. No action needed."
+
+  warning:
+    min: 60
+    max: 79
+    severity: "WARNING"
+    emoji: "⚠️"
+    color: "#ffaa00"
+    alert: true
+    escalate_hours: 24
+    description: "Repository health is declining. Review trends and plan improvements."
+
+  critical:
+    min: 40
+    max: 59
+    severity: "CRITICAL"
+    emoji: "❌"
+    color: "#ff0000"
+    alert: true
+    escalate_hours: 1
+    description: "Repository health is poor. Immediate action required."
+
+  severe:
+    min: 0
+    max: 39
+    severity: "CRITICAL"
+    emoji: "🚨"
+    color: "#aa0000"
+    alert: true
+    escalate_hours: 0.25  # 15 minutes
+    description: "Repository health is critical. Immediate team engagement required."
+
+# Metrics Collection Failures
+# Alert when metrics collection fails to complete successfully
+collection_failures:
+  timeout:
+    name: "Metrics Collection Timeout"
+    threshold: 300  # seconds (5 minutes)
+    severity: "HIGH"
+    condition: "workflow_duration > 5min"
+    alert_message: "Metrics collection exceeded 5 minute timeout"
+    actions:
+      - notify_slack
+      - create_issue
+    escalate_after_minutes: 10
+    max_retries: 3
+
+  api_error:
+    name: "GitHub API Failure"
+    threshold: 1  # single error triggers alert
+    severity: "MEDIUM"
+    condition: "api_status_code >= 400"
+    alert_message: "GitHub API returned error during collection"
+    actions:
+      - notify_slack
+    escalate_after_minutes: 30
+    max_retries: 5
+
+  missing_data:
+    name: "Incomplete Metrics Output"
+    threshold: 1  # any context missing data
+    severity: "MEDIUM"
+    condition: "context_count == 0 OR metric_count == 0"
+    alert_message: "Metrics collection completed but output is incomplete"
+    actions:
+      - notify_slack
+      - create_issue
+    escalate_after_minutes: 20
+    max_retries: 2
+
+  authentication_error:
+    name: "Authentication Failure"
+    threshold: 1  # single auth error
+    severity: "CRITICAL"
+    condition: "status_code == 401 OR status_code == 403"
+    alert_message: "Authentication failed during metrics collection"
+    actions:
+      - notify_slack
+      - create_issue
+      - escalate_to_team
+    escalate_after_minutes: 5
+    max_retries: 1
+
+# Performance Degradation Rules
+# Alert when metrics collection performance degrades significantly
+performance:
+  degradation_trend:
+    name: "Performance Degradation Trend"
+    threshold: 20  # seconds increase week-over-week
+    metric: "collection_time"
+    window: "weekly"
+    severity: "MEDIUM"
+    alert_message: "Metrics collection time increased by >20 seconds this week"
+    actions:
+      - notify_slack
+      - create_issue
+    escalate_after_minutes: 60
+
+  slowdown_per_context:
+    name: "Slow Specific Context"
+    threshold: 120  # seconds for single context
+    metric: "context_duration"
+    severity: "MEDIUM"
+    condition: "any_context_time > 120s"
+    alert_message: "A single context is taking >2 minutes to collect"
+    actions:
+      - notify_slack
+
+  api_rate_limit:
+    name: "API Rate Limit Approaching"
+    threshold: 1000  # remaining requests
+    metric: "github_api_remaining"
+    severity: "MEDIUM"
+    condition: "remaining_requests < 1000"
+    alert_message: "GitHub API rate limit approaching (< 1000 remaining)"
+    actions:
+      - notify_slack
+      - create_issue
+
+# Component-Specific Alerts
+# Alert on significant changes to specific metrics
+components:
+  documentation_coverage:
+    name: "Documentation Coverage Drop"
+    threshold: 10  # percentage point drop
+    metric: "doc_coverage"
+    severity: "LOW"
+    window: "weekly"
+    alert_message: "Documentation coverage dropped by >10% this week"
+    actions:
+      - notify_slack
+
+  issue_response_time:
+    name: "Issue Response SLA Breach"
+    threshold: 48  # hours
+    metric: "avg_issue_response_time"
+    severity: "MEDIUM"
+    condition: "avg_response_time > 48h"
+    alert_message: "Average issue response time exceeded 48 hours"
+    actions:
+      - notify_slack
+      - create_issue
+
+  pr_review_time:
+    name: "PR Review SLA Breach"
+    threshold: 72  # hours
+    metric: "avg_pr_review_time"
+    severity: "MEDIUM"
+    condition: "avg_review_time > 72h"
+    alert_message: "Average PR review time exceeded 72 hours"
+    actions:
+      - notify_slack
+      - create_issue
+
+  test_coverage:
+    name: "Test Coverage Decrease"
+    threshold: 5  # percentage point drop
+    metric: "test_coverage"
+    severity: "LOW"
+    window: "weekly"
+    alert_message: "Test coverage decreased by >5% this week"
+    actions:
+      - notify_slack
+
+# Slack Notification Rules
+# Configure how alerts are delivered to Slack
+slack_notifications:
+  default:
+    webhook_secret_name: "SLACK_METRICS_WEBHOOK"
+    mention_on_critical: "@metrics-alerts"
+    thread_replies: true
+    include_actions: true
+    include_details: true
+
+  channels:
+    critical_severity:
+      channel: "#metrics-alerts-critical"
+      mention: "@channel"
+    high_severity:
+      channel: "#metrics-alerts"
+      mention: "@here"
+    medium_severity:
+      channel: "#metrics-alerts"
+      mention: null
+    low_severity:
+      channel: "#metrics"
+      mention: null
+
+# Alert Aggregation Rules
+# Group related alerts to reduce notification noise
+aggregation:
+  window_minutes: 15
+  group_by:
+    - alert_type
+    - severity
+  max_per_window: 3  # max 3 notifications of same type per 15min
+  deduplicate: true
+
+# Notification Actions
+# Define what happens when alerts trigger
+actions:
+  notify_slack:
+    description: "Send Slack notification to alerts channel"
+    timeout_seconds: 30
+    retry_count: 3
+
+  create_issue:
+    description: "Create GitHub issue for investigation"
+    timeout_seconds: 60
+    retry_count: 2
+    labels:
+      - "type:bug"
+      - "status:needs-triage"
+      - "priority:important"
+      - "area:metrics"
+    template: "alert-issue"
+
+  escalate_to_team:
+    description: "Notify team in Slack with escalation mentions"
+    timeout_seconds: 30
+    retry_count: 3
+
+# Recovery Procedures
+# Link alerts to runbooks for incident response
+recovery:
+  workflow_timeout:
+    runbook: "RUNBOOK_WORKFLOW_TIMEOUT.md"
+    severity: "MEDIUM"
+    steps_estimate: "20-40 minutes"
+
+  api_failures:
+    runbook: "RUNBOOK_API_FAILURES.md"
+    severity: "HIGH"
+    steps_estimate: "10-30 minutes"
+
+  missing_data:
+    runbook: "RUNBOOK_MISSING_DATA.md"
+    severity: "MEDIUM"
+    steps_estimate: "15-25 minutes"
+
+  health_score_drop:
+    runbook: "RUNBOOK_HEALTH_SCORE_DROP.md"
+    severity: "MEDIUM"
+    steps_estimate: "30-60 minutes"
+
+  secret_expiration:
+    runbook: "RUNBOOK_SECRET_EXPIRATION.md"
+    severity: "CRITICAL"
+    steps_estimate: "5-15 minutes"
+
+  performance_degradation:
+    runbook: "RUNBOOK_PERFORMANCE_DEGRADATION.md"
+    severity: "MEDIUM"
+    steps_estimate: "45-90 minutes"
+
+# Alert Suppression Rules
+# Silence alerts under specific conditions
+suppression:
+  maintenance_window:
+    enabled: false
+    schedule: "Sunday 02:00-04:00 UTC"
+    suppress_all: true
+
+  known_issue:
+    enabled: false
+    issue_number: null
+    suppress_until: null
+
+  rate_limit_window:
+    enabled: true
+    after_threshold_hit: true
+    suppress_duration_minutes: 65  # rate limit resets hourly
+
+# Monitoring & Dashboarding
+# Visibility into alert health and trends
+monitoring:
+  alert_trends:
+    enabled: true
+    track_metrics:
+      - alert_frequency
+      - alert_response_time
+      - false_positive_rate
+    review_interval: "weekly"
+
+  dashboard_url: "https://github.com/lightspeedwp/.github/projects/active/metrics-agent-phase-3-production-2026-08-26/"
+
+  metrics_tracked:
+    - total_alerts_this_week
+    - critical_severity_count
+    - alert_resolution_time_avg
+    - escalation_rate
+    - runbook_usage_count
+
+# Testing & Validation
+# Alert configuration testing procedures
+testing:
+  test_alert_workflow:
+    trigger: "workflow_dispatch"
+    test_scenarios:
+      - health_score_critical
+      - api_error_401
+      - timeout_exceeded
+      - missing_data
+    expected_slack_messages: 4
+
+  validation:
+    schema_validation: true
+    runbook_links_valid: true
+    slack_webhook_available: true

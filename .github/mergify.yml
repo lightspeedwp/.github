@@ -1,0 +1,91 @@
+queue_rules:
+  - name: dependabot-develop
+    merge_method: squash
+    batch_size: 1
+
+merge_queue:
+  max_parallel_checks: 1
+
+pull_request_rules:
+  # Keep Dependabot PRs up-to-date by rebasing if develop has moved ahead
+  - name: Keep Dependabot dependency updates on develop current
+    conditions:
+      - author~=^(dependabot\[bot\]|app/dependabot)$
+      - base=develop
+      - label=area:dependencies
+      - -draft
+      - -conflict
+      - "#commits-behind > 0"
+    actions:
+      update: {}
+
+  # Auto-approve and queue Dependabot dependency updates when CI passes
+  - name: Auto-approve and queue Dependabot dependency updates on develop
+    conditions:
+      - author~=^(dependabot\[bot\]|app/dependabot)$
+      - base=develop
+      - label=area:dependencies
+      - check-success=All Checks Passed
+      - -draft
+      - -conflict
+    actions:
+      review:
+        type: APPROVE
+      queue:
+        name: dependabot-develop
+
+  # Keep imgbot image optimizations up-to-date by rebasing if develop has moved ahead
+  - name: Keep imgbot image optimizations current on develop
+    conditions:
+      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge
+      - author~=^(imgbot\[bot\]|app/imgbot)$
+      - base=develop
+      - -draft
+      - -conflict
+      - "#commits-behind > 0"
+    actions:
+      update: {}
+
+  # Auto-merge imgbot image optimizations when CI passes
+  - name: Auto-merge imgbot image optimizations on develop
+    conditions:
+      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge
+      - author~=^(imgbot\[bot\]|app/imgbot)$
+      - base=develop
+      - check-success=All Checks Passed
+      - -draft
+      - -conflict
+    actions:
+      merge:
+        method: squash
+
+  # Auto-merge meta-agent sync PRs when CI passes
+  - name: Auto-merge meta-agent sync on develop
+    conditions:
+      - author=lightspeed-bot
+      - base=develop
+      - label=meta:no-changelog
+      - "title~=^chore\\(meta\\).*automated meta-agent sync$"
+      - check-success=All Checks Passed
+      - -draft
+      - -conflict
+    actions:
+      merge:
+        method: squash
+
+merge_protections_settings:
+  reporting_method: check-runs
+  # `true` here means unconditional auto-merge of ANY mergeable PR, for ANY
+  # author, on ANY base branch, the moment GitHub branch protection is
+  # satisfied (see https://docs.mergify.com/merge-protections/auto-merge/).
+  # Every pull_request_rule above deliberately scopes auto-merge to specific
+  # bot authors (dependabot/imgbot/lightspeed-bot) on `develop` only, gated
+  # by `check-success=All Checks Passed` — but this blanket setting bypassed
+  # all of that scoping. Combined with release/v1.0.0 having no branch
+  # protection at all, it auto-merged human/agent-authored PRs against the
+  # release branch within seconds of opening, before CI had even finished.
+  # Restricting the condition list to the same three bot identities used
+  # above restores the intended scope: only they get unconditional
+  # auto-merge, everyone else must merge manually.
+  auto_merge_conditions:
+    - author~=^(dependabot\[bot\]|app/dependabot|imgbot\[bot\]|app/imgbot|lightspeed-bot)$

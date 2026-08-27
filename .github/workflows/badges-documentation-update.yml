@@ -1,0 +1,163 @@
+name: "Badges: Documentation Update"
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "docs/**/*.md"
+      - "**.md"
+      - ".github/automation/badges.schema.yml"
+  workflow_dispatch:
+    inputs:
+      target_files:
+        description: "Glob pattern for files to update (default: all)"
+        required: false
+        default: ""
+      dry_run:
+        description: "Dry run mode (no commits)"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  update-badges:
+    name: "Update Documentation Badges"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: read
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Detect changed files"
+        id: changed
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            # Get files changed in this push
+            git diff-tree --no-commit-id --name-only -r "${{ github.event.before }}" "${{ github.event.after }}" > changed_files.txt
+          elif [[ -n "${{ inputs.target_files }}" ]]; then
+            # Use provided glob pattern with proper escaping
+            target_pattern="${{ inputs.target_files }}"
+            find . -path "${target_pattern}" -type f > changed_files.txt
+          else
+            # Find all markdown files with frontmatter
+            find docs instructions . -name "*.md" -type f | head -50 > changed_files.txt
+          fi
+
+          # Filter to only markdown files
+          grep '\.md$' changed_files.txt || true
+
+          count=$(grep -c '\.md$' changed_files.txt || echo 0)
+          echo "count=$count" >> $GITHUB_OUTPUT
+          echo "files=$(cat changed_files.txt | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_OUTPUT
+
+      - name: "Validate badge schema"
+        id: validate
+        run: |
+          if [[ ! -f ".github/automation/badges.schema.yml" ]]; then
+            echo "::warning::Badge schema not found - skipping badge generation"
+            exit 0
+          fi
+
+          # Basic YAML validation
+          npm run validate:badges-schema 2>/dev/null || {
+            echo "::warning::Badge schema validation failed - will attempt generation anyway"
+          }
+
+      - name: "Generate and update badges"
+        id: generate
+        run: |
+          # Check if we have files to process
+          if [[ ! -f changed_files.txt ]]; then
+            echo "No files to process"
+            echo "updated_count=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          updated_count=0
+          failed_count=0
+
+          while IFS= read -r file; do
+            [[ -z "$file" ]] && continue
+            [[ ! -f "$file" ]] && continue
+
+            echo "Processing: $file"
+
+            # Check if file has badge markers
+            if grep -q "<!-- BADGES-START -->" "$file" 2>/dev/null; then
+              # Use node script to generate and insert badges with schema
+              npm run generate:badges -- "$file" 2>/dev/null && {
+                echo "  ✓ Badges generated"
+                ((updated_count++))
+              } || {
+                echo "  ✗ Badge generation failed"
+                ((failed_count++))
+              }
+            else
+              # Skip files without markers
+              echo "  ○ No badge markers - skipping"
+            fi
+          done < changed_files.txt
+
+          echo "updated_count=$updated_count" >> $GITHUB_OUTPUT
+          echo "failed_count=$failed_count" >> $GITHUB_OUTPUT
+
+      - name: "Commit badge updates"
+        if: steps.generate.outputs.updated_count > 0 && !inputs.dry_run
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add docs/**/*.md *.md 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "docs: Update badges in documentation [skip ci]" || {
+            echo "::warning::No changes to commit"
+            exit 0
+          }
+
+          git push origin HEAD:"${{ github.ref_name }}"
+
+      - name: "Report results"
+        if: always()
+        run: |
+          echo "## 📊 Badge Update Results"
+          echo ""
+          echo "- **Files Scanned:** ${{ steps.changed.outputs.count }}"
+          echo "- **Files Updated:** ${{ steps.generate.outputs.updated_count }}"
+          echo "- **Failed Updates:** ${{ steps.generate.outputs.failed_count }}"
+          echo "- **Dry Run:** ${{ inputs.dry_run }}"
+          echo ""
+          echo "### Files Processed"
+          echo "\`\`\`"
+          cat changed_files.txt 2>/dev/null || echo "No files processed"
+          echo "\`\`\`"
+
+      - name: "Log errors"
+        if: failure()
+        run: |
+          echo "::error::Badge update workflow failed"
+          echo "Check logs above for details"

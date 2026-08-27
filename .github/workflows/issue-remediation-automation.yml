@@ -1,0 +1,175 @@
+name: Issue Remediation Automation
+
+on:
+  schedule:
+    # Run nightly at 2 AM UTC (covers most timezones)
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      label:
+        description: "Issue label to process (e.g., status:needs-triage)"
+        required: false
+        type: string
+      issue_number:
+        description: "Single issue number to remediate"
+        required: false
+        type: string
+      batch_size:
+        description: "Batch size for processing"
+        required: false
+        default: "10"
+        type: string
+      dry_run:
+        description: "Preview changes without applying"
+        required: false
+        default: false
+        type: boolean
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NODE_ENV: production
+
+jobs:
+  remediate-issues:
+    name: Remediate GitHub Issues
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      issues: write
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --omit=dev
+
+      - name: Determine remediation target
+        id: target
+        run: |
+          if [ "${{ github.event.inputs.issue_number }}" != "" ]; then
+            echo "type=single" >> $GITHUB_OUTPUT
+            echo "issue=${{ github.event.inputs.issue_number }}" >> $GITHUB_OUTPUT
+            echo "label=" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.label }}" != "" ]; then
+            echo "type=batch" >> $GITHUB_OUTPUT
+            echo "issue=" >> $GITHUB_OUTPUT
+            echo "label=${{ github.event.inputs.label }}" >> $GITHUB_OUTPUT
+          else
+            # Default: process status:needs-more-info label only
+            # Note: status:needs-template-fix and status:needs-assignee do not exist in .github/labels.yml
+            echo "type=default" >> $GITHUB_OUTPUT
+            echo "issue=" >> $GITHUB_OUTPUT
+            echo "label=status:needs-triage" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create remediation report directory
+        run: mkdir -p reports
+
+      - name: Remediate single issue
+        if: steps.target.outputs.type == 'single'
+        run: |
+          echo "⚠️ Phase 2-3 implementation (issue-remediation-orchestrator) not yet available"
+          echo "This workflow is a Phase 4 scaffold for future implementation"
+          echo "Target issue: ${{ steps.target.outputs.issue }}"
+          # TODO: Implement issue-remediation-orchestrator.js for Phase 2-3
+
+      - name: Remediate batch by label
+        if: steps.target.outputs.type == 'batch' || steps.target.outputs.type == 'default'
+        run: |
+          echo "⚠️ Phase 2-3 implementation (issue-remediation-orchestrator) not yet available"
+          echo "This workflow is a Phase 4 scaffold for future implementation"
+          LABELS="${{ steps.target.outputs.label }}"
+          echo "Target labels: $LABELS"
+          # TODO: Implement issue-remediation-orchestrator.js for Phase 2-3
+
+      - name: Aggregate remediation results
+        id: results
+        if: always()
+        run: |
+          if [ -f "scripts/workflows/aggregate-remediation-results.cjs" ]; then
+            node scripts/workflows/aggregate-remediation-results.cjs > reports/remediation-summary.json 2>&1 || echo '{"error":"Aggregation failed"}' > reports/remediation-summary.json
+            echo "Summary:"
+            cat reports/remediation-summary.json | jq . 2>/dev/null || cat reports/remediation-summary.json
+          else
+            echo '{"status":"Phase 4 scaffold","note":"Aggregator not yet implemented"}' > reports/remediation-summary.json
+          fi
+
+      - name: Create remediation report PR
+        if: |
+          always() &&
+          github.event_name == 'schedule' &&
+          !github.event.inputs.dry_run
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('reports/remediation-summary.json')) {
+              console.log('No remediation summary found; skipping PR creation');
+              return;
+            }
+
+            const summary = JSON.parse(fs.readFileSync('reports/remediation-summary.json', 'utf8'));
+            const reportDate = new Date().toISOString().split('T')[0];
+            const branchName = `report/issue-remediation-${reportDate}`;
+
+            // Create branch for remediation report
+            try {
+              const result = await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/heads/${branchName}`,
+                sha: context.sha,
+              });
+              console.log(`Created branch: ${branchName}`);
+            } catch (error) {
+              if (error.status === 422) {
+                console.log(`Branch already exists: ${branchName}`);
+              } else {
+                console.error(`Failed to create branch: ${error.message}`);
+              }
+            }
+
+      - name: Upload remediation logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: remediation-reports-${{ github.run_id }}
+          path: reports/
+          retention-days: 30
+
+      - name: Post remediation summary to job summary
+        if: always()
+        run: |
+          echo "## Issue Remediation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Target:** ${{ steps.target.outputs.type }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Dry Run:** ${{ github.event.inputs.dry_run || 'false' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Results" >> $GITHUB_STEP_SUMMARY
+          if [ -f reports/remediation-summary.json ]; then
+            cat reports/remediation-summary.json | jq -r 'to_entries | .[] | "- **\(.key):** \(.value)"' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: 1679,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Issue remediation automation failed. See workflow logs for details.'
+            });

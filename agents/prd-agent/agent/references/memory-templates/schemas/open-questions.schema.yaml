@@ -1,0 +1,9 @@
+title: open-questions
+required:
+  - questions
+properties:
+  questions:
+    type: array
+    items:
+      type: object
+      required: [question, impact, next_step]

@@ -1,0 +1,9 @@
+title: skill-routing-notes
+required:
+  - routes
+properties:
+  routes:
+    type: array
+    items:
+      type: object
+      required: [trigger, selected_skill, reason]

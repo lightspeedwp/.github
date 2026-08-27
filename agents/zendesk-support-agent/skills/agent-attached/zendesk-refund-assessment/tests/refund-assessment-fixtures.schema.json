@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Refund assessment test fixtures",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "prompt", "expected_primary_behaviour", "must_include", "must_not_include"],
+    "properties": {
+      "id": {"type": "string"},
+      "prompt": {"type": "string"},
+      "expected_primary_behaviour": {"type": "string"},
+      "must_include": {"type": "array", "items": {"type": "string"}},
+      "must_not_include": {"type": "array", "items": {"type": "string"}},
+      "expected_downstream_skill": {"type": ["string", "null"]}
+    }
+  }
+}

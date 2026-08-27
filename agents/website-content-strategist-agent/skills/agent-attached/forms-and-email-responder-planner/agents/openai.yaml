@@ -1,0 +1,5 @@
+interface:
+  display_name: forms-and-email-responder-planner
+  short_description: Define forms, inputs, and responder emails
+  default_prompt: Use $forms-and-email-responder-planner to design form structures,
+    input fields, admin notifications, and user autoresponder emails.

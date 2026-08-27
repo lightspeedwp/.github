@@ -1,0 +1,190 @@
+name: Validate AI Feedback & Issue Linkage
+
+on:
+  # Safe use of `pull_request_target`:
+  # - only inspects PR body and files; does not execute user code
+  # - has write access to comment on PRs and check runs
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+    paths-ignore:
+      - ".github/reports/**"
+      - ".github/projects/**"
+      - ".github/tmp/**"
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+  checks: write
+
+concurrency:
+  group: ai-feedback-${{ github.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate-feedback-linkage:
+    name: Validate AI Feedback & Issue Linkage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Check PR-Issue linkage and feedback response
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { validateAIFeedback } = require('./scripts/validation/ai-feedback-helpers.cjs');
+
+            const pr = context.payload.pull_request;
+            const author = pr.user?.login || '';
+            const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
+            const isImgbot = author === 'imgbot[bot]' || author === 'app/imgbot';
+            const isBotAuthor = isDependabot || isImgbot;
+
+            core.info(`PR #${pr.number} by ${author}`);
+
+            // Skip bot PRs
+            if (isBotAuthor) {
+              core.info(`Skipping AI feedback validation for bot author ${author}.`);
+              return;
+            }
+
+            // Validate AI feedback requirements
+            const validation = await validateAIFeedback(
+              context.repo.owner,
+              context.repo.repo,
+              pr.number,
+              pr.body || ''
+            );
+
+            // Find previous validation comment
+            const marker = '<!-- ai-feedback-validation -->';
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              per_page: 100
+            });
+
+            const previousComment = comments.find((comment) =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            // Build response message
+            const message = buildValidationMessage(marker, validation);
+
+            // Update or create comment
+            if (previousComment && message !== null) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previousComment.id,
+                body: message.body
+              });
+            } else if (!previousComment && message !== null) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: message.body
+              });
+            } else if (previousComment && message === null) {
+              // Delete comment if validation now passes
+              await github.rest.issues.deleteComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previousComment.id
+              });
+            }
+
+            // Fail workflow if validation fails
+            if (!validation.passed) {
+              core.setFailed(`AI feedback validation failed for PR #${pr.number}`);
+            }
+
+            function buildValidationMessage(marker, validation) {
+              if (validation.passed) {
+                return null;
+              }
+
+              const issues = [];
+
+              if (validation.issues.missingIssueLink) {
+                issues.push('❌ **No issue link found** — PR must include `Resolves #XYZ` or `Closes #XYZ`');
+              }
+
+              if (validation.issues.missingFeedbackResponse) {
+                issues.push('⚠️ **No FEEDBACK_RESPONSE.md** — AI feedback tracking document is recommended');
+              }
+
+              if (validation.issues.incompleteFeedbackTracking) {
+                issues.push([
+                  '❌ **Incomplete feedback tracking** — FEEDBACK_RESPONSE.md has issues:',
+                  validation.issues.incompleteFeedbackTracking.map(i => `  - ${i}`).join('\n')
+                ].join('\n'));
+              }
+
+              if (validation.issues.invalidStatus) {
+                issues.push([
+                  '❌ **Invalid feedback status** — allowed values: ✅ Addressed, 📋 Deferred, ❌ Rejected',
+                  validation.issues.invalidStatus.map(i => `  - ${i}`).join('\n')
+                ].join('\n'));
+              }
+
+              if (validation.issues.deferredNoIssue) {
+                issues.push([
+                  '⚠️ **Deferred feedback missing issue** — deferred feedback must create a followup issue:',
+                  validation.issues.deferredNoIssue.map(i => `  - ${i}`).join('\n')
+                ].join('\n'));
+              }
+
+              return {
+                body: [
+                  marker,
+                  '## AI Feedback Validation Report',
+                  '',
+                  ...issues,
+                  '',
+                  '### Required Actions:',
+                  '1. Link this PR to related issues using `Resolves #123` or `Closes #123` in the PR description',
+                  '2. Create a `FEEDBACK_RESPONSE.md` file tracking all AI feedback and its resolution',
+                  '3. Ensure each feedback item has a status: ✅ Addressed, 📋 Deferred, or ❌ Rejected',
+                  '4. For deferred feedback, create a separate GitHub issue and link it',
+                  '',
+                  '📚 **Learn more:** [AI Feedback Response Tracking Guide](./docs/ai-feedback-response-tracking.md)'
+                ].join('\n')
+              };
+            }
+
+  check-feedback-response-format:
+    name: Check FEEDBACK_RESPONSE.md Format
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.files.*.filename, 'FEEDBACK_RESPONSE.md')
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Validate FEEDBACK_RESPONSE.md structure
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const { validateFeedbackResponseFile } = require('./scripts/validation/ai-feedback-helpers.cjs');
+
+            const filePath = 'FEEDBACK_RESPONSE.md';
+
+            if (!fs.existsSync(filePath)) {
+              core.info('FEEDBACK_RESPONSE.md not found');
+              return;
+            }
+
+            const content = fs.readFileSync(filePath, 'utf8');
+            const validation = validateFeedbackResponseFile(content);
+
+            if (!validation.valid) {
+              core.warning(`FEEDBACK_RESPONSE.md format issues:\n${validation.errors.join('\n')}`);
+            } else {
+              core.info('✅ FEEDBACK_RESPONSE.md format is valid');
+            }

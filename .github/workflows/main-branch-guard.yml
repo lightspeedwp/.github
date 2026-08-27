@@ -15,13 +15,20 @@ concurrency:
 
 jobs:
   validate-release-branch:
-    name: validate-release-branch
+    # GitHub does not auto-prefix a check-run name with the workflow name
+    # for a plain job — it just reports the job id/name as-is. main's branch
+    # protection requires the exact context "Main Branch Guard /
+    # validate-release-branch", so the name must be set to that literal
+    # string, not left as (or overridden to) the bare job id. A prior fix
+    # that just removed the override to "validate-release-branch" changed
+    # nothing, since that string was already identical to the job id.
+    name: "Main Branch Guard / validate-release-branch"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
       - name: Validate release branch name

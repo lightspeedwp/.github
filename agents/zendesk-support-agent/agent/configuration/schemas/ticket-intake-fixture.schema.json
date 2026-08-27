@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ticket Intake Fixture Structure",
+  "type": "object",
+  "required": ["title", "ticket_id", "customer", "summary", "expected_use"],
+  "properties": {
+    "title": {"type": "string", "const": "Ticket Intake Fixture"},
+    "ticket_id": {"type": "string", "minLength": 3},
+    "customer": {"type": "string", "minLength": 3},
+    "summary": {"type": "string", "minLength": 10},
+    "expected_use": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,260 @@
+{
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "harvest-api-client",
+      "description": "Access Harvest API to fetch time entries, projects, clients, team members, and financial data with flexible filtering and aggregation.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["get-time-entries", "get-projects", "get-clients", "get-team", "get-invoices", "get-expenses"],
+            "description": "Type of data to fetch"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Start date for time entries"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "End date for time entries"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Filter by project ID"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Filter by team member ID"
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Filter by client ID"
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "isBillable": {"type": "boolean"},
+              "status": {"type": "string"}
+            },
+            "description": "Additional filters"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "time-data-analyzer",
+      "description": "Analyze time tracking data to calculate utilization rates, productivity metrics, and identify patterns.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["analyze-utilization", "analyze-productivity", "detect-patterns", "identify-outliers"],
+            "description": "Analysis type"
+          },
+          "timeEntries": {
+            "type": "array",
+            "description": "Array of time entry objects to analyze"
+          },
+          "team": {
+            "type": "array",
+            "description": "Team member information"
+          },
+          "period": {
+            "type": "string",
+            "enum": ["daily", "weekly", "monthly", "quarterly"],
+            "description": "Analysis period"
+          },
+          "metrics": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Metrics to calculate"
+          }
+        },
+        "required": ["action", "timeEntries"]
+      }
+    },
+    {
+      "name": "profitability-calculator",
+      "description": "Calculate project and team profitability metrics including margins, ROI, and cost per deliverable.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["calculate-margin", "calculate-roi", "analyze-costs", "benchmark-performance"],
+            "description": "Calculation type"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project to analyze"
+          },
+          "timeData": {
+            "type": "object",
+            "description": "Time tracking data"
+          },
+          "budget": {
+            "type": "number",
+            "description": "Project budget"
+          },
+          "revenue": {
+            "type": "number",
+            "description": "Project revenue"
+          },
+          "costs": {
+            "type": "object",
+            "properties": {
+              "labor": {"type": "number"},
+              "overhead": {"type": "number"},
+              "materials": {"type": "number"}
+            },
+            "description": "Cost breakdown"
+          },
+          "deliverables": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Project deliverables"
+          }
+        },
+        "required": ["action"]
+      }
+    },
+    {
+      "name": "productivity-reporter",
+      "description": "Generate productivity reports including team efficiency, billable utilization, and performance trends.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["generate-team-report", "generate-individual-report", "generate-project-report", "generate-summary"],
+            "description": "Report type"
+          },
+          "entityId": {
+            "type": "string",
+            "description": "Team member, project, or team ID"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Report start date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Report end date"
+          },
+          "format": {
+            "type": "string",
+            "enum": ["pdf", "csv", "json", "html"],
+            "description": "Output format"
+          },
+          "includeMetrics": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Metrics to include"
+          }
+        },
+        "required": ["action", "entityId", "startDate", "endDate"]
+      }
+    },
+    {
+      "name": "budget-tracker",
+      "description": "Track project budgets, identify variances, and forecast final costs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["track-budget", "analyze-variance", "forecast-final-cost", "identify-overruns"],
+            "description": "Tracking action"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project to track"
+          },
+          "budget": {
+            "type": "number",
+            "description": "Total project budget"
+          },
+          "spent": {
+            "type": "number",
+            "description": "Amount spent to date"
+          },
+          "remaining": {
+            "type": "number",
+            "description": "Remaining hours or budget"
+          },
+          "burnRate": {
+            "type": "number",
+            "description": "Daily/weekly burn rate"
+          },
+          "timeline": {
+            "type": "object",
+            "properties": {
+              "startDate": {"type": "string"},
+              "endDate": {"type": "string"},
+              "daysRemaining": {"type": "integer"}
+            },
+            "description": "Project timeline"
+          }
+        },
+        "required": ["action", "projectId"]
+      }
+    },
+    {
+      "name": "invoice-generator",
+      "description": "Generate invoices from time data, project completion, and financial records.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["generate-invoice", "generate-batch", "calculate-amounts"],
+            "description": "Action type"
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Project to invoice"
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Client ID"
+          },
+          "timeEntries": {
+            "type": "array",
+            "description": "Time entries to include"
+          },
+          "expenses": {
+            "type": "array",
+            "description": "Expenses to include"
+          },
+          "rates": {
+            "type": "object",
+            "properties": {
+              "hourlyRate": {"type": "number"},
+              "laborCost": {"type": "number"}
+            },
+            "description": "Rate information"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Invoice due date"
+          },
+          "paymentTerms": {
+            "type": "string",
+            "enum": ["net-30", "net-45", "net-60", "immediate"],
+            "description": "Payment terms"
+          }
+        },
+        "required": ["action"]
+      }
+    }
+  ]
+}

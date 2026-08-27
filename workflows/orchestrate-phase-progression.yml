@@ -1,0 +1,167 @@
+name: "Orchestrate Phase Progression"
+
+on:
+  issues:
+    types: [opened, labeled, reopened, closed]
+  pull_request:
+    types: [opened, synchronize]
+  pull_request_target:
+    types: [closed]
+
+env:
+  OWNER: lightspeedwp
+  REPO: .github
+
+jobs:
+  sync-labels-on-issue-event:
+    name: Sync Labels on Issue Event
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync labels on issue event
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const mod = require('./scripts/automation/handlers/sync-labels-on-event.cjs');
+            const syncLabelsOnEvent = mod.syncLabelsOnEvent;
+
+            const issue = {
+              number: context.issue.number,
+              title: context.payload.issue.title,
+              body: context.payload.issue.body || '',
+              labels: (context.payload.issue.labels || []).map(l => ({
+                name: typeof l === 'string' ? l : l.name
+              }))
+            };
+
+            const eventType = context.payload.action;
+            console.log(`Processing issue #${issue.number} for event: ${eventType}`);
+
+            const result = syncLabelsOnEvent(issue, eventType, { dryRun: false });
+
+            console.log('Result:', JSON.stringify(result, null, 2));
+
+            if (result.conflicts.length > 0) {
+              core.warning(`Label conflicts detected: ${result.conflicts.join(', ')}`);
+            }
+
+            if (!result.success) {
+              core.setFailed(`Label sync failed: ${result.errors.join(', ')}`);
+            }
+
+  orchestrate-pr-progression:
+    name: Orchestrate PR Phase Progression
+    if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Detect linked issues and advance phase
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const mod = require('./scripts/automation/handlers/orchestrate-phase-progression.cjs');
+            const extractLinkedIssues = mod.extractLinkedIssues;
+            const orchestratePhaseProgression = mod.orchestratePhaseProgression;
+
+            const prBody = context.payload.pull_request.body || '';
+            const linkedIssues = extractLinkedIssues(prBody);
+
+            if (linkedIssues.length === 0) {
+              console.log('ℹ️  No linked issues found in PR');
+              return;
+            }
+
+            console.log(`Found linked issues: ${linkedIssues.join(', ')}`);
+
+            // Determine trigger based on PR event
+            let trigger = 'PR opened';
+            if (context.payload.action === 'closed' && context.payload.pull_request.merged) {
+              trigger = 'PR merged';
+            }
+
+            console.log(`Trigger: ${trigger}`);
+
+            // For each linked issue, attempt phase progression
+            for (const issueNum of linkedIssues) {
+              try {
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNum
+                });
+
+                const issueData = {
+                  number: issue.data.number,
+                  title: issue.data.title,
+                  body: issue.data.body || '',
+                  labels: (issue.data.labels || []).map(l => ({
+                    name: typeof l === 'string' ? l : l.name
+                  }))
+                };
+
+                console.log(`\nProcessing linked issue #${issueNum}`);
+                const result = orchestratePhaseProgression(issueData, trigger, { dryRun: false });
+
+                if (result.nextPhaseLabel) {
+                  console.log(`✅ Phase progression: ${result.currentPhaseLabel} → ${result.nextPhaseLabel}`);
+                }
+
+                if (result.errors.length > 0) {
+                  core.warning(`Issue #${issueNum}: ${result.errors.join(', ')}`);
+                }
+              } catch (error) {
+                core.warning(`Failed to process issue #${issueNum}: ${error.message}`);
+              }
+            }
+
+  validate-issue-completion:
+    name: Validate Issue Completion
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      contents: read
+    steps:
+      - name: Check for completion labels
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const labels = context.payload.issue.labels.map(l =>
+              typeof l === 'string' ? l : l.name
+            );
+
+            const hasCompletionLabel = labels.some(l =>
+              l.includes('complete') || l === 'status:done'
+            );
+
+            if (!hasCompletionLabel) {
+              core.warning(`Issue #${context.issue.number} closed without completion label. Expected: status:done or openspec:*-complete`);
+            } else {
+              console.log(`✅ Issue #${context.issue.number} closed with completion label`);
+            }

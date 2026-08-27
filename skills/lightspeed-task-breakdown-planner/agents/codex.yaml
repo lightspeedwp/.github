@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Task Breakdown Planner
+  short_description: Breaks implementation scope into sequenced, testable tasks and milestones.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - codex
+  allow_implicit_invocation: true
+  compatibility_mode: legacy-compatible

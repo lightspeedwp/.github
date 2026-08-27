@@ -1,0 +1,27 @@
+project_name: "Reporting workflow service page recommendation"
+website_or_workstream: "One-off page recommendation"
+core_goal: "Recommend the strongest page structure and conversion path"
+current_stage: "planning"
+current_focus: "Clarify page role, proof needs, and CTA model"
+best_next_step: "Run page intake plus conversion-goal strategy"
+approved_sources:
+  - "audience notes"
+  - "pain points"
+  - "cta direction"
+authority_order:
+  - "audience notes"
+  - "pain points"
+  - "cta direction"
+preferred_default_structure: "page recommendation then draft"
+preferred_review_depth: "medium"
+tone_defaults: "Clear, credible, practical, commercially aware"
+proof_or_evidence_standard: "No unsupported proof, guarantees, or outcome claims"
+preferred_english_style: "UK English"
+in_progress:
+  - "Page structure recommendation"
+next_actions:
+  - "Clarify buyer role and funnel stage"
+missing_inputs:
+  - "approved proof/testimonials"
+evidence_gaps:
+  - "no approved quantified outcomes"

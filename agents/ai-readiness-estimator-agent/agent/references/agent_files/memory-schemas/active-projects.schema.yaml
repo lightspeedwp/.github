@@ -1,0 +1,94 @@
+schema_version: 1.0.0
+file: active-projects.yaml
+purpose: Track current workstream state, next recommended actions, and active blockers for ongoing projects that are still in motion.
+root_type: mapping
+required_top_level_fields:
+  - schema_version
+  - file_type
+  - projects
+field_types:
+  schema_version: string
+  file_type: string
+  projects: sequence
+entry_rules:
+  root_sequence: projects
+  min_entries: 0
+  max_entries: 500
+  unique_key: project_key
+  required_fields:
+    - project_key
+    - current_workstream
+    - current_stage
+    - next_recommended_action
+    - last_updated
+  optional_fields:
+    - latest_package_direction
+    - active_blockers
+    - latest_deliverable
+    - review_status
+    - related_subjects
+    - notes
+  field_types:
+    project_key: string
+    current_workstream: string
+    current_stage: string
+    next_recommended_action: string
+    latest_package_direction: string
+    active_blockers: sequence
+    latest_deliverable: string
+    review_status: string
+    related_subjects: sequence
+    notes: string
+    last_updated: string
+  accepted_values:
+    current_workstream:
+      - readiness
+      - governance
+      - content_collection
+      - chatbot_discovery
+      - chatbot_build_planning
+      - implementation_discovery
+      - launch_qa
+      - plugin_review
+      - platform_review
+      - post_launch_optimisation
+    current_stage:
+      - not_started
+      - in_progress
+      - awaiting_input
+      - awaiting_review
+      - ready_for_handoff
+      - completed
+      - paused
+    review_status:
+      - none
+      - internal_review_needed
+      - client_review_needed
+      - approved
+  validation_rules:
+    - Store only active state that helps the agent resume work intelligently in later runs.
+    - Do not duplicate settled decisions that belong in project-decisions.yaml.
+    - Do not duplicate unresolved assumptions or risks that belong in project-assumptions-and-open-questions.yaml unless they are summarised here as short blocker labels.
+    - active_blockers should be compact summaries, not full diagnostic notes.
+update_rules:
+  - Replace stale active-state entries when the project advances to a new stage.
+  - Remove or simplify entries once a project is completed or no longer active.
+  - Keep detailed blockers, risks, and open questions in project-assumptions-and-open-questions.yaml.
+example:
+  schema_version: 1.0.0
+  file_type: active-projects
+  projects:
+    - project_key: acme-co-website
+      current_workstream: chatbot_discovery
+      current_stage: in_progress
+      next_recommended_action: Confirm approved source content and escalation ownership before drafting the recommendation memo.
+      latest_package_direction: AI Readiness Foundation plus discovery-gated chatbot planning.
+      active_blockers:
+        - Approved FAQ source set not confirmed
+        - Escalation owner not confirmed
+      latest_deliverable: Chatbot discovery questionnaire draft
+      review_status: internal_review_needed
+      related_subjects:
+        - ai-engine-meow-apps
+      notes: Discovery is moving, but launch and lead-capture recommendations should stay provisional until governance inputs are confirmed.
+      last_updated: 2026-05-15

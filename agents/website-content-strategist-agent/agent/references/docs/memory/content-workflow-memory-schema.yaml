@@ -1,0 +1,81 @@
+version: 1
+memory_file: content-workflow-memory.md
+required_sections:
+  - Workflow defaults
+  - CTA and routing defaults
+  - Approval and sensitivity defaults
+  - Structural defaults
+  - Forms and responder defaults
+  - Chatbot intake defaults
+  - Last updated
+fields:
+  content_type:
+    type: enum
+    allowed_values: [website page, section, newsletter, form specification, responder email, policy page, chatbot intake page]
+    required: false
+  page_type:
+    type: string
+    required: false
+  preferred_template_family:
+    type: string
+    required: false
+  default_output_type:
+    type: string
+    required: false
+  primary_cta_model:
+    type: string
+    required: false
+  secondary_cta_model:
+    type: string
+    required: false
+  primary_routing_destination:
+    type: string
+    required: false
+  claim_sensitivity:
+    type: enum
+    allowed_values: [low, medium, high, approval-sensitive, legal-sensitive]
+    required: false
+  legal_or_policy_review_sensitivity:
+    type: string
+    required: false
+  required_approver:
+    type: string
+    required: false
+  required_recurring_sections:
+    type: list[string]
+    required: false
+  optional_recurring_sections:
+    type: list[string]
+    required: false
+  internal_linking_pattern:
+    type: string
+    required: false
+  form_routing_model:
+    type: string
+    required: false
+  admin_notification_owner:
+    type: string
+    required: false
+  user_responder_style:
+    type: string
+    required: false
+  intake_purpose:
+    type: string
+    required: false
+  escalation_route:
+    type: string
+    required: false
+  exclusions_or_boundaries:
+    type: list[string]
+    required: false
+  last_updated_date:
+    type: date
+    format: YYYY-MM-DD
+    required: true
+  last_updated_reason:
+    type: string
+    required: true
+rules:
+  - Save only confirmed defaults that will matter again.
+  - Do not duplicate values that already live more appropriately in project-context or user-preferences files.
+  - Remove outdated defaults instead of keeping conflicting versions.

@@ -1,0 +1,127 @@
+# Canonical Zendesk-first workflow names.
+# Use this map to keep zendesk-triage-router aligned with the Zendesk skill network owned by zendesk-router-skill.
+# Legacy non-prefixed names are historical input aliases only and must not be emitted as downstream routes.
+
+router:
+  canonical: zendesk-triage-router
+  owns:
+    - embedded first-pass Zendesk ticket classification
+    - severity and priority recommendation
+    - owner/team recommendation
+    - queue/status guidance
+    - first-pass duplicate-risk assessment
+    - narrow immediate support handoffs
+
+network_router:
+  canonical: zendesk-router-skill
+  owns:
+    - broad Zendesk skill-network routing
+    - cross-skill workflow selection
+    - returning unclear specialist handoffs to the central router
+
+workflows:
+  evidence_collection:
+    canonical: zendesk-evidence-collector
+    use_for:
+      - proof gathering
+      - root-cause analysis
+      - reproduction context
+      - ticket timeline reconstruction
+      - known-issue checking
+      - diagnostic investigation embedded for the LightSpeed support desk
+    fallback_plain_language: collect Zendesk evidence and build a support case file before deciding the next action
+
+  customer_research:
+    canonical: zendesk-customer-research
+    use_for:
+      - customer context
+      - account support-health brief
+      - recent support activity
+      - escalation signals from customer history
+    fallback_plain_language: build a Zendesk-first customer/account context brief
+
+  draft_response:
+    canonical: zendesk-draft-response
+    use_for:
+      - customer-facing support reply
+      - follow-up update
+      - apology or delay message
+      - workaround wording
+      - closure note
+    fallback_plain_language: draft a customer-facing support response from confirmed facts
+
+  customer_escalation:
+    canonical: zendesk-customer-escalation
+    use_for:
+      - engineering escalation
+      - product escalation
+      - security or compliance escalation
+      - leadership or specialist intervention
+      - impact-led decision request
+    fallback_plain_language: prepare an impact-led escalation brief with evidence, risk, urgency, and exact ask
+
+  handoff_prep:
+    canonical: zendesk-handoff-prep
+    use_for:
+      - support-first internal handoff
+      - specialist handoff
+      - operations handoff
+      - downstream support summary without assuming Linear or GitHub
+    fallback_plain_language: prepare a support-first handoff with problem, impact, evidence, attempted steps, blocker, owner, urgency, and exact ask
+
+  case_readiness:
+    canonical: zendesk-case-readiness-check
+    use_for:
+      - evidence sufficiency check
+      - readiness before reply
+      - readiness before escalation
+      - readiness before handoff
+      - readiness before knowledge draft
+    fallback_plain_language: check whether the case has enough evidence for the requested support deliverable
+
+  duplicate_pattern_review:
+    canonical: zendesk-duplicate-pattern-review
+    use_for:
+      - duplicate judgement
+      - related-ticket review
+      - repeated pain pattern
+      - broader incident-pattern concern
+    fallback_plain_language: compare the cases and decide whether they are duplicates, related issues, repeated pain, or a possible incident pattern
+
+  knowledge_candidate_review:
+    canonical: zendesk-knowledge-candidate-review
+    use_for:
+      - documentation-worthiness decision
+      - public vs internal knowledge boundary
+      - help-centre overlap check
+      - stability check before drafting
+    fallback_plain_language: decide whether the case is ready to become reusable support documentation
+
+  create_knowledge:
+    canonical: zendesk-create-knowledge
+    use_for:
+      - help-centre article draft
+      - support knowledge article
+      - faq entry
+      - troubleshooting guide
+      - internal knowledge draft
+    fallback_plain_language: draft the reusable support knowledge article or internal knowledge note from stable confirmed evidence
+
+  backlog_trend_analysis:
+    canonical: zendesk-backlog-trend-analysis
+    use_for:
+      - queue health report
+      - support backlog trend
+      - repeated issue summary
+      - SLA or ageing risk
+      - daily or weekly support digest
+    fallback_plain_language: analyse Zendesk support backlog health, repeated themes, queue risk, and priority support actions
+
+  evidence_quality_review:
+    canonical: zendesk-evidence-quality-review
+    use_for:
+      - review draft support output
+      - check unsupported claims
+      - check unsafe customer-facing wording
+      - check unclear next steps
+    fallback_plain_language: review the draft for evidence quality, unsupported claims, wording risk, and unclear next steps

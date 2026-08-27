@@ -1,0 +1,15 @@
+title: assumptions-and-open-questions
+required:
+  - assumptions
+  - open_questions
+properties:
+  assumptions:
+    type: array
+    items:
+      type: object
+      required: [statement, status, source]
+  open_questions:
+    type: array
+    items:
+      type: object
+      required: [question, impact, owner]

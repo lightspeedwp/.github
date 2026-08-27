@@ -1,0 +1,5 @@
+interface:
+  display_name: proposal-defaults-onboarding
+  short_description: Collect reusable proposal defaults and resume work.
+  default_prompt: Use $proposal-defaults-onboarding to collect only the missing proposal
+    defaults needed for the current task.

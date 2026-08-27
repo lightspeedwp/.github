@@ -1,0 +1,13 @@
+interface:
+  display_name: Zendesk Refund Assessment
+  short_description: Assess refund, credit, goodwill, compensation, and exception
+    cases before replying.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

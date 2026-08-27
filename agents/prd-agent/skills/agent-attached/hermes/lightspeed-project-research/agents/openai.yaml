@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS Project Research"
+  short_description: "Summarise project evidence into a source-backed research brief."
+  default_prompt: "Use $lightspeed-project-research to research project sources and produce a grounded LightSpeed research brief."

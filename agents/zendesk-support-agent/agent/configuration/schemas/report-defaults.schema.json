@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Report Defaults",
+  "description": "Durable default settings for repeated Zendesk-first reporting runs.",
+  "type": "object",
+  "required": [
+    "timeframe_days",
+    "include_sections",
+    "next_actions_count",
+    "comparison_mode",
+    "include_example_tickets"
+  ],
+  "properties": {
+    "timeframe_days": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 365,
+      "description": "Default reporting window, in days, when the user does not specify one."
+    },
+    "include_sections": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "description": "Name of a section that should usually appear in repeated reports."
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Sections that should usually be included in recurring backlog or trend outputs."
+    },
+    "next_actions_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Default number of next actions the report should include."
+    },
+    "comparison_mode": {
+      "type": "string",
+      "enum": ["none", "period_over_period", "previous_run"],
+      "description": "Whether the report should compare current results against another period or a prior run."
+    },
+    "include_example_tickets": {
+      "type": "boolean",
+      "description": "Whether representative tickets should usually be included when they improve the report."
+    }
+  },
+  "additionalProperties": false
+}

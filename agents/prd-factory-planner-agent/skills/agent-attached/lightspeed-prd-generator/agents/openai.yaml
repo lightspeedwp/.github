@@ -1,0 +1,4 @@
+interface:
+  display_name: LightSpeed PRD Generator
+  short_description: Create PRDs for Figma-to-WordPress block theme, block plugin and website projects.
+  icon: assets/icon.svg

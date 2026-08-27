@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getWceuSlides, resolveWceuReferenceHref } from "../../../lib/wceuSlides";
+
+export async function getStaticPaths() {
+  return getWceuSlides().map((slide) => ({
+    params: { slug: slide.slug },
+    props: { slide },
+  }));
+}
+
+const { slide } = Astro.props;
+
+if (!slide) {
+  throw new Error("WCEU slide data was not provided.");
+}
+
+const slideReferences = slide.evidence.map((evidence) => ({
+  evidence,
+  href: resolveWceuReferenceHref(evidence),
+}));
+---
+
+<BaseLayout
+  title={`${slide.title} - Awesome GitHub`}
+  description={slide.description}
+>
+  <section class="hero">
+    <div class="eyebrow">Slide {slide.number.toString().padStart(2, "0")}</div>
+    <h1>{slide.title.replace(/^Slide \d+ - /, "")}</h1>
+    <p class="lede">{slide.description}</p>
+    <div class="hero-actions">
+      <a class="button primary" href="/wceu-2026/">Back to the talk page</a>
+      <a class="button secondary" href="/wceu-2026/slides/">Browse all slides</a>
+      <a class="button secondary" href={slide.sourceHref} target="_blank" rel="noreferrer">
+        Open source markdown
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Source markdown</h2>
+    <div class="page-copy">
+      <p>
+        This page is generated from the canonical slide file in the repository and the
+        supporting references listed below.
+      </p>
+      <p>
+        <a class="inline-link" href={slide.sourceHref} target="_blank" rel="noreferrer">
+          Open {slide.sourceFile}
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Key points</h2>
+    <div class="page-copy">
+      <ul>
+        {slide.keyPoints.map((point) => <li>{point}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Speaker notes</h2>
+    <div class="page-copy">
+      <ul>
+        {slide.speaker.length > 0
+          ? slide.speaker.map((point) => <li>{point}</li>)
+          : <li>No additional speaker expansion notes were recorded for this slide.</li>}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Accessibility notes</h2>
+    <div class="page-copy">
+      <ul>
+        {slide.accessibility.length > 0
+          ? slide.accessibility.map((note) => <li>{note}</li>)
+          : <li>Use the same high-contrast, low-motion, readable layout used across the talk.</li>}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>References</h2>
+    <div class="refs refs-stack">
+      {slideReferences.map((reference) => (
+        <a class="ref" href={reference.href} target="_blank" rel="noreferrer">
+          <strong>{reference.evidence}</strong>
+          <span>Reference used in this slide</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

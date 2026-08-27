@@ -1,0 +1,28 @@
+{
+  "issue_summary": "The requester cannot access the dashboard after two password resets, but the exact error is not provided.",
+  "urgency": "normal",
+  "severity": "Medium",
+  "recommended_priority": "Normal",
+  "issue_type": "account/access",
+  "likely_owner": "frontline support",
+  "likely_owner_rationale": "Routine access troubleshooting is needed before specialist involvement.",
+  "duplicate_or_pattern_risk": "not assessed",
+  "duplicate_or_pattern_risk_rationale": "No related tickets or repeated symptoms are visible in the supplied evidence.",
+  "customer_impact": "The customer cannot access the dashboard; business impact is not stated.",
+  "confirmed_facts": [
+    "The customer attempted password reset twice.",
+    "The customer still cannot log in."
+  ],
+  "inferred_risks_or_concerns": [
+    "The issue may be user/account-specific, but this is not confirmed."
+  ],
+  "missing_information": [
+    "Exact error message or screenshot.",
+    "Affected account identifier."
+  ],
+  "escalation_signals": "none confirmed",
+  "escalation_signals_rationale": "No outage, security, payment, VIP, SLA, or repeated-failure signal is visible.",
+  "recommended_next_action": "Request the missing login details and provide safe first-line troubleshooting steps.",
+  "recommended_downstream_skill": "zendesk-draft-response",
+  "recommended_downstream_rationale": "A customer-facing request for missing evidence is likely the next practical step."
+}

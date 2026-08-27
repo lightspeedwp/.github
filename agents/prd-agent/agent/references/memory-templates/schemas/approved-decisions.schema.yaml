@@ -1,0 +1,9 @@
+title: approved-decisions
+required:
+  - decisions
+properties:
+  decisions:
+    type: array
+    items:
+      type: object
+      required: [decision, approved_by, approved_at]

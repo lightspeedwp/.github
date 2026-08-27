@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms webhook and automation feed review",
+  "type": "object",
+  "required": [
+    "site_url",
+    "form_id",
+    "feed_type",
+    "external_system",
+    "environment",
+    "data_sent",
+    "approval_required",
+    "risk_level",
+    "validation_steps"
+  ],
+  "properties": {
+    "site_url": {"type": "string"},
+    "form_id": {"type": ["string", "number"]},
+    "feed_type": {"type": "string"},
+    "external_system": {"type": "string"},
+    "environment": {"enum": ["production", "staging", "test", "unknown"]},
+    "data_sent": {"type": "array", "items": {"type": "string"}},
+    "data_excluded": {"type": "array", "items": {"type": "string"}},
+    "sends_uploaded_files": {"type": "boolean"},
+    "sends_personal_data": {"type": "boolean"},
+    "approval_required": {"type": "boolean"},
+    "risk_level": {"enum": ["low", "medium", "high", "critical", "unknown"]},
+    "validation_steps": {"type": "array", "items": {"type": "string"}},
+    "logs_cleanup_required": {"type": "boolean"}
+  },
+  "additionalProperties": true
+}

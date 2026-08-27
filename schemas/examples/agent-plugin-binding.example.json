@@ -1,0 +1,21 @@
+{
+  "plugin_id": "lightspeed-playwright-testing",
+  "agents": [
+    {
+      "agent_id": "playwright-testing",
+      "path": "agents/playwright-testing.agent.md",
+      "required_skills": ["test-pack-builder"],
+      "required_hooks": [
+        "agent-spec-validator",
+        "multi-provider-consistency-checker"
+      ],
+      "provider_support": { "claude": true, "copilot": true, "openai": true }
+    }
+  ],
+  "skills": [
+    { "id": "test-pack-builder", "providers": ["claude", "copilot", "openai"] }
+  ],
+  "hooks": [
+    { "id": "plugin-integrity-checker", "triggers": ["pre-commit", "pre-push"] }
+  ]
+}

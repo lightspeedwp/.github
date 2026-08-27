@@ -639,7 +639,6 @@ async function run() {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
 
-
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });
 

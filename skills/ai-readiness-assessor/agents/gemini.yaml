@@ -1,0 +1,10 @@
+interface:
+  display_name: AI Readiness Assessor
+  short_description: Assesses AI readiness signals and creates actionable readiness reports.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental

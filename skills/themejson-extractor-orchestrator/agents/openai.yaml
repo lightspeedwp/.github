@@ -1,0 +1,4 @@
+interface:
+  display_name: "ThemeJSON Extractor Orchestrator"
+  short_description: "Run theme.json extractors step by step with checkpoints"
+  default_prompt: "Use $themejson-extractor-orchestrator to run the WordPress theme.json extraction workflow step by step, collecting the right Figma nodes and pausing for user verification after each extractor."

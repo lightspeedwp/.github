@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WordPress Accessibility Finding",
+  "type": "object",
+  "required": [
+    "issue_id",
+    "title",
+    "url",
+    "severity",
+    "status",
+    "owner",
+    "safe_to_fix"
+  ],
+  "properties": {
+    "issue_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string"
+    },
+    "content_id": {
+      "type": [
+        "string",
+        "number",
+        "null"
+      ]
+    },
+    "source_area": {
+      "type": "string"
+    },
+    "selector": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "blocker",
+        "serious",
+        "moderate",
+        "minor",
+        "needs review"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "status": {
+      "enum": [
+        "open",
+        "recommended",
+        "fix planned",
+        "fixed",
+        "needs manual test",
+        "not supported"
+      ]
+    },
+    "owner": {
+      "enum": [
+        "content",
+        "developer",
+        "design",
+        "plugin/vendor",
+        "manual qa",
+        "unknown"
+      ]
+    },
+    "safe_to_fix": {
+      "type": "boolean"
+    },
+    "recommended_fix": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "manual_follow_up": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

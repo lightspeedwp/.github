@@ -1,0 +1,116 @@
+name: CI • Unified Checks (Lint, Test, Validate)
+
+on:
+  pull_request:
+    branches: [develop]
+    paths-ignore:
+      - ".github/reports/**"
+      - ".github/projects/**"
+      - ".github/tmp/**"
+  push:
+    branches: [develop]
+    paths-ignore:
+      - ".github/reports/**"
+      - ".github/projects/**"
+      - ".github/tmp/**"
+  merge_group:
+    types: [checks_requested]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Linting
+    if: github.actor != 'imgbot[bot]'
+    runs-on: ubuntu-latest
+    env:
+      # lint:md:changed diffs this range; without it the base ref cannot be
+      # resolved from a shallow checkout and the markdown lint would silently
+      # skip. fetch-depth: 0 supplies the history the diff needs.
+      BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
+      HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci
+      - run: npm run lint:all
+      # Catches the exact class of bug removed below before it can merge: a
+      # workflow step invoking an npm script that doesn't exist in
+      # package.json. Scoped to workflow files this diff changed.
+      - run: npm run validate:workflow-npm-scripts
+      # validate:skill-manifests and validate:agent-hooks removed: neither npm
+      # script has ever existed, so both steps only ever exited with
+      # "Missing script". No CI job currently validates skill-manifest
+      # content directly — validate:skills in validate:all would cover it,
+      # but validate:all is not invoked by any workflow (verified via grep
+      # across .github/workflows/); that's a separate, pre-existing gap, not
+      # something this removal closes. validate-agent-hooks.cjs exists and is
+      # functional, but wiring it up surfaces two pre-existing content
+      # defects in agents/chat-closure-agent/AGENT.md (invalid status, 0/4
+      # provider coverage) that are an authoring task for that agent's
+      # owner, not a CI plumbing fix — tracked in #1962.
+      - run: npm run validate:plugins
+
+  test:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci
+      - run: npm run test
+
+  validate:
+    name: Validation
+    if: github.actor != 'imgbot[bot]'
+    runs-on: ubuntu-latest
+    env:
+      BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
+      HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci
+      - name: Validate branch name
+        if: github.event_name != 'merge_group'
+        env:
+          BRANCH_NAME: ${{ github.event.merge_group.head_ref || github.event.pull_request.head.ref || github.ref_name }}
+        run: npm run validate:branch-name
+      - name: Validate changed JSON files only
+        run: npm run validate:json
+      - name: Validate issue fields (changed files only)
+        run: npm run validate:issue-fields
+      - name: Validate retired documentation links (changed files only)
+        run: npm run validate:retired-doc-links
+      - name: Validate frontmatter (changed only)
+        run: npm run validate:frontmatter:changed -- --base ${{ env.BASE_SHA }} --head ${{ env.HEAD_SHA }}
+
+  # Composite status check: ensures all checks pass before merge
+  all-checks:
+    name: All Checks Passed
+    needs: [lint, test, validate]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate check results
+        run: test "${{ needs.lint.result }}" != "failure" -a "${{ needs.test.result }}" != "failure" -a "${{ needs.validate.result }}" != "failure" && echo "✅ All checks passed" || (echo "❌ One or more checks failed" && exit 1)

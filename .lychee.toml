@@ -1,0 +1,3 @@
+# Lychee link-checker configuration
+# Only check http and https URLs; skip local file-scheme links.
+scheme = ["https", "http"]

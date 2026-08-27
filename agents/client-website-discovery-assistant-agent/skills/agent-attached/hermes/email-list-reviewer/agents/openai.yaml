@@ -1,0 +1,15 @@
+interface:
+  display_name: Email List Reviewer
+  short_description: Review email marketing list quality and governance.
+  default_prompt:
+    Use $email-list-reviewer to review email list health, governance,
+    risks, and follow-up actions.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

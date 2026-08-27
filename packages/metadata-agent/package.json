@@ -1,0 +1,70 @@
+{
+  "name": "@lightspeedwp/metadata-agent",
+  "version": "1.0.0-rc.1",
+  "description": "Shared npm package for metadata agent — label utilities, GitHub API integration, validation, and confidence scoring",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./src/index.js",
+    "./label-utils": "./src/label-utils.js",
+    "./api-client": "./src/api-client.js",
+    "./validation": "./src/validation.js",
+    "./confidence-scorer": "./src/confidence-scorer.js",
+    "./error-handler": "./src/error-handler.js"
+  },
+  "files": [
+    "src",
+    "types",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src tests types",
+    "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\" \"types/**/*.ts\" \"*.md\"",
+    "format:check": "prettier --check \"src/**/*.js\" \"tests/**/*.js\" \"types/**/*.ts\" \"*.md\"",
+    "prepublishOnly": "npm run lint && npm run test:coverage && npm run format:check"
+  },
+  "keywords": [
+    "github",
+    "metadata",
+    "labels",
+    "validation",
+    "project-fields",
+    "lightspeedwp"
+  ],
+  "author": "LightSpeedWP",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "packages/metadata-agent"
+  },
+  "bugs": {
+    "url": "https://github.com/lightspeedwp/.github/issues"
+  },
+  "homepage": "https://github.com/lightspeedwp/.github/tree/develop/packages/metadata-agent#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.0",
+    "pino": "^8.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@types/jest": "^29.5.0",
+    "eslint": "^8.40.0",
+    "jest": "^29.5.0",
+    "jest-mock-extended": "^3.0.4",
+    "nock": "^13.3.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.8.8",
+    "supertest": "^6.3.3"
+  }
+}

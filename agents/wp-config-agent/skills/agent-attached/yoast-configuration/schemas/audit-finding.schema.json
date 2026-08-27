@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast audit finding",
+  "type": "object",
+  "required": [
+    "finding_id",
+    "area",
+    "location",
+    "observed_evidence",
+    "expected_behaviour",
+    "severity",
+    "priority",
+    "confidence",
+    "owner_direction",
+    "recommended_action",
+    "qa_check",
+    "evidence_state"
+  ],
+  "properties": {
+    "finding_id": {"type": "string", "pattern": "^YOAST-[A-Z]+-[0-9]{3}$"},
+    "area": {
+      "type": "string",
+      "enum": ["metadata", "canonical", "robots", "sitemap", "schema", "breadcrumbs", "woocommerce", "migration", "redirects", "ai_metadata", "developer_customisation", "product_packaging", "source_evidence", "other"]
+    },
+    "location": {"type": "string", "minLength": 1},
+    "observed_evidence": {"type": "string", "minLength": 1},
+    "expected_behaviour": {"type": "string", "minLength": 1},
+    "impact": {"type": "string"},
+    "severity": {"type": "string", "enum": ["critical", "high", "medium", "low", "advisory"]},
+    "priority": {"type": "string", "enum": ["P0", "P1", "P2", "P3", "backlog"]},
+    "confidence": {"type": "string", "enum": ["verified", "likely", "partial", "weak", "unknown"]},
+    "owner_direction": {"type": "string", "enum": ["seo_configuration", "content", "developer", "woocommerce_data", "client_approval", "hosting_platform", "research_refresh"]},
+    "recommended_action": {"type": "string", "minLength": 1},
+    "qa_check": {"type": "string", "minLength": 1},
+    "evidence_state": {
+      "type": "string",
+      "enum": ["research target", "scanned evidence", "verified current source", "stale evidence", "contradicted evidence", "inference", "unsupported", "needs live verification"]
+    },
+    "sources": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

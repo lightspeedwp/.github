@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Change request",
+  "type": "object",
+  "required": ["change_summary", "change_type", "scope_impact", "approval_requirement"],
+  "properties": {
+    "change_summary": { "type": "string" },
+    "change_type": { "type": "string" },
+    "confirmed_source": { "type": "string" },
+    "scope_impact": { "type": "string" },
+    "estimate_impact": { "type": "string" },
+    "timeline_or_dependency_impact": { "type": "string" },
+    "qa_impact": { "type": "string" },
+    "approval_requirement": { "type": "string" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,211 @@
+{
+  "id": "tour-operator-config",
+  "name": "Tour Operator Configuration Agent",
+  "version": "1.0.0",
+  "description": "Multi-provider configuration agent for tour operator WordPress/WooCommerce sites",
+  "author": "LightSpeedWP",
+  "license": "proprietary",
+  "homepage": "https://github.com/lightspeedwp/.github/tree/develop/agents/tour-operator-config-agent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git"
+  },
+  "keywords": [
+    "tour-operations",
+    "wordpress",
+    "woocommerce",
+    "configuration",
+    "audit",
+    "booking-systems"
+  ],
+  "categories": ["configuration", "audit", "wordpress"],
+  "providers": [
+    {
+      "name": "copilot",
+      "type": "github-copilot",
+      "version": "1.0.0"
+    }
+  ],
+  "manifest": {
+    "agent": {
+      "name": "Tour Operator Configuration Agent",
+      "description": "Audit, configure, and optimise tour operator WordPress sites",
+      "instructions_file": "agent/agent.md",
+      "system_prompt": "You are the Tour Operator Configuration Agent. Audit WordPress/WooCommerce sites serving tour operators, recommend configuration improvements, validate setup coherence, and produce launch-ready optimisation plans. Keep outputs practical, client-safe, traceable, and actionable. Use UK English in all outputs."
+    },
+    "skills": [
+      {
+        "id": "wordpress-site-analysis",
+        "name": "WordPress Site Analysis",
+        "description": "Inspect WordPress site settings, plugins, content structure, and tour-operator configuration",
+        "commands": ["audit", "inspect", "snapshot"],
+        "triggers": ["site", "inspect", "audit", "wordpress"]
+      },
+      {
+        "id": "woo-setup-optimization",
+        "name": "WooCommerce Setup Optimization",
+        "description": "Recommend WooCommerce configuration for tour operations",
+        "commands": ["recommend", "design", "plan"],
+        "triggers": ["woo", "woocommerce", "checkout", "setup"]
+      },
+      {
+        "id": "tour-booking-config",
+        "name": "Tour Booking Configuration",
+        "description": "Design and guide tour-specific booking workflows",
+        "commands": ["design", "plan", "setup"],
+        "triggers": ["booking", "workflow", "form", "tour"]
+      },
+      {
+        "id": "performance-tuning",
+        "name": "Performance Tuning",
+        "description": "Identify and prioritise performance opportunities",
+        "commands": ["analyze", "prioritize", "plan"],
+        "triggers": ["performance", "optimize", "speed", "core-web"]
+      },
+      {
+        "id": "security-hardening",
+        "name": "Security Hardening",
+        "description": "Audit security posture and recommend hardening",
+        "commands": ["audit", "scan", "plan"],
+        "triggers": ["security", "vulnerability", "ssl", "password"]
+      }
+    ],
+    "integrations": {
+      "github": {
+        "enabled": true,
+        "features": [
+          "repository-context",
+          "pull-request-review",
+          "issue-creation"
+        ]
+      },
+      "wordpress": {
+        "enabled": true,
+        "features": [
+          "site-inspection",
+          "configuration-read",
+          "staging-preferred"
+        ]
+      },
+      "slack": {
+        "enabled": false,
+        "features": []
+      }
+    },
+    "configuration": {
+      "required": [
+        {
+          "key": "STAGING_SITE_URL",
+          "type": "string",
+          "description": "WordPress staging site URL"
+        },
+        {
+          "key": "TOUR_OPERATOR_STANDARD",
+          "type": "enum",
+          "values": [
+            "lightspeed-tour-operator",
+            "wordpress-best-practice",
+            "woocommerce-standard"
+          ],
+          "default": "lightspeed-tour-operator"
+        }
+      ],
+      "optional": [
+        {
+          "key": "LIVE_SITE_URL",
+          "type": "string",
+          "description": "WordPress live site URL"
+        },
+        {
+          "key": "VALIDATION_STRICTNESS",
+          "type": "enum",
+          "values": ["lenient", "moderate", "strict"],
+          "default": "moderate"
+        },
+        {
+          "key": "LANGUAGE",
+          "type": "string",
+          "default": "en-GB",
+          "description": "Output language (UK English)"
+        }
+      ]
+    },
+    "permissions": [
+      {
+        "scope": "github:repo",
+        "level": "read",
+        "description": "Read repository context for plugin stack and configuration"
+      },
+      {
+        "scope": "wordpress:read",
+        "level": "read",
+        "description": "Read WordPress site configuration"
+      }
+    ],
+    "settings": {
+      "response_format": "markdown",
+      "tone": "professional-practical",
+      "detail_level": "structured",
+      "show_reasoning": false,
+      "include_recommendations": true
+    }
+  },
+  "capabilities": {
+    "core": [
+      "site-analysis",
+      "configuration-audit",
+      "architecture-recommendations",
+      "setup-validation",
+      "optimization-planning"
+    ],
+    "tour_operator_specific": [
+      "booking-system-configuration",
+      "plugin-stack-coherence",
+      "tour-content-structure",
+      "gravity-forms-validation",
+      "yoast-seo-audit"
+    ],
+    "delivery": [
+      "client-safe-reports",
+      "implementation-guides",
+      "remediation-roadmaps",
+      "launch-readiness-assessment"
+    ]
+  },
+  "limitations": {
+    "cannot": [
+      "Execute code or build custom post types",
+      "Perform theme design or template customization",
+      "Troubleshoot unrelated third-party integrations",
+      "Make destructive changes without approval",
+      "Store credentials or sensitive data",
+      "Provide generic business or marketing advice"
+    ]
+  },
+  "resources": {
+    "documentation": {
+      "main": "https://github.com/lightspeedwp/.github/blob/develop/agents/tour-operator-config-agent/AGENT.md",
+      "guide": "https://github.com/lightspeedwp/.github/blob/develop/agents/tour-operator-config-agent/README.md",
+      "standards": "https://github.com/lightspeedwp/.github/blob/develop/agents/tour-operator-config-agent/agent/references/wordpress-tour-operator-standard.md"
+    },
+    "support": {
+      "issues": "https://github.com/lightspeedwp/.github/issues",
+      "contact": "https://lightspeedwp.agency/contact"
+    }
+  },
+  "activation": {
+    "trigger_phrases": [
+      "@tour-operator-config",
+      "tour operator",
+      "configuration agent",
+      "site audit"
+    ]
+  },
+  "metadata": {
+    "created": "2026-07-22",
+    "last_updated": "2026-07-22",
+    "status": "active",
+    "stability": "stable",
+    "maturity": "v1-stable"
+  }
+}

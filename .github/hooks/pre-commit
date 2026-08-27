@@ -1,0 +1,59 @@
+#!/bin/bash
+
+##
+# Pre-commit Hook: Branch Name Validation
+#
+# Validates branch names before each commit to ensure they follow the LightSpeed
+# branching strategy: {type}/{scope}-{short-title}
+#
+# This hook automatically skips validation for:
+# - Protected branches (main, develop)
+# - Bot/automation branches (dependabot/*, renovate/*)
+# - Detached HEAD state (during rebase, merge, bisect operations)
+#
+# If validation fails, the commit is blocked with a helpful error message.
+# To bypass the hook for development/testing, use: git commit --no-verify
+#
+# Installation: npm run setup:hooks
+#
+##
+
+set -e
+
+# Get the current branch name
+BRANCH_NAME=$(git branch --show-current 2>/dev/null || true)
+
+# Skip validation if in detached HEAD state (rebase, merge, bisect, etc.)
+if [ -z "$BRANCH_NAME" ]; then
+  exit 0
+fi
+
+# Skip validation for protected and bot branches
+if [ "$BRANCH_NAME" = "main" ] || [ "$BRANCH_NAME" = "develop" ] || \
+   [[ "$BRANCH_NAME" =~ ^(dependabot|renovate)/ ]]; then
+  exit 0
+fi
+
+# Get the repository root
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+
+# Path to validation script (from .git/hooks to repo root)
+VALIDATION_SCRIPT="$REPO_ROOT/scripts/validation/validate-branch-name.cjs"
+
+# Check if validation script exists
+if [ ! -f "$VALIDATION_SCRIPT" ]; then
+  echo "⚠️  Branch validation script not found at $VALIDATION_SCRIPT"
+  echo "   Skipping validation. Install the latest version to enable."
+  exit 0
+fi
+
+# Run validation
+if ! node "$VALIDATION_SCRIPT" "$BRANCH_NAME"; then
+  echo ""
+  echo "💡 Tip: If you need to bypass this check for testing, use:"
+  echo "   git commit --no-verify"
+  echo ""
+  exit 1
+fi
+
+exit 0

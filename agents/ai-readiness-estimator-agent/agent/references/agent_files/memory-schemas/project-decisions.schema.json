@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lightspeed.local/schemas/project-decisions.schema.json",
+  "title": "project-decisions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decisions"],
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/decision" }
+    }
+  },
+  "$defs": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "decisionType": {
+      "type": "string",
+      "enum": [
+        "base_package",
+        "addon",
+        "exclusion",
+        "delivery_constraint",
+        "commercial",
+        "governance",
+        "source_policy",
+        "measurement",
+        "chatbot_scope",
+        "technical"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["provisional", "confirmed", "archived"]
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_key",
+        "decision_id",
+        "decision_date",
+        "decision_type",
+        "decision",
+        "status"
+      ],
+      "properties": {
+        "project_key": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "decision_id": {
+          "type": "string",
+          "pattern": "^dec-\\d{3,}$"
+        },
+        "decision_date": { "$ref": "#/$defs/date" },
+        "decision_type": { "$ref": "#/$defs/decisionType" },
+        "decision": { "type": "string", "minLength": 1 },
+        "status": { "$ref": "#/$defs/status" },
+        "source": { "type": "string", "minLength": 1 },
+        "impact_on_scope": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

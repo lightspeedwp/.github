@@ -1,0 +1,188 @@
+{
+  "type": "metrics-report",
+  "reportType": "weekly",
+  "timestamp": "2026-08-19T02:00:00Z",
+  "period": {
+    "start": "2026-08-12T00:00:00Z",
+    "end": "2026-08-19T02:00:00Z",
+    "label": "Week of August 12-19, 2026"
+  },
+  "executive_summary": {
+    "healthScore": 75,
+    "trend": "stable",
+    "status": "healthy",
+    "topPriority": "Address stale issues accumulation"
+  },
+  "metrics": {
+    "issues": {
+      "total": 145,
+      "open": 42,
+      "closed": 103,
+      "closureRate": 0.71,
+      "averageClosureTime": 2.3,
+      "staleIssues": 8,
+      "stalePercentage": 0.055,
+      "reopenedRate": 0.05
+    },
+    "pullRequests": {
+      "total": 23,
+      "merged": 18,
+      "closed": 3,
+      "draft": 2,
+      "mergeRate": 0.78,
+      "averageReviewTime": 1.5,
+      "averageMergeTime": 2.1,
+      "averageSize": 142,
+      "largeSize": 3,
+      "largePercentage": 0.13
+    },
+    "contributors": {
+      "active": 12,
+      "topContributors": [
+        {"name": "alice", "commits": 34, "percentage": 0.28},
+        {"name": "bob", "commits": 28, "percentage": 0.23},
+        {"name": "charlie", "commits": 19, "percentage": 0.16}
+      ]
+    },
+    "codeQuality": {
+      "lintingPass": 0.95,
+      "testCoverage": 0.87,
+      "ciPassRate": 0.92
+    }
+  },
+  "trends": {
+    "issues": {
+      "trend": "stable",
+      "change": 0,
+      "detail": "Issue volume unchanged from previous week"
+    },
+    "pullRequests": {
+      "trend": "increasing",
+      "change": 15,
+      "detail": "15% increase in PR activity"
+    },
+    "reviewTime": {
+      "trend": "increasing",
+      "change": 25,
+      "detail": "Review time increased by 25% (1.2 → 1.5 days)"
+    },
+    "contributors": {
+      "trend": "stable",
+      "change": 0,
+      "detail": "Same active contributors as previous week"
+    }
+  },
+  "anomalies": [
+    {
+      "severity": "high",
+      "metric": "staleIssues",
+      "finding": "8 issues stale (>30 days) - up from 5 last week",
+      "percentChange": 60,
+      "recommendation": "Prioritize stale issue review"
+    },
+    {
+      "severity": "moderate",
+      "metric": "averageReviewTime",
+      "finding": "PR review time increased 25% (1.2 → 1.5 days)",
+      "percentChange": 25,
+      "recommendation": "Increase review capacity or establish review SLA"
+    }
+  ],
+  "insights": [
+    {
+      "category": "performance",
+      "title": "PR Review Time Increasing",
+      "finding": "Review time increased by 25% this week. This could impact developer productivity.",
+      "impact": "moderate",
+      "action": "Schedule team sync to discuss review bottlenecks"
+    },
+    {
+      "category": "health",
+      "title": "Stale Issue Accumulation",
+      "finding": "8 issues are stale (>30 days). This suggests response time challenges.",
+      "impact": "high",
+      "action": "Implement stale issue resolution workflow"
+    },
+    {
+      "category": "capacity",
+      "title": "Team Capacity Stable",
+      "finding": "Active contributors remain stable at 12. Team capacity is at 70%.",
+      "impact": "low",
+      "action": "Monitor for capacity growth opportunities"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "action": "Address stale issues",
+      "effort": "medium",
+      "owner": "team-leads",
+      "timeframe": "this week",
+      "expectedOutcome": "Reduce stale issues from 8 to <3"
+    },
+    {
+      "priority": "high",
+      "action": "Improve PR review SLA",
+      "effort": "low",
+      "owner": "engineering-lead",
+      "timeframe": "this week",
+      "expectedOutcome": "Return review time to <1.2 days"
+    },
+    {
+      "priority": "medium",
+      "action": "Enhance CI/CD pipeline",
+      "effort": "high",
+      "owner": "devops-team",
+      "timeframe": "next sprint",
+      "expectedOutcome": "Improve CI pass rate from 92% to 95%+"
+    }
+  ],
+  "health_components": {
+    "responseTime": {
+      "score": 80,
+      "metric": "averageClosureTime",
+      "value": 2.3,
+      "target": 2.0,
+      "status": "at-risk"
+    },
+    "closureRate": {
+      "score": 71,
+      "metric": "issueClosureRate",
+      "value": 0.71,
+      "target": 0.8,
+      "status": "below-target"
+    },
+    "reviewTime": {
+      "score": 75,
+      "metric": "averageReviewTime",
+      "value": 1.5,
+      "target": 1.2,
+      "status": "at-risk"
+    },
+    "codeQuality": {
+      "score": 87,
+      "metric": "testCoverage",
+      "value": 0.87,
+      "target": 0.85,
+      "status": "healthy"
+    },
+    "teamCapacity": {
+      "score": 70,
+      "metric": "capacityUtilization",
+      "value": 0.70,
+      "target": 0.75,
+      "status": "below-target"
+    }
+  },
+  "nextSteps": [
+    "Review and prioritize stale issues (due: 2026-08-21)",
+    "Schedule team sync on review time (due: 2026-08-20)",
+    "Assess CI/CD improvements for next sprint",
+    "Plan capacity building initiatives"
+  ],
+  "reportLinks": {
+    "fullReport": "https://github.com/lightspeedwp/.github/tree/develop/.github/reports/metrics/weekly-summary-latest.md",
+    "previousWeek": "https://github.com/lightspeedwp/.github/tree/develop/.github/reports/metrics/weekly/weekly-summary-2026-W33.md",
+    "metricsCollection": "https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/metrics-agent.js"
+  }
+}

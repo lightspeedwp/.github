@@ -1,0 +1,22 @@
+name: lightspeed-wordpress-spec-planning
+version: v0.1.0
+description: Create practical WordPress implementation plans from requirements, with acceptance criteria and phased delivery tasks.
+owners:
+  - LightSpeedWP Team
+platforms:
+  claude:
+    supported: true
+    mode: first-class
+    config: agents/claude.yaml
+  copilot:
+    supported: true
+    mode: first-class
+    config: agents/copilot.yaml
+  gemini:
+    supported: true
+    mode: experimental
+    config: agents/gemini.yaml
+  codex:
+    supported: true
+    mode: legacy-compatible
+    config: agents/codex.yaml

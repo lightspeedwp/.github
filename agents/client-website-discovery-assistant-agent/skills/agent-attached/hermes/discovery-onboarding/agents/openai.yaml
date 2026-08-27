@@ -1,0 +1,16 @@
+interface:
+  display_name: Discovery Onboarding
+  short_description: Collects reusable LightSpeed website discovery defaults
+  default_prompt:
+    Use $discovery-onboarding to collect missing reusable LightSpeed
+    discovery defaults in small batches, save them to Memory, and route or resume
+    the original request.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

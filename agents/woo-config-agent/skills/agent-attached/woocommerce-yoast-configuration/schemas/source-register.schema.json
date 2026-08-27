@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast source register entry",
+  "type": "object",
+  "required": [
+    "page_title",
+    "url",
+    "accessed_date",
+    "product_or_feature_area",
+    "key_facts",
+    "source_type",
+    "duplicate_status",
+    "confidence"
+  ],
+  "properties": {
+    "page_title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "accessed_date": {
+      "type": "string"
+    },
+    "product_or_feature_area": {
+      "type": "string"
+    },
+    "key_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "configuration_relevance": {
+      "type": "string"
+    },
+    "developer_relevance": {
+      "type": "string"
+    },
+    "limitations_version_notes": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string"
+    },
+    "duplicate_status": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string"
+    }
+  }
+}

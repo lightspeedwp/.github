@@ -1,0 +1,16 @@
+interface:
+  display_name: LightSpeed PRD Task Reviewer
+  short_description:
+    Reviews PRDs, technical briefs, tasks and GitHub issue drafts
+    before implementation.
+  icon: ../assets/icon.svg
+  color: "#0F172A"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

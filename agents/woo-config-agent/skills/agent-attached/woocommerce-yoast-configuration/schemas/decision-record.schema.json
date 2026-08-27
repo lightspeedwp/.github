@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast decision record",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "date",
+    "site_or_client",
+    "decision_type",
+    "state",
+    "decision",
+    "rationale",
+    "risks",
+    "qa_required"
+  ],
+  "properties": {
+    "decision_id": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "site_or_client": {"type": "string"},
+    "decision_type": {
+      "type": "string",
+      "enum": [
+        "product-mix",
+        "site-representation",
+        "search-appearance",
+        "content-type-indexation",
+        "taxonomy-indexation",
+        "archive-indexation",
+        "canonical",
+        "meta-robots",
+        "xml-sitemap",
+        "robots-txt",
+        "llms-txt",
+        "breadcrumbs",
+        "schema",
+        "woocommerce-product-schema",
+        "woocommerce-archive-strategy",
+        "redirect",
+        "ai-assisted-metadata",
+        "developer-customisation",
+        "source-verification",
+        "qa-gate"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": ["proposed", "approved", "implemented", "validated", "blocked", "rejected", "superseded"]
+    },
+    "decision": {"type": "string", "minLength": 1},
+    "rationale": {"type": "string", "minLength": 1},
+    "confirmed_evidence": {"type": "array", "items": {"type": "string"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "risks": {"type": "array", "items": {"type": "string"}},
+    "owner": {"type": "string"},
+    "approval_needed_from": {"type": "string"},
+    "implementation_notes": {"type": "string"},
+    "qa_required": {"type": "array", "items": {"type": "string"}},
+    "review_trigger": {"type": "string"},
+    "supersedes": {"type": "string"},
+    "related_files": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,15 @@
+interface:
+  display_name: LightSpeed Figma WordPress Technical Brief
+  short_description: Creates developer-ready Figma-to-WordPress technical briefs for
+    block themes, plugins, tokens, patterns and templates.
+  icon: assets/icon.svg
+  brand_color: '#2563eb'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

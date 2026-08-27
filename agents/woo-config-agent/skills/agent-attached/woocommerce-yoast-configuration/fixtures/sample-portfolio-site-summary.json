@@ -1,0 +1,26 @@
+{
+  "site_name": "Example Store",
+  "site_url": "https://example.test/",
+  "site_type": "ecommerce_transactional",
+  "yoast_product_mix": [
+    "yoast_seo_premium",
+    "yoast_woocommerce_seo"
+  ],
+  "evidence_available": [
+    "settings_export",
+    "rendered_product_sample",
+    "product_sitemap"
+  ],
+  "evidence_missing": [
+    "full_crawl_export",
+    "search_console_product_enhancements"
+  ],
+  "confidence": "medium",
+  "portfolio_finding_type": "site_specific_defect",
+  "risk_level": "high",
+  "priority": "high",
+  "owner_route": "wordpress_admin_plus_developer_review",
+  "next_action": "Confirm product category indexation strategy and retest rendered product/category canonicals on representative URLs.",
+  "decision_record_required": true,
+  "qa_method": "Rendered source, product sitemap and schema validation on representative product and product category URLs."
+}

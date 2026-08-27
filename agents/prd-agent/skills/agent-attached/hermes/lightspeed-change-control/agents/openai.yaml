@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS Change Control"
+  short_description: "Assess scope changes for PRD, estimate, QA, and delivery impact."
+  default_prompt: "Use $lightspeed-change-control to assess a LightSpeed change request and show scope, estimate, QA, and approval impact."

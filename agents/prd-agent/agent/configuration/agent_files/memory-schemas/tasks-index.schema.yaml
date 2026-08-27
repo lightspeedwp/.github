@@ -1,0 +1,37 @@
+schema_version: 1.0.0
+file: tasks/_index.md
+purpose: Durable index of major task groups, workstreams, or packaged deliverables for an active project.
+content_type: markdown_with_yaml_frontmatter
+required_frontmatter:
+  - version
+  - title
+  - project_key
+  - last_updated
+body_requirements:
+  required_headings:
+    - Workstreams
+optional_headings:
+  - Dependency notes
+  - Related artefacts
+validation_rules:
+  - use this as an index, not as a full task backlog
+  - keep workstreams grouped at a useful planning level
+update_rules:
+  - update when task structure or pack structure materially changes
+example: |
+  ---
+  version: 1.0.0
+  title: "Safari Lodge redesign task index"
+  project_key: safari-lodge-redesign
+  last_updated: 2026-05-15
+  ---
+  # Task Index
+
+  ## Workstreams
+  - Theme foundation
+  - Template and pattern build
+  - Booking integration review
+  - QA and launch readiness
+
+  ## Dependency notes
+  - Booking integration review must finish before template finalisation.

@@ -1,0 +1,252 @@
+name: Metrics Pipeline
+
+on:
+  schedule:
+    # Daily at 2:00 AM UTC for production metrics collection
+    - cron: "0 2 * * *"
+
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "Which stage to run"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - all
+          - collect
+          - aggregate
+          - report
+      report_channel:
+        description: "Where to post report"
+        required: false
+        default: "discussions"
+        type: choice
+        options:
+          - discussions
+          - wiki
+          - artifact-only
+
+permissions:
+  contents: write
+  discussions: write
+  actions: read
+  issues: write
+
+env:
+  METRICS_DIR: .github/metrics
+  REPORTS_DIR: .github/reports/metrics
+
+jobs:
+  collect-metrics:
+    name: Collect frontmatter metrics
+    if: |
+      github.event_name == 'schedule' ||
+      github.event.inputs.stage == 'all' ||
+      github.event.inputs.stage == 'collect'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (develop)
+        uses: actions/checkout@v7
+        with:
+          ref: develop
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install deps
+        run: npm ci || npm i
+
+      - name: Run metrics
+        run: npm run metrics:ci
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontmatter-metrics-json
+          path: metrics/out/frontmatter-metrics.json
+          if-no-files-found: warn
+
+      - name: Upload Markdown report
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontmatter-metrics-md
+          path: metrics/out/frontmatter-metrics.md
+          if-no-files-found: error
+
+      - name: Create or update tracking issue
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('metrics/out/frontmatter-metrics.md','utf8');
+            const title = 'Weekly Frontmatter Metrics';
+            // Find existing issue
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ''
+            });
+            const existing = issues.find(i => i.title === title);
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body
+              });
+              core.info(`Updated issue #${existing.number}`);
+            } else {
+              const res = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body
+              });
+              core.info(`Created issue #${res.data.number}`);
+            }
+
+  aggregate-metrics:
+    name: Aggregate metrics
+    needs: collect-metrics
+    if: |
+      always() && (
+        (github.event_name == 'schedule' && github.event.schedule == '0 9 * * 1') ||
+        github.event.inputs.stage == 'all' ||
+        github.event.inputs.stage == 'aggregate'
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Aggregate metrics
+        id: aggregate
+        run: |
+          set -euo pipefail
+          mkdir -p "${{ env.REPORTS_DIR }}"
+          node scripts/workflows/metrics/aggregate.cjs
+
+      - name: Generate summary report
+        id: report
+        env:
+          REPORT_DATE: ${{ steps.aggregate.outputs.report_date }}
+          METRICS_JSON: ${{ steps.aggregate.outputs.metrics_json }}
+        run: |
+          set -euo pipefail
+          node scripts/workflows/metrics/generate-report.cjs
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: weekly-metrics-report-${{ github.run_id }}
+          path: |
+            ${{ env.REPORTS_DIR }}/weekly-summary-*.md
+
+      - name: Archive report
+        run: |
+          set -euo pipefail
+          WEEK=$(date +%Y-W%V)
+          ARCHIVE_DIR="${{ env.REPORTS_DIR }}/weekly"
+          mkdir -p "$ARCHIVE_DIR"
+          cp "${{ env.REPORTS_DIR }}/weekly-summary-latest.md" "$ARCHIVE_DIR/weekly-summary-${WEEK}.md"
+
+      - name: Commit archival
+        continue-on-error: true
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+          git add "${{ env.REPORTS_DIR }}" "${{ env.METRICS_DIR }}"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(metrics): weekly summary report [skip ci]"
+            git push origin develop
+          fi
+
+      - name: Output report summary
+        if: always()
+        run: >-
+          node -e "const fs=require('fs');const p='${{ env.REPORTS_DIR }}/weekly-summary-latest.md';if(fs.existsSync(p)){console.log('## Weekly Metrics Summary');console.log(fs.readFileSync(p,'utf8').split('\n').slice(0,30).join('\n'));console.log('');console.log('Full report: '+p);}"
+
+  post-to-discussions:
+    name: Post report to discussions
+    needs: aggregate-metrics
+    if: |
+      success() && (
+        (github.event_name == 'schedule' && github.event.schedule == '0 9 * * 1') ||
+        github.event.inputs.report_channel == 'discussions'
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: develop
+          fetch-depth: 1
+
+      - name: Read report
+        id: read_report
+        run: node -e "const fs=require('fs');const p='${{ env.REPORTS_DIR }}/weekly-summary-latest.md';if(!fs.existsSync(p)){console.error('Report file not found');process.exit(1);}const out=process.env.GITHUB_OUTPUT;fs.appendFileSync(out,\`content<<EOF\\n\${fs.readFileSync(p,'utf8')}\\nEOF\\n\`);"
+
+      - name: Post to discussions
+        if: steps.read_report.outputs.content != ''
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const title = `Weekly Metrics Summary — ${new Date().toISOString().split('T')[0]}`;
+            const reportContent = ${{ toJson(steps.read_report.outputs.content) }};
+            const serverUrl = `${{ github.server_url }}`;
+            const repository = `${{ github.repository }}`;
+            const body = reportContent + '\n\n---\n\n*Generated by metrics-pipeline workflow. [View full reports](' + serverUrl + '/' + repository + '/tree/develop/.github/reports/metrics/)*';
+            try {
+              const { data } = await github.rest.discussions.createDiscussion({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                category_id: 1
+              });
+              console.log(`Posted discussion: ${data.html_url}`);
+            } catch (err) {
+              console.warn(`Failed to post discussion: ${err.message}`);
+            }
+
+  validate-reports:
+    name: Validate report structure
+    if: |
+      github.event_name == 'schedule' ||
+      github.event.inputs.stage == 'all' ||
+      github.event.inputs.stage == 'report'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate report structure
+        id: validate
+        run: node scripts/validate-reports-structure.js
+
+      - name: Check for uppercase filenames
+        run: node scripts/validate-reports-structure.js

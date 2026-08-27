@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms notification audit",
+  "type": "object",
+  "required": [
+    "site_url",
+    "environment",
+    "form",
+    "notifications",
+    "delivery_posture",
+    "findings",
+    "confidence",
+    "recommended_next_action"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "local",
+        "development",
+        "staging",
+        "production",
+        "unknown"
+      ]
+    },
+    "form": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "notifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "status",
+          "recipients",
+          "from",
+          "reply_to",
+          "risk"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "from": {
+            "type": "string"
+          },
+          "reply_to": {
+            "type": "string"
+          },
+          "conditional_logic": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unknown"
+            ]
+          }
+        }
+      }
+    },
+    "delivery_posture": {
+      "type": "object",
+      "properties": {
+        "smtp_plugin": {
+          "type": "string"
+        },
+        "domain_aligned_from": {
+          "type": [
+            "boolean",
+            "string"
+          ]
+        },
+        "dns_evidence": {
+          "type": "string"
+        },
+        "log_evidence": {
+          "type": "string"
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding",
+          "severity",
+          "evidence",
+          "recommendation"
+        ],
+        "properties": {
+          "finding": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "blocker"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "recommendation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "recommended_next_action": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

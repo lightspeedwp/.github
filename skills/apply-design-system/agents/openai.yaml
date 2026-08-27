@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apply Design System [apply-design-system]"
+  short_description: "Review an existing design and connect it to design system components."
+  default_prompt: "Use $apply-design-system to review this Figma screen if needed and then connect the relevant sections to the design system."

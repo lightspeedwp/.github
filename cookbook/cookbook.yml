@@ -1,0 +1,12 @@
+version: v0.1.0
+last_updated: 2026-05-28
+recipes:
+  - id: wordpress-plugin-checklist
+    path: cookbook/wordpress-plugin-checklist.md
+    status: active
+  - id: spec-driven-workflow-example
+    path: cookbook/spec-driven-workflow-example.md
+    status: active
+  - id: project-planning-and-prd-playbook
+    path: cookbook/project-planning-and-prd-playbook.md
+    status: active

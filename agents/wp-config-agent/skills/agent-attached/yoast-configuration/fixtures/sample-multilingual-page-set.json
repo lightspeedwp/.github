@@ -1,0 +1,27 @@
+{
+  "set_id": "home-language-set",
+  "default_url": "https://example.com/",
+  "translation_layer": "WPML",
+  "language_urls": [
+    {
+      "locale": "en-ZA",
+      "url": "https://example.com/",
+      "canonical": "https://example.com/",
+      "indexation_status": "indexable",
+      "metadata_state": "verified_live"
+    },
+    {
+      "locale": "de-DE",
+      "url": "https://example.com/de/",
+      "canonical": "https://example.com/de/",
+      "indexation_status": "indexable",
+      "metadata_state": "implemented_pending_qa"
+    }
+  ],
+  "hreflang_status": "partial",
+  "sitemap_status": "not_checked",
+  "schema_language_status": "not_checked",
+  "evidence_state": "scanned evidence",
+  "qa_status": "partial",
+  "recommended_next_action": "Verify reciprocal hreflang and rendered translated metadata for representative page sets."
+}

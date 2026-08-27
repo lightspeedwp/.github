@@ -1,0 +1,4 @@
+interface:
+  display_name: "theme.json Completion"
+  short_description: "Audit and additively complete a theme.json without overwriting existing config."
+  default_prompt: "Use $themejson-completion to audit and complete a WordPress theme.json."

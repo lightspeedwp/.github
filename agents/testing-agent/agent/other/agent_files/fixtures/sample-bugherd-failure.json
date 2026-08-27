@@ -1,0 +1,15 @@
+{
+  "bugherd_title": "Cart reminder banner overlaps refill CTA on mobile",
+  "requirement_id": "REQ-REFILL-004",
+  "test_case_id": "TC-REFILL-003",
+  "failing_url": "https://example.test/refills",
+  "browser": "chromium",
+  "viewport": "390x844",
+  "environment": "staging",
+  "branch": "qa/refill-landing-smoke",
+  "commit_sha": "abc1234",
+  "attachments": [
+    "artifacts/screenshots/refill-cta-overlap.png",
+    "artifacts/traces/refill-mobile-trace.zip"
+  ]
+}

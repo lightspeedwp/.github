@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Pack Builder"
+  short_description: "Build traceable human-reviewed test packs before code"
+  default_prompt: "Use $test-pack-builder to turn requirements into a traceable review-ready test pack before generating Playwright code."

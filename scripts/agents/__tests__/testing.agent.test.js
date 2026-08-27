@@ -3,10 +3,10 @@
  * @see ../testing.agent.js
  */
 // Basic smoke test for testing.agent.js
-const agent = require('../testing.agent');
+const agent = require("../testing.agent");
 
-describe('testing.agent', () => {
-  it('should be defined', () => {
+describe("testing.agent", () => {
+  it("should be defined", () => {
     expect(agent).toBeDefined();
   });
 });

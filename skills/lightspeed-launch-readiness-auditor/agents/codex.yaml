@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Launch Readiness Auditor
+  short_description: Audits launch readiness across quality, governance, and release controls.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - codex
+  allow_implicit_invocation: true
+  compatibility_mode: legacy-compatible

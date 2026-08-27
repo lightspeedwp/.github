@@ -1,0 +1,113 @@
+{
+  "type": "metrics-collection",
+  "timestamp": "2026-08-19T02:00:00Z",
+  "context": "control-plane",
+  "period": "weekly",
+  "repositories": [
+    {
+      "owner": "lightspeedwp",
+      "name": ".github",
+      "url": "https://github.com/lightspeedwp/.github",
+      "metrics": {
+        "issues": {
+          "total": 145,
+          "open": 42,
+          "closed": 103,
+          "closureRate": 0.71,
+          "averageClosureTime": 2.3,
+          "staleIssues": 8,
+          "reopenedRate": 0.05
+        },
+        "pullRequests": {
+          "total": 23,
+          "merged": 18,
+          "closed": 3,
+          "draft": 2,
+          "mergeRate": 0.78,
+          "averageReviewTime": 1.5,
+          "averageMergeTime": 2.1,
+          "averageSize": 142,
+          "largeSize": 3
+        },
+        "contributors": {
+          "active": 12,
+          "topContributors": [
+            {"name": "alice", "commits": 34},
+            {"name": "bob", "commits": 28},
+            {"name": "charlie", "commits": 19}
+          ]
+        },
+        "codeQuality": {
+          "lintingPass": 0.95,
+          "testCoverage": 0.87,
+          "ciPassRate": 0.92
+        },
+        "activityTrend": {
+          "period": "weekly",
+          "issuesTrend": "stable",
+          "prsTrend": "increasing",
+          "contributorsTrend": "stable"
+        }
+      }
+    }
+  ],
+  "healthScore": {
+    "overall": 75,
+    "components": {
+      "responseTime": 80,
+      "closureRate": 71,
+      "reviewTime": 75,
+      "codeQuality": 87,
+      "teamCapacity": 70
+    },
+    "trend": "stable"
+  },
+  "anomalies": [
+    {
+      "type": "increase",
+      "metric": "averageReviewTime",
+      "from": 1.2,
+      "to": 1.5,
+      "percentChange": 25,
+      "severity": "moderate"
+    },
+    {
+      "type": "increase",
+      "metric": "staleIssues",
+      "from": 5,
+      "to": 8,
+      "percentChange": 60,
+      "severity": "high"
+    }
+  ],
+  "insights": [
+    {
+      "category": "performance",
+      "finding": "PR review time increased by 25% this week",
+      "impact": "moderate",
+      "recommendation": "Increase review capacity or prioritize reviews"
+    },
+    {
+      "category": "health",
+      "finding": "8 stale issues (>30 days) need attention",
+      "impact": "high",
+      "recommendation": "Review and prioritize stale issues"
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "Prioritize stale issues",
+      "priority": "high",
+      "effort": "medium",
+      "owner": "team-leads",
+      "timeframe": "this week"
+    },
+    {
+      "action": "Schedule code review sync",
+      "priority": "high",
+      "effort": "low",
+      "owner": "engineering-lead",
+      "timeframe": "this week"
+    }
+  ]
+}

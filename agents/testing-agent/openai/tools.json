@@ -1,0 +1,77 @@
+{
+  "provider": "openai",
+  "agent": "playwright-testing",
+  "type": "function",
+  "functions": [
+    {
+      "name": "build_test_pack",
+      "description": "Run the review-before-code test-pack workflow: extract and classify requirements, produce human-readable test cases and a traceability matrix, and stop at a review gate.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "description": "Ordered source references (PRD, acceptance criteria, Figma, repo, staging). At least one grounded source is required for traceability."
+          },
+          "scope": {
+            "type": "string",
+            "description": "Optional scope note or target flow."
+          }
+        },
+        "required": ["sources"]
+      }
+    },
+    {
+      "name": "extract_requirements",
+      "description": "Extract grounded requirements from PRD/acceptance-criteria text and classify each by approved type.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string", "minLength": 1 }
+        },
+        "required": ["text"]
+      }
+    },
+    {
+      "name": "generate_playwright_specs",
+      "description": "Generate @playwright/test specs from an approved test pack. Only call after the review gate is approved.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "approved_pack_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "ID of a test pack the caller has already approved at the review gate. The runtime MUST resolve this to a pack whose review state is 'approved' and reject unknown, unapproved, or stale packs before generating specs."
+          },
+          "browsers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["chromium", "firefox", "webkit"]
+            }
+          },
+          "base_url_env": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$",
+            "description": "Name of an environment variable holding the base URL (e.g. STAGING_BASE_URL). Must be an env-var name, never a literal URL or credential."
+          }
+        },
+        "required": ["approved_pack_id"]
+      }
+    },
+    {
+      "name": "generate_test_report",
+      "description": "Generate a test report from execution results.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "results": { "type": "object" },
+          "format": { "type": "string", "enum": ["html", "json", "markdown"] }
+        },
+        "required": ["results"]
+      }
+    }
+  ]
+}
