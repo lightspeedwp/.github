@@ -9,7 +9,7 @@ const github = require("@actions/github");
 const core = require("@actions/core");
 const {
   MilestoneAssignmentAgent,
-} = require("../agents/includes/milestone-assignment.js");
+} = require("../agents/includes/milestone-assignment.cjs");
 
 async function main() {
   try {
