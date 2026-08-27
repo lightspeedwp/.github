@@ -107,7 +107,6 @@ flowchart TD
   style Z2 fill:#b71c1c,color:#fff
   style Z3 fill:#b71c1c,color:#fff
   style Z4 fill:#b71c1c,color:#fff
-accDescr: Detailed diagram showing structure and relationships
 ```
 
 **Why GATE 1 matters:**
