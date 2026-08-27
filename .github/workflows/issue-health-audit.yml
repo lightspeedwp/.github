@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Run issue health audit
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
           REOPEN_INCOMPLETE: ${{ github.event.inputs.reopen_incomplete || 'true' }}
