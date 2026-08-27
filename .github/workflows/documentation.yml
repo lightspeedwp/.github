@@ -262,7 +262,7 @@ jobs:
       - name: Run Mermaid diagram fixes
         id: mermaid
         if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'mermaid' }}
-        run: node scripts/fix-mermaid-diagrams.js
+        run: node scripts/fix-mermaid-diagrams.cjs
         continue-on-error: true
 
       - name: Validate Mermaid colour contrast
@@ -274,7 +274,7 @@ jobs:
       - name: Run staleness updates
         id: staleness
         if: ${{ env.AUDIT_SCOPE == 'all' || env.AUDIT_SCOPE == 'staleness' }}
-        run: node scripts/fix-staleness-dates.js
+        run: node scripts/fix-staleness-dates.cjs
         continue-on-error: true
 
       - name: Generate maintenance report

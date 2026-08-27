@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Lint
@@ -38,7 +38,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "lts/*"
+          node-version: "24"
       - name: Install
         run: npm ci
       - name: Configure git user
