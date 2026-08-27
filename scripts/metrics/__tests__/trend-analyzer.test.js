@@ -2,8 +2,8 @@
  * Tests for Trend Analyzer — Period-over-period calculations
  */
 
-const { TrendAnalyzer } = require("../trend-analyzer");
-const { MetricsStorage } = require("../metrics-storage");
+const { TrendAnalyzer } = require("../trend-analyzer.cjs");
+const { MetricsStorage } = require("../metrics-storage.cjs");
 const fs = require("fs");
 
 describe("TrendAnalyzer", () => {

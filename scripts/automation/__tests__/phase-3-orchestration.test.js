@@ -3,9 +3,9 @@
  * Tests for workflow orchestration and phase progression
  */
 
-const phaseStateMachine = require("../includes/phase-state-machine");
-const labelValidator = require("../includes/label-validator");
-const auditLogger = require("../includes/audit-logger");
+const phaseStateMachine = require("../includes/phase-state-machine.cjs");
+const labelValidator = require("../includes/label-validator.cjs");
+const auditLogger = require("../includes/audit-logger.cjs");
 
 describe("Phase 3: Workflow Orchestration", () => {
   describe("Phase State Machine", () => {

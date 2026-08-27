@@ -3,7 +3,7 @@
  * Phase 2: Template validation and auto-injection
  */
 
-const dorDodTemplates = require("../dor-dod-templates");
+const dorDodTemplates = require("../dor-dod-templates.cjs");
 
 describe("DoR/DoD Templates", () => {
   describe("Template Data Structure", () => {

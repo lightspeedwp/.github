@@ -11,7 +11,7 @@ const {
   extractReferencedIssues,
   detectProgressionTrigger,
   getProgressionTimeline,
-} = require("../handlers/orchestrate-phase-progression");
+} = require("../handlers/orchestrate-phase-progression.cjs");
 
 describe("orchestrate-phase-progression", () => {
   let mockIssue;
