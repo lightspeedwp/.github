@@ -77,31 +77,36 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 - ✅ Entries follow format standards
 
 ```mermaid
-accTitle: Flowchart
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+---
+config:
+  flowchart:
+    useMaxWidth: true
+  accessibility:
+    diagramMarginX: 8
+    diagramMarginY: 8
+---
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-accTitle: Flowchart
-    A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
-    B -->|"GATE 1"| C["Changelog Validation"]
-    C --> D{["CHANGELOG.md<br/>exists?"]}
-    D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
-    D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
-    E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
-    E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
-    F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
-    F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
-    G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
-    G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
-    H --> I["Continue to GATE 2"]
+  accTitle: Changelog Validation Flowchart
+  accDescr: Flowchart showing changelog validation gates for release process
+  A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
+  B -->|"GATE 1"| C["Changelog Validation"]
+  C --> D{["CHANGELOG.md<br/>exists?"]}
+  D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
+  D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
+  E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
+  E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
+  F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
+  F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
+  G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
+  G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
+  H --> I["Continue to GATE 2"]
 
-    style C fill:#1b5e20,color:#fff
-    style H fill:#2e7d32,color:#fff
-    style Z1 fill:#b71c1c,color:#fff
-    style Z2 fill:#b71c1c,color:#fff
-    style Z3 fill:#b71c1c,color:#fff
-    style Z4 fill:#b71c1c,color:#fff
+  style C fill:#1b5e20,color:#fff
+  style H fill:#2e7d32,color:#fff
+  style Z1 fill:#b71c1c,color:#fff
+  style Z2 fill:#b71c1c,color:#fff
+  style Z3 fill:#b71c1c,color:#fff
+  style Z4 fill:#b71c1c,color:#fff
 accDescr: Detailed diagram showing structure and relationships
 ```
 
