@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
 
       - name: Check PR-Issue linkage and feedback response
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const { validateAIFeedback } = require('./scripts/validation/ai-feedback-helpers.cjs');
@@ -167,7 +167,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate FEEDBACK_RESPONSE.md structure
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');

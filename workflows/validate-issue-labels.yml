@@ -78,7 +78,7 @@ jobs:
 
       - name: Comment on validation failure
         if: steps.parse.outputs.valid == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           ITEM_TYPE: ${{ steps.labels.outputs.item_type }}
           LABELS: ${{ steps.labels.outputs.labels }}

@@ -47,7 +47,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -72,7 +72,7 @@ jobs:
 
       - name: Upload metrics report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: metrics-report-${{ steps.collect.outputs.collection_timestamp }}
           path: ${{ env.REPORTS_DIR }}/

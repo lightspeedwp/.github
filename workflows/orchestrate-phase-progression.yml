@@ -21,10 +21,10 @@ jobs:
       issues: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "20"
 
@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Sync labels on issue event
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const mod = require('./scripts/automation/handlers/sync-labels-on-event.js');
@@ -71,10 +71,10 @@ jobs:
       pull-requests: read
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "20"
 
@@ -82,7 +82,7 @@ jobs:
         run: npm ci
 
       - name: Detect linked issues and advance phase
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const mod = require('./scripts/automation/handlers/orchestrate-phase-progression.js');
@@ -149,7 +149,7 @@ jobs:
       contents: read
     steps:
       - name: Check for completion labels
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const labels = context.payload.issue.labels.map(l =>
