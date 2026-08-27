@@ -23,10 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
+        # Deliberately no `repository:`/`ref:` override: pull_request_target runs
+        # with a privileged token, so this must only ever execute trusted code
+        # from the base repository's default branch — never a fork's head ref.
+        # See: https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target
         uses: actions/checkout@v7
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
           fetch-depth: 0
           clean: true
 
