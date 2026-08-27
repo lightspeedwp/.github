@@ -15,11 +15,14 @@ concurrency:
 
 jobs:
   validate-release-branch:
-    # Deliberately no `name:` override: main's branch protection requires
-    # the check "Main Branch Guard / validate-release-branch" (the default
-    # <workflow name> / <job id> format), but the explicit override below
-    # produced a bare "validate-release-branch" context instead — a string
-    # that could never match, permanently blocking every release PR to main.
+    # GitHub does not auto-prefix a check-run name with the workflow name
+    # for a plain job — it just reports the job id/name as-is. main's branch
+    # protection requires the exact context "Main Branch Guard /
+    # validate-release-branch", so the name must be set to that literal
+    # string, not left as (or overridden to) the bare job id. A prior fix
+    # that just removed the override to "validate-release-branch" changed
+    # nothing, since that string was already identical to the job id.
+    name: "Main Branch Guard / validate-release-branch"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
