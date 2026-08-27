@@ -1,8 +1,13 @@
 ---
 name: "♻️ Code Refactor"
+description: "♻️ Code Refactor"
 about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
 title: "[Refactor] <Short summary>"
 labels: [status:needs-review, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--

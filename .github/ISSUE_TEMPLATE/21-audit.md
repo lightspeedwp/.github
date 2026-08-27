@@ -1,8 +1,13 @@
 ---
 name: "🛡️ Audit"
+description: "🛡️ Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
 title: "[Audit] <Brief summary>"
 labels: [status:needs-audit, priority:normal, area:security]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--
