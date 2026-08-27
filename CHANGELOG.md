@@ -26,9 +26,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed (Session 2026-08-25)
+### Added
 
-- **Workflow Test Fixes — Label Validation & Security Tests** — Session 2026-08-25 comprehensive fixes for core workflow test failures. Deliverables: (1) Label Validation Implementation (33/33 tests passing) — Added comprehensive branch type to label mapping supporting all 30+ documented branch types (feat, fix, docs, hotfix, security, chore, test, refactor, ci, build, perf, release, research, revert, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, deps), implemented template metadata context labels (meta:needs-more-info, meta:ready-for-review), added label deduplication and validation against canonical set, support for custom branch type and canonical label configurations with metadata structure returning typeLabels, contextLabels, and totalLabels. (2) Security Test Pattern Enhancement (18/18 tests passing) — Updated security test patterns to properly detect GitHub tokens (ghp_ prefix with 36+ character validation) and other sensitive data, improved api_key/private_key pattern matching to handle underscores and spaces, enhanced overall sensitive information detection in reports. (3) Module path validation confirmed working for metrics-collection-orchestrator with all require statements correctly pointing to root scripts/metrics folder location. All validation test suites passing: validate-and-apply-labels (33/33), badge tests (65/65), security tests (18/18).
+### Changed
+
+### Fixed
+
+### Removed
+
+### Deprecated
+
+### Security
 
 ## [1.0.0] - 2026-08-24
 

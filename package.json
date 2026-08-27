@@ -133,7 +133,7 @@
     "babel-jest": "29.7.0",
     "bats": "^1.8.0",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
+    "eslint": "^10.9.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "glob": "10.5.0",
