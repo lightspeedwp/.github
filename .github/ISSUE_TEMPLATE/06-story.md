@@ -1,8 +1,13 @@
 ---
 name: "📑 Story"
+description: "Propose a user-centric story as part of an Epic or milestone."
 about: "Propose a user-centric story as part of an Epic or milestone."
 title: "[Story] <Brief summary>"
 labels: [status:needs-triage, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--

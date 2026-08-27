@@ -1,7 +1,11 @@
 ---
-file_type: "issue-template"
 name: "📚 Documentation"
+description: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

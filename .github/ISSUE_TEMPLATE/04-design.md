@@ -1,12 +1,13 @@
 ---
 name: "🎨 Design"
+description: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 title: "[Design] <Brief summary>"
 labels: [status:needs-design-review, priority:normal, area:design-system]
 assignees: []
 projects: []
 milestone: ""
-file_type: design
+file_type: issue-template
 ---
 
 <!--

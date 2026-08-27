@@ -1,7 +1,11 @@
 ---
-file_type: "issue-template"
 name: "👀 Code Review"
+description: "👀 Code Review"
 about: "Request or conduct code review, peer validation, or QA."
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"
