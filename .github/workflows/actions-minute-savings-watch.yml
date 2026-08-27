@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Generate before/after savings report
         id: report
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           INPUT_CUTOFF: ${{ github.event.inputs.cutoff_iso || '2026-07-21T00:00:00Z' }}
           INPUT_MIN_POST_RUNS: ${{ github.event.inputs.min_post_runs || '40' }}
@@ -207,7 +207,7 @@ jobs:
             core.summary.addRaw(markdown).write();
 
       - name: Upload savings report artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: actions-minute-savings-report
           path: |
@@ -216,7 +216,7 @@ jobs:
           if-no-files-found: error
 
       - name: Publish savings report to tracking issue
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('node:fs');

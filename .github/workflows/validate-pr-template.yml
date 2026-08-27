@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Validate pull request body against required template sections
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const { validatePullRequestBody } = require('./scripts/validation/template-helpers.cjs');

@@ -58,7 +58,7 @@ jobs:
 
       - name: Fetch issues to label
         id: fetch
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const filter = '${{ inputs.issue_filter || "created >= 7 days ago" }}';
@@ -109,7 +109,7 @@ jobs:
 
       - name: Generate labeling report
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');

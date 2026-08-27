@@ -83,7 +83,7 @@ jobs:
       - name: Add item to project (new issues/PRs)
         id: addp
         if: steps.preflight.outputs.enabled == 'true'
-        uses: actions/add-to-project@v1.0.2
+        uses: actions/add-to-project@v2.0.0
         with:
           project-url: ${{ env.PROJECT_URL }}
           github-token: ${{ steps.app-token.outputs.token }}
@@ -107,7 +107,7 @@ jobs:
       - name: Collect labels from item
         id: collect-labels
         if: steps.preflight.outputs.enabled == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -153,7 +153,7 @@ jobs:
 
       - name: Add or update aging and SLA annotation
         if: steps.preflight.outputs.enabled == 'true' && github.event.action != 'closed'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           SLA_WARN_DAYS: ${{ env.SLA_WARN_DAYS }}
           SLA_BREACH_DAYS: ${{ env.SLA_BREACH_DAYS }}

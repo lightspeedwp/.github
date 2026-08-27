@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * ============================================================================
- * Script Name: label-sync.js
- * Location: scripts/agents/includes/label-sync.js
+ * Script Name: label-sync.cjs
+ * Location: scripts/agents/includes/label-sync.cjs
  * Description: Utilities for syncing repository labels with canonical org standards.
  *   Includes functions for validation, standardization, and migration.
  * Version: v1.1.0

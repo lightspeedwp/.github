@@ -32,7 +32,7 @@ permissions:
   checks: read
 
 env:
-  NODE_VERSION: "lts/*"
+  NODE_VERSION: "24"
   TEST_REPO_BASE: /tmp/release-e2e-test-repo
   TEST_RESULTS_DIR: ${{ github.workspace }}/.github/reports/release-validation
 
@@ -41,12 +41,12 @@ jobs:
     name: Setup Test Environment
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -66,10 +66,10 @@ jobs:
     needs: [setup-test-environment]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -85,7 +85,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: patch-release-results
           path: ${{ env.TEST_RESULTS_DIR }}/patch-release-*.json
@@ -95,10 +95,10 @@ jobs:
     needs: [setup-test-environment]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -114,7 +114,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: minor-release-results
           path: ${{ env.TEST_RESULTS_DIR }}/minor-release-*.json
@@ -124,10 +124,10 @@ jobs:
     needs: [setup-test-environment]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -143,7 +143,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: major-release-results
           path: ${{ env.TEST_RESULTS_DIR }}/major-release-*.json
@@ -153,10 +153,10 @@ jobs:
     needs: [setup-test-environment]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -172,7 +172,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: error-handling-results
           path: ${{ env.TEST_RESULTS_DIR }}/error-handling-*.json
@@ -182,10 +182,10 @@ jobs:
     needs: [setup-test-environment]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -201,7 +201,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rollback-results
           path: ${{ env.TEST_RESULTS_DIR }}/rollback-*.json
@@ -211,10 +211,10 @@ jobs:
     needs: [setup-test-environment]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -230,7 +230,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sequential-releases-results
           path: ${{ env.TEST_RESULTS_DIR }}/sequential-releases-*.json
@@ -247,10 +247,10 @@ jobs:
       - scenario-sequential-releases
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -258,7 +258,7 @@ jobs:
         run: mkdir -p "${{ env.TEST_RESULTS_DIR }}"
 
       - name: Download all test result artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: ${{ env.TEST_RESULTS_DIR }}/artifacts
 
@@ -269,7 +269,7 @@ jobs:
           TEST_RESULTS_DIR: ${{ env.TEST_RESULTS_DIR }}
 
       - name: Upload consolidated test summary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: release-e2e-test-summary
@@ -277,7 +277,7 @@ jobs:
 
       - name: Comment PR with test results
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');

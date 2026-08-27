@@ -3,7 +3,7 @@
  * Calculates trends, growth rates, and comparative analysis
  */
 
-const { MetricsStorage } = require("./metrics-storage");
+const { MetricsStorage } = require("./metrics-storage.cjs");
 
 class TrendAnalyzer {
   constructor(storageDir = ".github/reports/metrics") {

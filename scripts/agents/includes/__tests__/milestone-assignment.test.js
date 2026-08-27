@@ -3,7 +3,7 @@
  * Tests all 6 assignment rules and edge cases
  */
 
-const { MilestoneAssignmentAgent } = require("../milestone-assignment.js");
+const { MilestoneAssignmentAgent } = require("../milestone-assignment.cjs");
 
 describe("MilestoneAssignmentAgent", () => {
   let agent;

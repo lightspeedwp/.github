@@ -3,7 +3,7 @@
  * Validates label combinations and detects conflicts
  */
 
-const phaseStateMachine = require("./phase-state-machine");
+const phaseStateMachine = require("./phase-state-machine.cjs");
 
 /**
  * Mutually exclusive label groups

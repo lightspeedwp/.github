@@ -9,7 +9,7 @@ const {
   batchSyncLabels,
   getRecommendedLabelsForOpenSpec,
   isStatusOpenSpecCompatible,
-} = require("../handlers/sync-labels-on-event");
+} = require("../handlers/sync-labels-on-event.cjs");
 
 describe("sync-labels-on-event", () => {
   let mockIssue;

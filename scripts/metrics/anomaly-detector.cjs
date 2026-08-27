@@ -3,7 +3,7 @@
  * Flags anomalies when metrics deviate >50% from moving average
  */
 
-const { MetricsStorage } = require("./metrics-storage");
+const { MetricsStorage } = require("./metrics-storage.cjs");
 
 class AnomalyDetector {
   constructor(
