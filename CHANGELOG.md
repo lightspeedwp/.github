@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-25"
+last_updated: "2026-08-27"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -25,6 +25,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added (Session 2026-08-27)
+
+- **Changelog Safety Audit System — Issue #2354 Prevention Framework** — Comprehensive multi-layer safety audit system to prevent future changelog incidents (reference: commit f45b558b1 changelog history loss incident). Deliverables: (1) `validate-changelog-safety.js` — 7-layer validation audit covering: file existence & size integrity checks, YAML frontmatter validation, Keep a Changelog 1.1.0 structure compliance, format compliance (em-dashes, line lengths), cross-reference verification (spec agent, portable agent, schema, documentation), data integrity checks (duplicate versions, invalid dates, corruption patterns), and PR/issue link validation. (2) GitHub Actions workflow `changelog-safety-audit.yml` — Automated CI/CD validation on CHANGELOG.md changes with three job pipeline: safety audit execution, Keep a Changelog format validation, and cross-reference verification. (3) npm script `validate:changelog` — Easy-to-run local validation integrated into `npm run validate:all`. Audit produces clear pass/fail status with detailed statistics (version count, entry count, unreleased entries) and severity-categorized findings (critical errors blocking PRs, warnings for review). Production-ready with configurable thresholds (min changelog size: 500 bytes, max staleness: 60 days, max line length: 500 chars). Prevents changelog corruption patterns and ensures changelog ecosystem integrity across all related files. ([Issue #2354](https://github.com/lightspeedwp/.github/issues/2354))
 
 ### Fixed (Session 2026-08-25)
 
