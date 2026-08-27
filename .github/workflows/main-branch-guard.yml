@@ -15,7 +15,11 @@ concurrency:
 
 jobs:
   validate-release-branch:
-    name: validate-release-branch
+    # Deliberately no `name:` override: main's branch protection requires
+    # the check "Main Branch Guard / validate-release-branch" (the default
+    # <workflow name> / <job id> format), but the explicit override below
+    # produced a bare "validate-release-branch" context instead — a string
+    # that could never match, permanently blocking every release PR to main.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
