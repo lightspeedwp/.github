@@ -77,32 +77,36 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 - ✅ Entries follow format standards
 
 ```mermaid
-accTitle: Flowchart
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+---
+config:
+  flowchart:
+    useMaxWidth: true
+  accessibility:
+    diagramMarginX: 8
+    diagramMarginY: 8
+---
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-accTitle: Flowchart
-    A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
-    B -->|"GATE 1"| C["Changelog Validation"]
-    C --> D{["CHANGELOG.md<br/>exists?"]}
-    D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
-    D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
-    E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
-    E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
-    F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
-    F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
-    G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
-    G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
-    H --> I["Continue to GATE 2"]
+  accTitle: Changelog Validation Flowchart
+  accDescr: Flowchart showing changelog validation gates for release process
+  A["Release triggered on develop branch"] --> B["Run Phase 5A Gates"]
+  B -->|"GATE 1"| C["Changelog Validation"]
+  C --> D{["CHANGELOG.md<br/>exists?"]}
+  D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
+  D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
+  E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
+  E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
+  F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
+  F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
+  G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
+  G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
+  H --> I["Continue to GATE 2"]
 
-    style C fill:#1b5e20,color:#fff
-    style H fill:#2e7d32,color:#fff
-    style Z1 fill:#b71c1c,color:#fff
-    style Z2 fill:#b71c1c,color:#fff
-    style Z3 fill:#b71c1c,color:#fff
-    style Z4 fill:#b71c1c,color:#fff
-accDescr: Detailed diagram showing structure and relationships
+  style C fill:#1b5e20,color:#fff
+  style H fill:#2e7d32,color:#fff
+  style Z1 fill:#b71c1c,color:#fff
+  style Z2 fill:#b71c1c,color:#fff
+  style Z3 fill:#b71c1c,color:#fff
+  style Z4 fill:#b71c1c,color:#fff
 ```
 
 **Why GATE 1 matters:**
@@ -111,6 +115,49 @@ accDescr: Detailed diagram showing structure and relationships
 - Ensures changelog quality before release
 - Blocks accidentally releasing without documentation
 - Catches schema violations early
+
+### Phase 1 Safety Audit (NEW — v1.0.1)
+
+**Added in v1.0.1 (2026-08-27):** Issue #2354 introduces a comprehensive seven-layer changelog safety audit system to prevent future incidents like the history loss event. This system validates changelog integrity, format compliance, cross-references, data integrity, and link validity.
+
+**The 7-Layer Validation System:**
+
+1. **File Integrity Audit** — Detects empty/corrupted files, validates UTF-8 encoding
+2. **Format Compliance Audit** — Validates Keep a Changelog 1.1.0 format and entry structure
+3. **Structure Compliance Audit** — Ensures required sections ([Unreleased], version headers)
+4. **Frontmatter Validation Audit** — Checks YAML metadata (title, description, last_updated)
+5. **Data Integrity Audit** — Detects duplicate versions, invalid dates, truncated content
+6. **Cross-Reference Audit** — Verifies changelog-related files exist and link bidirectionally
+7. **Link Validity Audit** — Validates PR/issue link format and reference sanity
+
+**How It Works:**
+
+The safety audit runs automatically on every PR and push:
+- **On Pull Requests**: Blocks merge if critical errors detected (file corruption, structure violations, data corruption)
+- **On Push to main/develop**: Validates before merge
+- **Locally**: Run `npm run validate:changelog` before pushing
+
+**Integration Points:**
+
+```bash
+# Local validation
+npm run validate:changelog
+
+# Full validation suite
+npm run validate:all
+
+# CI/CD workflow
+.github/workflows/changelog-safety-audit.yml
+```
+
+**Error Handling:**
+
+- 🔴 **Critical Errors** (block merge): File corruption, missing structure, data corruption, invalid links
+- 🟡 **Warnings** (don't block): Format issues, stale updates, weak cross-references
+
+**Detailed Audit Report:**
+
+See [Phase 1 Audit Report](../reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md) for complete findings and implementation details.
 
 ---
 
