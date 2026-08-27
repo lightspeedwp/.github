@@ -6,6 +6,13 @@ last_updated: 2026-08-27
 owner: "ashley@lightspeedwp.agency"
 version: "1.0"
 phase: "Planning & Discovery"
+openspec_status: "planning"
+openspec_labels:
+  - "openspec:status/planning"
+  - "openspec:domain/automation"
+  - "openspec:domain/governance"
+  - "openspec:domain/agent-design"
+  - "openspec:priority/high"
 ---
 
 # Issue Management Agent Audit & Polish — 2026-08-27

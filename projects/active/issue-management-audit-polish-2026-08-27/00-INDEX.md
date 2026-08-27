@@ -17,6 +17,8 @@ quick_reference: true
 5. **03-OPENSPEC-STATUS-FRAMEWORK.md** — Progress tracking framework
 6. **04-AGENTIC-WORKFLOW-DESIGN.md** — Workflow architecture
 7. **05-AUTOMATION-SCRIPTS-INVENTORY.md** — Complete script catalog
+8. **06-OPENSPEC-LABELS-MAPPING.md** — Labels reference and matrix
+9. **07-ISSUES-TO-CREATE.md** — 11 GitHub issues with full specs
 
 ## ⚡ Quick Links
 
