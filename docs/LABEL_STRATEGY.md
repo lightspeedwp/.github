@@ -1,4 +1,13 @@
 ---
+document_type: "Guide"
+title: "GitHub Labelling Strategy"
+description: "LightSpeed's canonical GitHub label taxonomy, governance, and automation strategy"
+version: "1.0"
+created_date: 2026-08-27
+last_updated: 2026-08-27
+authors: ["LightSpeed Team"]
+file_type: documentation
+status: active
 ---
 
 > **Note:** This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).
