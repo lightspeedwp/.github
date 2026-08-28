@@ -2,7 +2,7 @@ name: PR Validation • Epic Linking & Milestone Check
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    types: [opened, edited, synchronize, reopened, milestoned, demilestoned]
 
 permissions:
   contents: read
@@ -136,16 +136,24 @@ jobs:
             core.setOutput('skip', 'false');
 
       - name: Create status check
+        id: create-status-check
         if: steps.validate.outputs.skip != 'true'
         uses: actions/github-script@v9
+        env:
+          EPIC_ISSUES: ${{ steps.validate.outputs.epic-issues }}
+          VALID_ISSUES: ${{ steps.validate.outputs.valid-issues }}
+          INVALID_ISSUES: ${{ steps.validate.outputs.invalid-issues }}
+          HAS_MILESTONE: ${{ steps.validate.outputs.has-milestone }}
+          MILESTONE_VALID: ${{ steps.validate.outputs.milestone-valid }}
+          MILESTONE_TITLE: ${{ steps.validate.outputs.milestone-title }}
         with:
           script: |
-            const epicIssues = JSON.parse('${{ steps.validate.outputs.epic-issues }}' || '[]');
-            const validIssues = JSON.parse('${{ steps.validate.outputs.valid-issues }}' || '[]');
-            const invalidIssues = JSON.parse('${{ steps.validate.outputs.invalid-issues }}' || '[]');
-            const hasMilestone = '${{ steps.validate.outputs.has-milestone }}' === 'true';
-            const milestoneValid = '${{ steps.validate.outputs.milestone-valid }}' === 'true';
-            const milestoneName = '${{ steps.validate.outputs.milestone-title }}';
+            const epicIssues = JSON.parse(process.env.EPIC_ISSUES || '[]');
+            const validIssues = JSON.parse(process.env.VALID_ISSUES || '[]');
+            const invalidIssues = JSON.parse(process.env.INVALID_ISSUES || '[]');
+            const hasMilestone = process.env.HAS_MILESTONE === 'true';
+            const milestoneValid = process.env.MILESTONE_VALID === 'true';
+            const milestoneName = process.env.MILESTONE_TITLE || '';
 
             const pr = context.payload.pull_request;
             const prNumber = pr.number;
@@ -193,11 +201,11 @@ jobs:
               checkText += '## ❌ Missing or Invalid Milestone\n\n';
               if (!hasMilestone) {
                 checkText += 'This PR does not have a milestone assigned. ';
-                checkText += 'Milestone assignment is required for release tracking and project organization.\n\n';
+                checkText += 'Milestone assignment is required for release tracking and project organisation.\n\n';
                 checkText += '**How to Fix:**\n\n';
                 checkText += '1. Click the "Milestone" button in the PR right sidebar\n';
                 checkText += '2. Select the appropriate milestone for this work\n';
-                checkText += '3. Commit changes and push to update this PR\n\n';
+                checkText += '3. The governance check re-runs automatically\n\n';
               } else if (!milestoneValid) {
                 checkText += `Milestone "${milestoneName}" appears to be a placeholder. `;
                 checkText += 'Please assign a valid milestone that reflects the target release or sprint.\n\n';
@@ -253,13 +261,19 @@ jobs:
       - name: Post or update validation comment
         if: steps.validate.outputs.skip != 'true' && steps.create-status-check.outputs.check-result != null
         uses: actions/github-script@v9
+        env:
+          EPIC_ISSUES: ${{ steps.validate.outputs.epic-issues }}
+          INVALID_ISSUES: ${{ steps.validate.outputs.invalid-issues }}
+          HAS_MILESTONE: ${{ steps.validate.outputs.has-milestone }}
+          MILESTONE_VALID: ${{ steps.validate.outputs.milestone-valid }}
+          CHECK_RESULT: ${{ steps.create-status-check.outputs.check-result }}
         with:
           script: |
-            const epicIssues = JSON.parse('${{ steps.validate.outputs.epic-issues }}' || '[]');
-            const invalidIssues = JSON.parse('${{ steps.validate.outputs.invalid-issues }}' || '[]');
-            const hasMilestone = '${{ steps.validate.outputs.has-milestone }}' === 'true';
-            const milestoneValid = '${{ steps.validate.outputs.milestone-valid }}' === 'true';
-            const checkResult = '${{ steps.create-status-check.outputs.check-result }}';
+            const epicIssues = JSON.parse(process.env.EPIC_ISSUES || '[]');
+            const invalidIssues = JSON.parse(process.env.INVALID_ISSUES || '[]');
+            const hasMilestone = process.env.HAS_MILESTONE === 'true';
+            const milestoneValid = process.env.MILESTONE_VALID === 'true';
+            const checkResult = process.env.CHECK_RESULT;
 
             const hasViolations = epicIssues.length > 0 || invalidIssues.length > 0 || !hasMilestone || !milestoneValid;
 

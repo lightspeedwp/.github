@@ -74,7 +74,9 @@ function hasCompletedChecklist(sectionText) {
 
 /**
  * Extracts all linked issue numbers from text.
- * Supports closing keywords (closes, fixes, resolves) and relating keyword (relates to).
+ * Supports all GitHub closing keywords (close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved).
+ * Supports relating keyword (relates to).
+ * Optional colons after keywords are supported: e.g. "Closes: #123" or "fixes #123".
  * Handles same-repo (#123) and cross-repo (owner/repo#123) references.
  * Returns deduplicated array of issue numbers.
  * @param {string} text - The text to parse.
@@ -82,7 +84,7 @@ function hasCompletedChecklist(sectionText) {
  */
 function extractIssueNumbers(text) {
   const cleaned = stripHtmlComments(text);
-  const issuePattern = /(?:closes|fixes|resolves|relates to)\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)|#(\d+)/gi;
+  const issuePattern = /\b(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved|relates\s+to):?\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)|#(\d+)/gi;
   const issues = [];
   let match;
 
@@ -98,7 +100,8 @@ function extractIssueNumbers(text) {
 
 /**
  * Extracts issue numbers that are being closed (not merely related).
- * Only matches closing keywords: closes, fixes, resolves.
+ * Recognizes all GitHub closing keywords (close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved).
+ * Optional colons after keywords are supported: e.g. "Closes: #123" or "fixes #123".
  * Ignores "relates to" keyword which does not close issues.
  * Handles same-repo (#123) and cross-repo (owner/repo#123) references.
  * Returns deduplicated array of issue numbers.
@@ -107,7 +110,7 @@ function extractIssueNumbers(text) {
  */
 function extractClosingIssueNumbers(text) {
   const cleaned = stripHtmlComments(text);
-  const closingPattern = /(?:closes|fixes|resolves)\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)/gi;
+  const closingPattern = /\b(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved):?\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)/gi;
   const issues = [];
   let match;
 

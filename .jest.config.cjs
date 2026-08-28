@@ -40,7 +40,7 @@ module.exports = {
         '<rootDir>/scripts/agents/includes/sync-version.js',
     ],
     moduleNameMapper: {
-        '^(\.{1,2}/.*?)\.(?:js|cjs)$': '$1',
+        '^(\\.[./].*?)\\.(?:js|cjs)$': '$1',
     },
     moduleFileExtensions: ['cjs', 'js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',

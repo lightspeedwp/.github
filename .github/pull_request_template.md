@@ -15,13 +15,16 @@ labels: ["status:needs-review"]
 <!--
 List any related issues by number.
 
-IMPORTANT: Do NOT use "Closes" for epic issues!
-- Use "Closes" for bugs, tasks, stories, features
+Supported closing keywords: close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved
+(Optional colon: e.g., "Closes: #123" or "fixes #123")
+
+IMPORTANT: Do NOT use closing keywords for epic issues!
+- Use closing keywords for bugs, tasks, stories, features
 - Use "Relates to" for epics, parent issues, milestones
 
 Example:
 Closes #123 (task)
-Closes #456 (bug fix)
+Fixes #456 (bug fix)
 Relates to #789 (epic — not closed)
 
 See CONTRIBUTING.md for epic linking best practices.

@@ -273,6 +273,36 @@ describe("extractClosingIssueNumbers", () => {
     const text = "Relates to #123\nRelates to #456";
     expect(extractClosingIssueNumbers(text)).toEqual([]);
   });
+
+  it("handles all GitHub closing keywords", () => {
+    const text = "Close #1\nCloses #2\nClosed #3\nFix #4\nFixes #5\nFixed #6\nResolve #7\nResolves #8\nResolved #9";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  });
+
+  it("handles optional colons after keywords", () => {
+    const text = "Closes: #123\nFixes: #456\nResolves: #789";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([123, 456, 789]);
+  });
+
+  it("rejects false positive matches", () => {
+    const text = "discloses #123\ndisclose #456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([]);
+  });
+
+  it("handles mixed colons and no colons", () => {
+    const text = "Closes #123\nFixes: #456\nResolves #789";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([123, 456, 789]);
+  });
+
+  it("handles cross-repo references with all keywords", () => {
+    const text = "Closes owner/repo#123\nFixes: other/project#456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([123, 456]);
+  });
 });
 
 describe("validatePullRequestBody", () => {

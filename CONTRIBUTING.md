@@ -104,7 +104,9 @@ To maintain a consistent, high-quality codebase and community, please follow the
 
 #### What to link in the "Linked issues" section:
 
-**Use "Closes" for:**
+**Use closing keywords for:**
+Supported keywords: `close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved`
+(Optional colon after keyword: e.g., `Closes: #123` or `fixes #123`)
 - ✅ Bug issues (closes when fix merges)
 - ✅ Task issues (closes when work completes)
 - ✅ Story issues (closes when feature ships)
