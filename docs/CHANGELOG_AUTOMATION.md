@@ -3,8 +3,8 @@ title: Changelog Automation & Integration
 description: Complete guide to changelog management, automation workflows, and integration with release processes
 file_type: documentation
 created_date: '2026-07-24'
-last_updated: '2026-08-25'
-version: '1.1'
+last_updated: '2026-08-27'
+version: '1.2'
 owners:
   - LightSpeed Team
 tags:
@@ -157,7 +157,95 @@ npm run validate:all
 
 **Detailed Audit Report:**
 
-See [Phase 1 Audit Report](../reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md) for complete findings and implementation details.
+See [Phase 1 Audit Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md) for complete findings and implementation details.
+
+---
+
+### Phase 2: Write Protection & Audit Logging (NEW — v1.1)
+
+**Added in v1.1 (2026-08-27):** Issue #2382 introduces write protection and comprehensive audit logging to complement Phase 1's validation system. This phase adds local commit-time validation and detailed tracking of all changelog modifications.
+
+**Phase 2 Components:**
+
+1. **Write Protection** — Pre-commit hook validation
+   - Runs Phase 1 validation before allowing commits
+   - Blocks commits on critical errors (file corruption, structure violations, data corruption)
+   - Prevents invalid CHANGELOG.md from being committed locally
+   - Option to bypass with `git commit --no-verify` (not recommended — CI will still validate)
+
+2. **Audit Logging** — Complete modification tracking
+   - Automatic tracking of all CHANGELOG.md changes
+   - Records: author, timestamp, commit hash, message
+   - Per-author contribution statistics
+   - Audit log stored in `.github/reports/audits/changelog-audit-log.md`
+   - Updated automatically on every modification
+
+3. **Regression Test Suite** — Comprehensive validation testing
+   - Tests all 7 Phase 1 validation layers
+   - Edge case coverage (large files, malformed entries, etc.)
+   - Performance benchmarks (< 500ms validation overhead)
+   - Run with: `npm test -- --testPathPattern=changelog-safety`
+
+4. **Agent Constraints** — AI-enforced validation rules
+   - Updated changelog agent with Phase 2 constraints
+   - Documented write protection rules for agents
+   - Audit logging requirements documented
+   - Test coverage expectations defined
+
+**How It Works:**
+
+**Local (Pre-commit):**
+```bash
+# Add changelog changes
+git add CHANGELOG.md
+
+# Pre-commit hook runs automatically
+git commit -m "..."
+# → Hook validates staged CHANGELOG.md
+# → Blocks if critical errors detected
+# → Allows commit if validation passes
+```
+
+**Audit Logging:**
+```bash
+# Generate/update audit log (runs automatically)
+npm run audit:changelog
+
+# or manually
+node scripts/validation/changelog-audit-log.js
+```
+
+**Testing:**
+```bash
+# Run regression tests
+npm test -- --testPathPattern=changelog-safety
+
+# Expected output: all layers passing with <500ms performance
+```
+
+**Integration Points:**
+
+```text
+Phase 1 (Validation) + Phase 2 (Protection & Logging) → Phase 3+ (Future)
+
+Local commit-time: Pre-commit hook validation
+↓
+CI/CD: GitHub Actions workflow validation
+↓
+Audit: Tracked in changelog-audit-log.md
+↓
+Release: Audit trail ensures integrity
+```
+
+**Error Handling:**
+
+- 🔴 **Critical Errors** (block commit): File corruption, missing structure, data corruption, invalid links
+- 🟡 **Warnings** (don't block): Format issues, stale updates, weak cross-references
+- 📋 **Audit Trail** (always tracked): All modifications logged with timestamp and author
+
+**Detailed Phase 2 Report:**
+
+See [Phase 2 Implementation Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md) for complete implementation details, test coverage, and performance metrics.
 
 ---
 
@@ -216,7 +304,7 @@ Every entry follows this exact format:
 
 #### Entry Length Limits
 
-```
+```text
 Title:        <60 characters
 Description:  <150 characters
 Full entry:   <250 characters (total)
@@ -227,7 +315,7 @@ Sentences:    1-2 maximum
 
 This project uses [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html):
 
-```
+```text
 MAJOR.MINOR.PATCH
 
 Example: 1.5.3
@@ -322,7 +410,7 @@ npm run validate:changelog
 
 Expected output:
 
-```
+```text
 📋 CHANGELOG Validation Report
 
 📊 Summary:
@@ -349,7 +437,7 @@ Submit your PR with:
 
 ### Validation Pipeline
 
-```
+```text
 Developer commits CHANGELOG.md update
          ↓
 PR created (changelog-management.yml triggered)
@@ -576,7 +664,7 @@ npm run lint:all
 Error: Changelog validation failed
   Reason: [Unreleased] section missing or empty
   Action: Add entries to [Unreleased] before release
-```
+```text
 
 ---
 
@@ -586,7 +674,7 @@ Error: Changelog validation failed
 
 **Symptom:**
 
-```
+```text
 CI Red: changelog-management.yml failed
 Error: Missing PR link. Required format: ([PR #1234](url))
 ```
@@ -611,7 +699,7 @@ Error: Missing PR link. Required format: ([PR #1234](url))
 
 **Symptom:**
 
-```
+```text
 develop merge completed, but CHANGELOG.md is missing "### Fixed" header
 Entries exist, but section organization is lost
 ```
@@ -643,7 +731,7 @@ PR #1100 entry appears twice in CHANGELOG.md after merge
 
 **Symptom:**
 
-```
+```text
 npm run validate:changelog reports error, but entry looks correct
 ```
 
