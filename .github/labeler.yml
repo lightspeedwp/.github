@@ -14,7 +14,7 @@
 "type:feature":
   head-branch: ['^feat/.*']
 "type:bug":
-  head-branch: ['^fix/.*', '^hotfix/.*']
+  head-branch: ['^fix/.*']
 "type:documentation":
   head-branch: ['^docs/.*']
 "type:chore":

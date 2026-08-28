@@ -311,7 +311,7 @@ jobs:
             } else if (validationStatus === 'invalid_labels_only') {
               conclusion = 'failure';
               summary = 'This PR has labels but none from the required categories.';
-              detailedText = '## Invalid Labels Only\n\nThis PR has labels, but none of them are from the required categories.\n\n**Current Labels:** ${{ join(github.event.pull_request.labels.*.name, \', \') }}\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories\n2. [Add labels manually](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels) or\n3. Update your PR to trigger auto-labeling (edit title, body, or branch name)\n4. The labeling check will run again automatically';
+              detailedText = '## Invalid Labels Only\n\nThis PR has labels, but none of them are from the required categories.\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories\n2. [Add labels manually](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels) or\n3. Update your PR to trigger auto-labeling (edit title, body, or branch name)\n4. The labeling check will run again automatically';
             }
 
             const checkRunInput = {
