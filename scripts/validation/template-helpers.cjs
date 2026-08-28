@@ -44,6 +44,35 @@ function hasCompletedChecklist(sectionText) {
   return hasChecked && !hasUnchecked;
 }
 
+function extractIssueNumbers(text) {
+  const cleaned = stripHtmlComments(text);
+  const issuePattern = /(?:closes|fixes|resolves|relates to)\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)|#(\d+)/gi;
+  const issues = [];
+  let match;
+
+  while ((match = issuePattern.exec(cleaned)) !== null) {
+    const issueNum = match[1] || match[2];
+    if (issueNum) {
+      issues.push(parseInt(issueNum, 10));
+    }
+  }
+
+  return [...new Set(issues)]; // Remove duplicates
+}
+
+function extractClosingIssueNumbers(text) {
+  const cleaned = stripHtmlComments(text);
+  const closingPattern = /(?:closes|fixes|resolves)\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)/gi;
+  const issues = [];
+  let match;
+
+  while ((match = closingPattern.exec(cleaned)) !== null) {
+    issues.push(parseInt(match[1], 10));
+  }
+
+  return [...new Set(issues)]; // Remove duplicates
+}
+
 function validatePullRequestBody(body, labels, headRef) {
   const labelNames = new Set((labels || []).map((label) => label.name));
   const missing = [];
@@ -81,5 +110,7 @@ module.exports = {
   hasIssueReference,
   hasChangelogEntry,
   hasCompletedChecklist,
+  extractIssueNumbers,
+  extractClosingIssueNumbers,
   validatePullRequestBody
 };
