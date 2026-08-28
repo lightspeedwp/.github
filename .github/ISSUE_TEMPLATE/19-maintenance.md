@@ -1,7 +1,11 @@
 ---
-file_type: "issue-template"
 name: "🧹 Maintenance"
+description: "🧹 Maintenance"
 about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks."
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

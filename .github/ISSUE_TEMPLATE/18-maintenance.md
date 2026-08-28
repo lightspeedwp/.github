@@ -1,8 +1,13 @@
 ---
 name: "🧹 Maintenance"
+description: "🧹 Maintenance"
 about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
 title: "[Maintenance] <Brief summary of the maintenance or chore>"
 labels: [status:needs-triage, area:maintenance]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## Maintenance / Chore Summary
