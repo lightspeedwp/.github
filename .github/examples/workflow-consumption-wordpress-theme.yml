@@ -1,0 +1,62 @@
+# Example: Using LightSpeed reusable workflows in a WordPress block theme
+#
+# Place this in: .github/workflows/ci.yml (in your wordpress-block-theme repo)
+#
+# This example shows how to consume reusable workflows from lightspeedwp/.github
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  # Validate issue labels (if this is a PR)
+  validate-labels:
+    if: github.event_name == 'pull_request'
+    uses: lightspeedwp/.github/workflows/validate-issue-labels@main
+    # Note: workflow must be public or you must have access to lightspeedwp/.github
+
+  # Collect AI feedback on PR changes
+  ai-feedback:
+    if: github.event_name == 'pull_request'
+    uses: lightspeedwp/.github/workflows/ai-feedback-validation@main
+    with:
+      context: wordpress-theme
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Run orchestrated phase progression (if applicable to your project)
+  phase-progression:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: lightspeedwp/.github/workflows/orchestrate-phase-progression@main
+    with:
+      repo-context: wordpress-theme
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Your custom jobs below
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm test
