@@ -1,8 +1,13 @@
 ---
 name: "🚀 Feature"
+description: "Propose a net-new capability, enhancement, or workflow improvement."
 about: "Propose a net-new capability, enhancement, or workflow improvement."
 title: "[Feature] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--
