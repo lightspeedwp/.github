@@ -214,7 +214,7 @@ jobs:
 
           CHANGED=""
           if git diff --name-only "$BASE" "$HEAD" -- '*README*' >./.github/tmp/readme_files.txt 2>&1; then
-            CHANGED=$(cat./.github/tmp/readme_files.txt)
+            CHANGED=$(cat ./.github/tmp/readme_files.txt)
           fi
 
           if [ -z "$CHANGED" ]; then
