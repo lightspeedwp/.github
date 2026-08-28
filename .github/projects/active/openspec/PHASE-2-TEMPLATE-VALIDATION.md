@@ -22,23 +22,27 @@ Phase 2 focuses on **template validation and automatic injection** of Definition
 ### What Phase 2 Delivers
 
 ✅ **Template Validation Module** (`dor-dod-templates.js`)
+
 - 17 issue-type-specific DoR/DoD templates
 - Mapping from GitHub labels to templates
 - Detection logic for existing DoR/DoD sections
 
 ✅ **Validation & Injection Script** (`validate-inject-dor-dod.js`)
+
 - Batch processing for 50+ issues
 - Type-aware template injection
 - Dry-run and verbose logging
 - Statistics and error reporting
 
 ✅ **Comprehensive Test Suite** (43 tests, 100% passing)
+
 - Template data structure validation
 - Detection function tests
 - Integration scenarios
 - Quality validation
 
 ✅ **GitHub Actions Workflow**
+
 - Daily scheduled validation (8 AM UTC)
 - Manual trigger with dry-run option
 - Batch processing with configurable limits
@@ -53,6 +57,7 @@ Phase 2 focuses on **template validation and automatic injection** of Definition
 **Purpose:** Central repository of DoR/DoD templates for all issue types.
 
 **Supported Types:**
+
 - `type:task` — Scoped unit of work
 - `type:bug` — Defect with reproduction steps
 - `type:feature` — New capability or enhancement
@@ -72,6 +77,7 @@ Phase 2 focuses on **template validation and automatic injection** of Definition
 - `type:audit` — Audit and assessment work
 
 **Key Functions:**
+
 ```javascript
 // Get template for a specific type
 getTemplate('type:bug') → { name, dor, dod }
@@ -94,6 +100,7 @@ detectTypeFromLabels(labels) → 'type:bug' | null
 **Purpose:** Validates and injects DoR/DoD sections into issues.
 
 **Usage:**
+
 ```bash
 # Process up to 300 open issues (default)
 node scripts/automation/validate-inject-dor-dod.js
@@ -112,6 +119,7 @@ node scripts/automation/validate-inject-dor-dod.js --dry-run --limit 100 --verbo
 ```
 
 **Output Statistics:**
+
 - Issues processed
 - Issues missing DoR/DoD
 - Sections injected
@@ -121,6 +129,7 @@ node scripts/automation/validate-inject-dor-dod.js --dry-run --limit 100 --verbo
 ### 3. Test Suite (`scripts/automation/__tests__/dor-dod-validation.test.js`)
 
 **43 Tests Covering:**
+
 - Template data structure (17 types, required properties)
 - Color scheme validation (Blue→Yellow→Green lifecycle)
 - Template functions (getTemplate, getAllTemplates)
@@ -130,6 +139,7 @@ node scripts/automation/validate-inject-dor-dod.js --dry-run --limit 100 --verbo
 - Template quality (security, accessibility, branch prefixes)
 
 **Run Tests:**
+
 ```bash
 npm test -- scripts/automation/__tests__/dor-dod-validation.test.js
 ```
@@ -137,14 +147,17 @@ npm test -- scripts/automation/__tests__/dor-dod-validation.test.js
 ### 4. GitHub Actions Workflow (`validate-dor-dod-sections.yml`)
 
 **Schedule:**
+
 - Daily: 8 AM UTC (automatic dry-run)
 - Manual: Trigger with `workflow_dispatch` input
 
 **Workflow Inputs (manual trigger):**
+
 - `dry_run`: true/false (default: true)
 - `limit`: Max issues to process (default: 100)
 
 **Behavior:**
+
 - Scheduled runs: dry-run only (preview changes)
 - Manual runs: can apply changes (if dry_run = false)
 - All runs: verbose logging
@@ -157,11 +170,13 @@ npm test -- scripts/automation/__tests__/dor-dod-validation.test.js
 ### Template Structure
 
 Each template includes:
+
 - **Name:** Human-readable type name
 - **DoR (Definition of Ready):** Checklist for issue readiness
 - **DoD (Definition of Done):** Checklist for completion criteria
 
 **Example: type:bug**
+
 ```
 ## Definition of Ready (DoR)
 
@@ -188,6 +203,7 @@ Each template includes:
 ### Detection Logic
 
 The script detects issue types in this order:
+
 1. Check for `type:*` label (highest priority)
 2. If no label: issue is skipped
 3. Retrieve matching template from mapping
@@ -197,11 +213,13 @@ The script detects issue types in this order:
 ### Validation Criteria
 
 An issue is considered **complete** if:
+
 - ✅ Has `type:*` label
 - ✅ Has `## Definition of Ready` (or `## DoR`) section
 - ✅ Has `## Definition of Done` (or `## DoD`) section
 
 An issue is **injected** if:
+
 - ✅ Missing DoR or DoD
 - ✅ Has valid type label
 - ✅ Not a dry-run
@@ -220,6 +238,7 @@ node scripts/automation/validate-inject-dor-dod.js --dry-run --limit 50 --verbos
 ```
 
 **Output:**
+
 ```
 📋 Fetching open issues (limit: 50)...
 📋 Processing 42 issues...
@@ -264,6 +283,7 @@ The workflow runs automatically at 8 AM UTC daily in dry-run mode. To manually t
 **Status:** ✅ All 43 tests passing
 
 **Test Coverage:**
+
 - Template Data Structure: 6 tests
 - Template Functions: 3 tests
 - Detection: 5 tests
@@ -272,6 +292,7 @@ The workflow runs automatically at 8 AM UTC daily in dry-run mode. To manually t
 - Edge Cases & Scenarios: 18 tests
 
 **Run Tests:**
+
 ```bash
 npm test -- scripts/automation/__tests__/dor-dod-validation.test.js
 ```
@@ -305,6 +326,7 @@ Phase 3 will focus on **workflow orchestration and automated phase progression**
 ## Success Criteria
 
 ✅ **Phase 2 Complete When:**
+
 - [ ] 43+ tests passing
 - [ ] Template validation logic works for 17 issue types
 - [ ] Validation script processes 50+ issues successfully

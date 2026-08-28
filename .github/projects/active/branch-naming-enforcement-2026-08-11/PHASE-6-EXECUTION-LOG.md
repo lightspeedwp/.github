@@ -34,6 +34,7 @@ status: active
 ## Support Activity Log
 
 ### Template Entry
+
 - **Issue:** [Description]
 - **Resolution:** [How resolved]
 - **Time to resolve:** [Duration]
@@ -65,6 +66,7 @@ status: active
 ## Phase 6 Success Criteria
 
 ✅ **Completion target:**
+
 - 100% team announcement reach
 - 100% team acknowledgement of setup verification checklist
 - 80%+ pre-commit hook adoption by Aug 15

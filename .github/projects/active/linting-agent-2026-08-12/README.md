@@ -320,6 +320,7 @@ E2E Tests (3+ Real Repositories)
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

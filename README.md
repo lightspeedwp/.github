@@ -168,17 +168,17 @@ accDescr {
     G --> Q[E2E Tests]
     G --> R[Coverage Reports]
 
-    classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-    classDef docs fill:#d1fae5,stroke:#0f172a,color:#0f172a
-    classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-    classDef automation-sub fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-    classDef label fill:#fee2e2,stroke:#0f172a,color:#0f172a
-    classDef label-sub fill:#ffe4e6,stroke:#0f172a,color:#0f172a
-    classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
-    classDef ai-sub fill:#fef3c7,stroke:#0f172a,color:#0f172a
-    classDef docs-sub fill:#e0f2fe,stroke:#0f172a,color:#0f172a
-    classDef testing fill:#ecfccb,stroke:#0f172a,color:#0f172a
-    classDef testing-sub fill:#bae6fd,stroke:#0f172a,color:#0f172a
+    classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef docs fill:#d1fae5,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef automation-sub fill:#c7d2fe,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef label fill:#fee2e2,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef label-sub fill:#ffe4e6,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef ai-sub fill:#fef3c7,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef docs-sub fill:#e0f2fe,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef testing fill:#ecfccb,stroke:#0f172a,color:#0f172a,stroke-width:2px
+    classDef testing-sub fill:#bae6fd,stroke:#0f172a,color:#0f172a,stroke-width:2px
 
     class A core
     class B core
@@ -413,10 +413,10 @@ flowchart TB
     D --> U
     G --> V
 
-    style A fill:#e1f5fe
-    style C fill:#e8f5e8
-    style E fill:#fce4ec
-    style S fill:#fff3e0
+    style A fill:#e1f5fe,color:#0f172a
+    style C fill:#e8f5e8,color:#0f172a
+    style E fill:#fce4ec,color:#0f172a
+    style S fill:#fff3e0,color:#0f172a
 ```
 
 ### Repository Maintenance & Update Cycle
@@ -500,9 +500,9 @@ flowchart LR
     F --> K
     G --> L
 
-    style A fill:#e8f5e8
-    style C fill:#f3e5f5
-    style I fill:#e1f5fe
+    style A fill:#e8f5e8,color:#0f172a
+    style C fill:#f3e5f5,color:#0f172a
+    style I fill:#e1f5fe,color:#0f172a
 ```
 
 **Test Commands:**

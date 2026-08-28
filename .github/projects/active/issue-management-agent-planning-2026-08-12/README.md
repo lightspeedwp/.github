@@ -66,6 +66,7 @@ scripts/automation/issue-agent/
 ### Ready for Implementation
 
 All 7 skills can now be implemented using shared modules:
+
 - ✅ Shared authentication (github-client.js)
 - ✅ Template/label loading utilities (utils.js)
 - ✅ Test fixtures with 15+ realistic issues
@@ -403,6 +404,7 @@ Have questions? Comment on the epic issue or reach out to the team.
 ---
 
 *Planning Project v1.0 | Created 2026-08-12 | Issue Management Agent*
+
 ## Visual Workflow
 
 ```mermaid

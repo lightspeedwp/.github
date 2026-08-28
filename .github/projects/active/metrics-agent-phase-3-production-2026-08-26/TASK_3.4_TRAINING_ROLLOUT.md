@@ -21,11 +21,13 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 ### 1. Training Sessions (4 × 60 min each)
 
 **Session 1: Metrics Agent Overview (Week 1, Day 1)**
+
 - Duration: 60 minutes
 - Audience: All engineers
 - Format: Live + recording for async participants
 
 **Content:**
+
 - What is Metrics Agent and why it exists
 - Phase 2 implementation highlights
 - Phase 3 deployment and status
@@ -34,17 +36,20 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 - Q&A and discussion
 
 **Deliverables:**
+
 - Slide deck (15-20 slides)
 - Recording (1 hour)
 - Slide notes for presenters
 - FAQ document
 
 **Session 2: Metrics Interpretation & Reading Reports (Week 1, Day 2)**
+
 - Duration: 60 minutes
 - Audience: All engineers
 - Prerequisites: Session 1
 
 **Content:**
+
 - Understanding health score components
   - Issue metrics (volume, response time, closure rate)
   - PR metrics (review time, merge rate)
@@ -57,17 +62,20 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 - Using metrics to justify decisions
 
 **Deliverables:**
+
 - Slide deck + sample metrics reports
 - Interactive metrics walkthrough guide
 - Metrics interpretation cheat sheet
 - Real report examples from past weeks
 
 **Session 3: Integration Points & Data Flow (Week 1, Day 3)**
+
 - Duration: 60 minutes
 - Audience: All engineers
 - Prerequisites: Sessions 1-2
 
 **Content:**
+
 - How metrics flow through systems
   - Collection → Storage → Integration
   - Meta Agent consumption
@@ -79,17 +87,20 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 - Error scenarios and recovery
 
 **Deliverables:**
+
 - Architecture diagram (visual flow)
 - API reference documentation
 - Integration examples (code snippets)
 - Troubleshooting guide
 
 **Session 4: Operational Procedures & Runbooks (Week 1, Day 4)**
+
 - Duration: 60 minutes
 - Audience: All engineers
 - Prerequisites: Sessions 1-3
 
 **Content:**
+
 - Monitoring and alerting procedures
 - How to respond to metric alerts
 - Following runbooks for failures
@@ -99,6 +110,7 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 - Using metrics to drive project decisions
 
 **Deliverables:**
+
 - Runbook overview document
 - Slack channel guidelines (#metrics-alerts)
 - Decision-making framework (metrics + judgment)
@@ -107,30 +119,35 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 ### 2. Hands-On Labs & Activities (Week 2)
 
 **Lab 1: Reading and Analyzing Metrics (1 hour)**
+
 - Participants receive sample metrics data
 - Guided exercise: Identify trends, anomalies, issues
 - Group discussion on findings
 - Q&A with metrics team
 
 **Lab 2: Using Metrics API (1 hour)**
+
 - Participants call metrics API endpoints
 - Exercise: Build simple report from raw data
 - Explore integration patterns
 - Troubleshoot common issues
 
 **Lab 3: Interpreting Dashboard & Reports (45 min)**
+
 - Guided walkthrough of metrics dashboard
 - Practice reading different report types
 - Exercise: Explain metrics to a stakeholder
 - Group discussion
 
 **Lab 4: Scenario-Based Decision Making (1 hour)**
+
 - Present realistic scenarios (resource allocation, prioritization)
 - Teams use metrics to justify decisions
 - Present decisions to group
 - Discuss tradeoffs and alternatives
 
 **Deliverables:**
+
 - Lab setup guides and datasets
 - Scenario cards with business context
 - Metrics data samples (sanitized)
@@ -141,6 +158,7 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 **Certification Format:** Online quiz + practical assessment
 
 **Quiz (30 minutes, 20 questions):**
+
 - Metrics interpretation (5 questions)
 - API and integration knowledge (5 questions)
 - Operational procedures (5 questions)
@@ -148,12 +166,14 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 - Pass threshold: 80% (16/20)
 
 **Practical Assessment (15 minutes):**
+
 - Analyze provided metrics snapshot
 - Identify 3 key insights
 - Suggest 2 action items
 - Rationale for recommendations
 
 **Deliverables:**
+
 - Quiz question bank
 - Assessment rubric
 - Pass/fail criteria
@@ -165,6 +185,7 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 **Weekly Team Metrics Sync (30 minutes, every Monday)**
 
 **Agenda:**
+
 1. Week recap: Health score summary (5 min)
 2. Key metrics changes: Trends, anomalies (10 min)
 3. Action items from previous week (5 min)
@@ -172,12 +193,14 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 5. Q&A (5 min)
 
 **Facilitation:**
+
 - Rotate facilitator each week
 - Use metrics dashboard as visual aid
 - Record for async participants
 - Track decisions made using metrics
 
 **Documentation:**
+
 - Meeting notes template
 - Decision log (decisions + metrics justification)
 - Metrics trends spreadsheet (weekly tracking)
@@ -187,6 +210,7 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 **Location:** `scripts/metrics/docs/TRAINING_GUIDE.md` (already exists, update)
 
 **Materials to Create/Update:**
+
 - [ ] Training slide decks (4 sessions × 20-25 slides)
 - [ ] Recorded videos (4 × 60 min each)
 - [ ] Hands-on lab guides (4 labs, complete with data)
@@ -204,18 +228,21 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 ## Training Schedule
 
 **Week of 2026-09-02:**
+
 - Monday: Session 1 (9 AM UTC) - Metrics Overview
 - Tuesday: Session 2 (10 AM UTC) - Reading Reports
 - Wednesday: Session 3 (9 AM UTC) - Integration Points
 - Thursday: Session 4 (10 AM UTC) - Operations
 
 **Week of 2026-09-09:**
+
 - Monday: Lab 1 + Lab 2 (10 AM-12 PM UTC)
 - Tuesday: Lab 3 + Lab 4 (10 AM-12 PM UTC)
 - Wednesday-Friday: Certification window open (take quiz + practical)
 - Friday: Certification results & team discussion
 
 **Ongoing:**
+
 - Weekly team sync every Monday 2 PM UTC
 - Asynchronous Q&A in #metrics-channel
 - Monthly training updates and feedback collection
@@ -328,6 +355,7 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 ## Metrics for Success
 
 **Quantitative:**
+
 - Training attendance rate (target: 100%)
 - Certification pass rate (target: 100%, 1st attempt: 90%)
 - Weekly sync attendance (target: 80%+)
@@ -335,6 +363,7 @@ Conduct comprehensive training for the LightSpeed team on Metrics Agent v2.0, en
 - Decisions justified by metrics (target: 2+ per week)
 
 **Qualitative:**
+
 - Training feedback (NPS/CSAT)
 - Team confidence with metrics (self-assessment)
 - Quality of metrics-based decisions (peer review)

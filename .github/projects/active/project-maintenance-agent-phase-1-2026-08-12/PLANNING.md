@@ -465,6 +465,7 @@ status: ACTIVE (merged in PR #2005)
 ```
 
 **Features:**
+
 - Daily audit at 2 AM UTC (timezone: UTC)
 - Dry-run mode: no files created, visibility only
 - Slack notification of gaps found
@@ -487,12 +488,14 @@ status: ACTIVE (merged in PR #2005)
 ```
 
 **Supported Operations:**
+
 - `audit` — Check documentation completeness across projects
 - `create-docs` — Generate missing PLANNING.md, OPENSPEC.md, README.md
 - `validate` — Validate project structure and metadata
 - `archive` — Move completed projects to archive folder
 
 **Safety Features:**
+
 - Dry-run mode by default (preview only)
 - Clear output of what will be changed
 - Error reporting with next steps
@@ -553,12 +556,14 @@ status: ACTIVE (merged in PR #2005)
 ### 4.1: Team Training Documentation
 
 **Deliverables:**
+
 - [ ] Team training guide (30-min walkthrough)
 - [ ] FAQ with common scenarios
 - [ ] Troubleshooting guide
 - [ ] Example workflows (5+ real-world scenarios)
 
 **Topics:**
+
 1. What the Project Maintenance Agent does
 2. Running nightly audits (demo)
 3. Manual on-demand operations (demo)
@@ -570,6 +575,7 @@ status: ACTIVE (merged in PR #2005)
 ### 4.2: Runbooks & Incident Response
 
 **Runbooks:**
+
 - [ ] "Project missing documentation" — how to fix
 - [ ] "Audit found 10+ gaps" — escalation procedure
 - [ ] "Workflow failed" — recovery steps
@@ -578,6 +584,7 @@ status: ACTIVE (merged in PR #2005)
 ### 4.3: Operations Handbook
 
 **Chapters:**
+
 - [ ] Monitoring & alerting
 - [ ] Performance optimization
 - [ ] Scaling to more projects
@@ -671,4 +678,3 @@ When ready to begin Phase 2 (Portable Agent Development):
 ---
 
 *Last updated: 2026-08-18 by ash (Phase 3 completion)*
-

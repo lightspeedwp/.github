@@ -7,9 +7,9 @@ description: Draft Slack announcement for Branch Naming Enforcement Initiative t
 
 ## Announcement Draft
 
-> **📢 Attention Team:** 
+> **📢 Attention Team:**
 >
-> We're rolling out **branch naming enforcement** across the LightSpeed organization! 
+> We're rolling out **branch naming enforcement** across the LightSpeed organization!
 >
 > Starting **[ENFORCEMENT DATE]**, all branches must follow this pattern:
 >
