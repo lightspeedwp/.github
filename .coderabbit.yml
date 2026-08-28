@@ -282,161 +282,143 @@ reviews:
           - Confirm that documentation is up to date, accurate, and references related files or processes.
           - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
-# === GitHub Labels Reference ===
-# This section documents the canonical labeling system for all PRs and issues.
-# Labels are automatically applied by the labeling workflow based on branch patterns and file changes.
-# See .github/labeler.yml for the complete mapping rules.
-
-# Status Labels (applied automatically on PR creation)
-# - status:needs-review: Assigned to PRs from feature, fix, docs, chore, and other development branches
-# - status:approved: Applied when PR receives required approvals
-# - status:in-progress: Applied to actively-being-worked PRs
-# - status:blocked: Applied when PR has unresolved merge conflicts or CI failures
-# - status:ready-to-merge: Applied when PR is green, approved, and ready for merge
-
-# Type Labels (determined by branch prefix)
-# - type:feature: PRs from 'feat/*' branches (new features and enhancements)
-# - type:bug: PRs from 'fix/*' or 'hotfix/*' branches (bug fixes)
-# - type:documentation: PRs from 'docs/*' branches (documentation updates)
-# - type:chore: PRs from 'chore/*', 'build/*', or 'ci/*' branches (maintenance and tooling)
-# - type:refactor: PRs from 'refactor/*' branches (code refactoring without feature changes)
-# - type:test: PRs from 'test/*' branches (test additions and improvements)
-# - type:performance: PRs from 'perf/*' branches (performance optimisations)
-# - type:design: PRs from 'design/*' branches (design system and UI updates)
-# - type:a11y: PRs from 'a11y/*' branches (accessibility improvements per WCAG 2.2 AA)
-# - type:qa: PRs from 'qa/*' branches (quality assurance and testing)
-
-# Priority Labels (determined by branch prefix)
-# - priority:critical: Assigned to hotfix branches (high-urgency fixes)
-# - priority:normal: Assigned to standard feature, fix, docs, and chore branches
-# - priority:low: Assigned to non-urgent maintenance and documentation PRs
-
-# Area/Component Labels (determined by changed file paths)
-# - area:block-editor: Changes to WordPress block editor code (src/blocks/**, src/block-editor/**, block.json)
-# - area:theme: Changes to WordPress theme (theme.json, templates/**, patterns/**, parts/**, theme/**)
-# - area:ci: Changes to CI/CD and GitHub Actions (.github/workflows/**, .github/actions/**, ci/**)
-# - area:documentation: Changes to markdown and docs (**.md, docs/**, README.md)
-# - area:tests: Changes to test files (tests/**, **.test.*, **.spec.*, __tests/**)
-# - area:scripts: Changes to shell scripts (scripts/**, **.sh, **.bash)
-# - area:assets: Changes to assets and images (assets/**, images/**, **.png, **.jpg, **.svg)
-# - area:woocommerce: Changes to WooCommerce integration (woocommerce/**, woocommerce*.css/php/js)
-# - area:feature: Changes to feature-related code
-
-# Language Labels (determined by changed file types)
-# - lang:php: PRs modifying PHP files (**.php, composer.json, phpunit.xml)
-# - lang:js: PRs modifying JavaScript/TypeScript (**.js, **.jsx, **.ts, **.tsx, package.json, tsconfig.json)
-# - lang:css: PRs modifying stylesheets (**.css, **.scss, **.sass, **.less)
-
-# Release and Changelog Labels (managed by labeling agent)
-# - meta:changelog-required: Applied when PR modifies user-facing code and requires a changelog entry
-# - meta:skip-changelog: Applied to internal-only PRs that do not require changelog entries
-# - release:major, release:minor, release:patch: Version impact for release automation
-
-# === Pull Request Description Template Standards ===
-# All PRs must follow the standard template structure defined in .github/PULL_REQUEST_TEMPLATE/.
-# Required sections:
-# 1. Linked Issues: List related issues using closes/fixes/relates to syntax (e.g., "Closes #123")
-# 2. Changelog: Document user-facing changes using Keep a Changelog format
-#    - Categories: Added, Changed, Fixed, Removed
-#    - Format: User-facing notes only; internal-only PRs use skip-changelog label
-# 3. Checklist (Global DoD / PR): Verification that AC, tests, accessibility, docs, security, and reviews are complete
-#    - All items must be checked off (no unchecked items)
-#    - At least one item must be explicitly checked to validate completion
-
-# PR Template Selection (by branch type):
-# - feat/* branches: Use 'Feature PR' template (.github/PULL_REQUEST_TEMPLATE/pr_feature.md)
-# - fix/* branches: Use 'Bug Fix PR' template (.github/PULL_REQUEST_TEMPLATE/pr_bug.md)
-# - docs/* branches: Use 'Documentation PR' template (.github/PULL_REQUEST_TEMPLATE/pr_docs.md)
-# - chore/* branches: Use 'Chore PR' template (.github/PULL_REQUEST_TEMPLATE/pr_chore.md)
-# - refactor/* branches: Use 'Refactor PR' template (.github/PULL_REQUEST_TEMPLATE/pr_refactor.md)
-# - ci/* branches: Use 'CI/CD PR' template (.github/PULL_REQUEST_TEMPLATE/pr_ci.md)
-# - release/* branches: Use 'Release PR' template (.github/PULL_REQUEST_TEMPLATE/pr_release.md)
-# - hotfix/* branches: Use 'Hotfix PR' template (.github/PULL_REQUEST_TEMPLATE/pr_hotfix.md)
-# - perf/* branches: Use 'Performance PR' template (.github/PULL_REQUEST_TEMPLATE/pr_feature.md)
-# - *.deps branches: Use 'Dependency Update PR' template (.github/PULL_REQUEST_TEMPLATE/pr_dep_update.md)
-
-# PR Validation Rules:
-# - All required sections must be completed (no placeholder comments left)
-# - Changelog section must contain at least one user-facing entry OR skip-changelog label applied
-# - Checklist must have ALL items checked (validation regex requires no unchecked boxes and at least one checked)
-# - Linked issues must use proper GitHub syntax (Closes #, Fixes #, Relates to #)
-# - CI must be green (all required status checks passing)
-# - Code review approvals must be obtained before merge
-# - No merge conflicts or unresolved review threads
-
-# === Issue Description Template Standards ===
-# All new issues must be created using one of the defined templates in .github/ISSUE_TEMPLATE/.
-# Required sections vary by issue type but generally include:
-# 1. Description/Summary: Clear, concise statement of the issue or request
-# 2. Acceptance Criteria (if applicable): What success looks like
-# 3. Steps to Reproduce (for bugs): Step-by-step instructions
-# 4. Expected vs Actual Behaviour (for bugs): Comparison of expected vs actual outcome
-# 5. Context/Environment: Relevant system, browser, WordPress, or PHP versions
-# 6. Additional Context: Screenshots, code snippets, logs, or related references
-
-# Issue Template Selection (by type):
-# - Bug: Use '🐛 Bug report' template (.github/ISSUE_TEMPLATE/02-bug.md)
-#   - Labels: status:needs-triage, priority:normal, area:core
-#   - Sections: Description, Reproduce Steps, Expected Behaviour, Screenshots, Environment, Device/Browser, Additional Context
-#   - Validation: DoR (Definition of Ready) and DoD (Definition of Done) checklists
-# - Feature Request: Use '✨ Feature request' template (.github/ISSUE_TEMPLATE/03-feature.md)
-#   - Labels: status:needs-triage, priority:normal, area:feature
-#   - Sections: Description, Problem Statement, Proposed Solution, Acceptance Criteria, Additional Context
-# - Task: Use '📝 Task' template (.github/ISSUE_TEMPLATE/01-task.md)
-#   - Labels: status:needs-triage, priority:normal, type:task
-#   - Sections: Description, Acceptance Criteria, Definition of Done
-# - Epic: Use '🎯 Epic' template (.github/ISSUE_TEMPLATE/05-epic.md)
-#   - Labels: status:needs-triage, priority:normal, type:epic
-#   - Sections: Vision, Goals, Acceptance Criteria, Related Issues
-# - Documentation: Use '📚 Documentation' template (.github/ISSUE_TEMPLATE/20-documentation.md)
-#   - Labels: status:needs-triage, priority:normal, area:documentation
-#   - Sections: Title, Description, Target Audience, Content Outline, Acceptance Criteria
-# - Accessibility (a11y): Use '♿ Accessibility' template (.github/ISSUE_TEMPLATE/14-a11y.md)
-#   - Labels: status:needs-triage, priority:normal, type:a11y
-#   - Sections: Description, WCAG Criteria, Current Behaviour, Expected Behaviour, Acceptance Criteria
-# - Performance: Use '⚡ Performance' template (.github/ISSUE_TEMPLATE/12-performance.md)
-#   - Labels: status:needs-triage, priority:normal, type:performance
-#   - Sections: Description, Current Metrics, Target Metrics, Acceptance Criteria
-# - Security: Use '🔒 Security' template (.github/ISSUE_TEMPLATE/15-security.md)
-#   - Labels: status:needs-triage, priority:critical, type:security
-#   - Sections: Vulnerability Description, Impact Assessment, Reproduction Steps, Remediation, Acceptance Criteria
-# - Code Review: Use '👀 Code Review' template (.github/ISSUE_TEMPLATE/23-code-review.md)
-#   - Labels: status:needs-review, type:review
-#   - Sections: Code Location, Review Focus, Acceptance Criteria
-# - Testing/Coverage: Use '🧪 Testing Coverage' template (.github/ISSUE_TEMPLATE/12-testing-coverage.md)
-#   - Labels: status:needs-triage, priority:normal, type:test
-#   - Sections: Coverage Gap Description, Test Scenarios, Acceptance Criteria
-# - Maintenance: Use '🔧 Maintenance' template (.github/ISSUE_TEMPLATE/19-maintenance.md)
-#   - Labels: status:needs-triage, priority:normal, type:maintenance
-#   - Sections: Description, Current State, Desired State, Acceptance Criteria
-# - Build/CI: Use '🏗️ Build/CI' template (.github/ISSUE_TEMPLATE/10-build-ci.md)
-#   - Labels: status:needs-triage, priority:normal, area:ci
-#   - Sections: Description, Error Output, Steps to Reproduce, Acceptance Criteria
-# - Refactoring: Use '♻️ Code Refactor' template (.github/ISSUE_TEMPLATE/09-code-refactor.md)
-#   - Labels: status:needs-triage, priority:normal, type:refactor
-#   - Sections: Current Implementation, Refactoring Goals, Acceptance Criteria, Risk Assessment
-
-# Issue Validation Rules:
-# - Issue type must be selected (determines template and labels)
-# - All required template sections must be filled (no placeholder comments)
-# - Labels must include: one status label (needs-triage), one type label, and optionally area labels
-# - Title must be descriptive and follow naming conventions (e.g., "[Bug]", "[Feature]", "[Docs]")
-# - Description must be clear and actionable
-# - Acceptance Criteria must be specific and measurable
-# - Environment/context details provided for bugs and performance issues
-
-# === Label Automation Workflow ===
-# The CI/CD pipeline automatically applies labels based on:
-# 1. Branch naming patterns (status:needs-review, type:* labels)
-# 2. Changed file paths (area:* and lang:* labels)
-# 3. PR description content (meta:changelog-required vs meta:skip-changelog)
-# 4. Issue type selection (status:needs-triage, type:*, area:* labels)
-#
-# Manual label adjustments may be made by maintainers during triage or review.
-# Labels are used for:
-# - Automation routing (workflow triggers, notifications)
-# - Release categorisation (changelog generation, version bumping)
-# - Project board organisation and filtering
-# - Metrics and reporting (contribution types, area focus)
-
 early_access: true
+
+# === GitHub Labels and Template Standards Documentation ===
+# This section documents the comprehensive labeling system and PR/issue description standards
+# used across the LightSpeed organization to ensure consistency and automation.
+
+# GitHub Labels Reference
+# The following label categories help organize issues and pull requests across all repositories.
+# All labels are defined in https://github.com/lightspeedwp/.github/blob/main/.github/labels.yml
+
+labels:
+  status_labels:
+    - status:needs-review # PR/issue needs initial review
+    - status:approved # Changes approved and ready to merge
+    - status:in-progress # Work is actively being done
+    - status:blocked # Blocked by dependencies or external factors
+    - status:ready-to-merge # All checks pass, approved, ready for merge
+
+  type_labels:
+    - type:feature # New feature or capability
+    - type:bug # Bug fix
+    - type:documentation # Documentation changes
+    - type:chore # Maintenance, housekeeping
+    - type:refactor # Internal restructuring
+    - type:test # Testing-related changes
+    - type:performance # Performance improvements
+    - type:design # Design changes
+    - type:a11y # Accessibility improvements
+    - type:qa # QA/testing changes
+
+  priority_labels:
+    - priority:critical # Critical/urgent work
+    - priority:normal # Standard priority
+    - priority:low # Low priority work
+
+  area_labels:
+    - area:block-editor # Block editor changes
+    - area:theme # Theme changes
+    - area:ci # CI/CD workflow changes
+    - area:documentation # Documentation
+    - area:tests # Test-related
+    - area:scripts # Scripts and tooling
+    - area:assets # Assets and media
+    - area:woocommerce # WooCommerce integration
+
+  language_labels:
+    - lang:php # PHP code changes
+    - lang:js # JavaScript/TypeScript changes
+    - lang:css # CSS/styling changes
+
+# Pull Request Description Template Standards
+# All PRs should follow the structure defined in .github/PULL_REQUEST_TEMPLATE/ files.
+# Key sections required for release automation and consistency:
+
+pr_template_standards:
+  feat_branch: &feat_template
+    sections:
+      - Linked issues # Link to related issues (Closes #123)
+      - Changelog # User-facing changes (Added, Changed, Fixed, Removed)
+      - How to Test # Test procedures and expected results
+      - Checklist # Definition of Done verification
+
+  fix_branch: &fix_template
+    sections:
+      - Linked issues
+      - Changelog # Fixed section required
+      - How to Test
+      - Checklist
+
+  docs_branch: &docs_template
+    sections:
+      - Linked issues
+      - Changelog # Documentation changes
+      - How to Test # Verification steps
+      - Checklist
+
+  default: &default_template
+    sections:
+      - Linked issues
+      - Changelog
+      - How to Test
+      - Checklist # Global Definition of Done
+
+# Issue Description Template Standards
+# Issues should use templates from .github/ISSUE_TEMPLATE/ based on type.
+
+issue_template_standards:
+  bug:
+    required_sections:
+      - Description # Clear description of the bug
+      - To Reproduce # Step-by-step reproduction
+      - Expected behavior # What should happen
+      - Environment # Affected environment/version
+      - DoR Checklist # Definition of Ready
+
+  feature_request:
+    required_sections:
+      - Description # Feature description
+      - Use case # Why this feature is needed
+      - Expected behavior # How it should work
+      - DoR Checklist
+
+  task:
+    required_sections:
+      - Description
+      - Acceptance criteria
+      - DoR Checklist
+
+# Label Automation Workflow
+# The labeling system is automated via:
+# 1. Branch name patterns (mapped in labeler.yml)
+# 2. PR/issue content analysis
+# 3. Manual labels for specific cases
+
+# For more detailed information, see:
+# - Labels: .github/labels.yml
+# - Labeling rules: .github/labeler.yml
+# - Branching strategy: docs/BRANCHING_STRATEGY.md
+# - PR templates: .github/PULL_REQUEST_TEMPLATE/
+# - Issue templates: .github/ISSUE_TEMPLATE/
+
+auto_labels:
+  enabled: true
+    - A canonical list of org wide default labels exists in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml" https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml
+    - A set of labeler rules exist in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml"
+auto_assign:
+  enabled: true
+  reviewers:
+    - "ashleyshaw"
+auto_review:
+  enabled: true
+  ignore_title_keywords:
+    - "WIP"
+    - "DO NOT MERGE"
+    - "DRAFT"
+  drafts: false
+  base_branches:
+    - "main"
+    - "develop"
+    - "feature/*"
