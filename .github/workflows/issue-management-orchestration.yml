@@ -186,13 +186,8 @@ jobs:
   enrichment:
     name: Enrichment Agent
     runs-on: ubuntu-latest
-    needs: [setup, labeling]
-    if: |
-      ${{
-        needs.setup.outputs.should_enrich == 'true' &&
-        needs.labeling.outputs.label_status != 'error' &&
-        always()
-      }}
+    needs: [setup, content-analysis, labeling]
+    if: ${{ always() && needs.setup.outputs.should_enrich == 'true' && needs.labeling.outputs.label_status != 'error' }}
     outputs:
       enrichment_added: ${{ steps.enrich.outputs.sections }}
       enrichment_status: ${{ steps.enrich.outputs.status }}
