@@ -204,6 +204,7 @@ The agent participates in 5-step orchestration:
 ### Workflow Integration Examples
 
 **Example 1: Automatic on Issue Creation**
+
 ```
 GitHub Event: issue.opened
     ↓
@@ -216,6 +217,7 @@ Issue Updated with Labels & Comments
 ```
 
 **Example 2: Manual Triage Request**
+
 ```
 Trigger: workflow_dispatch with issue_number=12345
     ↓
@@ -245,30 +247,35 @@ See [Agentic Workflow Design](/.github/projects/active/issue-management-audit-po
 ### Common Error Scenarios
 
 #### Scenario 1: Content Too Ambiguous for Type Detection
+
 **Situation**: Issue title/body doesn't clearly indicate type  
 **Default Behavior**: Apply `type:task` (most conservative) and add `status:needs-clarification` label  
 **Action**: Post comment asking for more details (repository.owner, repository.name, issue.number)  
 **Recovery**: User can update issue, which triggers re-analysis
 
 #### Scenario 2: Conflicting Labels Already Present
+
 **Situation**: Issue has conflicting type labels (e.g., both `type:bug` and `type:feature`)  
 **Default Behavior**: Keep existing labels, log conflict for manual review  
 **Action**: Do not overwrite without warning; flag for manual resolution  
 **Recovery**: Team member resolves conflict, workflow re-runs to validate
 
 #### Scenario 3: Missing or Invalid Template
+
 **Situation**: Issue uses custom format or no template  
 **Default Behavior**: Apply default type based on content heuristics  
 **Action**: Suggest using official template in comment  
 **Recovery**: If user updates to template format, re-analyze for accuracy
 
 #### Scenario 4: Network/API Failure
+
 **Situation**: Cannot reach GitHub API or other services  
 **Default Behavior**: Partial results - apply what's possible, queue remainder  
 **Action**: Log error with timestamp and retry information  
 **Recovery**: Automatic retry with exponential backoff (2s, 4s, 8s, 16s max)
 
 #### Scenario 5: Label Rate Limiting
+
 **Situation**: Too many label applications in short time  
 **Default Behavior**: Queue excess operations, apply with rate limiting  
 **Action**: Track queue depth and report via metrics  
@@ -285,6 +292,7 @@ See [Agentic Workflow Design](/.github/projects/active/issue-management-audit-po
 ### Debugging & Troubleshooting
 
 **Check execution logs**:
+
 ```bash
 # View workflow logs for specific issue
 gh run view [run-id] --log
@@ -294,6 +302,7 @@ gh issue view [issue-number] --json comments
 ```
 
 **Common troubleshooting**:
+
 - Issue not analyzed? Check if workflow is enabled
 - Labels not applied? Verify label names match canonical config
 - Comments not posted? Check GitHub token permissions
@@ -304,6 +313,7 @@ gh issue view [issue-number] --json comments
 ### Example 1: Bug Report with Clear Reproduction
 
 **Input Issue**:
+
 ```
 Title: "Login form fails with 'undefined' error on mobile"
 Body:
@@ -314,6 +324,7 @@ Body:
 ```
 
 **Agent Analysis**:
+
 1. **Type Detection**: Keywords "fails", "error", "reproduction steps" → type:bug
 2. **Label Application**: Adds `type:bug`, `priority:high` (affects login), `area:frontend`
 3. **Enrichment**: Posts comment with:
@@ -327,12 +338,14 @@ Body:
 ### Example 2: Feature Request with Vague Description
 
 **Input Issue**:
+
 ```
 Title: "Improve performance"
 Body: "Things are slow sometimes. Can we make it faster?"
 ```
 
 **Agent Analysis**:
+
 1. **Type Detection**: Limited keywords, but "improve" + "performance" → type:performance
 2. **Ambiguity Detected**: Adds `status:needs-clarification` due to vague description
 3. **Comment Posted**: Asks for specifics:
@@ -347,12 +360,14 @@ Body: "Things are slow sometimes. Can we make it faster?"
 ### Example 3: Security Vulnerability Report
 
 **Input Issue**:
+
 ```
 Title: "XSS vulnerability in comment form"
 Body: "I can inject JavaScript in post comments without escaping"
 ```
 
 **Agent Analysis**:
+
 1. **Type Detection**: Keywords "vulnerability", "XSS", "inject" → type:security
 2. **Label Application**: Adds `type:security`, `priority:critical` (security always high)
 3. **Immediate Actions**:
@@ -367,12 +382,14 @@ Body: "I can inject JavaScript in post comments without escaping"
 ### Example 4: Documentation Update Request
 
 **Input Issue**:
+
 ```
 Title: "Update API docs for new endpoint"
 Body: "Added /api/v2/users endpoint but docs are outdated. Should cover request/response format and examples."
 ```
 
 **Agent Analysis**:
+
 1. **Type Detection**: Keywords "docs", "documentation", "endpoint" → type:documentation
 2. **Label Application**: Adds `type:documentation`, `area:api`, `priority:normal`
 3. **Enrichment**: Suggests in comment:
@@ -390,12 +407,14 @@ Body: "Added /api/v2/users endpoint but docs are outdated. Should cover request/
 The agent tracks and reports these metrics via the Reporting Agent:
 
 **Processing Metrics**:
+
 - **Issues Processed**: Total count per day/week/month
 - **Average Processing Time**: Latency from event to labels applied (target: <2s)
 - **Batch Size**: Issues processed per workflow run
 - **Throughput**: Issues/hour during peak times
 
 **Quality Metrics**:
+
 - **Type Assignment Accuracy**: % of types that match manual review (target: >95%)
 - **Label Precision**: % of applied labels that are correct (target: >95%)
 - **Label Recall**: % of issues with all appropriate labels applied (target: >90%)
@@ -403,12 +422,14 @@ The agent tracks and reports these metrics via the Reporting Agent:
 - **Validation Pass Rate**: % of issues passing consistency checks (target: >98%)
 
 **Error Metrics**:
+
 - **Error Rate**: % of processes resulting in errors (target: <1%)
 - **Retry Count**: Average retries per failed operation
 - **Rate Limit Hits**: How often rate limiting occurs
 - **API Failure Rate**: % of API calls failing
 
 **Workflow Metrics**:
+
 - **Event-based Triggers**: Count of automatic activations
 - **Schedule-based Activations**: Daily triage completeness
 - **Manual Dispatches**: Count of on-demand requests
@@ -417,18 +438,21 @@ The agent tracks and reports these metrics via the Reporting Agent:
 ### Monitoring & Alerting
 
 **Dashboards**:
+
 - Weekly metrics report (Friday 16:00 UTC)
 - Real-time alerts for error rates >5%
 - Performance alerts when processing time >5s
 - Rate limit warnings when approaching limits
 
 **Thresholds & Escalation**:
+
 - Error rate >5% → Investigate and disable if needed
 - Processing time >5s → Check for API delays or large batches
 - Accuracy <90% → Review recent labels and re-calibrate
 - Validation fails >10% → Audit content or label configuration
 
 **Health Checks**:
+
 - Agent responds to health checks every 5 minutes
 - Workflow execution completes within SLA (99.5%)
 - All integrations reachable (GitHub API, databases, services)
@@ -436,11 +460,13 @@ The agent tracks and reports these metrics via the Reporting Agent:
 ### Reporting
 
 **Automated Reports**:
+
 - Weekly summary (issues processed, types applied, errors, accuracy)
 - Monthly trend analysis (coverage improvement, error reduction)
 - Quarterly deep-dive (feature usage, pain points, improvements)
 
 **Manual Queries**:
+
 ```bash
 # Find all issues processed this week
 gh issue list --label "processed" --since 2026-08-20

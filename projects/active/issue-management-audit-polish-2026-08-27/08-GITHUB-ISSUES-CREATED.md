@@ -56,11 +56,13 @@ openspec_status: "implementation"
 All 11 issues include openspec labels:
 
 ### Status Labels
+
 - `openspec:status/implementation` — 9 issues (1-2, 4-10)
 - `openspec:status/planning` — 1 issue (3)
 - `openspec:status/testing` — 1 issue (11)
 
 ### Domain Labels
+
 - `openspec:domain/automation` — 3 issues (9-10, 12)
 - `openspec:domain/agent-design` — 1 issue (2)
 - `openspec:domain/documentation` — 4 issues (5-7, 10)
@@ -69,11 +71,13 @@ All 11 issues include openspec labels:
 - `openspec:domain/workflow` — 1 issue (1)
 
 ### Priority Labels
+
 - `openspec:priority/high` — 4 issues (1-4)
 - `openspec:priority/medium` — 5 issues (5-8, 11)
 - `openspec:priority/low` — 2 issues (9-10)
 
 ### Phase Labels
+
 - `openspec:phase/implementation` — 9 issues (1-10)
 - `openspec:phase/deployment` — 1 issue (11)
 - `openspec:phase/planning` — 1 issue (3)
@@ -83,9 +87,11 @@ All 11 issues include openspec labels:
 ## Issues Grouped by Phase
 
 ### Phase 1: Planning
+
 - ✅ #2385 — Add openspec status labels (planning phase)
 
 ### Phase 2: Implementation (Days 1-7)
+
 - ✅ #2383 — Create agentic workflow (high priority, start immediately)
 - ✅ #2384 — Update issues.agent.md v2.1 (high priority, start immediately)
 - ✅ #2386 — Enable test suite (high priority, start immediately)
@@ -97,6 +103,7 @@ All 11 issues include openspec labels:
 - ✅ #2392 — Create script registry (low priority, can defer)
 
 ### Phase 3: Testing & Validation
+
 - ✅ #2393 — Project closeout (testing phase)
 
 ---
@@ -106,22 +113,26 @@ All 11 issues include openspec labels:
 ### Direct Links (Click to open in GitHub)
 
 **High Priority**:
+
 - [#2383 Create Orchestration Workflow](https://github.com/lightspeedwp/.github/issues/2383)
 - [#2384 Update issues.agent.md v2.1](https://github.com/lightspeedwp/.github/issues/2384)
 - [#2385 Add openspec labels](https://github.com/lightspeedwp/.github/issues/2385)
 - [#2386 Enable test suite](https://github.com/lightspeedwp/.github/issues/2386)
 
 **Medium Priority**:
+
 - [#2387 Update documentation](https://github.com/lightspeedwp/.github/issues/2387)
 - [#2388 Create architecture overview](https://github.com/lightspeedwp/.github/issues/2388)
 - [#2389 Create quick start guide](https://github.com/lightspeedwp/.github/issues/2389)
 - [#2390 Optimize automation scripts](https://github.com/lightspeedwp/.github/issues/2390)
 
 **Lower Priority**:
+
 - [#2391 Create unified orchestrator](https://github.com/lightspeedwp/.github/issues/2391)
 - [#2392 Create script registry](https://github.com/lightspeedwp/.github/issues/2392)
 
 **Closeout**:
+
 - [#2393 Project closeout](https://github.com/lightspeedwp/.github/issues/2393)
 
 ---
@@ -129,6 +140,7 @@ All 11 issues include openspec labels:
 ## Issue Details Summary
 
 ### Issue #2383: Create Issue Management Orchestration Workflow
+
 - **Priority**: High
 - **Phase**: Implementation
 - **Duration**: 5-7 days
@@ -142,6 +154,7 @@ All 11 issues include openspec labels:
   - Create documentation
 
 ### Issue #2384: Update issues.agent.md to v2.1
+
 - **Priority**: High
 - **Phase**: Implementation
 - **Duration**: 2-3 days
@@ -155,6 +168,7 @@ All 11 issues include openspec labels:
   - Add metrics section
 
 ### Issue #2385: Add openspec status labels
+
 - **Priority**: High
 - **Phase**: Planning/Implementation
 - **Duration**: 2-3 days
@@ -167,6 +181,7 @@ All 11 issues include openspec labels:
   - Verify coverage
 
 ### Issue #2386: Enable test suite
+
 - **Priority**: High
 - **Phase**: Implementation
 - **Duration**: 2-3 days
@@ -179,6 +194,7 @@ All 11 issues include openspec labels:
   - Document procedures
 
 ### Issue #2387: Update documentation
+
 - **Priority**: Medium
 - **Phase**: Implementation
 - **Duration**: 3-4 days
@@ -191,6 +207,7 @@ All 11 issues include openspec labels:
   - Verify links
 
 ### Issue #2388: Create architecture overview
+
 - **Priority**: Medium
 - **Phase**: Implementation
 - **Duration**: 2-3 days
@@ -203,6 +220,7 @@ All 11 issues include openspec labels:
   - List integration points
 
 ### Issue #2389: Create quick start guide
+
 - **Priority**: Medium
 - **Phase**: Implementation
 - **Duration**: 1-2 days
@@ -215,6 +233,7 @@ All 11 issues include openspec labels:
   - Link to detailed docs
 
 ### Issue #2390: Optimize automation scripts
+
 - **Priority**: Medium
 - **Phase**: Implementation
 - **Duration**: 3-4 days
@@ -227,6 +246,7 @@ All 11 issues include openspec labels:
   - Document improvements
 
 ### Issue #2391: Create unified orchestrator
+
 - **Priority**: Low
 - **Phase**: Implementation
 - **Duration**: 2-3 days
@@ -239,6 +259,7 @@ All 11 issues include openspec labels:
   - Create documentation
 
 ### Issue #2392: Create script registry
+
 - **Priority**: Low
 - **Phase**: Implementation
 - **Duration**: 1-2 days
@@ -251,6 +272,7 @@ All 11 issues include openspec labels:
   - Include troubleshooting
 
 ### Issue #2393: Project closeout
+
 - **Priority**: Medium
 - **Phase**: Testing/Deployment
 - **Duration**: 2-3 days
@@ -269,6 +291,7 @@ All 11 issues include openspec labels:
 ### Week 1 (Days 1-5): High Priority + Planning
 
 **Day 1-2: Setup & High Priority Kickoff**
+
 1. Assign issues to team members
 2. Start #2383 (Orchestration Workflow) — HIGH
 3. Start #2384 (Update agent) — HIGH
@@ -309,12 +332,14 @@ All 11 issues include openspec labels:
 **Milestones**: Create milestone "Issue Management Audit & Polish" and assign all 11 issues
 
 **Project Board**: Add all issues to project board with columns:
+
 - To Do (all 11)
 - In Progress (as work starts)
 - Review (when PR ready)
 - Done (when merged)
 
 **Labels**: Use openspec labels to track:
+
 - Priority: high/medium/low
 - Status: planning/implementation/testing
 - Domain: automation/docs/agent/testing/governance
@@ -323,6 +348,7 @@ All 11 issues include openspec labels:
 ### Daily Standup
 
 Report on:
+
 - Which issues are in progress
 - Blockers and risks
 - Progress vs. timeline
@@ -341,6 +367,7 @@ Report on:
 ## Issue Template Used
 
 All 11 issues follow consistent structure:
+
 - Summary (what, why)
 - Reference (to planning docs)
 - Acceptance criteria (testable, measurable)

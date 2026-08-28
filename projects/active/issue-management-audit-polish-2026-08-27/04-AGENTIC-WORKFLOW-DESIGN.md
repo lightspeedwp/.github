@@ -16,6 +16,7 @@ This document designs a comprehensive agentic workflow that orchestrates all iss
 ### Purpose
 
 Create a unified automation system that:
+
 - Automatically processes incoming issues
 - Applies consistent type classification and labeling
 - Enriches issues with structured metadata
@@ -64,6 +65,7 @@ GitHub Events (created, edited, opened, reopened)
 **Responsibility**: Analyze incoming issue content
 
 **Inputs**:
+
 - Issue title
 - Issue body/description
 - Issue author
@@ -71,6 +73,7 @@ GitHub Events (created, edited, opened, reopened)
 - Related discussions
 
 **Processes**:
+
 1. **Title Analysis**
    - Extract keywords
    - Identify intent
@@ -89,6 +92,7 @@ GitHub Events (created, edited, opened, reopened)
    - Assess complexity
 
 **Outputs**:
+
 - Detected issue type (high confidence)
 - Keywords and themes
 - Structure assessment
@@ -96,11 +100,13 @@ GitHub Events (created, edited, opened, reopened)
 - Suggested labels
 
 **Error Handling**:
+
 - If type unclear, assign `needs-clarification` label
 - If template not used, apply conservative defaults
 - If potentially duplicate, flag for manual review
 
 **Example**:
+
 ```json
 {
   "detected_type": "bug",
@@ -117,12 +123,14 @@ GitHub Events (created, edited, opened, reopened)
 **Responsibility**: Apply consistent labels to issues
 
 **Inputs**:
+
 - Analysis from Content Agent
 - Current labels on issue
 - Label governance policy
 - Repository label inventory
 
 **Processes**:
+
 1. **Type Labeling**
    - Apply type label from canonical list
    - Verify against governance
@@ -144,16 +152,19 @@ GitHub Events (created, edited, opened, reopened)
    - Apply custom project labels
 
 **Outputs**:
+
 - List of labels to apply
 - List of labels to remove
 - Validation results
 
 **Error Handling**:
+
 - If conflict detected, follow priority rules
 - If unknown label, skip and report
 - If governance violation, flag for review
 
 **Example**:
+
 ```json
 {
   "labels_to_apply": [
@@ -174,12 +185,14 @@ GitHub Events (created, edited, opened, reopened)
 **Responsibility**: Add structured metadata to issues
 
 **Inputs**:
+
 - Analysis and labels from previous agents
 - Issue type
 - Organizational standards
 - Domain expertise templates
 
 **Processes**:
+
 1. **Acceptance Criteria**
    - Generate initial criteria (if type supports)
    - Format for consistency
@@ -203,16 +216,19 @@ GitHub Events (created, edited, opened, reopened)
    - Document assumptions
 
 **Outputs**:
+
 - Comment with enriched content
 - Structured metadata
 - Suggestions for author
 
 **Conditions**:
+
 - Only enrich if issue is well-formed
 - Respect author's existing structure
 - Suggest, don't impose
 
 **Example**:
+
 ```markdown
 ## Acceptance Criteria (Generated)
 - [ ] System handles X scenario
@@ -234,12 +250,14 @@ GitHub Events (created, edited, opened, reopened)
 **Responsibility**: Ensure consistency and quality
 
 **Inputs**:
+
 - All previous analysis and labels
 - Organizational standards
 - Quality guidelines
 - Previous validation results
 
 **Processes**:
+
 1. **Metadata Validation**
    - Check required fields present
    - Verify field formats
@@ -261,17 +279,20 @@ GitHub Events (created, edited, opened, reopened)
    - Breaking change potential
 
 **Outputs**:
+
 - Validation status (pass/warning/fail)
 - List of issues found
 - Recommendations
 - Escalation flags
 
 **Severity Levels**:
+
 - 🟢 **Pass**: No issues, proceed
 - 🟡 **Warning**: Minor issues, monitor
 - 🔴 **Fail**: Critical issues, flag for review
 
 **Example**:
+
 ```json
 {
   "overall_status": "pass",
@@ -295,11 +316,13 @@ GitHub Events (created, edited, opened, reopened)
 **Responsibility**: Generate insights and maintain audit trail
 
 **Inputs**:
+
 - Results from all previous agents
 - Historical data
 - Metrics and baselines
 
 **Processes**:
+
 1. **Action Logging**
    - Log all actions taken
    - Record decisions made
@@ -322,12 +345,14 @@ GitHub Events (created, edited, opened, reopened)
    - Create parent issues if needed
 
 **Outputs**:
+
 - Workflow execution log
 - Daily metrics report
 - Alerts and escalations
 - Historical trend data
 
 **Example**:
+
 ```json
 {
   "workflow_execution": {
@@ -442,6 +467,7 @@ Post-Execution:
 **Location**: `.github/workflows/issue-management-orchestration.yml`
 
 **Key Settings**:
+
 ```yaml
 triggers:
   - issue.opened
@@ -490,29 +516,37 @@ limits:
 ### Error Scenarios
 
 #### Scenario 1: Analysis Fails
+
 **Cause**: Content too ambiguous or malformed  
 **Handling**:
+
 1. Apply `status:needs-clarification` label
 2. Post helpful comment requesting more info
 3. Log for manual review
 
 #### Scenario 2: Label Conflict
+
 **Cause**: Multiple labels suggested for same dimension  
 **Handling**:
+
 1. Apply highest priority label
 2. Log conflict for monitoring
 3. Note in comment if significant
 
 #### Scenario 3: Workflow Timeout
+
 **Cause**: Processing takes too long  
 **Handling**:
+
 1. Partial results: apply what's complete
 2. Retry failed steps once
 3. Alert if repeated failures
 
 #### Scenario 4: GitHub API Rate Limit
+
 **Cause**: Too many API calls  
 **Handling**:
+
 1. Queue remaining work
 2. Retry with backoff
 3. Alert if quota exceeded
@@ -520,12 +554,14 @@ limits:
 ### Recovery Procedures
 
 **Manual Recovery**:
+
 1. Identify failed issue
 2. Review workflow logs
 3. Manually apply missing labels
 4. Re-trigger workflow on issue
 
 **Automatic Recovery**:
+
 1. Retry failed steps (up to 3x)
 2. If still failing, escalate to manual
 3. Log all failures for analysis
@@ -563,12 +599,14 @@ limits:
 ### Monitoring Setup
 
 **Dashboards**:
+
 - Real-time execution dashboard
 - Daily metrics report
 - Weekly trend analysis
 - Monthly health review
 
 **Alerts**:
+
 - Workflow failure: immediate
 - High error rate (>5%): daily summary
 - Unusual patterns: weekly review
@@ -576,13 +614,15 @@ limits:
 
 ### Reporting
 
-**Daily Report**: 
+**Daily Report**:
+
 - Issues processed
 - Labels applied
 - Errors encountered
 - Top types and areas
 
 **Weekly Report**:
+
 - Trend analysis
 - Quality metrics
 - Performance analysis
@@ -593,18 +633,21 @@ limits:
 ## Security & Governance
 
 ### Access Control
+
 - Workflow runs with repo default permissions
 - Label creation/modification audited
 - Issue comment posting logged
 - API tokens securely managed
 
 ### Data Privacy
+
 - No PII stored in logs
 - Author information preserved
 - Comments follow CoC
 - Sensitive issues handled carefully
 
 ### Audit Trail
+
 - All actions logged
 - Decisions tracked
 - Errors documented
@@ -615,24 +658,28 @@ limits:
 ## Testing & Validation Strategy
 
 ### Unit Testing
+
 - Test each agent independently
 - Mock GitHub API responses
 - Validate output formats
 - Check error handling
 
 ### Integration Testing
+
 - Test full workflow end-to-end
 - Use test repository
 - Verify label application
 - Check comment posting
 
 ### Performance Testing
+
 - Measure processing time
 - Test with large issues
 - Monitor resource usage
 - Check API quota usage
 
 ### Validation
+
 - Run on staging issues first
 - Compare with manual triage
 - Gather feedback
@@ -643,24 +690,28 @@ limits:
 ## Rollout Plan
 
 ### Phase 1: Sandbox Testing (Week 1)
+
 - Deploy to test repository
 - Run against test issues
 - Validate all components
 - Fix any issues
 
 ### Phase 2: Pilot Deployment (Week 2)
+
 - Enable on 1-2 production repos
 - Monitor closely
 - Gather feedback
 - Make adjustments
 
 ### Phase 3: Full Deployment (Week 3)
+
 - Enable organization-wide
 - Monitor metrics
 - Support team
 - Document learnings
 
 ### Phase 4: Optimization (Week 4+)
+
 - Fine-tune configurations
 - Improve accuracy
 - Add enhancements

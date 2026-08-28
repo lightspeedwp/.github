@@ -43,15 +43,18 @@ This document catalogs all issue management automation scripts, their purposes, 
 **Purpose**: Programmatically add or update sections in issue templates
 
 **Inputs**:
+
 - Template file path
 - Section name and content
 - Position (before/after existing section)
 
 **Outputs**:
+
 - Updated template file
 - Summary of changes
 
 **Usage**:
+
 ```bash
 node add-issue-template-sections.js \
   --template .github/ISSUE_TEMPLATE/01-task.md \
@@ -62,6 +65,7 @@ node add-issue-template-sections.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Add dry-run mode
 - Better error messages
 - Batch operation support
@@ -73,16 +77,19 @@ node add-issue-template-sections.js \
 **Purpose**: Audit consistency of issue metadata across repository
 
 **Inputs**:
+
 - Repository path
 - Issue filters (labels, states, etc.)
 - Audit rules (YAML config)
 
 **Outputs**:
+
 - Audit report (JSON/CSV)
 - Issues needing attention
 - Summary statistics
 
 **Usage**:
+
 ```bash
 node audit-issue-metadata.js \
   --repo . \
@@ -94,6 +101,7 @@ node audit-issue-metadata.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Performance optimization for large repos
 - Interactive mode for reviewing results
 - Export to multiple formats
@@ -105,16 +113,19 @@ node audit-issue-metadata.js \
 **Purpose**: Bulk update metadata on multiple issues
 
 **Inputs**:
+
 - Filter criteria (labels, types, etc.)
 - Updates to apply (labels, fields, etc.)
 - Batch size (for rate limiting)
 
 **Outputs**:
+
 - Updated issue count
 - Success/failure report
 - Before/after comparison
 
 **Usage**:
+
 ```bash
 node bulk-issue-metadata-updater.js \
   --label "status:needs-triage" \
@@ -125,6 +136,7 @@ node bulk-issue-metadata-updater.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Dry-run mode
 - Undo capability
 - Better progress reporting
@@ -136,16 +148,19 @@ node bulk-issue-metadata-updater.js \
 **Purpose**: Identify and archive stale issues
 
 **Inputs**:
+
 - Inactivity threshold (days)
 - Status filters (open issues only, etc.)
 - Exclusion rules (labels, milestones)
 
 **Outputs**:
+
 - List of stale issues
 - Archive summary
 - Report of archived issues
 
 **Usage**:
+
 ```bash
 node manage-stale-issues.js \
   --threshold 90 \
@@ -156,6 +171,7 @@ node manage-stale-issues.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Notification before archiving
 - Grace period option
 - Restore capability
@@ -167,16 +183,19 @@ node manage-stale-issues.js \
 **Purpose**: Allocate issues to milestones based on criteria
 
 **Inputs**:
+
 - Filter criteria (labels, types, etc.)
 - Milestone assignment rules
 - Priority/urgency factors
 
 **Outputs**:
+
 - Allocation results
 - Milestone distribution
 - Reassignment summary
 
 **Usage**:
+
 ```bash
 node allocate-to-milestone.js \
   --label "type:bug" \
@@ -187,6 +206,7 @@ node allocate-to-milestone.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Capacity planning
 - Load balancing across milestones
 - Historical trend analysis
@@ -198,16 +218,19 @@ node allocate-to-milestone.js \
 **Purpose**: Review and validate meta labels on issues
 
 **Inputs**:
+
 - Issues to review
 - Label rules (YAML config)
 - Validation criteria
 
 **Outputs**:
+
 - Validation report
 - Issues with problems
 - Suggestions for fixes
 
 **Usage**:
+
 ```bash
 node review-meta-labels.js \
   --check-required-labels \
@@ -218,6 +241,7 @@ node review-meta-labels.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Bulk fix mode
 - Interactive review interface
 - Auto-correction options
@@ -229,16 +253,19 @@ node review-meta-labels.js \
 **Purpose**: Validate status label consistency and workflow
 
 **Inputs**:
+
 - Issues to review
 - Status workflow rules
 - Validation criteria
 
 **Outputs**:
+
 - Issues with invalid status
 - Workflow violations
 - Suggestions for fixes
 
 **Usage**:
+
 ```bash
 node review-status-labels.js \
   --validate-workflow \
@@ -249,6 +276,7 @@ node review-status-labels.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Workflow state machine visualization
 - Bulk state transitions
 - History tracking
@@ -260,16 +288,19 @@ node review-status-labels.js \
 **Purpose**: Synchronize PR labels with related issues
 
 **Inputs**:
+
 - PR number or URL
 - Sync direction (PR→Issue or Issue→PR)
 - Label rules
 
 **Outputs**:
+
 - Labels synchronized
 - Conflicts found
 - Summary report
 
 **Usage**:
+
 ```bash
 node sync-pr-labels.js \
   --pr 12345 \
@@ -280,6 +311,7 @@ node sync-pr-labels.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Bidirectional sync
 - Conflict resolution strategies
 - Continuous sync mode
@@ -291,16 +323,19 @@ node sync-pr-labels.js \
 **Purpose**: Validate issues in staging/draft state
 
 **Inputs**:
+
 - Staging filter criteria
 - Validation rules
 - Quality thresholds
 
 **Outputs**:
+
 - Validation results
 - Issues ready to move forward
 - Issues needing work
 
 **Usage**:
+
 ```bash
 node staging-validation.js \
   --check-required-fields \
@@ -311,6 +346,7 @@ node staging-validation.js \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Automated quality scoring
 - Suggestions for improvement
 - Workflow integration
@@ -322,15 +358,18 @@ node staging-validation.js \
 **Purpose**: Coordinate specialized event handlers
 
 **Inputs**:
+
 - Event type (issue.opened, etc.)
 - Event data (issue, PR, etc.)
 - Handler configuration
 
 **Outputs**:
+
 - Handler execution results
 - Coordinated response
 
 **Usage**:
+
 ```javascript
 const orchestrator = new HandlersOrchestrator(config);
 await orchestrator.handle('issue.opened', issueEvent);
@@ -339,6 +378,7 @@ await orchestrator.handle('issue.opened', issueEvent);
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Better error handling
 - Handler priority/ordering
 - Async coordination
@@ -350,16 +390,19 @@ await orchestrator.handle('issue.opened', issueEvent);
 **Purpose**: Coordinate label operations across multiple dimensions
 
 **Inputs**:
+
 - Issue data
 - Label rules (by type, status, area, etc.)
 - Conflict resolution rules
 
 **Outputs**:
+
 - Final label set
 - Applied labels
 - Conflicts resolved
 
 **Usage**:
+
 ```javascript
 const labels = await labelOrchestrator.apply(issue, rules);
 ```
@@ -367,6 +410,7 @@ const labels = await labelOrchestrator.apply(issue, rules);
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Label hierarchy visualization
 - Impact analysis
 - Performance optimization
@@ -378,16 +422,19 @@ const labels = await labelOrchestrator.apply(issue, rules);
 **Purpose**: Coordinate PR triage operations
 
 **Inputs**:
+
 - PR data
 - Triage rules
 - Related issue data
 
 **Outputs**:
+
 - Triage results
 - Applied labels
 - Related issues linked
 
 **Usage**:
+
 ```javascript
 const triage = await prTriageOrchestrator.triage(pr, rules);
 ```
@@ -395,6 +442,7 @@ const triage = await prTriageOrchestrator.triage(pr, rules);
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Integration with issue labels
 - Changelog detection
 - Release note generation
@@ -406,15 +454,18 @@ const triage = await prTriageOrchestrator.triage(pr, rules);
 **Purpose**: Manage Definition of Ready (DoR) and Definition of Done (DoD) templates
 
 **Inputs**:
+
 - Issue type
 - Template configuration
 
 **Outputs**:
+
 - DoR checklist
 - DoD checklist
 - Template content
 
 **Usage**:
+
 ```bash
 node dor-dod-templates.cjs \
   --type bug \
@@ -424,6 +475,7 @@ node dor-dod-templates.cjs \
 **Status**: ✅ Production-ready  
 **openspec**: `status/production`  
 **Improvements Needed**:
+
 - Type-specific templates
 - Customization options
 - Integration with issue templates
@@ -437,6 +489,7 @@ node dor-dod-templates.cjs \
 **Purpose**: Specialized event handlers for specific scenarios
 
 **Contents**:
+
 - Event-specific handlers
 - Conditional logic
 - Custom workflows
@@ -448,6 +501,7 @@ node dor-dod-templates.cjs \
 **Purpose**: Shared utilities and templates
 
 **Contents**:
+
 - Common functions
 - Template snippets
 - Configuration loaders
@@ -459,6 +513,7 @@ node dor-dod-templates.cjs \
 **Purpose**: Issue agent specific configurations and actions
 
 **Contents**:
+
 - Agent configuration files
 - Shared templates
 - Integration helpers
@@ -471,26 +526,31 @@ node dor-dod-templates.cjs \
 ## Documentation Files
 
 ### README.md
+
 **Purpose**: Overview of automation scripts  
 **Status**: ✅ Current  
 **Quality**: Good
 
 ### QUICK-REFERENCE.txt
+
 **Purpose**: Quick command reference  
 **Status**: ✅ Current  
 **Quality**: Good
 
 ### ADD-ISSUE-SECTIONS-GUIDE.md
+
 **Purpose**: Guide for add-issue-template-sections script  
 **Status**: ✅ Current  
 **Quality**: Good
 
 ### MANAGE_STALE_ISSUES_README.md
+
 **Purpose**: Guide for manage-stale-issues script  
 **Status**: ✅ Current  
 **Quality**: Good
 
 ### SYNC_PR_LABELS_README.md
+
 **Purpose**: Guide for sync-pr-labels script  
 **Status**: ✅ Current  
 **Quality**: Good
@@ -554,6 +614,7 @@ node dor-dod-templates.cjs \
 ### Common Patterns
 
 1. **Audit Before Bulk Update**
+
    ```bash
    # 1. First audit
    node audit-issue-metadata.js --output audit.json
@@ -563,6 +624,7 @@ node dor-dod-templates.cjs \
    ```
 
 2. **Label Lifecycle**
+
    ```bash
    # 1. Review current labels
    node review-status-labels.js --verbose
@@ -573,6 +635,7 @@ node dor-dod-templates.cjs \
    ```
 
 3. **PR-Issue Sync**
+
    ```bash
    # 1. On PR creation
    node sync-pr-labels.js --pr <number> --sync-to-issue
@@ -639,6 +702,7 @@ node dor-dod-templates.cjs \
 **Benefits**: Consistency, speed, reliability
 
 **Steps**:
+
 1. Enable workflow triggers
 2. Configure orchestrators
 3. Monitor results

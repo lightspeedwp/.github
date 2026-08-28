@@ -26,6 +26,7 @@ Comprehensive testing plan for the Issue Management Orchestration Workflow. Test
 ## Test Environment Setup
 
 ### Prerequisites
+
 - [ ] Workflow YAML deployed to `.github/workflows/issue-management-orchestration.yml`
 - [ ] All 5 agent scripts deployed to `scripts/automation/`
 - [ ] GitHub Actions enabled in repository
@@ -33,6 +34,7 @@ Comprehensive testing plan for the Issue Management Orchestration Workflow. Test
 - [ ] Test repository or branch ready
 
 ### Test Data Preparation
+
 - [ ] Create test issue templates (20+ test cases)
 - [ ] Prepare test labels (type, status, priority, area, platform)
 - [ ] Set up monitoring/logging infrastructure
@@ -47,6 +49,7 @@ Comprehensive testing plan for the Issue Management Orchestration Workflow. Test
 ### 1.1: issue.opened Trigger
 
 **Test Case 1.1.1**: Simple Bug Report
+
 ```
 Title: "Login button not working on mobile"
 Body: "I can't login on iOS Safari. Got error message: invalid credentials."
@@ -59,6 +62,7 @@ Expected:
 ```
 
 **Test Case 1.1.2**: Vague Feature Request
+
 ```
 Title: "Make the app faster"
 Body: "The app is slow sometimes."
@@ -71,6 +75,7 @@ Expected:
 ```
 
 **Test Case 1.1.3**: Security Vulnerability
+
 ```
 Title: "SQL Injection vulnerability in search"
 Body: "The search endpoint does not sanitize user input..."
@@ -83,6 +88,7 @@ Expected:
 ```
 
 **Test Case 1.1.4**: Documentation Update
+
 ```
 Title: "API documentation missing authentication section"
 Body: "The README doesn't explain how to authenticate..."
@@ -94,7 +100,8 @@ Expected:
   - Report: Generated
 ```
 
-**Execution**: 
+**Execution**:
+
 - Create 4 test issues with payloads above
 - Verify each trigger fires within 60 seconds
 - Check workflow runs in GitHub Actions UI
@@ -102,6 +109,7 @@ Expected:
 - Check comments posted with workflow results
 
 **Pass Criteria**:
+
 - [ ] All 4 triggers fire
 - [ ] Correct type detection for each
 - [ ] Expected labels applied
@@ -113,6 +121,7 @@ Expected:
 ### 1.2: issue.edited Trigger
 
 **Test Case 1.2.1**: Title Update
+
 ```
 Original: "bug: Login not working"
 Updated: "CRITICAL: Login broken on production"
@@ -124,6 +133,7 @@ Expected:
 ```
 
 **Test Case 1.2.2**: Body Enhancement
+
 ```
 Original: "The app crashes"
 Updated: "The app crashes on startup with error: NullPointerException..."
@@ -135,6 +145,7 @@ Expected:
 ```
 
 **Test Case 1.2.3**: Label Conflict
+
 ```
 Issue already has: type:bug, status:needs-triage
 User adds: type:feature, type:enhancement
@@ -147,12 +158,14 @@ Expected:
 ```
 
 **Execution**:
+
 - Edit test issues from 1.1 test cases
 - Verify workflow triggers on edit
 - Verify updates are applied correctly
 - Check conflict resolution works
 
 **Pass Criteria**:
+
 - [ ] issue.edited trigger fires
 - [ ] Updates applied correctly
 - [ ] Conflicts logged
@@ -163,6 +176,7 @@ Expected:
 ### 1.3: issue.reopened Trigger
 
 **Test Case 1.3.1**: Reopened after Close
+
 ```
 1. Create and close issue
 2. Reopen the issue
@@ -174,12 +188,14 @@ Expected:
 ```
 
 **Execution**:
+
 - Create test issue
 - Close it
 - Reopen it
 - Verify trigger fires
 
 **Pass Criteria**:
+
 - [ ] issue.reopened trigger fires
 - [ ] Status reset to needs-triage
 - [ ] New report generated
@@ -191,6 +207,7 @@ Expected:
 ### 2.1: Daily 08:00 UTC Cron
 
 **Test Case 2.1.1**: Schedule Execution
+
 ```
 Trigger: 0 8 * * * (daily 08:00 UTC)
 Expected:
@@ -202,6 +219,7 @@ Expected:
 ```
 
 **Manual Test (Since we can't wait for real schedule)**:
+
 ```
 Edit workflow YAML to test schedule:
 Change: 0 8 * * *  
@@ -215,6 +233,7 @@ Expected:
 ```
 
 **Execution**:
+
 - Create temporary modified workflow with frequent schedule
 - Let it run for 5+ minutes
 - Verify batch processing works
@@ -222,6 +241,7 @@ Expected:
 - Revert to actual schedule (08:00 UTC)
 
 **Pass Criteria**:
+
 - [ ] Schedule trigger fires at specified time
 - [ ] Batch processing completes
 - [ ] Metrics report generated
@@ -232,6 +252,7 @@ Expected:
 ### 2.2: Daily Metrics Report
 
 **Test Case 2.2.1**: Metrics Collection
+
 ```
 Expected Output (daily report):
 {
@@ -256,6 +277,7 @@ Expected Output (daily report):
 ```
 
 **Verification**:
+
 - [ ] Report file created: `.github/reports/issue-management/{date}.json`
 - [ ] All metrics present
 - [ ] Accuracy >= 90%
@@ -268,6 +290,7 @@ Expected Output (daily report):
 ### 3.1: Basic workflow_dispatch
 
 **Test Case 3.1.1**: No Parameters
+
 ```
 Command: gh workflow run issue-management-orchestration.yml
 Expected:
@@ -279,6 +302,7 @@ Expected:
 ### 3.2: workflow_dispatch with Parameters
 
 **Test Case 3.2.1**: Specific Issue Number
+
 ```
 Command: gh workflow run issue-management-orchestration.yml \
   -f issue_number=123
@@ -289,6 +313,7 @@ Expected:
 ```
 
 **Test Case 3.2.2**: Specific Action
+
 ```
 Command: gh workflow run issue-management-orchestration.yml \
   -f action=analyze
@@ -299,6 +324,7 @@ Expected:
 ```
 
 **Test Case 3.2.3**: Other Actions
+
 ```
 Available actions: analyze, label, enrich, validate, all
 Test each:
@@ -310,6 +336,7 @@ Test each:
 ```
 
 **Execution**:
+
 ```bash
 # Test 1: Default (all issues, all agents)
 gh workflow run issue-management-orchestration.yml
@@ -329,6 +356,7 @@ gh workflow run issue-management-orchestration.yml \
 ```
 
 **Pass Criteria**:
+
 - [ ] Defaults work (all issues, all agents)
 - [ ] Issue-specific processing works
 - [ ] Action filtering works
@@ -341,6 +369,7 @@ gh workflow run issue-management-orchestration.yml \
 ### 4.1: Ambiguous Content
 
 **Test Case 4.1.1**: Vague Title and Body
+
 ```
 Title: "Something is wrong"
 Body: "I don't know what's happening"
@@ -354,6 +383,7 @@ Expected:
 ```
 
 **Execution**:
+
 - Create test issue with ambiguous content
 - Verify needs-clarification label applied
 - Check report identifies issue
@@ -363,6 +393,7 @@ Expected:
 ### 4.2: Conflicting Labels
 
 **Test Case 4.2.1**: Conflicting Type Labels
+
 ```
 Issue created with: type:bug
 Workflow attempts to apply: type:feature
@@ -375,6 +406,7 @@ Expected:
 ```
 
 **Execution**:
+
 - Manually add conflicting label before workflow runs
 - Trigger workflow
 - Verify conflict handling
@@ -384,6 +416,7 @@ Expected:
 ### 4.3: Network/API Failures
 
 **Test Case 4.3.1**: Temporary API Failure
+
 ```
 Simulate: GitHub API briefly unavailable
 Expected:
@@ -395,6 +428,7 @@ Expected:
 ```
 
 **Test Case 4.3.2**: Rate Limiting
+
 ```
 Simulate: GitHub API rate limiting (429 response)
 Expected:
@@ -410,6 +444,7 @@ Expected:
 ### 4.4: Label Rate Limiting
 
 **Test Case 4.4.1**: Label Quota Exceeded
+
 ```
 Simulate: 15 labels already applied (max is 15)
 Workflow attempts: Add status label
@@ -428,6 +463,7 @@ Expected:
 ### 5.1: Job Dependencies
 
 **Test Case 5.1.1**: Job Execution Order
+
 ```
 Expected order:
 1. setup → initializes context
@@ -446,6 +482,7 @@ Verification:
 ```
 
 **Execution**:
+
 - Monitor GitHub Actions workflow run
 - Check job timeline in Actions UI
 - Verify dependency graph
@@ -456,6 +493,7 @@ Verification:
 ### 5.2: Concurrency Control
 
 **Test Case 5.2.1**: Concurrent Issue Operations
+
 ```
 Simulate: Multiple issues opened simultaneously
 - Issue A: bug report
@@ -470,6 +508,7 @@ Expected:
 ```
 
 **Execution**:
+
 - Rapidly create 3-5 test issues
 - Monitor GitHub Actions
 - Verify only one workflow active at a time
@@ -479,6 +518,7 @@ Expected:
 ### 5.3: Conditional Execution
 
 **Test Case 5.3.1**: Enrichment Conditional
+
 ```
 Condition: ENABLE_ENRICHMENT=true AND confidence >= 0.80
 High confidence issue (type:bug, 0.95 confidence)
@@ -488,6 +528,7 @@ Low confidence issue (vague content, 0.60 confidence)
 ```
 
 **Execution**:
+
 - Create high and low confidence issues
 - Check workflow logs for enrichment execution
 - Verify conditional logic works
@@ -499,6 +540,7 @@ Low confidence issue (vague content, 0.60 confidence)
 ### 6.1: Comments Posted to Issues
 
 **Test Case 6.1.1**: Summary Comment
+
 ```
 Expected comment on issue:
 ## Issue Management Workflow Summary
@@ -524,6 +566,7 @@ Expected comment on issue:
 ```
 
 **Verification**:
+
 - [ ] Comment posted to issue
 - [ ] Comment contains all required sections
 - [ ] Metrics accurate
@@ -534,6 +577,7 @@ Expected comment on issue:
 ### 6.2: Report Files Generated
 
 **Test Case 6.2.1**: Report Location and Format
+
 ```
 Expected files:
 .github/reports/issue-management/
@@ -543,6 +587,7 @@ Expected files:
 ```
 
 **Verification**:
+
 - [ ] Report files created in correct location
 - [ ] JSON is valid
 - [ ] All required fields present
@@ -566,7 +611,7 @@ Expected files:
 
 ## Pass/Fail Criteria
 
-### Phase 3.4 Testing Success = ALL Passing:
+### Phase 3.4 Testing Success = ALL Passing
 
 1. ✅ All event triggers fire correctly (issue opened/edited/reopened)
 2. ✅ Schedule-based trigger executes at 08:00 UTC with correct batch processing

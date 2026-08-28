@@ -16,6 +16,7 @@ last_updated: 2026-08-27
 Complete catalogue of all automation scripts used in issue and PR management workflows. This registry serves as the central reference for script discovery, usage, performance characteristics, and troubleshooting.
 
 **Quick Links**:
+
 - [Script Orchestrator](#script-orchestrator) — Unified entry point for all scripts
 - [Performance Baselines](#performance-baselines) — Execution times and resource usage
 - [Integration Points](#integration-points) — How scripts connect
@@ -76,9 +77,11 @@ Established 2026-08-27 via automated profiler.
 ### By Performance Tier
 
 #### 🟢 Fast (<500ms)
+
 - **label-orchestrator.js** — 100ms | 3.45 KB | 108 LOC
 
 #### 🟡 Medium (500-1100ms)
+
 - add-issue-template-sections.js — 900ms | 10.94 KB | 300 LOC
 - manage-stale-issues.js — 900ms | 12.05 KB | 381 LOC
 - review-meta-labels.js — 900ms | 8.85 KB | 278 LOC
@@ -88,6 +91,7 @@ Established 2026-08-27 via automated profiler.
 - pr-triage-orchestrator.js — 1,100ms | 11.77 KB | 363 LOC
 
 #### 🔴 Slow (>1100ms) — Optimization Candidates
+
 - allocate-to-milestone.js — 1,400ms | 23.86 KB | 616 LOC
 - review-status-labels.js — 1,400ms | 13.73 KB | 417 LOC
 - staging-validation.js — 1,600ms | 15.09 KB | 406 LOC
@@ -104,6 +108,7 @@ Established 2026-08-27 via automated profiler.
 **Category**: Audit | **Priority**: High | **Est. Time**: 1600ms
 
 **Features**:
+
 - Scans all issues in a repository
 - Validates required metadata fields
 - Checks label consistency
@@ -111,6 +116,7 @@ Established 2026-08-27 via automated profiler.
 - Generates audit report
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js audit-metadata \
   --repo lightspeedwp/.github \
@@ -119,12 +125,14 @@ node scripts/automation/orchestrator.js audit-metadata \
 ```
 
 **Options**:
+
 - `--repo` (required) — Repository name
 - `--token` (required) — GitHub API token
 - `--output` — Output format (json|csv|markdown)
 - `--verbose` — Enable verbose logging
 
 **Output**:
+
 ```json
 {
   "total_issues": 245,
@@ -136,17 +144,20 @@ node scripts/automation/orchestrator.js audit-metadata \
 ```
 
 **Integration Points**:
+
 - Used by: update-bulk, allocate-milestones
 - Depends on: GitHub API
 - Output consumed by: reporting agents
 
 **Optimization Opportunities**:
+
 - Add result caching (200-300ms savings)
 - Batch API requests (100ms savings)
 - Parallel validation (200ms savings)
 - **Target**: 1600ms → 1000ms
 
 **Troubleshooting**:
+
 - **Rate limit errors**: Add delay between API calls
 - **Timeout**: Increase --timeout parameter
 - **Large repos**: Use --batch-size to limit queries
@@ -160,6 +171,7 @@ node scripts/automation/orchestrator.js audit-metadata \
 **Category**: Update | **Priority**: High | **Est. Time**: 1100ms
 
 **Features**:
+
 - Update multiple issues in batch
 - Apply consistent metadata
 - Dry-run mode for preview
@@ -167,6 +179,7 @@ node scripts/automation/orchestrator.js audit-metadata \
 - Error recovery
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js update-bulk \
   --repo lightspeedwp/.github \
@@ -175,6 +188,7 @@ node scripts/automation/orchestrator.js update-bulk \
 ```
 
 **Options**:
+
 - `--repo` (required) — Repository name
 - `--token` (required) — GitHub API token
 - `--dryrun` — Preview changes without applying
@@ -182,17 +196,20 @@ node scripts/automation/orchestrator.js update-bulk \
 - `--fields` — Metadata fields to update
 
 **Integration Points**:
+
 - Depends on: audit-issue-metadata results
 - Used by: maintenance workflows
 - Integrates with: GitHub API
 
 **Performance Characteristics**:
+
 - Batch processing optimized
 - Rate limit aware
 - 1100ms avg for 10-20 issues
 - Linear scaling with issue count
 
 **Troubleshooting**:
+
 - **Partial failures**: Check batch logs
 - **API throttling**: Reduce --batch-size
 - **Memory issues**: Process in smaller batches
@@ -206,12 +223,14 @@ node scripts/automation/orchestrator.js update-bulk \
 **Category**: Maintenance | **Priority**: Medium | **Est. Time**: 900ms
 
 **Features**:
+
 - Find issues inactive for N days
 - Apply stale label
 - Generate stale report
 - Customizable staleness threshold
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js manage-stale \
   --repo lightspeedwp/.github \
@@ -220,17 +239,20 @@ node scripts/automation/orchestrator.js manage-stale \
 ```
 
 **Options**:
+
 - `--repo` (required) — Repository
 - `--token` (required) — GitHub token
 - `--days` — Inactivity threshold (default: 30)
 - `--label` — Label to apply (default: status:stale)
 
 **Integration Points**:
+
 - Scheduled daily via GitHub Actions
 - Outputs: stale issue list
 - Used by: maintenance dashboard
 
 **Troubleshooting**:
+
 - **Missing issues**: Check date range
 - **False positives**: Adjust --days threshold
 - **Label conflicts**: Verify label exists
@@ -244,12 +266,14 @@ node scripts/automation/orchestrator.js manage-stale \
 **Category**: Planning | **Priority**: Medium | **Est. Time**: 1400ms
 
 **Features**:
+
 - Intelligent milestone assignment
 - Type-based allocation
 - Priority-aware grouping
 - Conflict resolution
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js allocate-milestones \
   --repo lightspeedwp/.github \
@@ -258,22 +282,26 @@ node scripts/automation/orchestrator.js allocate-milestones \
 ```
 
 **Options**:
+
 - `--repo` (required)
 - `--token` (required)
 - `--milestone` — Target milestone
 - `--criteria` — Allocation criteria
 
 **Integration Points**:
+
 - Depends on: audit-issue-metadata
 - Used by: release planning
 - Updates: GitHub milestone field
 
-**Optimization Status**: 
+**Optimization Status**:
+
 - **Largest script** (616 LOC, 23.86 KB)
 - **High refactoring potential**
 - Target: 1400ms → 900ms
 
 **Troubleshooting**:
+
 - **Unassigned issues**: Check criteria
 - **Performance slow**: Review LOC refactoring needed
 - **Conflicts**: Check milestone permissions
@@ -287,12 +315,14 @@ node scripts/automation/orchestrator.js allocate-milestones \
 **Category**: Audit | **Priority**: Medium | **Est. Time**: 900ms
 
 **Features**:
+
 - Validate label consistency
 - Check label coverage
 - Identify orphaned labels
 - Report unused labels
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js review-labels \
   --repo lightspeedwp/.github \
@@ -301,6 +331,7 @@ node scripts/automation/orchestrator.js review-labels \
 ```
 
 **Integration Points**:
+
 - Reads from: label-governance policy
 - Outputs to: audit reports
 - Used by: label maintenance
@@ -314,12 +345,14 @@ node scripts/automation/orchestrator.js review-labels \
 **Category**: Sync | **Priority**: Medium | **Est. Time**: 900ms
 
 **Features**:
+
 - Bidirectional label sync
 - PR↔Issue relationship detection
 - Conflict resolution
 - Selective sync
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js sync-pr-labels \
   --repo lightspeedwp/.github \
@@ -327,6 +360,7 @@ node scripts/automation/orchestrator.js sync-pr-labels \
 ```
 
 **Integration Points**:
+
 - Triggered on: PR opened/updated
 - Syncs to: Related issues
 - Used by: workflow orchestration
@@ -340,12 +374,14 @@ node scripts/automation/orchestrator.js sync-pr-labels \
 **Category**: Validation | **Priority**: High | **Est. Time**: 1600ms
 
 **Features**:
+
 - Multi-point environment validation
 - Configuration verification
 - Readiness assessment
 - Detailed reporting
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js validate-staging \
   --repo lightspeedwp/.github \
@@ -353,6 +389,7 @@ node scripts/automation/orchestrator.js validate-staging \
 ```
 
 **Optimization Opportunities**:
+
 - Parallel validation checks
 - Cache validation results
 - Batch file I/O
@@ -367,12 +404,14 @@ node scripts/automation/orchestrator.js validate-staging \
 **Category**: Orchestration | **Priority**: High | **Est. Time**: 900ms
 
 **Features**:
+
 - Coordinate multiple handlers
 - Dependency management
 - Error aggregation
 - Parallel execution support
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js handle-all \
   --repo lightspeedwp/.github \
@@ -388,12 +427,14 @@ node scripts/automation/orchestrator.js handle-all \
 **Category**: Orchestration | **Priority**: High | **Est. Time**: 1100ms
 
 **Features**:
+
 - Complete PR lifecycle automation
 - Multi-step triage
 - Status updates
 - Dependency coordination
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js triage-all \
   --repo lightspeedwp/.github \
@@ -402,6 +443,7 @@ node scripts/automation/orchestrator.js triage-all \
 ```
 
 **Dependencies**:
+
 - Requires: review-labels, sync-pr-labels
 
 ---
@@ -413,12 +455,14 @@ node scripts/automation/orchestrator.js triage-all \
 **Category**: Template | **Priority**: Low | **Est. Time**: 900ms
 
 **Features**:
+
 - Template modification
 - Section injection
 - Validation
 - Backup preservation
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js add-template-sections \
   --repo lightspeedwp/.github \
@@ -434,12 +478,14 @@ node scripts/automation/orchestrator.js add-template-sections \
 **Category**: Audit | **Priority**: Medium | **Est. Time**: 1400ms
 
 **Features**:
+
 - Status label validation
 - Consistency checking
 - Missing status detection
 - Detailed audit report
 
 **Usage**:
+
 ```bash
 node scripts/automation/orchestrator.js review-status \
   --repo lightspeedwp/.github \
@@ -473,6 +519,7 @@ node scripts/automation/orchestrator.js review-status \
 ## Workflow Integration Points
 
 ### 1. Issue Creation Workflow
+
 ```
 issue.opened → content-analysis-agent 
             → labeling-agent 
@@ -482,6 +529,7 @@ issue.opened → content-analysis-agent
 ```
 
 ### 2. Daily Maintenance Workflow
+
 ```
 schedule(08:00 UTC) → audit-issue-metadata
                    → review-labels
@@ -490,6 +538,7 @@ schedule(08:00 UTC) → audit-issue-metadata
 ```
 
 ### 3. PR Triage Workflow
+
 ```
 pull_request.opened → pr-triage-orchestrator
                    → sync-pr-labels
@@ -497,6 +546,7 @@ pull_request.opened → pr-triage-orchestrator
 ```
 
 ### 4. Release Planning Workflow
+
 ```
 release.triggered → allocate-milestones
                  → bulk-issue-metadata-updater
@@ -509,24 +559,28 @@ release.triggered → allocate-milestones
 ### Phase 2.1: Script Optimization (In Progress)
 
 **Priority 1: audit-issue-metadata.js**
+
 - [ ] Add API result caching (200-300ms)
 - [ ] Batch metadata collection (100ms)
 - [ ] Refactor validation logic (100ms)
 - Target: 1600ms → 1000ms (37% improvement)
 
 **Priority 2: staging-validation.js**
+
 - [ ] Parallel validation checks (200ms)
 - [ ] Cache validation schemas (100ms)
 - [ ] Combine validation passes (100ms)
 - Target: 1600ms → 1000ms (37% improvement)
 
 **Priority 3: allocate-to-milestone.js**
+
 - [ ] Refactor into modules (300ms)
 - [ ] Add milestone cache (100ms)
 - [ ] Optimize loops (200ms)
 - Target: 1400ms → 900ms (36% improvement)
 
 **Phase 2.2: Global Optimizations**
+
 - Add centralized caching layer (200-400ms savings)
 - Implement connection pooling (100ms)
 - Optimize file I/O batching (150ms)
@@ -539,36 +593,46 @@ release.triggered → allocate-milestones
 ### Common Issues
 
 #### "Rate limit exceeded"
+
 **Cause**: GitHub API rate limiting  
-**Solution**: 
+**Solution**:
+
 - Add delays between API calls
 - Use batch operations
 - Implement caching
 
 #### "Script timeout"
+
 **Cause**: Long-running operation  
 **Solution**:
+
 - Reduce batch size
 - Enable verbose logging
 - Check for infinite loops
 
 #### "Memory error"
+
 **Cause**: Large data sets  
 **Solution**:
+
 - Process in smaller batches
 - Stream results instead of buffering
 - Clear cache between batches
 
 #### "Dependency not found"
+
 **Cause**: Missing dependent script  
 **Solution**:
+
 - Run dependencies first
 - Check orchestrator registry
 - Verify all scripts present
 
 #### "Permission denied"
+
 **Cause**: Insufficient GitHub token scope  
 **Solution**:
+
 - Verify token has repo access
 - Check organization settings
 - Regenerate token if needed
@@ -576,6 +640,7 @@ release.triggered → allocate-milestones
 ### Debug Mode
 
 Enable detailed logging:
+
 ```bash
 NODE_DEBUG=* node scripts/automation/orchestrator.js audit-metadata --verbose
 ```
@@ -583,6 +648,7 @@ NODE_DEBUG=* node scripts/automation/orchestrator.js audit-metadata --verbose
 ### Validation Checklist
 
 Before running in production:
+
 - [ ] GitHub token has required scopes
 - [ ] Repository name is correct
 - [ ] Network connectivity confirmed

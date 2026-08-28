@@ -9,7 +9,7 @@
 function parseArgs(args) {
   const result = {};
   for (let i = 0; i < args.length; i++) {
-    if (args[i].startsWith('--')) {
+    if (args[i].startsWith("--")) {
       const key = args[i].substring(2);
       result[key] = args[i + 1];
       i++;
@@ -21,7 +21,7 @@ function parseArgs(args) {
 // Enrichment templates by type
 const enrichmentTemplates = {
   bug: {
-    sections: ['Acceptance Criteria', 'Technical Notes', 'Testing'],
+    sections: ["Acceptance Criteria", "Technical Notes", "Testing"],
     template: `## Acceptance Criteria (Generated)
 - [ ] Reproduce issue in specified environment
 - [ ] Identify root cause
@@ -38,10 +38,10 @@ const enrichmentTemplates = {
 - Test in original environment
 - Test in latest version
 - Test on supported platforms
-- Add regression test case`
+- Add regression test case`,
   },
   feature: {
-    sections: ['Acceptance Criteria', 'Technical Considerations'],
+    sections: ["Acceptance Criteria", "Technical Considerations"],
     template: `## Acceptance Criteria (Generated)
 - [ ] Feature works as specified
 - [ ] Performance meets standards
@@ -53,10 +53,10 @@ const enrichmentTemplates = {
 - Identify impacted components
 - Review dependencies
 - Plan integration points
-- Document assumptions`
+- Document assumptions`,
   },
   documentation: {
-    sections: ['Acceptance Criteria', 'Content Requirements'],
+    sections: ["Acceptance Criteria", "Content Requirements"],
     template: `## Acceptance Criteria (Generated)
 - [ ] Documentation is complete
 - [ ] All examples tested
@@ -69,10 +69,10 @@ const enrichmentTemplates = {
 - Step-by-step instructions
 - Real-world examples
 - Troubleshooting section
-- Links to related docs`
+- Links to related docs`,
   },
   task: {
-    sections: ['Acceptance Criteria', 'Implementation Notes'],
+    sections: ["Acceptance Criteria", "Implementation Notes"],
     template: `## Acceptance Criteria (Generated)
 - [ ] Task completed as specified
 - [ ] Code reviewed and approved
@@ -84,10 +84,14 @@ const enrichmentTemplates = {
 - Follow existing patterns
 - Maintain consistency
 - Consider performance
-- Plan for maintenance`
+- Plan for maintenance`,
   },
   security: {
-    sections: ['Acceptance Criteria', 'Security Requirements', 'Risk Assessment'],
+    sections: [
+      "Acceptance Criteria",
+      "Security Requirements",
+      "Risk Assessment",
+    ],
     template: `## Acceptance Criteria (Generated)
 - [ ] Vulnerability identified and documented
 - [ ] Fix implemented and tested
@@ -106,10 +110,10 @@ const enrichmentTemplates = {
 - Identify potential impacts
 - Rate severity level
 - Plan rollout strategy
-- Monitor after deployment`
+- Monitor after deployment`,
   },
   performance: {
-    sections: ['Acceptance Criteria', 'Performance Requirements'],
+    sections: ["Acceptance Criteria", "Performance Requirements"],
     template: `## Acceptance Criteria (Generated)
 - [ ] Performance baseline established
 - [ ] Optimization implemented
@@ -122,10 +126,10 @@ const enrichmentTemplates = {
 - Set target metrics
 - Plan monitoring
 - Document optimization strategy
-- Consider edge cases`
+- Consider edge cases`,
   },
   a11y: {
-    sections: ['Acceptance Criteria', 'Accessibility Requirements'],
+    sections: ["Acceptance Criteria", "Accessibility Requirements"],
     template: `## Acceptance Criteria (Generated)
 - [ ] WCAG 2.2 AA compliant
 - [ ] Keyboard navigation works
@@ -138,10 +142,10 @@ const enrichmentTemplates = {
 - ARIA labels where needed
 - Keyboard shortcuts documented
 - Focus indicators visible
-- Color not sole indicator`
+- Color not sole indicator`,
   },
   design: {
-    sections: ['Acceptance Criteria', 'Design Specifications'],
+    sections: ["Acceptance Criteria", "Design Specifications"],
     template: `## Acceptance Criteria (Generated)
 - [ ] Design implemented as spec
 - [ ] Responsive on all breakpoints
@@ -154,12 +158,12 @@ const enrichmentTemplates = {
 - Document spacing/sizing
 - Color palette and fonts
 - Animation/interaction specs
-- Accessibility considerations`
-  }
+- Accessibility considerations`,
+  },
 };
 
 // Check if enrichment should be added
-function shouldEnrich(type, confidence, threshold = 0.80) {
+function shouldEnrich(type, confidence, threshold = 0.8) {
   // Don't enrich if type confidence is too low
   if (confidence < threshold) {
     return false;
@@ -174,13 +178,13 @@ function shouldEnrich(type, confidence, threshold = 0.80) {
 function generateEnrichment(type) {
   const template = enrichmentTemplates[type];
   if (!template) {
-    return { sections: [], content: '', generated: false };
+    return { sections: [], content: "", generated: false };
   }
 
   return {
     sections: template.sections,
     content: template.template,
-    generated: true
+    generated: true,
   };
 }
 
@@ -191,24 +195,27 @@ async function main() {
 
     const issueNumber = args.issue;
     const repo = args.repo;
-    const type = args.type || 'task';
-    const threshold = parseFloat(args.threshold) || 0.80;
+    const type = args.type || "task";
+    const threshold = parseFloat(args.threshold) || 0.8;
+    const confidence = parseFloat(args.confidence) || 0.92;
 
     if (!issueNumber || !repo) {
-      console.error('Missing required arguments: --issue and --repo');
+      console.error("Missing required arguments: --issue and --repo");
       process.exit(1);
     }
 
     console.log(`Enrichment Agent: Enriching issue #${issueNumber}`);
-
-    // Mock confidence from content analysis
-    const confidence = 0.92; // In production, passed from content-analysis agent
+    console.log(
+      `  Type: ${type}, Confidence: ${confidence}, Threshold: ${threshold}`,
+    );
 
     // Check if enrichment should be applied
     if (!shouldEnrich(type, confidence, threshold)) {
-      console.log(`Enrichment not needed: confidence ${confidence} below threshold ${threshold}`);
-      console.log('::set-output name=sections::0');
-      console.log('::set-output name=status::skipped');
+      console.log(
+        `Enrichment not needed: confidence ${confidence} below threshold ${threshold}`,
+      );
+      console.log("::set-output name=sections::0");
+      console.log("::set-output name=status::skipped");
       process.exit(0);
     }
 
@@ -216,17 +223,21 @@ async function main() {
     const enrichment = generateEnrichment(type);
 
     // Output results
-    console.log('::set-output name=sections::' + enrichment.sections.length);
-    console.log('::set-output name=status::success');
+    console.log("::set-output name=sections::" + enrichment.sections.length);
+    console.log("::set-output name=status::success");
+    // Encode content for multiline output
+    const encodedContent = Buffer.from(enrichment.content).toString("base64");
+    console.log("::set-output name=content::" + encodedContent);
 
-    console.log(`✓ Enrichment generated: ${enrichment.sections.length} sections`);
-    console.log(`  Sections: ${enrichment.sections.join(', ')}`);
+    console.log(
+      `✓ Enrichment generated: ${enrichment.sections.length} sections`,
+    );
+    console.log(`  Sections: ${enrichment.sections.join(", ")}`);
 
     process.exit(0);
-
   } catch (error) {
-    console.error('Enrichment Agent Error:', error.message);
-    console.log('::set-output name=status::error');
+    console.error("Enrichment Agent Error:", error.message);
+    console.log("::set-output name=status::error");
     process.exit(1);
   }
 }

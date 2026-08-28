@@ -6,6 +6,7 @@ quick_reference: true
 # Issue Management Audit & Polish — Quick Index
 
 ## 📍 Project Location
+
 `/.github/projects/active/issue-management-audit-polish-2026-08-27/`
 
 ## 📚 All Documents
@@ -58,17 +59,20 @@ Status:        On track
 ## 🚀 Start Here
 
 **New to the project?** Read in this order:
+
 1. README.md (this folder)
 2. 00-PROJECT-OVERVIEW.md
 3. 01-CURRENT-STATE-AUDIT.md (summary section)
 4. Pick specific document based on your role
 
 **Ready to implement?** Follow:
+
 1. 02-IMPROVEMENT-PLAN.md (Phase 1)
 2. 04-AGENTIC-WORKFLOW-DESIGN.md (details)
 3. 05-AUTOMATION-SCRIPTS-INVENTORY.md (optimization)
 
 **Tracking progress?** Use:
+
 1. 03-OPENSPEC-STATUS-FRAMEWORK.md (status matrix)
 2. Update README.md component status
 3. Check milestone dates

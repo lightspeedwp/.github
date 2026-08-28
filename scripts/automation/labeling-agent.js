@@ -9,7 +9,7 @@
 function parseArgs(args) {
   const result = {};
   for (let i = 0; i < args.length; i++) {
-    if (args[i].startsWith('--')) {
+    if (args[i].startsWith("--")) {
       const key = args[i].substring(2);
       result[key] = args[i + 1];
       i++;
@@ -21,41 +21,77 @@ function parseArgs(args) {
 // Label governance rules
 const labelGovernance = {
   type: {
-    canonical: ['type:bug', 'type:feature', 'type:documentation', 'type:task', 'type:security', 'type:performance', 'type:a11y', 'type:design'],
+    canonical: [
+      "type:bug",
+      "type:feature",
+      "type:documentation",
+      "type:task",
+      "type:security",
+      "type:performance",
+      "type:a11y",
+      "type:design",
+    ],
     priority: 1,
-    maxPerIssue: 1
+    maxPerIssue: 1,
   },
   status: {
-    canonical: ['status:needs-triage', 'status:needs-clarification', 'status:in-progress', 'status:review', 'status:done'],
+    canonical: [
+      "status:needs-triage",
+      "status:needs-clarification",
+      "status:in-progress",
+      "status:review",
+      "status:done",
+    ],
     priority: 2,
-    maxPerIssue: 1
+    maxPerIssue: 1,
   },
   priority: {
-    canonical: ['priority:low', 'priority:normal', 'priority:high', 'priority:critical'],
+    canonical: [
+      "priority:low",
+      "priority:normal",
+      "priority:high",
+      "priority:critical",
+    ],
     priority: 3,
-    maxPerIssue: 1
+    maxPerIssue: 1,
   },
   area: {
-    canonical: ['area:frontend', 'area:backend', 'area:api', 'area:core', 'area:docs', 'area:testing'],
+    canonical: [
+      "area:frontend",
+      "area:backend",
+      "area:api",
+      "area:core",
+      "area:docs",
+      "area:testing",
+    ],
     priority: 4,
-    maxPerIssue: 3
+    maxPerIssue: 3,
   },
   platform: {
-    canonical: ['platform:web', 'platform:mobile', 'platform:windows', 'platform:mac', 'platform:linux'],
+    canonical: [
+      "platform:web",
+      "platform:mobile",
+      "platform:windows",
+      "platform:mac",
+      "platform:linux",
+    ],
     priority: 5,
-    maxPerIssue: 3
-  }
+    maxPerIssue: 3,
+  },
 };
 
 // Determine area labels from keywords
 function detectAreaLabels(type, keywords) {
   const areaLabels = [];
 
-  if (keywords.includes('api')) areaLabels.push('area:api');
-  if (keywords.includes('frontend') || keywords.includes('ui')) areaLabels.push('area:frontend');
-  if (keywords.includes('backend') || keywords.includes('server')) areaLabels.push('area:backend');
-  if (keywords.includes('database')) areaLabels.push('area:database');
-  if (keywords.includes('doc') || type === 'documentation') areaLabels.push('area:docs');
+  if (keywords.includes("api")) areaLabels.push("area:api");
+  if (keywords.includes("frontend") || keywords.includes("ui"))
+    areaLabels.push("area:frontend");
+  if (keywords.includes("backend") || keywords.includes("server"))
+    areaLabels.push("area:backend");
+  if (keywords.includes("database")) areaLabels.push("area:database");
+  if (keywords.includes("doc") || type === "documentation")
+    areaLabels.push("area:docs");
 
   return areaLabels;
 }
@@ -64,13 +100,17 @@ function detectAreaLabels(type, keywords) {
 function detectPlatformLabels(keywords) {
   const platformLabels = [];
 
-  if (keywords.includes('web')) platformLabels.push('platform:web');
-  if (keywords.includes('mobile') || keywords.includes('ios') || keywords.includes('android')) {
-    platformLabels.push('platform:mobile');
+  if (keywords.includes("web")) platformLabels.push("platform:web");
+  if (
+    keywords.includes("mobile") ||
+    keywords.includes("ios") ||
+    keywords.includes("android")
+  ) {
+    platformLabels.push("platform:mobile");
   }
-  if (keywords.includes('windows')) platformLabels.push('platform:windows');
-  if (keywords.includes('mac')) platformLabels.push('platform:mac');
-  if (keywords.includes('linux')) platformLabels.push('platform:linux');
+  if (keywords.includes("windows")) platformLabels.push("platform:windows");
+  if (keywords.includes("mac")) platformLabels.push("platform:mac");
+  if (keywords.includes("linux")) platformLabels.push("platform:linux");
 
   return platformLabels;
 }
@@ -86,15 +126,15 @@ function generateLabels(type, keywords = []) {
   }
 
   // Always apply initial status
-  labelsToApply.push('status:needs-triage');
+  labelsToApply.push("status:needs-triage");
 
   // Set priority based on type and keywords
-  if (type === 'security') {
-    labelsToApply.push('priority:critical');
-  } else if (keywords.includes('urgent') || keywords.includes('blocking')) {
-    labelsToApply.push('priority:high');
+  if (type === "security") {
+    labelsToApply.push("priority:critical");
+  } else if (keywords.includes("urgent") || keywords.includes("blocking")) {
+    labelsToApply.push("priority:high");
   } else {
-    labelsToApply.push('priority:normal');
+    labelsToApply.push("priority:normal");
   }
 
   // Add area labels
@@ -106,8 +146,8 @@ function generateLabels(type, keywords = []) {
   labelsToApply.push(...platformLabels.slice(0, 3)); // Max 3 platform labels
 
   // Add openspec labels
-  labelsToApply.push('openspec:status/production');
-  labelsToApply.push('openspec:priority/normal');
+  labelsToApply.push("openspec:status/production");
+  labelsToApply.push("openspec:priority/normal");
 
   return labelsToApply;
 }
@@ -119,7 +159,7 @@ function checkConflicts(labelsToApply) {
 
   for (const label of labelsToApply) {
     // Extract category (e.g., 'type' from 'type:bug')
-    const category = label.split(':')[0];
+    const category = label.split(":")[0];
 
     if (!byCategory[category]) {
       byCategory[category] = [];
@@ -131,7 +171,7 @@ function checkConflicts(labelsToApply) {
   for (const [category, labels] of Object.entries(byCategory)) {
     const rule = labelGovernance[category];
     if (rule && labels.length > rule.maxPerIssue) {
-      conflicts.push(`Too many ${category} labels: ${labels.join(', ')}`);
+      conflicts.push(`Too many ${category} labels: ${labels.join(", ")}`);
     }
   }
 
@@ -146,17 +186,17 @@ async function main() {
     const issueNumber = args.issue;
     const repo = args.repo;
     const token = args.token;
-    const type = args.type || 'task';
+    const type = args.type || "task";
 
     if (!issueNumber || !repo) {
-      console.error('Missing required arguments: --issue and --repo');
+      console.error("Missing required arguments: --issue and --repo");
       process.exit(1);
     }
 
     console.log(`Labeling Agent: Applying labels to issue #${issueNumber}`);
 
     // Mock keywords - in production would come from content analysis
-    const keywords = ['frontend', 'ui'];
+    const keywords = ["frontend", "ui"];
 
     // Generate labels
     const labelsToApply = generateLabels(type, keywords);
@@ -168,20 +208,19 @@ async function main() {
     const uniqueLabels = [...new Set(labelsToApply)];
 
     // Output results
-    console.log('::set-output name=count::' + uniqueLabels.length);
-    console.log('::set-output name=conflicts::' + JSON.stringify(conflicts));
-    console.log('::set-output name=status::success');
+    console.log("::set-output name=count::" + uniqueLabels.length);
+    console.log("::set-output name=conflicts::" + JSON.stringify(conflicts));
+    console.log("::set-output name=status::success");
 
     console.log(`✓ Labeling complete: ${uniqueLabels.length} labels applied`);
     if (conflicts.length > 0) {
-      console.log(`⚠️ Conflicts detected: ${conflicts.join(', ')}`);
+      console.log(`⚠️ Conflicts detected: ${conflicts.join(", ")}`);
     }
 
     process.exit(0);
-
   } catch (error) {
-    console.error('Labeling Agent Error:', error.message);
-    console.log('::set-output name=status::error');
+    console.error("Labeling Agent Error:", error.message);
+    console.log("::set-output name=status::error");
     process.exit(1);
   }
 }

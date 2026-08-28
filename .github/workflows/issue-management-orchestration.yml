@@ -86,7 +86,7 @@ jobs:
     name: Content Analysis Agent
     runs-on: ubuntu-latest
     needs: setup
-    if: ${{ needs.setup.outputs.trigger_type != 'scheduled' || needs.setup.outputs.action != 'validate' }}
+    if: ${{ contains(fromJson('["analyze", "triage", "enrich", "all"]'), needs.setup.outputs.action) }}
     outputs:
       detected_type: ${{ steps.analyze.outputs.type }}
       confidence: ${{ steps.analyze.outputs.confidence }}
@@ -109,10 +109,18 @@ jobs:
           ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
           ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
 
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
           if [[ -z "$ISSUE_NUM" ]]; then
-            echo "status=skipped" >> $GITHUB_OUTPUT
-            echo "No issue to analyse in scheduled trigger"
-            exit 0
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              echo "No issues with status:needs-triage found"
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
           fi
 
           # Call content analysis script
@@ -138,7 +146,7 @@ jobs:
     name: Labelling Agent
     runs-on: ubuntu-latest
     needs: [setup, content-analysis]
-    if: ${{ needs.content-analysis.outputs.analysis_status != 'error' && always() }}
+    if: ${{ contains(fromJson('["triage", "enrich", "all"]'), needs.setup.outputs.action) && needs.content-analysis.outputs.analysis_status != 'error' && always() }}
     outputs:
       labels_applied: ${{ steps.label.outputs.count }}
       label_conflicts: ${{ steps.label.outputs.conflicts }}
@@ -158,9 +166,17 @@ jobs:
           ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
           ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
 
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
           if [[ -z "$ISSUE_NUM" ]]; then
-            echo "status=skipped" >> $GITHUB_OUTPUT
-            exit 0
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
           fi
 
           # Call labelling script
@@ -187,7 +203,7 @@ jobs:
     name: Enrichment Agent
     runs-on: ubuntu-latest
     needs: [setup, content-analysis, labeling]
-    if: ${{ always() && needs.setup.outputs.should_enrich == 'true' && needs.labeling.outputs.label_status != 'error' }}
+    if: ${{ contains(fromJson('["enrich", "all"]'), needs.setup.outputs.action) && needs.setup.outputs.should_enrich == 'true' && always() && needs.labeling.outputs.label_status != 'error' }}
     outputs:
       enrichment_added: ${{ steps.enrich.outputs.sections }}
       enrichment_status: ${{ steps.enrich.outputs.status }}
@@ -217,6 +233,7 @@ jobs:
             --repo "${{ github.repository }}" \
             --token "${{ secrets.GITHUB_TOKEN }}" \
             --type "${{ needs.content-analysis.outputs.detected_type }}" \
+            --confidence "${{ needs.content-analysis.outputs.confidence }}" \
             --threshold "${{ env.ENRICHMENT_THRESHOLD }}" || {
             echo "status=error" >> $GITHUB_OUTPUT
             exit 1
@@ -235,7 +252,7 @@ jobs:
     name: Validation Agent
     runs-on: ubuntu-latest
     needs: [setup, labeling, enrichment]
-    if: ${{ needs.setup.outputs.should_validate == 'true' && always() }}
+    if: ${{ contains(fromJson('["validate", "all"]'), needs.setup.outputs.action) && needs.setup.outputs.should_validate == 'true' && always() }}
     outputs:
       validation_status: ${{ steps.validate.outputs.status }}
       validation_issues: ${{ steps.validate.outputs.issues }}
@@ -255,10 +272,18 @@ jobs:
           ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
           ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
 
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
           if [[ -z "$ISSUE_NUM" ]]; then
-            echo "status=skipped" >> $GITHUB_OUTPUT
-            echo "passed=true" >> $GITHUB_OUTPUT
-            exit 0
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              echo "passed=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
           fi
 
           # Call validation script
@@ -304,6 +329,20 @@ jobs:
         run: |
           ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
           ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
+          if [[ -z "$ISSUE_NUM" ]]; then
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              echo "No issues found for reporting"
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
+          fi
 
           # Call reporting script
           node scripts/automation/reporting-agent.js \

@@ -275,7 +275,8 @@ describe("extractClosingIssueNumbers", () => {
   });
 
   it("handles all GitHub closing keywords", () => {
-    const text = "Close #1\nCloses #2\nClosed #3\nFix #4\nFixes #5\nFixed #6\nResolve #7\nResolves #8\nResolved #9";
+    const text =
+      "Close #1\nCloses #2\nClosed #3\nFix #4\nFixes #5\nFixed #6\nResolve #7\nResolves #8\nResolved #9";
     const result = extractClosingIssueNumbers(text);
     expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });

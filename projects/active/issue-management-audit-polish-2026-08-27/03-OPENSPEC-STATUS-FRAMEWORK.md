@@ -39,6 +39,7 @@ discovery → planning → implementation → testing → production
 ### Core Components
 
 #### 1. issues.agent.md
+
 - **Current Status**: `openspec:status/production` (v2.0 active)
 - **Target Status**: `openspec:status/production` (v2.1 improved)
 - **Current Phase**: `planning`
@@ -50,6 +51,7 @@ discovery → planning → implementation → testing → production
   - Add examples and metrics
 
 #### 2. Agentic Workflow
+
 - **Current Status**: `openspec:status/planning` (proposed)
 - **Target Status**: `openspec:status/production`
 - **Current Phase**: `implementation`
@@ -57,6 +59,7 @@ discovery → planning → implementation → testing → production
 - **File**: `.github/workflows/issue-management-orchestration.yml`
 
 #### 3. Documentation Suite
+
 - **Current Status**: `openspec:status/production` (existing)
 - **Target Status**: `openspec:status/production` (enhanced)
 - **Current Phase**: `planning`
@@ -64,6 +67,7 @@ discovery → planning → implementation → testing → production
 - **Files**: 20+ markdown files in `/docs/`
 
 #### 4. Automation Scripts
+
 - **Current Status**: `openspec:status/production` (active)
 - **Target Status**: `openspec:status/production` (optimized)
 - **Current Phase**: `planning`
@@ -71,6 +75,7 @@ discovery → planning → implementation → testing → production
 - **Location**: `/scripts/automation/`
 
 #### 5. Test Suite
+
 - **Current Status**: `openspec:status/discovery` (skipped)
 - **Target Status**: `openspec:status/production` (active)
 - **Current Phase**: `implementation`
@@ -82,14 +87,18 @@ discovery → planning → implementation → testing → production
 ## Phase Definitions & Completion Criteria
 
 ### Phase 1: Discovery
+
 **Criteria for Completion**:
+
 - ✅ Component audited and documented
 - ✅ Current capabilities documented
 - ✅ Gaps identified
 - ✅ Baseline established
 
 ### Phase 2: Planning
+
 **Criteria for Completion**:
+
 - ✅ Improvement plan documented
 - ✅ Architecture designed
 - ✅ Resource requirements identified
@@ -97,7 +106,9 @@ discovery → planning → implementation → testing → production
 - ✅ Stakeholder review completed
 
 ### Phase 3: Implementation
+
 **Criteria for Completion**:
+
 - ✅ Code changes completed
 - ✅ Documentation updated
 - ✅ Tests written
@@ -105,7 +116,9 @@ discovery → planning → implementation → testing → production
 - ✅ Local validation passed
 
 ### Phase 4: Testing
+
 **Criteria for Completion**:
+
 - ✅ Unit tests passing (90%+ coverage)
 - ✅ Integration tests passing
 - ✅ Manual testing completed
@@ -113,7 +126,9 @@ discovery → planning → implementation → testing → production
 - ✅ Documentation reviewed
 
 ### Phase 5: Production
+
 **Criteria for Completion**:
+
 - ✅ Deployed to main branch
 - ✅ Monitoring established
 - ✅ Runbooks created
@@ -140,6 +155,7 @@ Test Suite                      disc      prod      implementation  9/03
 ### Completion Progress
 
 **Overall Project Progress**: 20% complete
+
 - Discovery: ✅ 100% (audit done)
 - Planning: ⏳ 70% (plan drafted)
 - Implementation: ⏳ 0% (about to start)
@@ -181,6 +197,7 @@ Test Suite                      disc      prod      implementation  9/03
 ### Progress Tracking
 
 **Metrics to Track**:
+
 - Completion percentage per phase
 - Velocity (tasks completed per day)
 - Blockers and blockers resolved
@@ -194,6 +211,7 @@ Test Suite                      disc      prod      implementation  9/03
 ### Label Management
 
 **Creating Labels in GitHub**:
+
 ```bash
 # Example: Create production-ready label
 gh label create \
@@ -203,6 +221,7 @@ gh label create \
 ```
 
 **Applying Labels to Issues**:
+
 - Manually during issue triage
 - Automatically via workflow
 - Batch update via script
@@ -210,6 +229,7 @@ gh label create \
 ### Issue Templates
 
 Add to issue templates:
+
 ```markdown
 ## openspec Status
 - [ ] discovery
@@ -222,6 +242,7 @@ Add to issue templates:
 ### Project Board
 
 Organize project board by status:
+
 - Backlog: `discovery` status
 - To Do: `planning` status
 - In Progress: `implementation` status
@@ -235,18 +256,22 @@ Organize project board by status:
 ### Key Metrics
 
 **Lead Time**: Days from discovery to production
+
 - Target: < 14 days for improvements
 - Measurement: status transition dates
 
 **Throughput**: Components completed per phase
+
 - Target: 3-5 components per week
 - Measurement: count of production-ready components
 
 **Quality**: Defect rate after production
+
 - Target: < 2% issues reported
 - Measurement: issues created after deployment
 
 **Documentation**: Coverage per component
+
 - Target: 100%
 - Measurement: documentation pages per component
 

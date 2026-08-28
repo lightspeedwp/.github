@@ -10,6 +10,7 @@ status: "Complete"
 ## 1. Agent Specifications
 
 ### 1.1 issues.agent.md
+
 **Location**: `.github/agents/issues.agent.md`  
 **Version**: v2.0  
 **Status**: Active, Stable  
@@ -18,37 +19,44 @@ status: "Complete"
 **Maintainer**: Ash Shaw
 
 **Current Capabilities**:
+
 - Content Analysis (title, body, template detection)
 - Type Assignment (8 types: bug, feature, documentation, task, security, performance, a11y, design)
 - Status & Priority Labeling
 - Issue Enrichment (acceptance criteria, technical details, risk assessment)
 
 **Usage Modes**:
+
 1. Automatic Type Assignment (default)
 2. Manual Refinement (via `refine <issue_URL>`)
 3. Triage & Classification (via `triage <issue_number>`)
 
 **Process Flow**:
+
 ```
 Issue Created → Automatic Analysis → Optional Manual Refinement → Optional Triage → Ready for Development
 ```
 
 **Configuration References**:
+
 - `.github/issue-types.yml` (canonical types)
 - `.github/labels.yml` (canonical labels)
 - `.github/ISSUE_TEMPLATE/` (templates)
 
 **Gaps Identified**:
+
 - ⚠️ No explicit openspec status labels documented
 - ⚠️ No mention of workflow integration patterns
 - ⚠️ Could include more error handling scenarios
 
 ### 1.2 labeling.agent.md
+
 **Location**: `.github/agents/labeling.agent.md`  
 **Version**: v2.0  
 **Status**: Active, Stable  
 
 **Current Capabilities**:
+
 - Automatic label application
 - Label enforcement
 - Multi-domain labeling (status, priority, area, component, type)
@@ -76,11 +84,13 @@ Located in `.github/scripts/automation/`:
 | `staging-validation.js` | Validate issue staging | ✅ Active |
 
 **Sub-folders**:
+
 - `handlers/` - Specialized handlers for specific operations
 - `includes/` - Shared utilities and templates
 - `issue-agent/` - Issue agent specific configurations
 
 **Documentation**:
+
 - `README.md` - Overview
 - `QUICK-REFERENCE.txt` - Quick command reference
 - `ADD-ISSUE-SECTIONS-GUIDE.md` - Template section guide
@@ -88,6 +98,7 @@ Located in `.github/scripts/automation/`:
 - `SYNC_PR_LABELS_README.md` - PR label syncing
 
 **Gaps Identified**:
+
 - ⚠️ No openspec status labels on scripts
 - ⚠️ Documentation could reference which scripts handle which tasks
 - ⚠️ Some scripts may need performance optimization
@@ -115,6 +126,7 @@ Located in `.github/scripts/automation/`:
 | `issue-remediation-automation.yml` | Auto-remediate issues | Schedule/Manual | ✅ Active |
 
 **Gaps**:
+
 - ⚠️ No unified issue management workflow
 - ⚠️ No openspec integration workflow
 - ⚠️ Limited orchestration for complex scenarios
@@ -169,9 +181,11 @@ Located in `.github/scripts/automation/`:
 ## 5. Templates & Configuration
 
 ### 5.1 Issue Templates (25+ templates)
+
 **Location**: `.github/ISSUE_TEMPLATE/`
 
 **Available Types**:
+
 - Task, Bug, Feature, Epic, Design
 - Performance, Story, User Experience
 - Code Refactor, Build/CI, Automation
@@ -184,6 +198,7 @@ Located in `.github/scripts/automation/`:
 **Status**: ✅ Comprehensive coverage
 
 ### 5.2 Configuration Files
+
 **Location**: `.github/`
 
 - `issue-types.yml` - Canonical issue types
@@ -221,12 +236,14 @@ Located in `.github/.jest-skip/`:
 ## 7. Openspec Integration Status
 
 ### Current State
+
 - 🔴 No openspec status labels documented for components
 - 🔴 No openspec integration in agents
 - 🔴 No openspec validation in workflows
 - ⚠️ Active openspec project exists but may not track issue management
 
 ### Opportunities
+
 - Add `openspec:status/...` labels to all components
 - Track progress through openspec phases
 - Integrate openspec validation into workflows
@@ -236,6 +253,7 @@ Located in `.github/.jest-skip/`:
 ## 8. Summary of Findings
 
 ### What's Working Well ✅
+
 1. **Comprehensive Agents** - issues.agent.md and labeling.agent.md are well-designed
 2. **Extensive Automation** - 8+ scripts covering diverse operations
 3. **Good Documentation** - 17+ documents covering all aspects
@@ -243,6 +261,7 @@ Located in `.github/.jest-skip/`:
 5. **Canonical Configurations** - YAML files provide single source of truth
 
 ### Critical Gaps ⚠️
+
 1. **No openspec Integration** - Missing status labels and tracking
 2. **No Unified Workflow** - Multiple scripts but no orchestrated workflow
 3. **Test Coverage** - Tests exist but are skipped
@@ -250,6 +269,7 @@ Located in `.github/.jest-skip/`:
 5. **Architecture Documentation** - No high-level overview
 
 ### Improvement Opportunities 🚀
+
 1. **Create Agentic Workflow** - Orchestrate all issue operations
 2. **Add openspec Labels** - Track status through phases
 3. **Consolidate Docs** - Create unified "Issue Management" guide
@@ -261,18 +281,21 @@ Located in `.github/.jest-skip/`:
 ## 9. Recommendations
 
 ### High Priority
+
 1. Create agentic workflow to orchestrate issue operations
 2. Add openspec status labels to all components
 3. Enable and maintain test suite
 4. Create unified architecture documentation
 
 ### Medium Priority
+
 1. Create quick-start guide for contributors
 2. Consolidate related documentation
 3. Improve script organization and discovery
 4. Add performance metrics
 
 ### Low Priority
+
 1. Polish error messages in scripts
 2. Add more examples to documentation
 3. Consider AI-assisted issue analysis enhancements
@@ -282,6 +305,7 @@ Located in `.github/.jest-skip/`:
 ## Appendix: Component Inventory
 
 ### Total Components Audited
+
 - **Agents**: 2 (issues, labeling)
 - **Scripts**: 9+ (direct issue management)
 - **Workflows**: 2 (issue-specific) + 4 (openspec-related)

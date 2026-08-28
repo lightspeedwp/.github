@@ -38,15 +38,18 @@ The **Issue Management Orchestration** system automatically analyzes, labels, an
 ## Creating Issues (30 seconds)
 
 ### Step 1: Go to Issues Tab
+
 Navigate to the repository's **Issues** tab and click **New Issue**.
 
 ### Step 2: Write a Clear Title
+
 ```
 ✅ Good: "Login button broken on iOS Safari"
 ❌ Vague: "Something is wrong with login"
 ```
 
 ### Step 3: Write a Detailed Description
+
 Include **what**, **why**, and **how to reproduce**:
 
 ```markdown
@@ -68,7 +71,9 @@ Page does not redirect
 ```
 
 ### Step 4: Submit
+
 Click **Submit new issue**. The system will:
+
 - Automatically detect: **bug** (high confidence)
 - Apply labels: `type:bug`, `status:needs-triage`, `priority:high`
 - Add enrichment sections (reproduction template, testing notes)
@@ -83,6 +88,7 @@ Click **Submit new issue**. The system will:
 Labels organize your work automatically. Here's what each type means:
 
 ### Type Labels (`type:*`)
+
 | Label | Meaning | When to Use |
 |-------|---------|------------|
 | `type:bug` | Reproducible defect | Something broken |
@@ -92,6 +98,7 @@ Labels organize your work automatically. Here's what each type means:
 | `type:security` | Security issue | Vulnerabilities |
 
 ### Status Labels (`status:*`)
+
 | Label | Meaning | What It Means |
 |-------|---------|---------------|
 | `status:needs-triage` | Waiting for review | New issues start here |
@@ -101,6 +108,7 @@ Labels organize your work automatically. Here's what each type means:
 | `status:closed` | Work complete | Issue resolved |
 
 ### Priority Labels (`priority:*`)
+
 | Label | Meaning | Response Time |
 |-------|---------|---------------|
 | `priority:critical` | Blocks all work | Fix immediately |
@@ -109,6 +117,7 @@ Labels organize your work automatically. Here's what each type means:
 | `priority:low` | Nice to have | Fix when possible |
 
 ### Other Labels
+
 - **`openspec:*`** — Governance and compliance labels
 - **`area:*`** — Product area (frontend, backend, docs, etc.)
 - **`platform:*`** — Affected platforms (iOS, web, desktop, etc.)
@@ -121,16 +130,19 @@ Labels organize your work automatically. Here's what each type means:
 ### Task: Find issues by type
 
 **Find all bugs:**
+
 ```
 is:issue type:bug is:open
 ```
 
 **Find all features in triage:**
+
 ```
 is:issue type:feature status:needs-triage
 ```
 
 **Find high-priority items:**
+
 ```
 is:issue priority:critical,high is:open
 ```
@@ -142,11 +154,13 @@ Use these filters in GitHub's **Issues** tab search.
 ### Task: Track issue progress
 
 **Check an issue's status:**
+
 1. Open the issue
 2. Look at the labels section (right side panel)
 3. Find the `status:*` label — it tells you where it is
 
 **Status flow:**
+
 ```
 needs-triage → ready → in-progress → closed
 ```
@@ -156,11 +170,13 @@ needs-triage → ready → in-progress → closed
 ### Task: Move an issue forward
 
 **When you start work:**
+
 1. Click **Add a label** (right panel)
 2. Change `status:needs-triage` → `status:in-progress`
 3. Assign the issue to yourself
 
 **When work is done:**
+
 1. Remove `status:in-progress` label
 2. Add a `status:closed` label (or click **Close issue**)
 3. Add a comment explaining what was done
@@ -176,6 +192,7 @@ The Issue Management system generates:
 - **Reports folder** — `.github/reports/issue-management/`
 
 **To view an issue report:**
+
 1. Open the issue
 2. Scroll to workflow comments (usually at the top)
 3. Look for "Issue Management Workflow Summary" comment
@@ -190,6 +207,7 @@ The Issue Management system generates:
 **A:** The system needs a clear title and body to detect the type confidently.
 
 **Solution:** Provide:
+
 - ✅ Clear, specific title (at least 5 words)
 - ✅ Detailed body (at least 20 characters)
 - ✅ Context about what and why
@@ -203,6 +221,7 @@ If confidence is low, you'll see a `needs-clarification` label. Edit the issue t
 **A:** You can override any label manually.
 
 **Steps:**
+
 1. Open the issue
 2. Click the labels section (right panel)
 3. Remove the label you don't want (click the X)
@@ -228,12 +247,14 @@ If confidence is low, you'll see a `needs-clarification` label. Edit the issue t
 **A:** Yes! Use GitHub CLI or the UI:
 
 **Via UI:**
+
 1. Go to **Actions** tab
 2. Click **"Issue Management Orchestration"**
 3. Click **"Run workflow"** button
 4. Optional: Specify issue number or action
 
 **Via CLI:**
+
 ```bash
 # Run on all issues
 gh workflow run issue-management-orchestration.yml
@@ -252,6 +273,7 @@ gh workflow run issue-management-orchestration.yml -f action=validate
 **A:** The system only adds enrichment if it's confident about the issue type (confidence ≥ 80%).
 
 **Solutions:**
+
 - **For low-confidence issues:** Clarify the title and body with more details
 - **Check the confidence score:** Look for `needs-clarification` label
 - **Manual workaround:** Add the sections yourself (copy from the templates in `.github/ISSUE_TEMPLATE/`)
@@ -261,16 +283,19 @@ gh workflow run issue-management-orchestration.yml -f action=validate
 ## Links to Detailed Documentation
 
 **New to this system?**
+
 - [Architecture Overview](./ARCHITECTURE.md) — How the system works (technical details)
 - [Issue Triage Guide](./ISSUE_TRIAGE.md) — Manual issue template application
 - [Label Inventory](./LABEL_INVENTORY.md) — Complete list of all 158 labels
 
 **Setting up or administering?**
+
 - [Script Registry](../scripts/SCRIPT-REGISTRY.md) — Available automation scripts
 - [Label Governance Policy](./LABEL_GOVERNANCE_POLICY.md) — Label rules and conventions
 - [Workflow Documentation](../.github/workflows/issue-management-orchestration.yml) — Workflow YAML details
 
 **Working with agents?**
+
 - [Issues Agent Guide](./.github/agents/issues.agent.md) — Agent behavior and decision-making
 - [Agent Architecture](./docs/agents/AGENT_ARCHITECTURE.md) — How agents work together
 

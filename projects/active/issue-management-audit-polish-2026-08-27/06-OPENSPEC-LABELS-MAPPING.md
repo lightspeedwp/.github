@@ -12,6 +12,7 @@ This document maps all issue management components to their openspec status labe
 ## Label Categories
 
 ### Status Labels (Lifecycle)
+
 ```
 openspec:status/discovery       🟡 Initial audit and discovery
 openspec:status/planning        🟠 Planning and design phase
@@ -22,6 +23,7 @@ openspec:status/deprecated      ⚫ Deprecated or archived
 ```
 
 ### Domain Labels (Component Type)
+
 ```
 openspec:domain/agent-design         For agent specifications
 openspec:domain/automation           For automation scripts
@@ -32,6 +34,7 @@ openspec:domain/workflow             For GitHub workflows
 ```
 
 ### Priority Labels (Urgency)
+
 ```
 openspec:priority/critical  🔴 Must complete immediately
 openspec:priority/high      🟠 Important, soon
@@ -40,6 +43,7 @@ openspec:priority/low       🟢 Nice to have, when available
 ```
 
 ### Phase Labels (Implementation)
+
 ```
 openspec:phase/discovery         Audit and discovery work
 openspec:phase/planning          Design and planning work
@@ -55,9 +59,11 @@ openspec:phase/deployment        Release and deployment work
 ### Core Components
 
 #### 1. issues.agent.md
+
 **Current Status**: Production (v2.0)  
 **Target Status**: Production (v2.1)  
 **Labels**:
+
 ```
 openspec:status/production        (current v2.0)
 openspec:status/planning          (v2.1 improvements)
@@ -67,6 +73,7 @@ openspec:phase/planning
 ```
 
 **Improvements Planned**:
+
 - ✅ Add openspec integration section
 - ✅ Enhance workflow patterns
 - ✅ Improve error handling
@@ -75,10 +82,12 @@ openspec:phase/planning
 ---
 
 #### 2. Agentic Workflow (New)
+
 **Status**: Not yet created  
 **Target Status**: Production  
 **File**: `.github/workflows/issue-management-orchestration.yml`  
 **Labels**:
+
 ```
 openspec:status/planning
 openspec:domain/workflow
@@ -88,6 +97,7 @@ openspec:phase/implementation
 ```
 
 **Components**:
+
 - Content Analysis Agent
 - Labeling Agent
 - Enrichment Agent
@@ -97,10 +107,12 @@ openspec:phase/implementation
 ---
 
 #### 3. Automation Scripts (13 scripts)
+
 **Status**: All production (active)  
 **Target Status**: Production (optimized)  
 **Location**: `.github/scripts/automation/`  
 **Labels**:
+
 ```
 openspec:status/production
 openspec:domain/automation
@@ -109,6 +121,7 @@ openspec:phase/validation
 ```
 
 **Scripts** (all labeled):
+
 - add-issue-template-sections.js
 - audit-issue-metadata.js
 - bulk-issue-metadata-updater.js
@@ -126,10 +139,12 @@ openspec:phase/validation
 ---
 
 #### 4. Documentation Suite (20+ files)
+
 **Status**: All production  
 **Target Status**: Production (enhanced)  
 **Location**: `.github/docs/`  
 **Labels**:
+
 ```
 openspec:status/production
 openspec:domain/documentation
@@ -138,6 +153,7 @@ openspec:phase/planning
 ```
 
 **Key Files**:
+
 - ISSUE_CREATION_GUIDE.md
 - ISSUE_TYPES.md
 - ISSUE_TRIAGE.md
@@ -151,10 +167,12 @@ openspec:phase/planning
 ---
 
 #### 5. Test Suite (11 test files)
+
 **Status**: Skipped (inactive)  
 **Target Status**: Production (active)  
 **Location**: `.github/.jest-skip/`  
 **Labels**:
+
 ```
 openspec:status/discovery
 openspec:domain/testing
@@ -167,9 +185,11 @@ openspec:phase/implementation
 ---
 
 #### 6. Configuration Files (5 files)
+
 **Status**: All production  
 **Target Status**: Production (current)  
 **Labels**:
+
 ```
 openspec:status/production
 openspec:domain/governance
@@ -177,6 +197,7 @@ openspec:priority/high
 ```
 
 **Files**:
+
 - issue-types.yml
 - labels.yml
 - issue-fields.yml
@@ -188,9 +209,11 @@ openspec:priority/high
 ### Project Components
 
 #### 7. Issue Management Audit & Polish Project
+
 **Status**: Planning phase (active)  
 **Location**: `.github/projects/active/issue-management-audit-polish-2026-08-27/`  
 **Labels**:
+
 ```
 openspec:status/planning
 openspec:domain/agent-design
@@ -200,6 +223,7 @@ openspec:priority/high
 ```
 
 **Documents**:
+
 - 00-INDEX.md
 - 00-PROJECT-OVERVIEW.md — openspec:status/planning
 - 01-CURRENT-STATE-AUDIT.md — openspec:status/planning
@@ -214,11 +238,13 @@ openspec:priority/high
 ## Implementation Timeline
 
 ### Phase 1: Discovery (Complete ✅)
+
 **Labels**: `openspec:status/discovery` ✅  
 **Duration**: 1 day (2026-08-27)  
 **Completion**: 100%
 
 **Tasks**:
+
 - ✅ Audit all components
 - ✅ Document current state
 - ✅ Identify gaps
@@ -226,11 +252,13 @@ openspec:priority/high
 ---
 
 ### Phase 2: Planning (In Progress ⏳)
+
 **Labels**: `openspec:status/planning` ⏳  
 **Duration**: 3-4 days (2026-08-27 to 2026-08-31)  
 **Completion**: 70%
 
 **Tasks**:
+
 - ✅ Create improvement plan
 - ✅ Design agentic workflow
 - ✅ Plan automation improvements
@@ -240,11 +268,13 @@ openspec:priority/high
 ---
 
 ### Phase 3: Implementation (Upcoming 🔵)
+
 **Labels**: `openspec:status/implementation` 🔵  
 **Duration**: 5-7 days (2026-09-01 to 2026-09-07)  
 **Completion**: 0%
 
 **Tasks**:
+
 - Build agentic workflow
 - Update issues.agent.md v2.1
 - Improve automation scripts
@@ -254,11 +284,13 @@ openspec:priority/high
 ---
 
 ### Phase 4: Testing (Upcoming 🟣)
+
 **Labels**: `openspec:status/testing` 🟣  
 **Duration**: 2-3 days (2026-09-08 to 2026-09-10)  
 **Completion**: 0%
 
 **Tasks**:
+
 - Test workflow execution
 - Validate labels application
 - Test automation scripts
@@ -267,11 +299,13 @@ openspec:priority/high
 ---
 
 ### Phase 5: Production (Upcoming 🟢)
+
 **Labels**: `openspec:status/production` 🟢  
 **Duration**: 1-2 days (2026-09-11 to 2026-09-12)  
 **Completion**: 0%
 
 **Tasks**:
+
 - Deploy to production
 - Enable monitoring
 - Document learnings
@@ -298,6 +332,7 @@ Labels:
 ### Example Issues
 
 **Example 1: Create Agentic Workflow**
+
 ```
 Title: Create Issue Management Orchestration Workflow
 Labels:
@@ -309,6 +344,7 @@ Labels:
 ```
 
 **Example 2: Update Documentation**
+
 ```
 Title: Update documentation with openspec status tracking
 Labels:
@@ -319,6 +355,7 @@ Labels:
 ```
 
 **Example 3: Enable Test Suite**
+
 ```
 Title: Enable and maintain issue management test suite
 Labels:
@@ -335,21 +372,25 @@ Labels:
 ### Command Line Examples
 
 **Find all planning items**:
+
 ```bash
 gh issue list --label "openspec:status/planning"
 ```
 
 **Find all high priority items**:
+
 ```bash
 gh issue list --label "openspec:priority/high"
 ```
 
 **Find items by domain**:
+
 ```bash
 gh issue list --label "openspec:domain/automation"
 ```
 
 **Track implementation progress**:
+
 ```bash
 gh issue list --label "openspec:status/implementation" --label "openspec:domain/workflow"
 ```
@@ -418,16 +459,19 @@ TOTAL                                        24 components
 ## Integration Points
 
 ### GitHub Actions
+
 - Workflows can read labels via `github.event.issue.labels`
 - Can apply labels automatically in workflows
 - Can trigger on label changes
 
 ### GitHub Projects
+
 - Filter by labels in project views
 - Group by labels in columns
 - Track progress by label counts
 
 ### Reporting
+
 - Generate metrics by label
 - Create dashboards by label
 - Export data by label filter

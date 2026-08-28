@@ -5,14 +5,14 @@
  * Part of the Issue Management Orchestration Workflow
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Simple argument parser
 function parseArgs(args) {
   const result = {};
   for (let i = 0; i < args.length; i++) {
-    if (args[i].startsWith('--')) {
+    if (args[i].startsWith("--")) {
       const key = args[i].substring(2);
       result[key] = args[i + 1];
       i++;
@@ -23,7 +23,10 @@ function parseArgs(args) {
 
 // Generate unique report ID
 function generateReportId() {
-  const timestamp = new Date().toISOString().replace(/[:-]/g, '').replace(/\..+/, '');
+  const timestamp = new Date()
+    .toISOString()
+    .replace(/[:-]/g, "")
+    .replace(/\..+/, "");
   const random = Math.random().toString(36).substring(2, 8);
   return `report-${timestamp}-${random}`;
 }
@@ -39,12 +42,12 @@ function createExecutionLog(issueNumber, trigger, status) {
     duration_ms: Math.floor(Math.random() * 2000) + 500,
     status: status,
     agents: {
-      content_analysis: 'success',
-      labeling: 'success',
-      enrichment: 'success',
-      validation: 'success',
-      reporting: 'success'
-    }
+      content_analysis: "success",
+      labeling: "success",
+      enrichment: "success",
+      validation: "success",
+      reporting: "success",
+    },
   };
 }
 
@@ -54,31 +57,31 @@ function createMetrics() {
     labels_applied: Math.floor(Math.random() * 10) + 5,
     labels_removed: Math.floor(Math.random() * 3),
     sections_added: Math.floor(Math.random() * 5) + 2,
-    validation_status: 'pass',
-    processing_time_ms: Math.floor(Math.random() * 2000) + 500
+    validation_status: "pass",
+    processing_time_ms: Math.floor(Math.random() * 2000) + 500,
   };
 }
 
 // Create daily metrics report
 function createDailyReport(timestamp) {
   return {
-    report_date: timestamp.split('T')[0],
+    report_date: timestamp.split("T")[0],
     metrics: {
       issues_processed: Math.floor(Math.random() * 50) + 10,
       avg_processing_time_ms: Math.floor(Math.random() * 1500) + 500,
-      success_rate: (95 + Math.random() * 5).toFixed(1) + '%',
-      failure_rate: (1 + Math.random() * 4).toFixed(1) + '%',
+      success_rate: (95 + Math.random() * 5).toFixed(1) + "%",
+      failure_rate: (1 + Math.random() * 4).toFixed(1) + "%",
       type_distribution: {
         bug: Math.floor(Math.random() * 20) + 5,
         feature: Math.floor(Math.random() * 15) + 3,
         task: Math.floor(Math.random() * 10) + 2,
         documentation: Math.floor(Math.random() * 8) + 1,
-        other: Math.floor(Math.random() * 5)
+        other: Math.floor(Math.random() * 5),
       },
-      label_accuracy: (92 + Math.random() * 8).toFixed(1) + '%',
-      enrichment_coverage: (75 + Math.random() * 15).toFixed(1) + '%'
+      label_accuracy: (92 + Math.random() * 8).toFixed(1) + "%",
+      enrichment_coverage: (75 + Math.random() * 15).toFixed(1) + "%",
     },
-    alerts: []
+    alerts: [],
   };
 }
 
@@ -111,7 +114,11 @@ function generateSummaryComment(execution, metrics) {
 }
 
 // Save report to file
-function saveReport(reportId, data, outputDir = '.github/reports/issue-management') {
+function saveReport(
+  reportId,
+  data,
+  outputDir = ".github/reports/issue-management",
+) {
   try {
     // Create directory if it doesn't exist
     if (!fs.existsSync(outputDir)) {
@@ -122,7 +129,7 @@ function saveReport(reportId, data, outputDir = '.github/reports/issue-managemen
     fs.writeFileSync(filename, JSON.stringify(data, null, 2));
     return filename;
   } catch (error) {
-    console.error('Failed to save report:', error.message);
+    console.error("Failed to save report:", error.message);
     return null;
   }
 }
@@ -135,17 +142,17 @@ async function main() {
     const issueNumber = args.issue;
     const repo = args.repo;
     const token = args.token;
-    const trigger = args.trigger || 'manual';
+    const trigger = args.trigger || "manual";
 
-    if (!issueNumber && trigger !== 'scheduled') {
-      console.error('Missing required arguments: --issue and --repo');
+    if (!issueNumber && trigger !== "scheduled") {
+      console.error("Missing required arguments: --issue and --repo");
       process.exit(1);
     }
 
     console.log(`Reporting Agent: Generating report for workflow execution`);
 
     // Create reports
-    const executionLog = createExecutionLog(issueNumber, trigger, 'success');
+    const executionLog = createExecutionLog(issueNumber, trigger, "success");
     const metrics = createMetrics();
     const dailyReport = createDailyReport(executionLog.timestamp);
 
@@ -154,7 +161,7 @@ async function main() {
       ...executionLog,
       metrics: metrics,
       daily_summary: dailyReport,
-      repository: repo
+      repository: repo,
     };
 
     // Save report
@@ -164,8 +171,8 @@ async function main() {
     const summary = generateSummaryComment(executionLog, metrics);
 
     // Output results
-    console.log('::set-output name=report_id::' + executionLog.report_id);
-    console.log('::set-output name=status::success');
+    console.log("::set-output name=report_id::" + executionLog.report_id);
+    console.log("::set-output name=status::success");
 
     console.log(`✓ Report generated: ${executionLog.report_id}`);
     console.log(`  File: ${filename}`);
@@ -174,16 +181,15 @@ async function main() {
     console.log(`  Processing Time: ${metrics.processing_time_ms}ms`);
 
     // Log summary comment (would be posted to issue in production)
-    console.log('\nSummary Comment (would be posted to issue):');
-    console.log('---');
+    console.log("\nSummary Comment (would be posted to issue):");
+    console.log("---");
     console.log(summary);
-    console.log('---');
+    console.log("---");
 
     process.exit(0);
-
   } catch (error) {
-    console.error('Reporting Agent Error:', error.message);
-    console.log('::set-output name=status::error');
+    console.error("Reporting Agent Error:", error.message);
+    console.log("::set-output name=status::error");
     process.exit(1);
   }
 }

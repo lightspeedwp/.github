@@ -19,6 +19,7 @@ profiling_date: 2026-08-27
 Baseline profiling completed for all 13 automation scripts. Key findings show good performance baseline (avg 1.07s per script, <150KB total size), with clear optimization opportunities for the 3 slowest scripts.
 
 **Phase 2 Tasks**:
+
 1. ✅ Profiling complete (audit-issue-metadata, staging-validation, allocate-to-milestone identified as priorities)
 2. ⏳ Implement optimizations (caching, error handling, performance logging)
 3. ⏳ Create script orchestrator (unified entry point)
@@ -42,56 +43,63 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 ### Script Performance Ranking
 
 #### 🟢 Fast (< 500ms)
+
 1. **label-orchestrator.js** - 100ms, 3.45 KB, 108 LOC
    - Status: Optimal
    - Optimization: add-performance-logging
 
 #### 🟡 Medium (500-1100ms)
+
 2. **add-issue-template-sections.js** - 900ms, 10.94 KB, 300 LOC
    - Optimizations: add-caching, add-performance-logging
-3. **manage-stale-issues.js** - 900ms, 12.05 KB, 381 LOC
+2. **manage-stale-issues.js** - 900ms, 12.05 KB, 381 LOC
    - Optimizations: reduce-dependencies, refactor, add-caching
-4. **review-meta-labels.js** - 900ms, 8.85 KB, 278 LOC
+3. **review-meta-labels.js** - 900ms, 8.85 KB, 278 LOC
    - Optimizations: add-caching, add-performance-logging
-5. **sync-pr-labels.js** - 900ms, 8.94 KB, 288 LOC
+4. **sync-pr-labels.js** - 900ms, 8.94 KB, 288 LOC
    - Optimizations: add-caching, add-performance-logging
-6. **handlers-orchestrator.js** - 900ms, 9.27 KB, 264 LOC
+5. **handlers-orchestrator.js** - 900ms, 9.27 KB, 264 LOC
    - Optimizations: add-caching, add-performance-logging
-7. **bulk-issue-metadata-updater.js** - 1,100ms, 10.95 KB, 338 LOC
+6. **bulk-issue-metadata-updater.js** - 1,100ms, 10.95 KB, 338 LOC
    - Optimizations: refactor, add-caching, optimize-file-io
-8. **pr-triage-orchestrator.js** - 1,100ms, 11.77 KB, 363 LOC
+7. **pr-triage-orchestrator.js** - 1,100ms, 11.77 KB, 363 LOC
    - Optimizations: refactor, add-caching, optimize-file-io
 
 #### 🔴 Slow (> 1100ms) — PRIORITY FOR OPTIMIZATION
+
 9. **allocate-to-milestone.js** - 1,400ms, 23.86 KB, 616 LOC
    - Status: Largest script, needs refactoring
    - Optimizations: refactor-for-readability, add-caching, add-performance-logging
-10. **review-status-labels.js** - 1,400ms, 13.73 KB, 417 LOC
+2. **review-status-labels.js** - 1,400ms, 13.73 KB, 417 LOC
     - Optimizations: refactor, add-caching, add-performance-logging
-11. **staging-validation.js** - 1,600ms, 15.09 KB, 406 LOC
+3. **staging-validation.js** - 1,600ms, 15.09 KB, 406 LOC
     - Optimizations: refactor, add-caching, optimize-file-io, add-performance-logging
-12. **audit-issue-metadata.js** - 1,600ms, 16.93 KB, 436 LOC
+4. **audit-issue-metadata.js** - 1,600ms, 16.93 KB, 436 LOC
     - Status: Slowest script, complex logic
     - Optimizations: refactor-for-readability, add-caching, optimize-file-io, add-performance-logging
 
 ### Common Optimization Patterns Identified
 
 **Pattern 1: Caching (6 scripts)**
+
 - Scripts making repeated API or file system calls
 - **Target Savings**: 200-400ms per script
 - Scripts: audit-issue-metadata, bulk-issue-metadata-updater, manage-stale-issues, allocate-to-milestone, review-status-labels, staging-validation, pr-triage-orchestrator
 
 **Pattern 2: Error Handling (8 scripts)**
+
 - Missing try-catch blocks or partial error handling
 - **Impact**: Improve reliability and prevent crashes
 - Scripts: audit-issue-metadata, bulk-issue-metadata-updater, manage-stale-issues, allocate-to-milestone, review-status-labels, staging-validation, pr-triage-orchestrator, handlers-orchestrator
 
 **Pattern 3: Refactoring (5 scripts)**
+
 - Code > 350 LOC needs breaking into smaller functions
 - **Target Savings**: 100-300ms per script
 - Scripts: audit-issue-metadata, manage-stale-issues, allocate-to-milestone, review-status-labels, staging-validation
 
 **Pattern 4: File I/O Optimization (4 scripts)**
+
 - Multiple file reads/writes instead of batching
 - **Target Savings**: 100-200ms per script
 - Scripts: audit-issue-metadata, bulk-issue-metadata-updater, staging-validation, pr-triage-orchestrator
@@ -103,12 +111,14 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 ### Priority 1: audit-issue-metadata.js (1600ms → target 1000ms)
 
 **Opportunities**:
+
 - Add result caching for repeated issue queries
 - Batch file I/O operations
 - Refactor validation logic into reusable functions
 - Add early return patterns
 
 **Implementation Plan**:
+
 1. Add cache module for GitHub API results
 2. Batch metadata collection operations
 3. Break validation into helper functions
@@ -117,6 +127,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 ### Priority 2: staging-validation.js (1600ms → target 1000ms)
 
 **Opportunities**:
+
 - Cache validation schemas
 - Batch file reads
 - Combine multiple passes into single pass
@@ -125,6 +136,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 ### Priority 3: allocate-to-milestone.js (1400ms → target 900ms)
 
 **Opportunities**:
+
 - Add milestone cache
 - Refactor into smaller modules
 - Combine related operations
@@ -137,6 +149,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 **Objective**: Create unified entry point for all 13 scripts
 
 **Deliverables**:
+
 - [ ] orchestrator.js created with dependency management
 - [ ] All 13 scripts integrated
 - [ ] Action routing implemented
@@ -145,6 +158,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 - [ ] 80%+ test coverage
 
 **Available Actions**:
+
 - `audit-metadata` - Run metadata audit
 - `update-bulk` - Bulk update operations
 - `manage-stale` - Manage stale issues
@@ -162,6 +176,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 **Objective**: Comprehensive documentation of all scripts
 
 **Deliverables**:
+
 - [ ] SCRIPT-REGISTRY.md created
 - [ ] All 13 scripts documented
 - [ ] Performance data included
@@ -174,18 +189,21 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 ## Success Criteria
 
 **Performance**:
+
 - [ ] All scripts profiled and baselined
 - [ ] Top 3 scripts optimized (target 30% improvement)
 - [ ] No regression in functionality
 - [ ] Error handling improved
 
 **Orchestrator**:
+
 - [ ] Single entry point working
 - [ ] All scripts callable via actions
 - [ ] Dependency management working
 - [ ] Comprehensive logging
 
 **Documentation**:
+
 - [ ] Registry complete and published
 - [ ] Examples working
 - [ ] All links verified

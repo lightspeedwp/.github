@@ -43,6 +43,7 @@ Update and enhance all issue-management and documentation related files with ope
 ### Documentation Files to Update (20+)
 
 **Issue Management Documentation (8 files)**:
+
 1. `docs/ISSUE_MAINTENANCE_SCRIPTS.md` — Add openspec labels, link to orchestrator
 2. `docs/ISSUE_TRIAGE.md` — Add openspec labels, link to workflow
 3. `docs/LABELING_FAQ.md` — Add openspec labels, link to registry
@@ -53,6 +54,7 @@ Update and enhance all issue-management and documentation related files with ope
 8. `docs/LABEL_COLOR_STRATEGY.md` — Add openspec labels
 
 **Label Management Documentation (6 files)**:
+
 1. `docs/LABEL_GOVERNANCE_POLICY.md` — Add openspec labels
 2. `.github/labeler.yml` — Add documentation link
 3. `.github/issue-types.yml` — Add documentation link
@@ -61,6 +63,7 @@ Update and enhance all issue-management and documentation related files with ope
 6. `docs/BRANDING_CONFIG_SPEC.md` — Link to labels
 
 **Agent & Automation Documentation (4+ files)**:
+
 1. `docs/AGENT_CREATION.md` — Link to agents folder
 2. `docs/agents/AGENT_ARCHITECTURE.md` — Link to issues.agent.md
 3. `.github/custom-instructions.md` — Link to agents
@@ -82,6 +85,7 @@ openspec_labels:
 ```
 
 Also add:
+
 - Links to related documentation
 - Cross-references to new Architecture Overview
 - Cross-references to new Quick-Start Guide
@@ -166,14 +170,17 @@ Also add:
 #### 2. Component Interactions
 
 **Data Flow**:
+
 - Issue Content → Type Detection → Labels Applied → Enrichment → Validation → Report Generated
 
 **Trigger Patterns**:
+
 - Event-based: issue.opened, issue.edited, issue.reopened (immediate)
-- Schedule-based: 0 8 * * * (daily 08:00 UTC, batch processing)
+- Schedule-based: 0 8 ** * (daily 08:00 UTC, batch processing)
 - Manual: workflow_dispatch (on-demand, optional parameters)
 
 **Agent Outputs**:
+
 - content-analysis → type, confidence, keywords
 - labeling → applied_labels, removed_labels, conflicts
 - enrichment → sections_added, enrichment_performed
@@ -183,16 +190,19 @@ Also add:
 #### 3. Integration Points
 
 **GitHub Integration**:
+
 - Read: Issues, issue content, existing labels
 - Write: Apply labels, post comments
 - Monitor: API rate limits, quotas
 
 **Automation Scripts Integration**:
+
 - `scripts/automation/orchestrator.js` — Unified entry point
 - 13 automation scripts available via `orchestrator` actions
 - Script profiling via `profiler.js`
 
 **Workflow Integration**:
+
 - Concurrency control: One workflow per issue
 - Error handling: Exponential backoff, rate limiting
 - Monitoring: Metrics collection, report generation
@@ -200,6 +210,7 @@ Also add:
 #### 4. Data Flow Diagrams
 
 **Issue Processing Pipeline**:
+
 ```
 Issue Content
     ├─ Title
@@ -237,6 +248,7 @@ Issue Content
 #### 5. Operational Procedures
 
 **Issue Creation Flow**:
+
 1. User creates issue
 2. issue.opened trigger fires
 3. Workflow starts: setup → analysis → labeling → enrichment → validation → reporting
@@ -244,6 +256,7 @@ Issue Content
 5. Issue updated with labels and enrichment sections
 
 **Daily Maintenance Flow**:
+
 1. 08:00 UTC schedule trigger fires
 2. Batch processes all issues needing triage
 3. Applies consistent labels
@@ -251,6 +264,7 @@ Issue Content
 5. Identifies stale issues
 
 **Manual Operation Flow**:
+
 1. User runs: `gh workflow run issue-management-orchestration.yml`
 2. Optional parameters: --issue-number, --action
 3. Workflow executes specified action
@@ -259,24 +273,28 @@ Issue Content
 #### 6. Troubleshooting Guide
 
 **Workflow Not Triggering**:
+
 - Check: GitHub Actions enabled
 - Check: Workflow file syntax valid
 - Check: Permissions correct (issues:write)
 - Solution: Review GitHub Actions settings
 
 **Labels Not Applied**:
+
 - Check: Label governance rules
 - Check: API rate limits
 - Check: Label name format
 - Solution: Verify labels exist, check logs
 
 **Enrichment Not Running**:
+
 - Check: ENABLE_ENRICHMENT=true
 - Check: Confidence >= 0.80
 - Check: Type correctly detected
 - Solution: Review type detection, adjust threshold
 
 **Performance Issues**:
+
 - Check: Execution time in logs
 - Check: Agent profiling results
 - Optimize: Reduce batch size, enable caching
@@ -285,6 +303,7 @@ Issue Content
 #### 7. Real-World Examples
 
 **Example 1: Bug Report Processing**
+
 ```
 Input: Issue titled "Login button broken on iOS"
        Body: "Can't login on Safari. Error: invalid token"
@@ -333,6 +352,7 @@ Output: Issue updated with labels, comment posted, report saved
 ### File: `docs/ISSUE_MANAGEMENT_QUICKSTART.md`
 
 **Sections**:
+
 1. Getting Started (5 min)
    - What is the issue management system?
    - Key features

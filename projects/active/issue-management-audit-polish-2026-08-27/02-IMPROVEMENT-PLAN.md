@@ -54,6 +54,7 @@ This document outlines concrete improvements to make the issue management infras
 **Purpose**: Document unified workflow for orchestrating all issue operations
 
 **Content**:
+
 1. Workflow architecture overview
 2. Task breakdown and dependencies
 3. Trigger patterns and conditions
@@ -104,6 +105,7 @@ This document outlines concrete improvements to make the issue management infras
 **Purpose**: Unified entry point for all issue automation
 
 **Capabilities**:
+
 - Dispatch to appropriate scripts
 - Handle dependencies
 - Track execution
@@ -123,6 +125,7 @@ This document outlines concrete improvements to make the issue management infras
 **Purpose**: Unified workflow orchestrating all issue operations
 
 **Capabilities**:
+
 1. Trigger issue type detection
 2. Apply automatic labels
 3. Enrich issues with acceptance criteria
@@ -131,6 +134,7 @@ This document outlines concrete improvements to make the issue management infras
 6. Generate reports
 
 **Triggers**:
+
 - On issue created/edited
 - On schedule (daily triage)
 - On demand (manual workflow dispatch)
@@ -141,6 +145,7 @@ This document outlines concrete improvements to make the issue management infras
 ### 3.2 Integration with GitHub Actions
 
 **Improvements**:
+
 1. Add issue-created event handler
 2. Add issue-edited event handler
 3. Add schedule-based triggers
@@ -160,6 +165,7 @@ This document outlines concrete improvements to make the issue management infras
 **Purpose**: High-level overview of entire system
 
 **Content**:
+
 1. Component diagram
 2. Data flow
 3. Integration points
@@ -172,6 +178,7 @@ This document outlines concrete improvements to make the issue management infras
 ### 4.2 Update Existing Documentation
 
 **Files to Update**:
+
 1. `ISSUE_CREATION_GUIDE.md` - Add openspec references
 2. `ISSUE_TRIAGE.md` - Add workflow references
 3. `ISSUE_TRIAGE_AUTOMATION.md` - Document new workflow
@@ -180,6 +187,7 @@ This document outlines concrete improvements to make the issue management infras
 6. `LABEL_STRATEGY.md` - Add workflow integration
 
 **Changes**:
+
 - Add openspec status labels
 - Add links to workflow
 - Add examples
@@ -191,6 +199,7 @@ This document outlines concrete improvements to make the issue management infras
 ### 4.3 Create New Documentation
 
 **New Files**:
+
 1. `ISSUE_MANAGEMENT_QUICK_START.md` - For new contributors
 2. `ISSUE_AUTOMATION_WORKFLOW.md` - Details on new workflow
 3. `OPENSPEC_STATUS_LABELS.md` - Explanation of status tracking
@@ -205,6 +214,7 @@ This document outlines concrete improvements to make the issue management infras
 ### 5.1 Define Openspec Status Labels
 
 **Labels to Create**:
+
 - `openspec:status/discovery` - Initial audit phase
 - `openspec:status/planning` - Planning phase
 - `openspec:status/implementation` - Building phase
@@ -212,6 +222,7 @@ This document outlines concrete improvements to make the issue management infras
 - `openspec:status/production` - Ready for use
 
 **Tracking**:
+
 - Issues.agent.md: `discovery` → `planning` → `production`
 - Agentic Workflow: `planning` → `implementation` → `testing` → `production`
 - Documentation: `planning` → `testing` → `production`
@@ -226,6 +237,7 @@ This document outlines concrete improvements to make the issue management infras
 **Add Section**: Issue Management Agent Status
 
 **Content**:
+
 - Current phase
 - Completion percentage
 - Blockers
@@ -241,6 +253,7 @@ This document outlines concrete improvements to make the issue management infras
 ### 6.1 Enable Test Suite
 
 **Actions**:
+
 1. Move tests from `.jest-skip/` to proper location
 2. Update test framework
 3. Add CI integration
@@ -252,6 +265,7 @@ This document outlines concrete improvements to make the issue management infras
 ### 6.2 Validate Improvements
 
 **Tests to Run**:
+
 1. Agent specification validation
 2. Script functionality
 3. Workflow execution
@@ -279,6 +293,7 @@ This document outlines concrete improvements to make the issue management infras
 **New File**: `.github/projects/active/issue-management-audit-polish-2026-08-27/04-STATUS-REPORT.md`
 
 **Content**:
+
 - What was completed
 - What changed
 - New capabilities
@@ -310,6 +325,7 @@ This document outlines concrete improvements to make the issue management infras
 ## Resource Requirements
 
 ### Tools & Technology
+
 - GitHub API (for automation)
 - Node.js (for scripts)
 - Markdown (for documentation)
@@ -317,12 +333,14 @@ This document outlines concrete improvements to make the issue management infras
 - Git (for version control)
 
 ### Skills Required
+
 - Issue management domain knowledge
 - GitHub automation experience
 - Agent/workflow design
 - Technical writing
 
 ### Access Requirements
+
 - Write access to repository
 - GitHub workflow permissions
 - Issue management permissions
@@ -332,6 +350,7 @@ This document outlines concrete improvements to make the issue management infras
 ## Success Criteria
 
 ### Completion Checklist
+
 - [ ] issues.agent.md updated to v2.1
 - [ ] Agentic workflow created and tested
 - [ ] All documentation updated
@@ -342,6 +361,7 @@ This document outlines concrete improvements to make the issue management infras
 - [ ] Active project closed successfully
 
 ### Quality Metrics
+
 - Documentation completeness: 100%
 - Code test coverage: 80%+
 - Workflow success rate: 95%+
@@ -365,11 +385,13 @@ This document outlines concrete improvements to make the issue management infras
 ## Dependencies & Blockers
 
 ### Dependencies
+
 - GitHub API availability
 - Current workflow stability
 - Team review time
 
 ### No Known Blockers
+
 - All components are available
 - No breaking changes required
 - Additive improvements only
@@ -379,6 +401,7 @@ This document outlines concrete improvements to make the issue management infras
 ## Appendix: Detailed Task Breakdown
 
 ### Task A1: Update issues.agent.md
+
 1. Read current file
 2. Add openspec section
 3. Enhance workflow integration
@@ -387,6 +410,7 @@ This document outlines concrete improvements to make the issue management infras
 6. Review and finalize
 
 ### Task A2: Create Workflow Spec
+
 1. Design workflow architecture
 2. Document decision points
 3. Create flowcharts
@@ -394,6 +418,7 @@ This document outlines concrete improvements to make the issue management infras
 5. Document triggers
 
 ### Task B1: Audit Scripts
+
 1. Review each script
 2. Document purpose/inputs/outputs
 3. Test functionality
@@ -401,6 +426,7 @@ This document outlines concrete improvements to make the issue management infras
 5. Create registry
 
 ### Task C1: Create Agentic Workflow
+
 1. Design workflow YAML
 2. Add event handlers
 3. Implement dispatch logic
@@ -408,22 +434,26 @@ This document outlines concrete improvements to make the issue management infras
 5. Test execution
 
 ### Task D1-D3: Update Documentation
+
 1. Create new overview documents
 2. Update existing files
 3. Add cross-references
 4. Review for completeness
 
 ### Task E1-E2: Openspec Integration
+
 1. Define status labels
 2. Update project tracking
 3. Add label validation
 
 ### Task F1-F2: Testing
+
 1. Enable test suite
 2. Run validation tests
 3. Document results
 
 ### Task G1-G2: Finalization
+
 1. Write implementation guide
 2. Create status report
 3. Document learnings

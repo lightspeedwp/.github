@@ -12,6 +12,7 @@ This document lists all GitHub issues that should be created to track work for t
 ## High Priority Issues
 
 ### 1. Create Issue Management Orchestration Workflow
+
 ```
 Title: Create Issue Management Orchestration Workflow
 
@@ -43,6 +44,7 @@ Labels:
 ---
 
 ### 2. Update issues.agent.md to v2.1
+
 ```
 Title: Update issues.agent.md to v2.1 with openspec integration
 
@@ -72,6 +74,7 @@ Labels:
 ---
 
 ### 3. Add openspec Status Labels to All Components
+
 ```
 Title: Add openspec status labels to issue management components
 
@@ -106,6 +109,7 @@ Labels:
 ---
 
 ### 4. Enable and Maintain Issue Management Test Suite
+
 ```
 Title: Enable and maintain issue management test suite
 
@@ -137,6 +141,7 @@ Labels:
 ## Medium Priority Issues
 
 ### 5. Update Documentation Suite with openspec Status
+
 ```
 Title: Update all issue-related docs with openspec status tracking
 
@@ -179,6 +184,7 @@ Labels:
 ---
 
 ### 6. Create Issue Management Architecture Overview
+
 ```
 Title: Create comprehensive Issue Management Architecture Overview
 
@@ -215,6 +221,7 @@ Labels:
 ---
 
 ### 7. Create Issue Management Quick Start Guide
+
 ```
 Title: Create quick start guide for contributors
 
@@ -251,6 +258,7 @@ Labels:
 ---
 
 ### 8. Optimize Automation Scripts Performance
+
 ```
 Title: Optimize automation scripts for performance
 
@@ -285,6 +293,7 @@ Labels:
 ## Lower Priority Issues
 
 ### 9. Create Unified Script Orchestrator
+
 ```
 Title: Create unified orchestrator script for all issue automation
 
@@ -316,6 +325,7 @@ Labels:
 ---
 
 ### 10. Create Script Registry Documentation
+
 ```
 Title: Create comprehensive script registry documentation
 
@@ -353,6 +363,7 @@ Labels:
 ## Project Closure Issues
 
 ### 11. Project Closeout and Handoff
+
 ```
 Title: Close out issue management audit & polish project
 

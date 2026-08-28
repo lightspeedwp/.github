@@ -37,11 +37,13 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 ## Phase Details
 
 ### Phase 2.1: Script Profiling & Optimization
+
 **Issue**: #2390 - Optimize automation scripts  
 **Duration**: 2 days  
 **Effort**: 8-10 hours
 
 **Objectives**:
+
 - Profile all 13 scripts for performance
 - Identify bottlenecks and optimization opportunities
 - Implement caching where applicable
@@ -49,6 +51,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - Enhance error handling
 
 **Scripts to Optimize**:
+
 1. add-issue-template-sections.js
 2. audit-issue-metadata.js
 3. bulk-issue-metadata-updater.js
@@ -64,6 +67,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 13. dor-dod-templates.cjs
 
 **Performance Targets**:
+
 - Typical execution: < 30 seconds
 - API calls: Minimize and cache
 - Memory usage: < 100MB
@@ -71,6 +75,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - Recovery time: < 5 seconds
 
 **Deliverables**:
+
 - [ ] Baseline metrics for each script
 - [ ] Optimization implementations
 - [ ] Performance improvements documented
@@ -78,17 +83,20 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - [ ] Updated script documentation
 
 ### Phase 2.2: Script Orchestrator
+
 **Issue**: #2391 - Create unified script orchestrator  
 **Duration**: 1-2 days  
 **Effort**: 6-8 hours
 
 **Objectives**:
+
 - Create central entry point for all scripts
 - Manage dependencies between scripts
 - Handle error recovery
 - Implement logging and reporting
 
 **Deliverables**:
+
 - [ ] `orchestrator.js` created
 - [ ] All 13 scripts integrated
 - [ ] Dependency detection working
@@ -98,6 +106,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - [ ] Usage documentation
 
 **Available Actions**:
+
 - `audit-metadata` - Run metadata audit
 - `update-bulk` - Bulk update operations
 - `manage-stale` - Manage stale issues
@@ -108,17 +117,20 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - `full-triage` - Comprehensive triage
 
 ### Phase 2.3: Script Registry Documentation
+
 **Issue**: #2392 - Create script registry documentation  
 **Duration**: 1 day  
 **Effort**: 4-6 hours
 
 **Objectives**:
+
 - Document all scripts in central registry
 - Provide usage examples
 - Include performance characteristics
 - Add troubleshooting guidance
 
 **Deliverables**:
+
 - [ ] `SCRIPT-REGISTRY.md` created
 - [ ] All 13 scripts documented
 - [ ] Performance data included
@@ -128,6 +140,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - [ ] Linked from main README
 
 **Registry Contents**:
+
 - Script overview table
 - Individual script entries (name, purpose, inputs, outputs, usage, performance, integration, examples, troubleshooting)
 - Status labels for each script
@@ -137,6 +150,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 ## Success Criteria
 
 **Performance**:
+
 - [ ] All scripts profiled
 - [ ] Average execution < 30s
 - [ ] Memory usage < 100MB
@@ -144,6 +158,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - [ ] Error rate < 1%
 
 **Orchestrator**:
+
 - [ ] Single entry point working
 - [ ] All 13 scripts callable
 - [ ] Dependency management working
@@ -151,6 +166,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 - [ ] 80%+ test coverage
 
 **Documentation**:
+
 - [ ] Script registry complete
 - [ ] All 13 scripts documented
 - [ ] Examples working
@@ -200,6 +216,7 @@ Optimize all 13 automation scripts for performance, create unified orchestrator,
 ## Next Phase
 
 **Phase 3: Workflow Implementation**  
+
 - Build agentic workflow YAML
 - Integrate 5 agents
 - Test all triggers
