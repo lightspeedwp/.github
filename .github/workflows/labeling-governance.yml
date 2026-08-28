@@ -230,3 +230,119 @@ jobs:
             }
 
             core.notice(`Cleaned up ${labelsToDelete.length} status label(s) from closed issue #${issue.number}.`);
+
+  # Job 4: Enforce Labeling as Required Status Check (PRs only)
+  labeling-check:
+    name: Labeling Governance Check (Required)
+    if: github.event_name == 'pull_request' && always()
+    runs-on: ubuntu-latest
+    needs: [standard-labeling]
+    permissions:
+      checks: write
+      pull-requests: write
+
+    steps:
+      - name: Check labeling workflow status
+        id: check
+        run: |
+          if [[ "${{ needs.standard-labeling.result }}" == "success" ]]; then
+            echo "status=success" >> "$GITHUB_OUTPUT"
+            echo "title=✅ Labeling Governance Passed" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+            echo "title=❌ Labeling Governance Failed" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create status check
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const status = '${{ steps.check.outputs.status }}';
+            const checkRunInput = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Labeling Governance Check',
+              head_sha: context.payload.pull_request.head.sha,
+              status: 'completed',
+              conclusion: status,
+              output: {
+                title: '${{ steps.check.outputs.title }}',
+                summary: status === 'success'
+                  ? 'This PR has been labelled according to governance rules.'
+                  : 'This PR failed labelling governance validation. Check the workflow logs for details.',
+                text: status === 'failure'
+                  ? '## Labeling Governance Failed\n\nThis PR could not be labeled according to governance rules. Common causes:\n\n- **Missing or invalid issue references** in the linked issues section\n- **Conflicting labels** that cannot be auto-resolved\n- **Template violations** detected during labeling\n\n## How to Fix\n\n1. Check the [labeling-governance workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed error messages\n2. Review your PR body for:\n   - Valid issue references in the "Linked issues" section\n   - Proper changelog entries\n   - Correct PR template format\n3. Commit changes and push to update this PR\n4. The labeling check will run again automatically\n\n## Need Help?\n\nSee the [Automation Governance](https://github.com/${{ github.repository }}/blob/develop/docs/AUTOMATION_GOVERNANCE.md) documentation for guidance on PR labeling requirements.'
+                  : '',
+              }
+            };
+
+            const checkRuns = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha,
+            });
+
+            const existingCheckRun = checkRuns.data.check_runs.find(
+              (check) => check.name === 'Labeling Governance Check'
+            );
+
+            if (existingCheckRun) {
+              await github.rest.checks.update({
+                ...checkRunInput,
+                check_run_id: existingCheckRun.id,
+              });
+            } else {
+              await github.rest.checks.create(checkRunInput);
+            }
+
+            if (status === 'failure') {
+              // Post a comment with failure details
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+              });
+
+              const marker = '<!-- labeling-governance-check -->';
+              const existingComment = comments.find(
+                (c) => c.body.includes(marker) && c.user.type === 'Bot'
+              );
+
+              const message = [
+                marker,
+                '## ❌ Labeling Governance Check Failed',
+                '',
+                'This PR could not be automatically labeled. Review the workflow logs and PR template for issues.',
+                '',
+                '**Common Issues:**',
+                '- Invalid or malformed linked issue references',
+                '- Missing required changelog entries',
+                '- PR template format errors',
+                '',
+                '[View labeling-governance logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})',
+              ].join('\n');
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: message,
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: message,
+                });
+              }
+            }
+
+            core.setOutput('conclusion', status);
+
+      - name: Enforce labeling requirement
+        if: steps.check.outputs.status == 'failure'
+        run: |
+          echo "::error::Labeling governance check failed. This is a required status check for PR merge."
+          exit 1

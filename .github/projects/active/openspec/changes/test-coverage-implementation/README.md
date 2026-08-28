@@ -13,6 +13,7 @@ Expand test coverage to 80%+ with tracked parent and phase issues for the full 6
 - Parent epic plus six phase issues.
 - Each phase issue maps to one OpenSpec strict input file.
 - The six phase issues cover all 62 checklist tasks in the project README.
+
 ## Visual Workflow
 
 ```mermaid

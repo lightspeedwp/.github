@@ -18,6 +18,7 @@ status: active
 ## Phase 4 Overview
 
 Phase 3 implementation is complete (90/90 tests passing, 100% validation). Phase 4 focuses on creating comprehensive user-facing documentation and visual aids for:
+
 - End-user guide (running the linting agent)
 - Setup guide (per-repository configuration)
 - Troubleshooting guide (common issues & solutions)
@@ -33,6 +34,7 @@ Phase 3 implementation is complete (90/90 tests passing, 100% validation). Phase
 **Target Audience:** Developers, CI/CD engineers, repository maintainers
 
 **Sections:**
+
 - Quick Start (5 min setup)
 - Installation & Prerequisites
 - Running the Agent (with examples)
@@ -47,6 +49,7 @@ Phase 3 implementation is complete (90/90 tests passing, 100% validation). Phase
 - FAQ
 
 **Example Structure:**
+
 ```markdown
 # Linting Agent User Guide
 
@@ -59,12 +62,15 @@ npx linting-agent /path/to/repo
 ## Supported Repository Types
 
 ### Block Plugin
+
 Requires: block.json + src/ directory
 ...
 
 ### WordPress Plugin
+
 Requires: plugin.php with "Plugin Name:" header
 ...
+
 ```
 
 ### 2. SETUP_GUIDE.md (300–500 LOC)
@@ -118,6 +124,7 @@ Requires: plugin.php with "Plugin Name:" header
   <rule ref="WordPress-Core"/>
 </ruleset>
 ```
+
 ```
 
 ### 3. TROUBLESHOOTING.md (200–300 LOC)
@@ -180,11 +187,13 @@ echo '{ "name": "my-block" }' > block.json
 ### Symptom: "Wrong repository type detected"
 
 **Root Causes:**
+
 - Multiple repository types in same directory (block.json + plugin.php)
 - Detection priority issue
 
 **Solution:**
 Check detection order: Block Plugin → Control-Plane → Theme → Plugin → Unknown
+
 ```
 
 ---
@@ -281,12 +290,12 @@ graph TB
 
 ### Week 2: Diagrams & Polish (Estimated 4–6 hours)
 
-4. **Mermaid Diagrams** (2–3 hours)
+1. **Mermaid Diagrams** (2–3 hours)
    - [ ] Detection flow diagram
    - [ ] Test coverage matrix
    - [ ] Compatibility table
 
-5. **Integration & Review** (2–3 hours)
+2. **Integration & Review** (2–3 hours)
    - [ ] Link diagrams into guides
    - [ ] Cross-reference sections
    - [ ] Consistency check
@@ -294,13 +303,13 @@ graph TB
 
 ### Week 3: Publication (Estimated 2–3 hours)
 
-6. **Final Quality Assurance**
+1. **Final Quality Assurance**
    - [ ] Test all code examples
    - [ ] Verify all links
    - [ ] Check Markdown rendering
    - [ ] Validate Mermaid diagrams
 
-7. **Create & Merge PR**
+2. **Create & Merge PR**
    - [ ] Create PR: `docs/linting-agent-phase4` → develop
    - [ ] Add to CHANGELOG.md
    - [ ] Wait for CI validation
@@ -311,18 +320,21 @@ graph TB
 ## Content Guidelines
 
 ### Writing Style
+
 - **Tone:** Technical but approachable; avoid jargon where possible
 - **Examples:** Every section should have at least one code example
 - **Sections:** Keep sections under 500 words; use subsections for clarity
 - **Links:** Link to related documentation (SPECIFICATION.md, TEST_RESULTS.md)
 
 ### Code Examples
+
 - **Format:** Use language-specific syntax highlighting (bash, json, php, js)
 - **Context:** Always include what file/directory examples should be in
 - **Completeness:** Ensure examples are copy-paste ready and tested
 - **Output:** Show expected output for CLI examples
 
 ### Diagrams
+
 - **Format:** All diagrams use Mermaid syntax
 - **Clarity:** Ensure diagrams are readable at 100% zoom and in both light/dark modes
 - **Captions:** Each diagram has a brief caption explaining purpose

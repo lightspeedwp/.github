@@ -18,6 +18,7 @@ status: draft
 Phase 4 extends the OpenSpec Labels Automation system to synchronize GitHub issue lifecycle with external project management tools (Jira, Linear) and implements comprehensive metrics tracking for SLA compliance and team capacity planning. This architecture document defines the integration patterns, data models, and system design for Phase 4 implementation.
 
 **Key Objectives:**
+
 1. Bi-directional sync between GitHub, Jira, and Linear
 2. Unified metrics and SLA tracking across platforms
 3. Conflict resolution and rollback capabilities
@@ -30,11 +31,13 @@ Phase 4 extends the OpenSpec Labels Automation system to synchronize GitHub issu
 ### 1.1 Jira Integration Architecture
 
 **API Approach:**
+
 - REST API v3 (primary) for issue operations
 - GraphQL API (secondary) for complex queries
 - WebHook listeners for Jira → GitHub push notifications
 
 **Sync Scope:**
+
 - GitHub → Jira: Issue status, labels, phase progression, linked PRs
 - Jira → GitHub: Status updates, comment notifications, custom field changes
 - Bi-directional: Label mappings, issue references, phase state
@@ -53,6 +56,7 @@ Phase 4 extends the OpenSpec Labels Automation system to synchronize GitHub issu
 | Jira custom field changed | Sync to GitHub label or milestone | ← |
 
 **Configuration:**
+
 ```yaml
 # .github/config/integrations.yml
 jira:
@@ -81,11 +85,13 @@ jira:
 ### 1.2 Linear Integration Architecture
 
 **API Approach:**
+
 - GraphQL API (primary) for all operations
 - Webhook listeners for Linear → GitHub events
 - Native Linear sync for team assignments and roadmaps
 
 **Sync Scope:**
+
 - GitHub → Linear: Issue creation, phase progression, completion
 - Linear → GitHub: Status updates, priority changes, milestone assignments
 - Bi-directional: Team assignments, linked work items
@@ -104,6 +110,7 @@ jira:
 | Linear cycle updated | Sync to GitHub milestone | ← |
 
 **Configuration:**
+
 ```yaml
 # .github/config/integrations.yml
 linear:
@@ -898,6 +905,7 @@ scripts/automation/__tests__/
 ### 5.2 Module Responsibilities
 
 **jira-sync.js:**
+
 - Authenticate with Jira API
 - Create/update issues in Jira
 - Handle Jira webhooks
@@ -905,6 +913,7 @@ scripts/automation/__tests__/
 - Transform Jira → GitHub data
 
 **linear-sync.js:**
+
 - Authenticate with Linear API
 - Create/update issues in Linear
 - Handle Linear webhooks
@@ -912,6 +921,7 @@ scripts/automation/__tests__/
 - Transform Linear → GitHub data
 
 **sync-orchestrator.js:**
+
 - Coordinate multi-platform syncs
 - Manage sync queue and scheduling
 - Handle retries and failures
@@ -919,12 +929,14 @@ scripts/automation/__tests__/
 - Route events to appropriate handlers
 
 **phase-metrics.js:**
+
 - Track phase progression timeline
 - Calculate SLA compliance
 - Generate phase analytics
 - Support dashboard visualization
 
 **dashboard-generator.js:**
+
 - Generate HTML dashboards
 - Generate JSON data feeds
 - Support real-time updates
@@ -998,9 +1010,9 @@ All configuration stored in `.github/config/`:
 - **Phase 2 Implementation:** [PHASE-2-SUMMARY.md](./PHASE-2-SUMMARY.md)
 - **Phase 3 Implementation:** [PHASE-3-IMPLEMENTATION-COMPLETE.md](./PHASE-3-IMPLEMENTATION-COMPLETE.md)
 - **Project Planning:** [PLANNING.md](./PLANNING.md)
-- **GitHub API Documentation:** https://docs.github.com/en/rest
-- **Jira API Documentation:** https://developer.atlassian.com/cloud/jira/rest
-- **Linear API Documentation:** https://developers.linear.app/docs
+- **GitHub API Documentation:** <https://docs.github.com/en/rest>
+- **Jira API Documentation:** <https://developer.atlassian.com/cloud/jira/rest>
+- **Linear API Documentation:** <https://developers.linear.app/docs>
 
 ---
 

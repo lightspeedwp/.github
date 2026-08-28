@@ -537,8 +537,8 @@ entry: {
 - **Changelog Spec Agent** — [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md)
 - **Release Agent README** — `agents/release/README.md`
 - **Release Process Guide** — `docs/RELEASE_PROCESS.md`
-- **Keep a Changelog Standard** — https://keepachangelog.com/en/1.1.0/
-- **Semantic Versioning** — https://semver.org/
+- **Keep a Changelog Standard** — <https://keepachangelog.com/en/1.1.0/>
+- **Semantic Versioning** — <https://semver.org/>
 
 ---
 

@@ -224,6 +224,7 @@ This project consolidates LightSpeed's fragmented testing infrastructure into a 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

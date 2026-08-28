@@ -229,6 +229,7 @@ See [QUESTIONS.md](./QUESTIONS.md) for detailed exploration of design decisions,
 **Project Owner:** Ash Shaw  
 **Created:** 2026-08-12  
 **Status:** 🟢 Active → Implementation
+
 ## Visual Workflow
 
 ```mermaid

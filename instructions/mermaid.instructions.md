@@ -265,18 +265,17 @@ stateDiagram-v2
     Published --> [*]
 ```
 
-**GitGraph (development flow)**
+**Git Flow (development branches)**
 
 ```mermaid
-gitgraph
-    commit id: "Initial"
-    branch feature
-    checkout feature
-    commit id: "Add schema"
-    commit id: "Add tests"
-    checkout main
-    merge feature
-    commit id: "Release v1.0"
+graph LR
+    A[Main] --> B[Develop]
+    B --> C[Feature Branch]
+    C --> D[Pull Request]
+    D --> E[Code Review]
+    E --> F[Merge to Develop]
+    F --> G[Release Branch]
+    G --> A
 ```
 
 ## Implementation Best Practices
@@ -317,7 +316,9 @@ Brief description.
 ## Architecture Overview
 
 ```mermaid
-[high-level architecture diagram]
+graph TB
+    A[Input] --> B[Processing]
+    B --> C[Output]
 ```
 ````
 

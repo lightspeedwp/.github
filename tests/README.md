@@ -67,10 +67,10 @@ graph TB
     S[Pre-commit Hooks] --> A
     T[Manual Testing] --> A
 
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
+    style A fill:#e1f5fe,color:#0f172a
+    style B fill:#f3e5f5,color:#0f172a
+    style C fill:#e8f5e8,color:#0f172a
+    style D fill:#fff3e0,color:#0f172a
 ```
 
 ## Structure
@@ -218,10 +218,10 @@ flowchart TD
     N --> P[CI/CD Success]
     O --> Q[Quality Gate Failure]
 
-    style A fill:#e1f5fe
-    style K fill:#f3e5f5
-    style N fill:#c8e6c9
-    style Q fill:#ffcdd2
+    style A fill:#e1f5fe,color:#0f172a
+    style K fill:#f3e5f5,color:#0f172a
+    style N fill:#c8e6c9,color:#0f172a
+    style Q fill:#ffcdd2,color:#0f172a
 ```
 
 See `TEST_COVERAGE_SUMMARY.md` for full coverage details and examples.

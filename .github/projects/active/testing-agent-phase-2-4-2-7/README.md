@@ -12,11 +12,13 @@
 Continuation of Testing Agent Phase 2 multi-framework architecture. Phase 2.1–2.3 established the foundation with agent rename, v2.2.0 metadata, and core prompt enhancement (Jest, PHPUnit, pytest, Playwright). Phase 2.4–2.7 builds implementation details, provider integrations, and comprehensive documentation.
 
 ### What Was Shipped (Phase 2.1–2.3)
+
 - ✅ Agent rename: `agents/testing-agent/` (450+ files)
 - ✅ Metadata v2.2.0 with multi-framework tags
 - ✅ Core prompt: 500+ lines (Framework Selection + Rules)
 
 ### What's Next (Phase 2.4–2.7)
+
 Implement framework-specific skills, guides, configurations, and complete documentation across all 4 frameworks.
 
 ---
@@ -24,15 +26,18 @@ Implement framework-specific skills, guides, configurations, and complete docume
 ## Phase Breakdown
 
 ### Phase 2.4: Framework Skills Implementation
+
 **Objective:** Create reusable skills for each framework
 
 **Deliverables:**
+
 - Jest Skill module (`agents/testing-agent/skills/jest-spec-generation.md`)
 - PHPUnit Skill module (`agents/testing-agent/skills/phpunit-spec-generation.md`)
 - pytest Skill module (`agents/testing-agent/skills/pytest-spec-generation.md`)
 - Playwright Skill module (`agents/testing-agent/skills/playwright-spec-generation.md`)
 
 **Success Criteria:**
+
 - 4 skill modules created with SKILL.md structure
 - Each includes: Overview, Setup, Usage, Examples, Validation
 - Integration tested with core agent
@@ -43,9 +48,11 @@ Implement framework-specific skills, guides, configurations, and complete docume
 ---
 
 ### Phase 2.5: Framework-Specific Implementation Guides
+
 **Objective:** Comprehensive guides for implementing tests in each framework
 
 **Deliverables:**
+
 - Jest Implementation Guide (`agents/testing-agent/guides/jest-implementation-guide.md`)
 - PHPUnit Implementation Guide (`agents/testing-agent/guides/phpunit-implementation-guide.md`)
 - pytest Implementation Guide (`agents/testing-agent/guides/pytest-implementation-guide.md`)
@@ -53,6 +60,7 @@ Implement framework-specific skills, guides, configurations, and complete docume
 - Framework Comparison & Selection Guide
 
 **Success Criteria:**
+
 - 4 detailed guides (500+ lines each minimum)
 - Real-world examples for each framework
 - Best practices and gotchas documented
@@ -64,15 +72,18 @@ Implement framework-specific skills, guides, configurations, and complete docume
 ---
 
 ### Phase 2.6: Provider Configuration Updates
+
 **Objective:** Update provider configurations to include framework-specific support
 
 **Deliverables:**
+
 - Claude provider config updates
 - Copilot provider config updates
 - OpenAI provider config updates
 - Multi-provider framework configuration schema
 
 **Success Criteria:**
+
 - All 3 providers support framework selection
 - Prompt injection prevention across frameworks
 - Configuration validation
@@ -84,9 +95,11 @@ Implement framework-specific skills, guides, configurations, and complete docume
 ---
 
 ### Phase 2.7: Documentation & Release Prep
+
 **Objective:** Complete documentation and prepare for v2.2.0 release
 
 **Deliverables:**
+
 - Updated AGENT.md with Phase 2.4–2.7 work
 - Updated core-prompt.md with final enhancements
 - USAGE_GUIDE.md covering all 4 frameworks
@@ -96,6 +109,7 @@ Implement framework-specific skills, guides, configurations, and complete docume
 - Release checklist
 
 **Success Criteria:**
+
 - All documentation complete and reviewed
 - 100+ KB of comprehensive guides
 - Code examples for every major feature
@@ -192,6 +206,7 @@ agents/testing-agent/
 
 *Last Updated: 2026-08-17*  
 *Project Initiated: Testing Agent Phase 2 (PR #1945)*
+
 ## Visual Workflow
 
 ```mermaid

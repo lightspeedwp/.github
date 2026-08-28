@@ -368,6 +368,7 @@ None identified. Phase 1 (prompt enhancement) is independent of other work.
 ---
 
 *Built by 🧱 LightSpeedWP with organization-wide WordPress product planning in mind*
+
 ## Visual Workflow
 
 ```mermaid

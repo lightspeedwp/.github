@@ -21,6 +21,7 @@ This variant is tailored for strict `/opsx:propose` parsing and uses frontmatter
 - Use the 62-task README as the source of truth for task content and acceptance criteria.
 - Keep the parent issue focused on programme governance and the six phase issues focused on execution.
 - Update the issue register and run log once the GitHub issues exist.
+
 ## Visual Workflow
 
 ```mermaid

@@ -234,6 +234,7 @@ This project is formally specified using the OpenSpec framework:
 **Maintainers:** ashleyshaw (Initiative Lead, Agent Developer, Skills Developer, Test Lead, Documentation Lead)  
 **Last Updated:** 2026-08-12  
 **Status:** Phase 1 Complete; Phase 2 Ready for Implementation (17 GitHub issues created)
+
 ## Visual Workflow
 
 ```mermaid

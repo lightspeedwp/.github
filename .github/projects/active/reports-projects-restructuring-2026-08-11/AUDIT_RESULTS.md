@@ -122,6 +122,7 @@ The following reports are in `.github/reports/` root and should be categorized o
 #### **CRITICAL: Unlinked Projects**
 
 **1. openspec**
+
 - **Status:** Active, documented
 - **Issue Links:** 0 (⚠️ GAP)
 - **External References:** 8 (actually important!)
@@ -132,6 +133,7 @@ The following reports are in `.github/reports/` root and should be categorized o
 - **Recommendation:** Link to relevant implementation/coordination issues
 
 **2. markdown-audit-ci-optimization**
+
 - **Status:** Created 2026-07-24
 - **Issue Links:** 0 (⚠️ GAP)
 - **External References:** 0 (orphaned)

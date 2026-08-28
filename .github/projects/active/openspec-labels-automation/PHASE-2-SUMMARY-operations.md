@@ -12,6 +12,7 @@
 ### 📋 Completed Components
 
 #### 1. **DoR/DoD Template Mapping** (`scripts/automation/dor-dod-templates.js`)
+
 - ✅ 17 issue-type-specific templates
 - ✅ 85 checklist items across all types
 - ✅ Consistent structure (name, dor, dod)
@@ -19,6 +20,7 @@
 - ✅ Helper functions for detection
 
 **Key Features:**
+
 - `getTemplate(typeLabel)` — Retrieve template by type
 - `getAllTemplates()` — Get all templates
 - `hasDoR(body)` — Detect existing DoR sections
@@ -26,6 +28,7 @@
 - `detectTypeFromLabels(labels)` — Extract type from GitHub labels
 
 #### 2. **Validation & Injection Script** (`scripts/automation/validate-inject-dor-dod.js`)
+
 - ✅ Batch processing capability (configurable limits)
 - ✅ Type-aware template injection
 - ✅ Dry-run mode for safe preview
@@ -34,6 +37,7 @@
 - ✅ Executable (chmod +x)
 
 **Key Capabilities:**
+
 - Process up to 300 open issues (configurable)
 - Validate missing DoR/DoD sections
 - Inject type-specific templates
@@ -41,6 +45,7 @@
 - Support for `--dry-run`, `--verbose`, `--limit` flags
 
 #### 3. **Comprehensive Test Suite** (`scripts/automation/__tests__/dor-dod-validation.test.js`)
+
 - ✅ **43 tests** — ALL PASSING
 - ✅ 100% coverage of template functions
 - ✅ Edge case testing (null, undefined, empty strings)
@@ -49,6 +54,7 @@
 - ✅ Template quality validation
 
 **Test Categories:**
+
 - Template Data Structure (6 tests)
 - Template Functions (3 tests)
 - Detection Functions (8 tests)
@@ -57,6 +63,7 @@
 - Edge Cases & Boundaries (19 tests)
 
 #### 4. **GitHub Actions Workflow** (`.github/workflows/validate-dor-dod-sections.yml`)
+
 - ✅ Scheduled daily execution (8 AM UTC)
 - ✅ Manual trigger support
 - ✅ Configurable dry-run mode
@@ -65,6 +72,7 @@
 - ✅ Proper permissions scoping
 
 **Workflow Features:**
+
 - Scheduled: Runs daily in dry-run mode (safe preview)
 - Manual: Can apply changes with `dry_run: false`
 - Input Controls: `dry_run` toggle, `limit` parameter
@@ -72,6 +80,7 @@
 - Reporting: Artifacts for change tracking
 
 #### 5. **Project Documentation** (`.github/projects/active/openspec/PHASE-2-TEMPLATE-VALIDATION.md`)
+
 - ✅ Comprehensive overview (10KB+)
 - ✅ Implementation details
 - ✅ Usage patterns and examples
@@ -91,6 +100,7 @@ Tests:       43 passed, 43 total
 ```
 
 **Test Coverage Breakdown:**
+
 - Template Data Structure: 6/6 ✅
 - Template Functions: 3/3 ✅
 - DoR Detection: 8/8 ✅
@@ -182,6 +192,7 @@ node scripts/automation/validate-inject-dor-dod.js --dry-run --verbose --limit 5
 ```
 
 **Output:**
+
 ```
 📋 Fetching open issues (limit: 50)...
 📋 Processing 42 issues...

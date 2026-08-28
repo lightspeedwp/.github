@@ -20,6 +20,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 ### Key Capabilities
 
 ✅ **Phase 2 Complete (2026-08-18)**
+
 - 17 issue-type-specific DoR/DoD templates
 - 85 comprehensive checklist items
 - Batch validation & injection (300+ issues)
@@ -27,6 +28,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 - 100% test coverage (43 tests passing)
 
 ✅ **Phase 3 Complete (2026-08-20)**
+
 - Event-driven label syncing (`sync-labels-on-event.js`)
 - Automated phase progression (`orchestrate-phase-progression.js`)
 - GitHub Actions workflow integration
@@ -50,6 +52,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 ## Implementation Files
 
 **Core Implementation:**
+
 - `scripts/automation/dor-dod-templates.js` — 17 template definitions (85 items)
 - `scripts/automation/validate-inject-dor-dod.js` — Validation & injection engine
 - `scripts/automation/__tests__/dor-dod-validation.test.js` — Test suite (43 tests)
@@ -65,6 +68,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 ## Deliverables
 
 ### Phase 2 ✅
+
 - ✅ DoR/DoD templates for all 17 issue types
 - ✅ Batch validation system (configurable limits)
 - ✅ Dry-run mode with safe testing
@@ -73,6 +77,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 - ✅ GitHub Actions workflow for scheduled validation
 
 ### Phase 3 ✅
+
 - ✅ Event-driven label syncing (`sync-labels-on-event.js`)
 - ✅ Automated phase progression (`orchestrate-phase-progression.js`)
 - ✅ Phase state machine with 6 states and transitions
@@ -84,6 +89,7 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 - ✅ Complete documentation and team rollout guide
 
 ### Phase 4 📋 (Planning)
+
 - [ ] Jira integration module (sync, webhooks, field mappings)
 - [ ] Linear integration module (sync, webhooks, field mappings)
 - [ ] Sync orchestrator (multi-platform coordination, conflict resolution)
@@ -119,16 +125,19 @@ This project is coordinated with GitHub issues for tracking work items and progr
 ## Quick Start
 
 ### View Templates
+
 ```bash
 node scripts/automation/dor-dod-templates.js --list
 ```
 
 ### Validate Issues (Dry Run)
+
 ```bash
 node scripts/automation/validate-inject-dor-dod.js --dry-run --verbose
 ```
 
 ### Run Tests
+
 ```bash
 npm test -- scripts/automation/__tests__/dor-dod-validation.test.js
 ```
@@ -143,16 +152,19 @@ npm test -- scripts/automation/__tests__/dor-dod-validation.test.js
 ## Phase 3 Completion Highlights
 
 **Event-Driven Automation:** Issues now automatically advance through specification → implementation lifecycle phases based on:
+
 - PR creation and merging
 - Commit references
 - Manual status label changes
 
 **Label Orchestration:** Complete label validation with:
+
 - Mutex group enforcement (no conflicting labels)
 - Automatic suggested labels for each phase
 - Conflict detection and reporting
 
 **Audit Trail:** All label changes logged with:
+
 - Timestamps and actor information
 - Change history per issue
 - Phase progression timeline
@@ -179,6 +191,7 @@ See [../openspec/PHASE-3-IMPLEMENTATION.md](../openspec/PHASE-3-IMPLEMENTATION.m
 ---
 
 **For full project details, see [PLANNING.md](./PLANNING.md) or the phase documentation files.**
+
 ## Visual Workflow
 
 ```mermaid

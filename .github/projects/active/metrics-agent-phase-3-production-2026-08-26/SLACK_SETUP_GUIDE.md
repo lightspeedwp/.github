@@ -158,6 +158,7 @@ notify-failure:
 ```
 
 **Notification blocks:**
+
 - `"type": "section"` — Text block
 - `"text": { "type": "mrkdwn", "text": "..." }` — Markdown formatted text
 - Use `*bold*`, `_italic_`, `~strikethrough~` for formatting
@@ -170,6 +171,7 @@ notify-failure:
 **Symptoms:** Workflow fails with "Invalid webhook URL" error
 
 **Solution:**
+
 1. Verify webhook URL copied correctly (no extra spaces)
 2. Check in Slack: Settings → Apps → GitHub Metrics → Incoming Webhooks
 3. Confirm webhook URL hasn't been revoked
@@ -180,6 +182,7 @@ notify-failure:
 **Symptoms:** Workflow completes but no message in #metrics-pipeline
 
 **Solution:**
+
 1. Check GitHub Actions logs for errors
 2. Verify secret name matches exactly: `SLACK_METRICS_WEBHOOK`
 3. Confirm webhook is for correct Slack workspace
@@ -191,6 +194,7 @@ notify-failure:
 **Symptoms:** Workflow fails with "Webhook has been revoked"
 
 **Solution:**
+
 1. In Slack: Settings → Apps → GitHub Metrics → Incoming Webhooks
 2. Delete revoked webhook
 3. Click "Add New Webhook to Workspace"
@@ -201,6 +205,7 @@ notify-failure:
 ### Issue: Multiple notification channels needed
 
 **Solution:**
+
 1. Create multiple webhooks in Slack (one per channel)
 2. Add multiple secrets in GitHub:
    - `SLACK_METRICS_WEBHOOK` (primary)
