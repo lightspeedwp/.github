@@ -239,9 +239,44 @@ jobs:
     needs: [standard-labeling]
     permissions:
       checks: write
-      pull-requests: write
+      pull-requests: read
 
     steps:
+      - name: Validate PR has required labels
+        id: validate
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+
+            // Fetch current PR state to get updated labels (not from the initial payload)
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+            });
+
+            const labels = (pr.data.labels || []).map(l => l.name);
+            const requiredLabelPrefixes = ['type:', 'area:', 'priority:', 'meta:'];
+
+            // Check if PR has at least one label from required categories
+            const hasRequiredLabel = labels.some(label =>
+              requiredLabelPrefixes.some(prefix => label.startsWith(prefix))
+            );
+
+            const validLabels = labels.filter(l => requiredLabelPrefixes.some(p => l.startsWith(p)));
+
+            if (labels.length === 0) {
+              core.setOutput('validation_status', 'no_labels');
+              core.notice(`PR #${prNumber} has no labels. At least one label from [type:*, area:*, priority:*, meta:*] is required.`);
+            } else if (!hasRequiredLabel) {
+              core.setOutput('validation_status', 'invalid_labels_only');
+              core.notice(`PR #${prNumber} has ${labels.length} label(s) but none from required categories. Found: ${labels.join(', ')}`);
+            } else {
+              core.setOutput('validation_status', 'valid');
+              core.notice(`PR #${prNumber} has valid label(s): ${validLabels.join(', ')}`);
+            }
+
       - name: Check labeling workflow status
         id: check
         run: |
@@ -258,21 +293,40 @@ jobs:
         with:
           script: |
             const status = '${{ steps.check.outputs.status }}';
+            const validationStatus = '${{ steps.validate.outputs.validation_status }}';
+            const workflowStatus = '${{ needs.standard-labeling.result }}';
+
+            let conclusion = status;
+            let summary = 'This PR has been labelled according to governance rules.';
+            let detailedText = '';
+
+            if (workflowStatus !== 'success') {
+              conclusion = 'failure';
+              summary = 'The labeling governance workflow failed.';
+              detailedText = '## Labeling Governance Failed\n\nThe labeling workflow encountered an error. Common causes:\n\n- **Configuration errors** in labeling rules or label definitions\n- **API rate limiting** or GitHub API errors\n- **Workflow execution failures** in label sync or validation steps\n\n## How to Fix\n\n1. Check the [labeling-governance workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed error messages\n2. Review workflow configuration files:\n   - `.github/labels.yml` - Label definitions\n   - `.github/labeler.yml` - Labeling rules\n   - `.github/workflows/labeling-governance.yml` - Workflow setup\n3. Fix any configuration errors and push to update this PR\n4. The labeling check will run again automatically';
+            } else if (validationStatus === 'no_labels') {
+              conclusion = 'failure';
+              summary = 'This PR has no labels. At least one label is required.';
+              detailedText = '## PR Labels Required\n\nThis PR must have at least one label before it can be merged.\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories above\n2. Labels are typically auto-applied based on:\n   - Branch prefix (e.g., `feat/`, `fix/`, `chore/`)\n   - File changes (e.g., documentation files, CI files)\n   - PR title and description content\n3. If auto-labeling didn\'t work, [manually add a label](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels)\n4. The labeling check will run again automatically';
+            } else if (validationStatus === 'invalid_labels_only') {
+              conclusion = 'failure';
+              summary = 'This PR has labels but none from the required categories.';
+              detailedText = '## Invalid Labels Only\n\nThis PR has labels, but none of them are from the required categories.\n\n**Current Labels:** ${{ join(github.event.pull_request.labels.*.name, \', \') }}\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories\n2. [Add labels manually](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels) or\n3. Update your PR to trigger auto-labeling (edit title, body, or branch name)\n4. The labeling check will run again automatically';
+            }
+
             const checkRunInput = {
               owner: context.repo.owner,
               repo: context.repo.repo,
               name: 'Labeling Governance Check',
               head_sha: context.payload.pull_request.head.sha,
               status: 'completed',
-              conclusion: status,
+              conclusion: conclusion,
               output: {
-                title: '${{ steps.check.outputs.title }}',
-                summary: status === 'success'
-                  ? 'This PR has been labelled according to governance rules.'
-                  : 'This PR failed labelling governance validation. Check the workflow logs for details.',
-                text: status === 'failure'
-                  ? '## Labeling Governance Failed\n\nThis PR could not be labeled according to governance rules. Common causes:\n\n- **Missing or invalid issue references** in the linked issues section\n- **Conflicting labels** that cannot be auto-resolved\n- **Template violations** detected during labeling\n\n## How to Fix\n\n1. Check the [labeling-governance workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed error messages\n2. Review your PR body for:\n   - Valid issue references in the "Linked issues" section\n   - Proper changelog entries\n   - Correct PR template format\n3. Commit changes and push to update this PR\n4. The labeling check will run again automatically\n\n## Need Help?\n\nSee the [Automation Governance](https://github.com/${{ github.repository }}/blob/develop/docs/AUTOMATION_GOVERNANCE.md) documentation for guidance on PR labeling requirements.'
-                  : '',
+                title: conclusion === 'success'
+                  ? '✅ Labeling Governance Passed'
+                  : '❌ Labeling Governance Failed',
+                summary: summary,
+                text: detailedText,
               }
             };
 
@@ -339,10 +393,22 @@ jobs:
               }
             }
 
-            core.setOutput('conclusion', status);
+            core.setOutput('conclusion', conclusion);
 
       - name: Enforce labeling requirement
-        if: steps.check.outputs.status == 'failure'
+        if: steps.check.outputs.status == 'failure' || steps.validate.outputs.validation_status != 'valid'
         run: |
-          echo "::error::Labeling governance check failed. This is a required status check for PR merge."
-          exit 1
+          VALIDATION_STATUS="${{ steps.validate.outputs.validation_status }}"
+          if [[ "${{ needs.standard-labeling.result }}" != "success" ]]; then
+            echo "::error::Labeling governance workflow failed. Review logs for details."
+            exit 1
+          elif [[ "$VALIDATION_STATUS" == "no_labels" ]]; then
+            echo "::error::PR must have at least one label. Labels are required from: type:*, area:*, priority:*, meta:*"
+            exit 1
+          elif [[ "$VALIDATION_STATUS" == "invalid_labels_only" ]]; then
+            echo "::error::PR has labels but none from required categories. Add at least one label from: type:*, area:*, priority:*, meta:*"
+            exit 1
+          else
+            echo "::error::Labeling governance check failed. This is a required status check for PR merge."
+            exit 1
+          fi

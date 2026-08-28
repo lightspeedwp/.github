@@ -31,6 +31,8 @@
   head-branch: ['^a11y/.*']
 "type:qa":
   head-branch: ['^qa/.*']
+"type:release":
+  head-branch: ['^release/.*', '^hotfix/.*']
 
 # Priority mapping (by branch)
 "priority:critical":
