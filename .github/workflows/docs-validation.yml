@@ -204,6 +204,8 @@ jobs:
       - name: Identify changed README files
         id: readme
         run: |
+          mkdir -p ./.github/tmp
+
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BASE="${{ github.event.pull_request.base.sha }}"
             HEAD="${{ github.event.pull_request.head.sha }}"
