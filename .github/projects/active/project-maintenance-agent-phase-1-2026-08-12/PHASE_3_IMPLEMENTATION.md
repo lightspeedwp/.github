@@ -37,11 +37,13 @@ Both workflows integrate with Phase 1 scripts and are ready for team deployment 
 
 **Location:** `.github/workflows/project-maintenance-nightly.yml`
 
-**Trigger:** 
+**Trigger:**
+
 - Scheduled: Daily at 2 AM UTC (`cron: '0 2 * * *'`)
 - Manual: `workflow_dispatch` for testing
 
 **Operations:**
+
 1. Checkout repository
 2. Execute Phase 1 script in dry-run mode
 3. Analyze output for documentation gaps
@@ -49,6 +51,7 @@ Both workflows integrate with Phase 1 scripts and are ready for team deployment 
 5. Create GitHub issue if critical gaps detected (optional)
 
 **Key Features:**
+
 - ✅ Dry-run mode (no file modifications)
 - ✅ Verbose output for debugging
 - ✅ Slack webhook integration
@@ -57,6 +60,7 @@ Both workflows integrate with Phase 1 scripts and are ready for team deployment 
 - ✅ Can be manually triggered via GitHub Actions tab
 
 **Example Output:**
+
 ```
 Project Maintenance Audit — 2026-08-18 02:00 UTC
 
@@ -85,6 +89,7 @@ Approval workflow: Run on-demand workflow with create-docs operation
 **Trigger:** Manual via `workflow_dispatch` with input parameters
 
 **Inputs:**
+
 ```yaml
 operation:
   type: choice
@@ -112,12 +117,14 @@ dry_run:
 **Operations:**
 
 **audit** — Check documentation status
+
 - Analyzes specified projects
 - Reports missing PLANNING.md, OPENSPEC.md, README.md
 - Recommends next actions
 - No file modifications
 
 **create-docs** — Generate missing documentation
+
 - Creates missing PLANNING.md files from template
 - Creates missing OPENSPEC.md files from template
 - Creates missing README.md files from template
@@ -125,18 +132,21 @@ dry_run:
 - Reports created count, skipped count, errors
 
 **validate** — Check project structure
+
 - Validates folder structure
 - Checks frontmatter in markdown files
 - Verifies required metadata fields
 - Reports issues with recommendations
 
 **archive** — Move projects to archive
+
 - Moves completed projects from `active/` to `archive/`
 - Creates `.archive-status.md` with archive metadata
 - Updates parent `README.md` links
 - Dry-run shows what will be moved
 
 **Example Execution:**
+
 ```
 Manual Workflow Dispatch:
   operation: create-docs
@@ -168,6 +178,7 @@ Next: Run with dry_run: false to apply changes
 **Location:** `.github/projects/active/project-maintenance-agent-phase-1-2026-08-12/SLACK_WEBHOOK_SETUP.md`
 
 **Contents:**
+
 - Webhook creation step-by-step guide
 - GitHub Secrets configuration
 - Slack channel setup for notifications
@@ -176,6 +187,7 @@ Next: Run with dry_run: false to apply changes
 - Troubleshooting common issues
 
 **Setup Steps (Summary):**
+
 1. Create incoming webhook in Slack workspace
 2. Add `PROJECT_MAINTENANCE_SLACK_WEBHOOK` secret to GitHub repository
 3. Update workflow to reference the secret
@@ -183,6 +195,7 @@ Next: Run with dry_run: false to apply changes
 5. Configure alert thresholds if needed
 
 **Expected Notifications:**
+
 - Daily: Nightly audit results (gaps found)
 - Manual: On-demand workflow results
 - Critical: Alert if >5 projects missing documentation
@@ -219,6 +232,7 @@ Both workflows leverage Phase 1 automation scripts:
 **Script:** `scripts/automation/project-docs-update.sh`
 
 **Modes Used:**
+
 ```bash
 # Nightly workflow
 ./scripts/automation/project-docs-update.sh \
@@ -250,6 +264,7 @@ Both workflows leverage Phase 1 automation scripts:
 ### Environment Variables
 
 **Global (set in workflow file):**
+
 ```yaml
 env:
   PROJECTS_DIR: .github/projects/active
@@ -258,6 +273,7 @@ env:
 ```
 
 **Nightly Workflow:**
+
 ```yaml
 env:
   DRY_RUN: true
@@ -267,6 +283,7 @@ env:
 ```
 
 **On-Demand Workflow:**
+
 ```yaml
 env:
   SLACK_WEBHOOK: ${{ secrets.PROJECT_MAINTENANCE_SLACK_WEBHOOK }}
@@ -279,12 +296,14 @@ env:
 
 **Change nightly schedule:**
 Edit `.github/workflows/project-maintenance-nightly.yml`
+
 ```yaml
 schedule:
   - cron: '0 2 * * *'  # Change to desired time
 ```
 
 **Change alert threshold:**
+
 ```yaml
 ALERT_THRESHOLD: 5  # Change number of projects
 ```
@@ -304,17 +323,20 @@ Extend Phase 1 script with new validation rules
 Phase 3 workflows were tested:
 
 ✅ **Syntax Validation**
+
 - YAML syntax checked
 - Workflow triggers validated
 - Input schemas verified
 
 ✅ **Dry-Run Testing**
+
 - Nightly workflow executed in dry-run mode
 - No files created
 - Output format verified
 - Slack message preview generated
 
 ✅ **Integration Testing**
+
 - Phase 1 script integration confirmed
 - Output parsing validated
 - Error handling tested
@@ -357,10 +379,12 @@ When Slack webhook is configured:
 ### Phase 3 Completion Status
 
 **Workflows:** ✅ MERGED (PR #2005)
+
 - `.github/workflows/project-maintenance-nightly.yml`
 - `.github/workflows/project-maintenance-on-demand.yml`
 
 **Documentation:** ✅ CREATED
+
 - `SLACK_WEBHOOK_SETUP.md`
 - This implementation summary
 - Updated PLANNING.md with Phase 3 details
@@ -431,11 +455,13 @@ When Slack webhook is configured:
 ### If Workflows Have Issues
 
 **To temporarily disable:**
+
 1. Comment out the entire workflow file
 2. OR delete the workflow file from `.github/workflows/`
 3. Phase 1 scripts remain unchanged and functional
 
 **To debug:**
+
 1. Check "Actions" tab in GitHub for job logs
 2. Look for errors in script output
 3. Verify Phase 1 script is present and executable
@@ -456,6 +482,7 @@ When Slack webhook is configured:
 ## Summary
 
 **Phase 3 delivers:**
+
 - ✅ 2 production-ready GitHub Actions workflows
 - ✅ Full documentation and setup guides
 - ✅ Integration with Phase 1 scripts
@@ -464,6 +491,7 @@ When Slack webhook is configured:
 - ✅ Dry-run mode for safe previews
 
 **Ready for:**
+
 - Team deployment after webhook configuration
 - Phase 4 training and documentation
 - Future integration with Phase 2 portable agent

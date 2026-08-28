@@ -10,7 +10,7 @@ Before submitting a pull request with changelog modifications, verify your entry
 
 ## Entry Format Checklist
 
-- [ ] **Starts with bullet point** — Entry begins with `- `
+- [ ] **Starts with bullet point** — Entry begins with `-`
 - [ ] **Bold title** — Title wrapped in `**...**` (e.g., `**Feature Name**`)
 - [ ] **Em-dash separator** — Uses `—` (not `-` or `--`) between title and description
 - [ ] **Title < 60 chars** — Keep title concise
@@ -67,4 +67,4 @@ git commit -m "docs: Add changelog entry for PR #2394"
 
 ---
 
-_Generated as part of Phase 2: Write Protection & Audit Logging (Issue #2382)_
+*Generated as part of Phase 2: Write Protection & Audit Logging (Issue #2382)*

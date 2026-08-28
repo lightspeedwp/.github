@@ -2,18 +2,18 @@
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
 ![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](https://img.shields.io/badge/Labeling Governance-OK-success.svg)
-![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
-![Metadata Governance](https://img.shields.io/badge/Metadata Governance-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
 ![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](https://img.shields.io/badge/Template Enforcement-OK-success.svg)
-![Validate PR Template](https://img.shields.io/badge/Validate PR Template-OK-success.svg)
-![Badges: Documentation Update](https://img.shields.io/badge/Badges: Documentation Update-OK-success.svg)
-![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![actions-minute-savings-watch](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml)
 [![allocate-pr-issue-to-milestone](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml)
 [![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
@@ -85,6 +85,7 @@
 ## PHASE 2 COMPLETION STATUS
 
 ### ✅ Completed
+
 - **Task 2.1:** Real GitHub API Integration (pagination, error handling, rate limiting)
   - Files: `scripts/metrics/metrics-agent.js`, `scripts/metrics/__tests__/metrics-agent-integration.test.js`, `scripts/metrics/config/github-control-plane.json`
   
@@ -94,6 +95,7 @@
   - Schema: `scripts/metrics/config/storage-schema.json`
 
 ### ⏳ Ready to Implement
+
 - **Task 2.3:** GitHub Actions Workflow (2-3 days)
 - **Task 2.4:** Reporting Agent Integration (3-4 days)
 - **Task 2.5:** Quality & Testing (2-3 days)
@@ -105,6 +107,7 @@
 **Objective:** Automate metrics collection and storage via scheduled GitHub Actions workflow
 
 **Deliverables:**
+
 1. `.github/workflows/metrics-collection.yml` — Scheduled workflow
    - Daily collection at 2 AM UTC (configurable)
    - Manual trigger with parameters
@@ -129,6 +132,7 @@
 **Implementation Plan:**
 
 **Step 1: Create workflow YAML**
+
 ```yaml
 name: Metrics Collection Workflow
 on:
@@ -167,6 +171,7 @@ jobs:
 ```
 
 **Step 2: Create orchestrator script**
+
 - Load configuration
 - Instantiate GitHubAPIClient with GITHUB_TOKEN
 - Loop through repositories in config
@@ -175,12 +180,14 @@ jobs:
 - Generate summary report
 
 **Step 3: Create workflow configuration**
+
 - Schedule cron (customizable)
 - Parallel job settings
 - Timeout configuration
 - Notification preferences
 
 **Tests:**
+
 - Mock GitHub Actions environment variables
 - Test orchestrator with test config
 - Validate results commit format
@@ -225,6 +232,7 @@ jobs:
 **Implementation Plan:**
 
 **MetricsReporter class:**
+
 ```javascript
 class MetricsReporter {
   constructor(storage, analyzer, detector) {
@@ -258,6 +266,7 @@ class MetricsReporter {
 ```
 
 **GitHub Issue Creator:**
+
 ```javascript
 class GitHubIssueCreator {
   constructor(octokit) {
@@ -279,6 +288,7 @@ class GitHubIssueCreator {
 ```
 
 **Report Format:**
+
 ```markdown
 # Metrics Report: lightspeedwp/.github (2026-08-18)
 
@@ -386,22 +396,26 @@ describe("Metrics Agent Phase 2 — Full Integration", () => {
 ## QUICK START FOR NEW SESSION
 
 ### 1. Create Feature Branch
+
 ```bash
 git checkout -b feat/metrics-phase-2-workflows develop
 ```
 
 ### 2. Implement Tasks in Order
+
 - **Task 2.3 first:** GitHub Actions workflow enables testing of Tasks 2.4 & 2.5
 - **Task 2.4 second:** Reporting depends on workflow for data
 - **Task 2.5 last:** Quality validation across all
 
 ### 3. Test Each Task
+
 ```bash
 npm test -- scripts/metrics/__tests__/
 npm test -- .github/scripts/workflows/__tests__/
 ```
 
 ### 4. Commit & PR Process
+
 - Create one commit per task
 - Link to Phase 2 spec in commit message
 - PR to develop when all tests pass
@@ -412,6 +426,7 @@ npm test -- .github/scripts/workflows/__tests__/
 ## KEY FILES REFERENCE
 
 **Existing (Completed):**
+
 - `scripts/metrics/metrics-agent.js` — GitHub API client
 - `scripts/metrics/metrics-storage.js` — Time-series storage
 - `scripts/metrics/trend-analyzer.js` — Trend calculations
@@ -419,6 +434,7 @@ npm test -- .github/scripts/workflows/__tests__/
 - `scripts/metrics/config/github-control-plane.json` — Main config
 
 **To Create (Tasks 2.3–2.5):**
+
 - `.github/workflows/metrics-collection.yml` — Scheduled workflow
 - `.github/scripts/workflows/metrics-collection-orchestrator.js` — Orchestrator
 - `scripts/metrics/metrics-reporter.js` — Report generation

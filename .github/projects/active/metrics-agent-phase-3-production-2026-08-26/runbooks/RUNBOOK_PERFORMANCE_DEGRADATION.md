@@ -14,12 +14,14 @@ last_updated: "2026-08-21"
 Metrics collection time increases over time, approaching or exceeding target thresholds.
 
 **Symptoms:**
+
 - Collection time increases week-over-week (3min → 4min → 5min)
 - Consistent collection time > 300 seconds (5 minutes)
 - Specific step(s) consistently slower than baseline
 - Performance degradation correlates with repo growth
 
 **Impact:**
+
 - Metrics collection nears timeout limit
 - Less time for report generation
 - Reduced operational safety margin
@@ -36,6 +38,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    - Record "Run metrics" step duration for each run
 
 2. Create timeline:
+
    ```
    Week 1: 120s (2min)
    Week 2: 140s (2.3min)
@@ -53,6 +56,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 ### Step 2: Profile Collection Steps
 
 1. Check collection step breakdown:
+
    ```
    Checkout:      10s
    Setup Node:    25s
@@ -65,6 +69,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    - If logs unavailable, add timing to `metrics.js`
 
 3. Rank contexts by time:
+
    ```
    Control Plane: 80s  (47% of total)
    Plugins:       60s  (35% of total)
@@ -74,6 +79,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 ### Step 3: Correlate with Repo Growth
 
 1. Check repository metrics over same period:
+
    ```bash
    git log --since="2 months ago" | wc -l  # Total commits
    find . -type f | wc -l                  # Total files
@@ -102,6 +108,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 
 1. **Enable pagination logging:**
    - Add to `metrics.js`:
+
    ```javascript
    console.log(`Fetching page ${page}/${totalPages} for ${context}`);
    ```
@@ -112,6 +119,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    - Any unnecessary delay between requests?
 
 3. **Optimize pagination:**
+
    ```javascript
    // Parallel fetch all pages
    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -121,6 +129,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    ```
 
 4. **Test optimization:**
+
    ```bash
    npm run metrics:ci
    # Compare timing to baseline
@@ -138,6 +147,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    - Instead: fetch only last 90 days
 
 2. **Implement data filtering:**
+
    ```javascript
    // Before: Fetch all, then filter
    const allIssues = await fetchAllIssues();  // 1000 issues
@@ -167,6 +177,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 **Recovery Steps:**
 
 1. **Check API response handling:**
+
    ```javascript
    // Bad: Only processes first page
    const issues = await github.issues.list({
@@ -188,6 +199,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    - More efficient than REST pagination
 
 3. **Example GraphQL optimization:**
+
    ```graphql
    {
      repo1: repository(owner: "lightspeedwp", name: ".github") {
@@ -199,6 +211,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    ```
 
 4. **Test and measure:**
+
    ```bash
    npm run metrics:ci
    # Should see significant speedup if API calls reduced
@@ -211,6 +224,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 **Recovery Steps:**
 
 1. **Check file patterns:**
+
    ```javascript
    // Current pattern (might be too broad)
    const pluginFiles = allFiles.filter(f => 
@@ -234,6 +248,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    - Invalidate on major restructures
 
 4. **Parallel processing:**
+
    ```javascript
    // Process files in chunks
    const chunkSize = 100;
@@ -253,6 +268,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 **Recovery Steps:**
 
 1. **Profile JSON parsing:**
+
    ```javascript
    const start = Date.now();
    const data = JSON.parse(response);
@@ -260,6 +276,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
    ```
 
 2. **Use streaming for large responses:**
+
    ```javascript
    // Instead of buffering entire response
    response.on('data', chunk => {
@@ -283,6 +300,7 @@ Metrics collection time increases over time, approaching or exceeding target thr
 **Recovery Steps:**
 
 1. **Check for sleep/delays:**
+
    ```javascript
    // Search for:
    setTimeout, sleep, wait, delay

@@ -4,6 +4,8 @@ const {
   hasIssueReference,
   hasChangelogEntry,
   hasCompletedChecklist,
+  extractIssueNumbers,
+  extractClosingIssueNumbers,
   validatePullRequestBody,
 } = require("../template-helpers.cjs");
 
@@ -202,6 +204,104 @@ describe("hasCompletedChecklist", () => {
 
   it("returns false for empty text", () => {
     expect(hasCompletedChecklist("")).toBe(false);
+  });
+});
+
+describe("extractIssueNumbers", () => {
+  it("extracts closing issue numbers", () => {
+    const text = "Closes #123";
+    expect(extractIssueNumbers(text)).toEqual([123]);
+  });
+
+  it("extracts multiple issue numbers", () => {
+    const text = "Closes #123\nFixes #456\nRelates to #789";
+    const result = extractIssueNumbers(text);
+    expect(result).toContain(123);
+    expect(result).toContain(456);
+    expect(result).toContain(789);
+  });
+
+  it("handles duplicate issue numbers", () => {
+    const text = "Closes #123\nRelates to #123";
+    const result = extractIssueNumbers(text);
+    expect(result).toEqual([123]);
+  });
+
+  it("ignores HTML comments", () => {
+    const text = "Closes #123 <!-- #456 -->";
+    const result = extractIssueNumbers(text);
+    expect(result).toEqual([123]);
+  });
+
+  it("returns empty array for no issues", () => {
+    const text = "No issues here";
+    expect(extractIssueNumbers(text)).toEqual([]);
+  });
+});
+
+describe("extractClosingIssueNumbers", () => {
+  it("extracts only closing issue numbers", () => {
+    const text = "Closes #123\nRelates to #456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toContain(123);
+    expect(result).not.toContain(456);
+  });
+
+  it("handles various closing keywords", () => {
+    const text = "Closes #123\nFixes #456\nResolves #789";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toContain(123);
+    expect(result).toContain(456);
+    expect(result).toContain(789);
+  });
+
+  it("case-insensitive keyword detection", () => {
+    const text = "closes #123\nFIXES #456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toContain(123);
+    expect(result).toContain(456);
+  });
+
+  it("ignores 'relates to' keyword", () => {
+    const text = "Relates to #123\nCloses #456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).not.toContain(123);
+    expect(result).toContain(456);
+  });
+
+  it("returns empty array for only relates to", () => {
+    const text = "Relates to #123\nRelates to #456";
+    expect(extractClosingIssueNumbers(text)).toEqual([]);
+  });
+
+  it("handles all GitHub closing keywords", () => {
+    const text = "Close #1\nCloses #2\nClosed #3\nFix #4\nFixes #5\nFixed #6\nResolve #7\nResolves #8\nResolved #9";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  });
+
+  it("handles optional colons after keywords", () => {
+    const text = "Closes: #123\nFixes: #456\nResolves: #789";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([123, 456, 789]);
+  });
+
+  it("rejects false positive matches", () => {
+    const text = "discloses #123\ndisclose #456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([]);
+  });
+
+  it("handles mixed colons and no colons", () => {
+    const text = "Closes #123\nFixes: #456\nResolves #789";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([123, 456, 789]);
+  });
+
+  it("handles cross-repo references with all keywords", () => {
+    const text = "Closes owner/repo#123\nFixes: other/project#456";
+    const result = extractClosingIssueNumbers(text);
+    expect(result).toEqual([123, 456]);
   });
 });
 

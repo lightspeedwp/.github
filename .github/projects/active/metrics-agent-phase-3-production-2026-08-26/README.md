@@ -14,6 +14,7 @@
 Phase 3 is the production rollout and integration phase for Metrics Agent v2.0. All Phase 2 implementation code is complete and stable (150+ tests, 92%+ coverage). Phase 2.5 documentation is shipped and team-ready.
 
 This phase focuses on:
+
 - ✅ Deploying metrics collection to production
 - ✅ Integrating with Meta Agent, Reporting Agent, and Issue Management
 - 🟡 Setting up monitoring, alerting, and runbooks
@@ -23,10 +24,12 @@ This phase focuses on:
 ## Deliverables
 
 ### Task 3.1: Production Deployment (3-5 hours)
+
 **Issue:** [#2126](https://github.com/lightspeedwp/.github/issues/2126)  
 **Status:** ✅ COMPLETE (merged 2026-08-20)
 
 Deploy metrics-collection workflow to production with automatic scheduling:
+
 - [x] Enable workflow on main/develop
 - [x] Configure scheduled run (daily 2 AM UTC)
 - [x] Set up GitHub token and environment secrets
@@ -36,10 +39,12 @@ Deploy metrics-collection workflow to production with automatic scheduling:
 **Merged PR:** [#2131](https://github.com/lightspeedwp/.github/pull/2131)
 
 ### Task 3.2: Integration with Control Plane (6-8 hours)
+
 **Issue:** [#2127](https://github.com/lightspeedwp/.github/issues/2127)  
 **Status:** ✅ COMPLETE (merged 2026-08-20)
 
 Wire metrics data into Meta Agent, Reporting Agent, and Issue Management:
+
 - [x] Create integration adapter (Meta Agent) — 249 LOC
 - [x] Reporting Agent formatter — 351 LOC
 - [x] GitHub issue templates generator — 344 LOC
@@ -49,10 +54,12 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management:
 **Merged PR:** [#2131](https://github.com/lightspeedwp/.github/pull/2131)
 
 ### Task 3.3: Monitoring & Alerting (4-6 hours)
+
 **Issue:** [#2128](https://github.com/lightspeedwp/.github/issues/2128)  
 **Status:** 🟡 PLANNED
 
 Set up production monitoring and runbooks:
+
 - [ ] Configure Slack notifications
 - [ ] Create metrics health dashboard (optional)
 - [ ] Set up alerts for health score drops (<60)
@@ -60,10 +67,12 @@ Set up production monitoring and runbooks:
 - [ ] Document monitoring strategy
 
 ### Task 3.4: Team Rollout & Training (8-10 hours)
+
 **Issue:** [#2129](https://github.com/lightspeedwp/.github/issues/2129)  
 **Status:** 🟡 PLANNED
 
 Conduct training and ensure team adoption:
+
 - [ ] Conduct 4 training sessions (60 min each)
 - [ ] Run hands-on labs with team
 - [ ] Gather feedback and document issues
@@ -71,14 +80,17 @@ Conduct training and ensure team adoption:
 - [ ] Schedule recurring team sync (weekly)
 
 **Training Schedule:**
+
 - Week of 2026-09-02: 4x 1-hour sessions
 - Week of 2026-09-09: Hands-on labs and certification
 
 ### Task 3.5: Validation & Refinement (4-6 hours)
+
 **Issue:** [#2130](https://github.com/lightspeedwp/.github/issues/2130)  
 **Status:** 🟡 PLANNED
 
 Validate metrics accuracy and performance:
+
 - [ ] Validate metrics accuracy (manual counts)
 - [ ] Performance test under production load
 - [ ] Test error recovery and retries
@@ -88,18 +100,21 @@ Validate metrics accuracy and performance:
 ## Phase 3 Success Criteria
 
 ### Deployment Success
+
 - [ ] Metrics workflow runs on schedule (daily, zero manual intervention)
 - [ ] All contexts collected (control-plane, plugins, themes)
 - [ ] Collection completes in <5 minutes
 - [ ] Zero critical errors in first 2 weeks
 
 ### Integration Success
+
 - [ ] Metrics accessible to 2+ downstream agents
 - [ ] Reports automatically generated and published
 - [ ] Issue tracking end-to-end functional
 - [ ] Team references metrics in standup (3+ times)
 
 ### Team Adoption Success
+
 - [ ] All engineers complete training certification
 - [ ] Team uses metrics in 2+ decisions
 - [ ] Training feedback >= 4/5
@@ -128,6 +143,7 @@ Validate metrics accuracy and performance:
 ## Key Resources
 
 ### Documentation
+
 - [Phase 2.5 README](https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/docs/README.md)
 - [Integration Guide](https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/docs/INTEGRATION_GUIDE.md)
 - [Usage Guide](https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/docs/USAGE_GUIDE.md)
@@ -135,10 +151,12 @@ Validate metrics accuracy and performance:
 - [Handoff Document](https://github.com/lightspeedwp/.github/blob/develop/scripts/metrics/docs/HANDOFF.md)
 
 ### Code
+
 - Phase 2 Implementation: `scripts/metrics/` (merged to develop)
 - Phase 2 Workflow: `workflows/metrics-collection.yml` (merged to develop)
 
 ### Phase 3 Prompt
+
 For new session continuation: `METRICS_AGENT_PHASE_3_PROMPT.txt` in memory
 
 ## Phase 3 Lead Requirements
@@ -184,6 +202,7 @@ Before starting, clarify:
 **Owner:** [Phase 3 Lead TBD]
 
 **Status:** ✅ READY FOR PHASE 3 🚀
+
 ## Visual Workflow
 
 ```mermaid

@@ -64,9 +64,9 @@ graph TB
     T[Pre-commit Hooks] --> A
     U[CI/CD Pipeline] --> A
 
-    style A fill:#e1f5fe
-    style C fill:#f3e5f5
-    style S fill:#e8f5e8
+    style A fill:#e1f5fe,color:#0f172a
+    style C fill:#f3e5f5,color:#0f172a
+    style S fill:#e8f5e8,color:#0f172a
 ```
 
 ## Automation Workflow
@@ -356,10 +356,10 @@ flowchart TD
     L --> N[Exit with Error]
     M --> O[Exit Successfully]
 
-    style A fill:#e1f5fe
-    style I fill:#e8f5e8
-    style O fill:#c8e6c9
-    style N fill:#ffcdd2
+    style A fill:#e1f5fe,color:#0f172a
+    style I fill:#e8f5e8,color:#0f172a
+    style O fill:#c8e6c9,color:#0f172a
+    style N fill:#ffcdd2,color:#0f172a
 ```
 
 ## Contributing

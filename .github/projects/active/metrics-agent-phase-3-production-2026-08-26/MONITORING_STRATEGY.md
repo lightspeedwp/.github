@@ -120,21 +120,25 @@ Health Score = (Documentation × 0.25) + (Issues × 0.25) + (PRs × 0.25) + (Qua
 Each health score includes four components:
 
 #### 1. Documentation Coverage (25%)
+
 - Files with complete frontmatter metadata
 - Updated frontmatter date within last 90 days
 - Target: 85%+ files documented
 
 #### 2. Issue Response Time (25%)
+
 - Average time to first response on new issues
 - Target: < 24 hours
 - Baseline: 2-3 hours typical
 
 #### 3. PR Review Time (25%)
+
 - Average time from PR open to merge
 - Target: < 48 hours
 - Baseline: 24-36 hours typical
 
 #### 4. Code Quality (25%)
+
 - Test coverage percentage
 - Linting pass rate
 - Security scan results
@@ -177,14 +181,14 @@ Week 4: 72 (Warning) ← Alert triggered
 
 #### High Priority Alerts
 
-3. **Workflow Timeout** (MEDIUM)
+1. **Workflow Timeout** (MEDIUM)
    - Collection exceeds 5 minutes
    - Performance degradation detected
    - **Runbook:** RUNBOOK_WORKFLOW_TIMEOUT.md
    - **Response Time:** < 1 hour
    - **Escalation:** 1 hour
 
-4. **Health Score Drop** (MEDIUM)
+2. **Health Score Drop** (MEDIUM)
    - Score drops 20+ points from previous week
    - Enters Critical range (< 60)
    - **Runbook:** RUNBOOK_HEALTH_SCORE_DROP.md
@@ -193,14 +197,14 @@ Week 4: 72 (Warning) ← Alert triggered
 
 #### Standard Alerts
 
-5. **Missing Data** (MEDIUM)
+1. **Missing Data** (MEDIUM)
    - Metrics collection completes but output incomplete
    - One or more contexts return zero values
    - **Runbook:** RUNBOOK_MISSING_DATA.md
    - **Response Time:** < 4 hours
    - **Escalation:** 24 hours
 
-6. **Performance Degradation** (MEDIUM)
+2. **Performance Degradation** (MEDIUM)
    - Collection time increases week-over-week
    - Single context taking > 2 minutes
    - **Runbook:** RUNBOOK_PERFORMANCE_DEGRADATION.md
@@ -438,6 +442,7 @@ When an alert triggers:
 ### Runbook Location
 
 All runbooks stored in:
+
 ```
 .github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/
 ```
@@ -482,19 +487,22 @@ Access via GitHub or local clone.
 ## Key Contacts & Escalation
 
 ### Primary On-Call (Monday-Friday)
+
 - **Primary:** [Assigned person]
 - **Backup:** [Assigned person]
 - **Manager:** [Assigned person]
 
 ### Emergency Escalation
+
 - **CRITICAL alert:** Immediate @channel in Slack
 - **No response in 10 min:** Page on-call via PagerDuty
 - **No response in 30 min:** Escalate to manager
 - **No response in 1 hour:** Escalate to director
 
 ### Contact Methods
+
 - **Slack:** @metrics-alerts (includes both primary + backup)
-- **Email:** metrics-alerts@lightspeedwp.agency
+- **Email:** <metrics-alerts@lightspeedwp.agency>
 - **PagerDuty:** Metrics Agent Alerts (if available)
 
 ---
@@ -502,17 +510,20 @@ Access via GitHub or local clone.
 ## Tools & Resources
 
 ### Slack Integration
+
 - **Webhook:** SLACK_METRICS_WEBHOOK (GitHub Secret)
 - **Channels:** #metrics, #metrics-alerts, #metrics-alerts-critical
 - **Bot:** Metrics Agent Alerts (if configured)
 
 ### GitHub Integration
+
 - **Workflow:** `.github/workflows/metrics-reporting.yml`
 - **Issues:** Auto-created for MEDIUM+ alerts
 - **Labels:** type:bug, status:needs-triage, area:metrics
 - **Projects:** Metrics Agent Phase 3 project board
 
 ### Documentation
+
 - **Runbooks:** `.github/projects/active/.../runbooks/`
 - **Config:** `.github/config/metrics/alert-rules.yml`
 - **Scripts:** `scripts/workflows/metrics/notify-metrics-alert.cjs`

@@ -133,6 +133,7 @@ flowchart TD
 **How It Works:**
 
 The safety audit runs automatically on every PR and push:
+
 - **On Pull Requests**: Blocks merge if critical errors detected (file corruption, structure violations, data corruption)
 - **On Push to main/develop**: Validates before merge
 - **Locally**: Run `npm run validate:changelog` before pushing
@@ -195,6 +196,7 @@ See [Phase 1 Audit Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026
 **How It Works:**
 
 **Local (Pre-commit):**
+
 ```bash
 # Add changelog changes
 git add CHANGELOG.md
@@ -207,6 +209,7 @@ git commit -m "..."
 ```
 
 **Audit Logging:**
+
 ```bash
 # Generate/update audit log (runs automatically)
 npm run audit:changelog
@@ -216,6 +219,7 @@ node scripts/validation/changelog-audit-log.js
 ```
 
 **Testing:**
+
 ```bash
 # Run regression tests
 npm test -- --testPathPattern=changelog-safety
@@ -929,8 +933,8 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 - **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON Schema for validation
 - **Changelog:** [`CHANGELOG.md`](../CHANGELOG.md) — Production changelog using Keep a Changelog format
-- **Keep a Changelog Spec:** https://keepachangelog.com/en/1.1.0/
-- **Semantic Versioning:** https://semver.org/
+- **Keep a Changelog Spec:** <https://keepachangelog.com/en/1.1.0/>
+- **Semantic Versioning:** <https://semver.org/>
 
 ---
 

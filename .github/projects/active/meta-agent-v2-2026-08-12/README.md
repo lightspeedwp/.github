@@ -423,6 +423,7 @@ See [AGENTS.md](./AGENTS.md) for contribution guidelines.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

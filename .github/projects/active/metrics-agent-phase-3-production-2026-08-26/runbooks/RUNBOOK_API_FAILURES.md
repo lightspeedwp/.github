@@ -14,11 +14,13 @@ last_updated: "2026-08-21"
 Metrics collection fails due to GitHub API errors (4xx/5xx responses).
 
 **Symptoms:**
+
 - Logs show `GET https://api.github.com` returns 401, 403, 404, 429, 500, 502, 503
 - "API request failed" errors in workflow logs
 - Metrics collection halts without completing
 
 **Impact:**
+
 - No metrics generated for the week
 - Downstream systems don't receive updated data
 - Team unaware of repository health status
@@ -81,17 +83,19 @@ Check `GITHUB_TOKEN` secrets in Actions:
 **Recovery Steps:**
 
 1. **Verify request format:**
+
    ```bash
    # Check the exact request in logs
    # Look for URL and query parameters
    ```
 
 2. **Check API documentation:**
-   - Visit https://docs.github.com/en/rest
+   - Visit <https://docs.github.com/en/rest>
    - Verify endpoint path matches current API
    - Ensure all required parameters included
 
 3. **Test request manually:**
+
    ```bash
    # Get valid GitHub token
    TOKEN=$(grep GITHUB_TOKEN .github/workflows/metrics-reporting.yml)
@@ -112,6 +116,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
 **Recovery Steps:**
 
 1. **Verify token exists in Actions:**
+
    ```
    Settings → Secrets and variables → Actions
    Look for: GITHUB_TOKEN
@@ -128,6 +133,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
    - Copy to repo secrets as `GITHUB_TOKEN`
 
 4. **Verify workflow permissions:**
+
    ```yaml
    # In metrics-reporting.yml
    permissions:
@@ -138,6 +144,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
    ```
 
 5. **Test token:**
+
    ```bash
    curl -H "Authorization: Bearer YOUR_TOKEN" \
         https://api.github.com/user
@@ -158,14 +165,15 @@ Check `GITHUB_TOKEN` secrets in Actions:
 1. **Verify repository path:**
    - Metrics should query `lightspeedwp/.github`
    - Check that repo still exists and is accessible
-   - Try browsing to https://github.com/lightspeedwp/.github
+   - Try browsing to <https://github.com/lightspeedwp/.github>
 
 2. **Check deprecated endpoints:**
    - Some GitHub API v3 endpoints are deprecated
-   - Review API changelog at https://docs.github.com/en/rest
+   - Review API changelog at <https://docs.github.com/en/rest>
    - Update to v4/v3 latest syntax
 
 3. **Verify endpoint syntax:**
+
    ```bash
    # Correct format:
    https://api.github.com/repos/OWNER/REPO/issues
@@ -186,6 +194,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
 **Recovery Steps:**
 
 1. **Check current rate limit:**
+
    ```bash
    curl -H "Authorization: Bearer YOUR_TOKEN" \
         https://api.github.com/rate_limit
@@ -206,6 +215,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
    - Reduce scope of API queries
 
 4. **Implement retry logic:**
+
    ```javascript
    // In metrics.js
    async function fetchWithRetry(url, options, maxRetries = 3) {
@@ -236,7 +246,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
 **Recovery Steps:**
 
 1. **Check GitHub Status:**
-   - Visit https://www.githubstatus.com/
+   - Visit <https://www.githubstatus.com/>
    - Look for: API, Actions, or general incidents
    - Subscribe to updates if ongoing
 
@@ -270,7 +280,7 @@ Check `GITHUB_TOKEN` secrets in Actions:
    - Alert when token approaches expiration
 
 2. **Monitor API changes:**
-   - Subscribe to GitHub API changelog: https://docs.github.com/en/rest/overview/api-versions
+   - Subscribe to GitHub API changelog: <https://docs.github.com/en/rest/overview/api-versions>
    - Review quarterly for deprecation notices
 
 3. **Rate limit awareness:**

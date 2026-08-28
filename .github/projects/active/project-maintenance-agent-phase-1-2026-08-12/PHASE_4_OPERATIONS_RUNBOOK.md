@@ -35,6 +35,7 @@ status: active
 **Severity:** 🟡 MEDIUM (4 hours = team loses daily visibility)
 
 **Diagnosis Checklist:**
+
 - [ ] Check GitHub Actions tab for failed run
 - [ ] Check workflow logs: `.github/workflows/project-maintenance-nightly.yml`
 - [ ] Is the Phase 1 script present? `scripts/automation/project-docs-update.sh`
@@ -46,11 +47,13 @@ status: active
 ### Case 1: Phase 1 Script Missing/Broken
 
 **Error in logs:**
+
 ```
 ./scripts/automation/project-docs-update.sh: No such file or directory
 ```
 
 **Resolution (15 min):**
+
 1. Check if Phase 1 PR merged: `git log --oneline | grep -i "phase 1"`
 2. If not merged, wait for Phase 1 merge
 3. If merged, pull latest: `git pull origin develop`
@@ -64,11 +67,13 @@ status: active
 ### Case 2: Slack Webhook Not Configured
 
 **Error in logs:**
+
 ```
 curl: (6) Could not resolve host: hooks.slack.com
 ```
 
 **Resolution (5 min):**
+
 1. Go to repo Settings → Secrets and variables → Actions
 2. Check if `PROJECT_MAINTENANCE_SLACK_WEBHOOK` exists
 3. If missing, follow: `.../SLACK_WEBHOOK_SETUP.md`
@@ -82,11 +87,13 @@ curl: (6) Could not resolve host: hooks.slack.com
 ### Case 3: Permissions Error
 
 **Error in logs:**
+
 ```
 Permission denied accessing .github/projects/
 ```
 
 **Resolution (10 min):**
+
 1. Check if branch protections preventing writes
 2. Check if service account has write permissions
 3. Temporarily disable branch protection if CI-only issue
@@ -102,6 +109,7 @@ Permission denied accessing .github/projects/
 **Symptom:** Workflow exists but never runs
 
 **Resolution (10 min):**
+
 1. Verify cron syntax: `0 2 * * *` = 2 AM UTC every day
 2. Check: Has `develop` branch received commits in last 7 days?
    - GitHub requires recent commits for cron to trigger
@@ -140,6 +148,7 @@ Check Slack channel at 2:15 AM UTC
 **Procedure:**
 
 ### Step 1: Review the Slack Notification (5 min)
+
 ```
 What did the audit find?
   ✓ How many projects have gaps?
@@ -150,6 +159,7 @@ What did the audit find?
 ### Step 2: Prioritize Projects (10 min)
 
 **Urgency Matrix:**
+
 ```
 HIGH PRIORITY (Fix immediately):
   - Projects in active development
@@ -170,11 +180,13 @@ LOW PRIORITY (Fix later):
 **Procedure:**
 
 1. **Go to GitHub Actions**
+
    ```
    Repo → Actions → "Project Maintenance — On-Demand"
    ```
 
 2. **Run workflow with DRY-RUN**
+
    ```
    operation: create-docs
    projects: project-a,project-b,project-c
@@ -182,6 +194,7 @@ LOW PRIORITY (Fix later):
    ```
 
 3. **Review the preview output**
+
    ```
    ✓ project-a: Would create PLANNING.md
    ✓ project-b: Would create PLANNING.md, OPENSPEC.md
@@ -196,6 +209,7 @@ LOW PRIORITY (Fix later):
    - Any concerns? → Stop here and investigate
 
 5. **Run workflow LIVE (no dry-run)**
+
    ```
    operation: create-docs
    projects: project-a,project-b,project-c
@@ -262,6 +276,7 @@ dry_run: false
 ```
 
 **Checklist:**
+
 - [ ] Project folder exists
 - [ ] Run audit to see what's missing
 - [ ] Preview with dry-run
@@ -298,8 +313,10 @@ dry_run: true
 ### Case 1: Missing Required Field (title, status, dates)
 
 **Fix (5 min):**
+
 1. Open file in GitHub (or locally)
 2. Add the missing field to frontmatter:
+
    ```yaml
    ---
    title: My Project
@@ -308,12 +325,14 @@ dry_run: true
    created_date: 2026-08-18
    ---
    ```
+
 3. Commit change
 4. Re-run validate to confirm fixed
 
 ### Case 2: Invalid YAML Syntax
 
 **Common errors:**
+
 ```yaml
 # ❌ WRONG: No quotes on string with colon
 title: My Project: The Sequel
@@ -329,6 +348,7 @@ url: "https://example.com/path"
 ```
 
 **Fix (10 min):**
+
 1. Use online YAML validator: `https://www.yamllint.com/`
 2. Paste frontmatter from file
 3. Validator shows exact syntax error
@@ -340,6 +360,7 @@ url: "https://example.com/path"
 **Symptom:** Project created before Phase 3, uses old frontmatter format
 
 **Fix (10 min):**
+
 1. Backup old file (copy content)
 2. Delete file from GitHub
 3. Run create-docs workflow for this project
@@ -363,6 +384,7 @@ url: "https://example.com/path"
 **Procedure:**
 
 ### Step 1: Check the Numbers
+
 ```bash
 # How many projects?
 ls -1 .github/projects/active/ | wc -l
@@ -372,11 +394,13 @@ ls -1 .github/projects/active/ | wc -l
 ### Step 2: Split Into Batches
 
 **Instead of:**
+
 ```yaml
 projects: all
 ```
 
 **Do:**
+
 ```yaml
 # Batch 1
 projects: project-a,project-b,project-c,...  (first 25)
@@ -386,6 +410,7 @@ projects: project-z,project-y,...  (next 25)
 ```
 
 ### Step 3: Run Batches Separately
+
 ```
 Run 1: projects: [first 25], dry_run: true
    (takes ~2 min)
@@ -402,14 +427,18 @@ Run 3: projects: [next 25], dry_run: false
 ### Alternative: Increase Timeout
 
 **If batching not practical:**
+
 1. Edit `.github/workflows/project-maintenance-on-demand.yml`
 2. Add to job:
+
    ```yaml
    timeout-minutes: 60
    ```
+
 3. Commit and test
 
 **Prevention:**
+
 - Validate < 30 projects at a time
 - Archive completed projects (reduces total)
 - Monitor workflow duration over time
@@ -437,6 +466,7 @@ Run 3: projects: [next 25], dry_run: false
 ### Case 1: Webhook Missing
 
 **Fix (5 min):**
+
 1. Follow: `.../SLACK_WEBHOOK_SETUP.md`
 2. Create new webhook in Slack workspace
 3. Add to GitHub Secrets as `PROJECT_MAINTENANCE_SLACK_WEBHOOK`
@@ -445,6 +475,7 @@ Run 3: projects: [next 25], dry_run: false
 ### Case 2: Webhook Expired/Revoked
 
 **Fix (10 min):**
+
 1. Delete old webhook from Slack workspace
 2. Create new webhook
 3. Update GitHub secret
@@ -455,6 +486,7 @@ Run 3: projects: [next 25], dry_run: false
 **Symptom:** Webhook sends to #random instead of #projects
 
 **Fix (5 min):**
+
 1. In Slack, click webhook integration
 2. Check "Post to channel" setting
 3. Change to correct channel
@@ -464,6 +496,7 @@ Run 3: projects: [next 25], dry_run: false
 ### Case 4: Messaging Step Disabled/Broken
 
 **Fix (10 min):**
+
 1. Check workflow YAML: `.github/workflows/project-maintenance-nightly.yml`
 2. Look for Slack notification step (should have `curl` or `@slack/actions`)
 3. If commented out, uncomment it
@@ -497,11 +530,13 @@ curl -X POST $PROJECT_MAINTENANCE_SLACK_WEBHOOK \
 **Procedure (10 minutes):**
 
 ### Step 1: Verify Project Is Done
+
 - [ ] All deliverables complete
 - [ ] Team confirms ready for archive
 - [ ] No active work planned
 
 ### Step 2: Run with DRY-RUN
+
 ```
 GitHub Actions → "Project Maintenance — On-Demand"
 
@@ -511,6 +546,7 @@ dry_run: true
 ```
 
 **Preview output:**
+
 ```
 Archive Plan:
   Project: completed-project
@@ -529,11 +565,13 @@ Confirm this looks correct? (Continue only if yes!)
 ```
 
 ### Step 3: Get Team Approval
+
 - [ ] Share dry-run output with team
 - [ ] Get verbal/written approval
 - [ ] Document approval in issue/PR
 
 ### Step 4: Apply Changes
+
 ```
 operation: archive
 projects: completed-project
@@ -541,6 +579,7 @@ dry_run: false
 ```
 
 ### Step 5: Verify
+
 ```bash
 # Project should no longer be in active folder
 ls .github/projects/active/ | grep completed-project
@@ -555,6 +594,7 @@ cat .github/projects/archive/completed-project/.archive-status.md
 ```
 
 ### Step 6: Update Documentation
+
 - [ ] Update epic (mark project as archived)
 - [ ] Update main README (remove from active projects list)
 - [ ] Post completion notice to team
@@ -681,6 +721,7 @@ Something else?
 - ✅ Have documented what happened
 
 **If any step unclear:**
+
 - Re-read the procedure
 - Check the troubleshooting guide
 - Ask team lead

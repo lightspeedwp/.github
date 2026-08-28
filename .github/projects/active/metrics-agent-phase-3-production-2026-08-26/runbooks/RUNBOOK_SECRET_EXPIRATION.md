@@ -14,12 +14,14 @@ last_updated: "2026-08-21"
 Authentication fails due to expired or revoked secrets/tokens.
 
 **Symptoms:**
+
 - `401 Unauthorized` errors in workflow logs
 - Slack notifications stop sending
 - GitHub API calls fail with auth errors
 - "Invalid token" or "Token expired" messages
 
 **Impact:**
+
 - Metrics collection stops completely
 - Alerts not delivered to team
 - No visibility into repository health
@@ -104,6 +106,7 @@ If you can't diagnose, try rotating all secrets:
 **Recovery Steps:**
 
 1. **Create new GitHub token:**
+
    ```
    GitHub → Settings → Developer settings → Personal access tokens
    → Fine-grained personal access tokens → New token
@@ -141,6 +144,7 @@ If you can't diagnose, try rotating all secrets:
 **Recovery Steps:**
 
 1. **Check token permissions:**
+
    ```
    GitHub → Settings → Developer settings → Personal access tokens
    → Click your token name
@@ -167,6 +171,7 @@ If you can't diagnose, try rotating all secrets:
 **Recovery Steps:**
 
 1. **Check if token still exists:**
+
    ```
    GitHub → Settings → Developer settings → Personal access tokens
    → Look for "metrics-collection" or similar
@@ -189,6 +194,7 @@ If you can't diagnose, try rotating all secrets:
 **Recovery Steps:**
 
 1. **Verify Slack webhook exists:**
+
    ```
    Slack workspace → Apps & Integrations → Manage apps
    → Look for app with metrics webhook

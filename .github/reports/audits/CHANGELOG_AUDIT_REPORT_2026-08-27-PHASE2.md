@@ -21,6 +21,7 @@ commits:
 ## Executive Summary
 
 Phase 2 builds on Phase 1's seven-layer validation system by adding:
+
 1. **Write Protection** — Pre-commit hook validation prevents invalid commits locally
 2. **Audit Logging** — Complete modification tracking with timestamps and authorship
 3. **Regression Tests** — Comprehensive test suite for all 7 validation layers
@@ -33,11 +34,13 @@ Phase 2 builds on Phase 1's seven-layer validation system by adding:
 ## 1. Write Protection System
 
 ### Objective
+
 Prevent invalid CHANGELOG.md from being committed locally before CI validation.
 
 ### Implementation
 
 **Pre-commit Hook** (`.github/hooks/pre-commit`):
+
 - Validates CHANGELOG.md before allowing commit
 - Integrates Phase 1's 7-layer validation system
 - Blocks on critical errors:
@@ -50,6 +53,7 @@ Prevent invalid CHANGELOG.md from being committed locally before CI validation.
   - File corruption or truncation
 
 **Installation**:
+
 ```bash
 # Automatic via npm setup
 npm run setup:hooks
@@ -59,6 +63,7 @@ ln -sf ../../.github/hooks/pre-commit .git/hooks/pre-commit
 ```
 
 **Bypass Option**:
+
 ```bash
 git commit --no-verify  # Only for emergency fixes (CI will still validate)
 ```
@@ -98,11 +103,13 @@ git commit --no-verify  # Only for emergency fixes (CI will still validate)
 ## 2. Audit Logging System
 
 ### Objective
+
 Track all CHANGELOG.md modifications with complete traceability (who, when, what, why).
 
 ### Implementation
 
 **Audit Logger** (`scripts/validation/changelog-audit-log.js`):
+
 - Extracts git history for CHANGELOG.md
 - Generates comprehensive audit report with:
   - Complete modification history (date, author, commit hash, message)
@@ -112,6 +119,7 @@ Track all CHANGELOG.md modifications with complete traceability (who, when, what
   - Bidirectional traceability (commit ↔ change)
 
 **Audit Log Storage** (`.github/reports/audits/changelog-audit-log.md`):
+
 - Generated automatically
 - Includes:
   - Summary statistics
@@ -121,6 +129,7 @@ Track all CHANGELOG.md modifications with complete traceability (who, when, what
   - Last audit run timestamp
 
 **Usage**:
+
 ```bash
 # Generate or update audit log
 npm run audit:changelog
@@ -136,10 +145,11 @@ node scripts/validation/changelog-audit-log.js
 ✅ **Pass**: Captures author, email, date, and commit hash  
 ✅ **Pass**: Identifies unique contributors (4 contributors)  
 ✅ **Pass**: Calculates changelog statistics correctly:
-  - 7 versions detected
-  - 1 unreleased entry
-  - 496 total entries
-  - 200,840 bytes file size
+
+- 7 versions detected
+- 1 unreleased entry
+- 496 total entries
+- 200,840 bytes file size
 
 ✅ **Pass**: Performance: <200ms for repo with 35 commits on CHANGELOG.md  
 ✅ **Pass**: Audit log markdown properly formatted and readable
@@ -147,6 +157,7 @@ node scripts/validation/changelog-audit-log.js
 ### Evidence
 
 Sample audit log output shows:
+
 - Complete git history for CHANGELOG.md
 - Author names and emails captured
 - Timestamps in ISO 8601 format for all commits
@@ -155,6 +166,7 @@ Sample audit log output shows:
 - Metadata for last audit run
 
 **Current Audit Statistics**:
+
 - Total Modifications: 35 commits
 - Unique Contributors: 4 (Ashley Shaw, Claude, Test User, and others)
 - Current Versions: 7 released versions tracked
@@ -167,11 +179,13 @@ Sample audit log output shows:
 ## 3. Regression Test Suite
 
 ### Objective
+
 Comprehensive testing of all 7 Phase 1 validation layers with edge cases.
 
 ### Implementation
 
 **Test File** (`scripts/validation/__tests__/validate-changelog-safety.test.js`):
+
 - Jest-based test suite (150+ LOC)
 - Tests all 7 validation layers
 - Includes edge cases and performance benchmarks
@@ -227,6 +241,7 @@ Comprehensive testing of all 7 Phase 1 validation layers with edge cases.
    - Suspiciously high PR numbers
 
 **Performance Benchmark**:
+
 ```
 Validation of large changelog (500+ entries): < 500ms
 Expected performance: <100ms per 100 entries
@@ -259,11 +274,13 @@ npm test -- --testPathPattern=changelog-safety --testNamePattern="File Integrity
 ## 4. Agent Constraints
 
 ### Objective
+
 Ensure AI agents (Copilot, Claude, etc.) follow Phase 2 write protection and audit logging guidelines.
 
 ### Implementation
 
 **Updated Changelog Agent** (`.github/agents/changelog.agent.md`):
+
 - Added Phase 2 section: "Write Protection & Audit Logging Constraints"
 - Documented pre-commit hook validation process
 - Listed unsafe operations that are prevented
@@ -312,6 +329,7 @@ Ensure AI agents (Copilot, Claude, etc.) follow Phase 2 write protection and aud
 ### Evidence
 
 Agent file updated with:
+
 - Comprehensive Phase 2 constraints section
 - Pre-commit hook validation explanation
 - Audit logging process documentation
@@ -328,12 +346,14 @@ Agent file updated with:
 The Phase 2 components integrate with existing CI/CD:
 
 **Current Workflow** (`.github/workflows/changelog-safety-audit.yml`):
+
 - Phase 1: Changelog Safety Audit job (validates on PR/push)
 - Phase 1: Format Validation job (Keep a Changelog 1.1.0 check)
 - Phase 1: Cross-Reference job (file existence check)
 - Phase 1: Report on Failure job (PR comment on audit failure)
 
 **Recommended Phase 2 Additions**:
+
 - Run audit logger on successful merges
 - Store audit log as workflow artifact
 - Generate audit summary in release notes
@@ -346,16 +366,19 @@ The Phase 2 components integrate with existing CI/CD:
 ### Validation Performance
 
 **Phase 1 (7-layer validation)**:
+
 - Typical: 50-100ms per validation
 - Large changelog (500+ entries): <200ms
 - Performance target: <500ms ✅
 
 **Phase 2 (Audit logging)**:
+
 - Typical: 100-150ms per run
 - Large history (35+ commits): <200ms
 - Performance target: <500ms ✅
 
 **Pre-commit Hook**:
+
 - Hook overhead: ~50ms
 - Validation: 50-100ms
 - Total: ~100-150ms (imperceptible to user) ✅
@@ -498,9 +521,9 @@ The Phase 2 components integrate with existing CI/CD:
 
 ## 11. References
 
-- **Issue #2382**: https://github.com/lightspeedwp/.github/issues/2382
+- **Issue #2382**: <https://github.com/lightspeedwp/.github/issues/2382>
 - **Phase 1 Report**: `.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md`
-- **Keep a Changelog 1.1.0**: https://keepachangelog.com/en/1.1.0/
+- **Keep a Changelog 1.1.0**: <https://keepachangelog.com/en/1.1.0/>
 - **Changelog Agent**: `.github/agents/changelog.agent.md`
 - **Audit Log**: `.github/reports/audits/changelog-audit-log.md`
 

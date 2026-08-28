@@ -109,12 +109,14 @@ mkdir -p .github/reports/archive/historical
 #### 2.3.3 Link Unlinked Projects
 
 **openspec:**
+
 - [ ] Identify related issues (agent-tool-permission-alignment, test-coverage-implementation)
 - [ ] Add "Related Issues" section to `.github/projects/active/openspec/README.md`
 - [ ] Add "Related Projects" comment to each related issue
 - [ ] Validate links in GitHub preview
 
 **markdown-audit-ci-optimization:**
+
 - [ ] Review project status (completed? stale? blocked?)
 - [ ] If active: link to related issue
 - [ ] If completed: create "Archive {project}" issue
@@ -123,6 +125,7 @@ mkdir -p .github/reports/archive/historical
 #### 2.3.4 Add Linking to All Projects
 
 For each of the remaining 29 projects:
+
 - [ ] Add "Related Issues" section to README (if missing)
 - [ ] Verify table format matches linking standard
 - [ ] Update issue descriptions with "Related Projects" comments
@@ -202,6 +205,7 @@ git push -u origin chore/github-reports-restructure
 #### Option A: Manual Archive (Simple)
 
 **Process:**
+
 1. When project is complete, owner creates "Archive {project}" issue
 2. Issue includes: summary of work, PR links, outcomes
 3. On merge, update project folder:
@@ -215,6 +219,7 @@ git push -u origin chore/github-reports-restructure
 #### Option B: Automated Archive (Medium)
 
 **Process:**
+
 1. GitHub Action monitors projects for completion signals:
    - All linked issues closed
    - No recent updates (>30 days)
@@ -230,6 +235,7 @@ git push -u origin chore/github-reports-restructure
 #### Option C: Archive-on-Tag (Advanced)
 
 **Process:**
+
 1. Owner runs: `git tag archive-ready/{project-slug}`
 2. Webhook triggers GitHub Action
 3. Action validates completion, creates `.archive-status.md`, moves folder
@@ -242,6 +248,7 @@ git push -u origin chore/github-reports-restructure
 **Start with Option A (Manual)** → Implement Option B in Q4 if volume justifies automation
 
 **Rationale:**
+
 - Low risk, clear process
 - Can evaluate effectiveness before automating
 - Gives team time to adjust to new structure
@@ -252,6 +259,7 @@ git push -u origin chore/github-reports-restructure
 **Rule:** Every project in `.github/projects/active/` must have ≥1 linked issue
 
 **Implementation:**
+
 ```yaml
 # .github/workflows/validate-project-linking.yml
 name: Validate Project Linking

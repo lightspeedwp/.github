@@ -350,6 +350,7 @@ Reports results to team
 ---
 
 *Built with 🚀 LightSpeed automation and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

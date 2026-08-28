@@ -25,6 +25,7 @@ owners:
 ### 1. Agent Specifications
 
 #### Spec Agent (GitHub-Native)
+
 - **File:** `.github/agents/changelog.agent.md`
 - **Type:** Spec-based agent definition
 - **Status:** Active
@@ -36,6 +37,7 @@ owners:
   - Documentation: `docs/CHANGELOG_AUTOMATION.md`
 
 #### Portable Agent (Reusable)
+
 - **File:** `agents/changelog/changelog.agent.js`
 - **Type:** Multi-file agent implementation (ESM)
 - **Location:** Root `agents/` directory (portable)
@@ -54,6 +56,7 @@ owners:
 ### 2. Schema
 
 #### Changelog Schema
+
 - **File:** `schemas/changelog.schema.json`
 - **Type:** JSON Schema for Keep a Changelog 1.1.0 validation
 - **Status:** Active
@@ -68,6 +71,7 @@ owners:
 ### 3. Workflows
 
 #### Changelog Management Workflow
+
 - **File:** `.github/workflows/changelog-management.yml`
 - **Type:** GitHub Actions workflow (should be agentic)
 - **Status:** Active
@@ -83,6 +87,7 @@ owners:
 ### 4. Control-Plane Scripts
 
 #### Changelog Agent Script
+
 - **File:** `.github/scripts/agents/changelog.agent.js`
 - **Type:** Control-plane integration script
 - **Purpose:** Bridge between GitHub Actions and changelog agent logic
@@ -94,6 +99,7 @@ owners:
 ### 5. Documentation
 
 #### Changelog Automation Guide
+
 - **File:** `docs/CHANGELOG_AUTOMATION.md`
 - **Type:** User-facing documentation
 - **Status:** Active
@@ -108,6 +114,7 @@ owners:
   - Troubleshooting
 
 #### Changelog Contributor Checklist
+
 - **File:** `docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md`
 - **Type:** Quick-reference checklist
 - **Status:** Active
@@ -120,7 +127,8 @@ owners:
 - **Links to:** `docs/CHANGELOG_AUTOMATION.md` for guidelines
 
 #### Keep a Changelog 1.1.0 Format
-- **External Reference:** https://keepachangelog.com/en/1.1.0/
+
+- **External Reference:** <https://keepachangelog.com/en/1.1.0/>
 - **Format Sections:** Added, Fixed, Changed, Removed, Deprecated, Security
 - **Version Format:** Semantic Versioning (MAJOR.MINOR.PATCH)
 - **Referenced by:** All changelog-related files
@@ -128,6 +136,7 @@ owners:
 ### 6. Main Changelog File
 
 #### Project Changelog
+
 - **File:** `CHANGELOG.md`
 - **Type:** Keep a Changelog 1.1.0 format
 - **Status:** Active (maintained throughout v1.0.0 release)
@@ -163,6 +172,7 @@ owners:
 The release agent (`.github/agentic-workflows/release.agent.js` or similar) should be aware of:
 
 ### Files to Know About
+
 - [ ] `.github/agents/changelog.agent.md` — Spec agent for changelog management
 - [ ] `agents/changelog/` — Portable changelog agent implementation
 - [ ] `schemas/changelog.schema.json` — Changelog validation schema
@@ -171,6 +181,7 @@ The release agent (`.github/agentic-workflows/release.agent.js` or similar) shou
 - [ ] `CHANGELOG.md` — Main project changelog (Keep a Changelog 1.1.0 format)
 
 ### Operations to Support
+
 - [ ] Validate CHANGELOG.md format before release
 - [ ] Enforce Keep a Changelog 1.1.0 compliance
 - [ ] Convert `[Unreleased]` to version section
@@ -179,6 +190,7 @@ The release agent (`.github/agentic-workflows/release.agent.js` or similar) shou
 - [ ] Check semantic versioning compliance
 
 ### Integration Points
+
 - [ ] Call changelog agent for pre-release validation
 - [ ] Use changelog schema for structure validation
 - [ ] Reference changelog documentation in release notes
@@ -189,17 +201,20 @@ The release agent (`.github/agentic-workflows/release.agent.js` or similar) shou
 ## Recommendations for v1.0.0
 
 ### High Priority
+
 1. **Add back-references:** Update `agents/changelog/README.md` to reference `.github/agents/changelog.agent.md`
 2. **Update documentation:** Ensure `docs/CHANGELOG_AUTOMATION.md` references all agent/schema/workflow files
 3. **Link workflow:** Make `.github/workflows/changelog-management.yml` reference the spec agent
 4. **Schema references:** All files should reference `schemas/changelog.schema.json` as the canonical location
 
 ### Medium Priority
+
 1. **Agentic workflow:** Consider converting `.github/workflows/changelog-management.yml` to `.github/agentic-workflows/changelog.md` for consistency
 2. **Release agent integration:** Ensure release agent is aware of changelog validation requirements
 3. **Documentation review:** Verify all links in documentation are current and point to correct locations
 
 ### Low Priority
+
 1. **Backward compatibility:** Maintain `.schemas/changelog.schema.json` for existing integrations
 2. **Version cleanup:** Archive old changelog versions after release
 
@@ -208,6 +223,7 @@ The release agent (`.github/agentic-workflows/release.agent.js` or similar) shou
 ## Files Requiring Updates
 
 ### Update `agents/changelog/README.md`
+
 Add section linking back to spec agent:
 
 ```markdown
@@ -220,10 +236,13 @@ Add section linking back to spec agent:
 ```
 
 ### Update `docs/CHANGELOG_AUTOMATION.md`
+
 Add "Related Files" section with links to all changelog files.
 
 ### Update `.github/workflows/changelog-management.yml`
+
 Add comments referencing:
+
 - `.github/agents/changelog.agent.md`
 - `schemas/changelog.schema.json`
 

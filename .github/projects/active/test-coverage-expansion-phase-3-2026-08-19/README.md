@@ -48,7 +48,7 @@ This project is part of the test coverage expansion initiative. Related tracking
 
 ### Priority 2: Supporting Scripts
 
-6. **allocate-to-milestone.js** (0 tests)
+1. **allocate-to-milestone.js** (0 tests)
    - Purpose: Allocate issues to milestones
    - Scope: 20-25 tests covering allocation logic, conflict handling, batch operations
    - Status: ⏳ Pending
@@ -56,6 +56,7 @@ This project is part of the test coverage expansion initiative. Related tracking
 ## Implementation Plan
 
 ### Phase 3A: Core Utility Scripts (Phase 3A)
+
 - **allocate-to-milestone.test.js** — 25 tests
 - **audit-issue-metadata.test.js** — 35 tests
 - **bulk-issue-metadata-updater.test.js** — 35 tests
@@ -63,6 +64,7 @@ This project is part of the test coverage expansion initiative. Related tracking
 **Target:** 95 tests, completion by 2026-08-26
 
 ### Phase 3B: Orchestration & Integration (Phase 3B)
+
 - **pr-triage-orchestrator.test.js** — 30 tests
 - **sync-pr-labels.test.js** — 30 tests
 - **staging-validation.test.js** — 30 tests
@@ -72,6 +74,7 @@ This project is part of the test coverage expansion initiative. Related tracking
 ## Test Coverage Strategy
 
 Each test suite will include:
+
 - ✅ **Unit tests** — Individual function testing with mocked dependencies
 - ✅ **Integration tests** — Multi-function workflows with API simulation
 - ✅ **Edge cases** — Boundary conditions, error scenarios, concurrent operations

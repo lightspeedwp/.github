@@ -50,6 +50,7 @@ Release Workflow (Phase 4 + Phase 5A)
 **Purpose:** Main orchestrator for Phase 4 release workflow
 
 **Responsibilities:**
+
 - Parse input parameters (scope, version, message, etc.)
 - Initialize version manager
 - Create release branch
@@ -70,6 +71,7 @@ node scripts/workflows/release/run-release-agent.cjs \
 ```
 
 **Environment Variables:**
+
 ```bash
 INPUT_SCOPE=patch          # patch, minor, or major
 INPUT_VERSION=1.2.4        # Explicit version (overrides scope)
@@ -78,6 +80,7 @@ INPUT_DRY_RUN=true        # Preview without mutations
 ```
 
 **Exit Codes:**
+
 - `0` = Success
 - `1` = Failure
 - `2` = Partial success (some steps completed)
@@ -91,6 +94,7 @@ INPUT_DRY_RUN=true        # Preview without mutations
 **When Called:** After develop PR is merged and release branch is updated
 
 **Steps:**
+
 1. Create branch `release/v{VERSION}`
 2. Update CHANGELOG.md (move [Unreleased] → [VERSION])
 3. Update version files (final confirmation)
@@ -98,11 +102,13 @@ INPUT_DRY_RUN=true        # Preview without mutations
 5. Set PR title and description
 
 **Inputs:**
+
 - `VERSION` — Version to release (e.g., 1.2.4)
 - `RELEASE_NOTES` — Release notes excerpt
 - `PR_NUMBER` — Related develop PR number
 
 **Outputs:**
+
 - GitHub PR number
 - PR URL
 - Branch name
@@ -124,6 +130,7 @@ node scripts/workflows/release/create-main-release-pr.cjs \
 **When Called:** After release branch is merged to main
 
 **Steps:**
+
 1. Verify version tag exists
 2. Generate release notes from changelog
 3. Create GitHub Release with:
@@ -134,11 +141,13 @@ node scripts/workflows/release/create-main-release-pr.cjs \
 5. Generate announcement
 
 **Inputs:**
+
 - `VERSION` — Version released
 - `TAG_NAME` — Git tag (e.g., v1.2.4)
 - `CHANGELOG_PATH` — Path to CHANGELOG.md
 
 **Outputs:**
+
 - Release ID
 - Release URL
 - Release notes (formatted)
@@ -160,6 +169,7 @@ node scripts/workflows/release/create-github-release.cjs \
 **When Called:** After GitHub Release is created
 
 **Steps:**
+
 1. Verify version tag is created
 2. Update repository metadata
 3. Sync branch status
@@ -169,10 +179,12 @@ node scripts/workflows/release/create-github-release.cjs \
 7. Create post-release issue (if needed)
 
 **Inputs:**
+
 - `VERSION` — Released version
 - `PREVIOUS_VERSION` — Previous version (for comparison)
 
 **Outputs:**
+
 - Sync status
 - Cleanup summary
 - Metrics
@@ -186,6 +198,7 @@ node scripts/workflows/release/create-github-release.cjs \
 **When Called:** During dry-run or before release creation
 
 **Steps:**
+
 1. Parse CHANGELOG.md
 2. Extract relevant version entry
 3. Generate formatted release notes
@@ -194,11 +207,13 @@ node scripts/workflows/release/create-github-release.cjs \
 6. Format as GitHub Release notes
 
 **Inputs:**
+
 - `VERSION` — Version to preview
 - `CHANGELOG_PATH` — Path to CHANGELOG.md
 - `FORMAT` — markdown, html, or plain
 
 **Outputs:**
+
 - Formatted release notes
 - Changelog excerpt
 - Contributor summary
@@ -220,6 +235,7 @@ node scripts/workflows/release/build-notes-preview.cjs \
 **When Called:** At start of release workflow
 
 **Steps:**
+
 1. Record release attempt (timestamp, actor, scope)
 2. Check actor in maintainers team
 3. Verify authorization status
@@ -227,6 +243,7 @@ node scripts/workflows/release/build-notes-preview.cjs \
 5. Return authorization status
 
 **Outputs:**
+
 - `is_authorized` (boolean)
 - `unauthorized_attempts` (counter)
 - Telemetry JSON file
@@ -242,6 +259,7 @@ node scripts/workflows/release/build-notes-preview.cjs \
 **When Called:** Manually triggered if release has issues
 
 **Steps:**
+
 1. Verify rollback authority
 2. Identify release tag
 3. Delete GitHub Release
@@ -251,6 +269,7 @@ node scripts/workflows/release/build-notes-preview.cjs \
 7. Notify team
 
 **Danger Zone:** ⚠️ DESTRUCTIVE OPERATION
+
 - Deletes release tags
 - Resets main branch
 - Requires explicit confirmation
@@ -291,6 +310,7 @@ run-release-with-gates.cjs (Phase 5A Wrapper)
 ### Fallback Mechanism
 
 If Phase 5A gates module is unavailable:
+
 1. Log warning
 2. Fall back to Phase 4 directly
 3. Skip gate validation (unsafe)
@@ -305,6 +325,7 @@ If Phase 5A gates module is unavailable:
 **File:** Not centralized; parameters passed via environment variables
 
 **Key Variables:**
+
 ```bash
 INPUT_SCOPE=patch              # Release scope
 INPUT_VERSION=                 # Optional explicit version
@@ -317,6 +338,7 @@ INPUT_PROVIDER=shell           # shell or mcp
 ### GitHub Release Template
 
 **Format:** Markdown with sections:
+
 - Summary of changes
 - Breaking changes (if any)
 - New features
@@ -356,6 +378,7 @@ INPUT_DRY_RUN=true node scripts/workflows/release/run-release-agent.cjs
 ```
 
 Dry-run:
+
 - ✅ Validates all inputs
 - ✅ Runs all checks
 - ✅ Previews changes
@@ -368,10 +391,12 @@ Dry-run:
 ### Control-Plane (`.github`)
 
 **Version Files:**
+
 - `VERSION` (root)
 - `package.json`
 
 **Release Process:**
+
 1. Bump VERSION and package.json
 2. Create PR to develop
 3. Merge PR
@@ -382,12 +407,14 @@ Dry-run:
 ### WordPress Plugin
 
 **Version Files:**
+
 - `VERSION` (root)
 - `{plugin-name}.php` (plugin header)
 - `readme.txt` (stable tag)
 - `package.json` (if present)
 
 **Special Handling:**
+
 - Update plugin header version
 - Update readme.txt stable tag
 - Create WordPress.org release (if applicable)
@@ -395,11 +422,13 @@ Dry-run:
 ### WordPress Theme
 
 **Version Files:**
+
 - `VERSION` (root)
 - `style.css` (theme header)
 - `package.json` (if present)
 
 **Special Handling:**
+
 - Update theme header version
 - Theme-specific changelog format
 
@@ -410,6 +439,7 @@ Dry-run:
 ### Automatic Release Notes
 
 Generated from:
+
 1. **CHANGELOG.md** — Primary source (Keep a Changelog format)
 2. **Git commits** — Secondary source (fallback)
 3. **PR titles** — For context and categorization
@@ -417,6 +447,7 @@ Generated from:
 ### Format
 
 **Sections:**
+
 - 🎉 Breaking Changes
 - ✨ New Features
 - 🐛 Bug Fixes
@@ -433,6 +464,7 @@ Generated from:
 ### "Failed to create PR to develop"
 
 Check:
+
 - Branch permissions (bot needs write access)
 - GitHub API token is valid
 - Base branch (develop) exists
@@ -441,6 +473,7 @@ Check:
 ### "Version mismatch detected"
 
 All version files must match:
+
 - `VERSION` file
 - `package.json` version
 - Plugin header version
@@ -450,6 +483,7 @@ All version files must match:
 ### "Release notes not generated"
 
 Check:
+
 - CHANGELOG.md exists and is valid (Keep a Changelog format)
 - [Unreleased] section has entries
 - Version is found in changelog
@@ -457,6 +491,7 @@ Check:
 ### "GitHub Release already exists"
 
 Cannot create duplicate GitHub Release:
+
 - Check existing releases at `/releases`
 - Delete manually if needed
 - Increment version and retry
@@ -476,12 +511,14 @@ Cannot create duplicate GitHub Release:
 ## Script Dependencies
 
 **External Tools:**
+
 - `git` (2.30+) — Version control
 - `gh` (GitHub CLI) — GitHub API access
 - `node` (18+) — JavaScript runtime
 - `npm` (8+) — Package management
 
 **Node Modules:**
+
 - Built-in modules only (no external dependencies)
 
 ---
