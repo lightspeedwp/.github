@@ -1,10 +1,21 @@
 // Shared template validation helpers for GitHub Actions workflows
 // Used by: validate-pr-template.yml, template-enforcement.yml
 
+/**
+ * Removes all HTML comments from text.
+ * @param {string} text - The text to clean.
+ * @returns {string} Text with HTML comments removed.
+ */
 function stripHtmlComments(text) {
   return (text || '').replace(/<!--[\s\S]*?-->/g, '');
 }
 
+/**
+ * Extracts content between a heading and the next heading at the same or higher level.
+ * @param {string} body - The document body to search.
+ * @param {RegExp} headingRegex - Regex to match the target heading.
+ * @returns {string} Content between the heading and the next heading (trimmed).
+ */
 function sectionBody(body, headingRegex) {
   const text = (body || '').replace(/\r\n/g, '\n');
   const match = text.match(headingRegex);
@@ -24,6 +35,12 @@ function sectionBody(body, headingRegex) {
   return text.slice(start, end).trim();
 }
 
+/**
+ * Detects whether text contains a GitHub issue or pull request reference.
+ * Supports same-repo (#123), cross-repo (owner/repo#123), and full URLs.
+ * @param {string} sectionText - The text to search.
+ * @returns {boolean} True if an issue reference is found.
+ */
 function hasIssueReference(sectionText) {
   const cleaned = stripHtmlComments(sectionText);
   // Matches same-repo (#123) or cross-repo (owner/repo#123) issue references (optionally preceded by
@@ -32,11 +49,22 @@ function hasIssueReference(sectionText) {
     || /https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/(?:issues|pull)\/\d+\b/.test(cleaned);
 }
 
+/**
+ * Detects whether text contains a non-placeholder changelog entry.
+ * @param {string} sectionText - The text to search.
+ * @returns {boolean} True if a valid changelog entry exists.
+ */
 function hasChangelogEntry(sectionText) {
   const cleaned = stripHtmlComments(sectionText);
   return /(?:^|\n)\s*[-*]\s+(?!\[?\s*placeholder\s*\]?)(?:.+\S)/im.test(cleaned);
 }
 
+/**
+ * Detects whether all checklist items are checked.
+ * Returns false if any items are unchecked or no checklist exists.
+ * @param {string} sectionText - The text to search.
+ * @returns {boolean} True if all checklist items are checked.
+ */
 function hasCompletedChecklist(sectionText) {
   const cleaned = stripHtmlComments(sectionText);
   const hasUnchecked = /(?:^|\n)\s*-\s*\[\s\]\s*/.test(cleaned);
@@ -44,6 +72,14 @@ function hasCompletedChecklist(sectionText) {
   return hasChecked && !hasUnchecked;
 }
 
+/**
+ * Extracts all linked issue numbers from text.
+ * Supports closing keywords (closes, fixes, resolves) and relating keyword (relates to).
+ * Handles same-repo (#123) and cross-repo (owner/repo#123) references.
+ * Returns deduplicated array of issue numbers.
+ * @param {string} text - The text to parse.
+ * @returns {number[]} Array of unique issue numbers.
+ */
 function extractIssueNumbers(text) {
   const cleaned = stripHtmlComments(text);
   const issuePattern = /(?:closes|fixes|resolves|relates to)\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)|#(\d+)/gi;
@@ -60,6 +96,15 @@ function extractIssueNumbers(text) {
   return [...new Set(issues)]; // Remove duplicates
 }
 
+/**
+ * Extracts issue numbers that are being closed (not merely related).
+ * Only matches closing keywords: closes, fixes, resolves.
+ * Ignores "relates to" keyword which does not close issues.
+ * Handles same-repo (#123) and cross-repo (owner/repo#123) references.
+ * Returns deduplicated array of issue numbers.
+ * @param {string} text - The text to parse.
+ * @returns {number[]} Array of unique issue numbers being closed.
+ */
 function extractClosingIssueNumbers(text) {
   const cleaned = stripHtmlComments(text);
   const closingPattern = /(?:closes|fixes|resolves)\s+(?:[\w.-]+\/[\w.-]+)?#(\d+)/gi;
@@ -73,6 +118,15 @@ function extractClosingIssueNumbers(text) {
   return [...new Set(issues)]; // Remove duplicates
 }
 
+/**
+ * Validates that a PR body contains all required sections and content.
+ * Release branches check for "Linked issues & merged PRs" instead of "Linked issues".
+ * Changelog section is skipped if the PR has the "meta:no-changelog" label.
+ * @param {string} body - The PR body text.
+ * @param {Array} labels - Array of label objects with 'name' property.
+ * @param {string} headRef - The PR head branch name (used to detect release branches).
+ * @returns {object} Object with 'missing' array listing absent required sections.
+ */
 function validatePullRequestBody(body, labels, headRef) {
   const labelNames = new Set((labels || []).map((label) => label.name));
   const missing = [];

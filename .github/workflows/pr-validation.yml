@@ -145,7 +145,8 @@ jobs:
               checkText += 'This PR attempts to **close epic issue(s)** using the "Closes" keyword. Epic issues should only be closed when all child tasks are complete.\n\n';
               checkText += '**Affected Epic Issues:**\n\n';
               epicIssues.forEach((issue) => {
-                checkText += `- [#${issue.number}](${issue.url}) — ${issue.title}\n`;
+                const safeTitle = (issue.title || '').replace(/[`\\]/g, '\\$&');
+                checkText += `- [#${issue.number}](${issue.url}) — \`${safeTitle}\`\n`;
               });
               checkText += '\n### How to Fix\n\n';
               checkText += 'Replace the closing keyword with "relates to" for epic issues:\n\n';
@@ -272,7 +273,8 @@ jobs:
               message += '### ❌ Epic Linking Violation\n\n';
               message += 'This PR attempts to close epic issue(s):\n\n';
               epicIssues.forEach((issue) => {
-                message += `- [#${issue.number}](${issue.url}) — ${issue.title}\n`;
+                const safeTitle = (issue.title || '').replace(/[`\\]/g, '\\$&');
+                message += `- [#${issue.number}](${issue.url}) — \`${safeTitle}\`\n`;
               });
               message += '\n**Fix:** Use "Relates to" instead of "Closes" for epic issues.\n\n';
             }
