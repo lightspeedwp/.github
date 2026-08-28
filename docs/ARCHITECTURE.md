@@ -1,6 +1,7 @@
 ---
 document_type: "Architecture Guide"
 file_type: documentation
+description: "Architecture and operational guide for the Issue Management Orchestration system"
 version: "1.0"
 created_date: 2026-08-27
 last_updated: 2026-08-27

@@ -191,7 +191,6 @@ async function main() {
 
     const issueNumber = args.issue;
     const repo = args.repo;
-    const token = args.token;
     const type = args.type || 'task';
     const threshold = parseFloat(args.threshold) || 0.80;
 
