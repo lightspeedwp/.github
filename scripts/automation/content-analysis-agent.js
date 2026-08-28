@@ -5,9 +5,6 @@
  * Part of the Issue Management Orchestration Workflow
  */
 
-const fs = require('fs');
-const path = require('path');
-
 // Simple argument parser for this script
 function parseArgs(args) {
   const result = {};
@@ -63,7 +60,6 @@ function analyzeIssue(title, body) {
 
   let detectedType = 'task'; // Conservative default
   let confidence = 0;
-  let bestMatch = null;
 
   // Test each type pattern
   for (const [type, { pattern }] of Object.entries(typePatterns)) {
@@ -74,7 +70,6 @@ function analyzeIssue(title, body) {
       if (matchCount > confidence) {
         confidence = Math.min(matchCount / 5, 1.0); // Normalize to 0-1
         detectedType = type;
-        bestMatch = type;
       }
     }
   }
@@ -95,8 +90,7 @@ function analyzeIssue(title, body) {
 
   return {
     type: detectedType,
-    confidence: Math.round(confidence * 100) / 100,
-    bestMatch: bestMatch
+    confidence: Math.round(confidence * 100) / 100
   };
 }
 
@@ -127,29 +121,25 @@ function extractKeywords(title, body) {
 
 // Assess structure quality
 function assessStructure(title, body) {
-  let quality = 'good';
   let score = 100;
 
   if (!title || title.length < 5) {
-    quality = 'poor';
     score -= 30;
   } else if (title.length < 10) {
     score -= 10;
   }
 
   if (!body || body.length < 20) {
-    quality = 'poor';
     score -= 40;
   } else if (body.length < 100) {
-    quality = 'fair';
     score -= 20;
   }
 
   if (body && (body.includes('**Steps:') || body.includes('**Expected:') || body.includes('**Actual:'))) {
     score += 20;
-    quality = 'excellent';
   }
 
+  let quality;
   if (score >= 80) quality = 'excellent';
   else if (score >= 60) quality = 'good';
   else if (score >= 40) quality = 'fair';
@@ -164,10 +154,9 @@ async function main() {
     const args = parseArgs(process.argv.slice(2));
 
     // Mock GitHub API for demonstration
-    // In production, this would fetch from GitHub API using the token
+    // In production, this would fetch from GitHub API using a token
     const issueNumber = args.issue;
     const repo = args.repo;
-    const token = args.token;
 
     if (!issueNumber || !repo) {
       console.error('Missing required arguments: --issue and --repo');
@@ -185,7 +174,7 @@ async function main() {
     };
 
     // Perform analysis
-    const { type, confidence, bestMatch } = analyzeIssue(issue.title, issue.body);
+    const { type, confidence } = analyzeIssue(issue.title, issue.body);
     const keywords = extractKeywords(issue.title, issue.body);
     const structure = assessStructure(issue.title, issue.body);
 
