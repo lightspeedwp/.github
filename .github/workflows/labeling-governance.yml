@@ -393,7 +393,7 @@ jobs:
               }
             }
 
-            core.setOutput('conclusion', conclusion);
+            core.setOutput('status', conclusion);
 
       - name: Enforce labeling requirement
         if: steps.check.outputs.status == 'failure' || steps.validate.outputs.validation_status != 'valid'
