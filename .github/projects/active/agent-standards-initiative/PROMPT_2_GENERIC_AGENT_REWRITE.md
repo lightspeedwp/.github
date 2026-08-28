@@ -36,6 +36,7 @@
 You are rewriting **{AGENT_NAME}** from ChatGPT format into a standardized multi-provider agent.
 
 **Agent Details:**
+
 - **Name:** {AGENT_NAME}
 - **Slug:** {agent-slug}
 - **Domain:** {DOMAIN}
@@ -46,6 +47,7 @@ You are rewriting **{AGENT_NAME}** from ChatGPT format into a standardized multi
 - **Plugin:** `lightspeed-{DOMAIN}-{FOCUS}` (create or update)
 
 **Standards Reference:**
+
 - Folder structure: See `.github/agents/playwright-testing-agent/` (pilot implementation)
 - Naming conventions: See `ai/agents-unified.md`
 - Instruction files: See `.github/instructions/agent-creation-workflow.instructions.md`
@@ -81,6 +83,7 @@ You are rewriting **{AGENT_NAME}** from ChatGPT format into a standardized multi
 Create `.github/tmp/{agent-slug}-export-analysis.md` with findings.
 
 **Success Criteria:**
+
 - [ ] Folder structure documented
 - [ ] Capabilities listed (5-10 items)
 - [ ] Dependencies identified
@@ -91,6 +94,7 @@ Create `.github/tmp/{agent-slug}-export-analysis.md` with findings.
 #### Step 1.2: Determine Plugin Grouping
 
 **Task:** Decide if this agent:
+
 1. Gets its own plugin, OR
 2. Joins an existing plugin
 
@@ -116,6 +120,7 @@ Is this agent part of {DOMAIN}?
 Document plugin decision in `.github/tmp/{agent-slug}-plugin-plan.md`
 
 **Success Criteria:**
+
 - [ ] Plugin decision made
 - [ ] Rationale documented
 
@@ -147,6 +152,7 @@ cp .github/agents/{agent-slug}-agent-backup/checksums.sha256 .github/agents/{age
 New folder structure created and ready for content.
 
 **Success Criteria:**
+
 - [ ] New folder created
 - [ ] Backup preserved
 - [ ] Skills & manifests copied
@@ -292,6 +298,7 @@ hooks:
 `.github/agents/{agent-slug}-agent/AGENT.md` complete with all sections.
 
 **Success Criteria:**
+
 - [ ] YAML frontmatter valid
 - [ ] All sections filled
 - [ ] Examples provided
@@ -344,6 +351,7 @@ Your role is to:
 ```
 
 **Guidance:**
+
 - Keep language generic (no provider references)
 - Focus on "what" not "how"
 - Make constraints explicit
@@ -353,6 +361,7 @@ Your role is to:
 `.github/agents/{agent-slug}-agent/shared/core-prompt.md` (500-1000 words)
 
 **Success Criteria:**
+
 - [ ] Core prompt written
 - [ ] No provider-specific syntax
 - [ ] Constraints clear
@@ -400,6 +409,7 @@ You are deployed as a Claude AI agent for {purpose}.
 5. **Add Claude Code integration notes**
 
 **Tools to Consider:**
+
 - File system operations
 - Markdown generation
 - Code execution
@@ -410,6 +420,7 @@ You are deployed as a Claude AI agent for {purpose}.
 `.github/agents/{agent-slug}-agent/claude/agent.md` (300-500 words)
 
 **Success Criteria:**
+
 - [ ] Claude tools documented
 - [ ] Guardrails clear
 - [ ] Response format specified
@@ -459,6 +470,7 @@ You are a Copilot skill for {purpose}.
 `.github/agents/{agent-slug}-agent/copilot/agent.md` (300-500 words)
 
 **Success Criteria:**
+
 - [ ] Copilot features clear
 - [ ] Skills documented
 - [ ] Response format specified
@@ -505,6 +517,7 @@ You are deployed via OpenAI APIs for {purpose}.
 `.github/agents/{agent-slug}-agent/openai/agent.md` (300-500 words)
 
 **Success Criteria:**
+
 - [ ] Functions documented
 - [ ] JSON format clear
 - [ ] API example provided
@@ -550,6 +563,7 @@ You are deployed via OpenAI APIs for {purpose}.
 `.github/agents/{agent-slug}-agent/claude/tools.json` (5-10 tools)
 
 **Success Criteria:**
+
 - [ ] Tools match capabilities
 - [ ] Parameters defined
 - [ ] Valid JSON
@@ -584,6 +598,7 @@ skills:
 `.github/agents/{agent-slug}-agent/copilot/skills.yaml`
 
 **Success Criteria:**
+
 - [ ] Skills exist in skills/
 - [ ] References valid
 - [ ] YAML valid
@@ -626,6 +641,7 @@ skills:
 `.github/agents/{agent-slug}-agent/openai/tools.json`
 
 **Success Criteria:**
+
 - [ ] Functions follow OpenAI spec
 - [ ] Parameters clear
 - [ ] Valid JSON
@@ -654,6 +670,7 @@ mkdir -p .github/plugins/{existing-plugin}/agents/{agent-slug}
 Plugin folder structure ready for content.
 
 **Success Criteria:**
+
 - [ ] Folder created or updated
 - [ ] Subfolder structure in place
 
@@ -703,6 +720,7 @@ Plugin folder structure ready for content.
 Both manifest files created/updated.
 
 **Success Criteria:**
+
 - [ ] plugin.json valid
 - [ ] copilot-plugin.json valid
 - [ ] All agent references valid
@@ -720,6 +738,7 @@ mkdir -p .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/.gemini-plugin
 ```
 
 **For Each Provider:**
+
 - Create `manifest.json` (provider-specific config)
 - Create `instructions.md` (provider-specific rules)
 
@@ -727,6 +746,7 @@ mkdir -p .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/.gemini-plugin
 Provider subdirectories with configs.
 
 **Success Criteria:**
+
 - [ ] Directories created
 - [ ] Manifest files created
 - [ ] Instructions created
@@ -740,6 +760,7 @@ Provider subdirectories with configs.
 **Task:** Write `.github/plugins/lightspeed-{DOMAIN}-{FOCUS}/INSTALL.md`
 
 **Include:**
+
 - Installation for Claude
 - Installation for GitHub Copilot
 - Installation for OpenAI
@@ -749,6 +770,7 @@ Provider subdirectories with configs.
 Complete INSTALL.md
 
 **Success Criteria:**
+
 - [ ] 3 provider installation methods
 - [ ] Troubleshooting included
 - [ ] Links verified
@@ -760,6 +782,7 @@ Complete INSTALL.md
 **Task:** Write `.github/plugins/lightspeed-{DOMAIN}-{FOCUS}/README.md`
 
 **Include:**
+
 - Plugin overview
 - Agents included (with descriptions)
 - Skills included
@@ -770,6 +793,7 @@ Complete INSTALL.md
 Complete README.md
 
 **Success Criteria:**
+
 - [ ] Overview clear
 - [ ] Agents documented
 - [ ] Quick start provided
@@ -779,6 +803,7 @@ Complete README.md
 #### Step 6.3: Update Indexes
 
 **Task:** Update:
+
 - `.github/agents/README.md` — Add {Agent Name} to agent list
 - `.github/agents/agent.md` — Add {Agent Name} to index
 - `.github/plugins/README.md` — Add plugin to list
@@ -788,6 +813,7 @@ Complete README.md
 All indexes updated.
 
 **Success Criteria:**
+
 - [ ] Agent listed in `.github/agents/README.md`
 - [ ] Agent listed in `agent.md` index
 - [ ] Plugin listed in plugins README
@@ -800,6 +826,7 @@ All indexes updated.
 #### Step 7.1: Validate Schemas
 
 **Task:** Run schema validation for:
+
 - `AGENT.md` frontmatter (against `agent-config.schema.json`)
 - `plugin.json` (against `plugin-manifest.schema.json`)
 - All `tools.json` files (against `provider-config.schema.json`)
@@ -812,6 +839,7 @@ npm run validate:schema -- .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/
 ```
 
 **Success Criteria:**
+
 - [ ] All schema validations pass
 
 ---
@@ -826,6 +854,7 @@ npm run validate:hooks -- .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/
 ```
 
 **Success Criteria:**
+
 - [ ] agent-spec-validator passes
 - [ ] multi-provider-consistency-checker passes
 - [ ] plugin-integrity-checker passes
@@ -837,24 +866,28 @@ npm run validate:hooks -- .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/
 **Task:** Verify each provider config loads correctly.
 
 **For Claude:**
+
 ```bash
 # Load agent.md and tools.json
 node -e "const yaml = require('yaml'); console.log(yaml.parse(fs.readFileSync('.github/agents/{agent-slug}-agent/claude/agent.md')))"
 ```
 
 **For Copilot:**
+
 ```bash
 # Validate copilot-plugin.json
 node -e "const json = require('.github/plugins/lightspeed-{DOMAIN}-{FOCUS}/copilot-plugin.json'); console.log(json)"
 ```
 
 **For OpenAI:**
+
 ```bash
 # Validate tools.json
 node -e "const json = require('.github/agents/{agent-slug}-agent/openai/tools.json'); console.log(json)"
 ```
 
 **Success Criteria:**
+
 - [ ] Claude config loads
 - [ ] Copilot config loads
 - [ ] OpenAI config loads
@@ -864,6 +897,7 @@ node -e "const json = require('.github/agents/{agent-slug}-agent/openai/tools.js
 #### Step 7.4: Documentation Check
 
 **Task:** Verify:
+
 - [ ] README links work
 - [ ] INSTALL.md complete
 - [ ] Agent descriptions clear
@@ -977,6 +1011,7 @@ Use this to track progress:
 ## SUCCESS CRITERIA FOR COMPLETION
 
 ✅ **Agent Rewrite Complete When:**
+
 1. Folder structure matches standard
 2. AGENT.md fully written with YAML frontmatter
 3. Core prompt (provider-agnostic) written

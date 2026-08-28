@@ -72,18 +72,21 @@ This project is part of:
 ## 🎯 Strategic Approach
 
 ### Single Portable Agent
+
 - **One codebase** for all repos (GitHub control plane + WordPress plugins/themes)
 - **Configuration-driven** differences via `.claude/pr-agent.config.yml`
 - **Optional hooks** for WordPress-specific customization
 - **Skill composition** allows enabling/disabling WordPress-specific skills per repo
 
 ### Test Strategy
+
 - **Unit Tests:** 95%+ coverage (all skills independently tested)
 - **Integration Tests:** Mock GitHub API + real repo E2E
 - **Coverage:** Core agent logic, skill interfaces, configuration loading
 - **No dependencies:** Tests live in documentation project folder only
 
 ### Documentation Scope
+
 - **API Reference:** Skill interfaces, agent contracts, configuration schema
 - **Deployment Guides:** Per-repo type (GitHub vs WordPress plugin vs WordPress theme)
 - **Troubleshooting:** Common issues, debug modes, rollback procedures
@@ -94,11 +97,13 @@ This project is part of:
 ## 📊 Phase Breakdown
 
 ### Week 1 (Aug 16–18)
+
 - ✅ OpenSpec with implementation details
 - ✅ WordPress compatibility analysis
 - ✅ Deployment & test strategy
 
 ### Week 2 (Aug 19–20)
+
 - ✅ Architecture documentation
 - ✅ Skill interface specifications
 - ✅ Documentation templates & examples
@@ -134,10 +139,12 @@ This project is part of:
 ## 🎓 Reference Documents
 
 ### Phase 1 Deliverables
+
 - [OPENSPEC.md (Phase 1)](https://github.com/lightspeedwp/.github/blob/pr-creation-agent-design/.github/projects/active/pr-creation-agent-design-2026-08-12/OPENSPEC.md)
 - [DESIGN_QUESTIONS.md (Phase 1)](https://github.com/lightspeedwp/.github/blob/pr-creation-agent-design/.github/projects/active/pr-creation-agent-design-2026-08-12/DESIGN_QUESTIONS.md)
 
 ### Related Specifications
+
 - [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md) — Branch naming rules
 - [LABELING.md](../../../docs/LABELING.md) — Label strategy
 - [CLAUDE.md](../../../CLAUDE.md) — Repository governance
@@ -169,6 +176,7 @@ This project is part of:
 **Phase 2 In Progress:** 2026-08-16 → 2026-08-20  
 **Phase 3 Implementation:** 2026-08-20 → 2026-09-02  
 **Phase 4 GA & Rollout:** 2026-09-02 → 2026-09-09
+
 ## Visual Workflow
 
 ```mermaid

@@ -21,6 +21,7 @@ stability: stable
 - **Valid diagrams**: 276
 - **Error diagrams**: 0
 - **Success rate**: 100.0%
+
 ## Files Analyzed
 
 - AGENTS.md
@@ -1108,7 +1109,7 @@ stability: stable
 - agents/meta-agent/PHASE-2B-COMPLETION.md
 - agents/meta-agent/PHASE-2C-PLAN.md
 - agents/meta-agent/README.md
-- agents/meta-agent/__tests__/fixtures/sample-readme.md
+- agents/meta-agent/**tests**/fixtures/sample-readme.md
 - agents/metadata-agent/README.md
 - agents/pagespeed-agent/AGENT.md
 - agents/pagespeed-agent/README.md
@@ -5170,15 +5171,15 @@ stability: stable
 - scripts/agents/PHASE-3-GUIDE.md
 - scripts/agents/PHASE-4-GUIDE.md
 - scripts/agents/TRIAGE-AGENT-GUIDE.md
-- scripts/agents/__tests__/README.md
+- scripts/agents/**tests**/README.md
 - scripts/agents/includes/README.md
-- scripts/agents/includes/__tests__/README.md
+- scripts/agents/includes/**tests**/README.md
 - scripts/automation/ADD-ISSUE-SECTIONS-GUIDE.md
 - scripts/automation/MANAGE_STALE_ISSUES_README.md
 - scripts/automation/README.md
 - scripts/automation/SYNC_PR_LABELS_README.md
 - scripts/automation/issue-agent/README.md
-- scripts/automation/issue-agent/shared/__tests__/fixtures/README.md
+- scripts/automation/issue-agent/shared/**tests**/fixtures/README.md
 - scripts/metrics/PROGRESS.md
 - scripts/metrics/README.md
 - scripts/metrics/docs/HANDOFF.md
@@ -5188,19 +5189,19 @@ stability: stable
 - scripts/metrics/docs/USAGE_GUIDE.md
 - scripts/metrics/integrations/README.md
 - scripts/validation/README.md
-- scripts/validation/__fixtures__/pr-templates/README.md
-- scripts/validation/__fixtures__/pr-templates/invalid/missing-changelog-entry.md
-- scripts/validation/__fixtures__/pr-templates/invalid/missing-linked-issues.md
-- scripts/validation/__fixtures__/pr-templates/invalid/unchecked-checklist.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_bug.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_chore.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_ci.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_dep_update.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_docs.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_feature.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_hotfix.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_refactor.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_release.md
+- scripts/validation/**fixtures**/pr-templates/README.md
+- scripts/validation/**fixtures**/pr-templates/invalid/missing-changelog-entry.md
+- scripts/validation/**fixtures**/pr-templates/invalid/missing-linked-issues.md
+- scripts/validation/**fixtures**/pr-templates/invalid/unchecked-checklist.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_bug.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_chore.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_ci.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_dep_update.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_docs.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_feature.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_hotfix.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_refactor.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_release.md
 - scripts/workflows/metrics/TASK_2.3_DOCUMENTATION.md
 - skills/README.md
 - skills/agency-scope-change-control/SKILL.md
@@ -5908,8 +5909,6 @@ stability: stable
 ## Detailed Results
 
 ✅ All diagrams are syntactically valid!
-
-
 
 ## Recommendations
 

@@ -1,4 +1,5 @@
 # STANDALONE PROMPT: Phase 1 Complete Execution
+
 ## Playwright Testing Agent Rewrite + Repository Standardization
 
 **Copy this entire prompt into a fresh Claude Code chat to execute Phase 1**
@@ -49,12 +50,14 @@ Three detailed planning documents have been prepared for you. **Reference these 
 **Objective:** Review existing instruction files to identify conflicts with multi-provider agent standards.
 
 **Action:**
+
 ```bash
 cd /Users/ash/Studio/LightSpeedWP.Agency/.github
 ls -la instructions/ | grep -E "agent|automation|copilot|plugin"
 ```
 
 **Review These Files:**
+
 - `instructions/agent-spec.instructions.md` — Agent specification standards
 - `instructions/automation.instructions.md` — Agent automation patterns
 - `instructions/copilot-operations.instructions.md` — GitHub Copilot rules
@@ -62,12 +65,14 @@ ls -la instructions/ | grep -E "agent|automation|copilot|plugin"
 
 **Deliverable:**
 Create `.github/tmp/instruction-audit.md` documenting:
+
 1. Which instruction files support multi-provider agents
 2. Gaps where new files are needed
 3. Any conflicts with proposed standards
 4. Recommended modifications (if any)
 
 **Success Criteria:**
+
 - [ ] All instruction files reviewed
 - [ ] Audit report created
 - [ ] No conflicts blocking Phase 1 (or conflicts documented with workarounds)
@@ -79,6 +84,7 @@ Create `.github/tmp/instruction-audit.md` documenting:
 **Objective:** Review existing hooks and propose new hooks for agent validation.
 
 **Action:**
+
 ```bash
 ls -la .github/hooks/
 cat .github/hooks/hook-registry.json
@@ -87,6 +93,7 @@ cat .github/hooks/hook-registry.json
 **Current Hooks:** secrets-scanner, session-logger, tool-guardian
 
 **Propose 4 New Hooks:**
+
 1. `agent-spec-validator.js` — Validates agent YAML frontmatter
 2. `multi-provider-consistency-checker.js` — Detects provider divergences
 3. `plugin-integrity-checker.js` — Validates plugin manifests
@@ -94,6 +101,7 @@ cat .github/hooks/hook-registry.json
 
 **Deliverable:**
 Create `.github/tmp/hooks-audit.md` with structure for each hook:
+
 ```markdown
 ## Proposed Hook: {hook-name}
 
@@ -109,6 +117,7 @@ Create `.github/tmp/hooks-audit.md` with structure for each hook:
 ```
 
 **Success Criteria:**
+
 - [ ] All 4 hooks documented with clear purpose, triggers, actions
 - [ ] Integration points specified
 - [ ] Code outlines provided
@@ -120,18 +129,21 @@ Create `.github/tmp/hooks-audit.md` with structure for each hook:
 **Objective:** Review existing schemas and define new ones for multi-provider agents.
 
 **Action:**
+
 ```bash
 ls -la .github/.schemas/ | grep -E "agent|plugin|provider"
 cat .github/.schemas/schema-registry.json
 ```
 
 **Current Relevant Schemas:**
+
 - `agent-config.schema.json`
 - `plugin-manifest.schema.json`
 - `skill-agent-config.schema.json`
 - `frontmatter.schema.json`
 
 **Define 4 New Schemas:**
+
 1. **multi-provider-agent.schema.json** — Validates multi-provider agent structure
    - Properties: `providers` (array), `tools` (object), `capabilities` (array), `provider_overrides` (object)
 
@@ -146,12 +158,14 @@ cat .github/.schemas/schema-registry.json
 
 **Deliverable:**
 Create `.github/tmp/schema-audit.md` documenting:
+
 - Existing schema coverage (good, gaps)
 - 4 new schemas with example valid JSON for each
 - Validation rules per schema
 - Registry updates needed
 
 **Success Criteria:**
+
 - [ ] All 4 new schemas defined
 - [ ] Each has example valid JSON
 - [ ] Validation rules documented
@@ -164,6 +178,7 @@ Create `.github/tmp/schema-audit.md` documenting:
 **Objective:** Review AI configurations and propose updates.
 
 **Action:**
+
 ```bash
 ls -la .github/ai/
 cat .github/ai/Claude.md
@@ -172,18 +187,21 @@ cat .github/ai/agents.md
 ```
 
 **Propose These Updates:**
+
 1. New file: `agents-unified.md` — Meta-config for all agents (provider support matrix)
 2. New file: `multi-provider-mapping.md` — Tool mapping, capability parity matrix
 3. Updates to Claude.md, Gemini.md if needed
 
 **Deliverable:**
 Create `.github/tmp/ai-config-audit.md` documenting:
+
 - Current AI config state
 - Provider support matrix (which agents work with which providers)
 - Migration tracking (status of each agent)
 - Proposed new files & updates
 
 **Success Criteria:**
+
 - [ ] AI configs reviewed
 - [ ] Provider matrix created
 - [ ] Proposed updates documented
@@ -195,6 +213,7 @@ Create `.github/tmp/ai-config-audit.md` documenting:
 **Objective:** Understand memory persistence and work-focus folder organization.
 
 **Action:**
+
 ```bash
 ls -la .github/.remember/
 ls -la .github/.schemas/memory/
@@ -202,12 +221,14 @@ ls -la .github/.schemas/memory/
 
 **Deliverable:**
 Create `.github/tmp/memory-audit.md` documenting:
+
 - Current memory schema
 - How agent state should persist
 - Proposed updates to memory schema for agents
 - Work-focus folder structure recommendations
 
 **Success Criteria:**
+
 - [ ] Memory schema reviewed
 - [ ] Agent memory persistence model proposed
 
@@ -264,6 +285,7 @@ Create `.github/tmp/standardization-framework.md` containing:
 ```
 
 **Success Criteria:**
+
 - [ ] Naming conventions documented
 - [ ] Folder structures with examples
 - [ ] Validation rules clear
@@ -277,6 +299,7 @@ Create `.github/tmp/standardization-framework.md` containing:
 **Objective:** Understand current playwright-testing-agent structure.
 
 **Action:**
+
 ```bash
 ls -la .github/agents/playwright-testing-agent/
 ls .github/agents/playwright-testing-agent/agent/
@@ -286,6 +309,7 @@ ls .github/agents/playwright-testing-agent/manifests/
 
 **Deliverable:**
 Create `.github/tmp/playwright-export-analysis.md` documenting:
+
 - Current folder structure
 - Files in each subfolder
 - Agent capabilities & tools from manifests
@@ -293,6 +317,7 @@ Create `.github/tmp/playwright-export-analysis.md` documenting:
 - Mapping plan to new structure
 
 **Success Criteria:**
+
 - [ ] Current structure fully understood
 - [ ] Mapping to new structure documented
 
@@ -303,6 +328,7 @@ Create `.github/tmp/playwright-export-analysis.md` documenting:
 **Objective:** Restructure agent with standardized format.
 
 **Actions:**
+
 ```bash
 # Backup existing
 mv .github/agents/playwright-testing-agent .github/agents/playwright-testing-agent-backup
@@ -324,6 +350,7 @@ cp .github/agents/playwright-testing-agent-backup/checksums.sha256 \
 New folder structure with preserved data from ChatGPT export.
 
 **Success Criteria:**
+
 - [ ] New folder created
 - [ ] Old backup preserved as reference
 - [ ] Skills & manifests copied
@@ -409,6 +436,7 @@ security:
 Complete `.github/agents/playwright-testing-agent/AGENT.md` with all sections filled.
 
 **Success Criteria:**
+
 - [ ] YAML frontmatter valid
 - [ ] All sections completed (Overview, Capabilities, Limitations, Examples, Security, Performance)
 - [ ] Validates against `agent-config.schema.json`
@@ -465,6 +493,7 @@ You are a Playwright testing automation expert. Your role is to:
 Complete `.github/agents/playwright-testing-agent/shared/core-prompt.md` (500-1000 words).
 
 **Success Criteria:**
+
 - [ ] Core prompt written
 - [ ] No provider-specific syntax
 - [ ] Constraints clear
@@ -521,6 +550,7 @@ Return JSON:
   ]
 }
 ```
+
 ```
 
 **B. Create `.github/agents/playwright-testing-agent/copilot/agent.md`**
@@ -559,6 +589,7 @@ You are a Copilot skill for Playwright testing within GitHub's ecosystem.
 
 **Recommendations:** [specific suggestions]
 ```
+
 ```
 
 **C. Create `.github/agents/playwright-testing-agent/openai/agent.md`**
@@ -600,6 +631,7 @@ When called via OpenAI API:
   }
 }
 ```
+
 ```
 
 **Deliverable:**
@@ -739,6 +771,7 @@ skills:
 All three tool definition files (claude/tools.json, copilot/skills.yaml, openai/tools.json).
 
 **Success Criteria:**
+
 - [ ] Claude tools.json with 5+ tools
 - [ ] Copilot skills.yaml with skill references
 - [ ] OpenAI tools.json following OpenAI spec
@@ -752,6 +785,7 @@ All three tool definition files (claude/tools.json, copilot/skills.yaml, openai/
 **Objective:** Create `lightspeed-playwright-testing` plugin.
 
 **Action:**
+
 ```bash
 mkdir -p .github/plugins/lightspeed-playwright-testing/{agents,skills,hooks,.claude-plugin,.codex-plugin,.gemini-plugin}
 ```
@@ -760,6 +794,7 @@ mkdir -p .github/plugins/lightspeed-playwright-testing/{agents,skills,hooks,.cla
 Plugin folder structure created and ready for content.
 
 **Success Criteria:**
+
 - [ ] Folder structure created
 - [ ] Subdirectories in place
 
@@ -849,6 +884,7 @@ Plugin folder structure created and ready for content.
 Both manifest files created and validated.
 
 **Success Criteria:**
+
 - [ ] plugin.json valid and complete
 - [ ] copilot-plugin.json valid and complete
 - [ ] All agent/skill references valid
@@ -906,7 +942,8 @@ npx playwright test
 
 ## Support
 
-contact@lightspeedwp.agency
+<contact@lightspeedwp.agency>
+
 ```
 
 **B. Create `.github/plugins/lightspeed-playwright-testing/INSTALL.md`**
@@ -922,13 +959,14 @@ contact@lightspeedwp.agency
    cd .github/plugins/lightspeed-playwright-testing
    ```
 
-2. Add to Claude Code settings
+1. Add to Claude Code settings
 
-3. Verify: `npx playwright --version`
+2. Verify: `npx playwright --version`
 
 ## GitHub Copilot
 
 1. Enable in Copilot:
+
    ```bash
    gh copilot plugin add lightspeedwp/lightspeed-playwright-testing
    ```
@@ -946,15 +984,18 @@ contact@lightspeedwp.agency
 ## Troubleshooting
 
 **Missing Playwright:**
+
 ```bash
 npm install @playwright/test
 npx playwright install
 ```
 
 **Plugin Not Recognized:**
+
 - Verify installation path
 - Check plugin.json syntax
 - Restart IDE/tool
+
 ```
 
 **Deliverable:**
@@ -1038,6 +1079,7 @@ Report to: security@lightspeedwp.agency
 All three agent-level config files.
 
 **Success Criteria:**
+
 - [ ] INSTALL.md created
 - [ ] MANIFEST.json valid JSON
 - [ ] security-policy.md complete
@@ -1183,6 +1225,7 @@ All three agent-level config files.
 All 4 schema files created.
 
 **Success Criteria:**
+
 - [ ] All 4 schemas valid JSON Schema
 - [ ] Each validated against example JSONs
 - [ ] Example valid JSONs provided for each
@@ -1224,6 +1267,7 @@ Update `.github/.schemas/schema-registry.json` to include:
 ```
 
 **Success Criteria:**
+
 - [ ] Registry updated
 - [ ] All 4 schemas registered
 
@@ -1466,6 +1510,7 @@ module.exports = {
 All 4 hooks with implementations.
 
 **Success Criteria:**
+
 - [ ] All 4 hooks implemented
 - [ ] Each has clear validation logic
 - [ ] Code is testable
@@ -1515,6 +1560,7 @@ Update `.github/hooks/hook-registry.json`:
 ```
 
 **Success Criteria:**
+
 - [ ] Registry updated
 - [ ] All 4 hooks registered
 
@@ -1627,11 +1673,13 @@ tags: [agents, multi-provider, compatibility]
 ## Folder Structure
 
 ```
+
 agent-folder/
 ├── shared/core-prompt.md      # Used by all providers
 ├── claude/agent.md            # Claude customizations
 ├── copilot/agent.md           # Copilot customizations
 ├── openai/agent.md            # OpenAI customizations
+
 ```
 
 ## Writing Core Prompts
@@ -1699,6 +1747,7 @@ Examples:
 ## Folder Structure
 
 ```
+
 lightspeed-{domain}-{focus}/
 ├── plugin.json                # Master manifest
 ├── README.md
@@ -1712,6 +1761,7 @@ lightspeed-{domain}-{focus}/
 ├── skills/                    # Shared skills
 ├── hooks/                     # Shared hooks
 └── .schemas/                    # Plugin-specific schema
+
 ```
 
 ## Agent Grouping
@@ -1737,6 +1787,7 @@ Group agents by:
 All 4 instruction files created and formatted.
 
 **Success Criteria:**
+
 - [ ] All files use correct YAML frontmatter
 - [ ] All sections filled with relevant content
 - [ ] All follow existing instruction file patterns
@@ -1870,6 +1921,7 @@ tags: [playwright, testing, agents]
 Complete cookbook entry.
 
 **Success Criteria:**
+
 - [ ] File created with YAML frontmatter
 - [ ] All phases documented
 - [ ] Checklist included
@@ -1903,6 +1955,7 @@ npm run validate:hooks -- .github/plugins/lightspeed-playwright-testing/
 All validations passing.
 
 **Success Criteria:**
+
 - [ ] Schema validation passes
 - [ ] Hook validation passes
 - [ ] No errors in output
@@ -1926,6 +1979,7 @@ All validations passing.
 Documentation verified and complete.
 
 **Success Criteria:**
+
 - [ ] All documentation present
 - [ ] Links verified
 - [ ] Examples clear
@@ -1973,6 +2027,7 @@ Closes issue #1039"
 Feature branch created and changes committed.
 
 **Success Criteria:**
+
 - [ ] Branch created: `feat/agent-standards-playwright-testing`
 - [ ] All changes staged & committed
 - [ ] Commit message descriptive
@@ -2029,6 +2084,7 @@ git log --oneline -5
 PR created, reviewed, approved, and merged to develop.
 
 **Success Criteria:**
+
 - [ ] PR created with descriptive title & body
 - [ ] PR approved by maintainer
 - [ ] Squash merged to develop
@@ -2042,6 +2098,7 @@ PR created, reviewed, approved, and merged to develop.
 Before completing Phase 1, verify:
 
 ### Repository Audit ✅
+
 - [ ] Instructions folder audited
 - [ ] Hooks folder audited
 - [ ] Schemas folder audited
@@ -2050,12 +2107,14 @@ Before completing Phase 1, verify:
 - [ ] All audit files in `.github/tmp/`
 
 ### Standardization Framework ✅
+
 - [ ] Naming conventions documented
 - [ ] Folder structures specified
 - [ ] Validation rules clear
 - [ ] Framework document in `.github/tmp/`
 
 ### Playwright Agent Rewrite ✅
+
 - [ ] Agent folder restructured
 - [ ] AGENT.md created with YAML frontmatter
 - [ ] Core prompt (provider-agnostic) created
@@ -2066,6 +2125,7 @@ Before completing Phase 1, verify:
 - [ ] All existing skills & manifests preserved
 
 ### Plugin Creation ✅
+
 - [ ] `lightspeed-playwright-testing` folder created
 - [ ] plugin.json created & valid
 - [ ] copilot-plugin.json created & valid
@@ -2074,29 +2134,34 @@ Before completing Phase 1, verify:
 - [ ] All documentation links verified
 
 ### Schemas ✅
+
 - [ ] 4 new schemas created (multi-provider-agent, agent-plugin-binding, provider-config, agent-capability-manifest)
 - [ ] All schema files valid JSON
 - [ ] Example valid JSONs provided
 - [ ] Schema registry updated
 
 ### Hooks ✅
+
 - [ ] 4 new hooks implemented (agent-spec-validator, multi-provider-consistency-checker, plugin-integrity-checker, agent-security-auditor)
 - [ ] All hooks have validation logic
 - [ ] Hook registry updated
 
 ### Instructions ✅
+
 - [ ] 4 new instruction files created
 - [ ] All have correct YAML frontmatter
 - [ ] All sections filled
 - [ ] Cookbook entry created
 
 ### Validation ✅
+
 - [ ] Schema validation passing
 - [ ] Hook validation passing
 - [ ] Provider configs load correctly
 - [ ] Documentation complete & verified
 
 ### Git & Merge ✅
+
 - [ ] Feature branch created
 - [ ] All changes staged & committed
 - [ ] PR created with description
@@ -2112,6 +2177,7 @@ Before completing Phase 1, verify:
 ✅ When all of the above are checked, Phase 1 is complete.
 
 **Outcomes:**
+
 - Playwright testing agent fully restructured for multi-provider support
 - Plugin framework in place and functional
 - Repository standardization framework established

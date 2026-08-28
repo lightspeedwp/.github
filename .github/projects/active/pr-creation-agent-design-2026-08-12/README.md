@@ -145,6 +145,7 @@ See [DESIGN_QUESTIONS.md](./DESIGN_QUESTIONS.md) for 9 critical design questions
 
 **Project Created:** 2026-08-12  
 **Related Initiative:** Repository restructuring & agent standardisation (Epic #1722)
+
 ## Visual Workflow
 
 ```mermaid

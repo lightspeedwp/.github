@@ -281,7 +281,7 @@ Phase 5A is successful when:
 | File | Purpose | LOC | Status |
 |------|---------|-----|--------|
 | **agents/release/gates/release-gates.cjs** | 7-layer safety gates implementation | 449 | ✅ MERGED |
-| **agents/release/gates/__tests__/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
+| **agents/release/gates/**tests**/release-gates.test.js** | Comprehensive test suite (60+ tests) | 517 | ✅ MERGED |
 | **agents/release/run-release-with-gates.cjs** | Phase 4 integration wrapper | 140 | ✅ MERGED |
 | **.github/workflows/release.yml** | Updated GitHub Actions workflow | - | ✅ MERGED |
 
@@ -325,6 +325,7 @@ Phase 5A is successful when:
 ## Related Issues & PRs
 
 ### Phase 5A Issues
+
 | Issue | Title | Status | Link |
 |-------|-------|--------|------|
 | #2016 | Phase 5A Release Agent MVP — Safety Gates Foundation | ✅ MERGED | [PR #2016](https://github.com/lightspeedwp/.github/pull/2016) |
@@ -332,6 +333,7 @@ Phase 5A is successful when:
 | #1936 | Phase 5A Week 3 — Testing & Documentation Framework | ✅ MERGED | [PR #1936](https://github.com/lightspeedwp/.github/pull/1936) |
 
 ### Related Release Process Issues
+
 | Issue | Title | Status | Link |
 |-------|-------|--------|------|
 | #1780 | Phase 5.1 Integration Testing | ✅ COMPLETE | [PR #1780](https://github.com/lightspeedwp/.github/pull/1780) |
@@ -369,23 +371,27 @@ Phase 5A is successful when:
 **All MVP Deliverables Complete (2026-08-18 to 2026-08-19):**
 
 ✅ **Phase 5A (MVP):** Merged to develop (PR #2016, commit f2b07bc9c)
+
 - 7-layer safety gates: 445 LOC
 - Phase 4 wrapper: 140 LOC  
 - Test suite: 41/41 passing, 82% coverage
 - Ready for Sep 9 soft launch
 
 ✅ **Phase 6 (WordPress Utilities):** Merged to develop (PR #2115)
+
 - 3 utilities: pluginHeader, themeCss, readmeTxt
 - 2,189 LOC, 75+ tests, >85% coverage
 - Integration complete
 
 ✅ **Phase 7 (Documentation):** Merged to develop (PR #2116)
+
 - RELEASE_PROCESS.md v4.0 (600+ lines)
 - BRANCHING_STRATEGY.md enhancements  
 - RELEASE_WORDPRESS.md (new)
 - 4 Mermaid diagrams, 17+ FAQ items
 
 **Post-Merge Verification (2026-08-19):**
+
 - All 3 phases successfully synced to origin/develop
 - All code merged and tested
 - Zero blockers for soft launch
@@ -400,6 +406,7 @@ Phase 5A is successful when:
 **Status:** ✅ PRODUCTION-READY
 
 **Soft Launch Timeline:**
+
 - ✅ **Code Complete:** 2026-08-19
 - **Verification & Launch Prep:** 2026-08-19 to 2026-09-08 (12-16 hours)
 - 🚀 **Sep 9, 2026:** Soft launch (internal team)

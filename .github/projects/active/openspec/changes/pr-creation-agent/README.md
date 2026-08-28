@@ -125,6 +125,7 @@ All Phase 2 specification documents are complete and stored in `.github/projects
 ---
 
 **OpenSpec Documentation Complete — Ready for Phase 3 Implementation**
+
 ## Visual Workflow
 
 ```mermaid

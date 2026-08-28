@@ -311,6 +311,7 @@ This document defines real GitHub workflow scenarios that validate the PR Creati
 ### Scenario: Multiple PRs in Flight
 
 **Branches:**
+
 - `feat/feature-a`
 - `fix/bug-b`
 - `docs/update-readme`
@@ -381,29 +382,35 @@ This document defines real GitHub workflow scenarios that validate the PR Creati
 ### Workflow Validation
 
 ✅ **8 Branch Types Tested**
+
 - feat/, fix/, hotfix/, release/, docs/, deps/, chore/, refactor/
 
 ✅ **Template Routing 100% Accurate**
+
 - Correct template selected for each branch type
 - Fallback templates used when needed
 
 ✅ **Label Application Validated**
+
 - All canonical labels applied correctly
 - Conflicts resolved per strategy
 - Invalid labels filtered
 
 ✅ **Error Recovery Tested**
+
 - Rate limiting handled with backoff
 - Missing templates trigger fallback
 - Invalid labels skipped without blocking
 - API failures recovered
 
 ✅ **Performance Targets Met**
+
 - End-to-end workflow < 1 second
 - GitHub Actions CI < 2 minutes
 - No timeouts or slowdowns
 
 ✅ **Concurrent Workflows Isolated**
+
 - No race conditions
 - Independent label/template application
 - Mergify queue handles sequencing

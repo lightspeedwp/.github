@@ -14,12 +14,14 @@ last_updated: "2026-08-21"
 Metrics output is incomplete or missing data from one or more contexts.
 
 **Symptoms:**
+
 - Collection completes but reports "0 files" for a context
 - Health score calculations missing components
 - Downstream systems report incomplete data
 - Specific context data absent from JSON output
 
 **Impact:**
+
 - Inaccurate health scores
 - Missing insights for specific areas (e.g., all plugins data missing)
 - Team decisions based on incomplete information
@@ -32,6 +34,7 @@ Metrics output is incomplete or missing data from one or more contexts.
 
 1. Check the metrics output file: `.github/metrics/frontmatter-metrics.json`
 2. Compare against expected structure:
+
    ```json
    {
      "control-plane": { ... },    // Should have issue/PR/file counts
@@ -47,6 +50,7 @@ Metrics output is incomplete or missing data from one or more contexts.
 1. Go to failed/incomplete workflow run
 2. Expand "Run metrics" step
 3. Look for context-specific log entries:
+
    ```
    📊 Collecting metrics from control-plane...
    📊 Collecting metrics from plugins...
@@ -58,6 +62,7 @@ Metrics output is incomplete or missing data from one or more contexts.
 ### Step 3: Validate Against Expected Schema
 
 Check `schemas/metrics-output.json` for expected structure:
+
 - All required fields present?
 - Numeric fields have appropriate values?
 - No null/undefined values in critical fields?
@@ -73,6 +78,7 @@ Check `schemas/metrics-output.json` for expected structure:
 **Recovery Steps:**
 
 1. **Test API query manually:**
+
    ```bash
    # Get valid token
    curl -H "Authorization: Bearer YOUR_TOKEN" \
@@ -88,6 +94,7 @@ Check `schemas/metrics-output.json` for expected structure:
    - **Themes:** Repo should have files matching theme pattern
 
 3. **Check file patterns in scripts/metrics/metrics.js:**
+
    ```javascript
    // Expected patterns for detection
    const pluginPattern = /wp-content\/plugins\//;
@@ -113,6 +120,7 @@ Check `schemas/metrics-output.json` for expected structure:
    - Verify script fetches all pages, not just first
 
 2. **Review API query scope:**
+
    ```javascript
    // Check if query is too restrictive
    // Example: only querying issues opened in last 30 days
@@ -125,6 +133,7 @@ Check `schemas/metrics-output.json` for expected structure:
    - Check response is properly parsed from JSON
 
 4. **Test with simpler query:**
+
    ```bash
    # Test basic query first
    curl -H "Authorization: Bearer YOUR_TOKEN" \
@@ -142,6 +151,7 @@ Check `schemas/metrics-output.json` for expected structure:
 **Recovery Steps:**
 
 1. **Compare output schema:**
+
    ```bash
    # Get actual output
    cat .github/metrics/frontmatter-metrics.json | jq 'keys'
@@ -156,6 +166,7 @@ Check `schemas/metrics-output.json` for expected structure:
    - Update schema if change is intentional
 
 3. **Validate data types:**
+
    ```bash
    # Check if numeric field has string value
    cat .github/metrics/frontmatter-metrics.json | jq '.control-plane.issues'
@@ -176,6 +187,7 @@ Check `schemas/metrics-output.json` for expected structure:
 **Recovery Steps:**
 
 1. **Identify recent changes:**
+
    ```bash
    git log --oneline -20 scripts/metrics/
    
@@ -188,6 +200,7 @@ Check `schemas/metrics-output.json` for expected structure:
    - Verify no accidental deletions
 
 3. **Compare with previous version:**
+
    ```bash
    git show HEAD~1:scripts/metrics/metrics.js | grep -i "control-plane"
    
@@ -196,6 +209,7 @@ Check `schemas/metrics-output.json` for expected structure:
 
 4. **Revert if necessary:**
    - If recent change broke collection:
+
    ```bash
    git revert <commit-hash>
    git push origin develop
@@ -226,6 +240,7 @@ Check `schemas/metrics-output.json` for expected structure:
    - Continue collection even if one context fails
 
 4. **Update error handling:**
+
    ```javascript
    // Collect each context independently
    try {

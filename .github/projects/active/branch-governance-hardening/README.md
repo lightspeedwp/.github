@@ -19,7 +19,7 @@ This project hardens branch governance through machine-backed enforcement using 
 
 ## Deliverables
 
-- ✅ Main branch PR guard (release/* and hotfix/* only)
+- ✅ Main branch PR guard (release/*and hotfix/* only)
 - 🔄 GitHub branch rulesets configuration
 - 🔄 Branch naming enforcement workflows
 - 🔄 Protection rule automation
@@ -39,6 +39,7 @@ This project hardens branch governance through machine-backed enforcement using 
 ---
 
 *For more information, see [RUN_LOG.md](./RUN_LOG.md)*
+
 ## Visual Workflow
 
 ```mermaid

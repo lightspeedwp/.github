@@ -41,9 +41,11 @@ Set up production monitoring and alerting for the metrics pipeline to detect fai
 ## Deliverables
 
 ### 1. Slack Notifications Configuration
+
 **Goal:** Set up real-time alerts for workflow failures and health score drops  
 **Location:** `.github/workflows/metrics-reporting.yml` (update notify-failure job)  
 **Tasks:**
+
 - [ ] Configure Slack webhook for metrics alerts channel
 - [ ] Add notification payload with:
   - Workflow status (pass/fail)
@@ -55,6 +57,7 @@ Set up production monitoring and alerting for the metrics pipeline to detect fai
 - [ ] Document Slack channel setup
 
 **Example Notification:**
+
 ```
 ❌ Metrics Pipeline Failed
 Repository: lightspeedwp/.github
@@ -71,14 +74,17 @@ Runbook: See #metric-failures for recovery steps
 ```
 
 ### 2. Metrics Health Dashboard (Optional)
+
 **Goal:** Create a lightweight dashboard for monitoring  
 **Location:** `.github/reports/metrics/dashboard.html` or GitHub Discussions pin  
 **Options:**
+
 - Option A: GitHub Discussions pinned post with health status
 - Option B: GitHub Pages static dashboard (if org permits)
 - Option C: Simple HTML page linked in project README
 
 **Dashboard Content:**
+
 - Last 7 days of health scores (line chart)
 - Collection performance (avg time, last run time)
 - API success rate by context
@@ -86,12 +92,15 @@ Runbook: See #metric-failures for recovery steps
 - Team actions taken (if any)
 
 ### 3. Alerting Rules & Thresholds
+
 **Goal:** Define when alerts trigger  
-**Locations:** 
+**Locations:**
+
 - Threshold config in workflow (environment variables)
 - Documentation in runbooks
 
 **Alert Triggers:**
+
 - Health score < 60 (moderate)
 - Health score < 40 (critical)
 - Collection time > 5 minutes
@@ -99,26 +108,30 @@ Runbook: See #metric-failures for recovery steps
 - Consecutive failed runs > 2
 
 **Escalation Path:**
+
 1. Slack alert in #metrics-alerts (all failures)
 2. Mention @metrics-ops team if critical
 3. Auto-create GitHub issue if not resolved in 1 hour (future enhancement)
 
 ### 4. Runbooks (5+ Documentation Files)
+
 **Goal:** Document common failure scenarios and recovery steps  
 **Location:** `.github/projects/active/metrics-agent-phase-3-production-2026-08-26/runbooks/`
 
 **Runbook Files to Create:**
 
 #### 4.1 `RUNBOOK_WORKFLOW_TIMEOUT.md`
+
 - Symptoms: Workflow runs >5 min without completing
 - Causes: API rate limiting, network issues, data volume increase
-- Solutions: 
+- Solutions:
   - Check GitHub Actions logs for rate limit errors
   - Verify API availability (GitHub status page)
   - Review recent changes to metrics collection
   - Consider increasing timeout or optimizing queries
 
 #### 4.2 `RUNBOOK_API_FAILURES.md`
+
 - Symptoms: API calls fail with 4xx/5xx errors
 - Causes: Missing token, expired secrets, API changes, temporary outages
 - Solutions:
@@ -128,6 +141,7 @@ Runbook: See #metric-failures for recovery steps
   - Wait for GitHub status recovery
 
 #### 4.3 `RUNBOOK_MISSING_DATA.md`
+
 - Symptoms: Metrics show incomplete data, missing contexts
 - Causes: API changes, schema mismatches, query errors
 - Solutions:
@@ -137,6 +151,7 @@ Runbook: See #metric-failures for recovery steps
   - Test queries manually against repo
 
 #### 4.4 `RUNBOOK_HEALTH_SCORE_DROP.md`
+
 - Symptoms: Health score drops below 60
 - Causes: Increase in issues/PRs, slower response times, quality metrics decline
 - Solutions:
@@ -146,6 +161,7 @@ Runbook: See #metric-failures for recovery steps
   - Plan improvement actions
 
 #### 4.5 `RUNBOOK_SECRET_EXPIRATION.md`
+
 - Symptoms: Authentication failures, 401 errors
 - Causes: GitHub token expired, Slack webhook revoked
 - Solutions:
@@ -155,6 +171,7 @@ Runbook: See #metric-failures for recovery steps
   - Test after update
 
 #### 4.6 `RUNBOOK_PERFORMANCE_DEGRADATION.md`
+
 - Symptoms: Collection time increasing over time
 - Causes: Data volume growth, API rate limiting, new contexts
 - Solutions:
@@ -164,10 +181,12 @@ Runbook: See #metric-failures for recovery steps
   - Cache stable data when possible
 
 ### 5. Monitoring Strategy Documentation
+
 **Goal:** Define ongoing monitoring approach  
 **Location:** `.github/projects/active/metrics-agent-phase-3-production-2026-08-26/MONITORING_STRATEGY.md`
 
 **Content:**
+
 - SLA/SLO definitions (e.g., "99% collection success rate")
 - Alert response procedures
 - Team responsibilities (on-call rotation)
@@ -234,18 +253,21 @@ Runbook: See #metric-failures for recovery steps
 ## Testing Strategy
 
 ### Alert Testing
+
 - [ ] Test Slack notification sends correctly on workflow failure
 - [ ] Verify payload includes all required metrics
 - [ ] Check links to logs and reports work
 - [ ] Test with various error scenarios
 
 ### Runbook Testing
+
 - [ ] Have team member follow each runbook
 - [ ] Measure time to resolve with/without runbook
 - [ ] Gather feedback on clarity and completeness
 - [ ] Refine based on real incidents
 
 ### Threshold Testing
+
 - [ ] Verify thresholds trigger appropriately
 - [ ] Test no false positives for normal variance
 - [ ] Check escalation path works end-to-end

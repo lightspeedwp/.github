@@ -185,6 +185,7 @@ Enhance the existing [Reviewer Agent](./.github/agents/reviewer.agent.md) from a
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and collaborative planning!*
+
 ## Visual Workflow
 
 ```mermaid

@@ -16,6 +16,7 @@ Task 2.4 implements the reporting layer that transforms raw metrics data into ac
 **Purpose:** Transforms collected metrics into comprehensive markdown reports
 
 **Key Features:**
+
 - ✅ Generates markdown reports from metrics data
 - ✅ Calculates repository health scores (0-100)
 - ✅ Supports multiple report periods (weekly, monthly)
@@ -39,6 +40,7 @@ generateChart(label, data, width, height)
 ```
 
 **Report Sections:**
+
 1. **Header** — Title, date, repository info
 2. **Summary** — Health score and key metrics
 3. **Issues** — Total, closed, open, closure rate, trend
@@ -50,6 +52,7 @@ generateChart(label, data, width, height)
 9. **Footer** — Generation timestamp and metadata
 
 **Health Score Calculation:**
+
 ```
 Score = 50 (base)
   + (closure_rate × 25%)      [Issue closure rate]
@@ -61,6 +64,7 @@ Final: max(0, min(100, score))
 ```
 
 **Example Report Output:**
+
 ```markdown
 # Metrics Report: lightspeedwp/.github
 
@@ -92,6 +96,7 @@ Final: max(0, min(100, score))
 **Purpose:** Creates and manages GitHub issues for metrics reports
 
 **Key Features:**
+
 - ✅ Creates weekly and monthly metrics report issues
 - ✅ Automatically closes old reports (configurable retention)
 - ✅ Retrieves existing metrics issues
@@ -123,6 +128,7 @@ async reportExistsForDate(owner, repo, date)
 ```
 
 **Issue Labels:**
+
 ```
 Primary:   type:metrics, area:monitoring
 Period:    period:weekly, period:monthly
@@ -130,6 +136,7 @@ Custom:    Any user-provided labels
 ```
 
 **Retry Logic:**
+
 - Up to 3 attempts (configurable)
 - Exponential backoff: 2^n seconds
 - Failure logging and error propagation
@@ -137,6 +144,7 @@ Custom:    Any user-provided labels
 ### 3. Metrics Reporting Workflow (`.github/workflows/metrics-reporting.yml`)
 
 **Triggers:**
+
 - **Schedule:** Every Monday at 2:30 AM UTC (weekly reports)
 - **Manual:** `workflow_dispatch` with report type selection
 
@@ -154,6 +162,7 @@ Custom:    Any user-provided labels
    - Reports issue count
 
 **Features:**
+
 - ✅ Artifact upload for report history
 - ✅ GitHub Step Summary reporting
 - ✅ Error handling and notifications
@@ -161,6 +170,7 @@ Custom:    Any user-provided labels
 - ✅ Workflow concurrency safety
 
 **Configuration Options:**
+
 ```yaml
 reportType: weekly | monthly  (default: weekly)
 includeArchive: true | false  (default: false)
@@ -171,6 +181,7 @@ includeArchive: true | false  (default: false)
 **Purpose:** Coordinates report generation across multiple repositories
 
 **Key Features:**
+
 - ✅ Loads repository configuration
 - ✅ Generates reports for enabled repositories
 - ✅ Saves reports to disk
@@ -179,6 +190,7 @@ includeArchive: true | false  (default: false)
 - ✅ Logging and progress tracking
 
 **Execution Flow:**
+
 ```
 1. Load configuration
 2. For each enabled repository:
@@ -192,6 +204,7 @@ includeArchive: true | false  (default: false)
 ### 5. Test Suite (48 Total Tests)
 
 **Metrics Reporter Tests (14 tests):**
+
 - Report generation with valid metrics
 - Empty data handling
 - Anomaly inclusion
@@ -202,6 +215,7 @@ includeArchive: true | false  (default: false)
 - Error handling
 
 **GitHub Issue Creator Tests (34 tests):**
+
 - Issue creation with labels
 - Custom labels
 - Weekly/monthly issues
@@ -214,12 +228,14 @@ includeArchive: true | false  (default: false)
 - Failure scenarios
 
 **Test Files:**
+
 - `scripts/metrics/__tests__/metrics-reporter.test.js` (14 tests)
 - `scripts/metrics/__tests__/github-issue-creator.test.js` (34 tests)
 
 ## Integration with Previous Tasks
 
 **Task 2.3 → Task 2.4:**
+
 ```
 Metrics Collection (2.3)
         ↓
@@ -235,6 +251,7 @@ GitHub Issue Management
 ```
 
 **Data Flow:**
+
 1. Metrics collected by 2.3 workflow → `.github/reports/metrics/`
 2. Time-series storage created by MetricsStorage
 3. Trends analyzed by TrendAnalyzer
@@ -247,6 +264,7 @@ GitHub Issue Management
 **File:** `.github/reports/metrics/report-lightspeedwp-github-weekly-2026-08-21.md`
 
 **Contents:**
+
 - Title with repository and date
 - Health score with trend indicator
 - Issues summary (table format)
@@ -258,6 +276,7 @@ GitHub Issue Management
 - Auto-generated footer
 
 **GitHub Issue:**
+
 - Title: `[Metrics] Weekly Report: 2026-08-21`
 - Body: Full markdown report
 - Labels: `type:metrics`, `area:monitoring`, `period:weekly`
@@ -266,6 +285,7 @@ GitHub Issue Management
 ## Error Handling & Recovery
 
 **Implemented:**
+
 - ✅ Missing metrics data (generates empty report)
 - ✅ API failures (retry with exponential backoff)
 - ✅ Network errors (graceful degradation)
@@ -274,12 +294,14 @@ GitHub Issue Management
 - ✅ Partial success (report what succeeded)
 
 **Exit Codes:**
+
 - `0` — Success (one or more reports generated)
 - `1` — Complete failure (no reports generated)
 
 ## Performance Characteristics
 
 **Benchmarks (expected):**
+
 - Report generation: < 2 seconds per repository
 - Issue creation: < 5 seconds per issue
 - Old issue cleanup: < 10 seconds
@@ -287,6 +309,7 @@ GitHub Issue Management
 - **Total workflow:** < 1 minute
 
 **Storage Impact:**
+
 - Report files: ~15-20 KB per report
 - Monthly retention: ~600-800 KB
 - Annual retention: ~7-10 MB
@@ -294,6 +317,7 @@ GitHub Issue Management
 ## Configuration & Customization
 
 **Report Period Control:**
+
 ```javascript
 // Weekly reports
 await orchestrator.run('weekly');
@@ -303,6 +327,7 @@ await orchestrator.run('monthly');
 ```
 
 **Health Score Weights:**
+
 ```javascript
 calculateHealthScore(metrics, trends) {
   // Adjust these percentages:
@@ -314,6 +339,7 @@ calculateHealthScore(metrics, trends) {
 ```
 
 **Issue Labels:**
+
 ```javascript
 // Standard labels (always applied)
 labels: ['type:metrics', 'area:monitoring']
@@ -326,6 +352,7 @@ labels: ['urgent', 'review-needed'] // user-provided
 ```
 
 **Report Retention:**
+
 ```json
 {
   "retention": {
@@ -338,18 +365,21 @@ labels: ['urgent', 'review-needed'] // user-provided
 ## Testing Strategy
 
 **Unit Tests (48 tests):**
+
 - Individual method functionality
 - Edge cases and error conditions
 - Data transformation accuracy
 - Calculation correctness
 
 **Integration Points:**
+
 - MetricsStorage integration
 - TrendAnalyzer integration
 - AnomalyDetector integration
 - Octokit API mocking
 
 **Coverage:**
+
 - Reporter: 100% (all report sections tested)
 - IssueCreator: 100% (all operations tested)
 - Error paths: Fully covered
@@ -358,6 +388,7 @@ labels: ['urgent', 'review-needed'] // user-provided
 ## Files Created/Modified
 
 **Created:**
+
 - `scripts/metrics/metrics-reporter.js` (320 lines)
 - `scripts/metrics/github-issue-creator.js` (170 lines)
 - `.github/workflows/metrics-reporting.yml` (190 lines)
@@ -382,6 +413,7 @@ labels: ['urgent', 'review-needed'] // user-provided
 ## Next Steps (Task 2.5)
 
 **Task 2.5: Quality & Testing**
+
 - Expand integration tests
 - Performance benchmarking
 - Security validation
@@ -392,10 +424,10 @@ labels: ['urgent', 'review-needed'] // user-provided
 
 ## References
 
-- GitHub REST API: https://docs.github.com/en/rest
-- GitHub Issues: https://docs.github.com/en/issues
-- Octokit JS: https://octokit.github.io/rest.js/
-- Markdown Guide: https://guides.github.com/features/mastering-markdown/
+- GitHub REST API: <https://docs.github.com/en/rest>
+- GitHub Issues: <https://docs.github.com/en/issues>
+- Octokit JS: <https://octokit.github.io/rest.js/>
+- Markdown Guide: <https://guides.github.com/features/mastering-markdown/>
 
 ## Key Decision Points
 

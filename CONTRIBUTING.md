@@ -102,27 +102,30 @@ To maintain a consistent, high-quality codebase and community, please follow the
 
 **Never close epic issues with PRs** — epic issues should only close when all child tasks are complete.
 
-#### What to link in the "Linked issues" section:
+#### What to link in the "Linked issues" section
 
 **Use closing keywords for:**
 Supported keywords: `close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved`
 (Optional colon after keyword: e.g., `Closes: #123` or `fixes #123`)
+
 - ✅ Bug issues (closes when fix merges)
 - ✅ Task issues (closes when work completes)
 - ✅ Story issues (closes when feature ships)
 - ✅ Feature issues (closes when implemented)
 
 **Never use "Closes" for:**
+
 - ❌ Epic issues (prevents proper epic closure)
 - ❌ Initiative issues (higher-level tracking)
 - ❌ Milestone issues (meta-tracking)
 
 **Use "Relates to" for:**
+
 - ✅ Epic issues (shows connection without closing)
 - ✅ Parent issues (acknowledges dependency without closing)
 - ✅ Milestone tracking issues
 
-#### Example:
+#### Example
 
 ```markdown
 ## Linked issues
@@ -133,6 +136,7 @@ Relates to #2396 (epic — not closed)
 ```
 
 **Why this matters:**
+
 - Epics track high-level work across multiple child issues
 - Closing an epic with a PR prevents proper tracking and can cause workflow chaos
 - The PR validation workflow will block merge if you attempt to close an epic

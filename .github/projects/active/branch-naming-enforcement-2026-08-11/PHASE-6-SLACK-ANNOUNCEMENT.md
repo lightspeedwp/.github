@@ -46,6 +46,7 @@ npm run setup:hooks
 ```
 
 More details: Read the full announcement thread 👇
+
 ```
 
 ---
@@ -56,14 +57,17 @@ More details: Read the full announcement thread 👇
 **When:** August 12, 2026 (10-15 min after initial message)
 
 ```
+
 *Setup Instructions for Your Local Environment*
 
 1️⃣ *Install the hook* (recommended):
+
 ```bash
 npm run setup:hooks
 ```
 
 2️⃣ *Test with a temporary branch:*
+
 ```bash
 git checkout -b invalid-branch-name
 git commit --allow-empty -m "test"
@@ -72,6 +76,7 @@ git checkout - && git branch -D invalid-branch-name
 ```
 
 3️⃣ *Verify valid branches work:*
+
 ```bash
 git checkout -b feat/your-feature
 # Should work fine
@@ -85,6 +90,7 @@ If you have branches that don't follow the format, rename them before Aug 19.
 *Complete the setup checklist:* See pinned message (PHASE-6-SETUP-VERIFICATION-CHECKLIST.md)
 
 *Questions?* Reply here or DM @governance-team
+
 ```
 
 ---
@@ -95,6 +101,7 @@ If you have branches that don't follow the format, rename them before Aug 19.
 **When:** August 15, 2026 (end of day)
 
 ```
+
 📊 *Phase 6 Adoption Check-In — Aug 15*
 
 We're 3 days into the grace period. Here's where we stand:
@@ -107,12 +114,14 @@ We're 3 days into the grace period. Here's where we stand:
 *Still need to set up?* No worries! You have until Aug 18 (23:59 UTC).
 
 Here's what you need to do:
+
 1. Install the pre-commit hook: `npm run setup:hooks`
 2. Test with a temporary branch
 3. Rename any invalid branches
 4. Complete the setup checklist
 
 *Blockers or questions?* Reply in this thread 👇
+
 ```
 
 ---
@@ -123,11 +132,13 @@ Here's what you need to do:
 **When:** August 18, 2026 (morning)
 
 ```
+
 ⏰ *Final Reminder: Phase 6 Enforcement Goes Live Tomorrow (Aug 19)*
 
 The branch naming enforcement grace period **ends today at 23:59 UTC**.
 
 *What you need to do by EOD today:*
+
 1. ✅ Install the hook: `npm run setup:hooks`
 2. ✅ Rename any invalid branches
 3. ✅ Complete the setup checklist
@@ -136,6 +147,7 @@ The branch naming enforcement grace period **ends today at 23:59 UTC**.
 Starting *tomorrow, Aug 19 at 00:00 UTC*, PR merges will be **blocked** for branches that don't follow `{type}/{scope}-{short-title}`.
 
 *Last-minute questions?* Reply here or DM @governance-team ASAP!
+
 ```
 
 ---
@@ -146,6 +158,7 @@ Starting *tomorrow, Aug 19 at 00:00 UTC*, PR merges will be **blocked** for bran
 **When:** August 19, 2026 (00:00 UTC) — or immediately after
 
 ```
+
 🔒 *Phase 6 Enforcement is Now LIVE*
 
 Branch naming enforcement is now active on GitHub Actions. All PRs will be checked for valid branch names.
@@ -155,6 +168,7 @@ Branch naming enforcement is now active on GitHub Actions. All PRs will be check
 🚫 Invalid branches: PR merges are blocked
 
 *Need to rename your branch?*
+
 ```bash
 git branch -m old-name feat/new-name
 git push origin feat/new-name
@@ -165,6 +179,7 @@ git push origin :old-name
 Rename your branch and push the update. GitHub will re-run validation automatically.
 
 *Have issues?* DM @governance-team or reply here 👇
+
 ```
 
 ---
@@ -175,6 +190,7 @@ Rename your branch and push the update. GitHub will re-run validation automatica
 **When:** August 26, 2026
 
 ```
+
 ✅ *Phase 6 Rollout Complete — Success Metrics*
 
 We've successfully rolled out branch naming enforcement. Here's how we did:
@@ -192,6 +208,7 @@ We've successfully rolled out branch naming enforcement. Here's how we did:
 • Questions? Reference docs/BRANCHING_STRATEGY.md
 
 Thanks for making the transition smooth! 🙏
+
 ```
 
 ---

@@ -2,18 +2,18 @@
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
 ![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](https://img.shields.io/badge/Labeling Governance-OK-success.svg)
-![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
-![Metadata Governance](https://img.shields.io/badge/Metadata Governance-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
 ![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](https://img.shields.io/badge/Template Enforcement-OK-success.svg)
-![Validate PR Template](https://img.shields.io/badge/Validate PR Template-OK-success.svg)
-![Badges: Documentation Update](https://img.shields.io/badge/Badges: Documentation Update-OK-success.svg)
-![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![actions-minute-savings-watch](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/actions-minute-savings-watch.yml)
 [![allocate-pr-issue-to-milestone](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml)
 [![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
@@ -110,30 +110,35 @@
 **Duration:** 2-3 weeks | **Effort:** 30-45 hours | **Team:** 1-2 engineers
 
 ### Task 3.1: Production Deployment (3-5 hours)
+
 - Deploy metrics workflow to production
 - Configure scheduled runs (daily 2 AM UTC)
 - Enable logging and monitoring
 - Set up failure alerts
 
 ### Task 3.2: Integration (6-8 hours)
+
 - Wire metrics into Meta Agent
 - Integrate with Reporting Agent
 - Set up issue tracking
 - Test end-to-end flow
 
 ### Task 3.3: Monitoring & Alerting (4-6 hours)
+
 - Configure Slack notifications
 - Create health dashboard (optional)
 - Document runbooks for failures
 - Set up alerts for health drops
 
 ### Task 3.4: Team Rollout (8-10 hours)
+
 - Conduct 4 training sessions
 - Run hands-on labs
 - Gather team feedback
 - Schedule recurring syncs
 
 ### Task 3.5: Validation (4-6 hours)
+
 - Validate metrics accuracy
 - Performance test at scale
 - Test error recovery
@@ -142,16 +147,19 @@
 ## Key Decisions
 
 ### 1. Multi-Context Support
+
 **Decision:** Single agent for `.github`, WordPress plugins, themes  
 **Rationale:** Unified metrics across repos  
 **Phase 3 Action:** Validate multi-context at scale
 
 ### 2. File-Based Persistence
+
 **Decision:** JSON files (git-friendly, no database)  
 **Rationale:** Simpler deployment, version-controllable  
 **Phase 3 Action:** Document backup strategy
 
 ### 3. 1-Hour Cache TTL
+
 **Decision:** In-memory cache with disk fallback  
 **Rationale:** Reduces API calls, enables offline  
 **Phase 3 Action:** Monitor cache hit rates, tune TTL
@@ -159,15 +167,18 @@
 ## Known Issues
 
 ### Issue 1: GitHub API Rate Limiting
+
 - **Workaround:** Use caching, reduce concurrency
 - **Phase 3 Fix:** Implement exponential backoff
 
 ### Issue 2: Large Repository Performance
+
 - **Symptom:** >1000 issues/PRs take >30s
 - **Workaround:** Use pagination, parallel collection
 - **Phase 3 Fix:** Profile and optimize
 
 ### Issue 3: Data Consistency
+
 - **Symptom:** Metrics diverge between collections
 - **Workaround:** Validate against live data
 - **Phase 3 Fix:** Document data freshness assumptions
@@ -175,6 +186,7 @@
 ## Environment Setup
 
 ### Required Secrets
+
 ```
 GITHUB_TOKEN — (available by default)
 METRICS_SLACK_WEBHOOK — (setup in Phase 3.3)
@@ -182,6 +194,7 @@ METRICS_STORAGE_PATH — (.github/reports/metrics)
 ```
 
 ### Dependencies
+
 ```
 Node.js 18.0.0+
 @actions/github ^6.0.0
@@ -204,18 +217,21 @@ Node.js 18.0.0+
 ## Success Criteria for Phase 3
 
 ### Deployment Success
+
 - [ ] Workflow runs on schedule (daily, no manual intervention)
 - [ ] All contexts collected (control-plane, plugins, themes)
 - [ ] Collection <5 minutes
 - [ ] Zero critical errors in 2 weeks
 
 ### Integration Success
+
 - [ ] Metrics accessible to 2+ agents
 - [ ] Reports auto-generated and published
 - [ ] Issue tracking end-to-end functional
 - [ ] Team references metrics in standup (3+ times)
 
 ### Adoption Success
+
 - [ ] All engineers complete training
 - [ ] Team uses metrics in 2+ decisions
 - [ ] Training feedback >=4/5
@@ -224,12 +240,14 @@ Node.js 18.0.0+
 ## Handoff Checklist
 
 ### Code & Tests
+
 - [x] Phase 2 code merged
 - [x] 150+ tests passing (92%+ coverage)
 - [x] No review comments
 - [x] Linting passing
 
 ### Documentation
+
 - [x] Architecture documented
 - [x] Integration guide complete
 - [x] Usage guide complete
@@ -237,6 +255,7 @@ Node.js 18.0.0+
 - [x] Handoff document complete
 
 ### Artifacts
+
 - [x] GitHub Actions workflow ready
 - [x] Sample metrics data available
 - [x] Test fixtures prepared

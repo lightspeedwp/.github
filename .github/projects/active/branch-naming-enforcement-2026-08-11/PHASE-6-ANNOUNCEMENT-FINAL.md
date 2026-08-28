@@ -21,6 +21,7 @@ status: active
 > We're rolling out **branch naming enforcement** starting **today, August 12**!
 >
 > Starting **August 19, 2026**, all branches must follow:
+>
 > ```
 > {type}/{scope}-{short-title}
 > ```
@@ -39,12 +40,15 @@ status: active
 > ### Local Setup (Recommended)
 >
 > 1. **Install optional pre-commit hook** (catches branch naming early):
+>
 >    ```bash
 >    npm run setup:hooks
 >    ```
+>
 >    *Note: This is recommended but not required. The hook runs before commits to warn about invalid branch names.*
 >
 > 2. **Test the hook** (creates temp branch and commits):
+>
 >    ```bash
 >    git checkout -b invalid-name
 >    git commit --allow-empty -m "test: branch validation"
@@ -55,6 +59,7 @@ status: active
 >    ```
 >
 > 3. **Verify valid branch names work:**
+>
 >    ```bash
 >    git checkout -b feat/test-branch
 >    ```

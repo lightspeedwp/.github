@@ -12,6 +12,7 @@
 Phase 2 is **100% complete** and provides:
 
 ### Core Assets
+
 - **Template System** (`scripts/automation/dor-dod-templates.js`)
   - 17 issue-type-specific DoR/DoD templates
   - Detection functions for existing sections
@@ -36,6 +37,7 @@ Phase 2 is **100% complete** and provides:
   - Batch size customization
 
 ### Current Status
+
 ✅ All Phase 2 deliverables complete  
 ✅ Code is production-ready  
 ✅ Documentation is comprehensive  
@@ -50,12 +52,14 @@ Phase 2 is **100% complete** and provides:
 ### Phase 3 Scope
 
 #### Task 3.1: Event-Driven Label Syncing
+
 - Listen for issue events (created, labeled, reopened, closed)
 - Automatically sync related labels (openspec:*, status:*, type:*)
 - Validate label combinations
 - Report conflicts or issues
 
 **Key Function:**
+
 ```javascript
 syncLabelsOnIssueEvent(issue, event) {
   // Ensure consistency with labels.yml canonical set
@@ -65,12 +69,14 @@ syncLabelsOnIssueEvent(issue, event) {
 ```
 
 #### Task 3.2: Automated Phase Progression
+
 - Track issue through specification/implementation lifecycle
 - Auto-advance labels: pending → in-progress → complete
 - Trigger on PR link, commit reference, or manual label change
 - Report progression timeline
 
 **Label Progression:**
+
 ```
 openspec:specification-pending
     ↓ (PR opened or `status:in-progress` added)
@@ -86,6 +92,7 @@ openspec:implementation-complete
 ```
 
 #### Task 3.3: GitHub Actions Triggers
+
 - Issue created: Check for missing DoR/DoD (Phase 2)
 - Issue labeled: Validate label combinations
 - PR opened: Link to issue, sync labels
@@ -93,7 +100,9 @@ openspec:implementation-complete
 - Issue closed: Finalize phase progression
 
 #### Task 3.4: Workflow Testing
+
 Create 10+ test scenarios:
+
 1. New issue without type label
 2. Label addition triggers sync
 3. PR link triggers phase advance
@@ -106,6 +115,7 @@ Create 10+ test scenarios:
 10. Missing issue link on PR
 
 #### Task 3.5: Team Rollout & Training
+
 - Internal documentation
 - Team announcement
 - Training walkthrough
@@ -117,16 +127,19 @@ Create 10+ test scenarios:
 ## Files to Review Before Starting Phase 3
 
 ### Phase 2 Documentation
+
 - `.github/projects/active/openspec/PHASE-2-TEMPLATE-VALIDATION.md` — Full Phase 2 overview
 - `PHASE-2-SUMMARY.md` — Completion summary (this session)
 - `scripts/automation/dor-dod-templates.js` — Template structure (reference for label patterns)
 
 ### Related Phase 1 Documentation
+
 - `.github/projects/active/openspec/README.md` — OpenSpec project overview
 - `.github/labels.yml` (lines 336-356) — OpenSpec label definitions
 - `PR #1985` — Phase 1 implementation (reference)
 
 ### Reference Files
+
 - `.github/ISSUE_TEMPLATE/*.md` — Issue templates (DoR/DoD structures)
 - `scripts/automation/auto-update-all.js` — Phase 1 batch processing (reference for patterns)
 
@@ -178,12 +191,14 @@ Create 10+ test scenarios:
 ## Technical Setup
 
 ### Environment
+
 - Node.js 20 (verified in Phase 2)
 - npm dependencies: `js-yaml` (labels.yml parsing)
 - GitHub CLI (`gh`) for API calls
 - GitHub Actions for orchestration
 
 ### API Usage
+
 ```javascript
 // Fetch issues/PRs
 gh issue list --repo owner/repo --state open --json number,title,labels,body
@@ -202,6 +217,7 @@ gh pr view <number> --repo owner/repo --json commits,title
 ```
 
 ### Rate Limiting
+
 - GitHub API: 5,000 requests/hour (authenticated)
 - Plan for 100-300 issues per run
 - Batch in groups of 10-20 for safety
@@ -236,18 +252,21 @@ scripts/automation/
 ## Testing Strategy for Phase 3
 
 ### Unit Tests (20+ tests)
+
 - Label validation logic
 - State machine transitions
 - Event parsing
 - Conflict detection
 
 ### Integration Tests (15+ tests)
+
 - Multi-step workflows (PR → merge → label advance)
 - Event sequence handling
 - Label combination validation
 - Concurrent changes
 
 ### Scenario Tests (15+ tests)
+
 - 10+ use cases from "Workflow Testing" above
 - Edge cases (no labels, unknown states)
 - Error recovery
@@ -272,6 +291,7 @@ scripts/automation/
 ## Estimated Timeline for Phase 3
 
 **Week of 2026-08-25:**
+
 - Mon-Tue (2 days): Event handler implementation & testing
 - Wed (1 day): Phase progression & conflict detection
 - Thu-Fri (2 days): Workflow testing & documentation
@@ -300,15 +320,18 @@ scripts/automation/
 ## References & Links
 
 **Phase 2 Completion:**
+
 - Summary: `PHASE-2-SUMMARY.md` (this session)
 - Full Details: `.github/projects/active/openspec/PHASE-2-TEMPLATE-VALIDATION.md`
 - Tests: `npm test -- scripts/automation/__tests__/dor-dod-validation.test.js`
 
 **Phase 1 Reference:**
-- PR #1985: OpenSpec Status Labels (https://github.com/lightspeedwp/.github/pull/1985)
-- Issue #1943: Epic (https://github.com/lightspeedwp/.github/issues/1943)
+
+- PR #1985: OpenSpec Status Labels (<https://github.com/lightspeedwp/.github/pull/1985>)
+- Issue #1943: Epic (<https://github.com/lightspeedwp/.github/issues/1943>)
 
 **Related Issue:**
+
 - Create GitHub issue for Phase 3 epic (link here after created)
 
 ---
@@ -316,6 +339,7 @@ scripts/automation/
 ## Ready for Phase 3 ✅
 
 Phase 2 foundation is solid:
+
 - ✅ Template system complete
 - ✅ Testing patterns established
 - ✅ GitHub Actions workflow ready

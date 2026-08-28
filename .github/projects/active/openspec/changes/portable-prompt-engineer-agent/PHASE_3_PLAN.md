@@ -14,6 +14,7 @@ created: "2026-08-19"
 ## Overview
 
 Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate) to work seamlessly across three distinct contexts:
+
 1. **`.github` Control Plane** — Workflow automation, GitHub Actions, app permissions
 2. **WordPress Plugins** — Hook names, block registration, plugin headers, dependencies
 3. **WordPress Themes** — Theme.json structure, design tokens, template hierarchy, patterns
@@ -21,6 +22,7 @@ Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate)
 ## Key Tasks
 
 ### Task 3.1: Context Detection & Routing (3 days)
+
 - Context detection engine (20+ patterns per context)
 - Smart routing logic with fallback strategies
 - Context priority handling
@@ -29,6 +31,7 @@ Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate)
   - `agents/prompt-engineer/skills/context-router.js` (NEW, ~150 LOC)
 
 ### Task 3.2: Framework-Specific Rules (4 days)
+
 - .github validation rules (50+ rules)
 - WordPress Plugin rules (50+ rules)
 - WordPress Theme rules (50+ rules)
@@ -38,6 +41,7 @@ Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate)
   - `agents/prompt-engineer/rules/theme-rules.js` (NEW, ~300 LOC)
 
 ### Task 3.3: Integration Testing Suite (5 days)
+
 - 400+ unit tests, 200+ integration tests, 150+ E2E tests, 50+ performance tests
 - Target: 95%+ coverage
 - **Files (root level):**
@@ -48,6 +52,7 @@ Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate)
   - `agents/prompt-engineer/__tests__/performance/benchmark.test.js`
 
 ### Task 3.4: Implementation Examples (3 days)
+
 - 6 working examples covering all contexts
 - **Files (root level):**
   - `agents/prompt-engineer/examples/github-actions-workflow.md`
@@ -58,6 +63,7 @@ Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate)
   - `agents/prompt-engineer/examples/theme-template-patterns.md`
 
 ### Task 3.5: Integration Guides (3 days)
+
 - .github, Plugin, Theme, Cross-context documentation
 - **Files (root level):**
   - `agents/prompt-engineer/docs/INTEGRATION_GUIDE_GITHUB.md`
@@ -66,6 +72,7 @@ Phase 3 focuses on adapting the Phase 2 core skills (analyze, improve, validate)
   - `agents/prompt-engineer/docs/CROSS_CONTEXT_PATTERNS.md`
 
 ### Task 3.6: Team Training (2 days)
+
 - Quick start, advanced usage, troubleshooting, FAQ
 - **Files (root level):**
   - `agents/prompt-engineer/docs/QUICK_START.md`

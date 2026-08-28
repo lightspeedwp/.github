@@ -30,15 +30,18 @@ Deploy metrics collection workflow to production with automatic scheduling, prop
 ### 1. Workflow Configuration Changes ✅
 
 **Files Updated:**
+
 - `.github/workflows/metrics-reporting.yml`
 - `.github/workflows/metrics-pipeline.yml`
 
 **Changes Made:**
+
 - ✅ Updated cron schedule from `0 6 * * 1` (Monday 6 AM) to `0 2 * * *` (daily 2 AM UTC)
 - ✅ Added `notify-failure` job for Slack notifications on workflow failure
 - ✅ Configured webhook-based notifications using `slackapi/slack-github-action@v1`
 
 **Workflow Timing:**
+
 - **Schedule:** Daily at 2:00 AM UTC
 - **Expected duration:** <5 minutes
 - **Retry behavior:** Exponential backoff with max 3 attempts per API call
@@ -53,12 +56,14 @@ Add the following secrets to the repository settings:
 | `GITHUB_TOKEN` | GitHub API authentication (auto-provided) | ✅ Yes | Auto-provided by Actions |
 
 **Configuration Steps:**
+
 1. Navigate to repository Settings → Secrets and variables → Actions
 2. Create new repository secret: `SLACK_METRICS_WEBHOOK`
 3. Value: Your Slack webhook URL for #metrics-pipeline channel
 4. Click "Add secret"
 
 **How to Create Slack Webhook:**
+
 1. Go to [Slack API Apps](https://api.slack.com/apps)
 2. Create new app → From scratch → app name: "GitHub Metrics"
 3. Features → Incoming Webhooks → Enable
@@ -68,6 +73,7 @@ Add the following secrets to the repository settings:
 ### 3. Environment Variables 🌍
 
 **Currently Configured:**
+
 ```yaml
 env:
   METRICS_DIR: .github/metrics
@@ -75,18 +81,21 @@ env:
 ```
 
 **What They Do:**
+
 - `METRICS_DIR`: Directory for temporary metrics cache
 - `REPORTS_DIR`: Directory for archiving weekly reports
 
 ### 4. Workflow Logging 📝
 
 **Logging Enabled:**
+
 - [x] Step-level logging (every step logs its execution)
 - [x] Environment variable logging (visible in Actions logs)
 - [x] Error output on failure
 - [x] Summary output at workflow completion
 
 **View Logs:**
+
 1. GitHub → Actions → "Metrics • Collection & Reporting"
 2. Select workflow run
 3. Click job name (collect, aggregate, post-to-discussions)
@@ -95,6 +104,7 @@ env:
 ### 5. Failure Notifications 🔔
 
 **Slack Notification Trigger:**
+
 - Automatically sends when `collect` or `aggregate` job fails
 - Includes:
   - Repository and branch information
@@ -103,6 +113,7 @@ env:
   - Failed job names
 
 **Notification Example:**
+
 ```
 ❌ Metrics Pipeline Failed
 Repository: lightspeedwp/.github
@@ -127,18 +138,22 @@ Commit: [abc1234]
 Before considering this task complete:
 
 - [ ] **Manual Trigger Test**
+
   ```bash
   gh workflow run metrics-reporting.yml -f stage=all
   ```
+
   - Monitor execution in Actions
   - Verify all jobs complete successfully
   - Check workflow logs for any errors
 
 - [ ] **Slack Notification Test**
+
   ```bash
   # Manually trigger failure scenario (optional)
   # Or wait for first scheduled failure (if any)
   ```
+
   - Verify Slack notification sent on failure
   - Confirm message has correct details
 
