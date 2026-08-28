@@ -283,3 +283,28 @@ reviews:
           - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
 early_access: true
+
+# Labeling configuration
+auto_labels:
+  enabled: true
+  # Canonical labels defined in .github/labels.yml
+  # Labeler rules defined in .github/labeler.yml
+
+# Reviewer assignment configuration
+auto_assign:
+  enabled: true
+  reviewers:
+    - ashleyshaw
+
+# Auto-review configuration
+auto_review:
+  enabled: true
+  ignore_title_keywords:
+    - WIP
+    - DO NOT MERGE
+    - DRAFT
+  drafts: false
+  base_branches:
+    - main
+    - develop
+    - feature/*
