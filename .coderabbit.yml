@@ -283,119 +283,74 @@ reviews:
           - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
 early_access: true
-
 # === GitHub Labels and Template Standards Documentation ===
+#
 # This section documents the comprehensive labeling system and PR/issue description standards
 # used across the LightSpeed organization to ensure consistency and automation.
-
-# GitHub Labels Reference
+#
+# GitHub Labels Reference:
 # The following label categories help organize issues and pull requests across all repositories.
 # All labels are defined in https://github.com/lightspeedwp/.github/blob/main/.github/labels.yml
-
-labels:
-  status_labels:
-    - status:needs-review # PR/issue needs initial review
-    - status:approved # Changes approved and ready to merge
-    - status:in-progress # Work is actively being done
-    - status:blocked # Blocked by dependencies or external factors
-    - status:ready-to-merge # All checks pass, approved, ready for merge
-
-  type_labels:
-    - type:feature # New feature or capability
-    - type:bug # Bug fix
-    - type:documentation # Documentation changes
-    - type:chore # Maintenance, housekeeping
-    - type:refactor # Internal restructuring
-    - type:test # Testing-related changes
-    - type:performance # Performance improvements
-    - type:design # Design changes
-    - type:a11y # Accessibility improvements
-    - type:qa # QA/testing changes
-
-  priority_labels:
-    - priority:critical # Critical/urgent work
-    - priority:normal # Standard priority
-    - priority:low # Low priority work
-
-  area_labels:
-    - area:block-editor # Block editor changes
-    - area:theme # Theme changes
-    - area:ci # CI/CD workflow changes
-    - area:documentation # Documentation
-    - area:tests # Test-related
-    - area:scripts # Scripts and tooling
-    - area:assets # Assets and media
-    - area:woocommerce # WooCommerce integration
-
-  language_labels:
-    - lang:php # PHP code changes
-    - lang:js # JavaScript/TypeScript changes
-    - lang:css # CSS/styling changes
-
-# Pull Request Description Template Standards
+#
+# Status Labels:
+#   - status:needs-review # PR/issue needs initial review
+#   - status:approved # Changes approved and ready to merge
+#   - status:in-progress # Work is actively being done
+#   - status:blocked # Blocked by dependencies or external factors
+#   - status:ready-to-merge # All checks pass, approved, ready for merge
+#
+# Type Labels:
+#   - type:feature # New feature or capability
+#   - type:bug # Bug fix
+#   - type:documentation # Documentation changes
+#   - type:chore # Maintenance, housekeeping
+#   - type:refactor # Internal restructuring
+#   - type:test # Testing-related changes
+#   - type:performance # Performance improvements
+#   - type:design # Design changes
+#   - type:a11y # Accessibility improvements
+#   - type:qa # QA/testing changes
+#
+# Priority Labels:
+#   - priority:critical # Critical/urgent work
+#   - priority:normal # Standard priority
+#   - priority:low # Low priority work
+#
+# Area Labels:
+#   - area:block-editor # Block editor changes
+#   - area:theme # Theme changes
+#   - area:ci # CI/CD workflow changes
+#   - area:documentation # Documentation
+#   - area:tests # Test-related
+#   - area:scripts # Scripts and tooling
+#   - area:assets # Assets and media
+#   - area:woocommerce # WooCommerce integration
+#
+# Language Labels:
+#   - lang:php # PHP code changes
+#   - lang:js # JavaScript/TypeScript changes
+#   - lang:css # CSS/styling changes
+#
+# Pull Request Description Template Standards:
 # All PRs should follow the structure defined in .github/PULL_REQUEST_TEMPLATE/ files.
 # Key sections required for release automation and consistency:
-
-pr_template_standards:
-  feat_branch: &feat_template
-    sections:
-      - Linked issues # Link to related issues (Closes #123)
-      - Changelog # User-facing changes (Added, Changed, Fixed, Removed)
-      - How to Test # Test procedures and expected results
-      - Checklist # Definition of Done verification
-
-  fix_branch: &fix_template
-    sections:
-      - Linked issues
-      - Changelog # Fixed section required
-      - How to Test
-      - Checklist
-
-  docs_branch: &docs_template
-    sections:
-      - Linked issues
-      - Changelog # Documentation changes
-      - How to Test # Verification steps
-      - Checklist
-
-  default: &default_template
-    sections:
-      - Linked issues
-      - Changelog
-      - How to Test
-      - Checklist # Global Definition of Done
-
-# Issue Description Template Standards
+#   - feat_branch: Linked issues, Changelog, How to Test, Checklist
+#   - fix_branch: Linked issues, Changelog, How to Test, Checklist
+#   - docs_branch: Linked issues, Changelog, How to Test, Checklist
+#   - default: Linked issues, Changelog, How to Test, Checklist
+#
+# Issue Description Template Standards:
 # Issues should use templates from .github/ISSUE_TEMPLATE/ based on type.
-
-issue_template_standards:
-  bug:
-    required_sections:
-      - Description # Clear description of the bug
-      - To Reproduce # Step-by-step reproduction
-      - Expected behavior # What should happen
-      - Environment # Affected environment/version
-      - DoR Checklist # Definition of Ready
-
-  feature_request:
-    required_sections:
-      - Description # Feature description
-      - Use case # Why this feature is needed
-      - Expected behavior # How it should work
-      - DoR Checklist
-
-  task:
-    required_sections:
-      - Description
-      - Acceptance criteria
-      - DoR Checklist
-
-# Label Automation Workflow
+#   - Bug: Description, To Reproduce, Expected behavior, Environment, DoR Checklist
+#   - Feature Request: Description, Use case, Expected behavior, DoR Checklist
+#   - Task: Description, Acceptance criteria, DoR Checklist
+#
+# Label Automation Workflow:
 # The labeling system is automated via:
 # 1. Branch name patterns (mapped in labeler.yml)
 # 2. PR/issue content analysis
 # 3. Manual labels for specific cases
-
+#
 # For more detailed information, see:
 # - Labels: .github/labels.yml
 # - Labeling rules: .github/labeler.yml
@@ -403,22 +358,7 @@ issue_template_standards:
 # - PR templates: .github/PULL_REQUEST_TEMPLATE/
 # - Issue templates: .github/ISSUE_TEMPLATE/
 
-auto_labels:
-  enabled: true
-    - A canonical list of org wide default labels exists in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml" https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml
-    - A set of labeler rules exist in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml"
-auto_assign:
-  enabled: true
-  reviewers:
-    - "ashleyshaw"
-auto_review:
-  enabled: true
-  ignore_title_keywords:
-    - "WIP"
-    - "DO NOT MERGE"
-    - "DRAFT"
-  drafts: false
-  base_branches:
-    - "main"
-    - "develop"
-    - "feature/*"
+# === Auto-labeling Configuration ===
+# auto_labels: enabled via GitHub labeler
+# auto_assign: enabled for PR assignment
+# auto_review: enabled for automated code review
