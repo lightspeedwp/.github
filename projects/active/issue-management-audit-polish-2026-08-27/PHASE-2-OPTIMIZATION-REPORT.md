@@ -50,7 +50,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 
 #### 🟡 Medium (500-1100ms)
 
-2. **add-issue-template-sections.js** - 900ms, 10.94 KB, 300 LOC
+1. **add-issue-template-sections.js** - 900ms, 10.94 KB, 300 LOC
    - Optimizations: add-caching, add-performance-logging
 2. **manage-stale-issues.js** - 900ms, 12.05 KB, 381 LOC
    - Optimizations: reduce-dependencies, refactor, add-caching
@@ -67,7 +67,7 @@ Baseline profiling completed for all 13 automation scripts. Key findings show go
 
 #### 🔴 Slow (> 1100ms) — PRIORITY FOR OPTIMIZATION
 
-9. **allocate-to-milestone.js** - 1,400ms, 23.86 KB, 616 LOC
+1. **allocate-to-milestone.js** - 1,400ms, 23.86 KB, 616 LOC
    - Status: Largest script, needs refactoring
    - Optimizations: refactor-for-readability, add-caching, add-performance-logging
 2. **review-status-labels.js** - 1,400ms, 13.73 KB, 417 LOC
