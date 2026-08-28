@@ -1,12 +1,13 @@
 ---
 name: "📝 Task"
+description: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
 about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
 title: "[Task] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ""
-file_type: task
+file_type: issue-template
 ---
 
 ## Task Summary

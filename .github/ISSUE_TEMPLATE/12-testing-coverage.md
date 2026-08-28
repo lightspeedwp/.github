@@ -1,7 +1,11 @@
 ---
-file_type: "issue-template"
 name: "🧪 Test Coverage"
+description: "🧪 Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

@@ -1,8 +1,13 @@
 ---
 name: "🐛 Bug report"
+description: "Report a bug to help us improve this WordPress project"
 about: Report a bug to help us improve this WordPress project
 title: "[Bug] <Short description>"
 labels: [status:needs-triage, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--
