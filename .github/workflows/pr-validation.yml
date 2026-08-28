@@ -65,15 +65,36 @@ jobs:
               errors: [],
             };
 
+            // Helper: Fetch issue with exponential backoff retry for transient failures
+            async function fetchIssueWithRetry(issueNum, maxRetries = 3) {
+              let lastError;
+              for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                  const { data: issue } = await github.rest.issues.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issueNum,
+                  });
+                  return issue;
+                } catch (error) {
+                  lastError = error;
+                  // Retry on transient errors (5xx, 429 rate limit)
+                  if (attempt < maxRetries && (error.status >= 500 || error.status === 429)) {
+                    const delay = Math.pow(2, attempt) * 1000;
+                    core.debug(`Retrying issue #${issueNum} after ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                  } else {
+                    throw error;
+                  }
+                }
+              }
+              throw lastError;
+            }
+
             // Check each closing issue reference
             for (const issueNum of closingIssueNumbers) {
               try {
-                const { data: issue } = await github.rest.issues.get({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNum,
-                });
-
+                const issue = await fetchIssueWithRetry(issueNum);
                 const isEpic = (issue.labels || []).some((label) => label.name === 'type:epic');
 
                 if (isEpic) {
@@ -326,6 +347,29 @@ jobs:
                 issue_number: context.issue.number,
                 body: message,
               });
+            }
+
+      - name: Record governance metrics
+        if: steps.validate.outputs.skip != 'true'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const epicIssues = JSON.parse('${{ steps.validate.outputs.epic-issues }}' || '[]');
+            const invalidIssues = JSON.parse('${{ steps.validate.outputs.invalid-issues }}' || '[]');
+            const hasMilestone = '${{ steps.validate.outputs.has-milestone }}' === 'true';
+            const milestoneValid = '${{ steps.validate.outputs.milestone-valid }}' === 'true';
+
+            const pr = context.payload.pull_request;
+            const hasViolations = epicIssues.length > 0 || invalidIssues.length > 0 || !hasMilestone || !milestoneValid;
+
+            if (hasViolations) {
+              const violations = [];
+              if (epicIssues.length > 0) violations.push(`epic-closure:${epicIssues.length}`);
+              if (invalidIssues.length > 0) violations.push(`invalid-refs:${invalidIssues.length}`);
+              if (!hasMilestone) violations.push('missing-milestone');
+              if (!milestoneValid) violations.push('invalid-milestone');
+
+              core.notice(`PR Governance Violation Detected (PR #${pr.number}): ${violations.join(', ')}`);
             }
 
       - name: Enforce PR governance requirement
