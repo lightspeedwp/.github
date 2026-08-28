@@ -9,9 +9,9 @@
  * 3. Workflows in .github/workflows/ should have trigger conditions (push, pull_request, schedule, etc.)
  */
 
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
 
 const CONTROL_PLANE_DIR = '.github/workflows';
 const REUSABLE_DIR = 'workflows';
