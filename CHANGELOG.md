@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-25"
+last_updated: "2026-08-27"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -26,9 +26,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed (Session 2026-08-25)
+### Added
 
-- **Workflow Test Fixes — Label Validation & Security Tests** — Session 2026-08-25 comprehensive fixes for core workflow test failures. Deliverables: (1) Label Validation Implementation (33/33 tests passing) — Added comprehensive branch type to label mapping supporting all 30+ documented branch types (feat, fix, docs, hotfix, security, chore, test, refactor, ci, build, perf, release, research, revert, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, deps), implemented template metadata context labels (meta:needs-more-info, meta:ready-for-review), added label deduplication and validation against canonical set, support for custom branch type and canonical label configurations with metadata structure returning typeLabels, contextLabels, and totalLabels. (2) Security Test Pattern Enhancement (18/18 tests passing) — Updated security test patterns to properly detect GitHub tokens (ghp_ prefix with 36+ character validation) and other sensitive data, improved api_key/private_key pattern matching to handle underscores and spaces, enhanced overall sensitive information detection in reports. (3) Module path validation confirmed working for metrics-collection-orchestrator with all require statements correctly pointing to root scripts/metrics folder location. All validation test suites passing: validate-and-apply-labels (33/33), badge tests (65/65), security tests (18/18).
+- **Changelog Safety Audit System v1.0.1 — Issue #2354** — Comprehensive 7-layer validation framework preventing changelog corruption and format violations. Delivers: (1) `scripts/validation/validate-changelog-safety.js` — Seven-layer audit engine: file integrity (empty/corrupted detection), format compliance (Keep a Changelog 1.1.0), structure compliance ([Unreleased], version headers), frontmatter validation (YAML metadata), data integrity (duplicate versions, invalid dates, UTF-8), cross-references (spec/portable agents, schema, docs), link validity (PR/issue references). (2) `.github/workflows/changelog-safety-audit.yml` — CI/CD integration: 4 parallel jobs (audit, format, cross-refs, reporting), triggers on CHANGELOG.md changes to main/develop, blocks merge on critical errors. (3) npm integration: `npm run validate:changelog` (local) + `validate:all` (full suite). Produces diagnostic output with statistics and severity-categorized findings. Production-ready with configurable thresholds (min 500 bytes, max staleness 60 days, max line 250 chars). See [Phase 1 Audit Report](.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md). ([#2354](https://github.com/lightspeedwp/.github/issues/2354), [#2379](https://github.com/lightspeedwp/.github/pull/2379))
+
+### Changed
+
+### Fixed
+
+### Removed
+
+### Deprecated
+
+### Security
 
 ## [1.0.0] - 2026-08-24
 

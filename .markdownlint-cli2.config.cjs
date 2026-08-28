@@ -123,7 +123,7 @@ module.exports = {
    * Output formatter
    */
   outputFormatters: [
-    ["markdownlint-cli2-formatter-default"],
+    ["markdownlint-cli2-formatter-pretty"],
     // Uncomment for JSON output in CI
     // ['markdownlint-cli2-formatter-json', { name: 'markdownlint-results.json' }]
   ],

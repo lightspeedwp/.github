@@ -1,8 +1,13 @@
 ---
 name: "🧠 AI Ops"
+description: "🧠 AI Ops"
 about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
 title: "[AI Ops] <Brief summary>"
 labels: [status:needs-triage, area:ai]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## AI Ops Summary

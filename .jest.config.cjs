@@ -39,10 +39,11 @@ module.exports = {
         'node_modules/(?!(scripts|@actions)\/)',
         '<rootDir>/scripts/agents/includes/sync-version.js',
     ],
-    moduleNameMapper: {
-        '^(\.{1,2}/.*)\.js$': '$1',
-    },
-    moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
+    // Module name mapper is disabled to allow proper .cjs resolution
+    // moduleNameMapper: {
+    //     '^(\.{1,2}/.*)\.js$': '$1',
+    // },
+    moduleFileExtensions: ['js', 'cjs', 'ts', 'tsx', 'jsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
     collectCoverageFrom: [

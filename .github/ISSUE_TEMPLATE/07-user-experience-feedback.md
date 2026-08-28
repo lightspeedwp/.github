@@ -1,8 +1,13 @@
 ---
 name: "💡 User Experience Feedback"
+description: "💡 User Experience Feedback"
 about: Share feedback on the usability and interface design of this WordPress project
 title: "[UX] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## Describe your experience

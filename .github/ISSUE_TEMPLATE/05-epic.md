@@ -1,8 +1,13 @@
 ---
 name: "📦 Epic"
+description: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
 about: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
 title: "[Epic] <Brief summary>"
 labels: [status:needs-planning, priority:important, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--
