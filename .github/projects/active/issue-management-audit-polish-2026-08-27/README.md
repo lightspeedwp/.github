@@ -12,6 +12,7 @@
 This is a comprehensive 7-phase program to audit and polish the issue management system across the LightSpeed organisation. The project coordinates improvements to agent specifications, workflow automation, documentation, and operational procedures.
 
 **Key Objectives**:
+
 - Audit existing issue management components (75+ items)
 - Design and implement orchestration workflow
 - Optimize automation scripts for performance
@@ -22,15 +23,30 @@ This is a comprehensive 7-phase program to audit and polish the issue management
 
 ---
 
+## 🔗 Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2396](https://github.com/lightspeedwp/.github/issues/2396) | epic | Issue Management Agent Audit & Polish — Master coordination | 🟢 Open |
+| [#2383](https://github.com/lightspeedwp/.github/issues/2383) | task | Phase 3: Create Issue Management Orchestration Workflow | 🟢 Open |
+| [#2384](https://github.com/lightspeedwp/.github/issues/2384) | task | Phase 3: Update issues.agent.md v2.1 with openspec integration | 🟢 Open |
+| [#2385](https://github.com/lightspeedwp/.github/issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
+| [#2386](https://github.com/lightspeedwp/.github/issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
+| [#2387](https://github.com/lightspeedwp/.github/issues/2387) | task | Phase 4: Update documentation with openspec status | ⏰ Planned |
+
+---
+
 ## 📋 Quick Navigation
 
 ### Phase Documentation
+
 - **[Phase 1: Discovery & Planning](./09-PHASE-1-DISCOVERY-PLANNING.md)** ✅ COMPLETE
 - **[Phase 2: Automation Optimization](./10-PHASE-2-AUTOMATION-OPTIMIZATION.md)** (Pending)
 - **[Phase 3: Workflow Implementation](./11-PHASE-3-WORKFLOW-IMPLEMENTATION.md)** (In Progress)
 - **[Phases 4-7: Full Details](./12-PHASES-4-5-6-7.md)** (Pending)
 
 ### Planning Documents
+
 - **[Project Overview](./00-PROJECT-OVERVIEW.md)** - Executive summary
 - **[Current State Audit](./01-CURRENT-STATE-AUDIT.md)** - Phase 1 findings
 - **[Improvement Plan](./02-IMPROVEMENT-PLAN.md)** - Implementation roadmap
@@ -42,6 +58,7 @@ This is a comprehensive 7-phase program to audit and polish the issue management
 - **[Issues Created Log](./08-GITHUB-ISSUES-CREATED.md)** - Tracking
 
 ### Key Links
+
 - **[Openspec Status](./OPENSPEC.md)** - Project openspec metadata
 - **[Index](./00-INDEX.md)** - Full navigation guide
 
@@ -64,13 +81,16 @@ Phase 7: Project Finalization      [                    ] 0%
 ## 🔗 Related GitHub Issues
 
 ### Epic
+
 - **[#2396](https://github.com/lightspeedwp/.github/issues/2396)** - EPIC: Issue Management Agent Audit & Polish
 
 ### Active Phase Issues
+
 - **[#2383](https://github.com/lightspeedwp/.github/issues/2383)** - Create Issue Management Orchestration Workflow (Phase 3)
 - **[#2384](https://github.com/lightspeedwp/.github/issues/2384)** - Update issues.agent.md v2.1 (Phase 3)
 
 ### Planned Phase Issues
+
 - **[#2385](https://github.com/lightspeedwp/.github/issues/2385)** - Add openspec status labels (Phase 5)
 - **[#2386](https://github.com/lightspeedwp/.github/issues/2386)** - Enable test suite (Phase 6)
 - **[#2387](https://github.com/lightspeedwp/.github/issues/2387)** - Update documentation (Phase 4)
@@ -89,6 +109,7 @@ Phase 7: Project Finalization      [                    ] 0%
 ## 📈 Metrics & KPIs
 
 ### Project Scope
+
 - **Components Audited**: 75+
 - **Documentation Files**: 20+
 - **Automation Scripts**: 13
@@ -97,6 +118,7 @@ Phase 7: Project Finalization      [                    ] 0%
 - **Test Cases**: 11+
 
 ### Quality Targets
+
 - **Code Coverage**: 80%+
 - **Documentation Completeness**: 100%
 - **Label Coverage**: 100% for production components
@@ -104,6 +126,7 @@ Phase 7: Project Finalization      [                    ] 0%
 - **Test Pass Rate**: 95%+
 
 ### Timeline
+
 - **Phase 1**: 2026-08-26 to 2026-08-27 (✅ Complete)
 - **Phase 2**: 2026-08-28 to 2026-08-31
 - **Phase 3**: 2026-08-27 to 2026-09-02 (In Progress)
@@ -133,6 +156,7 @@ Phase 7: Project Finalization      [                    ] 0%
 ## 📚 Key Deliverables
 
 ### By Phase
+
 1. **Phase 1** (✅ Complete): Audit findings & improvement plan
 2. **Phase 2**: Optimized scripts & orchestrator
 3. **Phase 3**: Production workflow & agents
@@ -142,6 +166,7 @@ Phase 7: Project Finalization      [                    ] 0%
 7. **Phase 7**: Completion summary & lessons learned
 
 ### By Type
+
 - **Documentation**: 8+ audit/planning docs + 20+ reference docs
 - **Code**: 5 agent scripts + workflow YAML + orchestrator
 - **Configuration**: 5 config files with openspec labels
@@ -153,21 +178,25 @@ Phase 7: Project Finalization      [                    ] 0%
 ## 🎯 Next Steps
 
 ### Immediate (This Week)
+
 1. ✅ Phase 1 discovery & planning complete
 2. 🔄 Complete Phase 3 workflow testing
 3. ⏳ Begin Phase 2 script optimization
 
 ### Short-term (Next Week)
+
 1. Complete Phase 2 script optimization
 2. Begin Phase 4 documentation updates
 3. Begin Phase 5 openspec labeling
 
 ### Medium-term (Weeks 3-4)
+
 1. Complete Phase 4 documentation
 2. Complete Phase 5 openspec integration
 3. Begin Phase 6 test enablement
 
 ### Long-term (Final Week)
+
 1. Complete Phase 6 testing
 2. Execute Phase 7 closure
 3. Formal project completion
@@ -177,7 +206,7 @@ Phase 7: Project Finalization      [                    ] 0%
 ## 📞 Contact & Support
 
 **Project Owner**: Claude (AI Agent)  
-**Product Owner**: Ashley Shaw (ashley@lightspeedwp.agency)  
+**Product Owner**: Ashley Shaw (<ashley@lightspeedwp.agency>)  
 **Questions**: See related issue #2396 (Epic)
 
 ---
@@ -194,9 +223,11 @@ Phase 7: Project Finalization      [                    ] 0%
 ## 🔗 Related Issues
 
 ### Epic
+
 - [#2396](https://github.com/lightspeedwp/.github/issues/2396) - EPIC: Issue Management Agent Audit & Polish - Complete 7-Phase Program
 
 ### Phase 1-2 Issues
+
 - [#2383](https://github.com/lightspeedwp/.github/issues/2383) - Phase 3: Create Issue Management Orchestration Workflow
 - [#2384](https://github.com/lightspeedwp/.github/issues/2384) - Phase 3: Update issues.agent.md to v2.1 with openspec integration
 - [#2390](https://github.com/lightspeedwp/.github/issues/2390) - Phase 2: Optimize automation scripts for performance
@@ -204,12 +235,14 @@ Phase 7: Project Finalization      [                    ] 0%
 - [#2392](https://github.com/lightspeedwp/.github/issues/2392) - Phase 2: Create script registry documentation
 
 ### Phase 4-5 Issues
+
 - [#2385](https://github.com/lightspeedwp/.github/issues/2385) - Phase 5: Add openspec status labels to issue management components
 - [#2387](https://github.com/lightspeedwp/.github/issues/2387) - Phase 4: Update all issue-related documentation with openspec status
 - [#2388](https://github.com/lightspeedwp/.github/issues/2388) - Phase 4: Create comprehensive Issue Management Architecture Overview
 - [#2389](https://github.com/lightspeedwp/.github/issues/2389) - Phase 4: Create quick start guide for issue management contributors
 
 ### Phase 6-7 Issues
+
 - [#2386](https://github.com/lightspeedwp/.github/issues/2386) - Phase 6: Enable and maintain issue management test suite
 - [#2393](https://github.com/lightspeedwp/.github/issues/2393) - Phase 7: Project closeout: Issue Management Audit & Polish
 - [#2399](https://github.com/lightspeedwp/.github/issues/2399) - Phase 5: Openspec Integration & Audit
