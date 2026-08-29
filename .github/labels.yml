@@ -204,6 +204,42 @@
   color: AB7DF8
   description: "Content Modelling"
 
+- name: type:question
+  color: 4393F8
+  description: "Question or inquiry"
+
+- name: type:ux-feedback
+  color: 4393F8
+  description: "User experience feedback"
+
+- name: type:help
+  color: 4393F8
+  description: "Request for help or support"
+
+- name: type:support
+  color: 4393F8
+  description: "Support request"
+
+- name: type:ui
+  color: 3FB950
+  description: "User interface work"
+
+- name: type:enhancement
+  color: 3FB950
+  description: "Enhancement to existing feature"
+
+- name: type:ci
+  color: 4393F8
+  description: "Continuous integration"
+
+- name: type:dependency
+  color: 8D4821
+  description: "Dependency management"
+
+- name: type:investigation
+  color: 9198A1
+  description: "Investigation or research"
+
 # --- Meta / housekeeping ---
 
 - name: meta:needs-changelog

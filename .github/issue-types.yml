@@ -35,6 +35,9 @@ issue_types:
   - name: Test Coverage
     color: D29922
     label: type:test
+  - name: QA
+    color: D29922
+    label: type:qa
   - name: Performance
     color: D29922
     label: type:performance
@@ -77,3 +80,30 @@ issue_types:
   - name: Content Modelling
     color: AB7DF8
     label: type:content-modelling
+  - name: Question
+    color: 4393F8
+    label: type:question
+  - name: UX Feedback
+    color: 4393F8
+    label: type:ux-feedback
+  - name: Help
+    color: 4393F8
+    label: type:help
+  - name: Support
+    color: 4393F8
+    label: type:support
+  - name: UI
+    color: 3FB950
+    label: type:ui
+  - name: Enhancement
+    color: 3FB950
+    label: type:enhancement
+  - name: CI
+    color: 4393F8
+    label: type:ci
+  - name: Dependency
+    color: 8D4821
+    label: type:dependency
+  - name: Investigation
+    color: 9198A1
+    label: type:investigation
