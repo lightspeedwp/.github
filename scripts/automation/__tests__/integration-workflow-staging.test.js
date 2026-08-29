@@ -4,8 +4,6 @@ const {
   runPerformanceBench,
   validateDataIntegrity,
   runComplianceChecks,
-  calculateReadinessScore,
-  canPromoteToProduction,
   generateStagingReport,
 } = require("../integration-workflow-staging-helpers.js");
 

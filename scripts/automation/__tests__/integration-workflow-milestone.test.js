@@ -333,7 +333,7 @@ describe("integration: milestone allocation workflow", () => {
       });
 
       const allocator = new MilestoneAllocator({ dryRun: false });
-      const result = await allocator.allocate(222);
+      await allocator.allocate(222);
 
       // Both #1 and #2 have earliest due date (2026-09-15), so select #2 (latest created)
       expect(mockOctokit.rest.pulls.update).toHaveBeenCalledWith(

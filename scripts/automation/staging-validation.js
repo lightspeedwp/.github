@@ -16,13 +16,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const {
-  validateAudit,
-  runPerformanceBench,
-  testErrorScenarios,
-  validateReports,
-  validateIntegrity,
-} = require("./staging-validation-helpers.js");
+// Helper functions available from staging-validation-helpers.js when needed
 
 // Configuration
 const CONFIG = {
