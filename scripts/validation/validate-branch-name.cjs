@@ -73,6 +73,8 @@ const BRANCH_PATTERN_RELEASE_STANDARD = /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([
 const BRANCH_PATTERN_STANDARD = new RegExp(
   `^(${ALLOWED_TYPES.filter(t => t !== 'release').join('|')})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`
 );
+// NOTE: BRANCH_PATTERN covers only non-release branches (alias of BRANCH_PATTERN_STANDARD).
+// Release branches are validated separately via BRANCH_PATTERN_RELEASE_SEMVER / BRANCH_PATTERN_RELEASE_STANDARD.
 const BRANCH_PATTERN = BRANCH_PATTERN_STANDARD;
 
 // Branches exempt from validation (protected branches, bot branches, etc.)
@@ -263,6 +265,7 @@ function printPattern() {
   console.log('  fix/validation-bug');
   console.log('  release/v1.2.3');
   console.log('  release/1.2.3-beta');
+  console.log('');
   console.log('Invalid example: feat/myFeatureName (uppercase not allowed)');
 }
 
