@@ -137,7 +137,7 @@
     "ajv": "^8.17.1",
     "ajv-cli": "5.0.0",
     "ajv-formats": "^3.0.1",
-    "all-contributors-cli": "3.1.1",
+    "all-contributors-cli": "6.26.1",
     "babel-jest": "29.7.0",
     "bats": "^1.8.0",
     "dotenv": "^16.4.5",
