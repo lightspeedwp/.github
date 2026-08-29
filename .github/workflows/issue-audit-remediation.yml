@@ -52,6 +52,14 @@ on:
         options:
           - "true"
           - "false"
+      audit_fix_labels:
+        description: "Apply missing type/priority labels to open issues (audit mode)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
 
 permissions:
   contents: read
@@ -71,9 +79,11 @@ jobs:
         uses: actions/github-script@v9
         env:
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          AUDIT_FIX_LABELS: ${{ inputs.audit_fix_labels || 'true' }}
         with:
           script: |
             const dryRun = process.env.DRY_RUN === 'true';
+            const auditFixLabels = process.env.AUDIT_FIX_LABELS !== 'false';
 
             const report = {
               reopened: [],
@@ -174,6 +184,7 @@ jobs:
             }
 
             // ─── Step 2: Fix labels on open issues ───────────────────────
+            if (auditFixLabels) {
             core.info('Fetching all open issues...');
             let openIssues = await github.paginate(github.rest.issues.listForRepo, {
               owner: context.repo.owner,
@@ -232,6 +243,7 @@ jobs:
                 }
               }
             }
+            } // end auditFixLabels
 
             // ─── Generate summary report ─────────────────────────────────
             const summary = [
