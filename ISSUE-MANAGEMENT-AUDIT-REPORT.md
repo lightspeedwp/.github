@@ -84,7 +84,7 @@ permissions:
 **Issue Content**:
 
 - Full issue bodies processed (title + body)
-- Content analyzed locally in workflow, not sent to external services
+- Content analysed locally in workflow, not sent to external services
 - Keywords extracted and stored in workflow outputs
 
 **Reports**:
@@ -138,7 +138,7 @@ permissions:
 **Diagram**:
 
 ```
-setup (initialize context)
+setup (initialise context)
   ↓
 content-analysis (detect type)
   ↓
@@ -199,7 +199,7 @@ WORKFLOW_TIMEOUT_MINUTES: "10"
 **Rationale**:
 
 - Flags allow disabling features without code changes
-- Threshold controls enrichment behavior
+- Threshold controls enrichment behaviour
 - Timeout prevents runaway workflows
 - All defaults are sensible
 
@@ -222,7 +222,7 @@ WORKFLOW_TIMEOUT_MINUTES: "10"
    - Output: `issue_number`, `action`, `trigger_type`
    - Validation: ✅ Type guards against empty values
 
-2. **Content Analysis**: Fetches issue from GitHub API, analyzes
+2. **Content Analysis**: Fetches issue from GitHub API, analyses
    - Input: Issue number, repo, token
    - API Call: `GET /repos/{owner}/{repo}/issues/{number}`
    - Output: `type` (8 possible values), `confidence` (0-1 float), `keywords` (array), `labels` (array)
@@ -305,24 +305,24 @@ WORKFLOW_TIMEOUT_MINUTES: "10"
 
 **Scalability**:
 
-- Single issue: 1-2 seconds
-- Batch (50 issues): 15-20 minutes (sequential per issue, concurrent agent parallelization not implemented)
-- Daily (100 issues): 20-30 minutes
+- Single issue: 1–2 seconds
+- Batch (50 issues): 15–20 minutes (sequential per issue, concurrent agent parallelisation not implemented)
+- Daily (100 issues): 20–30 minutes
 
-**Optimization Opportunities**:
+**Optimisation Opportunities**:
 
 1. Parallel agent execution within a job (only if API rate limits allow)
 2. Caching GitHub API responses (if same issue queried multiple times)
-3. Batch label operations (API supports bulk labeling)
+3. Batch label operations (API supports bulk labelling)
 4. Async report writing (current: synchronous)
 
-**Audit Finding**: Performance is acceptable for workflow trigger use case. Batch processing could be optimized but current approach is conservative and safe.
+**Audit Finding**: Performance is acceptable for workflow trigger use case. Batch processing could be optimised but current approach is conservative and safe.
 
 ### 4.2 Resource Usage
 
 **Status**: ✅ **MINIMAL**
 
-- Memory: 10-15 MB per run
+- Memory: 10–15 MB per run
 - Disk: ~5 KB per JSON report
 - API Calls: ~5 per issue
 - Network: Minimal (one API call per agent)
@@ -376,7 +376,7 @@ WORKFLOW_TIMEOUT_MINUTES: "10"
 - Agent scripts are well-commented
 - Labels documented in `labels.yml`
 
-**Code Organization**:
+**Code Organisation**:
 
 - Single source of truth for workflow (`issue-management-orchestration.yml`)
 - Single source of truth for labels (`.github/labels.yml`)
@@ -489,7 +489,7 @@ WORKFLOW_TIMEOUT_MINUTES: "10"
 1. **Sequential Agent Execution**
    - Why: Ensures consistency, prevents race conditions
    - Cost: ~1.25s per issue
-   - Benefit: Correct behavior, safe
+   - Benefit: Correct behaviour, safe
 
 2. **Conditional Enrichment (confidence >= 0.80)**
    - Why: Prevents incorrect template injection
@@ -508,7 +508,7 @@ WORKFLOW_TIMEOUT_MINUTES: "10"
 
 ### 8.2 Potential Improvements (Phase 2)
 
-- [ ] Implement agent parallelization (within rate limits)
+- [ ] Implement agent parallelisation (within rate limits)
 - [ ] Add caching for frequent queries
 - [ ] Implement batch label operations
 - [ ] Add performance profiling
@@ -551,7 +551,7 @@ None — System is production-ready
 
 ### Medium-term (Phase 2)
 
-1. Implement agent parallelization for performance
+1. Implement agent parallelisation for performance
 2. Add performance dashboard
 3. Integrate with project planning/milestone automation
 4. Consider ML-based type detection for improved accuracy
