@@ -7,10 +7,10 @@ created_date: 2026-08-29
 
 # Node.js 24 Upgrade — Quick Reference Checklist
 
-**Status:** Phase 4 ✅ Complete — Phase 5 (Merge) Ready to Execute  
+**Status:** Phase 5 ⏳ IN PROGRESS — CI Verification & Mermaid Fix  
 **Branch:** `feat/nodejs-upgrade-24`  
 **Target Merge:** develop  
-**Timeline:** ~4–5 hours — 2 hrs 45 min complete, 1.5 hrs remaining
+**Timeline:** ~4–5 hours — 3 hrs complete, ~1 hr remaining
 
 ---
 
@@ -111,14 +111,15 @@ created_date: 2026-08-29
 
 ## Phase 5: CI/CD Verification & Merge (30 min)
 
-- [x] Push branch to remote: ✓ (commits 0ae03cecd, 34b3a385a, 5aeed5bc6 pushed)
-- [x] Create PR: PR #2447 already exists (Draft status) ✓
-- [ ] Monitor CI checks (waiting for GitHub Actions to run with new dependencies)
+- [x] Push branch to remote: ✓ (commits 0ae03cecd, 34b3a385a, 5aeed5bc6, d35f22f49 pushed)
+- [x] Create PR: PR #2447 already exists ✓
+- [x] Address Mermaid diagram validation: Fixed accessibility attributes (accTitle, accDescr) ✓
+- [ ] Monitor CI checks (fresh runs after Mermaid fix)
+  - [ ] Mermaid Diagrams — re-running with fix
   - [ ] checks.yml (lint, test, validate) — pending
   - [ ] release.yml — pending
   - [ ] meta.yml — pending
   - [ ] Other workflows — pending
-- [ ] Address any CI failures immediately
 - [ ] Merge to develop (squash merge)
 - [ ] Create post-merge monitoring issue
 - [ ] Update CHANGELOG.md (Unreleased section)
@@ -238,13 +239,14 @@ Phase 1 → Phase 2 → Phase 3 ⚠️ BLOCKER → Phase 4 → Phase 5 ⚠️ BL
 - ✅ Phase 4: Workflow Standardization — 54/54 workflows updated to use .nvmrc
 - ⏳ Phase 5: CI/CD Verification — Awaiting GitHub Actions run
 
-**Commits on Branch (3 total):**
+**Commits on Branch (4 total):**
 1. 0ae03cecd — chore: upgrade dependencies for Node.js 24 compatibility
 2. 34b3a385a — docs: update quick reference — Phase 2 complete, Phase 3 in progress
 3. 5aeed5bc6 — chore: standardise workflows to use .nvmrc for Node 24
+4. d35f22f49 — fix: add accessibility attributes to Mermaid diagram in README
 
 **What's Next:**
-- GitHub Actions will run CI checks with new dependencies (Node 24 + npm 11.19.0)
-- All checks should pass now that dependencies are Node 24-compatible
+- GitHub Actions re-running CI checks with Mermaid fix applied
+- All checks should pass now that Mermaid diagram accessibility fixed
 - Merge PR to develop branch
 - Monitor for 3 days for any regressions
