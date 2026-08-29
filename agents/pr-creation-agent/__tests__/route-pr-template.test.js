@@ -70,6 +70,20 @@ describe("routePrTemplate", () => {
     expect(result.warning).toContain("Branch type is required");
   });
 
+  test("returns a consistent fallback object shape for invalid input", async () => {
+    const result = await routePrTemplate({});
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        routed: false,
+        template: "pull_request_template.md",
+        reason: "invalid-input",
+        fallback: true,
+      }),
+    );
+    expect(result).toHaveProperty("warning");
+  });
+
   test("falls back when branch type is unknown", async () => {
     const result = await routePrTemplate({ branchType: "unknown" });
 

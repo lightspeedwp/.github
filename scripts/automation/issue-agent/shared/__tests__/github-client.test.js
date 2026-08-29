@@ -4,6 +4,8 @@
  */
 
 const githubClient = require("../github-client");
+const https = require("https");
+const { EventEmitter } = require("events");
 
 describe("GitHub Client", () => {
   beforeEach(() => {
@@ -14,6 +16,7 @@ describe("GitHub Client", () => {
   });
 
   afterEach(() => {
+    jest.restoreAllMocks();
     delete process.env.GITHUB_TOKEN;
   });
 
@@ -57,9 +60,53 @@ describe("GitHub Client", () => {
   });
 
   describe("fetchMilestones", () => {
-    test("should expose milestone fetch capability", () => {
-      // Network calls are covered by integration tests; unit tests should stay offline.
-      expect(typeof githubClient.fetchMilestones).toBe("function");
+    test("should fetch open milestones by default", async () => {
+      const requestSpy = jest
+        .spyOn(https, "request")
+        .mockImplementation((_, callback) => {
+          const response = new EventEmitter();
+          response.statusCode = 200;
+
+          process.nextTick(() => {
+            callback(response);
+            response.emit(
+              "data",
+              JSON.stringify([
+                {
+                  title: "Milestone 1",
+                  number: 1,
+                  state: "open",
+                  description: "First milestone",
+                },
+              ]),
+            );
+            response.emit("end");
+          });
+
+          return {
+            on: jest.fn(),
+            write: jest.fn(),
+            end: jest.fn(),
+          };
+        });
+
+      const milestones = await githubClient.fetchMilestones(
+        "lightspeedwp",
+        ".github",
+      );
+
+      expect(milestones).toEqual([
+        {
+          title: "Milestone 1",
+          number: 1,
+          state: "open",
+          description: "First milestone",
+        },
+      ]);
+      expect(requestSpy).toHaveBeenCalledTimes(1);
+      expect(requestSpy.mock.calls[0][0].path).toContain(
+        "/repos/lightspeedwp/.github/milestones?state=open&per_page=100",
+      );
     });
 
     test("should cache milestone results for 5 minutes", async () => {
