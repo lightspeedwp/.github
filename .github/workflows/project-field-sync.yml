@@ -68,6 +68,9 @@ on:
         options:
           - "false"
           - "true"
+  schedule:
+    # Runs every Monday at 09:00 UTC to keep project board fields current
+    - cron: "0 9 * * 1"
 
 permissions:
   issues: write
@@ -173,6 +176,13 @@ jobs:
             // ─── Step 1: Fetch issues based on mode ──────────────────────
             core.info(`Mode: ${mode}`);
             let issues = [];
+
+            if (mode === 'targeted' && !issueFilter) {
+              core.warning(
+                'targeted mode selected but issue_filter is empty — falling back to bulk (all open issues). ' +
+                'Provide a label name or comma-separated issue numbers via the issue_filter input to use targeted mode.'
+              );
+            }
 
             if (mode === 'targeted' && issueFilter) {
               // Determine whether issueFilter is issue numbers or a label name
