@@ -1,0 +1,87 @@
+name: Distribute Unallocated Milestones
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: "0 9 * * MON"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  distribute-milestones:
+    runs-on: ubuntu-latest
+    name: Distribute unallocated issues to milestones
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Distribute unallocated issues to milestones
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "🚀 Starting milestone distribution..."
+          node scripts/automation/distribute-unallocated-milestones.js --verbose
+          echo "✅ Milestone distribution complete!"
+
+      - name: Create workflow summary
+        if: always()
+        run: |
+          echo "### 📊 Milestone Distribution Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Job:** Distribute Unallocated Milestones" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "For details, see the workflow run logs." >> $GITHUB_STEP_SUMMARY
+
+  reassign-v1-to-v1-1:
+    runs-on: ubuntu-latest
+    name: Reassign v1.0 issues to v1.1
+    # Uncomment and set a schedule if needed, or trigger manually
+    # This is optional and only runs if v1.0 milestone needs to be retired
+
+    if: github.event_name == 'workflow_dispatch' # Only run on manual trigger
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Reassign v1.0 issues to v1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔄 Starting v1.0 → v1.1 migration..."
+          node scripts/automation/reassign-v1-to-v1-1.js --verbose
+          echo "✅ Migration complete!"
+
+      - name: Create workflow summary
+        if: always()
+        run: |
+          echo "### 📊 Milestone Reassignment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Job:** Reassign v1.0 to v1.1" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "For details, see the workflow run logs." >> $GITHUB_STEP_SUMMARY
