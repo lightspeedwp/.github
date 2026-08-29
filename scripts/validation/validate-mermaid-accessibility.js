@@ -190,7 +190,9 @@ async function main() {
             .map((f) => f.trim())
             .filter(Boolean)
         : getMarkdownFiles()
-  ).filter((f) => !isVendorPath(f));
+  )
+    .filter((f) => /\.mdx?$/i.test(f))
+    .filter((f) => !isVendorPath(f));
 
   console.log("♿ Validating Mermaid diagram accessibility compliance...\n");
 
