@@ -6,7 +6,7 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 
 /**
  * Loads and parses canonical labels from a YAML file.
@@ -15,7 +15,7 @@ import * as yaml from "js-yaml";
  */
 function fetchCanonicalLabels(labelsYmlPath = ".github/labels.yml") {
   const yml = fs.readFileSync(labelsYmlPath, "utf8");
-  const labelsData = yaml.load(yml);
+  const labelsData = load(yml);
   return new Set(labelsData.map((l) => (typeof l === "string" ? l : l.name)));
 }
 

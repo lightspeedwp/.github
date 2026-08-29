@@ -6,7 +6,7 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 import path from "path";
 
 function resolveFromRoot(inputPath, fallbackPath) {
@@ -28,7 +28,7 @@ const ISSUE_TEMPLATE_DIR = resolveFromRoot(
 );
 
 function loadYaml(file) {
-  return yaml.load(fs.readFileSync(file, "utf8"));
+  return load(fs.readFileSync(file, "utf8"));
 }
 
 function getCanonicalLabels() {

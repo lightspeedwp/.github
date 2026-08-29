@@ -13,7 +13,7 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 import core from "@actions/core";
 import { minimatch } from "minimatch";
 
@@ -33,7 +33,7 @@ function fetchLabelerRules(labelerPath = ".github/labeler.yml") {
     }
 
     const yml = fs.readFileSync(labelerPath, "utf8");
-    const rules = yaml.load(yml);
+    const rules = load(yml);
 
     if (!rules || typeof rules !== "object") {
       core.warning(
