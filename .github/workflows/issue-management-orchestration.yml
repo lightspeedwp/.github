@@ -1,0 +1,402 @@
+name: Issue Management Orchestration
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to analyze (leave empty for all needs-triage)"
+        required: false
+        type: string
+      action:
+        description: "Action to perform"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - analyze
+          - triage
+          - enrich
+          - validate
+          - all
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: issue-mgmt-${{ github.event.issue.number || 'scheduled' }}
+  cancel-in-progress: false
+
+env:
+  WORKFLOW_VERSION: "v1.0"
+  ENABLE_ENRICHMENT: "true"
+  ENABLE_VALIDATION: "true"
+  ENABLE_REPORTING: "true"
+  MAX_LABELS_PER_ISSUE: "15"
+  ENRICHMENT_THRESHOLD: "0.80"
+  WORKFLOW_TIMEOUT_MINUTES: "10"
+
+jobs:
+  setup:
+    name: Setup Workflow Context
+    runs-on: ubuntu-latest
+    outputs:
+      issue_number: ${{ steps.context.outputs.issue_number }}
+      action: ${{ steps.context.outputs.action }}
+      trigger_type: ${{ steps.context.outputs.trigger_type }}
+      should_enrich: ${{ steps.context.outputs.should_enrich }}
+      should_validate: ${{ steps.context.outputs.should_validate }}
+      should_report: ${{ steps.context.outputs.should_report }}
+    steps:
+      - name: Determine Workflow Context
+        id: context
+        run: |
+          # Determine trigger type
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TRIGGER="manual"
+            ISSUE_NUM="${{ github.event.inputs.issue_number }}"
+            ACTION="${{ github.event.inputs.action }}"
+          elif [[ "${{ github.event_name }}" == "schedule" ]]; then
+            TRIGGER="scheduled"
+            ISSUE_NUM=""
+            ACTION="triage"
+          else
+            TRIGGER="event"
+            ISSUE_NUM="${{ github.event.issue.number }}"
+            ACTION="all"
+          fi
+
+          echo "trigger_type=${TRIGGER}" >> $GITHUB_OUTPUT
+          echo "issue_number=${ISSUE_NUM}" >> $GITHUB_OUTPUT
+          echo "action=${ACTION}" >> $GITHUB_OUTPUT
+          echo "should_enrich=${ENABLE_ENRICHMENT}" >> $GITHUB_OUTPUT
+          echo "should_validate=${ENABLE_VALIDATION}" >> $GITHUB_OUTPUT
+          echo "should_report=${ENABLE_REPORTING}" >> $GITHUB_OUTPUT
+
+          echo "Workflow initialized"
+          echo "  Trigger: ${TRIGGER}"
+          echo "  Issue: ${ISSUE_NUM:-all}"
+          echo "  Action: ${ACTION}"
+
+  content-analysis:
+    name: Content Analysis Agent
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ contains(fromJson('["analyze", "triage", "enrich", "all"]'), needs.setup.outputs.action) }}
+    outputs:
+      detected_type: ${{ steps.analyze.outputs.type }}
+      confidence: ${{ steps.analyze.outputs.confidence }}
+      keywords: ${{ steps.analyze.outputs.keywords }}
+      suggested_labels: ${{ steps.analyze.outputs.labels }}
+      analysis_status: ${{ steps.analyze.outputs.status }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Analyse Issue Content
+        id: analyze
+        run: |
+          # Load issue details
+          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
+          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
+          if [[ -z "$ISSUE_NUM" ]]; then
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              echo "No issues with status:needs-triage found"
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
+          fi
+
+          # Call content analysis script
+          node scripts/automation/content-analysis-agent.js \
+            --issue "$ISSUE_NUM" \
+            --repo "${{ github.repository }}" \
+            --token "${{ secrets.GITHUB_TOKEN }}" || {
+            echo "status=error" >> $GITHUB_OUTPUT
+            exit 1
+          }
+
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Log Analysis Results
+        if: always()
+        run: |
+          echo "Content Analysis Results:"
+          echo "  Type: ${{ steps.analyze.outputs.detected_type }}"
+          echo "  Confidence: ${{ steps.analyze.outputs.confidence }}"
+          echo "  Status: ${{ steps.analyze.outputs.analysis_status }}"
+
+  labeling:
+    name: Labelling Agent
+    runs-on: ubuntu-latest
+    needs: [setup, content-analysis]
+    if: ${{ contains(fromJson('["triage", "enrich", "all"]'), needs.setup.outputs.action) && needs.content-analysis.outputs.analysis_status != 'error' && always() }}
+    outputs:
+      labels_applied: ${{ steps.label.outputs.count }}
+      label_conflicts: ${{ steps.label.outputs.conflicts }}
+      label_status: ${{ steps.label.outputs.status }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Apply Labels
+        id: label
+        run: |
+          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
+          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
+          if [[ -z "$ISSUE_NUM" ]]; then
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
+          fi
+
+          # Call labelling script
+          node scripts/automation/labeling-agent.js \
+            --issue "$ISSUE_NUM" \
+            --repo "${{ github.repository }}" \
+            --token "${{ secrets.GITHUB_TOKEN }}" \
+            --type "${{ needs.content-analysis.outputs.detected_type }}" || {
+            echo "status=error" >> $GITHUB_OUTPUT
+            exit 1
+          }
+
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Log Labeling Results
+        if: always()
+        run: |
+          echo "Labelling Results:"
+          echo "  Labels Applied: ${{ steps.label.outputs.labels_applied }}"
+          echo "  Conflicts: ${{ steps.label.outputs.label_conflicts }}"
+          echo "  Status: ${{ steps.label.outputs.label_status }}"
+
+  enrichment:
+    name: Enrichment Agent
+    runs-on: ubuntu-latest
+    needs: [setup, content-analysis, labeling]
+    if: ${{ contains(fromJson('["enrich", "all"]'), needs.setup.outputs.action) && needs.setup.outputs.should_enrich == 'true' && always() && needs.labeling.outputs.label_status != 'error' }}
+    outputs:
+      enrichment_added: ${{ steps.enrich.outputs.sections }}
+      enrichment_status: ${{ steps.enrich.outputs.status }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Enrich Issue
+        id: enrich
+        run: |
+          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
+          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+
+          if [[ -z "$ISSUE_NUM" ]]; then
+            echo "status=skipped" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Call enrichment script
+          node scripts/automation/enrichment-agent.js \
+            --issue "$ISSUE_NUM" \
+            --repo "${{ github.repository }}" \
+            --token "${{ secrets.GITHUB_TOKEN }}" \
+            --type "${{ needs.content-analysis.outputs.detected_type }}" \
+            --confidence "${{ needs.content-analysis.outputs.confidence }}" \
+            --threshold "${{ env.ENRICHMENT_THRESHOLD }}" || {
+            echo "status=error" >> $GITHUB_OUTPUT
+            exit 1
+          }
+
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Log Enrichment Results
+        if: always()
+        run: |
+          echo "Enrichment Results:"
+          echo "  Sections Added: ${{ steps.enrich.outputs.enrichment_added }}"
+          echo "  Status: ${{ steps.enrich.outputs.enrichment_status }}"
+
+  validation:
+    name: Validation Agent
+    runs-on: ubuntu-latest
+    needs: [setup, labeling, enrichment]
+    if: ${{ contains(fromJson('["validate", "all"]'), needs.setup.outputs.action) && needs.setup.outputs.should_validate == 'true' && always() }}
+    outputs:
+      validation_status: ${{ steps.validate.outputs.status }}
+      validation_issues: ${{ steps.validate.outputs.issues }}
+      validation_passed: ${{ steps.validate.outputs.passed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Validate Issue
+        id: validate
+        run: |
+          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
+          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
+          if [[ -z "$ISSUE_NUM" ]]; then
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              echo "passed=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
+          fi
+
+          # Call validation script
+          node scripts/automation/validation-agent.js \
+            --issue "$ISSUE_NUM" \
+            --repo "${{ github.repository }}" \
+            --token "${{ secrets.GITHUB_TOKEN }}" || {
+            echo "status=error" >> $GITHUB_OUTPUT
+            echo "passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          }
+
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "passed=true" >> $GITHUB_OUTPUT
+
+      - name: Log Validation Results
+        if: always()
+        run: |
+          echo "Validation Results:"
+          echo "  Status: ${{ steps.validate.outputs.validation_status }}"
+          echo "  Issues Found: ${{ steps.validate.outputs.validation_issues }}"
+          echo "  Passed: ${{ steps.validate.outputs.validation_passed }}"
+
+  reporting:
+    name: Reporting Agent
+    runs-on: ubuntu-latest
+    needs: [setup, content-analysis, labeling, enrichment, validation]
+    if: ${{ needs.setup.outputs.should_report == 'true' && always() }}
+    outputs:
+      report_generated: ${{ steps.report.outputs.report_id }}
+      report_status: ${{ steps.report.outputs.status }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Generate Report
+        id: report
+        run: |
+          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
+          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+
+          # For scheduled/manual runs without explicit issue, find first needs-triage issue
+          if [[ -z "$ISSUE_NUM" ]]; then
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+              | jq -r '.[0].number // empty')
+
+            if [[ -z "$NEEDS_TRIAGE" ]]; then
+              echo "status=skipped" >> $GITHUB_OUTPUT
+              echo "No issues found for reporting"
+              exit 0
+            fi
+            ISSUE_NUM="$NEEDS_TRIAGE"
+          fi
+
+          # Call reporting script
+          node scripts/automation/reporting-agent.js \
+            --issue "$ISSUE_NUM" \
+            --repo "${{ github.repository }}" \
+            --token "${{ secrets.GITHUB_TOKEN }}" \
+            --trigger "${{ needs.setup.outputs.trigger_type }}" || {
+            echo "status=error" >> $GITHUB_OUTPUT
+            exit 1
+          }
+
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Log Report
+        if: always()
+        run: |
+          echo "Reporting Results:"
+          echo "  Report ID: ${{ steps.report.outputs.report_generated }}"
+          echo "  Status: ${{ steps.report.outputs.report_status }}"
+
+  summary:
+    name: Workflow Summary
+    runs-on: ubuntu-latest
+    needs:
+      [setup, content-analysis, labeling, enrichment, validation, reporting]
+    if: always()
+    steps:
+      - name: Generate Summary
+        run: |
+          echo "## Issue Management Orchestration Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Workflow Execution**" >> $GITHUB_STEP_SUMMARY
+          echo "- Trigger: ${{ needs.setup.outputs.trigger_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Issue: ${{ needs.setup.outputs.issue_number || 'all' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Action: ${{ needs.setup.outputs.action }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Results**" >> $GITHUB_STEP_SUMMARY
+          echo "- Content Analysis: ${{ needs.content-analysis.outputs.analysis_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Labelling: ${{ needs.labeling.outputs.label_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Enrichment: ${{ needs.enrichment.outputs.enrichment_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Validation: ${{ needs.validation.outputs.validation_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Reporting: ${{ needs.reporting.outputs.report_status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Determine overall status
+          if [[ "${{ needs.validation.outputs.validation_passed }}" != "true" ]]; then
+            echo "**Status**: ⚠️ Validation Issues Detected" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Status**: ✅ Workflow Completed Successfully" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check Workflow Status
+        if: failure()
+        run: |
+          echo "❌ Workflow encountered errors"
+          echo "Check job logs for details"
+          exit 1
