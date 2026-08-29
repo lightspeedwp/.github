@@ -42,6 +42,7 @@ const CONFIG = {
     "logs/**",
     "**/package-lock.json",
   ],
+  targetFiles: [],
 };
 
 // Logging utility
@@ -375,6 +376,20 @@ class FileDiscovery {
   }
 }
 
+function resolveCliTargetFiles(fileArgs, rootDir) {
+  if (!Array.isArray(fileArgs) || fileArgs.length === 0) {
+    return [];
+  }
+
+  return [
+    ...new Set(
+      fileArgs.map((filePath) =>
+        path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath),
+      ),
+    ),
+  ].filter((filePath) => fs.existsSync(filePath));
+}
+
 function runAltValidation() {
   try {
     const schemaContent = fs.readFileSync(CONFIG.schemaPath, "utf8");
@@ -406,6 +421,7 @@ async function validateFrontmatter() {
     rootDir: CONFIG.rootDir,
     patterns: CONFIG.patterns,
     excludePatterns: CONFIG.excludePatterns,
+    targetFiles: CONFIG.targetFiles,
   });
 
   try {
@@ -413,11 +429,14 @@ async function validateFrontmatter() {
     const validator = new FrontmatterValidator(CONFIG.schemaPath, logger);
 
     // Discover files
-    const files = FileDiscovery.findFiles(
-      CONFIG.patterns,
-      CONFIG.excludePatterns,
-      CONFIG.rootDir,
-    );
+    const files =
+      CONFIG.targetFiles.length > 0
+        ? resolveCliTargetFiles(CONFIG.targetFiles, CONFIG.rootDir)
+        : FileDiscovery.findFiles(
+            CONFIG.patterns,
+            CONFIG.excludePatterns,
+            CONFIG.rootDir,
+          );
 
     logger.info(`Found ${files.length} files to validate`);
 
@@ -485,6 +504,27 @@ Examples:
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
+  const knownOptionIndices = new Set();
+  for (let i = 0; i < args.length; i++) {
+    if (
+      args[i] === "--schema" ||
+      args[i] === "--root" ||
+      args[i] === "--output"
+    ) {
+      knownOptionIndices.add(i);
+      knownOptionIndices.add(i + 1);
+    } else if (
+      args[i] === "--help" ||
+      args[i] === "-h" ||
+      args[i] === "--alt"
+    ) {
+      knownOptionIndices.add(i);
+    }
+  }
+  CONFIG.targetFiles = args.filter(
+    (_, index) => !knownOptionIndices.has(index),
+  );
+
   if (altMode) {
     runAltValidation();
   } else {
@@ -498,4 +538,5 @@ module.exports = {
   FileDiscovery,
   Logger,
   CONFIG,
+  resolveCliTargetFiles,
 };
