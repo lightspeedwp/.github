@@ -313,20 +313,23 @@ See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.git
 ## Visual Workflow
 
 ```mermaid
+---
+config:
+  flowchart:
+    htmlLabels: true
+  theme: base
+---
 flowchart TD
-  accTitle: Node.js 24 Upgrade Workflow
-  accDescr: Visual representation of the Node.js 24 upgrade phases
-  A[Start: Node 24 Alignment] --> B[Phase 1: Audit]
-  B --> C[Phase 2: Local Upgrade]
-  C --> D[Phase 3: Validation]
-  D --> E[Phase 4: Workflows]
-  E --> F[Phase 5: Merge]
-  F --> G[3-Day Post-Merge Monitoring]
-  G --> H[Project Complete]
+  A["Start: Node 24 Alignment"] --> B["Phase 1: Audit"]
+  B --> C["Phase 2: Local Upgrade"]
+  C --> D["Phase 3: Validation"]
+  D --> E["Phase 4: Workflows"]
+  E --> F["Phase 5: Merge"]
+  F --> G["3-Day Post-Merge Monitoring"]
+  G --> H["Project Complete"]
 
   classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
   classDef phase fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef validation fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
   classDef monitoring fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
   classDef done fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
 
