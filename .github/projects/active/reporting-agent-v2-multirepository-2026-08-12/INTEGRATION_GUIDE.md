@@ -14,22 +14,18 @@ domain: "governance"
 
 # Reporting Agent v2 Integration Guide
 
-This guide explains how to integrate Reporting Agent v2 into other LightSpeed agents, scripts, and
-GitHub automation flows. It is written for engineers who need deterministic outputs, predictable
-report locations, and safe operational behaviour in a multi-repository environment. The objective is
-to
-make integration straightforward while still giving enough depth for production hardening.
+This guide explains how to integrate Reporting Agent v2 into other LightSpeed agents, scripts, and GitHub
+automation flows. It is written for engineers who need deterministic outputs, predictable report locations,
+and safe operational behaviour in a multi-repository environment. The objective is to make integration
+straightforward while still giving enough depth for production hardening.
 
 The guide covers quick start setup, configuration strategy, API reference details, async JavaScript
-patterns, best practices, troubleshooting, performance tuning, quality gates, and migration advice
-from
+patterns, best practices, troubleshooting, performance tuning, quality gates, and migration advice from
 v1-style usage. All examples assume Node.js 24+ and the tooling already used in this repository.
 
-Where examples show wrappers around synchronous APIs, the wrapper exists to give a consistent async
-interface for orchestrator code. This allows integrators to compose Reporting Agent v2 with
-networked
-steps, retries, and concurrency control using the same async/await style used elsewhere in
-automation
+Where examples show wrappers around synchronous APIs, the wrapper exists to provide a consistent async
+interface for orchestrator code. This allows integrators to compose Reporting Agent v2 with networked
+steps, retries, and concurrency control using the same async/await style used elsewhere in automation
 pipelines.
 
 ## Table of Contents
@@ -52,22 +48,27 @@ pipelines.
 - [16. Glossary](#16-glossary)
 - [17. Cross-References](#17-cross-references)
 - [18. Integration Case Studies](#18-integration-case-studies)
+- [19. Anti-Patterns and Recovery Playbooks](#19-anti-patterns-and-recovery-playbooks)
+- [20. Implementation Playbooks](#20-implementation-playbooks)
+- [21. Deep-Dive Integration Questions](#21-deep-dive-integration-questions)
+- [22. Integration Validation Matrices](#22-integration-validation-matrices)
+- [23. Adoption Roadmap](#23-adoption-roadmap)
 
 ## 1. Audience and Scope
 
-This document is for maintainers of automation agents, workflow authors, and engineers responsible
-for
-report governance in the LightSpeed control-plane repository. It assumes familiarity with
-JavaScript,
+This document is for maintainers of automation agents, workflow authors, and engineers responsible for
+report governance in the LightSpeed control-plane repository. It assumes familiarity with JavaScript,
 Node.js, and repository structure conventions under `.github/`.
 
 In scope:
+
 - Integrating the reporting agent implementation in `scripts/agents/reporting.agent.js`.
 - Integrating metrics formatting helpers in `scripts/metrics/integrations/reporting-agent-input.js`.
 - Producing compliant report artefacts with frontmatter and predictable naming.
 - Running markdown and frontmatter validation checks before merge.
 
 Out of scope:
+
 - Re-architecting the reporting system.
 - Introducing new toolchains.
 - Cross-repo deployment automation changes not directly needed for integration.
@@ -128,7 +129,6 @@ Validation Gates (lint:md, validate:frontmatter)
   - `generateMonthlyReport(rawMetrics)`
   - `generateQuarterlyReport(rawMetrics)`
   - `generateContextReport(rawMetrics, context)`
-
 
 ## 3. Quick Start
 
@@ -378,171 +378,118 @@ consumers share consistent field naming and status semantics.
 
 ### 6.1 Single-step generation
 
-The single-step generation pattern is useful when integrating Reporting Agent v2 with heterogeneous
-automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Create and save low-risk reports in one short code path.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use this when input data is already trusted and pre-shaped by the caller. Keep payload preparation
+upstream, then call report generation and save once. This pattern minimises orchestration overhead
+and is ideal for cron jobs that write one artefact per run.
+
+Guardrails: validate category membership before save, and emit one structured log event with
+filename, category, and elapsed milliseconds.
 
 ### 6.2 Two-step generate then save
 
-The two-step generate then save pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Separate content rendering from persistence.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use this pattern when reviewers or additional policy checks need to inspect report text before
+writing to disk. The first step generates a draft string; the second step performs save after
+approval gates pass.
+
+Guardrails: include immutable draft hashes in logs so teams can compare reviewed and persisted
+content.
 
 ### 6.3 Strict validate before save
 
-The strict validate before save pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Fail fast if required metadata is missing.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use this for compliance-sensitive categories such as validation, audits, and release reporting.
+Validation runs immediately after generation, and any missing required field blocks persistence.
+
+Guardrails: treat validation errors as hard failures and warnings as backlog items with named
+owners.
 
 ### 6.4 Fallback category classification
 
-The fallback category classification pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Infer category only when callers omit explicit routing.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use inference for ad hoc manual invocations where convenience matters more than strict taxonomy
+control. In managed automation, always prefer explicit categories to keep reporting analytics
+stable.
+
+Guardrails: log both inferred category and source phrase to make misclassification easy to diagnose.
 
 ### 6.5 Metrics-first formatting pipeline
 
-The metrics-first formatting pipeline pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Normalise raw telemetry before narrative generation.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Run `MetricsReportFormatter` before report assembly when metrics originate from mixed collectors.
+This centralises health score, trend, and anomaly shaping so downstream reports remain consistent.
+
+Guardrails: version the formatter and include formatter version in report details for traceability.
 
 ### 6.6 JSON spec sidecar generation
 
-The json spec sidecar generation pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Publish schema docs next to generated JSON outputs.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use this whenever integrations emit JSON snapshots consumed by teams or automation. Generate a
+`.spec.md` companion explaining fields, generation method, and sample payload.
+
+Guardrails: release JSON and spec updates in the same commit to avoid drift.
 
 ### 6.7 Archive-and-replace lifecycle
 
-The archive-and-replace lifecycle pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Move superseded artefacts into archive folders with provenance.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Adopt this pattern for periodic reports where only recent summaries should stay in active folders.
+Archive older files after replacement reports are confirmed valid.
+
+Guardrails: never archive files still referenced by dashboards; update links first.
 
 ### 6.8 Batch report processing
 
-The batch report processing pattern is useful when integrating Reporting Agent v2 with heterogeneous
-automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Process many report jobs with deterministic sequencing.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use batch mode for weekly rollups spanning multiple categories. Prepare a queue of report jobs, then
+execute generation with bounded concurrency to avoid file-system contention.
+
+Guardrails: include per-job success/failure counts and return non-zero status when any blocking job
+fails.
 
 ### 6.9 Per-category orchestrator routing
 
-The per-category orchestrator routing pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Route source events to category-specific templates.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use a router map keyed by event type or producer. Each route maps to category, filename strategy,
+and template defaults, reducing conditional complexity in orchestration code.
+
+Guardrails: maintain route definitions in one module and test for unknown route behaviour.
 
 ### 6.10 Dry-run path preview
 
-The dry-run path preview pattern is useful when integrating Reporting Agent v2 with heterogeneous
-automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Expose computed paths and metadata without writing files.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Use dry-run mode in pull requests and migration rehearsals to verify naming, routing, and section
+coverage. Dry-run output should mirror real output except persistence side effects.
+
+Guardrails: mark dry-run results clearly so they cannot be mistaken for published artefacts.
 
 ### 6.11 Idempotent regeneration by date
 
-The idempotent regeneration by date pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Allow safe re-runs for the same reporting period.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+When reruns are expected, generate filenames from deterministic period keys such as ISO week.
+Existing files are replaced intentionally, preventing duplicate artefacts.
+
+Guardrails: include regenerated timestamp in details so consumers can track rerun timing.
 
 ### 6.12 Failure-aware retry envelope
 
-The failure-aware retry envelope pattern is useful when integrating Reporting Agent v2 with
-heterogeneous automation
-surfaces. Implement it by keeping the reporting boundary narrow: collect inputs, generate output,
-validate, then persist. If your pipeline contains network calls, isolate those steps before the
-report
-module so file generation remains deterministic and easy to test.
+Purpose: Retry transient write failures with bounded backoff.
 
-Operationally, emit structured logs around each boundary. Include action type, category, filename,
-validation outcome, and elapsed time. These fields give enough context for runbook diagnosis without
-logging sensitive payload details. For production, treat missing mandatory metadata as configuration
-defects, not runtime surprises, and fail fast with actionable error text.
+Wrap save operations in a retry helper for temporary IO or lock contention issues. Keep attempts
+bounded and preserve the first validation failure as non-retryable.
+
+Guardrails: classify errors into retryable and terminal buckets; avoid infinite loops.
 
 ## 7. Async JavaScript Examples
 
@@ -604,12 +551,18 @@ export async function createReportsInParallel(reportJobs) {
 ### 7.3 Async metrics normalisation before rendering
 
 ```javascript
-const MetricsReportFormatter = require(
-  "../../scripts/metrics/integrations/reporting-agent-input"
-);
+import MetricsReportFormatter from "../../scripts/metrics/integrations/reporting-agent-input.js";
 import { createReportAsync } from "./create-report-async.js";
 
 export async function createWeeklyMetricsReport(rawMetrics) {
+  const now = new Date();
+  const isoWeek = Math.ceil(
+    (Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) -
+      Date.UTC(now.getUTCFullYear(), 0, 1)) /
+      604800000,
+  );
+  const filename = `weekly-summary-${now.getUTCFullYear()}-w${String(isoWeek).padStart(2, "0")}.md`;
+
   const formatter = new MetricsReportFormatter();
   const formatted = await Promise.resolve(
     formatter.formatForReportingAgent(rawMetrics, "weekly"),
@@ -619,7 +572,7 @@ export async function createWeeklyMetricsReport(rawMetrics) {
     title: "weekly-metrics-summary",
     description: "Weekly metrics summary derived from raw telemetry.",
     category: "metrics",
-    filename: "weekly-summary-2026-w35.md",
+    filename,
     summary: `Health score: ${formatted.executive_summary.healthScore}`,
     details: JSON.stringify(formatted, null, 2),
     tags: ["metrics", "weekly", "automation"],
@@ -675,135 +628,83 @@ export async function validateGeneratedFile(filePath) {
 
 ### 8.1 Keep report payloads explicit and small
 
-Keep report payloads explicit and small helps teams maintain reliability as integrations scale. In
-practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Define only the fields needed for the current audience and decision. Smaller payloads reduce
+rendering noise, shorten reviews, and make schema drift obvious.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+If additional detail is required, attach separate artefacts and link them from the report instead of
+embedding large raw objects.
 
 ### 8.2 Prefer stable category mappings over inferred categories
 
-Prefer stable category mappings over inferred categories helps teams maintain reliability as
-integrations scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Maintain an explicit route table for producer-to-category mapping. This keeps folder-level analytics
+and governance audits dependable.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Use inference only as a fallback for interactive sessions where strict routing is less critical.
 
 ### 8.3 Validate before save, and lint after save
 
-Validate before save, and lint after save helps teams maintain reliability as integrations scale. In
-practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Validation catches metadata contract failures before files are written; linting ensures readability
+and formatting consistency after persistence.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Treat these gates as baseline quality checks in every integration path.
 
 ### 8.4 Separate generation from publication steps
 
-Separate generation from publication steps helps teams maintain reliability as integrations scale.
-In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Generate report content independently from any notification, dashboard update, or commit action.
+This separation enables safer dry-runs and easier rollback.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Publication should depend on successful validation, not vice versa.
 
 ### 8.5 Use deterministic filenames with dates or run IDs
 
-Use deterministic filenames with dates or run IDs helps teams maintain reliability as integrations
-scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Deterministic naming prevents duplicate output and simplifies historical lookups.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Adopt one naming convention per category and document it in orchestrator code.
 
 ### 8.6 Centralise error handling in orchestrators
 
-Centralise error handling in orchestrators helps teams maintain reliability as integrations scale.
-In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Collect module errors in one place to produce concise, actionable logs.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Distinguish between validation, persistence, and upstream data errors so responders know where to
+intervene.
 
 ### 8.7 Avoid embedding secrets in report content
 
-Avoid embedding secrets in report content helps teams maintain reliability as integrations scale. In
-practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Report artefacts are often widely visible. Never include tokens, credentials, private endpoints, or
+customer-sensitive records.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Prefer redaction and aggregate metrics when dealing with sensitive sources.
 
 ### 8.8 Keep markdown sections predictable for downstream parsing
 
-Keep markdown sections predictable for downstream parsing helps teams maintain reliability as
-integrations scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Use consistent headings so readers and scripts can extract sections reliably.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Avoid ad hoc heading variants for core blocks like Summary, Metrics, Details, and Recommendations.
 
 ### 8.9 Document JSON artefacts with specification files
 
-Document JSON artefacts with specification files helps teams maintain reliability as integrations
-scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Whenever JSON outputs are generated, publish schema documentation nearby.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+This lowers onboarding friction and reduces misinterpretation by new contributors.
 
 ### 8.10 Treat warnings as debt and schedule follow-up
 
-Treat warnings as debt and schedule follow-up helps teams maintain reliability as integrations
-scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Warnings indicate quality risks that can accumulate silently.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Track warning remediation in issues or backlog tasks with due dates and owners.
 
 ### 8.11 Use async wrappers for orchestration consistency
 
-Use async wrappers for orchestration consistency helps teams maintain reliability as integrations
-scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+Async wrappers make it easier to compose report generation with API calls, queue systems, and retry
+middleware.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Even for sync internals, a consistent async boundary improves maintainability.
 
 ### 8.12 Include actionable recommendations in every report
 
-Include actionable recommendations in every report helps teams maintain reliability as integrations
-scale. In practice, this means enforcing clear
-contracts at module boundaries and avoiding implicit behaviour that changes across environments.
+A report without next actions is descriptive but not operationally useful.
 
-For reviewability, keep implementation details out of frontmatter and place operational context in
-structured sections. This keeps reports readable for humans while preserving machine-friendly
-metadata for
-validation, search, and downstream automation consumers.
+Ensure recommendations include owner, timeframe, and expected outcome when possible.
 
 ## 9. Troubleshooting
 
@@ -888,40 +789,37 @@ metrics collection, and ensure reporting steps only receive the fields needed fo
 
 ## 12. Migration from v1
 
+### 12.0 Migration principle
+
+During migration, keep behaviour toggles small and reversible so rollback remains simple.
+
 ### 12.1 Migration Step 1
 
-Move from implicit report placement to explicit category-based save calls. During migration, keep
-behaviour toggles small and reversible so rollback remains simple.
+Move from implicit report placement to explicit category-based save calls.
 
 ### 12.2 Migration Step 2
 
-Replace ad hoc markdown templates with `generateReport` for consistent sections. During migration,
-keep behaviour toggles small and reversible so rollback remains simple.
+Replace ad hoc markdown templates with `generateReport` for consistent sections.
 
 ### 12.3 Migration Step 3
 
-Introduce pre-save validation with `validateReport` and fail-fast handling. During migration, keep
-behaviour toggles small and reversible so rollback remains simple.
+Introduce pre-save validation with `validateReport` and fail-fast handling.
 
 ### 12.4 Migration Step 4
 
-Adopt filename sanitisation as a defensive layer, not a naming policy. During migration, keep
-behaviour toggles small and reversible so rollback remains simple.
+Adopt filename sanitisation as a defensive layer, not a naming policy.
 
 ### 12.5 Migration Step 5
 
-Normalise metrics payloads with `MetricsReportFormatter` before rendering. During migration, keep
-behaviour toggles small and reversible so rollback remains simple.
+Normalise metrics payloads with `MetricsReportFormatter` before rendering.
 
 ### 12.6 Migration Step 6
 
-Use async wrappers in orchestration code for uniform pipeline composition. During migration, keep
-behaviour toggles small and reversible so rollback remains simple.
+Use async wrappers in orchestration code for uniform pipeline composition.
 
 ### 12.7 Migration Step 7
 
-Document JSON outputs using `generateSpecFile` to satisfy governance expectations. During migration,
-keep behaviour toggles small and reversible so rollback remains simple.
+Document JSON outputs using `generateSpecFile` to satisfy governance expectations.
 
 ## 13. Operational Runbook
 
@@ -961,1123 +859,763 @@ Pin formatter and agent module versions for reproducibility.
 
 ### 14.1 Daily progress report pipeline
 
-Use the daily progress report pipeline recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with daily task logs and progress checkpoints. The primary
+objective is to summarise completed tasks, blockers, and tomorrow priorities.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `progress` category using a deterministic
+filename such as `daily-update-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.2 Weekly quality scorecard pipeline
 
-Use the weekly quality scorecard pipeline recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with lint, test, and workflow pass-rate metrics. The
+primary objective is to highlight trend direction and top quality risks.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `metrics` category using a deterministic
+filename such as `weekly-quality-scorecard-YYYY-wNN.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.3 Multi-category compliance digest
 
-Use the multi-category compliance digest recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with outputs from validation, frontmatter, and linting
+categories. The primary objective is to merge category highlights into one executive digest.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `validation` category using a deterministic
+filename such as `compliance-digest-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.4 PR-centric validation digest
 
-Use the pr-centric validation digest recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with PR check results and review findings. The primary
+objective is to present pass/fail outcomes and unresolved blockers.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `validation` category using a deterministic
+filename such as `pr-validation-digest-pr-<number>.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.5 Issue triage trend brief
 
-Use the issue triage trend brief recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with issue state transitions and backlog age
+distributions. The primary objective is to surface queue pressure and escalation candidates.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `issue-metrics` category using a deterministic
+filename such as `issue-triage-trends-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.6 Release readiness board report
 
-Use the release readiness board report recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with release gates, outstanding defects, and risk flags.
+The primary objective is to produce go/no-go narrative with explicit owners.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `implementation` category using a deterministic
+filename such as `release-readiness-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.7 Documentation quality pulse
 
-Use the documentation quality pulse recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with markdown lint outcomes and docs validation signals.
+The primary objective is to show docs health and target remediation scope.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `linting` category using a deterministic
+filename such as `documentation-quality-pulse-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.8 Labeling governance snapshot
 
-Use the labeling governance snapshot recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with label audit outputs and taxonomy drift findings. The
+primary objective is to identify inconsistent labels and corrective steps.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `labeling` category using a deterministic
+filename such as `labeling-governance-snapshot-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.9 Frontmatter conformance tracker
 
-Use the frontmatter conformance tracker recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with frontmatter validation summaries. The primary
+objective is to track recurring metadata violations by folder.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `frontmatter` category using a deterministic
+filename such as `frontmatter-conformance-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.10 Mermaid accessibility watch
 
-Use the mermaid accessibility watch recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with diagram syntax and accessibility validation outputs.
+The primary objective is to focus on missing accTitle/accDescr and contrast checks.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `mermaid` category using a deterministic
+filename such as `mermaid-accessibility-watch-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.11 Cross-project implementation summary
 
-Use the cross-project implementation summary recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with multiple active project status updates. The primary
+objective is to align milestones, dependencies, and cross-team blockers.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `implementation` category using a deterministic
+filename such as `cross-project-summary-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.12 Agent execution health digest
 
-Use the agent execution health digest recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with agent run logs and success/error distributions. The
+primary objective is to report reliability, latency, and recurring failure types.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `agents` category using a deterministic
+filename such as `agent-execution-health-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.13 Automation incident timeline report
 
-Use the automation incident timeline report recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with workflow failures, incident timestamps, and
+mitigations. The primary objective is to create factual post-incident chronology for handover.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `audits` category using a deterministic
+filename such as `automation-incident-timeline-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.14 Stale report archival cycle
 
-Use the stale report archival cycle recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with report modification timestamps and retention policy.
+The primary objective is to archive outdated artefacts with replacement links.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `meta` category using a deterministic filename
+such as `stale-report-archival-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.15 Monthly engineering narrative
 
-Use the monthly engineering narrative recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with month-level delivery, quality, and operational
+metrics. The primary objective is to produce leadership-friendly narrative with supporting data.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `metrics` category using a deterministic
+filename such as `engineering-narrative-YYYY-MM.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.16 Quarterly leadership digest
 
-Use the quarterly leadership digest recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with quarterly KPI movement and strategic themes. The
+primary objective is to summarise outcomes, risks, and next-quarter focus.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `metrics` category using a deterministic
+filename such as `leadership-digest-qN-YYYY.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.17 Repository onboarding report
 
-Use the repository onboarding report recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with new contributor setup friction points. The primary
+objective is to document onboarding blockers and fixes.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `analysis` category using a deterministic
+filename such as `onboarding-report-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.18 Contributor activity digest
 
-Use the contributor activity digest recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with commit volume, review participation, and response
+times. The primary objective is to show collaboration patterns and capacity hotspots.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `issue-metrics` category using a deterministic
+filename such as `contributor-activity-digest-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.19 CI drift early warning
 
-Use the ci drift early warning recipe when you need a repeatable reporting flow with minimal custom
-code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with changes in workflow runtimes and failure rates. The
+primary objective is to flag regression signals before they become outages.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `optimisation` category using a deterministic
+filename such as `ci-drift-warning-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.20 Schema validation roll-up
 
-Use the schema validation roll-up recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with JSON/YAML/schema validation outputs. The primary
+objective is to aggregate errors by schema and ownership.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `validation` category using a deterministic
+filename such as `schema-rollup-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.21 Backlog pressure summary
 
-Use the backlog pressure summary recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with open issue volume and aging cohorts. The primary
+objective is to identify where backlog exceeds team capacity.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `issue-metrics` category using a deterministic
+filename such as `backlog-pressure-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.22 Code quality trendline brief
 
-Use the code quality trendline brief recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with eslint warnings, test coverage, and flaky-test
+signals. The primary objective is to explain trend movement and immediate corrective actions.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `linting` category using a deterministic
+filename such as `code-quality-trendline-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.23 Escalation-oriented blocker report
 
-Use the escalation-oriented blocker report recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with blocked tasks, dependency constraints, and SLA
+breaches. The primary objective is to prioritise escalations with impact statements.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `progress` category using a deterministic
+filename such as `blocker-escalation-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.24 Performance regression tracker
 
-Use the performance regression tracker recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with runtime and throughput deviations from baseline. The
+primary objective is to record regressions with suspected causes and next tests.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `optimisation` category using a deterministic
+filename such as `performance-regressions-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.25 Operational hygiene checklist report
 
-Use the operational hygiene checklist report recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with routine maintenance actions and missed controls. The
+primary objective is to confirm hygiene tasks and assign overdue remediation.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `meta` category using a deterministic filename
+such as `operational-hygiene-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.26 Multi-repository metadata roll-up
 
-Use the multi-repository metadata roll-up recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with metadata collected from several repositories. The
+primary objective is to normalise and compare cross-repository health indicators.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `metrics` category using a deterministic
+filename such as `multi-repo-rollup-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.27 Post-incident retrospective report
 
-Use the post-incident retrospective report recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with incident evidence, decisions, and corrective actions.
+The primary objective is to capture lessons learned and prevention work.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `audits` category using a deterministic
+filename such as `incident-retrospective-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.28 Task completion reliability report
 
-Use the task completion reliability report recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with planned vs completed work across cycles. The primary
+objective is to quantify delivery reliability and root causes of slippage.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `progress` category using a deterministic
+filename such as `task-reliability-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.29 Workflow adoption tracker
 
-Use the workflow adoption tracker recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with workflow usage metrics and opt-out rates. The primary
+objective is to assess adoption and identify enablement gaps.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `analysis` category using a deterministic
+filename such as `workflow-adoption-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.30 Dependency risk overview
 
-Use the dependency risk overview recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with dependency age, vulnerability advisories, and upgrade
+status. The primary objective is to prioritise upgrade actions by exposure and effort.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `audits` category using a deterministic
+filename such as `dependency-risk-overview-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.31 Release note seed report
 
-Use the release note seed report recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with merged PR summaries and change classifications. The
+primary objective is to prepare structured release note inputs for maintainers.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `implementation` category using a deterministic
+filename such as `release-note-seed-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.32 Audit preparation report
 
-Use the audit preparation report recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with evidence links and policy conformance checkpoints.
+The primary objective is to organise materials for external or internal audits.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `audits` category using a deterministic
+filename such as `audit-preparation-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.33 Cross-team handover summary
 
-Use the cross-team handover summary recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with handover decisions, assumptions, and outstanding
+work. The primary objective is to reduce transition risk between teams or maintainers.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `progress` category using a deterministic
+filename such as `cross-team-handover-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.34 KPI change explanation brief
 
-Use the kpi change explanation brief recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with notable KPI deltas and contextual events. The primary
+objective is to explain why metrics shifted and what to do next.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `metrics` category using a deterministic
+filename such as `kpi-change-explanation-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.35 Action owner accountability report
 
-Use the action owner accountability report recipe when you need a repeatable reporting flow with
-minimal custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with open recommendations and owner progress. The primary
+objective is to track completion accountability with due dates.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `progress` category using a deterministic
+filename such as `owner-accountability-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.36 Control-plane status digest
 
-Use the control-plane status digest recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with control-plane workflows, docs checks, and governance
+signals. The primary objective is to deliver concise operational status for maintainers.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `agents` category using a deterministic
+filename such as `control-plane-status-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.37 Repo health launch packet
 
-Use the repo health launch packet recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with new initiative baseline metrics and quality checks.
+The primary objective is to provide launch-ready snapshot before wider rollout.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `analysis` category using a deterministic
+filename such as `repo-health-launch-packet-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.38 Experiment outcome digest
 
-Use the experiment outcome digest recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with experiment hypotheses, outcomes, and confidence
+levels. The primary objective is to turn trial data into practical implementation guidance.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `analysis` category using a deterministic
+filename such as `experiment-outcomes-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.39 Playbook adherence report
 
-Use the playbook adherence report recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with observed workflow behaviour against published
+playbooks. The primary objective is to show adherence gaps and training requirements.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `validation` category using a deterministic
+filename such as `playbook-adherence-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ### 14.40 Continuous improvement ledger
 
-Use the continuous improvement ledger recipe when you need a repeatable reporting flow with minimal
-custom code. Start by
-mapping raw inputs to a stable internal shape, then call the formatter only if metric normalisation
-is
-needed. Next, generate a report with explicit metadata, validate, and save to the correct category.
+This recipe is designed for teams working with completed improvements, pending actions, and impact
+estimates. The primary objective is to maintain a living record of optimisation progress.
 
-For operational resilience, add clear ownership fields, deterministic naming, and retry logic around
-file
-writes if your environment has intermittent IO pressure. Keep each recipe implementation small and
-testable
-so future maintainers can modify scope without touching unrelated integration paths.
+Implementation pattern: collect source data, map it into a narrow integration object, and call
+`generateReport` with explicit metadata. Save to the `optimisation` category using a deterministic
+filename such as `continuous-improvement-ledger-YYYY-MM-DD.md`.
 
-Recommended checklist:
-- Define source inputs and schema assumptions.
-- Decide category and filename convention.
-- Generate report content through reporting module.
-- Validate output and fail fast on errors.
-- Publish links to downstream consumers.
-- Track warnings and follow-up actions.
+Validation checklist:
+- Confirm required frontmatter fields are present.
+- Verify heading structure and code fences.
+- Ensure recommendations include clear owners or follow-up actions.
+- Run markdown and frontmatter checks before publishing.
 
-This recipe scales well because it keeps policy and mechanics separated. Governance rules stay in
-configuration and validation, while report content stays in explicit generation calls. That
-separation
-reduces review overhead, shortens troubleshooting time, and allows multiple teams to use the same
-integration contract without conflicting local conventions.
+Operational notes: keep report details concise, link to deeper artefacts where needed, and emit
+structured logs containing category, filename, and outcome. If this recipe is scheduled, enforce
+idempotent naming so reruns replace the expected file rather than creating duplicates.
 
 ## 15. FAQ
 
@@ -2127,690 +1665,1023 @@ of dumping full data in one file.
 
 ## 17. Cross-References
 
-- [`/home/runner/work/.github/.github/scripts/agents/reporting.agent.js`](../../../scripts/agents/reporting.agent.js)
-- [`/home/runner/work/.github/.github/scripts/metrics/integrations/reporting-agent-input.js`](../../../scripts/metrics/integrations/reporting-agent-input.js)
-- [`/home/runner/work/.github/.github/scripts/agents/__tests__/reporting.agent.test.js`](../../../scripts/agents/__tests__/reporting.agent.test.js)
-- [`/home/runner/work/.github/.github/scripts/metrics/integrations/__tests__/reporting-agent-input.test.js`](../../../scripts/metrics/integrations/__tests__/reporting-agent-input.test.js)
-- [`/home/runner/work/.github/.github/.github/instructions/markdown.instructions.md`](../../../.github/instructions/markdown.instructions.md)
-- [`/home/runner/work/.github/.github/.github/instructions/reporting.instructions.md`](../../../.github/instructions/reporting.instructions.md)
-
+- [`scripts/agents/reporting.agent.js`](../../../scripts/agents/reporting.agent.js)
+- [`scripts/metrics/integrations/reporting-agent-input.js`](../../../scripts/metrics/integrations/reporting-agent-input.js)
+- [`scripts/agents/__tests__/reporting.agent.test.js`](../../../scripts/agents/__tests__/reporting.agent.test.js)
+- [`scripts/metrics/integrations/__tests__/reporting-agent-input.test.js`](../../../scripts/metrics/integrations/__tests__/reporting-agent-input.test.js)
+- [`.github/instructions/markdown.instructions.md`](../../../.github/instructions/markdown.instructions.md)
+- [`.github/instructions/reporting.instructions.md`](../../../.github/instructions/reporting.instructions.md)
 
 ## 18. Integration Case Studies
 
 ### 18.1 Embedding in issue maintenance agent
 
-Case study 1 focuses on embedding in issue maintenance agent. The recommended approach is to define
-a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: issue lifecycle events, stale-age calculations, and blocker labels.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Generate a daily progress-category report that lists net open/closed movement, stale
+cohorts, and overdue blockers.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Keep category explicit as `progress`, and include links to issue queries so
+maintainers can verify counts quickly.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Latency target is moderate; correctness and triage action clarity are
+the priorities.
 
 ### 18.2 Embedding in PR review summariser
 
-Case study 2 focuses on embedding in pr review summariser. The recommended approach is to define a
-narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: review outcomes, unresolved threads, and failing checks.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Publish a validation report per PR capturing review status, unresolved concerns, and CI
+conclusions.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Use deterministic filenames keyed by PR number and update in place on reruns.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Latency target is high because reviewers act quickly; keep details
+concise and link to full logs.
 
 ### 18.3 Embedding in release preparation workflows
 
-Case study 3 focuses on embedding in release preparation workflows. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: release checklist status, changelog readiness, and blocking defects.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Build an implementation report that supports go/no-go decisions with explicit owner
+assignments.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Ensure each recommendation includes due date and rollback consideration.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Latency is moderate; decision confidence matters more than report
+volume.
 
 ### 18.4 Embedding in project metadata sync agent
 
-Case study 4 focuses on embedding in project metadata sync agent. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: field sync outcomes, label compliance deltas, and missing metadata.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Write a meta-category digest with pass/fail summaries and remediation owners.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Include before/after counts so teams can see whether drift is improving.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Prefer idempotent output so daily sync runs replace prior artefacts
+cleanly.
 
 ### 18.5 Embedding in nightly repository health checks
 
-Case study 5 focuses on embedding in nightly repository health checks. The recommended approach is
-to define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: nightly workflow statuses and trend snapshots.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Create a metrics-category health report every night with baseline comparisons.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Flag regressions only when thresholds are exceeded to reduce alert fatigue.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Latency is low priority; consistency and trend reliability are critical.
 
 ### 18.6 Embedding in manual CLI maintenance scripts
 
-Case study 6 focuses on embedding in manual cli maintenance scripts. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: operator-provided arguments and ad hoc maintenance findings.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Support on-demand report generation for maintenance windows and incident handling.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Validate user input early and reject unknown categories before processing.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: The CLI path should prioritise clear error messages and dry-run
+previews.
 
 ### 18.7 Embedding in migration audit pipelines
 
-Case study 7 focuses on embedding in migration audit pipelines. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: source/target parity checks and schema migration anomalies.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Generate migration-category reports with explicit pass/fail evidence blocks.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Pair each finding with the exact migration step identifier.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Use strict validation and never archive migration evidence until sign-
+off is complete.
 
 ### 18.8 Embedding in docs governance quality checks
 
-Case study 8 focuses on embedding in docs governance quality checks. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: markdown lint trends, link check results, and frontmatter conformance.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Publish linting or frontmatter summaries with actionable remediation ordering.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Highlight recurring files to guide long-term clean-up planning.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Treat warnings as tracked debt and include links to follow-up issues.
 
 ### 18.9 Embedding in security posture reporting
 
-Case study 9 focuses on embedding in security posture reporting. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: sanitised vulnerability metrics and remediation status.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Generate audit reports that describe exposure trends without leaking sensitive details.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Aggregate by severity band and owner team.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Never include secrets, exploit details, or raw credential-like strings
+in report bodies.
 
 ### 18.10 Embedding in onboarding and enablement workflows
 
-Case study 10 focuses on embedding in onboarding and enablement workflows. The recommended approach
-is to define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: new contributor pain points and setup success rates.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Create analysis reports that turn onboarding friction into concrete backlog tasks.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Use short narratives and explicit owner handoff notes.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: This pattern works best when paired with monthly review cadence.
 
 ### 18.11 Embedding in quarterly planning cycles
 
-Case study 11 focuses on embedding in quarterly planning cycles. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: quarterly KPI deltas and strategic objectives.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Build leadership-ready metrics digests with sectioned outcomes, risks, and next bets.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Separate evidence links from executive summary to keep narrative readable.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Ensure terminology remains stable across quarters for comparability.
 
 ### 18.12 Embedding in continuous improvement retrospectives
 
-Case study 12 focuses on embedding in continuous improvement retrospectives. The recommended
-approach is to define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: completed improvements, unresolved debt, and experiment results.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Publish optimisation-category retrospectives with measurable impact statements.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Include what changed, what did not, and what will be attempted next.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Avoid inflated claims; tie outcomes to observable metrics.
 
 ### 18.13 Embedding in cross-repository portfolio digests
 
-Case study 13 focuses on embedding in cross-repository portfolio digests. The recommended approach
-is to define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: repository-level health snapshots from multiple sources.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Normalise inputs through the formatter before composing a shared portfolio narrative.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Preserve per-repository identifiers and avoid mixing units.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Use bounded concurrency for collection and deterministic ordering for
+output.
 
 ### 18.14 Embedding in incident response postmortems
 
-Case study 14 focuses on embedding in incident response postmortems. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: incident chronology, mitigation actions, and residual risk.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Create audits with factual timelines and verified action ownership.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Differentiate confirmed causes from open hypotheses.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
-
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+Operational considerations: Postmortem reports should be immutable once approved; publish amendments
+separately.
 
 ### 18.15 Embedding in leadership status briefings
 
-Case study 15 focuses on embedding in leadership status briefings. The recommended approach is to
-define a narrow interface between
-the host automation and Reporting Agent v2. The host should own input collection and decision logic,
-while
-the reporting boundary should only transform curated inputs into stable Markdown artefacts. This
-clear
-separation keeps integration readable, testable, and easier to audit over time.
+Input profile: weekly decision points, risk posture, and delivery confidence.
 
-In practice, teams often improve reliability by adding pre-flight checks before generation starts.
-Typical
-checks include verifying required fields, ensuring category names are approved, and confirming
-filenames
-follow deterministic conventions. When these checks happen early, failures are easier to diagnose
-and
-rarely require deep investigation. The reporting step then becomes a predictable, low-risk
-operation.
+Objective: Produce concise metrics digests that support quick decision-making.
 
-A second recurring lesson is to keep report narratives concise while preserving actionability.
-Integrations
-that dump full payloads into a single report become difficult to review, slow to lint, and harder to
-consume by other automations. Better integrations summarise key outcomes and then link to deeper
-artefacts
-when detail is required. This preserves performance and keeps reviewer attention on decisions and
-next
-steps.
+Implementation notes: Prioritise recommendations with clear business impact language.
 
-From an operational perspective, add structured logging for each boundary: input prepared, report
-generated, validation passed, and file persisted. Include elapsed time and identifiers, but avoid
-logging
-sensitive payloads. These logs accelerate incident diagnosis and let maintainers spot regressions in
-integration behaviour over time. Combined with deterministic naming, they also support quick
-historical
-queries.
+Operational considerations: Keep to one page of core narrative with links for deeper technical
+evidence.
 
-Finally, the most maintainable deployments treat governance checks as part of normal delivery rather
-than a
-final obstacle. Teams that run markdown and frontmatter validation in every integration path find
-defects
-early, reduce rework, and keep documentation trustworthy. This case study pattern is portable across
-control-plane and product repositories and should be used as a default integration blueprint unless
-a
-specific workflow needs tighter constraints.
+## 19. Anti-Patterns and Recovery Playbooks
+
+### 19.1 Overloaded report bodies
+
+Detection signals:
+- Markdown files exceed practical review size.
+- Reviewers ask for payload reduction repeatedly.
+- Lint time grows noticeably for one category.
+
+Recovery steps:
+- Move raw payloads to side artefacts.
+- Keep report body to summary + decisions + links.
+- Set maximum detail length in orchestrator config.
+
+### 19.2 Implicit category decisions
+
+Detection signals:
+- Same producer appears in different category folders.
+- Dashboards show sudden category drift.
+- Maintainers cannot explain routing path.
+
+Recovery steps:
+- Create explicit route map by producer/event.
+- Log selected category for every run.
+- Use inference only when no explicit mapping exists.
+
+### 19.3 Missing validation gates
+
+Detection signals:
+- Invalid frontmatter reaches pull requests.
+- Reports fail downstream parsing jobs.
+- Manual edits are needed before merge.
+
+Recovery steps:
+- Enforce validate-before-save flow.
+- Fail pipeline on `valid: false`.
+- Add regression test using invalid fixture input.
+
+### 19.4 Undocumented JSON outputs
+
+Detection signals:
+- Consumers ask what fields mean.
+- JSON schema assumptions differ across teams.
+- Breaking changes occur silently.
+
+Recovery steps:
+- Generate `.spec.md` alongside each JSON output.
+- Document generation command and sample payload.
+- Review spec updates in same PR as JSON change.
+
+### 19.5 Unbounded concurrency
+
+Detection signals:
+- Intermittent write failures increase under load.
+- Batch runs finish with partial output sets.
+- Runtime variance becomes unpredictable.
+
+Recovery steps:
+- Apply concurrency limiter in batch orchestrator.
+- Retry only transient IO failures.
+- Emit per-job success/failure totals in summary log.
+
+### 19.6 Unowned recommendations
+
+Detection signals:
+- Actions remain open across several reporting cycles.
+- Teams dispute responsibility for follow-ups.
+- Reports are read but not acted on.
+
+Recovery steps:
+- Require owner and due window fields.
+- Sort recommendations by priority and urgency.
+- Track completion in subsequent reports.
+
+### 19.7 Weak lifecycle control
+
+Detection signals:
+- Archived files are still linked by dashboards.
+- Historical comparisons lose continuity.
+- Consumers cannot find current active report.
+
+Recovery steps:
+- Verify replacement report exists before archival.
+- Update links, then archive old file.
+- Mark archived files with archived_date metadata.
+
+### 19.8 Inconsistent naming conventions
+
+Detection signals:
+- Filenames vary for identical report types.
+- Automation queries miss expected files.
+- Humans cannot predict location by period.
+
+Recovery steps:
+- Adopt one filename template per report type.
+- Centralise slug/date builder helper.
+- Validate naming pattern in pre-flight checks.
+
+### 19.9 Silent warning accumulation
+
+Detection signals:
+- Warning count trends upward week over week.
+- Known warnings are repeatedly ignored.
+- No owner is attached to warning cleanup.
+
+Recovery steps:
+- Log warning totals per run.
+- Create backlog items for recurring warnings.
+- Review warning burndown monthly.
+
+### 19.10 Mixed module syntax in examples
+
+Detection signals:
+- Users copy snippets and hit runtime import errors.
+- Examples mix `require` and `import` in one block.
+- Support requests cite syntax confusion.
+
+Recovery steps:
+- Standardise examples to repository module style.
+- Add snippet checks in docs review.
+- Link to one canonical invocation pattern.
+
+### 19.11 Drift between templates and implementation
+
+Detection signals:
+- Generated headings differ from documented examples.
+- Teams manually patch generated reports.
+- Parser rules break after undocumented template tweaks.
+
+Recovery steps:
+- Version template contracts and defaults.
+- Run parity check on fixture outputs.
+- Update docs and implementation together.
+
+### 19.12 Recovery governance cadence
+
+Detection signals:
+- Fixes are reactive and repeated.
+- No routine quality review exists.
+- Integration debt grows between releases.
+
+Recovery steps:
+- Schedule monthly integration governance review.
+- Audit warning trends and repeated fixes.
+- Refresh playbooks and examples from real incidents.
+
+## 20. Implementation Playbooks
+
+### 20.1 Issue hygiene daily pass
+Input scope: issue ingestion, stale detection, and label conformance.
+
+Category target: `progress`.
+
+Build a daily summary that compares yesterday's and today's open issue totals, stale counts, and
+newly blocked items. Keep the report outcome-focused by listing top three actionable changes and
+which maintainer group should address each.
+
+Start by collecting a small, deterministic input object from issue APIs and local governance
+scripts. Normalise labels and blocker states first, then map them into report metrics and
+recommendations. Use strict validation before save and fail if required metadata is missing.
+
+Publish to `.github/reports/progress/` using `daily-issue-hygiene-YYYY-MM-DD.md`. Keep links to
+issue searches for quick verification.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.2 PR readiness checkpoint
+Input scope: review status, check runs, and merge blockers.
+
+Category target: `validation`.
+
+Generate a per-PR readiness digest that highlights unresolved review threads, failing checks, and
+mergeability state. This helps reviewers decide whether a PR is ready for final review or needs
+another implementation cycle.
+
+Fetch check run summaries and review comments once, then create a compact object with severity tags.
+Render key blockers first, followed by supporting detail links. Use deterministic naming by PR
+number so reruns update the same artefact.
+
+Store as `pr-readiness-pr-<number>.md` in the validation category and include next-step ownership.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.3 Release cut rehearsal
+Input scope: release checklist signals and risk controls.
+
+Category target: `implementation`.
+
+Create a release rehearsal report before each planned tag. The report should show what is complete,
+what is blocked, and what has unknown status. Include explicit recommendations with owners and due
+windows for unresolved release gates.
+
+Model checklist items as structured data instead of free text so trends can be tracked across
+rehearsals. Keep evidence links near each gate. If a gate depends on external approval, mark
+confidence clearly and avoid implied certainty.
+
+Persist as `release-rehearsal-YYYY-MM-DD.md` for traceable decision history.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.4 Workflow reliability pulse
+Input scope: workflow run outcomes, duration drift, and retry rates.
+
+Category target: `metrics`.
+
+Use this playbook to monitor workflow reliability at a glance. Report pass rate, median runtime, and
+failure concentration by workflow to help maintainers prioritise optimisation work.
+
+Collect run summaries over a fixed time window and normalise into comparable units. Flag only
+meaningful deviations to avoid alert fatigue. Include one recommendation per high-impact deviation
+with owner and expected outcome.
+
+Use a weekly cadence and deterministic ISO week filenames.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.5 Frontmatter quality watch
+Input scope: frontmatter errors, warning trends, and owner attribution.
+
+Category target: `frontmatter`.
+
+Produce a frontmatter quality watch report that tracks validation errors by folder and file type.
+The goal is to make metadata debt visible and assign clear remediation ownership.
+
+Parse validator output into grouped counts, then generate concise findings with trend direction.
+Recommendations should target root causes, such as missing required fields or outdated templates,
+not just symptom files.
+
+Save under `.github/reports/frontmatter/` and keep historical files for trend analysis.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.6 Docs readability and accessibility scan
+Input scope: heading structure, link clarity, and markdown conventions.
+
+Category target: `linting`.
+
+Generate a docs readability report that translates lint findings into practical editorial actions.
+Prioritise issues that reduce usability, such as heading jumps, ambiguous links, and malformed code
+fences.
+
+Aggregate lint findings by rule, then annotate with impact level and suggested fixes. Include a
+small sample of representative files to make remediation concrete for contributors.
+
+Publish as a weekly linting artefact and link follow-up issues for persistent problems.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.7 Schema conformance bulletin
+Input scope: JSON/YAML validation output grouped by schema.
+
+Category target: `validation`.
+
+Use this bulletin to keep schema drift under control. The report should identify failing schemas,
+affected files, and likely remediation paths.
+
+Run schema validators on changed or scheduled scope, then map errors to schema owners. Distinguish
+new failures from known debt so teams can focus on regressions first.
+
+Store in validation category with date-based filenames for auditability.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.8 Dependency governance digest
+Input scope: dependency age, known vulnerabilities, and upgrade status.
+
+Category target: `audits`.
+
+Prepare a dependency governance digest to support safe maintenance planning. Summarise vulnerable
+packages, upgrade blockers, and expected risk reduction from proposed updates.
+
+Pull dependency metadata from lock files and advisory sources. Keep vulnerability detail aggregated
+unless deeper technical artefacts are required for engineering action.
+
+Publish monthly and include action prioritisation by severity and effort.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.9 Incident chronology report
+Input scope: event timeline, detection lag, and remediation actions.
+
+Category target: `audits`.
+
+Create a factual incident chronology that records what happened, when it was detected, and how
+response unfolded. The aim is operational learning, not blame.
+
+Use timestamped event blocks with source evidence links. Separate confirmed observations from
+hypotheses. Close with concrete prevention actions linked to owners.
+
+Publish once incident is stabilised and keep amendments versioned.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.10 Contributor throughput snapshot
+Input scope: commits, review participation, and queue response.
+
+Category target: `issue-metrics`.
+
+This snapshot helps maintainers understand contributor bandwidth and review load. Focus on trends
+and bottlenecks rather than individual scoring.
+
+Collect activity metrics over a fixed period, then present aggregate values and directional change.
+Recommendations should emphasise queue balancing, mentoring, or workflow tuning.
+
+Use monthly filenames and preserve historical snapshots for planning.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.11 Cross-repo portfolio health
+Input scope: multi-repository metrics and governance signals.
+
+Category target: `metrics`.
+
+When supporting multiple repositories, generate a portfolio health digest that compares common
+indicators across projects. This enables leadership-level prioritisation without losing technical
+grounding.
+
+Normalise all sources before comparison. Keep per-repository context rows so anomalies are
+traceable. Avoid mixing inconsistent metric definitions in one chart or table.
+
+Publish under metrics with explicit period labels and repository set identifiers.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.12 Label drift correction guide
+Input scope: label taxonomy audits and mismatch incidents.
+
+Category target: `labeling`.
+
+Produce a label drift report whenever taxonomy changes or large backfills occur. It should show
+drift sources, corrective actions, and residual uncertainty.
+
+Map mismatches by label family and repository area. Use recommendation blocks for automation
+updates, manual cleanup, and governance updates.
+
+Persist in labeling category and cross-link automation workflow runs.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.13 Automation rollback readiness
+Input scope: rollback trigger criteria and fallback paths.
+
+Category target: `implementation`.
+
+This playbook documents rollback readiness before high-impact automation releases. It should clarify
+trigger thresholds, communication steps, and recovery ownership.
+
+Represent each rollback trigger as measurable criteria. Validate that fallback artefacts and scripts
+are current. Include rehearsal evidence where available.
+
+Publish before deployment windows and archive superseded versions.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.14 Quarterly KPI interpretation pack
+Input scope: KPI deltas, strategic context, and delivery constraints.
+
+Category target: `metrics`.
+
+Create a quarterly interpretation pack that explains not just what changed, but why. Pair KPI deltas
+with contextual events to avoid misleading conclusions.
+
+Use sectioned narratives for outcomes, risk, and next actions. Avoid speculative claims; mark
+assumptions explicitly and reference supporting evidence.
+
+Store as quarter-keyed metrics report and keep structure stable each quarter.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.15 Experiment evaluation digest
+Input scope: test hypotheses, measured outcomes, and confidence.
+
+Category target: `analysis`.
+
+Use this digest for experiments in tooling, workflow, or governance. It should decide whether to
+adopt, iterate, or stop the experiment.
+
+Capture baseline, intervention, and observed outcomes in a repeatable structure. Include confidence
+level and known confounders so decisions are transparent.
+
+Publish in analysis category and link follow-on work items.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.16 Onboarding friction report
+Input scope: new contributor setup issues and time-to-first-contribution.
+
+Category target: `analysis`.
+
+Generate onboarding friction reports to improve contributor experience and reduce setup churn. Focus
+on recurring blockers and the highest-impact quick wins.
+
+Collect input from setup logs, contributor notes, and support interactions. Group findings by
+tooling, documentation, and access management.
+
+Use monthly cadence and track whether previous fixes reduced friction.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.17 Backlog pressure monitor
+Input scope: issue age distribution and blocked-work accumulation.
+
+Category target: `issue-metrics`.
+
+This monitor highlights where backlog pressure is building. It supports prioritisation by showing
+both volume and ageing trends.
+
+Measure open issues by age buckets and blocker state. Add recommendations that balance short-term
+throughput and long-term debt control.
+
+Publish weekly with comparable bucket definitions.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.18 Code quality risk digest
+Input scope: lint debt, flaky tests, and coverage movement.
+
+Category target: `linting`.
+
+Generate a risk digest when quality signals diverge or regress. The digest should identify hotspots
+and practical recovery actions.
+
+Aggregate trends for lint errors, flaky tests, and coverage movement. Tag findings by severity and
+confidence. Keep recommendations implementation-ready.
+
+Store in linting category with date and scope labels.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.19 Control-plane governance summary
+Input scope: workflow controls, template compliance, and standards adherence.
+
+Category target: `agents`.
+
+Produce a governance summary for the control plane to confirm policy adherence and operational
+stability.
+
+Combine checks from workflows, templates, and metadata validators into one coherent narrative.
+Prioritise blockers that affect contributor trust.
+
+Use fortnightly cadence and link to underlying reports.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.20 Continuous improvement ledger
+Input scope: completed improvements, pending optimisations, and measured impact.
+
+Category target: `optimisation`.
+
+Maintain a living ledger of incremental improvements and their outcomes. This creates continuity
+between retrospectives and execution.
+
+Record each change with objective, owner, completion date, and observed impact. Distinguish
+confirmed improvements from still-evaluating changes.
+
+Publish on a regular cadence and keep change identifiers stable.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.21 Handover confidence report
+Input scope: transition decisions, unresolved assumptions, and next-owner readiness.
+
+Category target: `progress`.
+
+Use this report before ownership transitions between engineers or teams. It should reduce ambiguity
+and protect delivery continuity.
+
+Summarise what is done, what is uncertain, and what must happen next. Include links to key artefacts
+and explicit acceptance boundaries.
+
+Publish in progress category at handover milestones.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.22 Post-merge observation bulletin
+Input scope: post-merge errors, warning drift, and user-impact signals.
+
+Category target: `validation`.
+
+After major merges, generate a short observation bulletin to catch early regressions. Keep it
+actionable and time-bounded.
+
+Track error and warning deltas against pre-merge baseline. Flag only material shifts and propose
+immediate follow-up checks.
+
+Publish daily for the first week after major changes.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.23 Security hygiene trend report
+Input scope: sanitised security check outcomes and remediation cadence.
+
+Category target: `audits`.
+
+Create a security hygiene trend report that surfaces remediation velocity and recurring control
+failures.
+
+Use aggregated severity counts and closure timelines. Keep details high level unless a secure
+internal artefact is referenced.
+
+Publish monthly and track whether critical findings age is decreasing.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+### 20.24 Planning alignment digest
+Input scope: planned milestones versus delivered outcomes.
+
+Category target: `implementation`.
+
+This digest helps leadership and engineers align planning assumptions with observed delivery.
+
+Compare planned milestones to completed outputs, identify slippage causes, and document corrective
+actions for the next planning cycle.
+
+Publish at sprint or phase boundaries with explicit scope labels.
+
+Quality checks: validate metadata before save, keep headings predictable, and run markdown and
+frontmatter validation before publication. Operational checks: log filename, category, outcome, and
+elapsed duration so maintainers can triage failures quickly.
+
+## 21. Deep-Dive Integration Questions
+
+### 21.1 How do we keep report structures stable across teams?
+Create one canonical template per report type and treat it as a contract. Store defaults in
+orchestration code, and only change structure through reviewed updates. Add a lightweight fixture
+test that checks heading presence and frontmatter keys so accidental drift is detected early.
+
+### 21.2 What is the safest way to onboard a new integration consumer?
+Start with a read-only dry run that generates content without persistence. Let the consuming team
+review output shape, naming, and recommendation style before enabling writes. Once approved, enable
+persistence and validation gates together.
+
+### 21.3 How should we choose between metrics and progress categories?
+Use metrics when the report emphasises quantitative trends, and progress when it emphasises delivery
+actions, blockers, and ownership. If both are needed, keep one primary category and link to
+supporting artefacts to avoid taxonomy drift.
+
+### 21.4 When should we archive versus overwrite?
+Overwrite when the file represents a living period key such as the current week. Archive when
+historical point-in-time snapshots must be retained for audit or comparison. Keep archive policy
+explicit and consistent per category.
+
+### 21.5 How can we prevent recommendation fatigue?
+Cap recommendations to the highest-impact actions and ensure each action has owner, timeframe, and
+expected outcome. Remove stale recommendations when resolved, and avoid repeating unchanged low-
+priority items without context.
+
+### 21.6 What level of detail belongs in executive summaries?
+Executive summaries should answer status, trend, and risk in a few concise lines. Keep evidence-
+heavy detail in later sections or linked artefacts. The summary should support quick decisions
+without sacrificing traceability.
+
+### 21.7 How do we support both humans and automation consumers?
+Use predictable headings and concise prose for humans, while keeping metadata and section names
+stable for scripts. Avoid decorative structure changes that make parsing fragile. Structured
+consistency is more valuable than stylistic novelty.
+
+### 21.8 How should we handle missing upstream data?
+Fail gracefully with explicit placeholders and confidence notes rather than fabricating values.
+Record which sources were unavailable and what fallback logic was applied. This preserves trust and
+simplifies follow-up debugging.
+
+### 21.9 What are practical latency targets for report generation?
+Latency expectations depend on context. PR-focused summaries should be near-real-time, while nightly
+or weekly digests can trade speed for richer analysis. Set per-context targets and track them in
+operational logs.
+
+### 21.10 How do we design retries without hiding defects?
+Retry only clearly transient failures such as temporary IO contention. Validation errors and
+malformed inputs should fail immediately because retries will not fix them. Always surface root
+cause in error logs.
+
+### 21.11 How can we keep filenames deterministic but readable?
+Use kebab-case slugs plus period keys such as date or ISO week. Avoid embedding volatile data like
+random IDs unless absolutely required. Deterministic names improve discoverability and reduce
+duplicate artefacts.
+
+### 21.12 What should a report include to support handover?
+Include current status, unresolved blockers, owner mapping, and clear next steps. Link to source
+evidence and related artefacts so the new owner can continue without rebuilding context from
+scratch.
+
+### 21.13 How do we avoid overfitting templates to one workflow?
+Keep core sections universal and add optional context blocks via configuration. This keeps templates
+reusable while allowing workflow-specific emphasis where needed.
+
+### 21.14 Which quality checks are mandatory for docs-heavy report updates?
+At minimum, run markdown linting and frontmatter validation. If JavaScript integration code changes,
+run targeted tests closest to modified modules as well.
+
+### 21.15 How often should we review integration health?
+Run monthly governance reviews for recurring integrations and ad hoc reviews after major incidents
+or structural changes. Use warning trends and consumer feedback as core inputs.
+
+### 21.16 How do we make troubleshooting faster during incidents?
+Emit structured logs at each step: input prepared, report generated, validation result, and file
+persistence outcome. Include identifiers and timestamps, not sensitive payload content.
+
+### 21.17 What is the right way to document JSON companion files?
+Use a `.spec.md` sidecar that states purpose, generation method, schema fields, and a safe example.
+Keep spec updates coupled to JSON changes in the same pull request.
+
+### 21.18 How do we keep cross-repository comparisons fair?
+Normalise metric definitions before aggregation and keep repository-level context visible in
+outputs. Never compare values derived from different formulas without explicit caveats.
+
+### 21.19 How should leadership-facing reports differ from engineering-facing reports?
+Leadership reports should emphasise decisions, risk, and expected outcomes, while engineering
+reports can include richer implementation detail. Both should link to shared evidence to avoid
+narrative mismatch.
+
+### 21.20 What signals indicate an integration contract needs redesign?
+Recurring manual fixes, repeated reviewer confusion, and frequent parser breakage are strong
+redesign signals. If these persist despite fixes, simplify the contract and reduce optional
+behaviour.
+
+
+## 22. Integration Validation Matrices
+
+### 22.1 Input contract matrix
+Verify required fields, data types, and nullability before report generation starts. Reject
+incomplete inputs with explicit messages to prevent downstream confusion and repeated manual fixes.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.2 Category routing matrix
+For each producer, define approved category, filename pattern, and fallback behaviour. Validate that
+routing remains stable after template or workflow changes.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.3 Frontmatter compliance matrix
+Check every generated file for required keys and date formatting. Include owner and tag policies
+where repository standards recommend them.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.4 Heading structure matrix
+Ensure one H1 per file and predictable section order. This supports both human readability and
+parser reliability for downstream consumers.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.5 Code example matrix
+Validate all JavaScript snippets for consistent module syntax and executable structure. Avoid mixed
+CommonJS/ESM examples unless explicitly explained.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.6 Recommendation quality matrix
+Confirm that each recommendation includes owner intent, timeframe, and expected outcome. Reports
+should drive action, not just observation.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.7 Link integrity matrix
+Review in-repo links for portability and prefer repository-relative references. Remove environment-
+specific labels or temporary paths.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.8 Security hygiene matrix
+Scan generated content for accidental secrets and sensitive records. Keep reporting payloads
+sanitised and aggregate where needed.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.9 Performance behaviour matrix
+Measure generation time and file write reliability under expected load. Apply bounded concurrency
+and retries where transient failures occur.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.10 Archive lifecycle matrix
+Verify archive operations preserve provenance and do not break active links. Ensure replacement
+artefacts exist before archival moves.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.11 Consumer compatibility matrix
+Test representative downstream consumers against generated report structure. Capture parser
+assumptions and update documentation when contracts change.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.12 Operational logging matrix
+Standardise log events and required fields for diagnostics. Include action name, category, filename,
+and outcome in every run.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.13 Governance review matrix
+Run recurring review of warning trends, repeated defects, and template drift. Feed outcomes into
+backlog and ownership assignments.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.14 Release readiness matrix
+Before release windows, verify report generation paths, validation gates, and rollback
+documentation. Treat unresolved blockers as explicit risk items.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+### 22.15 Post-change observation matrix
+After major updates, monitor for regressions in output quality and routing stability. Use short
+observation windows to catch early defects.
+Checklist:
+- Define owner for this matrix.
+- Capture evidence artefact or command output.
+- Record pass/fail and follow-up actions.
+
+
+## 23. Adoption Roadmap
+
+Adopt Reporting Agent v2 in staged increments to reduce rollout risk and speed up feedback cycles.
+
+### 23.1 Phase A — Baseline integration
+
+Start with one low-risk report flow, such as a weekly metrics digest. Implement explicit category
+routing,
+validation-before-save, and deterministic filenames. Run this in parallel with the existing process
+for one
+or two cycles and compare outputs. Confirm structure consistency and reviewer usability before
+replacing the
+legacy path.
+
+### 23.2 Phase B — Controlled expansion
+
+Add additional flows for progress, validation, and implementation categories. Reuse shared wrappers,
+logging contracts, and naming helpers to avoid duplicate logic. Establish a small set of fixture
+inputs and
+verify that each flow produces stable output across reruns. Capture lessons from each addition and
+update
+team guidance.
+
+### 23.3 Phase C — Governance hardening
+
+Once core flows are stable, introduce routine governance checks: warning trend review, contract
+parity
+checks, and archive lifecycle audits. Use these checks to prevent drift and identify where
+templates,
+examples, or orchestrator defaults need refinement. Keep remediation ownership explicit and time-
+bounded.
+
+### 23.4 Phase D — Portfolio rollout
+
+Extend adoption to cross-repository contexts only after local stability is proven. Normalise metric
+definitions before aggregation and preserve per-repository provenance in all reports. Continue using
+bounded concurrency and deterministic ordering to keep multi-repository outputs reproducible and
+easy to
+debug.
+
+### 23.5 Success indicators
+
+A mature adoption state is visible when reports are predictable, warnings trend downward, and
+downstream
+consumers no longer request manual clarification for structure or field meaning. Integration quality
+should
+be measurable through reduced review churn, faster incident diagnosis, and consistent governance
+pass rates
+across reporting categories.
+
+As an additional checkpoint, sample reports from at least three categories each month and verify that
+an unfamiliar maintainer can understand status, risks, and next actions without additional context
+from the original author. If this is consistently true, the integration contract is clear and ready
+for broader multi-repository use.
+
+Track this checkpoint as a recurring governance item so readability regressions are identified early
+and corrected before they become systemic documentation debt.
+
 
 ---
 
