@@ -100,7 +100,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Analyse Issue Content
         id: analyze
@@ -158,7 +158,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Apply Labels
         id: label
@@ -214,7 +214,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Enrich Issue
         id: enrich
@@ -264,7 +264,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Validate Issue
         id: validate
@@ -322,7 +322,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Generate Report
         id: report

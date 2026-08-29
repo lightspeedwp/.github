@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: 'Action to perform'
+        description: "Action to perform"
         required: true
         type: choice
         options:
@@ -14,11 +14,11 @@ on:
           - archive-stale
           - sync-indexes
       category:
-        description: 'Report category (leave empty for all)'
+        description: "Report category (leave empty for all)"
         required: false
         type: choice
         options:
-          - ''
+          - ""
           - agents
           - linting
           - labeling
@@ -27,7 +27,7 @@ on:
           - meta
           - issue-metrics
       dry_run:
-        description: 'Dry run (no changes)'
+        description: "Dry run (no changes)"
         required: false
         type: boolean
         default: true
@@ -35,15 +35,15 @@ on:
   # Scheduled runs
   schedule:
     # Weekly report validation on Mondays at 9am UTC
-    - cron: '0 9 * * 1'
+    - cron: "0 9 * * 1"
 
   # Trigger on report-related file changes
   push:
     branches: [develop, main]
     paths:
-      - '.github/reports/**'
-      - '.github/agents/reporting.agent.*'
-      - '.github/instructions/reporting.instructions.md'
+      - ".github/reports/**"
+      - ".github/agents/reporting.agent.*"
+      - ".github/instructions/reporting.instructions.md"
 
 # Prevent concurrent runs
 concurrency:
@@ -67,8 +67,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24'
-          cache: 'npm'
+          node-version-file: ".nvmrc"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -147,8 +147,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24'
-          cache: 'npm'
+          node-version-file: ".nvmrc"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
