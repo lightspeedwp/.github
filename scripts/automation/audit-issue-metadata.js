@@ -25,7 +25,6 @@
  */
 
 import {
-  githubApiRequest,
   getCacheStats,
   fetchPaginated,
 } from "./includes/github-api-optimized.js";
