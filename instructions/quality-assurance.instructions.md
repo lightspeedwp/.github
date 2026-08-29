@@ -67,7 +67,7 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 ```mermaid
 graph TD
   accTitle: Testing Pyramid
-  accDescr: Flowchart diagram showing testing pyramid
+  accDescr: Top-down graph showing the testing pyramid from E2E tests down to static analysis
     A[E2E Tests<br/>User Workflows] --> B[Integration Tests<br/>Component Interaction]
     B --> C[Unit Tests<br/>Pure Functions & Logic]
     C --> D[Static Analysis<br/>Linting & Type Checking]

@@ -48,8 +48,8 @@ We're a **WordPress design and development agency** with a focus on creating pow
 
 ```mermaid
 flowchart LR
-  accTitle: 🏛️ Organization Overview
-  accDescr: Flowchart diagram showing 🏛️ organization overview
+  accTitle: 🏛️ Organisation Overview
+  accDescr: Flowchart showing the LightSpeed agency, core products, and open-source commitment areas
     subgraph "🏢 LightSpeed Agency"
         A[👥 Team Since 2003]
         B[🎯 WordPress Experts]

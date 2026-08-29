@@ -70,7 +70,7 @@ Ensure consistent, reliable, and maintainable automation across GitHub repositor
 ```mermaid
 graph TB
   accTitle: System Overview
-  accDescr: Flowchart diagram showing system overview
+  accDescr: Top-down graph showing how GitHub events trigger workflows, agents, and resulting outcomes
     subgraph "GitHub Events"
         A[Issue Created]
         B[PR Opened]

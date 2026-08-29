@@ -43,7 +43,7 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 ```mermaid
 graph TB
   accTitle: 📊 Testing Architecture
-  accDescr: Flowchart diagram showing 📊 testing architecture
+  accDescr: Top-down graph showing how the testing framework branches into Bats, Jest, coverage reporting, and test helpers
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]

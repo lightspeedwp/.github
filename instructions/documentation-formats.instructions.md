@@ -388,7 +388,7 @@ flowchart TD
 ```mermaid
 graph TB
   accTitle: Graph (Relationships)
-  accDescr: Flowchart diagram showing graph (relationships)
+  accDescr: Top-down graph showing how issues relate to pull requests, discussions, and releases
     A[Issues] --> B[Pull Requests]
     A --> C[Discussions]
     B --> D[Releases]

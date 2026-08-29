@@ -332,7 +332,7 @@ Brief description.
 ```mermaid
 graph TB
   accTitle: Architecture Overview
-  accDescr: Flowchart diagram showing architecture overview
+  accDescr: Top-down graph showing a simple input → processing → output architecture
     A[Input] --> B[Processing]
     B --> C[Output]
 ```
