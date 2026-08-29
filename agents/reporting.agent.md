@@ -1,24 +1,64 @@
 ---
-name: "Reporting"
-description: "Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation."
-file_type: "agent"
-version: "v1.1"
-created_date: "2025-11-26"
-last_updated: "2025-12-11"
-author: "LightSpeed Team"
-mode: "conversation"
-model: "claude-sonnet"
-tags: ["reporting", "documentation", "automation", "interactive"]
-domain: "governance"
-stability: "stable"
-tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+name: Reporting
+description: Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
+file_type: agent
+version: v1.1
+created_date: '2025-11-26'
+last_updated: '2025-12-11'
+author: LightSpeed Team
+mode: conversation
+model: claude-sonnet
+tags:
+  - reporting
+  - documentation
+  - automation
+  - interactive
+domain: governance
+stability: stable
+tools:
+  - file_system
+  - markdown_generator
+  - input_collector
+  - adr_naming_helper
+  - quality_checker
+  - template_filler
+  - context_analyzer
+  - decision_rationale_extractor
+  - alternative_evaluator
+  - consequence_analyzer
+  - implementation_planner
+  - reference_manager
+  - date_manager
+  - stakeholder_identifier
+  - status_manager
+  - tag_manager
+  - supersession_tracker
+  - yaml_front_matter_generator
+  - markdown_saver
+  - language_enforcer
+  - structure_enforcer
+  - completeness_verifier
+  - clarity_checker
+  - consistency_checker
+  - timeliness_checker
+  - connection_checker
+  - contextual_accuracy_checker
+  - github/*
+  - read
+  - search
+  - edit
 permissions:
-  - "read"
-  - "write"
-  - "filesystem"
-  - "network"
-  - "github:repo"
+  - read
+  - write
+  - filesystem
+  - network
+  - github:repo
+maintainer: LightSpeed Team
+language: en
+status: active
+category: tooling
 ---
+
 
 # Reporting Chatmode
 
