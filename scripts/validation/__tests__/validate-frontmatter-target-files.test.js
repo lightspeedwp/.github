@@ -5,10 +5,17 @@ const path = require("path");
 const { resolveCliTargetFiles } = require("../validate-frontmatter.js");
 
 describe("resolveCliTargetFiles", () => {
+  let tmpRoot;
+
+  afterEach(() => {
+    if (tmpRoot) {
+      fs.rmSync(tmpRoot, { recursive: true, force: true });
+      tmpRoot = null;
+    }
+  });
+
   it("resolves relative files, de-duplicates, and skips missing files", () => {
-    const tmpRoot = fs.mkdtempSync(
-      path.join(os.tmpdir(), "frontmatter-targets-"),
-    );
+    tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "frontmatter-targets-"));
     const existing = path.join(tmpRoot, "README.md");
     fs.writeFileSync(existing, "# test");
 
