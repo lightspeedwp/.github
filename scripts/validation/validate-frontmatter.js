@@ -404,7 +404,10 @@ class FileDiscovery {
         ["diff", "--name-only", "--diff-filter=ACMRT", baseSha, headSha],
         { cwd: rootDir, encoding: "utf8" },
       );
-      changedRelative = output.split("\n").filter(Boolean);
+      changedRelative = output
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
     } catch {
       // git unavailable or SHA range invalid — fall back to full scan
       return FileDiscovery.findFiles(patterns, excludePatterns, rootDir);
