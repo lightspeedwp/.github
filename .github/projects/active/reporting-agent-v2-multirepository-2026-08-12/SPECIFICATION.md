@@ -71,10 +71,10 @@ flowchart TD
   G --> I
   H --> I
 
-  classDef detect fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;
-  classDef template fill:#FFF3E0,stroke:#EF6C00,color:#E65100;
-  classDef output fill:#E0F2F1,stroke:#00695C,color:#004D40;
-  classDef decision fill:#F3E5F5,stroke:#6A1B9A,color:#4A148C;
+  classDef detect fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f;
+  classDef template fill:#fef3c7,color:#4a2c00,stroke:#b45309;
+  classDef output fill:#dcfce7,color:#14532d,stroke:#14532d;
+  classDef decision fill:#f3e8ff,color:#3b0764,stroke:#7e22ce;
 
   class B detect;
   class C decision;

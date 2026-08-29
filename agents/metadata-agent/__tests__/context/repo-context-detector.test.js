@@ -72,6 +72,15 @@ describe("RepoContextDetector", () => {
 
     it("detects control-plane via workflows + agents directories", () => {
       const ctx = detector.detect("my-repo", [
+        ".github/workflows/ci.yml",
+        "agents/reporting.agent.md",
+        "README.md",
+      ]);
+      expect(ctx.type).toBe("control-plane");
+    });
+
+    it("detects control-plane via bare directory names (legacy usage)", () => {
+      const ctx = detector.detect("my-repo", [
         ".github/workflows",
         "agents",
         "README.md",

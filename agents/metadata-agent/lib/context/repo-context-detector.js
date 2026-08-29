@@ -87,10 +87,17 @@ class RepoContextDetector {
       return true;
     }
 
-    if (files.has(".github/agents") || files.has("agents")) {
+    const hasAgentsDir = [...files].some(
+      (f) => f === "agents" || f.startsWith("agents/"),
+    );
+    const hasWorkflowsDir = [...files].some(
+      (f) => f === ".github/workflows" || f.startsWith(".github/workflows/"),
+    );
+
+    if (hasAgentsDir) {
       signals.push("has:agents-directory");
     }
-    if (files.has(".github/workflows") && files.has("agents")) {
+    if (hasAgentsDir && hasWorkflowsDir) {
       signals.push("has:workflows+agents");
       return true;
     }
