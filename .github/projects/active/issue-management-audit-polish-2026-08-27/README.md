@@ -27,12 +27,12 @@ This is a comprehensive 7-phase program to audit and polish the issue management
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#2396](https://github.com/lightspeedwp/.github/issues/2396) | epic | Issue Management Agent Audit & Polish — Master coordination | 🟢 Open |
-| [#2383](https://github.com/lightspeedwp/.github/issues/2383) | task | Phase 3: Create Issue Management Orchestration Workflow | 🟢 Open |
-| [#2384](https://github.com/lightspeedwp/.github/issues/2384) | task | Phase 3: Update issues.agent.md v2.1 with openspec integration | 🟢 Open |
-| [#2385](https://github.com/lightspeedwp/.github/issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
-| [#2386](https://github.com/lightspeedwp/.github/issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
-| [#2387](https://github.com/lightspeedwp/.github/issues/2387) | task | Phase 4: Update documentation with openspec status | ⏰ Planned |
+| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish — Master coordination | 🟢 Open |
+| [#2383](../../../issues/2383) | task | Phase 3: Create Issue Management Orchestration Workflow | 🟢 Open |
+| [#2384](../../../issues/2384) | task | Phase 3: Update issues.agent.md v2.1 with openspec integration | 🟢 Open |
+| [#2385](../../../issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
+| [#2386](../../../issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
+| [#2387](../../../issues/2387) | task | Phase 4: Update documentation with openspec status | ⏰ Planned |
 
 ---
 
