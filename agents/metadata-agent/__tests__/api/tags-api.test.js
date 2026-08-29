@@ -86,6 +86,26 @@ describe("TagsAPI", () => {
     const tag = await api.getLatestTag(repos.default);
 
     expect(tag.name).toBe("v2.0.0");
+    expect(client.repos.listTags).toHaveBeenCalledWith({
+      owner: repos.default.owner,
+      repo: repos.default.repo,
+      per_page: 100,
+    });
+  });
+
+  test("selects the highest semantic version tag from unordered results", async () => {
+    client.repos.listTags.mockResolvedValue({
+      data: [
+        { name: "v1.2.0", commit: { sha: "a", url: "https://example.com/a" } },
+        { name: "v2.0.0", commit: { sha: "b", url: "https://example.com/b" } },
+        { name: "latest", commit: { sha: "c", url: "https://example.com/c" } },
+      ],
+    });
+    const api = new TagsAPI(client);
+
+    const tag = await api.getLatestTag(repos.default);
+
+    expect(tag.name).toBe("v2.0.0");
   });
 
   test("returns fallback latest tag when list is empty", async () => {

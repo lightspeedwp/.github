@@ -81,7 +81,7 @@ class TagsAPI {
   }
 
   /**
-   * Fetch the most recent tag.
+   * Fetch the latest tag by highest semantic version.
    *
    * @param {object} [options] - Query options.
    * @param {string} options.owner - Repository owner.
@@ -91,13 +91,46 @@ class TagsAPI {
    */
   async getLatestTag(options = {}) {
     const { owner, repo, fallback = null } = options;
-    const tags = await this.getTags({ owner, repo, perPage: 1, fallback: [] });
+    const tags = await this.getTags({ owner, repo, perPage: 100, fallback: [] });
 
     if (!tags.length) {
       return fallback;
     }
 
-    return tags[0];
+    const parseSemverTag = (name) => {
+      const match = /^v?(\d+)\.(\d+)\.(\d+)(?:[-+].*)?$/.exec(name || "");
+
+      if (!match) {
+        return null;
+      }
+
+      return match.slice(1, 4).map((value) => Number.parseInt(value, 10));
+    };
+
+    return tags.reduce((latestTag, currentTag) => {
+      const latestVersion = parseSemverTag(latestTag?.name);
+      const currentVersion = parseSemverTag(currentTag?.name);
+
+      if (!currentVersion) {
+        return latestTag;
+      }
+
+      if (!latestVersion) {
+        return currentTag;
+      }
+
+      for (let index = 0; index < latestVersion.length; index += 1) {
+        if (currentVersion[index] > latestVersion[index]) {
+          return currentTag;
+        }
+
+        if (currentVersion[index] < latestVersion[index]) {
+          return latestTag;
+        }
+      }
+
+      return latestTag;
+    }, tags[0]);
   }
 }
 
