@@ -124,6 +124,10 @@ function runSmokeTests(options = {}) {
   // Only fall back to defaults when the caller did not provide a tests list at all.
   const tests = options.tests !== undefined ? options.tests : defaultTests;
 
+  if (!Array.isArray(tests)) {
+    return { success: false, error: "Tests must be an array" };
+  }
+
   if (tests.length === 0) {
     return {
       success: false,
@@ -136,7 +140,7 @@ function runSmokeTests(options = {}) {
     results[test] = {
       test,
       passed: true,
-      durationMs: Math.floor(Math.random() * 200) + 50,
+      durationMs: 100,
       statusCode: 200,
     };
   }
