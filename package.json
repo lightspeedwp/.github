@@ -44,8 +44,8 @@
     }
   ],
   "engines": {
-    "node": ">=22.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
   },
   "type": "module",
   "main": "index.js",
@@ -107,20 +107,23 @@
     "test": "npm run test:js",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "contributors:check": "all-contributors check"
+    "contributors:check": "all-contributors check",
+    "triage:analyze": "node scripts/triage-issues-needs-triage.js",
+    "triage:apply": "node scripts/apply-triage-improvements.js"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",
-    "@actions/github": "6.0.1",
+    "@actions/github": "9.1.1",
     "@babel/core": "7.29.7",
+    "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/plugin-transform-class-properties": "7.24.7",
     "@babel/plugin-transform-object-rest-spread": "7.24.7",
-    "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/plugin-transform-runtime": "7.24.6",
     "@babel/preset-env": "7.28.5",
     "@babel/preset-react": "7.24.6",
     "@babel/preset-typescript": "7.29.7",
     "@babel/runtime": "^7.29.7",
+    "@eslint/js": "^8.50.0",
     "@github/markdownlint-github": "^0.8.3",
     "@jest/pattern": "30.0.1",
     "@mermaid-js/mermaid-cli": "11.16.0",
@@ -129,7 +132,6 @@
     "@stoplight/spectral-functions": "^1.10.2",
     "@types/jest": "29.5.14",
     "@types/node": "^26.2.0",
-    "@eslint/js": "^8.50.0",
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.67.0",
     "ajv": "^8.17.1",
@@ -149,8 +151,8 @@
     "jest-environment-jsdom": "^30.0.1",
     "js-yaml": "^5.3.0",
     "lint-staged": "^17.3.0",
-    "markdownlint": "^0.28.1",
-    "markdownlint-cli2": "0.19.0",
+    "markdownlint": "0.41.1",
+    "markdownlint-cli2": "0.23.2",
     "markdownlint-cli2-formatter-pretty": "^0.0.6",
     "mermaid": "^11.17.1",
     "micromatch": "^4.0.7",
@@ -163,7 +165,7 @@
     "ts-jest": "29.4.12",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.68.0",
-    "yaml": "2.8.1"
+    "yaml": "2.9.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

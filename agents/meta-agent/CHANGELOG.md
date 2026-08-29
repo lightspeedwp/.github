@@ -26,6 +26,7 @@ Meta Agent v2.0 is now production-ready with all Phase 2 work complete. This rel
 ### ✅ Added
 
 #### Phase 2A: Core Skills Implementation (PR #2005)
+
 - `apply-standards.js` — Apply frontmatter standards to files
 - `frontmatter-validation.js` — Validate frontmatter against schemas
 - `repo-type-detection.js` — Detect repository type from filesystem markers
@@ -34,6 +35,7 @@ Meta Agent v2.0 is now production-ready with all Phase 2 work complete. This rel
 - Performance: <100ms per file validation
 
 #### Phase 2B: Extended Skills (PRs #2046, #2048)
+
 - Skills 4-5 fully implemented with comprehensive features
 - 96/96 tests passing with 100% coverage
 - Performance optimizations for large file batches
@@ -41,6 +43,7 @@ Meta Agent v2.0 is now production-ready with all Phase 2 work complete. This rel
 - Support for all four repository types
 
 #### Phase 2C: CI/CD Integration & Testing (PR #2104)
+
 - GitHub Actions validation workflow (`.github/workflows/meta-agent-validation.yml`)
   - Triggers on PR changes to meta-agent code
   - Full test suite (116 tests)
@@ -65,6 +68,7 @@ Meta Agent v2.0 is now production-ready with all Phase 2 work complete. This rel
 - Implementation plan & handoff documentation
 
 #### Phase 2D: Release & Documentation
+
 - `IMPLEMENTATION_GUIDE.md` (2,500+ words)
   - Quick start (5 minutes)
   - Prerequisites & requirements
@@ -210,18 +214,21 @@ Meta Agent v2.0 is now production-ready with all Phase 2 work complete. This rel
 ### 🎉 What's Next
 
 **Phase 2D (Aug 22–28):**
+
 - Publish team training materials (3 slide decks)
 - Record optional video walkthrough
 - Announce release to team
 - Gather initial feedback
 
 **Phase 3 (Aug 29–Sep 06):**
+
 - Pilot testing in 2–3 repositories
 - Real-world validation
 - Schema refinements based on feedback
 - Integration testing with CI/CD
 
 **Phase 4 (Sep 07+):**
+
 - Organisation-wide rollout
 - Deploy to all WordPress repos
 - Team onboarding and training
@@ -251,6 +258,7 @@ Initial Meta Agent v2.0 design and schema definitions.
 ### ✅ Added
 
 #### Phase 1: Design & Schema Definition (PR #1893)
+
 - Meta Agent v2.0 specification and architecture
 - Four frontmatter schemas:
   - `block-plugin.frontmatter.schema.json`
@@ -290,4 +298,3 @@ Meta Agent follows [Semantic Versioning](https://semver.org/):
 ---
 
 *Meta Agent v2.0 — Making metadata validation simple & consistent* 🚀
-
