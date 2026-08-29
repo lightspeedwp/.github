@@ -158,21 +158,12 @@ npm run triage:apply -- --issue 2352
 
 ## 🔗 Related Issues
 
-**Parent Issues:**
-
-- Relates to #2352 — Enforce PR labeling requirement
-- Relates to #2146 — Epic: Test Coverage Expansion Initiative
-- Relates to #2035 — Reporting Agent v2 Phase 3.1: Historical Data Storage Design
-
-**Related Issues:**
-
-- #2110 — docs: Standardize README files across repository (will benefit from triage automation)
-- #2161 — Fix: Project documentation inconsistencies in test coverage phases (marked needs-triage)
-- #1967 — CI Validation Issues: Branch Naming & Gitleaks Discrepancies (marked needs-triage)
-
-**Epic:**
-
-- #2146 — Epic: Test Coverage Expansion Initiative (relates to triage improvements)
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2442](../../../issues/2442) | task | Issue Triage Metadata Automation Framework | 🟢 Open |
+| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish | 🟢 Open |
+| [#2352](../../../issues/2352) | task | Enforce PR labeling requirement | 🟢 Open |
+| [#2146](../../../issues/2146) | epic | Test Coverage Expansion Initiative | 🟢 Open |
 
 ---
 
