@@ -1,11 +1,17 @@
 ---
+document_type: "Specification"
 file_type: "documentation"
 title: "Frontmatter Schema Documentation"
-version: "v2.0"
-last_updated: "2025-12-04"
+version: "v2.1"
+last_updated: "2026-08-27"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter schema, including GitHub templates, AI configurations, and validation guidelines."
+openspec_status: "production"
+openspec_labels:
+  - "openspec:status/production"
+  - "openspec:domain/governance"
+  - "openspec:priority/high"
 tags:
   [
     "lightspeed",

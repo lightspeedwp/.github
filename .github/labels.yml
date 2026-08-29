@@ -609,3 +609,29 @@
 - name: discussion:partnership
   color: bfd4f2
   description: "Partnership/collaboration"
+
+# --- Openspec Status ---
+
+- name: openspec:status/discovery
+  color: FBCA04
+  description: "Openspec discovery phase - component identified and audited"
+
+- name: openspec:status/planning
+  color: FF6600
+  description: "Openspec planning phase - improvement plan documented"
+
+- name: openspec:status/implementation
+  color: 0052CC
+  description: "Openspec implementation phase - component being built/improved"
+
+- name: openspec:status/testing
+  color: 9B00CC
+  description: "Openspec testing phase - component being tested and validated"
+
+- name: openspec:status/production
+  color: 28A745
+  description: "Openspec production - component complete and production-ready"
+
+- name: openspec:status/deprecated
+  color: 6F42C1
+  description: "Openspec deprecated - component no longer active"
