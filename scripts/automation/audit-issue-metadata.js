@@ -24,7 +24,11 @@
  *   --verbose              Show detailed progress
  */
 
-import https from "https";
+import {
+  githubApiRequest,
+  getCacheStats,
+  fetchPaginated,
+} from "./includes/github-api-optimized.js";
 import fs from "fs";
 import path from "path";
 
@@ -75,84 +79,23 @@ const statusLabelsToAudit = [
   "status:needs-dev",
 ];
 
-// Utility: Make GitHub API request
-async function githubRequest(method, path, body = null) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: "api.github.com",
-      path,
-      method,
-      headers: {
-        Authorization: `token ${token}`,
-        "User-Agent": "Audit-Issue-Metadata",
-        Accept: "application/vnd.github.v3+json",
-        "Content-Type": "application/json",
-      },
-    };
-
-    const req = https.request(options, (res) => {
-      let data = "";
-
-      res.on("data", (chunk) => {
-        data += chunk;
-      });
-
-      res.on("end", () => {
-        try {
-          const json = JSON.parse(data);
-          if (res.statusCode >= 400) {
-            reject(
-              new Error(
-                `GitHub API error ${res.statusCode}: ${json.message || data}`,
-              ),
-            );
-          } else {
-            resolve({ status: res.statusCode, data: json });
-          }
-        } catch (e) {
-          reject(e);
-        }
-      });
-    });
-
-    req.on("error", reject);
-
-    if (body) {
-      req.write(JSON.stringify(body));
-    }
-
-    req.end();
-  });
-}
-
-// Parse labels into categories (optimized with prefix detection - Phase 2)
+// Parse labels into categories
 function categorizeLabels(labels) {
   const result = { type: [], area: [], status: [], priority: [], other: [] };
 
   for (const label of labels) {
     const name = label.name || label;
-    const colonIdx = name.indexOf(":");
-
-    // Fast categorization using prefix detection
-    if (colonIdx > 0) {
-      const prefix = name.substring(0, colonIdx + 1);
-      switch (prefix) {
-        case "type:":
-          result.type.push(name);
-          continue;
-        case "area:":
-          result.area.push(name);
-          continue;
-        case "status:":
-          result.status.push(name);
-          continue;
-        case "priority:":
-          result.priority.push(name);
-          continue;
-      }
+    if (name.startsWith("type:")) {
+      result.type.push(name);
+    } else if (name.startsWith("area:")) {
+      result.area.push(name);
+    } else if (name.startsWith("status:")) {
+      result.status.push(name);
+    } else if (name.startsWith("priority:")) {
+      result.priority.push(name);
+    } else {
+      result.other.push(name);
     }
-
-    result.other.push(name);
   }
 
   return result;
@@ -195,61 +138,43 @@ function analyzeIssue(issue) {
   };
 }
 
-// Fetch all open issues with pagination
+// Fetch all open issues with pagination (optimized)
 async function fetchAllIssues() {
-  const allIssues = [];
-  let page = 1;
-  let hasMore = true;
-
   console.log("📥 Fetching all open issues...");
 
-  while (hasMore && allIssues.length < config.limit) {
-    // Build path using labels parameter if filter is specified
-    let path = `/repos/${config.owner}/${config.repo}/issues?state=open&per_page=${config.perPage}&page=${page}&sort=created&order=asc`;
-    if (config.filter) {
-      path += `&labels=${encodeURIComponent(config.filter)}`;
-    }
-
-    try {
-      const response = await githubRequest("GET", path);
-      const rawPage = response.data;
-      const pageSize = rawPage?.length || 0;
-
-      if (pageSize === 0) {
-        hasMore = false;
-      } else {
-        // Filter out pull requests (API returns both issues and PRs)
-        const issues = rawPage.filter((item) => !item.pull_request);
-        allIssues.push(...issues);
-
-        if (config.verbose) {
-          console.log(
-            `  ✓ Fetched page ${page} (${issues.length} issues, total: ${allIssues.length})`,
-          );
-        }
-
-        // Use raw page size to determine if more pages exist
-        if (pageSize < config.perPage) {
-          hasMore = false;
-        } else {
-          page++;
-        }
-      }
-    } catch (error) {
-      console.error(`Error: Failed to fetch page ${page}: ${error.message}`);
-      console.error(
-        "Aborting audit due to fetch failure (partial data is unreliable)",
-      );
-      process.exit(1);
-    }
-
-    // Rate limit protection: sleep briefly between requests
-    if (hasMore) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
+  // Build path using labels parameter if filter is specified
+  let path = `/repos/${config.owner}/${config.repo}/issues?state=open&sort=created&order=asc`;
+  if (config.filter) {
+    path += `&labels=${encodeURIComponent(config.filter)}`;
   }
 
-  return allIssues.slice(0, config.limit);
+  try {
+    // Use optimized paginated fetch with caching
+    const allResults = await fetchPaginated(path, {
+      token: process.env.GITHUB_TOKEN,
+      headers: {
+        "User-Agent": "Audit-Issue-Metadata",
+        Accept: "application/vnd.github.v3+json",
+      },
+      useCache: true,
+      perPage: config.perPage,
+    });
+
+    // Filter out pull requests (API returns both issues and PRs)
+    const allIssues = allResults.filter((item) => !item.pull_request);
+
+    if (config.verbose) {
+      console.log(`  ✓ Fetched ${allIssues.length} total issues`);
+    }
+
+    return allIssues.slice(0, config.limit);
+  } catch (error) {
+    console.error(`Error: Failed to fetch issues: ${error.message}`);
+    console.error(
+      "Aborting audit due to fetch failure (partial data is unreliable)",
+    );
+    process.exit(1);
+  }
 }
 
 // Generate comprehensive audit report
@@ -355,18 +280,15 @@ function exportJSON(data) {
   return filename;
 }
 
-// Export as CSV (optimized for large datasets - Phase 2)
+// Export as CSV
 function exportCSV(data) {
   const filename = path.join(config.outputDir, "audit-results.csv");
 
-  // Pre-allocate rows array to avoid reallocation
-  const rows = new Array(data.analyzedIssues.length + 1);
-  rows[0] =
-    "Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Milestone,Gaps";
+  const rows = [
+    "Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Milestone,Gaps",
+  ];
 
-  // Batch process issues for better performance
-  for (let i = 0; i < data.analyzedIssues.length; i++) {
-    const issue = data.analyzedIssues[i];
+  data.analyzedIssues.forEach((issue) => {
     const row = [
       issue.number,
       `"${issue.title.replace(/"/g, '""')}"`,
@@ -378,8 +300,8 @@ function exportCSV(data) {
       issue.milestone || "",
       issue.gaps.join(";"),
     ];
-    rows[i + 1] = row.join(",");
-  }
+    rows.push(row.join(","));
+  });
 
   fs.writeFileSync(filename, rows.join("\n"));
   console.log(`✅ CSV export: ${filename}`);
@@ -558,6 +480,17 @@ async function main() {
   console.log(
     `\n   Top Gap: ${reportData.stats.topGaps[0]?.gap} (${reportData.stats.topGaps[0]?.count} issues)`,
   );
+
+  // Cache statistics
+  const cacheStats = getCacheStats();
+  console.log("\n⚡ Performance Metrics:");
+  console.log(
+    `   Cache Entries: ${cacheStats.validEntries} (${cacheStats.expiredEntries} expired)`,
+  );
+  console.log(
+    `   Cache Size: ${(cacheStats.cacheSizeBytes / 1024).toFixed(2)} KB`,
+  );
+
   console.log(`\n✅ Audit complete. Reports saved to: ${config.outputDir}`);
 }
 
