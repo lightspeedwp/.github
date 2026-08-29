@@ -1,7 +1,7 @@
 ---
+file_type: documentation
 title: "Chat Closure Agent — OpenAI"
 description: "OpenAI provider implementation for the Chat Closure Agent"
-provider: openai
 agent_slug: chat-closure-agent
 agent_name: Chat Closure Agent (OpenAI)
 status: active
