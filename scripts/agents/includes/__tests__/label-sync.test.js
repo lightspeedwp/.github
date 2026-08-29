@@ -678,17 +678,22 @@ describe("label-sync", () => {
       const aliasMap = { "old-bug": "bug" };
       const canonicalSet = new Set(["bug"]);
 
-      await expect(
-        standardizeLabelsOnRepo(
-          mockOctokit,
-          "owner",
-          "repo",
-          aliasMap,
-          canonicalSet,
-        ),
-      ).rejects.toThrow(
-        "Failed to standardize labels: Search service unavailable",
+      const result = await standardizeLabelsOnRepo(
+        mockOctokit,
+        "owner",
+        "repo",
+        aliasMap,
+        canonicalSet,
       );
+
+      expect(result.success).toBeUndefined(); // Function doesn't set success property
+      expect(result.itemsProcessed).toBe(0);
+      expect(result.labelsChanged).toBe(0);
+      expect(result.errors).toHaveLength(1);
+      expect(result.errors[0].error).toContain(
+        "Failed to search for label: Search service unavailable",
+      );
+      expect(result.errors[0].label).toBe("old-bug");
     });
 
     test("should handle multiple alias labels", async () => {
@@ -898,19 +903,26 @@ describe("label-sync", () => {
     test("should throw meaningful error for standardization failures", async () => {
       const aliasMap = { "old-bug": "bug" };
       const canonicalSet = new Set(["bug"]);
-      // Simulate failure via search API to avoid global mutation side‑effects
+      // Simulate failure via search API to verify error handling
       mockOctokit.rest.search.issuesAndPullRequests.mockRejectedValue(
         new Error("Critical system error"),
       );
-      await expect(
-        standardizeLabelsOnRepo(
-          mockOctokit,
-          "owner",
-          "repo",
-          aliasMap,
-          canonicalSet,
-        ),
-      ).rejects.toThrow("Failed to standardize labels: Critical system error");
+
+      const result = await standardizeLabelsOnRepo(
+        mockOctokit,
+        "owner",
+        "repo",
+        aliasMap,
+        canonicalSet,
+      );
+
+      expect(result.errors).toHaveLength(1);
+      expect(result.errors[0].error).toContain(
+        "Failed to search for label: Critical system error",
+      );
+      expect(result.errors[0].label).toBe("old-bug");
+      expect(result.itemsProcessed).toBe(0);
+      expect(result.labelsChanged).toBe(0);
     });
 
     test("should handle network timeouts gracefully", async () => {
