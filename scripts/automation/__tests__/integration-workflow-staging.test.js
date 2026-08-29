@@ -458,7 +458,7 @@ describe("integration: staging & production readiness workflow", () => {
       const perfVal = runPerformanceBench(goodEnv, []);
 
       const report = generateStagingReport(envVal, perfVal, dataVal, compVal);
-      expect(report.readinessScore).toBeGreaterThan(60);
+      expect(report.readinessScore).toEqual(90);
     });
 
     it("penalizes environment readiness for critical failures", () => {

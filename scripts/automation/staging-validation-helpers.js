@@ -166,6 +166,7 @@ function validateIntegrity(checks = {}) {
   if (result.conflictingPairs > 0) result.success = false;
   if (result.duplicateLabels > 0) result.success = false;
   if (result.metadataConsistency < 100) result.success = false;
+  if (result.relationshipValidity < 100) result.success = false;
 
   return result;
 }

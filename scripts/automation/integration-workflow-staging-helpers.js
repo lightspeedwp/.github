@@ -262,6 +262,13 @@ function calculateReadinessScore(
   if (envValidation.validators.serviceHealth.status === "FAIL") score -= 25;
   if (envValidation.validators.dataCompliance.status === "FAIL") score -= 10;
   if (dataIntegrity.consistency.status === "FAIL") score -= 20;
+  // Deduct for failed data checks
+  if (dataIntegrity.dataChecks && dataIntegrity.dataChecks.length > 0) {
+    const failedChecks = dataIntegrity.dataChecks.filter(
+      (check) => check.status === "FAIL",
+    ).length;
+    if (failedChecks > 0) score -= failedChecks * 10;
+  }
   if (complianceResults.summary.failed > 0)
     score -= complianceResults.summary.failed * 5;
 
@@ -276,11 +283,17 @@ function canPromoteToProduction(
   dataIntegrity,
   complianceResults,
 ) {
+  const allDataChecksPassed =
+    !dataIntegrity.dataChecks || dataIntegrity.dataChecks.length === 0
+      ? true
+      : dataIntegrity.dataChecks.every((check) => check.status === "PASS");
+
   return (
     envValidation.validators.configIntegrity.status === "PASS" &&
     envValidation.validators.serviceHealth.status === "PASS" &&
     envValidation.validators.dataCompliance.status === "PASS" &&
     dataIntegrity.consistency.status === "PASS" &&
+    allDataChecksPassed &&
     complianceResults.summary.failed === 0
   );
 }

@@ -188,6 +188,40 @@ describe("integration: milestone allocation workflow", () => {
       expect(mockOctokit.rest.pulls.update).not.toHaveBeenCalled();
     });
 
+    it("handles reassignment when existing milestone differs from selected", async () => {
+      mockOctokit.rest.issues.listMilestones.mockResolvedValue({
+        data: [
+          {
+            number: 1,
+            title: "v1.5",
+            due_on: "2026-09-15",
+            created_at: "2026-08-01",
+          },
+          {
+            number: 2,
+            title: "v2.0",
+            due_on: "2026-10-01",
+            created_at: "2026-08-01",
+          },
+        ],
+      });
+
+      mockOctokit.rest.pulls.get.mockResolvedValue({
+        data: {
+          number: 999,
+          title: "Reassignment case",
+          body: null,
+          milestone: { number: 1, title: "v1.5" },
+        },
+      });
+
+      const allocator = new MilestoneAllocator({ dryRun: false });
+      const result = await allocator.allocate(999);
+
+      expect(result.success).toBe(true);
+      expect(result.stats).toBeDefined();
+    });
+
     it("handles deleted issues gracefully", async () => {
       mockOctokit.rest.issues.listMilestones.mockResolvedValue({
         data: [
