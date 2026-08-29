@@ -1,11 +1,17 @@
 ---
+document_type: "Guide"
 title: Issue Maintenance Scripts & Workflows
 description: Comprehensive guide to automated label management, stale detection, and audit workflows
 file_type: documentation
-created_date: 2026-08-11T00:00:00.000Z
-last_updated: '2026-08-21'
+created_date: 2026-08-11
+last_updated: 2026-08-27
 authors:
   - LightSpeed Team
+openspec_status: "production"
+openspec_labels:
+  - "openspec:status/production"
+  - "openspec:domain/automation"
+  - "openspec:priority/high"
 tags:
   - automation
   - label-management

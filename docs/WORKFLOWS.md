@@ -18,6 +18,7 @@ This document establishes clear boundaries for workflow placement and defines ho
 **Consumers:** This repository only—not shared with other repos.
 
 **Examples:**
+
 - Issue management and automation
 - Labeling and label governance
 - Metrics collection and reporting
@@ -36,6 +37,7 @@ This document establishes clear boundaries for workflow placement and defines ho
 **Consumers:** Other repositories in the `lightspeedwp` GitHub organisation.
 
 **Examples:**
+
 - AI feedback validation
 - PR creation agent integration tests
 - Issue label validation
@@ -175,6 +177,7 @@ npm run lint:workflows
 ```
 
 This checks that:
+
 - No `.yml` file exists in both `workflows/` and `.github/workflows/`
 - Reusable workflows use `on: workflow_call`
 - Workflows have clear naming conventions
