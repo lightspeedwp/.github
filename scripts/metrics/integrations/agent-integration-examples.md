@@ -17,9 +17,8 @@ This guide demonstrates how other agents can consume Reporting Agent v2 formatte
 
 ## Overview
 
-The helper module at
-`/home/runner/work/.github/.github/scripts/metrics/integrations/agent-integration-examples.js`
-provides three deterministic payload builders:
+The helper module at `scripts/metrics/integrations/agent-integration-examples.js` provides three
+deterministic payload builders:
 
 1. `buildPrdAgentExample(rawMetrics, options)`
 2. `buildTestingAgentExample(rawMetrics, options)`
@@ -89,4 +88,4 @@ Run integration validation tests:
 npm test -- scripts/metrics/integrations/__tests__/agent-integration-examples.test.js
 ```
 
-This suite includes 40+ tests for payload shape, defaults, option handling, and downstream mapping.
+This suite includes 46 tests for payload shape, defaults, option handling, and downstream mapping.
