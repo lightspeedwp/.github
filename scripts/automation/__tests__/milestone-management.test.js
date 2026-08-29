@@ -24,10 +24,6 @@ jest.mock("octokit", () => ({
   })),
 }));
 
-// ESM import workaround for jest
-let MilestoneReassigner;
-let MilestoneDistributor;
-
 beforeEach(() => {
   jest.resetModules();
 });
@@ -205,7 +201,6 @@ describe("milestone-management", () => {
       const issuesPerCategory = [10, 12, 11, 9, 8];
       const milestones = 5;
 
-      const distribution = {};
       let totalPerMilestone = {};
 
       for (let i = 0; i < milestones; i++) {

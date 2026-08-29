@@ -252,7 +252,6 @@ Example format:
     for (const issue of issues) {
       const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
       const title = issue.title.toLowerCase();
-      const body = (issue.body || "").toLowerCase();
 
       // Simple categorization by labels and keywords
       if (
