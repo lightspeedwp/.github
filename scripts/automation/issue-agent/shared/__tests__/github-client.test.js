@@ -57,13 +57,9 @@ describe("GitHub Client", () => {
   });
 
   describe("fetchMilestones", () => {
-    test("should fetch open milestones by default", async () => {
-      const milestones = await githubClient.fetchMilestones(
-        "lightspeedwp",
-        ".github",
-      );
-      // Would return array of milestone objects
-      expect(Array.isArray(milestones) || milestones.message).toBe(true);
+    test("should expose milestone fetch capability", () => {
+      // Network calls are covered by integration tests; unit tests should stay offline.
+      expect(typeof githubClient.fetchMilestones).toBe("function");
     });
 
     test("should cache milestone results for 5 minutes", async () => {
