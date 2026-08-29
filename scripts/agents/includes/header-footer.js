@@ -8,7 +8,7 @@
 
 import fs from "fs";
 import path from "path";
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 
 /**
  * Load footer configuration from footers.yml
@@ -19,7 +19,7 @@ function loadFooterConfig() {
     return null;
   }
   const content = fs.readFileSync(configPath, "utf-8");
-  return yaml.load(content);
+  return load(content);
 }
 
 /**

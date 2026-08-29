@@ -8,7 +8,7 @@ import { ensureFooter } from "./includes/header-footer.js";
 import { updateBadgesInReadme } from "./includes/badges.js";
 import fs from "fs";
 import path from "path";
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 import { globSync } from "glob";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -37,7 +37,7 @@ function loadEmojiSchema() {
     return { apply_to: ["h1", "h2"], map: {}, skip: [] };
   }
   try {
-    return yaml.load(fs.readFileSync(schemaPath, "utf-8"));
+    return load(fs.readFileSync(schemaPath, "utf-8"));
   } catch (error) {
     console.warn(
       `Failed to load emoji schema at ${schemaPath}: ${error.message}`,
@@ -80,7 +80,7 @@ function shouldSkipMeta(filePath, content) {
   const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
   if (frontMatterMatch) {
     try {
-      const frontMatter = yaml.load(frontMatterMatch[1]);
+      const frontMatter = load(frontMatterMatch[1]);
       if (
         // TODO: Add support for 'meta: false' and 'branding: false' as aliases for consistency.
         frontMatter &&
@@ -107,7 +107,7 @@ function extractFrontMatter(content) {
     return null;
   }
   try {
-    return yaml.load(match[1]);
+    return load(match[1]);
   } catch (e) {
     console.warn("Failed to parse front matter:", e.message);
     return null;
