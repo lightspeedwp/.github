@@ -1,23 +1,34 @@
-jest.mock("octokit", () => ({
-  Octokit: jest.fn().mockImplementation(() => ({
+jest.mock("octokit", () => {
+  const mockInstance = {
     repos: {},
     pulls: {},
     issues: {},
     rateLimit: {
       get: jest.fn(),
     },
-    plugin: jest.fn((x, y) => jest.fn()),
-  })),
-}));
+  };
+  const MockOctokit = jest.fn().mockImplementation(() => mockInstance);
+  MockOctokit.plugin = jest.fn().mockReturnValue(MockOctokit);
+  return { Octokit: MockOctokit };
+});
 
-jest.mock("@octokit/plugin-throttling", () => ({
-  throttling: jest.fn(),
-}));
+jest.mock(
+  "@octokit/plugin-throttling",
+  () => ({
+    throttling: jest.fn(),
+  }),
+  { virtual: true },
+);
 
-jest.mock("@octokit/plugin-retry", () => ({
-  retry: jest.fn(),
-}));
+jest.mock(
+  "@octokit/plugin-retry",
+  () => ({
+    retry: jest.fn(),
+  }),
+  { virtual: true },
+);
 
+const { Octokit } = require("octokit");
 const OctokitClientFactory = require("../../lib/api/octokit-client");
 
 describe("OctokitClientFactory", () => {
@@ -158,9 +169,9 @@ describe("OctokitClientFactory", () => {
       expect(factory.getClient()).toBe(client);
     });
 
-    test("throws if client not initialized", () => {
+    test("throws if client not initialised", () => {
       expect(() => factory.getClient()).toThrow(
-        "Client not initialized. Call a createWith* method first.",
+        "Client not initialised. Call a createWith* method first.",
       );
     });
   });
@@ -189,7 +200,7 @@ describe("OctokitClientFactory", () => {
       expect(factory.getAuthType()).toBe("Unauthenticated");
     });
 
-    test("returns null if not initialized", () => {
+    test("returns null if not initialised", () => {
       expect(factory.getAuthType()).toBe(null);
     });
   });
@@ -241,12 +252,139 @@ describe("OctokitClientFactory", () => {
     });
   });
 
+  describe("throttle callbacks", () => {
+    test("onRateLimit logs and returns true", () => {
+      factory.createWithPAT("token");
+      // Grab the options passed to the MockOctokit constructor
+      const ctorCalls = Octokit.mock.calls;
+      const lastConfig = ctorCalls[ctorCalls.length - 1][0];
+      const fakeOctokit = { log: { warn: jest.fn() } };
+
+      const result = lastConfig.throttle.onRateLimit(
+        60,
+        { method: "GET", url: "/repos" },
+        fakeOctokit,
+      );
+
+      expect(result).toBe(true);
+      expect(fakeOctokit.log.warn).toHaveBeenCalledWith(
+        expect.stringContaining("Rate limit hit"),
+      );
+    });
+
+    test("onAbuseLimit logs and returns true", () => {
+      factory.createWithPAT("token");
+      const ctorCalls = Octokit.mock.calls;
+      const lastConfig = ctorCalls[ctorCalls.length - 1][0];
+      const fakeOctokit = { log: { warn: jest.fn() } };
+
+      const result = lastConfig.throttle.onAbuseLimit(
+        120,
+        { method: "POST", url: "/issues" },
+        fakeOctokit,
+      );
+
+      expect(result).toBe(true);
+      expect(fakeOctokit.log.warn).toHaveBeenCalledWith(
+        expect.stringContaining("Abuse limit hit"),
+      );
+    });
+  });
+
   describe("client methods exist", () => {
     test("created client has expected Octokit methods", () => {
       const client = factory.createWithPAT("token");
       expect(typeof client.repos).toBe("object");
       expect(typeof client.pulls).toBe("object");
       expect(typeof client.issues).toBe("object");
+    });
+  });
+
+  describe("getRateLimit", () => {
+    const mockRateData = {
+      limit: 5000,
+      remaining: 4000,
+      reset: Math.floor(Date.now() / 1000) + 3600,
+    };
+
+    test("returns rate limit data", async () => {
+      factory.createWithPAT("token");
+      factory.client.rateLimit.get.mockResolvedValue({
+        data: { rate_limit: mockRateData },
+      });
+
+      const rateLimit = await factory.getRateLimit();
+      expect(rateLimit.remaining).toBe(4000);
+      expect(rateLimit.limit).toBe(5000);
+    });
+
+    test("throws when client not initialised", async () => {
+      await expect(factory.getRateLimit()).rejects.toThrow(
+        "Client not initialised",
+      );
+    });
+
+    test("wraps API error with descriptive message", async () => {
+      factory.createWithPAT("token");
+      factory.client.rateLimit.get.mockRejectedValue(new Error("API error"));
+
+      await expect(factory.getRateLimit()).rejects.toThrow(
+        "Failed to get rate limit",
+      );
+    });
+  });
+
+  describe("isApproachingRateLimit", () => {
+    test("returns true when below threshold", async () => {
+      factory.createWithPAT("token");
+      factory.client.rateLimit.get.mockResolvedValue({
+        data: {
+          rate_limit: { limit: 5000, remaining: 500, reset: 9999999999 },
+        },
+      });
+
+      const result = await factory.isApproachingRateLimit(15);
+      expect(result).toBe(true);
+    });
+
+    test("returns false when above threshold", async () => {
+      factory.createWithPAT("token");
+      factory.client.rateLimit.get.mockResolvedValue({
+        data: {
+          rate_limit: { limit: 5000, remaining: 4900, reset: 9999999999 },
+        },
+      });
+
+      const result = await factory.isApproachingRateLimit(15);
+      expect(result).toBe(false);
+    });
+  });
+
+  describe("getTimeUntilReset", () => {
+    test("returns milliseconds until reset", async () => {
+      const futureReset = Math.floor(Date.now() / 1000) + 3600;
+      factory.createWithPAT("token");
+      factory.client.rateLimit.get.mockResolvedValue({
+        data: {
+          rate_limit: { limit: 5000, remaining: 4000, reset: futureReset },
+        },
+      });
+
+      const ms = await factory.getTimeUntilReset();
+      expect(ms).toBeGreaterThan(0);
+      expect(ms).toBeLessThanOrEqual(3600 * 1000 + 100);
+    });
+
+    test("returns 0 if reset is in the past", async () => {
+      factory.createWithPAT("token");
+      factory.client.rateLimit.get.mockResolvedValue({
+        data: {
+          rate_limit: { limit: 5000, remaining: 0, reset: 1 },
+        },
+      });
+
+      const ms = await factory.getTimeUntilReset();
+      expect(ms).toBe(0);
     });
   });
 });
