@@ -1,4 +1,13 @@
+/**
+ * Retrieve workflow and workflow-run metadata from the GitHub API.
+ */
 class WorkflowsAPI {
+  /**
+   * @param {object} client - Octokit client.
+   * @param {object} [options] - Optional behaviour overrides.
+   * @param {object|null} [options.retryStrategy] - Retry strategy with execute().
+   * @param {Function|null} [options.fallbackHandler] - Fallback resolver callback.
+   */
   constructor(client, options = {}) {
     if (!client?.actions) {
       throw new Error("Octokit client with actions scope is required");
@@ -39,6 +48,16 @@ class WorkflowsAPI {
     }
   }
 
+  /**
+   * List workflows for a repository.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {number} [options.perPage=30] - Number of workflows to fetch.
+   * @param {Array<object>} [options.fallback] - Fallback workflow payload.
+   * @returns {Promise<Array<object>>} Normalised workflow metadata.
+   */
   async getWorkflows(options = {}) {
     const { owner, repo, perPage = 30, fallback = undefined } = options;
 
@@ -70,6 +89,18 @@ class WorkflowsAPI {
     }));
   }
 
+  /**
+   * List workflow runs for a repository or workflow.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {number|string} [options.workflowId] - Optional workflow identifier.
+   * @param {string} [options.branch] - Optional branch filter.
+   * @param {number} [options.perPage=30] - Number of runs to fetch.
+   * @param {Array<object>} [options.fallback] - Fallback workflow-run payload.
+   * @returns {Promise<Array<object>>} Normalised workflow-run metadata.
+   */
   async getWorkflowRuns(options = {}) {
     const {
       owner,

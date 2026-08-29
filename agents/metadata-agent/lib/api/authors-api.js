@@ -1,4 +1,13 @@
+/**
+ * Retrieve commit-author metadata from the GitHub API.
+ */
 class AuthorsAPI {
+  /**
+   * @param {object} client - Octokit client.
+   * @param {object} [options] - Optional behaviour overrides.
+   * @param {object|null} [options.retryStrategy] - Retry strategy with execute().
+   * @param {Function|null} [options.fallbackHandler] - Fallback resolver callback.
+   */
   constructor(client, options = {}) {
     if (!client?.repos) {
       throw new Error("Octokit client with repos scope is required");
@@ -39,6 +48,17 @@ class AuthorsAPI {
     }
   }
 
+  /**
+   * Aggregate commit authors from repository history.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {string} [options.branch] - Branch or SHA reference.
+   * @param {number} [options.perPage=100] - Number of commits to inspect.
+   * @param {Array<object>} [options.fallback] - Fallback commit or author payload.
+   * @returns {Promise<Array<object>>} Author summaries sorted by commit count.
+   */
   async getAuthorsFromCommits(options = {}) {
     const {
       owner,
@@ -102,6 +122,13 @@ class AuthorsAPI {
     return Array.from(authorMap.values()).sort((a, b) => b.commits - a.commits);
   }
 
+  /**
+   * Return the top N commit authors for a repository.
+   *
+   * @param {object} [options] - Query options.
+   * @param {number} [options.limit=5] - Maximum number of authors.
+   * @returns {Promise<Array<object>>} Top author summaries.
+   */
   async getTopAuthors(options = {}) {
     const { limit = 5, ...rest } = options;
     const authors = await this.getAuthorsFromCommits(rest);

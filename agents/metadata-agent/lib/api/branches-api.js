@@ -1,4 +1,13 @@
+/**
+ * Retrieve repository branch metadata from the GitHub API.
+ */
 class BranchesAPI {
+  /**
+   * @param {object} client - Octokit client.
+   * @param {object} [options] - Optional behaviour overrides.
+   * @param {object|null} [options.retryStrategy] - Retry strategy with execute().
+   * @param {Function|null} [options.fallbackHandler] - Fallback resolver callback.
+   */
   constructor(client, options = {}) {
     if (!client?.repos) {
       throw new Error("Octokit client with repos scope is required");
@@ -39,6 +48,17 @@ class BranchesAPI {
     }
   }
 
+  /**
+   * List branches for a repository.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {number} [options.perPage=30] - Number of branches to fetch.
+   * @param {boolean} [options.protectedOnly=false] - Filter to protected branches.
+   * @param {Array<object>} [options.fallback] - Fallback branch payload.
+   * @returns {Promise<Array<object>>} Normalised branch metadata.
+   */
   async getBranches(options = {}) {
     const {
       owner,
@@ -73,6 +93,15 @@ class BranchesAPI {
     }));
   }
 
+  /**
+   * Fetch the repository default branch.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {string} [options.fallback="main"] - Fallback default branch value.
+   * @returns {Promise<string>} Default branch name.
+   */
   async getDefaultBranch(options = {}) {
     const { owner, repo, fallback = "main" } = options;
 

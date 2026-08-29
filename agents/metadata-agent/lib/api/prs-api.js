@@ -1,4 +1,13 @@
+/**
+ * Retrieve pull request metadata from the GitHub API.
+ */
 class PRsAPI {
+  /**
+   * @param {object} client - Octokit client.
+   * @param {object} [options] - Optional behaviour overrides.
+   * @param {object|null} [options.retryStrategy] - Retry strategy with execute().
+   * @param {Function|null} [options.fallbackHandler] - Fallback resolver callback.
+   */
   constructor(client, options = {}) {
     if (!client?.pulls) {
       throw new Error("Octokit client with pulls scope is required");
@@ -39,6 +48,19 @@ class PRsAPI {
     }
   }
 
+  /**
+   * List pull requests for a repository.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {string} [options.state="open"] - Pull request state.
+   * @param {number} [options.perPage=30] - Number of pull requests to fetch.
+   * @param {string} [options.sort="updated"] - Sort field.
+   * @param {string} [options.direction="desc"] - Sort direction.
+   * @param {Array<object>} [options.fallback] - Fallback pull request payload.
+   * @returns {Promise<Array<object>>} Normalised pull request metadata.
+   */
   async getPullRequests(options = {}) {
     const {
       owner,
@@ -82,6 +104,16 @@ class PRsAPI {
     }));
   }
 
+  /**
+   * Fetch a single pull request by number.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {number} options.pullNumber - Pull request number.
+   * @param {object|null} [options.fallback] - Fallback pull request payload.
+   * @returns {Promise<object|null>} Normalised pull request metadata.
+   */
   async getPullRequest(options = {}) {
     const { owner, repo, pullNumber, fallback = null } = options;
 

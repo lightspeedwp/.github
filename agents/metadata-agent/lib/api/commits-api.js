@@ -1,4 +1,13 @@
+/**
+ * Retrieve repository commit metadata from the GitHub API.
+ */
 class CommitsAPI {
+  /**
+   * @param {object} client - Octokit client.
+   * @param {object} [options] - Optional behaviour overrides.
+   * @param {object|null} [options.retryStrategy] - Retry strategy with execute().
+   * @param {Function|null} [options.fallbackHandler] - Fallback resolver callback.
+   */
   constructor(client, options = {}) {
     if (!client?.repos) {
       throw new Error("Octokit client with repos scope is required");
@@ -39,6 +48,18 @@ class CommitsAPI {
     }
   }
 
+  /**
+   * List commits for a repository.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {string} [options.branch] - Branch or SHA reference.
+   * @param {number} [options.perPage=30] - Number of commits to fetch.
+   * @param {string} [options.since] - ISO date string lower bound.
+   * @param {Array<object>} [options.fallback] - Fallback commit payload.
+   * @returns {Promise<Array<object>>} Normalised commit metadata.
+   */
   async getCommits(options = {}) {
     const {
       owner,
@@ -77,6 +98,16 @@ class CommitsAPI {
     }));
   }
 
+  /**
+   * Fetch a single commit by SHA.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {string} options.sha - Commit SHA.
+   * @param {object|null} [options.fallback] - Fallback commit payload.
+   * @returns {Promise<object>} Normalised commit metadata.
+   */
   async getCommit(options = {}) {
     const { owner, repo, sha, fallback = null } = options;
 

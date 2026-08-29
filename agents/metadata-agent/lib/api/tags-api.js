@@ -1,4 +1,13 @@
+/**
+ * Retrieve repository tag metadata from the GitHub API.
+ */
 class TagsAPI {
+  /**
+   * @param {object} client - Octokit client.
+   * @param {object} [options] - Optional behaviour overrides.
+   * @param {object|null} [options.retryStrategy] - Retry strategy with execute().
+   * @param {Function|null} [options.fallbackHandler] - Fallback resolver callback.
+   */
   constructor(client, options = {}) {
     if (!client?.repos) {
       throw new Error("Octokit client with repos scope is required");
@@ -39,6 +48,16 @@ class TagsAPI {
     }
   }
 
+  /**
+   * List tags for a repository.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {number} [options.perPage=30] - Number of tags to fetch.
+   * @param {Array<object>} [options.fallback] - Fallback tag payload.
+   * @returns {Promise<Array<object>>} Normalised tag metadata.
+   */
   async getTags(options = {}) {
     const { owner, repo, perPage = 30, fallback = undefined } = options;
 
@@ -61,6 +80,15 @@ class TagsAPI {
     }));
   }
 
+  /**
+   * Fetch the most recent tag.
+   *
+   * @param {object} [options] - Query options.
+   * @param {string} options.owner - Repository owner.
+   * @param {string} options.repo - Repository name.
+   * @param {object|null} [options.fallback] - Fallback tag.
+   * @returns {Promise<object|null>} Latest tag metadata.
+   */
   async getLatestTag(options = {}) {
     const { owner, repo, fallback = null } = options;
     const tags = await this.getTags({ owner, repo, perPage: 1, fallback: [] });
