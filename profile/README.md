@@ -78,9 +78,9 @@ flowchart LR
     F --> J
     G --> K
 
-    style A fill:#e1f5fe
-    style D fill:#f3e5f5
-    style H fill:#e8f5e8
+    style A fill:#e1f5fe,color:#0f172a
+    style D fill:#f3e5f5,color:#0f172a
+    style H fill:#e8f5e8,color:#0f172a
 ```
 
 ## About Us
@@ -134,9 +134,9 @@ flowchart TD
     P --> I
     O --> Q[📢 Community Update]
 
-    style A fill:#e1f5fe
-    style E fill:#f3e5f5
-    style O fill:#c8e6c9
+    style A fill:#e1f5fe,color:#0f172a
+    style E fill:#f3e5f5,color:#0f172a
+    style O fill:#c8e6c9,color:#0f172a
 ```
 
 ### 🤝 Ways to Contribute
@@ -203,11 +203,11 @@ graph TB
     K --> N
     L --> O
 
-    style A fill:#e1f5fe
-    style D fill:#f3e5f5
-    style G fill:#fff3e0
-    style J fill:#e8f5e8
-    style M fill:#fce4ec
+    style A fill:#e1f5fe,color:#0f172a
+    style D fill:#f3e5f5,color:#0f172a
+    style G fill:#fff3e0,color:#0f172a
+    style J fill:#e8f5e8,color:#0f172a
+    style M fill:#fce4ec,color:#0f172a
 ```
 
 ### [LSX Design](https://lsx.design)

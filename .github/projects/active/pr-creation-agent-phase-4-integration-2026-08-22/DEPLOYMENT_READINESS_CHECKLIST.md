@@ -112,6 +112,7 @@ This document outlines the deployment readiness checklist for Phase 4 completion
 ### 3.1 GitHub App Installation Prerequisites
 
 - [ ] **GitHub App Permissions Required**
+
   ```yaml
   permissions:
     actions: write          # Trigger workflows
@@ -551,6 +552,7 @@ Issue Severity?
 - ✅ Rollout sequence finalized
 
 **Approval Required From:**
+
 - [ ] Engineering Lead
 - [ ] QA Lead
 - [ ] Product Manager

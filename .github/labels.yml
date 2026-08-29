@@ -80,10 +80,6 @@
   color: 0E8A16
   description: "Completed"
 
-- name: status:needs-audit
-  color: BFD4F2
-  description: "Requires audit or review"
-
 # --- Priority ---
 
 - name: priority:critical
@@ -210,19 +206,19 @@
 
 - name: type:question
   color: 4393F8
-  description: "Question or inquiry"
+  description: "Question or enquiry"
 
 - name: type:ux-feedback
-  color: 4393F8
+  color: AB7DF8
   description: "User experience feedback"
 
 - name: type:help
   color: 4393F8
-  description: "Request for help or support"
+  description: "Help or support request"
 
 - name: type:support
   color: 4393F8
-  description: "Support request"
+  description: "Support or assistance needed"
 
 - name: type:ui
   color: 3FB950
@@ -230,19 +226,19 @@
 
 - name: type:enhancement
   color: 3FB950
-  description: "Enhancement to existing feature"
+  description: "Enhancement or improvement"
 
 - name: type:ci
   color: 4393F8
-  description: "Continuous integration"
+  description: "CI/CD and continuous integration"
 
 - name: type:dependency
   color: 8D4821
-  description: "Dependency management"
+  description: "Dependency update or management"
 
 - name: type:investigation
   color: 9198A1
-  description: "Investigation or research"
+  description: "Investigation or research task"
 
 # --- Meta / housekeeping ---
 
@@ -377,42 +373,6 @@
 - name: area:integration
   color: D93F0B
   description: "3rd-party integrations / ecosystem"
-
-- name: area:automation
-  color: BFD4F2
-  description: "Automation and workflow"
-
-- name: area:testing
-  color: D4C5F9
-  description: "Testing and QA"
-
-- name: area:performance
-  color: D29922
-  description: "Performance optimization"
-
-- name: area:a11y
-  color: DB61A2
-  description: "Accessibility (a11y)"
-
-- name: area:security
-  color: 9F3734
-  description: "Security"
-
-- name: area:compatibility
-  color: 8D4821
-  description: "Compatibility"
-
-- name: area:release
-  color: 3FB950
-  description: "Release management"
-
-- name: area:maintenance
-  color: 9198A1
-  description: "Maintenance and upkeep"
-
-- name: area:ai
-  color: 4393F8
-  description: "AI and machine learning"
 
 # --- Components (comp:*) ---
 

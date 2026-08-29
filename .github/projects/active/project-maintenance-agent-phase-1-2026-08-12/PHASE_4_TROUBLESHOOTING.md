@@ -206,6 +206,7 @@ ls -1 .github/projects/active/ | wc -l
    Batch 1: projects: [first 25 projects]
    Batch 2: projects: [next 25 projects]
    ```
+
    See PHASE_4_OPERATIONS_RUNBOOK.md for detailed procedure
 
 2. **Increase timeout:**

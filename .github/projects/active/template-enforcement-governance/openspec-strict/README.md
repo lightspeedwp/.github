@@ -18,6 +18,7 @@ Required frontmatter keys for each input:
 - Inputs are derived from `ISSUES.md` in this project folder.
 - Each proposal is intentionally scoped to one track to avoid cross-contamination.
 - Update `RUN_LOG.md` after each `/opsx:propose` attempt.
+
 ## Visual Workflow
 
 ```mermaid

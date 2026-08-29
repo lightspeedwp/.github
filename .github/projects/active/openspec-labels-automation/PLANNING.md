@@ -17,6 +17,7 @@ status: active
 OpenSpec Labels Automation delivers an automated GitHub issue template system with Definition of Ready (DoR) and Definition of Done (DoD) injection for all issue types, plus workflow orchestration for phase progression.
 
 **Key Objectives:**
+
 - Automate DoR/DoD template injection for 17 GitHub issue types
 - Validate template compliance across open issues
 - Enable workflow orchestration for phase progression
@@ -27,12 +28,14 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 ### Phase 2: Template Validation & Auto-Injection ✅ COMPLETE
 
 **Deliverables:**
+
 - ✅ DoR/DoD template mapping (17 issue types, 85 checklist items)
 - ✅ Batch validation & injection system (300+ issues, dry-run mode)
 - ✅ Comprehensive test suite (43 tests, 100% passing)
 - ✅ Helper functions for template detection and retrieval
 
 **Key Files:**
+
 - `scripts/automation/dor-dod-templates.js` — Template definitions
 - `scripts/automation/validate-inject-dor-dod.js` — Validation & injection engine
 - `scripts/automation/__tests__/dor-dod-validation.test.js` — Test suite
@@ -44,12 +47,14 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 ### Phase 3: Workflow Orchestration & Automated Phase Progression 🟡 PLANNING
 
 **Objectives:**
+
 - Build workflow system for automatic phase transitions
 - Create issue templates with phase markers
 - Implement CI/CD integration for phase validation
 - Set up monitoring and rollback capabilities
 
 **Deliverables (Planned):**
+
 - Workflow orchestrator module
 - Phase transition validation gates
 - CI/CD pipeline integration
@@ -62,6 +67,7 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 ### Phase 4: Jira/Linear/GitHub Integration 📋 FUTURE
 
 **Objectives:**
+
 - Integrate with external project management tools
 - Sync issue status across platforms
 - Provide unified reporting dashboard
@@ -82,6 +88,7 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 ## Deliverables Checklist
 
 ### Phase 2 ✅
+
 - [x] 17 template definitions for all issue types
 - [x] 85 DoR/DoD checklist items
 - [x] Batch validation system (configurable, 300+ limit)
@@ -91,6 +98,7 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 - [x] Helper functions (detect, retrieve, validate)
 
 ### Phase 3 🟡
+
 - [ ] Workflow orchestrator implementation
 - [ ] Phase transition gates
 - [ ] CI/CD pipeline setup
@@ -99,6 +107,7 @@ OpenSpec Labels Automation delivers an automated GitHub issue template system wi
 - [ ] Team training & documentation
 
 ### Phase 4 📋
+
 - [ ] Jira integration module
 - [ ] Linear integration module
 - [ ] GitHub → external sync

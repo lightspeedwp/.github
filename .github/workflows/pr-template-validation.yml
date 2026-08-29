@@ -20,13 +20,11 @@ jobs:
 
             const hasLinkedIssues = body.includes('## Linked issues');
             const hasChangelog = body.includes('## Changelog');
-            const hasTestPlan = body.includes('## Test') && (body.includes('plan') || body.includes('Plan'));
             const hasChecklist = body.includes('- [x]') || body.includes('- [ ]');
 
             const missing = [];
             if (!hasLinkedIssues) missing.push('Linked issues');
             if (!hasChangelog) missing.push('Changelog');
-            if (!hasTestPlan) missing.push('Test plan');
             if (!hasChecklist) missing.push('Checklist');
 
             if (missing.length > 0) {

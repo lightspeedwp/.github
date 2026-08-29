@@ -7,6 +7,7 @@ This folder contains operational runbooks, procedures, and guides for automated 
 See: `project-maintenance/` folder
 
 **Quick Links:**
+
 - **New to this?** Read: [Team Training Guide](project-maintenance/TRAINING.md)
 - **Need to fix something?** Read: [Operations Runbook](project-maintenance/RUNBOOK.md)
 - **Got an error?** Read: [Troubleshooting Guide](project-maintenance/TROUBLESHOOTING.md)
@@ -22,6 +23,7 @@ See: `project-maintenance/` folder
 ## Adding New Operations
 
 When adding new automated systems:
+
 1. Create folder: `operations/[system-name]/`
 2. Create README.md with overview
 3. Create TRAINING.md (30-min guide)
@@ -32,6 +34,7 @@ When adding new automated systems:
 ## Questions?
 
 If documentation is unclear:
+
 1. Check if there's a related FAQ answer
 2. Create a GitHub issue with type:support label
 3. Link to the documentation section that confused you
@@ -39,6 +42,7 @@ If documentation is unclear:
 ---
 
 *Operations Documentation*
+
 ## Visual Workflow
 
 ```mermaid

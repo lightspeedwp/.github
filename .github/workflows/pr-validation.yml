@@ -1,0 +1,399 @@
+name: PR Validation • Epic Linking & Milestone Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, milestoned, demilestoned]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+  checks: write
+
+jobs:
+  validate-pr-governance:
+    name: Validate PR Governance (Epic Linking & Milestone)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      checks: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Extract and validate linked issues
+        id: validate
+        uses: actions/github-script@v9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            const { extractClosingIssueNumbers, sectionBody, stripHtmlComments } = require('./scripts/validation/template-helpers.cjs');
+
+            const pr = context.payload.pull_request;
+            const body = pr.body || '';
+            const prNumber = pr.number;
+            const prAuthor = pr.user?.login || '';
+
+            // Skip validation for dependabot and renovate PRs
+            if (prAuthor === 'dependabot[bot]' || prAuthor === 'app/dependabot' || prAuthor === 'renovate[bot]' || prAuthor === 'app/renovate') {
+              core.notice(`Skipping PR validation for bot-authored PR #${prNumber}`);
+              core.setOutput('skip', 'true');
+              return;
+            }
+
+            const linkedIssuesSection = sectionBody(body, /^##\s+Linked issues\s*$/im);
+            const closingIssueNumbers = extractClosingIssueNumbers(linkedIssuesSection);
+
+            const issues = {
+              epic: [],
+              valid: [],
+              errors: [],
+            };
+
+            // Helper: Fetch issue with exponential backoff retry for transient failures
+            async function fetchIssueWithRetry(issueNum, maxRetries = 3) {
+              let lastError;
+              for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                  const { data: issue } = await github.rest.issues.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issueNum,
+                  });
+                  return issue;
+                } catch (error) {
+                  lastError = error;
+                  // Retry on transient errors (5xx, 429 rate limit)
+                  if (attempt < maxRetries && (error.status >= 500 || error.status === 429)) {
+                    const delay = Math.pow(2, attempt) * 1000;
+                    core.debug(`Retrying issue #${issueNum} after ${delay}ms (attempt ${attempt + 1}/${maxRetries})`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                  } else {
+                    throw error;
+                  }
+                }
+              }
+              throw lastError;
+            }
+
+            // Check each closing issue reference
+            for (const issueNum of closingIssueNumbers) {
+              try {
+                const issue = await fetchIssueWithRetry(issueNum);
+                const isEpic = (issue.labels || []).some((label) => label.name === 'type:epic');
+
+                if (isEpic) {
+                  issues.epic.push({
+                    number: issueNum,
+                    title: issue.title,
+                    url: issue.html_url,
+                  });
+                } else {
+                  issues.valid.push(issueNum);
+                }
+              } catch (error) {
+                if (error.status === 404) {
+                  issues.errors.push({
+                    number: issueNum,
+                    reason: 'Issue not found',
+                  });
+                } else {
+                  core.warning(`Error fetching issue #${issueNum}: ${error.message}`);
+                  issues.errors.push({
+                    number: issueNum,
+                    reason: 'Unable to fetch issue details',
+                  });
+                }
+              }
+            }
+
+            // Check milestone
+            const hasMilestone = !!pr.milestone;
+            const milestone = pr.milestone?.title || null;
+            const isValidMilestone = milestone && !/(placeholder|tbd|n\/a|none|pending)/i.test(milestone);
+
+            core.setOutput('epic-issues', JSON.stringify(issues.epic));
+            core.setOutput('valid-issues', JSON.stringify(issues.valid));
+            core.setOutput('invalid-issues', JSON.stringify(issues.errors));
+            core.setOutput('has-milestone', String(hasMilestone));
+            core.setOutput('milestone-valid', String(isValidMilestone));
+            core.setOutput('milestone-title', milestone || '');
+            core.setOutput('skip', 'false');
+
+      - name: Create status check
+        id: create-status-check
+        if: steps.validate.outputs.skip != 'true'
+        uses: actions/github-script@v9
+        env:
+          EPIC_ISSUES: ${{ steps.validate.outputs.epic-issues }}
+          VALID_ISSUES: ${{ steps.validate.outputs.valid-issues }}
+          INVALID_ISSUES: ${{ steps.validate.outputs.invalid-issues }}
+          HAS_MILESTONE: ${{ steps.validate.outputs.has-milestone }}
+          MILESTONE_VALID: ${{ steps.validate.outputs.milestone-valid }}
+          MILESTONE_TITLE: ${{ steps.validate.outputs.milestone-title }}
+        with:
+          script: |
+            const epicIssues = JSON.parse(process.env.EPIC_ISSUES || '[]');
+            const validIssues = JSON.parse(process.env.VALID_ISSUES || '[]');
+            const invalidIssues = JSON.parse(process.env.INVALID_ISSUES || '[]');
+            const hasMilestone = process.env.HAS_MILESTONE === 'true';
+            const milestoneValid = process.env.MILESTONE_VALID === 'true';
+            const milestoneName = process.env.MILESTONE_TITLE || '';
+
+            const pr = context.payload.pull_request;
+            const prNumber = pr.number;
+
+            // Determine overall status
+            const hasEpicViolation = epicIssues.length > 0;
+            const hasMilestoneViolation = !hasMilestone || !milestoneValid;
+            const hasIssueErrors = invalidIssues.length > 0;
+
+            const isSuccess = !hasEpicViolation && !hasMilestoneViolation && invalidIssues.length === 0;
+            const conclusion = isSuccess ? 'success' : 'failure';
+
+            // Build detailed text for check run
+            let checkText = '';
+
+            if (epicIssues.length > 0) {
+              checkText += '## ❌ Epic Linking Violation\n\n';
+              checkText += 'This PR attempts to **close epic issue(s)** using the "Closes" keyword. Epic issues should only be closed when all child tasks are complete.\n\n';
+              checkText += '**Affected Epic Issues:**\n\n';
+              epicIssues.forEach((issue) => {
+                const safeTitle = (issue.title || '').replace(/[`\\]/g, '\\$&');
+                checkText += `- [#${issue.number}](${issue.url}) — \`${safeTitle}\`\n`;
+              });
+              checkText += '\n### How to Fix\n\n';
+              checkText += 'Replace the closing keyword with "relates to" for epic issues:\n\n';
+              checkText += '```diff\n';
+              checkText += '## Linked issues\n';
+              epicIssues.forEach((issue) => {
+                checkText += `-Closes #${issue.number}\n`;
+                checkText += `+Relates to #${issue.number}\n`;
+              });
+              checkText += '```\n\n';
+            }
+
+            if (hasIssueErrors) {
+              checkText += '## ⚠️ Unresolvable Issue References\n\n';
+              checkText += 'These issue references could not be resolved:\n\n';
+              invalidIssues.forEach((issue) => {
+                checkText += `- #${issue.number} — ${issue.reason}\n`;
+              });
+              checkText += '\n';
+            }
+
+            if (hasMilestoneViolation) {
+              checkText += '## ❌ Missing or Invalid Milestone\n\n';
+              if (!hasMilestone) {
+                checkText += 'This PR does not have a milestone assigned. ';
+                checkText += 'Milestone assignment is required for release tracking and project organisation.\n\n';
+                checkText += '**How to Fix:**\n\n';
+                checkText += '1. Click the "Milestone" button in the PR right sidebar\n';
+                checkText += '2. Select the appropriate milestone for this work\n';
+                checkText += '3. The governance check re-runs automatically\n\n';
+              } else if (!milestoneValid) {
+                checkText += `Milestone "${milestoneName}" appears to be a placeholder. `;
+                checkText += 'Please assign a valid milestone that reflects the target release or sprint.\n\n';
+              }
+            }
+
+            if (isSuccess) {
+              checkText = '✅ This PR meets governance requirements:\n\n';
+              checkText += `- No epic issues being closed (${validIssues.length} valid issue references)\n`;
+              checkText += `- Milestone assigned: **${milestoneName}**\n`;
+              checkText += '- Ready for review and merge\n';
+            }
+
+            // Create or update check run
+            const checkRuns = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha,
+            });
+
+            const existingCheckRun = checkRuns.data.check_runs.find(
+              (check) => check.name === 'PR Governance Check'
+            );
+
+            const checkInput = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'PR Governance Check',
+              head_sha: context.payload.pull_request.head.sha,
+              status: 'completed',
+              conclusion: conclusion,
+              output: {
+                title: isSuccess ? '✅ PR Governance Check Passed' : '❌ PR Governance Check Failed',
+                summary: isSuccess
+                  ? 'This PR meets all governance requirements.'
+                  : 'This PR has governance violations that must be fixed before merge.',
+                text: checkText,
+              },
+            };
+
+            if (existingCheckRun) {
+              await github.rest.checks.update({
+                ...checkInput,
+                check_run_id: existingCheckRun.id,
+              });
+            } else {
+              await github.rest.checks.create(checkInput);
+            }
+
+            core.setOutput('check-conclusion', conclusion);
+            core.setOutput('check-result', isSuccess ? 'passed' : 'failed');
+
+      - name: Post or update validation comment
+        if: steps.validate.outputs.skip != 'true' && steps.create-status-check.outputs.check-result != null
+        uses: actions/github-script@v9
+        env:
+          EPIC_ISSUES: ${{ steps.validate.outputs.epic-issues }}
+          INVALID_ISSUES: ${{ steps.validate.outputs.invalid-issues }}
+          HAS_MILESTONE: ${{ steps.validate.outputs.has-milestone }}
+          MILESTONE_VALID: ${{ steps.validate.outputs.milestone-valid }}
+          CHECK_RESULT: ${{ steps.create-status-check.outputs.check-result }}
+        with:
+          script: |
+            const epicIssues = JSON.parse(process.env.EPIC_ISSUES || '[]');
+            const invalidIssues = JSON.parse(process.env.INVALID_ISSUES || '[]');
+            const hasMilestone = process.env.HAS_MILESTONE === 'true';
+            const milestoneValid = process.env.MILESTONE_VALID === 'true';
+            const checkResult = process.env.CHECK_RESULT;
+
+            const hasViolations = epicIssues.length > 0 || invalidIssues.length > 0 || !hasMilestone || !milestoneValid;
+
+            if (!hasViolations) {
+              // No violations, remove any existing warning comment
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+              });
+
+              const marker = '<!-- pr-governance-validation -->';
+              const existingComment = comments.find(
+                (c) => c.body.includes(marker) && c.user.type === 'Bot'
+              );
+
+              if (existingComment) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                });
+              }
+              return;
+            }
+
+            // Build violation message
+            let message = '<!-- pr-governance-validation -->\n';
+            message += '## ⚠️ PR Governance Issues\n\n';
+
+            if (epicIssues.length > 0) {
+              message += '### ❌ Epic Linking Violation\n\n';
+              message += 'This PR attempts to close epic issue(s):\n\n';
+              epicIssues.forEach((issue) => {
+                const safeTitle = (issue.title || '').replace(/[`\\]/g, '\\$&');
+                message += `- [#${issue.number}](${issue.url}) — \`${safeTitle}\`\n`;
+              });
+              message += '\n**Fix:** Use "Relates to" instead of "Closes" for epic issues.\n\n';
+            }
+
+            if (invalidIssues.length > 0) {
+              message += '### ⚠️ Unresolvable Issues\n\n';
+              message += 'Could not resolve these issue references:\n\n';
+              invalidIssues.forEach((issue) => {
+                message += `- #${issue.number} — ${issue.reason}\n`;
+              });
+              message += '\n';
+            }
+
+            if (!hasMilestone || !milestoneValid) {
+              message += '### ❌ Milestone Issue\n\n';
+              if (!hasMilestone) {
+                message += 'No milestone assigned. Please select a milestone from the right sidebar.\n';
+              } else {
+                message += 'Milestone appears to be a placeholder. Assign a valid milestone.\n';
+              }
+              message += '\n';
+            }
+
+            message += '---\n';
+            message += '[View PR Governance Check](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})';
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const marker = '<!-- pr-governance-validation -->';
+            const existingComment = comments.find(
+              (c) => c.body.includes(marker) && c.user.type === 'Bot'
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: message,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: message,
+              });
+            }
+
+      - name: Record governance metrics
+        if: steps.validate.outputs.skip != 'true'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const epicIssues = JSON.parse('${{ steps.validate.outputs.epic-issues }}' || '[]');
+            const invalidIssues = JSON.parse('${{ steps.validate.outputs.invalid-issues }}' || '[]');
+            const hasMilestone = '${{ steps.validate.outputs.has-milestone }}' === 'true';
+            const milestoneValid = '${{ steps.validate.outputs.milestone-valid }}' === 'true';
+
+            const pr = context.payload.pull_request;
+            const hasViolations = epicIssues.length > 0 || invalidIssues.length > 0 || !hasMilestone || !milestoneValid;
+
+            if (hasViolations) {
+              const violations = [];
+              if (epicIssues.length > 0) violations.push(`epic-closure:${epicIssues.length}`);
+              if (invalidIssues.length > 0) violations.push(`invalid-refs:${invalidIssues.length}`);
+              if (!hasMilestone) violations.push('missing-milestone');
+              if (!milestoneValid) violations.push('invalid-milestone');
+
+              core.notice(`PR Governance Violation Detected (PR #${pr.number}): ${violations.join(', ')}`);
+            }
+
+      - name: Enforce PR governance requirement
+        if: steps.validate.outputs.skip != 'true' && steps.create-status-check.outputs.check-conclusion == 'failure'
+        run: |
+          echo "::error::PR governance check failed. This is a required status check."
+          echo ""
+          echo "Violations found:"
+          echo "- Epic linking issues"
+          echo "- Milestone requirements"
+          echo ""
+          echo "Please fix the issues above and push to update this PR."
+          exit 1

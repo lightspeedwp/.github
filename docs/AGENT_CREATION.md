@@ -154,9 +154,9 @@ graph TB
     H --> I
     I --> J
 
-    style A fill:#e1f5fe
-    style H fill:#f3e5f5
-    style K fill:#e8f5e8
+    style A fill:#e1f5fe,color:#0f172a
+    style H fill:#f3e5f5,color:#0f172a
+    style K fill:#e8f5e8,color:#0f172a
 ```
 
 ---

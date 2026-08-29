@@ -48,6 +48,7 @@ This document summarizes the complete standardization initiative for converting 
 #### Folder Structure Standards
 
 **Agent Export Format:**
+
 ```
 .github/agents/{agent-slug}-agent/
 ├── AGENT.md                   # Agent spec with YAML frontmatter
@@ -77,6 +78,7 @@ This document summarizes the complete standardization initiative for converting 
 ```
 
 **Plugin Format:**
+
 ```
 .github/plugins/lightspeed-{DOMAIN}-{FOCUS}/
 ├── plugin.json                # Master plugin manifest
@@ -98,11 +100,13 @@ This document summarizes the complete standardization initiative for converting 
 #### Naming Conventions
 
 **Agents:**
+
 - Agent spec files: `{domain}-{focus}.agent.md`
 - Agent export folders: `{domain}-{function}-agent`
 - Agent inside plugin: `agents/{domain}-{focus}/`
 
 **Plugins:**
+
 - Plugin folders: `lightspeed-{domain}-{focus}`
 - Plugin manifest: `{plugin-name}/copilot-plugin.json`
 - Provider subdirs: `.{provider}-plugin/`
@@ -177,6 +181,7 @@ Is this agent part of an existing domain/category?
 ```
 
 **Examples:**
+
 - `linear-advisor-agent` → `lightspeed-project-management-linear`
 - `design-partner-agent` → `lightspeed-design-partner` or `lightspeed-design`
 - `zendesk-support-agent` → `lightspeed-support-zendesk`
@@ -193,6 +198,7 @@ Is this agent part of an existing domain/category?
 **Status:** Ready to Execute
 
 **Deliverables:**
+
 1. ✅ Rewrite `playwright-testing-agent/` with new structure
 2. ✅ Create Claude, Copilot, OpenAI provider configs
 3. ✅ Create `lightspeed-playwright-testing` plugin
@@ -206,6 +212,7 @@ Is this agent part of an existing domain/category?
 **Use This:** `PROMPT_1_PLAYWRIGHT_AGENT_REWRITE.md`
 
 **Success Criteria:**
+
 - Agent folder restructured
 - All provider configs created & validated
 - Plugin functional across all providers
@@ -218,6 +225,7 @@ Is this agent part of an existing domain/category?
 ### Phase 2: Generic Agent Conversion (Remaining 15 Agents)
 
 **Agents to Convert:**
+
 1. ai-readiness-estimator-agent → `lightspeed-planning-readiness`
 2. client-website-discovery-assistant-agent → `lightspeed-discovery-client-websites`
 3. design-partner-agent → `lightspeed-design-partner`
@@ -244,6 +252,7 @@ Is this agent part of an existing domain/category?
 ### Phase 3: Repository-Wide Governance
 
 **Deliverables:**
+
 1. Merge all schemas into canonical registry
 2. Deploy hooks as org-wide enforcement
 3. Update instruction file index
@@ -286,42 +295,50 @@ Is this agent part of an existing domain/category?
 ### Detailed Execution Guide (Phase 1)
 
 **Step 1: Audit & Plan (2-3 hours)**
+
 - Review current agent export (Task 1.1 in PROMPT_1)
 - Audit repository files (Tasks 1.2-1.5)
 - Create framework documentation (Task 2.1)
 
 **Step 2: Restructure Agent (1-2 hours)**
+
 - Create new folder structure (Task 2.2)
 - Move existing files (Task 3.2)
 - Initialize template files
 
 **Step 3: Create Specifications (2-3 hours)**
+
 - Write AGENT.md with YAML frontmatter (Task 3.3)
 - Create core prompt (Task 3.4.A)
 - Create provider-specific configs (Tasks 3.4.B-D)
 
 **Step 4: Define Tools (1-2 hours)**
+
 - Claude tools.json (Task 4.1)
 - Copilot skills.yaml (Task 4.2)
 - OpenAI functions (Task 4.3)
 
 **Step 5: Create Plugin (2-3 hours)**
+
 - Plugin structure (Task 5.1)
 - Manifests (Tasks 5.2-5.3)
 - Documentation (Tasks 6.1-6.3)
 
 **Step 6: Schemas & Hooks (2-3 hours)**
+
 - Create 4 new schemas (Task 4.1)
 - Create 4 new hooks (Task 4.2)
 - Register & test
 
 **Step 7: Validation & Testing (1-2 hours)**
+
 - Schema validation
 - Hook validation
 - Provider config testing
 - Documentation checks
 
 **Step 8: Git & Merge (0.5-1 hour)**
+
 - Create feature branch
 - Commit changes
 - Create PR
@@ -332,24 +349,28 @@ Is this agent part of an existing domain/category?
 ## Key Success Factors
 
 ### 1. Standards Adherence
+
 - Follow naming conventions strictly
 - Use provided templates
 - Validate against schemas
 - Run hooks before commit
 
 ### 2. Documentation Quality
+
 - Clear README files
 - Complete INSTALL guides
 - Practical examples in agent specs
 - Links verified
 
 ### 3. Testing Coverage
+
 - Schema validation passing
 - Hook validation passing
 - Provider configs loading
 - Manual functionality testing
 
 ### 4. Iterative Refinement
+
 - First agent (playwright) will define pattern
 - Use learnings to refine generic prompt
 - Update documentation as you learn
@@ -395,14 +416,17 @@ Is this agent part of an existing domain/category?
 ### Branch Names
 
 **Phase 1 (Playwright):**
+
 - `feat/agent-standards-playwright-testing`
 
 **Phase 2 (Batch Agent Conversions):**
+
 - `feat/agent-standards-batch-1` (agents 1-3)
 - `feat/agent-standards-batch-2` (agents 4-6)
 - etc.
 
 **Phase 3 (Governance):**
+
 - `ci/agent-governance-consolidation`
 
 ### Merge Strategy
@@ -435,6 +459,7 @@ Is this agent part of an existing domain/category?
 ## Success Criteria (Final)
 
 ### By End of Phase 1
+
 ✅ Playwright agent restructured  
 ✅ All 3 providers (Claude, Copilot, OpenAI) supported  
 ✅ Plugin created and functional  
@@ -446,12 +471,14 @@ Is this agent part of an existing domain/category?
 ✅ Documentation complete  
 
 ### By End of Phase 2
+
 ✅ 15 agents converted (total 16)  
 ✅ 6 plugins created/updated  
 ✅ 2 domain groupings finalized  
 ✅ Hook enforcement active repo-wide  
 
 ### By End of Phase 3
+
 ✅ Schemas merged into canonical registry  
 ✅ AI configs unified  
 ✅ Instruction files consolidated  
@@ -463,16 +490,19 @@ Is this agent part of an existing domain/category?
 ## Questions & Contact
 
 **Documentation Questions:**
+
 - Review AGENT_STANDARDIZATION_AUDIT.md
 - Check instruction files in `.github/instructions/`
 
 **Implementation Questions:**
+
 - Follow PROMPT_1 or PROMPT_2 step-by-step
 - Refer to playwright-testing-agent (pilot) as reference
 - Check schema files for validation rules
 
 **Technical Support:**
-- Contact: contact@lightspeedwp.agency
+
+- Contact: <contact@lightspeedwp.agency>
 - Slack: #engineering (if available)
 
 ---
@@ -494,6 +524,7 @@ Is this agent part of an existing domain/category?
    - Reference during implementation
 
 2. **Create Initial Branch**
+
    ```bash
    git checkout -b feat/agent-standards-playwright-testing
    ```

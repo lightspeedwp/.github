@@ -513,6 +513,7 @@ jobs:
 ### 5.1 For Control-Plane (.github repository)
 
 1. **Create configuration files:**
+
    ```bash
    # Branch protection config
    touch .github/branch-protection.yml
@@ -528,6 +529,7 @@ jobs:
 4. **Verify GitHub Actions workflow** in `.github/workflows/` matches section 4
 
 5. **Commit and push:**
+
    ```bash
    git add .github/branch-protection.yml .github/pr-agent.config.yml
    git commit -m "config: Phase 5 deployment configurations for PR Agent"

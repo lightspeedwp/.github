@@ -35,9 +35,6 @@ issue_types:
   - name: Test Coverage
     color: D29922
     label: type:test
-  - name: QA
-    color: D29922
-    label: type:qa
   - name: Performance
     color: D29922
     label: type:performance
@@ -84,7 +81,7 @@ issue_types:
     color: 4393F8
     label: type:question
   - name: UX Feedback
-    color: 4393F8
+    color: AB7DF8
     label: type:ux-feedback
   - name: Help
     color: 4393F8
@@ -107,3 +104,6 @@ issue_types:
   - name: Investigation
     color: 9198A1
     label: type:investigation
+  - name: QA
+    color: D29922
+    label: type:qa

@@ -106,6 +106,7 @@ See **AUDIT_AND_PLAN.md** for:
 ---
 
 *Created 2026-08-08 | Ready for implementation*
+
 ## Visual Workflow
 
 ```mermaid

@@ -1,8 +1,13 @@
 ---
 name: "🔍 Research"
+description: "🔍 Research"
 about: "Propose or document technical research, investigation, or exploratory work."
 title: "[Research] <Brief summary>"
 labels: [status:needs-review, priority:minor, area:core]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## Research Goal

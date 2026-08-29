@@ -16,6 +16,7 @@ status: active
 ## Objective
 
 Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system so that:
+
 1. Metrics are accessible to downstream agents
 2. Reports are automatically generated from metrics
 3. Issues are created based on metrics insights
@@ -50,9 +51,11 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ## Deliverables
 
 ### 1. Integration Adapter (Meta Agent)
+
 **Goal:** Make metrics accessible as input context for Meta Agent  
 **Location:** `scripts/metrics/integrations/meta-agent-adapter.js`  
 **Tasks:**
+
 - [ ] Create MetricsContextProvider module
 - [ ] Load latest metrics from reports directory
 - [ ] Format metrics as JSON schema for Meta Agent
@@ -60,6 +63,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 - [ ] Error handling for missing metrics
 
 **Input:**
+
 ```json
 {
   "context": "control-plane",
@@ -69,6 +73,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ```
 
 **Output:**
+
 ```json
 {
   "type": "metrics-context",
@@ -85,9 +90,11 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ```
 
 ### 2. Reporting Agent Integration
+
 **Goal:** Automatically generate reports from metrics  
 **Location:** `scripts/metrics/integrations/reporting-agent-input.js`  
 **Tasks:**
+
 - [ ] Create MetricsReportFormatter module
 - [ ] Define report input schema for Reporting Agent
 - [ ] Map metrics to report sections
@@ -95,12 +102,14 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 - [ ] Create sample report templates
 
 **Report Types:**
+
 - Weekly Summary (high-level overview)
 - Context-Specific (control-plane vs. plugins vs. themes)
 - Trend Analysis (period-over-period)
 - Anomaly Report (significant changes)
 
 **Schema:**
+
 ```json
 {
   "reportType": "weekly",
@@ -117,9 +126,11 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ```
 
 ### 3. Issue Creation Templates
+
 **Goal:** Automatically create actionable GitHub issues from metrics  
 **Location:** `scripts/metrics/integrations/issue-templates.js`  
 **Tasks:**
+
 - [ ] Create issue template generator
 - [ ] Define templates for common metric issues:
   - [ ] "Stale issues need review" issue template
@@ -131,6 +142,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 - [ ] Configure GitHub labels for metrics issues
 
 **Example Issue Template:**
+
 ```markdown
 ## Title
 🚨 Metrics Alert: Issue Closure Time Degraded
@@ -155,8 +167,10 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ```
 
 ### 4. End-to-End Flow Testing
+
 **Goal:** Verify metrics flow through all integration points  
 **Tasks:**
+
 - [ ] Test: Metrics collection → JSON output
 - [ ] Test: JSON → Meta Agent context
 - [ ] Test: Metrics → Report generation
@@ -168,6 +182,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ### Phase 1: Setup & Configuration (2 hours)
 
 1. **Create directory structure:**
+
    ```
    scripts/metrics/integrations/
    ├─ meta-agent-adapter.js
@@ -193,6 +208,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ### Phase 2: Meta Agent Adapter (2 hours)
 
 1. **MetricsContextProvider:**
+
    ```javascript
    class MetricsContextProvider {
      loadLatestMetrics(context)  // Load from reports
@@ -213,6 +229,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ### Phase 3: Reporting Agent Input (2 hours)
 
 1. **MetricsReportFormatter:**
+
    ```javascript
    class MetricsReportFormatter {
      formatForReportingAgent()    // Transform metrics to report format
@@ -232,6 +249,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ### Phase 4: Issue Templates (2 hours)
 
 1. **IssueTemplateGenerator:**
+
    ```javascript
    class IssueTemplateGenerator {
      generateStaleIssuesAlert()      // For old unreviewed issues
@@ -266,17 +284,20 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ## Testing Strategy
 
 ### Unit Tests (75+ tests, 85%+ coverage)
+
 - Meta Agent adapter: 20 tests
 - Reporting Agent formatter: 20 tests
 - Issue template generator: 20 tests
 - Schema validation: 15 tests
 
 ### Integration Tests (15+ tests)
+
 - Full flow: collect → integrate → report
 - Error handling: missing files, invalid data
 - Real-world scenarios: actual metrics data
 
 ### Acceptance Tests
+
 - [ ] Metrics accessible via Meta Agent
 - [ ] Reports generated automatically
 - [ ] Issues created for anomalies
@@ -319,6 +340,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 ## Files to Create/Modify
 
 **New Files:**
+
 - `scripts/metrics/integrations/meta-agent-adapter.js` (~200 LOC)
 - `scripts/metrics/integrations/reporting-agent-input.js` (~250 LOC)
 - `scripts/metrics/integrations/issue-templates.js` (~300 LOC)
@@ -326,6 +348,7 @@ Wire metrics data into Meta Agent, Reporting Agent, and Issue Management system 
 - `scripts/metrics/integrations/README.md` (~150 LOC)
 
 **Modified Files:**
+
 - `.github/workflows/metrics-reporting.yml` (add integration steps)
 - `.schemas/metrics-meta-context.json` (new schema)
 - `.schemas/metrics-report-input.json` (new schema)

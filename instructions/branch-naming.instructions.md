@@ -15,6 +15,7 @@ role_declaration: |
 ## Global Restrictions
 
 **FORBIDDEN PREFIXES** (Cannot Be Used Under Any Circumstance):
+
 - `claude/` — Reserved for Claude Code internal session branches
 - `copilot/` — Reserved for GitHub Copilot integration
 - `openai/` — Reserved for OpenAI API integration
@@ -31,12 +32,15 @@ Reject any branch starting with these prefixes immediately.
 ## Allowed Branch Prefixes (31 Types)
 
 ### Core (20 prefixes)
+
 `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`
 
 ### Product-Specific (5 prefixes)
+
 `proto`, `ds`, `api`, `schema`, `telemetry`
 
 ### Content & Operations (6 prefixes)
+
 `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
 
 **Note:** All 31 prefixes are case-sensitive (lowercase only). Any deviation from this list is invalid.
@@ -62,6 +66,7 @@ feat/user-authentication
 ## Examples
 
 ### ✅ Valid Branch Names
+
 ```
 feat/user-authentication          (type=feat, scope=user, title=authentication)
 fix/button-styling                (type=fix, scope=button, title=styling)
@@ -76,6 +81,7 @@ ops/post-release-sync             (type=ops, scope=post, title=release-sync)
 ```
 
 ### ❌ Invalid Branch Names
+
 ```
 claude/my-feature                 ❌ FORBIDDEN PREFIX
 feat/MyFeature                    ❌ UPPERCASE NOT ALLOWED
@@ -91,16 +97,19 @@ fix/bug fix                       ❌ SPACES NOT ALLOWED (use hyphens)
 ## Scope and Title Guidelines
 
 ### Scope (Middle Part)
+
 - Identifies the **area** of work: module, feature, system, component
 - Examples: `user`, `auth`, `database`, `api`, `ui`, `workflow`
 - Single word preferred, or hyphenated multi-word (e.g., `user-auth`)
 
 ### Title (Last Part)
+
 - Describes the **specific change** within that scope
 - Examples: `authentication`, `styling`, `optimization`, `validation`
 - Single word preferred, or hyphenated multi-word (e.g., `query-caching`)
 
 ### Example Breakdown
+
 ```
 feat/auth-token-refresh
 ├── type:  feat (new feature)
@@ -119,6 +128,7 @@ release/v2-1-0-alpha        (Alpha release)
 ```
 
 **Important:** Use hyphens, not dots, in version numbers:
+
 - ✅ `release/v2-1-0`
 - ❌ `release/v2.1.0` (dots not allowed)
 
@@ -153,6 +163,7 @@ Exit code `1` = invalid branch name
 ### Pre-Commit Hook
 
 The repository includes a pre-commit hook that validates branch names automatically:
+
 - Runs before every commit
 - Rejects invalid branch names before pushing
 - Can be bypassed with `--no-verify` (not recommended)
@@ -160,6 +171,7 @@ The repository includes a pre-commit hook that validates branch names automatica
 ### CI Workflow Validation
 
 GitHub Actions workflows validate branch names on every push to `develop` or `main`:
+
 - Rejects invalid branch names
 - Blocks merges on naming violations
 - Provides helpful error messages
@@ -229,6 +241,7 @@ If your agent does not create or validate branches, add this disclaimer to your 
 This error means the branch name doesn't match `{type}/{scope}-{short-title}` format.
 
 **Solutions:**
+
 1. Check the prefix is in the allowed list (31 types)
 2. Ensure all parts are lowercase
 3. Replace underscores with hyphens
@@ -241,6 +254,7 @@ This error means the branch name doesn't match `{type}/{scope}-{short-title}` fo
 This error means you used a forbidden prefix (`claude/`, `copilot/`, `openai/`).
 
 **Solutions:**
+
 1. Choose a different prefix from the allowed list
 2. For releases, use `release/vX-Y-Z` instead of other prefixes
 3. For urgent fixes, use `hotfix/` for critical issues targeting `main`
@@ -248,6 +262,7 @@ This error means you used a forbidden prefix (`claude/`, `copilot/`, `openai/`).
 ### Validation passes locally but fails in CI
 
 This usually means you're using different validators. The repository uses:
+
 - **Pre-commit hook:** `.cjs` validator (strict)
 - **CI workflow:** `.cjs` validator (strict)
 - **Local testing:** May use older `.js` validator (permissive)

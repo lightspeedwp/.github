@@ -1,7 +1,9 @@
 # Active Projects Status Update — Comprehensive Execution Prompt
 
 ## Overview
+
 Update the status and linking for all active projects in `.github/projects/active/` to ensure:
+
 1. **Project Status Fields**: All projects have current status, priority, type, and effort fields
 2. **Two-Way Issue Linking**: Projects link to related issues, and issues link back to projects
 3. **HEAD Links to Develop**: All links point to the `develop` branch (live project files)
@@ -12,6 +14,7 @@ Update the status and linking for all active projects in `.github/projects/activ
 ## Phase 1: Project Discovery & Status Audit
 
 ### Task 1.1: Scan All Active Projects
+
 ```bash
 cd .github/projects/active
 ls -1d */ | while read dir; do
@@ -25,7 +28,9 @@ done
 ```
 
 ### Task 1.2: Check Current Status Fields in Each Project
+
 For each project's README.md, verify it contains:
+
 ```markdown
 ---
 file_type: project
@@ -42,21 +47,25 @@ effort: [hours estimate]
 ## Phase 2: Establish Two-Way Linking Structure
 
 ### Task 2.1: Define HEAD Links Format
+
 All links to active projects must use this format:
 
 **Project Files in Issues:**
+
 ```markdown
 [Project Name](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/{project-slug}/README.md)
 [Full Project Spec](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/{project-slug}/PLANNING.md)
 ```
 
 **Issue References in Projects:**
+
 ```markdown
 [Issue #XXXX](https://github.com/lightspeedwp/.github/issues/XXXX) - Issue title
 [Related PR #XXXX](https://github.com/lightspeedwp/.github/pull/XXXX) - PR title
 ```
 
 ### Task 2.2: Create Related Issues Section in README.md
+
 Each project's README.md should have:
 
 ```markdown
@@ -76,7 +85,9 @@ See [Full Project Definition](https://github.com/lightspeedwp/.github/blob/devel
 ## Phase 3: Update Project Status Fields
 
 ### Task 3.1: Audit Status Field for Each Project
+
 Review each project and determine:
+
 - **Status**: Is this project active, pending review, blocked, or at risk?
   - `active` - In progress, making forward momentum
   - `pending` - Waiting for approval/resources
@@ -102,6 +113,7 @@ Review each project and determine:
   - Based on Phase scope in PLANNING.md
 
 ### Task 3.2: Update Frontmatter in Each README.md
+
 ```yaml
 ---
 file_type: project
@@ -122,20 +134,26 @@ maintained_by: "Team or person"
 ## Phase 4: Link Related Issues (Two-Way)
 
 ### Task 4.1: For Each Project, Identify Related Issues
+
 Search for issues related to the project by:
+
 1. Searching issue titles and labels for project name keywords
 2. Checking milestone assignments
 3. Reviewing labels: `project:*`, `phase:*`
 4. Checking linked PRs in recent commits
 
 ### Task 4.2: Update Project README with Issue Links
+
 For each related issue, add to the "Related Issues & PRs" table:
+
 ```markdown
 | [#1234](https://github.com/lightspeedwp/.github/issues/1234) | Issue | Open | Phase 2 tracking |
 ```
 
 ### Task 4.3: Update Issue with Backlink to Project
+
 Add to each issue's body (in a dedicated section):
+
 ```markdown
 ## 📋 Project Reference
 
@@ -151,18 +169,22 @@ See [Project PLANNING](https://github.com/lightspeedwp/.github/blob/develop/.git
 ## Phase 5: Validation & Verification
 
 ### Task 5.1: Run Project Linking Validation
+
 ```bash
 npm test -- scripts/automation/__tests__/validate-project-linking.test.js
 ```
 
 ### Task 5.2: Check Two-Way Links
+
 For each project-issue pair:
+
 - ✅ Project README contains link to issue
 - ✅ Issue contains link back to project file
 - ✅ All links use HEAD (develop branch) URLs
 - ✅ Link format is: `[Text](https://github.com/lightspeedwp/.github/blob/develop/path)`
 
 ### Task 5.3: Validate Status Fields
+
 ```bash
 for project in .github/projects/active/*/; do
   if grep -q "^status:" "$project/README.md"; then
@@ -178,7 +200,9 @@ done
 ## Phase 6: Documentation & Communication
 
 ### Task 6.1: Document Changes in Git Commits
+
 Use commits like:
+
 ```
 feat: Update active projects status and linking
 
@@ -201,7 +225,9 @@ This ensures:
 ```
 
 ### Task 6.2: Update LINKING_STANDARD.md
+
 Ensure the linking standard document includes:
+
 ```markdown
 # Project-Issue Linking Standard
 

@@ -19,6 +19,7 @@ This project establishes comprehensive test coverage for all critical systems th
 ## Phases
 
 ### Phase 1: Critical Validation Scripts (Week 1)
+
 **Status:** 🟡 In Progress  
 **Priority:** P0 — Core validation system reliability
 
@@ -33,9 +34,11 @@ This project establishes comprehensive test coverage for all critical systems th
 **Expected Output:** 40-60 test cases, 85%+ coverage per script
 
 **Related Issues:**
+
 - [#TBD] Phase 1: Critical Validation Tests
 
 ### Phase 2: Automation Scripts (Weeks 2-3)
+
 **Status:** 🔲 Not Started  
 **Priority:** P1 — Automation reliability
 
@@ -51,9 +54,11 @@ This project establishes comprehensive test coverage for all critical systems th
 **Expected Output:** 60-80 test cases, 80%+ coverage per script
 
 **Related Issues:**
+
 - [#TBD] Phase 2: Automation Scripts Tests
 
 ### Phase 3: Workflow & Metrics Scripts (Week 4)
+
 **Status:** 🔲 Not Started  
 **Priority:** P2 — Reporting & observability
 
@@ -68,13 +73,16 @@ This project establishes comprehensive test coverage for all critical systems th
 **Expected Output:** 50-70 test cases, 75%+ coverage per script
 
 **Related Issues:**
+
 - [#TBD] Phase 3: Workflow & Metrics Tests
 
 ### Phase 4: Utility Scripts (Weeks 5-6)
+
 **Status:** 🔲 Not Started  
 **Priority:** P3 — Edge case handling
 
 **Categories:**
+
 - Footer injection (3 scripts)
 - Badge utilities (4 scripts)
 - Markdown utilities (3 scripts)
@@ -84,13 +92,16 @@ This project establishes comprehensive test coverage for all critical systems th
 **Expected Output:** 80-100 test cases, 70%+ coverage per script
 
 **Related Issues:**
+
 - [#TBD] Phase 4: Utility Scripts Tests
 
 ### Phase 5: Integration & Regression (Week 7)
+
 **Status:** 🔲 Not Started  
 **Priority:** P3 — Continuous improvement
 
 **Focus Areas:**
+
 - Label workflow end-to-end testing
 - Issue triage workflow integration
 - Release workflow validation
@@ -99,6 +110,7 @@ This project establishes comprehensive test coverage for all critical systems th
 **Expected Output:** 40-50 integration test cases, 60%+ end-to-end coverage
 
 **Related Issues:**
+
 - [#TBD] Phase 5: Integration Tests
 
 ---
@@ -106,6 +118,7 @@ This project establishes comprehensive test coverage for all critical systems th
 ## Deliverables
 
 ### Phase 1 Deliverables
+
 - [ ] Test file: `scripts/validation/__tests__/validate-mermaid-syntax.test.js`
 - [ ] Test file: `scripts/validation/__tests__/validate-mermaid-accessibility.test.js`
 - [ ] Test file: `scripts/validation/__tests__/validate-frontmatter-freshness.test.js`
@@ -120,9 +133,11 @@ This project establishes comprehensive test coverage for all critical systems th
 ## Related Issues
 
 ### Epic
+
 - [#TBD] Test Coverage Expansion Initiative (Master Epic)
 
 ### Phase Issues
+
 - [#TBD] Phase 1: Critical Validation Tests
 - [#TBD] Phase 2: Automation Scripts Tests
 - [#TBD] Phase 3: Workflow & Metrics Tests
@@ -134,6 +149,7 @@ This project establishes comprehensive test coverage for all critical systems th
 ## Success Criteria
 
 ### Phase 1 Success
+
 - ✅ All 5 validation scripts have test files
 - ✅ 40+ test cases written and passing
 - ✅ 85%+ code coverage per script
@@ -141,6 +157,7 @@ This project establishes comprehensive test coverage for all critical systems th
 - ✅ PR merged to `develop`
 
 ### Overall Project Success
+
 - ✅ 80%+ overall test coverage across all scripts
 - ✅ CI/CD enforces coverage minimums (--collectCoverageFrom)
 - ✅ All 4 phases completed within 4 weeks
@@ -151,6 +168,7 @@ This project establishes comprehensive test coverage for all critical systems th
 ## Testing Strategy
 
 ### Unit Tests
+
 ```javascript
 describe('validate-script-name', () => {
   describe('function-name', () => {
@@ -162,6 +180,7 @@ describe('validate-script-name', () => {
 ```
 
 ### Fixtures
+
 ```
 tests/fixtures/
   validation/
@@ -173,6 +192,7 @@ tests/fixtures/
 ```
 
 ### Mocking
+
 - Mock `fs` for file I/O tests
 - Mock `child_process` for Git integration
 - Use real fixtures where possible
@@ -204,11 +224,13 @@ tests/fixtures/
 ## Resources
 
 ### Existing Tests
+
 - `scripts/validation/__tests__/validate-frontmatter.test.js` — Good pattern
 - `scripts/automation/__tests__/handle-needs-triage.test.js` — Good pattern
 - `scripts/agents/includes/__tests__/label-heuristics.test.js` — Good pattern
 
 ### Jest Configuration
+
 - `.jest.config.cjs` — Test setup
 - `tests/jest.setup.globals.js` — Global setup
 
@@ -243,12 +265,14 @@ Week 7 (Sep 30-Oct 4): Phase 5 - Integration
 ## Maintenance Plan
 
 ### Before Merge
+
 - [ ] Run full test suite: `npm run test`
 - [ ] Check coverage: `npm run test -- --coverage`
 - [ ] Verify 85%+ coverage per Phase 1 script
 - [ ] Code review for test quality
 
 ### After Merge
+
 - [ ] Update CI/CD to enforce coverage minimums
 - [ ] Add coverage badge to README
 - [ ] Schedule quarterly coverage reviews

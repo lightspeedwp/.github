@@ -35,10 +35,12 @@ The Reporting Agent v2 extends the original Reporting Agent with deterministic m
 ## Related Issues
 
 ### Phase 1 (Completed)
+
 - **Master Epic**: #1831 — Reporting Agent Phase 1
 - **PR #1895**: CodeRabbit fixes (MERGED)
 
 ### Phase 2 (Created 2026-08-18)
+
 - #2031-#2045: 15 Phase 2 tasks organized by implementation phase
 
 ---
@@ -53,6 +55,7 @@ The Reporting Agent v2 extends the original Reporting Agent with deterministic m
 
 **Last Updated**: 2026-08-18  
 **Status**: ✅ Phase 1 Production-Ready, Phase 2 Planning
+
 ## Visual Workflow
 
 ```mermaid

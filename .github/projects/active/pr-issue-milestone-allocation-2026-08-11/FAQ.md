@@ -442,6 +442,7 @@ You'll see:
 **A:** Use the automation. It's faster and consistent.
 
 Manual allocation is good for:
+
 - Edge cases or special circumstances
 - Allocating to different milestones than auto-selected
 - Fixing mistakes made by automation

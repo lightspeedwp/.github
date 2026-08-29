@@ -122,6 +122,7 @@ Comprehensive audit and cleanup of all issues with `status:needs-review` label t
 - [Audit Report](https://github.com/lightspeedwp/.github/blob/develop/.github/reports/2026-08-04-status-needs-review-audit.md)
 - [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md) — Repository governance
 - [BRANCHING_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/develop/docs/BRANCHING_STRATEGY.md) — Branch standards
+
 ## Visual Workflow
 
 ```mermaid
