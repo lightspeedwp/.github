@@ -44,9 +44,10 @@ function buildPrdAgentExample(rawMetrics, options = {}) {
  * @returns {Object}
  */
 function buildTestingAgentExample(rawMetrics, options = {}) {
-  const maxScenarios = Number.isFinite(options.maxScenarios)
-    ? options.maxScenarios
-    : 3;
+  const maxScenarios =
+    Number.isFinite(options.maxScenarios) && options.maxScenarios >= 0
+      ? Math.floor(options.maxScenarios)
+      : 3;
   const formatter = new MetricsReportFormatter();
   const report = formatter.generateWeeklyReport(rawMetrics);
   const scenarios = report.anomalies.slice(0, maxScenarios).map((anomaly) => ({
