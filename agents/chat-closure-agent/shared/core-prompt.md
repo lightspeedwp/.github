@@ -1,7 +1,7 @@
 ---
+file_type: documentation
 title: "Core Prompt"
 description: "Provider-agnostic core workflow for the Chat Closure Agent"
-agent_slug: "chat-closure-agent"
 agent_name: "Chat Closure Agent"
 version: "1.0.1"
 created_date: "2026-08-12"
