@@ -31,7 +31,7 @@ describe("issue template contract", () => {
   it("references existing template files in the issue creation workflow", () => {
     const workflowPath = path.join(
       __dirname,
-      "../../../.github/workflows/issue-create-from-template.yml",
+      "../../../.github/workflows/issue-create-enhanced.yml",
     );
     const workflow = fs.readFileSync(workflowPath, "utf8");
     const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
