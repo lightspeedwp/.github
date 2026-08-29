@@ -29,6 +29,7 @@
 ### Priority 3: Post Team Announcement
 
 Choose one method:
+
 - Slack: Post to #devops, #releases, or #engineering
 - GitHub Discussion: Create new discussion in "Announcements"
 - GitHub Issue: Comment on Issue #1765

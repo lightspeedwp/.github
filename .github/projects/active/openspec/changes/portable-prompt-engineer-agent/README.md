@@ -68,6 +68,7 @@ This project documents the OpenSpec specification for making the Prompt Engineer
 - NPM packaging and distribution
 - Migration guide and backward compatibility
 - Release and announcement
+
 ## Visual Workflow
 
 ```mermaid

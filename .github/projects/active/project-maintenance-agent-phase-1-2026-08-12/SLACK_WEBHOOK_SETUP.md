@@ -7,7 +7,7 @@ description: Configure Slack webhook for project maintenance notifications
 
 ## Setup
 
-1. Create app: https://api.slack.com/apps → "Create New App"
+1. Create app: <https://api.slack.com/apps> → "Create New App"
    - Name: `Project Maintenance Notifications`
    - Workspace: LightSpeed
 
@@ -25,6 +25,7 @@ description: Configure Slack webhook for project maintenance notifications
    - Run nightly workflow → check Slack
 
 ## Security
+
 - Never commit webhook URLs
 - Use GitHub Secrets only
 - Rotate if exposed

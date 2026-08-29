@@ -86,6 +86,7 @@ The summary includes issue number, title, and URL.
 ### Notes
 
 - Issue [#915](https://github.com/lightspeedwp/.github/issues/915) is an expected sequence gap from concurrent issue creation activity.
+
 ## Visual Workflow
 
 ```mermaid

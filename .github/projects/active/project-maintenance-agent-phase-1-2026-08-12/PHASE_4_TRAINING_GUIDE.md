@@ -20,13 +20,15 @@ status: active
 
 ### The Problem We Solve
 
-**Before:** 
+**Before:**
+
 - Documentation gaps discovered reactively
 - No visibility into which projects are incomplete
 - Manual, error-prone updates
 - Team doesn't know status of 50+ projects
 
 **After:**
+
 - Automated daily audits (nightly at 2 AM UTC)
 - Clear reports of what's missing
 - One-click creation of missing files
@@ -134,6 +136,7 @@ Dry-run: [true/false]
 **When:** Check documentation status without creating anything
 
 **Inputs:**
+
 ```
 operation: audit
 projects: all  (or: project-a,project-b)
@@ -141,6 +144,7 @@ dry_run: true  (no changes made)
 ```
 
 **Output Example:**
+
 ```
 Project Maintenance Audit
 ========================
@@ -164,6 +168,7 @@ Recommendations:
 **When:** Generate missing documentation files
 
 **Inputs:**
+
 ```
 operation: create-docs
 projects: project-alpha,project-gamma
@@ -173,6 +178,7 @@ dry_run: true  (preview first!)
 **Workflow:**
 
 1. **Dry-run first** (always)
+
    ```
    ✓ project-alpha: Would create PLANNING.md (from template)
    ✓ project-gamma: Would create README.md, OPENSPEC.md (from templates)
@@ -187,6 +193,7 @@ dry_run: true  (preview first!)
    - Do you need to customize anything?
 
 3. **Run live mode** (without dry_run flag)
+
    ```
    ✓ project-alpha: Created PLANNING.md
    ✓ project-gamma: Created README.md
@@ -206,6 +213,7 @@ dry_run: true  (preview first!)
 **When:** Check project structure and metadata
 
 **Inputs:**
+
 ```
 operation: validate
 projects: all
@@ -213,6 +221,7 @@ dry_run: true
 ```
 
 **Output Example:**
+
 ```
 Project Validation Report
 ========================
@@ -237,11 +246,13 @@ Recommendations: Fix project-beta frontmatter
 ### Scenario 1: "Nightly Audit Found 3 Projects with Missing Docs"
 
 **What happened:**
+
 - Nightly audit ran at 2 AM
 - Slack notification shows gaps
 - Team wants to fix them
 
 **Steps:**
+
 1. ✅ Go to GitHub Actions
 2. ✅ Run "Project Maintenance — On-Demand" workflow
 3. ✅ Set: `operation: create-docs`, `projects: project-a,project-b,project-c`, `dry_run: true`
@@ -257,10 +268,12 @@ Recommendations: Fix project-beta frontmatter
 ### Scenario 2: "We Have a New Project, Need to Set It Up"
 
 **What happened:**
+
 - New project created in `.github/projects/active/new-project/`
 - Needs initial documentation
 
 **Steps:**
+
 1. ✅ Create project folder manually
 2. ✅ Run audit: `operation: audit`, `projects: new-project`, `dry_run: true`
 3. ✅ See what's missing
@@ -276,10 +289,12 @@ Recommendations: Fix project-beta frontmatter
 ### Scenario 3: "Project Is Completed, Need to Archive It"
 
 **What happened:**
+
 - Project work is done
 - Need to move from `active/` to `archive/` folder
 
 **Steps:**
+
 1. ✅ Run on-demand workflow
 2. ✅ Set: `operation: archive`, `projects: completed-project`, `dry_run: true`
 3. ✅ Review what will be moved
@@ -296,11 +311,13 @@ Recommendations: Fix project-beta frontmatter
 ### Scenario 4: "Someone Broke the Project Structure"
 
 **What happened:**
+
 - Project folder exists but metadata is malformed
 - README.md missing required frontmatter
 - Team doesn't know what's wrong
 
 **Steps:**
+
 1. ✅ Run: `operation: validate`, `projects: broken-project`, `dry_run: true`
 2. ✅ Validation output shows exactly what's wrong
 3. ✅ Fix manually or use create-docs to regenerate
@@ -351,6 +368,7 @@ Recommendations: Fix project-beta frontmatter
 ### What You Need to Know
 
 **Project Locations:**
+
 ```
 .github/projects/active/        ← All active projects live here
 .github/projects/archive/       ← Archived projects moved here
@@ -358,6 +376,7 @@ Recommendations: Fix project-beta frontmatter
 ```
 
 **Documentation:**
+
 ```
 .github/projects/active/project-maintenance-agent-phase-1-2026-08-12/
 
@@ -370,6 +389,7 @@ Recommendations: Fix project-beta frontmatter
 ```
 
 **Workflows:**
+
 ```
 .github/workflows/
   project-maintenance-nightly.yml        ← Auto-runs 2 AM UTC
@@ -436,30 +456,39 @@ NEED HELP?
 ## Q&A Reference (Common Questions)
 
 ### "How often does the nightly audit run?"
+
 **Answer:** Every day at 2 AM UTC. You'll see the Slack notification in the morning.
 
 ### "Can I run the audit manually?"
+
 **Answer:** Yes! Use the on-demand workflow with `operation: audit`. Useful for testing.
 
 ### "What if the audit finds 50 projects with gaps?"
+
 **Answer:** Don't panic! The nightly audit is just visibility. Fix them incrementally:
+
 - Week 1: Fix the 5 most critical
 - Week 2: Fix the next 10
 - Etc.
 
 ### "Can I customize the templates?"
+
 **Answer:** Yes! Templates are in `.github/projects/_templates/`. Edit the PLANNING.md.template file to change what gets generated.
 
 ### "What if I accidentally archive the wrong project?"
+
 **Answer:** Projects aren't permanently deleted, just moved to `.github/projects/archive/`. You can move them back manually if needed. Always use dry-run first!
 
 ### "Do I need to approve changes?"
+
 **Answer:** No, workflows run immediately. Just use dry-run first to preview.
 
 ### "Can multiple people run workflows at the same time?"
+
 **Answer:** Yes, they're independent and won't conflict.
 
 ### "How long does a full audit take?"
+
 **Answer:** About 30 seconds for 50 projects. Creating docs takes 1-2 minutes per project.
 
 ---
@@ -494,11 +523,13 @@ NEED HELP?
 ## Feedback
 
 **Questions after training?**
+
 - Check PHASE_4_FAQ.md
 - Review PHASE_4_OPERATIONS_RUNBOOK.md for your scenario
 - Create an issue on the epic (#1862)
 
 **Suggestions for improvement?**
+
 - Update this guide with your scenarios
 - Add new troubleshooting tips
 - Share common workflows with the team

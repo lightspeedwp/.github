@@ -1,7 +1,11 @@
 ---
-file_type: "issue-template"
 name: "🛡️ Audit"
+description: "🛡️ Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

@@ -19,6 +19,7 @@ npm run release -- --scope=patch
 ```
 
 **What happens:**
+
 1. ✅ Safety gates validate your release
 2. ✅ Automatic approval (no human review needed)
 3. ✅ Version bumped (1.0.0 → 1.0.1)
@@ -32,6 +33,7 @@ npm run release -- --scope=minor
 ```
 
 **What happens:**
+
 1. ✅ Safety gates validate your release
 2. ⏳ PR created for team review
 3. 👤 You (or a teammate) approve the PR
@@ -46,6 +48,7 @@ npm run release -- --scope=major
 ```
 
 **What happens:**
+
 1. ✅ Safety gates validate your release
 2. ⏳ PR created with breaking changes warning
 3. 👤 Two+ maintainers review and approve
@@ -58,22 +61,26 @@ npm run release -- --scope=major
 Before running any release command, verify:
 
 ✅ You are on `develop` branch
+
 ```bash
 git branch  # Should show: * develop
 ```
 
 ✅ No uncommitted changes
+
 ```bash
 git status  # Should be: nothing to commit, working tree clean
 ```
 
 ✅ CHANGELOG.md is updated
+
 ```bash
 # Look for your changes in [Unreleased] section
 grep -A 10 "## \[Unreleased\]" CHANGELOG.md
 ```
 
 ✅ VERSION file exists with valid format
+
 ```bash
 cat VERSION  # Should look like: 1.0.0
 ```
@@ -85,22 +92,26 @@ cat VERSION  # Should look like: 1.0.0
 Your release passes through **7 safety gates** that validate every step:
 
 ### Gate 1: Pre-flight Checks ✈️
+
 - **What:** Ensures your repo is in a valid state
 - **Checked:** Branch (develop), uncommitted changes, VERSION file, CHANGELOG
 - **Fails if:** You're not on develop, or you have uncommitted work
 
 **Fix:**
+
 ```bash
 git checkout develop
 git commit -m "Update changelog for release"
 ```
 
 ### Gate 2: Agentic Reasoning 🧠
+
 - **What:** AI evaluates if your release is safe
 - **Score:** Must be ≥ 80% confidence
 - **Factors:** Changelog quality, scope risk, breaking changes
 
 **Fix:** Improve your changelog
+
 ```bash
 # Add detailed entries to [Unreleased] section
 # Format:
@@ -114,36 +125,43 @@ git commit -m "Update changelog for release"
 ```
 
 ### Gate 3: Version Consistency 🔢
+
 - **What:** Validates semantic versioning
 - **Checked:** X.Y.Z format, correct bump calculation
 - **Calculates:** 1.0.0 → 1.0.1 (patch), 1.0.0 → 1.1.0 (minor), 1.0.0 → 2.0.0 (major)
 
 **Fix:** Ensure VERSION has valid format
+
 ```bash
 echo "1.0.0" > VERSION  # Must be X.Y.Z format
 ```
 
 ### Gate 4: Tag Uniqueness 🏷️
+
 - **What:** Ensures no duplicate release tags
 - **Checked:** vX.Y.Z tag doesn't already exist
 
 **Fix:** Delete duplicate tag if it exists
+
 ```bash
 git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
 ```
 
 ### Gate 5: Authorization 🔐
+
 - **What:** Verifies you have permission to release
 - **Who:** Members of `@lightspeedwp/maintainers` team
 
 **Fix:** Contact team lead to be added as maintainer
 
 ### Gate 6: Integrity Filter 🛡️
+
 - **What:** Detects secrets in your code (passwords, API keys, tokens)
 - **Tool:** Gitleaks scanning
 
 **Fix:** Remove secrets and try again
+
 ```bash
 # If secrets detected, remove them from code
 # Then commit and try release again
@@ -152,6 +170,7 @@ git commit -m "Remove sensitive data"
 ```
 
 ### Gate 7: Approval Enforcement ✅
+
 - **What:** Ensures appropriate review level
 - **Patch:** ✅ Auto-approved (no review needed)
 - **Minor:** 👤 Requires 1 maintainer approval
@@ -170,16 +189,19 @@ npm run release -- --scope=patch --dry-run
 ```
 
 **What happens:**
+
 - ✅ All 7 safety gates run
 - 📋 Preview artifacts generated (no commits, tags, or PRs)
 - 🔍 You can review what WOULD happen
 
 **Dry-run artifacts:**
+
 - `release-dry-run-plan.md` — Step-by-step what would happen
 - `version-bump-preview.txt` — Old version → new version
 - `changelog-rolled.md` — How CHANGELOG would look after release
 
 **Next step:** If dry-run looks good, run without `--dry-run`:
+
 ```bash
 npm run release -- --scope=patch
 ```
@@ -193,6 +215,7 @@ npm run release -- --scope=patch
 **Problem:** You're on a different branch (e.g., `main`, `feature/xyz`)
 
 **Fix:**
+
 ```bash
 git checkout develop
 git pull origin develop
@@ -203,6 +226,7 @@ git pull origin develop
 **Problem:** You have modified files that haven't been committed
 
 **Fix:**
+
 ```bash
 git status  # See what files changed
 git add .
@@ -214,6 +238,7 @@ git commit -m "Prepare for release"
 **Problem:** Your changelog is missing the `## [Unreleased]` header
 
 **Fix:** Add it to the top of CHANGELOG.md:
+
 ```markdown
 # Changelog
 
@@ -234,6 +259,7 @@ git commit -m "Prepare for release"
 **Problem:** Your changelog lacks sufficient detail (score < 80%)
 
 **Fix:** Add more detailed entries:
+
 ```markdown
 ## [Unreleased]
 
@@ -261,6 +287,7 @@ git commit -m "Prepare for release"
 **Problem:** Minor releases need review before merge
 
 **What to do:**
+
 1. Click the PR link in the output
 2. Ask a teammate to review
 3. Once approved, PR auto-merges
@@ -271,6 +298,7 @@ git commit -m "Prepare for release"
 **Problem:** Major releases are high-risk, need 2 reviewers
 
 **What to do:**
+
 1. PR created with breaking changes warning
 2. Ping 2+ maintainers for review: `@ash @teammate`
 3. Each must approve separately
@@ -288,6 +316,7 @@ node scripts/workflows/release/run-release-agent.cjs
 ```
 
 **⚠️ WARNING:** This skips all safety gates. Only use if:
+
 - Gates are broken
 - You need emergency release
 - You understand the risks
@@ -297,12 +326,14 @@ node scripts/workflows/release/run-release-agent.cjs
 ## Monitoring Your Release
 
 ### Live Status
+
 ```bash
 # Check release workflow status
 gh run list --workflow=release.yml --limit=1
 ```
 
 ### After Release
+
 ```bash
 # Verify tag was created
 git tag -l | grep v
@@ -315,6 +346,7 @@ grep -A 5 "^## \[" CHANGELOG.md | head -10
 ```
 
 ### Rollback (If Needed)
+
 ```bash
 # Delete the release (if published)
 gh release delete vX.Y.Z --yes
@@ -346,6 +378,7 @@ git revert <commit-hash>
 ### Q: Can I customize the version number?
 
 **A:** Yes, use `--version` flag:
+
 ```bash
 npm run release -- --version=2.0.0
 ```
@@ -355,6 +388,7 @@ npm run release -- --version=2.0.0
 ### Q: What happens if approval times out?
 
 **A:** PRs have no timeout. Once all approvals are received, they auto-merge. You can merge manually if needed:
+
 ```bash
 gh pr merge <pr-number> --auto --squash
 ```

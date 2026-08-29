@@ -54,6 +54,7 @@ const provider = new MetricsContextProvider({
 ### Methods
 
 #### `loadLatestMetrics(context)`
+
 Load latest metrics from reports directory.
 
 ```javascript
@@ -61,6 +62,7 @@ const metrics = await provider.loadLatestMetrics('control-plane');
 ```
 
 #### `formatForMetaAgent(rawMetrics)`
+
 Format raw metrics as context for Meta Agent.
 
 ```javascript
@@ -69,6 +71,7 @@ const context = provider.formatForMetaAgent(rawMetrics);
 ```
 
 #### `getMetricsContext(context)`
+
 Full pipeline: load + format metrics.
 
 ```javascript
@@ -126,6 +129,7 @@ const formatter = new MetricsReportFormatter({
 ### Methods
 
 #### `formatForReportingAgent(rawMetrics, reportType)`
+
 Format metrics for Reporting Agent.
 
 ```javascript
@@ -134,6 +138,7 @@ const report = formatter.formatForReportingAgent(rawMetrics, 'weekly');
 ```
 
 #### `generateWeeklyReport(rawMetrics)`
+
 Generate weekly report format.
 
 ```javascript
@@ -141,9 +146,11 @@ const report = formatter.generateWeeklyReport(rawMetrics);
 ```
 
 #### `generateMonthlyReport(rawMetrics)`
+
 Generate monthly report format.
 
 #### `generateQuarterlyReport(rawMetrics)`
+
 Generate quarterly report format.
 
 ### Report Structure
@@ -197,6 +204,7 @@ const generator = new IssueTemplateGenerator({
 ### Methods
 
 #### `generateStaleIssuesAlert(metrics)`
+
 Generate alert for stale issue accumulation.
 
 ```javascript
@@ -205,15 +213,19 @@ const issue = generator.generateStaleIssuesAlert(metrics);
 ```
 
 #### `generatePRReviewDegradation(metrics)`
+
 Generate alert for increasing PR review times.
 
 #### `generateHealthAlert(metrics)`
+
 Generate alert for low repository health score.
 
 #### `generateTeamCapacityAlert(metrics)`
+
 Generate alert for low team capacity.
 
 #### `generateAllIssues(metrics)`
+
 Generate all applicable issues from metrics.
 
 ```javascript
@@ -329,6 +341,7 @@ Sample test data available in `__tests__/fixtures/`:
 ### With Meta Agent
 
 Meta Agent loads context via:
+
 ```javascript
 const context = await provider.getMetricsContext(contextType);
 // Uses: MetricsContextProvider
@@ -340,6 +353,7 @@ const context = await provider.getMetricsContext(contextType);
 ### With Reporting Agent
 
 Reporting Agent formats reports via:
+
 ```javascript
 const report = formatter.formatForReportingAgent(rawMetrics, reportType);
 // Uses: MetricsReportFormatter
@@ -351,6 +365,7 @@ const report = formatter.formatForReportingAgent(rawMetrics, reportType);
 ### With GitHub Issues
 
 Create issues via:
+
 ```javascript
 const issues = generator.generateAllIssues(rawMetrics);
 // Uses: IssueTemplateGenerator
@@ -382,6 +397,7 @@ try {
 ### Caching
 
 Meta Agent adapter includes in-memory caching:
+
 - Default TTL: 1 hour
 - Configurable via `cacheExpiry` option
 - Clear cache: `provider.clearCache()`
@@ -389,6 +405,7 @@ Meta Agent adapter includes in-memory caching:
 ### Processing Times
 
 Expected:
+
 - Load metrics: <100ms (cached) / <1s (from disk)
 - Format for Meta Agent: <50ms
 - Format for Reporting Agent: <100ms
@@ -404,6 +421,7 @@ All modules validate input/output against schemas:
 - **Output:** Context schemas in `.schemas/`
 
 Validation can be disabled (not recommended):
+
 ```javascript
 const provider = new MetricsContextProvider({ validateSchema: false });
 ```

@@ -180,6 +180,7 @@ Establishes permanent documentation, automated cleanup tooling, and team procedu
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

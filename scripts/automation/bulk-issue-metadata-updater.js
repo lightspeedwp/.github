@@ -29,9 +29,62 @@
 
 import fs from "fs";
 import readline from "readline";
-import { octokit } from "../includes/github-client.js";
 import * as templateFixHandler from "./handlers/handle-needs-template-fix.js";
 import * as triageHandler from "./handlers/handle-needs-triage.js";
+
+const { URLSearchParams } = globalThis;
+
+// GitHub API client using native fetch
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_API_BASE = "https://api.github.com";
+
+const githubApi = {
+  async request(method, path, data = {}) {
+    const url = `${GITHUB_API_BASE}${path}`;
+    const options = {
+      method,
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+        Accept: "application/vnd.github+json",
+      },
+    };
+
+    if (Object.keys(data).length > 0) {
+      options.body = JSON.stringify(data);
+      options.headers["Content-Type"] = "application/json";
+    }
+
+    // eslint-disable-next-line no-undef
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(
+        `GitHub API error: ${response.status} ${response.statusText}`,
+      );
+    }
+
+    return response.json();
+  },
+
+  async listIssues(owner, repo, options = {}) {
+    const params = new URLSearchParams({
+      state: options.state || "open",
+      per_page: options.per_page || 30,
+      page: options.page || 1,
+      ...(options.labels && { labels: options.labels }),
+    });
+
+    return this.request("GET", `/repos/${owner}/${repo}/issues?${params}`);
+  },
+
+  async listMilestones(owner, repo) {
+    return this.request(
+      "GET",
+      `/repos/${owner}/${repo}/milestones?state=all&per_page=100`,
+    );
+  },
+};
 
 // Configuration
 const config = {
@@ -91,30 +144,32 @@ async function fetchIssuesWithStatusLabels() {
   let page = 1;
   let hasMore = true;
 
-  const statusLabels = [
-    "status:needs-template-fix",
-    "status:needs-triage",
-    "status:needs-more-info",
-  ];
+  const statusLabels = config_.targetLabel
+    ? [config_.targetLabel]
+    : [
+        "status:needs-template-fix",
+        "status:needs-triage",
+        "status:needs-more-info",
+      ];
 
   try {
     while (hasMore && issues.length < config_.limit) {
       console.log(`⏳ Fetching page ${page}...`);
 
       for (const label of statusLabels) {
-        if (config_.targetLabel && config_.targetLabel !== label) continue;
-
         try {
-          const rawPage = await octokit.rest.issues.listForRepo({
-            owner: config_.owner,
-            repo: config_.repo,
-            labels: label,
-            state: "open",
-            per_page: config_.perPage,
-            page,
-          });
+          const rawPage = await githubApi.listIssues(
+            config_.owner,
+            config_.repo,
+            {
+              labels: label,
+              state: "open",
+              per_page: config_.perPage,
+              page,
+            },
+          );
 
-          const pageIssues = (rawPage.data || []).filter(
+          const pageIssues = (rawPage || []).filter(
             (item) => !item.pull_request,
           );
 
@@ -142,6 +197,34 @@ async function fetchIssuesWithStatusLabels() {
   }
 }
 
+// Milestone cache to avoid repeated API calls
+const milestoneCache = {};
+
+// Get milestone number by title
+async function getMilestoneNumber(milestoneTitle) {
+  if (milestoneCache[milestoneTitle]) {
+    return milestoneCache[milestoneTitle];
+  }
+
+  try {
+    const response = await githubApi.listMilestones(
+      config_.owner,
+      config_.repo,
+    );
+
+    for (const milestone of response) {
+      milestoneCache[milestone.title] = milestone.number;
+      if (milestone.title === milestoneTitle) {
+        return milestone.number;
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️  Could not fetch milestones: ${error.message}`);
+  }
+
+  return null;
+}
+
 // Create GitHub request function for handlers
 function createGithubRequest(dryRun = false) {
   return async (method, path, data = {}) => {
@@ -150,7 +233,7 @@ function createGithubRequest(dryRun = false) {
     }
 
     try {
-      const response = await octokit.request(method, path, data);
+      const response = await githubApi.request(method, path, data);
       return response;
     } catch (err) {
       throw new Error(`GitHub API error: ${err.message}`, { cause: err });
@@ -195,6 +278,35 @@ async function routeToHandler(issue, options = {}) {
     handler: "unknown",
     result: { status: "skipped" },
   };
+}
+
+// Apply milestone to an issue
+async function applyMilestone(issueNumber, milestoneSuggestion, dryRun = true) {
+  if (!milestoneSuggestion || dryRun) {
+    return { applied: false, reason: dryRun ? "dry-run" : "no suggestion" };
+  }
+
+  try {
+    const milestoneNumber = await getMilestoneNumber(milestoneSuggestion);
+    if (!milestoneNumber) {
+      return {
+        applied: false,
+        reason: `Milestone "${milestoneSuggestion}" not found`,
+      };
+    }
+
+    await githubApi.request(
+      "PATCH",
+      `/repos/${config_.owner}/${config_.repo}/issues/${issueNumber}`,
+      {
+        milestone: milestoneNumber,
+      },
+    );
+
+    return { applied: true, milestone: milestoneSuggestion };
+  } catch (error) {
+    return { applied: false, reason: error.message };
+  }
 }
 
 // Prompt user for confirmation (interactive mode)
@@ -259,9 +371,16 @@ async function processBatch(issues) {
               dryRun: false,
             });
             if (applyResult.result.status === "updated") {
+              // Apply milestone if suggested
+              const milestoneResult = await applyMilestone(
+                issue.number,
+                applyResult.result.milestoneSuggested,
+                false,
+              );
               summary.updated.push({
                 issue: issue.number,
                 ...applyResult.result,
+                milestoneApplied: milestoneResult,
               });
               summary.totalApplied++;
             } else if (applyResult.result.status === "error") {
@@ -274,7 +393,21 @@ async function processBatch(issues) {
           }
         }
       } else if (result.status === "updated") {
-        summary.updated.push({ issue: issue.number, ...result });
+        // Apply milestone if suggested (auto mode only)
+        const milestoneResult =
+          mode === "auto"
+            ? await applyMilestone(
+                issue.number,
+                result.milestoneSuggested,
+                false,
+              )
+            : { applied: false, reason: "not in auto mode" };
+
+        summary.updated.push({
+          issue: issue.number,
+          ...result,
+          milestoneApplied: milestoneResult,
+        });
         summary.totalApplied++;
       } else if (result.status === "skipped") {
         summary.skipped.push({ issue: issue.number, ...result });

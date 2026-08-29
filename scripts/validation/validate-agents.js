@@ -15,7 +15,7 @@ import fs from "fs";
 import path from "path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import { fileURLToPath } from "url";
 import { globSync } from "glob";
 
@@ -72,7 +72,7 @@ function extractFrontmatter(content) {
     return null;
   }
   try {
-    return yaml.load(match[1]);
+    return load(match[1]);
   } catch (err) {
     return { error: `Failed to parse YAML: ${err.message}` };
   }

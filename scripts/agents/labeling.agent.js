@@ -12,7 +12,7 @@
  */
 
 import fs from "fs";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import core from "@actions/core";
 import github from "@actions/github";
 import {
@@ -113,7 +113,7 @@ function readYamlArrayFile(path, purpose) {
     throw new Error(`[labeling.agent] Missing ${purpose} file at: ${path}`);
   }
   const raw = fs.readFileSync(path, "utf8");
-  const data = yaml.load(raw);
+  const data = load(raw);
   if (!Array.isArray(data)) {
     throw new Error(
       `[labeling.agent] Expected array in ${purpose} file: ${path}`,

@@ -1,8 +1,13 @@
 ---
 name: "⚡ Performance"
+description: "⚡ Performance"
 about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimizations."
 title: "[Performance] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:performance]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--

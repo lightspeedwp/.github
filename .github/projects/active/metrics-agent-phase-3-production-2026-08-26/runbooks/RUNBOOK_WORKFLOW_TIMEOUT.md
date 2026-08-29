@@ -13,12 +13,14 @@ last_updated: "2026-08-21"
 
 The metrics collection workflow runs longer than the 5-minute target or times out entirely.
 
-**Symptom:** 
+**Symptom:**
+
 - Workflow log shows collection still running after 5+ minutes
 - GitHub Actions job timeout reached (default 6 hours)
 - Collection step marked as "in progress" for extended period
 
-**Impact:** 
+**Impact:**
+
 - Weekly metrics report delays
 - Team misses scheduled metrics availability
 - Downstream integrations may not receive updated metrics
@@ -62,7 +64,7 @@ Look for steps with unusual timing:
 
 ### Step 3: Check GitHub Status
 
-1. Visit https://www.githubstatus.com/
+1. Visit <https://www.githubstatus.com/>
 2. Look for:
    - GitHub Actions outages or degradation
    - API rate limiting notifications
@@ -71,6 +73,7 @@ Look for steps with unusual timing:
 ### Step 4: Review Recent Changes
 
 Check if any recent commits changed:
+
 - `scripts/metrics/` — collection logic
 - `.github/workflows/metrics-reporting.yml` — workflow definition
 - `package.json` dependencies
@@ -86,6 +89,7 @@ Check if any recent commits changed:
 **Recovery Steps:**
 
 1. **Verify GitHub token validity:**
+
    ```bash
    # In Actions job, check if GITHUB_TOKEN is valid
    # Token should have repo:read, actions:read permissions
@@ -117,6 +121,7 @@ Check if any recent commits changed:
 
 1. **Profile collection by context:**
    - Add timing logs to `scripts/metrics/metrics.js`:
+
    ```javascript
    const start = Date.now();
    // ... collection code ...
@@ -135,6 +140,7 @@ Check if any recent commits changed:
    - Consider background collection for non-critical contexts
 
 4. **Test optimization locally:**
+
    ```bash
    npm run metrics:ci
    # Compare timing before/after change
@@ -159,6 +165,7 @@ Check if any recent commits changed:
 3. **Increase timeout values:**
    - Default Node.js timeout is 30s
    - For large responses, increase to 60s:
+
    ```javascript
    https.get({
      ...options,
@@ -178,6 +185,7 @@ Check if any recent commits changed:
 
 1. **Clear npm cache:**
    - Already done by `npm ci`, but can try:
+
    ```bash
    npm cache clean --force
    ```
@@ -224,7 +232,7 @@ To prevent future timeouts:
 
 **If problem persists after 2 hours:**
 
-1. Contact GitHub Support at https://support.github.com
+1. Contact GitHub Support at <https://support.github.com>
 2. Include:
    - Workflow run URL
    - Timing of each step

@@ -62,6 +62,7 @@ Implement 7 core skills for the Issue Management Agent with >90% test coverage a
 ### Pre-Kickoff (Aug 13-19 — Complete ✅)
 
 **Completed:**
+
 - ✅ Phase 2 infrastructure fully implemented and tested
 - ✅ Shared modules ready (github-client.js, utils.js)
 - ✅ Test fixtures & mocks prepared
@@ -121,6 +122,7 @@ Implement 7 core skills for the Issue Management Agent with >90% test coverage a
 ✅ **Infrastructure Ready for Skills Implementation**
 
 All skills should use:
+
 ```javascript
 // GitHub API
 import { GitHubClient } from '../shared/github-client.js';
@@ -181,6 +183,7 @@ import mocks from '../shared/__tests__/mocks/github-api.js';
 ## Shared Module Reference
 
 All 7 skills should import from:
+
 - **API Client:** `scripts/automation/issue-agent/shared/github-client.js`
 - **Utilities:** `scripts/automation/issue-agent/shared/utils.js`
 - **Test Fixtures:** `scripts/automation/issue-agent/shared/__tests__/fixtures/`

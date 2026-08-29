@@ -38,9 +38,11 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 ## Components
 
 ### 1. Metrics Agent (`metrics-agent.js`)
+
 **Purpose:** GitHub API client with full metrics collection
 
 **Key Methods:**
+
 - `fetchMetrics()` — Retrieves comprehensive metrics from GitHub API
 - `fetchIssues()` — Gets issue data with pagination
 - `fetchPullRequests()` — Retrieves PR metrics
@@ -48,21 +50,25 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 - `handleRateLimit()` — Manages API rate limits
 
 **Features:**
+
 - Pagination support (per_page up to 100)
 - Automatic retry with exponential backoff
 - Rate limit awareness
 - Comprehensive error handling
 
 ### 2. Metrics Storage (`metrics-storage.js`)
+
 **Purpose:** Persistent time-series storage for historical data
 
 **Key Methods:**
+
 - `saveMetrics(repository, metrics)` — Persists daily metrics
 - `getLatestMetrics(repository)` — Retrieves most recent data
 - `getMetricsHistory(repository)` — Gets historical data for trends
 - `getMetricsRange(repository, startDate, endDate)` — Range queries
 
 **Storage Structure:**
+
 ```
 .github/reports/metrics/
 ├── lightspeedwp-github/
@@ -73,43 +79,52 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 ```
 
 ### 3. Trend Analyzer (`trend-analyzer.js`)
+
 **Purpose:** Calculates trends and patterns
 
 **Key Methods:**
+
 - `analyzeTrends(repository, storage)` — Computes trend metrics
 - `calculateWeekOverWeek()` — Weekly change analysis
 - `calculateMonthOverMonth()` — Monthly patterns
 - `forecastNextPeriod()` — Predicts future trends
 
 **Trend Metrics:**
+
 - Issue closure rate trends
 - PR merge rate velocity
 - Contributor growth
 - Stability indicators
 
 ### 4. Anomaly Detector (`anomaly-detector.js`)
+
 **Purpose:** Identifies unusual patterns
 
 **Key Methods:**
+
 - `detectAnomalies(repository, metrics, trends)` — Finds outliers
 - `compareToBaseline(current, baseline)` — Deviation detection
 - `calculateSeverity(deviation)` — Impact assessment
 
 **Detection Types:**
+
 - Issue closure rate drops
 - PR review time increases
 - Unexpected contributor changes
 - CI failure rate spikes
 
 ### 5. Metrics Reporter (`metrics-reporter.js`)
+
 **Purpose:** Generates markdown reports
 
 **Key Methods:**
+
 - `generateReport(repository, options)` — Creates full report
 - `calculateHealthScore(metrics, trends)` — 0-100 score
 - `generateChart(label, data)` — ASCII visualizations
 
 **Report Sections:**
+
 1. Header (title, date)
 2. Summary (health score, key metrics)
 3. Issues (total, closed, closure rate)
@@ -121,9 +136,11 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 9. Footer (metadata)
 
 ### 6. GitHub Issue Creator (`github-issue-creator.js`)
+
 **Purpose:** Manages metrics issues on GitHub
 
 **Key Methods:**
+
 - `createMetricsIssue()` — Creates new report issue
 - `createWeeklyMetricsIssue()` — Weekly wrapper
 - `createMonthlyMetricsIssue()` — Monthly wrapper
@@ -132,6 +149,7 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 - `createMetricsIssueWithRetry()` — Resilient creation
 
 **Labels Applied:**
+
 - `type:metrics` — Issue type
 - `area:monitoring` — Area
 - `period:weekly` or `period:monthly` — Period
@@ -143,6 +161,7 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 **Schedule:** Daily at 2 AM UTC (configurable)
 
 **Jobs:**
+
 1. **collect-metrics**
    - Validates config
    - Calls orchestrator
@@ -160,6 +179,7 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 **Schedule:** Weekly on Monday 2:30 AM UTC (configurable)
 
 **Jobs:**
+
 1. **generate-report**
    - Generates markdown reports
    - Creates GitHub issues
@@ -177,6 +197,7 @@ The Metrics Agent is an automated system for collecting, analyzing, and reportin
 ### Running Manually
 
 #### Collection
+
 ```bash
 # Trigger collection workflow
 gh workflow run metrics-collection.yml \
@@ -185,6 +206,7 @@ gh workflow run metrics-collection.yml \
 ```
 
 #### Reporting
+
 ```bash
 # Trigger reporting workflow
 gh workflow run metrics-reporting.yml \
@@ -221,6 +243,7 @@ npm test -- scripts/metrics/__tests__/security.test.js
 ## Configuration
 
 ### Repository Configuration
+
 **File:** `.github/scripts/workflows/metrics-config.json`
 
 ```json
@@ -261,6 +284,7 @@ Score = 50 (base)
 ```
 
 **Interpretation:**
+
 - **80-100:** ✅ Healthy
 - **60-80:** ⚠️  Fair
 - **0-60:** ❌ Needs Attention
@@ -268,24 +292,29 @@ Score = 50 (base)
 ## Performance Characteristics
 
 ### Collection
+
 - Single repository: < 30 seconds
 - 10 repositories (parallel): < 5 minutes
 - Per-repo enrichment: < 100ms
 
 ### Storage
+
 - Write: < 1 second
 - Read (52 weeks): < 500ms
 
 ### Analysis
+
 - Trend calculation: < 100ms/repo
 - Anomaly detection: < 50ms/repo
 
 ### Reporting
+
 - Report generation: < 2 seconds/repo
 - Issue creation: < 5 seconds/repo
 - Workflow total: < 5 minutes
 
 ### Scalability
+
 - Linear scaling with repository count
 - Parallel execution: 2-4x speedup
 - Memory: < 10MB for 10 repos/year
@@ -293,23 +322,27 @@ Score = 50 (base)
 ## Security
 
 ### Token Handling
+
 - ✅ Never logged or exposed
 - ✅ Masked in error messages
 - ✅ Minimum scope: `repo:read`, `issues:write`
 
 ### Input Validation
+
 - ✅ Repository name validation
 - ✅ Path traversal prevention
 - ✅ Period parameter validation
 - ✅ Metrics structure validation
 
 ### Output Sanitization
+
 - ✅ XSS prevention in reports
 - ✅ No personal information exposure
 - ✅ No internal system data
 - ✅ Markdown escaping
 
 ### Rate Limiting
+
 - ✅ GitHub API rate limit respect
 - ✅ Exponential backoff on errors
 - ✅ Concurrent request limiting
@@ -318,6 +351,7 @@ Score = 50 (base)
 ## Testing
 
 ### Test Suite Coverage
+
 - **Unit Tests:** 96 tests across all components
 - **Integration Tests:** 15+ end-to-end scenarios
 - **Performance Tests:** 20+ benchmarks
@@ -379,6 +413,7 @@ Score = 50 (base)
 ### Common Issues
 
 **Issue: GitHub API rate limit exceeded**
+
 ```
 Solution: Check rate limit status
 gh api rate_limit
@@ -387,6 +422,7 @@ Workflow: Automatic backoff with exponential delay
 ```
 
 **Issue: Metrics data not persisting**
+
 ```
 Solution: Verify .github/reports/metrics/ permissions
 ls -la .github/reports/metrics/
@@ -407,6 +443,7 @@ git add .github/reports/metrics/.gitkeep
 ---
 
 **Issue: Reports not creating GitHub issues**
+
 ```
 Solution: Verify GITHUB_TOKEN secret
 gh secret list
@@ -415,6 +452,7 @@ Action: Ensure token has issues:write scope
 ```
 
 **Issue: Workflow timeout**
+
 ```
 Solution: Check workflow execution time
 gh run view <run-id> --log
@@ -449,10 +487,10 @@ Action: Increase timeout in workflow config
 
 ## References
 
-- **GitHub API:** https://docs.github.com/en/rest
-- **GitHub Actions:** https://docs.github.com/en/actions
-- **Octokit JS:** https://octokit.github.io/rest.js/
-- **Markdown:** https://guides.github.com/features/mastering-markdown/
+- **GitHub API:** <https://docs.github.com/en/rest>
+- **GitHub Actions:** <https://docs.github.com/en/actions>
+- **Octokit JS:** <https://octokit.github.io/rest.js/>
+- **Markdown:** <https://guides.github.com/features/mastering-markdown/>
 
 ## Maintenance
 
@@ -485,6 +523,7 @@ See [CLAUDE.md](../../CLAUDE.md) for contribution guidelines and coding standard
 ## Support
 
 For issues or questions:
+
 1. Check troubleshooting section above
 2. Review workflow logs: `gh run view <run-id> --log`
 3. Check test results: `npm test -- scripts/metrics/__tests__/`

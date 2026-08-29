@@ -1,6 +1,7 @@
 # Active Projects Status Update — Quick Reference
 
 ## One-Liner Summary
+
 Update all 40+ active projects: set status/priority/type/effort, link related issues with HEAD URLs (develop branch), ensure two-way links from issues back to projects.
 
 ---
@@ -8,11 +9,13 @@ Update all 40+ active projects: set status/priority/type/effort, link related is
 ## Quick Links Format
 
 ### Project → Issue (in README.md Related Issues section)
+
 ```markdown
 | [#1234](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/{project-slug}/README.md) | Issue | Status | Description |
 ```
 
 ### Issue → Project (in issue body, new section)
+
 ```markdown
 ## 📋 Project Reference
 **Related Project:** [Project Name](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/{project-slug}/README.md)
@@ -51,6 +54,7 @@ last_updated: YYYY-MM-DD
 ## Example: Complete Project Update
 
 **Before:**
+
 ```markdown
 ---
 file_type: project
@@ -62,6 +66,7 @@ Project files...
 ```
 
 **After:**
+
 ```markdown
 ---
 file_type: project
@@ -111,6 +116,7 @@ npm test -- scripts/automation/__tests__/validate-project-linking.test.js
 ## Two-Way Linking Pattern
 
 **In Project:**
+
 ```
 PROJECT README
     ↓ (links to issues)
@@ -120,6 +126,7 @@ PROJECT README (completes the loop)
 ```
 
 **Both directions use:**
+
 ```
 https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/{slug}/{file}
 ```

@@ -95,7 +95,7 @@ accTitle: Graph Diagram
     F -->|Report| G["Session Summary<br/>(handoff ready)"]
     C -->|Validate| H["Workspace Cleaner<br/>(git state)"]
     H -->|Cleanup| I["Clean Worktree<br/>(optional)"]
-    style A fill:#e1f5ff
+    style A fill:#e1f5ff,color:#0f172a
     style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style F fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
@@ -139,14 +139,14 @@ accTitle: Graph Diagram
     E -->|manages| F
     B -->|queries| H
     
-    style A fill:#fff9c4
-    style B fill:#e1bee7
-    style C fill:#e1bee7
-    style D fill:#e1bee7
-    style E fill:#e1bee7
-    style F fill:#b3e5fc
-    style G fill:#b3e5fc
-    style H fill:#b3e5fc
+    style A fill:#fff9c4,color:#0f172a
+    style B fill:#e1bee7,color:#0f172a
+    style C fill:#e1bee7,color:#0f172a
+    style D fill:#e1bee7,color:#0f172a
+    style E fill:#e1bee7,color:#0f172a
+    style F fill:#b3e5fc,color:#0f172a
+    style G fill:#b3e5fc,color:#0f172a
+    style H fill:#b3e5fc,color:#0f172a
 accDescr: Detailed diagram showing structure and relationships
 ```
 
@@ -248,9 +248,9 @@ accTitle: Graph Diagram
     H --> J
     I --> J
     
-    style A fill:#e3f2fd
-    style B fill:#e3f2fd
-    style C fill:#e3f2fd
+    style A fill:#e3f2fd,color:#0f172a
+    style B fill:#e3f2fd,color:#0f172a
+    style C fill:#e3f2fd,color:#0f172a
     style J fill:#dcfce7,color:#14532d,stroke:#14532d
 accDescr: Detailed diagram showing structure and relationships
 ```
@@ -291,9 +291,9 @@ accTitle: Graph Diagram
     A -->|Return| F["Cleanup report<br/>(success/errors)"]
     
     style A fill:#fef3c7,color:#4a2c00,stroke:#b45309
-    style B fill:#ffe0b2
-    style C fill:#ffe0b2
-    style D fill:#ffccbc
+    style B fill:#ffe0b2,color:#0f172a
+    style C fill:#ffe0b2,color:#0f172a
+    style D fill:#ffccbc,color:#0f172a
     style E fill:#dcfce7,color:#14532d,stroke:#14532d
     style F fill:#dcfce7,color:#14532d,stroke:#14532d
 accDescr: Detailed diagram showing structure and relationships
@@ -368,7 +368,7 @@ accTitle: Graph Diagram
     F --> G
     G --> H
     
-    style G fill:#fff9c4
+    style G fill:#fff9c4,color:#0f172a
     style H fill:#dcfce7,color:#14532d,stroke:#14532d
 accDescr: Detailed diagram showing structure and relationships
 ```
@@ -427,12 +427,12 @@ accTitle: Graph Diagram
     G -->|Success| H["Generate Report<br/>(✅ Success)"]
     G -->|Error| I["Generate Report<br/>(❌ Error + recovery)"]
     
-    style A fill:#e3f2fd
+    style A fill:#e3f2fd,color:#0f172a
     style B1 fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
     style D1 fill:#dcfce7,color:#14532d,stroke:#14532d
     style D2 fill:#dcfce7,color:#14532d,stroke:#14532d
-    style D3 fill:#fff9c4
-    style F1 fill:#fff9c4
+    style D3 fill:#fff9c4,color:#0f172a
+    style F1 fill:#fff9c4,color:#0f172a
     style H fill:#dcfce7,color:#14532d,stroke:#14532d
     style I fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 accDescr: Detailed diagram showing structure and relationships

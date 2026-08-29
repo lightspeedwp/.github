@@ -13,7 +13,21 @@ labels: ["status:needs-review"]
 ## Linked issues
 
 <!--
-List any related issues by number (e.g. closes #123, fixes #456, relates to #789).
+List any related issues by number.
+
+Supported closing keywords: close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved
+(Optional colon: e.g., "Closes: #123" or "fixes #123")
+
+IMPORTANT: Do NOT use closing keywords for epic issues!
+- Use closing keywords for bugs, tasks, stories, features
+- Use "Relates to" for epics, parent issues, milestones
+
+Example:
+Closes #123 (task)
+Fixes #456 (bug fix)
+Relates to #789 (epic — not closed)
+
+See CONTRIBUTING.md for epic linking best practices.
 -->
 
 Closes #
@@ -56,6 +70,14 @@ Example:
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->
+
+## Milestone
+
+<!--
+Required for release tracking and project organization.
+Please select a milestone that reflects the target release or sprint for this work.
+This field is enforced by the PR governance workflow.
 -->
 
 ---

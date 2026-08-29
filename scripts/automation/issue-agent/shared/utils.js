@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 
 const REPO_ROOT = process.cwd();
 
@@ -53,7 +53,7 @@ export async function loadCanonicalLabels() {
 
   try {
     const content = await fs.readFile(labelsPath, "utf-8");
-    const data = yaml.load(content);
+    const data = load(content);
     labelCache = Array.isArray(data) ? data : [];
     labelCacheTime = now;
     return labelCache;

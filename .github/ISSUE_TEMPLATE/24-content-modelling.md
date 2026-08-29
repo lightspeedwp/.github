@@ -1,8 +1,13 @@
 ---
 name: "📖 Content Modelling"
+description: "📖 Content Modelling"
 about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 title: "[Content Modelling] <Brief summary>"
 labels: [status:needs-triage, area:content]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## Content Modelling Summary

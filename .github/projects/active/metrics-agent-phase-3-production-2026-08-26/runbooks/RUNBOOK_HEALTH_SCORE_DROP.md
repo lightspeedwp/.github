@@ -14,12 +14,14 @@ last_updated: "2026-08-21"
 Repository health score drops significantly or below warning threshold (60).
 
 **Symptoms:**
+
 - Health score < 80 (warning level)
 - Health score < 60 (critical level)
 - Score dropped 20+ points from previous week
 - Specific health components degraded
 
 **Impact:**
+
 - Team may need to prioritize improvements
 - Indicates quality or velocity issues
 - May impact downstream systems relying on health score
@@ -58,9 +60,11 @@ Repository health score drops significantly or below warning threshold (60).
 ### Step 4: Correlate with Activity
 
 1. Check recent activity:
+
    ```bash
    git log --oneline --since="1 week ago" | wc -l
    ```
+
    - Spike in commits/PRs?
    - New team member onboarded?
    - Major feature work started?
@@ -80,6 +84,7 @@ Repository health score drops significantly or below warning threshold (60).
 **Recovery Steps:**
 
 1. **Identify files missing frontmatter:**
+
    ```bash
    npm run validate:frontmatter 2>&1 | grep "missing"
    ```
@@ -90,6 +95,7 @@ Repository health score drops significantly or below warning threshold (60).
    - If > 20 files: Investigate root cause
 
 3. **Add frontmatter to files:**
+
    ```bash
    # For single file:
    npm run add-frontmatter path/to/file.md
@@ -110,6 +116,7 @@ Repository health score drops significantly or below warning threshold (60).
 **Recovery Steps:**
 
 1. **Identify stale issues:**
+
    ```bash
    # Issues open > 7 days without response
    npm run scripts/maintenance/find-stale-issues.js --days 7
@@ -138,6 +145,7 @@ Repository health score drops significantly or below warning threshold (60).
 **Recovery Steps:**
 
 1. **Identify slow PRs:**
+
    ```bash
    # PRs open > 7 days
    npm run scripts/maintenance/find-old-prs.js --days 7
@@ -170,11 +178,13 @@ Repository health score drops significantly or below warning threshold (60).
 **Recovery Steps:**
 
 1. **Check test coverage:**
+
    ```bash
    npm run test:coverage
    ```
 
 2. **Identify files with low coverage:**
+
    ```bash
    npm run test:coverage | grep -E "^[^ ]+" | sort -k5 -n | head -10
    ```
@@ -196,6 +206,7 @@ Repository health score drops significantly or below warning threshold (60).
 **Recovery Steps:**
 
 1. **Run linters:**
+
    ```bash
    npm run lint:js && npm run lint:md
    ```

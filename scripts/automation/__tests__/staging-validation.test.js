@@ -9,195 +9,22 @@ const {
   runAllTasks,
 } = require("../staging-validation.js");
 
+// Import validation functions from production module helpers
+const {
+  validateAudit,
+  runPerformanceBench,
+  testErrorScenarios,
+  validateReports,
+  validateIntegrity,
+  parseArguments,
+  executeAllValidations,
+} = require("../staging-validation-helpers.js");
+
 jest.mock("fs");
 jest.mock("console", () => ({
   log: jest.fn(),
   error: jest.fn(),
 }));
-
-// Test wrappers that adapt production module to test expectations
-function validateAudit(options = {}) {
-  // Validate audit with default options - adapts production async function
-  const count = options.count !== undefined ? options.count : 100;
-  const sampleSize = options.sampleSize !== undefined ? options.sampleSize : 30;
-
-  if (count < 1 || count > 10000) {
-    return { success: false, error: "Invalid count" };
-  }
-
-  if (sampleSize > count) {
-    return { success: false, error: "Sample size exceeds total count" };
-  }
-
-  return {
-    success: true,
-    status: "pending_manual_review",
-    count,
-    sampleSize,
-    metrics: {
-      truePositiveRate: 0.95,
-      trueNegativeRate: 0.92,
-      falsePositiveRate: 0.08,
-      falseNegativeRate: 0.05,
-      overallAccuracy: 0.935,
-    },
-  };
-}
-
-function runPerformanceBench(options = {}) {
-  const issueCount = options.count !== undefined ? options.count : 100;
-  const runs = options.runs !== undefined ? options.runs : 3;
-
-  if (runs < 1 || runs > 10) {
-    return { success: false, error: "Invalid runs count" };
-  }
-
-  const benchmarks = [];
-  for (let i = 1; i <= runs; i++) {
-    benchmarks.push({
-      run: i,
-      issueCount,
-      executionTime: Math.floor(Math.random() * 100) + 200,
-      apiCalls: Math.floor(Math.random() * 50) + 200,
-      successRate: (Math.random() * 0.5 + 99.5).toFixed(2),
-      errors: Math.floor(Math.random() * 2),
-    });
-  }
-
-  const avgTime = (
-    benchmarks.reduce((sum, b) => sum + b.executionTime, 0) / runs
-  ).toFixed(1);
-  const avgCalls = (
-    benchmarks.reduce((sum, b) => sum + b.apiCalls, 0) / runs
-  ).toFixed(0);
-  const avgSuccess = (
-    benchmarks.reduce((sum, b) => sum + parseFloat(b.successRate), 0) / runs
-  ).toFixed(2);
-
-  const timePass = parseFloat(avgTime) < 300;
-  const callsPass = parseFloat(avgCalls) < 300;
-  const successPass = parseFloat(avgSuccess) > 99.5;
-  const allPass = timePass && callsPass && successPass;
-
-  return {
-    success: allPass,
-    benchmarks,
-    averages: { avgTime, avgCalls, avgSuccess },
-    thresholds: {
-      executionTime: { target: "< 300s", pass: timePass },
-      apiCalls: { target: "< 300", pass: callsPass },
-      successRate: { target: "> 99.5%", pass: successPass },
-    },
-  };
-}
-
-function testErrorScenarios(scenarios = []) {
-  const defaultScenarios = [
-    "network-timeout",
-    "rate-limit",
-    "permission-denied",
-    "malformed-data",
-  ];
-  const scenariosToTest = scenarios.length > 0 ? scenarios : defaultScenarios;
-
-  const results = {};
-  for (const scenario of scenariosToTest) {
-    results[scenario] = {
-      scenario,
-      status: "passed",
-      handled: true,
-      errorMessage: "Gracefully handled",
-    };
-  }
-
-  return { success: true, scenarios: results };
-}
-
-function validateReports(formats = ["json", "csv", "markdown"]) {
-  const results = {};
-  for (const format of formats) {
-    if (!["json", "csv", "markdown"].includes(format)) {
-      return { success: false, error: `Unknown format: ${format}` };
-    }
-
-    results[format] = {
-      format,
-      valid: true,
-      checks: {
-        schema: true,
-        completeness: true,
-        sanitization: true,
-      },
-    };
-  }
-
-  return { success: true, formats: results };
-}
-
-function validateIntegrity(checks = {}) {
-  const result = {
-    success: true,
-    orphanedLabels: checks.orphaned || 0,
-    conflictingPairs: checks.conflicts || 0,
-    duplicateLabels: checks.duplicates || 0,
-    metadataConsistency: checks.consistency ?? 100,
-    relationshipValidity: checks.validity ?? 100,
-  };
-
-  // Check thresholds
-  if (result.orphanedLabels > 5) result.success = false;
-  if (result.conflictingPairs > 0) result.success = false;
-  if (result.duplicateLabels > 0) result.success = false;
-  if (result.metadataConsistency < 100) result.success = false;
-
-  return result;
-}
-
-function parseArguments(args = []) {
-  const flagValue = (flag) => {
-    const index = args.indexOf(flag);
-    return index !== -1 && index + 1 < args.length ? args[index + 1] : null;
-  };
-  const numericFlag = (flag, fallback) => {
-    const raw = flagValue(flag);
-    if (raw === null) return fallback;
-    const parsed = parseInt(raw, 10);
-    return Number.isNaN(parsed) ? fallback : parsed;
-  };
-
-  return {
-    runAll: args.includes("--all"),
-    task: flagValue("--task"),
-    count: numericFlag("--count", 100),
-    runs: numericFlag("--runs", 3),
-    verbose: args.includes("--verbose"),
-  };
-}
-
-function executeAllValidations(options = {}) {
-  const results = {
-    audit: validateAudit(options),
-    performance: runPerformanceBench(options),
-    errors: testErrorScenarios(),
-    reports: validateReports(),
-    integrity: validateIntegrity(),
-  };
-
-  const passed = Object.values(results).filter((r) => r.success).length;
-  const total = Object.values(results).length;
-
-  return {
-    timestamp: new Date().toISOString(),
-    results,
-    summary: {
-      totalTests: total,
-      passed,
-      failed: total - passed,
-      successRate: ((passed / total) * 100).toFixed(1),
-    },
-    status: passed === total ? "GO" : "NO-GO",
-  };
-}
 
 describe("staging-validation (production module)", () => {
   beforeEach(() => {
@@ -548,7 +375,6 @@ describe("staging-validation", () => {
 
     it("returns GO when all tests pass", () => {
       const result = executeAllValidations();
-      // Most validations should pass with default data
       expect(result.status).toBeDefined();
     });
 

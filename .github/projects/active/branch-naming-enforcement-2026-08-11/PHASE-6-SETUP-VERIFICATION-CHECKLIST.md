@@ -29,6 +29,7 @@ status: active
 **Required Format:** `{type}/{scope}-{short-title}`
 
 **Examples of VALID branches:**
+
 - ✅ `feat/user-authentication-system`
 - ✅ `fix/login-timeout-issue`
 - ✅ `chore/update-dependencies`
@@ -36,6 +37,7 @@ status: active
 - ✅ `refactor/database-query-optimization`
 
 **Examples of INVALID branches:**
+
 - ❌ `my-feature` (missing type prefix)
 - ❌ `Feature/MyFeature` (uppercase not allowed)
 - ❌ `feat/my_feature` (underscores not allowed)
@@ -131,6 +133,7 @@ git branch -a
 ```
 
 **Examples:**
+
 - `my-feature` → `feat/my-feature`
 - `bug-fix` → `fix/bug-fix`
 - `CLEANUP` → `chore/cleanup`
@@ -144,6 +147,7 @@ git branch -a
 ### Step 6: Acknowledge and Confirm Setup
 
 **Team Member Information:**
+
 - Name: _______________
 - GitHub Username: _______________
 - Completed on (date): _______________
@@ -151,6 +155,7 @@ git branch -a
 **Acknowledgement:**
 
 I confirm that I have:
+
 - [ ] Read and understood the branch naming requirements ({type}/{scope}-{short-title})
 - [ ] Installed the optional pre-commit hook (if desired)
 - [ ] Tested the hook with valid and invalid branch names
@@ -165,7 +170,7 @@ I confirm that I have:
 
 **If you encounter issues:**
 
-1. **Hook not running?** 
+1. **Hook not running?**
    - Verify hook is executable: `ls -la .git/hooks/pre-commit`
    - Check hook script: `cat .git/hooks/pre-commit`
    - Reinstall if needed: `npm run setup:hooks`

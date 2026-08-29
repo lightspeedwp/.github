@@ -35,6 +35,23 @@ It also hosts **portable AI operations assets** in top-level source folders that
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
 
+## Git Branching Strategy
+
+**CRITICAL:** All development must start from the `develop` branch, never `main`.
+
+- `main` — production releases only. Never commit feature work directly to `main`.
+- `develop` — active development integration branch. All feature branches must be based on `develop`.
+- Feature branches — use the pattern `{type}/{scope}-{title}` (e.g., `refactor/pr-triage-tests-production-imports`, `feat/label-automation-v2`).
+
+When starting work on an issue:
+
+```bash
+git fetch origin develop
+git checkout -B {type}/{scope}-{title} origin/develop
+```
+
+This ensures your branch includes all latest development work and integrates cleanly without merge conflicts from diverged histories.
+
 ## Development Commands
 
 ```bash
@@ -91,6 +108,7 @@ npm run validate:frontmatter
 ## Related Files
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
+- [docs/WORKFLOWS.md](./docs/WORKFLOWS.md) — workflow organisation and distribution strategy
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
 - [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
