@@ -62,7 +62,7 @@ Post-Merge Monitoring (3 days)
 
 3. **Breaking Changes Research**
    - Check Node.js 24 release notes for breaking changes
-   - Review V8 engine changes (v12.1+)
+   - Review V8 engine changes (v13.6, released May 6, 2025)
    - Identify deprecated APIs in dependencies
    - Document findings in BREAKING_CHANGES_AUDIT.md
 
@@ -292,7 +292,7 @@ Post-Merge Monitoring (3 days)
    - Verify consistency across all workflows
 
 5. **Commit Workflow Changes**
-   - Stage: `git add .github/workflows/**/*.yml`
+   - Stage: `git add -- ':(glob).github/workflows/**/*.yml'`
    - Commit: `git commit -m "chore: standardise workflows to use .nvmrc for Node 24"`
 
 ### Workflow Categories
@@ -383,8 +383,11 @@ Post-Merge Monitoring (3 days)
 ### Success Criteria
 
 - ✓ PR created and pushed to remote
+- ✓ Milestone assigned to PR
 - ✓ All CI checks passing
+- ✓ Human review approval received
 - ✓ Merge conflict resolved (if any)
+- ✓ All prior phases completed and documented
 - ✓ Changes merged to develop
 - ✓ Post-merge monitoring initiated
 - ✓ Team notified of upgrade completion
@@ -473,7 +476,7 @@ Post-Merge Monitoring (3 days)
 ### Quantitative Metrics
 
 - ✓ **Test Coverage:** 100% of test suite passing (85+ tests)
-- ✓ **Validation Scripts:** 10/10 passing (structure, skills, plugins, links, frontmatter, agents, workflows, changelog, JSON, version)
+- ✓ **Validation Scripts:** 9/9 passing (structure, skills, plugins, links, frontmatter, agents, workflows, changelog, JSON)
 - ✓ **Workflow Standardisation:** 16/16 workflows using `.nvmrc`
 - ✓ **CI Status:** All checks green before merge
 - ✓ **Security:** 0 high/critical vulnerabilities
@@ -556,10 +559,10 @@ Before proceeding with execution, confirm:
 
 ### Node.js 24 Release Information
 
-- **Release Date:** October 2024
+- **Release Date:** May 6, 2025
 - **LTS Status:** No (current stable release)
 - **Support Window:** 18 months
-- **V8 Version:** 12.1+ (improved performance, new features)
+- **V8 Version:** 13.6 (improved performance, new features)
 
 ### Related Documentation
 

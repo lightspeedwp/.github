@@ -194,7 +194,7 @@ Status: PASS if no critical vulnerabilities
 | --- | --- | --- | --- |
 | Very large workflows | Load all 16 workflows | Parse correctly | ⏳ Pending |
 | Deprecated APIs | Search for deprecated usage | None found | ⏳ Pending |
-| V8 compatibility | Run with V8 12.1+ | All pass | ⏳ Pending |
+| V8 compatibility | Run with V8 13.6 (May 6, 2025) | All pass | ⏳ Pending |
 | npm 10+ features | Use npm 10+ specific features | Work correctly | ⏳ Pending |
 
 ---

@@ -60,8 +60,8 @@ This document tracks all identified breaking changes, dependencies requiring pin
 
 *To be documented from Node.js 24 release notes.*
 
-- **V8 Version:** 12.1+
-- **Relevant Changes:** TBD
+- **V8 Version:** 13.6 (Released May 6, 2025)
+- **Relevant Changes:** TBD (review Node.js 24 release notes for details)
 - **Impact on Dependencies:** TBD
 
 ### Deprecated APIs
@@ -149,15 +149,27 @@ Rollback is recommended if:
 
 ### Rollback Procedure
 
+**Before starting Phase 2, record commit baseline:**
 ```bash
-# Phase-specific rollback
-git reset --hard HEAD~1        # Discard all Phase changes
+# Save current commit SHA
+git log --oneline -1 > PHASE_1_BASELINE.txt  # Document Phase 1 ending point
+```
+
+**If rollback needed:**
+```bash
+# Option 1: Before merge — discard branch
+git reset --hard PHASE_1_BASELINE.txt
 git push origin :feat/nodejs-upgrade-24  # Delete remote branch
 
-# If already merged to develop
-git revert [merge-commit-sha]  # Revert merge commit
-git push origin develop        # Push revert
+# Option 2: After merge — revert merge commit
+git revert -m 1 [merge-commit-sha]  # Revert the merge
+git push origin develop              # Push revert to develop
 ```
+
+**For verified rollbacks:**
+- Record exact commit range: `git log PHASE_1_BASELINE.txt..HEAD`
+- Document reason for rollback
+- Use `git revert` for already-merged commits (preserves history)
 
 ---
 

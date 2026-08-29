@@ -112,18 +112,19 @@ EXECUTION STEPS:
 
 2. RUN DEPENDENCY UPDATES
    - Execute: npm update
-   - Expected: 50–100 packages updated
+   - Expected: 50–100 packages updated within semver ranges
    - Wait for completion
+   - Note: npm update respects semver constraints in package.json
 
 3. CHECK FOR VULNERABILITIES
    - Execute: npm audit
    - Verify: No high/critical vulnerabilities
    - Document findings
 
-4. UPDATE LOCK FILE
+4. VALIDATE LOCK FILE CONSISTENCY
    - Execute: npm ci
-   - Verify: package-lock.json updated
-   - Check for consistency
+   - Verify: package-lock.json is consistent and locked
+   - Check for any reported inconsistencies
 
 5. COMMIT LOCALLY (DO NOT PUSH YET)
    - Stage changes: git add package.json package-lock.json
@@ -308,7 +309,7 @@ EXECUTION STEPS:
    - Verify consistency across all workflows
 
 5. COMMIT WORKFLOW CHANGES
-   - Stage: git add .github/workflows/**/*.yml
+   - Stage: git add -- ':(glob).github/workflows/**/*.yml'
    - Commit: git commit -m "chore: standardise workflows to use .nvmrc for Node 24"
 
 SUCCESS CRITERIA:
@@ -376,7 +377,7 @@ EXECUTION STEPS:
    
    - Aligns `package.json` engines field with `.nvmrc` specification (Node.js 24)
    - Updates all dependencies to Node 24-compatible versions
-   - Standardises all 16 workflows to use `.nvmrc` consistently
+   - Standardises workflows (16+ total) to use `.nvmrc` consistently
    - Enables advanced GitHub API scripts and issue maintenance workflows
    - Resolves version alignment gap between .nvmrc and package.json
    
@@ -468,7 +469,9 @@ SUCCESS CRITERIA (MUST ALL BE TRUE):
 CRITICAL GATES:
 - DO NOT merge if CI is red
 - DO NOT merge if PR has merge conflicts unresolved
-- DO NOT merge without all reviews complete
+- DO NOT merge without milestone assignment
+- DO NOT merge without human review approval
+- DO NOT merge without all phases completed and documented
 
 NEXT PHASE: Post-Merge Monitoring (3 days)
 ```

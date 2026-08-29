@@ -9,10 +9,10 @@ status: active
 
 # Node.js 24 Upgrade Project
 
-> **Status:** 📋 Planning & Documentation In Progress  
+> **Status:** ✅ Phase 1 Complete — Phase 2 Ready  
 > **Timeline:** 4–5 hours over 1–2 days  
 > **Risk Level:** 🟡 Medium  
-> **Decision:** Planning phase active — awaiting user approval to proceed
+> **Decision:** Phase 1 audit complete; package.json upgraded; proceeding to Phase 2
 
 ## Project Overview
 
@@ -20,7 +20,7 @@ This project **upgrades the LightSpeed `.github` control plane from Node.js 22 t
 
 ### Why This Upgrade?
 
-- **Alignment gap** — `.nvmrc` already specifies Node 24, but `package.json` requires >=22.0.0
+- **Alignment gap** — `.nvmrc` already specifies Node 24, but `package.json` previously required >=22.0.0 (now fixed)
 - **Business requirement** — Advanced GitHub API scripts and issue maintenance workflows require Node 24+ features
 - **Modern runtime** — Node 24 brings V8 improvements, better performance, and modern JavaScript features
 - **Consistency** — Single source of truth across all workflows and developer environment
@@ -28,7 +28,7 @@ This project **upgrades the LightSpeed `.github` control plane from Node.js 22 t
 ### Why Node 24, not staying on 22?
 
 - **Explicit need** — Your advanced issue maintenance and GitHub API scripts require Node 24 features
-- **Future-proof** — Node 22 support ends October 2027 (14 months away)
+- **Future-proof** — Node 22 LTS support ends April 30, 2027 (~8 months away)
 - **Already configured** — `.nvmrc` already specifies Node 24 (just not documented in `package.json`)
 - **Deliberate choice** — This is a forward-looking decision, not a reactive fix
 
@@ -46,7 +46,7 @@ This folder contains comprehensive documentation for planning and executing the 
 ├── QUICK_REFERENCE.md           ← Single-page tracking checklist
 ├── INVENTORY.md                 ← (Generated during Phase 1)
 ├── TEST_MATRIX.md               ← (Generated during Phase 1)
-├── BREAKING_CHANGES_AUDIT.md    ← (Generated during Phase 3)
+├── BREAKING_CHANGES_AUDIT.md    ← (Generated during Phase 1)
 └── COMPLETION_REPORT.md         ← (Generated after Phase 5)
 ```
 
@@ -199,7 +199,7 @@ If any phase fails, rollback is simple:
 
 ✅ **Node Version:** 24.x (business requirement, future-proof)  
 ✅ **Workflow Strategy:** All use `.nvmrc` (single source of truth)  
-✅ **Dependency Update:** Run `npm update` (modernise all packages)  
+✅ **Dependency Update:** Run `npm update` within semver ranges, then `npm ci` to validate consistency  
 ✅ **Branch Strategy:** `feat/nodejs-upgrade-24` → PR to `develop`  
 ✅ **Testing:** Full suite + validation scripts (Phase 3)  
 ✅ **Monitoring:** 3-day post-merge monitoring (proven protocol)
@@ -227,7 +227,7 @@ Approval: [Signature / Confirmation]
 
 Once you approve, the next steps are:
 
-1. **Create issues** for each phase (5 issues total) — with OpenSpec validation
+1. **Verify or create issues** for each phase (5 issues total) — use existing GitHub issues if available; create only if needed
 2. **Assign to agent(s)**
 3. **Agent executes phases in order** using EXECUTION_PROMPTS.md
 4. **Track progress** in QUICK_REFERENCE.md

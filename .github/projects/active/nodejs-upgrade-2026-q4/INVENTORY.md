@@ -109,7 +109,7 @@ Total direct dependencies: ~50
 
 ### Node.js API Changes
 
-- **V8 Version:** 12.1+
+- **V8 Version:** 13.6 (Released May 6, 2025)
 - **Relevant Changes:** [TBD]
 - **Project Impact:** [TBD]
 
