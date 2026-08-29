@@ -1,10 +1,17 @@
 ---
+document_type: "Guide"
 file_type: documentation
 name: Issue Triage & Template Application Guide
 about: Procedures for manually applying issue templates and bulk template application runbooks
-version: 1.0.1
-last_updated: '2026-08-21'
+version: 1.0.2
+created_date: 2026-08-27
+last_updated: 2026-08-27
 category: operations
+openspec_status: "production"
+openspec_labels:
+  - "openspec:status/production"
+  - "openspec:domain/automation"
+  - "openspec:priority/high"
 ---
 
 # Issue Triage & Template Application Guide
