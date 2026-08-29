@@ -6,14 +6,14 @@ metadata:
   created: 2026-07-29
   updated: 2026-07-29
   phase: 4
-  status: planning
+  status: in-progress
   epic: "#1227"
   blockers: "Phase 3.3 must complete before Phase 4.1 can run"
 ---
 
 # Phase 4: Issue Lifecycle & Deprecated Workflow Cleanup
 
-**Status:** 📋 PLANNING | **Target Start:** After Phase 3.3 | **Goal:** 33 → 25 workflows (−8)
+**Status:** 🔄 IN PROGRESS (Phase 4.1 ✅ Complete) | **Goal:** 33 → 25 workflows (−8)
 
 > **Revised 2026-07-29:** PR #1377 (issue triage automation) added `issue-create-enhanced.yml` and `issue-remediation-bulk.yml`, bringing the pre-Phase-4 total to 36. After Phase 3.3 removes 3 legacy labeling workflows, Phase 4 starts at 33 and must remove 8 (not 6) to reach 25. Sub-phases 4.5 and 4.6 address the two new additions.
 
@@ -28,7 +28,7 @@ Phase 4 reaches the original target of 25 workflows by completing two categories
 
 | Sub-phase | Title | Type | Net Δ | Effort | Issue |
 |-----------|-------|------|-------|--------|-------|
-| 4.1 | Delete deprecated workflows | Cleanup | −2 | 1h | [#1406](https://github.com/lightspeedwp/.github/issues/1406) |
+| 4.1 | Delete deprecated workflows | Cleanup | −2 | 1h | [#1406](https://github.com/lightspeedwp/.github/issues/1406) | ✅ Complete |
 | 4.2 | Issue-close governance | Consolidation | −2 | 4-5h | [#1407](https://github.com/lightspeedwp/.github/issues/1407) |
 | 4.3 | Project sync unification | Consolidation | −1 | 3-4h | [#1408](https://github.com/lightspeedwp/.github/issues/1408) |
 | 4.4 | Flaky test absorption | Consolidation | −1 | 1-2h | [#1409](https://github.com/lightspeedwp/.github/issues/1409) |
@@ -111,9 +111,9 @@ Both workflows are safe to remove with zero re-implementation work.
 
 **Verification before deletion:**
 
-- [ ] Confirm `metrics-reporting.yml` covers all jobs from `metrics-pipeline.yml`
-- [ ] Run `metrics-reporting.yml` manually (`workflow_dispatch`) and verify output
-- [ ] Check CHANGELOG.md or Phase 1B docs for confirmation of supersession
+- [x] Confirm `metrics-reporting.yml` covers all jobs from `metrics-pipeline.yml`
+- [x] Run `metrics-reporting.yml` manually (`workflow_dispatch`) and verify output
+- [x] Check CHANGELOG.md or Phase 1B docs for confirmation of supersession
 
 **Steps:**
 
