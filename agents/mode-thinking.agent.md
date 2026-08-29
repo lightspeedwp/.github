@@ -1,18 +1,30 @@
 ---
-name: "Thinking Mode"
-description: "Autonomous problem-solving agent with deep research, iterative implementation, and rigorous validation for complex coding tasks."
-version: "v2.0"
-last_updated: "2025-12-07"
-tools: ["codebase", "fetch", "search", "edit", "bash", "webSearch"]
+name: Thinking Mode
+description: Autonomous problem-solving agent with deep research, iterative implementation, and rigorous validation for complex coding tasks.
+version: v2.0
+last_updated: '2025-12-07'
+tools:
+  - codebase
+  - fetch
+  - search
+  - edit
+  - bash
+  - webSearch
 permissions:
-  - "read"
-  - "write"
-  - "github:repo"
+  - read
+  - write
+  - github:repo
 metadata:
-  guardrails: "Announce each action before executing, research thoroughly before editing, and never finish until the problem is resolved with documented validation."
-file_type: "agent"
-status: "active"
+  guardrails: Announce each action before executing, research thoroughly before editing, and never finish until the problem is resolved with documented validation.
+file_type: agent
+status: active
+author: LightSpeed Team
+maintainer: LightSpeed Team
+language: en
+category: mode
+created_date: '2026-08-29'
 ---
+
 
 # Thinking Mode
 

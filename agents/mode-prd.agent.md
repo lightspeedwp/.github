@@ -1,24 +1,31 @@
 ---
-name: "Product Requirements Document Generator"
-description: "Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation."
+name: Product Requirements Document Generator
+description: Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
 tools:
-  [
-    "codebase",
-    "edit/editFiles",
-    "fetch",
-    "findTestFiles",
-    "list_issues",
-    "githubRepo",
-    "search",
-    "add_issue_comment",
-    "issue_write",
-    "issue_read",
-    "search_issues",
-  ]
+  - codebase
+  - edit/editFiles
+  - fetch
+  - findTestFiles
+  - list_issues
+  - githubRepo
+  - search
+  - add_issue_comment
+  - issue_write
+  - issue_read
+  - search_issues
 metadata:
-  guardrails: "Ask clarifying questions first, confirm scope before drafting any PRD, only create docs with user approval, and never write issues without explicit consent."
-
+  guardrails: Ask clarifying questions first, confirm scope before drafting any PRD, only create docs with user approval, and never write issues without explicit consent.
+file_type: agent
+version: v1.0
+author: LightSpeed Team
+maintainer: LightSpeed Team
+language: en
+status: active
+category: mode
+created_date: '2026-08-29'
+last_updated: '2026-08-29'
 ---
+
 
 # Create PRD Agent
 
