@@ -116,7 +116,7 @@ jobs:
             const linkPrNum = (inputs.link_pr || '').trim();
 
             const templates = {
-              task: { file: '.github/ISSUE_TEMPLATE/08-task.md', defaultType: 'type:task' },
+              task: { file: '.github/ISSUE_TEMPLATE/01-task.md', defaultType: 'type:task' },
               bug: { file: '.github/ISSUE_TEMPLATE/02-bug.md', defaultType: 'type:bug' },
               feature: { file: '.github/ISSUE_TEMPLATE/03-feature.md', defaultType: 'type:feature' },
               design: { file: '.github/ISSUE_TEMPLATE/04-design.md', defaultType: 'type:design' },
