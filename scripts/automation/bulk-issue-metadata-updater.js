@@ -142,6 +142,35 @@ async function fetchIssuesWithStatusLabels() {
   }
 }
 
+// Milestone cache to avoid repeated API calls
+const milestoneCache = {};
+
+// Get milestone number by title
+async function getMilestoneNumber(milestoneTitle) {
+  if (milestoneCache[milestoneTitle]) {
+    return milestoneCache[milestoneTitle];
+  }
+
+  try {
+    const response = await octokit.rest.issues.listMilestones({
+      owner: config_.owner,
+      repo: config_.repo,
+      state: "all",
+    });
+
+    for (const milestone of response.data) {
+      milestoneCache[milestone.title] = milestone.number;
+      if (milestone.title === milestoneTitle) {
+        return milestone.number;
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️  Could not fetch milestones: ${error.message}`);
+  }
+
+  return null;
+}
+
 // Create GitHub request function for handlers
 function createGithubRequest(dryRun = false) {
   return async (method, path, data = {}) => {
@@ -195,6 +224,34 @@ async function routeToHandler(issue, options = {}) {
     handler: "unknown",
     result: { status: "skipped" },
   };
+}
+
+// Apply milestone to an issue
+async function applyMilestone(issueNumber, milestoneSuggestion, dryRun = true) {
+  if (!milestoneSuggestion || dryRun) {
+    return { applied: false, reason: dryRun ? "dry-run" : "no suggestion" };
+  }
+
+  try {
+    const milestoneNumber = await getMilestoneNumber(milestoneSuggestion);
+    if (!milestoneNumber) {
+      return {
+        applied: false,
+        reason: `Milestone "${milestoneSuggestion}" not found`,
+      };
+    }
+
+    await octokit.rest.issues.update({
+      owner: config_.owner,
+      repo: config_.repo,
+      issue_number: issueNumber,
+      milestone: milestoneNumber,
+    });
+
+    return { applied: true, milestone: milestoneSuggestion };
+  } catch (error) {
+    return { applied: false, reason: error.message };
+  }
 }
 
 // Prompt user for confirmation (interactive mode)
@@ -259,9 +316,16 @@ async function processBatch(issues) {
               dryRun: false,
             });
             if (applyResult.result.status === "updated") {
+              // Apply milestone if suggested
+              const milestoneResult = await applyMilestone(
+                issue.number,
+                applyResult.result.milestoneSuggested,
+                false,
+              );
               summary.updated.push({
                 issue: issue.number,
                 ...applyResult.result,
+                milestoneApplied: milestoneResult,
               });
               summary.totalApplied++;
             } else if (applyResult.result.status === "error") {
@@ -274,7 +338,21 @@ async function processBatch(issues) {
           }
         }
       } else if (result.status === "updated") {
-        summary.updated.push({ issue: issue.number, ...result });
+        // Apply milestone if suggested (auto mode only)
+        const milestoneResult =
+          mode === "auto"
+            ? await applyMilestone(
+                issue.number,
+                result.milestoneSuggested,
+                false,
+              )
+            : { applied: false, reason: "not in auto mode" };
+
+        summary.updated.push({
+          issue: issue.number,
+          ...result,
+          milestoneApplied: milestoneResult,
+        });
         summary.totalApplied++;
       } else if (result.status === "skipped") {
         summary.skipped.push({ issue: issue.number, ...result });
