@@ -26,15 +26,15 @@ Phase 4 reaches the original target of 25 workflows by completing two categories
 1. **Cleanup** — delete workflows that are already deprecated or fully superseded
 2. **Consolidation** — merge overlapping issue-lifecycle and project-sync workflows added during Q3
 
-| Sub-phase | Title | Type | Net Δ | Effort | Issue |
-|-----------|-------|------|-------|--------|-------|
+| Sub-phase | Title | Type | Net Δ | Effort | Issue | Status |
+|-----------|-------|------|-------|--------|-------|--------|
 | 4.1 | Delete deprecated workflows | Cleanup | −2 | 1h | [#1406](https://github.com/lightspeedwp/.github/issues/1406) | ✅ Complete |
-| 4.2 | Issue-close governance | Consolidation | −2 | 4-5h | [#1407](https://github.com/lightspeedwp/.github/issues/1407) |
-| 4.3 | Project sync unification | Consolidation | −1 | 3-4h | [#1408](https://github.com/lightspeedwp/.github/issues/1408) |
-| 4.4 | Flaky test absorption | Consolidation | −1 | 1-2h | [#1409](https://github.com/lightspeedwp/.github/issues/1409) |
-| 4.5 | Delete superseded issue-create workflow | Cleanup | −1 | 0.5h | [#1410](https://github.com/lightspeedwp/.github/issues/1410) |
-| 4.6 | Consolidate issue audit + remediation | Consolidation | −1 | 3-4h | [#1411](https://github.com/lightspeedwp/.github/issues/1411) |
-| **Total** | | | **−8** | **13-16h** | |
+| 4.2 | Issue-close governance | Consolidation | −2 | 4-5h | [#1407](https://github.com/lightspeedwp/.github/issues/1407) | 📋 Pending |
+| 4.3 | Project sync unification | Consolidation | −1 | 3-4h | [#1408](https://github.com/lightspeedwp/.github/issues/1408) | 📋 Pending |
+| 4.4 | Flaky test absorption | Consolidation | −1 | 1-2h | [#1409](https://github.com/lightspeedwp/.github/issues/1409) | 📋 Pending |
+| 4.5 | Delete superseded issue-create workflow | Cleanup | −1 | 0.5h | [#1410](https://github.com/lightspeedwp/.github/issues/1410) | 📋 Pending |
+| 4.6 | Consolidate issue audit + remediation | Consolidation | −1 | 3-4h | [#1411](https://github.com/lightspeedwp/.github/issues/1411) | 📋 Pending |
+| **Total** | | | **−8** | **13-16h** | | |
 
 ---
 
