@@ -305,7 +305,7 @@ function executeAllProductionValidations(options = {}) {
 
   return {
     timestamp: new Date().toISOString(),
-    environment: "production",
+    environment: options.environment || "production",
     results,
     summary: {
       totalChecks: total,
