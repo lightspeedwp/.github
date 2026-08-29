@@ -26,4 +26,12 @@ describe("resolveCliTargetFiles", () => {
 
     expect(result).toEqual([existing]);
   });
+
+  it("returns empty array when fileArgs is not an array", () => {
+    expect(resolveCliTargetFiles(null, "/tmp")).toEqual([]);
+  });
+
+  it("returns empty array for an empty file list", () => {
+    expect(resolveCliTargetFiles([], "/tmp")).toEqual([]);
+  });
 });
