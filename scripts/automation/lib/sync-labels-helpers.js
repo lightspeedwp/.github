@@ -60,7 +60,7 @@ export function buildSyncConfig(options = {}) {
 /**
  * Process an issue for label synchronization
  */
-export function processIssue(issue, config) {
+export function processIssue(issue, _config) {
   const changes = {
     issueNumber: issue.number,
     currentLabels: issue.labels || [],
