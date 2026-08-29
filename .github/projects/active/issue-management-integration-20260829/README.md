@@ -41,23 +41,17 @@ Phase 1 of the issue management integration project implements milestone assignm
 
 ## 🔗 Related Issues
 
-**Epic:**
-
-- #2396 — Issue Management Agent Audit & Polish (Parent epic coordinating all phases)
-
-**Current Phase (Phase 1):**
-
-- PR #2455 — Phase 1: Extend issue triage handler with milestone assignment support
-
-**Related Projects:**
-
-- #2442 — Issue Triage Metadata Automation Framework (sister implementation)
-- #2390 — Phase 2: Optimize automation scripts for performance
-- #2391 — Phase 2: Create unified script orchestrator
-- #2392 — Phase 2: Create script registry documentation
-- #2385 — Phase 5: Add openspec status labels
-- #2386 — Phase 6: Enable and maintain test suite
-- #2393 — Phase 7: Project closeout
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish | 🟢 Open |
+| [#2455](../../../issues/2455) | task | Phase 1: Extend issue triage handler with milestone assignment support | 🟢 Open |
+| [#2442](../../../issues/2442) | task | Issue Triage Metadata Automation Framework | 🟢 Open |
+| [#2390](../../../issues/2390) | task | Phase 2: Optimize automation scripts for performance | ⏰ Planned |
+| [#2391](../../../issues/2391) | task | Phase 2: Create unified script orchestrator | ⏰ Planned |
+| [#2392](../../../issues/2392) | task | Phase 2: Create script registry documentation | ⏰ Planned |
+| [#2385](../../../issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
+| [#2386](../../../issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
+| [#2393](../../../issues/2393) | task | Phase 7: Project closeout | ⏰ Planned |
 
 ---
 
