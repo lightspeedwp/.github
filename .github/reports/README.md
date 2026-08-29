@@ -13,7 +13,6 @@ This directory contains all generated reports, analysis outputs, audit files, an
 
 ```
 .github/reports/
-├── agent-audit/     # Agent specification audits and standardization planning
 ├── analysis/        # Code analysis, technical audits, and investigation reports
 ├── audits/          # One-time audit outputs (compliance, schema validation, system audits)
 ├── implementation/  # Implementation tracking, completion summaries, and rollout reports
@@ -32,16 +31,6 @@ This directory contains all generated reports, analysis outputs, audit files, an
 ```
 
 ## Subdirectory Descriptions
-
-### agent-audit/
-
-**Purpose:** Agent specification and standardization audits including coverage analysis, naming conventions, and implementation action plans.
-
-**Examples:**
-
-- `AGENT_SPEC_AUDIT_REPORT.md` — Comprehensive audit of agent specs vs implementations
-- `AGENT_SPEC_ACTION_PLAN.md` — Prioritized roadmap for spec creation and cross-referencing
-- `AGENT_NAMING_CONVENTIONS.md` — Standards for naming agent folders and spec files
 
 ### analysis/
 
