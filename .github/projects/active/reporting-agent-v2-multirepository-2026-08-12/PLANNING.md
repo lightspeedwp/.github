@@ -1,5 +1,5 @@
 ---
-file_type: planning
+file_type: "documentation"
 title: "Reporting Agent v2 Phase 6.2 — Staged Rollout & Canary Deployment"
 description: "Three-phase rollout plan for Reporting Agent v2 with staged deployment, canary validation, monitoring, and rollback criteria."
 created_date: "2026-08-29"
@@ -56,7 +56,7 @@ Deliver a low-risk, three-day rollout for Reporting Agent v2 using staged deploy
 
 - [ ] Zero Sev1/Sev2 issues
 - [ ] Success rate >= 99%
-- [ ] P95 execution time within agreed baseline tolerance
+- [ ] P95 execution time <= 120% of v1 baseline
 
 ### Phase 2: Canary (1-2 Agents Using v2)
 
@@ -98,8 +98,8 @@ Deliver a low-risk, three-day rollout for Reporting Agent v2 using staged deploy
 | --- | --- | --- | --- |
 | Success rate | >= 99% | >= 99% | >= 99% |
 | Error rate | <= 1% | <= 1% | <= 1% |
-| P95 runtime | Within baseline tolerance | Within baseline tolerance | Within baseline tolerance |
-| Retry volume | No abnormal spike | No abnormal spike | No abnormal spike |
+| P95 runtime | <= 120% of v1 baseline | <= 120% of v1 baseline | <= 120% of v1 baseline |
+| Retry volume | <= 150% of v1 baseline | <= 150% of v1 baseline | <= 150% of v1 baseline |
 | Downstream failures | 0 | 0 | 0 |
 
 ## Rollback Criteria
@@ -107,7 +107,7 @@ Deliver a low-risk, three-day rollout for Reporting Agent v2 using staged deploy
 Trigger immediate rollback to v1 if any of the following occur:
 
 - Sev1 incident at any point during canary or full rollout
-- Error rate > 2% sustained for 15 minutes
+- Error rate > 1% sustained for 15 minutes
 - P95 runtime degradation > 30% sustained for 30 minutes
 - Repeated downstream workflow breakage attributable to v2 output
 
