@@ -200,6 +200,16 @@ describe("handle-needs-triage", () => {
     });
   });
 
+  describe("detectArea", () => {
+    it("should expose backward-compatible alias for inferArea", () => {
+      const issue = {
+        title: "GitHub Actions workflow failing",
+        body: "The CI pipeline needs fixing",
+      };
+      expect(handler.detectArea(issue)).toEqual(handler.inferArea(issue));
+    });
+  });
+
   describe("suggestAssignee", () => {
     it("should suggest ashleyshaw for ci area", () => {
       const areaInference = [{ area: "area:ci", confidence: 0.95 }];
