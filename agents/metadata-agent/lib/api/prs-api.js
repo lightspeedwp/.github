@@ -128,6 +128,9 @@ class PRsAPI {
     );
 
     const pullRequest = response?.data || response;
+    if (pullRequest === null) {
+      return null;
+    }
 
     return {
       number: pullRequest.number,
