@@ -240,15 +240,15 @@ Anomalies detected`;
     });
 
     test("parallel execution should improve multi-repo performance", () => {
-      // Sequential: 10 repos × 1.75 min = 17.5 min
-      // Parallel (4 jobs): ~5 minutes
+      // Sequential: 10 repos × 1.75 min = 17.5 min = 1,050,000 ms
+      // Parallel (4 jobs): ~5 minutes = 300,000 ms
 
-      const sequential = 10 * 1750;
-      const parallel = 5 * 60 * 1000;
+      const sequential = 10 * 1.75 * 60 * 1000; // 10 repos × 1.75 min in ms
+      const parallel = 5 * 60 * 1000; // 5 min in ms
 
       const speedup = sequential / parallel;
 
-      expect(speedup).toBeGreaterThan(2); // At least 2x faster
+      expect(speedup).toBeGreaterThan(2); // At least 2x faster (should be ~3.5x)
     });
   });
 
