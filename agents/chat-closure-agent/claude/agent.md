@@ -1,7 +1,7 @@
 ---
+file_type: documentation
 title: "Chat Closure Agent — Claude"
 description: "Claude provider implementation for the Chat Closure Agent"
-provider: claude
 agent_slug: chat-closure-agent
 agent_name: Chat Closure Agent (Claude)
 status: active
