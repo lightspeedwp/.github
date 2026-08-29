@@ -184,7 +184,7 @@ function testFooterFormat(filePath) {
 function testFooterFromConfig(filePath, category) {
   try {
     const configContent = fs.readFileSync(CONFIG.quirkyFootersPath, "utf8");
-    const config = yaml.load(configContent);
+    const config = load(configContent);
 
     const categoryConfig = config.categories?.[category];
     if (!categoryConfig) {

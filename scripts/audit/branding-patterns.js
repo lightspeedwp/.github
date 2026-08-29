@@ -47,7 +47,7 @@ function extractFrontmatter(content) {
   if (!match) return null;
 
   try {
-    return yaml.load(match[1]);
+    return load(match[1]);
   } catch (_e) {
     return null;
   }
