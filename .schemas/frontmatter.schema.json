@@ -68,21 +68,12 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "active",
-            "deprecated",
-            "draft",
-            "experimental"
-          ],
+          "enum": ["active", "deprecated", "draft", "experimental"],
           "description": "Current status"
         },
         "stability": {
           "type": "string",
-          "enum": [
-            "stable",
-            "experimental",
-            "incubating"
-          ],
+          "enum": ["stable", "experimental", "incubating"],
           "description": "Maturity expectation"
         },
         "deprecated": {
@@ -125,9 +116,6 @@
       }
     }
   },
-  "discriminator": {
-    "propertyName": "file_type"
-  },
   "oneOf": [
     {
       "title": "AGENTS.md (Main Agents Index)",
@@ -164,11 +152,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title",
-        "description"
-      ],
+      "required": ["file_type", "title", "description"],
       "additionalProperties": true
     },
     {
@@ -185,11 +169,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title",
-        "description"
-      ],
+      "required": ["file_type", "title", "description"],
       "additionalProperties": true
     },
     {
@@ -203,10 +183,7 @@
       "properties": {
         "file_type": {
           "type": "string",
-          "enum": [
-            "agent",
-            "chatmode"
-          ],
+          "enum": ["agent", "chatmode"],
           "description": "File type identifier. 'chatmode' is deprecated and will be migrated to 'agent'."
         },
         "name": {
@@ -272,11 +249,7 @@
                 "default": false
               }
             },
-            "required": [
-              "label",
-              "agent",
-              "prompt"
-            ]
+            "required": ["label", "agent", "prompt"]
           },
           "description": "Handoff definitions for agent chaining (VS Code optional field)"
         },
@@ -312,20 +285,12 @@
         },
         "target": {
           "type": "string",
-          "enum": [
-            "vscode",
-            "github-copilot",
-            "cli"
-          ],
+          "enum": ["vscode", "github-copilot", "cli"],
           "description": "Target environment for the agent"
         },
         "visibility": {
           "type": "string",
-          "enum": [
-            "public",
-            "private",
-            "internal"
-          ],
+          "enum": ["public", "private", "internal"],
           "description": "Agent visibility scope"
         },
         "metadata": {
@@ -361,9 +326,7 @@
           "description": "Response length limitations (legacy chatmode field)"
         }
       },
-      "required": [
-        "description"
-      ],
+      "required": ["description"],
       "additionalProperties": true
     },
     {
@@ -377,9 +340,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type"
-      ],
+      "required": ["file_type"],
       "additionalProperties": true
     },
     {
@@ -393,9 +354,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type"
-      ],
+      "required": ["file_type"],
       "additionalProperties": true
     },
     {
@@ -409,9 +368,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type"
-      ],
+      "required": ["file_type"],
       "additionalProperties": true
     },
     {
@@ -428,10 +385,7 @@
           "const": true
         }
       },
-      "required": [
-        "file_type",
-        "title"
-      ],
+      "required": ["file_type", "title"],
       "additionalProperties": true
     },
     {
@@ -448,11 +402,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title",
-        "description"
-      ],
+      "required": ["file_type", "title", "description"],
       "additionalProperties": true
     },
     {
@@ -500,10 +450,7 @@
         },
         "mode": {
           "type": "string",
-          "enum": [
-            "agent",
-            "ask"
-          ],
+          "enum": ["agent", "ask"],
           "description": "Execution style for Copilot"
         },
         "domain": {
@@ -519,10 +466,7 @@
           "$ref": "#/definitions/commonFields/properties/replacement"
         }
       },
-      "required": [
-        "file_type",
-        "description"
-      ],
+      "required": ["file_type", "description"],
       "additionalProperties": true
     },
     {
@@ -536,10 +480,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title"
-      ],
+      "required": ["file_type", "title"],
       "additionalProperties": true
     },
     {
@@ -559,11 +500,7 @@
         },
         "mode": {
           "type": "string",
-          "enum": [
-            "ask",
-            "edit",
-            "agent"
-          ],
+          "enum": ["ask", "edit", "agent"],
           "description": "Copilot execution mode"
         },
         "model": {
@@ -590,10 +527,7 @@
           "$ref": "#/definitions/commonFields/properties/replacement"
         }
       },
-      "required": [
-        "file_type",
-        "description"
-      ],
+      "required": ["file_type", "description"],
       "additionalProperties": true
     },
     {
@@ -610,11 +544,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "name",
-        "description"
-      ],
+      "required": ["file_type", "name", "description"],
       "additionalProperties": true
     },
     {
@@ -628,10 +558,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title"
-      ],
+      "required": ["file_type", "title"],
       "additionalProperties": true
     },
     {
@@ -648,11 +575,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "name",
-        "description"
-      ],
+      "required": ["file_type", "name", "description"],
       "additionalProperties": true
     },
     {
@@ -666,10 +589,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title"
-      ],
+      "required": ["file_type", "title"],
       "additionalProperties": true
     },
     {
@@ -683,10 +603,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "file_type",
-        "title"
-      ],
+      "required": ["file_type", "title"],
       "additionalProperties": true
     },
     {
@@ -714,12 +631,7 @@
         },
         "mode": {
           "type": "string",
-          "enum": [
-            "instruction",
-            "conversation",
-            "template",
-            "information"
-          ],
+          "enum": ["instruction", "conversation", "template", "information"],
           "description": "Chatmode operational mode (deprecated)"
         },
         "tools": {
@@ -760,10 +672,7 @@
           "$ref": "#/definitions/commonFields/properties/replacement"
         }
       },
-      "required": [
-        "file_type",
-        "description"
-      ],
+      "required": ["file_type", "description"],
       "additionalProperties": true
     },
     {
@@ -783,11 +692,7 @@
         },
         "mode": {
           "type": "string",
-          "enum": [
-            "information",
-            "instruction",
-            "reference"
-          ],
+          "enum": ["information", "instruction", "reference"],
           "description": "Documentation type"
         },
         "domain": {
@@ -811,10 +716,7 @@
           "$ref": "#/definitions/commonFields/properties/last_updated"
         }
       },
-      "required": [
-        "file_type",
-        "description"
-      ],
+      "required": ["file_type", "description"],
       "additionalProperties": true
     }
   ],
@@ -826,20 +728,13 @@
       "description": "Audits JS/TS code for JSDoc coverage.",
       "version": "v0.2.0",
       "last_updated": "2025-10-22",
-      "owners": [
-        "lightspeedwp/maintainers"
-      ],
+      "owners": ["lightspeedwp/maintainers"],
       "status": "active",
       "category": "documentation",
       "domain": "generic",
       "stability": "stable",
-      "tags": [
-        "jsdoc",
-        "lint"
-      ],
-      "tools": [
-        "Read"
-      ]
+      "tags": ["jsdoc", "lint"],
+      "tools": ["Read"]
     },
     {
       "$schema": "schemas/frontmatter.schema.json",
@@ -848,11 +743,7 @@
       "applyTo": "includes/api/**/*.php",
       "domain": "security",
       "stability": "stable",
-      "tags": [
-        "security",
-        "rest",
-        "validation"
-      ]
+      "tags": ["security", "rest", "validation"]
     }
   ]
 }

@@ -1,13 +1,19 @@
 ---
+document_type: "FAQ"
 title: Label Validation FAQ
 description: Frequently asked questions about GitHub label validation, canonical labels, and troubleshooting.
 file_type: documentation
-version: v1.0.1
-last_updated: '2026-08-21'
+version: v1.0.2
+last_updated: '2026-08-27'
 author: LightSpeed Team
 maintainer: LightSpeed Team
 owners:
   - lightspeedwp
+openspec_status: "production"
+openspec_labels:
+  - "openspec:status/production"
+  - "openspec:domain/governance"
+  - "openspec:priority/medium"
 tags:
   - labels
   - validation
