@@ -23,7 +23,7 @@ This is a comprehensive 7-phase program to audit and polish the issue management
 
 ---
 
-## 🔗 Related Issues
+## Related Issues
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
