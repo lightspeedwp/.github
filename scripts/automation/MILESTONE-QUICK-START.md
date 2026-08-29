@@ -1,3 +1,18 @@
+---
+title: Milestone Management Scripts - Quick Start
+description: Quick reference guide for common milestone management tasks
+file_type: documentation
+created_date: 2026-08-29
+last_updated: "2026-08-29"
+authors:
+  - Claude (AI)
+tags:
+  - automation
+  - milestone-management
+  - quick-reference
+status: active
+---
+
 # Milestone Management Scripts - Quick Start
 
 ## 30-Second Setup

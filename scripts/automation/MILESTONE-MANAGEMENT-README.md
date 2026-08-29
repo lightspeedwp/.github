@@ -1,3 +1,19 @@
+---
+title: Milestone Management Scripts
+description: AI-enhanced scripts for bulk managing GitHub milestone assignments for issues
+file_type: documentation
+created_date: 2026-08-29
+last_updated: "2026-08-29"
+authors:
+  - Claude (AI)
+  - LightSpeed Team
+tags:
+  - automation
+  - milestone-management
+  - ai-enhancement
+status: active
+---
+
 # Milestone Management Scripts
 
 AI-enhanced scripts for bulk managing GitHub milestone assignments for issues.
