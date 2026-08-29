@@ -4,7 +4,7 @@ title: Phase 4 — Issue Lifecycle & Deprecated Workflow Cleanup
 description: Concrete execution plan for Phase 4 consolidations, taking the workflow count from 33 (post-Phase 3.3) to the original target of 25.
 metadata:
   created: 2026-07-29
-  updated: 2026-07-29
+  updated: 2026-08-29
   phase: 4
   status: in-progress
   epic: "#1227"
