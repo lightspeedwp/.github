@@ -39,6 +39,9 @@ const options = parseProductionArguments(args);
 function printResult(label, result) {
   const icon = result.success ? "✅" : "❌";
   console.log(`\n${icon} ${label}`);
+  if (!result.success && result.error) {
+    console.error(`Error: ${result.error}`);
+  }
   if (options.verbose) {
     console.log(JSON.stringify(result, null, 2));
   }
