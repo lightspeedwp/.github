@@ -240,6 +240,7 @@ jobs:
     permissions:
       checks: write
       pull-requests: read
+      issues: write
 
     steps:
       - name: Validate PR has required labels
