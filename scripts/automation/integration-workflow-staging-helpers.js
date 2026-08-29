@@ -146,7 +146,7 @@ function runPerformanceBench(environment, scenarios) {
 /**
  * Validates data integrity of staging environment
  */
-function validateDataIntegrity(environment, auditRules) {
+function validateDataIntegrity(environment, _auditRules) {
   const validation = {
     environment: environment.name,
     dataChecks: [],
