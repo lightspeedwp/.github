@@ -206,7 +206,21 @@ describe("handle-needs-triage", () => {
         title: "GitHub Actions workflow failing",
         body: "The CI pipeline needs fixing",
       };
+      expect(typeof handler.detectArea).toBe("function");
       expect(handler.detectArea(issue)).toEqual(handler.inferArea(issue));
+    });
+
+    it("should preserve inferArea error behaviour for invalid input", () => {
+      let inferAreaError;
+      try {
+        handler.inferArea();
+      } catch (error) {
+        inferAreaError = error;
+      }
+
+      expect(inferAreaError).toBeTruthy();
+      expect(() => handler.inferArea()).toThrow();
+      expect(() => handler.detectArea()).toThrow(inferAreaError.message);
     });
   });
 
