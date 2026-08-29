@@ -8,7 +8,7 @@
 
 import fs from "fs";
 import path from "path";
-import * as yaml from "js-yaml";
+import { load } from "js-yaml";
 
 /**
  * Load badge schema configuration
@@ -22,7 +22,7 @@ function loadBadgeSchema() {
     return null;
   }
   const content = fs.readFileSync(schemaPath, "utf-8");
-  return yaml.load(content);
+  return load(content);
 }
 
 /**

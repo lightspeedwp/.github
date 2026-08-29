@@ -19,8 +19,8 @@ Complete catalogue of all automation scripts used in issue and PR management wor
 
 - [Script Orchestrator](#script-orchestrator) — Unified entry point for all scripts
 - [Performance Baselines](#performance-baselines) — Execution times and resource usage
-- [Integration Points](#integration-points) — How scripts connect
-- [Troubleshooting](#troubleshooting) — Common issues and solutions
+- [Workflow Integration Points](#workflow-integration-points) — How scripts connect
+- [Troubleshooting Guide](#troubleshooting-guide) — Common issues and solutions
 
 ---
 

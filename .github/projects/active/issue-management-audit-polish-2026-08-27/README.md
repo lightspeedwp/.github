@@ -23,23 +23,6 @@ This is a comprehensive 7-phase program to audit and polish the issue management
 
 ---
 
-## 🔗 Related Issues
-
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish — Master coordination | 🟢 Open |
-| [#2383](../../../issues/2383) | task | Phase 3: Create Issue Management Orchestration Workflow | 🟢 Open |
-| [#2384](../../../issues/2384) | task | Phase 3: Update issues.agent.md v2.1 with openspec integration | 🟢 Open |
-| [#2385](../../../issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
-| [#2386](../../../issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
-| [#2387](../../../issues/2387) | task | Phase 4: Update documentation with openspec status | ⏰ Planned |
-| [#2390](../../../issues/2390) | task | Phase 2: Optimize automation scripts for performance | ⏰ Planned |
-| [#2391](../../../issues/2391) | task | Phase 2: Create unified script orchestrator | ⏰ Planned |
-| [#2392](../../../issues/2392) | task | Phase 2: Create script registry documentation | ⏰ Planned |
-| [#2393](../../../issues/2393) | task | Phase 7: Project closeout | ⏰ Planned |
-
----
-
 ## 📋 Quick Navigation
 
 ### Phase Documentation
@@ -82,6 +65,24 @@ Phase 7: Project Finalization      [                    ] 0%
 
 ---
 
+## 🔗 Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish | 🟢 Open |
+| [#2383](../../../issues/2383) | task | Phase 3: Create Issue Management Orchestration Workflow | 🟢 Open |
+| [#2384](../../../issues/2384) | task | Phase 3: Update issues.agent.md v2.1 with openspec integration | 🟢 Open |
+| [#2390](../../../issues/2390) | task | Phase 2: Optimize automation scripts for performance | ⏰ Planned |
+| [#2391](../../../issues/2391) | task | Phase 2: Create unified script orchestrator | ⏰ Planned |
+| [#2392](../../../issues/2392) | task | Phase 2: Create script registry documentation | ⏰ Planned |
+| [#2385](../../../issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
+| [#2386](../../../issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
+| [#2387](../../../issues/2387) | task | Phase 4: Update documentation with openspec status | ⏰ Planned |
+| [#2388](../../../issues/2388) | task | Phase 4: Create Issue Management Architecture Overview | ⏰ Planned |
+| [#2389](../../../issues/2389) | task | Phase 4: Create quick start guide | ⏰ Planned |
+| [#2393](../../../issues/2393) | task | Phase 7: Project closeout | ⏰ Planned |
+
+---
 
 ## 📈 Metrics & KPIs
 
@@ -196,7 +197,6 @@ Phase 7: Project Finalization      [                    ] 0%
 **Completion Target**: 2026-09-15
 
 ---
-
 
 **🚀 Ready for Phase 2 and 3 Implementation!**
 
