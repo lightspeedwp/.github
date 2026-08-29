@@ -41,7 +41,7 @@ This directory contains all automation, utility, and maintenance scripts for the
 ```mermaid
 graph TB
   accTitle: Scripts Architecture
-  accDescr: Flowchart diagram showing scripts architecture
+  accDescr: Top-down graph showing the scripts directory structure and key subfolders
     A[Scripts Directory] --> B[awesome-copilot/]
     A --> C[includes/]
     A --> D[json-validation/]
