@@ -3,21 +3,21 @@ name: Validate & Inject DoR/DoD Sections
 on:
   schedule:
     # Run daily at 8 AM UTC
-    - cron: '0 8 * * *'
+    - cron: "0 8 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Run in dry-run mode (no changes)'
+        description: "Run in dry-run mode (no changes)"
         required: false
-        default: 'true'
+        default: "true"
         type: choice
         options:
-          - 'true'
-          - 'false'
+          - "true"
+          - "false"
       limit:
-        description: 'Max issues to process'
+        description: "Max issues to process"
         required: false
-        default: '100'
+        default: "100"
 
 jobs:
   validate-dor-dod:
@@ -33,7 +33,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24'
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci --prefer-offline

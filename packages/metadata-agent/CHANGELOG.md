@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 #### Label Utilities (`label-utils.js`)
+
 - `parse()` — Parse label string into family and name components
 - `validate()` — Validate label against canonical set with suggestions
 - `suggest()` — Find similar canonical labels for typo correction
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `getAllCanonical()` — Get all canonical labels
 
 #### API Client (`api-client.js`)
+
 - `createClient()` — Create authenticated GitHub API client
 - `authenticateClient()` — Create and authenticate in one step
 - `GitHubAPIClient.authenticate()` — Verify token and get user info
@@ -43,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GitHubAPIClient.retry()` — Retry with exponential backoff
 
 #### Validation (`validation.js`)
+
 - `validateTier1()` — Check blocker validation rules
   - All issues have type label
   - No conflicting labels
@@ -59,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `getRecommendation()` — Get action recommendation for releases
 
 #### Confidence Scorer (`confidence-scorer.js`)
+
 - `createScorer()` — Create confidence scorer instance
 - `ConfidenceScorer.calculate()` — Calculate confidence score (0-100)
 - `ConfidenceScorer.getThreshold()` — Get confidence threshold
@@ -67,6 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ConfidenceScorer.assess()` — Get detailed assessment with reasoning
 
 #### Error Handler (`error-handler.js`)
+
 - `errorHandler.catch()` — Classify error and get recovery strategy
 - `errorHandler.retry()` — Retry with exponential backoff
 - `errorHandler.suggest()` — Get actionable error recovery suggestions
@@ -74,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Error type classification (authentication, authorization, rate_limit, not_found, validation, conflict, network, unknown)
 
 #### Main Module (`index.js`)
+
 - Export all modules via main entry point
 - Provide unified `api` namespace for convenience
 - Version export
@@ -114,11 +120,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This is release candidate 1 (1.0.0-rc.1) built during Phase 5B.4: Build npm Package.
 
 **Scope:**
+
 - Shared npm package for use in both control plane agent and portable agents
 - Foundation for Phase 5B.5 (tests) and Phase 5C (portable agent)
 - Enables code reuse across GitHub control plane and WordPress block repositories
 
 **Status:**
+
 - ✅ Package structure created
 - ✅ Core modules implemented (6 modules)
 - ✅ Documentation completed
@@ -129,6 +137,7 @@ This is release candidate 1 (1.0.0-rc.1) built during Phase 5B.4: Build npm Pack
 - ⏳ npm publish (Phase 5B.5)
 
 **Next Steps:**
+
 1. Phase 5B.5: Build test suite (unit, integration, E2E)
 2. Phase 5C: Create portable agent using this package
 3. Phase 5D: Create portable agent extensions for block repos
@@ -138,27 +147,36 @@ This is release candidate 1 (1.0.0-rc.1) built during Phase 5B.4: Build npm Pack
 ## Key Design Decisions
 
 ### Three-Tier Validation
+
 Validation is split into three tiers to match release workflows:
+
 - **Tier 1 (Blockers):** Must pass for patch/minor/major releases
 - **Tier 2 (Warnings):** Should pass for minor/major releases
 - **Tier 3 (Info):** Never blocks, informational only
 
 ### Confidence Scoring
+
 Confidence scores (0-100) help determine when automated actions are safe:
+
 - Score >= threshold (default: 70) → auto-apply
 - Score < threshold → request human review
 
 ### Error Handling
+
 Errors are classified for automatic recovery:
+
 - Retriable errors (rate limit, timeout, 5xx) → auto-retry
 - Non-retriable errors (auth, validation, 4xx) → fail fast
 
 ### Module Exports
+
 Each module exports both:
+
 - Individual functions (for selective imports)
 - Namespace object (for convenience)
 
 Example:
+
 ```javascript
 // Selective import
 import { parse } from '@lightspeedwp/metadata-agent/label-utils';
@@ -179,6 +197,7 @@ import api from '@lightspeedwp/metadata-agent';
 - **Patch (0.0.X)** — Bug fixes, no API changes
 
 Current release: **1.0.0-rc.1** (Release Candidate 1)
+
 - Breaking changes may still occur before stable release
 - Internal APIs are not yet frozen
 - Feedback welcome for improvements
