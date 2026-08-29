@@ -114,12 +114,13 @@ function cacheSize() {
  */
 function parseRepoRef(repoRef) {
   if (typeof repoRef === "string") {
-    const [owner, repo] = repoRef.split("/");
-    if (!owner || !repo) {
+    const parts = repoRef.split("/");
+    if (parts.length !== 2 || !parts[0] || !parts[1]) {
       throw new Error(
         `Invalid repository reference "${repoRef}". Expected "owner/repo".`,
       );
     }
+    const [owner, repo] = parts;
     return { owner: owner.trim(), repo: repo.trim() };
   }
   if (repoRef && typeof repoRef === "object") {
@@ -720,12 +721,14 @@ function runAgent(context = {}) {
     case "save":
       return saveReport(options.content, options.filename, options.category);
 
-    case "cache:get":
+    case "cache:get": {
+      const cached = cacheGet(options.key);
       return {
         ok: true,
-        value: cacheGet(options.key),
-        hit: cacheGet(options.key) !== undefined,
+        value: cached,
+        hit: cached !== undefined,
       };
+    }
 
     case "cache:set":
       cacheSet(options.key, options.value, options.ttlMs);

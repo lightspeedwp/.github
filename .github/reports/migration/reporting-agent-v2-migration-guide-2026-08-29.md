@@ -216,4 +216,4 @@ interface StorageBackend {
 
 - `agents/reporting.agent.md` — Agent specification
 - `.github/projects/active/reporting-agent-v2-multirepository-2026-08-12/PLANNING.md` — Phase 2 plan
-- `scripts/agents/__tests__/reporting.agent.test.js` — Regression test suite (20+ tests)
+- `scripts/agents/__tests__/reporting.agent.test.js` — Regression test suite (49 tests)

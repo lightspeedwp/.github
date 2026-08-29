@@ -272,6 +272,10 @@ describe("parseRepoRef", () => {
     expect(() => agent.parseRepoRef("no-slash")).toThrow();
   });
 
+  it("throws on three-segment string", () => {
+    expect(() => agent.parseRepoRef("owner/org/repo")).toThrow();
+  });
+
   it("throws on object missing owner", () => {
     expect(() => agent.parseRepoRef({ repo: "widget" })).toThrow();
   });
