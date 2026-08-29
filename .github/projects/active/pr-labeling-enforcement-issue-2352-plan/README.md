@@ -127,7 +127,7 @@ Phase 5: Training (1–2d)
 
 ---
 
-## 🔗 Related Issues & Work
+## Related Issues
 
 ### Critical Path (Must Complete in Sequence)
 - **#2352** — Enforce PR labeling requirement (Meta issue)
