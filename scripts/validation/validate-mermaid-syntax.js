@@ -190,7 +190,7 @@ async function main() {
     a.startsWith("--changed-files-list="),
   );
   const isVendorPath = (filePath) =>
-    /\/(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
+    /(^|\/)(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
       filePath,
     );
   const targetFiles = (
