@@ -521,9 +521,17 @@ Examples:
       knownOptionIndices.add(i);
     }
   }
-  CONFIG.targetFiles = args.filter(
-    (_, index) => !knownOptionIndices.has(index),
-  );
+  const rawTargets = args.filter((_, index) => !knownOptionIndices.has(index));
+  const unknownFlags = rawTargets.filter((arg) => arg.startsWith("--"));
+
+  if (unknownFlags.length > 0) {
+    console.error(
+      `Unknown option(s): ${unknownFlags.join(", ")}. Use --help for supported options.`,
+    );
+    process.exit(1);
+  }
+
+  CONFIG.targetFiles = rawTargets;
 
   if (altMode) {
     runAltValidation();

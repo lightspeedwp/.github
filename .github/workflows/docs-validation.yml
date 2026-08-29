@@ -63,10 +63,10 @@ jobs:
       - name: Check for Mermaid diagrams in changed files
         id: has_diagrams
         if: steps.changed.outputs.has_changes == 'true'
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
-          ${{ steps.changed.outputs.files }}
-          CHANGED_FILES_EOF
+          printf '%s\n' "$CHANGED_FILES" > "$RUNNER_TEMP/changed-md-files.txt"
           result=$(bash scripts/check-mermaid-diagrams.sh < "$RUNNER_TEMP/changed-md-files.txt")
           echo "result=$result" >> "$GITHUB_OUTPUT"
 
@@ -77,30 +77,30 @@ jobs:
       - name: Validate diagram syntax
         id: syntax
         if: steps.has_diagrams.outputs.result == 'true'
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
-          ${{ steps.changed.outputs.files }}
-          CHANGED_FILES_EOF
+          printf '%s\n' "$CHANGED_FILES" > "$RUNNER_TEMP/changed-md-files.txt"
           node scripts/validation/validate-mermaid-syntax.js --changed-files-list="$RUNNER_TEMP/changed-md-files.txt"
         continue-on-error: true
 
       - name: Validate accessibility (accTitle / accDescr)
         id: accessibility
         if: steps.has_diagrams.outputs.result == 'true'
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
-          ${{ steps.changed.outputs.files }}
-          CHANGED_FILES_EOF
+          printf '%s\n' "$CHANGED_FILES" > "$RUNNER_TEMP/changed-md-files.txt"
           node scripts/validation/validate-mermaid-accessibility.js --changed-files-list="$RUNNER_TEMP/changed-md-files.txt"
         continue-on-error: true
 
       - name: Validate colour contrast (WCAG 2.2 AA)
         id: contrast
         if: steps.has_diagrams.outputs.result == 'true'
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
-          ${{ steps.changed.outputs.files }}
-          CHANGED_FILES_EOF
+          printf '%s\n' "$CHANGED_FILES" > "$RUNNER_TEMP/changed-md-files.txt"
           node scripts/validation/validate-mermaid-colour-contrast.js --changed-files-list="$RUNNER_TEMP/changed-md-files.txt"
         continue-on-error: true
 
