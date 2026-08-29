@@ -36,7 +36,7 @@ Issue: [#1739](https://github.com/lightspeedwp/.github/issues/1739) · Epic: [#1
 - **Agents with tools but no permissions:** 5
 - **Agents with permissions but no tools:** 21 (largest non-compliant group)
 - **Three dominant tool patterns identified** (see §3)
-- **Non-compliant agents requiring remediation:** 27
+- **Non-compliant agents requiring remediation:** 39
 
 ---
 
@@ -288,7 +288,7 @@ These agents have the riskiest configuration: a wildcard GitHub permission paire
 
 These agents declare permissions but omit tools entirely. Each needs a `tools` list added that reflects its actual operational surface.
 
-`adr`, `ai-readiness-estimator`, `changelog`, `chat-closure`, `client-website-discovery`, `design-partner`, `harvest-analytical`, `linear-advisor`, `metadata`, `pagespeed`, `pr-creation`, `prd-factory-planner`, `prd`, `proposal-desk`, `tour-operator-config`, `website-content-strategist`, `website-scope-estimator`, `woo-config`, `wordpress`, `wp-config`, `zendesk-support`
+`adr`, `ai-readiness-estimator`, `changelog`, `chat-closure`, `client-website-discovery-assistant`, `client-website-discovery`, `design-partner`, `harvest-analytical`, `linear-advisor`, `metadata`, `pagespeed`, `pr-creation`, `prd-factory-planner`, `prd`, `proposal-desk`, `tour-operator-config`, `website-content-strategist`, `website-scope-estimator`, `woo-config`, `wordpress`, `wp-config`, `zendesk-support`
 
 ---
 
@@ -321,7 +321,7 @@ The 31-item generic tool list originated in the early scaffold for "agentic" age
 
 ### 5.2 Mode agents are the closest to compliant
 
-The four `mode-*` agents and `mode-thinking` demonstrate the intended pattern: a small number of real, named Copilot tools (`codebase`, `fetch`, `search`, `edit`, `bash`). The gap is that `mode-thinking` is the only one that also declares `permissions`.
+The `mode-*` agents (`mode-thinking`, `mode-demonstrate-understanding`, `mode-document-reviewer`, `mode-prd`) and `task-researcher` demonstrate the intended pattern: a small number of real, named Copilot tools (`codebase`, `fetch`, `search`, `edit`, `bash`). The gap is that `mode-thinking` is the only one that also declares `permissions`.
 
 ### 5.3 Permissions vocabulary is not standardised
 
