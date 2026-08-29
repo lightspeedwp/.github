@@ -107,7 +107,9 @@
     "test": "npm run test:js",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "contributors:check": "all-contributors check"
+    "contributors:check": "all-contributors check",
+    "triage:analyze": "node scripts/triage-issues-needs-triage.js",
+    "triage:apply": "node scripts/apply-triage-improvements.js"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",
