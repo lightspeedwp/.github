@@ -84,6 +84,32 @@ npm run validate:frontmatter
 - **No `references` frontmatter field:** Use inline links or footer sections instead.
 - **Instruction files:** Follow the pattern in `.github/instructions/instructions.instructions.md`—frontmatter + role declaration + Overview + General Rules + Detailed Guidance + Examples + Validation + References.
 
+## Label Creation Rules (CRITICAL)
+
+When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL labels MUST be from the canonical set in `.github/labels.yml` with their required family prefix**.
+
+### Valid Label Examples (Prefixed)
+
+- `type:bug`, `type:feature`, `type:task`, `type:documentation`
+- `status:needs-triage`, `status:in-progress`, `status:done`
+- `priority:critical`, `priority:important`, `priority:normal`
+- `area:ci`, `area:docs`, `area:security`, `area:labels`
+- `meta:needs-changelog`, `meta:has-pr`
+
+### INVALID Label Examples (Bare — DO NOT USE)
+
+- ❌ `bug` — use `type:bug`
+- ❌ `feature` — use `type:feature`
+- ❌ `urgent` — use `priority:critical`
+- ❌ `ci` — use `area:ci`
+
+### Reference
+
+- Source of truth: `.github/labels.yml` (158 canonical labels)
+- Labeling guide: `docs/LABELING.md`
+- Label taxonomy: `docs/LABEL_STRATEGY.md`
+- Root cause analysis: `.github/projects/active/label-prefix-audit-2026-08-05/`
+
 ## Repository Boundaries
 
 | Asset Type | Belongs In |
