@@ -8,6 +8,7 @@ status: "active"
 domain: "governance"
 stability: "stable"
 tags: ["agents", "naming-conventions", "standards", "reference"]
+owners: ["lightspeedwp/maintainers"]
 ---
 
 # Agent Naming Conventions

@@ -4,10 +4,11 @@ title: Agent Specification Audit Report
 description: Comprehensive audit of agent specs and implementation folder coverage
 created_date: "2026-08-29"
 last_updated: "2026-08-29"
-status: "complete"
+status: "active"
 domain: "governance"
 stability: "stable"
 tags: ["agents", "specifications", "audit", "documentation"]
+owners: ["lightspeedwp/maintainers"]
 ---
 
 # Agent Specification Audit Report

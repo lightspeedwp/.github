@@ -4,11 +4,12 @@ title: Agent Specification Audit Report
 description: Comprehensive audit of agent spec files and their corresponding implementations
 created_date: "2026-08-29"
 last_updated: "2026-08-29"
-status: "complete"
+status: "active"
 domain: "governance"
 stability: "stable"
 tags: ["agents", "specifications", "audit", "gap-analysis"]
 version: "v1.0"
+owners: ["lightspeedwp/maintainers"]
 ---
 
 # Agent Specification Audit Report

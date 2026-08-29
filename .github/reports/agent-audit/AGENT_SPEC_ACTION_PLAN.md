@@ -9,6 +9,7 @@ priority: "high"
 domain: "governance"
 stability: "stable"
 tags: ["agents", "specifications", "action-plan", "implementation"]
+owners: ["lightspeedwp/maintainers"]
 ---
 
 # Agent Specification Audit - Action Plan
