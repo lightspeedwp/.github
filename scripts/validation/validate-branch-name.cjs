@@ -243,19 +243,26 @@ function hasFlag(flag) {
  * Print the validation pattern to console.
  */
 function printPattern() {
-  console.log('Branch Naming Pattern:');
-  console.log(`  Regex: ${BRANCH_PATTERN.source}`);
+  console.log('Branch Naming Patterns:');
   console.log('');
-  console.log('Pattern explanation:');
-  console.log('  ^           - Start of string');
-  console.log(`  (${ALLOWED_TYPES.join('|')}) - Type prefix (required)`);
-  console.log('  /           - Literal forward slash');
-  console.log('  ([a-z0-9-]+) - Scope (lowercase, hyphens)');
-  console.log('  -           - Literal hyphen');
-  console.log('  ([a-z0-9-]+) - Title (lowercase, hyphens)');
-  console.log('  $           - End of string');
+  console.log('Standard branches (all types except "release"):');
+  console.log(`  Regex: ${BRANCH_PATTERN_STANDARD.source}`);
+  console.log('  Format: {type}/{scope}-{title}');
+  console.log(`  Allowed types: ${ALLOWED_TYPES.filter(t => t !== 'release').join(', ')}`);
   console.log('');
-  console.log('Valid example: feat/my-feature-name');
+  console.log('Release branches (special rules):');
+  console.log(`  Semver regex:   ${BRANCH_PATTERN_RELEASE_SEMVER.source}`);
+  console.log(`  Standard regex: ${BRANCH_PATTERN_RELEASE_STANDARD.source}`);
+  console.log('  Accepted formats:');
+  console.log('    release/v1.2.3  (semantic version with "v" prefix)');
+  console.log('    release/1.2.3   (semantic version without prefix)');
+  console.log('    release/{scope}-{title}  (standard format)');
+  console.log('');
+  console.log('Valid examples:');
+  console.log('  feat/my-feature-name');
+  console.log('  fix/validation-bug');
+  console.log('  release/v1.2.3');
+  console.log('  release/1.2.3-beta');
   console.log('Invalid example: feat/myFeatureName (uppercase not allowed)');
 }
 
@@ -317,8 +324,12 @@ function main() {
 
   if (process.env.DEBUG_VALIDATION) {
     console.error('[DEBUG] branchName:', branchName);
-    console.error('[DEBUG] BRANCH_PATTERN:', BRANCH_PATTERN);
-    console.error('[DEBUG] Pattern matches:', BRANCH_PATTERN.test(branchName));
+    console.error('[DEBUG] BRANCH_PATTERN_STANDARD:', BRANCH_PATTERN_STANDARD);
+    console.error('[DEBUG] BRANCH_PATTERN_RELEASE_SEMVER:', BRANCH_PATTERN_RELEASE_SEMVER);
+    console.error('[DEBUG] BRANCH_PATTERN_RELEASE_STANDARD:', BRANCH_PATTERN_RELEASE_STANDARD);
+    console.error('[DEBUG] Standard match:', BRANCH_PATTERN_STANDARD.test(branchName));
+    console.error('[DEBUG] Release semver match:', BRANCH_PATTERN_RELEASE_SEMVER.test(branchName));
+    console.error('[DEBUG] Release standard match:', BRANCH_PATTERN_RELEASE_STANDARD.test(branchName));
   }
 
   if (!branchName) {
