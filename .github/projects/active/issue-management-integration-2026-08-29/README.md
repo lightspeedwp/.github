@@ -14,6 +14,18 @@ scope: integration-research-refactoring
 
 ---
 
+## 🔗 Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish | 🟢 Open |
+| [#2442](../../../issues/2442) | task | Issue Triage Metadata Automation Framework | 🟢 Open |
+| [#2390](../../../issues/2390) | task | Phase 2: Optimize automation scripts for performance | ⏰ Planned |
+| [#2391](../../../issues/2391) | task | Phase 2: Create unified script orchestrator | ⏰ Planned |
+| [#2392](../../../issues/2392) | task | Phase 2: Create script registry documentation | ⏰ Planned |
+
+---
+
 ## Quick Status
 
 | Component | Status | Notes |
