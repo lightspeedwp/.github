@@ -78,7 +78,7 @@ class BranchesAPI {
           owner,
           repo,
           per_page: perPage,
-          protected: protectedOnly,
+          ...(protectedOnly ? { protected: true } : {}),
         }),
       "fetch branches",
       fallback,
