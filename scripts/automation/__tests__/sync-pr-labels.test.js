@@ -1,112 +1,16 @@
 /**
- * Pure function implementations for sync-pr-labels testing
- * Extracted from production module to avoid ES module complexity with Jest.
- * These test the core label synchronization logic against production behavior.
+ * Sync PR Labels Tests
+ * Tests import production helper functions instead of duplicating them
  */
 
-function extractPRs(text) {
-  const prs = [];
-  const regex = /#(\d+)/g;
-  let match;
-  while ((match = regex.exec(text)) !== null) {
-    prs.push(parseInt(match[1]));
-  }
-  return [...new Set(prs)];
-}
-
-function validatePR(prNumber) {
-  if (!prNumber || typeof prNumber !== "number") {
-    return { valid: false, reason: "Invalid PR number" };
-  }
-  if (prNumber < 1) {
-    return { valid: false, reason: "PR number must be positive" };
-  }
-  if (prNumber > 999999) {
-    return { valid: false, reason: "PR number exceeds maximum" };
-  }
-  return { valid: true };
-}
-
-function determineLabelAction(hasValidPR) {
-  return {
-    shouldAdd: hasValidPR,
-    shouldRemove: !hasValidPR,
-    label: "meta:has-pr",
-  };
-}
-
-function buildSyncConfig(options = {}) {
-  return {
-    dryRun: options.dryRun || false,
-    verbose: options.verbose || false,
-    issueNumber: options.issueNumber || null,
-    format: options.format || "json",
-    output: options.output || ".github/reports",
-  };
-}
-
-function processIssue(issue, config) {
-  const changes = {
-    issueNumber: issue.number,
-    currentLabels: issue.labels || [],
-    prNumbers: extractPRs(issue.body || ""),
-    validPRs: [],
-    invalidPRs: [],
-    labelsToAdd: [],
-    labelsToRemove: [],
-  };
-
-  for (const prNum of changes.prNumbers) {
-    const validation = validatePR(prNum);
-    if (validation.valid) {
-      changes.validPRs.push(prNum);
-    } else {
-      changes.invalidPRs.push({ number: prNum, reason: validation.reason });
-    }
-  }
-
-  const hasValidPR = changes.validPRs.length > 0;
-  const action = determineLabelAction(hasValidPR);
-
-  if (
-    action.shouldAdd &&
-    !changes.currentLabels.some((l) => l.name === action.label)
-  ) {
-    changes.labelsToAdd.push(action.label);
-  }
-
-  if (
-    action.shouldRemove &&
-    changes.currentLabels.some((l) => l.name === action.label)
-  ) {
-    changes.labelsToRemove.push(action.label);
-  }
-
-  return changes;
-}
-
-function generateReport(processedIssues, config) {
-  const report = {
-    config,
-    timestamp: new Date().toISOString(),
-    issues: processedIssues,
-    summary: {
-      totalIssues: processedIssues.length,
-      issuesWithPRs: processedIssues.filter((i) => i.validPRs.length > 0)
-        .length,
-      labelsAdded: processedIssues.reduce(
-        (sum, i) => sum + i.labelsToAdd.length,
-        0,
-      ),
-      labelsRemoved: processedIssues.reduce(
-        (sum, i) => sum + i.labelsToRemove.length,
-        0,
-      ),
-      errors: processedIssues.reduce((sum, i) => sum + i.invalidPRs.length, 0),
-    },
-  };
-  return report;
-}
+import {
+  extractPRs,
+  validatePR,
+  determineLabelAction,
+  buildSyncConfig,
+  processIssue,
+  generateReport,
+} from "../lib/sync-labels-helpers.js";
 
 describe("sync-pr-labels", () => {
   describe("extractPRs", () => {
