@@ -46,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Phase 4.3 Workflow Consolidation — Project Field Sync** — Unified `issue-fields-backfill.yml` and `issue-project-field-sync.yml` into a single `project-field-sync.yml` workflow. The new workflow supports `bulk` and `targeted` modes via a `workflow_dispatch` input, uses a consistent GitHub App token (`LS_APP_CLIENT_ID` / `LS_APP_PRIVATE_KEY`) across both modes (eliminating the PAT dependency in the former `issue-project-field-sync.yml`), and adds a `dry_run` mode for safe pre-production validation. `scripts/agents/includes/sync-issue-fields.cjs` updated to accept a `mode` parameter (`event` | `bulk`), exposing `runEvent` and `runBulk` as named exports. Net: −1 workflow. ([#1408](https://github.com/lightspeedwp/.github/issues/1408))
+
 ### Deprecated
 
 ### Security
