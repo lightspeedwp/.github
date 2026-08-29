@@ -1,9 +1,13 @@
 ---
-file_type: reference
+file_type: documentation
 title: Agent Naming Conventions
 description: Standards for naming agent folders, spec files, and related assets
-date: "2026-08-29"
-status: "reference"
+created_date: "2026-08-29"
+last_updated: "2026-08-29"
+status: "active"
+domain: "governance"
+stability: "stable"
+tags: ["agents", "naming-conventions", "standards", "reference"]
 ---
 
 # Agent Naming Conventions

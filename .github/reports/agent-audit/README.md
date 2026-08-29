@@ -1,10 +1,13 @@
 ---
-file_type: report
+file_type: documentation
 title: Agent Specification Audit Report
 description: Comprehensive audit of agent specs and implementation folder coverage
-date: "2026-08-29"
+created_date: "2026-08-29"
+last_updated: "2026-08-29"
 status: "complete"
-category: "agent-audit"
+domain: "governance"
+stability: "stable"
+tags: ["agents", "specifications", "audit", "documentation"]
 ---
 
 # Agent Specification Audit Report

@@ -1,10 +1,14 @@
 ---
-file_type: audit-report
+file_type: documentation
 title: Agent Specification Audit Report
 description: Comprehensive audit of agent spec files and their corresponding implementations
-date: "2026-08-29"
-audit_version: "v1.0"
+created_date: "2026-08-29"
+last_updated: "2026-08-29"
 status: "complete"
+domain: "governance"
+stability: "stable"
+tags: ["agents", "specifications", "audit", "gap-analysis"]
+version: "v1.0"
 ---
 
 # Agent Specification Audit Report

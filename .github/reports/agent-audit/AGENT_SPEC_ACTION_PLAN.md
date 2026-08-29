@@ -1,10 +1,14 @@
 ---
-file_type: action-plan
+file_type: documentation
 title: Agent Specification Audit - Action Plan
 description: Prioritized action plan to resolve agent spec and implementation gaps
-date: "2026-08-29"
+created_date: "2026-08-29"
+last_updated: "2026-08-29"
 status: "draft"
 priority: "high"
+domain: "governance"
+stability: "stable"
+tags: ["agents", "specifications", "action-plan", "implementation"]
 ---
 
 # Agent Specification Audit - Action Plan
