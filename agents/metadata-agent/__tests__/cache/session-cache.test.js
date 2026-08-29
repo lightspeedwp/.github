@@ -63,6 +63,12 @@ describe("SessionCache", () => {
       expect(cache.get("k1")).toBe(null);
     });
 
+    test("throws when custom ttl is invalid", () => {
+      expect(() => cache.set("k1", "value", { ttlMs: 0 })).toThrow(
+        "ttlMs must be a positive integer",
+      );
+    });
+
     test("uses lru eviction when capacity is exceeded", () => {
       cache.set("a", 1);
       cache.set("b", 2);
@@ -81,6 +87,17 @@ describe("SessionCache", () => {
 
       expect(cache.size()).toBe(2);
       expect(cache.get("a")).toBe(3);
+    });
+
+    test("updating existing key refreshes lru recency", () => {
+      cache.set("a", 1);
+      cache.set("b", 2);
+      cache.set("a", 3);
+      cache.set("c", 4);
+
+      expect(cache.get("b")).toBe(null);
+      expect(cache.get("a")).toBe(3);
+      expect(cache.get("c")).toBe(4);
     });
 
     test("delete removes existing key", () => {
@@ -145,6 +162,11 @@ describe("SessionCache", () => {
       cache.set("a", 1);
       expect(cache.has("a")).toBe(true);
       expect(cache.has("b")).toBe(false);
+    });
+
+    test("has supports null values", () => {
+      cache.set("nullable", null);
+      expect(cache.has("nullable")).toBe(true);
     });
 
     test("metrics include hit rate and invalidation reasons", () => {

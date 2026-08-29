@@ -32,15 +32,19 @@ class SessionCache {
   }
 
   set(key, value, options = {}) {
-    const ttlMs = options.ttlMs || this.config.ttlMs;
+    const ttlMs = options.ttlMs ?? this.config.ttlMs;
+    if (!Number.isInteger(ttlMs) || ttlMs <= 0) {
+      throw new Error("ttlMs must be a positive integer");
+    }
     const expiresAt = Date.now() + ttlMs;
     const entry = { value, expiresAt };
 
     if (!this.entries.has(key)) {
       this._ensureCapacity();
+      this.entries.set(key, entry);
+    } else {
+      this._touch(key, entry);
     }
-
-    this.entries.set(key, entry);
     this.metrics.recordSet();
 
     return value;
@@ -49,7 +53,7 @@ class SessionCache {
   get(key) {
     const entry = this.entries.get(key);
 
-    if (!entry) {
+    if (entry === undefined) {
       this.metrics.recordMiss();
       return null;
     }
@@ -67,7 +71,20 @@ class SessionCache {
   }
 
   has(key) {
-    return this.get(key) !== null;
+    const entry = this.entries.get(key);
+    if (entry === undefined) {
+      return false;
+    }
+
+    if (this._isExpired(entry)) {
+      this.entries.delete(key);
+      this.metrics.recordExpiration();
+      this.metrics.recordMiss();
+      return false;
+    }
+
+    this._touch(key, entry);
+    return true;
   }
 
   delete(key, reason = "manual") {
@@ -88,13 +105,14 @@ class SessionCache {
   }
 
   invalidateByPrefix(prefix, reason = "prefix") {
-    if (!prefix) {
+    if (prefix === undefined || prefix === null) {
       return 0;
     }
+    const prefixString = String(prefix);
 
     let removed = 0;
     for (const key of this.entries.keys()) {
-      if (String(key).startsWith(prefix)) {
+      if (String(key).startsWith(prefixString)) {
         this.entries.delete(key);
         removed += 1;
       }
