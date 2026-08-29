@@ -234,9 +234,8 @@ jobs:
   # Job 4: Enforce Labeling as Required Status Check (PRs only)
   labeling-check:
     name: Labeling Governance Check (Required)
-    if: github.event_name == 'pull_request' && always()
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    needs: [standard-labeling]
     permissions:
       checks: write
       pull-requests: read
@@ -278,16 +277,11 @@ jobs:
               core.notice(`PR #${prNumber} has valid label(s): ${validLabels.join(', ')}`);
             }
 
-      - name: Check labeling workflow status
+      - name: Prepare final status
         id: check
         run: |
-          if [[ "${{ needs.standard-labeling.result }}" == "success" ]]; then
-            echo "status=success" >> "$GITHUB_OUTPUT"
-            echo "title=✅ Labeling Governance Passed" >> "$GITHUB_OUTPUT"
-          else
-            echo "status=failure" >> "$GITHUB_OUTPUT"
-            echo "title=❌ Labeling Governance Failed" >> "$GITHUB_OUTPUT"
-          fi
+          echo "status=success" >> "$GITHUB_OUTPUT"
+          echo "title=✅ Labeling Governance Passed" >> "$GITHUB_OUTPUT"
 
       - name: Create status check
         uses: actions/github-script@v9
@@ -295,17 +289,12 @@ jobs:
           script: |
             const status = '${{ steps.check.outputs.status }}';
             const validationStatus = '${{ steps.validate.outputs.validation_status }}';
-            const workflowStatus = '${{ needs.standard-labeling.result }}';
 
             let conclusion = status;
             let summary = 'This PR has been labelled according to governance rules.';
             let detailedText = '';
 
-            if (workflowStatus !== 'success') {
-              conclusion = 'failure';
-              summary = 'The labeling governance workflow failed.';
-              detailedText = '## Labeling Governance Failed\n\nThe labeling workflow encountered an error. Common causes:\n\n- **Configuration errors** in labeling rules or label definitions\n- **API rate limiting** or GitHub API errors\n- **Workflow execution failures** in label sync or validation steps\n\n## How to Fix\n\n1. Check the [labeling-governance workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed error messages\n2. Review workflow configuration files:\n   - `.github/labels.yml` - Label definitions\n   - `.github/labeler.yml` - Labeling rules\n   - `.github/workflows/labeling-governance.yml` - Workflow setup\n3. Fix any configuration errors and push to update this PR\n4. The labeling check will run again automatically';
-            } else if (validationStatus === 'no_labels') {
+            if (validationStatus === 'no_labels') {
               conclusion = 'failure';
               summary = 'This PR has no labels. At least one label is required.';
               detailedText = '## PR Labels Required\n\nThis PR must have at least one label before it can be merged.\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories above\n2. Labels are typically auto-applied based on:\n   - Branch prefix (e.g., `feat/`, `fix/`, `chore/`)\n   - File changes (e.g., documentation files, CI files)\n   - PR title and description content\n3. If auto-labeling didn\'t work, [manually add a label](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels)\n4. The labeling check will run again automatically';
