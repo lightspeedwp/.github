@@ -505,23 +505,40 @@ Examples:
   }
 
   const knownOptionIndices = new Set();
+  const baseIndex = args.indexOf("--base");
+  const headIndex = args.indexOf("--head");
+  const baseSha = baseIndex !== -1 ? args[baseIndex + 1] : null;
+  const headSha = headIndex !== -1 ? args[headIndex + 1] : null;
+
   for (let i = 0; i < args.length; i++) {
     if (
       args[i] === "--schema" ||
       args[i] === "--root" ||
-      args[i] === "--output"
+      args[i] === "--output" ||
+      args[i] === "--base" ||
+      args[i] === "--head"
     ) {
       knownOptionIndices.add(i);
       knownOptionIndices.add(i + 1);
-    } else if (
-      args[i] === "--help" ||
-      args[i] === "-h" ||
-      args[i] === "--alt"
-    ) {
+    } else if (args[i] === "--help" || args[i] === "-h" || args[i] === "--alt") {
       knownOptionIndices.add(i);
     }
   }
-  const rawTargets = args.filter((_, index) => !knownOptionIndices.has(index));
+
+  let rawTargets = args.filter((_, index) => !knownOptionIndices.has(index));
+
+  if (rawTargets.length === 0 && baseSha && headSha) {
+    const { execFileSync } = require("child_process");
+    rawTargets = execFileSync(
+      "git",
+      ["diff", "--name-only", baseSha, headSha, "--", "*.md", "*.yml", "*.yaml"],
+      { cwd: CONFIG.rootDir, encoding: "utf8", maxBuffer: 1024 * 1024 },
+    )
+      .trim()
+      .split("\n")
+      .filter(Boolean);
+  }
+
   const unknownFlags = rawTargets.filter((arg) => arg.startsWith("--"));
 
   if (unknownFlags.length > 0) {
