@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Markdown Linting Configuration — Issue #2428** — Fixed markdown linting to properly consume ignore patterns from `.markdownlintignore` file instead of maintaining duplicate hardcoded patterns. Updated `.markdownlint.config.cjs` to load ignore patterns from canonical `.markdownlintignore` file, correctly excluding `.github/projects/**/*.md`, `.github/reports/**/*.md`, and `.github/operations/**/*.md` from linting validation. ([#2428](https://github.com/lightspeedwp/.github/issues/2428), [#2448](https://github.com/lightspeedwp/.github/pull/2448))
+
 ### Removed
 
 ### Deprecated
