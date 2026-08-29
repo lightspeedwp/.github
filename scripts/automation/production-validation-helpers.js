@@ -23,11 +23,17 @@ function runDeploymentChecklist(options = {}) {
     "feature-flags-set",
   ];
 
-  const items =
-    options.items && options.items.length > 0 ? options.items : defaultItems;
+  const items = options.items !== undefined ? options.items : defaultItems;
 
   if (!Array.isArray(items)) {
     return { success: false, error: "Items must be an array" };
+  }
+
+  if (items.length === 0) {
+    return {
+      success: false,
+      error: "At least one checklist item must be specified",
+    };
   }
 
   const results = {};
