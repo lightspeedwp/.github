@@ -97,7 +97,12 @@ class RateLimiter extends RateLimitTracker {
    * Reset all rate limits to defaults
    */
   resetLimits() {
-    this.reset();
+    this.limits = {
+      core: { limit: 5000, remaining: 5000, reset: null },
+      graphql: { limit: 5000, remaining: 5000, reset: null },
+      search: { limit: 30, remaining: 30, reset: null },
+    };
+    this.lastUpdate = null;
   }
 }
 

@@ -173,7 +173,8 @@ describe("RetryStrategy", () => {
         quotaRemainingPercent: 5,
       });
 
-      expect(delay).toBe(1170);
+      const expectedDelay = 100 * 2 * 3 * (1 + 0.95);
+      expect(delay).toBeCloseTo(expectedDelay, 0);
     });
 
     test("handles missing response headers", () => {

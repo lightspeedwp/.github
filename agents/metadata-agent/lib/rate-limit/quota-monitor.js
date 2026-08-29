@@ -52,15 +52,19 @@ class QuotaMonitor {
     const statuses = Object.values(RATE_LIMIT_TYPES).map((type) =>
       this.getStatus(type, requiredRequests),
     );
+    const byType = statuses.reduce((acc, status) => {
+      acc[status.type] = status;
+      return acc;
+    }, {});
 
-    const bottleneck = statuses.sort(
+    const bottleneck = [...statuses].sort(
       (a, b) => a.percentage - b.percentage || a.remaining - b.remaining,
     )[0];
 
     return {
-      core: this.getStatus(RATE_LIMIT_TYPES.CORE, requiredRequests),
-      graphql: this.getStatus(RATE_LIMIT_TYPES.GRAPHQL, requiredRequests),
-      search: this.getStatus(RATE_LIMIT_TYPES.SEARCH, requiredRequests),
+      core: byType[RATE_LIMIT_TYPES.CORE],
+      graphql: byType[RATE_LIMIT_TYPES.GRAPHQL],
+      search: byType[RATE_LIMIT_TYPES.SEARCH],
       bottleneck: bottleneck.type,
     };
   }

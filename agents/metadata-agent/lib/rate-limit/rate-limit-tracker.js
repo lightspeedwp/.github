@@ -60,9 +60,14 @@ class RateLimitTracker {
       return this.getLimit(fallbackType);
     }
 
+    const parsedLimit = Number(payload.limit);
+    const parsedRemaining = Number(payload.remaining);
+
     return {
-      limit: Number(payload.limit) || this.limits[fallbackType].limit,
-      remaining: Number(payload.remaining) || 0,
+      limit: Number.isFinite(parsedLimit)
+        ? parsedLimit
+        : this.limits[fallbackType].limit,
+      remaining: Number.isFinite(parsedRemaining) ? parsedRemaining : 0,
       reset: this._toResetDate(payload.reset),
     };
   }
