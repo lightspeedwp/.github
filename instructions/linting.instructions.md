@@ -94,6 +94,8 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 
 ```mermaid
 graph TD
+  accTitle: 🔄 Linting Process Flow
+  accDescr: Flowchart diagram showing 🔄 linting process flow
     A[Code Change] --> B[Pre-commit Hooks]
     B --> C[Local Linting]
     C --> D{Lint Passed?}
@@ -128,6 +130,8 @@ graph TD
 
 ```mermaid
 graph LR
+  accTitle: 🛠️ Linting Toolchain
+  accDescr: Flowchart diagram showing 🛠️ linting toolchain
     A[Source Code] --> B[ESLint]
     A --> C[PHPCS]
     A --> D[Prettier]

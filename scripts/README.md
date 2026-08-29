@@ -40,6 +40,8 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 ```mermaid
 graph TB
+  accTitle: Scripts Architecture
+  accDescr: Flowchart diagram showing scripts architecture
     A[Scripts Directory] --> B[awesome-copilot/]
     A --> C[includes/]
     A --> D[json-validation/]
@@ -73,6 +75,8 @@ graph TB
 
 ```mermaid
 sequenceDiagram
+  accTitle: Automation Workflow
+  accDescr: Sequence diagram showing automation workflow
     participant Dev as Developer
     participant Scripts as Scripts System
     participant Tests as Test Suite
@@ -340,6 +344,8 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ```mermaid
 flowchart TD
+  accTitle: Script Execution Flow
+  accDescr: Flowchart diagram showing script execution flow
     A[Script Execution] --> B{Check Dependencies}
     B -->|Missing| C[Install Dependencies]
     B -->|Available| D[Load Includes]

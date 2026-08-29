@@ -307,6 +307,8 @@ This multi-layered approach provides fast local feedback and reduces CI failures
 
 ```mermaid
 flowchart LR
+  accTitle: 7. Pre-commit Hooks (Husky)
+  accDescr: Flowchart diagram showing 7. pre-commit hooks (husky)
     A[Stage Files] --> B[git commit]
     B --> C{Pre-commit Hook}
     C -->|Run lint-staged| D{Checks Pass?}

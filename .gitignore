@@ -54,6 +54,12 @@ npm-debug.log*
 output-plugin/
 generated-plugins/
 
+# Generated mermaid validation report files (uploaded as CI artifacts, not committed)
+.github/reports/mermaid-validation-report.md
+.github/reports/mermaid-accessibility-report.md
+.github/reports/mermaid-diagram-accessibility-spreadsheet.csv
+.github/reports/mermaid/
+
 # Misc
 tmp/
 *.zip

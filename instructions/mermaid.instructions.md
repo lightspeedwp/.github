@@ -137,6 +137,8 @@ Keep connectors dark (`#0f172a` or similar) on light backgrounds; if using dark 
 
 ```mermaid
 flowchart TD
+  accTitle: Example class definitions
+  accDescr: Flowchart diagram showing example class definitions
     A[Input] --> B[Process]
     B --> C{Decision}
     C -->|Success| D[Output]
@@ -197,6 +199,8 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+  accTitle: Basic graph types
+  accDescr: Flowchart diagram showing basic graph types
     A[Start] --> B{Decision?}
     B -->|Yes| C[Action 1]
     B -->|No| D[Action 2]
@@ -208,6 +212,8 @@ flowchart TD
 
 ```mermaid
 graph TB
+  accTitle: Basic graph types
+  accDescr: Flowchart diagram showing basic graph types
     A[Schemas] --> B[Frontmatter]
     A --> C[CodeRabbit]
     A --> D[Collections]
@@ -220,6 +226,8 @@ graph TB
 
 ```mermaid
 graph LR
+  accTitle: Basic graph types
+  accDescr: Flowchart diagram showing basic graph types
     subgraph "LightSpeed .github"
         A[Scripts] --> B[Tests]
         C[Schemas] --> D[Validation]
@@ -241,6 +249,8 @@ graph LR
 
 ```mermaid
 sequenceDiagram
+  accTitle: Advanced types
+  accDescr: Sequence diagram showing advanced types
     participant U as User
     participant S as Script
     participant V as Validation
@@ -257,6 +267,8 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
+  accTitle: Advanced types
+  accDescr: State diagram showing advanced types
     [*] --> Draft
     Draft --> Review: Submit
     Review --> Approved: Accept
@@ -269,6 +281,8 @@ stateDiagram-v2
 
 ```mermaid
 graph LR
+  accTitle: Advanced types
+  accDescr: Flowchart diagram showing advanced types
     A[Main] --> B[Develop]
     B --> C[Feature Branch]
     C --> D[Pull Request]
@@ -317,6 +331,8 @@ Brief description.
 
 ```mermaid
 graph TB
+  accTitle: Architecture Overview
+  accDescr: Flowchart diagram showing architecture overview
     A[Input] --> B[Processing]
     B --> C[Output]
 ```
@@ -331,6 +347,8 @@ Short prose explaining relationships.
 **Agent Ecosystem Map**
 ```mermaid
 graph TB
+  accTitle: LightSpeedWP-Specific Patterns
+  accDescr: Flowchart diagram showing lightspeedwp-specific patterns
     A[Agents Directory] --> B[Instructions Index]
     B --> C[Workflows Directory]
     C --> D[Prompts Directory]
@@ -347,6 +365,8 @@ graph TB
 
 ```mermaid
 graph LR
+  accTitle: LightSpeedWP-Specific Patterns
+  accDescr: Flowchart diagram showing lightspeedwp-specific patterns
     subgraph "Core Schemas"
         A[frontmatter.schema.json]
         B[collection.schema.json]
@@ -379,6 +399,8 @@ graph LR
 
 ```mermaid
 flowchart TD
+  accTitle: LightSpeedWP-Specific Patterns
+  accDescr: Flowchart diagram showing lightspeedwp-specific patterns
     A[Code Change] --> B[Pre-commit Hooks]
     B --> C{Linting Pass?}
     C -->|No| D[Fix Issues]

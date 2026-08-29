@@ -35,6 +35,8 @@ All schema files are stored in `../../.schemas/`.
 
 ```mermaid
 graph TD
+  accTitle: Overview
+  accDescr: Flowchart diagram showing overview
     A[File Discovery] --> B[Frontmatter Extraction]
     B --> C[Schema Validation]
     C --> D[LightSpeed Rules Check]

@@ -42,6 +42,8 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 
 ```mermaid
 graph TB
+  accTitle: 📊 Testing Architecture
+  accDescr: Flowchart diagram showing 📊 testing architecture
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
@@ -166,6 +168,8 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 
 ```mermaid
 sequenceDiagram
+  accTitle: 🔄 Test Execution Workflow
+  accDescr: Sequence diagram showing 🔄 test execution workflow
     participant Dev as Developer
     participant Runner as Test Runner
     participant Bats as Bats Framework
@@ -191,6 +195,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
+  accTitle: 🎯 Test Coverage Flow
+  accDescr: Flowchart diagram showing 🎯 test coverage flow
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]

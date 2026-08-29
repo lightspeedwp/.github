@@ -372,6 +372,8 @@ Mermaid diagrams enhance documentation by visualizing complex relationships, pro
 
 ```mermaid
 flowchart TD
+  accTitle: **Flowchart (Most Common)**
+  accDescr: Flowchart diagram showing **flowchart (most common)**
     A[Start] --> B{Decision?}
     B -->|Yes| C[Action 1]
     B -->|No| D[Action 2]
@@ -385,6 +387,8 @@ flowchart TD
 
 ```mermaid
 graph TB
+  accTitle: **Graph (Relationships)**
+  accDescr: Flowchart diagram showing **graph (relationships)**
     A[Issues] --> B[Pull Requests]
     A --> C[Discussions]
     B --> D[Releases]
@@ -397,6 +401,8 @@ graph TB
 
 ```mermaid
 graph LR
+  accTitle: **Architecture Diagram**
+  accDescr: Flowchart diagram showing **architecture diagram**
     subgraph "Repository"
         A[Code] --> B[Tests]
         C[Docs] --> D[Automation]
@@ -417,6 +423,8 @@ graph LR
 
 ```mermaid
 sequenceDiagram
+  accTitle: **Sequence Diagram**
+  accDescr: Sequence diagram showing **sequence diagram**
     participant User
     participant GitHub
     participant CI
@@ -436,6 +444,8 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
+  accTitle: **State Diagram**
+  accDescr: State diagram showing **state diagram**
     [*] --> Draft
     Draft --> Review: Submit
     Review --> Approved: Accept
@@ -461,6 +471,8 @@ stateDiagram-v2
 
 ```mermaid
 flowchart TD
+  accTitle: Mermaid Best Practices
+  accDescr: Flowchart diagram showing mermaid best practices
     A[Input] --> B[Process]
     B --> C{Decision}
     C -->|Success| D[Output]
@@ -501,6 +513,8 @@ The following diagram shows the issue lifecycle:
 
 ```mermaid
 stateDiagram-v2
+  accTitle: Diagram Accessibility
+  accDescr: State diagram showing diagram accessibility
     [*] --> Open
     Open --> InProgress
     InProgress --> Review
