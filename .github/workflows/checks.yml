@@ -15,6 +15,9 @@ on:
       - ".github/tmp/**"
   merge_group:
     types: [checks_requested]
+  schedule:
+    - cron: "0 */12 * * 1-5" # Every 12 hours, Monday-Friday
+  workflow_dispatch: # Allow manual trigger for testing
 
 permissions:
   contents: read
@@ -104,6 +107,42 @@ jobs:
         run: npm run validate:retired-doc-links
       - name: Validate frontmatter (changed only)
         run: npm run validate:frontmatter:changed -- --base ${{ env.BASE_SHA }} --head ${{ env.HEAD_SHA }}
+
+  flaky-detection:
+    name: Flaky Test Detection (Run ${{ matrix.run_number }})
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        run_number: [1, 2, 3, 4, 5]
+    env:
+      HUSKY: "0"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm install --no-save jest-junit
+
+      - name: Run unit tests
+        env:
+          JEST_JUNIT_OUTPUT_FILE: junit-unit-${{ matrix.run_number }}.xml
+        run: npx jest --config .jest.config.cjs --reporters=jest-junit || true
+
+      - name: Upload test results to Mergify
+        if: success() || failure()
+        uses: mergifyio/gha-mergify-ci@v25
+        with:
+          token: ${{ secrets.MERGIFY_TOKEN }}
+          flaky_test_detection: true
+          report_path: "junit-unit-${{ matrix.run_number }}.xml"
+          job_name: check
 
   # Composite status check: ensures all checks pass before merge
   all-checks:
