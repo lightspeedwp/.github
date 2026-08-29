@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: PR Labeling Enforcement Initiative (#2352) - Planning Hub
 date: 2026-08-29
 status: active

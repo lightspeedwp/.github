@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: PR Labeling Enforcement (#2352) - Execution Checklist
 date: 2026-08-29
 ---
