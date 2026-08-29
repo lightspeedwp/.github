@@ -1,6 +1,6 @@
 ---
-title: "Agent"
-description: "Agent"
+title: "Chat Closure Agent — GitHub Copilot"
+description: "GitHub Copilot provider implementation for the Chat Closure Agent"
 provider: copilot
 agent_slug: chat-closure-agent
 agent_name: Chat Closure Agent (GitHub Copilot)
