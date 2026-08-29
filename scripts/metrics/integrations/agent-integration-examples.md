@@ -29,6 +29,7 @@ deterministic payload builders:
 Use this when you need a PRD-ready package containing executive summary, success metrics, risks, and recommended actions.
 
 ```javascript
+// From the repository root:
 const {
   buildPrdAgentExample,
 } = require("./scripts/metrics/integrations/agent-integration-examples");
