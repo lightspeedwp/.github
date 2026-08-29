@@ -256,6 +256,21 @@ describe("ReportingStorageRepository", () => {
         repository.query(null);
       }).toThrow("Query criteria must be an object");
     });
+
+    test("treats limit 0 as no limit", () => {
+      const results = repository.query(
+        { key: "issues-open" },
+        { sortOrder: "asc", limit: 0 },
+      );
+
+      expect(results).toHaveLength(3);
+    });
+
+    test("rejects negative limit", () => {
+      expect(() => {
+        repository.query({ key: "issues-open" }, { limit: -1 });
+      }).toThrow("limit must be non-negative");
+    });
   });
 
   describe("transaction support", () => {
@@ -369,7 +384,7 @@ describe("ReportingStorageRepository", () => {
         { atomic: false, transaction: false },
       );
 
-      expect(result.processed).toBe(3);
+      expect(result.processed).toBe(4);
       expect(result.inserted).toBe(3);
       expect(result.failed).toBe(1);
       expect(result.errors).toHaveLength(1);
@@ -392,6 +407,27 @@ describe("ReportingStorageRepository", () => {
       const result = repository.bulkInsert(fixtures.backfillRecords);
       expect(result.inserted).toBe(3);
       expect(result.updated).toBe(0);
+    });
+
+    test("throws when commit fails during transactional backfill", () => {
+      const repositoryWithCommitFailure = new ReportingStorageRepository({
+        adapter: "sql",
+      });
+      const commitSpy = jest
+        .spyOn(repositoryWithCommitFailure.adapter, "commitTransaction")
+        .mockImplementation(() => {
+          throw new Error("commit failed");
+        });
+
+      expect(() => {
+        repositoryWithCommitFailure.bulkBackfill(fixtures.backfillRecords, {
+          transaction: true,
+          atomic: false,
+        });
+      }).toThrow("Bulk backfill failed: commit failed");
+
+      expect(repositoryWithCommitFailure.query({})).toHaveLength(0);
+      commitSpy.mockRestore();
     });
   });
 

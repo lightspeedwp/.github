@@ -52,6 +52,16 @@ class BaseInMemoryAdapter {
       throw new Error(`Unknown transaction: ${transaction.id}`);
     }
   }
+
+  matchesCriteria(record, criteria) {
+    return Object.entries(criteria).every(([field, expected]) => {
+      if (typeof expected === "function") {
+        return expected(record[field], record);
+      }
+
+      return record[field] === expected;
+    });
+  }
 }
 
 class SqlMetadataAdapter extends BaseInMemoryAdapter {
@@ -151,16 +161,6 @@ class SqlMetadataAdapter extends BaseInMemoryAdapter {
       updated_at: row.updated_at,
     };
   }
-
-  matchesCriteria(record, criteria) {
-    return Object.entries(criteria).every(([field, expected]) => {
-      if (typeof expected === "function") {
-        return expected(record[field], record);
-      }
-
-      return record[field] === expected;
-    });
-  }
 }
 
 class NoSqlMetadataAdapter extends BaseInMemoryAdapter {
@@ -231,16 +231,6 @@ class NoSqlMetadataAdapter extends BaseInMemoryAdapter {
 
     this.records.splice(index, 1);
     return true;
-  }
-
-  matchesCriteria(record, criteria) {
-    return Object.entries(criteria).every(([field, expected]) => {
-      if (typeof expected === "function") {
-        return expected(record[field], record);
-      }
-
-      return record[field] === expected;
-    });
   }
 }
 
@@ -348,6 +338,8 @@ class ReportingStorageRepository {
     }
 
     const tx = transaction ? this.beginTransaction() : null;
+    // Atomic mode aborts on first failure. If transaction mode is enabled,
+    // all changes are rolled back before re-throwing.
     const result = {
       processed: 0,
       inserted: 0,
@@ -362,8 +354,9 @@ class ReportingStorageRepository {
         const batch = records.slice(index, index + batchSize);
         result.batches += 1;
 
-        batch.forEach((record, offset) => {
-          const globalIndex = index + offset;
+        batch.forEach((record, batchOffset) => {
+          const globalIndex = index + batchOffset;
+          result.processed += 1;
           try {
             const prepared = this.prepareRecord(record);
             const existing = this.findById(prepared.id);
@@ -378,8 +371,6 @@ class ReportingStorageRepository {
               this.adapter.insert(prepared);
               result.inserted += 1;
             }
-
-            result.processed += 1;
           } catch (error) {
             result.failed += 1;
             result.errors.push({
@@ -400,15 +391,31 @@ class ReportingStorageRepository {
 
       return result;
     } catch (error) {
+      let rolledBack = false;
+      let rollbackError = null;
       if (tx) {
-        this.rollbackTransaction(tx);
+        try {
+          this.rollbackTransaction(tx);
+          rolledBack = true;
+        } catch (rollbackFailure) {
+          rollbackError = rollbackFailure;
+        }
       }
 
-      if (atomic) {
-        throw new Error(`Bulk backfill failed: ${error.message}`);
-      }
-
-      return result;
+      const transactionContext = rolledBack
+        ? "Changes were rolled back."
+        : rollbackError
+          ? "Rollback was attempted and failed."
+          : "No rollback was required.";
+      const rollbackContext = rollbackError
+        ? ` Rollback also failed: ${rollbackError.message}.`
+        : "";
+      const wrappedError = new Error(
+        `Bulk backfill failed: ${error.message}. ${transactionContext}${rollbackContext}`,
+      );
+      wrappedError.partialResult = result;
+      wrappedError.rollbackError = rollbackError;
+      throw wrappedError;
     }
   }
 
@@ -436,10 +443,18 @@ class ReportingStorageRepository {
   }
 
   generateId() {
+    /**
+     * IDs are unique per repository instance:
+     * timestamp component + monotonic local counter.
+     */
     this.idCounter += 1;
     return `meta-${Date.now()}-${this.idCounter}`;
   }
 
+  /**
+   * Apply query sorting and pagination.
+   * `limit: 0` is treated as unlimited to match existing integration usage.
+   */
   applyQueryOptions(records, options) {
     const {
       sortBy = "captured_at",
@@ -466,11 +481,23 @@ class ReportingStorageRepository {
     const start = Math.max(0, offset);
     const sliced = sorted.slice(start);
 
-    if (typeof limit !== "number") {
+    if (typeof limit === "undefined") {
       return sliced;
     }
 
-    return sliced.slice(0, Math.max(0, limit));
+    if (!Number.isInteger(limit)) {
+      throw new Error("limit must be an integer");
+    }
+
+    if (limit < 0) {
+      throw new Error("limit must be non-negative");
+    }
+
+    if (limit === 0) {
+      return sliced;
+    }
+
+    return sliced.slice(0, limit);
   }
 }
 
