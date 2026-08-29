@@ -106,7 +106,7 @@ class CommitsAPI {
    * @param {string} options.repo - Repository name.
    * @param {string} options.sha - Commit SHA.
    * @param {object|null} [options.fallback] - Fallback commit payload.
-   * @returns {Promise<object>} Normalised commit metadata.
+   * @returns {Promise<object|null>} Normalised commit metadata.
    */
   async getCommit(options = {}) {
     const { owner, repo, sha, fallback = null } = options;
@@ -122,6 +122,9 @@ class CommitsAPI {
     );
 
     const commit = response?.data || response;
+    if (commit === null) {
+      return null;
+    }
 
     return {
       sha: commit.sha,
