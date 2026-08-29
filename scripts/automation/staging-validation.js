@@ -16,6 +16,7 @@
 
 const fs = require("fs");
 const path = require("path");
+// Helper functions available from staging-validation-helpers.js when needed
 
 // Configuration
 const CONFIG = {
