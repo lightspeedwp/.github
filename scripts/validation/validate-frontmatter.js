@@ -571,12 +571,12 @@ Examples:
       CONFIG.rootDir,
     );
     validateFrontmatter(changedFiles).catch((err) => {
-      console.error("Frontmatter validation error:", err.message);
+      console.error("Frontmatter validation error:", err?.stack ?? String(err));
       process.exit(1);
     });
   } else {
     validateFrontmatter().catch((err) => {
-      console.error("Frontmatter validation error:", err.message);
+      console.error("Frontmatter validation error:", err?.stack ?? String(err));
       process.exit(1);
     });
   }
