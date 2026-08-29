@@ -33,7 +33,7 @@ This project is part of the Master Test Coverage Initiative. Related tracking:
 
 ## Phase 4 Scope
 
-### Part A: Integration Tests (60-80 tests)
+### Part A: Integration Tests (70-90 tests)
 
 Test how Phase 3 scripts work together in unified workflows:
 
@@ -47,12 +47,12 @@ Test how Phase 3 scripts work together in unified workflows:
    - Scenarios: Extract linked issues → assign labels → sync across repos
    - Coverage: PR/issue linking, label consistency, cross-repo sync
 
-3. **Milestone Allocation Workflow** (15-20 tests)
+3. **Milestone Allocation Workflow** (Target: 15-20 tests, Delivered: 21 tests)
    - Scripts: audit-issue-metadata → allocate-to-milestone → sync-pr-labels
    - Scenarios: Audit issues → allocate to milestones → sync labels
    - Coverage: Batch allocation, conflict resolution, cascading updates
 
-4. **Staging & Production Readiness** (15-20 tests)
+4. **Staging & Production Readiness** (Target: 15-20 tests, Delivered: 28 tests)
    - Scripts: staging-validation (integration with all validators)
    - Scenarios: Audit environment → run performance bench → validate integrity
    - Coverage: Multi-validator orchestration, health checks, compliance validation
@@ -218,7 +218,7 @@ scripts/automation/__tests__/
 ✅ **Performance:** Tests run in <10s (local), <1m (CI)  
 ✅ **Patterns:** Workflow orchestration, state transitions, concurrency, consistency validation
 
-**Phase 4B (API Integration) — ⏳ IN PROGRESS:**
+**Phase 4B (API Integration) — ⏳ Planned:**
 
 Target: 110+ API integration tests covering GitHub API interactions  
 Status: Ready for implementation with established patterns from Phase 4A  
@@ -228,7 +228,7 @@ Status: Ready for implementation with established patterns from Phase 4A
 - Phase 3 completion: ✅ Complete (244 tests, all scripts)
 - Jest testing framework: ✅ Available
 - GitHub API documentation: ✅ Referenced
-- Test fixtures: 📋 To create in Phase 4A
+- Test fixtures: 📋 To create in Phase 4B
 
 ---
 
