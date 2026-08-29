@@ -18,6 +18,7 @@ const yaml = require("js-yaml");
 const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
 const glob = require("glob");
+const minimatch = require("minimatch");
 
 // Configuration
 const CONFIG = {
@@ -387,7 +388,13 @@ class FileDiscovery {
    * @param {string} rootDir - Repository root directory.
    * @returns {string[]} Absolute paths of changed, matching files.
    */
-  static findChangedFiles(baseSha, headSha, patterns, excludePatterns, rootDir) {
+  static findChangedFiles(
+    baseSha,
+    headSha,
+    patterns,
+    excludePatterns,
+    rootDir,
+  ) {
     // Validate SHAs to prevent shell injection — must be 4–64 hex characters
     const shaRe = /^[0-9a-f]{4,64}$/i;
     if (!shaRe.test(baseSha) || !shaRe.test(headSha)) {
@@ -417,14 +424,16 @@ class FileDiscovery {
       return [];
     }
 
-    // Build the set of all valid files (patterns + excludes) then intersect
-    const allValid = new Set(
-      FileDiscovery.findFiles(patterns, excludePatterns, rootDir),
-    );
-
+    // Filter changed paths directly against patterns/excludes without a full
+    // filesystem walk, keeping work proportional to diff size rather than repo size.
+    const mmOpts = { dot: true };
     return changedRelative
+      .filter((rel) => {
+        const matched = patterns.some((p) => minimatch(rel, p, mmOpts));
+        if (!matched) return false;
+        return !excludePatterns.some((p) => minimatch(rel, p, mmOpts));
+      })
       .map((rel) => path.resolve(rootDir, rel))
-      .filter((absPath) => allValid.has(absPath))
       .sort();
   }
 }
