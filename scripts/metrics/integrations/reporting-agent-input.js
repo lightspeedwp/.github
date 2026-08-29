@@ -6,6 +6,8 @@
  * and formats metrics appropriately for each.
  */
 
+const DEFAULT_RECOMMENDATION_ACTION = "Improve metric hygiene";
+
 class MetricsReportFormatter {
   constructor(options = {}) {
     this.metricsDir = options.metricsDir || ".github/reports/metrics";
@@ -273,21 +275,18 @@ class MetricsReportFormatter {
    * @returns {Array} Formatted recommendations
    */
   formatRecommendationsSection(rawMetrics) {
-    return (rawMetrics.recommendations || []).map((rec) => ({
-      priority: rec.priority,
-      action:
-        typeof rec.action === "string" && rec.action.length > 0
-          ? rec.action
-          : "Improve metric hygiene",
-      effort: rec.effort,
-      owner: rec.owner,
-      timeframe: rec.timeframe,
-      expectedOutcome: `Improve ${(typeof rec.action === "string" &&
-      rec.action.length > 0
-        ? rec.action
-        : "metric hygiene"
-      ).toLowerCase()}`,
-    }));
+    return (rawMetrics.recommendations || []).map((rec) => {
+      const action = this.normaliseRecommendationAction(rec);
+
+      return {
+        priority: rec.priority,
+        action,
+        effort: rec.effort,
+        owner: rec.owner,
+        timeframe: rec.timeframe,
+        expectedOutcome: `Improve ${action.toLowerCase()}`,
+      };
+    });
   }
 
   /**
@@ -328,10 +327,7 @@ class MetricsReportFormatter {
 
     if (rawMetrics.recommendations) {
       rawMetrics.recommendations.slice(0, 3).forEach((rec, index) => {
-        const action =
-          typeof rec.action === "string" && rec.action.length > 0
-            ? rec.action
-            : "Improve metric hygiene";
+        const action = this.normaliseRecommendationAction(rec);
         const dueDate = new Date(friday);
         dueDate.setDate(dueDate.getDate() + index);
         steps.push(`${action} (due: ${dueDate.toISOString().split("T")[0]})`);
@@ -342,7 +338,7 @@ class MetricsReportFormatter {
   }
 
   /**
-   * Normalize raw metrics input to avoid runtime failures
+   * Normalise raw metrics input to avoid runtime failures
    * @param {Object|null|undefined} rawMetrics - Raw metrics
    * @returns {Object} Safe metrics object
    */
@@ -403,52 +399,57 @@ class MetricsReportFormatter {
    */
   formatRepositorySummary(repositories) {
     const repoList = Array.isArray(repositories) ? repositories : [];
+    const summary = repoList.reduce(
+      (accumulator, repo) => {
+        if (repo.archived) {
+          accumulator.archivedRepositories += 1;
+        }
 
-    const archivedRepositories = repoList.filter(
-      (repo) => repo.archived,
-    ).length;
-    const inaccessibleRepositories = repoList.filter(
-      (repo) => repo.permissionDenied || repo.access === "denied",
-    ).length;
-    const processedRepositories = repoList.filter(
-      (repo) => repo.metrics && !repo.permissionDenied && !repo.archived,
-    ).length;
+        if (repo.permissionDenied || repo.access === "denied") {
+          accumulator.inaccessibleRepositories += 1;
+        }
 
-    const totalCommits = repoList.reduce((total, repo) => {
-      const explicitTotal = repo.metrics?.contributors?.totalCommits;
-      if (typeof explicitTotal === "number") {
-        return total + explicitTotal;
-      }
+        if (repo.metrics && !repo.permissionDenied && !repo.archived) {
+          accumulator.processedRepositories += 1;
+        }
 
-      const topContributors = repo.metrics?.contributors?.topContributors;
-      if (Array.isArray(topContributors)) {
-        return (
-          total +
-          topContributors.reduce(
+        const explicitTotal = repo.metrics?.contributors?.totalCommits;
+        if (typeof explicitTotal === "number") {
+          accumulator.totalCommits += explicitTotal;
+          return accumulator;
+        }
+
+        const topContributors = repo.metrics?.contributors?.topContributors;
+        if (Array.isArray(topContributors)) {
+          accumulator.totalCommits += topContributors.reduce(
             (sum, contributor) => sum + (contributor.commits || 0),
             0,
-          )
-        );
-      }
+          );
+        }
 
-      return total;
-    }, 0);
+        return accumulator;
+      },
+      {
+        archivedRepositories: 0,
+        inaccessibleRepositories: 0,
+        processedRepositories: 0,
+        totalCommits: 0,
+      },
+    );
 
     return {
       totalRepositories: repoList.length,
-      processedRepositories,
-      archivedRepositories,
-      inaccessibleRepositories,
-      totalCommits,
+      ...summary,
     };
   }
 
   /**
-   * Summarize known API failures captured upstream
+   * Summarise known API failures captured upstream
    * @param {Array<Object>} errors - Error events
    * @returns {Object} Failure summary
    */
   formatFailureSummary(errors) {
+    const safeErrors = Array.isArray(errors) ? errors : [];
     const byType = {
       network: 0,
       rate_limit: 0,
@@ -457,7 +458,7 @@ class MetricsReportFormatter {
       unknown: 0,
     };
 
-    (Array.isArray(errors) ? errors : []).forEach((error) => {
+    safeErrors.forEach((error) => {
       if (error.status === 429) {
         byType.rate_limit += 1;
         return;
@@ -482,10 +483,22 @@ class MetricsReportFormatter {
     });
 
     return {
-      total: (Array.isArray(errors) ? errors : []).length,
+      total: safeErrors.length,
       byType,
       retryable: byType.network + byType.rate_limit,
     };
+  }
+
+  /**
+   * Normalise recommendation action text
+   * @param {Object} recommendation - Recommendation object
+   * @returns {string} Safe action text
+   */
+  normaliseRecommendationAction(recommendation) {
+    return typeof recommendation?.action === "string" &&
+      recommendation.action.length > 0
+      ? recommendation.action
+      : DEFAULT_RECOMMENDATION_ACTION;
   }
 
   /**
